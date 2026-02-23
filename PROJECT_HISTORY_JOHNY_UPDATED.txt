@@ -1,0 +1,298 @@
+📊 MARKET CHECKER – PROJECT HISTORY
+
+Dokument: PROJECT_HISTORY_MARKET_CHECKER.txt
+Účel: Historie vývoje jednoho makra / skriptu (audit, paměť, kontext)
+Rozsah: Excel + Python skript (refresh_news.py)
+Stav: rozpracováno, funkční základ
+
+🧭 FÁZE 0 – ZÁMĚR
+
+(únor 2026)
+
+Cíl: automatizovaně hodnotit akcie podle news + techniky (+ později Yahoo analýz)
+
+Výstup:
+
+Signal (STRONG BUY / BUY / HOLD / SELL / STRONG SELL)
+
+číselné skóre pro porovnání tickerů
+
+Zvolen nástroj:
+
+Excel jako dashboard + storage
+
+Python skript jako výpočetní engine
+
+🧱 FÁZE 1 – ZÁKLADNÍ STRUKTURA
+
+(únor 2026)
+
+Vytvořen Excel:
+
+list Tickers
+
+list Sources
+
+list Articles
+
+list Signals / Dashboard
+
+Vytvořen skript refresh_news.py:
+
+načte Excel (openpyxl, keep_vba=True)
+
+projde tickery
+
+sbírá RSS články (Yahoo Finance, SeekingAlpha, Benzinga, Nasdaq…)
+
+Rozhodnutí:
+
+Excel je jediný zdroj pravdy
+
+Python nic “nevymýšlí”, jen počítá a zapisuje
+
+📰 FÁZE 2 – NEWS SCORING
+
+(únor 2026)
+
+Implementováno:
+
+sentiment článků
+
+váha zdroje
+
+počet článků
+
+Výstup:
+
+NewsScore
+
+NewsWeight
+
+NewsVolume
+
+Zjištění:
+
+News samotné dávají dobrý short-term bias, ale ne směr trendu
+
+📈 FÁZE 3 – TECHNICKÁ ANALÝZA
+
+(únor 2026)
+
+Přidány technické indikátory (denní data):
+
+MA20 / MA50
+
+RSI14
+
+ATR
+
+trend / breakout body
+
+Výstup:
+
+TechScore
+
+Rozhodnutí:
+
+Technika = směrový filtr
+
+News = impuls
+
+🧮 FÁZE 4 – SCORING & SIGNAL LOGIKA
+
+(únor 2026)
+
+Zavedeno:
+
+TotalScore = News + Tech (+ Yahoo)
+
+mapování skóre → Signal
+
+Příklad:
+
+>85 → STRONG BUY
+
+70–85 → BUY
+
+55–70 → HOLD
+
+40–55 → SELL
+
+<40 → STRONG SELL
+
+🧩 FÁZE 5 – YAHOO ANALYST DATA (PROBLÉM)
+
+(únor 2026)
+
+Cíl:
+
+přidat Yahoo Analyst consensus, target price, recommendation
+
+Realita:
+
+Yahoo Finance blokuje automatické dotazy
+
+nutné consent / cookie flow
+
+Stav:
+
+YahooScore = 0
+
+v konzoli: Yahoo consent warmup ...
+
+signály označeny [error]
+
+Důležité zjištění:
+
+NEJDE spolehlivě tahat Yahoo analýzu bez workaroundu
+
+⏳ FÁZE 6 – PROGRESS & UX SKRIPTU
+
+(únor 2026)
+
+Přidán konzolový progress:
+
+[x/13] TICKER -> tech XYZ.US
+
+přehledné logování kroků
+
+Přidán flush=True pro realtime výpis
+
+Skript:
+
+neběží potichu
+
+uživatel ví, že pracuje
+
+⚠️ SOUČASNÝ STAV (TEĎ)
+
+(stav k dnešku)
+
+Funguje:
+
+✔ News scoring
+
+✔ Technická analýza
+
+✔ TotalScore + Signal
+
+✔ Excel zápis
+
+✔ Progress log
+
+Nefunguje spolehlivě:
+
+❌ Yahoo analyst data (blokace)
+
+Dočasné řešení:
+
+Yahoo váha = 0
+
+Signál = news + tech
+
+Konzole to jasně hlásí
+
+🔜 DALŠÍ KROK (DALŠÍ CHAT)
+
+Plánovaná Varianta A:
+
+Yahoo jako volitelný modul
+
+Když Yahoo failne:
+
+žádný error
+
+dynamické přepočítání vah
+
+YahooStatus = blocked / ok
+
+Max váha Yahoo: 20 bodů
+
+📌 POZNÁMKY
+
+Tento dokument je historický kontext
+
+Neřeší backlog ani bugy
+
+Slouží k tomu, abychom:
+
+věděli, proč je něco takhle
+
+neopakovali slepé uličky
+────────────────────────────────────────────────────────────────────────────
+🆕 AKTUÁLNÍ CORE (NEMĚNIT) – refresh_news_auto_v2.py / refresh_news.py (únor 2026)
+────────────────────────────────────────────────────────────────────────────
+
+‼️ CORE JE HOTOVÝ A STABILNÍ: UŽ NIC NEMĚNIT V LOGICE SCORINGU/SIGNALŮ, JEN PŘIDÁVAT
+    NOVÉ MODULY OKOLO (nové zdroje, nové indikátory, nové sloupce), bez rozbití core.
+
+Co v systému aktuálně máme (podle aktuálního skriptu):
+
+1) Vstup tickery
+   - tickery se berou z MT5 (MarketWatch -> visible symboly)
+   - žádný ruční Excel jako vstup, skript si vše sestaví sám
+
+2) Výstup (vždy nový Excel)
+   - při každém spuštění se vytvoří NOVÝ soubor:
+     market_checker_watchlist_YYYYMMDD_HHMMSS.xlsx
+   - obsahuje listy: Signals, Articles, Sources, Dashboard
+
+3) Sources (seznam zdrojů)
+   - seznam zdrojů je definovaný přímo ve skriptu (SOURCES)
+   - do Excelu se zapíše do listu Sources (auditovatelné)
+
+4) Articles (RSS články)
+   - skript stahuje RSS pouze tam, kde existuje template s {ticker}
+     (např. Yahoo RSS, SeekingAlpha RSS; ostatní jsou zatím “ručně / API”)
+   - do listu Articles zapisuje: Ticker, Source, PublishedUTC, Title, Link, Weight
+
+5) News scoring
+   - počítá NewsWeighted48h + NewsVolume48h
+   - převádí na NewsScore(0-50)
+   - (news je “impuls”, váha zdroje vychází z InfoLevel)
+
+6) Technická analýza (MT5)
+   - technika se počítá z MT5 (D1) a generuje:
+     Close, MA20, MA50, RSI14
+   - výsledkem je TechScore(0-50)
+   - TechStatus: ok_mt / missing
+
+7) Yahoo (yfinance)
+   - získává YahooPrice, YahooTarget, YahooUpsidePct, YahooRatingKey, YahooRatingMean
+   - z toho se spočítá YahooScore(-20..20)
+   - YahooStatus: ok_yf / missing
+   - (pokud Yahoo failne, score=0 a status=missing – bez pádu skriptu)
+
+8) MarketCap + Rank (volitelně)
+   - pokud existuje soubor market_watch_symbols_enriched_yahoo.xlsx/csv,
+     načte MarketCapUSD + RankMarketCap a doplní do Signals
+   - když soubor není, pole zůstanou prázdná (core běží dál)
+
+9) TotalScore + Signal (SCORING LOGIKA – NEMĚNIT)
+   - TotalScore(0-100) = NewsScore(0-50) + TechScore(0-50) + převod YahooScore(-20..20) na 0..20
+   - mapování na signál:
+       >=85  -> STRONG BUY
+       70-85 -> BUY
+       55-70 -> HOLD
+       40-55 -> SELL
+       <40   -> STRONG SELL
+
+10) Dashboard
+   - list Dashboard obsahuje:
+     - GeneratedAt
+     - Top 20 by TotalScore
+     - Top 20 by MarketCap
+     - Top 20 nejméně hodnotných podle MarketCap (Bottom 20)
+   - účel: rychlý přehled bez filtrování v Signals
+
+11) Progress bar / průběh v konzoli
+   - skript vypisuje kroky (Step 1/4 … Step 4/4)
+   - a používá textový progress bar pro RSS a Signals
+
+Poznámky k chybám, které už známe:
+- openpyxl neumí timezone-aware datetime -> do Excelu se zapisují jen “naive” časy / stringy
+- když se spouští se špatným názvem souboru nebo z jiné složky, Windows hlásí “File not found”
+- když RSS zdroj vrací HTTP error (např. StockTitan), je to OK – je to “warn” a pokračuje se dál
+
+Stav: FUNKČNÍ, používáme jako základ. Další úpravy jen rozšiřovat, ne přepisovat core.
