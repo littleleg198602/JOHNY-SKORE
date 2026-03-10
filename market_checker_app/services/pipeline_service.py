@@ -45,12 +45,26 @@ class PipelineService:
         articles, rss_warnings = self.rss_client.collect(rss_sources=expanded_rss_sources, tickers=watchlist)
         warnings.extend(rss_warnings)
 
+        now = utc_now()
+        cutoff_48h = now - pd.Timedelta(hours=48)
+
         rows: list[dict[str, object]] = []
+        stale_fallback_tickers = 0
         for idx, ticker in enumerate(watchlist, start=1):
             related_news = [a for a in articles if a.ticker == ticker]
-            news_weighted_48h = float(sum(a.sentiment_weight for a in related_news))
-            news_volume_48h = len(related_news)
-            news_score = score_news(news_weighted_48h, news_volume_48h)
+            related_recent = [a for a in related_news if pd.Timestamp(a.published_at) >= cutoff_48h]
+
+            weighted_48h = float(sum(a.sentiment_weight for a in related_recent))
+            volume_48h = len(related_recent)
+            weighted_3m = float(sum(a.sentiment_weight for a in related_news))
+            volume_3m = len(related_news)
+
+            if volume_48h > 0:
+                news_score = score_news(weighted_48h, volume_48h)
+            else:
+                news_score = score_news(weighted_3m, volume_3m)
+                if volume_3m > 0:
+                    stale_fallback_tickers += 1
 
             yahoo_snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
             if yahoo_warning:
@@ -65,8 +79,10 @@ class PipelineService:
                     "ticker": ticker,
                     "market_cap_usd": market_caps.get(ticker, yahoo_snapshot.market_cap),
                     "rank_market_cap": idx,
-                    "news_weighted_48h": news_weighted_48h,
-                    "news_volume_48h": news_volume_48h,
+                    "news_weighted_48h": weighted_48h,
+                    "news_volume_48h": volume_48h,
+                    "news_weighted_3m": weighted_3m,
+                    "news_volume_3m": volume_3m,
                     "news_score": news_score,
                     "tech_score": tech_score,
                     "yahoo_score": yahoo_score,
@@ -86,6 +102,8 @@ class PipelineService:
             "rank_market_cap",
             "news_weighted_48h",
             "news_volume_48h",
+            "news_weighted_3m",
+            "news_volume_3m",
             "news_score",
             "tech_score",
             "yahoo_score",
@@ -104,8 +122,14 @@ class PipelineService:
 
         if not signals_df.empty and int((signals_df["news_volume_48h"] > 0).sum()) == 0:
             warnings.append(
-                "Nebyly nalezeny žádné RSS zprávy pro žádný ticker. "
-                "Zkontroluj RSS URL (doporučeno použít {ticker} v parametru s=) nebo ticker mapping."
+                "V posledních 48h nebyly nalezeny žádné RSS zprávy. "
+                "Skóre news bylo dopočteno z článků až 3 měsíce zpět s časovým útlumem."
+            )
+
+        if stale_fallback_tickers > 0:
+            warnings.append(
+                f"U {stale_fallback_tickers} tickerů nebyla zpráva v posledních 48h; "
+                "byly použity starší zprávy (max 3 měsíce) s nižší vahou."
             )
 
         if not signals_df.empty and signals_df["market_cap_usd"].isna().all():
