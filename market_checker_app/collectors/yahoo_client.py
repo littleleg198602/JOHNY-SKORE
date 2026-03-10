@@ -13,7 +13,7 @@ class YahooClient:
                 raise ValueError("Yahoo vrátil prázdná metadata")
         except Exception as exc:
             return (
-                YahooSnapshot(ticker, None, None, "unknown", None, "fallback"),
+                YahooSnapshot(ticker, None, None, "unknown", None, None, "fallback"),
                 PerformanceSnapshot(ticker, None, None, None),
                 (
                     f"Yahoo data nejsou dostupná pro {ticker}. "
@@ -38,6 +38,7 @@ class YahooClient:
             trailing_pe=info.get("trailingPE"),
             recommendation_key=rec_key,
             analyst_target_price=info.get("targetMeanPrice"),
+            market_cap=float(info.get("marketCap")) if isinstance(info.get("marketCap"), (int, float)) else None,
             status="ok",
         )
         return snapshot, perf, None

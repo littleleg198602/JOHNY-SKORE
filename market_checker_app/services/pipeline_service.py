@@ -63,7 +63,7 @@ class PipelineService:
             rows.append(
                 {
                     "ticker": ticker,
-                    "market_cap_usd": market_caps.get(ticker),
+                    "market_cap_usd": market_caps.get(ticker, yahoo_snapshot.market_cap),
                     "rank_market_cap": idx,
                     "news_weighted_48h": news_weighted_48h,
                     "news_volume_48h": news_volume_48h,
@@ -106,6 +106,12 @@ class PipelineService:
             warnings.append(
                 "Nebyly nalezeny žádné RSS zprávy pro žádný ticker. "
                 "Zkontroluj RSS URL (doporučeno použít {ticker} v parametru s=) nebo ticker mapping."
+            )
+
+        if not signals_df.empty and signals_df["market_cap_usd"].isna().all():
+            warnings.append(
+                "Market cap není dostupný ani z CSV ani z Yahoo pro aktuální běh. "
+                "Zkontroluj marketcap soubor nebo dostupnost Yahoo dat."
             )
 
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
