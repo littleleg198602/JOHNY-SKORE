@@ -12,15 +12,28 @@ class MT5Client:
         try:
             import MetaTrader5 as mt5  # type: ignore
         except Exception as exc:  # pragma: no cover - environment specific
-            return [], f"MetaTrader5 není dostupné: {exc}"
+            return [], (
+                "MT5 není dostupné v tomto prostředí (import MetaTrader5 selhal). "
+                f"Detail: {exc}. Zkontroluj instalaci balíčku, bit verzi Pythonu a dostupnost terminálu."
+            )
 
         if not mt5.initialize():
-            return [], "MetaTrader5 initialize() selhalo."
+            return [], (
+                "MT5 initialize() selhalo. Ověř, že je spuštěný MetaTrader terminál, "
+                "povolené API připojení a účet je přihlášen."
+            )
 
         try:
             symbols = mt5.symbols_get() or []
-            watchlist = sorted({s.name for s in symbols if getattr(s, 'visible', True)})
+            watchlist = sorted({s.name for s in symbols if getattr(s, "visible", True)})
+            if not watchlist:
+                return [], (
+                    "MT5 vrátil prázdný seznam symbolů. Zkontroluj Market Watch ve tvém terminálu "
+                    "a viditelnost instrumentů."
+                )
             return watchlist, None
+        except Exception as exc:
+            return [], f"MT5 načtení watchlistu selhalo: {exc}"
         finally:
             mt5.shutdown()
 
