@@ -8,6 +8,8 @@ PROJECT_ROOT = CURRENT_DIR.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+import json
+
 import pandas as pd
 import streamlit as st
 
@@ -21,6 +23,19 @@ from market_checker_app.services.comparison_service import ComparisonService
 from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.storage.sqlite_store import SQLiteStore
+
+
+def _parse_json_list(value: object) -> list[str]:
+    if isinstance(value, list):
+        return [str(v) for v in value]
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+            if isinstance(parsed, list):
+                return [str(v) for v in parsed]
+        except json.JSONDecodeError:
+            return [value]
+    return []
 
 st.set_page_config(page_title="Market Checker", layout="wide")
 st.title("Market Checker")
@@ -88,12 +103,27 @@ if st.session_state.last_result:
 
     tab_signals, tab_dashboard, tab_delta, tab_trends, tab_history = st.tabs(["Signals", "Dashboard", "Delta", "Trends", "History"])
     with tab_signals:
-        st.dataframe(signals_df, use_container_width=True)
+        display_columns = [
+            "ticker", "market_cap_usd", "news_score", "tech_score", "yahoo_score",
+            "raw_total_score", "final_total_score", "final_confidence", "data_quality_score",
+            "news_confidence", "tech_confidence", "yahoo_confidence", "signal", "signal_strength",
+        ]
+        st.dataframe(signals_df[[c for c in display_columns if c in signals_df.columns]], use_container_width=True)
+
         ticker = st.selectbox("Detail tickeru", options=signals_df["ticker"].tolist())
         row = signals_df[signals_df["ticker"] == ticker].head(1)
         if not row.empty:
-            st.write("**Reasons**", row.iloc[0]["reasons"])
-            st.write("**Warnings**", row.iloc[0]["warnings"])
+            parsed_reasons = _parse_json_list(row.iloc[0].get("reasons"))
+            parsed_warnings = _parse_json_list(row.iloc[0].get("warnings"))
+            st.markdown("**Reasons**")
+            for reason in parsed_reasons:
+                st.write(f"- {reason}")
+            st.markdown("**Warnings**")
+            if parsed_warnings:
+                for warning in parsed_warnings:
+                    st.write(f"- {warning}")
+            else:
+                st.write("- none")
 
     with tab_dashboard:
         perf = summarize_performance(signals_df)

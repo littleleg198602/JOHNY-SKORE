@@ -17,6 +17,28 @@ class SQLiteStore:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         return sqlite3.connect(self.db_path)
 
+    def _ensure_signal_history_columns(self, conn: sqlite3.Connection) -> None:
+        expected: dict[str, str] = {
+            "news_count_48h": "INTEGER",
+            "news_score": "REAL",
+            "tech_score": "REAL",
+            "yahoo_score": "REAL",
+            "raw_total_score": "REAL",
+            "final_total_score": "REAL",
+            "final_confidence": "REAL",
+            "news_confidence": "REAL",
+            "tech_confidence": "REAL",
+            "yahoo_confidence": "REAL",
+            "data_quality_score": "REAL",
+            "signal_strength": "TEXT",
+            "reasons": "TEXT",
+            "warnings": "TEXT",
+        }
+        existing = {row[1] for row in conn.execute("PRAGMA table_info(signal_history)").fetchall()}
+        for column, ctype in expected.items():
+            if column not in existing:
+                conn.execute(f"ALTER TABLE signal_history ADD COLUMN {column} {ctype}")
+
     def ensure_schema(self) -> None:
         with self._connect() as conn:
             conn.execute(
@@ -64,6 +86,7 @@ class SQLiteStore:
                 )
                 """
             )
+            self._ensure_signal_history_columns(conn)
 
     def insert_run(self, metadata: RunMetadata) -> int:
         with self._connect() as conn:
