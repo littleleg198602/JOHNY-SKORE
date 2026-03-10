@@ -70,9 +70,3 @@ class HistoryService:
             if not delta.empty:
                 return delta
         return pd.DataFrame()
-
-    def list_all_tickers(self) -> list[str]:
-        history = self.store.read_global_history()
-        if history.empty:
-            return []
-        return sorted(history["ticker"].dropna().astype(str).unique().tolist())
