@@ -19,6 +19,7 @@ streamlit run app.py
 
 - načte watchlist z MetaTrader5 (nebo ručně z textového pole)
 - stáhne RSS články a přiřadí je tickerům
+- RSS URL může obsahovat placeholder `{ticker}` (např. Yahoo feed), který se při běhu rozbalí pro každý symbol z watchlistu
 - získá Yahoo snapshoty a performance data
 - spočítá `NewsScore`, `TechScore`, `YahooScore`, `TotalScore`, `Signal`
 - zobrazí výsledky v tabech: `Signals`, `Dashboard`, `Articles`, `Sources`, `Delta`, `Trends`, `History`

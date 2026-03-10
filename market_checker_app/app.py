@@ -69,7 +69,7 @@ watchlist_text = st.text_area("Watchlist (1 ticker na řádek)", "\n".join(st.se
 watchlist = MT5Client.sanitize_watchlist(watchlist_text.splitlines())
 rss_sources_text = st.text_area(
     "RSS sources (1 URL na řádek)",
-    "https://feeds.finance.yahoo.com/rss/2.0/headline?s=AAPL&region=US&lang=en-US",
+    "https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US",
 )
 rss_sources = [s.strip() for s in rss_sources_text.splitlines() if s.strip()]
 
