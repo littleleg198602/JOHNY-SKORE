@@ -42,15 +42,21 @@ class SQLiteStore:
                     updated_at TEXT NOT NULL,
                     market_cap_usd REAL,
                     rank_market_cap INTEGER,
-                    news_weighted_48h REAL,
-                    news_volume_48h INTEGER,
+                    news_count_48h INTEGER,
                     news_score REAL,
                     tech_score REAL,
                     yahoo_score REAL,
-                    total_score REAL,
+                    raw_total_score REAL,
+                    final_total_score REAL,
+                    final_confidence REAL,
+                    news_confidence REAL,
+                    tech_confidence REAL,
+                    yahoo_confidence REAL,
+                    data_quality_score REAL,
                     signal TEXT,
-                    tech_status TEXT,
-                    yahoo_status TEXT,
+                    signal_strength TEXT,
+                    reasons TEXT,
+                    warnings TEXT,
                     last_week_change_pct REAL,
                     last_1m_change_pct REAL,
                     last_3m_change_pct REAL,
@@ -62,26 +68,14 @@ class SQLiteStore:
     def insert_run(self, metadata: RunMetadata) -> int:
         with self._connect() as conn:
             cur = conn.execute(
-                """
-                INSERT INTO runs(started_at, finished_at, watchlist_size, processed_symbols, warnings_count, errors_count, excel_path)
-                VALUES(?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    to_iso(metadata.started_at),
-                    to_iso(metadata.finished_at),
-                    metadata.watchlist_size,
-                    metadata.processed_symbols,
-                    metadata.warnings_count,
-                    metadata.errors_count,
-                    metadata.excel_path,
-                ),
+                "INSERT INTO runs(started_at, finished_at, watchlist_size, processed_symbols, warnings_count, errors_count, excel_path) VALUES(?, ?, ?, ?, ?, ?, ?)",
+                (to_iso(metadata.started_at), to_iso(metadata.finished_at), metadata.watchlist_size, metadata.processed_symbols, metadata.warnings_count, metadata.errors_count, metadata.excel_path),
             )
             return int(cur.lastrowid)
 
     def insert_signal_history(self, run_id: int, signals: pd.DataFrame, updated_at: str) -> None:
         if signals.empty:
             return
-
         payload = [
             (
                 run_id,
@@ -89,31 +83,38 @@ class SQLiteStore:
                 updated_at,
                 row.market_cap_usd,
                 row.rank_market_cap,
-                row.news_weighted_48h,
-                row.news_volume_48h,
+                row.news_count_48h,
                 row.news_score,
                 row.tech_score,
                 row.yahoo_score,
-                row.total_score,
+                row.raw_total_score,
+                row.final_total_score,
+                row.final_confidence,
+                row.news_confidence,
+                row.tech_confidence,
+                row.yahoo_confidence,
+                row.data_quality_score,
                 row.signal,
-                row.tech_status,
-                row.yahoo_status,
+                row.signal_strength,
+                row.reasons,
+                row.warnings,
                 row.last_week_change_pct,
                 row.last_1m_change_pct,
                 row.last_3m_change_pct,
             )
             for row in signals.itertuples(index=False)
         ]
-
         with self._connect() as conn:
             conn.executemany(
                 """
                 INSERT INTO signal_history(
                     run_id, ticker, updated_at, market_cap_usd, rank_market_cap,
-                    news_weighted_48h, news_volume_48h, news_score, tech_score, yahoo_score,
-                    total_score, signal, tech_status, yahoo_status,
+                    news_count_48h, news_score, tech_score, yahoo_score,
+                    raw_total_score, final_total_score, final_confidence,
+                    news_confidence, tech_confidence, yahoo_confidence, data_quality_score,
+                    signal, signal_strength, reasons, warnings,
                     last_week_change_pct, last_1m_change_pct, last_3m_change_pct
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 payload,
             )
@@ -125,72 +126,28 @@ class SQLiteStore:
 
     def get_previous_run_id(self, current_run_id: int) -> int | None:
         with self._connect() as conn:
-            row = conn.execute(
-                "SELECT run_id FROM runs WHERE run_id < ? ORDER BY run_id DESC LIMIT 1", (current_run_id,)
-            ).fetchone()
+            row = conn.execute("SELECT run_id FROM runs WHERE run_id < ? ORDER BY run_id DESC LIMIT 1", (current_run_id,)).fetchone()
         return int(row[0]) if row else None
 
     def update_run_excel_path(self, run_id: int, excel_path: str) -> None:
         with self._connect() as conn:
             conn.execute("UPDATE runs SET excel_path = ? WHERE run_id = ?", (excel_path, run_id))
 
-    def get_run_excel_path(self, run_id: int) -> str | None:
+    def list_tickers(self) -> list[str]:
         with self._connect() as conn:
-            row = conn.execute("SELECT excel_path FROM runs WHERE run_id = ?", (run_id,)).fetchone()
-        if not row:
-            return None
-        value = row[0]
-        return str(value) if value else None
+            rows = conn.execute("SELECT DISTINCT ticker FROM signal_history ORDER BY ticker ASC").fetchall()
+        return [str(r[0]) for r in rows if r and r[0]]
 
     def read_signals_for_run(self, run_id: int) -> pd.DataFrame:
         with self._connect() as conn:
             return pd.read_sql_query("SELECT * FROM signal_history WHERE run_id = ?", conn, params=(run_id,))
 
     def read_global_history(self) -> pd.DataFrame:
-        query = """
-            SELECT r.run_id, r.finished_at, s.ticker, s.total_score, s.news_score, s.tech_score, s.yahoo_score, s.signal
-            FROM runs r
-            JOIN signal_history s ON s.run_id = r.run_id
-            ORDER BY r.run_id ASC
-        """
+        q = "SELECT r.run_id, r.finished_at, s.ticker, s.final_total_score, s.news_score, s.tech_score, s.yahoo_score, s.final_confidence, s.signal FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
         with self._connect() as conn:
-            return pd.read_sql_query(query, conn)
-
-
-    def list_tickers(self) -> list[str]:
-        try:
-            with self._connect() as conn:
-                rows = conn.execute("SELECT DISTINCT ticker FROM signal_history ORDER BY ticker ASC").fetchall()
-            return [str(r[0]) for r in rows if r and r[0]]
-        except sqlite3.Error:
-            return []
+            return pd.read_sql_query(q, conn)
 
     def read_ticker_history(self, ticker: str) -> pd.DataFrame:
-        query = """
-            SELECT
-                r.run_id,
-                r.finished_at,
-                s.id,
-                s.ticker,
-                s.updated_at,
-                s.market_cap_usd,
-                s.rank_market_cap,
-                s.news_weighted_48h,
-                s.news_volume_48h,
-                s.news_score,
-                s.tech_score,
-                s.yahoo_score,
-                s.total_score,
-                s.signal,
-                s.tech_status,
-                s.yahoo_status,
-                s.last_week_change_pct,
-                s.last_1m_change_pct,
-                s.last_3m_change_pct
-            FROM signal_history s
-            JOIN runs r ON r.run_id = s.run_id
-            WHERE s.ticker = ?
-            ORDER BY r.run_id ASC
-        """
+        q = "SELECT r.run_id, r.finished_at, s.* FROM signal_history s JOIN runs r ON r.run_id=s.run_id WHERE s.ticker=? ORDER BY r.run_id ASC"
         with self._connect() as conn:
-            return pd.read_sql_query(query, conn, params=(ticker,))
+            return pd.read_sql_query(q, conn, params=(ticker,))
