@@ -40,6 +40,7 @@ streamlit run app.py
 ## Delta a trendy
 
 - Delta je primárně počítána z SQLite mezi posledním během a předchozím během
+- pokud v SQLite není porovnatelný předchozí běh, použije se fallback na poslední dostupný Excel `Signals` sheet
 - počítá se `DeltaTotal`, `DeltaNews`, `DeltaTech`, `DeltaYahoo`, `SignalChange`
 - tab `Trends` ukazuje:
   - průměrný TotalScore v čase

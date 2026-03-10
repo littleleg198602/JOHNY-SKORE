@@ -130,6 +130,18 @@ class SQLiteStore:
             ).fetchone()
         return int(row[0]) if row else None
 
+    def update_run_excel_path(self, run_id: int, excel_path: str) -> None:
+        with self._connect() as conn:
+            conn.execute("UPDATE runs SET excel_path = ? WHERE run_id = ?", (excel_path, run_id))
+
+    def get_run_excel_path(self, run_id: int) -> str | None:
+        with self._connect() as conn:
+            row = conn.execute("SELECT excel_path FROM runs WHERE run_id = ?", (run_id,)).fetchone()
+        if not row:
+            return None
+        value = row[0]
+        return str(value) if value else None
+
     def read_signals_for_run(self, run_id: int) -> pd.DataFrame:
         with self._connect() as conn:
             return pd.read_sql_query("SELECT * FROM signal_history WHERE run_id = ?", conn, params=(run_id,))

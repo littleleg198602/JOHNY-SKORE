@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 import pandas as pd
 
-from market_checker_app.analysis.scoring import combine_scores, decide_signal, score_news, score_tech, score_yahoo
+from market_checker_app.analysis.scoring import combine_scores, decide_signal, score_news, score_yahoo
 from market_checker_app.collectors.marketcap_loader import load_market_caps
 from market_checker_app.collectors.rss_client import RSSClient
 from market_checker_app.collectors.yahoo_client import YahooClient

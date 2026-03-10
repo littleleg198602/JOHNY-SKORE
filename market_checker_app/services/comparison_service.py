@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 
 
@@ -17,3 +19,13 @@ class ComparisonService:
         merged["DeltaYahoo"] = merged["yahoo_score"] - merged["yahoo_score_prev"]
         merged["SignalChange"] = merged["signal_prev"] + " -> " + merged["signal"]
         return merged.sort_values("DeltaTotal", ascending=False)
+
+    @staticmethod
+    def compare_with_previous_excel(current: pd.DataFrame, excel_path: Path) -> pd.DataFrame:
+        if current.empty or not excel_path.exists():
+            return pd.DataFrame()
+        try:
+            previous = pd.read_excel(excel_path, sheet_name="Signals")
+        except Exception:
+            return pd.DataFrame()
+        return ComparisonService.compare_runs(current, previous)

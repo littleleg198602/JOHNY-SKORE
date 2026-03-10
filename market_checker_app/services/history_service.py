@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 
 from market_checker_app.analysis.trend_analysis import score_distribution
@@ -58,3 +60,19 @@ class HistoryService:
         current = self.store.read_signals_for_run(current_run_id)
         previous = self.store.read_signals_for_run(prev_run_id)
         return ComparisonService.compare_runs(current, previous)
+
+    def build_delta_with_excel_fallback(self, current: pd.DataFrame, output_dir: Path) -> pd.DataFrame:
+        if current.empty:
+            return pd.DataFrame()
+        candidates = sorted(output_dir.glob("market_checker_*.xlsx"), key=lambda p: p.stat().st_mtime, reverse=True)
+        for candidate in candidates:
+            delta = ComparisonService.compare_with_previous_excel(current, candidate)
+            if not delta.empty:
+                return delta
+        return pd.DataFrame()
+
+    def list_all_tickers(self) -> list[str]:
+        history = self.store.read_global_history()
+        if history.empty:
+            return []
+        return sorted(history["ticker"].dropna().astype(str).unique().tolist())
