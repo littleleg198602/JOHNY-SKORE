@@ -68,7 +68,24 @@ class PipelineService:
                 }
             )
 
-        signals_df = pd.DataFrame(rows)
+        signal_columns = [
+            "ticker",
+            "market_cap_usd",
+            "rank_market_cap",
+            "news_weighted_48h",
+            "news_volume_48h",
+            "news_score",
+            "tech_score",
+            "yahoo_score",
+            "total_score",
+            "signal",
+            "tech_status",
+            "yahoo_status",
+            "last_week_change_pct",
+            "last_1m_change_pct",
+            "last_3m_change_pct",
+        ]
+        signals_df = pd.DataFrame(rows, columns=signal_columns)
         if not signals_df.empty and signals_df["market_cap_usd"].notna().any():
             signals_df = signals_df.sort_values(by="market_cap_usd", ascending=False, na_position="last")
             signals_df["rank_market_cap"] = range(1, len(signals_df) + 1)
