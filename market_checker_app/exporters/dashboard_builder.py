@@ -3,6 +3,15 @@ from __future__ import annotations
 import pandas as pd
 
 
+NUMERIC_DASHBOARD_COLUMNS = (
+    "total_score",
+    "last_week_change_pct",
+    "last_1m_change_pct",
+    "last_3m_change_pct",
+    "market_cap_usd",
+)
+
+
 def build_dashboard_tables(signals: pd.DataFrame) -> dict[str, pd.DataFrame]:
     if signals.empty:
         empty = pd.DataFrame()
@@ -15,11 +24,16 @@ def build_dashboard_tables(signals: pd.DataFrame) -> dict[str, pd.DataFrame]:
             "bottom_marketcap": empty,
         }
 
+    normalized = signals.copy()
+    for column in NUMERIC_DASHBOARD_COLUMNS:
+        if column in normalized.columns:
+            normalized[column] = pd.to_numeric(normalized[column], errors="coerce")
+
     return {
-        "top_total": signals.nlargest(20, "total_score"),
-        "weekly_drops": signals.nsmallest(20, "last_week_change_pct"),
-        "m1_drops": signals.nsmallest(20, "last_1m_change_pct"),
-        "m3_drops": signals.nsmallest(20, "last_3m_change_pct"),
-        "top_marketcap": signals.nlargest(20, "market_cap_usd"),
-        "bottom_marketcap": signals.nsmallest(20, "market_cap_usd"),
+        "top_total": normalized.nlargest(20, "total_score"),
+        "weekly_drops": normalized.nsmallest(20, "last_week_change_pct"),
+        "m1_drops": normalized.nsmallest(20, "last_1m_change_pct"),
+        "m3_drops": normalized.nsmallest(20, "last_3m_change_pct"),
+        "top_marketcap": normalized.nlargest(20, "market_cap_usd"),
+        "bottom_marketcap": normalized.nsmallest(20, "market_cap_usd"),
     }

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+import math
 
 import feedparser
 
@@ -11,11 +12,31 @@ class RSSClient:
     def __init__(self, max_items_per_source: int = 30) -> None:
         self.max_items_per_source = max_items_per_source
 
+    @staticmethod
+    def _sentiment_score(text: str) -> float:
+        positive = {
+            "beat", "beats", "growth", "upgrade", "upgraded", "surge", "strong", "record", "profit", "profits", "buyback"
+        }
+        negative = {
+            "miss", "misses", "downgrade", "downgraded", "lawsuit", "probe", "drop", "falls", "fall", "weak", "loss", "losses"
+        }
+        words = {w.strip(".,:;!?()[]{}\"'").lower() for w in text.split()}
+        raw = sum(1 for w in words if w in positive) - sum(1 for w in words if w in negative)
+        raw = max(-4, min(4, raw))
+        return raw / 4.0
+
+    @staticmethod
+    def _recency_weight(published_at: datetime, now: datetime) -> float:
+        age_days = max(0.0, (now - published_at).total_seconds() / 86400.0)
+        # half-life ~14 days keeps fresh news dominant, but preserves impact for up to 90 days.
+        decay = math.exp(-math.log(2.0) * age_days / 14.0)
+        return max(0.05, decay)
+
     def collect(self, rss_sources: list[str], tickers: list[str]) -> tuple[list[NewsItem], list[str]]:
         warnings: list[str] = []
         ticker_set = set(tickers)
         now = datetime.now(timezone.utc)
-        cutoff = now - timedelta(hours=48)
+        cutoff_3m = now - timedelta(days=90)
         items: list[NewsItem] = []
 
         for source in rss_sources:
@@ -42,19 +63,24 @@ class RSSClient:
                     published_at = now
                 else:
                     published_at = datetime(*published_parsed[:6], tzinfo=timezone.utc)
-                if published_at < cutoff:
+                if published_at < cutoff_3m:
                     continue
 
-                text = f"{title} {summary}".upper()
+                text = f"{title} {summary}"
+                text_upper = text.upper()
+                sentiment = self._sentiment_score(text)
+                recency = self._recency_weight(published_at, now)
+                sentiment_weight = round(recency * sentiment, 4)
+
                 for ticker in ticker_set:
-                    if ticker in text:
+                    if ticker in text_upper:
                         items.append(
                             NewsItem(
                                 ticker=ticker,
                                 source=source,
                                 title=title,
                                 published_at=published_at,
-                                sentiment_weight=1.0,
+                                sentiment_weight=sentiment_weight,
                                 url=str(getattr(entry, "link", "")),
                             )
                         )

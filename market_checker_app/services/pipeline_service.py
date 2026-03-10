@@ -21,6 +21,17 @@ class PipelineService:
         self.rss_client = RSSClient(max_items_per_source=config.max_rss_items_per_source)
         self.yahoo_client = YahooClient()
 
+    @staticmethod
+    def _expand_rss_sources(rss_sources: list[str], watchlist: list[str]) -> list[str]:
+        expanded: list[str] = []
+        for source in rss_sources:
+            if "{ticker}" in source:
+                for ticker in watchlist:
+                    expanded.append(source.replace("{ticker}", ticker))
+            else:
+                expanded.append(source)
+        return sorted(set(expanded))
+
     def run(self, watchlist: list[str], rss_sources: list[str], store: SQLiteStore | None) -> dict[str, pd.DataFrame | RunMetadata | list[str] | int | None]:
         started_at = utc_now()
         warnings: list[str] = []
@@ -30,15 +41,30 @@ class PipelineService:
         if marketcap_warning:
             warnings.append(marketcap_warning)
 
-        articles, rss_warnings = self.rss_client.collect(rss_sources=rss_sources, tickers=watchlist)
+        expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
+        articles, rss_warnings = self.rss_client.collect(rss_sources=expanded_rss_sources, tickers=watchlist)
         warnings.extend(rss_warnings)
 
+        now = utc_now()
+        cutoff_48h = now - pd.Timedelta(hours=48)
+
         rows: list[dict[str, object]] = []
+        stale_fallback_tickers = 0
         for idx, ticker in enumerate(watchlist, start=1):
             related_news = [a for a in articles if a.ticker == ticker]
-            news_weighted_48h = float(sum(a.sentiment_weight for a in related_news))
-            news_volume_48h = len(related_news)
-            news_score = score_news(news_weighted_48h, news_volume_48h)
+            related_recent = [a for a in related_news if pd.Timestamp(a.published_at) >= cutoff_48h]
+
+            weighted_48h = float(sum(a.sentiment_weight for a in related_recent))
+            volume_48h = len(related_recent)
+            weighted_3m = float(sum(a.sentiment_weight for a in related_news))
+            volume_3m = len(related_news)
+
+            if volume_48h > 0:
+                news_score = score_news(weighted_48h, volume_48h)
+            else:
+                news_score = score_news(weighted_3m, volume_3m)
+                if volume_3m > 0:
+                    stale_fallback_tickers += 1
 
             yahoo_snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
             if yahoo_warning:
@@ -51,10 +77,12 @@ class PipelineService:
             rows.append(
                 {
                     "ticker": ticker,
-                    "market_cap_usd": market_caps.get(ticker),
+                    "market_cap_usd": market_caps.get(ticker, yahoo_snapshot.market_cap),
                     "rank_market_cap": idx,
-                    "news_weighted_48h": news_weighted_48h,
-                    "news_volume_48h": news_volume_48h,
+                    "news_weighted_48h": weighted_48h,
+                    "news_volume_48h": volume_48h,
+                    "news_weighted_3m": weighted_3m,
+                    "news_volume_3m": volume_3m,
                     "news_score": news_score,
                     "tech_score": tech_score,
                     "yahoo_score": yahoo_score,
@@ -74,6 +102,8 @@ class PipelineService:
             "rank_market_cap",
             "news_weighted_48h",
             "news_volume_48h",
+            "news_weighted_3m",
+            "news_volume_3m",
             "news_score",
             "tech_score",
             "yahoo_score",
@@ -90,7 +120,25 @@ class PipelineService:
             signals_df = signals_df.sort_values(by="market_cap_usd", ascending=False, na_position="last")
             signals_df["rank_market_cap"] = range(1, len(signals_df) + 1)
 
-        sources_df = pd.DataFrame({"source": rss_sources})
+        if not signals_df.empty and int((signals_df["news_volume_48h"] > 0).sum()) == 0:
+            warnings.append(
+                "V posledních 48h nebyly nalezeny žádné RSS zprávy. "
+                "Skóre news bylo dopočteno z článků až 3 měsíce zpět s časovým útlumem."
+            )
+
+        if stale_fallback_tickers > 0:
+            warnings.append(
+                f"U {stale_fallback_tickers} tickerů nebyla zpráva v posledních 48h; "
+                "byly použity starší zprávy (max 3 měsíce) s nižší vahou."
+            )
+
+        if not signals_df.empty and signals_df["market_cap_usd"].isna().all():
+            warnings.append(
+                "Market cap není dostupný ani z CSV ani z Yahoo pro aktuální běh. "
+                "Zkontroluj marketcap soubor nebo dostupnost Yahoo dat."
+            )
+
+        sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(a) for a in articles])
         finished_at = utc_now()
 

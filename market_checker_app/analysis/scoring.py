@@ -4,7 +4,9 @@ from market_checker_app.models import SignalRow, TechSnapshot, YahooSnapshot
 
 
 def score_news(news_weighted_48h: float, news_volume_48h: int) -> float:
-    return round(min(100.0, news_weighted_48h * 10 + news_volume_48h * 1.5), 2)
+    if news_volume_48h <= 0:
+        return 50.0
+    return round(min(100.0, 50.0 + news_weighted_48h * 10 + news_volume_48h * 1.5), 2)
 
 
 def score_tech(snapshot: TechSnapshot) -> float:
