@@ -1,0 +1,6 @@
+streamlit
+pandas
+openpyxl
+yfinance
+feedparser
+MetaTrader5
