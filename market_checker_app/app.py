@@ -69,7 +69,7 @@ watchlist_text = st.text_area("Watchlist (1 ticker na řádek)", "\n".join(st.se
 watchlist = MT5Client.sanitize_watchlist(watchlist_text.splitlines())
 rss_sources_text = st.text_area(
     "RSS sources (1 URL na řádek)",
-    "https://feeds.finance.yahoo.com/rss/2.0/headline?s=AAPL&region=US&lang=en-US",
+    "https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US",
 )
 rss_sources = [s.strip() for s in rss_sources_text.splitlines() if s.strip()]
 
@@ -97,22 +97,16 @@ if run_analysis:
     history_service = HistoryService(store) if save_history else None
 
     if compare_prev and save_history and result.get("run_id"):
-<<<<<<< codex/enhance-market-checker-with-history-and-trends-mwaoai
-        delta_df = history_service.build_delta_against_previous(int(result["run_id"])) if history_service else pd.DataFrame()
-
-    if compare_prev and delta_df.empty and history_service:
-        delta_df = history_service.build_delta_with_excel_fallback(signals, output_dir)
-=======
         progress.progress(60)
         status_txt.info("Načítám předchozí běh ze SQLite a počítám Delta…")
-        history_service = HistoryService(store)
-        delta_df = history_service.build_delta_against_previous(int(result["run_id"]))
+        delta_df = history_service.build_delta_against_previous(int(result["run_id"])) if history_service else pd.DataFrame()
+        if delta_df.empty and history_service:
+            delta_df = history_service.build_delta_with_excel_fallback(signals, output_dir)
     elif compare_prev and previous_signals is not None:
         progress.progress(60)
         status_txt.info("SQLite historie vypnuta – počítám Delta vůči předchozímu běhu v session…")
         result["warnings"].append("Delta byla spočtena v fallback režimu (session memory), ne ze SQLite historie.")
         delta_df = ComparisonService.compare_runs(signals, previous_signals)
->>>>>>> main
 
     excel_path = ""
     if export_excel:
@@ -121,23 +115,6 @@ if run_analysis:
         excel_name = f"market_checker_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
         excel_file = output_dir / excel_name
         excel_delta = prepare_delta_for_excel(delta_df)
-<<<<<<< codex/enhance-market-checker-with-history-and-trends-mwaoai
-        ExcelExporter().export(
-            output_path=excel_file,
-            signals=signals,
-            sources=result["sources"],
-            articles=result["articles"],
-            dashboard=dashboard_tables,
-            delta=excel_delta,
-        )
-        excel_path = str(excel_file)
-        if save_history and result.get("run_id"):
-            try:
-                store.update_run_excel_path(int(result["run_id"]), excel_path)
-            except Exception as exc:
-                st.warning(f"Nepodařilo se uložit excel_path do SQLite: {exc}")
-        st.success(f"Excel export uložen: {excel_file}")
-=======
         try:
             ExcelExporter().export(
                 output_path=excel_file,
@@ -148,10 +125,14 @@ if run_analysis:
                 delta=excel_delta,
             )
             excel_path = str(excel_file)
+            if save_history and result.get("run_id"):
+                try:
+                    store.update_run_excel_path(int(result["run_id"]), excel_path)
+                except Exception as exc:
+                    st.warning(f"Nepodařilo se uložit excel_path do SQLite: {exc}")
             st.success(f"Excel export uložen: {excel_file}")
         except Exception as exc:
             result["warnings"].append(f"Excel export selhal, pokračuji bez souboru. Detail: {exc}")
->>>>>>> main
 
     st.session_state.last_result = {
         **result,
@@ -347,16 +328,11 @@ else:
             st.warning("Pro History tab zapni ukládání do SQLite.")
         else:
             history_service = HistoryService(store)
-<<<<<<< codex/enhance-market-checker-with-history-and-trends-mwaoai
-            candidates = history_service.list_all_tickers()
-            ticker = st.selectbox("Ticker", options=candidates if candidates else [""])
-=======
             history_candidates = history_service.list_tickers()
             current_candidates = sorted(signals_df["ticker"].dropna().unique().tolist())
             candidates = sorted(set(history_candidates) | set(current_candidates))
 
             ticker = st.selectbox("Ticker", options=candidates if candidates else [""], index=0)
->>>>>>> main
             if ticker:
                 ticker_hist = history_service.load_ticker_history(ticker)
                 if ticker_hist.empty:
