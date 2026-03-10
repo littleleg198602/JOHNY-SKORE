@@ -167,7 +167,26 @@ class SQLiteStore:
 
     def read_ticker_history(self, ticker: str) -> pd.DataFrame:
         query = """
-            SELECT r.run_id, r.finished_at, s.*
+            SELECT
+                r.run_id,
+                r.finished_at,
+                s.id,
+                s.ticker,
+                s.updated_at,
+                s.market_cap_usd,
+                s.rank_market_cap,
+                s.news_weighted_48h,
+                s.news_volume_48h,
+                s.news_score,
+                s.tech_score,
+                s.yahoo_score,
+                s.total_score,
+                s.signal,
+                s.tech_status,
+                s.yahoo_status,
+                s.last_week_change_pct,
+                s.last_1m_change_pct,
+                s.last_3m_change_pct
             FROM signal_history s
             JOIN runs r ON r.run_id = s.run_id
             WHERE s.ticker = ?
