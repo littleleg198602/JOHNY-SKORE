@@ -48,6 +48,9 @@ class HistoryService:
     def load_ticker_history(self, ticker: str) -> pd.DataFrame:
         return self.store.read_ticker_history(ticker)
 
+    def list_tickers(self) -> list[str]:
+        return self.store.list_tickers()
+
     def build_delta_against_previous(self, current_run_id: int) -> pd.DataFrame:
         prev_run_id = self.store.get_previous_run_id(current_run_id)
         if prev_run_id is None:

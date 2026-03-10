@@ -111,7 +111,7 @@ class PipelineService:
                 run_id = store.insert_run(metadata)
                 store.insert_signal_history(run_id, signals_df, datetime.now(timezone.utc).isoformat())
             except Exception as exc:
-                warnings.append(f"SQLite historie se nepodařila uložit: {exc}")
+                warnings.append(f"SQLite uložení běhu selhalo. Aplikace pokračuje bez historie tohoto běhu. Detail: {exc}")
 
         return {
             "metadata": metadata,
