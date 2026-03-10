@@ -33,6 +33,7 @@ class YahooSnapshot:
     trailing_pe: Optional[float]
     recommendation_key: str
     analyst_target_price: Optional[float]
+    market_cap: Optional[float]
     status: str
 
 
