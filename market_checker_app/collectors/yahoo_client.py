@@ -9,11 +9,16 @@ class YahooClient:
     def fetch_snapshots(self, ticker: str) -> tuple[YahooSnapshot, PerformanceSnapshot, str | None]:
         try:
             info = yf.Ticker(ticker).info
+            if not isinstance(info, dict) or not info:
+                raise ValueError("Yahoo vrátil prázdná metadata")
         except Exception as exc:
             return (
                 YahooSnapshot(ticker, None, None, "unknown", None, "fallback"),
                 PerformanceSnapshot(ticker, None, None, None),
-                f"Yahoo lookup selhal pro {ticker}: {exc}",
+                (
+                    f"Yahoo data nejsou dostupná pro {ticker}. "
+                    f"Používám fallback hodnoty (neutrální skóre). Detail: {exc}"
+                ),
             )
 
         rec_key = str(info.get("recommendationKey", "neutral"))
