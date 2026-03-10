@@ -1,11 +1,17 @@
 from __future__ import annotations
 
+import json
 from dataclasses import asdict
 from datetime import datetime, timezone
 
 import pandas as pd
 
-from market_checker_app.analysis.scoring import combine_scores, decide_signal, score_news, score_yahoo
+from market_checker_app.analysis.confidence import combine_confidence
+from market_checker_app.analysis.explanations import merge_reasons, merge_warnings
+from market_checker_app.analysis.news_analysis import analyze_news
+from market_checker_app.analysis.scoring import compute_raw_total, finalize_signal
+from market_checker_app.analysis.tech_analysis import analyze_tech
+from market_checker_app.analysis.yahoo_analysis import analyze_yahoo
 from market_checker_app.collectors.marketcap_loader import load_market_caps
 from market_checker_app.collectors.rss_client import RSSClient
 from market_checker_app.collectors.yahoo_client import YahooClient
@@ -26,8 +32,7 @@ class PipelineService:
         expanded: list[str] = []
         for source in rss_sources:
             if "{ticker}" in source:
-                for ticker in watchlist:
-                    expanded.append(source.replace("{ticker}", ticker))
+                expanded.extend(source.replace("{ticker}", t) for t in watchlist)
             else:
                 expanded.append(source)
         return sorted(set(expanded))
@@ -42,116 +47,66 @@ class PipelineService:
             warnings.append(marketcap_warning)
 
         expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
-        articles, rss_warnings = self.rss_client.collect(rss_sources=expanded_rss_sources, tickers=watchlist)
+        articles, rss_warnings = self.rss_client.collect(expanded_rss_sources, watchlist)
         warnings.extend(rss_warnings)
 
-        now = utc_now()
-        cutoff_48h = now - pd.Timedelta(hours=48)
-
         rows: list[dict[str, object]] = []
-        stale_fallback_tickers = 0
         for idx, ticker in enumerate(watchlist, start=1):
-            related_news = [a for a in articles if a.ticker == ticker]
-            related_recent = [a for a in related_news if pd.Timestamp(a.published_at) >= cutoff_48h]
+            ticker_articles = [a for a in articles if a.ticker == ticker]
+            news = analyze_news(ticker, ticker_articles)
 
-            weighted_48h = float(sum(a.sentiment_weight for a in related_recent))
-            volume_48h = len(related_recent)
-            weighted_3m = float(sum(a.sentiment_weight for a in related_news))
-            volume_3m = len(related_news)
-
-            if volume_48h > 0:
-                news_score = score_news(weighted_48h, volume_48h)
-            else:
-                news_score = score_news(weighted_3m, volume_3m)
-                if volume_3m > 0:
-                    stale_fallback_tickers += 1
-
-            yahoo_snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
+            snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
             if yahoo_warning:
                 warnings.append(yahoo_warning)
-            tech_score = 50.0
-            yahoo_score = score_yahoo(yahoo_snapshot)
-            total_score = combine_scores(news_score, tech_score, yahoo_score)
-            signal = decide_signal(total_score)
+            yresult = analyze_yahoo(snapshot)
+
+            ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
+            if ohlc_warning:
+                warnings.append(ohlc_warning)
+            tech = analyze_tech(ticker, ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame(), source="yfinance")
+
+            conf = combine_confidence(news.news_confidence, tech.tech_confidence, yresult.yahoo_confidence)
+            raw_total = compute_raw_total(news.news_score, tech.tech_score, yresult.yahoo_score)
+            combined_warnings = merge_warnings(news.warnings, tech.warnings, yresult.warnings)
+            combined_reasons = merge_reasons(news.reasons, tech.reasons, yresult.reasons)
+            diag = finalize_signal(raw_total, conf.final_confidence, conf.data_quality_score, combined_warnings, combined_reasons)
 
             rows.append(
                 {
                     "ticker": ticker,
-                    "market_cap_usd": market_caps.get(ticker, yahoo_snapshot.market_cap),
+                    "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
                     "rank_market_cap": idx,
-                    "news_weighted_48h": weighted_48h,
-                    "news_volume_48h": volume_48h,
-                    "news_weighted_3m": weighted_3m,
-                    "news_volume_3m": volume_3m,
-                    "news_score": news_score,
-                    "tech_score": tech_score,
-                    "yahoo_score": yahoo_score,
-                    "total_score": total_score,
-                    "signal": signal,
-                    "tech_status": "ok",
-                    "yahoo_status": yahoo_snapshot.status,
+                    "news_count_48h": news.news_count_48h,
+                    "news_score": news.news_score,
+                    "tech_score": tech.tech_score,
+                    "yahoo_score": yresult.yahoo_score,
+                    "raw_total_score": diag.raw_total_score,
+                    "final_total_score": diag.final_total_score,
+                    "final_confidence": conf.final_confidence,
+                    "news_confidence": conf.news_confidence,
+                    "tech_confidence": conf.tech_confidence,
+                    "yahoo_confidence": conf.yahoo_confidence,
+                    "data_quality_score": conf.data_quality_score,
+                    "signal": diag.signal,
+                    "signal_strength": diag.signal_strength,
+                    "warnings": json.dumps(diag.warnings, ensure_ascii=False),
+                    "reasons": json.dumps(diag.reasons, ensure_ascii=False),
                     "last_week_change_pct": perf.last_week_change_pct,
                     "last_1m_change_pct": perf.last_1m_change_pct,
                     "last_3m_change_pct": perf.last_3m_change_pct,
                 }
             )
 
-        signal_columns = [
-            "ticker",
-            "market_cap_usd",
-            "rank_market_cap",
-            "news_weighted_48h",
-            "news_volume_48h",
-            "news_weighted_3m",
-            "news_volume_3m",
-            "news_score",
-            "tech_score",
-            "yahoo_score",
-            "total_score",
-            "signal",
-            "tech_status",
-            "yahoo_status",
-            "last_week_change_pct",
-            "last_1m_change_pct",
-            "last_3m_change_pct",
-        ]
-        signals_df = pd.DataFrame(rows, columns=signal_columns)
+        signals_df = pd.DataFrame(rows)
         if not signals_df.empty and signals_df["market_cap_usd"].notna().any():
-            signals_df = signals_df.sort_values(by="market_cap_usd", ascending=False, na_position="last")
+            signals_df = signals_df.sort_values("market_cap_usd", ascending=False, na_position="last")
             signals_df["rank_market_cap"] = range(1, len(signals_df) + 1)
-
-        if not signals_df.empty and int((signals_df["news_volume_48h"] > 0).sum()) == 0:
-            warnings.append(
-                "V posledních 48h nebyly nalezeny žádné RSS zprávy. "
-                "Skóre news bylo dopočteno z článků až 3 měsíce zpět s časovým útlumem."
-            )
-
-        if stale_fallback_tickers > 0:
-            warnings.append(
-                f"U {stale_fallback_tickers} tickerů nebyla zpráva v posledních 48h; "
-                "byly použity starší zprávy (max 3 měsíce) s nižší vahou."
-            )
-
-        if not signals_df.empty and signals_df["market_cap_usd"].isna().all():
-            warnings.append(
-                "Market cap není dostupný ani z CSV ani z Yahoo pro aktuální běh. "
-                "Zkontroluj marketcap soubor nebo dostupnost Yahoo dat."
-            )
 
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(a) for a in articles])
         finished_at = utc_now()
 
-        metadata = RunMetadata(
-            started_at=started_at,
-            finished_at=finished_at,
-            watchlist_size=len(watchlist),
-            processed_symbols=len(signals_df),
-            warnings_count=len(warnings),
-            errors_count=len(errors),
-            excel_path="",
-        )
-
+        metadata = RunMetadata(started_at, finished_at, len(watchlist), len(signals_df), len(warnings), len(errors), "")
         run_id: int | None = None
         if self.config.save_history and store is not None:
             try:
@@ -159,14 +114,6 @@ class PipelineService:
                 run_id = store.insert_run(metadata)
                 store.insert_signal_history(run_id, signals_df, datetime.now(timezone.utc).isoformat())
             except Exception as exc:
-                warnings.append(f"SQLite uložení běhu selhalo. Aplikace pokračuje bez historie tohoto běhu. Detail: {exc}")
+                warnings.append(f"SQLite uložení běhu selhalo: {exc}")
 
-        return {
-            "metadata": metadata,
-            "signals": signals_df,
-            "sources": sources_df,
-            "articles": articles_df,
-            "warnings": warnings,
-            "errors": errors,
-            "run_id": run_id,
-        }
+        return {"metadata": metadata, "signals": signals_df, "sources": sources_df, "articles": articles_df, "warnings": warnings, "errors": errors, "run_id": run_id}
