@@ -22,10 +22,19 @@ class RSSClient:
             try:
                 parsed = feedparser.parse(source)
             except Exception as exc:
-                warnings.append(f"RSS source timeout/chyba ({source}): {exc}")
+                warnings.append(f"RSS načtení selhalo ({source}). Zdroj byl přeskočen. Detail: {exc}")
                 continue
 
-            for entry in parsed.entries[: self.max_items_per_source]:
+            if getattr(parsed, "bozo", False):
+                bozo_exc = getattr(parsed, "bozo_exception", "neznámá chyba parseru")
+                warnings.append(f"RSS parser hlásí problém pro {source}. Pokračuji s dostupnými položkami. Detail: {bozo_exc}")
+
+            entries = list(getattr(parsed, "entries", []))
+            if not entries:
+                warnings.append(f"RSS zdroj {source} nevrátil žádné položky.")
+                continue
+
+            for entry in entries[: self.max_items_per_source]:
                 title = str(getattr(entry, "title", ""))
                 summary = str(getattr(entry, "summary", ""))
                 published_parsed = getattr(entry, "published_parsed", None)

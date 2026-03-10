@@ -144,6 +144,15 @@ class SQLiteStore:
         with self._connect() as conn:
             return pd.read_sql_query(query, conn)
 
+
+    def list_tickers(self) -> list[str]:
+        try:
+            with self._connect() as conn:
+                rows = conn.execute("SELECT DISTINCT ticker FROM signal_history ORDER BY ticker ASC").fetchall()
+            return [str(r[0]) for r in rows if r and r[0]]
+        except sqlite3.Error:
+            return []
+
     def read_ticker_history(self, ticker: str) -> pd.DataFrame:
         query = """
             SELECT r.run_id, r.finished_at, s.*
