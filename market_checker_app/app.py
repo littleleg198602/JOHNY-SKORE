@@ -248,6 +248,11 @@ else:
 
         filtered = filtered.sort_values(by=sort_by, ascending=ascending, na_position="last")
         st.caption(f"Po filtraci: {len(filtered)} řádků")
+        zero_news_count = int((filtered["news_volume_48h"] == 0).sum()) if "news_volume_48h" in filtered.columns else 0
+        if zero_news_count:
+            st.info(
+                f"{zero_news_count} tickerů má NewsVolume=0 (žádný RSS článek v posledních 48h, nebo ticker nebyl nalezen v titulku/summary)."
+            )
         st.dataframe(filtered.head(int(row_limit)), use_container_width=True)
 
     with tab_dashboard:
