@@ -11,6 +11,7 @@ from market_checker_app.config import AppConfig, DEFAULT_DB_PATH, DEFAULT_OUTPUT
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
 from market_checker_app.exporters.delta_builder import prepare_delta_for_excel
 from market_checker_app.exporters.excel_exporter import ExcelExporter
+from market_checker_app.services.comparison_service import ComparisonService
 from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -22,6 +23,8 @@ if "watchlist" not in st.session_state:
     st.session_state.watchlist = []
 if "last_result" not in st.session_state:
     st.session_state.last_result = None
+if "previous_signals" not in st.session_state:
+    st.session_state.previous_signals = None
 
 with st.sidebar:
     st.header("Nastavení")
@@ -65,6 +68,7 @@ rss_sources_text = st.text_area(
 rss_sources = [s.strip() for s in rss_sources_text.splitlines() if s.strip()]
 
 if run_analysis:
+    previous_signals = st.session_state.last_result["signals"] if st.session_state.last_result is not None else None
     pipeline = PipelineService(config)
     result = pipeline.run(watchlist=watchlist, rss_sources=rss_sources, store=store if save_history else None)
     signals = result["signals"]
@@ -74,6 +78,8 @@ if run_analysis:
     if compare_prev and save_history and result.get("run_id"):
         history_service = HistoryService(store)
         delta_df = history_service.build_delta_against_previous(int(result["run_id"]))
+    elif compare_prev and previous_signals is not None:
+        delta_df = ComparisonService.compare_runs(signals, previous_signals)
 
     excel_path = ""
     if export_excel:
@@ -97,6 +103,7 @@ if run_analysis:
         "delta": delta_df,
         "excel_path": excel_path,
     }
+    st.session_state.previous_signals = previous_signals
 
 result = st.session_state.last_result
 
