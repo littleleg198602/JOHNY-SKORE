@@ -13,10 +13,17 @@ from market_checker_app.analysis.explanations import build_key_drivers, merge_re
 from market_checker_app.analysis.news_analysis import analyze_news
 from market_checker_app.analysis.regime_detection import detect_market_regime
 from market_checker_app.analysis.risk_analysis import analyze_risk
-from market_checker_app.analysis.scoring import apply_regime_overrides, compute_raw_total, finalize_signal
+from market_checker_app.analysis.scoring import (
+    apply_regime_overrides,
+    compute_legacy_total,
+    compute_raw_total,
+    finalize_signal,
+    legacy_signal_from_score,
+)
 from market_checker_app.analysis.tech_analysis import analyze_tech
 from market_checker_app.analysis.yahoo_analysis import analyze_yahoo
 from market_checker_app.collectors.marketcap_loader import load_market_caps
+from market_checker_app.collectors.mt5_client import MT5Client
 from market_checker_app.collectors.rss_client import RSSClient
 from market_checker_app.collectors.yahoo_client import YahooClient
 from market_checker_app.config import AppConfig
@@ -27,9 +34,13 @@ from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.utils.dates import utc_now
 
 
+SCORING_VERSION = "v2_multilayer_legacy_compare"
+
+
 class PipelineService:
     def __init__(self, config: AppConfig) -> None:
         self.config = config
+        self.mt5_client = MT5Client()
         self.rss_client = RSSClient(max_items_per_source=config.max_rss_items_per_source)
         self.yahoo_client = YahooClient()
 
@@ -75,10 +86,26 @@ class PipelineService:
                 warnings.append(yahoo_warning)
             yresult = analyze_yahoo(snapshot)
 
-            ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
-            if ohlc_warning:
-                warnings.append(ohlc_warning)
-            tech = analyze_tech(ticker, ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame(), source="yfinance")
+            tech_source_used = "mt5"
+            tech_source_warning: str | None = None
+            mt5_ohlc, mt5_warning = self.mt5_client.fetch_ohlcv(ticker)
+            if mt5_ohlc is not None and not mt5_ohlc.empty:
+                ohlc = mt5_ohlc
+            else:
+                tech_source_used = "yfinance_fallback"
+                ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
+                fallback_parts = [f"MT5 not used for {ticker}"]
+                if mt5_warning:
+                    fallback_parts.append(f"reason: {mt5_warning}")
+                if ohlc_warning:
+                    fallback_parts.append(f"yfinance: {ohlc_warning}")
+                tech_source_warning = " | ".join(fallback_parts)
+                warnings.append(tech_source_warning)
+
+            tech = analyze_tech(ticker, ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame(), source=tech_source_used)
+            if tech_source_warning:
+                tech.warnings.append(tech_source_warning)
+
             behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
             risk = analyze_risk(ticker, news, tech, yresult, behavioral)
 
@@ -92,6 +119,8 @@ class PipelineService:
             conf = combine_confidence(news.news_confidence, tech.tech_confidence, yresult.yahoo_confidence, behavioral.behavioral_confidence)
             raw_total = compute_raw_total(news.news_score, tech.tech_score, yresult.yahoo_score, behavioral.behavioral_score, self.config.module_weights)
             raw_total = apply_regime_overrides(raw_total, tech.tech_score, tech.oscillator_score, behavioral.behavioral_score, regime, self.config.regime_overrides)
+            legacy_total_score = compute_legacy_total(news.news_score, tech.tech_score, yresult.yahoo_score)
+            legacy_signal = legacy_signal_from_score(legacy_total_score)
 
             combined_warnings = merge_warnings(news.warnings, tech.warnings, yresult.warnings, behavioral.warnings, risk.risk_flags)
             combined_reasons = merge_reasons(news.reasons, tech.reasons, yresult.reasons, behavioral.reasons, risk.risk_reasons)
@@ -112,6 +141,10 @@ class PipelineService:
                 "ticker": ticker,
                 "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
                 "current_price": snapshot.data.get("currentPrice"),
+                "scoring_version": SCORING_VERSION,
+                "legacy_total_score": legacy_total_score,
+                "legacy_signal": legacy_signal,
+                "tech_source_used": tech_source_used,
                 "news_count_48h": news.news_count_48h,
                 "news_score": news.news_score,
                 "tech_score": tech.tech_score,

@@ -159,6 +159,17 @@ class PerformanceSnapshot:
 
 
 @dataclass(slots=True)
+class SignalHistoryRow:
+    ticker: str
+    scoring_version: str
+    legacy_total_score: float
+    legacy_signal: str
+    tech_source_used: str
+    final_total_score: float
+    signal: str
+
+
+@dataclass(slots=True)
 class RunMetadata:
     started_at: datetime
     finished_at: datetime

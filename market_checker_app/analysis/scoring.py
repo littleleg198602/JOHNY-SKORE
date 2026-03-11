@@ -4,9 +4,19 @@ from market_checker_app.config import AdjustmentConfig, ModuleWeights, RegimeOve
 from market_checker_app.models import SignalDiagnostics
 
 
+LEGACY_NEWS_WEIGHT = 0.33
+LEGACY_TECH_WEIGHT = 0.39
+LEGACY_YAHOO_WEIGHT = 0.28
+
+
 def compute_raw_total(news_score: float, tech_score: float, yahoo_score: float, behavioral_score: float, weights: ModuleWeights) -> float:
     value = news_score * weights.news + tech_score * weights.tech + yahoo_score * weights.yahoo + behavioral_score * weights.behavioral
     return round(max(0.0, min(100.0, value)), 2)
+
+
+def compute_legacy_total(news_score: float, tech_score: float, yahoo_score: float) -> float:
+    legacy = news_score * LEGACY_NEWS_WEIGHT + tech_score * LEGACY_TECH_WEIGHT + yahoo_score * LEGACY_YAHOO_WEIGHT
+    return round(max(0.0, min(100.0, legacy)), 2)
 
 
 def apply_regime_overrides(raw_score: float, tech_score: float, oscillator_score: float, behavioral_score: float, regime: str, overrides: RegimeOverrides) -> float:
@@ -22,6 +32,18 @@ def apply_regime_overrides(raw_score: float, tech_score: float, oscillator_score
 
 def _signal_from_score(score: float, thresholds: SignalThresholds) -> str:
     if score >= thresholds.strong_buy:
+        return "STRONG BUY"
+    if score >= thresholds.buy:
+        return "BUY"
+    if score >= thresholds.hold:
+        return "HOLD"
+    if score >= thresholds.sell:
+        return "SELL"
+    return "STRONG SELL"
+
+
+def legacy_signal_from_score(score: float) -> str:
+    if score >= 80:
         return "STRONG BUY"
     if score >= thresholds.buy:
         return "BUY"
