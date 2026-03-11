@@ -41,64 +41,25 @@ def _parse_json_list(value: object) -> list[str]:
     return []
 
 
-def _format_event(event: dict[str, str]) -> str:
-    ts = event.get("timestamp", "--:--:--")
-    ticker = event.get("ticker", "-")
-    event_type = event.get("event_type", "INFO")
-    message = event.get("message", "")
-    return f"`{ts}` **[{event_type}]** `{ticker}` — {message}"
-
-
 def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> None:
     st.subheader("Průběh analýzy")
-    col_a, col_b, col_c = st.columns(3)
-    col_a.metric("Aktuální ticker", state.current_symbol or "-")
-    col_b.metric("Pořadí", f"{state.current_position} / {state.total_symbols}")
-    col_c.metric("Aktuální fáze", state.current_step)
-
+    current = state.current_symbol or "-"
+    st.write(f"Zpracovávám: **{current}** ({state.current_position}/{state.total_symbols})")
     st.info(state.current_message)
     st.progress(float(state.overall_progress))
-    st.caption(f"Celkový průběh: {int(state.overall_progress * 100)} %")
-    st.progress(float(state.ticker_progress))
-    st.caption(f"Průběh aktuálního tickeru: {int(state.ticker_progress * 100)} %")
+    st.caption(f"Celkový průběh: {int(state.overall_progress * 100)} % • elapsed {elapsed_sec:.1f}s")
 
-    st.markdown("#### Live log")
-    if state.recent_logs:
-        for event in state.recent_logs:
-            st.markdown(f"- {_format_event(event)}")
+    st.markdown("#### Poslední kroky")
+    recent_events = state.recent_logs[:8]
+    if recent_events:
+        for event in recent_events:
+            ts = event.get("timestamp", "--:--:--")
+            ticker = event.get("ticker", "-")
+            event_type = event.get("event_type", "INFO")
+            message = event.get("message", "")
+            st.write(f"{ts} | {event_type} | {ticker} | {message}")
     else:
         st.write("Log je zatím prázdný.")
-
-    warn_col, fallback_col, error_col = st.columns(3)
-    with warn_col:
-        st.markdown("#### Warnings")
-        for item in state.warnings[-10:]:
-            st.warning(item)
-    with fallback_col:
-        st.markdown("#### Fallbacks")
-        for item in state.fallbacks[-10:]:
-            st.info(item)
-    with error_col:
-        st.markdown("#### Errors")
-        for item in state.errors[-10:]:
-            st.error(item)
-
-    st.markdown("#### Průběžně dokončené tickery")
-    if state.completed_rows:
-        recent_completed = list(reversed(state.completed_rows[-50:]))
-        st.caption(f"Dokončeno celkem: {len(state.completed_rows)} (zobrazuji posledních {len(recent_completed)})")
-        st.dataframe(pd.DataFrame(recent_completed), width="stretch")
-    else:
-        st.write("Zatím nebyl dokončen žádný ticker.")
-
-    st.sidebar.markdown("### Live souhrn")
-    st.sidebar.write(f"Watchlist size: {state.total_symbols}")
-    st.sidebar.write(f"Processed: {state.processed_symbols}")
-    st.sidebar.write(f"Current ticker: {state.current_symbol or '-'}")
-    st.sidebar.write(f"Elapsed: {elapsed_sec:.1f}s")
-    st.sidebar.write(f"Warnings: {len(state.warnings)}")
-    st.sidebar.write(f"Errors: {len(state.errors)}")
-
 
 st.set_page_config(page_title="Market Checker", layout="wide")
 st.title("Market Checker")
@@ -152,7 +113,7 @@ if run_analysis:
     previous = st.session_state.last_result["signals"] if st.session_state.last_result else pd.DataFrame()
     started = time.time()
 
-    progress_container = st.container()
+    progress_placeholder = st.empty()
     render_state: dict[str, Any] = {"ts": 0.0, "processed": -1, "step": ""}
 
     def _should_render_progress(state: AnalysisProgressState, force: bool = False) -> bool:
@@ -169,7 +130,7 @@ if run_analysis:
         render_state["ts"] = time.monotonic()
         render_state["processed"] = state.processed_symbols
         render_state["step"] = state.current_step
-        with progress_container:
+        with progress_placeholder.container():
             _render_progress_ui(state, time.time() - started)
 
     result = pipeline.run(
@@ -183,7 +144,7 @@ if run_analysis:
         render_state["ts"] = time.monotonic()
         render_state["processed"] = st.session_state.analysis_progress.processed_symbols
         render_state["step"] = st.session_state.analysis_progress.current_step
-        with progress_container:
+        with progress_placeholder.container():
             _render_progress_ui(st.session_state.analysis_progress, time.time() - started)
 
     delta_df = pd.DataFrame()
@@ -196,7 +157,7 @@ if run_analysis:
     if st.session_state.analysis_progress and export_excel:
         st.session_state.analysis_progress.current_step = "export_excel"
         st.session_state.analysis_progress.current_message = "Exportuji Excel"
-        with progress_container:
+        with progress_placeholder.container():
             _render_progress_ui(st.session_state.analysis_progress, time.time() - started)
 
     dashboard_tables = build_dashboard_tables(result["signals"])
