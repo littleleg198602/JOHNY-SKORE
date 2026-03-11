@@ -80,6 +80,7 @@ rss_sources = [
 if run_analysis:
     pipeline = PipelineService(config)
     previous = st.session_state.last_result["signals"] if st.session_state.last_result else pd.DataFrame()
+    progress_container = st.container()
 
     with progress_container:
         st.subheader("Průběh analýzy")
