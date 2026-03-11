@@ -51,6 +51,26 @@ streamlit run app.py
   - distribuci TotalScore posledního běhu
 - tab `History` ukazuje detail vybraného tickeru v čase
 
+## Rychlá validace scoring pipeline
+
+Po refaktoru scoringu doporučujeme po změnách vždy ověřit minimálně:
+
+```bash
+python -m compileall market_checker_app
+```
+
+Volitelně (pokud je nainstalovaný Streamlit):
+
+```bash
+streamlit run market_checker_app/app.py
+```
+
+Zkontroluj v UI, že tab **Signals** obsahuje sloupce:
+- `raw_total_score`, `final_total_score`
+- `final_confidence`, `data_quality_score`
+- `news_confidence`, `tech_confidence`, `yahoo_confidence`
+- `signal_strength`, `reasons`, `warnings`
+
 ## Poznámky k odolnosti
 
 - při nedostupném MT5 aplikace zobrazí chybu a umožní ruční watchlist

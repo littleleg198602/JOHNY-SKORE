@@ -79,6 +79,7 @@ class RSSClient:
                                 ticker=ticker,
                                 source=source,
                                 title=title,
+                                summary=summary,
                                 published_at=published_at,
                                 sentiment_weight=sentiment_weight,
                                 url=str(getattr(entry, "link", "")),

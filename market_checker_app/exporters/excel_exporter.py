@@ -6,6 +6,30 @@ import pandas as pd
 
 
 class ExcelExporter:
+    SIGNAL_EXPORT_COLUMNS = [
+        "ticker",
+        "market_cap_usd",
+        "rank_market_cap",
+        "news_count_48h",
+        "news_score",
+        "tech_score",
+        "yahoo_score",
+        "raw_total_score",
+        "final_total_score",
+        "final_confidence",
+        "news_confidence",
+        "tech_confidence",
+        "yahoo_confidence",
+        "data_quality_score",
+        "signal",
+        "signal_strength",
+        "reasons",
+        "warnings",
+        "last_week_change_pct",
+        "last_1m_change_pct",
+        "last_3m_change_pct",
+    ]
+
     @staticmethod
     def _sanitize_for_excel(frame: pd.DataFrame) -> pd.DataFrame:
         cleaned = frame.copy()
@@ -33,9 +57,12 @@ class ExcelExporter:
         delta: pd.DataFrame | None = None,
     ) -> Path:
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        signals_xlsx = self._sanitize_for_excel(signals)
+
+        signal_cols = [c for c in self.SIGNAL_EXPORT_COLUMNS if c in signals.columns]
+        signals_xlsx = self._sanitize_for_excel(signals[signal_cols] if signal_cols else signals)
         sources_xlsx = self._sanitize_for_excel(sources)
         articles_xlsx = self._sanitize_for_excel(articles)
+
         with pd.ExcelWriter(output_path, engine="openpyxl") as writer:
             signals_xlsx.to_excel(writer, sheet_name="Signals", index=False)
             sources_xlsx.to_excel(writer, sheet_name="Sources", index=False)
@@ -43,7 +70,7 @@ class ExcelExporter:
 
             dashboard_sheet = pd.concat(
                 [
-                    dashboard["top_total"].assign(section="Top20 TotalScore"),
+                    dashboard["top_total"].assign(section="Top20 FinalTotalScore"),
                     dashboard["weekly_drops"].assign(section="Top20 Weekly Drops"),
                     dashboard["m1_drops"].assign(section="Top20 1M Drops"),
                     dashboard["m3_drops"].assign(section="Top20 3M Drops"),
