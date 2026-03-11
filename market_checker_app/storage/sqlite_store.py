@@ -19,20 +19,18 @@ class SQLiteStore:
 
     def _ensure_signal_history_columns(self, conn: sqlite3.Connection) -> None:
         expected: dict[str, str] = {
-            "news_count_48h": "INTEGER",
-            "news_score": "REAL",
-            "tech_score": "REAL",
-            "yahoo_score": "REAL",
-            "raw_total_score": "REAL",
-            "final_total_score": "REAL",
-            "final_confidence": "REAL",
-            "news_confidence": "REAL",
-            "tech_confidence": "REAL",
-            "yahoo_confidence": "REAL",
-            "data_quality_score": "REAL",
-            "signal_strength": "TEXT",
-            "reasons": "TEXT",
-            "warnings": "TEXT",
+            "behavioral_score": "REAL",
+            "risk_score": "REAL",
+            "quality_adjusted_score": "REAL",
+            "risk_adjusted_score": "REAL",
+            "behavioral_confidence": "REAL",
+            "rank_in_watchlist": "INTEGER",
+            "percentile_in_watchlist": "REAL",
+            "risk_flags": "TEXT",
+            "key_drivers": "TEXT",
+            "overall_summary": "TEXT",
+            "regime": "TEXT",
+            "current_price": "REAL",
         }
         existing = {row[1] for row in conn.execute("PRAGMA table_info(signal_history)").fetchall()}
         for column, ctype in expected.items():
@@ -63,22 +61,34 @@ class SQLiteStore:
                     ticker TEXT NOT NULL,
                     updated_at TEXT NOT NULL,
                     market_cap_usd REAL,
+                    current_price REAL,
                     rank_market_cap INTEGER,
                     news_count_48h INTEGER,
                     news_score REAL,
                     tech_score REAL,
                     yahoo_score REAL,
+                    behavioral_score REAL,
+                    risk_score REAL,
                     raw_total_score REAL,
+                    quality_adjusted_score REAL,
+                    risk_adjusted_score REAL,
                     final_total_score REAL,
                     final_confidence REAL,
                     news_confidence REAL,
                     tech_confidence REAL,
                     yahoo_confidence REAL,
+                    behavioral_confidence REAL,
                     data_quality_score REAL,
                     signal TEXT,
                     signal_strength TEXT,
+                    rank_in_watchlist INTEGER,
+                    percentile_in_watchlist REAL,
+                    regime TEXT,
                     reasons TEXT,
                     warnings TEXT,
+                    risk_flags TEXT,
+                    key_drivers TEXT,
+                    overall_summary TEXT,
                     last_week_change_pct REAL,
                     last_1m_change_pct REAL,
                     last_3m_change_pct REAL,
@@ -105,22 +115,34 @@ class SQLiteStore:
                 row.ticker,
                 updated_at,
                 row.market_cap_usd,
-                row.rank_market_cap,
+                row.current_price if hasattr(row, "current_price") else None,
+                row.rank_market_cap if hasattr(row, "rank_market_cap") else None,
                 row.news_count_48h,
                 row.news_score,
                 row.tech_score,
                 row.yahoo_score,
+                row.behavioral_score,
+                row.risk_score,
                 row.raw_total_score,
+                row.quality_adjusted_score,
+                row.risk_adjusted_score,
                 row.final_total_score,
                 row.final_confidence,
                 row.news_confidence,
                 row.tech_confidence,
                 row.yahoo_confidence,
+                row.behavioral_confidence,
                 row.data_quality_score,
                 row.signal,
                 row.signal_strength,
+                row.rank_in_watchlist,
+                row.percentile_in_watchlist,
+                row.regime,
                 row.reasons,
                 row.warnings,
+                row.risk_flags,
+                row.key_drivers,
+                row.overall_summary,
                 row.last_week_change_pct,
                 row.last_1m_change_pct,
                 row.last_3m_change_pct,
@@ -131,13 +153,14 @@ class SQLiteStore:
             conn.executemany(
                 """
                 INSERT INTO signal_history(
-                    run_id, ticker, updated_at, market_cap_usd, rank_market_cap,
-                    news_count_48h, news_score, tech_score, yahoo_score,
-                    raw_total_score, final_total_score, final_confidence,
-                    news_confidence, tech_confidence, yahoo_confidence, data_quality_score,
-                    signal, signal_strength, reasons, warnings,
+                    run_id, ticker, updated_at, market_cap_usd, current_price, rank_market_cap,
+                    news_count_48h, news_score, tech_score, yahoo_score, behavioral_score, risk_score,
+                    raw_total_score, quality_adjusted_score, risk_adjusted_score, final_total_score, final_confidence,
+                    news_confidence, tech_confidence, yahoo_confidence, behavioral_confidence, data_quality_score,
+                    signal, signal_strength, rank_in_watchlist, percentile_in_watchlist, regime,
+                    reasons, warnings, risk_flags, key_drivers, overall_summary,
                     last_week_change_pct, last_1m_change_pct, last_3m_change_pct
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 payload,
             )
@@ -166,42 +189,10 @@ class SQLiteStore:
             return pd.read_sql_query("SELECT * FROM signal_history WHERE run_id = ?", conn, params=(run_id,))
 
     def read_global_history(self) -> pd.DataFrame:
-        q = "SELECT r.run_id, r.finished_at, s.ticker, s.final_total_score, s.news_score, s.tech_score, s.yahoo_score, s.final_confidence, s.signal FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
+        q = "SELECT r.run_id, r.finished_at, s.ticker, s.current_price, s.final_total_score, s.raw_total_score, s.risk_score, s.behavioral_score, s.rank_in_watchlist, s.percentile_in_watchlist, s.signal, s.final_confidence FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(q, conn)
 
     def read_ticker_history(self, ticker: str) -> pd.DataFrame:
-        q = """
-        SELECT
-            r.run_id,
-            r.finished_at,
-            s.id,
-            s.ticker,
-            s.updated_at,
-            s.market_cap_usd,
-            s.rank_market_cap,
-            s.news_count_48h,
-            s.news_score,
-            s.tech_score,
-            s.yahoo_score,
-            s.raw_total_score,
-            s.final_total_score,
-            s.final_confidence,
-            s.news_confidence,
-            s.tech_confidence,
-            s.yahoo_confidence,
-            s.data_quality_score,
-            s.signal,
-            s.signal_strength,
-            s.reasons,
-            s.warnings,
-            s.last_week_change_pct,
-            s.last_1m_change_pct,
-            s.last_3m_change_pct
-        FROM signal_history s
-        JOIN runs r ON r.run_id = s.run_id
-        WHERE s.ticker = ?
-        ORDER BY r.run_id ASC
-        """
         with self._connect() as conn:
-            return pd.read_sql_query(q, conn, params=(ticker,))
+            return pd.read_sql_query("SELECT r.run_id, r.finished_at, s.* FROM signal_history s JOIN runs r ON r.run_id=s.run_id WHERE s.ticker=? ORDER BY r.run_id ASC", conn, params=(ticker,))
