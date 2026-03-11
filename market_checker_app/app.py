@@ -10,6 +10,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 import json
 import time
+from typing import Any
 
 import pandas as pd
 import streamlit as st
@@ -84,7 +85,9 @@ def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> Non
 
     st.markdown("#### Průběžně dokončené tickery")
     if state.completed_rows:
-        st.dataframe(pd.DataFrame(state.completed_rows), width="stretch")
+        recent_completed = list(reversed(state.completed_rows[-50:]))
+        st.caption(f"Dokončeno celkem: {len(state.completed_rows)} (zobrazuji posledních {len(recent_completed)})")
+        st.dataframe(pd.DataFrame(recent_completed), width="stretch")
     else:
         st.write("Zatím nebyl dokončen žádný ticker.")
 
@@ -150,9 +153,22 @@ if run_analysis:
     started = time.time()
 
     progress_container = st.container()
+    render_state: dict[str, Any] = {"ts": 0.0, "processed": -1, "step": ""}
+
+    def _should_render_progress(state: AnalysisProgressState, force: bool = False) -> bool:
+        if force:
+            return True
+        now = time.monotonic()
+        is_major_change = state.processed_symbols != render_state["processed"] or state.current_step != render_state["step"]
+        return is_major_change or (now - float(render_state["ts"])) >= 0.25
 
     def _on_progress(state: AnalysisProgressState) -> None:
         st.session_state.analysis_progress = state
+        if not _should_render_progress(state):
+            return
+        render_state["ts"] = time.monotonic()
+        render_state["processed"] = state.processed_symbols
+        render_state["step"] = state.current_step
         with progress_container:
             _render_progress_ui(state, time.time() - started)
 
@@ -163,6 +179,12 @@ if run_analysis:
         progress_callback=_on_progress,
     )
     st.session_state.analysis_progress = result.get("progress_state")
+    if st.session_state.analysis_progress:
+        render_state["ts"] = time.monotonic()
+        render_state["processed"] = st.session_state.analysis_progress.processed_symbols
+        render_state["step"] = st.session_state.analysis_progress.current_step
+        with progress_container:
+            _render_progress_ui(st.session_state.analysis_progress, time.time() - started)
 
     delta_df = pd.DataFrame()
     if compare_prev:
