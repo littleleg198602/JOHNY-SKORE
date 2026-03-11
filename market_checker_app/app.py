@@ -57,15 +57,7 @@ with st.sidebar:
     load_watchlist = st.button("Načíst watchlist z MT5")
     run_analysis = st.button("Spustit analýzu", type="primary")
 
-config = AppConfig(
-    output_dir=output_dir,
-    marketcap_file=marketcap_file,
-    export_excel=export_excel,
-    compare_previous_run=compare_prev,
-    save_history=save_history,
-    sqlite_path=sqlite_path,
-    max_rss_items_per_source=int(max_rss),
-)
+config = AppConfig(output_dir=output_dir, marketcap_file=marketcap_file, export_excel=export_excel, compare_previous_run=compare_prev, save_history=save_history, sqlite_path=sqlite_path, max_rss_items_per_source=int(max_rss))
 config.ensure_output_dir()
 store = SQLiteStore(config.sqlite_path)
 
@@ -85,7 +77,6 @@ rss_sources = [
     if s.strip()
 ]
 
-progress_container = st.container()
 if run_analysis:
     pipeline = PipelineService(config)
     previous = st.session_state.last_result["signals"] if st.session_state.last_result else pd.DataFrame()
