@@ -45,11 +45,11 @@ def _signal_from_score(score: float, thresholds: SignalThresholds) -> str:
 def legacy_signal_from_score(score: float) -> str:
     if score >= 80:
         return "STRONG BUY"
-    if score >= 66:
+    if score >= thresholds.buy:
         return "BUY"
-    if score >= 48:
+    if score >= thresholds.hold:
         return "HOLD"
-    if score >= 32:
+    if score >= thresholds.sell:
         return "SELL"
     return "STRONG SELL"
 
