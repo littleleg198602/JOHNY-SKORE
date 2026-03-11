@@ -9,6 +9,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 import json
+import time
 
 import pandas as pd
 import streamlit as st
@@ -19,6 +20,7 @@ from market_checker_app.config import AppConfig, DEFAULT_DB_PATH, DEFAULT_OUTPUT
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
 from market_checker_app.exporters.delta_builder import prepare_delta_for_excel
 from market_checker_app.exporters.excel_exporter import ExcelExporter
+from market_checker_app.models import AnalysisProgressState
 from market_checker_app.services.comparison_service import ComparisonService
 from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
@@ -38,10 +40,67 @@ def _parse_json_list(value: object) -> list[str]:
     return []
 
 
+def _format_event(event: dict[str, str]) -> str:
+    ts = event.get("timestamp", "--:--:--")
+    ticker = event.get("ticker", "-")
+    event_type = event.get("event_type", "INFO")
+    message = event.get("message", "")
+    return f"`{ts}` **[{event_type}]** `{ticker}` — {message}"
+
+
+def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> None:
+    st.subheader("Průběh analýzy")
+    col_a, col_b, col_c = st.columns(3)
+    col_a.metric("Aktuální ticker", state.current_symbol or "-")
+    col_b.metric("Pořadí", f"{state.current_position} / {state.total_symbols}")
+    col_c.metric("Aktuální fáze", state.current_step)
+
+    st.info(state.current_message)
+    st.progress(float(state.overall_progress))
+    st.caption(f"Celkový průběh: {int(state.overall_progress * 100)} %")
+    st.progress(float(state.ticker_progress))
+    st.caption(f"Průběh aktuálního tickeru: {int(state.ticker_progress * 100)} %")
+
+    st.markdown("#### Live log")
+    if state.recent_logs:
+        for event in state.recent_logs:
+            st.markdown(f"- {_format_event(event)}")
+    else:
+        st.write("Log je zatím prázdný.")
+
+    warn_col, fallback_col, error_col = st.columns(3)
+    with warn_col:
+        st.markdown("#### Warnings")
+        for item in state.warnings[-10:]:
+            st.warning(item)
+    with fallback_col:
+        st.markdown("#### Fallbacks")
+        for item in state.fallbacks[-10:]:
+            st.info(item)
+    with error_col:
+        st.markdown("#### Errors")
+        for item in state.errors[-10:]:
+            st.error(item)
+
+    st.markdown("#### Průběžně dokončené tickery")
+    if state.completed_rows:
+        st.dataframe(pd.DataFrame(state.completed_rows), use_container_width=True)
+    else:
+        st.write("Zatím nebyl dokončen žádný ticker.")
+
+    st.sidebar.markdown("### Live souhrn")
+    st.sidebar.write(f"Watchlist size: {state.total_symbols}")
+    st.sidebar.write(f"Processed: {state.processed_symbols}")
+    st.sidebar.write(f"Current ticker: {state.current_symbol or '-'}")
+    st.sidebar.write(f"Elapsed: {elapsed_sec:.1f}s")
+    st.sidebar.write(f"Warnings: {len(state.warnings)}")
+    st.sidebar.write(f"Errors: {len(state.errors)}")
+
+
 st.set_page_config(page_title="Market Checker", layout="wide")
 st.title("Market Checker")
 
-for key, default in {"watchlist": [], "last_result": None}.items():
+for key, default in {"watchlist": [], "last_result": None, "analysis_progress": None}.items():
     if key not in st.session_state:
         st.session_state[key] = default
 
@@ -57,7 +116,15 @@ with st.sidebar:
     load_watchlist = st.button("Načíst watchlist z MT5")
     run_analysis = st.button("Spustit analýzu", type="primary")
 
-config = AppConfig(output_dir=output_dir, marketcap_file=marketcap_file, export_excel=export_excel, compare_previous_run=compare_prev, save_history=save_history, sqlite_path=sqlite_path, max_rss_items_per_source=int(max_rss))
+config = AppConfig(
+    output_dir=output_dir,
+    marketcap_file=marketcap_file,
+    export_excel=export_excel,
+    compare_previous_run=compare_prev,
+    save_history=save_history,
+    sqlite_path=sqlite_path,
+    max_rss_items_per_source=int(max_rss),
+)
 config.ensure_output_dir()
 store = SQLiteStore(config.sqlite_path)
 
@@ -80,41 +147,49 @@ rss_sources = [
 if run_analysis:
     pipeline = PipelineService(config)
     previous = st.session_state.last_result["signals"] if st.session_state.last_result else pd.DataFrame()
+    started = time.time()
 
-    with progress_container:
-        st.subheader("Průběh analýzy")
-        progress = st.progress(0)
-        progress_message = st.empty()
+    progress_container = st.container()
 
-    progress_message.info("Inicializuji pipeline…")
-    progress.progress(10)
+    def _on_progress(state: AnalysisProgressState) -> None:
+        st.session_state.analysis_progress = state
+        with progress_container:
+            _render_progress_ui(state, time.time() - started)
 
-    progress_message.info("Sbírám a analyzuji data (RSS / Yahoo / technika)…")
-    result = pipeline.run(watchlist, rss_sources, store if save_history else None)
-    signals = result["signals"]
-    progress.progress(45)
+    result = pipeline.run(
+        watchlist,
+        rss_sources,
+        store if save_history else None,
+        progress_callback=_on_progress,
+    )
+    st.session_state.analysis_progress = result.get("progress_state")
 
-    progress_message.info("Počítám Delta proti předchozímu běhu…")
     delta_df = pd.DataFrame()
     if compare_prev:
         if save_history and result.get("run_id"):
             delta_df = HistoryService(store).build_delta_against_previous(int(result["run_id"]))
         elif not previous.empty:
-            delta_df = ComparisonService.compare_runs(signals, previous)
-    progress.progress(65)
+            delta_df = ComparisonService.compare_runs(result["signals"], previous)
 
-    progress_message.info("Sestavuji dashboard tabulky…")
-    dashboard_tables = build_dashboard_tables(signals)
-    progress.progress(80)
+    if st.session_state.analysis_progress and export_excel:
+        st.session_state.analysis_progress.current_step = "export_excel"
+        st.session_state.analysis_progress.current_message = "Exportuji Excel"
+        with progress_container:
+            _render_progress_ui(st.session_state.analysis_progress, time.time() - started)
+
+    dashboard_tables = build_dashboard_tables(result["signals"])
 
     if export_excel:
-        progress_message.info("Generuji Excel export…")
         path = output_dir / f"market_checker_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
-        ExcelExporter().export(path, signals, result["sources"], result["articles"], dashboard_tables, prepare_delta_for_excel(delta_df))
+        ExcelExporter().export(
+            path,
+            result["signals"],
+            result["sources"],
+            result["articles"],
+            dashboard_tables,
+            prepare_delta_for_excel(delta_df),
+        )
         st.success(f"Excel export uložen: {path}")
-
-    progress.progress(100)
-    progress_message.success("Analýza dokončena.")
 
     result["dashboard"] = dashboard_tables
     result["delta"] = delta_df
@@ -124,8 +199,8 @@ if st.session_state.last_result:
     result = st.session_state.last_result
     signals_df = result["signals"]
     st.write("### Warnings")
-    for w in result["warnings"]:
-        st.warning(w)
+    for warning in result["warnings"]:
+        st.warning(warning)
 
     tab_signals, tab_dashboard, tab_articles, tab_sources, tab_delta, tab_trends, tab_history = st.tabs(
         ["Signals", "Dashboard", "Articles", "Sources", "Delta", "Trends", "History"]
@@ -148,7 +223,7 @@ if st.session_state.last_result:
             "signal",
             "signal_strength",
         ]
-        st.dataframe(signals_df[[c for c in display_columns if c in signals_df.columns]], use_container_width=True)
+        st.dataframe(signals_df[[column for column in display_columns if column in signals_df.columns]], use_container_width=True)
 
         ticker = st.selectbox("Detail tickeru", options=signals_df["ticker"].tolist())
         row = signals_df[signals_df["ticker"] == ticker].head(1)
@@ -207,7 +282,7 @@ if st.session_state.last_result:
             hs = HistoryService(store)
             tickers = hs.list_tickers()
             if tickers:
-                t = st.selectbox("Ticker history", tickers)
-                hist = hs.load_ticker_history(t)
+                ticker = st.selectbox("Ticker history", tickers)
+                hist = hs.load_ticker_history(ticker)
                 st.line_chart(hist.set_index("finished_at")["final_total_score"])
                 st.dataframe(hist, use_container_width=True)
