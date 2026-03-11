@@ -168,3 +168,28 @@ class RunResult:
     articles: list[NewsItem] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     errors: list[str] = field(default_factory=list)
+
+
+@dataclass(slots=True)
+class AnalysisLogEvent:
+    timestamp: str
+    ticker: str
+    event_type: str
+    message: str
+
+
+@dataclass(slots=True)
+class AnalysisProgressState:
+    total_symbols: int
+    processed_symbols: int = 0
+    current_position: int = 0
+    current_symbol: str = ""
+    current_step: str = "start"
+    current_message: str = "Připravuji analýzu"
+    overall_progress: float = 0.0
+    ticker_progress: float = 0.0
+    recent_logs: list[dict[str, str]] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
+    fallbacks: list[str] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
+    completed_rows: list[dict[str, object]] = field(default_factory=list)
