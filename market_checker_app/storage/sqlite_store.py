@@ -171,6 +171,37 @@ class SQLiteStore:
             return pd.read_sql_query(q, conn)
 
     def read_ticker_history(self, ticker: str) -> pd.DataFrame:
-        q = "SELECT r.run_id, r.finished_at, s.* FROM signal_history s JOIN runs r ON r.run_id=s.run_id WHERE s.ticker=? ORDER BY r.run_id ASC"
+        q = """
+        SELECT
+            r.run_id,
+            r.finished_at,
+            s.id,
+            s.ticker,
+            s.updated_at,
+            s.market_cap_usd,
+            s.rank_market_cap,
+            s.news_count_48h,
+            s.news_score,
+            s.tech_score,
+            s.yahoo_score,
+            s.raw_total_score,
+            s.final_total_score,
+            s.final_confidence,
+            s.news_confidence,
+            s.tech_confidence,
+            s.yahoo_confidence,
+            s.data_quality_score,
+            s.signal,
+            s.signal_strength,
+            s.reasons,
+            s.warnings,
+            s.last_week_change_pct,
+            s.last_1m_change_pct,
+            s.last_3m_change_pct
+        FROM signal_history s
+        JOIN runs r ON r.run_id = s.run_id
+        WHERE s.ticker = ?
+        ORDER BY r.run_id ASC
+        """
         with self._connect() as conn:
             return pd.read_sql_query(q, conn, params=(ticker,))
