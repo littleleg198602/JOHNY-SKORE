@@ -84,7 +84,7 @@ def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> Non
 
     st.markdown("#### Průběžně dokončené tickery")
     if state.completed_rows:
-        st.dataframe(pd.DataFrame(state.completed_rows), use_container_width=True)
+        st.dataframe(pd.DataFrame(state.completed_rows), width="stretch")
     else:
         st.write("Zatím nebyl dokončen žádný ticker.")
 
@@ -223,7 +223,7 @@ if st.session_state.last_result:
             "signal",
             "signal_strength",
         ]
-        st.dataframe(signals_df[[column for column in display_columns if column in signals_df.columns]], use_container_width=True)
+        st.dataframe(signals_df[[column for column in display_columns if column in signals_df.columns]], width="stretch")
 
         ticker = st.selectbox("Detail tickeru", options=signals_df["ticker"].tolist())
         row = signals_df[signals_df["ticker"] == ticker].head(1)
@@ -249,33 +249,33 @@ if st.session_state.last_result:
         c4.metric("SELL + STRONG SELL", int(perf["count_sell"]))
 
         st.subheader("Top 20 by FinalTotalScore")
-        st.dataframe(result["dashboard"]["top_total"], use_container_width=True)
+        st.dataframe(result["dashboard"]["top_total"], width="stretch")
         st.subheader("Top 20 weekly drops")
-        st.dataframe(result["dashboard"]["weekly_drops"], use_container_width=True)
+        st.dataframe(result["dashboard"]["weekly_drops"], width="stretch")
         st.subheader("Top 20 1M drops")
-        st.dataframe(result["dashboard"]["m1_drops"], use_container_width=True)
+        st.dataframe(result["dashboard"]["m1_drops"], width="stretch")
         st.subheader("Top 20 3M drops")
-        st.dataframe(result["dashboard"]["m3_drops"], use_container_width=True)
+        st.dataframe(result["dashboard"]["m3_drops"], width="stretch")
         st.subheader("Top 20 by MarketCap")
-        st.dataframe(result["dashboard"]["top_marketcap"], use_container_width=True)
+        st.dataframe(result["dashboard"]["top_marketcap"], width="stretch")
         st.subheader("Bottom 20 by MarketCap")
-        st.dataframe(result["dashboard"]["bottom_marketcap"], use_container_width=True)
+        st.dataframe(result["dashboard"]["bottom_marketcap"], width="stretch")
 
     with tab_articles:
-        st.dataframe(result["articles"], use_container_width=True)
+        st.dataframe(result["articles"], width="stretch")
 
     with tab_sources:
-        st.dataframe(result["sources"], use_container_width=True)
+        st.dataframe(result["sources"], width="stretch")
 
     with tab_delta:
-        st.dataframe(result["delta"], use_container_width=True)
+        st.dataframe(result["delta"], width="stretch")
 
     with tab_trends:
         if save_history:
             trends = HistoryService(store).load_global_trends()
             if not trends["avg_total"].empty:
                 st.line_chart(trends["avg_total"].set_index("finished_at")["final_total_score"])
-                st.dataframe(trends["top_delta"], use_container_width=True)
+                st.dataframe(trends["top_delta"], width="stretch")
 
     with tab_history:
         if save_history:
@@ -285,4 +285,4 @@ if st.session_state.last_result:
                 ticker = st.selectbox("Ticker history", tickers)
                 hist = hs.load_ticker_history(ticker)
                 st.line_chart(hist.set_index("finished_at")["final_total_score"])
-                st.dataframe(hist, use_container_width=True)
+                st.dataframe(hist, width="stretch")
