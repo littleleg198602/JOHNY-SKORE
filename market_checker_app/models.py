@@ -31,6 +31,7 @@ class ArticleFeatures:
     recency_weight: float
     duplicate_penalty: float
     final_article_weight: float
+    is_duplicate: bool
 
 
 @dataclass(slots=True)
@@ -41,6 +42,7 @@ class NewsAnalysisResult:
     news_count_total: int
     news_count_48h: int
     unique_sources_count: int
+    avg_source_trust: float
     high_importance_count: int
     weighted_sentiment_sum: float
     weighted_sentiment_avg: float
@@ -69,6 +71,7 @@ class TechAnalysisResult:
     volatility_context_adjustment: float
     source: str
     candles_count: int
+    regime: str
     warnings: list[str] = field(default_factory=list)
     reasons: list[str] = field(default_factory=list)
     indicators: dict[str, float | None] = field(default_factory=dict)
@@ -90,10 +93,36 @@ class YahooAnalysisResult:
 
 
 @dataclass(slots=True)
+class BehavioralAnalysisResult:
+    ticker: str
+    behavioral_score: float
+    behavioral_confidence: float
+    panic_score: float
+    euphoria_score: float
+    capitulation_score: float
+    uncertainty_score: float
+    trust_breakdown_score: float
+    fomo_score: float
+    shock_surprise_score: float
+    behavioral_regime: str
+    warnings: list[str] = field(default_factory=list)
+    reasons: list[str] = field(default_factory=list)
+
+
+@dataclass(slots=True)
+class RiskAnalysisResult:
+    ticker: str
+    risk_score: float  # higher == higher risk
+    risk_flags: list[str] = field(default_factory=list)
+    risk_reasons: list[str] = field(default_factory=list)
+
+
+@dataclass(slots=True)
 class ConfidenceResult:
     news_confidence: float
     tech_confidence: float
     yahoo_confidence: float
+    behavioral_confidence: float
     data_quality_score: float
     final_confidence: float
 
@@ -101,13 +130,17 @@ class ConfidenceResult:
 @dataclass(slots=True)
 class SignalDiagnostics:
     raw_total_score: float
+    quality_adjusted_score: float
+    risk_adjusted_score: float
     final_total_score: float
     final_confidence: float
     data_quality_score: float
     signal: str
     signal_strength: str
-    warnings: list[str] = field(default_factory=list)
     reasons: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
+    key_drivers: list[str] = field(default_factory=list)
+    overall_summary: str = ""
 
 
 @dataclass(slots=True)
@@ -126,31 +159,6 @@ class PerformanceSnapshot:
 
 
 @dataclass(slots=True)
-class SignalRow:
-    ticker: str
-    market_cap_usd: Optional[float]
-    rank_market_cap: Optional[int]
-    news_count_48h: int
-    news_score: float
-    tech_score: float
-    yahoo_score: float
-    raw_total_score: float
-    final_total_score: float
-    final_confidence: float
-    news_confidence: float
-    tech_confidence: float
-    yahoo_confidence: float
-    data_quality_score: float
-    signal: str
-    signal_strength: str
-    warnings: list[str] = field(default_factory=list)
-    reasons: list[str] = field(default_factory=list)
-    last_week_change_pct: Optional[float] = None
-    last_1m_change_pct: Optional[float] = None
-    last_3m_change_pct: Optional[float] = None
-
-
-@dataclass(slots=True)
 class RunMetadata:
     started_at: datetime
     finished_at: datetime
@@ -159,15 +167,6 @@ class RunMetadata:
     warnings_count: int
     errors_count: int
     excel_path: str = ""
-
-
-@dataclass(slots=True)
-class RunResult:
-    run_metadata: RunMetadata
-    signals: list[SignalRow] = field(default_factory=list)
-    articles: list[NewsItem] = field(default_factory=list)
-    warnings: list[str] = field(default_factory=list)
-    errors: list[str] = field(default_factory=list)
 
 
 @dataclass(slots=True)
