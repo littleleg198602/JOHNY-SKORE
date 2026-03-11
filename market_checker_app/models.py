@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
+from typing import Any, Optional
 
 
 @dataclass(slots=True)
@@ -10,30 +10,110 @@ class NewsItem:
     ticker: str
     source: str
     title: str
+    summary: str
     published_at: datetime
     sentiment_weight: float
     url: str
 
 
 @dataclass(slots=True)
-class TechSnapshot:
+class ArticleFeatures:
     ticker: str
-    rsi: Optional[float]
-    macd: Optional[float]
-    sma_20: Optional[float]
-    sma_50: Optional[float]
-    close: Optional[float]
-    status: str
+    source: str
+    published_at: datetime
+    age_hours: float
+    title: str
+    summary: str
+    source_trust: float
+    ticker_relevance: float
+    sentiment_raw: float
+    importance_raw: float
+    recency_weight: float
+    duplicate_penalty: float
+    final_article_weight: float
+
+
+@dataclass(slots=True)
+class NewsAnalysisResult:
+    ticker: str
+    news_score: float
+    news_confidence: float
+    news_count_total: int
+    news_count_48h: int
+    unique_sources_count: int
+    high_importance_count: int
+    weighted_sentiment_sum: float
+    weighted_sentiment_avg: float
+    positive_articles_count: int
+    negative_articles_count: int
+    duplicate_ratio: float
+    stale_ratio: float
+    fresh_ratio: float
+    source_diversity_score: float
+    warnings: list[str] = field(default_factory=list)
+    reasons: list[str] = field(default_factory=list)
+    article_features: list[ArticleFeatures] = field(default_factory=list)
+
+
+@dataclass(slots=True)
+class TechAnalysisResult:
+    ticker: str
+    tech_score: float
+    tech_confidence: float
+    trend_score: float
+    momentum_score: float
+    oscillator_score: float
+    macd_score: float
+    breakout_score: float
+    volume_confirmation_score: float
+    volatility_context_adjustment: float
+    source: str
+    candles_count: int
+    warnings: list[str] = field(default_factory=list)
+    reasons: list[str] = field(default_factory=list)
+    indicators: dict[str, float | None] = field(default_factory=dict)
+
+
+@dataclass(slots=True)
+class YahooAnalysisResult:
+    ticker: str
+    yahoo_score: float
+    yahoo_confidence: float
+    analyst_sentiment_score: float
+    target_attractiveness_score: float
+    fundamental_quality_score: float
+    valuation_sanity_score: float
+    number_of_analyst_opinions: int
+    missing_fields: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
+    reasons: list[str] = field(default_factory=list)
+
+
+@dataclass(slots=True)
+class ConfidenceResult:
+    news_confidence: float
+    tech_confidence: float
+    yahoo_confidence: float
+    data_quality_score: float
+    final_confidence: float
+
+
+@dataclass(slots=True)
+class SignalDiagnostics:
+    raw_total_score: float
+    final_total_score: float
+    final_confidence: float
+    data_quality_score: float
+    signal: str
+    signal_strength: str
+    warnings: list[str] = field(default_factory=list)
+    reasons: list[str] = field(default_factory=list)
 
 
 @dataclass(slots=True)
 class YahooSnapshot:
     ticker: str
-    beta: Optional[float]
-    trailing_pe: Optional[float]
-    recommendation_key: str
-    analyst_target_price: Optional[float]
-    market_cap: Optional[float]
+    data: dict[str, Any]
     status: str
 
 
@@ -50,18 +130,24 @@ class SignalRow:
     ticker: str
     market_cap_usd: Optional[float]
     rank_market_cap: Optional[int]
-    news_weighted_48h: float
-    news_volume_48h: int
+    news_count_48h: int
     news_score: float
     tech_score: float
     yahoo_score: float
-    total_score: float
+    raw_total_score: float
+    final_total_score: float
+    final_confidence: float
+    news_confidence: float
+    tech_confidence: float
+    yahoo_confidence: float
+    data_quality_score: float
     signal: str
-    tech_status: str
-    yahoo_status: str
-    last_week_change_pct: Optional[float]
-    last_1m_change_pct: Optional[float]
-    last_3m_change_pct: Optional[float]
+    signal_strength: str
+    warnings: list[str] = field(default_factory=list)
+    reasons: list[str] = field(default_factory=list)
+    last_week_change_pct: Optional[float] = None
+    last_1m_change_pct: Optional[float] = None
+    last_3m_change_pct: Optional[float] = None
 
 
 @dataclass(slots=True)
