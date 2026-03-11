@@ -111,6 +111,7 @@ class PipelineService:
             row = {
                 "ticker": ticker,
                 "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
+                "current_price": snapshot.data.get("currentPrice"),
                 "news_count_48h": news.news_count_48h,
                 "news_score": news.news_score,
                 "tech_score": tech.tech_score,

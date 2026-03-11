@@ -30,6 +30,7 @@ class SQLiteStore:
             "key_drivers": "TEXT",
             "overall_summary": "TEXT",
             "regime": "TEXT",
+            "current_price": "REAL",
         }
         existing = {row[1] for row in conn.execute("PRAGMA table_info(signal_history)").fetchall()}
         for column, ctype in expected.items():
@@ -60,6 +61,7 @@ class SQLiteStore:
                     ticker TEXT NOT NULL,
                     updated_at TEXT NOT NULL,
                     market_cap_usd REAL,
+                    current_price REAL,
                     rank_market_cap INTEGER,
                     news_count_48h INTEGER,
                     news_score REAL,
@@ -113,6 +115,7 @@ class SQLiteStore:
                 row.ticker,
                 updated_at,
                 row.market_cap_usd,
+                row.current_price if hasattr(row, "current_price") else None,
                 row.rank_market_cap if hasattr(row, "rank_market_cap") else None,
                 row.news_count_48h,
                 row.news_score,
@@ -150,14 +153,14 @@ class SQLiteStore:
             conn.executemany(
                 """
                 INSERT INTO signal_history(
-                    run_id, ticker, updated_at, market_cap_usd, rank_market_cap,
+                    run_id, ticker, updated_at, market_cap_usd, current_price, rank_market_cap,
                     news_count_48h, news_score, tech_score, yahoo_score, behavioral_score, risk_score,
                     raw_total_score, quality_adjusted_score, risk_adjusted_score, final_total_score, final_confidence,
                     news_confidence, tech_confidence, yahoo_confidence, behavioral_confidence, data_quality_score,
                     signal, signal_strength, rank_in_watchlist, percentile_in_watchlist, regime,
                     reasons, warnings, risk_flags, key_drivers, overall_summary,
                     last_week_change_pct, last_1m_change_pct, last_3m_change_pct
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 payload,
             )
@@ -186,7 +189,7 @@ class SQLiteStore:
             return pd.read_sql_query("SELECT * FROM signal_history WHERE run_id = ?", conn, params=(run_id,))
 
     def read_global_history(self) -> pd.DataFrame:
-        q = "SELECT r.run_id, r.finished_at, s.ticker, s.final_total_score, s.raw_total_score, s.risk_score, s.behavioral_score, s.percentile_in_watchlist, s.signal, s.final_confidence FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
+        q = "SELECT r.run_id, r.finished_at, s.ticker, s.current_price, s.final_total_score, s.raw_total_score, s.risk_score, s.behavioral_score, s.rank_in_watchlist, s.percentile_in_watchlist, s.signal, s.final_confidence FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(q, conn)
 

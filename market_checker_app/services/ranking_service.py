@@ -10,7 +10,7 @@ class RankingService:
             return signals
         ranked = signals.sort_values("final_total_score", ascending=False).reset_index(drop=True)
         ranked["rank_in_watchlist"] = ranked.index + 1
-        ranked["percentile_in_watchlist"] = (1 - ranked["final_total_score"].rank(pct=True, ascending=True)) * 100
+        ranked["percentile_in_watchlist"] = ranked["final_total_score"].rank(pct=True, ascending=True) * 100
         return ranked
 
     @staticmethod
