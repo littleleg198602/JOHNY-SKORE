@@ -67,6 +67,7 @@ with st.sidebar:
     sqlite_path = Path(st.text_input("DB soubor", str(DEFAULT_DB_PATH)))
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
     load_watchlist = st.button("Načíst watchlist z MT5")
+    st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
     run_analysis = st.button("Spustit analýzu", type="primary")
 
 config = AppConfig(output_dir=output_dir, marketcap_file=marketcap_file, export_excel=export_excel, compare_previous_run=compare_prev, save_history=save_history, sqlite_path=sqlite_path, max_rss_items_per_source=int(max_rss))
@@ -84,8 +85,10 @@ if load_watchlist:
 watchlist_text = st.text_area("Watchlist (1 ticker na řádek)", "\n".join(st.session_state.watchlist), height=130)
 watchlist = MT5Client.sanitize_watchlist(watchlist_text.splitlines())
 if st.session_state.mt5_loaded_count is not None:
-    st.caption(f"Načteno z MT5: {st.session_state.mt5_loaded_count} tickerů")
-st.caption(f"Aktuálně ve watchlistu: {len(watchlist)} tickerů")
+    st.info(f"Načteno z MT5: {st.session_state.mt5_loaded_count} tickerů")
+else:
+    st.info("Načteno z MT5: 0 tickerů")
+st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů")
 rss_sources = [s.strip() for s in st.text_area("RSS sources", "https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US").splitlines() if s.strip()]
 
 if st.session_state.analysis_progress:
