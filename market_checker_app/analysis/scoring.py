@@ -42,8 +42,24 @@ def _signal_from_score(score: float, thresholds: SignalThresholds) -> str:
     return "STRONG SELL"
 
 
-def legacy_signal_from_score(score: float) -> str:
-    if score >= 80:
+def legacy_signal_from_score(score: float, thresholds: SignalThresholds | None = None) -> str:
+    """Legacy signal mapping with safe fallback thresholds.
+
+    Using explicit constants prevents NameError regressions when callers do not
+    pass threshold objects.
+    """
+    if thresholds is None:
+        if score >= 80:
+            return "STRONG BUY"
+        if score >= 66:
+            return "BUY"
+        if score >= 48:
+            return "HOLD"
+        if score >= 32:
+            return "SELL"
+        return "STRONG SELL"
+
+    if score >= thresholds.strong_buy:
         return "STRONG BUY"
     if score >= thresholds.buy:
         return "BUY"

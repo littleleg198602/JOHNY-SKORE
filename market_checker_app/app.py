@@ -50,6 +50,7 @@ def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> Non
 
 
 
+
 st.set_page_config(page_title="Market Checker", layout="wide")
 st.title("Market Checker")
 
