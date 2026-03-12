@@ -202,7 +202,7 @@ class SQLiteStore:
             return pd.read_sql_query("SELECT * FROM signal_history WHERE run_id = ?", conn, params=(run_id,))
 
     def read_global_history(self) -> pd.DataFrame:
-        q = "SELECT r.run_id, r.finished_at, s.ticker, s.current_price, s.scoring_version, s.legacy_total_score, s.legacy_signal, s.final_total_score, s.raw_total_score, s.risk_score, s.behavioral_score, s.rank_in_watchlist, s.percentile_in_watchlist, s.signal, s.final_confidence, s.tech_source_used FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
+        q = "SELECT r.run_id, r.finished_at, s.ticker, s.current_price, s.scoring_version, s.legacy_total_score, s.legacy_signal, s.final_total_score, s.raw_total_score, s.news_score, s.tech_score, s.yahoo_score, s.behavioral_score, s.risk_score, s.rank_in_watchlist, s.percentile_in_watchlist, s.signal, s.final_confidence, s.tech_source_used FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(q, conn)
 
