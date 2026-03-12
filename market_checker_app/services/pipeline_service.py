@@ -72,15 +72,10 @@ class PipelineService:
         market_caps, marketcap_warning = load_market_caps(self.config.marketcap_file)
         if marketcap_warning:
             warnings.append(marketcap_warning)
-            progress.log("WARNING", marketcap_warning)
 
         expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
-        progress.set_global_step("fetch_rss", "Načítám RSS feedy", 0.08)
         articles, rss_warnings = self.rss_client.collect(expanded_rss_sources, watchlist)
         warnings.extend(rss_warnings)
-        progress.log("INFO", f"RSS načteny: {len(articles)} článků z {len(expanded_rss_sources)} zdrojů")
-        for warning in rss_warnings:
-            progress.log("WARNING", warning)
 
         rows: list[dict[str, object]] = []
         total = len(watchlist)
@@ -89,9 +84,7 @@ class PipelineService:
             progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
             ticker_articles = [article for article in articles if article.ticker == ticker]
             news = analyze_news(ticker, ticker_articles)
-            progress.log("INFO", f"RSS: načteno {len(ticker_articles)} článků", ticker)
 
-            progress.set_step(ticker, "fetch_yahoo", f"Načítám Yahoo data pro {ticker}", 0.35)
             snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
             if yahoo_warning:
                 warnings.append(yahoo_warning)
@@ -219,11 +212,8 @@ class PipelineService:
                 store.ensure_schema()
                 run_id = store.insert_run(metadata)
                 store.insert_signal_history(run_id, signals_df, datetime.now(timezone.utc).isoformat())
-                progress.log("INFO", "Historie uložena do SQLite")
             except Exception as exc:
-                warning_msg = f"SQLite uložení běhu selhalo: {exc}"
-                warnings.append(warning_msg)
-                progress.log("ERROR", warning_msg)
+                warnings.append(f"SQLite uložení běhu selhalo: {exc}")
 
         progress.finalize("Analýza dokončena")
         return {

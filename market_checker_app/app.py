@@ -44,24 +44,11 @@ def _parse_json_list(value: object) -> list[str]:
 
 
 def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> None:
-    st.subheader("Průběh analýzy")
-    current = state.current_symbol or "-"
-    st.write(f"Zpracovávám: **{current}** ({state.current_position}/{state.total_symbols})")
-    st.info(state.current_message)
+    st.write(f"Zpracovávám: **{state.current_symbol or '-'}** ({state.current_position}/{state.total_symbols})")
     st.progress(float(state.overall_progress))
-    st.caption(f"Celkový průběh: {int(state.overall_progress * 100)} % • elapsed {elapsed_sec:.1f}s")
+    st.caption(f"{int(state.overall_progress * 100)} % • {elapsed_sec:.1f}s")
 
-    st.markdown("#### Poslední kroky")
-    recent_events = state.recent_logs[:8]
-    if recent_events:
-        for event in recent_events:
-            ts = event.get("timestamp", "--:--:--")
-            ticker = event.get("ticker", "-")
-            event_type = event.get("event_type", "INFO")
-            message = event.get("message", "")
-            st.write(f"{ts} | {event_type} | {ticker} | {message}")
-    else:
-        st.write("Log je zatím prázdný.")
+
 
 
 st.set_page_config(page_title="Market Checker", layout="wide")
