@@ -4,3 +4,4 @@ openpyxl
 yfinance
 feedparser
 MetaTrader5
+altair

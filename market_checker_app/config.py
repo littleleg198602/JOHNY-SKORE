@@ -38,10 +38,10 @@ class AdjustmentConfig:
 
 @dataclass(slots=True)
 class SignalThresholds:
-    strong_buy: float = 80.0
-    buy: float = 66.0
-    hold: float = 48.0
-    sell: float = 32.0
+    strong_buy: float = 76.0
+    buy: float = 63.0
+    hold: float = 47.0
+    sell: float = 36.0
 
 
 @dataclass(slots=True)
