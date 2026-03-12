@@ -35,6 +35,7 @@ class SQLiteStore:
             "legacy_total_score": "REAL",
             "legacy_signal": "TEXT",
             "tech_source_used": "TEXT",
+            "last_14d_change_pct": "REAL",
         }
         existing = {row[1] for row in conn.execute("PRAGMA table_info(signal_history)").fetchall()}
         for column, ctype in expected.items():
@@ -98,6 +99,7 @@ class SQLiteStore:
                     key_drivers TEXT,
                     overall_summary TEXT,
                     last_week_change_pct REAL,
+                    last_14d_change_pct REAL,
                     last_1m_change_pct REAL,
                     last_3m_change_pct REAL,
                     FOREIGN KEY(run_id) REFERENCES runs(run_id)
@@ -156,6 +158,7 @@ class SQLiteStore:
                 row.key_drivers,
                 row.overall_summary,
                 row.last_week_change_pct,
+                row.last_14d_change_pct if hasattr(row, "last_14d_change_pct") else None,
                 row.last_1m_change_pct,
                 row.last_3m_change_pct,
             )
@@ -172,8 +175,8 @@ class SQLiteStore:
                     news_confidence, tech_confidence, yahoo_confidence, behavioral_confidence, data_quality_score,
                     signal, signal_strength, rank_in_watchlist, percentile_in_watchlist, regime,
                     reasons, warnings, risk_flags, key_drivers, overall_summary,
-                    last_week_change_pct, last_1m_change_pct, last_3m_change_pct
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    last_week_change_pct, last_14d_change_pct, last_1m_change_pct, last_3m_change_pct
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 payload,
             )

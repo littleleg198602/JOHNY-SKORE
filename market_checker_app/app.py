@@ -146,6 +146,14 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
     filtered = filtered[(pd.to_numeric(filtered["final_confidence"], errors="coerce").between(confidence_range[0], confidence_range[1])) & (pd.to_numeric(filtered["risk_score"], errors="coerce").between(risk_range[0], risk_range[1]))]
 
     signal_df = VisualizationService.prepare_signal_distribution_df(filtered)
+    strong_buy_count = int(signal_df.loc[signal_df["signal"] == "STRONG BUY", "count"].sum())
+    strong_sell_count = int(signal_df.loc[signal_df["signal"] == "STRONG SELL", "count"].sum())
+    if strong_buy_count == 0 or strong_sell_count == 0:
+        st.warning(
+            f"Diagnostika signálů: STRONG BUY={strong_buy_count}, STRONG SELL={strong_sell_count}. "
+            "To nemusí být chyba – při aktuálním rozložení score a risku se extrémní signály nemusí objevit."
+        )
+
     score_hist = VisualizationService.prepare_histogram_df(filtered, "final_total_score")
     conf_hist = VisualizationService.prepare_histogram_df(filtered, "final_confidence")
     risk_hist = VisualizationService.prepare_histogram_df(filtered, "risk_score")
@@ -463,7 +471,10 @@ if st.session_state.last_result:
         _render_dashboard(signals_df, result.get("ranking", {}))
         st.markdown("### Přehledové tabulky")
         _show_limited_dataframe(result["dashboard"].get("top_total", pd.DataFrame()), "Top 20 by FinalTotalScore")
-        _show_limited_dataframe(result["dashboard"].get("bottom_total", pd.DataFrame()), "Top 20 weekly drops")
+        _show_limited_dataframe(result["dashboard"].get("weekly_drops", pd.DataFrame()), "Top 20: 7denní propad")
+        _show_limited_dataframe(result["dashboard"].get("d14_drops", pd.DataFrame()), "Top 20: 14denní propad")
+        _show_limited_dataframe(result["dashboard"].get("m1_drops", pd.DataFrame()), "Top 20: 1M propad")
+        _show_limited_dataframe(result["dashboard"].get("m3_drops", pd.DataFrame()), "Top 20: 3M propad")
         _show_limited_dataframe(result["dashboard"].get("top_marketcap", pd.DataFrame()), "Top 20 by MarketCap")
 
     with tab_articles:

@@ -41,6 +41,7 @@ class ExcelExporter:
         "key_drivers",
         "overall_summary",
         "last_week_change_pct",
+        "last_14d_change_pct",
         "last_1m_change_pct",
         "last_3m_change_pct",
     ]

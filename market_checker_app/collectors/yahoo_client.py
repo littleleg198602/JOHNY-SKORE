@@ -6,24 +6,39 @@ from market_checker_app.models import PerformanceSnapshot, YahooSnapshot
 
 
 class YahooClient:
+    @staticmethod
+    def _return_from_history(hist, days: int) -> float | None:
+        if hist is None or hist.empty or "Close" not in hist.columns:
+            return None
+        close = hist["Close"].dropna()
+        if len(close) <= days:
+            return None
+        latest = float(close.iloc[-1])
+        base = float(close.iloc[-(days + 1)])
+        if base == 0:
+            return None
+        return ((latest / base) - 1) * 100
+
     def fetch_snapshots(self, ticker: str) -> tuple[YahooSnapshot, PerformanceSnapshot, str | None]:
         try:
             tk = yf.Ticker(ticker)
             info = tk.info
             if not isinstance(info, dict) or not info:
                 raise ValueError("Yahoo vrátil prázdná metadata")
+            perf_hist = tk.history(period="6mo", interval="1d", auto_adjust=False)
         except Exception as exc:
             return (
                 YahooSnapshot(ticker=ticker, data={}, status="fallback"),
-                PerformanceSnapshot(ticker, None, None, None),
+                PerformanceSnapshot(ticker, None, None, None, None),
                 f"Yahoo data nejsou dostupná pro {ticker}. Používám fallback. Detail: {exc}",
             )
 
         perf = PerformanceSnapshot(
             ticker=ticker,
-            last_week_change_pct=info.get("52WeekChange") * 100 if isinstance(info.get("52WeekChange"), float) else None,
-            last_1m_change_pct=info.get("fiftyDayAverageChangePercent") * 100 if isinstance(info.get("fiftyDayAverageChangePercent"), float) else None,
-            last_3m_change_pct=info.get("threeMonthAverageReturn") * 100 if isinstance(info.get("threeMonthAverageReturn"), float) else None,
+            last_week_change_pct=self._return_from_history(perf_hist, 7),
+            last_14d_change_pct=self._return_from_history(perf_hist, 14),
+            last_1m_change_pct=self._return_from_history(perf_hist, 21),
+            last_3m_change_pct=self._return_from_history(perf_hist, 63),
         )
         return YahooSnapshot(ticker=ticker, data=info, status="ok"), perf, None
 
