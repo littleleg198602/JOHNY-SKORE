@@ -66,6 +66,9 @@ class PipelineService:
         errors: list[str] = []
         progress = ProgressService(total_symbols=len(watchlist), max_logs=30, on_update=progress_callback)
 
+        progress.set_global_step("start", "Inicializuji pipeline", 0.02)
+        progress.log("INFO", f"Start analýzy pro {len(watchlist)} tickerů")
+
         market_caps, marketcap_warning = load_market_caps(self.config.marketcap_file)
         if marketcap_warning:
             warnings.append(marketcap_warning)
@@ -78,16 +81,20 @@ class PipelineService:
         total = len(watchlist)
         for idx, ticker in enumerate(watchlist, start=1):
             progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
+            progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
             ticker_articles = [article for article in articles if article.ticker == ticker]
             news = analyze_news(ticker, ticker_articles)
 
             snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
             if yahoo_warning:
                 warnings.append(yahoo_warning)
+                progress.log("WARNING", yahoo_warning, ticker)
+            progress.set_step(ticker, "score_yahoo", f"Počítám Yahoo score pro {ticker}", 0.5)
             yresult = analyze_yahoo(snapshot)
 
             tech_source_used = "mt5"
             tech_source_warning: str | None = None
+            progress.set_step(ticker, "fetch_tech", f"Načítám OHLC data pro {ticker}", 0.62)
             mt5_ohlc, mt5_warning = self.mt5_client.fetch_ohlcv(ticker)
             if mt5_ohlc is not None and not mt5_ohlc.empty:
                 ohlc = mt5_ohlc
@@ -101,11 +108,14 @@ class PipelineService:
                     fallback_parts.append(f"yfinance: {ohlc_warning}")
                 tech_source_warning = " | ".join(fallback_parts)
                 warnings.append(tech_source_warning)
+                progress.log("FALLBACK", tech_source_warning, ticker)
 
+            progress.set_step(ticker, "score_tech", f"Počítám technickou analýzu pro {ticker}", 0.74)
             tech = analyze_tech(ticker, ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame(), source=tech_source_used)
             if tech_source_warning:
                 tech.warnings.append(tech_source_warning)
 
+            progress.set_step(ticker, "behavioral_risk", f"Počítám behavioral a risk vrstvu pro {ticker}", 0.82)
             behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
             risk = analyze_risk(ticker, news, tech, yresult, behavioral)
 
@@ -125,6 +135,7 @@ class PipelineService:
             combined_warnings = merge_warnings(news.warnings, tech.warnings, yresult.warnings, behavioral.warnings, risk.risk_flags)
             combined_reasons = merge_reasons(news.reasons, tech.reasons, yresult.reasons, behavioral.reasons, risk.risk_reasons)
             key_drivers = build_key_drivers(news.news_score, tech.tech_score, yresult.yahoo_score, behavioral.behavioral_score, risk.risk_score, regime)
+            progress.set_step(ticker, "merge_scores", f"Skládám finální score pro {ticker}", 0.92)
             diag = finalize_signal(
                 raw_score=raw_total,
                 final_confidence=conf.final_confidence,
@@ -174,6 +185,15 @@ class PipelineService:
                 "last_3m_change_pct": perf.last_3m_change_pct,
             }
             rows.append(row)
+            progress.add_completed_row({
+                "Ticker": ticker,
+                "FinalTotalScore": round(diag.final_total_score, 2),
+                "Signal": diag.signal,
+                "Confidence": round(conf.final_confidence, 2),
+                "TechSource": tech_source_used,
+                "Status": "Dokončeno",
+            })
+            progress.log("DONE", f"Dokončeno: {ticker} → {diag.signal} / {diag.final_total_score:.1f}", ticker)
 
         signals_df = RankingService.apply_ranking(pd.DataFrame(rows))
         if not signals_df.empty and signals_df["market_cap_usd"].notna().any():
@@ -187,6 +207,7 @@ class PipelineService:
         metadata = RunMetadata(started_at, finished_at, len(watchlist), len(signals_df), len(warnings), len(errors), "")
         run_id: int | None = None
         if self.config.save_history and store is not None:
+            progress.set_global_step("save_history", "Ukládám výsledky do SQLite historie", 0.96)
             try:
                 store.ensure_schema()
                 run_id = store.insert_run(metadata)
