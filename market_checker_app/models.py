@@ -154,6 +154,7 @@ class YahooSnapshot:
 class PerformanceSnapshot:
     ticker: str
     last_week_change_pct: Optional[float]
+    last_14d_change_pct: Optional[float]
     last_1m_change_pct: Optional[float]
     last_3m_change_pct: Optional[float]
 
