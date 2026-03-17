@@ -11,9 +11,9 @@ DEFAULT_MAX_RSS_ITEMS = 30
 
 @dataclass(slots=True)
 class ModuleWeights:
-    news: float = 0.28
-    tech: float = 0.30
-    yahoo: float = 0.22
+    news: float = 0.40
+    tech: float = 0.20
+    yahoo: float = 0.20
     behavioral: float = 0.20
 
 
