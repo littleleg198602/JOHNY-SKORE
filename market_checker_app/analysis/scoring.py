@@ -70,6 +70,23 @@ def legacy_signal_from_score(score: float, thresholds: SignalThresholds | None =
     return "STRONG SELL"
 
 
+
+
+def _downgrade_bullish_signal(signal: str) -> str:
+    if signal == "STRONG BUY":
+        return "BUY"
+    if signal == "BUY":
+        return "HOLD"
+    return signal
+
+
+def _upgrade_bearish_signal(signal: str) -> str:
+    if signal == "STRONG SELL":
+        return "SELL"
+    if signal == "SELL":
+        return "HOLD"
+    return signal
+
 def _strength(score: float, confidence: float) -> str:
     mix = score * 0.68 + confidence * 0.32
     if mix >= 82:
@@ -98,11 +115,14 @@ def finalize_signal(
 
     signal = _signal_from_score(final_score, thresholds)
     if final_confidence < 42 and signal in {"BUY", "STRONG BUY"}:
-        signal = "HOLD"
-        warnings.append("signal downgraded due to low confidence")
+        signal = _downgrade_bullish_signal(signal)
+        warnings.append("signal softened due to low confidence")
     if risk_score > 75 and signal in {"BUY", "STRONG BUY"}:
-        signal = "HOLD"
-        warnings.append("signal downgraded due to high risk")
+        signal = _downgrade_bullish_signal(signal)
+        warnings.append("signal softened due to high risk")
+    if final_confidence < 34 and signal in {"SELL", "STRONG SELL"}:
+        signal = _upgrade_bearish_signal(signal)
+        warnings.append("bearish signal softened due to low confidence")
 
     return SignalDiagnostics(
         raw_total_score=round(raw_score, 2),

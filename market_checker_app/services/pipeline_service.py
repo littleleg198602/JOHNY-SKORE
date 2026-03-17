@@ -181,6 +181,7 @@ class PipelineService:
                 "key_drivers": json.dumps(diag.key_drivers, ensure_ascii=False),
                 "overall_summary": diag.overall_summary,
                 "last_week_change_pct": perf.last_week_change_pct,
+                "last_14d_change_pct": perf.last_14d_change_pct,
                 "last_1m_change_pct": perf.last_1m_change_pct,
                 "last_3m_change_pct": perf.last_3m_change_pct,
             }

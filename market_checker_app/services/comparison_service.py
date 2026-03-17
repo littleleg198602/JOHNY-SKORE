@@ -10,12 +10,17 @@ class ComparisonService:
     def compare_runs(current: pd.DataFrame, previous: pd.DataFrame) -> pd.DataFrame:
         if current.empty or previous.empty:
             return pd.DataFrame()
-        cols = ["ticker", "final_total_score", "news_score", "tech_score", "yahoo_score", "final_confidence", "signal"]
+        base_cols = ["ticker", "final_total_score", "news_score", "tech_score", "yahoo_score", "behavioral_score", "risk_score", "final_confidence", "signal"]
+        cols = [c for c in base_cols if c in current.columns and c in previous.columns]
         merged = current[cols].merge(previous[cols], on="ticker", suffixes=("", "_prev"), how="inner")
         merged["DeltaTotal"] = merged["final_total_score"] - merged["final_total_score_prev"]
         merged["DeltaNews"] = merged["news_score"] - merged["news_score_prev"]
         merged["DeltaTech"] = merged["tech_score"] - merged["tech_score_prev"]
         merged["DeltaYahoo"] = merged["yahoo_score"] - merged["yahoo_score_prev"]
+        if "behavioral_score" in merged.columns and "behavioral_score_prev" in merged.columns:
+            merged["DeltaBehavioral"] = merged["behavioral_score"] - merged["behavioral_score_prev"]
+        if "risk_score" in merged.columns and "risk_score_prev" in merged.columns:
+            merged["DeltaRisk"] = merged["risk_score"] - merged["risk_score_prev"]
         merged["DeltaConfidence"] = merged["final_confidence"] - merged["final_confidence_prev"]
         merged["SignalChange"] = merged["signal_prev"] + " -> " + merged["signal"]
         return merged.sort_values("DeltaTotal", ascending=False)

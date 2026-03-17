@@ -41,6 +41,7 @@ class ExcelExporter:
         "key_drivers",
         "overall_summary",
         "last_week_change_pct",
+        "last_14d_change_pct",
         "last_1m_change_pct",
         "last_3m_change_pct",
     ]
@@ -70,6 +71,7 @@ class ExcelExporter:
         articles: pd.DataFrame,
         dashboard: dict[str, pd.DataFrame],
         delta: pd.DataFrame | None = None,
+        dashboard_export: dict[str, pd.DataFrame] | None = None,
     ) -> Path:
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -85,14 +87,43 @@ class ExcelExporter:
 
             dashboard_sheet = pd.concat(
                 [
-                    dashboard["top_total"].assign(section="Top20 FinalTotalScore"),
-                    dashboard["weekly_drops"].assign(section="Top20 Weekly Drops"),
-                    dashboard["m1_drops"].assign(section="Top20 1M Drops"),
-                    dashboard["m3_drops"].assign(section="Top20 3M Drops"),
+                    dashboard.get("top_total", pd.DataFrame()).assign(section="Top20 FinalTotalScore"),
+                    dashboard.get("weekly_drops", pd.DataFrame()).assign(section="Top20 7D Drops"),
+                    dashboard.get("d14_drops", pd.DataFrame()).assign(section="Top20 14D Drops"),
+                    dashboard.get("m1_drops", pd.DataFrame()).assign(section="Top20 1M Drops"),
+                    dashboard.get("m3_drops", pd.DataFrame()).assign(section="Top20 3M Drops"),
+                    dashboard.get("top_marketcap", pd.DataFrame()).assign(section="Top20 MarketCap"),
+                    dashboard.get("bottom_marketcap", pd.DataFrame()).assign(section="Bottom20 MarketCap"),
                 ],
                 ignore_index=True,
             )
             self._sanitize_for_excel(dashboard_sheet).to_excel(writer, sheet_name="Dashboard", index=False)
+
+            if dashboard_export:
+                sheet_mapping = {
+                    "dashboard_kpi": "Dash_KPI",
+                    "signal_distribution": "Dash_SignalDist",
+                    "score_distribution": "Dash_ScoreDist",
+                    "confidence_distribution": "Dash_ConfDist",
+                    "risk_distribution": "Dash_RiskDist",
+                    "scatter_confidence_score": "Dash_Scatter",
+                    "top10_final_score": "Dash_Top10",
+                    "bottom10_final_score": "Dash_Bottom10",
+                    "ranking_top": "Dash_RankTop",
+                    "ranking_bottom": "Dash_RankBottom",
+                    "drop_7d": "Dash_Drop7D",
+                    "drop_14d": "Dash_Drop14D",
+                    "drop_1m": "Dash_Drop1M",
+                    "drop_3m": "Dash_Drop3M",
+                    "shared_drop_tickers": "Dash_SharedDrops",
+                    "top_marketcap": "Dash_McapTop",
+                    "bottom_marketcap": "Dash_McapBottom",
+                }
+                for key, sheet_name in sheet_mapping.items():
+                    frame = dashboard_export.get(key, pd.DataFrame())
+                    if frame is not None and not frame.empty:
+                        self._sanitize_for_excel(frame).to_excel(writer, sheet_name=sheet_name, index=False)
+
             if delta is not None and not delta.empty:
                 self._sanitize_for_excel(delta).to_excel(writer, sheet_name="DeltaVsPrev", index=False)
         return output_path
