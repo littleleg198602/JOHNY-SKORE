@@ -11,10 +11,20 @@ DEFAULT_MAX_RSS_ITEMS = 30
 
 @dataclass(slots=True)
 class ModuleWeights:
+    # Legacy linear score (kept for backward compatibility / comparison)
     news: float = 0.40
     tech: float = 0.20
     yahoo: float = 0.20
     behavioral: float = 0.20
+
+
+@dataclass(slots=True)
+class DecisionModuleWeights:
+    # New dual-axis decision engine
+    technical: float = 0.30
+    news: float = 0.40
+    panic: float = 0.20
+    analysts: float = 0.10
 
 
 @dataclass(slots=True)
@@ -38,10 +48,25 @@ class AdjustmentConfig:
 
 @dataclass(slots=True)
 class SignalThresholds:
-    strong_buy: float = 76.0
-    buy: float = 63.0
+    # Legacy fallback thresholds
+    strong_buy: float = 68.0
+    buy: float = 58.0
     hold: float = 47.0
-    sell: float = 36.0
+    sell: float = 38.0
+
+
+@dataclass(slots=True)
+class DecisionThresholds:
+    strong_buy_min_bull_score: float = 68.0
+    strong_buy_min_spread: float = 18.0
+    buy_min_spread: float = 8.0
+    hold_band: float = 7.0
+    sell_min_spread: float = -8.0
+    strong_sell_min_bear_score: float = 68.0
+    strong_sell_min_negative_spread: float = -18.0
+    minimum_confidence_buy: float = 0.50
+    minimum_confidence_strong: float = 0.62
+    panic_block_threshold: float = 72.0
 
 
 @dataclass(slots=True)
@@ -61,6 +86,8 @@ class AppConfig:
     sqlite_path: Path = DEFAULT_DB_PATH
     max_rss_items_per_source: int = DEFAULT_MAX_RSS_ITEMS
     module_weights: ModuleWeights = field(default_factory=ModuleWeights)
+    decision_weights: DecisionModuleWeights = field(default_factory=DecisionModuleWeights)
+    decision_thresholds: DecisionThresholds = field(default_factory=DecisionThresholds)
     behavioral_weights: BehavioralWeights = field(default_factory=BehavioralWeights)
     adjustment: AdjustmentConfig = field(default_factory=AdjustmentConfig)
     signal_thresholds: SignalThresholds = field(default_factory=SignalThresholds)

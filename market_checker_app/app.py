@@ -16,7 +16,7 @@ import pandas as pd
 import streamlit as st
 
 from market_checker_app.collectors.mt5_client import MT5Client
-from market_checker_app.config import AppConfig, DEFAULT_DB_PATH, DEFAULT_OUTPUT_DIR
+from market_checker_app.config import AppConfig, DEFAULT_DB_PATH, DEFAULT_OUTPUT_DIR, SignalThresholds
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
 from market_checker_app.exporters.delta_builder import prepare_delta_for_excel
 from market_checker_app.exporters.excel_exporter import ExcelExporter
@@ -131,6 +131,26 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
     c5.metric("BUY + STRONG BUY", kpi["buy_count"])
     c6.metric("SELL + STRONG SELL", kpi["sell_count"])
 
+    st.markdown("### Diagnostika rozhodovacího enginu")
+    bull_series = pd.to_numeric(signals_df.get("bull_score", pd.Series(dtype=float)), errors="coerce")
+    bear_series = pd.to_numeric(signals_df.get("bear_score", pd.Series(dtype=float)), errors="coerce")
+    spread_series = pd.to_numeric(signals_df.get("bull_bear_spread", pd.Series(dtype=float)), errors="coerce")
+    d1, d2, d3, d4 = st.columns(4)
+    d1.metric("Bull score min/max", f"{bull_series.min():.1f} / {bull_series.max():.1f}" if not bull_series.dropna().empty else "n/a")
+    d2.metric("Bear score min/max", f"{bear_series.min():.1f} / {bear_series.max():.1f}" if not bear_series.dropna().empty else "n/a")
+    d3.metric("Spread min/max", f"{spread_series.min():.1f} / {spread_series.max():.1f}" if not spread_series.dropna().empty else "n/a")
+    d4.metric("Signal downgrady", int(pd.to_numeric(signals_df.get("downgrade_count", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()))
+
+    blocked_series = signals_df.get("blocked_reasons")
+    if blocked_series is not None:
+        blocked_items: list[str] = []
+        for value in blocked_series.dropna().tolist():
+            blocked_items.extend(_parse_json_list(value))
+        if blocked_items:
+            blocked_df = pd.Series(blocked_items).value_counts().reset_index()
+            blocked_df.columns = ["důvod_blokace", "count"]
+            st.dataframe(blocked_df, width="stretch")
+
     signals = sorted(signals_df["signal"].dropna().unique().tolist()) if "signal" in signals_df.columns else []
     filter_col1, filter_col2, filter_col3 = st.columns(3)
     with filter_col1:
@@ -146,6 +166,17 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
     filtered = filtered[(pd.to_numeric(filtered["final_confidence"], errors="coerce").between(confidence_range[0], confidence_range[1])) & (pd.to_numeric(filtered["risk_score"], errors="coerce").between(risk_range[0], risk_range[1]))]
 
     signal_df = VisualizationService.prepare_signal_distribution_df(filtered)
+    thresholds = SignalThresholds()
+    score_series = pd.to_numeric(filtered.get("final_total_score", pd.Series(dtype=float)), errors="coerce")
+    observed_min = float(score_series.min()) if not score_series.dropna().empty else 0.0
+    observed_max = float(score_series.max()) if not score_series.dropna().empty else 0.0
+    if observed_max < thresholds.strong_buy or observed_min > thresholds.sell:
+        st.warning(
+            f"Dosažitelnost hranic: min={observed_min:.2f}, max={observed_max:.2f}, "
+            f"STRONG BUY >= {thresholds.strong_buy}, STRONG SELL < {thresholds.sell}. "
+            "Pokud jsou hranice mimo rozsah score, extrémy se neobjeví."
+        )
+
     strong_buy_count = int(signal_df.loc[signal_df["signal"] == "STRONG BUY", "count"].sum())
     strong_sell_count = int(signal_df.loc[signal_df["signal"] == "STRONG SELL", "count"].sum())
     if strong_buy_count == 0 or strong_sell_count == 0:
@@ -373,6 +404,9 @@ def _render_signals(signals_df: pd.DataFrame) -> None:
         "yahoo_score",
         "behavioral_score",
         "risk_score",
+        "bull_score",
+        "bear_score",
+        "bull_bear_spread",
         "raw_total_score",
         "quality_adjusted_score",
         "risk_adjusted_score",

@@ -127,6 +127,18 @@ class ConfidenceResult:
     final_confidence: float
 
 
+
+
+@dataclass(slots=True)
+class ModuleAxisResult:
+    module: str
+    direction: str
+    bull_contribution: float
+    bear_contribution: float
+    confidence: float
+    explanation: str
+
+
 @dataclass(slots=True)
 class SignalDiagnostics:
     raw_total_score: float
@@ -137,6 +149,15 @@ class SignalDiagnostics:
     data_quality_score: float
     signal: str
     signal_strength: str
+    bull_score: float = 0.0
+    bear_score: float = 0.0
+    bull_bear_spread: float = 0.0
+    bullish_module_count: int = 0
+    bearish_module_count: int = 0
+    neutral_module_count: int = 0
+    blocked_reasons: list[str] = field(default_factory=list)
+    downgrade_count: int = 0
+    module_breakdown: list[dict[str, object]] = field(default_factory=list)
     reasons: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     key_drivers: list[str] = field(default_factory=list)
