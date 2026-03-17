@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import math
+
 import pandas as pd
 
 from market_checker_app.models import TechAnalysisResult
@@ -21,6 +23,15 @@ def _atr(df: pd.DataFrame, period: int = 14) -> pd.Series:
     return tr.rolling(period).mean()
 
 
+def _safe_float(value: object) -> float | None:
+    if value is None or pd.isna(value):
+        return None
+    number = float(value)
+    if math.isnan(number) or math.isinf(number):
+        return None
+    return number
+
+
 def analyze_tech(ticker: str, ohlc: pd.DataFrame, source: str = "yfinance") -> TechAnalysisResult:
     if ohlc.empty or "Close" not in ohlc.columns:
         return TechAnalysisResult(ticker, 50.0, 20.0, 50, 50, 50, 50, 50, 40, 0, source, 0, "mixed", ["insufficient OHLC history"], ["No OHLC candles available."])
@@ -35,8 +46,8 @@ def analyze_tech(ticker: str, ohlc: pd.DataFrame, source: str = "yfinance") -> T
     sma20, sma50, sma100, sma200 = [float(close.rolling(n).mean().iloc[-1]) if len(close) >= n else None for n in [20, 50, 100, 200]]
     ema20 = float(close.ewm(span=20, adjust=False).mean().iloc[-1]) if len(close) >= 20 else None
     ema50 = float(close.ewm(span=50, adjust=False).mean().iloc[-1]) if len(close) >= 50 else None
-    rsi14 = float(_rsi(close, 14).iloc[-1]) if len(close) >= 20 else None
-    rsi7 = float(_rsi(close, 7).iloc[-1]) if len(close) >= 10 else None
+    rsi14 = _safe_float(_rsi(close, 14).iloc[-1]) if len(close) >= 20 else None
+    rsi7 = _safe_float(_rsi(close, 7).iloc[-1]) if len(close) >= 10 else None
 
     ema12 = close.ewm(span=12, adjust=False).mean()
     ema26 = close.ewm(span=26, adjust=False).mean()
@@ -44,9 +55,9 @@ def analyze_tech(ticker: str, ohlc: pd.DataFrame, source: str = "yfinance") -> T
     macd_signal = macd.ewm(span=9, adjust=False).mean()
     macd_hist = macd - macd_signal
 
-    stoch_k = (((close - low.rolling(14).min()) / (high.rolling(14).max() - low.rolling(14).min()).replace(0, pd.NA)) * 100).iloc[-1] if len(close) >= 20 else None
-    williams_r = (-100 * (high.rolling(14).max() - close) / (high.rolling(14).max() - low.rolling(14).min()).replace(0, pd.NA)).iloc[-1] if len(close) >= 20 else None
-    atr14 = float(_atr(df.assign(High=high, Low=low, Close=close), 14).iloc[-1]) if len(close) >= 20 else None
+    stoch_k = _safe_float((((close - low.rolling(14).min()) / (high.rolling(14).max() - low.rolling(14).min()).replace(0, pd.NA)) * 100).iloc[-1]) if len(close) >= 20 else None
+    williams_r = _safe_float((-100 * (high.rolling(14).max() - close) / (high.rolling(14).max() - low.rolling(14).min()).replace(0, pd.NA)).iloc[-1]) if len(close) >= 20 else None
+    atr14 = _safe_float(_atr(df.assign(High=high, Low=low, Close=close), 14).iloc[-1]) if len(close) >= 20 else None
 
     p1w = ((latest / float(close.iloc[-6])) - 1) * 100 if len(close) >= 6 else 0.0
     p1m = ((latest / float(close.iloc[-22])) - 1) * 100 if len(close) >= 22 else 0.0
@@ -54,7 +65,7 @@ def analyze_tech(ticker: str, ohlc: pd.DataFrame, source: str = "yfinance") -> T
 
     trend_score = 30 + 12 * sum(1 for level in [sma20, sma50, sma100, sma200, ema20, ema50] if level is not None and latest > level)
     momentum_score = max(0.0, min(100.0, 50 + p1w * 1.0 + p1m * 0.9 + p3m * 0.5))
-    oscillator_score = max(0.0, min(100.0, 50 + (8 if rsi14 and 45 <= rsi14 <= 68 else -6) + (6 if stoch_k and 30 <= stoch_k <= 80 else -5) + (5 if williams_r and -80 <= williams_r <= -20 else -4)))
+    oscillator_score = max(0.0, min(100.0, 50 + (8 if rsi14 is not None and 45 <= rsi14 <= 68 else -6) + (6 if stoch_k is not None and 30 <= stoch_k <= 80 else -5) + (5 if williams_r is not None and -80 <= williams_r <= -20 else -4)))
     macd_score = 50 + (14 if macd.iloc[-1] > macd_signal.iloc[-1] else -10) + (10 if macd_hist.iloc[-1] > 0 else -8)
 
     high20 = float(close.tail(20).max()) if len(close) >= 20 else latest
