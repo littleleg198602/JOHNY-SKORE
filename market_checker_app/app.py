@@ -15,6 +15,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+from market_checker_app.analysis.scoring import validate_decision_scenarios
 from market_checker_app.collectors.mt5_client import MT5Client
 from market_checker_app.config import AppConfig, DEFAULT_DB_PATH, DEFAULT_OUTPUT_DIR, SignalThresholds
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
@@ -140,6 +141,11 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
     d2.metric("Bear score min/max", f"{bear_series.min():.1f} / {bear_series.max():.1f}" if not bear_series.dropna().empty else "n/a")
     d3.metric("Spread min/max", f"{spread_series.min():.1f} / {spread_series.max():.1f}" if not spread_series.dropna().empty else "n/a")
     d4.metric("Signal downgrady", int(pd.to_numeric(signals_df.get("downgrade_count", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()))
+
+    app_cfg = AppConfig()
+    scenario_rows = validate_decision_scenarios(app_cfg.decision_weights, app_cfg.decision_thresholds)
+    scenario_df = pd.DataFrame(scenario_rows)
+    st.dataframe(scenario_df, width="stretch")
 
     blocked_series = signals_df.get("blocked_reasons")
     if blocked_series is not None:
