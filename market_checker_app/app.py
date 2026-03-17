@@ -116,7 +116,7 @@ def _render_detail_ticker(signals_df: pd.DataFrame, ticker: str) -> None:
             st.write(f"- {item}")
 
 
-def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.DataFrame]) -> None:
+def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.DataFrame], dashboard_tables: dict[str, pd.DataFrame]) -> None:
     if signals_df.empty:
         st.info("Dashboard zatím nemá data. Spusťte analýzu.")
         return
@@ -181,6 +181,14 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
     with cbottom:
         st.altair_chart(top_bottom_bar_chart(bottom10, "final_total_score", "Bottom 10 tickerů podle FinalTotalScore", positive_color="#2ca02c", negative_color="#d62728"), width="stretch")
         st.dataframe(bottom10, width="stretch")
+
+    overlap = VisualizationService.prepare_drop_overlap_tables(dashboard_tables)
+    shared = overlap.get("shared_drop_tickers", pd.DataFrame())
+    st.subheader("Stejné tickery napříč propady")
+    if shared.empty:
+        st.info("Žádný ticker se neopakuje napříč 7D/14D/1M/3M propady.")
+    else:
+        st.dataframe(shared, width="stretch")
 
     with st.expander("Top/Bottom rank overview", expanded=False):
         st.dataframe(ranking_tables.get("top", pd.DataFrame()).head(20), width="stretch")
@@ -446,11 +454,13 @@ if run_analysis:
             delta_df = ComparisonService.compare_runs(result["signals"], previous)
 
     dashboard_tables = build_dashboard_tables(result["signals"])
+    dashboard_tables.update(VisualizationService.prepare_drop_overlap_tables(dashboard_tables))
     ranking_tables = RankingService.top_bottom_tables(result["signals"])
 
     if export_excel:
         path = output_dir / f"market_checker_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
-        ExcelExporter().export(path, result["signals"], result["sources"], result["articles"], dashboard_tables, prepare_delta_for_excel(delta_df))
+        dashboard_export = VisualizationService.prepare_dashboard_export_payload(result["signals"], ranking_tables, dashboard_tables)
+        ExcelExporter().export(path, result["signals"], result["sources"], result["articles"], dashboard_tables, prepare_delta_for_excel(delta_df), dashboard_export)
         st.success(f"Excel export uložen: {path}")
 
     result["dashboard"] = dashboard_tables
@@ -468,13 +478,13 @@ if st.session_state.last_result:
         _render_signals(signals_df)
 
     with tab_dashboard:
-        _render_dashboard(signals_df, result.get("ranking", {}))
+        _render_dashboard(signals_df, result.get("ranking", {}), result.get("dashboard", {}))
         st.markdown("### Přehledové tabulky")
         _show_limited_dataframe(result["dashboard"].get("top_total", pd.DataFrame()), "Top 20 by FinalTotalScore")
-        _show_limited_dataframe(result["dashboard"].get("weekly_drops", pd.DataFrame()), "Top 20: 7denní propad")
-        _show_limited_dataframe(result["dashboard"].get("d14_drops", pd.DataFrame()), "Top 20: 14denní propad")
-        _show_limited_dataframe(result["dashboard"].get("m1_drops", pd.DataFrame()), "Top 20: 1M propad")
-        _show_limited_dataframe(result["dashboard"].get("m3_drops", pd.DataFrame()), "Top 20: 3M propad")
+        _show_limited_dataframe(result["dashboard"].get("weekly_drops", pd.DataFrame()), "Top 20: 7denní propad", preferred_cols=["ticker", "last_week_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
+        _show_limited_dataframe(result["dashboard"].get("d14_drops", pd.DataFrame()), "Top 20: 14denní propad", preferred_cols=["ticker", "last_14d_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
+        _show_limited_dataframe(result["dashboard"].get("m1_drops", pd.DataFrame()), "Top 20: 1M propad", preferred_cols=["ticker", "last_1m_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
+        _show_limited_dataframe(result["dashboard"].get("m3_drops", pd.DataFrame()), "Top 20: 3M propad", preferred_cols=["ticker", "last_3m_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
         _show_limited_dataframe(result["dashboard"].get("top_marketcap", pd.DataFrame()), "Top 20 by MarketCap")
 
     with tab_articles:

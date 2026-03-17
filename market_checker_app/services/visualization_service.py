@@ -245,3 +245,67 @@ class VisualizationService:
             ],
         }
         return pd.DataFrame(data)
+
+
+    @staticmethod
+    def prepare_drop_overlap_tables(dashboard_tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
+        keys = ["weekly_drops", "d14_drops", "m1_drops", "m3_drops"]
+        ticker_to_windows: dict[str, set[str]] = {}
+        for key in keys:
+            frame = dashboard_tables.get(key, pd.DataFrame())
+            if frame.empty or "ticker" not in frame.columns:
+                continue
+            for ticker in frame["ticker"].dropna().astype(str).tolist():
+                ticker_to_windows.setdefault(ticker, set()).add(key)
+
+        out: dict[str, pd.DataFrame] = {}
+        for key in keys:
+            frame = dashboard_tables.get(key, pd.DataFrame())
+            if frame.empty or "ticker" not in frame.columns:
+                out[key] = frame
+                continue
+            enhanced = frame.copy()
+            enhanced["overlap_count"] = enhanced["ticker"].astype(str).map(lambda t: len(ticker_to_windows.get(t, set())))
+            enhanced["overlap_windows"] = enhanced["ticker"].astype(str).map(lambda t: ", ".join(sorted(ticker_to_windows.get(t, set()))))
+            enhanced["is_shared_drop"] = enhanced["overlap_count"] > 1
+            out[key] = enhanced
+
+        overlap_rows = [
+            {"ticker": ticker, "overlap_count": len(windows), "overlap_windows": ", ".join(sorted(windows))}
+            for ticker, windows in ticker_to_windows.items()
+            if len(windows) > 1
+        ]
+        out["shared_drop_tickers"] = pd.DataFrame(overlap_rows).sort_values(["overlap_count", "ticker"], ascending=[False, True]) if overlap_rows else pd.DataFrame(columns=["ticker", "overlap_count", "overlap_windows"])
+        return out
+
+    @staticmethod
+    def prepare_dashboard_export_payload(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.DataFrame], dashboard_tables: dict[str, pd.DataFrame]) -> dict[str, pd.DataFrame]:
+        kpi = VisualizationService.prepare_kpi(signals_df)
+        signal_df = VisualizationService.prepare_signal_distribution_df(signals_df)
+        score_hist = VisualizationService.prepare_histogram_df(signals_df, "final_total_score")
+        conf_hist = VisualizationService.prepare_histogram_df(signals_df, "final_confidence")
+        risk_hist = VisualizationService.prepare_histogram_df(signals_df, "risk_score")
+        scatter_df = VisualizationService.prepare_scatter_df(signals_df)
+        top10, bottom10 = VisualizationService.prepare_top_bottom_df(signals_df, "final_total_score", n=10)
+        overlap = VisualizationService.prepare_drop_overlap_tables(dashboard_tables)
+
+        return {
+            "dashboard_kpi": pd.DataFrame([kpi]),
+            "signal_distribution": signal_df,
+            "score_distribution": score_hist,
+            "confidence_distribution": conf_hist,
+            "risk_distribution": risk_hist,
+            "scatter_confidence_score": scatter_df,
+            "top10_final_score": top10,
+            "bottom10_final_score": bottom10,
+            "ranking_top": ranking_tables.get("top", pd.DataFrame()),
+            "ranking_bottom": ranking_tables.get("bottom", pd.DataFrame()),
+            "top20_final_total": dashboard_tables.get("top_total", pd.DataFrame()),
+            "drop_7d": overlap.get("weekly_drops", pd.DataFrame()),
+            "drop_14d": overlap.get("d14_drops", pd.DataFrame()),
+            "drop_1m": overlap.get("m1_drops", pd.DataFrame()),
+            "drop_3m": overlap.get("m3_drops", pd.DataFrame()),
+            "shared_drop_tickers": overlap.get("shared_drop_tickers", pd.DataFrame()),
+            "top_marketcap": dashboard_tables.get("top_marketcap", pd.DataFrame()),
+            "bottom_marketcap": dashboard_tables.get("bottom_marketcap", pd.DataFrame()),
+        }
