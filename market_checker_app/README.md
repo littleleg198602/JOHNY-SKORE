@@ -88,3 +88,7 @@ Zkontroluj v UI, že tab **Signals** obsahuje sloupce:
 - při timeout/chybě RSS zdroje pokračuje s ostatními zdroji
 - při chybě SQLite pokračuje bez historie (warning)
 - při chybějícím marketcap souboru pokračuje bez market cap ranking dat
+
+## Poznámka k PR workflow
+
+- pokud v GitHub UI vidíš tlačítko **Zobrazit PR**, znamená to, že pro tuto branch už PR existuje
