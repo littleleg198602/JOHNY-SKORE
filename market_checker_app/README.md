@@ -15,6 +15,16 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## Spuštění dvojklikem (Windows)
+
+V kořeni repozitáře je připraven soubor:
+- `Spustit_Market_Checker.bat`
+
+Stačí na něj dvakrát kliknout. Skript:
+- najde Python (`.venv\Scripts\python.exe`, nebo `py -3`, nebo `python`)
+- pokusí se doinstalovat závislosti
+- spustí Streamlit aplikaci
+
 ## Co aplikace dělá
 
 - načte watchlist z MetaTrader5 (nebo ručně z textového pole)
