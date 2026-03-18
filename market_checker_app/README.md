@@ -15,6 +15,16 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+## Spuštění dvojklikem (Windows)
+
+V kořeni repozitáře je připraven soubor:
+- `Spustit_Market_Checker.bat`
+
+Stačí na něj dvakrát kliknout. Skript:
+- najde Python (`.venv\Scripts\python.exe`, nebo `py -3`, nebo `python`)
+- pokusí se doinstalovat závislosti
+- spustí Streamlit aplikaci
+
 ## Co aplikace dělá
 
 - načte watchlist z MetaTrader5 (nebo ručně z textového pole)
@@ -78,3 +88,7 @@ Zkontroluj v UI, že tab **Signals** obsahuje sloupce:
 - při timeout/chybě RSS zdroje pokračuje s ostatními zdroji
 - při chybě SQLite pokračuje bez historie (warning)
 - při chybějícím marketcap souboru pokračuje bez market cap ranking dat
+
+## Poznámka k PR workflow
+
+- pokud v GitHub UI vidíš tlačítko **Zobrazit PR**, znamená to, že pro tuto branch už PR existuje
