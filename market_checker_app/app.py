@@ -157,6 +157,62 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
             blocked_df.columns = ["důvod_blokace", "count"]
             st.dataframe(blocked_df, width="stretch")
 
+    st.markdown("### Kalibrace HOLD (analýza, bez změny produkčních thresholdů)")
+    calibration = VisualizationService.prepare_hold_calibration(signals_df)
+    hold_diag_df = calibration["hold_diagnostics"]
+    hold_concentration_df = calibration["hold_concentration"]
+    sensitivity_df = calibration["sensitivity_distribution"]
+    confidence_sanity = calibration["confidence_sanity"]
+    tech_effectiveness = calibration["technical_driver_effectiveness"]
+
+    if hold_diag_df.empty:
+        st.info("HOLD diagnostika není dostupná.")
+    else:
+        st.caption("Top HOLD tickery (bull/bear spread, confidence, primary driver, směry modulů, blokace).")
+        st.dataframe(hold_diag_df.head(25), width="stretch")
+
+    c_hold1, c_hold2, c_hold3 = st.columns(3)
+    c_hold1.metric("HOLD count", int(confidence_sanity.get("hold_count", 0)))
+    c_hold2.metric("High-confidence HOLD", int(confidence_sanity.get("high_conf_hold_count", 0)))
+    c_hold3.metric("High-confidence HOLD ratio", f"{float(confidence_sanity.get('high_conf_hold_ratio', 0.0)):.2%}")
+    st.caption(str(confidence_sanity.get("explanation", "")))
+
+    cc1, cc2 = st.columns(2)
+    with cc1:
+        st.subheader("HOLD concentration podle primární příčiny")
+        st.dataframe(hold_concentration_df, width="stretch")
+    with cc2:
+        st.subheader("Sensitivity simulace hold-band")
+        if sensitivity_df.empty:
+            st.info("Sensitivity simulace není dostupná.")
+        else:
+            st.altair_chart(
+                alt.Chart(sensitivity_df)
+                .mark_bar()
+                .encode(
+                    x=alt.X("scenario:N", title="Simulace"),
+                    y=alt.Y("count:Q", title="Počet"),
+                    color=alt.Color("signal:N", title="Signál"),
+                    tooltip=["scenario:N", "signal:N", "count:Q"],
+                )
+                .properties(height=280),
+                width="stretch",
+            )
+            pivot = sensitivity_df.pivot(index="scenario", columns="signal", values="count").fillna(0).reset_index()
+            st.dataframe(pivot, width="stretch")
+
+    st.subheader("Technical-driver effectiveness (HOLD trap)")
+    st.metric(
+        "Strong technical states trapped in HOLD",
+        f"{int(tech_effectiveness.get('strong_technical_hold_count', 0))} / {int(tech_effectiveness.get('hold_count', 0))}",
+    )
+    st.caption(f"Podíl: {float(tech_effectiveness.get('strong_technical_hold_ratio', 0.0)):.2%}")
+    examples_df = tech_effectiveness.get("examples", pd.DataFrame())
+    if isinstance(examples_df, pd.DataFrame) and not examples_df.empty:
+        st.dataframe(examples_df.head(25), width="stretch")
+    else:
+        st.caption("Nenalezeny výrazné technické stavy, které by končily HOLD.")
+
     signals = sorted(signals_df["signal"].dropna().unique().tolist()) if "signal" in signals_df.columns else []
     filter_col1, filter_col2, filter_col3 = st.columns(3)
     with filter_col1:
