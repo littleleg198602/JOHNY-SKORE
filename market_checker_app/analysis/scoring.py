@@ -153,7 +153,7 @@ def _decision_from_modules(
     panic_score: float,
     decision_weights: DecisionModuleWeights,
     decision_thresholds: DecisionThresholds,
-) -> tuple[str, float, float, float, float, int, int, int, list[str], int, str]:
+) -> tuple[str, float, float, float, float, float, int, int, int, list[str], int, str]:
     by_name = {m.module: m for m in modules}
     news_mod = by_name["news"]
     tech_mod = by_name["technical"]
@@ -180,7 +180,10 @@ def _decision_from_modules(
 
     avg_module_conf = sum(m.confidence for m in modules) / len(modules)
     agreement = max(bullish_count, bearish_count) / len(modules)
-    overall_conf = max(0.0, min(1.0, avg_module_conf * 0.7 + agreement * 0.3))
+    spread_clarity = min(1.0, abs(spread) / 30.0)
+    neutrality_penalty = neutral_count / len(modules)
+    base_clarity = spread_clarity * 0.55 + agreement * 0.35 + (1 - neutrality_penalty) * 0.10
+    overall_conf = max(0.0, min(1.0, avg_module_conf * base_clarity))
 
     blocked_reasons: list[str] = []
     downgrade_count = 0
@@ -261,6 +264,30 @@ def _decision_from_modules(
         signal = "HOLD"
         downgrade_count += 1
 
+    tech_spread = tech_mod.bull_contribution - tech_mod.bear_contribution
+    strong_tech_bull = tech_mod.direction == "bullish" and tech_spread >= 25
+    strong_tech_bear = tech_mod.direction == "bearish" and tech_spread <= -25
+    overwhelming_bullish_contradiction = (
+        spread >= (decision_thresholds.strong_buy_min_spread + 6)
+        and bullish_count >= 3
+        and news_mod.direction == "bullish"
+        and analyst_mod.direction in {"bullish", "neutral"}
+        and not panic_elevated
+    )
+    overwhelming_bearish_contradiction = (
+        spread <= (decision_thresholds.strong_sell_min_negative_spread - 6)
+        and bearish_count >= 3
+        and news_mod.direction == "bearish"
+        and analyst_mod.direction in {"bearish", "neutral"}
+    )
+    if signal == "HOLD" and "low_confidence_blocks_directional_signal" not in blocked_reasons and not panic_extreme:
+        if strong_tech_bull and not overwhelming_bearish_contradiction:
+            blocked_reasons.append("technical_override_promoted_to_buy")
+            signal = "BUY"
+        elif strong_tech_bear and not overwhelming_bullish_contradiction:
+            blocked_reasons.append("technical_override_promoted_to_sell")
+            signal = "SELL"
+
     driver = "mixed"
     if signal in {"BUY", "STRONG BUY"}:
         driver = "technical_led_bullish"
@@ -278,11 +305,25 @@ def _decision_from_modules(
         if blocked_reasons:
             driver = "conflict_downgraded"
 
+    conflict_intensity = 0.0
+    if bullish_count and bearish_count:
+        conflict_intensity += 0.25
+    if abs(spread) <= decision_thresholds.hold_band:
+        conflict_intensity += 0.25
+    conflict_intensity += min(0.25, 0.12 * downgrade_count)
+    if signal == "HOLD":
+        if abs(tech_spread) >= 25:
+            conflict_intensity += 0.25
+        else:
+            conflict_intensity += 0.10
+    overall_conf = max(0.05, min(0.99, overall_conf * (1 - conflict_intensity)))
+
     return (
         signal,
         bull_score,
         bear_score,
         spread,
+        avg_module_conf,
         overall_conf,
         bullish_count,
         bearish_count,
@@ -295,7 +336,6 @@ def _decision_from_modules(
 
 def finalize_signal(
     raw_score: float,
-    final_confidence: float,
     data_quality: float,
     risk_score: float,
     adjustment: AdjustmentConfig,
@@ -333,7 +373,8 @@ def finalize_signal(
         bull_score,
         bear_score,
         spread,
-        overall_conf,
+        module_conf,
+        decision_conf,
         bullish_count,
         bearish_count,
         neutral_count,
@@ -357,10 +398,12 @@ def finalize_signal(
         quality_adjusted_score=round(quality_adjusted, 2),
         risk_adjusted_score=round(risk_adjusted, 2),
         final_total_score=round(risk_adjusted, 2),
-        final_confidence=round(max(final_confidence / 100, overall_conf) * 100, 2),
+        final_confidence=round(decision_conf * 100, 2),
+        module_confidence=round(module_conf * 100, 2),
+        decision_confidence=round(decision_conf * 100, 2),
         data_quality_score=round(data_quality, 2),
         signal=signal,
-        signal_strength=_strength_from_spread(spread, overall_conf),
+        signal_strength=_strength_from_spread(spread, decision_conf),
         bull_score=round(bull_score, 2),
         bear_score=round(bear_score, 2),
         bull_bear_spread=round(spread, 2),
@@ -431,7 +474,7 @@ def validate_decision_scenarios(weights: DecisionModuleWeights, thresholds: Deci
         panic_mod = by_name["panic"]
         analyst_mod = by_name["analysts"]
 
-        signal, bull_score, bear_score, spread, conf, bc, brc, nc, blocked, _, _ = _decision_from_modules(modules, i["panic_score"], weights, thresholds)
+        signal, bull_score, bear_score, spread, module_conf, conf, bc, brc, nc, blocked, _, _ = _decision_from_modules(modules, i["panic_score"], weights, thresholds)
         expected = scenario["expected"]
         rows.append(
             {
@@ -440,6 +483,7 @@ def validate_decision_scenarios(weights: DecisionModuleWeights, thresholds: Deci
                 "bull_score": round(bull_score, 2),
                 "bear_score": round(bear_score, 2),
                 "spread": round(spread, 2),
+                "module_confidence": round(module_conf, 3),
                 "confidence": round(conf, 3),
                 "blocked_reasons": ", ".join(blocked),
                 "final_signal": signal,

@@ -146,6 +146,8 @@ class SignalDiagnostics:
     risk_adjusted_score: float
     final_total_score: float
     final_confidence: float
+    module_confidence: float
+    decision_confidence: float
     data_quality_score: float
     signal: str
     signal_strength: str
