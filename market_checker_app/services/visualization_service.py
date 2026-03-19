@@ -353,6 +353,7 @@ class VisualizationService:
                 "hold_diagnostics": pd.DataFrame(),
                 "hold_concentration": pd.DataFrame(),
                 "sensitivity_distribution": pd.DataFrame(),
+                "sensitivity_audit": pd.DataFrame(),
                 "confidence_sanity": {},
                 "technical_driver_effectiveness": {},
             }
@@ -366,6 +367,7 @@ class VisualizationService:
             "news_score",
             "tech_score",
             "risk_score",
+            "panic_score",
             "yahoo_score",
             "news_confidence",
             "tech_confidence",
@@ -395,7 +397,16 @@ class VisualizationService:
         hold_rows["module_directions"] = hold_rows["modules_parsed"].apply(module_directions)
         hold_rows["primary_driver"] = hold_rows["modules_parsed"].apply(primary_driver)
 
-        hold_diag_cols = ["ticker", "bull_score", "bear_score", "bull_bear_spread", "final_confidence", "primary_driver", "module_directions", "blocked_reasons_parsed"]
+        hold_diag_cols = [
+            "ticker",
+            "bull_score",
+            "bear_score",
+            "bull_bear_spread",
+            "final_confidence",
+            "primary_driver",
+            "module_directions",
+            "blocked_reasons_parsed",
+        ]
         hold_diag = hold_rows[hold_diag_cols].rename(
             columns={
                 "bull_bear_spread": "spread",
@@ -458,19 +469,29 @@ class VisualizationService:
                     news_score=float(r.get("news_score", 50) or 50),
                     tech_score=float(r.get("tech_score", 50) or 50),
                     analyst_score=float(r.get("yahoo_score", 50) or 50),
-                    panic_score=float(r.get("risk_score", 50) or 50),
+                    panic_score=float(r.get("panic_score", r.get("risk_score", 50)) or 50),
                     news_confidence=float(r.get("news_confidence", 50) or 50),
                     tech_confidence=float(r.get("tech_confidence", 50) or 50),
                     analyst_confidence=float(r.get("yahoo_confidence", 50) or 50),
                     panic_confidence=float(r.get("behavioral_confidence", 50) or 50),
                     context="hold-calibration",
                 )
-                signal, *_ = _decision_from_modules(modules, float(r.get("risk_score", 50) or 50), weights, adj_thresholds)
+                signal, *_ = _decision_from_modules(modules, float(r.get("panic_score", r.get("risk_score", 50)) or 50), weights, adj_thresholds)
                 simulated[signal] += 1
             for signal in signal_order:
                 sensitivity_rows.append({"scenario": f"hold_band_{band:g}", "signal": signal, "count": simulated[signal]})
 
         sensitivity_df = pd.DataFrame(sensitivity_rows)
+        sensitivity_audit = (
+            sensitivity_df[sensitivity_df["signal"] == "HOLD"][["scenario", "count"]]
+            .rename(columns={"count": "hold_count"})
+            .sort_values("scenario")
+            .reset_index(drop=True)
+        )
+        if not sensitivity_audit.empty:
+            baseline_row = sensitivity_audit[sensitivity_audit["scenario"] == "hold_band_7"]
+            baseline_hold = float(baseline_row.iloc[0]["hold_count"]) if not baseline_row.empty else float(sensitivity_audit.iloc[0]["hold_count"])
+            sensitivity_audit["delta_vs_baseline"] = sensitivity_audit["hold_count"] - baseline_hold
 
         high_conf_holds = hold_rows[hold_rows["final_confidence"] >= high_conf_threshold]
         confidence_sanity = {
@@ -492,12 +513,25 @@ class VisualizationService:
                 continue
             spread = float(technical.get("bull_contribution", 0.0)) - float(technical.get("bear_contribution", 0.0))
             if abs(spread) >= 20:
+                hold_why = "small_spread_or_conflict"
+                if "low_confidence_blocks_directional_signal" in row["blocked_reasons_parsed"]:
+                    hold_why = "low_confidence"
+                elif any(reason.startswith("panic_") for reason in row["blocked_reasons_parsed"]):
+                    hold_why = "panic_block"
+                elif "bull_bear_balance_hold_band" in row["blocked_reasons_parsed"]:
+                    hold_why = "hold_band"
                 tech_trapped.append(
                     {
                         "ticker": row.get("ticker"),
                         "tech_direction": technical.get("direction"),
                         "tech_spread": round(spread, 2),
+                        "bull_score": row.get("bull_score"),
+                        "bear_score": row.get("bear_score"),
+                        "spread": row.get("bull_bear_spread"),
+                        "module_directions": row.get("module_directions"),
                         "blocked_reasons": row["blocked_reasons_parsed"],
+                        "final_signal": row.get("signal"),
+                        "why_hold_won": hold_why,
                     }
                 )
         technical_effectiveness = {
@@ -511,6 +545,7 @@ class VisualizationService:
             "hold_diagnostics": hold_diag.sort_values(["spread", "overall_confidence"], ascending=[True, False]),
             "hold_concentration": concentration_df,
             "sensitivity_distribution": sensitivity_df,
+            "sensitivity_audit": sensitivity_audit,
             "confidence_sanity": confidence_sanity,
             "technical_driver_effectiveness": technical_effectiveness,
         }

@@ -72,11 +72,13 @@ class VisualizationHoldCalibrationTests(unittest.TestCase):
         self.assertIn("hold_diagnostics", result)
         self.assertIn("hold_concentration", result)
         self.assertIn("sensitivity_distribution", result)
+        self.assertIn("sensitivity_audit", result)
         self.assertIn("confidence_sanity", result)
         self.assertIn("technical_driver_effectiveness", result)
         self.assertFalse(result["hold_diagnostics"].empty)
         self.assertFalse(result["hold_concentration"].empty)
         self.assertFalse(result["sensitivity_distribution"].empty)
+        self.assertFalse(result["sensitivity_audit"].empty)
         self.assertGreaterEqual(result["confidence_sanity"]["hold_count"], 1)
 
 

@@ -35,7 +35,7 @@ def _run_scenario(s: ValidationScenario, weights: DecisionModuleWeights, thresho
         context="validation",
     )
 
-    signal, bull_score, bear_score, spread, overall_conf, bullish_count, bearish_count, neutral_count, blocked, _, driver = _decision_from_modules(
+    signal, bull_score, bear_score, spread, module_conf, overall_conf, bullish_count, bearish_count, neutral_count, blocked, _, driver = _decision_from_modules(
         modules,
         s.inputs["panic_score"],
         weights,
@@ -54,6 +54,7 @@ def _run_scenario(s: ValidationScenario, weights: DecisionModuleWeights, thresho
         "bull_score": round(bull_score, 2),
         "bear_score": round(bear_score, 2),
         "spread": round(spread, 2),
+        "module_confidence": round(module_conf * 100, 2),
         "overall_confidence": round(overall_conf * 100, 2),
         "module_directions": module_directions,
         "module_confidences": module_confidences,
@@ -261,8 +262,13 @@ def build_calibration_analysis() -> dict[str, object]:
                     "ticker": row["ticker"],
                     "tech_direction": technical_module["direction"],
                     "tech_spread": round(tech_spread, 2),
+                    "bull_score": row["bull_score"],
+                    "bear_score": row["bear_score"],
+                    "spread": row["spread"],
+                    "module_directions": row["module_directions"],
                     "final_signal": row["final_signal"],
                     "blocked_reasons": row["blocked_reasons"],
+                    "why_hold_won": _classify_hold_primary_reason(row, thresholds),
                 }
             )
 
