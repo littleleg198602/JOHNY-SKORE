@@ -426,6 +426,65 @@ def _render_delta(delta_df: pd.DataFrame) -> None:
             width="stretch",
         )
 
+    st.subheader("Detailní delta tabulka (side-by-side)")
+    mode = st.radio(
+        "Zobrazení",
+        options=["Vše", "Jen propady (DeltaTotal < 0)"],
+        horizontal=True,
+    )
+    preferred_cols = [
+        "ticker",
+        "market_cap_usd_prev",
+        "market_cap_usd",
+        "DeltaMarketCap",
+        "final_total_score_prev",
+        "final_total_score",
+        "DeltaTotal",
+        "rank_in_watchlist_prev",
+        "rank_in_watchlist",
+        "DeltaRank",
+        "final_confidence_prev",
+        "final_confidence",
+        "DeltaConfidence",
+        "signal_prev",
+        "signal",
+        "SignalChange",
+        "DeltaNews",
+        "DeltaTech",
+        "DeltaYahoo",
+        "DeltaBehavioral",
+        "DeltaRisk",
+    ]
+    detail_cols = [c for c in preferred_cols if c in delta_df.columns]
+    detail = delta_df[detail_cols].copy() if detail_cols else delta_df.copy()
+    if mode.startswith("Jen propady") and "DeltaTotal" in detail.columns:
+        detail = detail[detail["DeltaTotal"] < 0]
+    if "DeltaTotal" in detail.columns:
+        detail = detail.sort_values("DeltaTotal", ascending=True)
+    st.caption("Pozn.: DeltaRank > 0 = zlepšení pořadí (nižší rank je lepší).")
+    delta_cols = [c for c in ["DeltaTotal", "DeltaRank", "DeltaConfidence", "DeltaNews", "DeltaTech", "DeltaYahoo", "DeltaBehavioral", "DeltaRisk", "DeltaMarketCap"] if c in detail.columns]
+    styled = (
+        detail.head(500)
+        .style.format(
+            {
+                "DeltaTotal": "{:+.2f}",
+                "DeltaRank": "{:+.0f}",
+                "DeltaConfidence": "{:+.2f}",
+                "DeltaNews": "{:+.2f}",
+                "DeltaTech": "{:+.2f}",
+                "DeltaYahoo": "{:+.2f}",
+                "DeltaBehavioral": "{:+.2f}",
+                "DeltaRisk": "{:+.2f}",
+                "DeltaMarketCap": "{:+,.0f}",
+                "market_cap_usd_prev": "{:,.0f}",
+                "market_cap_usd": "{:,.0f}",
+            },
+            na_rep="-",
+        )
+        .map(lambda v: "background-color: rgba(40,167,69,0.25)" if isinstance(v, (int, float)) and v > 0 else ("background-color: rgba(220,53,69,0.25)" if isinstance(v, (int, float)) and v < 0 else ""), subset=delta_cols)
+    )
+    st.dataframe(styled, width="stretch")
+
 
 def _render_trends(history_service: HistoryService, output_dir: Path) -> None:
     st.markdown("## Trends napříč běhy")
