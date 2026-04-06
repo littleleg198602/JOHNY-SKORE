@@ -55,6 +55,30 @@ def _parse_json_list(value: object) -> list[str]:
     return []
 
 
+def _resolve_sqlite_path(raw_value: str) -> tuple[Path, str | None]:
+    """
+    Normalize user-provided SQLite path from UI and try to recover common typos.
+
+    Returns:
+        tuple[path, info_message]
+        info_message is shown to user when path was auto-corrected.
+    """
+    raw = (raw_value or "").strip().strip('"').strip("'")
+    candidate = Path(raw.replace("\\", "/")) if raw else DEFAULT_DB_PATH
+
+    if candidate.suffix.lower() != ".db":
+        candidate = candidate.with_suffix(".db")
+
+    if candidate.exists():
+        return candidate, None
+
+    fallback = candidate.parent / "market_checker_history.db"
+    if candidate.name != "market_checker_history.db" and fallback.exists():
+        return fallback, f"DB soubor `{candidate}` nebyl nalezen, používám `{fallback}`."
+
+    return candidate, None
+
+
 def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> None:
     st.write(f"Zpracovávám: **{state.current_symbol or '-'}** ({state.current_position}/{state.total_symbols})")
     st.progress(float(state.overall_progress))
@@ -499,15 +523,21 @@ with st.sidebar:
     export_excel = st.checkbox("Export do Excelu", value=True)
     compare_prev = st.checkbox("Porovnat s předchozím během", value=True)
     save_history = st.checkbox("Ukládat historii do SQLite", value=True)
-    sqlite_path = Path(st.text_input("DB soubor", str(DEFAULT_DB_PATH)))
+    sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
     load_watchlist = st.button("Načíst watchlist z MT5")
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
     run_analysis = st.button("Spustit analýzu", type="primary")
 
+sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
+
 config = AppConfig(output_dir=output_dir, marketcap_file=marketcap_file, export_excel=export_excel, compare_previous_run=compare_prev, save_history=save_history, sqlite_path=sqlite_path, max_rss_items_per_source=int(max_rss))
 config.ensure_output_dir()
 store = SQLiteStore(config.sqlite_path)
+
+if sqlite_info:
+    st.warning(sqlite_info)
+st.caption(f"Aktivní DB: `{config.sqlite_path}`")
 
 if load_watchlist:
     watchlist, err = MT5Client().load_watchlist()
