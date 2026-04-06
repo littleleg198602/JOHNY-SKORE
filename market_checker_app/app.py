@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 import sys
 
 CURRENT_DIR = Path(__file__).resolve().parent
@@ -77,6 +78,67 @@ def _resolve_sqlite_path(raw_value: str) -> tuple[Path, str | None]:
         return fallback, f"DB soubor `{candidate}` nebyl nalezen, používám `{fallback}`."
 
     return candidate, None
+
+
+def _parse_finished_at_from_excel_name(path: Path) -> pd.Timestamp | None:
+    match = re.search(r"market_checker_(\d{8}_\d{6})\.xlsx$", path.name)
+    if not match:
+        return None
+    return pd.to_datetime(match.group(1), format="%Y%m%d_%H%M%S", errors="coerce")
+
+
+@st.cache_data(show_spinner=False)
+def _load_history_from_excels(output_dir_value: str) -> pd.DataFrame:
+    output_dir = Path(output_dir_value)
+    files = sorted(output_dir.glob("market_checker_*.xlsx"))
+    if not files:
+        return pd.DataFrame()
+
+    frames: list[pd.DataFrame] = []
+    for idx, path in enumerate(files, start=1):
+        finished_at = _parse_finished_at_from_excel_name(path)
+        if finished_at is None or pd.isna(finished_at):
+            continue
+        try:
+            frame = pd.read_excel(path, sheet_name="Signals")
+        except Exception:
+            continue
+        if frame.empty or "ticker" not in frame.columns:
+            continue
+        frame = frame.copy()
+        frame["run_id"] = idx
+        frame["finished_at"] = finished_at
+        keep_cols = [
+            "run_id",
+            "finished_at",
+            "ticker",
+            "current_price",
+            "scoring_version",
+            "legacy_total_score",
+            "legacy_signal",
+            "final_total_score",
+            "raw_total_score",
+            "news_score",
+            "tech_score",
+            "yahoo_score",
+            "behavioral_score",
+            "risk_score",
+            "rank_in_watchlist",
+            "percentile_in_watchlist",
+            "signal",
+            "final_confidence",
+            "tech_source_used",
+            "reasons",
+            "warnings",
+            "risk_flags",
+            "key_drivers",
+            "overall_summary",
+        ]
+        frames.append(frame[[c for c in keep_cols if c in frame.columns]])
+
+    if not frames:
+        return pd.DataFrame()
+    return pd.concat(frames, ignore_index=True).sort_values(["run_id", "ticker"], ascending=[True, True])
 
 
 def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> None:
@@ -365,9 +427,14 @@ def _render_delta(delta_df: pd.DataFrame) -> None:
         )
 
 
-def _render_trends(history_service: HistoryService) -> None:
+def _render_trends(history_service: HistoryService, output_dir: Path) -> None:
     st.markdown("## Trends napříč běhy")
     global_history = history_service.store.read_global_history()
+    if global_history["run_id"].nunique() < 2 if not global_history.empty else True:
+        excel_history = _load_history_from_excels(str(output_dir))
+        if excel_history["run_id"].nunique() >= 2:
+            global_history = excel_history
+            st.info("SQLite zatím nemá dost běhů, trendy načítám z historických Excel exportů v outputs.")
     trend = VisualizationService.prepare_trend_history_df(global_history)
 
     if trend["avg_scores"].empty:
@@ -420,15 +487,21 @@ def _render_trends(history_service: HistoryService) -> None:
         )
 
 
-def _render_history(history_service: HistoryService) -> None:
+def _render_history(history_service: HistoryService, output_dir: Path) -> None:
     st.markdown("## History tickeru")
-    tickers = history_service.list_tickers()
+    source_df = history_service.store.read_global_history()
+    if source_df.empty:
+        source_df = _load_history_from_excels(str(output_dir))
+        if not source_df.empty:
+            st.info("SQLite historie je prázdná, historii tickeru načítám z Excel exportů v outputs.")
+
+    tickers = sorted(source_df["ticker"].dropna().astype(str).unique().tolist()) if not source_df.empty and "ticker" in source_df.columns else []
     if not tickers:
         st.info("Pro vybraný ticker zatím není dostatek historických dat.")
         return
 
     ticker = st.selectbox("Vyber ticker pro historii", tickers)
-    hist = history_service.load_ticker_history(ticker)
+    hist = source_df[source_df["ticker"] == ticker].copy()
     prepared = VisualizationService.prepare_ticker_history_df(hist)
 
     if prepared["series"].empty:
@@ -576,6 +649,8 @@ if run_analysis:
     if compare_prev:
         if save_history and result.get("run_id"):
             delta_df = HistoryService(store).build_delta_against_previous(int(result["run_id"]))
+            if delta_df.empty:
+                delta_df = HistoryService(store).build_delta_with_excel_fallback(result["signals"], output_dir)
         elif not previous.empty:
             delta_df = ComparisonService.compare_runs(result["signals"], previous)
 
@@ -629,13 +704,13 @@ if st.session_state.last_result:
 
     with tab_trends:
         if save_history:
-            _render_trends(HistoryService(store))
+            _render_trends(HistoryService(store), output_dir)
         else:
             st.info("Trendy nejsou dostupné, protože je vypnuto ukládání historie do SQLite.")
 
     with tab_history:
         if save_history:
-            _render_history(HistoryService(store))
+            _render_history(HistoryService(store), output_dir)
         else:
             st.info("Historie není dostupná, protože je vypnuto ukládání historie do SQLite.")
 
