@@ -41,6 +41,17 @@ from market_checker_app.utils.charts import (
 
 
 MAX_PREVIEW_ROWS = 500
+DEFAULT_NEWS_SOURCES_TEXT = "\n".join(
+    [
+        "https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US",
+        "https://www.nasdaq.com/feed/rssoutbound",
+        "https://stockanalysis.com",
+        "https://www.marketscreener.com/rss/news/",
+        "https://www.investing.com/rss/news.rss",
+        "https://www.benzinga.com/feed",
+        "https://www.barchart.com/stocks/quotes/$SPX/news",
+    ]
+)
 
 
 def _parse_json_list(value: object) -> list[str]:
@@ -686,7 +697,7 @@ if st.session_state.mt5_loaded_count is not None:
 else:
     st.info("Načteno z MT5: 0 tickerů")
 st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů")
-rss_sources = [s.strip() for s in st.text_area("RSS sources", "https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US").splitlines() if s.strip()]
+rss_sources = [s.strip() for s in st.text_area("RSS sources", DEFAULT_NEWS_SOURCES_TEXT).splitlines() if s.strip()]
 
 if st.session_state.analysis_progress:
     _render_progress_ui(st.session_state.analysis_progress, 0.0)
