@@ -715,6 +715,7 @@ if run_analysis:
             _render_progress_ui(state, time.time() - started)
 
     result = pipeline.run(watchlist, rss_sources, store if save_history else None, progress_callback=_on_progress)
+    result["configured_sources"] = pd.DataFrame({"source": rss_sources})
     delta_df = pd.DataFrame()
     if compare_prev:
         if save_history and result.get("run_id"):
@@ -767,7 +768,20 @@ if st.session_state.last_result:
         )
 
     with tab_sources:
-        _show_limited_dataframe(result.get("sources", pd.DataFrame()), "RSS zdroje", rows=300)
+        configured_sources = result.get("configured_sources", pd.DataFrame())
+        _show_limited_dataframe(configured_sources, "Nakonfigurované zdroje (přesně podle pole RSS sources)", rows=2000)
+
+        sources_df = result.get("sources", pd.DataFrame())
+        _show_limited_dataframe(sources_df, "Rozbalené zdroje použité během běhu", rows=1000)
+
+        articles_df = result.get("articles", pd.DataFrame())
+        st.subheader("Reálně nalezené články podle zdroje")
+        if isinstance(articles_df, pd.DataFrame) and not articles_df.empty and "source" in articles_df.columns:
+            by_source = articles_df["source"].value_counts().reset_index()
+            by_source.columns = ["source", "count_articles"]
+            st.dataframe(by_source, width="stretch")
+        else:
+            st.info("Z článků nebyly detekovány žádné zdroje (nebo nejsou dostupná data).")
 
     with tab_delta:
         _render_delta(result.get("delta", pd.DataFrame()))
