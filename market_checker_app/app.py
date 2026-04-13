@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 import sys
 
 CURRENT_DIR = Path(__file__).resolve().parent
@@ -40,6 +41,17 @@ from market_checker_app.utils.charts import (
 
 
 MAX_PREVIEW_ROWS = 500
+DEFAULT_NEWS_SOURCES_TEXT = "\n".join(
+    [
+        "https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US",
+        "https://www.nasdaq.com/feed/rssoutbound",
+        "https://stockanalysis.com",
+        "https://www.marketscreener.com/rss/news/",
+        "https://www.investing.com/rss/news.rss",
+        "https://www.benzinga.com/feed",
+        "https://www.barchart.com/stocks/quotes/$SPX/news",
+    ]
+)
 
 
 def _parse_json_list(value: object) -> list[str]:
@@ -53,6 +65,91 @@ def _parse_json_list(value: object) -> list[str]:
         except json.JSONDecodeError:
             return [value]
     return []
+
+
+def _resolve_sqlite_path(raw_value: str) -> tuple[Path, str | None]:
+    """
+    Normalize user-provided SQLite path from UI and try to recover common typos.
+
+    Returns:
+        tuple[path, info_message]
+        info_message is shown to user when path was auto-corrected.
+    """
+    raw = (raw_value or "").strip().strip('"').strip("'")
+    candidate = Path(raw.replace("\\", "/")) if raw else DEFAULT_DB_PATH
+
+    if candidate.suffix.lower() != ".db":
+        candidate = candidate.with_suffix(".db")
+
+    if candidate.exists():
+        return candidate, None
+
+    fallback = candidate.parent / "market_checker_history.db"
+    if candidate.name != "market_checker_history.db" and fallback.exists():
+        return fallback, f"DB soubor `{candidate}` nebyl nalezen, používám `{fallback}`."
+
+    return candidate, None
+
+
+def _parse_finished_at_from_excel_name(path: Path) -> pd.Timestamp | None:
+    match = re.search(r"market_checker_(\d{8}_\d{6})\.xlsx$", path.name)
+    if not match:
+        return None
+    return pd.to_datetime(match.group(1), format="%Y%m%d_%H%M%S", errors="coerce")
+
+
+@st.cache_data(show_spinner=False)
+def _load_history_from_excels(output_dir_value: str) -> pd.DataFrame:
+    output_dir = Path(output_dir_value)
+    files = sorted(output_dir.glob("market_checker_*.xlsx"))
+    if not files:
+        return pd.DataFrame()
+
+    frames: list[pd.DataFrame] = []
+    for idx, path in enumerate(files, start=1):
+        finished_at = _parse_finished_at_from_excel_name(path)
+        if finished_at is None or pd.isna(finished_at):
+            continue
+        try:
+            frame = pd.read_excel(path, sheet_name="Signals")
+        except Exception:
+            continue
+        if frame.empty or "ticker" not in frame.columns:
+            continue
+        frame = frame.copy()
+        frame["run_id"] = idx
+        frame["finished_at"] = finished_at
+        keep_cols = [
+            "run_id",
+            "finished_at",
+            "ticker",
+            "current_price",
+            "scoring_version",
+            "legacy_total_score",
+            "legacy_signal",
+            "final_total_score",
+            "raw_total_score",
+            "news_score",
+            "tech_score",
+            "yahoo_score",
+            "behavioral_score",
+            "risk_score",
+            "rank_in_watchlist",
+            "percentile_in_watchlist",
+            "signal",
+            "final_confidence",
+            "tech_source_used",
+            "reasons",
+            "warnings",
+            "risk_flags",
+            "key_drivers",
+            "overall_summary",
+        ]
+        frames.append(frame[[c for c in keep_cols if c in frame.columns]])
+
+    if not frames:
+        return pd.DataFrame()
+    return pd.concat(frames, ignore_index=True).sort_values(["run_id", "ticker"], ascending=[True, True])
 
 
 def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> None:
@@ -340,10 +437,74 @@ def _render_delta(delta_df: pd.DataFrame) -> None:
             width="stretch",
         )
 
+    st.subheader("Detailní delta tabulka (side-by-side)")
+    mode = st.radio(
+        "Zobrazení",
+        options=["Vše", "Jen propady (DeltaTotal < 0)"],
+        horizontal=True,
+    )
+    preferred_cols = [
+        "ticker",
+        "market_cap_usd_prev",
+        "market_cap_usd",
+        "DeltaMarketCap",
+        "final_total_score_prev",
+        "final_total_score",
+        "DeltaTotal",
+        "rank_in_watchlist_prev",
+        "rank_in_watchlist",
+        "DeltaRank",
+        "final_confidence_prev",
+        "final_confidence",
+        "DeltaConfidence",
+        "signal_prev",
+        "signal",
+        "SignalChange",
+        "DeltaNews",
+        "DeltaTech",
+        "DeltaYahoo",
+        "DeltaBehavioral",
+        "DeltaRisk",
+    ]
+    detail_cols = [c for c in preferred_cols if c in delta_df.columns]
+    detail = delta_df[detail_cols].copy() if detail_cols else delta_df.copy()
+    if mode.startswith("Jen propady") and "DeltaTotal" in detail.columns:
+        detail = detail[detail["DeltaTotal"] < 0]
+    if "DeltaTotal" in detail.columns:
+        detail = detail.sort_values("DeltaTotal", ascending=True)
+    st.caption("Pozn.: DeltaRank > 0 = zlepšení pořadí (nižší rank je lepší).")
+    delta_cols = [c for c in ["DeltaTotal", "DeltaRank", "DeltaConfidence", "DeltaNews", "DeltaTech", "DeltaYahoo", "DeltaBehavioral", "DeltaRisk", "DeltaMarketCap"] if c in detail.columns]
+    styled = (
+        detail.head(500)
+        .style.format(
+            {
+                "DeltaTotal": "{:+.2f}",
+                "DeltaRank": "{:+.0f}",
+                "DeltaConfidence": "{:+.2f}",
+                "DeltaNews": "{:+.2f}",
+                "DeltaTech": "{:+.2f}",
+                "DeltaYahoo": "{:+.2f}",
+                "DeltaBehavioral": "{:+.2f}",
+                "DeltaRisk": "{:+.2f}",
+                "DeltaMarketCap": "{:+,.0f}",
+                "market_cap_usd_prev": "{:,.0f}",
+                "market_cap_usd": "{:,.0f}",
+            },
+            na_rep="-",
+        )
+        .map(lambda v: "background-color: rgba(40,167,69,0.25)" if isinstance(v, (int, float)) and v > 0 else ("background-color: rgba(220,53,69,0.25)" if isinstance(v, (int, float)) and v < 0 else ""), subset=delta_cols)
+    )
+    st.dataframe(styled, width="stretch")
 
-def _render_trends(history_service: HistoryService) -> None:
+
+def _render_trends(history_service: HistoryService, output_dir: Path) -> None:
     st.markdown("## Trends napříč běhy")
     global_history = history_service.store.read_global_history()
+    if global_history["run_id"].nunique() < 2 if not global_history.empty else True:
+        excel_history = _load_history_from_excels(str(output_dir))
+        if excel_history["run_id"].nunique() >= 2:
+            global_history = excel_history
+            st.info("SQLite zatím nemá dost běhů, trendy načítám z historických Excel exportů v outputs.")
     trend = VisualizationService.prepare_trend_history_df(global_history)
 
     if trend["avg_scores"].empty:
@@ -396,15 +557,21 @@ def _render_trends(history_service: HistoryService) -> None:
         )
 
 
-def _render_history(history_service: HistoryService) -> None:
+def _render_history(history_service: HistoryService, output_dir: Path) -> None:
     st.markdown("## History tickeru")
-    tickers = history_service.list_tickers()
+    source_df = history_service.store.read_global_history()
+    if source_df.empty:
+        source_df = _load_history_from_excels(str(output_dir))
+        if not source_df.empty:
+            st.info("SQLite historie je prázdná, historii tickeru načítám z Excel exportů v outputs.")
+
+    tickers = sorted(source_df["ticker"].dropna().astype(str).unique().tolist()) if not source_df.empty and "ticker" in source_df.columns else []
     if not tickers:
         st.info("Pro vybraný ticker zatím není dostatek historických dat.")
         return
 
     ticker = st.selectbox("Vyber ticker pro historii", tickers)
-    hist = history_service.load_ticker_history(ticker)
+    hist = source_df[source_df["ticker"] == ticker].copy()
     prepared = VisualizationService.prepare_ticker_history_df(hist)
 
     if prepared["series"].empty:
@@ -499,15 +666,21 @@ with st.sidebar:
     export_excel = st.checkbox("Export do Excelu", value=True)
     compare_prev = st.checkbox("Porovnat s předchozím během", value=True)
     save_history = st.checkbox("Ukládat historii do SQLite", value=True)
-    sqlite_path = Path(st.text_input("DB soubor", str(DEFAULT_DB_PATH)))
+    sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
     load_watchlist = st.button("Načíst watchlist z MT5")
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
     run_analysis = st.button("Spustit analýzu", type="primary")
 
+sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
+
 config = AppConfig(output_dir=output_dir, marketcap_file=marketcap_file, export_excel=export_excel, compare_previous_run=compare_prev, save_history=save_history, sqlite_path=sqlite_path, max_rss_items_per_source=int(max_rss))
 config.ensure_output_dir()
 store = SQLiteStore(config.sqlite_path)
+
+if sqlite_info:
+    st.warning(sqlite_info)
+st.caption(f"Aktivní DB: `{config.sqlite_path}`")
 
 if load_watchlist:
     watchlist, err = MT5Client().load_watchlist()
@@ -524,7 +697,7 @@ if st.session_state.mt5_loaded_count is not None:
 else:
     st.info("Načteno z MT5: 0 tickerů")
 st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů")
-rss_sources = [s.strip() for s in st.text_area("RSS sources", "https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US").splitlines() if s.strip()]
+rss_sources = [s.strip() for s in st.text_area("RSS sources", DEFAULT_NEWS_SOURCES_TEXT).splitlines() if s.strip()]
 
 if st.session_state.analysis_progress:
     _render_progress_ui(st.session_state.analysis_progress, 0.0)
@@ -546,6 +719,8 @@ if run_analysis:
     if compare_prev:
         if save_history and result.get("run_id"):
             delta_df = HistoryService(store).build_delta_against_previous(int(result["run_id"]))
+            if delta_df.empty:
+                delta_df = HistoryService(store).build_delta_with_excel_fallback(result["signals"], output_dir)
         elif not previous.empty:
             delta_df = ComparisonService.compare_runs(result["signals"], previous)
 
@@ -599,13 +774,13 @@ if st.session_state.last_result:
 
     with tab_trends:
         if save_history:
-            _render_trends(HistoryService(store))
+            _render_trends(HistoryService(store), output_dir)
         else:
             st.info("Trendy nejsou dostupné, protože je vypnuto ukládání historie do SQLite.")
 
     with tab_history:
         if save_history:
-            _render_history(HistoryService(store))
+            _render_history(HistoryService(store), output_dir)
         else:
             st.info("Historie není dostupná, protože je vypnuto ukládání historie do SQLite.")
 

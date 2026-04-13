@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 import math
+import re
+from urllib.request import Request, urlopen
 
 import feedparser
 
@@ -52,6 +54,10 @@ class RSSClient:
 
             entries = list(getattr(parsed, "entries", []))
             if not entries:
+                fallback_items = self._collect_html_fallback(source, ticker_set, now, cutoff_3m)
+                if fallback_items:
+                    items.extend(fallback_items)
+                    continue
                 warnings.append(f"RSS zdroj {source} nevrátil žádné položky.")
                 continue
 
@@ -86,3 +92,45 @@ class RSSClient:
                             )
                         )
         return items, warnings
+
+    def _collect_html_fallback(self, source: str, ticker_set: set[str], now: datetime, cutoff_3m: datetime) -> list[NewsItem]:
+        if not any(domain in source for domain in ("nasdaq.com", "stockanalysis.com", "marketscreener.com", "investing.com", "benzinga.com", "barchart.com")):
+            return []
+        try:
+            req = Request(source, headers={"User-Agent": "Mozilla/5.0 (MarketChecker/1.0)"})
+            with urlopen(req, timeout=8) as resp:
+                html = resp.read(300_000).decode("utf-8", errors="ignore")
+        except Exception:
+            return []
+
+        title_match = re.search(r"<title[^>]*>(.*?)</title>", html, flags=re.IGNORECASE | re.DOTALL)
+        title = re.sub(r"\s+", " ", title_match.group(1)).strip() if title_match else ""
+        meta_match = re.search(r'<meta[^>]+name=["\\\']description["\\\'][^>]*content=["\\\'](.*?)["\\\']', html, flags=re.IGNORECASE | re.DOTALL)
+        summary = re.sub(r"\s+", " ", meta_match.group(1)).strip() if meta_match else ""
+        text = f"{title} {summary}".strip()
+        if not text:
+            return []
+
+        if now < cutoff_3m:
+            return []
+
+        text_upper = text.upper()
+        sentiment = self._sentiment_score(text)
+        recency = self._recency_weight(now, now)
+        sentiment_weight = round(recency * sentiment, 4)
+        matched = [ticker for ticker in ticker_set if ticker in text_upper]
+        if not matched:
+            return []
+
+        return [
+            NewsItem(
+                ticker=ticker,
+                source=source,
+                title=title or source,
+                summary=summary,
+                published_at=now,
+                sentiment_weight=sentiment_weight,
+                url=source,
+            )
+            for ticker in matched
+        ]
