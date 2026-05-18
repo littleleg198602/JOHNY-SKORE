@@ -690,7 +690,7 @@ with st.sidebar:
     save_history = st.checkbox("Ukládat historii do SQLite", value=True)
     sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
-    load_watchlist = st.button("Načíst watchlist z MT5")
+    load_watchlist = st.button("Načíst watchlist z MT5", disabled=True)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
     run_analysis = st.button("Spustit analýzu", type="primary")
 
@@ -705,12 +705,7 @@ if sqlite_info:
 st.caption(f"Aktivní DB: `{config.sqlite_path}`")
 
 if load_watchlist:
-    watchlist, err = MT5Client().load_watchlist()
-    if err:
-        st.error(err)
-    else:
-        st.session_state.watchlist = watchlist
-        st.session_state.mt5_loaded_count = len(watchlist)
+    st.info("MT5 načítání je v této verzi vypnuté. Použijte Excel s Yahoo tickery.")
 
 uploaded_excel = st.file_uploader("Excel s Yahoo tickery (XLSX)", type=["xlsx"])
 if uploaded_excel is not None:
@@ -722,17 +717,28 @@ if uploaded_excel is not None:
         st.session_state.excel_watchlist = excel_watchlist
         st.success(f"Načteno z Excelu: {len(excel_watchlist)} Yahoo tickerů")
 
-watchlist_text = st.text_area("Watchlist z MT5 (1 ticker na řádek)", "\n".join(st.session_state.watchlist), height=130)
+watchlist_text = st.text_area("Watchlist z MT5 (v Yahoo-only režimu ignorováno)", "\n".join(st.session_state.watchlist), height=130)
 mt5_watchlist = MT5Client.sanitize_watchlist(watchlist_text.splitlines())
 excel_watchlist = MT5Client.sanitize_watchlist(st.session_state.excel_watchlist)
-watchlist = MT5Client.sanitize_watchlist(mt5_watchlist + excel_watchlist)
-yahoo_only_tickers = set(excel_watchlist)
+yahoo_only_mode = len(excel_watchlist) > 0
+
+if yahoo_only_mode:
+    watchlist = excel_watchlist
+    yahoo_only_tickers = set(excel_watchlist)
+    st.info("Yahoo-only režim aktivní: MT5 i RSS jsou vypnuté, používám jen tickery z Excelu a Yahoo data.")
+else:
+    watchlist = mt5_watchlist
+    yahoo_only_tickers = set()
+
 if st.session_state.mt5_loaded_count is not None:
     st.info(f"Načteno z MT5: {st.session_state.mt5_loaded_count} tickerů")
 else:
     st.info("Načteno z MT5: 0 tickerů")
-st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů (MT5: {len(mt5_watchlist)}, Excel/Yahoo-only: {len(excel_watchlist)})")
-rss_sources = [s.strip() for s in st.text_area("RSS sources", DEFAULT_NEWS_SOURCES_TEXT).splitlines() if s.strip()]
+
+st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů (Excel/Yahoo-only: {len(excel_watchlist)})")
+
+rss_default = "" if yahoo_only_mode else DEFAULT_NEWS_SOURCES_TEXT
+rss_sources = [s.strip() for s in st.text_area("RSS sources", rss_default).splitlines() if s.strip()]
 
 if st.session_state.analysis_progress:
     _render_progress_ui(st.session_state.analysis_progress, 0.0)
@@ -749,7 +755,7 @@ if run_analysis:
         with progress_placeholder.container():
             _render_progress_ui(state, time.time() - started)
 
-    result = pipeline.run(watchlist, rss_sources, store if save_history else None, progress_callback=_on_progress, yahoo_only_tickers=yahoo_only_tickers)
+    result = pipeline.run(watchlist, rss_sources, store if save_history else None, progress_callback=_on_progress, yahoo_only_tickers=yahoo_only_tickers, yahoo_only_mode=yahoo_only_mode)
     result["configured_sources"] = pd.DataFrame({"source": rss_sources})
     delta_df = pd.DataFrame()
     if compare_prev:

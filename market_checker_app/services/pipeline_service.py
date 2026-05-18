@@ -61,6 +61,7 @@ class PipelineService:
         store: SQLiteStore | None,
         progress_callback: Callable[[AnalysisProgressState], None] | None = None,
         yahoo_only_tickers: set[str] | None = None,
+        yahoo_only_mode: bool = False,
     ) -> dict[str, pd.DataFrame | RunMetadata | list[str] | int | None | AnalysisProgressState]:
         started_at = utc_now()
         warnings: list[str] = []
@@ -74,9 +75,13 @@ class PipelineService:
         if marketcap_warning:
             warnings.append(marketcap_warning)
 
-        expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
-        articles, rss_warnings = self.rss_client.collect(expanded_rss_sources, watchlist)
-        warnings.extend(rss_warnings)
+        articles = []
+        if yahoo_only_mode:
+            progress.log("INFO", "Yahoo-only mode: přeskočeno načítání RSS/MT5, běží jen Yahoo data")
+        else:
+            expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
+            articles, rss_warnings = self.rss_client.collect(expanded_rss_sources, watchlist)
+            warnings.extend(rss_warnings)
 
         rows: list[dict[str, object]] = []
         total = len(watchlist)
@@ -98,7 +103,7 @@ class PipelineService:
             tech_source_warning: str | None = None
             progress.set_step(ticker, "fetch_tech", f"Načítám OHLC data pro {ticker}", 0.62)
 
-            if ticker in yahoo_only_tickers:
+            if yahoo_only_mode or ticker in yahoo_only_tickers:
                 tech_source_used = "yfinance_excel"
                 ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
                 fallback_parts = [f"MT5 skipped for {ticker} (Excel Yahoo-only ticker)"]
