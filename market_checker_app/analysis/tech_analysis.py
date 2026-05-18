@@ -32,11 +32,31 @@ def _safe_float(value: object) -> float | None:
     return number
 
 
+def _coerce_numeric_series(series: pd.Series) -> pd.Series:
+    if pd.api.types.is_numeric_dtype(series):
+        return pd.to_numeric(series, errors="coerce")
+    normalized = (
+        series.astype(str)
+        .str.replace(" ", "", regex=False)
+        .str.replace(" ", "", regex=False)
+        .str.replace(",", ".", regex=False)
+        .str.replace(r"[^0-9+\-\.]", "", regex=True)
+    )
+    return pd.to_numeric(normalized, errors="coerce")
+
+
 def analyze_tech(ticker: str, ohlc: pd.DataFrame, source: str = "yfinance") -> TechAnalysisResult:
     if ohlc.empty or "Close" not in ohlc.columns:
         return TechAnalysisResult(ticker, 50.0, 20.0, 50, 50, 50, 50, 50, 40, 0, source, 0, "mixed", ["insufficient OHLC history"], ["No OHLC candles available."])
 
-    df = ohlc.copy().dropna(subset=["Close"]).astype(float)
+    df = ohlc.copy()
+    for col in ["Open", "High", "Low", "Close", "Volume"]:
+        if col in df.columns:
+            df[col] = _coerce_numeric_series(df[col])
+    df = df.dropna(subset=["Close"])
+
+    if df.empty:
+        return TechAnalysisResult(ticker, 50.0, 20.0, 50, 50, 50, 50, 50, 40, 0, source, 0, "mixed", ["insufficient OHLC history"], ["No valid numeric OHLC candles available."])
     close = df["Close"]
     high = df["High"] if "High" in df.columns else close
     low = df["Low"] if "Low" in df.columns else close
