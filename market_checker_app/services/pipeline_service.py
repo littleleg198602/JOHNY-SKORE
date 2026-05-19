@@ -75,6 +75,7 @@ class PipelineService:
         if marketcap_warning:
             warnings.append(marketcap_warning)
 
+        expanded_rss_sources: list[str] = []
         articles = []
         if yahoo_only_mode:
             progress.log("INFO", "Yahoo-only mode: přeskočeno načítání RSS/MT5, běží jen Yahoo data")
