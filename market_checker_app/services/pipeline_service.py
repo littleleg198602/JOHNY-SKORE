@@ -60,6 +60,8 @@ class PipelineService:
         rss_sources: list[str],
         store: SQLiteStore | None,
         progress_callback: Callable[[AnalysisProgressState], None] | None = None,
+        yahoo_only_tickers: set[str] | None = None,
+        yahoo_only_mode: bool = False,
     ) -> dict[str, pd.DataFrame | RunMetadata | list[str] | int | None | AnalysisProgressState]:
         started_at = utc_now()
         warnings: list[str] = []
@@ -73,12 +75,18 @@ class PipelineService:
         if marketcap_warning:
             warnings.append(marketcap_warning)
 
-        expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
-        articles, rss_warnings = self.rss_client.collect(expanded_rss_sources, watchlist)
-        warnings.extend(rss_warnings)
+        expanded_rss_sources: list[str] = []
+        articles = []
+        if yahoo_only_mode:
+            progress.log("INFO", "Yahoo-only mode: přeskočeno načítání RSS/MT5, běží jen Yahoo data")
+        else:
+            expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
+            articles, rss_warnings = self.rss_client.collect(expanded_rss_sources, watchlist)
+            warnings.extend(rss_warnings)
 
         rows: list[dict[str, object]] = []
         total = len(watchlist)
+        yahoo_only_tickers = yahoo_only_tickers or set()
         for idx, ticker in enumerate(watchlist, start=1):
             progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
             progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
@@ -95,20 +103,31 @@ class PipelineService:
             tech_source_used = "mt5"
             tech_source_warning: str | None = None
             progress.set_step(ticker, "fetch_tech", f"Načítám OHLC data pro {ticker}", 0.62)
-            mt5_ohlc, mt5_warning = self.mt5_client.fetch_ohlcv(ticker)
-            if mt5_ohlc is not None and not mt5_ohlc.empty:
-                ohlc = mt5_ohlc
-            else:
-                tech_source_used = "yfinance_fallback"
+
+            if yahoo_only_mode or ticker in yahoo_only_tickers:
+                tech_source_used = "yfinance_excel"
                 ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
-                fallback_parts = [f"MT5 not used for {ticker}"]
-                if mt5_warning:
-                    fallback_parts.append(f"reason: {mt5_warning}")
+                fallback_parts = [f"MT5 skipped for {ticker} (Excel Yahoo-only ticker)"]
                 if ohlc_warning:
                     fallback_parts.append(f"yfinance: {ohlc_warning}")
                 tech_source_warning = " | ".join(fallback_parts)
                 warnings.append(tech_source_warning)
-                progress.log("FALLBACK", tech_source_warning, ticker)
+                progress.log("INFO", tech_source_warning, ticker)
+            else:
+                mt5_ohlc, mt5_warning = self.mt5_client.fetch_ohlcv(ticker)
+                if mt5_ohlc is not None and not mt5_ohlc.empty:
+                    ohlc = mt5_ohlc
+                else:
+                    tech_source_used = "yfinance_fallback"
+                    ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
+                    fallback_parts = [f"MT5 not used for {ticker}"]
+                    if mt5_warning:
+                        fallback_parts.append(f"reason: {mt5_warning}")
+                    if ohlc_warning:
+                        fallback_parts.append(f"yfinance: {ohlc_warning}")
+                    tech_source_warning = " | ".join(fallback_parts)
+                    warnings.append(tech_source_warning)
+                    progress.log("FALLBACK", tech_source_warning, ticker)
 
             progress.set_step(ticker, "score_tech", f"Počítám technickou analýzu pro {ticker}", 0.74)
             tech = analyze_tech(ticker, ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame(), source=tech_source_used)
