@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import asdict
 from datetime import datetime, timezone
+import time
 from typing import Callable
 
 import pandas as pd
@@ -27,7 +28,13 @@ from market_checker_app.collectors.mt5_client import MT5Client
 from market_checker_app.collectors.rss_client import RSSClient
 from market_checker_app.collectors.yahoo_client import YahooClient
 from market_checker_app.config import AppConfig
-from market_checker_app.models import AnalysisProgressState, RunMetadata
+from market_checker_app.models import (
+    AnalysisProgressState,
+    PerformanceSnapshot,
+    RunMetadata,
+    YahooAnalysisResult,
+    YahooSnapshot,
+)
 from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -54,6 +61,46 @@ class PipelineService:
                 expanded.append(source)
         return sorted(set(expanded))
 
+    @staticmethod
+    def _neutral_yahoo_result(ticker: str) -> YahooAnalysisResult:
+        message = "Yahoo metadata byla ve velkém universe režimu přeskočena"
+        return YahooAnalysisResult(
+            ticker=ticker,
+            yahoo_score=50.0,
+            yahoo_confidence=0.0,
+            analyst_sentiment_score=50.0,
+            target_attractiveness_score=50.0,
+            fundamental_quality_score=50.0,
+            valuation_sanity_score=50.0,
+            number_of_analyst_opinions=0,
+            missing_fields=[message],
+            warnings=[message],
+            reasons=["Yahoo analyst/fundamental module is neutral because metadata was skipped."],
+        )
+
+    @staticmethod
+    def _performance_from_ohlc(ticker: str, ohlc: pd.DataFrame | None) -> PerformanceSnapshot:
+        def _return(days: int) -> float | None:
+            if ohlc is None or ohlc.empty or "Close" not in ohlc.columns:
+                return None
+            close = pd.to_numeric(ohlc["Close"], errors="coerce").dropna()
+            if len(close) <= days:
+                return None
+            latest = float(close.iloc[-1])
+            base = float(close.iloc[-(days + 1)])
+            if base == 0:
+                return None
+            return round(((latest / base) - 1) * 100, 4)
+
+        return PerformanceSnapshot(ticker, _return(7), _return(14), _return(21), _return(63))
+
+    @staticmethod
+    def _current_price_from_ohlc(ohlc: pd.DataFrame | None) -> float | None:
+        if ohlc is None or ohlc.empty or "Close" not in ohlc.columns:
+            return None
+        close = pd.to_numeric(ohlc["Close"], errors="coerce").dropna()
+        return float(close.iloc[-1]) if not close.empty else None
+
     def run(
         self,
         watchlist: list[str],
@@ -64,19 +111,61 @@ class PipelineService:
         yahoo_only_mode: bool = False,
         rss_enabled: bool | None = None,
         mt5_enabled: bool | None = None,
+        yahoo_metadata_enabled: bool | None = None,
     ) -> dict[str, pd.DataFrame | RunMetadata | list[str] | int | None | AnalysisProgressState]:
         if not watchlist:
             raise ValueError("Watchlist je prázdný. Nahrajte Excel nebo zadejte alespoň jeden ticker.")
+        if len(watchlist) > self.config.max_tickers_per_run:
+            raise ValueError(
+                f"Watchlist má {len(watchlist)} tickerů, povolené maximum pro jeden běh je "
+                f"{self.config.max_tickers_per_run}. Zmenšete seznam nebo vědomě zvyšte limit v nastavení."
+            )
 
         rss_enabled = not yahoo_only_mode if rss_enabled is None else rss_enabled
         mt5_enabled = not yahoo_only_mode if mt5_enabled is None else mt5_enabled
+        total = len(watchlist)
+        large_universe_mode = total > self.config.large_universe_threshold
+        if yahoo_metadata_enabled is None:
+            yahoo_metadata_enabled = not large_universe_mode
         started_at = utc_now()
         warnings: list[str] = []
         errors: list[str] = []
-        progress = ProgressService(total_symbols=len(watchlist), max_logs=30, on_update=progress_callback)
+        progress_on_update = progress_callback
+        if large_universe_mode and progress_callback is not None:
+            last_progress_emit = 0.0
 
-        progress.set_global_step("start", "Inicializuji pipeline", 0.02)
+            def _throttled_progress_callback(state: AnalysisProgressState) -> None:
+                nonlocal last_progress_emit
+                now = time.monotonic()
+                if last_progress_emit == 0.0 or state.current_step == "done" or now - last_progress_emit >= 0.15:
+                    last_progress_emit = now
+                    progress_callback(state)
+
+            progress_on_update = _throttled_progress_callback
+
+        progress = ProgressService(
+            total_symbols=len(watchlist),
+            max_logs=30,
+            on_update=progress_on_update,
+        )
+
+        progress.set_global_step("start", "Inicializuji pipeline", 0.01)
         progress.log("INFO", f"Start analýzy pro {len(watchlist)} tickerů")
+        if not yahoo_metadata_enabled:
+            if mt5_enabled:
+                warnings.append(
+                    f"Velký universe režim ({total} tickerů): Yahoo metadata a odhady analytiků "
+                    "jsou neutrální; technická data se berou hromadně z MT5."
+                )
+            else:
+                warnings.append(
+                    f"Velký universe režim ({total} tickerů): Yahoo metadata a odhady analytiků "
+                    "jsou neutrální."
+                )
+                errors.append(
+                    "MT5 je pro velký universe vypnuté. Technická data budou neutrální; "
+                    "pro plnou analýzu zapněte MT5."
+                )
 
         market_caps, marketcap_warning = load_market_caps(self.config.marketcap_file)
         if marketcap_warning:
@@ -86,56 +175,142 @@ class PipelineService:
         articles = []
         if rss_enabled:
             expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
-            articles, rss_warnings = self.rss_client.collect(expanded_rss_sources, watchlist)
+
+            def _on_rss_progress(completed: int, total_sources: int, source: str) -> None:
+                if completed == 1 or completed == total_sources or completed % 10 == 0:
+                    phase_progress = 0.01 + 0.04 * (completed / max(1, total_sources))
+                    progress.set_global_step(
+                        "rss",
+                        f"Načítám RSS zdroje: {completed}/{total_sources}",
+                        phase_progress,
+                    )
+
+            progress.set_global_step(
+                "rss",
+                f"Načítám RSS zdroje: 0/{len(expanded_rss_sources)}",
+                0.01,
+            )
+            articles, rss_warnings = self.rss_client.collect(
+                expanded_rss_sources,
+                watchlist,
+                progress_callback=_on_rss_progress,
+            )
             warnings.extend(rss_warnings)
         else:
             progress.log("INFO", "RSS zprávy jsou pro tento běh vypnuté")
 
-        rows: list[dict[str, object]] = []
-        total = len(watchlist)
         yahoo_only_tickers = yahoo_only_tickers or set()
+        mt5_ohlc_by_ticker: dict[str, pd.DataFrame] = {}
+        mt5_warnings_by_ticker: dict[str, str] = {}
+        mt5_tickers = [ticker for ticker in watchlist if ticker not in yahoo_only_tickers]
+        if mt5_enabled and mt5_tickers:
+            progress.set_global_step(
+                "mt5_batch",
+                f"Načítám MT5 OHLC: 0/{len(mt5_tickers)}",
+                0.05,
+            )
+
+            def _on_mt5_progress(completed: int, mt5_total: int, ticker: str) -> None:
+                if completed == 1 or completed == mt5_total or completed % 10 == 0:
+                    phase_progress = 0.05 + 0.03 * (completed / max(1, mt5_total))
+                    progress.set_global_step(
+                        "mt5_batch",
+                        f"Načítám MT5 OHLC: {completed}/{mt5_total} ({ticker})",
+                        phase_progress,
+                    )
+
+            mt5_ohlc_by_ticker, mt5_warnings_by_ticker = self.mt5_client.fetch_ohlcv_batch(
+                mt5_tickers,
+                progress_callback=_on_mt5_progress,
+            )
+            mt5_success_count = len(mt5_ohlc_by_ticker)
+            mt5_failure_count = len(mt5_tickers) - mt5_success_count
+            if mt5_failure_count == len(mt5_tickers):
+                errors.append(
+                    f"MT5 OHLC selhalo pro všech {len(mt5_tickers)} tickerů. "
+                    "Technické skóre bude neutrální s nízkou důvěrou."
+                )
+            elif mt5_failure_count:
+                warnings.append(
+                    f"MT5 OHLC není dostupné pro {mt5_failure_count} z {len(mt5_tickers)} tickerů."
+                )
+
+        articles_by_ticker: dict[str, list] = {}
+        for article in articles:
+            articles_by_ticker.setdefault(article.ticker, []).append(article)
+
+        rows: list[dict[str, object]] = []
         yahoo_snapshot_failures = 0
         yahoo_ohlc_attempts = 0
         yahoo_ohlc_failures = 0
         for idx, ticker in enumerate(watchlist, start=1):
             progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
             progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
-            ticker_articles = [article for article in articles if article.ticker == ticker]
+            ticker_articles = articles_by_ticker.get(ticker, [])
             news = analyze_news(ticker, ticker_articles)
 
-            snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
-            if snapshot.status != "ok":
-                yahoo_snapshot_failures += 1
-            if yahoo_warning:
-                warnings.append(yahoo_warning)
-                progress.log("WARNING", yahoo_warning, ticker)
-            progress.set_step(ticker, "score_yahoo", f"Počítám Yahoo score pro {ticker}", 0.5)
-            yresult = analyze_yahoo(snapshot)
+            if yahoo_metadata_enabled:
+                snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
+                if snapshot.status != "ok":
+                    yahoo_snapshot_failures += 1
+                if yahoo_warning:
+                    warnings.append(yahoo_warning)
+                    progress.log("WARNING", yahoo_warning, ticker)
+                progress.set_step(ticker, "score_yahoo", f"Počítám Yahoo score pro {ticker}", 0.5)
+                yresult = analyze_yahoo(snapshot)
+            else:
+                snapshot = YahooSnapshot(ticker=ticker, data={}, status="skipped")
+                perf = PerformanceSnapshot(ticker, None, None, None, None)
+                yahoo_warning = None
+                yresult = self._neutral_yahoo_result(ticker)
 
             tech_source_used = "mt5"
             tech_source_warning: str | None = None
             progress.set_step(ticker, "fetch_tech", f"Načítám OHLC data pro {ticker}", 0.62)
 
             if not mt5_enabled or ticker in yahoo_only_tickers:
-                yahoo_ohlc_attempts += 1
-                tech_source_used = "yfinance_excel" if ticker in yahoo_only_tickers else "yfinance"
-                ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
-                if ohlc_warning:
-                    yahoo_ohlc_failures += 1
-                    tech_source_warning = ohlc_warning
-                    if not yahoo_warning or ohlc_warning not in yahoo_warning:
-                        warnings.append(ohlc_warning)
-                    progress.log("WARNING", ohlc_warning, ticker)
+                if large_universe_mode:
+                    tech_source_used = "bulk_price_source_unavailable"
+                    ohlc = pd.DataFrame()
+                    tech_source_warning = (
+                        f"MT5 není použito pro {ticker}; ve velkém universe režimu se "
+                        "jednotlivé Yahoo OHLC požadavky nepouštějí."
+                    )
                 else:
-                    progress.log("INFO", f"Technická data pro {ticker}: Yahoo Finance", ticker)
+                    yahoo_ohlc_attempts += 1
+                    tech_source_used = "yfinance_excel" if ticker in yahoo_only_tickers else "yfinance"
+                    fetch_ohlc = (
+                        self.yahoo_client.fetch_ohlc
+                        if yahoo_metadata_enabled
+                        else self.yahoo_client.fetch_ohlc_only
+                    )
+                    ohlc, ohlc_warning = fetch_ohlc(ticker)
+                    if ohlc_warning:
+                        yahoo_ohlc_failures += 1
+                        tech_source_warning = ohlc_warning
+                        if not yahoo_warning or ohlc_warning not in yahoo_warning:
+                            warnings.append(ohlc_warning)
+                        progress.log("WARNING", ohlc_warning, ticker)
+                    else:
+                        progress.log("INFO", f"Technická data pro {ticker}: Yahoo Finance", ticker)
             else:
-                mt5_ohlc, mt5_warning = self.mt5_client.fetch_ohlcv(ticker)
+                mt5_ohlc = mt5_ohlc_by_ticker.get(ticker)
+                mt5_warning = mt5_warnings_by_ticker.get(ticker)
                 if mt5_ohlc is not None and not mt5_ohlc.empty:
                     ohlc = mt5_ohlc
+                elif large_universe_mode:
+                    tech_source_used = "mt5_unavailable"
+                    ohlc = pd.DataFrame()
+                    tech_source_warning = mt5_warning or f"MT5 OHLC není dostupné pro {ticker}."
                 else:
                     tech_source_used = "yfinance_fallback"
                     yahoo_ohlc_attempts += 1
-                    ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
+                    fetch_ohlc = (
+                        self.yahoo_client.fetch_ohlc
+                        if yahoo_metadata_enabled
+                        else self.yahoo_client.fetch_ohlc_only
+                    )
+                    ohlc, ohlc_warning = fetch_ohlc(ticker)
                     fallback_parts = [f"MT5 not used for {ticker}"]
                     if mt5_warning:
                         fallback_parts.append(f"reason: {mt5_warning}")
@@ -150,6 +325,14 @@ class PipelineService:
             tech = analyze_tech(ticker, ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame(), source=tech_source_used)
             if tech_source_warning:
                 tech.warnings.append(tech_source_warning)
+
+            derived_perf = self._performance_from_ohlc(
+                ticker,
+                ohlc if isinstance(ohlc, pd.DataFrame) else None,
+            )
+            current_price = snapshot.data.get("currentPrice") or self._current_price_from_ohlc(
+                ohlc if isinstance(ohlc, pd.DataFrame) else None
+            )
 
             progress.set_step(ticker, "behavioral_risk", f"Počítám behavioral a risk vrstvu pro {ticker}", 0.82)
             behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
@@ -196,7 +379,7 @@ class PipelineService:
             row = {
                 "ticker": ticker,
                 "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
-                "current_price": snapshot.data.get("currentPrice"),
+                "current_price": current_price,
                 "scoring_version": SCORING_VERSION,
                 "legacy_total_score": legacy_total_score,
                 "legacy_signal": legacy_signal,
@@ -237,10 +420,10 @@ class PipelineService:
                 "warnings": json.dumps(diag.warnings, ensure_ascii=False),
                 "key_drivers": json.dumps(diag.key_drivers, ensure_ascii=False),
                 "overall_summary": diag.overall_summary,
-                "last_week_change_pct": perf.last_week_change_pct,
-                "last_14d_change_pct": perf.last_14d_change_pct,
-                "last_1m_change_pct": perf.last_1m_change_pct,
-                "last_3m_change_pct": perf.last_3m_change_pct,
+                "last_week_change_pct": perf.last_week_change_pct if perf.last_week_change_pct is not None else derived_perf.last_week_change_pct,
+                "last_14d_change_pct": perf.last_14d_change_pct if perf.last_14d_change_pct is not None else derived_perf.last_14d_change_pct,
+                "last_1m_change_pct": perf.last_1m_change_pct if perf.last_1m_change_pct is not None else derived_perf.last_1m_change_pct,
+                "last_3m_change_pct": perf.last_3m_change_pct if perf.last_3m_change_pct is not None else derived_perf.last_3m_change_pct,
             }
             rows.append(row)
             progress.add_completed_row({
@@ -253,11 +436,11 @@ class PipelineService:
             })
             progress.log("DONE", f"Dokončeno: {ticker} → {diag.signal} / {diag.final_total_score:.1f}", ticker)
 
-        if yahoo_snapshot_failures == total:
+        if yahoo_metadata_enabled and yahoo_snapshot_failures == total:
             errors.append(
                 "Yahoo metadata selhala pro všechny tickery. Fundamentální část výsledků používá fallback a není spolehlivá."
             )
-        elif yahoo_snapshot_failures:
+        elif yahoo_metadata_enabled and yahoo_snapshot_failures:
             warnings.append(f"Yahoo metadata selhala pro {yahoo_snapshot_failures} z {total} tickerů.")
 
         if yahoo_ohlc_attempts and yahoo_ohlc_failures == yahoo_ohlc_attempts:
@@ -283,7 +466,7 @@ class PipelineService:
         metadata = RunMetadata(started_at, finished_at, len(watchlist), len(signals_df), len(warnings), len(errors), "")
         run_id: int | None = None
         if self.config.save_history and store is not None:
-            progress.set_global_step("save_history", "Ukládám výsledky do SQLite historie", 0.96)
+            progress.set_global_step("save_history", "Ukládám výsledky do SQLite historie", 0.98)
             try:
                 run_id = store.save_run(
                     metadata,

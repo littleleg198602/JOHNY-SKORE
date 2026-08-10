@@ -184,3 +184,21 @@ class YahooClient:
             return history, None
         except Exception as exc:
             return None, f"Stažení OHLC pro {ticker} selhalo: {exc}"
+
+    def fetch_ohlc_only(
+        self, ticker: str, period: str = "1y", interval: str = "1d"
+    ) -> tuple[pd.DataFrame | None, str | None]:
+        """Fetch history without the expensive Yahoo metadata endpoint."""
+        try:
+            history = self._call_with_retry(
+                lambda: yf.Ticker(ticker).history(
+                    period=period,
+                    interval=interval,
+                    auto_adjust=False,
+                )
+            )
+            if history is None or history.empty:
+                return history, f"OHLC data pro {ticker} nejsou na Yahoo dostupná."
+            return history, None
+        except Exception as exc:
+            return None, f"Stažení OHLC pro {ticker} selhalo: {exc}"

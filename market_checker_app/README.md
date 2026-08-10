@@ -36,6 +36,17 @@ Stačí na něj dvakrát kliknout. Skript:
 - Yahoo cenová historie se v rámci běhu sdílí mezi performance a technickou analýzou a krátce cachuje.
 - Pokud Yahoo omezí požadavky, aplikace zobrazí výraznou chybu a označí fallback výsledky jako nespolehlivé.
 
+### Velký universe (např. 687 tickerů z MT5)
+
+- Analyzují se všechny tickery, výchozí limit jednoho běhu je 1000 symbolů.
+- RSS zdroje se načítají paralelně s timeoutem a MT5 OHLCV v jednom připojení k terminálu.
+- UI průběžně ukazuje fáze `RSS`, `MT5 OHLC` a následně pořadí zpracovávaného tickeru.
+- Nad 100 tickerů se nepouští pomalý Yahoo metadata/analyst požadavek pro každý symbol.
+  Yahoo modul má neutrální skóre a nulovou důvěru; technika, zprávy, behavioral a risk
+  se dál počítají pro každý ticker. Aktuální cena a změny se v tomto režimu odvozují z MT5.
+- Když pro některý symbol MT5 nevrátí svíčky, tento řádek zůstane ve výsledku, ale technická
+  část bude neutrální a ve sloupci `warnings` bude uveden důvod.
+
 ## Co aplikace dělá
 
 - načte watchlist z MetaTrader5 (nebo ručně z textového pole)

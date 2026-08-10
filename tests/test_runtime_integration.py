@@ -55,6 +55,26 @@ class _FakeYahooClient:
         return _history(), None
 
 
+class _ForbiddenYahooClient:
+    def fetch_snapshots(self, ticker: str):
+        raise AssertionError("Large-universe mode must not call Yahoo metadata")
+
+    def fetch_ohlc(self, ticker: str, period: str = "1y", interval: str = "1d"):
+        raise AssertionError("Large-universe mode must not call Yahoo OHLC fallback")
+
+    fetch_ohlc_only = fetch_ohlc
+
+
+class _FakeBatchMT5Client:
+    def fetch_ohlcv_batch(self, tickers, bars=300, progress_callback=None):
+        frames = {}
+        for completed, ticker in enumerate(tickers, start=1):
+            frames[ticker] = _history()
+            if progress_callback:
+                progress_callback(completed, len(tickers), ticker)
+        return frames, {}
+
+
 class RuntimeIntegrationTests(unittest.TestCase):
     def test_pipeline_persists_signals_and_history_atomically(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -87,6 +107,33 @@ class RuntimeIntegrationTests(unittest.TestCase):
         pipeline = PipelineService(AppConfig(save_history=False))
         with self.assertRaisesRegex(ValueError, "Watchlist je prázdný"):
             pipeline.run([], [], None)
+
+    def test_large_universe_processes_every_ticker_without_yahoo_metadata(self):
+        pipeline = PipelineService(
+            AppConfig(
+                save_history=False,
+                large_universe_threshold=2,
+                max_tickers_per_run=1000,
+            )
+        )
+        pipeline.yahoo_client = _ForbiddenYahooClient()
+        pipeline.mt5_client = _FakeBatchMT5Client()
+
+        result = pipeline.run(
+            ["AAPL", "MSFT", "NVDA"],
+            [],
+            None,
+            rss_enabled=False,
+            mt5_enabled=True,
+        )
+
+        signals = result["signals"]
+        self.assertEqual(3, len(signals))
+        self.assertEqual({"AAPL", "MSFT", "NVDA"}, set(signals["ticker"]))
+        self.assertTrue((signals["tech_source_used"] == "mt5").all())
+        self.assertTrue(signals["current_price"].notna().all())
+        self.assertTrue((signals["yahoo_confidence"] == 0.0).all())
+        self.assertEqual([], result["errors"])
 
     def test_failed_signal_insert_rolls_back_run_row(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -14,10 +14,14 @@ class ProgressService:
         total_symbols: int,
         max_logs: int = 25,
         on_update: Callable[[AnalysisProgressState], None] | None = None,
+        symbol_start_progress: float = 0.08,
+        symbol_end_progress: float = 0.96,
     ) -> None:
         self._state = AnalysisProgressState(total_symbols=total_symbols)
         self._events: deque[AnalysisLogEvent] = deque(maxlen=max_logs)
         self._on_update = on_update
+        self._symbol_start_progress = max(0.0, min(1.0, symbol_start_progress))
+        self._symbol_end_progress = max(self._symbol_start_progress, min(1.0, symbol_end_progress))
 
     def snapshot(self) -> AnalysisProgressState:
         self._state.recent_logs = [asdict(event) for event in self._events]
@@ -51,7 +55,9 @@ class ProgressService:
         self._state.processed_symbols = max(self._state.processed_symbols, position - 1)
         if self._state.total_symbols > 0:
             done_before_current = max(0, position - 1)
-            self._state.overall_progress = min(0.99, done_before_current / self._state.total_symbols)
+            fraction = done_before_current / self._state.total_symbols
+            span = self._symbol_end_progress - self._symbol_start_progress
+            self._state.overall_progress = self._symbol_start_progress + span * fraction
         self._emit()
 
     def set_step(self, ticker: str, step: str, message: str, ticker_progress: float | None = None) -> None:
@@ -67,7 +73,12 @@ class ProgressService:
         self._state.processed_symbols += 1
         self._state.ticker_progress = 1.0
         if self._state.total_symbols > 0:
-            self._state.overall_progress = min(1.0, self._state.processed_symbols / self._state.total_symbols)
+            fraction = self._state.processed_symbols / self._state.total_symbols
+            span = self._symbol_end_progress - self._symbol_start_progress
+            self._state.overall_progress = min(
+                self._symbol_end_progress,
+                self._symbol_start_progress + span * fraction,
+            )
         self._emit()
 
     def set_global_step(self, step: str, message: str, progress: float) -> None:
