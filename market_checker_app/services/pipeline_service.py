@@ -38,6 +38,7 @@ from market_checker_app.models import (
 from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 from market_checker_app.utils.dates import utc_now
 
 
@@ -50,6 +51,7 @@ class PipelineService:
         self.mt5_client = MT5Client()
         self.rss_client = RSSClient(max_items_per_source=config.max_rss_items_per_source)
         self.yahoo_client = YahooClient()
+        self.yahoo_cache = YahooCacheStore(config.sqlite_path)
 
     @staticmethod
     def _expand_rss_sources(rss_sources: list[str], watchlist: list[str]) -> list[str]:
@@ -62,8 +64,7 @@ class PipelineService:
         return sorted(set(expanded))
 
     @staticmethod
-    def _neutral_yahoo_result(ticker: str) -> YahooAnalysisResult:
-        message = "Yahoo metadata byla ve velkém universe režimu přeskočena"
+    def _neutral_yahoo_result(ticker: str, reason: str) -> YahooAnalysisResult:
         return YahooAnalysisResult(
             ticker=ticker,
             yahoo_score=50.0,
@@ -73,9 +74,9 @@ class PipelineService:
             fundamental_quality_score=50.0,
             valuation_sanity_score=50.0,
             number_of_analyst_opinions=0,
-            missing_fields=[message],
-            warnings=[message],
-            reasons=["Yahoo analyst/fundamental module is neutral because metadata was skipped."],
+            missing_fields=[reason],
+            warnings=[reason],
+            reasons=["Yahoo analyst/fundamental module has no directional contribution because data is unavailable."],
         )
 
     @staticmethod
@@ -125,6 +126,7 @@ class PipelineService:
         mt5_enabled = not yahoo_only_mode if mt5_enabled is None else mt5_enabled
         total = len(watchlist)
         large_universe_mode = total > self.config.large_universe_threshold
+        use_yahoo_cache = large_universe_mode
         if yahoo_metadata_enabled is None:
             yahoo_metadata_enabled = not large_universe_mode
         started_at = utc_now()
@@ -151,17 +153,14 @@ class PipelineService:
 
         progress.set_global_step("start", "Inicializuji pipeline", 0.01)
         progress.log("INFO", f"Start analýzy pro {len(watchlist)} tickerů")
-        if not yahoo_metadata_enabled:
-            if mt5_enabled:
-                warnings.append(
-                    f"Velký universe režim ({total} tickerů): Yahoo metadata a odhady analytiků "
-                    "jsou neutrální; technická data se berou hromadně z MT5."
-                )
-            else:
-                warnings.append(
-                    f"Velký universe režim ({total} tickerů): Yahoo metadata a odhady analytiků "
-                    "jsou neutrální."
-                )
+        if use_yahoo_cache:
+            yahoo_coverage = self.yahoo_cache.coverage(watchlist)
+            warnings.append(
+                f"Yahoo cache: použitelná metadata pro {yahoo_coverage.usable}/{total} tickerů "
+                f"(fresh {yahoo_coverage.fresh}, stale {yahoo_coverage.stale}, "
+                f"failed {yahoo_coverage.failed}, pending {yahoo_coverage.missing + yahoo_coverage.corrupt})."
+            )
+            if not mt5_enabled:
                 errors.append(
                     "MT5 je pro velký universe vypnuté. Technická data budou neutrální; "
                     "pro plnou analýzu zapněte MT5."
@@ -249,20 +248,64 @@ class PipelineService:
             ticker_articles = articles_by_ticker.get(ticker, [])
             news = analyze_news(ticker, ticker_articles)
 
-            if yahoo_metadata_enabled:
+            yahoo_data_status = "pending"
+            yahoo_data_fetched_at: str | None = None
+            yahoo_ticker = YahooClient.normalize_yahoo_symbol(ticker)
+
+            if use_yahoo_cache:
+                cache_lookup = self.yahoo_cache.get(ticker)
+                cache_record = cache_lookup.record
+                if cache_lookup.usable and cache_record is not None and cache_record.data:
+                    cached_data = dict(cache_record.data)
+                    metadata_quality = str(
+                        cached_data.pop("_market_checker_yahoo_quality", "ok")
+                    )
+                    snapshot = YahooSnapshot(
+                        ticker=cache_record.yahoo_ticker,
+                        data=cached_data,
+                        status=metadata_quality if metadata_quality in {"ok", "partial"} else "ok",
+                    )
+                    perf = PerformanceSnapshot(ticker, None, None, None, None)
+                    yahoo_warning = cache_record.error
+                    yahoo_data_status = f"cache_{cache_lookup.state}"
+                    yahoo_data_fetched_at = cache_record.fetched_at.isoformat()
+                    yahoo_ticker = cache_record.yahoo_ticker
+                    yresult = analyze_yahoo(snapshot)
+                    if cache_lookup.state == "stale":
+                        yresult.yahoo_confidence = round(yresult.yahoo_confidence * 0.75, 2)
+                        stale_warning = "Yahoo metadata jsou zastaralá; probíhá čekání na obnovení cache"
+                        yresult.warnings.append(stale_warning)
+                    if metadata_quality == "partial":
+                        yresult.yahoo_confidence = round(yresult.yahoo_confidence * 0.8, 2)
+                        yresult.warnings.append("Yahoo metadata jsou pouze částečná")
+                else:
+                    snapshot = YahooSnapshot(ticker=yahoo_ticker, data={}, status=cache_lookup.state)
+                    perf = PerformanceSnapshot(ticker, None, None, None, None)
+                    yahoo_warning = cache_record.error if cache_record is not None else None
+                    yahoo_data_status = cache_lookup.state
+                    reason = (
+                        f"Yahoo metadata nejsou připravená (stav: {cache_lookup.state}); "
+                        "doplňte Yahoo cache"
+                    )
+                    yresult = self._neutral_yahoo_result(ticker, reason)
+            elif yahoo_metadata_enabled:
                 snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
-                if snapshot.status != "ok":
+                if snapshot.status not in {"ok", "partial"}:
                     yahoo_snapshot_failures += 1
                 if yahoo_warning:
                     warnings.append(yahoo_warning)
                     progress.log("WARNING", yahoo_warning, ticker)
                 progress.set_step(ticker, "score_yahoo", f"Počítám Yahoo score pro {ticker}", 0.5)
                 yresult = analyze_yahoo(snapshot)
+                yahoo_data_status = f"live_{snapshot.status}"
+                yahoo_data_fetched_at = started_at.isoformat()
+                yahoo_ticker = snapshot.ticker
             else:
                 snapshot = YahooSnapshot(ticker=ticker, data={}, status="skipped")
                 perf = PerformanceSnapshot(ticker, None, None, None, None)
                 yahoo_warning = None
-                yresult = self._neutral_yahoo_result(ticker)
+                yahoo_data_status = "disabled"
+                yresult = self._neutral_yahoo_result(ticker, "Yahoo metadata jsou vypnutá")
 
             tech_source_used = "mt5"
             tech_source_warning: str | None = None
@@ -380,6 +423,9 @@ class PipelineService:
                 "ticker": ticker,
                 "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
                 "current_price": current_price,
+                "yahoo_ticker": yahoo_ticker,
+                "yahoo_data_status": yahoo_data_status,
+                "yahoo_data_fetched_at": yahoo_data_fetched_at,
                 "scoring_version": SCORING_VERSION,
                 "legacy_total_score": legacy_total_score,
                 "legacy_signal": legacy_signal,

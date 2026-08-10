@@ -8,6 +8,9 @@ import pandas as pd
 class ExcelExporter:
     SIGNAL_EXPORT_COLUMNS = [
         "ticker",
+        "yahoo_ticker",
+        "yahoo_data_status",
+        "yahoo_data_fetched_at",
         "market_cap_usd",
         "rank_market_cap",
         "scoring_version",

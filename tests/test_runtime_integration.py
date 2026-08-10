@@ -14,6 +14,7 @@ from market_checker_app.config import AppConfig
 from market_checker_app.models import PerformanceSnapshot, RunMetadata, YahooSnapshot
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 
 
 def _history() -> pd.DataFrame:
@@ -53,6 +54,17 @@ class _FakeYahooClient:
 
     def fetch_ohlc(self, ticker: str, period: str = "1y", interval: str = "1d"):
         return _history(), None
+
+
+class _PartialYahooClient(_FakeYahooClient):
+    def fetch_snapshots(self, ticker: str):
+        performance = PerformanceSnapshot(ticker, 1.0, 2.0, 3.0, 4.0)
+        snapshot = YahooSnapshot(
+            ticker,
+            {"currentPrice": 100.0, "forwardPE": 20.0},
+            "partial",
+        )
+        return snapshot, performance, f"Yahoo metadata jsou pro {ticker} pouze částečná."
 
 
 class _ForbiddenYahooClient:
@@ -108,24 +120,51 @@ class RuntimeIntegrationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Watchlist je prázdný"):
             pipeline.run([], [], None)
 
-    def test_large_universe_processes_every_ticker_without_yahoo_metadata(self):
-        pipeline = PipelineService(
-            AppConfig(
-                save_history=False,
-                large_universe_threshold=2,
-                max_tickers_per_run=1000,
+    def test_partial_yahoo_metadata_is_not_reported_as_total_failure(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pipeline = PipelineService(
+                AppConfig(
+                    output_dir=Path(tmp),
+                    sqlite_path=Path(tmp) / "history.db",
+                    save_history=False,
+                )
             )
-        )
-        pipeline.yahoo_client = _ForbiddenYahooClient()
-        pipeline.mt5_client = _FakeBatchMT5Client()
+            pipeline.yahoo_client = _PartialYahooClient()
 
-        result = pipeline.run(
-            ["AAPL", "MSFT", "NVDA"],
-            [],
-            None,
-            rss_enabled=False,
-            mt5_enabled=True,
-        )
+            result = pipeline.run(
+                ["AAPL"],
+                [],
+                None,
+                yahoo_only_tickers={"AAPL"},
+                rss_enabled=False,
+                mt5_enabled=False,
+            )
+
+        self.assertEqual([], result["errors"])
+        self.assertEqual("live_partial", result["signals"].iloc[0]["yahoo_data_status"])
+        self.assertGreater(float(result["signals"].iloc[0]["yahoo_confidence"]), 0.0)
+
+    def test_large_universe_processes_every_ticker_without_yahoo_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            pipeline = PipelineService(
+                AppConfig(
+                    output_dir=Path(tmp),
+                    sqlite_path=Path(tmp) / "history.db",
+                    save_history=False,
+                    large_universe_threshold=2,
+                    max_tickers_per_run=1000,
+                )
+            )
+            pipeline.yahoo_client = _ForbiddenYahooClient()
+            pipeline.mt5_client = _FakeBatchMT5Client()
+
+            result = pipeline.run(
+                ["AAPL", "MSFT", "NVDA"],
+                [],
+                None,
+                rss_enabled=False,
+                mt5_enabled=True,
+            )
 
         signals = result["signals"]
         self.assertEqual(3, len(signals))
@@ -134,6 +173,51 @@ class RuntimeIntegrationTests(unittest.TestCase):
         self.assertTrue(signals["current_price"].notna().all())
         self.assertTrue((signals["yahoo_confidence"] == 0.0).all())
         self.assertEqual([], result["errors"])
+
+    def test_large_universe_uses_persistent_yahoo_cache(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "history.db"
+            cache = YahooCacheStore(db_path)
+            cache.upsert_success(
+                "AAPL",
+                {
+                    "_market_checker_yahoo_quality": "ok",
+                    "currentPrice": 140.0,
+                    "targetMeanPrice": 160.0,
+                    "targetMedianPrice": 158.0,
+                    "recommendationMean": 2.0,
+                    "numberOfAnalystOpinions": 20,
+                    "forwardPE": 22.0,
+                    "profitMargins": 0.2,
+                    "revenueGrowth": 0.1,
+                    "earningsGrowth": 0.12,
+                    "debtToEquity": 80.0,
+                },
+            )
+            pipeline = PipelineService(
+                AppConfig(
+                    output_dir=Path(tmp),
+                    sqlite_path=db_path,
+                    save_history=False,
+                    large_universe_threshold=1,
+                )
+            )
+            pipeline.yahoo_client = _ForbiddenYahooClient()
+            pipeline.mt5_client = _FakeBatchMT5Client()
+
+            result = pipeline.run(
+                ["AAPL", "MSFT"],
+                [],
+                None,
+                rss_enabled=False,
+                mt5_enabled=True,
+            )
+
+        signals = result["signals"].set_index("ticker")
+        self.assertEqual("cache_fresh", signals.loc["AAPL", "yahoo_data_status"])
+        self.assertGreater(float(signals.loc["AAPL", "yahoo_confidence"]), 0.0)
+        self.assertEqual("missing", signals.loc["MSFT", "yahoo_data_status"])
+        self.assertEqual(0.0, float(signals.loc["MSFT", "yahoo_confidence"]))
 
     def test_failed_signal_insert_rolls_back_run_row(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -165,7 +249,14 @@ class YahooClientTests(unittest.TestCase):
             @property
             def info(self):
                 calls["info"] += 1
-                return {"currentPrice": 100.0}
+                return {
+                    "currentPrice": 100.0,
+                    "targetMeanPrice": 120.0,
+                    "targetMedianPrice": 119.0,
+                    "recommendationMean": 2.0,
+                    "numberOfAnalystOpinions": 12,
+                    "forwardPE": 22.0,
+                }
 
             def history(self, **kwargs):
                 calls["history"] += 1

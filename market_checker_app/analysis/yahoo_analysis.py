@@ -71,6 +71,9 @@ def analyze_yahoo(snapshot: YahooSnapshot) -> YahooAnalysisResult:
 
     completeness = 1 - min(1.0, len(missing) / len(CORE_FIELDS))
     confidence = _bounded(30 + completeness * 38 + min(1.0, analyst_n / 20) * 20 - (8 if "inconsistent analyst targets" in warnings else 0))
+    if snapshot.status not in {"ok", "partial"} or not data:
+        confidence = 0.0
+        warnings.append(f"Yahoo metadata unavailable ({snapshot.status})")
 
     if missing:
         warnings.append("key Yahoo fields missing")

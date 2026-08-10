@@ -138,10 +138,24 @@ def _build_decision_modules(
         confidence01=panic_confidence / 100,
         explanation=f"[{context}] Panic regime filter (higher panic supports bearish bias): {panic_score:.1f}.",
     )
+    if analyst_confidence <= 0:
+        # Missing Yahoo data must not create a hidden bullish or bearish tilt.
+        # A neutral score of 50 previously still produced unequal bull/bear
+        # contributions even with zero confidence.
+        analyst_bull = analyst_bear = 50.0
+    else:
+        analyst_bull = max(
+            0.0,
+            min(100.0, analyst_score * 0.9 + max(0.0, (analyst_score - 55) * 0.25)),
+        )
+        analyst_bear = max(
+            0.0,
+            min(100.0, (100 - analyst_score) * 0.75 + max(0.0, (45 - analyst_score) * 0.45)),
+        )
     analyst_mod = _build_module_result(
         "analysts",
-        bull=max(0.0, min(100.0, analyst_score * 0.9 + max(0.0, (analyst_score - 55) * 0.25))),
-        bear=max(0.0, min(100.0, (100 - analyst_score) * 0.75 + max(0.0, (45 - analyst_score) * 0.45))),
+        bull=analyst_bull,
+        bear=analyst_bear,
         confidence01=analyst_confidence / 100,
         explanation=f"[{context}] Analyst revisions/supporting evidence score {analyst_score:.1f}, conf {analyst_confidence:.1f}.",
     )

@@ -48,12 +48,25 @@ class RSSClient:
 
     @staticmethod
     def _ticker_hint_from_source(source: str, ticker_set: set[str]) -> str | None:
-        query = parse_qs(urlparse(source).query)
+        parsed_url = urlparse(source)
+        query = parse_qs(parsed_url.query)
         values = query.get("s", [])
-        if len(values) != 1 or "," in values[0]:
-            return None
-        candidate = values[0].strip().upper()
-        return candidate if candidate in ticker_set else None
+        if len(values) == 1 and "," not in values[0]:
+            candidate = values[0].strip().upper()
+            if candidate in ticker_set:
+                return candidate
+
+        # Google News has no account/API-key requirement. Its search RSS URL
+        # carries the requested symbol in q={ticker} stock, so results from an
+        # expanded per-ticker URL can be assigned without matching common-word
+        # symbols such as A or ALL against arbitrary article prose.
+        if parsed_url.hostname == "news.google.com":
+            search_values = query.get("q", [])
+            if len(search_values) == 1:
+                candidate = search_values[0].split(maxsplit=1)[0].strip().upper()
+                if candidate in ticker_set:
+                    return candidate
+        return None
 
     @staticmethod
     def _contains_ticker(text_upper: str, ticker: str) -> bool:
@@ -121,21 +134,23 @@ class RSSClient:
 
         entries = list(getattr(parsed, "entries", []))
         if not entries:
-            fallback_items = self._collect_html_fallback(source, ticker_set, now, payload)
-            if fallback_items:
-                return fallback_items, warnings
             warnings.append(f"RSS zdroj {source} nevrátil žádné položky.")
             return [], warnings
 
         ticker_hint = self._ticker_hint_from_source(source, ticker_set)
+        undated_count = 0
+        future_count = 0
         for entry in entries[: self.max_items_per_source]:
             title = str(getattr(entry, "title", ""))
             summary = str(getattr(entry, "summary", ""))
             published_parsed = getattr(entry, "published_parsed", None)
             if published_parsed is None:
-                published_at = now
-            else:
-                published_at = datetime(*published_parsed[:6], tzinfo=timezone.utc)
+                undated_count += 1
+                continue
+            published_at = datetime(*published_parsed[:6], tzinfo=timezone.utc)
+            if published_at > now + timedelta(minutes=5):
+                future_count += 1
+                continue
             if published_at < cutoff_3m:
                 continue
 
@@ -162,6 +177,14 @@ class RSSClient:
                         url=str(getattr(entry, "link", "")),
                     )
                 )
+        if undated_count:
+            warnings.append(
+                f"RSS zdroj {source}: přeskočeno {undated_count} položek bez data publikace."
+            )
+        if future_count:
+            warnings.append(
+                f"RSS zdroj {source}: přeskočeno {future_count} položek s budoucím datem."
+            )
         return items, warnings
 
     def _collect_html_fallback(

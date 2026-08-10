@@ -33,17 +33,26 @@ Stačí na něj dvakrát kliknout. Skript:
 - Excel musí obsahovat sloupec `Yahoo ticker`, `yahoo_ticker` nebo `ticker`.
 - Ruční watchlist přijímá jeden ticker na řádek.
 - RSS a MT5 se zapínají samostatnými volbami v levém panelu; nahrání Excelu je automaticky nevypíná.
-- Yahoo cenová historie se v rámci běhu sdílí mezi performance a technickou analýzou a krátce cachuje.
+- Yahoo cenová historie se v rámci malého běhu sdílí mezi performance a technickou analýzou.
+- Pro velký watchlist se Yahoo metadata ukládají trvale do stejné SQLite DB. Tlačítko
+  **Doplnit Yahoo cache** zpracuje nastavenou dávku a další kliknutí automaticky pokračuje.
 - Pokud Yahoo omezí požadavky, aplikace zobrazí výraznou chybu a označí fallback výsledky jako nespolehlivé.
+- Výchozí tickerové zprávy používají experimentální Google News RSS bez registrace.
+  Nefunkční Yahoo Finance RSS URL není ve výchozím seznamu. Položky bez data publikace
+  ani položky s budoucím datem se nezapočítají jako čerstvé zprávy.
 
 ### Velký universe (např. 687 tickerů z MT5)
 
 - Analyzují se všechny tickery, výchozí limit jednoho běhu je 1000 symbolů.
 - RSS zdroje se načítají paralelně s timeoutem a MT5 OHLCV v jednom připojení k terminálu.
 - UI průběžně ukazuje fáze `RSS`, `MT5 OHLC` a následně pořadí zpracovávaného tickeru.
-- Nad 100 tickerů se nepouští pomalý Yahoo metadata/analyst požadavek pro každý symbol.
-  Yahoo modul má neutrální skóre a nulovou důvěru; technika, zprávy, behavioral a risk
-  se dál počítají pro každý ticker. Aktuální cena a změny se v tomto režimu odvozují z MT5.
+- Nad 100 tickerů se Yahoo metadata nenačítají jednotlivě uvnitř analýzy. Analýza použije
+  trvalou Yahoo cache; čerstvá a zastaralá data jsou ve výsledku viditelně označena. Chybějící
+  metadata mají neutrální skóre a skutečných 0 % důvěry. Aktuální cena a změny se v tomto
+  režimu odvozují z MT5.
+- Pro 687 tickerů nejdřív opakovaně spusťte **Doplnit Yahoo cache**, dokud ukazatel pokrytí
+  nedosáhne požadovaného počtu, a potom spusťte analýzu. Při rate limitu jsou hotová data
+  zachována a po ochranné pauze se pokračuje pouze zbývajícími tickery.
 - Když pro některý symbol MT5 nevrátí svíčky, tento řádek zůstane ve výsledku, ale technická
   část bude neutrální a ve sloupci `warnings` bude uveden důvod.
 
@@ -97,6 +106,16 @@ Volitelně (pokud je nainstalovaný Streamlit):
 ```bash
 streamlit run market_checker_app/app.py
 ```
+
+Pull requesty navíc kontrolují tři deterministické GitHub testovací agenty:
+
+- **Contract, source and persistence agent** spustí kompilaci a celý testovací balík,
+- **687 ticker scale and progress agent** vyžaduje přesně 687 unikátních výsledků,
+  Yahoo cache, jeden MT5 batch a dokončení progressu na 100 %,
+- **Streamlit UI agent** ověří start aplikace a tlačítka celého Yahoo workflow.
+
+Závěrečný release gate projde pouze tehdy, když projdou všichni tři. Testy nepoužívají
+živou síť, takže Yahoo/RSS timeout ani cizí rate limit nemohou náhodně rozhodnout o PR.
 
 Zkontroluj v UI, že tab **Signals** obsahuje sloupce:
 - `raw_total_score`, `final_total_score`
