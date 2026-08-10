@@ -16,7 +16,7 @@ if exist "%APP_DIR%\.venv\Scripts\python.exe" (
   set "PYTHON_EXE=%APP_DIR%\.venv\Scripts\python.exe"
 ) else (
   where py >nul 2>nul
-  if %errorlevel%==0 (
+  if not errorlevel 1 (
     set "PYTHON_EXE=py -3"
   ) else (
     set "PYTHON_EXE=python"
@@ -26,9 +26,12 @@ if exist "%APP_DIR%\.venv\Scripts\python.exe" (
 echo [INFO] Pouzivam Python: %PYTHON_EXE%
 
 echo [INFO] Kontroluji zavislosti...
-%PYTHON_EXE% -m pip install -r "%APP_DIR%\requirements.txt" >nul 2>nul
+%PYTHON_EXE% -m pip install -r "%APP_DIR%\requirements.txt"
 if errorlevel 1 (
-  echo [INFO] Nepodarilo se tise doinstalovat zavislosti. Pokracuji dal...
+  echo.
+  echo [CHYBA] Instalace zavislosti selhala. Aplikaci nespoustim.
+  pause
+  exit /b 1
 )
 
 echo [INFO] Spoustim Market Checker...

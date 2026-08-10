@@ -7,7 +7,7 @@ import pandas as pd
 
 def load_market_caps(path: str) -> tuple[dict[str, float], str | None]:
     if not path:
-        return {}, "MarketCap soubor není vybrán."
+        return {}, None
 
     p = Path(path)
     if not p.exists():

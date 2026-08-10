@@ -10,6 +10,19 @@ from market_checker_app.utils.dates import to_iso
 
 
 class SQLiteStore:
+    SIGNAL_HISTORY_INSERT = """
+        INSERT INTO signal_history(
+            run_id, ticker, updated_at, market_cap_usd, current_price,
+            scoring_version, legacy_total_score, legacy_signal, tech_source_used,
+            rank_market_cap, news_count_48h, news_score, tech_score, yahoo_score, behavioral_score, risk_score,
+            raw_total_score, quality_adjusted_score, risk_adjusted_score, final_total_score, final_confidence,
+            news_confidence, tech_confidence, yahoo_confidence, behavioral_confidence, data_quality_score,
+            signal, signal_strength, rank_in_watchlist, percentile_in_watchlist, regime,
+            reasons, warnings, risk_flags, key_drivers, overall_summary,
+            last_week_change_pct, last_14d_change_pct, last_1m_change_pct, last_3m_change_pct
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """
+
     def __init__(self, db_path: Path) -> None:
         self.db_path = db_path
 
@@ -116,10 +129,11 @@ class SQLiteStore:
             )
             return int(cur.lastrowid)
 
-    def insert_signal_history(self, run_id: int, signals: pd.DataFrame, updated_at: str) -> None:
+    @staticmethod
+    def _build_signal_payload(run_id: int, signals: pd.DataFrame, updated_at: str) -> list[tuple[object, ...]]:
         if signals.empty:
-            return
-        payload = [
+            return []
+        return [
             (
                 run_id,
                 row.ticker,
@@ -164,22 +178,39 @@ class SQLiteStore:
             )
             for row in signals.itertuples(index=False)
         ]
+
+    def insert_signal_history(self, run_id: int, signals: pd.DataFrame, updated_at: str) -> None:
+        payload = self._build_signal_payload(run_id, signals, updated_at)
+        if not payload:
+            return
         with self._connect() as conn:
-            conn.executemany(
-                """
-                INSERT INTO signal_history(
-                    run_id, ticker, updated_at, market_cap_usd, current_price,
-                    scoring_version, legacy_total_score, legacy_signal, tech_source_used,
-                    rank_market_cap, news_count_48h, news_score, tech_score, yahoo_score, behavioral_score, risk_score,
-                    raw_total_score, quality_adjusted_score, risk_adjusted_score, final_total_score, final_confidence,
-                    news_confidence, tech_confidence, yahoo_confidence, behavioral_confidence, data_quality_score,
-                    signal, signal_strength, rank_in_watchlist, percentile_in_watchlist, regime,
-                    reasons, warnings, risk_flags, key_drivers, overall_summary,
-                    last_week_change_pct, last_14d_change_pct, last_1m_change_pct, last_3m_change_pct
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                payload,
+            conn.executemany(self.SIGNAL_HISTORY_INSERT, payload)
+
+    def save_run(self, metadata: RunMetadata, signals: pd.DataFrame, updated_at: str) -> int:
+        """Persist a run and all signals atomically.
+
+        If signal insertion fails, the run row is rolled back as well, avoiding
+        orphan runs that make History and Delta appear empty.
+        """
+        self.ensure_schema()
+        with self._connect() as conn:
+            cur = conn.execute(
+                "INSERT INTO runs(started_at, finished_at, watchlist_size, processed_symbols, warnings_count, errors_count, excel_path) VALUES(?, ?, ?, ?, ?, ?, ?)",
+                (
+                    to_iso(metadata.started_at),
+                    to_iso(metadata.finished_at),
+                    metadata.watchlist_size,
+                    metadata.processed_symbols,
+                    metadata.warnings_count,
+                    metadata.errors_count,
+                    metadata.excel_path,
+                ),
             )
+            run_id = int(cur.lastrowid)
+            payload = self._build_signal_payload(run_id, signals, updated_at)
+            if payload:
+                conn.executemany(self.SIGNAL_HISTORY_INSERT, payload)
+            return run_id
 
     def get_last_run_id(self) -> int | None:
         with self._connect() as conn:
