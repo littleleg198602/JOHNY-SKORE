@@ -663,8 +663,10 @@ def _render_signals(signals_df: pd.DataFrame) -> None:
         "risk_adjusted_score",
         "final_total_score",
         "final_confidence",
+        "data_quality_score",
         "signal",
         "signal_strength",
+        "tech_source_used",
         "rank_in_watchlist",
         "percentile_in_watchlist",
         "regime",
@@ -678,7 +680,14 @@ def _render_signals(signals_df: pd.DataFrame) -> None:
 st.set_page_config(page_title="Market Checker", layout="wide")
 st.title("Market Checker")
 
-for key, default in {"watchlist": [], "excel_watchlist": [], "last_result": None, "analysis_progress": None, "mt5_loaded_count": None}.items():
+for key, default in {
+    "watchlist": [],
+    "watchlist_text": "",
+    "excel_watchlist": [],
+    "last_result": None,
+    "analysis_progress": None,
+    "mt5_loaded_count": None,
+}.items():
     if key not in st.session_state:
         st.session_state[key] = default
 
@@ -690,7 +699,9 @@ with st.sidebar:
     save_history = st.checkbox("Ukládat historii do SQLite", value=True)
     sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
-    load_watchlist = st.button("Načíst watchlist z MT5", disabled=True)
+    use_rss = st.checkbox("Použít RSS zprávy", value=True)
+    use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
+    load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
     run_analysis = st.button("Spustit analýzu", type="primary")
 
@@ -705,7 +716,15 @@ if sqlite_info:
 st.caption(f"Aktivní DB: `{config.sqlite_path}`")
 
 if load_watchlist:
-    st.info("MT5 načítání je v této verzi vypnuté. Použijte Excel s Yahoo tickery.")
+    loaded_watchlist, mt5_error = MT5Client().load_watchlist()
+    if mt5_error:
+        st.error(mt5_error)
+        st.session_state.mt5_loaded_count = 0
+    else:
+        st.session_state.watchlist = loaded_watchlist
+        st.session_state.watchlist_text = "\n".join(loaded_watchlist)
+        st.session_state.mt5_loaded_count = len(loaded_watchlist)
+        st.success(f"Z MT5 načteno {len(loaded_watchlist)} tickerů.")
 
 uploaded_excel = st.file_uploader("Excel s Yahoo tickery (XLSX)", type=["xlsx"])
 if uploaded_excel is not None:
@@ -716,16 +735,23 @@ if uploaded_excel is not None:
     else:
         st.session_state.excel_watchlist = excel_watchlist
         st.success(f"Načteno z Excelu: {len(excel_watchlist)} Yahoo tickerů")
+else:
+    st.session_state.excel_watchlist = []
 
-watchlist_text = st.text_area("Watchlist z MT5 (v Yahoo-only režimu ignorováno)", "\n".join(st.session_state.watchlist), height=130)
+watchlist_text = st.text_area("Ruční watchlist (jeden ticker na řádek)", height=130, key="watchlist_text")
 mt5_watchlist = MT5Client.sanitize_watchlist(watchlist_text.splitlines())
 excel_watchlist = MT5Client.sanitize_watchlist(st.session_state.excel_watchlist)
-yahoo_only_mode = len(excel_watchlist) > 0
+excel_mode = len(excel_watchlist) > 0
 
-if yahoo_only_mode:
+if excel_mode:
     watchlist = excel_watchlist
-    yahoo_only_tickers = set(excel_watchlist)
-    st.info("Yahoo-only režim aktivní: MT5 i RSS jsou vypnuté, používám jen tickery z Excelu a Yahoo data.")
+    yahoo_only_tickers = set(excel_watchlist) if not use_mt5 else set()
+    active_sources = ["Yahoo"]
+    if use_rss:
+        active_sources.append("RSS")
+    if use_mt5:
+        active_sources.append("MT5 technika")
+    st.info(f"Excel režim aktivní. Zdroje: {', '.join(active_sources)}.")
 else:
     watchlist = mt5_watchlist
     yahoo_only_tickers = set()
@@ -737,11 +763,15 @@ else:
 
 st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů (Excel/Yahoo-only: {len(excel_watchlist)})")
 
-rss_default = "" if yahoo_only_mode else DEFAULT_NEWS_SOURCES_TEXT
+rss_default = DEFAULT_NEWS_SOURCES_TEXT if use_rss else ""
 rss_sources = [s.strip() for s in st.text_area("RSS sources", rss_default).splitlines() if s.strip()]
 
 if st.session_state.analysis_progress:
     _render_progress_ui(st.session_state.analysis_progress, 0.0)
+
+if run_analysis and not watchlist:
+    st.error("Watchlist je prázdný. Nahrajte Excel nebo zadejte alespoň jeden ticker.")
+    run_analysis = False
 
 if run_analysis:
     pipeline = PipelineService(config)
@@ -755,7 +785,34 @@ if run_analysis:
         with progress_placeholder.container():
             _render_progress_ui(state, time.time() - started)
 
-    result = pipeline.run(watchlist, rss_sources, store if save_history else None, progress_callback=_on_progress, yahoo_only_tickers=yahoo_only_tickers, yahoo_only_mode=yahoo_only_mode)
+    try:
+        result = pipeline.run(
+            watchlist,
+            rss_sources,
+            store if save_history else None,
+            progress_callback=_on_progress,
+            yahoo_only_tickers=yahoo_only_tickers,
+            yahoo_only_mode=False,
+            rss_enabled=use_rss,
+            mt5_enabled=use_mt5,
+        )
+    except Exception as exc:
+        st.error(f"Analýza selhala: {exc}")
+        st.exception(exc)
+        st.stop()
+
+    result_errors = list(result.get("errors", []))
+    result_warnings = list(result.get("warnings", []))
+    if result_errors:
+        st.error(f"Analýza doběhla s {len(result_errors)} závažnými problémy. Výsledky mohou být fallback.")
+        for message in result_errors:
+            st.write(f"- {message}")
+    if result_warnings:
+        with st.expander(f"Upozornění z analýzy ({len(result_warnings)})", expanded=bool(result_errors)):
+            for message in result_warnings[:200]:
+                st.write(f"- {message}")
+            if len(result_warnings) > 200:
+                st.caption(f"Zobrazeno prvních 200 z {len(result_warnings)} upozornění.")
     result["configured_sources"] = pd.DataFrame({"source": rss_sources})
     delta_df = pd.DataFrame()
     if compare_prev:
@@ -773,8 +830,13 @@ if run_analysis:
     if export_excel:
         path = output_dir / f"market_checker_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
         dashboard_export = VisualizationService.prepare_dashboard_export_payload(result["signals"], ranking_tables, dashboard_tables)
-        ExcelExporter().export(path, result["signals"], result["sources"], result["articles"], dashboard_tables, prepare_delta_for_excel(delta_df), dashboard_export)
-        st.success(f"Excel export uložen: {path}")
+        try:
+            ExcelExporter().export(path, result["signals"], result["sources"], result["articles"], dashboard_tables, prepare_delta_for_excel(delta_df), dashboard_export)
+            st.success(f"Excel export uložen: {path}")
+            if result.get("run_id"):
+                store.update_run_excel_path(int(result["run_id"]), str(path))
+        except Exception as exc:
+            st.error(f"Excel export selhal: {exc}")
 
     result["dashboard"] = dashboard_tables
     result["ranking"] = ranking_tables

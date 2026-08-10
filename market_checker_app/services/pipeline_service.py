@@ -62,7 +62,14 @@ class PipelineService:
         progress_callback: Callable[[AnalysisProgressState], None] | None = None,
         yahoo_only_tickers: set[str] | None = None,
         yahoo_only_mode: bool = False,
+        rss_enabled: bool | None = None,
+        mt5_enabled: bool | None = None,
     ) -> dict[str, pd.DataFrame | RunMetadata | list[str] | int | None | AnalysisProgressState]:
+        if not watchlist:
+            raise ValueError("Watchlist je prázdný. Nahrajte Excel nebo zadejte alespoň jeden ticker.")
+
+        rss_enabled = not yahoo_only_mode if rss_enabled is None else rss_enabled
+        mt5_enabled = not yahoo_only_mode if mt5_enabled is None else mt5_enabled
         started_at = utc_now()
         warnings: list[str] = []
         errors: list[str] = []
@@ -77,16 +84,19 @@ class PipelineService:
 
         expanded_rss_sources: list[str] = []
         articles = []
-        if yahoo_only_mode:
-            progress.log("INFO", "Yahoo-only mode: přeskočeno načítání RSS/MT5, běží jen Yahoo data")
-        else:
+        if rss_enabled:
             expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
             articles, rss_warnings = self.rss_client.collect(expanded_rss_sources, watchlist)
             warnings.extend(rss_warnings)
+        else:
+            progress.log("INFO", "RSS zprávy jsou pro tento běh vypnuté")
 
         rows: list[dict[str, object]] = []
         total = len(watchlist)
         yahoo_only_tickers = yahoo_only_tickers or set()
+        yahoo_snapshot_failures = 0
+        yahoo_ohlc_attempts = 0
+        yahoo_ohlc_failures = 0
         for idx, ticker in enumerate(watchlist, start=1):
             progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
             progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
@@ -94,6 +104,8 @@ class PipelineService:
             news = analyze_news(ticker, ticker_articles)
 
             snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
+            if snapshot.status != "ok":
+                yahoo_snapshot_failures += 1
             if yahoo_warning:
                 warnings.append(yahoo_warning)
                 progress.log("WARNING", yahoo_warning, ticker)
@@ -104,26 +116,31 @@ class PipelineService:
             tech_source_warning: str | None = None
             progress.set_step(ticker, "fetch_tech", f"Načítám OHLC data pro {ticker}", 0.62)
 
-            if yahoo_only_mode or ticker in yahoo_only_tickers:
-                tech_source_used = "yfinance_excel"
+            if not mt5_enabled or ticker in yahoo_only_tickers:
+                yahoo_ohlc_attempts += 1
+                tech_source_used = "yfinance_excel" if ticker in yahoo_only_tickers else "yfinance"
                 ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
-                fallback_parts = [f"MT5 skipped for {ticker} (Excel Yahoo-only ticker)"]
                 if ohlc_warning:
-                    fallback_parts.append(f"yfinance: {ohlc_warning}")
-                tech_source_warning = " | ".join(fallback_parts)
-                warnings.append(tech_source_warning)
-                progress.log("INFO", tech_source_warning, ticker)
+                    yahoo_ohlc_failures += 1
+                    tech_source_warning = ohlc_warning
+                    if not yahoo_warning or ohlc_warning not in yahoo_warning:
+                        warnings.append(ohlc_warning)
+                    progress.log("WARNING", ohlc_warning, ticker)
+                else:
+                    progress.log("INFO", f"Technická data pro {ticker}: Yahoo Finance", ticker)
             else:
                 mt5_ohlc, mt5_warning = self.mt5_client.fetch_ohlcv(ticker)
                 if mt5_ohlc is not None and not mt5_ohlc.empty:
                     ohlc = mt5_ohlc
                 else:
                     tech_source_used = "yfinance_fallback"
+                    yahoo_ohlc_attempts += 1
                     ohlc, ohlc_warning = self.yahoo_client.fetch_ohlc(ticker)
                     fallback_parts = [f"MT5 not used for {ticker}"]
                     if mt5_warning:
                         fallback_parts.append(f"reason: {mt5_warning}")
                     if ohlc_warning:
+                        yahoo_ohlc_failures += 1
                         fallback_parts.append(f"yfinance: {ohlc_warning}")
                     tech_source_warning = " | ".join(fallback_parts)
                     warnings.append(tech_source_warning)
@@ -236,6 +253,24 @@ class PipelineService:
             })
             progress.log("DONE", f"Dokončeno: {ticker} → {diag.signal} / {diag.final_total_score:.1f}", ticker)
 
+        if yahoo_snapshot_failures == total:
+            errors.append(
+                "Yahoo metadata selhala pro všechny tickery. Fundamentální část výsledků používá fallback a není spolehlivá."
+            )
+        elif yahoo_snapshot_failures:
+            warnings.append(f"Yahoo metadata selhala pro {yahoo_snapshot_failures} z {total} tickerů.")
+
+        if yahoo_ohlc_attempts and yahoo_ohlc_failures == yahoo_ohlc_attempts:
+            errors.append(
+                "Yahoo cenová historie selhala pro všechny tickery, které ji potřebovaly. Technická část používá fallback."
+            )
+        elif yahoo_ohlc_failures:
+            warnings.append(
+                f"Yahoo cenová historie selhala pro {yahoo_ohlc_failures} z {yahoo_ohlc_attempts} tickerů."
+            )
+
+        warnings = list(dict.fromkeys(warnings))
+        errors = list(dict.fromkeys(errors))
         signals_df = RankingService.apply_ranking(pd.DataFrame(rows))
         if not signals_df.empty and signals_df["market_cap_usd"].notna().any():
             signals_df = signals_df.sort_values("market_cap_usd", ascending=False, na_position="last")
@@ -250,11 +285,19 @@ class PipelineService:
         if self.config.save_history and store is not None:
             progress.set_global_step("save_history", "Ukládám výsledky do SQLite historie", 0.96)
             try:
-                store.ensure_schema()
-                run_id = store.insert_run(metadata)
-                store.insert_signal_history(run_id, signals_df, datetime.now(timezone.utc).isoformat())
+                run_id = store.save_run(
+                    metadata,
+                    signals_df,
+                    datetime.now(timezone.utc).isoformat(),
+                )
             except Exception as exc:
-                warnings.append(f"SQLite uložení běhu selhalo: {exc}")
+                message = f"SQLite uložení běhu selhalo: {exc}"
+                warnings.append(message)
+                errors.append(message)
+                progress.log("ERROR", message)
+
+        metadata.warnings_count = len(warnings)
+        metadata.errors_count = len(errors)
 
         progress.finalize("Analýza dokončena")
         return {

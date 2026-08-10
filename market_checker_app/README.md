@@ -1,6 +1,6 @@
 # Market Checker (interní analytika)
 
-Lokální Streamlit aplikace pro analýzu watchlistu z MT5 a kombinaci tří zdrojů signálu:
+Lokální Streamlit aplikace pro analýzu watchlistu z Excelu, ručního vstupu nebo MT5 a kombinaci zdrojů signálu:
 - RSS/news scoring
 - Yahoo/yfinance snapshot
 - technické indikátory (modul připraven, aktuálně základní score fallback)
@@ -15,6 +15,9 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+Ve Windows aktivuj prostředí příkazem `.venv\Scripts\activate` nebo použij
+`Spustit_Market_Checker.bat` v kořeni repozitáře.
+
 ## Spuštění dvojklikem (Windows)
 
 V kořeni repozitáře je připraven soubor:
@@ -22,8 +25,16 @@ V kořeni repozitáře je připraven soubor:
 
 Stačí na něj dvakrát kliknout. Skript:
 - najde Python (`.venv\Scripts\python.exe`, nebo `py -3`, nebo `python`)
-- pokusí se doinstalovat závislosti
+- nainstaluje závislosti a při chybě zobrazí skutečný důvod
 - spustí Streamlit aplikaci
+
+## Vstupy a zdroje
+
+- Excel musí obsahovat sloupec `Yahoo ticker`, `yahoo_ticker` nebo `ticker`.
+- Ruční watchlist přijímá jeden ticker na řádek.
+- RSS a MT5 se zapínají samostatnými volbami v levém panelu; nahrání Excelu je automaticky nevypíná.
+- Yahoo cenová historie se v rámci běhu sdílí mezi performance a technickou analýzou a krátce cachuje.
+- Pokud Yahoo omezí požadavky, aplikace zobrazí výraznou chybu a označí fallback výsledky jako nespolehlivé.
 
 ## Co aplikace dělá
 
@@ -67,6 +78,7 @@ Po refaktoru scoringu doporučujeme po změnách vždy ověřit minimálně:
 
 ```bash
 python -m compileall market_checker_app
+python -m unittest discover -s tests -v
 ```
 
 Volitelně (pokud je nainstalovaný Streamlit):
@@ -88,6 +100,12 @@ Zkontroluj v UI, že tab **Signals** obsahuje sloupce:
 - při timeout/chybě RSS zdroje pokračuje s ostatními zdroji
 - při chybě SQLite pokračuje bez historie (warning)
 - při chybějícím marketcap souboru pokračuje bez market cap ranking dat
+
+## Lokální tajné hodnoty
+
+Soubor `code.env` se nesmí commitovat. Pokud ho potřebuje starší skript
+`refresh_news.py`, zkopíruj `code.env.example` na `code.env` a vlož nový klíč
+pouze do lokální kopie.
 
 ## Poznámka k PR workflow
 
