@@ -96,6 +96,69 @@ class YahooEnrichmentServiceTests(unittest.TestCase):
         self.assertEqual(3, second.coverage.fresh)
         self.assertEqual(0, second.remaining)
 
+    def test_refresh_all_automatically_continues_across_batches(self) -> None:
+        tickers = ["A", "B", "C", "D", "E"]
+        responses = {
+            ticker: (
+                YahooSnapshot(
+                    ticker,
+                    {"marketCap": index, "forwardPE": 20},
+                    "ok",
+                ),
+                None,
+            )
+            for index, ticker in enumerate(tickers, start=1)
+        }
+        client = _FakeYahooClient(responses)
+        sleeps: list[float] = []
+        progress: list[tuple] = []
+        service = YahooEnrichmentService(self.cache, client, sleep_fn=sleeps.append)
+
+        result = service.refresh_all(
+            tickers,
+            batch_size=2,
+            delay_seconds=0.25,
+            progress_callback=lambda *args: progress.append(args),
+        )
+
+        self.assertEqual(tickers, client.calls)
+        self.assertEqual(3, result.batches)
+        self.assertEqual(5, result.candidates)
+        self.assertEqual(5, result.attempted)
+        self.assertEqual(5, result.succeeded)
+        self.assertEqual(0, result.remaining)
+        self.assertEqual([1, 2, 3, 4, 5], [int(row[0]) for row in progress])
+        self.assertEqual({5}, {int(row[1]) for row in progress})
+        # Four request boundaries: two inside batches and two between batches.
+        self.assertEqual([0.25, 0.25, 0.25, 0.25], sleeps)
+
+    def test_refresh_all_rejects_invalid_batch_size(self) -> None:
+        with self.assertRaisesRegex(ValueError, "batch_size"):
+            YahooEnrichmentService(self.cache).refresh_all([], batch_size=0)
+
+    def test_refresh_all_stops_immediately_after_rate_limit(self) -> None:
+        client = _FakeYahooClient(
+            {
+                "A": (
+                    YahooSnapshot("A", {}, "fallback"),
+                    "Yahoo metadata [rate_limit] pro A",
+                ),
+                "B": (YahooSnapshot("B", {"marketCap": 2}, "ok"), None),
+            }
+        )
+
+        result = YahooEnrichmentService(
+            self.cache,
+            client,
+            sleep_fn=lambda _: None,
+        ).refresh_all(["A", "B"], batch_size=1, delay_seconds=0)
+
+        self.assertEqual(["A"], client.calls)
+        self.assertTrue(result.rate_limited)
+        self.assertEqual(1, result.batches)
+        self.assertEqual(1, result.attempted)
+        self.assertEqual(2, result.remaining)
+
 
 if __name__ == "__main__":
     unittest.main()

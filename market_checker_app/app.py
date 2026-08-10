@@ -710,11 +710,14 @@ with st.sidebar:
     load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
     yahoo_batch_size = st.number_input(
-        "Yahoo metadata na jednu dávku",
+        "Yahoo tickerů v jedné automatické dávce",
         min_value=1,
         max_value=1000,
         value=100,
-        help="Úspěšné tickery se ihned ukládají. Další spuštění pokračuje zbývajícími.",
+        help=(
+            "Jedno kliknutí automaticky spustí další dávky, dokud nejsou zpracované všechny "
+            "aktuálně dostupné tickery nebo Yahoo nezapne ochranný rate limit."
+        ),
     )
     yahoo_delay_ms = st.number_input(
         "Pauza mezi Yahoo požadavky (ms)",
@@ -823,9 +826,9 @@ if refresh_yahoo:
             yahoo_refresh_progress.progress(completed / max(1, total_candidates))
 
         try:
-            refresh_result = YahooEnrichmentService(yahoo_cache).refresh(
+            refresh_result = YahooEnrichmentService(yahoo_cache).refresh_all(
                 watchlist,
-                max_items=int(yahoo_batch_size),
+                batch_size=int(yahoo_batch_size),
                 delay_seconds=float(yahoo_delay_ms) / 1000.0,
                 progress_callback=_on_yahoo_refresh,
             )
@@ -834,7 +837,11 @@ if refresh_yahoo:
             refresh_result = None
         if refresh_result is None:
             st.stop()
-        yahoo_refresh_progress.progress(1.0)
+        yahoo_refresh_progress.progress(
+            min(1.0, refresh_result.attempted / max(1, refresh_result.candidates))
+            if refresh_result.rate_limited
+            else 1.0
+        )
         with yahoo_coverage_placeholder.container():
             _render_yahoo_coverage(refresh_result.coverage)
         if refresh_result.rate_limited:
@@ -842,11 +849,18 @@ if refresh_yahoo:
                 "Yahoo dočasně omezilo požadavky. Dosavadní data jsou uložená; "
                 "po ochranné pauze spusťte doplnění znovu."
             )
+        elif refresh_result.remaining:
+            st.warning(
+                f"Automaticky dokončeno {refresh_result.batches} dávek: "
+                f"{refresh_result.succeeded} úspěšně, {refresh_result.partial} částečně, "
+                f"{refresh_result.failed} chyb. {refresh_result.remaining} tickerů čeká "
+                "na pozdější opakování po chybě nebo cooldownu."
+            )
         else:
             st.success(
-                f"Yahoo dávka dokončena: {refresh_result.succeeded} úspěšně, "
-                f"{refresh_result.partial} částečně, {refresh_result.failed} chyb. "
-                f"Zbývá obnovit {refresh_result.remaining} tickerů."
+                f"Yahoo cache je hotová: automaticky proběhlo {refresh_result.batches} dávek, "
+                f"{refresh_result.succeeded} tickerů úspěšně "
+                f"({refresh_result.partial} částečných dat)."
             )
 
 if len(watchlist) > config.large_universe_threshold:
@@ -855,7 +869,7 @@ if len(watchlist) > config.large_universe_threshold:
             f"Velký universe režim: analyzuji všech {len(watchlist)} tickerů. "
             "Technická data poběží hromadně přes MT5 a RSS paralelně. "
             "Yahoo fundamenty a odhady analytiků se načtou z trvalé cache; "
-            "chybějící tickery doplňte tlačítkem v levém panelu."
+            "chybějící tickery doplní jedno kliknutí automaticky po dávkách."
         )
     else:
         st.warning(
@@ -1072,8 +1086,99 @@ if st.session_state.last_result:
                     "Po příštím pondělním běhu se zde automaticky vyhodnotí dnešní signály."
                 )
 
+            st.caption(
+                "Výpočet používá všechny týdny uložené ve stejné SQLite databázi. "
+                "Nejnovější týden zůstává PENDING, starší výsledky HIT/MISS se nemažou."
+            )
+            cumulative = prediction_frames["prediction_cumulative"].copy()
+            weekly = prediction_frames["prediction_weekly"].copy()
+            if not cumulative.empty:
+                cumulative["week_start"] = pd.to_datetime(
+                    cumulative["week_start"], errors="coerce"
+                )
+                rate_chart_data = cumulative[
+                    ["week_start", "hit_rate_pct", "cumulative_hit_rate_pct"]
+                ].melt(
+                    id_vars="week_start",
+                    var_name="series",
+                    value_name="hit_rate_pct_value",
+                )
+                rate_chart_data["series"] = rate_chart_data["series"].map(
+                    {
+                        "hit_rate_pct": "Úspěšnost daného týdne",
+                        "cumulative_hit_rate_pct": "Kumulativní úspěšnost",
+                    }
+                )
+                rate_chart = (
+                    alt.Chart(rate_chart_data)
+                    .mark_line(point=True)
+                    .encode(
+                        x=alt.X("week_start:T", title="Týden predikce"),
+                        y=alt.Y(
+                            "hit_rate_pct_value:Q",
+                            title="Úspěšnost (%)",
+                            scale=alt.Scale(domain=[0, 100]),
+                        ),
+                        color=alt.Color("series:N", title="Řada"),
+                        tooltip=[
+                            alt.Tooltip("week_start:T", title="Týden"),
+                            alt.Tooltip("series:N", title="Metrika"),
+                            alt.Tooltip(
+                                "hit_rate_pct_value:Q",
+                                title="Úspěšnost (%)",
+                                format=".2f",
+                            ),
+                        ],
+                    )
+                    .properties(title="Týdenní a dlouhodobá úspěšnost", height=320)
+                )
+                st.altair_chart(rate_chart, width="stretch")
+                st.caption(
+                    "Kumulativní čára je vážená všemi predikcemi: například 100 HIT a "
+                    "1 MISS znamená 99,01 %, nikoli průměr dvou týdnů."
+                )
+
+                weekly["week_start"] = pd.to_datetime(weekly["week_start"], errors="coerce")
+                result_counts = weekly[["week_start", "hits", "misses"]].melt(
+                    id_vars="week_start",
+                    var_name="result",
+                    value_name="count",
+                )
+                result_counts["result"] = result_counts["result"].map(
+                    {"hits": "HIT", "misses": "MISS"}
+                )
+                count_chart = (
+                    alt.Chart(result_counts)
+                    .mark_bar()
+                    .encode(
+                        x=alt.X("week_start:T", title="Týden predikce"),
+                        y=alt.Y("count:Q", title="Počet predikcí", stack=True),
+                        color=alt.Color(
+                            "result:N",
+                            title="Výsledek",
+                            scale=alt.Scale(
+                                domain=["HIT", "MISS"],
+                                range=["#2ca02c", "#d62728"],
+                            ),
+                        ),
+                        tooltip=[
+                            alt.Tooltip("week_start:T", title="Týden"),
+                            alt.Tooltip("result:N", title="Výsledek"),
+                            alt.Tooltip("count:Q", title="Počet"),
+                        ],
+                    )
+                    .properties(title="Počet HIT a MISS po týdnech", height=280)
+                )
+                st.altair_chart(count_chart, width="stretch")
+
             st.write("Úspěšnost podle předpovědi")
             st.dataframe(prediction_frames["prediction_summary"], width="stretch")
+            st.write("Dlouhodobá úspěšnost podle tickeru")
+            _show_limited_dataframe(
+                prediction_frames["prediction_by_ticker"],
+                "Souhrn všech uzavřených týdenních predikcí pro každý ticker",
+                rows=3000,
+            )
             st.write("Detail všech týdenních predikcí")
             _show_limited_dataframe(
                 prediction_frames["prediction_details"],
