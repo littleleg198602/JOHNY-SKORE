@@ -12,7 +12,7 @@ from market_checker_app.utils.dates import to_iso
 class SQLiteStore:
     SIGNAL_HISTORY_INSERT = """
         INSERT INTO signal_history(
-            run_id, ticker, updated_at, market_cap_usd, current_price,
+            run_id, ticker, updated_at, market_cap_usd, current_price, current_price_source,
             scoring_version, legacy_total_score, legacy_signal, tech_source_used,
             rank_market_cap, news_count_48h, news_score, tech_score, yahoo_score, behavioral_score, risk_score,
             raw_total_score, quality_adjusted_score, risk_adjusted_score, final_total_score, final_confidence,
@@ -20,7 +20,7 @@ class SQLiteStore:
             signal, signal_strength, rank_in_watchlist, percentile_in_watchlist, regime,
             reasons, warnings, risk_flags, key_drivers, overall_summary,
             last_week_change_pct, last_14d_change_pct, last_1m_change_pct, last_3m_change_pct
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
 
     def __init__(self, db_path: Path) -> None:
@@ -44,6 +44,7 @@ class SQLiteStore:
             "overall_summary": "TEXT",
             "regime": "TEXT",
             "current_price": "REAL",
+            "current_price_source": "TEXT",
             "scoring_version": "TEXT",
             "legacy_total_score": "REAL",
             "legacy_signal": "TEXT",
@@ -80,6 +81,7 @@ class SQLiteStore:
                     updated_at TEXT NOT NULL,
                     market_cap_usd REAL,
                     current_price REAL,
+                    current_price_source TEXT,
                     scoring_version TEXT,
                     legacy_total_score REAL,
                     legacy_signal TEXT,
@@ -140,6 +142,7 @@ class SQLiteStore:
                 updated_at,
                 row.market_cap_usd,
                 row.current_price if hasattr(row, "current_price") else None,
+                row.current_price_source if hasattr(row, "current_price_source") else None,
                 row.scoring_version if hasattr(row, "scoring_version") else None,
                 row.legacy_total_score if hasattr(row, "legacy_total_score") else None,
                 row.legacy_signal if hasattr(row, "legacy_signal") else None,
@@ -236,10 +239,12 @@ class SQLiteStore:
             return pd.read_sql_query("SELECT * FROM signal_history WHERE run_id = ?", conn, params=(run_id,))
 
     def read_global_history(self) -> pd.DataFrame:
-        q = "SELECT r.run_id, r.finished_at, s.ticker, s.current_price, s.scoring_version, s.legacy_total_score, s.legacy_signal, s.final_total_score, s.raw_total_score, s.news_score, s.tech_score, s.yahoo_score, s.behavioral_score, s.risk_score, s.rank_in_watchlist, s.percentile_in_watchlist, s.signal, s.final_confidence, s.tech_source_used FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
+        self.ensure_schema()
+        q = "SELECT r.run_id, r.finished_at, s.ticker, s.current_price, s.current_price_source, s.scoring_version, s.legacy_total_score, s.legacy_signal, s.final_total_score, s.raw_total_score, s.news_score, s.tech_score, s.yahoo_score, s.behavioral_score, s.risk_score, s.rank_in_watchlist, s.percentile_in_watchlist, s.signal, s.final_confidence, s.tech_source_used FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(q, conn)
 
     def read_ticker_history(self, ticker: str) -> pd.DataFrame:
+        self.ensure_schema()
         with self._connect() as conn:
             return pd.read_sql_query("SELECT r.run_id, r.finished_at, s.* FROM signal_history s JOIN runs r ON r.run_id=s.run_id WHERE s.ticker=? ORDER BY r.run_id ASC", conn, params=(ticker,))

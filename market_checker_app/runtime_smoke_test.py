@@ -94,6 +94,10 @@ def run_smoke_test(tickers: list[str], runs: int, output_dir: Path) -> dict[str,
 
     eval_frames = EvaluationService().evaluate_snapshots(history)
     expected_eval_keys = {
+        "prediction_overall",
+        "prediction_summary",
+        "prediction_details",
+        "pending_predictions",
         "score_comparison",
         "top_bottom_new",
         "top_bottom_legacy",
@@ -152,7 +156,7 @@ def run_smoke_test(tickers: list[str], runs: int, output_dir: Path) -> dict[str,
 def main() -> None:
     parser = argparse.ArgumentParser(description="Runtime smoke-test for Market Checker pipeline")
     parser.add_argument("--tickers", nargs="+", default=["AAPL", "MSFT", "TSLA"], help="Ticker list (3-5 recommended)")
-    parser.add_argument("--runs", type=int, default=2, help="Number of pipeline runs (2 recommended for forward-return proxy)")
+    parser.add_argument("--runs", type=int, default=2, help="Number of pipeline runs used to verify persistence and evaluation outputs")
     parser.add_argument("--output-dir", type=Path, default=Path("outputs/smoke_runtime"), help="Smoke output directory")
     args = parser.parse_args()
 

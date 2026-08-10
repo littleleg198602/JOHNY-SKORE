@@ -92,6 +92,23 @@ Stačí na něj dvakrát kliknout. Skript:
   - distribuci TotalScore posledního běhu
 - tab `History` ukazuje detail vybraného tickeru v čase
 
+## Oveření pondělních predikcí
+
+Pokud je zapnuté **Ukládat historii do SQLite**, tab **Predikce** automaticky
+porovná poslední uložený běh jednoho týdne s následujícím týdenním během:
+
+- `BUY` a `STRONG BUY` vyjdou, pokud cena vzroste,
+- `SELL` a `STRONG SELL` vyjdou, pokud cena klesne,
+- `HOLD` vyjde, pokud absolutní pohyb zůstane ve zvolené toleranci (výchozí ±2 %),
+- nejnovější signály jsou `PENDING`, dokud není uložen další týdenní běh.
+
+Do výsledku se nepoužívá bull/bear spread ani slovní signal strength. Opakované
+spuštění ve stejném kalendářním týdnu se nepočítá jako budoucí výsledek;
+použije se poslední uložený běh daného týdne. Nepravidelné mezery delší než
+deset dní jsou viditelné jako `IRREGULAR_GAP`, ale nezkreslují týdenní úspěšnost.
+Je-li pro ticker dostupné MT5 OHLC, uložená vyhodnocovací cena použije přednostně
+`mt5_close`; tím starší Yahoo metadata cache nemůže vytvořit falešný týdenní výsledek.
+
 ## Rychlá validace scoring pipeline
 
 Po refaktoru scoringu doporučujeme po změnách vždy ověřit minimálně:
