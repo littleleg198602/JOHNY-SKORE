@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 import math
 import re
+from urllib.parse import parse_qs, urlparse
 from urllib.request import Request, urlopen
 
 import feedparser
@@ -10,9 +13,19 @@ import feedparser
 from market_checker_app.models import NewsItem
 
 
+RSSProgressCallback = Callable[[int, int, str], None]
+
+
 class RSSClient:
-    def __init__(self, max_items_per_source: int = 30) -> None:
+    def __init__(
+        self,
+        max_items_per_source: int = 30,
+        request_timeout_seconds: float = 5.0,
+        max_workers: int = 24,
+    ) -> None:
         self.max_items_per_source = max_items_per_source
+        self.request_timeout_seconds = max(1.0, request_timeout_seconds)
+        self.max_workers = max(1, max_workers)
 
     @staticmethod
     def _sentiment_score(text: str) -> float:
@@ -30,97 +43,166 @@ class RSSClient:
     @staticmethod
     def _recency_weight(published_at: datetime, now: datetime) -> float:
         age_days = max(0.0, (now - published_at).total_seconds() / 86400.0)
-        # half-life ~14 days keeps fresh news dominant, but preserves impact for up to 90 days.
         decay = math.exp(-math.log(2.0) * age_days / 14.0)
         return max(0.05, decay)
 
-    def collect(self, rss_sources: list[str], tickers: list[str]) -> tuple[list[NewsItem], list[str]]:
-        warnings: list[str] = []
+    @staticmethod
+    def _ticker_hint_from_source(source: str, ticker_set: set[str]) -> str | None:
+        query = parse_qs(urlparse(source).query)
+        values = query.get("s", [])
+        if len(values) != 1 or "," in values[0]:
+            return None
+        candidate = values[0].strip().upper()
+        return candidate if candidate in ticker_set else None
+
+    @staticmethod
+    def _contains_ticker(text_upper: str, ticker: str) -> bool:
+        return re.search(rf"(?<![A-Z0-9]){re.escape(ticker)}(?![A-Z0-9])", text_upper) is not None
+
+    def _download(self, source: str) -> bytes:
+        request = Request(source, headers={"User-Agent": "Mozilla/5.0 (MarketChecker/1.0)"})
+        with urlopen(request, timeout=self.request_timeout_seconds) as response:
+            return response.read(2_000_000)
+
+    def collect(
+        self,
+        rss_sources: list[str],
+        tickers: list[str],
+        progress_callback: RSSProgressCallback | None = None,
+    ) -> tuple[list[NewsItem], list[str]]:
+        if not rss_sources:
+            return [], []
+
         ticker_set = set(tickers)
         now = datetime.now(timezone.utc)
         cutoff_3m = now - timedelta(days=90)
         items: list[NewsItem] = []
+        warnings: list[str] = []
+        total_sources = len(rss_sources)
 
-        for source in rss_sources:
-            try:
-                parsed = feedparser.parse(source)
-            except Exception as exc:
-                warnings.append(f"RSS načtení selhalo ({source}). Zdroj byl přeskočen. Detail: {exc}")
-                continue
+        with ThreadPoolExecutor(max_workers=min(self.max_workers, total_sources)) as executor:
+            futures = {
+                executor.submit(self._collect_source, source, ticker_set, now, cutoff_3m): source
+                for source in rss_sources
+            }
+            for completed, future in enumerate(as_completed(futures), start=1):
+                source = futures[future]
+                try:
+                    source_items, source_warnings = future.result()
+                    items.extend(source_items)
+                    warnings.extend(source_warnings)
+                except Exception as exc:
+                    warnings.append(f"RSS načtení selhalo ({source}). Zdroj byl přeskočen. Detail: {exc}")
+                if progress_callback:
+                    progress_callback(completed, total_sources, source)
 
-            if getattr(parsed, "bozo", False):
-                bozo_exc = getattr(parsed, "bozo_exception", "neznámá chyba parseru")
-                warnings.append(f"RSS parser hlásí problém pro {source}. Pokračuji s dostupnými položkami. Detail: {bozo_exc}")
-
-            entries = list(getattr(parsed, "entries", []))
-            if not entries:
-                fallback_items = self._collect_html_fallback(source, ticker_set, now, cutoff_3m)
-                if fallback_items:
-                    items.extend(fallback_items)
-                    continue
-                warnings.append(f"RSS zdroj {source} nevrátil žádné položky.")
-                continue
-
-            for entry in entries[: self.max_items_per_source]:
-                title = str(getattr(entry, "title", ""))
-                summary = str(getattr(entry, "summary", ""))
-                published_parsed = getattr(entry, "published_parsed", None)
-                if published_parsed is None:
-                    published_at = now
-                else:
-                    published_at = datetime(*published_parsed[:6], tzinfo=timezone.utc)
-                if published_at < cutoff_3m:
-                    continue
-
-                text = f"{title} {summary}"
-                text_upper = text.upper()
-                sentiment = self._sentiment_score(text)
-                recency = self._recency_weight(published_at, now)
-                sentiment_weight = round(recency * sentiment, 4)
-
-                for ticker in ticker_set:
-                    if ticker in text_upper:
-                        items.append(
-                            NewsItem(
-                                ticker=ticker,
-                                source=source,
-                                title=title,
-                                summary=summary,
-                                published_at=published_at,
-                                sentiment_weight=sentiment_weight,
-                                url=str(getattr(entry, "link", "")),
-                            )
-                        )
         return items, warnings
 
-    def _collect_html_fallback(self, source: str, ticker_set: set[str], now: datetime, cutoff_3m: datetime) -> list[NewsItem]:
-        if not any(domain in source for domain in ("nasdaq.com", "stockanalysis.com", "marketscreener.com", "investing.com", "benzinga.com", "barchart.com")):
+    def _collect_source(
+        self,
+        source: str,
+        ticker_set: set[str],
+        now: datetime,
+        cutoff_3m: datetime,
+    ) -> tuple[list[NewsItem], list[str]]:
+        warnings: list[str] = []
+        items: list[NewsItem] = []
+        try:
+            payload = self._download(source)
+            parsed = feedparser.parse(payload)
+        except Exception as exc:
+            return [], [f"RSS načtení selhalo ({source}). Zdroj byl přeskočen. Detail: {exc}"]
+
+        if getattr(parsed, "bozo", False):
+            bozo_exc = getattr(parsed, "bozo_exception", "neznámá chyba parseru")
+            warnings.append(
+                f"RSS parser hlásí problém pro {source}. Pokračuji s dostupnými položkami. Detail: {bozo_exc}"
+            )
+
+        entries = list(getattr(parsed, "entries", []))
+        if not entries:
+            fallback_items = self._collect_html_fallback(source, ticker_set, now, payload)
+            if fallback_items:
+                return fallback_items, warnings
+            warnings.append(f"RSS zdroj {source} nevrátil žádné položky.")
+            return [], warnings
+
+        ticker_hint = self._ticker_hint_from_source(source, ticker_set)
+        for entry in entries[: self.max_items_per_source]:
+            title = str(getattr(entry, "title", ""))
+            summary = str(getattr(entry, "summary", ""))
+            published_parsed = getattr(entry, "published_parsed", None)
+            if published_parsed is None:
+                published_at = now
+            else:
+                published_at = datetime(*published_parsed[:6], tzinfo=timezone.utc)
+            if published_at < cutoff_3m:
+                continue
+
+            text = f"{title} {summary}"
+            text_upper = text.upper()
+            sentiment = self._sentiment_score(text)
+            recency = self._recency_weight(published_at, now)
+            sentiment_weight = round(recency * sentiment, 4)
+            matched_tickers = (
+                [ticker_hint]
+                if ticker_hint
+                else [ticker for ticker in ticker_set if self._contains_ticker(text_upper, ticker)]
+            )
+
+            for ticker in matched_tickers:
+                items.append(
+                    NewsItem(
+                        ticker=ticker,
+                        source=source,
+                        title=title,
+                        summary=summary,
+                        published_at=published_at,
+                        sentiment_weight=sentiment_weight,
+                        url=str(getattr(entry, "link", "")),
+                    )
+                )
+        return items, warnings
+
+    def _collect_html_fallback(
+        self,
+        source: str,
+        ticker_set: set[str],
+        now: datetime,
+        payload: bytes | None = None,
+    ) -> list[NewsItem]:
+        if not any(
+            domain in source
+            for domain in ("nasdaq.com", "stockanalysis.com", "marketscreener.com", "investing.com", "benzinga.com", "barchart.com")
+        ):
             return []
         try:
-            req = Request(source, headers={"User-Agent": "Mozilla/5.0 (MarketChecker/1.0)"})
-            with urlopen(req, timeout=8) as resp:
-                html = resp.read(300_000).decode("utf-8", errors="ignore")
+            raw = payload if payload is not None else self._download(source)
+            html = raw[:300_000].decode("utf-8", errors="ignore")
         except Exception:
             return []
 
         title_match = re.search(r"<title[^>]*>(.*?)</title>", html, flags=re.IGNORECASE | re.DOTALL)
         title = re.sub(r"\s+", " ", title_match.group(1)).strip() if title_match else ""
-        meta_match = re.search(r'<meta[^>]+name=["\\\']description["\\\'][^>]*content=["\\\'](.*?)["\\\']', html, flags=re.IGNORECASE | re.DOTALL)
+        meta_match = re.search(
+            r'<meta[^>]+name=["\\\']description["\\\'][^>]*content=["\\\'](.*?)["\\\']',
+            html,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
         summary = re.sub(r"\s+", " ", meta_match.group(1)).strip() if meta_match else ""
         text = f"{title} {summary}".strip()
         if not text:
             return []
 
-        if now < cutoff_3m:
-            return []
-
         text_upper = text.upper()
         sentiment = self._sentiment_score(text)
-        recency = self._recency_weight(now, now)
-        sentiment_weight = round(recency * sentiment, 4)
-        matched = [ticker for ticker in ticker_set if ticker in text_upper]
-        if not matched:
-            return []
+        sentiment_weight = round(self._recency_weight(now, now) * sentiment, 4)
+        ticker_hint = self._ticker_hint_from_source(source, ticker_set)
+        matched = (
+            [ticker_hint]
+            if ticker_hint
+            else [ticker for ticker in ticker_set if self._contains_ticker(text_upper, ticker)]
+        )
 
         return [
             NewsItem(

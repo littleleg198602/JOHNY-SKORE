@@ -175,7 +175,11 @@ def _load_history_from_excels(output_dir_value: str) -> pd.DataFrame:
 
 
 def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> None:
-    st.write(f"Zpracovávám: **{state.current_symbol or '-'}** ({state.current_position}/{state.total_symbols})")
+    st.write(f"**{state.current_message}**")
+    if state.current_symbol:
+        st.caption(
+            f"Ticker {state.current_symbol} • {state.current_position}/{state.total_symbols}"
+        )
     st.progress(float(state.overall_progress))
     st.caption(f"{int(state.overall_progress * 100)} % • {elapsed_sec:.1f}s")
 
@@ -762,6 +766,19 @@ else:
     st.info("Načteno z MT5: 0 tickerů")
 
 st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů (Excel/Yahoo-only: {len(excel_watchlist)})")
+if len(watchlist) > config.large_universe_threshold:
+    if use_mt5:
+        st.info(
+            f"Velký universe režim: analyzuji všech {len(watchlist)} tickerů. "
+            "Technická data poběží hromadně přes MT5 a RSS paralelně. "
+            "Pomalá Yahoo metadata/odhady analytiků budou neutrální, aby Yahoo rate-limit "
+            "nezastavil celý běh."
+        )
+    else:
+        st.warning(
+            f"Ve watchlistu je {len(watchlist)} tickerů, ale MT5 je vypnuté. "
+            "Zapněte MT5, jinak bude technická část ve velkém universe režimu neutrální."
+        )
 
 rss_default = DEFAULT_NEWS_SOURCES_TEXT if use_rss else ""
 rss_sources = [s.strip() for s in st.text_area("RSS sources", rss_default).splitlines() if s.strip()]

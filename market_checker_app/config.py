@@ -7,6 +7,8 @@ from pathlib import Path
 DEFAULT_OUTPUT_DIR = Path("outputs")
 DEFAULT_DB_PATH = DEFAULT_OUTPUT_DIR / "market_checker_history.db"
 DEFAULT_MAX_RSS_ITEMS = 30
+DEFAULT_MAX_TICKERS_PER_RUN = 1000
+DEFAULT_LARGE_UNIVERSE_THRESHOLD = 100
 
 
 @dataclass(slots=True)
@@ -85,6 +87,8 @@ class AppConfig:
     save_history: bool = True
     sqlite_path: Path = DEFAULT_DB_PATH
     max_rss_items_per_source: int = DEFAULT_MAX_RSS_ITEMS
+    max_tickers_per_run: int = DEFAULT_MAX_TICKERS_PER_RUN
+    large_universe_threshold: int = DEFAULT_LARGE_UNIVERSE_THRESHOLD
     module_weights: ModuleWeights = field(default_factory=ModuleWeights)
     decision_weights: DecisionModuleWeights = field(default_factory=DecisionModuleWeights)
     decision_thresholds: DecisionThresholds = field(default_factory=DecisionThresholds)
