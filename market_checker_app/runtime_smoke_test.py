@@ -34,7 +34,9 @@ def run_smoke_test(tickers: list[str], runs: int, output_dir: Path) -> dict[str,
     store = SQLiteStore(config.sqlite_path)
     pipeline = PipelineService(config)
 
-    rss_sources = ["https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US"]
+    rss_sources = [
+        "https://news.google.com/rss/search?q={ticker}%20stock&hl=en-US&gl=US&ceid=US:en"
+    ]
 
     run_ids: list[int] = []
     last_result: dict[str, object] | None = None

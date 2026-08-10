@@ -29,7 +29,9 @@ from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.visualization_service import VisualizationService
+from market_checker_app.services.yahoo_enrichment_service import YahooEnrichmentService
 from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.storage.yahoo_cache_store import YahooCacheCoverage, YahooCacheStore
 from market_checker_app.utils.charts import (
     histogram_chart,
     line_chart,
@@ -43,13 +45,11 @@ from market_checker_app.utils.charts import (
 MAX_PREVIEW_ROWS = 500
 DEFAULT_NEWS_SOURCES_TEXT = "\n".join(
     [
-        "https://feeds.finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US",
+        "https://news.google.com/rss/search?q={ticker}%20stock&hl=en-US&gl=US&ceid=US:en",
         "https://www.nasdaq.com/feed/rssoutbound",
-        "https://stockanalysis.com",
         "https://www.marketscreener.com/rss/news/",
         "https://www.investing.com/rss/news.rss",
         "https://www.benzinga.com/feed",
-        "https://www.barchart.com/stocks/quotes/$SPX/news",
     ]
 )
 
@@ -654,6 +654,8 @@ def _render_signals(signals_df: pd.DataFrame) -> None:
 
     display_columns = [
         "ticker",
+        "yahoo_ticker",
+        "yahoo_data_status",
         "news_score",
         "tech_score",
         "yahoo_score",
@@ -707,6 +709,21 @@ with st.sidebar:
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
     load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
+    yahoo_batch_size = st.number_input(
+        "Yahoo metadata na jednu dávku",
+        min_value=1,
+        max_value=1000,
+        value=100,
+        help="Úspěšné tickery se ihned ukládají. Další spuštění pokračuje zbývajícími.",
+    )
+    yahoo_delay_ms = st.number_input(
+        "Pauza mezi Yahoo požadavky (ms)",
+        min_value=0,
+        max_value=5000,
+        value=750,
+        step=250,
+    )
+    refresh_yahoo = st.button("Doplnit Yahoo cache")
     run_analysis = st.button("Spustit analýzu", type="primary")
 
 sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
@@ -714,6 +731,7 @@ sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
 config = AppConfig(output_dir=output_dir, marketcap_file=marketcap_file, export_excel=export_excel, compare_previous_run=compare_prev, save_history=save_history, sqlite_path=sqlite_path, max_rss_items_per_source=int(max_rss))
 config.ensure_output_dir()
 store = SQLiteStore(config.sqlite_path)
+yahoo_cache = YahooCacheStore(config.sqlite_path)
 
 if sqlite_info:
     st.warning(sqlite_info)
@@ -766,13 +784,78 @@ else:
     st.info("Načteno z MT5: 0 tickerů")
 
 st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů (Excel/Yahoo-only: {len(excel_watchlist)})")
+
+
+def _render_yahoo_coverage(coverage: YahooCacheCoverage) -> None:
+    if coverage.total == 0:
+        st.caption("Yahoo cache: watchlist je prázdný")
+        return
+    st.write(
+        f"**Yahoo cache:** {coverage.usable}/{coverage.total} použitelných "
+        f"(fresh {coverage.fresh}, stale {coverage.stale}, failed {coverage.failed}, "
+        f"pending {coverage.missing + coverage.corrupt}, unsupported {coverage.unsupported})"
+    )
+    st.progress(coverage.usable / coverage.total)
+
+
+yahoo_coverage_placeholder = st.empty()
+with yahoo_coverage_placeholder.container():
+    _render_yahoo_coverage(yahoo_cache.coverage(watchlist))
+
+if refresh_yahoo:
+    if not watchlist:
+        st.error("Nejdřív načtěte nebo zadejte watchlist.")
+    else:
+        yahoo_refresh_status = st.empty()
+        yahoo_refresh_progress = st.progress(0.0)
+
+        def _on_yahoo_refresh(
+            completed: int,
+            total_candidates: int,
+            ticker: str,
+            status: str,
+            coverage: YahooCacheCoverage,
+        ) -> None:
+            yahoo_refresh_status.write(
+                f"Yahoo metadata: {completed}/{total_candidates} • {ticker} • {status} • "
+                f"celkové pokrytí {coverage.usable}/{coverage.total}"
+            )
+            yahoo_refresh_progress.progress(completed / max(1, total_candidates))
+
+        try:
+            refresh_result = YahooEnrichmentService(yahoo_cache).refresh(
+                watchlist,
+                max_items=int(yahoo_batch_size),
+                delay_seconds=float(yahoo_delay_ms) / 1000.0,
+                progress_callback=_on_yahoo_refresh,
+            )
+        except Exception as exc:
+            st.error(f"Doplnění Yahoo cache selhalo: {exc}")
+            refresh_result = None
+        if refresh_result is None:
+            st.stop()
+        yahoo_refresh_progress.progress(1.0)
+        with yahoo_coverage_placeholder.container():
+            _render_yahoo_coverage(refresh_result.coverage)
+        if refresh_result.rate_limited:
+            st.warning(
+                "Yahoo dočasně omezilo požadavky. Dosavadní data jsou uložená; "
+                "po ochranné pauze spusťte doplnění znovu."
+            )
+        else:
+            st.success(
+                f"Yahoo dávka dokončena: {refresh_result.succeeded} úspěšně, "
+                f"{refresh_result.partial} částečně, {refresh_result.failed} chyb. "
+                f"Zbývá obnovit {refresh_result.remaining} tickerů."
+            )
+
 if len(watchlist) > config.large_universe_threshold:
     if use_mt5:
         st.info(
             f"Velký universe režim: analyzuji všech {len(watchlist)} tickerů. "
             "Technická data poběží hromadně přes MT5 a RSS paralelně. "
-            "Pomalá Yahoo metadata/odhady analytiků budou neutrální, aby Yahoo rate-limit "
-            "nezastavil celý běh."
+            "Yahoo fundamenty a odhady analytiků se načtou z trvalé cache; "
+            "chybějící tickery doplňte tlačítkem v levém panelu."
         )
     else:
         st.warning(
@@ -782,6 +865,11 @@ if len(watchlist) > config.large_universe_threshold:
 
 rss_default = DEFAULT_NEWS_SOURCES_TEXT if use_rss else ""
 rss_sources = [s.strip() for s in st.text_area("RSS sources", rss_default).splitlines() if s.strip()]
+if use_rss:
+    st.caption(
+        "Tickerové zprávy používají Google News RSS bez registrace (experimentální zdroj). "
+        "Nefunkční Yahoo Finance RSS není ve výchozím seznamu."
+    )
 
 if st.session_state.analysis_progress:
     _render_progress_ui(st.session_state.analysis_progress, 0.0)

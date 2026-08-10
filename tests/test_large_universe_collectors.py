@@ -17,6 +17,7 @@ class LargeUniverseCollectorTests(unittest.TestCase):
         <rss version="2.0"><channel><title>Yahoo</title><item>
           <title>Apple reports record revenue growth</title>
           <description>Quarterly results beat expectations.</description>
+          <pubDate>Wed, 01 Jul 2026 08:00:00 GMT</pubDate>
           <link>https://example.test/apple-results</link>
         </item></channel></rss>"""
         client = RSSClient(max_workers=2)
@@ -30,6 +31,39 @@ class LargeUniverseCollectorTests(unittest.TestCase):
         self.assertEqual([], warnings)
         self.assertEqual(1, len(items))
         self.assertEqual("AAPL", items[0].ticker)
+
+    def test_google_news_query_hint_assigns_ticker_without_text_match(self) -> None:
+        payload = b"""<?xml version="1.0"?>
+        <rss version="2.0"><channel><title>Google News</title><item>
+          <title>Apple reports record revenue growth</title>
+          <description>Quarterly results beat expectations.</description>
+          <pubDate>Wed, 01 Jul 2026 08:00:00 GMT</pubDate>
+          <link>https://example.test/apple-results</link>
+        </item></channel></rss>"""
+        client = RSSClient(max_workers=2)
+        client._download = lambda source: payload  # type: ignore[method-assign]
+
+        items, warnings = client.collect(
+            ["https://news.google.com/rss/search?q=AAPL%20stock&hl=en-US&gl=US&ceid=US:en"],
+            ["AAPL"],
+        )
+
+        self.assertEqual([], warnings)
+        self.assertEqual(["AAPL"], [item.ticker for item in items])
+
+    def test_undated_news_is_not_misclassified_as_fresh(self) -> None:
+        payload = b"""<?xml version="1.0"?>
+        <rss version="2.0"><channel><item>
+          <title>AAPL reports earnings</title>
+          <link>https://example.test/no-date</link>
+        </item></channel></rss>"""
+        client = RSSClient()
+        client._download = lambda source: payload  # type: ignore[method-assign]
+
+        items, warnings = client.collect(["https://example.test/feed"], ["AAPL"])
+
+        self.assertEqual([], items)
+        self.assertTrue(any("bez data publikace" in warning for warning in warnings))
 
     def test_rss_timeout_isolated_and_progress_reported(self) -> None:
         client = RSSClient(max_workers=2)

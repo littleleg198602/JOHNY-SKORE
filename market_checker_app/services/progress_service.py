@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import deque
+from copy import deepcopy
 from dataclasses import asdict
 from datetime import datetime
 from typing import Callable
@@ -25,7 +26,10 @@ class ProgressService:
 
     def snapshot(self) -> AnalysisProgressState:
         self._state.recent_logs = [asdict(event) for event in self._events]
-        return self._state
+        # Callbacks and Streamlit session state must receive an immutable-in-
+        # practice point-in-time view. Returning the live object made all
+        # previously collected progress samples change together.
+        return deepcopy(self._state)
 
     def _emit(self) -> None:
         if self._on_update:
