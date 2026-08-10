@@ -113,6 +113,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
             stored = store.read_signals_for_run(int(result["run_id"]))
             self.assertEqual(1, len(stored))
             self.assertEqual("AAPL", stored.iloc[0]["ticker"])
+            self.assertEqual("yahoo_metadata", stored.iloc[0]["current_price_source"])
             self.assertFalse(store.read_global_history().empty)
 
     def test_empty_watchlist_is_rejected(self):
@@ -171,6 +172,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
         self.assertEqual({"AAPL", "MSFT", "NVDA"}, set(signals["ticker"]))
         self.assertTrue((signals["tech_source_used"] == "mt5").all())
         self.assertTrue(signals["current_price"].notna().all())
+        self.assertTrue((signals["current_price_source"] == "mt5_close").all())
         self.assertTrue((signals["yahoo_confidence"] == 0.0).all())
         self.assertEqual([], result["errors"])
 

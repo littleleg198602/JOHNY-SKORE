@@ -13,6 +13,8 @@ class ExcelExporter:
         "yahoo_data_fetched_at",
         "market_cap_usd",
         "rank_market_cap",
+        "current_price",
+        "current_price_source",
         "scoring_version",
         "legacy_total_score",
         "legacy_signal",

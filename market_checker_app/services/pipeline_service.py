@@ -373,9 +373,21 @@ class PipelineService:
                 ticker,
                 ohlc if isinstance(ohlc, pd.DataFrame) else None,
             )
-            current_price = snapshot.data.get("currentPrice") or self._current_price_from_ohlc(
+            mt5_current_price = self._current_price_from_ohlc(
                 ohlc if isinstance(ohlc, pd.DataFrame) else None
             )
+            yahoo_current_price = snapshot.data.get("currentPrice")
+            if tech_source_used == "mt5" and mt5_current_price is not None:
+                # Weekly prediction evaluation must not reuse a stale price
+                # hidden inside the longer-lived Yahoo metadata cache.
+                current_price = mt5_current_price
+                current_price_source = "mt5_close"
+            elif yahoo_current_price is not None:
+                current_price = yahoo_current_price
+                current_price_source = "yahoo_metadata"
+            else:
+                current_price = mt5_current_price
+                current_price_source = "ohlc_fallback" if mt5_current_price is not None else "missing"
 
             progress.set_step(ticker, "behavioral_risk", f"Počítám behavioral a risk vrstvu pro {ticker}", 0.82)
             behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
@@ -423,6 +435,7 @@ class PipelineService:
                 "ticker": ticker,
                 "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
                 "current_price": current_price,
+                "current_price_source": current_price_source,
                 "yahoo_ticker": yahoo_ticker,
                 "yahoo_data_status": yahoo_data_status,
                 "yahoo_data_fetched_at": yahoo_data_fetched_at,

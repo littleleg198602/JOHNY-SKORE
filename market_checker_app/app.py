@@ -952,7 +952,29 @@ if st.session_state.last_result:
     result = st.session_state.last_result
     signals_df = result["signals"]
 
-    tab_signals, tab_dashboard, tab_articles, tab_sources, tab_delta, tab_trends, tab_history, tab_ranking = st.tabs(["Signals", "Dashboard", "Articles", "Sources", "Delta", "Trends", "History", "Ranking"])
+    (
+        tab_signals,
+        tab_dashboard,
+        tab_articles,
+        tab_sources,
+        tab_delta,
+        tab_trends,
+        tab_history,
+        tab_predictions,
+        tab_ranking,
+    ) = st.tabs(
+        [
+            "Signals",
+            "Dashboard",
+            "Articles",
+            "Sources",
+            "Delta",
+            "Trends",
+            "History",
+            "Predikce",
+            "Ranking",
+        ]
+    )
 
     with tab_signals:
         _render_signals(signals_df)
@@ -1006,6 +1028,64 @@ if st.session_state.last_result:
         else:
             st.info("Historie není dostupná, protože je vypnuto ukládání historie do SQLite.")
 
+    with tab_predictions:
+        st.subheader("Vyšly minulé pondělní predikce?")
+        st.caption(
+            "BUY je správně, když cena do dalšího týdenního běhu vzroste; "
+            "SELL, když klesne; HOLD, když zůstane v nastaveném pásmu. "
+            "Bull/bear spread ani signal strength se do tohoto vyhodnocení nepoužívají."
+        )
+        if save_history:
+            hold_tolerance = st.number_input(
+                "Tolerance pro úspěšný HOLD (%)",
+                min_value=0.0,
+                max_value=10.0,
+                value=2.0,
+                step=0.5,
+                key="prediction_hold_tolerance_pct",
+                help="Např. 2 % znamená, že HOLD vyjde při týdenním pohybu od -2 % do +2 %.",
+            )
+            prediction_frames = EvaluationService().evaluate_predictions(
+                store.read_global_history(),
+                hold_tolerance_pct=float(hold_tolerance),
+            )
+            overall = prediction_frames["prediction_overall"]
+            overall_values = (
+                dict(zip(overall["metric"], overall["value"])) if not overall.empty else {}
+            )
+            evaluated = int(overall_values.get("evaluated_weekly_predictions") or 0)
+            correct = int(overall_values.get("correct_predictions") or 0)
+            wrong = int(overall_values.get("wrong_predictions") or 0)
+            hit_rate = overall_values.get("overall_hit_rate_pct")
+            metric_cols = st.columns(4)
+            metric_cols[0].metric("Vyhodnoceno", evaluated)
+            metric_cols[1].metric("Vyšlo", correct)
+            metric_cols[2].metric("Nevyšlo", wrong)
+            metric_cols[3].metric(
+                "Úspěšnost",
+                f"{float(hit_rate):.1f} %" if pd.notna(hit_rate) else "čeká na další běh",
+            )
+
+            if evaluated == 0:
+                st.info(
+                    "Zatím není uzavřený žádný týdenní pár. "
+                    "Po příštím pondělním běhu se zde automaticky vyhodnotí dnešní signály."
+                )
+
+            st.write("Úspěšnost podle předpovědi")
+            st.dataframe(prediction_frames["prediction_summary"], width="stretch")
+            st.write("Detail všech týdenních predikcí")
+            _show_limited_dataframe(
+                prediction_frames["prediction_details"],
+                "HIT = směr vyšel, MISS = nevyšel, PENDING = čeká na další pondělí",
+                rows=3000,
+            )
+        else:
+            st.warning(
+                "Zapněte `Ukládat historii do SQLite`. Bez uložené ceny a signálu "
+                "nelze příští pondělí ověřit, zda predikce vyšla."
+            )
+
     with tab_ranking:
         st.subheader("Top ranking")
         st.dataframe(result["ranking"].get("top", pd.DataFrame()), width="stretch")
@@ -1013,7 +1093,9 @@ if st.session_state.last_result:
         st.dataframe(result["ranking"].get("bottom", pd.DataFrame()), width="stretch")
         if save_history:
             eval_frames = EvaluationService().evaluate_snapshots(store.read_global_history())
-            st.subheader("Evaluation / backtest")
+            st.subheader("Historické srovnání skóre (není obchodní backtest)")
             for name, frame in eval_frames.items():
+                if name in EvaluationService.PREDICTION_FRAME_NAMES:
+                    continue
                 st.write(name)
                 st.dataframe(frame, width="stretch")

@@ -1,0 +1,134 @@
+from __future__ import annotations
+
+import unittest
+
+import pandas as pd
+
+from market_checker_app.services.evaluation_service import EvaluationService
+
+
+def _row(
+    run_id: int,
+    finished_at: str,
+    ticker: str,
+    price: float | None,
+    signal: str,
+) -> dict[str, object]:
+    return {
+        "run_id": run_id,
+        "finished_at": finished_at,
+        "ticker": ticker,
+        "current_price": price,
+        "signal": signal,
+    }
+
+
+class WeeklyPredictionEvaluationTests(unittest.TestCase):
+    def test_buy_hold_and_sell_are_scored_by_next_week_direction(self) -> None:
+        history = pd.DataFrame(
+            [
+                _row(1, "2026-08-03T18:00:00Z", "BUY_OK", 100, "BUY"),
+                _row(2, "2026-08-10T18:00:00Z", "BUY_OK", 105, "HOLD"),
+                _row(1, "2026-08-03T18:00:00Z", "BUY_BAD", 100, "STRONG BUY"),
+                _row(2, "2026-08-10T18:00:00Z", "BUY_BAD", 90, "HOLD"),
+                _row(1, "2026-08-03T18:00:00Z", "SELL_OK", 100, "SELL"),
+                _row(2, "2026-08-10T18:00:00Z", "SELL_OK", 95, "HOLD"),
+                _row(1, "2026-08-03T18:00:00Z", "SELL_BAD", 100, "STRONG SELL"),
+                _row(2, "2026-08-10T18:00:00Z", "SELL_BAD", 105, "HOLD"),
+                _row(1, "2026-08-03T18:00:00Z", "HOLD_OK", 100, "HOLD"),
+                _row(2, "2026-08-10T18:00:00Z", "HOLD_OK", 101.5, "HOLD"),
+                _row(1, "2026-08-03T18:00:00Z", "HOLD_BAD", 100, "HOLD"),
+                _row(2, "2026-08-10T18:00:00Z", "HOLD_BAD", 103, "HOLD"),
+            ]
+        )
+
+        frames = EvaluationService().evaluate_predictions(history, hold_tolerance_pct=2.0)
+        details = frames["prediction_details"]
+        evaluated = details[details["result"].isin(["HIT", "MISS"])]
+        results = evaluated.set_index("ticker")["result"].to_dict()
+
+        self.assertEqual(
+            {
+                "BUY_OK": "HIT",
+                "BUY_BAD": "MISS",
+                "SELL_OK": "HIT",
+                "SELL_BAD": "MISS",
+                "HOLD_OK": "HIT",
+                "HOLD_BAD": "MISS",
+            },
+            results,
+        )
+        summary = frames["prediction_summary"].set_index("prediction")
+        self.assertEqual(2, int(summary.loc["BUY", "evaluated"]))
+        self.assertEqual(1, int(summary.loc["BUY", "hits"]))
+        self.assertEqual(50.0, float(summary.loc["HOLD", "hit_rate_pct"]))
+        self.assertEqual(50.0, float(summary.loc["SELL", "hit_rate_pct"]))
+        overall = dict(
+            zip(frames["prediction_overall"]["metric"], frames["prediction_overall"]["value"])
+        )
+        self.assertEqual(6, int(overall["evaluated_weekly_predictions"]))
+        self.assertEqual(3, int(overall["correct_predictions"]))
+        self.assertEqual(50.0, float(overall["overall_hit_rate_pct"]))
+        self.assertEqual(6, int(overall["pending_predictions"]))
+
+    def test_latest_same_week_rerun_is_used_once(self) -> None:
+        history = pd.DataFrame(
+            [
+                _row(1, "2026-08-03T08:00:00Z", "AAPL", 95, "SELL"),
+                _row(2, "2026-08-03T18:00:00Z", "AAPL", 100, "BUY"),
+                _row(3, "2026-08-10T18:00:00Z", "AAPL", 110, "HOLD"),
+            ]
+        )
+
+        frames = EvaluationService().evaluate_predictions(history)
+        details = frames["prediction_details"]
+        evaluated = details[details["result"] == "HIT"]
+
+        self.assertEqual(1, len(evaluated))
+        self.assertEqual(2, int(evaluated.iloc[0]["signal_run_id"]))
+        self.assertEqual("BUY", evaluated.iloc[0]["prediction"])
+        self.assertEqual(10.0, float(evaluated.iloc[0]["realized_return_pct"]))
+        overall = dict(
+            zip(frames["prediction_overall"]["metric"], frames["prediction_overall"]["value"])
+        )
+        self.assertEqual(1, int(overall["same_week_rows_ignored"]))
+
+    def test_irregular_gap_and_missing_price_do_not_distort_hit_rate(self) -> None:
+        history = pd.DataFrame(
+            [
+                _row(1, "2026-08-03T18:00:00Z", "AAPL", 100, "BUY"),
+                _row(3, "2026-08-17T18:00:00Z", "AAPL", 120, "HOLD"),
+                _row(1, "2026-08-03T18:00:00Z", "MSFT", None, "BUY"),
+                _row(2, "2026-08-10T18:00:00Z", "MSFT", 200, "HOLD"),
+            ]
+        )
+
+        frames = EvaluationService().evaluate_predictions(history)
+        results = frames["prediction_details"].set_index(["ticker", "signal_run_id"])["result"]
+
+        self.assertEqual("IRREGULAR_GAP", results.loc[("AAPL", 1)])
+        self.assertEqual("NO_PRICE", results.loc[("MSFT", 1)])
+        overall = dict(
+            zip(frames["prediction_overall"]["metric"], frames["prediction_overall"]["value"])
+        )
+        self.assertEqual(0, int(overall["evaluated_weekly_predictions"]))
+        self.assertEqual(1, int(overall["irregular_gap_predictions"]))
+        self.assertEqual(1, int(overall["no_price_predictions"]))
+
+    def test_empty_or_incomplete_history_returns_empty_frames(self) -> None:
+        service = EvaluationService()
+        for history in (pd.DataFrame(), pd.DataFrame({"ticker": ["AAPL"]})):
+            frames = service.evaluate_predictions(history)
+            self.assertEqual(set(service.PREDICTION_FRAME_NAMES), set(frames))
+            self.assertTrue(all(frame.empty for frame in frames.values()))
+
+    def test_negative_hold_tolerance_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "hold_tolerance_pct"):
+            EvaluationService().evaluate_predictions(
+                pd.DataFrame(),
+                hold_tolerance_pct=-0.1,
+            )
+
+
+if __name__ == "__main__":
+    unittest.main()
