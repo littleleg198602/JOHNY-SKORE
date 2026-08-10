@@ -16,6 +16,8 @@ class StreamlitUISmokeTests(unittest.TestCase):
         self.assertIn("Načíst watchlist z MT5", labels)
         self.assertIn("Doplnit Yahoo cache", labels)
         self.assertIn("Spustit analýzu", labels)
+        number_labels = [field.label for field in app.number_input]
+        self.assertIn("Yahoo tickerů v jedné automatické dávce", number_labels)
 
 
 if __name__ == "__main__":

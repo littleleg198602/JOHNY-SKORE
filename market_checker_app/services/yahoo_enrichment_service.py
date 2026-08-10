@@ -22,6 +22,7 @@ class YahooRefreshResult:
     remaining: int
     coverage: YahooCacheCoverage
     warnings: list[str]
+    batches: int = 1
 
 
 class YahooEnrichmentService:
@@ -112,4 +113,94 @@ class YahooEnrichmentService:
             remaining=remaining,
             coverage=coverage,
             warnings=warnings,
+        )
+
+    def refresh_all(
+        self,
+        watchlist: Iterable[str],
+        *,
+        batch_size: int = 100,
+        delay_seconds: float = 0.75,
+        progress_callback: YahooRefreshCallback | None = None,
+    ) -> YahooRefreshResult:
+        """Refresh every currently eligible ticker in automatic batches.
+
+        A batch boundary is only a checkpoint; it does not require another UI
+        click.  The loop stops when no ticker is immediately refreshable or
+        Yahoo activates its rate-limit guard.  Failed tickers remain stored
+        with their retry deadline and are not hammered repeatedly in the same
+        run.
+        """
+
+        if batch_size < 1:
+            raise ValueError("batch_size must be at least 1")
+
+        tickers = list(
+            dict.fromkeys(
+                str(ticker).strip().upper()
+                for ticker in watchlist
+                if str(ticker).strip()
+            )
+        )
+        initial_candidates = self.cache.list_tickers_needing_refresh(tickers)
+        total_candidates = len(initial_candidates)
+        attempted = succeeded = partial = failed = batches = 0
+        warnings: list[str] = []
+        rate_limited = False
+
+        while self.cache.list_tickers_needing_refresh(tickers):
+            attempted_before_batch = attempted
+
+            def _on_batch_progress(
+                completed: int,
+                _batch_total: int,
+                ticker: str,
+                status: str,
+                coverage: YahooCacheCoverage,
+            ) -> None:
+                if progress_callback:
+                    progress_callback(
+                        attempted_before_batch + completed,
+                        total_candidates,
+                        ticker,
+                        status,
+                        coverage,
+                    )
+
+            result = self.refresh(
+                tickers,
+                max_items=batch_size,
+                delay_seconds=delay_seconds,
+                progress_callback=_on_batch_progress,
+            )
+            if result.candidates == 0 or result.attempted == 0:
+                rate_limited = rate_limited or result.rate_limited
+                break
+
+            batches += 1
+            attempted += result.attempted
+            succeeded += result.succeeded
+            partial += result.partial
+            failed += result.failed
+            warnings.extend(result.warnings)
+            rate_limited = rate_limited or result.rate_limited
+            if rate_limited:
+                break
+
+            if self.cache.list_tickers_needing_refresh(tickers) and delay_seconds > 0:
+                self._sleep(delay_seconds)
+
+        coverage = self.cache.coverage(tickers)
+        remaining = coverage.total - coverage.fresh - coverage.unsupported
+        return YahooRefreshResult(
+            candidates=total_candidates,
+            attempted=attempted,
+            succeeded=succeeded,
+            partial=partial,
+            failed=failed,
+            rate_limited=rate_limited,
+            remaining=remaining,
+            coverage=coverage,
+            warnings=warnings,
+            batches=batches,
         )

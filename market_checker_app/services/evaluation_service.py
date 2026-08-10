@@ -7,6 +7,9 @@ class EvaluationService:
     PREDICTION_FRAME_NAMES = (
         "prediction_overall",
         "prediction_summary",
+        "prediction_weekly",
+        "prediction_cumulative",
+        "prediction_by_ticker",
         "prediction_details",
         "pending_predictions",
     )
@@ -180,6 +183,81 @@ class EvaluationService:
             )
         summary = pd.DataFrame(summary_rows)
 
+        weekly_columns = [
+            "week_start",
+            "evaluated",
+            "hits",
+            "misses",
+            "hit_rate_pct",
+        ]
+        cumulative_columns = weekly_columns + [
+            "cumulative_evaluated",
+            "cumulative_hits",
+            "cumulative_misses",
+            "cumulative_hit_rate_pct",
+        ]
+        ticker_columns = [
+            "ticker",
+            "evaluated",
+            "hits",
+            "misses",
+            "hit_rate_pct",
+            "first_signal_at",
+            "last_evaluated_at",
+        ]
+        if scored.empty:
+            weekly_history = pd.DataFrame(columns=weekly_columns)
+            cumulative_history = pd.DataFrame(columns=cumulative_columns)
+            by_ticker = pd.DataFrame(columns=ticker_columns)
+        else:
+            weekly_history = (
+                scored.assign(is_hit=scored["result"].eq("HIT").astype(int))
+                .groupby("week_start", as_index=False)
+                .agg(evaluated=("result", "size"), hits=("is_hit", "sum"))
+                .sort_values("week_start")
+            )
+            weekly_history["misses"] = (
+                weekly_history["evaluated"] - weekly_history["hits"]
+            )
+            weekly_history["hit_rate_pct"] = (
+                weekly_history["hits"] / weekly_history["evaluated"] * 100
+            ).round(2)
+            weekly_history = weekly_history[weekly_columns]
+
+            cumulative_history = weekly_history.copy()
+            cumulative_history["cumulative_evaluated"] = cumulative_history[
+                "evaluated"
+            ].cumsum()
+            cumulative_history["cumulative_hits"] = cumulative_history["hits"].cumsum()
+            cumulative_history["cumulative_misses"] = cumulative_history[
+                "misses"
+            ].cumsum()
+            cumulative_history["cumulative_hit_rate_pct"] = (
+                cumulative_history["cumulative_hits"]
+                / cumulative_history["cumulative_evaluated"]
+                * 100
+            ).round(2)
+            cumulative_history = cumulative_history[cumulative_columns]
+
+            by_ticker = (
+                scored.assign(is_hit=scored["result"].eq("HIT").astype(int))
+                .groupby("ticker", as_index=False)
+                .agg(
+                    evaluated=("result", "size"),
+                    hits=("is_hit", "sum"),
+                    first_signal_at=("signal_at", "min"),
+                    last_evaluated_at=("evaluated_at", "max"),
+                )
+            )
+            by_ticker["misses"] = by_ticker["evaluated"] - by_ticker["hits"]
+            by_ticker["hit_rate_pct"] = (
+                by_ticker["hits"] / by_ticker["evaluated"] * 100
+            ).round(2)
+            by_ticker = by_ticker[ticker_columns].sort_values(
+                ["evaluated", "hit_rate_pct", "ticker"],
+                ascending=[False, False, True],
+            )
+
         total_evaluated = int(len(scored))
         total_hits = int((scored["result"] == "HIT").sum())
         overall = pd.DataFrame(
@@ -212,6 +290,9 @@ class EvaluationService:
         return {
             "prediction_overall": overall,
             "prediction_summary": summary,
+            "prediction_weekly": weekly_history,
+            "prediction_cumulative": cumulative_history,
+            "prediction_by_ticker": by_ticker,
             "prediction_details": details,
             "pending_predictions": pending,
         }

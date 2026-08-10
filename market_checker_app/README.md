@@ -35,7 +35,8 @@ Stačí na něj dvakrát kliknout. Skript:
 - RSS a MT5 se zapínají samostatnými volbami v levém panelu; nahrání Excelu je automaticky nevypíná.
 - Yahoo cenová historie se v rámci malého běhu sdílí mezi performance a technickou analýzou.
 - Pro velký watchlist se Yahoo metadata ukládají trvale do stejné SQLite DB. Tlačítko
-  **Doplnit Yahoo cache** zpracuje nastavenou dávku a další kliknutí automaticky pokračuje.
+  **Doplnit Yahoo cache** jedním kliknutím automaticky zpracuje navazující dávky zvolené
+  velikosti. Zastaví se až po dokončení nebo při ochranném Yahoo rate limitu.
 - Pokud Yahoo omezí požadavky, aplikace zobrazí výraznou chybu a označí fallback výsledky jako nespolehlivé.
 - Výchozí tickerové zprávy používají experimentální Google News RSS bez registrace.
   Nefunkční Yahoo Finance RSS URL není ve výchozím seznamu. Položky bez data publikace
@@ -50,9 +51,10 @@ Stačí na něj dvakrát kliknout. Skript:
   trvalou Yahoo cache; čerstvá a zastaralá data jsou ve výsledku viditelně označena. Chybějící
   metadata mají neutrální skóre a skutečných 0 % důvěry. Aktuální cena a změny se v tomto
   režimu odvozují z MT5.
-- Pro 687 tickerů nejdřív opakovaně spusťte **Doplnit Yahoo cache**, dokud ukazatel pokrytí
-  nedosáhne požadovaného počtu, a potom spusťte analýzu. Při rate limitu jsou hotová data
-  zachována a po ochranné pauze se pokračuje pouze zbývajícími tickery.
+- Pro 687 tickerů spusťte **Doplnit Yahoo cache** jednou. Aplikace automaticky pokračuje
+  po dávkách (výchozí velikost 100), dokud nezpracuje všechny aktuálně dostupné tickery.
+  Při rate limitu jsou hotová data zachována a po ochranné pauze se pokračuje pouze
+  zbývajícími tickery.
 - Když pro některý symbol MT5 nevrátí svíčky, tento řádek zůstane ve výsledku, ale technická
   část bude neutrální a ve sloupci `warnings` bude uveden důvod.
 
@@ -108,6 +110,17 @@ použije se poslední uložený běh daného týdne. Nepravidelné mezery delš�
 deset dní jsou viditelné jako `IRREGULAR_GAP`, ale nezkreslují týdenní úspěšnost.
 Je-li pro ticker dostupné MT5 OHLC, uložená vyhodnocovací cena použije přednostně
 `mt5_close`; tím starší Yahoo metadata cache nemůže vytvořit falešný týdenní výsledek.
+
+SQLite historii aplikace automaticky nemaže. Tab **Predikce** proto vyhodnocuje všechny
+uzavřené týdny v aktivním DB souboru a zobrazuje:
+
+- týdenní úspěšnost,
+- kumulativní úspěšnost váženou počtem predikcí,
+- týdenní počty `HIT` a `MISS`,
+- dlouhodobou úspěšnost jednotlivých tickerů a kompletní detail.
+
+Kumulativní výsledek není prostý průměr týdnů: 100 úspěšných a 1 neúspěšná predikce
+znamená úspěšnost 99,01 % bez ohledu na to, ve kterých týdnech vznikly.
 
 ## Rychlá validace scoring pipeline
 

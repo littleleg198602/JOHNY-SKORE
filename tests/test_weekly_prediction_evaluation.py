@@ -129,6 +129,38 @@ class WeeklyPredictionEvaluationTests(unittest.TestCase):
                 hold_tolerance_pct=-0.1,
             )
 
+    def test_cumulative_history_weights_every_prediction_not_every_week(self) -> None:
+        rows = [
+            _row(1, "2026-08-03T18:00:00Z", "FIRST", 100, "BUY"),
+            _row(2, "2026-08-10T18:00:00Z", "FIRST", 90, "BUY"),
+            _row(3, "2026-08-17T18:00:00Z", "FIRST", 100, "HOLD"),
+        ]
+        for index in range(99):
+            ticker = f"HIT_{index:03d}"
+            rows.extend(
+                [
+                    _row(2, "2026-08-10T18:00:00Z", ticker, 100, "BUY"),
+                    _row(3, "2026-08-17T18:00:00Z", ticker, 101, "HOLD"),
+                ]
+            )
+
+        frames = EvaluationService().evaluate_predictions(pd.DataFrame(rows))
+        weekly = frames["prediction_weekly"].reset_index(drop=True)
+        cumulative = frames["prediction_cumulative"].reset_index(drop=True)
+
+        self.assertEqual(2, len(weekly))
+        self.assertEqual([1, 100], weekly["evaluated"].astype(int).tolist())
+        self.assertEqual([0, 100], weekly["hits"].astype(int).tolist())
+        self.assertEqual([0.0, 100.0], weekly["hit_rate_pct"].astype(float).tolist())
+        self.assertEqual(101, int(cumulative.iloc[-1]["cumulative_evaluated"]))
+        self.assertEqual(100, int(cumulative.iloc[-1]["cumulative_hits"]))
+        self.assertEqual(99.01, float(cumulative.iloc[-1]["cumulative_hit_rate_pct"]))
+
+        by_ticker = frames["prediction_by_ticker"].set_index("ticker")
+        self.assertEqual(2, int(by_ticker.loc["FIRST", "evaluated"]))
+        self.assertEqual(1, int(by_ticker.loc["FIRST", "hits"]))
+        self.assertEqual(50.0, float(by_ticker.loc["FIRST", "hit_rate_pct"]))
+
 
 if __name__ == "__main__":
     unittest.main()
