@@ -108,6 +108,13 @@ class RuntimeIntegrationTests(unittest.TestCase):
 
             self.assertEqual(1, len(result["signals"]))
             self.assertIsNotNone(result["run_id"])
+            self.assertEqual("SUCCESS", result["agent_status"])
+            self.assertEqual("PASS", result["quality_gate_decision"])
+            self.assertTrue(result["agent_report"].shadow_mode)
+            self.assertEqual(
+                result["signals"].iloc[0]["action"],
+                result["agent_report"].signals[0].action,
+            )
             self.assertEqual([], result["errors"])
             self.assertEqual([], result["warnings"])
             stored = store.read_signals_for_run(int(result["run_id"]))
@@ -121,6 +128,11 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertFalse(global_history.empty)
             self.assertIn("forecast", global_history.columns)
             self.assertIn("action", global_history.columns)
+            self.assertEqual(3, len(store.read_agent_runs()))
+            self.assertEqual(1, len(store.read_entities()))
+            self.assertEqual(1, len(store.read_evidence()))
+            self.assertEqual(1, len(store.read_agent_signals()))
+            self.assertEqual(1, len(store.read_quality_gate_checks()))
 
     def test_existing_database_is_migrated_additively_for_v21(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -136,6 +148,12 @@ class RuntimeIntegrationTests(unittest.TestCase):
                 columns = {
                     row[1] for row in conn.execute("PRAGMA table_info(signal_history)").fetchall()
                 }
+                tables = {
+                    row[0]
+                    for row in conn.execute(
+                        "SELECT name FROM sqlite_master WHERE type = 'table'"
+                    ).fetchall()
+                }
 
             self.assertTrue(
                 {
@@ -148,6 +166,19 @@ class RuntimeIntegrationTests(unittest.TestCase):
                     "blocked_reasons",
                     "module_breakdown",
                 }.issubset(columns)
+            )
+            self.assertTrue(
+                {
+                    "orchestration_runs",
+                    "agent_runs",
+                    "entities",
+                    "entity_observations",
+                    "documents",
+                    "document_observations",
+                    "evidence",
+                    "agent_signals",
+                    "quality_gate_checks",
+                }.issubset(tables)
             )
 
     def test_empty_watchlist_is_rejected(self):

@@ -77,6 +77,31 @@ Stačí na něj dvakrát kliknout. Skript:
 - tabulka `signal_history`: jeden ticker v jednom běhu
 - DB se vytvoří automaticky při prvním běhu
 
+## Agentní architektura – etapa 1
+
+Pipeline v2.1 po výpočtu predikcí automaticky spustí auditní agentní vrstvu:
+
+- `OrchestratorAgent` hlídá pořadí závislostí, stav a dobu běhu každého agenta,
+- `EntityRegistryAgent` sjednocuje tickery a aliasy (např. `BRK.B` → Yahoo `BRK-B`),
+- `PredictionV21AdapterAgent` převádí existující výstup v2.1 na jednotný kontrakt
+  `evidence` + `agent_signal`.
+
+Etapa 1 běží výchozí v režimu `shadow_mode`: nic nemění na `forecast` ani na
+`BUY` / `SELL` / `NO_TRADE`. Připravuje dohledatelný základ pro agenty finančních
+výkazů, dodavatelských vazeb, energií, materiálů a short reportů. Chování lze řídit
+v `AppConfig` přes `agent_stage1_enabled` a `agent_shadow_mode`.
+
+Do stejné SQLite databáze se aditivně vytvářejí tabulky:
+
+- `orchestration_runs` a `agent_runs` pro audit průběhu,
+- `entities` + `entity_observations` pro jednotný registr společností,
+- `documents` + `document_observations` pro původ a opakované použití dokumentů,
+- `evidence` pro zjištění se směrem, rizikem, důvěrou, vetem a vazbou na dokument,
+- `agent_signals` pro normalizovaný výstup každého analytického agenta.
+
+Uložení jednoho agentního reportu je atomické. Selhání shadow vrstvy se zaznamená
+jako varování a nesmí změnit ani zahodit původní predikci v2.1.
+
 ## Kde se ukládá výstup
 
 - Excel: do vybrané složky `Output directory` (default `outputs/`)

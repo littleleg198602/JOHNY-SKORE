@@ -93,6 +93,15 @@ class PredictionV21Config:
 
 
 @dataclass(slots=True)
+class QualityGateConfig:
+    max_signal_age_minutes: float = 15.0
+    max_future_clock_skew_minutes: float = 1.0
+    require_full_v21_coverage: bool = True
+    require_external_provenance: bool = True
+    provenance_exempt_event_types: tuple[str, ...] = ("PREDICTION_V21",)
+
+
+@dataclass(slots=True)
 class RegimeOverrides:
     trend_multiplier: float = 1.08
     range_multiplier: float = 1.08
@@ -110,10 +119,13 @@ class AppConfig:
     max_rss_items_per_source: int = DEFAULT_MAX_RSS_ITEMS
     max_tickers_per_run: int = DEFAULT_MAX_TICKERS_PER_RUN
     large_universe_threshold: int = DEFAULT_LARGE_UNIVERSE_THRESHOLD
+    agent_stage1_enabled: bool = True
+    agent_shadow_mode: bool = True
     module_weights: ModuleWeights = field(default_factory=ModuleWeights)
     decision_weights: DecisionModuleWeights = field(default_factory=DecisionModuleWeights)
     decision_thresholds: DecisionThresholds = field(default_factory=DecisionThresholds)
     prediction_v21: PredictionV21Config = field(default_factory=PredictionV21Config)
+    quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
     behavioral_weights: BehavioralWeights = field(default_factory=BehavioralWeights)
     adjustment: AdjustmentConfig = field(default_factory=AdjustmentConfig)
     signal_thresholds: SignalThresholds = field(default_factory=SignalThresholds)
