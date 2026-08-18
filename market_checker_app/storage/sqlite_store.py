@@ -293,6 +293,49 @@ class SQLiteStore:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS fundamental_facts (
+                    fact_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    cik TEXT NOT NULL,
+                    taxonomy TEXT NOT NULL,
+                    concept TEXT NOT NULL,
+                    label TEXT NOT NULL,
+                    description TEXT NOT NULL,
+                    unit TEXT NOT NULL,
+                    value REAL NOT NULL,
+                    period_start TEXT,
+                    period_end TEXT,
+                    filed_at TEXT NOT NULL,
+                    form TEXT NOT NULL,
+                    fiscal_year INTEGER,
+                    fiscal_period TEXT,
+                    accession_number TEXT NOT NULL,
+                    frame TEXT,
+                    source_url TEXT NOT NULL,
+                    document_id TEXT NOT NULL,
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS fundamental_fact_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    fact_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY(orchestration_id, agent_run_id, fact_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(fact_id) REFERENCES fundamental_facts(fact_id)
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS evidence (
                     evidence_id TEXT PRIMARY KEY,
                     orchestration_id TEXT NOT NULL,
@@ -370,6 +413,15 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_documents_ticker_published ON documents(ticker, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_fundamental_facts_ticker_concept ON fundamental_facts(ticker, concept, period_end)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_fundamental_facts_accession ON fundamental_facts(accession_number)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_fundamental_fact_observations_run ON fundamental_fact_observations(orchestration_id, agent_run_id)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_evidence_ticker_observed ON evidence(ticker, observed_at)"
@@ -677,6 +729,77 @@ class SQLiteStore:
                         ),
                     )
 
+                for fact in result.fundamental_facts:
+                    conn.execute(
+                        """
+                        INSERT INTO fundamental_facts(
+                            fact_id, ticker, cik, taxonomy, concept, label,
+                            description, unit, value, period_start, period_end,
+                            filed_at, form, fiscal_year, fiscal_period,
+                            accession_number, frame, source_url, document_id,
+                            first_seen_at, last_seen_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(fact_id) DO UPDATE SET
+                            ticker = excluded.ticker,
+                            cik = excluded.cik,
+                            taxonomy = excluded.taxonomy,
+                            concept = excluded.concept,
+                            label = excluded.label,
+                            description = excluded.description,
+                            unit = excluded.unit,
+                            value = excluded.value,
+                            period_start = excluded.period_start,
+                            period_end = excluded.period_end,
+                            filed_at = excluded.filed_at,
+                            form = excluded.form,
+                            fiscal_year = excluded.fiscal_year,
+                            fiscal_period = excluded.fiscal_period,
+                            accession_number = excluded.accession_number,
+                            frame = excluded.frame,
+                            source_url = excluded.source_url,
+                            document_id = excluded.document_id,
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            fact.fact_id,
+                            fact.ticker,
+                            fact.cik,
+                            fact.taxonomy,
+                            fact.concept,
+                            fact.label,
+                            fact.description,
+                            fact.unit,
+                            fact.value,
+                            to_iso(fact.period_start) if fact.period_start else None,
+                            to_iso(fact.period_end) if fact.period_end else None,
+                            to_iso(fact.filed_at),
+                            fact.form,
+                            fact.fiscal_year,
+                            fact.fiscal_period,
+                            fact.accession_number,
+                            fact.frame,
+                            fact.source_url,
+                            fact.document_id,
+                            to_iso(fact.observed_at),
+                            to_iso(fact.observed_at),
+                            self._json_dump(fact.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO fundamental_fact_observations(
+                            orchestration_id, agent_run_id, fact_id, observed_at
+                        ) VALUES (?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            fact.fact_id,
+                            to_iso(fact.observed_at),
+                        ),
+                    )
+
                 for evidence in result.evidence:
                     conn.execute(
                         """
@@ -805,6 +928,20 @@ class SQLiteStore:
             query += " WHERE orchestration_id = ?"
             params = (orchestration_id,)
         query += " ORDER BY observed_at ASC, evidence_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_fundamental_facts(
+        self,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM fundamental_facts"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY ticker ASC, concept ASC, filed_at DESC, fact_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 

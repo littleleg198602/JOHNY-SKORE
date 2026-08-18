@@ -102,6 +102,39 @@ class QualityGateConfig:
 
 
 @dataclass(slots=True)
+class FundamentalIngestionConfig:
+    """Stage 2 SEC ingestion settings.
+
+    Live SEC access is opt-in because a declared application/contact
+    User-Agent is mandatory and a large watchlist can generate many requests.
+    The resulting data remain audit-only in this stage.
+    """
+
+    enabled: bool = False
+    user_agent: str = ""
+    forms: tuple[str, ...] = ("10-K", "10-Q", "8-K")
+    max_filings_per_ticker: int = 6
+    max_facts_per_concept: int = 4
+    request_timeout_seconds: float = 20.0
+    min_request_interval_seconds: float = 0.125
+    fact_concepts: tuple[str, ...] = (
+        "RevenueFromContractWithCustomerExcludingAssessedTax",
+        "SalesRevenueNet",
+        "NetIncomeLoss",
+        "OperatingIncomeLoss",
+        "Assets",
+        "Liabilities",
+        "StockholdersEquity",
+        "CashAndCashEquivalentsAtCarryingValue",
+        "NetCashProvidedByUsedInOperatingActivities",
+        "PaymentsToAcquirePropertyPlantAndEquipment",
+        "LongTermDebtCurrent",
+        "LongTermDebtNoncurrent",
+        "EarningsPerShareDiluted",
+    )
+
+
+@dataclass(slots=True)
 class RegimeOverrides:
     trend_multiplier: float = 1.08
     range_multiplier: float = 1.08
@@ -126,6 +159,9 @@ class AppConfig:
     decision_thresholds: DecisionThresholds = field(default_factory=DecisionThresholds)
     prediction_v21: PredictionV21Config = field(default_factory=PredictionV21Config)
     quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
+    fundamental_ingestion: FundamentalIngestionConfig = field(
+        default_factory=FundamentalIngestionConfig
+    )
     behavioral_weights: BehavioralWeights = field(default_factory=BehavioralWeights)
     adjustment: AdjustmentConfig = field(default_factory=AdjustmentConfig)
     signal_thresholds: SignalThresholds = field(default_factory=SignalThresholds)
