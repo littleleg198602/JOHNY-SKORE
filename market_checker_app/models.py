@@ -151,6 +151,9 @@ class SignalDiagnostics:
     data_quality_score: float
     signal: str
     signal_strength: str
+    forecast: str = "FLAT"
+    action: str = "NO_TRADE"
+    action_reasons: list[str] = field(default_factory=list)
     bull_score: float = 0.0
     bear_score: float = 0.0
     bull_bear_spread: float = 0.0

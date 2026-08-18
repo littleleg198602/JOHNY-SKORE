@@ -7,6 +7,7 @@ from market_checker_app.config import (
     DecisionModuleWeights,
     DecisionThresholds,
     ModuleWeights,
+    PredictionV21Config,
     RegimeOverrides,
     SignalThresholds,
 )
@@ -103,6 +104,81 @@ def _strength_from_spread(spread: float, confidence: float) -> str:
     if mix >= 18:
         return "moderate"
     return "weak"
+
+
+def _direction_from_signal(signal: str) -> str | None:
+    normalized = str(signal or "").strip().upper().replace("_", " ")
+    if normalized in {"BUY", "STRONG BUY"}:
+        return "UP"
+    if normalized in {"SELL", "STRONG SELL"}:
+        return "DOWN"
+    return None
+
+
+def _forecast_from_spread(spread: float, hold_band: float) -> str:
+    if spread > hold_band:
+        return "UP"
+    if spread < -hold_band:
+        return "DOWN"
+    return "FLAT"
+
+
+def build_v21_action(
+    *,
+    decision_signal: str,
+    legacy_signal: str,
+    forecast: str,
+    signal_strength: str,
+    decision_confidence: float,
+    panic_score: float,
+    risk_flags: list[str] | tuple[str, ...],
+    blocked_reasons: list[str] | tuple[str, ...],
+    config: PredictionV21Config,
+) -> tuple[str, list[str]]:
+    """Translate a model forecast into a guarded BUY/SELL/NO_TRADE action.
+
+    There are two confirmation paths: agreement with the conservative legacy
+    model, or a strong/very-strong spread.  ATR and module-conflict flags are
+    hard vetoes.  This makes abstention explicit instead of scoring every HOLD
+    as a flat-price forecast.
+    """
+
+    reasons: list[str] = []
+    normalized_forecast = str(forecast or "").strip().upper()
+    if normalized_forecast not in {"UP", "DOWN"}:
+        return "NO_TRADE", ["v21_flat_or_unknown_forecast"]
+
+    active_risk_blocks = sorted(set(risk_flags).intersection(config.blocked_risk_flags))
+    if active_risk_blocks:
+        return "NO_TRADE", [f"v21_risk_veto:{flag}" for flag in active_risk_blocks]
+
+    if panic_score >= config.extreme_panic_threshold:
+        return "NO_TRADE", ["v21_extreme_panic_veto"]
+
+    if decision_confidence < config.minimum_action_confidence:
+        return "NO_TRADE", ["v21_low_action_confidence"]
+
+    hard_decision_blocks = {
+        "bull_bear_balance_hold_band",
+        "technical_bearish_blocks_bullish_signal",
+        "technical_bullish_blocks_bearish_signal_without_news_confluence",
+        "panic_extreme_blocks_bullish_signal",
+        "low_confidence_blocks_directional_signal",
+    }
+    active_decision_blocks = sorted(set(blocked_reasons).intersection(hard_decision_blocks))
+    if active_decision_blocks:
+        return "NO_TRADE", [f"v21_decision_veto:{reason}" for reason in active_decision_blocks]
+
+    decision_direction = _direction_from_signal(decision_signal)
+    legacy_direction = _direction_from_signal(legacy_signal)
+    if decision_direction == normalized_forecast and legacy_direction == normalized_forecast:
+        reasons.append("v21_legacy_consensus")
+    elif signal_strength in config.strong_signal_levels:
+        reasons.append("v21_guarded_strong_signal")
+    else:
+        return "NO_TRADE", ["v21_missing_independent_confirmation"]
+
+    return ("BUY" if normalized_forecast == "UP" else "SELL"), reasons
 
 
 def _build_decision_modules(
@@ -278,29 +354,10 @@ def _decision_from_modules(
         signal = "HOLD"
         downgrade_count += 1
 
+    # v2.1 deliberately has no technical-only HOLD -> BUY/SELL promotion.
+    # A directional action must pass an independent confirmation path instead
+    # of bypassing the normal confluence and confidence gates.
     tech_spread = tech_mod.bull_contribution - tech_mod.bear_contribution
-    strong_tech_bull = tech_mod.direction == "bullish" and tech_spread >= 25
-    strong_tech_bear = tech_mod.direction == "bearish" and tech_spread <= -25
-    overwhelming_bullish_contradiction = (
-        spread >= (decision_thresholds.strong_buy_min_spread + 6)
-        and bullish_count >= 3
-        and news_mod.direction == "bullish"
-        and analyst_mod.direction in {"bullish", "neutral"}
-        and not panic_elevated
-    )
-    overwhelming_bearish_contradiction = (
-        spread <= (decision_thresholds.strong_sell_min_negative_spread - 6)
-        and bearish_count >= 3
-        and news_mod.direction == "bearish"
-        and analyst_mod.direction in {"bearish", "neutral"}
-    )
-    if signal == "HOLD" and "low_confidence_blocks_directional_signal" not in blocked_reasons and not panic_extreme:
-        if strong_tech_bull and not overwhelming_bearish_contradiction:
-            blocked_reasons.append("technical_override_promoted_to_buy")
-            signal = "BUY"
-        elif strong_tech_bear and not overwhelming_bullish_contradiction:
-            blocked_reasons.append("technical_override_promoted_to_sell")
-            signal = "SELL"
 
     driver = "mixed"
     if signal in {"BUY", "STRONG BUY"}:
@@ -368,6 +425,9 @@ def finalize_signal(
     panic_confidence: float,
     decision_weights: DecisionModuleWeights,
     decision_thresholds: DecisionThresholds,
+    legacy_signal: str = "HOLD",
+    risk_flags: list[str] | None = None,
+    prediction_v21: PredictionV21Config | None = None,
 ) -> SignalDiagnostics:
     # Independent bull/bear contributions per module (NOT 100-bull complements)
     modules = _build_decision_modules(
@@ -397,13 +457,28 @@ def finalize_signal(
         driver,
     ) = _decision_from_modules(modules, panic_score, decision_weights, decision_thresholds)
 
+    signal_strength = _strength_from_spread(spread, decision_conf)
+    forecast = _forecast_from_spread(spread, decision_thresholds.hold_band)
+    action, action_reasons = build_v21_action(
+        decision_signal=signal,
+        legacy_signal=legacy_signal,
+        forecast=forecast,
+        signal_strength=signal_strength,
+        decision_confidence=decision_conf,
+        panic_score=panic_score,
+        risk_flags=risk_flags or [],
+        blocked_reasons=blocked_reasons,
+        config=prediction_v21 or PredictionV21Config(),
+    )
+
     # Compatibility scores for legacy UI sorting while preserving dual-axis semantics
     final_index = max(0.0, min(100.0, 50 + spread / 2))
     quality_adjusted = max(0.0, min(100.0, final_index + (data_quality - adjustment.quality_center) * adjustment.quality_coef * 0.5))
     risk_adjusted = max(0.0, min(100.0, quality_adjusted - (risk_score - adjustment.risk_center) * adjustment.risk_coef * 0.5))
 
     explain = (
-        f"{signal}: {driver}; bull={bull_score:.1f}, bear={bear_score:.1f}, spread={spread:.1f}; "
+        f"forecast={forecast}, action={action}, decision={signal}: {driver}; "
+        f"bull={bull_score:.1f}, bear={bear_score:.1f}, spread={spread:.1f}; "
         f"modules bullish/neutral/bearish={bullish_count}/{neutral_count}/{bearish_count}."
     )
 
@@ -417,7 +492,10 @@ def finalize_signal(
         decision_confidence=round(decision_conf * 100, 2),
         data_quality_score=round(data_quality, 2),
         signal=signal,
-        signal_strength=_strength_from_spread(spread, decision_conf),
+        signal_strength=signal_strength,
+        forecast=forecast,
+        action=action,
+        action_reasons=action_reasons,
         bull_score=round(bull_score, 2),
         bear_score=round(bear_score, 2),
         bull_bear_spread=round(spread, 2),

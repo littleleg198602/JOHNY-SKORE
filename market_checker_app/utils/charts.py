@@ -9,7 +9,7 @@ def signal_bar_chart(df: pd.DataFrame, title: str):
         alt.Chart(df)
         .mark_bar()
         .encode(
-            x=alt.X("signal:N", title="Signál", sort=["STRONG BUY", "BUY", "HOLD", "SELL", "STRONG SELL"]),
+            x=alt.X("signal:N", title="Akce", sort=["BUY", "NO_TRADE", "SELL", "STRONG BUY", "HOLD", "STRONG SELL"]),
             y=alt.Y("count:Q", title="Počet tickerů"),
             color=alt.Color("signal:N", title="Signál"),
             tooltip=["signal:N", "count:Q"],

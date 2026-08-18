@@ -116,7 +116,31 @@ def analyze_tech(ticker: str, ohlc: pd.DataFrame, source: str = "yfinance") -> T
 
     tech_score = max(0.0, min(100.0, trend_score * 0.26 + momentum_score * 0.2 + oscillator_score * 0.14 + macd_score * 0.16 + breakout_score * 0.14 + volume_confirmation_score * 0.1 + volatility_adj))
     indicator_count = sum(value is not None for value in [sma20, sma50, sma100, sma200, ema20, ema50, rsi14, rsi7, stoch_k, williams_r, atr14])
-    tech_conf = max(0.0, min(100.0, 32 + min(1.0, len(close) / 252) * 30 + indicator_count * 2.8 + (12 if source == "mt5" else 6) - (8 if "missing volume data" in warnings else 0)))
+    component_scores = [
+        trend_score,
+        momentum_score,
+        oscillator_score,
+        macd_score,
+        breakout_score,
+        volume_confirmation_score,
+    ]
+    directional_votes = [1 if value >= 55 else (-1 if value <= 45 else 0) for value in component_scores]
+    directional_agreement = abs(sum(directional_votes)) / max(1, len(directional_votes))
+    history_coverage = min(1.0, len(close) / 252)
+    indicator_coverage = indicator_count / 11
+    source_quality = 1.0 if source == "mt5" else (0.8 if source.startswith("yfinance") else 0.35)
+    tech_conf = (
+        20
+        + history_coverage * 24
+        + indicator_coverage * 22
+        + directional_agreement * 14
+        + source_quality * 8
+        - (8 if "missing volume data" in warnings else 0)
+    )
+    # Confidence measures data completeness and internal agreement, not a
+    # guarantee of correctness.  Keep headroom so a full 252-candle history
+    # cannot mechanically produce 100 % confidence for every ticker.
+    tech_conf = max(15.0, min(88.0, tech_conf))
 
     return TechAnalysisResult(
         ticker=ticker,

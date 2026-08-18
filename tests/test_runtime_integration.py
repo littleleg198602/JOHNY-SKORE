@@ -114,7 +114,41 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertEqual(1, len(stored))
             self.assertEqual("AAPL", stored.iloc[0]["ticker"])
             self.assertEqual("yahoo_metadata", stored.iloc[0]["current_price_source"])
-            self.assertFalse(store.read_global_history().empty)
+            for column in ("decision_signal", "forecast", "action", "action_reasons"):
+                self.assertIn(column, stored.columns)
+            self.assertEqual(result["signals"].iloc[0]["action"], stored.iloc[0]["action"])
+            global_history = store.read_global_history()
+            self.assertFalse(global_history.empty)
+            self.assertIn("forecast", global_history.columns)
+            self.assertIn("action", global_history.columns)
+
+    def test_existing_database_is_migrated_additively_for_v21(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            db_path = Path(tmp) / "history.db"
+            with sqlite3.connect(db_path) as conn:
+                conn.execute(
+                    "CREATE TABLE signal_history (id INTEGER PRIMARY KEY, run_id INTEGER, ticker TEXT)"
+                )
+
+            store = SQLiteStore(db_path)
+            store.ensure_schema()
+            with store._connect() as conn:
+                columns = {
+                    row[1] for row in conn.execute("PRAGMA table_info(signal_history)").fetchall()
+                }
+
+            self.assertTrue(
+                {
+                    "decision_signal",
+                    "forecast",
+                    "action",
+                    "action_reasons",
+                    "panic_score",
+                    "bull_bear_spread",
+                    "blocked_reasons",
+                    "module_breakdown",
+                }.issubset(columns)
+            )
 
     def test_empty_watchlist_is_rejected(self):
         pipeline = PipelineService(AppConfig(save_history=False))

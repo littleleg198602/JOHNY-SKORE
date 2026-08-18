@@ -24,7 +24,7 @@ def _row(
 
 
 class WeeklyPredictionEvaluationTests(unittest.TestCase):
-    def test_buy_hold_and_sell_are_scored_by_next_week_direction(self) -> None:
+    def test_actions_and_forecasts_are_scored_separately(self) -> None:
         history = pd.DataFrame(
             [
                 _row(1, "2026-08-03T18:00:00Z", "BUY_OK", 100, "BUY"),
@@ -53,23 +53,87 @@ class WeeklyPredictionEvaluationTests(unittest.TestCase):
                 "BUY_BAD": "MISS",
                 "SELL_OK": "HIT",
                 "SELL_BAD": "MISS",
-                "HOLD_OK": "HIT",
-                "HOLD_BAD": "MISS",
             },
             results,
         )
+        no_trade = details[details["result"] == "NO_TRADE"].set_index("ticker")
+        self.assertEqual({"HOLD_OK", "HOLD_BAD"}, set(no_trade.index))
+        forecast_results = details[
+            details["forecast_result"].isin(["FORECAST_HIT", "FORECAST_MISS"])
+        ].set_index("ticker")["forecast_result"].to_dict()
+        self.assertEqual("FORECAST_HIT", forecast_results["HOLD_OK"])
+        self.assertEqual("FORECAST_MISS", forecast_results["HOLD_BAD"])
         summary = frames["prediction_summary"].set_index("prediction")
         self.assertEqual(2, int(summary.loc["BUY", "evaluated"]))
         self.assertEqual(1, int(summary.loc["BUY", "hits"]))
-        self.assertEqual(50.0, float(summary.loc["HOLD", "hit_rate_pct"]))
         self.assertEqual(50.0, float(summary.loc["SELL", "hit_rate_pct"]))
+        self.assertEqual(2, int(summary.loc["NO_TRADE", "observations"]))
+        self.assertEqual(0, int(summary.loc["NO_TRADE", "evaluated"]))
         overall = dict(
             zip(frames["prediction_overall"]["metric"], frames["prediction_overall"]["value"])
         )
-        self.assertEqual(6, int(overall["evaluated_weekly_predictions"]))
-        self.assertEqual(3, int(overall["correct_predictions"]))
-        self.assertEqual(50.0, float(overall["overall_hit_rate_pct"]))
+        self.assertEqual(4, int(overall["evaluated_directional_trades"]))
+        self.assertEqual(2, int(overall["correct_directional_trades"]))
+        self.assertEqual(50.0, float(overall["directional_hit_rate_pct"]))
+        self.assertEqual(66.67, float(overall["trade_coverage_pct"]))
+        self.assertEqual(2, int(overall["no_trade_predictions"]))
+        self.assertEqual(6, int(overall["evaluated_forecasts"]))
+        self.assertEqual(3, int(overall["correct_forecasts"]))
         self.assertEqual(6, int(overall["pending_predictions"]))
+
+    def test_explicit_no_trade_can_keep_a_directional_forecast(self) -> None:
+        history = pd.DataFrame(
+            [
+                {
+                    **_row(1, "2026-08-03T18:00:00Z", "AAPL", 100, "NO_TRADE"),
+                    "decision_signal": "HOLD",
+                    "action": "NO_TRADE",
+                    "forecast": "UP",
+                    "scoring_version": "v2.1_guarded_consensus",
+                },
+                {
+                    **_row(2, "2026-08-10T18:00:00Z", "AAPL", 105, "NO_TRADE"),
+                    "decision_signal": "HOLD",
+                    "action": "NO_TRADE",
+                    "forecast": "UP",
+                    "scoring_version": "v2.1_guarded_consensus",
+                },
+            ]
+        )
+
+        frames = EvaluationService().evaluate_predictions(history)
+        details = frames["prediction_details"]
+        evaluated = details[details["signal_run_id"] == 1].iloc[0]
+        self.assertEqual("NO_TRADE", evaluated["result"])
+        self.assertEqual("FORECAST_HIT", evaluated["forecast_result"])
+        by_version = frames["prediction_by_version"].set_index("scoring_version")
+        self.assertEqual(
+            0,
+            int(by_version.loc["v2.1_guarded_consensus", "directional_trades"]),
+        )
+        self.assertEqual(
+            100.0,
+            float(by_version.loc["v2.1_guarded_consensus", "forecast_accuracy_pct"]),
+        )
+
+    def test_probable_stock_split_is_adjusted_before_scoring(self) -> None:
+        history = pd.DataFrame(
+            [
+                _row(1, "2026-08-03T18:00:00Z", "SPLIT_TEST", 100, "BUY"),
+                _row(2, "2026-08-10T18:00:00Z", "SPLIT_TEST", 50.7, "HOLD"),
+            ]
+        )
+
+        frames = EvaluationService().evaluate_predictions(history)
+        evaluated = frames["prediction_details"].query("signal_run_id == 1").iloc[0]
+        self.assertEqual("HIT", evaluated["result"])
+        self.assertAlmostEqual(1.4, float(evaluated["realized_return_pct"]), places=4)
+        self.assertEqual(2.0, float(evaluated["split_adjustment_multiplier"]))
+        self.assertIn("probable_forward_split_2:1", evaluated["corporate_action_note"])
+        overall = dict(
+            zip(frames["prediction_overall"]["metric"], frames["prediction_overall"]["value"])
+        )
+        self.assertEqual(1, int(overall["corporate_action_adjustments"]))
 
     def test_latest_same_week_rerun_is_used_once(self) -> None:
         history = pd.DataFrame(
