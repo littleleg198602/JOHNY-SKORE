@@ -17,10 +17,15 @@ class SQLiteStore:
             rank_market_cap, news_count_48h, news_score, tech_score, yahoo_score, behavioral_score, risk_score,
             raw_total_score, quality_adjusted_score, risk_adjusted_score, final_total_score, final_confidence,
             news_confidence, tech_confidence, yahoo_confidence, behavioral_confidence, data_quality_score,
+            module_confidence, decision_confidence, panic_score,
+            bull_score, bear_score, bull_bear_spread,
+            bullish_module_count, bearish_module_count, neutral_module_count, downgrade_count,
+            blocked_reasons, module_breakdown,
+            decision_signal, forecast, action, action_reasons,
             signal, signal_strength, rank_in_watchlist, percentile_in_watchlist, regime,
             reasons, warnings, risk_flags, key_drivers, overall_summary,
             last_week_change_pct, last_14d_change_pct, last_1m_change_pct, last_3m_change_pct
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
 
     def __init__(self, db_path: Path) -> None:
@@ -50,6 +55,22 @@ class SQLiteStore:
             "legacy_signal": "TEXT",
             "tech_source_used": "TEXT",
             "last_14d_change_pct": "REAL",
+            "decision_signal": "TEXT",
+            "forecast": "TEXT",
+            "action": "TEXT",
+            "action_reasons": "TEXT",
+            "module_confidence": "REAL",
+            "decision_confidence": "REAL",
+            "panic_score": "REAL",
+            "bull_score": "REAL",
+            "bear_score": "REAL",
+            "bull_bear_spread": "REAL",
+            "bullish_module_count": "INTEGER",
+            "bearish_module_count": "INTEGER",
+            "neutral_module_count": "INTEGER",
+            "downgrade_count": "INTEGER",
+            "blocked_reasons": "TEXT",
+            "module_breakdown": "TEXT",
         }
         existing = {row[1] for row in conn.execute("PRAGMA table_info(signal_history)").fetchall()}
         for column, ctype in expected.items():
@@ -103,6 +124,22 @@ class SQLiteStore:
                     yahoo_confidence REAL,
                     behavioral_confidence REAL,
                     data_quality_score REAL,
+                    module_confidence REAL,
+                    decision_confidence REAL,
+                    panic_score REAL,
+                    bull_score REAL,
+                    bear_score REAL,
+                    bull_bear_spread REAL,
+                    bullish_module_count INTEGER,
+                    bearish_module_count INTEGER,
+                    neutral_module_count INTEGER,
+                    downgrade_count INTEGER,
+                    blocked_reasons TEXT,
+                    module_breakdown TEXT,
+                    decision_signal TEXT,
+                    forecast TEXT,
+                    action TEXT,
+                    action_reasons TEXT,
                     signal TEXT,
                     signal_strength TEXT,
                     rank_in_watchlist INTEGER,
@@ -164,6 +201,22 @@ class SQLiteStore:
                 row.yahoo_confidence,
                 row.behavioral_confidence,
                 row.data_quality_score,
+                getattr(row, "module_confidence", None),
+                getattr(row, "decision_confidence", None),
+                getattr(row, "panic_score", None),
+                getattr(row, "bull_score", None),
+                getattr(row, "bear_score", None),
+                getattr(row, "bull_bear_spread", None),
+                getattr(row, "bullish_module_count", None),
+                getattr(row, "bearish_module_count", None),
+                getattr(row, "neutral_module_count", None),
+                getattr(row, "downgrade_count", None),
+                getattr(row, "blocked_reasons", None),
+                getattr(row, "module_breakdown", None),
+                row.decision_signal if hasattr(row, "decision_signal") else row.signal,
+                row.forecast if hasattr(row, "forecast") else None,
+                row.action if hasattr(row, "action") else row.signal,
+                row.action_reasons if hasattr(row, "action_reasons") else None,
                 row.signal,
                 row.signal_strength,
                 row.rank_in_watchlist,
@@ -240,7 +293,7 @@ class SQLiteStore:
 
     def read_global_history(self) -> pd.DataFrame:
         self.ensure_schema()
-        q = "SELECT r.run_id, r.finished_at, s.ticker, s.current_price, s.current_price_source, s.scoring_version, s.legacy_total_score, s.legacy_signal, s.final_total_score, s.raw_total_score, s.news_score, s.tech_score, s.yahoo_score, s.behavioral_score, s.risk_score, s.rank_in_watchlist, s.percentile_in_watchlist, s.signal, s.final_confidence, s.tech_source_used FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
+        q = "SELECT r.run_id, r.finished_at, s.ticker, s.current_price, s.current_price_source, s.scoring_version, s.legacy_total_score, s.legacy_signal, s.final_total_score, s.raw_total_score, s.news_score, s.tech_score, s.yahoo_score, s.behavioral_score, s.risk_score, s.rank_in_watchlist, s.percentile_in_watchlist, s.decision_signal, s.forecast, s.action, s.action_reasons, s.signal, s.signal_strength, s.final_confidence, s.module_confidence, s.decision_confidence, s.panic_score, s.bull_score, s.bear_score, s.bull_bear_spread, s.bullish_module_count, s.bearish_module_count, s.neutral_module_count, s.downgrade_count, s.blocked_reasons, s.module_breakdown, s.tech_source_used, s.risk_flags FROM runs r JOIN signal_history s ON s.run_id = r.run_id ORDER BY r.run_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(q, conn)
 

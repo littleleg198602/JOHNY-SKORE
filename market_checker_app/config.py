@@ -72,6 +72,27 @@ class DecisionThresholds:
 
 
 @dataclass(slots=True)
+class PredictionV21Config:
+    """Conservative action guard layered on top of the directional model.
+
+    The model may still publish an UP/DOWN/FLAT forecast, but an executable
+    BUY/SELL action is emitted only when an independent confirmation path is
+    present and no hard risk veto is active.
+    """
+
+    # The decision engine already applies its 0.50 gate before conflict
+    # penalties.  This lower post-penalty floor rejects only genuinely weak
+    # remnants without discarding otherwise valid consensus trades.
+    minimum_action_confidence: float = 0.30
+    extreme_panic_threshold: float = 85.0
+    strong_signal_levels: tuple[str, ...] = ("strong", "very strong")
+    blocked_risk_flags: tuple[str, ...] = (
+        "high_atr_ratio",
+        "conflicting_module_signals",
+    )
+
+
+@dataclass(slots=True)
 class RegimeOverrides:
     trend_multiplier: float = 1.08
     range_multiplier: float = 1.08
@@ -92,6 +113,7 @@ class AppConfig:
     module_weights: ModuleWeights = field(default_factory=ModuleWeights)
     decision_weights: DecisionModuleWeights = field(default_factory=DecisionModuleWeights)
     decision_thresholds: DecisionThresholds = field(default_factory=DecisionThresholds)
+    prediction_v21: PredictionV21Config = field(default_factory=PredictionV21Config)
     behavioral_weights: BehavioralWeights = field(default_factory=BehavioralWeights)
     adjustment: AdjustmentConfig = field(default_factory=AdjustmentConfig)
     signal_thresholds: SignalThresholds = field(default_factory=SignalThresholds)

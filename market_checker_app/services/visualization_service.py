@@ -50,7 +50,8 @@ class VisualizationService:
         for col in ["final_total_score", "final_confidence", "risk_score"]:
             if col in frame.columns:
                 frame[col] = pd.to_numeric(frame[col], errors="coerce")
-        signal_series = frame["signal"].fillna("") if "signal" in frame.columns else pd.Series(dtype=str)
+        action_column = "action" if "action" in frame.columns else "signal"
+        signal_series = frame[action_column].fillna("") if action_column in frame.columns else pd.Series(dtype=str)
         return {
             "tickers": int(len(frame)),
             "avg_score": float(frame.get("final_total_score", pd.Series(dtype=float)).mean() or 0.0),
@@ -62,10 +63,11 @@ class VisualizationService:
 
     @staticmethod
     def prepare_signal_distribution_df(signals: pd.DataFrame) -> pd.DataFrame:
-        order = ["STRONG BUY", "BUY", "HOLD", "SELL", "STRONG SELL"]
-        if signals.empty or "signal" not in signals.columns:
+        order = ["BUY", "NO_TRADE", "SELL", "STRONG BUY", "HOLD", "STRONG SELL"]
+        action_column = "action" if "action" in signals.columns else "signal"
+        if signals.empty or action_column not in signals.columns:
             return pd.DataFrame({"signal": order, "count": [0] * len(order)})
-        counts = signals["signal"].value_counts().reindex(order, fill_value=0).reset_index()
+        counts = signals[action_column].value_counts().reindex(order, fill_value=0).reset_index()
         counts.columns = ["signal", "count"]
         return counts
 
@@ -224,7 +226,23 @@ class VisualizationService:
             if col in frame.columns:
                 frame[col] = pd.to_numeric(frame[col], errors="coerce")
 
-        table_cols = [c for c in ["run_id", "finished_at", "signal", "final_total_score", "final_confidence", "risk_score", "rank_in_watchlist", "percentile_in_watchlist"] if c in frame.columns]
+        table_cols = [
+            c
+            for c in [
+                "run_id",
+                "finished_at",
+                "action",
+                "forecast",
+                "decision_signal",
+                "signal",
+                "final_total_score",
+                "final_confidence",
+                "risk_score",
+                "rank_in_watchlist",
+                "percentile_in_watchlist",
+            ]
+            if c in frame.columns
+        ]
         module_cols = [c for c in ["news_score", "tech_score", "yahoo_score", "behavioral_score"] if c in frame.columns]
 
         module_series = frame[["finished_at", *module_cols]].melt(id_vars=["finished_at"], var_name="module", value_name="score") if module_cols else pd.DataFrame()
@@ -359,6 +377,8 @@ class VisualizationService:
             }
 
         frame = signals_df.copy()
+        if "decision_signal" in frame.columns:
+            frame["signal"] = frame["decision_signal"].fillna(frame["signal"])
         for col in [
             "bull_score",
             "bear_score",

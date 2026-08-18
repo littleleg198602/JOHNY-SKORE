@@ -99,23 +99,32 @@ Stačí na něj dvakrát kliknout. Skript:
 Pokud je zapnuté **Ukládat historii do SQLite**, tab **Predikce** automaticky
 porovná poslední uložený běh jednoho týdne s následujícím týdenním během:
 
-- `BUY` a `STRONG BUY` vyjdou, pokud cena vzroste,
-- `SELL` a `STRONG SELL` vyjdou, pokud cena klesne,
-- `HOLD` vyjde, pokud absolutní pohyb zůstane ve zvolené toleranci (výchozí ±2 %),
+- v2.1 odděluje `forecast` (`UP` / `DOWN` / `FLAT`) od obchodní `action`
+  (`BUY` / `SELL` / `NO_TRADE`),
+- `BUY` vyjde, pokud cena vzroste, a `SELL`, pokud klesne,
+- `NO_TRADE` je vědomá abstence a nepočítá se jako `HIT` ani `MISS`,
+- `FLAT` forecast vyjde, pokud absolutní pohyb zůstane ve zvolené toleranci
+  (výchozí ±2 %),
 - nejnovější signály jsou `PENDING`, dokud není uložen další týdenní běh.
 
-Do výsledku se nepoužívá bull/bear spread ani slovní signal strength. Opakované
-spuštění ve stejném kalendářním týdnu se nepočítá jako budoucí výsledek;
+Obchodní akce projde jen při shodě nové a konzervativní legacy vrstvy, nebo při
+silném signálu bez ATR/module-conflict veta. Samotná silná technika už nesmí
+překlopit HOLD do obchodu. Opakované spuštění ve stejném kalendářním týdnu se
+nepočítá jako budoucí výsledek;
 použije se poslední uložený běh daného týdne. Nepravidelné mezery delší než
 deset dní jsou viditelné jako `IRREGULAR_GAP`, ale nezkreslují týdenní úspěšnost.
 Je-li pro ticker dostupné MT5 OHLC, uložená vyhodnocovací cena použije přednostně
 `mt5_close`; tím starší Yahoo metadata cache nemůže vytvořit falešný týdenní výsledek.
+Poměry velmi blízké běžným stock splitům se před výpočtem výnosu upraví a v detailu
+zůstane auditní poznámka `corporate_action_note`.
 
 SQLite historii aplikace automaticky nemaže. Tab **Predikce** proto vyhodnocuje všechny
 uzavřené týdny v aktivním DB souboru a zobrazuje:
 
-- týdenní úspěšnost,
-- kumulativní úspěšnost váženou počtem predikcí,
+- directional hit rate pouze pro BUY/SELL,
+- trade coverage a průměrný/mediánový signed return,
+- samostatnou přesnost forecastu UP/DOWN/FLAT,
+- kumulativní úspěšnost váženou počtem skutečných obchodních akcí,
 - týdenní počty `HIT` a `MISS`,
 - dlouhodobou úspěšnost jednotlivých tickerů a kompletní detail.
 
@@ -151,7 +160,8 @@ Zkontroluj v UI, že tab **Signals** obsahuje sloupce:
 - `raw_total_score`, `final_total_score`
 - `final_confidence`, `data_quality_score`
 - `news_confidence`, `tech_confidence`, `yahoo_confidence`
-- `signal_strength`, `reasons`, `warnings`
+- `decision_signal`, `forecast`, `action`, `action_reasons`
+- `signal_strength`, `blocked_reasons`, `reasons`, `warnings`
 
 ## Poznámky k odolnosti
 

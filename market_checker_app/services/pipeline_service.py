@@ -42,7 +42,7 @@ from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 from market_checker_app.utils.dates import utc_now
 
 
-SCORING_VERSION = "v2_multilayer_legacy_compare"
+SCORING_VERSION = "v2.1_guarded_consensus"
 
 
 class PipelineService:
@@ -429,6 +429,9 @@ class PipelineService:
                 panic_confidence=conf.behavioral_confidence,
                 decision_weights=self.config.decision_weights,
                 decision_thresholds=self.config.decision_thresholds,
+                legacy_signal=legacy_signal,
+                risk_flags=risk.risk_flags,
+                prediction_v21=self.config.prediction_v21,
             )
 
             row = {
@@ -462,7 +465,14 @@ class PipelineService:
                 "yahoo_confidence": conf.yahoo_confidence,
                 "behavioral_confidence": conf.behavioral_confidence,
                 "data_quality_score": conf.data_quality_score,
-                "signal": diag.signal,
+                "decision_signal": diag.signal,
+                "forecast": diag.forecast,
+                "action": diag.action,
+                "action_reasons": json.dumps(diag.action_reasons, ensure_ascii=False),
+                # `signal` remains the public recommendation column used by
+                # older UI/export consumers.  In v2.1 it mirrors the guarded
+                # executable action rather than the unguarded model decision.
+                "signal": diag.action,
                 "signal_strength": diag.signal_strength,
                 "bull_score": diag.bull_score,
                 "bear_score": diag.bear_score,
@@ -488,12 +498,17 @@ class PipelineService:
             progress.add_completed_row({
                 "Ticker": ticker,
                 "FinalTotalScore": round(diag.final_total_score, 2),
-                "Signal": diag.signal,
+                "Signal": diag.action,
+                "Forecast": diag.forecast,
                 "Confidence": round(diag.decision_confidence, 2),
                 "TechSource": tech_source_used,
                 "Status": "Dokončeno",
             })
-            progress.log("DONE", f"Dokončeno: {ticker} → {diag.signal} / {diag.final_total_score:.1f}", ticker)
+            progress.log(
+                "DONE",
+                f"Dokončeno: {ticker} → {diag.action} (forecast {diag.forecast}) / {diag.final_total_score:.1f}",
+                ticker,
+            )
 
         if yahoo_metadata_enabled and yahoo_snapshot_failures == total:
             errors.append(

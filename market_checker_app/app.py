@@ -252,8 +252,8 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
     c2.metric("Průměrný FinalTotalScore", f"{kpi['avg_score']:.2f}")
     c3.metric("Průměrný FinalConfidence", f"{kpi['avg_confidence']:.2f}")
     c4.metric("Průměrný RiskScore", f"{kpi['avg_risk']:.2f}")
-    c5.metric("BUY + STRONG BUY", kpi["buy_count"])
-    c6.metric("SELL + STRONG SELL", kpi["sell_count"])
+    c5.metric("Akce BUY", kpi["buy_count"])
+    c6.metric("Akce SELL", kpi["sell_count"])
 
     st.markdown("### Diagnostika rozhodovacího enginu")
     bull_series = pd.to_numeric(signals_df.get("bull_score", pd.Series(dtype=float)), errors="coerce")
@@ -362,8 +362,9 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
             "Pokud jsou hranice mimo rozsah score, extrémy se neobjeví."
         )
 
-    strong_buy_count = int(signal_df.loc[signal_df["signal"] == "STRONG BUY", "count"].sum())
-    strong_sell_count = int(signal_df.loc[signal_df["signal"] == "STRONG SELL", "count"].sum())
+    decision_series = signals_df.get("decision_signal", signals_df.get("signal", pd.Series(dtype=str)))
+    strong_buy_count = int(decision_series.eq("STRONG BUY").sum())
+    strong_sell_count = int(decision_series.eq("STRONG SELL").sum())
     if strong_buy_count == 0 or strong_sell_count == 0:
         st.warning(
             f"Diagnostika signálů: STRONG BUY={strong_buy_count}, STRONG SELL={strong_sell_count}. "
@@ -646,14 +647,20 @@ def _render_history(history_service: HistoryService, output_dir: Path) -> None:
 
 
 def _render_signals(signals_df: pd.DataFrame) -> None:
-    signal_filter = st.multiselect("Signal filter", options=sorted(signals_df["signal"].dropna().unique()), default=sorted(signals_df["signal"].dropna().unique()))
+    action_column = "action" if "action" in signals_df.columns else "signal"
+    action_options = sorted(signals_df[action_column].dropna().unique())
+    signal_filter = st.multiselect("Action filter", options=action_options, default=action_options)
     regime_filter = st.multiselect("Regime filter", options=sorted(signals_df["regime"].dropna().unique()), default=sorted(signals_df["regime"].dropna().unique()))
     min_conf = st.slider("Min confidence", 0, 100, 0)
     max_risk = st.slider("Max risk", 0, 100, 100)
-    filtered = signals_df[(signals_df["signal"].isin(signal_filter)) & (signals_df["regime"].isin(regime_filter)) & (pd.to_numeric(signals_df["final_confidence"], errors="coerce") >= min_conf) & (pd.to_numeric(signals_df["risk_score"], errors="coerce") <= max_risk)]
+    filtered = signals_df[(signals_df[action_column].isin(signal_filter)) & (signals_df["regime"].isin(regime_filter)) & (pd.to_numeric(signals_df["final_confidence"], errors="coerce") >= min_conf) & (pd.to_numeric(signals_df["risk_score"], errors="coerce") <= max_risk)]
 
     display_columns = [
         "ticker",
+        "action",
+        "forecast",
+        "decision_signal",
+        "action_reasons",
         "yahoo_ticker",
         "yahoo_data_status",
         "news_score",
@@ -1043,21 +1050,20 @@ if st.session_state.last_result:
             st.info("Historie není dostupná, protože je vypnuto ukládání historie do SQLite.")
 
     with tab_predictions:
-        st.subheader("Vyšly minulé pondělní predikce?")
+        st.subheader("Vyšly minulé pondělní predikce v2.1?")
         st.caption(
-            "BUY je správně, když cena do dalšího týdenního běhu vzroste; "
-            "SELL, když klesne; HOLD, když zůstane v nastaveném pásmu. "
-            "Bull/bear spread ani signal strength se do tohoto vyhodnocení nepoužívají."
+            "Obchodní akce BUY/SELL se hodnotí jen podle směru a NO_TRADE se do hit rate "
+            "nezapočítává. Cenová předpověď UP/DOWN/FLAT se vyhodnocuje zvlášť."
         )
         if save_history:
             hold_tolerance = st.number_input(
-                "Tolerance pro úspěšný HOLD (%)",
+                "Tolerance pro skutečný pohyb FLAT (%)",
                 min_value=0.0,
                 max_value=10.0,
                 value=2.0,
                 step=0.5,
                 key="prediction_hold_tolerance_pct",
-                help="Např. 2 % znamená, že HOLD vyjde při týdenním pohybu od -2 % do +2 %.",
+                help="Např. 2 % znamená, že skutečný týdenní pohyb od -2 % do +2 % je FLAT.",
             )
             prediction_frames = EvaluationService().evaluate_predictions(
                 store.read_global_history(),
@@ -1067,28 +1073,41 @@ if st.session_state.last_result:
             overall_values = (
                 dict(zip(overall["metric"], overall["value"])) if not overall.empty else {}
             )
-            evaluated = int(overall_values.get("evaluated_weekly_predictions") or 0)
-            correct = int(overall_values.get("correct_predictions") or 0)
-            wrong = int(overall_values.get("wrong_predictions") or 0)
-            hit_rate = overall_values.get("overall_hit_rate_pct")
-            metric_cols = st.columns(4)
-            metric_cols[0].metric("Vyhodnoceno", evaluated)
-            metric_cols[1].metric("Vyšlo", correct)
-            metric_cols[2].metric("Nevyšlo", wrong)
+            evaluated = int(overall_values.get("evaluated_directional_trades") or 0)
+            correct = int(overall_values.get("correct_directional_trades") or 0)
+            wrong = int(overall_values.get("wrong_directional_trades") or 0)
+            hit_rate = overall_values.get("directional_hit_rate_pct")
+            coverage = overall_values.get("trade_coverage_pct")
+            forecast_accuracy = overall_values.get("forecast_accuracy_pct")
+            no_trade = int(overall_values.get("no_trade_predictions") or 0)
+            metric_cols = st.columns(6)
+            metric_cols[0].metric("Obchody", evaluated)
+            metric_cols[1].metric("HIT", correct)
+            metric_cols[2].metric("MISS", wrong)
             metric_cols[3].metric(
-                "Úspěšnost",
+                "Directional hit rate",
                 f"{float(hit_rate):.1f} %" if pd.notna(hit_rate) else "čeká na další běh",
+            )
+            metric_cols[4].metric(
+                "Trade coverage",
+                f"{float(coverage):.1f} %" if pd.notna(coverage) else "n/a",
+            )
+            metric_cols[5].metric(
+                "Forecast accuracy",
+                f"{float(forecast_accuracy):.1f} %" if pd.notna(forecast_accuracy) else "n/a",
+                help=f"NO_TRADE pozorování: {no_trade}",
             )
 
             if evaluated == 0:
                 st.info(
-                    "Zatím není uzavřený žádný týdenní pár. "
-                    "Po příštím pondělním běhu se zde automaticky vyhodnotí dnešní signály."
+                    "Zatím není uzavřený žádný směrový obchod. NO_TRADE je záměrná abstence; "
+                    "forecast se může vyhodnotit i bez obchodu."
                 )
 
             st.caption(
                 "Výpočet používá všechny týdny uložené ve stejné SQLite databázi. "
-                "Nejnovější týden zůstává PENDING, starší výsledky HIT/MISS se nemažou."
+                "Nejnovější týden zůstává PENDING, starší výsledky HIT/MISS/NO_TRADE se nemažou. "
+                "Pravděpodobné splity se před výpočtem výnosu auditovatelně upraví."
             )
             cumulative = prediction_frames["prediction_cumulative"].copy()
             weekly = prediction_frames["prediction_weekly"].copy()
@@ -1130,11 +1149,11 @@ if st.session_state.last_result:
                             ),
                         ],
                     )
-                    .properties(title="Týdenní a dlouhodobá úspěšnost", height=320)
+                    .properties(title="Týdenní a dlouhodobý directional hit rate", height=320)
                 )
                 st.altair_chart(rate_chart, width="stretch")
                 st.caption(
-                    "Kumulativní čára je vážená všemi predikcemi: například 100 HIT a "
+                    "Kumulativní čára je vážená všemi uskutečněnými BUY/SELL akcemi: například 100 HIT a "
                     "1 MISS znamená 99,01 %, nikoli průměr dvou týdnů."
                 )
 
@@ -1167,13 +1186,17 @@ if st.session_state.last_result:
                             alt.Tooltip("count:Q", title="Počet"),
                         ],
                     )
-                    .properties(title="Počet HIT a MISS po týdnech", height=280)
+                    .properties(title="Počet obchodních HIT a MISS po týdnech", height=280)
                 )
                 st.altair_chart(count_chart, width="stretch")
 
-            st.write("Úspěšnost podle předpovědi")
+            st.write("Výsledek podle obchodní akce")
             st.dataframe(prediction_frames["prediction_summary"], width="stretch")
-            st.write("Dlouhodobá úspěšnost podle tickeru")
+            st.write("Přesnost cenového forecastu")
+            st.dataframe(prediction_frames["forecast_summary"], width="stretch")
+            st.write("Srovnání podle verze scoringu")
+            st.dataframe(prediction_frames["prediction_by_version"], width="stretch")
+            st.write("Dlouhodobý directional hit rate podle tickeru")
             _show_limited_dataframe(
                 prediction_frames["prediction_by_ticker"],
                 "Souhrn všech uzavřených týdenních predikcí pro každý ticker",
@@ -1182,7 +1205,7 @@ if st.session_state.last_result:
             st.write("Detail všech týdenních predikcí")
             _show_limited_dataframe(
                 prediction_frames["prediction_details"],
-                "HIT = směr vyšel, MISS = nevyšel, PENDING = čeká na další pondělí",
+                "HIT/MISS = výsledek BUY/SELL; NO_TRADE = bez obchodu; forecast_result se hodnotí samostatně",
                 rows=3000,
             )
         else:
