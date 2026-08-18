@@ -343,6 +343,26 @@ class SQLiteStore:
                 """
             )
             conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS quality_gate_checks (
+                    check_id TEXT PRIMARY KEY,
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    ticker TEXT,
+                    gate_name TEXT NOT NULL,
+                    decision TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    message TEXT NOT NULL,
+                    related_agent_names_json TEXT NOT NULL DEFAULT '[]',
+                    signal_ids_json TEXT NOT NULL DEFAULT '[]',
+                    evidence_ids_json TEXT NOT NULL DEFAULT '[]',
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE
+                )
+                """
+            )
+            conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_agent_runs_pipeline ON agent_runs(pipeline_run_id)"
             )
             conn.execute(
@@ -362,6 +382,12 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_agent_signals_orchestration ON agent_signals(orchestration_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_quality_gate_ticker ON quality_gate_checks(ticker, decision)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_quality_gate_orchestration ON quality_gate_checks(orchestration_id)"
             )
 
     def insert_run(self, metadata: RunMetadata) -> int:
@@ -714,6 +740,32 @@ class SQLiteStore:
                         ),
                     )
 
+                for check in result.quality_checks:
+                    conn.execute(
+                        """
+                        INSERT INTO quality_gate_checks(
+                            check_id, orchestration_id, agent_run_id, ticker,
+                            gate_name, decision, observed_at, message,
+                            related_agent_names_json, signal_ids_json,
+                            evidence_ids_json, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            check.check_id,
+                            report.orchestration_id,
+                            agent_run_id,
+                            check.ticker,
+                            check.gate_name,
+                            check.decision.value,
+                            to_iso(check.observed_at),
+                            check.message,
+                            self._json_dump(check.related_agent_names),
+                            self._json_dump(check.signal_ids),
+                            self._json_dump(check.evidence_ids),
+                            self._json_dump(check.metadata),
+                        ),
+                    )
+
     def update_run_counts(self, run_id: int, warnings_count: int, errors_count: int) -> None:
         with self._connect() as conn:
             conn.execute(
@@ -764,6 +816,20 @@ class SQLiteStore:
             query += " WHERE orchestration_id = ?"
             params = (orchestration_id,)
         query += " ORDER BY observed_at ASC, signal_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_quality_gate_checks(
+        self,
+        orchestration_id: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM quality_gate_checks"
+        params: tuple[object, ...] = ()
+        if orchestration_id is not None:
+            query += " WHERE orchestration_id = ?"
+            params = (orchestration_id,)
+        query += " ORDER BY observed_at ASC, check_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 

@@ -14,6 +14,7 @@ from market_checker_app.agents import (
     OrchestrationReport,
     OrchestratorAgent,
     PredictionV21AdapterAgent,
+    QualityGateAgent,
 )
 from market_checker_app.analysis.behavioral_analysis import analyze_behavioral
 from market_checker_app.analysis.confidence import combine_confidence
@@ -68,6 +69,14 @@ class PipelineService:
         orchestrator = OrchestratorAgent(shadow_mode=self.config.agent_shadow_mode)
         orchestrator.register(EntityRegistryAgent())
         orchestrator.register(PredictionV21AdapterAgent())
+        orchestrator.register(
+            QualityGateAgent(
+                self.config.quality_gate,
+                minimum_action_confidence=(
+                    self.config.prediction_v21.minimum_action_confidence
+                ),
+            )
+        )
         return orchestrator.run(
             watchlist=watchlist,
             state={"signals": signals},
@@ -554,6 +563,7 @@ class PipelineService:
             signals_df["rank_market_cap"] = range(1, len(signals_df) + 1)
 
         agent_report: OrchestrationReport | None = None
+        quality_gate_decision: str | None = None
         if self.config.agent_stage1_enabled:
             progress.set_global_step(
                 "agent_stage1",
@@ -566,6 +576,10 @@ class PipelineService:
                 warnings.append(f"Agentní etapa 1 se nespustila: {type(exc).__name__}: {exc}")
             else:
                 for execution in agent_report.executions:
+                    if execution.agent_name == "quality_gate":
+                        quality_gate_decision = str(
+                            execution.result.metadata.get("decision", "REJECT")
+                        )
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
                         for warning in execution.result.warnings
@@ -633,6 +647,7 @@ class PipelineService:
             "errors": errors,
             "run_id": run_id,
             "agent_status": agent_report.status.value if agent_report else None,
+            "quality_gate_decision": quality_gate_decision,
             "agent_report": agent_report,
             "progress_state": progress.snapshot(),
         }

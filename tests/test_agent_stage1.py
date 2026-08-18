@@ -10,13 +10,18 @@ import pandas as pd
 
 from market_checker_app.agents import (
     AgentContext,
+    AgentEvidence,
     AgentResult,
+    AgentSignal,
     AgentStatus,
     DocumentRecord,
     EntityRegistryAgent,
+    GateDecision,
     OrchestratorAgent,
     PredictionV21AdapterAgent,
+    QualityGateAgent,
 )
+from market_checker_app.agents.contracts import utc_now
 from market_checker_app.agents.base import BaseAgent
 from market_checker_app.models import RunMetadata
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -78,6 +83,42 @@ class _DocumentAgent(BaseAgent):
                 )
             ]
         )
+
+
+class _InvalidPredictionAgent(BaseAgent):
+    name = "prediction_v21_adapter"
+    required = True
+    dependencies = ("entity_registry",)
+
+    def run(self, context: AgentContext) -> AgentResult:
+        now = utc_now()
+        evidence = AgentEvidence(
+            evidence_id="bad-evidence",
+            ticker="AAPL",
+            agent_name=self.name,
+            event_type="PREDICTION_V21",
+            observed_at=now,
+            summary="Deliberately inconsistent fixture.",
+            direction=-1.0,
+            confidence=0.1,
+            hard_veto=True,
+        )
+        signal = AgentSignal(
+            signal_id="bad-signal",
+            ticker="AAPL",
+            agent_name=self.name,
+            agent_version=self.version,
+            event_type="PREDICTION_V21",
+            observed_at=now,
+            action="BUY",
+            forecast="DOWN",
+            direction=-1.0,
+            risk_score=90.0,
+            confidence=0.1,
+            hard_veto=True,
+            evidence_ids=[evidence.evidence_id],
+        )
+        return AgentResult(evidence=[evidence], signals=[signal])
 
 
 class StageOneAgentTests(unittest.TestCase):
@@ -168,6 +209,56 @@ class StageOneAgentTests(unittest.TestCase):
         self.assertEqual(["prediction_v21_adapter"], report.failed_agents)
         self.assertEqual(AgentStatus.UNAVAILABLE, report.executions[-1].status)
 
+    def test_quality_gate_passes_consistent_v21_prediction(self):
+        frame = pd.DataFrame(
+            [
+                {
+                    "ticker": "AAPL",
+                    "action": "BUY",
+                    "forecast": "UP",
+                    "decision_confidence": 0.73,
+                    "risk_score": 22.0,
+                    "action_reasons": '["Confirmed consensus"]',
+                }
+            ]
+        )
+        orchestrator = OrchestratorAgent(shadow_mode=True)
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(PredictionV21AdapterAgent())
+        orchestrator.register(QualityGateAgent())
+
+        report = orchestrator.run(watchlist=["AAPL"], state={"signals": frame})
+
+        self.assertEqual(AgentStatus.SUCCESS, report.status)
+        self.assertEqual(1, len(report.quality_checks))
+        self.assertEqual(GateDecision.PASS, report.quality_checks[0].decision)
+        self.assertTrue(report.shadow_mode)
+
+    def test_quality_gate_rejects_inconsistent_prediction_without_mutating_it(self):
+        orchestrator = OrchestratorAgent(shadow_mode=True)
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(_InvalidPredictionAgent())
+        orchestrator.register(QualityGateAgent())
+
+        report = orchestrator.run(watchlist=["AAPL"])
+
+        self.assertEqual(AgentStatus.FAILED, report.status)
+        self.assertEqual(GateDecision.REJECT, report.quality_checks[0].decision)
+        reject_codes = {
+            item["code"]
+            for item in report.quality_checks[0].metadata["rejects"]
+        }
+        self.assertTrue(
+            {
+                "buy_forecast_conflict",
+                "veto_action_conflict",
+                "low_action_confidence",
+            }.issubset(reject_codes)
+        )
+        invalid_signal = report.signals[0]
+        self.assertEqual("BUY", invalid_signal.action)
+        self.assertEqual("DOWN", invalid_signal.forecast)
+
     def test_stage_one_report_is_persisted_with_full_audit_links(self):
         frame = pd.DataFrame(
             [
@@ -186,6 +277,7 @@ class StageOneAgentTests(unittest.TestCase):
         orchestrator.register(PredictionV21AdapterAgent())
         orchestrator.register(_DocumentAgent())
         orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(QualityGateAgent())
         report = orchestrator.run(watchlist=["AAPL"], state={"signals": frame})
 
         with tempfile.TemporaryDirectory() as tmp:
@@ -197,7 +289,7 @@ class StageOneAgentTests(unittest.TestCase):
 
             self.assertEqual(1, len(store.read_orchestration_runs()))
             agent_runs = store.read_agent_runs(report.orchestration_id)
-            self.assertEqual(3, len(agent_runs))
+            self.assertEqual(4, len(agent_runs))
             self.assertTrue((agent_runs["pipeline_run_id"] == run_id).all())
             self.assertEqual(1, len(store.read_entities()))
             self.assertEqual(1, len(store.read_evidence(report.orchestration_id)))
@@ -205,6 +297,9 @@ class StageOneAgentTests(unittest.TestCase):
             self.assertEqual(1, len(signals))
             self.assertEqual("BUY", signals.iloc[0]["action"])
             self.assertGreater(int(signals.iloc[0]["agent_run_id"]), 0)
+            quality_checks = store.read_quality_gate_checks(report.orchestration_id)
+            self.assertEqual(1, len(quality_checks))
+            self.assertEqual("PASS", quality_checks.iloc[0]["decision"])
 
             with store._connect() as conn:
                 documents = conn.execute("SELECT COUNT(*) FROM documents").fetchone()[0]

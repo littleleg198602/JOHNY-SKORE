@@ -25,6 +25,26 @@ class AgentStatus(str, Enum):
     BLOCKED = "BLOCKED"
 
 
+class GateDecision(str, Enum):
+    PASS = "PASS"
+    WARN = "WARN"
+    REJECT = "REJECT"
+
+
+@dataclass(slots=True)
+class QualityGateCheck:
+    check_id: str
+    gate_name: str
+    decision: GateDecision
+    observed_at: datetime
+    message: str
+    ticker: str | None = None
+    related_agent_names: list[str] = field(default_factory=list)
+    signal_ids: list[str] = field(default_factory=list)
+    evidence_ids: list[str] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
 @dataclass(slots=True)
 class EntityRecord:
     entity_id: str
@@ -113,6 +133,7 @@ class AgentResult:
     documents: list[DocumentRecord] = field(default_factory=list)
     evidence: list[AgentEvidence] = field(default_factory=list)
     signals: list[AgentSignal] = field(default_factory=list)
+    quality_checks: list[QualityGateCheck] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     error: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
@@ -120,7 +141,13 @@ class AgentResult:
 
     @property
     def output_count(self) -> int:
-        return len(self.entities) + len(self.documents) + len(self.evidence) + len(self.signals)
+        return (
+            len(self.entities)
+            + len(self.documents)
+            + len(self.evidence)
+            + len(self.signals)
+            + len(self.quality_checks)
+        )
 
 
 @dataclass(slots=True)
@@ -177,6 +204,14 @@ class OrchestrationReport:
     @property
     def signals(self) -> list[AgentSignal]:
         return [item for execution in self.executions for item in execution.result.signals]
+
+    @property
+    def quality_checks(self) -> list[QualityGateCheck]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.quality_checks
+        ]
 
     @property
     def warnings(self) -> list[str]:
