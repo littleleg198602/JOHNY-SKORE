@@ -1,12 +1,18 @@
 from __future__ import annotations
 
+import json
 import sqlite3
+from datetime import datetime
 from pathlib import Path
+from typing import TYPE_CHECKING, Any
 
 import pandas as pd
 
 from market_checker_app.models import RunMetadata
 from market_checker_app.utils.dates import to_iso
+
+if TYPE_CHECKING:
+    from market_checker_app.agents.contracts import OrchestrationReport
 
 
 class SQLiteStore:
@@ -33,7 +39,26 @@ class SQLiteStore:
 
     def _connect(self) -> sqlite3.Connection:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        return sqlite3.connect(self.db_path)
+        conn = sqlite3.connect(self.db_path)
+        conn.execute("PRAGMA foreign_keys = ON")
+        return conn
+
+    @staticmethod
+    def _json_default(value: Any) -> object:
+        if isinstance(value, datetime):
+            return to_iso(value)
+        if hasattr(value, "item"):
+            return value.item()
+        return str(value)
+
+    @classmethod
+    def _json_dump(cls, value: object) -> str:
+        return json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            default=cls._json_default,
+        )
 
     def _ensure_signal_history_columns(self, conn: sqlite3.Connection) -> None:
         expected: dict[str, str] = {
@@ -159,6 +184,185 @@ class SQLiteStore:
                 """
             )
             self._ensure_signal_history_columns(conn)
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS orchestration_runs (
+                    orchestration_id TEXT PRIMARY KEY,
+                    pipeline_run_id INTEGER,
+                    started_at TEXT NOT NULL,
+                    finished_at TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    shadow_mode INTEGER NOT NULL,
+                    watchlist_size INTEGER NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(pipeline_run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS agent_runs (
+                    agent_run_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    orchestration_id TEXT NOT NULL,
+                    pipeline_run_id INTEGER,
+                    agent_name TEXT NOT NULL,
+                    agent_version TEXT NOT NULL,
+                    required INTEGER NOT NULL,
+                    dependencies_json TEXT NOT NULL DEFAULT '[]',
+                    status TEXT NOT NULL,
+                    started_at TEXT NOT NULL,
+                    finished_at TEXT NOT NULL,
+                    elapsed_ms REAL NOT NULL,
+                    input_count INTEGER NOT NULL,
+                    output_count INTEGER NOT NULL,
+                    warnings_json TEXT NOT NULL DEFAULT '[]',
+                    error TEXT,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    UNIQUE(orchestration_id, agent_name),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(pipeline_run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS entities (
+                    entity_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL UNIQUE,
+                    yahoo_ticker TEXT,
+                    name TEXT,
+                    exchange TEXT,
+                    cik TEXT,
+                    isin TEXT,
+                    lei TEXT,
+                    sector TEXT,
+                    industry TEXT,
+                    aliases_json TEXT NOT NULL DEFAULT '[]',
+                    source TEXT NOT NULL,
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}'
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS entity_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    entity_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY(orchestration_id, agent_run_id, entity_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(entity_id) REFERENCES entities(entity_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS documents (
+                    document_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    source TEXT NOT NULL,
+                    source_type TEXT NOT NULL,
+                    url TEXT,
+                    published_at TEXT,
+                    content_hash TEXT,
+                    mime_type TEXT,
+                    raw_path TEXT,
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}'
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS document_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    document_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY(orchestration_id, agent_run_id, document_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS evidence (
+                    evidence_id TEXT PRIMARY KEY,
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    ticker TEXT NOT NULL,
+                    agent_name TEXT NOT NULL,
+                    event_type TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    summary TEXT NOT NULL,
+                    direction REAL NOT NULL,
+                    risk_score REAL NOT NULL,
+                    confidence REAL NOT NULL,
+                    hard_veto INTEGER NOT NULL,
+                    reasons_json TEXT NOT NULL DEFAULT '[]',
+                    document_ids_json TEXT NOT NULL DEFAULT '[]',
+                    source_urls_json TEXT NOT NULL DEFAULT '[]',
+                    valid_until TEXT,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS agent_signals (
+                    signal_id TEXT PRIMARY KEY,
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    ticker TEXT NOT NULL,
+                    agent_name TEXT NOT NULL,
+                    agent_version TEXT NOT NULL,
+                    event_type TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    action TEXT NOT NULL,
+                    forecast TEXT NOT NULL,
+                    direction REAL NOT NULL,
+                    risk_score REAL NOT NULL,
+                    confidence REAL NOT NULL,
+                    hard_veto INTEGER NOT NULL,
+                    reasons_json TEXT NOT NULL DEFAULT '[]',
+                    evidence_ids_json TEXT NOT NULL DEFAULT '[]',
+                    expires_at TEXT,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE
+                )
+                """
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_agent_runs_pipeline ON agent_runs(pipeline_run_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_entity_observations_entity ON entity_observations(entity_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_documents_ticker_published ON documents(ticker, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_evidence_ticker_observed ON evidence(ticker, observed_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_evidence_orchestration ON evidence(orchestration_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_agent_signals_ticker_observed ON agent_signals(ticker, observed_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_agent_signals_orchestration ON agent_signals(orchestration_id)"
+            )
 
     def insert_run(self, metadata: RunMetadata) -> int:
         with self._connect() as conn:
@@ -267,6 +471,301 @@ class SQLiteStore:
             if payload:
                 conn.executemany(self.SIGNAL_HISTORY_INSERT, payload)
             return run_id
+
+    def save_orchestration_report(
+        self,
+        report: OrchestrationReport,
+        pipeline_run_id: int | None = None,
+    ) -> None:
+        """Persist one complete agent orchestration as an atomic audit record."""
+
+        self.ensure_schema()
+        linked_run_id = pipeline_run_id if pipeline_run_id is not None else report.pipeline_run_id
+        report.pipeline_run_id = linked_run_id
+
+        with self._connect() as conn:
+            conn.execute(
+                """
+                INSERT INTO orchestration_runs(
+                    orchestration_id, pipeline_run_id, started_at, finished_at,
+                    status, shadow_mode, watchlist_size, metadata_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    report.orchestration_id,
+                    linked_run_id,
+                    to_iso(report.started_at),
+                    to_iso(report.finished_at),
+                    report.status.value,
+                    int(report.shadow_mode),
+                    report.watchlist_size,
+                    self._json_dump(report.metadata),
+                ),
+            )
+
+            for execution in report.executions:
+                result = execution.result
+                cursor = conn.execute(
+                    """
+                    INSERT INTO agent_runs(
+                        orchestration_id, pipeline_run_id, agent_name, agent_version,
+                        required, dependencies_json, status, started_at, finished_at,
+                        elapsed_ms, input_count, output_count, warnings_json, error,
+                        metadata_json
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        report.orchestration_id,
+                        linked_run_id,
+                        execution.agent_name,
+                        execution.agent_version,
+                        int(execution.required),
+                        self._json_dump(execution.dependencies),
+                        execution.status.value,
+                        to_iso(execution.started_at),
+                        to_iso(execution.finished_at),
+                        execution.elapsed_ms,
+                        execution.input_count,
+                        result.output_count,
+                        self._json_dump(result.warnings),
+                        result.error,
+                        self._json_dump(result.metadata),
+                    ),
+                )
+                agent_run_id = int(cursor.lastrowid)
+
+                for entity in result.entities:
+                    existing_aliases_row = conn.execute(
+                        "SELECT aliases_json FROM entities WHERE entity_id = ?",
+                        (entity.entity_id,),
+                    ).fetchone()
+                    existing_aliases: list[str] = []
+                    if existing_aliases_row and existing_aliases_row[0]:
+                        try:
+                            decoded = json.loads(existing_aliases_row[0])
+                            if isinstance(decoded, list):
+                                existing_aliases = [str(alias) for alias in decoded]
+                        except (TypeError, json.JSONDecodeError):
+                            existing_aliases = []
+                    aliases = list(dict.fromkeys(existing_aliases + entity.aliases))
+                    conn.execute(
+                        """
+                        INSERT INTO entities(
+                            entity_id, ticker, yahoo_ticker, name, exchange, cik, isin,
+                            lei, sector, industry, aliases_json, source, first_seen_at,
+                            last_seen_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(entity_id) DO UPDATE SET
+                            ticker = excluded.ticker,
+                            yahoo_ticker = COALESCE(excluded.yahoo_ticker, entities.yahoo_ticker),
+                            name = COALESCE(excluded.name, entities.name),
+                            exchange = COALESCE(excluded.exchange, entities.exchange),
+                            cik = COALESCE(excluded.cik, entities.cik),
+                            isin = COALESCE(excluded.isin, entities.isin),
+                            lei = COALESCE(excluded.lei, entities.lei),
+                            sector = COALESCE(excluded.sector, entities.sector),
+                            industry = COALESCE(excluded.industry, entities.industry),
+                            aliases_json = excluded.aliases_json,
+                            source = excluded.source,
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            entity.entity_id,
+                            entity.ticker,
+                            entity.yahoo_ticker,
+                            entity.name,
+                            entity.exchange,
+                            entity.cik,
+                            entity.isin,
+                            entity.lei,
+                            entity.sector,
+                            entity.industry,
+                            self._json_dump(aliases),
+                            entity.source,
+                            to_iso(report.started_at),
+                            to_iso(execution.finished_at),
+                            self._json_dump(entity.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO entity_observations(
+                            orchestration_id, agent_run_id, entity_id, observed_at
+                        ) VALUES (?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            entity.entity_id,
+                            to_iso(execution.finished_at),
+                        ),
+                    )
+
+                for document in result.documents:
+                    conn.execute(
+                        """
+                        INSERT INTO documents(
+                            document_id, ticker, source, source_type, url, published_at,
+                            content_hash, mime_type, raw_path, first_seen_at, last_seen_at,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(document_id) DO UPDATE SET
+                            ticker = excluded.ticker,
+                            source = excluded.source,
+                            source_type = excluded.source_type,
+                            url = COALESCE(excluded.url, documents.url),
+                            published_at = COALESCE(excluded.published_at, documents.published_at),
+                            content_hash = COALESCE(excluded.content_hash, documents.content_hash),
+                            mime_type = COALESCE(excluded.mime_type, documents.mime_type),
+                            raw_path = COALESCE(excluded.raw_path, documents.raw_path),
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            document.document_id,
+                            document.ticker,
+                            document.source,
+                            document.source_type,
+                            document.url,
+                            to_iso(document.published_at) if document.published_at else None,
+                            document.content_hash,
+                            document.mime_type,
+                            document.raw_path,
+                            to_iso(document.observed_at),
+                            to_iso(document.observed_at),
+                            self._json_dump(document.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO document_observations(
+                            orchestration_id, agent_run_id, document_id, observed_at
+                        ) VALUES (?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            document.document_id,
+                            to_iso(document.observed_at),
+                        ),
+                    )
+
+                for evidence in result.evidence:
+                    conn.execute(
+                        """
+                        INSERT INTO evidence(
+                            evidence_id, orchestration_id, agent_run_id, ticker,
+                            agent_name, event_type, observed_at, summary, direction,
+                            risk_score, confidence, hard_veto, reasons_json,
+                            document_ids_json, source_urls_json, valid_until, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            evidence.evidence_id,
+                            report.orchestration_id,
+                            agent_run_id,
+                            evidence.ticker,
+                            evidence.agent_name,
+                            evidence.event_type,
+                            to_iso(evidence.observed_at),
+                            evidence.summary,
+                            evidence.direction,
+                            evidence.risk_score,
+                            evidence.confidence,
+                            int(evidence.hard_veto),
+                            self._json_dump(evidence.reasons),
+                            self._json_dump(evidence.document_ids),
+                            self._json_dump(evidence.source_urls),
+                            to_iso(evidence.valid_until) if evidence.valid_until else None,
+                            self._json_dump(evidence.metadata),
+                        ),
+                    )
+
+                for signal in result.signals:
+                    conn.execute(
+                        """
+                        INSERT INTO agent_signals(
+                            signal_id, orchestration_id, agent_run_id, ticker,
+                            agent_name, agent_version, event_type, observed_at, action,
+                            forecast, direction, risk_score, confidence, hard_veto,
+                            reasons_json, evidence_ids_json, expires_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            signal.signal_id,
+                            report.orchestration_id,
+                            agent_run_id,
+                            signal.ticker,
+                            signal.agent_name,
+                            signal.agent_version,
+                            signal.event_type,
+                            to_iso(signal.observed_at),
+                            signal.action,
+                            signal.forecast,
+                            signal.direction,
+                            signal.risk_score,
+                            signal.confidence,
+                            int(signal.hard_veto),
+                            self._json_dump(signal.reasons),
+                            self._json_dump(signal.evidence_ids),
+                            to_iso(signal.expires_at) if signal.expires_at else None,
+                            self._json_dump(signal.metadata),
+                        ),
+                    )
+
+    def update_run_counts(self, run_id: int, warnings_count: int, errors_count: int) -> None:
+        with self._connect() as conn:
+            conn.execute(
+                "UPDATE runs SET warnings_count = ?, errors_count = ? WHERE run_id = ?",
+                (warnings_count, errors_count, run_id),
+            )
+
+    def read_orchestration_runs(self) -> pd.DataFrame:
+        self.ensure_schema()
+        with self._connect() as conn:
+            return pd.read_sql_query(
+                "SELECT * FROM orchestration_runs ORDER BY started_at ASC",
+                conn,
+            )
+
+    def read_agent_runs(self, orchestration_id: str | None = None) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM agent_runs"
+        params: tuple[object, ...] = ()
+        if orchestration_id is not None:
+            query += " WHERE orchestration_id = ?"
+            params = (orchestration_id,)
+        query += " ORDER BY agent_run_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_entities(self) -> pd.DataFrame:
+        self.ensure_schema()
+        with self._connect() as conn:
+            return pd.read_sql_query("SELECT * FROM entities ORDER BY ticker ASC", conn)
+
+    def read_evidence(self, orchestration_id: str | None = None) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM evidence"
+        params: tuple[object, ...] = ()
+        if orchestration_id is not None:
+            query += " WHERE orchestration_id = ?"
+            params = (orchestration_id,)
+        query += " ORDER BY observed_at ASC, evidence_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_agent_signals(self, orchestration_id: str | None = None) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM agent_signals"
+        params: tuple[object, ...] = ()
+        if orchestration_id is not None:
+            query += " WHERE orchestration_id = ?"
+            params = (orchestration_id,)
+        query += " ORDER BY observed_at ASC, signal_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
 
     def get_last_run_id(self) -> int | None:
         with self._connect() as conn:

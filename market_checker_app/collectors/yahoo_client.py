@@ -8,6 +8,7 @@ import pandas as pd
 import yfinance as yf
 
 from market_checker_app.models import PerformanceSnapshot, YahooSnapshot
+from market_checker_app.utils.symbols import normalize_yahoo_symbol
 
 
 class YahooClient:
@@ -54,13 +55,6 @@ class YahooClient:
     )
     METADATA_MIN_USEFUL_FIELDS = 2
     METADATA_COMPLETE_USEFUL_FIELDS = 6
-
-    # Yahoo uses hyphens for these US class-share symbols. Do not apply a
-    # generic dot/suffix rewrite: symbols such as VOD.L must remain intact.
-    _YAHOO_SYMBOL_ALIASES: dict[str, str] = {
-        "BRK.B": "BRK-B",
-        "BF.B": "BF-B",
-    }
 
     def __init__(
         self,
@@ -124,8 +118,7 @@ class YahooClient:
     @classmethod
     def normalize_yahoo_symbol(cls, ticker: str) -> str:
         """Map only known class-share notation while preserving other suffixes."""
-        normalized = ticker.strip().upper()
-        return cls._YAHOO_SYMBOL_ALIASES.get(normalized, normalized)
+        return normalize_yahoo_symbol(ticker)
 
     @classmethod
     def _metadata_status(cls, info: Any) -> tuple[str, int]:

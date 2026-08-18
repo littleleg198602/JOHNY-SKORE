@@ -110,6 +110,8 @@ class AppConfig:
     max_rss_items_per_source: int = DEFAULT_MAX_RSS_ITEMS
     max_tickers_per_run: int = DEFAULT_MAX_TICKERS_PER_RUN
     large_universe_threshold: int = DEFAULT_LARGE_UNIVERSE_THRESHOLD
+    agent_stage1_enabled: bool = True
+    agent_shadow_mode: bool = True
     module_weights: ModuleWeights = field(default_factory=ModuleWeights)
     decision_weights: DecisionModuleWeights = field(default_factory=DecisionModuleWeights)
     decision_thresholds: DecisionThresholds = field(default_factory=DecisionThresholds)

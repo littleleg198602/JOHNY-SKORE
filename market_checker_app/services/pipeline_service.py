@@ -8,6 +8,13 @@ from typing import Callable
 
 import pandas as pd
 
+from market_checker_app.agents import (
+    AgentStatus,
+    EntityRegistryAgent,
+    OrchestrationReport,
+    OrchestratorAgent,
+    PredictionV21AdapterAgent,
+)
 from market_checker_app.analysis.behavioral_analysis import analyze_behavioral
 from market_checker_app.analysis.confidence import combine_confidence
 from market_checker_app.analysis.explanations import build_key_drivers, merge_reasons, merge_warnings
@@ -52,6 +59,19 @@ class PipelineService:
         self.rss_client = RSSClient(max_items_per_source=config.max_rss_items_per_source)
         self.yahoo_client = YahooClient()
         self.yahoo_cache = YahooCacheStore(config.sqlite_path)
+
+    def _run_stage1_agents(
+        self,
+        watchlist: list[str],
+        signals: pd.DataFrame,
+    ) -> OrchestrationReport:
+        orchestrator = OrchestratorAgent(shadow_mode=self.config.agent_shadow_mode)
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(PredictionV21AdapterAgent())
+        return orchestrator.run(
+            watchlist=watchlist,
+            state={"signals": signals},
+        )
 
     @staticmethod
     def _expand_rss_sources(rss_sources: list[str], watchlist: list[str]) -> list[str]:
@@ -113,7 +133,7 @@ class PipelineService:
         rss_enabled: bool | None = None,
         mt5_enabled: bool | None = None,
         yahoo_metadata_enabled: bool | None = None,
-    ) -> dict[str, pd.DataFrame | RunMetadata | list[str] | int | None | AnalysisProgressState]:
+    ) -> dict[str, object]:
         if not watchlist:
             raise ValueError("Watchlist je prázdný. Nahrajte Excel nebo zadejte alespoň jeden ticker.")
         if len(watchlist) > self.config.max_tickers_per_run:
@@ -533,8 +553,37 @@ class PipelineService:
             signals_df = signals_df.sort_values("market_cap_usd", ascending=False, na_position="last")
             signals_df["rank_market_cap"] = range(1, len(signals_df) + 1)
 
+        agent_report: OrchestrationReport | None = None
+        if self.config.agent_stage1_enabled:
+            progress.set_global_step(
+                "agent_stage1",
+                "Spouštím auditní agenty etapy 1",
+                0.97,
+            )
+            try:
+                agent_report = self._run_stage1_agents(watchlist, signals_df)
+            except Exception as exc:
+                warnings.append(f"Agentní etapa 1 se nespustila: {type(exc).__name__}: {exc}")
+            else:
+                for execution in agent_report.executions:
+                    warnings.extend(
+                        f"Agent {execution.agent_name}: {warning}"
+                        for warning in execution.result.warnings
+                    )
+                    if execution.result.error:
+                        warnings.append(
+                            f"Agent {execution.agent_name} ({execution.status.value}): "
+                            f"{execution.result.error}"
+                        )
+                if agent_report.status != AgentStatus.SUCCESS:
+                    warnings.append(
+                        f"Agentní etapa 1 skončila stavem {agent_report.status.value}; "
+                        "predikce v2.1 nebyla agentní vrstvou změněna."
+                    )
+
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(article) for article in articles])
+        warnings = list(dict.fromkeys(warnings))
         finished_at = utc_now()
 
         metadata = RunMetadata(started_at, finished_at, len(watchlist), len(signals_df), len(warnings), len(errors), "")
@@ -553,8 +602,26 @@ class PipelineService:
                 errors.append(message)
                 progress.log("ERROR", message)
 
+            if run_id is not None and agent_report is not None:
+                try:
+                    store.save_orchestration_report(agent_report, pipeline_run_id=run_id)
+                except Exception as exc:
+                    message = f"SQLite uložení auditní agentní etapy selhalo: {exc}"
+                    warnings.append(message)
+                    progress.log("WARNING", message)
+
+        warnings = list(dict.fromkeys(warnings))
+        errors = list(dict.fromkeys(errors))
         metadata.warnings_count = len(warnings)
         metadata.errors_count = len(errors)
+        if run_id is not None and store is not None:
+            try:
+                store.update_run_counts(run_id, metadata.warnings_count, metadata.errors_count)
+            except Exception as exc:
+                message = f"SQLite aktualizace počtů varování/chyb selhala: {exc}"
+                warnings.append(message)
+                metadata.warnings_count = len(warnings)
+                progress.log("WARNING", message)
 
         progress.finalize("Analýza dokončena")
         return {
@@ -565,5 +632,7 @@ class PipelineService:
             "warnings": warnings,
             "errors": errors,
             "run_id": run_id,
+            "agent_status": agent_report.status.value if agent_report else None,
+            "agent_report": agent_report,
             "progress_state": progress.snapshot(),
         }
