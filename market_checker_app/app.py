@@ -23,6 +23,7 @@ from market_checker_app.config import (
     AppConfig,
     DEFAULT_DB_PATH,
     DEFAULT_OUTPUT_DIR,
+    FinancialForensicsConfig,
     FundamentalIngestionConfig,
     SignalThresholds,
 )
@@ -697,6 +698,121 @@ def _render_signals(signals_df: pd.DataFrame) -> None:
     _render_detail_ticker(signals_df, ticker)
 
 
+def _render_agent_audit(result: dict[str, object]) -> None:
+    st.subheader("Audit agentní pipeline")
+    metric_columns = st.columns(5)
+    metric_columns[0].metric("Agentní stav", result.get("agent_status") or "n/a")
+    metric_columns[1].metric(
+        "QualityGate",
+        result.get("quality_gate_decision") or "n/a",
+    )
+    metric_columns[2].metric(
+        "SEC ingest",
+        result.get("fundamental_ingestion_status") or "vypnuto",
+    )
+    metric_columns[3].metric(
+        "Forenzní HIGH",
+        int(result.get("financial_forensics_high_findings") or 0),
+    )
+    metric_columns[4].metric(
+        "Forenzní WARN",
+        int(result.get("financial_forensics_warning_findings") or 0),
+    )
+
+    report = result.get("agent_report")
+    executions = getattr(report, "executions", None)
+    if not isinstance(executions, list):
+        st.info("Pro tento běh není dostupný agentní audit.")
+        return
+
+    execution_rows = []
+    for execution in executions:
+        execution_rows.append(
+            {
+                "agent": execution.agent_name,
+                "version": execution.agent_version,
+                "status": execution.status.value,
+                "required": execution.required,
+                "elapsed_ms": round(execution.elapsed_ms, 2),
+                "outputs": execution.result.output_count,
+                "warnings": len(execution.result.warnings),
+                "error": execution.result.error,
+            }
+        )
+    st.dataframe(pd.DataFrame(execution_rows), width="stretch", hide_index=True)
+
+    forensic_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "financial_forensics"
+        ),
+        None,
+    )
+    if forensic_execution is None:
+        st.info("Finanční forenzní screening nebyl v tomto běhu zapnutý.")
+        return
+
+    forensic_rows = []
+    for evidence in forensic_execution.result.evidence:
+        metadata = evidence.metadata if isinstance(evidence.metadata, dict) else {}
+        findings = metadata.get("findings", [])
+        if not isinstance(findings, list):
+            findings = []
+        high_count = sum(
+            isinstance(item, dict) and item.get("severity") == "HIGH"
+            for item in findings
+        )
+        warning_count = sum(
+            isinstance(item, dict) and item.get("severity") == "WARN"
+            for item in findings
+        )
+        finding_codes = [
+            str(item.get("code"))
+            for item in findings
+            if isinstance(item, dict) and item.get("code")
+        ]
+        forensic_rows.append(
+            {
+                "ticker": evidence.ticker,
+                "risk_score": round(evidence.risk_score, 2),
+                "confidence_pct": round(evidence.confidence * 100.0, 1),
+                "HIGH": high_count,
+                "WARN": warning_count,
+                "finding_codes": ", ".join(finding_codes),
+                "finding_details": json.dumps(
+                    findings,
+                    ensure_ascii=False,
+                    sort_keys=True,
+                ),
+                "metrics": json.dumps(
+                    metadata.get("metrics", {}),
+                    ensure_ascii=False,
+                    sort_keys=True,
+                ),
+                "sec_documents": len(evidence.document_ids),
+                "source_urls": "\n".join(evidence.source_urls),
+            }
+        )
+
+    st.markdown("### Finanční forenzní screening")
+    st.caption(
+        "Diagnostické indikátory pro další ověření — nejde o závěr o podvodu, "
+        "obchodní signál ani vstup do score v2.1."
+    )
+    if forensic_rows:
+        st.dataframe(
+            pd.DataFrame(forensic_rows).sort_values(
+                ["risk_score", "ticker"],
+                ascending=[False, True],
+            ),
+            width="stretch",
+            hide_index=True,
+        )
+    else:
+        st.info("Agent neměl dostatek použitelných SEC faktů pro žádný ticker.")
+
+
 st.set_page_config(page_title="Market Checker", layout="wide")
 st.title("Market Checker")
 
@@ -734,6 +850,16 @@ with st.sidebar:
         disabled=not use_sec_fundamentals,
         help="Příklad: JohnySkore/2.0 kontakt@example.com. SEC tento údaj vyžaduje.",
     )
+    use_financial_forensics = st.checkbox(
+        "Spustit finanční forenzní screening (Etapa 3)",
+        value=True,
+        disabled=not use_sec_fundamentals,
+        help=(
+            "Vyhodnotí kvalitu cash flow, zadlužení, likviditu, akruály, "
+            "odchylky pracovního kapitálu a možné restatementy. Jde o auditní "
+            "screening; nemění predikci a netvrdí, že došlo k podvodu."
+        ),
+    )
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
     load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
@@ -770,6 +896,9 @@ config = AppConfig(
     fundamental_ingestion=FundamentalIngestionConfig(
         enabled=use_sec_fundamentals,
         user_agent=sec_user_agent.strip(),
+    ),
+    financial_forensics=FinancialForensicsConfig(
+        enabled=use_sec_fundamentals and use_financial_forensics,
     ),
 )
 config.ensure_output_dir()
@@ -1021,6 +1150,7 @@ if st.session_state.last_result:
         tab_history,
         tab_predictions,
         tab_ranking,
+        tab_agent_audit,
     ) = st.tabs(
         [
             "Signals",
@@ -1032,6 +1162,7 @@ if st.session_state.last_result:
             "History",
             "Predikce",
             "Ranking",
+            "Agent audit",
         ]
     )
 
@@ -1265,3 +1396,6 @@ if st.session_state.last_result:
                     continue
                 st.write(name)
                 st.dataframe(frame, width="stretch")
+
+    with tab_agent_audit:
+        _render_agent_audit(result)

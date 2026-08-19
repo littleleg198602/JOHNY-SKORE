@@ -115,26 +115,51 @@ class _FakeSecClient:
                 "000032019325000079/0000320193-25-000079-index.html"
             ),
         )
-        fact = SecCompanyFact(
-            taxonomy="us-gaap",
-            concept="Assets",
-            label="Assets",
-            description="Total assets.",
-            unit="USD",
-            value=331000000000.0,
-            filed_at=filed_at,
-            form="10-Q",
-            accession_number=filing.accession_number,
-            source_url=filing_url,
-            period_end=period_end,
-            fiscal_year=2025,
-            fiscal_period="Q3",
-            frame="CY2025Q2I",
+        duration_start = datetime(2025, 3, 30, tzinfo=timezone.utc)
+
+        def fact(
+            concept: str,
+            value: float,
+            *,
+            duration: bool,
+        ) -> SecCompanyFact:
+            return SecCompanyFact(
+                taxonomy="us-gaap",
+                concept=concept,
+                label=concept,
+                description=f"Test value for {concept}.",
+                unit="USD",
+                value=value,
+                filed_at=filed_at,
+                form="10-Q",
+                accession_number=filing.accession_number,
+                source_url=filing_url,
+                period_start=duration_start if duration else None,
+                period_end=period_end,
+                fiscal_year=2025,
+                fiscal_period="Q3",
+                frame="CY2025Q2" if duration else "CY2025Q2I",
+            )
+
+        facts = tuple(
+            fact(concept, value, duration=duration)
+            for concept, value, duration in (
+                ("RevenueFromContractWithCustomerExcludingAssessedTax", 100.0, True),
+                ("NetIncomeLoss", 20.0, True),
+                ("OperatingIncomeLoss", 15.0, True),
+                ("NetCashProvidedByUsedInOperatingActivities", 25.0, True),
+                ("PaymentsToAcquirePropertyPlantAndEquipment", 5.0, True),
+                ("Assets", 200.0, False),
+                ("Liabilities", 80.0, False),
+                ("AssetsCurrent", 60.0, False),
+                ("LiabilitiesCurrent", 30.0, False),
+                ("LongTermDebtNoncurrent", 40.0, False),
+            )
         )
         return SecCompanyBundle(
             SecCompany("AAPL", "0000320193", "Apple Inc.", "Nasdaq"),
             (filing,),
-            (fact,),
+            facts,
         )
 
 
@@ -214,17 +239,21 @@ class RuntimeIntegrationTests(unittest.TestCase):
 
             self.assertEqual("SUCCESS", result["agent_status"])
             self.assertEqual("SUCCESS", result["fundamental_ingestion_status"])
+            self.assertEqual("SUCCESS", result["financial_forensics_status"])
             self.assertEqual(1, result["fundamental_document_count"])
-            self.assertEqual(1, result["fundamental_fact_count"])
+            self.assertEqual(10, result["fundamental_fact_count"])
+            self.assertEqual(1, result["financial_forensics_evidence_count"])
+            self.assertEqual(0, result["financial_forensics_high_findings"])
+            self.assertEqual(0, result["financial_forensics_warning_findings"])
             self.assertEqual(
                 result["signals"].iloc[0]["action"],
                 result["agent_report"].signals[0].action,
             )
-            self.assertEqual(4, len(store.read_agent_runs()))
+            self.assertEqual(5, len(store.read_agent_runs()))
             facts = store.read_fundamental_facts("AAPL")
-            self.assertEqual(1, len(facts))
-            self.assertEqual("Assets", facts.iloc[0]["concept"])
-            self.assertEqual(331000000000.0, float(facts.iloc[0]["value"]))
+            self.assertEqual(10, len(facts))
+            assets = facts.loc[facts["concept"] == "Assets"].iloc[0]
+            self.assertEqual(200.0, float(assets["value"]))
 
     def test_existing_database_is_migrated_additively_for_v21(self):
         with tempfile.TemporaryDirectory() as tmp:

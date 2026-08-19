@@ -120,18 +120,48 @@ class FundamentalIngestionConfig:
     fact_concepts: tuple[str, ...] = (
         "RevenueFromContractWithCustomerExcludingAssessedTax",
         "SalesRevenueNet",
+        "Revenues",
         "NetIncomeLoss",
+        "ProfitLoss",
         "OperatingIncomeLoss",
+        "GrossProfit",
         "Assets",
+        "AssetsCurrent",
         "Liabilities",
+        "LiabilitiesCurrent",
         "StockholdersEquity",
         "CashAndCashEquivalentsAtCarryingValue",
         "NetCashProvidedByUsedInOperatingActivities",
+        "CashFlowsFromUsedInOperatingActivities",
         "PaymentsToAcquirePropertyPlantAndEquipment",
+        "PurchaseOfPropertyPlantAndEquipment",
         "LongTermDebtCurrent",
         "LongTermDebtNoncurrent",
+        "LongTermDebt",
+        "ShortTermBorrowings",
+        "AccountsReceivableNetCurrent",
+        "InventoryNet",
         "EarningsPerShareDiluted",
     )
+
+
+@dataclass(slots=True)
+class FinancialForensicsConfig:
+    """Conservative shadow-screen thresholds for normalized filing facts."""
+
+    enabled: bool = True
+    minimum_metric_coverage: float = 0.35
+    low_cash_conversion_ratio: float = 0.70
+    high_liabilities_to_assets_ratio: float = 0.85
+    critical_liabilities_to_assets_ratio: float = 1.00
+    high_debt_to_assets_ratio: float = 0.50
+    critical_debt_to_assets_ratio: float = 0.70
+    low_current_ratio: float = 1.00
+    critical_current_ratio: float = 0.75
+    working_capital_growth_divergence_pct: float = 20.0
+    material_restatement_pct: float = 2.0
+    quarterly_filing_lag_days: int = 60
+    annual_filing_lag_days: int = 120
 
 
 @dataclass(slots=True)
@@ -161,6 +191,9 @@ class AppConfig:
     quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
     fundamental_ingestion: FundamentalIngestionConfig = field(
         default_factory=FundamentalIngestionConfig
+    )
+    financial_forensics: FinancialForensicsConfig = field(
+        default_factory=FinancialForensicsConfig
     )
     behavioral_weights: BehavioralWeights = field(default_factory=BehavioralWeights)
     adjustment: AdjustmentConfig = field(default_factory=AdjustmentConfig)
