@@ -96,6 +96,7 @@ Do stejné SQLite databáze se aditivně vytvářejí tabulky:
 - `orchestration_runs` a `agent_runs` pro audit průběhu,
 - `entities` + `entity_observations` pro jednotný registr společností,
 - `documents` + `document_observations` pro původ a opakované použití dokumentů,
+- `research_claims` + `research_claim_observations` pro verzovaný stav jednotlivých tvrzení,
 - `evidence` pro zjištění se směrem, rizikem, důvěrou, vetem a vazbou na dokument,
 - `agent_signals` pro normalizovaný výstup každého analytického agenta.
 
@@ -127,11 +128,11 @@ Dokumenty mají stabilní ID podle CIK a accession number, účetní fakta obsah
 a opakovaný běh je v SQLite pouze znovu pozoruje — neduplikuje zdrojové záznamy.
 Nové tabulky jsou `fundamental_facts` a `fundamental_fact_observations`.
 
-Tato etapa je pouze ingest a audit. Fundamentální fakta zatím nemění score,
+Tato část etapy je pouze ingest a audit. Fundamentální fakta zatím nemění score,
 `forecast` ani `BUY` / `SELL` / `NO_TRADE`; neobsahuje sentiment, backtesting,
-portfolio logiku, dodavatelský graf ani vyhodnocování short reportů.
+portfolio logiku ani dodavatelský graf.
 
-## Finanční forenzní screening – etapa 3
+## Finanční forenzní screening – etapa 2
 
 Na normalizovaná SEC fakta navazuje volitelný `FinancialForensicsAgent`. Pro
 každý ticker vytváří auditní evidence a kontroluje zejména:
@@ -147,6 +148,49 @@ pokrytí a odkazy na konkrétní SEC dokumenty. Nálezy jsou konzervativní indi
 pro další ověření: nejsou závěrem o podvodu, nemají sektorovou kalibraci a v této
 etapě nevytvářejí signal, hard veto ani změnu score, `forecast` či obchodní akce.
 Screening lze v UI vypnout nezávisle na SEC ingestu.
+
+## Short reporty a ověření tvrzení – etapa 2
+
+`ShortReportAgent` načítá pouze reporty, které uživatel výslovně zadá v levém
+panelu. Nevyhledává reporty automaticky a samotná existence short reportu není
+důkazem, obchodním signálem, vetem ani důvodem pro `SELL`. Jeden řádek vstupu má
+formát:
+
+```text
+TICKER | vydavatel | YYYY-MM-DD | https://verejna-domena.example/report.pdf
+```
+
+Klient přijímá strojově čitelné HTML, PDF a prostý text. Vynucuje veřejné HTTPS,
+kontroluje i cíle přesměrování a DNS adresy, odmítá lokální a privátní sítě,
+omezuje velikost stažení a neukládá surový obsah reportu. Do SQLite se ukládá
+metadata dokumentu, hash a auditní tvrzení, nikoli stažené tělo reportu.
+
+Deterministická extrakce označí věty pouze jako `UNVERIFIED`. Navazující
+`ClaimVerificationAgent` lze spustit jen s aktivním SEC ingestem a finančním
+forenzním screeningem. Každé úzké tvrzení porovná s daty dostupnými k okamžiku
+běhu a přiřadí jeden ze stavů:
+
+- `CORROBORATED` — dostupná SEC diagnostika je s úzkým tvrzením konzistentní,
+- `CONTRADICTED` — konzervativní zdravé metriky úzké tvrzení nepodporují,
+- `INSUFFICIENT_DATA` — primární data nestačí k rozhodnutí,
+- `UNVERIFIED` — tvrzení zatím nebylo ověřeno.
+
+Stav `CORROBORATED` ani `CONTRADICTED` není hodnocením celého reportu a není
+závěrem o podvodu. Kontrolní agent vyžaduje u obou stavů dohledatelný report,
+nezávislý primární SEC dokument, identitu ověřovacího agenta a časové údaje.
+Chybějící vazba tvrzení zamítne v auditu. Vše zůstává v `shadow_mode` a nemění
+score, `forecast`, `BUY`, `SELL`, `NO_TRADE` ani hard veto.
+
+## Stav původní implementační roadmapy
+
+- **Etapa 1 — hotovo:** orchestrace, registr entit, společné dokumenty/evidence/běhy,
+  adaptér v2.1 a kontrolní mechanismus.
+- **Etapa 2 — hotovo v shadow režimu:** SEC výkazy, finanční forenzní screening,
+  short reporty a ověřování jednotlivých tvrzení.
+- **Etapa 3 — následuje:** `SupplyChainAgent`, `CommodityEnergyAgent` a
+  `RegulatoryContractAgent` pro síť firem, materiály, energie, regulaci a kontrakty.
+- **Etapa 4 — zatím nezačala:** rozšíření `DecisionAgent`, `EvaluationAgent` a
+  postupné povolování nových signálů až po prokázaném přínosu na out-of-sample datech.
 
 ## Kde se ukládá výstup
 

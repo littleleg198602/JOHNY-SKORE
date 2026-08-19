@@ -523,7 +523,14 @@ class FinancialForensicsAgent(BaseAgent):
             ticker = normalize_ticker(raw_ticker)
             raw_facts = raw_by_ticker.get(ticker)
             facts = (
-                [fact for fact in raw_facts if isinstance(fact, FundamentalFact)]
+                [
+                    fact
+                    for fact in raw_facts
+                    if isinstance(fact, FundamentalFact)
+                    and fact.filed_at.tzinfo is not None
+                    and fact.filed_at.utcoffset() is not None
+                    and fact.filed_at <= context.started_at
+                ]
                 if isinstance(raw_facts, list)
                 else []
             )
@@ -561,6 +568,7 @@ class FinancialForensicsAgent(BaseAgent):
                 "fact_count": len(facts),
                 "metric_coverage": round(coverage, 4),
                 "methodology_version": self.version,
+                "analysis_as_of": context.started_at.isoformat(),
                 "fraud_conclusion": False,
                 "scoring_applied": False,
                 "sector_adjustment_applied": False,

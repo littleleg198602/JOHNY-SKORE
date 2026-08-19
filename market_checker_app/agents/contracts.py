@@ -31,6 +31,13 @@ class GateDecision(str, Enum):
     REJECT = "REJECT"
 
 
+class ClaimStatus(str, Enum):
+    UNVERIFIED = "UNVERIFIED"
+    CORROBORATED = "CORROBORATED"
+    CONTRADICTED = "CONTRADICTED"
+    INSUFFICIENT_DATA = "INSUFFICIENT_DATA"
+
+
 @dataclass(slots=True)
 class QualityGateCheck:
     check_id: str
@@ -42,6 +49,7 @@ class QualityGateCheck:
     related_agent_names: list[str] = field(default_factory=list)
     signal_ids: list[str] = field(default_factory=list)
     evidence_ids: list[str] = field(default_factory=list)
+    claim_ids: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -103,6 +111,28 @@ class FundamentalFact:
 
 
 @dataclass(slots=True)
+class ResearchClaim:
+    claim_id: str
+    ticker: str
+    report_document_id: str
+    claim_type: str
+    statement: str
+    status: ClaimStatus
+    observed_at: datetime
+    published_at: datetime
+    confidence: float = 0.0
+    source_agent_name: str = "short_report"
+    verification_agent_name: str | None = None
+    verification_summary: str = ""
+    evidence_document_ids: list[str] = field(default_factory=list)
+    source_urls: list[str] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        self.confidence = _bounded(self.confidence, 0.0, 1.0, "confidence")
+
+
+@dataclass(slots=True)
 class AgentEvidence:
     evidence_id: str
     ticker: str
@@ -157,6 +187,7 @@ class AgentResult:
     entities: list[EntityRecord] = field(default_factory=list)
     documents: list[DocumentRecord] = field(default_factory=list)
     fundamental_facts: list[FundamentalFact] = field(default_factory=list)
+    claims: list[ResearchClaim] = field(default_factory=list)
     evidence: list[AgentEvidence] = field(default_factory=list)
     signals: list[AgentSignal] = field(default_factory=list)
     quality_checks: list[QualityGateCheck] = field(default_factory=list)
@@ -171,6 +202,7 @@ class AgentResult:
             len(self.entities)
             + len(self.documents)
             + len(self.fundamental_facts)
+            + len(self.claims)
             + len(self.evidence)
             + len(self.signals)
             + len(self.quality_checks)
@@ -235,6 +267,10 @@ class OrchestrationReport:
             for execution in self.executions
             for item in execution.result.fundamental_facts
         ]
+
+    @property
+    def claims(self) -> list[ResearchClaim]:
+        return [item for execution in self.executions for item in execution.result.claims]
 
     @property
     def signals(self) -> list[AgentSignal]:

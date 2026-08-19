@@ -10,6 +10,7 @@ import pandas as pd
 
 from market_checker_app.agents import (
     AgentStatus,
+    ClaimVerificationAgent,
     EntityRegistryAgent,
     FinancialForensicsAgent,
     OrchestrationReport,
@@ -17,6 +18,7 @@ from market_checker_app.agents import (
     PredictionV21AdapterAgent,
     QualityGateAgent,
     SecFundamentalsAgent,
+    ShortReportAgent,
 )
 from market_checker_app.analysis.behavioral_analysis import analyze_behavioral
 from market_checker_app.analysis.confidence import combine_confidence
@@ -63,8 +65,9 @@ class PipelineService:
         self.yahoo_client = YahooClient()
         self.yahoo_cache = YahooCacheStore(config.sqlite_path)
         self.sec_client = None
+        self.short_report_client = None
 
-    def _run_stage1_agents(
+    def _run_agents(
         self,
         watchlist: list[str],
         signals: pd.DataFrame,
@@ -81,6 +84,21 @@ class PipelineService:
             if self.config.financial_forensics.enabled:
                 orchestrator.register(
                     FinancialForensicsAgent(self.config.financial_forensics)
+                )
+        if self.config.short_reports.enabled:
+            orchestrator.register(
+                ShortReportAgent(
+                    self.config.short_reports,
+                    client=self.short_report_client,
+                )
+            )
+            if (
+                self.config.claim_verification.enabled
+                and self.config.fundamental_ingestion.enabled
+                and self.config.financial_forensics.enabled
+            ):
+                orchestrator.register(
+                    ClaimVerificationAgent(self.config.claim_verification)
                 )
         orchestrator.register(PredictionV21AdapterAgent())
         orchestrator.register(
@@ -585,16 +603,25 @@ class PipelineService:
         financial_forensics_evidence_count = 0
         financial_forensics_high_findings = 0
         financial_forensics_warning_findings = 0
+        short_report_status: str | None = None
+        short_report_document_count = 0
+        short_report_claim_count = 0
+        claim_verification_status: str | None = None
+        claim_corroborated_count = 0
+        claim_contradicted_count = 0
+        claim_insufficient_count = 0
         if self.config.agent_stage1_enabled:
             progress.set_global_step(
-                "agent_stage1",
-                "Spouštím auditní a fundamentální agenty",
+                "agent_pipeline",
+                "Spouštím auditní agentní pipeline",
                 0.97,
             )
             try:
-                agent_report = self._run_stage1_agents(watchlist, signals_df)
+                agent_report = self._run_agents(watchlist, signals_df)
             except Exception as exc:
-                warnings.append(f"Agentní etapa 1 se nespustila: {type(exc).__name__}: {exc}")
+                warnings.append(
+                    f"Agentní pipeline se nespustila: {type(exc).__name__}: {exc}"
+                )
             else:
                 for execution in agent_report.executions:
                     if execution.agent_name == "quality_gate":
@@ -617,6 +644,23 @@ class PipelineService:
                         )
                         financial_forensics_warning_findings = int(
                             execution.result.metadata.get("warning_findings", 0)
+                        )
+                    elif execution.agent_name == "short_report":
+                        short_report_status = execution.status.value
+                        short_report_document_count = len(execution.result.documents)
+                        short_report_claim_count = len(execution.result.claims)
+                    elif execution.agent_name == "claim_verification":
+                        claim_verification_status = execution.status.value
+                        raw_counts = execution.result.metadata.get("status_counts", {})
+                        status_counts = raw_counts if isinstance(raw_counts, dict) else {}
+                        claim_corroborated_count = int(
+                            status_counts.get("CORROBORATED", 0)
+                        )
+                        claim_contradicted_count = int(
+                            status_counts.get("CONTRADICTED", 0)
+                        )
+                        claim_insufficient_count = int(
+                            status_counts.get("INSUFFICIENT_DATA", 0)
                         )
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
@@ -695,6 +739,13 @@ class PipelineService:
             "financial_forensics_warning_findings": (
                 financial_forensics_warning_findings
             ),
+            "short_report_status": short_report_status,
+            "short_report_document_count": short_report_document_count,
+            "short_report_claim_count": short_report_claim_count,
+            "claim_verification_status": claim_verification_status,
+            "claim_corroborated_count": claim_corroborated_count,
+            "claim_contradicted_count": claim_contradicted_count,
+            "claim_insufficient_count": claim_insufficient_count,
             "agent_report": agent_report,
             "progress_state": progress.snapshot(),
         }
