@@ -214,6 +214,43 @@ SQLite tabulky etapy 3 jsou:
 - `resource_exposures` + `resource_exposure_observations`,
 - `regulatory_contract_events` + `regulatory_contract_event_observations`.
 
+## DecisionAgent, OOS evaluace a aktivace – etapa 4
+
+Etapa 4 je v UI opt-in a ve výchozím stavu vždy `shadow`. `DecisionAgent`
+navazuje na původní výstup v2.1 a používá konzervativní risk-overlay:
+
+- vrací auditní `P(UP)`, `P(FLAT)` a `P(DOWN)`, důvody a konflikty,
+- smí původní `BUY`/`SELL` pouze ponechat nebo navrhnout `NO_TRADE`,
+- nesmí obrátit směr ani vytvořit obchod z původního `NO_TRADE`,
+- neověřené tvrzení short reportu se nikdy nepovažuje za fakt ani samostatný
+  důvod k `SELL`,
+- v shadow režimu nevydává obchodní signál a nemění tabulku `Signals`.
+
+`EvaluationAgent` porovnává shadow návrh a stejnou původní predikci v2.1 na
+společných out-of-sample výsledcích. Použije pouze poslední běh v týdnu a cenu z
+následujícího týdne; výsledek s časem po začátku aktuální orchestrace odmítne.
+Sleduje paired lift, dolní 95% mez liftu, coverage, false-positive rate, Brier
+score a kalibrační chybu. Výchozí aktivační brána vyžaduje nejméně:
+
+- 200 OOS predikcí a 8 různých týdnů,
+- lift alespoň 2 procentní body a jeho dolní 95% mez nad nulou,
+- coverage alespoň 35 %,
+- žádné zhoršení false-positive rate, Brier score ani kalibrační chyby,
+- tři úspěšná vyhodnocení s nově přibylým týdenním výsledkem; opakovaný běh nad
+  stejným oknem se znovu nezapočítá.
+
+Stavy jsou `INSUFFICIENT_DATA`, `REJECTED`, `SHADOW`, `ELIGIBLE` a `ENABLED`.
+UI může dojít nejvýše do `ELIGIBLE`; live aplikace vyžaduje současně vypnutý
+globální shadow režim, explicitní allowlist politiky a povolení v konfiguraci
+obou agentů. QualityGate odmítne podvržený `ENABLED`, budoucí OOS výsledek,
+nesprávné pravděpodobnosti, změnu směru i aplikaci bez navázané evidence.
+
+SQLite tabulky etapy 4 jsou:
+
+- `decision_records`,
+- `policy_evaluations`,
+- `signal_activation_decisions`.
+
 ## Stav původní implementační roadmapy
 
 - **Etapa 1 — hotovo:** orchestrace, registr entit, společné dokumenty/evidence/běhy,
@@ -223,8 +260,9 @@ SQLite tabulky etapy 3 jsou:
 - **Etapa 3 — hotovo v shadow režimu:** `SupplyChainAgent`,
   `CommodityEnergyAgent` a `RegulatoryContractAgent` pro auditní síť firem,
   materiály, energie, regulaci a kontrakty.
-- **Etapa 4 — následuje:** rozšíření `DecisionAgent`, `EvaluationAgent` a
-  postupné povolování nových signálů až po prokázaném přínosu na out-of-sample datech.
+- **Etapa 4 — hotovo v bezpečném shadow režimu:** `DecisionAgent`, paired OOS
+  `EvaluationAgent`, point-in-time kontrola a víceprůchodová aktivační brána.
+  UI live aplikaci nepovoluje; politika se může stát nejvýše `ELIGIBLE`.
 
 ## Kde se ukládá výstup
 

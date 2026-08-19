@@ -4,11 +4,13 @@ from collections import Counter, defaultdict
 from datetime import datetime
 import hashlib
 import ipaddress
+import math
 from typing import Any
 from urllib.parse import urlparse
 
 from market_checker_app.agents.base import BaseAgent
 from market_checker_app.agents.contracts import (
+    ActivationState,
     AgentContext,
     AgentEvidence,
     AgentResult,
@@ -16,8 +18,10 @@ from market_checker_app.agents.contracts import (
     AgentStatus,
     ClaimStatus,
     CompanyRelationship,
+    DecisionRecord,
     DocumentRecord,
     GateDecision,
+    PolicyEvaluation,
     QualityGateCheck,
     RegulatoryContractEvent,
     RegulatoryContractEventType,
@@ -26,6 +30,7 @@ from market_checker_app.agents.contracts import (
     ResearchClaim,
     ResourceExposure,
     ResourceExposureType,
+    SignalActivationDecision,
     utc_now,
 )
 from market_checker_app.config import QualityGateConfig
@@ -63,6 +68,8 @@ class QualityGateAgent(BaseAgent):
         *,
         minimum_action_confidence: float = 0.30,
         dependencies: tuple[str, ...] | None = None,
+        stage4_live_application_enabled: bool = False,
+        stage4_live_policy_allowlist: tuple[str, ...] = (),
     ) -> None:
         self.config = config or QualityGateConfig()
         self.minimum_action_confidence = max(
@@ -71,6 +78,10 @@ class QualityGateAgent(BaseAgent):
         )
         if dependencies is not None:
             self.dependencies = dependencies
+        self.stage4_live_application_enabled = bool(
+            stage4_live_application_enabled
+        )
+        self.stage4_live_policy_allowlist = set(stage4_live_policy_allowlist)
 
     @staticmethod
     def _agent_outputs(context_state: dict[str, Any]) -> tuple[
@@ -82,10 +93,13 @@ class QualityGateAgent(BaseAgent):
         list[CompanyRelationship],
         list[ResourceExposure],
         list[RegulatoryContractEvent],
+        list[DecisionRecord],
+        list[PolicyEvaluation],
+        list[SignalActivationDecision],
     ]:
         results = context_state.get("agent_results")
         if not isinstance(results, dict):
-            return [], [], [], [], {}, [], [], []
+            return [], [], [], [], {}, [], [], [], [], [], []
 
         signals: list[AgentSignal] = []
         evidence: list[AgentEvidence] = []
@@ -95,6 +109,9 @@ class QualityGateAgent(BaseAgent):
         relationships: list[CompanyRelationship] = []
         exposures: list[ResourceExposure] = []
         regulatory_events: list[RegulatoryContractEvent] = []
+        decisions: list[DecisionRecord] = []
+        evaluations: list[PolicyEvaluation] = []
+        activations: list[SignalActivationDecision] = []
         for result in results.values():
             if not isinstance(result, AgentResult):
                 continue
@@ -107,6 +124,9 @@ class QualityGateAgent(BaseAgent):
             relationships.extend(result.company_relationships)
             exposures.extend(result.resource_exposures)
             regulatory_events.extend(result.regulatory_contract_events)
+            decisions.extend(result.decisions)
+            evaluations.extend(result.policy_evaluations)
+            activations.extend(result.activation_decisions)
         return (
             signals,
             evidence,
@@ -116,6 +136,9 @@ class QualityGateAgent(BaseAgent):
             relationships,
             exposures,
             regulatory_events,
+            decisions,
+            evaluations,
+            activations,
         )
 
     def _check_timestamp(
@@ -861,6 +884,323 @@ class QualityGateAgent(BaseAgent):
             rejects=rejects,
         )
 
+    def _check_decision(
+        self,
+        decision: DecisionRecord,
+        *,
+        now: datetime,
+        context: AgentContext,
+        signals_by_id: dict[str, AgentSignal],
+        signal_id_counts: Counter[str],
+        evidence_by_id: dict[str, AgentEvidence],
+        evidence_id_counts: Counter[str],
+        claim_ids: set[str],
+        regulatory_event_ids: set[str],
+        rejects: list[dict[str, str]],
+    ) -> None:
+        self._check_timestamp(decision.observed_at, now, "DecisionRecord", rejects)
+        baseline = signals_by_id.get(decision.baseline_signal_id)
+        if signal_id_counts[decision.baseline_signal_id] != 1 or baseline is None:
+            rejects.append(
+                _issue(
+                    "invalid_decision_baseline",
+                    "DecisionRecord musí odkazovat na právě jeden signál v2.1.",
+                )
+            )
+        elif (
+            baseline.agent_name != "prediction_v21_adapter"
+            or baseline.ticker != decision.ticker
+            or baseline.action != decision.baseline_action
+            or baseline.forecast != decision.baseline_forecast
+        ):
+            rejects.append(
+                _issue(
+                    "decision_baseline_mismatch",
+                    "DecisionRecord neodpovídá navázané predikci v2.1.",
+                )
+            )
+
+        if decision.proposed_action not in {
+            decision.baseline_action,
+            "NO_TRADE",
+        }:
+            rejects.append(
+                _issue(
+                    "stage4_direction_reversal",
+                    "Etapa 4 smí původní akci pouze ponechat nebo potlačit na NO_TRADE.",
+                )
+            )
+        if (
+            decision.baseline_action == "NO_TRADE"
+            and decision.proposed_action != "NO_TRADE"
+        ):
+            rejects.append(
+                _issue(
+                    "stage4_trade_promotion",
+                    "Etapa 4 nesmí vytvořit obchod z původního NO_TRADE.",
+                )
+            )
+        if decision.proposed_forecast != decision.baseline_forecast:
+            rejects.append(
+                _issue(
+                    "stage4_forecast_mutation",
+                    "Risk overlay nesmí bez samostatně ověřeného modelu změnit forecast.",
+                )
+            )
+        suppressed = decision.proposed_action != decision.baseline_action
+        if decision.hard_veto != suppressed:
+            rejects.append(
+                _issue(
+                    "stage4_veto_mismatch",
+                    "Hard veto DecisionRecord musí přesně odpovídat potlačení obchodu.",
+                )
+            )
+
+        for prefix, values in (
+            (
+                "baseline",
+                (
+                    decision.baseline_p_up,
+                    decision.baseline_p_flat,
+                    decision.baseline_p_down,
+                ),
+            ),
+            ("candidate", (decision.p_up, decision.p_flat, decision.p_down)),
+        ):
+            if any(not math.isfinite(value) or not 0.0 <= value <= 1.0 for value in values):
+                rejects.append(
+                    _issue(
+                        f"invalid_{prefix}_probability",
+                        "Pravděpodobnosti musí být konečné a v intervalu 0–1.",
+                    )
+                )
+            elif not math.isclose(sum(values), 1.0, abs_tol=1e-6):
+                rejects.append(
+                    _issue(
+                        f"invalid_{prefix}_probability_sum",
+                        "Pravděpodobnosti musí mít součet 1.",
+                    )
+                )
+
+        linked_evidence = []
+        for evidence_id in decision.evidence_ids:
+            if evidence_id_counts[evidence_id] != 1:
+                rejects.append(
+                    _issue(
+                        "invalid_decision_evidence",
+                        f"DecisionRecord odkazuje na nejednoznačnou evidenci {evidence_id}.",
+                    )
+                )
+            elif evidence_id in evidence_by_id:
+                linked_evidence.append(evidence_by_id[evidence_id])
+        if suppressed and not any(item.hard_veto for item in linked_evidence):
+            rejects.append(
+                _issue(
+                    "unsubstantiated_stage4_veto",
+                    "Potlačení obchodu nemá odvozenou auditní evidenci s hard veto.",
+                )
+            )
+        if set(decision.claim_ids).difference(claim_ids):
+            rejects.append(
+                _issue(
+                    "unknown_decision_claim",
+                    "DecisionRecord odkazuje na neznámé tvrzení short reportu.",
+                )
+            )
+        if set(decision.regulatory_event_ids).difference(regulatory_event_ids):
+            rejects.append(
+                _issue(
+                    "unknown_decision_regulatory_event",
+                    "DecisionRecord odkazuje na neznámou regulační událost.",
+                )
+            )
+
+        applied_signals = [
+            signal
+            for signal in signals_by_id.values()
+            if signal.agent_name == "decision_agent"
+            and signal.metadata.get("decision_id") == decision.decision_id
+        ]
+        if decision.applied_to_prediction:
+            if (
+                context.shadow_mode
+                or decision.activation_state != ActivationState.ENABLED
+                or not self.stage4_live_application_enabled
+                or decision.policy_name not in self.stage4_live_policy_allowlist
+                or decision.metadata.get("live_application_authorized") is not True
+            ):
+                rejects.append(
+                    _issue(
+                        "unauthorized_stage4_application",
+                        "Aplikace Etapy 4 nemá současně explicitní povolení, ENABLED stav a vypnutý shadow režim.",
+                    )
+                )
+            if len(applied_signals) != 1:
+                rejects.append(
+                    _issue(
+                        "missing_applied_stage4_signal",
+                        "Aplikovaný DecisionRecord musí mít právě jeden navázaný signál.",
+                    )
+                )
+        elif applied_signals:
+            rejects.append(
+                _issue(
+                    "shadow_decision_emitted_signal",
+                    "Shadow DecisionRecord nesmí vydat obchodní signál.",
+                )
+            )
+
+    def _check_stage4_evaluation(
+        self,
+        evaluation: PolicyEvaluation,
+        activation: SignalActivationDecision | None,
+        *,
+        now: datetime,
+        context: AgentContext,
+        rejects: list[dict[str, str]],
+    ) -> None:
+        self._check_timestamp(evaluation.observed_at, now, "PolicyEvaluation", rejects)
+        if (
+            evaluation.evaluated_through is not None
+            and (
+                evaluation.evaluated_through.tzinfo is None
+                or evaluation.evaluated_through.utcoffset() is None
+                or evaluation.evaluated_through > context.started_at
+            )
+        ):
+            rejects.append(
+                _issue(
+                    "future_stage4_evaluation",
+                    "PolicyEvaluation používá budoucí nebo časově nejednoznačný výsledek.",
+                )
+            )
+        metric_values = (
+            evaluation.baseline_accuracy_pct,
+            evaluation.candidate_accuracy_pct,
+            evaluation.baseline_false_positive_rate_pct,
+            evaluation.candidate_false_positive_rate_pct,
+            evaluation.coverage_pct,
+        )
+        score_values = (
+            evaluation.baseline_brier_score,
+            evaluation.candidate_brier_score,
+            evaluation.baseline_calibration_error,
+            evaluation.candidate_calibration_error,
+        )
+        if (
+            evaluation.sample_count < 0
+            or evaluation.distinct_weeks < 0
+            or any(not math.isfinite(value) or not 0.0 <= value <= 100.0 for value in metric_values)
+            or any(not math.isfinite(value) or not 0.0 <= value <= 2.0 for value in score_values)
+            or not math.isfinite(evaluation.lift_pct_points)
+            or not math.isfinite(evaluation.lift_lower_bound_pct_points)
+            or (evaluation.sample_count == 0 and evaluation.evaluated_through is not None)
+        ):
+            rejects.append(
+                _issue(
+                    "invalid_stage4_metrics",
+                    "OOS vyhodnocení obsahuje neplatné počty, metriky nebo časový rozsah.",
+                )
+            )
+        if not evaluation.gate_results:
+            rejects.append(
+                _issue(
+                    "missing_stage4_gate_results",
+                    "OOS vyhodnocení neobsahuje jednotlivé výsledky aktivační brány.",
+                )
+            )
+        if evaluation.gate_passed != all(evaluation.gate_results.values()):
+            rejects.append(
+                _issue(
+                    "stage4_gate_result_mismatch",
+                    "Souhrnný stav OOS brány neodpovídá jednotlivým kontrolám.",
+                )
+            )
+        if activation is None:
+            rejects.append(
+                _issue(
+                    "missing_activation_decision",
+                    "PolicyEvaluation nemá právě jedno aktivační rozhodnutí.",
+                )
+            )
+            return
+        self._check_timestamp(
+            activation.observed_at,
+            now,
+            "SignalActivationDecision",
+            rejects,
+        )
+        if (
+            activation.policy_name != evaluation.policy_name
+            or activation.policy_version != evaluation.policy_version
+            or activation.sample_count != evaluation.sample_count
+            or activation.distinct_weeks != evaluation.distinct_weeks
+            or activation.evaluated_through != evaluation.evaluated_through
+            or activation.gate_passed != evaluation.gate_passed
+        ):
+            rejects.append(
+                _issue(
+                    "activation_evaluation_mismatch",
+                    "Aktivační rozhodnutí neodpovídá navázanému OOS vyhodnocení.",
+                )
+            )
+        if activation.live_application_authorized != (
+            activation.state == ActivationState.ENABLED
+        ):
+            rejects.append(
+                _issue(
+                    "activation_authorization_mismatch",
+                    "Live autorizace je přípustná pouze ve stavu ENABLED.",
+                )
+            )
+        if activation.state == ActivationState.ENABLED and (
+            context.shadow_mode
+            or not activation.gate_passed
+            or not self.stage4_live_application_enabled
+            or activation.policy_name not in self.stage4_live_policy_allowlist
+            or activation.consecutive_passes
+            < int(activation.metadata.get("required_consecutive_passes", 1))
+        ):
+            rejects.append(
+                _issue(
+                    "forged_stage4_enablement",
+                    "Stav ENABLED nesplnil OOS, opakovaný průchod a explicitní live povolení.",
+                )
+            )
+        required_passes = int(
+            activation.metadata.get("required_consecutive_passes", 1)
+        )
+        if activation.state in {ActivationState.SHADOW, ActivationState.ELIGIBLE} and not activation.gate_passed:
+            rejects.append(
+                _issue(
+                    "invalid_stage4_shadow_state",
+                    "SHADOW/ELIGIBLE vyžaduje úspěšné OOS vyhodnocení.",
+                )
+            )
+        if activation.state in {
+            ActivationState.INSUFFICIENT_DATA,
+            ActivationState.REJECTED,
+        } and activation.gate_passed:
+            rejects.append(
+                _issue(
+                    "invalid_stage4_rejection_state",
+                    "INSUFFICIENT_DATA/REJECTED nesmí mít úspěšnou aktivační bránu.",
+                )
+            )
+        if (
+            activation.state == ActivationState.SHADOW
+            and activation.consecutive_passes >= required_passes
+        ) or (
+            activation.state in {ActivationState.ELIGIBLE, ActivationState.ENABLED}
+            and activation.consecutive_passes < required_passes
+        ):
+            rejects.append(
+                _issue(
+                    "stage4_consecutive_pass_mismatch",
+                    "Aktivační stav neodpovídá počtu nezávislých průchodů bránou.",
+                )
+            )
+
     def run(self, context: AgentContext) -> AgentResult:
         (
             signals,
@@ -871,6 +1211,9 @@ class QualityGateAgent(BaseAgent):
             relationships,
             exposures,
             regulatory_events,
+            decisions,
+            evaluations,
+            activations,
         ) = self._agent_outputs(context.state)
         now = utc_now()
         expected_tickers = {
@@ -886,6 +1229,10 @@ class QualityGateAgent(BaseAgent):
         evidence_id_counts = Counter(item.evidence_id for item in evidence)
         evidence_by_id = {item.evidence_id: item for item in evidence}
         signal_id_counts = Counter(item.signal_id for item in signals)
+        signals_by_id = {item.signal_id: item for item in signals}
+        decision_id_counts = Counter(item.decision_id for item in decisions)
+        evaluation_id_counts = Counter(item.evaluation_id for item in evaluations)
+        activation_id_counts = Counter(item.activation_id for item in activations)
         relationship_id_counts = Counter(
             item.relationship_id for item in relationships
         )
@@ -909,6 +1256,7 @@ class QualityGateAgent(BaseAgent):
             str,
             list[RegulatoryContractEvent],
         ] = defaultdict(list)
+        decisions_by_ticker: dict[str, list[DecisionRecord]] = defaultdict(list)
         for signal in signals:
             all_signals_by_ticker[signal.ticker].append(signal)
             if signal.agent_name == "prediction_v21_adapter":
@@ -923,6 +1271,8 @@ class QualityGateAgent(BaseAgent):
             exposures_by_ticker[exposure.ticker].append(exposure)
         for event in regulatory_events:
             regulatory_events_by_ticker[event.ticker].append(event)
+        for decision in decisions:
+            decisions_by_ticker[decision.ticker].append(decision)
 
         checks: list[QualityGateCheck] = []
         all_tickers = sorted(
@@ -934,6 +1284,7 @@ class QualityGateAgent(BaseAgent):
             | set(relationships_by_ticker)
             | set(exposures_by_ticker)
             | set(regulatory_events_by_ticker)
+            | set(decisions_by_ticker)
         )
         for ticker in all_tickers:
             rejects: list[dict[str, str]] = []
@@ -944,6 +1295,7 @@ class QualityGateAgent(BaseAgent):
             ticker_relationships = relationships_by_ticker.get(ticker, [])
             ticker_exposures = exposures_by_ticker.get(ticker, [])
             ticker_regulatory_events = regulatory_events_by_ticker.get(ticker, [])
+            ticker_decisions = decisions_by_ticker.get(ticker, [])
             v21_signals = v21_by_ticker.get(ticker, [])
 
             if ticker not in expected_tickers:
@@ -1057,6 +1409,27 @@ class QualityGateAgent(BaseAgent):
                     rejects=rejects,
                 )
 
+            for decision_record in ticker_decisions:
+                if decision_id_counts[decision_record.decision_id] != 1:
+                    rejects.append(
+                        _issue(
+                            "duplicate_decision_id",
+                            f"Decision ID {decision_record.decision_id} není unikátní.",
+                        )
+                    )
+                self._check_decision(
+                    decision_record,
+                    now=now,
+                    context=context,
+                    signals_by_id=signals_by_id,
+                    signal_id_counts=signal_id_counts,
+                    evidence_by_id=evidence_by_id,
+                    evidence_id_counts=evidence_id_counts,
+                    claim_ids={claim.claim_id for claim in claims},
+                    regulatory_event_ids={event.event_id for event in regulatory_events},
+                    rejects=rejects,
+                )
+
             if rejects:
                 decision = GateDecision.REJECT
                 message = f"Kontrola zamítla ticker: {len(rejects)} kritických problémů."
@@ -1101,6 +1474,7 @@ class QualityGateAgent(BaseAgent):
                             for claim in ticker_claims
                             if claim.verification_agent_name
                         }
+                        | ({"decision_agent"} if ticker_decisions else set())
                     ),
                     signal_ids=[signal.signal_id for signal in ticker_signals],
                     evidence_ids=[item.evidence_id for item in ticker_evidence],
@@ -1113,9 +1487,98 @@ class QualityGateAgent(BaseAgent):
                     regulatory_event_ids=[
                         event.event_id for event in ticker_regulatory_events
                     ],
+                    decision_ids=[
+                        decision_record.decision_id
+                        for decision_record in ticker_decisions
+                    ],
                     metadata={
                         "rejects": rejects,
                         "warnings": gate_warnings,
+                        "shadow_mode": context.shadow_mode,
+                    },
+                )
+            )
+
+        if evaluations or activations:
+            stage4_rejects: list[dict[str, str]] = []
+            activation_by_evaluation: dict[
+                str,
+                list[SignalActivationDecision],
+            ] = defaultdict(list)
+            for activation in activations:
+                activation_by_evaluation[activation.evaluation_id].append(activation)
+                if activation_id_counts[activation.activation_id] != 1:
+                    stage4_rejects.append(
+                        _issue(
+                            "duplicate_activation_id",
+                            f"Activation ID {activation.activation_id} není unikátní.",
+                        )
+                    )
+            for evaluation in evaluations:
+                if evaluation_id_counts[evaluation.evaluation_id] != 1:
+                    stage4_rejects.append(
+                        _issue(
+                            "duplicate_evaluation_id",
+                            f"Evaluation ID {evaluation.evaluation_id} není unikátní.",
+                        )
+                    )
+                linked = activation_by_evaluation.get(evaluation.evaluation_id, [])
+                if len(linked) > 1:
+                    stage4_rejects.append(
+                        _issue(
+                            "duplicate_activation_for_evaluation",
+                            "Jedno OOS vyhodnocení má více aktivačních rozhodnutí.",
+                        )
+                    )
+                self._check_stage4_evaluation(
+                    evaluation,
+                    linked[0] if len(linked) == 1 else None,
+                    now=now,
+                    context=context,
+                    rejects=stage4_rejects,
+                )
+            unknown_evaluations = sorted(
+                set(activation_by_evaluation).difference(
+                    evaluation.evaluation_id for evaluation in evaluations
+                )
+            )
+            if unknown_evaluations:
+                stage4_rejects.append(
+                    _issue(
+                        "activation_without_evaluation",
+                        "Aktivační rozhodnutí odkazuje na neznámé OOS vyhodnocení.",
+                    )
+                )
+            stage4_decision = (
+                GateDecision.REJECT if stage4_rejects else GateDecision.PASS
+            )
+            checks.append(
+                QualityGateCheck(
+                    check_id=_stable_id(
+                        context.orchestration_id,
+                        self.name,
+                        "stage4_activation_integrity",
+                    ),
+                    ticker=None,
+                    gate_name="stage4_activation_integrity",
+                    decision=stage4_decision,
+                    observed_at=now,
+                    message=(
+                        f"Kontrola zamítla Etapu 4: {len(stage4_rejects)} problémů."
+                        if stage4_rejects
+                        else "OOS vyhodnocení a aktivační rozhodnutí Etapy 4 prošly."
+                    ),
+                    related_agent_names=["evaluation_agent", "decision_agent"],
+                    decision_ids=[decision.decision_id for decision in decisions],
+                    evaluation_ids=[
+                        evaluation.evaluation_id for evaluation in evaluations
+                    ],
+                    activation_ids=[
+                        activation.activation_id for activation in activations
+                    ],
+                    metadata={
+                        "rejects": stage4_rejects,
+                        "warnings": [],
                         "shadow_mode": context.shadow_mode,
                     },
                 )

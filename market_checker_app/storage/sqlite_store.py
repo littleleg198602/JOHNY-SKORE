@@ -116,6 +116,9 @@ class SQLiteStore:
             "relationship_ids_json",
             "exposure_ids_json",
             "regulatory_event_ids_json",
+            "decision_ids_json",
+            "evaluation_ids_json",
+            "activation_ids_json",
         ):
             if column not in existing:
                 conn.execute(
@@ -571,9 +574,110 @@ class SQLiteStore:
                     relationship_ids_json TEXT NOT NULL DEFAULT '[]',
                     exposure_ids_json TEXT NOT NULL DEFAULT '[]',
                     regulatory_event_ids_json TEXT NOT NULL DEFAULT '[]',
+                    decision_ids_json TEXT NOT NULL DEFAULT '[]',
+                    evaluation_ids_json TEXT NOT NULL DEFAULT '[]',
+                    activation_ids_json TEXT NOT NULL DEFAULT '[]',
                     metadata_json TEXT NOT NULL DEFAULT '{}',
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
                     FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS decision_records (
+                    decision_id TEXT PRIMARY KEY,
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    pipeline_run_id INTEGER,
+                    ticker TEXT NOT NULL,
+                    policy_name TEXT NOT NULL,
+                    policy_version TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    baseline_signal_id TEXT NOT NULL,
+                    baseline_action TEXT NOT NULL,
+                    baseline_forecast TEXT NOT NULL,
+                    proposed_action TEXT NOT NULL,
+                    proposed_forecast TEXT NOT NULL,
+                    baseline_p_up REAL NOT NULL,
+                    baseline_p_flat REAL NOT NULL,
+                    baseline_p_down REAL NOT NULL,
+                    p_up REAL NOT NULL,
+                    p_flat REAL NOT NULL,
+                    p_down REAL NOT NULL,
+                    confidence REAL NOT NULL,
+                    hard_veto INTEGER NOT NULL,
+                    activation_state TEXT NOT NULL,
+                    applied_to_prediction INTEGER NOT NULL,
+                    reasons_json TEXT NOT NULL DEFAULT '[]',
+                    conflicts_json TEXT NOT NULL DEFAULT '[]',
+                    evidence_ids_json TEXT NOT NULL DEFAULT '[]',
+                    claim_ids_json TEXT NOT NULL DEFAULT '[]',
+                    regulatory_event_ids_json TEXT NOT NULL DEFAULT '[]',
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(pipeline_run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS policy_evaluations (
+                    evaluation_id TEXT PRIMARY KEY,
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    pipeline_run_id INTEGER,
+                    policy_name TEXT NOT NULL,
+                    policy_version TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    evaluated_through TEXT,
+                    sample_count INTEGER NOT NULL,
+                    distinct_weeks INTEGER NOT NULL,
+                    baseline_accuracy_pct REAL NOT NULL,
+                    candidate_accuracy_pct REAL NOT NULL,
+                    lift_pct_points REAL NOT NULL,
+                    lift_lower_bound_pct_points REAL NOT NULL,
+                    baseline_false_positive_rate_pct REAL NOT NULL,
+                    candidate_false_positive_rate_pct REAL NOT NULL,
+                    coverage_pct REAL NOT NULL,
+                    baseline_brier_score REAL NOT NULL,
+                    candidate_brier_score REAL NOT NULL,
+                    baseline_calibration_error REAL NOT NULL,
+                    candidate_calibration_error REAL NOT NULL,
+                    gate_passed INTEGER NOT NULL,
+                    gate_results_json TEXT NOT NULL DEFAULT '{}',
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(pipeline_run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS signal_activation_decisions (
+                    activation_id TEXT PRIMARY KEY,
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    pipeline_run_id INTEGER,
+                    policy_name TEXT NOT NULL,
+                    policy_version TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    evaluated_through TEXT,
+                    state TEXT NOT NULL,
+                    evaluation_id TEXT NOT NULL,
+                    sample_count INTEGER NOT NULL,
+                    distinct_weeks INTEGER NOT NULL,
+                    consecutive_passes INTEGER NOT NULL,
+                    gate_passed INTEGER NOT NULL,
+                    live_application_authorized INTEGER NOT NULL,
+                    reasons_json TEXT NOT NULL DEFAULT '[]',
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(pipeline_run_id) REFERENCES runs(run_id),
+                    FOREIGN KEY(evaluation_id) REFERENCES policy_evaluations(evaluation_id)
                 )
                 """
             )
@@ -637,6 +741,15 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_quality_gate_orchestration ON quality_gate_checks(orchestration_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_decision_records_policy_run ON decision_records(policy_name, pipeline_run_id, ticker)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_policy_evaluations_policy_time ON policy_evaluations(policy_name, evaluated_through)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_activation_policy_time ON signal_activation_decisions(policy_name, observed_at)"
             )
 
     def insert_run(self, metadata: RunMetadata) -> int:
@@ -1295,6 +1408,142 @@ class SQLiteStore:
                         ),
                     )
 
+                for decision in result.decisions:
+                    conn.execute(
+                        """
+                        INSERT INTO decision_records(
+                            decision_id, orchestration_id, agent_run_id,
+                            pipeline_run_id, ticker, policy_name, policy_version,
+                            observed_at, baseline_signal_id, baseline_action,
+                            baseline_forecast, proposed_action, proposed_forecast,
+                            baseline_p_up, baseline_p_flat, baseline_p_down,
+                            p_up, p_flat, p_down, confidence, hard_veto,
+                            activation_state, applied_to_prediction, reasons_json,
+                            conflicts_json, evidence_ids_json, claim_ids_json,
+                            regulatory_event_ids_json, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            decision.decision_id,
+                            report.orchestration_id,
+                            agent_run_id,
+                            linked_run_id,
+                            decision.ticker,
+                            decision.policy_name,
+                            decision.policy_version,
+                            to_iso(decision.observed_at),
+                            decision.baseline_signal_id,
+                            decision.baseline_action,
+                            decision.baseline_forecast,
+                            decision.proposed_action,
+                            decision.proposed_forecast,
+                            decision.baseline_p_up,
+                            decision.baseline_p_flat,
+                            decision.baseline_p_down,
+                            decision.p_up,
+                            decision.p_flat,
+                            decision.p_down,
+                            decision.confidence,
+                            int(decision.hard_veto),
+                            decision.activation_state.value,
+                            int(decision.applied_to_prediction),
+                            self._json_dump(decision.reasons),
+                            self._json_dump(decision.conflicts),
+                            self._json_dump(decision.evidence_ids),
+                            self._json_dump(decision.claim_ids),
+                            self._json_dump(decision.regulatory_event_ids),
+                            self._json_dump(decision.metadata),
+                        ),
+                    )
+
+                for evaluation in result.policy_evaluations:
+                    conn.execute(
+                        """
+                        INSERT INTO policy_evaluations(
+                            evaluation_id, orchestration_id, agent_run_id,
+                            pipeline_run_id, policy_name, policy_version,
+                            observed_at, evaluated_through, sample_count,
+                            distinct_weeks, baseline_accuracy_pct,
+                            candidate_accuracy_pct, lift_pct_points,
+                            lift_lower_bound_pct_points,
+                            baseline_false_positive_rate_pct,
+                            candidate_false_positive_rate_pct, coverage_pct,
+                            baseline_brier_score, candidate_brier_score,
+                            baseline_calibration_error,
+                            candidate_calibration_error, gate_passed,
+                            gate_results_json,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            evaluation.evaluation_id,
+                            report.orchestration_id,
+                            agent_run_id,
+                            linked_run_id,
+                            evaluation.policy_name,
+                            evaluation.policy_version,
+                            to_iso(evaluation.observed_at),
+                            (
+                                to_iso(evaluation.evaluated_through)
+                                if evaluation.evaluated_through
+                                else None
+                            ),
+                            evaluation.sample_count,
+                            evaluation.distinct_weeks,
+                            evaluation.baseline_accuracy_pct,
+                            evaluation.candidate_accuracy_pct,
+                            evaluation.lift_pct_points,
+                            evaluation.lift_lower_bound_pct_points,
+                            evaluation.baseline_false_positive_rate_pct,
+                            evaluation.candidate_false_positive_rate_pct,
+                            evaluation.coverage_pct,
+                            evaluation.baseline_brier_score,
+                            evaluation.candidate_brier_score,
+                            evaluation.baseline_calibration_error,
+                            evaluation.candidate_calibration_error,
+                            int(evaluation.gate_passed),
+                            self._json_dump(evaluation.gate_results),
+                            self._json_dump(evaluation.metadata),
+                        ),
+                    )
+
+                for activation in result.activation_decisions:
+                    conn.execute(
+                        """
+                        INSERT INTO signal_activation_decisions(
+                            activation_id, orchestration_id, agent_run_id,
+                            pipeline_run_id, policy_name, policy_version,
+                            observed_at, evaluated_through, state, evaluation_id,
+                            sample_count, distinct_weeks, consecutive_passes,
+                            gate_passed, live_application_authorized,
+                            reasons_json, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            activation.activation_id,
+                            report.orchestration_id,
+                            agent_run_id,
+                            linked_run_id,
+                            activation.policy_name,
+                            activation.policy_version,
+                            to_iso(activation.observed_at),
+                            (
+                                to_iso(activation.evaluated_through)
+                                if activation.evaluated_through
+                                else None
+                            ),
+                            activation.state.value,
+                            activation.evaluation_id,
+                            activation.sample_count,
+                            activation.distinct_weeks,
+                            activation.consecutive_passes,
+                            int(activation.gate_passed),
+                            int(activation.live_application_authorized),
+                            self._json_dump(activation.reasons),
+                            self._json_dump(activation.metadata),
+                        ),
+                    )
+
                 for check in result.quality_checks:
                     conn.execute(
                         """
@@ -1304,8 +1553,10 @@ class SQLiteStore:
                             related_agent_names_json, signal_ids_json,
                             evidence_ids_json, claim_ids_json,
                             relationship_ids_json, exposure_ids_json,
-                            regulatory_event_ids_json, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            regulatory_event_ids_json, decision_ids_json,
+                            evaluation_ids_json, activation_ids_json,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             check.check_id,
@@ -1323,6 +1574,9 @@ class SQLiteStore:
                             self._json_dump(check.relationship_ids),
                             self._json_dump(check.exposure_ids),
                             self._json_dump(check.regulatory_event_ids),
+                            self._json_dump(check.decision_ids),
+                            self._json_dump(check.evaluation_ids),
+                            self._json_dump(check.activation_ids),
                             self._json_dump(check.metadata),
                         ),
                     )
@@ -1447,6 +1701,56 @@ class SQLiteStore:
             query += " WHERE orchestration_id = ?"
             params = (orchestration_id,)
         query += " ORDER BY observed_at ASC, signal_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_decision_records(
+        self,
+        *,
+        policy_name: str | None = None,
+        orchestration_id: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        clauses: list[str] = []
+        params: list[object] = []
+        if policy_name is not None:
+            clauses.append("policy_name = ?")
+            params.append(policy_name)
+        if orchestration_id is not None:
+            clauses.append("orchestration_id = ?")
+            params.append(orchestration_id)
+        query = "SELECT * FROM decision_records"
+        if clauses:
+            query += " WHERE " + " AND ".join(clauses)
+        query += " ORDER BY observed_at ASC, decision_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=tuple(params))
+
+    def read_policy_evaluations(
+        self,
+        policy_name: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM policy_evaluations"
+        params: tuple[object, ...] = ()
+        if policy_name is not None:
+            query += " WHERE policy_name = ?"
+            params = (policy_name,)
+        query += " ORDER BY observed_at ASC, evaluation_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_signal_activation_decisions(
+        self,
+        policy_name: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM signal_activation_decisions"
+        params: tuple[object, ...] = ()
+        if policy_name is not None:
+            query += " WHERE policy_name = ?"
+            params = (policy_name,)
+        query += " ORDER BY observed_at ASC, activation_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 

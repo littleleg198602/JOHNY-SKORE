@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime
+import math
 from pathlib import Path
 
 
@@ -100,6 +101,87 @@ class QualityGateConfig:
     require_full_v21_coverage: bool = True
     require_external_provenance: bool = True
     provenance_exempt_event_types: tuple[str, ...] = ("PREDICTION_V21",)
+
+
+@dataclass(slots=True)
+class DecisionAgentConfig:
+    """Conservative Stage 4 overlay; disabled and shadow-only by default."""
+
+    enabled: bool = False
+    policy_name: str = "conservative_risk_overlay"
+    policy_version: str = "1.0"
+    suppression_score_threshold: float = 3.0
+    probability_flat_shift: float = 0.18
+    minimum_forensic_confidence: float = 0.50
+    minimum_claim_confidence: float = 0.50
+    minimum_regulatory_confidence: float = 0.70
+    live_application_enabled: bool = False
+    live_policy_allowlist: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        if not self.policy_name.strip() or not self.policy_version.strip():
+            raise ValueError("Stage 4 policy name and version must not be empty")
+        if (
+            not math.isfinite(self.suppression_score_threshold)
+            or self.suppression_score_threshold <= 0.0
+        ):
+            raise ValueError("suppression_score_threshold must be positive")
+        for label in (
+            "probability_flat_shift",
+            "minimum_forensic_confidence",
+            "minimum_claim_confidence",
+            "minimum_regulatory_confidence",
+        ):
+            value = float(getattr(self, label))
+            if not math.isfinite(value) or not 0.0 <= value <= 1.0:
+                raise ValueError(f"{label} must be between 0 and 1")
+
+
+@dataclass(slots=True)
+class EvaluationAgentConfig:
+    """Out-of-sample evidence required before a Stage 4 policy can be enabled."""
+
+    enabled: bool = False
+    minimum_oos_samples: int = 200
+    minimum_distinct_weeks: int = 8
+    minimum_lift_pct_points: float = 2.0
+    minimum_lift_lower_bound_pct_points: float = 0.0
+    minimum_coverage_pct: float = 35.0
+    maximum_false_positive_increase_pct_points: float = 0.0
+    maximum_brier_increase: float = 0.0
+    maximum_calibration_error_increase: float = 0.0
+    required_consecutive_passes: int = 3
+    hold_tolerance_pct: float = 2.0
+    minimum_weekly_gap_days: float = 4.0
+    maximum_weekly_gap_days: float = 10.0
+    enable_after_gate: bool = False
+    enabled_policy_allowlist: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        if self.minimum_oos_samples < 1:
+            raise ValueError("minimum_oos_samples must be at least 1")
+        if self.minimum_distinct_weeks < 1:
+            raise ValueError("minimum_distinct_weeks must be at least 1")
+        if self.required_consecutive_passes < 1:
+            raise ValueError("required_consecutive_passes must be at least 1")
+        if not 0.0 <= self.minimum_coverage_pct <= 100.0:
+            raise ValueError("minimum_coverage_pct must be between 0 and 100")
+        if self.hold_tolerance_pct < 0.0:
+            raise ValueError("hold_tolerance_pct must not be negative")
+        if (
+            self.minimum_weekly_gap_days < 0.0
+            or self.maximum_weekly_gap_days < self.minimum_weekly_gap_days
+        ):
+            raise ValueError("weekly gap bounds are invalid")
+        for label in (
+            "minimum_lift_pct_points",
+            "minimum_lift_lower_bound_pct_points",
+            "maximum_false_positive_increase_pct_points",
+            "maximum_brier_increase",
+            "maximum_calibration_error_increase",
+        ):
+            if not math.isfinite(float(getattr(self, label))):
+                raise ValueError(f"{label} must be finite")
 
 
 @dataclass(slots=True)
@@ -296,6 +378,10 @@ class AppConfig:
     decision_thresholds: DecisionThresholds = field(default_factory=DecisionThresholds)
     prediction_v21: PredictionV21Config = field(default_factory=PredictionV21Config)
     quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
+    decision_agent: DecisionAgentConfig = field(default_factory=DecisionAgentConfig)
+    evaluation_agent: EvaluationAgentConfig = field(
+        default_factory=EvaluationAgentConfig
+    )
     fundamental_ingestion: FundamentalIngestionConfig = field(
         default_factory=FundamentalIngestionConfig
     )

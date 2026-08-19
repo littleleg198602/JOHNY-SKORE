@@ -12,7 +12,9 @@ from market_checker_app.agents import (
     AgentStatus,
     ClaimVerificationAgent,
     CommodityEnergyAgent,
+    DecisionAgent,
     EntityRegistryAgent,
+    EvaluationAgent,
     FinancialForensicsAgent,
     OrchestrationReport,
     OrchestratorAgent,
@@ -52,6 +54,9 @@ from market_checker_app.models import (
 )
 from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.services.ranking_service import RankingService
+from market_checker_app.services.stage4_evaluation_service import (
+    Stage4EvaluationService,
+)
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 from market_checker_app.utils.dates import utc_now
@@ -74,7 +79,64 @@ class PipelineService:
         self,
         watchlist: list[str],
         signals: pd.DataFrame,
+        store: SQLiteStore | None = None,
     ) -> OrchestrationReport:
+        agent_state: dict[str, object] = {
+            "signals": signals,
+            "stage4_evaluation_enabled": self.config.evaluation_agent.enabled,
+        }
+        if self.config.decision_agent.enabled:
+            stage4_service = Stage4EvaluationService()
+            stage4_as_of = utc_now()
+            try:
+                if store is not None and self.config.save_history:
+                    history = store.read_global_history()
+                    decisions = store.read_decision_records(
+                        policy_name=self.config.decision_agent.policy_name
+                    )
+                    activations = store.read_signal_activation_decisions(
+                        self.config.decision_agent.policy_name
+                    )
+                else:
+                    history = pd.DataFrame()
+                    decisions = pd.DataFrame()
+                    activations = pd.DataFrame()
+                agent_state["stage4_evaluation_samples"] = stage4_service.build_samples(
+                    history=history,
+                    decisions=decisions,
+                    current_signals=signals,
+                    policy_name=self.config.decision_agent.policy_name,
+                    policy_version=self.config.decision_agent.policy_version,
+                    as_of=stage4_as_of,
+                    hold_tolerance_pct=self.config.evaluation_agent.hold_tolerance_pct,
+                    minimum_weekly_gap_days=(
+                        self.config.evaluation_agent.minimum_weekly_gap_days
+                    ),
+                    maximum_weekly_gap_days=(
+                        self.config.evaluation_agent.maximum_weekly_gap_days
+                    ),
+                )
+                agent_state["stage4_prior_activation"] = (
+                    stage4_service.latest_activation(
+                        activations,
+                        policy_name=self.config.decision_agent.policy_name,
+                        policy_version=self.config.decision_agent.policy_version,
+                        as_of=stage4_as_of,
+                    )
+                )
+                agent_state["stage4_activation_history"] = (
+                    activations.to_dict(orient="records")
+                    if not activations.empty
+                    else []
+                )
+            except Exception as exc:
+                agent_state["stage4_evaluation_samples"] = []
+                agent_state["stage4_prior_activation"] = {}
+                agent_state["stage4_activation_history"] = []
+                agent_state["stage4_preparation_error"] = (
+                    f"{type(exc).__name__}: {exc}"
+                )
+
         orchestrator = OrchestratorAgent(shadow_mode=self.config.agent_shadow_mode)
         orchestrator.register(EntityRegistryAgent())
         if self.config.fundamental_ingestion.enabled:
@@ -114,18 +176,95 @@ class PipelineService:
                 RegulatoryContractAgent(self.config.regulatory_contract)
             )
         orchestrator.register(PredictionV21AdapterAgent())
+        if self.config.decision_agent.enabled:
+            if self.config.evaluation_agent.enabled:
+                orchestrator.register(
+                    EvaluationAgent(
+                        self.config.evaluation_agent,
+                        policy_name=self.config.decision_agent.policy_name,
+                        policy_version=self.config.decision_agent.policy_version,
+                    )
+                )
+            decision_dependencies = (
+                ("prediction_v21_adapter", "evaluation_agent")
+                if self.config.evaluation_agent.enabled
+                else ("prediction_v21_adapter",)
+            )
+            orchestrator.register(
+                DecisionAgent(
+                    self.config.decision_agent,
+                    dependencies=decision_dependencies,
+                )
+            )
+        stage4_policy_allowlist = tuple(
+            sorted(
+                set(self.config.decision_agent.live_policy_allowlist)
+                & set(self.config.evaluation_agent.enabled_policy_allowlist)
+            )
+        )
         orchestrator.register(
             QualityGateAgent(
                 self.config.quality_gate,
                 minimum_action_confidence=(
                     self.config.prediction_v21.minimum_action_confidence
                 ),
+                stage4_live_application_enabled=(
+                    self.config.decision_agent.live_application_enabled
+                    and self.config.evaluation_agent.enabled
+                    and self.config.evaluation_agent.enable_after_gate
+                ),
+                stage4_live_policy_allowlist=stage4_policy_allowlist,
             )
         )
         return orchestrator.run(
             watchlist=watchlist,
-            state={"signals": signals},
+            state=agent_state,
         )
+
+    @staticmethod
+    def _apply_stage4_decisions(
+        signals: pd.DataFrame,
+        report: OrchestrationReport,
+    ) -> pd.DataFrame:
+        applied = [
+            decision
+            for decision in report.decisions
+            if decision.applied_to_prediction
+        ]
+        if not applied or signals.empty:
+            return signals
+        output = signals.copy()
+        for decision in applied:
+            mask = output["ticker"].astype(str).str.upper().eq(decision.ticker)
+            if not mask.any():
+                continue
+            current_actions = output.loc[mask, "action"].astype(str).str.upper()
+            if not current_actions.eq(decision.baseline_action).all():
+                continue
+
+            def append_json_list(raw: object, value: str) -> str:
+                try:
+                    decoded = json.loads(str(raw)) if raw not in (None, "") else []
+                except (TypeError, json.JSONDecodeError):
+                    decoded = [str(raw)] if str(raw).strip() else []
+                if not isinstance(decoded, list):
+                    decoded = [str(decoded)]
+                return json.dumps(
+                    list(dict.fromkeys([str(item) for item in decoded] + [value])),
+                    ensure_ascii=False,
+                )
+
+            reason = (
+                f"stage4:{decision.policy_name}:{decision.decision_id[:12]}"
+            )
+            for column in ("action_reasons", "blocked_reasons"):
+                if column in output.columns:
+                    output.loc[mask, column] = output.loc[mask, column].map(
+                        lambda value: append_json_list(value, reason)
+                    )
+            output.loc[mask, "action"] = decision.proposed_action
+            output.loc[mask, "signal"] = decision.proposed_action
+        return output
 
     @staticmethod
     def _expand_rss_sources(rss_sources: list[str], watchlist: list[str]) -> list[str]:
@@ -629,6 +768,17 @@ class PipelineService:
         commodity_energy_exposure_count = 0
         regulatory_contract_status: str | None = None
         regulatory_contract_event_count = 0
+        decision_agent_status: str | None = None
+        decision_count = 0
+        decision_suppressed_count = 0
+        decision_applied_count = 0
+        evaluation_agent_status: str | None = None
+        activation_state: str | None = None
+        evaluation_sample_count = 0
+        evaluation_distinct_weeks = 0
+        evaluation_lift_pct_points: float | None = None
+        evaluation_lift_lower_bound_pct_points: float | None = None
+        evaluation_coverage_pct: float | None = None
         if self.config.agent_stage1_enabled:
             progress.set_global_step(
                 "agent_pipeline",
@@ -636,7 +786,7 @@ class PipelineService:
                 0.97,
             )
             try:
-                agent_report = self._run_agents(watchlist, signals_df)
+                agent_report = self._run_agents(watchlist, signals_df, store)
             except Exception as exc:
                 warnings.append(
                     f"Agentní pipeline se nespustila: {type(exc).__name__}: {exc}"
@@ -696,6 +846,37 @@ class PipelineService:
                         regulatory_contract_event_count = len(
                             execution.result.regulatory_contract_events
                         )
+                    elif execution.agent_name == "decision_agent":
+                        decision_agent_status = execution.status.value
+                        decision_count = len(execution.result.decisions)
+                        decision_suppressed_count = int(
+                            execution.result.metadata.get(
+                                "suppressed_proposals",
+                                0,
+                            )
+                        )
+                        decision_applied_count = int(
+                            execution.result.metadata.get("applied_decisions", 0)
+                        )
+                    elif execution.agent_name == "evaluation_agent":
+                        evaluation_agent_status = execution.status.value
+                        activation_state = str(
+                            execution.result.metadata.get(
+                                "activation_state",
+                                "INSUFFICIENT_DATA",
+                            )
+                        )
+                        if execution.result.policy_evaluations:
+                            evaluation = execution.result.policy_evaluations[0]
+                            evaluation_sample_count = evaluation.sample_count
+                            evaluation_distinct_weeks = evaluation.distinct_weeks
+                            evaluation_lift_pct_points = (
+                                evaluation.lift_pct_points
+                            )
+                            evaluation_lift_lower_bound_pct_points = (
+                                evaluation.lift_lower_bound_pct_points
+                            )
+                            evaluation_coverage_pct = evaluation.coverage_pct
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
                         for warning in execution.result.warnings
@@ -710,6 +891,17 @@ class PipelineService:
                         f"Agentní pipeline skončila stavem {agent_report.status.value}; "
                         "predikce v2.1 nebyla agentní vrstvou změněna."
                     )
+                if decision_applied_count:
+                    if quality_gate_decision == "PASS":
+                        signals_df = self._apply_stage4_decisions(
+                            signals_df,
+                            agent_report,
+                        )
+                    else:
+                        warnings.append(
+                            "Etapa 4 navrhla live aplikaci, ale QualityGate ji "
+                            "nepovolil; původní predikce v2.1 zůstala beze změny."
+                        )
 
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(article) for article in articles])
@@ -786,6 +978,19 @@ class PipelineService:
             "commodity_energy_exposure_count": commodity_energy_exposure_count,
             "regulatory_contract_status": regulatory_contract_status,
             "regulatory_contract_event_count": regulatory_contract_event_count,
+            "decision_agent_status": decision_agent_status,
+            "decision_count": decision_count,
+            "decision_suppressed_count": decision_suppressed_count,
+            "decision_applied_count": decision_applied_count,
+            "evaluation_agent_status": evaluation_agent_status,
+            "activation_state": activation_state,
+            "evaluation_sample_count": evaluation_sample_count,
+            "evaluation_distinct_weeks": evaluation_distinct_weeks,
+            "evaluation_lift_pct_points": evaluation_lift_pct_points,
+            "evaluation_lift_lower_bound_pct_points": (
+                evaluation_lift_lower_bound_pct_points
+            ),
+            "evaluation_coverage_pct": evaluation_coverage_pct,
             "agent_report": agent_report,
             "progress_state": progress.snapshot(),
         }

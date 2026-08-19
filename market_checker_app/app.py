@@ -25,10 +25,12 @@ from market_checker_app.config import (
     AppConfig,
     ClaimVerificationConfig,
     CommodityEnergyConfig,
+    DecisionAgentConfig,
     DEFAULT_DB_PATH,
     DEFAULT_OUTPUT_DIR,
     FinancialForensicsConfig,
     FundamentalIngestionConfig,
+    EvaluationAgentConfig,
     RegulatoryContractConfig,
     ShortReportConfig,
     ShortReportSourceConfig,
@@ -841,6 +843,36 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         "Události",
         int(result.get("regulatory_contract_event_count") or 0),
     )
+    stage4_metrics = st.columns(7)
+    stage4_metrics[0].metric(
+        "DecisionAgent",
+        result.get("decision_agent_status") or "vypnuto",
+    )
+    stage4_metrics[1].metric(
+        "Shadow veto návrhy",
+        int(result.get("decision_suppressed_count") or 0),
+    )
+    stage4_metrics[2].metric(
+        "EvaluationAgent",
+        result.get("evaluation_agent_status") or "vypnuto",
+    )
+    stage4_metrics[3].metric(
+        "Aktivační stav",
+        result.get("activation_state") or "vypnuto",
+    )
+    stage4_metrics[4].metric(
+        "OOS vzorky",
+        int(result.get("evaluation_sample_count") or 0),
+    )
+    stage4_metrics[5].metric(
+        "OOS týdny",
+        int(result.get("evaluation_distinct_weeks") or 0),
+    )
+    lift = result.get("evaluation_lift_pct_points")
+    stage4_metrics[6].metric(
+        "OOS lift (p. b.)",
+        f"{float(lift):.2f}" if lift is not None else "n/a",
+    )
 
     report = result.get("agent_report")
     executions = getattr(report, "executions", None)
@@ -1081,6 +1113,73 @@ def _render_agent_audit(result: dict[str, object]) -> None:
     if not stage3_executions:
         st.info("Agenti Etapy 3 nebyli v tomto běhu zapnutí.")
 
+    decision_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "decision_agent"
+        ),
+        None,
+    )
+    evaluation_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "evaluation_agent"
+        ),
+        None,
+    )
+    st.markdown("### DecisionAgent a OOS aktivační brána — Etapa 4")
+    st.caption(
+        "Výchozí režim je shadow. Overlay smí obchod pouze ponechat nebo "
+        "potlačit na NO_TRADE; nesmí obrátit směr ani vytvořit nový obchod."
+    )
+    if decision_execution is None:
+        st.info("Etapa 4 nebyla v tomto běhu zapnutá.")
+    else:
+        decision_rows = [
+            {
+                "ticker": decision.ticker,
+                "baseline": decision.baseline_action,
+                "návrh": decision.proposed_action,
+                "forecast": decision.proposed_forecast,
+                "P(UP)": round(decision.p_up, 4),
+                "P(FLAT)": round(decision.p_flat, 4),
+                "P(DOWN)": round(decision.p_down, 4),
+                "hard_veto": decision.hard_veto,
+                "aktivace": decision.activation_state.value,
+                "aplikováno": decision.applied_to_prediction,
+                "důvody": "; ".join(decision.reasons),
+                "konflikty": "; ".join(decision.conflicts),
+            }
+            for decision in decision_execution.result.decisions
+        ]
+        if decision_rows:
+            st.dataframe(pd.DataFrame(decision_rows), width="stretch", hide_index=True)
+        if (
+            evaluation_execution is not None
+            and evaluation_execution.result.policy_evaluations
+        ):
+            evaluation = evaluation_execution.result.policy_evaluations[0]
+            activation = evaluation_execution.result.activation_decisions[0]
+            st.caption(
+                f"Brána: {activation.state.value}; vzorky {evaluation.sample_count}; "
+                f"týdny {evaluation.distinct_weeks}; lift "
+                f"{evaluation.lift_pct_points:.2f} p. b.; dolní 95% mez "
+                f"{evaluation.lift_lower_bound_pct_points:.2f} p. b.; "
+                f"coverage {evaluation.coverage_pct:.2f} %."
+            )
+            st.dataframe(
+                pd.DataFrame(
+                    [
+                        {"kontrola": name, "splněna": passed}
+                        for name, passed in evaluation.gate_results.items()
+                    ]
+                ),
+                width="stretch",
+                hide_index=True,
+            )
+
 
 st.set_page_config(page_title="Market Checker", layout="wide")
 st.title("Market Checker")
@@ -1217,6 +1316,14 @@ with st.sidebar:
             "1000000 | USD | Agency | 2026-08-19 | https://example.gov/award"
         ),
     )
+    use_stage4_shadow = st.checkbox(
+        "Spustit DecisionAgent a OOS evaluaci (Etapa 4, shadow)",
+        value=False,
+        help=(
+            "Vytvoří auditní návrhy a vyhodnotí jejich skutečný OOS přínos. "
+            "Tento přepínač nikdy nemění BUY/SELL; live aplikace není v UI povolena."
+        ),
+    )
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
     load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
@@ -1292,6 +1399,14 @@ config = AppConfig(
     regulatory_contract=RegulatoryContractConfig(
         enabled=use_regulatory_contract,
         sources=regulatory_contract_sources,
+    ),
+    decision_agent=DecisionAgentConfig(
+        enabled=use_stage4_shadow,
+        live_application_enabled=False,
+    ),
+    evaluation_agent=EvaluationAgentConfig(
+        enabled=use_stage4_shadow,
+        enable_after_gate=False,
     ),
 )
 config.ensure_output_dir()
