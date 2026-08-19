@@ -17,9 +17,9 @@ from market_checker_app.agents.contracts import (
 class OrchestratorAgent:
     """Deterministic dependency runner for analytical agents.
 
-    Stage 1 intentionally runs agents sequentially.  The dependency graph and
-    immutable execution records are established now; independent layers can be
-    parallelised later without changing the agent contract.
+    Agents intentionally run sequentially. The dependency graph and immutable
+    execution records allow independent layers to be parallelised later without
+    changing the agent contract.
     """
 
     def __init__(self, *, shadow_mode: bool = True) -> None:

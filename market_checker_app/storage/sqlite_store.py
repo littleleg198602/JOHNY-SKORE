@@ -102,6 +102,17 @@ class SQLiteStore:
             if column not in existing:
                 conn.execute(f"ALTER TABLE signal_history ADD COLUMN {column} {ctype}")
 
+    @staticmethod
+    def _ensure_quality_gate_columns(conn: sqlite3.Connection) -> None:
+        existing = {
+            row[1]
+            for row in conn.execute("PRAGMA table_info(quality_gate_checks)").fetchall()
+        }
+        if "claim_ids_json" not in existing:
+            conn.execute(
+                "ALTER TABLE quality_gate_checks ADD COLUMN claim_ids_json TEXT NOT NULL DEFAULT '[]'"
+            )
+
     def ensure_schema(self) -> None:
         with self._connect() as conn:
             conn.execute(
@@ -336,6 +347,49 @@ class SQLiteStore:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS research_claims (
+                    claim_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    report_document_id TEXT NOT NULL,
+                    claim_type TEXT NOT NULL,
+                    statement TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    confidence REAL NOT NULL,
+                    published_at TEXT NOT NULL,
+                    source_agent_name TEXT NOT NULL,
+                    verification_agent_name TEXT,
+                    verification_summary TEXT NOT NULL DEFAULT '',
+                    evidence_document_ids_json TEXT NOT NULL DEFAULT '[]',
+                    source_urls_json TEXT NOT NULL DEFAULT '[]',
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(report_document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS research_claim_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    claim_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    confidence REAL NOT NULL,
+                    verification_agent_name TEXT,
+                    verification_summary TEXT NOT NULL DEFAULT '',
+                    evidence_document_ids_json TEXT NOT NULL DEFAULT '[]',
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    PRIMARY KEY(orchestration_id, agent_run_id, claim_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(claim_id) REFERENCES research_claims(claim_id)
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS evidence (
                     evidence_id TEXT PRIMARY KEY,
                     orchestration_id TEXT NOT NULL,
@@ -399,12 +453,14 @@ class SQLiteStore:
                     related_agent_names_json TEXT NOT NULL DEFAULT '[]',
                     signal_ids_json TEXT NOT NULL DEFAULT '[]',
                     evidence_ids_json TEXT NOT NULL DEFAULT '[]',
+                    claim_ids_json TEXT NOT NULL DEFAULT '[]',
                     metadata_json TEXT NOT NULL DEFAULT '{}',
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
                     FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE
                 )
                 """
             )
+            self._ensure_quality_gate_columns(conn)
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_agent_runs_pipeline ON agent_runs(pipeline_run_id)"
             )
@@ -422,6 +478,12 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_fundamental_fact_observations_run ON fundamental_fact_observations(orchestration_id, agent_run_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_research_claims_ticker_status ON research_claims(ticker, status, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_research_claim_observations_run ON research_claim_observations(orchestration_id, agent_run_id)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_evidence_ticker_observed ON evidence(ticker, observed_at)"
@@ -800,6 +862,75 @@ class SQLiteStore:
                         ),
                     )
 
+                for claim in result.claims:
+                    conn.execute(
+                        """
+                        INSERT INTO research_claims(
+                            claim_id, ticker, report_document_id, claim_type,
+                            statement, status, confidence, published_at,
+                            source_agent_name, verification_agent_name,
+                            verification_summary, evidence_document_ids_json,
+                            source_urls_json, first_seen_at, last_seen_at,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(claim_id) DO UPDATE SET
+                            ticker = excluded.ticker,
+                            report_document_id = excluded.report_document_id,
+                            claim_type = excluded.claim_type,
+                            statement = excluded.statement,
+                            status = excluded.status,
+                            confidence = excluded.confidence,
+                            published_at = excluded.published_at,
+                            source_agent_name = excluded.source_agent_name,
+                            verification_agent_name = excluded.verification_agent_name,
+                            verification_summary = excluded.verification_summary,
+                            evidence_document_ids_json = excluded.evidence_document_ids_json,
+                            source_urls_json = excluded.source_urls_json,
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            claim.claim_id,
+                            claim.ticker,
+                            claim.report_document_id,
+                            claim.claim_type,
+                            claim.statement,
+                            claim.status.value,
+                            claim.confidence,
+                            to_iso(claim.published_at),
+                            claim.source_agent_name,
+                            claim.verification_agent_name,
+                            claim.verification_summary,
+                            self._json_dump(claim.evidence_document_ids),
+                            self._json_dump(claim.source_urls),
+                            to_iso(claim.observed_at),
+                            to_iso(claim.observed_at),
+                            self._json_dump(claim.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO research_claim_observations(
+                            orchestration_id, agent_run_id, claim_id, observed_at,
+                            status, confidence, verification_agent_name,
+                            verification_summary, evidence_document_ids_json,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            claim.claim_id,
+                            to_iso(claim.observed_at),
+                            claim.status.value,
+                            claim.confidence,
+                            claim.verification_agent_name,
+                            claim.verification_summary,
+                            self._json_dump(claim.evidence_document_ids),
+                            self._json_dump(claim.metadata),
+                        ),
+                    )
+
                 for evidence in result.evidence:
                     conn.execute(
                         """
@@ -870,8 +1001,8 @@ class SQLiteStore:
                             check_id, orchestration_id, agent_run_id, ticker,
                             gate_name, decision, observed_at, message,
                             related_agent_names_json, signal_ids_json,
-                            evidence_ids_json, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            evidence_ids_json, claim_ids_json, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             check.check_id,
@@ -885,6 +1016,7 @@ class SQLiteStore:
                             self._json_dump(check.related_agent_names),
                             self._json_dump(check.signal_ids),
                             self._json_dump(check.evidence_ids),
+                            self._json_dump(check.claim_ids),
                             self._json_dump(check.metadata),
                         ),
                     )
@@ -942,6 +1074,20 @@ class SQLiteStore:
             query += " WHERE ticker = ?"
             params = (ticker,)
         query += " ORDER BY ticker ASC, concept ASC, filed_at DESC, fact_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_research_claims(
+        self,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM research_claims"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY published_at DESC, ticker ASC, claim_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 

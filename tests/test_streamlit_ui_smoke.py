@@ -21,13 +21,23 @@ class StreamlitUISmokeTests(unittest.TestCase):
         checkbox_labels = [field.label for field in app.checkbox]
         self.assertIn("Načíst SEC výkazy (Etapa 2)", checkbox_labels)
         self.assertIn(
-            "Spustit finanční forenzní screening (Etapa 3)",
+            "Spustit finanční forenzní screening (Etapa 2)",
+            checkbox_labels,
+        )
+        self.assertIn("Načíst short reporty (Etapa 2)", checkbox_labels)
+        self.assertIn(
+            "Ověřit tvrzení reportů proti SEC datům",
             checkbox_labels,
         )
         text_labels = [field.label for field in app.text_input]
         self.assertIn(
             "SEC User-Agent (aplikace + kontaktní e-mail)",
             text_labels,
+        )
+        text_area_labels = [field.label for field in app.text_area]
+        self.assertIn(
+            "Short reporty: TICKER | vydavatel | datum | HTTPS URL",
+            text_area_labels,
         )
 
 

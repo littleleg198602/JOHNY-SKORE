@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sqlite3
 import tempfile
@@ -16,7 +16,13 @@ from market_checker_app.collectors.sec_edgar_client import (
     SecCompanyFact,
     SecFiling,
 )
-from market_checker_app.config import AppConfig, FundamentalIngestionConfig
+from market_checker_app.collectors.short_report_client import FetchedShortReport
+from market_checker_app.config import (
+    AppConfig,
+    FundamentalIngestionConfig,
+    ShortReportConfig,
+    ShortReportSourceConfig,
+)
 from market_checker_app.models import PerformanceSnapshot, RunMetadata, YahooSnapshot
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -163,6 +169,25 @@ class _FakeSecClient:
         )
 
 
+class _FakeShortReportClient:
+    def fetch(self, source: ShortReportSourceConfig) -> FetchedShortReport:
+        text = (
+            "We believe operating cash flow is weak and cash conversion is unsustainable. "
+            "The company carries excessive debt and leverage that threaten its balance sheet. "
+            "Management failed to disclose material related-party arrangements."
+        )
+        return FetchedShortReport(
+            source=source,
+            final_url=source.url,
+            mime_type="text/html",
+            title="Runtime fixture report",
+            text=text,
+            content_hash="b" * 64,
+            size_bytes=len(text.encode("utf-8")),
+            extractor="fixture",
+        )
+
+
 class RuntimeIntegrationTests(unittest.TestCase):
     def test_pipeline_persists_signals_and_history_atomically(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -255,6 +280,64 @@ class RuntimeIntegrationTests(unittest.TestCase):
             assets = facts.loc[facts["concept"] == "Assets"].iloc[0]
             self.assertEqual(200.0, float(assets["value"]))
 
+    def test_pipeline_runs_short_report_claim_verification_in_shadow_mode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            store = SQLiteStore(output_dir / "history.db")
+            source = ShortReportSourceConfig(
+                ticker="AAPL",
+                publisher="Example Research",
+                published_at=datetime.now(timezone.utc) - timedelta(days=1),
+                url="https://research.example.test/aapl-report.html",
+            )
+            pipeline = PipelineService(
+                AppConfig(
+                    output_dir=output_dir,
+                    sqlite_path=store.db_path,
+                    save_history=True,
+                    fundamental_ingestion=FundamentalIngestionConfig(
+                        enabled=True,
+                        user_agent="JohnySkoreTests tests@example.com",
+                    ),
+                    short_reports=ShortReportConfig(
+                        enabled=True,
+                        sources=(source,),
+                    ),
+                )
+            )
+            pipeline.yahoo_client = _FakeYahooClient()
+            pipeline.sec_client = _FakeSecClient()
+            pipeline.short_report_client = _FakeShortReportClient()
+
+            result = pipeline.run(
+                ["AAPL"],
+                [],
+                store,
+                yahoo_only_tickers={"AAPL"},
+                rss_enabled=False,
+                mt5_enabled=False,
+            )
+
+            self.assertEqual("PASS", result["quality_gate_decision"])
+            self.assertEqual("SUCCESS", result["short_report_status"])
+            self.assertEqual("PARTIAL", result["claim_verification_status"])
+            self.assertEqual(1, result["short_report_document_count"])
+            self.assertEqual(3, result["short_report_claim_count"])
+            self.assertEqual(0, result["claim_corroborated_count"])
+            self.assertEqual(2, result["claim_contradicted_count"])
+            self.assertEqual(1, result["claim_insufficient_count"])
+            self.assertEqual(
+                result["signals"].iloc[0]["action"],
+                result["agent_report"].signals[0].action,
+            )
+            self.assertEqual(7, len(store.read_agent_runs()))
+            self.assertEqual(3, len(store.read_research_claims("AAPL")))
+            with store._connect() as conn:
+                observations = conn.execute(
+                    "SELECT COUNT(*) FROM research_claim_observations"
+                ).fetchone()[0]
+            self.assertEqual(6, observations)
+
     def test_existing_database_is_migrated_additively_for_v21(self):
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "history.db"
@@ -268,6 +351,12 @@ class RuntimeIntegrationTests(unittest.TestCase):
             with store._connect() as conn:
                 columns = {
                     row[1] for row in conn.execute("PRAGMA table_info(signal_history)").fetchall()
+                }
+                quality_gate_columns = {
+                    row[1]
+                    for row in conn.execute(
+                        "PRAGMA table_info(quality_gate_checks)"
+                    ).fetchall()
                 }
                 tables = {
                     row[0]
@@ -298,11 +387,14 @@ class RuntimeIntegrationTests(unittest.TestCase):
                     "document_observations",
                     "fundamental_facts",
                     "fundamental_fact_observations",
+                    "research_claims",
+                    "research_claim_observations",
                     "evidence",
                     "agent_signals",
                     "quality_gate_checks",
                 }.issubset(tables)
             )
+            self.assertIn("claim_ids_json", quality_gate_columns)
 
     def test_empty_watchlist_is_rejected(self):
         pipeline = PipelineService(AppConfig(save_history=False))

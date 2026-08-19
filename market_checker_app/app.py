@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from pathlib import Path
 import os
 import re
 import sys
+from urllib.parse import urlparse
 
 CURRENT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = CURRENT_DIR.parent
@@ -21,10 +23,13 @@ from market_checker_app.analysis.scoring import validate_decision_scenarios
 from market_checker_app.collectors.mt5_client import MT5Client
 from market_checker_app.config import (
     AppConfig,
+    ClaimVerificationConfig,
     DEFAULT_DB_PATH,
     DEFAULT_OUTPUT_DIR,
     FinancialForensicsConfig,
     FundamentalIngestionConfig,
+    ShortReportConfig,
+    ShortReportSourceConfig,
     SignalThresholds,
 )
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
@@ -48,6 +53,7 @@ from market_checker_app.utils.charts import (
     signal_bar_chart,
     top_bottom_bar_chart,
 )
+from market_checker_app.utils.text import normalize_ticker
 
 
 MAX_PREVIEW_ROWS = 500
@@ -73,6 +79,65 @@ def _parse_json_list(value: object) -> list[str]:
         except json.JSONDecodeError:
             return [value]
     return []
+
+
+def _parse_short_report_sources(
+    value: str,
+) -> tuple[tuple[ShortReportSourceConfig, ...], list[str]]:
+    """Parse explicit report manifests without discovering or fetching sources."""
+
+    sources: list[ShortReportSourceConfig] = []
+    errors: list[str] = []
+    seen: set[tuple[str, str, str]] = set()
+    for line_number, raw_line in enumerate(str(value or "").splitlines(), start=1):
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = [part.strip() for part in line.split("|", 3)]
+        if len(parts) != 4:
+            errors.append(
+                f"Short report řádek {line_number}: očekávám TICKER | vydavatel | datum | HTTPS URL."
+            )
+            continue
+        raw_ticker, publisher, raw_published_at, url = parts
+        ticker = normalize_ticker(raw_ticker)
+        if not ticker or not publisher:
+            errors.append(
+                f"Short report řádek {line_number}: chybí platný ticker nebo vydavatel."
+            )
+            continue
+        try:
+            published_at = datetime.fromisoformat(
+                raw_published_at.replace("Z", "+00:00")
+            )
+        except ValueError:
+            errors.append(
+                f"Short report řádek {line_number}: datum musí být ISO, například 2026-08-19."
+            )
+            continue
+        if published_at.tzinfo is None or published_at.utcoffset() is None:
+            published_at = published_at.replace(tzinfo=timezone.utc)
+        else:
+            published_at = published_at.astimezone(timezone.utc)
+        parsed_url = urlparse(url)
+        if parsed_url.scheme.lower() != "https" or not parsed_url.hostname:
+            errors.append(
+                f"Short report řádek {line_number}: URL musí být veřejná HTTPS adresa."
+            )
+            continue
+        key = (ticker, url, published_at.isoformat())
+        if key in seen:
+            continue
+        seen.add(key)
+        sources.append(
+            ShortReportSourceConfig(
+                ticker=ticker,
+                publisher=publisher,
+                published_at=published_at,
+                url=url,
+            )
+        )
+    return tuple(sources), errors
 
 
 def _resolve_sqlite_path(raw_value: str) -> tuple[Path, str | None]:
@@ -718,6 +783,31 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         "Forenzní WARN",
         int(result.get("financial_forensics_warning_findings") or 0),
     )
+    report_metrics = st.columns(6)
+    report_metrics[0].metric(
+        "Short report",
+        result.get("short_report_status") or "vypnuto",
+    )
+    report_metrics[1].metric(
+        "Reporty",
+        int(result.get("short_report_document_count") or 0),
+    )
+    report_metrics[2].metric(
+        "Tvrzení",
+        int(result.get("short_report_claim_count") or 0),
+    )
+    report_metrics[3].metric(
+        "Potvrzeno daty",
+        int(result.get("claim_corroborated_count") or 0),
+    )
+    report_metrics[4].metric(
+        "Nepodpořeno daty",
+        int(result.get("claim_contradicted_count") or 0),
+    )
+    report_metrics[5].metric(
+        "Nedostatek dat",
+        int(result.get("claim_insufficient_count") or 0),
+    )
 
     report = result.get("agent_report")
     executions = getattr(report, "executions", None)
@@ -749,68 +839,130 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         ),
         None,
     )
-    if forensic_execution is None:
-        st.info("Finanční forenzní screening nebyl v tomto běhu zapnutý.")
-        return
-
-    forensic_rows = []
-    for evidence in forensic_execution.result.evidence:
-        metadata = evidence.metadata if isinstance(evidence.metadata, dict) else {}
-        findings = metadata.get("findings", [])
-        if not isinstance(findings, list):
-            findings = []
-        high_count = sum(
-            isinstance(item, dict) and item.get("severity") == "HIGH"
-            for item in findings
-        )
-        warning_count = sum(
-            isinstance(item, dict) and item.get("severity") == "WARN"
-            for item in findings
-        )
-        finding_codes = [
-            str(item.get("code"))
-            for item in findings
-            if isinstance(item, dict) and item.get("code")
-        ]
-        forensic_rows.append(
-            {
-                "ticker": evidence.ticker,
-                "risk_score": round(evidence.risk_score, 2),
-                "confidence_pct": round(evidence.confidence * 100.0, 1),
-                "HIGH": high_count,
-                "WARN": warning_count,
-                "finding_codes": ", ".join(finding_codes),
-                "finding_details": json.dumps(
-                    findings,
-                    ensure_ascii=False,
-                    sort_keys=True,
-                ),
-                "metrics": json.dumps(
-                    metadata.get("metrics", {}),
-                    ensure_ascii=False,
-                    sort_keys=True,
-                ),
-                "sec_documents": len(evidence.document_ids),
-                "source_urls": "\n".join(evidence.source_urls),
-            }
-        )
-
     st.markdown("### Finanční forenzní screening")
     st.caption(
         "Diagnostické indikátory pro další ověření — nejde o závěr o podvodu, "
         "obchodní signál ani vstup do score v2.1."
     )
-    if forensic_rows:
+    if forensic_execution is None:
+        st.info("Finanční forenzní screening nebyl v tomto běhu zapnutý.")
+    else:
+        forensic_rows = []
+        for evidence in forensic_execution.result.evidence:
+            metadata = evidence.metadata if isinstance(evidence.metadata, dict) else {}
+            findings = metadata.get("findings", [])
+            if not isinstance(findings, list):
+                findings = []
+            high_count = sum(
+                isinstance(item, dict) and item.get("severity") == "HIGH"
+                for item in findings
+            )
+            warning_count = sum(
+                isinstance(item, dict) and item.get("severity") == "WARN"
+                for item in findings
+            )
+            finding_codes = [
+                str(item.get("code"))
+                for item in findings
+                if isinstance(item, dict) and item.get("code")
+            ]
+            forensic_rows.append(
+                {
+                    "ticker": evidence.ticker,
+                    "risk_score": round(evidence.risk_score, 2),
+                    "confidence_pct": round(evidence.confidence * 100.0, 1),
+                    "HIGH": high_count,
+                    "WARN": warning_count,
+                    "finding_codes": ", ".join(finding_codes),
+                    "finding_details": json.dumps(
+                        findings,
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    ),
+                    "metrics": json.dumps(
+                        metadata.get("metrics", {}),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    ),
+                    "sec_documents": len(evidence.document_ids),
+                    "source_urls": "\n".join(evidence.source_urls),
+                }
+            )
+        if forensic_rows:
+            st.dataframe(
+                pd.DataFrame(forensic_rows).sort_values(
+                    ["risk_score", "ticker"],
+                    ascending=[False, True],
+                ),
+                width="stretch",
+                hide_index=True,
+            )
+        else:
+            st.info("Agent neměl dostatek použitelných SEC faktů pro žádný ticker.")
+
+    short_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "short_report"
+        ),
+        None,
+    )
+    verification_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "claim_verification"
+        ),
+        None,
+    )
+    st.markdown("### Short reporty a ověření jednotlivých tvrzení")
+    st.caption(
+        "Stavy se vztahují pouze k úzkému tvrzení a dostupným SEC datům. "
+        "Nejde o hodnocení celého reportu, závěr o podvodu ani vstup do score v2.1."
+    )
+    st.caption(
+        "Stav ověřovacího agenta: "
+        f"{result.get('claim_verification_status') or 'vypnuto'}"
+    )
+    claims = []
+    if verification_execution is not None and verification_execution.result.claims:
+        claims = verification_execution.result.claims
+    elif short_execution is not None:
+        claims = short_execution.result.claims
+    if claims:
+        claim_rows = []
+        for claim in claims:
+            independent_documents = [
+                document_id
+                for document_id in claim.evidence_document_ids
+                if document_id != claim.report_document_id
+            ]
+            claim_rows.append(
+                {
+                    "ticker": claim.ticker,
+                    "stav": claim.status.value,
+                    "typ": claim.claim_type,
+                    "tvrzení": claim.statement,
+                    "důvěra_pct": round(claim.confidence * 100.0, 1),
+                    "shrnutí_ověření": claim.verification_summary,
+                    "primární_dokumenty": len(independent_documents),
+                    "datum_reportu": claim.published_at.isoformat(),
+                    "zdroje": "\n".join(claim.source_urls),
+                }
+            )
         st.dataframe(
-            pd.DataFrame(forensic_rows).sort_values(
-                ["risk_score", "ticker"],
-                ascending=[False, True],
+            pd.DataFrame(claim_rows).sort_values(
+                ["ticker", "stav", "typ"],
+                ascending=[True, True, True],
             ),
             width="stretch",
             hide_index=True,
         )
+    elif short_execution is None:
+        st.info("Short reporty nebyly v tomto běhu zapnuté.")
     else:
-        st.info("Agent neměl dostatek použitelných SEC faktů pro žádný ticker.")
+        st.info("Nebyla bezpečně extrahována žádná tvrzení k zobrazení.")
 
 
 st.set_page_config(page_title="Market Checker", layout="wide")
@@ -851,13 +1003,45 @@ with st.sidebar:
         help="Příklad: JohnySkore/2.0 kontakt@example.com. SEC tento údaj vyžaduje.",
     )
     use_financial_forensics = st.checkbox(
-        "Spustit finanční forenzní screening (Etapa 3)",
+        "Spustit finanční forenzní screening (Etapa 2)",
         value=True,
         disabled=not use_sec_fundamentals,
         help=(
             "Vyhodnotí kvalitu cash flow, zadlužení, likviditu, akruály, "
             "odchylky pracovního kapitálu a možné restatementy. Jde o auditní "
             "screening; nemění predikci a netvrdí, že došlo k podvodu."
+        ),
+    )
+    use_short_reports = st.checkbox(
+        "Načíst short reporty (Etapa 2)",
+        value=False,
+        help=(
+            "Načte pouze ručně uvedené veřejné reporty. Samotná existence reportu "
+            "nevytváří SELL, veto ani závěr o pravdivosti jeho tvrzení."
+        ),
+    )
+    short_report_sources_text = st.text_area(
+        "Short reporty: TICKER | vydavatel | datum | HTTPS URL",
+        value="",
+        height=110,
+        disabled=not use_short_reports,
+        placeholder=(
+            "AAPL | Example Research | 2026-08-19 | "
+            "https://example.com/report.pdf"
+        ),
+        help="Jeden report na řádek. Datum je datum zveřejnění, nikoli datum stažení.",
+    )
+    verify_short_report_claims = st.checkbox(
+        "Ověřit tvrzení reportů proti SEC datům",
+        value=True,
+        disabled=not (
+            use_short_reports
+            and use_sec_fundamentals
+            and use_financial_forensics
+        ),
+        help=(
+            "Porovná úzká finanční tvrzení s dohledatelnými SEC dokumenty. "
+            "Výsledek zůstává mimo predikční score."
         ),
     )
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
@@ -884,6 +1068,9 @@ with st.sidebar:
     run_analysis = st.button("Spustit analýzu", type="primary")
 
 sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
+short_report_sources, short_report_source_errors = _parse_short_report_sources(
+    short_report_sources_text
+)
 
 config = AppConfig(
     output_dir=output_dir,
@@ -900,6 +1087,18 @@ config = AppConfig(
     financial_forensics=FinancialForensicsConfig(
         enabled=use_sec_fundamentals and use_financial_forensics,
     ),
+    short_reports=ShortReportConfig(
+        enabled=use_short_reports,
+        sources=short_report_sources,
+    ),
+    claim_verification=ClaimVerificationConfig(
+        enabled=(
+            use_short_reports
+            and use_sec_fundamentals
+            and use_financial_forensics
+            and verify_short_report_claims
+        ),
+    ),
 )
 config.ensure_output_dir()
 store = SQLiteStore(config.sqlite_path)
@@ -912,6 +1111,13 @@ if use_sec_fundamentals and not sec_user_agent.strip():
     st.warning(
         "SEC Etapa 2 je zapnutá, ale chybí User-Agent s kontaktním e-mailem; "
         "F2-SEC proto běh přeskočí."
+    )
+for short_report_error in short_report_source_errors:
+    st.warning(short_report_error)
+if use_short_reports and not short_report_sources:
+    st.warning(
+        "ShortReportAgent je zapnutý, ale nemá žádný platný řádek se zdrojem; "
+        "běh tuto volitelnou vrstvu auditovatelně označí jako nedostupnou."
     )
 
 if load_watchlist:

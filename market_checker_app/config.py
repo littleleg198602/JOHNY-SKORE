@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
 
 
@@ -164,6 +165,43 @@ class FinancialForensicsConfig:
     annual_filing_lag_days: int = 120
 
 
+@dataclass(frozen=True, slots=True)
+class ShortReportSourceConfig:
+    """One explicitly configured public report and its point-in-time metadata."""
+
+    ticker: str
+    publisher: str
+    published_at: datetime
+    url: str
+
+
+@dataclass(slots=True)
+class ShortReportConfig:
+    """Opt-in ingestion of explicitly supplied short-report URLs."""
+
+    enabled: bool = False
+    sources: tuple[ShortReportSourceConfig, ...] = ()
+    user_agent: str = "JohnySkore/2.1 short-report-audit"
+    request_timeout_seconds: float = 20.0
+    max_download_bytes: int = 8_000_000
+    max_text_characters: int = 500_000
+    max_claims_per_report: int = 25
+    minimum_claim_characters: int = 40
+
+
+@dataclass(slots=True)
+class ClaimVerificationConfig:
+    """Conservative structured checks against already ingested SEC evidence."""
+
+    enabled: bool = True
+    minimum_forensic_confidence: float = 0.35
+    healthy_cash_conversion_ratio: float = 0.90
+    healthy_current_ratio: float = 1.20
+    healthy_debt_to_assets_ratio: float = 0.40
+    healthy_liabilities_to_assets_ratio: float = 0.70
+    max_healthy_working_capital_divergence_pct: float = 10.0
+
+
 @dataclass(slots=True)
 class RegimeOverrides:
     trend_multiplier: float = 1.08
@@ -194,6 +232,10 @@ class AppConfig:
     )
     financial_forensics: FinancialForensicsConfig = field(
         default_factory=FinancialForensicsConfig
+    )
+    short_reports: ShortReportConfig = field(default_factory=ShortReportConfig)
+    claim_verification: ClaimVerificationConfig = field(
+        default_factory=ClaimVerificationConfig
     )
     behavioral_weights: BehavioralWeights = field(default_factory=BehavioralWeights)
     adjustment: AdjustmentConfig = field(default_factory=AdjustmentConfig)
