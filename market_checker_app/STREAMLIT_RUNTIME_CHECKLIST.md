@@ -54,3 +54,14 @@
   - signal transition
   - hit-rate new vs legacy
   - side-by-side strategie
+
+## 8) Etapa 4 – shadow a OOS brána
+1. Zapni **Spustit DecisionAgent a OOS evaluaci (Etapa 4, shadow)**.
+2. Po doběhu otevři **Audit agentní pipeline**.
+3. Ověř:
+   - původní `Signals.action` se nezměnil,
+   - tabulka DecisionAgent ukazuje baseline, návrh a tři pravděpodobnosti,
+   - první běhy mají aktivační stav `INSUFFICIENT_DATA`,
+   - QualityGate je `PASS`, pokud nejsou porušeny auditní vazby,
+   - v SQLite přibyly `decision_records`, `policy_evaluations` a
+     `signal_activation_decisions`.

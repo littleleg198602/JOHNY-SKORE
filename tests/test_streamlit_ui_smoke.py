@@ -41,6 +41,10 @@ class StreamlitUISmokeTests(unittest.TestCase):
             "Načíst regulační a kontraktní události (Etapa 3)",
             checkbox_labels,
         )
+        self.assertIn(
+            "Spustit DecisionAgent a OOS evaluaci (Etapa 4, shadow)",
+            checkbox_labels,
+        )
         text_labels = [field.label for field in app.text_input]
         self.assertIn(
             "SEC User-Agent (aplikace + kontaktní e-mail)",

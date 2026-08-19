@@ -32,6 +32,14 @@ class GateDecision(str, Enum):
     REJECT = "REJECT"
 
 
+class ActivationState(str, Enum):
+    SHADOW = "SHADOW"
+    INSUFFICIENT_DATA = "INSUFFICIENT_DATA"
+    REJECTED = "REJECTED"
+    ELIGIBLE = "ELIGIBLE"
+    ENABLED = "ENABLED"
+
+
 class ClaimStatus(str, Enum):
     UNVERIFIED = "UNVERIFIED"
     CORROBORATED = "CORROBORATED"
@@ -89,6 +97,9 @@ class QualityGateCheck:
     relationship_ids: list[str] = field(default_factory=list)
     exposure_ids: list[str] = field(default_factory=list)
     regulatory_event_ids: list[str] = field(default_factory=list)
+    decision_ids: list[str] = field(default_factory=list)
+    evaluation_ids: list[str] = field(default_factory=list)
+    activation_ids: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -315,6 +326,147 @@ class AgentSignal:
 
 
 @dataclass(slots=True)
+class DecisionRecord:
+    decision_id: str
+    ticker: str
+    policy_name: str
+    policy_version: str
+    observed_at: datetime
+    baseline_signal_id: str
+    baseline_action: str
+    baseline_forecast: str
+    proposed_action: str
+    proposed_forecast: str
+    baseline_p_up: float
+    baseline_p_flat: float
+    baseline_p_down: float
+    p_up: float
+    p_flat: float
+    p_down: float
+    confidence: float
+    hard_veto: bool
+    activation_state: ActivationState
+    applied_to_prediction: bool = False
+    reasons: list[str] = field(default_factory=list)
+    conflicts: list[str] = field(default_factory=list)
+    evidence_ids: list[str] = field(default_factory=list)
+    claim_ids: list[str] = field(default_factory=list)
+    regulatory_event_ids: list[str] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.activation_state, ActivationState):
+            self.activation_state = ActivationState(
+                str(self.activation_state).strip().upper()
+            )
+        allowed_actions = {"BUY", "SELL", "NO_TRADE"}
+        allowed_forecasts = {"UP", "DOWN", "FLAT"}
+        if self.baseline_action not in allowed_actions:
+            raise ValueError(f"Unsupported baseline_action: {self.baseline_action}")
+        if self.proposed_action not in allowed_actions:
+            raise ValueError(f"Unsupported proposed_action: {self.proposed_action}")
+        if self.baseline_forecast not in allowed_forecasts:
+            raise ValueError(f"Unsupported baseline_forecast: {self.baseline_forecast}")
+        if self.proposed_forecast not in allowed_forecasts:
+            raise ValueError(f"Unsupported proposed_forecast: {self.proposed_forecast}")
+        baseline_probabilities = (
+            _bounded(self.baseline_p_up, 0.0, 1.0, "baseline_p_up"),
+            _bounded(self.baseline_p_flat, 0.0, 1.0, "baseline_p_flat"),
+            _bounded(self.baseline_p_down, 0.0, 1.0, "baseline_p_down"),
+        )
+        probabilities = (
+            _bounded(self.p_up, 0.0, 1.0, "p_up"),
+            _bounded(self.p_flat, 0.0, 1.0, "p_flat"),
+            _bounded(self.p_down, 0.0, 1.0, "p_down"),
+        )
+        if not math.isclose(sum(baseline_probabilities), 1.0, abs_tol=1e-6):
+            raise ValueError("Baseline probabilities must sum to 1")
+        if not math.isclose(sum(probabilities), 1.0, abs_tol=1e-6):
+            raise ValueError("Decision probabilities must sum to 1")
+        (
+            self.baseline_p_up,
+            self.baseline_p_flat,
+            self.baseline_p_down,
+        ) = baseline_probabilities
+        self.p_up, self.p_flat, self.p_down = probabilities
+        self.confidence = _bounded(self.confidence, 0.0, 1.0, "confidence")
+
+
+@dataclass(slots=True)
+class PolicyEvaluation:
+    evaluation_id: str
+    policy_name: str
+    policy_version: str
+    observed_at: datetime
+    evaluated_through: datetime | None
+    sample_count: int
+    distinct_weeks: int
+    baseline_accuracy_pct: float
+    candidate_accuracy_pct: float
+    lift_pct_points: float
+    lift_lower_bound_pct_points: float
+    baseline_false_positive_rate_pct: float
+    candidate_false_positive_rate_pct: float
+    coverage_pct: float
+    baseline_brier_score: float
+    candidate_brier_score: float
+    baseline_calibration_error: float
+    candidate_calibration_error: float
+    gate_passed: bool
+    gate_results: dict[str, bool] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        self.sample_count = max(0, int(self.sample_count))
+        self.distinct_weeks = max(0, int(self.distinct_weeks))
+        for label in (
+            "baseline_accuracy_pct",
+            "candidate_accuracy_pct",
+            "baseline_false_positive_rate_pct",
+            "candidate_false_positive_rate_pct",
+            "coverage_pct",
+        ):
+            setattr(self, label, _bounded(getattr(self, label), 0.0, 100.0, label))
+        for label in (
+            "baseline_brier_score",
+            "candidate_brier_score",
+            "baseline_calibration_error",
+            "candidate_calibration_error",
+        ):
+            setattr(self, label, _bounded(getattr(self, label), 0.0, 2.0, label))
+        for label in ("lift_pct_points", "lift_lower_bound_pct_points"):
+            numeric = float(getattr(self, label))
+            if not math.isfinite(numeric):
+                raise ValueError(f"{label} must be finite")
+            setattr(self, label, numeric)
+
+
+@dataclass(slots=True)
+class SignalActivationDecision:
+    activation_id: str
+    policy_name: str
+    policy_version: str
+    observed_at: datetime
+    evaluated_through: datetime | None
+    state: ActivationState
+    evaluation_id: str
+    sample_count: int
+    distinct_weeks: int
+    consecutive_passes: int
+    gate_passed: bool
+    live_application_authorized: bool = False
+    reasons: list[str] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, ActivationState):
+            self.state = ActivationState(str(self.state).strip().upper())
+        self.sample_count = max(0, int(self.sample_count))
+        self.distinct_weeks = max(0, int(self.distinct_weeks))
+        self.consecutive_passes = max(0, int(self.consecutive_passes))
+
+
+@dataclass(slots=True)
 class AgentResult:
     status: AgentStatus = AgentStatus.SUCCESS
     entities: list[EntityRecord] = field(default_factory=list)
@@ -328,6 +480,9 @@ class AgentResult:
     )
     evidence: list[AgentEvidence] = field(default_factory=list)
     signals: list[AgentSignal] = field(default_factory=list)
+    decisions: list[DecisionRecord] = field(default_factory=list)
+    policy_evaluations: list[PolicyEvaluation] = field(default_factory=list)
+    activation_decisions: list[SignalActivationDecision] = field(default_factory=list)
     quality_checks: list[QualityGateCheck] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     error: str | None = None
@@ -346,6 +501,9 @@ class AgentResult:
             + len(self.regulatory_contract_events)
             + len(self.evidence)
             + len(self.signals)
+            + len(self.decisions)
+            + len(self.policy_evaluations)
+            + len(self.activation_decisions)
             + len(self.quality_checks)
         )
 
@@ -440,6 +598,26 @@ class OrchestrationReport:
     @property
     def signals(self) -> list[AgentSignal]:
         return [item for execution in self.executions for item in execution.result.signals]
+
+    @property
+    def decisions(self) -> list[DecisionRecord]:
+        return [item for execution in self.executions for item in execution.result.decisions]
+
+    @property
+    def policy_evaluations(self) -> list[PolicyEvaluation]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.policy_evaluations
+        ]
+
+    @property
+    def activation_decisions(self) -> list[SignalActivationDecision]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.activation_decisions
+        ]
 
     @property
     def quality_checks(self) -> list[QualityGateCheck]:
