@@ -15,6 +15,7 @@ from market_checker_app.agents.contracts import (
     QualityGateCheck,
 )
 from market_checker_app.agents.entity_registry_agent import EntityRegistryAgent
+from market_checker_app.agents.financial_forensics_agent import FinancialForensicsAgent
 from market_checker_app.agents.orchestrator import OrchestratorAgent
 from market_checker_app.agents.prediction_v21_adapter import PredictionV21AdapterAgent
 from market_checker_app.agents.quality_gate_agent import QualityGateAgent
@@ -30,6 +31,7 @@ __all__ = [
     "DocumentRecord",
     "EntityRecord",
     "EntityRegistryAgent",
+    "FinancialForensicsAgent",
     "FundamentalFact",
     "GateDecision",
     "OrchestrationReport",

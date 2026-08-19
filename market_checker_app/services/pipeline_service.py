@@ -11,6 +11,7 @@ import pandas as pd
 from market_checker_app.agents import (
     AgentStatus,
     EntityRegistryAgent,
+    FinancialForensicsAgent,
     OrchestrationReport,
     OrchestratorAgent,
     PredictionV21AdapterAgent,
@@ -77,6 +78,10 @@ class PipelineService:
                     client=self.sec_client,
                 )
             )
+            if self.config.financial_forensics.enabled:
+                orchestrator.register(
+                    FinancialForensicsAgent(self.config.financial_forensics)
+                )
         orchestrator.register(PredictionV21AdapterAgent())
         orchestrator.register(
             QualityGateAgent(
@@ -576,6 +581,10 @@ class PipelineService:
         fundamental_ingestion_status: str | None = None
         fundamental_document_count = 0
         fundamental_fact_count = 0
+        financial_forensics_status: str | None = None
+        financial_forensics_evidence_count = 0
+        financial_forensics_high_findings = 0
+        financial_forensics_warning_findings = 0
         if self.config.agent_stage1_enabled:
             progress.set_global_step(
                 "agent_stage1",
@@ -597,6 +606,17 @@ class PipelineService:
                         fundamental_document_count = len(execution.result.documents)
                         fundamental_fact_count = len(
                             execution.result.fundamental_facts
+                        )
+                    elif execution.agent_name == "financial_forensics":
+                        financial_forensics_status = execution.status.value
+                        financial_forensics_evidence_count = len(
+                            execution.result.evidence
+                        )
+                        financial_forensics_high_findings = int(
+                            execution.result.metadata.get("high_findings", 0)
+                        )
+                        financial_forensics_warning_findings = int(
+                            execution.result.metadata.get("warning_findings", 0)
                         )
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
@@ -669,6 +689,12 @@ class PipelineService:
             "fundamental_ingestion_status": fundamental_ingestion_status,
             "fundamental_document_count": fundamental_document_count,
             "fundamental_fact_count": fundamental_fact_count,
+            "financial_forensics_status": financial_forensics_status,
+            "financial_forensics_evidence_count": financial_forensics_evidence_count,
+            "financial_forensics_high_findings": financial_forensics_high_findings,
+            "financial_forensics_warning_findings": (
+                financial_forensics_warning_findings
+            ),
             "agent_report": agent_report,
             "progress_state": progress.snapshot(),
         }

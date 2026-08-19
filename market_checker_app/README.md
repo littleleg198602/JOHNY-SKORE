@@ -121,6 +121,8 @@ JOHNY_SKORE_SEC_USER_AGENT="JohnySkore/2.0 kontakt@example.com"
 ```
 
 Klient vynucuje bezpečný odstup požadavků pod oficiálním limitem SEC 10 req/s.
+Omezený počet filingů vybírá vyváženě mezi 10-K, 10-Q a 8-K, aby série 8-K
+nevytlačila srovnatelná účetní období potřebná pro navazující kontroly.
 Dokumenty mají stabilní ID podle CIK a accession number, účetní fakta obsahové ID
 a opakovaný běh je v SQLite pouze znovu pozoruje — neduplikuje zdrojové záznamy.
 Nové tabulky jsou `fundamental_facts` a `fundamental_fact_observations`.
@@ -128,6 +130,23 @@ Nové tabulky jsou `fundamental_facts` a `fundamental_fact_observations`.
 Tato etapa je pouze ingest a audit. Fundamentální fakta zatím nemění score,
 `forecast` ani `BUY` / `SELL` / `NO_TRADE`; neobsahuje sentiment, backtesting,
 portfolio logiku, dodavatelský graf ani vyhodnocování short reportů.
+
+## Finanční forenzní screening – etapa 3
+
+Na normalizovaná SEC fakta navazuje volitelný `FinancialForensicsAgent`. Pro
+každý ticker vytváří auditní evidence a kontroluje zejména:
+
+- převod účetního zisku do provozního a volného cash flow,
+- závazky a úročený dluh vůči aktivům a krátkodobou likviditu,
+- akruály vůči aktivům,
+- růst pohledávek nebo zásob vůči růstu tržeb,
+- materiálně rozdílné hodnoty stejného období mezi filingy a zpoždění podání.
+
+Výstup obsahuje použité metriky, hranice, kódy nálezů, důvěru podle datového
+pokrytí a odkazy na konkrétní SEC dokumenty. Nálezy jsou konzervativní indikátory
+pro další ověření: nejsou závěrem o podvodu, nemají sektorovou kalibraci a v této
+etapě nevytvářejí signal, hard veto ani změnu score, `forecast` či obchodní akce.
+Screening lze v UI vypnout nezávisle na SEC ingestu.
 
 ## Kde se ukládá výstup
 

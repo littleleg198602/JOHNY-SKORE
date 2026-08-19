@@ -260,7 +260,14 @@ class SecEdgarClient:
         recent = payload.get("filings", {}).get("recent", {})
         if not isinstance(recent, dict):
             return []
-        allowed = {_base_form(form) for form in allowed_forms}
+        allowed_order = list(
+            dict.fromkeys(
+                _base_form(form)
+                for form in allowed_forms
+                if _base_form(form)
+            )
+        )
+        allowed = set(allowed_order)
         forms = recent.get("form") if isinstance(recent.get("form"), list) else []
         filings: list[SecFiling] = []
         for index, raw_form in enumerate(forms):
@@ -300,7 +307,35 @@ class SecEdgarClient:
                 )
             )
         filings.sort(key=lambda filing: filing.filed_at, reverse=True)
-        return filings[: max(0, int(limit))]
+        safe_limit = max(0, int(limit))
+        if not safe_limit:
+            return []
+
+        # A burst of 8-K filings must not crowd all comparable 10-Q/10-K
+        # statements out of the bounded bundle. Select filings round-robin by
+        # requested base form, then restore chronological output order.
+        filings_by_form: dict[str, list[SecFiling]] = {
+            form: [] for form in allowed_order
+        }
+        for filing in filings:
+            filings_by_form.setdefault(_base_form(filing.form), []).append(filing)
+        selected: list[SecFiling] = []
+        round_index = 0
+        while len(selected) < safe_limit:
+            added = False
+            for form in allowed_order:
+                group = filings_by_form.get(form, [])
+                if round_index >= len(group):
+                    continue
+                selected.append(group[round_index])
+                added = True
+                if len(selected) >= safe_limit:
+                    break
+            if not added:
+                break
+            round_index += 1
+        selected.sort(key=lambda filing: filing.filed_at, reverse=True)
+        return selected
 
     @classmethod
     def _parse_facts(

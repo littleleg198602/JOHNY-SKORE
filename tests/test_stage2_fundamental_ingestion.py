@@ -260,6 +260,44 @@ class SecEdgarClientTests(unittest.TestCase):
         self.assertEqual(2, len(clock.sleeps))
         self.assertTrue(all(delay >= 0.11 for delay in clock.sleeps))
 
+    def test_filing_limit_balances_forms_instead_of_keeping_only_recent_8k(self) -> None:
+        forms = ["8-K"] * 6 + ["10-Q"] * 3 + ["10-K"] * 3
+        filing_dates = [f"2026-{month:02d}-01" for month in range(12, 0, -1)]
+        payload = {
+            "filings": {
+                "recent": {
+                    "accessionNumber": [
+                        f"0000320193-26-{index:06d}"
+                        for index in range(1, len(forms) + 1)
+                    ],
+                    "filingDate": filing_dates,
+                    "reportDate": filing_dates,
+                    "form": forms,
+                    "primaryDocument": [
+                        f"filing-{index}.htm"
+                        for index in range(1, len(forms) + 1)
+                    ],
+                }
+            }
+        }
+
+        filings = SecEdgarClient._parse_filings(
+            payload,
+            cik="0000320193",
+            allowed_forms=("10-K", "10-Q", "8-K"),
+            limit=6,
+        )
+
+        base_forms = [filing.form.removesuffix("/A") for filing in filings]
+        self.assertEqual(6, len(filings))
+        self.assertEqual(2, base_forms.count("10-K"))
+        self.assertEqual(2, base_forms.count("10-Q"))
+        self.assertEqual(2, base_forms.count("8-K"))
+        self.assertEqual(
+            sorted((filing.filed_at for filing in filings), reverse=True),
+            [filing.filed_at for filing in filings],
+        )
+
 
 class StageTwoAcceptanceTests(unittest.TestCase):
     def test_sec_agent_passes_quality_gate_without_changing_prediction(self) -> None:
