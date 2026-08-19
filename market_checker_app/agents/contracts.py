@@ -78,6 +78,31 @@ class DocumentRecord:
 
 
 @dataclass(slots=True)
+class FundamentalFact:
+    fact_id: str
+    ticker: str
+    cik: str
+    taxonomy: str
+    concept: str
+    label: str
+    description: str
+    unit: str
+    value: float
+    observed_at: datetime
+    filed_at: datetime
+    form: str
+    accession_number: str
+    source_url: str
+    document_id: str
+    period_start: datetime | None = None
+    period_end: datetime | None = None
+    fiscal_year: int | None = None
+    fiscal_period: str | None = None
+    frame: str | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(slots=True)
 class AgentEvidence:
     evidence_id: str
     ticker: str
@@ -131,6 +156,7 @@ class AgentResult:
     status: AgentStatus = AgentStatus.SUCCESS
     entities: list[EntityRecord] = field(default_factory=list)
     documents: list[DocumentRecord] = field(default_factory=list)
+    fundamental_facts: list[FundamentalFact] = field(default_factory=list)
     evidence: list[AgentEvidence] = field(default_factory=list)
     signals: list[AgentSignal] = field(default_factory=list)
     quality_checks: list[QualityGateCheck] = field(default_factory=list)
@@ -144,6 +170,7 @@ class AgentResult:
         return (
             len(self.entities)
             + len(self.documents)
+            + len(self.fundamental_facts)
             + len(self.evidence)
             + len(self.signals)
             + len(self.quality_checks)
@@ -200,6 +227,14 @@ class OrchestrationReport:
     @property
     def evidence(self) -> list[AgentEvidence]:
         return [item for execution in self.executions for item in execution.result.evidence]
+
+    @property
+    def fundamental_facts(self) -> list[FundamentalFact]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.fundamental_facts
+        ]
 
     @property
     def signals(self) -> list[AgentSignal]:

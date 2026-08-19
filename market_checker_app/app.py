@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import os
 import re
 import sys
 
@@ -18,7 +19,13 @@ import streamlit as st
 
 from market_checker_app.analysis.scoring import validate_decision_scenarios
 from market_checker_app.collectors.mt5_client import MT5Client
-from market_checker_app.config import AppConfig, DEFAULT_DB_PATH, DEFAULT_OUTPUT_DIR, SignalThresholds
+from market_checker_app.config import (
+    AppConfig,
+    DEFAULT_DB_PATH,
+    DEFAULT_OUTPUT_DIR,
+    FundamentalIngestionConfig,
+    SignalThresholds,
+)
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
 from market_checker_app.exporters.delta_builder import prepare_delta_for_excel
 from market_checker_app.exporters.excel_exporter import ExcelExporter
@@ -713,6 +720,20 @@ with st.sidebar:
     sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
     use_rss = st.checkbox("Použít RSS zprávy", value=True)
+    use_sec_fundamentals = st.checkbox(
+        "Načíst SEC výkazy (Etapa 2)",
+        value=False,
+        help=(
+            "Načte oficiální 10-K, 10-Q, 8-K a vybraná XBRL fakta. "
+            "V Etapě 2 data ještě nemění predikci."
+        ),
+    )
+    sec_user_agent = st.text_input(
+        "SEC User-Agent (aplikace + kontaktní e-mail)",
+        value=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
+        disabled=not use_sec_fundamentals,
+        help="Příklad: JohnySkore/2.0 kontakt@example.com. SEC tento údaj vyžaduje.",
+    )
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
     load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
@@ -738,7 +759,19 @@ with st.sidebar:
 
 sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
 
-config = AppConfig(output_dir=output_dir, marketcap_file=marketcap_file, export_excel=export_excel, compare_previous_run=compare_prev, save_history=save_history, sqlite_path=sqlite_path, max_rss_items_per_source=int(max_rss))
+config = AppConfig(
+    output_dir=output_dir,
+    marketcap_file=marketcap_file,
+    export_excel=export_excel,
+    compare_previous_run=compare_prev,
+    save_history=save_history,
+    sqlite_path=sqlite_path,
+    max_rss_items_per_source=int(max_rss),
+    fundamental_ingestion=FundamentalIngestionConfig(
+        enabled=use_sec_fundamentals,
+        user_agent=sec_user_agent.strip(),
+    ),
+)
 config.ensure_output_dir()
 store = SQLiteStore(config.sqlite_path)
 yahoo_cache = YahooCacheStore(config.sqlite_path)
@@ -746,6 +779,11 @@ yahoo_cache = YahooCacheStore(config.sqlite_path)
 if sqlite_info:
     st.warning(sqlite_info)
 st.caption(f"Aktivní DB: `{config.sqlite_path}`")
+if use_sec_fundamentals and not sec_user_agent.strip():
+    st.warning(
+        "SEC Etapa 2 je zapnutá, ale chybí User-Agent s kontaktním e-mailem; "
+        "F2-SEC proto běh přeskočí."
+    )
 
 if load_watchlist:
     loaded_watchlist, mt5_error = MT5Client().load_watchlist()

@@ -9,6 +9,7 @@ from market_checker_app.agents.contracts import (
     AgentStatus,
     DocumentRecord,
     EntityRecord,
+    FundamentalFact,
     GateDecision,
     OrchestrationReport,
     QualityGateCheck,
@@ -17,6 +18,7 @@ from market_checker_app.agents.entity_registry_agent import EntityRegistryAgent
 from market_checker_app.agents.orchestrator import OrchestratorAgent
 from market_checker_app.agents.prediction_v21_adapter import PredictionV21AdapterAgent
 from market_checker_app.agents.quality_gate_agent import QualityGateAgent
+from market_checker_app.agents.sec_fundamentals_agent import SecFundamentalsAgent
 
 __all__ = [
     "AgentContext",
@@ -28,10 +30,12 @@ __all__ = [
     "DocumentRecord",
     "EntityRecord",
     "EntityRegistryAgent",
+    "FundamentalFact",
     "GateDecision",
     "OrchestrationReport",
     "OrchestratorAgent",
     "PredictionV21AdapterAgent",
     "QualityGateAgent",
     "QualityGateCheck",
+    "SecFundamentalsAgent",
 ]

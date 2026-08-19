@@ -102,6 +102,33 @@ Do stejné SQLite databáze se aditivně vytvářejí tabulky:
 Uložení jednoho agentního reportu je atomické. Selhání shadow vrstvy se zaznamená
 jako varování a nesmí změnit ani zahodit původní predikci v2.1.
 
+## Fundamentální ingest – etapa 2 (MVP)
+
+Etapa 2 přidává opt-in agenta `SecFundamentalsAgent` (`f2_sec`). Používá pouze
+oficiální veřejná rozhraní SEC EDGAR:
+
+- mapu ticker → CIK z `company_tickers_exchange.json`,
+- `data.sec.gov/submissions` pro poslední formuláře `10-K`, `10-Q` a `8-K`,
+- `data.sec.gov/api/xbrl/companyfacts` pro vybraná účetní fakta (výnosy, zisk,
+  aktiva, závazky, cash flow, dluh a EPS).
+
+Živý SEC ingest je výchozí vypnutý. Zapíná se v levém panelu volbou
+**Načíst SEC výkazy (Etapa 2)**. SEC vyžaduje deklarovaný User-Agent obsahující
+název aplikace a kontaktní e-mail; lze jej zadat v UI nebo proměnnou prostředí:
+
+```bash
+JOHNY_SKORE_SEC_USER_AGENT="JohnySkore/2.0 kontakt@example.com"
+```
+
+Klient vynucuje bezpečný odstup požadavků pod oficiálním limitem SEC 10 req/s.
+Dokumenty mají stabilní ID podle CIK a accession number, účetní fakta obsahové ID
+a opakovaný běh je v SQLite pouze znovu pozoruje — neduplikuje zdrojové záznamy.
+Nové tabulky jsou `fundamental_facts` a `fundamental_fact_observations`.
+
+Tato etapa je pouze ingest a audit. Fundamentální fakta zatím nemění score,
+`forecast` ani `BUY` / `SELL` / `NO_TRADE`; neobsahuje sentiment, backtesting,
+portfolio logiku, dodavatelský graf ani vyhodnocování short reportů.
+
 ## Kde se ukládá výstup
 
 - Excel: do vybrané složky `Output directory` (default `outputs/`)

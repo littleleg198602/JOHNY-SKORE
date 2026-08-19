@@ -10,7 +10,13 @@ from unittest.mock import patch
 import pandas as pd
 
 from market_checker_app.collectors.yahoo_client import YahooClient
-from market_checker_app.config import AppConfig
+from market_checker_app.collectors.sec_edgar_client import (
+    SecCompany,
+    SecCompanyBundle,
+    SecCompanyFact,
+    SecFiling,
+)
+from market_checker_app.config import AppConfig, FundamentalIngestionConfig
 from market_checker_app.models import PerformanceSnapshot, RunMetadata, YahooSnapshot
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -87,6 +93,51 @@ class _FakeBatchMT5Client:
         return frames, {}
 
 
+class _FakeSecClient:
+    def fetch_company_bundle(self, ticker: str, **_: object) -> SecCompanyBundle | None:
+        if ticker != "AAPL":
+            return None
+        filed_at = datetime(2025, 8, 1, tzinfo=timezone.utc)
+        period_end = datetime(2025, 6, 28, tzinfo=timezone.utc)
+        filing_url = (
+            "https://www.sec.gov/Archives/edgar/data/320193/"
+            "000032019325000079/aapl-20250628.htm"
+        )
+        filing = SecFiling(
+            accession_number="0000320193-25-000079",
+            form="10-Q",
+            filed_at=filed_at,
+            report_date=period_end,
+            primary_document="aapl-20250628.htm",
+            filing_url=filing_url,
+            index_url=(
+                "https://www.sec.gov/Archives/edgar/data/320193/"
+                "000032019325000079/0000320193-25-000079-index.html"
+            ),
+        )
+        fact = SecCompanyFact(
+            taxonomy="us-gaap",
+            concept="Assets",
+            label="Assets",
+            description="Total assets.",
+            unit="USD",
+            value=331000000000.0,
+            filed_at=filed_at,
+            form="10-Q",
+            accession_number=filing.accession_number,
+            source_url=filing_url,
+            period_end=period_end,
+            fiscal_year=2025,
+            fiscal_period="Q3",
+            frame="CY2025Q2I",
+        )
+        return SecCompanyBundle(
+            SecCompany("AAPL", "0000320193", "Apple Inc.", "Nasdaq"),
+            (filing,),
+            (fact,),
+        )
+
+
 class RuntimeIntegrationTests(unittest.TestCase):
     def test_pipeline_persists_signals_and_history_atomically(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -134,6 +185,47 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertEqual(1, len(store.read_agent_signals()))
             self.assertEqual(1, len(store.read_quality_gate_checks()))
 
+    def test_pipeline_persists_stage2_sec_ingestion_without_rescoring(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            store = SQLiteStore(output_dir / "history.db")
+            pipeline = PipelineService(
+                AppConfig(
+                    output_dir=output_dir,
+                    sqlite_path=store.db_path,
+                    save_history=True,
+                    fundamental_ingestion=FundamentalIngestionConfig(
+                        enabled=True,
+                        user_agent="JohnySkoreTests tests@example.com",
+                    ),
+                )
+            )
+            pipeline.yahoo_client = _FakeYahooClient()
+            pipeline.sec_client = _FakeSecClient()
+
+            result = pipeline.run(
+                ["AAPL"],
+                [],
+                store,
+                yahoo_only_tickers={"AAPL"},
+                rss_enabled=False,
+                mt5_enabled=False,
+            )
+
+            self.assertEqual("SUCCESS", result["agent_status"])
+            self.assertEqual("SUCCESS", result["fundamental_ingestion_status"])
+            self.assertEqual(1, result["fundamental_document_count"])
+            self.assertEqual(1, result["fundamental_fact_count"])
+            self.assertEqual(
+                result["signals"].iloc[0]["action"],
+                result["agent_report"].signals[0].action,
+            )
+            self.assertEqual(4, len(store.read_agent_runs()))
+            facts = store.read_fundamental_facts("AAPL")
+            self.assertEqual(1, len(facts))
+            self.assertEqual("Assets", facts.iloc[0]["concept"])
+            self.assertEqual(331000000000.0, float(facts.iloc[0]["value"]))
+
     def test_existing_database_is_migrated_additively_for_v21(self):
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "history.db"
@@ -175,6 +267,8 @@ class RuntimeIntegrationTests(unittest.TestCase):
                     "entity_observations",
                     "documents",
                     "document_observations",
+                    "fundamental_facts",
+                    "fundamental_fact_observations",
                     "evidence",
                     "agent_signals",
                     "quality_gate_checks",

@@ -15,6 +15,7 @@ from market_checker_app.agents import (
     OrchestratorAgent,
     PredictionV21AdapterAgent,
     QualityGateAgent,
+    SecFundamentalsAgent,
 )
 from market_checker_app.analysis.behavioral_analysis import analyze_behavioral
 from market_checker_app.analysis.confidence import combine_confidence
@@ -60,6 +61,7 @@ class PipelineService:
         self.rss_client = RSSClient(max_items_per_source=config.max_rss_items_per_source)
         self.yahoo_client = YahooClient()
         self.yahoo_cache = YahooCacheStore(config.sqlite_path)
+        self.sec_client = None
 
     def _run_stage1_agents(
         self,
@@ -68,6 +70,13 @@ class PipelineService:
     ) -> OrchestrationReport:
         orchestrator = OrchestratorAgent(shadow_mode=self.config.agent_shadow_mode)
         orchestrator.register(EntityRegistryAgent())
+        if self.config.fundamental_ingestion.enabled:
+            orchestrator.register(
+                SecFundamentalsAgent(
+                    self.config.fundamental_ingestion,
+                    client=self.sec_client,
+                )
+            )
         orchestrator.register(PredictionV21AdapterAgent())
         orchestrator.register(
             QualityGateAgent(
@@ -564,10 +573,13 @@ class PipelineService:
 
         agent_report: OrchestrationReport | None = None
         quality_gate_decision: str | None = None
+        fundamental_ingestion_status: str | None = None
+        fundamental_document_count = 0
+        fundamental_fact_count = 0
         if self.config.agent_stage1_enabled:
             progress.set_global_step(
                 "agent_stage1",
-                "Spouštím auditní agenty etapy 1",
+                "Spouštím auditní a fundamentální agenty",
                 0.97,
             )
             try:
@@ -580,6 +592,12 @@ class PipelineService:
                         quality_gate_decision = str(
                             execution.result.metadata.get("decision", "REJECT")
                         )
+                    elif execution.agent_name == "f2_sec":
+                        fundamental_ingestion_status = execution.status.value
+                        fundamental_document_count = len(execution.result.documents)
+                        fundamental_fact_count = len(
+                            execution.result.fundamental_facts
+                        )
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
                         for warning in execution.result.warnings
@@ -591,7 +609,7 @@ class PipelineService:
                         )
                 if agent_report.status != AgentStatus.SUCCESS:
                     warnings.append(
-                        f"Agentní etapa 1 skončila stavem {agent_report.status.value}; "
+                        f"Agentní pipeline skončila stavem {agent_report.status.value}; "
                         "predikce v2.1 nebyla agentní vrstvou změněna."
                     )
 
@@ -648,6 +666,9 @@ class PipelineService:
             "run_id": run_id,
             "agent_status": agent_report.status.value if agent_report else None,
             "quality_gate_decision": quality_gate_decision,
+            "fundamental_ingestion_status": fundamental_ingestion_status,
+            "fundamental_document_count": fundamental_document_count,
+            "fundamental_fact_count": fundamental_fact_count,
             "agent_report": agent_report,
             "progress_state": progress.snapshot(),
         }
