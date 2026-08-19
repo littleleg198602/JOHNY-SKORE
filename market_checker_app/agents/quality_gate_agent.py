@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from datetime import datetime
 import hashlib
+import ipaddress
 from typing import Any
 from urllib.parse import urlparse
 
@@ -14,10 +15,17 @@ from market_checker_app.agents.contracts import (
     AgentSignal,
     AgentStatus,
     ClaimStatus,
+    CompanyRelationship,
     DocumentRecord,
     GateDecision,
     QualityGateCheck,
+    RegulatoryContractEvent,
+    RegulatoryContractEventType,
+    RegulatoryEventStatus,
+    RelationshipType,
     ResearchClaim,
+    ResourceExposure,
+    ResourceExposureType,
     utc_now,
 )
 from market_checker_app.config import QualityGateConfig
@@ -43,6 +51,11 @@ class QualityGateAgent(BaseAgent):
     ALLOWED_ACTIONS = {"BUY", "SELL", "NO_TRADE"}
     ALLOWED_FORECASTS = {"UP", "DOWN", "FLAT"}
     FORECAST_DIRECTIONS = {"UP": 1.0, "DOWN": -1.0, "FLAT": 0.0}
+    STAGE3_SHADOW_AGENTS = {
+        "supply_chain",
+        "commodity_energy",
+        "regulatory_contract",
+    }
 
     def __init__(
         self,
@@ -66,16 +79,22 @@ class QualityGateAgent(BaseAgent):
         list[DocumentRecord],
         list[ResearchClaim],
         dict[str, list[ResearchClaim]],
+        list[CompanyRelationship],
+        list[ResourceExposure],
+        list[RegulatoryContractEvent],
     ]:
         results = context_state.get("agent_results")
         if not isinstance(results, dict):
-            return [], [], [], [], {}
+            return [], [], [], [], {}, [], [], []
 
         signals: list[AgentSignal] = []
         evidence: list[AgentEvidence] = []
         documents: list[DocumentRecord] = []
         claims_by_id: dict[str, ResearchClaim] = {}
         claim_versions_by_id: dict[str, list[ResearchClaim]] = defaultdict(list)
+        relationships: list[CompanyRelationship] = []
+        exposures: list[ResourceExposure] = []
+        regulatory_events: list[RegulatoryContractEvent] = []
         for result in results.values():
             if not isinstance(result, AgentResult):
                 continue
@@ -85,12 +104,18 @@ class QualityGateAgent(BaseAgent):
             for claim in result.claims:
                 claim_versions_by_id[claim.claim_id].append(claim)
                 claims_by_id[claim.claim_id] = claim
+            relationships.extend(result.company_relationships)
+            exposures.extend(result.resource_exposures)
+            regulatory_events.extend(result.regulatory_contract_events)
         return (
             signals,
             evidence,
             documents,
             list(claims_by_id.values()),
             dict(claim_versions_by_id),
+            relationships,
+            exposures,
+            regulatory_events,
         )
 
     def _check_timestamp(
@@ -146,6 +171,13 @@ class QualityGateAgent(BaseAgent):
         rejects: list[dict[str, str]],
         warnings: list[dict[str, str]],
     ) -> None:
+        if signal.agent_name in self.STAGE3_SHADOW_AGENTS:
+            rejects.append(
+                _issue(
+                    "stage3_agent_emitted_signal",
+                    "Agent Etapy 3 nesmí před povolením v Etapě 4 vydávat obchodní signál.",
+                )
+            )
         if signal.action not in self.ALLOWED_ACTIONS:
             rejects.append(
                 _issue("invalid_action", f"Nepovolená action {signal.action!r}.")
@@ -252,6 +284,26 @@ class QualityGateAgent(BaseAgent):
     ) -> None:
         self._check_timestamp(evidence.observed_at, now, "Evidence", rejects)
         self._check_expiry(evidence.valid_until, now, "Evidence", rejects)
+
+        if evidence.agent_name in self.STAGE3_SHADOW_AGENTS:
+            if (
+                abs(evidence.direction) > 1e-9
+                or abs(evidence.risk_score) > 1e-9
+                or evidence.hard_veto
+            ):
+                rejects.append(
+                    _issue(
+                        "stage3_shadow_value_violation",
+                        "Evidence Etapy 3 musí mít nulový směr, nulové rizikové score a žádné veto.",
+                    )
+                )
+            if evidence.metadata.get("scoring_applied") is not False:
+                rejects.append(
+                    _issue(
+                        "stage3_shadow_metadata_violation",
+                        "Evidence Etapy 3 musí výslovně potvrdit, že nebyla použita ve score.",
+                    )
+                )
 
         missing_documents = sorted(set(evidence.document_ids).difference(document_ids))
         if missing_documents:
@@ -456,6 +508,359 @@ class QualityGateAgent(BaseAgent):
                         )
                     )
 
+    @staticmethod
+    def _is_public_https_reference(url: str) -> bool:
+        parsed = urlparse(str(url or "").strip())
+        if (
+            parsed.scheme.lower() != "https"
+            or not parsed.hostname
+            or parsed.username
+            or parsed.password
+        ):
+            return False
+        hostname = parsed.hostname.rstrip(".").lower()
+        if (
+            hostname == "localhost"
+            or hostname.endswith(".localhost")
+            or hostname.endswith(".local")
+        ):
+            return False
+        try:
+            address = ipaddress.ip_address(hostname)
+        except ValueError:
+            return True
+        return address.is_global
+
+    def _check_stage3_provenance(
+        self,
+        *,
+        ticker: str,
+        observed_at: datetime,
+        published_at: datetime,
+        document_id: str,
+        source_url: str,
+        source_agent_name: str,
+        metadata: dict[str, Any],
+        expected_agent_name: str,
+        expected_document_type: str,
+        label: str,
+        now: datetime,
+        as_of: datetime,
+        documents_by_id: dict[str, DocumentRecord],
+        rejects: list[dict[str, str]],
+    ) -> None:
+        self._check_timestamp(observed_at, now, label, rejects)
+        if published_at.tzinfo is None or published_at.utcoffset() is None:
+            rejects.append(
+                _issue(
+                    "naive_stage3_publication",
+                    f"{label} nemá časové pásmo data zveřejnění.",
+                )
+            )
+        elif (
+            published_at - as_of
+        ).total_seconds() > self.config.max_future_clock_skew_minutes * 60.0:
+            rejects.append(
+                _issue(
+                    "future_stage3_publication",
+                    f"{label} nebyl k okamžiku běhu ještě zveřejněn.",
+                )
+            )
+        if source_agent_name != expected_agent_name:
+            rejects.append(
+                _issue(
+                    "stage3_agent_identity_mismatch",
+                    f"{label} má neočekávanou identitu zdrojového agenta.",
+                )
+            )
+        if metadata.get("scoring_applied") is not False:
+            rejects.append(
+                _issue(
+                    "stage3_record_scoring_violation",
+                    f"{label} nepotvrzuje oddělení od predikčního score.",
+                )
+            )
+        if not self._is_public_https_reference(source_url):
+            rejects.append(
+                _issue(
+                    "invalid_stage3_source_url",
+                    f"{label} nemá bezpečnou veřejnou HTTPS referenci.",
+                )
+            )
+        document = documents_by_id.get(document_id)
+        if document is None:
+            rejects.append(
+                _issue(
+                    "unknown_stage3_document",
+                    f"{label} odkazuje na neznámý zdrojový dokument {document_id}.",
+                )
+            )
+            return
+        if document.ticker != ticker:
+            rejects.append(
+                _issue(
+                    "stage3_document_ticker_mismatch",
+                    f"Zdrojový dokument pro {label} patří jinému tickeru.",
+                )
+            )
+        if document.source_type != expected_document_type:
+            rejects.append(
+                _issue(
+                    "stage3_document_type_mismatch",
+                    f"Zdrojový dokument pro {label} má neočekávaný typ.",
+                )
+            )
+        if document.url != source_url:
+            rejects.append(
+                _issue(
+                    "stage3_document_url_mismatch",
+                    f"URL {label} neodpovídá zdrojovému dokumentu.",
+                )
+            )
+        if document.published_at != published_at:
+            rejects.append(
+                _issue(
+                    "stage3_document_date_mismatch",
+                    f"Datum {label} neodpovídá zdrojovému dokumentu.",
+                )
+            )
+
+    @staticmethod
+    def _check_stage3_evidence_link(
+        *,
+        record_id: str,
+        metadata_key: str,
+        ticker: str,
+        document_id: str,
+        source_url: str,
+        expected_agent_name: str,
+        evidence: list[AgentEvidence],
+        label: str,
+        rejects: list[dict[str, str]],
+    ) -> None:
+        linked = [
+            item
+            for item in evidence
+            if item.agent_name == expected_agent_name
+            and item.metadata.get(metadata_key) == record_id
+        ]
+        if len(linked) != 1:
+            rejects.append(
+                _issue(
+                    "stage3_record_evidence_cardinality",
+                    f"{label} musí mít právě jednu auditní evidenci.",
+                )
+            )
+            return
+        item = linked[0]
+        if (
+            item.ticker != ticker
+            or document_id not in item.document_ids
+            or source_url not in item.source_urls
+        ):
+            rejects.append(
+                _issue(
+                    "stage3_record_evidence_mismatch",
+                    f"Auditní evidence pro {label} neodpovídá tickeru nebo zdroji.",
+                )
+            )
+
+    def _check_relationship(
+        self,
+        relationship: CompanyRelationship,
+        *,
+        now: datetime,
+        as_of: datetime,
+        documents_by_id: dict[str, DocumentRecord],
+        evidence: list[AgentEvidence],
+        rejects: list[dict[str, str]],
+    ) -> None:
+        if not relationship.relationship_id or not relationship.counterparty.strip():
+            rejects.append(
+                _issue(
+                    "invalid_company_relationship",
+                    "Vazbě firmy chybí ID nebo protistrana.",
+                )
+            )
+        if not isinstance(relationship.relationship_type, RelationshipType):
+            rejects.append(
+                _issue(
+                    "invalid_relationship_type",
+                    "Vazba firmy má nepovolený typ vztahu.",
+                )
+            )
+        if relationship.confidence <= 0.0:
+            rejects.append(
+                _issue(
+                    "stage3_record_without_confidence",
+                    "Vazba firmy nemá kladnou důvěru zachycení.",
+                )
+            )
+        self._check_stage3_provenance(
+            ticker=relationship.ticker,
+            observed_at=relationship.observed_at,
+            published_at=relationship.published_at,
+            document_id=relationship.document_id,
+            source_url=relationship.source_url,
+            source_agent_name=relationship.source_agent_name,
+            metadata=relationship.metadata,
+            expected_agent_name="supply_chain",
+            expected_document_type="supply_chain_reference",
+            label="Vazba firmy",
+            now=now,
+            as_of=as_of,
+            documents_by_id=documents_by_id,
+            rejects=rejects,
+        )
+        self._check_stage3_evidence_link(
+            record_id=relationship.relationship_id,
+            metadata_key="relationship_id",
+            ticker=relationship.ticker,
+            document_id=relationship.document_id,
+            source_url=relationship.source_url,
+            expected_agent_name="supply_chain",
+            evidence=evidence,
+            label="Vazba firmy",
+            rejects=rejects,
+        )
+
+    def _check_exposure(
+        self,
+        exposure: ResourceExposure,
+        *,
+        now: datetime,
+        as_of: datetime,
+        documents_by_id: dict[str, DocumentRecord],
+        evidence: list[AgentEvidence],
+        rejects: list[dict[str, str]],
+    ) -> None:
+        if not exposure.exposure_id or not exposure.resource_name.strip():
+            rejects.append(
+                _issue(
+                    "invalid_resource_exposure",
+                    "Expozici chybí ID nebo název zdroje.",
+                )
+            )
+        if not isinstance(exposure.exposure_type, ResourceExposureType):
+            rejects.append(
+                _issue(
+                    "invalid_resource_exposure_type",
+                    "Expozice má nepovolený typ.",
+                )
+            )
+        if exposure.confidence <= 0.0:
+            rejects.append(
+                _issue(
+                    "stage3_record_without_confidence",
+                    "Expozice nemá kladnou důvěru zachycení.",
+                )
+            )
+        self._check_stage3_provenance(
+            ticker=exposure.ticker,
+            observed_at=exposure.observed_at,
+            published_at=exposure.published_at,
+            document_id=exposure.document_id,
+            source_url=exposure.source_url,
+            source_agent_name=exposure.source_agent_name,
+            metadata=exposure.metadata,
+            expected_agent_name="commodity_energy",
+            expected_document_type="commodity_energy_reference",
+            label="Expozice na zdroj",
+            now=now,
+            as_of=as_of,
+            documents_by_id=documents_by_id,
+            rejects=rejects,
+        )
+        self._check_stage3_evidence_link(
+            record_id=exposure.exposure_id,
+            metadata_key="exposure_id",
+            ticker=exposure.ticker,
+            document_id=exposure.document_id,
+            source_url=exposure.source_url,
+            expected_agent_name="commodity_energy",
+            evidence=evidence,
+            label="Expozice na zdroj",
+            rejects=rejects,
+        )
+
+    def _check_regulatory_event(
+        self,
+        event: RegulatoryContractEvent,
+        *,
+        now: datetime,
+        as_of: datetime,
+        documents_by_id: dict[str, DocumentRecord],
+        evidence: list[AgentEvidence],
+        rejects: list[dict[str, str]],
+    ) -> None:
+        if (
+            not event.event_id
+            or not event.title.strip()
+            or not event.authority_or_counterparty.strip()
+        ):
+            rejects.append(
+                _issue(
+                    "invalid_regulatory_contract_event",
+                    "Regulační nebo kontraktní události chybí povinné údaje.",
+                )
+            )
+        if not isinstance(event.event_type, RegulatoryContractEventType):
+            rejects.append(
+                _issue(
+                    "invalid_regulatory_contract_event_type",
+                    "Regulační nebo kontraktní událost má nepovolený typ.",
+                )
+            )
+        if not isinstance(event.status, RegulatoryEventStatus):
+            rejects.append(
+                _issue(
+                    "invalid_regulatory_event_status",
+                    "Regulační nebo kontraktní událost má nepovolený stav.",
+                )
+            )
+        if event.event_value is not None:
+            if not event.currency or len(event.currency) != 3 or not event.currency.isalpha():
+                rejects.append(
+                    _issue(
+                        "event_value_missing_currency",
+                        "Číselné hodnotě kontraktu nebo události chybí třípísmenná měna.",
+                    )
+                )
+        if event.confidence <= 0.0:
+            rejects.append(
+                _issue(
+                    "stage3_record_without_confidence",
+                    "Regulační nebo kontraktní událost nemá kladnou důvěru zachycení.",
+                )
+            )
+        self._check_stage3_provenance(
+            ticker=event.ticker,
+            observed_at=event.observed_at,
+            published_at=event.published_at,
+            document_id=event.document_id,
+            source_url=event.source_url,
+            source_agent_name=event.source_agent_name,
+            metadata=event.metadata,
+            expected_agent_name="regulatory_contract",
+            expected_document_type="regulatory_contract_reference",
+            label="Regulační/kontraktní událost",
+            now=now,
+            as_of=as_of,
+            documents_by_id=documents_by_id,
+            rejects=rejects,
+        )
+        self._check_stage3_evidence_link(
+            record_id=event.event_id,
+            metadata_key="regulatory_event_id",
+            ticker=event.ticker,
+            document_id=event.document_id,
+            source_url=event.source_url,
+            expected_agent_name="regulatory_contract",
+            evidence=evidence,
+            label="Regulační/kontraktní událost",
+            rejects=rejects,
+        )
+
     def run(self, context: AgentContext) -> AgentResult:
         (
             signals,
@@ -463,6 +868,9 @@ class QualityGateAgent(BaseAgent):
             documents,
             claims,
             claim_versions_by_id,
+            relationships,
+            exposures,
+            regulatory_events,
         ) = self._agent_outputs(context.state)
         now = utc_now()
         expected_tickers = {
@@ -478,6 +886,13 @@ class QualityGateAgent(BaseAgent):
         evidence_id_counts = Counter(item.evidence_id for item in evidence)
         evidence_by_id = {item.evidence_id: item for item in evidence}
         signal_id_counts = Counter(item.signal_id for item in signals)
+        relationship_id_counts = Counter(
+            item.relationship_id for item in relationships
+        )
+        exposure_id_counts = Counter(item.exposure_id for item in exposures)
+        regulatory_event_id_counts = Counter(
+            item.event_id for item in regulatory_events
+        )
         documents_by_id = {
             document.document_id: document
             for document in documents
@@ -488,6 +903,12 @@ class QualityGateAgent(BaseAgent):
         all_signals_by_ticker: dict[str, list[AgentSignal]] = defaultdict(list)
         evidence_by_ticker: dict[str, list[AgentEvidence]] = defaultdict(list)
         claims_by_ticker: dict[str, list[ResearchClaim]] = defaultdict(list)
+        relationships_by_ticker: dict[str, list[CompanyRelationship]] = defaultdict(list)
+        exposures_by_ticker: dict[str, list[ResourceExposure]] = defaultdict(list)
+        regulatory_events_by_ticker: dict[
+            str,
+            list[RegulatoryContractEvent],
+        ] = defaultdict(list)
         for signal in signals:
             all_signals_by_ticker[signal.ticker].append(signal)
             if signal.agent_name == "prediction_v21_adapter":
@@ -496,6 +917,12 @@ class QualityGateAgent(BaseAgent):
             evidence_by_ticker[item.ticker].append(item)
         for claim in claims:
             claims_by_ticker[claim.ticker].append(claim)
+        for relationship in relationships:
+            relationships_by_ticker[relationship.ticker].append(relationship)
+        for exposure in exposures:
+            exposures_by_ticker[exposure.ticker].append(exposure)
+        for event in regulatory_events:
+            regulatory_events_by_ticker[event.ticker].append(event)
 
         checks: list[QualityGateCheck] = []
         all_tickers = sorted(
@@ -504,6 +931,9 @@ class QualityGateAgent(BaseAgent):
             | set(all_signals_by_ticker)
             | set(evidence_by_ticker)
             | set(claims_by_ticker)
+            | set(relationships_by_ticker)
+            | set(exposures_by_ticker)
+            | set(regulatory_events_by_ticker)
         )
         for ticker in all_tickers:
             rejects: list[dict[str, str]] = []
@@ -511,6 +941,9 @@ class QualityGateAgent(BaseAgent):
             ticker_signals = all_signals_by_ticker.get(ticker, [])
             ticker_evidence = evidence_by_ticker.get(ticker, [])
             ticker_claims = claims_by_ticker.get(ticker, [])
+            ticker_relationships = relationships_by_ticker.get(ticker, [])
+            ticker_exposures = exposures_by_ticker.get(ticker, [])
+            ticker_regulatory_events = regulatory_events_by_ticker.get(ticker, [])
             v21_signals = v21_by_ticker.get(ticker, [])
 
             if ticker not in expected_tickers:
@@ -573,6 +1006,57 @@ class QualityGateAgent(BaseAgent):
                     rejects=rejects,
                 )
 
+            for relationship in ticker_relationships:
+                if relationship_id_counts[relationship.relationship_id] != 1:
+                    rejects.append(
+                        _issue(
+                            "duplicate_relationship_id",
+                            f"Relationship ID {relationship.relationship_id} není unikátní.",
+                        )
+                    )
+                self._check_relationship(
+                    relationship,
+                    now=now,
+                    as_of=context.started_at,
+                    documents_by_id=documents_by_id,
+                    evidence=ticker_evidence,
+                    rejects=rejects,
+                )
+
+            for exposure in ticker_exposures:
+                if exposure_id_counts[exposure.exposure_id] != 1:
+                    rejects.append(
+                        _issue(
+                            "duplicate_exposure_id",
+                            f"Exposure ID {exposure.exposure_id} není unikátní.",
+                        )
+                    )
+                self._check_exposure(
+                    exposure,
+                    now=now,
+                    as_of=context.started_at,
+                    documents_by_id=documents_by_id,
+                    evidence=ticker_evidence,
+                    rejects=rejects,
+                )
+
+            for event in ticker_regulatory_events:
+                if regulatory_event_id_counts[event.event_id] != 1:
+                    rejects.append(
+                        _issue(
+                            "duplicate_regulatory_event_id",
+                            f"Regulatory event ID {event.event_id} není unikátní.",
+                        )
+                    )
+                self._check_regulatory_event(
+                    event,
+                    now=now,
+                    as_of=context.started_at,
+                    documents_by_id=documents_by_id,
+                    evidence=ticker_evidence,
+                    rejects=rejects,
+                )
+
             if rejects:
                 decision = GateDecision.REJECT
                 message = f"Kontrola zamítla ticker: {len(rejects)} kritických problémů."
@@ -601,6 +1085,18 @@ class QualityGateAgent(BaseAgent):
                         | {item.agent_name for item in ticker_evidence}
                         | {claim.source_agent_name for claim in ticker_claims}
                         | {
+                            relationship.source_agent_name
+                            for relationship in ticker_relationships
+                        }
+                        | {
+                            exposure.source_agent_name
+                            for exposure in ticker_exposures
+                        }
+                        | {
+                            event.source_agent_name
+                            for event in ticker_regulatory_events
+                        }
+                        | {
                             claim.verification_agent_name
                             for claim in ticker_claims
                             if claim.verification_agent_name
@@ -609,6 +1105,14 @@ class QualityGateAgent(BaseAgent):
                     signal_ids=[signal.signal_id for signal in ticker_signals],
                     evidence_ids=[item.evidence_id for item in ticker_evidence],
                     claim_ids=[claim.claim_id for claim in ticker_claims],
+                    relationship_ids=[
+                        relationship.relationship_id
+                        for relationship in ticker_relationships
+                    ],
+                    exposure_ids=[exposure.exposure_id for exposure in ticker_exposures],
+                    regulatory_event_ids=[
+                        event.event_id for event in ticker_regulatory_events
+                    ],
                     metadata={
                         "rejects": rejects,
                         "warnings": gate_warnings,

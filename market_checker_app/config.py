@@ -202,6 +202,75 @@ class ClaimVerificationConfig:
     max_healthy_working_capital_divergence_pct: float = 10.0
 
 
+@dataclass(frozen=True, slots=True)
+class SupplyChainSourceConfig:
+    """One explicit company relationship backed by a public source."""
+
+    ticker: str
+    counterparty: str
+    relationship_type: str
+    publisher: str
+    published_at: datetime
+    url: str
+    dependency_pct: float | None = None
+    confidence: float = 1.0
+
+
+@dataclass(slots=True)
+class SupplyChainConfig:
+    """Shadow-only ingestion of explicit supplier and customer relationships."""
+
+    enabled: bool = False
+    sources: tuple[SupplyChainSourceConfig, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class CommodityEnergySourceConfig:
+    """One material, commodity, power, or fuel exposure with provenance."""
+
+    ticker: str
+    resource_name: str
+    exposure_type: str
+    publisher: str
+    published_at: datetime
+    url: str
+    dependency_pct: float | None = None
+    confidence: float = 1.0
+
+
+@dataclass(slots=True)
+class CommodityEnergyConfig:
+    """Shadow-only ingestion of explicit commodity and energy exposures."""
+
+    enabled: bool = False
+    sources: tuple[CommodityEnergySourceConfig, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class RegulatoryContractSourceConfig:
+    """One public regulatory or contract event supplied by the user."""
+
+    ticker: str
+    event_type: str
+    status: str
+    title: str
+    authority_or_counterparty: str
+    publisher: str
+    published_at: datetime
+    url: str
+    event_value: float | None = None
+    currency: str | None = None
+    confidence: float = 1.0
+
+
+@dataclass(slots=True)
+class RegulatoryContractConfig:
+    """Shadow-only ingestion of explicit regulatory and contract events."""
+
+    enabled: bool = False
+    sources: tuple[RegulatoryContractSourceConfig, ...] = ()
+
+
 @dataclass(slots=True)
 class RegimeOverrides:
     trend_multiplier: float = 1.08
@@ -236,6 +305,13 @@ class AppConfig:
     short_reports: ShortReportConfig = field(default_factory=ShortReportConfig)
     claim_verification: ClaimVerificationConfig = field(
         default_factory=ClaimVerificationConfig
+    )
+    supply_chain: SupplyChainConfig = field(default_factory=SupplyChainConfig)
+    commodity_energy: CommodityEnergyConfig = field(
+        default_factory=CommodityEnergyConfig
+    )
+    regulatory_contract: RegulatoryContractConfig = field(
+        default_factory=RegulatoryContractConfig
     )
     behavioral_weights: BehavioralWeights = field(default_factory=BehavioralWeights)
     adjustment: AdjustmentConfig = field(default_factory=AdjustmentConfig)

@@ -29,6 +29,18 @@ class StreamlitUISmokeTests(unittest.TestCase):
             "Ověřit tvrzení reportů proti SEC datům",
             checkbox_labels,
         )
+        self.assertIn(
+            "Načíst vztahy dodavatelů a odběratelů (Etapa 3)",
+            checkbox_labels,
+        )
+        self.assertIn(
+            "Načíst expozice na materiály a energie (Etapa 3)",
+            checkbox_labels,
+        )
+        self.assertIn(
+            "Načíst regulační a kontraktní události (Etapa 3)",
+            checkbox_labels,
+        )
         text_labels = [field.label for field in app.text_input]
         self.assertIn(
             "SEC User-Agent (aplikace + kontaktní e-mail)",
@@ -37,6 +49,18 @@ class StreamlitUISmokeTests(unittest.TestCase):
         text_area_labels = [field.label for field in app.text_area]
         self.assertIn(
             "Short reporty: TICKER | vydavatel | datum | HTTPS URL",
+            text_area_labels,
+        )
+        self.assertIn(
+            "Síť firem: TICKER | protistrana | typ | podíl %/- | vydavatel | datum | HTTPS URL",
+            text_area_labels,
+        )
+        self.assertIn(
+            "Materiály/energie: TICKER | zdroj | typ | podíl %/- | vydavatel | datum | HTTPS URL",
+            text_area_labels,
+        )
+        self.assertIn(
+            "Regulace/kontrakty: TICKER | typ | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | datum | HTTPS URL",
             text_area_labels,
         )
 

@@ -112,6 +112,15 @@ class SQLiteStore:
             conn.execute(
                 "ALTER TABLE quality_gate_checks ADD COLUMN claim_ids_json TEXT NOT NULL DEFAULT '[]'"
             )
+        for column in (
+            "relationship_ids_json",
+            "exposure_ids_json",
+            "regulatory_event_ids_json",
+        ):
+            if column not in existing:
+                conn.execute(
+                    f"ALTER TABLE quality_gate_checks ADD COLUMN {column} TEXT NOT NULL DEFAULT '[]'"
+                )
 
     def ensure_schema(self) -> None:
         with self._connect() as conn:
@@ -390,6 +399,111 @@ class SQLiteStore:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS company_relationships (
+                    relationship_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    counterparty TEXT NOT NULL,
+                    relationship_type TEXT NOT NULL,
+                    dependency_pct REAL,
+                    confidence REAL NOT NULL,
+                    published_at TEXT NOT NULL,
+                    document_id TEXT NOT NULL,
+                    source_url TEXT NOT NULL,
+                    source_agent_name TEXT NOT NULL,
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS company_relationship_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    relationship_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY(orchestration_id, agent_run_id, relationship_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(relationship_id) REFERENCES company_relationships(relationship_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS resource_exposures (
+                    exposure_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    resource_name TEXT NOT NULL,
+                    exposure_type TEXT NOT NULL,
+                    dependency_pct REAL,
+                    confidence REAL NOT NULL,
+                    published_at TEXT NOT NULL,
+                    document_id TEXT NOT NULL,
+                    source_url TEXT NOT NULL,
+                    source_agent_name TEXT NOT NULL,
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS resource_exposure_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    exposure_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY(orchestration_id, agent_run_id, exposure_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(exposure_id) REFERENCES resource_exposures(exposure_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS regulatory_contract_events (
+                    event_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    event_type TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    title TEXT NOT NULL,
+                    authority_or_counterparty TEXT NOT NULL,
+                    event_value REAL,
+                    currency TEXT,
+                    confidence REAL NOT NULL,
+                    published_at TEXT NOT NULL,
+                    document_id TEXT NOT NULL,
+                    source_url TEXT NOT NULL,
+                    source_agent_name TEXT NOT NULL,
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS regulatory_contract_event_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    event_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY(orchestration_id, agent_run_id, event_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(event_id) REFERENCES regulatory_contract_events(event_id)
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS evidence (
                     evidence_id TEXT PRIMARY KEY,
                     orchestration_id TEXT NOT NULL,
@@ -454,6 +568,9 @@ class SQLiteStore:
                     signal_ids_json TEXT NOT NULL DEFAULT '[]',
                     evidence_ids_json TEXT NOT NULL DEFAULT '[]',
                     claim_ids_json TEXT NOT NULL DEFAULT '[]',
+                    relationship_ids_json TEXT NOT NULL DEFAULT '[]',
+                    exposure_ids_json TEXT NOT NULL DEFAULT '[]',
+                    regulatory_event_ids_json TEXT NOT NULL DEFAULT '[]',
                     metadata_json TEXT NOT NULL DEFAULT '{}',
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
                     FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE
@@ -484,6 +601,24 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_research_claim_observations_run ON research_claim_observations(orchestration_id, agent_run_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_company_relationships_ticker_type ON company_relationships(ticker, relationship_type, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_company_relationship_observations_run ON company_relationship_observations(orchestration_id, agent_run_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_resource_exposures_ticker_type ON resource_exposures(ticker, exposure_type, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_resource_exposure_observations_run ON resource_exposure_observations(orchestration_id, agent_run_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_regulatory_contract_events_ticker_type ON regulatory_contract_events(ticker, event_type, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_regulatory_contract_event_observations_run ON regulatory_contract_event_observations(orchestration_id, agent_run_id)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_evidence_ticker_observed ON evidence(ticker, observed_at)"
@@ -931,6 +1066,172 @@ class SQLiteStore:
                         ),
                     )
 
+                for relationship in result.company_relationships:
+                    conn.execute(
+                        """
+                        INSERT INTO company_relationships(
+                            relationship_id, ticker, counterparty,
+                            relationship_type, dependency_pct, confidence,
+                            published_at, document_id, source_url,
+                            source_agent_name, first_seen_at, last_seen_at,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(relationship_id) DO UPDATE SET
+                            ticker = excluded.ticker,
+                            counterparty = excluded.counterparty,
+                            relationship_type = excluded.relationship_type,
+                            dependency_pct = excluded.dependency_pct,
+                            confidence = excluded.confidence,
+                            published_at = excluded.published_at,
+                            document_id = excluded.document_id,
+                            source_url = excluded.source_url,
+                            source_agent_name = excluded.source_agent_name,
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            relationship.relationship_id,
+                            relationship.ticker,
+                            relationship.counterparty,
+                            relationship.relationship_type.value,
+                            relationship.dependency_pct,
+                            relationship.confidence,
+                            to_iso(relationship.published_at),
+                            relationship.document_id,
+                            relationship.source_url,
+                            relationship.source_agent_name,
+                            to_iso(relationship.observed_at),
+                            to_iso(relationship.observed_at),
+                            self._json_dump(relationship.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO company_relationship_observations(
+                            orchestration_id, agent_run_id, relationship_id,
+                            observed_at
+                        ) VALUES (?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            relationship.relationship_id,
+                            to_iso(relationship.observed_at),
+                        ),
+                    )
+
+                for exposure in result.resource_exposures:
+                    conn.execute(
+                        """
+                        INSERT INTO resource_exposures(
+                            exposure_id, ticker, resource_name, exposure_type,
+                            dependency_pct, confidence, published_at,
+                            document_id, source_url, source_agent_name,
+                            first_seen_at, last_seen_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(exposure_id) DO UPDATE SET
+                            ticker = excluded.ticker,
+                            resource_name = excluded.resource_name,
+                            exposure_type = excluded.exposure_type,
+                            dependency_pct = excluded.dependency_pct,
+                            confidence = excluded.confidence,
+                            published_at = excluded.published_at,
+                            document_id = excluded.document_id,
+                            source_url = excluded.source_url,
+                            source_agent_name = excluded.source_agent_name,
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            exposure.exposure_id,
+                            exposure.ticker,
+                            exposure.resource_name,
+                            exposure.exposure_type.value,
+                            exposure.dependency_pct,
+                            exposure.confidence,
+                            to_iso(exposure.published_at),
+                            exposure.document_id,
+                            exposure.source_url,
+                            exposure.source_agent_name,
+                            to_iso(exposure.observed_at),
+                            to_iso(exposure.observed_at),
+                            self._json_dump(exposure.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO resource_exposure_observations(
+                            orchestration_id, agent_run_id, exposure_id,
+                            observed_at
+                        ) VALUES (?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            exposure.exposure_id,
+                            to_iso(exposure.observed_at),
+                        ),
+                    )
+
+                for event in result.regulatory_contract_events:
+                    conn.execute(
+                        """
+                        INSERT INTO regulatory_contract_events(
+                            event_id, ticker, event_type, status, title,
+                            authority_or_counterparty, event_value, currency,
+                            confidence, published_at, document_id, source_url,
+                            source_agent_name, first_seen_at, last_seen_at,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(event_id) DO UPDATE SET
+                            ticker = excluded.ticker,
+                            event_type = excluded.event_type,
+                            status = excluded.status,
+                            title = excluded.title,
+                            authority_or_counterparty = excluded.authority_or_counterparty,
+                            event_value = excluded.event_value,
+                            currency = excluded.currency,
+                            confidence = excluded.confidence,
+                            published_at = excluded.published_at,
+                            document_id = excluded.document_id,
+                            source_url = excluded.source_url,
+                            source_agent_name = excluded.source_agent_name,
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            event.event_id,
+                            event.ticker,
+                            event.event_type.value,
+                            event.status.value,
+                            event.title,
+                            event.authority_or_counterparty,
+                            event.event_value,
+                            event.currency,
+                            event.confidence,
+                            to_iso(event.published_at),
+                            event.document_id,
+                            event.source_url,
+                            event.source_agent_name,
+                            to_iso(event.observed_at),
+                            to_iso(event.observed_at),
+                            self._json_dump(event.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO regulatory_contract_event_observations(
+                            orchestration_id, agent_run_id, event_id, observed_at
+                        ) VALUES (?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            event.event_id,
+                            to_iso(event.observed_at),
+                        ),
+                    )
+
                 for evidence in result.evidence:
                     conn.execute(
                         """
@@ -1001,8 +1302,10 @@ class SQLiteStore:
                             check_id, orchestration_id, agent_run_id, ticker,
                             gate_name, decision, observed_at, message,
                             related_agent_names_json, signal_ids_json,
-                            evidence_ids_json, claim_ids_json, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            evidence_ids_json, claim_ids_json,
+                            relationship_ids_json, exposure_ids_json,
+                            regulatory_event_ids_json, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             check.check_id,
@@ -1017,6 +1320,9 @@ class SQLiteStore:
                             self._json_dump(check.signal_ids),
                             self._json_dump(check.evidence_ids),
                             self._json_dump(check.claim_ids),
+                            self._json_dump(check.relationship_ids),
+                            self._json_dump(check.exposure_ids),
+                            self._json_dump(check.regulatory_event_ids),
                             self._json_dump(check.metadata),
                         ),
                     )
@@ -1088,6 +1394,48 @@ class SQLiteStore:
             query += " WHERE ticker = ?"
             params = (ticker,)
         query += " ORDER BY published_at DESC, ticker ASC, claim_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_company_relationships(
+        self,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM company_relationships"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY ticker ASC, published_at DESC, relationship_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_resource_exposures(
+        self,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM resource_exposures"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY ticker ASC, published_at DESC, exposure_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_regulatory_contract_events(
+        self,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM regulatory_contract_events"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY ticker ASC, published_at DESC, event_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 

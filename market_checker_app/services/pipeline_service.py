@@ -11,14 +11,17 @@ import pandas as pd
 from market_checker_app.agents import (
     AgentStatus,
     ClaimVerificationAgent,
+    CommodityEnergyAgent,
     EntityRegistryAgent,
     FinancialForensicsAgent,
     OrchestrationReport,
     OrchestratorAgent,
     PredictionV21AdapterAgent,
     QualityGateAgent,
+    RegulatoryContractAgent,
     SecFundamentalsAgent,
     ShortReportAgent,
+    SupplyChainAgent,
 )
 from market_checker_app.analysis.behavioral_analysis import analyze_behavioral
 from market_checker_app.analysis.confidence import combine_confidence
@@ -100,6 +103,16 @@ class PipelineService:
                 orchestrator.register(
                     ClaimVerificationAgent(self.config.claim_verification)
                 )
+        if self.config.supply_chain.enabled:
+            orchestrator.register(SupplyChainAgent(self.config.supply_chain))
+        if self.config.commodity_energy.enabled:
+            orchestrator.register(
+                CommodityEnergyAgent(self.config.commodity_energy)
+            )
+        if self.config.regulatory_contract.enabled:
+            orchestrator.register(
+                RegulatoryContractAgent(self.config.regulatory_contract)
+            )
         orchestrator.register(PredictionV21AdapterAgent())
         orchestrator.register(
             QualityGateAgent(
@@ -610,6 +623,12 @@ class PipelineService:
         claim_corroborated_count = 0
         claim_contradicted_count = 0
         claim_insufficient_count = 0
+        supply_chain_status: str | None = None
+        supply_chain_relationship_count = 0
+        commodity_energy_status: str | None = None
+        commodity_energy_exposure_count = 0
+        regulatory_contract_status: str | None = None
+        regulatory_contract_event_count = 0
         if self.config.agent_stage1_enabled:
             progress.set_global_step(
                 "agent_pipeline",
@@ -661,6 +680,21 @@ class PipelineService:
                         )
                         claim_insufficient_count = int(
                             status_counts.get("INSUFFICIENT_DATA", 0)
+                        )
+                    elif execution.agent_name == "supply_chain":
+                        supply_chain_status = execution.status.value
+                        supply_chain_relationship_count = len(
+                            execution.result.company_relationships
+                        )
+                    elif execution.agent_name == "commodity_energy":
+                        commodity_energy_status = execution.status.value
+                        commodity_energy_exposure_count = len(
+                            execution.result.resource_exposures
+                        )
+                    elif execution.agent_name == "regulatory_contract":
+                        regulatory_contract_status = execution.status.value
+                        regulatory_contract_event_count = len(
+                            execution.result.regulatory_contract_events
                         )
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
@@ -746,6 +780,12 @@ class PipelineService:
             "claim_corroborated_count": claim_corroborated_count,
             "claim_contradicted_count": claim_contradicted_count,
             "claim_insufficient_count": claim_insufficient_count,
+            "supply_chain_status": supply_chain_status,
+            "supply_chain_relationship_count": supply_chain_relationship_count,
+            "commodity_energy_status": commodity_energy_status,
+            "commodity_energy_exposure_count": commodity_energy_exposure_count,
+            "regulatory_contract_status": regulatory_contract_status,
+            "regulatory_contract_event_count": regulatory_contract_event_count,
             "agent_report": agent_report,
             "progress_state": progress.snapshot(),
         }
