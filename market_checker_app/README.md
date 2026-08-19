@@ -181,15 +181,49 @@ nezávislý primární SEC dokument, identitu ověřovacího agenta a časové �
 Chybějící vazba tvrzení zamítne v auditu. Vše zůstává v `shadow_mode` a nemění
 score, `forecast`, `BUY`, `SELL`, `NO_TRADE` ani hard veto.
 
+## Síť firem, materiály, energie, regulace a kontrakty – etapa 3
+
+Etapa 3 přidává tři nezávislé opt-in agenty:
+
+- `SupplyChainAgent` ukládá vztahy `SUPPLIER`, `CUSTOMER`,
+  `CONTRACT_MANUFACTURER`, `LOGISTICS` a `PARTNER`,
+- `CommodityEnergyAgent` ukládá expozice `MATERIAL_INPUT`,
+  `COMMODITY_OUTPUT`, `ELECTRICITY` a `FUEL`,
+- `RegulatoryContractAgent` ukládá kontrakty, schválení, vyšetřování, sankce,
+  změny licencí a granty včetně veřejně oznámené hodnoty a stavu.
+
+Agenti v této etapě zdroje automaticky neobjevují ani z nich neodhadují dopad.
+Uživatel zadává strukturovaný záznam a veřejnou HTTPS referenci například na
+firemní výkaz, regulatorní oznámení, registr kontraktů nebo zprávu úřadu:
+
+```text
+TICKER | protistrana | typ vztahu | podíl %/- | vydavatel | YYYY-MM-DD | HTTPS URL
+TICKER | materiál/energie | typ expozice | podíl %/- | vydavatel | YYYY-MM-DD | HTTPS URL
+TICKER | typ události | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | YYYY-MM-DD | HTTPS URL
+```
+
+Každý záznam má stabilní ID, datum zveřejnění, zdrojový dokument a samostatnou
+observaci běhu. Lokální, privátní a URL s přihlašovacími údaji se odmítají.
+Budoucí publikace nesmí projít point-in-time kontrolou. QualityGate současně
+zamítne jakýkoli signal, nenulový směr, risk score nebo hard veto vydané těmito
+třemi agenty. Vše proto zůstává auditní a nemění predikci v2.1.
+
+SQLite tabulky etapy 3 jsou:
+
+- `company_relationships` + `company_relationship_observations`,
+- `resource_exposures` + `resource_exposure_observations`,
+- `regulatory_contract_events` + `regulatory_contract_event_observations`.
+
 ## Stav původní implementační roadmapy
 
 - **Etapa 1 — hotovo:** orchestrace, registr entit, společné dokumenty/evidence/běhy,
   adaptér v2.1 a kontrolní mechanismus.
 - **Etapa 2 — hotovo v shadow režimu:** SEC výkazy, finanční forenzní screening,
   short reporty a ověřování jednotlivých tvrzení.
-- **Etapa 3 — následuje:** `SupplyChainAgent`, `CommodityEnergyAgent` a
-  `RegulatoryContractAgent` pro síť firem, materiály, energie, regulaci a kontrakty.
-- **Etapa 4 — zatím nezačala:** rozšíření `DecisionAgent`, `EvaluationAgent` a
+- **Etapa 3 — hotovo v shadow režimu:** `SupplyChainAgent`,
+  `CommodityEnergyAgent` a `RegulatoryContractAgent` pro auditní síť firem,
+  materiály, energie, regulaci a kontrakty.
+- **Etapa 4 — následuje:** rozšíření `DecisionAgent`, `EvaluationAgent` a
   postupné povolování nových signálů až po prokázaném přínosu na out-of-sample datech.
 
 ## Kde se ukládá výstup

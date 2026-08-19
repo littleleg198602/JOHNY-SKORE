@@ -24,13 +24,16 @@ from market_checker_app.collectors.mt5_client import MT5Client
 from market_checker_app.config import (
     AppConfig,
     ClaimVerificationConfig,
+    CommodityEnergyConfig,
     DEFAULT_DB_PATH,
     DEFAULT_OUTPUT_DIR,
     FinancialForensicsConfig,
     FundamentalIngestionConfig,
+    RegulatoryContractConfig,
     ShortReportConfig,
     ShortReportSourceConfig,
     SignalThresholds,
+    SupplyChainConfig,
 )
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
 from market_checker_app.exporters.delta_builder import prepare_delta_for_excel
@@ -41,6 +44,11 @@ from market_checker_app.services.evaluation_service import EvaluationService
 from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.services.ranking_service import RankingService
+from market_checker_app.services.stage3_manifest_service import (
+    parse_commodity_energy_sources,
+    parse_regulatory_contract_sources,
+    parse_supply_chain_sources,
+)
 from market_checker_app.services.visualization_service import VisualizationService
 from market_checker_app.services.yahoo_enrichment_service import YahooEnrichmentService
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -808,6 +816,31 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         "Nedostatek dat",
         int(result.get("claim_insufficient_count") or 0),
     )
+    stage3_metrics = st.columns(6)
+    stage3_metrics[0].metric(
+        "SupplyChain",
+        result.get("supply_chain_status") or "vypnuto",
+    )
+    stage3_metrics[1].metric(
+        "Vztahy firem",
+        int(result.get("supply_chain_relationship_count") or 0),
+    )
+    stage3_metrics[2].metric(
+        "Commodity/Energy",
+        result.get("commodity_energy_status") or "vypnuto",
+    )
+    stage3_metrics[3].metric(
+        "Expozice",
+        int(result.get("commodity_energy_exposure_count") or 0),
+    )
+    stage3_metrics[4].metric(
+        "Regulace/kontrakty",
+        result.get("regulatory_contract_status") or "vypnuto",
+    )
+    stage3_metrics[5].metric(
+        "Události",
+        int(result.get("regulatory_contract_event_count") or 0),
+    )
 
     report = result.get("agent_report")
     executions = getattr(report, "executions", None)
@@ -964,6 +997,90 @@ def _render_agent_audit(result: dict[str, object]) -> None:
     else:
         st.info("Nebyla bezpečně extrahována žádná tvrzení k zobrazení.")
 
+    stage3_executions = {
+        execution.agent_name: execution
+        for execution in executions
+        if execution.agent_name
+        in {"supply_chain", "commodity_energy", "regulatory_contract"}
+    }
+    st.markdown("### Síť firem, zdroje, regulace a kontrakty — Etapa 3")
+    st.caption(
+        "Zobrazené záznamy jsou point-in-time audit s veřejným zdrojem. "
+        "Nemají směr, risk score, hard veto ani vliv na predikci v2.1."
+    )
+    supply_execution = stage3_executions.get("supply_chain")
+    if supply_execution is not None and supply_execution.result.company_relationships:
+        st.markdown("#### Dodavatelsko-odběratelské vztahy")
+        st.dataframe(
+            pd.DataFrame(
+                [
+                    {
+                        "ticker": item.ticker,
+                        "protistrana": item.counterparty,
+                        "typ": item.relationship_type.value,
+                        "podíl_pct": item.dependency_pct,
+                        "datum_zveřejnění": item.published_at.isoformat(),
+                        "důvěra_zachycení_pct": round(item.confidence * 100.0, 1),
+                        "zdroj": item.source_url,
+                    }
+                    for item in supply_execution.result.company_relationships
+                ]
+            ),
+            width="stretch",
+            hide_index=True,
+        )
+
+    resource_execution = stage3_executions.get("commodity_energy")
+    if resource_execution is not None and resource_execution.result.resource_exposures:
+        st.markdown("#### Materiály a energie")
+        st.dataframe(
+            pd.DataFrame(
+                [
+                    {
+                        "ticker": item.ticker,
+                        "zdroj": item.resource_name,
+                        "typ": item.exposure_type.value,
+                        "podíl_pct": item.dependency_pct,
+                        "datum_zveřejnění": item.published_at.isoformat(),
+                        "důvěra_zachycení_pct": round(item.confidence * 100.0, 1),
+                        "reference": item.source_url,
+                    }
+                    for item in resource_execution.result.resource_exposures
+                ]
+            ),
+            width="stretch",
+            hide_index=True,
+        )
+
+    regulatory_execution = stage3_executions.get("regulatory_contract")
+    if (
+        regulatory_execution is not None
+        and regulatory_execution.result.regulatory_contract_events
+    ):
+        st.markdown("#### Regulační a kontraktní události")
+        st.dataframe(
+            pd.DataFrame(
+                [
+                    {
+                        "ticker": item.ticker,
+                        "typ": item.event_type.value,
+                        "stav": item.status.value,
+                        "název": item.title,
+                        "protistrana_nebo_úřad": item.authority_or_counterparty,
+                        "hodnota": item.event_value,
+                        "měna": item.currency,
+                        "datum_zveřejnění": item.published_at.isoformat(),
+                        "zdroj": item.source_url,
+                    }
+                    for item in regulatory_execution.result.regulatory_contract_events
+                ]
+            ),
+            width="stretch",
+            hide_index=True,
+        )
+    if not stage3_executions:
+        st.info("Agenti Etapy 3 nebyli v tomto běhu zapnutí.")
+
 
 st.set_page_config(page_title="Market Checker", layout="wide")
 st.title("Market Checker")
@@ -1044,6 +1161,62 @@ with st.sidebar:
             "Výsledek zůstává mimo predikční score."
         ),
     )
+    use_supply_chain = st.checkbox(
+        "Načíst vztahy dodavatelů a odběratelů (Etapa 3)",
+        value=False,
+        help=(
+            "Uloží pouze výslovně zadané vztahy s veřejným HTTPS zdrojem. "
+            "Povolené typy: SUPPLIER, CUSTOMER, CONTRACT_MANUFACTURER, "
+            "LOGISTICS, PARTNER. Záznamy nemění predikci."
+        ),
+    )
+    supply_chain_sources_text = st.text_area(
+        "Síť firem: TICKER | protistrana | typ | podíl %/- | vydavatel | datum | HTTPS URL",
+        value="",
+        height=100,
+        disabled=not use_supply_chain,
+        placeholder=(
+            "AAPL | Example Components | SUPPLIER | 18 | Company 10-K | "
+            "2026-08-19 | https://example.com/source"
+        ),
+    )
+    use_commodity_energy = st.checkbox(
+        "Načíst expozice na materiály a energie (Etapa 3)",
+        value=False,
+        help=(
+            "Povolené typy: MATERIAL_INPUT, COMMODITY_OUTPUT, ELECTRICITY, FUEL. "
+            "Etapa 3 zatím nepřipojuje cenovou řadu ani směrové score."
+        ),
+    )
+    commodity_energy_sources_text = st.text_area(
+        "Materiály/energie: TICKER | zdroj | typ | podíl %/- | vydavatel | datum | HTTPS URL",
+        value="",
+        height=100,
+        disabled=not use_commodity_energy,
+        placeholder=(
+            "AAPL | aluminium | MATERIAL_INPUT | - | Company report | "
+            "2026-08-19 | https://example.com/source"
+        ),
+    )
+    use_regulatory_contract = st.checkbox(
+        "Načíst regulační a kontraktní události (Etapa 3)",
+        value=False,
+        help=(
+            "Povolené typy zahrnují CONTRACT_AWARD, CONTRACT_LOSS, "
+            "REGULATORY_APPROVAL, INVESTIGATION, SANCTION, LICENSE_CHANGE a GRANT. "
+            "Událost sama nevytváří BUY, SELL ani veto."
+        ),
+    )
+    regulatory_contract_sources_text = st.text_area(
+        "Regulace/kontrakty: TICKER | typ | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | datum | HTTPS URL",
+        value="",
+        height=110,
+        disabled=not use_regulatory_contract,
+        placeholder=(
+            "AAPL | CONTRACT_AWARD | ANNOUNCED | Example award | Agency | "
+            "1000000 | USD | Agency | 2026-08-19 | https://example.gov/award"
+        ),
+    )
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
     load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
@@ -1070,6 +1243,15 @@ with st.sidebar:
 sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
 short_report_sources, short_report_source_errors = _parse_short_report_sources(
     short_report_sources_text
+)
+supply_chain_sources, supply_chain_source_errors = parse_supply_chain_sources(
+    supply_chain_sources_text
+)
+commodity_energy_sources, commodity_energy_source_errors = (
+    parse_commodity_energy_sources(commodity_energy_sources_text)
+)
+regulatory_contract_sources, regulatory_contract_source_errors = (
+    parse_regulatory_contract_sources(regulatory_contract_sources_text)
 )
 
 config = AppConfig(
@@ -1099,6 +1281,18 @@ config = AppConfig(
             and verify_short_report_claims
         ),
     ),
+    supply_chain=SupplyChainConfig(
+        enabled=use_supply_chain,
+        sources=supply_chain_sources,
+    ),
+    commodity_energy=CommodityEnergyConfig(
+        enabled=use_commodity_energy,
+        sources=commodity_energy_sources,
+    ),
+    regulatory_contract=RegulatoryContractConfig(
+        enabled=use_regulatory_contract,
+        sources=regulatory_contract_sources,
+    ),
 )
 config.ensure_output_dir()
 store = SQLiteStore(config.sqlite_path)
@@ -1119,6 +1313,26 @@ if use_short_reports and not short_report_sources:
         "ShortReportAgent je zapnutý, ale nemá žádný platný řádek se zdrojem; "
         "běh tuto volitelnou vrstvu auditovatelně označí jako nedostupnou."
     )
+for stage3_source_error in (
+    supply_chain_source_errors
+    + commodity_energy_source_errors
+    + regulatory_contract_source_errors
+):
+    st.warning(stage3_source_error)
+for enabled, sources, agent_name in (
+    (use_supply_chain, supply_chain_sources, "SupplyChainAgent"),
+    (use_commodity_energy, commodity_energy_sources, "CommodityEnergyAgent"),
+    (
+        use_regulatory_contract,
+        regulatory_contract_sources,
+        "RegulatoryContractAgent",
+    ),
+):
+    if enabled and not sources:
+        st.warning(
+            f"{agent_name} je zapnutý, ale nemá žádný platný zdrojový řádek; "
+            "běh jej auditovatelně označí jako nedostupný."
+        )
 
 if load_watchlist:
     loaded_watchlist, mt5_error = MT5Client().load_watchlist()

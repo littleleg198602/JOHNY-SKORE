@@ -19,9 +19,15 @@ from market_checker_app.collectors.sec_edgar_client import (
 from market_checker_app.collectors.short_report_client import FetchedShortReport
 from market_checker_app.config import (
     AppConfig,
+    CommodityEnergyConfig,
+    CommodityEnergySourceConfig,
     FundamentalIngestionConfig,
+    RegulatoryContractConfig,
+    RegulatoryContractSourceConfig,
     ShortReportConfig,
     ShortReportSourceConfig,
+    SupplyChainConfig,
+    SupplyChainSourceConfig,
 )
 from market_checker_app.models import PerformanceSnapshot, RunMetadata, YahooSnapshot
 from market_checker_app.services.pipeline_service import PipelineService
@@ -338,6 +344,86 @@ class RuntimeIntegrationTests(unittest.TestCase):
                 ).fetchone()[0]
             self.assertEqual(6, observations)
 
+    def test_pipeline_runs_stage3_network_agents_without_rescoring(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            store = SQLiteStore(output_dir / "history.db")
+            published_at = datetime(2026, 1, 15, tzinfo=timezone.utc)
+            pipeline = PipelineService(
+                AppConfig(
+                    output_dir=output_dir,
+                    sqlite_path=store.db_path,
+                    save_history=True,
+                    supply_chain=SupplyChainConfig(
+                        enabled=True,
+                        sources=(
+                            SupplyChainSourceConfig(
+                                ticker="AAPL",
+                                counterparty="Example Supplier",
+                                relationship_type="SUPPLIER",
+                                dependency_pct=20.0,
+                                publisher="Company report",
+                                published_at=published_at,
+                                url="https://example.com/company-report",
+                            ),
+                        ),
+                    ),
+                    commodity_energy=CommodityEnergyConfig(
+                        enabled=True,
+                        sources=(
+                            CommodityEnergySourceConfig(
+                                ticker="AAPL",
+                                resource_name="Electricity",
+                                exposure_type="ELECTRICITY",
+                                publisher="Sustainability report",
+                                published_at=published_at,
+                                url="https://example.com/sustainability",
+                            ),
+                        ),
+                    ),
+                    regulatory_contract=RegulatoryContractConfig(
+                        enabled=True,
+                        sources=(
+                            RegulatoryContractSourceConfig(
+                                ticker="AAPL",
+                                event_type="REGULATORY_APPROVAL",
+                                status="COMPLETED",
+                                title="Example approval",
+                                authority_or_counterparty="Example Authority",
+                                publisher="Example Authority",
+                                published_at=published_at,
+                                url="https://authority.example.org/approval",
+                            ),
+                        ),
+                    ),
+                )
+            )
+            pipeline.yahoo_client = _FakeYahooClient()
+
+            result = pipeline.run(
+                ["AAPL"],
+                [],
+                store,
+                yahoo_only_tickers={"AAPL"},
+                rss_enabled=False,
+                mt5_enabled=False,
+            )
+
+            self.assertEqual("PASS", result["quality_gate_decision"])
+            self.assertEqual("SUCCESS", result["supply_chain_status"])
+            self.assertEqual("SUCCESS", result["commodity_energy_status"])
+            self.assertEqual("SUCCESS", result["regulatory_contract_status"])
+            self.assertEqual(1, result["supply_chain_relationship_count"])
+            self.assertEqual(1, result["commodity_energy_exposure_count"])
+            self.assertEqual(1, result["regulatory_contract_event_count"])
+            self.assertEqual(
+                result["signals"].iloc[0]["action"],
+                result["agent_report"].signals[0].action,
+            )
+            self.assertEqual(1, len(store.read_company_relationships("AAPL")))
+            self.assertEqual(1, len(store.read_resource_exposures("AAPL")))
+            self.assertEqual(1, len(store.read_regulatory_contract_events("AAPL")))
+
     def test_existing_database_is_migrated_additively_for_v21(self):
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "history.db"
@@ -389,12 +475,21 @@ class RuntimeIntegrationTests(unittest.TestCase):
                     "fundamental_fact_observations",
                     "research_claims",
                     "research_claim_observations",
+                    "company_relationships",
+                    "company_relationship_observations",
+                    "resource_exposures",
+                    "resource_exposure_observations",
+                    "regulatory_contract_events",
+                    "regulatory_contract_event_observations",
                     "evidence",
                     "agent_signals",
                     "quality_gate_checks",
                 }.issubset(tables)
             )
             self.assertIn("claim_ids_json", quality_gate_columns)
+            self.assertIn("relationship_ids_json", quality_gate_columns)
+            self.assertIn("exposure_ids_json", quality_gate_columns)
+            self.assertIn("regulatory_event_ids_json", quality_gate_columns)
 
     def test_empty_watchlist_is_rejected(self):
         pipeline = PipelineService(AppConfig(save_history=False))

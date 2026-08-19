@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
+import math
 from typing import Any
 
 
@@ -38,6 +39,41 @@ class ClaimStatus(str, Enum):
     INSUFFICIENT_DATA = "INSUFFICIENT_DATA"
 
 
+class RelationshipType(str, Enum):
+    SUPPLIER = "SUPPLIER"
+    CUSTOMER = "CUSTOMER"
+    CONTRACT_MANUFACTURER = "CONTRACT_MANUFACTURER"
+    LOGISTICS = "LOGISTICS"
+    PARTNER = "PARTNER"
+
+
+class ResourceExposureType(str, Enum):
+    MATERIAL_INPUT = "MATERIAL_INPUT"
+    COMMODITY_OUTPUT = "COMMODITY_OUTPUT"
+    ELECTRICITY = "ELECTRICITY"
+    FUEL = "FUEL"
+
+
+class RegulatoryContractEventType(str, Enum):
+    CONTRACT_AWARD = "CONTRACT_AWARD"
+    CONTRACT_LOSS = "CONTRACT_LOSS"
+    REGULATORY_APPROVAL = "REGULATORY_APPROVAL"
+    INVESTIGATION = "INVESTIGATION"
+    SANCTION = "SANCTION"
+    LICENSE_CHANGE = "LICENSE_CHANGE"
+    GRANT = "GRANT"
+
+
+class RegulatoryEventStatus(str, Enum):
+    ANNOUNCED = "ANNOUNCED"
+    ACTIVE = "ACTIVE"
+    PENDING = "PENDING"
+    COMPLETED = "COMPLETED"
+    CANCELLED = "CANCELLED"
+    SUSPENDED = "SUSPENDED"
+    UNKNOWN = "UNKNOWN"
+
+
 @dataclass(slots=True)
 class QualityGateCheck:
     check_id: str
@@ -50,6 +86,9 @@ class QualityGateCheck:
     signal_ids: list[str] = field(default_factory=list)
     evidence_ids: list[str] = field(default_factory=list)
     claim_ids: list[str] = field(default_factory=list)
+    relationship_ids: list[str] = field(default_factory=list)
+    exposure_ids: list[str] = field(default_factory=list)
+    regulatory_event_ids: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -133,6 +172,100 @@ class ResearchClaim:
 
 
 @dataclass(slots=True)
+class CompanyRelationship:
+    relationship_id: str
+    ticker: str
+    counterparty: str
+    relationship_type: RelationshipType
+    observed_at: datetime
+    published_at: datetime
+    document_id: str
+    source_url: str
+    dependency_pct: float | None = None
+    confidence: float = 1.0
+    source_agent_name: str = "supply_chain"
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.relationship_type, RelationshipType):
+            self.relationship_type = RelationshipType(
+                str(self.relationship_type).strip().upper()
+            )
+        if self.dependency_pct is not None:
+            self.dependency_pct = _bounded(
+                self.dependency_pct,
+                0.0,
+                100.0,
+                "dependency_pct",
+            )
+        self.confidence = _bounded(self.confidence, 0.0, 1.0, "confidence")
+
+
+@dataclass(slots=True)
+class ResourceExposure:
+    exposure_id: str
+    ticker: str
+    resource_name: str
+    exposure_type: ResourceExposureType
+    observed_at: datetime
+    published_at: datetime
+    document_id: str
+    source_url: str
+    dependency_pct: float | None = None
+    confidence: float = 1.0
+    source_agent_name: str = "commodity_energy"
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.exposure_type, ResourceExposureType):
+            self.exposure_type = ResourceExposureType(
+                str(self.exposure_type).strip().upper()
+            )
+        if self.dependency_pct is not None:
+            self.dependency_pct = _bounded(
+                self.dependency_pct,
+                0.0,
+                100.0,
+                "dependency_pct",
+            )
+        self.confidence = _bounded(self.confidence, 0.0, 1.0, "confidence")
+
+
+@dataclass(slots=True)
+class RegulatoryContractEvent:
+    event_id: str
+    ticker: str
+    event_type: RegulatoryContractEventType
+    status: RegulatoryEventStatus
+    title: str
+    authority_or_counterparty: str
+    observed_at: datetime
+    published_at: datetime
+    document_id: str
+    source_url: str
+    event_value: float | None = None
+    currency: str | None = None
+    confidence: float = 1.0
+    source_agent_name: str = "regulatory_contract"
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.event_type, RegulatoryContractEventType):
+            self.event_type = RegulatoryContractEventType(
+                str(self.event_type).strip().upper()
+            )
+        if not isinstance(self.status, RegulatoryEventStatus):
+            self.status = RegulatoryEventStatus(str(self.status).strip().upper())
+        if self.event_value is not None:
+            self.event_value = float(self.event_value)
+            if not math.isfinite(self.event_value) or self.event_value < 0.0:
+                raise ValueError("event_value must be a non-negative finite number")
+        if self.currency is not None:
+            self.currency = str(self.currency).strip().upper() or None
+        self.confidence = _bounded(self.confidence, 0.0, 1.0, "confidence")
+
+
+@dataclass(slots=True)
 class AgentEvidence:
     evidence_id: str
     ticker: str
@@ -188,6 +321,11 @@ class AgentResult:
     documents: list[DocumentRecord] = field(default_factory=list)
     fundamental_facts: list[FundamentalFact] = field(default_factory=list)
     claims: list[ResearchClaim] = field(default_factory=list)
+    company_relationships: list[CompanyRelationship] = field(default_factory=list)
+    resource_exposures: list[ResourceExposure] = field(default_factory=list)
+    regulatory_contract_events: list[RegulatoryContractEvent] = field(
+        default_factory=list
+    )
     evidence: list[AgentEvidence] = field(default_factory=list)
     signals: list[AgentSignal] = field(default_factory=list)
     quality_checks: list[QualityGateCheck] = field(default_factory=list)
@@ -203,6 +341,9 @@ class AgentResult:
             + len(self.documents)
             + len(self.fundamental_facts)
             + len(self.claims)
+            + len(self.company_relationships)
+            + len(self.resource_exposures)
+            + len(self.regulatory_contract_events)
             + len(self.evidence)
             + len(self.signals)
             + len(self.quality_checks)
@@ -271,6 +412,30 @@ class OrchestrationReport:
     @property
     def claims(self) -> list[ResearchClaim]:
         return [item for execution in self.executions for item in execution.result.claims]
+
+    @property
+    def company_relationships(self) -> list[CompanyRelationship]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.company_relationships
+        ]
+
+    @property
+    def resource_exposures(self) -> list[ResourceExposure]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.resource_exposures
+        ]
+
+    @property
+    def regulatory_contract_events(self) -> list[RegulatoryContractEvent]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.regulatory_contract_events
+        ]
 
     @property
     def signals(self) -> list[AgentSignal]:
