@@ -26,10 +26,16 @@ from market_checker_app.config import (
     RegulatoryContractSourceConfig,
     ShortReportConfig,
     ShortReportSourceConfig,
+    Stage3SourceVerificationConfig,
     SupplyChainConfig,
     SupplyChainSourceConfig,
 )
-from market_checker_app.models import PerformanceSnapshot, RunMetadata, YahooSnapshot
+from market_checker_app.models import (
+    NewsItem,
+    PerformanceSnapshot,
+    RunMetadata,
+    YahooSnapshot,
+)
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
@@ -194,6 +200,21 @@ class _FakeShortReportClient:
         )
 
 
+class _FakeStage3SourceClient:
+    def fetch(self, source: ShortReportSourceConfig) -> FetchedShortReport:
+        text = "FDA approves new therapy in an official announcement."
+        return FetchedShortReport(
+            source=source,
+            final_url=source.url,
+            mime_type="text/html",
+            title="FDA approves new therapy",
+            text=text,
+            content_hash="d" * 64,
+            size_bytes=len(text.encode("utf-8")),
+            extractor="fixture",
+        )
+
+
 class RuntimeIntegrationTests(unittest.TestCase):
     def test_pipeline_persists_signals_and_history_atomically(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -235,11 +256,16 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertFalse(global_history.empty)
             self.assertIn("forecast", global_history.columns)
             self.assertIn("action", global_history.columns)
-            self.assertEqual(3, len(store.read_agent_runs()))
+            self.assertEqual(5, len(store.read_agent_runs()))
             self.assertEqual(1, len(store.read_entities()))
             self.assertEqual(1, len(store.read_evidence()))
             self.assertEqual(1, len(store.read_agent_signals()))
-            self.assertEqual(1, len(store.read_quality_gate_checks()))
+            self.assertEqual(2, len(store.read_quality_gate_checks()))
+            self.assertEqual(1, len(store.read_decision_records()))
+            self.assertEqual(1, len(store.read_policy_evaluations()))
+            self.assertEqual(1, len(store.read_signal_activation_decisions()))
+            self.assertEqual("INSUFFICIENT_DATA", result["activation_state"])
+            self.assertEqual(0, result["decision_applied_count"])
 
     def test_pipeline_persists_stage2_sec_ingestion_without_rescoring(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -280,7 +306,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
                 result["signals"].iloc[0]["action"],
                 result["agent_report"].signals[0].action,
             )
-            self.assertEqual(5, len(store.read_agent_runs()))
+            self.assertEqual(7, len(store.read_agent_runs()))
             facts = store.read_fundamental_facts("AAPL")
             self.assertEqual(10, len(facts))
             assets = facts.loc[facts["concept"] == "Assets"].iloc[0]
@@ -336,7 +362,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
                 result["signals"].iloc[0]["action"],
                 result["agent_report"].signals[0].action,
             )
-            self.assertEqual(7, len(store.read_agent_runs()))
+            self.assertEqual(9, len(store.read_agent_runs()))
             self.assertEqual(3, len(store.read_research_claims("AAPL")))
             with store._connect() as conn:
                 observations = conn.execute(
@@ -424,6 +450,89 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertEqual(1, len(store.read_resource_exposures("AAPL")))
             self.assertEqual(1, len(store.read_regulatory_contract_events("AAPL")))
 
+    def test_pipeline_discovers_only_safe_shadow_sources_from_rss(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            store = SQLiteStore(output_dir / "history.db")
+            now = datetime.now(timezone.utc)
+            items = [
+                NewsItem(
+                    ticker="AAPL",
+                    source="fixture",
+                    title="Hindenburg Research publishes short report",
+                    summary="",
+                    published_at=now - timedelta(hours=2),
+                    sentiment_weight=0.0,
+                    url="https://hindenburgresearch.com/example-report/",
+                ),
+                NewsItem(
+                    ticker="AAPL",
+                    source="fixture",
+                    title="FDA approves new therapy",
+                    summary="",
+                    published_at=now - timedelta(hours=1),
+                    sentiment_weight=0.0,
+                    url="https://agency.example/announcement",
+                ),
+            ]
+
+            class FixtureRSSClient:
+                def collect(self, *_args, **_kwargs):
+                    return items, []
+
+            pipeline = PipelineService(
+                AppConfig(
+                    output_dir=output_dir,
+                    sqlite_path=store.db_path,
+                    save_history=True,
+                    regulatory_contract=RegulatoryContractConfig(
+                        auto_discover_from_news=True,
+                        source_verification=Stage3SourceVerificationConfig(
+                            enabled=True
+                        ),
+                    ),
+                )
+            )
+            pipeline.yahoo_client = _FakeYahooClient()
+            pipeline.rss_client = FixtureRSSClient()
+            pipeline.short_report_client = _FakeShortReportClient()
+            pipeline.stage3_source_client = _FakeStage3SourceClient()
+
+            result = pipeline.run(
+                ["AAPL"],
+                ["https://fixture.example/rss"],
+                store,
+                yahoo_only_tickers={"AAPL"},
+                rss_enabled=True,
+                mt5_enabled=False,
+            )
+
+            self.assertEqual(1, result["auto_discovered_short_reports"])
+            self.assertEqual(1, result["auto_discovered_regulatory_events"])
+            self.assertEqual("SUCCESS", result["short_report_status"])
+            self.assertEqual("SUCCESS", result["regulatory_contract_status"])
+            self.assertEqual(0, result["decision_applied_count"])
+            short_document = next(
+                document
+                for document in result["agent_report"].documents
+                if document.source_type == "short_report"
+            )
+            regulatory_document = next(
+                document
+                for document in result["agent_report"].documents
+                if document.source_type == "regulatory_contract_reference"
+            )
+            self.assertEqual("rss", short_document.metadata["discovery_method"])
+            self.assertFalse(short_document.metadata["explicitly_configured_source"])
+            self.assertTrue(regulatory_document.metadata["content_fetched"])
+            self.assertTrue(
+                regulatory_document.metadata["source_content_support_detected"]
+            )
+            self.assertEqual(
+                0.45,
+                result["agent_report"].regulatory_contract_events[0].confidence,
+            )
+
     def test_existing_database_is_migrated_additively_for_v21(self):
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "history.db"
@@ -442,6 +551,12 @@ class RuntimeIntegrationTests(unittest.TestCase):
                     row[1]
                     for row in conn.execute(
                         "PRAGMA table_info(quality_gate_checks)"
+                    ).fetchall()
+                }
+                document_observation_columns = {
+                    row[1]
+                    for row in conn.execute(
+                        "PRAGMA table_info(document_observations)"
                     ).fetchall()
                 }
                 tables = {
@@ -481,6 +596,9 @@ class RuntimeIntegrationTests(unittest.TestCase):
                     "resource_exposure_observations",
                     "regulatory_contract_events",
                     "regulatory_contract_event_observations",
+                    "decision_records",
+                    "policy_evaluations",
+                    "signal_activation_decisions",
                     "evidence",
                     "agent_signals",
                     "quality_gate_checks",
@@ -490,6 +608,10 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertIn("relationship_ids_json", quality_gate_columns)
             self.assertIn("exposure_ids_json", quality_gate_columns)
             self.assertIn("regulatory_event_ids_json", quality_gate_columns)
+            self.assertTrue(
+                {"source_url", "content_hash", "mime_type", "metadata_json"}
+                .issubset(document_observation_columns)
+            )
 
     def test_empty_watchlist_is_rejected(self):
         pipeline = PipelineService(AppConfig(save_history=False))

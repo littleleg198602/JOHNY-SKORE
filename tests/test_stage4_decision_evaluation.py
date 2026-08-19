@@ -181,6 +181,15 @@ class _ForensicRiskFixtureAgent(BaseAgent):
         )
 
 
+class _ForgedClusterEvaluationAgent(EvaluationAgent):
+    def run(self, context: AgentContext) -> AgentResult:
+        result = super().run(context)
+        evaluation = result.policy_evaluations[0]
+        evaluation.gate_results.pop("minimum_positive_week_ratio", None)
+        evaluation.metadata.pop("statistical_unit", None)
+        return result
+
+
 class DecisionAgentTests(unittest.TestCase):
     def test_shadow_overlay_suppresses_high_forensic_risk_without_emitting_signal(self) -> None:
         now = datetime.now(timezone.utc)
@@ -318,6 +327,75 @@ class EvaluationAgentTests(unittest.TestCase):
         self.assertFalse(evaluation.gate_results["point_in_time_integrity"])
         self.assertEqual(1, evaluation.metadata["future_samples_rejected"])
 
+    def test_week_clusters_prevent_one_busy_week_from_swamping_oos_gate(self) -> None:
+        now = datetime.now(timezone.utc)
+        samples = [
+            _sample(index, evaluated_at=now - timedelta(days=1))
+            for index in range(100)
+        ]
+        for sample in samples:
+            sample["week_start"] = "2026-01-05"
+        for index, week_start in enumerate(("2026-01-12", "2026-01-19"), start=100):
+            sample = _sample(
+                index,
+                evaluated_at=now - timedelta(days=1),
+                baseline_correct=1,
+            )
+            sample["week_start"] = week_start
+            samples.append(sample)
+
+        result = EvaluationAgent(
+            self._config(
+                minimum_oos_samples=100,
+                minimum_lift_pct_points=-100.0,
+                minimum_lift_lower_bound_pct_points=-1000.0,
+            )
+        ).run(
+            AgentContext(
+                orchestration_id="eval-week-clusters",
+                watchlist=("AAPL",),
+                started_at=now,
+                state={"stage4_evaluation_samples": samples},
+            )
+        )
+
+        evaluation = result.policy_evaluations[0]
+        self.assertAlmostEqual(-100.0 / 3.0, evaluation.lift_pct_points)
+        self.assertGreater(
+            evaluation.metadata["sample_weighted_lift_pct_points"],
+            90.0,
+        )
+        self.assertEqual(3, evaluation.metadata["effective_cluster_count"])
+        self.assertEqual("week", evaluation.metadata["statistical_unit"])
+        self.assertFalse(
+            evaluation.gate_results["minimum_positive_week_ratio"]
+        )
+        self.assertFalse(evaluation.gate_passed)
+
+    def test_one_week_never_gets_artificially_narrow_confidence_interval(self) -> None:
+        now = datetime.now(timezone.utc)
+        samples = [
+            _sample(index, evaluated_at=now - timedelta(days=1))
+            for index in range(200)
+        ]
+        for sample in samples:
+            sample["week_start"] = "2026-01-05"
+
+        evaluation = EvaluationAgent(
+            self._config(minimum_oos_samples=200, minimum_distinct_weeks=1)
+        ).run(
+            AgentContext(
+                orchestration_id="eval-single-week",
+                watchlist=("AAPL",),
+                started_at=now,
+                state={"stage4_evaluation_samples": samples},
+            )
+        ).policy_evaluations[0]
+
+        self.assertEqual(-100.0, evaluation.lift_lower_bound_pct_points)
+        self.assertFalse(evaluation.gate_results["positive_lift_lower_bound"])
+        self.assertFalse(evaluation.gate_passed)
+
     def test_same_evaluated_window_does_not_increment_consecutive_passes(self) -> None:
         now = datetime.now(timezone.utc)
         evaluated_at = now - timedelta(days=1)
@@ -382,6 +460,35 @@ class StageFourIntegrationTests(unittest.TestCase):
         }
         self.assertIn("unauthorized_stage4_application", codes)
         self.assertIn("missing_applied_stage4_signal", codes)
+
+    def test_quality_gate_rejects_missing_week_cluster_controls(self) -> None:
+        orchestrator = OrchestratorAgent(shadow_mode=True)
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(PredictionV21AdapterAgent())
+        orchestrator.register(
+            _ForgedClusterEvaluationAgent(EvaluationAgentConfig(enabled=True))
+        )
+        orchestrator.register(
+            QualityGateAgent(
+                dependencies=(
+                    "entity_registry",
+                    "prediction_v21_adapter",
+                    "evaluation_agent",
+                )
+            )
+        )
+
+        report = orchestrator.run(
+            watchlist=["AAPL"],
+            state={"signals": _signals(), "stage4_evaluation_samples": []},
+        )
+
+        self.assertEqual(GateDecision.REJECT, report.quality_checks[-1].decision)
+        codes = {
+            item["code"] for item in report.quality_checks[-1].metadata["rejects"]
+        }
+        self.assertIn("missing_stage4_gate_results", codes)
+        self.assertIn("invalid_stage4_cluster_metadata", codes)
 
     def test_stage4_audit_records_persist_atomically(self) -> None:
         orchestrator = OrchestratorAgent(shadow_mode=True)

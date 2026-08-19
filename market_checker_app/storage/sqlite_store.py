@@ -125,6 +125,26 @@ class SQLiteStore:
                     f"ALTER TABLE quality_gate_checks ADD COLUMN {column} TEXT NOT NULL DEFAULT '[]'"
                 )
 
+    @staticmethod
+    def _ensure_document_observation_columns(conn: sqlite3.Connection) -> None:
+        existing = {
+            row[1]
+            for row in conn.execute(
+                "PRAGMA table_info(document_observations)"
+            ).fetchall()
+        }
+        expected = {
+            "source_url": "TEXT",
+            "content_hash": "TEXT",
+            "mime_type": "TEXT",
+            "metadata_json": "TEXT NOT NULL DEFAULT '{}'",
+        }
+        for column, column_type in expected.items():
+            if column not in existing:
+                conn.execute(
+                    f"ALTER TABLE document_observations ADD COLUMN {column} {column_type}"
+                )
+
     def ensure_schema(self) -> None:
         with self._connect() as conn:
             conn.execute(
@@ -307,6 +327,10 @@ class SQLiteStore:
                     agent_run_id INTEGER NOT NULL,
                     document_id TEXT NOT NULL,
                     observed_at TEXT NOT NULL,
+                    source_url TEXT,
+                    content_hash TEXT,
+                    mime_type TEXT,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
                     PRIMARY KEY(orchestration_id, agent_run_id, document_id),
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
                     FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
@@ -314,6 +338,7 @@ class SQLiteStore:
                 )
                 """
             )
+            self._ensure_document_observation_columns(conn)
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS fundamental_facts (
@@ -1028,14 +1053,19 @@ class SQLiteStore:
                     conn.execute(
                         """
                         INSERT INTO document_observations(
-                            orchestration_id, agent_run_id, document_id, observed_at
-                        ) VALUES (?, ?, ?, ?)
+                            orchestration_id, agent_run_id, document_id, observed_at,
+                            source_url, content_hash, mime_type, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             report.orchestration_id,
                             agent_run_id,
                             document.document_id,
                             to_iso(document.observed_at),
+                            document.url,
+                            document.content_hash,
+                            document.mime_type,
+                            self._json_dump(document.metadata),
                         ),
                     )
 

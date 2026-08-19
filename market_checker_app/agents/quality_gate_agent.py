@@ -61,6 +61,18 @@ class QualityGateAgent(BaseAgent):
         "commodity_energy",
         "regulatory_contract",
     }
+    REQUIRED_STAGE4_GATES = {
+        "minimum_oos_samples",
+        "minimum_distinct_weeks",
+        "minimum_lift",
+        "positive_lift_lower_bound",
+        "minimum_positive_week_ratio",
+        "minimum_coverage",
+        "false_positive_non_increase",
+        "brier_non_increase",
+        "calibration_non_increase",
+        "point_in_time_integrity",
+    }
 
     def __init__(
         self,
@@ -563,6 +575,7 @@ class QualityGateAgent(BaseAgent):
         document_id: str,
         source_url: str,
         source_agent_name: str,
+        confidence: float,
         metadata: dict[str, Any],
         expected_agent_name: str,
         expected_document_type: str,
@@ -647,6 +660,43 @@ class QualityGateAgent(BaseAgent):
                     f"Datum {label} neodpovídá zdrojovému dokumentu.",
                 )
             )
+        if document.metadata.get("content_verification_required") is True:
+            support_detected = document.metadata.get(
+                "source_content_support_detected"
+            )
+            if (
+                document.metadata.get("content_fetched") is not True
+                or not document.content_hash
+                or not document.mime_type
+                or document.raw_path is not None
+            ):
+                rejects.append(
+                    _issue(
+                        "missing_stage3_content_attestation",
+                        f"{label} vyžaduje bezpečně stažený obsah, hash a MIME bez uložení surového souboru.",
+                    )
+                )
+            if not isinstance(support_detected, bool):
+                rejects.append(
+                    _issue(
+                        "invalid_stage3_content_attestation",
+                        f"{label} nemá jednoznačný výsledek kontroly obsahu.",
+                    )
+                )
+            elif not support_detected and confidence > 0.45:
+                rejects.append(
+                    _issue(
+                        "unsupported_stage3_confidence",
+                        f"{label} bez textové opory nesmí mít důvěru vyšší než 0,45.",
+                    )
+                )
+            if metadata.get("source_content_support_detected") is not support_detected:
+                rejects.append(
+                    _issue(
+                        "stage3_content_attestation_mismatch",
+                        f"{label} neodpovídá výsledku kontroly zdrojového dokumentu.",
+                    )
+                )
 
     @staticmethod
     def _check_stage3_evidence_link(
@@ -726,6 +776,7 @@ class QualityGateAgent(BaseAgent):
             document_id=relationship.document_id,
             source_url=relationship.source_url,
             source_agent_name=relationship.source_agent_name,
+            confidence=relationship.confidence,
             metadata=relationship.metadata,
             expected_agent_name="supply_chain",
             expected_document_type="supply_chain_reference",
@@ -785,6 +836,7 @@ class QualityGateAgent(BaseAgent):
             document_id=exposure.document_id,
             source_url=exposure.source_url,
             source_agent_name=exposure.source_agent_name,
+            confidence=exposure.confidence,
             metadata=exposure.metadata,
             expected_agent_name="commodity_energy",
             expected_document_type="commodity_energy_reference",
@@ -863,6 +915,7 @@ class QualityGateAgent(BaseAgent):
             document_id=event.document_id,
             source_url=event.source_url,
             source_agent_name=event.source_agent_name,
+            confidence=event.confidence,
             metadata=event.metadata,
             expected_agent_name="regulatory_contract",
             expected_document_type="regulatory_contract_reference",
@@ -1102,11 +1155,34 @@ class QualityGateAgent(BaseAgent):
                     "OOS vyhodnocení obsahuje neplatné počty, metriky nebo časový rozsah.",
                 )
             )
-        if not evaluation.gate_results:
+        missing_gates = self.REQUIRED_STAGE4_GATES - set(evaluation.gate_results)
+        if not evaluation.gate_results or missing_gates:
             rejects.append(
                 _issue(
                     "missing_stage4_gate_results",
-                    "OOS vyhodnocení neobsahuje jednotlivé výsledky aktivační brány.",
+                    "OOS vyhodnocení neobsahuje všechny povinné výsledky aktivační brány"
+                    + (f": {', '.join(sorted(missing_gates))}." if missing_gates else "."),
+                )
+            )
+        metadata = evaluation.metadata
+        positive_week_ratio = metadata.get("positive_week_ratio")
+        cluster_count = metadata.get("effective_cluster_count")
+        if (
+            metadata.get("statistical_unit") != "week"
+            or metadata.get("confidence_interval")
+            != "weekly_cluster_student_t_95pct"
+            or isinstance(cluster_count, bool)
+            or not isinstance(cluster_count, int)
+            or cluster_count != evaluation.distinct_weeks
+            or isinstance(positive_week_ratio, bool)
+            or not isinstance(positive_week_ratio, (int, float))
+            or not math.isfinite(float(positive_week_ratio))
+            or not 0.0 <= float(positive_week_ratio) <= 1.0
+        ):
+            rejects.append(
+                _issue(
+                    "invalid_stage4_cluster_metadata",
+                    "OOS vyhodnocení nemá konzistentní týdenní clusterovou statistiku.",
                 )
             )
         if evaluation.gate_passed != all(evaluation.gate_results.values()):

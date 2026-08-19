@@ -52,6 +52,54 @@ def _calibration_error(
     )
 
 
+def _student_t_critical_95(degrees_of_freedom: int) -> float:
+    """Return a conservative two-sided 95% Student-t critical value."""
+
+    values = (
+        12.706,
+        4.303,
+        3.182,
+        2.776,
+        2.571,
+        2.447,
+        2.365,
+        2.306,
+        2.262,
+        2.228,
+        2.201,
+        2.179,
+        2.160,
+        2.145,
+        2.131,
+        2.120,
+        2.110,
+        2.101,
+        2.093,
+        2.086,
+        2.080,
+        2.074,
+        2.069,
+        2.064,
+        2.060,
+        2.056,
+        2.052,
+        2.048,
+        2.045,
+        2.042,
+    )
+    if degrees_of_freedom <= 0:
+        return math.inf
+    if degrees_of_freedom <= len(values):
+        return values[degrees_of_freedom - 1]
+    if degrees_of_freedom <= 40:
+        return 2.021
+    if degrees_of_freedom <= 60:
+        return 2.000
+    if degrees_of_freedom <= 120:
+        return 1.980
+    return 1.960
+
+
 class EvaluationAgent(BaseAgent):
     """Evaluate one decision policy on paired, point-in-time OOS outcomes."""
 
@@ -225,44 +273,102 @@ class EvaluationAgent(BaseAgent):
             valid_samples.append(sample)
 
         sample_count = len(valid_samples)
-        distinct_weeks = len(
-            {str(sample.get("week_start", "")) for sample in valid_samples}
-        )
+        samples_by_week: dict[str, list[dict[str, Any]]] = {}
+        for sample in valid_samples:
+            samples_by_week.setdefault(str(sample["week_start"]), []).append(sample)
+        distinct_weeks = len(samples_by_week)
         baseline_values = [
             int(sample["baseline_correct"]) for sample in valid_samples
         ]
         candidate_values = [
             int(sample["candidate_correct"]) for sample in valid_samples
         ]
-        differences = [
+        sample_differences = [
             candidate - baseline
             for candidate, baseline in zip(candidate_values, baseline_values)
         ]
-        baseline_accuracy = mean(baseline_values) * 100.0 if sample_count else 0.0
-        candidate_accuracy = mean(candidate_values) * 100.0 if sample_count else 0.0
-        lift = mean(differences) * 100.0 if sample_count else 0.0
-        standard_error = (
-            stdev(differences) / math.sqrt(sample_count)
-            if sample_count > 1
+        weekly_metrics = [
+            {
+                "week_start": week_start,
+                "sample_count": len(week_samples),
+                "baseline_accuracy": mean(
+                    int(sample["baseline_correct"]) for sample in week_samples
+                ),
+                "candidate_accuracy": mean(
+                    int(sample["candidate_correct"]) for sample in week_samples
+                ),
+                "baseline_false_positive_rate": mean(
+                    int(sample["baseline_false_positive"])
+                    for sample in week_samples
+                ),
+                "candidate_false_positive_rate": mean(
+                    int(sample["candidate_false_positive"])
+                    for sample in week_samples
+                ),
+                "coverage": mean(
+                    int(bool(sample["candidate_directional"]))
+                    for sample in week_samples
+                ),
+            }
+            for week_start, week_samples in sorted(samples_by_week.items())
+        ]
+        weekly_lifts = [
+            float(item["candidate_accuracy"])
+            - float(item["baseline_accuracy"])
+            for item in weekly_metrics
+        ]
+        baseline_accuracy = (
+            mean(float(item["baseline_accuracy"]) for item in weekly_metrics)
+            * 100.0
+            if weekly_metrics
             else 0.0
         )
-        lift_lower_bound = lift - 1.96 * standard_error * 100.0
-        baseline_false_positive_rate = (
-            mean(int(sample["baseline_false_positive"]) for sample in valid_samples)
+        candidate_accuracy = (
+            mean(float(item["candidate_accuracy"]) for item in weekly_metrics)
             * 100.0
-            if sample_count
+            if weekly_metrics
+            else 0.0
+        )
+        lift = mean(weekly_lifts) * 100.0 if weekly_lifts else 0.0
+        if len(weekly_lifts) > 1:
+            weekly_standard_error = stdev(weekly_lifts) / math.sqrt(
+                len(weekly_lifts)
+            )
+            lift_lower_bound = (
+                lift
+                - _student_t_critical_95(len(weekly_lifts) - 1)
+                * weekly_standard_error
+                * 100.0
+            )
+        else:
+            weekly_standard_error = 0.0
+            lift_lower_bound = -100.0
+        positive_week_ratio = (
+            mean(int(value > 0.0) for value in weekly_lifts)
+            if weekly_lifts
+            else 0.0
+        )
+        baseline_false_positive_rate = (
+            mean(
+                float(item["baseline_false_positive_rate"])
+                for item in weekly_metrics
+            )
+            * 100.0
+            if weekly_metrics
             else 0.0
         )
         candidate_false_positive_rate = (
-            mean(int(sample["candidate_false_positive"]) for sample in valid_samples)
+            mean(
+                float(item["candidate_false_positive_rate"])
+                for item in weekly_metrics
+            )
             * 100.0
-            if sample_count
+            if weekly_metrics
             else 0.0
         )
         coverage = (
-            mean(int(bool(sample["candidate_directional"])) for sample in valid_samples)
-            * 100.0
-            if sample_count
+            mean(float(item["coverage"]) for item in weekly_metrics) * 100.0
+            if weekly_metrics
             else 0.0
         )
         baseline_brier = (
@@ -303,6 +409,9 @@ class EvaluationAgent(BaseAgent):
             "positive_lift_lower_bound": (
                 lift_lower_bound
                 >= self.config.minimum_lift_lower_bound_pct_points
+            ),
+            "minimum_positive_week_ratio": (
+                positive_week_ratio >= self.config.minimum_positive_week_ratio
             ),
             "minimum_coverage": coverage >= self.config.minimum_coverage_pct,
             "false_positive_non_increase": (
@@ -362,7 +471,34 @@ class EvaluationAgent(BaseAgent):
                 "invalid_samples_rejected": invalid_samples,
                 "oos_only": True,
                 "paired_evaluation": True,
-                "confidence_interval": "paired_normal_95pct",
+                "statistical_unit": "week",
+                "confidence_interval": "weekly_cluster_student_t_95pct",
+                "effective_cluster_count": distinct_weeks,
+                "weekly_standard_error_pct_points": (
+                    weekly_standard_error * 100.0
+                ),
+                "positive_week_ratio": positive_week_ratio,
+                "sample_weighted_baseline_accuracy_pct": (
+                    mean(baseline_values) * 100.0 if sample_count else 0.0
+                ),
+                "sample_weighted_candidate_accuracy_pct": (
+                    mean(candidate_values) * 100.0 if sample_count else 0.0
+                ),
+                "sample_weighted_lift_pct_points": (
+                    mean(sample_differences) * 100.0 if sample_count else 0.0
+                ),
+                "weekly_lift_pct_points": [
+                    {
+                        "week_start": str(item["week_start"]),
+                        "sample_count": int(item["sample_count"]),
+                        "lift_pct_points": (
+                            float(item["candidate_accuracy"])
+                            - float(item["baseline_accuracy"])
+                        )
+                        * 100.0,
+                    }
+                    for item in weekly_metrics
+                ],
             },
         )
 

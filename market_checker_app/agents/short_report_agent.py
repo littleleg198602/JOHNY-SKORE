@@ -255,7 +255,10 @@ class ShortReportAgent(BaseAgent):
                     "size_bytes": fetched.size_bytes,
                     "text_characters": len(fetched.text),
                     "extractor": fetched.extractor,
-                    "explicitly_configured_source": True,
+                    "explicitly_configured_source": (
+                        source.discovery_method == "manual"
+                    ),
+                    "discovery_method": source.discovery_method,
                     "truth_assessed": False,
                     "scoring_applied": False,
                 },

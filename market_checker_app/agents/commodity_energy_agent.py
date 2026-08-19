@@ -11,8 +11,13 @@ from market_checker_app.agents.contracts import (
     utc_now,
 )
 from market_checker_app.agents.network_intelligence_common import (
+    build_source_client,
+    fetch_source_document,
     reference_document,
     stable_id,
+)
+from market_checker_app.collectors.short_report_client import (
+    ShortReportClient,
 )
 from market_checker_app.config import CommodityEnergyConfig
 from market_checker_app.utils.text import normalize_ticker
@@ -26,8 +31,16 @@ class CommodityEnergyAgent(BaseAgent):
     required = False
     dependencies = ("entity_registry",)
 
-    def __init__(self, config: CommodityEnergyConfig | None = None) -> None:
+    def __init__(
+        self,
+        config: CommodityEnergyConfig | None = None,
+        *,
+        client: ShortReportClient | None = None,
+    ) -> None:
         self.config = config or CommodityEnergyConfig()
+        self.client = client
+        if self.config.source_verification.enabled and self.client is None:
+            self.client = build_source_client(self.config.source_verification)
 
     def run(self, context: AgentContext) -> AgentResult:
         if not self.config.enabled:
@@ -86,6 +99,22 @@ class CommodityEnergyAgent(BaseAgent):
                     raise ValueError("datum zveřejnění nemá časové pásmo")
                 if source.published_at > context.started_at:
                     raise ValueError("zdroj má budoucí datum zveřejnění")
+                fetched = None
+                if self.config.source_verification.enabled:
+                    if self.client is None:
+                        raise ValueError("chybí klient pro ověření obsahu zdroje")
+                    try:
+                        fetched = fetch_source_document(
+                            self.client,
+                            ticker=ticker,
+                            publisher=publisher,
+                            published_at=source.published_at,
+                            url=source.url,
+                        )
+                    except Exception as exc:
+                        raise ValueError(
+                            f"obsah veřejného zdroje nelze ověřit: {exc}"
+                        ) from exc
                 document = reference_document(
                     ticker=ticker,
                     publisher=publisher,
@@ -94,6 +123,20 @@ class CommodityEnergyAgent(BaseAgent):
                     url=source.url,
                     source_type="commodity_energy_reference",
                     stage_record_type="resource_exposure",
+                    fetched=fetched,
+                    content_verification_required=(
+                        self.config.source_verification.enabled
+                    ),
+                    support_terms=(resource_name,),
+                )
+                support_detected = bool(
+                    document.metadata.get("source_content_support_detected")
+                )
+                effective_confidence = (
+                    min(float(source.confidence), 0.45)
+                    if self.config.source_verification.enabled
+                    and not support_detected
+                    else float(source.confidence)
                 )
                 exposure_id = "exposure:" + stable_id(
                     ticker,
@@ -111,13 +154,14 @@ class CommodityEnergyAgent(BaseAgent):
                     document_id=document.document_id,
                     source_url=document.url or source.url,
                     dependency_pct=source.dependency_pct,
-                    confidence=source.confidence,
+                    confidence=effective_confidence,
                     source_agent_name=self.name,
                     metadata={
                         "publisher": publisher,
                         "stage": 3,
                         "price_series_attached": False,
                         "causal_impact_assessed": False,
+                        "source_content_support_detected": support_detected,
                         "scoring_applied": False,
                     },
                 )
@@ -150,7 +194,18 @@ class CommodityEnergyAgent(BaseAgent):
                     risk_score=0.0,
                     confidence=exposure.confidence,
                     hard_veto=False,
-                    reasons=["explicit_public_source_reference"],
+                    reasons=[
+                        "explicit_public_source_reference",
+                        (
+                            "source_content_not_requested"
+                            if not self.config.source_verification.enabled
+                            else (
+                                "source_content_support_detected"
+                                if support_detected
+                                else "source_content_support_not_detected"
+                            )
+                        ),
+                    ],
                     document_ids=[document.document_id],
                     source_urls=[exposure.source_url],
                     metadata={
@@ -159,6 +214,7 @@ class CommodityEnergyAgent(BaseAgent):
                         "stage": 3,
                         "price_series_attached": False,
                         "causal_impact_assessed": False,
+                        "source_content_support_detected": support_detected,
                         "scoring_applied": False,
                         "shadow_mode": context.shadow_mode,
                     },

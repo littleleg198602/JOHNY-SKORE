@@ -1,0 +1,45 @@
+name: Market Checker live source smoke
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: market-checker-live-source-smoke
+  cancel-in-progress: false
+
+jobs:
+  live-shadow-smoke:
+    name: Yahoo and RSS shadow smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            market_checker_app/requirements.txt
+            market_checker_app/constraints.txt
+      - name: Install verified project dependencies
+        run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
+      - name: Run live sources through the safe Stage 4 shadow path
+        run: >-
+          python -m market_checker_app.weekly_shadow_runner
+          --tickers AAPL MSFT TSLA
+          --no-mt5
+      - name: Preserve smoke audit when the run fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: market-checker-live-shadow-audit
+          path: |
+            outputs/weekly_shadow_latest.json
+            outputs/market_checker_history.db
+          if-no-files-found: warn
+          retention-days: 14
