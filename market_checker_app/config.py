@@ -198,15 +198,27 @@ class FundamentalIngestionConfig:
 
     enabled: bool = False
     user_agent: str = ""
-    forms: tuple[str, ...] = ("10-K", "10-Q", "8-K")
+    forms: tuple[str, ...] = (
+        "10-K",
+        "10-Q",
+        "8-K",
+        "20-F",
+        "6-K",
+        "40-F",
+    )
     max_filings_per_ticker: int = 6
     max_facts_per_concept: int = 4
+    extract_latest_10k_text: bool = True
+    max_text_filings_per_ticker: int = 1
+    max_filing_download_bytes: int = 20_000_000
+    max_filing_text_characters: int = 750_000
     request_timeout_seconds: float = 20.0
     min_request_interval_seconds: float = 0.125
     fact_concepts: tuple[str, ...] = (
         "RevenueFromContractWithCustomerExcludingAssessedTax",
         "SalesRevenueNet",
         "Revenues",
+        "Revenue",
         "NetIncomeLoss",
         "ProfitLoss",
         "OperatingIncomeLoss",
@@ -217,10 +229,12 @@ class FundamentalIngestionConfig:
         "LiabilitiesCurrent",
         "StockholdersEquity",
         "CashAndCashEquivalentsAtCarryingValue",
+        "CashAndCashEquivalents",
         "NetCashProvidedByUsedInOperatingActivities",
         "CashFlowsFromUsedInOperatingActivities",
         "PaymentsToAcquirePropertyPlantAndEquipment",
         "PurchaseOfPropertyPlantAndEquipment",
+        "PropertyPlantAndEquipment",
         "LongTermDebtCurrent",
         "LongTermDebtNoncurrent",
         "LongTermDebt",
@@ -332,10 +346,12 @@ class Stage3SourceVerificationConfig:
 
 @dataclass(slots=True)
 class SupplyChainConfig:
-    """Shadow-only ingestion of explicit supplier and customer relationships."""
+    """Shadow-only supplier/customer intelligence with SEC 10-K discovery."""
 
     enabled: bool = False
     sources: tuple[SupplyChainSourceConfig, ...] = ()
+    auto_discover_from_sec_filings: bool = True
+    max_auto_discovered_relationships_per_filing: int = 6
     source_verification: Stage3SourceVerificationConfig = field(
         default_factory=Stage3SourceVerificationConfig
     )
@@ -357,10 +373,12 @@ class CommodityEnergySourceConfig:
 
 @dataclass(slots=True)
 class CommodityEnergyConfig:
-    """Shadow-only ingestion of explicit commodity and energy exposures."""
+    """Shadow-only material/energy intelligence with SEC 10-K discovery."""
 
     enabled: bool = False
     sources: tuple[CommodityEnergySourceConfig, ...] = ()
+    auto_discover_from_sec_filings: bool = True
+    max_auto_discovered_exposures_per_filing: int = 12
     source_verification: Stage3SourceVerificationConfig = field(
         default_factory=Stage3SourceVerificationConfig
     )

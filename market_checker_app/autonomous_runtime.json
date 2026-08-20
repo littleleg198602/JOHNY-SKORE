@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "settings": {
+    "auto_discover_commodity_energy_from_sec": true,
+    "auto_discover_regulatory_events": true,
+    "auto_discover_short_reports": true,
+    "auto_discover_supply_chain_from_sec": true,
+    "commodity_energy_enabled": false,
+    "commodity_energy_sources_text": "",
+    "financial_forensics_enabled": true,
+    "regulatory_contract_enabled": false,
+    "regulatory_contract_sources_text": "",
+    "sec_fundamentals_enabled": true,
+    "short_report_sources_text": "TAL | Muddy Waters Research | 2018-06-13T00:00:00+00:00 | https://muddywatersresearch.com/research/tal/mw-is-short-tal/",
+    "short_reports_enabled": true,
+    "stage4_shadow_enabled": true,
+    "supply_chain_enabled": false,
+    "supply_chain_sources_text": "",
+    "verify_short_report_claims": true
+  }
+}

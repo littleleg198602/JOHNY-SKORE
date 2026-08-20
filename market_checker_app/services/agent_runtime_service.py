@@ -28,8 +28,10 @@ class AgentRuntimeSettings:
     verify_short_report_claims: bool = True
     short_report_sources_text: str = ""
     supply_chain_enabled: bool = False
+    auto_discover_supply_chain_from_sec: bool = True
     supply_chain_sources_text: str = ""
     commodity_energy_enabled: bool = False
+    auto_discover_commodity_energy_from_sec: bool = True
     commodity_energy_sources_text: str = ""
     regulatory_contract_enabled: bool = False
     auto_discover_regulatory_events: bool = True

@@ -39,7 +39,15 @@ class StreamlitUISmokeTests(unittest.TestCase):
             checkbox_labels,
         )
         self.assertIn(
+            "Automaticky hledat koncentrace dodavatelů a zákazníků v SEC 10-K",
+            checkbox_labels,
+        )
+        self.assertIn(
             "Načíst expozice na materiály a energie (Etapa 3)",
+            checkbox_labels,
+        )
+        self.assertIn(
+            "Automaticky hledat materiály a energie v SEC 10-K",
             checkbox_labels,
         )
         self.assertIn(

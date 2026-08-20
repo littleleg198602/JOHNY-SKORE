@@ -82,6 +82,31 @@ class SourceDiscoveryServiceTests(unittest.TestCase):
         self.assertIn("Neověřeno", event.authority_or_counterparty)
         self.assertEqual("rss", event.discovery_method)
 
+    def test_direct_official_domain_canary_is_detected_without_publisher_in_title(self) -> None:
+        now = datetime.now(timezone.utc)
+        discovered = SourceDiscoveryService().discover(
+            [
+                _item(
+                    ticker="TAL",
+                    title="MW is Short TAL",
+                    url="https://muddywatersresearch.com/research/tal/mw-is-short-tal/",
+                    published_at=now - timedelta(hours=1),
+                ),
+                _item(
+                    ticker="TAL",
+                    title="MW is Short TAL",
+                    url="https://news.example.com/mw-is-short-tal",
+                    published_at=now - timedelta(hours=1),
+                ),
+            ],
+            as_of=now,
+            discover_short_reports=True,
+            discover_regulatory_events=False,
+        )
+
+        self.assertEqual(1, len(discovered.short_reports))
+        self.assertEqual("Muddy Waters Research", discovered.short_reports[0].publisher)
+
     def test_future_and_private_sources_are_ignored(self) -> None:
         now = datetime.now(timezone.utc)
         discovered = SourceDiscoveryService().discover(

@@ -18,7 +18,14 @@ from market_checker_app.collectors.sec_edgar_client import (
     SecCompanyBundle,
     SecEdgarClient,
 )
-from market_checker_app.config import FundamentalIngestionConfig
+from market_checker_app.collectors.short_report_client import (
+    FetchedShortReport,
+    ShortReportClient,
+)
+from market_checker_app.config import (
+    FundamentalIngestionConfig,
+    ShortReportSourceConfig,
+)
 from market_checker_app.utils.text import normalize_ticker
 
 
@@ -55,14 +62,20 @@ class SecFundamentalsAgent(BaseAgent):
         self,
         config: FundamentalIngestionConfig,
         client: SecBundleClient | None = None,
+        *,
+        filing_text_client: ShortReportClient | None = None,
     ) -> None:
         self.config = config
         self._client = client
+        self._filing_text_client = filing_text_client
 
     def _client_or_none(self) -> SecBundleClient | None:
         if self._client is not None:
             return self._client
-        if not self.config.user_agent.strip():
+        if (
+            not self.config.user_agent.strip()
+            or "@" not in self.config.user_agent
+        ):
             return None
         self._client = SecEdgarClient(
             user_agent=self.config.user_agent,
@@ -72,6 +85,18 @@ class SecFundamentalsAgent(BaseAgent):
             ),
         )
         return self._client
+
+    def _filing_text_client_or_none(self) -> ShortReportClient | None:
+        if not self.config.extract_latest_10k_text:
+            return None
+        if self._filing_text_client is None:
+            self._filing_text_client = ShortReportClient(
+                user_agent=self.config.user_agent,
+                timeout_seconds=self.config.request_timeout_seconds,
+                max_download_bytes=self.config.max_filing_download_bytes,
+                max_text_characters=self.config.max_filing_text_characters,
+            )
+        return self._filing_text_client
 
     def run(self, context: AgentContext) -> AgentResult:
         if not self.config.enabled:
@@ -96,8 +121,12 @@ class SecFundamentalsAgent(BaseAgent):
         evidence: list[AgentEvidence] = []
         facts: list[FundamentalFact] = []
         warnings: list[str] = []
+        core_degraded = False
         successful_tickers = 0
         unresolved_tickers = 0
+        filing_texts_by_ticker: dict[str, list[FetchedShortReport]] = {}
+        filing_text_failures = 0
+        filing_text_client = self._filing_text_client_or_none()
 
         for raw_ticker in context.watchlist:
             ticker = normalize_ticker(raw_ticker)
@@ -124,6 +153,7 @@ class SecFundamentalsAgent(BaseAgent):
 
             successful_tickers += 1
             warnings.extend(bundle.warnings)
+            core_degraded = core_degraded or bool(bundle.warnings)
             original = registered.get(ticker)
             original_metadata = (
                 dict(original.metadata)
@@ -164,6 +194,7 @@ class SecFundamentalsAgent(BaseAgent):
 
             document_ids_by_accession: dict[str, str] = {}
             filing_urls_by_accession: dict[str, str] = {}
+            document_records_by_accession: dict[str, DocumentRecord] = {}
             for filing in bundle.filings:
                 document_id = _document_id(
                     bundle.company.cik,
@@ -171,33 +202,33 @@ class SecFundamentalsAgent(BaseAgent):
                 )
                 document_ids_by_accession[filing.accession_number] = document_id
                 filing_urls_by_accession[filing.accession_number] = filing.filing_url
-                documents.append(
-                    DocumentRecord(
-                        document_id=document_id,
-                        ticker=ticker,
-                        source="SEC EDGAR",
-                        source_type="regulatory_filing",
-                        observed_at=observed_at,
-                        url=filing.filing_url,
-                        published_at=filing.filed_at,
-                        mime_type="text/html",
-                        metadata={
-                            "cik": bundle.company.cik,
-                            "accession_number": filing.accession_number,
-                            "form": filing.form,
-                            "report_date": (
-                                filing.report_date.isoformat()
-                                if filing.report_date
-                                else None
-                            ),
-                            "primary_document": filing.primary_document,
-                            "primary_document_description": (
-                                filing.primary_document_description
-                            ),
-                            "index_url": filing.index_url,
-                        },
-                    )
+                document = DocumentRecord(
+                    document_id=document_id,
+                    ticker=ticker,
+                    source="SEC EDGAR",
+                    source_type="regulatory_filing",
+                    observed_at=observed_at,
+                    url=filing.filing_url,
+                    published_at=filing.filed_at,
+                    mime_type="text/html",
+                    metadata={
+                        "cik": bundle.company.cik,
+                        "accession_number": filing.accession_number,
+                        "form": filing.form,
+                        "report_date": (
+                            filing.report_date.isoformat()
+                            if filing.report_date
+                            else None
+                        ),
+                        "primary_document": filing.primary_document,
+                        "primary_document_description": (
+                            filing.primary_document_description
+                        ),
+                        "index_url": filing.index_url,
+                    },
                 )
+                documents.append(document)
+                document_records_by_accession[filing.accession_number] = document
                 evidence.append(
                     AgentEvidence(
                         evidence_id=_stable_hash(
@@ -227,6 +258,49 @@ class SecFundamentalsAgent(BaseAgent):
                         },
                     )
                 )
+
+            if filing_text_client is not None:
+                recent_annual_filings = [
+                    filing
+                    for filing in bundle.filings
+                    if filing.form.upper().removesuffix("/A")
+                    in {"10-K", "20-F", "40-F"}
+                    and filing.filing_url
+                ][: max(0, int(self.config.max_text_filings_per_ticker))]
+                for filing in recent_annual_filings:
+                    try:
+                        fetched = filing_text_client.fetch(
+                            ShortReportSourceConfig(
+                                ticker=ticker,
+                                publisher="SEC EDGAR",
+                                published_at=filing.filed_at,
+                                url=filing.filing_url,
+                                discovery_method="sec_filing",
+                            )
+                        )
+                    except Exception as exc:
+                        filing_text_failures += 1
+                        warnings.append(
+                            f"F2-SEC {ticker}: text 10-K nelze bezpečně načíst: "
+                            f"{type(exc).__name__}: {exc}"
+                        )
+                        continue
+                    filing_texts_by_ticker.setdefault(ticker, []).append(fetched)
+                    document = document_records_by_accession.get(
+                        filing.accession_number
+                    )
+                    if document is not None:
+                        document.url = fetched.final_url
+                        document.content_hash = fetched.content_hash
+                        document.mime_type = fetched.mime_type
+                        document.metadata.update(
+                            {
+                                "content_fetched": True,
+                                "download_size_bytes": fetched.size_bytes,
+                                "extractor": fetched.extractor,
+                                "raw_content_persisted": False,
+                            }
+                        )
 
             for fact in bundle.facts:
                 document_id = document_ids_by_accession.get(
@@ -282,7 +356,7 @@ class SecFundamentalsAgent(BaseAgent):
 
         if successful_tickers == 0:
             status = AgentStatus.UNAVAILABLE
-        elif unresolved_tickers or warnings:
+        elif unresolved_tickers or core_degraded:
             status = AgentStatus.PARTIAL
         else:
             status = AgentStatus.SUCCESS
@@ -302,6 +376,11 @@ class SecFundamentalsAgent(BaseAgent):
                 "unresolved_tickers": unresolved_tickers,
                 "documents": len(documents),
                 "fundamental_facts": len(facts),
+                "filing_text_documents": sum(
+                    len(items) for items in filing_texts_by_ticker.values()
+                ),
+                "filing_text_failures": filing_text_failures,
+                "raw_filing_text_persisted": False,
                 "forms": list(self.config.forms),
                 "scoring_applied": False,
             },
@@ -310,5 +389,6 @@ class SecFundamentalsAgent(BaseAgent):
                     entity.ticker: entity for entity in entities
                 },
                 "fundamental_facts_by_ticker": facts_by_ticker,
+                "sec_filing_texts_by_ticker": filing_texts_by_ticker,
             },
         )

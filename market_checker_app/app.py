@@ -74,6 +74,7 @@ MAX_PREVIEW_ROWS = 500
 DEFAULT_NEWS_SOURCES_TEXT = "\n".join(
     [
         "https://news.google.com/rss/search?q={ticker}%20stock&hl=en-US&gl=US&ceid=US:en",
+        "https://muddywatersresearch.com/feed/",
         "https://www.nasdaq.com/feed/rssoutbound",
         "https://www.marketscreener.com/rss/news/",
         "https://www.investing.com/rss/news.rss",
@@ -818,6 +819,74 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         "OOS lift (p. b.)",
         f"{float(lift):.2f}" if lift is not None else "n/a",
     )
+    stage4_evidence_metrics = st.columns(6)
+    lower_bound = result.get("evaluation_lift_lower_bound_pct_points")
+    positive_week_ratio = result.get("evaluation_positive_week_ratio")
+    consecutive_passes = int(result.get("evaluation_consecutive_passes") or 0)
+    required_passes = int(
+        result.get("evaluation_required_consecutive_passes") or 3
+    )
+    activation_state = str(result.get("activation_state") or "INSUFFICIENT_DATA")
+    accuracy_proven = bool(
+        result.get("evaluation_gate_passed")
+        and consecutive_passes >= required_passes
+        and activation_state in {"ELIGIBLE", "ENABLED"}
+    )
+    live_authorized = bool(result.get("live_application_authorized"))
+    stage4_evidence_metrics[0].metric(
+        "Baseline přesnost",
+        (
+            f"{float(result['evaluation_baseline_accuracy_pct']):.2f} %"
+            if result.get("evaluation_baseline_accuracy_pct") is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[1].metric(
+        "Kandidát přesnost",
+        (
+            f"{float(result['evaluation_candidate_accuracy_pct']):.2f} %"
+            if result.get("evaluation_candidate_accuracy_pct") is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[2].metric(
+        "Dolní 95% mez liftu",
+        f"{float(lower_bound):.2f} p. b." if lower_bound is not None else "n/a",
+    )
+    stage4_evidence_metrics[3].metric(
+        "Kladné týdny",
+        (
+            f"{float(positive_week_ratio) * 100.0:.1f} %"
+            if positive_week_ratio is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[4].metric(
+        "Nezávislé průchody",
+        f"{consecutive_passes}/{required_passes}",
+    )
+    stage4_evidence_metrics[5].metric(
+        "Ostré BUY/SELL",
+        "POVOLENO" if live_authorized else "UZAMČENO",
+    )
+    if accuracy_proven:
+        st.success(
+            "Zvýšení přesnosti je pro tuto politiku prokázáno OOS bránou. "
+            "Ostré použití přesto vyžaduje samostatné explicitní povolení."
+        )
+    else:
+        failed_gates = [
+            str(name)
+            for name, passed in dict(
+                result.get("evaluation_gate_results") or {}
+            ).items()
+            if not passed
+        ]
+        detail = ", ".join(failed_gates) if failed_gates else "čeká se na OOS data"
+        st.warning(
+            "Zvýšení přesnosti zatím není prokázáno; ostré BUY/SELL zůstává "
+            f"uzamčeno. Důvod: {detail}."
+        )
 
     report = result.get("agent_report")
     executions = getattr(report, "executions", None)
@@ -1166,7 +1235,7 @@ with st.sidebar:
         "SEC User-Agent (aplikace + kontaktní e-mail)",
         value=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
         disabled=not use_sec_fundamentals,
-        help="Příklad: JohnySkore/2.0 kontakt@example.com. SEC tento údaj vyžaduje.",
+        help="Příklad: JohnySkore/2.1 kontakt@example.com. SEC tento údaj vyžaduje.",
     )
     use_financial_forensics = st.checkbox(
         "Spustit finanční forenzní screening (Etapa 2)",
@@ -1222,9 +1291,19 @@ with st.sidebar:
         "Načíst vztahy dodavatelů a odběratelů (Etapa 3)",
         value=agent_runtime_settings.supply_chain_enabled,
         help=(
-            "Uloží pouze výslovně zadané vztahy s veřejným HTTPS zdrojem. "
+            "Uloží ručně zadané vztahy s veřejným HTTPS zdrojem. "
             "Povolené typy: SUPPLIER, CUSTOMER, CONTRACT_MANUFACTURER, "
-            "LOGISTICS, PARTNER. Záznamy nemění predikci."
+            "LOGISTICS, PARTNER. SEC 10-K discovery se ovládá zvlášť. "
+            "Záznamy nemění predikci."
+        ),
+    )
+    auto_discover_supply_chain_from_sec = st.checkbox(
+        "Automaticky hledat koncentrace dodavatelů a zákazníků v SEC 10-K",
+        value=agent_runtime_settings.auto_discover_supply_chain_from_sec,
+        disabled=not use_sec_fundamentals,
+        help=(
+            "Hledá pouze explicitní koncentrace a závislosti v bezpečně "
+            "načteném 10-K. Nález má nízkou důvěru a nemění BUY/SELL."
         ),
     )
     supply_chain_sources_text = st.text_area(
@@ -1243,6 +1322,15 @@ with st.sidebar:
         help=(
             "Povolené typy: MATERIAL_INPUT, COMMODITY_OUTPUT, ELECTRICITY, FUEL. "
             "Etapa 3 zatím nepřipojuje cenovou řadu ani směrové score."
+        ),
+    )
+    auto_discover_commodity_energy_from_sec = st.checkbox(
+        "Automaticky hledat materiály a energie v SEC 10-K",
+        value=agent_runtime_settings.auto_discover_commodity_energy_from_sec,
+        disabled=not use_sec_fundamentals,
+        help=(
+            "Zaznamená pouze výslovně uvedené vstupy, ceny, dostupnost nebo "
+            "závislost. Nález zůstává auditní a bez směrového score."
         ),
     )
     commodity_energy_sources_text = st.text_area(
@@ -1358,17 +1446,43 @@ config = AppConfig(
         ),
     ),
     supply_chain=SupplyChainConfig(
-        enabled=use_supply_chain,
+        enabled=(
+            use_supply_chain
+            or (
+                use_sec_fundamentals
+                and auto_discover_supply_chain_from_sec
+            )
+        ),
         sources=supply_chain_sources,
+        auto_discover_from_sec_filings=auto_discover_supply_chain_from_sec,
         source_verification=Stage3SourceVerificationConfig(
-            enabled=use_supply_chain,
+            enabled=(
+                use_supply_chain
+                or (
+                    use_sec_fundamentals
+                    and auto_discover_supply_chain_from_sec
+                )
+            ),
         ),
     ),
     commodity_energy=CommodityEnergyConfig(
-        enabled=use_commodity_energy,
+        enabled=(
+            use_commodity_energy
+            or (
+                use_sec_fundamentals
+                and auto_discover_commodity_energy_from_sec
+            )
+        ),
         sources=commodity_energy_sources,
+        auto_discover_from_sec_filings=auto_discover_commodity_energy_from_sec,
         source_verification=Stage3SourceVerificationConfig(
-            enabled=use_commodity_energy,
+            enabled=(
+                use_commodity_energy
+                or (
+                    use_sec_fundamentals
+                    and auto_discover_commodity_energy_from_sec
+                )
+            ),
         ),
     ),
     regulatory_contract=RegulatoryContractConfig(
@@ -1404,8 +1518,14 @@ if run_analysis or save_agent_settings:
                 verify_short_report_claims=verify_short_report_claims,
                 short_report_sources_text=short_report_sources_text,
                 supply_chain_enabled=use_supply_chain,
+                auto_discover_supply_chain_from_sec=(
+                    auto_discover_supply_chain_from_sec
+                ),
                 supply_chain_sources_text=supply_chain_sources_text,
                 commodity_energy_enabled=use_commodity_energy,
+                auto_discover_commodity_energy_from_sec=(
+                    auto_discover_commodity_energy_from_sec
+                ),
                 commodity_energy_sources_text=commodity_energy_sources_text,
                 regulatory_contract_enabled=use_regulatory_contract,
                 auto_discover_regulatory_events=auto_discover_regulatory_events,
@@ -1423,10 +1543,12 @@ yahoo_cache = YahooCacheStore(config.sqlite_path)
 if sqlite_info:
     st.warning(sqlite_info)
 st.caption(f"Aktivní DB: `{config.sqlite_path}`")
-if use_sec_fundamentals and not sec_user_agent.strip():
+if use_sec_fundamentals and (
+    not sec_user_agent.strip() or "@" not in sec_user_agent
+):
     st.warning(
-        "SEC Etapa 2 je zapnutá, ale chybí User-Agent s kontaktním e-mailem; "
-        "F2-SEC proto běh přeskočí."
+        "SEC Etapa 2 je zapnutá, ale User-Agent neobsahuje název aplikace "
+        "a kontaktní e-mail; F2-SEC proto běh přeskočí."
     )
 for short_report_error in short_report_source_errors:
     st.warning(short_report_error)
@@ -1442,12 +1564,17 @@ for stage3_source_error in (
 ):
     st.warning(stage3_source_error)
 for enabled, sources, agent_name, automatic_discovery in (
-    (use_supply_chain, supply_chain_sources, "SupplyChainAgent", False),
+    (
+        use_supply_chain,
+        supply_chain_sources,
+        "SupplyChainAgent",
+        use_sec_fundamentals and auto_discover_supply_chain_from_sec,
+    ),
     (
         use_commodity_energy,
         commodity_energy_sources,
         "CommodityEnergyAgent",
-        False,
+        use_sec_fundamentals and auto_discover_commodity_energy_from_sec,
     ),
     (
         use_regulatory_contract,

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
+import re
 from urllib.parse import urlparse
 
 from market_checker_app.config import (
@@ -20,6 +21,11 @@ SHORT_REPORT_MARKERS = (
     "activist short",
     "report alleges",
     "research alleges",
+    "is short",
+    "we are short",
+    "short thesis",
+    "initiating coverage",
+    "research report",
 )
 KNOWN_SHORT_PUBLISHERS = {
     "hindenburg": ("Hindenburg Research", ("hindenburgresearch.com",)),
@@ -66,9 +72,7 @@ class SourceDiscoveryService:
     @staticmethod
     def _short_publisher(text: str, url: str) -> str | None:
         hostname = (urlparse(url).hostname or "").rstrip(".").lower()
-        for marker, (publisher, domains) in KNOWN_SHORT_PUBLISHERS.items():
-            if marker not in text:
-                continue
+        for _marker, (publisher, domains) in KNOWN_SHORT_PUBLISHERS.items():
             if any(
                 hostname == domain or hostname.endswith(f".{domain}")
                 for domain in domains
@@ -107,7 +111,9 @@ class SourceDiscoveryService:
             text = f"{item.title} {item.summary}".lower()
 
             short_publisher = self._short_publisher(text, url)
-            explicit_report = any(marker in text for marker in SHORT_REPORT_MARKERS)
+            explicit_report = any(
+                marker in text for marker in SHORT_REPORT_MARKERS
+            ) or re.search(r"\bshort\b", text) is not None
             short_key = (ticker, url)
             if (
                 discover_short_reports

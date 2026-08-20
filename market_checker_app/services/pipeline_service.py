@@ -222,6 +222,14 @@ class PipelineService:
                 SupplyChainAgent(
                     self.config.supply_chain,
                     client=self.stage3_source_client,
+                    dependencies=(
+                        ("entity_registry", "f2_sec")
+                        if (
+                            self.config.fundamental_ingestion.enabled
+                            and self.config.supply_chain.auto_discover_from_sec_filings
+                        )
+                        else ("entity_registry",)
+                    ),
                 )
             )
         if self.config.commodity_energy.enabled:
@@ -229,6 +237,14 @@ class PipelineService:
                 CommodityEnergyAgent(
                     self.config.commodity_energy,
                     client=self.stage3_source_client,
+                    dependencies=(
+                        ("entity_registry", "f2_sec")
+                        if (
+                            self.config.fundamental_ingestion.enabled
+                            and self.config.commodity_energy.auto_discover_from_sec_filings
+                        )
+                        else ("entity_registry",)
+                    ),
                 )
             )
         if regulatory_contract_config.enabled:
@@ -849,6 +865,19 @@ class PipelineService:
         evaluation_lift_pct_points: float | None = None
         evaluation_lift_lower_bound_pct_points: float | None = None
         evaluation_coverage_pct: float | None = None
+        evaluation_baseline_accuracy_pct: float | None = None
+        evaluation_candidate_accuracy_pct: float | None = None
+        evaluation_positive_week_ratio: float | None = None
+        evaluation_gate_passed = False
+        evaluation_gate_results: dict[str, bool] = {}
+        evaluation_consecutive_passes = 0
+        evaluation_required_consecutive_passes = 0
+        evaluation_activation_reasons: list[str] = []
+        live_application_authorized = False
+        fundamental_filing_text_document_count = 0
+        fundamental_filing_text_failure_count = 0
+        auto_discovered_supply_chain_relationships = 0
+        auto_discovered_commodity_energy_exposures = 0
         if self.config.agent_stage1_enabled:
             progress.set_global_step(
                 "agent_pipeline",
@@ -877,6 +906,18 @@ class PipelineService:
                         fundamental_document_count = len(execution.result.documents)
                         fundamental_fact_count = len(
                             execution.result.fundamental_facts
+                        )
+                        fundamental_filing_text_document_count = int(
+                            execution.result.metadata.get(
+                                "filing_text_documents",
+                                0,
+                            )
+                        )
+                        fundamental_filing_text_failure_count = int(
+                            execution.result.metadata.get(
+                                "filing_text_failures",
+                                0,
+                            )
                         )
                     elif execution.agent_name == "financial_forensics":
                         financial_forensics_status = execution.status.value
@@ -911,10 +952,22 @@ class PipelineService:
                         supply_chain_relationship_count = len(
                             execution.result.company_relationships
                         )
+                        auto_discovered_supply_chain_relationships = int(
+                            execution.result.metadata.get(
+                                "auto_discovered_relationships",
+                                0,
+                            )
+                        )
                     elif execution.agent_name == "commodity_energy":
                         commodity_energy_status = execution.status.value
                         commodity_energy_exposure_count = len(
                             execution.result.resource_exposures
+                        )
+                        auto_discovered_commodity_energy_exposures = int(
+                            execution.result.metadata.get(
+                                "auto_discovered_exposures",
+                                0,
+                            )
                         )
                     elif execution.agent_name == "regulatory_contract":
                         regulatory_contract_status = execution.status.value
@@ -945,6 +998,12 @@ class PipelineService:
                             evaluation = execution.result.policy_evaluations[0]
                             evaluation_sample_count = evaluation.sample_count
                             evaluation_distinct_weeks = evaluation.distinct_weeks
+                            evaluation_baseline_accuracy_pct = (
+                                evaluation.baseline_accuracy_pct
+                            )
+                            evaluation_candidate_accuracy_pct = (
+                                evaluation.candidate_accuracy_pct
+                            )
                             evaluation_lift_pct_points = (
                                 evaluation.lift_pct_points
                             )
@@ -952,6 +1011,33 @@ class PipelineService:
                                 evaluation.lift_lower_bound_pct_points
                             )
                             evaluation_coverage_pct = evaluation.coverage_pct
+                            evaluation_positive_week_ratio = float(
+                                evaluation.metadata.get(
+                                    "positive_week_ratio",
+                                    0.0,
+                                )
+                            )
+                            evaluation_gate_passed = evaluation.gate_passed
+                            evaluation_gate_results = dict(
+                                evaluation.gate_results
+                            )
+                        if execution.result.activation_decisions:
+                            activation = execution.result.activation_decisions[0]
+                            evaluation_consecutive_passes = (
+                                activation.consecutive_passes
+                            )
+                            evaluation_required_consecutive_passes = int(
+                                activation.metadata.get(
+                                    "required_consecutive_passes",
+                                    0,
+                                )
+                            )
+                            evaluation_activation_reasons = list(
+                                activation.reasons
+                            )
+                            live_application_authorized = (
+                                activation.live_application_authorized
+                            )
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
                         for warning in execution.result.warnings
@@ -1034,6 +1120,12 @@ class PipelineService:
             "fundamental_ingestion_status": fundamental_ingestion_status,
             "fundamental_document_count": fundamental_document_count,
             "fundamental_fact_count": fundamental_fact_count,
+            "fundamental_filing_text_document_count": (
+                fundamental_filing_text_document_count
+            ),
+            "fundamental_filing_text_failure_count": (
+                fundamental_filing_text_failure_count
+            ),
             "financial_forensics_status": financial_forensics_status,
             "financial_forensics_evidence_count": financial_forensics_evidence_count,
             "financial_forensics_high_findings": financial_forensics_high_findings,
@@ -1049,8 +1141,14 @@ class PipelineService:
             "claim_insufficient_count": claim_insufficient_count,
             "supply_chain_status": supply_chain_status,
             "supply_chain_relationship_count": supply_chain_relationship_count,
+            "auto_discovered_supply_chain_relationships": (
+                auto_discovered_supply_chain_relationships
+            ),
             "commodity_energy_status": commodity_energy_status,
             "commodity_energy_exposure_count": commodity_energy_exposure_count,
+            "auto_discovered_commodity_energy_exposures": (
+                auto_discovered_commodity_energy_exposures
+            ),
             "regulatory_contract_status": regulatory_contract_status,
             "regulatory_contract_event_count": regulatory_contract_event_count,
             "decision_agent_status": decision_agent_status,
@@ -1061,11 +1159,26 @@ class PipelineService:
             "activation_state": activation_state,
             "evaluation_sample_count": evaluation_sample_count,
             "evaluation_distinct_weeks": evaluation_distinct_weeks,
+            "evaluation_baseline_accuracy_pct": (
+                evaluation_baseline_accuracy_pct
+            ),
+            "evaluation_candidate_accuracy_pct": (
+                evaluation_candidate_accuracy_pct
+            ),
             "evaluation_lift_pct_points": evaluation_lift_pct_points,
             "evaluation_lift_lower_bound_pct_points": (
                 evaluation_lift_lower_bound_pct_points
             ),
             "evaluation_coverage_pct": evaluation_coverage_pct,
+            "evaluation_positive_week_ratio": evaluation_positive_week_ratio,
+            "evaluation_gate_passed": evaluation_gate_passed,
+            "evaluation_gate_results": evaluation_gate_results,
+            "evaluation_consecutive_passes": evaluation_consecutive_passes,
+            "evaluation_required_consecutive_passes": (
+                evaluation_required_consecutive_passes
+            ),
+            "evaluation_activation_reasons": evaluation_activation_reasons,
+            "live_application_authorized": live_application_authorized,
             "auto_discovered_short_reports": (
                 int(agent_report.metadata.get("auto_discovered_short_reports", 0))
                 if agent_report

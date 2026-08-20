@@ -109,7 +109,8 @@ Etapa 2 přidává opt-in agenta `SecFundamentalsAgent` (`f2_sec`). Používá p
 oficiální veřejná rozhraní SEC EDGAR:
 
 - mapu ticker → CIK z `company_tickers_exchange.json`,
-- `data.sec.gov/submissions` pro poslední formuláře `10-K`, `10-Q` a `8-K`,
+- `data.sec.gov/submissions` pro poslední formuláře `10-K`, `10-Q`, `8-K` a
+  zahraniční ekvivalenty `20-F`, `6-K`, `40-F`,
 - `data.sec.gov/api/xbrl/companyfacts` pro vybraná účetní fakta (výnosy, zisk,
   aktiva, závazky, cash flow, dluh a EPS).
 
@@ -118,12 +119,12 @@ oficiální veřejná rozhraní SEC EDGAR:
 název aplikace a kontaktní e-mail; lze jej zadat v UI nebo proměnnou prostředí:
 
 ```bash
-JOHNY_SKORE_SEC_USER_AGENT="JohnySkore/2.0 kontakt@example.com"
+JOHNY_SKORE_SEC_USER_AGENT="JohnySkore/2.1 kontakt@example.com"
 ```
 
 Klient vynucuje bezpečný odstup požadavků pod oficiálním limitem SEC 10 req/s.
-Omezený počet filingů vybírá vyváženě mezi 10-K, 10-Q a 8-K, aby série 8-K
-nevytlačila srovnatelná účetní období potřebná pro navazující kontroly.
+Omezený počet filingů vybírá vyváženě mezi povolenými formuláři, aby série 8-K
+nebo 6-K nevytlačila srovnatelná účetní období potřebná pro navazující kontroly.
 Dokumenty mají stabilní ID podle CIK a accession number, účetní fakta obsahové ID
 a opakovaný běh je v SQLite pouze znovu pozoruje — neduplikuje zdrojové záznamy.
 Nové tabulky jsou `fundamental_facts` a `fundamental_fact_observations`.
@@ -193,12 +194,16 @@ Etapa 3 přidává tři nezávislé opt-in agenty:
 - `RegulatoryContractAgent` ukládá kontrakty, schválení, vyšetřování, sankce,
   změny licencí a granty včetně veřejně oznámené hodnoty a stavu.
 
-Dodavatelské vztahy a materiálové/energetické expozice se přijímají pouze jako
-ručně strukturované záznamy s veřejnou HTTPS referencí. Regulační a kontraktní
-události lze navíc konzervativně objevit v již načteném RSS; takový nález je vždy
-označen jako neověřený s důvěrou 0,45, a proto nesplní práh DecisionAgentu 0,70.
-Ruční záznam například na firemní výkaz, regulatorní oznámení nebo registr
-kontraktů má tvar:
+Dodavatelské vztahy a materiálové/energetické expozice lze dodat ručně nebo je
+konzervativně objevit přímo v bezpečně načteném textu posledního SEC 10-K. Parser
+bere pouze explicitní věty o koncentraci zákazníků/dodavatelů, smluvní výrobě a
+vstupních materiálech či energiích. Neznámou protistranu si nevymýšlí, neodhaduje
+směr ceny a automatickému nálezu dává důvěru nejvýše 0,45. Text 10-K se používá
+jen v paměti; do SQLite se ukládá URL, hash, MIME a strukturovaný audit, nikoli
+surové tělo filingu. Regulační a kontraktní události lze navíc konzervativně
+objevit v již načteném RSS; takový nález je vždy označen jako neověřený s
+důvěrou 0,45, a proto nesplní práh DecisionAgentu 0,70. Ruční záznam například
+na firemní výkaz, regulatorní oznámení nebo registr kontraktů má tvar:
 
 ```text
 TICKER | protistrana | typ vztahu | podíl %/- | vydavatel | YYYY-MM-DD | HTTPS URL
@@ -273,11 +278,36 @@ python -m market_checker_app.weekly_shadow_runner --mt5
 ```
 
 Ve Windows lze stejný kontrolovaný běh spustit souborem
-`Spustit_Tydenni_Shadow.bat` a naplánovat jej jednou týdně. Runner používá tickery
-z existující SQLite historie, ukládá audit do stejné DB, odmítne chybný manifest
-a skončí chybou, pokud QualityGate neprojde nebo by se agentní návrh pokusil
-změnit predikci. Poslední provozní souhrn je v
-`outputs/weekly_shadow_latest.json`.
+`Spustit_Tydenni_Shadow.bat`. Soubor `Nainstalovat_Tydenni_Shadow.bat` vytvoří
+úlohu Plánovače úloh každé pondělí v 06:30, se zapnutým doběhnutím zmeškaného
+startu. Stav nebo odstranění úlohy lze provést v PowerShellu:
+
+```powershell
+market_checker_app\install_weekly_shadow_task.ps1 -Mode Status
+market_checker_app\install_weekly_shadow_task.ps1 -Mode Remove
+```
+
+Runner používá tickery z existující SQLite historie, ukládá audit do stejné DB,
+odmítne chybný manifest a skončí chybou, pokud QualityGate neprojde nebo by se
+agentní návrh pokusil změnit predikci. Poslední provozní souhrn je v
+`outputs/weekly_shadow_latest.json`; schema 2 obsahuje stav jednotlivých zdrojů,
+výsledky statistických bran, explicitní blokátory, `accuracy_improvement_proven`,
+`live_buy_sell_ready` a `live_buy_sell_enabled`.
+
+GitHub workflow `Market Checker weekly production shadow` navíc každé pondělí:
+
+- ověří skutečné Yahoo OHLC/metadata, Google News RSS, SEC EDGAR a jeden přímý
+  report Muddy Waters,
+- spustí 36 likvidních tickerů v trvale bezpečném shadow režimu,
+- stáhne SQLite artefakt minulého týdne a po běhu jej znovu uloží na 90 dní,
+- odmítne tichý reset historie a zachová audit i při selhání živého zdroje.
+
+V GitHubu je nutné vytvořit Actions secret `JOHNY_SKORE_SEC_USER_AGENT` ve tvaru
+`JohnySkore/2.1 kontakt@example.com`. Bez deklarovaného kontaktu produkční smoke
+správně selže, protože SEC fair-access identitu nelze bezpečně doplnit za
+uživatele. Volitelná repository variable `JOHNY_SKORE_SMOKE_SHORT_REPORT_URL`
+může změnit canary report. Žádný secret ani surový obsah zdroje se do artefaktu
+neukládá.
 
 ## Stav původní implementační roadmapy
 

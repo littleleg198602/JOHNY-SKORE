@@ -21,6 +21,8 @@ class AgentRuntimeServiceTests(unittest.TestCase):
         self.assertIsNone(warning)
         self.assertTrue(settings.stage4_shadow_enabled)
         self.assertTrue(settings.auto_discover_short_reports)
+        self.assertTrue(settings.auto_discover_supply_chain_from_sec)
+        self.assertTrue(settings.auto_discover_commodity_energy_from_sec)
         self.assertTrue(settings.auto_discover_regulatory_events)
 
     def test_settings_round_trip_is_atomic_and_contains_no_sec_secret(self) -> None:
@@ -34,6 +36,7 @@ class AgentRuntimeServiceTests(unittest.TestCase):
                     "AAPL | Example | 2026-01-01 | https://example.com/report"
                 ),
                 supply_chain_enabled=True,
+                auto_discover_supply_chain_from_sec=False,
                 supply_chain_sources_text=(
                     "AAPL | Supplier | SUPPLIER | 10 | Filing | 2026-01-01 | "
                     "https://example.com/filing"
@@ -48,6 +51,8 @@ class AgentRuntimeServiceTests(unittest.TestCase):
         self.assertEqual(expected, loaded)
         self.assertEqual(1, payload["schema_version"])
         self.assertNotIn("user_agent", json.dumps(payload).lower())
+        self.assertFalse(loaded.auto_discover_supply_chain_from_sec)
+        self.assertTrue(loaded.auto_discover_commodity_energy_from_sec)
 
     def test_corrupt_file_fails_closed_to_defaults_with_visible_warning(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

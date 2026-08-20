@@ -1,4 +1,4 @@
-name: Market Checker live source smoke
+name: Market Checker weekly production shadow
 
 on:
   schedule:
@@ -6,19 +6,24 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
 
 concurrency:
-  group: market-checker-live-source-smoke
+  group: market-checker-weekly-production-shadow
   cancel-in-progress: false
 
 jobs:
-  live-shadow-smoke:
-    name: Yahoo and RSS shadow smoke
+  live-shadow:
+    name: Live sources and persistent OOS shadow
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
+    env:
+      JOHNY_SKORE_SEC_USER_AGENT: ${{ secrets.JOHNY_SKORE_SEC_USER_AGENT }}
+      JOHNY_SKORE_SMOKE_SHORT_REPORT_URL: ${{ vars.JOHNY_SKORE_SMOKE_SHORT_REPORT_URL || 'https://muddywatersresearch.com/research/tal/mw-is-short-tal/' }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -26,20 +31,105 @@ jobs:
           cache-dependency-path: |
             market_checker_app/requirements.txt
             market_checker_app/constraints.txt
+
       - name: Install verified project dependencies
-        run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
-      - name: Run live sources through the safe Stage 4 shadow path
+        run: >-
+          python -m pip install
+          -r market_checker_app/requirements.txt
+          -c market_checker_app/constraints.txt
+
+      - name: Locate latest non-expired shadow state
+        id: previous-state
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const currentRunId = Number(context.runId);
+            const current = await github.rest.actions.getWorkflowRun({
+              owner,
+              repo,
+              run_id: currentRunId,
+            });
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRuns,
+              {
+                owner,
+                repo,
+                workflow_id: current.data.workflow_id,
+                status: "completed",
+                branch: context.ref.replace("refs/heads/", ""),
+                per_page: 100,
+              },
+            );
+            for (const run of runs) {
+              if (Number(run.id) === currentRunId) continue;
+              const artifacts = await github.paginate(
+                github.rest.actions.listWorkflowRunArtifacts,
+                { owner, repo, run_id: run.id, per_page: 100 },
+              );
+              const state = artifacts.find(
+                (artifact) =>
+                  artifact.name === "market-checker-live-shadow-state" &&
+                  !artifact.expired,
+              );
+              if (state) {
+                core.setOutput("found", "true");
+                core.setOutput("run_id", String(run.id));
+                core.info(`Restoring state from workflow run ${run.id}.`);
+                return;
+              }
+            }
+            core.setOutput("found", "false");
+            core.info("No prior persistent shadow state found; creating a new database.");
+
+      - name: Download previous shadow state
+        if: steps.previous-state.outputs.found == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: market-checker-live-shadow-state
+          path: restored-state
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.previous-state.outputs.run_id }}
+
+      - name: Restore previous SQLite history
+        if: steps.previous-state.outputs.found == 'true'
+        shell: bash
+        run: |
+          test -f restored-state/market_checker_history.db
+          mkdir -p outputs
+          cp restored-state/market_checker_history.db outputs/market_checker_history.db
+
+      - name: Initialize or validate the persistent SQLite history
+        run: >-
+          python -c
+          "from pathlib import Path;
+          from market_checker_app.storage.sqlite_store import SQLiteStore;
+          SQLiteStore(Path('outputs/market_checker_history.db')).ensure_schema()"
+
+      - name: Verify current Yahoo, RSS, SEC and short-report sources
+        run: >-
+          python -m market_checker_app.live_source_smoke
+          --tickers AAPL MSFT SOFI
+
+      - name: Run the persistent weekly Stage 4 shadow
         run: >-
           python -m market_checker_app.weekly_shadow_runner
-          --tickers AAPL MSFT TSLA
+          --runtime-config market_checker_app/autonomous_runtime.json
+          --tickers
+          AAPL MSFT NVDA AMZN GOOGL META TSLA JPM V MA XOM JNJ WMT LLY AVGO
+          AMD UNH HD PG COST ORCL CRM NFLX ADBE CSCO KO PEP BAC CVX MRK ABBV
+          TMO ACN MCD TAL SOFI
           --no-mt5
-      - name: Preserve smoke audit when the run fails
+
+      - name: Preserve rolling state and source/readiness audits
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: market-checker-live-shadow-audit
+          name: market-checker-live-shadow-state
           path: |
-            outputs/weekly_shadow_latest.json
             outputs/market_checker_history.db
+            outputs/weekly_shadow_latest.json
+            outputs/live_source_smoke_latest.json
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 90

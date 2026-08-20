@@ -42,6 +42,11 @@ DEFAULT_RSS_SOURCE = (
     "https://news.google.com/rss/search?"
     "q={ticker}%20stock&hl=en-US&gl=US&ceid=US:en"
 )
+DEFAULT_SHORT_REPORT_RSS_SOURCE = "https://muddywatersresearch.com/feed/"
+DEFAULT_RSS_SOURCES = (
+    DEFAULT_RSS_SOURCE,
+    DEFAULT_SHORT_REPORT_RSS_SOURCE,
+)
 
 
 class RuntimeConfigurationError(ValueError):
@@ -66,11 +71,25 @@ def _validated_sources(
     errors = short_errors + supply_errors + commodity_errors + regulatory_errors
     if errors:
         raise RuntimeConfigurationError("\n".join(errors))
-    if settings.supply_chain_enabled and not supply_chain:
+    if (
+        settings.supply_chain_enabled
+        and not supply_chain
+        and not (
+            settings.sec_fundamentals_enabled
+            and settings.auto_discover_supply_chain_from_sec
+        )
+    ):
         raise RuntimeConfigurationError(
             "SupplyChainAgent je zapnutý, ale trvalá konfigurace neobsahuje platný zdroj."
         )
-    if settings.commodity_energy_enabled and not commodity_energy:
+    if (
+        settings.commodity_energy_enabled
+        and not commodity_energy
+        and not (
+            settings.sec_fundamentals_enabled
+            and settings.auto_discover_commodity_energy_from_sec
+        )
+    ):
         raise RuntimeConfigurationError(
             "CommodityEnergyAgent je zapnutý, ale trvalá konfigurace neobsahuje platný zdroj."
         )
@@ -92,9 +111,12 @@ def build_runtime_config(
         commodity_energy,
         regulatory_contract,
     ) = _validated_sources(settings)
-    if settings.sec_fundamentals_enabled and not sec_user_agent.strip():
+    if settings.sec_fundamentals_enabled and (
+        not sec_user_agent.strip() or "@" not in sec_user_agent
+    ):
         raise RuntimeConfigurationError(
-            "SEC ingest je zapnutý, ale chybí JOHNY_SKORE_SEC_USER_AGENT."
+            "SEC ingest je zapnutý, ale JOHNY_SKORE_SEC_USER_AGENT neobsahuje "
+            "název aplikace a kontaktní e-mail."
         )
     return AppConfig(
         output_dir=output_dir,
@@ -131,17 +153,47 @@ def build_runtime_config(
             ),
         ),
         supply_chain=SupplyChainConfig(
-            enabled=settings.supply_chain_enabled,
+            enabled=(
+                settings.supply_chain_enabled
+                or (
+                    settings.sec_fundamentals_enabled
+                    and settings.auto_discover_supply_chain_from_sec
+                )
+            ),
             sources=supply_chain,
+            auto_discover_from_sec_filings=(
+                settings.auto_discover_supply_chain_from_sec
+            ),
             source_verification=Stage3SourceVerificationConfig(
-                enabled=settings.supply_chain_enabled,
+                enabled=(
+                    settings.supply_chain_enabled
+                    or (
+                        settings.sec_fundamentals_enabled
+                        and settings.auto_discover_supply_chain_from_sec
+                    )
+                ),
             ),
         ),
         commodity_energy=CommodityEnergyConfig(
-            enabled=settings.commodity_energy_enabled,
+            enabled=(
+                settings.commodity_energy_enabled
+                or (
+                    settings.sec_fundamentals_enabled
+                    and settings.auto_discover_commodity_energy_from_sec
+                )
+            ),
             sources=commodity_energy,
+            auto_discover_from_sec_filings=(
+                settings.auto_discover_commodity_energy_from_sec
+            ),
             source_verification=Stage3SourceVerificationConfig(
-                enabled=settings.commodity_energy_enabled,
+                enabled=(
+                    settings.commodity_energy_enabled
+                    or (
+                        settings.sec_fundamentals_enabled
+                        and settings.auto_discover_commodity_energy_from_sec
+                    )
+                ),
             ),
         ),
         regulatory_contract=RegulatoryContractConfig(
@@ -197,6 +249,154 @@ def _tickers(explicit: Sequence[str], store: SQLiteStore) -> list[str]:
     return list(dict.fromkeys(item for item in normalized if item))
 
 
+def _readiness_summary(
+    result: dict[str, object],
+    config: AppConfig,
+) -> dict[str, object]:
+    """Build a fail-closed, machine-readable Stage 4 readiness verdict."""
+
+    activation_state = str(result.get("activation_state") or "INSUFFICIENT_DATA")
+    gate_passed = bool(result.get("evaluation_gate_passed"))
+    consecutive_passes = int(result.get("evaluation_consecutive_passes") or 0)
+    required_passes = int(
+        result.get("evaluation_required_consecutive_passes")
+        or config.evaluation_agent.required_consecutive_passes
+    )
+    accuracy_improvement_proven = bool(
+        gate_passed
+        and consecutive_passes >= required_passes
+        and activation_state in {"ELIGIBLE", "ENABLED"}
+    )
+    live_buy_sell_ready = bool(
+        accuracy_improvement_proven
+        and result.get("quality_gate_decision") == "PASS"
+    )
+    live_buy_sell_enabled = bool(
+        live_buy_sell_ready
+        and result.get("live_application_authorized")
+        and not config.agent_shadow_mode
+        and int(result.get("decision_applied_count") or 0) > 0
+    )
+
+    blockers = [
+        str(reason)
+        for reason in result.get("evaluation_activation_reasons", [])
+        if str(reason).strip()
+    ]
+    if int(result.get("evaluation_sample_count") or 0) < int(
+        config.evaluation_agent.minimum_oos_samples
+    ):
+        blockers.append(
+            "minimum_oos_samples:"
+            f"{int(result.get('evaluation_sample_count') or 0)}/"
+            f"{config.evaluation_agent.minimum_oos_samples}"
+        )
+    if int(result.get("evaluation_distinct_weeks") or 0) < int(
+        config.evaluation_agent.minimum_distinct_weeks
+    ):
+        blockers.append(
+            "minimum_distinct_weeks:"
+            f"{int(result.get('evaluation_distinct_weeks') or 0)}/"
+            f"{config.evaluation_agent.minimum_distinct_weeks}"
+        )
+    if consecutive_passes < required_passes:
+        blockers.append(
+            f"independent_gate_passes:{consecutive_passes}/{required_passes}"
+        )
+    if result.get("quality_gate_decision") != "PASS":
+        blockers.append(
+            f"quality_gate:{result.get('quality_gate_decision') or 'MISSING'}"
+        )
+    if not result.get("live_application_authorized"):
+        blockers.append("explicit_live_authorization_not_granted")
+    if config.agent_shadow_mode:
+        blockers.append("shadow_mode_active")
+
+    return {
+        "accuracy_improvement_proven": accuracy_improvement_proven,
+        "live_buy_sell_ready": live_buy_sell_ready,
+        "live_buy_sell_enabled": live_buy_sell_enabled,
+        "activation_state": activation_state,
+        "evaluation_gate_passed": gate_passed,
+        "consecutive_gate_passes": consecutive_passes,
+        "required_consecutive_gate_passes": required_passes,
+        "shadow_mode": config.agent_shadow_mode,
+        "blockers": list(dict.fromkeys(blockers)),
+    }
+
+
+def _source_health_summary(
+    result: dict[str, object],
+    config: AppConfig,
+) -> dict[str, object]:
+    return {
+        "sec_edgar": {
+            "configured": config.fundamental_ingestion.enabled,
+            "status": result.get("fundamental_ingestion_status"),
+            "documents": int(result.get("fundamental_document_count") or 0),
+            "facts": int(result.get("fundamental_fact_count") or 0),
+            "filing_text_documents": int(
+                result.get("fundamental_filing_text_document_count") or 0
+            ),
+            "filing_text_failures": int(
+                result.get("fundamental_filing_text_failure_count") or 0
+            ),
+        },
+        "financial_forensics": {
+            "configured": config.financial_forensics.enabled,
+            "status": result.get("financial_forensics_status"),
+            "evidence": int(
+                result.get("financial_forensics_evidence_count") or 0
+            ),
+        },
+        "short_reports": {
+            "configured": bool(
+                config.short_reports.enabled
+                or config.short_reports.auto_discover_from_news
+            ),
+            "status": result.get("short_report_status"),
+            "documents": int(result.get("short_report_document_count") or 0),
+            "claims": int(result.get("short_report_claim_count") or 0),
+            "auto_discovered": int(
+                result.get("auto_discovered_short_reports") or 0
+            ),
+        },
+        "supply_chain": {
+            "configured": config.supply_chain.enabled,
+            "status": result.get("supply_chain_status"),
+            "relationships": int(
+                result.get("supply_chain_relationship_count") or 0
+            ),
+            "auto_discovered": int(
+                result.get("auto_discovered_supply_chain_relationships") or 0
+            ),
+        },
+        "commodity_energy": {
+            "configured": config.commodity_energy.enabled,
+            "status": result.get("commodity_energy_status"),
+            "exposures": int(
+                result.get("commodity_energy_exposure_count") or 0
+            ),
+            "auto_discovered": int(
+                result.get("auto_discovered_commodity_energy_exposures") or 0
+            ),
+        },
+        "regulatory_contracts": {
+            "configured": bool(
+                config.regulatory_contract.enabled
+                or config.regulatory_contract.auto_discover_from_news
+            ),
+            "status": result.get("regulatory_contract_status"),
+            "events": int(
+                result.get("regulatory_contract_event_count") or 0
+            ),
+            "auto_discovered": int(
+                result.get("auto_discovered_regulatory_events") or 0
+            ),
+        },
+    }
+
+
 def run_weekly_shadow(
     *,
     config: AppConfig,
@@ -226,8 +426,9 @@ def run_weekly_shadow(
         mt5_enabled=mt5_enabled,
         yahoo_metadata_enabled=yahoo_metadata_enabled,
     )
+    readiness = _readiness_summary(result, config)
     summary: dict[str, object] = {
-        "schema_version": 1,
+        "schema_version": 2,
         "finished_at": datetime.now(timezone.utc).isoformat(),
         "run_id": result.get("run_id"),
         "ticker_count": len(tickers),
@@ -239,10 +440,34 @@ def run_weekly_shadow(
         "activation_state": result.get("activation_state"),
         "evaluation_sample_count": result.get("evaluation_sample_count"),
         "evaluation_distinct_weeks": result.get("evaluation_distinct_weeks"),
+        "evaluation_baseline_accuracy_pct": result.get(
+            "evaluation_baseline_accuracy_pct"
+        ),
+        "evaluation_candidate_accuracy_pct": result.get(
+            "evaluation_candidate_accuracy_pct"
+        ),
         "evaluation_lift_pct_points": result.get("evaluation_lift_pct_points"),
         "evaluation_lift_lower_bound_pct_points": result.get(
             "evaluation_lift_lower_bound_pct_points"
         ),
+        "evaluation_positive_week_ratio": result.get(
+            "evaluation_positive_week_ratio"
+        ),
+        "evaluation_gate_passed": result.get("evaluation_gate_passed"),
+        "evaluation_gate_results": result.get("evaluation_gate_results"),
+        "evaluation_consecutive_passes": result.get(
+            "evaluation_consecutive_passes"
+        ),
+        "evaluation_required_consecutive_passes": result.get(
+            "evaluation_required_consecutive_passes"
+        ),
+        "accuracy_improvement_proven": readiness[
+            "accuracy_improvement_proven"
+        ],
+        "live_buy_sell_ready": readiness["live_buy_sell_ready"],
+        "live_buy_sell_enabled": readiness["live_buy_sell_enabled"],
+        "readiness": readiness,
+        "source_health": _source_health_summary(result, config),
         "auto_discovered_short_reports": result.get(
             "auto_discovered_short_reports"
         ),
@@ -259,8 +484,58 @@ def run_weekly_shadow(
     failures: list[str] = []
     if result.get("run_id") is None:
         failures.append("běh se neuložil do SQLite")
-    if result.get("agent_status") != "SUCCESS":
-        failures.append(f"agentní stav je {result.get('agent_status')}")
+    report = result.get("agent_report")
+    executions = getattr(report, "executions", [])
+    hard_agent_failures = [
+        f"{execution.agent_name}:{execution.status.value}"
+        for execution in executions
+        if execution.status.value in {"FAILED", "BLOCKED"}
+    ]
+    if result.get("agent_status") == "FAILED" or hard_agent_failures:
+        failures.append(
+            "agentní běh obsahuje tvrdé selhání"
+            + (
+                ": " + ", ".join(hard_agent_failures)
+                if hard_agent_failures
+                else ""
+            )
+        )
+    if config.fundamental_ingestion.enabled:
+        if result.get("fundamental_ingestion_status") not in {
+            "SUCCESS",
+            "PARTIAL",
+        }:
+            failures.append("SEC ingest není provozuschopný")
+        if int(result.get("fundamental_document_count") or 0) == 0:
+            failures.append("SEC ingest neuložil žádný filing")
+        if int(result.get("fundamental_fact_count") or 0) == 0:
+            failures.append("SEC ingest neuložil žádný XBRL fakt")
+    if (
+        config.fundamental_ingestion.enabled
+        and (
+            config.supply_chain.auto_discover_from_sec_filings
+            or config.commodity_energy.auto_discover_from_sec_filings
+        )
+    ):
+        if int(result.get("fundamental_filing_text_document_count") or 0) == 0:
+            failures.append("nebyl bezpečně načten žádný text výročního filingu")
+        if int(result.get("fundamental_filing_text_failure_count") or 0) > 0:
+            failures.append("některý text výročního filingu se nepodařilo načíst")
+    if config.short_reports.enabled and int(
+        result.get("short_report_document_count") or 0
+    ) == 0:
+        failures.append("short-report canary nebyl načten")
+    if config.supply_chain.enabled and result.get("supply_chain_status") != "SUCCESS":
+        failures.append(
+            f"SupplyChainAgent skončil {result.get('supply_chain_status')}"
+        )
+    if (
+        config.commodity_energy.enabled
+        and result.get("commodity_energy_status") != "SUCCESS"
+    ):
+        failures.append(
+            f"CommodityEnergyAgent skončil {result.get('commodity_energy_status')}"
+        )
     if result.get("quality_gate_decision") != "PASS":
         failures.append(
             f"QualityGate skončil {result.get('quality_gate_decision')}"
@@ -332,7 +607,7 @@ def main() -> None:
         summary = run_weekly_shadow(
             config=config,
             tickers=tickers,
-            rss_sources=args.rss_sources or [DEFAULT_RSS_SOURCE],
+            rss_sources=args.rss_sources or list(DEFAULT_RSS_SOURCES),
             rss_enabled=args.rss,
             mt5_enabled=args.mt5,
             yahoo_metadata_enabled=args.yahoo_metadata,

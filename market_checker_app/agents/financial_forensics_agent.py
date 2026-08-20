@@ -24,6 +24,7 @@ CONCEPTS: dict[str, tuple[str, ...]] = {
         "RevenueFromContractWithCustomerExcludingAssessedTax",
         "SalesRevenueNet",
         "Revenues",
+        "Revenue",
     ),
     "net_income": ("NetIncomeLoss", "ProfitLoss"),
     "operating_income": ("OperatingIncomeLoss",),
