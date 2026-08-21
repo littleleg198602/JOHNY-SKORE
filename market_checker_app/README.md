@@ -5,6 +5,9 @@ Lokální Streamlit aplikace pro analýzu watchlistu z Excelu, ručního vstupu 
 - Yahoo/yfinance snapshot
 - technické indikátory (modul připraven, aktuálně základní score fallback)
 
+Aktuální stav celé Company Intelligence / Forensic vrstvy a navazující úkoly
+jsou vedené v [`COMPANY_INTELLIGENCE_TASKS.md`](../COMPANY_INTELLIGENCE_TASKS.md).
+
 ## Spuštění
 
 ```bash
