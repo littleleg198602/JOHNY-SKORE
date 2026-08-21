@@ -8,6 +8,7 @@ import unittest
 
 import pandas as pd
 
+from market_checker_app.collectors.gleif_client import GleifIdentity
 from market_checker_app.collectors.sec_edgar_client import (
     SecCompany,
     SecCompanyBundle,
@@ -15,11 +16,20 @@ from market_checker_app.collectors.sec_edgar_client import (
     SecFiling,
 )
 from market_checker_app.collectors.short_report_client import FetchedShortReport
-from market_checker_app.live_source_smoke import run_live_source_smoke
+from market_checker_app.live_source_smoke import (
+    run_live_source_smoke,
+    verify_company_identity_pilot,
+)
 from market_checker_app.models import NewsItem, YahooSnapshot
+from market_checker_app.services.agent_runtime_service import AgentRuntimeService
+from market_checker_app.services.company_intelligence_manifest_service import (
+    parse_identity_records,
+)
+from market_checker_app.services.watchlist_service import load_watchlist
 
 
 NOW = datetime(2026, 8, 20, 12, 0, tzinfo=timezone.utc)
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class _Yahoo:
@@ -80,6 +90,51 @@ class _SEC:
         return _bundle()
 
 
+class _IdentitySEC(_SEC):
+    def __init__(self, records):
+        self.records = records
+
+    def resolve_company(self, ticker):
+        record = self.records.get(ticker)
+        if not record or not record.get("cik"):
+            return None
+        return SecCompany(
+            ticker=ticker,
+            cik=str(record["cik"]),
+            name=str(record["name"]),
+            exchange=str(record.get("exchange") or "") or None,
+        )
+
+
+class _GLEIF:
+    def __init__(self, records):
+        self.records = records
+        self.calls = []
+
+    def resolve(self, *, lei=None, isin=None):
+        self.calls.append((lei, isin))
+        for record in self.records.values():
+            if lei and record.get("lei") != lei:
+                continue
+            if isin and record.get("isin") != isin:
+                continue
+            if not (lei or isin) or not record.get("lei"):
+                continue
+            return GleifIdentity(
+                lei=str(record["lei"]),
+                legal_name=str(record["name"]),
+                country_code=str(record.get("country_code") or "") or None,
+                jurisdiction=None,
+                registered_as=None,
+                registration_status="ISSUED",
+                entity_status="ACTIVE",
+                parent_lei=None,
+                isins=(str(record["isin"]),) if record.get("isin") else (),
+                source_url=str(record["source_url"]),
+            )
+        return None
+
+
 class _LeakySEC:
     def fetch_company_bundle(self, ticker, **kwargs):
         raise RuntimeError("request failed for JohnySkore test@example.com")
@@ -91,15 +146,117 @@ class _Report:
             source=source,
             final_url=source.url,
             mime_type="text/html",
-            title="MW is Short TAL",
-            text="TAL " + "verified report content " * 20,
+            title="MicroStrategy (MSTR)",
+            text="MSTR " + "verified report content " * 20,
             content_hash="a" * 64,
             size_bytes=1_024,
             extractor="html.parser",
         )
 
 
+def _production_identity_records():
+    settings, warning = AgentRuntimeService(
+        ROOT / "market_checker_app" / "autonomous_runtime.json"
+    ).load()
+    if warning:
+        raise AssertionError(warning)
+    records, errors = parse_identity_records(settings.identity_records_text)
+    if errors:
+        raise AssertionError("; ".join(errors))
+    return records
+
+
+def _production_watchlist() -> list[str]:
+    return load_watchlist(
+        ROOT / "market_checker_app" / "production_watchlist.txt"
+    )
+
+
 class LiveSourceSmokeTests(unittest.TestCase):
+    def test_committed_pilot_has_ten_exact_primary_identities(self) -> None:
+        records = _production_identity_records()
+
+        self.assertEqual(
+            {
+                "NVDA",
+                "AAPL",
+                "GOOGL",
+                "MSFT",
+                "AMZN",
+                "AVGO",
+                "META",
+                "TSLA",
+                "LLY",
+                "JPM",
+            },
+            set(records),
+        )
+        self.assertEqual(
+            10,
+            sum(bool(item.get("cik")) for item in records.values()),
+        )
+        self.assertEqual(
+            0,
+            sum(bool(item.get("lei")) for item in records.values()),
+        )
+        self.assertTrue(set(records).issubset(_production_watchlist()))
+        self.assertTrue(all(item.get("source_url") for item in records.values()))
+
+    def test_identity_pilot_resolves_all_records_without_name_discovery(self) -> None:
+        records = _production_identity_records()
+        gleif = _GLEIF(records)
+
+        details = verify_company_identity_pilot(
+            identity_records=records,
+            sec_user_agent="JohnySkore test@example.com",
+            universe_tickers=_production_watchlist(),
+            sec_client=_IdentitySEC(records),
+            gleif_client=gleif,
+        )
+
+        self.assertEqual(10, details["configured_identity_count"])
+        self.assertEqual(10, details["resolved_identity_count"])
+        self.assertEqual(0, details["unresolved_identity_count"])
+        self.assertEqual(0, details["quarantined_conflict_count"])
+        self.assertEqual(687, details["production_universe_count"])
+        self.assertFalse(details["name_matching_used"])
+        self.assertEqual([], gleif.calls)
+
+    def test_identity_pilot_fails_closed_on_registry_conflict(self) -> None:
+        records = _production_identity_records()
+
+        class ConflictingSEC(_IdentitySEC):
+            def resolve_company(self, ticker):
+                company = super().resolve_company(ticker)
+                if ticker == "AAPL" and company is not None:
+                    return SecCompany(
+                        ticker=company.ticker,
+                        cik="0000000001",
+                        name=company.name,
+                        exchange=company.exchange,
+                    )
+                return company
+
+        with self.assertRaisesRegex(RuntimeError, "SEC CIK konflikt pro AAPL"):
+            verify_company_identity_pilot(
+                identity_records=records,
+                sec_user_agent="JohnySkore test@example.com",
+                universe_tickers=_production_watchlist(),
+                sec_client=ConflictingSEC(records),
+                gleif_client=_GLEIF(records),
+            )
+
+    def test_identity_pilot_rejects_ticker_outside_production_universe(self) -> None:
+        records = _production_identity_records()
+
+        with self.assertRaisesRegex(RuntimeError, "mimo produkční watchlist"):
+            verify_company_identity_pilot(
+                identity_records=records,
+                sec_user_agent="JohnySkore test@example.com",
+                universe_tickers=["OUTSIDE"],
+                sec_client=_IdentitySEC(records),
+            )
+
     def test_all_live_contracts_are_audited_without_persisting_secrets(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp) / "smoke.json"

@@ -42,8 +42,13 @@ from market_checker_app.services.stage3_manifest_service import (
     parse_regulatory_contract_sources,
     parse_supply_chain_sources,
 )
+from market_checker_app.services.watchlist_service import (
+    WatchlistError,
+    load_watchlist,
+    normalize_watchlist,
+    select_watchlist_pilot,
+)
 from market_checker_app.storage.sqlite_store import SQLiteStore
-from market_checker_app.utils.text import normalize_ticker
 
 
 DEFAULT_RSS_SOURCE = (
@@ -333,10 +338,46 @@ def _atomic_json(path: Path, payload: dict[str, object]) -> None:
             temporary_path.unlink()
 
 
-def _tickers(explicit: Sequence[str], store: SQLiteStore) -> list[str]:
-    raw = list(explicit) if explicit else store.list_tickers()
-    normalized = [normalize_ticker(item) for item in raw]
-    return list(dict.fromkeys(item for item in normalized if item))
+def _tickers(
+    explicit: Sequence[str],
+    store: SQLiteStore,
+    *,
+    ticker_file: Path | None = None,
+    ticker_limit: int | None = None,
+    required_tickers: Sequence[str] = (),
+) -> list[str]:
+    if explicit:
+        normalized = normalize_watchlist(explicit)
+    elif ticker_file is not None:
+        normalized = load_watchlist(ticker_file)
+    else:
+        persisted = store.list_tickers()
+        normalized = normalize_watchlist(persisted) if persisted else []
+    if not normalized:
+        return []
+    return select_watchlist_pilot(
+        normalized,
+        ticker_limit,
+        required_tickers=required_tickers,
+    )
+
+
+def _required_runtime_tickers(config: AppConfig) -> list[str]:
+    sources = (
+        tuple(config.short_reports.sources)
+        + tuple(config.european_filings.sources)
+        + tuple(config.european_filings.feeds)
+        + tuple(config.supply_chain.sources)
+        + tuple(config.commodity_energy.sources)
+        + tuple(config.regulatory_contract.sources)
+    )
+    return list(
+        dict.fromkeys(
+            str(getattr(source, "ticker", "")).strip().upper()
+            for source in sources
+            if str(getattr(source, "ticker", "")).strip()
+        )
+    )
 
 
 def _readiness_summary(
@@ -673,6 +714,19 @@ def _parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--tickers", nargs="*", default=[])
     parser.add_argument(
+        "--ticker-file",
+        type=Path,
+        help=(
+            "Verzovaný ticker universe; použije se, pokud nejsou zadány "
+            "--tickers. Bez něj runner obnoví tickery ze SQLite historie."
+        ),
+    )
+    parser.add_argument(
+        "--ticker-limit",
+        type=int,
+        help="Volitelný pilotní limit zachovávající pořadí ticker souboru.",
+    )
+    parser.add_argument(
         "--output-dir",
         type=Path,
         default=Path("outputs"),
@@ -717,7 +771,13 @@ def main() -> None:
         )
         store = SQLiteStore(config.sqlite_path)
         store.ensure_schema()
-        tickers = _tickers(args.tickers, store)
+        tickers = _tickers(
+            args.tickers,
+            store,
+            ticker_file=args.ticker_file,
+            ticker_limit=args.ticker_limit,
+            required_tickers=_required_runtime_tickers(config),
+        )
         summary = run_weekly_shadow(
             config=config,
             tickers=tickers,
@@ -726,7 +786,12 @@ def main() -> None:
             mt5_enabled=args.mt5,
             yahoo_metadata_enabled=args.yahoo_metadata,
         )
-    except (RuntimeConfigurationError, RuntimeError, OSError) as exc:
+    except (
+        RuntimeConfigurationError,
+        RuntimeError,
+        WatchlistError,
+        OSError,
+    ) as exc:
         raise SystemExit(f"[SHADOW CHYBA] {exc}") from exc
     print(json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True))
 

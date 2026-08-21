@@ -1,11 +1,20 @@
 from __future__ import annotations
 
 from pathlib import Path
-import re
 import unittest
 
 from market_checker_app.services.agent_runtime_service import AgentRuntimeService
-from market_checker_app.weekly_shadow_runner import build_runtime_config
+from market_checker_app.services.company_intelligence_manifest_service import (
+    parse_identity_records,
+)
+from market_checker_app.services.watchlist_service import (
+    load_watchlist,
+    select_watchlist_pilot,
+)
+from market_checker_app.weekly_shadow_runner import (
+    _required_runtime_tickers,
+    build_runtime_config,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,9 +38,35 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertFalse(config.evaluation_agent.enable_after_gate)
         self.assertTrue(config.fundamental_ingestion.enabled)
         self.assertTrue(config.financial_forensics.enabled)
+        identities, identity_errors = parse_identity_records(
+            settings.identity_records_text
+        )
+        self.assertEqual([], identity_errors)
+        self.assertEqual(10, len(identities))
+        self.assertEqual(10, len(config.entity_registry.identity_records))
         self.assertEqual(1, len(config.short_reports.sources))
+        self.assertEqual("MSTR", config.short_reports.sources[0].ticker)
         self.assertTrue(config.supply_chain.enabled)
         self.assertTrue(config.commodity_energy.enabled)
+
+        universe = load_watchlist(
+            ROOT / "market_checker_app" / "production_watchlist.txt"
+        )
+        self.assertEqual(687, len(universe))
+        self.assertEqual(687, len(set(universe)))
+        self.assertEqual(
+            ["NVDA", "AAPL", "GOOGL", "GOOG", "MSFT"],
+            universe[:5],
+        )
+        self.assertTrue(set(identities).issubset(universe))
+        pilot = select_watchlist_pilot(
+            universe,
+            36,
+            required_tickers=_required_runtime_tickers(config),
+        )
+        self.assertEqual(36, len(pilot))
+        self.assertIn("MSTR", pilot)
+        self.assertTrue(set(pilot).issubset(universe))
 
     def test_workflow_restores_history_and_runs_all_live_canaries(self) -> None:
         workflow = (
@@ -43,23 +78,26 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertIn("market-checker-live-shadow-state", workflow)
         self.assertIn("retention-days: 90", workflow)
         self.assertIn("market_checker_app.live_source_smoke", workflow)
+        self.assertIn(
+            "--runtime-config market_checker_app/autonomous_runtime.json",
+            workflow,
+        )
+        self.assertIn("--minimum-identity-records 10", workflow)
+        self.assertEqual(
+            2,
+            workflow.count(
+                "--ticker-file market_checker_app/production_watchlist.txt"
+            ),
+        )
+        self.assertIn("--ticker-limit 3", workflow)
+        self.assertIn("--ticker-limit 36", workflow)
+        self.assertNotIn("--tickers AAPL", workflow)
         self.assertIn("JOHNY_SKORE_SEC_USER_AGENT", workflow)
         self.assertIn("market_checker_app/autonomous_runtime.json", workflow)
         self.assertLess(
             workflow.index("Initialize or validate the persistent SQLite history"),
-            workflow.index("Verify current Yahoo, RSS, SEC and short-report sources"),
+            workflow.index("Verify company identities and current live sources"),
         )
-        ticker_block = re.search(
-            r"--tickers\s+(.*?)\s+--no-mt5",
-            workflow,
-            flags=re.DOTALL,
-        )
-        self.assertIsNotNone(ticker_block)
-        assert ticker_block is not None
-        tickers = re.findall(r"\b[A-Z]{1,5}\b", ticker_block.group(1))
-        self.assertGreaterEqual(len(tickers), 30)
-        self.assertIn("TAL", tickers)
-        self.assertIn("SOFI", tickers)
 
 
 if __name__ == "__main__":
