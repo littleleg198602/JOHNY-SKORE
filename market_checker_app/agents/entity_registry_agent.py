@@ -3,10 +3,19 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import replace
 from datetime import datetime, timezone
-from typing import Any
+import hashlib
+from typing import Any, Protocol
 
 from market_checker_app.agents.base import BaseAgent
-from market_checker_app.agents.contracts import AgentContext, AgentResult, EntityRecord
+from market_checker_app.agents.contracts import (
+    AgentContext,
+    AgentResult,
+    AgentStatus,
+    EntityRecord,
+    IdentityConflictRecord,
+    utc_now,
+)
+from market_checker_app.collectors.gleif_client import GleifIdentity
 from market_checker_app.utils.symbols import normalize_yahoo_symbol
 from market_checker_app.utils.entity_identifiers import (
     normalize_cik,
@@ -59,16 +68,33 @@ def _aliases(value: object) -> list[str]:
     )
 
 
+class PrimaryIdentityResolver(Protocol):
+    def resolve(
+        self,
+        *,
+        lei: str | None = None,
+        isin: str | None = None,
+    ) -> GleifIdentity | None: ...
+
+
+def _stable_id(*parts: object) -> str:
+    payload = "|".join(str(part) for part in parts).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
 class EntityRegistryAgent(BaseAgent):
     name = "entity_registry"
-    version = "2.0"
+    version = "2.1"
     required = True
 
     def __init__(
         self,
         identity_records: Mapping[str, EntityRecord | Mapping[str, Any]] | None = None,
+        *,
+        primary_registry_client: PrimaryIdentityResolver | None = None,
     ) -> None:
         self._identity_records = dict(identity_records or {})
+        self._primary_registry_client = primary_registry_client
 
     @staticmethod
     def _normalized_records(
@@ -229,6 +255,100 @@ class EntityRegistryAgent(BaseAgent):
             raise ValueError(f"Unsupported identity record for {ticker}")
         return cls._record_from_mapping(ticker, raw, observed_aliases)
 
+    @staticmethod
+    def _primary_conflicts(
+        entity: EntityRecord,
+        identity: GleifIdentity,
+        *,
+        observed_at: datetime,
+    ) -> list[IdentityConflictRecord]:
+        candidates: list[tuple[str, str, str]] = []
+        if entity.lei and entity.lei != identity.lei:
+            candidates.append(("lei", entity.lei, identity.lei))
+        if entity.isin and identity.isins and entity.isin not in identity.isins:
+            candidates.append(("isin", entity.isin, ",".join(identity.isins)))
+        conflicts: list[IdentityConflictRecord] = []
+        for field_name, existing_value, candidate_value in candidates:
+            conflicts.append(
+                IdentityConflictRecord(
+                    conflict_id=_stable_id(
+                        entity.entity_id,
+                        field_name,
+                        existing_value,
+                        candidate_value,
+                        identity.source_url,
+                    ),
+                    ticker=entity.ticker,
+                    entity_id=entity.entity_id,
+                    legal_entity_id=entity.legal_entity_id,
+                    field_name=field_name,
+                    existing_value=existing_value,
+                    candidate_value=candidate_value,
+                    existing_source=entity.source,
+                    candidate_source="GLEIF Global LEI Index",
+                    observed_at=observed_at,
+                    existing_source_url=entity.source_url,
+                    candidate_source_url=identity.source_url,
+                    reason=(
+                        "Primární identifikátory se neshodují; kandidát byl "
+                        "oddělen do karantény a nesmí přepsat aktivní identitu."
+                    ),
+                    metadata={"automatic_resolution": False},
+                )
+            )
+        return conflicts
+
+    @staticmethod
+    def _enrich_from_primary(
+        entity: EntityRecord,
+        identity: GleifIdentity,
+    ) -> EntityRecord:
+        selected_isin = entity.isin
+        if selected_isin is None and len(identity.isins) == 1:
+            selected_isin = identity.isins[0]
+        legal_entity_id = f"lei:{identity.lei}"
+        metadata = dict(entity.metadata)
+        metadata.update(
+            {
+                "identity_resolution": "RESOLVED",
+                "primary_registry": "GLEIF",
+                "gleif_registration_status": identity.registration_status,
+                "gleif_entity_status": identity.entity_status,
+                "gleif_jurisdiction": identity.jurisdiction,
+                "gleif_registered_as": identity.registered_as,
+                "mapped_isin_count": len(identity.isins),
+                "mapped_isin_ambiguous": (
+                    entity.isin is None and len(identity.isins) > 1
+                ),
+            }
+        )
+        return replace(
+            entity,
+            name=identity.legal_name or entity.name,
+            isin=selected_isin,
+            lei=identity.lei,
+            legal_entity_id=legal_entity_id,
+            issuer_id=entity.issuer_id or legal_entity_id,
+            instrument_id=(
+                f"isin:{selected_isin}"
+                if selected_isin
+                else entity.instrument_id
+            ),
+            parent_entity_id=(
+                f"lei:{identity.parent_lei}"
+                if identity.parent_lei
+                else entity.parent_entity_id
+            ),
+            country_code=identity.country_code or entity.country_code,
+            aliases=list(
+                dict.fromkeys(entity.aliases + list(identity.aliases))
+            ),
+            source="gleif_primary_registry",
+            source_url=identity.source_url,
+            confidence=max(entity.confidence, 1.0),
+            metadata=metadata,
+        )
+
     def run(self, context: AgentContext) -> AgentResult:
         configured = self._normalized_records(self._identity_records)
         state_records = context.state.get("entity_identity_by_ticker", {})
@@ -265,6 +385,52 @@ class EntityRegistryAgent(BaseAgent):
             for ticker in ordered_tickers
         ]
 
+        conflicts: list[IdentityConflictRecord] = []
+        warnings: list[str] = []
+        primary_attempted = 0
+        primary_resolved = 0
+        lookup_failures = 0
+        if self._primary_registry_client is not None:
+            enriched: list[EntityRecord] = []
+            for entity in entities:
+                if not entity.lei and not entity.isin:
+                    enriched.append(entity)
+                    continue
+                primary_attempted += 1
+                try:
+                    identity = self._primary_registry_client.resolve(
+                        lei=entity.lei,
+                        isin=entity.isin,
+                    )
+                except Exception as exc:
+                    lookup_failures += 1
+                    warnings.append(
+                        f"GLEIF {entity.ticker}: {type(exc).__name__}: {exc}"
+                    )
+                    enriched.append(entity)
+                    continue
+                if identity is None:
+                    lookup_failures += 1
+                    warnings.append(
+                        f"GLEIF {entity.ticker}: přesný LEI/ISIN nebyl nalezen."
+                    )
+                    enriched.append(entity)
+                    continue
+                candidate_conflicts = self._primary_conflicts(
+                    entity,
+                    identity,
+                    observed_at=utc_now(),
+                )
+                if candidate_conflicts:
+                    conflicts.extend(candidate_conflicts)
+                    metadata = dict(entity.metadata)
+                    metadata["identity_resolution"] = "QUARANTINED"
+                    enriched.append(replace(entity, metadata=metadata))
+                    continue
+                primary_resolved += 1
+                enriched.append(self._enrich_from_primary(entity, identity))
+            entities = enriched
+
         by_id: dict[str, EntityRecord] = {}
         for entity in entities:
             existing = by_id.get(entity.entity_id)
@@ -286,15 +452,30 @@ class EntityRegistryAgent(BaseAgent):
             if entity.legal_entity_id and entity.instrument_id
         )
         return AgentResult(
+            status=(
+                AgentStatus.PARTIAL
+                if conflicts or lookup_failures
+                else AgentStatus.SUCCESS
+            ),
             entities=entities,
+            identity_conflicts=conflicts,
+            warnings=warnings,
             metadata={
                 "unique_entities": len(entities),
                 "resolved_identities": resolved,
                 "unresolved_identities": len(entities) - resolved,
+                "primary_registry_attempted": primary_attempted,
+                "primary_registry_resolved": primary_resolved,
+                "primary_registry_lookup_failures": lookup_failures,
+                "quarantined_conflicts": len(conflicts),
             },
             state_updates={
                 "entities_by_ticker": by_ticker,
                 "entities_by_id": by_id,
                 "entities_by_legal_entity_id": by_legal_entity,
+                "identity_conflicts": conflicts,
+                "quarantined_identity_tickers": sorted(
+                    {item.ticker for item in conflicts}
+                ),
             },
         )

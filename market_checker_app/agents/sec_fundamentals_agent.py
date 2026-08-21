@@ -38,6 +38,7 @@ class SecBundleClient(Protocol):
         *,
         allowed_forms: tuple[str, ...],
         max_filings: int,
+        max_historical_submission_files: int,
         concepts: tuple[str, ...],
         max_facts_per_concept: int,
     ) -> SecCompanyBundle | None: ...
@@ -127,6 +128,7 @@ class SecFundamentalsAgent(BaseAgent):
         successful_tickers = 0
         unresolved_tickers = 0
         filing_texts_by_ticker: dict[str, list[FetchedShortReport]] = {}
+        insider_transactions_by_ticker: dict[str, list[object]] = {}
         filing_text_failures = 0
         filing_text_client = self._filing_text_client_or_none()
 
@@ -139,6 +141,9 @@ class SecFundamentalsAgent(BaseAgent):
                     ticker,
                     allowed_forms=self.config.forms,
                     max_filings=self.config.max_filings_per_ticker,
+                    max_historical_submission_files=(
+                        self.config.max_historical_submission_files
+                    ),
                     concepts=self.config.fact_concepts,
                     max_facts_per_concept=self.config.max_facts_per_concept,
                 )
@@ -218,6 +223,16 @@ class SecFundamentalsAgent(BaseAgent):
                     url=filing.filing_url,
                     published_at=filing.filed_at,
                     mime_type="text/html",
+                    source_authority="SEC",
+                    legal_entity_id=legal_entity_id,
+                    issuer_id=base_entity.issuer_id or legal_entity_id,
+                    instrument_id=base_entity.instrument_id,
+                    reporting_period_end=filing.report_date,
+                    is_audited=(
+                        filing.form.upper().removesuffix("/A")
+                        in {"10-K", "20-F", "40-F"}
+                    ),
+                    language="en",
                     metadata={
                         "cik": bundle.company.cik,
                         "accession_number": filing.accession_number,
@@ -232,6 +247,10 @@ class SecFundamentalsAgent(BaseAgent):
                             filing.primary_document_description
                         ),
                         "index_url": filing.index_url,
+                        "items": list(filing.items),
+                        "historical_submission_files_loaded": (
+                            bundle.historical_submission_files_loaded
+                        ),
                     },
                 )
                 documents.append(document)
@@ -361,6 +380,11 @@ class SecFundamentalsAgent(BaseAgent):
                     )
                 )
 
+            if bundle.insider_transactions:
+                insider_transactions_by_ticker.setdefault(ticker, []).extend(
+                    bundle.insider_transactions
+                )
+
         if successful_tickers == 0:
             status = AgentStatus.UNAVAILABLE
         elif unresolved_tickers or core_degraded:
@@ -389,6 +413,10 @@ class SecFundamentalsAgent(BaseAgent):
                     len(items) for items in filing_texts_by_ticker.values()
                 ),
                 "filing_text_failures": filing_text_failures,
+                "insider_transactions": sum(
+                    len(items)
+                    for items in insider_transactions_by_ticker.values()
+                ),
                 "raw_filing_text_persisted": False,
                 "forms": list(self.config.forms),
                 "scoring_applied": False,
@@ -400,5 +428,8 @@ class SecFundamentalsAgent(BaseAgent):
                 },
                 "fundamental_facts_by_ticker": facts_by_ticker,
                 "sec_filing_texts_by_ticker": filing_texts_by_ticker,
+                "sec_insider_transactions_by_ticker": (
+                    insider_transactions_by_ticker
+                ),
             },
         )

@@ -12,9 +12,15 @@ from market_checker_app.agents.contracts import (
     CompanyRelationship,
     DecisionRecord,
     DocumentRecord,
+    DocumentSourcePriority,
     EntityRecord,
     FundamentalFact,
     GateDecision,
+    GovernanceEvent,
+    GovernanceEventStatus,
+    GovernanceEventType,
+    IdentityConflictRecord,
+    IdentityConflictStatus,
     OrchestrationReport,
     PolicyEvaluation,
     QualityGateCheck,
@@ -31,8 +37,10 @@ from market_checker_app.agents.claim_verification_agent import ClaimVerification
 from market_checker_app.agents.commodity_energy_agent import CommodityEnergyAgent
 from market_checker_app.agents.decision_agent import DecisionAgent
 from market_checker_app.agents.entity_registry_agent import EntityRegistryAgent
+from market_checker_app.agents.european_filings_agent import EuropeanFilingsAgent
 from market_checker_app.agents.evaluation_agent import EvaluationAgent
 from market_checker_app.agents.financial_forensics_agent import FinancialForensicsAgent
+from market_checker_app.agents.governance_event_agent import GovernanceEventAgent
 from market_checker_app.agents.orchestrator import OrchestratorAgent
 from market_checker_app.agents.prediction_v21_adapter import PredictionV21AdapterAgent
 from market_checker_app.agents.quality_gate_agent import QualityGateAgent
@@ -56,12 +64,20 @@ __all__ = [
     "DecisionAgent",
     "DecisionRecord",
     "DocumentRecord",
+    "DocumentSourcePriority",
     "EntityRecord",
     "EntityRegistryAgent",
+    "EuropeanFilingsAgent",
     "EvaluationAgent",
     "FinancialForensicsAgent",
     "FundamentalFact",
     "GateDecision",
+    "GovernanceEventAgent",
+    "GovernanceEvent",
+    "GovernanceEventStatus",
+    "GovernanceEventType",
+    "IdentityConflictRecord",
+    "IdentityConflictStatus",
     "OrchestrationReport",
     "OrchestratorAgent",
     "PredictionV21AdapterAgent",

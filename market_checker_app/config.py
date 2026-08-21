@@ -104,6 +104,22 @@ class QualityGateConfig:
 
 
 @dataclass(slots=True)
+class EntityRegistryConfig:
+    """Exact identifiers used to seed automatic GLEIF verification."""
+
+    enable_gleif: bool = True
+    identity_records: dict[str, dict[str, object]] = field(default_factory=dict)
+    request_timeout_seconds: float = 20.0
+
+    def __post_init__(self) -> None:
+        if (
+            not math.isfinite(float(self.request_timeout_seconds))
+            or self.request_timeout_seconds <= 0.0
+        ):
+            raise ValueError("request_timeout_seconds must be positive")
+
+
+@dataclass(slots=True)
 class DecisionAgentConfig:
     """Conservative Stage 4 overlay; collected in shadow mode by default."""
 
@@ -205,8 +221,20 @@ class FundamentalIngestionConfig:
         "20-F",
         "6-K",
         "40-F",
+        "S-1",
+        "424B1",
+        "424B2",
+        "424B3",
+        "424B4",
+        "424B5",
+        "424B7",
+        "424B8",
+        "4",
+        "SC 13D",
+        "SC 13G",
     )
-    max_filings_per_ticker: int = 6
+    max_filings_per_ticker: int = 18
+    max_historical_submission_files: int = 2
     max_facts_per_concept: int = 4
     extract_latest_10k_text: bool = True
     max_text_filings_per_ticker: int = 1
@@ -243,6 +271,97 @@ class FundamentalIngestionConfig:
         "InventoryNet",
         "EarningsPerShareDiluted",
     )
+
+    def __post_init__(self) -> None:
+        if self.max_filings_per_ticker < 1:
+            raise ValueError("max_filings_per_ticker must be at least 1")
+        if self.max_historical_submission_files < 0:
+            raise ValueError(
+                "max_historical_submission_files must not be negative"
+            )
+        if self.max_facts_per_concept < 1:
+            raise ValueError("max_facts_per_concept must be at least 1")
+        if self.max_text_filings_per_ticker < 0:
+            raise ValueError(
+                "max_text_filings_per_ticker must not be negative"
+            )
+        if self.max_filing_download_bytes < 1_024:
+            raise ValueError("max_filing_download_bytes must be at least 1024")
+        if self.max_filing_text_characters < 1_000:
+            raise ValueError(
+                "max_filing_text_characters must be at least 1000"
+            )
+        if (
+            not math.isfinite(float(self.request_timeout_seconds))
+            or self.request_timeout_seconds <= 0.0
+        ):
+            raise ValueError("request_timeout_seconds must be positive")
+        if (
+            not math.isfinite(float(self.min_request_interval_seconds))
+            or self.min_request_interval_seconds < 0.0
+        ):
+            raise ValueError(
+                "min_request_interval_seconds must be finite and non-negative"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class EuropeanFilingSourceConfig:
+    """One exact-identity European regulatory, exchange, or IR document."""
+
+    ticker: str
+    authority: str
+    document_type: str
+    title: str
+    published_at: datetime
+    url: str
+    lei: str | None = None
+    isin: str | None = None
+    issuer_name: str | None = None
+    reporting_period_end: datetime | None = None
+    audited: bool = False
+    esef: bool = False
+    language: str | None = None
+    canonical_event_key: str | None = None
+
+
+@dataclass(slots=True)
+class EuropeanFilingConfig:
+    """Safe ingestion for official European disclosures and lower-tier IR."""
+
+    enabled: bool = False
+    sources: tuple[EuropeanFilingSourceConfig, ...] = ()
+    fetch_content: bool = True
+    require_exact_identity: bool = True
+    user_agent: str = "JohnySkore/2.1 european-filing-audit"
+    request_timeout_seconds: float = 20.0
+    max_download_bytes: int = 20_000_000
+    max_text_characters: int = 750_000
+    allowed_local_exchange_hosts: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        if (
+            not math.isfinite(float(self.request_timeout_seconds))
+            or self.request_timeout_seconds <= 0.0
+        ):
+            raise ValueError("request_timeout_seconds must be positive")
+        if self.max_download_bytes < 1_024:
+            raise ValueError("max_download_bytes must be at least 1024")
+        if self.max_text_characters < 1_000:
+            raise ValueError("max_text_characters must be at least 1000")
+
+
+@dataclass(slots=True)
+class GovernanceEventConfig:
+    """Point-in-time extraction of governance events; never a trading signal."""
+
+    enabled: bool = True
+    scan_filing_text: bool = True
+    minimum_pattern_characters: int = 20
+
+    def __post_init__(self) -> None:
+        if self.minimum_pattern_characters < 10:
+            raise ValueError("minimum_pattern_characters must be at least 10")
 
 
 @dataclass(slots=True)
@@ -444,12 +563,19 @@ class AppConfig:
     decision_thresholds: DecisionThresholds = field(default_factory=DecisionThresholds)
     prediction_v21: PredictionV21Config = field(default_factory=PredictionV21Config)
     quality_gate: QualityGateConfig = field(default_factory=QualityGateConfig)
+    entity_registry: EntityRegistryConfig = field(default_factory=EntityRegistryConfig)
     decision_agent: DecisionAgentConfig = field(default_factory=DecisionAgentConfig)
     evaluation_agent: EvaluationAgentConfig = field(
         default_factory=EvaluationAgentConfig
     )
     fundamental_ingestion: FundamentalIngestionConfig = field(
         default_factory=FundamentalIngestionConfig
+    )
+    european_filings: EuropeanFilingConfig = field(
+        default_factory=EuropeanFilingConfig
+    )
+    governance_events: GovernanceEventConfig = field(
+        default_factory=GovernanceEventConfig
     )
     financial_forensics: FinancialForensicsConfig = field(
         default_factory=FinancialForensicsConfig

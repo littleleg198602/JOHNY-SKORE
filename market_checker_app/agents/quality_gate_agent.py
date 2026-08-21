@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter, defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
 import hashlib
 import ipaddress
 import math
@@ -20,7 +20,12 @@ from market_checker_app.agents.contracts import (
     CompanyRelationship,
     DecisionRecord,
     DocumentRecord,
+    DocumentSourcePriority,
     GateDecision,
+    GovernanceEvent,
+    GovernanceEventStatus,
+    IdentityConflictRecord,
+    IdentityConflictStatus,
     PolicyEvaluation,
     QualityGateCheck,
     RegulatoryContractEvent,
@@ -60,6 +65,8 @@ class QualityGateAgent(BaseAgent):
         "supply_chain",
         "commodity_energy",
         "regulatory_contract",
+        "european_filings",
+        "governance_event",
     }
     REQUIRED_STAGE4_GATES = {
         "minimum_oos_samples",
@@ -152,6 +159,163 @@ class QualityGateAgent(BaseAgent):
             evaluations,
             activations,
         )
+
+    @staticmethod
+    def _identity_and_governance_outputs(
+        context_state: dict[str, Any],
+    ) -> tuple[list[IdentityConflictRecord], list[GovernanceEvent]]:
+        results = context_state.get("agent_results")
+        if not isinstance(results, dict):
+            return [], []
+        return (
+            [
+                item
+                for result in results.values()
+                if isinstance(result, AgentResult)
+                for item in result.identity_conflicts
+            ],
+            [
+                item
+                for result in results.values()
+                if isinstance(result, AgentResult)
+                for item in result.governance_events
+            ],
+        )
+
+    @staticmethod
+    def _check_document(
+        document: DocumentRecord,
+        *,
+        as_of: datetime,
+        future_tolerance_minutes: float,
+        legal_entity_id: str | None,
+        rejects: list[dict[str, str]],
+    ) -> None:
+        expected_priorities = {
+            "regulatory_filing": int(DocumentSourcePriority.REGULATORY_FILING),
+            "audited_financial_statement": int(
+                DocumentSourcePriority.AUDITED_FINANCIAL_STATEMENT
+            ),
+            "exchange_announcement": int(
+                DocumentSourcePriority.EXCHANGE_ANNOUNCEMENT
+            ),
+            "investor_relations": int(DocumentSourcePriority.INVESTOR_RELATIONS),
+            "management_presentation": int(
+                DocumentSourcePriority.MANAGEMENT_PRESENTATION
+            ),
+            "media_article": int(DocumentSourcePriority.MEDIA_ARTICLE),
+        }
+        expected = expected_priorities.get(document.source_type)
+        if expected is not None and int(document.source_priority or 0) != expected:
+            rejects.append(
+                _issue(
+                    "forged_source_priority",
+                    f"Dokument {document.document_id} má prioritu, která neodpovídá typu zdroje.",
+                )
+            )
+        if document.published_at is not None:
+            if (
+                document.published_at.tzinfo is None
+                or document.published_at.utcoffset() is None
+            ):
+                rejects.append(
+                    _issue(
+                        "document_naive_published_at",
+                        f"Dokument {document.document_id} nemá časové pásmo.",
+                    )
+                )
+            elif document.published_at > as_of + timedelta(
+                minutes=max(0.0, float(future_tolerance_minutes))
+            ):
+                rejects.append(
+                    _issue(
+                        "future_document",
+                        f"Dokument {document.document_id} nebyl v okamžiku predikce dostupný.",
+                    )
+                )
+        if (
+            legal_entity_id
+            and document.legal_entity_id
+            and document.legal_entity_id != legal_entity_id
+        ):
+            rejects.append(
+                _issue(
+                    "document_legal_entity_mismatch",
+                    f"Dokument {document.document_id} patří jiné právní entitě.",
+                )
+            )
+
+    @staticmethod
+    def _check_governance_event(
+        event: GovernanceEvent,
+        *,
+        as_of: datetime,
+        documents_by_id: dict[str, DocumentRecord],
+        evidence: list[AgentEvidence],
+        rejects: list[dict[str, str]],
+    ) -> None:
+        document = documents_by_id.get(event.document_id)
+        if document is None:
+            rejects.append(
+                _issue(
+                    "governance_missing_document",
+                    f"Governance event {event.event_id} nemá zdrojový dokument.",
+                )
+            )
+            return
+        if event.published_at > as_of:
+            rejects.append(
+                _issue(
+                    "future_governance_event",
+                    f"Governance event {event.event_id} používá budoucí informaci.",
+                )
+            )
+        if document.ticker != event.ticker:
+            rejects.append(
+                _issue(
+                    "governance_document_ticker_mismatch",
+                    f"Governance event {event.event_id} patří jinému tickeru než dokument.",
+                )
+            )
+        if document.url != event.source_url:
+            rejects.append(
+                _issue(
+                    "governance_source_url_mismatch",
+                    f"Governance event {event.event_id} změnil zdrojovou URL.",
+                )
+            )
+        if (
+            document.legal_entity_id
+            and document.legal_entity_id != event.legal_entity_id
+        ):
+            rejects.append(
+                _issue(
+                    "governance_legal_entity_mismatch",
+                    f"Governance event {event.event_id} patří jiné právní entitě.",
+                )
+            )
+        linked = [
+            item
+            for item in evidence
+            if item.metadata.get("governance_event_id") == event.event_id
+        ]
+        if len(linked) != 1 or event.document_id not in linked[0].document_ids:
+            rejects.append(
+                _issue(
+                    "governance_evidence_mismatch",
+                    f"Governance event {event.event_id} nemá právě jednu odpovídající evidenci.",
+                )
+            )
+        if event.status == GovernanceEventStatus.UNVERIFIED and any(
+            item.hard_veto or item.risk_score > 0.0 or abs(item.direction) > 1e-9
+            for item in linked
+        ):
+            rejects.append(
+                _issue(
+                    "unverified_governance_scoring",
+                    "Neověřená governance událost nesmí vytvářet score ani veto.",
+                )
+            )
 
     def _check_timestamp(
         self,
@@ -1291,6 +1455,9 @@ class QualityGateAgent(BaseAgent):
             evaluations,
             activations,
         ) = self._agent_outputs(context.state)
+        identity_conflicts, governance_events = (
+            self._identity_and_governance_outputs(context.state)
+        )
         now = utc_now()
         expected_tickers = {
             normalize_ticker(ticker) for ticker in context.watchlist if normalize_ticker(ticker)
@@ -1316,6 +1483,12 @@ class QualityGateAgent(BaseAgent):
         regulatory_event_id_counts = Counter(
             item.event_id for item in regulatory_events
         )
+        governance_event_id_counts = Counter(
+            item.event_id for item in governance_events
+        )
+        document_id_counts = Counter(
+            document.document_id for document in documents
+        )
         documents_by_id = {
             document.document_id: document
             for document in documents
@@ -1332,6 +1505,12 @@ class QualityGateAgent(BaseAgent):
             str,
             list[RegulatoryContractEvent],
         ] = defaultdict(list)
+        governance_events_by_ticker: dict[str, list[GovernanceEvent]] = defaultdict(list)
+        identity_conflicts_by_ticker: dict[
+            str,
+            list[IdentityConflictRecord],
+        ] = defaultdict(list)
+        documents_by_ticker: dict[str, list[DocumentRecord]] = defaultdict(list)
         decisions_by_ticker: dict[str, list[DecisionRecord]] = defaultdict(list)
         for signal in signals:
             all_signals_by_ticker[signal.ticker].append(signal)
@@ -1347,6 +1526,12 @@ class QualityGateAgent(BaseAgent):
             exposures_by_ticker[exposure.ticker].append(exposure)
         for event in regulatory_events:
             regulatory_events_by_ticker[event.ticker].append(event)
+        for event in governance_events:
+            governance_events_by_ticker[event.ticker].append(event)
+        for conflict in identity_conflicts:
+            identity_conflicts_by_ticker[conflict.ticker].append(conflict)
+        for document in documents:
+            documents_by_ticker[document.ticker].append(document)
         for decision in decisions:
             decisions_by_ticker[decision.ticker].append(decision)
 
@@ -1360,6 +1545,9 @@ class QualityGateAgent(BaseAgent):
             | set(relationships_by_ticker)
             | set(exposures_by_ticker)
             | set(regulatory_events_by_ticker)
+            | set(governance_events_by_ticker)
+            | set(identity_conflicts_by_ticker)
+            | set(documents_by_ticker)
             | set(decisions_by_ticker)
         )
         for ticker in all_tickers:
@@ -1371,6 +1559,9 @@ class QualityGateAgent(BaseAgent):
             ticker_relationships = relationships_by_ticker.get(ticker, [])
             ticker_exposures = exposures_by_ticker.get(ticker, [])
             ticker_regulatory_events = regulatory_events_by_ticker.get(ticker, [])
+            ticker_governance_events = governance_events_by_ticker.get(ticker, [])
+            ticker_identity_conflicts = identity_conflicts_by_ticker.get(ticker, [])
+            ticker_documents = documents_by_ticker.get(ticker, [])
             ticker_decisions = decisions_by_ticker.get(ticker, [])
             v21_signals = v21_by_ticker.get(ticker, [])
 
@@ -1390,6 +1581,40 @@ class QualityGateAgent(BaseAgent):
                 elif len(v21_signals) > 1:
                     rejects.append(
                         _issue("duplicate_v21_signal", "Ticker má více predikcí v2.1.")
+                    )
+
+            entity = (
+                registered_entities.get(ticker)
+                if isinstance(registered_entities, dict)
+                else None
+            )
+            legal_entity_id = (
+                entity.legal_entity_id if hasattr(entity, "legal_entity_id") else None
+            )
+            for document in ticker_documents:
+                if document_id_counts[document.document_id] != 1:
+                    rejects.append(
+                        _issue(
+                            "duplicate_document_id",
+                            f"Document ID {document.document_id} není unikátní.",
+                        )
+                    )
+                self._check_document(
+                    document,
+                    as_of=context.started_at,
+                    future_tolerance_minutes=(
+                        self.config.max_future_clock_skew_minutes
+                    ),
+                    legal_entity_id=legal_entity_id,
+                    rejects=rejects,
+                )
+            for conflict in ticker_identity_conflicts:
+                if conflict.status == IdentityConflictStatus.QUARANTINED:
+                    rejects.append(
+                        _issue(
+                            "quarantined_identity_conflict",
+                            f"Identita {ticker} má konflikt v poli {conflict.field_name} v karanténě.",
+                        )
                     )
 
             for signal in ticker_signals:
@@ -1485,6 +1710,22 @@ class QualityGateAgent(BaseAgent):
                     rejects=rejects,
                 )
 
+            for event in ticker_governance_events:
+                if governance_event_id_counts[event.event_id] != 1:
+                    rejects.append(
+                        _issue(
+                            "duplicate_governance_event_id",
+                            f"Governance event ID {event.event_id} není unikátní.",
+                        )
+                    )
+                self._check_governance_event(
+                    event,
+                    as_of=context.started_at,
+                    documents_by_id=documents_by_id,
+                    evidence=ticker_evidence,
+                    rejects=rejects,
+                )
+
             for decision_record in ticker_decisions:
                 if decision_id_counts[decision_record.decision_id] != 1:
                     rejects.append(
@@ -1546,6 +1787,10 @@ class QualityGateAgent(BaseAgent):
                             for event in ticker_regulatory_events
                         }
                         | {
+                            event.source_agent_name
+                            for event in ticker_governance_events
+                        }
+                        | {
                             claim.verification_agent_name
                             for claim in ticker_claims
                             if claim.verification_agent_name
@@ -1562,6 +1807,13 @@ class QualityGateAgent(BaseAgent):
                     exposure_ids=[exposure.exposure_id for exposure in ticker_exposures],
                     regulatory_event_ids=[
                         event.event_id for event in ticker_regulatory_events
+                    ],
+                    identity_conflict_ids=[
+                        conflict.conflict_id
+                        for conflict in ticker_identity_conflicts
+                    ],
+                    governance_event_ids=[
+                        event.event_id for event in ticker_governance_events
                     ],
                     decision_ids=[
                         decision_record.decision_id

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from enum import Enum
+from enum import Enum, IntEnum
 import math
 from typing import Any
 
@@ -82,6 +82,46 @@ class RegulatoryEventStatus(str, Enum):
     UNKNOWN = "UNKNOWN"
 
 
+class DocumentSourcePriority(IntEnum):
+    """Deterministic trust order; a larger value is a stronger source."""
+
+    UNKNOWN = 0
+    MEDIA_ARTICLE = 100
+    MANAGEMENT_PRESENTATION = 200
+    INVESTOR_RELATIONS = 300
+    EXCHANGE_ANNOUNCEMENT = 400
+    AUDITED_FINANCIAL_STATEMENT = 500
+    REGULATORY_FILING = 600
+
+
+class IdentityConflictStatus(str, Enum):
+    QUARANTINED = "QUARANTINED"
+    RESOLVED = "RESOLVED"
+    DISMISSED = "DISMISSED"
+
+
+class GovernanceEventType(str, Enum):
+    INSIDER_TRADE = "INSIDER_TRADE"
+    BENEFICIAL_OWNERSHIP_CHANGE = "BENEFICIAL_OWNERSHIP_CHANGE"
+    AUDITOR_CHANGE = "AUDITOR_CHANGE"
+    QUALIFIED_OPINION = "QUALIFIED_OPINION"
+    RESTATEMENT = "RESTATEMENT"
+    MATERIAL_WEAKNESS = "MATERIAL_WEAKNESS"
+    EXECUTIVE_RESIGNATION = "EXECUTIVE_RESIGNATION"
+    DIRECTOR_RESIGNATION = "DIRECTOR_RESIGNATION"
+    RELATED_PARTY_TRANSACTION = "RELATED_PARTY_TRANSACTION"
+    STOCK_PLEDGE = "STOCK_PLEDGE"
+    DILUTION = "DILUTION"
+    STOCK_COMPENSATION = "STOCK_COMPENSATION"
+
+
+class GovernanceEventStatus(str, Enum):
+    UNVERIFIED = "UNVERIFIED"
+    VERIFIED = "VERIFIED"
+    DISPUTED = "DISPUTED"
+    RESOLVED = "RESOLVED"
+
+
 @dataclass(slots=True)
 class QualityGateCheck:
     check_id: str
@@ -100,6 +140,8 @@ class QualityGateCheck:
     decision_ids: list[str] = field(default_factory=list)
     evaluation_ids: list[str] = field(default_factory=list)
     activation_ids: list[str] = field(default_factory=list)
+    identity_conflict_ids: list[str] = field(default_factory=list)
+    governance_event_ids: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
@@ -151,6 +193,36 @@ class EntityRecord:
 
 
 @dataclass(slots=True)
+class IdentityConflictRecord:
+    conflict_id: str
+    ticker: str
+    entity_id: str
+    field_name: str
+    existing_value: str
+    candidate_value: str
+    existing_source: str
+    candidate_source: str
+    observed_at: datetime
+    status: IdentityConflictStatus = IdentityConflictStatus.QUARANTINED
+    legal_entity_id: str | None = None
+    existing_source_url: str | None = None
+    candidate_source_url: str | None = None
+    reason: str = ""
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.status, IdentityConflictStatus):
+            self.status = IdentityConflictStatus(str(self.status).strip().upper())
+        self.field_name = str(self.field_name).strip().lower()
+        if self.field_name not in {"cik", "isin", "lei", "legal_entity_id"}:
+            raise ValueError(f"Unsupported identity conflict field: {self.field_name}")
+        if self.observed_at.tzinfo is None or self.observed_at.utcoffset() is None:
+            self.observed_at = self.observed_at.replace(tzinfo=timezone.utc)
+        else:
+            self.observed_at = self.observed_at.astimezone(timezone.utc)
+
+
+@dataclass(slots=True)
 class DocumentRecord:
     document_id: str
     ticker: str
@@ -163,6 +235,98 @@ class DocumentRecord:
     mime_type: str | None = None
     raw_path: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
+    source_priority: int | None = None
+    source_authority: str | None = None
+    legal_entity_id: str | None = None
+    issuer_id: str | None = None
+    instrument_id: str | None = None
+    reporting_period_end: datetime | None = None
+    is_audited: bool = False
+    language: str | None = None
+
+    def __post_init__(self) -> None:
+        priority_by_type = {
+            "regulatory_filing": DocumentSourcePriority.REGULATORY_FILING,
+            "audited_financial_statement": (
+                DocumentSourcePriority.AUDITED_FINANCIAL_STATEMENT
+            ),
+            "exchange_announcement": DocumentSourcePriority.EXCHANGE_ANNOUNCEMENT,
+            "investor_relations": DocumentSourcePriority.INVESTOR_RELATIONS,
+            "management_presentation": (
+                DocumentSourcePriority.MANAGEMENT_PRESENTATION
+            ),
+            "media_article": DocumentSourcePriority.MEDIA_ARTICLE,
+        }
+        if self.source_priority is None:
+            self.source_priority = int(
+                priority_by_type.get(
+                    str(self.source_type).strip().lower(),
+                    DocumentSourcePriority.UNKNOWN,
+                )
+            )
+        else:
+            self.source_priority = int(self.source_priority)
+        if not 0 <= self.source_priority <= int(DocumentSourcePriority.REGULATORY_FILING):
+            raise ValueError("source_priority must be between 0 and 600")
+        for field_name in ("observed_at", "published_at", "reporting_period_end"):
+            value = getattr(self, field_name)
+            if value is None:
+                continue
+            if value.tzinfo is None or value.utcoffset() is None:
+                value = value.replace(tzinfo=timezone.utc)
+            else:
+                value = value.astimezone(timezone.utc)
+            setattr(self, field_name, value)
+
+
+@dataclass(slots=True)
+class GovernanceEvent:
+    event_id: str
+    ticker: str
+    event_type: GovernanceEventType
+    status: GovernanceEventStatus
+    title: str
+    observed_at: datetime
+    published_at: datetime
+    document_id: str
+    source_url: str
+    legal_entity_id: str
+    confidence: float = 0.0
+    source_agent_name: str = "governance_event"
+    actor: str | None = None
+    transaction_type: str | None = None
+    shares: float | None = None
+    price_per_share: float | None = None
+    event_value: float | None = None
+    currency: str | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.event_type, GovernanceEventType):
+            self.event_type = GovernanceEventType(str(self.event_type).strip().upper())
+        if not isinstance(self.status, GovernanceEventStatus):
+            self.status = GovernanceEventStatus(str(self.status).strip().upper())
+        self.confidence = _bounded(self.confidence, 0.0, 1.0, "confidence")
+        for field_name in ("shares", "price_per_share", "event_value"):
+            value = getattr(self, field_name)
+            if value is None:
+                continue
+            numeric = float(value)
+            if not math.isfinite(numeric) or numeric < 0.0:
+                raise ValueError(f"{field_name} must be a non-negative finite number")
+            setattr(self, field_name, numeric)
+        self.currency = (
+            str(self.currency).strip().upper() or None
+            if self.currency
+            else None
+        )
+        for field_name in ("observed_at", "published_at"):
+            value = getattr(self, field_name)
+            if value.tzinfo is None or value.utcoffset() is None:
+                value = value.replace(tzinfo=timezone.utc)
+            else:
+                value = value.astimezone(timezone.utc)
+            setattr(self, field_name, value)
 
 
 @dataclass(slots=True)
@@ -500,7 +664,9 @@ class SignalActivationDecision:
 class AgentResult:
     status: AgentStatus = AgentStatus.SUCCESS
     entities: list[EntityRecord] = field(default_factory=list)
+    identity_conflicts: list[IdentityConflictRecord] = field(default_factory=list)
     documents: list[DocumentRecord] = field(default_factory=list)
+    governance_events: list[GovernanceEvent] = field(default_factory=list)
     fundamental_facts: list[FundamentalFact] = field(default_factory=list)
     claims: list[ResearchClaim] = field(default_factory=list)
     company_relationships: list[CompanyRelationship] = field(default_factory=list)
@@ -523,7 +689,9 @@ class AgentResult:
     def output_count(self) -> int:
         return (
             len(self.entities)
+            + len(self.identity_conflicts)
             + len(self.documents)
+            + len(self.governance_events)
             + len(self.fundamental_facts)
             + len(self.claims)
             + len(self.company_relationships)
@@ -584,6 +752,22 @@ class OrchestrationReport:
     @property
     def documents(self) -> list[DocumentRecord]:
         return [item for execution in self.executions for item in execution.result.documents]
+
+    @property
+    def identity_conflicts(self) -> list[IdentityConflictRecord]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.identity_conflicts
+        ]
+
+    @property
+    def governance_events(self) -> list[GovernanceEvent]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.governance_events
+        ]
 
     @property
     def evidence(self) -> list[AgentEvidence]:

@@ -5,18 +5,22 @@ from datetime import datetime, timezone
 import gzip
 import json
 import math
+import re
 import threading
 import time
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 import zlib
+from xml.etree import ElementTree
 
 from market_checker_app.utils.text import normalize_ticker
 
 
 SEC_TICKER_MAP_URL = "https://www.sec.gov/files/company_tickers_exchange.json"
 SEC_SUBMISSIONS_URL = "https://data.sec.gov/submissions/CIK{cik}.json"
+SEC_SUBMISSIONS_FILE_URL = "https://data.sec.gov/submissions/{name}"
 SEC_COMPANYFACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 SEC_ARCHIVES_ROOT = "https://www.sec.gov/Archives/edgar/data"
 
@@ -43,6 +47,23 @@ class SecFiling:
     filing_url: str
     index_url: str
     primary_document_description: str | None = None
+    items: tuple[str, ...] = field(default_factory=tuple)
+
+
+@dataclass(frozen=True, slots=True)
+class SecInsiderTransaction:
+    accession_number: str
+    owner_cik: str | None
+    owner_name: str
+    transaction_date: datetime
+    transaction_code: str
+    acquired_disposed: str | None
+    shares: float | None
+    price_per_share: float | None
+    shares_owned_after: float | None
+    ownership_nature: str | None
+    derivative: bool
+    source_url: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -70,9 +91,14 @@ class SecCompanyBundle:
     filings: tuple[SecFiling, ...]
     facts: tuple[SecCompanyFact, ...]
     warnings: tuple[str, ...] = field(default_factory=tuple)
+    insider_transactions: tuple[SecInsiderTransaction, ...] = field(
+        default_factory=tuple
+    )
+    historical_submission_files_loaded: int = 0
 
 
 JsonTransport = Callable[[str, dict[str, str], float], dict[str, Any]]
+TextTransport = Callable[[str, dict[str, str], float], bytes]
 
 
 def _utc_date(value: object) -> datetime | None:
@@ -115,6 +141,22 @@ def _default_json_transport(
     return decoded
 
 
+def _default_text_transport(
+    url: str,
+    headers: dict[str, str],
+    timeout_seconds: float,
+) -> bytes:
+    request = Request(url, headers=headers, method="GET")
+    with urlopen(request, timeout=timeout_seconds) as response:
+        payload = response.read()
+        encoding = str(response.headers.get("Content-Encoding", "")).lower()
+        if encoding == "gzip":
+            payload = gzip.decompress(payload)
+        elif encoding == "deflate":
+            payload = zlib.decompress(payload)
+    return payload
+
+
 class SecEdgarClient:
     """Small compliant client for the public SEC submissions and XBRL APIs."""
 
@@ -126,6 +168,7 @@ class SecEdgarClient:
         min_request_interval_seconds: float = 0.125,
         max_attempts: int = 3,
         transport: JsonTransport | None = None,
+        text_transport: TextTransport | None = None,
         sleep: Callable[[float], None] = time.sleep,
         monotonic: Callable[[], float] = time.monotonic,
     ) -> None:
@@ -139,6 +182,7 @@ class SecEdgarClient:
         )
         self.max_attempts = max(1, int(max_attempts))
         self._transport = transport or _default_json_transport
+        self._text_transport = text_transport or _default_text_transport
         self._sleep = sleep
         self._monotonic = monotonic
         self._rate_lock = threading.Lock()
@@ -191,6 +235,31 @@ class SecEdgarClient:
                     break
             self._sleep(float(2 ** (attempt - 1)))
         raise SecEdgarError(f"SEC požadavek selhal pro {url}: {last_error}") from last_error
+
+    def _request_bytes(self, url: str) -> bytes:
+        headers = self._headers()
+        last_error: Exception | None = None
+        for attempt in range(1, self.max_attempts + 1):
+            self._wait_for_rate_slot()
+            try:
+                payload = self._text_transport(url, headers, self.timeout_seconds)
+                if not payload:
+                    raise SecEdgarError(f"SEC endpoint {url} returned an empty body")
+                return payload
+            except (HTTPError, URLError, TimeoutError, SecEdgarError) as exc:
+                last_error = exc
+                if isinstance(exc, HTTPError) and exc.code not in {
+                    429,
+                    500,
+                    502,
+                    503,
+                    504,
+                }:
+                    break
+                if attempt == self.max_attempts:
+                    break
+                self._sleep(float(2 ** (attempt - 1)))
+        raise SecEdgarError(f"SEC document request failed for {url}: {last_error}")
 
     @staticmethod
     def _parse_ticker_map(payload: dict[str, Any]) -> dict[str, SecCompany]:
@@ -248,6 +317,91 @@ class SecEdgarClient:
         accession_path = accession_number.replace("-", "")
         return f"{SEC_ARCHIVES_ROOT}/{cik_numeric}/{accession_path}/{filename}"
 
+    @staticmethod
+    def _recent_table(payload: dict[str, Any]) -> dict[str, Any]:
+        filings = payload.get("filings")
+        if isinstance(filings, dict):
+            recent = filings.get("recent")
+            if isinstance(recent, dict):
+                return recent
+        recent = payload.get("recent")
+        if isinstance(recent, dict):
+            return recent
+        if isinstance(payload.get("form"), list):
+            return payload
+        return {}
+
+    @classmethod
+    def _merged_submissions(
+        cls,
+        payloads: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        merged: dict[str, list[object]] = {}
+        prior_rows = 0
+        for payload in payloads:
+            table = cls._recent_table(payload)
+            row_count = max(
+                (
+                    len(value)
+                    for value in table.values()
+                    if isinstance(value, list)
+                ),
+                default=0,
+            )
+            for field_name in set(merged).difference(table):
+                merged[field_name].extend([None] * row_count)
+            for field_name in table:
+                target = merged.setdefault(field_name, [None] * prior_rows)
+                values = table.get(field_name)
+                if isinstance(values, list):
+                    target.extend(values[:row_count])
+                    if len(values) < row_count:
+                        target.extend([None] * (row_count - len(values)))
+                else:
+                    target.extend([None] * row_count)
+            prior_rows += row_count
+        return {"filings": {"recent": merged}}
+
+    @staticmethod
+    def _historical_submission_names(payload: dict[str, Any]) -> list[str]:
+        filings = payload.get("filings")
+        raw_files = filings.get("files") if isinstance(filings, dict) else None
+        names: list[str] = []
+        if not isinstance(raw_files, list):
+            return names
+        for raw_file in raw_files:
+            if not isinstance(raw_file, dict):
+                continue
+            name = str(raw_file.get("name") or "").strip()
+            if not re.fullmatch(r"CIK\d{10}-submissions-\d{3}\.json", name):
+                continue
+            if name not in names:
+                names.append(name)
+        return names
+
+    @staticmethod
+    def _needs_historical_filings(
+        filings: list[SecFiling],
+        *,
+        allowed_forms: tuple[str, ...],
+        limit: int,
+    ) -> bool:
+        safe_limit = max(0, int(limit))
+        if len(filings) < safe_limit:
+            return True
+        allowed = {_base_form(form) for form in allowed_forms}
+        counts: dict[str, int] = {}
+        for filing in filings:
+            base = _base_form(filing.form)
+            counts[base] = counts.get(base, 0) + 1
+        annual_family = allowed & {"10-K", "20-F", "40-F"}
+        quarterly_family = allowed & {"10-Q", "6-K"}
+        minimum_delta_depth = min(2, safe_limit)
+        for family in (annual_family, quarterly_family):
+            if family and sum(counts.get(form, 0) for form in family) < minimum_delta_depth:
+                return True
+        return False
+
     @classmethod
     def _parse_filings(
         cls,
@@ -257,8 +411,8 @@ class SecEdgarClient:
         allowed_forms: tuple[str, ...],
         limit: int,
     ) -> list[SecFiling]:
-        recent = payload.get("filings", {}).get("recent", {})
-        if not isinstance(recent, dict):
+        recent = cls._recent_table(payload)
+        if not recent:
             return []
         allowed_order = list(
             dict.fromkeys(
@@ -303,6 +457,11 @@ class SecEdgarClient:
                     ),
                     primary_document_description=(
                         str(item("primaryDocDescription") or "").strip() or None
+                    ),
+                    items=tuple(
+                        part.strip()
+                        for part in str(item("items") or "").split(",")
+                        if part.strip()
                     ),
                 )
             )
@@ -434,12 +593,108 @@ class SecEdgarClient:
         )
         return normalized
 
+    @staticmethod
+    def _parse_form4_transactions(
+        payload: bytes,
+        *,
+        filing: SecFiling,
+    ) -> list[SecInsiderTransaction]:
+        try:
+            root = ElementTree.fromstring(payload)
+        except ElementTree.ParseError as exc:
+            raise SecEdgarError(
+                f"Form 4 XML {filing.accession_number} cannot be parsed: {exc}"
+            ) from exc
+        for node in root.iter():
+            node.tag = str(node.tag).rsplit("}", 1)[-1]
+
+        def value(node: ElementTree.Element, path: str) -> str | None:
+            found = node.find(path)
+            text = str(found.text or "").strip() if found is not None else ""
+            return text or None
+
+        def number(raw: str | None) -> float | None:
+            if raw is None:
+                return None
+            try:
+                parsed = float(raw.replace(",", ""))
+            except ValueError:
+                return None
+            return parsed if math.isfinite(parsed) and parsed >= 0.0 else None
+
+        owner_cik = value(root, ".//reportingOwnerId/rptOwnerCik")
+        if owner_cik:
+            owner_cik = owner_cik.zfill(10)
+        owner_name = value(root, ".//reportingOwnerId/rptOwnerName") or "Unknown insider"
+        normalized: list[SecInsiderTransaction] = []
+        for table_name, derivative in (
+            ("nonDerivativeTable", False),
+            ("derivativeTable", True),
+        ):
+            table = root.find(f".//{table_name}")
+            if table is None:
+                continue
+            for transaction in list(table):
+                if not str(transaction.tag).endswith("Transaction"):
+                    continue
+                transaction_date = _utc_date(
+                    value(transaction, ".//transactionDate/value")
+                )
+                transaction_code = (
+                    value(transaction, ".//transactionCoding/transactionCode")
+                    or "UNKNOWN"
+                ).upper()
+                if transaction_date is None:
+                    continue
+                normalized.append(
+                    SecInsiderTransaction(
+                        accession_number=filing.accession_number,
+                        owner_cik=owner_cik,
+                        owner_name=owner_name,
+                        transaction_date=transaction_date,
+                        transaction_code=transaction_code,
+                        acquired_disposed=(
+                            value(
+                                transaction,
+                                ".//transactionAmounts/transactionAcquiredDisposedCode/value",
+                            )
+                            or None
+                        ),
+                        shares=number(
+                            value(
+                                transaction,
+                                ".//transactionAmounts/transactionShares/value",
+                            )
+                        ),
+                        price_per_share=number(
+                            value(
+                                transaction,
+                                ".//transactionAmounts/transactionPricePerShare/value",
+                            )
+                        ),
+                        shares_owned_after=number(
+                            value(
+                                transaction,
+                                ".//postTransactionAmounts/sharesOwnedFollowingTransaction/value",
+                            )
+                        ),
+                        ownership_nature=value(
+                            transaction,
+                            ".//ownershipNature/directOrIndirectOwnership/value",
+                        ),
+                        derivative=derivative,
+                        source_url=filing.filing_url,
+                    )
+                )
+        return normalized
+
     def fetch_company_bundle(
         self,
         ticker: str,
         *,
         allowed_forms: tuple[str, ...],
         max_filings: int,
+        max_historical_submission_files: int = 2,
         concepts: tuple[str, ...],
         max_facts_per_concept: int,
     ) -> SecCompanyBundle | None:
@@ -449,12 +704,36 @@ class SecEdgarClient:
         submissions = self._request_json(
             SEC_SUBMISSIONS_URL.format(cik=company.cik)
         )
+        submission_payloads = [submissions]
+        merged_submissions = self._merged_submissions(submission_payloads)
         filings = self._parse_filings(
-            submissions,
+            merged_submissions,
             cik=company.cik,
             allowed_forms=allowed_forms,
             limit=max_filings,
         )
+        historical_files_loaded = 0
+        for name in self._historical_submission_names(submissions)[
+            : max(0, int(max_historical_submission_files))
+        ]:
+            if not self._needs_historical_filings(
+                filings,
+                allowed_forms=allowed_forms,
+                limit=max_filings,
+            ):
+                break
+            historical = self._request_json(
+                SEC_SUBMISSIONS_FILE_URL.format(name=quote(name))
+            )
+            submission_payloads.append(historical)
+            historical_files_loaded += 1
+            merged_submissions = self._merged_submissions(submission_payloads)
+            filings = self._parse_filings(
+                merged_submissions,
+                cik=company.cik,
+                allowed_forms=allowed_forms,
+                limit=max_filings,
+            )
         warnings: list[str] = []
         if not filings:
             warnings.append(
@@ -476,9 +755,26 @@ class SecEdgarClient:
             warnings.append(
                 f"SEC companyfacts neobsahují vybrané koncepty pro poslední formuláře {ticker}."
             )
+        insider_transactions: list[SecInsiderTransaction] = []
+        for filing in filings:
+            if _base_form(filing.form) != "4":
+                continue
+            try:
+                insider_transactions.extend(
+                    self._parse_form4_transactions(
+                        self._request_bytes(filing.filing_url),
+                        filing=filing,
+                    )
+                )
+            except Exception as exc:
+                warnings.append(
+                    f"SEC Form 4 {filing.accession_number} could not be normalized: {exc}"
+                )
         return SecCompanyBundle(
             company=company,
             filings=tuple(filings),
             facts=tuple(facts),
             warnings=tuple(warnings),
+            insider_transactions=tuple(insider_transactions),
+            historical_submission_files_loaded=historical_files_loaded,
         )
