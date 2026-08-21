@@ -4,15 +4,15 @@ Tento soubor je jediný průběžně aktualizovaný seznam úkolů pro rozšíř
 JOHNY-SKORE o firemní, fundamentální a forenzní analýzu. Rozlišuje mezi již
 funkčním bezpečným MVP a plným rozsahem původního návrhu.
 
-Auditní základ: `main` po sloučení PR #76, commit `75ca52e`, znovu ověřený
-proti kódu, testům, běžné UI konfiguraci, bezobslužnému weekly runneru a stavu
-GitHubu dne 21. 8. 2026.
+Auditní základ: `main` po sloučení PR #77, commit `5c04845`, znovu ověřený
+proti kódu, celé deterministické sadě testů, běžné UI konfiguraci,
+bezobslužnému weekly runneru a stavu GitHubu dne 21. 8. 2026.
 
-Implementační aktualizace bodů 1–4 je vedena v draft PR #77 a chronologicky v
-`COMPANY_INTELLIGENCE_CHANGELOG.md`. Kódové opravy identity runtime, evropského
-runtime/feedu, globálního source resolveru a regulační cesty do DecisionAgentu
-jsou dokončené; živé canary a OOS důkaz zůstávají samostatnými provozními
-branami.
+Implementační aktualizace bodů 1–4 byla sloučena přes PR #77 a je
+chronologicky zapsaná v `COMPANY_INTELLIGENCE_CHANGELOG.md`. Kódové opravy
+identity runtime, evropského runtime/feedu, globálního source resolveru a
+regulační cesty do DecisionAgentu jsou dokončené; živé canary a OOS důkaz
+zůstávají samostatnými provozními branami.
 
 ## Význam stavů
 
@@ -27,19 +27,19 @@ branami.
 Změna na `DONE` je povolena pouze tehdy, když jsou splněna všechna uvedená
 akceptační kritéria. Samotná existence třídy nebo tabulky nestačí.
 
-## Výsledek auditu po PR #76
+## Výsledek post-merge auditu po PR #77
 
 Celkový verdikt: bezpečný shadow základ je funkční, ale kompletní Company
 Intelligence vrstva ještě není provozně hotová a její zvýšení přesnosti nebylo
-prokázáno. [PR #76](https://github.com/littleleg198602/JOHNY-SKORE/pull/76)
-je skutečně sloučený do `main`; deterministický workflow na merge commitu
-prošel všemi čtyřmi joby. To ale neprokazuje živý sběr ani OOS přínos.
+prokázáno. [PR #77](https://github.com/littleleg198602/JOHNY-SKORE/pull/77)
+je skutečně sloučený do `main`; deterministický workflow na jeho head commitu
+prošel. To ale neprokazuje živý sběr ani OOS přínos.
 
 | Kontrola | Výsledek | Důkaz / dopad |
 | --- | --- | --- |
-| `main` po PR #76 | PASS | commit `75ca52e`; PR #76 je merged |
-| Deterministické CI | PASS | [run 32470825035](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32470825035): contract, 687 tickerů, Streamlit a release gate |
-| Cílené testy Etapy 5.1 | PASS | lokálně 28/28; compileall bez chyby |
+| `main` po PR #77 | PASS | merge commit `5c04845`; PR #77 je merged |
+| Deterministické CI | PASS | [run 32478364244](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32478364244) skončil `success` na head commitu PR #77 |
+| Kompletní lokální sada | PASS | compileall bez chyby; 169/169 testů na stromu shodném s `main` |
 | Běžný autonomous runtime | PASS / SAFE-OFF | UI i weekly runner umějí identity a evropské manifesty/feed; committed konfigurace je záměrně prázdná a evropský ingest vypnutý |
 | Primární identity | PARTIAL | runtime manifest a fail-closed kontrola jsou hotové; chybí živý desetifiremní pilot a naplnění produkčního manifestu |
 | Evropské filingy | PARTIAL | direct URL i bezpečný RSS/Atom discovery runtime fungují; chybí regionální live canary a konkrétní produkční feedy pro všechny autority |
@@ -52,15 +52,15 @@ prošel všemi čtyřmi joby. To ale neprokazuje živý sběr ani OOS přínos.
 
 Rychlý stav tasků po auditu:
 
-- `DONE`: bezpečný základ `CI-001` až `CI-010`, `FILING-101`, `FILING-103`,
-  `GOV-101`.
-- `PARTIAL`: `ENTITY-101`, `FILING-102`, `FORENSIC-201`,
+- `DONE` (13/36): bezpečný základ `CI-001` až `CI-010`, `FILING-101`,
+  `FILING-103`, `GOV-101`.
+- `PARTIAL` (10/36): `ENTITY-101`, `FILING-102`, `FORENSIC-201`,
   `SHORT-301`, `SHORT-302`, `SHORT-303`, `SUPPLY-401`, `REG-602`,
   `DECISION-701`, `DECISION-702`.
-- `TODO`: `FORENSIC-202`, `SHORT-304`, `SHORT-305`, `SUPPLY-402`,
+- `TODO` (11/36): `FORENSIC-202`, `SHORT-304`, `SHORT-305`, `SUPPLY-402`,
   `SUPPLY-403`, `RESOURCE-501`, `RESOURCE-502`, `RESOURCE-503`, `REG-601`,
   `OPS-802`, `OPS-803`.
-- `BLOCKED`: `OPS-801` čeká na první dva živé běhy; `EVAL-703` čeká na
+- `BLOCKED` (2/36): `OPS-801` čeká na první dva živé běhy; `EVAL-703` čeká na
   skutečnou OOS historii a navíc potřebuje component-level ablation.
 
 Bezprostřední pořadí po opravách bodů 1–4:
@@ -626,7 +626,7 @@ komponentách; syntetický backfill nesmí nahradit 12 reálných týdnů.
 
 ### `OPS-801` První skutečný weekly production-shadow běh – BLOCKED
 
-Audit GitHub Actions dne 21. 8. 2026 našel pro workflow
+Post-merge audit GitHub Actions dne 21. 8. 2026 znovu našel pro workflow
 `market-checker-live-smoke.yml` celkem 0 běhů. Není tedy doložen ani první
 živý canary, ani obnova databáze mezi dvěma běhy.
 
