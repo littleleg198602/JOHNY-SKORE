@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import sqlite3
 from datetime import datetime
@@ -60,6 +61,134 @@ class SQLiteStore:
             default=cls._json_default,
         )
 
+    @classmethod
+    def _persist_entity_identity_version(
+        cls,
+        conn: sqlite3.Connection,
+        *,
+        entity_id: str,
+        orchestration_id: str,
+        agent_run_id: int,
+        observed_at: str,
+    ) -> None:
+        identity_columns = (
+            "ticker",
+            "yahoo_ticker",
+            "name",
+            "exchange",
+            "cik",
+            "isin",
+            "lei",
+            "legal_entity_id",
+            "issuer_id",
+            "instrument_id",
+            "parent_entity_id",
+            "security_type",
+            "share_class",
+            "mic",
+            "country_code",
+            "aliases_json",
+            "valid_from",
+            "valid_to",
+        )
+        selected_columns = identity_columns + (
+            "source",
+            "source_url",
+            "confidence",
+            "metadata_json",
+        )
+        row = conn.execute(
+            f"SELECT {', '.join(selected_columns)} FROM entities WHERE entity_id = ?",
+            (entity_id,),
+        ).fetchone()
+        if row is None:
+            raise sqlite3.IntegrityError(
+                f"Entity {entity_id!r} disappeared before identity versioning"
+            )
+        current = dict(zip(selected_columns, row))
+        snapshot = {
+            column: current[column]
+            for column in identity_columns
+            + ("source", "source_url", "confidence")
+        }
+        snapshot_hash = hashlib.sha256(
+            cls._json_dump(snapshot).encode("utf-8")
+        ).hexdigest()
+        active = conn.execute(
+            """
+            SELECT version_id, snapshot_hash
+            FROM entity_identity_versions
+            WHERE entity_id = ? AND superseded_at IS NULL
+            ORDER BY observed_at DESC, version_id DESC
+            LIMIT 1
+            """,
+            (entity_id,),
+        ).fetchone()
+        if active is not None and active[1] == snapshot_hash:
+            return
+        if active is not None:
+            conn.execute(
+                """
+                UPDATE entity_identity_versions
+                SET superseded_at = ?
+                WHERE version_id = ? AND superseded_at IS NULL
+                """,
+                (observed_at, active[0]),
+            )
+        version_id = hashlib.sha256(
+            "|".join(
+                (
+                    entity_id,
+                    snapshot_hash,
+                    observed_at,
+                    orchestration_id,
+                    str(agent_run_id),
+                )
+            ).encode("utf-8")
+        ).hexdigest()
+        conn.execute(
+            """
+            INSERT INTO entity_identity_versions(
+                version_id, entity_id, snapshot_hash, ticker, yahoo_ticker,
+                name, exchange, cik, isin, lei, legal_entity_id, issuer_id,
+                instrument_id, parent_entity_id, security_type, share_class,
+                mic, country_code, aliases_json, effective_from, effective_to,
+                observed_at, superseded_at, source, source_url, confidence,
+                orchestration_id, agent_run_id, metadata_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                version_id,
+                entity_id,
+                snapshot_hash,
+                current["ticker"],
+                current["yahoo_ticker"],
+                current["name"],
+                current["exchange"],
+                current["cik"],
+                current["isin"],
+                current["lei"],
+                current["legal_entity_id"],
+                current["issuer_id"],
+                current["instrument_id"],
+                current["parent_entity_id"],
+                current["security_type"],
+                current["share_class"],
+                current["mic"],
+                current["country_code"],
+                current["aliases_json"],
+                current["valid_from"] or observed_at,
+                current["valid_to"],
+                observed_at,
+                current["source"],
+                current["source_url"],
+                float(current["confidence"] or 0.0),
+                orchestration_id,
+                agent_run_id,
+                current["metadata_json"],
+            ),
+        )
+
     def _ensure_signal_history_columns(self, conn: sqlite3.Connection) -> None:
         expected: dict[str, str] = {
             "behavioral_score": "REAL",
@@ -101,6 +230,31 @@ class SQLiteStore:
         for column, ctype in expected.items():
             if column not in existing:
                 conn.execute(f"ALTER TABLE signal_history ADD COLUMN {column} {ctype}")
+
+    @staticmethod
+    def _ensure_entity_columns(conn: sqlite3.Connection) -> None:
+        existing = {
+            row[1] for row in conn.execute("PRAGMA table_info(entities)").fetchall()
+        }
+        expected = {
+            "legal_entity_id": "TEXT",
+            "issuer_id": "TEXT",
+            "instrument_id": "TEXT",
+            "parent_entity_id": "TEXT",
+            "security_type": "TEXT",
+            "share_class": "TEXT",
+            "mic": "TEXT",
+            "country_code": "TEXT",
+            "valid_from": "TEXT",
+            "valid_to": "TEXT",
+            "source_url": "TEXT",
+            "confidence": "REAL NOT NULL DEFAULT 0.0",
+        }
+        for column, column_type in expected.items():
+            if column not in existing:
+                conn.execute(
+                    f"ALTER TABLE entities ADD COLUMN {column} {column_type}"
+                )
 
     @staticmethod
     def _ensure_quality_gate_columns(conn: sqlite3.Connection) -> None:
@@ -284,10 +438,23 @@ class SQLiteStore:
                     source TEXT NOT NULL,
                     first_seen_at TEXT NOT NULL,
                     last_seen_at TEXT NOT NULL,
-                    metadata_json TEXT NOT NULL DEFAULT '{}'
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    legal_entity_id TEXT,
+                    issuer_id TEXT,
+                    instrument_id TEXT,
+                    parent_entity_id TEXT,
+                    security_type TEXT,
+                    share_class TEXT,
+                    mic TEXT,
+                    country_code TEXT,
+                    valid_from TEXT,
+                    valid_to TEXT,
+                    source_url TEXT,
+                    confidence REAL NOT NULL DEFAULT 0.0
                 )
                 """
             )
+            self._ensure_entity_columns(conn)
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS entity_observations (
@@ -299,6 +466,44 @@ class SQLiteStore:
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
                     FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
                     FOREIGN KEY(entity_id) REFERENCES entities(entity_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS entity_identity_versions (
+                    version_id TEXT PRIMARY KEY,
+                    entity_id TEXT NOT NULL,
+                    snapshot_hash TEXT NOT NULL,
+                    ticker TEXT NOT NULL,
+                    yahoo_ticker TEXT,
+                    name TEXT,
+                    exchange TEXT,
+                    cik TEXT,
+                    isin TEXT,
+                    lei TEXT,
+                    legal_entity_id TEXT,
+                    issuer_id TEXT,
+                    instrument_id TEXT,
+                    parent_entity_id TEXT,
+                    security_type TEXT,
+                    share_class TEXT,
+                    mic TEXT,
+                    country_code TEXT,
+                    aliases_json TEXT NOT NULL DEFAULT '[]',
+                    effective_from TEXT NOT NULL,
+                    effective_to TEXT,
+                    observed_at TEXT NOT NULL,
+                    superseded_at TEXT,
+                    source TEXT NOT NULL,
+                    source_url TEXT,
+                    confidence REAL NOT NULL,
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(entity_id) REFERENCES entities(entity_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE
                 )
                 """
             )
@@ -714,6 +919,24 @@ class SQLiteStore:
                 "CREATE INDEX IF NOT EXISTS idx_entity_observations_entity ON entity_observations(entity_id)"
             )
             conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_entities_legal_entity ON entities(legal_entity_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_entities_issuer ON entities(issuer_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_entities_instrument ON entities(instrument_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_entities_parent ON entities(parent_entity_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_entity_identity_versions_time ON entity_identity_versions(entity_id, observed_at, superseded_at)"
+            )
+            conn.execute(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_entity_identity_versions_active ON entity_identity_versions(entity_id) WHERE superseded_at IS NULL"
+            )
+            conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_documents_ticker_published ON documents(ticker, published_at)"
             )
             conn.execute(
@@ -948,40 +1171,153 @@ class SQLiteStore:
                 agent_run_id = int(cursor.lastrowid)
 
                 for entity in result.entities:
-                    existing_aliases_row = conn.execute(
-                        "SELECT aliases_json FROM entities WHERE entity_id = ?",
+                    existing_columns = (
+                        "ticker",
+                        "aliases_json",
+                        "cik",
+                        "isin",
+                        "lei",
+                        "confidence",
+                    )
+                    existing_entity_row = conn.execute(
+                        f"SELECT {', '.join(existing_columns)} FROM entities WHERE entity_id = ?",
                         (entity.entity_id,),
                     ).fetchone()
+                    existing_entity = (
+                        dict(zip(existing_columns, existing_entity_row))
+                        if existing_entity_row is not None
+                        else None
+                    )
+                    if (
+                        existing_entity is not None
+                        and entity.confidence
+                        >= float(existing_entity["confidence"] or 0.0)
+                    ):
+                        for identifier_name in ("cik", "isin", "lei"):
+                            old_value = existing_entity[identifier_name]
+                            new_value = getattr(entity, identifier_name)
+                            if (
+                                old_value is not None
+                                and new_value is not None
+                                and old_value != new_value
+                            ):
+                                raise sqlite3.IntegrityError(
+                                    f"Conflicting {identifier_name.upper()} for "
+                                    f"{entity.entity_id}: {old_value} != {new_value}"
+                                )
                     existing_aliases: list[str] = []
-                    if existing_aliases_row and existing_aliases_row[0]:
+                    if existing_entity and existing_entity["aliases_json"]:
                         try:
-                            decoded = json.loads(existing_aliases_row[0])
+                            decoded = json.loads(existing_entity["aliases_json"])
                             if isinstance(decoded, list):
                                 existing_aliases = [str(alias) for alias in decoded]
                         except (TypeError, json.JSONDecodeError):
                             existing_aliases = []
+                    if (
+                        existing_entity
+                        and existing_entity["ticker"]
+                        and existing_entity["ticker"] != entity.ticker
+                    ):
+                        existing_aliases.append(str(existing_entity["ticker"]))
                     aliases = list(dict.fromkeys(existing_aliases + entity.aliases))
                     conn.execute(
                         """
                         INSERT INTO entities(
                             entity_id, ticker, yahoo_ticker, name, exchange, cik, isin,
                             lei, sector, industry, aliases_json, source, first_seen_at,
-                            last_seen_at, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            last_seen_at, metadata_json, legal_entity_id, issuer_id,
+                            instrument_id, parent_entity_id, security_type, share_class,
+                            mic, country_code, valid_from, valid_to, source_url, confidence
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON CONFLICT(entity_id) DO UPDATE SET
-                            ticker = excluded.ticker,
-                            yahoo_ticker = COALESCE(excluded.yahoo_ticker, entities.yahoo_ticker),
-                            name = COALESCE(excluded.name, entities.name),
-                            exchange = COALESCE(excluded.exchange, entities.exchange),
-                            cik = COALESCE(excluded.cik, entities.cik),
-                            isin = COALESCE(excluded.isin, entities.isin),
-                            lei = COALESCE(excluded.lei, entities.lei),
-                            sector = COALESCE(excluded.sector, entities.sector),
-                            industry = COALESCE(excluded.industry, entities.industry),
+                            ticker = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN excluded.ticker ELSE entities.ticker END,
+                            yahoo_ticker = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.yahoo_ticker, entities.yahoo_ticker)
+                                ELSE entities.yahoo_ticker END,
+                            name = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.name, entities.name)
+                                ELSE entities.name END,
+                            exchange = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.exchange, entities.exchange)
+                                ELSE entities.exchange END,
+                            cik = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.cik, entities.cik)
+                                ELSE entities.cik END,
+                            isin = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.isin, entities.isin)
+                                ELSE entities.isin END,
+                            lei = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.lei, entities.lei)
+                                ELSE entities.lei END,
+                            sector = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.sector, entities.sector)
+                                ELSE entities.sector END,
+                            industry = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.industry, entities.industry)
+                                ELSE entities.industry END,
                             aliases_json = excluded.aliases_json,
-                            source = excluded.source,
+                            source = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN excluded.source ELSE entities.source END,
                             last_seen_at = excluded.last_seen_at,
-                            metadata_json = excluded.metadata_json
+                            metadata_json = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN excluded.metadata_json ELSE entities.metadata_json END,
+                            legal_entity_id = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.legal_entity_id, entities.legal_entity_id)
+                                ELSE entities.legal_entity_id END,
+                            issuer_id = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.issuer_id, entities.issuer_id)
+                                ELSE entities.issuer_id END,
+                            instrument_id = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.instrument_id, entities.instrument_id)
+                                ELSE entities.instrument_id END,
+                            parent_entity_id = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.parent_entity_id, entities.parent_entity_id)
+                                ELSE entities.parent_entity_id END,
+                            security_type = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.security_type, entities.security_type)
+                                ELSE entities.security_type END,
+                            share_class = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.share_class, entities.share_class)
+                                ELSE entities.share_class END,
+                            mic = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.mic, entities.mic)
+                                ELSE entities.mic END,
+                            country_code = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.country_code, entities.country_code)
+                                ELSE entities.country_code END,
+                            valid_from = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.valid_from, entities.valid_from)
+                                ELSE entities.valid_from END,
+                            valid_to = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.valid_to, entities.valid_to)
+                                ELSE entities.valid_to END,
+                            source_url = CASE
+                                WHEN excluded.confidence >= entities.confidence
+                                THEN COALESCE(excluded.source_url, entities.source_url)
+                                ELSE entities.source_url END,
+                            confidence = MAX(excluded.confidence, entities.confidence)
                         """,
                         (
                             entity.entity_id,
@@ -999,7 +1335,27 @@ class SQLiteStore:
                             to_iso(report.started_at),
                             to_iso(execution.finished_at),
                             self._json_dump(entity.metadata),
+                            entity.legal_entity_id,
+                            entity.issuer_id,
+                            entity.instrument_id,
+                            entity.parent_entity_id,
+                            entity.security_type,
+                            entity.share_class,
+                            entity.mic,
+                            entity.country_code,
+                            to_iso(entity.valid_from) if entity.valid_from else None,
+                            to_iso(entity.valid_to) if entity.valid_to else None,
+                            entity.source_url,
+                            entity.confidence,
                         ),
+                    )
+                    observed_at = to_iso(execution.finished_at)
+                    self._persist_entity_identity_version(
+                        conn,
+                        entity_id=entity.entity_id,
+                        orchestration_id=report.orchestration_id,
+                        agent_run_id=agent_run_id,
+                        observed_at=observed_at,
                     )
                     conn.execute(
                         """
@@ -1011,7 +1367,7 @@ class SQLiteStore:
                             report.orchestration_id,
                             agent_run_id,
                             entity.entity_id,
-                            to_iso(execution.finished_at),
+                            observed_at,
                         ),
                     )
 
@@ -1641,6 +1997,56 @@ class SQLiteStore:
         self.ensure_schema()
         with self._connect() as conn:
             return pd.read_sql_query("SELECT * FROM entities ORDER BY ticker ASC", conn)
+
+    def read_entity_identity_versions(
+        self,
+        entity_id: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM entity_identity_versions"
+        params: tuple[object, ...] = ()
+        if entity_id is not None:
+            query += " WHERE entity_id = ?"
+            params = (entity_id,)
+        query += " ORDER BY entity_id ASC, observed_at ASC, version_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_entity_identity_as_of(
+        self,
+        as_of: datetime,
+        *,
+        ticker: str | None = None,
+        effective_at: datetime | None = None,
+    ) -> pd.DataFrame:
+        """Return only identity versions known at the requested decision time."""
+
+        self.ensure_schema()
+        observed_cutoff = to_iso(as_of)
+        clauses = [
+            "observed_at <= ?",
+            "(superseded_at IS NULL OR superseded_at > ?)",
+        ]
+        params: list[object] = [observed_cutoff, observed_cutoff]
+        if ticker is not None:
+            clauses.append("ticker = ?")
+            params.append(ticker)
+        if effective_at is not None:
+            effective_cutoff = to_iso(effective_at)
+            clauses.extend(
+                [
+                    "effective_from <= ?",
+                    "(effective_to IS NULL OR effective_to > ?)",
+                ]
+            )
+            params.extend([effective_cutoff, effective_cutoff])
+        query = (
+            "SELECT * FROM entity_identity_versions WHERE "
+            + " AND ".join(clauses)
+            + " ORDER BY entity_id ASC, observed_at DESC, version_id DESC"
+        )
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=tuple(params))
 
     def read_evidence(self, orchestration_id: str | None = None) -> pd.DataFrame:
         self.ensure_schema()
