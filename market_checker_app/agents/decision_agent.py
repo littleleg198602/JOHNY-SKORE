@@ -13,12 +13,14 @@ from market_checker_app.agents.contracts import (
     AgentStatus,
     ClaimStatus,
     DecisionRecord,
+    DocumentRecord,
     RegulatoryContractEventType,
     RegulatoryEventStatus,
     ResearchClaim,
     SignalActivationDecision,
     utc_now,
 )
+from market_checker_app.agents.source_policy import is_primary_confirmation
 from market_checker_app.config import DecisionAgentConfig
 
 
@@ -83,6 +85,18 @@ class DecisionAgent(BaseAgent):
             if isinstance(result, AgentResult)
             for evidence in result.evidence
         ]
+
+    @staticmethod
+    def _agent_documents(context: AgentContext) -> dict[str, DocumentRecord]:
+        results = context.state.get("agent_results")
+        if not isinstance(results, dict):
+            return {}
+        return {
+            document.document_id: document
+            for result in results.values()
+            if isinstance(result, AgentResult)
+            for document in result.documents
+        }
 
     @staticmethod
     def _claims_for_ticker(context: AgentContext, ticker: str) -> list[ResearchClaim]:
@@ -150,6 +164,7 @@ class DecisionAgent(BaseAgent):
         evidence_index = {
             item.evidence_id: item for item in self._agent_evidence(context)
         }
+        documents_by_id = self._agent_documents(context)
         evidence_by_ticker: dict[str, list[AgentEvidence]] = {}
         for item in evidence_index.values():
             evidence_by_ticker.setdefault(item.ticker, []).append(item)
@@ -271,6 +286,9 @@ class DecisionAgent(BaseAgent):
                     >= self.config.minimum_regulatory_confidence
                     and getattr(event, "published_at", observed_at)
                     <= context.started_at
+                    and is_primary_confirmation(
+                        documents_by_id.get(str(getattr(event, "document_id", "")))
+                    )
                 ]
             if serious_events:
                 risk_components["serious_regulatory_events"] = min(

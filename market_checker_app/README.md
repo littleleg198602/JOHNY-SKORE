@@ -102,7 +102,11 @@ Do stejné SQLite databáze se aditivně vytvářejí tabulky:
 - `entities` + `entity_observations` pro aktuální registr společností,
 - `entity_identity_versions` pro point-in-time historii názvu, tickeru, burzy,
   parent vazby a identifikátorů bez použití budoucích změn,
+- `entity_identity_conflicts` + observations pro fail-closed karanténu
+  neshodných CIK/ISIN/LEI,
 - `documents` + `document_observations` pro původ a opakované použití dokumentů,
+- `governance_events` + `governance_event_observations` pro časově dohledatelné
+  změny auditorů, insider transakce, restatementy a další governance události,
 - `research_claims` + `research_claim_observations` pro verzovaný stav jednotlivých tvrzení,
 - `evidence` pro zjištění se směrem, rizikem, důvěrou, vetem a vazbou na dokument,
 - `agent_signals` pro normalizovaný výstup každého analytického agenta.
@@ -116,8 +120,9 @@ Etapa 2 přidává opt-in agenta `SecFundamentalsAgent` (`f2_sec`). Používá p
 oficiální veřejná rozhraní SEC EDGAR:
 
 - mapu ticker → CIK z `company_tickers_exchange.json`,
-- `data.sec.gov/submissions` pro poslední formuláře `10-K`, `10-Q`, `8-K` a
-  zahraniční ekvivalenty `20-F`, `6-K`, `40-F`,
+- `data.sec.gov/submissions` pro formuláře `10-K`, `10-Q`, `8-K`, `20-F`,
+  `6-K`, `40-F`, `S-1`, prospekty 424B, Form 4 a `SC 13D/G`, včetně omezeného
+  načtení starších submission souborů, když `recent` nestačí,
 - `data.sec.gov/api/xbrl/companyfacts` pro vybraná účetní fakta (výnosy, zisk,
   aktiva, závazky, cash flow, dluh a EPS).
 
@@ -139,6 +144,39 @@ Nové tabulky jsou `fundamental_facts` a `fundamental_fact_observations`.
 Tato část etapy je pouze ingest a audit. Fundamentální fakta zatím nemění score,
 `forecast` ani `BUY` / `SELL` / `NO_TRADE`; neobsahuje sentiment, backtesting,
 portfolio logiku ani dodavatelský graf.
+
+## Identity, evropské filingy a governance – etapa 5.1
+
+`EntityRegistryAgent` umí ověřit přesný LEI/ISIN proti veřejnému GLEIF API.
+Nikdy nevybírá firmu podle fuzzy podobnosti názvu. Jednoznačné mapování může
+doplnit chybějící LEI nebo jediný ISIN; neshoda se uloží do karantény, nepřepíše
+aktivní identitu a QualityGate daný ticker odmítne.
+
+`EuropeanFilingsAgent` používá stejný `DocumentRecord` jako SEC a podporuje
+Euronext, FCA NSM/RNS, AFM, BaFin, ČNB, konfigurovatelné lokální burzy a firemní
+IR. Vstupem jsou přesné URL s LEI nebo ISIN; name-only scraping není povolen.
+ESEF/XHTML se bezpečně načte a hashuje, surový obsah se nepersistuje. Autorita i
+finální redirect musí zůstat na schválené doméně.
+
+Každý dokument ukládá `source_priority` podle pevného pořadí:
+
+1. regulatorní filing (600),
+2. auditovaný výkaz (500),
+3. burzovní oznámení (400),
+4. investor relations (300),
+5. prezentace managementu (200),
+6. mediální článek (100).
+
+Konfliktní dokumenty zůstávají oba v auditu, ale preferuje se vyšší úroveň.
+Mediální článek se v `DecisionAgentu` nikdy nepoužije jako primární potvrzení a
+QualityGate odmítne ručně podvrženou prioritu.
+
+`GovernanceEventAgent` normalizuje Form 4, `SC 13D/G`, SEC items 3.02/4.01/4.02
+a konzervativní textové nálezy pro qualified opinion, material weakness,
+odchody CEO/CFO/directorů, related-party transakce, stock pledge, dilution a
+stock compensation. Textový nález zůstává `UNVERIFIED` a vyžaduje lidské nebo
+nezávislé potvrzení. Agent nevydává obchodní signal, směr, risk score ani veto;
+budoucí dokumenty ignoruje.
 
 ## Finanční forenzní screening – etapa 2
 

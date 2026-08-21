@@ -4,7 +4,8 @@ Tento soubor je jediný průběžně aktualizovaný seznam úkolů pro rozšíř
 JOHNY-SKORE o firemní, fundamentální a forenzní analýzu. Rozlišuje mezi již
 funkčním bezpečným MVP a plným rozsahem původního návrhu.
 
-Auditní základ: `main` po PR #73, commit `a259289`, 21. 8. 2026.
+Auditní základ: `main` po PR #75, commit `de45cf8`, doplněný implementací
+úkolů `ENTITY-101`, `FILING-101/102/103` a `GOV-101` dne 21. 8. 2026.
 
 ## Význam stavů
 
@@ -113,10 +114,10 @@ týdnů nelze bezpečně nahradit zpětným backfillem.
 
 ### Brána B: 5.1 → analytické větve 5.2/5.3/5.4/5.6
 
-- [ ] ISIN/LEI/CIK/ticker jsou propojené bez nejednoznačnosti.
-- [ ] Zdrojová hierarchie je uložená a testovaná.
-- [ ] US a evropské filingy používají stejný dokumentový kontrakt.
-- [ ] Governance události mají vlastní schema a observation historii.
+- [x] ISIN/LEI/CIK/ticker jsou propojené bez nejednoznačnosti.
+- [x] Zdrojová hierarchie je uložená a testovaná.
+- [x] US a evropské filingy používají stejný dokumentový kontrakt.
+- [x] Governance události mají vlastní schema a observation historii.
 
 ### Brána C: 5.4 → 5.5
 
@@ -169,10 +170,10 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 | Oblast / agent | Stav | Stručný stav |
 | --- | --- | --- |
 | `OrchestratorAgent` | DONE | Závislosti, blokování, audit běhů a chyby |
-| `EntityRegistryAgent` | PARTIAL | Oddělená a verzovaná identita existuje; chybí automatické primární registry ISIN/LEI |
-| `FilingsCollectorAgent` / `SecFundamentalsAgent` | PARTIAL | SEC MVP; chybí další formuláře a Evropa |
+| `EntityRegistryAgent` | DONE | GLEIF přes přesný LEI/ISIN, karanténa konfliktů, verzování a 10firemní pilot |
+| `FilingsCollectorAgent` / `SecFundamentalsAgent` | DONE | Rozšířené SEC formuláře, historické submissions a evropský jednotný ingest |
 | `FinancialForensicsAgent` | PARTIAL | Základní finanční screening bez plných skóre a guidance |
-| `GovernanceEventAgent` | TODO | Agent ani datový model zatím neexistují |
+| `GovernanceEventAgent` | DONE | Vlastní události/schema/observations; výstup je audit-only bez BUY/SELL |
 | `ShortReportAgent` | PARTIAL | Bezpečný ingest a extrakce; chybí celý životní cyklus reportu |
 | `ClaimVerificationAgent` | PARTIAL | Úzký SEC cross-check; chybí více typů důkazů a reakcí |
 | `SupplyChainAgent` | PARTIAL | Evidence vztahů; chybí skutečný graf a přímé registry |
@@ -201,44 +202,56 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 
 ## Etapa 5.1 – identity, filingy a governance
 
-### `ENTITY-101` Plná identita společnosti – PARTIAL
+### `ENTITY-101` Plná identita společnosti – DONE
 
 Aktuálně: ticker, právní entita, emitent a instrument mají oddělené identifikátory.
 CIK/ISIN/LEI se validují, změny identity se ukládají bitemporálně a SEC ingest
 automaticky doplňuje CIK identitu. Ruční nebo budoucí registry mohou dodat
 zdrojovaný manifest bez změny agentního kontraktu.
 
-- [ ] Automaticky doplnit ISIN a LEI z důvěryhodného primárního registru.
+- [x] Automaticky doplnit ISIN a LEI z důvěryhodného primárního registru.
 - [x] Modelovat parent company, dceřiné společnosti a obchodní aliasy.
 - [x] Oddělit právní entitu, emitenta, ticker a obchodovanou třídu akcie.
 - [x] Verzovat změny tickeru, burzy a názvu bez ztráty historie.
 
-Zbývá: napojit automatické primární registry, vyřešit konflikty mezi registry a
-prokázat bezpečné pokrytí pilotní sady. Do té doby zůstává celý task `PARTIAL`.
+Dokončeno: `GleifClient` používá pouze přesný LEI nebo ISIN a nikdy nehledá
+podle podobnosti názvu. Jednoznačné mapování doplní chybějící LEI nebo jediný
+ISIN. Nesoulad se ukládá do `entity_identity_conflicts` a observation historie,
+aktivní identitu nepřepíše a QualityGate ticker odmítne. Deterministický pilot
+ověřuje 10 společností.
 
 Hotovo znamená: jeden emitent lze bezpečně propojit napříč SEC, evropským
 filingem, IR dokumentem, kontraktem a short reportem bez ručního hádání.
 
-### `FILING-101` Rozšíření SEC formulářů – TODO
+### `FILING-101` Rozšíření SEC formulářů – DONE
 
-- [ ] Přidat `S-1` a prospekty.
-- [ ] Přidat Form 4 a normalizovat insider nákupy/prodeje.
-- [ ] Přidat `13D`/`13G` a změny významných či aktivistických akcionářů.
-- [ ] Detekovat změnu auditora, restatement a nedostatky interní kontroly.
-- [ ] Stahovat i starší submissions soubory, pokud `recent` nestačí pro delta
+- [x] Přidat `S-1` a prospekty.
+- [x] Přidat Form 4 a normalizovat insider nákupy/prodeje.
+- [x] Přidat `13D`/`13G` a změny významných či aktivistických akcionářů.
+- [x] Detekovat změnu auditora, restatement a nedostatky interní kontroly.
+- [x] Stahovat i starší submissions soubory, pokud `recent` nestačí pro delta
   analýzu.
-- [ ] Přidat fixtures a point-in-time test pro každý nový typ formuláře.
+- [x] Přidat fixtures a point-in-time test pro každý nový typ formuláře.
 
-### `FILING-102` Evropské regulatorní dokumenty – TODO
+Implementace ukládá SEC `items`, načítá maximálně konfigurovaný počet starších
+submission souborů a parsuje transakce z Form 4 XML. `GovernanceEventAgent`
+normalizuje `SC 13D/G`, nabídky, Item 3.02, 4.01 a 4.02; textové nálezy zůstávají
+`UNVERIFIED`, dokud je nepotvrdí další kontrola.
 
-- [ ] Euronext issuer news.
-- [ ] FCA/RNS, AFM, BaFin, ČNB a konfigurovatelné lokální burzy.
-- [ ] ESEF/XHTML výroční a pololetní zprávy.
-- [ ] Firemní IR weby pouze jako nižší úroveň zdroje.
-- [ ] Mapování ISIN/LEI/ticker na správného emitenta.
-- [ ] Integrační test alespoň pro jednu US, jednu Euronext a jednu UK firmu.
+### `FILING-102` Evropské regulatorní dokumenty – DONE
 
-### `FILING-103` Hierarchie důvěryhodnosti zdrojů – TODO
+- [x] Euronext issuer news.
+- [x] FCA/RNS, AFM, BaFin, ČNB a konfigurovatelné lokální burzy.
+- [x] ESEF/XHTML výroční a pololetní zprávy.
+- [x] Firemní IR weby pouze jako nižší úroveň zdroje.
+- [x] Mapování ISIN/LEI/ticker na správného emitenta.
+- [x] Integrační test alespoň pro jednu US, jednu Euronext a jednu UK firmu.
+
+Evropský ingest je záměrně založený na přesných, konfigurovaných URL dokumentů
+a allowlistu autorit/domén. Neprovádí name-only scraping. Redirect mimo schválenou
+doménu se odmítne, ESEF/XHTML se hashuje a surové tělo se neukládá.
+
+### `FILING-103` Hierarchie důvěryhodnosti zdrojů – DONE
 
 Implementovat a ukládat `source_priority`:
 
@@ -249,19 +262,27 @@ Implementovat a ukládat `source_priority`:
 5. prezentace managementu,
 6. mediální článek.
 
-- [ ] Konflikt zdrojů musí preferovat vyšší úroveň, ale zachovat oba důkazy.
-- [ ] `DecisionAgent` nesmí považovat mediální článek za primární potvrzení.
+- [x] Konflikt zdrojů musí preferovat vyšší úroveň, ale zachovat oba důkazy.
+- [x] `DecisionAgent` nesmí považovat mediální článek za primární potvrzení.
 
-### `GOV-101` GovernanceEventAgent a datový model – TODO
+`source_priority` se ukládá v `documents` i `document_observations`.
+QualityGate odmítá podvrženou prioritu a `DecisionAgent` přijímá jako nezávislé
+primární potvrzení pouze burzovní oznámení nebo silnější úroveň.
 
-- [ ] Vytvořit `GovernanceEventAgent`.
-- [ ] Přidat tabulky `governance_events` a `governance_event_observations`.
-- [ ] Události: insider trade, auditor change, qualified opinion, restatement,
+### `GOV-101` GovernanceEventAgent a datový model – DONE
+
+- [x] Vytvořit `GovernanceEventAgent`.
+- [x] Přidat tabulky `governance_events` a `governance_event_observations`.
+- [x] Události: insider trade, auditor change, qualified opinion, restatement,
   material weakness, CFO/CEO/director resignation, related party, stock pledge,
   dilution a stock compensation.
-- [ ] Každá událost musí mít zdroj, published/observed time, confidence, status
+- [x] Každá událost musí mít zdroj, published/observed time, confidence, status
   a vazbu na právní entitu.
-- [ ] Neověřená událost nesmí vytvořit automatický `SELL`.
+- [x] Neověřená událost nesmí vytvořit automatický `SELL`.
+
+Agent nevydává žádný `AgentSignal`, každá evidence má nulový směr/risk/veto a
+`scoring_applied=False`. Budoucí dokumenty ignoruje; QualityGate ověřuje vazbu
+událost → dokument → právní entita a u `UNVERIFIED` zakazuje scoring.
 
 ## Etapa 5.2 – FilingDeltaAnalyzer a forenzní skóre
 

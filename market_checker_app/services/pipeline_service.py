@@ -14,8 +14,10 @@ from market_checker_app.agents import (
     CommodityEnergyAgent,
     DecisionAgent,
     EntityRegistryAgent,
+    EuropeanFilingsAgent,
     EvaluationAgent,
     FinancialForensicsAgent,
+    GovernanceEventAgent,
     OrchestrationReport,
     OrchestratorAgent,
     PredictionV21AdapterAgent,
@@ -41,6 +43,7 @@ from market_checker_app.analysis.scoring import (
 from market_checker_app.analysis.tech_analysis import analyze_tech
 from market_checker_app.analysis.yahoo_analysis import analyze_yahoo
 from market_checker_app.collectors.marketcap_loader import load_market_caps
+from market_checker_app.collectors.gleif_client import GleifClient
 from market_checker_app.collectors.mt5_client import MT5Client
 from market_checker_app.collectors.rss_client import RSSClient
 from market_checker_app.collectors.yahoo_client import YahooClient
@@ -74,7 +77,9 @@ class PipelineService:
         self.rss_client = RSSClient(max_items_per_source=config.max_rss_items_per_source)
         self.yahoo_client = YahooClient()
         self.yahoo_cache = YahooCacheStore(config.sqlite_path)
+        self.gleif_client = None
         self.sec_client = None
+        self.european_filing_client = None
         self.short_report_client = None
         self.stage3_source_client = None
 
@@ -190,7 +195,22 @@ class PipelineService:
                 )
 
         orchestrator = OrchestratorAgent(shadow_mode=self.config.agent_shadow_mode)
-        orchestrator.register(EntityRegistryAgent())
+        if self.config.entity_registry.enable_gleif and self.gleif_client is None:
+            self.gleif_client = GleifClient(
+                timeout_seconds=(
+                    self.config.entity_registry.request_timeout_seconds
+                )
+            )
+        orchestrator.register(
+            EntityRegistryAgent(
+                self.config.entity_registry.identity_records,
+                primary_registry_client=(
+                    self.gleif_client
+                    if self.config.entity_registry.enable_gleif
+                    else None
+                ),
+            )
+        )
         if self.config.fundamental_ingestion.enabled:
             orchestrator.register(
                 SecFundamentalsAgent(
@@ -202,6 +222,28 @@ class PipelineService:
                 orchestrator.register(
                     FinancialForensicsAgent(self.config.financial_forensics)
                 )
+        if self.config.european_filings.enabled:
+            orchestrator.register(
+                EuropeanFilingsAgent(
+                    self.config.european_filings,
+                    client=self.european_filing_client,
+                )
+            )
+        if self.config.governance_events.enabled and (
+            self.config.fundamental_ingestion.enabled
+            or self.config.european_filings.enabled
+        ):
+            governance_dependencies = ["entity_registry"]
+            if self.config.fundamental_ingestion.enabled:
+                governance_dependencies.append("f2_sec")
+            if self.config.european_filings.enabled:
+                governance_dependencies.append("european_filings")
+            orchestrator.register(
+                GovernanceEventAgent(
+                    self.config.governance_events,
+                    dependencies=tuple(governance_dependencies),
+                )
+            )
         if short_report_config.enabled:
             orchestrator.register(
                 ShortReportAgent(
@@ -834,6 +876,8 @@ class PipelineService:
 
         agent_report: OrchestrationReport | None = None
         quality_gate_decision: str | None = None
+        entity_registry_status: str | None = None
+        entity_identity_conflict_count = 0
         fundamental_ingestion_status: str | None = None
         fundamental_document_count = 0
         fundamental_fact_count = 0
@@ -876,6 +920,10 @@ class PipelineService:
         live_application_authorized = False
         fundamental_filing_text_document_count = 0
         fundamental_filing_text_failure_count = 0
+        european_filings_status: str | None = None
+        european_filing_document_count = 0
+        governance_event_status: str | None = None
+        governance_event_count = 0
         auto_discovered_supply_chain_relationships = 0
         auto_discovered_commodity_energy_exposures = 0
         if self.config.agent_stage1_enabled:
@@ -901,6 +949,11 @@ class PipelineService:
                         quality_gate_decision = str(
                             execution.result.metadata.get("decision", "REJECT")
                         )
+                    elif execution.agent_name == "entity_registry":
+                        entity_registry_status = execution.status.value
+                        entity_identity_conflict_count = len(
+                            execution.result.identity_conflicts
+                        )
                     elif execution.agent_name == "f2_sec":
                         fundamental_ingestion_status = execution.status.value
                         fundamental_document_count = len(execution.result.documents)
@@ -918,6 +971,16 @@ class PipelineService:
                                 "filing_text_failures",
                                 0,
                             )
+                        )
+                    elif execution.agent_name == "european_filings":
+                        european_filings_status = execution.status.value
+                        european_filing_document_count = len(
+                            execution.result.documents
+                        )
+                    elif execution.agent_name == "governance_event":
+                        governance_event_status = execution.status.value
+                        governance_event_count = len(
+                            execution.result.governance_events
                         )
                     elif execution.agent_name == "financial_forensics":
                         financial_forensics_status = execution.status.value
@@ -1117,6 +1180,8 @@ class PipelineService:
             "run_id": run_id,
             "agent_status": agent_report.status.value if agent_report else None,
             "quality_gate_decision": quality_gate_decision,
+            "entity_registry_status": entity_registry_status,
+            "entity_identity_conflict_count": entity_identity_conflict_count,
             "fundamental_ingestion_status": fundamental_ingestion_status,
             "fundamental_document_count": fundamental_document_count,
             "fundamental_fact_count": fundamental_fact_count,
@@ -1126,6 +1191,10 @@ class PipelineService:
             "fundamental_filing_text_failure_count": (
                 fundamental_filing_text_failure_count
             ),
+            "european_filings_status": european_filings_status,
+            "european_filing_document_count": european_filing_document_count,
+            "governance_event_status": governance_event_status,
+            "governance_event_count": governance_event_count,
             "financial_forensics_status": financial_forensics_status,
             "financial_forensics_evidence_count": financial_forensics_evidence_count,
             "financial_forensics_high_findings": financial_forensics_high_findings,

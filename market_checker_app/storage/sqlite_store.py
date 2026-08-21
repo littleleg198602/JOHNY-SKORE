@@ -257,6 +257,27 @@ class SQLiteStore:
                 )
 
     @staticmethod
+    def _ensure_document_columns(conn: sqlite3.Connection) -> None:
+        existing = {
+            row[1] for row in conn.execute("PRAGMA table_info(documents)").fetchall()
+        }
+        expected = {
+            "source_priority": "INTEGER NOT NULL DEFAULT 0",
+            "source_authority": "TEXT",
+            "legal_entity_id": "TEXT",
+            "issuer_id": "TEXT",
+            "instrument_id": "TEXT",
+            "reporting_period_end": "TEXT",
+            "is_audited": "INTEGER NOT NULL DEFAULT 0",
+            "language": "TEXT",
+        }
+        for column, column_type in expected.items():
+            if column not in existing:
+                conn.execute(
+                    f"ALTER TABLE documents ADD COLUMN {column} {column_type}"
+                )
+
+    @staticmethod
     def _ensure_quality_gate_columns(conn: sqlite3.Connection) -> None:
         existing = {
             row[1]
@@ -273,6 +294,8 @@ class SQLiteStore:
             "decision_ids_json",
             "evaluation_ids_json",
             "activation_ids_json",
+            "identity_conflict_ids_json",
+            "governance_event_ids_json",
         ):
             if column not in existing:
                 conn.execute(
@@ -291,6 +314,10 @@ class SQLiteStore:
             "source_url": "TEXT",
             "content_hash": "TEXT",
             "mime_type": "TEXT",
+            "source_type": "TEXT",
+            "source_priority": "INTEGER NOT NULL DEFAULT 0",
+            "source_authority": "TEXT",
+            "legal_entity_id": "TEXT",
             "metadata_json": "TEXT NOT NULL DEFAULT '{}'",
         }
         for column, column_type in expected.items():
@@ -509,6 +536,45 @@ class SQLiteStore:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS entity_identity_conflicts (
+                    conflict_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    entity_id TEXT NOT NULL,
+                    legal_entity_id TEXT,
+                    field_name TEXT NOT NULL,
+                    existing_value TEXT NOT NULL,
+                    candidate_value TEXT NOT NULL,
+                    existing_source TEXT NOT NULL,
+                    candidate_source TEXT NOT NULL,
+                    existing_source_url TEXT,
+                    candidate_source_url TEXT,
+                    status TEXT NOT NULL,
+                    reason TEXT NOT NULL DEFAULT '',
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(entity_id) REFERENCES entities(entity_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS entity_identity_conflict_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    conflict_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    PRIMARY KEY(orchestration_id, agent_run_id, conflict_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(conflict_id) REFERENCES entity_identity_conflicts(conflict_id)
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS documents (
                     document_id TEXT PRIMARY KEY,
                     ticker TEXT NOT NULL,
@@ -521,10 +587,19 @@ class SQLiteStore:
                     raw_path TEXT,
                     first_seen_at TEXT NOT NULL,
                     last_seen_at TEXT NOT NULL,
-                    metadata_json TEXT NOT NULL DEFAULT '{}'
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    source_priority INTEGER NOT NULL DEFAULT 0,
+                    source_authority TEXT,
+                    legal_entity_id TEXT,
+                    issuer_id TEXT,
+                    instrument_id TEXT,
+                    reporting_period_end TEXT,
+                    is_audited INTEGER NOT NULL DEFAULT 0,
+                    language TEXT
                 )
                 """
             )
+            self._ensure_document_columns(conn)
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS document_observations (
@@ -535,6 +610,10 @@ class SQLiteStore:
                     source_url TEXT,
                     content_hash TEXT,
                     mime_type TEXT,
+                    source_type TEXT,
+                    source_priority INTEGER NOT NULL DEFAULT 0,
+                    source_authority TEXT,
+                    legal_entity_id TEXT,
                     metadata_json TEXT NOT NULL DEFAULT '{}',
                     PRIMARY KEY(orchestration_id, agent_run_id, document_id),
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
@@ -544,6 +623,50 @@ class SQLiteStore:
                 """
             )
             self._ensure_document_observation_columns(conn)
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS governance_events (
+                    event_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    event_type TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    title TEXT NOT NULL,
+                    published_at TEXT NOT NULL,
+                    document_id TEXT NOT NULL,
+                    source_url TEXT NOT NULL,
+                    legal_entity_id TEXT NOT NULL,
+                    confidence REAL NOT NULL,
+                    source_agent_name TEXT NOT NULL,
+                    actor TEXT,
+                    transaction_type TEXT,
+                    shares REAL,
+                    price_per_share REAL,
+                    event_value REAL,
+                    currency TEXT,
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS governance_event_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    event_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    confidence REAL NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    PRIMARY KEY(orchestration_id, agent_run_id, event_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(event_id) REFERENCES governance_events(event_id)
+                )
+                """
+            )
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS fundamental_facts (
@@ -807,6 +930,8 @@ class SQLiteStore:
                     decision_ids_json TEXT NOT NULL DEFAULT '[]',
                     evaluation_ids_json TEXT NOT NULL DEFAULT '[]',
                     activation_ids_json TEXT NOT NULL DEFAULT '[]',
+                    identity_conflict_ids_json TEXT NOT NULL DEFAULT '[]',
+                    governance_event_ids_json TEXT NOT NULL DEFAULT '[]',
                     metadata_json TEXT NOT NULL DEFAULT '{}',
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
                     FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE
@@ -937,7 +1062,19 @@ class SQLiteStore:
                 "CREATE UNIQUE INDEX IF NOT EXISTS idx_entity_identity_versions_active ON entity_identity_versions(entity_id) WHERE superseded_at IS NULL"
             )
             conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_entity_identity_conflicts_ticker ON entity_identity_conflicts(ticker, status, last_seen_at)"
+            )
+            conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_documents_ticker_published ON documents(ticker, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_documents_source_priority ON documents(ticker, source_priority, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_governance_events_ticker_type ON governance_events(ticker, event_type, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_governance_event_observations_run ON governance_event_observations(orchestration_id, agent_run_id)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_fundamental_facts_ticker_concept ON fundamental_facts(ticker, concept, period_end)"
@@ -1371,14 +1508,68 @@ class SQLiteStore:
                         ),
                     )
 
+                for conflict in result.identity_conflicts:
+                    conn.execute(
+                        """
+                        INSERT INTO entity_identity_conflicts(
+                            conflict_id, ticker, entity_id, legal_entity_id,
+                            field_name, existing_value, candidate_value,
+                            existing_source, candidate_source, existing_source_url,
+                            candidate_source_url, status, reason, first_seen_at,
+                            last_seen_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(conflict_id) DO UPDATE SET
+                            status = excluded.status,
+                            reason = excluded.reason,
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            conflict.conflict_id,
+                            conflict.ticker,
+                            conflict.entity_id,
+                            conflict.legal_entity_id,
+                            conflict.field_name,
+                            conflict.existing_value,
+                            conflict.candidate_value,
+                            conflict.existing_source,
+                            conflict.candidate_source,
+                            conflict.existing_source_url,
+                            conflict.candidate_source_url,
+                            conflict.status.value,
+                            conflict.reason,
+                            to_iso(conflict.observed_at),
+                            to_iso(conflict.observed_at),
+                            self._json_dump(conflict.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO entity_identity_conflict_observations(
+                            orchestration_id, agent_run_id, conflict_id,
+                            observed_at, status, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            conflict.conflict_id,
+                            to_iso(conflict.observed_at),
+                            conflict.status.value,
+                            self._json_dump(conflict.metadata),
+                        ),
+                    )
+
                 for document in result.documents:
                     conn.execute(
                         """
                         INSERT INTO documents(
                             document_id, ticker, source, source_type, url, published_at,
                             content_hash, mime_type, raw_path, first_seen_at, last_seen_at,
-                            metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            metadata_json, source_priority, source_authority,
+                            legal_entity_id, issuer_id, instrument_id,
+                            reporting_period_end, is_audited, language
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON CONFLICT(document_id) DO UPDATE SET
                             ticker = excluded.ticker,
                             source = excluded.source,
@@ -1389,7 +1580,15 @@ class SQLiteStore:
                             mime_type = COALESCE(excluded.mime_type, documents.mime_type),
                             raw_path = COALESCE(excluded.raw_path, documents.raw_path),
                             last_seen_at = excluded.last_seen_at,
-                            metadata_json = excluded.metadata_json
+                            metadata_json = excluded.metadata_json,
+                            source_priority = excluded.source_priority,
+                            source_authority = COALESCE(excluded.source_authority, documents.source_authority),
+                            legal_entity_id = COALESCE(excluded.legal_entity_id, documents.legal_entity_id),
+                            issuer_id = COALESCE(excluded.issuer_id, documents.issuer_id),
+                            instrument_id = COALESCE(excluded.instrument_id, documents.instrument_id),
+                            reporting_period_end = COALESCE(excluded.reporting_period_end, documents.reporting_period_end),
+                            is_audited = excluded.is_audited,
+                            language = COALESCE(excluded.language, documents.language)
                         """,
                         (
                             document.document_id,
@@ -1404,14 +1603,28 @@ class SQLiteStore:
                             to_iso(document.observed_at),
                             to_iso(document.observed_at),
                             self._json_dump(document.metadata),
+                            int(document.source_priority or 0),
+                            document.source_authority,
+                            document.legal_entity_id,
+                            document.issuer_id,
+                            document.instrument_id,
+                            (
+                                to_iso(document.reporting_period_end)
+                                if document.reporting_period_end
+                                else None
+                            ),
+                            int(document.is_audited),
+                            document.language,
                         ),
                     )
                     conn.execute(
                         """
                         INSERT INTO document_observations(
                             orchestration_id, agent_run_id, document_id, observed_at,
-                            source_url, content_hash, mime_type, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                            source_url, content_hash, mime_type, source_type,
+                            source_priority, source_authority, legal_entity_id,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             report.orchestration_id,
@@ -1421,7 +1634,75 @@ class SQLiteStore:
                             document.url,
                             document.content_hash,
                             document.mime_type,
+                            document.source_type,
+                            int(document.source_priority or 0),
+                            document.source_authority,
+                            document.legal_entity_id,
                             self._json_dump(document.metadata),
+                        ),
+                    )
+
+                for event in result.governance_events:
+                    conn.execute(
+                        """
+                        INSERT INTO governance_events(
+                            event_id, ticker, event_type, status, title,
+                            published_at, document_id, source_url, legal_entity_id,
+                            confidence, source_agent_name, actor, transaction_type,
+                            shares, price_per_share, event_value, currency,
+                            first_seen_at, last_seen_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(event_id) DO UPDATE SET
+                            status = excluded.status,
+                            title = excluded.title,
+                            confidence = excluded.confidence,
+                            actor = COALESCE(excluded.actor, governance_events.actor),
+                            transaction_type = COALESCE(excluded.transaction_type, governance_events.transaction_type),
+                            shares = COALESCE(excluded.shares, governance_events.shares),
+                            price_per_share = COALESCE(excluded.price_per_share, governance_events.price_per_share),
+                            event_value = COALESCE(excluded.event_value, governance_events.event_value),
+                            currency = COALESCE(excluded.currency, governance_events.currency),
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            event.event_id,
+                            event.ticker,
+                            event.event_type.value,
+                            event.status.value,
+                            event.title,
+                            to_iso(event.published_at),
+                            event.document_id,
+                            event.source_url,
+                            event.legal_entity_id,
+                            event.confidence,
+                            event.source_agent_name,
+                            event.actor,
+                            event.transaction_type,
+                            event.shares,
+                            event.price_per_share,
+                            event.event_value,
+                            event.currency,
+                            to_iso(event.observed_at),
+                            to_iso(event.observed_at),
+                            self._json_dump(event.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO governance_event_observations(
+                            orchestration_id, agent_run_id, event_id, observed_at,
+                            status, confidence, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            event.event_id,
+                            to_iso(event.observed_at),
+                            event.status.value,
+                            event.confidence,
+                            self._json_dump(event.metadata),
                         ),
                     )
 
@@ -1941,8 +2222,9 @@ class SQLiteStore:
                             relationship_ids_json, exposure_ids_json,
                             regulatory_event_ids_json, decision_ids_json,
                             evaluation_ids_json, activation_ids_json,
+                            identity_conflict_ids_json, governance_event_ids_json,
                             metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             check.check_id,
@@ -1963,6 +2245,8 @@ class SQLiteStore:
                             self._json_dump(check.decision_ids),
                             self._json_dump(check.evaluation_ids),
                             self._json_dump(check.activation_ids),
+                            self._json_dump(check.identity_conflict_ids),
+                            self._json_dump(check.governance_event_ids),
                             self._json_dump(check.metadata),
                         ),
                     )
@@ -2012,6 +2296,20 @@ class SQLiteStore:
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 
+    def read_entity_identity_conflicts(
+        self,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM entity_identity_conflicts"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY last_seen_at DESC, conflict_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
     def read_entity_identity_as_of(
         self,
         as_of: datetime,
@@ -2048,6 +2346,17 @@ class SQLiteStore:
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=tuple(params))
 
+    def read_documents(self, ticker: str | None = None) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM documents"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY ticker ASC, published_at DESC, document_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
     def read_evidence(self, orchestration_id: str | None = None) -> pd.DataFrame:
         self.ensure_schema()
         query = "SELECT * FROM evidence"
@@ -2070,6 +2379,20 @@ class SQLiteStore:
             query += " WHERE ticker = ?"
             params = (ticker,)
         query += " ORDER BY ticker ASC, concept ASC, filed_at DESC, fact_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_governance_events(
+        self,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM governance_events"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY published_at DESC, ticker ASC, event_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 

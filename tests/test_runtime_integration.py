@@ -297,8 +297,10 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertEqual("SUCCESS", result["agent_status"])
             self.assertEqual("SUCCESS", result["fundamental_ingestion_status"])
             self.assertEqual("SUCCESS", result["financial_forensics_status"])
+            self.assertEqual("SUCCESS", result["governance_event_status"])
             self.assertEqual(1, result["fundamental_document_count"])
             self.assertEqual(10, result["fundamental_fact_count"])
+            self.assertEqual(0, result["governance_event_count"])
             self.assertEqual(1, result["financial_forensics_evidence_count"])
             self.assertEqual(0, result["financial_forensics_high_findings"])
             self.assertEqual(0, result["financial_forensics_warning_findings"])
@@ -306,7 +308,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
                 result["signals"].iloc[0]["action"],
                 result["agent_report"].signals[0].action,
             )
-            self.assertEqual(7, len(store.read_agent_runs()))
+            self.assertEqual(8, len(store.read_agent_runs()))
             facts = store.read_fundamental_facts("AAPL")
             self.assertEqual(10, len(facts))
             assets = facts.loc[facts["concept"] == "Assets"].iloc[0]
@@ -362,7 +364,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
                 result["signals"].iloc[0]["action"],
                 result["agent_report"].signals[0].action,
             )
-            self.assertEqual(9, len(store.read_agent_runs()))
+            self.assertEqual(10, len(store.read_agent_runs()))
             self.assertEqual(3, len(store.read_research_claims("AAPL")))
             with store._connect() as conn:
                 observations = conn.execute(
@@ -584,6 +586,8 @@ class RuntimeIntegrationTests(unittest.TestCase):
                     "agent_runs",
                     "entities",
                     "entity_observations",
+                    "entity_identity_conflicts",
+                    "entity_identity_conflict_observations",
                     "documents",
                     "document_observations",
                     "fundamental_facts",
@@ -596,6 +600,8 @@ class RuntimeIntegrationTests(unittest.TestCase):
                     "resource_exposure_observations",
                     "regulatory_contract_events",
                     "regulatory_contract_event_observations",
+                    "governance_events",
+                    "governance_event_observations",
                     "decision_records",
                     "policy_evaluations",
                     "signal_activation_decisions",
@@ -608,6 +614,8 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertIn("relationship_ids_json", quality_gate_columns)
             self.assertIn("exposure_ids_json", quality_gate_columns)
             self.assertIn("regulatory_event_ids_json", quality_gate_columns)
+            self.assertIn("identity_conflict_ids_json", quality_gate_columns)
+            self.assertIn("governance_event_ids_json", quality_gate_columns)
             self.assertTrue(
                 {"source_url", "content_hash", "mime_type", "metadata_json"}
                 .issubset(document_observation_columns)
