@@ -85,7 +85,9 @@ Stačí na něj dvakrát kliknout. Skript:
 Pipeline v2.1 po výpočtu predikcí automaticky spustí auditní agentní vrstvu:
 
 - `OrchestratorAgent` hlídá pořadí závislostí, stav a dobu běhu každého agenta,
-- `EntityRegistryAgent` sjednocuje tickery a aliasy (např. `BRK.B` → Yahoo `BRK-B`),
+- `EntityRegistryAgent` sjednocuje tickery a aliasy (např. `BRK.B` → Yahoo
+  `BRK-B`), odděluje právní entitu, emitenta a obchodovaný instrument a
+  fail-closed validuje CIK/ISIN/LEI,
 - `PredictionV21AdapterAgent` převádí existující výstup v2.1 na jednotný kontrakt
   `evidence` + `agent_signal`.
 
@@ -97,7 +99,9 @@ v `AppConfig` přes `agent_stage1_enabled` a `agent_shadow_mode`.
 Do stejné SQLite databáze se aditivně vytvářejí tabulky:
 
 - `orchestration_runs` a `agent_runs` pro audit průběhu,
-- `entities` + `entity_observations` pro jednotný registr společností,
+- `entities` + `entity_observations` pro aktuální registr společností,
+- `entity_identity_versions` pro point-in-time historii názvu, tickeru, burzy,
+  parent vazby a identifikátorů bez použití budoucích změn,
 - `documents` + `document_observations` pro původ a opakované použití dokumentů,
 - `research_claims` + `research_claim_observations` pro verzovaný stav jednotlivých tvrzení,
 - `evidence` pro zjištění se směrem, rizikem, důvěrou, vetem a vazbou na dokument,

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 import hashlib
 from typing import Protocol
 
@@ -15,6 +16,7 @@ from market_checker_app.agents.contracts import (
     utc_now,
 )
 from market_checker_app.collectors.sec_edgar_client import (
+    SEC_TICKER_MAP_URL,
     SecCompanyBundle,
     SecEdgarClient,
 )
@@ -54,7 +56,7 @@ class SecFundamentalsAgent(BaseAgent):
     """Ingest official SEC filings and XBRL facts without scoring them."""
 
     name = "f2_sec"
-    version = "1.0"
+    version = "1.1"
     required = False
     dependencies = ("entity_registry",)
 
@@ -166,28 +168,33 @@ class SecFundamentalsAgent(BaseAgent):
                     "sec_exchange": bundle.company.exchange,
                 }
             )
-            entities.append(
-                EntityRecord(
-                    entity_id=(
-                        original.entity_id
-                        if isinstance(original, EntityRecord)
-                        else f"ticker:{ticker}"
-                    ),
+            base_entity = (
+                original
+                if isinstance(original, EntityRecord)
+                else EntityRecord(
+                    entity_id=f"ticker:{ticker}",
                     ticker=ticker,
-                    yahoo_ticker=(
-                        original.yahoo_ticker
-                        if isinstance(original, EntityRecord)
-                        else None
-                    ),
+                    instrument_id=f"ticker:{ticker}",
+                )
+            )
+            legal_entity_id = (
+                base_entity.legal_entity_id or f"cik:{bundle.company.cik}"
+            )
+            entities.append(
+                replace(
+                    base_entity,
+                    ticker=ticker,
                     name=bundle.company.name,
                     exchange=bundle.company.exchange,
                     cik=bundle.company.cik,
-                    aliases=(
-                        list(original.aliases)
-                        if isinstance(original, EntityRecord)
-                        else []
+                    legal_entity_id=legal_entity_id,
+                    issuer_id=base_entity.issuer_id or legal_entity_id,
+                    instrument_id=(
+                        base_entity.instrument_id or f"ticker:{ticker}"
                     ),
                     source="sec_edgar",
+                    source_url=SEC_TICKER_MAP_URL,
+                    confidence=max(base_entity.confidence, 1.0),
                     metadata=original_metadata,
                 )
             )
@@ -364,6 +371,8 @@ class SecFundamentalsAgent(BaseAgent):
         facts_by_ticker: dict[str, list[FundamentalFact]] = {}
         for fact in facts:
             facts_by_ticker.setdefault(fact.ticker, []).append(fact)
+        updated_registry = dict(registered)
+        updated_registry.update({entity.ticker: entity for entity in entities})
         return AgentResult(
             status=status,
             entities=entities,
@@ -385,6 +394,7 @@ class SecFundamentalsAgent(BaseAgent):
                 "scoring_applied": False,
             },
             state_updates={
+                "entities_by_ticker": updated_registry,
                 "sec_entities_by_ticker": {
                     entity.ticker: entity for entity in entities
                 },

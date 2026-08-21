@@ -118,6 +118,36 @@ class EntityRecord:
     aliases: list[str] = field(default_factory=list)
     source: str = "entity_registry"
     metadata: dict[str, Any] = field(default_factory=dict)
+    legal_entity_id: str | None = None
+    issuer_id: str | None = None
+    instrument_id: str | None = None
+    parent_entity_id: str | None = None
+    security_type: str | None = None
+    share_class: str | None = None
+    mic: str | None = None
+    country_code: str | None = None
+    valid_from: datetime | None = None
+    valid_to: datetime | None = None
+    source_url: str | None = None
+    confidence: float = 0.0
+
+    def __post_init__(self) -> None:
+        self.confidence = _bounded(self.confidence, 0.0, 1.0, "confidence")
+        for field_name in ("valid_from", "valid_to"):
+            value = getattr(self, field_name)
+            if value is None:
+                continue
+            if value.tzinfo is None or value.utcoffset() is None:
+                value = value.replace(tzinfo=timezone.utc)
+            else:
+                value = value.astimezone(timezone.utc)
+            setattr(self, field_name, value)
+        if (
+            self.valid_from is not None
+            and self.valid_to is not None
+            and self.valid_to <= self.valid_from
+        ):
+            raise ValueError("valid_to must be later than valid_from")
 
 
 @dataclass(slots=True)

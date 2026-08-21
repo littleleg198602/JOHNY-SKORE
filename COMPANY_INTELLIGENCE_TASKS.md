@@ -169,7 +169,7 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 | Oblast / agent | Stav | Stručný stav |
 | --- | --- | --- |
 | `OrchestratorAgent` | DONE | Závislosti, blokování, audit běhů a chyby |
-| `EntityRegistryAgent` | PARTIAL | Ticker/Yahoo/CIK; chybí plná firemní identita a skupina |
+| `EntityRegistryAgent` | PARTIAL | Oddělená a verzovaná identita existuje; chybí automatické primární registry ISIN/LEI |
 | `FilingsCollectorAgent` / `SecFundamentalsAgent` | PARTIAL | SEC MVP; chybí další formuláře a Evropa |
 | `FinancialForensicsAgent` | PARTIAL | Základní finanční screening bez plných skóre a guidance |
 | `GovernanceEventAgent` | TODO | Agent ani datový model zatím neexistují |
@@ -203,12 +203,18 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 
 ### `ENTITY-101` Plná identita společnosti – PARTIAL
 
-Aktuálně: ticker, Yahoo ticker a u SEC firem CIK, název a burza.
+Aktuálně: ticker, právní entita, emitent a instrument mají oddělené identifikátory.
+CIK/ISIN/LEI se validují, změny identity se ukládají bitemporálně a SEC ingest
+automaticky doplňuje CIK identitu. Ruční nebo budoucí registry mohou dodat
+zdrojovaný manifest bez změny agentního kontraktu.
 
 - [ ] Automaticky doplnit ISIN a LEI z důvěryhodného primárního registru.
-- [ ] Modelovat parent company, dceřiné společnosti a obchodní aliasy.
-- [ ] Oddělit právní entitu, emitenta, ticker a obchodovanou třídu akcie.
-- [ ] Verzovat změny tickeru, burzy a názvu bez ztráty historie.
+- [x] Modelovat parent company, dceřiné společnosti a obchodní aliasy.
+- [x] Oddělit právní entitu, emitenta, ticker a obchodovanou třídu akcie.
+- [x] Verzovat změny tickeru, burzy a názvu bez ztráty historie.
+
+Zbývá: napojit automatické primární registry, vyřešit konflikty mezi registry a
+prokázat bezpečné pokrytí pilotní sady. Do té doby zůstává celý task `PARTIAL`.
 
 Hotovo znamená: jeden emitent lze bezpečně propojit napříč SEC, evropským
 filingem, IR dokumentem, kontraktem a short reportem bez ručního hádání.

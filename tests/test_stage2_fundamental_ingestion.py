@@ -326,6 +326,12 @@ class StageTwoAcceptanceTests(unittest.TestCase):
             item for item in report.executions if item.agent_name == "f2_sec"
         )
         self.assertFalse(sec_execution.result.metadata["scoring_applied"])
+        sec_entity = sec_execution.result.entities[0]
+        self.assertEqual("cik:0000320193", sec_entity.legal_entity_id)
+        self.assertEqual(sec_entity.legal_entity_id, sec_entity.issuer_id)
+        self.assertEqual("ticker:AAPL", sec_entity.instrument_id)
+        self.assertEqual(1.0, sec_entity.confidence)
+        self.assertEqual(SEC_TICKER_MAP_URL, sec_entity.source_url)
 
     def test_repeated_ingestion_upserts_sources_and_records_observations(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
