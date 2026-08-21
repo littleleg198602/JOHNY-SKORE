@@ -451,6 +451,11 @@ class EntityRegistryAgent(BaseAgent):
             for entity in entities
             if entity.legal_entity_id and entity.instrument_id
         )
+        unresolved_tickers = sorted(
+            entity.ticker
+            for entity in entities
+            if not (entity.legal_entity_id and entity.instrument_id)
+        )
         return AgentResult(
             status=(
                 AgentStatus.PARTIAL
@@ -474,6 +479,7 @@ class EntityRegistryAgent(BaseAgent):
                 "entities_by_id": by_id,
                 "entities_by_legal_entity_id": by_legal_entity,
                 "identity_conflicts": conflicts,
+                "unresolved_identity_tickers": unresolved_tickers,
                 "quarantined_identity_tickers": sorted(
                     {item.ticker for item in conflicts}
                 ),

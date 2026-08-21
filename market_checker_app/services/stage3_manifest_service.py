@@ -9,6 +9,7 @@ from market_checker_app.agents.contracts import (
     RelationshipType,
     ResourceExposureType,
 )
+from market_checker_app.agents.source_policy import source_priority_for
 from market_checker_app.config import (
     CommodityEnergySourceConfig,
     RegulatoryContractSourceConfig,
@@ -162,9 +163,9 @@ def parse_regulatory_contract_sources(
         if not line or line.startswith("#"):
             continue
         parts = [part.strip() for part in line.split("|")]
-        if len(parts) != 10:
+        if len(parts) not in {10, 11, 12, 13}:
             errors.append(
-                f"Regulace/kontrakty řádek {line_number}: očekávám TICKER | typ | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | datum | HTTPS URL."
+                f"Regulace/kontrakty řádek {line_number}: očekávám TICKER | typ | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | datum | HTTPS URL | source type (volitelné) | source authority/- (volitelné) | canonical key/- (volitelné)."
             )
             continue
         (
@@ -178,7 +179,10 @@ def parse_regulatory_contract_sources(
             publisher,
             raw_date,
             raw_url,
-        ) = parts
+        ) = parts[:10]
+        raw_source_type = parts[10] if len(parts) >= 11 else "media_article"
+        raw_source_authority = parts[11] if len(parts) >= 12 else "-"
+        raw_canonical_key = parts[12] if len(parts) >= 13 else "-"
         ticker = normalize_ticker(raw_ticker)
         try:
             if not ticker or not title or not authority or not publisher:
@@ -197,6 +201,17 @@ def parse_regulatory_contract_sources(
                 raise ValueError("číselná hodnota vyžaduje třípísmennou měnu")
             published_at = _published_at(raw_date)
             url = public_https_reference(raw_url)
+            source_type = str(raw_source_type or "").strip().lower()
+            if source_priority_for(source_type) <= 0:
+                raise ValueError(
+                    "source type musí být regulatory_filing, audited_financial_statement, exchange_announcement, investor_relations, management_presentation nebo media_article"
+                )
+            source_authority = str(raw_source_authority or "").strip()
+            if source_authority.upper() in {"", "-", "N/A", "NONE"}:
+                source_authority = None
+            canonical_event_key = str(raw_canonical_key or "").strip()
+            if canonical_event_key.upper() in {"", "-", "N/A", "NONE"}:
+                canonical_event_key = None
         except (TypeError, ValueError) as exc:
             errors.append(f"Regulace/kontrakty řádek {line_number}: {exc}.")
             continue
@@ -211,6 +226,9 @@ def parse_regulatory_contract_sources(
             publisher.casefold(),
             published_at.isoformat(),
             url,
+            source_type,
+            source_authority,
+            canonical_event_key,
         )
         if key in seen:
             continue
@@ -227,6 +245,9 @@ def parse_regulatory_contract_sources(
                 publisher=publisher,
                 published_at=published_at,
                 url=url,
+                source_type=source_type,
+                source_authority=source_authority,
+                canonical_event_key=canonical_event_key,
             )
         )
     return tuple(sources), errors

@@ -279,6 +279,7 @@ class SourceHierarchyTests(unittest.TestCase):
                 published_at=NOW - timedelta(days=1),
                 document_id=document.document_id,
                 source_url=document.url or "",
+                legal_entity_id="legal:test",
                 confidence=1.0,
             )
             context = AgentContext(
@@ -306,6 +307,7 @@ class SourceHierarchyTests(unittest.TestCase):
             observed_at=NOW,
             published_at=NOW - timedelta(days=1),
             url="https://news.example/investigation",
+            legal_entity_id="legal:test",
         )
         exchange = DocumentRecord(
             document_id="exchange",
@@ -315,6 +317,7 @@ class SourceHierarchyTests(unittest.TestCase):
             observed_at=NOW,
             published_at=NOW - timedelta(days=1),
             url="https://live.euronext.com/investigation",
+            legal_entity_id="legal:test",
         )
 
         self.assertEqual("BUY", decision_for(media))

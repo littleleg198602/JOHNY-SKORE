@@ -21,7 +21,12 @@ class AgentRuntimeSettings:
     """Durable, non-secret switches and source manifests used by the UI/runner."""
 
     stage4_shadow_enabled: bool = True
+    identity_records_text: str = ""
     sec_fundamentals_enabled: bool = False
+    european_filings_enabled: bool = False
+    european_filing_sources_text: str = ""
+    european_filing_feeds_text: str = ""
+    european_allowed_hosts_text: str = ""
     financial_forensics_enabled: bool = True
     short_reports_enabled: bool = False
     auto_discover_short_reports: bool = True

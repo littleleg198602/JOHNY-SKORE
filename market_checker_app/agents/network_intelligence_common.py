@@ -69,6 +69,11 @@ def reference_document(
     content_verification_required: bool = False,
     support_terms: tuple[str, ...] = (),
     discovery_method: str = "manual",
+    source_authority: str | None = None,
+    legal_entity_id: str | None = None,
+    issuer_id: str | None = None,
+    instrument_id: str | None = None,
+    canonical_event_key: str | None = None,
 ) -> DocumentRecord:
     normalized_url = public_https_reference(url)
     final_url = public_https_reference(fetched.final_url) if fetched else normalized_url
@@ -102,6 +107,11 @@ def reference_document(
         ticker=ticker,
         source=publisher.strip(),
         source_type=source_type,
+        source_authority=source_authority,
+        legal_entity_id=legal_entity_id,
+        issuer_id=issuer_id,
+        instrument_id=instrument_id,
+        canonical_event_key=canonical_event_key,
         observed_at=observed_at,
         url=final_url,
         published_at=published_at,
@@ -121,6 +131,7 @@ def reference_document(
             "download_size_bytes": fetched.size_bytes if fetched else 0,
             "extractor": fetched.extractor if fetched else "",
             "truth_assessed": False,
+            "canonical_event_key": canonical_event_key,
             "scoring_applied": False,
         },
     )

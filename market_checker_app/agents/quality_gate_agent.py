@@ -20,6 +20,7 @@ from market_checker_app.agents.contracts import (
     CompanyRelationship,
     DecisionRecord,
     DocumentRecord,
+    DocumentSourceResolution,
     DocumentSourcePriority,
     GateDecision,
     GovernanceEvent,
@@ -37,6 +38,10 @@ from market_checker_app.agents.contracts import (
     ResourceExposureType,
     SignalActivationDecision,
     utc_now,
+)
+from market_checker_app.agents.source_policy import (
+    canonical_event_key_for,
+    document_precedence_key,
 )
 from market_checker_app.config import QualityGateConfig
 from market_checker_app.utils.text import normalize_ticker
@@ -742,7 +747,8 @@ class QualityGateAgent(BaseAgent):
         confidence: float,
         metadata: dict[str, Any],
         expected_agent_name: str,
-        expected_document_type: str,
+        expected_document_type: str | None,
+        expected_stage_record_type: str | None,
         label: str,
         now: datetime,
         as_of: datetime,
@@ -803,11 +809,25 @@ class QualityGateAgent(BaseAgent):
                     f"Zdrojový dokument pro {label} patří jinému tickeru.",
                 )
             )
-        if document.source_type != expected_document_type:
+        if (
+            expected_document_type is not None
+            and document.source_type != expected_document_type
+        ):
             rejects.append(
                 _issue(
                     "stage3_document_type_mismatch",
                     f"Zdrojový dokument pro {label} má neočekávaný typ.",
+                )
+            )
+        if (
+            expected_stage_record_type is not None
+            and document.metadata.get("stage_record_type")
+            != expected_stage_record_type
+        ):
+            rejects.append(
+                _issue(
+                    "stage3_record_type_mismatch",
+                    f"Zdrojový dokument pro {label} má neočekávaný doménový typ.",
                 )
             )
         if document.url != source_url:
@@ -944,6 +964,7 @@ class QualityGateAgent(BaseAgent):
             metadata=relationship.metadata,
             expected_agent_name="supply_chain",
             expected_document_type="supply_chain_reference",
+            expected_stage_record_type=None,
             label="Vazba firmy",
             now=now,
             as_of=as_of,
@@ -1004,6 +1025,7 @@ class QualityGateAgent(BaseAgent):
             metadata=exposure.metadata,
             expected_agent_name="commodity_energy",
             expected_document_type="commodity_energy_reference",
+            expected_stage_record_type=None,
             label="Expozice na zdroj",
             now=now,
             as_of=as_of,
@@ -1082,7 +1104,8 @@ class QualityGateAgent(BaseAgent):
             confidence=event.confidence,
             metadata=event.metadata,
             expected_agent_name="regulatory_contract",
-            expected_document_type="regulatory_contract_reference",
+            expected_document_type=None,
+            expected_stage_record_type="regulatory_contract_event",
             label="Regulační/kontraktní událost",
             now=now,
             as_of=as_of,
@@ -1100,6 +1123,26 @@ class QualityGateAgent(BaseAgent):
             label="Regulační/kontraktní událost",
             rejects=rejects,
         )
+        document = documents_by_id.get(event.document_id)
+        if document is not None:
+            if event.legal_entity_id != document.legal_entity_id:
+                rejects.append(
+                    _issue(
+                        "regulatory_legal_entity_mismatch",
+                        "Regulační událost neodpovídá právní identitě zdrojového dokumentu.",
+                    )
+                )
+            if (
+                int(document.source_priority or 0)
+                >= int(DocumentSourcePriority.EXCHANGE_ANNOUNCEMENT)
+                and not event.legal_entity_id
+            ):
+                rejects.append(
+                    _issue(
+                        "primary_regulatory_source_without_identity",
+                        "Primární regulační událost nemá právní identitu emitenta.",
+                    )
+                )
 
     def _check_decision(
         self,
@@ -1468,6 +1511,16 @@ class QualityGateAgent(BaseAgent):
             if isinstance(registered_entities, dict)
             else set()
         )
+        raw_identity_required = context.state.get("identity_required_tickers", [])
+        identity_required_tickers = {
+            normalize_ticker(value)
+            for value in (
+                raw_identity_required
+                if isinstance(raw_identity_required, (list, tuple, set))
+                else []
+            )
+            if normalize_ticker(value)
+        }
 
         evidence_id_counts = Counter(item.evidence_id for item in evidence)
         evidence_by_id = {item.evidence_id: item for item in evidence}
@@ -1495,6 +1548,141 @@ class QualityGateAgent(BaseAgent):
             if document.document_id
         }
         document_ids = set(documents_by_id)
+        source_resolution_rejects: dict[str, list[dict[str, str]]] = defaultdict(
+            list
+        )
+        raw_agent_results = context.state.get("agent_results")
+        source_resolution_result = (
+            raw_agent_results.get("source_resolution")
+            if isinstance(raw_agent_results, dict)
+            else None
+        )
+        if isinstance(source_resolution_result, AgentResult):
+            if source_resolution_result.status not in {
+                AgentStatus.SUCCESS,
+                AgentStatus.PARTIAL,
+            }:
+                for ticker in expected_tickers:
+                    source_resolution_rejects[ticker].append(
+                        _issue(
+                            "source_resolution_unavailable",
+                            "Globální resolver zdrojů neproběhl úspěšně.",
+                        )
+                    )
+            else:
+                source_resolutions = [
+                    item
+                    for item in source_resolution_result.document_source_resolutions
+                    if isinstance(item, DocumentSourceResolution)
+                ]
+                resolution_id_counts = Counter(
+                    item.resolution_id for item in source_resolutions
+                )
+                resolution_key_counts = Counter(
+                    item.canonical_event_key for item in source_resolutions
+                )
+                resolutions_by_key = {
+                    item.canonical_event_key: item for item in source_resolutions
+                }
+                canonical_documents: dict[str, list[DocumentRecord]] = defaultdict(
+                    list
+                )
+                for document in documents:
+                    canonical_key = canonical_event_key_for(document)
+                    if canonical_key:
+                        canonical_documents[canonical_key].append(document)
+
+                for resolution in source_resolutions:
+                    ticker = normalize_ticker(resolution.ticker)
+                    target_tickers = {ticker} if ticker else expected_tickers
+                    issues: list[dict[str, str]] = []
+                    if resolution_id_counts[resolution.resolution_id] != 1:
+                        issues.append(
+                            _issue(
+                                "duplicate_source_resolution_id",
+                                "Globální source resolution nemá unikátní ID.",
+                            )
+                        )
+                    if resolution_key_counts[resolution.canonical_event_key] != 1:
+                        issues.append(
+                            _issue(
+                                "duplicate_canonical_event_resolution",
+                                "Canonical event má více globálních source resolutions.",
+                            )
+                        )
+                    retained_documents = [
+                        documents_by_id[document_id]
+                        for document_id in resolution.retained_document_ids
+                        if document_id in documents_by_id
+                    ]
+                    if len(retained_documents) != len(
+                        resolution.retained_document_ids
+                    ):
+                        issues.append(
+                            _issue(
+                                "source_resolution_missing_document",
+                                "Source resolution odkazuje na chybějící dokument.",
+                            )
+                        )
+                    canonical_ids = {
+                        item.document_id
+                        for item in canonical_documents.get(
+                            resolution.canonical_event_key,
+                            [],
+                        )
+                    }
+                    if canonical_ids != set(resolution.retained_document_ids):
+                        issues.append(
+                            _issue(
+                                "source_resolution_incomplete_group",
+                                "Source resolution nezachovává přesně všechny dokumenty canonical eventu.",
+                            )
+                        )
+                    if retained_documents:
+                        expected_preferred = max(
+                            retained_documents,
+                            key=document_precedence_key,
+                        ).document_id
+                        if resolution.preferred_document_id != expected_preferred:
+                            issues.append(
+                                _issue(
+                                    "source_resolution_wrong_preference",
+                                    "Source resolution nevybral dokument podle uložené hierarchie zdrojů.",
+                                )
+                            )
+                    for document in retained_documents:
+                        if normalize_ticker(document.ticker) != ticker:
+                            issues.append(
+                                _issue(
+                                    "source_resolution_ticker_mismatch",
+                                    "Source resolution spojuje dokument jiného tickeru.",
+                                )
+                            )
+                        if (
+                            resolution.legal_entity_id
+                            and document.legal_entity_id
+                            and resolution.legal_entity_id
+                            != document.legal_entity_id
+                        ):
+                            issues.append(
+                                _issue(
+                                    "source_resolution_legal_entity_mismatch",
+                                    "Source resolution spojuje jinou právní entitu.",
+                                )
+                            )
+                    for target in target_tickers:
+                        source_resolution_rejects[target].extend(issues)
+
+                for canonical_key, grouped_documents in canonical_documents.items():
+                    if canonical_key in resolutions_by_key:
+                        continue
+                    for document in grouped_documents:
+                        source_resolution_rejects[document.ticker].append(
+                            _issue(
+                                "missing_source_resolution",
+                                f"Canonical event {canonical_key} nemá globální source resolution.",
+                            )
+                        )
         v21_by_ticker: dict[str, list[AgentSignal]] = defaultdict(list)
         all_signals_by_ticker: dict[str, list[AgentSignal]] = defaultdict(list)
         evidence_by_ticker: dict[str, list[AgentEvidence]] = defaultdict(list)
@@ -1551,7 +1739,7 @@ class QualityGateAgent(BaseAgent):
             | set(decisions_by_ticker)
         )
         for ticker in all_tickers:
-            rejects: list[dict[str, str]] = []
+            rejects = list(source_resolution_rejects.get(ticker, []))
             gate_warnings: list[dict[str, str]] = []
             ticker_signals = all_signals_by_ticker.get(ticker, [])
             ticker_evidence = evidence_by_ticker.get(ticker, [])
@@ -1591,6 +1779,18 @@ class QualityGateAgent(BaseAgent):
             legal_entity_id = (
                 entity.legal_entity_id if hasattr(entity, "legal_entity_id") else None
             )
+            instrument_id = (
+                entity.instrument_id if hasattr(entity, "instrument_id") else None
+            )
+            if ticker in identity_required_tickers and not (
+                legal_entity_id and instrument_id
+            ):
+                rejects.append(
+                    _issue(
+                        "unresolved_identity",
+                        "Ticker používá identity-dependent zdroj, ale nemá jednoznačnou právní entitu a instrument.",
+                    )
+                )
             for document in ticker_documents:
                 if document_id_counts[document.document_id] != 1:
                     rejects.append(
