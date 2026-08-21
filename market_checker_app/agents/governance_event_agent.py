@@ -345,7 +345,10 @@ class GovernanceEventAgent(BaseAgent):
         future_transactions = 0
 
         document_by_accession = {
-            str(document.metadata.get("accession_number")): document
+            (
+                str(document.ticker).strip().upper(),
+                str(document.metadata.get("accession_number")),
+            ): document
             for document in documents
             if document.metadata.get("accession_number")
         }
@@ -386,7 +389,9 @@ class GovernanceEventAgent(BaseAgent):
                     accession = str(
                         getattr(transaction, "accession_number", "") or ""
                     )
-                    document = document_by_accession.get(accession)
+                    document = document_by_accession.get(
+                        (str(ticker).strip().upper(), accession)
+                    )
                     if document is None:
                         warnings.append(
                             f"Governance {ticker}: Form 4 {accession} nemá DocumentRecord."

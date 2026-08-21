@@ -14,6 +14,7 @@ from market_checker_app.agents import (
     PredictionV21AdapterAgent,
     QualityGateAgent,
     SecFundamentalsAgent,
+    SourceResolutionAgent,
 )
 from market_checker_app.collectors.sec_edgar_client import (
     SEC_COMPANYFACTS_URL,
@@ -178,6 +179,21 @@ class _FakeBundleClient:
         return _bundle() if ticker == "AAPL" else None
 
 
+class _SameIssuerShareClassClient:
+    def fetch_company_bundle(self, ticker: str, **_: object) -> SecCompanyBundle:
+        base = _bundle()
+        return SecCompanyBundle(
+            company=SecCompany(
+                ticker=ticker,
+                cik="0001652044",
+                name="Alphabet Inc.",
+                exchange="Nasdaq",
+            ),
+            filings=base.filings,
+            facts=base.facts,
+        )
+
+
 def _signals() -> pd.DataFrame:
     return pd.DataFrame(
         [
@@ -306,6 +322,41 @@ class SecEdgarClientTests(unittest.TestCase):
 
 
 class StageTwoAcceptanceTests(unittest.TestCase):
+    def test_same_issuer_share_classes_keep_instrument_scoped_records(self) -> None:
+        config = FundamentalIngestionConfig(
+            enabled=True,
+            user_agent="JohnySkoreTests tests@example.com",
+        )
+        orchestrator = OrchestratorAgent(shadow_mode=True)
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(
+            SecFundamentalsAgent(config, client=_SameIssuerShareClassClient())
+        )
+        orchestrator.register(
+            SourceResolutionAgent(dependencies=("entity_registry", "f2_sec"))
+        )
+
+        report = orchestrator.run(watchlist=["GOOGL", "GOOG"])
+
+        self.assertEqual(AgentStatus.SUCCESS, report.status)
+        self.assertEqual(2, len(report.documents))
+        self.assertEqual(2, len({item.document_id for item in report.documents}))
+        self.assertEqual(2, len({item.fact_id for item in report.fundamental_facts}))
+        self.assertEqual(2, len(report.document_source_resolutions))
+        self.assertEqual(
+            {"ticker:GOOGL", "ticker:GOOG"},
+            {item.instrument_id for item in report.documents},
+        )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = SQLiteStore(Path(tmp) / "same-issuer.db")
+            store.save_orchestration_report(report)
+            with store._connect() as connection:
+                self.assertEqual(
+                    2,
+                    connection.execute("SELECT COUNT(*) FROM documents").fetchone()[0],
+                )
+
     def test_sec_agent_passes_quality_gate_without_changing_prediction(self) -> None:
         client = _FakeBundleClient()
         report = _run_acceptance(client)

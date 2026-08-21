@@ -8,6 +8,7 @@ from market_checker_app.collectors.sec_edgar_client import (
     SEC_SUBMISSIONS_URL,
     SEC_TICKER_MAP_URL,
     SecEdgarClient,
+    SecEdgarError,
 )
 from market_checker_app.config import FundamentalIngestionConfig
 
@@ -188,6 +189,51 @@ class ExtendedSecFilingTests(unittest.TestCase):
         )
 
         self.assertEqual(("4.01", "4.02"), filings[0].items)
+
+    def test_form4_uses_raw_xml_instead_of_xsl_rendering_path(self) -> None:
+        payload = {
+            "filings": {
+                "recent": {
+                    **_submission_table(["4"]),
+                    "primaryDocument": ["xslF345X06/ownership.xml"],
+                }
+            }
+        }
+
+        filing = SecEdgarClient._parse_filings(
+            payload,
+            cik=CIK,
+            allowed_forms=("4",),
+            limit=1,
+        )[0]
+
+        self.assertTrue(filing.filing_url.endswith("/ownership.xml"))
+        self.assertNotIn("xslF345", filing.filing_url)
+        self.assertEqual("xslF345X06/ownership.xml", filing.primary_document)
+
+    def test_duplicate_accession_is_deduplicated_or_rejected_on_conflict(self) -> None:
+        table = _submission_table(["10-Q"])
+        duplicated = {
+            key: list(value) + list(value)
+            for key, value in table.items()
+        }
+        filings = SecEdgarClient._parse_filings(
+            {"filings": {"recent": duplicated}},
+            cik=CIK,
+            allowed_forms=("10-Q",),
+            limit=5,
+        )
+        self.assertEqual(1, len(filings))
+
+        conflicting = dict(duplicated)
+        conflicting["primaryDocument"] = ["one.htm", "two.htm"]
+        with self.assertRaisesRegex(SecEdgarError, "konfliktní duplicitní accession"):
+            SecEdgarClient._parse_filings(
+                {"filings": {"recent": conflicting}},
+                cik=CIK,
+                allowed_forms=("10-Q",),
+                limit=5,
+            )
 
 
 if __name__ == "__main__":
