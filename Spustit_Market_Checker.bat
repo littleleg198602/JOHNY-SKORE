@@ -26,7 +26,7 @@ if exist "%APP_DIR%\.venv\Scripts\python.exe" (
 echo [INFO] Pouzivam Python: %PYTHON_EXE%
 
 echo [INFO] Kontroluji zavislosti...
-%PYTHON_EXE% -m pip install -r "%APP_DIR%\requirements.txt"
+%PYTHON_EXE% -m pip install -r "%APP_DIR%\requirements.txt" -c "%APP_DIR%\constraints.txt"
 if errorlevel 1 (
   echo.
   echo [CHYBA] Instalace zavislosti selhala. Aplikaci nespoustim.

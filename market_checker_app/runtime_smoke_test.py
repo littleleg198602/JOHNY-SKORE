@@ -6,7 +6,11 @@ from pathlib import Path
 
 import pandas as pd
 
-from market_checker_app.config import AppConfig
+from market_checker_app.config import (
+    AppConfig,
+    DecisionAgentConfig,
+    EvaluationAgentConfig,
+)
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
 from market_checker_app.exporters.excel_exporter import ExcelExporter
 from market_checker_app.services.evaluation_service import EvaluationService
@@ -30,6 +34,15 @@ def run_smoke_test(tickers: list[str], runs: int, output_dir: Path) -> dict[str,
         save_history=True,
         export_excel=True,
         compare_previous_run=True,
+        agent_shadow_mode=True,
+        decision_agent=DecisionAgentConfig(
+            enabled=True,
+            live_application_enabled=False,
+        ),
+        evaluation_agent=EvaluationAgentConfig(
+            enabled=True,
+            enable_after_gate=False,
+        ),
     )
     store = SQLiteStore(config.sqlite_path)
     pipeline = PipelineService(config)
@@ -53,6 +66,20 @@ def run_smoke_test(tickers: list[str], runs: int, output_dir: Path) -> dict[str,
         signals = result["signals"]
         if not isinstance(signals, pd.DataFrame) or signals.empty:
             raise RuntimeError("Pipeline returned empty signals dataframe.")
+        if result.get("agent_status") != "SUCCESS":
+            raise RuntimeError(
+                f"Agent pipeline status is {result.get('agent_status')}."
+            )
+        if result.get("quality_gate_decision") != "PASS":
+            raise RuntimeError(
+                f"QualityGate status is {result.get('quality_gate_decision')}."
+            )
+        if int(result.get("decision_count") or 0) != len(signals):
+            raise RuntimeError(
+                "DecisionAgent did not create exactly one shadow decision per ticker."
+            )
+        if int(result.get("decision_applied_count") or 0) != 0:
+            raise RuntimeError("Shadow smoke unexpectedly changed a prediction.")
 
         _require_columns(
             signals,
@@ -97,6 +124,20 @@ def run_smoke_test(tickers: list[str], runs: int, output_dir: Path) -> dict[str,
     history = store.read_global_history()
     if history.empty:
         raise RuntimeError("Global history is empty after smoke runs.")
+    decisions = store.read_decision_records()
+    evaluations = store.read_policy_evaluations()
+    activations = store.read_signal_activation_decisions()
+    if len(decisions) != runs * len(tickers):
+        raise RuntimeError("SQLite does not contain every Stage 4 shadow decision.")
+    if len(evaluations) != runs or len(activations) != runs:
+        raise RuntimeError("SQLite does not contain every Stage 4 evaluation/activation.")
+    if set(activations["state"]) - {
+        "INSUFFICIENT_DATA",
+        "REJECTED",
+        "SHADOW",
+        "ELIGIBLE",
+    }:
+        raise RuntimeError("Smoke run produced an unauthorized Stage 4 state.")
 
     eval_frames = EvaluationService().evaluate_snapshots(history)
     expected_eval_keys = {
@@ -165,6 +206,10 @@ def run_smoke_test(tickers: list[str], runs: int, output_dir: Path) -> dict[str,
         "tickers": tickers,
         "signals_rows": len(signals),
         "history_rows": len(history),
+        "stage4_decision_rows": len(decisions),
+        "stage4_evaluation_rows": len(evaluations),
+        "stage4_activation_rows": len(activations),
+        "stage4_activation_state": last_result.get("activation_state"),
         "excel_path": str(excel_path),
         "tech_source_distribution": tech_source_distribution,
         "evaluation_non_empty": [k for k, v in eval_frames.items() if isinstance(v, pd.DataFrame) and not v.empty],

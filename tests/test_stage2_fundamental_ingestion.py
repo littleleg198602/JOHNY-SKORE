@@ -211,6 +211,12 @@ def _run_acceptance(client: _FakeBundleClient):
 
 
 class SecEdgarClientTests(unittest.TestCase):
+    def test_default_forms_cover_us_and_foreign_private_issuers(self) -> None:
+        forms = FundamentalIngestionConfig().forms
+
+        self.assertTrue({"10-K", "10-Q", "8-K"}.issubset(forms))
+        self.assertTrue({"20-F", "6-K", "40-F"}.issubset(forms))
+
     def test_official_payloads_are_normalized_without_live_network(self) -> None:
         clock = _FakeClock()
         calls: list[tuple[str, dict[str, str]]] = []
@@ -345,8 +351,8 @@ class StageTwoAcceptanceTests(unittest.TestCase):
             self.assertEqual(2, document_observations)
             self.assertEqual(2, fact_observations)
 
-    def test_missing_user_agent_is_audited_without_network_call(self) -> None:
-        config = FundamentalIngestionConfig(enabled=True, user_agent="")
+    def test_missing_contact_in_user_agent_is_audited_without_network_call(self) -> None:
+        config = FundamentalIngestionConfig(enabled=True, user_agent="JohnySkore")
         orchestrator = OrchestratorAgent()
         orchestrator.register(EntityRegistryAgent())
         orchestrator.register(SecFundamentalsAgent(config))

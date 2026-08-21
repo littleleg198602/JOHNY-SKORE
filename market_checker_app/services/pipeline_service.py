@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from datetime import datetime, timezone
 import time
 from typing import Callable
@@ -47,6 +47,7 @@ from market_checker_app.collectors.yahoo_client import YahooClient
 from market_checker_app.config import AppConfig
 from market_checker_app.models import (
     AnalysisProgressState,
+    NewsItem,
     PerformanceSnapshot,
     RunMetadata,
     YahooAnalysisResult,
@@ -57,6 +58,7 @@ from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.stage4_evaluation_service import (
     Stage4EvaluationService,
 )
+from market_checker_app.services.source_discovery_service import SourceDiscoveryService
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 from market_checker_app.utils.dates import utc_now
@@ -74,16 +76,66 @@ class PipelineService:
         self.yahoo_cache = YahooCacheStore(config.sqlite_path)
         self.sec_client = None
         self.short_report_client = None
+        self.stage3_source_client = None
 
     def _run_agents(
         self,
         watchlist: list[str],
         signals: pd.DataFrame,
         store: SQLiteStore | None = None,
+        news_items: list[NewsItem] | None = None,
     ) -> OrchestrationReport:
+        discovered = SourceDiscoveryService().discover(
+            list(news_items or []),
+            as_of=utc_now(),
+            discover_short_reports=self.config.short_reports.auto_discover_from_news,
+            discover_regulatory_events=(
+                self.config.regulatory_contract.auto_discover_from_news
+            ),
+            max_short_reports=self.config.short_reports.max_auto_discovered_reports,
+            max_regulatory_events=(
+                self.config.regulatory_contract.max_auto_discovered_events
+            ),
+        )
+
+        def merge_sources(manual: tuple[object, ...], automatic: tuple[object, ...]) -> tuple[object, ...]:
+            merged: list[object] = []
+            seen: set[tuple[str, str, str]] = set()
+            for source in manual + automatic:
+                key = (
+                    str(getattr(source, "ticker", "")).strip().upper(),
+                    str(getattr(source, "url", "")).strip(),
+                    str(getattr(source, "published_at", "")),
+                )
+                if key in seen:
+                    continue
+                seen.add(key)
+                merged.append(source)
+            return tuple(merged)
+
+        short_report_sources = merge_sources(
+            tuple(self.config.short_reports.sources),
+            tuple(discovered.short_reports),
+        )
+        regulatory_sources = merge_sources(
+            tuple(self.config.regulatory_contract.sources),
+            tuple(discovered.regulatory_events),
+        )
+        short_report_config = replace(
+            self.config.short_reports,
+            enabled=bool(self.config.short_reports.enabled or short_report_sources),
+            sources=short_report_sources,
+        )
+        regulatory_contract_config = replace(
+            self.config.regulatory_contract,
+            enabled=bool(self.config.regulatory_contract.enabled or regulatory_sources),
+            sources=regulatory_sources,
+        )
         agent_state: dict[str, object] = {
             "signals": signals,
             "stage4_evaluation_enabled": self.config.evaluation_agent.enabled,
+            "auto_discovered_short_reports": len(discovered.short_reports),
+            "auto_discovered_regulatory_events": len(discovered.regulatory_events),
         }
         if self.config.decision_agent.enabled:
             stage4_service = Stage4EvaluationService()
@@ -150,10 +202,10 @@ class PipelineService:
                 orchestrator.register(
                     FinancialForensicsAgent(self.config.financial_forensics)
                 )
-        if self.config.short_reports.enabled:
+        if short_report_config.enabled:
             orchestrator.register(
                 ShortReportAgent(
-                    self.config.short_reports,
+                    short_report_config,
                     client=self.short_report_client,
                 )
             )
@@ -166,14 +218,41 @@ class PipelineService:
                     ClaimVerificationAgent(self.config.claim_verification)
                 )
         if self.config.supply_chain.enabled:
-            orchestrator.register(SupplyChainAgent(self.config.supply_chain))
+            orchestrator.register(
+                SupplyChainAgent(
+                    self.config.supply_chain,
+                    client=self.stage3_source_client,
+                    dependencies=(
+                        ("entity_registry", "f2_sec")
+                        if (
+                            self.config.fundamental_ingestion.enabled
+                            and self.config.supply_chain.auto_discover_from_sec_filings
+                        )
+                        else ("entity_registry",)
+                    ),
+                )
+            )
         if self.config.commodity_energy.enabled:
             orchestrator.register(
-                CommodityEnergyAgent(self.config.commodity_energy)
+                CommodityEnergyAgent(
+                    self.config.commodity_energy,
+                    client=self.stage3_source_client,
+                    dependencies=(
+                        ("entity_registry", "f2_sec")
+                        if (
+                            self.config.fundamental_ingestion.enabled
+                            and self.config.commodity_energy.auto_discover_from_sec_filings
+                        )
+                        else ("entity_registry",)
+                    ),
+                )
             )
-        if self.config.regulatory_contract.enabled:
+        if regulatory_contract_config.enabled:
             orchestrator.register(
-                RegulatoryContractAgent(self.config.regulatory_contract)
+                RegulatoryContractAgent(
+                    regulatory_contract_config,
+                    client=self.stage3_source_client,
+                )
             )
         orchestrator.register(PredictionV21AdapterAgent())
         if self.config.decision_agent.enabled:
@@ -216,10 +295,17 @@ class PipelineService:
                 stage4_live_policy_allowlist=stage4_policy_allowlist,
             )
         )
-        return orchestrator.run(
+        report = orchestrator.run(
             watchlist=watchlist,
             state=agent_state,
         )
+        report.metadata.update(
+            {
+                "auto_discovered_short_reports": len(discovered.short_reports),
+                "auto_discovered_regulatory_events": len(discovered.regulatory_events),
+            }
+        )
+        return report
 
     @staticmethod
     def _apply_stage4_decisions(
@@ -779,6 +865,19 @@ class PipelineService:
         evaluation_lift_pct_points: float | None = None
         evaluation_lift_lower_bound_pct_points: float | None = None
         evaluation_coverage_pct: float | None = None
+        evaluation_baseline_accuracy_pct: float | None = None
+        evaluation_candidate_accuracy_pct: float | None = None
+        evaluation_positive_week_ratio: float | None = None
+        evaluation_gate_passed = False
+        evaluation_gate_results: dict[str, bool] = {}
+        evaluation_consecutive_passes = 0
+        evaluation_required_consecutive_passes = 0
+        evaluation_activation_reasons: list[str] = []
+        live_application_authorized = False
+        fundamental_filing_text_document_count = 0
+        fundamental_filing_text_failure_count = 0
+        auto_discovered_supply_chain_relationships = 0
+        auto_discovered_commodity_energy_exposures = 0
         if self.config.agent_stage1_enabled:
             progress.set_global_step(
                 "agent_pipeline",
@@ -786,7 +885,12 @@ class PipelineService:
                 0.97,
             )
             try:
-                agent_report = self._run_agents(watchlist, signals_df, store)
+                agent_report = self._run_agents(
+                    watchlist,
+                    signals_df,
+                    store,
+                    news_items=articles,
+                )
             except Exception as exc:
                 warnings.append(
                     f"Agentní pipeline se nespustila: {type(exc).__name__}: {exc}"
@@ -802,6 +906,18 @@ class PipelineService:
                         fundamental_document_count = len(execution.result.documents)
                         fundamental_fact_count = len(
                             execution.result.fundamental_facts
+                        )
+                        fundamental_filing_text_document_count = int(
+                            execution.result.metadata.get(
+                                "filing_text_documents",
+                                0,
+                            )
+                        )
+                        fundamental_filing_text_failure_count = int(
+                            execution.result.metadata.get(
+                                "filing_text_failures",
+                                0,
+                            )
                         )
                     elif execution.agent_name == "financial_forensics":
                         financial_forensics_status = execution.status.value
@@ -836,10 +952,22 @@ class PipelineService:
                         supply_chain_relationship_count = len(
                             execution.result.company_relationships
                         )
+                        auto_discovered_supply_chain_relationships = int(
+                            execution.result.metadata.get(
+                                "auto_discovered_relationships",
+                                0,
+                            )
+                        )
                     elif execution.agent_name == "commodity_energy":
                         commodity_energy_status = execution.status.value
                         commodity_energy_exposure_count = len(
                             execution.result.resource_exposures
+                        )
+                        auto_discovered_commodity_energy_exposures = int(
+                            execution.result.metadata.get(
+                                "auto_discovered_exposures",
+                                0,
+                            )
                         )
                     elif execution.agent_name == "regulatory_contract":
                         regulatory_contract_status = execution.status.value
@@ -870,6 +998,12 @@ class PipelineService:
                             evaluation = execution.result.policy_evaluations[0]
                             evaluation_sample_count = evaluation.sample_count
                             evaluation_distinct_weeks = evaluation.distinct_weeks
+                            evaluation_baseline_accuracy_pct = (
+                                evaluation.baseline_accuracy_pct
+                            )
+                            evaluation_candidate_accuracy_pct = (
+                                evaluation.candidate_accuracy_pct
+                            )
                             evaluation_lift_pct_points = (
                                 evaluation.lift_pct_points
                             )
@@ -877,6 +1011,33 @@ class PipelineService:
                                 evaluation.lift_lower_bound_pct_points
                             )
                             evaluation_coverage_pct = evaluation.coverage_pct
+                            evaluation_positive_week_ratio = float(
+                                evaluation.metadata.get(
+                                    "positive_week_ratio",
+                                    0.0,
+                                )
+                            )
+                            evaluation_gate_passed = evaluation.gate_passed
+                            evaluation_gate_results = dict(
+                                evaluation.gate_results
+                            )
+                        if execution.result.activation_decisions:
+                            activation = execution.result.activation_decisions[0]
+                            evaluation_consecutive_passes = (
+                                activation.consecutive_passes
+                            )
+                            evaluation_required_consecutive_passes = int(
+                                activation.metadata.get(
+                                    "required_consecutive_passes",
+                                    0,
+                                )
+                            )
+                            evaluation_activation_reasons = list(
+                                activation.reasons
+                            )
+                            live_application_authorized = (
+                                activation.live_application_authorized
+                            )
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
                         for warning in execution.result.warnings
@@ -959,6 +1120,12 @@ class PipelineService:
             "fundamental_ingestion_status": fundamental_ingestion_status,
             "fundamental_document_count": fundamental_document_count,
             "fundamental_fact_count": fundamental_fact_count,
+            "fundamental_filing_text_document_count": (
+                fundamental_filing_text_document_count
+            ),
+            "fundamental_filing_text_failure_count": (
+                fundamental_filing_text_failure_count
+            ),
             "financial_forensics_status": financial_forensics_status,
             "financial_forensics_evidence_count": financial_forensics_evidence_count,
             "financial_forensics_high_findings": financial_forensics_high_findings,
@@ -974,8 +1141,14 @@ class PipelineService:
             "claim_insufficient_count": claim_insufficient_count,
             "supply_chain_status": supply_chain_status,
             "supply_chain_relationship_count": supply_chain_relationship_count,
+            "auto_discovered_supply_chain_relationships": (
+                auto_discovered_supply_chain_relationships
+            ),
             "commodity_energy_status": commodity_energy_status,
             "commodity_energy_exposure_count": commodity_energy_exposure_count,
+            "auto_discovered_commodity_energy_exposures": (
+                auto_discovered_commodity_energy_exposures
+            ),
             "regulatory_contract_status": regulatory_contract_status,
             "regulatory_contract_event_count": regulatory_contract_event_count,
             "decision_agent_status": decision_agent_status,
@@ -986,11 +1159,36 @@ class PipelineService:
             "activation_state": activation_state,
             "evaluation_sample_count": evaluation_sample_count,
             "evaluation_distinct_weeks": evaluation_distinct_weeks,
+            "evaluation_baseline_accuracy_pct": (
+                evaluation_baseline_accuracy_pct
+            ),
+            "evaluation_candidate_accuracy_pct": (
+                evaluation_candidate_accuracy_pct
+            ),
             "evaluation_lift_pct_points": evaluation_lift_pct_points,
             "evaluation_lift_lower_bound_pct_points": (
                 evaluation_lift_lower_bound_pct_points
             ),
             "evaluation_coverage_pct": evaluation_coverage_pct,
+            "evaluation_positive_week_ratio": evaluation_positive_week_ratio,
+            "evaluation_gate_passed": evaluation_gate_passed,
+            "evaluation_gate_results": evaluation_gate_results,
+            "evaluation_consecutive_passes": evaluation_consecutive_passes,
+            "evaluation_required_consecutive_passes": (
+                evaluation_required_consecutive_passes
+            ),
+            "evaluation_activation_reasons": evaluation_activation_reasons,
+            "live_application_authorized": live_application_authorized,
+            "auto_discovered_short_reports": (
+                int(agent_report.metadata.get("auto_discovered_short_reports", 0))
+                if agent_report
+                else 0
+            ),
+            "auto_discovered_regulatory_events": (
+                int(agent_report.metadata.get("auto_discovered_regulatory_events", 0))
+                if agent_report
+                else 0
+            ),
             "agent_report": agent_report,
             "progress_state": progress.snapshot(),
         }

@@ -16,6 +16,7 @@ class StreamlitUISmokeTests(unittest.TestCase):
         self.assertIn("Načíst watchlist z MT5", labels)
         self.assertIn("Doplnit Yahoo cache", labels)
         self.assertIn("Spustit analýzu", labels)
+        self.assertIn("Uložit nastavení agentů", labels)
         number_labels = [field.label for field in app.number_input]
         self.assertIn("Yahoo tickerů v jedné automatické dávce", number_labels)
         checkbox_labels = [field.label for field in app.checkbox]
@@ -26,6 +27,10 @@ class StreamlitUISmokeTests(unittest.TestCase):
         )
         self.assertIn("Načíst short reporty (Etapa 2)", checkbox_labels)
         self.assertIn(
+            "Automaticky hledat short reporty v RSS",
+            checkbox_labels,
+        )
+        self.assertIn(
             "Ověřit tvrzení reportů proti SEC datům",
             checkbox_labels,
         )
@@ -34,7 +39,15 @@ class StreamlitUISmokeTests(unittest.TestCase):
             checkbox_labels,
         )
         self.assertIn(
+            "Automaticky hledat koncentrace dodavatelů a zákazníků v SEC 10-K",
+            checkbox_labels,
+        )
+        self.assertIn(
             "Načíst expozice na materiály a energie (Etapa 3)",
+            checkbox_labels,
+        )
+        self.assertIn(
+            "Automaticky hledat materiály a energie v SEC 10-K",
             checkbox_labels,
         )
         self.assertIn(
@@ -42,9 +55,20 @@ class StreamlitUISmokeTests(unittest.TestCase):
             checkbox_labels,
         )
         self.assertIn(
+            "Automaticky hledat regulační a kontraktní události v RSS",
+            checkbox_labels,
+        )
+        self.assertIn(
             "Spustit DecisionAgent a OOS evaluaci (Etapa 4, shadow)",
             checkbox_labels,
         )
+        stage4 = next(
+            field
+            for field in app.checkbox
+            if field.label
+            == "Spustit DecisionAgent a OOS evaluaci (Etapa 4, shadow)"
+        )
+        self.assertTrue(stage4.value)
         text_labels = [field.label for field in app.text_input]
         self.assertIn(
             "SEC User-Agent (aplikace + kontaktní e-mail)",

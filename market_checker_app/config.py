@@ -105,9 +105,9 @@ class QualityGateConfig:
 
 @dataclass(slots=True)
 class DecisionAgentConfig:
-    """Conservative Stage 4 overlay; disabled and shadow-only by default."""
+    """Conservative Stage 4 overlay; collected in shadow mode by default."""
 
-    enabled: bool = False
+    enabled: bool = True
     policy_name: str = "conservative_risk_overlay"
     policy_version: str = "1.0"
     suppression_score_threshold: float = 3.0
@@ -141,11 +141,12 @@ class DecisionAgentConfig:
 class EvaluationAgentConfig:
     """Out-of-sample evidence required before a Stage 4 policy can be enabled."""
 
-    enabled: bool = False
+    enabled: bool = True
     minimum_oos_samples: int = 200
-    minimum_distinct_weeks: int = 8
+    minimum_distinct_weeks: int = 12
     minimum_lift_pct_points: float = 2.0
     minimum_lift_lower_bound_pct_points: float = 0.0
+    minimum_positive_week_ratio: float = 0.60
     minimum_coverage_pct: float = 35.0
     maximum_false_positive_increase_pct_points: float = 0.0
     maximum_brier_increase: float = 0.0
@@ -166,6 +167,8 @@ class EvaluationAgentConfig:
             raise ValueError("required_consecutive_passes must be at least 1")
         if not 0.0 <= self.minimum_coverage_pct <= 100.0:
             raise ValueError("minimum_coverage_pct must be between 0 and 100")
+        if not 0.0 <= self.minimum_positive_week_ratio <= 1.0:
+            raise ValueError("minimum_positive_week_ratio must be between 0 and 1")
         if self.hold_tolerance_pct < 0.0:
             raise ValueError("hold_tolerance_pct must not be negative")
         if (
@@ -195,15 +198,27 @@ class FundamentalIngestionConfig:
 
     enabled: bool = False
     user_agent: str = ""
-    forms: tuple[str, ...] = ("10-K", "10-Q", "8-K")
+    forms: tuple[str, ...] = (
+        "10-K",
+        "10-Q",
+        "8-K",
+        "20-F",
+        "6-K",
+        "40-F",
+    )
     max_filings_per_ticker: int = 6
     max_facts_per_concept: int = 4
+    extract_latest_10k_text: bool = True
+    max_text_filings_per_ticker: int = 1
+    max_filing_download_bytes: int = 20_000_000
+    max_filing_text_characters: int = 750_000
     request_timeout_seconds: float = 20.0
     min_request_interval_seconds: float = 0.125
     fact_concepts: tuple[str, ...] = (
         "RevenueFromContractWithCustomerExcludingAssessedTax",
         "SalesRevenueNet",
         "Revenues",
+        "Revenue",
         "NetIncomeLoss",
         "ProfitLoss",
         "OperatingIncomeLoss",
@@ -214,10 +229,12 @@ class FundamentalIngestionConfig:
         "LiabilitiesCurrent",
         "StockholdersEquity",
         "CashAndCashEquivalentsAtCarryingValue",
+        "CashAndCashEquivalents",
         "NetCashProvidedByUsedInOperatingActivities",
         "CashFlowsFromUsedInOperatingActivities",
         "PaymentsToAcquirePropertyPlantAndEquipment",
         "PurchaseOfPropertyPlantAndEquipment",
+        "PropertyPlantAndEquipment",
         "LongTermDebtCurrent",
         "LongTermDebtNoncurrent",
         "LongTermDebt",
@@ -255,6 +272,7 @@ class ShortReportSourceConfig:
     publisher: str
     published_at: datetime
     url: str
+    discovery_method: str = "manual"
 
 
 @dataclass(slots=True)
@@ -263,12 +281,18 @@ class ShortReportConfig:
 
     enabled: bool = False
     sources: tuple[ShortReportSourceConfig, ...] = ()
+    auto_discover_from_news: bool = True
+    max_auto_discovered_reports: int = 10
     user_agent: str = "JohnySkore/2.1 short-report-audit"
     request_timeout_seconds: float = 20.0
     max_download_bytes: int = 8_000_000
     max_text_characters: int = 500_000
     max_claims_per_report: int = 25
     minimum_claim_characters: int = 40
+
+    def __post_init__(self) -> None:
+        if self.max_auto_discovered_reports < 0:
+            raise ValueError("max_auto_discovered_reports must not be negative")
 
 
 @dataclass(slots=True)
@@ -299,11 +323,38 @@ class SupplyChainSourceConfig:
 
 
 @dataclass(slots=True)
+class Stage3SourceVerificationConfig:
+    """Safe content attestation for Stage 3 public source references."""
+
+    enabled: bool = False
+    user_agent: str = "JohnySkore/2.1 stage3-source-audit"
+    request_timeout_seconds: float = 20.0
+    max_download_bytes: int = 8_000_000
+    max_text_characters: int = 500_000
+
+    def __post_init__(self) -> None:
+        if (
+            not math.isfinite(float(self.request_timeout_seconds))
+            or self.request_timeout_seconds <= 0.0
+        ):
+            raise ValueError("request_timeout_seconds must be positive")
+        if self.max_download_bytes < 1_024:
+            raise ValueError("max_download_bytes must be at least 1024")
+        if self.max_text_characters < 1_000:
+            raise ValueError("max_text_characters must be at least 1000")
+
+
+@dataclass(slots=True)
 class SupplyChainConfig:
-    """Shadow-only ingestion of explicit supplier and customer relationships."""
+    """Shadow-only supplier/customer intelligence with SEC 10-K discovery."""
 
     enabled: bool = False
     sources: tuple[SupplyChainSourceConfig, ...] = ()
+    auto_discover_from_sec_filings: bool = True
+    max_auto_discovered_relationships_per_filing: int = 6
+    source_verification: Stage3SourceVerificationConfig = field(
+        default_factory=Stage3SourceVerificationConfig
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -322,10 +373,15 @@ class CommodityEnergySourceConfig:
 
 @dataclass(slots=True)
 class CommodityEnergyConfig:
-    """Shadow-only ingestion of explicit commodity and energy exposures."""
+    """Shadow-only material/energy intelligence with SEC 10-K discovery."""
 
     enabled: bool = False
     sources: tuple[CommodityEnergySourceConfig, ...] = ()
+    auto_discover_from_sec_filings: bool = True
+    max_auto_discovered_exposures_per_filing: int = 12
+    source_verification: Stage3SourceVerificationConfig = field(
+        default_factory=Stage3SourceVerificationConfig
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -343,6 +399,7 @@ class RegulatoryContractSourceConfig:
     event_value: float | None = None
     currency: str | None = None
     confidence: float = 1.0
+    discovery_method: str = "manual"
 
 
 @dataclass(slots=True)
@@ -351,6 +408,15 @@ class RegulatoryContractConfig:
 
     enabled: bool = False
     sources: tuple[RegulatoryContractSourceConfig, ...] = ()
+    auto_discover_from_news: bool = True
+    max_auto_discovered_events: int = 20
+    source_verification: Stage3SourceVerificationConfig = field(
+        default_factory=Stage3SourceVerificationConfig
+    )
+
+    def __post_init__(self) -> None:
+        if self.max_auto_discovered_events < 0:
+            raise ValueError("max_auto_discovered_events must not be negative")
 
 
 @dataclass(slots=True)

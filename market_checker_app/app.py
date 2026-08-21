@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
 from pathlib import Path
 import os
 import re
 import sys
-from urllib.parse import urlparse
 
 CURRENT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = CURRENT_DIR.parent
@@ -33,8 +31,8 @@ from market_checker_app.config import (
     EvaluationAgentConfig,
     RegulatoryContractConfig,
     ShortReportConfig,
-    ShortReportSourceConfig,
     SignalThresholds,
+    Stage3SourceVerificationConfig,
     SupplyChainConfig,
 )
 from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
@@ -42,6 +40,10 @@ from market_checker_app.exporters.delta_builder import prepare_delta_for_excel
 from market_checker_app.exporters.excel_exporter import ExcelExporter
 from market_checker_app.models import AnalysisProgressState
 from market_checker_app.services.comparison_service import ComparisonService
+from market_checker_app.services.agent_runtime_service import (
+    AgentRuntimeService,
+    AgentRuntimeSettings,
+)
 from market_checker_app.services.evaluation_service import EvaluationService
 from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
@@ -50,6 +52,9 @@ from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
     parse_regulatory_contract_sources,
     parse_supply_chain_sources,
+)
+from market_checker_app.services.short_report_manifest_service import (
+    parse_short_report_sources,
 )
 from market_checker_app.services.visualization_service import VisualizationService
 from market_checker_app.services.yahoo_enrichment_service import YahooEnrichmentService
@@ -63,13 +68,13 @@ from market_checker_app.utils.charts import (
     signal_bar_chart,
     top_bottom_bar_chart,
 )
-from market_checker_app.utils.text import normalize_ticker
 
 
 MAX_PREVIEW_ROWS = 500
 DEFAULT_NEWS_SOURCES_TEXT = "\n".join(
     [
         "https://news.google.com/rss/search?q={ticker}%20stock&hl=en-US&gl=US&ceid=US:en",
+        "https://muddywatersresearch.com/feed/",
         "https://www.nasdaq.com/feed/rssoutbound",
         "https://www.marketscreener.com/rss/news/",
         "https://www.investing.com/rss/news.rss",
@@ -89,65 +94,6 @@ def _parse_json_list(value: object) -> list[str]:
         except json.JSONDecodeError:
             return [value]
     return []
-
-
-def _parse_short_report_sources(
-    value: str,
-) -> tuple[tuple[ShortReportSourceConfig, ...], list[str]]:
-    """Parse explicit report manifests without discovering or fetching sources."""
-
-    sources: list[ShortReportSourceConfig] = []
-    errors: list[str] = []
-    seen: set[tuple[str, str, str]] = set()
-    for line_number, raw_line in enumerate(str(value or "").splitlines(), start=1):
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
-            continue
-        parts = [part.strip() for part in line.split("|", 3)]
-        if len(parts) != 4:
-            errors.append(
-                f"Short report řádek {line_number}: očekávám TICKER | vydavatel | datum | HTTPS URL."
-            )
-            continue
-        raw_ticker, publisher, raw_published_at, url = parts
-        ticker = normalize_ticker(raw_ticker)
-        if not ticker or not publisher:
-            errors.append(
-                f"Short report řádek {line_number}: chybí platný ticker nebo vydavatel."
-            )
-            continue
-        try:
-            published_at = datetime.fromisoformat(
-                raw_published_at.replace("Z", "+00:00")
-            )
-        except ValueError:
-            errors.append(
-                f"Short report řádek {line_number}: datum musí být ISO, například 2026-08-19."
-            )
-            continue
-        if published_at.tzinfo is None or published_at.utcoffset() is None:
-            published_at = published_at.replace(tzinfo=timezone.utc)
-        else:
-            published_at = published_at.astimezone(timezone.utc)
-        parsed_url = urlparse(url)
-        if parsed_url.scheme.lower() != "https" or not parsed_url.hostname:
-            errors.append(
-                f"Short report řádek {line_number}: URL musí být veřejná HTTPS adresa."
-            )
-            continue
-        key = (ticker, url, published_at.isoformat())
-        if key in seen:
-            continue
-        seen.add(key)
-        sources.append(
-            ShortReportSourceConfig(
-                ticker=ticker,
-                publisher=publisher,
-                published_at=published_at,
-                url=url,
-            )
-        )
-    return tuple(sources), errors
 
 
 def _resolve_sqlite_path(raw_value: str) -> tuple[Path, str | None]:
@@ -873,6 +819,74 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         "OOS lift (p. b.)",
         f"{float(lift):.2f}" if lift is not None else "n/a",
     )
+    stage4_evidence_metrics = st.columns(6)
+    lower_bound = result.get("evaluation_lift_lower_bound_pct_points")
+    positive_week_ratio = result.get("evaluation_positive_week_ratio")
+    consecutive_passes = int(result.get("evaluation_consecutive_passes") or 0)
+    required_passes = int(
+        result.get("evaluation_required_consecutive_passes") or 3
+    )
+    activation_state = str(result.get("activation_state") or "INSUFFICIENT_DATA")
+    accuracy_proven = bool(
+        result.get("evaluation_gate_passed")
+        and consecutive_passes >= required_passes
+        and activation_state in {"ELIGIBLE", "ENABLED"}
+    )
+    live_authorized = bool(result.get("live_application_authorized"))
+    stage4_evidence_metrics[0].metric(
+        "Baseline přesnost",
+        (
+            f"{float(result['evaluation_baseline_accuracy_pct']):.2f} %"
+            if result.get("evaluation_baseline_accuracy_pct") is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[1].metric(
+        "Kandidát přesnost",
+        (
+            f"{float(result['evaluation_candidate_accuracy_pct']):.2f} %"
+            if result.get("evaluation_candidate_accuracy_pct") is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[2].metric(
+        "Dolní 95% mez liftu",
+        f"{float(lower_bound):.2f} p. b." if lower_bound is not None else "n/a",
+    )
+    stage4_evidence_metrics[3].metric(
+        "Kladné týdny",
+        (
+            f"{float(positive_week_ratio) * 100.0:.1f} %"
+            if positive_week_ratio is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[4].metric(
+        "Nezávislé průchody",
+        f"{consecutive_passes}/{required_passes}",
+    )
+    stage4_evidence_metrics[5].metric(
+        "Ostré BUY/SELL",
+        "POVOLENO" if live_authorized else "UZAMČENO",
+    )
+    if accuracy_proven:
+        st.success(
+            "Zvýšení přesnosti je pro tuto politiku prokázáno OOS bránou. "
+            "Ostré použití přesto vyžaduje samostatné explicitní povolení."
+        )
+    else:
+        failed_gates = [
+            str(name)
+            for name, passed in dict(
+                result.get("evaluation_gate_results") or {}
+            ).items()
+            if not passed
+        ]
+        detail = ", ".join(failed_gates) if failed_gates else "čeká se na OOS data"
+        st.warning(
+            "Zvýšení přesnosti zatím není prokázáno; ostré BUY/SELL zůstává "
+            f"uzamčeno. Důvod: {detail}."
+        )
 
     report = result.get("agent_report")
     executions = getattr(report, "executions", None)
@@ -1195,6 +1209,11 @@ for key, default in {
     if key not in st.session_state:
         st.session_state[key] = default
 
+agent_runtime_service = AgentRuntimeService()
+agent_runtime_settings, agent_runtime_warning = agent_runtime_service.load()
+if agent_runtime_warning:
+    st.warning(agent_runtime_warning)
+
 with st.sidebar:
     output_dir = Path(st.text_input("Output directory", str(DEFAULT_OUTPUT_DIR)))
     marketcap_file = st.text_input("MarketCap file", "")
@@ -1206,7 +1225,7 @@ with st.sidebar:
     use_rss = st.checkbox("Použít RSS zprávy", value=True)
     use_sec_fundamentals = st.checkbox(
         "Načíst SEC výkazy (Etapa 2)",
-        value=False,
+        value=agent_runtime_settings.sec_fundamentals_enabled,
         help=(
             "Načte oficiální 10-K, 10-Q, 8-K a vybraná XBRL fakta. "
             "V Etapě 2 data ještě nemění predikci."
@@ -1216,11 +1235,11 @@ with st.sidebar:
         "SEC User-Agent (aplikace + kontaktní e-mail)",
         value=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
         disabled=not use_sec_fundamentals,
-        help="Příklad: JohnySkore/2.0 kontakt@example.com. SEC tento údaj vyžaduje.",
+        help="Příklad: JohnySkore/2.1 kontakt@example.com. SEC tento údaj vyžaduje.",
     )
     use_financial_forensics = st.checkbox(
         "Spustit finanční forenzní screening (Etapa 2)",
-        value=True,
+        value=agent_runtime_settings.financial_forensics_enabled,
         disabled=not use_sec_fundamentals,
         help=(
             "Vyhodnotí kvalitu cash flow, zadlužení, likviditu, akruály, "
@@ -1230,15 +1249,15 @@ with st.sidebar:
     )
     use_short_reports = st.checkbox(
         "Načíst short reporty (Etapa 2)",
-        value=False,
+        value=agent_runtime_settings.short_reports_enabled,
         help=(
-            "Načte pouze ručně uvedené veřejné reporty. Samotná existence reportu "
+            "Načte ručně uvedené veřejné reporty. Samotná existence reportu "
             "nevytváří SELL, veto ani závěr o pravdivosti jeho tvrzení."
         ),
     )
     short_report_sources_text = st.text_area(
         "Short reporty: TICKER | vydavatel | datum | HTTPS URL",
-        value="",
+        value=agent_runtime_settings.short_report_sources_text,
         height=110,
         disabled=not use_short_reports,
         placeholder=(
@@ -1247,11 +1266,19 @@ with st.sidebar:
         ),
         help="Jeden report na řádek. Datum je datum zveřejnění, nikoli datum stažení.",
     )
+    auto_discover_short_reports = st.checkbox(
+        "Automaticky hledat short reporty v RSS",
+        value=agent_runtime_settings.auto_discover_short_reports,
+        help=(
+            "Použije pouze explicitní označení reportu a známé short analytické "
+            "firmy. Nález zůstává UNVERIFIED a sám nemění BUY/SELL."
+        ),
+    )
     verify_short_report_claims = st.checkbox(
         "Ověřit tvrzení reportů proti SEC datům",
-        value=True,
+        value=agent_runtime_settings.verify_short_report_claims,
         disabled=not (
-            use_short_reports
+            (use_short_reports or auto_discover_short_reports)
             and use_sec_fundamentals
             and use_financial_forensics
         ),
@@ -1262,16 +1289,26 @@ with st.sidebar:
     )
     use_supply_chain = st.checkbox(
         "Načíst vztahy dodavatelů a odběratelů (Etapa 3)",
-        value=False,
+        value=agent_runtime_settings.supply_chain_enabled,
         help=(
-            "Uloží pouze výslovně zadané vztahy s veřejným HTTPS zdrojem. "
+            "Uloží ručně zadané vztahy s veřejným HTTPS zdrojem. "
             "Povolené typy: SUPPLIER, CUSTOMER, CONTRACT_MANUFACTURER, "
-            "LOGISTICS, PARTNER. Záznamy nemění predikci."
+            "LOGISTICS, PARTNER. SEC 10-K discovery se ovládá zvlášť. "
+            "Záznamy nemění predikci."
+        ),
+    )
+    auto_discover_supply_chain_from_sec = st.checkbox(
+        "Automaticky hledat koncentrace dodavatelů a zákazníků v SEC 10-K",
+        value=agent_runtime_settings.auto_discover_supply_chain_from_sec,
+        disabled=not use_sec_fundamentals,
+        help=(
+            "Hledá pouze explicitní koncentrace a závislosti v bezpečně "
+            "načteném 10-K. Nález má nízkou důvěru a nemění BUY/SELL."
         ),
     )
     supply_chain_sources_text = st.text_area(
         "Síť firem: TICKER | protistrana | typ | podíl %/- | vydavatel | datum | HTTPS URL",
-        value="",
+        value=agent_runtime_settings.supply_chain_sources_text,
         height=100,
         disabled=not use_supply_chain,
         placeholder=(
@@ -1281,15 +1318,24 @@ with st.sidebar:
     )
     use_commodity_energy = st.checkbox(
         "Načíst expozice na materiály a energie (Etapa 3)",
-        value=False,
+        value=agent_runtime_settings.commodity_energy_enabled,
         help=(
             "Povolené typy: MATERIAL_INPUT, COMMODITY_OUTPUT, ELECTRICITY, FUEL. "
             "Etapa 3 zatím nepřipojuje cenovou řadu ani směrové score."
         ),
     )
+    auto_discover_commodity_energy_from_sec = st.checkbox(
+        "Automaticky hledat materiály a energie v SEC 10-K",
+        value=agent_runtime_settings.auto_discover_commodity_energy_from_sec,
+        disabled=not use_sec_fundamentals,
+        help=(
+            "Zaznamená pouze výslovně uvedené vstupy, ceny, dostupnost nebo "
+            "závislost. Nález zůstává auditní a bez směrového score."
+        ),
+    )
     commodity_energy_sources_text = st.text_area(
         "Materiály/energie: TICKER | zdroj | typ | podíl %/- | vydavatel | datum | HTTPS URL",
-        value="",
+        value=agent_runtime_settings.commodity_energy_sources_text,
         height=100,
         disabled=not use_commodity_energy,
         placeholder=(
@@ -1299,7 +1345,7 @@ with st.sidebar:
     )
     use_regulatory_contract = st.checkbox(
         "Načíst regulační a kontraktní události (Etapa 3)",
-        value=False,
+        value=agent_runtime_settings.regulatory_contract_enabled,
         help=(
             "Povolené typy zahrnují CONTRACT_AWARD, CONTRACT_LOSS, "
             "REGULATORY_APPROVAL, INVESTIGATION, SANCTION, LICENSE_CHANGE a GRANT. "
@@ -1308,7 +1354,7 @@ with st.sidebar:
     )
     regulatory_contract_sources_text = st.text_area(
         "Regulace/kontrakty: TICKER | typ | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | datum | HTTPS URL",
-        value="",
+        value=agent_runtime_settings.regulatory_contract_sources_text,
         height=110,
         disabled=not use_regulatory_contract,
         placeholder=(
@@ -1316,14 +1362,24 @@ with st.sidebar:
             "1000000 | USD | Agency | 2026-08-19 | https://example.gov/award"
         ),
     )
+    auto_discover_regulatory_events = st.checkbox(
+        "Automaticky hledat regulační a kontraktní události v RSS",
+        value=agent_runtime_settings.auto_discover_regulatory_events,
+        help=(
+            "Nálezy jsou označené jako neověřené a mají nízkou důvěru 0,45, "
+            "takže samy nemohou aktivovat risk overlay."
+        ),
+    )
     use_stage4_shadow = st.checkbox(
         "Spustit DecisionAgent a OOS evaluaci (Etapa 4, shadow)",
-        value=False,
+        value=agent_runtime_settings.stage4_shadow_enabled,
         help=(
             "Vytvoří auditní návrhy a vyhodnotí jejich skutečný OOS přínos. "
             "Tento přepínač nikdy nemění BUY/SELL; live aplikace není v UI povolena."
         ),
     )
+    save_agent_settings = st.button("Uložit nastavení agentů")
+    st.caption(f"Agentní nastavení: `{agent_runtime_service.path}`")
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
     load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
@@ -1348,7 +1404,7 @@ with st.sidebar:
     run_analysis = st.button("Spustit analýzu", type="primary")
 
 sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
-short_report_sources, short_report_source_errors = _parse_short_report_sources(
+short_report_sources, short_report_source_errors = parse_short_report_sources(
     short_report_sources_text
 )
 supply_chain_sources, supply_chain_source_errors = parse_supply_chain_sources(
@@ -1379,26 +1435,65 @@ config = AppConfig(
     short_reports=ShortReportConfig(
         enabled=use_short_reports,
         sources=short_report_sources,
+        auto_discover_from_news=auto_discover_short_reports,
     ),
     claim_verification=ClaimVerificationConfig(
         enabled=(
-            use_short_reports
+            (use_short_reports or auto_discover_short_reports)
             and use_sec_fundamentals
             and use_financial_forensics
             and verify_short_report_claims
         ),
     ),
     supply_chain=SupplyChainConfig(
-        enabled=use_supply_chain,
+        enabled=(
+            use_supply_chain
+            or (
+                use_sec_fundamentals
+                and auto_discover_supply_chain_from_sec
+            )
+        ),
         sources=supply_chain_sources,
+        auto_discover_from_sec_filings=auto_discover_supply_chain_from_sec,
+        source_verification=Stage3SourceVerificationConfig(
+            enabled=(
+                use_supply_chain
+                or (
+                    use_sec_fundamentals
+                    and auto_discover_supply_chain_from_sec
+                )
+            ),
+        ),
     ),
     commodity_energy=CommodityEnergyConfig(
-        enabled=use_commodity_energy,
+        enabled=(
+            use_commodity_energy
+            or (
+                use_sec_fundamentals
+                and auto_discover_commodity_energy_from_sec
+            )
+        ),
         sources=commodity_energy_sources,
+        auto_discover_from_sec_filings=auto_discover_commodity_energy_from_sec,
+        source_verification=Stage3SourceVerificationConfig(
+            enabled=(
+                use_commodity_energy
+                or (
+                    use_sec_fundamentals
+                    and auto_discover_commodity_energy_from_sec
+                )
+            ),
+        ),
     ),
     regulatory_contract=RegulatoryContractConfig(
         enabled=use_regulatory_contract,
         sources=regulatory_contract_sources,
+        auto_discover_from_news=auto_discover_regulatory_events,
+        source_verification=Stage3SourceVerificationConfig(
+            enabled=(
+                use_regulatory_contract or auto_discover_regulatory_events
+            ),
+        ),
     ),
     decision_agent=DecisionAgentConfig(
         enabled=use_stage4_shadow,
@@ -1410,20 +1505,54 @@ config = AppConfig(
     ),
 )
 config.ensure_output_dir()
+
+if run_analysis or save_agent_settings:
+    try:
+        agent_runtime_service.save(
+            AgentRuntimeSettings(
+                stage4_shadow_enabled=use_stage4_shadow,
+                sec_fundamentals_enabled=use_sec_fundamentals,
+                financial_forensics_enabled=use_financial_forensics,
+                short_reports_enabled=use_short_reports,
+                auto_discover_short_reports=auto_discover_short_reports,
+                verify_short_report_claims=verify_short_report_claims,
+                short_report_sources_text=short_report_sources_text,
+                supply_chain_enabled=use_supply_chain,
+                auto_discover_supply_chain_from_sec=(
+                    auto_discover_supply_chain_from_sec
+                ),
+                supply_chain_sources_text=supply_chain_sources_text,
+                commodity_energy_enabled=use_commodity_energy,
+                auto_discover_commodity_energy_from_sec=(
+                    auto_discover_commodity_energy_from_sec
+                ),
+                commodity_energy_sources_text=commodity_energy_sources_text,
+                regulatory_contract_enabled=use_regulatory_contract,
+                auto_discover_regulatory_events=auto_discover_regulatory_events,
+                regulatory_contract_sources_text=regulatory_contract_sources_text,
+            )
+        )
+        if save_agent_settings and not run_analysis:
+            st.sidebar.success("Nastavení agentů bylo uloženo.")
+    except OSError as exc:
+        st.warning(f"Agentní nastavení se nepodařilo uložit: {exc}")
+
 store = SQLiteStore(config.sqlite_path)
 yahoo_cache = YahooCacheStore(config.sqlite_path)
 
 if sqlite_info:
     st.warning(sqlite_info)
 st.caption(f"Aktivní DB: `{config.sqlite_path}`")
-if use_sec_fundamentals and not sec_user_agent.strip():
+if use_sec_fundamentals and (
+    not sec_user_agent.strip() or "@" not in sec_user_agent
+):
     st.warning(
-        "SEC Etapa 2 je zapnutá, ale chybí User-Agent s kontaktním e-mailem; "
-        "F2-SEC proto běh přeskočí."
+        "SEC Etapa 2 je zapnutá, ale User-Agent neobsahuje název aplikace "
+        "a kontaktní e-mail; F2-SEC proto běh přeskočí."
     )
 for short_report_error in short_report_source_errors:
     st.warning(short_report_error)
-if use_short_reports and not short_report_sources:
+if use_short_reports and not short_report_sources and not auto_discover_short_reports:
     st.warning(
         "ShortReportAgent je zapnutý, ale nemá žádný platný řádek se zdrojem; "
         "běh tuto volitelnou vrstvu auditovatelně označí jako nedostupnou."
@@ -1434,20 +1563,38 @@ for stage3_source_error in (
     + regulatory_contract_source_errors
 ):
     st.warning(stage3_source_error)
-for enabled, sources, agent_name in (
-    (use_supply_chain, supply_chain_sources, "SupplyChainAgent"),
-    (use_commodity_energy, commodity_energy_sources, "CommodityEnergyAgent"),
+for enabled, sources, agent_name, automatic_discovery in (
+    (
+        use_supply_chain,
+        supply_chain_sources,
+        "SupplyChainAgent",
+        use_sec_fundamentals and auto_discover_supply_chain_from_sec,
+    ),
+    (
+        use_commodity_energy,
+        commodity_energy_sources,
+        "CommodityEnergyAgent",
+        use_sec_fundamentals and auto_discover_commodity_energy_from_sec,
+    ),
     (
         use_regulatory_contract,
         regulatory_contract_sources,
         "RegulatoryContractAgent",
+        auto_discover_regulatory_events,
     ),
 ):
-    if enabled and not sources:
+    if enabled and not sources and not automatic_discovery:
         st.warning(
             f"{agent_name} je zapnutý, ale nemá žádný platný zdrojový řádek; "
             "běh jej auditovatelně označí jako nedostupný."
         )
+if not use_rss and (
+    auto_discover_short_reports or auto_discover_regulatory_events
+):
+    st.warning(
+        "Automatické objevování agentních zdrojů je zapnuté, ale RSS je pro tento "
+        "běh vypnuté; použijí se pouze ruční manifesty."
+    )
 
 if load_watchlist:
     loaded_watchlist, mt5_error = MT5Client().load_watchlist()

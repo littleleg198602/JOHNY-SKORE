@@ -31,9 +31,11 @@ from market_checker_app.config import (
     CommodityEnergySourceConfig,
     RegulatoryContractConfig,
     RegulatoryContractSourceConfig,
+    Stage3SourceVerificationConfig,
     SupplyChainConfig,
     SupplyChainSourceConfig,
 )
+from market_checker_app.collectors.short_report_client import FetchedShortReport
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
     parse_regulatory_contract_sources,
@@ -217,6 +219,86 @@ class StageThreeAgentTests(unittest.TestCase):
         self.assertEqual("UNAVAILABLE", execution.status.value)
         self.assertEqual([], execution.result.company_relationships)
         self.assertEqual(2, execution.result.metadata["rejected_sources"])
+
+    def test_source_content_is_hashed_and_support_controls_confidence(self) -> None:
+        class FixtureClient:
+            def __init__(self, text: str) -> None:
+                self.text = text
+
+            def fetch(self, source):
+                return FetchedShortReport(
+                    source=source,
+                    final_url=source.url,
+                    mime_type="text/html",
+                    title="Fixture filing",
+                    text=self.text,
+                    content_hash="c" * 64,
+                    size_bytes=len(self.text.encode("utf-8")),
+                    extractor="fixture",
+                )
+
+        config = SupplyChainConfig(
+            enabled=True,
+            sources=(
+                SupplyChainSourceConfig(
+                    ticker="TEST",
+                    counterparty="Example Components",
+                    relationship_type="SUPPLIER",
+                    publisher="Company filing",
+                    published_at=utc_now() - timedelta(days=1),
+                    url="https://example.com/filing",
+                ),
+            ),
+            source_verification=Stage3SourceVerificationConfig(enabled=True),
+        )
+
+        def run(text: str):
+            orchestrator = OrchestratorAgent(shadow_mode=True)
+            orchestrator.register(EntityRegistryAgent())
+            orchestrator.register(
+                SupplyChainAgent(config, client=FixtureClient(text))
+            )
+            orchestrator.register(PredictionV21AdapterAgent())
+            orchestrator.register(QualityGateAgent())
+            return orchestrator.run(
+                watchlist=["TEST"],
+                state={"signals": _signals()},
+            )
+
+        supported = run("Example Components supplies critical parts.")
+        document = next(
+            item
+            for item in supported.documents
+            if item.source_type == "supply_chain_reference"
+        )
+        self.assertTrue(document.metadata["content_fetched"])
+        self.assertTrue(document.metadata["source_content_support_detected"])
+        self.assertEqual("c" * 64, document.content_hash)
+        self.assertIsNone(document.raw_path)
+        self.assertEqual(1.0, supported.company_relationships[0].confidence)
+        self.assertEqual(GateDecision.PASS, supported.quality_checks[0].decision)
+        with tempfile.TemporaryDirectory() as tmp:
+            store = SQLiteStore(Path(tmp) / "history.db")
+            store.save_orchestration_report(supported)
+            with store._connect() as conn:
+                observation = conn.execute(
+                    "SELECT content_hash, mime_type, metadata_json "
+                    "FROM document_observations "
+                    "WHERE document_id = ?",
+                    (document.document_id,),
+                ).fetchone()
+        self.assertEqual("c" * 64, observation[0])
+        self.assertEqual("text/html", observation[1])
+        self.assertIn("source_content_support_detected", observation[2])
+
+        unsupported = run("This document discusses an unrelated company.")
+        self.assertEqual(0.45, unsupported.company_relationships[0].confidence)
+        self.assertFalse(
+            unsupported.company_relationships[0].metadata[
+                "source_content_support_detected"
+            ]
+        )
+        self.assertEqual(GateDecision.PASS, unsupported.quality_checks[0].decision)
 
 
 class _FutureSupplyChainAgent(BaseAgent):

@@ -11,7 +11,7 @@ Lokální Streamlit aplikace pro analýzu watchlistu z Excelu, ručního vstupu 
 cd market_checker_app
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt -c constraints.txt
 streamlit run app.py
 ```
 
@@ -109,7 +109,8 @@ Etapa 2 přidává opt-in agenta `SecFundamentalsAgent` (`f2_sec`). Používá p
 oficiální veřejná rozhraní SEC EDGAR:
 
 - mapu ticker → CIK z `company_tickers_exchange.json`,
-- `data.sec.gov/submissions` pro poslední formuláře `10-K`, `10-Q` a `8-K`,
+- `data.sec.gov/submissions` pro poslední formuláře `10-K`, `10-Q`, `8-K` a
+  zahraniční ekvivalenty `20-F`, `6-K`, `40-F`,
 - `data.sec.gov/api/xbrl/companyfacts` pro vybraná účetní fakta (výnosy, zisk,
   aktiva, závazky, cash flow, dluh a EPS).
 
@@ -118,12 +119,12 @@ oficiální veřejná rozhraní SEC EDGAR:
 název aplikace a kontaktní e-mail; lze jej zadat v UI nebo proměnnou prostředí:
 
 ```bash
-JOHNY_SKORE_SEC_USER_AGENT="JohnySkore/2.0 kontakt@example.com"
+JOHNY_SKORE_SEC_USER_AGENT="JohnySkore/2.1 kontakt@example.com"
 ```
 
 Klient vynucuje bezpečný odstup požadavků pod oficiálním limitem SEC 10 req/s.
-Omezený počet filingů vybírá vyváženě mezi 10-K, 10-Q a 8-K, aby série 8-K
-nevytlačila srovnatelná účetní období potřebná pro navazující kontroly.
+Omezený počet filingů vybírá vyváženě mezi povolenými formuláři, aby série 8-K
+nebo 6-K nevytlačila srovnatelná účetní období potřebná pro navazující kontroly.
 Dokumenty mají stabilní ID podle CIK a accession number, účetní fakta obsahové ID
 a opakovaný běh je v SQLite pouze znovu pozoruje — neduplikuje zdrojové záznamy.
 Nové tabulky jsou `fundamental_facts` a `fundamental_fact_observations`.
@@ -151,10 +152,11 @@ Screening lze v UI vypnout nezávisle na SEC ingestu.
 
 ## Short reporty a ověření tvrzení – etapa 2
 
-`ShortReportAgent` načítá pouze reporty, které uživatel výslovně zadá v levém
-panelu. Nevyhledává reporty automaticky a samotná existence short reportu není
-důkazem, obchodním signálem, vetem ani důvodem pro `SELL`. Jeden řádek vstupu má
-formát:
+`ShortReportAgent` načítá reporty, které uživatel výslovně zadá v levém panelu,
+a umí konzervativně rozpoznat přímý odkaz na report známé short analytické firmy
+v již načteném RSS. Pouhá mediální zmínka ani odkaz na cizí doménu se za report
+nepovažuje. Samotná existence reportu není důkazem, obchodním signálem, vetem ani
+důvodem pro `SELL`. Jeden ruční řádek vstupu má formát:
 
 ```text
 TICKER | vydavatel | YYYY-MM-DD | https://verejna-domena.example/report.pdf
@@ -192,9 +194,16 @@ Etapa 3 přidává tři nezávislé opt-in agenty:
 - `RegulatoryContractAgent` ukládá kontrakty, schválení, vyšetřování, sankce,
   změny licencí a granty včetně veřejně oznámené hodnoty a stavu.
 
-Agenti v této etapě zdroje automaticky neobjevují ani z nich neodhadují dopad.
-Uživatel zadává strukturovaný záznam a veřejnou HTTPS referenci například na
-firemní výkaz, regulatorní oznámení, registr kontraktů nebo zprávu úřadu:
+Dodavatelské vztahy a materiálové/energetické expozice lze dodat ručně nebo je
+konzervativně objevit přímo v bezpečně načteném textu posledního SEC 10-K. Parser
+bere pouze explicitní věty o koncentraci zákazníků/dodavatelů, smluvní výrobě a
+vstupních materiálech či energiích. Neznámou protistranu si nevymýšlí, neodhaduje
+směr ceny a automatickému nálezu dává důvěru nejvýše 0,45. Text 10-K se používá
+jen v paměti; do SQLite se ukládá URL, hash, MIME a strukturovaný audit, nikoli
+surové tělo filingu. Regulační a kontraktní události lze navíc konzervativně
+objevit v již načteném RSS; takový nález je vždy označen jako neověřený s
+důvěrou 0,45, a proto nesplní práh DecisionAgentu 0,70. Ruční záznam například
+na firemní výkaz, regulatorní oznámení nebo registr kontraktů má tvar:
 
 ```text
 TICKER | protistrana | typ vztahu | podíl %/- | vydavatel | YYYY-MM-DD | HTTPS URL
@@ -204,6 +213,10 @@ TICKER | typ události | stav | název | protistrana/úřad | hodnota/- | měna/
 
 Každý záznam má stabilní ID, datum zveřejnění, zdrojový dokument a samostatnou
 observaci běhu. Lokální, privátní a URL s přihlašovacími údaji se odmítají.
+UI a týdenní runner navíc bezpečně stáhnou obsah, zkontrolují každý redirect a
+DNS cíl, uloží pouze hash, MIME a auditní metadata a hledají klíčový pojem
+z manifestu. Surové tělo dokumentu se neukládá. Když se klíčový pojem v obsahu
+nenajde, záznam zůstane pouze auditní a jeho důvěra je omezena na 0,45.
 Budoucí publikace nesmí projít point-in-time kontrolou. QualityGate současně
 zamítne jakýkoli signal, nenulový směr, risk score nebo hard veto vydané těmito
 třemi agenty. Vše proto zůstává auditní a nemění predikci v2.1.
@@ -216,7 +229,7 @@ SQLite tabulky etapy 3 jsou:
 
 ## DecisionAgent, OOS evaluace a aktivace – etapa 4
 
-Etapa 4 je v UI opt-in a ve výchozím stavu vždy `shadow`. `DecisionAgent`
+Etapa 4 se v UI spouští ve výchozím stavu a vždy jako `shadow`. `DecisionAgent`
 navazuje na původní výstup v2.1 a používá konzervativní risk-overlay:
 
 - vrací auditní `P(UP)`, `P(FLAT)` a `P(DOWN)`, důvody a konflikty,
@@ -229,11 +242,15 @@ navazuje na původní výstup v2.1 a používá konzervativní risk-overlay:
 `EvaluationAgent` porovnává shadow návrh a stejnou původní predikci v2.1 na
 společných out-of-sample výsledcích. Použije pouze poslední běh v týdnu a cenu z
 následujícího týdne; výsledek s časem po začátku aktuální orchestrace odmítne.
-Sleduje paired lift, dolní 95% mez liftu, coverage, false-positive rate, Brier
-score a kalibrační chybu. Výchozí aktivační brána vyžaduje nejméně:
+Jednotkou statistického vyhodnocení je nezávislý týden, nikoli ticker. Tím stovky
+korelovaných tickerů z jednoho týdne nemohou vytvořit falešně úzký interval
+spolehlivosti. Sleduje týdenně clusterovaný paired lift, konzervativní dolní 95%
+Studentovu mez, podíl týdnů s kladným přínosem, coverage, false-positive rate,
+Brier score a kalibrační chybu. Výchozí aktivační brána vyžaduje nejméně:
 
-- 200 OOS predikcí a 8 různých týdnů,
+- 200 OOS predikcí a 12 různých týdnů,
 - lift alespoň 2 procentní body a jeho dolní 95% mez nad nulou,
+- kladný přínos alespoň v 60 % vyhodnocených týdnů,
 - coverage alespoň 35 %,
 - žádné zhoršení false-positive rate, Brier score ani kalibrační chyby,
 - tři úspěšná vyhodnocení s nově přibylým týdenním výsledkem; opakovaný běh nad
@@ -250,6 +267,47 @@ SQLite tabulky etapy 4 jsou:
 - `decision_records`,
 - `policy_evaluations`,
 - `signal_activation_decisions`.
+
+Přepínače agentů a ruční zdrojové manifesty lze uložit tlačítkem **Uložit
+nastavení agentů** do `outputs/agent_runtime.json`. SEC kontaktní User-Agent se
+z bezpečnostních důvodů do souboru neukládá a dál se bere z proměnné prostředí.
+Pro pravidelný sběr nezávislých OOS týdnů slouží:
+
+```bash
+python -m market_checker_app.weekly_shadow_runner --mt5
+```
+
+Ve Windows lze stejný kontrolovaný běh spustit souborem
+`Spustit_Tydenni_Shadow.bat`. Soubor `Nainstalovat_Tydenni_Shadow.bat` vytvoří
+úlohu Plánovače úloh každé pondělí v 06:30, se zapnutým doběhnutím zmeškaného
+startu. Stav nebo odstranění úlohy lze provést v PowerShellu:
+
+```powershell
+market_checker_app\install_weekly_shadow_task.ps1 -Mode Status
+market_checker_app\install_weekly_shadow_task.ps1 -Mode Remove
+```
+
+Runner používá tickery z existující SQLite historie, ukládá audit do stejné DB,
+odmítne chybný manifest a skončí chybou, pokud QualityGate neprojde nebo by se
+agentní návrh pokusil změnit predikci. Poslední provozní souhrn je v
+`outputs/weekly_shadow_latest.json`; schema 2 obsahuje stav jednotlivých zdrojů,
+výsledky statistických bran, explicitní blokátory, `accuracy_improvement_proven`,
+`live_buy_sell_ready` a `live_buy_sell_enabled`.
+
+GitHub workflow `Market Checker weekly production shadow` navíc každé pondělí:
+
+- ověří skutečné Yahoo OHLC/metadata, Google News RSS, SEC EDGAR a jeden přímý
+  report Muddy Waters,
+- spustí 36 likvidních tickerů v trvale bezpečném shadow režimu,
+- stáhne SQLite artefakt minulého týdne a po běhu jej znovu uloží na 90 dní,
+- odmítne tichý reset historie a zachová audit i při selhání živého zdroje.
+
+V GitHubu je nutné vytvořit Actions secret `JOHNY_SKORE_SEC_USER_AGENT` ve tvaru
+`JohnySkore/2.1 kontakt@example.com`. Bez deklarovaného kontaktu produkční smoke
+správně selže, protože SEC fair-access identitu nelze bezpečně doplnit za
+uživatele. Volitelná repository variable `JOHNY_SKORE_SMOKE_SHORT_REPORT_URL`
+může změnit canary report. Žádný secret ani surový obsah zdroje se do artefaktu
+neukládá.
 
 ## Stav původní implementační roadmapy
 
@@ -342,6 +400,11 @@ Pull requesty navíc kontrolují tři deterministické GitHub testovací agenty:
 
 Závěrečný release gate projde pouze tehdy, když projdou všichni tři. Testy nepoužívají
 živou síť, takže Yahoo/RSS timeout ani cizí rate limit nemohou náhodně rozhodnout o PR.
+Závislosti se instalují přes verzovaný `constraints.txt`, takže CI a Windows
+launcher používají stejnou ověřenou kombinaci balíčků. Samostatný plánovaný
+workflow **Market Checker live source smoke** jednou týdně ověřuje skutečné Yahoo
+a RSS zdroje na třech tickerech; je oddělený od deterministického release gate a
+ukládá auditní JSON a SQLite jako GitHub artifact.
 
 Zkontroluj v UI, že tab **Signals** obsahuje sloupce:
 - `raw_total_score`, `final_total_score`
