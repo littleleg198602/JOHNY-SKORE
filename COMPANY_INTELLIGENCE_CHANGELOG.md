@@ -7,10 +7,26 @@ historie je technický zdroj pravdy pro přesný diff každého commitu.
 Každý další implementační PR má doplnit datum, rozsah, bezpečnostní dopad,
 ověřovací testy a otevřené provozní podmínky. Historické záznamy se nemažou.
 
+## 2026-08-21 – post-merge audit po PR #77
+
+- Auditovaný základ: `main` commit `5c04845` po sloučení PR #77.
+- PR #77 je skutečně sloučený; jeho deterministický GitHub Actions run
+  `32478364244` skončil `success`.
+- Strom sloučeného `main` prošel `compileall` a celou lokální sadou 169/169
+  deterministických testů.
+- Opakovaně potvrzený stav roadmapy: 13 úkolů `DONE`, 10 `PARTIAL`, 11 `TODO`
+  a 2 `BLOCKED` z celkových 36 sledovaných úkolů.
+- Workflow `Market Checker weekly production shadow` má stále 0 běhů; živý
+  canary, obnova SQLite mezi dvěma běhy a skutečná OOS historie tedy nejsou
+  prokázané.
+- Větev `main` zůstává nechráněná a nemá povinný status check.
+- Audit nemění žádný obchodní signál ani policy. Zvýšení přesnosti predikce
+  stále není statisticky prokázané.
+
 ## 2026-08-21 – dokončení kódových oprav 1–4
 
 - Větev: `agent/company-intelligence-audit-status`
-- Pull request: draft PR #77
+- Pull request: PR #77 (v době implementace draft, následně sloučen do `main`)
 - Režim: výhradně shadow; ostré BUY/SELL nebyly povoleny
 
 ### 1. Runtime identity manifest a fail-closed identita
