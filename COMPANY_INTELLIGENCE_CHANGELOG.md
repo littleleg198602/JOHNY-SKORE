@@ -7,6 +7,38 @@ historie je technický zdroj pravdy pro přesný diff každého commitu.
 Každý další implementační PR má doplnit datum, rozsah, bezpečnostní dopad,
 ověřovací testy a otevřené provozní podmínky. Historické záznamy se nemažou.
 
+## 2026-08-21 – první úspěšný živý production-shadow pilot v PR #79
+
+- Produkční universe je nově explicitně uložený v
+  `market_checker_app/production_watchlist.txt`: 687 unikátních tickerů ve
+  stejném pořadí jako export `market_checker_20260818_213623.xlsx`. Kontrolní
+  porovnání s předanou SQLite historií potvrdilo shodnou množinu bez chybějících
+  nebo přebývajících tickerů.
+- Weekly workflow vybírá 36tickerový pilot z tohoto souboru; nepoužívá už
+  náhradní ručně zapsaný seznam. Deset přesných SEC identit je součástí runtime
+  manifestu a každý živý canary ticker musí být členem produkčního universe.
+- První pokus odhalil, že původní externí canary Kerrisdale vrací z GitHub
+  Actions HTTP 403. Canary byl proto zdrojovaně přesunut na report Spruce Point
+  o MSCI a jeho konfigurace je načítaná ze stejného runtime manifestu jako
+  agentní pipeline, nikoliv z hardcoded hodnoty ve smoke testu.
+- Další pokus odhalil kolizi instrumentů GOOG/GOOGL, které sdílejí jeden CIK a
+  SEC accession. Dokumentové a canonical identity jsou proto nově scoped také
+  tickerem/instrumentem. Form 3/4/5 navíc odstraňuje SEC XSL prefix a stahuje
+  přímo vlastnické XML.
+- Živý GitHub Actions run
+  [32490389851](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32490389851)
+  následně skončil `success`: 36/36 tickerů, Yahoo, Google News RSS, SEC EDGAR i
+  externí short-report canary prošly, QualityGate skončil `PASS`, artefakt
+  obsahuje SQLite DB a oba auditní JSON soubory.
+- Pipeline zůstala `PARTIAL` pouze kvůli chybějícím bezpečně extrahovaným
+  tvrzením z canary reportu a jedné firmě s nízkým pokrytím forenzních metrik.
+  Nejde o zdrojovou nebo databázovou chybu.
+- Bezpečnostní stav je správný: 36 rozhodnutí, 0 aplikovaných změn,
+  `activation_state=INSUFFICIENT_DATA`, `accuracy_improvement_proven=false` a
+  `live_buy_sell_enabled=false`.
+- Druhý navazující úspěšný běh a důkaz obnovy artefaktu jsou v tomto okamžiku
+  ještě otevřeným akceptačním bodem `OPS-801`.
+
 ## 2026-08-21 – post-merge audit po PR #77
 
 - Auditovaný základ: `main` commit `5c04845` po sloučení PR #77.
