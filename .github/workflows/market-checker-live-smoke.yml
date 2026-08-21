@@ -1,9 +1,6 @@
 name: Market Checker weekly production shadow
 
 on:
-  push:
-    branches:
-      - agent/entity-101-live-pilot
   schedule:
     - cron: "17 6 * * 1"
   workflow_dispatch:

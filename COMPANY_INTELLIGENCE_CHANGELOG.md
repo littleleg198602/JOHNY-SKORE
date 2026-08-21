@@ -36,8 +36,22 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - Bezpečnostní stav je správný: 36 rozhodnutí, 0 aplikovaných změn,
   `activation_state=INSUFFICIENT_DATA`, `accuracy_improvement_proven=false` a
   `live_buy_sell_enabled=false`.
-- Druhý navazující úspěšný běh a důkaz obnovy artefaktu jsou v tomto okamžiku
-  ještě otevřeným akceptačním bodem `OPS-801`.
+- Navazující run
+  [32491052650](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32491052650)
+  také skončil `success`. Kroky vyhledání, stažení a obnovy předchozího
+  artefaktu všechny prošly před novým Stage 4 během.
+- Obnovená DB obsahuje pipeline runy 1–3 a dva úspěšné orchestrační běhy 2–3.
+  Dokumentové observations vzrostly z 673 na 1 347 a resolverové observations
+  na 1 197; nebyla nalezena žádná duplicitní observation se stejným
+  orchestration/agent/document klíčem. GOOG a GOOGL mají společnou právní
+  entitu, ale samostatné instrumentové dokumenty a canonical události.
+- `ENTITY-101` a `OPS-801` tím splnily všechna svá akceptační kritéria. Aktuální
+  součet roadmapy je 15 `DONE`, 9 `PARTIAL`, 11 `TODO` a 1 `BLOCKED` z 36
+  úkolů. Evropské regionální canary, ochrana `main` a statistický OOS důkaz
+  zůstávají otevřené.
+- Dočasný branch `push` trigger použitý pouze k živému ověření byl po druhém
+  úspěšném běhu odstraněn; produkční workflow se znovu spouští jen plánem nebo
+  ručně přes `workflow_dispatch`.
 
 ## 2026-08-21 – post-merge audit po PR #77
 

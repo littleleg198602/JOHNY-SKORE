@@ -93,6 +93,8 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertIn("--ticker-limit 36", workflow)
         self.assertNotIn("--tickers AAPL", workflow)
         self.assertNotIn("JOHNY_SKORE_SMOKE_SHORT_REPORT_URL", workflow)
+        self.assertNotIn("\n  push:\n", workflow)
+        self.assertNotIn("agent/entity-101-live-pilot", workflow)
         self.assertIn("JOHNY_SKORE_SEC_USER_AGENT", workflow)
         self.assertIn("market_checker_app/autonomous_runtime.json", workflow)
         self.assertLess(
