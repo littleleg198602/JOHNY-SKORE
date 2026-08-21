@@ -270,6 +270,7 @@ class SQLiteStore:
             "reporting_period_end": "TEXT",
             "is_audited": "INTEGER NOT NULL DEFAULT 0",
             "language": "TEXT",
+            "canonical_event_key": "TEXT",
         }
         for column, column_type in expected.items():
             if column not in existing:
@@ -319,12 +320,28 @@ class SQLiteStore:
             "source_authority": "TEXT",
             "legal_entity_id": "TEXT",
             "metadata_json": "TEXT NOT NULL DEFAULT '{}'",
+            "canonical_event_key": "TEXT",
         }
         for column, column_type in expected.items():
             if column not in existing:
                 conn.execute(
                     f"ALTER TABLE document_observations ADD COLUMN {column} {column_type}"
                 )
+
+    @staticmethod
+    def _ensure_regulatory_contract_event_columns(
+        conn: sqlite3.Connection,
+    ) -> None:
+        existing = {
+            row[1]
+            for row in conn.execute(
+                "PRAGMA table_info(regulatory_contract_events)"
+            ).fetchall()
+        }
+        if "legal_entity_id" not in existing:
+            conn.execute(
+                "ALTER TABLE regulatory_contract_events ADD COLUMN legal_entity_id TEXT"
+            )
 
     def ensure_schema(self) -> None:
         with self._connect() as conn:
@@ -595,7 +612,8 @@ class SQLiteStore:
                     instrument_id TEXT,
                     reporting_period_end TEXT,
                     is_audited INTEGER NOT NULL DEFAULT 0,
-                    language TEXT
+                    language TEXT,
+                    canonical_event_key TEXT
                 )
                 """
             )
@@ -615,6 +633,7 @@ class SQLiteStore:
                     source_authority TEXT,
                     legal_entity_id TEXT,
                     metadata_json TEXT NOT NULL DEFAULT '{}',
+                    canonical_event_key TEXT,
                     PRIMARY KEY(orchestration_id, agent_run_id, document_id),
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
                     FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
@@ -623,6 +642,42 @@ class SQLiteStore:
                 """
             )
             self._ensure_document_observation_columns(conn)
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS document_source_resolutions (
+                    resolution_id TEXT PRIMARY KEY,
+                    canonical_event_key TEXT NOT NULL UNIQUE,
+                    ticker TEXT NOT NULL,
+                    legal_entity_id TEXT,
+                    preferred_document_id TEXT NOT NULL,
+                    retained_document_ids_json TEXT NOT NULL,
+                    policy_version TEXT NOT NULL,
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    FOREIGN KEY(preferred_document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS document_source_resolution_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    resolution_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    previous_preferred_document_id TEXT,
+                    preferred_document_id TEXT NOT NULL,
+                    retained_document_ids_json TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    PRIMARY KEY(orchestration_id, agent_run_id, resolution_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(resolution_id) REFERENCES document_source_resolutions(resolution_id),
+                    FOREIGN KEY(preferred_document_id) REFERENCES documents(document_id)
+                )
+                """
+            )
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS governance_events (
@@ -837,6 +892,7 @@ class SQLiteStore:
                     document_id TEXT NOT NULL,
                     source_url TEXT NOT NULL,
                     source_agent_name TEXT NOT NULL,
+                    legal_entity_id TEXT,
                     first_seen_at TEXT NOT NULL,
                     last_seen_at TEXT NOT NULL,
                     metadata_json TEXT NOT NULL DEFAULT '{}',
@@ -858,6 +914,7 @@ class SQLiteStore:
                 )
                 """
             )
+            self._ensure_regulatory_contract_event_columns(conn)
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS evidence (
@@ -1069,6 +1126,12 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_documents_source_priority ON documents(ticker, source_priority, published_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_documents_canonical_event ON documents(canonical_event_key, source_priority)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_document_source_resolution_observations_run ON document_source_resolution_observations(orchestration_id, agent_run_id)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_governance_events_ticker_type ON governance_events(ticker, event_type, published_at)"
@@ -1568,8 +1631,9 @@ class SQLiteStore:
                             content_hash, mime_type, raw_path, first_seen_at, last_seen_at,
                             metadata_json, source_priority, source_authority,
                             legal_entity_id, issuer_id, instrument_id,
-                            reporting_period_end, is_audited, language
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            reporting_period_end, is_audited, language,
+                            canonical_event_key
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON CONFLICT(document_id) DO UPDATE SET
                             ticker = excluded.ticker,
                             source = excluded.source,
@@ -1588,7 +1652,8 @@ class SQLiteStore:
                             instrument_id = COALESCE(excluded.instrument_id, documents.instrument_id),
                             reporting_period_end = COALESCE(excluded.reporting_period_end, documents.reporting_period_end),
                             is_audited = excluded.is_audited,
-                            language = COALESCE(excluded.language, documents.language)
+                            language = COALESCE(excluded.language, documents.language),
+                            canonical_event_key = COALESCE(excluded.canonical_event_key, documents.canonical_event_key)
                         """,
                         (
                             document.document_id,
@@ -1615,6 +1680,7 @@ class SQLiteStore:
                             ),
                             int(document.is_audited),
                             document.language,
+                            document.canonical_event_key,
                         ),
                     )
                     conn.execute(
@@ -1623,8 +1689,8 @@ class SQLiteStore:
                             orchestration_id, agent_run_id, document_id, observed_at,
                             source_url, content_hash, mime_type, source_type,
                             source_priority, source_authority, legal_entity_id,
-                            metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            metadata_json, canonical_event_key
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             report.orchestration_id,
@@ -1639,6 +1705,73 @@ class SQLiteStore:
                             document.source_authority,
                             document.legal_entity_id,
                             self._json_dump(document.metadata),
+                            document.canonical_event_key,
+                        ),
+                    )
+
+                for resolution in result.document_source_resolutions:
+                    existing_resolution = conn.execute(
+                        """
+                        SELECT preferred_document_id
+                        FROM document_source_resolutions
+                        WHERE resolution_id = ?
+                        """,
+                        (resolution.resolution_id,),
+                    ).fetchone()
+                    previous_preferred = (
+                        str(existing_resolution[0])
+                        if existing_resolution is not None
+                        else None
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO document_source_resolutions(
+                            resolution_id, canonical_event_key, ticker,
+                            legal_entity_id, preferred_document_id,
+                            retained_document_ids_json, policy_version,
+                            first_seen_at, last_seen_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(resolution_id) DO UPDATE SET
+                            canonical_event_key = excluded.canonical_event_key,
+                            ticker = excluded.ticker,
+                            legal_entity_id = COALESCE(excluded.legal_entity_id, document_source_resolutions.legal_entity_id),
+                            preferred_document_id = excluded.preferred_document_id,
+                            retained_document_ids_json = excluded.retained_document_ids_json,
+                            policy_version = excluded.policy_version,
+                            last_seen_at = excluded.last_seen_at,
+                            metadata_json = excluded.metadata_json
+                        """,
+                        (
+                            resolution.resolution_id,
+                            resolution.canonical_event_key,
+                            resolution.ticker,
+                            resolution.legal_entity_id,
+                            resolution.preferred_document_id,
+                            self._json_dump(resolution.retained_document_ids),
+                            resolution.policy_version,
+                            to_iso(resolution.observed_at),
+                            to_iso(resolution.observed_at),
+                            self._json_dump(resolution.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO document_source_resolution_observations(
+                            orchestration_id, agent_run_id, resolution_id,
+                            observed_at, previous_preferred_document_id,
+                            preferred_document_id, retained_document_ids_json,
+                            metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            resolution.resolution_id,
+                            to_iso(resolution.observed_at),
+                            previous_preferred,
+                            resolution.preferred_document_id,
+                            self._json_dump(resolution.retained_document_ids),
+                            self._json_dump(resolution.metadata),
                         ),
                     )
 
@@ -1960,9 +2093,9 @@ class SQLiteStore:
                             event_id, ticker, event_type, status, title,
                             authority_or_counterparty, event_value, currency,
                             confidence, published_at, document_id, source_url,
-                            source_agent_name, first_seen_at, last_seen_at,
+                            source_agent_name, legal_entity_id, first_seen_at, last_seen_at,
                             metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON CONFLICT(event_id) DO UPDATE SET
                             ticker = excluded.ticker,
                             event_type = excluded.event_type,
@@ -1976,6 +2109,7 @@ class SQLiteStore:
                             document_id = excluded.document_id,
                             source_url = excluded.source_url,
                             source_agent_name = excluded.source_agent_name,
+                            legal_entity_id = COALESCE(excluded.legal_entity_id, regulatory_contract_events.legal_entity_id),
                             last_seen_at = excluded.last_seen_at,
                             metadata_json = excluded.metadata_json
                         """,
@@ -1993,6 +2127,7 @@ class SQLiteStore:
                             event.document_id,
                             event.source_url,
                             event.source_agent_name,
+                            event.legal_entity_id,
                             to_iso(event.observed_at),
                             to_iso(event.observed_at),
                             self._json_dump(event.metadata),
@@ -2354,6 +2489,34 @@ class SQLiteStore:
             query += " WHERE ticker = ?"
             params = (ticker,)
         query += " ORDER BY ticker ASC, published_at DESC, document_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_document_source_resolutions(
+        self,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM document_source_resolutions"
+        params: tuple[object, ...] = ()
+        if ticker is not None:
+            query += " WHERE ticker = ?"
+            params = (ticker,)
+        query += " ORDER BY ticker ASC, canonical_event_key ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_document_source_resolution_observations(
+        self,
+        resolution_id: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM document_source_resolution_observations"
+        params: tuple[object, ...] = ()
+        if resolution_id is not None:
+            query += " WHERE resolution_id = ?"
+            params = (resolution_id,)
+        query += " ORDER BY observed_at ASC, agent_run_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 

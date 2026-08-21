@@ -165,6 +165,12 @@ class DecisionAgent(BaseAgent):
             item.evidence_id: item for item in self._agent_evidence(context)
         }
         documents_by_id = self._agent_documents(context)
+        preferred_documents = context.state.get(
+            "preferred_documents_by_canonical_event_key"
+        )
+        preferred_documents = (
+            preferred_documents if isinstance(preferred_documents, dict) else {}
+        )
         evidence_by_ticker: dict[str, list[AgentEvidence]] = {}
         for item in evidence_index.values():
             evidence_by_ticker.setdefault(item.ticker, []).append(item)
@@ -286,9 +292,21 @@ class DecisionAgent(BaseAgent):
                     >= self.config.minimum_regulatory_confidence
                     and getattr(event, "published_at", observed_at)
                     <= context.started_at
-                    and is_primary_confirmation(
-                        documents_by_id.get(str(getattr(event, "document_id", "")))
+                    and (
+                        (document := documents_by_id.get(
+                            str(getattr(event, "document_id", ""))
+                        ))
+                        is not None
                     )
+                    and is_primary_confirmation(document)
+                    and (
+                        not document.canonical_event_key
+                        or preferred_documents.get(document.canonical_event_key)
+                        in (None, document.document_id)
+                    )
+                    and bool(getattr(event, "legal_entity_id", None))
+                    and getattr(event, "legal_entity_id", None)
+                    == document.legal_entity_id
                 ]
             if serious_events:
                 risk_components["serious_regulatory_events"] = min(

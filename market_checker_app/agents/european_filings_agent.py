@@ -23,6 +23,9 @@ from market_checker_app.collectors.european_filing_client import (
     FetchedEuropeanFiling,
     normalized_authority,
 )
+from market_checker_app.collectors.european_filing_feed_client import (
+    EuropeanFilingFeedClient,
+)
 from market_checker_app.config import EuropeanFilingConfig, EuropeanFilingSourceConfig
 from market_checker_app.utils.entity_identifiers import normalize_isin, normalize_lei
 from market_checker_app.utils.text import normalize_ticker
@@ -32,6 +35,10 @@ class EuropeanDocumentClient(Protocol):
     def validate_source(self, source: EuropeanFilingSourceConfig) -> str: ...
 
     def fetch(self, source: EuropeanFilingSourceConfig) -> FetchedEuropeanFiling: ...
+
+
+class EuropeanFeedDiscoveryClient(Protocol):
+    def discover(self, feed, *, as_of): ...
 
 
 def _stable_id(*parts: object) -> str:
@@ -78,9 +85,11 @@ class EuropeanFilingsAgent(BaseAgent):
         config: EuropeanFilingConfig,
         *,
         client: EuropeanDocumentClient | None = None,
+        discovery_client: EuropeanFeedDiscoveryClient | None = None,
     ) -> None:
         self.config = config
         self._client = client or EuropeanFilingClient(config)
+        self._discovery_client = discovery_client or EuropeanFilingFeedClient(config)
 
     @staticmethod
     def _identity_conflict(
@@ -121,7 +130,7 @@ class EuropeanFilingsAgent(BaseAgent):
                 status=AgentStatus.UNAVAILABLE,
                 warnings=["EuropeanFilingsAgent je vypnutý v konfiguraci."],
             )
-        if not self.config.sources:
+        if not self.config.sources and not self.config.feeds:
             return AgentResult(
                 status=AgentStatus.UNAVAILABLE,
                 warnings=["EuropeanFilingsAgent nemá nakonfigurované zdroje."],
@@ -140,8 +149,41 @@ class EuropeanFilingsAgent(BaseAgent):
         warnings: list[str] = []
         text_by_ticker: dict[str, list[FetchedEuropeanFiling]] = {}
         rejected = 0
+        discovered_count = 0
 
-        for source in self.config.sources:
+        sources = list(self.config.sources)
+        for feed in self.config.feeds:
+            feed_ticker = normalize_ticker(feed.ticker)
+            if feed_ticker not in watchlist:
+                continue
+            try:
+                discovered = self._discovery_client.discover(
+                    feed,
+                    as_of=context.started_at,
+                )
+            except Exception as exc:
+                rejected += 1
+                warnings.append(
+                    f"Europe feed {feed_ticker}: {type(exc).__name__}: {exc}"
+                )
+                continue
+            discovered_count += len(discovered)
+            sources.extend(discovered)
+
+        deduplicated_sources: list[EuropeanFilingSourceConfig] = []
+        seen_sources: set[tuple[str, str, str]] = set()
+        for source in sources:
+            key = (
+                normalize_ticker(source.ticker),
+                str(source.url).strip(),
+                str(source.published_at),
+            )
+            if key in seen_sources:
+                continue
+            seen_sources.add(key)
+            deduplicated_sources.append(source)
+
+        for source in deduplicated_sources:
             ticker = normalize_ticker(source.ticker)
             if ticker not in watchlist:
                 continue
@@ -210,20 +252,7 @@ class EuropeanFilingsAgent(BaseAgent):
                 continue
             final_url = fetched.final_url if fetched else validated_url
             source_type, source_priority = _source_policy(source)
-            canonical_key = (
-                str(source.canonical_event_key or "").strip()
-                or "|".join(
-                    (
-                        ticker,
-                        str(source.document_type).strip().lower(),
-                        (
-                            source.reporting_period_end.date().isoformat()
-                            if source.reporting_period_end
-                            else published_at.date().isoformat()
-                        ),
-                    )
-                )
-            )
+            canonical_key = str(source.canonical_event_key or "").strip() or None
             document_id = "eu:" + _stable_id(
                 normalized_authority(source.authority),
                 ticker,
@@ -252,6 +281,7 @@ class EuropeanFilingsAgent(BaseAgent):
                 reporting_period_end=source.reporting_period_end,
                 is_audited=source.audited,
                 language=source.language,
+                canonical_event_key=canonical_key,
                 metadata={
                     "authority": normalized_authority(source.authority),
                     "document_type": source.document_type,
@@ -261,11 +291,11 @@ class EuropeanFilingsAgent(BaseAgent):
                     "isin": isin,
                     "esef": source.esef,
                     "exact_identity_match": exact_match,
-                    "canonical_event_key": canonical_key,
                     "content_fetched": fetched is not None,
                     "download_size_bytes": fetched.size_bytes if fetched else 0,
                     "extractor": fetched.extractor if fetched else "",
                     "raw_content_persisted": False,
+                    "discovery_method": source.discovery_method,
                     "scoring_applied": False,
                 },
             )
@@ -318,6 +348,8 @@ class EuropeanFilingsAgent(BaseAgent):
             warnings=list(dict.fromkeys(warnings)),
             metadata={
                 "configured_sources": len(self.config.sources),
+                "configured_feeds": len(self.config.feeds),
+                "discovered_sources": discovered_count,
                 "documents": len(retained),
                 "rejected_sources": rejected,
                 "identity_conflicts": len(conflicts),

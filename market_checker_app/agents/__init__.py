@@ -12,6 +12,7 @@ from market_checker_app.agents.contracts import (
     CompanyRelationship,
     DecisionRecord,
     DocumentRecord,
+    DocumentSourceResolution,
     DocumentSourcePriority,
     EntityRecord,
     FundamentalFact,
@@ -47,6 +48,7 @@ from market_checker_app.agents.quality_gate_agent import QualityGateAgent
 from market_checker_app.agents.regulatory_contract_agent import RegulatoryContractAgent
 from market_checker_app.agents.sec_fundamentals_agent import SecFundamentalsAgent
 from market_checker_app.agents.short_report_agent import ShortReportAgent
+from market_checker_app.agents.source_resolution_agent import SourceResolutionAgent
 from market_checker_app.agents.supply_chain_agent import SupplyChainAgent
 
 __all__ = [
@@ -64,6 +66,7 @@ __all__ = [
     "DecisionAgent",
     "DecisionRecord",
     "DocumentRecord",
+    "DocumentSourceResolution",
     "DocumentSourcePriority",
     "EntityRecord",
     "EntityRegistryAgent",
@@ -94,6 +97,7 @@ __all__ = [
     "ResourceExposureType",
     "SecFundamentalsAgent",
     "ShortReportAgent",
+    "SourceResolutionAgent",
     "SignalActivationDecision",
     "SupplyChainAgent",
 ]

@@ -323,6 +323,28 @@ class EuropeanFilingSourceConfig:
     esef: bool = False
     language: str | None = None
     canonical_event_key: str | None = None
+    discovery_method: str = "manual"
+
+
+@dataclass(frozen=True, slots=True)
+class EuropeanFilingFeedConfig:
+    """Issuer-identity-scoped RSS/Atom feed used for safe document discovery."""
+
+    ticker: str
+    authority: str
+    document_type: str
+    feed_url: str
+    lei: str | None = None
+    isin: str | None = None
+    issuer_name: str | None = None
+    audited: bool = False
+    esef: bool = False
+    language: str | None = None
+    max_entries: int = 10
+
+    def __post_init__(self) -> None:
+        if self.max_entries < 1 or self.max_entries > 100:
+            raise ValueError("max_entries must be between 1 and 100")
 
 
 @dataclass(slots=True)
@@ -331,12 +353,14 @@ class EuropeanFilingConfig:
 
     enabled: bool = False
     sources: tuple[EuropeanFilingSourceConfig, ...] = ()
+    feeds: tuple[EuropeanFilingFeedConfig, ...] = ()
     fetch_content: bool = True
     require_exact_identity: bool = True
     user_agent: str = "JohnySkore/2.1 european-filing-audit"
     request_timeout_seconds: float = 20.0
     max_download_bytes: int = 20_000_000
     max_text_characters: int = 750_000
+    max_feed_download_bytes: int = 2_000_000
     allowed_local_exchange_hosts: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
@@ -349,6 +373,8 @@ class EuropeanFilingConfig:
             raise ValueError("max_download_bytes must be at least 1024")
         if self.max_text_characters < 1_000:
             raise ValueError("max_text_characters must be at least 1000")
+        if self.max_feed_download_bytes < 1_024:
+            raise ValueError("max_feed_download_bytes must be at least 1024")
 
 
 @dataclass(slots=True)
@@ -519,6 +545,9 @@ class RegulatoryContractSourceConfig:
     currency: str | None = None
     confidence: float = 1.0
     discovery_method: str = "manual"
+    source_type: str = "media_article"
+    source_authority: str | None = None
+    canonical_event_key: str | None = None
 
 
 @dataclass(slots=True)

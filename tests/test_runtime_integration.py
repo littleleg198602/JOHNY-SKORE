@@ -256,7 +256,9 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertFalse(global_history.empty)
             self.assertIn("forecast", global_history.columns)
             self.assertIn("action", global_history.columns)
-            self.assertEqual(5, len(store.read_agent_runs()))
+            self.assertEqual(6, len(store.read_agent_runs()))
+            self.assertEqual("SUCCESS", result["source_resolution_status"])
+            self.assertEqual(0, result["source_resolution_count"])
             self.assertEqual(1, len(store.read_entities()))
             self.assertEqual(1, len(store.read_evidence()))
             self.assertEqual(1, len(store.read_agent_signals()))
@@ -308,7 +310,9 @@ class RuntimeIntegrationTests(unittest.TestCase):
                 result["signals"].iloc[0]["action"],
                 result["agent_report"].signals[0].action,
             )
-            self.assertEqual(8, len(store.read_agent_runs()))
+            self.assertEqual(9, len(store.read_agent_runs()))
+            self.assertEqual("SUCCESS", result["source_resolution_status"])
+            self.assertEqual(1, result["source_resolution_count"])
             facts = store.read_fundamental_facts("AAPL")
             self.assertEqual(10, len(facts))
             assets = facts.loc[facts["concept"] == "Assets"].iloc[0]
@@ -364,7 +368,9 @@ class RuntimeIntegrationTests(unittest.TestCase):
                 result["signals"].iloc[0]["action"],
                 result["agent_report"].signals[0].action,
             )
-            self.assertEqual(10, len(store.read_agent_runs()))
+            self.assertEqual(11, len(store.read_agent_runs()))
+            self.assertEqual("SUCCESS", result["source_resolution_status"])
+            self.assertEqual(1, result["source_resolution_count"])
             self.assertEqual(3, len(store.read_research_claims("AAPL")))
             with store._connect() as conn:
                 observations = conn.execute(
@@ -522,7 +528,8 @@ class RuntimeIntegrationTests(unittest.TestCase):
             regulatory_document = next(
                 document
                 for document in result["agent_report"].documents
-                if document.source_type == "regulatory_contract_reference"
+                if document.metadata.get("stage_record_type")
+                == "regulatory_contract_event"
             )
             self.assertEqual("rss", short_document.metadata["discovery_method"])
             self.assertFalse(short_document.metadata["explicitly_configured_source"])

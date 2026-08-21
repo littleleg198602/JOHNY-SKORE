@@ -31,6 +31,21 @@ class AgentRuntimeServiceTests(unittest.TestCase):
             service = AgentRuntimeService(path)
             expected = AgentRuntimeSettings(
                 stage4_shadow_enabled=True,
+                identity_records_text=(
+                    "TEST | Test N.V. | - | NL0000000000 | - | XAMS | NL | "
+                    "Euronext | Registry | https://example.com/identity"
+                ),
+                european_filings_enabled=True,
+                european_filing_sources_text=(
+                    "TEST | EURONEXT | annual_report | FY | 2026-01-01 | "
+                    "2025-12-31 | - | NL0000000000 | true | true | en | - | "
+                    "https://example.com/report"
+                ),
+                european_filing_feeds_text=(
+                    "TEST | EURONEXT | annual_report | - | NL0000000000 | "
+                    "true | true | en | 10 | https://example.com/feed"
+                ),
+                european_allowed_hosts_text="investor.example.com",
                 short_reports_enabled=True,
                 short_report_sources_text=(
                     "AAPL | Example | 2026-01-01 | https://example.com/report"

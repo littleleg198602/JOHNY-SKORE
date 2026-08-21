@@ -1,16 +1,21 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
+
 from market_checker_app.agents.base import BaseAgent
 from market_checker_app.agents.contracts import (
     AgentContext,
     AgentEvidence,
     AgentResult,
     AgentStatus,
+    DocumentSourcePriority,
+    EntityRecord,
     RegulatoryContractEvent,
     RegulatoryContractEventType,
     RegulatoryEventStatus,
     utc_now,
 )
+from market_checker_app.agents.source_policy import source_priority_for
 from market_checker_app.agents.network_intelligence_common import (
     build_source_client,
     fetch_source_document,
@@ -78,6 +83,8 @@ class RegulatoryContractAgent(BaseAgent):
             )
 
         observed_at = utc_now()
+        registry = context.state.get("entities_by_ticker")
+        registry = registry if isinstance(registry, Mapping) else {}
         documents = {}
         events: list[RegulatoryContractEvent] = []
         evidence: list[AgentEvidence] = []
@@ -106,6 +113,33 @@ class RegulatoryContractAgent(BaseAgent):
                     raise ValueError("datum zveřejnění nemá časové pásmo")
                 if source.published_at > context.started_at:
                     raise ValueError("zdroj má budoucí datum zveřejnění")
+                source_type = str(source.source_type or "media_article").strip().lower()
+                source_priority = source_priority_for(source_type)
+                if source_priority <= 0:
+                    raise ValueError("zdroj má nepodporovaný source_type")
+                entity = registry.get(ticker)
+                entity = entity if isinstance(entity, EntityRecord) else None
+                legal_entity_id = entity.legal_entity_id if entity else None
+                if (
+                    source_priority
+                    >= int(DocumentSourcePriority.EXCHANGE_ANNOUNCEMENT)
+                    and not legal_entity_id
+                ):
+                    raise ValueError(
+                        "primární regulační zdroj nemá vyřešenou právní identitu emitenta"
+                    )
+                canonical_event_key = (
+                    str(source.canonical_event_key or "").strip()
+                    or "|".join(
+                        (
+                            ticker,
+                            "REGULATORY_CONTRACT",
+                            event_type.value,
+                            source.published_at.date().isoformat(),
+                            stable_id(title.casefold(), authority.casefold())[:16],
+                        )
+                    )
+                )
                 fetched = None
                 if self.config.source_verification.enabled:
                     if self.client is None:
@@ -128,7 +162,7 @@ class RegulatoryContractAgent(BaseAgent):
                     published_at=source.published_at,
                     observed_at=observed_at,
                     url=source.url,
-                    source_type="regulatory_contract_reference",
+                    source_type=source_type,
                     stage_record_type="regulatory_contract_event",
                     fetched=fetched,
                     content_verification_required=(
@@ -136,6 +170,11 @@ class RegulatoryContractAgent(BaseAgent):
                     ),
                     support_terms=(title, authority),
                     discovery_method=source.discovery_method,
+                    source_authority=(source.source_authority or publisher),
+                    legal_entity_id=legal_entity_id,
+                    issuer_id=entity.issuer_id if entity else None,
+                    instrument_id=entity.instrument_id if entity else None,
+                    canonical_event_key=canonical_event_key,
                 )
                 support_detected = bool(
                     document.metadata.get("source_content_support_detected")
@@ -164,16 +203,21 @@ class RegulatoryContractAgent(BaseAgent):
                     published_at=source.published_at,
                     document_id=document.document_id,
                     source_url=document.url or source.url,
+                    legal_entity_id=legal_entity_id,
                     event_value=source.event_value,
                     currency=source.currency,
                     confidence=effective_confidence,
                     source_agent_name=self.name,
                     metadata={
                         "publisher": publisher,
+                        "source_type": source_type,
+                        "source_priority": source_priority,
+                        "canonical_event_key": canonical_event_key,
                         "stage": 3,
                         "event_truth_assessed": False,
                         "causal_impact_assessed": False,
                         "source_content_support_detected": support_detected,
+                        "legal_entity_id": legal_entity_id,
                         "scoring_applied": False,
                     },
                 )

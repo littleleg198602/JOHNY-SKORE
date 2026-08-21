@@ -14,7 +14,9 @@ from market_checker_app.config import (
     ClaimVerificationConfig,
     CommodityEnergyConfig,
     DecisionAgentConfig,
+    EntityRegistryConfig,
     EvaluationAgentConfig,
+    EuropeanFilingConfig,
     FinancialForensicsConfig,
     FundamentalIngestionConfig,
     RegulatoryContractConfig,
@@ -25,6 +27,12 @@ from market_checker_app.config import (
 from market_checker_app.services.agent_runtime_service import (
     AgentRuntimeService,
     AgentRuntimeSettings,
+)
+from market_checker_app.services.company_intelligence_manifest_service import (
+    parse_european_allowed_hosts,
+    parse_european_filing_feeds,
+    parse_european_filing_sources,
+    parse_identity_records,
 )
 from market_checker_app.services.short_report_manifest_service import (
     parse_short_report_sources,
@@ -55,7 +63,28 @@ class RuntimeConfigurationError(ValueError):
 
 def _validated_sources(
     settings: AgentRuntimeSettings,
-) -> tuple[tuple[object, ...], tuple[object, ...], tuple[object, ...], tuple[object, ...]]:
+) -> tuple[
+    dict[str, dict[str, object]],
+    tuple[object, ...],
+    tuple[object, ...],
+    tuple[str, ...],
+    tuple[object, ...],
+    tuple[object, ...],
+    tuple[object, ...],
+    tuple[object, ...],
+]:
+    identity_records, identity_errors = parse_identity_records(
+        settings.identity_records_text
+    )
+    european_filings, european_filing_errors = parse_european_filing_sources(
+        settings.european_filing_sources_text
+    )
+    european_feeds, european_feed_errors = parse_european_filing_feeds(
+        settings.european_filing_feeds_text
+    )
+    european_allowed_hosts, european_host_errors = parse_european_allowed_hosts(
+        settings.european_allowed_hosts_text
+    )
     short_reports, short_errors = parse_short_report_sources(
         settings.short_report_sources_text
     )
@@ -68,7 +97,16 @@ def _validated_sources(
     regulatory_contract, regulatory_errors = parse_regulatory_contract_sources(
         settings.regulatory_contract_sources_text
     )
-    errors = short_errors + supply_errors + commodity_errors + regulatory_errors
+    errors = (
+        identity_errors
+        + european_filing_errors
+        + european_feed_errors
+        + european_host_errors
+        + short_errors
+        + supply_errors
+        + commodity_errors
+        + regulatory_errors
+    )
     if errors:
         raise RuntimeConfigurationError("\n".join(errors))
     if (
@@ -93,7 +131,46 @@ def _validated_sources(
         raise RuntimeConfigurationError(
             "CommodityEnergyAgent je zapnutý, ale trvalá konfigurace neobsahuje platný zdroj."
         )
-    return short_reports, supply_chain, commodity_energy, regulatory_contract
+    if settings.european_filings_enabled and not (
+        european_filings or european_feeds
+    ):
+        raise RuntimeConfigurationError(
+            "EuropeanFilingsAgent je zapnutý, ale trvalá konfigurace neobsahuje dokument ani feed."
+        )
+    identity_required_tickers = (
+        {
+            str(getattr(source, "ticker", "")).strip().upper()
+            for source in european_filings + european_feeds
+        }
+        if settings.european_filings_enabled
+        else set()
+    )
+    identity_required_tickers.update(
+        str(getattr(source, "ticker", "")).strip().upper()
+        for source in regulatory_contract
+        if str(getattr(source, "source_type", "")).strip().lower()
+        != "media_article"
+    )
+    missing_identity = sorted(
+        ticker
+        for ticker in identity_required_tickers
+        if ticker and ticker not in identity_records
+    )
+    if missing_identity:
+        raise RuntimeConfigurationError(
+            "Identity manifest neobsahuje přesnou identitu pro: "
+            + ", ".join(missing_identity)
+        )
+    return (
+        identity_records,
+        european_filings,
+        european_feeds,
+        european_allowed_hosts,
+        short_reports,
+        supply_chain,
+        commodity_energy,
+        regulatory_contract,
+    )
 
 
 def build_runtime_config(
@@ -106,6 +183,10 @@ def build_runtime_config(
     """Build the same safe agent configuration for unattended weekly runs."""
 
     (
+        identity_records,
+        european_filings,
+        european_feeds,
+        european_allowed_hosts,
         short_reports,
         supply_chain,
         commodity_energy,
@@ -126,9 +207,18 @@ def build_runtime_config(
         compare_previous_run=True,
         agent_stage1_enabled=True,
         agent_shadow_mode=True,
+        entity_registry=EntityRegistryConfig(
+            identity_records=identity_records,
+        ),
         fundamental_ingestion=FundamentalIngestionConfig(
             enabled=settings.sec_fundamentals_enabled,
             user_agent=sec_user_agent.strip(),
+        ),
+        european_filings=EuropeanFilingConfig(
+            enabled=settings.european_filings_enabled,
+            sources=european_filings,
+            feeds=european_feeds,
+            allowed_local_exchange_hosts=european_allowed_hosts,
         ),
         financial_forensics=FinancialForensicsConfig(
             enabled=(
@@ -330,6 +420,16 @@ def _source_health_summary(
     config: AppConfig,
 ) -> dict[str, object]:
     return {
+        "entity_registry": {
+            "configured_records": len(config.entity_registry.identity_records),
+            "status": result.get("entity_registry_status"),
+            "unresolved": int(
+                result.get("entity_unresolved_identity_count") or 0
+            ),
+            "conflicts": int(
+                result.get("entity_identity_conflict_count") or 0
+            ),
+        },
         "sec_edgar": {
             "configured": config.fundamental_ingestion.enabled,
             "status": result.get("fundamental_ingestion_status"),
@@ -347,6 +447,20 @@ def _source_health_summary(
             "status": result.get("financial_forensics_status"),
             "evidence": int(
                 result.get("financial_forensics_evidence_count") or 0
+            ),
+        },
+        "european_filings": {
+            "configured": config.european_filings.enabled,
+            "status": result.get("european_filings_status"),
+            "documents": int(result.get("european_filing_document_count") or 0),
+            "direct_sources": len(config.european_filings.sources),
+            "feeds": len(config.european_filings.feeds),
+        },
+        "source_resolution": {
+            "status": result.get("source_resolution_status"),
+            "canonical_events": int(result.get("source_resolution_count") or 0),
+            "conflicts_resolved": int(
+                result.get("source_resolution_conflict_count") or 0
             ),
         },
         "short_reports": {

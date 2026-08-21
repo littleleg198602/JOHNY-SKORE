@@ -25,6 +25,7 @@ from market_checker_app.agents import (
     RegulatoryContractAgent,
     SecFundamentalsAgent,
     ShortReportAgent,
+    SourceResolutionAgent,
     SupplyChainAgent,
 )
 from market_checker_app.analysis.behavioral_analysis import analyze_behavioral
@@ -80,6 +81,7 @@ class PipelineService:
         self.gleif_client = None
         self.sec_client = None
         self.european_filing_client = None
+        self.european_filing_feed_client = None
         self.short_report_client = None
         self.stage3_source_client = None
 
@@ -136,11 +138,29 @@ class PipelineService:
             enabled=bool(self.config.regulatory_contract.enabled or regulatory_sources),
             sources=regulatory_sources,
         )
+        identity_required_tickers = {
+            str(getattr(source, "ticker", "")).strip().upper()
+            for source in (
+                tuple(self.config.european_filings.sources)
+                + tuple(self.config.european_filings.feeds)
+            )
+            if str(getattr(source, "ticker", "")).strip()
+        }
+        identity_required_tickers.update(
+            str(getattr(source, "ticker", "")).strip().upper()
+            for source in regulatory_sources
+            if str(getattr(source, "ticker", "")).strip()
+            and str(getattr(source, "source_type", "media_article"))
+            .strip()
+            .lower()
+            != "media_article"
+        )
         agent_state: dict[str, object] = {
             "signals": signals,
             "stage4_evaluation_enabled": self.config.evaluation_agent.enabled,
             "auto_discovered_short_reports": len(discovered.short_reports),
             "auto_discovered_regulatory_events": len(discovered.regulatory_events),
+            "identity_required_tickers": sorted(identity_required_tickers),
         }
         if self.config.decision_agent.enabled:
             stage4_service = Stage4EvaluationService()
@@ -227,6 +247,7 @@ class PipelineService:
                 EuropeanFilingsAgent(
                     self.config.european_filings,
                     client=self.european_filing_client,
+                    discovery_client=self.european_filing_feed_client,
                 )
             )
         if self.config.governance_events.enabled and (
@@ -296,6 +317,12 @@ class PipelineService:
                     client=self.stage3_source_client,
                 )
             )
+        # The resolver is registered after every producer and therefore sees all
+        # completed AgentResults. Optional producers must not block resolution
+        # merely because they had no matching document in this run.
+        orchestrator.register(
+            SourceResolutionAgent(dependencies=("entity_registry",))
+        )
         orchestrator.register(PredictionV21AdapterAgent())
         if self.config.decision_agent.enabled:
             if self.config.evaluation_agent.enabled:
@@ -307,9 +334,13 @@ class PipelineService:
                     )
                 )
             decision_dependencies = (
-                ("prediction_v21_adapter", "evaluation_agent")
+                (
+                    "prediction_v21_adapter",
+                    "evaluation_agent",
+                    "source_resolution",
+                )
                 if self.config.evaluation_agent.enabled
-                else ("prediction_v21_adapter",)
+                else ("prediction_v21_adapter", "source_resolution")
             )
             orchestrator.register(
                 DecisionAgent(
@@ -878,6 +909,7 @@ class PipelineService:
         quality_gate_decision: str | None = None
         entity_registry_status: str | None = None
         entity_identity_conflict_count = 0
+        entity_unresolved_identity_count = 0
         fundamental_ingestion_status: str | None = None
         fundamental_document_count = 0
         fundamental_fact_count = 0
@@ -922,6 +954,9 @@ class PipelineService:
         fundamental_filing_text_failure_count = 0
         european_filings_status: str | None = None
         european_filing_document_count = 0
+        source_resolution_status: str | None = None
+        source_resolution_count = 0
+        source_resolution_conflict_count = 0
         governance_event_status: str | None = None
         governance_event_count = 0
         auto_discovered_supply_chain_relationships = 0
@@ -954,6 +989,12 @@ class PipelineService:
                         entity_identity_conflict_count = len(
                             execution.result.identity_conflicts
                         )
+                        entity_unresolved_identity_count = int(
+                            execution.result.metadata.get(
+                                "unresolved_identities",
+                                0,
+                            )
+                        )
                     elif execution.agent_name == "f2_sec":
                         fundamental_ingestion_status = execution.status.value
                         fundamental_document_count = len(execution.result.documents)
@@ -976,6 +1017,17 @@ class PipelineService:
                         european_filings_status = execution.status.value
                         european_filing_document_count = len(
                             execution.result.documents
+                        )
+                    elif execution.agent_name == "source_resolution":
+                        source_resolution_status = execution.status.value
+                        source_resolution_count = len(
+                            execution.result.document_source_resolutions
+                        )
+                        source_resolution_conflict_count = int(
+                            execution.result.metadata.get(
+                                "conflicts_resolved",
+                                0,
+                            )
                         )
                     elif execution.agent_name == "governance_event":
                         governance_event_status = execution.status.value
@@ -1182,6 +1234,7 @@ class PipelineService:
             "quality_gate_decision": quality_gate_decision,
             "entity_registry_status": entity_registry_status,
             "entity_identity_conflict_count": entity_identity_conflict_count,
+            "entity_unresolved_identity_count": entity_unresolved_identity_count,
             "fundamental_ingestion_status": fundamental_ingestion_status,
             "fundamental_document_count": fundamental_document_count,
             "fundamental_fact_count": fundamental_fact_count,
@@ -1193,6 +1246,9 @@ class PipelineService:
             ),
             "european_filings_status": european_filings_status,
             "european_filing_document_count": european_filing_document_count,
+            "source_resolution_status": source_resolution_status,
+            "source_resolution_count": source_resolution_count,
+            "source_resolution_conflict_count": source_resolution_conflict_count,
             "governance_event_status": governance_event_status,
             "governance_event_count": governance_event_count,
             "financial_forensics_status": financial_forensics_status,

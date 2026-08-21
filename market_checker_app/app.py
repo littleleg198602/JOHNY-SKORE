@@ -26,6 +26,8 @@ from market_checker_app.config import (
     DecisionAgentConfig,
     DEFAULT_DB_PATH,
     DEFAULT_OUTPUT_DIR,
+    EntityRegistryConfig,
+    EuropeanFilingConfig,
     FinancialForensicsConfig,
     FundamentalIngestionConfig,
     EvaluationAgentConfig,
@@ -40,6 +42,12 @@ from market_checker_app.exporters.delta_builder import prepare_delta_for_excel
 from market_checker_app.exporters.excel_exporter import ExcelExporter
 from market_checker_app.models import AnalysisProgressState
 from market_checker_app.services.comparison_service import ComparisonService
+from market_checker_app.services.company_intelligence_manifest_service import (
+    parse_european_allowed_hosts,
+    parse_european_filing_feeds,
+    parse_european_filing_sources,
+    parse_identity_records,
+)
 from market_checker_app.services.agent_runtime_service import (
     AgentRuntimeService,
     AgentRuntimeSettings,
@@ -1223,6 +1231,19 @@ with st.sidebar:
     sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
     use_rss = st.checkbox("Použít RSS zprávy", value=True)
+    identity_records_text = st.text_area(
+        "Identity: TICKER | právní název | CIK/- | ISIN/- | LEI/- | MIC/- | země/- | burza/- | zdroj | HTTPS URL",
+        value=agent_runtime_settings.identity_records_text,
+        height=110,
+        placeholder=(
+            "ADYEN | Adyen N.V. | - | NL0012969182 | LEI... | XAMS | NL | "
+            "Euronext | GLEIF/Euronext | https://example.com/identity"
+        ),
+        help=(
+            "Přesná identita pro evropské, regulační a další identity-dependent "
+            "zdroje. Název firmy se nikdy nepoužije k fuzzy přiřazení."
+        ),
+    )
     use_sec_fundamentals = st.checkbox(
         "Načíst SEC výkazy (Etapa 2)",
         value=agent_runtime_settings.sec_fundamentals_enabled,
@@ -1236,6 +1257,36 @@ with st.sidebar:
         value=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
         disabled=not use_sec_fundamentals,
         help="Příklad: JohnySkore/2.1 kontakt@example.com. SEC tento údaj vyžaduje.",
+    )
+    use_european_filings = st.checkbox(
+        "Načíst evropské regulatorní dokumenty (Etapa 5.1)",
+        value=agent_runtime_settings.european_filings_enabled,
+        help=(
+            "Používá pouze přesný LEI/ISIN, schválené autority a bezpečné HTTPS "
+            "dokumenty nebo RSS/Atom feedy."
+        ),
+    )
+    european_filing_sources_text = st.text_area(
+        "Evropské filingy: TICKER | autorita | typ | název | datum | období/- | LEI/- | ISIN/- | audit | ESEF | jazyk/- | canonical key/- | HTTPS URL",
+        value=agent_runtime_settings.european_filing_sources_text,
+        height=110,
+        disabled=not use_european_filings,
+    )
+    european_filing_feeds_text = st.text_area(
+        "Evropské feedy: TICKER | autorita | typ | LEI/- | ISIN/- | audit | ESEF | jazyk/- | max položek | HTTPS feed",
+        value=agent_runtime_settings.european_filing_feeds_text,
+        height=90,
+        disabled=not use_european_filings,
+        help=(
+            "Položka feedu se přijme jen tehdy, když obsahuje přesný LEI nebo ISIN."
+        ),
+    )
+    european_allowed_hosts_text = st.text_area(
+        "Povolené hosty pro ISSUER_IR a LOCAL_EXCHANGE (jeden hostname na řádek)",
+        value=agent_runtime_settings.european_allowed_hosts_text,
+        height=70,
+        disabled=not use_european_filings,
+        placeholder="investor.example.com",
     )
     use_financial_forensics = st.checkbox(
         "Spustit finanční forenzní screening (Etapa 2)",
@@ -1359,7 +1410,14 @@ with st.sidebar:
         disabled=not use_regulatory_contract,
         placeholder=(
             "AAPL | CONTRACT_AWARD | ANNOUNCED | Example award | Agency | "
-            "1000000 | USD | Agency | 2026-08-19 | https://example.gov/award"
+            "1000000 | USD | Agency | 2026-08-19 | https://example.gov/award | "
+            "regulatory_filing | Agency | AAPL:AGENCY:AWARD:2026"
+        ),
+        help=(
+            "Starý desetisloupcový formát zůstává kompatibilní, ale je bezpečně "
+            "považovaný jen za media_article. Primární prioritu je nutné uvést "
+            "explicitním source type a propojit přes identity manifest. Volitelné "
+            "sloupce 11–13 jsou source type | source authority/- | canonical key/-."
         ),
     )
     auto_discover_regulatory_events = st.checkbox(
@@ -1404,6 +1462,18 @@ with st.sidebar:
     run_analysis = st.button("Spustit analýzu", type="primary")
 
 sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
+identity_records, identity_record_errors = parse_identity_records(
+    identity_records_text
+)
+european_filing_sources, european_filing_source_errors = (
+    parse_european_filing_sources(european_filing_sources_text)
+)
+european_filing_feeds, european_filing_feed_errors = (
+    parse_european_filing_feeds(european_filing_feeds_text)
+)
+european_allowed_hosts, european_allowed_host_errors = (
+    parse_european_allowed_hosts(european_allowed_hosts_text)
+)
 short_report_sources, short_report_source_errors = parse_short_report_sources(
     short_report_sources_text
 )
@@ -1416,6 +1486,46 @@ commodity_energy_sources, commodity_energy_source_errors = (
 regulatory_contract_sources, regulatory_contract_source_errors = (
     parse_regulatory_contract_sources(regulatory_contract_sources_text)
 )
+company_intelligence_manifest_errors = (
+    identity_record_errors
+    + (
+        european_filing_source_errors
+        + european_filing_feed_errors
+        + european_allowed_host_errors
+        if use_european_filings
+        else []
+    )
+    + (
+        regulatory_contract_source_errors
+        if use_regulatory_contract or regulatory_contract_sources_text.strip()
+        else []
+    )
+)
+if use_european_filings and not (
+    european_filing_sources or european_filing_feeds
+):
+    company_intelligence_manifest_errors.append(
+        "EuropeanFilingsAgent je zapnutý, ale nemá platný dokument ani feed."
+    )
+identity_required_tickers = {
+    str(source.ticker).strip().upper()
+    for source in european_filing_sources + european_filing_feeds
+    if use_european_filings and str(source.ticker).strip()
+}
+identity_required_tickers.update(
+    str(source.ticker).strip().upper()
+    for source in regulatory_contract_sources
+    if str(source.ticker).strip()
+    and str(source.source_type).strip().lower() != "media_article"
+)
+missing_runtime_identities = sorted(
+    ticker for ticker in identity_required_tickers if ticker not in identity_records
+)
+if missing_runtime_identities:
+    company_intelligence_manifest_errors.append(
+        "Identity manifest neobsahuje přesnou identitu pro: "
+        + ", ".join(missing_runtime_identities)
+    )
 
 config = AppConfig(
     output_dir=output_dir,
@@ -1425,9 +1535,16 @@ config = AppConfig(
     save_history=save_history,
     sqlite_path=sqlite_path,
     max_rss_items_per_source=int(max_rss),
+    entity_registry=EntityRegistryConfig(identity_records=identity_records),
     fundamental_ingestion=FundamentalIngestionConfig(
         enabled=use_sec_fundamentals,
         user_agent=sec_user_agent.strip(),
+    ),
+    european_filings=EuropeanFilingConfig(
+        enabled=use_european_filings,
+        sources=european_filing_sources,
+        feeds=european_filing_feeds,
+        allowed_local_exchange_hosts=european_allowed_hosts,
     ),
     financial_forensics=FinancialForensicsConfig(
         enabled=use_sec_fundamentals and use_financial_forensics,
@@ -1511,7 +1628,12 @@ if run_analysis or save_agent_settings:
         agent_runtime_service.save(
             AgentRuntimeSettings(
                 stage4_shadow_enabled=use_stage4_shadow,
+                identity_records_text=identity_records_text,
                 sec_fundamentals_enabled=use_sec_fundamentals,
+                european_filings_enabled=use_european_filings,
+                european_filing_sources_text=european_filing_sources_text,
+                european_filing_feeds_text=european_filing_feeds_text,
+                european_allowed_hosts_text=european_allowed_hosts_text,
                 financial_forensics_enabled=use_financial_forensics,
                 short_reports_enabled=use_short_reports,
                 auto_discover_short_reports=auto_discover_short_reports,
@@ -1552,6 +1674,8 @@ if use_sec_fundamentals and (
     )
 for short_report_error in short_report_source_errors:
     st.warning(short_report_error)
+for company_intelligence_manifest_error in company_intelligence_manifest_errors:
+    st.warning(company_intelligence_manifest_error)
 if use_short_reports and not short_report_sources and not auto_discover_short_reports:
     st.warning(
         "ShortReportAgent je zapnutý, ale nemá žádný platný řádek se zdrojem; "
@@ -1560,7 +1684,6 @@ if use_short_reports and not short_report_sources and not auto_discover_short_re
 for stage3_source_error in (
     supply_chain_source_errors
     + commodity_energy_source_errors
-    + regulatory_contract_source_errors
 ):
     st.warning(stage3_source_error)
 for enabled, sources, agent_name, automatic_discovery in (
@@ -1746,6 +1869,13 @@ if st.session_state.analysis_progress:
 
 if run_analysis and not watchlist:
     st.error("Watchlist je prázdný. Nahrajte Excel nebo zadejte alespoň jeden ticker.")
+    run_analysis = False
+
+if run_analysis and company_intelligence_manifest_errors:
+    st.error(
+        "Analýza nebyla spuštěna: Company Intelligence konfigurace neprošla "
+        "fail-closed kontrolou. Opravte výše uvedené řádky."
+    )
     run_analysis = False
 
 if run_analysis:

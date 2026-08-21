@@ -243,6 +243,7 @@ class DocumentRecord:
     reporting_period_end: datetime | None = None
     is_audited: bool = False
     language: str | None = None
+    canonical_event_key: str | None = None
 
     def __post_init__(self) -> None:
         priority_by_type = {
@@ -268,6 +269,13 @@ class DocumentRecord:
             self.source_priority = int(self.source_priority)
         if not 0 <= self.source_priority <= int(DocumentSourcePriority.REGULATORY_FILING):
             raise ValueError("source_priority must be between 0 and 600")
+        metadata_key = str(self.metadata.get("canonical_event_key") or "").strip()
+        explicit_key = str(self.canonical_event_key or "").strip()
+        if explicit_key and metadata_key and explicit_key != metadata_key:
+            raise ValueError("canonical_event_key conflicts with document metadata")
+        self.canonical_event_key = explicit_key or metadata_key or None
+        if self.canonical_event_key:
+            self.metadata["canonical_event_key"] = self.canonical_event_key
         for field_name in ("observed_at", "published_at", "reporting_period_end"):
             value = getattr(self, field_name)
             if value is None:
@@ -277,6 +285,37 @@ class DocumentRecord:
             else:
                 value = value.astimezone(timezone.utc)
             setattr(self, field_name, value)
+
+
+@dataclass(slots=True)
+class DocumentSourceResolution:
+    resolution_id: str
+    canonical_event_key: str
+    ticker: str
+    preferred_document_id: str
+    retained_document_ids: tuple[str, ...]
+    observed_at: datetime
+    legal_entity_id: str | None = None
+    policy_version: str = "source-priority-v1"
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        self.canonical_event_key = str(self.canonical_event_key or "").strip()
+        if not self.canonical_event_key:
+            raise ValueError("canonical_event_key must not be empty")
+        self.retained_document_ids = tuple(
+            dict.fromkeys(
+                str(item).strip()
+                for item in self.retained_document_ids
+                if str(item).strip()
+            )
+        )
+        if self.preferred_document_id not in self.retained_document_ids:
+            raise ValueError("preferred_document_id must be retained")
+        if self.observed_at.tzinfo is None or self.observed_at.utcoffset() is None:
+            self.observed_at = self.observed_at.replace(tzinfo=timezone.utc)
+        else:
+            self.observed_at = self.observed_at.astimezone(timezone.utc)
 
 
 @dataclass(slots=True)
@@ -448,6 +487,7 @@ class RegulatoryContractEvent:
     published_at: datetime
     document_id: str
     source_url: str
+    legal_entity_id: str | None = None
     event_value: float | None = None
     currency: str | None = None
     confidence: float = 1.0
@@ -666,6 +706,9 @@ class AgentResult:
     entities: list[EntityRecord] = field(default_factory=list)
     identity_conflicts: list[IdentityConflictRecord] = field(default_factory=list)
     documents: list[DocumentRecord] = field(default_factory=list)
+    document_source_resolutions: list[DocumentSourceResolution] = field(
+        default_factory=list
+    )
     governance_events: list[GovernanceEvent] = field(default_factory=list)
     fundamental_facts: list[FundamentalFact] = field(default_factory=list)
     claims: list[ResearchClaim] = field(default_factory=list)
@@ -691,6 +734,7 @@ class AgentResult:
             len(self.entities)
             + len(self.identity_conflicts)
             + len(self.documents)
+            + len(self.document_source_resolutions)
             + len(self.governance_events)
             + len(self.fundamental_facts)
             + len(self.claims)
@@ -752,6 +796,14 @@ class OrchestrationReport:
     @property
     def documents(self) -> list[DocumentRecord]:
         return [item for execution in self.executions for item in execution.result.documents]
+
+    @property
+    def document_source_resolutions(self) -> list[DocumentSourceResolution]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.document_source_resolutions
+        ]
 
     @property
     def identity_conflicts(self) -> list[IdentityConflictRecord]:
