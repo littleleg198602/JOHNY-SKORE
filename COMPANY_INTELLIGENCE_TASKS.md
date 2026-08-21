@@ -4,12 +4,15 @@ Tento soubor je jediný průběžně aktualizovaný seznam úkolů pro rozšíř
 JOHNY-SKORE o firemní, fundamentální a forenzní analýzu. Rozlišuje mezi již
 funkčním bezpečným MVP a plným rozsahem původního návrhu.
 
-Auditní základ: `main` po PR #75, commit `de45cf8`, doplněný implementací
-úkolů `ENTITY-101`, `FILING-101/102/103` a `GOV-101` dne 21. 8. 2026.
+Auditní základ: `main` po sloučení PR #76, commit `75ca52e`, znovu ověřený
+proti kódu, testům, běžné UI konfiguraci, bezobslužnému weekly runneru a stavu
+GitHubu dne 21. 8. 2026.
 
 ## Význam stavů
 
-- `DONE` – implementováno, persistováno a pokryto deterministickým testem.
+- `DONE` – celý rozsah úkolu je implementovaný, persistovaný a pokrytý
+  deterministickým testem; případný živý provozní důkaz je výslovně sledovaný
+  v Etapě 5.8.
 - `PARTIAL` – použitelný základ existuje, ale nesplňuje celý původní rozsah.
 - `TODO` – zatím chybí.
 - `BLOCKED` – kód může být připravený, ale chybí externí předpoklad nebo reálná
@@ -17,6 +20,51 @@ Auditní základ: `main` po PR #75, commit `de45cf8`, doplněný implementací
 
 Změna na `DONE` je povolena pouze tehdy, když jsou splněna všechna uvedená
 akceptační kritéria. Samotná existence třídy nebo tabulky nestačí.
+
+## Výsledek auditu po PR #76
+
+Celkový verdikt: bezpečný shadow základ je funkční, ale kompletní Company
+Intelligence vrstva ještě není provozně hotová a její zvýšení přesnosti nebylo
+prokázáno. [PR #76](https://github.com/littleleg198602/JOHNY-SKORE/pull/76)
+je skutečně sloučený do `main`; deterministický workflow na merge commitu
+prošel všemi čtyřmi joby. To ale neprokazuje živý sběr ani OOS přínos.
+
+| Kontrola | Výsledek | Důkaz / dopad |
+| --- | --- | --- |
+| `main` po PR #76 | PASS | commit `75ca52e`; PR #76 je merged |
+| Deterministické CI | PASS | [run 32470825035](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32470825035): contract, 687 tickerů, Streamlit a release gate |
+| Cílené testy Etapy 5.1 | PASS | lokálně 28/28; compileall bez chyby |
+| Běžný autonomous runtime | PARTIAL | SEC a governance jsou zapojitelné; identity manifest má 0 záznamů a evropský ingest je vypnutý |
+| Primární identity | PARTIAL | přesný GLEIF resolver existuje, ale potřebuje předem známý LEI nebo ISIN; běžný ticker jej sám nedostane |
+| Evropské filingy | PARTIAL | bezpečný direct-URL ingest existuje, ale chybí discovery adaptéry, runtime manifest a regionální canary |
+| Hierarchie zdrojů | PARTIAL | priorita se ukládá a chrání, ale globální vítěz konfliktu mezi agenty se nepersistuje |
+| Governance události | PASS | schema, observations, point-in-time a nulový obchodní signál |
+| Regulatory → Decision cesta | FAIL | dokument z `RegulatoryContractAgent` má `source_priority=0`, takže se reálná událost do risk-overlay nedostane |
+| Weekly production shadow | BLOCKED | workflow existuje, ale na GitHubu dosud nemá žádný běh |
+| Ochrana `main` | FAIL | větev není protected a nemá povinný status check |
+| Zvýšení přesnosti | BLOCKED | nejsou 200 uzavřených OOS vzorků ani 12 nezávislých týdnů |
+
+Rychlý stav tasků po auditu:
+
+- `DONE`: bezpečný základ `CI-001` až `CI-010`, `FILING-101`, `GOV-101`.
+- `PARTIAL`: `ENTITY-101`, `FILING-102`, `FILING-103`, `FORENSIC-201`,
+  `SHORT-301`, `SHORT-302`, `SHORT-303`, `SUPPLY-401`, `REG-602`,
+  `DECISION-701`, `DECISION-702`.
+- `TODO`: `FORENSIC-202`, `SHORT-304`, `SHORT-305`, `SUPPLY-402`,
+  `SUPPLY-403`, `RESOURCE-501`, `RESOURCE-502`, `RESOURCE-503`, `REG-601`,
+  `OPS-802`, `OPS-803`.
+- `BLOCKED`: `OPS-801` čeká na první dva živé běhy; `EVAL-703` čeká na
+  skutečnou OOS historii a navíc potřebuje component-level ablation.
+
+Bezprostřední pořadí oprav vyplývající z auditu:
+
+1. dokončit runtime manifest identit a fail-closed kontrolu nevyřešené identity,
+2. zapojit evropské zdroje do UI i weekly runneru a přidat discovery adaptéry,
+3. persistovat globální řešení konfliktů dokumentů napříč agenty,
+4. opravit prioritu a právní identitu dokumentů `RegulatoryContractAgent`,
+5. nastavit ochranu `main` a spustit první skutečný weekly production-shadow,
+6. teprve potom pokračovat plnými forenzními skóre a dalšími analytickými
+   větvemi; vše stále pouze v shadow režimu.
 
 ## Komplexní cíl
 
@@ -114,10 +162,17 @@ týdnů nelze bezpečně nahradit zpětným backfillem.
 
 ### Brána B: 5.1 → analytické větve 5.2/5.3/5.4/5.6
 
-- [x] ISIN/LEI/CIK/ticker jsou propojené bez nejednoznačnosti.
+- [ ] ISIN/LEI/CIK/ticker jsou propojené bez nejednoznačnosti pro skutečný
+  runtime watchlist, ne pouze pro fixture manifest.
 - [x] Zdrojová hierarchie je uložená a testovaná.
 - [x] US a evropské filingy používají stejný dokumentový kontrakt.
 - [x] Governance události mají vlastní schema a observation historii.
+- [ ] UI a weekly runner umí načíst identity i evropské filingové manifesty a
+  příslušné živé canary mají PASS.
+
+Brána B je po auditu otevřená pouze na úrovni datových kontraktů. Provozní
+průchod není splněn, takže nové větve lze dále vyvíjet a testovat, ale nesmějí
+se považovat za kompletní ani vstoupit do live rozhodování.
 
 ### Brána C: 5.4 → 5.5
 
@@ -170,8 +225,8 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 | Oblast / agent | Stav | Stručný stav |
 | --- | --- | --- |
 | `OrchestratorAgent` | DONE | Závislosti, blokování, audit běhů a chyby |
-| `EntityRegistryAgent` | DONE | GLEIF přes přesný LEI/ISIN, karanténa konfliktů, verzování a 10firemní pilot |
-| `FilingsCollectorAgent` / `SecFundamentalsAgent` | DONE | Rozšířené SEC formuláře, historické submissions a evropský jednotný ingest |
+| `EntityRegistryAgent` | PARTIAL | Přesný GLEIF backend a karanténa fungují; chybí runtime seed/discovery a živý pilot |
+| `FilingsCollectorAgent` / `SecFundamentalsAgent` | PARTIAL | SEC rozšíření je hotové; evropský ingest je zatím pouze direct-URL backend mimo běžný runtime |
 | `FinancialForensicsAgent` | PARTIAL | Základní finanční screening bez plných skóre a guidance |
 | `GovernanceEventAgent` | DONE | Vlastní události/schema/observations; výstup je audit-only bez BUY/SELL |
 | `ShortReportAgent` | PARTIAL | Bezpečný ingest a extrakce; chybí celý životní cyklus reportu |
@@ -179,7 +234,7 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 | `SupplyChainAgent` | PARTIAL | Evidence vztahů; chybí skutečný graf a přímé registry |
 | `CommodityEnergyAgent` | PARTIAL | Evidence expozic; chybí ceny, hedging a citlivost |
 | `RegulatoryContractAgent` | PARTIAL | Ruční/RSS události; chybí specializovaná API |
-| `DecisionAgent` | PARTIAL | Bezpečný risk-overlay; nepoužívá supply chain ani komodity |
+| `DecisionAgent` | PARTIAL | Bezpečný risk-overlay; nepoužívá governance, supply chain ani komodity a regulatory cesta má integrační chybu |
 | `EvaluationAgent` | DONE / BLOCKED | Kód hotový; přínos čeká na reálná OOS data |
 | `QualityGateAgent` | DONE | Fail-closed kontrola provenance, point-in-time a live aktivace |
 
@@ -202,23 +257,34 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 
 ## Etapa 5.1 – identity, filingy a governance
 
-### `ENTITY-101` Plná identita společnosti – DONE
+### `ENTITY-101` Plná identita společnosti – PARTIAL
 
 Aktuálně: ticker, právní entita, emitent a instrument mají oddělené identifikátory.
 CIK/ISIN/LEI se validují, změny identity se ukládají bitemporálně a SEC ingest
 automaticky doplňuje CIK identitu. Ruční nebo budoucí registry mohou dodat
 zdrojovaný manifest bez změny agentního kontraktu.
 
-- [x] Automaticky doplnit ISIN a LEI z důvěryhodného primárního registru.
+- [x] Ověřit a doplnit LEI nebo jediný ISIN z GLEIF, pokud je alespoň jeden
+  přesný identifikátor předem známý.
+- [ ] Dodat běžnému UI i weekly runneru zdrojovaný identity manifest, který pro
+  ticker bezpečně poskytne počáteční ISIN/LEI bez fuzzy porovnání názvu.
 - [x] Modelovat parent company, dceřiné společnosti a obchodní aliasy.
 - [x] Oddělit právní entitu, emitenta, ticker a obchodovanou třídu akcie.
 - [x] Verzovat změny tickeru, burzy a názvu bez ztráty historie.
+- [ ] Přidat fail-closed pravidlo pro identity-dependent komponentu, pokud
+  zůstane `identity_resolution=UNRESOLVED`.
+- [ ] Prokázat živý pilot alespoň 10 skutečných společností; současný
+  desetifiremní test používá pouze deterministická fixture data.
 
-Dokončeno: `GleifClient` používá pouze přesný LEI nebo ISIN a nikdy nehledá
+Hotový základ: `GleifClient` používá pouze přesný LEI nebo ISIN a nikdy nehledá
 podle podobnosti názvu. Jednoznačné mapování doplní chybějící LEI nebo jediný
 ISIN. Nesoulad se ukládá do `entity_identity_conflicts` a observation historie,
-aktivní identitu nepřepíše a QualityGate ticker odmítne. Deterministický pilot
-ověřuje 10 společností.
+aktivní identitu nepřepíše a QualityGate ticker odmítne.
+
+Zbývá: `AgentRuntimeSettings`, Streamlit i `autonomous_runtime.json` dnes
+neobsahují žádný identity manifest. GLEIF proto při normálním běhu nedostane
+LEI/ISIN, nic neověří a entita zůstane `UNRESOLVED`. QualityGate takovou
+samotnou nevyřešenou identitu aktuálně neodmítá; odmítá až skutečný konflikt.
 
 Hotovo znamená: jeden emitent lze bezpečně propojit napříč SEC, evropským
 filingem, IR dokumentem, kontraktem a short reportem bez ručního hádání.
@@ -238,20 +304,30 @@ submission souborů a parsuje transakce z Form 4 XML. `GovernanceEventAgent`
 normalizuje `SC 13D/G`, nabídky, Item 3.02, 4.01 a 4.02; textové nálezy zůstávají
 `UNVERIFIED`, dokud je nepotvrdí další kontrola.
 
-### `FILING-102` Evropské regulatorní dokumenty – DONE
+Tento úkol je code-complete. Aktuální funkčnost živého SEC je nadále společně
+blokovaná prvním produkčním během v `OPS-801`.
 
-- [x] Euronext issuer news.
-- [x] FCA/RNS, AFM, BaFin, ČNB a konfigurovatelné lokální burzy.
-- [x] ESEF/XHTML výroční a pololetní zprávy.
+### `FILING-102` Evropské regulatorní dokumenty – PARTIAL
+
+- [x] Bezpečně normalizovat přesnou URL Euronext issuer news.
+- [x] Mít host policy pro FCA/RNS, AFM, BaFin, ČNB a konfigurovatelné lokální
+  burzy.
+- [x] Bezpečně načíst, extrahovat a hashovat ESEF/XHTML dokument.
 - [x] Firemní IR weby pouze jako nižší úroveň zdroje.
-- [x] Mapování ISIN/LEI/ticker na správného emitenta.
+- [x] Odmítnout dokument, jehož ISIN/LEI neodpovídá registry entitě.
 - [x] Integrační test alespoň pro jednu US, jednu Euronext a jednu UK firmu.
+- [ ] Implementovat automatické discovery/collection adaptéry nebo feedy pro
+  Euronext, FCA/RNS, AFM, BaFin, ČNB a schválené lokální burzy.
+- [ ] Přidat parser evropského filingového manifestu do `AgentRuntimeSettings`,
+  Streamlit UI, weekly runneru a `autonomous_runtime.json`.
+- [ ] Přidat živý canary pro každý skutečně používaný evropský region.
 
-Evropský ingest je záměrně založený na přesných, konfigurovaných URL dokumentů
-a allowlistu autorit/domén. Neprovádí name-only scraping. Redirect mimo schválenou
-doménu se odmítne, ESEF/XHTML se hashuje a surové tělo se neukládá.
+Hotový základ je záměrně založený na přesných URL dokumentů a allowlistu
+autorit/domén. Neprovádí name-only scraping. Redirect mimo schválenou doménu se
+odmítne, ESEF/XHTML se hashuje a surové tělo se neukládá. To je bezpečný ingest
+adapter, nikoli ještě autonomní evropský monitor.
 
-### `FILING-103` Hierarchie důvěryhodnosti zdrojů – DONE
+### `FILING-103` Hierarchie důvěryhodnosti zdrojů – PARTIAL
 
 Implementovat a ukládat `source_priority`:
 
@@ -262,12 +338,18 @@ Implementovat a ukládat `source_priority`:
 5. prezentace managementu,
 6. mediální článek.
 
-- [x] Konflikt zdrojů musí preferovat vyšší úroveň, ale zachovat oba důkazy.
+- [x] Uvnitř jedné sady evropských dokumentů preferovat vyšší úroveň a zachovat
+  oba důkazy.
+- [ ] Zavést globální `canonical_event_key` napříč SEC, Evropou, IR, médii a
+  dalšími agenty, persistovat zvolený dokument i historii změny preference.
 - [x] `DecisionAgent` nesmí považovat mediální článek za primární potvrzení.
 
 `source_priority` se ukládá v `documents` i `document_observations`.
 QualityGate odmítá podvrženou prioritu a `DecisionAgent` přijímá jako nezávislé
-primární potvrzení pouze burzovní oznámení nebo silnější úroveň.
+primární potvrzení pouze burzovní oznámení nebo silnější úroveň. Resolver
+konfliktů však dnes volá jen `EuropeanFilingsAgent`; jeho mapa preferovaných
+dokumentů zůstává pouze v paměti běhu. Proto ještě nelze tvrdit, že konflikt
+SEC versus burza versus IR versus médium je globálně a auditovatelně vyřešený.
 
 ### `GOV-101` GovernanceEventAgent a datový model – DONE
 
@@ -337,24 +419,33 @@ Doplnit a pravidelně ověřovat oficiální domény/feed:
 Hindenburg Research a Scorpion Capital mohou zůstat jako další podporované
 zdroje mimo původní seznam.
 
-### `SHORT-302` Strukturovaná short-report událost – TODO
+### `SHORT-302` Strukturovaná short-report událost – PARTIAL
 
-- [ ] Vydavatel a explicitní přiznání/nepřiznání short pozice.
-- [ ] Přesný čas zveřejnění a čas prvního zachycení.
+- [x] Uložit vydavatele, URL, hash a základní metadata reportu.
+- [ ] Extrahovat explicitní přiznání/nepřiznání short pozice a konflikt zájmů.
+- [x] Uložit přesný čas zveřejnění a čas prvního zachycení.
 - [ ] Ticker, ISIN, LEI a cílová právní entita.
-- [ ] Jednotlivá tvrzení a jejich typ.
+- [x] Extrahovat jednotlivá tvrzení a jejich základní typ.
 - [ ] Přiložené důkazy a jejich hash/provenance.
 - [ ] Anonymní versus veřejný zdroj tvrzení.
 - [ ] Reakce společnosti, auditora a regulátora jako navázané dokumenty.
 - [ ] Deduplicitní zachycení aktualizované verze reportu.
 
-### `SHORT-303` Životní cyklus tvrzení – TODO
+Současný `ShortReportAgent` používá obecný `DocumentRecord` a `ResearchClaim`;
+samostatný životní cyklus short-report události a vazba na právní entitu zatím
+neexistují.
+
+### `SHORT-303` Životní cyklus tvrzení – PARTIAL
 
 Požadované stavy:
 
 `NEW`, `DISPUTED`, `PARTIALLY_CONFIRMED`, `CONFIRMED`, `REFUTED`, `UNRESOLVED`.
 
-- [ ] Uložit historii každé změny stavu a důkaz, který změnu způsobil.
+- [x] Ukládat stabilní claim ID a observation historii technických změn.
+- [ ] Nahradit dnešní úzké stavy `UNVERIFIED/CORROBORATED/CONTRADICTED/`
+  `INSUFFICIENT_DATA` požadovaným doménovým stavovým automatem a řízenými
+  přechody.
+- [ ] U každé změny stavu uložit konkrétní nový důkaz a důvod přechodu.
 - [ ] `PARTIALLY_CONFIRMED` musí obsahovat potvrzenou a nepotvrzenou část.
 - [ ] Odpověď společnosti sama nesmí tvrzení automaticky označit `REFUTED`.
 - [ ] Mediální opakování jednoho tvrzení se nesmí počítat jako nezávislý důkaz.
@@ -458,50 +549,75 @@ citlivost firmy =
 - [ ] Whistleblower reporty.
 - [ ] Rezignace CFO, audit committee a nezávislých ředitelů.
 
-### `REG-602` Ověření a deduplikace – TODO
+### `REG-602` Ověření a deduplikace – PARTIAL
 
 - [ ] Přímý úřad/registr má vyšší prioritu než RSS článek.
 - [ ] Jedna událost převzatá deseti médii se počítá jednou.
 - [ ] Oprava nebo zrušení události se verzovaně propíše do historie.
-- [ ] Nízkokonfidenční RSS discovery zůstane bez vlivu na predikci.
+- [x] Nízkokonfidenční RSS discovery zůstane bez vlivu na predikci.
+
+Kritická integrační chyba z auditu: `RegulatoryContractAgent` vytváří dokument
+typu `regulatory_contract_reference`, pro který hierarchie vrací
+`source_priority=0`, a neukládá právní identitu emitenta. `DecisionAgent` proto
+událost vytvořenou skutečným agentem nepřijme jako primární potvrzení ani při
+confidence 1,0. Oprava musí rozlišit oficiální úřad, burzu, firemní oznámení a
+médium, přiřadit jim správnou prioritu a přidat end-to-end negativní i pozitivní
+test přes skutečný `RegulatoryContractAgent`.
 
 ## Etapa 5.7 – zapojení do shadow predikce
 
-### `DECISION-701` Zapojení dosud auditních vrstev – TODO
+### `DECISION-701` Zapojení dosud auditních vrstev – PARTIAL
 
-`DecisionAgent` dnes nepoužívá `company_relationships_by_ticker` ani
-`resource_exposures_by_ticker`.
+`DecisionAgent` dnes používá základní finanční forenzní nálezy a úzce ověřené
+short claims. Nepoužívá `governance_events_by_ticker`,
+`supply_chain_relationships_by_ticker` ani `resource_exposures_by_ticker`.
+Regulatory větev v kódu existuje, ale kvůli chybě popsané v `REG-602` není
+end-to-end funkční s dokumenty svého vlastního agenta.
 
+- [x] Přidat základní finanční forenzní a corroborated-claim komponentu.
 - [ ] Přidat governance risk jako samostatnou komponentu.
 - [ ] Přidat supply-chain concentration/disruption komponentu.
 - [ ] Přidat materiálovou a energetickou citlivost.
 - [ ] Přidat rating/contract/regulatory komponentu podle kvality zdroje.
 - [ ] Každá komponenta musí být samostatně vypínatelná a verzovaná.
-- [ ] První verze smí pouze ponechat obchod nebo navrhnout `NO_TRADE`.
-- [ ] Žádná nová vrstva nesmí sama vytvořit `BUY` nebo `SELL`.
+- [x] První verze smí pouze ponechat obchod nebo navrhnout `NO_TRADE`.
+- [x] Žádná nová vrstva nesmí sama vytvořit `BUY` nebo `SELL`.
 
-### `DECISION-702` Politika short-report volatility – TODO
+### `DECISION-702` Politika short-report volatility – PARTIAL
 
 - [ ] Vysoká závažnost + prudká volatilita → `NO_TRADE` návrh.
-- [ ] Nepotvrzený report bez důkazů → nízká váha.
+- [x] Nepotvrzený report bez důkazů sám nemění predikci.
 - [ ] Více nezávislých primárních důkazů → vyšší bearish risk bias, stále ne
   automatický `SELL`.
 - [ ] Regulatorní zásah/restatement/odchod auditora → vysoká risk komponenta.
+
+Současný základ umí přidat riziko pro úzce `CORROBORATED` SEC claim a stále
+jen navrhnout `NO_TRADE`. Neexistuje však report severity, vazba na okamžitou
+volatilitu ani požadavek více nezávislých důkazů.
 
 ### `EVAL-703` Ablation a OOS brány – BLOCKED
 
 - [ ] Měřit baseline versus každá nová komponenta samostatně.
 - [ ] Nejméně 200 uzavřených OOS vzorků.
 - [ ] Nejméně 12 nezávislých týdnů.
-- [ ] Lift alespoň 2 p. b. a dolní 95% mez nad nulou.
-- [ ] Kladný přínos alespoň v 60 % týdnů.
-- [ ] Žádné zhoršení FPR, Brier score ani kalibrace.
-- [ ] Tři průchody bránou s novým týdenním výsledkem.
-- [ ] Ostré použití vyžaduje samostatné ruční rozhodnutí a explicitní allowlist.
+- [x] Implementovat bránu: lift alespoň 2 p. b. a dolní 95% mez nad nulou.
+- [x] Implementovat bránu: kladný přínos alespoň v 60 % týdnů.
+- [x] Implementovat bránu: žádné zhoršení FPR, Brier score ani kalibrace.
+- [x] Implementovat tři průchody bránou pouze s novým týdenním výsledkem.
+- [x] Vyžadovat pro ostré použití samostatné ruční rozhodnutí a explicitní
+  allowlist.
+
+Výpočet a fail-closed aktivační logika jsou hotové. Stav zůstává `BLOCKED`,
+protože nejsou skutečná data a chybí ablation po jednotlivých nových
+komponentách; syntetický backfill nesmí nahradit 12 reálných týdnů.
 
 ## Etapa 5.8 – provozní dokončení
 
 ### `OPS-801` První skutečný weekly production-shadow běh – BLOCKED
+
+Audit GitHub Actions dne 21. 8. 2026 našel pro workflow
+`market-checker-live-smoke.yml` celkem 0 běhů. Není tedy doložen ani první
+živý canary, ani obnova databáze mezi dvěma běhy.
 
 - [ ] Nastavit GitHub Actions secret `JOHNY_SKORE_SEC_USER_AGENT` s reálným
   deklarovaným kontaktem; secret se nesmí zapisovat do repozitáře.
@@ -520,6 +636,10 @@ citlivost firmy =
 
 ### `OPS-803` Ochrana release procesu – TODO
 
+Aktuální stav GitHub API: `main` má `protected=false`, enforcement je `off` a
+seznam povinných checks je prázdný. Workflow s deterministickým release gate
+existuje a prochází, ale GitHub jej zatím nevyžaduje před změnou `main`.
+
 - [ ] Vyžadovat PR do `main`.
 - [ ] Vyžadovat status check `Deterministic release gate`.
 - [ ] Zakázat force-push a mazání `main`.
@@ -530,15 +650,22 @@ citlivost firmy =
 
 Reálný weekly shadow sběr má běžet paralelně po celou dobu vývoje.
 
-1. `OPS-801` – získat první provozní důkaz a začít počítat OOS týdny.
-2. `FILING-101`, `GOV-101`, `FORENSIC-201`, `FORENSIC-202`.
-3. `FILING-102` – evropské firmy a podmínka pro CSG.
-4. `SHORT-301` až `SHORT-305` – kompletní short-report lifecycle a CSG test.
-5. `SUPPLY-401` až `SUPPLY-403`.
-6. `RESOURCE-501` až `RESOURCE-503`.
-7. `REG-601` a `REG-602`.
-8. `DECISION-701`, `DECISION-702` – stále pouze shadow.
-9. `EVAL-703` – čekat na dostatek reálných OOS týdnů, nic neurychlovat
+1. `ENTITY-101` – runtime identity manifest, nevyřešená identita fail-closed a
+   živý desetifiremní pilot.
+2. `FILING-102` – evropský runtime manifest, discovery adaptéry a regionální
+   canary; bez toho není CSG scénář end-to-end možný.
+3. `FILING-103` – globální canonical event a persistence preferovaného zdroje.
+4. `REG-602` – opravit `source_priority=0` a právní identitu regulačních
+   dokumentů; přidat end-to-end test přes skutečné agenty.
+5. `OPS-803` a `OPS-801` – chránit `main`, nastavit secret, spustit první běh a
+   hned začít počítat skutečné OOS týdny.
+6. `FORENSIC-201` a `FORENSIC-202` – dokončit delty a čtyři samostatná skóre.
+7. `SHORT-301` až `SHORT-305` – kompletní short-report lifecycle a CSG test.
+8. `SUPPLY-401` až `SUPPLY-403`.
+9. `RESOURCE-501` až `RESOURCE-503`.
+10. `REG-601` a zbývající část `REG-602`.
+11. `DECISION-701`, `DECISION-702` – stále pouze shadow.
+12. `EVAL-703` – čekat na dostatek reálných OOS týdnů, nic neurychlovat
    backfillem se znalostí budoucnosti.
 
 ## Společná Definition of Done
