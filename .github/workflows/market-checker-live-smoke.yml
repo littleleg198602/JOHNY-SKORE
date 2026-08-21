@@ -23,7 +23,6 @@ jobs:
     timeout-minutes: 45
     env:
       JOHNY_SKORE_SEC_USER_AGENT: ${{ secrets.JOHNY_SKORE_SEC_USER_AGENT }}
-      JOHNY_SKORE_SMOKE_SHORT_REPORT_URL: ${{ vars.JOHNY_SKORE_SMOKE_SHORT_REPORT_URL || 'https://www.kerrisdalecap.com/investments/microstrategy/' }}
     steps:
       - uses: actions/checkout@v4
 

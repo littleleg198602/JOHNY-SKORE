@@ -25,6 +25,9 @@ from market_checker_app.services.agent_runtime_service import AgentRuntimeServic
 from market_checker_app.services.company_intelligence_manifest_service import (
     parse_identity_records,
 )
+from market_checker_app.services.short_report_manifest_service import (
+    parse_short_report_sources,
+)
 from market_checker_app.services.watchlist_service import load_watchlist
 
 
@@ -146,8 +149,8 @@ class _Report:
             source=source,
             final_url=source.url,
             mime_type="text/html",
-            title="MicroStrategy (MSTR)",
-            text="MSTR " + "verified report content " * 20,
+            title=f"Research report on {source.ticker}",
+            text=f"{source.ticker} " + "verified report content " * 20,
             content_hash="a" * 64,
             size_bytes=1_024,
             extractor="html.parser",
@@ -170,6 +173,22 @@ def _production_watchlist() -> list[str]:
     return load_watchlist(
         ROOT / "market_checker_app" / "production_watchlist.txt"
     )
+
+
+def _production_short_report_source():
+    settings, warning = AgentRuntimeService(
+        ROOT / "market_checker_app" / "autonomous_runtime.json"
+    ).load()
+    if warning:
+        raise AssertionError(warning)
+    sources, errors = parse_short_report_sources(
+        settings.short_report_sources_text
+    )
+    if errors:
+        raise AssertionError("; ".join(errors))
+    if len(sources) != 1:
+        raise AssertionError("Expected exactly one production short-report source")
+    return sources[0]
 
 
 class LiveSourceSmokeTests(unittest.TestCase):
@@ -264,6 +283,7 @@ class LiveSourceSmokeTests(unittest.TestCase):
                 tickers=["AAPL", "MSFT", "SOFI"],
                 output_path=output,
                 sec_user_agent="JohnySkore test@example.com",
+                external_report_source=_production_short_report_source(),
                 yahoo_client=_Yahoo(),
                 rss_client=_RSS(),
                 sec_client=_SEC(),
@@ -286,6 +306,7 @@ class LiveSourceSmokeTests(unittest.TestCase):
                 tickers=["AAPL"],
                 output_path=output,
                 sec_user_agent="",
+                external_report_source=_production_short_report_source(),
                 yahoo_client=_Yahoo(),
                 rss_client=_RSS(),
                 sec_client=_SEC(),
@@ -305,6 +326,7 @@ class LiveSourceSmokeTests(unittest.TestCase):
                 tickers=["AAPL"],
                 output_path=output,
                 sec_user_agent="JohnySkore test@example.com",
+                external_report_source=_production_short_report_source(),
                 yahoo_client=_Yahoo(),
                 rss_client=_RSS(),
                 sec_client=_LeakySEC(),

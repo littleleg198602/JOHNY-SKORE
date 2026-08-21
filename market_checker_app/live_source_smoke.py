@@ -21,6 +21,9 @@ from market_checker_app.services.agent_runtime_service import AgentRuntimeServic
 from market_checker_app.services.company_intelligence_manifest_service import (
     parse_identity_records,
 )
+from market_checker_app.services.short_report_manifest_service import (
+    parse_short_report_sources,
+)
 from market_checker_app.services.watchlist_service import (
     DEFAULT_PRODUCTION_WATCHLIST_PATH,
     WatchlistError,
@@ -31,9 +34,6 @@ from market_checker_app.services.watchlist_service import (
 from market_checker_app.weekly_shadow_runner import DEFAULT_RSS_SOURCE
 
 
-DEFAULT_EXTERNAL_REPORT_URL = (
-    "https://www.kerrisdalecap.com/investments/microstrategy/"
-)
 DEFAULT_RUNTIME_CONFIG_PATH = Path("market_checker_app/autonomous_runtime.json")
 
 
@@ -277,7 +277,7 @@ def run_live_source_smoke(
     identity_records: Mapping[str, Mapping[str, object]] | None = None,
     identity_universe_tickers: Sequence[str] | None = None,
     minimum_identity_records: int = 10,
-    external_report_url: str = DEFAULT_EXTERNAL_REPORT_URL,
+    external_report_source: ShortReportSourceConfig,
     yahoo_client: object | None = None,
     rss_client: object | None = None,
     sec_client: object | None = None,
@@ -296,6 +296,19 @@ def run_live_source_smoke(
     if not normalized_tickers:
         raise ValueError("Live smoke vyžaduje alespoň jeden ticker.")
     declared_sec_user_agent = str(sec_user_agent or "").strip()
+    production_universe = (
+        normalize_watchlist(identity_universe_tickers)
+        if identity_universe_tickers is not None
+        else []
+    )
+    if (
+        production_universe
+        and external_report_source.ticker not in production_universe
+    ):
+        raise ValueError(
+            "Short-report smoke ticker není v produkčním watchlistu: "
+            f"{external_report_source.ticker}"
+        )
 
     def check_company_identity_pilot() -> dict[str, object]:
         if identity_records is None:
@@ -418,22 +431,20 @@ def run_live_source_smoke(
             max_text_characters=500_000,
         )
         fetched = client.fetch(
-            ShortReportSourceConfig(
-                ticker="MSTR",
-                publisher="Kerrisdale Capital",
-                published_at=datetime(2024, 3, 28, tzinfo=timezone.utc),
-                url=external_report_url,
-                discovery_method="production_smoke",
-            )
+            external_report_source
         )
         searchable = f"{fetched.title} {fetched.text}".casefold()
-        if len(fetched.text) < 200 or "mstr" not in searchable:
+        if (
+            len(fetched.text) < 200
+            or external_report_source.ticker.casefold() not in searchable
+        ):
             raise RuntimeError(
                 "Externí report neobsahuje očekávaný strojově čitelný obsah."
             )
         return {
-            "publisher": "Kerrisdale Capital",
-            "ticker": "MSTR",
+            "publisher": external_report_source.publisher,
+            "ticker": external_report_source.ticker,
+            "published_at": external_report_source.published_at.isoformat(),
             "final_url": fetched.final_url,
             "mime_type": fetched.mime_type,
             "content_hash": fetched.content_hash,
@@ -502,13 +513,6 @@ def _parser() -> argparse.ArgumentParser:
         default=Path("outputs/live_source_smoke_latest.json"),
     )
     parser.add_argument(
-        "--external-report-url",
-        default=os.getenv(
-            "JOHNY_SKORE_SMOKE_SHORT_REPORT_URL",
-            DEFAULT_EXTERNAL_REPORT_URL,
-        ),
-    )
-    parser.add_argument(
         "--runtime-config",
         type=Path,
         default=DEFAULT_RUNTIME_CONFIG_PATH,
@@ -536,6 +540,19 @@ def main() -> None:
             "[LIVE SMOKE CHYBA] Identity manifest není platný: "
             + "; ".join(identity_errors)
         )
+    short_report_sources, short_report_errors = parse_short_report_sources(
+        settings.short_report_sources_text
+    )
+    if short_report_errors:
+        raise SystemExit(
+            "[LIVE SMOKE CHYBA] Short-report manifest není platný: "
+            + "; ".join(short_report_errors)
+        )
+    if len(short_report_sources) != 1:
+        raise SystemExit(
+            "[LIVE SMOKE CHYBA] Produkční smoke vyžaduje právě jeden "
+            "explicitní short-report zdroj v runtime konfiguraci."
+        )
     try:
         universe_tickers = load_watchlist(args.ticker_file)
         smoke_tickers = apply_ticker_limit(
@@ -549,7 +566,7 @@ def main() -> None:
             identity_records=identity_records,
             identity_universe_tickers=universe_tickers,
             minimum_identity_records=args.minimum_identity_records,
-            external_report_url=args.external_report_url,
+            external_report_source=short_report_sources[0],
         )
     except WatchlistError as exc:
         raise SystemExit(f"[LIVE SMOKE CHYBA] {exc}") from exc

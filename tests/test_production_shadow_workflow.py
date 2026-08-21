@@ -45,7 +45,7 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertEqual(10, len(identities))
         self.assertEqual(10, len(config.entity_registry.identity_records))
         self.assertEqual(1, len(config.short_reports.sources))
-        self.assertEqual("MSTR", config.short_reports.sources[0].ticker)
+        self.assertEqual("MSCI", config.short_reports.sources[0].ticker)
         self.assertTrue(config.supply_chain.enabled)
         self.assertTrue(config.commodity_energy.enabled)
 
@@ -65,7 +65,7 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
             required_tickers=_required_runtime_tickers(config),
         )
         self.assertEqual(36, len(pilot))
-        self.assertIn("MSTR", pilot)
+        self.assertIn("MSCI", pilot)
         self.assertTrue(set(pilot).issubset(universe))
 
     def test_workflow_restores_history_and_runs_all_live_canaries(self) -> None:
@@ -92,6 +92,7 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertIn("--ticker-limit 3", workflow)
         self.assertIn("--ticker-limit 36", workflow)
         self.assertNotIn("--tickers AAPL", workflow)
+        self.assertNotIn("JOHNY_SKORE_SMOKE_SHORT_REPORT_URL", workflow)
         self.assertIn("JOHNY_SKORE_SEC_USER_AGENT", workflow)
         self.assertIn("market_checker_app/autonomous_runtime.json", workflow)
         self.assertLess(
