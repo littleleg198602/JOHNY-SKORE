@@ -38,7 +38,7 @@ class DecisionAgent(BaseAgent):
     """
 
     name = "decision_agent"
-    version = "1.0"
+    version = "1.1"
     required = False
     dependencies = ("prediction_v21_adapter",)
 
@@ -184,6 +184,12 @@ class DecisionAgent(BaseAgent):
         regulatory_by_ticker = (
             regulatory_by_ticker if isinstance(regulatory_by_ticker, dict) else {}
         )
+        governance_by_ticker = context.state.get("governance_events_by_ticker")
+        governance_by_ticker = governance_by_ticker if isinstance(governance_by_ticker, dict) else {}
+        supply_chain_by_ticker = context.state.get("supply_chain_relationships_by_ticker")
+        supply_chain_by_ticker = supply_chain_by_ticker if isinstance(supply_chain_by_ticker, dict) else {}
+        resource_by_ticker = context.state.get("resource_exposures_by_ticker")
+        resource_by_ticker = resource_by_ticker if isinstance(resource_by_ticker, dict) else {}
         activation_state = self._activation_state(context)
         live_authorized = (
             not context.shadow_mode
@@ -320,6 +326,78 @@ class DecisionAgent(BaseAgent):
                     for item in evidence_by_ticker.get(ticker, [])
                     if item.metadata.get("regulatory_event_id") in event_id_set
                 )
+
+            def enum_value(value: object) -> str:
+                return str(getattr(value, "value", value))
+
+            if self.config.governance_component_enabled:
+                governance_events = [
+                    event for event in governance_by_ticker.get(ticker, [])
+                    if enum_value(getattr(event, "status", "")) in {"VERIFIED", "RESOLVED"}
+                    and float(getattr(event, "confidence", 0.0)) >= self.config.minimum_claim_confidence
+                    and getattr(event, "published_at", observed_at) <= context.started_at
+                ]
+                high_governance_types = {
+                    "AUDITOR_CHANGE", "QUALIFIED_OPINION", "RESTATEMENT",
+                    "MATERIAL_WEAKNESS", "EXECUTIVE_RESIGNATION",
+                    "DIRECTOR_RESIGNATION", "RELATED_PARTY_TRANSACTION",
+                    "STOCK_PLEDGE", "DILUTION",
+                }
+                high_governance = [
+                    event for event in governance_events
+                    if enum_value(getattr(event, "event_type", "")) in high_governance_types
+                ]
+                if governance_events:
+                    component = min(4.0, len(high_governance) * 1.25 + (len(governance_events) - len(high_governance)) * 0.35)
+                    risk_components["governance_events"] = component
+                    reasons.append(f"governance_events={len(governance_events)}")
+                    event_ids = {str(getattr(event, "event_id", "")) for event in governance_events}
+                    linked_evidence_ids.extend(
+                        item.evidence_id for item in evidence_by_ticker.get(ticker, [])
+                        if item.agent_name == "governance_event"
+                        and (
+                            item.metadata.get("governance_event_id") in event_ids
+                            or item.metadata.get("event_id") in event_ids
+                        )
+                    )
+
+            if self.config.supply_chain_component_enabled:
+                relationships = [
+                    item for item in supply_chain_by_ticker.get(ticker, [])
+                    if float(getattr(item, "confidence", 0.0)) >= self.config.minimum_claim_confidence
+                ]
+                weighted = sum(
+                    1.0 if getattr(item, "dependency_pct", None) is not None and float(item.dependency_pct) >= 40.0 else 0.35
+                    for item in relationships
+                )
+                if weighted:
+                    risk_components["supply_chain_relationships"] = min(3.0, weighted)
+                    reasons.append(f"supply_chain_relationships={len(relationships)}")
+                    relationship_ids = {str(getattr(item, "relationship_id", "")) for item in relationships}
+                    linked_evidence_ids.extend(
+                        item.evidence_id for item in evidence_by_ticker.get(ticker, [])
+                        if item.agent_name == "supply_chain"
+                        and item.metadata.get("relationship_id") in relationship_ids
+                    )
+
+            if self.config.resource_component_enabled:
+                exposures = [
+                    item for item in resource_by_ticker.get(ticker, [])
+                    if float(getattr(item, "confidence", 0.0)) >= self.config.minimum_claim_confidence
+                ]
+                weighted = sum(
+                    1.0 if getattr(item, "dependency_pct", None) is not None and float(item.dependency_pct) >= 40.0 else 0.35
+                    for item in exposures
+                )
+                if weighted:
+                    risk_components["resource_exposures"] = min(3.0, weighted)
+                    reasons.append(f"resource_exposures={len(exposures)}")
+                    exposure_ids = {str(getattr(item, "exposure_id", "")) for item in exposures}
+                    linked_evidence_ids.extend(
+                        item.evidence_id for item in evidence_by_ticker.get(ticker, [])
+                        if item.agent_name == "commodity_energy"
+                        and item.metadata.get("exposure_id") in exposure_ids
+                    )
 
             linked_evidence_ids = list(dict.fromkeys(linked_evidence_ids))
             linked_claim_ids = list(dict.fromkeys(linked_claim_ids))
