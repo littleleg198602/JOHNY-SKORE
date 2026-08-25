@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-import re
 import unittest
 
 from market_checker_app.services.agent_runtime_service import AgentRuntimeService
@@ -49,17 +48,17 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
             workflow.index("Initialize or validate the persistent SQLite history"),
             workflow.index("Verify current Yahoo, RSS, SEC and short-report sources"),
         )
-        ticker_block = re.search(
-            r"--tickers\s+(.*?)\s+--no-mt5",
-            workflow,
-            flags=re.DOTALL,
-        )
-        self.assertIsNotNone(ticker_block)
-        assert ticker_block is not None
-        tickers = re.findall(r"\b[A-Z]{1,5}\b", ticker_block.group(1))
-        self.assertGreaterEqual(len(tickers), 30)
-        self.assertIn("TAL", tickers)
-        self.assertIn("SOFI", tickers)
+        self.assertIn("Verify canonical 687-ticker universe", workflow)
+        preflight_start = workflow.index("Verify canonical 687-ticker universe")
+        runner_start = workflow.index("Run the persistent weekly Stage 4 shadow")
+        self.assertLess(preflight_start, runner_start)
+        runner_block = workflow[runner_start:]
+        self.assertNotIn("--tickers", runner_block.split(
+            "Preserve rolling state and source/readiness audits",
+            1,
+        )[0])
+        self.assertIn("--no-mt5", runner_block)
+        self.assertIn("len(tickers)==687", workflow)
 
 
 if __name__ == "__main__":
