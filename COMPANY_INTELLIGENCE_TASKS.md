@@ -253,7 +253,7 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 | Oblast / agent | Stav | Stručný stav |
 | --- | --- | --- |
 | `OrchestratorAgent` | DONE | Závislosti, blokování, audit běhů a chyby |
-| `EntityRegistryAgent` | PARTIAL | Přesný manifest/GLEIF, karanténa a fail-closed fungují; chybí naplněný produkční manifest a živý pilot |
+| `EntityRegistryAgent` | PARTIAL | Přesný manifest/GLEIF, pilotní manifest, karanténa a fail-closed fungují; chybí uložený výsledek live pilotu |
 | `FilingsCollectorAgent` / `SecFundamentalsAgent` | PARTIAL | SEC rozšíření a evropský direct/feed runtime jsou hotové; chybí regionální live canary |
 | `SourceResolutionAgent` | DONE | Globální canonical event, preference, SQLite historie a QualityGate ochrana |
 | `FinancialForensicsAgent` | PARTIAL | Základní finanční screening bez plných skóre a guidance |
@@ -302,8 +302,14 @@ zdrojovaný manifest bez změny agentního kontraktu.
 - [x] Verzovat změny tickeru, burzy a názvu bez ztráty historie.
 - [x] Přidat fail-closed pravidlo pro identity-dependent komponentu, pokud
   zůstane `identity_resolution=UNRESOLVED`.
-- [ ] Prokázat živý pilot alespoň 10 skutečných společností; současný
-  desetifiremní test používá pouze deterministická fixture data.
+- [x] Přidat veřejný pilotní manifest 10 skutečných společností s přesným
+  CIK/ISIN/LEI/MIC a zdrojovou HTTPS URL.
+- [x] Přidat deterministický test manifestu bez name-only nebo fuzzy párování.
+- [x] Přidat ruční live smoke, který provádí přesné GLEIF lookupy a zapisuje
+  redigovaný auditní JSON.
+- [ ] Spustit live smoke proti GLEIF a uložit výsledek 10/10 jako provozní
+  artefakt; předchozí interaktivní pilot byl raportován 10/10, ale jeho JSON
+  není v repozitáři.
 
 Hotový základ: `GleifClient` používá pouze přesný LEI nebo ISIN a nikdy nehledá
 podle podobnosti názvu. Jednoznačné mapování doplní chybějící LEI nebo jediný
@@ -313,7 +319,8 @@ aktivní identitu nepřepíše a QualityGate ticker odmítne.
 Runtime manifest je zapojený do `AgentRuntimeSettings`, Streamlitu,
 `autonomous_runtime.json` i weekly runneru. Identity-dependent zdroj bez přesné
 identity se odmítne před sítí a QualityGate odmítne také runtime stav
-`UNRESOLVED`. Zbývá naplnit skutečný produkční manifest a doložit živý pilot.
+`UNRESOLVED`. Pilotní manifest a live smoke jsou nyní v repu; zbývá pouze
+spustit GLEIF smoke a uložit výsledek jako provozní artefakt.
 
 Hotovo znamená: jeden emitent lze bezpečně propojit napříč SEC, evropským
 filingem, IR dokumentem, kontraktem a short reportem bez ručního hádání.
@@ -348,7 +355,8 @@ blokovaná prvním produkčním během v `OPS-801`.
 - [x] Implementovat obecný allowlistovaný RSS/Atom discovery adaptér, který
   přijímá položku jen při přesném LEI/ISIN.
 - [ ] Nakonfigurovat a živě ověřit konkrétní feed/adaptér pro Euronext, FCA/RNS,
-  AFM, BaFin, ČNB a každou používanou lokální burzu.
+  AFM, BaFin, ČNB a každou používanou lokální burzu. RNS RSS nelze použít:
+  LSE oznámila vypnutí RSS služeb; potřebuje page/API nebo licencovaný adaptér.
 - [x] Přidat parser evropského filingového manifestu do `AgentRuntimeSettings`,
   Streamlit UI, weekly runneru a `autonomous_runtime.json`.
 - [ ] Přidat živý canary pro každý skutečně používaný evropský region.
