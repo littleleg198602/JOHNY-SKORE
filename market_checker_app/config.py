@@ -125,12 +125,15 @@ class DecisionAgentConfig:
 
     enabled: bool = True
     policy_name: str = "conservative_risk_overlay"
-    policy_version: str = "1.0"
+    policy_version: str = "1.1"
     suppression_score_threshold: float = 3.0
     probability_flat_shift: float = 0.18
     minimum_forensic_confidence: float = 0.50
     minimum_claim_confidence: float = 0.50
     minimum_regulatory_confidence: float = 0.70
+    governance_component_enabled: bool = True
+    supply_chain_component_enabled: bool = True
+    resource_component_enabled: bool = True
     live_application_enabled: bool = False
     live_policy_allowlist: tuple[str, ...] = ()
 
