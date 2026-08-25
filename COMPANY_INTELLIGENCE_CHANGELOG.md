@@ -7,6 +7,32 @@ historie je technický zdroj pravdy pro přesný diff každého commitu.
 Každý další implementační PR má doplnit datum, rozsah, bezpečnostní dopad,
 ověřovací testy a otevřené provozní podmínky. Historické záznamy se nemažou.
 
+## 2026-08-25 – ENTITY-101 pilotní manifest a bezpečný live smoke
+
+- Přidán veřejný pilotní manifest
+  `market_checker_app/data/company_identity_pilot.txt` pro 10 skutečných
+  společností: AAPL, MSFT, NVDA, JPM, GD, CSG, ASML, AIR, ADYEN a MC.
+- Každý záznam má přesný ISIN nebo LEI, u amerických firem také CIK, MIC,
+  zemi, burzu a zdrojovou HTTPS adresu GLEIF/Euronext. Name-only ani fuzzy
+  přiřazení se nepoužívá.
+- Přidán deterministický test
+  `tests/test_company_identity_pilot_manifest.py`, který kontroluje všech
+  10 záznamů, checksumy identifikátorů a konflikt duplicitního tickeru.
+- Přidán ruční live smoke
+  `python -m market_checker_app.identity_pilot_smoke`, který provede přesné
+  GLEIF lookupy a uloží pouze auditní výsledek do
+  `outputs/identity_pilot_latest.json`.
+- Stav ENTITY-101 zůstává do uložení tohoto live artefaktu provozně
+  **PARTIAL/READY**, i když předchozí pilotní běh byl raportován jako 10/10.
+  Workflow se automaticky neměnil, aby se bez dalšího schválení nerozšiřoval
+  plánovaný produkční job a jeho artefakty.
+
+FILING-102 má nadále hotový bezpečný host-policy/feed framework. Konkrétní
+regionální live canary zůstává samostatná brána; RNS nelze označit jako RSS
+canary, protože London Stock Exchange oznámila, že RSS služby na svém webu
+vypnula. Pro RNS proto bude potřeba oficiální page/API adaptér nebo schválený
+licencovaný zdroj.
+
 ## 2026-08-25 – weekly shadow sjednocen na kanonických 687 tickerech
 
 - Workflow `.github/workflows/market-checker-live-smoke.yml` už nepředává
