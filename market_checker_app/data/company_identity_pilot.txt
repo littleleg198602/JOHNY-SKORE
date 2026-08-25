@@ -4,7 +4,7 @@
 AAPL | Apple Inc. | 0000320193 | US0378331005 | - | XNAS | US | Nasdaq | GLEIF exact ISIN lookup | https://api.gleif.org/api/v1/lei-records?filter%5Bisin%5D=US0378331005
 MSFT | Microsoft Corporation | 0000789019 | US5949181045 | - | XNAS | US | Nasdaq | GLEIF exact ISIN lookup | https://api.gleif.org/api/v1/lei-records?filter%5Bisin%5D=US5949181045
 NVDA | NVIDIA Corporation | 0001045810 | US67066G1040 | - | XNAS | US | Nasdaq | GLEIF exact ISIN lookup | https://api.gleif.org/api/v1/lei-records?filter%5Bisin%5D=US67066G1040
-JPM | JPMorgan Chase & Co. | 0000019617 | US46647P1021 | - | XNYS | US | NYSE | GLEIF exact ISIN lookup | https://api.gleif.org/api/v1/lei-records?filter%5Bisin%5D=US46647P1021
+JPM | JPMorgan Chase & Co. | 0000019617 | US46625H1005 | - | XNYS | US | NYSE | GLEIF exact ISIN lookup | https://api.gleif.org/api/v1/lei-records?filter%5Bisin%5D=US46625H1005
 GD | General Dynamics Corporation | 0000040533 | US3695501086 | - | XNYS | US | NYSE | GLEIF exact ISIN lookup | https://api.gleif.org/api/v1/lei-records?filter%5Bisin%5D=US3695501086
 CSG | CSG N.V. | - | NL0015073TS8 | 31570078IM9ILNPQUB16 | XAMS | NL | Euronext Amsterdam | GLEIF exact LEI and ISIN | https://api.gleif.org/api/v1/lei-records/31570078IM9ILNPQUB16
 ASML | ASML Holding N.V. | - | NL0010273215 | - | XAMS | NL | Euronext Amsterdam | GLEIF exact ISIN lookup | https://api.gleif.org/api/v1/lei-records?filter%5Bisin%5D=NL0010273215
