@@ -7,6 +7,28 @@ historie je technický zdroj pravdy pro přesný diff každého commitu.
 Každý další implementační PR má doplnit datum, rozsah, bezpečnostní dopad,
 ověřovací testy a otevřené provozní podmínky. Historické záznamy se nemažou.
 
+## 2026-08-25 – NEW ANALYZER audit a doplnění kanonického universe
+
+- Ověřen zdroj: `market_checker_20260818_213623.xlsx`, list `Signals`,
+  sloupec `ticker`.
+- Zdroj obsahuje **687 řádků tickerů, 687 unikátních hodnot, bez duplicit**;
+  `yahoo_ticker` je vyplněn u všech 687 řádků.
+- Přidán reprodukovatelný textový zdroj
+  `market_checker_app/data/market_checker_687_tickers.csv`.
+- Přidán validovaný loader
+  `market_checker_app/utils/ticker_universe.py`, který odmítne chybějící,
+  duplicitní nebo neúplný universe.
+- Streamlit UI používá kanonický universe jako výchozí watchlist, pokud není
+  zadán vlastní Excel nebo ruční watchlist.
+- Weekly shadow runner používá kanonický universe jako výchozí zdroj při běhu
+  bez explicitního `--tickers`; SQLite historie zůstává pouze kompatibilní
+  fallback.
+- Přidán test `tests/test_canonical_ticker_universe.py` proti skutečnému
+  seznamu, nikoli pouze proti syntetickým `T0000…T0686`.
+- Změna nepovoluje ostré BUY/SELL a sama o sobě neprokazuje zvýšení přesnosti.
+  Otevřené zůstávají skutečný 687tickerový production-shadow běh, naplnění
+  produkčního identity manifestu a OOS validační brána.
+
 ## 2026-08-21 – post-merge audit po PR #77
 
 - Auditovaný základ: `main` commit `5c04845` po sloučení PR #77.
