@@ -14,6 +14,26 @@ identity runtime, evropského runtime/feedu, globálního source resolveru a
 regulační cesty do DecisionAgentu jsou dokončené; živé canary a OOS důkaz
 zůstávají samostatnými provozními branami.
 
+## Audit 2026-08-25 – kanonický tickerový zdroj
+
+Pro NEW ANALYZER je nyní závazným zdrojem universe export
+`market_checker_20260818_213623.xlsx`:
+
+| Kontrola | Stav | Důkaz |
+| --- | --- | --- |
+| Počet tickerů | PASS | 687 řádků v listu `Signals` |
+| Unikátnost | PASS | 687 unikátních tickerů, 0 duplicit |
+| Yahoo mapování | PASS | `yahoo_ticker` je vyplněn u všech 687 řádků |
+| Reprodukovatelný zdroj v repu | DONE | `market_checker_app/data/market_checker_687_tickers.csv` |
+| Validace zdroje | DONE | `market_checker_app/utils/ticker_universe.py` |
+| UI fallback | DONE | bez vlastního Excelu/ručního watchlistu použije 687 tickerů |
+| Weekly shadow fallback | DONE | bez explicitního `--tickers` použije 687 tickerů |
+| Skutečný 687tickerový produkční běh | TODO | musí se ještě provést a uložit auditní artefakty |
+| Predikční přínos | BLOCKED | stále chybí OOS historie, 200 vzorků a 12 týdnů |
+
+Tento audit pouze sjednocuje vstupní universe. Nemění scoring, BUY/SELL logiku
+ani bezpečnostní pravidlo, že rozšířené vrstvy zůstávají v shadow režimu.
+
 ## Význam stavů
 
 - `DONE` – celý rozsah úkolu je implementovaný, persistovaný a pokrytý
