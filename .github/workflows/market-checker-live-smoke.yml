@@ -112,14 +112,18 @@ jobs:
           python -m market_checker_app.live_source_smoke
           --tickers AAPL MSFT SOFI
 
+      - name: Verify canonical 687-ticker universe
+        run: >-
+          python -c
+          "from market_checker_app.utils.ticker_universe import load_canonical_tickers;
+          tickers=load_canonical_tickers();
+          assert len(tickers)==687 and len(set(tickers))==687;
+          print(f'Canonical ticker universe: {len(tickers)}')"
+
       - name: Run the persistent weekly Stage 4 shadow
         run: >-
           python -m market_checker_app.weekly_shadow_runner
           --runtime-config market_checker_app/autonomous_runtime.json
-          --tickers
-          AAPL MSFT NVDA AMZN GOOGL META TSLA JPM V MA XOM JNJ WMT LLY AVGO
-          AMD UNH HD PG COST ORCL CRM NFLX ADBE CSCO KO PEP BAC CVX MRK ABBV
-          TMO ACN MCD TAL SOFI
           --no-mt5
 
       - name: Preserve rolling state and source/readiness audits
