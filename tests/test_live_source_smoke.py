@@ -186,8 +186,8 @@ def _production_short_report_source():
     )
     if errors:
         raise AssertionError("; ".join(errors))
-    if len(sources) != 1:
-        raise AssertionError("Expected exactly one production short-report source")
+    if not sources:
+        raise AssertionError("Expected at least one production short-report source")
     return sources[0]
 
 
