@@ -7,6 +7,21 @@ historie je technický zdroj pravdy pro přesný diff každého commitu.
 Každý další implementační PR má doplnit datum, rozsah, bezpečnostní dopad,
 ověřovací testy a otevřené provozní podmínky. Historické záznamy se nemažou.
 
+## 2026-08-25 – weekly shadow sjednocen na kanonických 687 tickerech
+
+- Workflow `.github/workflows/market-checker-live-smoke.yml` už nepředává
+  ručně omezený seznam 36 tickerů.
+- Před během se ověřuje, že loader vrací přesně 687 unikátních tickerů;
+  weekly runner pak načte kanonický zdroj automaticky.
+- Workflow stále běží na `ubuntu-latest` s `--no-mt5`. Runtime pro universe
+  větší než 100 tickerů tuto konfiguraci záměrně odmítá, protože bez MT5 nejsou
+  k dispozici plná technická data.
+- Stav je proto: **workflow target DONE, skutečný production-shadow běh BLOCKED**.
+  Pro odblokování je potřeba MT5-capable runner, nebo schválený plnohodnotný
+  alternativní technický zdroj pro všech 687 tickerů.
+- Nebyl vydáván žádný BUY/SELL signál a tato změna sama neprokazuje zvýšení
+  predikční přesnosti.
+
 ## 2026-08-25 – NEW ANALYZER audit a doplnění kanonického universe
 
 - Ověřen zdroj: `market_checker_20260818_213623.xlsx`, list `Signals`,
