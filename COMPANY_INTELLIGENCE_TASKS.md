@@ -4,10 +4,9 @@ Tento soubor je jediný průběžně aktualizovaný seznam úkolů pro rozšíř
 JOHNY-SKORE o firemní, fundamentální a forenzní analýzu. Rozlišuje mezi již
 funkčním bezpečným MVP a plným rozsahem původního návrhu.
 
-Auditní základ: `main` po sloučení PR #77, commit `5c04845`, a navazující
-pracovní větev [PR #79](https://github.com/littleleg198602/JOHNY-SKORE/pull/79),
-ověřená deterministickým CI a dvěma po sobě jdoucími živými production-shadow
-runy dne 21. 8. 2026.
+Auditní základ: `main` po sloučení PR #79; live pilot zůstává omezen na 36 tickerů
+a běží pouze jako shadow. Rozšíření live smoke a risk overlayů je průběžně
+ověřováno deterministickým CI a pondělním production-shadow během srpna 2026.
 
 Implementační aktualizace bodů 1–4 byla sloučena přes PR #77 a je
 chronologicky zapsaná v `COMPANY_INTELLIGENCE_CHANGELOG.md`. Kódové opravy
@@ -614,15 +613,15 @@ event-level deduplikace mediálních kopií a verzované promítnutí oprav/zru�
 
 ### `DECISION-701` Zapojení dosud auditních vrstev – PARTIAL
 
-`DecisionAgent` dnes používá základní finanční forenzní nálezy, úzce ověřené
-short claims a primárně potvrzené závažné regulatorní události. Nepoužívá ještě
-`governance_events_by_ticker`, `supply_chain_relationships_by_ticker` ani
-`resource_exposures_by_ticker`.
+`DecisionAgent` používá základní finanční forenzní nálezy, úzce ověřené short claims,
+primárně potvrzené regulatorní události a nově také shadow overlaye z
+`governance_events_by_ticker`, `supply_chain_relationships_by_ticker` a
+`resource_exposures_by_ticker`. Žádný z nich nemůže vytvořit nový směr.
 
 - [x] Přidat základní finanční forenzní a corroborated-claim komponentu.
-- [ ] Přidat governance risk jako samostatnou komponentu.
-- [ ] Přidat supply-chain concentration/disruption komponentu.
-- [ ] Přidat materiálovou a energetickou citlivost.
+- [x] Přidat governance risk jako samostatnou shadow komponentu.
+- [x] Přidat supply-chain concentration/disruption shadow komponentu.
+- [x] Přidat materiálovou a energetickou shadow komponentu.
 - [x] Přidat základní contract/regulatory komponentu podle kvality zdroje.
 - [ ] Rozšířit ji o ratingy a specializované registry z `REG-601`.
 - [ ] Každá komponenta musí být samostatně vypínatelná a verzovaná.
@@ -683,13 +682,13 @@ orchestrační běhy 2–3, 28 agentních běhů, 1 347 dokumentových observati
 klíče nevznikla žádná duplicitní observation. Stav zůstává bezpečně shadow:
 36 rozhodnutí, 0 aplikovaných změn, `INSUFFICIENT_DATA`, žádný live BUY/SELL.
 
-### `OPS-802` Rozšířený live-source smoke – TODO
+### `OPS-802` Rozšířený live-source smoke – PARTIAL
 
-- [ ] Canary pro každý produkčně používaný filingový region.
+- [x] Best-effort canary pro AFM, ČNB, Euronext a FCA/RNS landing page.
 - [ ] Canary pro každý přímý kontraktní/sankční/ratingový adapter.
-- [ ] Canary alespoň pro dva nezávislé short-report vydavatele.
+- [x] Smoke pro dva nezávislé short-report vydavatele v produkčním universe.
 - [ ] Stáří posledního úspěšného běhu zobrazit v UI.
-- [ ] Výpadek zdroje musí zablokovat pouze závislou komponentu a být viditelný.
+- [ ] Výpadek zdroje musí zablokovat pouze závislou komponentu a být viditelný; evropské canary jsou zatím neblokující, protože některé autority používají page/API adaptér místo stabilního RSS.
 
 ### `OPS-803` Ochrana release procesu – TODO
 
