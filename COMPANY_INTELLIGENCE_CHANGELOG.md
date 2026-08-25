@@ -7,6 +7,17 @@ historie je technický zdroj pravdy pro přesný diff každého commitu.
 Každý další implementační PR má doplnit datum, rozsah, bezpečnostní dopad,
 ověřovací testy a otevřené provozní podmínky. Historické záznamy se nemažou.
 
+## 2026-08-25 – FILING-102 autoritní registry
+
+- Přidán `market_checker_app/data/european_authority_registry.json` pro
+  Euronext, FCA/NSM, FCA/RNS, AFM, BaFin a ČNB.
+- Registry uvádí schválené hosty, typ adaptéru, oficiální referenci a stav
+  RSS/canary; doplněn test úplnosti.
+- FCA/RNS je záměrně označený jako `page_or_api_adapter_required`, protože
+  LSE oficiálně uvádí, že jejich RSS služby byly vypnuty.
+- Tím je hotová auditovatelná konfigurace autorit, nikoli ještě live důkaz
+  doručení dokumentu pro každou oblast.
+
 ## 2026-08-25 – ENTITY-101 pilotní manifest a bezpečný live smoke
 
 - Přidán veřejný pilotní manifest
