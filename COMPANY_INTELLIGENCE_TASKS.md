@@ -16,6 +16,26 @@ regulační cesty do DecisionAgentu jsou dokončené. Americký identity pilot a
 obnova weekly artefaktu jsou nyní doložené; evropské regionální canary, ochrana
 `main` a statistický OOS důkaz zůstávají otevřené.
 
+## Audit 2026-08-25 – kanonický tickerový zdroj
+
+Pro NEW ANALYZER je nyní závazným zdrojem universe export
+`market_checker_20260818_213623.xlsx`:
+
+| Kontrola | Stav | Důkaz |
+| --- | --- | --- |
+| Počet tickerů | PASS | 687 řádků v listu `Signals` |
+| Unikátnost | PASS | 687 unikátních tickerů, 0 duplicit |
+| Yahoo mapování | PASS | `yahoo_ticker` je vyplněn u všech 687 řádků |
+| Reprodukovatelný zdroj v repu | DONE | `market_checker_app/data/market_checker_687_tickers.csv` |
+| Validace zdroje | DONE | `market_checker_app/utils/ticker_universe.py` |
+| UI fallback | DONE | bez vlastního Excelu/ručního watchlistu použije 687 tickerů |
+| Weekly shadow fallback | DONE | bez explicitního `--tickers` použije 687 tickerů |
+| Skutečný 687tickerový produkční běh | BLOCKED | workflow už cílí na 687; Ubuntu běh s `--no-mt5` nemá plná technická data pro universe >100 a musí se nejdřív odblokovat |
+| Predikční přínos | BLOCKED | stále chybí OOS historie, 200 vzorků a 12 týdnů |
+
+Tento audit pouze sjednocuje vstupní universe. Nemění scoring, BUY/SELL logiku
+ani bezpečnostní pravidlo, že rozšířené vrstvy zůstávají v shadow režimu.
+
 ## Význam stavů
 
 - `DONE` – celý rozsah úkolu je implementovaný, persistovaný a pokrytý
@@ -336,16 +356,22 @@ production-shadow běhy v `OPS-801`.
 - [x] Integrační test alespoň pro jednu US, jednu Euronext a jednu UK firmu.
 - [x] Implementovat obecný allowlistovaný RSS/Atom discovery adaptér, který
   přijímá položku jen při přesném LEI/ISIN.
+- [x] Zapsat autoritní registry pro Euronext, FCA/NSM, FCA/RNS, AFM, BaFin a
+  ČNB v `market_checker_app/data/european_authority_registry.json`, včetně
+  oficiální reference a informace, zda je RSS dostupné.
 - [ ] Nakonfigurovat a živě ověřit konkrétní feed/adaptér pro Euronext, FCA/RNS,
-  AFM, BaFin, ČNB a každou používanou lokální burzu.
+  AFM, BaFin, ČNB a každou používanou lokální burzu. RNS RSS nelze použít:
+  LSE oznámila vypnutí RSS služeb; potřebuje page/API nebo licencovaný adaptér.
 - [x] Přidat parser evropského filingového manifestu do `AgentRuntimeSettings`,
   Streamlit UI, weekly runneru a `autonomous_runtime.json`.
 - [ ] Přidat živý canary pro každý skutečně používaný evropský region.
 
 Direct URL i feed používají allowlist autorit/domén a přesné LEI/ISIN.
 Neprovádí name-only scraping. Redirect mimo schválenou doménu se odmítne,
-ESEF/XHTML se hashuje a surové tělo se neukládá. Produkční autonomní monitor je
-stále podmíněn konkrétními regionálními feedy a live canary.
+ESEF/XHTML se hashuje a surové tělo se neukládá. Autoritní registry jsou nyní
+zapsané v repu a testované; produkční autonomní monitor je stále podmíněn
+konkrétními regionálními live canary. FCA/RNS nemá být vedeno jako RSS, protože
+LSE RSS služby vypnula; potřebuje page/API adaptér nebo licencovaný zdroj.
 
 ### `FILING-103` Hierarchie důvěryhodnosti zdrojů – DONE
 

@@ -76,6 +76,7 @@ from market_checker_app.utils.charts import (
     signal_bar_chart,
     top_bottom_bar_chart,
 )
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
 
 
 MAX_PREVIEW_ROWS = 500
@@ -1747,6 +1748,16 @@ mt5_watchlist = MT5Client.sanitize_watchlist(watchlist_text.splitlines())
 excel_watchlist = MT5Client.sanitize_watchlist(st.session_state.excel_watchlist)
 excel_mode = len(excel_watchlist) > 0
 
+canonical_watchlist: list[str] = []
+canonical_universe_error: str | None = None
+try:
+    canonical_watchlist = load_canonical_tickers()
+except (OSError, ValueError) as exc:
+    canonical_universe_error = f"Oficiální 687tickerový universe se nepodařilo načíst: {exc}"
+
+if canonical_universe_error:
+    st.error(canonical_universe_error)
+
 if excel_mode:
     watchlist = excel_watchlist
     yahoo_only_tickers = set(excel_watchlist) if not use_mt5 else set()
@@ -1756,9 +1767,17 @@ if excel_mode:
     if use_mt5:
         active_sources.append("MT5 technika")
     st.info(f"Excel režim aktivní. Zdroje: {', '.join(active_sources)}.")
-else:
+elif mt5_watchlist:
     watchlist = mt5_watchlist
     yahoo_only_tickers = set()
+else:
+    watchlist = canonical_watchlist
+    yahoo_only_tickers = set(canonical_watchlist) if not use_mt5 else set()
+    if watchlist:
+        st.info(
+            "Používám oficiální universe 687 tickerů z Market Checker exportu. "
+            "Vlastní Excel nebo ruční watchlist jej nahradí."
+        )
 
 if st.session_state.mt5_loaded_count is not None:
     st.info(f"Načteno z MT5: {st.session_state.mt5_loaded_count} tickerů")

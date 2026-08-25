@@ -45,6 +45,19 @@ Stačí na něj dvakrát kliknout. Skript:
   Nefunkční Yahoo Finance RSS URL není ve výchozím seznamu. Položky bez data publikace
   ani položky s budoucím datem se nezapočítají jako čerstvé zprávy.
 
+### Oficiální tickerový universe NEW ANALYZER
+
+- Kanonický seznam obsahuje přesně **687 unikátních tickerů** z exportu
+  `market_checker_20260818_213623.xlsx`.
+- Reprodukovatelná kopie je v
+  `market_checker_app/data/market_checker_687_tickers.csv`; validuje se přes
+  `market_checker_app/utils/ticker_universe.py`.
+- Streamlit UI jej použije automaticky, pokud není nahrán vlastní Excel a není
+  zadán ruční watchlist. Vlastní Excel nebo ruční watchlist má přednost.
+- Weekly shadow runner používá tento seznam jako výchozí zdroj, pokud nebyly
+  zadány explicitní `--tickers`. SQLite historie je pouze kompatibilní fallback
+  pro starší checkout bez kanonického CSV.
+
 ### Velký universe (např. 687 tickerů z MT5)
 
 - Analyzují se všechny tickery, výchozí limit jednoho běhu je 1000 symbolů.

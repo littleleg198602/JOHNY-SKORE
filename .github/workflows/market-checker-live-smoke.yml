@@ -114,6 +114,14 @@ jobs:
           --ticker-file market_checker_app/production_watchlist.txt
           --ticker-limit 3
 
+      - name: Verify canonical 687-ticker universe
+        run: >-
+          python -c
+          "from market_checker_app.utils.ticker_universe import load_canonical_tickers;
+          tickers=load_canonical_tickers();
+          assert len(tickers)==687 and len(set(tickers))==687;
+          print(f'Canonical ticker universe: {len(tickers)}')"
+
       - name: Run the persistent weekly Stage 4 shadow
         run: >-
           python -m market_checker_app.weekly_shadow_runner
