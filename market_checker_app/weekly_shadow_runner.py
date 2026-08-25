@@ -44,6 +44,7 @@ from market_checker_app.services.stage3_manifest_service import (
 )
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.utils.text import normalize_ticker
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
 
 
 DEFAULT_RSS_SOURCE = (
@@ -334,7 +335,16 @@ def _atomic_json(path: Path, payload: dict[str, object]) -> None:
 
 
 def _tickers(explicit: Sequence[str], store: SQLiteStore) -> list[str]:
-    raw = list(explicit) if explicit else store.list_tickers()
+    if explicit:
+        raw = list(explicit)
+    else:
+        try:
+            # The canonical Market Checker universe is the default source for
+            # every unattended run. SQLite history remains a compatibility
+            # fallback for older checkouts that predate the CSV source.
+            raw = load_canonical_tickers()
+        except FileNotFoundError:
+            raw = store.list_tickers()
     normalized = [normalize_ticker(item) for item in raw]
     return list(dict.fromkeys(item for item in normalized if item))
 
