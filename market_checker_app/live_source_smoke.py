@@ -8,6 +8,7 @@ from pathlib import Path
 import tempfile
 import time
 from typing import Callable, Mapping, Sequence
+from urllib.request import Request, urlopen
 from urllib.parse import urlparse
 
 from market_checker_app.collectors.gleif_client import GLEIF_API_ROOT, GleifClient
@@ -35,6 +36,13 @@ from market_checker_app.weekly_shadow_runner import DEFAULT_RSS_SOURCE
 
 
 DEFAULT_RUNTIME_CONFIG_PATH = Path("market_checker_app/autonomous_runtime.json")
+
+DEFAULT_EUROPEAN_CANARY_URLS: tuple[tuple[str, str], ...] = (
+    ("AFM", "https://www.afm.nl/nl-nl/rss-feed/nieuws-professionals"),
+    ("CNB", "https://www.cnb.cz/en/.content/rss-feed/rss-feed_tz.xml"),
+    ("EURONEXT", "https://live.euronext.com/en/products/equities/company-news"),
+    ("FCA_RNS", "https://www.londonstockexchange.com/news"),
+)
 
 
 def _exact_name(value: object) -> str:
@@ -277,7 +285,9 @@ def run_live_source_smoke(
     identity_records: Mapping[str, Mapping[str, object]] | None = None,
     identity_universe_tickers: Sequence[str] | None = None,
     minimum_identity_records: int = 10,
-    external_report_source: ShortReportSourceConfig,
+    external_report_source: ShortReportSourceConfig | None = None,
+    external_report_sources: Sequence[ShortReportSourceConfig] | None = None,
+    european_canary_urls: Sequence[tuple[str, str]] = (),
     yahoo_client: object | None = None,
     rss_client: object | None = None,
     sec_client: object | None = None,
@@ -301,13 +311,19 @@ def run_live_source_smoke(
         if identity_universe_tickers is not None
         else []
     )
-    if (
-        production_universe
-        and external_report_source.ticker not in production_universe
-    ):
+    configured_reports = list(external_report_sources or ())
+    if not configured_reports and external_report_source is not None:
+        configured_reports = [external_report_source]
+    if not configured_reports:
+        raise ValueError("Live smoke vyžaduje alespoň jeden short-report zdroj.")
+    outside_reports = sorted(
+        {source.ticker for source in configured_reports}.difference(production_universe)
+        if production_universe else set()
+    )
+    if outside_reports:
         raise ValueError(
-            "Short-report smoke ticker není v produkčním watchlistu: "
-            f"{external_report_source.ticker}"
+            "Short-report smoke tickery nejsou v produkčním watchlistu: "
+            + ", ".join(outside_reports)
         )
 
     def check_company_identity_pilot() -> dict[str, object]:
@@ -430,27 +446,47 @@ def run_live_source_smoke(
             max_download_bytes=8_000_000,
             max_text_characters=500_000,
         )
-        fetched = client.fetch(
-            external_report_source
-        )
-        searchable = f"{fetched.title} {fetched.text}".casefold()
-        if (
-            len(fetched.text) < 200
-            or external_report_source.ticker.casefold() not in searchable
-        ):
-            raise RuntimeError(
-                "Externí report neobsahuje očekávaný strojově čitelný obsah."
-            )
-        return {
-            "publisher": external_report_source.publisher,
-            "ticker": external_report_source.ticker,
-            "published_at": external_report_source.published_at.isoformat(),
-            "final_url": fetched.final_url,
-            "mime_type": fetched.mime_type,
-            "content_hash": fetched.content_hash,
-            "size_bytes": fetched.size_bytes,
-            "extractor": fetched.extractor,
-        }
+        reports: list[dict[str, object]] = []
+        for source in configured_reports:
+            fetched = client.fetch(source)
+            searchable = f"{fetched.title} {fetched.text}".casefold()
+            if len(fetched.text) < 200 or source.ticker.casefold() not in searchable:
+                raise RuntimeError(
+                    "Externí report neobsahuje očekávaný strojově čitelný obsah: "
+                    + source.ticker
+                )
+            reports.append({
+                "publisher": source.publisher,
+                "ticker": source.ticker,
+                "published_at": source.published_at.isoformat(),
+                "final_url": fetched.final_url,
+                "mime_type": fetched.mime_type,
+                "content_hash": fetched.content_hash,
+                "size_bytes": fetched.size_bytes,
+                "extractor": fetched.extractor,
+            })
+        return {"report_count": len(reports), "reports": reports}
+
+    def check_european_canaries() -> dict[str, object]:
+        observed: list[dict[str, object]] = []
+        failures: list[dict[str, str]] = []
+        for authority, url in european_canary_urls:
+            try:
+                request = Request(url, headers={"User-Agent": "JohnySkore/2.1 regional-source-canary"})
+                with urlopen(request, timeout=15.0) as response:
+                    sample = response.read(4096)
+                    observed.append({
+                        "authority": authority,
+                        "host": (urlparse(response.geturl()).hostname or "").casefold(),
+                        "status_code": int(response.status),
+                        "content_type": str(response.headers.get("Content-Type", ""))[:120],
+                        "sample_bytes": len(sample),
+                    })
+            except Exception as exc:
+                failures.append({"authority": authority, "error_type": type(exc).__name__, "error": str(exc)[:300]})
+        if failures and not observed:
+            raise RuntimeError("Žádný evropský canary endpoint nebyl dostupný.")
+        return {"configured_count": len(european_canary_urls), "observed_count": len(observed), "failed_count": len(failures), "observed": observed, "failures": failures, "optional": True}
 
     checks = []
     if identity_records is not None:
@@ -462,9 +498,13 @@ def run_live_source_smoke(
             _run_check("yahoo", check_yahoo),
             _run_check("rss", check_rss),
             _run_check("sec_edgar", check_sec),
-            _run_check("external_short_report", check_external_report),
+            _run_check("external_short_report" if len(configured_reports) == 1 else "external_short_reports", check_external_report),
         ]
     )
+    if european_canary_urls:
+        regional_check = _run_check("regional_european_canaries", check_european_canaries)
+        regional_check["blocking"] = False
+        checks.append(regional_check)
     if declared_sec_user_agent:
         for check in checks:
             if "error" in check:
@@ -472,7 +512,7 @@ def run_live_source_smoke(
                     declared_sec_user_agent,
                     "<redacted-sec-user-agent>",
                 )
-    failed = [check["name"] for check in checks if check["status"] != "PASS"]
+    failed = [check["name"] for check in checks if check["status"] != "PASS" and check.get("blocking", True)]
     payload: dict[str, object] = {
         "schema_version": 1,
         "finished_at": datetime.now(timezone.utc).isoformat(),
@@ -548,11 +588,8 @@ def main() -> None:
             "[LIVE SMOKE CHYBA] Short-report manifest není platný: "
             + "; ".join(short_report_errors)
         )
-    if len(short_report_sources) != 1:
-        raise SystemExit(
-            "[LIVE SMOKE CHYBA] Produkční smoke vyžaduje právě jeden "
-            "explicitní short-report zdroj v runtime konfiguraci."
-        )
+    if not short_report_sources:
+        raise SystemExit("[LIVE SMOKE CHYBA] Produkční smoke vyžaduje alespoň jeden explicitní short-report zdroj v runtime konfiguraci.")
     try:
         universe_tickers = load_watchlist(args.ticker_file)
         smoke_tickers = apply_ticker_limit(
@@ -566,7 +603,8 @@ def main() -> None:
             identity_records=identity_records,
             identity_universe_tickers=universe_tickers,
             minimum_identity_records=args.minimum_identity_records,
-            external_report_source=short_report_sources[0],
+            external_report_sources=short_report_sources,
+            european_canary_urls=DEFAULT_EUROPEAN_CANARY_URLS,
         )
     except WatchlistError as exc:
         raise SystemExit(f"[LIVE SMOKE CHYBA] {exc}") from exc
