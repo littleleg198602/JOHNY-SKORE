@@ -354,6 +354,9 @@ blokovaná prvním produkčním během v `OPS-801`.
 - [x] Integrační test alespoň pro jednu US, jednu Euronext a jednu UK firmu.
 - [x] Implementovat obecný allowlistovaný RSS/Atom discovery adaptér, který
   přijímá položku jen při přesném LEI/ISIN.
+- [x] Zapsat autoritní registry pro Euronext, FCA/NSM, FCA/RNS, AFM, BaFin a
+  ČNB v `market_checker_app/data/european_authority_registry.json`, včetně
+  oficiální reference a informace, zda je RSS dostupné.
 - [ ] Nakonfigurovat a živě ověřit konkrétní feed/adaptér pro Euronext, FCA/RNS,
   AFM, BaFin, ČNB a každou používanou lokální burzu. RNS RSS nelze použít:
   LSE oznámila vypnutí RSS služeb; potřebuje page/API nebo licencovaný adaptér.
@@ -363,8 +366,10 @@ blokovaná prvním produkčním během v `OPS-801`.
 
 Direct URL i feed používají allowlist autorit/domén a přesné LEI/ISIN.
 Neprovádí name-only scraping. Redirect mimo schválenou doménu se odmítne,
-ESEF/XHTML se hashuje a surové tělo se neukládá. Produkční autonomní monitor je
-stále podmíněn konkrétními regionálními feedy a live canary.
+ESEF/XHTML se hashuje a surové tělo se neukládá. Autoritní registry jsou nyní
+zapsané v repu a testované; produkční autonomní monitor je stále podmíněn
+konkrétními regionálními live canary. FCA/RNS nemá být vedeno jako RSS, protože
+LSE RSS služby vypnula; potřebuje page/API adaptér nebo licencovaný zdroj.
 
 ### `FILING-103` Hierarchie důvěryhodnosti zdrojů – DONE
 
