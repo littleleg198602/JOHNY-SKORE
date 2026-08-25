@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "purpose": "FILING-102 authority discovery registry; this file does not enable live ingest by itself.",
+  "authorities": {
+    "EURONEXT": {
+      "approved_hosts": ["euronext.com"],
+      "adapter": "official_company_regulated_news_page",
+      "official_reference": "https://live.euronext.com/en/products/equities/company-news",
+      "rss_available": "regional_or_page_dependent",
+      "status": "live_canary_pending"
+    },
+    "FCA_NSM": {
+      "approved_hosts": ["fca.org.uk"],
+      "adapter": "fca_national_storage_mechanism_page_or_api",
+      "official_reference": "https://www.fca.org.uk/markets/primary-markets/regulatory-disclosures/national-storage-mechanism",
+      "rss_available": false,
+      "status": "live_canary_pending"
+    },
+    "FCA_RNS": {
+      "approved_hosts": ["fca.org.uk", "londonstockexchange.com"],
+      "adapter": "london_stock_exchange_rns_page_or_api",
+      "official_reference": "https://www.londonstockexchange.com/news",
+      "rss_available": false,
+      "status": "page_or_api_adapter_required"
+    },
+    "AFM": {
+      "approved_hosts": ["afm.nl"],
+      "adapter": "official_afm_rss_or_publications_page",
+      "official_reference": "https://www.afm.nl/nl-nl/contact/woordvoering-pers-en-media/rss-feeds",
+      "rss_available": true,
+      "status": "live_canary_pending"
+    },
+    "BAFIN": {
+      "approved_hosts": ["bafin.de"],
+      "adapter": "official_bafin_rss_or_publications_page",
+      "official_reference": "https://www.bafin.de/EN/service/rss/rss_node_en.html",
+      "rss_available": true,
+      "status": "live_canary_pending"
+    },
+    "CNB": {
+      "approved_hosts": ["cnb.cz"],
+      "adapter": "official_cnb_rss_or_publications_page",
+      "official_reference": "https://www.cnb.cz/en/general/rss/",
+      "rss_available": true,
+      "status": "live_canary_pending"
+    }
+  }
+}
