@@ -28,7 +28,7 @@ Pro NEW ANALYZER je nyní závazným zdrojem universe export
 | Validace zdroje | DONE | `market_checker_app/utils/ticker_universe.py` |
 | UI fallback | DONE | bez vlastního Excelu/ručního watchlistu použije 687 tickerů |
 | Weekly shadow fallback | DONE | bez explicitního `--tickers` použije 687 tickerů |
-| Skutečný 687tickerový produkční běh | TODO | musí se ještě provést a uložit auditní artefakty |
+| Skutečný 687tickerový produkční běh | BLOCKED | workflow už cílí na 687; Ubuntu běh s `--no-mt5` nemá plná technická data pro universe >100 a musí se nejdřív odblokovat |
 | Predikční přínos | BLOCKED | stále chybí OOS historie, 200 vzorků a 12 týdnů |
 
 Tento audit pouze sjednocuje vstupní universe. Nemění scoring, BUY/SELL logiku
@@ -66,7 +66,7 @@ prošel. To ale neprokazuje živý sběr ani OOS přínos.
 | Hierarchie zdrojů | PASS | globální canonical resolver, preference, historie změn a QualityGate kontrola se persistují napříč agenty |
 | Governance události | PASS | schema, observations, point-in-time a nulový obchodní signál |
 | Regulatory → Decision cesta | PASS | explicitní primární typ zdroje + právní identita projdou do konzervativního `NO_TRADE`; legacy/RSS zdroj zůstává media-only |
-| Weekly production shadow | BLOCKED | workflow existuje, ale na GitHubu dosud nemá žádný běh |
+| Weekly production shadow | BLOCKED | workflow nyní ověřuje a načítá 687 tickerů, ale skutečný běh stále není doložen; bez MT5/plného technického zdroje je 687tickerový běh fail-closed |
 | Ochrana `main` | FAIL | větev není protected a nemá povinný status check |
 | Zvýšení přesnosti | BLOCKED | nejsou 200 uzavřených OOS vzorků ani 12 nezávislých týdnů |
 
@@ -650,6 +650,11 @@ Post-merge audit GitHub Actions dne 21. 8. 2026 znovu našel pro workflow
 `market-checker-live-smoke.yml` celkem 0 běhů. Není tedy doložen ani první
 živý canary, ani obnova databáze mezi dvěma běhy.
 
+- [x] Workflow před během ověří kanonický universe: přesně 687 unikátních tickerů.
+- [x] Weekly runner bez explicitního `--tickers` načítá stejný kanonický zdroj.
+- [ ] Zajistit MT5-capable runner, nebo schválený plnohodnotný alternativní
+  technický zdroj pro všech 687 tickerů; `ubuntu-latest` s `--no-mt5` je
+  pro velký universe záměrně fail-closed.
 - [ ] Nastavit GitHub Actions secret `JOHNY_SKORE_SEC_USER_AGENT` s reálným
   deklarovaným kontaktem; secret se nesmí zapisovat do repozitáře.
 - [ ] Ručně spustit workflow `Market Checker weekly production shadow`.
