@@ -7,79 +7,51 @@ historie je technický zdroj pravdy pro přesný diff každého commitu.
 Každý další implementační PR má doplnit datum, rozsah, bezpečnostní dopad,
 ověřovací testy a otevřené provozní podmínky. Historické záznamy se nemažou.
 
-## 2026-08-25 – FILING-102 autoritní registry
+## 2026-08-21 – první úspěšný živý production-shadow pilot v PR #79
 
-- Přidán `market_checker_app/data/european_authority_registry.json` pro
-  Euronext, FCA/NSM, FCA/RNS, AFM, BaFin a ČNB.
-- Registry uvádí schválené hosty, typ adaptéru, oficiální referenci a stav
-  RSS/canary; doplněn test úplnosti.
-- FCA/RNS je záměrně označený jako `page_or_api_adapter_required`, protože
-  LSE oficiálně uvádí, že jejich RSS služby byly vypnuty.
-- Tím je hotová auditovatelná konfigurace autorit, nikoli ještě live důkaz
-  doručení dokumentu pro každou oblast.
-
-## 2026-08-25 – ENTITY-101 pilotní manifest a bezpečný live smoke
-
-- Přidán veřejný pilotní manifest
-  `market_checker_app/data/company_identity_pilot.txt` pro 10 skutečných
-  společností: AAPL, MSFT, NVDA, JPM, GD, CSG, ASML, AIR, ADYEN a MC.
-- Každý záznam má přesný ISIN nebo LEI, u amerických firem také CIK, MIC,
-  zemi, burzu a zdrojovou HTTPS adresu GLEIF/Euronext. Name-only ani fuzzy
-  přiřazení se nepoužívá.
-- Přidán deterministický test
-  `tests/test_company_identity_pilot_manifest.py`, který kontroluje všech
-  10 záznamů, checksumy identifikátorů a konflikt duplicitního tickeru.
-- Přidán ruční live smoke
-  `python -m market_checker_app.identity_pilot_smoke`, který provede přesné
-  GLEIF lookupy a uloží pouze auditní výsledek do
-  `outputs/identity_pilot_latest.json`.
-- Stav ENTITY-101 zůstává do uložení tohoto live artefaktu provozně
-  **PARTIAL/READY**, i když předchozí pilotní běh byl raportován jako 10/10.
-  Workflow se automaticky neměnil, aby se bez dalšího schválení nerozšiřoval
-  plánovaný produkční job a jeho artefakty.
-
-FILING-102 má nadále hotový bezpečný host-policy/feed framework. Konkrétní
-regionální live canary zůstává samostatná brána; RNS nelze označit jako RSS
-canary, protože London Stock Exchange oznámila, že RSS služby na svém webu
-vypnula. Pro RNS proto bude potřeba oficiální page/API adaptér nebo schválený
-licencovaný zdroj.
-
-## 2026-08-25 – weekly shadow sjednocen na kanonických 687 tickerech
-
-- Workflow `.github/workflows/market-checker-live-smoke.yml` už nepředává
-  ručně omezený seznam 36 tickerů.
-- Před během se ověřuje, že loader vrací přesně 687 unikátních tickerů;
-  weekly runner pak načte kanonický zdroj automaticky.
-- Workflow stále běží na `ubuntu-latest` s `--no-mt5`. Runtime pro universe
-  větší než 100 tickerů tuto konfiguraci záměrně odmítá, protože bez MT5 nejsou
-  k dispozici plná technická data.
-- Stav je proto: **workflow target DONE, skutečný production-shadow běh BLOCKED**.
-  Pro odblokování je potřeba MT5-capable runner, nebo schválený plnohodnotný
-  alternativní technický zdroj pro všech 687 tickerů.
-- Nebyl vydáván žádný BUY/SELL signál a tato změna sama neprokazuje zvýšení
-  predikční přesnosti.
-
-## 2026-08-25 – NEW ANALYZER audit a doplnění kanonického universe
-
-- Ověřen zdroj: `market_checker_20260818_213623.xlsx`, list `Signals`,
-  sloupec `ticker`.
-- Zdroj obsahuje **687 řádků tickerů, 687 unikátních hodnot, bez duplicit**;
-  `yahoo_ticker` je vyplněn u všech 687 řádků.
-- Přidán reprodukovatelný textový zdroj
-  `market_checker_app/data/market_checker_687_tickers.csv`.
-- Přidán validovaný loader
-  `market_checker_app/utils/ticker_universe.py`, který odmítne chybějící,
-  duplicitní nebo neúplný universe.
-- Streamlit UI používá kanonický universe jako výchozí watchlist, pokud není
-  zadán vlastní Excel nebo ruční watchlist.
-- Weekly shadow runner používá kanonický universe jako výchozí zdroj při běhu
-  bez explicitního `--tickers`; SQLite historie zůstává pouze kompatibilní
-  fallback.
-- Přidán test `tests/test_canonical_ticker_universe.py` proti skutečnému
-  seznamu, nikoli pouze proti syntetickým `T0000…T0686`.
-- Změna nepovoluje ostré BUY/SELL a sama o sobě neprokazuje zvýšení přesnosti.
-  Otevřené zůstávají skutečný 687tickerový production-shadow běh, naplnění
-  produkčního identity manifestu a OOS validační brána.
+- Produkční universe je nově explicitně uložený v
+  `market_checker_app/production_watchlist.txt`: 687 unikátních tickerů ve
+  stejném pořadí jako export `market_checker_20260818_213623.xlsx`. Kontrolní
+  porovnání s předanou SQLite historií potvrdilo shodnou množinu bez chybějících
+  nebo přebývajících tickerů.
+- Weekly workflow vybírá 36tickerový pilot z tohoto souboru; nepoužívá už
+  náhradní ručně zapsaný seznam. Deset přesných SEC identit je součástí runtime
+  manifestu a každý živý canary ticker musí být členem produkčního universe.
+- První pokus odhalil, že původní externí canary Kerrisdale vrací z GitHub
+  Actions HTTP 403. Canary byl proto zdrojovaně přesunut na report Spruce Point
+  o MSCI a jeho konfigurace je načítaná ze stejného runtime manifestu jako
+  agentní pipeline, nikoliv z hardcoded hodnoty ve smoke testu.
+- Další pokus odhalil kolizi instrumentů GOOG/GOOGL, které sdílejí jeden CIK a
+  SEC accession. Dokumentové a canonical identity jsou proto nově scoped také
+  tickerem/instrumentem. Form 3/4/5 navíc odstraňuje SEC XSL prefix a stahuje
+  přímo vlastnické XML.
+- Živý GitHub Actions run
+  [32490389851](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32490389851)
+  následně skončil `success`: 36/36 tickerů, Yahoo, Google News RSS, SEC EDGAR i
+  externí short-report canary prošly, QualityGate skončil `PASS`, artefakt
+  obsahuje SQLite DB a oba auditní JSON soubory.
+- Pipeline zůstala `PARTIAL` pouze kvůli chybějícím bezpečně extrahovaným
+  tvrzením z canary reportu a jedné firmě s nízkým pokrytím forenzních metrik.
+  Nejde o zdrojovou nebo databázovou chybu.
+- Bezpečnostní stav je správný: 36 rozhodnutí, 0 aplikovaných změn,
+  `activation_state=INSUFFICIENT_DATA`, `accuracy_improvement_proven=false` a
+  `live_buy_sell_enabled=false`.
+- Navazující run
+  [32491052650](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32491052650)
+  také skončil `success`. Kroky vyhledání, stažení a obnovy předchozího
+  artefaktu všechny prošly před novým Stage 4 během.
+- Obnovená DB obsahuje pipeline runy 1–3 a dva úspěšné orchestrační běhy 2–3.
+  Dokumentové observations vzrostly z 673 na 1 347 a resolverové observations
+  na 1 197; nebyla nalezena žádná duplicitní observation se stejným
+  orchestration/agent/document klíčem. GOOG a GOOGL mají společnou právní
+  entitu, ale samostatné instrumentové dokumenty a canonical události.
+- `ENTITY-101` a `OPS-801` tím splnily všechna svá akceptační kritéria. Aktuální
+  součet roadmapy je 15 `DONE`, 9 `PARTIAL`, 11 `TODO` a 1 `BLOCKED` z 36
+  úkolů. Evropské regionální canary, ochrana `main` a statistický OOS důkaz
+  zůstávají otevřené.
+- Dočasný branch `push` trigger použitý pouze k živému ověření byl po druhém
+  úspěšném běhu odstraněn; produkční workflow se znovu spouští jen plánem nebo
+  ručně přes `workflow_dispatch`.
 
 ## 2026-08-21 – post-merge audit po PR #77
 

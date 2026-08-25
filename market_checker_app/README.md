@@ -333,6 +333,9 @@ Pro pravidelný sběr nezávislých OOS týdnů slouží:
 
 ```bash
 python -m market_checker_app.weekly_shadow_runner --mt5
+python -m market_checker_app.weekly_shadow_runner \
+  --ticker-file market_checker_app/production_watchlist.txt \
+  --ticker-limit 36 --no-mt5
 ```
 
 Ve Windows lze stejný kontrolovaný běh spustit souborem
@@ -345,7 +348,11 @@ market_checker_app\install_weekly_shadow_task.ps1 -Mode Status
 market_checker_app\install_weekly_shadow_task.ps1 -Mode Remove
 ```
 
-Runner používá tickery z existující SQLite historie, ukládá audit do stejné DB,
+Runner vybírá watchlist v pořadí: explicitní tickery z příkazové řádky,
+`--ticker-file`, a teprve potom existující SQLite historie. Produkční soubor
+`production_watchlist.txt` obsahuje všech 687 unikátních tickerů z exportu
+Market Checker; workflow z něj zachová pořadí a vybere 36tickerový pilot včetně
+tickerů vyžadovaných nakonfigurovanými zdroji. Runner ukládá audit do stejné DB,
 odmítne chybný manifest a skončí chybou, pokud QualityGate neprojde nebo by se
 agentní návrh pokusil změnit predikci. Poslední provozní souhrn je v
 `outputs/weekly_shadow_latest.json`; schema 2 obsahuje stav jednotlivých zdrojů,
@@ -354,18 +361,28 @@ výsledky statistických bran, explicitní blokátory, `accuracy_improvement_pro
 
 GitHub workflow `Market Checker weekly production shadow` navíc každé pondělí:
 
-- ověří skutečné Yahoo OHLC/metadata, Google News RSS, SEC EDGAR a jeden přímý
-  report Muddy Waters,
-- spustí 36 likvidních tickerů v trvale bezpečném shadow režimu,
+- ověří deset přesných SEC identit bez fuzzy shody, skutečné Yahoo
+  OHLC/metadata, Google News RSS, SEC EDGAR a jeden přímý short report načtený
+  ze stejného runtime manifestu jako agentní pipeline,
+- spustí 36 tickerů z produkčního 687tickerového souboru v trvale bezpečném
+  shadow režimu,
 - stáhne SQLite artefakt minulého týdne a po běhu jej znovu uloží na 90 dní,
 - odmítne tichý reset historie a zachová audit i při selhání živého zdroje.
+
+Provozní piloty
+[32490389851](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32490389851)
+a
+[32491052650](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32491052650)
+prošly za sebou. Druhý běh obnovil předchozí SQLite artefakt, zvýšil počet
+úspěšných orchestračních běhů z jednoho na dva a zachoval nulový zásah do
+BUY/SELL. Aktuální short-report canary je zdrojovaná položka Spruce Point pro
+MSCI z `autonomous_runtime.json`; není hardcoded ve smoke testu.
 
 V GitHubu je nutné vytvořit Actions secret `JOHNY_SKORE_SEC_USER_AGENT` ve tvaru
 `JohnySkore/2.1 kontakt@example.com`. Bez deklarovaného kontaktu produkční smoke
 správně selže, protože SEC fair-access identitu nelze bezpečně doplnit za
-uživatele. Volitelná repository variable `JOHNY_SKORE_SMOKE_SHORT_REPORT_URL`
-může změnit canary report. Žádný secret ani surový obsah zdroje se do artefaktu
-neukládá.
+uživatele. Zdroj short-report canary se mění pouze v auditovaném runtime
+manifestu. Žádný secret ani surový obsah zdroje se do artefaktu neukládá.
 
 ## Stav původní implementační roadmapy
 

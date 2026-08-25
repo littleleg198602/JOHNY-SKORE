@@ -4,15 +4,17 @@ Tento soubor je jediný průběžně aktualizovaný seznam úkolů pro rozšíř
 JOHNY-SKORE o firemní, fundamentální a forenzní analýzu. Rozlišuje mezi již
 funkčním bezpečným MVP a plným rozsahem původního návrhu.
 
-Auditní základ: `main` po sloučení PR #77, commit `5c04845`, znovu ověřený
-proti kódu, celé deterministické sadě testů, běžné UI konfiguraci,
-bezobslužnému weekly runneru a stavu GitHubu dne 21. 8. 2026.
+Auditní základ: `main` po sloučení PR #77, commit `5c04845`, a navazující
+pracovní větev [PR #79](https://github.com/littleleg198602/JOHNY-SKORE/pull/79),
+ověřená deterministickým CI a dvěma po sobě jdoucími živými production-shadow
+runy dne 21. 8. 2026.
 
 Implementační aktualizace bodů 1–4 byla sloučena přes PR #77 a je
 chronologicky zapsaná v `COMPANY_INTELLIGENCE_CHANGELOG.md`. Kódové opravy
 identity runtime, evropského runtime/feedu, globálního source resolveru a
-regulační cesty do DecisionAgentu jsou dokončené; živé canary a OOS důkaz
-zůstávají samostatnými provozními branami.
+regulační cesty do DecisionAgentu jsou dokončené. Americký identity pilot a
+obnova weekly artefaktu jsou nyní doložené; evropské regionální canary, ochrana
+`main` a statistický OOS důkaz zůstávají otevřené.
 
 ## Audit 2026-08-25 – kanonický tickerový zdroj
 
@@ -47,41 +49,41 @@ ani bezpečnostní pravidlo, že rozšířené vrstvy zůstávají v shadow rež
 Změna na `DONE` je povolena pouze tehdy, když jsou splněna všechna uvedená
 akceptační kritéria. Samotná existence třídy nebo tabulky nestačí.
 
-## Výsledek post-merge auditu po PR #77
+## Výsledek aktualizovaného auditu v PR #79
 
-Celkový verdikt: bezpečný shadow základ je funkční, ale kompletní Company
-Intelligence vrstva ještě není provozně hotová a její zvýšení přesnosti nebylo
-prokázáno. [PR #77](https://github.com/littleleg198602/JOHNY-SKORE/pull/77)
-je skutečně sloučený do `main`; deterministický workflow na jeho head commitu
-prošel. To ale neprokazuje živý sběr ani OOS přínos.
+Celkový verdikt: bezpečný shadow základ včetně skutečného amerického live
+pilotu, produkčního 687tickerového watchlistu a obnovy SQLite mezi běhy je
+funkční. Kompletní Company Intelligence vrstva ještě hotová není a zvýšení
+přesnosti nebylo prokázáno, protože zatím neexistují uzavřené OOS výsledky z
+12 nezávislých týdnů.
 
 | Kontrola | Výsledek | Důkaz / dopad |
 | --- | --- | --- |
 | `main` po PR #77 | PASS | merge commit `5c04845`; PR #77 je merged |
-| Deterministické CI | PASS | [run 32478364244](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32478364244) skončil `success` na head commitu PR #77 |
-| Kompletní lokální sada | PASS | compileall bez chyby; 169/169 testů na stromu shodném s `main` |
-| Běžný autonomous runtime | PASS / SAFE-OFF | UI i weekly runner umějí identity a evropské manifesty/feed; committed konfigurace je záměrně prázdná a evropský ingest vypnutý |
-| Primární identity | PARTIAL | runtime manifest a fail-closed kontrola jsou hotové; chybí živý desetifiremní pilot a naplnění produkčního manifestu |
+| Deterministické CI | PASS | [run 32491059397](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32491059397) skončil `success` pro kód live pilotu v PR #79 |
+| Produkční universe | PASS | `production_watchlist.txt` obsahuje 687 unikátních tickerů v pořadí předaného exportu; množina souhlasí s předanou SQLite historií |
+| Běžný autonomous runtime | PASS / SAFE-OFF | UI i weekly runner umějí identity a evropské manifesty/feed; workflow používá zdrojovaný watchlist a zůstává vždy shadow |
+| Primární identity | PASS PILOT | 10/10 přesných SEC identit prošlo živě bez fuzzy/name discovery a bez konfliktu; dalších 26 tickerů 36tickerového pilotu zůstává jen SEC-discovered a nepatří do identity-dependent komponent |
 | Evropské filingy | PARTIAL | direct URL i bezpečný RSS/Atom discovery runtime fungují; chybí regionální live canary a konkrétní produkční feedy pro všechny autority |
 | Hierarchie zdrojů | PASS | globální canonical resolver, preference, historie změn a QualityGate kontrola se persistují napříč agenty |
 | Governance události | PASS | schema, observations, point-in-time a nulový obchodní signál |
 | Regulatory → Decision cesta | PASS | explicitní primární typ zdroje + právní identita projdou do konzervativního `NO_TRADE`; legacy/RSS zdroj zůstává media-only |
-| Weekly production shadow | BLOCKED | workflow nyní ověřuje a načítá 687 tickerů, ale skutečný běh stále není doložen; bez MT5/plného technického zdroje je 687tickerový běh fail-closed |
+| Weekly production shadow | PASS | runy [32490389851](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32490389851) a [32491052650](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32491052650) prošly; druhý obnovil první SQLite artefakt a přidal novou observation historii |
 | Ochrana `main` | FAIL | větev není protected a nemá povinný status check |
 | Zvýšení přesnosti | BLOCKED | nejsou 200 uzavřených OOS vzorků ani 12 nezávislých týdnů |
 
 Rychlý stav tasků po auditu:
 
-- `DONE` (13/36): bezpečný základ `CI-001` až `CI-010`, `FILING-101`,
-  `FILING-103`, `GOV-101`.
-- `PARTIAL` (10/36): `ENTITY-101`, `FILING-102`, `FORENSIC-201`,
+- `DONE` (15/36): bezpečný základ `CI-001` až `CI-010`, `ENTITY-101`,
+  `FILING-101`, `FILING-103`, `GOV-101`, `OPS-801`.
+- `PARTIAL` (9/36): `FILING-102`, `FORENSIC-201`,
   `SHORT-301`, `SHORT-302`, `SHORT-303`, `SUPPLY-401`, `REG-602`,
   `DECISION-701`, `DECISION-702`.
 - `TODO` (11/36): `FORENSIC-202`, `SHORT-304`, `SHORT-305`, `SUPPLY-402`,
   `SUPPLY-403`, `RESOURCE-501`, `RESOURCE-502`, `RESOURCE-503`, `REG-601`,
   `OPS-802`, `OPS-803`.
-- `BLOCKED` (2/36): `OPS-801` čeká na první dva živé běhy; `EVAL-703` čeká na
-  skutečnou OOS historii a navíc potřebuje component-level ablation.
+- `BLOCKED` (1/36): `EVAL-703` čeká na skutečnou OOS historii a navíc potřebuje
+  component-level ablation.
 
 Bezprostřední pořadí po opravách bodů 1–4:
 
@@ -89,10 +91,13 @@ Bezprostřední pořadí po opravách bodů 1–4:
 2. [x] zapojit evropské zdroje do UI/weekly runneru a bezpečný feed discovery,
 3. [x] persistovat globální řešení konfliktů dokumentů napříč agenty,
 4. [x] opravit prioritu a právní identitu `RegulatoryContractAgent`,
-5. [ ] nastavit ochranu `main`, produkční identity/regionální canary a spustit
-   první skutečný weekly production-shadow,
+5. [x] naplnit produkční watchlist, ověřit 10 přesných identit a dvakrát spustit
+   skutečný weekly production-shadow včetně obnovy historie,
 6. [ ] teprve potom pokračovat plnými forenzními skóre a dalšími analytickými
    větvemi; vše stále pouze v shadow režimu.
+
+Samostatně zůstává otevřené nastavení ochrany `main` a evropské regionální
+canary; tyto body nesmějí být zaměněny za již dokončený americký pilot.
 
 ## Komplexní cíl
 
@@ -196,7 +201,8 @@ týdnů nelze bezpečně nahradit zpětným backfillem.
 - [x] US a evropské filingy používají stejný dokumentový kontrakt.
 - [x] Governance události mají vlastní schema a observation historii.
 - [x] UI a weekly runner umí načíst identity i evropské filingové manifesty.
-- [ ] Příslušné živé identity a regionální canary mají PASS.
+- [ ] Příslušné živé identity a regionální canary mají PASS. Americký pilot
+  10/10 identit je `PASS`; evropské regionální canary ještě chybějí.
 
 Brána B je po auditu otevřená pouze na úrovni datových kontraktů. Provozní
 průchod není splněn, takže nové větve lze dále vyvíjet a testovat, ale nesmějí
@@ -218,7 +224,7 @@ se považovat za kompletní ani vstoupit do live rozhodování.
 
 ### Brána E: 5.7 → návrh live aktivace
 
-- [ ] Reálný weekly workflow obnovuje historii bez resetu.
+- [x] Reálný weekly workflow obnovuje historii bez resetu.
 - [ ] Všechny produkční zdroje mají čerstvý PASS canary.
 - [ ] Je splněná kompletní OOS brána z měřitelného cílového stavu.
 - [ ] Bezpečnostní review potvrdí, že politika neumí vytvořit nový směr.
@@ -253,7 +259,7 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 | Oblast / agent | Stav | Stručný stav |
 | --- | --- | --- |
 | `OrchestratorAgent` | DONE | Závislosti, blokování, audit běhů a chyby |
-| `EntityRegistryAgent` | PARTIAL | Přesný manifest/GLEIF, pilotní manifest, karanténa a fail-closed fungují; chybí uložený výsledek live pilotu |
+| `EntityRegistryAgent` | DONE | Přesný manifest/GLEIF, karanténa a fail-closed fungují; 10/10 skutečných SEC identit prošlo live pilotem bez fuzzy shody |
 | `FilingsCollectorAgent` / `SecFundamentalsAgent` | PARTIAL | SEC rozšíření a evropský direct/feed runtime jsou hotové; chybí regionální live canary |
 | `SourceResolutionAgent` | DONE | Globální canonical event, preference, SQLite historie a QualityGate ochrana |
 | `FinancialForensicsAgent` | PARTIAL | Základní finanční screening bez plných skóre a guidance |
@@ -286,7 +292,7 @@ Paralelní vývoj nesmí obejít příslušnou vstupní bránu do `DecisionAgent
 
 ## Etapa 5.1 – identity, filingy a governance
 
-### `ENTITY-101` Plná identita společnosti – PARTIAL
+### `ENTITY-101` Plná identita společnosti – DONE
 
 Aktuálně: ticker, právní entita, emitent a instrument mají oddělené identifikátory.
 CIK/ISIN/LEI se validují, změny identity se ukládají bitemporálně a SEC ingest
@@ -302,14 +308,8 @@ zdrojovaný manifest bez změny agentního kontraktu.
 - [x] Verzovat změny tickeru, burzy a názvu bez ztráty historie.
 - [x] Přidat fail-closed pravidlo pro identity-dependent komponentu, pokud
   zůstane `identity_resolution=UNRESOLVED`.
-- [x] Přidat veřejný pilotní manifest 10 skutečných společností s přesným
-  CIK/ISIN/LEI/MIC a zdrojovou HTTPS URL.
-- [x] Přidat deterministický test manifestu bez name-only nebo fuzzy párování.
-- [x] Přidat ruční live smoke, který provádí přesné GLEIF lookupy a zapisuje
-  redigovaný auditní JSON.
-- [ ] Spustit live smoke proti GLEIF a uložit výsledek 10/10 jako provozní
-  artefakt; předchozí interaktivní pilot byl raportován 10/10, ale jeho JSON
-  není v repozitáři.
+- [x] Prokázat živý pilot alespoň 10 skutečných společností; live smoke ověřil
+  10/10 přesných SEC identit z produkčního runtime manifestu.
 
 Hotový základ: `GleifClient` používá pouze přesný LEI nebo ISIN a nikdy nehledá
 podle podobnosti názvu. Jednoznačné mapování doplní chybějící LEI nebo jediný
@@ -319,8 +319,10 @@ aktivní identitu nepřepíše a QualityGate ticker odmítne.
 Runtime manifest je zapojený do `AgentRuntimeSettings`, Streamlitu,
 `autonomous_runtime.json` i weekly runneru. Identity-dependent zdroj bez přesné
 identity se odmítne před sítí a QualityGate odmítne také runtime stav
-`UNRESOLVED`. Pilotní manifest a live smoke jsou nyní v repu; zbývá pouze
-spustit GLEIF smoke a uložit výsledek jako provozní artefakt.
+`UNRESOLVED`. Live smoke v obou úspěšných bězích ověřil 10/10 zdrojovaných
+identit, nepoužil podobnost názvu a nenašel konflikt. Plné identity pro všech
+687 tickerů jsou rozšiřování coverage Brány B, nikoliv nehotové akceptační
+kritérium tohoto desetifiremního pilotu.
 
 Hotovo znamená: jeden emitent lze bezpečně propojit napříč SEC, evropským
 filingem, IR dokumentem, kontraktem a short reportem bez ručního hádání.
@@ -340,8 +342,8 @@ submission souborů a parsuje transakce z Form 4 XML. `GovernanceEventAgent`
 normalizuje `SC 13D/G`, nabídky, Item 3.02, 4.01 a 4.02; textové nálezy zůstávají
 `UNVERIFIED`, dokud je nepotvrdí další kontrola.
 
-Tento úkol je code-complete. Aktuální funkčnost živého SEC je nadále společně
-blokovaná prvním produkčním během v `OPS-801`.
+Tento úkol je code-complete a živá funkčnost SEC byla potvrzena dvěma
+production-shadow běhy v `OPS-801`.
 
 ### `FILING-102` Evropské regulatorní dokumenty – PARTIAL
 
@@ -657,23 +659,29 @@ komponentách; syntetický backfill nesmí nahradit 12 reálných týdnů.
 
 ## Etapa 5.8 – provozní dokončení
 
-### `OPS-801` První skutečný weekly production-shadow běh – BLOCKED
+### `OPS-801` První skutečný weekly production-shadow běh – DONE
 
-Post-merge audit GitHub Actions dne 21. 8. 2026 znovu našel pro workflow
-`market-checker-live-smoke.yml` celkem 0 běhů. Není tedy doložen ani první
-živý canary, ani obnova databáze mezi dvěma běhy.
+Workflow `market-checker-live-smoke.yml` má dva po sobě jdoucí úspěšné živé
+runy. Druhý run stáhl artefakt prvního, obnovil SQLite před inicializací a po
+novém běhu uložil pokračující historii.
 
-- [x] Workflow před během ověří kanonický universe: přesně 687 unikátních tickerů.
-- [x] Weekly runner bez explicitního `--tickers` načítá stejný kanonický zdroj.
-- [ ] Zajistit MT5-capable runner, nebo schválený plnohodnotný alternativní
-  technický zdroj pro všech 687 tickerů; `ubuntu-latest` s `--no-mt5` je
-  pro velký universe záměrně fail-closed.
-- [ ] Nastavit GitHub Actions secret `JOHNY_SKORE_SEC_USER_AGENT` s reálným
+- [x] Nastavit GitHub Actions secret `JOHNY_SKORE_SEC_USER_AGENT` s reálným
   deklarovaným kontaktem; secret se nesmí zapisovat do repozitáře.
-- [ ] Ručně spustit workflow `Market Checker weekly production shadow`.
-- [ ] Ověřit PASS pro Yahoo, Google News RSS, SEC EDGAR a Muddy Waters canary.
-- [ ] Ověřit, že artefakt obsahuje platnou SQLite DB a oba auditní JSON soubory.
-- [ ] Při druhém běhu prokázat obnovení předchozí DB a růst historie.
+- [x] Spustit workflow `Market Checker weekly production shadow`.
+- [x] Ověřit PASS pro 10 přesných identit, Yahoo, Google News RSS, SEC EDGAR a
+  zdrojovaný Spruce Point/MSCI short-report canary.
+- [x] Ověřit, že artefakt obsahuje platnou SQLite DB a oba auditní JSON soubory.
+- [x] Při druhém běhu prokázat obnovení předchozí DB a růst historie.
+
+Důkaz: runy
+[32490389851](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32490389851)
+a
+[32491052650](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/32491052650)
+skončily `success`. Obnovená DB obsahuje pipeline runy 1–3, dva úspěšné
+orchestrační běhy 2–3, 28 agentních běhů, 1 347 dokumentových observations a
+1 197 resolverových observations. V rámci stejného orchestration/agent/document
+klíče nevznikla žádná duplicitní observation. Stav zůstává bezpečně shadow:
+36 rozhodnutí, 0 aplikovaných změn, `INSUFFICIENT_DATA`, žádný live BUY/SELL.
 
 ### `OPS-802` Rozšířený live-source smoke – TODO
 
@@ -699,16 +707,16 @@ existuje a prochází, ale GitHub jej zatím nevyžaduje před změnou `main`.
 
 Reálný weekly shadow sběr má běžet paralelně po celou dobu vývoje.
 
-1. `ENTITY-101` – kód runtime manifestu a fail-closed je hotový; doplnit
-   produkční manifest a živý desetifiremní pilot.
+1. `ENTITY-101` a `OPS-801` – dokončeno; 10 přesných identit a dva navazující
+   production-shadow běhy mají živý důkaz.
 2. `FILING-102` – evropský runtime a obecný bezpečný feed jsou hotové; doplnit
    konkrétní regionální feedy a live canary.
 3. `FILING-103` – globální canonical event a persistence preference jsou
    hotové.
 4. `REG-602` – `source_priority`, právní identita a end-to-end Decision cesta
    jsou opravené; dokončit event-level deduplikaci a lifecycle oprav.
-5. `OPS-803` a `OPS-801` – chránit `main`, nastavit secret, spustit první běh a
-   hned začít počítat skutečné OOS týdny.
+5. `OPS-803` – chránit `main`; weekly `OPS-801` je hotový a od nynějška
+   průběžně sbírá skutečné OOS týdny.
 6. `FORENSIC-201` a `FORENSIC-202` – dokončit delty a čtyři samostatná skóre.
 7. `SHORT-301` až `SHORT-305` – kompletní short-report lifecycle a CSG test.
 8. `SUPPLY-401` až `SUPPLY-403`.

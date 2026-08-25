@@ -99,12 +99,22 @@ def canonical_event_key_for(document: DocumentRecord) -> str | None:
         period = document.published_at
     if period is None:
         return None
-    identity = str(
+    issuer_identity = str(
         document.issuer_id or document.legal_entity_id or document.ticker
     ).strip()
-    if not identity:
+    instrument_identity = str(
+        document.instrument_id or f"ticker:{document.ticker}"
+    ).strip()
+    if not issuer_identity or not instrument_identity:
         return None
-    normalized_identity = re.sub(r"\s+", "", identity).upper()
+    # SourceResolutionAgent deliberately resolves one ticker/instrument at a
+    # time.  Include the instrument scope so two listed share classes of the
+    # same issuer never collapse into one contradictory canonical event.
+    normalized_identity = re.sub(
+        r"\s+",
+        "",
+        f"{issuer_identity}|{instrument_identity}",
+    ).upper()
     return f"{normalized_identity}|{family}|{_timestamp(period).date().isoformat()}"
 
 

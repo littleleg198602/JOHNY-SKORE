@@ -318,6 +318,20 @@ class SecEdgarClient:
         return f"{SEC_ARCHIVES_ROOT}/{cik_numeric}/{accession_path}/{filename}"
 
     @staticmethod
+    def _raw_primary_document(form: str, primary_document: str) -> str:
+        """Return the raw ownership XML path instead of SEC's XSL view."""
+
+        if _base_form(form) in {"3", "4", "5"}:
+            return re.sub(
+                r"^xslF\d+X\d+/",
+                "",
+                primary_document,
+                count=1,
+                flags=re.IGNORECASE,
+            )
+        return primary_document
+
+    @staticmethod
     def _recent_table(payload: dict[str, Any]) -> dict[str, Any]:
         filings = payload.get("filings")
         if isinstance(filings, dict):
@@ -438,33 +452,46 @@ class SecEdgarClient:
             filed_at = _utc_date(item("filingDate"))
             if not accession_number or not primary_document or filed_at is None:
                 continue
-            filings.append(
-                SecFiling(
-                    accession_number=accession_number,
-                    form=form,
-                    filed_at=filed_at,
-                    report_date=_utc_date(item("reportDate")),
-                    primary_document=primary_document,
-                    filing_url=cls._filing_url(
-                        cik,
-                        accession_number,
-                        primary_document,
-                    ),
-                    index_url=cls._filing_url(
-                        cik,
-                        accession_number,
-                        f"{accession_number}-index.html",
-                    ),
-                    primary_document_description=(
-                        str(item("primaryDocDescription") or "").strip() or None
-                    ),
-                    items=tuple(
-                        part.strip()
-                        for part in str(item("items") or "").split(",")
-                        if part.strip()
-                    ),
-                )
+            candidate = SecFiling(
+                accession_number=accession_number,
+                form=form,
+                filed_at=filed_at,
+                report_date=_utc_date(item("reportDate")),
+                primary_document=primary_document,
+                filing_url=cls._filing_url(
+                    cik,
+                    accession_number,
+                    cls._raw_primary_document(form, primary_document),
+                ),
+                index_url=cls._filing_url(
+                    cik,
+                    accession_number,
+                    f"{accession_number}-index.html",
+                ),
+                primary_document_description=(
+                    str(item("primaryDocDescription") or "").strip() or None
+                ),
+                items=tuple(
+                    part.strip()
+                    for part in str(item("items") or "").split(",")
+                    if part.strip()
+                ),
             )
+            existing = next(
+                (
+                    filing
+                    for filing in filings
+                    if filing.accession_number == accession_number
+                ),
+                None,
+            )
+            if existing is None:
+                filings.append(candidate)
+            elif existing != candidate:
+                raise SecEdgarError(
+                    "SEC submissions obsahují konfliktní duplicitní accession "
+                    f"{accession_number}."
+                )
         filings.sort(key=lambda filing: filing.filed_at, reverse=True)
         safe_limit = max(0, int(limit))
         if not safe_limit:

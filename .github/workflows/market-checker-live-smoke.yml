@@ -20,7 +20,6 @@ jobs:
     timeout-minutes: 45
     env:
       JOHNY_SKORE_SEC_USER_AGENT: ${{ secrets.JOHNY_SKORE_SEC_USER_AGENT }}
-      JOHNY_SKORE_SMOKE_SHORT_REPORT_URL: ${{ vars.JOHNY_SKORE_SMOKE_SHORT_REPORT_URL || 'https://muddywatersresearch.com/research/tal/mw-is-short-tal/' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -107,10 +106,13 @@ jobs:
           from market_checker_app.storage.sqlite_store import SQLiteStore;
           SQLiteStore(Path('outputs/market_checker_history.db')).ensure_schema()"
 
-      - name: Verify current Yahoo, RSS, SEC and short-report sources
+      - name: Verify company identities and current live sources
         run: >-
           python -m market_checker_app.live_source_smoke
-          --tickers AAPL MSFT SOFI
+          --runtime-config market_checker_app/autonomous_runtime.json
+          --minimum-identity-records 10
+          --ticker-file market_checker_app/production_watchlist.txt
+          --ticker-limit 3
 
       - name: Verify canonical 687-ticker universe
         run: >-
@@ -124,6 +126,8 @@ jobs:
         run: >-
           python -m market_checker_app.weekly_shadow_runner
           --runtime-config market_checker_app/autonomous_runtime.json
+          --ticker-file market_checker_app/production_watchlist.txt
+          --ticker-limit 36
           --no-mt5
 
       - name: Preserve rolling state and source/readiness audits

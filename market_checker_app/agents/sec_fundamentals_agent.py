@@ -49,8 +49,15 @@ def _stable_hash(*parts: object) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
-def _document_id(cik: str, accession_number: str) -> str:
-    return f"sec:{cik}:{accession_number}"
+def _document_id(cik: str, accession_number: str, ticker: str) -> str:
+    """Identify an issuer filing observation for one tradable instrument.
+
+    One SEC issuer can have several tickers/share classes (for example GOOG
+    and GOOGL).  The database document contract is instrument-scoped, so CIK
+    and accession alone are not unique inside a multi-ticker pipeline run.
+    """
+
+    return f"sec:{cik}:{accession_number}:ticker:{normalize_ticker(ticker)}"
 
 
 class SecFundamentalsAgent(BaseAgent):
@@ -211,6 +218,7 @@ class SecFundamentalsAgent(BaseAgent):
                 document_id = _document_id(
                     bundle.company.cik,
                     filing.accession_number,
+                    ticker,
                 )
                 document_ids_by_accession[filing.accession_number] = document_id
                 filing_urls_by_accession[filing.accession_number] = filing.filing_url
@@ -340,6 +348,7 @@ class SecFundamentalsAgent(BaseAgent):
                     continue
                 fact_id = _stable_hash(
                     bundle.company.cik,
+                    ticker,
                     fact.taxonomy,
                     fact.concept,
                     fact.unit,
