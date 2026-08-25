@@ -16,7 +16,7 @@
     "regulatory_contract_enabled": false,
     "regulatory_contract_sources_text": "",
     "sec_fundamentals_enabled": true,
-    "short_report_sources_text": "MSCI | Spruce Point Capital Management | 2024-01-17T00:00:00+00:00 | https://www.sprucepointcap.com/research/msci",
+    "short_report_sources_text": "MSCI | Spruce Point Capital Management | 2024-01-17T00:00:00+00:00 | https://www.sprucepointcap.com/research/msci\nGL | Viceroy Research | 2024-08-06T00:00:00+00:00 | https://viceroyresearch.org/publications/globe-life-independent-investigators",
     "short_reports_enabled": true,
     "stage4_shadow_enabled": true,
     "supply_chain_enabled": false,
