@@ -45,8 +45,8 @@ jobs:
             market_checker_app/constraints.txt
       - name: Install project dependencies
         run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
-      - name: Verify exact 687-ticker contract
-        run: python -m unittest discover -s tests -p 'test_687_ticker_contract.py' -v
+      - name: Verify exact 687-ticker contracts
+        run: python -m unittest discover -s tests -p 'test_*ticker*.py' -v
 
   ui-agent:
     name: Streamlit UI agent
