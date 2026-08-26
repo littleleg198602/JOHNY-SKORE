@@ -110,7 +110,7 @@ jobs:
         run: >-
           python -m market_checker_app.live_source_smoke
           --runtime-config market_checker_app/autonomous_runtime.json
-          --minimum-identity-records 10
+          --minimum-identity-records 36
           --ticker-file market_checker_app/production_watchlist.txt
           --ticker-limit 3
 
