@@ -21,8 +21,8 @@ echo [INFO] Instaluji overene verze zavislosti...
 %PYTHON_EXE% -m pip install -r "%APP_DIR%\requirements.txt" -c "%APP_DIR%\constraints.txt"
 if errorlevel 1 goto :error
 
-echo [INFO] Spoustim tydenni auditni shadow beh...
-%PYTHON_EXE% -m market_checker_app.weekly_shadow_runner --mt5
+echo [INFO] Spoustim tydenni auditni shadow beh pro 36 tickeru...
+%PYTHON_EXE% -m market_checker_app.weekly_shadow_runner --no-mt5 --ticker-file "%APP_DIR%\production_watchlist.txt" --ticker-limit 36
 if errorlevel 1 goto :error
 
 echo [OK] Shadow beh prosel. Vysledek: outputs\weekly_shadow_latest.json
