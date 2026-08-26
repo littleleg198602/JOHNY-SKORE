@@ -896,12 +896,13 @@ def main() -> None:
         )
         store = SQLiteStore(config.sqlite_path)
         store.ensure_schema()
+        # The primary pilot is selected from the requested watchlist only.
+        # Auxiliary source manifests must never displace pilot tickers.
         tickers = _tickers(
             args.tickers,
             store,
             ticker_file=args.ticker_file,
             ticker_limit=args.ticker_limit,
-            required_tickers=_required_runtime_tickers(config),
         )
         summary = run_weekly_shadow(
             config=config,

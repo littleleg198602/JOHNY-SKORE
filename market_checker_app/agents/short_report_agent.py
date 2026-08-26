@@ -207,16 +207,10 @@ class ShortReportAgent(BaseAgent):
                 warnings=["ShortReportAgent nemá nakonfigurované žádné reporty."],
             )
 
-        watchlist = {
-            normalize_ticker(ticker)
-            for ticker in context.watchlist
-            if normalize_ticker(ticker)
-        }
-        matching_sources = [
-            source
-            for source in self.config.sources
-            if normalize_ticker(source.ticker) in watchlist
-        ]
+        # Configured short reports are auxiliary evidence. They must all be
+        # ingested even when their ticker is not part of the primary pilot;
+        # otherwise a source-only report could silently alter pilot selection.
+        matching_sources = list(self.config.sources)
         if not matching_sources:
             return AgentResult(
                 status=AgentStatus.SUCCESS,

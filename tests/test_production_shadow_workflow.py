@@ -11,10 +11,7 @@ from market_checker_app.services.watchlist_service import (
     load_watchlist,
     select_watchlist_pilot,
 )
-from market_checker_app.weekly_shadow_runner import (
-    _required_runtime_tickers,
-    build_runtime_config,
-)
+from market_checker_app.weekly_shadow_runner import build_runtime_config
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -61,13 +58,14 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         )
         self.assertTrue(set(identities).issubset(universe))
         self.assertEqual(set(universe[:36]), set(identities))
-        pilot = select_watchlist_pilot(
-            universe,
-            36,
-            required_tickers=_required_runtime_tickers(config),
-        )
+        # Source-only manifests must not replace primary pilot tickers.
+        pilot = select_watchlist_pilot(universe, 36)
         self.assertEqual(36, len(pilot))
-        self.assertIn("MSCI", pilot)
+        self.assertEqual(set(universe[:36]), set(pilot))
+        self.assertIn("PANW", pilot)
+        self.assertIn("RTX", pilot)
+        self.assertNotIn("MSCI", pilot)
+        self.assertNotIn("GL", pilot)
         self.assertTrue(set(pilot).issubset(universe))
 
     def test_workflow_restores_history_and_runs_all_live_canaries(self) -> None:
