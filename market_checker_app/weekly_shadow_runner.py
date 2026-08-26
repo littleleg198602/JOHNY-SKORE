@@ -49,6 +49,7 @@ from market_checker_app.services.watchlist_service import (
     select_watchlist_pilot,
 )
 from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.models import AnalysisProgressState
 
 
 DEFAULT_RSS_SOURCE = (
@@ -64,6 +65,23 @@ DEFAULT_RSS_SOURCES = (
 
 class RuntimeConfigurationError(ValueError):
     pass
+
+
+def _console_progress(state: AnalysisProgressState) -> None:
+    """Render live progress for the local Windows launcher."""
+
+    progress = max(0.0, min(1.0, float(state.overall_progress)))
+    width = 28
+    filled = int(round(progress * width))
+    bar = "#" * filled + "." * (width - filled)
+    position = ""
+    if state.current_symbol:
+        position = f" | {state.current_symbol} {state.current_position}/{state.total_symbols}"
+    print(
+        f"\\r[PROGRESS] [{bar}] {progress * 100:5.1f}%{position} | {state.current_message}   ",
+        end="",
+        flush=True,
+    )
 
 
 def _validated_sources(
@@ -573,14 +591,17 @@ def run_weekly_shadow(
     config.ensure_output_dir()
     store = SQLiteStore(config.sqlite_path)
     store.ensure_schema()
+    print(f"[INFO] Začínám zpracování {len(tickers)} tickerů; průběh se bude zobrazovat níže.", flush=True)
     result = PipelineService(config).run(
         tickers,
         rss_sources,
         store,
+        progress_callback=_console_progress,
         rss_enabled=rss_enabled,
         mt5_enabled=mt5_enabled,
         yahoo_metadata_enabled=yahoo_metadata_enabled,
     )
+    print("", flush=True)
     readiness = _readiness_summary(result, config)
     summary: dict[str, object] = {
         "schema_version": 2,
