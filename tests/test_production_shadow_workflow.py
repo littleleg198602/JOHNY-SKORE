@@ -84,7 +84,7 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
             "--runtime-config market_checker_app/autonomous_runtime.json",
             workflow,
         )
-        self.assertIn("--minimum-identity-records 10", workflow)
+        self.assertIn("--minimum-identity-records 36", workflow)
         self.assertEqual(
             2,
             workflow.count(
