@@ -42,8 +42,8 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
             settings.identity_records_text
         )
         self.assertEqual([], identity_errors)
-        self.assertEqual(10, len(identities))
-        self.assertEqual(10, len(config.entity_registry.identity_records))
+        self.assertEqual(36, len(identities))
+        self.assertEqual(36, len(config.entity_registry.identity_records))
         self.assertEqual(2, len(config.short_reports.sources))
         self.assertEqual({"MSCI", "GL"}, {source.ticker for source in config.short_reports.sources})
         self.assertEqual("MSCI", config.short_reports.sources[0].ticker)
@@ -60,6 +60,7 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
             universe[:5],
         )
         self.assertTrue(set(identities).issubset(universe))
+        self.assertEqual(set(universe[:36]), set(identities))
         pilot = select_watchlist_pilot(
             universe,
             36,
