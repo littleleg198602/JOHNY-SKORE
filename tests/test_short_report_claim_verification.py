@@ -362,6 +362,36 @@ class ShortReportClientTests(unittest.TestCase):
 
 
 class ClaimVerificationTests(unittest.TestCase):
+    def test_configured_auxiliary_report_is_loaded_outside_primary_watchlist(self) -> None:
+        auxiliary_source = replace(_source(), ticker="AUX")
+        orchestrator = OrchestratorAgent(shadow_mode=True)
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(
+            ShortReportAgent(
+                ShortReportConfig(
+                    enabled=True,
+                    sources=(auxiliary_source,),
+                ),
+                client=_FakeShortReportClient(),
+            )
+        )
+        orchestrator.register(PredictionV21AdapterAgent())
+        orchestrator.register(QualityGateAgent())
+
+        report = orchestrator.run(
+            watchlist=["TEST"],
+            state={"signals": _signals()},
+        )
+
+        short_execution = next(
+            execution
+            for execution in report.executions
+            if execution.agent_name == "short_report"
+        )
+        self.assertEqual(1, short_execution.result.metadata["matching_sources"])
+        self.assertEqual(3, len(report.claims))
+        self.assertEqual({"AUX"}, {claim.ticker for claim in report.claims})
+
     def test_unverified_reports_pass_audit_without_changing_prediction(self) -> None:
         frame = _signals()
         original = frame.copy(deep=True)
