@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from datetime import datetime, timezone
 import json
+import math
 import os
 from pathlib import Path
 import platform
@@ -570,6 +571,106 @@ def _source_health_summary(
     }
 
 
+_SIGNAL_DETAIL_COLUMNS = (
+    "ticker",
+    "raw_total_score",
+    "final_total_score",
+    "final_confidence",
+    "data_quality_score",
+    "news_confidence",
+    "tech_confidence",
+    "yahoo_confidence",
+    "decision_signal",
+    "forecast",
+    "action",
+    "action_reasons",
+    "signal_strength",
+    "blocked_reasons",
+    "reasons",
+    "warnings",
+)
+
+
+def _json_safe(value: object) -> object:
+    if value is None:
+        return None
+    enum_value = getattr(value, "value", None)
+    if enum_value is not None and isinstance(enum_value, (str, int, float, bool)):
+        return enum_value
+    item = getattr(value, "item", None)
+    if callable(item):
+        try:
+            return _json_safe(item())
+        except (TypeError, ValueError):
+            pass
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, dict):
+        return {str(key): _json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_safe(item) for item in value]
+    if isinstance(value, (str, int, float, bool)):
+        return value
+    return str(value)
+
+
+def _signal_detail_records(result: dict[str, object]) -> list[dict[str, object]]:
+    signals = result.get("signals")
+    if signals is None or not hasattr(signals, "to_dict"):
+        return []
+    columns = set(getattr(signals, "columns", []))
+    selected = [column for column in _SIGNAL_DETAIL_COLUMNS if column in columns]
+    return [
+        {
+            column: _json_safe(record.get(column))
+            for column in selected
+        }
+        for record in signals.to_dict(orient="records")
+    ]
+
+
+_DECISION_DETAIL_FIELDS = (
+    "decision_id",
+    "ticker",
+    "policy_name",
+    "policy_version",
+    "baseline_action",
+    "baseline_forecast",
+    "proposed_action",
+    "proposed_forecast",
+    "baseline_p_up",
+    "baseline_p_flat",
+    "baseline_p_down",
+    "p_up",
+    "p_flat",
+    "p_down",
+    "confidence",
+    "hard_veto",
+    "activation_state",
+    "applied_to_prediction",
+    "reasons",
+    "conflicts",
+    "evidence_ids",
+    "claim_ids",
+    "regulatory_event_ids",
+    "metadata",
+)
+
+
+def _decision_detail_records(result: dict[str, object]) -> list[dict[str, object]]:
+    report = result.get("agent_report")
+    decisions = getattr(report, "decisions", []) if report is not None else []
+    return [
+        {
+            field: _json_safe(getattr(decision, field, None))
+            for field in _DECISION_DETAIL_FIELDS
+        }
+        for decision in decisions
+    ]
+
+
 def run_weekly_shadow(
     *,
     config: AppConfig,
@@ -654,6 +755,9 @@ def run_weekly_shadow(
         "error_count": len(result.get("errors", [])),
         "warnings": list(result.get("warnings", [])),
         "errors": list(result.get("errors", [])),
+        "detail_schema_version": 1,
+        "ticker_results": _signal_detail_records(result),
+        "decision_results": _decision_detail_records(result),
     }
     _atomic_json(config.output_dir / "weekly_shadow_latest.json", summary)
 

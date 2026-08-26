@@ -108,6 +108,26 @@ def _default_transport(
 
 class _HTMLTextExtractor(HTMLParser):
     BLOCKED_TAGS = {"script", "style", "noscript", "svg"}
+    STRUCTURAL_TAGS = {
+        "address",
+        "article",
+        "aside",
+        "blockquote",
+        "br",
+        "dd",
+        "div",
+        "dt",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "li",
+        "p",
+        "section",
+        "tr",
+    }
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
@@ -120,6 +140,8 @@ class _HTMLTextExtractor(HTMLParser):
         normalized = tag.lower()
         if normalized in self.BLOCKED_TAGS:
             self._blocked_depth += 1
+        elif normalized in self.STRUCTURAL_TAGS:
+            self.text_parts.append("\n")
         elif normalized == "title" and self._blocked_depth == 0:
             self._in_title = True
 
@@ -129,21 +151,30 @@ class _HTMLTextExtractor(HTMLParser):
             self._blocked_depth -= 1
         elif normalized == "title":
             self._in_title = False
+        elif (
+            normalized in self.STRUCTURAL_TAGS
+            and normalized != "br"
+            and self._blocked_depth == 0
+        ):
+            self.text_parts.append("\n")
 
     def handle_data(self, data: str) -> None:
         if self._blocked_depth:
             return
-        value = str(data or "").strip()
-        if not value:
+        value = re.sub(r"\s+", " ", str(data or ""))
+        if not value.strip():
             return
         self.text_parts.append(value)
         if self._in_title:
-            self.title_parts.append(value)
+            self.title_parts.append(value.strip())
 
 
 def _normalize_text(value: str, max_characters: int) -> str:
-    normalized = re.sub(r"\s+", " ", str(value or "")).strip()
-    return normalized[:max_characters]
+    normalized = str(value or "").replace("\r", "\n").replace("\xa0", " ")
+    normalized = re.sub(r"[ \t\f\v]+", " ", normalized)
+    normalized = re.sub(r" *\n+ *", "\n", normalized)
+    normalized = re.sub(r"\n{2,}", "\n", normalized)
+    return normalized.strip()[:max_characters]
 
 
 def _extract_html(payload: bytes, max_characters: int) -> tuple[str, str]:

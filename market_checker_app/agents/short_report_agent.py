@@ -29,10 +29,21 @@ class ShortReportFetcher(Protocol):
 
 ALLEGATION_MARKERS = (
     "accounting irregular",
+    "aggressive accounting",
+    "call into question",
+    "challeng",
+    "complaint",
+    "conflict",
+    "declin",
     "deteriorat",
+    "downside risk",
+    "evidence",
     "excessive",
     "failed to disclose",
+    "failed to investigate",
+    "failure of",
     "fraud",
+    "harassment",
     "inflated",
     "manipulat",
     "misleading",
@@ -40,10 +51,14 @@ ALLEGATION_MARKERS = (
     "negative",
     "not supported",
     "overstat",
+    "pressure",
     "questionable",
     "recast",
+    "reputational risk",
     "restat",
+    "struggl",
     "understat",
+    "under pressure",
     "undisclosed",
     "unsustainable",
     "unsupported",
@@ -85,9 +100,21 @@ DOMAIN_KEYWORDS = {
 EXCLUDED_SENTENCE_MARKERS = (
     "not investment advice",
     "terms of use",
+    "terms of service",
     "forward-looking statement",
     "no representation or warranty",
     "legal disclaimer",
+    "disclaimer",
+    "do your own research",
+    "investment decision",
+    "without warranty",
+    "trading losses",
+    "you should assume",
+    "expressions of opinion",
+    "not an offer",
+    "solicitation",
+    "subscribe",
+    "copyright",
 )
 
 
@@ -109,15 +136,25 @@ def _extract_claim_statements(
     minimum_characters: int,
     limit: int,
 ) -> list[tuple[str, str]]:
-    sentences = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9])", str(text or ""))
+    normalized_text = str(text or "").replace("\r", "\n")
+    normalized_text = re.sub(r"[ \t\f\v]+", " ", normalized_text)
+    normalized_text = re.sub(r" *\n+ *", "\n", normalized_text)
+    candidates = re.split(
+        r"\n+|(?<=[.!?])\s+|(?<=[;:])\s+",
+        normalized_text,
+    )
     extracted: list[tuple[str, str]] = []
     seen: set[str] = set()
-    for raw_sentence in sentences:
-        statement = re.sub(r"\s+", " ", raw_sentence).strip(" \t\r\n-•")
+    for raw_sentence in candidates:
+        statement = re.sub(
+            r"\s+",
+            " ",
+            raw_sentence,
+        ).strip(" \t\r\n-•*")
         if len(statement) < minimum_characters:
             continue
         statement = statement[:1_500]
-        normalized = statement.lower()
+        normalized = statement.casefold()
         if any(marker in normalized for marker in EXCLUDED_SENTENCE_MARKERS):
             continue
         if not any(marker in normalized for marker in ALLEGATION_MARKERS):
@@ -136,7 +173,7 @@ class ShortReportAgent(BaseAgent):
     """Normalize explicitly configured short reports without judging truth."""
 
     name = "short_report"
-    version = "1.0"
+    version = "1.1"
     required = False
     dependencies = ("entity_registry",)
 
@@ -301,7 +338,7 @@ class ShortReportAgent(BaseAgent):
                         "publisher": source.publisher.strip(),
                         "report_title": fetched.title,
                         "allegation_direction": "risk",
-                        "extraction_method": "deterministic_keyword_sentence_v1",
+                        "extraction_method": "deterministic_structured_sentence_v2",
                         "truth_assessed": False,
                         "scoring_applied": False,
                     },

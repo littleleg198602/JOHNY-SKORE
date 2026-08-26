@@ -26,6 +26,7 @@ from market_checker_app.agents import (
     ShortReportAgent,
 )
 from market_checker_app.agents.base import BaseAgent
+from market_checker_app.agents.short_report_agent import _extract_claim_statements
 from market_checker_app.agents.contracts import AgentContext, utc_now
 from market_checker_app.collectors.short_report_client import (
     FetchedShortReport,
@@ -285,6 +286,39 @@ class ShortReportClientTests(unittest.TestCase):
         self.assertIn("Debt is excessive.", report.text)
         self.assertNotIn("ignore me", report.text)
         self.assertEqual(64, len(report.content_hash))
+
+    def test_page_sections_and_bullets_produce_claims(self) -> None:
+        calls: list[str] = []
+
+        def transport(url, headers, timeout, limit):
+            calls.append(url)
+            return (
+                b"<html><body><h1>MSCI</h1>"
+                b"<p>The business segments are under pressure and facing client retention challenges.</p>"
+                b"<ul><li>Evidence that retention rates are declining and reputational risk is rising.</li>"
+                b"<li>Aggressive accounting decisions flatter revenue and costs.</li></ul>"
+                b"</body></html>",
+                "text/html",
+                url,
+            )
+
+        client = ShortReportClient(
+            user_agent="JohnySkoreTests/1.0",
+            transport=transport,
+        )
+        report = client.fetch(_source())
+        claims = _extract_claim_statements(
+            report.text,
+            minimum_characters=40,
+            limit=10,
+        )
+
+        self.assertEqual([_source().url], calls)
+        self.assertGreaterEqual(len(claims), 3)
+        statements = [statement.lower() for _, statement in claims]
+        self.assertTrue(any("under pressure" in item for item in statements))
+        self.assertTrue(any("declining" in item for item in statements))
+        self.assertTrue(any("aggressive accounting" in item for item in statements))
 
     def test_non_https_private_and_oversized_sources_are_rejected(self) -> None:
         never_called = lambda *args: (_ for _ in ()).throw(
