@@ -192,7 +192,7 @@ def _production_short_report_source():
 
 
 class LiveSourceSmokeTests(unittest.TestCase):
-    def test_committed_pilot_has_ten_exact_primary_identities(self) -> None:
+    def test_committed_pilot_has_36_exact_primary_identities(self) -> None:
         records = _production_identity_records()
 
         self.assertEqual(
@@ -200,6 +200,7 @@ class LiveSourceSmokeTests(unittest.TestCase):
                 "NVDA",
                 "AAPL",
                 "GOOGL",
+                "GOOG",
                 "MSFT",
                 "AMZN",
                 "AVGO",
@@ -207,11 +208,36 @@ class LiveSourceSmokeTests(unittest.TestCase):
                 "TSLA",
                 "LLY",
                 "JPM",
+                "WMT",
+                "AMD",
+                "V",
+                "XOM",
+                "JNJ",
+                "INTC",
+                "MA",
+                "ABBV",
+                "BAC",
+                "CSCO",
+                "COST",
+                "ORCL",
+                "LRCX",
+                "AMAT",
+                "CVX",
+                "GE",
+                "CAT",
+                "KO",
+                "UNH",
+                "MS",
+                "MRK",
+                "PG",
+                "NFLX",
+                "PANW",
+                "RTX",
             },
             set(records),
         )
         self.assertEqual(
-            10,
+            36,
             sum(bool(item.get("cik")) for item in records.values()),
         )
         self.assertEqual(
@@ -233,8 +259,8 @@ class LiveSourceSmokeTests(unittest.TestCase):
             gleif_client=gleif,
         )
 
-        self.assertEqual(10, details["configured_identity_count"])
-        self.assertEqual(10, details["resolved_identity_count"])
+        self.assertEqual(36, details["configured_identity_count"])
+        self.assertEqual(36, details["resolved_identity_count"])
         self.assertEqual(0, details["unresolved_identity_count"])
         self.assertEqual(0, details["quarantined_conflict_count"])
         self.assertEqual(687, details["production_universe_count"])
