@@ -68,6 +68,16 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertNotIn("GL", pilot)
         self.assertTrue(set(pilot).issubset(universe))
 
+    def test_windows_shadow_launcher_persists_sec_user_agent(self) -> None:
+        launcher = (ROOT / "Spustit_Tydenni_Shadow.bat").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("call :ensure_sec_user_agent", launcher)
+        self.assertIn("setx JOHNY_SKORE_SEC_USER_AGENT", launcher)
+        self.assertIn('set /p "SEC_EMAIL=', launcher)
+        self.assertNotIn("set /p JOHNY_SKORE_SEC_USER_AGENT", launcher)
+
     def test_workflow_restores_history_and_runs_all_live_canaries(self) -> None:
         workflow = (
             ROOT / ".github" / "workflows" / "market-checker-live-smoke.yml"
