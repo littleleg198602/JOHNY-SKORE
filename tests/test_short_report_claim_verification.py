@@ -392,6 +392,48 @@ class ClaimVerificationTests(unittest.TestCase):
         self.assertEqual(3, len(report.claims))
         self.assertEqual({"AUX"}, {claim.ticker for claim in report.claims})
 
+    def test_auxiliary_report_does_not_fail_primary_quality_gate(self) -> None:
+        auxiliary_source = replace(_source(), ticker="AUX")
+        orchestrator = OrchestratorAgent(shadow_mode=True)
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(
+            ShortReportAgent(
+                ShortReportConfig(
+                    enabled=True,
+                    sources=(auxiliary_source,),
+                ),
+                client=_FakeShortReportClient(),
+            )
+        )
+        orchestrator.register(PredictionV21AdapterAgent())
+        orchestrator.register(QualityGateAgent())
+
+        report = orchestrator.run(
+            watchlist=["TEST"],
+            state={"signals": _signals()},
+        )
+
+        auxiliary_check = next(
+            check for check in report.quality_checks if check.ticker == "AUX"
+        )
+        self.assertEqual(GateDecision.PASS, report.quality_checks[-1].decision)
+        self.assertEqual(
+            GateDecision.PASS,
+            next(
+                check
+                for check in report.quality_checks
+                if check.ticker == "TEST"
+            ).decision,
+        )
+        self.assertEqual(GateDecision.PASS, auxiliary_check.decision)
+        quality_execution = next(
+            execution
+            for execution in report.executions
+            if execution.agent_name == "quality_gate"
+        )
+        self.assertNotEqual(AgentStatus.FAILED, quality_execution.status)
+        self.assertEqual("auxiliary", auxiliary_check.metadata["scope"])
+
     def test_unverified_reports_pass_audit_without_changing_prediction(self) -> None:
         frame = _signals()
         original = frame.copy(deep=True)

@@ -1753,15 +1753,25 @@ class QualityGateAgent(BaseAgent):
             ticker_decisions = decisions_by_ticker.get(ticker, [])
             v21_signals = v21_by_ticker.get(ticker, [])
 
-            if ticker not in expected_tickers:
+            # Auxiliary source records (for example a short report for GL or
+            # MSCI) are evidence-only. They must be auditable, but they are
+            # not required to have a primary-watchlist entity or a v2.1 signal.
+            is_primary_ticker = ticker in expected_tickers
+            is_auxiliary_ticker = (
+                not is_primary_ticker
+                and bool(ticker_claims or ticker_documents)
+                and not ticker_signals
+                and not ticker_decisions
+            )
+            if not is_primary_ticker and not is_auxiliary_ticker:
                 rejects.append(
                     _issue("unexpected_ticker", "Výstup obsahuje ticker mimo watchlist.")
                 )
-            if ticker not in registered_tickers:
+            if is_primary_ticker and ticker not in registered_tickers:
                 rejects.append(
                     _issue("unregistered_entity", "Ticker chybí v registru entit.")
                 )
-            if self.config.require_full_v21_coverage:
+            if is_primary_ticker and self.config.require_full_v21_coverage:
                 if not v21_signals:
                     rejects.append(
                         _issue("missing_v21_signal", "Ticker nemá predikci v2.1.")
@@ -1782,7 +1792,7 @@ class QualityGateAgent(BaseAgent):
             instrument_id = (
                 entity.instrument_id if hasattr(entity, "instrument_id") else None
             )
-            if ticker in identity_required_tickers and not (
+            if is_primary_ticker and ticker in identity_required_tickers and not (
                 legal_entity_id and instrument_id
             ):
                 rejects.append(
@@ -1947,9 +1957,26 @@ class QualityGateAgent(BaseAgent):
                     rejects=rejects,
                 )
 
+            scope = "auxiliary" if is_auxiliary_ticker else "primary"
+            gate_name = (
+                "auxiliary_research_integrity"
+                if is_auxiliary_ticker
+                else "prediction_integrity"
+            )
             if rejects:
-                decision = GateDecision.REJECT
-                message = f"Kontrola zamítla ticker: {len(rejects)} kritických problémů."
+                # Auxiliary research must not fail the primary trading pilot.
+                # Keep the findings visible as a warning for audit purposes.
+                decision = (
+                    GateDecision.WARN
+                    if is_auxiliary_ticker
+                    else GateDecision.REJECT
+                )
+                message = (
+                    f"Pomocný zdroj má {len(rejects)} problémů; "
+                    "hlavní pilot tím není zamítnut."
+                    if is_auxiliary_ticker
+                    else f"Kontrola zamítla ticker: {len(rejects)} kritických problémů."
+                )
             elif gate_warnings:
                 decision = GateDecision.WARN
                 message = f"Kontrola našla {len(gate_warnings)} nekritických problémů."
@@ -1963,10 +1990,10 @@ class QualityGateAgent(BaseAgent):
                         context.orchestration_id,
                         self.name,
                         ticker,
-                        "prediction_integrity",
+                        gate_name,
                     ),
                     ticker=ticker,
-                    gate_name="prediction_integrity",
+                    gate_name=gate_name,
                     decision=decision,
                     observed_at=now,
                     message=message,
@@ -2020,6 +2047,7 @@ class QualityGateAgent(BaseAgent):
                         for decision_record in ticker_decisions
                     ],
                     metadata={
+                        "scope": scope,
                         "rejects": rejects,
                         "warnings": gate_warnings,
                         "shadow_mode": context.shadow_mode,
@@ -2112,20 +2140,51 @@ class QualityGateAgent(BaseAgent):
                 )
             )
 
-        reject_count = sum(check.decision == GateDecision.REJECT for check in checks)
-        warning_count = sum(check.decision == GateDecision.WARN for check in checks)
-        pass_count = sum(check.decision == GateDecision.PASS for check in checks)
+        primary_checks = [
+            check
+            for check in checks
+            if check.metadata.get("scope", "primary") != "auxiliary"
+        ]
+        auxiliary_checks = [
+            check
+            for check in checks
+            if check.metadata.get("scope") == "auxiliary"
+        ]
+        reject_count = sum(
+            check.decision == GateDecision.REJECT for check in primary_checks
+        )
+        warning_count = sum(
+            check.decision == GateDecision.WARN for check in primary_checks
+        )
+        pass_count = sum(
+            check.decision == GateDecision.PASS for check in primary_checks
+        )
+        auxiliary_reject_count = sum(
+            bool(check.metadata.get("rejects")) for check in auxiliary_checks
+        )
+        auxiliary_warning_count = sum(
+            bool(check.metadata.get("warnings")) for check in auxiliary_checks
+        )
         if reject_count:
             status = AgentStatus.FAILED
             decision = GateDecision.REJECT
             agent_warnings = [
-                f"Quality gate zamítl {reject_count} tickerů; shadow režim zachoval původní predikci."
+                f"Quality gate zamítl {reject_count} primárních kontrol; "
+                "shadow režim zachoval původní predikci."
             ]
         elif warning_count:
             status = AgentStatus.PARTIAL
             decision = GateDecision.WARN
             agent_warnings = [
-                f"Quality gate označil {warning_count} tickerů varováním."
+                f"Quality gate označil {warning_count} primárních kontrol varováním."
+            ]
+        elif auxiliary_reject_count or auxiliary_warning_count:
+            status = AgentStatus.PARTIAL
+            decision = GateDecision.PASS
+            agent_warnings = [
+                "Quality gate našel "
+                f"{auxiliary_reject_count + auxiliary_warning_count} pomocných "
+                "zdrojových záznamů s upozorněním; hlavní pilot zůstal platný."
             ]
         else:
             status = AgentStatus.SUCCESS
@@ -2137,7 +2196,11 @@ class QualityGateAgent(BaseAgent):
             "pass_count": pass_count,
             "warning_count": warning_count,
             "reject_count": reject_count,
+            "auxiliary_reject_count": auxiliary_reject_count,
+            "auxiliary_warning_count": auxiliary_warning_count,
             "checked_tickers": len(checks),
+            "primary_check_count": len(primary_checks),
+            "auxiliary_check_count": len(auxiliary_checks),
             "shadow_mode": context.shadow_mode,
         }
         return AgentResult(
