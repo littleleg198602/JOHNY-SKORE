@@ -759,8 +759,6 @@ def run_weekly_shadow(
         "ticker_results": _signal_detail_records(result),
         "decision_results": _decision_detail_records(result),
     }
-    _atomic_json(config.output_dir / "weekly_shadow_latest.json", summary)
-
     failures: list[str] = []
     if result.get("run_id") is None:
         failures.append("běh se neuložil do SQLite")
@@ -828,6 +826,13 @@ def run_weekly_shadow(
         failures.append("DecisionAgent nevytvořil právě jedno rozhodnutí pro každý ticker")
     if result.get("errors"):
         failures.append("pipeline ohlásila produkční chyby")
+    summary["pipeline_status"] = "FAILED" if failures else "SUCCESS"
+    summary["evaluation_status"] = (
+        "PASS" if summary.get("evaluation_gate_passed") else "PENDING"
+    )
+    summary["pipeline_failures"] = list(failures)
+    _atomic_json(config.output_dir / "weekly_shadow_latest.json", summary)
+
     if failures:
         raise RuntimeError("; ".join(failures))
     return summary
