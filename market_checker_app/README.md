@@ -141,7 +141,10 @@ oficiální veřejná rozhraní SEC EDGAR:
 
 Živý SEC ingest je výchozí vypnutý. Zapíná se v levém panelu volbou
 **Načíst SEC výkazy (Etapa 2)**. SEC vyžaduje deklarovaný User-Agent obsahující
-název aplikace a kontaktní e-mail; lze jej zadat v UI nebo proměnnou prostředí:
+název aplikace a kontaktní e-mail. V UI jej lze zadat přímo; při spuštění
+`Spustit_Tydenni_Shadow.bat` se při prvním lokálním běhu zadá pouze e-mail
+a launcher automaticky uloží celý User-Agent do uživatelského nastavení
+Windows. Další běhy už se neptají. Ručně lze použít také proměnnou prostředí:
 
 ```bash
 JOHNY_SKORE_SEC_USER_AGENT="JohnySkore/2.1 kontakt@example.com"
@@ -328,7 +331,9 @@ SQLite tabulky etapy 4 jsou:
 
 Přepínače agentů a ruční zdrojové manifesty lze uložit tlačítkem **Uložit
 nastavení agentů** do `outputs/agent_runtime.json`. SEC kontaktní User-Agent se
-z bezpečnostních důvodů do souboru neukládá a dál se bere z proměnné prostředí.
+neukládá do repozitáře ani do výstupního JSON/SQLite. Windows launcher ho po prvním
+zadání uloží pouze do uživatelského prostředí pomocí `setx`; GitHub workflow
+používá oddělený GitHub Secret.
 Pro pravidelný sběr nezávislých OOS týdnů slouží:
 
 ```bash
