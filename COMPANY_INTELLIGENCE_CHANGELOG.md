@@ -6,15 +6,17 @@
   `outputs/weekly_shadow_latest.json` a `outputs/market_checker_history.db`.
   Běh obsahuje 36/36 tickerů, 36 rozhodnutí, `pipeline_status=SUCCESS`,
   `quality_gate_decision=PASS`, 0 chyb a zůstává bezpečně v shadow režimu.
-- Ověřeno ve Windows: Streamlit správně ukazuje cestu k databázi
-  `outputs\\market_checker_history.db`, ale po otevření zobrazuje pouze
-  konfigurační stránku. Aktuální `app.py` načítá výsledkové záložky pouze z
-  výsledku vytvořeného v právě běžící Streamlit relaci; existující
-  `weekly_shadow_latest.json` při startu automaticky nenačte.
-- Jde o nedostatek zobrazovací vrstvy, nikoli o ztracená data. Do dokončení
-  `OPS-804` se v UI nemá mačkat **Spustit analýzu**, protože by se spustil
-  nový interaktivní běh nad 687 tickerů namísto zobrazení hotového 36tickerového
-  pilotu.
+- Ověřený problém byl ve zobrazovací vrstvě: Streamlit ukazoval správnou cestu
+  k databázi, ale po otevření pouze konfigurační stránku a existující
+  `weekly_shadow_latest.json` automaticky nenačítal.
+- `OPS-804` je nyní implementovaný v PR #84. Streamlit při startu načte
+  poslední shadow JSON, zobrazí stav pipeline, QualityGate, aktivaci, live-lock
+  a tabulku všech tickerových rozhodnutí. Chybějící nebo poškozený JSON ohlásí
+  srozumitelně a zobrazení nespouští novou analýzu.
+- Důkaz: CI run
+  [33164344396](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/33164344396)
+  skončil `success`; deterministic test suite, scale agent i Streamlit UI agent
+  prošly.
 - Oprava lokálního SEC User-Agentu z PR #83 je již sloučená do `main`;
   launcher se po prvním zadání e-mailu ptá znovu až při chybějící hodnotě.
 
