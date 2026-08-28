@@ -130,6 +130,150 @@ def _resolve_sqlite_path(raw_value: str) -> tuple[Path, str | None]:
 
 
 
+def _load_latest_shadow_result(
+    output_dir: Path,
+) -> tuple[Path, dict[str, object] | None, str | None]:
+    """Load the latest autonomous weekly shadow artifact for display only."""
+    path = output_dir / "weekly_shadow_latest.json"
+    if not path.exists():
+        return path, None, None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return path, None, f"Soubor {path} se nepodařilo načíst: {exc}"
+    if not isinstance(payload, dict):
+        return path, None, f"Soubor {path} nemá očekávaný JSON objekt."
+    return path, payload, None
+
+
+def _render_latest_shadow_result(output_dir: Path) -> None:
+    """Show a completed weekly shadow run without starting a new analysis."""
+    path, result, error = _load_latest_shadow_result(output_dir)
+    if error:
+        st.warning(error)
+        return
+    if result is None:
+        return
+
+    st.divider()
+    st.subheader("Poslední týdenní shadow běh")
+    st.caption(
+        f"Načteno z {path}. Toto zobrazení nespouští novou analýzu."
+    )
+
+    status_columns = st.columns(7)
+    status_columns[0].metric("Tickerů", str(result.get("ticker_count") or 0))
+    status_columns[1].metric(
+        "Pipeline",
+        str(result.get("pipeline_status") or "n/a"),
+    )
+    status_columns[2].metric(
+        "QualityGate",
+        str(result.get("quality_gate_decision") or "n/a"),
+    )
+    status_columns[3].metric(
+        "Vyhodnocení",
+        str(result.get("evaluation_status") or "n/a"),
+    )
+    status_columns[4].metric(
+        "Aktivace",
+        str(result.get("activation_state") or "n/a"),
+    )
+    status_columns[5].metric(
+        "Potlačené návrhy",
+        str(result.get("decision_suppressed_count") or 0),
+    )
+    status_columns[6].metric(
+        "Ostré BUY/SELL",
+        "ZAMČENO" if not result.get("live_buy_sell_enabled") else "POVOLENO",
+    )
+
+    if result.get("pipeline_status") == "SUCCESS":
+        st.success(
+            "Poslední týdenní běh byl načten. Výsledky níže jsou pouze shadow "
+            "návrhy a nebyly použity jako živé obchody."
+        )
+    else:
+        st.warning(
+            "Poslední týdenní běh není označený jako SUCCESS; před použitím "
+            "zkontrolujte chyby a upozornění níže."
+        )
+
+    decision_results = result.get("decision_results")
+    decisions_by_ticker = {}
+    if isinstance(decision_results, list):
+        decisions_by_ticker = {
+            str(item.get("ticker")): item
+            for item in decision_results
+            if isinstance(item, dict) and item.get("ticker")
+        }
+
+    ticker_results = result.get("ticker_results")
+    rows = []
+    if isinstance(ticker_results, list):
+        for item in ticker_results:
+            if not isinstance(item, dict):
+                continue
+            ticker = str(item.get("ticker") or "")
+            decision = decisions_by_ticker.get(ticker, {})
+            reasons = decision.get("reasons") or item.get("action_reasons") or ""
+            if isinstance(reasons, list):
+                reasons = "; ".join(str(value) for value in reasons)
+            rows.append(
+                {
+                    "ticker": ticker,
+                    "signál": item.get("decision_signal") or item.get("signal") or "n/a",
+                    "akce": item.get("action") or "n/a",
+                    "forecast": item.get("forecast") or "n/a",
+                    "score": item.get("final_total_score"),
+                    "confidence %": item.get("final_confidence"),
+                    "kvalita dat %": item.get("data_quality_score"),
+                    "shadow návrh": decision.get("proposed_action") or "n/a",
+                    "aktivace": decision.get("activation_state") or "n/a",
+                    "hard veto": decision.get("hard_veto", False),
+                    "důvod": reasons,
+                }
+            )
+    elif decisions_by_ticker:
+        for ticker, decision in decisions_by_ticker.items():
+            rows.append(
+                {
+                    "ticker": ticker,
+                    "signál": decision.get("baseline_action") or "n/a",
+                    "akce": decision.get("baseline_action") or "n/a",
+                    "forecast": decision.get("proposed_forecast") or "n/a",
+                    "score": None,
+                    "confidence %": (
+                        float(decision.get("confidence")) * 100.0
+                        if decision.get("confidence") is not None
+                        else None
+                    ),
+                    "kvalita dat %": None,
+                    "shadow návrh": decision.get("proposed_action") or "n/a",
+                    "aktivace": decision.get("activation_state") or "n/a",
+                    "hard veto": decision.get("hard_veto", False),
+                    "důvod": "; ".join(str(value) for value in decision.get("reasons") or []),
+                }
+            )
+
+    if rows:
+        st.markdown("### Rozhodnutí posledního 36tickerového pilotu")
+        st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+    else:
+        st.info("V shadow JSON nebyly nalezeny žádné tickerové výsledky.")
+
+    errors = result.get("errors")
+    warnings = result.get("warnings")
+    if isinstance(errors, list) and errors:
+        with st.expander(f"Chyby běhu ({len(errors)})", expanded=True):
+            for message in errors:
+                st.write(f"- {message}")
+    if isinstance(warnings, list) and warnings:
+        with st.expander(f"Upozornění běhu ({len(warnings)})", expanded=False):
+            for message in warnings[:200]:
+                st.write(f"- {message}")
+
+
 
 def _load_yahoo_tickers_from_excel(uploaded_file: object) -> tuple[list[str], str | None]:
     if uploaded_file is None:
