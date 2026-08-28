@@ -690,19 +690,23 @@ klíče nevznikla žádná duplicitní observation. Stav zůstává bezpečně s
 - [ ] Stáří posledního úspěšného běhu zobrazit v UI.
 - [ ] Výpadek zdroje musí zablokovat pouze závislou komponentu a být viditelný; evropské canary jsou zatím neblokující, protože některé autority používají page/API adaptér místo stabilního RSS.
 
-### `OPS-804` Streamlit weekly-shadow dashboard – TODO
+### `OPS-804` Streamlit weekly-shadow dashboard – DONE
 
-Tento úkol řeší konkrétní lokální problém z auditu 2026-08-28: hotový weekly
-shadow JSON a SQLite historie existují v `outputs`, ale po otevření Streamlitu
-se zobrazí jen konfigurační obrazovka.
+Tento úkol řešil konkrétní lokální problém z auditu 2026-08-28: hotový weekly
+shadow JSON a SQLite historie existovaly v `outputs`, ale po otevření Streamlitu
+se zobrazila jen konfigurační obrazovka.
 
-- [ ] Při otevření aplikace automaticky načíst `outputs/weekly_shadow_latest.json`.
-- [ ] Zobrazit stav běhu, QualityGate, aktivaci a přehled všech 36 tickerů.
-- [ ] Jasně oddělit zobrazení hotového shadow běhu od tlačítka
+- [x] Při otevření aplikace automaticky načíst `outputs/weekly_shadow_latest.json`.
+- [x] Zobrazit stav běhu, QualityGate, aktivaci a přehled všech 36 tickerů.
+- [x] Jasně oddělit zobrazení hotového shadow běhu od tlačítka
   **Spustit analýzu**, které spouští nový interaktivní běh.
-- [ ] Při chybějícím nebo poškozeném JSONu zobrazit srozumitelnou hlášku
+- [x] Při chybějícím nebo poškozeném JSONu zobrazit srozumitelnou hlášku
   s přesnou očekávanou cestou.
-- [ ] Přidat deterministický regresní test a zapsat výsledek do changelogu.
+- [x] Přidat deterministický regresní test a zapsat výsledek do changelogu.
+
+Důkaz: PR #84 a CI run
+[33164344396](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/33164344396)
+skončily `success`.
 
 ### `OPS-803` Ochrana release procesu – TODO
 
@@ -722,9 +726,8 @@ Reálný weekly shadow sběr má běžet paralelně po celou dobu vývoje.
 
 1. `ENTITY-101` a `OPS-801` – dokončeno; 10 přesných identit a dva navazující
    production-shadow běhy mají živý důkaz.
-2. `OPS-804` – nejdřív dokončit načtení a zobrazení posledního shadow výsledku
-   ve Streamlitu, aby hotový 36tickerový běh nebyl skrytý za formulářem nové
-   analýzy.
+2. `OPS-804` – dokončeno; Streamlit načítá a zobrazuje poslední 36tickerový
+   shadow výsledek bez spuštění nové analýzy.
 3. `FILING-102` – evropský runtime a obecný bezpečný feed jsou hotové; doplnit
    konkrétní regionální feedy a live canary.
 4. `FILING-103` – globální canonical event a persistence preference jsou hotové.
