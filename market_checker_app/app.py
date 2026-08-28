@@ -1810,6 +1810,7 @@ yahoo_cache = YahooCacheStore(config.sqlite_path)
 if sqlite_info:
     st.warning(sqlite_info)
 st.caption(f"Aktivní DB: `{config.sqlite_path}`")
+_render_latest_shadow_result(output_dir)
 if use_sec_fundamentals and (
     not sec_user_agent.strip() or "@" not in sec_user_agent
 ):
