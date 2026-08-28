@@ -1,5 +1,23 @@
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-08-28 – lokální audit výstupu a Streamlit dashboardu
+
+- Lokální weekly shadow běh vytvořil očekávané artefakty
+  `outputs/weekly_shadow_latest.json` a `outputs/market_checker_history.db`.
+  Běh obsahuje 36/36 tickerů, 36 rozhodnutí, `pipeline_status=SUCCESS`,
+  `quality_gate_decision=PASS`, 0 chyb a zůstává bezpečně v shadow režimu.
+- Ověřeno ve Windows: Streamlit správně ukazuje cestu k databázi
+  `outputs\\market_checker_history.db`, ale po otevření zobrazuje pouze
+  konfigurační stránku. Aktuální `app.py` načítá výsledkové záložky pouze z
+  výsledku vytvořeného v právě běžící Streamlit relaci; existující
+  `weekly_shadow_latest.json` při startu automaticky nenačte.
+- Jde o nedostatek zobrazovací vrstvy, nikoli o ztracená data. Do dokončení
+  `OPS-804` se v UI nemá mačkat **Spustit analýzu**, protože by se spustil
+  nový interaktivní běh nad 687 tickerů namísto zobrazení hotového 36tickerového
+  pilotu.
+- Oprava lokálního SEC User-Agentu z PR #83 je již sloučená do `main`;
+  launcher se po prvním zadání e-mailu ptá znovu až při chybějící hodnotě.
+
 Tento soubor je chronologický, lidsky čitelný log implementačních změn.
 Aktuální stav a návaznost úkolů zůstává v `COMPANY_INTELLIGENCE_TASKS.md`; Git
 historie je technický zdroj pravdy pro přesný diff každého commitu.
