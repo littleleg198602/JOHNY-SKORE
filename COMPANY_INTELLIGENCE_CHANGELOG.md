@@ -1,5 +1,25 @@
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-08-28 – lokální audit výstupu a Streamlit dashboardu
+
+- Lokální weekly shadow běh vytvořil očekávané artefakty
+  `outputs/weekly_shadow_latest.json` a `outputs/market_checker_history.db`.
+  Běh obsahuje 36/36 tickerů, 36 rozhodnutí, `pipeline_status=SUCCESS`,
+  `quality_gate_decision=PASS`, 0 chyb a zůstává bezpečně v shadow režimu.
+- Ověřený problém byl ve zobrazovací vrstvě: Streamlit ukazoval správnou cestu
+  k databázi, ale po otevření pouze konfigurační stránku a existující
+  `weekly_shadow_latest.json` automaticky nenačítal.
+- `OPS-804` je nyní implementovaný v PR #84. Streamlit při startu načte
+  poslední shadow JSON, zobrazí stav pipeline, QualityGate, aktivaci, live-lock
+  a tabulku všech tickerových rozhodnutí. Chybějící nebo poškozený JSON ohlásí
+  srozumitelně a zobrazení nespouští novou analýzu.
+- Důkaz: CI run
+  [33164344396](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/33164344396)
+  skončil `success`; deterministic test suite, scale agent i Streamlit UI agent
+  prošly.
+- Oprava lokálního SEC User-Agentu z PR #83 je již sloučená do `main`;
+  launcher se po prvním zadání e-mailu ptá znovu až při chybějící hodnotě.
+
 Tento soubor je chronologický, lidsky čitelný log implementačních změn.
 Aktuální stav a návaznost úkolů zůstává v `COMPANY_INTELLIGENCE_TASKS.md`; Git
 historie je technický zdroj pravdy pro přesný diff každého commitu.

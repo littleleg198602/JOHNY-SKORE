@@ -690,6 +690,24 @@ klíče nevznikla žádná duplicitní observation. Stav zůstává bezpečně s
 - [ ] Stáří posledního úspěšného běhu zobrazit v UI.
 - [ ] Výpadek zdroje musí zablokovat pouze závislou komponentu a být viditelný; evropské canary jsou zatím neblokující, protože některé autority používají page/API adaptér místo stabilního RSS.
 
+### `OPS-804` Streamlit weekly-shadow dashboard – DONE
+
+Tento úkol řešil konkrétní lokální problém z auditu 2026-08-28: hotový weekly
+shadow JSON a SQLite historie existovaly v `outputs`, ale po otevření Streamlitu
+se zobrazila jen konfigurační obrazovka.
+
+- [x] Při otevření aplikace automaticky načíst `outputs/weekly_shadow_latest.json`.
+- [x] Zobrazit stav běhu, QualityGate, aktivaci a přehled všech 36 tickerů.
+- [x] Jasně oddělit zobrazení hotového shadow běhu od tlačítka
+  **Spustit analýzu**, které spouští nový interaktivní běh.
+- [x] Při chybějícím nebo poškozeném JSONu zobrazit srozumitelnou hlášku
+  s přesnou očekávanou cestou.
+- [x] Přidat deterministický regresní test a zapsat výsledek do changelogu.
+
+Důkaz: PR #84 a CI run
+[33164344396](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/33164344396)
+skončily `success`.
+
 ### `OPS-803` Ochrana release procesu – TODO
 
 Aktuální stav GitHub API: `main` má `protected=false`, enforcement je `off` a
@@ -708,22 +726,23 @@ Reálný weekly shadow sběr má běžet paralelně po celou dobu vývoje.
 
 1. `ENTITY-101` a `OPS-801` – dokončeno; 10 přesných identit a dva navazující
    production-shadow běhy mají živý důkaz.
-2. `FILING-102` – evropský runtime a obecný bezpečný feed jsou hotové; doplnit
+2. `OPS-804` – dokončeno; Streamlit načítá a zobrazuje poslední 36tickerový
+   shadow výsledek bez spuštění nové analýzy.
+3. `FILING-102` – evropský runtime a obecný bezpečný feed jsou hotové; doplnit
    konkrétní regionální feedy a live canary.
-3. `FILING-103` – globální canonical event a persistence preference jsou
-   hotové.
-4. `REG-602` – `source_priority`, právní identita a end-to-end Decision cesta
+4. `FILING-103` – globální canonical event a persistence preference jsou hotové.
+5. `REG-602` – `source_priority`, právní identita a end-to-end Decision cesta
    jsou opravené; dokončit event-level deduplikaci a lifecycle oprav.
-5. `OPS-803` – chránit `main`; weekly `OPS-801` je hotový a od nynějška
-   průběžně sbírá skutečné OOS týdny.
-6. `FORENSIC-201` a `FORENSIC-202` – dokončit delty a čtyři samostatná skóre.
-7. `SHORT-301` až `SHORT-305` – kompletní short-report lifecycle a CSG test.
-8. `SUPPLY-401` až `SUPPLY-403`.
-9. `RESOURCE-501` až `RESOURCE-503`.
-10. `REG-601` a zbývající část `REG-602`.
-11. `DECISION-701`, `DECISION-702` – stále pouze shadow.
-12. `EVAL-703` – čekat na dostatek reálných OOS týdnů, nic neurychlovat
-   backfillem se znalostí budoucnosti.
+6. `OPS-803` – chránit `main`; weekly `OPS-801` je hotový a průběžně sbírá
+   skutečné OOS týdny.
+7. `FORENSIC-201` a `FORENSIC-202` – dokončit delty a čtyři samostatná skóre.
+8. `SHORT-301` až `SHORT-305` – kompletní short-report lifecycle a CSG test.
+9. `SUPPLY-401` až `SUPPLY-403`.
+10. `RESOURCE-501` až `RESOURCE-503`.
+11. `REG-601` a zbývající část `REG-602`.
+12. `DECISION-701`, `DECISION-702` – stále pouze shadow.
+13. `EVAL-703` – čekat na dostatek reálných OOS týdnů, nic neurychlovat
+    backfillem se znalostí budoucnosti.
 
 ## Společná Definition of Done
 

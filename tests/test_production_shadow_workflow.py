@@ -78,6 +78,17 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertIn('set /p "SEC_EMAIL=', launcher)
         self.assertNotIn("set /p JOHNY_SKORE_SEC_USER_AGENT", launcher)
 
+    def test_streamlit_renders_latest_shadow_artifact_on_startup(self) -> None:
+        app = (ROOT / "market_checker_app" / "app.py").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("def _load_latest_shadow_result(", app)
+        self.assertIn('output_dir / "weekly_shadow_latest.json"', app)
+        self.assertIn("_render_latest_shadow_result(output_dir)", app)
+        self.assertIn("ticker_results", app)
+        self.assertIn("Toto zobrazení nespouští novou analýzu.", app)
+
     def test_workflow_restores_history_and_runs_all_live_canaries(self) -> None:
         workflow = (
             ROOT / ".github" / "workflows" / "market-checker-live-smoke.yml"
