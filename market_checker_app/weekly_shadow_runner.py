@@ -51,6 +51,7 @@ from market_checker_app.services.watchlist_service import (
 )
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.models import AnalysisProgressState
+from market_checker_app.prediction_contract import build_point_in_time_snapshot
 
 
 DEFAULT_RSS_SOURCE = (
@@ -323,13 +324,9 @@ def build_runtime_config(
         ),
         decision_agent=DecisionAgentConfig(
             enabled=settings.stage4_shadow_enabled,
-            live_application_enabled=False,
-            live_policy_allowlist=(),
         ),
         evaluation_agent=EvaluationAgentConfig(
             enabled=settings.stage4_shadow_enabled,
-            enable_after_gate=False,
-            enabled_policy_allowlist=(),
         ),
     )
 
@@ -403,7 +400,11 @@ def _readiness_summary(
     result: dict[str, object],
     config: AppConfig,
 ) -> dict[str, object]:
-    """Build a fail-closed, machine-readable Stage 4 readiness verdict."""
+    """Build a fail-closed analytical validation verdict.
+
+    This project never executes trades. The verdict only describes whether
+    there is enough out-of-sample evidence to trust the analytical overlay.
+    """
 
     activation_state = str(result.get("activation_state") or "INSUFFICIENT_DATA")
     gate_passed = bool(result.get("evaluation_gate_passed"))
@@ -416,16 +417,6 @@ def _readiness_summary(
         gate_passed
         and consecutive_passes >= required_passes
         and activation_state in {"ELIGIBLE", "ENABLED"}
-    )
-    live_buy_sell_ready = bool(
-        accuracy_improvement_proven
-        and result.get("quality_gate_decision") == "PASS"
-    )
-    live_buy_sell_enabled = bool(
-        live_buy_sell_ready
-        and result.get("live_application_authorized")
-        and not config.agent_shadow_mode
-        and int(result.get("decision_applied_count") or 0) > 0
     )
 
     blockers = [
@@ -457,15 +448,13 @@ def _readiness_summary(
         blockers.append(
             f"quality_gate:{result.get('quality_gate_decision') or 'MISSING'}"
         )
-    if not result.get("live_application_authorized"):
-        blockers.append("explicit_live_authorization_not_granted")
-    if config.agent_shadow_mode:
-        blockers.append("shadow_mode_active")
+    if not accuracy_improvement_proven:
+        blockers.append("analytical_improvement_not_proven")
 
     return {
         "accuracy_improvement_proven": accuracy_improvement_proven,
-        "live_buy_sell_ready": live_buy_sell_ready,
-        "live_buy_sell_enabled": live_buy_sell_enabled,
+        "analysis_validation_ready": accuracy_improvement_proven,
+        "analysis_only": True,
         "activation_state": activation_state,
         "evaluation_gate_passed": gate_passed,
         "consecutive_gate_passes": consecutive_passes,
@@ -473,8 +462,6 @@ def _readiness_summary(
         "shadow_mode": config.agent_shadow_mode,
         "blockers": list(dict.fromkeys(blockers)),
     }
-
-
 def _source_health_summary(
     result: dict[str, object],
     config: AppConfig,
@@ -704,11 +691,66 @@ def run_weekly_shadow(
     )
     print("", flush=True)
     readiness = _readiness_summary(result, config)
+    snapshot_records: list[dict[str, object]] = []
+    snapshot_error: str | None = None
+    saved_snapshot_count = 0
+    run_id = result.get("run_id")
+    raw_point_in_time_inputs = result.get("point_in_time_inputs")
+    if run_id is not None and isinstance(raw_point_in_time_inputs, list):
+        metadata = result.get("metadata")
+        observed_at = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+        for item in raw_point_in_time_inputs:
+            if not isinstance(item, dict):
+                continue
+            try:
+                snapshot_records.append(
+                    build_point_in_time_snapshot(
+                        run_id=int(run_id),
+                        ticker=str(item.get("ticker") or ""),
+                        observed_at=observed_at,
+                        feature_payload=item.get("feature_payload") or {},
+                        baseline_output=item.get("baseline_output") or {},
+                        provenance=item.get("provenance") or {},
+                        benchmark_ticker=str(
+                            item.get("benchmark_ticker") or "SPY"
+                        ),
+                        benchmark_selection=str(
+                            item.get("benchmark_selection") or "unknown"
+                        ),
+                    )
+                )
+            except (TypeError, ValueError) as exc:
+                snapshot_error = f"snapshot konstrukce selhala: {exc}"
+                break
+        if snapshot_error is None and len(snapshot_records) != len(tickers):
+            snapshot_error = (
+                "snapshot kontrakt vytvořil "
+                f"{len(snapshot_records)}/{len(tickers)} záznamů"
+            )
+        if snapshot_error is None:
+            try:
+                saved_snapshot_count = store.save_prediction_snapshots(
+                    snapshot_records
+                )
+            except Exception as exc:
+                snapshot_error = f"snapshot uložení selhalo: {type(exc).__name__}: {exc}"
+    elif run_id is not None:
+        snapshot_error = "pipeline nevrátil point-in-time vstupy"
     summary: dict[str, object] = {
         "schema_version": 2,
         "finished_at": datetime.now(timezone.utc).isoformat(),
         "run_id": result.get("run_id"),
         "ticker_count": len(tickers),
+        "analysis_only": True,
+        "automated_trading": {
+            "enabled": False,
+            "permanently_disabled": True,
+            "execution_path": "removed",
+        },
+        "point_in_time_snapshot_count": saved_snapshot_count,
+        "point_in_time_snapshot_status": (
+            "SUCCESS" if snapshot_error is None else "FAILED"
+        ),
         "agent_status": result.get("agent_status"),
         "quality_gate_decision": result.get("quality_gate_decision"),
         "decision_count": result.get("decision_count"),
@@ -741,8 +783,7 @@ def run_weekly_shadow(
         "accuracy_improvement_proven": readiness[
             "accuracy_improvement_proven"
         ],
-        "live_buy_sell_ready": readiness["live_buy_sell_ready"],
-        "live_buy_sell_enabled": readiness["live_buy_sell_enabled"],
+        "analysis_validation_ready": readiness["analysis_validation_ready"],
         "readiness": readiness,
         "source_health": _source_health_summary(result, config),
         "auto_discovered_short_reports": result.get(
@@ -762,6 +803,12 @@ def run_weekly_shadow(
     failures: list[str] = []
     if result.get("run_id") is None:
         failures.append("běh se neuložil do SQLite")
+    if snapshot_error is not None:
+        failures.append(snapshot_error)
+    elif saved_snapshot_count != len(tickers):
+        failures.append(
+            f"point-in-time snapshoty: {saved_snapshot_count}/{len(tickers)}"
+        )
     report = result.get("agent_report")
     executions = getattr(report, "executions", [])
     hard_agent_failures = [
@@ -819,7 +866,10 @@ def run_weekly_shadow(
             f"QualityGate skončil {result.get('quality_gate_decision')}"
         )
     if int(result.get("decision_applied_count") or 0) != 0:
-        failures.append("shadow běh nepovoleně aplikoval rozhodnutí do predikce")
+        failures.append(
+            "analytická vrstva se pokusila přepsat hlavní predikci; "
+            "automatické obchodování je v projektu odstraněné"
+        )
     if config.decision_agent.enabled and int(result.get("decision_count") or 0) != len(
         tickers
     ):
@@ -831,6 +881,7 @@ def run_weekly_shadow(
         "PASS" if summary.get("evaluation_gate_passed") else "PENDING"
     )
     summary["pipeline_failures"] = list(failures)
+    summary["point_in_time_snapshot_error"] = snapshot_error
     _atomic_json(config.output_dir / "weekly_shadow_latest.json", summary)
 
     if failures:
