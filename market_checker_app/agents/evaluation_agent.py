@@ -553,7 +553,7 @@ class EvaluationAgent(BaseAgent):
                 f"{consecutive_passes}/{self.config.required_consecutive_passes}"
             )
         elif state == ActivationState.ELIGIBLE:
-            reasons.append("analytical_policy_validated;_automatic_trading_removed")
+            reasons.append("analytical_policy_validated_automatic_trading_removed")
         activation = SignalActivationDecision(
             activation_id=_stable_id(
                 context.orchestration_id,
