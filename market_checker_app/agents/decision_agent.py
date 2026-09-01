@@ -29,12 +29,11 @@ def _stable_id(*parts: str) -> str:
 
 
 class DecisionAgent(BaseAgent):
-    """Build a conservative, auditable risk overlay over the v2.1 decision.
+    """Build a conservative, auditable analytical overlay over the v2.1 decision.
 
-    The policy can only retain a baseline action or suppress BUY/SELL to
-    NO_TRADE.  It cannot reverse direction or turn a baseline abstention into a
-    trade.  Live application additionally requires a previously ENABLED OOS
-    activation record and explicit configuration; the default is shadow-only.
+    The policy can retain a baseline action or propose suppression of BUY/SELL
+    to NO_TRADE. It never executes, applies, or routes an order; all outputs
+    remain analytical records.
     """
 
     name = "decision_agent"
@@ -129,24 +128,6 @@ class DecisionAgent(BaseAgent):
         except ValueError:
             return ActivationState.INSUFFICIENT_DATA
 
-    def _activation_authorized(self, context: AgentContext) -> bool:
-        current = context.state.get("stage4_activation_decision")
-        if isinstance(current, SignalActivationDecision):
-            return (
-                current.policy_name == self.config.policy_name
-                and current.policy_version == self.config.policy_version
-                and current.state == ActivationState.ENABLED
-                and current.live_application_authorized
-            )
-        value = context.state.get("stage4_prior_activation")
-        return bool(
-            isinstance(value, dict)
-            and value.get("policy_name") == self.config.policy_name
-            and value.get("policy_version") == self.config.policy_version
-            and str(value.get("state", "")).upper() == ActivationState.ENABLED.value
-            and value.get("live_application_authorized") in {True, 1}
-        )
-
     def run(self, context: AgentContext) -> AgentResult:
         raw_signals = context.state.get("prediction_v21_agent_signals")
         baselines = (
@@ -191,14 +172,6 @@ class DecisionAgent(BaseAgent):
         resource_by_ticker = context.state.get("resource_exposures_by_ticker")
         resource_by_ticker = resource_by_ticker if isinstance(resource_by_ticker, dict) else {}
         activation_state = self._activation_state(context)
-        live_authorized = (
-            not context.shadow_mode
-            and self.config.live_application_enabled
-            and context.state.get("stage4_evaluation_enabled") is True
-            and self.config.policy_name in self.config.live_policy_allowlist
-            and activation_state == ActivationState.ENABLED
-            and self._activation_authorized(context)
-        )
 
         decisions: list[DecisionRecord] = []
         overlay_evidence: list[AgentEvidence] = []
@@ -479,14 +452,14 @@ class DecisionAgent(BaseAgent):
                             "baseline_signal_id": baseline.signal_id,
                             "risk_components": risk_components,
                             "source_evidence_ids": linked_evidence_ids,
-                            "scoring_applied": live_authorized,
+                            "scoring_applied": False,
                             "shadow_mode": context.shadow_mode,
                         },
                     )
                 )
                 linked_evidence_ids.append(overlay_evidence_id)
 
-            applied = bool(should_suppress and live_authorized)
+            applied = False
             decision_id = _stable_id(
                 context.orchestration_id,
                 self.name,
@@ -523,39 +496,12 @@ class DecisionAgent(BaseAgent):
                     "risk_components": risk_components,
                     "risk_component_total": round(risk_score, 4),
                     "suppression_threshold": self.config.suppression_score_threshold,
-                    "live_application_authorized": live_authorized,
+                    "analysis_only": True,
                     "shadow_mode": context.shadow_mode,
                     "baseline_agent": baseline.agent_name,
                 },
             )
             decisions.append(decision)
-
-            if applied and overlay_evidence_id is not None:
-                applied_signals.append(
-                    AgentSignal(
-                        signal_id=_stable_id(decision_id, "applied-signal"),
-                        ticker=ticker,
-                        agent_name=self.name,
-                        agent_version=self.version,
-                        event_type="STAGE4_RISK_OVERLAY_APPLIED",
-                        observed_at=observed_at,
-                        action="NO_TRADE",
-                        forecast=baseline.forecast,
-                        direction=baseline.direction,
-                        risk_score=min(100.0, risk_score * 20.0),
-                        confidence=decision.confidence,
-                        hard_veto=True,
-                        reasons=decision.reasons,
-                        evidence_ids=[overlay_evidence_id],
-                        metadata={
-                            "decision_id": decision_id,
-                            "baseline_signal_id": baseline.signal_id,
-                            "policy_name": self.config.policy_name,
-                            "activation_state": activation_state.value,
-                            "live_application_authorized": True,
-                        },
-                    )
-                )
 
         return AgentResult(
             status=AgentStatus.SUCCESS,
@@ -567,9 +513,9 @@ class DecisionAgent(BaseAgent):
                 "policy_version": self.config.policy_version,
                 "decisions": len(decisions),
                 "suppressed_proposals": suppressed,
-                "applied_decisions": len(applied_signals),
+                "applied_decisions": 0,
                 "activation_state": activation_state.value,
-                "live_application_authorized": live_authorized,
+                "analysis_only": True,
                 "shadow_mode": context.shadow_mode,
             },
             state_updates={
