@@ -37,11 +37,9 @@ def run_smoke_test(tickers: list[str], runs: int, output_dir: Path) -> dict[str,
         agent_shadow_mode=True,
         decision_agent=DecisionAgentConfig(
             enabled=True,
-            live_application_enabled=False,
         ),
         evaluation_agent=EvaluationAgentConfig(
             enabled=True,
-            enable_after_gate=False,
         ),
     )
     store = SQLiteStore(config.sqlite_path)
