@@ -2127,7 +2127,7 @@ class SQLiteStore:
                             confidence, published_at, document_id, source_url,
                             source_agent_name, legal_entity_id, first_seen_at, last_seen_at,
                             metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON CONFLICT(event_id) DO UPDATE SET
                             ticker = excluded.ticker,
                             event_type = excluded.event_type,
