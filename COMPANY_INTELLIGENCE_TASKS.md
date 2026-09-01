@@ -55,7 +55,7 @@ Poslední pilotní běh prokázal:
 - opakované `low source diversity`,
 - 0/200 OOS vzorků,
 - 0/12 uzavřených týdnů,
-- live BUY/SELL stále vypnutý.
+- produkt je trvale pouze analytický; automatické obchodování bylo odstraněno.
 
 `Pipeline: SUCCESS` a `QualityGate: PASS` znamenají technicky dokončené zpracování a bezpečné uložení. Neznamenají prokázanou predikční přesnost.
 
@@ -86,7 +86,7 @@ Současný problém není jen malý počet zdrojů. Chybí:
 | Supply-chain signály z filingů | ANO OMEZENĚ | Pouze ověřené události a evidence |
 | Kompletní mapa soukromých dodavatelů | NE GARANTOVANĚ | Výsledek musí umět `UNKNOWN` nebo `DATA_UNAVAILABLE` |
 | Přesný dopad materiálů na marži | OMEZENĚ | Pouze při dostupném podílu nákladů, ceně a pass-through |
-| Live automatické obchodování | ZATÍM NE | Až po statistické a ruční release bráně |
+| Automatické obchodování | NIKDY | Exekuční cesta není součástí produktu; výstupy jsou pouze analytické. |
 
 ### Zdroje a jejich omezení
 
@@ -147,7 +147,7 @@ Chybějící údaj nesmí být nahrazen nulou, průměrem nebo domyšlenou hodno
 
 ## 5. Kanonické úkoly
 
-### PRED-001 – Definice predikčního cíle — TODO
+### PRED-001 – Definice predikčního cíle — DONE
 
 Definitivně stanovit, co se predikuje.
 
@@ -165,7 +165,16 @@ Akceptace:
 - pravidlo je verzované,
 - existuje negativní test proti look-ahead.
 
-### DATA-001 – Point-in-time feature store — TODO
+### DATA-001 – Point-in-time feature store — PARTIAL
+
+Implementováno v foundation vrstvě:
+
+- každý běh vytváří neměnný snapshot pro každý zpracovaný ticker,
+- snapshot obsahuje feature payload, přesný baseline output, benchmark, čas a provenance,
+- label je při vytvoření vždy `PENDING` a budoucí ceny se do něj nezapisují,
+- SQLite má idempotentní write-once úložiště `prediction_snapshots`.
+
+Zbývá napojit samostatný historický label resolver a ověřit reprodukci nad delší historií.
 
 Vytvořit historické tabulky, ve kterých bude uloženo:
 
@@ -187,7 +196,9 @@ Akceptace:
 - každý feature má čas a zdroj,
 - běh je idempotentní.
 
-### BASE-001 – Zmrazení současného modelu — TODO
+### BASE-001 – Zmrazení současného modelu — DONE
+
+Foundation ukládá současný `v2.1_guarded_consensus` jako `legacy_v2.1_heuristic` baseline v každém snapshotu. V této etapě se baseline nepřepisuje novou vrstvou ani se z něj neprovádí žádná exekuce.
 
 Současný Yahoo/technický/news/risk výpočet se uloží jako baseline.
 
@@ -395,7 +406,7 @@ Požadavky:
 
 Úspěch znamená `687 attempted`, nikoli pouze `36 processed`.
 
-### OPS-805 – Source health a provozní audit — TODO
+### OPS-805 – Source health a provozní audit — PARTIAL
 
 Pro každý požadavek uložit:
 
@@ -566,7 +577,7 @@ Tyto vrstvy se nesmějí zapojit do rozhodovacího skóre jen proto, že existuj
 - Nesmí se používat data publikovaná až po okamžiku rozhodnutí.
 - Běžný Google search nesmí být základem historického backtestu.
 - Short report, anonymní dodavatel ani obecná zmínka o materiálu nesmí sama vytvořit BUY nebo SELL.
-- Live aktivace zůstává vypnutá do splnění OOS a ručního release schválení.
+- automatická exekuce neexistuje; OOS validace slouží pouze k měření analytické kvality.
 
 ## 9. Definition of Done
 
@@ -582,7 +593,7 @@ Nová vrstva je dokončená pouze tehdy, když:
 - má persistence test,
 - má QualityGate negativní test,
 - má samostatný ablation výsledek,
-- nezmění produkční predikci bez explicitního shadow přepínače,
+- nezmění produkční analytickou predikci bez explicitního shadow přepínače,
 - je vidět ve výstupu i v logu.
 
 ## 10. Konečný verdikt
