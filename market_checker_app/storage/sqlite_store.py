@@ -2372,7 +2372,7 @@ class SQLiteStore:
                             activation.distinct_weeks,
                             activation.consecutive_passes,
                             int(activation.gate_passed),
-                            int(activation.live_application_authorized),
+                            0,
                             self._json_dump(activation.reasons),
                             self._json_dump(activation.metadata),
                         ),
