@@ -210,3 +210,11 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - Každý shadow běh připraví pro každý ticker write-once point-in-time snapshot v SQLite `prediction_snapshots`; vzniká s `label_status=PENDING` a bez budoucích cen.
 - Snapshot ukládá přesný výstup stávajícího `v2.1_guarded_consensus` jako baseline, dostupné feature payloady a provenance zdrojů.
 - Změna je zapsaná na větvi `codex/rework-prediction-roadmap-20260901`; čeká na CI a kontrolu PR #85.
+
+### 2026-09-01 — Permanent analysis-only enforcement verified
+
+- PR #86 pokračuje v přestavbě predikčního základu pro cílový univerzum přibližně 687 tickerů.
+- Opraveny dvě CI regrese: inicializace schématu v testu snapshotů a kontrola zakázaného stavu `ENABLED` v `QualityGate`.
+- GitHub Actions run #100 prošel ve všech jobech: contract/source/persistence, Streamlit UI, 687-ticker scale check i deterministic release gate.
+- Trvalá produktová invariantní podmínka je nyní testována: analytický `DecisionAgent` nesmí přepsat hlavní predikci, emitovat aplikovaný signál ani vytvořit exekuční stav.
+- Historický sloupec `live_application_authorized` ve starých SQLite databázích je ponechán pouze kvůli čitelnosti starých záznamů; není čten jako konfigurace a nová pipeline jej nepoužívá.
