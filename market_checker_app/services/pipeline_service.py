@@ -57,6 +57,7 @@ from market_checker_app.models import (
     YahooAnalysisResult,
     YahooSnapshot,
 )
+from market_checker_app.prediction_contract import benchmark_for_sector
 from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.stage4_evaluation_service import (
@@ -348,24 +349,12 @@ class PipelineService:
                     dependencies=decision_dependencies,
                 )
             )
-        stage4_policy_allowlist = tuple(
-            sorted(
-                set(self.config.decision_agent.live_policy_allowlist)
-                & set(self.config.evaluation_agent.enabled_policy_allowlist)
-            )
-        )
         orchestrator.register(
             QualityGateAgent(
                 self.config.quality_gate,
                 minimum_action_confidence=(
                     self.config.prediction_v21.minimum_action_confidence
                 ),
-                stage4_live_application_enabled=(
-                    self.config.decision_agent.live_application_enabled
-                    and self.config.evaluation_agent.enabled
-                    and self.config.evaluation_agent.enable_after_gate
-                ),
-                stage4_live_policy_allowlist=stage4_policy_allowlist,
             )
         )
         report = orchestrator.run(
@@ -379,51 +368,6 @@ class PipelineService:
             }
         )
         return report
-
-    @staticmethod
-    def _apply_stage4_decisions(
-        signals: pd.DataFrame,
-        report: OrchestrationReport,
-    ) -> pd.DataFrame:
-        applied = [
-            decision
-            for decision in report.decisions
-            if decision.applied_to_prediction
-        ]
-        if not applied or signals.empty:
-            return signals
-        output = signals.copy()
-        for decision in applied:
-            mask = output["ticker"].astype(str).str.upper().eq(decision.ticker)
-            if not mask.any():
-                continue
-            current_actions = output.loc[mask, "action"].astype(str).str.upper()
-            if not current_actions.eq(decision.baseline_action).all():
-                continue
-
-            def append_json_list(raw: object, value: str) -> str:
-                try:
-                    decoded = json.loads(str(raw)) if raw not in (None, "") else []
-                except (TypeError, json.JSONDecodeError):
-                    decoded = [str(raw)] if str(raw).strip() else []
-                if not isinstance(decoded, list):
-                    decoded = [str(decoded)]
-                return json.dumps(
-                    list(dict.fromkeys([str(item) for item in decoded] + [value])),
-                    ensure_ascii=False,
-                )
-
-            reason = (
-                f"stage4:{decision.policy_name}:{decision.decision_id[:12]}"
-            )
-            for column in ("action_reasons", "blocked_reasons"):
-                if column in output.columns:
-                    output.loc[mask, column] = output.loc[mask, column].map(
-                        lambda value: append_json_list(value, reason)
-                    )
-            output.loc[mask, "action"] = decision.proposed_action
-            output.loc[mask, "signal"] = decision.proposed_action
-        return output
 
     @staticmethod
     def _expand_rss_sources(rss_sources: list[str], watchlist: list[str]) -> list[str]:
@@ -611,6 +555,7 @@ class PipelineService:
             articles_by_ticker.setdefault(article.ticker, []).append(article)
 
         rows: list[dict[str, object]] = []
+        point_in_time_inputs: list[dict[str, object]] = []
         yahoo_snapshot_failures = 0
         yahoo_ohlc_attempts = 0
         yahoo_ohlc_failures = 0
@@ -867,6 +812,68 @@ class PipelineService:
                 "last_3m_change_pct": perf.last_3m_change_pct if perf.last_3m_change_pct is not None else derived_perf.last_3m_change_pct,
             }
             rows.append(row)
+            sector = (
+                snapshot.data.get("sector")
+                if isinstance(snapshot.data, dict)
+                else None
+            )
+            benchmark_ticker, benchmark_selection = benchmark_for_sector(sector)
+            point_in_time_inputs.append(
+                {
+                    "ticker": ticker,
+                    "feature_payload": {
+                        "market": {
+                            "market_cap_usd": row["market_cap_usd"],
+                            "current_price": current_price,
+                            "current_price_source": current_price_source,
+                            "performance": {
+                                "observed": asdict(perf),
+                                "derived": asdict(derived_perf),
+                            },
+                        },
+                        "technical": {
+                            "source": tech_source_used,
+                            "score": tech.tech_score,
+                            "confidence": tech.tech_confidence,
+                            "trend_score": tech.trend_score,
+                            "momentum_score": tech.momentum_score,
+                            "oscillator_score": tech.oscillator_score,
+                            "macd_score": tech.macd_score,
+                            "breakout_score": tech.breakout_score,
+                            "volume_confirmation_score": tech.volume_confirmation_score,
+                            "volatility_context_adjustment": tech.volatility_context_adjustment,
+                            "regime": tech.regime,
+                            "indicators": dict(tech.indicators),
+                        },
+                        "yahoo": {
+                            "ticker": snapshot.ticker,
+                            "status": snapshot.status,
+                            "data": dict(snapshot.data),
+                            "analysis": asdict(yresult),
+                        },
+                        "news": asdict(news),
+                        "behavioral": asdict(behavioral),
+                        "risk": asdict(risk),
+                    },
+                    "baseline_output": dict(row),
+                    "provenance": {
+                        "price_source": current_price_source,
+                        "technical_source": tech_source_used,
+                        "yahoo_status": yahoo_data_status,
+                        "yahoo_fetched_at": yahoo_data_fetched_at,
+                        "news_sources": sorted(
+                            {
+                                str(article.source)
+                                for article in ticker_articles
+                                if str(article.source).strip()
+                            }
+                        ),
+                        "run_started_at": started_at.isoformat(),
+                    },
+                    "benchmark_ticker": benchmark_ticker,
+                    "benchmark_selection": benchmark_selection,
+                }
+            )
             progress.add_completed_row({
                 "Ticker": ticker,
                 "FinalTotalScore": round(diag.final_total_score, 2),
@@ -949,7 +956,6 @@ class PipelineService:
         evaluation_consecutive_passes = 0
         evaluation_required_consecutive_passes = 0
         evaluation_activation_reasons: list[str] = []
-        live_application_authorized = False
         fundamental_filing_text_document_count = 0
         fundamental_filing_text_failure_count = 0
         european_filings_status: str | None = None
@@ -1150,9 +1156,6 @@ class PipelineService:
                             evaluation_activation_reasons = list(
                                 activation.reasons
                             )
-                            live_application_authorized = (
-                                activation.live_application_authorized
-                            )
                     warnings.extend(
                         f"Agent {execution.agent_name}: {warning}"
                         for warning in execution.result.warnings
@@ -1168,16 +1171,10 @@ class PipelineService:
                         "predikce v2.1 nebyla agentní vrstvou změněna."
                     )
                 if decision_applied_count:
-                    if quality_gate_decision == "PASS":
-                        signals_df = self._apply_stage4_decisions(
-                            signals_df,
-                            agent_report,
-                        )
-                    else:
-                        warnings.append(
-                            "Etapa 4 navrhla live aplikaci, ale QualityGate ji "
-                            "nepovolil; původní predikce v2.1 zůstala beze změny."
-                        )
+                    errors.append(
+                        "Interní invariant porušen: analytická vrstva se pokusila "
+                        "přepsat hlavní predikci."
+                    )
 
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(article) for article in articles])
@@ -1303,7 +1300,6 @@ class PipelineService:
                 evaluation_required_consecutive_passes
             ),
             "evaluation_activation_reasons": evaluation_activation_reasons,
-            "live_application_authorized": live_application_authorized,
             "auto_discovered_short_reports": (
                 int(agent_report.metadata.get("auto_discovered_short_reports", 0))
                 if agent_report
@@ -1315,5 +1311,6 @@ class PipelineService:
                 else 0
             ),
             "agent_report": agent_report,
+            "point_in_time_inputs": point_in_time_inputs,
             "progress_state": progress.snapshot(),
         }
