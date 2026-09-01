@@ -362,7 +362,7 @@ odmítne chybný manifest a skončí chybou, pokud QualityGate neprojde nebo by 
 agentní návrh pokusil změnit predikci. Poslední provozní souhrn je v
 `outputs/weekly_shadow_latest.json`; schema 2 obsahuje stav jednotlivých zdrojů,
 výsledky statistických bran, explicitní blokátory, `accuracy_improvement_proven`,
-`live_buy_sell_ready` a `live_buy_sell_enabled`.
+`analysis_validation_ready` a `analysis_only`.
 
 GitHub workflow `Market Checker weekly production shadow` navíc každé pondělí:
 
@@ -432,7 +432,7 @@ porovná poslední uložený běh jednoho týdne s následujícím týdenním b�
   (výchozí ±2 %),
 - nejnovější signály jsou `PENDING`, dokud není uložen další týdenní běh.
 
-Obchodní akce projde jen při shodě nové a konzervativní legacy vrstvy, nebo při
+Analytický návrh akce projde jen při shodě nové a konzervativní legacy vrstvy, nebo při
 silném signálu bez ATR/module-conflict veta. Samotná silná technika už nesmí
 překlopit HOLD do obchodu. Opakované spuštění ve stejném kalendářním týdnu se
 nepočítá jako budoucí výsledek;
@@ -510,3 +510,8 @@ pouze do lokální kopie.
 ## Poznámka k PR workflow
 
 - pokud v GitHub UI vidíš tlačítko **Zobrazit PR**, znamená to, že pro tuto branch už PR existuje
+
+
+## Trvalý analytický režim
+
+JOHNY-SKORE automaticky neobchoduje a nemá broker/execution integraci. `BUY`, `SELL`, `HOLD` a `NO_TRADE` jsou pouze analytické štítky pro ranking a následné ruční rozhodnutí mimo program.
