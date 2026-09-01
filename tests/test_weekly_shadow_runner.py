@@ -24,16 +24,15 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
             sec_user_agent="",
         )
 
-    def test_default_runner_is_persistent_shadow_and_cannot_enable_live(self) -> None:
+    def test_default_runner_is_persistent_analysis_only(self) -> None:
         config = self._config(AgentRuntimeSettings())
 
         self.assertTrue(config.save_history)
         self.assertTrue(config.agent_shadow_mode)
         self.assertTrue(config.decision_agent.enabled)
         self.assertTrue(config.evaluation_agent.enabled)
-        self.assertFalse(config.decision_agent.live_application_enabled)
-        self.assertFalse(config.evaluation_agent.enable_after_gate)
-        self.assertEqual((), config.decision_agent.live_policy_allowlist)
+        self.assertFalse(hasattr(config.decision_agent, "live_application_enabled"))
+        self.assertFalse(hasattr(config.evaluation_agent, "enable_after_gate"))
 
     def test_enabled_manual_agent_without_source_is_rejected(self) -> None:
         with self.assertRaisesRegex(RuntimeConfigurationError, "SupplyChainAgent"):
@@ -82,18 +81,17 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
             "evaluation_consecutive_passes": 0,
             "quality_gate_decision": "PASS",
             "decision_applied_count": 0,
-            "live_application_authorized": False,
         }
 
         readiness = _readiness_summary(result, config)
 
         self.assertFalse(readiness["accuracy_improvement_proven"])
-        self.assertFalse(readiness["live_buy_sell_ready"])
-        self.assertFalse(readiness["live_buy_sell_enabled"])
+        self.assertFalse(readiness["analysis_validation_ready"])
+        self.assertTrue(readiness["analysis_only"])
         self.assertIn("minimum_oos_samples:31/200", readiness["blockers"])
         self.assertIn("minimum_distinct_weeks:2/12", readiness["blockers"])
 
-    def test_eligible_policy_is_ready_but_still_not_enabled_in_shadow(self) -> None:
+    def test_eligible_policy_is_ready_but_remains_analysis_only(self) -> None:
         config = self._config(AgentRuntimeSettings())
         result = {
             "activation_state": "ELIGIBLE",
@@ -110,9 +108,8 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
         readiness = _readiness_summary(result, config)
 
         self.assertTrue(readiness["accuracy_improvement_proven"])
-        self.assertTrue(readiness["live_buy_sell_ready"])
-        self.assertFalse(readiness["live_buy_sell_enabled"])
-        self.assertIn("shadow_mode_active", readiness["blockers"])
+        self.assertTrue(readiness["analysis_validation_ready"])
+        self.assertTrue(readiness["analysis_only"])
 
 
 if __name__ == "__main__":
