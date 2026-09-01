@@ -161,7 +161,7 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
         f"Načteno z {path}. Toto zobrazení nespouští novou analýzu."
     )
 
-    status_columns = st.columns(7)
+    status_columns = st.columns(6)
     status_columns[0].metric("Tickerů", str(result.get("ticker_count") or 0))
     status_columns[1].metric(
         "Pipeline",
@@ -183,15 +183,10 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
         "Potlačené návrhy",
         str(result.get("decision_suppressed_count") or 0),
     )
-    status_columns[6].metric(
-        "Ostré BUY/SELL",
-        "ZAMČENO" if not result.get("live_buy_sell_enabled") else "POVOLENO",
-    )
-
     if result.get("pipeline_status") == "SUCCESS":
         st.success(
-            "Poslední týdenní běh byl načten. Výsledky níže jsou pouze shadow "
-            "návrhy a nebyly použity jako živé obchody."
+            "Poslední týdenní běh byl načten. Výsledky níže jsou pouze analytické "
+            "návrhy. Automatické obchodování je z produktu trvale odstraněné."
         )
     else:
         st.warning(
@@ -985,7 +980,6 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         and consecutive_passes >= required_passes
         and activation_state in {"ELIGIBLE", "ENABLED"}
     )
-    live_authorized = bool(result.get("live_application_authorized"))
     stage4_evidence_metrics[0].metric(
         "Baseline přesnost",
         (
@@ -1019,13 +1013,13 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         f"{consecutive_passes}/{required_passes}",
     )
     stage4_evidence_metrics[5].metric(
-        "Ostré BUY/SELL",
-        "POVOLENO" if live_authorized else "UZAMČENO",
+        "Režim",
+        "POUZE ANALÝZA",
     )
     if accuracy_proven:
         st.success(
-            "Zvýšení přesnosti je pro tuto politiku prokázáno OOS bránou. "
-            "Ostré použití přesto vyžaduje samostatné explicitní povolení."
+            "Zvýšení přesnosti je pro tuto analytickou politiku prokázáno OOS "
+            "bránou. Výstup zůstává pouze informativní."
         )
     else:
         failed_gates = [
@@ -1037,8 +1031,8 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         ]
         detail = ", ".join(failed_gates) if failed_gates else "čeká se na OOS data"
         st.warning(
-            "Zvýšení přesnosti zatím není prokázáno; ostré BUY/SELL zůstává "
-            f"uzamčeno. Důvod: {detail}."
+            "Zvýšení přesnosti zatím není prokázáno; výstup zůstává pouze "
+            f"analytický. Důvod: {detail}."
         )
 
     report = result.get("agent_report")
@@ -1298,8 +1292,8 @@ def _render_agent_audit(result: dict[str, object]) -> None:
     )
     st.markdown("### DecisionAgent a OOS aktivační brána — Etapa 4")
     st.caption(
-        "Výchozí režim je shadow. Overlay smí obchod pouze ponechat nebo "
-        "potlačit na NO_TRADE; nesmí obrátit směr ani vytvořit nový obchod."
+        "Výchozí i trvalý režim je pouze analýza. Overlay může navrhnout "
+        "potlačení směru na NO_TRADE, ale nikdy nepřepisuje hlavní predikci."
     )
     if decision_execution is None:
         st.info("Etapa 4 nebyla v tomto běhu zapnutá.")
@@ -1759,11 +1753,9 @@ config = AppConfig(
     ),
     decision_agent=DecisionAgentConfig(
         enabled=use_stage4_shadow,
-        live_application_enabled=False,
     ),
     evaluation_agent=EvaluationAgentConfig(
         enabled=use_stage4_shadow,
-        enable_after_gate=False,
     ),
 )
 config.ensure_output_dir()
