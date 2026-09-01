@@ -16,6 +16,7 @@ class PredictionSnapshotStorageTests(unittest.TestCase):
     def test_snapshots_are_write_once_and_pending(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = SQLiteStore(Path(tmp) / "history.db")
+            store.ensure_schema()
             started = datetime(2026, 9, 1, 12, 0, tzinfo=timezone.utc)
             run_id = store.insert_run(
                 RunMetadata(
