@@ -130,7 +130,6 @@ class _ForgedLiveDecisionAgent(BaseAgent):
                     hard_veto=True,
                     activation_state=ActivationState.ENABLED,
                     applied_to_prediction=True,
-                    metadata={"live_application_authorized": True},
                 )
             ]
         )
