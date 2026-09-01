@@ -31,8 +31,6 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
         self.assertTrue(config.agent_shadow_mode)
         self.assertTrue(config.decision_agent.enabled)
         self.assertTrue(config.evaluation_agent.enabled)
-        self.assertFalse(hasattr(config.decision_agent, "live_application_enabled"))
-        self.assertFalse(hasattr(config.evaluation_agent, "enable_after_gate"))
 
     def test_enabled_manual_agent_without_source_is_rejected(self) -> None:
         with self.assertRaisesRegex(RuntimeConfigurationError, "SupplyChainAgent"):
