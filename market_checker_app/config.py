@@ -77,9 +77,8 @@ class DecisionThresholds:
 class PredictionV21Config:
     """Conservative action guard layered on top of the directional model.
 
-    The model may still publish an UP/DOWN/FLAT forecast, but an executable
-    BUY/SELL action is emitted only when an independent confirmation path is
-    present and no hard risk veto is active.
+    The model publishes an UP/DOWN/FLAT forecast and an informational
+    BUY/SELL/NO_TRADE label. This product has no execution path by design.
     """
 
     # The decision engine already applies its 0.50 gate before conflict
@@ -121,7 +120,7 @@ class EntityRegistryConfig:
 
 @dataclass(slots=True)
 class DecisionAgentConfig:
-    """Conservative Stage 4 overlay; collected in shadow mode by default."""
+    """Conservative analytical Stage 4 overlay; no execution by design."""
 
     enabled: bool = True
     policy_name: str = "conservative_risk_overlay"
@@ -157,7 +156,7 @@ class DecisionAgentConfig:
 
 @dataclass(slots=True)
 class EvaluationAgentConfig:
-    """Out-of-sample evidence required before a Stage 4 policy can be enabled."""
+    """Out-of-sample evidence required to validate a Stage 4 analytical policy."""
 
     enabled: bool = True
     minimum_oos_samples: int = 200
