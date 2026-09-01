@@ -134,8 +134,7 @@ class DecisionAgentConfig:
     governance_component_enabled: bool = True
     supply_chain_component_enabled: bool = True
     resource_component_enabled: bool = True
-    live_application_enabled: bool = False
-    live_policy_allowlist: tuple[str, ...] = ()
+    # Analytical overlay only. There is no execution or broker integration.
 
     def __post_init__(self) -> None:
         if not self.policy_name.strip() or not self.policy_version.strip():
@@ -174,8 +173,7 @@ class EvaluationAgentConfig:
     hold_tolerance_pct: float = 2.0
     minimum_weekly_gap_days: float = 4.0
     maximum_weekly_gap_days: float = 10.0
-    enable_after_gate: bool = False
-    enabled_policy_allowlist: tuple[str, ...] = ()
+    # OOS validation can mark the analytical policy eligible, never executable.
 
     def __post_init__(self) -> None:
         if self.minimum_oos_samples < 1:
