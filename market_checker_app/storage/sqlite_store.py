@@ -1084,7 +1084,6 @@ class SQLiteStore:
                     distinct_weeks INTEGER NOT NULL,
                     consecutive_passes INTEGER NOT NULL,
                     gate_passed INTEGER NOT NULL,
-                    live_application_authorized INTEGER NOT NULL,
                     reasons_json TEXT NOT NULL DEFAULT '[]',
                     metadata_json TEXT NOT NULL DEFAULT '{}',
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
@@ -2350,8 +2349,7 @@ class SQLiteStore:
                             pipeline_run_id, policy_name, policy_version,
                             observed_at, evaluated_through, state, evaluation_id,
                             sample_count, distinct_weeks, consecutive_passes,
-                            gate_passed, live_application_authorized,
-                            reasons_json, metadata_json
+                            gate_passed, reasons_json, metadata_json
                         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
@@ -2373,7 +2371,6 @@ class SQLiteStore:
                             activation.distinct_weeks,
                             activation.consecutive_passes,
                             int(activation.gate_passed),
-                            0,
                             self._json_dump(activation.reasons),
                             self._json_dump(activation.metadata),
                         ),
