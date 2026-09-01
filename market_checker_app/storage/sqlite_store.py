@@ -1093,7 +1093,39 @@ class SQLiteStore:
                 )
                 """
             )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS prediction_snapshots (
+                    snapshot_id TEXT PRIMARY KEY,
+                    run_id INTEGER NOT NULL,
+                    ticker TEXT NOT NULL,
+                    snapshot_schema_version TEXT NOT NULL,
+                    as_of TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    target_name TEXT NOT NULL,
+                    target_version TEXT NOT NULL,
+                    horizon_trading_days INTEGER NOT NULL,
+                    benchmark_ticker TEXT NOT NULL,
+                    benchmark_selection TEXT NOT NULL,
+                    label_status TEXT NOT NULL,
+                    target_value REAL,
+                    target_observed_at TEXT,
+                    baseline_model_id TEXT NOT NULL,
+                    baseline_model_version TEXT NOT NULL,
+                    feature_payload_json TEXT NOT NULL,
+                    baseline_output_json TEXT NOT NULL,
+                    provenance_json TEXT NOT NULL,
+                    snapshot_hash TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    UNIQUE(run_id, ticker, target_version),
+                    FOREIGN KEY(run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
             self._ensure_quality_gate_columns(conn)
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_prediction_snapshots_run_ticker ON prediction_snapshots(run_id, ticker)"
+            )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_agent_runs_pipeline ON agent_runs(pipeline_run_id)"
             )
@@ -2385,6 +2417,90 @@ class SQLiteStore:
                             self._json_dump(check.metadata),
                         ),
                     )
+
+    def save_prediction_snapshots(
+        self,
+        snapshots: list[dict[str, object]],
+    ) -> int:
+        """Persist immutable point-in-time snapshots.
+
+        A snapshot is write-once. Re-running the same write for the same
+        run/ticker/target cannot overwrite the original baseline or provenance.
+        Future labels are intentionally not written by this method.
+        """
+
+        if not snapshots:
+            return 0
+        self.ensure_schema()
+        inserted = 0
+        with self._connect() as conn:
+            for snapshot in snapshots:
+                snapshot_id = str(snapshot.get("snapshot_id") or "").strip()
+                ticker = str(snapshot.get("ticker") or "").strip().upper()
+                run_id = int(snapshot.get("run_id") or 0)
+                if not snapshot_id or not ticker or run_id < 1:
+                    raise ValueError("prediction snapshot identity is incomplete")
+                cursor = conn.execute(
+                    """
+                    INSERT OR IGNORE INTO prediction_snapshots(
+                        snapshot_id, run_id, ticker, snapshot_schema_version,
+                        as_of, observed_at, target_name, target_version,
+                        horizon_trading_days, benchmark_ticker,
+                        benchmark_selection, label_status, target_value,
+                        target_observed_at, baseline_model_id,
+                        baseline_model_version, feature_payload_json,
+                        baseline_output_json, provenance_json, snapshot_hash,
+                        created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        snapshot_id,
+                        run_id,
+                        ticker,
+                        str(snapshot.get("snapshot_schema_version") or ""),
+                        str(snapshot.get("as_of") or ""),
+                        str(snapshot.get("observed_at") or ""),
+                        str(snapshot.get("target_name") or ""),
+                        str(snapshot.get("target_version") or ""),
+                        int(snapshot.get("horizon_trading_days") or 0),
+                        str(snapshot.get("benchmark_ticker") or ""),
+                        str(snapshot.get("benchmark_selection") or ""),
+                        str(snapshot.get("label_status") or "PENDING"),
+                        snapshot.get("target_value"),
+                        snapshot.get("target_observed_at"),
+                        str(snapshot.get("baseline_model_id") or ""),
+                        str(snapshot.get("baseline_model_version") or ""),
+                        self._json_dump(snapshot.get("feature_payload") or {}),
+                        self._json_dump(snapshot.get("baseline_output") or {}),
+                        self._json_dump(snapshot.get("provenance") or {}),
+                        str(snapshot.get("snapshot_hash") or ""),
+                        str(snapshot.get("created_at") or snapshot.get("observed_at") or ""),
+                    ),
+                )
+                if cursor.rowcount == 1:
+                    inserted += 1
+        return inserted
+
+    def read_prediction_snapshots(
+        self,
+        run_id: int | None = None,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        clauses: list[str] = []
+        params: list[object] = []
+        if run_id is not None:
+            clauses.append("run_id = ?")
+            params.append(int(run_id))
+        if ticker is not None:
+            clauses.append("ticker = ?")
+            params.append(str(ticker).strip().upper())
+        query = "SELECT * FROM prediction_snapshots"
+        if clauses:
+            query += " WHERE " + " AND ".join(clauses)
+        query += " ORDER BY as_of ASC, ticker ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=tuple(params))
 
     def update_run_counts(self, run_id: int, warnings_count: int, errors_count: int) -> None:
         with self._connect() as conn:
