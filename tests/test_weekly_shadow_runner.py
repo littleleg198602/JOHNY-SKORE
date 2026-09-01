@@ -102,7 +102,6 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
             "evaluation_required_consecutive_passes": 3,
             "quality_gate_decision": "PASS",
             "decision_applied_count": 0,
-            "live_application_authorized": False,
         }
 
         readiness = _readiness_summary(result, config)
