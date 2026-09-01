@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import sqlite3
 from datetime import datetime
 from pathlib import Path
@@ -2480,6 +2481,113 @@ class SQLiteStore:
                 if cursor.rowcount == 1:
                     inserted += 1
         return inserted
+
+    def update_prediction_snapshot_labels(
+        self,
+        labels: list[dict[str, object]],
+    ) -> int:
+        """Resolve PENDING labels without changing the original snapshot inputs.
+
+        Feature payload, baseline output, provenance and snapshot identity are
+        immutable. Only the outcome fields may transition once from PENDING to
+        RESOLVED or UNAVAILABLE. Replaying the same label is idempotent; a
+        conflicting second label is rejected.
+        """
+
+        if not labels:
+            return 0
+        self.ensure_schema()
+        updated = 0
+        allowed_statuses = {"RESOLVED", "UNAVAILABLE"}
+        with self._connect() as conn:
+            for label in labels:
+                snapshot_id = str(label.get("snapshot_id") or "").strip()
+                status = str(label.get("label_status") or "").strip().upper()
+                if not snapshot_id or status not in allowed_statuses:
+                    raise ValueError("prediction label identity or status is invalid")
+                target_value = label.get("target_value")
+                if status == "RESOLVED":
+                    try:
+                        numeric_target = float(target_value)
+                    except (TypeError, ValueError):
+                        raise ValueError("resolved prediction label needs a numeric target")
+                    if not math.isfinite(numeric_target):
+                        raise ValueError("resolved prediction label must be finite")
+                    target_value = numeric_target
+                    target_observed_at = str(
+                        label.get("target_observed_at") or ""
+                    ).strip()
+                    if not target_observed_at:
+                        raise ValueError(
+                            "resolved prediction label needs target_observed_at"
+                        )
+                else:
+                    if target_value is not None:
+                        raise ValueError(
+                            "unavailable prediction label cannot contain a target"
+                        )
+                    target_observed_at = None
+
+                snapshot_hash = str(label.get("snapshot_hash") or "").strip()
+                if not snapshot_hash:
+                    raise ValueError("prediction label must carry a snapshot hash")
+                row = conn.execute(
+                    """
+                    SELECT label_status, target_value, target_observed_at,
+                           snapshot_hash
+                    FROM prediction_snapshots
+                    WHERE snapshot_id = ?
+                    """,
+                    (snapshot_id,),
+                ).fetchone()
+                if row is None:
+                    raise ValueError(f"unknown prediction snapshot: {snapshot_id}")
+                current_status, current_target, current_observed_at, current_hash = row
+                if current_status != "PENDING":
+                    same_target = (
+                        (current_target is None and target_value is None)
+                        or (
+                            current_target is not None
+                            and target_value is not None
+                            and math.isclose(
+                                float(current_target),
+                                float(target_value),
+                                rel_tol=0.0,
+                                abs_tol=1e-12,
+                            )
+                        )
+                    )
+                    if (
+                        current_status == status
+                        and same_target
+                        and current_observed_at == target_observed_at
+                        and current_hash == snapshot_hash
+                    ):
+                        continue
+                    raise ValueError(
+                        f"prediction snapshot label is already final: {snapshot_id}"
+                    )
+                cursor = conn.execute(
+                    """
+                    UPDATE prediction_snapshots
+                    SET label_status = ?,
+                        target_value = ?,
+                        target_observed_at = ?,
+                        snapshot_hash = ?
+                    WHERE snapshot_id = ?
+                      AND label_status = 'PENDING'
+                    """,
+                    (
+                        status,
+                        target_value,
+                        target_observed_at,
+                        snapshot_hash,
+                        snapshot_id,
+                    ),
+                )
+                if cursor.rowcount == 1:
+                    updated += 1
+        return updated
 
     def read_prediction_snapshots(
         self,
