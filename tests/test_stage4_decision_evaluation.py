@@ -514,6 +514,7 @@ class StageFourIntegrationTests(unittest.TestCase):
             self.assertEqual(1, len(store.read_policy_evaluations()))
             activations = store.read_signal_activation_decisions()
             self.assertEqual(1, len(activations))
+            self.assertNotIn("live_application_authorized", activations.columns)
             self.assertEqual("INSUFFICIENT_DATA", activations.iloc[0]["state"])
             self.assertEqual(2, len(store.read_quality_gate_checks()))
 
