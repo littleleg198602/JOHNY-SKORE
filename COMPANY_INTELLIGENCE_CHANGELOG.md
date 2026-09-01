@@ -1,5 +1,18 @@
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-01 – přepracování analytické roadmapy
+
+- `COMPANY_INTELLIGENCE_TASKS.md` byl přepsán do nové kanonické struktury.
+- Výslovně se odděluje produkční cíl **687 tickerů** od 36tickerového technického pilotu.
+- Cíl predikce je nově definován jako pětidenní nadvýnos proti benchmarku nebo sektoru; 20denní a 60denní horizont se přidají až po ověření první verze.
+- Hlavní kritická cesta je: `PRED-001 → DATA-001 → BASE-001 → OPS-805 → MKT/FUND → MODEL/EVAL → SCALE-001`.
+- Do hlavní cesty byly zařazeny point-in-time feature snapshots, baseline, walk-forward validace, ablation testy, source-health logování a skutečný běh všech 687 tickerů.
+- Google search je označen pouze jako výzkumný pomocník. Pro runtime se počítá se SEC/IR/RSS/GDELT a vlastním archivem zpráv od okamžiku spuštění; kompletní historický news backtest zdarma není garantovaný.
+- SEC zůstává primárním zdrojem fundamentů a firemních událostí. Yahoo zůstává praktickým cenovým zdrojem/fallbackem, nikoli jediným zdrojem kritických dat.
+- Supply-chain, materiály, energie a private-company enrichment byly přesunuty do sekundární/deferred větve. Mohou vstoupit do rozhodování pouze po samostatném ablation testu.
+- Dokumentace nyní vyžaduje oddělení technického `PASS` od skutečně prokázaného predikčního přínosu.
+- Tato změna je dokumentační a architektonická. Nemění současnou predikční logiku ani nepovoluje live BUY/SELL.
+
 ## 2026-08-28 – lokální audit výstupu a Streamlit dashboardu
 
 - Lokální weekly shadow běh vytvořil očekávané artefakty
