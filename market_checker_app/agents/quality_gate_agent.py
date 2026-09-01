@@ -1274,6 +1274,13 @@ class QualityGateAgent(BaseAgent):
             if signal.agent_name == "decision_agent"
             and signal.metadata.get("decision_id") == decision.decision_id
         ]
+        if decision.activation_state == ActivationState.ENABLED:
+            rejects.append(
+                _issue(
+                    "automatic_execution_state_forbidden",
+                    "DecisionRecord obsahuje zakázaný stav ENABLED; produkt je trvale pouze analytický.",
+                )
+            )
         if decision.applied_to_prediction:
             rejects.append(
                 _issue(
