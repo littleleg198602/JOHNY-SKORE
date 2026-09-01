@@ -218,6 +218,7 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - GitHub Actions run #100 prošel ve všech jobech: contract/source/persistence, Streamlit UI, 687-ticker scale check i deterministic release gate.
 - Trvalá produktová invariantní podmínka je nyní testována: analytický `DecisionAgent` nesmí přepsat hlavní predikci, emitovat aplikovaný signál ani vytvořit exekuční stav.
 - Historický sloupec `live_application_authorized` ve starých SQLite databázích je ponechán pouze kvůli čitelnosti starých záznamů; není čten jako konfigurace a nová pipeline jej nepoužívá.
+- Nově vytvořené SQLite databáze tento sloupec už nevytvářejí ani nezapisují; migrace starých databází je nedestruktivní.
 
 ### 2026-09-01 — Mature point-in-time label resolution
 
