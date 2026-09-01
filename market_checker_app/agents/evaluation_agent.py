@@ -534,22 +534,15 @@ class EvaluationAgent(BaseAgent):
         enough_data = (
             gates["minimum_oos_samples"] and gates["minimum_distinct_weeks"]
         )
-        live_authorized = (
-            gate_passed
-            and consecutive_passes >= self.config.required_consecutive_passes
-            and self.config.enable_after_gate
-            and self.policy_name in self.config.enabled_policy_allowlist
-            and not context.shadow_mode
-        )
         if not enough_data:
             state = ActivationState.INSUFFICIENT_DATA
         elif not gate_passed:
             state = ActivationState.REJECTED
         elif consecutive_passes < self.config.required_consecutive_passes:
             state = ActivationState.SHADOW
-        elif live_authorized:
-            state = ActivationState.ENABLED
         else:
+            # Validation can make the analytical policy eligible, but this
+            # product has no execution path by design.
             state = ActivationState.ELIGIBLE
 
         failed_gates = [name for name, passed in gates.items() if not passed]
@@ -560,7 +553,7 @@ class EvaluationAgent(BaseAgent):
                 f"{consecutive_passes}/{self.config.required_consecutive_passes}"
             )
         elif state == ActivationState.ELIGIBLE:
-            reasons.append("eligible_but_live_application_not_authorized")
+            reasons.append("analytical_policy_validated;_automatic_trading_removed")
         activation = SignalActivationDecision(
             activation_id=_stable_id(
                 context.orchestration_id,
@@ -578,16 +571,12 @@ class EvaluationAgent(BaseAgent):
             distinct_weeks=distinct_weeks,
             consecutive_passes=consecutive_passes,
             gate_passed=gate_passed,
-            live_application_authorized=live_authorized,
             reasons=reasons,
             metadata={
                 "required_consecutive_passes": (
                     self.config.required_consecutive_passes
                 ),
-                "enable_after_gate": self.config.enable_after_gate,
-                "policy_allowlisted": (
-                    self.policy_name in self.config.enabled_policy_allowlist
-                ),
+                "analysis_only": True,
                 "shadow_mode": context.shadow_mode,
             },
         )
@@ -614,7 +603,7 @@ class EvaluationAgent(BaseAgent):
                 "distinct_weeks": distinct_weeks,
                 "activation_state": state.value,
                 "gate_passed": gate_passed,
-                "live_application_authorized": live_authorized,
+                "analysis_only": True,
             },
             state_updates={
                 "stage4_policy_evaluation": evaluation,
