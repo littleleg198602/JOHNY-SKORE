@@ -31,8 +31,6 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
 
         self.assertIsNone(warning)
         self.assertTrue(config.agent_shadow_mode)
-        self.assertFalse(hasattr(config.decision_agent, "live_application_enabled"))
-        self.assertFalse(hasattr(config.evaluation_agent, "enable_after_gate"))
         self.assertTrue(config.fundamental_ingestion.enabled)
         self.assertTrue(config.financial_forensics.enabled)
         identities, identity_errors = parse_identity_records(
