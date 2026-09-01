@@ -200,3 +200,13 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - Není k dispozici 200 uzavřených OOS vzorků ani 12 nezávislých týdnů.
 - Tato implementace proto neprokazuje zvýšení přesnosti predikce a nepovoluje
   ostrou aktivaci.
+
+
+## 2026-09-01 — Foundation: point-in-time snapshots a trvale analytický režim
+
+- Produktová hranice byla definitivně nastavena: automatické obchodování není a nebude součástí JOHNY-SKORE.
+- Odstraněna je konfigurace a aplikační cesta, která mohla po OOS bráně přepsat hlavní predikci; overlay nyní vytváří pouze auditovatelný analytický návrh.
+- Přidán verzovaný cíl `excess_return_5d_v1`: pět obchodních dnů, výnos akcie minus výnos benchmarku, v desetinné hodnotě.
+- Každý shadow běh připraví pro každý ticker write-once point-in-time snapshot v SQLite `prediction_snapshots`; vzniká s `label_status=PENDING` a bez budoucích cen.
+- Snapshot ukládá přesný výstup stávajícího `v2.1_guarded_consensus` jako baseline, dostupné feature payloady a provenance zdrojů.
+- Změna je zapsaná na větvi `codex/rework-prediction-roadmap-20260901`; čeká na CI a kontrolu PR #85.
