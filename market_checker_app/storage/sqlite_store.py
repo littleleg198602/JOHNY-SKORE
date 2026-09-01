@@ -2350,7 +2350,7 @@ class SQLiteStore:
                             observed_at, evaluated_through, state, evaluation_id,
                             sample_count, distinct_weeks, consecutive_passes,
                             gate_passed, reasons_json, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             activation.activation_id,
