@@ -515,3 +515,13 @@ pouze do lokální kopie.
 ## Trvalý analytický režim
 
 JOHNY-SKORE automaticky neobchoduje a nemá broker/execution integraci. `BUY`, `SELL`, `HOLD` a `NO_TRADE` jsou pouze analytické štítky pro ranking a následné ruční rozhodnutí mimo program.
+
+## Uzavření point-in-time labelů
+
+Běžný týdenní běh pouze uloží nové snapshoty se stavem `PENDING`. Po uplynutí pěti obchodních dnů lze zralé snapshoty uzavřít volitelným přepínačem:
+
+```text
+python -m market_checker_app.weekly_shadow_runner --resolve-labels
+```
+
+Resolver načte pozdější close ceny přes existující Yahoo klient, vypočítá excess return vůči benchmarku a výsledek zapíše do `weekly_shadow_latest.json`. Neúplná nebo dočasně nedostupná data zůstávají `PENDING`; žádný label se nedoplňuje nulou. Automatické obchodování v projektu neexistuje.
