@@ -391,9 +391,15 @@ Riziko backtest overfittingu je popsáno v práci [Bailey a kol. – Deflated Sh
 
 ### SCALE-001 – Skutečný běh všech 687 tickerů — PARTIAL
 
-Workflow už zná produkční universe 687 tickerů, ale běh musí být provozně přestavěn tak, aby nebyl omezen pouze na pilot nebo Yahoo limit.
+Workflow už zná produkční universe 687 tickerů. Původní Windows launcher měl skrytý limit 36 tickerů; ten je nyní odstraněn a standardní `Spustit_Tydenni_Shadow.bat` používá celý `production_watchlist.txt`. Samotný skutečný 687tickerový běh, jeho odolnost vůči výpadkům a úplnost výsledného reportu ale ještě musí být provozně ověřeny.
 
-Požadavky:
+Hotovo v této části:
+
+- launcher bez `--ticker-limit`,
+- regresní test hlídá, že se pilotní limit nevrátí,
+- dokumentace rozlišuje vědomý pilot od výchozího produkčního běhu.
+
+Zbývající požadavky:
 
 - dávky 50–100 tickerů,
 - persistentní cache,
