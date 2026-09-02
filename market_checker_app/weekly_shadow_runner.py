@@ -470,6 +470,19 @@ def _source_health_summary(
     config: AppConfig,
 ) -> dict[str, object]:
     return {
+        "price_history": {
+            "yahoo_bulk_loaded": int(
+                result.get("bulk_yahoo_ohlc_count") or 0
+            ),
+            "yahoo_bulk_failures": int(
+                result.get("bulk_yahoo_ohlc_failure_count") or 0
+            ),
+            "status": (
+                "SUCCESS"
+                if int(result.get("bulk_yahoo_ohlc_failure_count") or 0) == 0
+                else "PARTIAL"
+            ),
+        },
         "entity_registry": {
             "configured_records": len(config.entity_registry.identity_records),
             "status": result.get("entity_registry_status"),
