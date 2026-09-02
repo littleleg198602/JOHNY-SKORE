@@ -518,6 +518,8 @@ class PipelineService:
         yahoo_only_tickers = yahoo_only_tickers or set()
         mt5_ohlc_by_ticker: dict[str, pd.DataFrame] = {}
         mt5_warnings_by_ticker: dict[str, str] = {}
+        bulk_yahoo_ohlc_by_ticker: dict[str, pd.DataFrame] = {}
+        bulk_yahoo_ohlc_warnings: dict[str, str] = {}
         mt5_tickers = [ticker for ticker in watchlist if ticker not in yahoo_only_tickers]
         if mt5_enabled and mt5_tickers:
             progress.set_global_step(
@@ -542,13 +544,55 @@ class PipelineService:
             mt5_success_count = len(mt5_ohlc_by_ticker)
             mt5_failure_count = len(mt5_tickers) - mt5_success_count
             if mt5_failure_count == len(mt5_tickers):
-                errors.append(
-                    f"MT5 OHLC selhalo pro všech {len(mt5_tickers)} tickerů. "
-                    "Technické skóre bude neutrální s nízkou důvěrou."
+                warnings.append(
+                    f"MT5 OHLC nebylo dostupné pro žádný z {len(mt5_tickers)} tickerů; "
+                    "pro chybějící symboly se použije Yahoo bulk fallback."
                 )
             elif mt5_failure_count:
                 warnings.append(
-                    f"MT5 OHLC není dostupné pro {mt5_failure_count} z {len(mt5_tickers)} tickerů."
+                    f"MT5 OHLC není dostupné pro {mt5_failure_count} z {len(mt5_tickers)} tickerů; "
+                    "pro chybějící symboly se použije Yahoo bulk fallback."
+                )
+
+        bulk_yahoo_tickers = [
+            ticker
+            for ticker in watchlist
+            if ticker in yahoo_only_tickers
+            or ticker not in mt5_ohlc_by_ticker
+        ]
+        if large_universe_mode and bulk_yahoo_tickers:
+            progress.set_global_step(
+                "yahoo_ohlc_batch",
+                f"Načítám Yahoo OHLC dávky: 0/{len(bulk_yahoo_tickers)} tickerů",
+                0.08,
+            )
+
+            def _on_yahoo_ohlc_progress(
+                completed: int,
+                batch_total: int,
+                ticker: str,
+            ) -> None:
+                phase_progress = 0.08 + 0.04 * (
+                    completed / max(1, batch_total)
+                )
+                progress.set_global_step(
+                    "yahoo_ohlc_batch",
+                    f"Načítám Yahoo OHLC dávku {completed}/{batch_total} ({ticker})",
+                    phase_progress,
+                )
+
+            (
+                bulk_yahoo_ohlc_by_ticker,
+                bulk_yahoo_ohlc_warnings,
+            ) = self.yahoo_client.fetch_ohlc_batch(
+                bulk_yahoo_tickers,
+                progress_callback=_on_yahoo_ohlc_progress,
+            )
+            if bulk_yahoo_ohlc_warnings:
+                warnings.append(
+                    f"Yahoo bulk OHLC není dostupné pro "
+                    f"{len(bulk_yahoo_ohlc_warnings)} z "
+                    f"{len(bulk_yahoo_tickers)} tickerů."
                 )
 
         articles_by_ticker: dict[str, list] = {}
@@ -560,6 +604,8 @@ class PipelineService:
         yahoo_snapshot_failures = 0
         yahoo_ohlc_attempts = 0
         yahoo_ohlc_failures = 0
+        bulk_yahoo_ohlc_count = len(bulk_yahoo_ohlc_by_ticker)
+        bulk_yahoo_ohlc_failure_count = len(bulk_yahoo_ohlc_warnings)
         for idx, ticker in enumerate(watchlist, start=1):
             progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
             progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
@@ -631,12 +677,16 @@ class PipelineService:
 
             if not mt5_enabled or ticker in yahoo_only_tickers:
                 if large_universe_mode:
-                    tech_source_used = "bulk_price_source_unavailable"
-                    ohlc = pd.DataFrame()
-                    tech_source_warning = (
-                        f"MT5 není použito pro {ticker}; ve velkém universe režimu se "
-                        "jednotlivé Yahoo OHLC požadavky nepouštějí."
-                    )
+                    ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
+                    if not ohlc.empty:
+                        tech_source_used = "yfinance_bulk"
+                        tech_source_warning = None
+                    else:
+                        tech_source_used = "bulk_price_source_unavailable"
+                        tech_source_warning = bulk_yahoo_ohlc_warnings.get(
+                            ticker,
+                            f"Yahoo bulk OHLC není dostupné pro {ticker}.",
+                        )
                 else:
                     yahoo_ohlc_attempts += 1
                     tech_source_used = "yfinance_excel" if ticker in yahoo_only_tickers else "yfinance"
@@ -660,9 +710,20 @@ class PipelineService:
                 if mt5_ohlc is not None and not mt5_ohlc.empty:
                     ohlc = mt5_ohlc
                 elif large_universe_mode:
-                    tech_source_used = "mt5_unavailable"
-                    ohlc = pd.DataFrame()
-                    tech_source_warning = mt5_warning or f"MT5 OHLC není dostupné pro {ticker}."
+                    ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
+                    if not ohlc.empty:
+                        tech_source_used = "yfinance_bulk_fallback"
+                        tech_source_warning = mt5_warning
+                    else:
+                        tech_source_used = "mt5_unavailable"
+                        ohlc = pd.DataFrame()
+                        tech_source_warning = (
+                            mt5_warning
+                            or bulk_yahoo_ohlc_warnings.get(
+                                ticker,
+                                f"MT5 ani Yahoo OHLC nejsou dostupné pro {ticker}.",
+                            )
+                        )
                 else:
                     tech_source_used = "yfinance_fallback"
                     yahoo_ohlc_attempts += 1
@@ -1256,6 +1317,8 @@ class PipelineService:
             "fundamental_filing_text_failure_details": (
                 fundamental_filing_text_failure_details
             ),
+            "bulk_yahoo_ohlc_count": bulk_yahoo_ohlc_count,
+            "bulk_yahoo_ohlc_failure_count": bulk_yahoo_ohlc_failure_count,
             "european_filings_status": european_filings_status,
             "european_filing_document_count": european_filing_document_count,
             "source_resolution_status": source_resolution_status,
