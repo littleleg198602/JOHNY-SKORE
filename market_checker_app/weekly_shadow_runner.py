@@ -469,7 +469,28 @@ def _source_health_summary(
     result: dict[str, object],
     config: AppConfig,
 ) -> dict[str, object]:
+    yahoo_bulk_attempted = int(
+        result.get("bulk_yahoo_ohlc_attempted_count") or 0
+    )
+    yahoo_bulk_failures = int(
+        result.get("bulk_yahoo_ohlc_failure_count") or 0
+    )
     return {
+        "price_history": {
+            "yahoo_bulk_attempted": yahoo_bulk_attempted,
+            "yahoo_bulk_loaded": int(
+                result.get("bulk_yahoo_ohlc_count") or 0
+            ),
+            "yahoo_bulk_failures": yahoo_bulk_failures,
+            "yahoo_bulk_failure_details": _json_safe(
+                result.get("bulk_yahoo_ohlc_failure_details") or []
+            ),
+            "status": (
+                "NOT_USED"
+                if yahoo_bulk_attempted == 0
+                else ("PARTIAL" if yahoo_bulk_failures else "SUCCESS")
+            ),
+        },
         "entity_registry": {
             "configured_records": len(config.entity_registry.identity_records),
             "status": result.get("entity_registry_status"),
@@ -490,6 +511,9 @@ def _source_health_summary(
             ),
             "filing_text_failures": int(
                 result.get("fundamental_filing_text_failure_count") or 0
+            ),
+            "filing_text_failure_details": _json_safe(
+                result.get("fundamental_filing_text_failure_details") or []
             ),
         },
         "financial_forensics": {
@@ -659,6 +683,34 @@ def _decision_detail_records(result: dict[str, object]) -> list[dict[str, object
         }
         for decision in decisions
     ]
+
+
+def _quality_gate_issues(result: dict[str, object]) -> list[dict[str, object]]:
+    report = result.get("agent_report")
+    executions = getattr(report, "executions", [])
+    issues: list[dict[str, object]] = []
+    for execution in executions:
+        if getattr(execution, "agent_name", "") != "quality_gate":
+            continue
+        checks = getattr(execution.result, "quality_checks", [])
+        for check in checks:
+            metadata = getattr(check, "metadata", {}) or {}
+            rejects = metadata.get("rejects", [])
+            warnings = metadata.get("warnings", [])
+            decision = _json_safe(getattr(check, "decision", None))
+            if decision == "PASS" and not rejects and not warnings:
+                continue
+            issues.append(
+                {
+                    "ticker": _json_safe(getattr(check, "ticker", None)),
+                    "gate_name": _json_safe(getattr(check, "gate_name", None)),
+                    "decision": decision,
+                    "message": _json_safe(getattr(check, "message", "")),
+                    "rejects": _json_safe(rejects),
+                    "warnings": _json_safe(warnings),
+                }
+            )
+    return issues
 
 
 def run_weekly_shadow(
@@ -840,6 +892,7 @@ def run_weekly_shadow(
         "analysis_validation_ready": readiness["analysis_validation_ready"],
         "readiness": readiness,
         "source_health": _source_health_summary(result, config),
+        "quality_gate_issues": _quality_gate_issues(result),
         "auto_discovered_short_reports": result.get(
             "auto_discovered_short_reports"
         ),
@@ -855,6 +908,11 @@ def run_weekly_shadow(
         "decision_results": _decision_detail_records(result),
     }
     failures: list[str] = []
+    degradations: list[str] = []
+    if result.get("agent_status") == "PARTIAL":
+        degradations.append(
+            "agentní pipeline skončila stavem PARTIAL; některé volitelné zdroje jsou neúplné"
+        )
     if result.get("run_id") is None:
         failures.append("běh se neuložil do SQLite")
     if snapshot_error is not None:
@@ -896,24 +954,38 @@ def run_weekly_shadow(
             or config.commodity_energy.auto_discover_from_sec_filings
         )
     ):
-        if int(result.get("fundamental_filing_text_document_count") or 0) == 0:
-            failures.append("nebyl bezpečně načten žádný text výročního filingu")
-        if int(result.get("fundamental_filing_text_failure_count") or 0) > 0:
-            failures.append("některý text výročního filingu se nepodařilo načíst")
+        filing_text_documents = int(
+            result.get("fundamental_filing_text_document_count") or 0
+        )
+        filing_text_failures = int(
+            result.get("fundamental_filing_text_failure_count") or 0
+        )
+        if filing_text_documents == 0:
+            degradations.append(
+                "nebyl bezpečně načten žádný text výročního filingu; "
+                "dodavatelská a materiálová discovery vrstva nemá textový vstup"
+            )
+        if filing_text_failures > 0:
+            degradations.append(
+                f"nepodařilo se načíst {filing_text_failures} textů výročních filingů; "
+                "dotčené tickerové enrichmenty zůstávají neúplné"
+            )
     if config.short_reports.enabled and int(
         result.get("short_report_document_count") or 0
     ) == 0:
-        failures.append("short-report canary nebyl načten")
+        degradations.append("short-report canary nebyl načten")
     if config.supply_chain.enabled and result.get("supply_chain_status") != "SUCCESS":
-        failures.append(
-            f"SupplyChainAgent skončil {result.get('supply_chain_status')}"
+        degradations.append(
+            f"SupplyChainAgent skončil {result.get('supply_chain_status')}; "
+            "základní predikce zůstává beze změny"
         )
     if (
         config.commodity_energy.enabled
         and result.get("commodity_energy_status") != "SUCCESS"
     ):
-        failures.append(
-            f"CommodityEnergyAgent skončil {result.get('commodity_energy_status')}"
+        degradations.append(
+            f"CommodityEnergyAgent skončil {result.get('commodity_energy_status')}; "
+            "základní predikce zůstává beze změny"
         )
     if result.get("quality_gate_decision") != "PASS":
         failures.append(
@@ -930,7 +1002,12 @@ def run_weekly_shadow(
         failures.append("DecisionAgent nevytvořil právě jedno rozhodnutí pro každý ticker")
     if result.get("errors"):
         failures.append("pipeline ohlásila produkční chyby")
-    summary["pipeline_status"] = "FAILED" if failures else "SUCCESS"
+    summary["pipeline_degradations"] = list(dict.fromkeys(degradations))
+    summary["pipeline_status"] = (
+        "FAILED"
+        if failures
+        else ("PARTIAL" if degradations else "SUCCESS")
+    )
     summary["evaluation_status"] = (
         "PASS" if summary.get("evaluation_gate_passed") else "PENDING"
     )

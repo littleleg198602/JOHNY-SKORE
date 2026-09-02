@@ -13,6 +13,18 @@
 - Dokumentace nyní vyžaduje oddělení technického `PASS` od skutečně prokázaného predikčního přínosu.
 - Tato změna je dokumentační a architektonická. Nemění současnou predikční logiku ani nepovoluje live BUY/SELL.
 
+
+## 2026-09-02 – audit prvního skutečného běhu všech 687 tickerů
+
+- Lokální launcher už skutečně zpracoval celý produkční seznam: konzole doběhla na `687/687`, takže skrytý limit 36 tickerů je odstraněný správně.
+- Výstup ale nebyl považován za použitelný analytický běh. Spouštění s `--no-mt5` dříve nechávalo velký universe bez OHLC dat a technická vrstva byla neutrální; současně jediný výpadek textu výročního filingu shodil celý běh na `FAILED`.
+- Oprava v PR #87 zavádí omezené dávkové Yahoo OHLC po skupinách 50 tickerů. Úspěšné dávky se použijí pro technickou analýzu, neúspěšné symboly zůstanou bez domyšlené ceny a jejich stav se zapíše do reportu.
+- Výpadek volitelného textového enrichmentu už není automaticky globální technická chyba. Runner ho vykáže jako `PARTIAL`, včetně tickeru, accession čísla, URL, typu chyby a zprávy; skutečné chyby integrity a `QualityGate: REJECT` zůstávají blokující.
+- Do JSONu přibyly `yahoo_bulk_attempted`, `yahoo_bulk_loaded`, `yahoo_bulk_failures` a detailní seznamy neúspěšných tickerů, dále `filing_text_failure_details` a `quality_gate_issues`, aby další běh rozlišil nepoužitý zdroj od výpadku a ukázal přesně, ke kterému tickeru a zdroji problém patří.
+- Bezpečnostní režim se nemění: žádné automatické obchodování, žádná exekuce příkazů a žádný tichý fallback na 36 tickerů.
+- Nový 687tickerový běh po této opravě je stále provozní ověření, nikoli důkaz predikční přesnosti. Před hodnocením signálů musí být v JSONu zkontrolováno pokrytí OHLC, SEC, rozhodnutí a QualityGate.
+
+
 ## 2026-08-28 – lokální audit výstupu a Streamlit dashboardu
 
 - Lokální weekly shadow běh vytvořil očekávané artefakty
@@ -236,3 +248,12 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - Stav labelování se zapisuje do `weekly_shadow_latest.json` jako `prediction_label_resolution`.
 - Resolver je navržen pro postupné dávkování; bezpečný backfill celého 687tickerového universe zůstává samostatný provozní krok.
 - CI run #115 a #116 prošly po napojení runneru a parser testu.
+
+
+### 2026-09-02 — Full-universe launcher correction
+
+- Opraven `Spustit_Tydenni_Shadow.bat`: odstraněn natvrdo zadaný `--ticker-limit 36`.
+- Standardní Windows spuštění nyní předává runneru celý `production_watchlist.txt`, tedy cílový universe přibližně 687 tickerů.
+- Přidán regresní test, který odmítne launcher s libovolným tickerovým limitem nebo s textem pilotního běhu.
+- Roadmapa `SCALE-001` nyní odděluje hotovou opravu launcheru od dosud neověřeného skutečného 687tickerového běhu, jeho retry/cache odolnosti a úplnosti výstupu.
+- Tato změna nemění analytický režim: automatické obchodování je trvale odstraněno a výstupy zůstávají pouze informativní.

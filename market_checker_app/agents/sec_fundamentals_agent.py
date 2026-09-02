@@ -137,6 +137,7 @@ class SecFundamentalsAgent(BaseAgent):
         filing_texts_by_ticker: dict[str, list[FetchedShortReport]] = {}
         insider_transactions_by_ticker: dict[str, list[object]] = {}
         filing_text_failures = 0
+        filing_text_failure_details: list[dict[str, str]] = []
         filing_text_client = self._filing_text_client_or_none()
 
         for raw_ticker in context.watchlist:
@@ -314,8 +315,20 @@ class SecFundamentalsAgent(BaseAgent):
                         )
                     except Exception as exc:
                         filing_text_failures += 1
+                        filing_text_failure_details.append(
+                            {
+                                "ticker": ticker,
+                                "form": filing.form,
+                                "accession_number": filing.accession_number,
+                                "filing_url": filing.filing_url,
+                                "filed_at": filing.filed_at.isoformat(),
+                                "error_type": type(exc).__name__,
+                                "error": str(exc),
+                            }
+                        )
                         warnings.append(
-                            f"F2-SEC {ticker}: text 10-K nelze bezpečně načíst: "
+                            f"F2-SEC {ticker}: text 10-K nelze bezpečně načíst "
+                            f"({filing.accession_number}): "
                             f"{type(exc).__name__}: {exc}"
                         )
                         continue
@@ -396,7 +409,7 @@ class SecFundamentalsAgent(BaseAgent):
 
         if successful_tickers == 0:
             status = AgentStatus.UNAVAILABLE
-        elif unresolved_tickers or core_degraded:
+        elif unresolved_tickers or core_degraded or filing_text_failures:
             status = AgentStatus.PARTIAL
         else:
             status = AgentStatus.SUCCESS
@@ -422,6 +435,7 @@ class SecFundamentalsAgent(BaseAgent):
                     len(items) for items in filing_texts_by_ticker.values()
                 ),
                 "filing_text_failures": filing_text_failures,
+                "filing_text_failure_details": filing_text_failure_details,
                 "insider_transactions": sum(
                     len(items)
                     for items in insider_transactions_by_ticker.values()

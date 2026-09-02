@@ -74,6 +74,12 @@ Stačí na něj dvakrát kliknout. Skript:
 - Když pro některý symbol MT5 nevrátí svíčky, tento řádek zůstane ve výsledku, ale technická
   část bude neutrální a ve sloupci `warnings` bude uveden důvod.
 
+### Weekly shadow běh celého universe
+
+Soubor `Spustit_Tydenni_Shadow.bat` spouští celý seznam z `production_watchlist.txt` (aktuálně přibližně 687 tickerů). Standardní launcher už nepoužívá pilotní limit 36. Výstup se uloží do `outputs/weekly_shadow_latest.json` a do SQLite historie.
+
+Pilotní limit lze použít pouze vědomě při ručním spuštění runneru, například `--ticker-limit 36`; nesmí se používat jako výchozí produkční běh.
+
 ## Co aplikace dělá
 
 - načte watchlist z MetaTrader5 (nebo ručně z textového pole)

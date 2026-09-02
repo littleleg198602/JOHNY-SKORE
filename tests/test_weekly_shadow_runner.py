@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 import tempfile
 import unittest
 
@@ -8,6 +9,7 @@ from market_checker_app.services.agent_runtime_service import AgentRuntimeSettin
 from market_checker_app.weekly_shadow_runner import (
     RuntimeConfigurationError,
     _parser,
+    _quality_gate_issues,
     _readiness_summary,
     build_runtime_config,
 )
@@ -114,6 +116,40 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
         self.assertTrue(readiness["accuracy_improvement_proven"])
         self.assertTrue(readiness["analysis_validation_ready"])
         self.assertTrue(readiness["analysis_only"])
+
+
+    def test_quality_gate_issues_are_exported_with_ticker_and_codes(self) -> None:
+        check = SimpleNamespace(
+            ticker="AAPL",
+            gate_name="prediction_integrity",
+            decision="REJECT",
+            message="Kontrola zamítla ticker.",
+            metadata={
+                "rejects": [
+                    {"code": "missing_external_provenance", "message": "chybí zdroj"}
+                ],
+                "warnings": [],
+            },
+        )
+        result = {
+            "agent_report": SimpleNamespace(
+                executions=[
+                    SimpleNamespace(
+                        agent_name="quality_gate",
+                        result=SimpleNamespace(quality_checks=[check]),
+                    )
+                ]
+            )
+        }
+
+        issues = _quality_gate_issues(result)
+
+        self.assertEqual(1, len(issues))
+        self.assertEqual("AAPL", issues[0]["ticker"])
+        self.assertEqual(
+            "missing_external_provenance",
+            issues[0]["rejects"][0]["code"],
+        )
 
 
 if __name__ == "__main__":

@@ -391,13 +391,22 @@ Riziko backtest overfittingu je popsáno v práci [Bailey a kol. – Deflated Sh
 
 ### SCALE-001 – Skutečný běh všech 687 tickerů — PARTIAL
 
-Workflow už zná produkční universe 687 tickerů, ale běh musí být provozně přestavěn tak, aby nebyl omezen pouze na pilot nebo Yahoo limit.
+Workflow už zná produkční universe 687 tickerů. Původní Windows launcher měl skrytý limit 36 tickerů; ten je nyní odstraněn a standardní `Spustit_Tydenni_Shadow.bat` používá celý `production_watchlist.txt`. Samotný skutečný 687tickerový běh, jeho odolnost vůči výpadkům a úplnost výsledného reportu ale ještě musí být provozně ověřeny.
 
-Požadavky:
+Hotovo v této části:
 
-- dávky 50–100 tickerů,
-- persistentní cache,
-- retry/backoff,
+- launcher bez `--ticker-limit`,
+- regresní test hlídá, že se pilotní limit nevrátí,
+- dokumentace rozlišuje vědomý pilot od výchozího produkčního běhu.
+- lokální audit potvrdil skutečné dokončení `687/687`, ale ne analytickou připravenost: stará větev bez MT5 neposkytovala OHLC technické vrstvě a výpadek textu jednoho filingu chybně shodil celý běh,
+- v aktuální opravě je dávkový Yahoo OHLC fallback po 50 symbolech; bezúspěšné dávky se evidují jako chybějící a nikdy se nenahrazují nulou ani vymyšlenou cenou,
+- volitelné textové filingy se nově vykazují jako degradace `PARTIAL` s detailní diagnostikou; QualityGate REJECT a chyby integrity zůstávají blokující.
+
+Zbývající požadavky:
+
+- provozní ověření, že Yahoo bulk skutečně načte dostatečné OHLC pokrytí pro všech 687,
+- persistentní cache mezi běhy,
+- retry/backoff a circuit breaker při rate limitu,
 - žádné opakované stahování stejného dokumentu,
 - možnost pokračovat po výpadku,
 - přesný seznam SUCCESS/PARTIAL/FAILED,
@@ -436,6 +445,15 @@ Rozlišovat:
 - zdroj není nakonfigurován.
 
 QualityGate nesmí označit běh jako použitelný, pokud chybějící zdroj ovlivnil výsledek a není to ve výstupu vidět.
+
+
+Aktuálně doplněno v runneru:
+
+- pro SEC textové filingy se ukládá ticker, form, accession, URL, čas, typ chyby a zpráva,
+- pro dávkové Yahoo OHLC se ukládá počet pokusů, načtených a neúspěšných symbolů i detail ticker/error pro každý neúspěch; pokud se bulk vůbec nepoužil, stav je `NOT_USED`,
+- QualityGate exportuje konkrétní ticker, gate, rozhodnutí, kódy rejectů a warnings,
+- globální stav rozlišuje `SUCCESS`, `PARTIAL` a `FAILED`; `PARTIAL` nesmí skrýt, že je výsledek pro některé vrstvy omezený.
+
 
 ### UI-806 – Detailní výsledek pro všech 687 — PARTIAL
 
