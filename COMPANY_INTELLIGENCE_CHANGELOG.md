@@ -228,3 +228,11 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - Zralé, ale nepoužitelné okno lze uzavřít jako `UNAVAILABLE`; druhé uzavření labelu je odmítnuto nebo idempotentně ignorováno.
 - Tato vrstva je zatím izolovaná a testovaná; zapojení do produkčního týdenního runneru a bezpečný historický backfill jsou další krok.
 - CI run #104 prošel po přidání resolveru a testů.
+
+### 2026-09-02 — Controlled label-resolution runner
+
+- Týdenní runner nově podporuje explicitní `--resolve-labels` pro uzavření zralých 5denních snapshotů.
+- Standardní běh bez přepínače zůstává beze změny a nespouští druhou dávku Yahoo požadavků.
+- Stav labelování se zapisuje do `weekly_shadow_latest.json` jako `prediction_label_resolution`.
+- Resolver je navržen pro postupné dávkování; bezpečný backfill celého 687tickerového universe zůstává samostatný provozní krok.
+- CI run #115 a #116 prošly po napojení runneru a parser testu.
