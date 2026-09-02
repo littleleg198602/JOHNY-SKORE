@@ -450,7 +450,7 @@ QualityGate nesmí označit běh jako použitelný, pokud chybějící zdroj ovl
 Aktuálně doplněno v runneru:
 
 - pro SEC textové filingy se ukládá ticker, form, accession, URL, čas, typ chyby a zpráva,
-- pro dávkové Yahoo OHLC se ukládá počet načtených a neúspěšných symbolů,
+- pro dávkové Yahoo OHLC se ukládá počet pokusů, načtených a neúspěšných symbolů i detail ticker/error pro každý neúspěch; pokud se bulk vůbec nepoužil, stav je `NOT_USED`,
 - QualityGate exportuje konkrétní ticker, gate, rozhodnutí, kódy rejectů a warnings,
 - globální stav rozlišuje `SUCCESS`, `PARTIAL` a `FAILED`; `PARTIAL` nesmí skrýt, že je výsledek pro některé vrstvy omezený.
 
