@@ -20,7 +20,7 @@
 - Výstup ale nebyl považován za použitelný analytický běh. Spouštění s `--no-mt5` dříve nechávalo velký universe bez OHLC dat a technická vrstva byla neutrální; současně jediný výpadek textu výročního filingu shodil celý běh na `FAILED`.
 - Oprava v PR #87 zavádí omezené dávkové Yahoo OHLC po skupinách 50 tickerů. Úspěšné dávky se použijí pro technickou analýzu, neúspěšné symboly zůstanou bez domyšlené ceny a jejich stav se zapíše do reportu.
 - Výpadek volitelného textového enrichmentu už není automaticky globální technická chyba. Runner ho vykáže jako `PARTIAL`, včetně tickeru, accession čísla, URL, typu chyby a zprávy; skutečné chyby integrity a `QualityGate: REJECT` zůstávají blokující.
-- Do JSONu přibyly počty `yahoo_bulk_loaded`, `yahoo_bulk_failures`, detailní `filing_text_failure_details` a `quality_gate_issues`, aby další běh ukázal přesně, ke kterému tickeru a zdroji problém patří.
+- Do JSONu přibyly `yahoo_bulk_attempted`, `yahoo_bulk_loaded`, `yahoo_bulk_failures` a detailní seznamy neúspěšných tickerů, dále `filing_text_failure_details` a `quality_gate_issues`, aby další běh rozlišil nepoužitý zdroj od výpadku a ukázal přesně, ke kterému tickeru a zdroji problém patří.
 - Bezpečnostní režim se nemění: žádné automatické obchodování, žádná exekuce příkazů a žádný tichý fallback na 36 tickerů.
 - Nový 687tickerový běh po této opravě je stále provozní ověření, nikoli důkaz predikční přesnosti. Před hodnocením signálů musí být v JSONu zkontrolováno pokrytí OHLC, SEC, rozhodnutí a QualityGate.
 
