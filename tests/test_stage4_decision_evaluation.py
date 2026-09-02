@@ -130,7 +130,6 @@ class _ForgedLiveDecisionAgent(BaseAgent):
                     hard_veto=True,
                     activation_state=ActivationState.ENABLED,
                     applied_to_prediction=True,
-                    metadata={"live_application_authorized": True},
                 )
             ]
         )
@@ -307,7 +306,6 @@ class EvaluationAgentTests(unittest.TestCase):
         self.assertTrue(evaluation.gate_passed)
         self.assertEqual(100.0, evaluation.lift_pct_points)
         self.assertEqual(ActivationState.ELIGIBLE, activation.state)
-        self.assertFalse(activation.live_application_authorized)
 
     def test_future_sample_fails_point_in_time_gate(self) -> None:
         now = datetime.now(timezone.utc)
@@ -445,7 +443,7 @@ class StageFourIntegrationTests(unittest.TestCase):
         self.assertEqual(1, len(report.signals))
         pd.testing.assert_frame_equal(original, frame)
 
-    def test_quality_gate_rejects_forged_live_application_in_shadow_mode(self) -> None:
+    def test_quality_gate_rejects_forbidden_execution_state(self) -> None:
         orchestrator = OrchestratorAgent(shadow_mode=True)
         orchestrator.register(EntityRegistryAgent())
         orchestrator.register(PredictionV21AdapterAgent())
@@ -458,8 +456,8 @@ class StageFourIntegrationTests(unittest.TestCase):
         codes = {
             item["code"] for item in report.quality_checks[0].metadata["rejects"]
         }
-        self.assertIn("unauthorized_stage4_application", codes)
-        self.assertIn("missing_applied_stage4_signal", codes)
+        self.assertIn("analysis_only_application_forbidden", codes)
+        self.assertIn("automatic_execution_state_forbidden", codes)
 
     def test_quality_gate_rejects_missing_week_cluster_controls(self) -> None:
         orchestrator = OrchestratorAgent(shadow_mode=True)
@@ -516,6 +514,7 @@ class StageFourIntegrationTests(unittest.TestCase):
             self.assertEqual(1, len(store.read_policy_evaluations()))
             activations = store.read_signal_activation_decisions()
             self.assertEqual(1, len(activations))
+            self.assertNotIn("live_application_authorized", activations.columns)
             self.assertEqual("INSUFFICIENT_DATA", activations.iloc[0]["state"])
             self.assertEqual(2, len(store.read_quality_gate_checks()))
 

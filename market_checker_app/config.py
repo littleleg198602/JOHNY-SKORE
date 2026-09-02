@@ -77,9 +77,8 @@ class DecisionThresholds:
 class PredictionV21Config:
     """Conservative action guard layered on top of the directional model.
 
-    The model may still publish an UP/DOWN/FLAT forecast, but an executable
-    BUY/SELL action is emitted only when an independent confirmation path is
-    present and no hard risk veto is active.
+    The model publishes an UP/DOWN/FLAT forecast and an informational
+    BUY/SELL/NO_TRADE label. This product has no execution path by design.
     """
 
     # The decision engine already applies its 0.50 gate before conflict
@@ -121,7 +120,7 @@ class EntityRegistryConfig:
 
 @dataclass(slots=True)
 class DecisionAgentConfig:
-    """Conservative Stage 4 overlay; collected in shadow mode by default."""
+    """Conservative analytical Stage 4 overlay; no execution by design."""
 
     enabled: bool = True
     policy_name: str = "conservative_risk_overlay"
@@ -134,8 +133,7 @@ class DecisionAgentConfig:
     governance_component_enabled: bool = True
     supply_chain_component_enabled: bool = True
     resource_component_enabled: bool = True
-    live_application_enabled: bool = False
-    live_policy_allowlist: tuple[str, ...] = ()
+    # Analytical overlay only. There is no execution or broker integration.
 
     def __post_init__(self) -> None:
         if not self.policy_name.strip() or not self.policy_version.strip():
@@ -158,7 +156,7 @@ class DecisionAgentConfig:
 
 @dataclass(slots=True)
 class EvaluationAgentConfig:
-    """Out-of-sample evidence required before a Stage 4 policy can be enabled."""
+    """Out-of-sample evidence required to validate a Stage 4 analytical policy."""
 
     enabled: bool = True
     minimum_oos_samples: int = 200
@@ -174,8 +172,7 @@ class EvaluationAgentConfig:
     hold_tolerance_pct: float = 2.0
     minimum_weekly_gap_days: float = 4.0
     maximum_weekly_gap_days: float = 10.0
-    enable_after_gate: bool = False
-    enabled_policy_allowlist: tuple[str, ...] = ()
+    # OOS validation can mark the analytical policy eligible, never executable.
 
     def __post_init__(self) -> None:
         if self.minimum_oos_samples < 1:

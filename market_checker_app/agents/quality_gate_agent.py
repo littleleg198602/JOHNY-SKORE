@@ -92,8 +92,6 @@ class QualityGateAgent(BaseAgent):
         *,
         minimum_action_confidence: float = 0.30,
         dependencies: tuple[str, ...] | None = None,
-        stage4_live_application_enabled: bool = False,
-        stage4_live_policy_allowlist: tuple[str, ...] = (),
     ) -> None:
         self.config = config or QualityGateConfig()
         self.minimum_action_confidence = max(
@@ -102,11 +100,6 @@ class QualityGateAgent(BaseAgent):
         )
         if dependencies is not None:
             self.dependencies = dependencies
-        self.stage4_live_application_enabled = bool(
-            stage4_live_application_enabled
-        )
-        self.stage4_live_policy_allowlist = set(stage4_live_policy_allowlist)
-
     @staticmethod
     def _agent_outputs(context_state: dict[str, Any]) -> tuple[
         list[AgentSignal],
@@ -1281,32 +1274,25 @@ class QualityGateAgent(BaseAgent):
             if signal.agent_name == "decision_agent"
             and signal.metadata.get("decision_id") == decision.decision_id
         ]
-        if decision.applied_to_prediction:
-            if (
-                context.shadow_mode
-                or decision.activation_state != ActivationState.ENABLED
-                or not self.stage4_live_application_enabled
-                or decision.policy_name not in self.stage4_live_policy_allowlist
-                or decision.metadata.get("live_application_authorized") is not True
-            ):
-                rejects.append(
-                    _issue(
-                        "unauthorized_stage4_application",
-                        "Aplikace Etapy 4 nemá současně explicitní povolení, ENABLED stav a vypnutý shadow režim.",
-                    )
-                )
-            if len(applied_signals) != 1:
-                rejects.append(
-                    _issue(
-                        "missing_applied_stage4_signal",
-                        "Aplikovaný DecisionRecord musí mít právě jeden navázaný signál.",
-                    )
-                )
-        elif applied_signals:
+        if decision.activation_state == ActivationState.ENABLED:
             rejects.append(
                 _issue(
-                    "shadow_decision_emitted_signal",
-                    "Shadow DecisionRecord nesmí vydat obchodní signál.",
+                    "automatic_execution_state_forbidden",
+                    "DecisionRecord obsahuje zakázaný stav ENABLED; produkt je trvale pouze analytický.",
+                )
+            )
+        if decision.applied_to_prediction:
+            rejects.append(
+                _issue(
+                    "analysis_only_application_forbidden",
+                    "DecisionRecord nesmí přepsat hlavní predikci; systém je trvale pouze analytický.",
+                )
+            )
+        if applied_signals:
+            rejects.append(
+                _issue(
+                    "analysis_only_signal_emitted",
+                    "Analytický DecisionAgent nesmí vydat aplikovaný obchodní signál.",
                 )
             )
 
@@ -1427,27 +1413,11 @@ class QualityGateAgent(BaseAgent):
                     "Aktivační rozhodnutí neodpovídá navázanému OOS vyhodnocení.",
                 )
             )
-        if activation.live_application_authorized != (
-            activation.state == ActivationState.ENABLED
-        ):
+        if activation.state == ActivationState.ENABLED:
             rejects.append(
                 _issue(
-                    "activation_authorization_mismatch",
-                    "Live autorizace je přípustná pouze ve stavu ENABLED.",
-                )
-            )
-        if activation.state == ActivationState.ENABLED and (
-            context.shadow_mode
-            or not activation.gate_passed
-            or not self.stage4_live_application_enabled
-            or activation.policy_name not in self.stage4_live_policy_allowlist
-            or activation.consecutive_passes
-            < int(activation.metadata.get("required_consecutive_passes", 1))
-        ):
-            rejects.append(
-                _issue(
-                    "forged_stage4_enablement",
-                    "Stav ENABLED nesplnil OOS, opakovaný průchod a explicitní live povolení.",
+                    "automatic_execution_state_forbidden",
+                    "Stav ENABLED je v tomto produktu zakázaný; OOS výsledek je pouze analytický.",
                 )
             )
         required_passes = int(
@@ -1474,7 +1444,7 @@ class QualityGateAgent(BaseAgent):
             activation.state == ActivationState.SHADOW
             and activation.consecutive_passes >= required_passes
         ) or (
-            activation.state in {ActivationState.ELIGIBLE, ActivationState.ENABLED}
+            activation.state == ActivationState.ELIGIBLE
             and activation.consecutive_passes < required_passes
         ):
             rejects.append(

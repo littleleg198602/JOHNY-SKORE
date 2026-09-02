@@ -200,3 +200,39 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - Není k dispozici 200 uzavřených OOS vzorků ani 12 nezávislých týdnů.
 - Tato implementace proto neprokazuje zvýšení přesnosti predikce a nepovoluje
   ostrou aktivaci.
+
+
+## 2026-09-01 — Foundation: point-in-time snapshots a trvale analytický režim
+
+- Produktová hranice byla definitivně nastavena: automatické obchodování není a nebude součástí JOHNY-SKORE.
+- Odstraněna je konfigurace a aplikační cesta, která mohla po OOS bráně přepsat hlavní predikci; overlay nyní vytváří pouze auditovatelný analytický návrh.
+- Přidán verzovaný cíl `excess_return_5d_v1`: pět obchodních dnů, výnos akcie minus výnos benchmarku, v desetinné hodnotě.
+- Každý shadow běh připraví pro každý ticker write-once point-in-time snapshot v SQLite `prediction_snapshots`; vzniká s `label_status=PENDING` a bez budoucích cen.
+- Snapshot ukládá přesný výstup stávajícího `v2.1_guarded_consensus` jako baseline, dostupné feature payloady a provenance zdrojů.
+- Změna je zapsaná na větvi `codex/rework-prediction-roadmap-20260901`; čeká na CI a kontrolu PR #85.
+
+### 2026-09-01 — Permanent analysis-only enforcement verified
+
+- PR #86 pokračuje v přestavbě predikčního základu pro cílový univerzum přibližně 687 tickerů.
+- Opraveny dvě CI regrese: inicializace schématu v testu snapshotů a kontrola zakázaného stavu `ENABLED` v `QualityGate`.
+- GitHub Actions run #100 prošel ve všech jobech: contract/source/persistence, Streamlit UI, 687-ticker scale check i deterministic release gate.
+- Trvalá produktová invariantní podmínka je nyní testována: analytický `DecisionAgent` nesmí přepsat hlavní predikci, emitovat aplikovaný signál ani vytvořit exekuční stav.
+- Historický sloupec `live_application_authorized` ve starých SQLite databázích je ponechán pouze kvůli čitelnosti starých záznamů; není čten jako konfigurace a nová pipeline jej nepoužívá.
+- Nově vytvořené SQLite databáze tento sloupec už nevytvářejí ani nezapisují; migrace starých databází je nedestruktivní.
+
+### 2026-09-01 — Mature point-in-time label resolution
+
+- Přidán `PredictionLabelService`, který čte pouze časově seřazené close ceny dostupné po `as_of` snapshotu.
+- Kompletní 5denní okno uloží jako `RESOLVED` a spočítá excess return akcie minus uložený benchmark.
+- Nedospělý horizont zůstává `PENDING`; zdrojový výpadek se nepřevádí na nulu.
+- Zralé, ale nepoužitelné okno lze uzavřít jako `UNAVAILABLE`; druhé uzavření labelu je odmítnuto nebo idempotentně ignorováno.
+- Tato vrstva je zatím izolovaná a testovaná; zapojení do produkčního týdenního runneru a bezpečný historický backfill jsou další krok.
+- CI run #104 prošel po přidání resolveru a testů.
+
+### 2026-09-02 — Controlled label-resolution runner
+
+- Týdenní runner nově podporuje explicitní `--resolve-labels` pro uzavření zralých 5denních snapshotů.
+- Standardní běh bez přepínače zůstává beze změny a nespouští druhou dávku Yahoo požadavků.
+- Stav labelování se zapisuje do `weekly_shadow_latest.json` jako `prediction_label_resolution`.
+- Resolver je navržen pro postupné dávkování; bezpečný backfill celého 687tickerového universe zůstává samostatný provozní krok.
+- CI run #115 a #116 prošly po napojení runneru a parser testu.

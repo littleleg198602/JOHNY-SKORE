@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import sqlite3
 from datetime import datetime
 from pathlib import Path
@@ -1083,7 +1084,6 @@ class SQLiteStore:
                     distinct_weeks INTEGER NOT NULL,
                     consecutive_passes INTEGER NOT NULL,
                     gate_passed INTEGER NOT NULL,
-                    live_application_authorized INTEGER NOT NULL,
                     reasons_json TEXT NOT NULL DEFAULT '[]',
                     metadata_json TEXT NOT NULL DEFAULT '{}',
                     FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
@@ -1093,7 +1093,39 @@ class SQLiteStore:
                 )
                 """
             )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS prediction_snapshots (
+                    snapshot_id TEXT PRIMARY KEY,
+                    run_id INTEGER NOT NULL,
+                    ticker TEXT NOT NULL,
+                    snapshot_schema_version TEXT NOT NULL,
+                    as_of TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    target_name TEXT NOT NULL,
+                    target_version TEXT NOT NULL,
+                    horizon_trading_days INTEGER NOT NULL,
+                    benchmark_ticker TEXT NOT NULL,
+                    benchmark_selection TEXT NOT NULL,
+                    label_status TEXT NOT NULL,
+                    target_value REAL,
+                    target_observed_at TEXT,
+                    baseline_model_id TEXT NOT NULL,
+                    baseline_model_version TEXT NOT NULL,
+                    feature_payload_json TEXT NOT NULL,
+                    baseline_output_json TEXT NOT NULL,
+                    provenance_json TEXT NOT NULL,
+                    snapshot_hash TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    UNIQUE(run_id, ticker, target_version),
+                    FOREIGN KEY(run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
             self._ensure_quality_gate_columns(conn)
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_prediction_snapshots_run_ticker ON prediction_snapshots(run_id, ticker)"
+            )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_agent_runs_pipeline ON agent_runs(pipeline_run_id)"
             )
@@ -2317,9 +2349,8 @@ class SQLiteStore:
                             pipeline_run_id, policy_name, policy_version,
                             observed_at, evaluated_through, state, evaluation_id,
                             sample_count, distinct_weeks, consecutive_passes,
-                            gate_passed, live_application_authorized,
-                            reasons_json, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            gate_passed, reasons_json, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             activation.activation_id,
@@ -2340,7 +2371,6 @@ class SQLiteStore:
                             activation.distinct_weeks,
                             activation.consecutive_passes,
                             int(activation.gate_passed),
-                            int(activation.live_application_authorized),
                             self._json_dump(activation.reasons),
                             self._json_dump(activation.metadata),
                         ),
@@ -2385,6 +2415,197 @@ class SQLiteStore:
                             self._json_dump(check.metadata),
                         ),
                     )
+
+    def save_prediction_snapshots(
+        self,
+        snapshots: list[dict[str, object]],
+    ) -> int:
+        """Persist immutable point-in-time snapshots.
+
+        A snapshot is write-once. Re-running the same write for the same
+        run/ticker/target cannot overwrite the original baseline or provenance.
+        Future labels are intentionally not written by this method.
+        """
+
+        if not snapshots:
+            return 0
+        self.ensure_schema()
+        inserted = 0
+        with self._connect() as conn:
+            for snapshot in snapshots:
+                snapshot_id = str(snapshot.get("snapshot_id") or "").strip()
+                ticker = str(snapshot.get("ticker") or "").strip().upper()
+                run_id = int(snapshot.get("run_id") or 0)
+                if not snapshot_id or not ticker or run_id < 1:
+                    raise ValueError("prediction snapshot identity is incomplete")
+                cursor = conn.execute(
+                    """
+                    INSERT OR IGNORE INTO prediction_snapshots(
+                        snapshot_id, run_id, ticker, snapshot_schema_version,
+                        as_of, observed_at, target_name, target_version,
+                        horizon_trading_days, benchmark_ticker,
+                        benchmark_selection, label_status, target_value,
+                        target_observed_at, baseline_model_id,
+                        baseline_model_version, feature_payload_json,
+                        baseline_output_json, provenance_json, snapshot_hash,
+                        created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        snapshot_id,
+                        run_id,
+                        ticker,
+                        str(snapshot.get("snapshot_schema_version") or ""),
+                        str(snapshot.get("as_of") or ""),
+                        str(snapshot.get("observed_at") or ""),
+                        str(snapshot.get("target_name") or ""),
+                        str(snapshot.get("target_version") or ""),
+                        int(snapshot.get("horizon_trading_days") or 0),
+                        str(snapshot.get("benchmark_ticker") or ""),
+                        str(snapshot.get("benchmark_selection") or ""),
+                        str(snapshot.get("label_status") or "PENDING"),
+                        snapshot.get("target_value"),
+                        snapshot.get("target_observed_at"),
+                        str(snapshot.get("baseline_model_id") or ""),
+                        str(snapshot.get("baseline_model_version") or ""),
+                        self._json_dump(snapshot.get("feature_payload") or {}),
+                        self._json_dump(snapshot.get("baseline_output") or {}),
+                        self._json_dump(snapshot.get("provenance") or {}),
+                        str(snapshot.get("snapshot_hash") or ""),
+                        str(snapshot.get("created_at") or snapshot.get("observed_at") or ""),
+                    ),
+                )
+                if cursor.rowcount == 1:
+                    inserted += 1
+        return inserted
+
+    def update_prediction_snapshot_labels(
+        self,
+        labels: list[dict[str, object]],
+    ) -> int:
+        """Resolve PENDING labels without changing the original snapshot inputs.
+
+        Feature payload, baseline output, provenance and snapshot identity are
+        immutable. Only the outcome fields may transition once from PENDING to
+        RESOLVED or UNAVAILABLE. Replaying the same label is idempotent; a
+        conflicting second label is rejected.
+        """
+
+        if not labels:
+            return 0
+        self.ensure_schema()
+        updated = 0
+        allowed_statuses = {"RESOLVED", "UNAVAILABLE"}
+        with self._connect() as conn:
+            for label in labels:
+                snapshot_id = str(label.get("snapshot_id") or "").strip()
+                status = str(label.get("label_status") or "").strip().upper()
+                if not snapshot_id or status not in allowed_statuses:
+                    raise ValueError("prediction label identity or status is invalid")
+                target_value = label.get("target_value")
+                if status == "RESOLVED":
+                    try:
+                        numeric_target = float(target_value)
+                    except (TypeError, ValueError):
+                        raise ValueError("resolved prediction label needs a numeric target")
+                    if not math.isfinite(numeric_target):
+                        raise ValueError("resolved prediction label must be finite")
+                    target_value = numeric_target
+                    target_observed_at = str(
+                        label.get("target_observed_at") or ""
+                    ).strip()
+                    if not target_observed_at:
+                        raise ValueError(
+                            "resolved prediction label needs target_observed_at"
+                        )
+                else:
+                    if target_value is not None:
+                        raise ValueError(
+                            "unavailable prediction label cannot contain a target"
+                        )
+                    target_observed_at = None
+
+                snapshot_hash = str(label.get("snapshot_hash") or "").strip()
+                if not snapshot_hash:
+                    raise ValueError("prediction label must carry a snapshot hash")
+                row = conn.execute(
+                    """
+                    SELECT label_status, target_value, target_observed_at,
+                           snapshot_hash
+                    FROM prediction_snapshots
+                    WHERE snapshot_id = ?
+                    """,
+                    (snapshot_id,),
+                ).fetchone()
+                if row is None:
+                    raise ValueError(f"unknown prediction snapshot: {snapshot_id}")
+                current_status, current_target, current_observed_at, current_hash = row
+                if current_status != "PENDING":
+                    same_target = (
+                        (current_target is None and target_value is None)
+                        or (
+                            current_target is not None
+                            and target_value is not None
+                            and math.isclose(
+                                float(current_target),
+                                float(target_value),
+                                rel_tol=0.0,
+                                abs_tol=1e-12,
+                            )
+                        )
+                    )
+                    if (
+                        current_status == status
+                        and same_target
+                        and current_observed_at == target_observed_at
+                        and current_hash == snapshot_hash
+                    ):
+                        continue
+                    raise ValueError(
+                        f"prediction snapshot label is already final: {snapshot_id}"
+                    )
+                cursor = conn.execute(
+                    """
+                    UPDATE prediction_snapshots
+                    SET label_status = ?,
+                        target_value = ?,
+                        target_observed_at = ?,
+                        snapshot_hash = ?
+                    WHERE snapshot_id = ?
+                      AND label_status = 'PENDING'
+                    """,
+                    (
+                        status,
+                        target_value,
+                        target_observed_at,
+                        snapshot_hash,
+                        snapshot_id,
+                    ),
+                )
+                if cursor.rowcount == 1:
+                    updated += 1
+        return updated
+
+    def read_prediction_snapshots(
+        self,
+        run_id: int | None = None,
+        ticker: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        clauses: list[str] = []
+        params: list[object] = []
+        if run_id is not None:
+            clauses.append("run_id = ?")
+            params.append(int(run_id))
+        if ticker is not None:
+            clauses.append("ticker = ?")
+            params.append(str(ticker).strip().upper())
+        query = "SELECT * FROM prediction_snapshots"
+        if clauses:
+            query += " WHERE " + " AND ".join(clauses)
+        query += " ORDER BY as_of ASC, ticker ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=tuple(params))
 
     def update_run_counts(self, run_id: int, warnings_count: int, errors_count: int) -> None:
         with self._connect() as conn:

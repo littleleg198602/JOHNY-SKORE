@@ -688,7 +688,6 @@ class SignalActivationDecision:
     distinct_weeks: int
     consecutive_passes: int
     gate_passed: bool
-    live_application_authorized: bool = False
     reasons: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
