@@ -236,3 +236,12 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - Stav labelování se zapisuje do `weekly_shadow_latest.json` jako `prediction_label_resolution`.
 - Resolver je navržen pro postupné dávkování; bezpečný backfill celého 687tickerového universe zůstává samostatný provozní krok.
 - CI run #115 a #116 prošly po napojení runneru a parser testu.
+
+
+### 2026-09-02 — Full-universe launcher correction
+
+- Opraven `Spustit_Tydenni_Shadow.bat`: odstraněn natvrdo zadaný `--ticker-limit 36`.
+- Standardní Windows spuštění nyní předává runneru celý `production_watchlist.txt`, tedy cílový universe přibližně 687 tickerů.
+- Přidán regresní test, který odmítne launcher s libovolným tickerovým limitem nebo s textem pilotního běhu.
+- Roadmapa `SCALE-001` nyní odděluje hotovou opravu launcheru od dosud neověřeného skutečného 687tickerového běhu, jeho retry/cache odolnosti a úplnosti výstupu.
+- Tato změna nemění analytický režim: automatické obchodování je trvale odstraněno a výstupy zůstávají pouze informativní.
