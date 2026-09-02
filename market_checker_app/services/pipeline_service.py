@@ -959,6 +959,7 @@ class PipelineService:
         evaluation_activation_reasons: list[str] = []
         fundamental_filing_text_document_count = 0
         fundamental_filing_text_failure_count = 0
+        fundamental_filing_text_failure_details: list[dict[str, str]] = []
         european_filings_status: str | None = None
         european_filing_document_count = 0
         source_resolution_status: str | None = None
@@ -1020,6 +1021,16 @@ class PipelineService:
                                 0,
                             )
                         )
+                        raw_failure_details = execution.result.metadata.get(
+                            "filing_text_failure_details",
+                            [],
+                        )
+                        if isinstance(raw_failure_details, list):
+                            fundamental_filing_text_failure_details = [
+                                item
+                                for item in raw_failure_details
+                                if isinstance(item, dict)
+                            ]
                     elif execution.agent_name == "european_filings":
                         european_filings_status = execution.status.value
                         european_filing_document_count = len(
@@ -1241,6 +1252,9 @@ class PipelineService:
             ),
             "fundamental_filing_text_failure_count": (
                 fundamental_filing_text_failure_count
+            ),
+            "fundamental_filing_text_failure_details": (
+                fundamental_filing_text_failure_details
             ),
             "european_filings_status": european_filings_status,
             "european_filing_document_count": european_filing_document_count,
