@@ -469,18 +469,26 @@ def _source_health_summary(
     result: dict[str, object],
     config: AppConfig,
 ) -> dict[str, object]:
+    yahoo_bulk_attempted = int(
+        result.get("bulk_yahoo_ohlc_attempted_count") or 0
+    )
+    yahoo_bulk_failures = int(
+        result.get("bulk_yahoo_ohlc_failure_count") or 0
+    )
     return {
         "price_history": {
+            "yahoo_bulk_attempted": yahoo_bulk_attempted,
             "yahoo_bulk_loaded": int(
                 result.get("bulk_yahoo_ohlc_count") or 0
             ),
-            "yahoo_bulk_failures": int(
-                result.get("bulk_yahoo_ohlc_failure_count") or 0
+            "yahoo_bulk_failures": yahoo_bulk_failures,
+            "yahoo_bulk_failure_details": _json_safe(
+                result.get("bulk_yahoo_ohlc_failure_details") or []
             ),
             "status": (
-                "SUCCESS"
-                if int(result.get("bulk_yahoo_ohlc_failure_count") or 0) == 0
-                else "PARTIAL"
+                "NOT_USED"
+                if yahoo_bulk_attempted == 0
+                else ("PARTIAL" if yahoo_bulk_failures else "SUCCESS")
             ),
         },
         "entity_registry": {
