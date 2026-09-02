@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import unittest
+
+import pandas as pd
 from unittest.mock import patch
 
 from market_checker_app.collectors.yahoo_client import YahooClient
@@ -87,6 +89,44 @@ class YahooMetadataClientTests(unittest.TestCase):
         self.assertEqual("BF-B", YahooClient.normalize_yahoo_symbol("BF.B"))
         self.assertEqual("VOD.L", YahooClient.normalize_yahoo_symbol("VOD.L"))
         self.assertEqual("AAPL.US", YahooClient.normalize_yahoo_symbol("AAPL.US"))
+
+
+    def test_bulk_ohlc_extracts_multiindex_frames_by_canonical_ticker(self):
+        history = pd.DataFrame(
+            {
+                ("AAPL", "Close"): [100.0, 101.0],
+                ("MSFT", "Close"): [200.0, 202.0],
+            },
+            index=pd.date_range("2026-01-01", periods=2, tz="UTC"),
+        )
+        history.columns = pd.MultiIndex.from_tuples(history.columns)
+
+        with patch(
+            "market_checker_app.collectors.yahoo_client.yf.download",
+            return_value=history,
+        ):
+            frames, warnings = YahooClient(retry_attempts=1).fetch_ohlc_batch(
+                ["AAPL", "MSFT"],
+                batch_size=2,
+            )
+
+        self.assertEqual([], list(warnings))
+        self.assertEqual({"AAPL", "MSFT"}, set(frames))
+        self.assertEqual([100.0, 101.0], frames["AAPL"]["Close"].tolist())
+        self.assertEqual([200.0, 202.0], frames["MSFT"]["Close"].tolist())
+
+    def test_bulk_ohlc_failure_does_not_fabricate_prices(self):
+        with patch(
+            "market_checker_app.collectors.yahoo_client.yf.download",
+            side_effect=RuntimeError("HTTP Error 429: Too Many Requests"),
+        ):
+            frames, warnings = YahooClient(retry_attempts=1).fetch_ohlc_batch(
+                ["AAPL", "MSFT"],
+                batch_size=2,
+            )
+
+        self.assertEqual({}, frames)
+        self.assertEqual({"AAPL", "MSFT"}, set(warnings))
 
 
 if __name__ == "__main__":
