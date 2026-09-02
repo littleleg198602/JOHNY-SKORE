@@ -52,6 +52,9 @@ from market_checker_app.services.watchlist_service import (
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.models import AnalysisProgressState
 from market_checker_app.prediction_contract import build_point_in_time_snapshot
+from market_checker_app.services.prediction_label_service import (
+    PredictionLabelService,
+)
 
 
 DEFAULT_RSS_SOURCE = (
@@ -666,6 +669,7 @@ def run_weekly_shadow(
     rss_enabled: bool,
     mt5_enabled: bool,
     yahoo_metadata_enabled: bool | None,
+    resolve_labels: bool = False,
 ) -> dict[str, object]:
     from market_checker_app.services.pipeline_service import PipelineService
 
@@ -680,7 +684,8 @@ def run_weekly_shadow(
     store = SQLiteStore(config.sqlite_path)
     store.ensure_schema()
     print(f"[INFO] Začínám zpracování {len(tickers)} tickerů; průběh se bude zobrazovat níže.", flush=True)
-    result = PipelineService(config).run(
+    pipeline = PipelineService(config)
+    result = pipeline.run(
         tickers,
         rss_sources,
         store,
@@ -736,6 +741,53 @@ def run_weekly_shadow(
                 snapshot_error = f"snapshot uložení selhalo: {type(exc).__name__}: {exc}"
     elif run_id is not None:
         snapshot_error = "pipeline nevrátil point-in-time vstupy"
+    label_resolution: dict[str, object] = {
+        "status": "DISABLED",
+        "pending_before": 0,
+        "resolved": 0,
+        "unavailable": 0,
+        "deferred": 0,
+        "source_failures": 0,
+    }
+    label_resolution_error: str | None = None
+    if resolve_labels and snapshot_error is None and run_id is not None:
+        try:
+            label_resolution = {
+                "status": "SUCCESS",
+                **PredictionLabelService().resolve_pending_snapshots(
+                    store=store,
+                    price_loader=lambda symbol: pipeline.yahoo_client.fetch_ohlc_only(
+                        symbol,
+                        period="1y",
+                        interval="1d",
+                    ),
+                    as_of=datetime.now(timezone.utc),
+                ),
+            }
+            if (
+                int(label_resolution.get("source_failures") or 0) > 0
+                or int(label_resolution.get("deferred") or 0) > 0
+            ):
+                label_resolution["status"] = "PARTIAL"
+        except Exception as exc:
+            label_resolution_error = (
+                f"label resolver selhal: {type(exc).__name__}: {exc}"
+            )
+            label_resolution = {
+                "status": "FAILED",
+                "pending_before": 0,
+                "resolved": 0,
+                "unavailable": 0,
+                "deferred": 0,
+                "source_failures": 0,
+            }
+    summary_warnings = list(result.get("warnings", []))
+    if label_resolution_error:
+        summary_warnings.append(label_resolution_error)
+    elif int(label_resolution.get("source_failures") or 0) > 0:
+        summary_warnings.append(
+            "Label resolver narazil na nedostupný zdroj; dotčené snapshoty zůstaly PENDING."
+        )
     summary: dict[str, object] = {
         "schema_version": 2,
         "finished_at": datetime.now(timezone.utc).isoformat(),
@@ -751,6 +803,8 @@ def run_weekly_shadow(
         "point_in_time_snapshot_status": (
             "SUCCESS" if snapshot_error is None else "FAILED"
         ),
+        "prediction_label_resolution": label_resolution,
+        "prediction_label_resolution_error": label_resolution_error,
         "agent_status": result.get("agent_status"),
         "quality_gate_decision": result.get("quality_gate_decision"),
         "decision_count": result.get("decision_count"),
@@ -792,9 +846,9 @@ def run_weekly_shadow(
         "auto_discovered_regulatory_events": result.get(
             "auto_discovered_regulatory_events"
         ),
-        "warning_count": len(result.get("warnings", [])),
+        "warning_count": len(summary_warnings),
         "error_count": len(result.get("errors", [])),
-        "warnings": list(result.get("warnings", [])),
+        "warnings": summary_warnings,
         "errors": list(result.get("errors", [])),
         "detail_schema_version": 1,
         "ticker_results": _signal_detail_records(result),
@@ -934,6 +988,15 @@ def _parser() -> argparse.ArgumentParser:
         action=argparse.BooleanOptionalAction,
         default=None,
     )
+    parser.add_argument(
+        "--resolve-labels",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help=(
+            "Volitelně uzavře zralé point-in-time snapshoty z pozdějších "
+            "cen; bez tohoto přepínače se další Yahoo dávka nespouští."
+        ),
+    )
     return parser
 
 
@@ -967,6 +1030,7 @@ def main() -> None:
             rss_enabled=args.rss,
             mt5_enabled=args.mt5,
             yahoo_metadata_enabled=args.yahoo_metadata,
+            resolve_labels=args.resolve_labels,
         )
     except (
         RuntimeConfigurationError,
