@@ -7,6 +7,7 @@ import unittest
 from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings
 from market_checker_app.weekly_shadow_runner import (
     RuntimeConfigurationError,
+    _parser,
     _readiness_summary,
     build_runtime_config,
 )
@@ -31,6 +32,12 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
         self.assertTrue(config.agent_shadow_mode)
         self.assertTrue(config.decision_agent.enabled)
         self.assertTrue(config.evaluation_agent.enabled)
+
+    def test_label_resolution_is_explicitly_opt_in(self) -> None:
+        self.assertFalse(_parser().parse_args([]).resolve_labels)
+        self.assertTrue(
+            _parser().parse_args(["--resolve-labels"]).resolve_labels
+        )
 
     def test_enabled_manual_agent_without_source_is_rejected(self) -> None:
         with self.assertRaisesRegex(RuntimeConfigurationError, "SupplyChainAgent"):
