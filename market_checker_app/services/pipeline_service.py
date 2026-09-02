@@ -477,9 +477,10 @@ class PipelineService:
                 f"failed {yahoo_coverage.failed}, pending {yahoo_coverage.missing + yahoo_coverage.corrupt})."
             )
             if not mt5_enabled:
-                errors.append(
-                    "MT5 je pro velký universe vypnuté. Technická data budou neutrální; "
-                    "pro plnou analýzu zapněte MT5."
+                warnings.append(
+                    "MT5 je pro velký universe vypnuté; technická data budou "
+                    "neutrální. Tato konfigurace je analyticky degradovaná, "
+                    "nikoli technicky rozbitá."
                 )
 
         market_caps, marketcap_warning = load_market_caps(self.config.marketcap_file)
