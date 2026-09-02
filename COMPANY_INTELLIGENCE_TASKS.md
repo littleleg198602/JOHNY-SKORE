@@ -398,12 +398,15 @@ Hotovo v této části:
 - launcher bez `--ticker-limit`,
 - regresní test hlídá, že se pilotní limit nevrátí,
 - dokumentace rozlišuje vědomý pilot od výchozího produkčního běhu.
+- lokální audit potvrdil skutečné dokončení `687/687`, ale ne analytickou připravenost: stará větev bez MT5 neposkytovala OHLC technické vrstvě a výpadek textu jednoho filingu chybně shodil celý běh,
+- v aktuální opravě je dávkový Yahoo OHLC fallback po 50 symbolech; bezúspěšné dávky se evidují jako chybějící a nikdy se nenahrazují nulou ani vymyšlenou cenou,
+- volitelné textové filingy se nově vykazují jako degradace `PARTIAL` s detailní diagnostikou; QualityGate REJECT a chyby integrity zůstávají blokující.
 
 Zbývající požadavky:
 
-- dávky 50–100 tickerů,
-- persistentní cache,
-- retry/backoff,
+- provozní ověření, že Yahoo bulk skutečně načte dostatečné OHLC pokrytí pro všech 687,
+- persistentní cache mezi běhy,
+- retry/backoff a circuit breaker při rate limitu,
 - žádné opakované stahování stejného dokumentu,
 - možnost pokračovat po výpadku,
 - přesný seznam SUCCESS/PARTIAL/FAILED,
@@ -442,6 +445,15 @@ Rozlišovat:
 - zdroj není nakonfigurován.
 
 QualityGate nesmí označit běh jako použitelný, pokud chybějící zdroj ovlivnil výsledek a není to ve výstupu vidět.
+
+
+Aktuálně doplněno v runneru:
+
+- pro SEC textové filingy se ukládá ticker, form, accession, URL, čas, typ chyby a zpráva,
+- pro dávkové Yahoo OHLC se ukládá počet načtených a neúspěšných symbolů,
+- QualityGate exportuje konkrétní ticker, gate, rozhodnutí, kódy rejectů a warnings,
+- globální stav rozlišuje `SUCCESS`, `PARTIAL` a `FAILED`; `PARTIAL` nesmí skrýt, že je výsledek pro některé vrstvy omezený.
+
 
 ### UI-806 – Detailní výsledek pro všech 687 — PARTIAL
 
