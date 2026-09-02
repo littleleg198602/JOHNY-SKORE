@@ -174,7 +174,7 @@ Implementováno v foundation vrstvě:
 - label je při vytvoření vždy `PENDING` a budoucí ceny se do něj nezapisují,
 - SQLite má idempotentní write-once úložiště `prediction_snapshots`.
 
-Implementován je samostatný `PredictionLabelService`: zralé snapshoty uzavírá pouze z časově seřazených budoucích close cen, neúplný horizont ponechá jako `PENDING` a výpadek zdroje nepřevádí na nulový výnos. Zbývá jej zapojit do produkčního týdenního runneru, udělat bezpečný backfill a ověřit reprodukci nad delší historií.
+Implementován je samostatný `PredictionLabelService`: zralé snapshoty uzavírá pouze z časově seřazených budoucích close cen, neúplný horizont ponechá jako `PENDING` a výpadek zdroje nepřevádí na nulový výnos. Týdenní runner jej nyní podporuje explicitním přepínačem `--resolve-labels`; běžný běh tím není zatížen dalšími Yahoo požadavky. Zbývá udělat bezpečný backfill, dávkování pro celý 687tickerový universe a ověřit reprodukci nad delší historií.
 
 Vytvořit historické tabulky, ve kterých bude uloženo:
 
