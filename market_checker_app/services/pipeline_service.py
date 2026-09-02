@@ -560,6 +560,9 @@ class PipelineService:
             if ticker in yahoo_only_tickers
             or ticker not in mt5_ohlc_by_ticker
         ]
+        bulk_yahoo_ohlc_attempted_count = (
+            len(bulk_yahoo_tickers) if large_universe_mode else 0
+        )
         if large_universe_mode and bulk_yahoo_tickers:
             progress.set_global_step(
                 "yahoo_ohlc_batch",
@@ -1319,6 +1322,11 @@ class PipelineService:
             ),
             "bulk_yahoo_ohlc_count": bulk_yahoo_ohlc_count,
             "bulk_yahoo_ohlc_failure_count": bulk_yahoo_ohlc_failure_count,
+            "bulk_yahoo_ohlc_attempted_count": bulk_yahoo_ohlc_attempted_count,
+            "bulk_yahoo_ohlc_failure_details": [
+                {"ticker": ticker, "error": warning}
+                for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
+            ],
             "european_filings_status": european_filings_status,
             "european_filing_document_count": european_filing_document_count,
             "source_resolution_status": source_resolution_status,
