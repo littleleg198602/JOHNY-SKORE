@@ -1,5 +1,17 @@
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-11 – auditní backlog: skutečný rozsah, datová integrita a měřitelná predikce
+
+- Do `COMPANY_INTELLIGENCE_TASKS.md`, §11, přidáno **15 konkrétních otevřených úkolů AUD-001 až AUD-015** s prioritou, návazností na původní ID, závislostmi, zjištěním, řešením a akceptačními testy. Tato fronta má přednost před obecným pořadím §7.
+- P0: kosmetický AMAT identity konflikt, sjednocení Windows/GitHub analýzy na 687 tickerů, persistentní OHLC cache a obnova sběru, správné stáří/výběr cen, diagnostika zdrojů a degradace, společný pětidenní kalendář akcie a benchmarku.
+- P1: pravidelné uzavírání snapshotů, odstranění směrového zkreslení neutrálních zpráv, původní vydavatel a event deduplikace, poctivé označení heuristické důvěry, point-in-time faktory, baseline/walk-forward, úplný dashboard a reálná provozní akceptace no-MT5 cesty.
+- P2: dodavatelé, zákazníci, materiály a zdraví protistran pouze s doloženou identitou, daty a explicitním důvodem neznámých či nedostupných údajů.
+- Upřesněny historické popisy: Windows full-universe oprava je na pracovní větvi, nikoli zatím v main; týdenní GitHub krok má limit 36 i v PR. `PRED-001` a `BASE-001` jsou znovu `PARTIAL`, protože existence specifikace/snapshotu nedokládá splnění výsledkové akceptace.
+- Odstraněna zavádějící formulace o budoucí live aktivaci z aktuální roadmapy. Produkt zůstává trvale pouze analytický; historické logy se nemažou.
+- Podklady: main `8adc899744c97a7b4f9eb06de0f7876bc5421ea0`, PR větev před zápisem `c55060348ad6608f0b9abba8bcb3058d3cbe1f58`, [live běh 7. 9.](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/34121882908) a [CI](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/33639298724).
+- Audit zahrnoval čtení kódu/logu a dva izolované diagnostické testy: neutrální news skóre 43,25 versus 61,50; rozdílný endpoint labelu akcie 9. 9. versus benchmark 8. 9. Nebyl proveden nový úplný test suite ani živý 687tickerový běh.
+- Rozsah tohoto zápisu: **pouze dokumentace** na větvi `codex/rework-prediction-roadmap-20260901` v [PR #87](https://github.com/littleleg198602/JOHNY-SKORE/pull/87). Úkoly nejsou tímto implementované a main nebyl změněn. Backlog commit: `14af11992cfc87f1b389f7fe1b9bd3665e26b6c6`.
+
 ## 2026-09-01 – přepracování analytické roadmapy
 
 - `COMPANY_INTELLIGENCE_TASKS.md` byl přepsán do nové kanonické struktury.
