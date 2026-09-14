@@ -745,6 +745,9 @@ class PipelineService:
         bulk_yahoo_ohlc_cache_coverage = self.yahoo_ohlc_cache.coverage(
             bulk_yahoo_requested_tickers
         ) if large_universe_mode else {}
+        dated_current_price_count = 0
+        undated_current_quote_count = 0
+        ohlc_quality_issue_count = 0
         for idx, ticker in enumerate(watchlist, start=1):
             progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
             progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
@@ -898,20 +901,42 @@ class PipelineService:
                     warnings.append(tech_source_warning)
                     progress.log("FALLBACK", tech_source_warning, ticker)
 
+            raw_ohlc = ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame()
+            ohlc_quality = assess_daily_ohlc(raw_ohlc, as_of=started_at)
+            if ohlc_quality.warnings:
+                ohlc_quality_issue_count += 1
+                quality_warning = " | ".join(ohlc_quality.warnings)
+                tech_source_warning = (
+                    f"{tech_source_warning} | {quality_warning}"
+                    if tech_source_warning
+                    else quality_warning
+                )
+                progress.log("WARNING", quality_warning, ticker)
+            technical_ohlc = (
+                ohlc_quality.normalized
+                if ohlc_quality.history_usable
+                else pd.DataFrame()
+            )
+
             progress.set_step(ticker, "score_tech", f"Počítám technickou analýzu pro {ticker}", 0.74)
-            tech = analyze_tech(ticker, ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame(), source=tech_source_used)
+            tech = analyze_tech(ticker, technical_ohlc, source=tech_source_used)
             if tech_source_warning:
                 tech.warnings.append(tech_source_warning)
 
             derived_perf = self._performance_from_ohlc(
                 ticker,
-                ohlc if isinstance(ohlc, pd.DataFrame) else None,
+                technical_ohlc,
             )
             current_price, current_price_source = self._select_current_price(
-                ohlc=ohlc if isinstance(ohlc, pd.DataFrame) else None,
+                ohlc=raw_ohlc,
                 tech_source=tech_source_used,
                 yahoo_metadata_price=snapshot.data.get("currentPrice"),
+                as_of=started_at,
             )
+            if current_price_source == "yahoo_metadata_quote_undated":
+                undated_current_quote_count += 1
+            elif current_price is not None:
+                dated_current_price_count += 1
 
             progress.set_step(ticker, "behavioral_risk", f"Počítám behavioral a risk vrstvu pro {ticker}", 0.82)
             behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
@@ -963,6 +988,13 @@ class PipelineService:
                 "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
                 "current_price": current_price,
                 "current_price_source": current_price_source,
+                "ohlc_close_at": (
+                    ohlc_quality.close_at.isoformat()
+                    if ohlc_quality.close_at is not None
+                    else None
+                ),
+                "ohlc_observation_count": ohlc_quality.observation_count,
+                "ohlc_history_usable": ohlc_quality.history_usable,
                 "yahoo_ticker": yahoo_ticker,
                 "yahoo_data_status": yahoo_data_status,
                 "yahoo_data_fetched_at": yahoo_data_fetched_at,
@@ -1047,6 +1079,17 @@ class PipelineService:
                             "market_cap_usd": row["market_cap_usd"],
                             "current_price": current_price,
                             "current_price_source": current_price_source,
+                            "ohlc_quality": {
+                                "close_at": (
+                                    ohlc_quality.close_at.isoformat()
+                                    if ohlc_quality.close_at is not None
+                                    else None
+                                ),
+                                "observation_count": ohlc_quality.observation_count,
+                                "price_usable": ohlc_quality.price_usable,
+                                "history_usable": ohlc_quality.history_usable,
+                                "warnings": list(ohlc_quality.warnings),
+                            },
                             "performance": {
                                 "observed": asdict(perf),
                                 "derived": asdict(derived_perf),
