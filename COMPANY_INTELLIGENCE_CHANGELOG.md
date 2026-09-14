@@ -1,3 +1,12 @@
+## 2026-09-14 – dávka implementací AUD-006, 008–010 a 013
+
+- **AUD-006 / PR #94:** label akcie a benchmarku se uzavře pouze nad totožnými burzovními seancemi; rozdílný endpoint není tiše porovnán.
+- **AUD-008 / PR #92:** množství neutrálních článků nemění směrové news skóre; ovlivňuje jen kvalitu pokrytí.
+- **AUD-009 / PR #95:** RSS ukládá feed, původní URL, vydavatele, doménu a event ID; syndikace není nezávislé potvrzení.
+- **AUD-010 / PR #96:** UI/export označuje confidence jako nekalibrovanou heuristiku, ne pravděpodobnost úspěchu.
+- **AUD-013 / PR #93:** JSON/UI zobrazí requested, reported a missing tickery včetně konkrétního seznamu výpadků.
+- Všechny příslušné CI běhy jsou zelené. Tyto změny čekají na samostatné sloučení do `main`; automatické obchodování zůstává odstraněné.
+
 ## 2026-09-14 – AUD-005: zdrojová diagnostika a bezpečná degradace
 
 - Textová cesta SEC filingů nyní omezeně opakuje dočasné chyby (`429`, `5xx`, timeout a síť) s exponenciálním backoffem; `403` a `404` se neopakují.
