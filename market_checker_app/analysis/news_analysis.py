@@ -103,7 +103,11 @@ def analyze_news(ticker: str, articles: list[NewsItem]) -> NewsAnalysisResult:
     staleness_penalty_component = stale_ratio * 18
     low_trust_penalty_component = max(0.0, (0.65 - avg_trust) * 30)
 
-    news_score = max(0.0, min(100.0, sentiment_component * 0.35 + importance_component * 0.18 + coverage_component * 0.14 + freshness_component * 0.15 + diversity_component * 0.18 - duplicate_penalty_component - staleness_penalty_component - low_trust_penalty_component))
+    # Direction must be determined only by sentiment. Coverage, freshness and
+    # importance describe evidence quality and therefore belong to confidence,
+    # not to a bullish/bearish score. Neutral news stays neutral regardless of
+    # how many syndicated headlines were collected.
+    news_score = max(0.0, min(100.0, sentiment_component))
 
     confidence = max(0.0, min(100.0, min(1.0, total / 14) * 28 + source_diversity * 20 + avg_trust * 18 + fresh_ratio * 16 + (1 - duplicate_ratio) * 10 + (relevance_sum / total) * 12))
     # Article volume from one feed is not independent confirmation.  The old
