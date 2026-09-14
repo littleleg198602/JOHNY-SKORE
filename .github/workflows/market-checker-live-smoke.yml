@@ -129,6 +129,14 @@ jobs:
           --ticker-file market_checker_app/production_watchlist.txt
           --no-mt5
 
+      - name: Validate full-universe report accounting
+        if: always()
+        run: >-
+          python -m market_checker_app.full_universe_acceptance
+          --summary-path outputs/weekly_shadow_latest.json
+          --ticker-file market_checker_app/production_watchlist.txt
+          --output-path outputs/full_universe_acceptance_latest.json
+
       - name: Preserve rolling state and source/readiness audits
         if: always()
         uses: actions/upload-artifact@v4
@@ -138,5 +146,6 @@ jobs:
             outputs/market_checker_history.db
             outputs/weekly_shadow_latest.json
             outputs/live_source_smoke_latest.json
+            outputs/full_universe_acceptance_latest.json
           if-no-files-found: warn
           retention-days: 90
