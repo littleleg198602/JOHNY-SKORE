@@ -593,6 +593,7 @@ _SIGNAL_DETAIL_COLUMNS = (
     "raw_total_score",
     "final_total_score",
     "final_confidence",
+    "confidence_kind",
     "data_quality_score",
     "news_confidence",
     "tech_confidence",
