@@ -14,6 +14,11 @@ class NewsItem:
     published_at: datetime
     sentiment_weight: float
     url: str
+    feed_url: str = ""
+    publisher: str = ""
+    publisher_domain: str = ""
+    original_url: str = ""
+    event_id: str = ""
 
 
 @dataclass(slots=True)
