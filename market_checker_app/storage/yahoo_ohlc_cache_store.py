@@ -25,11 +25,9 @@ class YahooOhlcCacheLookup:
     def usable(self) -> bool:
         return self.state in {"fresh", "stale"} and self.frame is not None
 
-    @property
-    def retry_allowed(self) -> bool:
-        if self.retry_after is None:
-            return True
-        return datetime.now(timezone.utc) >= self.retry_after
+    def can_retry(self, now: datetime) -> bool:
+        current = now.replace(tzinfo=timezone.utc) if now.tzinfo is None else now.astimezone(timezone.utc)
+        return self.retry_after is None or current >= self.retry_after
 
 
 class YahooOhlcCacheStore:
