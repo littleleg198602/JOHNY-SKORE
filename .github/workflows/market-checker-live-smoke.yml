@@ -106,6 +106,13 @@ jobs:
           from market_checker_app.storage.sqlite_store import SQLiteStore;
           SQLiteStore(Path('outputs/market_checker_history.db')).ensure_schema()"
 
+      - name: Resolve mature historical prediction labels
+        run: >-
+          python -m market_checker_app.prediction_label_runner
+          --db-path outputs/market_checker_history.db
+          --output-path outputs/prediction_label_resolution_latest.json
+          --limit 120
+
       - name: Verify company identities and current live sources
         run: >-
           python -m market_checker_app.live_source_smoke
@@ -146,6 +153,6 @@ jobs:
             outputs/market_checker_history.db
             outputs/weekly_shadow_latest.json
             outputs/live_source_smoke_latest.json
-            outputs/full_universe_acceptance_latest.json
+            outputs/prediction_label_resolution_latest.json
           if-no-files-found: warn
           retention-days: 90

@@ -111,11 +111,21 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
                 "--ticker-file market_checker_app/production_watchlist.txt"
             ),
         )
+        label_marker = "Resolve mature historical prediction labels"
         smoke_marker = "Verify company identities and current live sources"
         analysis_marker = "Run the persistent weekly Stage 4 shadow"
+        labels = workflow[workflow.index(label_marker):workflow.index(smoke_marker)]
         smoke = workflow[workflow.index(smoke_marker):workflow.index(analysis_marker)]
         analysis = workflow[workflow.index(analysis_marker):]
 
+        self.assertIn("prediction_label_runner", labels)
+        self.assertIn("--limit 120", labels)
+        self.assertIn("prediction_label_resolution_latest.json", workflow)
+        self.assertLess(
+            workflow.index("Initialize or validate the persistent SQLite history"),
+            workflow.index(label_marker),
+        )
+        self.assertLess(workflow.index(label_marker), workflow.index(analysis_marker))
         self.assertIn("--ticker-limit 3", smoke)
         self.assertNotIn("--ticker-limit", analysis)
         self.assertIn("production_watchlist.txt", analysis)
