@@ -11,6 +11,7 @@ from urllib.request import Request, urlopen
 import feedparser
 
 from market_checker_app.models import NewsItem
+from market_checker_app.utils.text import normalize_text
 
 
 RSSProgressCallback = Callable[[int, int, str], None]
