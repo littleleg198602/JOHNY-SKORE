@@ -1154,6 +1154,28 @@ class PipelineService:
                 ticker,
             )
 
+        if dated_current_price_count == 0:
+            errors.append(
+                "Není k dispozici žádná platná datovaná cena z OHLC. "
+                "Ranking je nevyužitelný a nesmí se používat pro ruční rozhodnutí."
+            )
+
+        source_health = {
+            "current_prices": {
+                "dated_usable": dated_current_price_count,
+                "undated_metadata_quotes": undated_current_quote_count,
+                "ohlc_quality_issues": ohlc_quality_issue_count,
+                "requested": total,
+            },
+            "yahoo_ohlc": {
+                "attempted": bulk_yahoo_ohlc_attempted_count,
+                "fresh_or_stale_usable": bulk_yahoo_ohlc_count,
+                "download_failures": bulk_yahoo_ohlc_failure_count,
+                "retry_deferred": len(bulk_yahoo_ohlc_retry_deferred),
+                "cache_coverage": bulk_yahoo_ohlc_cache_coverage,
+            },
+        }
+
         if yahoo_metadata_enabled and yahoo_snapshot_failures == total:
             errors.append(
                 "Yahoo metadata selhala pro všechny tickery. Fundamentální část výsledků používá fallback a není spolehlivá."
@@ -1542,6 +1564,12 @@ class PipelineService:
                 {"ticker": ticker, "error": warning}
                 for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
             ],
+            "bulk_yahoo_ohlc_retry_deferred_details": [
+                {"ticker": ticker, "error": warning}
+                for ticker, warning in sorted(bulk_yahoo_ohlc_retry_deferred.items())
+            ],
+            "source_health": source_health,
+            "ranking_usable": dated_current_price_count > 0,
             "european_filings_status": european_filings_status,
             "european_filing_document_count": european_filing_document_count,
             "source_resolution_status": source_resolution_status,
