@@ -97,13 +97,16 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertIn("market-checker-live-shadow-state", workflow)
         self.assertIn("retention-days: 90", workflow)
         self.assertIn("market_checker_app.live_source_smoke", workflow)
+        self.assertIn("market_checker_app.full_universe_acceptance", workflow)
+        self.assertIn("Validate full-universe report accounting", workflow)
+        self.assertIn("full_universe_acceptance_latest.json", workflow)
         self.assertIn(
             "--runtime-config market_checker_app/autonomous_runtime.json",
             workflow,
         )
         self.assertIn("--minimum-identity-records 36", workflow)
         self.assertEqual(
-            2,
+            3,
             workflow.count(
                 "--ticker-file market_checker_app/production_watchlist.txt"
             ),
@@ -135,6 +138,10 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertLess(
             workflow.index("Initialize or validate the persistent SQLite history"),
             workflow.index("Verify company identities and current live sources"),
+        )
+        self.assertGreater(
+            workflow.index("Validate full-universe report accounting"),
+            workflow.index("Run the persistent weekly Stage 4 shadow"),
         )
 
 
