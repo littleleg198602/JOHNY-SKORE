@@ -828,8 +828,7 @@ class PipelineService:
                                 "yfinance_ohlc_cache_stale"
                                 if bulk_yahoo_ohlc_cache_state.get(ticker) in {"stale_after_failure", "stale_backoff"}
                                 else "yfinance_bulk"
-                            ))
-                        )
+                            )
                         tech_source_warning = None
                     else:
                         tech_source_used = "bulk_price_source_unavailable"
