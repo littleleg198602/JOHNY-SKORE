@@ -61,6 +61,7 @@ from market_checker_app.prediction_contract import benchmark_for_sector
 from market_checker_app.services.market_factor_service import (
     build_market_factor_snapshot,
 )
+from market_checker_app.services.ohlc_quality import assess_daily_ohlc
 from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.stage4_evaluation_service import (
@@ -417,11 +418,14 @@ class PipelineService:
         return PerformanceSnapshot(ticker, _return(7), _return(14), _return(21), _return(63))
 
     @staticmethod
-    def _current_price_from_ohlc(ohlc: pd.DataFrame | None) -> float | None:
-        if ohlc is None or ohlc.empty or "Close" not in ohlc.columns:
-            return None
-        close = pd.to_numeric(ohlc["Close"], errors="coerce").dropna()
-        return float(close.iloc[-1]) if not close.empty else None
+    def _current_price_from_ohlc(
+        ohlc: pd.DataFrame | None,
+        *,
+        as_of: datetime | None = None,
+    ) -> float | None:
+        """Return only a recent, dated and positive OHLC close."""
+        quality = assess_daily_ohlc(ohlc, as_of=as_of or utc_now())
+        return quality.close
 
     @classmethod
     def _select_current_price(
@@ -430,10 +434,15 @@ class PipelineService:
         ohlc: pd.DataFrame | None,
         tech_source: str,
         yahoo_metadata_price: object,
+        as_of: datetime | None = None,
     ) -> tuple[float | None, str]:
-        """Choose a dated close before an undated Yahoo metadata quote."""
+        """Choose a validated close; an undated quote is a last-resort quote.
 
-        close = cls._current_price_from_ohlc(ohlc)
+        If an OHLC frame exists but is stale or invalid, it is not silently
+        replaced with possibly older metadata.  This makes the absence visible
+        to the confidence and source-health layers.
+        """
+        close = cls._current_price_from_ohlc(ohlc, as_of=as_of)
         if close is not None:
             if tech_source == "mt5":
                 return close, "mt5_close"
@@ -441,11 +450,14 @@ class PipelineService:
                 return close, "yahoo_ohlc_close"
             return close, "ohlc_close"
 
+        if isinstance(ohlc, pd.DataFrame) and not ohlc.empty:
+            return None, "ohlc_unusable"
+
         metadata = pd.to_numeric(
             pd.Series([yahoo_metadata_price]), errors="coerce"
         ).iloc[0]
         if pd.notna(metadata) and float(metadata) > 0:
-            return float(metadata), "yahoo_metadata"
+            return float(metadata), "yahoo_metadata_quote_undated"
         return None, "missing"
 
     def run(
