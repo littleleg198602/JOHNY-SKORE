@@ -603,16 +603,26 @@ class PipelineService:
             or ticker not in mt5_ohlc_by_ticker
         ]
         bulk_yahoo_ohlc_cache_state: dict[str, str] = {}
+        bulk_yahoo_ohlc_retry_deferred: dict[str, str] = {}
         if large_universe_mode:
             for ticker in bulk_yahoo_requested_tickers:
                 cache_lookup = self.yahoo_ohlc_cache.get(ticker)
                 if cache_lookup.state == "fresh" and cache_lookup.frame is not None:
                     bulk_yahoo_ohlc_by_ticker[ticker] = cache_lookup.frame
                     bulk_yahoo_ohlc_cache_state[ticker] = "fresh"
+                elif not cache_lookup.can_retry(started_at):
+                    if cache_lookup.usable and cache_lookup.frame is not None:
+                        bulk_yahoo_ohlc_by_ticker[ticker] = cache_lookup.frame
+                        bulk_yahoo_ohlc_cache_state[ticker] = "stale_backoff"
+                    bulk_yahoo_ohlc_retry_deferred[ticker] = (
+                        cache_lookup.error
+                        or "Předchozí Yahoo OHLC pokus je v ochranné čekací lhůtě."
+                    )
         bulk_yahoo_tickers = [
             ticker
             for ticker in bulk_yahoo_requested_tickers
             if ticker not in bulk_yahoo_ohlc_by_ticker
+            and ticker not in bulk_yahoo_ohlc_retry_deferred
         ]
         bulk_yahoo_ohlc_attempted_count = (
             len(bulk_yahoo_tickers) if large_universe_mode else 0
@@ -667,6 +677,12 @@ class PipelineService:
                     f"{len(bulk_yahoo_ohlc_warnings)} z "
                     f"{len(bulk_yahoo_tickers)} tickerů."
                 )
+        if bulk_yahoo_ohlc_retry_deferred:
+            warnings.append(
+                "Yahoo OHLC retry checkpoint odložil "
+                f"{len(bulk_yahoo_ohlc_retry_deferred)} tickerů; "
+                "běh použije pouze dostupnou starší cache a nic nedofabrikuje."
+            )
 
 
         # Benchmark OHLC is a small, cached side-batch.  It is only used to
