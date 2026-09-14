@@ -1,3 +1,10 @@
+## 2026-09-14 – AUD-005: zdrojová diagnostika a bezpečná degradace
+
+- Textová cesta SEC filingů nyní omezeně opakuje dočasné chyby (`429`, `5xx`, timeout a síť) s exponenciálním backoffem; `403` a `404` se neopakují.
+- Každý neúspěšný SEC bundle nebo textový filing vytvoří ve `weekly_shadow_latest.json → source_health.sec_edgar` strukturovaný záznam: zdroj, ticker, URL, čas, HTTP stav, počet pokusů, parser, kategorie a konkrétní doporučená náprava.
+- Volitelný textový filing zůstává konkrétní degradací `PARTIAL`; nesmí sám vytvářet falešné rozhodnutí. Integritní chyby a chybějící kritická data zůstávají blokující.
+- Produkt zůstává výhradně analytický, bez exekuce obchodů.
+
 # Company Intelligence / Forensic – changelog oprav
 
 ## 2026-09-14 – první P0 implementace z auditního backlogu
