@@ -66,6 +66,7 @@ from market_checker_app.services.stage4_evaluation_service import (
 from market_checker_app.services.source_discovery_service import SourceDiscoveryService
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
+from market_checker_app.storage.yahoo_ohlc_cache_store import YahooOhlcCacheStore
 from market_checker_app.utils.dates import utc_now
 
 
@@ -79,6 +80,7 @@ class PipelineService:
         self.rss_client = RSSClient(max_items_per_source=config.max_rss_items_per_source)
         self.yahoo_client = YahooClient()
         self.yahoo_cache = YahooCacheStore(config.sqlite_path)
+        self.yahoo_ohlc_cache = YahooOhlcCacheStore(config.sqlite_path)
         self.gleif_client = None
         self.sec_client = None
         self.european_filing_client = None
@@ -554,11 +556,23 @@ class PipelineService:
                     "pro chybějící symboly se použije Yahoo bulk fallback."
                 )
 
-        bulk_yahoo_tickers = [
+        bulk_yahoo_requested_tickers = [
             ticker
             for ticker in watchlist
             if ticker in yahoo_only_tickers
             or ticker not in mt5_ohlc_by_ticker
+        ]
+        bulk_yahoo_ohlc_cache_state: dict[str, str] = {}
+        if large_universe_mode:
+            for ticker in bulk_yahoo_requested_tickers:
+                cache_lookup = self.yahoo_ohlc_cache.get(ticker)
+                if cache_lookup.state == "fresh" and cache_lookup.frame is not None:
+                    bulk_yahoo_ohlc_by_ticker[ticker] = cache_lookup.frame
+                    bulk_yahoo_ohlc_cache_state[ticker] = "fresh"
+        bulk_yahoo_tickers = [
+            ticker
+            for ticker in bulk_yahoo_requested_tickers
+            if ticker not in bulk_yahoo_ohlc_by_ticker
         ]
         bulk_yahoo_ohlc_attempted_count = (
             len(bulk_yahoo_tickers) if large_universe_mode else 0
@@ -584,19 +598,36 @@ class PipelineService:
                     phase_progress,
                 )
 
-            (
-                bulk_yahoo_ohlc_by_ticker,
-                bulk_yahoo_ohlc_warnings,
-            ) = self.yahoo_client.fetch_ohlc_batch(
+            fetched_ohlc, bulk_yahoo_ohlc_warnings = self.yahoo_client.fetch_ohlc_batch(
                 bulk_yahoo_tickers,
                 progress_callback=_on_yahoo_ohlc_progress,
             )
+            for ticker, frame in fetched_ohlc.items():
+                try:
+                    self.yahoo_ohlc_cache.upsert_success(ticker, frame)
+                except (TypeError, ValueError) as exc:
+                    bulk_yahoo_ohlc_warnings[ticker] = (
+                        f"Yahoo OHLC cache odmítla {ticker}: {exc}"
+                    )
+                else:
+                    bulk_yahoo_ohlc_by_ticker[ticker] = frame
+                    bulk_yahoo_ohlc_cache_state[ticker] = "fresh_download"
+            for ticker, warning in list(bulk_yahoo_ohlc_warnings.items()):
+                self.yahoo_ohlc_cache.note_failure(ticker, warning)
+                stale = self.yahoo_ohlc_cache.get(ticker)
+                if stale.state == "stale" and stale.frame is not None:
+                    bulk_yahoo_ohlc_by_ticker[ticker] = stale.frame
+                    bulk_yahoo_ohlc_cache_state[ticker] = "stale_after_failure"
+                    bulk_yahoo_ohlc_warnings[ticker] = (
+                        f"{warning} Použita starší Yahoo OHLC cache."
+                    )
             if bulk_yahoo_ohlc_warnings:
                 warnings.append(
-                    f"Yahoo bulk OHLC není dostupné pro "
+                    f"Yahoo bulk OHLC není dostupné čerstvě pro "
                     f"{len(bulk_yahoo_ohlc_warnings)} z "
                     f"{len(bulk_yahoo_tickers)} tickerů."
                 )
+
 
         articles_by_ticker: dict[str, list] = {}
         for article in articles:
@@ -609,6 +640,9 @@ class PipelineService:
         yahoo_ohlc_failures = 0
         bulk_yahoo_ohlc_count = len(bulk_yahoo_ohlc_by_ticker)
         bulk_yahoo_ohlc_failure_count = len(bulk_yahoo_ohlc_warnings)
+        bulk_yahoo_ohlc_cache_coverage = self.yahoo_ohlc_cache.coverage(
+            bulk_yahoo_requested_tickers
+        ) if large_universe_mode else {}
         for idx, ticker in enumerate(watchlist, start=1):
             progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
             progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
@@ -682,7 +716,11 @@ class PipelineService:
                 if large_universe_mode:
                     ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
                     if not ohlc.empty:
-                        tech_source_used = "yfinance_bulk"
+                        tech_source_used = (
+                            "yfinance_ohlc_cache"
+                            if bulk_yahoo_ohlc_cache_state.get(ticker) == "fresh"
+                            else ("yfinance_ohlc_cache_stale" if bulk_yahoo_ohlc_cache_state.get(ticker) == "stale_after_failure" else "yfinance_bulk")
+                        )
                         tech_source_warning = None
                     else:
                         tech_source_used = "bulk_price_source_unavailable"
@@ -715,7 +753,11 @@ class PipelineService:
                 elif large_universe_mode:
                     ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
                     if not ohlc.empty:
-                        tech_source_used = "yfinance_bulk_fallback"
+                        tech_source_used = (
+                            "yfinance_ohlc_cache_fallback"
+                            if bulk_yahoo_ohlc_cache_state.get(ticker) == "fresh"
+                            else ("yfinance_ohlc_cache_stale_fallback" if bulk_yahoo_ohlc_cache_state.get(ticker) == "stale_after_failure" else "yfinance_bulk_fallback")
+                        )
                         tech_source_warning = mt5_warning
                     else:
                         tech_source_used = "mt5_unavailable"
@@ -1323,6 +1365,7 @@ class PipelineService:
             "bulk_yahoo_ohlc_count": bulk_yahoo_ohlc_count,
             "bulk_yahoo_ohlc_failure_count": bulk_yahoo_ohlc_failure_count,
             "bulk_yahoo_ohlc_attempted_count": bulk_yahoo_ohlc_attempted_count,
+            "bulk_yahoo_ohlc_cache_coverage": bulk_yahoo_ohlc_cache_coverage,
             "bulk_yahoo_ohlc_failure_details": [
                 {"ticker": ticker, "error": warning}
                 for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
