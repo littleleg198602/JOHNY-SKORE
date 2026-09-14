@@ -5,6 +5,8 @@ import sys
 import unittest
 from unittest.mock import patch
 
+from market_checker_app.collectors.yahoo_client import YahooClient
+
 import pandas as pd
 
 from market_checker_app.collectors.mt5_client import MT5Client
@@ -126,6 +128,54 @@ class LargeUniverseCollectorTests(unittest.TestCase):
         self.assertTrue(all(isinstance(frame, pd.DataFrame) for frame in frames.values()))
         self.assertEqual({"initialize": 1, "shutdown": 1, "copy": 3}, calls)
         self.assertEqual((3, 3, "NVDA"), progress[-1])
+
+
+    def test_yahoo_partial_batch_retries_only_missing_symbols(self) -> None:
+        dates = pd.date_range("2026-09-10", periods=2, tz="UTC")
+        partial = pd.DataFrame(
+            {
+                ("AAPL", "Close"): [100.0, 101.0],
+                ("AAPL", "Open"): [99.0, 100.0],
+            },
+            index=dates,
+        )
+        client = YahooClient(retry_attempts=1)
+        fallback_calls: list[str] = []
+
+        def fallback(ticker: str, **_: object) -> tuple[pd.DataFrame | None, str | None]:
+            fallback_calls.append(ticker)
+            return pd.DataFrame({"Close": [200.0, 201.0]}, index=dates), None
+
+        with patch(
+            "market_checker_app.collectors.yahoo_client.yf.download",
+            return_value=partial,
+        ):
+            client.fetch_ohlc_only = fallback  # type: ignore[method-assign]
+            frames, warnings = client.fetch_ohlc_batch(
+                ["AAPL", "MSFT"],
+                batch_size=2,
+                missing_symbol_retry_limit=2,
+            )
+
+        self.assertEqual({"AAPL", "MSFT"}, set(frames))
+        self.assertEqual(["MSFT"], fallback_calls)
+        self.assertEqual({}, warnings)
+
+    def test_yahoo_failed_batch_does_not_fan_out_to_single_requests(self) -> None:
+        client = YahooClient(retry_attempts=1)
+
+        def forbidden(*_: object, **__: object) -> tuple[pd.DataFrame | None, str | None]:
+            raise AssertionError("single-symbol fallback must not run after whole batch failure")
+
+        with patch(
+            "market_checker_app.collectors.yahoo_client.yf.download",
+            side_effect=TimeoutError("provider unavailable"),
+        ):
+            client.fetch_ohlc_only = forbidden  # type: ignore[method-assign]
+            frames, warnings = client.fetch_ohlc_batch(["AAPL", "MSFT"], batch_size=2)
+
+        self.assertEqual({}, frames)
+        self.assertEqual({"AAPL", "MSFT"}, set(warnings))
 
 
 if __name__ == "__main__":
