@@ -6,6 +6,7 @@ import unittest
 import pandas as pd
 
 from market_checker_app.services.ohlc_quality import assess_daily_ohlc
+from market_checker_app.services.pipeline_service import PipelineService
 
 
 AS_OF = datetime(2026, 9, 14, 12, tzinfo=timezone.utc)
@@ -65,6 +66,27 @@ class OhlcQualityTests(unittest.TestCase):
         self.assertTrue(result.price_usable)
         self.assertFalse(result.history_usable)
         self.assertTrue(any("historie" in warning for warning in result.warnings))
+
+
+    def test_stale_ohlc_is_not_silently_replaced_by_undated_metadata_quote(self) -> None:
+        stale = frame([100.0] * 60, ["2026-06-22"] * 59 + ["2026-09-06"])
+        price, source = PipelineService._select_current_price(
+            ohlc=stale,
+            tech_source="yfinance",
+            yahoo_metadata_price=123.0,
+            as_of=AS_OF,
+        )
+        quote, quote_source = PipelineService._select_current_price(
+            ohlc=pd.DataFrame(),
+            tech_source="yfinance",
+            yahoo_metadata_price=123.0,
+            as_of=AS_OF,
+        )
+
+        self.assertIsNone(price)
+        self.assertEqual("ohlc_unusable", source)
+        self.assertEqual(123.0, quote)
+        self.assertEqual("yahoo_metadata_quote_undated", quote_source)
 
 
 if __name__ == "__main__":
