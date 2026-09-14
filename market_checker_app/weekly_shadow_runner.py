@@ -633,6 +633,26 @@ def _json_safe(value: object) -> object:
     return str(value)
 
 
+def _universe_coverage(
+    requested_tickers: list[str],
+    ticker_results: list[dict[str, object]],
+) -> dict[str, object]:
+    requested = list(dict.fromkeys(str(ticker).strip().upper() for ticker in requested_tickers if str(ticker).strip()))
+    reported = {
+        str(row.get("ticker") or "").strip().upper()
+        for row in ticker_results
+        if str(row.get("ticker") or "").strip()
+    }
+    missing = [ticker for ticker in requested if ticker not in reported]
+    return {
+        "requested": len(requested),
+        "reported": len(reported),
+        "missing": len(missing),
+        "missing_tickers": missing,
+        "coverage_pct": round(100.0 * len(reported) / len(requested), 2) if requested else 0.0,
+    }
+
+
 def _signal_detail_records(result: dict[str, object]) -> list[dict[str, object]]:
     signals = result.get("signals")
     if signals is None or not hasattr(signals, "to_dict"):
@@ -843,11 +863,15 @@ def run_weekly_shadow(
         summary_warnings.append(
             "Label resolver narazil na nedostupný zdroj; dotčené snapshoty zůstaly PENDING."
         )
+    ticker_results = _signal_detail_records(result)
+    universe_coverage = _universe_coverage(tickers, ticker_results)
     summary: dict[str, object] = {
         "schema_version": 2,
         "finished_at": datetime.now(timezone.utc).isoformat(),
         "run_id": result.get("run_id"),
         "ticker_count": len(tickers),
+        "requested_tickers": list(tickers),
+        "universe_coverage": universe_coverage,
         "analysis_only": True,
         "automated_trading": {
             "enabled": False,
@@ -907,7 +931,7 @@ def run_weekly_shadow(
         "warnings": summary_warnings,
         "errors": list(result.get("errors", [])),
         "detail_schema_version": 1,
-        "ticker_results": _signal_detail_records(result),
+        "ticker_results": ticker_results,
         "decision_results": _decision_detail_records(result),
     }
     failures: list[str] = []
