@@ -267,6 +267,59 @@ class LiveSourceSmokeTests(unittest.TestCase):
         self.assertFalse(details["name_matching_used"])
         self.assertEqual([], gleif.calls)
 
+    def test_identity_pilot_accepts_amats_cosmetic_sec_suffix_only_after_cik_match(self) -> None:
+        records = _production_identity_records()
+
+        class CosmeticAMATSEC(_IdentitySEC):
+            def resolve_company(self, ticker):
+                company = super().resolve_company(ticker)
+                if ticker == "AMAT" and company is not None:
+                    return SecCompany(
+                        ticker=company.ticker,
+                        cik=company.cik,
+                        name=str(company.name).removesuffix("/"),
+                        exchange=company.exchange,
+                    )
+                return company
+
+        details = verify_company_identity_pilot(
+            identity_records=records,
+            sec_user_agent="JohnySkore test@example.com",
+            universe_tickers=_production_watchlist(),
+            sec_client=CosmeticAMATSEC(records),
+            gleif_client=_GLEIF(records),
+        )
+
+        amat = next(item for item in details["identities"] if item["ticker"] == "AMAT")
+        self.assertEqual(
+            ["JURISDICTION_SUFFIX_NORMALIZED"],
+            amat["legal_name_match_modes"],
+        )
+
+    def test_identity_pilot_rejects_substantive_sec_name_difference_with_same_cik(self) -> None:
+        records = _production_identity_records()
+
+        class RenamedAMATSEC(_IdentitySEC):
+            def resolve_company(self, ticker):
+                company = super().resolve_company(ticker)
+                if ticker == "AMAT" and company is not None:
+                    return SecCompany(
+                        ticker=company.ticker,
+                        cik=company.cik,
+                        name="Applied Materials Holdings",
+                        exchange=company.exchange,
+                    )
+                return company
+
+        with self.assertRaisesRegex(RuntimeError, "SEC legal-name konflikt pro AMAT"):
+            verify_company_identity_pilot(
+                identity_records=records,
+                sec_user_agent="JohnySkore test@example.com",
+                universe_tickers=_production_watchlist(),
+                sec_client=RenamedAMATSEC(records),
+                gleif_client=_GLEIF(records),
+            )
+
     def test_identity_pilot_fails_closed_on_registry_conflict(self) -> None:
         records = _production_identity_records()
 
