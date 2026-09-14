@@ -59,5 +59,35 @@ class YahooOhlcCacheStoreTests(unittest.TestCase):
                 store.upsert_success("AAPL", pd.DataFrame({"Close": [float("nan"), 0]}))
 
 
+    def test_failed_missing_symbol_is_persisted_with_retry_checkpoint(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = self._store(Path(tmp))
+            store.note_failure("MSFT", "HTTP 429")
+            lookup = store.get("MSFT")
+
+        self.assertEqual("failed", lookup.state)
+        self.assertFalse(lookup.usable)
+        self.assertEqual("HTTP 429", lookup.error)
+        self.assertEqual(1, lookup.attempt_count)
+        self.assertFalse(lookup.can_retry(NOW))
+
+    def test_failure_preserves_stale_frame_and_success_resets_checkpoint(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = self._store(Path(tmp))
+            store.upsert_success("AAPL", self._frame())
+            store.note_failure("AAPL", "temporary timeout")
+            stale = store.get("AAPL")
+            store.upsert_success("AAPL", self._frame())
+            refreshed = store.get("AAPL")
+
+        self.assertEqual("stale", stale.state)
+        self.assertTrue(stale.usable)
+        self.assertEqual(1, stale.attempt_count)
+        self.assertFalse(stale.can_retry(NOW))
+        self.assertEqual("fresh", refreshed.state)
+        self.assertEqual(0, refreshed.attempt_count)
+        self.assertTrue(refreshed.can_retry(NOW))
+
+
 if __name__ == "__main__":
     unittest.main()
