@@ -51,6 +51,9 @@ class _NoLiveYahoo:
 
     fetch_ohlc_only = fetch_ohlc
 
+    def fetch_ohlc_batch(self, tickers, period="1y", interval="1d", **kwargs):
+        return {}, {ticker: "benchmark test source unavailable" for ticker in tickers}
+
 
 class FullUniverseContractTests(unittest.TestCase):
     def test_exactly_687_unique_tickers_complete_with_cached_yahoo(self) -> None:
@@ -111,6 +114,12 @@ class FullUniverseContractTests(unittest.TestCase):
             self.assertEqual(687, cache.coverage(tickers).fresh)
             self.assertEqual(1, mt5.calls)
             self.assertEqual([], result["errors"])
+            self.assertEqual(687, len(result["point_in_time_inputs"]))
+            first_features = result["point_in_time_inputs"][0]["feature_payload"]
+            self.assertIn("market_factors", first_features)
+            self.assertTrue(
+                first_features["market_factors"]["missingness"]["benchmark_history"]
+            )
             self.assertEqual((1.0, 687, "done"), progress_samples[-1])
             self.assertTrue(
                 all(left[0] <= right[0] for left, right in zip(progress_samples, progress_samples[1:]))
