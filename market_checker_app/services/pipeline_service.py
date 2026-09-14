@@ -442,7 +442,9 @@ class PipelineService:
         replaced with possibly older metadata.  This makes the absence visible
         to the confidence and source-health layers.
         """
-        close = cls._current_price_from_ohlc(ohlc, as_of=as_of)
+        evaluated_at = as_of or utc_now()
+        quality = assess_daily_ohlc(ohlc, as_of=evaluated_at)
+        close = quality.close
         if close is not None:
             if tech_source == "mt5":
                 return close, "mt5_close"
@@ -450,7 +452,11 @@ class PipelineService:
                 return close, "yahoo_ohlc_close"
             return close, "ohlc_close"
 
-        if isinstance(ohlc, pd.DataFrame) and not ohlc.empty:
+        # A stale/future positive close is evidence of a bad time series and
+        # must not be masked by an undated quote.  A completely empty or
+        # malformed series may still expose a quote, but it remains explicitly
+        # undated and cannot make the ranking usable on its own.
+        if quality.observation_count:
             return None, "ohlc_unusable"
 
         metadata = pd.to_numeric(
