@@ -821,14 +821,13 @@ class PipelineService:
                 if large_universe_mode:
                     ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
                     if not ohlc.empty:
-                        tech_source_used = (
-                            "yfinance_ohlc_cache"
-                            if bulk_yahoo_ohlc_cache_state.get(ticker) == "fresh"
-                            else (
-                                "yfinance_ohlc_cache_stale"
-                                if bulk_yahoo_ohlc_cache_state.get(ticker) in {"stale_after_failure", "stale_backoff"}
-                                else "yfinance_bulk"
-                            )
+                        cache_state = bulk_yahoo_ohlc_cache_state.get(ticker)
+                        if cache_state == "fresh":
+                            tech_source_used = "yfinance_ohlc_cache"
+                        elif cache_state in {"stale_after_failure", "stale_backoff"}:
+                            tech_source_used = "yfinance_ohlc_cache_stale"
+                        else:
+                            tech_source_used = "yfinance_bulk"
                         tech_source_warning = None
                     else:
                         tech_source_used = "bulk_price_source_unavailable"
@@ -861,15 +860,13 @@ class PipelineService:
                 elif large_universe_mode:
                     ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
                     if not ohlc.empty:
-                        tech_source_used = (
-                            "yfinance_ohlc_cache_fallback"
-                            if bulk_yahoo_ohlc_cache_state.get(ticker) == "fresh"
-                            else (
-                                "yfinance_ohlc_cache_stale_fallback"
-                                if bulk_yahoo_ohlc_cache_state.get(ticker) in {"stale_after_failure", "stale_backoff"}
-                                else "yfinance_bulk_fallback"
-                            ))
-                        )
+                        cache_state = bulk_yahoo_ohlc_cache_state.get(ticker)
+                        if cache_state == "fresh":
+                            tech_source_used = "yfinance_ohlc_cache_fallback"
+                        elif cache_state in {"stale_after_failure", "stale_backoff"}:
+                            tech_source_used = "yfinance_ohlc_cache_stale_fallback"
+                        else:
+                            tech_source_used = "yfinance_bulk_fallback"
                         tech_source_warning = mt5_warning
                     else:
                         tech_source_used = "mt5_unavailable"
