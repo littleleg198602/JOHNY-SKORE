@@ -1,0 +1,120 @@
+from __future__ import annotations
+
+from datetime import datetime, timezone
+import math
+from typing import Mapping
+
+import pandas as pd
+
+
+MARKET_FACTOR_VERSION = "market_factors_v1"
+RETURN_HORIZONS = (1, 5, 20, 60, 120, 252)
+
+
+def _close_series(history: pd.DataFrame | None, as_of: datetime) -> pd.Series:
+    if history is None or history.empty or "Close" not in history.columns:
+        return pd.Series(dtype=float)
+    timestamps = pd.to_datetime(history.index, utc=True, errors="coerce")
+    closes = pd.to_numeric(history["Close"], errors="coerce")
+    frame = pd.DataFrame({"timestamp": timestamps, "close": closes}).dropna()
+    frame = frame[
+        (frame["timestamp"] <= pd.Timestamp(as_of))
+        & (frame["close"] > 0)
+        & frame["close"].map(lambda value: math.isfinite(float(value)))
+    ]
+    if frame.empty:
+        return pd.Series(dtype=float)
+    return (
+        frame.sort_values("timestamp")
+        .drop_duplicates("timestamp", keep="last")
+        .set_index("timestamp")["close"]
+        .astype(float)
+    )
+
+
+def _return(series: pd.Series, days: int) -> float | None:
+    if len(series) <= days:
+        return None
+    base = float(series.iloc[-(days + 1)])
+    latest = float(series.iloc[-1])
+    return (latest / base) - 1.0 if base > 0.0 else None
+
+
+def _volatility(series: pd.Series, days: int) -> float | None:
+    if len(series) <= days:
+        return None
+    returns = series.pct_change().dropna().tail(days)
+    if len(returns) < days:
+        return None
+    value = float(returns.std(ddof=1) * math.sqrt(252.0))
+    return value if math.isfinite(value) else None
+
+
+def _drawdown(series: pd.Series, days: int) -> float | None:
+    if len(series) < 2:
+        return None
+    window = series.tail(days)
+    peak = float(window.max())
+    latest = float(window.iloc[-1])
+    return (latest / peak) - 1.0 if peak > 0.0 else None
+
+
+def build_market_factor_snapshot(
+    *,
+    asset_history: pd.DataFrame | None,
+    benchmark_history: pd.DataFrame | None,
+    as_of: datetime,
+    asset_source: str,
+    benchmark_source: str | None,
+) -> dict[str, object]:
+    """Build point-in-time price factors; missing observations remain explicit.
+
+    The function is deliberately score-free.  It only records reproducible
+    features for later ablation against the frozen baseline.
+    """
+
+    if as_of.tzinfo is None or as_of.utcoffset() is None:
+        as_of = as_of.replace(tzinfo=timezone.utc)
+    as_of = as_of.astimezone(timezone.utc)
+    asset = _close_series(asset_history, as_of)
+    benchmark = _close_series(benchmark_history, as_of)
+    asset_returns = {f"{days}d": _return(asset, days) for days in RETURN_HORIZONS}
+    benchmark_returns = {
+        f"{days}d": _return(benchmark, days) for days in RETURN_HORIZONS
+    }
+    relative_returns = {
+        key: (
+            asset_returns[key] - benchmark_returns[key]
+            if asset_returns[key] is not None and benchmark_returns[key] is not None
+            else None
+        )
+        for key in asset_returns
+    }
+    missing = {
+        "asset_history": not bool(len(asset)),
+        "benchmark_history": not bool(len(benchmark)),
+        "relative_returns": not any(value is not None for value in relative_returns.values()),
+        "realized_volatility_20d": _volatility(asset, 20) is None,
+        "realized_volatility_60d": _volatility(asset, 60) is None,
+        "drawdown_252d": _drawdown(asset, 252) is None,
+    }
+    return {
+        "version": MARKET_FACTOR_VERSION,
+        "as_of": as_of.isoformat(),
+        "asset_observations": int(len(asset)),
+        "benchmark_observations": int(len(benchmark)),
+        "asset_returns": asset_returns,
+        "benchmark_returns": benchmark_returns,
+        "relative_returns": relative_returns,
+        "realized_volatility": {
+            "20d_annualized": _volatility(asset, 20),
+            "60d_annualized": _volatility(asset, 60),
+        },
+        "drawdown": {"252d": _drawdown(asset, 252)},
+        "provenance": {
+            "asset_source": asset_source,
+            "benchmark_source": benchmark_source or "MISSING",
+            "point_in_time": True,
+        },
+        "missingness": missing,
+    }
