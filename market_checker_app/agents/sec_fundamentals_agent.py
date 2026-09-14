@@ -24,6 +24,7 @@ from market_checker_app.collectors.short_report_client import (
     FetchedShortReport,
     ShortReportClient,
 )
+from market_checker_app.collectors.source_diagnostics import source_failure_detail
 from market_checker_app.config import (
     FundamentalIngestionConfig,
     ShortReportSourceConfig,
@@ -137,7 +138,8 @@ class SecFundamentalsAgent(BaseAgent):
         filing_texts_by_ticker: dict[str, list[FetchedShortReport]] = {}
         insider_transactions_by_ticker: dict[str, list[object]] = {}
         filing_text_failures = 0
-        filing_text_failure_details: list[dict[str, str]] = []
+        filing_text_failure_details: list[dict[str, object]] = []
+        bundle_failure_details: list[dict[str, object]] = []
         filing_text_client = self._filing_text_client_or_none()
 
         for raw_ticker in context.watchlist:
@@ -157,6 +159,14 @@ class SecFundamentalsAgent(BaseAgent):
                 )
             except Exception as exc:
                 unresolved_tickers += 1
+                bundle_failure_details.append(
+                    source_failure_detail(
+                        source="SEC EDGAR JSON",
+                        ticker=ticker,
+                        url=SEC_TICKER_MAP_URL,
+                        error=exc,
+                    )
+                )
                 warnings.append(
                     f"F2-SEC {ticker}: {type(exc).__name__}: {exc}"
                 )
@@ -315,17 +325,21 @@ class SecFundamentalsAgent(BaseAgent):
                         )
                     except Exception as exc:
                         filing_text_failures += 1
-                        filing_text_failure_details.append(
+                        detail = source_failure_detail(
+                            source="SEC EDGAR filing text",
+                            ticker=ticker,
+                            url=filing.filing_url,
+                            error=exc,
+                            parser="ShortReportClient",
+                        )
+                        detail.update(
                             {
-                                "ticker": ticker,
                                 "form": filing.form,
                                 "accession_number": filing.accession_number,
-                                "filing_url": filing.filing_url,
                                 "filed_at": filing.filed_at.isoformat(),
-                                "error_type": type(exc).__name__,
-                                "error": str(exc),
                             }
                         )
+                        filing_text_failure_details.append(detail)
                         warnings.append(
                             f"F2-SEC {ticker}: text 10-K nelze bezpečně načíst "
                             f"({filing.accession_number}): "
@@ -436,6 +450,7 @@ class SecFundamentalsAgent(BaseAgent):
                 ),
                 "filing_text_failures": filing_text_failures,
                 "filing_text_failure_details": filing_text_failure_details,
+                "bundle_failure_details": bundle_failure_details,
                 "insider_transactions": sum(
                     len(items)
                     for items in insider_transactions_by_ticker.values()
