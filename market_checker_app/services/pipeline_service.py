@@ -420,6 +420,31 @@ class PipelineService:
         close = pd.to_numeric(ohlc["Close"], errors="coerce").dropna()
         return float(close.iloc[-1]) if not close.empty else None
 
+    @classmethod
+    def _select_current_price(
+        cls,
+        *,
+        ohlc: pd.DataFrame | None,
+        tech_source: str,
+        yahoo_metadata_price: object,
+    ) -> tuple[float | None, str]:
+        """Choose a dated close before an undated Yahoo metadata quote."""
+
+        close = cls._current_price_from_ohlc(ohlc)
+        if close is not None:
+            if tech_source == "mt5":
+                return close, "mt5_close"
+            if tech_source.startswith("yfinance"):
+                return close, "yahoo_ohlc_close"
+            return close, "ohlc_close"
+
+        metadata = pd.to_numeric(
+            pd.Series([yahoo_metadata_price]), errors="coerce"
+        ).iloc[0]
+        if pd.notna(metadata) and float(metadata) > 0:
+            return float(metadata), "yahoo_metadata"
+        return None, "missing"
+
     def run(
         self,
         watchlist: list[str],
@@ -797,21 +822,11 @@ class PipelineService:
                 ticker,
                 ohlc if isinstance(ohlc, pd.DataFrame) else None,
             )
-            mt5_current_price = self._current_price_from_ohlc(
-                ohlc if isinstance(ohlc, pd.DataFrame) else None
+            current_price, current_price_source = self._select_current_price(
+                ohlc=ohlc if isinstance(ohlc, pd.DataFrame) else None,
+                tech_source=tech_source_used,
+                yahoo_metadata_price=snapshot.data.get("currentPrice"),
             )
-            yahoo_current_price = snapshot.data.get("currentPrice")
-            if tech_source_used == "mt5" and mt5_current_price is not None:
-                # Weekly prediction evaluation must not reuse a stale price
-                # hidden inside the longer-lived Yahoo metadata cache.
-                current_price = mt5_current_price
-                current_price_source = "mt5_close"
-            elif yahoo_current_price is not None:
-                current_price = yahoo_current_price
-                current_price_source = "yahoo_metadata"
-            else:
-                current_price = mt5_current_price
-                current_price_source = "ohlc_fallback" if mt5_current_price is not None else "missing"
 
             progress.set_step(ticker, "behavioral_risk", f"Počítám behavioral a risk vrstvu pro {ticker}", 0.82)
             behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
