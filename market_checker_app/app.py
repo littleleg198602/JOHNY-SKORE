@@ -183,6 +183,17 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
         "Potlačené návrhy",
         str(result.get("decision_suppressed_count") or 0),
     )
+    coverage = result.get("universe_coverage")
+    if isinstance(coverage, dict):
+        st.caption(
+            "Pokrytí universe: "
+            f"{coverage.get('reported', 0)}/{coverage.get('requested', 0)} "
+            f"({coverage.get('coverage_pct', 0)} %); chybí {coverage.get('missing', 0)} tickerů."
+        )
+        missing = coverage.get("missing_tickers")
+        if isinstance(missing, list) and missing:
+            with st.expander(f"Chybějící tickery ({len(missing)})", expanded=False):
+                st.write(", ".join(str(ticker) for ticker in missing))
     if result.get("pipeline_status") == "SUCCESS":
         st.success(
             "Poslední týdenní běh byl načten. Výsledky níže jsou pouze analytické "
@@ -252,7 +263,7 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
             )
 
     if rows:
-        st.markdown("### Rozhodnutí posledního 36tickerového pilotu")
+        st.markdown("### Rozhodnutí posledního analytického běhu")
         st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
     else:
         st.info("V shadow JSON nebyly nalezeny žádné tickerové výsledky.")
