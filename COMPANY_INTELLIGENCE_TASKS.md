@@ -666,7 +666,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-002 — Sjednotit produkční universe a verzi spouštěčů
 
-- **Priorita / stav:** P0 / TODO
+- **Priorita / stav:** P0 / PARTIAL
+- **Implementace 2026-09-14:** PR #87 odstraňuje limit z Windows launcheru i z týdenního GitHub analytického kroku. Malý identity/source smoke nadále vědomě používá limit 3; není to produkční analýza. Zbývá uložit hash seznamu a počty requested/attempted/usable/partial/failed do reportu a provést provozní 687tickerové ověření (AUD-014).
 - **Nadřazené úkoly:** SCALE-001
 - **Závislosti:** Bez závislosti
 - **Zjištění:** Windows launcher v main má limit 36. V PR #87 je odstraněný, ale týdenní krok GitHub workflow má stále --ticker-limit 36.
