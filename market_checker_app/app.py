@@ -160,6 +160,10 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
     st.caption(
         f"Načteno z {path}. Toto zobrazení nespouští novou analýzu."
     )
+    st.info(
+        "Confidence je interní heuristická míra kvality vstupů, nikoli "
+        "kalibrovaná pravděpodobnost úspěchu predikce."
+    )
 
     status_columns = st.columns(6)
     status_columns[0].metric("Tickerů", str(result.get("ticker_count") or 0))
@@ -221,7 +225,7 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
                     "akce": item.get("action") or "n/a",
                     "forecast": item.get("forecast") or "n/a",
                     "score": item.get("final_total_score"),
-                    "confidence %": item.get("final_confidence"),
+                    "heuristická confidence %": item.get("final_confidence"),
                     "kvalita dat %": item.get("data_quality_score"),
                     "shadow návrh": decision.get("proposed_action") or "n/a",
                     "aktivace": decision.get("activation_state") or "n/a",
@@ -238,8 +242,7 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
                     "akce": decision.get("baseline_action") or "n/a",
                     "forecast": decision.get("proposed_forecast") or "n/a",
                     "score": None,
-                    "confidence %": (
-                        float(decision.get("confidence")) * 100.0
+                    "heuristická confidence %": (                        float(decision.get("confidence")) * 100.0
                         if decision.get("confidence") is not None
                         else None
                     ),
@@ -252,7 +255,7 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
             )
 
     if rows:
-        st.markdown("### Rozhodnutí posledního 36tickerového pilotu")
+        st.markdown("### Rozhodnutí posledního analytického běhu")
         st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
     else:
         st.info("V shadow JSON nebyly nalezeny žádné tickerové výsledky.")
