@@ -11,6 +11,7 @@ from urllib.request import Request, urlopen
 import feedparser
 
 from market_checker_app.models import NewsItem
+from market_checker_app.utils.text import normalize_text
 
 
 RSSProgressCallback = Callable[[int, int, str], None]
@@ -71,6 +72,30 @@ class RSSClient:
     @staticmethod
     def _contains_ticker(text_upper: str, ticker: str) -> bool:
         return re.search(rf"(?<![A-Z0-9]){re.escape(ticker)}(?![A-Z0-9])", text_upper) is not None
+
+    @staticmethod
+    def _publisher_provenance(entry: object, *, feed_url: str, link: str, title: str) -> tuple[str, str, str, str]:
+        """Preserve feed and original-publisher provenance without guessing."""
+
+        original_url = str(link or "").strip()
+        parsed = urlparse(original_url)
+        query = parse_qs(parsed.query)
+        for key in ("url", "u", "redirect"):
+            candidate = query.get(key, [])
+            if candidate and urlparse(candidate[0]).scheme in {"http", "https"}:
+                original_url = candidate[0]
+                parsed = urlparse(original_url)
+                break
+        raw_source = getattr(entry, "source", None)
+        publisher = str(getattr(raw_source, "title", "") or "").strip()
+        source_href = str(getattr(raw_source, "href", "") or "").strip()
+        domain = urlparse(source_href or original_url).hostname or ""
+        publisher_domain = domain.lower().removeprefix("www.")
+        if not publisher:
+            publisher = publisher_domain or urlparse(feed_url).hostname or "unknown"
+        event_basis = normalize_text(title)
+        event_id = f"{publisher_domain}|{event_basis}" if event_basis else ""
+        return original_url, publisher, publisher_domain, event_id
 
     def _download(self, source: str) -> bytes:
         request = Request(source, headers={"User-Agent": "Mozilla/5.0 (MarketChecker/1.0)"})
@@ -165,6 +190,13 @@ class RSSClient:
                 else [ticker for ticker in ticker_set if self._contains_ticker(text_upper, ticker)]
             )
 
+            link = str(getattr(entry, "link", ""))
+            original_url, publisher, publisher_domain, event_id = self._publisher_provenance(
+                entry,
+                feed_url=source,
+                link=link,
+                title=title,
+            )
             for ticker in matched_tickers:
                 items.append(
                     NewsItem(
@@ -174,7 +206,12 @@ class RSSClient:
                         summary=summary,
                         published_at=published_at,
                         sentiment_weight=sentiment_weight,
-                        url=str(getattr(entry, "link", "")),
+                        url=link,
+                        feed_url=source,
+                        publisher=publisher,
+                        publisher_domain=publisher_domain,
+                        original_url=original_url,
+                        event_id=event_id,
                     )
                 )
         if undated_count:

@@ -56,21 +56,27 @@ def analyze_news(ticker: str, articles: list[NewsItem]) -> NewsAnalysisResult:
     if not articles:
         return NewsAnalysisResult(ticker, 42.0, 18.0, 0, 0, 0, 0.0, 0, 0.0, 0.0, 0, 0, 0.0, 1.0, 0.0, 0.0, ["no recent news"], ["No relevant news articles were detected."], [])
 
-    norm_titles = [normalize_text(a.title) for a in articles]
-    counts = Counter(norm_titles)
+    # Prefer the original event identifier.  Feed URLs are transport only and
+    # must not turn syndicated copies into independent confirmation.
+    event_keys = [
+        str(article.event_id or "").strip()
+        or normalize_text(article.title)
+        for article in articles
+    ]
+    counts = Counter(event_keys)
     features: list[ArticleFeatures] = []
     positive = negative = high_importance = fresh = stale = 0
     weighted_sum = weight_total = trust_sum = relevance_sum = 0.0
 
-    for article, norm_title in zip(articles, norm_titles):
+    for article, event_key in zip(articles, event_keys):
         age_hours = max(0.0, (now - article.published_at).total_seconds() / 3600)
         sentiment = _calc_sentiment(f"{article.title} {article.summary}")
         importance = _importance(f"{article.title} {article.summary}")
         trust = _source_trust(article.source)
         relevance = _relevance(ticker, article.title, article.summary, article.url)
         recency = _recency_weight(age_hours)
-        is_duplicate = counts[norm_title] > 1
-        dupe_penalty = 1.0 / counts[norm_title]
+        is_duplicate = counts[event_key] > 1
+        dupe_penalty = 1.0 / counts[event_key]
         final_weight = trust * relevance * importance * recency * dupe_penalty
 
         positive += int(sentiment > 0.05)
@@ -86,7 +92,13 @@ def analyze_news(ticker: str, articles: list[NewsItem]) -> NewsAnalysisResult:
         features.append(ArticleFeatures(ticker, article.source, article.published_at, age_hours, article.title, article.summary, trust, relevance, sentiment, importance, recency, dupe_penalty, final_weight, is_duplicate))
 
     total = len(articles)
-    unique_sources = len({a.source for a in articles})
+    unique_sources = len(
+        {
+            str(article.publisher_domain or article.publisher or article.source)
+            for article in articles
+            if str(article.publisher_domain or article.publisher or article.source).strip()
+        }
+    )
     duplicate_ratio = 1 - (len(counts) / total)
     stale_ratio = stale / total
     fresh_ratio = fresh / total
