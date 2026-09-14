@@ -515,6 +515,9 @@ def _source_health_summary(
             "filing_text_failure_details": _json_safe(
                 result.get("fundamental_filing_text_failure_details") or []
             ),
+            "bundle_failure_details": _json_safe(
+                result.get("fundamental_bundle_failure_details") or []
+            ),
         },
         "financial_forensics": {
             "configured": config.financial_forensics.enabled,

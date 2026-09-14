@@ -1080,7 +1080,8 @@ class PipelineService:
         evaluation_activation_reasons: list[str] = []
         fundamental_filing_text_document_count = 0
         fundamental_filing_text_failure_count = 0
-        fundamental_filing_text_failure_details: list[dict[str, str]] = []
+        fundamental_filing_text_failure_details: list[dict[str, object]] = []
+        fundamental_bundle_failure_details: list[dict[str, object]] = []
         european_filings_status: str | None = None
         european_filing_document_count = 0
         source_resolution_status: str | None = None
@@ -1150,6 +1151,16 @@ class PipelineService:
                             fundamental_filing_text_failure_details = [
                                 item
                                 for item in raw_failure_details
+                                if isinstance(item, dict)
+                            ]
+                        raw_bundle_failures = execution.result.metadata.get(
+                            "bundle_failure_details",
+                            [],
+                        )
+                        if isinstance(raw_bundle_failures, list):
+                            fundamental_bundle_failure_details = [
+                                item
+                                for item in raw_bundle_failures
                                 if isinstance(item, dict)
                             ]
                     elif execution.agent_name == "european_filings":
@@ -1376,6 +1387,9 @@ class PipelineService:
             ),
             "fundamental_filing_text_failure_details": (
                 fundamental_filing_text_failure_details
+            ),
+            "fundamental_bundle_failure_details": (
+                fundamental_bundle_failure_details
             ),
             "bulk_yahoo_ohlc_count": bulk_yahoo_ohlc_count,
             "bulk_yahoo_ohlc_failure_count": bulk_yahoo_ohlc_failure_count,

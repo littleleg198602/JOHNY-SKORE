@@ -8,8 +8,12 @@ import ipaddress
 import re
 import socket
 from typing import Callable
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
+import time
+
+from market_checker_app.collectors.source_diagnostics import is_retryable_transport_error
 
 from pypdf import PdfReader
 
@@ -18,6 +22,10 @@ from market_checker_app.config import ShortReportSourceConfig
 
 class ShortReportFetchError(RuntimeError):
     """Raised when a configured report cannot be fetched or safely parsed."""
+
+    def __init__(self, message: str, *, attempts: int = 1) -> None:
+        super().__init__(message)
+        self.attempts = max(1, int(attempts))
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,6 +38,7 @@ class FetchedShortReport:
     content_hash: str
     size_bytes: int
     extractor: str
+    fetch_attempts: int = 1
 
 
 ShortReportTransport = Callable[
@@ -221,25 +230,48 @@ class ShortReportClient:
         timeout_seconds: float = 20.0,
         max_download_bytes: int = 8_000_000,
         max_text_characters: int = 500_000,
+        max_attempts: int = 3,
         transport: ShortReportTransport | None = None,
+        sleep: Callable[[float], None] = time.sleep,
     ) -> None:
         self.user_agent = str(user_agent or "").strip() or "JohnySkore/2.1"
         self.timeout_seconds = max(1.0, float(timeout_seconds))
         self.max_download_bytes = max(1_024, int(max_download_bytes))
         self.max_text_characters = max(1_000, int(max_text_characters))
+        self.max_attempts = max(1, int(max_attempts))
         self._transport = transport or _default_transport
+        self._sleep = sleep
 
     def fetch(self, source: ShortReportSourceConfig) -> FetchedShortReport:
         url = _validate_public_https_url(source.url)
-        payload, raw_mime_type, final_url = self._transport(
-            url,
-            {
-                "User-Agent": self.user_agent,
-                "Accept": "text/html,application/xhtml+xml,application/pdf,text/plain",
-            },
-            self.timeout_seconds,
-            self.max_download_bytes,
-        )
+        headers = {
+            "User-Agent": self.user_agent,
+            "Accept": "text/html,application/xhtml+xml,application/pdf,text/plain",
+        }
+        last_error: Exception | None = None
+        attempts = 0
+        for attempts in range(1, self.max_attempts + 1):
+            try:
+                payload, raw_mime_type, final_url = self._transport(
+                    url,
+                    headers,
+                    self.timeout_seconds,
+                    self.max_download_bytes,
+                )
+                break
+            except (HTTPError, URLError, TimeoutError) as exc:
+                last_error = exc
+                if not is_retryable_transport_error(exc) or attempts == self.max_attempts:
+                    raise ShortReportFetchError(
+                        f"Short report nelze stáhnout: {type(exc).__name__}: {exc}",
+                        attempts=attempts,
+                    ) from exc
+                self._sleep(float(2 ** (attempts - 1)))
+        else:
+            raise ShortReportFetchError(
+                f"Short report nelze stáhnout: {last_error}",
+                attempts=attempts,
+            ) from last_error
         _validate_public_https_url(final_url)
         if len(payload) > self.max_download_bytes:
             raise ShortReportFetchError(
@@ -282,4 +314,5 @@ class ShortReportClient:
             content_hash=sha256(payload).hexdigest(),
             size_bytes=len(payload),
             extractor=extractor,
+            fetch_attempts=attempts,
         )
