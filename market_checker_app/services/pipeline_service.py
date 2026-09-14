@@ -58,6 +58,9 @@ from market_checker_app.models import (
     YahooSnapshot,
 )
 from market_checker_app.prediction_contract import benchmark_for_sector
+from market_checker_app.services.market_factor_service import (
+    build_market_factor_snapshot,
+)
 from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.stage4_evaluation_service import (
@@ -654,6 +657,52 @@ class PipelineService:
                 )
 
 
+        # Benchmark OHLC is a small, cached side-batch.  It is only used to
+        # record point-in-time features and never changes the current heuristic
+        # score before AUD-012 validates an ablation.
+        benchmark_ohlc_by_ticker: dict[str, pd.DataFrame] = {}
+        benchmark_ohlc_source: dict[str, str] = {}
+        benchmark_tickers = (
+            "SPY", "XLB", "XLC", "XLE", "XLF", "XLI",
+            "XLK", "XLP", "XLRE", "XLU", "XLV", "XLY",
+        )
+        if large_universe_mode:
+            benchmark_misses: list[str] = []
+            for benchmark in benchmark_tickers:
+                cached_benchmark = self.yahoo_ohlc_cache.get(benchmark)
+                if cached_benchmark.usable and cached_benchmark.frame is not None:
+                    benchmark_ohlc_by_ticker[benchmark] = cached_benchmark.frame
+                    benchmark_ohlc_source[benchmark] = (
+                        "yahoo_ohlc_cache_" + cached_benchmark.state
+                    )
+                else:
+                    benchmark_misses.append(benchmark)
+            if benchmark_misses:
+                fetch_benchmark_batch = getattr(
+                    self.yahoo_client, "fetch_ohlc_batch", None
+                )
+                if callable(fetch_benchmark_batch):
+                    fetched_benchmarks, benchmark_warnings = (
+                        fetch_benchmark_batch(benchmark_misses)
+                    )
+                    for benchmark, frame in fetched_benchmarks.items():
+                        self.yahoo_ohlc_cache.upsert_success(benchmark, frame)
+                        benchmark_ohlc_by_ticker[benchmark] = frame
+                        benchmark_ohlc_source[benchmark] = "yahoo_ohlc_download"
+                    for benchmark, warning in benchmark_warnings.items():
+                        self.yahoo_ohlc_cache.note_failure(benchmark, warning)
+                else:
+                    benchmark_warnings = {
+                        benchmark: "Yahoo benchmark source is unavailable in this runtime."
+                        for benchmark in benchmark_misses
+                    }
+                if benchmark_warnings:
+                    warnings.append(
+                        "Market-factor benchmark OHLC není čerstvě dostupné pro "
+                        f"{len(benchmark_warnings)} z {len(benchmark_misses)} benchmarků; "
+                        "relativní síla zůstane u dotčených tickerů explicitně chybějící."
+                    )
+
         articles_by_ticker: dict[str, list] = {}
         for article in articles:
             articles_by_ticker.setdefault(article.ticker, []).append(article)
@@ -941,6 +990,19 @@ class PipelineService:
                 else None
             )
             benchmark_ticker, benchmark_selection = benchmark_for_sector(sector)
+            sector = (
+                snapshot.data.get("sector")
+                if isinstance(snapshot.data, dict)
+                else None
+            )
+            benchmark_ticker, benchmark_selection = benchmark_for_sector(sector)
+            market_factors = build_market_factor_snapshot(
+                asset_history=ohlc if isinstance(ohlc, pd.DataFrame) else None,
+                benchmark_history=benchmark_ohlc_by_ticker.get(benchmark_ticker),
+                as_of=started_at,
+                asset_source=current_price_source,
+                benchmark_source=benchmark_ohlc_source.get(benchmark_ticker),
+            )
             point_in_time_inputs.append(
                 {
                     "ticker": ticker,
@@ -954,6 +1016,7 @@ class PipelineService:
                                 "derived": asdict(derived_perf),
                             },
                         },
+                        "market_factors": market_factors,
                         "technical": {
                             "source": tech_source_used,
                             "score": tech.tech_score,
