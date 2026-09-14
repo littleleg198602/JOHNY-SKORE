@@ -694,7 +694,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-005 — Dokončit diagnostiku zdrojů a pravidla degradace
 
-- **Priorita / stav:** P0 / TODO
+- **Priorita / stav:** P0 / PARTIAL
+- **Implementováno 2026-09-14:** retry pro dočasné chyby při bezpečném stahování textu filingů a strukturovaný audit důvodu pro SEC bundle i text filingů (`source`, ticker, URL, čas, HTTP stav, pokusy, parser, náprava). Úplně sdílený transport/circuit breaker mezi všemi zdroji zůstává otevřený.
 - **Nadřazené úkoly:** OPS-805, FILING-101, SCALE-001
 - **Závislosti:** Návaznost AUD-003 a AUD-004
 - **Zjištění:** SEC JSON má retry a limiter, textová cesta přes ShortReportClient.fetch nemá vlastní opakování se sdíleným limitem. Souhrnné počty Yahoo chyb samy nezaručují správný globální stav.
