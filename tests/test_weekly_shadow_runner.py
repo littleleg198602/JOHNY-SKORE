@@ -11,6 +11,7 @@ from market_checker_app.weekly_shadow_runner import (
     _parser,
     _quality_gate_issues,
     _readiness_summary,
+    _universe_coverage,
     build_runtime_config,
 )
 
@@ -40,6 +41,17 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
         self.assertTrue(
             _parser().parse_args(["--resolve-labels"]).resolve_labels
         )
+
+    def test_universe_coverage_lists_missing_requested_tickers(self) -> None:
+        coverage = _universe_coverage(
+            ["AAPL", "MSFT", "NVDA"],
+            [{"ticker": "AAPL"}, {"ticker": "NVDA"}],
+        )
+
+        self.assertEqual(3, coverage["requested"])
+        self.assertEqual(2, coverage["reported"])
+        self.assertEqual(["MSFT"], coverage["missing_tickers"])
+        self.assertEqual(66.67, coverage["coverage_pct"])
 
     def test_enabled_manual_agent_without_source_is_rejected(self) -> None:
         with self.assertRaisesRegex(RuntimeConfigurationError, "SupplyChainAgent"):
