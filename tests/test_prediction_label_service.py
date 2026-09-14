@@ -118,6 +118,30 @@ class PredictionLabelServiceTests(unittest.TestCase):
             stored = store.read_prediction_snapshots(ticker="AAPL")
             self.assertEqual("PENDING", stored.iloc[0]["label_status"])
 
+    def test_missing_common_exchange_session_does_not_create_misaligned_label(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = SQLiteStore(Path(tmp) / "history.db")
+            self._snapshot(
+                store,
+                as_of=datetime(2026, 1, 2, 16, tzinfo=timezone.utc),
+            )
+            histories = {
+                "AAPL": _history([100, 101, 102, 103, 104, 105]),
+                # Benchmark lacks the third shared future session.  Both series
+                # have five rows, but they must not be compared across dates.
+                "SPY": _history([100, 100, 101, 102, 103], start="2026-01-02"),
+            }
+            result = PredictionLabelService(maturity_grace_days=7).resolve_pending_snapshots(
+                store=store,
+                price_loader=lambda ticker: histories[ticker],
+                as_of=datetime(2026, 1, 20, tzinfo=timezone.utc),
+            )
+
+            self.assertEqual(0, result["resolved"])
+            self.assertEqual(1, result["unavailable"])
+            stored = store.read_prediction_snapshots(ticker="AAPL")
+            self.assertEqual("UNAVAILABLE", stored.iloc[0]["label_status"])
+
     def test_loaded_but_mature_unusable_window_becomes_unavailable(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = SQLiteStore(Path(tmp) / "history.db")
