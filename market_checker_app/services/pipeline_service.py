@@ -678,15 +678,24 @@ class PipelineService:
                 else:
                     benchmark_misses.append(benchmark)
             if benchmark_misses:
-                fetched_benchmarks, benchmark_warnings = (
-                    self.yahoo_client.fetch_ohlc_batch(benchmark_misses)
+                fetch_benchmark_batch = getattr(
+                    self.yahoo_client, "fetch_ohlc_batch", None
                 )
-                for benchmark, frame in fetched_benchmarks.items():
-                    self.yahoo_ohlc_cache.upsert_success(benchmark, frame)
-                    benchmark_ohlc_by_ticker[benchmark] = frame
-                    benchmark_ohlc_source[benchmark] = "yahoo_ohlc_download"
-                for benchmark, warning in benchmark_warnings.items():
-                    self.yahoo_ohlc_cache.note_failure(benchmark, warning)
+                if callable(fetch_benchmark_batch):
+                    fetched_benchmarks, benchmark_warnings = (
+                        fetch_benchmark_batch(benchmark_misses)
+                    )
+                    for benchmark, frame in fetched_benchmarks.items():
+                        self.yahoo_ohlc_cache.upsert_success(benchmark, frame)
+                        benchmark_ohlc_by_ticker[benchmark] = frame
+                        benchmark_ohlc_source[benchmark] = "yahoo_ohlc_download"
+                    for benchmark, warning in benchmark_warnings.items():
+                        self.yahoo_ohlc_cache.note_failure(benchmark, warning)
+                else:
+                    benchmark_warnings = {
+                        benchmark: "Yahoo benchmark source is unavailable in this runtime."
+                        for benchmark in benchmark_misses
+                    }
                 if benchmark_warnings:
                     warnings.append(
                         "Market-factor benchmark OHLC není čerstvě dostupné pro "
