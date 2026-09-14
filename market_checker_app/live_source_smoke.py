@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import re
 import tempfile
 import time
 from typing import Callable, Mapping, Sequence
@@ -47,6 +48,36 @@ DEFAULT_EUROPEAN_CANARY_URLS: tuple[tuple[str, str], ...] = (
 
 def _exact_name(value: object) -> str:
     return " ".join(str(value or "").split()).casefold()
+
+
+_JURISDICTION_SUFFIX = re.compile(
+    r"^(?P<legal_name>.+?)\s+/(?P<jurisdiction>[a-z]{2})/?$"
+)
+
+
+def _legal_name_comparison_key(value: object) -> str:
+    """Normalize only an optional terminal /XX corporate-jurisdiction suffix.
+
+    Identity lookup always happens by CIK/LEI/ISIN before this comparison. This
+    intentionally does not remove general punctuation, words, or aliases.
+    """
+
+    normalized = _exact_name(value)
+    matched = _JURISDICTION_SUFFIX.fullmatch(normalized)
+    if matched is None:
+        return normalized
+    return (
+        f"{matched.group('legal_name')} "
+        f"/{matched.group('jurisdiction')}/"
+    )
+
+
+def _legal_name_match_mode(expected: object, observed: object) -> str | None:
+    if _exact_name(expected) == _exact_name(observed):
+        return "EXACT"
+    if _legal_name_comparison_key(expected) == _legal_name_comparison_key(observed):
+        return "JURISDICTION_SUFFIX_NORMALIZED"
+    return None
 
 
 def verify_company_identity_pilot(
@@ -120,6 +151,7 @@ def verify_company_identity_pilot(
         source_url = str(record.get("source_url") or "").strip()
         source_host = (urlparse(source_url).hostname or "").casefold()
         registries: list[str] = []
+        legal_name_match_modes: list[str] = []
 
         if cik is not None:
             if sec_client is None or not hasattr(sec_client, "resolve_company"):
@@ -132,7 +164,10 @@ def verify_company_identity_pilot(
                     f"SEC CIK konflikt pro {ticker}: manifest {cik}, registry "
                     f"{str(company.cik).zfill(10)}."
                 )
-            if _exact_name(company.name) != _exact_name(expected_name):
+            sec_name_match_mode = _legal_name_match_mode(
+                expected_name, company.name
+            )
+            if sec_name_match_mode is None:
                 raise RuntimeError(
                     f"SEC legal-name konflikt pro {ticker}: manifest "
                     f"{expected_name!r}, registry {company.name!r}."
@@ -150,6 +185,7 @@ def verify_company_identity_pilot(
                     f"SEC source URL pro {ticker} neodpovídá přesnému CIK endpointu."
                 )
             registries.append("SEC_EDGAR")
+            legal_name_match_modes.append(sec_name_match_mode)
 
         if lei is not None or isin is not None:
             if gleif_client is None or not hasattr(gleif_client, "resolve"):
@@ -176,7 +212,10 @@ def verify_company_identity_pilot(
                     f"GLEIF ISIN mapping konflikt pro {ticker}: {isin} není navázán "
                     f"na LEI {identity.lei}."
                 )
-            if _exact_name(identity.legal_name) != _exact_name(expected_name):
+            gleif_name_match_mode = _legal_name_match_mode(
+                expected_name, identity.legal_name
+            )
+            if gleif_name_match_mode is None:
                 raise RuntimeError(
                     f"GLEIF legal-name konflikt pro {ticker}: manifest "
                     f"{expected_name!r}, registry {identity.legal_name!r}."
@@ -204,6 +243,7 @@ def verify_company_identity_pilot(
                     f"GLEIF source URL pro {ticker} neodpovídá přesnému LEI endpointu."
                 )
             registries.append("GLEIF")
+            legal_name_match_modes.append(gleif_name_match_mode)
 
         if not registries:
             raise RuntimeError(f"Identita {ticker} nemá CIK, LEI ani ISIN.")
@@ -211,6 +251,7 @@ def verify_company_identity_pilot(
             {
                 "ticker": ticker,
                 "legal_name": expected_name,
+                "legal_name_match_modes": legal_name_match_modes,
                 "cik": cik,
                 "isin": isin,
                 "lei": lei,
