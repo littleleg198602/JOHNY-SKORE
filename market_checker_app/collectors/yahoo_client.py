@@ -314,14 +314,18 @@ class YahooClient:
         interval: str = "1d",
         *,
         batch_size: int = 50,
+        retry_missing_symbols: bool = True,
+        missing_symbol_retry_limit: int = 5,
         progress_callback: Callable[[int, int, str], None] | None = None,
     ) -> tuple[dict[str, pd.DataFrame], dict[str, str]]:
         """Fetch daily OHLC in bounded Yahoo batches for large universes.
 
-        The returned dictionaries are keyed by the project's canonical ticker,
-        while Yahoo class-share notation is used only for the request symbol.
-        A failed batch never fabricates prices; affected symbols are returned
-        in the warnings dictionary.
+        A bulk request may return usable data for only part of its symbols
+        without raising an exception.  In that case this method retries only a
+        small number of missing symbols individually.  It never performs that
+        fallback after a failed whole batch or while the shared rate-limit
+        circuit breaker is active, so a transient Yahoo outage cannot turn
+        into hundreds of extra requests.
         """
         canonical_tickers = list(
             dict.fromkeys(
@@ -333,6 +337,7 @@ class YahooClient:
         if not canonical_tickers:
             return {}, {}
         size = max(1, int(batch_size))
+        symbol_retry_limit = max(0, int(missing_symbol_retry_limit))
         frames: dict[str, pd.DataFrame] = {}
         warnings: dict[str, str] = {}
         batches = [
@@ -344,6 +349,7 @@ class YahooClient:
                 self.normalize_yahoo_symbol(ticker)
                 for ticker in batch
             ]
+            batch_failed = False
             try:
                 history = self._call_with_retry(
                     lambda symbols=yahoo_symbols: yf.download(
@@ -357,12 +363,14 @@ class YahooClient:
                     )
                 )
             except Exception as exc:
+                batch_failed = True
                 message = (
                     f"Yahoo bulk OHLC dávka {batch_index}/{len(batches)} "
                     f"selhala: {type(exc).__name__}: {exc}"
                 )
                 warnings.update({ticker: message for ticker in batch})
             else:
+                missing: list[str] = []
                 for ticker, yahoo_symbol in zip(batch, yahoo_symbols):
                     frame = self._extract_batch_frame(
                         history,
@@ -370,11 +378,40 @@ class YahooClient:
                         single_symbol=len(batch) == 1,
                     )
                     if frame is None:
-                        warnings[ticker] = (
-                            f"Yahoo bulk OHLC nevrátil použitelná data pro {ticker}."
-                        )
+                        missing.append(ticker)
                     else:
                         frames[ticker] = frame
+
+                can_retry_missing = (
+                    retry_missing_symbols
+                    and not batch_failed
+                    and not type(self).is_rate_limited()
+                    and symbol_retry_limit > 0
+                )
+                retried = 0
+                for ticker in missing:
+                    if not can_retry_missing or retried >= symbol_retry_limit:
+                        warnings[ticker] = (
+                            f"Yahoo bulk OHLC nevrátil použitelná data pro {ticker}; "
+                            "individuální retry nebyl proveden."
+                        )
+                        continue
+                    retried += 1
+                    frame, warning = self.fetch_ohlc_only(
+                        ticker,
+                        period=period,
+                        interval=interval,
+                    )
+                    if isinstance(frame, pd.DataFrame) and not frame.empty:
+                        frames[ticker] = frame
+                    else:
+                        detail = warning or "Yahoo nevrátil použitelná data."
+                        warnings[ticker] = (
+                            f"Yahoo bulk OHLC nevrátil data pro {ticker}; "
+                            f"individuální retry selhal: {detail}"
+                        )
+                    if type(self).is_rate_limited():
+                        can_retry_missing = False
             if progress_callback is not None:
                 progress_callback(batch_index, len(batches), batch[-1])
         return frames, warnings
