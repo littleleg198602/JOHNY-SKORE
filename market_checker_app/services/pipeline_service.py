@@ -821,7 +821,11 @@ class PipelineService:
                         tech_source_used = (
                             "yfinance_ohlc_cache"
                             if bulk_yahoo_ohlc_cache_state.get(ticker) == "fresh"
-                            else ("yfinance_ohlc_cache_stale" if bulk_yahoo_ohlc_cache_state.get(ticker) == "stale_after_failure" else "yfinance_bulk")
+                            else (
+                                "yfinance_ohlc_cache_stale"
+                                if bulk_yahoo_ohlc_cache_state.get(ticker) in {"stale_after_failure", "stale_backoff"}
+                                else "yfinance_bulk"
+                            ))
                         )
                         tech_source_warning = None
                     else:
@@ -858,7 +862,11 @@ class PipelineService:
                         tech_source_used = (
                             "yfinance_ohlc_cache_fallback"
                             if bulk_yahoo_ohlc_cache_state.get(ticker) == "fresh"
-                            else ("yfinance_ohlc_cache_stale_fallback" if bulk_yahoo_ohlc_cache_state.get(ticker) == "stale_after_failure" else "yfinance_bulk_fallback")
+                            else (
+                                "yfinance_ohlc_cache_stale_fallback"
+                                if bulk_yahoo_ohlc_cache_state.get(ticker) in {"stale_after_failure", "stale_backoff"}
+                                else "yfinance_bulk_fallback"
+                            ))
                         )
                         tech_source_warning = mt5_warning
                     else:
