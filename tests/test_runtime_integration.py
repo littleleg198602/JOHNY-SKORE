@@ -42,7 +42,7 @@ from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 
 
 def _history() -> pd.DataFrame:
-    index = pd.date_range("2025-01-01", periods=260, freq="B", tz="UTC")
+    index = pd.date_range(end=pd.Timestamp.now(tz="UTC").normalize(), periods=260, freq="B", tz="UTC")
     close = pd.Series([100 + idx * 0.15 for idx in range(len(index))], index=index)
     return pd.DataFrame(
         {
