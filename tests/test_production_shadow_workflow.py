@@ -108,8 +108,14 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
                 "--ticker-file market_checker_app/production_watchlist.txt"
             ),
         )
-        self.assertIn("--ticker-limit 3", workflow)
-        self.assertIn("--ticker-limit 36", workflow)
+        smoke_marker = "Verify company identities and current live sources"
+        analysis_marker = "Run the persistent weekly Stage 4 shadow"
+        smoke = workflow[workflow.index(smoke_marker):workflow.index(analysis_marker)]
+        analysis = workflow[workflow.index(analysis_marker):]
+
+        self.assertIn("--ticker-limit 3", smoke)
+        self.assertNotIn("--ticker-limit", analysis)
+        self.assertIn("production_watchlist.txt", analysis)
         self.assertNotIn("--tickers AAPL", workflow)
         self.assertNotIn("JOHNY_SKORE_SMOKE_SHORT_REPORT_URL", workflow)
         self.assertNotIn("\n  push:\n", workflow)
