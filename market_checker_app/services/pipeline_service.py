@@ -897,6 +897,7 @@ class PipelineService:
                 "risk_adjusted_score": diag.risk_adjusted_score,
                 "final_total_score": diag.final_total_score,
                 "final_confidence": diag.final_confidence,
+                "confidence_kind": "HEURISTIC_UNCALIBRATED",
                 "module_confidence": diag.module_confidence,
                 "decision_confidence": diag.decision_confidence,
                 "news_confidence": conf.news_confidence,
