@@ -704,7 +704,7 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-006 — Opravit společný pětidenní kalendář labelů
 
-- **Priorita / stav:** P0 / IMPLEMENTED_PENDING_MERGE
+- **Priorita / stav:** P0 / DONE (merged 2026-09-14)
 - **Nadřazené úkoly:** PRED-001, DATA-001, EVAL-001
 - **Závislosti:** Bez závislosti
 - **Zjištění:** Izolovaný test PredictionLabelService s chybějící seancí skončil pro akcii 9. 9. 2026 a benchmark 8. 9. 2026: pět řádků v každé řadě není vždy stejných pět seancí.
@@ -722,7 +722,7 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-008 — Oddělit směr zprávy od množství a důvěry
 
-- **Priorita / stav:** P1 / IMPLEMENTED_PENDING_MERGE
+- **Priorita / stav:** P1 / DONE (merged 2026-09-14)
 - **Nadřazené úkoly:** NEWS-001, MODEL-001
 - **Závislosti:** Před změnou zmrazit a verzovat dosavadní baseline
 - **Zjištění:** Izolovaný test neutrálních čerstvých titulků: sentiment 0 v obou případech, ale news score vzrostlo z 43,25 u jednoho na 61,50 u třiceti. Objem a čerstvost tak ovlivňují směrové skóre.
@@ -731,7 +731,7 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-009 — Evidovat původního vydavatele a deduplikovat události
 
-- **Priorita / stav:** P1 / IMPLEMENTED_PENDING_MERGE
+- **Priorita / stav:** P1 / DONE (merged 2026-09-14)
 - **Nadřazené úkoly:** NEWS-001, EVENT-001
 - **Závislosti:** Bez závislosti; návaznost AUD-008
 - **Zjištění:** RSS source je URL feedu, nikoli nutně původní vydavatel. Současná deduplikace shodného normalizovaného titulku neodstraní přepsané zprávy o stejné události.
@@ -740,7 +740,7 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-010 — Neprezentovat heuristickou důvěru jako kalibrovanou pravděpodobnost
 
-- **Priorita / stav:** P1 / IMPLEMENTED_PENDING_MERGE
+- **Priorita / stav:** P1 / DONE (merged 2026-09-14)
 - **Nadřazené úkoly:** MODEL-001, UI-806, EVAL-001
 - **Závislosti:** Označení bez závislosti; kalibrace po AUD-007 a AUD-012
 - **Zjištění:** DecisionAgent._probabilities převádí confidence vzorcem; například 0,6 na dominantní hodnotu přibližně 0,7333. To není změřená četnost úspěchu.
@@ -767,7 +767,7 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-013 — Zobrazit použitelný analytický report celého universe
 
-- **Priorita / stav:** P1 / IMPLEMENTED_PENDING_MERGE
+- **Priorita / stav:** P1 / DONE (merged 2026-09-14)
 - **Nadřazené úkoly:** UI-806, OPS-805
 - **Závislosti:** AUD-002, AUD-004, AUD-005; metriky postupně AUD-007/010/012
 - **Zjištění:** Zobrazení posledního JSONu existuje, ale kompletní auditovatelnost 687 výsledků a oddělení signálu, interní důvěry a prokázaného výkonu nejsou dokončené.
