@@ -248,7 +248,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
             stored = store.read_signals_for_run(int(result["run_id"]))
             self.assertEqual(1, len(stored))
             self.assertEqual("AAPL", stored.iloc[0]["ticker"])
-            self.assertEqual("yahoo_metadata", stored.iloc[0]["current_price_source"])
+            self.assertEqual("yahoo_ohlc_close", stored.iloc[0]["current_price_source"])
             for column in ("decision_signal", "forecast", "action", "action_reasons"):
                 self.assertIn(column, stored.columns)
             self.assertEqual(result["signals"].iloc[0]["action"], stored.iloc[0]["action"])
