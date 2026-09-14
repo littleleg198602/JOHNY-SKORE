@@ -1,5 +1,25 @@
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-14 – první P0 implementace z auditního backlogu
+
+- **AUD-002 / PR #87:** týdenní GitHub analytický krok už nepředává `--ticker-limit 36`; stejně jako Windows launcher používá celý `production_watchlist.txt`. Tří tickerový krok zůstává pouze samostatný source/identity smoke.
+- Přidán regresní kontrakt workflow: produkční Stage 4 nesmí obsahovat limit tickerů, zatímco smoke musí zůstat malý a explicitní.
+- **AUD-001 / PR #88:** připravena úzká oprava AMAT identity canary. Po přesné shodě CIK/LEI/ISIN se považuje pouze koncové `/XX` a `/XX/` za stejný jurisdikční zápis; jiné rozdíly názvu a každý konflikt CIK dál selhávají fail-closed. Přidány oba regresní testy.
+- Změny jsou analytické a bezpečnostní; automatické obchodování ani exekuce neexistují.
+- Neprovedený krok: před označením jako DONE musí projít CI a proběhnout samostatně schválené provozní ověření celého universe. PR #87 i #88 zůstávají drafty.
+
+## 2026-09-11 – auditní backlog: skutečný rozsah, datová integrita a měřitelná predikce
+
+- Do `COMPANY_INTELLIGENCE_TASKS.md`, §11, přidáno **15 konkrétních otevřených úkolů AUD-001 až AUD-015** s prioritou, návazností na původní ID, závislostmi, zjištěním, řešením a akceptačními testy. Tato fronta má přednost před obecným pořadím §7.
+- P0: kosmetický AMAT identity konflikt, sjednocení Windows/GitHub analýzy na 687 tickerů, persistentní OHLC cache a obnova sběru, správné stáří/výběr cen, diagnostika zdrojů a degradace, společný pětidenní kalendář akcie a benchmarku.
+- P1: pravidelné uzavírání snapshotů, odstranění směrového zkreslení neutrálních zpráv, původní vydavatel a event deduplikace, poctivé označení heuristické důvěry, point-in-time faktory, baseline/walk-forward, úplný dashboard a reálná provozní akceptace no-MT5 cesty.
+- P2: dodavatelé, zákazníci, materiály a zdraví protistran pouze s doloženou identitou, daty a explicitním důvodem neznámých či nedostupných údajů.
+- Upřesněny historické popisy: Windows full-universe oprava je na pracovní větvi, nikoli zatím v main; týdenní GitHub krok má limit 36 i v PR. `PRED-001` a `BASE-001` jsou znovu `PARTIAL`, protože existence specifikace/snapshotu nedokládá splnění výsledkové akceptace.
+- Odstraněna zavádějící formulace o budoucí live aktivaci z aktuální roadmapy. Produkt zůstává trvale pouze analytický; historické logy se nemažou.
+- Podklady: main `8adc899744c97a7b4f9eb06de0f7876bc5421ea0`, PR větev před zápisem `c55060348ad6608f0b9abba8bcb3058d3cbe1f58`, [live běh 7. 9.](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/34121882908) a [CI](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/33639298724).
+- Audit zahrnoval čtení kódu/logu a dva izolované diagnostické testy: neutrální news skóre 43,25 versus 61,50; rozdílný endpoint labelu akcie 9. 9. versus benchmark 8. 9. Nebyl proveden nový úplný test suite ani živý 687tickerový běh.
+- Rozsah tohoto zápisu: **pouze dokumentace** na větvi `codex/rework-prediction-roadmap-20260901` v [PR #87](https://github.com/littleleg198602/JOHNY-SKORE/pull/87). Úkoly nejsou tímto implementované a main nebyl změněn. Backlog commit: `14af11992cfc87f1b389f7fe1b9bd3665e26b6c6`.
+
 ## 2026-09-01 – přepracování analytické roadmapy
 
 - `COMPANY_INTELLIGENCE_TASKS.md` byl přepsán do nové kanonické struktury.
@@ -12,6 +32,18 @@
 - Supply-chain, materiály, energie a private-company enrichment byly přesunuty do sekundární/deferred větve. Mohou vstoupit do rozhodování pouze po samostatném ablation testu.
 - Dokumentace nyní vyžaduje oddělení technického `PASS` od skutečně prokázaného predikčního přínosu.
 - Tato změna je dokumentační a architektonická. Nemění současnou predikční logiku ani nepovoluje live BUY/SELL.
+
+
+## 2026-09-02 – audit prvního skutečného běhu všech 687 tickerů
+
+- Lokální launcher už skutečně zpracoval celý produkční seznam: konzole doběhla na `687/687`, takže skrytý limit 36 tickerů je odstraněný správně.
+- Výstup ale nebyl považován za použitelný analytický běh. Spouštění s `--no-mt5` dříve nechávalo velký universe bez OHLC dat a technická vrstva byla neutrální; současně jediný výpadek textu výročního filingu shodil celý běh na `FAILED`.
+- Oprava v PR #87 zavádí omezené dávkové Yahoo OHLC po skupinách 50 tickerů. Úspěšné dávky se použijí pro technickou analýzu, neúspěšné symboly zůstanou bez domyšlené ceny a jejich stav se zapíše do reportu.
+- Výpadek volitelného textového enrichmentu už není automaticky globální technická chyba. Runner ho vykáže jako `PARTIAL`, včetně tickeru, accession čísla, URL, typu chyby a zprávy; skutečné chyby integrity a `QualityGate: REJECT` zůstávají blokující.
+- Do JSONu přibyly `yahoo_bulk_attempted`, `yahoo_bulk_loaded`, `yahoo_bulk_failures` a detailní seznamy neúspěšných tickerů, dále `filing_text_failure_details` a `quality_gate_issues`, aby další běh rozlišil nepoužitý zdroj od výpadku a ukázal přesně, ke kterému tickeru a zdroji problém patří.
+- Bezpečnostní režim se nemění: žádné automatické obchodování, žádná exekuce příkazů a žádný tichý fallback na 36 tickerů.
+- Nový 687tickerový běh po této opravě je stále provozní ověření, nikoli důkaz predikční přesnosti. Před hodnocením signálů musí být v JSONu zkontrolováno pokrytí OHLC, SEC, rozhodnutí a QualityGate.
+
 
 ## 2026-08-28 – lokální audit výstupu a Streamlit dashboardu
 
@@ -236,3 +268,12 @@ ověřovací testy a otevřené provozní podmínky. Historické záznamy se nem
 - Stav labelování se zapisuje do `weekly_shadow_latest.json` jako `prediction_label_resolution`.
 - Resolver je navržen pro postupné dávkování; bezpečný backfill celého 687tickerového universe zůstává samostatný provozní krok.
 - CI run #115 a #116 prošly po napojení runneru a parser testu.
+
+
+### 2026-09-02 — Full-universe launcher correction
+
+- Opraven `Spustit_Tydenni_Shadow.bat`: odstraněn natvrdo zadaný `--ticker-limit 36`.
+- Standardní Windows spuštění nyní předává runneru celý `production_watchlist.txt`, tedy cílový universe přibližně 687 tickerů.
+- Přidán regresní test, který odmítne launcher s libovolným tickerovým limitem nebo s textem pilotního běhu.
+- Roadmapa `SCALE-001` nyní odděluje hotovou opravu launcheru od dosud neověřeného skutečného 687tickerového běhu, jeho retry/cache odolnosti a úplnosti výstupu.
+- Tato změna nemění analytický režim: automatické obchodování je trvale odstraněno a výstupy zůstávají pouze informativní.

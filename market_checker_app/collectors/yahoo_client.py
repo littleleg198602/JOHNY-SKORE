@@ -272,6 +272,113 @@ class YahooClient:
         warnings = [warning for warning in (metadata_warning, history_warning) if warning]
         return snapshot, performance, " | ".join(warnings) if warnings else None
 
+    @staticmethod
+    def _extract_batch_frame(
+        history: object,
+        yahoo_symbol: str,
+        *,
+        single_symbol: bool,
+    ) -> pd.DataFrame | None:
+        if not isinstance(history, pd.DataFrame) or history.empty:
+            return None
+        frame: pd.DataFrame | None = None
+        columns = history.columns
+        if isinstance(columns, pd.MultiIndex):
+            level_zero = {str(value) for value in columns.get_level_values(0)}
+            level_one = {str(value) for value in columns.get_level_values(1)}
+            if yahoo_symbol in level_zero:
+                frame = history[yahoo_symbol]
+            elif yahoo_symbol in level_one:
+                frame = history.xs(yahoo_symbol, axis=1, level=1, drop_level=True)
+        elif single_symbol:
+            frame = history
+        if frame is None or frame.empty:
+            return None
+        normalized_columns = {
+            str(column).strip().lower(): column
+            for column in frame.columns
+        }
+        close_column = normalized_columns.get("close")
+        if close_column is None:
+            return None
+        selected = frame.copy()
+        if close_column != "Close":
+            selected = selected.rename(columns={close_column: "Close"})
+        selected = selected.dropna(how="all")
+        return selected if not selected.empty else None
+
+    def fetch_ohlc_batch(
+        self,
+        tickers: list[str],
+        period: str = "1y",
+        interval: str = "1d",
+        *,
+        batch_size: int = 50,
+        progress_callback: Callable[[int, int, str], None] | None = None,
+    ) -> tuple[dict[str, pd.DataFrame], dict[str, str]]:
+        """Fetch daily OHLC in bounded Yahoo batches for large universes.
+
+        The returned dictionaries are keyed by the project's canonical ticker,
+        while Yahoo class-share notation is used only for the request symbol.
+        A failed batch never fabricates prices; affected symbols are returned
+        in the warnings dictionary.
+        """
+        canonical_tickers = list(
+            dict.fromkeys(
+                str(ticker).strip().upper()
+                for ticker in tickers
+                if str(ticker).strip()
+            )
+        )
+        if not canonical_tickers:
+            return {}, {}
+        size = max(1, int(batch_size))
+        frames: dict[str, pd.DataFrame] = {}
+        warnings: dict[str, str] = {}
+        batches = [
+            canonical_tickers[index : index + size]
+            for index in range(0, len(canonical_tickers), size)
+        ]
+        for batch_index, batch in enumerate(batches, start=1):
+            yahoo_symbols = [
+                self.normalize_yahoo_symbol(ticker)
+                for ticker in batch
+            ]
+            try:
+                history = self._call_with_retry(
+                    lambda symbols=yahoo_symbols: yf.download(
+                        tickers=symbols,
+                        period=period,
+                        interval=interval,
+                        auto_adjust=False,
+                        group_by="ticker",
+                        threads=False,
+                        progress=False,
+                    )
+                )
+            except Exception as exc:
+                message = (
+                    f"Yahoo bulk OHLC dávka {batch_index}/{len(batches)} "
+                    f"selhala: {type(exc).__name__}: {exc}"
+                )
+                warnings.update({ticker: message for ticker in batch})
+            else:
+                for ticker, yahoo_symbol in zip(batch, yahoo_symbols):
+                    frame = self._extract_batch_frame(
+                        history,
+                        yahoo_symbol,
+                        single_symbol=len(batch) == 1,
+                    )
+                    if frame is None:
+                        warnings[ticker] = (
+                            f"Yahoo bulk OHLC nevrátil použitelná data pro {ticker}."
+                        )
+                    else:
+                        frames[ticker] = frame
+            if progress_callback is not None:
+                progress_callback(batch_index, len(batches), batch[-1])
+        return frames, warnings
+
     def fetch_ohlc(
         self, ticker: str, period: str = "1y", interval: str = "1d"
     ) -> tuple[pd.DataFrame | None, str | None]:

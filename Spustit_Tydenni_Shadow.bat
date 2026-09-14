@@ -24,8 +24,8 @@ if errorlevel 1 goto :error
 call :ensure_sec_user_agent
 if errorlevel 1 goto :error
 
-echo [INFO] Spoustim tydenni auditni shadow beh pro 36 tickeru...
-%PYTHON_EXE% -m market_checker_app.weekly_shadow_runner --no-mt5 --runtime-config "%APP_DIR%\autonomous_runtime.json" --ticker-file "%APP_DIR%\production_watchlist.txt" --ticker-limit 36
+echo [INFO] Spoustim tydenni analyticky shadow beh pro cely nakonfigurovany universe...
+%PYTHON_EXE% -m market_checker_app.weekly_shadow_runner --no-mt5 --runtime-config "%APP_DIR%\autonomous_runtime.json" --ticker-file "%APP_DIR%\production_watchlist.txt"
 if errorlevel 1 goto :error
 
 echo [OK] Shadow beh prosel. Vysledek: outputs\weekly_shadow_latest.json
@@ -61,6 +61,6 @@ exit /b 0
 
 :error
 echo.
-echo [CHYBA] Tydenni shadow beh neprosel. BUY/SELL nebylo agentni vrstvou zmeneno.
+echo [CHYBA] Tydenni analyticky shadow beh neprosel. Analyticke BUY/SELL nebylo zmeneno.
 pause
 exit /b 1
