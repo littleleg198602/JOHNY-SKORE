@@ -1,5 +1,13 @@
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-14 – první P0 implementace z auditního backlogu
+
+- **AUD-002 / PR #87:** týdenní GitHub analytický krok už nepředává `--ticker-limit 36`; stejně jako Windows launcher používá celý `production_watchlist.txt`. Tří tickerový krok zůstává pouze samostatný source/identity smoke.
+- Přidán regresní kontrakt workflow: produkční Stage 4 nesmí obsahovat limit tickerů, zatímco smoke musí zůstat malý a explicitní.
+- **AUD-001 / PR #88:** připravena úzká oprava AMAT identity canary. Po přesné shodě CIK/LEI/ISIN se považuje pouze koncové `/XX` a `/XX/` za stejný jurisdikční zápis; jiné rozdíly názvu a každý konflikt CIK dál selhávají fail-closed. Přidány oba regresní testy.
+- Změny jsou analytické a bezpečnostní; automatické obchodování ani exekuce neexistují.
+- Neprovedený krok: před označením jako DONE musí projít CI a proběhnout samostatně schválené provozní ověření celého universe. PR #87 i #88 zůstávají drafty.
+
 ## 2026-09-11 – auditní backlog: skutečný rozsah, datová integrita a měřitelná predikce
 
 - Do `COMPANY_INTELLIGENCE_TASKS.md`, §11, přidáno **15 konkrétních otevřených úkolů AUD-001 až AUD-015** s prioritou, návazností na původní ID, závislostmi, zjištěním, řešením a akceptačními testy. Tato fronta má přednost před obecným pořadím §7.
