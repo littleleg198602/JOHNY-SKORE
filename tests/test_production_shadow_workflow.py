@@ -106,7 +106,7 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         )
         self.assertIn("--minimum-identity-records 36", workflow)
         self.assertEqual(
-            2,
+            3,
             workflow.count(
                 "--ticker-file market_checker_app/production_watchlist.txt"
             ),
