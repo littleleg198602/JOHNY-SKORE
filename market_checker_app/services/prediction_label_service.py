@@ -104,6 +104,81 @@ class PredictionLabelService:
         endpoint = future.iloc[-1]["timestamp"].to_pydatetime()
         return values, endpoint
 
+    @classmethod
+    def _common_price_windows(
+        cls,
+        asset_history: pd.DataFrame | None,
+        benchmark_history: pd.DataFrame | None,
+        *,
+        as_of: datetime,
+        horizon: int,
+    ) -> tuple[list[float], list[float], datetime] | None:
+        """Return a target window only when both instruments share every session.
+
+        Five rows in two independent series are not necessarily the same five
+        exchange sessions. Missing sessions deliberately block resolution
+        instead of being silently skipped.
+        """
+
+        asset_window = cls._price_window(asset_history, as_of=as_of, horizon=horizon)
+        benchmark_window = cls._price_window(
+            benchmark_history, as_of=as_of, horizon=horizon
+        )
+        if asset_window is None or benchmark_window is None:
+            return None
+        asset_values, asset_endpoint = asset_window
+        benchmark_values, benchmark_endpoint = benchmark_window
+        if asset_endpoint != benchmark_endpoint:
+            return None
+
+        def valid_dates(history: pd.DataFrame | None) -> set[pd.Timestamp]:
+            if history is None or history.empty or "Close" not in history.columns:
+                return set()
+            frame = pd.DataFrame(
+                {
+                    "timestamp": pd.to_datetime(history.index, utc=True, errors="coerce"),
+                    "close": pd.to_numeric(history["Close"], errors="coerce"),
+                }
+            ).dropna(subset=["timestamp", "close"])
+            return {
+                timestamp
+                for timestamp, close in zip(frame["timestamp"], frame["close"])
+                if math.isfinite(float(close)) and float(close) > 0.0
+            }
+
+        asset_dates = valid_dates(asset_history)
+        benchmark_dates = valid_dates(benchmark_history)
+        cutoff = pd.Timestamp(as_of)
+        future_dates = sorted(
+            date for date in asset_dates.intersection(benchmark_dates) if date > cutoff
+        )[:horizon]
+        base_dates = sorted(
+            date for date in asset_dates.intersection(benchmark_dates) if date <= cutoff
+        )
+        if len(future_dates) != horizon or not base_dates:
+            return None
+        if future_dates[-1].to_pydatetime() != asset_endpoint:
+            return None
+
+        def values_for(history: pd.DataFrame, dates: list[pd.Timestamp]) -> list[float]:
+            frame = pd.DataFrame(
+                {
+                    "timestamp": pd.to_datetime(history.index, utc=True, errors="coerce"),
+                    "close": pd.to_numeric(history["Close"], errors="coerce"),
+                }
+            ).dropna(subset=["timestamp", "close"])
+            lookup = {
+                timestamp: float(close)
+                for timestamp, close in zip(frame["timestamp"], frame["close"])
+            }
+            return [lookup[base_dates[-1]]] + [lookup[date] for date in dates]
+
+        return (
+            values_for(asset_history, future_dates),
+            values_for(benchmark_history, future_dates),
+            future_dates[-1].to_pydatetime(),
+        )
+
     @staticmethod
     def _snapshot_mapping(row: Mapping[str, object]) -> dict[str, object]:
         snapshot = dict(row)
@@ -187,17 +262,13 @@ class PredictionLabelService:
 
             asset_history = load(ticker)
             benchmark_history = load(benchmark)
-            asset_window = self._price_window(
+            common_windows = self._common_price_windows(
                 asset_history,
-                as_of=snapshot_as_of,
-                horizon=horizon,
-            )
-            benchmark_window = self._price_window(
                 benchmark_history,
                 as_of=snapshot_as_of,
                 horizon=horizon,
             )
-            if asset_window is None or benchmark_window is None:
+            if common_windows is None:
                 # Do not turn a not-yet-mature or temporarily unavailable
                 # source into a false zero/negative label.
                 if (
@@ -215,12 +286,12 @@ class PredictionLabelService:
                 labels.append(labeled)
                 continue
 
-            target_observed_at = max(asset_window[1], benchmark_window[1])
+            asset_values, benchmark_values, target_observed_at = common_windows
             labels.append(
                 resolve_excess_return_label(
                     snapshot,
-                    asset_window[0],
-                    benchmark_window[0],
+                    asset_values,
+                    benchmark_values,
                     target_observed_at=target_observed_at,
                 )
             )
