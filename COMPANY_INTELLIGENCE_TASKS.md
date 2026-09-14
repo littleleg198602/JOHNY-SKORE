@@ -676,7 +676,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-003 — Zavést persistentní OHLC cache a obnovu sběru
 
-- **Priorita / stav:** P0 / TODO
+- **Priorita / stav:** P0 / PARTIAL
+- **Implementováno 2026-09-14:** Persistentní Yahoo OHLC cache nyní ukládá úspěšné rámce i neúspěšné pokusy s počtem pokusů a ochranným intervalem dalšího retry. Při dočasné chybě se použije stale cache; po částečné bulk odpovědi se omezeně opakují pouze chybějící symboly, nikdy ne po pádu celé dávky nebo aktivním rate limitu. Regresní testy pokrývají timeout, 429 checkpoint, prázdný rámec, částečný výpadek a obnovu z cache. Zbývá session/provider/version metadata, skutečně inkrementální update a živý restart 687tickerové dávky.
 - **Nadřazené úkoly:** SCALE-001, MKT-001
 - **Závislosti:** Bez závislosti
 - **Zjištění:** Dávka 50 symbolů v yfinance není jeden serverový požadavek; klient interně zpracovává symboly. Nová bulk cesta nemá persistentní OHLC cache a interně zachycená chyba může vrátit prázdný rámec bez vnějšího retry.
@@ -685,7 +686,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-004 — Opravit výběr ceny a kontrolu použitelnosti OHLC
 
-- **Priorita / stav:** P0 / TODO
+- **Priorita / stav:** P0 / PARTIAL
+- **Implementováno 2026-09-14:** Dated OHLC close se před použitím ověří na kladnou numerickou hodnotu, čas seance, budoucí datum, maximální stáří a minimální délku historie pro indikátory. Stará/poškozená OHLC se nesmí přepsat nečasovanou Yahoo metadata quote; tato quote je označena samostatně. Testy kryjí all-NaN, nečíselné/zero Close, víkend, sváteční mezeru, budoucí close a krátkou historii. Zbývá přesný burzovní kalendář pro jednotlivé MIC a zobrazení timestampu/provenance ceny v UI.
 - **Nadřazené úkoly:** MKT-001, DATA-001
 - **Závislosti:** Bez závislosti; cache využije AUD-003
 - **Zjištění:** Pipeline může dát přednost starému Yahoo currentPrice z metadata cache před čerstvým Yahoo OHLC. Samotná přítomnost sloupce Close nestačí jako validace.
@@ -695,7 +697,7 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 ### AUD-005 — Dokončit diagnostiku zdrojů a pravidla degradace
 
 - **Priorita / stav:** P0 / PARTIAL
-- **Implementováno 2026-09-14:** retry pro dočasné chyby při bezpečném stahování textu filingů a strukturovaný audit důvodu pro SEC bundle i text filingů (`source`, ticker, URL, čas, HTTP stav, pokusy, parser, náprava). Úplně sdílený transport/circuit breaker mezi všemi zdroji zůstává otevřený.
+- **Implementováno 2026-09-14:** retry pro dočasné chyby při bezpečném stahování textu filingů a strukturovaný audit důvodu pro SEC bundle i text filingů (`source`, ticker, URL, čas, HTTP stav, pokusy, parser, náprava). Yahoo nyní reportuje pokusy, retry-deferred tickery, cache coverage a kvalitu cen; při absenci všech datovaných cen je ranking explicitně nevyužitelný. Jeden volitelný enrichment zůstává degradací, ne falešným globálním pádem. Úplně sdílený transport/circuit breaker mezi všemi zdroji a jeho live důkaz zůstávají otevřené.
 - **Nadřazené úkoly:** OPS-805, FILING-101, SCALE-001
 - **Závislosti:** Návaznost AUD-003 a AUD-004
 - **Zjištění:** SEC JSON má retry a limiter, textová cesta přes ShortReportClient.fetch nemá vlastní opakování se sdíleným limitem. Souhrnné počty Yahoo chyb samy nezaručují správný globální stav.
