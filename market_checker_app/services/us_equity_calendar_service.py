@@ -59,7 +59,7 @@ def last_completed_session(as_of: datetime) -> pd.Timestamp | None:
     if schedule.empty:
         return None
     closes = pd.to_datetime(schedule["market_close"], utc=True, errors="coerce")
-    completed = schedule.index[closes <= pd.Timestamp(clock)]
+    completed = schedule.index[(closes <= pd.Timestamp(clock)).to_numpy()]
     if len(completed) == 0:
         return None
     return session_label(completed[-1])
