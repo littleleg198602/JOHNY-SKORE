@@ -1,6 +1,8 @@
 
 # JOHNY-SKORE – predikční a datová roadmapa
 
+> **Aktuální audit 2026-09-15:** realizační fronta a podmínky uzavření jsou v [COMPANY_INTELLIGENCE_OPL.md](COMPANY_INTELLIGENCE_OPL.md). Nový audit rozlišuje implementaci, sloučení, provozní ověření a predikční přínos; obsahuje 20 otevřených bodů s důkazy. Starší stavy níže nejsou samy o sobě akceptací.
+
 Tento soubor je kanonický backlog pro analytický program JOHNY-SKORE. Určuje, co má systém skutečně dělat, jaká data smí použít a podle čeho poznáme, že nová vrstva pomohla.
 
 > **Aktualizace 2026-09-11:** aktuální konkrétní pořadí oprav je v [§11 – auditní úkoly AUD-001 až AUD-015](#11-implementační-úkoly-z-auditu-2026-09-11). Historické implementační stavy níže nejsou potvrzením nasazení ani splnění všech akceptací.
@@ -657,7 +659,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-001 — Opravit kosmetický konflikt identity AMAT
 
-- **Priorita / stav:** P0 / TODO
+- **Priorita / stav:** P0 / PARTIAL
+- **Audit 2026-09-15:** úzká oprava AMAT již existuje v produkčním `live_source_smoke.py` a má regresní testy. Zbývá aktuální live ověření (OPL-009); PR #104 je zavřený bez sloučení a není dodávka.
 - **Nadřazené úkoly:** ENTITY-101, OPS-805
 - **Závislosti:** Bez závislosti
 - **Zjištění:** Live kontrola 7. 9. zastavila běh na rozdílu APPLIED MATERIALS INC /DE/ versus APPLIED MATERIALS INC /DE, přestože předchozí kontrola CIK prošla.
@@ -706,7 +709,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-006 — Opravit společný pětidenní kalendář labelů
 
-- **Priorita / stav:** P0 / DONE (merged 2026-09-14)
+- **Priorita / stav:** P0 / PARTIAL (akceptace znovu otevřena 2026-09-15)
+- **Nový důkaz:** původní implementace je sloučená, ale R06/R07 v OPL reprodukují společně chybějící seanci a label z budoucnosti vůči evaluačnímu času. Pokračovat podle OPL-003/005; nezaměňovat rovnost endpointů za úplný kalendář.
 - **Nadřazené úkoly:** PRED-001, DATA-001, EVAL-001
 - **Závislosti:** Bez závislosti
 - **Zjištění:** Izolovaný test PredictionLabelService s chybějící seancí skončil pro akcii 9. 9. 2026 a benchmark 8. 9. 2026: pět řádků v každé řadě není vždy stejných pět seancí.
@@ -734,7 +738,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-009 — Evidovat původního vydavatele a deduplikovat události
 
-- **Priorita / stav:** P1 / DONE (merged 2026-09-14)
+- **Priorita / stav:** P1 / PARTIAL (akceptace znovu otevřena 2026-09-15)
+- **Nový důkaz:** provenance pole jsou sloučená, ale event ID obsahuje doménu vydavatele; R09 v OPL ukazuje deset kopií titulku bez detekce duplicity a zvýšenou confidence. Pokračovat podle OPL-010.
 - **Nadřazené úkoly:** NEWS-001, EVENT-001
 - **Závislosti:** Bez závislosti; návaznost AUD-008
 - **Zjištění:** RSS source je URL feedu, nikoli nutně původní vydavatel. Současná deduplikace shodného normalizovaného titulku neodstraní přepsané zprávy o stejné události.
@@ -771,7 +776,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-013 — Zobrazit použitelný analytický report celého universe
 
-- **Priorita / stav:** P1 / DONE (merged 2026-09-14)
+- **Priorita / stav:** P1 / PARTIAL (akceptace znovu otevřena 2026-09-15)
+- **Nový důkaz:** zobrazení JSON je sloučené, ale pokrytí řádků není usable coverage, chybí export ceny/času/zdroje a eligibility rankingu (R08/R10). Pokračovat podle OPL-007/020.
 - **Nadřazené úkoly:** UI-806, OPS-805
 - **Závislosti:** AUD-002, AUD-004, AUD-005; metriky postupně AUD-007/010/012
 - **Zjištění:** Zobrazení posledního JSONu existuje, ale kompletní auditovatelnost 687 výsledků a oddělení signálu, interní důvěry a prokázaného výkonu nejsou dokončené.

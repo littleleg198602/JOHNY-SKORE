@@ -1,3 +1,12 @@
+## 2026-09-15 — nový audit main a OPL
+
+- Přidán `COMPANY_INTELLIGENCE_OPL.md`: 20 otevřených bodů, přesná priorita, vlastník/rozsah, závislost, řešení a akceptace; odkazy na původní AUD úkoly.
+- Auditovaný `main@a64d4de5677f04b4eae140994bc303356ca338f8`, CI #181 SUCCESS; PR #102/#103 MERGED; PR #104 CLOSED/NOT MERGED, CI #179 selhalo na list/dict kontraktu testu.
+- Deset izolovaných diagnostických případů dokládá mezery OHLC, targetu, relativních faktorů, deduplikace a rankingu. Nejde o nový full suite ani nový live běh.
+- AUD-001: oprava v produkční identity kontrole již existuje, zůstává live ověření. AUD-006/009/013: implementace zachovány, akceptace znovu otevřeny jako PARTIAL podle důkazů v OPL.
+- Nejnovější dohledaný weekly live běh 14. 9. používal starý commit a skončil na AMAT; Yahoo/RSS/SEC canary prošly. Z toho se nevyvozuje dnešní výpadek serverů ani úspěšný plný universe.
+- Tento zápis mění pouze dokumentaci. Nemění kód, plánované workflow, oprávnění ani obchodní exekuci. Projekt zůstává výhradně analytický; uživatel není žádán o ladicí běh.
+
 ## 2026-09-14 – dávka implementací AUD-006, 008–010 a 013
 
 - **AUD-006 / PR #94:** label akcie a benchmarku se uzavře pouze nad totožnými burzovními seancemi; rozdílný endpoint není tiše porovnán.
