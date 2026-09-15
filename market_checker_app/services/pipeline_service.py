@@ -178,7 +178,6 @@ class PipelineService:
                     decisions = store.read_decision_records(
                         policy_name=self.config.decision_agent.policy_name
                     )
-
                     activations = store.read_signal_activation_decisions(
                         self.config.decision_agent.policy_name
                     )
@@ -359,7 +358,6 @@ class PipelineService:
         orchestrator.register(
             QualityGateAgent(
                 self.config.quality_gate,
-
                 minimum_action_confidence=(
                     self.config.prediction_v21.minimum_action_confidence
                 ),
@@ -540,7 +538,6 @@ class PipelineService:
         expanded_rss_sources: list[str] = []
         articles = []
         if rss_enabled:
-
             expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
 
             def _on_rss_progress(completed: int, total_sources: int, source: str) -> None:
@@ -721,7 +718,6 @@ class PipelineService:
                 if callable(fetch_benchmark_batch):
                     fetched_benchmarks, benchmark_warnings = (
                         fetch_benchmark_batch(benchmark_misses)
-
                     )
                     for benchmark, frame in fetched_benchmarks.items():
                         self.yahoo_ohlc_cache.upsert_success(benchmark, frame)
@@ -902,7 +898,6 @@ class PipelineService:
                         fallback_parts.append(f"reason: {mt5_warning}")
                     if ohlc_warning:
                         yahoo_ohlc_failures += 1
-
                         fallback_parts.append(f"yfinance: {ohlc_warning}")
                     tech_source_warning = " | ".join(fallback_parts)
                     warnings.append(tech_source_warning)
@@ -1083,7 +1078,6 @@ class PipelineService:
                 "reasons": json.dumps(diag.reasons, ensure_ascii=False),
                 "warnings": json.dumps(diag.warnings, ensure_ascii=False),
                 "key_drivers": json.dumps(diag.key_drivers, ensure_ascii=False),
-
                 "overall_summary": diag.overall_summary,
                 "last_week_change_pct": perf.last_week_change_pct if perf.last_week_change_pct is not None else derived_perf.last_week_change_pct,
                 "last_14d_change_pct": perf.last_14d_change_pct if perf.last_14d_change_pct is not None else derived_perf.last_14d_change_pct,
@@ -1264,7 +1258,6 @@ class PipelineService:
         decision_count = 0
         decision_suppressed_count = 0
         decision_applied_count = 0
-
         evaluation_agent_status: str | None = None
         activation_state: str | None = None
         evaluation_sample_count = 0
@@ -1445,7 +1438,6 @@ class PipelineService:
                         decision_agent_status = execution.status.value
                         decision_count = len(execution.result.decisions)
                         decision_suppressed_count = int(
-
                             execution.result.metadata.get(
                                 "suppressed_proposals",
                                 0,
@@ -1626,7 +1618,6 @@ class PipelineService:
             "short_report_status": short_report_status,
             "short_report_document_count": short_report_document_count,
             "short_report_claim_count": short_report_claim_count,
-
             "claim_verification_status": claim_verification_status,
             "claim_corroborated_count": claim_corroborated_count,
             "claim_contradicted_count": claim_contradicted_count,
