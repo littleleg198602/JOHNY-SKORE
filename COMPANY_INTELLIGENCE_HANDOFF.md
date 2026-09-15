@@ -16,6 +16,7 @@ Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává z
 | OPL-004 | DONE | PR #109, merge `167fe03d32913120be4846caa930940adf978c84` | persistentní fair queue, retry_after/cursor, 1000/run, stránky po 120, backlog metriky, automatické Windows/GitHub spuštění, 700-snapshot starvation test |
 | OPL-001 | DONE | merge `97729f1` (PR #110) | release manifest, aktivní versus legacy verze, code/config/model/target/feature identita |
 | OPL-007 | CODE COMPLETE / live report pending | PR #111 + follow-up branch | způsobilost rankingu, neprůhledné řádky bez pořadí, per-ticker status ceny a technické vrstvy, auditovatelné exportní pole; nově atomická per-ticker traceability pipeline → SQLite → JSON → UI (requested/attempted/usable/partial/failed/not-attempted), testovaná na 687 tickerů. Zbývá jedině skutečný produkční 687tickerový report. |
+| OPL-008 | CODE COMPLETE / live provider evidence pending | follow-up branch | normalizované a per-ticker dohledatelné degradace zdrojů: rate limit, 403/401, timeout, parser, identita, konfigurace, data a retry/circuit; evidence se ukládá atomicky do SQLite, shadow JSON a UI. Zbývá skutečný živý provider report. |
 
 Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Streamlit gate, deterministic test suite a deterministic release gate**.
 
@@ -38,9 +39,9 @@ Každý nový snapshot nese release manifest s code SHA, config hashem, model/sc
 
 Nejvyšší zbývající technická priorita je:
 
-1. **OPL-008 — dostupnost a degradace.** Navázat na per-ticker traceability kontrakt a zpracovat transportní/prefixované failure reason codes.
-2. Spustit skutečný produkční 687tickerový OPL-007 report; jeho absence je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
-3. Poté pokračovat dalšími P1/P2 body podle pořadí v OPL; OPL-006 je code-complete a nepatří znovu do implementační fronty.
+1. **OPL-009 — živý smoke a identita zdrojů.** Provést skutečný provider smoke nad aktuální verzí a mít pro všech 687 tickerů stav resolved/quarantined/unresolved včetně důvodu.
+2. Spustit skutečný produkční 687tickerový OPL-007/008 report; jeho absence je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
+3. **OPL-010 — event canonicalization.** Sjednotit tutéž událost od více vydavatelů a oddělit neutrální zprávu od směrového podkladu.
 
 Živá data, která potřebují nasbírat čas/OOS vzorky, zůstávají `WAIT_DATA`; absence dat se nesmí označovat za implementační chybu ani za hotový predikční důkaz.
 
