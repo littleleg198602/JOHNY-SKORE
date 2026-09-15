@@ -5,8 +5,14 @@ from pathlib import Path
 import tempfile
 import time
 import unittest
+from datetime import datetime, timezone
 
 import pandas as pd
+
+from market_checker_app.services.us_equity_calendar_service import (
+    last_completed_session,
+    sessions_between,
+)
 
 from market_checker_app.config import AppConfig
 from market_checker_app.services.pipeline_service import PipelineService
@@ -18,16 +24,10 @@ from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 
 
 def _history() -> pd.DataFrame:
-    latest = latest_closed_us_equity_session(datetime.now(timezone.utc))
-    sessions = previous_us_equity_sessions(latest.session_date, 90)
-    index = pd.to_datetime(
-        [session.session_date.isoformat() for session in sessions],
-        utc=True,
-    )
-    close = pd.Series(
-        [100.0 + position * 0.1 for position in range(len(index))],
-        index=index,
-    )
+    latest = last_completed_session(datetime.now(timezone.utc))
+    assert latest is not None
+    index = pd.DatetimeIndex(sessions_between(latest - pd.Timedelta(days=180), latest)[-90:])
+    close = pd.Series([100.0 + index * 0.1 for index in range(len(index))], index=index)
     return pd.DataFrame(
         {
             "Open": close - 0.3,

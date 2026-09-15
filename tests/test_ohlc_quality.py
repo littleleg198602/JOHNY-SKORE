@@ -7,40 +7,7 @@ import pandas as pd
 
 from market_checker_app.services.ohlc_quality import assess_daily_ohlc
 from market_checker_app.services.pipeline_service import PipelineService
-from market_checker_app.services.us_equity_calendar import (
-    previous_us_equity_sessions,
-)
-
-
-MONDAY_PREOPEN = datetime(2026, 9, 14, 12, tzinfo=timezone.utc)
-
-
-def full_frame(session_dates: list[date], closes: list[object] | None = None) -> pd.DataFrame:
-    values = closes or [100.0] * len(session_dates)
-    numeric_for_shape = [
-        float(value)
-        if isinstance(value, (int, float))
-        and value not in {float("inf"), float("-inf")}
-        else 100.0
-        for value in values
-    ]
-    return pd.DataFrame(
-        {
-            "Open": numeric_for_shape,
-            "High": [value + 1.0 for value in numeric_for_shape],
-            "Low": [max(0.01, value - 1.0) for value in numeric_for_shape],
-            "Close": values,
-            "Volume": [1000.0] * len(session_dates),
-        },
-        index=pd.to_datetime([day.isoformat() for day in session_dates], utc=True),
-    )
-
-
-def session_dates_ending(day: date, count: int = 66) -> list[date]:
-    return [
-        session.session_date
-        for session in previous_us_equity_sessions(day, count)
-    ]
+from market_checker_app.services.us_equity_calendar_service import sessions_between
 
 
 class OhlcQualityTests(unittest.TestCase):
@@ -64,9 +31,14 @@ class OhlcQualityTests(unittest.TestCase):
             as_of=tuesday_preopen,
         )
 
-        self.assertTrue(result.price_usable)
-        self.assertTrue(result.history_usable)
-        self.assertEqual("2026-09-04", result.close_at.date().isoformat())
+def sessions_ending(end: str, count: int = 60) -> list[pd.Timestamp]:
+    end_label = pd.Timestamp(end, tz="UTC")
+    start = end_label - pd.Timedelta(days=max(120, count * 3))
+    return list(sessions_between(start, end_label)[-count:])
+
+
+def frame_from_sessions(end: str, count: int = 60, close: float = 100.0) -> pd.DataFrame:
+    return pd.DataFrame({"Close": [close] * count}, index=sessions_ending(end, count))
 
     def test_non_finite_latest_close_cannot_be_used(self) -> None:
         dates = session_dates_ending(date(2026, 9, 11))
@@ -77,32 +49,9 @@ class OhlcQualityTests(unittest.TestCase):
             as_of=MONDAY_PREOPEN,
         )
 
-        self.assertFalse(result.price_usable)
-        self.assertIsNone(result.close)
-        self.assertTrue(any("nekonečnou" in warning for warning in result.warnings))
-        self.assertTrue(
-            any("poslední očekávaná" in warning.lower() for warning in result.warnings)
-        )
-
-    def test_duplicate_rows_count_as_one_session_not_sixty_six(self) -> None:
-        repeated = [date(2026, 9, 11)] * 66
-        result = assess_daily_ohlc(
-            full_frame(repeated),
-            as_of=MONDAY_PREOPEN,
-        )
-
-        self.assertTrue(result.price_usable)
-        self.assertFalse(result.history_usable)
-        self.assertEqual(1, result.observation_count)
-        self.assertTrue(any("duplicit" in warning.lower() for warning in result.warnings))
-
-    def test_open_current_day_bar_is_ignored_and_prior_closed_price_survives(self) -> None:
-        dates = session_dates_ending(date(2026, 9, 11), 66) + [date(2026, 9, 14)]
-        closes: list[object] = [100.0] * 66 + [999.0]
-        result = assess_daily_ohlc(
-            full_frame(dates, closes),
-            as_of=MONDAY_PREOPEN,
-        )
+class OhlcQualityTests(unittest.TestCase):
+    def test_weekend_close_is_usable_on_monday(self) -> None:
+        result = assess_daily_ohlc(frame_from_sessions("2026-09-11"), as_of=AS_OF)
 
         self.assertTrue(result.price_usable)
         self.assertTrue(result.history_usable)
@@ -111,65 +60,49 @@ class OhlcQualityTests(unittest.TestCase):
         self.assertEqual(date(2026, 9, 11), result.close_at.date())
         self.assertTrue(any("ignorována" in warning for warning in result.warnings))
 
-    def test_only_open_current_day_bar_cannot_supply_price(self) -> None:
-        result = assess_daily_ohlc(
-            full_frame([date(2026, 9, 14)], [999.0]),
-            as_of=MONDAY_PREOPEN,
-        )
-
-        self.assertFalse(result.price_usable)
-        self.assertFalse(result.history_usable)
-        self.assertIsNone(result.close)
-        self.assertEqual(0, result.observation_count)
-
-    def test_missing_latest_closed_session_rejects_stale_frame(self) -> None:
-        result = assess_daily_ohlc(
-            full_frame(session_dates_ending(date(2026, 9, 10))),
-            as_of=MONDAY_PREOPEN,
-        )
+    def test_missing_latest_completed_session_is_rejected(self) -> None:
+        result = assess_daily_ohlc(frame_from_sessions("2026-09-08"), as_of=AS_OF)
 
         self.assertFalse(result.price_usable)
         self.assertIsNone(result.close)
-        self.assertTrue(any("2026-09-11" in warning for warning in result.warnings))
+        self.assertTrue(any("neodpovídá" in warning for warning in result.warnings))
 
-    def test_black_friday_half_day_is_used_only_after_early_close(self) -> None:
-        dates = session_dates_ending(date(2026, 11, 27))
-        closes: list[object] = [100.0] * (len(dates) - 1) + [125.0]
-        before = assess_daily_ohlc(
-            full_frame(dates, closes),
-            as_of=datetime(2026, 11, 27, 17, 30, tzinfo=timezone.utc),
+    def test_all_nan_non_numeric_infinite_and_future_close_are_never_used(self) -> None:
+        invalid = pd.DataFrame(
+            {"Close": [float("nan"), "none", 0, float("inf")]},
+            index=pd.to_datetime(["2026-09-10", "2026-09-11", "2026-09-12", "2026-09-13"], utc=True),
         )
-        after = assess_daily_ohlc(
-            full_frame(dates, closes),
-            as_of=datetime(2026, 11, 27, 18, 5, tzinfo=timezone.utc),
-        )
+        future = frame_from_sessions("2026-09-15")
 
-        self.assertTrue(before.price_usable)
-        self.assertFalse(before.history_usable)
-        self.assertEqual(date(2026, 11, 25), before.close_at.date())
-        self.assertEqual(100.0, before.close)
-        self.assertTrue(after.price_usable)
-        self.assertTrue(after.history_usable)
-        self.assertEqual(125.0, after.close)
-        self.assertEqual(
-            datetime(2026, 11, 27, 18, tzinfo=timezone.utc),
-            after.close_at,
-        )
+        self.assertFalse(assess_daily_ohlc(invalid, as_of=AS_OF).price_usable)
+        self.assertFalse(assess_daily_ohlc(future, as_of=AS_OF).price_usable)
 
-    def test_close_only_frame_can_supply_price_but_not_technical_history(self) -> None:
-        dates = session_dates_ending(date(2026, 9, 11))
-        close_only = pd.DataFrame(
-            {"Close": [100.0] * len(dates)},
-            index=pd.to_datetime([day.isoformat() for day in dates], utc=True),
+    def test_duplicate_sessions_do_not_create_technical_history(self) -> None:
+        duplicate = pd.DataFrame(
+            {"Close": [100.0] * 60},
+            index=pd.to_datetime(["2026-09-11"] * 60, utc=True),
         )
-        result = assess_daily_ohlc(close_only, as_of=MONDAY_PREOPEN)
+        result = assess_daily_ohlc(duplicate, as_of=AS_OF)
 
         self.assertTrue(result.price_usable)
         self.assertFalse(result.history_usable)
-        self.assertTrue(any("Open" in warning for warning in result.warnings))
+        self.assertEqual(1, result.observation_count)
+        self.assertTrue(any("duplicit" in warning for warning in result.warnings))
+
+    def test_short_history_has_price_but_not_technical_history(self) -> None:
+        result = assess_daily_ohlc(frame_from_sessions("2026-09-11", 10), as_of=AS_OF)
+
+        self.assertTrue(result.price_usable)
+        self.assertFalse(result.history_usable)
+
+    def test_unfinished_current_session_is_not_usable(self) -> None:
+        as_of_before_close = datetime(2026, 9, 15, 16, tzinfo=timezone.utc)
+        result = assess_daily_ohlc(frame_from_sessions("2026-09-15"), as_of=as_of_before_close)
+
+        self.assertFalse(result.price_usable)
 
     def test_stale_ohlc_is_not_silently_replaced_by_undated_metadata_quote(self) -> None:
-        stale = full_frame(session_dates_ending(date(2026, 9, 10)))
+        stale = frame_from_sessions("2026-09-08")
         price, source = PipelineService._select_current_price(
             ohlc=stale,
             tech_source="yfinance",

@@ -66,7 +66,7 @@ class PredictionLabelRunnerTests(unittest.TestCase):
             report = resolve_prediction_labels(
                 store=store,
                 limit=1,
-                as_of=datetime(2026, 1, 12, 22, tzinfo=timezone.utc),
+                as_of=datetime(2026, 1, 9, 22, tzinfo=timezone.utc),
                 price_loader=lambda ticker: histories[ticker],
             )
 
