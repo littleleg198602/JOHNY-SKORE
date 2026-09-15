@@ -8,6 +8,15 @@ import json
 import math
 from typing import Any
 
+from market_checker_app.release_manifest import (
+    ACTIVE_MODEL_ID,
+    ACTIVE_MODEL_VERSION,
+    ACTIVE_SCORING_VERSION,
+    FEATURE_SET_VERSION,
+    LEGACY_BASELINE_MODEL_ID,
+    LEGACY_BASELINE_MODEL_VERSION,
+    build_release_manifest,
+)
 from market_checker_app.services.price_methodology import (
     PRICE_BASIS,
     PRICE_METHOD_VERSION,
@@ -19,8 +28,11 @@ PRIMARY_TARGET_NAME = "5d_excess_return_vs_benchmark"
 PRIMARY_TARGET_VERSION = "excess_return_5d_nyse_split_price_v3"
 PRIMARY_HORIZON_TRADING_DAYS = 5
 DEFAULT_BENCHMARK_TICKER = "SPY"
-BASELINE_MODEL_ID = "legacy_v2.1_heuristic"
-BASELINE_MODEL_VERSION = "v2.1_guarded_consensus"
+
+# New snapshots use the active heuristic contract. The historical v2.1
+# baseline identifiers remain exported separately and are never rewritten.
+BASELINE_MODEL_ID = ACTIVE_MODEL_ID
+BASELINE_MODEL_VERSION = ACTIVE_MODEL_VERSION
 
 
 @dataclass(frozen=True, slots=True)
@@ -195,13 +207,15 @@ def build_point_in_time_snapshot(
     benchmark_ticker: str = DEFAULT_BENCHMARK_TICKER,
     benchmark_selection: str = "default_fallback",
     target: PredictionTargetContract = PRIMARY_PREDICTION_TARGET,
+    release_manifest: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     """Build an immutable, unlabeled snapshot for later OOS evaluation.
 
     The returned record deliberately contains no future prices and no target
     value. Its label remains PENDING until a separate resolver observes the
-    future horizon. Target price methodology is embedded in provenance so old
-    and new target definitions remain auditable without mutating old rows.
+    future horizon. Target price methodology and release identity are embedded
+    in provenance so old and new definitions remain auditable without mutating
+    historical rows.
     """
 
     normalized_ticker = str(ticker).strip().upper()
@@ -223,6 +237,25 @@ def build_point_in_time_snapshot(
         "target_dividends_included",
         target.dividends_included,
     )
+    target_provenance.setdefault("feature_set_version", FEATURE_SET_VERSION)
+    manifest = dict(
+        release_manifest
+        or build_release_manifest(target_version=target.version)
+    )
+    target_provenance.setdefault("release_manifest", manifest)
+
+    versioned_baseline_output = dict(baseline_output)
+    versioned_baseline_output["scoring_version"] = ACTIVE_SCORING_VERSION
+    versioned_baseline_output.setdefault("model_version", ACTIVE_MODEL_VERSION)
+    versioned_baseline_output.setdefault("feature_set_version", FEATURE_SET_VERSION)
+    versioned_baseline_output.setdefault("target_version", target.version)
+    versioned_baseline_output.setdefault("code_sha", manifest.get("code_sha"))
+    versioned_baseline_output.setdefault("config_hash", manifest.get("config_hash"))
+    versioned_baseline_output.setdefault(
+        "release_manifest_hash",
+        manifest.get("manifest_hash"),
+    )
+
     body: dict[str, object] = {
         "snapshot_schema_version": SNAPSHOT_SCHEMA_VERSION,
         "snapshot_id": make_snapshot_id(
@@ -243,7 +276,7 @@ def build_point_in_time_snapshot(
         "baseline_model_id": BASELINE_MODEL_ID,
         "baseline_model_version": BASELINE_MODEL_VERSION,
         "feature_payload": dict(feature_payload),
-        "baseline_output": dict(baseline_output),
+        "baseline_output": versioned_baseline_output,
         "provenance": target_provenance,
     }
     body["snapshot_hash"] = canonical_hash(body)
@@ -284,3 +317,20 @@ def resolve_excess_return_label(
         {key: value for key, value in labeled.items() if key != "snapshot_hash"}
     )
     return labeled
+
+
+__all__ = [
+    "BASELINE_MODEL_ID",
+    "BASELINE_MODEL_VERSION",
+    "LEGACY_BASELINE_MODEL_ID",
+    "LEGACY_BASELINE_MODEL_VERSION",
+    "FEATURE_SET_VERSION",
+    "PRIMARY_PREDICTION_TARGET",
+    "PRIMARY_TARGET_VERSION",
+    "build_point_in_time_snapshot",
+    "benchmark_for_sector",
+    "compute_excess_return_target",
+    "compute_forward_return",
+    "make_snapshot_id",
+    "resolve_excess_return_label",
+]

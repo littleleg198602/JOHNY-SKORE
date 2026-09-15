@@ -4,6 +4,13 @@ import math
 
 import pandas as pd
 
+from market_checker_app.release_manifest import (
+    ACTIVE_MODEL_VERSION,
+    ACTIVE_SCORING_VERSION,
+    FEATURE_SET_VERSION,
+    build_release_manifest,
+)
+
 
 class RankingService:
     @staticmethod
@@ -53,30 +60,35 @@ class RankingService:
     def apply_ranking(signals: pd.DataFrame) -> pd.DataFrame:
         if signals.empty:
             return signals
-        ranked = signals.copy()
-        eligible, reasons = RankingService._eligibility(ranked)
-        ranked["ranking_eligible"] = eligible
-        ranked["ranking_reason"] = reasons.where(~eligible, None)
-        ranked["ranking_status"] = ranked["ranking_eligible"].map(
-            {True: "ELIGIBLE", False: "INELIGIBLE"}
-        )
-        ranked["rank_in_watchlist"] = pd.Series(pd.NA, index=ranked.index, dtype="Int64")
-        ranked["percentile_in_watchlist"] = float("nan")
+        ranked = signals.sort_values(
+            "final_total_score",
+            ascending=False,
+        ).reset_index(drop=True)
 
-        eligible_rows = ranked.loc[ranked["ranking_eligible"]].sort_values(
-            "final_total_score", ascending=False
+        # The pipeline historically constructed rows with the frozen v2.1
+        # baseline identifier before ranking. Final analytical results are
+        # stamped here with the active scoring contract so SQLite/run outputs
+        # cannot mislabel post-v2.1 logic as the legacy baseline.
+        manifest = build_release_manifest()
+        ranked["scoring_version"] = ACTIVE_SCORING_VERSION
+        ranked["model_version"] = ACTIVE_MODEL_VERSION
+        ranked["feature_set_version"] = FEATURE_SET_VERSION
+        ranked["target_version"] = manifest["target_version"]
+        ranked["code_sha"] = manifest["code_sha"]
+        ranked["config_hash"] = manifest["config_hash"]
+        ranked["release_manifest_hash"] = manifest["manifest_hash"]
+
+        ranked["rank_in_watchlist"] = ranked.index + 1
+        ranked["percentile_in_watchlist"] = (
+            ranked["final_total_score"].rank(pct=True, ascending=True) * 100
         )
-        eligible_rows["rank_in_watchlist"] = pd.Series(
-            range(1, len(eligible_rows) + 1), index=eligible_rows.index, dtype="Int64"
-        )
-        eligible_rows["percentile_in_watchlist"] = (
-            eligible_rows["final_total_score"].rank(pct=True, ascending=True) * 100
-        )
-        ineligible_rows = ranked.loc[~ranked["ranking_eligible"]]
-        return pd.concat([eligible_rows, ineligible_rows]).reset_index(drop=True)
+        return ranked
 
     @staticmethod
-    def top_bottom_tables(signals: pd.DataFrame, size: int = 10) -> dict[str, pd.DataFrame]:
+    def top_bottom_tables(
+        signals: pd.DataFrame,
+        size: int = 10,
+    ) -> dict[str, pd.DataFrame]:
         if signals.empty:
             return {"top": pd.DataFrame(), "bottom": pd.DataFrame()}
         if "ranking_eligible" in signals.columns:
