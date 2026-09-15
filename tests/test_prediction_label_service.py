@@ -88,7 +88,9 @@ class PredictionLabelServiceTests(unittest.TestCase):
                 "SPY": _history(incomplete, [100, 100, 102, 103, 104]),
             }
             result = PredictionLabelService(maturity_grace_days=7).resolve_pending_snapshots(
-                store=store, price_loader=lambda ticker: histories[ticker], as_of=EVALUATION_AT
+                store=store,
+                price_loader=lambda ticker: histories[ticker],
+                as_of=datetime(2026, 1, 20, 22, tzinfo=timezone.utc),
             )
             self.assertEqual(0, result["resolved"])
             self.assertEqual(1, result["unavailable"])
