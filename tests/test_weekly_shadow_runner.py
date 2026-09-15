@@ -12,6 +12,7 @@ from market_checker_app.weekly_shadow_runner import (
     _quality_gate_issues,
     _readiness_summary,
     _universe_coverage,
+    _universe_fingerprint,
     build_runtime_config,
 )
 
@@ -44,14 +45,33 @@ class WeeklyShadowRunnerTests(unittest.TestCase):
 
     def test_universe_coverage_lists_missing_requested_tickers(self) -> None:
         coverage = _universe_coverage(
-            ["AAPL", "MSFT", "NVDA"],
-            [{"ticker": "AAPL"}, {"ticker": "NVDA"}],
+            ["AAPL", "MSFT", "NVDA", "AMAT"],
+            [
+                {"ticker": "AAPL", "current_price": 210.0, "tech_source_used": "yahoo_ohlc"},
+                {"ticker": "MSFT", "current_price": 500.0, "current_price_source": "metadata_quote"},
+                {"ticker": "NVDA", "current_price": 180.0, "tech_source_used": "unavailable"},
+            ],
         )
 
-        self.assertEqual(3, coverage["requested"])
-        self.assertEqual(2, coverage["reported"])
-        self.assertEqual(["MSFT"], coverage["missing_tickers"])
-        self.assertEqual(66.67, coverage["coverage_pct"])
+        self.assertEqual(4, coverage["requested"])
+        self.assertEqual(3, coverage["reported"])
+        self.assertEqual(1, coverage["usable"])
+        self.assertEqual(2, coverage["partial"])
+        self.assertEqual(1, coverage["failed"])
+        self.assertEqual(["AMAT"], coverage["missing_tickers"])
+        self.assertEqual("USABLE", coverage["ticker_statuses"]["AAPL"]["status"])
+        self.assertEqual("PARTIAL", coverage["ticker_statuses"]["MSFT"]["status"])
+        self.assertEqual("FAILED", coverage["ticker_statuses"]["AMAT"]["status"])
+        self.assertEqual(25.0, coverage["coverage_pct"])
+
+    def test_universe_fingerprint_is_order_sensitive_and_reproducible(self) -> None:
+        first = _universe_fingerprint(["AAPL", "MSFT", "NVDA"])
+        second = _universe_fingerprint(["AAPL", "MSFT", "NVDA"])
+        reordered = _universe_fingerprint(["MSFT", "AAPL", "NVDA"])
+
+        self.assertEqual(first, second)
+        self.assertNotEqual(first["ordered_ticker_sha256"], reordered["ordered_ticker_sha256"])
+        self.assertEqual(3, first["ordered_ticker_count"])
 
     def test_enabled_manual_agent_without_source_is_rejected(self) -> None:
         with self.assertRaisesRegex(RuntimeConfigurationError, "SupplyChainAgent"):
