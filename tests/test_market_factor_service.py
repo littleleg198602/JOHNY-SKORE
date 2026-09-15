@@ -51,5 +51,32 @@ class MarketFactorServiceTests(unittest.TestCase):
         self.assertTrue(factor["missingness"]["relative_returns"])
 
 
+    def test_misaligned_asset_and_benchmark_endpoints_do_not_create_relative_return(self) -> None:
+        asset = _history([100.0 + index for index in range(40)])
+        benchmark = _history([100.0 + index * 0.5 for index in range(39)])
+        factor = build_market_factor_snapshot(
+            asset_history=asset,
+            benchmark_history=benchmark,
+            as_of=datetime(2026, 2, 1, tzinfo=timezone.utc),
+            asset_source="fixture",
+            benchmark_source="fixture",
+        )
+
+        self.assertIsNone(factor["relative_returns"]["1d"])
+        self.assertTrue(factor["missingness"]["relative_returns"])
+
+    def test_short_history_does_not_claim_full_year_drawdown(self) -> None:
+        factor = build_market_factor_snapshot(
+            asset_history=_history([100.0 + index for index in range(30)]),
+            benchmark_history=_history([100.0 + index for index in range(30)]),
+            as_of=datetime(2026, 2, 1, tzinfo=timezone.utc),
+            asset_source="fixture",
+            benchmark_source="fixture",
+        )
+
+        self.assertIsNone(factor["drawdown"]["252d"])
+        self.assertTrue(factor["missingness"]["drawdown_252d"])
+
+
 if __name__ == "__main__":
     unittest.main()
