@@ -9,8 +9,9 @@ from market_checker_app.services.pipeline_service import PipelineService
 
 class CurrentPriceSelectionTests(unittest.TestCase):
     def test_fresh_yahoo_ohlc_close_beats_stale_metadata_quote(self) -> None:
+        index = pd.date_range(end=pd.Timestamp.now(tz="UTC").normalize(), periods=2, tz="UTC")
         price, source = PipelineService._select_current_price(
-            ohlc=pd.DataFrame({"Close": [100.0, 101.25]}),
+            ohlc=pd.DataFrame({"Close": [100.0, 101.25]}, index=index),
             tech_source="yfinance_ohlc_cache",
             yahoo_metadata_price=95.0,
         )
@@ -19,8 +20,9 @@ class CurrentPriceSelectionTests(unittest.TestCase):
         self.assertEqual("yahoo_ohlc_close", source)
 
     def test_mt5_close_beats_metadata_quote(self) -> None:
+        index = pd.date_range(end=pd.Timestamp.now(tz="UTC").normalize(), periods=1, tz="UTC")
         price, source = PipelineService._select_current_price(
-            ohlc=pd.DataFrame({"Close": [100.0]}),
+            ohlc=pd.DataFrame({"Close": [100.0]}, index=index),
             tech_source="mt5",
             yahoo_metadata_price=99.0,
         )
@@ -36,7 +38,7 @@ class CurrentPriceSelectionTests(unittest.TestCase):
         )
 
         self.assertEqual(42.5, price)
-        self.assertEqual("yahoo_metadata", source)
+        self.assertEqual("yahoo_metadata_quote_undated", source)
 
 
 if __name__ == "__main__":

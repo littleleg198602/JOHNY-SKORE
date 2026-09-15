@@ -61,6 +61,7 @@ from market_checker_app.prediction_contract import benchmark_for_sector
 from market_checker_app.services.market_factor_service import (
     build_market_factor_snapshot,
 )
+from market_checker_app.services.ohlc_quality import assess_daily_ohlc
 from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.stage4_evaluation_service import (
@@ -417,11 +418,14 @@ class PipelineService:
         return PerformanceSnapshot(ticker, _return(7), _return(14), _return(21), _return(63))
 
     @staticmethod
-    def _current_price_from_ohlc(ohlc: pd.DataFrame | None) -> float | None:
-        if ohlc is None or ohlc.empty or "Close" not in ohlc.columns:
-            return None
-        close = pd.to_numeric(ohlc["Close"], errors="coerce").dropna()
-        return float(close.iloc[-1]) if not close.empty else None
+    def _current_price_from_ohlc(
+        ohlc: pd.DataFrame | None,
+        *,
+        as_of: datetime | None = None,
+    ) -> float | None:
+        """Return only a recent, dated and positive OHLC close."""
+        quality = assess_daily_ohlc(ohlc, as_of=as_of or utc_now())
+        return quality.close
 
     @classmethod
     def _select_current_price(
@@ -430,10 +434,17 @@ class PipelineService:
         ohlc: pd.DataFrame | None,
         tech_source: str,
         yahoo_metadata_price: object,
+        as_of: datetime | None = None,
     ) -> tuple[float | None, str]:
-        """Choose a dated close before an undated Yahoo metadata quote."""
+        """Choose a validated close; an undated quote is a last-resort quote.
 
-        close = cls._current_price_from_ohlc(ohlc)
+        If an OHLC frame exists but is stale or invalid, it is not silently
+        replaced with possibly older metadata.  This makes the absence visible
+        to the confidence and source-health layers.
+        """
+        evaluated_at = as_of or utc_now()
+        quality = assess_daily_ohlc(ohlc, as_of=evaluated_at)
+        close = quality.close
         if close is not None:
             if tech_source == "mt5":
                 return close, "mt5_close"
@@ -441,11 +452,18 @@ class PipelineService:
                 return close, "yahoo_ohlc_close"
             return close, "ohlc_close"
 
+        # A stale/future positive close is evidence of a bad time series and
+        # must not be masked by an undated quote.  A completely empty or
+        # malformed series may still expose a quote, but it remains explicitly
+        # undated and cannot make the ranking usable on its own.
+        if quality.observation_count:
+            return None, "ohlc_unusable"
+
         metadata = pd.to_numeric(
             pd.Series([yahoo_metadata_price]), errors="coerce"
         ).iloc[0]
         if pd.notna(metadata) and float(metadata) > 0:
-            return float(metadata), "yahoo_metadata"
+            return float(metadata), "yahoo_metadata_quote_undated"
         return None, "missing"
 
     def run(
@@ -591,16 +609,26 @@ class PipelineService:
             or ticker not in mt5_ohlc_by_ticker
         ]
         bulk_yahoo_ohlc_cache_state: dict[str, str] = {}
+        bulk_yahoo_ohlc_retry_deferred: dict[str, str] = {}
         if large_universe_mode:
             for ticker in bulk_yahoo_requested_tickers:
                 cache_lookup = self.yahoo_ohlc_cache.get(ticker)
                 if cache_lookup.state == "fresh" and cache_lookup.frame is not None:
                     bulk_yahoo_ohlc_by_ticker[ticker] = cache_lookup.frame
                     bulk_yahoo_ohlc_cache_state[ticker] = "fresh"
+                elif not cache_lookup.can_retry(started_at):
+                    if cache_lookup.usable and cache_lookup.frame is not None:
+                        bulk_yahoo_ohlc_by_ticker[ticker] = cache_lookup.frame
+                        bulk_yahoo_ohlc_cache_state[ticker] = "stale_backoff"
+                    bulk_yahoo_ohlc_retry_deferred[ticker] = (
+                        cache_lookup.error
+                        or "Předchozí Yahoo OHLC pokus je v ochranné čekací lhůtě."
+                    )
         bulk_yahoo_tickers = [
             ticker
             for ticker in bulk_yahoo_requested_tickers
             if ticker not in bulk_yahoo_ohlc_by_ticker
+            and ticker not in bulk_yahoo_ohlc_retry_deferred
         ]
         bulk_yahoo_ohlc_attempted_count = (
             len(bulk_yahoo_tickers) if large_universe_mode else 0
@@ -655,6 +683,12 @@ class PipelineService:
                     f"{len(bulk_yahoo_ohlc_warnings)} z "
                     f"{len(bulk_yahoo_tickers)} tickerů."
                 )
+        if bulk_yahoo_ohlc_retry_deferred:
+            warnings.append(
+                "Yahoo OHLC retry checkpoint odložil "
+                f"{len(bulk_yahoo_ohlc_retry_deferred)} tickerů; "
+                "běh použije pouze dostupnou starší cache a nic nedofabrikuje."
+            )
 
 
         # Benchmark OHLC is a small, cached side-batch.  It is only used to
@@ -717,6 +751,9 @@ class PipelineService:
         bulk_yahoo_ohlc_cache_coverage = self.yahoo_ohlc_cache.coverage(
             bulk_yahoo_requested_tickers
         ) if large_universe_mode else {}
+        dated_current_price_count = 0
+        undated_current_quote_count = 0
+        ohlc_quality_issue_count = 0
         for idx, ticker in enumerate(watchlist, start=1):
             progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
             progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
@@ -790,11 +827,13 @@ class PipelineService:
                 if large_universe_mode:
                     ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
                     if not ohlc.empty:
-                        tech_source_used = (
-                            "yfinance_ohlc_cache"
-                            if bulk_yahoo_ohlc_cache_state.get(ticker) == "fresh"
-                            else ("yfinance_ohlc_cache_stale" if bulk_yahoo_ohlc_cache_state.get(ticker) == "stale_after_failure" else "yfinance_bulk")
-                        )
+                        cache_state = bulk_yahoo_ohlc_cache_state.get(ticker)
+                        if cache_state == "fresh":
+                            tech_source_used = "yfinance_ohlc_cache"
+                        elif cache_state in {"stale_after_failure", "stale_backoff"}:
+                            tech_source_used = "yfinance_ohlc_cache_stale"
+                        else:
+                            tech_source_used = "yfinance_bulk"
                         tech_source_warning = None
                     else:
                         tech_source_used = "bulk_price_source_unavailable"
@@ -827,11 +866,13 @@ class PipelineService:
                 elif large_universe_mode:
                     ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
                     if not ohlc.empty:
-                        tech_source_used = (
-                            "yfinance_ohlc_cache_fallback"
-                            if bulk_yahoo_ohlc_cache_state.get(ticker) == "fresh"
-                            else ("yfinance_ohlc_cache_stale_fallback" if bulk_yahoo_ohlc_cache_state.get(ticker) == "stale_after_failure" else "yfinance_bulk_fallback")
-                        )
+                        cache_state = bulk_yahoo_ohlc_cache_state.get(ticker)
+                        if cache_state == "fresh":
+                            tech_source_used = "yfinance_ohlc_cache_fallback"
+                        elif cache_state in {"stale_after_failure", "stale_backoff"}:
+                            tech_source_used = "yfinance_ohlc_cache_stale_fallback"
+                        else:
+                            tech_source_used = "yfinance_bulk_fallback"
                         tech_source_warning = mt5_warning
                     else:
                         tech_source_used = "mt5_unavailable"
@@ -862,20 +903,42 @@ class PipelineService:
                     warnings.append(tech_source_warning)
                     progress.log("FALLBACK", tech_source_warning, ticker)
 
+            raw_ohlc = ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame()
+            ohlc_quality = assess_daily_ohlc(raw_ohlc, as_of=started_at)
+            if ohlc_quality.warnings:
+                ohlc_quality_issue_count += 1
+                quality_warning = " | ".join(ohlc_quality.warnings)
+                tech_source_warning = (
+                    f"{tech_source_warning} | {quality_warning}"
+                    if tech_source_warning
+                    else quality_warning
+                )
+                progress.log("WARNING", quality_warning, ticker)
+            technical_ohlc = (
+                ohlc_quality.normalized
+                if ohlc_quality.history_usable
+                else pd.DataFrame()
+            )
+
             progress.set_step(ticker, "score_tech", f"Počítám technickou analýzu pro {ticker}", 0.74)
-            tech = analyze_tech(ticker, ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame(), source=tech_source_used)
+            tech = analyze_tech(ticker, technical_ohlc, source=tech_source_used)
             if tech_source_warning:
                 tech.warnings.append(tech_source_warning)
 
             derived_perf = self._performance_from_ohlc(
                 ticker,
-                ohlc if isinstance(ohlc, pd.DataFrame) else None,
+                technical_ohlc,
             )
             current_price, current_price_source = self._select_current_price(
-                ohlc=ohlc if isinstance(ohlc, pd.DataFrame) else None,
+                ohlc=raw_ohlc,
                 tech_source=tech_source_used,
                 yahoo_metadata_price=snapshot.data.get("currentPrice"),
+                as_of=started_at,
             )
+            if current_price_source == "yahoo_metadata_quote_undated":
+                undated_current_quote_count += 1
+            elif current_price is not None:
+                dated_current_price_count += 1
 
             progress.set_step(ticker, "behavioral_risk", f"Počítám behavioral a risk vrstvu pro {ticker}", 0.82)
             behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
@@ -927,6 +990,13 @@ class PipelineService:
                 "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
                 "current_price": current_price,
                 "current_price_source": current_price_source,
+                "ohlc_close_at": (
+                    ohlc_quality.close_at.isoformat()
+                    if ohlc_quality.close_at is not None
+                    else None
+                ),
+                "ohlc_observation_count": ohlc_quality.observation_count,
+                "ohlc_history_usable": ohlc_quality.history_usable,
                 "yahoo_ticker": yahoo_ticker,
                 "yahoo_data_status": yahoo_data_status,
                 "yahoo_data_fetched_at": yahoo_data_fetched_at,
@@ -1011,6 +1081,17 @@ class PipelineService:
                             "market_cap_usd": row["market_cap_usd"],
                             "current_price": current_price,
                             "current_price_source": current_price_source,
+                            "ohlc_quality": {
+                                "close_at": (
+                                    ohlc_quality.close_at.isoformat()
+                                    if ohlc_quality.close_at is not None
+                                    else None
+                                ),
+                                "observation_count": ohlc_quality.observation_count,
+                                "price_usable": ohlc_quality.price_usable,
+                                "history_usable": ohlc_quality.history_usable,
+                                "warnings": list(ohlc_quality.warnings),
+                            },
                             "performance": {
                                 "observed": asdict(perf),
                                 "derived": asdict(derived_perf),
@@ -1074,6 +1155,28 @@ class PipelineService:
                 f"Dokončeno: {ticker} → {diag.action} (forecast {diag.forecast}) / {diag.final_total_score:.1f}",
                 ticker,
             )
+
+        if dated_current_price_count == 0:
+            errors.append(
+                "Není k dispozici žádná platná datovaná cena z OHLC. "
+                "Ranking je nevyužitelný a nesmí se používat pro ruční rozhodnutí."
+            )
+
+        source_health = {
+            "current_prices": {
+                "dated_usable": dated_current_price_count,
+                "undated_metadata_quotes": undated_current_quote_count,
+                "ohlc_quality_issues": ohlc_quality_issue_count,
+                "requested": total,
+            },
+            "yahoo_ohlc": {
+                "attempted": bulk_yahoo_ohlc_attempted_count,
+                "fresh_or_stale_usable": bulk_yahoo_ohlc_count,
+                "download_failures": bulk_yahoo_ohlc_failure_count,
+                "retry_deferred": len(bulk_yahoo_ohlc_retry_deferred),
+                "cache_coverage": bulk_yahoo_ohlc_cache_coverage,
+            },
+        }
 
         if yahoo_metadata_enabled and yahoo_snapshot_failures == total:
             errors.append(
@@ -1463,6 +1566,12 @@ class PipelineService:
                 {"ticker": ticker, "error": warning}
                 for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
             ],
+            "bulk_yahoo_ohlc_retry_deferred_details": [
+                {"ticker": ticker, "error": warning}
+                for ticker, warning in sorted(bulk_yahoo_ohlc_retry_deferred.items())
+            ],
+            "source_health": source_health,
+            "ranking_usable": dated_current_price_count > 0,
             "european_filings_status": european_filings_status,
             "european_filing_document_count": european_filing_document_count,
             "source_resolution_status": source_resolution_status,
