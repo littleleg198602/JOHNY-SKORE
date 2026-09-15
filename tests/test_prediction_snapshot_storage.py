@@ -46,7 +46,7 @@ class PredictionSnapshotStorageTests(unittest.TestCase):
             self.assertIsNone(stored.iloc[0]["target_value"])
             self.assertEqual(snapshot["snapshot_hash"], stored.iloc[0]["snapshot_hash"])
             self.assertEqual(
-                "legacy_v2.1_heuristic",
+                "heuristic_consensus",
                 stored.iloc[0]["baseline_model_id"],
             )
 
