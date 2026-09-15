@@ -8,10 +8,15 @@ import json
 import math
 from typing import Any
 
+from market_checker_app.services.price_methodology import (
+    PRICE_BASIS,
+    PRICE_METHOD_VERSION,
+)
+
 
 SNAPSHOT_SCHEMA_VERSION = "feature_snapshot_v1"
 PRIMARY_TARGET_NAME = "5d_excess_return_vs_benchmark"
-PRIMARY_TARGET_VERSION = "excess_return_5d_nyse_sessions_v2"
+PRIMARY_TARGET_VERSION = "excess_return_5d_nyse_split_price_v3"
 PRIMARY_HORIZON_TRADING_DAYS = 5
 DEFAULT_BENCHMARK_TICKER = "SPY"
 BASELINE_MODEL_ID = "legacy_v2.1_heuristic"
@@ -24,7 +29,8 @@ class PredictionTargetContract:
 
     Target values are decimals, not percentages: 0.02 means two percentage
     points of excess return. A label is resolved only after both the asset and
-    benchmark have five future trading-day closes.
+    benchmark have five future trading-day closes. Prices use a split-adjusted
+    price-return basis and deliberately exclude dividend total return.
     """
 
     name: str = PRIMARY_TARGET_NAME
@@ -32,6 +38,9 @@ class PredictionTargetContract:
     horizon_trading_days: int = PRIMARY_HORIZON_TRADING_DAYS
     return_unit: str = "decimal"
     benchmark_policy: str = "sector_etf_when_available_else_spy"
+    price_basis: str = PRICE_BASIS
+    price_method_version: str = PRICE_METHOD_VERSION
+    dividends_included: bool = False
 
     def __post_init__(self) -> None:
         if self.horizon_trading_days < 1:
@@ -40,6 +49,8 @@ class PredictionTargetContract:
             raise ValueError("target name and version must not be empty")
         if self.return_unit != "decimal":
             raise ValueError("the first target must use decimal returns")
+        if self.dividends_included:
+            raise ValueError("the primary target is a price-return target, not total return")
 
     def as_dict(self) -> dict[str, object]:
         return {
@@ -48,6 +59,9 @@ class PredictionTargetContract:
             "horizon_trading_days": self.horizon_trading_days,
             "return_unit": self.return_unit,
             "benchmark_policy": self.benchmark_policy,
+            "price_basis": self.price_basis,
+            "price_method_version": self.price_method_version,
+            "dividends_included": self.dividends_included,
         }
 
 
@@ -100,11 +114,12 @@ def compute_forward_return(
     prices: Sequence[object],
     horizon_trading_days: int = PRIMARY_HORIZON_TRADING_DAYS,
 ) -> float | None:
-    """Compute t0 -> t+h return from a price sequence.
+    """Compute t0 -> t+h price return from a canonical price sequence.
 
-    The sequence must be ordered by trading date and start at the prediction
-    timestamp. Returning None for incomplete data is intentional: a missing
-    label must never be converted to a zero return.
+    The sequence must already use ``PRIMARY_PREDICTION_TARGET.price_basis`` and
+    must be ordered by trading date, starting at the prediction base session.
+    Returning None for incomplete data is intentional: a missing label must
+    never be converted to a zero return.
     """
 
     if horizon_trading_days < 1:
@@ -124,7 +139,7 @@ def compute_excess_return_target(
     benchmark_prices: Sequence[object],
     horizon_trading_days: int = PRIMARY_HORIZON_TRADING_DAYS,
 ) -> float | None:
-    """Compute asset return minus benchmark return as a decimal value."""
+    """Compute asset price return minus benchmark price return as a decimal."""
 
     asset_return = compute_forward_return(asset_prices, horizon_trading_days)
     benchmark_return = compute_forward_return(benchmark_prices, horizon_trading_days)
@@ -185,7 +200,8 @@ def build_point_in_time_snapshot(
 
     The returned record deliberately contains no future prices and no target
     value. Its label remains PENDING until a separate resolver observes the
-    future horizon.
+    future horizon. Target price methodology is embedded in provenance so old
+    and new target definitions remain auditable without mutating old rows.
     """
 
     normalized_ticker = str(ticker).strip().upper()
@@ -197,6 +213,16 @@ def build_point_in_time_snapshot(
         raise ValueError("benchmark_ticker must not be empty")
 
     observed_iso = _utc_iso(observed_at)
+    target_provenance = dict(provenance)
+    target_provenance.setdefault("target_price_basis", target.price_basis)
+    target_provenance.setdefault(
+        "target_price_method_version",
+        target.price_method_version,
+    )
+    target_provenance.setdefault(
+        "target_dividends_included",
+        target.dividends_included,
+    )
     body: dict[str, object] = {
         "snapshot_schema_version": SNAPSHOT_SCHEMA_VERSION,
         "snapshot_id": make_snapshot_id(
@@ -218,7 +244,7 @@ def build_point_in_time_snapshot(
         "baseline_model_version": BASELINE_MODEL_VERSION,
         "feature_payload": dict(feature_payload),
         "baseline_output": dict(baseline_output),
-        "provenance": dict(provenance),
+        "provenance": target_provenance,
     }
     body["snapshot_hash"] = canonical_hash(body)
     return body
