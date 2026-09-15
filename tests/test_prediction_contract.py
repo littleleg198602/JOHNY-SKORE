@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from pathlib import Path
-import tempfile
 import unittest
 
 from market_checker_app.prediction_contract import (
@@ -21,7 +19,10 @@ from market_checker_app.prediction_contract import (
 class PredictionContractTests(unittest.TestCase):
     def test_primary_target_is_five_day_excess_return(self) -> None:
         self.assertEqual("5d_excess_return_vs_benchmark", PRIMARY_PREDICTION_TARGET.name)
-        self.assertEqual("excess_return_5d_v1", PRIMARY_PREDICTION_TARGET.version)
+        self.assertEqual(
+            "excess_return_5d_nyse_sessions_v2",
+            PRIMARY_PREDICTION_TARGET.version,
+        )
         self.assertEqual(5, PRIMARY_PREDICTION_TARGET.horizon_trading_days)
         self.assertEqual("decimal", PRIMARY_PREDICTION_TARGET.return_unit)
 
@@ -51,7 +52,10 @@ class PredictionContractTests(unittest.TestCase):
             provenance={"price_source": "test"},
             benchmark_ticker="SPY",
         )
-        self.assertEqual(make_snapshot_id(7, "AAPL", "excess_return_5d_v1"), snapshot["snapshot_id"])
+        self.assertEqual(
+            make_snapshot_id(7, "AAPL", "excess_return_5d_nyse_sessions_v2"),
+            snapshot["snapshot_id"],
+        )
         self.assertEqual("AAPL", snapshot["ticker"])
         self.assertEqual("PENDING", snapshot["label_status"])
         self.assertIsNone(snapshot["target_value"])
