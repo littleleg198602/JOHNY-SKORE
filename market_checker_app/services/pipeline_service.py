@@ -68,6 +68,9 @@ from market_checker_app.services.stage4_evaluation_service import (
     Stage4EvaluationService,
 )
 from market_checker_app.services.source_discovery_service import SourceDiscoveryService
+from market_checker_app.services.ticker_traceability_service import (
+    build_ticker_traceability,
+)
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 from market_checker_app.storage.yahoo_ohlc_cache_store import YahooOhlcCacheStore
@@ -1222,6 +1225,7 @@ class PipelineService:
         warnings = list(dict.fromkeys(warnings))
         errors = list(dict.fromkeys(errors))
         signals_df = RankingService.apply_ranking(pd.DataFrame(rows))
+        ticker_traceability = build_ticker_traceability(watchlist, signals_df)
         ranking_eligible_count = int(
             signals_df["ranking_eligible"].fillna(False).sum()
         ) if "ranking_eligible" in signals_df.columns else 0
@@ -1529,6 +1533,7 @@ class PipelineService:
                     metadata,
                     signals_df,
                     datetime.now(timezone.utc).isoformat(),
+                    ticker_traceability=ticker_traceability,
                 )
             except Exception as exc:
                 message = f"SQLite uložení běhu selhalo: {exc}"
@@ -1561,6 +1566,7 @@ class PipelineService:
         return {
             "metadata": metadata,
             "signals": signals_df,
+            "ticker_traceability": ticker_traceability,
             "sources": sources_df,
             "articles": articles_df,
             "warnings": warnings,
