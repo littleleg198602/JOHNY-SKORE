@@ -11,6 +11,7 @@ from typing import Any
 from market_checker_app.release_manifest import (
     ACTIVE_MODEL_ID,
     ACTIVE_MODEL_VERSION,
+    ACTIVE_SCORING_VERSION,
     FEATURE_SET_VERSION,
     LEGACY_BASELINE_MODEL_ID,
     LEGACY_BASELINE_MODEL_VERSION,
@@ -243,6 +244,18 @@ def build_point_in_time_snapshot(
     )
     target_provenance.setdefault("release_manifest", manifest)
 
+    versioned_baseline_output = dict(baseline_output)
+    versioned_baseline_output["scoring_version"] = ACTIVE_SCORING_VERSION
+    versioned_baseline_output.setdefault("model_version", ACTIVE_MODEL_VERSION)
+    versioned_baseline_output.setdefault("feature_set_version", FEATURE_SET_VERSION)
+    versioned_baseline_output.setdefault("target_version", target.version)
+    versioned_baseline_output.setdefault("code_sha", manifest.get("code_sha"))
+    versioned_baseline_output.setdefault("config_hash", manifest.get("config_hash"))
+    versioned_baseline_output.setdefault(
+        "release_manifest_hash",
+        manifest.get("manifest_hash"),
+    )
+
     body: dict[str, object] = {
         "snapshot_schema_version": SNAPSHOT_SCHEMA_VERSION,
         "snapshot_id": make_snapshot_id(
@@ -263,7 +276,7 @@ def build_point_in_time_snapshot(
         "baseline_model_id": BASELINE_MODEL_ID,
         "baseline_model_version": BASELINE_MODEL_VERSION,
         "feature_payload": dict(feature_payload),
-        "baseline_output": dict(baseline_output),
+        "baseline_output": versioned_baseline_output,
         "provenance": target_provenance,
     }
     body["snapshot_hash"] = canonical_hash(body)
