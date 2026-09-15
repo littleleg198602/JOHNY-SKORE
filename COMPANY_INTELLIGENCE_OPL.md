@@ -94,6 +94,19 @@ Povinné rozlišení: NOT_CONFIGURED, NOT_DISCLOSED, ACCESS_BLOCKED, RATE_LIMITE
 
 Projekt je reálný jako transparentní a postupně ověřovaný analytický nástroj. Nelze poctivě garantovat lepší přesnost přidáním článků ani úplný graf soukromých protistran. Případný placený zdroj či služba vyžaduje samostatné rozhodnutí uživatele; není předem podmínkou.
 
+## Vývojová aktualizace — 2026-09-15
+
+První společná P0 dávka je implementována v otevřeném draftu [PR #106](https://github.com/littleleg198602/JOHNY-SKORE/pull/106), head **579a104951c2221c8e38528826d3ba9f7a0cf319**.
+
+| OPL | Milník | Důkaz | Co ještě nelze tvrdit |
+| --- | --- | --- | --- |
+| OPL-002 | CODE_COMPLETE | Validace konečných kladných cen, unikátních dokončených NYSE seancí a historie; regresní testy R01–R04. | MERGED ani nový live 687 běh. |
+| OPL-003 | CODE_COMPLETE | Společný NYSE kalendář, cutoff evaluace a úplné t0–t+5 sessiony; regresní testy R06–R07. | MERGED ani nový live 687 běh. |
+| OPL-006 | CODE_COMPLETE | Relativní faktory vyžadují shodné endpointy/sessiony; krátká historie nevydává 252d drawdown; regresní test R05. | MERGED ani nový live 687 běh. |
+| CI | PASS | [run 188](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/34968959343): UI, 687 kontrakt, 243 deterministických testů a release gate. | CI není živá akceptace ani důkaz predikčního přínosu. |
+
+Žádná z těchto změn nepřidává obchodní exekuci ani nemění plánovaný live workflow. Další vývojová dávka je OPL-004 + OPL-005 + OPL-007: kapacita labelů, rozsah cache a pravdivý ranking/report.
+
 ## 5. Nový OPL — souhrn otevřených bodů
 
 Stavy: OPEN = konkrétní práce zbývá; PARTIAL = část v main existuje; VERIFY = kód existuje, chybí důkaz; WAIT_DATA = vyžaduje historii po opravě metodiky.
@@ -104,11 +117,11 @@ Vlastník DEV/DATA/QA označuje navrženou roli, nikoli již objednaného extern
 | ID | Priorita | Stav | Bod | Vazba | Vlastník / velikost |
 | --- | --- | --- | --- | --- | --- |
 | OPL-001 | P1 | OPEN | Sjednotit pravdivé stavy, verze a předání | AUD-001/002, BASE-001 | DEV / S |
-| OPL-002 | P0 | PARTIAL | Validní konečné ceny a uzavřené seance | AUD-004 | DEV / M |
-| OPL-003 | P0 | PARTIAL | Kalendář a časová hranice targetu | AUD-006 | DEV / M |
+| OPL-002 | P0 | PARTIAL / CODE_COMPLETE | Validní konečné ceny a uzavřené seance | AUD-004 | DEV / M |
+| OPL-003 | P0 | PARTIAL / CODE_COMPLETE | Kalendář a časová hranice targetu | AUD-006 | DEV / M |
 | OPL-004 | P0 | PARTIAL | Fronta labelů pro celý universe bez hladovění | AUD-007 | DEV / M |
 | OPL-005 | P0 | PARTIAL | Cache se správným rozsahem a cenovou metodikou | AUD-003/004/006 | DEV / L |
-| OPL-006 | P0 | PARTIAL | Srovnatelná období tržních faktorů | AUD-011, MKT-001 | DEV / M |
+| OPL-006 | P0 | PARTIAL / CODE_COMPLETE | Srovnatelná období tržních faktorů | AUD-011, MKT-001 | DEV / M |
 | OPL-007 | P0 | PARTIAL | Poctivé pokrytí, ranking a UI pro 687 | AUD-002/005/013/014 | DEV / L |
 | OPL-008 | P1 | PARTIAL | Jednotná diagnostika zdrojů a degradace | AUD-005, OPS-805 | DEV / M |
 | OPL-009 | P1 | VERIFY | Identity a source smoke skutečné verze | AUD-001, ENTITY-101 | QA / M |
