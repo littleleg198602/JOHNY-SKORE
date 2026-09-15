@@ -7,7 +7,10 @@ import unittest
 
 import pandas as pd
 
-from market_checker_app.services.price_methodology import PRICE_METHOD_VERSION
+from market_checker_app.services.price_methodology import (
+    PRICE_METHOD_VERSION,
+    YAHOO_ADJUSTMENT,
+)
 from market_checker_app.storage.yahoo_ohlc_cache_store import YahooOhlcCacheStore
 
 
@@ -16,11 +19,16 @@ NOW = datetime(2026, 9, 14, 12, 0, tzinfo=timezone.utc)
 
 class YahooOhlcCacheStoreTests(unittest.TestCase):
     def _store(self, root: Path, now: datetime = NOW, **kwargs) -> YahooOhlcCacheStore:
+        options = {
+            "adjustment": YAHOO_ADJUSTMENT,
+            "methodology_version": PRICE_METHOD_VERSION,
+        }
+        options.update(kwargs)
         return YahooOhlcCacheStore(
             root / "history.db",
             success_ttl=timedelta(hours=24),
             now_provider=lambda: now,
-            **kwargs,
+            **options,
         )
 
     def _frame(self) -> pd.DataFrame:
@@ -30,9 +38,27 @@ class YahooOhlcCacheStoreTests(unittest.TestCase):
                 "High": [101.0, 102.0],
                 "Low": [98.0, 99.0],
                 "Close": [100.0, 101.0],
+                "Stock Splits": [0.0, 0.0],
+                "Dividends": [0.0, 0.0],
             },
             index=pd.to_datetime(["2026-09-10", "2026-09-11"], utc=True),
         )
+
+    def test_default_store_remains_legacy_raw_pipeline_variant(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = YahooOhlcCacheStore(Path(tmp) / "history.db")
+            store.upsert_success(
+                "AAPL",
+                pd.DataFrame(
+                    {"Close": [100.0]},
+                    index=pd.to_datetime(["2026-09-11"], utc=True),
+                ),
+            )
+            lookup = store.get("AAPL")
+
+        self.assertEqual("raw_unadjusted_legacy", lookup.adjustment)
+        self.assertEqual("legacy_raw_close_v1", lookup.methodology_version)
+        self.assertEqual(100.0, lookup.frame["Close"].iloc[-1])
 
     def test_persists_and_restores_versioned_daily_ohlc(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -49,6 +75,18 @@ class YahooOhlcCacheStoreTests(unittest.TestCase):
         self.assertEqual(PRICE_METHOD_VERSION, lookup.methodology_version)
         self.assertEqual(date(2026, 9, 10), lookup.first_session)
         self.assertEqual(date(2026, 9, 11), lookup.last_session)
+
+    def test_strict_target_variant_rejects_frame_without_split_actions(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            store = self._store(Path(tmp))
+            with self.assertRaisesRegex(ValueError, "Stock Splits"):
+                store.upsert_success(
+                    "AAPL",
+                    pd.DataFrame(
+                        {"Close": [100.0]},
+                        index=pd.to_datetime(["2026-09-11"], utc=True),
+                    ),
+                )
 
     def test_failure_can_use_explicit_stale_cache_but_never_invents_data(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -71,7 +109,12 @@ class YahooOhlcCacheStoreTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "finite positive Close"):
                 store.upsert_success(
                     "AAPL",
-                    pd.DataFrame({"Close": [float("nan"), 0]}),
+                    pd.DataFrame(
+                        {
+                            "Close": [float("nan"), 0],
+                            "Stock Splits": [0.0, 0.0],
+                        }
+                    ),
                 )
 
     def test_failed_missing_symbol_is_persisted_with_retry_checkpoint(self) -> None:
@@ -105,7 +148,7 @@ class YahooOhlcCacheStoreTests(unittest.TestCase):
 
     def test_required_sessions_detect_missing_interior_session(self) -> None:
         frame = pd.DataFrame(
-            {"Close": [100.0, 102.0]},
+            {"Close": [100.0, 102.0], "Stock Splits": [0.0, 0.0]},
             index=pd.to_datetime(["2026-09-09", "2026-09-11"], utc=True),
         )
         with tempfile.TemporaryDirectory() as tmp:
@@ -127,16 +170,14 @@ class YahooOhlcCacheStoreTests(unittest.TestCase):
 
     def test_successive_refresh_merges_history_instead_of_replacing_it(self) -> None:
         first = pd.DataFrame(
-            {"Close": [100.0, 101.0]},
+            {"Close": [100.0, 101.0], "Stock Splits": [0.0, 0.0]},
             index=pd.to_datetime(["2026-09-08", "2026-09-09"], utc=True),
         )
         second = pd.DataFrame(
-            {"Close": [102.0, 103.0]},
+            {"Close": [102.0, 103.0], "Stock Splits": [0.0, 0.0]},
             index=pd.to_datetime(["2026-09-10", "2026-09-11"], utc=True),
         )
-        required = tuple(
-            date(2026, 9, day) for day in (8, 9, 10, 11)
-        )
+        required = tuple(date(2026, 9, day) for day in (8, 9, 10, 11))
         with tempfile.TemporaryDirectory() as tmp:
             store = self._store(Path(tmp))
             store.upsert_success("AAPL", first)
@@ -153,15 +194,16 @@ class YahooOhlcCacheStoreTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             current = self._store(root)
-            alternate = self._store(
-                root,
+            alternate = YahooOhlcCacheStore(
+                root / "history.db",
                 adjustment="vendor_adjusted",
                 methodology_version="vendor_total_return_v1",
+                now_provider=lambda: NOW,
             )
             current.upsert_success(
                 "AAPL",
                 pd.DataFrame(
-                    {"Close": [101.0]},
+                    {"Close": [101.0], "Stock Splits": [0.0]},
                     index=pd.to_datetime(["2026-09-11"], utc=True),
                 ),
             )
