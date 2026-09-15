@@ -22,19 +22,22 @@ def _normalized_name(value: object) -> str:
 
 def _legal_name_match(expected: object, observed: object, *, identifiers_confirmed: bool) -> str:
     """Classify names without ever using names to resolve an identity."""
-    expected_name = _normalized_name(expected)
-    observed_name = _normalized_name(observed)
-    if expected_name == observed_name:
+    if _normalized_name(expected) == _normalized_name(observed):
         return "EXACT"
-    cosmetic_suffixes = ("INCORPORATED", "INC", "CORPORATION", "CORP", "LIMITED", "LTD", "PLC", "LLC", "LP", "COMPANY", "CO", "DE")
-    def strip_suffixes(name: str) -> str:
-        for suffix in cosmetic_suffixes:
-            name = name.replace(suffix, "")
-        return name
-    if identifiers_confirmed and strip_suffixes(expected_name) == strip_suffixes(observed_name):
+
+    suffixes = {"INCORPORATED", "INC", "CORPORATION", "CORP", "LIMITED", "LTD", "PLC", "LLC", "LP", "COMPANY", "CO", "DE"}
+
+    def core_tokens(value: object) -> tuple[str, ...]:
+        decomposed = unicodedata.normalize("NFKD", str(value or ""))
+        ascii_value = "".join(character for character in decomposed if not unicodedata.combining(character))
+        tokens = [token for token in "".join(character if character.isalnum() else " " for character in ascii_value.upper()).split()]
+        while tokens and tokens[-1] in suffixes:
+            tokens.pop()
+        return tuple(tokens)
+
+    if identifiers_confirmed and core_tokens(expected) == core_tokens(observed):
         return "COSMETIC_IDENTIFIER_CONFIRMED"
     return "MISMATCH"
-
 
 def run_identity_pilot(
     manifest_path: Path,
