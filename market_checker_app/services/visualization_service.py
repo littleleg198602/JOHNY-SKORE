@@ -45,6 +45,9 @@ class VisualizationService:
                 "avg_risk": 0.0,
                 "buy_count": 0,
                 "sell_count": 0,
+                "ranking_eligible": 0,
+                "ranking_ineligible": 0,
+                "ranking_usable_coverage_pct": 0.0,
             }
         frame = signals.copy()
         for col in ["final_total_score", "final_confidence", "risk_score"]:
@@ -52,6 +55,13 @@ class VisualizationService:
                 frame[col] = pd.to_numeric(frame[col], errors="coerce")
         action_column = "action" if "action" in frame.columns else "signal"
         signal_series = frame[action_column].fillna("") if action_column in frame.columns else pd.Series(dtype=str)
+        if "ranking_eligible" in frame.columns:
+            rankable = frame["ranking_eligible"].fillna(False).astype(bool)
+        else:
+            # Historic imports predate the explicit contract; they must not be
+            # reported as failed coverage solely because the field is absent.
+            rankable = pd.Series(True, index=frame.index, dtype="bool")
+        rankable_count = int(rankable.sum())
         return {
             "tickers": int(len(frame)),
             "avg_score": float(frame.get("final_total_score", pd.Series(dtype=float)).mean() or 0.0),
@@ -59,6 +69,11 @@ class VisualizationService:
             "avg_risk": float(frame.get("risk_score", pd.Series(dtype=float)).mean() or 0.0),
             "buy_count": int(signal_series.isin(["BUY", "STRONG BUY"]).sum()),
             "sell_count": int(signal_series.isin(["SELL", "STRONG SELL"]).sum()),
+            "ranking_eligible": rankable_count,
+            "ranking_ineligible": int(len(frame) - rankable_count),
+            "ranking_usable_coverage_pct": round(
+                100.0 * rankable_count / len(frame), 2
+            ) if len(frame) else 0.0,
         }
 
     @staticmethod
@@ -92,6 +107,10 @@ class VisualizationService:
         if signals.empty or score_col not in signals.columns:
             return pd.DataFrame(), pd.DataFrame()
         frame = signals.copy()
+        if "ranking_eligible" in frame.columns:
+            frame = frame.loc[frame["ranking_eligible"].fillna(False).astype(bool)].copy()
+        if frame.empty:
+            return pd.DataFrame(), pd.DataFrame()
         frame[score_col] = pd.to_numeric(frame[score_col], errors="coerce")
         cols = [c for c in ["ticker", score_col, "signal", "final_confidence", "risk_score", "rank_in_watchlist"] if c in frame.columns]
         return frame.nlargest(n, score_col)[cols], frame.nsmallest(n, score_col)[cols]

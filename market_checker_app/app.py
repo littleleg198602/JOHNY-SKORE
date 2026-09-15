@@ -446,6 +446,11 @@ def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.Dat
     c5.metric("Akce BUY", kpi["buy_count"])
     c6.metric("Akce SELL", kpi["sell_count"])
 
+    r1, r2, r3 = st.columns(3)
+    r1.metric("Rankovatelné tickery", kpi["ranking_eligible"])
+    r2.metric("Nerankovatelné tickery", kpi["ranking_ineligible"])
+    r3.metric("Použitelné pokrytí rankingu", f"{kpi['ranking_usable_coverage_pct']:.2f} %")
+
     st.markdown("### Diagnostika rozhodovacího enginu")
     bull_series = pd.to_numeric(signals_df.get("bull_score", pd.Series(dtype=float)), errors="coerce")
     bear_series = pd.to_numeric(signals_df.get("bear_score", pd.Series(dtype=float)), errors="coerce")
@@ -2154,7 +2159,7 @@ if st.session_state.last_result:
     with tab_dashboard:
         _render_dashboard(signals_df, result.get("ranking", {}), result.get("dashboard", {}))
         st.markdown("### Přehledové tabulky")
-        _show_limited_dataframe(result["dashboard"].get("top_total", pd.DataFrame()), "Top 20 by FinalTotalScore")
+        _show_limited_dataframe(result["dashboard"].get("top_total", pd.DataFrame()), "Top 20 rankovatelných tickerů podle FinalTotalScore")
         _show_limited_dataframe(result["dashboard"].get("weekly_drops", pd.DataFrame()), "Top 20: 7denní propad", preferred_cols=["ticker", "last_week_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
         _show_limited_dataframe(result["dashboard"].get("d14_drops", pd.DataFrame()), "Top 20: 14denní propad", preferred_cols=["ticker", "last_14d_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
         _show_limited_dataframe(result["dashboard"].get("m1_drops", pd.DataFrame()), "Top 20: 1M propad", preferred_cols=["ticker", "last_1m_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])

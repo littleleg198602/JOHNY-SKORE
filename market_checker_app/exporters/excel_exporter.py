@@ -28,6 +28,8 @@ class ExcelExporter:
         "legacy_total_score",
         "legacy_signal",
         "tech_source_used",
+        "technical_status",
+        "technical_reason",
         "news_count_48h",
         "news_score",
         "tech_score",
