@@ -60,9 +60,17 @@ class RankingService:
     def apply_ranking(signals: pd.DataFrame) -> pd.DataFrame:
         if signals.empty:
             return signals
-        ranked = signals.sort_values(
-            "final_total_score",
-            ascending=False,
+        ranked = signals.copy()
+        eligible, reasons = RankingService._eligibility(ranked)
+        ranked["ranking_eligible"] = eligible
+        ranked["ranking_reason"] = reasons.mask(reasons.eq(""), "ELIGIBLE")
+        ranked["ranking_status"] = ranked["ranking_eligible"].map(
+            {True: "USABLE", False: "INELIGIBLE"}
+        )
+        ranked = ranked.sort_values(
+            ["ranking_eligible", "final_total_score"],
+            ascending=[False, False],
+            na_position="last",
         ).reset_index(drop=True)
 
         # The pipeline historically constructed rows with the frozen v2.1
@@ -78,9 +86,14 @@ class RankingService:
         ranked["config_hash"] = manifest["config_hash"]
         ranked["release_manifest_hash"] = manifest["manifest_hash"]
 
-        ranked["rank_in_watchlist"] = ranked.index + 1
-        ranked["percentile_in_watchlist"] = (
-            ranked["final_total_score"].rank(pct=True, ascending=True) * 100
+        eligible_mask = ranked["ranking_eligible"].fillna(False).astype(bool)
+        ranked["rank_in_watchlist"] = pd.Series(pd.NA, index=ranked.index, dtype="Int64")
+        ranked.loc[eligible_mask, "rank_in_watchlist"] = range(1, int(eligible_mask.sum()) + 1)
+        ranked["percentile_in_watchlist"] = float("nan")
+        ranked.loc[eligible_mask, "percentile_in_watchlist"] = (
+            pd.to_numeric(ranked.loc[eligible_mask, "final_total_score"], errors="coerce")
+            .rank(pct=True, ascending=True)
+            * 100
         )
         return ranked
 
