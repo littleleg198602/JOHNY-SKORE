@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 20116)
-Total output lines: 1646
-
 from __future__ import annotations
 
 import json
@@ -878,7 +875,17 @@ class PipelineService:
                             tech_source_used = "yfinance_bulk_fallback"
                         tech_source_warning = mt5_warning
                     else:
-                        tech_source_used …116 tokens truncated…inance_fallback"
+                        tech_source_used = "mt5_unavailable"
+                        ohlc = pd.DataFrame()
+                        tech_source_warning = (
+                            mt5_warning
+                            or bulk_yahoo_ohlc_warnings.get(
+                                ticker,
+                                f"MT5 ani Yahoo OHLC nejsou dostupné pro {ticker}.",
+                            )
+                        )
+                else:
+                    tech_source_used = "yfinance_fallback"
                     yahoo_ohlc_attempts += 1
                     fetch_ohlc = (
                         self.yahoo_client.fetch_ohlc
