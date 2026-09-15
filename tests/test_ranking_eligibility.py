@@ -32,7 +32,9 @@ class RankingEligibilityTests(unittest.TestCase):
 
         self.assertEqual(1, ranked.loc["GOOD", "rank_in_watchlist"])
         self.assertTrue(bool(ranked.loc["GOOD", "ranking_eligible"]))
+        self.assertEqual("USABLE", ranked.loc["GOOD", "ranking_status"])
         self.assertFalse(bool(ranked.loc["BAD", "ranking_eligible"]))
+        self.assertEqual("INELIGIBLE", ranked.loc["BAD", "ranking_status"])
         self.assertTrue(pd.isna(ranked.loc["BAD", "rank_in_watchlist"]))
         self.assertIn("NO_DATED_PRICE", ranked.loc["BAD", "ranking_reason"])
 
@@ -52,6 +54,7 @@ class RankingEligibilityTests(unittest.TestCase):
         ranked = RankingService.apply_ranking(signals)
 
         self.assertFalse(bool(ranked.iloc[0]["ranking_eligible"]))
+        self.assertEqual("INELIGIBLE", ranked.iloc[0]["ranking_status"])
         self.assertIn("UNDATED_PRICE", ranked.iloc[0]["ranking_reason"])
         self.assertTrue(RankingService.top_bottom_tables(ranked)["top"].empty)
 
