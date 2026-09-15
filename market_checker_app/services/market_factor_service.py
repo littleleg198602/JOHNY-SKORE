@@ -28,6 +28,9 @@ def _close_series(history: pd.DataFrame | None, as_of: datetime) -> pd.Series:
             continue
         if label is not None and label <= completed and close > 0.0 and math.isfinite(close):
             values[label] = close
+    if values:
+        allowed = set(sessions_between(min(values), min(max(values), completed)))
+        values = {session: close for session, close in values.items() if session in allowed}
     return pd.Series(values, dtype=float).sort_index()
 
 
