@@ -449,6 +449,24 @@ class SQLiteStore:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS source_degradations (
+                    degradation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    run_id INTEGER NOT NULL,
+                    ticker TEXT,
+                    provider TEXT NOT NULL,
+                    source_url TEXT,
+                    attempt_status TEXT NOT NULL,
+                    outcome_status TEXT NOT NULL,
+                    reason_code TEXT NOT NULL,
+                    reason_detail TEXT,
+                    observed_at TEXT NOT NULL,
+                    retry_state TEXT NOT NULL DEFAULT 'NONE',
+                    FOREIGN KEY(run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS orchestration_runs (
                     orchestration_id TEXT PRIMARY KEY,
                     pipeline_run_id INTEGER,
@@ -1359,6 +1377,27 @@ class SQLiteStore:
             for record in (ticker_traceability or [])
         ]
 
+    @staticmethod
+    def _build_source_degradation_payload(
+        run_id: int,
+        source_degradations: list[dict[str, object]] | None,
+    ) -> list[tuple[object, ...]]:
+        return [
+            (
+                run_id,
+                record.get("ticker"),
+                str(record["provider"]),
+                record.get("source_url"),
+                str(record["attempt_status"]),
+                str(record["outcome_status"]),
+                str(record["reason_code"]),
+                record.get("reason_detail"),
+                str(record["observed_at"]),
+                str(record.get("retry_state") or "NONE"),
+            )
+            for record in (source_degradations or [])
+        ]
+
     def save_run(
         self,
         metadata: RunMetadata,
@@ -1366,6 +1405,7 @@ class SQLiteStore:
         updated_at: str,
         *,
         ticker_traceability: list[dict[str, object]] | None = None,
+        source_degradations: list[dict[str, object]] | None = None,
     ) -> int:
         """Persist a run, signals and ticker accounting atomically.
 
@@ -1404,6 +1444,20 @@ class SQLiteStore:
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     traceability_payload,
+                )
+            degradation_payload = self._build_source_degradation_payload(
+                run_id, source_degradations
+            )
+            if degradation_payload:
+                conn.executemany(
+                    """
+                    INSERT INTO source_degradations(
+                        run_id, ticker, provider, source_url, attempt_status,
+                        outcome_status, reason_code, reason_detail, observed_at,
+                        retry_state
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    degradation_payload,
                 )
             return run_id
 
@@ -3009,6 +3063,19 @@ class SQLiteStore:
                 SELECT * FROM run_ticker_traceability
                 WHERE run_id = ?
                 ORDER BY ticker ASC
+                """,
+                conn,
+                params=(run_id,),
+            )
+
+    def read_source_degradations_for_run(self, run_id: int) -> pd.DataFrame:
+        """Read normalized source outages and partial data for one run."""
+        with self._connect() as conn:
+            return pd.read_sql_query(
+                """
+                SELECT * FROM source_degradations
+                WHERE run_id = ?
+                ORDER BY provider ASC, ticker ASC, degradation_id ASC
                 """,
                 conn,
                 params=(run_id,),
