@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from datetime import datetime, timezone
 import json
 import math
@@ -595,6 +596,10 @@ _SIGNAL_DETAIL_COLUMNS = (
     "final_confidence",
     "confidence_kind",
     "data_quality_score",
+    "current_price",
+    "current_price_source",
+    "tech_source_used",
+    "yahoo_data_status",
     "news_confidence",
     "tech_confidence",
     "yahoo_confidence",
@@ -634,23 +639,83 @@ def _json_safe(value: object) -> object:
     return str(value)
 
 
+def _universe_fingerprint(tickers: Sequence[object]) -> dict[str, object]:
+    """Return a stable identity for the exact ordered production universe."""
+    normalized = [
+        str(ticker).strip().upper()
+        for ticker in tickers
+        if str(ticker).strip()
+    ]
+    payload = "\n".join(normalized).encode("utf-8")
+    return {
+        "algorithm": "sha256",
+        "ordered_ticker_count": len(normalized),
+        "ordered_ticker_sha256": hashlib.sha256(payload).hexdigest(),
+    }
+
+
 def _universe_coverage(
     requested_tickers: list[str],
     ticker_results: list[dict[str, object]],
 ) -> dict[str, object]:
-    requested = list(dict.fromkeys(str(ticker).strip().upper() for ticker in requested_tickers if str(ticker).strip()))
-    reported = {
-        str(row.get("ticker") or "").strip().upper()
+    """Account for every requested ticker without treating a weak row as success."""
+    requested = list(
+        dict.fromkeys(
+            str(ticker).strip().upper()
+            for ticker in requested_tickers
+            if str(ticker).strip()
+        )
+    )
+    rows_by_ticker = {
+        str(row.get("ticker") or "").strip().upper(): row
         for row in ticker_results
         if str(row.get("ticker") or "").strip()
     }
-    missing = [ticker for ticker in requested if ticker not in reported]
+    states: list[dict[str, object]] = []
+    for ticker in requested:
+        row = rows_by_ticker.get(ticker)
+        if row is None:
+            states.append(
+                {"ticker": ticker, "status": "FAILED", "reason": "ticker nebyl reportován pipeline"}
+            )
+            continue
+        price_source = str(row.get("current_price_source") or "")
+        tech_source = str(row.get("tech_source_used") or "")
+        if price_source in {"", "missing", "ohlc_unusable"}:
+            states.append(
+                {"ticker": ticker, "status": "PARTIAL", "reason": f"nepoužitelná cena ({price_source or 'neznámý zdroj'})"}
+            )
+        elif price_source == "yahoo_metadata_quote_undated":
+            states.append(
+                {"ticker": ticker, "status": "PARTIAL", "reason": "pouze nečasovaná Yahoo quote"}
+            )
+        elif tech_source in {"bulk_price_source_unavailable", "mt5_unavailable"}:
+            states.append(
+                {"ticker": ticker, "status": "PARTIAL", "reason": f"technická data nedostupná ({tech_source})"}
+            )
+        else:
+            states.append({"ticker": ticker, "status": "USABLE", "reason": None})
+
+    counts = {
+        status: sum(item["status"] == status for item in states)
+        for status in ("USABLE", "PARTIAL", "FAILED")
+    }
+    missing = [item["ticker"] for item in states if item["status"] == "FAILED"]
     return {
         "requested": len(requested),
-        "reported": len(reported),
+        "attempted": len(rows_by_ticker),
+        "reported": len(rows_by_ticker),
+        "usable": counts["USABLE"],
+        "partial": counts["PARTIAL"],
+        "failed": counts["FAILED"],
         "missing": len(missing),
         "missing_tickers": missing,
-        "coverage_pct": round(100.0 * len(reported) / len(requested), 2) if requested else 0.0,
+        "ticker_statuses": states,
+        "coverage_pct": (
+            round(100.0 * len(rows_by_ticker) / len(requested), 2)
+            if requested
+            else 0.0
+        ),
     }
 
 
@@ -872,6 +937,7 @@ def run_weekly_shadow(
         "run_id": result.get("run_id"),
         "ticker_count": len(tickers),
         "requested_tickers": list(tickers),
+        "universe_fingerprint": _universe_fingerprint(tickers),
         "universe_coverage": universe_coverage,
         "analysis_only": True,
         "automated_trading": {
