@@ -37,12 +37,18 @@ from market_checker_app.models import (
     YahooSnapshot,
 )
 from market_checker_app.services.pipeline_service import PipelineService
+from market_checker_app.services.us_equity_calendar_service import (
+    last_completed_session,
+    sessions_between,
+)
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 
 
 def _history() -> pd.DataFrame:
-    index = pd.date_range(end=pd.Timestamp.now(tz="UTC").normalize(), periods=260, freq="B", tz="UTC")
+    latest = last_completed_session(datetime.now(timezone.utc))
+    assert latest is not None
+    index = pd.DatetimeIndex(sessions_between(latest - pd.Timedelta(days=520), latest)[-260:])
     close = pd.Series([100 + idx * 0.15 for idx in range(len(index))], index=index)
     return pd.DataFrame(
         {
