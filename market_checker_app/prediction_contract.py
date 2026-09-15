@@ -11,7 +11,7 @@ from typing import Any
 
 SNAPSHOT_SCHEMA_VERSION = "feature_snapshot_v1"
 PRIMARY_TARGET_NAME = "5d_excess_return_vs_benchmark"
-PRIMARY_TARGET_VERSION = "excess_return_5d_v1"
+PRIMARY_TARGET_VERSION = "excess_return_5d_nyse_sessions_v2"
 PRIMARY_HORIZON_TRADING_DAYS = 5
 DEFAULT_BENCHMARK_TICKER = "SPY"
 BASELINE_MODEL_ID = "legacy_v2.1_heuristic"
