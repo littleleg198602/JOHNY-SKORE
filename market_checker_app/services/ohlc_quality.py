@@ -3,7 +3,15 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
+import math
+
 import pandas as pd
+
+from market_checker_app.services.us_equity_calendar_service import (
+    last_completed_session,
+    session_label,
+    sessions_between,
+)
 
 
 DEFAULT_MIN_HISTORY_ROWS = 60
@@ -44,66 +52,66 @@ def assess_daily_ohlc(
     min_history_rows: int = DEFAULT_MIN_HISTORY_ROWS,
     max_close_age: timedelta = DEFAULT_MAX_CLOSE_AGE,
 ) -> OhlcQuality:
-    """Validate an OHLC frame without inventing a price or session.
+    """Validate daily OHLC against completed NYSE sessions.
 
-    A Friday close remains usable on a Monday and around ordinary holidays;
-    older or future-dated closes are explicitly rejected.  A short but fresh
-    frame may provide a dated price, but is not allowed to support technical
-    indicators that require a meaningful history.
+    The provider may return duplicate or unfinished daily bars.  Only a
+    positive finite close on the latest completed NYSE session is a usable
+    current price; technical history counts unique exchange sessions.
     """
-    warnings: list[str] = []
+    del max_close_age  # Session calendar is stricter and handles holidays.
     empty = pd.DataFrame()
     if not isinstance(frame, pd.DataFrame) or frame.empty:
         return OhlcQuality(empty, None, None, 0, False, False, ("OHLC data chybí nebo jsou prázdná.",))
     if "Close" not in frame.columns:
         return OhlcQuality(empty, None, None, 0, False, False, ("OHLC data nemají sloupec Close.",))
 
-    normalized = frame.copy()
-    close = pd.to_numeric(normalized["Close"], errors="coerce")
-    normalized = normalized.loc[close.notna() & (close > 0)].copy()
-    if normalized.empty:
-        return OhlcQuality(empty, None, None, 0, False, False, ("OHLC Close neobsahuje kladnou číselnou cenu.",))
+    rows: list[dict[str, object]] = []
+    for timestamp, raw_close in frame["Close"].items():
+        session = session_label(timestamp)
+        try:
+            close = float(raw_close)
+        except (TypeError, ValueError):
+            continue
+        if session is None or not math.isfinite(close) or close <= 0.0:
+            continue
+        rows.append({"session": session, "close": close})
 
-    normalized["Close"] = pd.to_numeric(normalized["Close"], errors="coerce")
-    timestamps = [_as_utc(value) for value in normalized.index]
-    valid_rows = [
-        (position, value)
-        for position, value in enumerate(timestamps)
-        if value is not None
-    ]
-    if not valid_rows:
-        return OhlcQuality(empty, None, None, 0, False, False, ("OHLC data nemají platná časová razítka seancí.",))
+    if not rows:
+        return OhlcQuality(empty, None, None, 0, False, False, ("OHLC Close neobsahuje kladnou konečnou cenu na platné seanci.",))
 
-    latest_position, latest_at = max(valid_rows, key=lambda item: item[1])
-    assert latest_at is not None
-    normalized = normalized.iloc[[position for position, _ in valid_rows]].copy()
-    normalized = normalized.sort_index()
-    latest_close = float(pd.to_numeric(normalized["Close"], errors="coerce").iloc[-1])
-    now = as_of.replace(tzinfo=timezone.utc) if as_of.tzinfo is None else as_of.astimezone(timezone.utc)
+    normalized = pd.DataFrame(rows).sort_values("session")
+    duplicate_count = int(normalized.duplicated("session", keep="last").sum())
+    normalized = normalized.drop_duplicates("session", keep="last").set_index("session")
+    latest = normalized.index[-1]
+    expected = last_completed_session(as_of)
+    warnings: list[str] = []
+    if duplicate_count:
+        warnings.append(f"OHLC obsahuje {duplicate_count} duplicitních seancí; pro výpočet byla použita poslední verze.")
 
-    price_usable = True
-    if latest_at > now + timedelta(minutes=5):
-        price_usable = False
-        warnings.append("Poslední OHLC seance leží v budoucnosti vůči času běhu.")
-    elif now - latest_at > max_close_age:
-        price_usable = False
-        warnings.append(
-            f"Poslední OHLC close je zastaralý ({(now - latest_at).days} dní); cena se nepoužije."
-        )
+    price_usable = expected is not None and latest == expected
+    if expected is None:
+        warnings.append("Nelze určit poslední dokončenou NYSE seanci.")
+    elif latest > expected:
+        warnings.append("Poslední OHLC seance ještě nebyla uzavřena nebo leží v budoucnosti.")
+    elif latest < expected:
+        warnings.append(f"Poslední OHLC close neodpovídá poslední dokončené NYSE seanci {expected.date().isoformat()}.")
 
-    count = len(normalized)
-    history_usable = price_usable and count >= max(1, int(min_history_rows))
+    count = int(len(normalized))
+    required = max(1, int(min_history_rows))
+    session_start = normalized.index[max(0, count - required)]
+    required_sessions = sessions_between(session_start, latest)
+    history_usable = price_usable and count >= required and tuple(normalized.index[-required:]) == required_sessions[-required:]
     if price_usable and not history_usable:
-        warnings.append(
-            f"OHLC historie má jen {count} platných seancí; pro technické indikátory je potřeba alespoň {min_history_rows}."
-        )
+        warnings.append(f"OHLC historie nemá {required} souvislých platných NYSE seancí pro technické indikátory.")
 
+    latest_close = float(normalized.iloc[-1]["close"])
     return OhlcQuality(
-        normalized=normalized,
+        normalized=normalized.rename(columns={"close": "Close"}),
         close=latest_close if price_usable else None,
-        close_at=latest_at,
+        close_at=latest.to_pydatetime(),
         observation_count=count,
         price_usable=price_usable,
         history_usable=history_usable,
         warnings=tuple(warnings),
     )
+
