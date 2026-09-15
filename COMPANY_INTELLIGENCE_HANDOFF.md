@@ -10,11 +10,12 @@ Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává z
 
 | OPL | Stav | Main / důkaz | Co je dodané |
 | --- | --- | --- | --- |
-| OPL-002 | DONE | PR #107, merge `6b205e7099ce4740af958518d0f17939207578cb` | NYSE session kalendář, finite/unique close, uzavřené seance, holiday/DST/early-close validace, R01–R04 regresní testy |
-| OPL-003 | DONE | PR #107, merge `6b205e7099ce4740af958518d0f17939207578cb` | target přes přesné seance, zákaz future/evaluation look-ahead, R06/R07 testy |
+| OPL-002 | IMPLEMENTED / audit repair pending merge | PR #107 + audit branch `fix/audit-repair-opl-007` | NYSE session kalendář, finite/unique close, uzavřené seance a lookback coverage. Audit našel nedefinované lookback proměnné v main; oprava má regresní testy. |
+| OPL-003 | IMPLEMENTED / audit repair pending merge | PR #107 + audit branch `fix/audit-repair-opl-007` | target přes přesné seance a zákaz future/evaluation look-ahead. Audit odstranil duplicitní parametr a keyword, které v main blokovaly import label resolveru. |
 | OPL-005 | DONE | PR #108, merge `448d5cdeb732b80ef8cc55ee553acfa10504e316` | verzovaná cache, strict corporate-action history, split-adjusted price return bez dividend, přesný session range, retry/backoff |
 | OPL-004 | DONE | PR #109, merge `167fe03d32913120be4846caa930940adf978c84` | persistentní fair queue, retry_after/cursor, 1000/run, stránky po 120, backlog metriky, automatické Windows/GitHub spuštění, 700-snapshot starvation test |
-| OPL-001 | IN PROGRESS | branch `feat/opl-001-version-manifest-20260915` | release manifest, aktivní versus legacy verze, code/config/model/target/feature identita; čeká na CI a merge |
+| OPL-001 | DONE | merge `97729f1` (PR #110) | release manifest, aktivní versus legacy verze, code/config/model/target/feature identita |
+| OPL-007 | IMPLEMENTED / audit branch pending merge | branch `fix/audit-repair-opl-007` | způsobilost rankingu, neprůhledné řádky bez pořadí, per-ticker status ceny a technické vrstvy, auditovatelné exportní pole |
 
 Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Streamlit gate, deterministic test suite a deterministic release gate**.
 
@@ -37,9 +38,9 @@ Každý nový snapshot nese release manifest s code SHA, config hashem, model/sc
 
 Nejvyšší zbývající technická priorita je:
 
-1. **OPL-006 — srovnatelná období tržních faktorů.** Relative return musí používat stejné session endpointy a začátky; krátká historie nesmí předstírat roční faktor.
-2. **OPL-007 — použitelný ranking a report.** Ranking eligibility, usable versus row coverage, per-ticker source/status contract a úplná 687tickerová traceability.
-3. Poté pokračovat dalšími P1/P2 body podle pořadí v OPL.
+1. Dokončit merge a CI audit branch `fix/audit-repair-opl-007`; dokud není v `main`, OPL-002/003/007 nejsou DONE.
+2. **OPL-008 — dostupnost a degradace.** Navázat na per-ticker status kontrakt a zpracovat transportní/prefixované failure reason codes.
+3. Poté pokračovat dalšími P1/P2 body podle pořadí v OPL; OPL-006 je code-complete a nepatří znovu do implementační fronty.
 
 Živá data, která potřebují nasbírat čas/OOS vzorky, zůstávají `WAIT_DATA`; absence dat se nesmí označovat za implementační chybu ani za hotový predikční důkaz.
 

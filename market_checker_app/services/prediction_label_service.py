@@ -130,7 +130,6 @@ class PredictionLabelService:
         snapshot_as_of: datetime,
         evaluation_as_of: datetime,
         horizon: int,
-        evaluation_as_of: datetime | None = None,
     ) -> tuple[list[float], list[float], datetime] | None:
         """Return t0/t+N only for the exact completed NYSE sessions.
 
@@ -274,7 +273,6 @@ class PredictionLabelService:
                 snapshot_as_of=snapshot_as_of,
                 evaluation_as_of=clock,
                 horizon=horizon,
-                evaluation_as_of=clock,
             )
             if common_windows is None:
                 # After the target session has closed, allow a grace period for

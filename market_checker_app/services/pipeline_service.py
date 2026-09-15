@@ -940,6 +940,29 @@ class PipelineService:
             elif current_price is not None:
                 dated_current_price_count += 1
 
+            if current_price is not None and current_price_source != "yahoo_metadata_quote_undated":
+                current_price_status = "USABLE"
+                current_price_reason = "DATED_COMPLETED_SESSION_CLOSE"
+            elif current_price_source == "yahoo_metadata_quote_undated":
+                current_price_status = "PARTIAL"
+                current_price_reason = "UNDATED_METADATA_QUOTE"
+            elif current_price_source == "ohlc_unusable":
+                current_price_status = "FAILED"
+                current_price_reason = "OHLC_NOT_USABLE_AT_RUN_CUTOFF"
+            else:
+                current_price_status = "FAILED"
+                current_price_reason = "CURRENT_PRICE_UNAVAILABLE"
+
+            if ohlc_quality.history_usable:
+                technical_status = "USABLE"
+                technical_reason = "COMPLETE_REQUIRED_SESSION_HISTORY"
+            elif ohlc_quality.observation_count:
+                technical_status = "PARTIAL"
+                technical_reason = "OHLC_HISTORY_INCOMPLETE"
+            else:
+                technical_status = "FAILED"
+                technical_reason = "OHLC_HISTORY_UNAVAILABLE"
+
             progress.set_step(ticker, "behavioral_risk", f"Počítám behavioral a risk vrstvu pro {ticker}", 0.82)
             behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
             risk = analyze_risk(ticker, news, tech, yresult, behavioral)
@@ -990,13 +1013,19 @@ class PipelineService:
                 "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
                 "current_price": current_price,
                 "current_price_source": current_price_source,
+                "current_price_status": current_price_status,
+                "current_price_reason": current_price_reason,
+                "current_price_fetched_at": started_at.isoformat(),
                 "ohlc_close_at": (
                     ohlc_quality.close_at.isoformat()
                     if ohlc_quality.close_at is not None
                     else None
                 ),
                 "ohlc_observation_count": ohlc_quality.observation_count,
+                "ohlc_price_usable": ohlc_quality.price_usable,
                 "ohlc_history_usable": ohlc_quality.history_usable,
+                "ohlc_available_lookbacks": json.dumps(ohlc_quality.available_lookbacks),
+                "ohlc_missing_lookbacks": json.dumps(ohlc_quality.missing_lookbacks),
                 "yahoo_ticker": yahoo_ticker,
                 "yahoo_data_status": yahoo_data_status,
                 "yahoo_data_fetched_at": yahoo_data_fetched_at,
@@ -1004,6 +1033,8 @@ class PipelineService:
                 "legacy_total_score": legacy_total_score,
                 "legacy_signal": legacy_signal,
                 "tech_source_used": tech_source_used,
+                "technical_status": technical_status,
+                "technical_reason": technical_reason,
                 "news_count_48h": news.news_count_48h,
                 "news_score": news.news_score,
                 "tech_score": tech.tech_score,
