@@ -39,6 +39,21 @@ def _return(series: pd.Series, days: int) -> float | None:
     return (latest / base) - 1.0 if base > 0.0 else None
 
 
+def _relative_return(asset: pd.Series, benchmark: pd.Series, days: int) -> float | None:
+    if asset.empty or benchmark.empty or len(asset) <= days or len(benchmark) <= days:
+        return None
+    if asset.index[-1] != benchmark.index[-1]:
+        return None
+    sessions = sessions_between(asset.index[0], asset.index[-1])
+    if len(sessions) < days + 1:
+        return None
+    required = sessions[-(days + 1):]
+    if any(session not in asset.index or session not in benchmark.index for session in required):
+        return None
+    asset_return = (float(asset.loc[required[-1]]) / float(asset.loc[required[0]])) - 1.0
+    benchmark_return = (float(benchmark.loc[required[-1]]) / float(benchmark.loc[required[0]])) - 1.0
+    return asset_return - benchmark_return
+
 def _volatility(series: pd.Series, days: int) -> float | None:
     if len(series) <= days:
         return None
@@ -50,7 +65,7 @@ def _volatility(series: pd.Series, days: int) -> float | None:
 
 
 def _drawdown(series: pd.Series, days: int) -> float | None:
-    if len(series) < 2:
+    if len(series) < days:
         return None
     window = series.tail(days)
     peak = float(window.max())
@@ -82,12 +97,8 @@ def build_market_factor_snapshot(
         f"{days}d": _return(benchmark, days) for days in RETURN_HORIZONS
     }
     relative_returns = {
-        key: (
-            asset_returns[key] - benchmark_returns[key]
-            if asset_returns[key] is not None and benchmark_returns[key] is not None
-            else None
-        )
-        for key in asset_returns
+        f"{days}d": _relative_return(asset, benchmark, days)
+        for days in RETURN_HORIZONS
     }
     missing = {
         "asset_history": not bool(len(asset)),
