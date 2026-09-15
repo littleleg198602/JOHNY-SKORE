@@ -15,7 +15,7 @@ Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává z
 | OPL-005 | DONE | PR #108, merge `448d5cdeb732b80ef8cc55ee553acfa10504e316` | verzovaná cache, strict corporate-action history, split-adjusted price return bez dividend, přesný session range, retry/backoff |
 | OPL-004 | DONE | PR #109, merge `167fe03d32913120be4846caa930940adf978c84` | persistentní fair queue, retry_after/cursor, 1000/run, stránky po 120, backlog metriky, automatické Windows/GitHub spuštění, 700-snapshot starvation test |
 | OPL-001 | DONE | merge `97729f1` (PR #110) | release manifest, aktivní versus legacy verze, code/config/model/target/feature identita |
-| OPL-007 | PARTIAL / follow-up in progress | PR #111 + follow-up | způsobilost rankingu, neprůhledné řádky bez pořadí, per-ticker status ceny a technické vrstvy, auditovatelné exportní pole; zbývá úplná integrační traceability 687 tickerů. |
+| OPL-007 | CODE COMPLETE / live report pending | PR #111 + follow-up branch | způsobilost rankingu, neprůhledné řádky bez pořadí, per-ticker status ceny a technické vrstvy, auditovatelné exportní pole; nově atomická per-ticker traceability pipeline → SQLite → JSON → UI (requested/attempted/usable/partial/failed/not-attempted), testovaná na 687 tickerů. Zbývá jedině skutečný produkční 687tickerový report. |
 
 Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Streamlit gate, deterministic test suite a deterministic release gate**.
 
@@ -38,8 +38,8 @@ Každý nový snapshot nese release manifest s code SHA, config hashem, model/sc
 
 Nejvyšší zbývající technická priorita je:
 
-1. Dokončit OPL-007 integrační traceability (pipeline → SQLite → JSON → UI) a ověřit skutečný 687tickerový report.
-2. **OPL-008 — dostupnost a degradace.** Navázat na per-ticker status kontrakt a zpracovat transportní/prefixované failure reason codes.
+1. **OPL-008 — dostupnost a degradace.** Navázat na per-ticker traceability kontrakt a zpracovat transportní/prefixované failure reason codes.
+2. Spustit skutečný produkční 687tickerový OPL-007 report; jeho absence je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
 3. Poté pokračovat dalšími P1/P2 body podle pořadí v OPL; OPL-006 je code-complete a nepatří znovu do implementační fronty.
 
 Živá data, která potřebují nasbírat čas/OOS vzorky, zůstávají `WAIT_DATA`; absence dat se nesmí označovat za implementační chybu ani za hotový predikční důkaz.
