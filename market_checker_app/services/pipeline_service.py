@@ -178,6 +178,7 @@ class PipelineService:
                     decisions = store.read_decision_records(
                         policy_name=self.config.decision_agent.policy_name
                     )
+
                     activations = store.read_signal_activation_decisions(
                         self.config.decision_agent.policy_name
                     )
@@ -358,6 +359,7 @@ class PipelineService:
         orchestrator.register(
             QualityGateAgent(
                 self.config.quality_gate,
+
                 minimum_action_confidence=(
                     self.config.prediction_v21.minimum_action_confidence
                 ),
@@ -538,6 +540,7 @@ class PipelineService:
         expanded_rss_sources: list[str] = []
         articles = []
         if rss_enabled:
+
             expanded_rss_sources = self._expand_rss_sources(rss_sources, watchlist)
 
             def _on_rss_progress(completed: int, total_sources: int, source: str) -> None:
@@ -667,220 +670,1017 @@ class PipelineService:
                     )
                 else:
                     bulk_yahoo_ohlc_by_ticker[ticker] = frame
-                    bulk_yahoo_ohlc_cache_statmݯϭǲڮ݆͹ۙ܋ܛݜؙ\ʋȈٙYYȎț[ʘۛٚY˙]\ۜX[יڛ[ٜ˙ٙYʋȈKȈܛݜؙWܙ\ۛ][ۈΈܝ]\ȎȜٜݛٙ]
-ܛݜؙWܙ\ۛ][ۗܝ]\ȊKȈؘ[ۛژ؛ٝٛݜȎȚ[݊ٜݛٙ]
-ܛݜؙWܙ\ۛ][ۗ؛ݛ݈ʈ܈
-KȈ؛ۙۚXݜלٜۛٙΈ[݊Ȉٜݛٙ]
-ܛݜؙWܙ\ۛ][ۗ؛ۙۚXݗ؛ݛ݈ʈ܈Ȉ
-KȈKȈܚܝܙ\ܝȎȞ؛ۙڙݜٙΈۛۊȈۛٚY˜ڛܝܙ\ܝ˙[ؘۙYȈ܈ۛٚY˜ڛܝܙ\ܝ˘]]י\؛ݙ\יܛۗۙ]܂Ȉ
-KȈܝ]\ȎȜٜݛٙ]
-ܚܝܙ\ܝܝ]\ȊKȈٛ؝[Y[ݜȎȚ[݊ٜݛٙ]
-ܚܝܙ\ܝٛ؝[Y[ݗ؛ݛ݈ʈ܈
-KȈ؛Z[\ȎȚ[݊ٜݛٙ]
-ܚܝܙ\ܝ؛Z[W؛ݛ݈ʈ܈
-KȈ؝]י\؛ݙ\ٙΈ[݊Ȉٜݛٙ]
-؝]י\؛ݙ\ٙܚܝܙ\ܝȊH܈Ȉ
-KȈKȈܝ\WؚZ[ȎȞ؛ۙڙݜٙΈۛٚY˜ݜWؚZ[˙[ؘۙYȈܝ]\ȎȜٜݛٙ]
-ܝ\WؚZ[לݘ]\ȊKȈܙ[][ۜښ\ȎȚ[݊Ȉٜݛٙ]
-ܝ\WؚZ[לٛ][ۜښ\؛ݛ݈ʈ܈Ȉ
-KȈ؝]י\؛ݙ\ٙΈ[݊Ȉٜݛٙ]
-؝]י\؛ݙ\ٙܝ\WؚZ[לٛ][ۜښ\ȊH܈Ȉ
-KȈKȈ؛ۛ[ٚ]WٜٛٞHΈ؛ۙڙݜٙΈۛٚY˘ۛ[[ٚ]WٜٛٞKؘٛۙYȈܝ]\ȎȜٜݛٙ]
-؛ۛ[ٚ]WٜٛٞWܝ]\ȊKȈٞܝ\ٜȎȚ[݊Ȉٜݛٙ]
-؛ۛ[ٚ]WٜٛٞWٞܝ\ٗ؛ݛ݈ʈ܈Ȉ
-KȈ؝]י\؛ݙ\ٙΈ[݊Ȉٜݛٙ]
-؝]י\؛ݙ\ٙ؛ۛ[ٚ]WٜٛٞWٞܝ\ٜȊH܈Ȉ
-KȈKȈܙYݛ]ܞW؛۝ؘݜȎȞ؛ۙڙݜٙΈۛۊȈۛٚY˜ٙݛ]ܞW؛۝ؘ݋ؘٛۙYȈ܈ۛٚY˜ٙݛ]ܞW؛۝ؘ݋؝]י\؛ݙ\יܛۗۙ]܂Ȉ
-KȈܝ]\ȎȜٜݛٙ]
-ܙYݛ]ܞW؛۝ؘݗܝ]\ȊKȈٝٛݜȎȚ[݊Ȉٜݛٙ]
-ܙYݛ]ܞW؛۝ؘݗٝٛݗ؛ݛ݈ʈ܈Ȉ
-KȈ؝]י\؛ݙ\ٙΈ[݊Ȉٜݛٙ]
-؝]י\؛ݙ\ٙܙYݛ]ܞWٝٛݜȊH܈Ȉ
-KȈKȈBהґӐSёURSГӕSSԈH
-ȈݚXڙ\ȋȈ؝\ܙ[ݗܜژو˂Ȉ؝\ܙ[ݗܜژٗܛݜؙH˂Ȉ؝\ܙ[ݗܜژٗܝ]\ȋȈ؝\ܙ[ݗܜژٗܙX\ۛȋȈ؝\ܙ[ݗܜژٗٙ]ڙY؝˂ȈۚטۛܙW؝˂Ȉۚכ؜ٜݘ][ۗ؛ݛ݈˂ȈۚלژٗݜؘۙH˂Ȉۚך\ݛܞWݜؘۙH˂Ȉۚט]ؚ[XۙWؘۛۚXڜȋȈۚכZ\ܚ[ؘٗۛۚXڜȋȈݙXڗܛݜؙWݜٙ˂ȈݙXڛژ؛ܝ]\ȋȈݙXڛژ؛ܙX\ۛȋȈܘ[ښ[ٗٛYژۙH˂Ȉܘ[ښ[ٗܝ]\ȋȈܘ[ښ[ٗܙX\ۛȋȈܘ[ڗڛם؝ڛ\݈˂Ȉܙ\ؙ[ݚ[Wڛם؝ڛ\݈˂Ȉܘ]םݘ[ܘۜو˂Ȉٚ[؛ݛݘ[ܘۜو˂Ȉٚ[؛؛ۙڙ[ؙH˂Ȉ؛ۙڙ[ؙWښ[و˂Ȉ٘]WܝX[]Wܘۜو˂Ȉۙ]ܗ؛ۙڙ[ؙH˂ȈݙXڗ؛ۙڙ[ؙH˂ȈޘZۗ؛ۙڙ[ؙH˂ȈٙXڜڛۗܚYۘ[˂ȈٛܙX؜݈˂Ȉؘݚ[ۈ˂Ȉؘݚ[ۗܙX\ۛ܈˂ȈܚYۘ[ܝٛٝ˂Ȉ؛ؚٙܙX\ۛ܈˂ȈܙX\ۛ܈˂Ȉݘ\ۚ[ٜȋʂٙYȗڜۛלؙي؛YNțؚ٘݊HOțؚ٘ݎYȝ؛YH\ȓَۛٝ\ۈۛقȈ[ݛWݘ[YHHٝ]ʝ؛YKݘ[YHˈۛيBȈYș[ݛWݘ[YH\ț۝ۛو[و\ڛܝ[ؙJ[ݛWݘ[YK
-ݜˈ[݋ۛ؝ۛۊJNٝ\ۈ[ݛWݘ[YBȈ][HHٝ]ʝ؛YKڝ[HˈۛيBȈYȘ؛XۙJ][JNގٝ\ۈڜۛלؙي][J
-JBȈ^ٜ
-\Q\ܛ܋؛YQ\ܛ܊N\܂ȈYȚ\ڛܝ[ؙJ؛YK]][YJNٝ\ۈ؛YKڜۙۜۘ]
+                    bulk_yahoo_ohlc_cache_state[ticker] = "fresh_download"
+            for ticker, warning in list(bulk_yahoo_ohlc_warnings.items()):
+                self.yahoo_ohlc_cache.note_failure(ticker, warning)
+                stale = self.yahoo_ohlc_cache.get(ticker)
+                if stale.state == "stale" and stale.frame is not None:
+                    bulk_yahoo_ohlc_by_ticker[ticker] = stale.frame
+                    bulk_yahoo_ohlc_cache_state[ticker] = "stale_after_failure"
+                    bulk_yahoo_ohlc_warnings[ticker] = (
+                        f"{warning} Použita starší Yahoo OHLC cache."
+                    )
+            if bulk_yahoo_ohlc_warnings:
+                warnings.append(
+                    f"Yahoo bulk OHLC není dostupné čerstvě pro "
+                    f"{len(bulk_yahoo_ohlc_warnings)} z "
+                    f"{len(bulk_yahoo_tickers)} tickerů."
+                )
+        if bulk_yahoo_ohlc_retry_deferred:
+            warnings.append(
+                "Yahoo OHLC retry checkpoint odložil "
+                f"{len(bulk_yahoo_ohlc_retry_deferred)} tickerů; "
+                "běh použije pouze dostupnou starší cache a nic nedofabrikuje."
+            )
 
-BȈYȚ\ڛܝ[ؙJ؛YKۛ؝
-H[و۝X]ڜٚ[ڝJ؛YJNٝ\ۈۛقȈYȚ\ڛܝ[ؙJ؛YKX݊Nٝ\ۈܝʚٞJNȗڜۛלؙي][JHۜȚٞK][H[ȝ؛YKڝ[\ʊ_BȈYȚ\ڛܝ[ؙJ؛YK
-\݋\JJNٝ\ۈךܛۗܘYي][JHۜȚ][H[ȝ؛YWBȈYȚ\ڛܝ[ؙJ؛YK
-ݜˈ[݋ۛ؝ۛۊJNٝ\ۈ؛YBȈٝ\ۈݜʝ؛YJBٙYȗݛڝٜܙW؛ݙ\ؙيȈٜ]Y\ݙYݚXڙ\܎ț\ݖܝ׋ȈXڙ\לٜݛΈ\ݖٚXݖܝˈؚ٘ݗWKʈOșXݖܝˈؚ٘ݗNٜ]Y\ݙYH\݊X݋ٜۛZٞ\ʜݜʝXڙ\ʋܝڜ
 
-Kݜ\ʊHۜȝXڙ\Ț[Ȝٜ]Y\ݙYݚXڙ\܈YȜݜʝXڙ\ʋܝڜ
+        # Benchmark OHLC is a small, cached side-batch.  It is only used to
+        # record point-in-time features and never changes the current heuristic
+        # score before AUD-012 validates an ablation.
+        benchmark_ohlc_by_ticker: dict[str, pd.DataFrame] = {}
+        benchmark_ohlc_source: dict[str, str] = {}
+        benchmark_tickers = (
+            "SPY", "XLB", "XLC", "XLE", "XLF", "XLI",
+            "XLK", "XLP", "XLRE", "XLU", "XLV", "XLY",
+        )
+        if large_universe_mode:
+            benchmark_misses: list[str] = []
+            for benchmark in benchmark_tickers:
+                cached_benchmark = self.yahoo_ohlc_cache.get(benchmark)
+                if cached_benchmark.usable and cached_benchmark.frame is not None:
+                    benchmark_ohlc_by_ticker[benchmark] = cached_benchmark.frame
+                    benchmark_ohlc_source[benchmark] = (
+                        "yahoo_ohlc_cache_" + cached_benchmark.state
+                    )
+                else:
+                    benchmark_misses.append(benchmark)
+            if benchmark_misses:
+                fetch_benchmark_batch = getattr(
+                    self.yahoo_client, "fetch_ohlc_batch", None
+                )
+                if callable(fetch_benchmark_batch):
+                    fetched_benchmarks, benchmark_warnings = (
+                        fetch_benchmark_batch(benchmark_misses)
 
-JJBȈٜܝYHݜʜ۝˙ٝ
-ݚXڙ\ȊH܈ȊKܝڜ
+                    )
+                    for benchmark, frame in fetched_benchmarks.items():
+                        self.yahoo_ohlc_cache.upsert_success(benchmark, frame)
+                        benchmark_ohlc_by_ticker[benchmark] = frame
+                        benchmark_ohlc_source[benchmark] = "yahoo_ohlc_download"
+                    for benchmark, warning in benchmark_warnings.items():
+                        self.yahoo_ohlc_cache.note_failure(benchmark, warning)
+                else:
+                    benchmark_warnings = {
+                        benchmark: "Yahoo benchmark source is unavailable in this runtime."
+                        for benchmark in benchmark_misses
+                    }
+                if benchmark_warnings:
+                    warnings.append(
+                        "Market-factor benchmark OHLC není čerstvě dostupné pro "
+                        f"{len(benchmark_warnings)} z {len(benchmark_misses)} benchmarků; "
+                        "relativní síla zůstane u dotčených tickerů explicitně chybějící."
+                    )
 
-Kݜ\ʊBȈۜȜ۝Ț[ȝXڙ\לٜݛYȜݜʜ۝˙ٝ
-ݚXڙ\ȊH܈ȊKܝڜ
+        articles_by_ticker: dict[str, list] = {}
+        for article in articles:
+            articles_by_ticker.setdefault(article.ticker, []).append(article)
 
-BȈBȈZ\ܚ[وHݚXڙ\șۜȝXڙ\Ț[Ȝٜ]Y\ݙYYȝXڙ\ț۝[ȜٜܝYBȈ[YژۙHH۝ۜȜ۝Ț[ȝXڙ\לٜݛYȘۛۊ۝˙ٝ
-ܘ[ښ[ٗٛYژۙHʊBȈBȈٝ\ۈܙ\]Y\ݙYΈ[ʜٜ]Y\ݙY
-KȈܙ\ܝYΈ[ʜٜܝY
-KȈۚ\ܚ[وΈ[ʛZ\ܚ[يKȈۚ\ܚ[ٗݚXڙ\܈ΈZ\ܚ[ًȈ؛ݙ\ؙٗܘ݈Έ۝[يL̈
-ț[ʜٜܝY
-Hț[ʜٜ]Y\ݙY
-KʈYȜٜ]Y\ݙY[و̋Ȉܘ[ښ[ٗٛYژۙHΈ[ʙ[YژۙJKȈܘ[ښ[ٗڛٛYژۙHΈ[ʜٜܝY
-HH[ʙ[YژۙJKȈܘ[ښ[ٗݜؘۙW؛ݙ\ؙٗܘ݈Έ
-Ȉ۝[يL̈
-ț[ʙ[YژۙJHț[ʜٜ]Y\ݙY
-KʈYȜٜ]Y\ݙY[و̂Ȉ
-KȈBٙYȗܚYۘ[ٙ]Z[ܙXٜۜʜٜݛșXݖܝˈؚ٘ݗJHOț\ݖٚXݖܝˈؚ٘ݗWNڙۘ[ȏHٜݛٙ]
-ܚYۘ[ȊBȈYȜڙۘ[Ț\ȓۛو܈۝\؝ʜڙۘ[ˈݛיX݈ʎٝ\ۈׂȈۛ[[܈Hٝ
-ٝ]ʜڙۘ[ˈ؛۝[[܈ˈ׊JBȈٛXݙYH؛۝[[șۜȘۛ[[Ț[ȗԒQӐSёURSГӕSSԈYȘۛ[[Ț[Șۛ[[ܗBȈٝ\ۈۛ[[Έڜۛלؙيً٘ۜٙ]
-ۛ[[ʊBȈۜȘۛ[[Ț[ȜٛXݙYȈBȈۜȜ٘ۜو[Ȝڙۘ[˝יX݊ܚY[ݏHܙXٜۜȊBȈBבPҔғӗёURSђQSȏH
-ȈٙXڜڛۗڙ˂ȈݚXڙ\ȋȈܛۚXޗۘ[YH˂ȈܛۚXޗݙ\ܚ[ۈ˂Ȉؘ\ٛ[ؘٗݚ[ۈ˂Ȉؘ\ٛ[ٗٛܙX؜݈˂ȈܜۜܙYؘݚ[ۈ˂ȈܜۜܙYٛܙX؜݈˂Ȉؘ\ٛ[ٗܗݜ˂Ȉؘ\ٛ[ٗܗٛ]˂Ȉؘ\ٛ[ٗܗٛݛȋȈܗݜ˂Ȉܗٛ]˂ȈܗٛݛȋȈ؛ۙڙ[ؙH˂Ȉژ\ٗݙ]ȋȈؘݚ]؝[ۗܝ]H˂Ȉ؜YYݛלٙXݚ[ۈ˂ȈܙX\ۛ܈˂Ȉ؛ۙۚXݜȋȈٝڙ[ؙWڙȋȈ؛Z[WڙȋȈܙYݛ]ܞWٝٛݗڙȋȈۙ]Y]H˂ʂٙYȗٙXڜڛۗٙ]Z[ܙXٜۜʜٜݛșXݖܝˈؚ٘ݗJHOț\ݖٚXݖܝˈؚ٘ݗWNٜܝHٜݛٙ]
-ؙٛݗܙ\ܝʂȈXڜڛۜȏHٝ]ʜٜܝٙXڜڛۜȋ׊HYȜٜܝ\ț۝ۛو[وׂȈٝ\ۈڙ[ȗڜۛלؙيٝ]ʙXڜڛۋڙ[ۛيJBȈۜșڙ[[ȗёPҔғӗёURSђQSBȈۜșXڜڛۈ[șXڜڛۜBٙYȗܝX[]W٘]WڜܝY\ʜٜݛșXݖܝˈؚ٘ݗJHOț\ݖٚXݖܝˈؚ٘ݗWNٜܝHٜݛٙ]
-ؙٛݗܙ\ܝʂȈ^Xݝ[ۜȏHٝ]ʜٜܝٞXݝ[ۜȋ׊BȈ\ܝY\Έ\ݖٚXݖܝˈؚ٘ݗWHHׂȈۜș^Xݝ[ۈ[ș^Xݝ[ۜ΂ȈYșٝ]ʙ^Xݝ[ۋؙٛݗۘ[YHˈȊHOHܝX[]W٘]H΂Ȉۛݚ[ݙBȈڙXڜȏHٝ]ʙ^Xݝ[ۋܙ\ݛܝX[]WؚXڜȋ׊BȈۜȘڙXڈ[ȘڙXڜ΂ȈY]Y]HHٝ]ʘڙXڋۙ]Y]HˈߊH܈߂Ȉٚ٘ݜȏHY]Y]Kٙ]
-ܙZ٘ݜȋ׊BȈ؜ۚ[ٜȏHY]Y]Kٙ]
-ݘ\ۚ[ٜȋ׊BȈXڜڛۈHڜۛלؙيٝ]ʘڙXڋٙXڜڛۈˈۛيJBȈYșXڜڛۈOHԐTԈȘ[و۝ٚ٘ݜȘ[و۝؜ۚ[ٜ΂Ȉۛݚ[ݙBȈ\ܝY\˘\[يȈݚXڙ\Ȏȗڜۛלؙيٝ]ʘڙXڋݚXڙ\ȋۛيJKȈ٘]Wۘ[YHΈڜۛלؙيٝ]ʘڙXڋ٘]Wۘ[YHˈۛيJKȈٙXڜڛۈΈXڜڛۋȈۙ\ܘYوΈڜۛלؙيٝ]ʘڙXڋۙ\ܘYوˈȊJKȈܙZ٘ݜȎȗڜۛלؙيٚ٘ݜʋȈݘ\ۚ[ٜȎȗڜۛלؙي؜ۚ[ٜʋȈBȈ
-BȈٝ\ۈ\ܝY\YȜݛםٙZ۞WܚY݊Ȉ
-˂ȈۛٚYΈ\ۛٚY˂ȈXڙ\܎ț\ݖܝ׋Ȉܜל۝\ؙ\Έ\ݖܝ׋Ȉܜי[ؘۙYȘۛۋȈ]WؘٛۙYȘۛۋȈXZۗۙ]Y]WؘٛۙYȘۛۈًۛȈٜۛٗۘXٛΈۛۈH؛ًʈOșXݖܝˈؚ٘ݗNܛۈX\ڙ]ؚXڙ\ט\ܙ\ݚXٜ˜\[[ٗܙ\ݚXو[\ܝ\[[ٜٔݚXقYț۝ۛٚY˘YٛݗܚYݗۛٙNؚ\وݛݚ[YPۛٚYݜ؝[ۑ\ܛ܊հ[۰눜ݛۙ\Ȝ۰눘Ѧ񯙝ݞوȜژY݈ٱoڛ]KȊBȈYț۝Xڙ\܎ؚ\وݛݚ[YPۛٚYݜ؝[ۑ\ܛ܊ȈКXЫHXڙ\ގȞؙZݙHK]Xڙ\܈٘ۈٚܜݙHޝ۱f]H\ݛܚZHȔԓ]KȂȈ
-BۛٚY˙[ܝ\ٗ۝]]ٚ\ʊBȈݛܙHHԓ]TݛܙJۛٚY˜ܛ]Wܘ]
-BȈݛܙKٛܝ\ٗܘڙ[XJ
-BȈڛ݊Ȗғѓ׈ر#p뛰蛈ܜؘ۝Ш[ЫHۙ[ʝXڙ\܊_HXڙ\ѫΈѫر&ڈوݙHۘܘ^۝؝Ыqoًȋ۝\ڏUݙJBȈ\[[وH\[[ٜٔݚXيۛٚYʂȈٜݛH\[[ًܝ[ʂȈXڙ\܋Ȉܜל۝\ؙ\˂ȈݛܙKȈۙܙ\ܗؘ[ؘڏW؛ۜۛWܜۙܙ\܋Ȉܜי[ؘۙY\ܜי[ؘۙYȈ]WؘٛۙY[]WؘٛۙYȈXZۗۙ]Y]WؘٛۙY^XZۗۙ]Y]WؘٛۙYȈ
-BȈڛ݊ȋ۝\ڏUݙJBȈ٘Y[ٜ܈HܙXY[ٜܗܝ[[X\ފٜݛۛٚYʂȈۘ\ڛݗܙXٜۜΈ\ݖٚXݖܝˈؚ٘ݗWHHׂȈۘ\ڛݗٜܛ܎ȜݜȟۛوHۛقȈ؝ٙܛ؜ڛݗ؛ݛ݈HȈݛךYHٜݛٙ]
-ܝ[ךYʂȈ؝לڛݗڛם[YWڛܝ]ȏHٜݛٙ]
-ܛڛݗڛם[YWڛܝ]ȊBȈYȜݛךY\ț۝ۛو[و\ڛܝ[ؙJ؝לڛݗڛם[YWڛܝ]ˈ\݊NY]Y]HHٜݛٙ]
-ۙ]Y]HʂȈ؜ٜݙY؝Hٝ]ʛY]Y]Kٚ[ڜڙY؝ˈ]][YKۛ݊[Y^ًۛݝʊBȈۜȚ][H[Ȝ؝לڛݗڛם[YWڛܝ]΂ȈYț۝\ڛܝ[ؙJ][KX݊Nۛݚ[ݙBȈގۘ\ڛݗܙXٜۜ˘\[يȈݚ[ܛڛݗڛם[YWܛ؜ڛ݊ȈݛךYZ[݊ݛךY
-KȈXڙ\Ϝݜʚ][Kٙ]
-ݚXڙ\ȊH܈ȊKȈ؜ٜݙY؝[؜ٜݙY؝Ȉ٘]\ٗܘ^[ؙZ][Kٙ]
-ٙX]\ٗܘ^[ؙʈ܈ߋȈ؜ٛ[ٗ۝]]Z][Kٙ]
-ؘ\ٛ[ٗ۝]]ʈ܈ߋȈ۝ٛ؛ؙOZ][Kٙ]
-ܜ۝ٛ؛ؙHʈ܈ߋȈؚٛX\ڗݚXڙ\ϜݜʂȈ][Kٙ]
-ؙ[ؚX\ڗݚXڙ\ȊH܈ԔH
-KȈؚٛX\ڗܙ[Xݚ[ۏ\ݜʂȈ][Kٙ]
-ؙ[ؚX\ڗܙ[Xݚ[ۈʈ܈ݛڛ۝ۈ
-KȈ
-BȈ
-BȈ^ٜ
-\Q\ܛ܋؛YQ\ܛ܊H\ș^΂Ȉۘ\ڛݗٜܛ܈HȜۘ\ڛ݈ۛܝݚؙHٛ[NȞٞ߈ܙXZYȜۘ\ڛݗٜܛ܈\ȓۛو[و[ʜۘ\ڛݗܙXٜۜʈOH[ʝXڙ\܊Nۘ\ڛݗٜܛ܈H
-Ȉܛ؜ڛ݈ۛݜؚ݈ޝ۱fZ[Ȟۙ[ʜۘ\ڛݗܙXٜۜʟKޛ[ʝXڙ\܊_HШ^ۘ[qkȂȈ
-BȈYȜۘ\ڛݗٜܛ܈\ȓَۛގ؝ٙܛ؜ڛݗ؛ݛ݈HݛܙKܘ]ٗܜٙXݚ[ۗܛ؜ڛݜʂȈۘ\ڛݗܙXٜۜ
-BȈ^ٜ^ٜ[ۈ\ș^΂Ȉۘ\ڛݗٜܛ܈HȜۘ\ڛ݈[񯙛ЫHٛ[Έݞ\J^ʋחۘ[YWןNȞٞ߈[YȜݛךY\ț۝َۛۘ\ڛݗٜܛ܈Hܚ\[[وٝܰ蝚[ڛ݋Z[˝[YHܝ\HXٛܙ\ۛ][ێșXݖܝˈؚ٘ݗHHܝ]\ȎȈђTАӑQ˂Ȉܙ[ٚ[ؙٗYۜوΈȈܙ\ۛٙΈȈݛ؝ؚ[XۙHΈȈٙYٜܙYΈȈܛݜؙW٘Z[\ٜȎȌȈBȈXٛܙ\ۛ][ٜۗܛ܎ȜݜȟۛوHۛقȈYȜٜۛٗۘXٛȘ[وۘ\ڛݗٜܛ܈\ȓۛو[وݛךY\ț۝َۛގXٛܙ\ۛ][ۈHܝ]\ȎȈԕPБTԈ˂Ȉ
-ʔٙXݚ[ۓXٛٜݚXي
-Kܙ\ۛٗܙ[ٚ[ٗܛ؜ڛݜʂȈݛܙO\ݛܙKȈژؙٗۛ\ϛ[X٘HޛXۛȜ\[[ًޘZۗ؛Y[݋ٙ]ڗۚכۛJȈޛXۛȈ\ڛُH̞H˂Ȉ[ݙ\ݘ[H̙˂Ȉ
-KȈ\כُY]][YKۛ݊[Y^ًۛݝʋȈ
-KȈBȈYȊȈ[݊Xٛܙ\ۛ][ۋٙ]
-ܛݜؙW٘Z[\ٜȊH܈
-HȌȈ܈[݊Xٛܙ\ۛ][ۋٙ]
-ٙYٜܙYʈ܈
-HȌȈ
-NXٛܙ\ۛ][ۖȜݘ]\ȗHHԐTՒPS^ٜ^ٜ[ۈ\ș^΂ȈXٛܙ\ۛ][ٜۗܛ܈H
-ȈțXٛٜۛٜȜٛ[Ȟݞ\J^ʋחۘ[YWןNȞٞ߈
-BȈXٛܙ\ۛ][ۈHܝ]\ȎȈѐRSQ˂Ȉܙ[ٚ[ؙٗYۜوΈȈܙ\ۛٙΈȈݛ؝ؚ[XۙHΈȈٙYٜܙYΈȈܛݜؙW٘Z[\ٜȎȌȈBȈݛ[X\ޗݘ\ۚ[ٜȏH\݊ٜݛٙ]
-ݘ\ۚ[ٜȋ׊JBȈYțXٛܙ\ۛ][ٜۗܛ܎ݛ[X\ޗݘ\ۚ[ٜ˘\[يXٛܙ\ۛ][ٜۗܛ܊BȈ[YȚ[݊Xٛܙ\ۛ][ۋٙ]
-ܛݜؙW٘Z[\ٜȊH܈
-HȌݛ[X\ޗݘ\ۚ[ٜ˘\[يȈӘXٛٜۛٜț؜؞ڛ؈ٙܝ\ЯHٜۚΈݱ#Y[ЪHۘ\ڛݞHѫܝ[HSђSыȂȈ
-BȈXڙ\לٜݛȏHܚYۘ[ٙ]Z[ܙXٜۜʜٜݛ
-BȈ[ڝٜܙW؛ݙ\ؙوHݛڝٜܙW؛ݙ\ؙيXڙ\܋Xڙ\לٜݛʂȈݛ[X\ގșXݖܝˈؚ٘ݗHHܘڙ[XWݙ\ܚ[ۈΈ˂Ȉٚ[ڜڙY؝Έ]][YKۛ݊[Y^ًۛݝʋڜۙۜۘ]
+        rows: list[dict[str, object]] = []
+        point_in_time_inputs: list[dict[str, object]] = []
+        yahoo_snapshot_failures = 0
+        yahoo_ohlc_attempts = 0
+        yahoo_ohlc_failures = 0
+        bulk_yahoo_ohlc_count = len(bulk_yahoo_ohlc_by_ticker)
+        bulk_yahoo_ohlc_failure_count = len(bulk_yahoo_ohlc_warnings)
+        bulk_yahoo_ohlc_cache_coverage = self.yahoo_ohlc_cache.coverage(
+            bulk_yahoo_requested_tickers
+        ) if large_universe_mode else {}
+        dated_current_price_count = 0
+        undated_current_quote_count = 0
+        ohlc_quality_issue_count = 0
+        for idx, ticker in enumerate(watchlist, start=1):
+            progress.set_current(ticker, idx, "start", f"Zpracovávám {ticker} ({idx}/{total})")
+            progress.set_step(ticker, "parse_news", f"Vyhodnocuji news pro {ticker}", 0.2)
+            ticker_articles = articles_by_ticker.get(ticker, [])
+            news = analyze_news(ticker, ticker_articles)
 
-KȈܝ[ךYΈٜݛٙ]
-ܝ[ךYʋȈݚXڙ\ט۝[݈Έ[ʝXڙ\܊KȈܙ\]Y\ݙYݚXڙ\܈Έ\݊Xڙ\܊KȈݛڝٜܙW؛ݙ\ؙوΈ[ڝٜܙW؛ݙ\ًؙȈ؛؛\ڜכۛHΈݙKȈ؝]ۘ]Yݜؙ[وΈؘٛۙYΈ؛ًȈܙ\ۘ[ٛݛWٚ\ؘۙYΈݙKȈٞXݝ[ۗܘ]Έܙ[[ݙY˂ȈKȈܛڛݗڛם[YWܛ؜ڛݗ؛ݛ݈Έ؝ٙܛ؜ڛݗ؛ݛ݋Ȉܛڛݗڛם[YWܛ؜ڛݗܝ]\ȎȊȈԕPБTԈȚYȜۘ\ڛݗٜܛ܈\ȓۛو[وѐRSQ
-KȈܜٙXݚ[ۗۘXٛܙ\ۛ][ۈΈXٛܙ\ۛ][ۋȈܜٙXݚ[ۗۘXٛܙ\ۛ][ٜۗܛ܈ΈXٛܙ\ۛ][ٜۗܛ܋Ȉؙٛݗܝ]\ȎȜٜݛٙ]
-ؙٛݗܝ]\ȊKȈܝX[]W٘]WٙXڜڛۈΈٜݛٙ]
-ܝX[]W٘]WٙXڜڛۈʋȈٙXڜڛۗ؛ݛ݈Έٜݛٙ]
-ٙXڜڛۗ؛ݛ݈ʋȈٙXڜڛۗܝ\ٜܙY؛ݛ݈Έٜݛٙ]
-ٙXڜڛۗܝ\ٜܙY؛ݛ݈ʋȈٙXڜڛۗ؜YY؛ݛ݈Έٜݛٙ]
-ٙXڜڛۗ؜YY؛ݛ݈ʋȈؘݚ]؝[ۗܝ]HΈٜݛٙ]
-ؘݚ]؝[ۗܝ]HʋȈٝ؛X][ۗܘ[\W؛ݛ݈Έٜݛٙ]
-ٝ؛X][ۗܘ[\W؛ݛ݈ʋȈٝ؛X][ۗٚ\ݚ[؝ݙYZ܈Έٜݛٙ]
-ٝ؛X][ۗٚ\ݚ[؝ݙYZ܈ʋȈٝ؛X][ؘۗ\ٛ[ؘٗ؝\ؘޗܘ݈Έٜݛٙ]
-Ȉٝ؛X][ؘۗ\ٛ[ؘٗ؝\ؘޗܘ݈
-KȈٝ؛X][ؘۗ[ٚY]Wؘ؝\ؘޗܘ݈Έٜݛٙ]
-Ȉٝ؛X][ؘۗ[ٚY]Wؘ؝\ؘޗܘ݈
-KȈٝ؛X][ۗۚYݗܘݗܛڛݜȎȜٜݛٙ]
-ٝ؛X][ۗۚYݗܘݗܛڛݜȊKȈٝ؛X][ۗۚYݗۛݙ\ט۝[ٗܘݗܛڛݜȎȜٜݛٙ]
-Ȉٝ؛X][ۗۚYݗۛݙ\ט۝[ٗܘݗܛڛݜȂȈ
-KȈٝ؛X][ۗܛܚ]]ٗݙYZל؝[ȎȜٜݛٙ]
-Ȉٝ؛X][ۗܛܚ]]ٗݙYZל؝[ȂȈ
-KȈٝ؛X][ۗ٘]Wܘ\ܙYΈٜݛٙ]
-ٝ؛X][ۗ٘]Wܘ\ܙYʋȈٝ؛X][ۗ٘]Wܙ\ݛȎȜٜݛٙ]
-ٝ؛X][ۗ٘]Wܙ\ݛȊKȈٝ؛X][ۗ؛ۜ٘ݝ]ٗܘ\ܙ\ȎȜٜݛٙ]
-Ȉٝ؛X][ۗ؛ۜ٘ݝ]ٗܘ\ܙ\ȂȈ
-KȈٝ؛X][ۗܙ\]Z\ٙ؛ۜ٘ݝ]ٗܘ\ܙ\ȎȜٜݛٙ]
-Ȉٝ؛X][ۗܙ\]Z\ٙ؛ۜ٘ݝ]ٗܘ\ܙ\ȂȈ
-KȈؘ؝\ؘޗڛ\۝ٛY[ݗܜ۝ٛȎȜ٘Y[ٜܖؘ؝\ؘޗڛ\۝ٛY[ݗܜ۝ٛȂȈKȈ؛؛\ڜם؛Y][ۗܙXYHΈ٘Y[ٜܖȘ[؛\ڜם؛Y][ۗܙXYH׋ȈܙXY[ٜ܈Έ٘Y[ٜ܋ȈܛݜؙWڙX[ΈܛݜؙWڙX[ܝ[[X\ފٜݛۛٚYʋȈܝX[]W٘]WڜܝY\ȎȗܝX[]W٘]WڜܝY\ʜٜݛ
-KȈ؝]י\؛ݙ\ٙܚܝܙ\ܝȎȜٜݛٙ]
-Ȉ؝]י\؛ݙ\ٙܚܝܙ\ܝȂȈ
-KȈ؝]י\؛ݙ\ٙܙYݛ]ܞWٝٛݜȎȜٜݛٙ]
-Ȉ؝]י\؛ݙ\ٙܙYݛ]ܞWٝٛݜȂȈ
-KȈݘ\ۚ[ٗ؛ݛ݈Έ[ʜݛ[X\ޗݘ\ۚ[ٜʋȈٜܛܗ؛ݛ݈Έ[ʜٜݛٙ]
-ٜܛܜȋ׊JKȈݘ\ۚ[ٜȎȜݛ[X\ޗݘ\ۚ[ٜ˂ȈٜܛܜȎț\݊ٜݛٙ]
-ٜܛܜȋ׊JKȈٙ]Z[ܘڙ[XWݙ\ܚ[ۈΈKȈݚXڙ\לٜݛȎȝXڙ\לٜݛ˂ȈٙXڜڛۗܙ\ݛȎȗٙXڜڛۗٙ]Z[ܙXٜۜʜٜݛ
-KȈBȈؚ[\ٜΈ\ݖܝ׈HׂȈYܘY][ۜΈ\ݖܝ׈HׂȈYȜٜݛٙ]
-ؙٛݗܝ]\ȊHOHԐTՒPS΂ȈYܘY][ۜ˘\[يȈؙٛݛЫH\[[وڛ۱#Z[Hݘ]ٛHTՒPSțѦڝ\ЪHۛ][ЪHٜۚوܛ݈ٰЪH
-BȈYȜٜݛٙ]
-ܝ[ךYʈ\ȓَۛؚ[\ٜ˘\[ير&ڈوٝ[񯚛Ȕԓ]HʂȈYȜۘ\ڛݗٜܛ܈\ț۝َۛؚ[\ٜ˘\[يۘ\ڛݗٜܛ܊BȈ[YȜ؝ٙܛ؜ڛݗ؛ݛ݈OH[ʝXڙ\܊Nؚ[\ٜ˘\[يȈȜڛ݋Z[˝[YHۘ\ڛݞNȞܘ]ٙܛ؜ڛݗ؛ݛݟKޛ[ʝXڙ\܊_H
-BȈٜܝHٜݛٙ]
-ؙٛݗܙ\ܝʂȈ^Xݝ[ۜȏHٝ]ʜٜܝٞXݝ[ۜȋ׊BȈ\ؙٗٛݗ٘Z[\ٜȏHȞٞXݝ[ۋؙٛݗۘ[Y_Nޙ^Xݝ[ۋܝ]\˝؛Y_Hۜș^Xݝ[ۈ[ș^Xݝ[ۜYș^Xݝ[ۋܝ]\˝؛YH[ȞȑВSQˈГВё߂ȈBȈYȜٜݛٙ]
-ؙٛݗܝ]\ȊHOHѐRSQț܈\ؙٗٛݗ٘Z[\ٜ΂Ȉؚ[\ٜ˘\[يȈؙٛݛЫHѦڈ؜ؚZوܙ0ꈜٛ0蛰눂Ȉ
-ȊȈΈȊȈˈ˚ۚ[ʚ\ؙٗٛݗ٘Z[\ٜʂȈYȚ\ؙٗٛݗ٘Z[\ٜ[وȂȈ
-BȈ
-BȈYȘۛٚY˙ݛ٘[Y[ݘ[ڛٙ\ݚ[ۋؘٛۙYYȜٜݛٙ]
-ٝ[٘[Y[ݘ[ڛٙ\ݚ[ۗܝ]\ȊH۝[ȞԕPБTԈ˂ȈԐTՒPS˂ȈNؚ[\ٜ˘\[يԑPȚ[ٙ\݈ٛЫH۝۞ݜؚܛЯHʂȈYȚ[݊ٜݛٙ]
-ٝ[٘[Y[ݘ[ٛ؝[Y[ݗ؛ݛ݈ʈ܈
-HOHؚ[\ٜ˘\[يԑPȚ[ٙ\݈ٝ[񯚛1oШYЯHڛ[وʂȈYȚ[݊ٜݛٙ]
-ٝ[٘[Y[ݘ[٘Xݗ؛ݛ݈ʈ܈
-HOHؚ[\ٜ˘\[يԑPȚ[ٙ\݈ٝ[񯚛1oШYЯHԓؚ݈ʂȈYȊȈۛٚY˙ݛ٘[Y[ݘ[ڛٙ\ݚ[ۋؘٛۙYȈ[و
-ȈۛٚY˜ݜWؚZ[˘]]י\؛ݙ\יܛۗܙXיڛ[ٜ܈ۛٚY˘ۛ[[ٚ]WٜٛٞK؝]י\؛ݙ\יܛۗܙXיڛ[ٜ
-BȈ
-Nڛ[ٗݙ^ٛ؝[Y[ݜȏH[݊Ȉٜݛٙ]
-ٝ[٘[Y[ݘ[ٚ[[ٗݙ^ٛ؝[Y[ݗ؛ݛ݈ʈ܈Ȉ
-BȈڛ[ٗݙ^٘Z[\ٜȏH[݊Ȉٜݛٙ]
-ٝ[٘[Y[ݘ[ٚ[[ٗݙ^٘Z[\ٗ؛ݛ݈ʈ܈Ȉ
-BȈYșڛ[ٗݙ^ٛ؝[Y[ݜȏOHYܘY][ۜ˘\[يȈۙXޛٞܙq#[Ѧțر#][ȱoШYЯH^Я\۱#[ЫZșڛ[ٝNȈٛ٘]؝[ڰ舘HX]\ڰ蛛ݰ舙\؛ݙ\ވܜݝ؈ٛp舝^ݰܝ\
-BȈYșڛ[ٗݙ^٘Z[\ٜȏȌYܘY][ۜ˘\[يȈțٜ٘qfZ[Ȝور#p뜝ٚ[[ٗݙ^٘Z[\ٜ߈^1kȝЯ\۱#[ЫXڈڛ[ٱkΈٛݱ#Y[ЪHXڙ\۝ЪH[ܚXڛY[ݞHѫܝ0蝘ZЫHٰЪH
-BȈYȘۛٚY˜ڛܝܙ\ܝ˙[ؘۙY[و[݊Ȉٜݛٙ]
-ܚܝܙ\ܝٛ؝[Y[ݗ؛ݛ݈ʈ܈Ȉ
-HOHYܘY][ۜ˘\[يܚܝ\ٜܝ؛؜ވ٘ޛر#][ȊBȈYȘۛٚY˜ݜWؚZ[˙[ؘۙY[وٜݛٙ]
-ܝ\WؚZ[לݘ]\ȊHOHԕPБTԈ΂ȈYܘY][ۜ˘\[يȈȔݜPژZ[Й݈ٛڛ۱#Z[ܙ\ݛٙ]
-	ܝ\WؚZ[לݘ]\Ɋ_NȈް蚛YЫHٙZؙHѫܝ0蝰舘ٞو۱&۞H
-BȈYȊȈۛٚY˘ۛ[[ٚ]WٜٛٞKؘٛۙYȈ[وٜݛٙ]
-؛ۛ[ٚ]WٜٛٞWܝ]\ȊHOHԕPБTԈ
-NYܘY][ۜ˘\[يȈȐۛ[[ٚ]Q[ٜٞPY݈ٛڛ۱#Z[ܙ\ݛٙ]
-	؛ۛ[ٚ]WٜٛٞWܝ]\Ɋ_NȈް蚛YЫHٙZؙHѫܝ0蝰舘ٞو۱&۞H
-BȈYȜٜݛٙ]
-ܝX[]W٘]WٙXڜڛۈʈOHԐTԈ΂Ȉؚ[\ٜ˘\[يȈȔ]X[]Q؝Hڛ۱#Z[ܙ\ݛٙ]
-	ܝX[]W٘]WٙXڜڛۉʟH
-BȈYȚ[݊ٜݛٙ]
-ٙXڜڛۗ؜YY؛ݛ݈ʈ܈
-HOHؚ[\ٜ˘\[يȈ؛؛]Xڰ舝ܜݝ؈وڝ\ڛH1fY\؝]۰눜ٙZؚNȈ؝]ۘ]Xڰꈛؘڛٛݰ蛰눚وȜۚٚݝHٜݜ؛Ѧ۰ꈂȈ
-BȈYȘۛٚY˙Xڜڛؙۗٛ݋ؘٛۙY[و[݊ٜݛٙ]
-ٙXڜڛۗ؛ݛ݈ʈ܈
-HOH[ʂȈXڙ\܂Ȉ
-Nؚ[\ٜ˘\[يљXڜڛېY݈ٛٝޝ۱fZ[Ш]ѦȚٙۈ۞ڛٛݝ0눜ۈرoٰXڙ\ȊBȈYȜٜݛٙ]
-ٜܛܜȊNؚ[\ٜ˘\[يܚ\[[وڛ0蜚[HۙZ񣛰눘ڞXވʂȈݛ[X\ޖȜ\[[ٗٙYܘY][ۜȗHH\݊X݋ٜۛZٞ\ʙYܘY][ۜʊBȈݛ[X\ޖȜ\[[ٗܝ]\ȗHH
-ȈѐRSQYșؚ[\ٜ[و
-ԐTՒPSȚYșYܘY][ۜș[وԕPБTԈʂȈ
-BȈݛ[X\ޖș]؛X][ۗܝ]\ȗHH
-ȈԐTԈȚYȜݛ[X\ދٙ]
-ٝ؛X][ۗ٘]Wܘ\ܙYʈ[وԑSђSш
-BȈݛ[X\ޖȜ\[[ٗ٘Z[\ٜȗHH\݊ؚ[\ٜʂȈݛ[X\ޖȜڛݗڛם[YWܛ؜ڛݗٜܛ܈׈Hۘ\ڛݗٜܛ܂Ȉ؝ۚXךܛۊۛٚY˛ݝ]ٚ\ȋȈݙYZ۞WܚYݗۘ]\݋ڜۛȋݛ[X\ފBYșؚ[\ٜ΂Ȉؚ\وݛݚ[YQ\ܛ܊Έ˚ۚ[ʙؚ[\ٜʊBȈٝ\ۈݛ[X\ނٙYȗܘ\ܙ\ʊHOȘ\ٜ\ܙKМٝ[Y[ݔ\ܙ\΂Ȉ\ܙ\ȏH\ٜ\ܙKМٝ[Y[ݔ\ܙ\ʂȈ\؜ڜ[ۏHЙ^ۘܛqo۰0[۰눔ݘYوژY݈ѦڈȘ]Y]Ы[ZHۛݜۛ[ZKȂȈ
-BȈ\ܙ\˘Y؜ٝ[Y[݊ˋ]Xڙ\܈ˈ؜ٜψʈˈY؝[V׊BȈ\ܙ\˘Y؜ٝ[Y[݊Ȉˋ]Xڙ\˙ڛH˂Ȉ\OT]Ȉ[JȈՙ\ޛݘ[ЯHXڙ\ȝ[ڝٜܙNȜݱoښوًڝYٚܛ݈ؙ0蛞Hˋ]Xڙ\܋ȐٞțѦڈݛۙ\ț؛۝ЫHXڙ\ވوԓ]H\ݛܚYKȂȈ
-KȈ
-BȈ\ܙ\˘Y؜ٝ[Y[݊Ȉˋ]Xڙ\˛[Z]˂Ȉ\OZ[݋Ȉ[H՛ۚ][ЯH[ݛЫH[Z]ؘڛݰ蝘ZЫX𫈜񦘙0눝Xڙ\Ȝ۝Xۜ݋ȋȈ
-BȈ\ܙ\˘Y؜ٝ[Y[݊Ȉˋ[ݝ]Y\ȋȈ\OT]ȈY؝[T]
-۝]]ȊKȈ
-BȈ\ܙ\˘Y؜ٝ[Y[݊ȈˋY˜]˂Ȉ\OT]ȈY؝[T]
-۝]]˛X\ڙ]ؚXڙ\ך\ݛܞK٘ȊKȈ
-BȈ\ܙ\˘Y؜ٝ[Y[݊ˋ\ݛݚ[YKXۛٚYȋ\OT]
-BȈ\ܙ\˘Y؜ٝ[Y[݊ˋ\ܜ˜۝\ؙHˈXݚ[ۏH؜[وˈ\ݏHܜܗܛݜؙ\ȊBȈ\ܙ\˘Y؜ٝ[Y[݊Ȉˋ\ܜȋȈXݚ[ۏX\ٜ\ܙKЛۛX[Ӝ[ۘ[Xݚ[ۋȈY؝[UݙKȈ
-BȈ\ܙ\˘Y؜ٝ[Y[݊Ȉˋ[]H˂ȈXݚ[ۏX\ٜ\ܙKЛۛX[Ӝ[ۘ[Xݚ[ۋȈY؝[\]ۜۋܞ\ݙ[J
-HOH՚[ٛݜȋȈ
-BȈ\ܙ\˘Y؜ٝ[Y[݊Ȉˋ^XZۋ[Y]Y]H˂ȈXݚ[ۏX\ٜ\ܙKЛۛX[Ӝ[ۘ[Xݚ[ۋȈY؝[SًۛȈ
-BȈ\ܙ\˘Y؜ٝ[Y[݊Ȉˋ\ٜۛً[XٛȋȈXݚ[ۏX\ٜ\ܙKЛۛX[Ӝ[ۘ[Xݚ[ۋȈY؝[Q؛ًȈ[JȈ՛ۚ][Ѧȝ^؝ѦYHܘ[0ꈜڛ݋Z[˝[YHۘ\ڛݞHȜޙ1&ڱhp똚ؙ[ΈٞȝڛݛȜ1fY\0뛘q#YHو[1hp눖XZۈ0蝚؈ٜܛݱh]0니
-KȈ
-BȈٝ\ۈ\ܙ\YțXZ[ʊHOȓَۛ\ٜȏHܘ\ܙ\ʊKܘ\ܙW؜ٜʊBȈݛݚ[YWܙ\ݚXوHYٛݔݛݚ[YTٜݚXي\ٜ˜ݛݚ[YW؛ۙڙʂȈٝ[ٜˈ؜ۚ[وHݛݚ[YWܙ\ݚXًؙۛ
+            yahoo_data_status = "pending"
+            yahoo_data_fetched_at: str | None = None
+            yahoo_ticker = YahooClient.normalize_yahoo_symbol(ticker)
 
-BȈYȝ؜ۚ[َؚ\وޜݙ[Q^]
-؜ۚ[يBȈގۛٚYȏHݚ[ܝ[ݚ[YW؛ۙڙʂȈٝ[ٜ˂Ȉݝ]ٚ\Ϙ\ٜ˛ݝ]ٚ\˂Ȉܛ]Wܘ]X\ٜ˙ל]Ȉ٘ם\ٜטYٛݏ[܋ٙ][݊ғғ֗ԒӔїԑPוTєאQѓՈˈȊKȈ
-BȈݛܙHHԓ]TݛܙJۛٚY˜ܛ]Wܘ]
-BȈݛܙKٛܝ\ٗܘڙ[XJ
-BȈȕHڛX\ވ[݈\ȜٛXݙYܛۈHٜ]Y\ݙY؝ڛ\݈ۛKȐ]^[X\ވ۝\ؙHX[ڙٜݜț]\݈ٜٝș\ܛXو[݈Xڙ\܋Xڙ\܈HݚXڙ\܊Ȉ\ٜ˝Xڙ\܋ȈݛܙKȈXڙ\יڛOX\ٜ˝Xڙ\יڛKȈXڙ\כ[Z]X\ٜ˝Xڙ\כ[Z]Ȉ
-BȈݛ[X\ވHݛםٙZ۞WܚY݊ȈۛٚYϘۛٚY˂ȈXڙ\܏]Xڙ\܋Ȉܜל۝\ؙ\Ϙ\ٜ˜ܜל۝\ؙ\ț܈\݊QЕSԔԗԓՔБTʋȈܜי[ؘۙYX\ٜ˜ܜ˂Ȉ]WؘٛۙYX\ٜ˛]KȈXZۗۙ]Y]WؘٛۙYX\ٜ˞XZۗۙ]Y]KȈٜۛٗۘXٛϘ\ٜ˜ٜۛٗۘXٛ˂Ȉ
-BȈ^ٜ
-Ȉݛݚ[YPۛٚYݜ؝[ۑ\ܛ܋Ȉݛݚ[YQ\ܛ܋Ȉ؝ڛ\ݑ\ܛ܋Ȉԑ\ܛ܋Ȉ
-H\ș^΂Ȉؚ\وޜݙ[Q^]
-ȖԒQՈҖPЗHٞ߈ʈܛۈ^ڛ݊ܛۋٝ[\ʜݛ[X\ދ[ܝ\ٗ؜ؚZOQ؛ً[ٙ[ݏLˈۜݗڙ^\ϕݙJJBڙȗכ؛YW׈OHחۘZ[חȎXZ[ʊB
+            if use_yahoo_cache:
+                cache_lookup = self.yahoo_cache.get(ticker)
+                cache_record = cache_lookup.record
+                if cache_lookup.usable and cache_record is not None and cache_record.data:
+                    cached_data = dict(cache_record.data)
+                    metadata_quality = str(
+                        cached_data.pop("_market_checker_yahoo_quality", "ok")
+                    )
+                    snapshot = YahooSnapshot(
+                        ticker=cache_record.yahoo_ticker,
+                        data=cached_data,
+                        status=metadata_quality if metadata_quality in {"ok", "partial"} else "ok",
+                    )
+                    perf = PerformanceSnapshot(ticker, None, None, None, None)
+                    yahoo_warning = cache_record.error
+                    yahoo_data_status = f"cache_{cache_lookup.state}"
+                    yahoo_data_fetched_at = cache_record.fetched_at.isoformat()
+                    yahoo_ticker = cache_record.yahoo_ticker
+                    yresult = analyze_yahoo(snapshot)
+                    if cache_lookup.state == "stale":
+                        yresult.yahoo_confidence = round(yresult.yahoo_confidence * 0.75, 2)
+                        stale_warning = "Yahoo metadata jsou zastaralá; probíhá čekání na obnovení cache"
+                        yresult.warnings.append(stale_warning)
+                    if metadata_quality == "partial":
+                        yresult.yahoo_confidence = round(yresult.yahoo_confidence * 0.8, 2)
+                        yresult.warnings.append("Yahoo metadata jsou pouze částečná")
+                else:
+                    snapshot = YahooSnapshot(ticker=yahoo_ticker, data={}, status=cache_lookup.state)
+                    perf = PerformanceSnapshot(ticker, None, None, None, None)
+                    yahoo_warning = cache_record.error if cache_record is not None else None
+                    yahoo_data_status = cache_lookup.state
+                    reason = (
+                        f"Yahoo metadata nejsou připravená (stav: {cache_lookup.state}); "
+                        "doplňte Yahoo cache"
+                    )
+                    yresult = self._neutral_yahoo_result(ticker, reason)
+            elif yahoo_metadata_enabled:
+                snapshot, perf, yahoo_warning = self.yahoo_client.fetch_snapshots(ticker)
+                if snapshot.status not in {"ok", "partial"}:
+                    yahoo_snapshot_failures += 1
+                if yahoo_warning:
+                    warnings.append(yahoo_warning)
+                    progress.log("WARNING", yahoo_warning, ticker)
+                progress.set_step(ticker, "score_yahoo", f"Počítám Yahoo score pro {ticker}", 0.5)
+                yresult = analyze_yahoo(snapshot)
+                yahoo_data_status = f"live_{snapshot.status}"
+                yahoo_data_fetched_at = started_at.isoformat()
+                yahoo_ticker = snapshot.ticker
+            else:
+                snapshot = YahooSnapshot(ticker=ticker, data={}, status="skipped")
+                perf = PerformanceSnapshot(ticker, None, None, None, None)
+                yahoo_warning = None
+                yahoo_data_status = "disabled"
+                yresult = self._neutral_yahoo_result(ticker, "Yahoo metadata jsou vypnutá")
+
+            tech_source_used = "mt5"
+            tech_source_warning: str | None = None
+            progress.set_step(ticker, "fetch_tech", f"Načítám OHLC data pro {ticker}", 0.62)
+
+            if not mt5_enabled or ticker in yahoo_only_tickers:
+                if large_universe_mode:
+                    ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
+                    if not ohlc.empty:
+                        cache_state = bulk_yahoo_ohlc_cache_state.get(ticker)
+                        if cache_state == "fresh":
+                            tech_source_used = "yfinance_ohlc_cache"
+                        elif cache_state in {"stale_after_failure", "stale_backoff"}:
+                            tech_source_used = "yfinance_ohlc_cache_stale"
+                        else:
+                            tech_source_used = "yfinance_bulk"
+                        tech_source_warning = None
+                    else:
+                        tech_source_used = "bulk_price_source_unavailable"
+                        tech_source_warning = bulk_yahoo_ohlc_warnings.get(
+                            ticker,
+                            f"Yahoo bulk OHLC není dostupné pro {ticker}.",
+                        )
+                else:
+                    yahoo_ohlc_attempts += 1
+                    tech_source_used = "yfinance_excel" if ticker in yahoo_only_tickers else "yfinance"
+                    fetch_ohlc = (
+                        self.yahoo_client.fetch_ohlc
+                        if yahoo_metadata_enabled
+                        else self.yahoo_client.fetch_ohlc_only
+                    )
+                    ohlc, ohlc_warning = fetch_ohlc(ticker)
+                    if ohlc_warning:
+                        yahoo_ohlc_failures += 1
+                        tech_source_warning = ohlc_warning
+                        if not yahoo_warning or ohlc_warning not in yahoo_warning:
+                            warnings.append(ohlc_warning)
+                        progress.log("WARNING", ohlc_warning, ticker)
+                    else:
+                        progress.log("INFO", f"Technická data pro {ticker}: Yahoo Finance", ticker)
+            else:
+                mt5_ohlc = mt5_ohlc_by_ticker.get(ticker)
+                mt5_warning = mt5_warnings_by_ticker.get(ticker)
+                if mt5_ohlc is not None and not mt5_ohlc.empty:
+                    ohlc = mt5_ohlc
+                elif large_universe_mode:
+                    ohlc = bulk_yahoo_ohlc_by_ticker.get(ticker, pd.DataFrame())
+                    if not ohlc.empty:
+                        cache_state = bulk_yahoo_ohlc_cache_state.get(ticker)
+                        if cache_state == "fresh":
+                            tech_source_used = "yfinance_ohlc_cache_fallback"
+                        elif cache_state in {"stale_after_failure", "stale_backoff"}:
+                            tech_source_used = "yfinance_ohlc_cache_stale_fallback"
+                        else:
+                            tech_source_used = "yfinance_bulk_fallback"
+                        tech_source_warning = mt5_warning
+                    else:
+                        tech_source_used = "mt5_unavailable"
+                        ohlc = pd.DataFrame()
+                        tech_source_warning = (
+                            mt5_warning
+                            or bulk_yahoo_ohlc_warnings.get(
+                                ticker,
+                                f"MT5 ani Yahoo OHLC nejsou dostupné pro {ticker}.",
+                            )
+                        )
+                else:
+                    tech_source_used = "yfinance_fallback"
+                    yahoo_ohlc_attempts += 1
+                    fetch_ohlc = (
+                        self.yahoo_client.fetch_ohlc
+                        if yahoo_metadata_enabled
+                        else self.yahoo_client.fetch_ohlc_only
+                    )
+                    ohlc, ohlc_warning = fetch_ohlc(ticker)
+                    fallback_parts = [f"MT5 not used for {ticker}"]
+                    if mt5_warning:
+                        fallback_parts.append(f"reason: {mt5_warning}")
+                    if ohlc_warning:
+                        yahoo_ohlc_failures += 1
+
+                        fallback_parts.append(f"yfinance: {ohlc_warning}")
+                    tech_source_warning = " | ".join(fallback_parts)
+                    warnings.append(tech_source_warning)
+                    progress.log("FALLBACK", tech_source_warning, ticker)
+
+            raw_ohlc = ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame()
+            ohlc_quality = assess_daily_ohlc(raw_ohlc, as_of=started_at)
+            if ohlc_quality.warnings:
+                ohlc_quality_issue_count += 1
+                quality_warning = " | ".join(ohlc_quality.warnings)
+                tech_source_warning = (
+                    f"{tech_source_warning} | {quality_warning}"
+                    if tech_source_warning
+                    else quality_warning
+                )
+                progress.log("WARNING", quality_warning, ticker)
+            technical_ohlc = (
+                ohlc_quality.normalized
+                if ohlc_quality.history_usable
+                else pd.DataFrame()
+            )
+
+            progress.set_step(ticker, "score_tech", f"Počítám technickou analýzu pro {ticker}", 0.74)
+            tech = analyze_tech(ticker, technical_ohlc, source=tech_source_used)
+            if tech_source_warning:
+                tech.warnings.append(tech_source_warning)
+
+            derived_perf = self._performance_from_ohlc(
+                ticker,
+                technical_ohlc,
+            )
+            current_price, current_price_source = self._select_current_price(
+                ohlc=raw_ohlc,
+                tech_source=tech_source_used,
+                yahoo_metadata_price=snapshot.data.get("currentPrice"),
+                as_of=started_at,
+            )
+            if current_price_source == "yahoo_metadata_quote_undated":
+                undated_current_quote_count += 1
+            elif current_price is not None:
+                dated_current_price_count += 1
+
+            if current_price is not None and current_price_source != "yahoo_metadata_quote_undated":
+                current_price_status = "USABLE"
+                current_price_reason = "DATED_COMPLETED_SESSION_CLOSE"
+            elif current_price_source == "yahoo_metadata_quote_undated":
+                current_price_status = "PARTIAL"
+                current_price_reason = "UNDATED_METADATA_QUOTE"
+            elif current_price_source == "ohlc_unusable":
+                current_price_status = "FAILED"
+                current_price_reason = "OHLC_NOT_USABLE_AT_RUN_CUTOFF"
+            else:
+                current_price_status = "FAILED"
+                current_price_reason = "CURRENT_PRICE_UNAVAILABLE"
+
+            if ohlc_quality.history_usable:
+                technical_status = "USABLE"
+                technical_reason = "COMPLETE_REQUIRED_SESSION_HISTORY"
+            elif ohlc_quality.observation_count:
+                technical_status = "PARTIAL"
+                technical_reason = "OHLC_HISTORY_INCOMPLETE"
+            else:
+                technical_status = "FAILED"
+                technical_reason = "OHLC_HISTORY_UNAVAILABLE"
+
+            progress.set_step(ticker, "behavioral_risk", f"Počítám behavioral a risk vrstvu pro {ticker}", 0.82)
+            behavioral = analyze_behavioral(ticker, news, tech, yresult, self.config.behavioral_weights)
+            risk = analyze_risk(ticker, news, tech, yresult, behavioral)
+
+            regime = detect_market_regime(
+                momentum_1m=float(tech.indicators.get("p1m") or 0.0),
+                realized_volatility=float(tech.indicators.get("realized_volatility") or 0.02),
+                panic_score=behavioral.panic_score,
+                euphoria_score=behavioral.euphoria_score,
+            )
+
+            conf = combine_confidence(news.news_confidence, tech.tech_confidence, yresult.yahoo_confidence, behavioral.behavioral_confidence)
+            raw_total = compute_raw_total(news.news_score, tech.tech_score, yresult.yahoo_score, behavioral.behavioral_score, self.config.module_weights)
+            raw_total = apply_regime_overrides(raw_total, tech.tech_score, tech.oscillator_score, behavioral.behavioral_score, regime, self.config.regime_overrides)
+            legacy_total_score = compute_legacy_total(news.news_score, tech.tech_score, yresult.yahoo_score)
+            legacy_signal = legacy_signal_from_score(legacy_total_score)
+
+            combined_warnings = merge_warnings(news.warnings, tech.warnings, yresult.warnings, behavioral.warnings, risk.risk_flags)
+            combined_reasons = merge_reasons(news.reasons, tech.reasons, yresult.reasons, behavioral.reasons, risk.risk_reasons)
+            key_drivers = build_key_drivers(news.news_score, tech.tech_score, yresult.yahoo_score, behavioral.behavioral_score, risk.risk_score, regime)
+            progress.set_step(ticker, "merge_scores", f"Skládám finální score pro {ticker}", 0.92)
+            diag = finalize_signal(
+                raw_score=raw_total,
+                data_quality=conf.data_quality_score,
+                risk_score=risk.risk_score,
+                adjustment=self.config.adjustment,
+                thresholds=self.config.signal_thresholds,
+                reasons=combined_reasons,
+                warnings=combined_warnings,
+                key_drivers=key_drivers,
+                news_score=news.news_score,
+                tech_score=tech.tech_score,
+                analyst_score=yresult.yahoo_score,
+                panic_score=behavioral.panic_score,
+                news_confidence=conf.news_confidence,
+                tech_confidence=conf.tech_confidence,
+                analyst_confidence=conf.yahoo_confidence,
+                panic_confidence=conf.behavioral_confidence,
+                decision_weights=self.config.decision_weights,
+                decision_thresholds=self.config.decision_thresholds,
+                legacy_signal=legacy_signal,
+                risk_flags=risk.risk_flags,
+                prediction_v21=self.config.prediction_v21,
+            )
+
+            row = {
+                "ticker": ticker,
+                "market_cap_usd": market_caps.get(ticker, snapshot.data.get("marketCap")),
+                "current_price": current_price,
+                "current_price_source": current_price_source,
+                "current_price_status": current_price_status,
+                "current_price_reason": current_price_reason,
+                "current_price_fetched_at": started_at.isoformat(),
+                "ohlc_close_at": (
+                    ohlc_quality.close_at.isoformat()
+                    if ohlc_quality.close_at is not None
+                    else None
+                ),
+                "ohlc_observation_count": ohlc_quality.observation_count,
+                "ohlc_price_usable": ohlc_quality.price_usable,
+                "ohlc_history_usable": ohlc_quality.history_usable,
+                "ohlc_available_lookbacks": json.dumps(ohlc_quality.available_lookbacks),
+                "ohlc_missing_lookbacks": json.dumps(ohlc_quality.missing_lookbacks),
+                "yahoo_ticker": yahoo_ticker,
+                "yahoo_data_status": yahoo_data_status,
+                "yahoo_data_fetched_at": yahoo_data_fetched_at,
+                "scoring_version": SCORING_VERSION,
+                "legacy_total_score": legacy_total_score,
+                "legacy_signal": legacy_signal,
+                "tech_source_used": tech_source_used,
+                "technical_status": technical_status,
+                "technical_reason": technical_reason,
+                "news_count_48h": news.news_count_48h,
+                "news_score": news.news_score,
+                "tech_score": tech.tech_score,
+                "yahoo_score": yresult.yahoo_score,
+                "behavioral_score": behavioral.behavioral_score,
+                "risk_score": risk.risk_score,
+                "panic_score": behavioral.panic_score,
+                "raw_total_score": diag.raw_total_score,
+                "quality_adjusted_score": diag.quality_adjusted_score,
+                "risk_adjusted_score": diag.risk_adjusted_score,
+                "final_total_score": diag.final_total_score,
+                "final_confidence": diag.final_confidence,
+                "confidence_kind": "HEURISTIC_UNCALIBRATED",
+                "module_confidence": diag.module_confidence,
+                "decision_confidence": diag.decision_confidence,
+                "news_confidence": conf.news_confidence,
+                "tech_confidence": conf.tech_confidence,
+                "yahoo_confidence": conf.yahoo_confidence,
+                "behavioral_confidence": conf.behavioral_confidence,
+                "data_quality_score": conf.data_quality_score,
+                "decision_signal": diag.signal,
+                "forecast": diag.forecast,
+                "action": diag.action,
+                "action_reasons": json.dumps(diag.action_reasons, ensure_ascii=False),
+                # `signal` remains the public recommendation column used by
+                # older UI/export consumers.  In v2.1 it mirrors the guarded
+                # executable action rather than the unguarded model decision.
+                "signal": diag.action,
+                "signal_strength": diag.signal_strength,
+                "bull_score": diag.bull_score,
+                "bear_score": diag.bear_score,
+                "bull_bear_spread": diag.bull_bear_spread,
+                "bullish_module_count": diag.bullish_module_count,
+                "bearish_module_count": diag.bearish_module_count,
+                "neutral_module_count": diag.neutral_module_count,
+                "downgrade_count": diag.downgrade_count,
+                "blocked_reasons": json.dumps(diag.blocked_reasons, ensure_ascii=False),
+                "module_breakdown": json.dumps(diag.module_breakdown, ensure_ascii=False),
+                "regime": regime,
+                "risk_flags": json.dumps(risk.risk_flags, ensure_ascii=False),
+                "reasons": json.dumps(diag.reasons, ensure_ascii=False),
+                "warnings": json.dumps(diag.warnings, ensure_ascii=False),
+                "key_drivers": json.dumps(diag.key_drivers, ensure_ascii=False),
+
+                "overall_summary": diag.overall_summary,
+                "last_week_change_pct": perf.last_week_change_pct if perf.last_week_change_pct is not None else derived_perf.last_week_change_pct,
+                "last_14d_change_pct": perf.last_14d_change_pct if perf.last_14d_change_pct is not None else derived_perf.last_14d_change_pct,
+                "last_1m_change_pct": perf.last_1m_change_pct if perf.last_1m_change_pct is not None else derived_perf.last_1m_change_pct,
+                "last_3m_change_pct": perf.last_3m_change_pct if perf.last_3m_change_pct is not None else derived_perf.last_3m_change_pct,
+            }
+            rows.append(row)
+            sector = (
+                snapshot.data.get("sector")
+                if isinstance(snapshot.data, dict)
+                else None
+            )
+            benchmark_ticker, benchmark_selection = benchmark_for_sector(sector)
+            market_factors = build_market_factor_snapshot(
+                asset_history=ohlc if isinstance(ohlc, pd.DataFrame) else None,
+                benchmark_history=benchmark_ohlc_by_ticker.get(benchmark_ticker),
+                as_of=started_at,
+                asset_source=current_price_source,
+                benchmark_source=benchmark_ohlc_source.get(benchmark_ticker),
+            )
+            point_in_time_inputs.append(
+                {
+                    "ticker": ticker,
+                    "feature_payload": {
+                        "market": {
+                            "market_cap_usd": row["market_cap_usd"],
+                            "current_price": current_price,
+                            "current_price_source": current_price_source,
+                            "ohlc_quality": {
+                                "close_at": (
+                                    ohlc_quality.close_at.isoformat()
+                                    if ohlc_quality.close_at is not None
+                                    else None
+                                ),
+                                "observation_count": ohlc_quality.observation_count,
+                                "price_usable": ohlc_quality.price_usable,
+                                "history_usable": ohlc_quality.history_usable,
+                                "warnings": list(ohlc_quality.warnings),
+                            },
+                            "performance": {
+                                "observed": asdict(perf),
+                                "derived": asdict(derived_perf),
+                            },
+                        },
+                        "market_factors": market_factors,
+                        "technical": {
+                            "source": tech_source_used,
+                            "score": tech.tech_score,
+                            "confidence": tech.tech_confidence,
+                            "trend_score": tech.trend_score,
+                            "momentum_score": tech.momentum_score,
+                            "oscillator_score": tech.oscillator_score,
+                            "macd_score": tech.macd_score,
+                            "breakout_score": tech.breakout_score,
+                            "volume_confirmation_score": tech.volume_confirmation_score,
+                            "volatility_context_adjustment": tech.volatility_context_adjustment,
+                            "regime": tech.regime,
+                            "indicators": dict(tech.indicators),
+                        },
+                        "yahoo": {
+                            "ticker": snapshot.ticker,
+                            "status": snapshot.status,
+                            "data": dict(snapshot.data),
+                            "analysis": asdict(yresult),
+                        },
+                        "news": asdict(news),
+                        "behavioral": asdict(behavioral),
+                        "risk": asdict(risk),
+                    },
+                    "baseline_output": dict(row),
+                    "provenance": {
+                        "price_source": current_price_source,
+                        "technical_source": tech_source_used,
+                        "yahoo_status": yahoo_data_status,
+                        "yahoo_fetched_at": yahoo_data_fetched_at,
+                        "news_sources": sorted(
+                            {
+                                str(article.source)
+                                for article in ticker_articles
+                                if str(article.source).strip()
+                            }
+                        ),
+                        "run_started_at": started_at.isoformat(),
+                    },
+                    "benchmark_ticker": benchmark_ticker,
+                    "benchmark_selection": benchmark_selection,
+                }
+            )
+            progress.add_completed_row({
+                "Ticker": ticker,
+                "FinalTotalScore": round(diag.final_total_score, 2),
+                "Signal": diag.action,
+                "Forecast": diag.forecast,
+                "Confidence": round(diag.decision_confidence, 2),
+                "TechSource": tech_source_used,
+                "Status": "Dokončeno",
+            })
+            progress.log(
+                "DONE",
+                f"Dokončeno: {ticker} → {diag.action} (forecast {diag.forecast}) / {diag.final_total_score:.1f}",
+                ticker,
+            )
+
+        if dated_current_price_count == 0:
+            errors.append(
+                "Není k dispozici žádná platná datovaná cena z OHLC. "
+                "Ranking je nevyužitelný a nesmí se používat pro ruční rozhodnutí."
+            )
+
+        source_health = {
+            "current_prices": {
+                "dated_usable": dated_current_price_count,
+                "undated_metadata_quotes": undated_current_quote_count,
+                "ohlc_quality_issues": ohlc_quality_issue_count,
+                "requested": total,
+            },
+            "yahoo_ohlc": {
+                "attempted": bulk_yahoo_ohlc_attempted_count,
+                "fresh_or_stale_usable": bulk_yahoo_ohlc_count,
+                "download_failures": bulk_yahoo_ohlc_failure_count,
+                "retry_deferred": len(bulk_yahoo_ohlc_retry_deferred),
+                "cache_coverage": bulk_yahoo_ohlc_cache_coverage,
+            },
+        }
+
+        if yahoo_metadata_enabled and yahoo_snapshot_failures == total:
+            errors.append(
+                "Yahoo metadata selhala pro všechny tickery. Fundamentální část výsledků používá fallback a není spolehlivá."
+            )
+        elif yahoo_metadata_enabled and yahoo_snapshot_failures:
+            warnings.append(f"Yahoo metadata selhala pro {yahoo_snapshot_failures} z {total} tickerů.")
+
+        if yahoo_ohlc_attempts and yahoo_ohlc_failures == yahoo_ohlc_attempts:
+            errors.append(
+                "Yahoo cenová historie selhala pro všechny tickery, které ji potřebovaly. Technická část používá fallback."
+            )
+        elif yahoo_ohlc_failures:
+            warnings.append(
+                f"Yahoo cenová historie selhala pro {yahoo_ohlc_failures} z {yahoo_ohlc_attempts} tickerů."
+            )
+
+        warnings = list(dict.fromkeys(warnings))
+        errors = list(dict.fromkeys(errors))
+        signals_df = RankingService.apply_ranking(pd.DataFrame(rows))
+        ranking_eligible_count = int(
+            signals_df["ranking_eligible"].fillna(False).sum()
+        ) if "ranking_eligible" in signals_df.columns else 0
+        if not signals_df.empty and signals_df["market_cap_usd"].notna().any():
+            signals_df = signals_df.sort_values("market_cap_usd", ascending=False, na_position="last")
+            signals_df["rank_market_cap"] = range(1, len(signals_df) + 1)
+
+        agent_report: OrchestrationReport | None = None
+        quality_gate_decision: str | None = None
+        entity_registry_status: str | None = None
+        entity_identity_conflict_count = 0
+        entity_unresolved_identity_count = 0
+        fundamental_ingestion_status: str | None = None
+        fundamental_document_count = 0
+        fundamental_fact_count = 0
+        financial_forensics_status: str | None = None
+        financial_forensics_evidence_count = 0
+        financial_forensics_high_findings = 0
+        financial_forensics_warning_findings = 0
+        short_report_status: str | None = None
+        short_report_document_count = 0
+        short_report_claim_count = 0
+        claim_verification_status: str | None = None
+        claim_corroborated_count = 0
+        claim_contradicted_count = 0
+        claim_insufficient_count = 0
+        supply_chain_status: str | None = None
+        supply_chain_relationship_count = 0
+        commodity_energy_status: str | None = None
+        commodity_energy_exposure_count = 0
+        regulatory_contract_status: str | None = None
+        regulatory_contract_event_count = 0
+        decision_agent_status: str | None = None
+        decision_count = 0
+        decision_suppressed_count = 0
+        decision_applied_count = 0
+
+        evaluation_agent_status: str | None = None
+        activation_state: str | None = None
+        evaluation_sample_count = 0
+        evaluation_distinct_weeks = 0
+        evaluation_lift_pct_points: float | None = None
+        evaluation_lift_lower_bound_pct_points: float | None = None
+        evaluation_coverage_pct: float | None = None
+        evaluation_baseline_accuracy_pct: float | None = None
+        evaluation_candidate_accuracy_pct: float | None = None
+        evaluation_positive_week_ratio: float | None = None
+        evaluation_gate_passed = False
+        evaluation_gate_results: dict[str, bool] = {}
+        evaluation_consecutive_passes = 0
+        evaluation_required_consecutive_passes = 0
+        evaluation_activation_reasons: list[str] = []
+        fundamental_filing_text_document_count = 0
+        fundamental_filing_text_failure_count = 0
+        fundamental_filing_text_failure_details: list[dict[str, object]] = []
+        fundamental_bundle_failure_details: list[dict[str, object]] = []
+        european_filings_status: str | None = None
+        european_filing_document_count = 0
+        source_resolution_status: str | None = None
+        source_resolution_count = 0
+        source_resolution_conflict_count = 0
+        governance_event_status: str | None = None
+        governance_event_count = 0
+        auto_discovered_supply_chain_relationships = 0
+        auto_discovered_commodity_energy_exposures = 0
+        if self.config.agent_stage1_enabled:
+            progress.set_global_step(
+                "agent_pipeline",
+                "Spouštím auditní agentní pipeline",
+                0.97,
+            )
+            try:
+                agent_report = self._run_agents(
+                    watchlist,
+                    signals_df,
+                    store,
+                    news_items=articles,
+                )
+            except Exception as exc:
+                warnings.append(
+                    f"Agentní pipeline se nespustila: {type(exc).__name__}: {exc}"
+                )
+            else:
+                for execution in agent_report.executions:
+                    if execution.agent_name == "quality_gate":
+                        quality_gate_decision = str(
+                            execution.result.metadata.get("decision", "REJECT")
+                        )
+                    elif execution.agent_name == "entity_registry":
+                        entity_registry_status = execution.status.value
+                        entity_identity_conflict_count = len(
+                            execution.result.identity_conflicts
+                        )
+                        entity_unresolved_identity_count = int(
+                            execution.result.metadata.get(
+                                "unresolved_identities",
+                                0,
+                            )
+                        )
+                    elif execution.agent_name == "f2_sec":
+                        fundamental_ingestion_status = execution.status.value
+                        fundamental_document_count = len(execution.result.documents)
+                        fundamental_fact_count = len(
+                            execution.result.fundamental_facts
+                        )
+                        fundamental_filing_text_document_count = int(
+                            execution.result.metadata.get(
+                                "filing_text_documents",
+                                0,
+                            )
+                        )
+                        fundamental_filing_text_failure_count = int(
+                            execution.result.metadata.get(
+                                "filing_text_failures",
+                                0,
+                            )
+                        )
+                        raw_failure_details = execution.result.metadata.get(
+                            "filing_text_failure_details",
+                            [],
+                        )
+                        if isinstance(raw_failure_details, list):
+                            fundamental_filing_text_failure_details = [
+                                item
+                                for item in raw_failure_details
+                                if isinstance(item, dict)
+                            ]
+                        raw_bundle_failures = execution.result.metadata.get(
+                            "bundle_failure_details",
+                            [],
+                        )
+                        if isinstance(raw_bundle_failures, list):
+                            fundamental_bundle_failure_details = [
+                                item
+                                for item in raw_bundle_failures
+                                if isinstance(item, dict)
+                            ]
+                    elif execution.agent_name == "european_filings":
+                        european_filings_status = execution.status.value
+                        european_filing_document_count = len(
+                            execution.result.documents
+                        )
+                    elif execution.agent_name == "source_resolution":
+                        source_resolution_status = execution.status.value
+                        source_resolution_count = len(
+                            execution.result.document_source_resolutions
+                        )
+                        source_resolution_conflict_count = int(
+                            execution.result.metadata.get(
+                                "conflicts_resolved",
+                                0,
+                            )
+                        )
+                    elif execution.agent_name == "governance_event":
+                        governance_event_status = execution.status.value
+                        governance_event_count = len(
+                            execution.result.governance_events
+                        )
+                    elif execution.agent_name == "financial_forensics":
+                        financial_forensics_status = execution.status.value
+                        financial_forensics_evidence_count = len(
+                            execution.result.evidence
+                        )
+                        financial_forensics_high_findings = int(
+                            execution.result.metadata.get("high_findings", 0)
+                        )
+                        financial_forensics_warning_findings = int(
+                            execution.result.metadata.get("warning_findings", 0)
+                        )
+                    elif execution.agent_name == "short_report":
+                        short_report_status = execution.status.value
+                        short_report_document_count = len(execution.result.documents)
+                        short_report_claim_count = len(execution.result.claims)
+                    elif execution.agent_name == "claim_verification":
+                        claim_verification_status = execution.status.value
+                        raw_counts = execution.result.metadata.get("status_counts", {})
+                        status_counts = raw_counts if isinstance(raw_counts, dict) else {}
+                        claim_corroborated_count = int(
+                            status_counts.get("CORROBORATED", 0)
+                        )
+                        claim_contradicted_count = int(
+                            status_counts.get("CONTRADICTED", 0)
+                        )
+                        claim_insufficient_count = int(
+                            status_counts.get("INSUFFICIENT_DATA", 0)
+                        )
+                    elif execution.agent_name == "supply_chain":
+                        supply_chain_status = execution.status.value
+                        supply_chain_relationship_count = len(
+                            execution.result.company_relationships
+                        )
+                        auto_discovered_supply_chain_relationships = int(
+                            execution.result.metadata.get(
+                                "auto_discovered_relationships",
+                                0,
+                            )
+                        )
+                    elif execution.agent_name == "commodity_energy":
+                        commodity_energy_status = execution.status.value
+                        commodity_energy_exposure_count = len(
+                            execution.result.resource_exposures
+                        )
+                        auto_discovered_commodity_energy_exposures = int(
+                            execution.result.metadata.get(
+                                "auto_discovered_exposures",
+                                0,
+                            )
+                        )
+                    elif execution.agent_name == "regulatory_contract":
+                        regulatory_contract_status = execution.status.value
+                        regulatory_contract_event_count = len(
+                            execution.result.regulatory_contract_events
+                        )
+                    elif execution.agent_name == "decision_agent":
+                        decision_agent_status = execution.status.value
+                        decision_count = len(execution.result.decisions)
+                        decision_suppressed_count = int(
+
+                            execution.result.metadata.get(
+                                "suppressed_proposals",
+                                0,
+                            )
+                        )
+                        decision_applied_count = int(
+                            execution.result.metadata.get("applied_decisions", 0)
+                        )
+                    elif execution.agent_name == "evaluation_agent":
+                        evaluation_agent_status = execution.status.value
+                        activation_state = str(
+                            execution.result.metadata.get(
+                                "activation_state",
+                                "INSUFFICIENT_DATA",
+                            )
+                        )
+                        if execution.result.policy_evaluations:
+                            evaluation = execution.result.policy_evaluations[0]
+                            evaluation_sample_count = evaluation.sample_count
+                            evaluation_distinct_weeks = evaluation.distinct_weeks
+                            evaluation_baseline_accuracy_pct = (
+                                evaluation.baseline_accuracy_pct
+                            )
+                            evaluation_candidate_accuracy_pct = (
+                                evaluation.candidate_accuracy_pct
+                            )
+                            evaluation_lift_pct_points = (
+                                evaluation.lift_pct_points
+                            )
+                            evaluation_lift_lower_bound_pct_points = (
+                                evaluation.lift_lower_bound_pct_points
+                            )
+                            evaluation_coverage_pct = evaluation.coverage_pct
+                            evaluation_positive_week_ratio = float(
+                                evaluation.metadata.get(
+                                    "positive_week_ratio",
+                                    0.0,
+                                )
+                            )
+                            evaluation_gate_passed = evaluation.gate_passed
+                            evaluation_gate_results = dict(
+                                evaluation.gate_results
+                            )
+                        if execution.result.activation_decisions:
+                            activation = execution.result.activation_decisions[0]
+                            evaluation_consecutive_passes = (
+                                activation.consecutive_passes
+                            )
+                            evaluation_required_consecutive_passes = int(
+                                activation.metadata.get(
+                                    "required_consecutive_passes",
+                                    0,
+                                )
+                            )
+                            evaluation_activation_reasons = list(
+                                activation.reasons
+                            )
+                    warnings.extend(
+                        f"Agent {execution.agent_name}: {warning}"
+                        for warning in execution.result.warnings
+                    )
+                    if execution.result.error:
+                        warnings.append(
+                            f"Agent {execution.agent_name} ({execution.status.value}): "
+                            f"{execution.result.error}"
+                        )
+                if agent_report.status != AgentStatus.SUCCESS:
+                    warnings.append(
+                        f"Agentní pipeline skončila stavem {agent_report.status.value}; "
+                        "predikce v2.1 nebyla agentní vrstvou změněna."
+                    )
+                if decision_applied_count:
+                    errors.append(
+                        "Interní invariant porušen: analytická vrstva se pokusila "
+                        "přepsat hlavní predikci."
+                    )
+
+        sources_df = pd.DataFrame({"source": expanded_rss_sources})
+        articles_df = pd.DataFrame([asdict(article) for article in articles])
+        warnings = list(dict.fromkeys(warnings))
+        finished_at = utc_now()
+
+        metadata = RunMetadata(started_at, finished_at, len(watchlist), len(signals_df), len(warnings), len(errors), "")
+        run_id: int | None = None
+        if self.config.save_history and store is not None:
+            progress.set_global_step("save_history", "Ukládám výsledky do SQLite historie", 0.98)
+            try:
+                run_id = store.save_run(
+                    metadata,
+                    signals_df,
+                    datetime.now(timezone.utc).isoformat(),
+                )
+            except Exception as exc:
+                message = f"SQLite uložení běhu selhalo: {exc}"
+                warnings.append(message)
+                errors.append(message)
+                progress.log("ERROR", message)
+
+            if run_id is not None and agent_report is not None:
+                try:
+                    store.save_orchestration_report(agent_report, pipeline_run_id=run_id)
+                except Exception as exc:
+                    message = f"SQLite uložení auditní agentní etapy selhalo: {exc}"
+                    warnings.append(message)
+                    progress.log("WARNING", message)
+
+        warnings = list(dict.fromkeys(warnings))
+        errors = list(dict.fromkeys(errors))
+        metadata.warnings_count = len(warnings)
+        metadata.errors_count = len(errors)
+        if run_id is not None and store is not None:
+            try:
+                store.update_run_counts(run_id, metadata.warnings_count, metadata.errors_count)
+            except Exception as exc:
+                message = f"SQLite aktualizace počtů varování/chyb selhala: {exc}"
+                warnings.append(message)
+                metadata.warnings_count = len(warnings)
+                progress.log("WARNING", message)
+
+        progress.finalize("Analýza dokončena")
+        return {
+            "metadata": metadata,
+            "signals": signals_df,
+            "sources": sources_df,
+            "articles": articles_df,
+            "warnings": warnings,
+            "errors": errors,
+            "run_id": run_id,
+            "agent_status": agent_report.status.value if agent_report else None,
+            "quality_gate_decision": quality_gate_decision,
+            "entity_registry_status": entity_registry_status,
+            "entity_identity_conflict_count": entity_identity_conflict_count,
+            "entity_unresolved_identity_count": entity_unresolved_identity_count,
+            "fundamental_ingestion_status": fundamental_ingestion_status,
+            "fundamental_document_count": fundamental_document_count,
+            "fundamental_fact_count": fundamental_fact_count,
+            "fundamental_filing_text_document_count": (
+                fundamental_filing_text_document_count
+            ),
+            "fundamental_filing_text_failure_count": (
+                fundamental_filing_text_failure_count
+            ),
+            "fundamental_filing_text_failure_details": (
+                fundamental_filing_text_failure_details
+            ),
+            "fundamental_bundle_failure_details": (
+                fundamental_bundle_failure_details
+            ),
+            "bulk_yahoo_ohlc_count": bulk_yahoo_ohlc_count,
+            "bulk_yahoo_ohlc_failure_count": bulk_yahoo_ohlc_failure_count,
+            "bulk_yahoo_ohlc_attempted_count": bulk_yahoo_ohlc_attempted_count,
+            "bulk_yahoo_ohlc_cache_coverage": bulk_yahoo_ohlc_cache_coverage,
+            "bulk_yahoo_ohlc_failure_details": [
+                {"ticker": ticker, "error": warning}
+                for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
+            ],
+            "bulk_yahoo_ohlc_retry_deferred_details": [
+                {"ticker": ticker, "error": warning}
+                for ticker, warning in sorted(bulk_yahoo_ohlc_retry_deferred.items())
+            ],
+            "source_health": source_health,
+            "ranking_usable": ranking_eligible_count > 0,
+            "ranking_eligible_count": ranking_eligible_count,
+            "ranking_ineligible_count": int(len(signals_df) - ranking_eligible_count),
+            "european_filings_status": european_filings_status,
+            "european_filing_document_count": european_filing_document_count,
+            "source_resolution_status": source_resolution_status,
+            "source_resolution_count": source_resolution_count,
+            "source_resolution_conflict_count": source_resolution_conflict_count,
+            "governance_event_status": governance_event_status,
+            "governance_event_count": governance_event_count,
+            "financial_forensics_status": financial_forensics_status,
+            "financial_forensics_evidence_count": financial_forensics_evidence_count,
+            "financial_forensics_high_findings": financial_forensics_high_findings,
+            "financial_forensics_warning_findings": (
+                financial_forensics_warning_findings
+            ),
+            "short_report_status": short_report_status,
+            "short_report_document_count": short_report_document_count,
+            "short_report_claim_count": short_report_claim_count,
+
+            "claim_verification_status": claim_verification_status,
+            "claim_corroborated_count": claim_corroborated_count,
+            "claim_contradicted_count": claim_contradicted_count,
+            "claim_insufficient_count": claim_insufficient_count,
+            "supply_chain_status": supply_chain_status,
+            "supply_chain_relationship_count": supply_chain_relationship_count,
+            "auto_discovered_supply_chain_relationships": (
+                auto_discovered_supply_chain_relationships
+            ),
+            "commodity_energy_status": commodity_energy_status,
+            "commodity_energy_exposure_count": commodity_energy_exposure_count,
+            "auto_discovered_commodity_energy_exposures": (
+                auto_discovered_commodity_energy_exposures
+            ),
+            "regulatory_contract_status": regulatory_contract_status,
+            "regulatory_contract_event_count": regulatory_contract_event_count,
+            "decision_agent_status": decision_agent_status,
+            "decision_count": decision_count,
+            "decision_suppressed_count": decision_suppressed_count,
+            "decision_applied_count": decision_applied_count,
+            "evaluation_agent_status": evaluation_agent_status,
+            "activation_state": activation_state,
+            "evaluation_sample_count": evaluation_sample_count,
+            "evaluation_distinct_weeks": evaluation_distinct_weeks,
+            "evaluation_baseline_accuracy_pct": (
+                evaluation_baseline_accuracy_pct
+            ),
+            "evaluation_candidate_accuracy_pct": (
+                evaluation_candidate_accuracy_pct
+            ),
+            "evaluation_lift_pct_points": evaluation_lift_pct_points,
+            "evaluation_lift_lower_bound_pct_points": (
+                evaluation_lift_lower_bound_pct_points
+            ),
+            "evaluation_coverage_pct": evaluation_coverage_pct,
+            "evaluation_positive_week_ratio": evaluation_positive_week_ratio,
+            "evaluation_gate_passed": evaluation_gate_passed,
+            "evaluation_gate_results": evaluation_gate_results,
+            "evaluation_consecutive_passes": evaluation_consecutive_passes,
+            "evaluation_required_consecutive_passes": (
+                evaluation_required_consecutive_passes
+            ),
+            "evaluation_activation_reasons": evaluation_activation_reasons,
+            "auto_discovered_short_reports": (
+                int(agent_report.metadata.get("auto_discovered_short_reports", 0))
+                if agent_report
+                else 0
+            ),
+            "auto_discovered_regulatory_events": (
+                int(agent_report.metadata.get("auto_discovered_regulatory_events", 0))
+                if agent_report
+                else 0
+            ),
+            "agent_report": agent_report,
+            "point_in_time_inputs": point_in_time_inputs,
+            "progress_state": progress.snapshot(),
+        }
