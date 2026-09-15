@@ -1060,12 +1060,6 @@ class PipelineService:
                 else None
             )
             benchmark_ticker, benchmark_selection = benchmark_for_sector(sector)
-            sector = (
-                snapshot.data.get("sector")
-                if isinstance(snapshot.data, dict)
-                else None
-            )
-            benchmark_ticker, benchmark_selection = benchmark_for_sector(sector)
             market_factors = build_market_factor_snapshot(
                 asset_history=ohlc if isinstance(ohlc, pd.DataFrame) else None,
                 benchmark_history=benchmark_ohlc_by_ticker.get(benchmark_ticker),

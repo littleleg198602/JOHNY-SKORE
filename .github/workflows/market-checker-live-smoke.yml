@@ -154,5 +154,6 @@ jobs:
             outputs/weekly_shadow_latest.json
             outputs/live_source_smoke_latest.json
             outputs/prediction_label_resolution_latest.json
+            outputs/full_universe_acceptance_latest.json
           if-no-files-found: warn
           retention-days: 90

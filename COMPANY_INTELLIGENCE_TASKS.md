@@ -715,7 +715,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-007 — Zapojit pravidelné uzavírání a vyhodnocování snapshotů
 
-- **Priorita / stav:** P1 / TODO
+- **Priorita / stav:** P1 / PARTIAL
+- **Implementováno 2026-09-14:** PR #99 přidává samostatný obnovitelný dávkový runner, Windows spouštěč a pondělní workflow krok. Zpracuje maximálně 120 zralých PENDING snapshotů nad persistentní OHLC cache; dočasná nedostupnost zdroje ponechá label PENDING.
 - **Nadřazené úkoly:** DATA-001, EVAL-001
 - **Závislosti:** Blokováno AUD-006; pro škálu AUD-003
 - **Zjištění:** --resolve-labels je opt-in a standardní launcher/workflow ho nepoužívá. Starší Stage4 vyhodnocení historie není totožné s novým pětidenním benchmark-relative targetem.
@@ -751,7 +752,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-011 — Dokončit tržní a SEC point-in-time faktory
 
-- **Priorita / stav:** P1 / TODO
+- **Priorita / stav:** P1 / PARTIAL
+- **Implementováno 2026-09-14:** PR #101 ukládá verzované point-in-time tržní faktory — výnosy 1/5/20/60/120/252 dní, relativní výnos proti benchmarku, realizovanou volatilitu, drawdown, provenance a missingness. Faktory zatím nemění heuristické skóre. SEC faktory s filing/availability datem a následná ablation stále chybí.
 - **Nadřazené úkoly:** MKT-001, FUND-001, DATA-001
 - **Závislosti:** AUD-004; následné ověření AUD-012
 - **Zjištění:** Foundation snapshoty a SEC fakta existují, ale nejde ještě o úplný historický feature store se srovnatelnými fundamentálními deltami.
@@ -778,7 +780,8 @@ Tato sekce je aktuální realizační fronta a do jejího uzavření má předno
 
 ### AUD-014 — Doložit provozní akceptaci reálné 687tickerové cesty
 
-- **Priorita / stav:** P1 / TODO
+- **Priorita / stav:** P1 / PARTIAL
+- **Implementováno 2026-09-14:** PR #100 přidává kontrolu přesné množiny requested tickerů, per-ticker reportu a explicitních missing tickerů; workflow ukládá samostatný acceptance artefakt. Zbývá integrační test no-MT5 z prázdné cache, částečný výpadek, živý full-universe běh a opakování s cache.
 - **Nadřazené úkoly:** SCALE-001, OPS-805
 - **Závislosti:** Finální live ověření po AUD-001 až AUD-006 a AUD-013; testy připravovat souběžně
 - **Zjištění:** Dosavadní scale test používá syntetické T0000… tickery, předplněnou metadata cache a fake MT5. Zelené CI není důkaz funkčního --no-mt5 sběru z prázdné cache ani kvality predikcí.

@@ -100,6 +100,9 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         self.assertIn("market_checker_app.full_universe_acceptance", workflow)
         self.assertIn("Validate full-universe report accounting", workflow)
         self.assertIn("full_universe_acceptance_latest.json", workflow)
+        artifact_marker = "Preserve rolling state and source/readiness audits"
+        artifact_block = workflow[workflow.index(artifact_marker):]
+        self.assertIn("outputs/full_universe_acceptance_latest.json", artifact_block)
         self.assertIn(
             "--runtime-config market_checker_app/autonomous_runtime.json",
             workflow,
@@ -143,6 +146,21 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
             workflow.index("Validate full-universe report accounting"),
             workflow.index("Run the persistent weekly Stage 4 shadow"),
         )
+
+    def test_pipeline_selects_the_market_factor_benchmark_once(self) -> None:
+        pipeline = (
+            ROOT / "market_checker_app" / "services" / "pipeline_service.py"
+        ).read_text(encoding="utf-8")
+        selection = (
+            '            sector = (\n'
+            '                snapshot.data.get("sector")\n'
+            '                if isinstance(snapshot.data, dict)\n'
+            '                else None\n'
+            '            )\n'
+            '            benchmark_ticker, benchmark_selection = benchmark_for_sector(sector)\n'
+        )
+
+        self.assertEqual(1, pipeline.count(selection))
 
 
 if __name__ == "__main__":
