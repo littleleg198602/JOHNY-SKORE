@@ -6,6 +6,8 @@ from typing import Mapping
 
 import pandas as pd
 
+from market_checker_app.services.us_equity_calendar_service import last_completed_session, session_label, sessions_between
+
 
 MARKET_FACTOR_VERSION = "market_factors_v1"
 RETURN_HORIZONS = (1, 5, 20, 60, 120, 252)
@@ -14,22 +16,19 @@ RETURN_HORIZONS = (1, 5, 20, 60, 120, 252)
 def _close_series(history: pd.DataFrame | None, as_of: datetime) -> pd.Series:
     if history is None or history.empty or "Close" not in history.columns:
         return pd.Series(dtype=float)
-    timestamps = pd.to_datetime(history.index, utc=True, errors="coerce")
-    closes = pd.to_numeric(history["Close"], errors="coerce")
-    frame = pd.DataFrame({"timestamp": timestamps, "close": closes}).dropna()
-    frame = frame[
-        (frame["timestamp"] <= pd.Timestamp(as_of))
-        & (frame["close"] > 0)
-        & frame["close"].map(lambda value: math.isfinite(float(value)))
-    ]
-    if frame.empty:
+    completed = last_completed_session(as_of)
+    if completed is None:
         return pd.Series(dtype=float)
-    return (
-        frame.sort_values("timestamp")
-        .drop_duplicates("timestamp", keep="last")
-        .set_index("timestamp")["close"]
-        .astype(float)
-    )
+    values: dict[pd.Timestamp, float] = {}
+    for timestamp, raw_close in history["Close"].items():
+        label = session_label(timestamp)
+        try:
+            close = float(raw_close)
+        except (TypeError, ValueError):
+            continue
+        if label is not None and label <= completed and close > 0.0 and math.isfinite(close):
+            values[label] = close
+    return pd.Series(values, dtype=float).sort_index()
 
 
 def _return(series: pd.Series, days: int) -> float | None:
