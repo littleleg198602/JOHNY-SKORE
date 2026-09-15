@@ -111,7 +111,9 @@ jobs:
           python -m market_checker_app.prediction_label_runner
           --db-path outputs/market_checker_history.db
           --output-path outputs/prediction_label_resolution_latest.json
-          --limit 120
+          --limit 1000
+          --page-size 120
+          --time-budget-seconds 240
 
       - name: Verify company identities and current live sources
         run: >-

@@ -24,11 +24,16 @@ if errorlevel 1 goto :error
 call :ensure_sec_user_agent
 if errorlevel 1 goto :error
 
+echo [INFO] Vyhodnocuji splatne historicke predikce pres spravedlivou frontu...
+%PYTHON_EXE% -m market_checker_app.prediction_label_runner --db-path "outputs\market_checker_history.db" --output-path "outputs\prediction_label_resolution_latest.json" --limit 1000 --page-size 120 --time-budget-seconds 240
+if errorlevel 1 goto :error
+
 echo [INFO] Spoustim tydenni analyticky shadow beh pro cely nakonfigurovany universe...
 %PYTHON_EXE% -m market_checker_app.weekly_shadow_runner --no-mt5 --runtime-config "%APP_DIR%\autonomous_runtime.json" --ticker-file "%APP_DIR%\production_watchlist.txt"
 if errorlevel 1 goto :error
 
 echo [OK] Shadow beh prosel. Vysledek: outputs\weekly_shadow_latest.json
+echo [OK] Label fronta: outputs\prediction_label_resolution_latest.json
 exit /b 0
 
 :ensure_sec_user_agent
@@ -61,6 +66,6 @@ exit /b 0
 
 :error
 echo.
-echo [CHYBA] Tydenni analyticky shadow beh neprosel. Analyticke BUY/SELL nebylo zmeneno.
+echo [CHYBA] Tydenni analyticky shadow beh nebo label fronta neprosla. Analyticke BUY/SELL nebylo zmeneno.
 pause
 exit /b 1
