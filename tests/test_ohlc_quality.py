@@ -96,17 +96,31 @@ class OhlcQualityTests(unittest.TestCase):
         self.assertEqual(1, result.observation_count)
         self.assertTrue(any("duplicit" in warning.lower() for warning in result.warnings))
 
-    def test_open_current_day_bar_rejects_ready_price(self) -> None:
-        dates = session_dates_ending(date(2026, 9, 11), 65) + [date(2026, 9, 14)]
+    def test_open_current_day_bar_is_ignored_and_prior_closed_price_survives(self) -> None:
+        dates = session_dates_ending(date(2026, 9, 11), 66) + [date(2026, 9, 14)]
+        closes: list[object] = [100.0] * 66 + [999.0]
         result = assess_daily_ohlc(
-            full_frame(dates),
+            full_frame(dates, closes),
+            as_of=MONDAY_PREOPEN,
+        )
+
+        self.assertTrue(result.price_usable)
+        self.assertTrue(result.history_usable)
+        self.assertEqual(66, result.observation_count)
+        self.assertEqual(100.0, result.close)
+        self.assertEqual(date(2026, 9, 11), result.close_at.date())
+        self.assertTrue(any("ignorována" in warning for warning in result.warnings))
+
+    def test_only_open_current_day_bar_cannot_supply_price(self) -> None:
+        result = assess_daily_ohlc(
+            full_frame([date(2026, 9, 14)], [999.0]),
             as_of=MONDAY_PREOPEN,
         )
 
         self.assertFalse(result.price_usable)
         self.assertFalse(result.history_usable)
         self.assertIsNone(result.close)
-        self.assertTrue(any("neuzavřenou" in warning for warning in result.warnings))
+        self.assertEqual(0, result.observation_count)
 
     def test_missing_latest_closed_session_rejects_stale_frame(self) -> None:
         result = assess_daily_ohlc(
@@ -118,20 +132,25 @@ class OhlcQualityTests(unittest.TestCase):
         self.assertIsNone(result.close)
         self.assertTrue(any("2026-09-11" in warning for warning in result.warnings))
 
-    def test_black_friday_half_day_is_unusable_before_close_and_usable_after(self) -> None:
+    def test_black_friday_half_day_is_used_only_after_early_close(self) -> None:
         dates = session_dates_ending(date(2026, 11, 27))
+        closes: list[object] = [100.0] * (len(dates) - 1) + [125.0]
         before = assess_daily_ohlc(
-            full_frame(dates),
+            full_frame(dates, closes),
             as_of=datetime(2026, 11, 27, 17, 30, tzinfo=timezone.utc),
         )
         after = assess_daily_ohlc(
-            full_frame(dates),
+            full_frame(dates, closes),
             as_of=datetime(2026, 11, 27, 18, 5, tzinfo=timezone.utc),
         )
 
-        self.assertFalse(before.price_usable)
+        self.assertTrue(before.price_usable)
+        self.assertFalse(before.history_usable)
+        self.assertEqual(date(2026, 11, 25), before.close_at.date())
+        self.assertEqual(100.0, before.close)
         self.assertTrue(after.price_usable)
         self.assertTrue(after.history_usable)
+        self.assertEqual(125.0, after.close)
         self.assertEqual(
             datetime(2026, 11, 27, 18, tzinfo=timezone.utc),
             after.close_at,
