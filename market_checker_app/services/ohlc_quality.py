@@ -81,13 +81,14 @@ def assess_daily_ohlc(
 ) -> OhlcQuality:
     """Validate daily OHLC against actual closed US equity sessions.
 
-    Daily provider timestamps are treated as exchange-session labels rather than
-    as proof that a session has already closed. A current-day row before the
-    NYSE close, duplicate session rows, non-finite prices, or a missing latest
-    expected closed session cannot create a ready signal.
+    Daily provider timestamps are exchange-session labels, not evidence that a
+    session has already closed. Unclosed/future rows are ignored, and only the
+    latest actually closed session may supply the current price. Duplicate
+    sessions, non-finite prices, holidays and missing expected sessions are
+    handled explicitly.
 
     ``max_close_age`` remains in the signature for backward compatibility. The
-    authoritative freshness rule is now the expected closed exchange session,
+    authoritative freshness rule is the expected closed exchange session,
     which is stricter and holiday/DST aware.
     """
     del max_close_age
@@ -122,13 +123,19 @@ def assess_daily_ohlc(
         if session is None:
             non_session_count += 1
             continue
+        if session.close_at > now:
+            unclosed_session_dates.add(session_date.isoformat())
+            continue
         valid_positions.append(position)
         valid_session_dates.append(session_date)
         session_closes.append(session.close_at)
-        if session.close_at > now:
-            unclosed_session_dates.add(session_date.isoformat())
 
     if not valid_positions:
+        if unclosed_session_dates:
+            return _empty_quality(
+                "OHLC neobsahuje žádnou plně uzavřenou použitelnou seanci; "
+                "neuzavřené/budoucí řádky byly odmítnuty."
+            )
         return _empty_quality(
             "OHLC neobsahuje kladnou konečnou cenu na platné americké obchodní seanci."
         )
@@ -167,6 +174,12 @@ def assess_daily_ohlc(
         warnings.append(
             f"OHLC obsahuje {non_session_count} řádků mimo obchodní kalendář; byly vynechány."
         )
+    if unclosed_session_dates:
+        warnings.append(
+            "OHLC obsahuje dosud neuzavřenou nebo budoucí seanci; byla ignorována: "
+            + ", ".join(sorted(unclosed_session_dates))
+            + "."
+        )
     if duplicate_count:
         warnings.append(
             f"OHLC obsahuje {duplicate_count} duplicitních seancí; počítá se pouze poslední řádek každé seance."
@@ -178,16 +191,8 @@ def assess_daily_ohlc(
     latest_session_date = latest_at.date()
     latest_close = float(normalized["Close"].iloc[-1])
 
-    price_usable = True
-    if unclosed_session_dates:
-        price_usable = False
-        warnings.append(
-            "OHLC obsahuje dosud neuzavřenou nebo budoucí seanci: "
-            + ", ".join(sorted(unclosed_session_dates))
-            + "."
-        )
-    if latest_session_date != expected.session_date:
-        price_usable = False
+    price_usable = latest_session_date == expected.session_date
+    if not price_usable:
         warnings.append(
             "Chybí poslední očekávaná uzavřená US seance "
             f"{expected.session_date.isoformat()}; poslední použitelná seance je "
