@@ -11,10 +11,16 @@ from typing import Callable
 
 import pandas as pd
 
-from market_checker_app.collectors.yahoo_client import YahooClient
 from market_checker_app.prediction_contract import PRIMARY_TARGET_VERSION
 from market_checker_app.services.prediction_label_service import PredictionLabelService
+from market_checker_app.services.price_methodology import (
+    PRICE_METHOD_VERSION,
+    YAHOO_ADJUSTMENT,
+)
 from market_checker_app.services.us_equity_calendar import target_us_equity_window
+from market_checker_app.services.yahoo_corporate_action_history import (
+    YahooCorporateActionHistoryClient,
+)
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.storage.yahoo_ohlc_cache_store import YahooOhlcCacheStore
 
@@ -130,11 +136,17 @@ def resolve_prediction_labels(
         "range_incomplete_after_refresh": 0,
         "downloaded_symbols": 0,
         "download_failures": 0,
+        "price_method_version": PRICE_METHOD_VERSION,
+        "price_adjustment": YAHOO_ADJUSTMENT,
     }
 
     if price_loader is None:
-        cache = YahooOhlcCacheStore(store.db_path)
-        client = YahooClient()
+        cache = YahooOhlcCacheStore(
+            store.db_path,
+            adjustment=YAHOO_ADJUSTMENT,
+            methodology_version=PRICE_METHOD_VERSION,
+        )
+        client = YahooCorporateActionHistoryClient()
         frames: dict[str, pd.DataFrame] = {}
         missing: list[str] = []
         for ticker in symbols:
@@ -159,14 +171,24 @@ def resolve_prediction_labels(
             missing.append(ticker)
 
         if missing:
-            fetched, warnings = client.fetch_ohlc_batch(
+            # ``max`` is intentional: a pending snapshot may be older than one
+            # year. The versioned cache keeps the complete frame and stale but
+            # range-complete entries remain reusable, so later runs do not
+            # repeatedly download the full history.
+            fetched, warnings = client.fetch_batch(
                 missing,
-                period="1y",
+                period="max",
                 interval="1d",
                 batch_size=50,
             )
             for ticker, frame in fetched.items():
-                cache.upsert_success(ticker, frame, fetched_at=clock)
+                try:
+                    cache.upsert_success(ticker, frame, fetched_at=clock)
+                except ValueError as exc:
+                    warning = f"Corporate-action cache odmítla {ticker}: {exc}"
+                    warnings[ticker] = warning
+                    cache.note_failure(ticker, warning, fetched_at=clock)
+                    continue
                 refreshed = cache.get(
                     ticker,
                     now=clock,
@@ -179,7 +201,8 @@ def resolve_prediction_labels(
                         report["range_incomplete_after_refresh"]
                     ) + 1
             for ticker, warning in warnings.items():
-                cache.note_failure(ticker, warning, fetched_at=clock)
+                if ticker not in fetched:
+                    cache.note_failure(ticker, warning, fetched_at=clock)
             report["downloaded_symbols"] = len(fetched)
             report["download_failures"] = len(warnings)
 
