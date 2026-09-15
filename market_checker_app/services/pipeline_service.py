@@ -1191,6 +1191,9 @@ class PipelineService:
         warnings = list(dict.fromkeys(warnings))
         errors = list(dict.fromkeys(errors))
         signals_df = RankingService.apply_ranking(pd.DataFrame(rows))
+        ranking_eligible_count = int(
+            signals_df["ranking_eligible"].fillna(False).sum()
+        ) if "ranking_eligible" in signals_df.columns else 0
         if not signals_df.empty and signals_df["market_cap_usd"].notna().any():
             signals_df = signals_df.sort_values("market_cap_usd", ascending=False, na_position="last")
             signals_df["rank_market_cap"] = range(1, len(signals_df) + 1)
@@ -1565,7 +1568,9 @@ class PipelineService:
                 for ticker, warning in sorted(bulk_yahoo_ohlc_retry_deferred.items())
             ],
             "source_health": source_health,
-            "ranking_usable": dated_current_price_count > 0,
+            "ranking_usable": ranking_eligible_count > 0,
+            "ranking_eligible_count": ranking_eligible_count,
+            "ranking_ineligible_count": int(len(signals_df) - ranking_eligible_count),
             "european_filings_status": european_filings_status,
             "european_filing_document_count": european_filing_document_count,
             "source_resolution_status": source_resolution_status,

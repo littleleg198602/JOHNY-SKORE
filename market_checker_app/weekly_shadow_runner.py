@@ -475,7 +475,14 @@ def _source_health_summary(
     yahoo_bulk_failures = int(
         result.get("bulk_yahoo_ohlc_failure_count") or 0
     )
+    pipeline_health = result.get("source_health")
+    current_prices = (
+        pipeline_health.get("current_prices", {})
+        if isinstance(pipeline_health, dict)
+        else {}
+    )
     return {
+        "current_prices": _json_safe(current_prices),
         "price_history": {
             "yahoo_bulk_attempted": yahoo_bulk_attempted,
             "yahoo_bulk_loaded": int(
@@ -590,6 +597,17 @@ def _source_health_summary(
 
 _SIGNAL_DETAIL_COLUMNS = (
     "ticker",
+    "current_price",
+    "current_price_source",
+    "ohlc_close_at",
+    "ohlc_observation_count",
+    "ohlc_history_usable",
+    "tech_source_used",
+    "ranking_eligible",
+    "ranking_status",
+    "ranking_reason",
+    "rank_in_watchlist",
+    "percentile_in_watchlist",
     "raw_total_score",
     "final_total_score",
     "final_confidence",
@@ -645,12 +663,22 @@ def _universe_coverage(
         if str(row.get("ticker") or "").strip()
     }
     missing = [ticker for ticker in requested if ticker not in reported]
+    eligible = [
+        row
+        for row in ticker_results
+        if bool(row.get("ranking_eligible"))
+    ]
     return {
         "requested": len(requested),
         "reported": len(reported),
         "missing": len(missing),
         "missing_tickers": missing,
         "coverage_pct": round(100.0 * len(reported) / len(requested), 2) if requested else 0.0,
+        "ranking_eligible": len(eligible),
+        "ranking_ineligible": len(reported) - len(eligible),
+        "ranking_usable_coverage_pct": (
+            round(100.0 * len(eligible) / len(requested), 2) if requested else 0.0
+        ),
     }
 
 

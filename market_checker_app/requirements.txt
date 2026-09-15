@@ -6,3 +6,4 @@ feedparser>=6.0,<7
 pypdf>=6,<7
 altair>=5,<7
 MetaTrader5>=5.0.45; platform_system == "Windows"
+pandas_market_calendars>=5.4,<6

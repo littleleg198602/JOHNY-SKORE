@@ -5,3 +5,4 @@ yfinance==1.6.0
 feedparser==6.0.14
 pypdf==6.16.1
 altair==6.2.2
+pandas_market_calendars==5.4.0
