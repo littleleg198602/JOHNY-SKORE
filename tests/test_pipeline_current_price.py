@@ -1,15 +1,24 @@
 from __future__ import annotations
 
 import unittest
+from datetime import datetime, timezone
 
 import pandas as pd
+
+from market_checker_app.services.us_equity_calendar_service import (\n    last_completed_session,\n    sessions_between,\n)
 
 from market_checker_app.services.pipeline_service import PipelineService
 
 
+def _completed_sessions(count: int) -> pd.DatetimeIndex:
+    latest = last_completed_session(datetime.now(timezone.utc))
+    assert latest is not None
+    return pd.DatetimeIndex(sessions_between(latest - pd.Timedelta(days=count * 4), latest)[-count:])
+
+
 class CurrentPriceSelectionTests(unittest.TestCase):
     def test_fresh_yahoo_ohlc_close_beats_stale_metadata_quote(self) -> None:
-        index = pd.date_range(end=pd.Timestamp.now(tz="UTC").normalize(), periods=2, tz="UTC")
+        index = _completed_sessions(2)
         price, source = PipelineService._select_current_price(
             ohlc=pd.DataFrame({"Close": [100.0, 101.25]}, index=index),
             tech_source="yfinance_ohlc_cache",
@@ -20,7 +29,7 @@ class CurrentPriceSelectionTests(unittest.TestCase):
         self.assertEqual("yahoo_ohlc_close", source)
 
     def test_mt5_close_beats_metadata_quote(self) -> None:
-        index = pd.date_range(end=pd.Timestamp.now(tz="UTC").normalize(), periods=1, tz="UTC")
+        index = _completed_sessions(1)
         price, source = PipelineService._select_current_price(
             ohlc=pd.DataFrame({"Close": [100.0]}, index=index),
             tech_source="mt5",
