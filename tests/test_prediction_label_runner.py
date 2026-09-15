@@ -13,10 +13,10 @@ from market_checker_app.prediction_label_runner import resolve_prediction_labels
 from market_checker_app.storage.sqlite_store import SQLiteStore
 
 
-def _history(values: list[float]) -> pd.DataFrame:
+def _history(values: list[float], dates: list[str]) -> pd.DataFrame:
     return pd.DataFrame(
         {"Close": values},
-        index=pd.date_range("2026-01-02", periods=len(values), freq="B", tz="UTC"),
+        index=pd.to_datetime(dates, utc=True),
     )
 
 
@@ -24,7 +24,7 @@ class PredictionLabelRunnerTests(unittest.TestCase):
     def test_resolves_bounded_batch_without_running_market_pipeline(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = SQLiteStore(Path(tmp) / "history.db")
-            observed_at = datetime(2026, 1, 2, 16, tzinfo=timezone.utc)
+            observed_at = datetime(2026, 1, 2, 22, tzinfo=timezone.utc)
             store.ensure_schema()
             run_id = store.insert_run(
                 RunMetadata(
@@ -50,15 +50,23 @@ class PredictionLabelRunnerTests(unittest.TestCase):
                     )
                 ]
             )
+            dates = [
+                "2026-01-02",
+                "2026-01-05",
+                "2026-01-06",
+                "2026-01-07",
+                "2026-01-08",
+                "2026-01-09",
+            ]
             histories = {
-                "AAPL": _history([100, 101, 102, 103, 104, 110]),
-                "SPY": _history([100, 100, 101, 102, 103, 105]),
+                "AAPL": _history([100, 101, 102, 103, 104, 110], dates),
+                "SPY": _history([100, 100, 101, 102, 103, 105], dates),
             }
 
             report = resolve_prediction_labels(
                 store=store,
                 limit=1,
-                as_of=datetime(2026, 1, 12, tzinfo=timezone.utc),
+                as_of=datetime(2026, 1, 12, 22, tzinfo=timezone.utc),
                 price_loader=lambda ticker: histories[ticker],
             )
 
