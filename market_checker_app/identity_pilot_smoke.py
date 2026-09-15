@@ -20,6 +20,22 @@ def _normalized_name(value: object) -> str:
     return "".join(character for character in ascii_value.upper() if character.isalnum())
 
 
+def _legal_name_match(expected: object, observed: object, *, identifiers_confirmed: bool) -> str:
+    """Classify names without ever using names to resolve an identity."""
+    expected_name = _normalized_name(expected)
+    observed_name = _normalized_name(observed)
+    if expected_name == observed_name:
+        return "EXACT"
+    cosmetic_suffixes = ("INCORPORATED", "INC", "CORPORATION", "CORP", "LIMITED", "LTD", "PLC", "LLC", "LP", "COMPANY", "CO", "DE")
+    def strip_suffixes(name: str) -> str:
+        for suffix in cosmetic_suffixes:
+            name = name.replace(suffix, "")
+        return name
+    if identifiers_confirmed and strip_suffixes(expected_name) == strip_suffixes(observed_name):
+        return "COSMETIC_IDENTIFIER_CONFIRMED"
+    return "MISMATCH"
+
+
 def run_identity_pilot(
     manifest_path: Path,
     output_path: Path,
@@ -58,16 +74,17 @@ def run_identity_pilot(
                 raise RuntimeError("GLEIF returned a different LEI")
             if expected_isin and expected_isin not in identity.isins:
                 raise RuntimeError("GLEIF mapping does not contain the requested ISIN")
+            name_match_mode = _legal_name_match(
+                record.get("name"), identity.legal_name, identifiers_confirmed=True
+            )
             checks.append(
                 {
                     "ticker": ticker,
                     "status": "PASS",
                     "lei": identity.lei,
                     "legal_name": identity.legal_name,
-                    "legal_name_match": (
-                        _normalized_name(identity.legal_name)
-                        == _normalized_name(record.get("name"))
-                    ),
+                    "legal_name_match": name_match_mode != "MISMATCH",
+                    "legal_name_match_mode": name_match_mode,
                     "source_url": identity.source_url,
                     "name_matching_used": False,
                 }
