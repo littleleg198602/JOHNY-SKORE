@@ -428,6 +428,27 @@ class SQLiteStore:
             self._ensure_signal_history_columns(conn)
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS run_ticker_traceability (
+                    run_id INTEGER NOT NULL,
+                    ticker TEXT NOT NULL,
+                    request_status TEXT NOT NULL,
+                    attempt_status TEXT NOT NULL,
+                    outcome_status TEXT NOT NULL,
+                    outcome_reason TEXT,
+                    ranking_eligible INTEGER NOT NULL DEFAULT 0,
+                    ranking_status TEXT,
+                    ranking_reason TEXT,
+                    current_price_status TEXT,
+                    current_price_reason TEXT,
+                    technical_status TEXT,
+                    technical_reason TEXT,
+                    PRIMARY KEY(run_id, ticker),
+                    FOREIGN KEY(run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS orchestration_runs (
                     orchestration_id TEXT PRIMARY KEY,
                     pipeline_run_id INTEGER,
@@ -1314,11 +1335,42 @@ class SQLiteStore:
         with self._connect() as conn:
             conn.executemany(self.SIGNAL_HISTORY_INSERT, payload)
 
-    def save_run(self, metadata: RunMetadata, signals: pd.DataFrame, updated_at: str) -> int:
-        """Persist a run and all signals atomically.
+    @staticmethod
+    def _build_ticker_traceability_payload(
+        run_id: int,
+        ticker_traceability: list[dict[str, object]] | None,
+    ) -> list[tuple[object, ...]]:
+        return [
+            (
+                run_id,
+                str(record["ticker"]),
+                str(record["request_status"]),
+                str(record["attempt_status"]),
+                str(record["outcome_status"]),
+                record.get("outcome_reason"),
+                int(bool(record.get("ranking_eligible"))),
+                record.get("ranking_status"),
+                record.get("ranking_reason"),
+                record.get("current_price_status"),
+                record.get("current_price_reason"),
+                record.get("technical_status"),
+                record.get("technical_reason"),
+            )
+            for record in (ticker_traceability or [])
+        ]
 
-        If signal insertion fails, the run row is rolled back as well, avoiding
-        orphan runs that make History and Delta appear empty.
+    def save_run(
+        self,
+        metadata: RunMetadata,
+        signals: pd.DataFrame,
+        updated_at: str,
+        *,
+        ticker_traceability: list[dict[str, object]] | None = None,
+    ) -> int:
+        """Persist a run, signals and ticker accounting atomically.
+
+        If either detailed insert fails, the run row is rolled back as well,
+        preventing an apparently complete run with missing ticker evidence.
         """
         self.ensure_schema()
         with self._connect() as conn:
@@ -1338,6 +1390,21 @@ class SQLiteStore:
             payload = self._build_signal_payload(run_id, signals, updated_at)
             if payload:
                 conn.executemany(self.SIGNAL_HISTORY_INSERT, payload)
+            traceability_payload = self._build_ticker_traceability_payload(
+                run_id, ticker_traceability
+            )
+            if traceability_payload:
+                conn.executemany(
+                    """
+                    INSERT INTO run_ticker_traceability(
+                        run_id, ticker, request_status, attempt_status,
+                        outcome_status, outcome_reason, ranking_eligible,
+                        ranking_status, ranking_reason, current_price_status,
+                        current_price_reason, technical_status, technical_reason
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    traceability_payload,
+                )
             return run_id
 
     def save_orchestration_report(
@@ -2933,6 +3000,19 @@ class SQLiteStore:
     def read_signals_for_run(self, run_id: int) -> pd.DataFrame:
         with self._connect() as conn:
             return pd.read_sql_query("SELECT * FROM signal_history WHERE run_id = ?", conn, params=(run_id,))
+
+    def read_ticker_traceability_for_run(self, run_id: int) -> pd.DataFrame:
+        """Read the complete requested-ticker accounting for one run."""
+        with self._connect() as conn:
+            return pd.read_sql_query(
+                """
+                SELECT * FROM run_ticker_traceability
+                WHERE run_id = ?
+                ORDER BY ticker ASC
+                """,
+                conn,
+                params=(run_id,),
+            )
 
     def read_global_history(self) -> pd.DataFrame:
         self.ensure_schema()

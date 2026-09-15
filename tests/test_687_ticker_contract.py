@@ -21,6 +21,7 @@ from market_checker_app.services.us_equity_calendar import (
     previous_us_equity_sessions,
 )
 from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
+from market_checker_app.storage.sqlite_store import SQLiteStore
 
 
 def _history() -> pd.DataFrame:
@@ -94,12 +95,13 @@ class FullUniverseContractTests(unittest.TestCase):
             config = AppConfig(
                 output_dir=Path(tmp),
                 sqlite_path=db_path,
-                save_history=False,
+                save_history=True,
                 export_excel=False,
                 large_universe_threshold=100,
                 max_tickers_per_run=1000,
             )
             pipeline = PipelineService(config)
+            store = SQLiteStore(db_path)
             mt5 = _BatchMT5()
             pipeline.mt5_client = mt5
             pipeline.yahoo_client = _NoLiveYahoo()
@@ -109,7 +111,7 @@ class FullUniverseContractTests(unittest.TestCase):
             result = pipeline.run(
                 tickers,
                 [],
-                None,
+                store,
                 rss_enabled=False,
                 mt5_enabled=True,
                 progress_callback=lambda state: progress_samples.append(
@@ -133,6 +135,19 @@ class FullUniverseContractTests(unittest.TestCase):
             self.assertEqual(1, mt5.calls)
             self.assertEqual([], result["errors"])
             self.assertEqual(687, len(result["point_in_time_inputs"]))
+            self.assertEqual(687, len(result["ticker_traceability"]))
+            self.assertTrue(
+                all(
+                    record["attempt_status"] == "ATTEMPTED"
+                    and record["outcome_status"] == "USABLE"
+                    for record in result["ticker_traceability"]
+                )
+            )
+            self.assertIsNotNone(result["run_id"])
+            self.assertEqual(
+                687,
+                len(store.read_ticker_traceability_for_run(int(result["run_id"]))),
+            )
             first_features = result["point_in_time_inputs"][0]["feature_payload"]
             self.assertIn("market_factors", first_features)
             self.assertTrue(

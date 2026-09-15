@@ -55,6 +55,10 @@ from market_checker_app.prediction_contract import build_point_in_time_snapshot
 from market_checker_app.services.prediction_label_service import (
     PredictionLabelService,
 )
+from market_checker_app.services.ticker_traceability_service import (
+    build_ticker_traceability,
+    summarize_ticker_traceability,
+)
 
 
 DEFAULT_RSS_SOURCE = (
@@ -901,7 +905,15 @@ def run_weekly_shadow(
             "Label resolver narazil na nedostupný zdroj; dotčené snapshoty zůstaly PENDING."
         )
     ticker_results = _signal_detail_records(result)
+    raw_traceability = result.get("ticker_traceability")
+    ticker_traceability = (
+        raw_traceability
+        if isinstance(raw_traceability, list)
+        else build_ticker_traceability(tickers, result.get("signals"))
+    )
+    traceability_summary = summarize_ticker_traceability(ticker_traceability)
     universe_coverage = _universe_coverage(tickers, ticker_results)
+    universe_coverage.update(traceability_summary)
     summary: dict[str, object] = {
         "schema_version": 2,
         "finished_at": datetime.now(timezone.utc).isoformat(),
@@ -909,6 +921,9 @@ def run_weekly_shadow(
         "ticker_count": len(tickers),
         "requested_tickers": list(tickers),
         "universe_coverage": universe_coverage,
+        "ticker_traceability_schema_version": 1,
+        "ticker_traceability_summary": traceability_summary,
+        "ticker_traceability": _json_safe(ticker_traceability),
         "analysis_only": True,
         "automated_trading": {
             "enabled": False,

@@ -198,6 +198,32 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
         if isinstance(missing, list) and missing:
             with st.expander(f"Chybějící tickery ({len(missing)})", expanded=False):
                 st.write(", ".join(str(ticker) for ticker in missing))
+    traceability = result.get("ticker_traceability_summary")
+    if isinstance(traceability, dict):
+        st.markdown("### Dohledatelnost tickerů")
+        trace_columns = st.columns(5)
+        trace_columns[0].metric("Pokuseno", traceability.get("attempted", 0))
+        trace_columns[1].metric("Použitelné", traceability.get("usable", 0))
+        trace_columns[2].metric("Částečné", traceability.get("partial", 0))
+        trace_columns[3].metric("Selhalo", traceability.get("failed", 0))
+        trace_columns[4].metric("Nepokuseno", traceability.get("not_attempted", 0))
+        trace_records = result.get("ticker_traceability")
+        if isinstance(trace_records, list):
+            non_usable = [
+                record for record in trace_records
+                if isinstance(record, dict)
+                and record.get("outcome_status") != "USABLE"
+            ]
+            if non_usable:
+                with st.expander(
+                    f"Tickery vyžadující kontrolu ({len(non_usable)})",
+                    expanded=False,
+                ):
+                    st.dataframe(
+                        pd.DataFrame(non_usable),
+                        width="stretch",
+                        hide_index=True,
+                    )
     if result.get("pipeline_status") == "SUCCESS":
         st.success(
             "Poslední týdenní běh byl načten. Výsledky níže jsou pouze analytické "
