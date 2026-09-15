@@ -76,6 +76,9 @@ def assess_daily_ohlc(
             continue
         rows.append({"session": session, "close": close})
 
+    if rows:
+        valid_sessions = set(sessions_between(min(row["session"] for row in rows), max(row["session"] for row in rows)))
+        rows = [row for row in rows if row["session"] in valid_sessions]
     if not rows:
         return OhlcQuality(empty, None, None, 0, False, False, ("OHLC Close neobsahuje kladnou konečnou cenu na platné seanci.",))
 
