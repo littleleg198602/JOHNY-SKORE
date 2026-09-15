@@ -144,7 +144,10 @@ def assess_daily_ohlc(
     missing_lookbacks = tuple(
         lookback for lookback in TECHNICAL_LOOKBACKS if lookback not in available_lookbacks
     )
-    history_usable = required in available_lookbacks
+    # ``min_history_rows`` is also a public caller contract.  It may be a
+    # one-off threshold (for example 30), while ``available_lookbacks`` is
+    # only the fixed reporting set exported to the UI.
+    history_usable = has_complete_lookback(required)
     if price_usable and not history_usable:
         warnings.append(f"OHLC historie nemá {required} souvislých platných NYSE seancí pro technické indikátory.")
 
