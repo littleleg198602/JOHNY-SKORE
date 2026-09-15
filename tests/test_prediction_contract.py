@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from pathlib import Path
-import tempfile
 import unittest
 
 from market_checker_app.prediction_contract import (
@@ -16,14 +14,27 @@ from market_checker_app.prediction_contract import (
     make_snapshot_id,
     resolve_excess_return_label,
 )
+from market_checker_app.services.price_methodology import (
+    PRICE_BASIS,
+    PRICE_METHOD_VERSION,
+)
 
 
 class PredictionContractTests(unittest.TestCase):
-    def test_primary_target_is_five_day_excess_return(self) -> None:
+    def test_primary_target_is_five_day_split_adjusted_price_excess_return(self) -> None:
         self.assertEqual("5d_excess_return_vs_benchmark", PRIMARY_PREDICTION_TARGET.name)
-        self.assertEqual("excess_return_5d_v1", PRIMARY_PREDICTION_TARGET.version)
+        self.assertEqual(
+            "excess_return_5d_nyse_split_price_v3",
+            PRIMARY_PREDICTION_TARGET.version,
+        )
         self.assertEqual(5, PRIMARY_PREDICTION_TARGET.horizon_trading_days)
         self.assertEqual("decimal", PRIMARY_PREDICTION_TARGET.return_unit)
+        self.assertEqual(PRICE_BASIS, PRIMARY_PREDICTION_TARGET.price_basis)
+        self.assertEqual(
+            PRICE_METHOD_VERSION,
+            PRIMARY_PREDICTION_TARGET.price_method_version,
+        )
+        self.assertFalse(PRIMARY_PREDICTION_TARGET.dividends_included)
 
     def test_forward_return_requires_complete_future_horizon(self) -> None:
         self.assertIsNone(compute_forward_return([100, 101, 102, 103, 104]))
@@ -40,7 +51,7 @@ class PredictionContractTests(unittest.TestCase):
         self.assertEqual(("XLK", "sector_etf"), benchmark_for_sector("Technology"))
         self.assertEqual(("SPY", "default_fallback"), benchmark_for_sector(None))
 
-    def test_snapshot_is_pending_and_contains_no_future_label(self) -> None:
+    def test_snapshot_is_pending_and_embeds_target_price_methodology(self) -> None:
         observed_at = datetime(2026, 9, 1, 12, 0, tzinfo=timezone.utc)
         snapshot = build_point_in_time_snapshot(
             run_id=7,
@@ -51,13 +62,25 @@ class PredictionContractTests(unittest.TestCase):
             provenance={"price_source": "test"},
             benchmark_ticker="SPY",
         )
-        self.assertEqual(make_snapshot_id(7, "AAPL", "excess_return_5d_v1"), snapshot["snapshot_id"])
+        self.assertEqual(
+            make_snapshot_id(7, "AAPL", "excess_return_5d_nyse_split_price_v3"),
+            snapshot["snapshot_id"],
+        )
         self.assertEqual("AAPL", snapshot["ticker"])
         self.assertEqual("PENDING", snapshot["label_status"])
         self.assertIsNone(snapshot["target_value"])
         self.assertEqual(BASELINE_MODEL_ID, snapshot["baseline_model_id"])
         self.assertEqual(BASELINE_MODEL_VERSION, snapshot["baseline_model_version"])
         self.assertNotIn("future_prices", snapshot["feature_payload"])
+        self.assertEqual(
+            PRICE_BASIS,
+            snapshot["provenance"]["target_price_basis"],
+        )
+        self.assertEqual(
+            PRICE_METHOD_VERSION,
+            snapshot["provenance"]["target_price_method_version"],
+        )
+        self.assertFalse(snapshot["provenance"]["target_dividends_included"])
         self.assertTrue(snapshot["snapshot_hash"])
 
         labeled = resolve_excess_return_label(

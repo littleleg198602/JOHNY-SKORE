@@ -1,15 +1,19 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Mapping
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 import json
 import math
-from typing import Any
 
 import pandas as pd
 
 from market_checker_app.prediction_contract import (
+    PRIMARY_TARGET_VERSION,
     resolve_excess_return_label,
+)
+from market_checker_app.services.us_equity_calendar import (
+    target_us_equity_window,
+    us_equity_session,
 )
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.services.us_equity_calendar_service import expected_sessions, session_label
@@ -24,11 +28,10 @@ PriceHistoryLoader = Callable[
 class PredictionLabelService:
     """Resolve mature prediction snapshots from later observed closes.
 
-    The loader is injected so production can use Yahoo (or a future licensed
-    provider) while tests remain fully deterministic. A snapshot stays PENDING
-    when the five-trading-day horizon is not yet observable or a source is
-    unavailable. Only a mature, complete window can become RESOLVED; a mature
-    window with loaded but unusable prices becomes UNAVAILABLE.
+    Target windows are defined by the exchange calendar, not by "the next N
+    rows" returned by a provider. Missing expected sessions therefore cannot
+    silently shift a five-session horizon forward. A label is also forbidden
+    from using a close that was not yet available at the evaluation clock.
     """
 
     def __init__(
@@ -62,48 +65,61 @@ class PredictionLabelService:
         return parsed.astimezone(timezone.utc)
 
     @staticmethod
+    def _session_date(value: object) -> date | None:
+        try:
+            parsed = pd.Timestamp(value)
+        except (TypeError, ValueError):
+            return None
+        if pd.isna(parsed):
+            return None
+        return parsed.date()
+
+    @classmethod
+    def _price_lookup(
+        cls,
+        history: pd.DataFrame | None,
+    ) -> dict[date, float]:
+        if history is None or history.empty or "Close" not in history.columns:
+            return {}
+        closes = pd.to_numeric(history["Close"], errors="coerce")
+        lookup: dict[date, float] = {}
+        for raw_timestamp, raw_close in zip(history.index, closes):
+            session_date = cls._session_date(raw_timestamp)
+            if session_date is None or us_equity_session(session_date) is None:
+                continue
+            try:
+                close = float(raw_close)
+            except (TypeError, ValueError):
+                continue
+            if not math.isfinite(close) or close <= 0.0:
+                continue
+            # Provider duplicates are deterministic: the final row for a
+            # session wins, while the expected date itself is never skipped.
+            lookup[session_date] = close
+        return lookup
+
+    @classmethod
     def _price_window(
+        cls,
         history: pd.DataFrame | None,
         *,
         as_of: datetime,
         horizon: int,
+        evaluation_as_of: datetime | None = None,
     ) -> tuple[list[float], datetime] | None:
-        if (
-            history is None
-            or history.empty
-            or "Close" not in history.columns
-            or horizon < 1
-        ):
+        if horizon < 1:
             return None
-        try:
-            timestamps = pd.to_datetime(history.index, utc=True, errors="coerce")
-            closes = pd.to_numeric(history["Close"], errors="coerce")
-        except (TypeError, ValueError):
+        base, future = target_us_equity_window(as_of, horizon)
+        endpoint = future[-1]
+        if evaluation_as_of is not None:
+            clock = cls._as_of(evaluation_as_of)
+            if clock is None or endpoint.close_at > clock:
+                return None
+        lookup = cls._price_lookup(history)
+        required = [base.session_date, *(session.session_date for session in future)]
+        if any(day not in lookup for day in required):
             return None
-        frame = pd.DataFrame({"timestamp": timestamps, "close": closes})
-        frame = frame.dropna(subset=["timestamp", "close"])
-        frame = frame[
-            frame["close"].map(
-                lambda value: math.isfinite(float(value)) and float(value) > 0.0
-            )
-        ]
-        if frame.empty:
-            return None
-        frame = (
-            frame.sort_values("timestamp")
-            .drop_duplicates("timestamp", keep="last")
-            .reset_index(drop=True)
-        )
-        cutoff = pd.Timestamp(as_of)
-        base = frame[frame["timestamp"] <= cutoff]
-        future = frame[frame["timestamp"] > cutoff].head(horizon)
-        if base.empty or len(future) < horizon:
-            return None
-        values = [float(base.iloc[-1]["close"])] + [
-            float(value) for value in future["close"].tolist()
-        ]
-        endpoint = future.iloc[-1]["timestamp"].to_pydatetime()
-        return values, endpoint
+        return [lookup[day] for day in required], endpoint.close_at
 
     @classmethod
     def _common_price_windows(
@@ -114,6 +130,7 @@ class PredictionLabelService:
         snapshot_as_of: datetime,
         evaluation_as_of: datetime,
         horizon: int,
+        evaluation_as_of: datetime | None = None,
     ) -> tuple[list[float], list[float], datetime] | None:
         """Return t0/t+N only for the exact completed NYSE sessions.
 
@@ -230,7 +247,22 @@ class PredictionLabelService:
             ticker = str(snapshot.get("ticker") or "").strip().upper()
             benchmark = str(snapshot.get("benchmark_ticker") or "SPY").strip().upper()
             horizon = int(snapshot.get("horizon_trading_days") or 5)
-            if snapshot_as_of is None or not ticker or not benchmark or horizon < 1:
+            target_version = str(snapshot.get("target_version") or "")
+            if (
+                snapshot_as_of is None
+                or not ticker
+                or not benchmark
+                or horizon < 1
+                or target_version != PRIMARY_TARGET_VERSION
+            ):
+                deferred += 1
+                continue
+
+            _, future_sessions = target_us_equity_window(snapshot_as_of, horizon)
+            target_due_at = future_sessions[-1].close_at
+            if clock < target_due_at:
+                # Even if a buggy/provider fixture returns future rows, replay
+                # may never consume information that was unavailable at clock.
                 deferred += 1
                 continue
 
@@ -242,14 +274,16 @@ class PredictionLabelService:
                 snapshot_as_of=snapshot_as_of,
                 evaluation_as_of=clock,
                 horizon=horizon,
+                evaluation_as_of=clock,
             )
             if common_windows is None:
-                # Do not turn a not-yet-mature or temporarily unavailable
-                # source into a false zero/negative label.
+                # After the target session has closed, allow a grace period for
+                # provider delays. Only then classify loaded-but-incomplete data
+                # as unavailable; a transport failure remains pending.
                 if (
                     asset_history is None
                     or benchmark_history is None
-                    or clock < snapshot_as_of + timedelta(days=self.maturity_grace_days)
+                    or clock < target_due_at + timedelta(days=self.maturity_grace_days)
                 ):
                     deferred += 1
                     continue
@@ -262,6 +296,9 @@ class PredictionLabelService:
                 continue
 
             asset_values, benchmark_values, target_observed_at = common_windows
+            if target_observed_at > clock:
+                deferred += 1
+                continue
             labels.append(
                 resolve_excess_return_label(
                     snapshot,

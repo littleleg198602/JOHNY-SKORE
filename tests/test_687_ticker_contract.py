@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from pathlib import Path
 import tempfile
 import time
@@ -15,6 +16,10 @@ from market_checker_app.services.us_equity_calendar_service import (
 
 from market_checker_app.config import AppConfig
 from market_checker_app.services.pipeline_service import PipelineService
+from market_checker_app.services.us_equity_calendar import (
+    latest_closed_us_equity_session,
+    previous_us_equity_sessions,
+)
 from market_checker_app.storage.yahoo_cache_store import YahooCacheStore
 
 
@@ -130,7 +135,10 @@ class FullUniverseContractTests(unittest.TestCase):
             )
             self.assertEqual((1.0, 687, "done"), progress_samples[-1])
             self.assertTrue(
-                all(left[0] <= right[0] for left, right in zip(progress_samples, progress_samples[1:]))
+                all(
+                    left[0] <= right[0]
+                    for left, right in zip(progress_samples, progress_samples[1:])
+                )
             )
             self.assertLess(elapsed, 60.0)
 

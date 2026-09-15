@@ -122,7 +122,9 @@ class ProductionShadowWorkflowTests(unittest.TestCase):
         analysis = workflow[workflow.index(analysis_marker):]
 
         self.assertIn("prediction_label_runner", labels)
-        self.assertIn("--limit 120", labels)
+        self.assertIn("--limit 1000", labels)
+        self.assertIn("--page-size 120", labels)
+        self.assertIn("--time-budget-seconds 240", labels)
         self.assertIn("prediction_label_resolution_latest.json", workflow)
         self.assertLess(
             workflow.index("Initialize or validate the persistent SQLite history"),

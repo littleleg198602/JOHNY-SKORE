@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+import math
 
 import math
 
@@ -14,8 +15,10 @@ from market_checker_app.services.us_equity_calendar_service import (
 )
 
 
-DEFAULT_MIN_HISTORY_ROWS = 60
+
+DEFAULT_MIN_HISTORY_ROWS = 66
 DEFAULT_MAX_CLOSE_AGE = timedelta(days=7)
+TECHNICAL_LOOKBACKS = (6, 10, 20, 22, 26, 50, 66, 100, 200, 252)
 
 
 @dataclass(frozen=True)
@@ -29,20 +32,48 @@ class OhlcQuality:
     price_usable: bool
     history_usable: bool
     warnings: tuple[str, ...]
+    available_lookbacks: tuple[int, ...] = ()
+    missing_lookbacks: tuple[int, ...] = ()
 
 
-def _as_utc(value: object) -> datetime | None:
+def _as_utc(value: datetime) -> datetime:
+    if value.tzinfo is None or value.utcoffset() is None:
+        value = value.replace(tzinfo=timezone.utc)
+    return value.astimezone(timezone.utc)
+
+
+def _session_date(value: object):
     try:
         parsed = pd.Timestamp(value)
     except (TypeError, ValueError):
         return None
     if pd.isna(parsed):
         return None
-    if parsed.tzinfo is None:
-        parsed = parsed.tz_localize("UTC")
-    else:
-        parsed = parsed.tz_convert("UTC")
-    return parsed.to_pydatetime()
+    return parsed.date()
+
+
+def _finite_positive(value: object) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    if not math.isfinite(number) or number <= 0.0:
+        return None
+    return number
+
+
+def _empty_quality(message: str) -> OhlcQuality:
+    return OhlcQuality(
+        pd.DataFrame(),
+        None,
+        None,
+        0,
+        False,
+        False,
+        (message,),
+        (),
+        TECHNICAL_LOOKBACKS,
+    )
 
 
 def assess_daily_ohlc(
@@ -61,7 +92,7 @@ def assess_daily_ohlc(
     del max_close_age  # Session calendar is stricter and handles holidays.
     empty = pd.DataFrame()
     if not isinstance(frame, pd.DataFrame) or frame.empty:
-        return OhlcQuality(empty, None, None, 0, False, False, ("OHLC data chybí nebo jsou prázdná.",))
+        return _empty_quality("OHLC data chybí nebo jsou prázdná.")
     if "Close" not in frame.columns:
         return OhlcQuality(empty, None, None, 0, False, False, ("OHLC data nemají sloupec Close.",))
 
@@ -116,5 +147,7 @@ def assess_daily_ohlc(
         price_usable=price_usable,
         history_usable=history_usable,
         warnings=tuple(warnings),
+        available_lookbacks=available_lookbacks,
+        missing_lookbacks=missing_lookbacks,
     )
 

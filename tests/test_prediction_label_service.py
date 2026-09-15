@@ -45,7 +45,7 @@ class PredictionLabelServiceTests(unittest.TestCase):
         self.assertEqual(1, store.save_prediction_snapshots([snapshot]))
         return run_id
 
-    def test_mature_window_is_resolved_and_replay_is_idempotent(self) -> None:
+    def test_mature_exact_session_window_is_resolved_and_replay_is_idempotent(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = SQLiteStore(Path(tmp) / "history.db")
             self._snapshot(store)
@@ -63,7 +63,7 @@ class PredictionLabelServiceTests(unittest.TestCase):
             second = service.resolve_pending_snapshots(store=store, price_loader=lambda ticker: histories[ticker], as_of=EVALUATION_AT)
             self.assertEqual(0, second["pending_before"])
 
-    def test_incomplete_horizon_remains_pending(self) -> None:
+    def test_incomplete_horizon_remains_pending_before_target_session(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = SQLiteStore(Path(tmp) / "history.db")
             self._snapshot(store)

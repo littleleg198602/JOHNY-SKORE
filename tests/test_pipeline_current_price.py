@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import unittest
 from datetime import datetime, timezone
 
@@ -11,6 +12,19 @@ from market_checker_app.services.us_equity_calendar_service import (
 )
 
 from market_checker_app.services.pipeline_service import PipelineService
+from market_checker_app.services.us_equity_calendar import (
+    latest_closed_us_equity_session,
+    previous_us_equity_sessions,
+)
+
+
+def _closed_index(count: int) -> pd.DatetimeIndex:
+    latest = latest_closed_us_equity_session(datetime.now(timezone.utc))
+    sessions = previous_us_equity_sessions(latest.session_date, count)
+    return pd.to_datetime(
+        [session.session_date.isoformat() for session in sessions],
+        utc=True,
+    )
 
 
 def _completed_sessions(count: int) -> pd.DatetimeIndex:
