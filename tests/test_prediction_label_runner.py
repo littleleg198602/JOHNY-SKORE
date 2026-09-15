@@ -24,7 +24,7 @@ class PredictionLabelRunnerTests(unittest.TestCase):
     def test_resolves_bounded_batch_without_running_market_pipeline(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             store = SQLiteStore(Path(tmp) / "history.db")
-            observed_at = datetime(2026, 1, 2, 16, tzinfo=timezone.utc)
+            observed_at = datetime(2026, 1, 2, 22, tzinfo=timezone.utc)
             store.ensure_schema()
             run_id = store.insert_run(
                 RunMetadata(
@@ -58,7 +58,7 @@ class PredictionLabelRunnerTests(unittest.TestCase):
             report = resolve_prediction_labels(
                 store=store,
                 limit=1,
-                as_of=datetime(2026, 1, 12, tzinfo=timezone.utc),
+                as_of=datetime(2026, 1, 9, 22, tzinfo=timezone.utc),
                 price_loader=lambda ticker: histories[ticker],
             )
 
