@@ -5,7 +5,10 @@ from datetime import datetime, timezone
 
 import pandas as pd
 
-from market_checker_app.services.us_equity_calendar_service import (\n    last_completed_session,\n    sessions_between,\n)
+from market_checker_app.services.us_equity_calendar_service import (
+    last_completed_session,
+    sessions_between,
+)
 
 from market_checker_app.services.pipeline_service import PipelineService
 
