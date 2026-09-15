@@ -18,7 +18,7 @@ LEGACY_BASELINE_MODEL_ID = "legacy_v2.1_heuristic"
 LEGACY_BASELINE_MODEL_VERSION = "v2.1_guarded_consensus"
 
 # This is still a heuristic analytical model, not a trained or calibrated ML
-# model.  The version is new because the scoring/data contract has changed.
+# model. The version is new because the scoring/data contract has changed.
 ACTIVE_SCORING_VERSION = "v2.2_session_aware_consensus"
 ACTIVE_MODEL_ID = "heuristic_consensus"
 ACTIVE_MODEL_VERSION = "v2.2_session_aware_consensus"
@@ -50,7 +50,7 @@ def canonical_hash(value: object) -> str:
 
 
 def config_hash(config: object | None) -> str | None:
-    """Hash the effective runtime config without exporting its raw contents."""
+    """Hash an effective runtime config without exporting its raw contents."""
 
     if config is None:
         return None
@@ -60,6 +60,21 @@ def config_hash(config: object | None) -> str | None:
         payload = dict(config)
     else:
         payload = vars(config) if hasattr(config, "__dict__") else str(config)
+    return canonical_hash(payload)
+
+
+def _committed_runtime_config_hash() -> str:
+    """Hash the versioned unattended runtime configuration as safe fallback."""
+
+    path = Path(__file__).resolve().parent / "autonomous_runtime.json"
+    try:
+        raw = path.read_text(encoding="utf-8")
+    except OSError:
+        return canonical_hash({"autonomous_runtime": "UNAVAILABLE"})
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError:
+        payload = {"raw_sha256": hashlib.sha256(raw.encode("utf-8")).hexdigest()}
     return canonical_hash(payload)
 
 
@@ -97,11 +112,18 @@ def build_release_manifest(
 
         target_version = PRIMARY_TARGET_VERSION
 
+    effective_config_hash = config_hash(config)
+    config_hash_kind = "effective_runtime"
+    if effective_config_hash is None:
+        effective_config_hash = _committed_runtime_config_hash()
+        config_hash_kind = "committed_runtime_config"
+
     manifest: dict[str, object] = {
         "schema_version": RELEASE_MANIFEST_SCHEMA_VERSION,
         "built_at": BUILD_DATE,
         "code_sha": str(code_sha or _git_sha() or "UNKNOWN").strip(),
-        "config_hash": config_hash(config),
+        "config_hash": effective_config_hash,
+        "config_hash_kind": config_hash_kind,
         "scoring_version": ACTIVE_SCORING_VERSION,
         "model_id": ACTIVE_MODEL_ID,
         "model_version": ACTIVE_MODEL_VERSION,
