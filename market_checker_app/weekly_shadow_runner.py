@@ -924,6 +924,9 @@ def run_weekly_shadow(
         "ticker_traceability_schema_version": 1,
         "ticker_traceability_summary": traceability_summary,
         "ticker_traceability": _json_safe(ticker_traceability),
+        "source_degradation": _json_safe(
+            result.get("source_degradation") or {}
+        ),
         "analysis_only": True,
         "automated_trading": {
             "enabled": False,
