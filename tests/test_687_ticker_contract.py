@@ -148,6 +148,10 @@ class FullUniverseContractTests(unittest.TestCase):
                 687,
                 len(store.read_ticker_traceability_for_run(int(result["run_id"]))),
             )
+            self.assertEqual(0, result["source_degradation"]["degradation_count"])
+            self.assertTrue(
+                store.read_source_degradations_for_run(int(result["run_id"])).empty
+            )
             first_features = result["point_in_time_inputs"][0]["feature_payload"]
             self.assertIn("market_factors", first_features)
             self.assertTrue(
