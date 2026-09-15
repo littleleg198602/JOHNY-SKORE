@@ -12,6 +12,7 @@ from market_checker_app.prediction_contract import (
     resolve_excess_return_label,
 )
 from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.services.us_equity_calendar_service import expected_sessions, session_label
 
 
 PriceHistoryLoader = Callable[
@@ -110,74 +111,47 @@ class PredictionLabelService:
         asset_history: pd.DataFrame | None,
         benchmark_history: pd.DataFrame | None,
         *,
-        as_of: datetime,
+        snapshot_as_of: datetime,
+        evaluation_as_of: datetime,
         horizon: int,
     ) -> tuple[list[float], list[float], datetime] | None:
-        """Return a target window only when both instruments share every session.
+        """Return t0/t+N only for the exact completed NYSE sessions.
 
-        Five rows in two independent series are not necessarily the same five
-        exchange sessions. Missing sessions deliberately block resolution
-        instead of being silently skipped.
+        The evaluation clock is a hard cutoff: a loader that happens to include
+        later prices must not label a snapshot early.  A holiday is allowed
+        only when it is absent from the official calendar, not merely from
+        both price series.
         """
-
-        asset_window = cls._price_window(asset_history, as_of=as_of, horizon=horizon)
-        benchmark_window = cls._price_window(
-            benchmark_history, as_of=as_of, horizon=horizon
+        sessions = expected_sessions(
+            snapshot_as_of=snapshot_as_of,
+            evaluation_as_of=evaluation_as_of,
+            horizon=horizon,
         )
-        if asset_window is None or benchmark_window is None:
+        if len(sessions) < horizon + 1:
             return None
-        asset_values, asset_endpoint = asset_window
-        benchmark_values, benchmark_endpoint = benchmark_window
-        if asset_endpoint != benchmark_endpoint:
-            return None
+        target_sessions = sessions[: horizon + 1]
 
-        def valid_dates(history: pd.DataFrame | None) -> set[pd.Timestamp]:
+        def values_for(history: pd.DataFrame | None) -> list[float] | None:
             if history is None or history.empty or "Close" not in history.columns:
-                return set()
-            frame = pd.DataFrame(
-                {
-                    "timestamp": pd.to_datetime(history.index, utc=True, errors="coerce"),
-                    "close": pd.to_numeric(history["Close"], errors="coerce"),
-                }
-            ).dropna(subset=["timestamp", "close"])
-            return {
-                timestamp
-                for timestamp, close in zip(frame["timestamp"], frame["close"])
-                if math.isfinite(float(close)) and float(close) > 0.0
-            }
+                return None
+            values: dict[pd.Timestamp, float] = {}
+            for timestamp, raw_close in history["Close"].items():
+                label = session_label(timestamp)
+                try:
+                    close = float(raw_close)
+                except (TypeError, ValueError):
+                    continue
+                if label is not None and math.isfinite(close) and close > 0.0:
+                    values[label] = close
+            if any(session not in values for session in target_sessions):
+                return None
+            return [values[session] for session in target_sessions]
 
-        asset_dates = valid_dates(asset_history)
-        benchmark_dates = valid_dates(benchmark_history)
-        cutoff = pd.Timestamp(as_of)
-        future_dates = sorted(
-            date for date in asset_dates.intersection(benchmark_dates) if date > cutoff
-        )[:horizon]
-        base_dates = sorted(
-            date for date in asset_dates.intersection(benchmark_dates) if date <= cutoff
-        )
-        if len(future_dates) != horizon or not base_dates:
+        asset_values = values_for(asset_history)
+        benchmark_values = values_for(benchmark_history)
+        if asset_values is None or benchmark_values is None:
             return None
-        if future_dates[-1].to_pydatetime() != asset_endpoint:
-            return None
-
-        def values_for(history: pd.DataFrame, dates: list[pd.Timestamp]) -> list[float]:
-            frame = pd.DataFrame(
-                {
-                    "timestamp": pd.to_datetime(history.index, utc=True, errors="coerce"),
-                    "close": pd.to_numeric(history["Close"], errors="coerce"),
-                }
-            ).dropna(subset=["timestamp", "close"])
-            lookup = {
-                timestamp: float(close)
-                for timestamp, close in zip(frame["timestamp"], frame["close"])
-            }
-            return [lookup[base_dates[-1]]] + [lookup[date] for date in dates]
-
-        return (
-            values_for(asset_history, future_dates),
-            values_for(benchmark_history, future_dates),
-            future_dates[-1].to_pydatetime(),
-        )
+        return asset_values, benchmark_values, target_sessions[-1].to_pydatetime()
 
     @staticmethod
     def _snapshot_mapping(row: Mapping[str, object]) -> dict[str, object]:
@@ -265,7 +239,8 @@ class PredictionLabelService:
             common_windows = self._common_price_windows(
                 asset_history,
                 benchmark_history,
-                as_of=snapshot_as_of,
+                snapshot_as_of=snapshot_as_of,
+                evaluation_as_of=clock,
                 horizon=horizon,
             )
             if common_windows is None:
