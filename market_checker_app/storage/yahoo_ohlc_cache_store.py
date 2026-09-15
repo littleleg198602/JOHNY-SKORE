@@ -60,10 +60,13 @@ class YahooOhlcCacheStore:
     """Versioned persistent OHLC cache with range and retry semantics.
 
     Cache identity is ``ticker + provider + interval + adjustment + methodology``.
-    Legacy ticker-only rows are retained and copied into a separate legacy
-    variant, never silently re-labeled as the current split-adjusted price
-    methodology. Successful refreshes merge by timestamp so a short update
-    cannot erase older history required by a pending label.
+    The default variant is the legacy/raw pipeline cache for backwards
+    compatibility. Consumers that require the split-adjusted target methodology
+    must request that variant explicitly; it refuses frames that omit corporate
+    action columns so raw bulk data cannot silently contaminate target labels.
+
+    Successful refreshes merge by timestamp so a short update cannot erase
+    older history required by a pending label.
     """
 
     def __init__(
@@ -74,8 +77,8 @@ class YahooOhlcCacheStore:
         failure_retry_ttl: timedelta = timedelta(minutes=30),
         provider: str = YAHOO_PROVIDER,
         interval: str = YAHOO_INTERVAL,
-        adjustment: str = YAHOO_ADJUSTMENT,
-        methodology_version: str = PRICE_METHOD_VERSION,
+        adjustment: str = _LEGACY_ADJUSTMENT,
+        methodology_version: str = _LEGACY_METHOD_VERSION,
         now_provider=None,
     ) -> None:
         self.db_path = Path(db_path)
@@ -83,9 +86,9 @@ class YahooOhlcCacheStore:
         self.failure_retry_ttl = failure_retry_ttl
         self.provider = str(provider).strip().lower() or YAHOO_PROVIDER
         self.interval = str(interval).strip().lower() or YAHOO_INTERVAL
-        self.adjustment = str(adjustment).strip().lower() or YAHOO_ADJUSTMENT
+        self.adjustment = str(adjustment).strip().lower() or _LEGACY_ADJUSTMENT
         self.methodology_version = (
-            str(methodology_version).strip() or PRICE_METHOD_VERSION
+            str(methodology_version).strip() or _LEGACY_METHOD_VERSION
         )
         self._now_provider = now_provider or (lambda: datetime.now(timezone.utc))
         self.ensure_schema()
@@ -217,6 +220,10 @@ class YahooOhlcCacheStore:
             and self.adjustment == YAHOO_ADJUSTMENT
             and self.methodology_version == PRICE_METHOD_VERSION
         ):
+            if "Stock Splits" not in frame.columns:
+                raise ValueError(
+                    "split-adjusted target cache requires Stock Splits corporate-action data"
+                )
             return normalize_split_adjusted_price_frame(frame)
         return self._validate(frame)
 
