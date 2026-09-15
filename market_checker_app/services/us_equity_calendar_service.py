@@ -36,21 +36,31 @@ def _nyse_calendar():
     return mcal.get_calendar(NYSE_CALENDAR)
 
 
-def sessions_between(start: pd.Timestamp, end: pd.Timestamp) -> tuple[pd.Timestamp, ...]:
-    """Return actual NYSE sessions, including holidays and early closes."""
-    if end < start:
-        return ()
-    schedule = _nyse_calendar().schedule(start_date=start.date(), end_date=end.date())
+@lru_cache(maxsize=512)
+def _sessions_for_dates(start_date: str, end_date: str) -> tuple[pd.Timestamp, ...]:
+    schedule = _nyse_calendar().schedule(start_date=start_date, end_date=end_date)
     return tuple(
         label
         for value in schedule.index
-        if (label := session_label(value)) is not None and start <= label <= end
+        if (label := session_label(value)) is not None
     )
 
 
-def last_completed_session(as_of: datetime) -> pd.Timestamp | None:
-    """Return the latest NYSE session whose official close had happened."""
-    clock = _utc(as_of)
+def sessions_between(start: pd.Timestamp, end: pd.Timestamp) -> tuple[pd.Timestamp, ...]:
+    """Return actual NYSE sessions, including holidays and early closes."""
+    start_label = session_label(start)
+    end_label = session_label(end)
+    if start_label is None or end_label is None or end_label < start_label:
+        return ()
+    return _sessions_for_dates(
+        start_label.date().isoformat(),
+        end_label.date().isoformat(),
+    )
+
+
+@lru_cache(maxsize=256)
+def _last_completed_session_at_minute(clock_minute: str) -> pd.Timestamp | None:
+    clock = datetime.fromisoformat(clock_minute)
     start = session_label(clock - timedelta(days=14))
     end = session_label(clock)
     if start is None or end is None:
@@ -63,6 +73,12 @@ def last_completed_session(as_of: datetime) -> pd.Timestamp | None:
     if len(completed) == 0:
         return None
     return session_label(completed[-1])
+
+
+def last_completed_session(as_of: datetime) -> pd.Timestamp | None:
+    """Return the latest NYSE session whose official close had happened."""
+    clock = _utc(as_of).replace(second=0, microsecond=0)
+    return _last_completed_session_at_minute(clock.isoformat())
 
 
 def expected_sessions(
