@@ -73,6 +73,18 @@ class OhlcQualityTests(unittest.TestCase):
         self.assertEqual((6, 10), result.available_lookbacks)
         self.assertIn(66, result.missing_lookbacks)
 
+    def test_custom_minimum_history_is_not_limited_to_reported_lookbacks(self) -> None:
+        result = assess_daily_ohlc(
+            frame_from_sessions("2026-09-11", 30),
+            as_of=MONDAY_PREOPEN,
+            min_history_rows=30,
+        )
+
+        self.assertTrue(result.price_usable)
+        self.assertTrue(result.history_usable)
+        self.assertIn(26, result.available_lookbacks)
+        self.assertNotIn(30, result.available_lookbacks)
+
     def test_unfinished_current_session_is_not_usable(self) -> None:
         as_of_before_close = datetime(2026, 9, 15, 16, tzinfo=timezone.utc)
         result = assess_daily_ohlc(frame_from_sessions("2026-09-15", 66), as_of=as_of_before_close)
