@@ -1,10 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 from datetime import datetime, timedelta, timezone
-import math
-
-import math
 
 import pandas as pd
 
@@ -132,9 +130,21 @@ def assess_daily_ohlc(
 
     count = int(len(normalized))
     required = max(1, int(min_history_rows))
-    session_start = normalized.index[max(0, count - required)]
-    required_sessions = sessions_between(session_start, latest)
-    history_usable = price_usable and count >= required and tuple(normalized.index[-required:]) == required_sessions[-required:]
+
+    def has_complete_lookback(lookback: int) -> bool:
+        if not price_usable or count < lookback:
+            return False
+        observed = tuple(normalized.index[-lookback:])
+        expected_sessions = sessions_between(observed[0], latest)
+        return observed == expected_sessions[-lookback:]
+
+    available_lookbacks = tuple(
+        lookback for lookback in TECHNICAL_LOOKBACKS if has_complete_lookback(lookback)
+    )
+    missing_lookbacks = tuple(
+        lookback for lookback in TECHNICAL_LOOKBACKS if lookback not in available_lookbacks
+    )
+    history_usable = required in available_lookbacks
     if price_usable and not history_usable:
         warnings.append(f"OHLC historie nemá {required} souvislých platných NYSE seancí pro technické indikátory.")
 
@@ -150,4 +160,3 @@ def assess_daily_ohlc(
         available_lookbacks=available_lookbacks,
         missing_lookbacks=missing_lookbacks,
     )
-
