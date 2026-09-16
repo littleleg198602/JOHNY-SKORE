@@ -19,6 +19,8 @@ class NewsItem:
     publisher_domain: str = ""
     original_url: str = ""
     event_id: str = ""
+    observed_at: datetime | None = None
+    evidence_level: str = "TITLE_SUMMARY"
 
 
 @dataclass(slots=True)
@@ -37,6 +39,11 @@ class ArticleFeatures:
     duplicate_penalty: float
     final_article_weight: float
     is_duplicate: bool
+    canonical_event_id: str = ""
+    publisher: str = ""
+    publisher_domain: str = ""
+    observed_at: datetime | None = None
+    evidence_level: str = "TITLE_SUMMARY"
 
 
 @dataclass(slots=True)
