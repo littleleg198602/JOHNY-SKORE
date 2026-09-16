@@ -52,6 +52,9 @@ from market_checker_app.services.watchlist_service import (
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.models import AnalysisProgressState
 from market_checker_app.prediction_contract import build_point_in_time_snapshot
+from market_checker_app.services.candidate_model_service import (
+    build_candidate_model_report,
+)
 from market_checker_app.services.prediction_label_service import (
     PredictionLabelService,
 )
@@ -818,6 +821,14 @@ def run_weekly_shadow(
     snapshot_records: list[dict[str, object]] = []
     snapshot_error: str | None = None
     saved_snapshot_count = 0
+    candidate_model_report: dict[str, object] = {
+        "status": "DISABLED",
+        "reason": "POINT_IN_TIME_SNAPSHOT_UNAVAILABLE",
+        "analysis_only": True,
+        "ranking_modified": False,
+        "predictions": [],
+    }
+    candidate_model_error: str | None = None
     run_id = result.get("run_id")
     raw_point_in_time_inputs = result.get("point_in_time_inputs")
     if run_id is not None and isinstance(raw_point_in_time_inputs, list):
@@ -860,6 +871,35 @@ def run_weekly_shadow(
                 snapshot_error = f"snapshot uložení selhalo: {type(exc).__name__}: {exc}"
     elif run_id is not None:
         snapshot_error = "pipeline nevrátil point-in-time vstupy"
+    if snapshot_error is None and snapshot_records:
+        try:
+            metadata = result.get("metadata")
+            model_as_of = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+            candidate_model_report = build_candidate_model_report(
+                store.read_prediction_snapshots(),
+                prediction_snapshot_ids=[
+                    str(snapshot.get("snapshot_id") or "")
+                    for snapshot in snapshot_records
+                ],
+                as_of=model_as_of,
+            )
+            if candidate_model_report.get("artifact") is not None:
+                candidate_model_report["persisted_prediction_count"] = (
+                    store.save_candidate_model_report(candidate_model_report)
+                )
+            else:
+                candidate_model_report["persisted_prediction_count"] = 0
+        except Exception as exc:
+            candidate_model_error = (
+                f"candidate model selhal: {type(exc).__name__}: {exc}"
+            )
+            candidate_model_report = {
+                "status": "FAILED",
+                "reason": "CANDIDATE_MODEL_RUNTIME_ERROR",
+                "analysis_only": True,
+                "ranking_modified": False,
+                "predictions": [],
+            }
     label_resolution: dict[str, object] = {
         "status": "DISABLED",
         "pending_before": 0,
@@ -903,6 +943,8 @@ def run_weekly_shadow(
     summary_warnings = list(result.get("warnings", []))
     if label_resolution_error:
         summary_warnings.append(label_resolution_error)
+    if candidate_model_error:
+        summary_warnings.append(candidate_model_error)
     elif int(label_resolution.get("source_failures") or 0) > 0:
         summary_warnings.append(
             "Label resolver narazil na nedostupný zdroj; dotčené snapshoty zůstaly PENDING."
@@ -940,6 +982,8 @@ def run_weekly_shadow(
         "point_in_time_snapshot_status": (
             "SUCCESS" if snapshot_error is None else "FAILED"
         ),
+        "candidate_model_shadow": _json_safe(candidate_model_report),
+        "candidate_model_error": candidate_model_error,
         "prediction_label_resolution": label_resolution,
         "prediction_label_resolution_error": label_resolution_error,
         "agent_status": result.get("agent_status"),
