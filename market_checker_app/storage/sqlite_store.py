@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 38519)
+Total output lines: 3232
+
 from __future__ import annotations
 
 import hashlib
@@ -827,6 +830,42 @@ class SQLiteStore:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS fundamental_feature_snapshots (
+                    snapshot_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    feature_version TEXT NOT NULL,
+                    as_of TEXT NOT NULL,
+                    availability_at TEXT NOT NULL,
+                    period_basis TEXT NOT NULL,
+                    period_start TEXT,
+                    period_end TEXT,
+                    values_json TEXT NOT NULL DEFAULT '{}',
+                    missing_reasons_json TEXT NOT NULL DEFAULT '{}',
+                    source_fact_ids_json TEXT NOT NULL DEFAULT '{}',
+                    source_accessions_json TEXT NOT NULL DEFAULT '{}',
+                    source_urls_json TEXT NOT NULL DEFAULT '{}',
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}'
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS fundamental_feature_snapshot_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    snapshot_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY(orchestration_id, agent_run_id, snapshot_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(snapshot_id) REFERENCES fundamental_feature_snapshots(snapshot_id)
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS research_claims (
                     claim_id TEXT PRIMARY KEY,
                     ticker TEXT NOT NULL,
@@ -1240,6 +1279,12 @@ class SQLiteStore:
                 "CREATE INDEX IF NOT EXISTS idx_fundamental_fact_observations_run ON fundamental_fact_observations(orchestration_id, agent_run_id)"
             )
             conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_fundamental_feature_snapshots_ticker_asof ON fundamental_feature_snapshots(ticker, as_of, period_end)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_fundamental_feature_snapshot_observations_run ON fundamental_feature_snapshot_observations(orchestration_id, agent_run_id)"
+            )
+            conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_research_claims_ticker_status ON research_claims(ticker, status, published_at)"
             )
             conn.execute(
@@ -1287,665 +1332,7 @@ class SQLiteStore:
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_policy_evaluations_policy_time ON policy_evaluations(policy_name, evaluated_through)"
             )
-            conn.execute(
-                "CREATE INDEX IF NOT EXISTS idx_activation_policy_time ON signal_activation_decisions(policy_name, observed_at)"
-            )
-
-    def insert_run(self, metadata: RunMetadata) -> int:
-        with self._connect() as conn:
-            cur = conn.execute(
-                "INSERT INTO runs(started_at, finished_at, watchlist_size, processed_symbols, warnings_count, errors_count, excel_path) VALUES(?, ?, ?, ?, ?, ?, ?)",
-                (to_iso(metadata.started_at), to_iso(metadata.finished_at), metadata.watchlist_size, metadata.processed_symbols, metadata.warnings_count, metadata.errors_count, metadata.excel_path),
-            )
-            return int(cur.lastrowid)
-
-    @staticmethod
-    def _build_signal_payload(run_id: int, signals: pd.DataFrame, updated_at: str) -> list[tuple[object, ...]]:
-        if signals.empty:
-            return []
-        return [
-            (
-                run_id,
-                row.ticker,
-                updated_at,
-                row.market_cap_usd,
-                row.current_price if hasattr(row, "current_price") else None,
-                row.current_price_source if hasattr(row, "current_price_source") else None,
-                row.scoring_version if hasattr(row, "scoring_version") else None,
-                row.legacy_total_score if hasattr(row, "legacy_total_score") else None,
-                row.legacy_signal if hasattr(row, "legacy_signal") else None,
-                row.tech_source_used if hasattr(row, "tech_source_used") else None,
-                row.rank_market_cap if hasattr(row, "rank_market_cap") else None,
-                row.news_count_48h,
-                row.news_score,
-                row.tech_score,
-                row.yahoo_score,
-                row.behavioral_score,
-                row.risk_score,
-                row.raw_total_score,
-                row.quality_adjusted_score,
-                row.risk_adjusted_score,
-                row.final_total_score,
-                row.final_confidence,
-                row.news_confidence,
-                row.tech_confidence,
-                row.yahoo_confidence,
-                row.behavioral_confidence,
-                row.data_quality_score,
-                getattr(row, "module_confidence", None),
-                getattr(row, "decision_confidence", None),
-                getattr(row, "panic_score", None),
-                getattr(row, "bull_score", None),
-                getattr(row, "bear_score", None),
-                getattr(row, "bull_bear_spread", None),
-                getattr(row, "bullish_module_count", None),
-                getattr(row, "bearish_module_count", None),
-                getattr(row, "neutral_module_count", None),
-                getattr(row, "downgrade_count", None),
-                getattr(row, "blocked_reasons", None),
-                getattr(row, "module_breakdown", None),
-                row.decision_signal if hasattr(row, "decision_signal") else row.signal,
-                row.forecast if hasattr(row, "forecast") else None,
-                row.action if hasattr(row, "action") else row.signal,
-                row.action_reasons if hasattr(row, "action_reasons") else None,
-                row.signal,
-                row.signal_strength,
-                row.rank_in_watchlist,
-                row.percentile_in_watchlist,
-                row.regime,
-                row.reasons,
-                row.warnings,
-                row.risk_flags,
-                row.key_drivers,
-                row.overall_summary,
-                row.last_week_change_pct,
-                row.last_14d_change_pct if hasattr(row, "last_14d_change_pct") else None,
-                row.last_1m_change_pct,
-                row.last_3m_change_pct,
-            )
-            for row in signals.itertuples(index=False)
-        ]
-
-    def insert_signal_history(self, run_id: int, signals: pd.DataFrame, updated_at: str) -> None:
-        payload = self._build_signal_payload(run_id, signals, updated_at)
-        if not payload:
-            return
-        with self._connect() as conn:
-            conn.executemany(self.SIGNAL_HISTORY_INSERT, payload)
-
-    @staticmethod
-    def _build_ticker_traceability_payload(
-        run_id: int,
-        ticker_traceability: list[dict[str, object]] | None,
-    ) -> list[tuple[object, ...]]:
-        return [
-            (
-                run_id,
-                str(record["ticker"]),
-                str(record["request_status"]),
-                str(record["attempt_status"]),
-                str(record["outcome_status"]),
-                record.get("outcome_reason"),
-                int(bool(record.get("ranking_eligible"))),
-                record.get("ranking_status"),
-                record.get("ranking_reason"),
-                record.get("current_price_status"),
-                record.get("current_price_reason"),
-                record.get("technical_status"),
-                record.get("technical_reason"),
-            )
-            for record in (ticker_traceability or [])
-        ]
-
-    @staticmethod
-    def _build_source_degradation_payload(
-        run_id: int,
-        source_degradations: list[dict[str, object]] | None,
-    ) -> list[tuple[object, ...]]:
-        return [
-            (
-                run_id,
-                record.get("ticker"),
-                str(record["provider"]),
-                record.get("source_url"),
-                str(record["attempt_status"]),
-                str(record["outcome_status"]),
-                str(record["reason_code"]),
-                record.get("reason_detail"),
-                str(record["observed_at"]),
-                str(record.get("retry_state") or "NONE"),
-                record.get("attempt_count"),
-                record.get("retry_after"),
-            )
-            for record in (source_degradations or [])
-        ]
-
-    def save_run(
-        self,
-        metadata: RunMetadata,
-        signals: pd.DataFrame,
-        updated_at: str,
-        *,
-        ticker_traceability: list[dict[str, object]] | None = None,
-        source_degradations: list[dict[str, object]] | None = None,
-    ) -> int:
-        """Persist a run, signals and ticker accounting atomically.
-
-        If either detailed insert fails, the run row is rolled back as well,
-        preventing an apparently complete run with missing ticker evidence.
-        """
-        self.ensure_schema()
-        with self._connect() as conn:
-            cur = conn.execute(
-                "INSERT INTO runs(started_at, finished_at, watchlist_size, processed_symbols, warnings_count, errors_count, excel_path) VALUES(?, ?, ?, ?, ?, ?, ?)",
-                (
-                    to_iso(metadata.started_at),
-                    to_iso(metadata.finished_at),
-                    metadata.watchlist_size,
-                    metadata.processed_symbols,
-                    metadata.warnings_count,
-                    metadata.errors_count,
-                    metadata.excel_path,
-                ),
-            )
-            run_id = int(cur.lastrowid)
-            payload = self._build_signal_payload(run_id, signals, updated_at)
-            if payload:
-                conn.executemany(self.SIGNAL_HISTORY_INSERT, payload)
-            traceability_payload = self._build_ticker_traceability_payload(
-                run_id, ticker_traceability
-            )
-            if traceability_payload:
-                conn.executemany(
-                    """
-                    INSERT INTO run_ticker_traceability(
-                        run_id, ticker, request_status, attempt_status,
-                        outcome_status, outcome_reason, ranking_eligible,
-                        ranking_status, ranking_reason, current_price_status,
-                        current_price_reason, technical_status, technical_reason
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    traceability_payload,
-                )
-            degradation_payload = self._build_source_degradation_payload(
-                run_id, source_degradations
-            )
-            if degradation_payload:
-                conn.executemany(
-                    """
-                    INSERT INTO source_degradations(
-                        run_id, ticker, provider, source_url, attempt_status,
-                        outcome_status, reason_code, reason_detail, observed_at,
-                        retry_state, attempt_count, retry_after
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    degradation_payload,
-                )
-            return run_id
-
-    def save_orchestration_report(
-        self,
-        report: OrchestrationReport,
-        pipeline_run_id: int | None = None,
-    ) -> None:
-        """Persist one complete agent orchestration as an atomic audit record."""
-
-        self.ensure_schema()
-        linked_run_id = pipeline_run_id if pipeline_run_id is not None else report.pipeline_run_id
-        report.pipeline_run_id = linked_run_id
-
-        with self._connect() as conn:
-            conn.execute(
-                """
-                INSERT INTO orchestration_runs(
-                    orchestration_id, pipeline_run_id, started_at, finished_at,
-                    status, shadow_mode, watchlist_size, metadata_json
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    report.orchestration_id,
-                    linked_run_id,
-                    to_iso(report.started_at),
-                    to_iso(report.finished_at),
-                    report.status.value,
-                    int(report.shadow_mode),
-                    report.watchlist_size,
-                    self._json_dump(report.metadata),
-                ),
-            )
-
-            for execution in report.executions:
-                result = execution.result
-                cursor = conn.execute(
-                    """
-                    INSERT INTO agent_runs(
-                        orchestration_id, pipeline_run_id, agent_name, agent_version,
-                        required, dependencies_json, status, started_at, finished_at,
-                        elapsed_ms, input_count, output_count, warnings_json, error,
-                        metadata_json
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        report.orchestration_id,
-                        linked_run_id,
-                        execution.agent_name,
-                        execution.agent_version,
-                        int(execution.required),
-                        self._json_dump(execution.dependencies),
-                        execution.status.value,
-                        to_iso(execution.started_at),
-                        to_iso(execution.finished_at),
-                        execution.elapsed_ms,
-                        execution.input_count,
-                        result.output_count,
-                        self._json_dump(result.warnings),
-                        result.error,
-                        self._json_dump(result.metadata),
-                    ),
-                )
-                agent_run_id = int(cursor.lastrowid)
-
-                for entity in result.entities:
-                    existing_columns = (
-                        "ticker",
-                        "aliases_json",
-                        "cik",
-                        "isin",
-                        "lei",
-                        "confidence",
-                    )
-                    existing_entity_row = conn.execute(
-                        f"SELECT {', '.join(existing_columns)} FROM entities WHERE entity_id = ?",
-                        (entity.entity_id,),
-                    ).fetchone()
-                    existing_entity = (
-                        dict(zip(existing_columns, existing_entity_row))
-                        if existing_entity_row is not None
-                        else None
-                    )
-                    if (
-                        existing_entity is not None
-                        and entity.confidence
-                        >= float(existing_entity["confidence"] or 0.0)
-                    ):
-                        for identifier_name in ("cik", "isin", "lei"):
-                            old_value = existing_entity[identifier_name]
-                            new_value = getattr(entity, identifier_name)
-                            if (
-                                old_value is not None
-                                and new_value is not None
-                                and old_value != new_value
-                            ):
-                                raise sqlite3.IntegrityError(
-                                    f"Conflicting {identifier_name.upper()} for "
-                                    f"{entity.entity_id}: {old_value} != {new_value}"
-                                )
-                    existing_aliases: list[str] = []
-                    if existing_entity and existing_entity["aliases_json"]:
-                        try:
-                            decoded = json.loads(existing_entity["aliases_json"])
-                            if isinstance(decoded, list):
-                                existing_aliases = [str(alias) for alias in decoded]
-                        except (TypeError, json.JSONDecodeError):
-                            existing_aliases = []
-                    if (
-                        existing_entity
-                        and existing_entity["ticker"]
-                        and existing_entity["ticker"] != entity.ticker
-                    ):
-                        existing_aliases.append(str(existing_entity["ticker"]))
-                    aliases = list(dict.fromkeys(existing_aliases + entity.aliases))
-                    conn.execute(
-                        """
-                        INSERT INTO entities(
-                            entity_id, ticker, yahoo_ticker, name, exchange, cik, isin,
-                            lei, sector, industry, aliases_json, source, first_seen_at,
-                            last_seen_at, metadata_json, legal_entity_id, issuer_id,
-                            instrument_id, parent_entity_id, security_type, share_class,
-                            mic, country_code, valid_from, valid_to, source_url, confidence
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        ON CONFLICT(entity_id) DO UPDATE SET
-                            ticker = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN excluded.ticker ELSE entities.ticker END,
-                            yahoo_ticker = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.yahoo_ticker, entities.yahoo_ticker)
-                                ELSE entities.yahoo_ticker END,
-                            name = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.name, entities.name)
-                                ELSE entities.name END,
-                            exchange = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.exchange, entities.exchange)
-                                ELSE entities.exchange END,
-                            cik = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.cik, entities.cik)
-                                ELSE entities.cik END,
-                            isin = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.isin, entities.isin)
-                                ELSE entities.isin END,
-                            lei = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.lei, entities.lei)
-                                ELSE entities.lei END,
-                            sector = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.sector, entities.sector)
-                                ELSE entities.sector END,
-                            industry = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.industry, entities.industry)
-                                ELSE entities.industry END,
-                            aliases_json = excluded.aliases_json,
-                            source = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN excluded.source ELSE entities.source END,
-                            last_seen_at = excluded.last_seen_at,
-                            metadata_json = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN excluded.metadata_json ELSE entities.metadata_json END,
-                            legal_entity_id = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.legal_entity_id, entities.legal_entity_id)
-                                ELSE entities.legal_entity_id END,
-                            issuer_id = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.issuer_id, entities.issuer_id)
-                                ELSE entities.issuer_id END,
-                            instrument_id = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.instrument_id, entities.instrument_id)
-                                ELSE entities.instrument_id END,
-                            parent_entity_id = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.parent_entity_id, entities.parent_entity_id)
-                                ELSE entities.parent_entity_id END,
-                            security_type = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.security_type, entities.security_type)
-                                ELSE entities.security_type END,
-                            share_class = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.share_class, entities.share_class)
-                                ELSE entities.share_class END,
-                            mic = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.mic, entities.mic)
-                                ELSE entities.mic END,
-                            country_code = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.country_code, entities.country_code)
-                                ELSE entities.country_code END,
-                            valid_from = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.valid_from, entities.valid_from)
-                                ELSE entities.valid_from END,
-                            valid_to = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.valid_to, entities.valid_to)
-                                ELSE entities.valid_to END,
-                            source_url = CASE
-                                WHEN excluded.confidence >= entities.confidence
-                                THEN COALESCE(excluded.source_url, entities.source_url)
-                                ELSE entities.source_url END,
-                            confidence = MAX(excluded.confidence, entities.confidence)
-                        """,
-                        (
-                            entity.entity_id,
-                            entity.ticker,
-                            entity.yahoo_ticker,
-                            entity.name,
-                            entity.exchange,
-                            entity.cik,
-                            entity.isin,
-                            entity.lei,
-                            entity.sector,
-                            entity.industry,
-                            self._json_dump(aliases),
-                            entity.source,
-                            to_iso(report.started_at),
-                            to_iso(execution.finished_at),
-                            self._json_dump(entity.metadata),
-                            entity.legal_entity_id,
-                            entity.issuer_id,
-                            entity.instrument_id,
-                            entity.parent_entity_id,
-                            entity.security_type,
-                            entity.share_class,
-                            entity.mic,
-                            entity.country_code,
-                            to_iso(entity.valid_from) if entity.valid_from else None,
-                            to_iso(entity.valid_to) if entity.valid_to else None,
-                            entity.source_url,
-                            entity.confidence,
-                        ),
-                    )
-                    observed_at = to_iso(execution.finished_at)
-                    self._persist_entity_identity_version(
-                        conn,
-                        entity_id=entity.entity_id,
-                        orchestration_id=report.orchestration_id,
-                        agent_run_id=agent_run_id,
-                        observed_at=observed_at,
-                    )
-                    conn.execute(
-                        """
-                        INSERT INTO entity_observations(
-                            orchestration_id, agent_run_id, entity_id, observed_at
-                        ) VALUES (?, ?, ?, ?)
-                        """,
-                        (
-                            report.orchestration_id,
-                            agent_run_id,
-                            entity.entity_id,
-                            observed_at,
-                        ),
-                    )
-
-                for conflict in result.identity_conflicts:
-                    conn.execute(
-                        """
-                        INSERT INTO entity_identity_conflicts(
-                            conflict_id, ticker, entity_id, legal_entity_id,
-                            field_name, existing_value, candidate_value,
-                            existing_source, candidate_source, existing_source_url,
-                            candidate_source_url, status, reason, first_seen_at,
-                            last_seen_at, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        ON CONFLICT(conflict_id) DO UPDATE SET
-                            status = excluded.status,
-                            reason = excluded.reason,
-                            last_seen_at = excluded.last_seen_at,
-                            metadata_json = excluded.metadata_json
-                        """,
-                        (
-                            conflict.conflict_id,
-                            conflict.ticker,
-                            conflict.entity_id,
-                            conflict.legal_entity_id,
-                            conflict.field_name,
-                            conflict.existing_value,
-                            conflict.candidate_value,
-                            conflict.existing_source,
-                            conflict.candidate_source,
-                            conflict.existing_source_url,
-                            conflict.candidate_source_url,
-                            conflict.status.value,
-                            conflict.reason,
-                            to_iso(conflict.observed_at),
-                            to_iso(conflict.observed_at),
-                            self._json_dump(conflict.metadata),
-                        ),
-                    )
-                    conn.execute(
-                        """
-                        INSERT INTO entity_identity_conflict_observations(
-                            orchestration_id, agent_run_id, conflict_id,
-                            observed_at, status, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?)
-                        """,
-                        (
-                            report.orchestration_id,
-                            agent_run_id,
-                            conflict.conflict_id,
-                            to_iso(conflict.observed_at),
-                            conflict.status.value,
-                            self._json_dump(conflict.metadata),
-                        ),
-                    )
-
-                for document in result.documents:
-                    conn.execute(
-                        """
-                        INSERT INTO documents(
-                            document_id, ticker, source, source_type, url, published_at,
-                            content_hash, mime_type, raw_path, first_seen_at, last_seen_at,
-                            metadata_json, source_priority, source_authority,
-                            legal_entity_id, issuer_id, instrument_id,
-                            reporting_period_end, is_audited, language,
-                            canonical_event_key
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        ON CONFLICT(document_id) DO UPDATE SET
-                            ticker = excluded.ticker,
-                            source = excluded.source,
-                            source_type = excluded.source_type,
-                            url = COALESCE(excluded.url, documents.url),
-                            published_at = COALESCE(excluded.published_at, documents.published_at),
-                            content_hash = COALESCE(excluded.content_hash, documents.content_hash),
-                            mime_type = COALESCE(excluded.mime_type, documents.mime_type),
-                            raw_path = COALESCE(excluded.raw_path, documents.raw_path),
-                            last_seen_at = excluded.last_seen_at,
-                            metadata_json = excluded.metadata_json,
-                            source_priority = excluded.source_priority,
-                            source_authority = COALESCE(excluded.source_authority, documents.source_authority),
-                            legal_entity_id = COALESCE(excluded.legal_entity_id, documents.legal_entity_id),
-                            issuer_id = COALESCE(excluded.issuer_id, documents.issuer_id),
-                            instrument_id = COALESCE(excluded.instrument_id, documents.instrument_id),
-                            reporting_period_end = COALESCE(excluded.reporting_period_end, documents.reporting_period_end),
-                            is_audited = excluded.is_audited,
-                            language = COALESCE(excluded.language, documents.language),
-                            canonical_event_key = COALESCE(excluded.canonical_event_key, documents.canonical_event_key)
-                        """,
-                        (
-                            document.document_id,
-                            document.ticker,
-                            document.source,
-                            document.source_type,
-                            document.url,
-                            to_iso(document.published_at) if document.published_at else None,
-                            document.content_hash,
-                            document.mime_type,
-                            document.raw_path,
-                            to_iso(document.observed_at),
-                            to_iso(document.observed_at),
-                            self._json_dump(document.metadata),
-                            int(document.source_priority or 0),
-                            document.source_authority,
-                            document.legal_entity_id,
-                            document.issuer_id,
-                            document.instrument_id,
-                            (
-                                to_iso(document.reporting_period_end)
-                                if document.reporting_period_end
-                                else None
-                            ),
-                            int(document.is_audited),
-                            document.language,
-                            document.canonical_event_key,
-                        ),
-                    )
-                    conn.execute(
-                        """
-                        INSERT INTO document_observations(
-                            orchestration_id, agent_run_id, document_id, observed_at,
-                            source_url, content_hash, mime_type, source_type,
-                            source_priority, source_authority, legal_entity_id,
-                            metadata_json, canonical_event_key
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        """,
-                        (
-                            report.orchestration_id,
-                            agent_run_id,
-                            document.document_id,
-                            to_iso(document.observed_at),
-                            document.url,
-                            document.content_hash,
-                            document.mime_type,
-                            document.source_type,
-                            int(document.source_priority or 0),
-                            document.source_authority,
-                            document.legal_entity_id,
-                            self._json_dump(document.metadata),
-                            document.canonical_event_key,
-                        ),
-                    )
-
-                for resolution in result.document_source_resolutions:
-                    existing_resolution = conn.execute(
-                        """
-                        SELECT preferred_document_id
-                        FROM document_source_resolutions
-                        WHERE resolution_id = ?
-                        """,
-                        (resolution.resolution_id,),
-                    ).fetchone()
-                    previous_preferred = (
-                        str(existing_resolution[0])
-                        if existing_resolution is not None
-                        else None
-                    )
-                    conn.execute(
-                        """
-                        INSERT INTO document_source_resolutions(
-                            resolution_id, canonical_event_key, ticker,
-                            legal_entity_id, preferred_document_id,
-                            retained_document_ids_json, policy_version,
-                            first_seen_at, last_seen_at, metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        ON CONFLICT(resolution_id) DO UPDATE SET
-                            canonical_event_key = excluded.canonical_event_key,
-                            ticker = excluded.ticker,
-                            legal_entity_id = COALESCE(excluded.legal_entity_id, document_source_resolutions.legal_entity_id),
-                            preferred_document_id = excluded.preferred_document_id,
-                            retained_document_ids_json = excluded.retained_document_ids_json,
-                            policy_version = excluded.policy_version,
-                            last_seen_at = excluded.last_seen_at,
-                            metadata_json = excluded.metadata_json
-                        """,
-                        (
-                            resolution.resolution_id,
-                            resolution.canonical_event_key,
-                            resolution.ticker,
-                            resolution.legal_entity_id,
-                            resolution.preferred_document_id,
-                            self._json_dump(resolution.retained_document_ids),
-                            resolution.policy_version,
-                            to_iso(resolution.observed_at),
-                            to_iso(resolution.observed_at),
-                            self._json_dump(resolution.metadata),
-                        ),
-                    )
-                    conn.execute(
-                        """
-                        INSERT INTO document_source_resolution_observations(
-                            orchestration_id, agent_run_id, resolution_id,
-                            observed_at, previous_preferred_document_id,
-                            preferred_document_id, retained_document_ids_json,
-                            metadata_json
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                        """,
-                        (
-                            report.orchestration_id,
-                            agent_run_id,
-                            resolution.resolution_id,
-                            to_iso(resolution.observed_at),
-                            previous_preferred,
-                            resolution.preferred_document_id,
-                            self._json_dump(resolution.retained_document_ids),
+            conn.execut…8519 tokens truncated…                    self._json_dump(resolution.retained_document_ids),
                             self._json_dump(resolution.metadata),
                         ),
                     )
@@ -2082,6 +1469,60 @@ class SQLiteStore:
                             agent_run_id,
                             fact.fact_id,
                             to_iso(fact.observed_at),
+                        ),
+                    )
+
+                for snapshot in result.fundamental_feature_snapshots:
+                    conn.execute(
+                        """
+                        INSERT INTO fundamental_feature_snapshots(
+                            snapshot_id, ticker, feature_version, as_of,
+                            availability_at, period_basis, period_start, period_end,
+                            values_json, missing_reasons_json, source_fact_ids_json,
+                            source_accessions_json, source_urls_json,
+                            first_seen_at, last_seen_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(snapshot_id) DO UPDATE SET
+                            last_seen_at = excluded.last_seen_at
+                        """,
+                        (
+                            snapshot.snapshot_id,
+                            snapshot.ticker,
+                            snapshot.feature_version,
+                            to_iso(snapshot.as_of),
+                            to_iso(snapshot.availability_at),
+                            snapshot.period_basis,
+                            (
+                                to_iso(snapshot.period_start)
+                                if snapshot.period_start
+                                else None
+                            ),
+                            (
+                                to_iso(snapshot.period_end)
+                                if snapshot.period_end
+                                else None
+                            ),
+                            self._json_dump(snapshot.values),
+                            self._json_dump(snapshot.missing_reasons),
+                            self._json_dump(snapshot.source_fact_ids),
+                            self._json_dump(snapshot.source_accessions),
+                            self._json_dump(snapshot.source_urls),
+                            to_iso(snapshot.observed_at),
+                            to_iso(snapshot.observed_at),
+                            self._json_dump(snapshot.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO fundamental_feature_snapshot_observations(
+                            orchestration_id, agent_run_id, snapshot_id, observed_at
+                        ) VALUES (?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            snapshot.snapshot_id,
+                            to_iso(snapshot.observed_at),
                         ),
                     )
 
@@ -2908,6 +2349,27 @@ class SQLiteStore:
         query += " ORDER BY ticker ASC, concept ASC, filed_at DESC, fact_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
+
+    def read_fundamental_feature_snapshots(
+        self,
+        ticker: str | None = None,
+        as_of: datetime | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM fundamental_feature_snapshots"
+        clauses: list[str] = []
+        params: list[object] = []
+        if ticker is not None:
+            clauses.append("ticker = ?")
+            params.append(ticker)
+        if as_of is not None:
+            clauses.append("as_of = ?")
+            params.append(to_iso(as_of))
+        if clauses:
+            query += " WHERE " + " AND ".join(clauses)
+        query += " ORDER BY ticker ASC, as_of DESC, period_end DESC, snapshot_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=tuple(params))
 
     def read_governance_events(
         self,
