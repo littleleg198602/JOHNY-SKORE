@@ -1258,6 +1258,23 @@ class SQLiteStore:
                 )
                 """
             )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS candidate_model_evaluations (
+                    evaluation_id TEXT PRIMARY KEY,
+                    report_version TEXT NOT NULL,
+                    target_version TEXT NOT NULL,
+                    evaluated_as_of TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    reason TEXT NOT NULL DEFAULT '',
+                    sample_count INTEGER NOT NULL,
+                    distinct_weeks INTEGER NOT NULL,
+                    overlap_excluded_count INTEGER NOT NULL,
+                    report_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                """
+            )
             self._ensure_quality_gate_columns(conn)
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_prediction_snapshots_run_ticker ON prediction_snapshots(run_id, ticker)"
@@ -1267,6 +1284,9 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_candidate_model_predictions_snapshot ON candidate_model_predictions(snapshot_id, shadow_rank)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_candidate_model_evaluations_target_time ON candidate_model_evaluations(target_version, evaluated_as_of)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_agent_runs_pipeline ON agent_runs(pipeline_run_id)"
@@ -3017,6 +3037,69 @@ class SQLiteStore:
             query += " WHERE artifact_id = ?"
             params = (str(artifact_id),)
         query += " ORDER BY as_of ASC, shadow_rank ASC, ticker ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def save_candidate_model_evaluation(self, report: dict[str, object]) -> bool:
+        """Persist an immutable walk-forward report, including insufficiency.
+
+        Evaluation reports are evidence, not model artifacts.  Saving an
+        insufficient result makes the lack of OOS history explicit instead of
+        silently dropping it.
+        """
+
+        report_version = str(report.get("report_version") or "").strip()
+        target_version = str(report.get("target_version") or "").strip()
+        status = str(report.get("status") or "").strip()
+        if not report_version or not target_version or not status:
+            raise ValueError("candidate evaluation identity is incomplete")
+        report_json = self._json_dump(report)
+        evaluation_id = hashlib.sha256(report_json.encode("utf-8")).hexdigest()
+        metrics = report.get("metrics")
+        sample_count = int(metrics.get("sample_count") or 0) if isinstance(metrics, dict) else 0
+        distinct_weeks = int(metrics.get("distinct_weeks") or 0) if isinstance(metrics, dict) else 0
+        evaluated_as_of = ""
+        samples = report.get("samples")
+        if isinstance(samples, list) and samples:
+            evaluated_as_of = max(str(item.get("as_of") or "") for item in samples if isinstance(item, dict))
+        self.ensure_schema()
+        with self._connect() as conn:
+            cursor = conn.execute(
+                """
+                INSERT OR IGNORE INTO candidate_model_evaluations(
+                    evaluation_id, report_version, target_version,
+                    evaluated_as_of, status, reason, sample_count,
+                    distinct_weeks, overlap_excluded_count, report_json,
+                    created_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    evaluation_id,
+                    report_version,
+                    target_version,
+                    evaluated_as_of,
+                    status,
+                    str(report.get("reason") or ""),
+                    sample_count,
+                    distinct_weeks,
+                    int(report.get("overlap_excluded_count") or 0),
+                    report_json,
+                    evaluated_as_of,
+                ),
+            )
+            return cursor.rowcount == 1
+
+    def read_candidate_model_evaluations(
+        self,
+        target_version: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM candidate_model_evaluations"
+        params: tuple[object, ...] = ()
+        if target_version is not None:
+            query += " WHERE target_version = ?"
+            params = (str(target_version),)
+        query += " ORDER BY evaluated_as_of ASC, evaluation_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 
