@@ -51,12 +51,14 @@ def parse_supply_chain_sources(
         if not line or line.startswith("#"):
             continue
         parts = [part.strip() for part in line.split("|")]
-        if len(parts) != 7:
+        if len(parts) not in {7, 14}:
             errors.append(
-                f"Síť firem řádek {line_number}: očekávám TICKER | protistrana | typ | podíl %/- | vydavatel | datum | HTTPS URL."
+                f"Síť firem řádek {line_number}: očekávám 7 základních polí nebo 14 polí včetně identity, produktu, země, období, kontextu, úrovně důkazu a citace."
             )
             continue
-        raw_ticker, counterparty, raw_type, raw_share, publisher, raw_date, raw_url = parts
+        raw_ticker, counterparty, raw_type, raw_share, publisher, raw_date, raw_url = parts[:7]
+        optional = parts[7:] if len(parts) == 14 else ["-"] * 7
+        raw_identity, raw_product, raw_country, raw_period, raw_context, raw_level, raw_quote = optional
         ticker = normalize_ticker(raw_ticker)
         try:
             if not ticker or not counterparty or not publisher:
@@ -65,6 +67,9 @@ def parse_supply_chain_sources(
             dependency_pct = _optional_number(raw_share, percentage=True)
             published_at = _published_at(raw_date)
             url = public_https_reference(raw_url)
+            identity = None if raw_identity in {"", "-"} else raw_identity.upper()
+            if identity not in {None, "IDENTIFIED", "ANONYMOUS"}:
+                raise ValueError("identita protistrany musí být IDENTIFIED, ANONYMOUS nebo -")
         except (TypeError, ValueError) as exc:
             errors.append(f"Síť firem řádek {line_number}: {exc}.")
             continue
@@ -89,6 +94,13 @@ def parse_supply_chain_sources(
                 publisher=publisher,
                 published_at=published_at,
                 url=url,
+                counterparty_identity_status=identity,
+                product_or_input=None if raw_product in {"", "-"} else raw_product,
+                counterparty_country=None if raw_country in {"", "-"} else raw_country,
+                disclosure_period=None if raw_period in {"", "-"} else raw_period,
+                relationship_context=None if raw_context in {"", "-"} else raw_context,
+                evidence_level=None if raw_level in {"", "-"} else raw_level,
+                evidence_quote=None if raw_quote in {"", "-"} else raw_quote,
             )
         )
     return tuple(sources), errors
