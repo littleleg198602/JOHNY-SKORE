@@ -510,6 +510,18 @@ class SupplyChainConfig:
 
 
 @dataclass(frozen=True, slots=True)
+class ResourcePricePointConfig:
+    """One source-attested commodity/energy price point for a PIT scenario."""
+
+    observed_at: datetime
+    available_at: datetime
+    value: float
+    unit: str
+    currency: str
+    source_url: str
+
+
+@dataclass(frozen=True, slots=True)
 class CommodityEnergySourceConfig:
     """One material, commodity, power, or fuel exposure with provenance."""
 
@@ -521,6 +533,14 @@ class CommodityEnergySourceConfig:
     url: str
     dependency_pct: float | None = None
     confidence: float = 1.0
+    disclosed_cost_share_of_revenue_pct: float | None = None
+    hedged_share_pct: float | None = None
+    fixed_price_share_pct: float | None = None
+    pass_through_pct: float | None = None
+    scenario_price_change_pct: float | None = None
+    disclosure_period: str | None = None
+    evidence_quote: str | None = None
+    price_points: tuple[ResourcePricePointConfig, ...] = ()
 
 
 @dataclass(slots=True)

@@ -29,6 +29,7 @@ from market_checker_app.agents.contracts import utc_now
 from market_checker_app.config import (
     CommodityEnergyConfig,
     CommodityEnergySourceConfig,
+    ResourcePricePointConfig,
     RegulatoryContractConfig,
     RegulatoryContractSourceConfig,
     Stage3SourceVerificationConfig,
@@ -126,6 +127,46 @@ def _run_stage3():
 
 
 class StageThreeAgentTests(unittest.TestCase):
+    def test_resource_agent_attaches_ready_margin_scenario_without_scoring(self) -> None:
+        now = utc_now()
+        resource = CommodityEnergyConfig(
+            enabled=True,
+            sources=(
+                CommodityEnergySourceConfig(
+                    ticker="TEST",
+                    resource_name="Copper",
+                    exposure_type="MATERIAL_INPUT",
+                    publisher="Company filing",
+                    published_at=now - timedelta(days=2),
+                    url="https://example.com/copper",
+                    disclosed_cost_share_of_revenue_pct=20.0,
+                    hedged_share_pct=30.0,
+                    fixed_price_share_pct=20.0,
+                    pass_through_pct=25.0,
+                    scenario_price_change_pct=15.0,
+                    price_points=(
+                        ResourcePricePointConfig(
+                            observed_at=now - timedelta(days=4),
+                            available_at=now - timedelta(days=3),
+                            value=9_000.0,
+                            unit="USD/mt",
+                            currency="USD",
+                            source_url="https://example.com/copper-price",
+                        ),
+                    ),
+                ),
+            ),
+        )
+        orchestrator = OrchestratorAgent(shadow_mode=True)
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(CommodityEnergyAgent(resource))
+        report = orchestrator.run(watchlist=["TEST"], state={"signals": _signals()})
+        exposure = report.resource_exposures[0]
+        scenario = exposure.metadata["resource_margin_scenario"]
+        self.assertEqual("READY", scenario["status"])
+        self.assertAlmostEqual(-1.125, scenario["sensitivity"]["estimated_margin_impact_pp"])
+        self.assertFalse(exposure.metadata["prediction_input"])
+
     def test_three_agents_are_audit_only_and_quality_gate_passes(self) -> None:
         report = _run_stage3()
 
@@ -427,6 +468,19 @@ class StageThreeQualityGateTests(unittest.TestCase):
 
 
 class StageThreeManifestTests(unittest.TestCase):
+    def test_extended_resource_manifest_merges_point_in_time_price_series(self) -> None:
+        supply, errors = parse_commodity_energy_sources(
+            "TEST | Copper | MATERIAL_INPUT | - | Filing | 2026-01-01 | https://example.com/filing | "
+            "20 | 30 | 20 | 25 | 15 | USD/mt | USD | 2025-12-30 | 2026-01-01 | 9000 | FY2025 | quote\n"
+            "TEST | Copper | MATERIAL_INPUT | - | Filing | 2026-01-01 | https://example.com/filing | "
+            "20 | 30 | 20 | 25 | 15 | USD/mt | USD | 2025-12-31 | 2026-01-01 | 9100 | FY2025 | quote"
+        )
+        self.assertEqual([], errors)
+        self.assertEqual(1, len(supply))
+        self.assertEqual(2, len(supply[0].price_points))
+        self.assertEqual(20.0, supply[0].disclosed_cost_share_of_revenue_pct)
+        self.assertEqual(15.0, supply[0].scenario_price_change_pct)
+
     def test_extended_supply_manifest_preserves_evidence_fields(self) -> None:
         supply, errors = parse_supply_chain_sources(
             "TEST | Example Components | SUPPLIER | 25 | Filing | 2026-01-01 | "

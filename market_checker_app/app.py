@@ -1378,15 +1378,34 @@ def _render_agent_audit(result: dict[str, object]) -> None:
         st.dataframe(
             pd.DataFrame(
                 [
-                    {
-                        "ticker": item.ticker,
-                        "zdroj": item.resource_name,
-                        "typ": item.exposure_type.value,
-                        "podíl_pct": item.dependency_pct,
-                        "datum_zveřejnění": item.published_at.isoformat(),
-                        "důvěra_zachycení_pct": round(item.confidence * 100.0, 1),
-                        "reference": item.source_url,
-                    }
+                    (
+                        lambda metadata, scenario, sensitivity, price: {
+                            "ticker": item.ticker,
+                            "zdroj": item.resource_name,
+                            "typ": item.exposure_type.value,
+                            "podíl_pct": item.dependency_pct,
+                            "období": metadata.get("disclosure_period"),
+                            "cenová_řada": scenario.get("status"),
+                            "důvod_nedostatku": scenario.get("reason"),
+                            "cena": price.get("value"),
+                            "jednotka": price.get("unit"),
+                            "měna": price.get("currency"),
+                            "cena_dostupná_od": price.get("available_at"),
+                            "scénář_změny_ceny_pct": scenario.get("scenario_assumption", {}).get("price_change_pct"),
+                            "nákladový_podíl_na_tržbách_pct": sensitivity.get("cost_share_of_revenue_pct"),
+                            "hedge_pct": sensitivity.get("hedged_share_pct"),
+                            "fixace_pct": sensitivity.get("fixed_price_share_pct"),
+                            "přenos_ceny_pct": sensitivity.get("pass_through_pct"),
+                            "dopad_do_marže_pp": sensitivity.get("estimated_margin_impact_pp"),
+                            "citace": metadata.get("evidence_quote"),
+                            "reference": item.source_url,
+                        }
+                    )(
+                        item.metadata if isinstance(item.metadata, dict) else {},
+                        (item.metadata if isinstance(item.metadata, dict) else {}).get("resource_margin_scenario", {}),
+                        (item.metadata if isinstance(item.metadata, dict) else {}).get("resource_margin_scenario", {}).get("sensitivity", {}),
+                        (item.metadata if isinstance(item.metadata, dict) else {}).get("resource_margin_scenario", {}).get("latest_price_point", {}),
+                    )
                     for item in resource_execution.result.resource_exposures
                 ]
             ),
@@ -1661,7 +1680,7 @@ with st.sidebar:
         value=agent_runtime_settings.commodity_energy_enabled,
         help=(
             "Povolené typy: MATERIAL_INPUT, COMMODITY_OUTPUT, ELECTRICITY, FUEL. "
-            "Etapa 3 zatím nepřipojuje cenovou řadu ani směrové score."
+            "Datovaná cenová řada a margin scénář jsou pouze evidence/sensitivity, nikdy směrové score."
         ),
     )
     auto_discover_commodity_energy_from_sec = st.checkbox(
@@ -1674,13 +1693,14 @@ with st.sidebar:
         ),
     )
     commodity_energy_sources_text = st.text_area(
-        "Materiály/energie: TICKER | zdroj | typ | podíl %/- | vydavatel | datum | HTTPS URL",
+        "Materiály/energie: 7 základních polí nebo 19 polí s cenovým bodem a scénářem",
         value=agent_runtime_settings.commodity_energy_sources_text,
         height=100,
         disabled=not use_commodity_energy,
         placeholder=(
             "AAPL | aluminium | MATERIAL_INPUT | - | Company report | "
-            "2026-08-19 | https://example.com/source"
+            "2026-08-19 | https://example.com/source | 20 | 30 | 20 | 25 | 15 | USD/mt | USD | "
+            "2026-08-18 | 2026-08-19 | 2400 | FY2025 | Exact supporting sentence"
         ),
     )
     use_regulatory_contract = st.checkbox(

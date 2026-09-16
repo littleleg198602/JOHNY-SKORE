@@ -155,6 +155,9 @@ class FilingExposureDiscoveryTests(unittest.TestCase):
         self.assertTrue(
             all(item.source.confidence <= 0.40 for item in findings.commodity_energy)
         )
+        self.assertTrue(
+            all("input costs" in item.evidence_quote for item in findings.commodity_energy)
+        )
 
     def test_neutral_filing_language_does_not_create_inferred_relationships(self) -> None:
         findings = FilingExposureDiscoveryService().discover(
