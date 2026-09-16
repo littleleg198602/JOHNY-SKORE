@@ -23,6 +23,9 @@ from market_checker_app.config import SupplyChainConfig
 from market_checker_app.services.filing_exposure_discovery_service import (
     FilingExposureDiscoveryService,
 )
+from market_checker_app.services.supply_chain_evidence_service import (
+    build_supply_chain_evidence_metadata,
+)
 from market_checker_app.utils.text import normalize_ticker
 
 
@@ -98,7 +101,7 @@ class SupplyChainAgent(BaseAgent):
                                 (
                                     finding.source,
                                     fetched,
-                                    (finding.support_term,),
+                                    (finding.support_term, finding.evidence_quote),
                                     "sec_filing",
                                     finding.reason,
                                 )
@@ -233,6 +236,23 @@ class SupplyChainAgent(BaseAgent):
                         "scoring_applied": False,
                     },
                 )
+                relationship.metadata = build_supply_chain_evidence_metadata(
+                    ticker=ticker,
+                    counterparty=counterparty,
+                    relationship_type=relationship_type,
+                    published_at=source.published_at,
+                    observed_at=observed_at,
+                    source_url=relationship.source_url,
+                    disclosure_period=source.disclosure_period,
+                    product_or_input=source.product_or_input,
+                    counterparty_country=source.counterparty_country,
+                    counterparty_identity_status=source.counterparty_identity_status,
+                    relationship_context=source.relationship_context,
+                    evidence_quote=source.evidence_quote,
+                    evidence_level=source.evidence_level,
+                    discovery_method=discovery_method,
+                    existing=relationship.metadata,
+                )
             except (AttributeError, TypeError, ValueError) as exc:
                 rejected_sources += 1
                 warnings.append(f"SupplyChainAgent {ticker}: {exc}.")
@@ -283,6 +303,14 @@ class SupplyChainAgent(BaseAgent):
                         "causal_impact_assessed": False,
                         "source_content_support_detected": support_detected,
                         "discovery_method": discovery_method,
+                        "edge_direction": relationship.metadata["edge_direction"],
+                        "counterparty_identity_status": relationship.metadata[
+                            "counterparty_identity_status"
+                        ],
+                        "evidence_level": relationship.metadata["evidence_level"],
+                        "evidence_freshness": relationship.metadata[
+                            "evidence_freshness"
+                        ],
                         "scoring_applied": False,
                         "shadow_mode": context.shadow_mode,
                     },

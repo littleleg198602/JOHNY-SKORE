@@ -25,6 +25,13 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-16 — OPL-015 orientovaná evidence dodavatelů a odběratelů
+
+- Supply/customer hrana nově nese směr, stav identity nebo explicitní anonymitu, produkt/vstup, zemi, období, zveřejněný podíl, kontext koncentrace/single-source/disruption, úroveň důkazu, čerstvost a URL s krátkou přesnou citací.
+- SEC discovery uchová větu, která dokládá anonymní koncentraci či smluvní výrobu; `Unnamed major customer` zůstává `ANONYMOUS` a není spojován s náhodnou veřejnou firmou. Chybějící data jsou `UNKNOWN`/`NOT_DISCLOSED`.
+- UI odděluje dodavatelskou stranu `protistrana → firma` a odběratelskou stranu `firma → protistrana`. Ruční manifest přijímá původní 7polový formát i rozšířený 14polový kontrakt.
+- Vrstva je auditní a nemění scoring, ranking, predikci ani obchodní exekuci. Ověřeny anonymita, citace, single-source, čerstvost, rozšířený manifest a Stage 3 SEC integrace; živá evidence zůstává pending.
+
 ## 2026-09-16 — OPL-013 kompatibilní walk-forward vyhodnocení
 
 - Přidán `candidate_walk_forward_evaluation_v1`: pro každý historický týden kandidát znovu fituje pouze z labelů známých před daným `as_of`, takže současný nebo budoucí outcome nemůže utéct do tréninku.

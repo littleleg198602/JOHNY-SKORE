@@ -465,6 +465,13 @@ class SupplyChainSourceConfig:
     url: str
     dependency_pct: float | None = None
     confidence: float = 1.0
+    counterparty_identity_status: str | None = None
+    product_or_input: str | None = None
+    counterparty_country: str | None = None
+    disclosure_period: str | None = None
+    relationship_context: str | None = None
+    evidence_quote: str | None = None
+    evidence_level: str | None = None
 
 
 @dataclass(slots=True)

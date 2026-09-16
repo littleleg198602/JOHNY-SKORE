@@ -427,6 +427,21 @@ class StageThreeQualityGateTests(unittest.TestCase):
 
 
 class StageThreeManifestTests(unittest.TestCase):
+    def test_extended_supply_manifest_preserves_evidence_fields(self) -> None:
+        supply, errors = parse_supply_chain_sources(
+            "TEST | Example Components | SUPPLIER | 25 | Filing | 2026-01-01 | "
+            "https://example.com/filing | IDENTIFIED | battery cells | JP | FY2025 | "
+            "SINGLE_SOURCE | EXPLICIT_FILING | Example Components is our sole supplier"
+        )
+        self.assertEqual([], errors)
+        self.assertEqual(1, len(supply))
+        self.assertEqual("IDENTIFIED", supply[0].counterparty_identity_status)
+        self.assertEqual("battery cells", supply[0].product_or_input)
+        self.assertEqual("JP", supply[0].counterparty_country)
+        self.assertEqual("FY2025", supply[0].disclosure_period)
+        self.assertEqual("SINGLE_SOURCE", supply[0].relationship_context)
+        self.assertEqual("EXPLICIT_FILING", supply[0].evidence_level)
+
     def test_manifests_parse_valid_rows_and_reject_private_or_ambiguous_sources(self) -> None:
         supply, supply_errors = parse_supply_chain_sources(
             "TEST | Supplier | SUPPLIER | 25 | Filing | 2026-01-01 | https://example.com/filing\n"
