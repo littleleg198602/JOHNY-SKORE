@@ -68,6 +68,9 @@ from market_checker_app.services.stage4_evaluation_service import (
     Stage4EvaluationService,
 )
 from market_checker_app.services.source_discovery_service import SourceDiscoveryService
+from market_checker_app.services.source_degradation_service import (
+    build_source_degradation_report,
+)
 from market_checker_app.services.ticker_traceability_service import (
     build_ticker_traceability,
 )
@@ -1031,11 +1034,13 @@ class PipelineService:
                 "ohlc_missing_lookbacks": json.dumps(ohlc_quality.missing_lookbacks),
                 "yahoo_ticker": yahoo_ticker,
                 "yahoo_data_status": yahoo_data_status,
+                "yahoo_data_reason": yahoo_warning,
                 "yahoo_data_fetched_at": yahoo_data_fetched_at,
                 "scoring_version": SCORING_VERSION,
                 "legacy_total_score": legacy_total_score,
                 "legacy_signal": legacy_signal,
                 "tech_source_used": tech_source_used,
+                "technical_source_detail": tech_source_warning,
                 "technical_status": technical_status,
                 "technical_reason": technical_reason,
                 "news_count_48h": news.news_count_48h,
@@ -1226,6 +1231,19 @@ class PipelineService:
         errors = list(dict.fromkeys(errors))
         signals_df = RankingService.apply_ranking(pd.DataFrame(rows))
         ticker_traceability = build_ticker_traceability(watchlist, signals_df)
+        source_degradation = build_source_degradation_report(
+            signals_df,
+            yahoo_ohlc_failures=[
+                {"ticker": ticker, "error": warning}
+                for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
+            ],
+            yahoo_ohlc_retry_deferred=[
+                {"ticker": ticker, "error": warning}
+                for ticker, warning in sorted(bulk_yahoo_ohlc_retry_deferred.items())
+            ],
+            rss_warnings=warnings,
+            observed_at=started_at,
+        )
         ranking_eligible_count = int(
             signals_df["ranking_eligible"].fillna(False).sum()
         ) if "ranking_eligible" in signals_df.columns else 0
@@ -1534,6 +1552,7 @@ class PipelineService:
                     signals_df,
                     datetime.now(timezone.utc).isoformat(),
                     ticker_traceability=ticker_traceability,
+                    source_degradations=source_degradation["records"],
                 )
             except Exception as exc:
                 message = f"SQLite uložení běhu selhalo: {exc}"
@@ -1567,6 +1586,7 @@ class PipelineService:
             "metadata": metadata,
             "signals": signals_df,
             "ticker_traceability": ticker_traceability,
+            "source_degradation": source_degradation,
             "sources": sources_df,
             "articles": articles_df,
             "warnings": warnings,

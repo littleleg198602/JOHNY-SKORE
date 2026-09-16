@@ -224,6 +224,28 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
                         width="stretch",
                         hide_index=True,
                     )
+    source_degradation = result.get("source_degradation")
+    if isinstance(source_degradation, dict):
+        degradation_count = int(source_degradation.get("degradation_count") or 0)
+        st.markdown("### Dostupnost zdrojů")
+        if degradation_count == 0:
+            st.success("Nejsou evidované žádné výpadky ani degradace zdrojů.")
+        else:
+            circuits = source_degradation.get("provider_circuits") or {}
+            st.warning(
+                f"Evidováno {degradation_count} degradací zdrojů. "
+                f"Yahoo OHLC circuit: {circuits.get('yahoo_ohlc', 'n/a')}."
+            )
+            records = source_degradation.get("records")
+            if isinstance(records, list):
+                with st.expander(
+                    f"Důvody degradace ({len(records)})", expanded=False
+                ):
+                    st.dataframe(
+                        pd.DataFrame(records),
+                        width="stretch",
+                        hide_index=True,
+                    )
     if result.get("pipeline_status") == "SUCCESS":
         st.success(
             "Poslední týdenní běh byl načten. Výsledky níže jsou pouze analytické "
