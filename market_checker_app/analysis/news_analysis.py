@@ -6,6 +6,10 @@ from collections import Counter
 from datetime import datetime, timezone
 
 from market_checker_app.models import ArticleFeatures, NewsAnalysisResult, NewsItem
+from market_checker_app.utils.news_events import (
+    canonical_news_event_id,
+    headlines_describe_same_event,
+)
 from market_checker_app.utils.text import normalize_text
 
 POSITIVE = {"beat", "growth", "upgrade", "outperform", "record", "profit", "bullish", "guidance raised"}
@@ -38,13 +42,50 @@ def _importance(text: str) -> float:
 
 def _relevance(ticker: str, title: str, summary: str, url: str) -> float:
     up = ticker.upper()
-    if up in title.upper():
+    if _contains_ticker(title, up):
         return 1.0
-    if up in summary.upper():
+    if _contains_ticker(summary, up):
         return 0.8
-    if up in url.upper():
+    if _contains_ticker(url, up):
         return 0.6
     return 0.3
+
+
+def _contains_ticker(value: str, ticker: str) -> bool:
+    return re.search(
+        rf"(?<![A-Z0-9]){re.escape(ticker)}(?![A-Z0-9])", value.upper()
+    ) is not None
+
+
+def _publisher_identity(article: NewsItem) -> str:
+    """Use the original publisher for trust; a feed URL is transport only."""
+    return str(article.publisher_domain or article.publisher or article.source)
+
+
+def _event_clusters(articles: list[NewsItem]) -> list[list[int]]:
+    """Collapse exact and sufficiently similar rewritten headlines."""
+    clusters: list[list[int]] = []
+    for index, article in enumerate(articles):
+        for cluster in clusters:
+            representative = articles[cluster[0]]
+            age_delta = abs(
+                (article.published_at - representative.published_at).total_seconds()
+            )
+            same_exact_event = bool(article.event_id) and article.event_id == representative.event_id
+            if age_delta <= 72 * 3600 and (
+                same_exact_event
+                or headlines_describe_same_event(
+                    article.title,
+                    article.summary,
+                    representative.title,
+                    representative.summary,
+                )
+            ):
+                cluster.append(index)
+                break
+        else:
+            clusters.append([index])
+    return clusters
 
 
 def _recency_weight(age_hours: float, half_life_hours: float = 36.0) -> float:
@@ -54,25 +95,32 @@ def _recency_weight(age_hours: float, half_life_hours: float = 36.0) -> float:
 def analyze_news(ticker: str, articles: list[NewsItem]) -> NewsAnalysisResult:
     now = datetime.now(timezone.utc)
     if not articles:
-        return NewsAnalysisResult(ticker, 42.0, 18.0, 0, 0, 0, 0.0, 0, 0.0, 0.0, 0, 0, 0.0, 1.0, 0.0, 0.0, ["no recent news"], ["No relevant news articles were detected."], [])
+        return NewsAnalysisResult(ticker, 50.0, 0.0, 0, 0, 0, 0.0, 0, 0.0, 0.0, 0, 0, 0.0, 1.0, 0.0, 0.0, ["no recent news"], ["No relevant news articles were detected; missingness is not directional evidence."], [])
 
-    # Prefer the original event identifier.  Feed URLs are transport only and
-    # must not turn syndicated copies into independent confirmation.
-    event_keys = [
-        str(article.event_id or "").strip()
-        or normalize_text(article.title)
-        for article in articles
-    ]
-    counts = Counter(event_keys)
+    clusters = _event_clusters(articles)
+    event_index_by_article = {
+        article_index: cluster_index
+        for cluster_index, cluster in enumerate(clusters)
+        for article_index in cluster
+    }
+    canonical_event_ids = {
+        cluster_index: (
+            str(articles[cluster[0]].event_id or "").strip()
+            or canonical_news_event_id(articles[cluster[0]].title)
+        )
+        for cluster_index, cluster in enumerate(clusters)
+    }
+    counts = Counter(event_index_by_article.values())
     features: list[ArticleFeatures] = []
     positive = negative = high_importance = fresh = stale = 0
     weighted_sum = weight_total = trust_sum = relevance_sum = 0.0
 
-    for article, event_key in zip(articles, event_keys):
+    for index, article in enumerate(articles):
+        event_key = event_index_by_article[index]
         age_hours = max(0.0, (now - article.published_at).total_seconds() / 3600)
         sentiment = _calc_sentiment(f"{article.title} {article.summary}")
         importance = _importance(f"{article.title} {article.summary}")
-        trust = _source_trust(article.source)
+        trust = _source_trust(_publisher_identity(article))
         relevance = _relevance(ticker, article.title, article.summary, article.url)
         recency = _recency_weight(age_hours)
         is_duplicate = counts[event_key] > 1
@@ -89,20 +137,47 @@ def analyze_news(ticker: str, articles: list[NewsItem]) -> NewsAnalysisResult:
         weight_total += final_weight
         trust_sum += trust
         relevance_sum += relevance
-        features.append(ArticleFeatures(ticker, article.source, article.published_at, age_hours, article.title, article.summary, trust, relevance, sentiment, importance, recency, dupe_penalty, final_weight, is_duplicate))
+        features.append(
+            ArticleFeatures(
+                ticker,
+                article.source,
+                article.published_at,
+                age_hours,
+                article.title,
+                article.summary,
+                trust,
+                relevance,
+                sentiment,
+                importance,
+                recency,
+                dupe_penalty,
+                final_weight,
+                is_duplicate,
+                canonical_event_id=canonical_event_ids[event_key],
+                publisher=article.publisher,
+                publisher_domain=article.publisher_domain,
+                observed_at=article.observed_at,
+                evidence_level=article.evidence_level,
+            )
+        )
 
     total = len(articles)
+    canonical_event_count = len(clusters)
     unique_sources = len(
         {
-            str(article.publisher_domain or article.publisher or article.source)
+            _publisher_identity(article)
             for article in articles
-            if str(article.publisher_domain or article.publisher or article.source).strip()
+            if _publisher_identity(article).strip()
         }
     )
-    duplicate_ratio = 1 - (len(counts) / total)
+    # Multiple publisher domains in one matched event are not automatically
+    # independent corroboration.  Both a separate publisher and a separate
+    # canonical event are required before this confidence dimension grows.
+    independent_confirmation_count = min(unique_sources, canonical_event_count)
+    duplicate_ratio = 1 - (canonical_event_count / total)
     stale_ratio = stale / total
     fresh_ratio = fresh / total
-    source_diversity = min(1.0, unique_sources / 6.0)
+    source_diversity = min(1.0, independent_confirmation_count / 6.0)
     avg_trust = trust_sum / total
     weighted_avg = weighted_sum / weight_total if weight_total > 0 else 0.0
 
@@ -121,11 +196,10 @@ def analyze_news(ticker: str, articles: list[NewsItem]) -> NewsAnalysisResult:
     # how many syndicated headlines were collected.
     news_score = max(0.0, min(100.0, sentiment_component))
 
-    confidence = max(0.0, min(100.0, min(1.0, total / 14) * 28 + source_diversity * 20 + avg_trust * 18 + fresh_ratio * 16 + (1 - duplicate_ratio) * 10 + (relevance_sum / total) * 12))
-    # Article volume from one feed is not independent confirmation.  The old
-    # formula often reported ~60 % confidence even when almost every headline
-    # came through the same Google News RSS source.
-    if unique_sources <= 1:
+    confidence = max(0.0, min(100.0, min(1.0, canonical_event_count / 14) * 28 + source_diversity * 20 + avg_trust * 18 + fresh_ratio * 16 + (1 - duplicate_ratio) * 10 + (relevance_sum / total) * 12))
+    # A transport/feed may contain many copies.  One canonical event remains
+    # one observation even when it is repeated by different domains.
+    if unique_sources <= 1 or canonical_event_count <= 1:
         confidence = min(confidence, 55.0)
     elif source_diversity < 0.35:
         confidence = min(confidence, 65.0)
@@ -137,9 +211,11 @@ def analyze_news(ticker: str, articles: list[NewsItem]) -> NewsAnalysisResult:
         warnings.append("low source diversity")
     if stale_ratio > 0.5:
         warnings.append("stale coverage dominates")
+    if duplicate_ratio > 0:
+        warnings.append("syndicated or rewritten copies collapsed")
 
     reasons = [
-        f"Sentiment {weighted_avg:.2f}, articles {total} ({fresh} fresh / {stale} stale).",
+        f"Sentiment {weighted_avg:.2f}, articles {total}, canonical events {canonical_event_count} ({fresh} fresh / {stale} stale).",
         f"High-importance articles: {high_importance}, average source trust {avg_trust:.2f}.",
     ]
 
