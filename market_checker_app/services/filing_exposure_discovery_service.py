@@ -19,6 +19,7 @@ class FilingSupplyChainFinding:
     source: SupplyChainSourceConfig
     support_term: str
     reason: str
+    evidence_quote: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,6 +51,11 @@ _SUPPLIER_CONCENTRATION = re.compile(
 _CONTRACT_MANUFACTURING = re.compile(
     r"(?P<phrase>contract manufacturers?|outsourc(?:e|ed|ing)\s+"
     r"(?:a material portion of\s+)?(?:our\s+)?manufacturing)",
+    flags=re.IGNORECASE,
+)
+_SUPPLY_DISRUPTION = re.compile(
+    r"(?P<phrase>(?:supply(?:\s+chain)?|supplier)\s+"
+    r"(?:disruption|interruption|shortage|constraint|delay)s?)",
     flags=re.IGNORECASE,
 )
 
@@ -188,6 +194,8 @@ class FilingExposureDiscoveryService:
             support_term: str,
             reason: str,
             dependency_pct: float | None = None,
+            relationship_context: str | None = None,
+            evidence_quote: str = "",
         ) -> None:
             if len(supply) >= max(0, int(max_supply_chain)):
                 return
@@ -206,9 +214,14 @@ class FilingExposureDiscoveryService:
                         url=url,
                         dependency_pct=dependency_pct,
                         confidence=0.45,
+                        counterparty_identity_status="ANONYMOUS",
+                        relationship_context=relationship_context,
+                        evidence_level="EXPLICIT_FILING",
+                        evidence_quote=evidence_quote,
                     ),
                     support_term=support_term,
                     reason=reason,
+                    evidence_quote=evidence_quote,
                 )
             )
 
@@ -222,6 +235,8 @@ class FilingExposureDiscoveryService:
                     support_term=customer.group("phrase"),
                     reason="sec_10k_customer_concentration",
                     dependency_pct=dependency,
+                    relationship_context="CONCENTRATION",
+                    evidence_quote=sentence,
                 )
             supplier = _SUPPLIER_CONCENTRATION.search(sentence)
             if supplier:
@@ -230,6 +245,12 @@ class FilingExposureDiscoveryService:
                     relationship_type=RelationshipType.SUPPLIER,
                     support_term=supplier.group("phrase"),
                     reason="sec_10k_supplier_concentration",
+                    relationship_context=(
+                        "SINGLE_SOURCE"
+                        if any(term in sentence.casefold() for term in ("single", "sole", "single-source"))
+                        else "SUPPLIER_CONCENTRATION"
+                    ),
+                    evidence_quote=sentence,
                 )
             manufacturer = _CONTRACT_MANUFACTURING.search(sentence)
             if manufacturer:
@@ -238,6 +259,18 @@ class FilingExposureDiscoveryService:
                     relationship_type=RelationshipType.CONTRACT_MANUFACTURER,
                     support_term=manufacturer.group("phrase"),
                     reason="sec_10k_contract_manufacturing",
+                    relationship_context="CONTRACT_MANUFACTURING",
+                    evidence_quote=sentence,
+                )
+            disruption = _SUPPLY_DISRUPTION.search(sentence)
+            if disruption:
+                add_supply(
+                    counterparty="Unnamed supply-chain disruption",
+                    relationship_type=RelationshipType.SUPPLIER,
+                    support_term=disruption.group("phrase"),
+                    reason="sec_10k_supply_disruption",
+                    relationship_context="DISRUPTION",
+                    evidence_quote=sentence,
                 )
 
         commodities: list[FilingCommodityFinding] = []
