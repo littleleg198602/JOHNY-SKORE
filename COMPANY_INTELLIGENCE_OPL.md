@@ -127,8 +127,8 @@ Vlastník DEV/DATA/QA označuje navrženou roli, nikoli již objednaného extern
 | OPL-009 | P1 | VERIFY | Identity a source smoke skutečné verze | AUD-001, ENTITY-101 | QA / M |
 | OPL-010 | P1 | PARTIAL | Události, syndikace a relevance zpráv | AUD-008/009, NEWS-001 | DEV+DATA / L |
 | OPL-011 | P1 | PARTIAL | SEC fundamentální faktory dostupné k času rozhodnutí | AUD-011, FUND-001 | DEV+DATA / L |
-| OPL-012 | P1 | OPEN | Zmrazené baseline a jednoduchý kandidátní model | AUD-012, BASE-001, MODEL-001 | DEV+DATA / L |
-| OPL-013 | P1 | PARTIAL | Vyhodnocovací software a report nové target verze | AUD-007/010/012, EVAL-001 | DEV+DATA / L |
+| OPL-012 | P1 | CODE_COMPLETE / OOS evidence pending | Zmrazené baseline a jednoduchý kandidátní model | AUD-012, BASE-001, MODEL-001 | DEV+DATA / L |
+| OPL-013 | P1 | CODE_COMPLETE / OOS evidence pending | Vyhodnocovací software a report nové target verze | AUD-007/010/012, EVAL-001 | DEV+DATA / L |
 | OPL-014 | P1 | PARTIAL | Integrační a živá akceptace 687 bez MT5 | AUD-014, SCALE-001 | QA / L |
 | OPL-015 | P1 | PARTIAL | Důkazní vrstva dodavatelů i zákazníků | AUD-015, SUPPLY-401..403 | DEV+DATA / L |
 | OPL-016 | P2 | OPEN | Zdraví identifikovaných protistran včetně soukromých | PRIVATE-001, AUD-015 | DATA+DEV / L |

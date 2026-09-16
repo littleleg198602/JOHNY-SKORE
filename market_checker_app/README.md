@@ -559,3 +559,19 @@ Trénovaný artefakt obsahuje verzi modelu/feature/targetu, interval a ID
 trénovacích snapshotů, imputaci, škálování a koeficienty. SQLite ukládá pouze
 skutečně natrénované artefakty do `candidate_model_artifacts` a jejich shadow
 predikce do `candidate_model_predictions`.
+
+## Walk-forward vyhodnocení kandidáta
+
+Weekly JSON navíc nese `candidate_model_walk_forward`: samostatný report
+`candidate_walk_forward_evaluation_v1` pro stejnou target verzi, momentum
+baseline a logistického kandidáta. Pro každý historický prediction týden se
+kandidát znovu trénuje jen z labelů dostupných před jeho `as_of`; stejný ticker
+se nevyhodnocuje přes překrývající se label horizont.
+
+Report uvádí Brier score a kalibraci, ranking IC, top-decile excess return a
+directional accuracy celkem, po týdnech a podle dostupného sektoru. Intervaly
+jsou bootstrapované přes týdny, nikoli přes jednotlivé tickery jako zdánlivě
+nezávislé vzorky. Dokud není nejméně 200 vzorků a 12 týdnů, stav zůstává
+`INSUFFICIENT_DATA`; dílčí metriky ani případně horší kandidát se nemažou.
+Výsledek je ukládán do `candidate_model_evaluations`, je výhradně analytický a
+nikdy nemění ranking, rozhodnutí ani obchodní exekuci.

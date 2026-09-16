@@ -25,6 +25,14 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-16 — OPL-013 kompatibilní walk-forward vyhodnocení
+
+- Přidán `candidate_walk_forward_evaluation_v1`: pro každý historický týden kandidát znovu fituje pouze z labelů známých před daným `as_of`, takže současný nebo budoucí outcome nemůže utéct do tréninku.
+- Evaluace vyřazuje překrývající se horizont téhož tickeru, porovnává verzovaný momentum baseline s logistickým kandidátem a nezatajuje ani horší kandidátní výsledek.
+- Report zahrnuje Brier score, kalibraci, ranking IC, top-decile excess return a directional accuracy celkem, po týdnech a podle sektoru. Intervaly používají deterministický weekly bootstrap; tickery nejsou vydávány za nezávislé replikace.
+- SQLite `candidate_model_evaluations` ukládá i `INSUFFICIENT_DATA`; weekly JSON nese `candidate_model_walk_forward`. Hranice 200 vzorků / 12 týdnů zůstává poctivá podmínka pro OOS evidence, ne aktivace.
+- Ověřeno syntetickým známým výsledkem, negativním testem delayed-label leakage, ochranou překryvu, nedostatkem dat a persistencí reportu. Vrstvy jsou výhradně analytické; ranking, rozhodnutí i obchodní exekuce se nemění.
+
 ## 2026-09-16 — OPL-012 zmrazený shadow baseline a kandidátní model
 
 - Přidán pevný `momentum_relative_baseline v1` a deterministický `pit_logistic_regression v1`. Oba čtou pouze immutable point-in-time snapshots a nikdy nezapisují do produkčního skóre, rankingu ani rozhodnutí.

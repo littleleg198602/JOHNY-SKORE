@@ -21,6 +21,7 @@ Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává z
 | OPL-010 | CODE COMPLETE / live evidence pending | integrity follow-up branch | RSS odděluje feed transport od původního vydavatele, exact i přepsané titulky slučuje do konzervativních kanonických eventů, používá tokenovou ticker relevanci a drží `no news` jako neutrální missingness. Změna má vlastní release/feature verzi; živý důkaz zůstává pending. |
 | OPL-011 | CODE COMPLETE / live report pending | PR #118, merge `59bd311` | SEC raw facts se převádějí do neměnných, verzovaných snapshotů pro správné `QUARTER`/`ANNUAL`/`YTD`/`INSTANT` období. Snapshot eviduje source fact IDs, accession, URL, missingness a lineage revizí; restatement po cutoffu nemění historický snapshot. Filing date se bezpečně považuje za dostupný až následující UTC den, protože zdroj neposkytuje accepted-at. Faktory zatím nemění scoring. |
 | OPL-012 | CODE COMPLETE / OOS evidence pending | shadow candidate model layer | Neměnný `momentum_relative_baseline v1` a deterministický `pit_logistic_regression v1` se učí pouze z dříve uzavřených point-in-time snapshotů stejného targetu. Artefakt nese interval, snapshot IDs, imputaci, škálování a koeficienty; při nedostatečné historii je výsledek `INSUFFICIENT_DATA`. Kandidát se exportuje samostatně do SQLite/weekly JSON a nikdy nemění produkční ranking ani ruční rozhodnutí. |
+| OPL-013 | CODE COMPLETE / OOS evidence pending | walk-forward evaluation layer | `candidate_walk_forward_evaluation_v1` pro každý prediction týden znovu trénuje jen na tehdy známých kompatibilních labelech, vyřadí překrývající se ticker/label horizonty a porovnává momentum baseline s kandidátem. Report ukládá Brier score/kalibraci, ranking IC, top-decile excess return a directional accuracy celkem, po týdnech a sektorech; intervaly bootstrapuje přes týdny. Výsledek pod 200 vzorky či 12 týdny je viditelně `INSUFFICIENT_DATA`, nikdy aktivace modelu. |
 
 Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Streamlit gate, deterministic test suite a deterministic release gate**.
 
@@ -43,8 +44,8 @@ Každý nový snapshot nese release manifest s code SHA, config hashem, model/sc
 
 Nejvyšší zbývající technická priorita je:
 
-1. OPL-013: doplnit kompatibilní walk-forward/evaluation report s ochranou proti leakage a nejistotou po týdnech.
-2. Provést skutečné OPL-007/008/009/010/011/012 provozní reporty na aktuální verzi; absence reportu je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
+1. OPL-015: doplnit důkazní vrstvu dodavatelů i zákazníků, bez domýšlení neveřejných protistran.
+2. Provést skutečné OPL-007/008/009/010/011/012/013 provozní a OOS reporty na aktuální verzi; absence reportu je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
 
 Živá data, která potřebují nasbírat čas/OOS vzorky, zůstávají `WAIT_DATA`; absence dat se nesmí označovat za implementační chybu ani za hotový predikční důkaz.
 
