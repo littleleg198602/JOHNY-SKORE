@@ -25,6 +25,15 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-16 — OPL-009 integrity follow-up a OPL-010 news canonicalization
+
+- **OPL-009:** selhání jedné přesné identity už není připsáno všem manifestovým tickerům. Smoke audit ověří záznamy samostatně, zachová úspěšné identity a každý konflikt uloží jen k dotčenému tickeru.
+- **OPL-010:** RSS event ID je nezávislé na feedu a původním vydavateli; exact i dostatečně podobné přepsané titulky se konzervativně slučují do jednoho kanonického eventu. Více kopií proto nezvyšuje confidence jako více nezávislých potvrzení.
+- Trust vychází z původního vydavatele, ticker relevance používá hranice tokenu (krátký ticker nemůže matchovat substring) a `no news` je neutrální missingness se zero news confidence.
+- News evidence nese `published_at`, `observed_at`, evidence-level, původního vydavatele a kanonický event ID. Aktivní analytická verze je `v2.3_canonical_news_consensus`; legacy baseline se nepřepisuje.
+- Ověřeno: 12 news regresí, 12 identity-smoke regresí (s izolovaným náhradním importem chybějícího kalendářového balíčku), `compileall` a `git diff --check`. Živý evidence report ani predikční přínos nejsou tímto tvrzeny.
+- Produkt zůstává výhradně analytický; automatické obchodování ani exekuce nebyly přidány.
+
 ## 2026-09-14 – první P0 implementace z auditního backlogu
 
 - **AUD-002 / PR #87:** týdenní GitHub analytický krok už nepředává `--ticker-limit 36`; stejně jako Windows launcher používá celý `production_watchlist.txt`. Tří tickerový krok zůstává pouze samostatný source/identity smoke.
