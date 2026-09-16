@@ -25,6 +25,13 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-16 — OPL-018 point-in-time makro a sektorový režim
+
+- Přidán malý macro manifest/report pro VIX, US10Y, T10Y2Y, DXY, WTI, CPI, průmysl a sektorovou relativní sílu. Každé pozorování nese referenční období, zdroj, `available_at` a `vintage_at`.
+- Replay vybere pouze poslední vintage dostupné před `as_of`; budoucí revize se explicitně počítají mezi vyřazené záznamy. Neúplná povinná sada vrací `INSUFFICIENT_DATA`.
+- SQLite ukládá immutable macro observations i reporty. Weekly shadow JSON zveřejní samostatný `macro_sector_regime`; UI/runtimový manifest přijímá zdrojové řádky.
+- Režim je analytický kontext bez zásahu do score, rankingu, rozhodnutí či obchodní exekuce; skutečná ablace a živé evidence zůstávají pending.
+
 ## 2026-09-16 — OPL-017 materiály, energie a doložené margin scénáře
 
 - Přidány point-in-time cenové body s hodnotou, jednotkou, měnou, URL, `observed_at` a `available_at`. Bod publikovaný po cutoffu se do historického scénáře nedostane.
