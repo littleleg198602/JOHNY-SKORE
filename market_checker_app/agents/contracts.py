@@ -394,6 +394,59 @@ class FundamentalFact:
 
 
 @dataclass(slots=True)
+class FundamentalFeatureSnapshot:
+    """Immutable, point-in-time SEC feature set derived from raw filings.
+
+    ``availability_at`` deliberately carries filing-date precision only.  SEC
+    company-facts JSON does not expose the accepted-at timestamp needed for a
+    same-day assertion, so consumers must treat the source as available from
+    the following UTC day (recorded in ``metadata``).
+    """
+
+    snapshot_id: str
+    ticker: str
+    feature_version: str
+    as_of: datetime
+    observed_at: datetime
+    availability_at: datetime
+    period_basis: str
+    period_start: datetime | None
+    period_end: datetime | None
+    values: dict[str, float] = field(default_factory=dict)
+    missing_reasons: dict[str, str] = field(default_factory=dict)
+    source_fact_ids: dict[str, list[str]] = field(default_factory=dict)
+    source_accessions: dict[str, list[str]] = field(default_factory=dict)
+    source_urls: dict[str, list[str]] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        for field_name in ("as_of", "observed_at", "availability_at"):
+            value = getattr(self, field_name)
+            if value.tzinfo is None or value.utcoffset() is None:
+                value = value.replace(tzinfo=timezone.utc)
+            else:
+                value = value.astimezone(timezone.utc)
+            setattr(self, field_name, value)
+        for field_name in ("period_start", "period_end"):
+            value = getattr(self, field_name)
+            if value is None:
+                continue
+            if value.tzinfo is None or value.utcoffset() is None:
+                value = value.replace(tzinfo=timezone.utc)
+            else:
+                value = value.astimezone(timezone.utc)
+            setattr(self, field_name, value)
+        self.period_basis = str(self.period_basis).strip().upper()
+        if self.period_basis not in {"QUARTER", "ANNUAL", "YTD", "INSTANT"}:
+            raise ValueError(f"Unsupported fundamental period basis: {self.period_basis}")
+        for name, value in self.values.items():
+            numeric = float(value)
+            if not math.isfinite(numeric):
+                raise ValueError(f"Fundamental feature {name!r} must be finite")
+            self.values[name] = numeric
+
+
+@dataclass(slots=True)
 class ResearchClaim:
     claim_id: str
     ticker: str
@@ -710,6 +763,9 @@ class AgentResult:
     )
     governance_events: list[GovernanceEvent] = field(default_factory=list)
     fundamental_facts: list[FundamentalFact] = field(default_factory=list)
+    fundamental_feature_snapshots: list[FundamentalFeatureSnapshot] = field(
+        default_factory=list
+    )
     claims: list[ResearchClaim] = field(default_factory=list)
     company_relationships: list[CompanyRelationship] = field(default_factory=list)
     resource_exposures: list[ResourceExposure] = field(default_factory=list)
@@ -736,6 +792,7 @@ class AgentResult:
             + len(self.document_source_resolutions)
             + len(self.governance_events)
             + len(self.fundamental_facts)
+            + len(self.fundamental_feature_snapshots)
             + len(self.claims)
             + len(self.company_relationships)
             + len(self.resource_exposures)
@@ -830,6 +887,14 @@ class OrchestrationReport:
             item
             for execution in self.executions
             for item in execution.result.fundamental_facts
+        ]
+
+    @property
+    def fundamental_feature_snapshots(self) -> list[FundamentalFeatureSnapshot]:
+        return [
+            item
+            for execution in self.executions
+            for item in execution.result.fundamental_feature_snapshots
         ]
 
     @property
