@@ -333,6 +333,66 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
                 st.write(f"- {message}")
 
 
+def _render_latest_live_source_smoke(output_dir: Path) -> None:
+    """Show the saved source/identity smoke contract without running it again."""
+    path = output_dir / "live_source_smoke_latest.json"
+    if not path.exists():
+        return
+    try:
+        result = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        st.warning(f"Live smoke soubor {path} se nepodařilo načíst: {exc}")
+        return
+    if not isinstance(result, dict):
+        st.warning(f"Live smoke soubor {path} nemá očekávaný JSON objekt.")
+        return
+
+    st.divider()
+    st.subheader("Poslední live smoke zdrojů a identit")
+    st.caption(f"Načteno z {path}. Toto zobrazení nespouští nový request.")
+    status = str(result.get("status") or "n/a")
+    if status == "PASS":
+        st.success("Provider canary prošel. Nejde o doporučení ani automatické obchodování.")
+    else:
+        st.warning("Provider canary neprošel; před použitím zkontroluj evidované chyby.")
+
+    checks = result.get("checks")
+    if isinstance(checks, list) and checks:
+        check_rows = [check for check in checks if isinstance(check, dict)]
+        if check_rows:
+            st.dataframe(pd.DataFrame(check_rows), width="stretch", hide_index=True)
+
+    ledger = result.get("identity_universe")
+    if not isinstance(ledger, dict):
+        return
+    st.markdown("### Kontrakt identity produkční universe")
+    columns = st.columns(5)
+    columns[0].metric("Universe", ledger.get("universe_count", 0))
+    columns[1].metric("Vyřešeno", ledger.get("resolved_count", 0))
+    columns[2].metric("Karanténa", ledger.get("quarantined_count", 0))
+    columns[3].metric("Nevyřešeno", ledger.get("unresolved_count", 0))
+    columns[4].metric("Pokrytí", ledger.get("coverage_status", "n/a"))
+    if ledger.get("coverage_status") != "COMPLETE":
+        st.warning(
+            "Nejde o kompletně ověřenou identity universe: položky v karanténě "
+            "nejsou započítané jako vyřešené a jejich identita se nedoplňuje odhadem."
+        )
+    records = ledger.get("records")
+    if isinstance(records, list):
+        non_resolved = [
+            record for record in records
+            if isinstance(record, dict) and record.get("status") != "RESOLVED"
+        ]
+        if non_resolved:
+            with st.expander(
+                f"Identity vyžadující doplnění ({len(non_resolved)})",
+                expanded=False,
+            ):
+                st.dataframe(
+                    pd.DataFrame(non_resolved), width="stretch", hide_index=True
+                )
+
+
 
 def _load_yahoo_tickers_from_excel(uploaded_file: object) -> tuple[list[str], str | None]:
     if uploaded_file is None:
@@ -1872,6 +1932,7 @@ if sqlite_info:
     st.warning(sqlite_info)
 st.caption(f"Aktivní DB: `{config.sqlite_path}`")
 _render_latest_shadow_result(output_dir)
+_render_latest_live_source_smoke(output_dir)
 if use_sec_fundamentals and (
     not sec_user_agent.strip() or "@" not in sec_user_agent
 ):

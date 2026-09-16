@@ -16,7 +16,8 @@ Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává z
 | OPL-004 | DONE | PR #109, merge `167fe03d32913120be4846caa930940adf978c84` | persistentní fair queue, retry_after/cursor, 1000/run, stránky po 120, backlog metriky, automatické Windows/GitHub spuštění, 700-snapshot starvation test |
 | OPL-001 | DONE | merge `97729f1` (PR #110) | release manifest, aktivní versus legacy verze, code/config/model/target/feature identita |
 | OPL-007 | CODE COMPLETE / live report pending | PR #111 + follow-up branch | způsobilost rankingu, neprůhledné řádky bez pořadí, per-ticker status ceny a technické vrstvy, auditovatelné exportní pole; nově atomická per-ticker traceability pipeline → SQLite → JSON → UI (requested/attempted/usable/partial/failed/not-attempted), testovaná na 687 tickerů. Zbývá jedině skutečný produkční 687tickerový report. |
-| OPL-008 | FOLLOW-UP IN PROGRESS | PR #114 + corrective branch | normalizované a per-ticker dohledatelné degradace zdrojů: rate limit, 403/401, timeout, parser, identita, konfigurace, data a retry; evidence se ukládá atomicky do SQLite, shadow JSON a UI. Korekce doplňuje agentní chyby, `STALE_DATA`, skutečný per-ticker backoff a počet/čas retry. |
+| OPL-008 | DONE | PR #115, merge `3eab604` | normalizované a per-ticker dohledatelné degradace zdrojů: rate limit, 403/401, timeout, parser, identita, konfigurace, data a retry; evidence se ukládá atomicky do SQLite, shadow JSON a UI. Korekce zahrnuje agentní chyby, `STALE_DATA`, skutečný per-ticker backoff a počet/čas retry. |
+| OPL-009 | CODE COMPLETE / live report pending | PR #116 (připraveno) | live smoke ukládá pro všech 687 tickerů explicitní identity stav `RESOLVED`, `QUARANTINED` nebo `UNRESOLVED` s reason code a detail. Přesných 36 manifestových identit se ověřuje registry; chybějící záznamy se nevymýšlejí a zůstávají v karanténě. Kontrakt je v atomickém JSON i UI. Zbývá skutečný produkční smoke report. |
 
 Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Streamlit gate, deterministic test suite a deterministic release gate**.
 
@@ -39,7 +40,7 @@ Každý nový snapshot nese release manifest s code SHA, config hashem, model/sc
 
 Nejvyšší zbývající technická priorita je:
 
-1. **OPL-009 — živý smoke a identita zdrojů.** Provést skutečný provider smoke nad aktuální verzí a mít pro všech 687 tickerů stav resolved/quarantined/unresolved včetně důvodu.
+1. Provést skutečný provider smoke nad aktuální verzí a uložit OPL-009 report pro všech 687 tickerů; absence reportu je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
 2. Spustit skutečný produkční 687tickerový OPL-007/008 report; jeho absence je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
 3. **OPL-010 — event canonicalization.** Sjednotit tutéž událost od více vydavatelů a oddělit neutrální zprávu od směrového podkladu.
 
