@@ -25,6 +25,13 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-16 — OPL-012 zmrazený shadow baseline a kandidátní model
+
+- Přidán pevný `momentum_relative_baseline v1` a deterministický `pit_logistic_regression v1`. Oba čtou pouze immutable point-in-time snapshots a nikdy nezapisují do produkčního skóre, rankingu ani rozhodnutí.
+- Kandidát používá výhradně uzavřené labely stejné target verze; snapshot i target_observed_at musí předcházet as-of. Imputace, škálování a logistická regrese se fitují jen na trénovacích řádcích.
+- Trénovaný model zapisuje verzovaný artefakt s intervalem, ID trénovacích snapshotů, parametry a vlastními shadow predikcemi. Nedostatek vzorků/tříd/variability je poctivý `INSUFFICIENT_DATA` s fallbackem k čitelnému momentu.
+- Weekly JSON obsahuje samostatný `candidate_model_shadow`; SQLite tabulky jsou `candidate_model_artifacts` a `candidate_model_predictions`. OOS přínos, kalibrace a výběr modelu zůstávají úkolem OPL-013/019.
+
 ## 2026-09-16 — OPL-011 SEC point-in-time feature snapshots
 
 - Z existujících SEC raw facts vzniká samostatný `sec_fundamentals_pit_v1` snapshot pro každou společnost; data se rozlišují na `QUARTER`, `ANNUAL`, `YTD` a `INSTANT` a YTD se tiše nepřepočítává na čtvrtletí.
