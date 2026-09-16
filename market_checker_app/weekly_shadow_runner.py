@@ -517,6 +517,9 @@ def _source_health_summary(
             "status": result.get("fundamental_ingestion_status"),
             "documents": int(result.get("fundamental_document_count") or 0),
             "facts": int(result.get("fundamental_fact_count") or 0),
+            "feature_snapshots": int(
+                result.get("fundamental_feature_snapshot_count") or 0
+            ),
             "filing_text_documents": int(
                 result.get("fundamental_filing_text_document_count") or 0
             ),
