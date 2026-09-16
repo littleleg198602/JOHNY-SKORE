@@ -274,8 +274,14 @@ konzervativně objevit přímo v bezpečně načteném textu posledního SEC 10-
 bere pouze explicitní věty o koncentraci zákazníků/dodavatelů, smluvní výrobě a
 vstupních materiálech či energiích. Neznámou protistranu si nevymýšlí, neodhaduje
 směr ceny a automatickému nálezu dává důvěru nejvýše 0,45. Text 10-K se používá
-jen v paměti; do SQLite se ukládá URL, hash, MIME a strukturovaný audit, nikoli
-surové tělo filingu. Regulační a kontraktní události lze navíc konzervativně
+jen v paměti; do SQLite se ukládá URL, hash, MIME, přesná krátká citace a
+strukturovaný audit, nikoli surové tělo filingu. Každá hrana nese orientaci
+`protistrana → firma` nebo `firma → protistrana`, stav identity (`IDENTIFIED` /
+`ANONYMOUS`), produkt/vstup, zemi, zveřejněné období/podíl, kontext (např.
+`CONCENTRATION`, `SINGLE_SOURCE`, `DISRUPTION`), úroveň důkazu, čerstvost a explicitní
+missingness. Neznámé pole znamená `UNKNOWN`/`NOT_DISCLOSED`, nikdy zdravý nebo
+úplný řetězec. UI zobrazuje dodavatelskou a odběratelskou stranu zvlášť.
+Regulační a kontraktní události lze navíc konzervativně
 objevit v již načteném RSS; takový nález je vždy označen jako neověřený s
 důvěrou 0,45, a proto nesplní práh DecisionAgentu 0,70. Ruční záznam například
 na firemní výkaz, regulatorní oznámení nebo registr kontraktů má tvar:
@@ -285,6 +291,11 @@ TICKER | protistrana | typ vztahu | podíl %/- | vydavatel | YYYY-MM-DD | HTTPS 
 TICKER | materiál/energie | typ expozice | podíl %/- | vydavatel | YYYY-MM-DD | HTTPS URL
 TICKER | typ události | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | YYYY-MM-DD | HTTPS URL
 ```
+
+Pro úplnou supply/customer evidenci lze namísto sedmi polí přidat dalších
+sedm: `| IDENTIFIED/ANONYMOUS | produkt/vstup/- | země/- | období/- | kontext/- |
+úroveň důkazu/- | přesná citace/-`. Rozšířený záznam také nemění score, ranking
+ani obchodní rozhodnutí; případný predikční dopad patří až do samostatné ablace.
 
 Každý záznam má stabilní ID, datum zveřejnění, zdrojový dokument a samostatnou
 observaci běhu. Lokální, privátní a URL s přihlašovacími údaji se odmítají.
