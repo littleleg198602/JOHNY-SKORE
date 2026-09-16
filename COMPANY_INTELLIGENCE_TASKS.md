@@ -3,6 +3,8 @@
 
 > **Aktuální audit 2026-09-15:** realizační fronta a podmínky uzavření jsou v [COMPANY_INTELLIGENCE_OPL.md](COMPANY_INTELLIGENCE_OPL.md). Nový audit rozlišuje implementaci, sloučení, provozní ověření a predikční přínos; obsahuje 20 otevřených bodů s důkazy. Starší stavy níže nejsou samy o sobě akceptací.
 
+> **Aktualizace 2026-09-16:** OPL-009 má po PR #116 plný identity ledger; jeho per-ticker integrity follow-up je součástí aktuální změny. OPL-010 je kódově připravený s novou verzí `v2.3_canonical_news_consensus`; skutečný live evidence report a OOS přínos zůstávají `WAIT_DATA`.
+
 Tento soubor je kanonický backlog pro analytický program JOHNY-SKORE. Určuje, co má systém skutečně dělat, jaká data smí použít a podle čeho poznáme, že nová vrstva pomohla.
 
 > **Aktualizace 2026-09-11:** aktuální konkrétní pořadí oprav je v [§11 – auditní úkoly AUD-001 až AUD-015](#11-implementační-úkoly-z-auditu-2026-09-11). Historické implementační stavy níže nejsou potvrzením nasazení ani splnění všech akceptací.

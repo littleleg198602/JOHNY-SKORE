@@ -272,11 +272,93 @@ def verify_company_identity_pilot(
     }
 
 
+class _IdentityPilotFailure(RuntimeError):
+    """Retain individual identity outcomes when the smoke contract fails."""
+
+    def __init__(self, details: dict[str, object]) -> None:
+        failures = details.get("identity_failures") or []
+        super().__init__(
+            f"Identity pilot má {len(failures)} nevyřešených přesných identit."
+        )
+        self.details = details
+
+
+def audit_company_identity_pilot(
+    *,
+    identity_records: Mapping[str, Mapping[str, object]],
+    sec_user_agent: str,
+    minimum_records: int = 10,
+    universe_tickers: Sequence[str] | None = None,
+    sec_client: object | None = None,
+    gleif_client: object | None = None,
+) -> dict[str, object]:
+    """Verify every configured identity independently for a per-ticker audit.
+
+    The existing pilot remains fail-closed for callers that need a simple
+    canary result.  The smoke ledger instead needs every outcome: one bad CIK
+    must never explain an otherwise untested ticker as if it had the same CIK
+    conflict.
+    """
+    records = {
+        str(ticker).strip().upper(): dict(record)
+        for ticker, record in identity_records.items()
+        if str(ticker).strip()
+    }
+    if len(records) < max(1, int(minimum_records)):
+        raise RuntimeError(
+            "Identity pilot vyžaduje alespoň "
+            f"{max(1, int(minimum_records))} přesných produkčních identit; "
+            f"nalezeno {len(records)}."
+        )
+    normalized_universe = (
+        normalize_watchlist(universe_tickers) if universe_tickers is not None else []
+    )
+    outside_universe = sorted(set(records).difference(normalized_universe))
+    if universe_tickers is not None and outside_universe:
+        raise RuntimeError(
+            "Identity pilot obsahuje tickery mimo produkční watchlist: "
+            + ", ".join(outside_universe)
+        )
+
+    identities: list[dict[str, object]] = []
+    failures: list[dict[str, object]] = []
+    for ticker in sorted(records):
+        try:
+            result = verify_company_identity_pilot(
+                identity_records={ticker: records[ticker]},
+                sec_user_agent=sec_user_agent,
+                minimum_records=1,
+                universe_tickers=normalized_universe or None,
+                sec_client=sec_client,
+                gleif_client=gleif_client,
+            )
+            identities.extend(result["identities"])
+        except RuntimeError as exc:
+            failures.append(
+                {
+                    "ticker": ticker,
+                    "reason_code": "EXACT_IDENTITY_VERIFICATION_FAILED",
+                    "reason_detail": str(exc),
+                }
+            )
+    return {
+        "production_universe_count": len(normalized_universe),
+        "configured_identity_count": len(records),
+        "resolved_identity_count": len(identities),
+        "unresolved_identity_count": len(failures),
+        "quarantined_conflict_count": len(failures),
+        "name_matching_used": False,
+        "identities": identities,
+        "identity_failures": failures,
+    }
+
+
 def build_identity_universe_ledger(
     *,
     universe_tickers: Sequence[str],
     identity_records: Mapping[str, Mapping[str, object]],
     verified_identities: Sequence[Mapping[str, object]] = (),
+    identity_failures: Sequence[Mapping[str, object]] = (),
     verification_error: str | None = None,
 ) -> dict[str, object]:
     """Account for every production ticker without inventing an identity.
@@ -295,6 +377,11 @@ def build_identity_universe_ledger(
     verified = {
         str(record.get("ticker") or "").strip().upper(): dict(record)
         for record in verified_identities
+        if str(record.get("ticker") or "").strip()
+    }
+    failures = {
+        str(record.get("ticker") or "").strip().upper(): dict(record)
+        for record in identity_failures
         if str(record.get("ticker") or "").strip()
     }
     rows: list[dict[str, object]] = []
@@ -323,12 +410,17 @@ def build_identity_universe_ledger(
                 }
             )
             continue
+        failure = failures.get(ticker)
         rows.append(
             {
                 "ticker": ticker,
                 "status": "UNRESOLVED",
-                "reason_code": "LIVE_IDENTITY_VERIFICATION_FAILED",
-                "reason_detail": verification_error
+                "reason_code": str(
+                    (failure or {}).get("reason_code")
+                    or "LIVE_IDENTITY_VERIFICATION_FAILED"
+                ),
+                "reason_detail": (failure or {}).get("reason_detail")
+                or verification_error
                 or "Přesná identita nebyla v tomto smoke běhu ověřena.",
                 "source_url": record.get("source_url"),
             }
@@ -386,6 +478,15 @@ def _run_check(
             "status": "PASS",
             "elapsed_ms": round((time.perf_counter() - started) * 1000.0, 1),
             "details": details,
+        }
+    except _IdentityPilotFailure as exc:
+        return {
+            "name": name,
+            "status": "FAIL",
+            "elapsed_ms": round((time.perf_counter() - started) * 1000.0, 1),
+            "error_type": type(exc).__name__,
+            "error": str(exc)[:2_000],
+            "details": exc.details,
         }
     except Exception as exc:
         return {
@@ -451,7 +552,7 @@ def run_live_source_smoke(
             raise RuntimeError(
                 "Produkční identity manifest nebyl předán live smoke běhu."
             )
-        return verify_company_identity_pilot(
+        details = audit_company_identity_pilot(
             identity_records=identity_records,
             sec_user_agent=declared_sec_user_agent,
             minimum_records=minimum_identity_records,
@@ -459,6 +560,9 @@ def run_live_source_smoke(
             sec_client=sec_client,
             gleif_client=gleif_client,
         )
+        if details["identity_failures"]:
+            raise _IdentityPilotFailure(details)
+        return details
 
     if yahoo_client is None:
         from market_checker_app.collectors.yahoo_client import YahooClient
@@ -637,8 +741,9 @@ def run_live_source_smoke(
     identity_universe: dict[str, object] | None = None
     if identity_records is not None and identity_universe_tickers is not None:
         verified_identities: Sequence[Mapping[str, object]] = ()
+        identity_failures: Sequence[Mapping[str, object]] = ()
         verification_error: str | None = None
-        if identity_check is not None and identity_check.get("status") == "PASS":
+        if identity_check is not None:
             details = identity_check.get("details")
             if isinstance(details, dict):
                 raw_identities = details.get("identities")
@@ -646,12 +751,18 @@ def run_live_source_smoke(
                     verified_identities = [
                         item for item in raw_identities if isinstance(item, dict)
                     ]
-        elif identity_check is not None:
-            verification_error = str(identity_check.get("error") or "") or None
+                raw_failures = details.get("identity_failures")
+                if isinstance(raw_failures, list):
+                    identity_failures = [
+                        item for item in raw_failures if isinstance(item, dict)
+                    ]
+            if not identity_failures:
+                verification_error = str(identity_check.get("error") or "") or None
         identity_universe = build_identity_universe_ledger(
             universe_tickers=identity_universe_tickers,
             identity_records=identity_records,
             verified_identities=verified_identities,
+            identity_failures=identity_failures,
             verification_error=verification_error,
         )
     failed = [check["name"] for check in checks if check["status"] != "PASS" and check.get("blocking", True)]

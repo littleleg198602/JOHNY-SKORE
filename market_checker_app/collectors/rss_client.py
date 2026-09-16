@@ -11,7 +11,7 @@ from urllib.request import Request, urlopen
 import feedparser
 
 from market_checker_app.models import NewsItem
-from market_checker_app.utils.text import normalize_text
+from market_checker_app.utils.news_events import canonical_news_event_id
 
 
 RSSProgressCallback = Callable[[int, int, str], None]
@@ -93,8 +93,7 @@ class RSSClient:
         publisher_domain = domain.lower().removeprefix("www.")
         if not publisher:
             publisher = publisher_domain or urlparse(feed_url).hostname or "unknown"
-        event_basis = normalize_text(title)
-        event_id = f"{publisher_domain}|{event_basis}" if event_basis else ""
+        event_id = canonical_news_event_id(title)
         return original_url, publisher, publisher_domain, event_id
 
     def _download(self, source: str) -> bytes:
@@ -212,6 +211,8 @@ class RSSClient:
                         publisher_domain=publisher_domain,
                         original_url=original_url,
                         event_id=event_id,
+                        observed_at=now,
+                        evidence_level="TITLE_SUMMARY",
                     )
                 )
         if undated_count:

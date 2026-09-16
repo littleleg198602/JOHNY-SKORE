@@ -19,10 +19,10 @@ LEGACY_BASELINE_MODEL_VERSION = "v2.1_guarded_consensus"
 
 # This is still a heuristic analytical model, not a trained or calibrated ML
 # model. The version is new because the scoring/data contract has changed.
-ACTIVE_SCORING_VERSION = "v2.2_session_aware_consensus"
+ACTIVE_SCORING_VERSION = "v2.3_canonical_news_consensus"
 ACTIVE_MODEL_ID = "heuristic_consensus"
-ACTIVE_MODEL_VERSION = "v2.2_session_aware_consensus"
-FEATURE_SET_VERSION = "features_v2_session_aware_target_v3"
+ACTIVE_MODEL_VERSION = "v2.3_canonical_news_consensus"
+FEATURE_SET_VERSION = "features_v3_canonical_news_target_v3"
 
 
 def _json_default(value: Any) -> object:
