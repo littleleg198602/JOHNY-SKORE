@@ -1332,25 +1332,45 @@ def _render_agent_audit(result: dict[str, object]) -> None:
     )
     supply_execution = stage3_executions.get("supply_chain")
     if supply_execution is not None and supply_execution.result.company_relationships:
-        st.markdown("#### Dodavatelsko-odběratelské vztahy")
-        st.dataframe(
-            pd.DataFrame(
-                [
+        def relationship_rows(items):
+            rows = []
+            for item in items:
+                metadata = item.metadata if isinstance(item.metadata, dict) else {}
+                rows.append(
                     {
+                        "směr": metadata.get("edge_path"),
                         "ticker": item.ticker,
                         "protistrana": item.counterparty,
+                        "identita": metadata.get("counterparty_identity_status"),
                         "typ": item.relationship_type.value,
+                        "kontext": metadata.get("relationship_context"),
+                        "produkt_vstup": metadata.get("product_or_input"),
+                        "země": metadata.get("counterparty_country"),
+                        "období": metadata.get("disclosure_period"),
                         "podíl_pct": item.dependency_pct,
-                        "datum_zveřejnění": item.published_at.isoformat(),
-                        "důvěra_zachycení_pct": round(item.confidence * 100.0, 1),
+                        "úroveň_důkazu": metadata.get("evidence_level"),
+                        "čerstvost": metadata.get("evidence_freshness"),
+                        "stáří_dní": metadata.get("evidence_age_days"),
+                        "citace": metadata.get("evidence_quote"),
+                        "chybějící": metadata.get("evidence_missingness"),
                         "zdroj": item.source_url,
                     }
-                    for item in supply_execution.result.company_relationships
-                ]
-            ),
-            width="stretch",
-            hide_index=True,
+                )
+            return rows
+
+        relationships = supply_execution.result.company_relationships
+        supplier_rows = relationship_rows(
+            [item for item in relationships if item.relationship_type.value != "CUSTOMER"]
         )
+        customer_rows = relationship_rows(
+            [item for item in relationships if item.relationship_type.value == "CUSTOMER"]
+        )
+        if supplier_rows:
+            st.markdown("#### Dodavatelská strana: protistrana → firma")
+            st.dataframe(pd.DataFrame(supplier_rows), width="stretch", hide_index=True)
+        if customer_rows:
+            st.markdown("#### Odběratelská strana: firma → protistrana")
+            st.dataframe(pd.DataFrame(customer_rows), width="stretch", hide_index=True)
 
     resource_execution = stage3_executions.get("commodity_energy")
     if resource_execution is not None and resource_execution.result.resource_exposures:
@@ -1626,13 +1646,14 @@ with st.sidebar:
         ),
     )
     supply_chain_sources_text = st.text_area(
-        "Síť firem: TICKER | protistrana | typ | podíl %/- | vydavatel | datum | HTTPS URL",
+        "Síť firem: 7 základních polí nebo 14 polí s identitou a citací",
         value=agent_runtime_settings.supply_chain_sources_text,
         height=100,
         disabled=not use_supply_chain,
         placeholder=(
             "AAPL | Example Components | SUPPLIER | 18 | Company 10-K | "
-            "2026-08-19 | https://example.com/source"
+            "2026-08-19 | https://example.com/source | IDENTIFIED | battery cells | "
+            "JP | FY2025 | CONCENTRATION | EXPLICIT_FILING | Exact supporting sentence"
         ),
     )
     use_commodity_energy = st.checkbox(
