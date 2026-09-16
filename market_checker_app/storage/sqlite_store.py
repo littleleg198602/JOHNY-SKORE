@@ -1217,9 +1217,56 @@ class SQLiteStore:
                 )
                 """
             )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS candidate_model_artifacts (
+                    artifact_id TEXT PRIMARY KEY,
+                    model_id TEXT NOT NULL,
+                    model_version TEXT NOT NULL,
+                    feature_version TEXT NOT NULL,
+                    target_version TEXT NOT NULL,
+                    trained_as_of TEXT NOT NULL,
+                    training_start TEXT NOT NULL,
+                    training_end TEXT NOT NULL,
+                    training_sample_count INTEGER NOT NULL,
+                    positive_sample_count INTEGER NOT NULL,
+                    negative_sample_count INTEGER NOT NULL,
+                    training_snapshot_ids_json TEXT NOT NULL,
+                    parameters_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}'
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS candidate_model_predictions (
+                    artifact_id TEXT NOT NULL,
+                    snapshot_id TEXT NOT NULL,
+                    ticker TEXT NOT NULL,
+                    as_of TEXT NOT NULL,
+                    momentum_probability_up REAL,
+                    candidate_probability_up REAL,
+                    candidate_feature_coverage REAL NOT NULL,
+                    selected_for_analysis TEXT NOT NULL,
+                    selection_reason TEXT NOT NULL,
+                    shadow_rank INTEGER NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}',
+                    PRIMARY KEY(artifact_id, snapshot_id),
+                    FOREIGN KEY(artifact_id) REFERENCES candidate_model_artifacts(artifact_id),
+                    FOREIGN KEY(snapshot_id) REFERENCES prediction_snapshots(snapshot_id)
+                )
+                """
+            )
             self._ensure_quality_gate_columns(conn)
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_prediction_snapshots_run_ticker ON prediction_snapshots(run_id, ticker)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_candidate_model_artifacts_target_time ON candidate_model_artifacts(target_version, trained_as_of)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_candidate_model_predictions_snapshot ON candidate_model_predictions(snapshot_id, shadow_rank)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_agent_runs_pipeline ON agent_runs(pipeline_run_id)"
@@ -2845,6 +2892,133 @@ class SQLiteStore:
         query += " ORDER BY as_of ASC, ticker ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=tuple(params))
+
+    def save_candidate_model_report(self, report: dict[str, object]) -> int:
+        """Persist a trained shadow artifact and its non-production outputs.
+
+        Reports without a trained candidate are intentionally not persisted: a
+        transparent insufficiency result belongs to the run JSON, not to a
+        pretend model artifact.
+        """
+
+        artifact = report.get("artifact")
+        predictions = report.get("predictions")
+        if not isinstance(artifact, dict) or not isinstance(predictions, list):
+            return 0
+        artifact_id = str(artifact.get("artifact_id") or "").strip()
+        if not artifact_id:
+            raise ValueError("candidate model artifact_id is required")
+        self.ensure_schema()
+        with self._connect() as conn:
+            conn.execute(
+                """
+                INSERT OR IGNORE INTO candidate_model_artifacts(
+                    artifact_id, model_id, model_version, feature_version,
+                    target_version, trained_as_of, training_start, training_end,
+                    training_sample_count, positive_sample_count,
+                    negative_sample_count, training_snapshot_ids_json,
+                    parameters_json, created_at, metadata_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    artifact_id,
+                    str(artifact.get("model_id") or ""),
+                    str(artifact.get("model_version") or ""),
+                    str(artifact.get("feature_version") or ""),
+                    str(artifact.get("target_version") or ""),
+                    str(artifact.get("trained_as_of") or ""),
+                    str(artifact.get("training_start") or ""),
+                    str(artifact.get("training_end") or ""),
+                    int(artifact.get("training_sample_count") or 0),
+                    int(artifact.get("positive_sample_count") or 0),
+                    int(artifact.get("negative_sample_count") or 0),
+                    self._json_dump(artifact.get("training_snapshot_ids") or []),
+                    self._json_dump(artifact.get("parameters") or {}),
+                    str(artifact.get("trained_as_of") or ""),
+                    self._json_dump(
+                        {
+                            "analysis_only": True,
+                            "ranking_modified": False,
+                        }
+                    ),
+                ),
+            )
+            inserted = 0
+            for prediction in predictions:
+                if not isinstance(prediction, dict):
+                    continue
+                snapshot_id = str(prediction.get("snapshot_id") or "").strip()
+                if not snapshot_id:
+                    continue
+                cursor = conn.execute(
+                    """
+                    INSERT OR IGNORE INTO candidate_model_predictions(
+                        artifact_id, snapshot_id, ticker, as_of,
+                        momentum_probability_up, candidate_probability_up,
+                        candidate_feature_coverage, selected_for_analysis,
+                        selection_reason, shadow_rank, metadata_json
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        artifact_id,
+                        snapshot_id,
+                        str(prediction.get("ticker") or "").upper(),
+                        str(prediction.get("as_of") or ""),
+                        prediction.get("momentum_probability_up"),
+                        prediction.get("candidate_probability_up"),
+                        float(prediction.get("candidate_feature_coverage") or 0.0),
+                        str(prediction.get("selected_for_analysis") or ""),
+                        str(prediction.get("selection_reason") or ""),
+                        int(prediction.get("shadow_rank") or 0),
+                        self._json_dump(
+                            {
+                                "momentum_baseline_model_id": prediction.get(
+                                    "momentum_baseline_model_id"
+                                ),
+                                "momentum_baseline_model_version": prediction.get(
+                                    "momentum_baseline_model_version"
+                                ),
+                                "candidate_model_id": prediction.get(
+                                    "candidate_model_id"
+                                ),
+                                "candidate_model_version": prediction.get(
+                                    "candidate_model_version"
+                                ),
+                            }
+                        ),
+                    ),
+                )
+                if cursor.rowcount == 1:
+                    inserted += 1
+        return inserted
+
+    def read_candidate_model_artifacts(
+        self,
+        target_version: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM candidate_model_artifacts"
+        params: tuple[object, ...] = ()
+        if target_version is not None:
+            query += " WHERE target_version = ?"
+            params = (str(target_version),)
+        query += " ORDER BY trained_as_of ASC, artifact_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
+
+    def read_candidate_model_predictions(
+        self,
+        artifact_id: str | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM candidate_model_predictions"
+        params: tuple[object, ...] = ()
+        if artifact_id is not None:
+            query += " WHERE artifact_id = ?"
+            params = (str(artifact_id),)
+        query += " ORDER BY as_of ASC, shadow_rank ASC, ticker ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=params)
 
     def update_run_counts(self, run_id: int, warnings_count: int, errors_count: int) -> None:
         with self._connect() as conn:
