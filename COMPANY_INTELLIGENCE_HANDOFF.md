@@ -19,7 +19,8 @@ Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává z
 | OPL-008 | DONE | PR #115, merge `3eab604` | normalizované a per-ticker dohledatelné degradace zdrojů: rate limit, 403/401, timeout, parser, identita, konfigurace, data a retry; evidence se ukládá atomicky do SQLite, shadow JSON a UI. Korekce zahrnuje agentní chyby, `STALE_DATA`, skutečný per-ticker backoff a počet/čas retry. |
 | OPL-009 | CODE COMPLETE / live report pending | PR #116, merge `9d08c94` + integrity follow-up | live smoke ukládá pro všech 687 tickerů explicitní identity stav `RESOLVED`, `QUARANTINED` nebo `UNRESOLVED` s reason code a detail. Přesných 36 manifestových identit se ověřuje registry; chybějící záznamy se nevymýšlejí a zůstávají v karanténě. Kontrakt je v atomickém JSON i UI. Zbývá skutečný produkční smoke report. |
 | OPL-010 | CODE COMPLETE / live evidence pending | integrity follow-up branch | RSS odděluje feed transport od původního vydavatele, exact i přepsané titulky slučuje do konzervativních kanonických eventů, používá tokenovou ticker relevanci a drží `no news` jako neutrální missingness. Změna má vlastní release/feature verzi; živý důkaz zůstává pending. |
-| OPL-011 | CODE COMPLETE / live report pending | point-in-time SEC feature layer | SEC raw facts se převádějí do neměnných, verzovaných snapshotů pro správné `QUARTER`/`ANNUAL`/`YTD`/`INSTANT` období. Snapshot eviduje source fact IDs, accession, URL, missingness a lineage revizí; restatement po cutoffu nemění historický snapshot. Filing date se bezpečně považuje za dostupný až následující UTC den, protože zdroj neposkytuje accepted-at. Faktory zatím nemění scoring. |
+| OPL-011 | CODE COMPLETE / live report pending | PR #118, merge `59bd311` | SEC raw facts se převádějí do neměnných, verzovaných snapshotů pro správné `QUARTER`/`ANNUAL`/`YTD`/`INSTANT` období. Snapshot eviduje source fact IDs, accession, URL, missingness a lineage revizí; restatement po cutoffu nemění historický snapshot. Filing date se bezpečně považuje za dostupný až následující UTC den, protože zdroj neposkytuje accepted-at. Faktory zatím nemění scoring. |
+| OPL-012 | CODE COMPLETE / OOS evidence pending | shadow candidate model layer | Neměnný `momentum_relative_baseline v1` a deterministický `pit_logistic_regression v1` se učí pouze z dříve uzavřených point-in-time snapshotů stejného targetu. Artefakt nese interval, snapshot IDs, imputaci, škálování a koeficienty; při nedostatečné historii je výsledek `INSUFFICIENT_DATA`. Kandidát se exportuje samostatně do SQLite/weekly JSON a nikdy nemění produkční ranking ani ruční rozhodnutí. |
 
 Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Streamlit gate, deterministic test suite a deterministic release gate**.
 
@@ -42,9 +43,8 @@ Každý nový snapshot nese release manifest s code SHA, config hashem, model/sc
 
 Nejvyšší zbývající technická priorita je:
 
-1. OPL-012: zprovoznit zmrazený baseline a jednoduchý kandidátní model nad verzovanými point-in-time vstupy; kandidát nesmí automaticky měnit ranking.
-2. OPL-013: doplnit kompatibilní walk-forward/evaluation report s ochranou proti leakage a nejistotou po týdnech.
-3. Provést skutečné OPL-007/008/009/010/011 provozní reporty na aktuální verzi; absence reportu je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
+1. OPL-013: doplnit kompatibilní walk-forward/evaluation report s ochranou proti leakage a nejistotou po týdnech.
+2. Provést skutečné OPL-007/008/009/010/011/012 provozní reporty na aktuální verzi; absence reportu je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
 
 Živá data, která potřebují nasbírat čas/OOS vzorky, zůstávají `WAIT_DATA`; absence dat se nesmí označovat za implementační chybu ani za hotový predikční důkaz.
 
