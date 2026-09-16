@@ -574,6 +574,7 @@ class PipelineService:
         mt5_warnings_by_ticker: dict[str, str] = {}
         bulk_yahoo_ohlc_by_ticker: dict[str, pd.DataFrame] = {}
         bulk_yahoo_ohlc_warnings: dict[str, str] = {}
+        bulk_yahoo_ohlc_failure_metadata: dict[str, dict[str, object]] = {}
         mt5_tickers = [ticker for ticker in watchlist if ticker not in yahoo_only_tickers]
         if mt5_enabled and mt5_tickers:
             progress.set_global_step(
@@ -616,6 +617,7 @@ class PipelineService:
         ]
         bulk_yahoo_ohlc_cache_state: dict[str, str] = {}
         bulk_yahoo_ohlc_retry_deferred: dict[str, str] = {}
+        bulk_yahoo_ohlc_retry_metadata: dict[str, dict[str, object]] = {}
         if large_universe_mode:
             for ticker in bulk_yahoo_requested_tickers:
                 cache_lookup = self.yahoo_ohlc_cache.get(ticker)
@@ -630,6 +632,14 @@ class PipelineService:
                         cache_lookup.error
                         or "Předchozí Yahoo OHLC pokus je v ochranné čekací lhůtě."
                     )
+                    bulk_yahoo_ohlc_retry_metadata[ticker] = {
+                        "attempt_count": cache_lookup.attempt_count,
+                        "retry_after": (
+                            cache_lookup.retry_after.isoformat()
+                            if cache_lookup.retry_after is not None
+                            else None
+                        ),
+                    }
         bulk_yahoo_tickers = [
             ticker
             for ticker in bulk_yahoo_requested_tickers
@@ -677,6 +687,15 @@ class PipelineService:
             for ticker, warning in list(bulk_yahoo_ohlc_warnings.items()):
                 self.yahoo_ohlc_cache.note_failure(ticker, warning)
                 stale = self.yahoo_ohlc_cache.get(ticker)
+                bulk_yahoo_ohlc_failure_metadata[ticker] = {
+                    "attempt_count": stale.attempt_count,
+                    "retry_after": (
+                        stale.retry_after.isoformat()
+                        if stale.retry_after is not None
+                        else None
+                    ),
+                    "outcome_status": "PARTIAL" if stale.usable else "FAILED",
+                }
                 if stale.state == "stale" and stale.frame is not None:
                     bulk_yahoo_ohlc_by_ticker[ticker] = stale.frame
                     bulk_yahoo_ohlc_cache_state[ticker] = "stale_after_failure"
@@ -1231,19 +1250,6 @@ class PipelineService:
         errors = list(dict.fromkeys(errors))
         signals_df = RankingService.apply_ranking(pd.DataFrame(rows))
         ticker_traceability = build_ticker_traceability(watchlist, signals_df)
-        source_degradation = build_source_degradation_report(
-            signals_df,
-            yahoo_ohlc_failures=[
-                {"ticker": ticker, "error": warning}
-                for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
-            ],
-            yahoo_ohlc_retry_deferred=[
-                {"ticker": ticker, "error": warning}
-                for ticker, warning in sorted(bulk_yahoo_ohlc_retry_deferred.items())
-            ],
-            rss_warnings=warnings,
-            observed_at=started_at,
-        )
         ranking_eligible_count = int(
             signals_df["ranking_eligible"].fillna(False).sum()
         ) if "ranking_eligible" in signals_df.columns else 0
@@ -1537,6 +1543,30 @@ class PipelineService:
                         "přepsat hlavní predikci."
                     )
 
+        source_degradation = build_source_degradation_report(
+            signals_df,
+            yahoo_ohlc_failures=[
+                {
+                    "ticker": ticker,
+                    "error": warning,
+                    **bulk_yahoo_ohlc_failure_metadata.get(ticker, {}),
+                }
+                for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
+            ],
+            yahoo_ohlc_retry_deferred=[
+                {
+                    "ticker": ticker,
+                    "error": warning,
+                    **bulk_yahoo_ohlc_retry_metadata.get(ticker, {}),
+                }
+                for ticker, warning in sorted(bulk_yahoo_ohlc_retry_deferred.items())
+            ],
+            rss_warnings=warnings,
+            agent_executions=(
+                agent_report.executions if agent_report is not None else []
+            ),
+            observed_at=started_at,
+        )
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(article) for article in articles])
         warnings = list(dict.fromkeys(warnings))
@@ -1617,11 +1647,19 @@ class PipelineService:
             "bulk_yahoo_ohlc_attempted_count": bulk_yahoo_ohlc_attempted_count,
             "bulk_yahoo_ohlc_cache_coverage": bulk_yahoo_ohlc_cache_coverage,
             "bulk_yahoo_ohlc_failure_details": [
-                {"ticker": ticker, "error": warning}
+                {
+                    "ticker": ticker,
+                    "error": warning,
+                    **bulk_yahoo_ohlc_failure_metadata.get(ticker, {}),
+                }
                 for ticker, warning in sorted(bulk_yahoo_ohlc_warnings.items())
             ],
             "bulk_yahoo_ohlc_retry_deferred_details": [
-                {"ticker": ticker, "error": warning}
+                {
+                    "ticker": ticker,
+                    "error": warning,
+                    **bulk_yahoo_ohlc_retry_metadata.get(ticker, {}),
+                }
                 for ticker, warning in sorted(bulk_yahoo_ohlc_retry_deferred.items())
             ],
             "source_health": source_health,

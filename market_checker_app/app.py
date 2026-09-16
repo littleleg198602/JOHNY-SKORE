@@ -231,10 +231,12 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
         if degradation_count == 0:
             st.success("Nejsou evidované žádné výpadky ani degradace zdrojů.")
         else:
-            circuits = source_degradation.get("provider_circuits") or {}
+            retry_policy = source_degradation.get("retry_policy") or {}
+            yahoo_retry = retry_policy.get("yahoo_ohlc") or {}
             st.warning(
                 f"Evidováno {degradation_count} degradací zdrojů. "
-                f"Yahoo OHLC circuit: {circuits.get('yahoo_ohlc', 'n/a')}."
+                "Yahoo OHLC používá per-ticker backoff; "
+                f"odloženo tickerů: {yahoo_retry.get('deferred_tickers', 0)}."
             )
             records = source_degradation.get("records")
             if isinstance(records, list):

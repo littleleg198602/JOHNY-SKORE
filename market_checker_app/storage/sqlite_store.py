@@ -233,6 +233,23 @@ class SQLiteStore:
                 conn.execute(f"ALTER TABLE signal_history ADD COLUMN {column} {ctype}")
 
     @staticmethod
+    def _ensure_source_degradation_columns(conn: sqlite3.Connection) -> None:
+        existing = {
+            row[1]
+            for row in conn.execute(
+                "PRAGMA table_info(source_degradations)"
+            ).fetchall()
+        }
+        for column, ctype in {
+            "attempt_count": "INTEGER",
+            "retry_after": "TEXT",
+        }.items():
+            if column not in existing:
+                conn.execute(
+                    f"ALTER TABLE source_degradations ADD COLUMN {column} {ctype}"
+                )
+
+    @staticmethod
     def _ensure_entity_columns(conn: sqlite3.Connection) -> None:
         existing = {
             row[1] for row in conn.execute("PRAGMA table_info(entities)").fetchall()
@@ -461,10 +478,13 @@ class SQLiteStore:
                     reason_detail TEXT,
                     observed_at TEXT NOT NULL,
                     retry_state TEXT NOT NULL DEFAULT 'NONE',
+                    attempt_count INTEGER,
+                    retry_after TEXT,
                     FOREIGN KEY(run_id) REFERENCES runs(run_id)
                 )
                 """
             )
+            self._ensure_source_degradation_columns(conn)
             conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS orchestration_runs (
@@ -1394,6 +1414,8 @@ class SQLiteStore:
                 record.get("reason_detail"),
                 str(record["observed_at"]),
                 str(record.get("retry_state") or "NONE"),
+                record.get("attempt_count"),
+                record.get("retry_after"),
             )
             for record in (source_degradations or [])
         ]
@@ -1454,8 +1476,8 @@ class SQLiteStore:
                     INSERT INTO source_degradations(
                         run_id, ticker, provider, source_url, attempt_status,
                         outcome_status, reason_code, reason_detail, observed_at,
-                        retry_state
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        retry_state, attempt_count, retry_after
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     degradation_payload,
                 )
