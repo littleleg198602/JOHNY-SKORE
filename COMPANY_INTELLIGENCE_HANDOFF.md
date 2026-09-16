@@ -17,7 +17,8 @@ Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává z
 | OPL-001 | DONE | merge `97729f1` (PR #110) | release manifest, aktivní versus legacy verze, code/config/model/target/feature identita |
 | OPL-007 | CODE COMPLETE / live report pending | PR #111 + follow-up branch | způsobilost rankingu, neprůhledné řádky bez pořadí, per-ticker status ceny a technické vrstvy, auditovatelné exportní pole; nově atomická per-ticker traceability pipeline → SQLite → JSON → UI (requested/attempted/usable/partial/failed/not-attempted), testovaná na 687 tickerů. Zbývá jedině skutečný produkční 687tickerový report. |
 | OPL-008 | DONE | PR #115, merge `3eab604` | normalizované a per-ticker dohledatelné degradace zdrojů: rate limit, 403/401, timeout, parser, identita, konfigurace, data a retry; evidence se ukládá atomicky do SQLite, shadow JSON a UI. Korekce zahrnuje agentní chyby, `STALE_DATA`, skutečný per-ticker backoff a počet/čas retry. |
-| OPL-009 | CODE COMPLETE / live report pending | PR #116 (připraveno) | live smoke ukládá pro všech 687 tickerů explicitní identity stav `RESOLVED`, `QUARANTINED` nebo `UNRESOLVED` s reason code a detail. Přesných 36 manifestových identit se ověřuje registry; chybějící záznamy se nevymýšlejí a zůstávají v karanténě. Kontrakt je v atomickém JSON i UI. Zbývá skutečný produkční smoke report. |
+| OPL-009 | CODE COMPLETE / live report pending | PR #116, merge `9d08c94` + integrity follow-up | live smoke ukládá pro všech 687 tickerů explicitní identity stav `RESOLVED`, `QUARANTINED` nebo `UNRESOLVED` s reason code a detail. Přesných 36 manifestových identit se ověřuje registry; chybějící záznamy se nevymýšlejí a zůstávají v karanténě. Kontrakt je v atomickém JSON i UI. Zbývá skutečný produkční smoke report. |
+| OPL-010 | CODE COMPLETE / live evidence pending | integrity follow-up branch | RSS odděluje feed transport od původního vydavatele, exact i přepsané titulky slučuje do konzervativních kanonických eventů, používá tokenovou ticker relevanci a drží `no news` jako neutrální missingness. Změna má vlastní release/feature verzi; živý důkaz zůstává pending. |
 
 Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Streamlit gate, deterministic test suite a deterministic release gate**.
 
@@ -25,10 +26,10 @@ Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Stre
 
 Nové výsledky používají samostatnou aktivní identitu; historický v2.1 baseline zůstává zmrazený pro srovnání a staré snapshoty se nepřepisují.
 
-- scoring: `v2.2_session_aware_consensus`
+- scoring: `v2.3_canonical_news_consensus`
 - model id: `heuristic_consensus`
-- model version: `v2.2_session_aware_consensus`
-- feature set: `features_v2_session_aware_target_v3`
+- model version: `v2.3_canonical_news_consensus`
+- feature set: `features_v3_canonical_news_target_v3`
 - target: `excess_return_5d_nyse_split_price_v3`
 - legacy model id: `legacy_v2.1_heuristic`
 - legacy model version: `v2.1_guarded_consensus`
@@ -42,7 +43,7 @@ Nejvyšší zbývající technická priorita je:
 
 1. Provést skutečný provider smoke nad aktuální verzí a uložit OPL-009 report pro všech 687 tickerů; absence reportu je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
 2. Spustit skutečný produkční 687tickerový OPL-007/008 report; jeho absence je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
-3. **OPL-010 — event canonicalization.** Sjednotit tutéž událost od více vydavatelů a oddělit neutrální zprávu od směrového podkladu.
+3. Spustit skutečný OPL-010 live evidence report nad novou verzí; neprezentovat ho jako predikční důkaz bez OOS vyhodnocení.
 
 Živá data, která potřebují nasbírat čas/OOS vzorky, zůstávají `WAIT_DATA`; absence dat se nesmí označovat za implementační chybu ani za hotový predikční důkaz.
 
