@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
 
 import pandas as pd
@@ -23,6 +24,7 @@ class SourceDegradationTests(unittest.TestCase):
         self.assertEqual("PARSE_ERROR", classify_failure_reason("JSON decode error"))
         self.assertEqual("IDENTITY_UNRESOLVED", classify_failure_reason("CIK identity conflict"))
         self.assertEqual("RETRY_DEFERRED", classify_failure_reason("retry checkpoint deferred"))
+        self.assertEqual("STALE_DATA", classify_failure_reason("cache_stale"))
 
     def test_report_keeps_ticker_url_time_and_retry_evidence(self) -> None:
         signals = pd.DataFrame(
@@ -43,9 +45,16 @@ class SourceDegradationTests(unittest.TestCase):
         )
         report = build_source_degradation_report(
             signals,
-            yahoo_ohlc_failures=[{"ticker": "MSFT", "error": "HTTP 403 forbidden"}],
+            yahoo_ohlc_failures=[
+                {"ticker": "MSFT", "error": "HTTP 403 forbidden", "attempt_count": 3}
+            ],
             yahoo_ohlc_retry_deferred=[
-                {"ticker": "NVDA", "error": "retry checkpoint deferred"}
+                {
+                    "ticker": "NVDA",
+                    "error": "retry checkpoint deferred",
+                    "attempt_count": 4,
+                    "retry_after": "2026-09-15T00:30:00+00:00",
+                }
             ],
             rss_warnings=[
                 "RSS načtení selhalo (https://news.google.com/rss/search?q=AMD%20stock). Detail: request timed out"
@@ -53,14 +62,18 @@ class SourceDegradationTests(unittest.TestCase):
             observed_at=datetime(2026, 9, 15, tzinfo=timezone.utc),
         )
 
-        self.assertEqual("CIRCUIT_OPEN", report["provider_circuits"]["yahoo_ohlc"])
+        self.assertEqual("NOT_CONFIGURED", report["provider_circuits"]["yahoo_ohlc"])
+        self.assertEqual(1, report["retry_policy"]["yahoo_ohlc"]["deferred_tickers"])
         by_key = {(record["provider"], record["ticker"]): record for record in report["records"]}
         self.assertEqual("UNDATED_DATA", by_key[("yahoo_metadata_quote_undated", "AAPL")]["reason_code"])
         self.assertEqual("RATE_LIMITED", by_key[("yfinance_bulk", "AAPL")]["reason_code"])
         self.assertEqual("ACCESS_DENIED", by_key[("yahoo_ohlc", "MSFT")]["reason_code"])
         deferred = by_key[("yahoo_ohlc", "NVDA")]
         self.assertEqual("NOT_ATTEMPTED", deferred["attempt_status"])
-        self.assertEqual("CIRCUIT_OPEN", deferred["retry_state"])
+        self.assertEqual("PER_TICKER_BACKOFF", deferred["retry_state"])
+        self.assertEqual(4, deferred["attempt_count"])
+        self.assertEqual("2026-09-15T00:30:00+00:00", deferred["retry_after"])
+        self.assertIsNone(by_key[("yahoo_ohlc", "MSFT")]["source_url"])
         rss = by_key[("rss", "AMD")]
         self.assertEqual("TIMEOUT", rss["reason_code"])
         self.assertEqual("2026-09-15T00:00:00+00:00", rss["observed_at"])
@@ -69,7 +82,14 @@ class SourceDegradationTests(unittest.TestCase):
         now = datetime.now(timezone.utc)
         report = build_source_degradation_report(
             pd.DataFrame(),
-            yahoo_ohlc_failures=[{"ticker": "AAPL", "error": "HTTP 429"}],
+            yahoo_ohlc_failures=[
+                {
+                    "ticker": "AAPL",
+                    "error": "HTTP 429",
+                    "attempt_count": 2,
+                    "retry_after": "2026-09-16T00:30:00+00:00",
+                }
+            ],
             observed_at=now,
         )
         metadata = RunMetadata(now, now, 1, 0, 0, 0, "")
@@ -86,6 +106,37 @@ class SourceDegradationTests(unittest.TestCase):
         self.assertEqual(1, len(persisted))
         self.assertEqual("RATE_LIMITED", persisted.iloc[0]["reason_code"])
         self.assertEqual("AAPL", persisted.iloc[0]["ticker"])
+        self.assertEqual(2, persisted.iloc[0]["attempt_count"])
+
+    def test_agent_stage_failure_is_included_after_agent_execution(self) -> None:
+        execution = SimpleNamespace(
+            agent_name="f2_sec",
+            status=SimpleNamespace(value="FAILED"),
+            result=SimpleNamespace(
+                error=None,
+                warnings=[],
+                metadata={
+                    "filing_text_failure_details": [
+                        {
+                            "ticker": "AAPL",
+                            "source_url": "https://www.sec.gov/Archives/example",
+                            "error": "HTTP 403 forbidden",
+                        }
+                    ]
+                },
+            ),
+        )
+        report = build_source_degradation_report(
+            pd.DataFrame(),
+            agent_executions=[execution],
+            observed_at=datetime(2026, 9, 15, tzinfo=timezone.utc),
+        )
+
+        self.assertEqual(1, report["degradation_count"])
+        record = report["records"][0]
+        self.assertEqual("agent:f2_sec", record["provider"])
+        self.assertEqual("AAPL", record["ticker"])
+        self.assertEqual("ACCESS_DENIED", record["reason_code"])
 
 
 if __name__ == "__main__":
