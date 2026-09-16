@@ -25,6 +25,13 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-16 — OPL-017 materiály, energie a doložené margin scénáře
+
+- Přidány point-in-time cenové body s hodnotou, jednotkou, měnou, URL, `observed_at` a `available_at`. Bod publikovaný po cutoffu se do historického scénáře nedostane.
+- Margin sensitivity se počítá jedině při zveřejněném nákladovém podílu na tržbách, hedged/fixed share, pass-through a explicitní hypotetické změně ceny. Výpočet ukazuje vzorec i dopad v procentních bodech marže; není to forecast ceny ani marže.
+- Chybějící cenová řada nebo smluvní/nákladový parametr vrací `INSUFFICIENT_DATA`, nikoli domyšlenou nulu. Ruční resource manifest zachovává 7polový formát a podporuje 19polový kontrakt s cenovými body; stejné evidence řádky se spojí do série.
+- UI ukazuje cenu, jednotku/měnu, dostupnost, scénář, hedge/fixaci, pass-through, vypočtený dopad a důvod nedostatku dat. Nic z toho nemění scoring, ranking, rozhodnutí ani obchodní exekuci.
+
 ## 2026-09-16 — OPL-015 orientovaná evidence dodavatelů a odběratelů
 
 - Supply/customer hrana nově nese směr, stav identity nebo explicitní anonymitu, produkt/vstup, zemi, období, zveřejněný podíl, kontext koncentrace/single-source/disruption, úroveň důkazu, čerstvost a URL s krátkou přesnou citací.
