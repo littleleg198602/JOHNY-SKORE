@@ -141,6 +141,12 @@ class FilingExposureDiscoveryTests(unittest.TestCase):
             item for item in relationships if item.source.relationship_type == "CUSTOMER"
         )
         self.assertEqual(24.0, customer.source.dependency_pct)
+        self.assertEqual("ANONYMOUS", customer.source.counterparty_identity_status)
+        self.assertEqual("CONCENTRATION", customer.source.relationship_context)
+        self.assertEqual(
+            "Our largest customer accounted for 24% of revenue.",
+            customer.evidence_quote,
+        )
         self.assertTrue(all(item.source.confidence <= 0.45 for item in relationships))
         self.assertEqual(
             {"Steel", "Copper", "Electricity"},
@@ -157,6 +163,17 @@ class FilingExposureDiscoveryTests(unittest.TestCase):
 
         self.assertEqual((), findings.supply_chain)
         self.assertEqual((), findings.commodity_energy)
+
+    def test_explicit_supply_disruption_is_recorded_without_inventing_partner(self) -> None:
+        findings = FilingExposureDiscoveryService().discover(
+            _fetched("A semiconductor supply chain disruption delayed deliveries.")
+        )
+        self.assertEqual(1, len(findings.supply_chain))
+        disruption = findings.supply_chain[0]
+        self.assertEqual("Unnamed supply-chain disruption", disruption.source.counterparty)
+        self.assertEqual("ANONYMOUS", disruption.source.counterparty_identity_status)
+        self.assertEqual("DISRUPTION", disruption.source.relationship_context)
+        self.assertIn("disruption", disruption.evidence_quote)
 
     def test_sec_text_flows_to_stage3_without_persisting_raw_content_or_scoring(self) -> None:
         verification = Stage3SourceVerificationConfig(enabled=True)
@@ -203,6 +220,20 @@ class FilingExposureDiscoveryTests(unittest.TestCase):
         self.assertEqual("SUCCESS", report.status.value)
         self.assertEqual(GateDecision.PASS, report.quality_checks[0].decision)
         self.assertEqual(3, len(report.company_relationships))
+        customer_relationship = next(
+            item
+            for item in report.company_relationships
+            if item.relationship_type.value == "CUSTOMER"
+        )
+        self.assertEqual(
+            "ANONYMOUS",
+            customer_relationship.metadata["counterparty_identity_status"],
+        )
+        self.assertEqual(
+            "TEST -> Unnamed major customer",
+            customer_relationship.metadata["edge_path"],
+        )
+        self.assertIn("accounted for 24%", customer_relationship.metadata["evidence_quote"])
         self.assertEqual(3, len(report.resource_exposures))
         stage3_evidence = [
             item
