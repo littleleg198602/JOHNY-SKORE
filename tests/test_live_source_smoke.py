@@ -17,6 +17,7 @@ from market_checker_app.collectors.sec_edgar_client import (
 )
 from market_checker_app.collectors.short_report_client import FetchedShortReport
 from market_checker_app.live_source_smoke import (
+    build_identity_universe_ledger,
     run_live_source_smoke,
     verify_company_identity_pilot,
 )
@@ -267,6 +268,37 @@ class LiveSourceSmokeTests(unittest.TestCase):
         self.assertFalse(details["name_matching_used"])
         self.assertEqual([], gleif.calls)
 
+    def test_full_universe_identity_ledger_quarantines_unknowns_without_guessing(self) -> None:
+        records = _production_identity_records()
+        verified = verify_company_identity_pilot(
+            identity_records=records,
+            sec_user_agent="JohnySkore test@example.com",
+            universe_tickers=_production_watchlist(),
+            sec_client=_IdentitySEC(records),
+            gleif_client=_GLEIF(records),
+        )["identities"]
+
+        ledger = build_identity_universe_ledger(
+            universe_tickers=_production_watchlist(),
+            identity_records=records,
+            verified_identities=verified,
+        )
+        by_ticker = {record["ticker"]: record for record in ledger["records"]}
+
+        self.assertEqual(687, ledger["universe_count"])
+        self.assertEqual(36, ledger["resolved_count"])
+        self.assertEqual(651, ledger["quarantined_count"])
+        self.assertEqual(0, ledger["unresolved_count"])
+        self.assertEqual("RESOLVED", by_ticker["AAPL"]["status"])
+        unregistered_ticker = next(
+            ticker for ticker in _production_watchlist() if ticker not in records
+        )
+        self.assertEqual("QUARANTINED", by_ticker[unregistered_ticker]["status"])
+        self.assertEqual(
+            "IDENTITY_MANIFEST_MISSING",
+            by_ticker[unregistered_ticker]["reason_code"],
+        )
+
     def test_identity_pilot_accepts_amats_cosmetic_sec_suffix_only_after_cik_match(self) -> None:
         records = _production_identity_records()
 
@@ -377,6 +409,35 @@ class LiveSourceSmokeTests(unittest.TestCase):
         )
         self.assertFalse(payload["raw_source_content_persisted"])
         self.assertNotIn("test@example.com", json.dumps(persisted))
+
+    def test_smoke_persists_full_identity_universe_ledger(self) -> None:
+        records = _production_identity_records()
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "smoke.json"
+            payload = run_live_source_smoke(
+                tickers=["AAPL"],
+                output_path=output,
+                sec_user_agent="JohnySkore test@example.com",
+                external_report_source=_production_short_report_source(),
+                yahoo_client=_Yahoo(),
+                rss_client=_RSS(),
+                sec_client=_IdentitySEC(records),
+                gleif_client=_GLEIF(records),
+                report_client=_Report(),
+                identity_records=records,
+                identity_universe_tickers=_production_watchlist(),
+            )
+            persisted = json.loads(output.read_text(encoding="utf-8"))
+
+        ledger = payload["identity_universe"]
+        self.assertEqual("PASS", payload["status"])
+        self.assertIsInstance(ledger, dict)
+        self.assertEqual(687, ledger["universe_count"])
+        self.assertEqual(36, ledger["resolved_count"])
+        self.assertEqual(651, ledger["quarantined_count"])
+        self.assertEqual(0, ledger["unresolved_count"])
+        self.assertEqual("PARTIAL", ledger["coverage_status"])
+        self.assertEqual(ledger, persisted["identity_universe"])
 
     def test_missing_declared_sec_contact_fails_smoke_but_writes_audit(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
