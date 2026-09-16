@@ -23,6 +23,9 @@ from market_checker_app.config import CommodityEnergyConfig
 from market_checker_app.services.filing_exposure_discovery_service import (
     FilingExposureDiscoveryService,
 )
+from market_checker_app.services.resource_margin_scenario_service import (
+    build_resource_margin_scenario,
+)
 from market_checker_app.utils.text import normalize_ticker
 
 
@@ -98,7 +101,7 @@ class CommodityEnergyAgent(BaseAgent):
                                 (
                                     finding.source,
                                     fetched,
-                                    (finding.support_term,),
+                                    (finding.support_term, finding.evidence_quote),
                                     "sec_filing",
                                     finding.reason,
                                 )
@@ -234,6 +237,20 @@ class CommodityEnergyAgent(BaseAgent):
                         "scoring_applied": False,
                     },
                 )
+                scenario = build_resource_margin_scenario(
+                    source,
+                    as_of=context.started_at,
+                )
+                exposure.metadata.update(
+                    {
+                        "price_series_attached": scenario["price_series_attached"],
+                        "resource_margin_scenario": scenario,
+                        "evidence_quote": source.evidence_quote,
+                        "disclosure_period": source.disclosure_period,
+                        "causal_impact_assessed": scenario["status"] == "READY",
+                        "prediction_input": False,
+                    }
+                )
             except (AttributeError, TypeError, ValueError) as exc:
                 rejected_sources += 1
                 warnings.append(f"CommodityEnergyAgent {ticker}: {exc}.")
@@ -281,8 +298,15 @@ class CommodityEnergyAgent(BaseAgent):
                         "exposure_id": exposure_id,
                         "dependency_pct": exposure.dependency_pct,
                         "stage": 3,
-                        "price_series_attached": False,
-                        "causal_impact_assessed": False,
+                        "price_series_attached": exposure.metadata[
+                            "price_series_attached"
+                        ],
+                        "scenario_status": exposure.metadata[
+                            "resource_margin_scenario"
+                        ]["status"],
+                        "causal_impact_assessed": exposure.metadata[
+                            "causal_impact_assessed"
+                        ],
                         "source_content_support_detected": support_detected,
                         "discovery_method": discovery_method,
                         "scoring_applied": False,
