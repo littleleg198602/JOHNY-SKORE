@@ -795,6 +795,7 @@ def run_weekly_shadow(
     mt5_enabled: bool,
     yahoo_metadata_enabled: bool | None,
     resolve_labels: bool = False,
+    macro_observations: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
     from market_checker_app.services.pipeline_service import PipelineService
 
@@ -820,6 +821,33 @@ def run_weekly_shadow(
         yahoo_metadata_enabled=yahoo_metadata_enabled,
     )
     print("", flush=True)
+    macro_regime_error: str | None = None
+    try:
+        from market_checker_app.services.macro_regime_service import (
+            build_macro_regime_report,
+        )
+
+        if macro_observations:
+            store.save_macro_observations(macro_observations)
+        metadata = result.get("metadata")
+        macro_as_of = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+        macro_regime_report = build_macro_regime_report(
+            store.read_macro_observations().to_dict(orient="records"),
+            as_of=macro_as_of,
+        )
+        macro_regime_report["persisted"] = store.save_macro_regime_report(
+            macro_regime_report
+        )
+    except Exception as exc:
+        macro_regime_error = f"macro režim selhal: {type(exc).__name__}: {exc}"
+        macro_regime_report = {
+            "status": "FAILED",
+            "reason": "MACRO_REGIME_RUNTIME_ERROR",
+            "analysis_only": True,
+            "ranking_modified": False,
+            "decision_modified": False,
+            "activation_allowed": False,
+        }
     readiness = _readiness_summary(result, config)
     snapshot_records: list[dict[str, object]] = []
     snapshot_error: str | None = None
@@ -1008,6 +1036,8 @@ def run_weekly_shadow(
         "candidate_model_error": candidate_model_error,
         "candidate_model_walk_forward": _json_safe(candidate_evaluation_report),
         "candidate_model_walk_forward_error": candidate_evaluation_error,
+        "macro_sector_regime": _json_safe(macro_regime_report),
+        "macro_sector_regime_error": macro_regime_error,
         "prediction_label_resolution": label_resolution,
         "prediction_label_resolution_error": label_resolution_error,
         "agent_status": result.get("agent_status"),
@@ -1237,6 +1267,15 @@ def main() -> None:
     if warning:
         raise SystemExit(warning)
     try:
+        from market_checker_app.services.macro_regime_service import (
+            parse_macro_observations,
+        )
+
+        macro_observations, macro_errors = parse_macro_observations(
+            settings.macro_observations_text
+        )
+        if macro_errors:
+            raise RuntimeConfigurationError("\n".join(macro_errors))
         config = build_runtime_config(
             settings,
             output_dir=args.output_dir,
@@ -1261,6 +1300,7 @@ def main() -> None:
             mt5_enabled=args.mt5,
             yahoo_metadata_enabled=args.yahoo_metadata,
             resolve_labels=args.resolve_labels,
+            macro_observations=macro_observations,
         )
     except (
         RuntimeConfigurationError,
