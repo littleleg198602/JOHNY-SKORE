@@ -539,3 +539,23 @@ python -m market_checker_app.weekly_shadow_runner --resolve-labels
 ```
 
 Resolver načte pozdější close ceny přes existující Yahoo klient, vypočítá excess return vůči benchmarku a výsledek zapíše do `weekly_shadow_latest.json`. Neúplná nebo dočasně nedostupná data zůstávají `PENDING`; žádný label se nedoplňuje nulou. Automatické obchodování v projektu neexistuje.
+
+## Shadow baseline a kandidátní model
+
+Každý weekly shadow report nyní obsahuje `candidate_model_shadow`. Nemění
+`Signals`, jejich pořadí ani `BUY`/`SELL`/`NO_TRADE`: jde výhradně o oddělenou
+analytickou stopu pro pozdější OOS vyhodnocení.
+
+- `momentum_relative_baseline v1` je pevný, čitelný baseline z 20/60denního
+  absolutního a relativního momenta.
+- `pit_logistic_regression v1` se smí trénovat jen z již uzavřených
+  point-in-time snapshotů se stejnou target verzí. Snapshot i jeho label musí
+  předcházet `as_of` predikce; imputace i škálování se fitují pouze na tréninku.
+- Při méně než 200 uzavřených vzorcích, chybějící třídě nebo variabilitě vrátí
+  report `INSUFFICIENT_DATA` a zůstane u baseline. Neexistuje žádný fallback,
+  který by domýšlel výsledek nebo měnil produkční ranking.
+
+Trénovaný artefakt obsahuje verzi modelu/feature/targetu, interval a ID
+trénovacích snapshotů, imputaci, škálování a koeficienty. SQLite ukládá pouze
+skutečně natrénované artefakty do `candidate_model_artifacts` a jejich shadow
+predikce do `candidate_model_predictions`.

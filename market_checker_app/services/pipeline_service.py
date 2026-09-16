@@ -1266,6 +1266,7 @@ class PipelineService:
         fundamental_document_count = 0
         fundamental_fact_count = 0
         fundamental_feature_snapshot_count = 0
+        sec_fundamental_features_by_ticker: dict[str, object] = {}
         financial_forensics_status: str | None = None
         financial_forensics_evidence_count = 0
         financial_forensics_high_findings = 0
@@ -1358,6 +1359,10 @@ class PipelineService:
                         fundamental_feature_snapshot_count = len(
                             execution.result.fundamental_feature_snapshots
                         )
+                        sec_fundamental_features_by_ticker = {
+                            snapshot.ticker: snapshot
+                            for snapshot in execution.result.fundamental_feature_snapshots
+                        }
                         fundamental_filing_text_document_count = int(
                             execution.result.metadata.get(
                                 "filing_text_documents",
@@ -1546,6 +1551,35 @@ class PipelineService:
                         "Interní invariant porušen: analytická vrstva se pokusila "
                         "přepsat hlavní predikci."
                     )
+
+        for item in point_in_time_inputs:
+            ticker = str(item.get("ticker") or "").upper()
+            snapshot = sec_fundamental_features_by_ticker.get(ticker)
+            payload = item.get("feature_payload")
+            if snapshot is None or not isinstance(payload, dict):
+                continue
+            payload["sec_fundamentals"] = {
+                "feature_version": snapshot.feature_version,
+                "as_of": snapshot.as_of.isoformat(),
+                "availability_at": snapshot.availability_at.isoformat(),
+                "period_basis": snapshot.period_basis,
+                "period_start": (
+                    snapshot.period_start.isoformat()
+                    if snapshot.period_start is not None
+                    else None
+                ),
+                "period_end": (
+                    snapshot.period_end.isoformat()
+                    if snapshot.period_end is not None
+                    else None
+                ),
+                "values": dict(snapshot.values),
+                "missing_reasons": dict(snapshot.missing_reasons),
+                "source_fact_ids": dict(snapshot.source_fact_ids),
+                "source_accessions": dict(snapshot.source_accessions),
+                "source_urls": dict(snapshot.source_urls),
+                "metadata": dict(snapshot.metadata),
+            }
 
         source_degradation = build_source_degradation_report(
             signals_df,
