@@ -55,6 +55,9 @@ from market_checker_app.prediction_contract import build_point_in_time_snapshot
 from market_checker_app.services.candidate_model_service import (
     build_candidate_model_report,
 )
+from market_checker_app.services.candidate_model_evaluation_service import (
+    evaluate_candidate_walk_forward,
+)
 from market_checker_app.services.prediction_label_service import (
     PredictionLabelService,
 )
@@ -829,6 +832,14 @@ def run_weekly_shadow(
         "predictions": [],
     }
     candidate_model_error: str | None = None
+    candidate_evaluation_report: dict[str, object] = {
+        "status": "NOT_RUN",
+        "reason": "SNAPSHOT_STORAGE_UNAVAILABLE",
+        "analysis_only": True,
+        "ranking_modified": False,
+        "activation_allowed": False,
+    }
+    candidate_evaluation_error: str | None = None
     run_id = result.get("run_id")
     raw_point_in_time_inputs = result.get("point_in_time_inputs")
     if run_id is not None and isinstance(raw_point_in_time_inputs, list):
@@ -900,6 +911,17 @@ def run_weekly_shadow(
                 "ranking_modified": False,
                 "predictions": [],
             }
+        try:
+            candidate_evaluation_report = evaluate_candidate_walk_forward(
+                store.read_prediction_snapshots(),
+            )
+            candidate_evaluation_report["persisted"] = (
+                store.save_candidate_model_evaluation(candidate_evaluation_report)
+            )
+        except Exception as exc:
+            candidate_evaluation_error = (
+                f"walk-forward evaluace selhala: {type(exc).__name__}: {exc}"
+            )
     label_resolution: dict[str, object] = {
         "status": "DISABLED",
         "pending_before": 0,
@@ -984,6 +1006,8 @@ def run_weekly_shadow(
         ),
         "candidate_model_shadow": _json_safe(candidate_model_report),
         "candidate_model_error": candidate_model_error,
+        "candidate_model_walk_forward": _json_safe(candidate_evaluation_report),
+        "candidate_model_walk_forward_error": candidate_evaluation_error,
         "prediction_label_resolution": label_resolution,
         "prediction_label_resolution_error": label_resolution_error,
         "agent_status": result.get("agent_status"),
