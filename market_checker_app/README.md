@@ -297,6 +297,14 @@ sedm: `| IDENTIFIED/ANONYMOUS | produkt/vstup/- | země/- | období/- | kontext/
 úroveň důkazu/- | přesná citace/-`. Rozšířený záznam také nemění score, ranking
 ani obchodní rozhodnutí; případný predikční dopad patří až do samostatné ablace.
 
+Materiálová/energetická expozice může obdobně přijmout 19polový řádek: po
+základních sedmi polích následuje `nákladový podíl % | hedged % | fixed-price % |
+pass-through % | hypotetická změna ceny % | jednotka | měna | cena observed_at |
+cena available_at | hodnota ceny | období | přesná citace`. Více shodných řádků
+se spojí do cenové řady. Výpočet citlivosti do marže smí vzniknout jen když jsou
+všechny podíly doložené; `available_at` po replay cutoffu se vždy vyřadí. Jde o
+transparentní scénář, nikoli automatickou prognózu či doporučení.
+
 Každý záznam má stabilní ID, datum zveřejnění, zdrojový dokument a samostatnou
 observaci běhu. Lokální, privátní a URL s přihlašovacími údaji se odmítají.
 UI a týdenní runner navíc bezpečně stáhnou obsah, zkontrolují každý redirect a
