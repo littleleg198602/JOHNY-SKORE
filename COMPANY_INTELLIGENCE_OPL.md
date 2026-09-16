@@ -133,7 +133,7 @@ Vlastník DEV/DATA/QA označuje navrženou roli, nikoli již objednaného extern
 | OPL-015 | P1 | CODE_COMPLETE / live evidence pending | Důkazní vrstva dodavatelů i zákazníků | AUD-015, SUPPLY-401..403 | DEV+DATA / L |
 | OPL-016 | P2 | OPEN | Zdraví identifikovaných protistran včetně soukromých | PRIVATE-001, AUD-015 | DATA+DEV / L |
 | OPL-017 | P2 | CODE_COMPLETE / live evidence pending | Materiály, energie a scénáře marží | RESOURCE-501..503, AUD-015 | DATA+DEV / L |
-| OPL-018 | P2 | OPEN | Makro/sektorový režim bez look-ahead | MACRO-001 | DATA+DEV / M |
+| OPL-018 | P2 | CODE_COMPLETE / live evidence pending | Makro/sektorový režim bez look-ahead | MACRO-001 | DATA+DEV / M |
 | OPL-019 | P1 | WAIT_DATA | Skutečný OOS přínos, kalibrace a ablation | AUD-012, EVAL-001 | DATA / průběžně |
 | OPL-020 | P1 | PARTIAL | Výhradně analytický produkt a ochrana vydání | UI-806, OPS-805 | DEV+REPOMAIN / M |
 
