@@ -25,6 +25,14 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-16 — OPL-011 SEC point-in-time feature snapshots
+
+- Z existujících SEC raw facts vzniká samostatný `sec_fundamentals_pit_v1` snapshot pro každou společnost; data se rozlišují na `QUARTER`, `ANNUAL`, `YTD` a `INSTANT` a YTD se tiše nepřepočítává na čtvrtletí.
+- Snapshot exportuje tržby, marže, cash flow, capex/FCF, hotovost, dluh a shares pouze když existuje kompatibilní účetní období/jednotka. Chybějící vstup je reason code, nikdy nula.
+- Source fact IDs, accession, URL a lineage originálního filing/revize jsou uložené spolu se snapshotem v SQLite. Pozdější restatement se do replaye před svým filing date nedostane.
+- Company-facts poskytuje filing-date, ne accepted-at: dostupnost je proto konzervativně až následující UTC den a tento limit je explicitně zaznamenán. Změna zatím nemění scoring, ranking ani obchodní exekuci.
+- Ověřeno deterministickými fixture: quarter/YTD oddělení, nestandardní fiskální rok, restatement cutoff, explicitní missing capex a balance-sheet alignment; live SEC report zůstává samostatná provozní evidence.
+
 ## 2026-09-16 — OPL-009 integrity follow-up a OPL-010 news canonicalization
 
 - **OPL-009:** selhání jedné přesné identity už není připsáno všem manifestovým tickerům. Smoke audit ověří záznamy samostatně, zachová úspěšné identity a každý konflikt uloží jen k dotčenému tickeru.

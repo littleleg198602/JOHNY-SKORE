@@ -161,7 +161,15 @@ Omezený počet filingů vybírá vyváženě mezi povolenými formuláři, aby 
 nebo 6-K nevytlačila srovnatelná účetní období potřebná pro navazující kontroly.
 Dokumenty mají stabilní ID podle CIK a accession number, účetní fakta obsahové ID
 a opakovaný běh je v SQLite pouze znovu pozoruje — neduplikuje zdrojové záznamy.
-Nové tabulky jsou `fundamental_facts` a `fundamental_fact_observations`.
+Z raw facts navíc vznikne samostatný point-in-time snapshot (`sec_fundamentals_pit_v1`)
+pro nejnovější dostupné účetní období. Rozlišuje `QUARTER`, `ANNUAL`, `YTD`
+a `INSTANT`, nikdy netvoří čtvrtletí tichým odečtem YTD a chybějící hodnotu
+nedosazuje nulou. Snapshot nese všechny zdrojové fact ID, accession a URL,
+missingness i lineage původního filing/revize. Protože SEC company-facts JSON
+poskytuje filing-date, nikoli accepted-at, je zdroj pro replay konzervativně
+viditelný až následující UTC den; toto omezení je explicitně uloženo v metadatech.
+Nové tabulky jsou `fundamental_facts`, `fundamental_fact_observations`,
+`fundamental_feature_snapshots` a `fundamental_feature_snapshot_observations`.
 
 Tato část etapy je pouze ingest a audit. Fundamentální fakta zatím nemění score,
 `forecast` ani `BUY` / `SELL` / `NO_TRADE`; neobsahuje sentiment, backtesting,

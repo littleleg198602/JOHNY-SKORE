@@ -308,6 +308,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertEqual("SUCCESS", result["governance_event_status"])
             self.assertEqual(1, result["fundamental_document_count"])
             self.assertEqual(10, result["fundamental_fact_count"])
+            self.assertEqual(1, result["fundamental_feature_snapshot_count"])
             self.assertEqual(0, result["governance_event_count"])
             self.assertEqual(1, result["financial_forensics_evidence_count"])
             self.assertEqual(0, result["financial_forensics_high_findings"])
@@ -321,6 +322,9 @@ class RuntimeIntegrationTests(unittest.TestCase):
             self.assertEqual(1, result["source_resolution_count"])
             facts = store.read_fundamental_facts("AAPL")
             self.assertEqual(10, len(facts))
+            feature_snapshots = store.read_fundamental_feature_snapshots("AAPL")
+            self.assertEqual(1, len(feature_snapshots))
+            self.assertEqual("QUARTER", feature_snapshots.iloc[0]["period_basis"])
             assets = facts.loc[facts["concept"] == "Assets"].iloc[0]
             self.assertEqual(200.0, float(assets["value"]))
 

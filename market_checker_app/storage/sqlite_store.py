@@ -827,6 +827,42 @@ class SQLiteStore:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS fundamental_feature_snapshots (
+                    snapshot_id TEXT PRIMARY KEY,
+                    ticker TEXT NOT NULL,
+                    feature_version TEXT NOT NULL,
+                    as_of TEXT NOT NULL,
+                    availability_at TEXT NOT NULL,
+                    period_basis TEXT NOT NULL,
+                    period_start TEXT,
+                    period_end TEXT,
+                    values_json TEXT NOT NULL DEFAULT '{}',
+                    missing_reasons_json TEXT NOT NULL DEFAULT '{}',
+                    source_fact_ids_json TEXT NOT NULL DEFAULT '{}',
+                    source_accessions_json TEXT NOT NULL DEFAULT '{}',
+                    source_urls_json TEXT NOT NULL DEFAULT '{}',
+                    first_seen_at TEXT NOT NULL,
+                    last_seen_at TEXT NOT NULL,
+                    metadata_json TEXT NOT NULL DEFAULT '{}'
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS fundamental_feature_snapshot_observations (
+                    orchestration_id TEXT NOT NULL,
+                    agent_run_id INTEGER NOT NULL,
+                    snapshot_id TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    PRIMARY KEY(orchestration_id, agent_run_id, snapshot_id),
+                    FOREIGN KEY(orchestration_id) REFERENCES orchestration_runs(orchestration_id) ON DELETE CASCADE,
+                    FOREIGN KEY(agent_run_id) REFERENCES agent_runs(agent_run_id) ON DELETE CASCADE,
+                    FOREIGN KEY(snapshot_id) REFERENCES fundamental_feature_snapshots(snapshot_id)
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS research_claims (
                     claim_id TEXT PRIMARY KEY,
                     ticker TEXT NOT NULL,
@@ -1238,6 +1274,12 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_fundamental_fact_observations_run ON fundamental_fact_observations(orchestration_id, agent_run_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_fundamental_feature_snapshots_ticker_asof ON fundamental_feature_snapshots(ticker, as_of, period_end)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_fundamental_feature_snapshot_observations_run ON fundamental_feature_snapshot_observations(orchestration_id, agent_run_id)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_research_claims_ticker_status ON research_claims(ticker, status, published_at)"
@@ -2085,6 +2127,60 @@ class SQLiteStore:
                         ),
                     )
 
+                for snapshot in result.fundamental_feature_snapshots:
+                    conn.execute(
+                        """
+                        INSERT INTO fundamental_feature_snapshots(
+                            snapshot_id, ticker, feature_version, as_of,
+                            availability_at, period_basis, period_start, period_end,
+                            values_json, missing_reasons_json, source_fact_ids_json,
+                            source_accessions_json, source_urls_json,
+                            first_seen_at, last_seen_at, metadata_json
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON CONFLICT(snapshot_id) DO UPDATE SET
+                            last_seen_at = excluded.last_seen_at
+                        """,
+                        (
+                            snapshot.snapshot_id,
+                            snapshot.ticker,
+                            snapshot.feature_version,
+                            to_iso(snapshot.as_of),
+                            to_iso(snapshot.availability_at),
+                            snapshot.period_basis,
+                            (
+                                to_iso(snapshot.period_start)
+                                if snapshot.period_start
+                                else None
+                            ),
+                            (
+                                to_iso(snapshot.period_end)
+                                if snapshot.period_end
+                                else None
+                            ),
+                            self._json_dump(snapshot.values),
+                            self._json_dump(snapshot.missing_reasons),
+                            self._json_dump(snapshot.source_fact_ids),
+                            self._json_dump(snapshot.source_accessions),
+                            self._json_dump(snapshot.source_urls),
+                            to_iso(snapshot.observed_at),
+                            to_iso(snapshot.observed_at),
+                            self._json_dump(snapshot.metadata),
+                        ),
+                    )
+                    conn.execute(
+                        """
+                        INSERT INTO fundamental_feature_snapshot_observations(
+                            orchestration_id, agent_run_id, snapshot_id, observed_at
+                        ) VALUES (?, ?, ?, ?)
+                        """,
+                        (
+                            report.orchestration_id,
+                            agent_run_id,
+                            snapshot.snapshot_id,
+                            to_iso(snapshot.observed_at),
+                        ),
+                    )
+
                 for claim in result.claims:
                     conn.execute(
                         """
@@ -2908,6 +3004,27 @@ class SQLiteStore:
         query += " ORDER BY ticker ASC, concept ASC, filed_at DESC, fact_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
+
+    def read_fundamental_feature_snapshots(
+        self,
+        ticker: str | None = None,
+        as_of: datetime | None = None,
+    ) -> pd.DataFrame:
+        self.ensure_schema()
+        query = "SELECT * FROM fundamental_feature_snapshots"
+        clauses: list[str] = []
+        params: list[object] = []
+        if ticker is not None:
+            clauses.append("ticker = ?")
+            params.append(ticker)
+        if as_of is not None:
+            clauses.append("as_of = ?")
+            params.append(to_iso(as_of))
+        if clauses:
+            query += " WHERE " + " AND ".join(clauses)
+        query += " ORDER BY ticker ASC, as_of DESC, period_end DESC, snapshot_id ASC"
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=tuple(params))
 
     def read_governance_events(
         self,

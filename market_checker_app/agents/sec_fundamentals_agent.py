@@ -29,6 +29,9 @@ from market_checker_app.config import (
     FundamentalIngestionConfig,
     ShortReportSourceConfig,
 )
+from market_checker_app.services.sec_fundamental_feature_service import (
+    build_sec_fundamental_feature_snapshots,
+)
 from market_checker_app.utils.text import normalize_ticker
 
 
@@ -65,7 +68,7 @@ class SecFundamentalsAgent(BaseAgent):
     """Ingest official SEC filings and XBRL facts without scoring them."""
 
     name = "f2_sec"
-    version = "1.1"
+    version = "1.2"
     required = False
     dependencies = ("entity_registry",)
 
@@ -431,6 +434,14 @@ class SecFundamentalsAgent(BaseAgent):
         facts_by_ticker: dict[str, list[FundamentalFact]] = {}
         for fact in facts:
             facts_by_ticker.setdefault(fact.ticker, []).append(fact)
+        feature_snapshots = build_sec_fundamental_feature_snapshots(
+            facts_by_ticker,
+            as_of=context.started_at,
+            observed_at=observed_at,
+        )
+        feature_snapshots_by_ticker = {
+            snapshot.ticker: snapshot for snapshot in feature_snapshots
+        }
         updated_registry = dict(registered)
         updated_registry.update({entity.ticker: entity for entity in entities})
         return AgentResult(
@@ -438,6 +449,7 @@ class SecFundamentalsAgent(BaseAgent):
             entities=entities,
             documents=documents,
             fundamental_facts=facts,
+            fundamental_feature_snapshots=feature_snapshots,
             evidence=evidence,
             warnings=list(dict.fromkeys(warnings)),
             metadata={
@@ -445,6 +457,7 @@ class SecFundamentalsAgent(BaseAgent):
                 "unresolved_tickers": unresolved_tickers,
                 "documents": len(documents),
                 "fundamental_facts": len(facts),
+                "fundamental_feature_snapshots": len(feature_snapshots),
                 "filing_text_documents": sum(
                     len(items) for items in filing_texts_by_ticker.values()
                 ),
@@ -465,6 +478,9 @@ class SecFundamentalsAgent(BaseAgent):
                     entity.ticker: entity for entity in entities
                 },
                 "fundamental_facts_by_ticker": facts_by_ticker,
+                "sec_fundamental_features_by_ticker": (
+                    feature_snapshots_by_ticker
+                ),
                 "sec_filing_texts_by_ticker": filing_texts_by_ticker,
                 "sec_insider_transactions_by_ticker": (
                     insider_transactions_by_ticker

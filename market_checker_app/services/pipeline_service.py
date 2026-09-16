@@ -1265,6 +1265,7 @@ class PipelineService:
         fundamental_ingestion_status: str | None = None
         fundamental_document_count = 0
         fundamental_fact_count = 0
+        fundamental_feature_snapshot_count = 0
         financial_forensics_status: str | None = None
         financial_forensics_evidence_count = 0
         financial_forensics_high_findings = 0
@@ -1353,6 +1354,9 @@ class PipelineService:
                         fundamental_document_count = len(execution.result.documents)
                         fundamental_fact_count = len(
                             execution.result.fundamental_facts
+                        )
+                        fundamental_feature_snapshot_count = len(
+                            execution.result.fundamental_feature_snapshots
                         )
                         fundamental_filing_text_document_count = int(
                             execution.result.metadata.get(
@@ -1630,6 +1634,9 @@ class PipelineService:
             "fundamental_ingestion_status": fundamental_ingestion_status,
             "fundamental_document_count": fundamental_document_count,
             "fundamental_fact_count": fundamental_fact_count,
+            "fundamental_feature_snapshot_count": (
+                fundamental_feature_snapshot_count
+            ),
             "fundamental_filing_text_document_count": (
                 fundamental_filing_text_document_count
             ),

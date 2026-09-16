@@ -369,6 +369,15 @@ class StageTwoAcceptanceTests(unittest.TestCase):
         self.assertEqual(["AAPL"], client.calls)
         self.assertEqual(1, len(report.documents))
         self.assertEqual(1, len(report.fundamental_facts))
+        self.assertEqual(1, len(report.fundamental_feature_snapshots))
+        snapshot = report.fundamental_feature_snapshots[0]
+        self.assertEqual("QUARTER", snapshot.period_basis)
+        self.assertEqual(94000000000.0, snapshot.values["revenue"])
+        self.assertFalse(snapshot.metadata["scoring_applied"])
+        self.assertEqual(
+            "CONSERVATIVE_NEXT_UTC_DAY",
+            snapshot.metadata["availability_policy"],
+        )
         self.assertEqual("0000320193", report.fundamental_facts[0].cik)
         self.assertEqual(1, len(report.signals))
         self.assertEqual("BUY", report.signals[0].action)
@@ -394,6 +403,10 @@ class StageTwoAcceptanceTests(unittest.TestCase):
             store.save_orchestration_report(second)
 
             self.assertEqual(1, len(store.read_fundamental_facts("AAPL")))
+            self.assertEqual(
+                2,
+                len(store.read_fundamental_feature_snapshots("AAPL")),
+            )
             with store._connect() as conn:
                 document_count = conn.execute(
                     "SELECT COUNT(*) FROM documents WHERE source = 'SEC EDGAR'"
@@ -404,9 +417,13 @@ class StageTwoAcceptanceTests(unittest.TestCase):
                 fact_observations = conn.execute(
                     "SELECT COUNT(*) FROM fundamental_fact_observations"
                 ).fetchone()[0]
+                feature_observations = conn.execute(
+                    "SELECT COUNT(*) FROM fundamental_feature_snapshot_observations"
+                ).fetchone()[0]
             self.assertEqual(1, document_count)
             self.assertEqual(2, document_observations)
             self.assertEqual(2, fact_observations)
+            self.assertEqual(2, feature_observations)
 
     def test_missing_contact_in_user_agent_is_audited_without_network_call(self) -> None:
         config = FundamentalIngestionConfig(enabled=True, user_agent="JohnySkore")
