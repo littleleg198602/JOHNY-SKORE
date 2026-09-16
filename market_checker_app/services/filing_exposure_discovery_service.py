@@ -27,6 +27,7 @@ class FilingCommodityFinding:
     source: CommodityEnergySourceConfig
     support_term: str
     reason: str
+    evidence_quote: str
 
 
 @dataclass(frozen=True, slots=True)
@@ -296,9 +297,11 @@ class FilingExposureDiscoveryService:
                             published_at=published_at,
                             url=url,
                             confidence=0.40,
+                            evidence_quote=sentence,
                         ),
                         support_term=matched,
                         reason="sec_10k_material_or_energy_exposure",
+                        evidence_quote=sentence,
                     )
                 )
 
