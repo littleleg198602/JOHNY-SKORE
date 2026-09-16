@@ -272,6 +272,85 @@ def verify_company_identity_pilot(
     }
 
 
+def build_identity_universe_ledger(
+    *,
+    universe_tickers: Sequence[str],
+    identity_records: Mapping[str, Mapping[str, object]],
+    verified_identities: Sequence[Mapping[str, object]] = (),
+    verification_error: str | None = None,
+) -> dict[str, object]:
+    """Account for every production ticker without inventing an identity.
+
+    A missing manifest entry is intentionally *quarantined*, not silently
+    counted as resolved or treated as a live-registry failure.  Existing
+    manifest entries are resolved only after the exact-registry pilot verifies
+    them; a failed live check leaves them explicitly unresolved.
+    """
+    universe = normalize_watchlist(universe_tickers)
+    configured = {
+        str(ticker).strip().upper(): dict(record)
+        for ticker, record in identity_records.items()
+        if str(ticker).strip()
+    }
+    verified = {
+        str(record.get("ticker") or "").strip().upper(): dict(record)
+        for record in verified_identities
+        if str(record.get("ticker") or "").strip()
+    }
+    rows: list[dict[str, object]] = []
+    for ticker in universe:
+        record = configured.get(ticker)
+        if record is None:
+            rows.append(
+                {
+                    "ticker": ticker,
+                    "status": "QUARANTINED",
+                    "reason_code": "IDENTITY_MANIFEST_MISSING",
+                    "reason_detail": "Ticker nemá přesný CIK, ISIN nebo LEI v produkčním manifestu.",
+                    "source_url": None,
+                }
+            )
+            continue
+        if ticker in verified:
+            rows.append(
+                {
+                    "ticker": ticker,
+                    "status": "RESOLVED",
+                    "reason_code": "EXACT_REGISTRY_VERIFIED",
+                    "reason_detail": None,
+                    "source_url": verified[ticker].get("source_url")
+                    or record.get("source_url"),
+                }
+            )
+            continue
+        rows.append(
+            {
+                "ticker": ticker,
+                "status": "UNRESOLVED",
+                "reason_code": "LIVE_IDENTITY_VERIFICATION_FAILED",
+                "reason_detail": verification_error
+                or "Přesná identita nebyla v tomto smoke běhu ověřena.",
+                "source_url": record.get("source_url"),
+            }
+        )
+    counts = {
+        status: sum(row["status"] == status for row in rows)
+        for status in ("RESOLVED", "QUARANTINED", "UNRESOLVED")
+    }
+    return {
+        "schema_version": 1,
+        "universe_count": len(universe),
+        "configured_identity_count": len(configured),
+        "resolved_count": counts["RESOLVED"],
+        "quarantined_count": counts["QUARANTINED"],
+        "unresolved_count": counts["UNRESOLVED"],
+        "coverage_status": "COMPLETE"
+        if counts["RESOLVED"] == len(universe)
+        else "PARTIAL",
+        "records": rows,
+    }
+
+
 def _atomic_json(path: Path, payload: dict[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary_path: Path | None = None
@@ -530,10 +609,12 @@ def run_live_source_smoke(
         return {"configured_count": len(european_canary_urls), "observed_count": len(observed), "failed_count": len(failures), "observed": observed, "failures": failures, "optional": True}
 
     checks = []
+    identity_check: dict[str, object] | None = None
     if identity_records is not None:
-        checks.append(
-            _run_check("company_identity_pilot", check_company_identity_pilot)
+        identity_check = _run_check(
+            "company_identity_pilot", check_company_identity_pilot
         )
+        checks.append(identity_check)
     checks.extend(
         [
             _run_check("yahoo", check_yahoo),
@@ -553,6 +634,26 @@ def run_live_source_smoke(
                     declared_sec_user_agent,
                     "<redacted-sec-user-agent>",
                 )
+    identity_universe: dict[str, object] | None = None
+    if identity_records is not None and identity_universe_tickers is not None:
+        verified_identities: Sequence[Mapping[str, object]] = ()
+        verification_error: str | None = None
+        if identity_check is not None and identity_check.get("status") == "PASS":
+            details = identity_check.get("details")
+            if isinstance(details, dict):
+                raw_identities = details.get("identities")
+                if isinstance(raw_identities, list):
+                    verified_identities = [
+                        item for item in raw_identities if isinstance(item, dict)
+                    ]
+        elif identity_check is not None:
+            verification_error = str(identity_check.get("error") or "") or None
+        identity_universe = build_identity_universe_ledger(
+            universe_tickers=identity_universe_tickers,
+            identity_records=identity_records,
+            verified_identities=verified_identities,
+            verification_error=verification_error,
+        )
     failed = [check["name"] for check in checks if check["status"] != "PASS" and check.get("blocking", True)]
     payload: dict[str, object] = {
         "schema_version": 1,
@@ -562,6 +663,7 @@ def run_live_source_smoke(
         "tickers": normalized_tickers,
         "checks": checks,
         "failed_checks": failed,
+        "identity_universe": identity_universe,
         "raw_source_content_persisted": False,
         "sec_user_agent_persisted": False,
     }
