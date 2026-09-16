@@ -17,6 +17,7 @@ from market_checker_app.collectors.sec_edgar_client import (
 )
 from market_checker_app.collectors.short_report_client import FetchedShortReport
 from market_checker_app.live_source_smoke import (
+    audit_company_identity_pilot,
     build_identity_universe_ledger,
     run_live_source_smoke,
     verify_company_identity_pilot,
@@ -375,6 +376,42 @@ class LiveSourceSmokeTests(unittest.TestCase):
                 sec_client=ConflictingSEC(records),
                 gleif_client=_GLEIF(records),
             )
+
+    def test_identity_audit_keeps_a_conflict_on_its_own_ticker(self) -> None:
+        records = _production_identity_records()
+
+        class ConflictingSEC(_IdentitySEC):
+            def resolve_company(self, ticker):
+                company = super().resolve_company(ticker)
+                if ticker == "AAPL" and company is not None:
+                    return SecCompany(
+                        ticker=company.ticker,
+                        cik="0000000001",
+                        name=company.name,
+                        exchange=company.exchange,
+                    )
+                return company
+
+        audit = audit_company_identity_pilot(
+            identity_records=records,
+            sec_user_agent="JohnySkore test@example.com",
+            universe_tickers=_production_watchlist(),
+            sec_client=ConflictingSEC(records),
+            gleif_client=_GLEIF(records),
+        )
+        ledger = build_identity_universe_ledger(
+            universe_tickers=_production_watchlist(),
+            identity_records=records,
+            verified_identities=audit["identities"],
+            identity_failures=audit["identity_failures"],
+        )
+        by_ticker = {record["ticker"]: record for record in ledger["records"]}
+
+        self.assertEqual(35, audit["resolved_identity_count"])
+        self.assertEqual(1, audit["unresolved_identity_count"])
+        self.assertEqual("UNRESOLVED", by_ticker["AAPL"]["status"])
+        self.assertIn("AAPL", by_ticker["AAPL"]["reason_detail"])
+        self.assertEqual("RESOLVED", by_ticker["MSFT"]["status"])
 
     def test_identity_pilot_rejects_ticker_outside_production_universe(self) -> None:
         records = _production_identity_records()
