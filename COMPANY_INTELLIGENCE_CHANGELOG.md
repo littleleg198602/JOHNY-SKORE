@@ -25,6 +25,13 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
+## 2026-09-17 — OPL-016 zdraví identifikovaných protistran
+
+- Přidán explicitní manifest identity protistrany a veřejné dokumentace. Pouze `PUBLIC` identita s ověřeným tickerem smí číst již uložený SEC point-in-time snapshot; dokument po cutoffu se nepoužije.
+- Report ukazuje cash jako dostupný ukazatel likvidity, total debt, operating cash flow a free cash flow spolu s účetním obdobím, dostupností, accession a URL. Nevýpočetní chybějící údaje zůstávají reason code.
+- `PRIVATE`, `UNKNOWN`, anonymní, nemapovaný a neingestovaný partner dostane omezené posouzení bez credit/health ratingu. Neexistuje domýšlení tickeru ani placená databáze.
+- Výsledek se ukládá do SQLite a weekly shadow JSON; je výhradně analytický a nemění score, ranking, rozhodnutí ani obchodní exekuci.
+
 ## 2026-09-16 — OPL-017 materiály, energie a doložené margin scénáře
 
 - Přidány point-in-time cenové body s hodnotou, jednotkou, měnou, URL, `observed_at` a `available_at`. Bod publikovaný po cutoffu se do historického scénáře nedostane.
