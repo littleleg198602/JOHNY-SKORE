@@ -1287,6 +1287,36 @@ class SQLiteStore:
                 )
                 """
             )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS macro_observations (
+                    observation_id TEXT PRIMARY KEY,
+                    indicator_id TEXT NOT NULL,
+                    scope TEXT NOT NULL,
+                    reference_period TEXT NOT NULL,
+                    value REAL NOT NULL,
+                    unit TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    available_at TEXT NOT NULL,
+                    vintage_at TEXT NOT NULL,
+                    source_url TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS macro_regime_reports (
+                    report_id TEXT PRIMARY KEY,
+                    report_version TEXT NOT NULL,
+                    as_of TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    regime TEXT NOT NULL,
+                    report_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                """
+            )
             self._ensure_quality_gate_columns(conn)
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_prediction_snapshots_run_ticker ON prediction_snapshots(run_id, ticker)"
@@ -1299,6 +1329,12 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_candidate_model_evaluations_target_time ON candidate_model_evaluations(target_version, evaluated_as_of)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_macro_observations_lookup ON macro_observations(indicator_id, scope, available_at, vintage_at)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_macro_regime_reports_time ON macro_regime_reports(as_of)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_agent_runs_pipeline ON agent_runs(pipeline_run_id)"
@@ -3117,6 +3153,84 @@ class SQLiteStore:
         query += " ORDER BY evaluated_as_of ASC, evaluation_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
+
+    def save_macro_observations(self, observations: list[dict[str, object]]) -> int:
+        """Persist immutable source-attested macro vintage observations."""
+
+        if not observations:
+            return 0
+        self.ensure_schema()
+        inserted = 0
+        with self._connect() as conn:
+            for row in observations:
+                observation_id = str(row.get("observation_id") or "").strip()
+                if not observation_id:
+                    raise ValueError("macro observation_id is required")
+                cursor = conn.execute(
+                    """
+                    INSERT OR IGNORE INTO macro_observations(
+                        observation_id, indicator_id, scope, reference_period,
+                        value, unit, observed_at, available_at, vintage_at,
+                        source_url, created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        observation_id,
+                        str(row.get("indicator_id") or ""),
+                        str(row.get("scope") or ""),
+                        str(row.get("reference_period") or ""),
+                        float(row.get("value")),
+                        str(row.get("unit") or ""),
+                        str(row.get("observed_at") or ""),
+                        str(row.get("available_at") or ""),
+                        str(row.get("vintage_at") or ""),
+                        str(row.get("source_url") or ""),
+                        str(row.get("available_at") or ""),
+                    ),
+                )
+                inserted += cursor.rowcount
+        return inserted
+
+    def read_macro_observations(self) -> pd.DataFrame:
+        self.ensure_schema()
+        with self._connect() as conn:
+            return pd.read_sql_query(
+                "SELECT * FROM macro_observations ORDER BY available_at ASC, indicator_id ASC, scope ASC",
+                conn,
+            )
+
+    def save_macro_regime_report(self, report: dict[str, object]) -> bool:
+        report_id = str(report.get("report_id") or "").strip()
+        if not report_id:
+            raise ValueError("macro regime report_id is required")
+        self.ensure_schema()
+        with self._connect() as conn:
+            cursor = conn.execute(
+                """
+                INSERT OR IGNORE INTO macro_regime_reports(
+                    report_id, report_version, as_of, status, regime,
+                    report_json, created_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    report_id,
+                    str(report.get("report_version") or ""),
+                    str(report.get("as_of") or ""),
+                    str(report.get("status") or ""),
+                    str(report.get("regime") or ""),
+                    self._json_dump(report),
+                    str(report.get("as_of") or ""),
+                ),
+            )
+            return cursor.rowcount == 1
+
+    def read_macro_regime_reports(self) -> pd.DataFrame:
+        self.ensure_schema()
+        with self._connect() as conn:
+            return pd.read_sql_query(
+                "SELECT * FROM macro_regime_reports ORDER BY as_of ASC, report_id ASC",
+                conn,
+            )
 
     def update_run_counts(self, run_id: int, warnings_count: int, errors_count: int) -> None:
         with self._connect() as conn:

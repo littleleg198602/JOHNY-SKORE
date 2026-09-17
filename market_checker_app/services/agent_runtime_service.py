@@ -39,6 +39,7 @@ class AgentRuntimeSettings:
     commodity_energy_enabled: bool = False
     auto_discover_commodity_energy_from_sec: bool = True
     commodity_energy_sources_text: str = ""
+    macro_observations_text: str = ""
     regulatory_contract_enabled: bool = False
     auto_discover_regulatory_events: bool = True
     regulatory_contract_sources_text: str = ""

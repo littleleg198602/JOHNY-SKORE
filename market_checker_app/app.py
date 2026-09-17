@@ -1716,6 +1716,12 @@ with st.sidebar:
             "2026-08-18 | 2026-08-19 | 2400 | FY2025 | Exact supporting sentence"
         ),
     )
+    macro_observations_text = st.text_area(
+        "Makro vintage: indicator | scope | reference period | value | unit | observed_at | available_at | vintage_at | HTTPS URL",
+        value=agent_runtime_settings.macro_observations_text,
+        height=90,
+        help="Povolené: VIX, US10Y, T10Y2Y, DXY, WTI, CPI_YOY, INDPRO_YOY, SECTOR_RELATIVE_20D. Pouze evidence pro shadow report.",
+    )
     use_regulatory_contract = st.checkbox(
         "Načíst regulační a kontraktní události (Etapa 3)",
         value=agent_runtime_settings.regulatory_contract_enabled,
@@ -1970,6 +1976,7 @@ if run_analysis or save_agent_settings:
                     auto_discover_commodity_energy_from_sec
                 ),
                 commodity_energy_sources_text=commodity_energy_sources_text,
+                macro_observations_text=macro_observations_text,
                 regulatory_contract_enabled=use_regulatory_contract,
                 auto_discover_regulatory_events=auto_discover_regulatory_events,
                 regulatory_contract_sources_text=regulatory_contract_sources_text,

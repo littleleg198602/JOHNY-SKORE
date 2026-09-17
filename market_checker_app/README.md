@@ -305,6 +305,13 @@ se spojí do cenové řady. Výpočet citlivosti do marže smí vzniknout jen kd
 všechny podíly doložené; `available_at` po replay cutoffu se vždy vyřadí. Jde o
 transparentní scénář, nikoli automatickou prognózu či doporučení.
 
+Makro/sektorový manifest používá řádky `indicator | scope | reference period |
+value | unit | observed_at | available_at | vintage_at | HTTPS URL`. Povolené
+indikátory jsou `VIX`, `US10Y`, `T10Y2Y`, `DXY`, `WTI`, `CPI_YOY`, `INDPRO_YOY`
+a `SECTOR_RELATIVE_20D`. Report použije jen vintage známé v `as_of`; pozdější
+revize jsou vyřazené a neúplná sada není nahrazena odhadem. Makro režim je pouze
+shadow evidence, ne přepínač BUY/SELL.
+
 Každý záznam má stabilní ID, datum zveřejnění, zdrojový dokument a samostatnou
 observaci běhu. Lokální, privátní a URL s přihlašovacími údaji se odmítají.
 UI a týdenní runner navíc bezpečně stáhnou obsah, zkontrolují každý redirect a
