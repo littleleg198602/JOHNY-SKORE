@@ -4,7 +4,7 @@ import hashlib
 import json
 import math
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -940,6 +940,18 @@ class SQLiteStore:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS counterparty_health_reports (
+                    report_id TEXT PRIMARY KEY,
+                    report_version TEXT NOT NULL,
+                    as_of TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    report_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS resource_exposures (
                     exposure_id TEXT PRIMARY KEY,
                     ticker TEXT NOT NULL,
@@ -1359,6 +1371,9 @@ class SQLiteStore:
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_company_relationship_observations_run ON company_relationship_observations(orchestration_id, agent_run_id)"
+            )
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_counterparty_health_reports_asof ON counterparty_health_reports(as_of DESC, report_id ASC)"
             )
             conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_resource_exposures_ticker_type ON resource_exposures(ticker, exposure_type, published_at)"
@@ -3324,6 +3339,43 @@ class SQLiteStore:
         query += " ORDER BY ticker ASC, published_at DESC, relationship_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
+
+    def save_counterparty_health_report(self, report: dict[str, object]) -> bool:
+        """Persist a report-only OPL-016 result without touching decisions."""
+
+        self.ensure_schema()
+        required = ("report_id", "report_version", "as_of", "status")
+        if any(not report.get(key) for key in required):
+            raise ValueError("counterparty health report lacks required identifiers")
+        with self._connect() as conn:
+            conn.execute(
+                """
+                INSERT INTO counterparty_health_reports(
+                    report_id, report_version, as_of, status, report_json, created_at
+                ) VALUES (?, ?, ?, ?, ?, ?)
+                ON CONFLICT(report_id) DO NOTHING
+                """,
+                (
+                    str(report["report_id"]),
+                    str(report["report_version"]),
+                    str(report["as_of"]),
+                    str(report["status"]),
+                    self._json_dump(report),
+                    to_iso(datetime.now(timezone.utc)),
+                ),
+            )
+            return conn.total_changes > 0
+
+    def read_counterparty_health_reports(self, limit: int = 20) -> pd.DataFrame:
+        self.ensure_schema()
+        if limit < 1:
+            raise ValueError("limit must be positive")
+        with self._connect() as conn:
+            return pd.read_sql_query(
+                "SELECT * FROM counterparty_health_reports ORDER BY as_of DESC, report_id ASC LIMIT ?",
+                conn,
+                params=(limit,),
+            )
 
     def read_resource_exposures(
         self,
