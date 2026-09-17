@@ -24,6 +24,7 @@ Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává z
 | OPL-013 | CODE COMPLETE / OOS evidence pending | walk-forward evaluation layer | `candidate_walk_forward_evaluation_v1` pro každý prediction týden znovu trénuje jen na tehdy známých kompatibilních labelech, vyřadí překrývající se ticker/label horizonty a porovnává momentum baseline s kandidátem. Report ukládá Brier score/kalibraci, ranking IC, top-decile excess return a directional accuracy celkem, po týdnech a sektorech; intervaly bootstrapuje přes týdny. Výsledek pod 200 vzorky či 12 týdny je viditelně `INSUFFICIENT_DATA`, nikdy aktivace modelu. |
 | OPL-015 | CODE COMPLETE / live evidence pending | supplier/customer evidence layer | Každá Stage 3 vazba má orientaci `protistrana → firma` nebo `firma → protistrana`, identitu/anonymitu partnera, produkt/vstup, zemi, období, kontext koncentrace/single-source/disruption, citaci, zdroj, úroveň důkazu, čerstvost a explicitní missingness. Anonymní customer se nikdy nespáruje s firmou. Supply a customer se zobrazují odděleně; evidence nikdy nemění score ani ranking. |
 | OPL-017 | CODE COMPLETE / live evidence pending | resource margin scenario layer | Materiál/energie může nést datované cenové body s jednotkou, měnou, URL a `available_at`; bod po cutoffu se vyřadí. Pouze při doloženém nákladovém podílu, hedge, fixaci, pass-through a explicitním scénáři se vypočte reprodukovatelná citlivost do marže. Jinak `INSUFFICIENT_DATA`; scénář není cenová predikce, nemění score ani ranking. |
+| OPL-018 | CODE COMPLETE / live evidence pending | macro/sector vintage layer | Malý makro report pracuje s VIX, 10Y, křivkou, dolarem, ropou, CPI, průmyslem a sektorovou relativní silou. Každé pozorování má reference period, `available_at` a `vintage_at`; budoucí revize se v replayi vyřadí. Režim je report-only, při chybějící sadě `INSUFFICIENT_DATA`, nikdy nemění firmní ranking nebo rozhodnutí. |
 
 Všechny PR #107, #108 a #109 před merge prošly: **687 ticker scale gate, Streamlit gate, deterministic test suite a deterministic release gate**.
 
@@ -46,8 +47,8 @@ Každý nový snapshot nese release manifest s code SHA, config hashem, model/sc
 
 Nejvyšší zbývající technická priorita je:
 
-1. OPL-018: přidat point-in-time makro/sektorový režim s verzovanými vintage hodnotami.
-2. Provést skutečné OPL-007/008/009/010/011/012/013/015/017 provozní a OOS reporty na aktuální verzi; absence reportu je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
+1. OPL-016: zhodnotit zdraví jen identifikovaných protistran z OPL-015, bez fiktivního ratingu soukromých firem.
+2. Provést skutečné OPL-007/008/009/010/011/012/013/015/017/018 provozní a OOS reporty na aktuální verzi; absence reportu je `WAIT_DATA`, nikoli důvod vymýšlet výsledek.
 
 Živá data, která potřebují nasbírat čas/OOS vzorky, zůstávají `WAIT_DATA`; absence dat se nesmí označovat za implementační chybu ani za hotový predikční důkaz.
 
