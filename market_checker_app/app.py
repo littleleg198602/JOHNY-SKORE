@@ -1675,6 +1675,19 @@ with st.sidebar:
             "JP | FY2025 | CONCENTRATION | EXPLICIT_FILING | Exact supporting sentence"
         ),
     )
+    counterparty_health_sources_text = st.text_area(
+        "Zdraví protistran: identita | PUBLIC/PRIVATE/UNKNOWN | ticker/- | stav dokumentu | vydavatel | datum | HTTPS URL | rozsah",
+        value=agent_runtime_settings.counterparty_health_sources_text,
+        height=95,
+        help=(
+            "Jen explicitně identifikovaná veřejná firma se spojí s uloženým SEC snapshotem. "
+            "Případy PRIVATE/UNKNOWN končí omezeným posouzením bez ratingu a nic nemění v predikci."
+        ),
+        placeholder=(
+            "Example Components | PUBLIC | EXMP | PUBLIC_FILING_AVAILABLE | SEC EDGAR | "
+            "2026-08-19 | https://www.sec.gov/Archives/example | annual filing"
+        ),
+    )
     use_commodity_energy = st.checkbox(
         "Načíst expozice na materiály a energie (Etapa 3)",
         value=agent_runtime_settings.commodity_energy_enabled,
@@ -1957,6 +1970,7 @@ if run_analysis or save_agent_settings:
                     auto_discover_supply_chain_from_sec
                 ),
                 supply_chain_sources_text=supply_chain_sources_text,
+                counterparty_health_sources_text=counterparty_health_sources_text,
                 commodity_energy_enabled=use_commodity_energy,
                 auto_discover_commodity_energy_from_sec=(
                     auto_discover_commodity_energy_from_sec

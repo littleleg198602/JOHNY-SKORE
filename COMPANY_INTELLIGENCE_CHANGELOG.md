@@ -25,12 +25,12 @@
 
 # Company Intelligence / Forensic – changelog oprav
 
-## 2026-09-16 — OPL-018 point-in-time makro a sektorový režim
+## 2026-09-17 — OPL-016 zdraví identifikovaných protistran
 
-- Přidán malý macro manifest/report pro VIX, US10Y, T10Y2Y, DXY, WTI, CPI, průmysl a sektorovou relativní sílu. Každé pozorování nese referenční období, zdroj, `available_at` a `vintage_at`.
-- Replay vybere pouze poslední vintage dostupné před `as_of`; budoucí revize se explicitně počítají mezi vyřazené záznamy. Neúplná povinná sada vrací `INSUFFICIENT_DATA`.
-- SQLite ukládá immutable macro observations i reporty. Weekly shadow JSON zveřejní samostatný `macro_sector_regime`; UI/runtimový manifest přijímá zdrojové řádky.
-- Režim je analytický kontext bez zásahu do score, rankingu, rozhodnutí či obchodní exekuce; skutečná ablace a živé evidence zůstávají pending.
+- Přidán explicitní manifest identity protistrany a veřejné dokumentace. Pouze `PUBLIC` identita s ověřeným tickerem smí číst již uložený SEC point-in-time snapshot; dokument po cutoffu se nepoužije.
+- Report ukazuje cash jako dostupný ukazatel likvidity, total debt, operating cash flow a free cash flow spolu s účetním obdobím, dostupností, accession a URL. Nevýpočetní chybějící údaje zůstávají reason code.
+- `PRIVATE`, `UNKNOWN`, anonymní, nemapovaný a neingestovaný partner dostane omezené posouzení bez credit/health ratingu. Neexistuje domýšlení tickeru ani placená databáze.
+- Výsledek se ukládá do SQLite a weekly shadow JSON; je výhradně analytický a nemění score, ranking, rozhodnutí ani obchodní exekuci.
 
 ## 2026-09-16 — OPL-017 materiály, energie a doložené margin scénáře
 
