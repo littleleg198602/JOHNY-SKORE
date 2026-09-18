@@ -167,7 +167,10 @@ class PredictionLabelService:
         benchmark_values = values_for(benchmark_history)
         if asset_values is None or benchmark_values is None:
             return None
-        return asset_values, benchmark_values, target_sessions[-1].to_pydatetime()
+        # A daily index is a session label, not the time its closing price
+        # became available. Use the same official close as the due-date queue.
+        _, future = target_us_equity_window(snapshot_as_of, horizon)
+        return asset_values, benchmark_values, future[-1].close_at
 
     @staticmethod
     def _snapshot_mapping(row: Mapping[str, object]) -> dict[str, object]:

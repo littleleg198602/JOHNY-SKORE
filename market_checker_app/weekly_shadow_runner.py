@@ -52,6 +52,7 @@ from market_checker_app.services.watchlist_service import (
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.models import AnalysisProgressState
 from market_checker_app.prediction_contract import build_point_in_time_snapshot
+from market_checker_app.release_manifest import build_release_manifest
 from market_checker_app.services.candidate_model_service import (
     build_candidate_model_report,
 )
@@ -796,6 +797,7 @@ def run_weekly_shadow(
     yahoo_metadata_enabled: bool | None,
     resolve_labels: bool = False,
     counterparty_health_sources: list[dict[str, object]] | None = None,
+    macro_observations: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
     from market_checker_app.services.pipeline_service import PipelineService
 
@@ -821,6 +823,38 @@ def run_weekly_shadow(
         yahoo_metadata_enabled=yahoo_metadata_enabled,
     )
     print("", flush=True)
+    return finalize_analysis_run(
+        result=result, config=config, tickers=tickers, store=store,
+        pipeline=pipeline, resolve_labels=resolve_labels,
+        counterparty_health_sources=counterparty_health_sources,
+        macro_observations=macro_observations, strict=True,
+    )
+
+
+def finalize_analysis_run(
+    *, result: dict[str, object], config: AppConfig, tickers: list[str],
+    store: SQLiteStore, pipeline: object, resolve_labels: bool = False,
+    counterparty_health_sources: list[dict[str, object]] | None = None,
+    macro_observations: list[dict[str, object]] | None = None,
+    strict: bool = False,
+) -> dict[str, object]:
+    """Shared UI/weekly persistence and analysis; never modifies signals.
+
+    Label loading remains opt-in. All other steps consume only this run and
+    local history. Failures are retained in the exported report in both paths.
+    """
+    macro_error: str | None = None
+    try:
+        from market_checker_app.services.macro_regime_service import build_macro_regime_report
+        store.save_macro_observations(macro_observations or [])
+        macro_report = build_macro_regime_report(
+            store.read_macro_observations().to_dict(orient="records"),
+            as_of=getattr(result.get("metadata"), "finished_at", datetime.now(timezone.utc)),
+        )
+        macro_report["persisted"] = store.save_macro_regime_report(macro_report)
+    except Exception as exc:
+        macro_error = f"makro report selhal: {type(exc).__name__}: {exc}"
+        macro_report = {"status": "FAILED", "reason": "MACRO_RUNTIME_ERROR", "analysis_only": True}
     counterparty_health_error: str | None = None
     try:
         from market_checker_app.services.counterparty_health_service import (
@@ -830,10 +864,12 @@ def run_weekly_shadow(
         metadata = result.get("metadata")
         counterparty_as_of = getattr(metadata, "finished_at", datetime.now(timezone.utc))
         counterparty_health_report = build_counterparty_health_report(
-            store.read_company_relationships().to_dict(orient="records"),
+            [row for row in store.read_company_relationships().to_dict(orient="records")
+             if row.get("ticker") in tickers],
             store.read_fundamental_feature_snapshots().to_dict(orient="records"),
             counterparty_health_sources or [],
             as_of=counterparty_as_of,
+            identities=store.read_entity_identity_versions().to_dict(orient="records"),
         )
         counterparty_health_report["persisted"] = store.save_counterparty_health_report(
             counterparty_health_report
@@ -873,16 +909,24 @@ def run_weekly_shadow(
     if run_id is not None and isinstance(raw_point_in_time_inputs, list):
         metadata = result.get("metadata")
         observed_at = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+        manifest = build_release_manifest(config=config)
         for item in raw_point_in_time_inputs:
             if not isinstance(item, dict):
                 continue
             try:
+                payload = dict(item.get("feature_payload") or {})
+                payload["macro_features"] = {
+                    str(row["indicator_id"]): row["value"]
+                    for row in macro_report.get("selected_observations", [])
+                    if row.get("scope") == "GLOBAL"
+                }
+                payload["macro_report_id"] = macro_report.get("report_id")
                 snapshot_records.append(
                     build_point_in_time_snapshot(
                         run_id=int(run_id),
                         ticker=str(item.get("ticker") or ""),
                         observed_at=observed_at,
-                        feature_payload=item.get("feature_payload") or {},
+                        feature_payload=payload,
                         baseline_output=item.get("baseline_output") or {},
                         provenance=item.get("provenance") or {},
                         benchmark_ticker=str(
@@ -891,6 +935,7 @@ def run_weekly_shadow(
                         benchmark_selection=str(
                             item.get("benchmark_selection") or "unknown"
                         ),
+                        release_manifest=manifest,
                     )
                 )
             except (TypeError, ValueError) as exc:
@@ -906,10 +951,19 @@ def run_weekly_shadow(
                 saved_snapshot_count = store.save_prediction_snapshots(
                     snapshot_records
                 )
+                # A repeated finalization must not turn an idempotent insert
+                # into a failure. Count the immutable requested IDs present.
+                persisted = store.read_prediction_snapshots()
+                requested_ids = {str(row["snapshot_id"]) for row in snapshot_records}
+                persisted_ids = (
+                    set(persisted["snapshot_id"].astype(str))
+                    if "snapshot_id" in persisted.columns else set()
+                )
+                saved_snapshot_count = len(requested_ids & persisted_ids)
             except Exception as exc:
                 snapshot_error = f"snapshot uložení selhalo: {type(exc).__name__}: {exc}"
-    elif run_id is not None:
-        snapshot_error = "pipeline nevrátil point-in-time vstupy"
+    else:
+        snapshot_error = "běh nebo point-in-time vstupy nejsou uloženy"
     if snapshot_error is None and snapshot_records:
         try:
             metadata = result.get("metadata")
@@ -943,6 +997,8 @@ def run_weekly_shadow(
             candidate_evaluation_report = evaluate_candidate_walk_forward(
                 store.read_prediction_snapshots(),
             )
+            from market_checker_app.services.layer_ablation_service import evaluate_layer_ablation
+            candidate_evaluation_report["layer_ablation"] = evaluate_layer_ablation(store.read_prediction_snapshots())
             candidate_evaluation_report["persisted"] = (
                 store.save_candidate_model_evaluation(candidate_evaluation_report)
             )
@@ -950,6 +1006,7 @@ def run_weekly_shadow(
             candidate_evaluation_error = (
                 f"walk-forward evaluace selhala: {type(exc).__name__}: {exc}"
             )
+            candidate_evaluation_report.update(status="FAILED", reason="EVALUATION_RUNTIME_ERROR")
     label_resolution: dict[str, object] = {
         "status": "DISABLED",
         "pending_before": 0,
@@ -991,6 +1048,9 @@ def run_weekly_shadow(
                 "source_failures": 0,
             }
     summary_warnings = list(result.get("warnings", []))
+    for error in (macro_error, counterparty_health_error, candidate_evaluation_error):
+        if error:
+            summary_warnings.append(error)
     if label_resolution_error:
         summary_warnings.append(label_resolution_error)
     if candidate_model_error:
@@ -1038,6 +1098,8 @@ def run_weekly_shadow(
         "candidate_model_walk_forward_error": candidate_evaluation_error,
         "counterparty_health": _json_safe(counterparty_health_report),
         "counterparty_health_error": counterparty_health_error,
+        "macro_sector_regime": _json_safe(macro_report),
+        "macro_sector_regime_error": macro_error,
         "prediction_label_resolution": label_resolution,
         "prediction_label_resolution_error": label_resolution_error,
         "agent_status": result.get("agent_status"),
@@ -1091,7 +1153,12 @@ def run_weekly_shadow(
         "decision_results": _decision_detail_records(result),
     }
     failures: list[str] = []
-    degradations: list[str] = []
+    degradations: list[str] = [error for error in (
+        macro_error, counterparty_health_error, candidate_model_error,
+        candidate_evaluation_error, label_resolution_error,
+    ) if error]
+    if summary_warnings:
+        degradations.append("Běh obsahuje upozornění na kvalitu nebo dostupnost dat; podrobnosti jsou ve warnings.")
     if result.get("agent_status") == "PARTIAL":
         degradations.append(
             "agentní pipeline skončila stavem PARTIAL; některé volitelné zdroje jsou neúplné"
@@ -1170,7 +1237,7 @@ def run_weekly_shadow(
             f"CommodityEnergyAgent skončil {result.get('commodity_energy_status')}; "
             "základní predikce zůstává beze změny"
         )
-    if result.get("quality_gate_decision") != "PASS":
+    if result.get("agent_report") is not None and result.get("quality_gate_decision") != "PASS":
         failures.append(
             f"QualityGate skončil {result.get('quality_gate_decision')}"
         )
@@ -1197,8 +1264,10 @@ def run_weekly_shadow(
     summary["pipeline_failures"] = list(failures)
     summary["point_in_time_snapshot_error"] = snapshot_error
     _atomic_json(config.output_dir / "weekly_shadow_latest.json", summary)
+    if run_id is not None:
+        store.update_run_counts(int(run_id), len(summary_warnings), len(summary["errors"]) + len(failures))
 
-    if failures:
+    if failures and strict:
         raise RuntimeError("; ".join(failures))
     return summary
 
@@ -1276,6 +1345,10 @@ def main() -> None:
         )
         if counterparty_health_errors:
             raise RuntimeConfigurationError("\n".join(counterparty_health_errors))
+        from market_checker_app.services.macro_regime_service import parse_macro_observations
+        macro_observations, macro_errors = parse_macro_observations(settings.macro_observations_text)
+        if macro_errors:
+            raise RuntimeConfigurationError("\n".join(macro_errors))
         config = build_runtime_config(
             settings,
             output_dir=args.output_dir,
@@ -1301,6 +1374,7 @@ def main() -> None:
             yahoo_metadata_enabled=args.yahoo_metadata,
             resolve_labels=args.resolve_labels,
             counterparty_health_sources=counterparty_health_sources,
+            macro_observations=macro_observations,
         )
     except (
         RuntimeConfigurationError,

@@ -35,22 +35,36 @@ from market_checker_app.agents.contracts import (
     ResourceExposureType,
     SignalActivationDecision,
 )
-from market_checker_app.agents.claim_verification_agent import ClaimVerificationAgent
-from market_checker_app.agents.commodity_energy_agent import CommodityEnergyAgent
-from market_checker_app.agents.decision_agent import DecisionAgent
-from market_checker_app.agents.entity_registry_agent import EntityRegistryAgent
-from market_checker_app.agents.european_filings_agent import EuropeanFilingsAgent
-from market_checker_app.agents.evaluation_agent import EvaluationAgent
-from market_checker_app.agents.financial_forensics_agent import FinancialForensicsAgent
-from market_checker_app.agents.governance_event_agent import GovernanceEventAgent
-from market_checker_app.agents.orchestrator import OrchestratorAgent
-from market_checker_app.agents.prediction_v21_adapter import PredictionV21AdapterAgent
-from market_checker_app.agents.quality_gate_agent import QualityGateAgent
-from market_checker_app.agents.regulatory_contract_agent import RegulatoryContractAgent
-from market_checker_app.agents.sec_fundamentals_agent import SecFundamentalsAgent
-from market_checker_app.agents.short_report_agent import ShortReportAgent
-from market_checker_app.agents.source_resolution_agent import SourceResolutionAgent
-from market_checker_app.agents.supply_chain_agent import SupplyChainAgent
+from importlib import import_module
+
+_AGENT_MODULES = {
+    "ClaimVerificationAgent": "claim_verification_agent",
+    "CommodityEnergyAgent": "commodity_energy_agent",
+    "DecisionAgent": "decision_agent",
+    "EntityRegistryAgent": "entity_registry_agent",
+    "EuropeanFilingsAgent": "european_filings_agent",
+    "EvaluationAgent": "evaluation_agent",
+    "FinancialForensicsAgent": "financial_forensics_agent",
+    "GovernanceEventAgent": "governance_event_agent",
+    "OrchestratorAgent": "orchestrator",
+    "PredictionV21AdapterAgent": "prediction_v21_adapter",
+    "QualityGateAgent": "quality_gate_agent",
+    "RegulatoryContractAgent": "regulatory_contract_agent",
+    "SecFundamentalsAgent": "sec_fundamentals_agent",
+    "ShortReportAgent": "short_report_agent",
+    "SourceResolutionAgent": "source_resolution_agent",
+    "SupplyChainAgent": "supply_chain_agent",
+}
+
+
+def __getattr__(name: str):
+    # Importing a data contract must not recursively initialize every agent
+    # and its services. Preserve package-level imports without import cycles.
+    if name not in _AGENT_MODULES:
+        raise AttributeError(name)
+    value = getattr(import_module(f"{__name__}.{_AGENT_MODULES[name]}"), name)
+    globals()[name] = value
+    return value
 
 __all__ = [
     "ActivationState",

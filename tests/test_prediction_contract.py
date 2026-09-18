@@ -24,7 +24,7 @@ class PredictionContractTests(unittest.TestCase):
     def test_primary_target_is_five_day_split_adjusted_price_excess_return(self) -> None:
         self.assertEqual("5d_excess_return_vs_benchmark", PRIMARY_PREDICTION_TARGET.name)
         self.assertEqual(
-            "excess_return_5d_nyse_split_price_v3",
+            "excess_return_5d_nyse_split_price_v4",
             PRIMARY_PREDICTION_TARGET.version,
         )
         self.assertEqual(5, PRIMARY_PREDICTION_TARGET.horizon_trading_days)
@@ -63,7 +63,7 @@ class PredictionContractTests(unittest.TestCase):
             benchmark_ticker="SPY",
         )
         self.assertEqual(
-            make_snapshot_id(7, "AAPL", "excess_return_5d_nyse_split_price_v3"),
+            make_snapshot_id(7, "AAPL", "excess_return_5d_nyse_split_price_v4"),
             snapshot["snapshot_id"],
         )
         self.assertEqual("AAPL", snapshot["ticker"])

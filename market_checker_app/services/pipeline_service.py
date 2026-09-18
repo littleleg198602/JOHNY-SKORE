@@ -621,7 +621,8 @@ class PipelineService:
         if large_universe_mode:
             for ticker in bulk_yahoo_requested_tickers:
                 cache_lookup = self.yahoo_ohlc_cache.get(ticker)
-                if cache_lookup.state == "fresh" and cache_lookup.frame is not None:
+                if (cache_lookup.state == "fresh" and cache_lookup.frame is not None
+                    and assess_daily_ohlc(cache_lookup.frame, as_of=started_at).price_usable):
                     bulk_yahoo_ohlc_by_ticker[ticker] = cache_lookup.frame
                     bulk_yahoo_ohlc_cache_state[ticker] = "fresh"
                 elif not cache_lookup.can_retry(started_at):
@@ -725,16 +726,17 @@ class PipelineService:
             "SPY", "XLB", "XLC", "XLE", "XLF", "XLI",
             "XLK", "XLP", "XLRE", "XLU", "XLV", "XLY",
         )
-        if large_universe_mode:
+        if watchlist:
             benchmark_misses: list[str] = []
             for benchmark in benchmark_tickers:
                 cached_benchmark = self.yahoo_ohlc_cache.get(benchmark)
-                if cached_benchmark.usable and cached_benchmark.frame is not None:
+                if (cached_benchmark.state == "fresh" and cached_benchmark.frame is not None
+                    and assess_daily_ohlc(cached_benchmark.frame, as_of=started_at).price_usable):
                     benchmark_ohlc_by_ticker[benchmark] = cached_benchmark.frame
                     benchmark_ohlc_source[benchmark] = (
                         "yahoo_ohlc_cache_" + cached_benchmark.state
                     )
-                else:
+                elif cached_benchmark.retry_after is None or cached_benchmark.retry_after <= datetime.now(timezone.utc):
                     benchmark_misses.append(benchmark)
             if benchmark_misses:
                 fetch_benchmark_batch = getattr(
@@ -1248,7 +1250,7 @@ class PipelineService:
 
         warnings = list(dict.fromkeys(warnings))
         errors = list(dict.fromkeys(errors))
-        signals_df = RankingService.apply_ranking(pd.DataFrame(rows))
+        signals_df = RankingService.apply_ranking(pd.DataFrame(rows), config=self.config)
         ticker_traceability = build_ticker_traceability(watchlist, signals_df)
         ranking_eligible_count = int(
             signals_df["ranking_eligible"].fillna(False).sum()

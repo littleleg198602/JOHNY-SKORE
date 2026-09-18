@@ -9,12 +9,13 @@ from market_checker_app.services.market_factor_service import (
     MARKET_FACTOR_VERSION,
     build_market_factor_snapshot,
 )
+from market_checker_app.services.us_equity_calendar_service import sessions_between
 
 
 def _history(values: list[float]) -> pd.DataFrame:
     return pd.DataFrame(
         {"Close": values},
-        index=pd.date_range("2025-01-01", periods=len(values), freq="B", tz="UTC"),
+        index=pd.DatetimeIndex(sessions_between(pd.Timestamp("2024-01-01", tz="UTC"), pd.Timestamp("2026-01-30", tz="UTC"))[-len(values):]),
     )
 
 
@@ -53,7 +54,7 @@ class MarketFactorServiceTests(unittest.TestCase):
 
     def test_misaligned_asset_and_benchmark_endpoints_do_not_create_relative_return(self) -> None:
         asset = _history([100.0 + index for index in range(40)])
-        benchmark = _history([100.0 + index * 0.5 for index in range(39)])
+        benchmark = _history([100.0 + index * 0.5 for index in range(40)]).iloc[:-1]
         factor = build_market_factor_snapshot(
             asset_history=asset,
             benchmark_history=benchmark,

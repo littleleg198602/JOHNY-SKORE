@@ -19,13 +19,14 @@ from typing import Any
 import pandas as pd
 
 from market_checker_app.prediction_contract import PRIMARY_TARGET_VERSION
+from market_checker_app.services.market_factor_service import MARKET_FACTOR_VERSION
 
 
 MOMENTUM_BASELINE_MODEL_ID = "momentum_relative_baseline"
 MOMENTUM_BASELINE_MODEL_VERSION = "v1"
 LOGISTIC_CANDIDATE_MODEL_ID = "pit_logistic_regression"
-LOGISTIC_CANDIDATE_MODEL_VERSION = "v1"
-CANDIDATE_MODEL_FEATURE_VERSION = "pit_market_features_v1"
+LOGISTIC_CANDIDATE_MODEL_VERSION = "v2"
+CANDIDATE_MODEL_FEATURE_VERSION = "pit_market_features_v2"
 
 FEATURE_PATHS = (
     "market_factors.asset_returns.5d",
@@ -80,8 +81,8 @@ def _nested_value(payload: Mapping[str, object], path: str) -> float | None:
     return numeric if math.isfinite(numeric) else None
 
 
-def _feature_vector(payload: Mapping[str, object]) -> list[float | None]:
-    return [_nested_value(payload, path) for path in FEATURE_PATHS]
+def _feature_vector(payload: Mapping[str, object], paths: Sequence[str] = FEATURE_PATHS) -> list[float | None]:
+    return [_nested_value(payload, path) for path in paths]
 
 
 def _sigmoid(value: float) -> float:
@@ -120,6 +121,7 @@ def _training_rows(
     *,
     as_of: datetime,
     target_version: str,
+    feature_paths: Sequence[str] = FEATURE_PATHS,
 ) -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for row in snapshots.to_dict(orient="records"):
@@ -138,19 +140,38 @@ def _training_rows(
             or label_at is None
             or snapshot_at >= as_of
             or label_at > as_of
+            or label_at <= snapshot_at
             or not math.isfinite(target)
         ):
             continue
         payload = _json_object(row.get("feature_payload_json"))
+        if _json_object(payload.get("market_factors")).get("version") != MARKET_FACTOR_VERSION:
+            continue
+        features = _feature_vector(payload, feature_paths)
+        if not any(value is not None for value in features):
+            continue
         rows.append(
             {
                 "snapshot_id": str(row.get("snapshot_id") or ""),
                 "as_of": snapshot_at,
                 "target": target,
-                "features": _feature_vector(payload),
+                "features": features,
+                "ticker": str(row.get("ticker") or row.get("snapshot_id") or ""),
+                "label_at": label_at,
             }
         )
-    return sorted(rows, key=lambda item: (item["as_of"], item["snapshot_id"]))
+    selected = []
+    last_end: dict[str, datetime] = {}
+    seen_weeks = set()
+    for row in sorted(rows, key=lambda item: (item["as_of"], item["snapshot_id"])):
+        ticker = row["ticker"]
+        cohort = (ticker, row["as_of"].isocalendar()[:2])
+        if cohort in seen_weeks or (ticker in last_end and row["as_of"] < last_end[ticker]):
+            continue
+        selected.append(row)
+        last_end[ticker] = row["label_at"]
+        seen_weeks.add(cohort)
+    return selected
 
 
 def _fit_logistic(
@@ -159,6 +180,7 @@ def _fit_logistic(
     l2: float,
     iterations: int,
     learning_rate: float,
+    feature_paths: Sequence[str] = FEATURE_PATHS,
 ) -> dict[str, object] | None:
     if not rows:
         return None
@@ -170,20 +192,21 @@ def _fit_logistic(
     medians: list[float] = []
     means: list[float] = []
     scales: list[float] = []
-    for index in range(len(FEATURE_PATHS)):
+    active: list[bool] = []
+    for index in range(len(feature_paths)):
         observed = [vector[index] for vector in vectors if vector[index] is not None]
-        if not observed:
-            return None
-        fill = float(median(observed))
+        fill = float(median(observed)) if observed else 0.0
         completed = [float(value if value is not None else fill) for value in (vector[index] for vector in vectors)]
         mean = sum(completed) / len(completed)
         variance = sum((value - mean) ** 2 for value in completed) / len(completed)
         scale = math.sqrt(variance)
-        if scale <= 1e-12:
-            return None
+        active.append(bool(observed) and scale > 1e-12)
         medians.append(fill)
         means.append(mean)
-        scales.append(scale)
+        scales.append(scale if scale > 1e-12 else 1.0)
+
+    if not any(active):
+        return None
 
     matrix = [
         [
@@ -193,7 +216,7 @@ def _fit_logistic(
         ]
         for vector in vectors
     ]
-    weights = [0.0] * len(FEATURE_PATHS)
+    weights = [0.0] * len(feature_paths)
     intercept = 0.0
     sample_count = len(matrix)
     for _ in range(iterations):
@@ -210,7 +233,8 @@ def _fit_logistic(
                 gradient / sample_count + l2 * weights[index]
             )
     return {
-        "feature_names": list(FEATURE_PATHS),
+        "feature_names": list(feature_paths),
+        "active_features": active,
         "imputation_medians": medians,
         "scaler_means": means,
         "scaler_scales": scales,
@@ -226,12 +250,14 @@ def _fit_logistic(
 def _candidate_probability(
     payload: Mapping[str, object], artifact: Mapping[str, object]
 ) -> tuple[float, float]:
-    vector = _feature_vector(payload)
+    paths = artifact["feature_names"]
+    vector = _feature_vector(payload, paths)
     medians = [float(value) for value in artifact["imputation_medians"]]
     means = [float(value) for value in artifact["scaler_means"]]
     scales = [float(value) for value in artifact["scaler_scales"]]
     coefficients = [float(value) for value in artifact["coefficients"]]
-    usable = sum(value is not None for value in vector)
+    active = artifact.get("active_features", [True] * len(paths))
+    usable = sum(value is not None and active[index] for index, value in enumerate(vector))
     normalized = [
         ((float(value) if value is not None else medians[index]) - means[index])
         / scales[index]
@@ -241,7 +267,7 @@ def _candidate_probability(
         float(artifact["intercept"])
         + sum(weight * value for weight, value in zip(coefficients, normalized))
     )
-    return probability, usable / len(FEATURE_PATHS)
+    return probability, usable / max(1, sum(active))
 
 
 def build_candidate_model_report(
@@ -254,6 +280,8 @@ def build_candidate_model_report(
     l2: float = 0.05,
     iterations: int = 400,
     learning_rate: float = 0.15,
+    feature_paths: Sequence[str] = FEATURE_PATHS,
+    feature_variant: str = "market",
 ) -> dict[str, object]:
     """Build a shadow-only model comparison for immutable snapshot IDs.
 
@@ -268,8 +296,10 @@ def build_candidate_model_report(
         row
         for row in snapshots.to_dict(orient="records")
         if str(row.get("snapshot_id") or "") in requested_ids
+        and str(row.get("target_version") or "") == target_version
+        and (stamp := _parse_datetime(row.get("as_of"))) is not None and stamp <= as_of
     ]
-    training = _training_rows(snapshots, as_of=as_of, target_version=target_version)
+    training = _training_rows(snapshots, as_of=as_of, target_version=target_version, feature_paths=feature_paths)
     positive_count = sum(float(item["target"]) > 0.0 for item in training)
     negative_count = len(training) - positive_count
     artifact_payload = _fit_logistic(
@@ -277,6 +307,7 @@ def build_candidate_model_report(
         l2=l2,
         iterations=iterations,
         learning_rate=learning_rate,
+        feature_paths=feature_paths,
     ) if len(training) >= minimum_training_samples else None
 
     artifact: dict[str, object] | None = None
@@ -288,6 +319,7 @@ def build_candidate_model_report(
             "model_id": LOGISTIC_CANDIDATE_MODEL_ID,
             "model_version": LOGISTIC_CANDIDATE_MODEL_VERSION,
             "feature_version": CANDIDATE_MODEL_FEATURE_VERSION,
+            "feature_variant": feature_variant,
             "target_version": target_version,
             "trained_as_of": as_of.isoformat(),
             "training_start": training[0]["as_of"].isoformat(),
@@ -324,7 +356,9 @@ def build_candidate_model_report(
             "selected_for_analysis": "MOMENTUM_BASELINE",
             "selection_reason": "CANDIDATE_MODEL_UNAVAILABLE",
         }
-        if artifact is not None:
+        if artifact is not None and _json_object(payload.get("market_factors")).get("version") != MARKET_FACTOR_VERSION:
+            prediction["selection_reason"] = "CANDIDATE_FEATURES_MISSING"
+        elif artifact is not None:
             probability, coverage = _candidate_probability(
                 payload, artifact["parameters"])
             if coverage > 0.0:

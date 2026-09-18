@@ -25,7 +25,7 @@ from market_checker_app.services.price_methodology import (
 
 SNAPSHOT_SCHEMA_VERSION = "feature_snapshot_v1"
 PRIMARY_TARGET_NAME = "5d_excess_return_vs_benchmark"
-PRIMARY_TARGET_VERSION = "excess_return_5d_nyse_split_price_v3"
+PRIMARY_TARGET_VERSION = "excess_return_5d_nyse_split_price_v4"
 PRIMARY_HORIZON_TRADING_DAYS = 5
 DEFAULT_BENCHMARK_TICKER = "SPY"
 

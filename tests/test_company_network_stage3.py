@@ -144,6 +144,8 @@ class StageThreeAgentTests(unittest.TestCase):
                     fixed_price_share_pct=20.0,
                     pass_through_pct=25.0,
                     scenario_price_change_pct=15.0,
+                    disclosure_period="FY2025",
+                    evidence_quote="Copper purchases represented 20% of revenue with disclosed hedging.",
                     price_points=(
                         ResourcePricePointConfig(
                             observed_at=now - timedelta(days=4),
