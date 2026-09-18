@@ -57,7 +57,7 @@ class RankingService:
         return eligible, reasons
 
     @staticmethod
-    def apply_ranking(signals: pd.DataFrame) -> pd.DataFrame:
+    def apply_ranking(signals: pd.DataFrame, *, config: object | None = None) -> pd.DataFrame:
         if signals.empty:
             return signals
         ranked = signals.copy()
@@ -77,7 +77,7 @@ class RankingService:
         # baseline identifier before ranking. Final analytical results are
         # stamped here with the active scoring contract so SQLite/run outputs
         # cannot mislabel post-v2.1 logic as the legacy baseline.
-        manifest = build_release_manifest()
+        manifest = build_release_manifest(config=config)
         ranked["scoring_version"] = ACTIVE_SCORING_VERSION
         ranked["model_version"] = ACTIVE_MODEL_VERSION
         ranked["feature_set_version"] = FEATURE_SET_VERSION

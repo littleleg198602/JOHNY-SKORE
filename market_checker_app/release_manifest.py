@@ -11,7 +11,7 @@ from typing import Any, Mapping
 
 
 RELEASE_MANIFEST_SCHEMA_VERSION = "release_manifest_v1"
-BUILD_DATE = "2026-09-15"
+BUILD_DATE = "2026-09-17"
 
 # The legacy v2.1 identifiers are frozen for historical comparison only.
 LEGACY_BASELINE_MODEL_ID = "legacy_v2.1_heuristic"
@@ -22,7 +22,7 @@ LEGACY_BASELINE_MODEL_VERSION = "v2.1_guarded_consensus"
 ACTIVE_SCORING_VERSION = "v2.3_canonical_news_consensus"
 ACTIVE_MODEL_ID = "heuristic_consensus"
 ACTIVE_MODEL_VERSION = "v2.3_canonical_news_consensus"
-FEATURE_SET_VERSION = "features_v3_canonical_news_target_v3"
+FEATURE_SET_VERSION = "features_v4_pit_integration_target_v4"
 
 
 def _json_default(value: Any) -> object:

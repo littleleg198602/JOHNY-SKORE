@@ -8,12 +8,36 @@ from datetime import datetime, timezone
 import hashlib
 import json
 import math
+from urllib.parse import urlsplit
 
 
-MACRO_REGIME_REPORT_VERSION = "macro_sector_regime_v1"
+MACRO_REGIME_REPORT_VERSION = "macro_sector_regime_v2"
 GLOBAL_INDICATORS = ("VIX", "US10Y", "T10Y2Y", "DXY", "WTI", "CPI_YOY", "INDPRO_YOY")
 SECTOR_RELATIVE_INDICATOR = "SECTOR_RELATIVE_20D"
 ALLOWED_INDICATORS = set(GLOBAL_INDICATORS) | {SECTOR_RELATIVE_INDICATOR}
+
+
+def _canonical_value(indicator: str, value: float, unit: str) -> tuple[float, str]:
+    unit = unit.strip().lower()
+    if indicator in {"US10Y", "T10Y2Y", "CPI_YOY", "INDPRO_YOY", SECTOR_RELATIVE_INDICATOR}:
+        factors = {"%": 1.0, "pct": 1.0, "percent": 1.0, "percentage_points": 1.0,
+                   "fraction": 100.0, "decimal": 100.0, "bps": 0.01}
+        if unit not in factors:
+            raise ValueError("indikátor vyžaduje percent/fraction/bps")
+        return value * factors[unit], "percent"
+    permitted = {"VIX": {"index", "points"}, "DXY": {"index", "points"},
+                 "WTI": {"usd/bbl", "usd/barrel"}}
+    if unit not in permitted.get(indicator, set()):
+        raise ValueError("nekompatibilní jednotka indikátoru")
+    return value, "USD/bbl" if indicator == "WTI" else "index"
+
+
+def _valid_url(value: object) -> bool:
+    try:
+        parts = urlsplit(str(value))
+        return parts.scheme == "https" and bool(parts.hostname) and not parts.username and not parts.password
+    except ValueError:
+        return False
 
 
 def _utc(value: object) -> datetime | None:
@@ -62,14 +86,17 @@ def parse_macro_observations(value: str) -> tuple[list[dict[str, object]], list[
             numeric = float(raw_value.replace(",", "."))
             if not math.isfinite(numeric):
                 raise ValueError("hodnota musí být konečná")
+            numeric, unit = _canonical_value(indicator, numeric, unit)
+            if (indicator in GLOBAL_INDICATORS and scope.upper() != "GLOBAL") or (indicator == SECTOR_RELATIVE_INDICATOR and scope.upper() == "GLOBAL"):
+                raise ValueError("nekompatibilní scope indikátoru")
             observed_at = _utc(raw_observed)
             available_at = _utc(raw_available)
             vintage_at = _utc(raw_vintage)
             if observed_at is None or available_at is None or vintage_at is None:
                 raise ValueError("čas pozorování/dostupnosti/vintage není platný")
-            if vintage_at > available_at:
-                raise ValueError("vintage_at nesmí být po available_at")
-            if not source_url.startswith("https://"):
+            if vintage_at > available_at or observed_at > available_at:
+                raise ValueError("observed_at a vintage_at nesmí být po available_at")
+            if not _valid_url(source_url):
                 raise ValueError("zdroj musí být HTTPS URL")
         except (TypeError, ValueError) as exc:
             errors.append(f"Makro řádek {line_number}: {exc}.")
@@ -103,15 +130,26 @@ def _select_vintages(observations: Sequence[Mapping[str, object]], as_of: dateti
         vintage = _utc(raw.get("vintage_at"))
         try:
             numeric = float(raw.get("value"))
+            numeric, unit = _canonical_value(indicator, numeric, str(raw.get("unit") or ""))
         except (TypeError, ValueError):
             continue
         if indicator not in ALLOWED_INDICATORS or not scope or observed is None or available is None or vintage is None or not math.isfinite(numeric):
             continue
-        if available > as_of or vintage > as_of:
+        if available > as_of or vintage > as_of or observed > as_of:
             future_excluded += 1
+            continue
+        if observed > available or vintage > available or not _valid_url(raw.get("source_url")):
+            continue
+        if indicator in GLOBAL_INDICATORS and scope != "GLOBAL":
+            continue
+        # Daily markets tolerate a long holiday weekend; monthly releases
+        # tolerate publication lag. Old observations remain stored, not used.
+        max_age_days = 75 if indicator in {"CPI_YOY", "INDPRO_YOY"} else 7
+        if (as_of - observed).total_seconds() > max_age_days * 86400:
             continue
         row = dict(raw)
         row["value"] = numeric
+        row["unit"] = unit
         row["_observed"] = observed
         row["_available"] = available
         row["_vintage"] = vintage
@@ -161,6 +199,7 @@ def build_macro_regime_report(observations: Sequence[Mapping[str, object]], *, a
             for row in sector_rows
         ],
         "future_or_revised_observation_excluded_count": future_excluded,
+        "freshness_policy_days": {"daily": 7, "monthly": 75},
         "analysis_only": True,
         "ranking_modified": False,
         "decision_modified": False,

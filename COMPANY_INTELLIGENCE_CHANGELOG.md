@@ -1,3 +1,13 @@
+## 2026-09-17 — finální integrační release candidate
+
+- Sjednocena post-run cesta Streamlit UI a týdenního runneru: oba ukládají point-in-time snapshoty a generují kandidátní model, walk-forward, řízené ablation, makro a zdraví protistran.
+- Obnoven makro report ztracený při dřívějším merge; navazující chyby nyní mění stav běhu a jsou vidět v JSON/UI.
+- Opraven celkový dluh, NYSE čas labelu, ISO týdenní kohorty, overlap/deduplikace, kompatibilita target/feature verzí, neúplné cenové řady a obnova benchmark cache i pro malý watchlist.
+- Makro normalizuje percent/fraction/bps a kontroluje scope, datum, vintage, URL a čerstvost. Counterparty report vyžaduje datovaný vztah a přesnou registry vazbu name/ticker/CIK. Resource scénář odmítá neplatné cenové body a cost-formuli pro commodity output.
+- Přidána předem definovaná matched-cohort ablation pro SEC, news a macro. Při chybějící historii vrací `INSUFFICIENT_DATA` a nikdy nemění produkční ranking.
+- Přidána offline integrační akceptace kanonických 687 tickerů přes prázdnou DB, restart, výpadek zdroje, stale cache, idempotenci a UI analýzu; živý běh zůstává uživatelskou akceptací.
+- UI používá „stav analytického ověření“. AST release test hlídá nepřítomnost broker order volání; produkt zůstává bez automatického obchodování.
+
 ## 2026-09-15 — nový audit main a OPL
 
 - Přidán `COMPANY_INTELLIGENCE_OPL.md`: 20 otevřených bodů, přesná priorita, vlastník/rozsah, závislost, řešení a akceptace; odkazy na původní AUD úkoly.

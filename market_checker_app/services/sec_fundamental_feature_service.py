@@ -10,6 +10,7 @@ until an SEC accepted-at timestamp is collected explicitly.
 from __future__ import annotations
 
 from collections import defaultdict
+from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 import hashlib
 import math
@@ -21,7 +22,7 @@ from market_checker_app.agents.contracts import (
 )
 
 
-SEC_FUNDAMENTAL_FEATURE_VERSION = "sec_fundamentals_pit_v1"
+SEC_FUNDAMENTAL_FEATURE_VERSION = "sec_fundamentals_pit_v2"
 
 CONCEPTS: dict[str, tuple[str, ...]] = {
     "revenue": (
@@ -47,6 +48,8 @@ CONCEPTS: dict[str, tuple[str, ...]] = {
         "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
     ),
     "total_debt": (
+        "LongTermDebtAndShortTermBorrowings",
+        "ShortTermBorrowingsAndCurrentPortionOfLongTermDebt",
         "LongTermDebtAndFinanceLeaseObligationsCurrent",
         "LongTermDebtCurrent",
         "ShortTermBorrowings",
@@ -240,6 +243,31 @@ def _ratio(
     return value, None
 
 
+def _debt_components(facts: list[FundamentalFact], anchor: FundamentalFact, as_of: datetime) -> list[FundamentalFact]:
+    """Select one complete, non-overlapping debt disclosure from one filing.
+
+    LongTermDebt is an aggregate of current and noncurrent long-term debt;
+    ShortTermBorrowings is separate. Missing components are never assumed 0.
+    Lease-inclusive current debt cannot be combined with lease-exclusive debt.
+    """
+    matches = [fact for fact in _latest_per_period(_metric_facts(facts, "total_debt", as_of))
+               if fact.period_end == anchor.period_end and fact.period_start is None and fact.value >= 0]
+    if not matches:
+        return []
+    newest = max(matches, key=lambda fact: (fact.filed_at, fact.accession_number, fact.fact_id))
+    same_filing = {fact.concept: fact for fact in sorted(matches, key=lambda fact: fact.fact_id)
+                   if fact.accession_number == newest.accession_number and fact.unit == newest.unit}
+    for concepts in (
+        ("LongTermDebtAndShortTermBorrowings",),
+        ("LongTermDebt", "ShortTermBorrowings"),
+        ("ShortTermBorrowingsAndCurrentPortionOfLongTermDebt", "LongTermDebtNoncurrent"),
+        ("LongTermDebtCurrent", "LongTermDebtNoncurrent", "ShortTermBorrowings"),
+    ):
+        if all(concept in same_filing for concept in concepts):
+            return [same_filing[concept] for concept in concepts]
+    return []
+
+
 def _prior_comparable_revenue(
     facts: list[FundamentalFact],
     anchor: FundamentalFact,
@@ -289,9 +317,18 @@ def build_sec_fundamental_feature_snapshots(
             if fact is not None:
                 selected[metric] = fact
         for metric in BALANCE_METRICS:
+            if metric == "total_debt":
+                continue
             fact = _balance_for_anchor(facts, metric, anchor, as_of)
             if fact is not None:
                 selected[metric] = fact
+
+        components = _debt_components(facts, anchor, as_of)
+        if components:
+            selected["total_debt"] = replace(
+                components[0], fact_id="derived:total_debt", concept="derived_total_debt",
+                value=sum(fact.value for fact in components),
+            )
 
         values: dict[str, float] = {}
         missing: dict[str, str] = {}
@@ -318,6 +355,8 @@ def build_sec_fundamental_feature_snapshots(
         raw("shares_outstanding")
         raw("weighted_average_shares_basic")
         raw("weighted_average_shares_diluted")
+        if debt is None:
+            missing["total_debt"] = "INCOMPLETE_NONOVERLAPPING_DEBT_COMPONENTS"
 
         def calculated(
             name: str,
@@ -340,6 +379,10 @@ def build_sec_fundamental_feature_snapshots(
         calculated("net_margin_pct", net_income, revenue, scale=100.0)
         calculated("debt_to_cash_ratio", debt, cash)
         calculated("debt_to_assets_ratio", debt, assets)
+        if debt is not None:
+            for name, ids in source_fact_ids.items():
+                if debt.fact_id in ids:
+                    source_fact_ids[name] = [item for item in ids if item != debt.fact_id] + [fact.fact_id for fact in components]
 
         if operating_cash_flow is None or capex is None:
             missing["free_cash_flow"] = "MISSING_CONCEPT:operating_cash_flow_or_capital_expenditure"
@@ -432,6 +475,7 @@ def build_sec_fundamental_feature_snapshots(
                 source_accessions=source_accessions,
                 source_urls=source_urls,
                 metadata={
+                    "cik": anchor.cik,
                     "source": "SEC companyfacts",
                     "scoring_applied": False,
                     "availability_precision": "FILING_DATE",

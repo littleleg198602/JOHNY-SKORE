@@ -1,6 +1,8 @@
 
 # JOHNY-SKORE – predikční a datová roadmapa
 
+> **Release candidate 2026-09-17:** všechny programovatelné body OPL-001 až OPL-020 jsou implementované a deterministicky ověřované. Jediný otevřený bod je OPL-019 ve stavu `WAIT_DATA`: skutečný přínos predikce a jednotlivých vrstev lze změřit až z kompatibilní historie targetu v4. Aplikace tento nedostatek zobrazuje jako `INSUFFICIENT_DATA`; nevydává jej za chybu ani za důkaz úspěchu. Aktuální verze jsou `features_v4_pit_integration_target_v4`, `excess_return_5d_nyse_split_price_v4`, `sec_fundamentals_pit_v2` a `pit_logistic_regression v2`.
+
 > **Aktuální audit 2026-09-15:** realizační fronta a podmínky uzavření jsou v [COMPANY_INTELLIGENCE_OPL.md](COMPANY_INTELLIGENCE_OPL.md). Nový audit rozlišuje implementaci, sloučení, provozní ověření a predikční přínos; obsahuje 20 otevřených bodů s důkazy. Starší stavy níže nejsou samy o sobě akceptací.
 
 > **Aktualizace 2026-09-16:** OPL-009 má po PR #116 plný identity ledger; jeho per-ticker integrity follow-up je součástí aktuální změny. OPL-010 je kódově připravený s novou verzí `v2.3_canonical_news_consensus`. OPL-011 přidává `sec_fundamentals_pit_v1`: časově bezpečné SEC snapshoty s provenance, missingness a linií revizí. OPL-012 přidává neměnný momentum baseline a shadow logistického kandidáta s artefaktem; OPL-013 přidává kompatibilní weekly walk-forward report. OPL-015 normalizuje orientované supplier/customer evidence hrany; OPL-017 přidává point-in-time cenové body a doložené margin sensitivity scénáře pro materiály/energii. Všechny vrstvy jsou oddělené od rankingu. Skutečné live evidence reporty a OOS přínos zůstávají `WAIT_DATA`.

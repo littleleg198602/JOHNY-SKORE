@@ -1,12 +1,44 @@
 from __future__ import annotations
 
 from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
 from streamlit.testing.v1 import AppTest
 
 
 class StreamlitUISmokeTests(unittest.TestCase):
+    def test_analysis_button_persists_and_displays_shared_reports(self) -> None:
+        from tests.test_runtime_integration import _FakeYahooClient
+        from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings
+        from market_checker_app.storage.sqlite_store import SQLiteStore
+        app_path = Path(__file__).resolve().parents[1] / "market_checker_app" / "app.py"
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("market_checker_app.services.pipeline_service.YahooClient", return_value=_FakeYahooClient()), \
+             patch("market_checker_app.services.agent_runtime_service.AgentRuntimeService.load", return_value=(AgentRuntimeSettings(), None)), \
+             patch("socket.socket.connect", side_effect=AssertionError("UI test attempted live network")):
+            app = AppTest.from_file(str(app_path)).run(timeout=30)
+            for field in app.text_input:
+                if field.label == "DB soubor":
+                    field.set_value(str(Path(directory) / "history.db"))
+                if field.label == "Output directory":
+                    field.set_value(directory)
+            for field in app.checkbox:
+                if field.label in {"Export do Excelu", "Použít RSS zprávy"} or "MT5" in field.label:
+                    field.uncheck()
+            next(field for field in app.text_area if field.label == "Ruční watchlist (jeden ticker na řádek)").set_value("AAPL")
+            next(button for button in app.button if button.label == "Spustit analýzu").click()
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            summary = app.session_state["last_result"]["analysis_summary"]
+            self.assertEqual(1, summary["point_in_time_snapshot_count"])
+            self.assertEqual(1, len(SQLiteStore(Path(directory) / "history.db").read_prediction_snapshots()))
+            displayed = "\n".join(str(element.value) for element in app.markdown)
+            self.assertIn("Makro a sektorový režim", displayed)
+            self.assertIn("Kandidátní model", displayed)
+            self.assertTrue((Path(directory) / "weekly_shadow_latest.json").exists())
+
     def test_app_starts_and_exposes_yahoo_workflow(self) -> None:
         app_path = Path(__file__).resolve().parents[1] / "market_checker_app" / "app.py"
         app = AppTest.from_file(str(app_path)).run(timeout=30)
@@ -70,23 +102,14 @@ class StreamlitUISmokeTests(unittest.TestCase):
         )
         self.assertTrue(stage4.value)
         text_labels = [field.label for field in app.text_input]
-        self.assertIn(
-            "SEC User-Agent (aplikace + kontaktní e-mail)",
-            text_labels,
-        )
+        self.assertNotIn("SEC User-Agent (aplikace + kontaktní e-mail)", text_labels)
         text_area_labels = [field.label for field in app.text_area]
         self.assertIn(
             "Short reporty: TICKER | vydavatel | datum | HTTPS URL",
             text_area_labels,
         )
-        self.assertIn(
-            "Síť firem: TICKER | protistrana | typ | podíl %/- | vydavatel | datum | HTTPS URL",
-            text_area_labels,
-        )
-        self.assertIn(
-            "Materiály/energie: TICKER | zdroj | typ | podíl %/- | vydavatel | datum | HTTPS URL",
-            text_area_labels,
-        )
+        self.assertIsNotNone(app.text_area(key="supply_chain_manifest"))
+        self.assertIsNotNone(app.text_area(key="commodity_energy_manifest"))
         self.assertIn(
             "Regulace/kontrakty: TICKER | typ | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | datum | HTTPS URL",
             text_area_labels,

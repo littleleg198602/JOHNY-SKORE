@@ -1,10 +1,24 @@
 # COMPANY INTELLIGENCE — předávací přehled
 
-Aktualizováno: **2026-09-16**
+Aktualizováno: **2026-09-17**
 Repozitář: **littleleg198602/JOHNY-SKORE**  
 Zdroj pravdy pro otevřené body: `COMPANY_INTELLIGENCE_OPL.md`.
 
 Tento dokument je krátký provozní handoff. Původní audit v OPL zůstává zmrazeným důkazem stavu při auditu; tento soubor říká, co bylo od té doby skutečně implementováno, otestováno a sloučeno.
+
+## Release candidate k uživatelskému testu
+
+Aktuální větev sjednocuje normální tlačítko **Spustit analýzu** a týdenní runner. Obě cesty po uložení běhu vytvářejí stejné point-in-time snapshoty, kandidátní model, walk-forward, ablation, makro a report protistran. Chyba kteréhokoli navazujícího reportu se promítne do `PARTIAL`/`FAILED`, do warnings a do JSON; nesmí zůstat skrytá za `SUCCESS`.
+
+- Aktivní target: `excess_return_5d_nyse_split_price_v4`; starší v3 labely se do tréninku nemíchají.
+- Aktivní feature set: `features_v4_pit_integration_target_v4`; market factors v2 vyžadují poslední dokončenou seanci a souvislé lookbacky.
+- SEC snapshot: `sec_fundamentals_pit_v2`; dluh používá úplné nepřekrývající se komponenty a plnou fact lineage.
+- Kandidátní model: `pit_logistic_regression v2`; konstantní či nedostupný jednotlivý faktor nezablokuje ostatní použitelné faktory.
+- Evaluace: `candidate_walk_forward_evaluation_v2`; kohorty jsou ISO týdny, opakované ticker/týden záznamy a překrývající se horizonty se vyřazují.
+- Counterparty a macro reporty jsou v2 a fail-closed kontrolují datum, identitu, CIK, jednotku, URL, vintage a čerstvost.
+- Automatické obchodování není součástí programu; regresní AST test odmítne broker order volání.
+
+Vývojová akceptace používá kanonický seznam 687 tickerů a lokální fake providery. Pokrývá první běh z prázdné databáze, restart s výpadkem, obnovu stale cache, přesný počet snapshotů, opakované dokončení bez duplicit a skutečné kliknutí na analýzu ve Streamlit testu. Živé Yahoo/SEC/RSS výsledky a statistický přínos zůstávají samostatným uživatelským/provozním testem; absence živých dat není nahrazena vymyšleným úspěchem.
 
 ## Stav dodaných oprav
 
@@ -36,8 +50,8 @@ Nové výsledky používají samostatnou aktivní identitu; historický v2.1 bas
 - scoring: `v2.3_canonical_news_consensus`
 - model id: `heuristic_consensus`
 - model version: `v2.3_canonical_news_consensus`
-- feature set: `features_v3_canonical_news_target_v3`
-- target: `excess_return_5d_nyse_split_price_v3`
+- feature set: `features_v4_pit_integration_target_v4`
+- target: `excess_return_5d_nyse_split_price_v4`
 - legacy model id: `legacy_v2.1_heuristic`
 - legacy model version: `v2.1_guarded_consensus`
 - release manifest schema: `release_manifest_v1`

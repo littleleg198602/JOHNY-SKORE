@@ -250,6 +250,7 @@ class SecFundamentalFeatureServiceTests(unittest.TestCase):
             ),
             _fact("CashAndCashEquivalentsAtCarryingValue", 40.0),
             _fact("LongTermDebt", 100.0),
+            _fact("ShortTermBorrowings", 0.0),
             _fact("Assets", 400.0),
         ]
 

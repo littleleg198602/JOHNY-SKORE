@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import math
+from urllib.parse import urlsplit
 
 from market_checker_app.config import CommodityEnergySourceConfig, ResourcePricePointConfig
 
@@ -31,6 +32,28 @@ def _finite_percentage(value: object, label: str, *, signed: bool = False) -> fl
     return numeric
 
 
+def _https_url(value: object) -> bool:
+    try:
+        parsed = urlsplit(str(value or ""))
+        return parsed.scheme == "https" and bool(parsed.hostname) and not parsed.username and not parsed.password
+    except ValueError:
+        return False
+
+
+def _valid_point(point: ResourcePricePointConfig, as_of: datetime) -> bool:
+    try:
+        value = float(point.value)
+    except (TypeError, ValueError):
+        return False
+    return (
+        _utc(point.observed_at) <= _utc(point.available_at) <= as_of
+        and math.isfinite(value) and value > 0
+        and bool(str(point.unit or "").strip())
+        and bool(str(point.currency or "").strip())
+        and _https_url(point.source_url)
+    )
+
+
 def _latest_available_price_point(
     points: tuple[ResourcePricePointConfig, ...],
     *,
@@ -39,7 +62,7 @@ def _latest_available_price_point(
     eligible = [
         point
         for point in points
-        if _utc(point.observed_at) <= as_of and _utc(point.available_at) <= as_of
+        if _valid_point(point, as_of)
     ]
     excluded = len(points) - len(eligible)
     if not eligible:
@@ -74,17 +97,18 @@ def build_resource_margin_scenario(
     ]
     if latest is None:
         missing.insert(0, "PRICE_SERIES_MISSING_OR_NOT_AVAILABLE_AT_CUTOFF")
+    if _utc(source.published_at) > cutoff:
+        missing.append("DISCLOSURE_NOT_AVAILABLE_AT_CUTOFF")
+    if not _https_url(source.url):
+        missing.append("DISCLOSURE_SOURCE_URL_INVALID")
+    if not str(source.disclosure_period or "").strip() or not str(source.evidence_quote or "").strip():
+        missing.append("DISCLOSURE_PERIOD_OR_QUOTE_MISSING")
+    if str(getattr(source.exposure_type, "value", source.exposure_type)) == "COMMODITY_OUTPUT":
+        missing.append("OUTPUT_REVENUE_SENSITIVITY_NOT_SUPPORTED_BY_COST_FORMULA")
+    if scenario_change is not None and scenario_change < -100.0:
+        missing.append("PRICE_CHANGE_BELOW_MINUS_100_PCT")
     if hedged is not None and fixed is not None and hedged + fixed > 100.0:
-        return {
-            "status": "INSUFFICIENT_DATA",
-            "reason": "HEDGED_AND_FIXED_SHARE_EXCEED_100_PCT",
-            "as_of": cutoff.isoformat(),
-            "resource_name": source.resource_name,
-            "price_points_configured": len(source.price_points),
-            "price_points_future_excluded": future_excluded,
-            "forecast": False,
-            "prediction_input": False,
-        }
+        missing.append("HEDGED_AND_FIXED_SHARE_EXCEED_100_PCT")
     result: dict[str, object] = {
         "status": "READY" if not missing else "INSUFFICIENT_DATA",
         "reason": "" if not missing else ";".join(missing),

@@ -9,7 +9,7 @@ import pandas as pd
 from market_checker_app.services.us_equity_calendar_service import last_completed_session, session_label, sessions_between
 
 
-MARKET_FACTOR_VERSION = "market_factors_v1"
+MARKET_FACTOR_VERSION = "market_factors_v2"
 RETURN_HORIZONS = (1, 5, 20, 60, 120, 252)
 
 
@@ -31,11 +31,15 @@ def _close_series(history: pd.DataFrame | None, as_of: datetime) -> pd.Series:
     if values:
         allowed = set(sessions_between(min(values), min(max(values), completed)))
         values = {session: close for session, close in values.items() if session in allowed}
-    return pd.Series(values, dtype=float).sort_index()
+    if completed not in values:
+        return pd.Series(dtype=float)
+    # Reindex instead of dropping gaps: an absent session is not a shorter
+    # horizon. Individual lookbacks below remain usable when complete.
+    return pd.Series(values, dtype=float).reindex(sessions_between(min(values), completed))
 
 
 def _return(series: pd.Series, days: int) -> float | None:
-    if len(series) <= days:
+    if len(series) <= days or series.tail(days + 1).isna().any():
         return None
     base = float(series.iloc[-(days + 1)])
     latest = float(series.iloc[-1])
@@ -51,16 +55,17 @@ def _relative_return(asset: pd.Series, benchmark: pd.Series, days: int) -> float
     if len(sessions) < days + 1:
         return None
     required = sessions[-(days + 1):]
-    if any(session not in asset.index or session not in benchmark.index for session in required):
+    if any(session not in asset.index or session not in benchmark.index
+           or pd.isna(asset.loc[session]) or pd.isna(benchmark.loc[session]) for session in required):
         return None
     asset_return = (float(asset.loc[required[-1]]) / float(asset.loc[required[0]])) - 1.0
     benchmark_return = (float(benchmark.loc[required[-1]]) / float(benchmark.loc[required[0]])) - 1.0
     return asset_return - benchmark_return
 
 def _volatility(series: pd.Series, days: int) -> float | None:
-    if len(series) <= days:
+    if len(series) <= days or series.tail(days + 1).isna().any():
         return None
-    returns = series.pct_change().dropna().tail(days)
+    returns = series.tail(days + 1).pct_change(fill_method=None).dropna()
     if len(returns) < days:
         return None
     value = float(returns.std(ddof=1) * math.sqrt(252.0))
@@ -68,7 +73,7 @@ def _volatility(series: pd.Series, days: int) -> float | None:
 
 
 def _drawdown(series: pd.Series, days: int) -> float | None:
-    if len(series) < days:
+    if len(series) < days or series.tail(days).isna().any():
         return None
     window = series.tail(days)
     peak = float(window.max())

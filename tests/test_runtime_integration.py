@@ -63,6 +63,9 @@ def _history() -> pd.DataFrame:
 
 
 class _FakeYahooClient:
+    def fetch_ohlc_batch(self, tickers, **kwargs):
+        return {ticker: _history() for ticker in tickers}, {}
+
     def fetch_snapshots(self, ticker: str):
         history = _history()
         data = {

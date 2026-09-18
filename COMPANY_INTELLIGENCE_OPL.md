@@ -1,5 +1,19 @@
 # COMPANY INTELLIGENCE — audit a OPL
 
+## Stav release candidate 2026-09-17
+
+Implementační část auditu je dokončena v jednom společném release candidate. Níže ponechaný audit z 15. 9. je historický podklad: jeho tehdejší stavy `OPEN` a `PARTIAL` již nepopisují aktuální větev.
+
+| Oblast | Aktuální stav | Ověření |
+| --- | --- | --- |
+| OPL-001 až OPL-013 | CODE_COMPLETE | jednotné verze, NYSE kalendář, cache/fronta, tržní a SEC faktory, target v4, kandidát a týdenní walk-forward |
+| OPL-014 | CODE_COMPLETE / OFFLINE_VERIFIED | skutečný kanonický seznam 687 tickerů, prázdná databáze, restart, částečný výpadek, idempotentní persistence a UI cesta |
+| OPL-015 až OPL-018 | CODE_COMPLETE | časově omezené evidence vztahů, protistran, zdrojových scénářů a makra; nedostatek dat zůstává `INSUFFICIENT_DATA` |
+| OPL-019 | WAIT_DATA | software pro předem definované SEC/news/macro ablation je hotový; skutečný přínos vyžaduje kompatibilní uzavřené vzorky z nejméně 12 ISO týdnů |
+| OPL-020 | CODE_COMPLETE | statický zákaz broker order volání, UI používá stav analytického ověření, žádná exekuční cesta |
+
+Release candidate opravuje i integrační vady nalezené po původních PR: makro se znovu ukládá v týdenním běhu, běh z UI vytváří stejné snapshoty/reporty jako runner, celkový dluh se skládá pouze z úplných nepřekrývajících se komponent, label je dostupný až při oficiálním close a evaluace počítá skutečné ISO týdny. Přínos predikce se nevydává za prokázaný, dokud OPL-019 nemá reálnou historii.
+
 Datum auditu: **2026-09-15**. OPL = Open Point List, seznam otevřených bodů.
 Auditovaný repozitář: **littleleg198602/JOHNY-SKORE**.
 Zmrazený podklad: [main@a64d4de5677f04b4eae140994bc303356ca338f8](https://github.com/littleleg198602/JOHNY-SKORE/commit/a64d4de5677f04b4eae140994bc303356ca338f8).

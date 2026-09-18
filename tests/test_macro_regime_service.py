@@ -17,7 +17,8 @@ def _at(day: int) -> datetime:
 
 
 def _line(indicator: str, value: float, *, available: int = 2, vintage: int = 2, scope: str = "GLOBAL") -> str:
-    return f"{indicator} | {scope} | 2025-12 | {value} | pct | {_at(0).isoformat()} | {_at(available).isoformat()} | {_at(vintage).isoformat()} | https://example.com/{indicator.lower()}"
+    unit = "index" if indicator in {"VIX", "DXY"} else "USD/bbl" if indicator == "WTI" else "pct"
+    return f"{indicator} | {scope} | 2025-12 | {value} | {unit} | {_at(0).isoformat()} | {_at(available).isoformat()} | {_at(vintage).isoformat()} | https://example.com/{indicator.lower()}"
 
 
 class MacroRegimeServiceTests(unittest.TestCase):

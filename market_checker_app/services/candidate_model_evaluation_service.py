@@ -25,10 +25,16 @@ from market_checker_app.services.candidate_model_service import (
     MOMENTUM_BASELINE_MODEL_ID,
     MOMENTUM_BASELINE_MODEL_VERSION,
     build_candidate_model_report,
+    FEATURE_PATHS,
 )
 
 
-CANDIDATE_EVALUATION_REPORT_VERSION = "candidate_walk_forward_evaluation_v1"
+CANDIDATE_EVALUATION_REPORT_VERSION = "candidate_walk_forward_evaluation_v2"
+
+
+def _week(value: datetime) -> str:
+    year, week, _ = value.isocalendar()
+    return f"{year}-W{week:02d}"
 
 
 def _parse_datetime(value: object) -> datetime | None:
@@ -153,7 +159,7 @@ def _weekly_interval(values: Sequence[float | None], *, seed: int = 13, draws: i
     if not usable:
         return {"method": "weekly_bootstrap", "week_count": 0, "lower": None, "upper": None}
     if len(usable) == 1:
-        return {"method": "weekly_bootstrap", "week_count": 1, "lower": usable[0], "upper": usable[0]}
+        return {"method": "weekly_bootstrap", "week_count": 1, "lower": None, "upper": None}
     generator = random.Random(seed)
     estimates = sorted(
         mean(generator.choice(usable) for _ in usable)
@@ -181,7 +187,8 @@ def summarize_candidate_samples(
         raise ValueError("calibration_bins must be at least 2")
     grouped: dict[str, list[Mapping[str, object]]] = defaultdict(list)
     for sample in samples:
-        grouped[str(sample["week"])].append(sample)
+        stamp = _parse_datetime(sample.get("as_of") or sample["week"])
+        grouped[_week(stamp) if stamp else str(sample["week"])].append(sample)
     weekly: list[dict[str, object]] = []
     baseline_values: dict[str, list[float | None]] = defaultdict(list)
     candidate_values: dict[str, list[float | None]] = defaultdict(list)
@@ -237,6 +244,8 @@ def evaluate_candidate_walk_forward(
     top_fraction: float = 0.10,
     calibration_bins: int = 10,
     iterations: int = 400,
+    feature_paths: Sequence[str] = FEATURE_PATHS,
+    feature_variant: str = "market",
 ) -> dict[str, object]:
     """Evaluate the candidate against its momentum baseline without leakage.
 
@@ -257,7 +266,7 @@ def evaluate_candidate_walk_forward(
             target = float(raw.get("target_value"))
         except (TypeError, ValueError):
             continue
-        if as_of is None or observed is None or not math.isfinite(target):
+        if as_of is None or observed is None or observed <= as_of or not math.isfinite(target):
             continue
         row = dict(raw)
         row["_as_of"] = as_of
@@ -272,6 +281,7 @@ def evaluate_candidate_walk_forward(
     overlap_excluded = 0
     insufficient_periods = 0
     samples: list[dict[str, object]] = []
+    seen_cohorts: set[tuple[str, str]] = set()
     source_frame = snapshots.copy()
     for as_of, period_rows in sorted(periods.items()):
         eligible: list[dict[str, object]] = []
@@ -279,13 +289,15 @@ def evaluate_candidate_walk_forward(
         for row in period_rows:
             ticker = str(row.get("ticker") or "").upper()
             prior_label_end = last_label_end_by_ticker.get(ticker)
-            if ticker in selected_tickers or (
+            cohort = (ticker, _week(as_of))
+            if ticker in selected_tickers or cohort in seen_cohorts or (
                 prior_label_end is not None and as_of < prior_label_end
             ):
                 overlap_excluded += 1
                 continue
             eligible.append(row)
             selected_tickers.add(ticker)
+            seen_cohorts.add(cohort)
         if not eligible:
             continue
         report = build_candidate_model_report(
@@ -295,6 +307,8 @@ def evaluate_candidate_walk_forward(
             target_version=target_version,
             minimum_training_samples=minimum_training_samples,
             iterations=iterations,
+            feature_paths=feature_paths,
+            feature_variant=feature_variant,
         )
         if report.get("status") != "TRAINED":
             insufficient_periods += 1
@@ -319,7 +333,7 @@ def evaluate_candidate_walk_forward(
                     "snapshot_id": str(row.get("snapshot_id") or ""),
                     "ticker": ticker,
                     "sector": _sector(row),
-                    "week": as_of.date().isoformat(),
+                    "week": _week(as_of),
                     "as_of": as_of.isoformat(),
                     "target_value": target,
                     "outcome_up": 1.0 if target > 0.0 else 0.0,

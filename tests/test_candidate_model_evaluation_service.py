@@ -22,6 +22,7 @@ def _at(day: int) -> datetime:
 def _payload(seed: float) -> dict[str, object]:
     return {
         "market_factors": {
+            "version": "market_factors_v2",
             "asset_returns": {"5d": seed / 100, "20d": seed / 80, "60d": seed / 60},
             "relative_returns": {"5d": seed / 120, "20d": seed / 100, "60d": seed / 90},
             "realized_volatility": {"20d_annualized": 0.2 + abs(seed) / 1000},
@@ -45,7 +46,7 @@ def _snapshots(*, delayed_first_week: bool = False) -> pd.DataFrame:
                     "ticker": f"T{ticker_index:03d}",
                     "sector": "Technology" if ticker_index < 4 else "Energy",
                     "as_of": _at(as_of_day).isoformat(),
-                    "target_version": "excess_return_5d_nyse_split_price_v3",
+                    "target_version": "excess_return_5d_nyse_split_price_v4",
                     "label_status": "RESOLVED",
                     "target_value": 0.02 if seed > 0 else -0.02,
                     "target_observed_at": _at(observed_day).isoformat(),

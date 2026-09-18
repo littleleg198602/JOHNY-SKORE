@@ -180,7 +180,7 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
         str(result.get("evaluation_status") or "n/a"),
     )
     status_columns[4].metric(
-        "Aktivace",
+        "Stav analytického ověření",
         str(result.get("activation_state") or "n/a"),
     )
     status_columns[5].metric(
@@ -289,7 +289,7 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
                     "heuristická confidence %": item.get("final_confidence"),
                     "kvalita dat %": item.get("data_quality_score"),
                     "shadow návrh": decision.get("proposed_action") or "n/a",
-                    "aktivace": decision.get("activation_state") or "n/a",
+                    "stav ověření": decision.get("activation_state") or "n/a",
                     "hard veto": decision.get("hard_veto", False),
                     "důvod": reasons,
                 }
@@ -309,7 +309,7 @@ def _render_latest_shadow_result(output_dir: Path) -> None:
                     ),
                     "kvalita dat %": None,
                     "shadow návrh": decision.get("proposed_action") or "n/a",
-                    "aktivace": decision.get("activation_state") or "n/a",
+                    "stav ověření": decision.get("activation_state") or "n/a",
                     "hard veto": decision.get("hard_veto", False),
                     "důvod": "; ".join(str(value) for value in decision.get("reasons") or []),
                 }
@@ -835,7 +835,7 @@ def _render_trends(history_service: HistoryService, output_dir: Path) -> None:
     global_history = history_service.store.read_global_history()
     if global_history["run_id"].nunique() < 2 if not global_history.empty else True:
         excel_history = _load_history_from_excels(str(output_dir))
-        if excel_history["run_id"].nunique() >= 2:
+        if "run_id" in excel_history.columns and excel_history["run_id"].nunique() >= 2:
             global_history = excel_history
             st.info("SQLite zatím nemá dost běhů, trendy načítám z historických Excel exportů v outputs.")
     trend = VisualizationService.prepare_trend_history_df(global_history)
@@ -1476,7 +1476,7 @@ def _render_agent_audit(result: dict[str, object]) -> None:
                 "P(FLAT)": round(decision.p_flat, 4),
                 "P(DOWN)": round(decision.p_down, 4),
                 "hard_veto": decision.hard_veto,
-                "aktivace": decision.activation_state.value,
+                "stav ověření": decision.activation_state.value,
                 "aplikováno": decision.applied_to_prediction,
                 "důvody": "; ".join(decision.reasons),
                 "konflikty": "; ".join(decision.conflicts),
@@ -1528,6 +1528,8 @@ agent_runtime_service = AgentRuntimeService()
 agent_runtime_settings, agent_runtime_warning = agent_runtime_service.load()
 if agent_runtime_warning:
     st.warning(agent_runtime_warning)
+sec_user_agent = os.getenv("JOHNY_SKORE_SEC_USER_AGENT", "").strip()
+sec_contact_available = bool(sec_user_agent and "@" in sec_user_agent)
 
 with st.sidebar:
     output_dir = Path(st.text_input("Output directory", str(DEFAULT_OUTPUT_DIR)))
@@ -1553,18 +1555,18 @@ with st.sidebar:
     )
     use_sec_fundamentals = st.checkbox(
         "Načíst SEC výkazy (Etapa 2)",
-        value=agent_runtime_settings.sec_fundamentals_enabled,
+        value=(agent_runtime_settings.sec_fundamentals_enabled and sec_contact_available),
+        disabled=not sec_contact_available,
         help=(
             "Načte oficiální 10-K, 10-Q, 8-K a vybraná XBRL fakta. "
             "V Etapě 2 data ještě nemění predikci."
         ),
     )
-    sec_user_agent = st.text_input(
-        "SEC User-Agent (aplikace + kontaktní e-mail)",
-        value=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
-        disabled=not use_sec_fundamentals,
-        help="Příklad: JohnySkore/2.1 kontakt@example.com. SEC tento údaj vyžaduje.",
-    )
+    if not sec_contact_available:
+        st.caption(
+            "SEC vrstva je pro tento běh vypnutá. Kontaktní identita se nastavuje "
+            "jednou v prostředí aplikace; do formuláře se e-mail nezadává."
+        )
     use_european_filings = st.checkbox(
         "Načíst evropské regulatorní dokumenty (Etapa 5.1)",
         value=agent_runtime_settings.european_filings_enabled,
@@ -1666,6 +1668,7 @@ with st.sidebar:
     )
     supply_chain_sources_text = st.text_area(
         "Síť firem: 7 základních polí nebo 14 polí s identitou a citací",
+        key="supply_chain_manifest",
         value=agent_runtime_settings.supply_chain_sources_text,
         height=100,
         disabled=not use_supply_chain,
@@ -1707,6 +1710,7 @@ with st.sidebar:
     )
     commodity_energy_sources_text = st.text_area(
         "Materiály/energie: 7 základních polí nebo 19 polí s cenovým bodem a scénářem",
+        key="commodity_energy_manifest",
         value=agent_runtime_settings.commodity_energy_sources_text,
         height=100,
         disabled=not use_commodity_energy,
@@ -1814,8 +1818,15 @@ commodity_energy_sources, commodity_energy_source_errors = (
 regulatory_contract_sources, regulatory_contract_source_errors = (
     parse_regulatory_contract_sources(regulatory_contract_sources_text)
 )
+from market_checker_app.services.macro_regime_service import parse_macro_observations
+from market_checker_app.services.counterparty_health_service import parse_counterparty_health_sources
+
+macro_observations, macro_errors = parse_macro_observations(macro_observations_text)
+counterparty_health_sources, counterparty_errors = parse_counterparty_health_sources(counterparty_health_sources_text)
 company_intelligence_manifest_errors = (
     identity_record_errors
+    + macro_errors
+    + counterparty_errors
     + (
         european_filing_source_errors
         + european_filing_feed_errors
@@ -1866,7 +1877,7 @@ config = AppConfig(
     entity_registry=EntityRegistryConfig(identity_records=identity_records),
     fundamental_ingestion=FundamentalIngestionConfig(
         enabled=use_sec_fundamentals,
-        user_agent=sec_user_agent.strip(),
+        user_agent=sec_user_agent,
     ),
     european_filings=EuropeanFilingConfig(
         enabled=use_european_filings,
@@ -1995,13 +2006,6 @@ if sqlite_info:
 st.caption(f"Aktivní DB: `{config.sqlite_path}`")
 _render_latest_shadow_result(output_dir)
 _render_latest_live_source_smoke(output_dir)
-if use_sec_fundamentals and (
-    not sec_user_agent.strip() or "@" not in sec_user_agent
-):
-    st.warning(
-        "SEC Etapa 2 je zapnutá, ale User-Agent neobsahuje název aplikace "
-        "a kontaktní e-mail; F2-SEC proto běh přeskočí."
-    )
 for short_report_error in short_report_source_errors:
     st.warning(short_report_error)
 for company_intelligence_manifest_error in company_intelligence_manifest_errors:
@@ -2201,7 +2205,7 @@ if len(watchlist) > config.large_universe_threshold:
     else:
         st.warning(
             f"Ve watchlistu je {len(watchlist)} tickerů, ale MT5 je vypnuté. "
-            "Zapněte MT5, jinak bude technická část ve velkém universe režimu neutrální."
+            "Cenová historie se načte dávkově z Yahoo. Nedostupné nebo zastaralé řady budou označené."
         )
 
 rss_default = DEFAULT_NEWS_SOURCES_TEXT if use_rss else ""
@@ -2254,6 +2258,18 @@ if run_analysis:
         st.exception(exc)
         st.stop()
 
+    if save_history:
+        from market_checker_app.weekly_shadow_runner import finalize_analysis_run
+        result["analysis_summary"] = finalize_analysis_run(
+            result=result, config=config, tickers=watchlist, store=store,
+            pipeline=pipeline, macro_observations=macro_observations,
+            counterparty_health_sources=counterparty_health_sources,
+        )
+        result["warnings"] = result["analysis_summary"]["warnings"]
+        result["errors"] = list(result.get("errors", [])) + result["analysis_summary"]["pipeline_failures"]
+    else:
+        result["analysis_summary"] = {"pipeline_status": "NOT_PERSISTED", "reason": "Ukládání historie je vypnuté; snapshoty a navazující evaluace nebyly spuštěny."}
+
     result_errors = list(result.get("errors", []))
     result_warnings = list(result.get("warnings", []))
     if result_errors:
@@ -2299,6 +2315,26 @@ if run_analysis:
 if st.session_state.last_result:
     result = st.session_state.last_result
     signals_df = result["signals"]
+    summary = result.get("analysis_summary", {})
+    if summary:
+        with st.expander("Analytické reporty a stav ověření", expanded=True):
+            st.write("Stav běhu:", summary.get("pipeline_status"))
+            if summary.get("reason"):
+                st.info(summary["reason"])
+            for key, title in (
+                ("macro_sector_regime", "Makro a sektorový režim"),
+                ("counterparty_health", "Veřejné podklady protistran"),
+                ("candidate_model_shadow", "Kandidátní model — výpočet"),
+                ("candidate_model_walk_forward", "Kandidátní model — historické ověření"),
+            ):
+                report = summary.get(key)
+                if isinstance(report, dict):
+                    st.write(f"{title}: {report.get('status', 'NEZNÁMÝ')}")
+                    if report.get("reason"):
+                        st.caption(str(report["reason"]))
+                    with st.expander(f"Podrobnosti: {title}"):
+                        st.json(report)
+            st.caption("INSUFFICIENT_DATA znamená chybějící podklady nebo historii. Přínos predikce zatím není prokázán.")
 
     (
         tab_signals,

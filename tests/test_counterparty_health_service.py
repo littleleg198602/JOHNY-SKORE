@@ -10,6 +10,7 @@ from market_checker_app.services.counterparty_health_service import (
     build_counterparty_health_report,
     parse_counterparty_health_sources,
 )
+from market_checker_app.services.sec_fundamental_feature_service import SEC_FUNDAMENTAL_FEATURE_VERSION
 from market_checker_app.storage.sqlite_store import SQLiteStore
 
 
@@ -84,11 +85,20 @@ class CounterpartyHealthServiceTests(unittest.TestCase):
                 "values_json": "{}",
             },
         ]
+        for relation in relationships:
+            relation.update(published_at="2025-02-20T00:00:00Z", observed_at="2025-02-21T00:00:00Z")
+        snapshots[0].update(
+            feature_version=SEC_FUNDAMENTAL_FEATURE_VERSION,
+            metadata_json='{"cik":"0000000001"}',
+            source_fact_ids_json=json.dumps({key: ["fact-" + key] for key in ("cash_and_equivalents", "total_debt", "operating_cash_flow", "free_cash_flow")}),
+            source_urls_json=json.dumps({key: ["https://www.sec.gov/Archives/old"] for key in ("cash_and_equivalents", "total_debt", "operating_cash_flow", "free_cash_flow")}),
+        )
         report = build_counterparty_health_report(
             relationships,
             snapshots,
             sources,
             as_of=datetime(2025, 3, 1, tzinfo=UTC),
+            identities=[{"version_id": "identity-1", "ticker": "EXMP", "name": "Example Components", "cik": "1", "observed_at": "2025-02-21T00:00:00Z", "effective_from": "2025-01-01T00:00:00Z", "source_url": "https://www.sec.gov/Archives/old"}],
         )
         by_id = {entry["relationship_id"]: entry for entry in report["entries"]}
         self.assertEqual("PUBLIC_FILING_EVIDENCE_AVAILABLE", by_id["rel-public"]["status"])
@@ -106,8 +116,8 @@ class CounterpartyHealthServiceTests(unittest.TestCase):
         self.assertEqual([], errors)
         report = build_counterparty_health_report(
             [
-                {"relationship_id": "mapped", "ticker": "MSFT", "counterparty": "Mapped Public", "metadata_json": '{"counterparty_identity_status":"IDENTIFIED"}'},
-                {"relationship_id": "unknown", "ticker": "MSFT", "counterparty": "No Map", "metadata_json": '{"counterparty_identity_status":"IDENTIFIED"}'},
+                {"relationship_id": "mapped", "ticker": "MSFT", "counterparty": "Mapped Public", "metadata_json": '{"counterparty_identity_status":"IDENTIFIED"}', "published_at": "2025-01-01", "observed_at": "2025-02-01"},
+                {"relationship_id": "unknown", "ticker": "MSFT", "counterparty": "No Map", "metadata_json": '{"counterparty_identity_status":"IDENTIFIED"}', "published_at": "2025-01-01", "observed_at": "2025-02-01"},
             ],
             [],
             sources,
