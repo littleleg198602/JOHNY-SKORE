@@ -50,6 +50,17 @@ REGULATORY_RULES = (
     (("regulatory approval", "fda approves", "approved by the fda"), "REGULATORY_APPROVAL"),
     (("license suspended", "license revoked", "licence suspended"), "LICENSE_CHANGE"),
     (("government grant", "awarded a grant"), "GRANT"),
+    (("beats earnings", "beats eps", "earnings beat", "profit beats estimates"), "EARNINGS_BEAT"),
+    (("misses earnings", "misses eps", "earnings miss", "profit misses estimates"), "EARNINGS_MISS"),
+    (("raises guidance", "raised guidance", "raises outlook", "boosts forecast"), "GUIDANCE_RAISE"),
+    (("cuts guidance", "cut guidance", "lowers outlook", "slashes forecast"), "GUIDANCE_CUT"),
+    (("share buyback", "stock buyback", "repurchase program", "share repurchase"), "BUYBACK"),
+    (("raises dividend", "dividend increase", "increases dividend"), "DIVIDEND_INCREASE"),
+    (("cuts dividend", "dividend cut", "suspends dividend"), "DIVIDEND_CUT"),
+    (("to acquire", "acquisition of", "merger agreement", "agrees to buy"), "MERGER_ACQUISITION"),
+    (("public offering", "share offering", "equity offering", "capital increase"), "CAPITAL_RAISE"),
+    (("debt refinancing", "refinances debt", "senior notes offering", "debt offering"), "DEBT_REFINANCING"),
+    (("ceo resigns", "cfo resigns", "appoints new ceo", "appoints new cfo"), "EXECUTIVE_CHANGE"),
 )
 
 
@@ -64,10 +75,14 @@ class SourceDiscoveryService:
 
     @staticmethod
     def _public_url(item: NewsItem) -> str | None:
-        try:
-            return public_https_reference(item.url)
-        except (PublicSourceError, ValueError):
-            return None
+        for candidate in (item.original_url, item.url):
+            if not str(candidate or "").strip():
+                continue
+            try:
+                return public_https_reference(candidate)
+            except (PublicSourceError, ValueError):
+                continue
+        return None
 
     @staticmethod
     def _short_publisher(text: str, url: str) -> str | None:
@@ -95,7 +110,27 @@ class SourceDiscoveryService:
         seen_short: set[tuple[str, str]] = set()
         seen_regulatory: set[tuple[str, str, str]] = set()
 
-        ordered = sorted(items, key=lambda item: (item.published_at, item.ticker, item.url))
+        # Round-robin by ticker prevents a universe-wide limit from silently
+        # favouring the first ticker in alphabetical/date order.
+        by_ticker: dict[str, list[NewsItem]] = {}
+        for item in items:
+            ticker = normalize_ticker(item.ticker)
+            if ticker:
+                by_ticker.setdefault(ticker, []).append(item)
+        for ticker_items in by_ticker.values():
+            ticker_items.sort(key=lambda item: (item.published_at, item.url), reverse=True)
+        ordered: list[NewsItem] = []
+        depth = 0
+        while True:
+            appended = False
+            for ticker in sorted(by_ticker):
+                ticker_items = by_ticker[ticker]
+                if depth < len(ticker_items):
+                    ordered.append(ticker_items[depth])
+                    appended = True
+            if not appended:
+                break
+            depth += 1
         for item in ordered:
             ticker = normalize_ticker(item.ticker)
             if (
@@ -149,8 +184,16 @@ class SourceDiscoveryService:
                             event_type=event_type,
                             status="ANNOUNCED",
                             title=item.title[:500] or f"RSS {event_type}",
-                            authority_or_counterparty="Neověřeno – viz zdroj",
-                            publisher=(urlparse(url).hostname or "RSS discovery"),
+                            authority_or_counterparty=(
+                                str(item.publisher or "").strip()
+                                or str(item.publisher_domain or "").strip()
+                                or "Neověřeno – viz zdroj"
+                            ),
+                            publisher=(
+                                str(item.publisher or "").strip()
+                                or str(item.publisher_domain or "").strip()
+                                or (urlparse(url).hostname or "RSS discovery")
+                            ),
                             published_at=item.published_at,
                             url=url,
                             confidence=0.45,

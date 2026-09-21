@@ -26,6 +26,10 @@ from market_checker_app.services.candidate_model_service import (
     MOMENTUM_BASELINE_MODEL_VERSION,
     build_candidate_model_report,
     FEATURE_PATHS,
+    DEFAULT_COST_HURDLE,
+)
+from market_checker_app.services.portfolio_backtest_service import (
+    build_cost_aware_portfolio_backtest,
 )
 
 
@@ -246,6 +250,7 @@ def evaluate_candidate_walk_forward(
     iterations: int = 400,
     feature_paths: Sequence[str] = FEATURE_PATHS,
     feature_variant: str = "market",
+    positive_label_hurdle: float = DEFAULT_COST_HURDLE,
 ) -> dict[str, object]:
     """Evaluate the candidate against its momentum baseline without leakage.
 
@@ -309,6 +314,7 @@ def evaluate_candidate_walk_forward(
             iterations=iterations,
             feature_paths=feature_paths,
             feature_variant=feature_variant,
+            positive_label_hurdle=positive_label_hurdle,
         )
         if report.get("status") != "TRAINED":
             insufficient_periods += 1
@@ -336,7 +342,7 @@ def evaluate_candidate_walk_forward(
                     "week": _week(as_of),
                     "as_of": as_of.isoformat(),
                     "target_value": target,
-                    "outcome_up": 1.0 if target > 0.0 else 0.0,
+                    "outcome_up": 1.0 if target > positive_label_hurdle else 0.0,
                     "momentum_probability_up": float(baseline),
                     "candidate_probability_up": float(candidate),
                     "training_sample_count": int(report.get("training_sample_count") or 0),
@@ -359,7 +365,15 @@ def evaluate_candidate_walk_forward(
             "activation_allowed": False,
             "samples": [],
         }
-    metrics = summarize_candidate_samples(samples, top_fraction=top_fraction, calibration_bins=calibration_bins)
+    metrics = summarize_candidate_samples(
+        samples,
+        top_fraction=top_fraction,
+        calibration_bins=calibration_bins,
+    )
+    cost_aware_backtest = build_cost_aware_portfolio_backtest(
+        samples,
+        top_fraction=top_fraction,
+    )
     status = "EVALUATED"
     reason = ""
     if metrics["sample_count"] < minimum_evaluation_samples or metrics["distinct_weeks"] < minimum_weeks:
@@ -379,6 +393,7 @@ def evaluate_candidate_walk_forward(
         "minimum_training_samples": minimum_training_samples,
         "minimum_evaluation_samples": minimum_evaluation_samples,
         "minimum_weeks": minimum_weeks,
+        "positive_label_hurdle": positive_label_hurdle,
         "overlap_excluded_count": overlap_excluded,
         "insufficient_training_period_count": insufficient_periods,
         "analysis_only": True,
@@ -386,6 +401,7 @@ def evaluate_candidate_walk_forward(
         "activation_allowed": False,
         "metrics": metrics,
         "sector_metrics": sector_metrics,
+        "cost_aware_portfolio_backtest": cost_aware_backtest,
         "samples": samples,
     }
 

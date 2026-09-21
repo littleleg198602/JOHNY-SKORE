@@ -37,6 +37,27 @@ class RegulatoryContractAgent(BaseAgent):
     required = False
     dependencies = ("entity_registry",)
 
+    EVENT_SUPPORT_TERMS = {
+        RegulatoryContractEventType.CONTRACT_AWARD: ("contract", "award"),
+        RegulatoryContractEventType.CONTRACT_LOSS: ("contract", "terminated"),
+        RegulatoryContractEventType.REGULATORY_APPROVAL: ("approval", "approves"),
+        RegulatoryContractEventType.INVESTIGATION: ("investigation", "probe"),
+        RegulatoryContractEventType.SANCTION: ("sanction", "fine", "fined"),
+        RegulatoryContractEventType.LICENSE_CHANGE: ("license", "licence"),
+        RegulatoryContractEventType.GRANT: ("grant",),
+        RegulatoryContractEventType.EARNINGS_BEAT: ("earnings", "beats"),
+        RegulatoryContractEventType.EARNINGS_MISS: ("earnings", "misses"),
+        RegulatoryContractEventType.GUIDANCE_RAISE: ("guidance", "outlook"),
+        RegulatoryContractEventType.GUIDANCE_CUT: ("guidance", "outlook"),
+        RegulatoryContractEventType.BUYBACK: ("buyback", "repurchase"),
+        RegulatoryContractEventType.DIVIDEND_INCREASE: ("dividend",),
+        RegulatoryContractEventType.DIVIDEND_CUT: ("dividend",),
+        RegulatoryContractEventType.MERGER_ACQUISITION: ("acquisition", "merger"),
+        RegulatoryContractEventType.CAPITAL_RAISE: ("offering", "capital"),
+        RegulatoryContractEventType.DEBT_REFINANCING: ("debt", "notes"),
+        RegulatoryContractEventType.EXECUTIVE_CHANGE: ("ceo", "cfo"),
+    }
+
     def __init__(
         self,
         config: RegulatoryContractConfig | None = None,
@@ -168,7 +189,11 @@ class RegulatoryContractAgent(BaseAgent):
                     content_verification_required=(
                         self.config.source_verification.enabled
                     ),
-                    support_terms=(title, authority),
+                    support_terms=(
+                        title,
+                        authority,
+                        *self.EVENT_SUPPORT_TERMS.get(event_type, ()),
+                    ),
                     discovery_method=source.discovery_method,
                     source_authority=(source.source_authority or publisher),
                     legal_entity_id=legal_entity_id,
@@ -217,6 +242,7 @@ class RegulatoryContractAgent(BaseAgent):
                         "event_truth_assessed": False,
                         "causal_impact_assessed": False,
                         "source_content_support_detected": support_detected,
+                        "discovery_method": source.discovery_method,
                         "legal_entity_id": legal_entity_id,
                         "scoring_applied": False,
                     },

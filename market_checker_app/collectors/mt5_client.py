@@ -40,6 +40,52 @@ class MT5Client:
         finally:
             mt5.shutdown()
 
+    def load_open_positions(self) -> tuple[pd.DataFrame, str | None]:
+        """Read current MT5 positions without sending or changing any order.
+
+        This adapter intentionally calls only ``positions_get``.  It is kept
+        separate from OHLC loading so a portfolio audit cannot accidentally
+        acquire an execution capability.
+        """
+        columns = [
+            "position_ticket", "ticker", "side", "volume", "opened_at",
+            "entry_price", "current_price", "stop_loss", "take_profit",
+            "swap", "profit", "comment",
+        ]
+        try:
+            import MetaTrader5 as mt5  # type: ignore
+        except Exception as exc:  # pragma: no cover - environment specific
+            return pd.DataFrame(columns=columns), f"MT5 není dostupné pro audit pozic: {exc}"
+        if not mt5.initialize():
+            return pd.DataFrame(columns=columns), "MT5 initialize() selhalo při čtení otevřených pozic."
+        try:
+            positions = mt5.positions_get()
+            if positions is None:
+                return pd.DataFrame(columns=columns), "MT5 positions_get() selhalo nebo nevrátilo data."
+            buy_type = int(getattr(mt5, "POSITION_TYPE_BUY", 0))
+            rows = []
+            for position in positions:
+                opened_at = pd.to_datetime(getattr(position, "time", None), unit="s", utc=True, errors="coerce")
+                rows.append({
+                    "position_ticket": str(getattr(position, "ticket", "")),
+                    "ticker": str(getattr(position, "symbol", "")).strip().upper(),
+                    "side": "BUY" if int(getattr(position, "type", -1)) == buy_type else "SELL",
+                    "volume": float(getattr(position, "volume", 0.0) or 0.0),
+                    "opened_at": opened_at.isoformat() if not pd.isna(opened_at) else None,
+                    "entry_price": float(getattr(position, "price_open", 0.0) or 0.0),
+                    "current_price": float(getattr(position, "price_current", 0.0) or 0.0),
+                    "stop_loss": float(getattr(position, "sl", 0.0) or 0.0),
+                    "take_profit": float(getattr(position, "tp", 0.0) or 0.0),
+                    "swap": float(getattr(position, "swap", 0.0) or 0.0),
+                    "profit": float(getattr(position, "profit", 0.0) or 0.0),
+                    "comment": str(getattr(position, "comment", "") or ""),
+                })
+            return pd.DataFrame(rows, columns=columns), None
+        except Exception as exc:
+            return pd.DataFrame(columns=columns), f"MT5 čtení otevřených pozic selhalo: {exc}"
+        finally:
+            mt5.shutdown()
+
     @staticmethod
     def _rates_to_frame(rates: object, ticker: str) -> tuple[pd.DataFrame | None, str | None]:
         if rates is None or len(rates) == 0:  # type: ignore[arg-type]

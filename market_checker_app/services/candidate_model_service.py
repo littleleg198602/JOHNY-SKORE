@@ -19,16 +19,19 @@ from typing import Any
 import pandas as pd
 
 from market_checker_app.prediction_contract import PRIMARY_TARGET_VERSION
-from market_checker_app.services.market_factor_service import MARKET_FACTOR_VERSION
+from market_checker_app.services.market_factor_service import (
+    SUPPORTED_MARKET_FACTOR_VERSIONS,
+)
 
 
 MOMENTUM_BASELINE_MODEL_ID = "momentum_relative_baseline"
 MOMENTUM_BASELINE_MODEL_VERSION = "v1"
 LOGISTIC_CANDIDATE_MODEL_ID = "pit_logistic_regression"
-LOGISTIC_CANDIDATE_MODEL_VERSION = "v2"
-CANDIDATE_MODEL_FEATURE_VERSION = "pit_market_features_v2"
+LOGISTIC_CANDIDATE_MODEL_VERSION = "v3"
+CANDIDATE_MODEL_FEATURE_VERSION = "pit_pdf_market_and_agent_features_v3"
+DEFAULT_COST_HURDLE = 0.002
 
-FEATURE_PATHS = (
+CORE_MARKET_FEATURE_PATHS = (
     "market_factors.asset_returns.5d",
     "market_factors.asset_returns.20d",
     "market_factors.asset_returns.60d",
@@ -38,6 +41,47 @@ FEATURE_PATHS = (
     "market_factors.realized_volatility.20d_annualized",
     "market_factors.drawdown.252d",
 )
+
+FEATURE_PATHS = CORE_MARKET_FEATURE_PATHS + (
+    "market_factors.trend.sma_20_distance",
+    "market_factors.trend.sma_50_distance",
+    "market_factors.trend.ema_20_50_spread",
+    "market_factors.price_position.high_52w_distance",
+    "market_factors.gaps.overnight",
+    "market_factors.gaps.intraday",
+    "market_factors.volume.volume_zscore_20d",
+    "market_factors.liquidity.log_dollar_adv_20d",
+    "market_factors.liquidity.amihud_20d",
+    "market_factors.volatility.downside_20d_annualized",
+    "market_factors.volatility.ewma_20d_annualized",
+    "market_factors.volatility.parkinson_20d_annualized",
+    "market_factors.volatility.garman_klass_20d_annualized",
+    "market_factors.risk.atr_pct_14d",
+    "market_factors.risk.beta_60d",
+    "market_factors.risk.idiosyncratic_volatility_60d_annualized",
+    "agent_features.regulatory.signed_event_score",
+    "agent_features.regulatory.verified_event_count",
+    "agent_features.governance.risk_event_count",
+    "agent_features.forensics.risk_score",
+    "agent_features.claims.corroborated_count",
+    "sec_fundamentals.values.revenue_yoy_pct",
+    "sec_fundamentals.values.gross_margin_pct",
+    "sec_fundamentals.values.operating_margin_pct",
+    "sec_fundamentals.values.net_margin_pct",
+    "sec_fundamentals.values.free_cash_flow_margin_pct",
+    "sec_fundamentals.values.cash_conversion_ratio",
+    "sec_fundamentals.values.accruals_to_assets_ratio",
+    "sec_fundamentals.values.capital_expenditure_to_revenue_pct",
+    "sec_fundamentals.values.research_and_development_to_revenue_pct",
+    "sec_fundamentals.values.interest_coverage_ratio",
+    "sec_fundamentals.values.current_ratio",
+    "sec_fundamentals.values.debt_to_assets_ratio",
+)
+
+
+def _supported_market_factor_payload(payload: Mapping[str, object]) -> bool:
+    version = str(_json_object(payload.get("market_factors")).get("version") or "")
+    return version in SUPPORTED_MARKET_FACTOR_VERSIONS
 
 
 def _utc(value: datetime) -> datetime:
@@ -145,7 +189,7 @@ def _training_rows(
         ):
             continue
         payload = _json_object(row.get("feature_payload_json"))
-        if _json_object(payload.get("market_factors")).get("version") != MARKET_FACTOR_VERSION:
+        if not _supported_market_factor_payload(payload):
             continue
         features = _feature_vector(payload, feature_paths)
         if not any(value is not None for value in features):
@@ -181,11 +225,15 @@ def _fit_logistic(
     iterations: int,
     learning_rate: float,
     feature_paths: Sequence[str] = FEATURE_PATHS,
+    positive_label_hurdle: float = DEFAULT_COST_HURDLE,
 ) -> dict[str, object] | None:
     if not rows:
         return None
     vectors = [list(item["features"]) for item in rows]
-    labels = [1.0 if float(item["target"]) > 0.0 else 0.0 for item in rows]
+    labels = [
+        1.0 if float(item["target"]) > positive_label_hurdle else 0.0
+        for item in rows
+    ]
     if min(labels) == max(labels):
         return None
 
@@ -240,7 +288,8 @@ def _fit_logistic(
         "scaler_scales": scales,
         "coefficients": weights,
         "intercept": intercept,
-        "positive_label_rule": "target_value > 0",
+        "positive_label_rule": f"target_value > {positive_label_hurdle}",
+        "cost_hurdle": positive_label_hurdle,
         "l2": l2,
         "iterations": iterations,
         "learning_rate": learning_rate,
@@ -282,6 +331,7 @@ def build_candidate_model_report(
     learning_rate: float = 0.15,
     feature_paths: Sequence[str] = FEATURE_PATHS,
     feature_variant: str = "market",
+    positive_label_hurdle: float = DEFAULT_COST_HURDLE,
 ) -> dict[str, object]:
     """Build a shadow-only model comparison for immutable snapshot IDs.
 
@@ -300,7 +350,9 @@ def build_candidate_model_report(
         and (stamp := _parse_datetime(row.get("as_of"))) is not None and stamp <= as_of
     ]
     training = _training_rows(snapshots, as_of=as_of, target_version=target_version, feature_paths=feature_paths)
-    positive_count = sum(float(item["target"]) > 0.0 for item in training)
+    positive_count = sum(
+        float(item["target"]) > positive_label_hurdle for item in training
+    )
     negative_count = len(training) - positive_count
     artifact_payload = _fit_logistic(
         training,
@@ -308,6 +360,7 @@ def build_candidate_model_report(
         iterations=iterations,
         learning_rate=learning_rate,
         feature_paths=feature_paths,
+        positive_label_hurdle=positive_label_hurdle,
     ) if len(training) >= minimum_training_samples else None
 
     artifact: dict[str, object] | None = None
@@ -356,7 +409,7 @@ def build_candidate_model_report(
             "selected_for_analysis": "MOMENTUM_BASELINE",
             "selection_reason": "CANDIDATE_MODEL_UNAVAILABLE",
         }
-        if artifact is not None and _json_object(payload.get("market_factors")).get("version") != MARKET_FACTOR_VERSION:
+        if artifact is not None and not _supported_market_factor_payload(payload):
             prediction["selection_reason"] = "CANDIDATE_FEATURES_MISSING"
         elif artifact is not None:
             probability, coverage = _candidate_probability(

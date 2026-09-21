@@ -487,6 +487,45 @@ class SQLiteStore:
             self._ensure_source_degradation_columns(conn)
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS open_position_audits (
+                    audit_id TEXT PRIMARY KEY,
+                    run_id INTEGER NOT NULL,
+                    position_ticket TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    ticker TEXT NOT NULL,
+                    side TEXT NOT NULL,
+                    volume REAL,
+                    opened_at TEXT,
+                    entry_price REAL,
+                    current_price REAL,
+                    stop_loss REAL,
+                    take_profit REAL,
+                    profit REAL,
+                    swap REAL,
+                    comment TEXT,
+                    price_change_pct REAL,
+                    forecast TEXT,
+                    action TEXT,
+                    final_total_score REAL,
+                    final_confidence REAL,
+                    risk_score REAL,
+                    data_quality_score REAL,
+                    audit_status TEXT NOT NULL,
+                    audit_reasons_json TEXT NOT NULL DEFAULT '[]',
+                    previous_audit_status TEXT,
+                    status_changed INTEGER NOT NULL DEFAULT 0,
+                    FOREIGN KEY(run_id) REFERENCES runs(run_id)
+                )
+                """
+            )
+            conn.execute(
+                """
+                CREATE INDEX IF NOT EXISTS idx_open_position_audits_ticket_run
+                ON open_position_audits(position_ticket, run_id DESC)
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS orchestration_runs (
                     orchestration_id TEXT PRIMARY KEY,
                     pipeline_run_id INTEGER,
@@ -3642,6 +3681,73 @@ class SQLiteStore:
                 conn,
                 params=(run_id,),
             )
+
+    def save_open_position_audits(
+        self,
+        run_id: int,
+        records: list[dict[str, object]],
+        *,
+        observed_at: str,
+    ) -> int:
+        """Persist read-only MT5 position-review evidence for one analysis run."""
+        if not records:
+            return 0
+        self.ensure_schema()
+        columns = (
+            "audit_id", "run_id", "position_ticket", "observed_at", "ticker", "side",
+            "volume", "opened_at", "entry_price", "current_price", "stop_loss",
+            "take_profit", "profit", "swap", "comment", "price_change_pct", "forecast",
+            "action", "final_total_score", "final_confidence", "risk_score",
+            "data_quality_score", "audit_status", "audit_reasons_json",
+            "previous_audit_status", "status_changed",
+        )
+        payload: list[tuple[object, ...]] = []
+        for record in records:
+            ticket = str(record.get("position_ticket") or "")
+            if not ticket:
+                continue
+            audit_id = hashlib.sha256(f"{run_id}|{ticket}".encode("utf-8")).hexdigest()
+            payload.append((
+                audit_id, run_id, ticket, observed_at,
+                str(record.get("ticker") or ""), str(record.get("side") or ""),
+                record.get("volume"), record.get("opened_at"), record.get("entry_price"),
+                record.get("current_price"), record.get("stop_loss"), record.get("take_profit"),
+                record.get("profit"), record.get("swap"), record.get("comment"),
+                record.get("price_change_pct"), record.get("forecast"), record.get("action"),
+                record.get("final_total_score"), record.get("final_confidence"),
+                record.get("risk_score"), record.get("data_quality_score"),
+                str(record.get("audit_status") or "MONITOR"),
+                self._json_dump(record.get("audit_reasons") or []),
+                record.get("previous_audit_status"), int(bool(record.get("status_changed"))),
+            ))
+        if not payload:
+            return 0
+        placeholders = ", ".join("?" for _ in columns)
+        with self._connect() as conn:
+            conn.executemany(
+                f"INSERT OR REPLACE INTO open_position_audits({', '.join(columns)}) VALUES ({placeholders})",
+                payload,
+            )
+        return len(payload)
+
+    def read_latest_open_position_audits_before(self, run_id: int) -> pd.DataFrame:
+        """Return the last audit per still-identifiable position before a run."""
+        self.ensure_schema()
+        query = """
+            SELECT audit.*
+            FROM open_position_audits AS audit
+            JOIN (
+                SELECT position_ticket, MAX(run_id) AS latest_run_id
+                FROM open_position_audits
+                WHERE run_id < ?
+                GROUP BY position_ticket
+            ) AS latest
+              ON audit.position_ticket = latest.position_ticket
+             AND audit.run_id = latest.latest_run_id
+            ORDER BY audit.position_ticket ASC
+        """
+        with self._connect() as conn:
+            return pd.read_sql_query(query, conn, params=(run_id,))
 
     def read_global_history(self) -> pd.DataFrame:
         self.ensure_schema()

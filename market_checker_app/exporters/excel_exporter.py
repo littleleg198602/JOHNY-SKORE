@@ -107,6 +107,7 @@ class ExcelExporter:
         dashboard: dict[str, pd.DataFrame],
         delta: pd.DataFrame | None = None,
         dashboard_export: dict[str, pd.DataFrame] | None = None,
+        open_position_audit: pd.DataFrame | None = None,
     ) -> Path:
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -161,4 +162,8 @@ class ExcelExporter:
 
             if delta is not None and not delta.empty:
                 self._sanitize_for_excel(delta).to_excel(writer, sheet_name="DeltaVsPrev", index=False)
+            if open_position_audit is not None:
+                self._sanitize_for_excel(open_position_audit).to_excel(
+                    writer, sheet_name="OpenPositionAudit", index=False
+                )
         return output_path

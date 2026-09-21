@@ -22,7 +22,7 @@ from market_checker_app.agents.contracts import (
 )
 
 
-SEC_FUNDAMENTAL_FEATURE_VERSION = "sec_fundamentals_pit_v2"
+SEC_FUNDAMENTAL_FEATURE_VERSION = "sec_fundamentals_pit_v3"
 
 CONCEPTS: dict[str, tuple[str, ...]] = {
     "revenue": (
@@ -42,7 +42,21 @@ CONCEPTS: dict[str, tuple[str, ...]] = {
         "PaymentsToAcquirePropertyPlantAndEquipment",
         "PurchaseOfPropertyPlantAndEquipment",
     ),
+    "research_and_development": (
+        "ResearchAndDevelopmentExpense",
+        "ResearchAndDevelopmentExpenseExcludingAcquiredInProcessCost",
+    ),
+    "interest_expense": (
+        "InterestExpenseNonOperating",
+        "InterestAndDebtExpense",
+    ),
     "assets": ("Assets",),
+    "current_assets": ("AssetsCurrent",),
+    "current_liabilities": ("LiabilitiesCurrent",),
+    "equity": (
+        "StockholdersEquity",
+        "StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+    ),
     "cash_and_equivalents": (
         "CashAndCashEquivalentsAtCarryingValue",
         "CashCashEquivalentsRestrictedCashAndRestrictedCashEquivalents",
@@ -72,10 +86,20 @@ FLOW_METRICS = {
     "gross_profit",
     "operating_cash_flow",
     "capital_expenditure",
+    "research_and_development",
+    "interest_expense",
     "weighted_average_shares_basic",
     "weighted_average_shares_diluted",
 }
-BALANCE_METRICS = {"assets", "cash_and_equivalents", "total_debt", "shares_outstanding"}
+BALANCE_METRICS = {
+    "assets",
+    "current_assets",
+    "current_liabilities",
+    "equity",
+    "cash_and_equivalents",
+    "total_debt",
+    "shares_outstanding",
+}
 FEATURE_NAMES = (
     "revenue",
     "revenue_yoy_pct",
@@ -88,6 +112,14 @@ FEATURE_NAMES = (
     "operating_cash_flow",
     "capital_expenditure",
     "free_cash_flow",
+    "free_cash_flow_margin_pct",
+    "cash_conversion_ratio",
+    "accruals_to_assets_ratio",
+    "capital_expenditure_to_revenue_pct",
+    "research_and_development_to_revenue_pct",
+    "interest_coverage_ratio",
+    "current_ratio",
+    "working_capital",
     "cash_and_equivalents",
     "total_debt",
     "debt_to_cash_ratio",
@@ -349,9 +381,14 @@ def build_sec_fundamental_feature_snapshots(
         operating_income = raw("operating_income")
         operating_cash_flow = raw("operating_cash_flow")
         capex = raw("capital_expenditure")
+        research_and_development = raw("research_and_development")
+        interest_expense = raw("interest_expense")
         cash = raw("cash_and_equivalents")
         debt = raw("total_debt")
         assets = raw("assets")
+        current_assets = raw("current_assets")
+        current_liabilities = raw("current_liabilities")
+        raw("equity")
         raw("shares_outstanding")
         raw("weighted_average_shares_basic")
         raw("weighted_average_shares_diluted")
@@ -379,6 +416,9 @@ def build_sec_fundamental_feature_snapshots(
         calculated("net_margin_pct", net_income, revenue, scale=100.0)
         calculated("debt_to_cash_ratio", debt, cash)
         calculated("debt_to_assets_ratio", debt, assets)
+        calculated("cash_conversion_ratio", operating_cash_flow, net_income)
+        calculated("current_ratio", current_assets, current_liabilities)
+        calculated("interest_coverage_ratio", operating_income, interest_expense)
         if debt is not None:
             for name, ids in source_fact_ids.items():
                 if debt.fact_id in ids:
@@ -393,6 +433,84 @@ def build_sec_fundamental_feature_snapshots(
             source_fact_ids["free_cash_flow"] = [
                 operating_cash_flow.fact_id,
                 capex.fact_id,
+            ]
+            if revenue is None or revenue.value == 0:
+                missing["free_cash_flow_margin_pct"] = (
+                    "MISSING_OR_ZERO_DENOMINATOR:revenue"
+                )
+            elif revenue.unit != operating_cash_flow.unit:
+                missing["free_cash_flow_margin_pct"] = (
+                    "UNIT_MISMATCH:free_cash_flow_margin_pct"
+                )
+            else:
+                values["free_cash_flow_margin_pct"] = (
+                    values["free_cash_flow"] / revenue.value
+                ) * 100.0
+                source_fact_ids["free_cash_flow_margin_pct"] = [
+                    operating_cash_flow.fact_id,
+                    capex.fact_id,
+                    revenue.fact_id,
+                ]
+
+        if capex is None or revenue is None or revenue.value == 0:
+            missing["capital_expenditure_to_revenue_pct"] = (
+                "MISSING_OR_ZERO_DENOMINATOR:capital_expenditure_or_revenue"
+            )
+        elif capex.unit != revenue.unit:
+            missing["capital_expenditure_to_revenue_pct"] = (
+                "UNIT_MISMATCH:capital_expenditure_to_revenue_pct"
+            )
+        else:
+            values["capital_expenditure_to_revenue_pct"] = (
+                abs(capex.value) / revenue.value
+            ) * 100.0
+            source_fact_ids["capital_expenditure_to_revenue_pct"] = [
+                capex.fact_id,
+                revenue.fact_id,
+            ]
+
+        calculated(
+            "research_and_development_to_revenue_pct",
+            research_and_development,
+            revenue,
+            scale=100.0,
+        )
+
+        if net_income is None or operating_cash_flow is None or assets is None:
+            missing["accruals_to_assets_ratio"] = (
+                "MISSING_CONCEPT:net_income_or_operating_cash_flow_or_assets"
+            )
+        elif net_income.unit != operating_cash_flow.unit or net_income.unit != assets.unit:
+            missing["accruals_to_assets_ratio"] = (
+                "UNIT_MISMATCH:accruals_to_assets_ratio"
+            )
+        elif assets.value == 0:
+            missing["accruals_to_assets_ratio"] = (
+                "ZERO_DENOMINATOR:accruals_to_assets_ratio"
+            )
+        else:
+            values["accruals_to_assets_ratio"] = (
+                net_income.value - operating_cash_flow.value
+            ) / assets.value
+            source_fact_ids["accruals_to_assets_ratio"] = [
+                net_income.fact_id,
+                operating_cash_flow.fact_id,
+                assets.fact_id,
+            ]
+
+        if current_assets is None or current_liabilities is None:
+            missing["working_capital"] = (
+                "MISSING_CONCEPT:current_assets_or_current_liabilities"
+            )
+        elif current_assets.unit != current_liabilities.unit:
+            missing["working_capital"] = "UNIT_MISMATCH:working_capital"
+        else:
+            values["working_capital"] = (
+                current_assets.value - current_liabilities.value
+            )
+            source_fact_ids["working_capital"] = [
+                current_assets.fact_id,
+                current_liabilities.fact_id,
             ]
 
         prior_revenue = _prior_comparable_revenue(facts, revenue, as_of) if revenue else None
