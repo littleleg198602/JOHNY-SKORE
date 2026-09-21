@@ -19,6 +19,27 @@ def _history(values: list[float]) -> pd.DataFrame:
     )
 
 
+def _ohlcv_history(length: int = 270) -> pd.DataFrame:
+    sessions = sessions_between(
+        pd.Timestamp("2024-01-01", tz="UTC"),
+        pd.Timestamp("2026-01-30", tz="UTC"),
+    )[-length:]
+    close = pd.Series(
+        [100.0 + index * 0.25 + (index % 7) * 0.1 for index in range(length)],
+        index=sessions,
+    )
+    return pd.DataFrame(
+        {
+            "Open": close.shift(1).fillna(close.iloc[0]) * 1.001,
+            "High": close * 1.012,
+            "Low": close * 0.988,
+            "Close": close,
+            "Volume": [1_000_000 + (index % 20) * 25_000 for index in range(length)],
+        },
+        index=sessions,
+    )
+
+
 class MarketFactorServiceTests(unittest.TestCase):
     def test_records_returns_relative_strength_and_explicit_provenance(self) -> None:
         factor = build_market_factor_snapshot(
@@ -77,6 +98,31 @@ class MarketFactorServiceTests(unittest.TestCase):
 
         self.assertIsNone(factor["drawdown"]["252d"])
         self.assertTrue(factor["missingness"]["drawdown_252d"])
+
+    def test_pdf_market_features_are_real_values_with_contract(self) -> None:
+        asset = _ohlcv_history()
+        benchmark = _ohlcv_history().assign(
+            Close=lambda frame: frame["Close"] * 0.85 + 20.0
+        )
+        factor = build_market_factor_snapshot(
+            asset_history=asset,
+            benchmark_history=benchmark,
+            as_of=datetime(2026, 2, 1, tzinfo=timezone.utc),
+            asset_source="fixture_ohlcv",
+            benchmark_source="fixture_benchmark",
+        )
+
+        self.assertIsNotNone(factor["trend"]["sma_20_distance"])
+        self.assertIsNotNone(factor["gaps"]["overnight"])
+        self.assertGreater(factor["liquidity"]["dollar_adv_20d"], 0.0)
+        self.assertIsNotNone(factor["liquidity"]["amihud_20d"])
+        self.assertIsNotNone(factor["volatility"]["parkinson_20d_annualized"])
+        self.assertIsNotNone(factor["volatility"]["garman_klass_20d_annualized"])
+        self.assertIsNotNone(factor["risk"]["atr_pct_14d"])
+        self.assertIsNotNone(factor["risk"]["beta_60d"])
+        contract = factor["feature_contract"]
+        self.assertEqual("pdf_feature_contract_v1", contract["version"])
+        self.assertGreaterEqual(contract["implemented_count"], 17)
 
 
 if __name__ == "__main__":

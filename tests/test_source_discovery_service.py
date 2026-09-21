@@ -130,6 +130,54 @@ class SourceDiscoveryServiceTests(unittest.TestCase):
         self.assertEqual((), discovered.short_reports)
         self.assertEqual((), discovered.regulatory_events)
 
+    def test_prefers_original_article_url_and_extracts_pdf_corporate_event(self) -> None:
+        now = datetime.now(timezone.utc)
+        item = _item(
+            title="AAPL raises guidance and announces share buyback",
+            url="https://news.google.com/rss/articles/wrapper",
+            published_at=now - timedelta(hours=1),
+        )
+        item.original_url = "https://investor.example.com/aapl-guidance"
+        item.publisher = "Example Investor Relations"
+
+        discovered = SourceDiscoveryService().discover(
+            [item],
+            as_of=now,
+            discover_short_reports=False,
+            discover_regulatory_events=True,
+        )
+
+        self.assertEqual(1, len(discovered.regulatory_events))
+        event = discovered.regulatory_events[0]
+        self.assertEqual("GUIDANCE_RAISE", event.event_type)
+        self.assertEqual(item.original_url, event.url)
+        self.assertEqual("Example Investor Relations", event.publisher)
+
+    def test_universe_limit_is_allocated_round_robin_across_tickers(self) -> None:
+        now = datetime.now(timezone.utc)
+        items = [
+            _item(
+                ticker=ticker,
+                title=f"{ticker} wins contract",
+                url=f"https://example.com/{ticker}/{index}",
+                published_at=now - timedelta(hours=index + 1),
+            )
+            for ticker in ("AAA", "BBB", "CCC")
+            for index in range(3)
+        ]
+        discovered = SourceDiscoveryService().discover(
+            items,
+            as_of=now,
+            discover_short_reports=False,
+            discover_regulatory_events=True,
+            max_regulatory_events=3,
+        )
+
+        self.assertEqual(
+            {"AAA", "BBB", "CCC"},
+            {event.ticker for event in discovered.regulatory_events},
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

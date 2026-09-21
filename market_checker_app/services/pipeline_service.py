@@ -61,6 +61,9 @@ from market_checker_app.prediction_contract import benchmark_for_sector
 from market_checker_app.services.market_factor_service import (
     build_market_factor_snapshot,
 )
+from market_checker_app.services.agent_feature_service import (
+    build_agent_feature_snapshots,
+)
 from market_checker_app.services.ohlc_quality import assess_daily_ohlc
 from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.services.ranking_service import RankingService
@@ -1554,34 +1557,41 @@ class PipelineService:
                         "přepsat hlavní predikci."
                     )
 
+        agent_feature_snapshots = build_agent_feature_snapshots(
+            agent_report,
+            tickers=watchlist,
+            as_of=started_at,
+        )
         for item in point_in_time_inputs:
             ticker = str(item.get("ticker") or "").upper()
             snapshot = sec_fundamental_features_by_ticker.get(ticker)
             payload = item.get("feature_payload")
-            if snapshot is None or not isinstance(payload, dict):
+            if not isinstance(payload, dict):
                 continue
-            payload["sec_fundamentals"] = {
-                "feature_version": snapshot.feature_version,
-                "as_of": snapshot.as_of.isoformat(),
-                "availability_at": snapshot.availability_at.isoformat(),
-                "period_basis": snapshot.period_basis,
-                "period_start": (
-                    snapshot.period_start.isoformat()
-                    if snapshot.period_start is not None
-                    else None
-                ),
-                "period_end": (
-                    snapshot.period_end.isoformat()
-                    if snapshot.period_end is not None
-                    else None
-                ),
-                "values": dict(snapshot.values),
-                "missing_reasons": dict(snapshot.missing_reasons),
-                "source_fact_ids": dict(snapshot.source_fact_ids),
-                "source_accessions": dict(snapshot.source_accessions),
-                "source_urls": dict(snapshot.source_urls),
-                "metadata": dict(snapshot.metadata),
-            }
+            payload["agent_features"] = agent_feature_snapshots[ticker]
+            if snapshot is not None:
+                payload["sec_fundamentals"] = {
+                    "feature_version": snapshot.feature_version,
+                    "as_of": snapshot.as_of.isoformat(),
+                    "availability_at": snapshot.availability_at.isoformat(),
+                    "period_basis": snapshot.period_basis,
+                    "period_start": (
+                        snapshot.period_start.isoformat()
+                        if snapshot.period_start is not None
+                        else None
+                    ),
+                    "period_end": (
+                        snapshot.period_end.isoformat()
+                        if snapshot.period_end is not None
+                        else None
+                    ),
+                    "values": dict(snapshot.values),
+                    "missing_reasons": dict(snapshot.missing_reasons),
+                    "source_fact_ids": dict(snapshot.source_fact_ids),
+                    "source_accessions": dict(snapshot.source_accessions),
+                    "source_urls": dict(snapshot.source_urls),
+                    "metadata": dict(snapshot.metadata),
+                }
 
         source_degradation = build_source_degradation_report(
             signals_df,
@@ -1778,6 +1788,8 @@ class PipelineService:
                 if agent_report
                 else 0
             ),
+            "agent_feature_snapshot_count": len(agent_feature_snapshots),
+            "agent_feature_snapshots": agent_feature_snapshots,
             "agent_report": agent_report,
             "point_in_time_inputs": point_in_time_inputs,
             "progress_state": progress.snapshot(),

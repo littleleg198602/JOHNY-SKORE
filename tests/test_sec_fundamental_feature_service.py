@@ -261,6 +261,62 @@ class SecFundamentalFeatureServiceTests(unittest.TestCase):
         self.assertAlmostEqual(2.5, snapshot.values["debt_to_cash_ratio"])
         self.assertAlmostEqual(0.25, snapshot.values["debt_to_assets_ratio"])
 
+    def test_calculates_pdf_quality_cashflow_and_liquidity_features(self) -> None:
+        facts = [
+            _fact(
+                "RevenueFromContractWithCustomerExcludingAssessedTax",
+                200.0,
+                start="2024-11-01",
+                end="2025-01-31",
+            ),
+            _fact("NetIncomeLoss", 20.0, start="2024-11-01", end="2025-01-31"),
+            _fact(
+                "OperatingIncomeLoss",
+                30.0,
+                start="2024-11-01",
+                end="2025-01-31",
+            ),
+            _fact(
+                "NetCashProvidedByUsedInOperatingActivities",
+                35.0,
+                start="2024-11-01",
+                end="2025-01-31",
+            ),
+            _fact(
+                "PaymentsToAcquirePropertyPlantAndEquipment",
+                10.0,
+                start="2024-11-01",
+                end="2025-01-31",
+            ),
+            _fact(
+                "ResearchAndDevelopmentExpense",
+                16.0,
+                start="2024-11-01",
+                end="2025-01-31",
+            ),
+            _fact(
+                "InterestExpenseNonOperating",
+                5.0,
+                start="2024-11-01",
+                end="2025-01-31",
+            ),
+            _fact("Assets", 500.0),
+            _fact("AssetsCurrent", 180.0),
+            _fact("LiabilitiesCurrent", 90.0),
+        ]
+
+        snapshot = self._snapshot(facts)
+
+        self.assertEqual(25.0, snapshot.values["free_cash_flow"])
+        self.assertAlmostEqual(12.5, snapshot.values["free_cash_flow_margin_pct"])
+        self.assertAlmostEqual(1.75, snapshot.values["cash_conversion_ratio"])
+        self.assertAlmostEqual(-0.03, snapshot.values["accruals_to_assets_ratio"])
+        self.assertAlmostEqual(5.0, snapshot.values["capital_expenditure_to_revenue_pct"])
+        self.assertAlmostEqual(8.0, snapshot.values["research_and_development_to_revenue_pct"])
+        self.assertAlmostEqual(6.0, snapshot.values["interest_coverage_ratio"])
+        self.assertAlmostEqual(2.0, snapshot.values["current_ratio"])
+        self.assertEqual(90.0, snapshot.values["working_capital"])
+
 
 if __name__ == "__main__":
     unittest.main()

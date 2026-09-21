@@ -46,6 +46,10 @@ class DecisionAgent(BaseAgent):
         RegulatoryContractEventType.INVESTIGATION,
         RegulatoryContractEventType.SANCTION,
         RegulatoryContractEventType.LICENSE_CHANGE,
+        RegulatoryContractEventType.EARNINGS_MISS,
+        RegulatoryContractEventType.GUIDANCE_CUT,
+        RegulatoryContractEventType.DIVIDEND_CUT,
+        RegulatoryContractEventType.CAPITAL_RAISE,
     }
     ACTIVE_REGULATORY_STATUSES = {
         RegulatoryEventStatus.ANNOUNCED,

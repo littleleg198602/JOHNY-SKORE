@@ -1431,6 +1431,16 @@ def _render_agent_audit(result: dict[str, object]) -> None:
                         "hodnota": item.event_value,
                         "měna": item.currency,
                         "datum_zveřejnění": item.published_at.isoformat(),
+                        "důvěra_pct": round(float(item.confidence) * 100.0, 1),
+                        "obsah_ověřen": bool(
+                            isinstance(item.metadata, dict)
+                            and item.metadata.get("source_content_support_detected")
+                        ),
+                        "metoda_nálezu": (
+                            item.metadata.get("discovery_method")
+                            if isinstance(item.metadata, dict)
+                            else None
+                        ),
                         "zdroj": item.source_url,
                     }
                     for item in regulatory_execution.result.regulatory_contract_events
@@ -1439,6 +1449,47 @@ def _render_agent_audit(result: dict[str, object]) -> None:
             width="stretch",
             hide_index=True,
         )
+    agent_feature_snapshots = result.get("agent_feature_snapshots", {})
+    if isinstance(agent_feature_snapshots, dict) and agent_feature_snapshots:
+        feature_rows = []
+        for ticker, snapshot in agent_feature_snapshots.items():
+            if not isinstance(snapshot, dict):
+                continue
+            regulatory = snapshot.get("regulatory", {})
+            governance = snapshot.get("governance", {})
+            forensics = snapshot.get("forensics", {})
+            claims = snapshot.get("claims", {})
+            if not any(
+                int(section.get(key, 0) or 0)
+                for section, key in (
+                    (regulatory, "event_count"),
+                    (governance, "event_count"),
+                    (forensics, "evidence_count"),
+                    (claims, "claim_count"),
+                )
+                if isinstance(section, dict)
+            ):
+                continue
+            feature_rows.append(
+                {
+                    "ticker": ticker,
+                    "regulační_události": regulatory.get("event_count", 0),
+                    "ověřené_události": regulatory.get("verified_event_count", 0),
+                    "event_score": regulatory.get("signed_event_score", 0.0),
+                    "governance_rizika": governance.get("risk_event_count", 0),
+                    "forenzní_risk": forensics.get("risk_score", 0.0),
+                    "potvrzené_claims": claims.get("corroborated_count", 0),
+                }
+            )
+        if feature_rows:
+            st.markdown("#### Agentní proměnné uložené pro shadow model")
+            st.dataframe(
+                pd.DataFrame(feature_rows).sort_values(
+                    ["forenzní_risk", "ticker"], ascending=[False, True]
+                ),
+                width="stretch",
+                hide_index=True,
+            )
     if not stage3_executions:
         st.info("Agenti Etapy 3 nebyli v tomto běhu zapnutí.")
 
@@ -1731,7 +1782,8 @@ with st.sidebar:
         value=agent_runtime_settings.regulatory_contract_enabled,
         help=(
             "Povolené typy zahrnují CONTRACT_AWARD, CONTRACT_LOSS, "
-            "REGULATORY_APPROVAL, INVESTIGATION, SANCTION, LICENSE_CHANGE a GRANT. "
+            "REGULATORY_APPROVAL, INVESTIGATION, SANCTION, LICENSE_CHANGE, GRANT, "
+            "výsledky, guidance, buyback, dividendy, M&A, financování a změny vedení. "
             "Událost sama nevytváří BUY, SELL ani veto."
         ),
     )
@@ -2300,7 +2352,11 @@ if run_analysis:
         path = output_dir / f"market_checker_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
         dashboard_export = VisualizationService.prepare_dashboard_export_payload(result["signals"], ranking_tables, dashboard_tables)
         try:
-            ExcelExporter().export(path, result["signals"], result["sources"], result["articles"], dashboard_tables, prepare_delta_for_excel(delta_df), dashboard_export)
+            ExcelExporter().export(
+                path, result["signals"], result["sources"], result["articles"],
+                dashboard_tables, prepare_delta_for_excel(delta_df), dashboard_export,
+                pd.DataFrame(result.get("open_position_audit_rows", [])),
+            )
             st.success(f"Excel export uložen: {path}")
             if result.get("run_id"):
                 store.update_run_excel_path(int(result["run_id"]), str(path))
@@ -2332,6 +2388,44 @@ if st.session_state.last_result:
                     st.write(f"{title}: {report.get('status', 'NEZNÁMÝ')}")
                     if report.get("reason"):
                         st.caption(str(report["reason"]))
+                    backtest = report.get("cost_aware_portfolio_backtest")
+                    if isinstance(backtest, dict):
+                        base = backtest.get("scenarios", {}).get("1.0x", {})
+                        candidate = (
+                            base.get("candidate", {})
+                            if isinstance(base, dict)
+                            else {}
+                        )
+                        if isinstance(candidate, dict):
+                            metrics = st.columns(5)
+                            metrics[0].metric(
+                                "Net excess",
+                                f"{100 * float(candidate.get('cumulative_net_excess_return') or 0.0):.2f}%",
+                            )
+                            metrics[1].metric(
+                                "Max drawdown",
+                                f"{100 * float(candidate.get('maximum_drawdown') or 0.0):.2f}%",
+                            )
+                            metrics[2].metric(
+                                "Sharpe",
+                                "n/a"
+                                if candidate.get("sharpe") is None
+                                else f"{float(candidate['sharpe']):.2f}",
+                            )
+                            metrics[3].metric(
+                                "Turnover",
+                                "n/a"
+                                if candidate.get("mean_turnover") is None
+                                else f"{100 * float(candidate['mean_turnover']):.1f}%",
+                            )
+                            metrics[4].metric(
+                                "Aktivní týdny",
+                                int(candidate.get("active_week_count") or 0),
+                            )
+                            st.caption(
+                                "Shadow top-N simulace po odhadu spreadu/slippage; "
+                                "nejde o automatické obchodování."
+                            )
                     with st.expander(f"Podrobnosti: {title}"):
                         st.json(report)
             st.caption("INSUFFICIENT_DATA znamená chybějící podklady nebo historii. Přínos predikce zatím není prokázán.")
@@ -2346,6 +2440,7 @@ if st.session_state.last_result:
         tab_history,
         tab_predictions,
         tab_ranking,
+        tab_open_positions,
         tab_agent_audit,
     ) = st.tabs(
         [
@@ -2358,6 +2453,7 @@ if st.session_state.last_result:
             "History",
             "Predikce",
             "Ranking",
+            "Otevřené pozice",
             "Agent audit",
         ]
     )
@@ -2592,6 +2688,41 @@ if st.session_state.last_result:
                     continue
                 st.write(name)
                 st.dataframe(frame, width="stretch")
+
+    with tab_open_positions:
+        audit = summary.get("open_position_audit", {}) if isinstance(summary, dict) else {}
+        st.subheader("Read-only audit otevřených MT5 pozic")
+        st.caption(
+            "Načítá pouze aktuální pozice a porovnává je s tímto během analýzy. "
+            "Nevytváří ani nemění žádný obchodní příkaz."
+        )
+        if isinstance(audit, dict) and audit.get("status") in {"UNAVAILABLE", "FAILED"}:
+            st.warning(str(audit.get("reason") or summary.get("open_position_audit_error") or "Audit není dostupný."))
+        elif isinstance(audit, dict) and audit.get("status") == "NO_OPEN_POSITIONS":
+            st.info("MT5 nevrátil žádné otevřené pozice.")
+        else:
+            rows = result.get("open_position_audit_rows", [])
+            audit_frame = pd.DataFrame(rows) if isinstance(rows, list) else pd.DataFrame()
+            if audit_frame.empty:
+                st.info("V tomto běhu zatím nejsou auditní řádky.")
+            else:
+                for status, label in (("REVIEW", "K revizi"), ("ATTENTION", "Pozornost"), ("MONITOR", "Sledovat")):
+                    st.metric(label, int((audit_frame.get("audit_status") == status).sum()))
+                display = audit_frame.copy()
+                if "audit_reasons" in display.columns:
+                    display["audit_reasons"] = display["audit_reasons"].map(
+                        lambda value: "; ".join(value) if isinstance(value, list) else value
+                    )
+                _show_limited_dataframe(
+                    display,
+                    "Aktuálně otevřené pozice a důvody auditu",
+                    preferred_cols=[
+                        "position_ticket", "ticker", "side", "volume", "profit",
+                        "price_change_pct", "audit_status", "audit_reasons", "action",
+                        "forecast", "risk_score", "data_quality_score", "status_changed",
+                    ],
+                    rows=1000,
+                )
 
     with tab_agent_audit:
         _render_agent_audit(result)

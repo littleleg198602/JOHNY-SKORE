@@ -574,7 +574,7 @@ analytickou stopu pro pozdější OOS vyhodnocení.
 
 - `momentum_relative_baseline v1` je pevný, čitelný baseline z 20/60denního
   absolutního a relativního momenta.
-- `pit_logistic_regression v1` se smí trénovat jen z již uzavřených
+- `pit_logistic_regression v3` se smí trénovat jen z již uzavřených
   point-in-time snapshotů se stejnou target verzí. Snapshot i jeho label musí
   předcházet `as_of` predikce; imputace i škálování se fitují pouze na tréninku.
 - Při méně než 200 uzavřených vzorcích, chybějící třídě nebo variabilitě vrátí
@@ -589,7 +589,7 @@ predikce do `candidate_model_predictions`.
 ## Walk-forward vyhodnocení kandidáta
 
 Weekly JSON navíc nese `candidate_model_walk_forward`: samostatný report
-`candidate_walk_forward_evaluation_v1` pro stejnou target verzi, momentum
+`candidate_walk_forward_evaluation_v2` pro stejnou target verzi, momentum
 baseline a logistického kandidáta. Pro každý historický prediction týden se
 kandidát znovu trénuje jen z labelů dostupných před jeho `as_of`; stejný ticker
 se nevyhodnocuje přes překrývající se label horizont.
@@ -601,3 +601,26 @@ nezávislé vzorky. Dokud není nejméně 200 vzorků a 12 týdnů, stav zůstá
 `INSUFFICIENT_DATA`; dílčí metriky ani případně horší kandidát se nemažou.
 Výsledek je ukládán do `candidate_model_evaluations`, je výhradně analytický a
 nikdy nemění ranking, rozhodnutí ani obchodní exekuci.
+
+## PDF feature balík v3 a funkční agentní discovery
+
+Point-in-time snapshot nově ukládá verzovaný `market_factors_v3` s datovým
+kontraktem, explicitními null hodnotami a bez forward-fill. Vedle původního
+momenta obsahuje vzdálenosti od SMA/EMA, 52týdenní maximum, overnight a
+intraday gap, volume z-score, dollar ADV, Amihud likviditu, downside/EWMA,
+Parkinsonovu a Garman–Klass volatilitu, ATR/cenu, beta a idiosynkratickou
+volatilitu. SEC `sec_fundamentals_pit_v3` přidává FCF margin, cash conversion,
+accruals/assets, capex/revenue, R&D/revenue, interest coverage, current ratio a
+working capital se stejnou konzervativní filing-date dostupností.
+
+Kandidátní model používá cost hurdle 20 bps. Walk-forward report obsahuje
+analysis-only top-N simulaci s nákladovým stresem 0,5×/1×/2×, čistým excess
+returnem, drawdownem, Sharpe, Sortino, Calmar a turnoverem.
+
+Automatická agentní discovery je férově rozdělená napříč tickery a rozpoznává
+také earnings beat/miss, zvýšení/snížení guidance, buyback, změny dividend,
+M&A, kapitálové a dluhové financování a změny CEO/CFO. Následně se pokusí
+načíst veřejný obsah zdroje, zachová confidence a provenance a vytvoří
+`agent_evidence_features_v1`. Tyto features vstupují pouze do shadow modelu;
+hlavní signál se nezmění bez prokázaného OOS přínosu a v projektu nadále není
+žádná cesta k automatickému obchodování.

@@ -5,7 +5,10 @@ from collections.abc import Mapping
 import json
 import pandas as pd
 
-from market_checker_app.services.candidate_model_service import FEATURE_PATHS, _nested_value
+from market_checker_app.services.candidate_model_service import (
+    CORE_MARKET_FEATURE_PATHS,
+    _nested_value,
+)
 from market_checker_app.services.candidate_model_evaluation_service import evaluate_candidate_walk_forward, summarize_candidate_samples
 from market_checker_app.services.sec_fundamental_feature_service import SEC_FUNDAMENTAL_FEATURE_VERSION
 
@@ -37,7 +40,10 @@ def evaluate_layer_ablation(snapshots: pd.DataFrame, **evaluation_options: objec
                 continue
             if layer == "news" and not payload.get("news", {}).get("news_count_total", 0):
                 continue
-            if all(_nested_value(payload, path) is not None for path in (*FEATURE_PATHS, *extra_paths)):
+            if all(
+                _nested_value(payload, path) is not None
+                for path in (*CORE_MARKET_FEATURE_PATHS, *extra_paths)
+            ):
                 eligible.append(row)
         frame = pd.DataFrame(eligible)
         if frame.empty:
@@ -45,7 +51,8 @@ def evaluate_layer_ablation(snapshots: pd.DataFrame, **evaluation_options: objec
             continue
         baseline = evaluate_candidate_walk_forward(frame, **evaluation_options)
         augmented = evaluate_candidate_walk_forward(
-            frame, feature_paths=(*FEATURE_PATHS, *extra_paths),
+            frame,
+            feature_paths=(*CORE_MARKET_FEATURE_PATHS, *extra_paths),
             feature_variant="market_plus_" + layer, **evaluation_options,
         )
         base_predictions = {row["snapshot_id"]: row for row in baseline["samples"]}

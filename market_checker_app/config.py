@@ -584,7 +584,10 @@ class RegulatoryContractConfig:
     enabled: bool = False
     sources: tuple[RegulatoryContractSourceConfig, ...] = ()
     auto_discover_from_news: bool = True
-    max_auto_discovered_events: int = 20
+    # This is a universe-wide safety cap.  Twenty records caused a 687-ticker
+    # run to stop after the first few alphabetically sorted symbols, so the
+    # default must be large enough for fair discovery while still bounded.
+    max_auto_discovered_events: int = 1_000
     source_verification: Stage3SourceVerificationConfig = field(
         default_factory=Stage3SourceVerificationConfig
     )

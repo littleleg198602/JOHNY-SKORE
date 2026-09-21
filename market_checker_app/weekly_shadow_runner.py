@@ -10,6 +10,8 @@ import platform
 import tempfile
 from typing import Sequence
 
+import pandas as pd
+
 from market_checker_app.config import (
     AppConfig,
     ClaimVerificationConfig,
@@ -884,6 +886,60 @@ def finalize_analysis_run(
             "decision_modified": False,
             "activation_allowed": False,
         }
+    open_position_audit_error: str | None = None
+    open_position_audit_report: dict[str, object]
+    try:
+        from market_checker_app.collectors.mt5_client import MT5Client
+        from market_checker_app.services.open_position_audit_service import (
+            build_open_position_audit,
+        )
+
+        positions, position_read_error = MT5Client().load_open_positions()
+        metadata = result.get("metadata")
+        audit_observed_at = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+        signals = result.get("signals")
+        if not isinstance(signals, pd.DataFrame):
+            raise TypeError("výsledné signály nemají tabulkový formát")
+        if position_read_error:
+            open_position_audit_error = position_read_error
+            open_position_audit_report = {
+                "status": "UNAVAILABLE",
+                "reason": position_read_error,
+                "observed_at": audit_observed_at.isoformat(),
+                "analysis_only": True,
+                "automated_trading": {"enabled": False, "execution_path": "absent"},
+                "positions": [],
+            }
+        else:
+            run_id_for_audit = result.get("run_id")
+            previous_audits = (
+                store.read_latest_open_position_audits_before(int(run_id_for_audit))
+                if run_id_for_audit is not None else pd.DataFrame()
+            )
+            open_position_audit_report = build_open_position_audit(
+                positions,
+                signals,
+                previous_audits,
+                observed_at=audit_observed_at,
+            )
+            if run_id_for_audit is not None:
+                open_position_audit_report["persisted_count"] = store.save_open_position_audits(
+                    int(run_id_for_audit),
+                    list(open_position_audit_report["positions"]),
+                    observed_at=str(open_position_audit_report["observed_at"]),
+                )
+    except Exception as exc:
+        open_position_audit_error = f"audit otevřených pozic selhal: {type(exc).__name__}: {exc}"
+        open_position_audit_report = {
+            "status": "FAILED",
+            "reason": "OPEN_POSITION_AUDIT_RUNTIME_ERROR",
+            "observed_at": datetime.now(timezone.utc).isoformat(),
+            "analysis_only": True,
+            "automated_trading": {"enabled": False, "execution_path": "absent"},
+            "positions": [],
+        }
+    result["open_position_audit"] = open_position_audit_report
+    result["open_position_audit_rows"] = open_position_audit_report.get("positions", [])
     readiness = _readiness_summary(result, config)
     snapshot_records: list[dict[str, object]] = []
     snapshot_error: str | None = None
@@ -1098,6 +1154,8 @@ def finalize_analysis_run(
         "candidate_model_walk_forward_error": candidate_evaluation_error,
         "counterparty_health": _json_safe(counterparty_health_report),
         "counterparty_health_error": counterparty_health_error,
+        "open_position_audit": _json_safe(open_position_audit_report),
+        "open_position_audit_error": open_position_audit_error,
         "macro_sector_regime": _json_safe(macro_report),
         "macro_sector_regime_error": macro_error,
         "prediction_label_resolution": label_resolution,
