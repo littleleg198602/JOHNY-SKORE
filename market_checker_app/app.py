@@ -51,6 +51,7 @@ from market_checker_app.services.company_intelligence_manifest_service import (
 from market_checker_app.services.agent_runtime_service import (
     AgentRuntimeService,
     AgentRuntimeSettings,
+    quarantine_invalid_manifest_lines,
 )
 from market_checker_app.services.evaluation_service import EvaluationService
 from market_checker_app.services.history_service import HistoryService
@@ -2013,36 +2014,66 @@ config = AppConfig(
 config.ensure_output_dir()
 
 if run_analysis or save_agent_settings:
+    safe_identity_records_text = quarantine_invalid_manifest_lines(
+        identity_records_text, identity_record_errors
+    )
+    safe_european_filing_sources_text = quarantine_invalid_manifest_lines(
+        european_filing_sources_text, european_filing_source_errors
+    )
+    safe_european_filing_feeds_text = quarantine_invalid_manifest_lines(
+        european_filing_feeds_text, european_filing_feed_errors
+    )
+    safe_european_allowed_hosts_text = quarantine_invalid_manifest_lines(
+        european_allowed_hosts_text, european_allowed_host_errors
+    )
+    safe_short_report_sources_text = quarantine_invalid_manifest_lines(
+        short_report_sources_text, short_report_source_errors
+    )
+    safe_supply_chain_sources_text = quarantine_invalid_manifest_lines(
+        supply_chain_sources_text, supply_chain_source_errors
+    )
+    safe_counterparty_health_sources_text = quarantine_invalid_manifest_lines(
+        counterparty_health_sources_text, counterparty_errors
+    )
+    safe_commodity_energy_sources_text = quarantine_invalid_manifest_lines(
+        commodity_energy_sources_text, commodity_energy_source_errors
+    )
+    safe_macro_observations_text = quarantine_invalid_manifest_lines(
+        macro_observations_text, macro_errors
+    )
+    safe_regulatory_contract_sources_text = quarantine_invalid_manifest_lines(
+        regulatory_contract_sources_text, regulatory_contract_source_errors
+    )
     try:
         agent_runtime_service.save(
             AgentRuntimeSettings(
                 stage4_shadow_enabled=use_stage4_shadow,
-                identity_records_text=identity_records_text,
+                identity_records_text=safe_identity_records_text,
                 sec_fundamentals_enabled=use_sec_fundamentals,
                 european_filings_enabled=use_european_filings,
-                european_filing_sources_text=european_filing_sources_text,
-                european_filing_feeds_text=european_filing_feeds_text,
-                european_allowed_hosts_text=european_allowed_hosts_text,
+                european_filing_sources_text=safe_european_filing_sources_text,
+                european_filing_feeds_text=safe_european_filing_feeds_text,
+                european_allowed_hosts_text=safe_european_allowed_hosts_text,
                 financial_forensics_enabled=use_financial_forensics,
                 short_reports_enabled=use_short_reports,
                 auto_discover_short_reports=auto_discover_short_reports,
                 verify_short_report_claims=verify_short_report_claims,
-                short_report_sources_text=short_report_sources_text,
+                short_report_sources_text=safe_short_report_sources_text,
                 supply_chain_enabled=use_supply_chain,
                 auto_discover_supply_chain_from_sec=(
                     auto_discover_supply_chain_from_sec
                 ),
-                supply_chain_sources_text=supply_chain_sources_text,
-                counterparty_health_sources_text=counterparty_health_sources_text,
+                supply_chain_sources_text=safe_supply_chain_sources_text,
+                counterparty_health_sources_text=safe_counterparty_health_sources_text,
                 commodity_energy_enabled=use_commodity_energy,
                 auto_discover_commodity_energy_from_sec=(
                     auto_discover_commodity_energy_from_sec
                 ),
-                commodity_energy_sources_text=commodity_energy_sources_text,
-                macro_observations_text=macro_observations_text,
+                commodity_energy_sources_text=safe_commodity_energy_sources_text,
+                macro_observations_text=safe_macro_observations_text,
                 regulatory_contract_enabled=use_regulatory_contract,
                 auto_discover_regulatory_events=auto_discover_regulatory_events,
-                regulatory_contract_sources_text=regulatory_contract_sources_text,
+                regulatory_contract_sources_text=safe_regulatory_contract_sources_text,
             )
         )
         if save_agent_settings and not run_analysis:
@@ -2061,7 +2092,10 @@ _render_latest_live_source_smoke(output_dir)
 for short_report_error in short_report_source_errors:
     st.warning(short_report_error)
 for company_intelligence_manifest_error in company_intelligence_manifest_errors:
-    st.warning(company_intelligence_manifest_error)
+    st.warning(
+        f"{company_intelligence_manifest_error} Neplatný ruční záznam je "
+        "bezpečně vyřazen; hlavní analýza může pokračovat."
+    )
 if use_short_reports and not short_report_sources and not auto_discover_short_reports:
     st.warning(
         "ShortReportAgent je zapnutý, ale nemá žádný platný řádek se zdrojem; "
@@ -2276,11 +2310,11 @@ if run_analysis and not watchlist:
     run_analysis = False
 
 if run_analysis and company_intelligence_manifest_errors:
-    st.error(
-        "Analýza nebyla spuštěna: Company Intelligence konfigurace neprošla "
-        "fail-closed kontrolou. Opravte výše uvedené řádky."
+    st.warning(
+        "Company Intelligence obsahuje neplatné nebo neúplné ruční záznamy. "
+        "Tyto záznamy byly umístěny do karantény a nebudou použity; hlavní "
+        "analýza a dostupné automatické zdroje pokračují."
     )
-    run_analysis = False
 
 if run_analysis:
     pipeline = PipelineService(config)

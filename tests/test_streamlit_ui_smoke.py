@@ -9,6 +9,43 @@ from streamlit.testing.v1 import AppTest
 
 
 class StreamlitUISmokeTests(unittest.TestCase):
+    def test_invalid_optional_manifest_is_quarantined_without_blocking_analysis(self) -> None:
+        from tests.test_runtime_integration import _FakeYahooClient
+        from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings
+
+        app_path = Path(__file__).resolve().parents[1] / "market_checker_app" / "app.py"
+        settings = AgentRuntimeSettings(macro_observations_text="BROKEN OPTIONAL ROW")
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("market_checker_app.services.pipeline_service.YahooClient", return_value=_FakeYahooClient()), \
+             patch("market_checker_app.services.agent_runtime_service.AgentRuntimeService.load", return_value=(settings, None)), \
+             patch("market_checker_app.services.agent_runtime_service.AgentRuntimeService.save"), \
+             patch("socket.socket.connect", side_effect=AssertionError("UI test attempted live network")):
+            app = AppTest.from_file(str(app_path)).run(timeout=30)
+            for field in app.text_input:
+                if field.label == "DB soubor":
+                    field.set_value(str(Path(directory) / "history.db"))
+                if field.label == "Output directory":
+                    field.set_value(directory)
+            for field in app.checkbox:
+                if field.label in {"Export do Excelu", "Použít RSS zprávy"} or "MT5" in field.label:
+                    field.uncheck()
+            next(
+                field
+                for field in app.text_area
+                if field.label == "Ruční watchlist (jeden ticker na řádek)"
+            ).set_value("AAPL")
+            next(
+                button for button in app.button if button.label == "Spustit analýzu"
+            ).click()
+            app.run(timeout=30)
+
+        self.assertEqual([], list(app.exception))
+        self.assertIsNotNone(app.session_state["last_result"])
+        errors = "\n".join(str(element.value) for element in app.error)
+        warnings = "\n".join(str(element.value) for element in app.warning)
+        self.assertNotIn("Analýza nebyla spuštěna", errors)
+        self.assertIn("karantény", warnings)
+
     def test_analysis_button_persists_and_displays_shared_reports(self) -> None:
         from tests.test_runtime_integration import _FakeYahooClient
         from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings

@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import re
 import tempfile
 from typing import Any
 
@@ -14,6 +15,32 @@ from market_checker_app.config import DEFAULT_OUTPUT_DIR
 RUNTIME_CONFIG_ENV = "JOHNY_SKORE_AGENT_RUNTIME_CONFIG"
 DEFAULT_RUNTIME_CONFIG_PATH = DEFAULT_OUTPUT_DIR / "agent_runtime.json"
 MAX_SOURCE_TEXT_CHARACTERS = 2_000_000
+_MANIFEST_LINE_ERROR = re.compile(r"\břádek\s+(\d+)\b", re.IGNORECASE)
+
+
+def quarantine_invalid_manifest_lines(value: str, errors: list[str]) -> str:
+    """Remove parser-rejected rows before persisting an optional manifest.
+
+    Manifest parsers report one-based line numbers.  Keeping the original text
+    in the Streamlit widget lets the operator see and correct it during the
+    current render, while the durable unattended configuration receives only
+    rows that were not rejected.  If an error has no identifiable line number,
+    fail closed for that manifest and persist no rows at all.
+    """
+
+    if not errors:
+        return str(value or "")
+    rejected: set[int] = set()
+    for error in errors:
+        match = _MANIFEST_LINE_ERROR.search(str(error))
+        if match is None:
+            return ""
+        rejected.add(int(match.group(1)))
+    return "\n".join(
+        line
+        for line_number, line in enumerate(str(value or "").splitlines(), start=1)
+        if line_number not in rejected
+    )
 
 
 @dataclass(slots=True)
