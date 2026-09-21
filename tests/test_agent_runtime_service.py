@@ -8,10 +8,32 @@ import unittest
 from market_checker_app.services.agent_runtime_service import (
     AgentRuntimeService,
     AgentRuntimeSettings,
+    quarantine_invalid_manifest_lines,
 )
 
 
 class AgentRuntimeServiceTests(unittest.TestCase):
+    def test_invalid_manifest_rows_are_quarantined_before_persistence(self) -> None:
+        value = "# keep comment\nAAPL | valid\nMSFT | broken\nNVDA | valid"
+        cleaned = quarantine_invalid_manifest_lines(
+            value,
+            ["Regulace/kontrakty řádek 3: zdroj musí být HTTPS URL."],
+        )
+
+        self.assertEqual(
+            "# keep comment\nAAPL | valid\nNVDA | valid",
+            cleaned,
+        )
+
+    def test_unscoped_manifest_error_quarantines_entire_manifest(self) -> None:
+        self.assertEqual(
+            "",
+            quarantine_invalid_manifest_lines(
+                "AAPL | otherwise valid",
+                ["Manifest nelze bezpečně načíst."],
+            ),
+        )
+
     def test_missing_file_uses_safe_stage4_shadow_default(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             settings, warning = AgentRuntimeService(
