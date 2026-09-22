@@ -32,9 +32,6 @@ from market_checker_app.services.agent_runtime_service import (
     AgentRuntimeSettings,
 )
 from market_checker_app.services.company_intelligence_manifest_service import (
-    parse_european_allowed_hosts,
-    parse_european_filing_feeds,
-    parse_european_filing_sources,
     parse_identity_records,
 )
 from market_checker_app.services.short_report_manifest_service import (
@@ -49,8 +46,10 @@ from market_checker_app.services.watchlist_service import (
     WatchlistError,
     load_watchlist,
     normalize_watchlist,
+    restrict_to_universe,
     select_watchlist_pilot,
 )
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.models import AnalysisProgressState
 from market_checker_app.prediction_contract import build_point_in_time_snapshot
@@ -117,15 +116,12 @@ def _validated_sources(
     identity_records, identity_errors = parse_identity_records(
         settings.identity_records_text
     )
-    european_filings, european_filing_errors = parse_european_filing_sources(
-        settings.european_filing_sources_text
-    )
-    european_feeds, european_feed_errors = parse_european_filing_feeds(
-        settings.european_filing_feeds_text
-    )
-    european_allowed_hosts, european_host_errors = parse_european_allowed_hosts(
-        settings.european_allowed_hosts_text
-    )
+    # Operational scope is deliberately US-only.  Legacy European manifest
+    # fields remain readable for backward compatibility, but are dormant and
+    # cannot register a network agent in the 687-equity production runner.
+    european_filings: tuple[object, ...] = ()
+    european_feeds: tuple[object, ...] = ()
+    european_allowed_hosts: tuple[str, ...] = ()
     short_reports, short_errors = parse_short_report_sources(
         settings.short_report_sources_text
     )
@@ -140,9 +136,6 @@ def _validated_sources(
     )
     errors = (
         identity_errors
-        + european_filing_errors
-        + european_feed_errors
-        + european_host_errors
         + short_errors
         + supply_errors
         + commodity_errors
@@ -172,20 +165,7 @@ def _validated_sources(
         raise RuntimeConfigurationError(
             "CommodityEnergyAgent je zapnutý, ale trvalá konfigurace neobsahuje platný zdroj."
         )
-    if settings.european_filings_enabled and not (
-        european_filings or european_feeds
-    ):
-        raise RuntimeConfigurationError(
-            "EuropeanFilingsAgent je zapnutý, ale trvalá konfigurace neobsahuje dokument ani feed."
-        )
-    identity_required_tickers = (
-        {
-            str(getattr(source, "ticker", "")).strip().upper()
-            for source in european_filings + european_feeds
-        }
-        if settings.european_filings_enabled
-        else set()
-    )
+    identity_required_tickers: set[str] = set()
     identity_required_tickers.update(
         str(getattr(source, "ticker", "")).strip().upper()
         for source in regulatory_contract
@@ -256,10 +236,10 @@ def build_runtime_config(
             user_agent=sec_user_agent.strip(),
         ),
         european_filings=EuropeanFilingConfig(
-            enabled=settings.european_filings_enabled,
-            sources=european_filings,
-            feeds=european_feeds,
-            allowed_local_exchange_hosts=european_allowed_hosts,
+            enabled=False,
+            sources=(),
+            feeds=(),
+            allowed_local_exchange_hosts=(),
         ),
         financial_forensics=FinancialForensicsConfig(
             enabled=(
@@ -397,8 +377,6 @@ def _tickers(
 def _required_runtime_tickers(config: AppConfig) -> list[str]:
     sources = (
         tuple(config.short_reports.sources)
-        + tuple(config.european_filings.sources)
-        + tuple(config.european_filings.feeds)
         + tuple(config.supply_chain.sources)
         + tuple(config.commodity_energy.sources)
         + tuple(config.regulatory_contract.sources)
@@ -1127,6 +1105,8 @@ def finalize_analysis_run(
     universe_coverage.update(traceability_summary)
     summary: dict[str, object] = {
         "schema_version": 2,
+        "market_scope": "US_EQUITY_687",
+        "agent_scope": "REQUESTED_SUBSET_OF_US_EQUITY_687",
         "finished_at": datetime.now(timezone.utc).isoformat(),
         "run_id": result.get("run_id"),
         "ticker_count": len(tickers),
@@ -1423,6 +1403,14 @@ def main() -> None:
             ticker_file=args.ticker_file,
             ticker_limit=args.ticker_limit,
         )
+        tickers, outside_us_universe = restrict_to_universe(
+            tickers, load_canonical_tickers()
+        )
+        if outside_us_universe:
+            raise WatchlistError(
+                "Týdenní US-687 běh odmítl tickery mimo produkční universe: "
+                + ", ".join(outside_us_universe)
+            )
         summary = run_weekly_shadow(
             config=config,
             tickers=tickers,

@@ -47,13 +47,17 @@ Stačí na něj dvakrát kliknout. Skript:
 
 ### Oficiální tickerový universe NEW ANALYZER
 
+- Produkční provozní scope je **US_EQUITY_687**. Evropské filingy a evropské
+  burzovní feedy jsou v UI i týdenním runneru vypnuté; firemní regulatorní data
+  se pro tento universe načítají přes SEC.
 - Kanonický seznam obsahuje přesně **687 unikátních tickerů** z exportu
   `market_checker_20260818_213623.xlsx`.
 - Reprodukovatelná kopie je v
   `market_checker_app/data/market_checker_687_tickers.csv`; validuje se přes
   `market_checker_app/utils/ticker_universe.py`.
-- Streamlit UI jej použije automaticky, pokud není nahrán vlastní Excel a není
-  zadán ruční watchlist. Vlastní Excel nebo ruční watchlist má přednost.
+- Streamlit UI jej použije automaticky. Vlastní Excel, MT5 nebo ruční watchlist
+  může zvolit pouze podvýběr z těchto 687 tickerů; symboly mimo scope se
+  viditelně vyřadí a nepředají se agentům.
 - Weekly shadow runner používá tento seznam jako výchozí zdroj, pokud nebyly
   zadány explicitní `--tickers`. SQLite historie je pouze kompatibilní fallback
   pro starší checkout bez kanonického CSV.
@@ -104,6 +108,8 @@ Pilotní limit lze použít pouze vědomě při ručním spuštění runneru, na
 Pipeline v2.1 po výpočtu predikcí automaticky spustí auditní agentní vrstvu:
 
 - `OrchestratorAgent` hlídá pořadí závislostí, stav a dobu běhu každého agenta,
+- všechny discovery kanály, ruční manifesty a agentní výstupy jsou omezené na
+  aktuální podvýběr z `US_EQUITY_687`; ticker mimo běh se neuloží jako evidence,
 - `EntityRegistryAgent` sjednocuje tickery a aliasy (např. `BRK.B` → Yahoo
   `BRK-B`), odděluje právní entitu, emitenta a obchodovaný instrument a
   fail-closed validuje CIK/ISIN/LEI,

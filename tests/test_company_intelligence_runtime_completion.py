@@ -123,7 +123,7 @@ class RuntimeManifestTests(unittest.TestCase):
             european_filing_sources_text=filing,
         )
 
-    def test_weekly_runtime_wires_identity_and_european_filings(self) -> None:
+    def test_weekly_us_runtime_keeps_legacy_european_settings_dormant(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             config = build_runtime_config(
@@ -134,23 +134,22 @@ class RuntimeManifestTests(unittest.TestCase):
             )
 
         self.assertIn("TEST", config.entity_registry.identity_records)
-        self.assertTrue(config.european_filings.enabled)
-        self.assertEqual(1, len(config.european_filings.sources))
-        self.assertEqual(TEST_LEI, config.european_filings.sources[0].lei)
+        self.assertFalse(config.european_filings.enabled)
+        self.assertEqual((), config.european_filings.sources)
+        self.assertEqual((), config.european_filings.feeds)
 
-    def test_identity_dependent_runtime_fails_before_network_without_identity(self) -> None:
+    def test_dormant_european_runtime_does_not_require_european_identity(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            with self.assertRaisesRegex(
-                RuntimeConfigurationError,
-                "Identity manifest.*TEST",
-            ):
-                build_runtime_config(
-                    self._settings(include_identity=False),
-                    output_dir=root,
-                    sqlite_path=root / "history.db",
-                    sec_user_agent="",
-                )
+            config = build_runtime_config(
+                self._settings(include_identity=False),
+                output_dir=root,
+                sqlite_path=root / "history.db",
+                sec_user_agent="",
+            )
+
+        self.assertFalse(config.european_filings.enabled)
+        self.assertEqual({}, config.entity_registry.identity_records)
 
     def test_quality_gate_rejects_unresolved_identity_when_component_requires_it(self) -> None:
         orchestrator = OrchestratorAgent(shadow_mode=True)

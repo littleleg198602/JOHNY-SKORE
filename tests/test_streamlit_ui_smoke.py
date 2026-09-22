@@ -90,6 +90,10 @@ class StreamlitUISmokeTests(unittest.TestCase):
         self.assertIn("Yahoo tickerů v jedné automatické dávce", number_labels)
         checkbox_labels = [field.label for field in app.checkbox]
         self.assertIn("Načíst SEC výkazy (Etapa 2)", checkbox_labels)
+        self.assertNotIn(
+            "Načíst evropské regulatorní dokumenty (Etapa 5.1)",
+            checkbox_labels,
+        )
         self.assertIn(
             "Spustit finanční forenzní screening (Etapa 2)",
             checkbox_labels,
@@ -141,6 +145,12 @@ class StreamlitUISmokeTests(unittest.TestCase):
         text_labels = [field.label for field in app.text_input]
         self.assertNotIn("SEC User-Agent (aplikace + kontaktní e-mail)", text_labels)
         text_area_labels = [field.label for field in app.text_area]
+        self.assertFalse(
+            any(label.startswith("Evropské filingy:") for label in text_area_labels)
+        )
+        self.assertFalse(
+            any(label.startswith("Evropské feedy:") for label in text_area_labels)
+        )
         self.assertIn(
             "Short reporty: TICKER | vydavatel | datum | HTTPS URL",
             text_area_labels,

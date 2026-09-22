@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
+from collections.abc import Iterable
 import re
 from urllib.parse import urlparse
 
@@ -104,18 +105,28 @@ class SourceDiscoveryService:
         discover_regulatory_events: bool,
         max_short_reports: int = 25,
         max_regulatory_events: int = 100,
+        allowed_tickers: Iterable[str] | None = None,
     ) -> DiscoveredAgentSources:
         short_reports: list[ShortReportSourceConfig] = []
         regulatory_events: list[RegulatoryContractSourceConfig] = []
         seen_short: set[tuple[str, str]] = set()
         seen_regulatory: set[tuple[str, str, str]] = set()
+        allowed = (
+            {
+                normalize_ticker(ticker)
+                for ticker in allowed_tickers
+                if normalize_ticker(ticker)
+            }
+            if allowed_tickers is not None
+            else None
+        )
 
         # Round-robin by ticker prevents a universe-wide limit from silently
         # favouring the first ticker in alphabetical/date order.
         by_ticker: dict[str, list[NewsItem]] = {}
         for item in items:
             ticker = normalize_ticker(item.ticker)
-            if ticker:
+            if ticker and (allowed is None or ticker in allowed):
                 by_ticker.setdefault(ticker, []).append(item)
         for ticker_items in by_ticker.values():
             ticker_items.sort(key=lambda item: (item.published_at, item.url), reverse=True)

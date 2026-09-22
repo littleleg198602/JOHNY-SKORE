@@ -5,11 +5,21 @@ import unittest
 from market_checker_app.services.watchlist_service import (
     WatchlistError,
     normalize_watchlist,
+    restrict_to_universe,
     select_watchlist_pilot,
 )
 
 
 class WatchlistServiceTests(unittest.TestCase):
+    def test_requested_symbols_are_restricted_to_declared_us_universe(self) -> None:
+        included, excluded = restrict_to_universe(
+            ["AAPL", "SAP.DE", "MSFT", "AAPL", "7203.T"],
+            ["AAPL", "MSFT", "NVDA"],
+        )
+
+        self.assertEqual(["AAPL", "MSFT"], included)
+        self.assertEqual(["SAP.DE", "7203.T"], excluded)
+
     def test_comments_are_ignored_and_declared_order_is_preserved(self) -> None:
         self.assertEqual(
             ["NVDA", "AAPL", "BRKB"],

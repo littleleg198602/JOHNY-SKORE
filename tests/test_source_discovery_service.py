@@ -28,6 +28,32 @@ def _item(
 
 
 class SourceDiscoveryServiceTests(unittest.TestCase):
+    def test_agent_discovery_rejects_tickers_outside_explicit_scope(self) -> None:
+        now = datetime.now(timezone.utc)
+        discovered = SourceDiscoveryService().discover(
+            [
+                _item(
+                    ticker="AAPL",
+                    title="AAPL raises guidance",
+                    url="https://example.com/aapl",
+                    published_at=now - timedelta(hours=1),
+                ),
+                _item(
+                    ticker="SAP.DE",
+                    title="SAP raises guidance",
+                    url="https://example.com/sap",
+                    published_at=now - timedelta(hours=1),
+                ),
+            ],
+            as_of=now,
+            discover_short_reports=False,
+            discover_regulatory_events=True,
+            allowed_tickers=["AAPL", "MSFT"],
+        )
+
+        self.assertEqual(1, len(discovered.regulatory_events))
+        self.assertEqual("AAPL", discovered.regulatory_events[0].ticker)
+
     def test_only_direct_known_publisher_report_is_auto_ingested(self) -> None:
         now = datetime.now(timezone.utc)
         discovered = SourceDiscoveryService().discover(

@@ -119,14 +119,24 @@ class PipelineService:
             max_regulatory_events=(
                 self.config.regulatory_contract.max_auto_discovered_events
             ),
+            allowed_tickers=watchlist,
         )
+
+        agent_scope = {
+            str(ticker).strip().upper()
+            for ticker in watchlist
+            if str(ticker).strip()
+        }
 
         def merge_sources(manual: tuple[object, ...], automatic: tuple[object, ...]) -> tuple[object, ...]:
             merged: list[object] = []
             seen: set[tuple[str, str, str]] = set()
             for source in manual + automatic:
+                source_ticker = str(getattr(source, "ticker", "")).strip().upper()
+                if source_ticker not in agent_scope:
+                    continue
                 key = (
-                    str(getattr(source, "ticker", "")).strip().upper(),
+                    source_ticker,
                     str(getattr(source, "url", "")).strip(),
                     str(getattr(source, "published_at", "")),
                 )
@@ -378,6 +388,9 @@ class PipelineService:
         )
         report.metadata.update(
             {
+                "market_scope": "US_EQUITY_687",
+                "agent_scope_tickers": sorted(agent_scope),
+                "agent_scope_size": len(agent_scope),
                 "auto_discovered_short_reports": len(discovered.short_reports),
                 "auto_discovered_regulatory_events": len(discovered.regulatory_events),
             }
