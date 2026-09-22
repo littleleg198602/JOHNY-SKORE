@@ -67,6 +67,37 @@ def load_watchlist(path: Path) -> list[str]:
     return normalize_watchlist(text.splitlines())
 
 
+def restrict_to_universe(
+    requested: Iterable[object],
+    allowed_universe: Iterable[object],
+) -> tuple[list[str], list[str]]:
+    """Keep requested symbols only when they belong to the declared universe.
+
+    The order of ``requested`` is preserved.  Rejected symbols are returned so
+    the UI can make the scope restriction visible instead of silently widening
+    the analytical and agent universe.
+    """
+
+    allowed = {
+        normalize_ticker(value)
+        for value in allowed_universe
+        if normalize_ticker(value)
+    }
+    included: list[str] = []
+    excluded: list[str] = []
+    seen: set[str] = set()
+    for raw in requested:
+        ticker = normalize_ticker(raw)
+        if not ticker or ticker in seen:
+            continue
+        seen.add(ticker)
+        if ticker in allowed:
+            included.append(ticker)
+        else:
+            excluded.append(ticker)
+    return included, excluded
+
+
 def select_watchlist_pilot(
     tickers: Iterable[str],
     limit: int | None,

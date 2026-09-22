@@ -43,9 +43,6 @@ from market_checker_app.exporters.excel_exporter import ExcelExporter
 from market_checker_app.models import AnalysisProgressState
 from market_checker_app.services.comparison_service import ComparisonService
 from market_checker_app.services.company_intelligence_manifest_service import (
-    parse_european_allowed_hosts,
-    parse_european_filing_feeds,
-    parse_european_filing_sources,
     parse_identity_records,
 )
 from market_checker_app.services.agent_runtime_service import (
@@ -65,6 +62,7 @@ from market_checker_app.services.stage3_manifest_service import (
 from market_checker_app.services.short_report_manifest_service import (
     parse_short_report_sources,
 )
+from market_checker_app.services.watchlist_service import restrict_to_universe
 from market_checker_app.services.visualization_service import VisualizationService
 from market_checker_app.services.yahoo_enrichment_service import YahooEnrichmentService
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -1619,35 +1617,10 @@ with st.sidebar:
             "SEC vrstva je pro tento běh vypnutá. Kontaktní identita se nastavuje "
             "jednou v prostředí aplikace; do formuláře se e-mail nezadává."
         )
-    use_european_filings = st.checkbox(
-        "Načíst evropské regulatorní dokumenty (Etapa 5.1)",
-        value=agent_runtime_settings.european_filings_enabled,
-        help=(
-            "Používá pouze přesný LEI/ISIN, schválené autority a bezpečné HTTPS "
-            "dokumenty nebo RSS/Atom feedy."
-        ),
-    )
-    european_filing_sources_text = st.text_area(
-        "Evropské filingy: TICKER | autorita | typ | název | datum | období/- | LEI/- | ISIN/- | audit | ESEF | jazyk/- | canonical key/- | HTTPS URL",
-        value=agent_runtime_settings.european_filing_sources_text,
-        height=110,
-        disabled=not use_european_filings,
-    )
-    european_filing_feeds_text = st.text_area(
-        "Evropské feedy: TICKER | autorita | typ | LEI/- | ISIN/- | audit | ESEF | jazyk/- | max položek | HTTPS feed",
-        value=agent_runtime_settings.european_filing_feeds_text,
-        height=90,
-        disabled=not use_european_filings,
-        help=(
-            "Položka feedu se přijme jen tehdy, když obsahuje přesný LEI nebo ISIN."
-        ),
-    )
-    european_allowed_hosts_text = st.text_area(
-        "Povolené hosty pro ISSUER_IR a LOCAL_EXCHANGE (jeden hostname na řádek)",
-        value=agent_runtime_settings.european_allowed_hosts_text,
-        height=70,
-        disabled=not use_european_filings,
-        placeholder="investor.example.com",
+    st.caption(
+        "Tržní režim: USA / oficiální universe 687 akcií. Firemní výkazy a "
+        "regulatorní dokumenty se načítají přes SEC; evropská filing vrstva "
+        "je v tomto provozním režimu vypnutá."
     )
     use_financial_forensics = st.checkbox(
         "Spustit finanční forenzní screening (Etapa 2)",
@@ -1850,15 +1823,6 @@ sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
 identity_records, identity_record_errors = parse_identity_records(
     identity_records_text
 )
-european_filing_sources, european_filing_source_errors = (
-    parse_european_filing_sources(european_filing_sources_text)
-)
-european_filing_feeds, european_filing_feed_errors = (
-    parse_european_filing_feeds(european_filing_feeds_text)
-)
-european_allowed_hosts, european_allowed_host_errors = (
-    parse_european_allowed_hosts(european_allowed_hosts_text)
-)
 short_report_sources, short_report_source_errors = parse_short_report_sources(
     short_report_sources_text
 )
@@ -1881,29 +1845,12 @@ company_intelligence_manifest_errors = (
     + macro_errors
     + counterparty_errors
     + (
-        european_filing_source_errors
-        + european_filing_feed_errors
-        + european_allowed_host_errors
-        if use_european_filings
-        else []
-    )
-    + (
         regulatory_contract_source_errors
         if use_regulatory_contract or regulatory_contract_sources_text.strip()
         else []
     )
 )
-if use_european_filings and not (
-    european_filing_sources or european_filing_feeds
-):
-    company_intelligence_manifest_errors.append(
-        "EuropeanFilingsAgent je zapnutý, ale nemá platný dokument ani feed."
-    )
-identity_required_tickers = {
-    str(source.ticker).strip().upper()
-    for source in european_filing_sources + european_filing_feeds
-    if use_european_filings and str(source.ticker).strip()
-}
+identity_required_tickers: set[str] = set()
 identity_required_tickers.update(
     str(source.ticker).strip().upper()
     for source in regulatory_contract_sources
@@ -1933,10 +1880,10 @@ config = AppConfig(
         user_agent=sec_user_agent,
     ),
     european_filings=EuropeanFilingConfig(
-        enabled=use_european_filings,
-        sources=european_filing_sources,
-        feeds=european_filing_feeds,
-        allowed_local_exchange_hosts=european_allowed_hosts,
+        enabled=False,
+        sources=(),
+        feeds=(),
+        allowed_local_exchange_hosts=(),
     ),
     financial_forensics=FinancialForensicsConfig(
         enabled=use_sec_fundamentals and use_financial_forensics,
@@ -2017,15 +1964,6 @@ if run_analysis or save_agent_settings:
     safe_identity_records_text = quarantine_invalid_manifest_lines(
         identity_records_text, identity_record_errors
     )
-    safe_european_filing_sources_text = quarantine_invalid_manifest_lines(
-        european_filing_sources_text, european_filing_source_errors
-    )
-    safe_european_filing_feeds_text = quarantine_invalid_manifest_lines(
-        european_filing_feeds_text, european_filing_feed_errors
-    )
-    safe_european_allowed_hosts_text = quarantine_invalid_manifest_lines(
-        european_allowed_hosts_text, european_allowed_host_errors
-    )
     safe_short_report_sources_text = quarantine_invalid_manifest_lines(
         short_report_sources_text, short_report_source_errors
     )
@@ -2050,10 +1988,10 @@ if run_analysis or save_agent_settings:
                 stage4_shadow_enabled=use_stage4_shadow,
                 identity_records_text=safe_identity_records_text,
                 sec_fundamentals_enabled=use_sec_fundamentals,
-                european_filings_enabled=use_european_filings,
-                european_filing_sources_text=safe_european_filing_sources_text,
-                european_filing_feeds_text=safe_european_filing_feeds_text,
-                european_allowed_hosts_text=safe_european_allowed_hosts_text,
+                european_filings_enabled=False,
+                european_filing_sources_text="",
+                european_filing_feeds_text="",
+                european_allowed_hosts_text="",
                 financial_forensics_enabled=use_financial_forensics,
                 short_reports_enabled=use_short_reports,
                 auto_discover_short_reports=auto_discover_short_reports,
@@ -2177,33 +2115,53 @@ except (OSError, ValueError) as exc:
 if canonical_universe_error:
     st.error(canonical_universe_error)
 
+scope_excluded_tickers: list[str] = []
 if excel_mode:
-    watchlist = excel_watchlist
-    yahoo_only_tickers = set(excel_watchlist) if not use_mt5 else set()
+    watchlist, scope_excluded_tickers = restrict_to_universe(
+        excel_watchlist, canonical_watchlist
+    )
+    yahoo_only_tickers = set(watchlist) if not use_mt5 else set()
     active_sources = ["Yahoo"]
     if use_rss:
         active_sources.append("RSS")
     if use_mt5:
         active_sources.append("MT5 technika")
-    st.info(f"Excel režim aktivní. Zdroje: {', '.join(active_sources)}.")
+    st.info(
+        f"Excel podvýběr amerického universe je aktivní. Zdroje: "
+        f"{', '.join(active_sources)}."
+    )
 elif mt5_watchlist:
-    watchlist = mt5_watchlist
+    watchlist, scope_excluded_tickers = restrict_to_universe(
+        mt5_watchlist, canonical_watchlist
+    )
     yahoo_only_tickers = set()
 else:
     watchlist = canonical_watchlist
     yahoo_only_tickers = set(canonical_watchlist) if not use_mt5 else set()
     if watchlist:
         st.info(
-            "Používám oficiální universe 687 tickerů z Market Checker exportu. "
-            "Vlastní Excel nebo ruční watchlist jej nahradí."
+            "Používám oficiální americký universe 687 tickerů. Excel nebo "
+            "ruční watchlist může zvolit pouze podvýběr z těchto akcií."
         )
+
+if scope_excluded_tickers:
+    preview = ", ".join(scope_excluded_tickers[:20])
+    suffix = " …" if len(scope_excluded_tickers) > 20 else ""
+    st.warning(
+        f"Mimo americký universe 687 bylo vyřazeno "
+        f"{len(scope_excluded_tickers)} tickerů: {preview}{suffix}. "
+        "Nebudou analyzovány ani předány agentům."
+    )
 
 if st.session_state.mt5_loaded_count is not None:
     st.info(f"Načteno z MT5: {st.session_state.mt5_loaded_count} tickerů")
 else:
     st.info("Načteno z MT5: 0 tickerů")
 
-st.write(f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů (Excel/Yahoo-only: {len(excel_watchlist)})")
+st.write(
+    f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů "
+    f"(US-687 scope; Yahoo-only: {len(yahoo_only_tickers)})"
+)
 
 
 def _render_yahoo_coverage(coverage: YahooCacheCoverage) -> None:
