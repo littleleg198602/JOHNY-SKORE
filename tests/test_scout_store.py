@@ -82,6 +82,12 @@ class ScoutStoreTests(unittest.TestCase):
                 store.add_lead(subject_id="MU", finding_id=finding,
                                question="More?", as_of=now,
                                parent_lead_id=grandchild)
+            self.assertEqual([], store.open_leads(["MU"], as_of=now - timedelta(seconds=1)))
+            questions = store.open_leads(["MU"], as_of=now)
+            self.assertEqual(3, len(questions))
+            self.assertEqual({"Inventory?", "Customer demand?", "Sector demand?"},
+                             {row["question"] for row in questions})
+            self.assertEqual([], store.open_leads(["AAPL"], as_of=now))
 
     def test_two_processes_do_not_share_sec_rate_limit_slot(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

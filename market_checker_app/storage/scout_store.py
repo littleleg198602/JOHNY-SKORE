@@ -305,6 +305,43 @@ class ScoutStore:
             ).fetchall()
         return {str(row[0]): int(row[1]) for row in rows}
 
+    def open_leads(
+        self, subjects: list[str], *, as_of: datetime, limit: int = 50,
+    ) -> list[dict[str, object]]:
+        if not subjects or limit < 1:
+            return []
+        bounded = list(dict.fromkeys(subjects))[:900]
+        placeholders = ", ".join("?" for _ in bounded)
+        cutoff = _utc(as_of)
+        with self._connect() as conn:
+            rows = conn.execute(f"""
+                SELECT l.subject_id, l.question, l.status, l.depth,
+                       l.created_at, f.source_url, f.locator,
+                       f.verification_status
+                FROM scout_leads AS l
+                JOIN scout_findings AS f ON f.finding_id=l.finding_id
+                WHERE l.subject_id IN ({placeholders}) AND l.created_at<=?
+                  AND f.available_at<=? AND f.first_observed_at<=?
+                  AND l.status IN ('OPEN', 'INVESTIGATING')
+                ORDER BY l.created_at DESC, l.lead_id DESC LIMIT ?
+            """, (*bounded, cutoff, cutoff, cutoff, limit)).fetchall()
+        return [dict(row) for row in rows]
+
+    def recent_failures(self, subjects: list[str], *, limit: int = 20) -> list[dict[str, object]]:
+        if not subjects or limit < 1:
+            return []
+        bounded = list(dict.fromkeys(subjects))[:900]
+        placeholders = ", ".join("?" for _ in bounded)
+        with self._connect() as conn:
+            rows = conn.execute(f"""
+                SELECT subject_id, source, status, failure_count,
+                       due_at, last_error
+                FROM scout_jobs
+                WHERE subject_id IN ({placeholders}) AND last_error IS NOT NULL
+                ORDER BY updated_at DESC, job_id DESC LIMIT ?
+            """, (*bounded, limit)).fetchall()
+        return [dict(row) for row in rows]
+
     def latest_findings(
         self, subjects: list[str], *, as_of: datetime, limit: int = 100,
     ) -> list[dict[str, object]]:

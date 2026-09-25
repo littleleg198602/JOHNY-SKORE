@@ -2209,6 +2209,14 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         st.dataframe(pd.DataFrame(scout_rows), hide_index=True)
     else:
         st.info("Zatím není uložené žádné nalezené podání pro tento výběr.")
+    scout_leads = scout_store.open_leads(watchlist, as_of=datetime.now(timezone.utc))
+    if scout_leads:
+        st.write("**Otevřené otázky k nalezeným podáním**")
+        st.dataframe(pd.DataFrame(scout_leads), hide_index=True)
+    scout_errors = scout_store.recent_failures(watchlist)
+    if scout_errors:
+        st.write("**Poslední chyby zdroje a další pokus**")
+        st.dataframe(pd.DataFrame(scout_errors), hide_index=True)
 
 
 def _render_yahoo_coverage(coverage: YahooCacheCoverage) -> None:
