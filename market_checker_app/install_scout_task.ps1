@@ -33,6 +33,17 @@ if (-not (Test-Path -LiteralPath $runnerPath -PathType Leaf)) {
     throw "Runner nebyl nalezen: $runnerPath"
 }
 
+$agent = [Environment]::GetEnvironmentVariable("JOHNY_SKORE_SEC_USER_AGENT", "User")
+if (-not $agent) {
+    $email = Read-Host "Jednorazove zadejte kontaktni e-mail pro SEC"
+    if ($email -notmatch '^[^@\s]+@[^@\s]+$') {
+        throw "Je nutny platny kontaktni e-mail pro SEC. Uloha nebyla instalovana."
+    }
+    $agent = "JohnySkore/2.1 $email"
+    [Environment]::SetEnvironmentVariable("JOHNY_SKORE_SEC_USER_AGENT", $agent, "User")
+    Write-Host "[OK] SEC kontakt ulozen do uzivatelskeho nastaveni Windows."
+}
+
 $currentIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 $action = New-ScheduledTaskAction `
     -Execute $env:ComSpec `

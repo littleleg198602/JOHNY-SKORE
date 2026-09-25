@@ -4,6 +4,10 @@ chcp 65001 >nul
 cd /d "%~dp0"
 set "APP_DIR=%CD%\market_checker_app"
 
+rem Task Scheduler can retain an old environment after setx. Read the user
+rem setting on every start, without printing the contact address.
+for /f "usebackq delims=" %%A in (`powershell.exe -NoProfile -Command "[Environment]::GetEnvironmentVariable('JOHNY_SKORE_SEC_USER_AGENT','User')"`) do set "JOHNY_SKORE_SEC_USER_AGENT=%%A"
+
 if exist "%APP_DIR%\.venv\Scripts\python.exe" (
   set "PYTHON_EXE=%APP_DIR%\.venv\Scripts\python.exe"
 ) else (
@@ -18,9 +22,8 @@ if exist "%APP_DIR%\.venv\Scripts\python.exe" (
 echo [INFO] Kontroluji dalsi SEC podani pro produkcni seznam...
 %PYTHON_EXE% -m market_checker_app.scout_runner --db-path "outputs\market_checker_history.db" --limit 100
 if errorlevel 1 (
-  echo [CHYBA] Sber SEC podani selhal nebo chybi JOHNY_SKORE_SEC_USER_AGENT.
-  echo [INFO] Kontakt SEC lze jednorazove nastavit pri spusteni tydenniho shadow runneru.
-  pause
+  echo [CHYBA] Sber SEC podani selhal nebo chybi jednorazovy SEC kontakt.
+  echo [INFO] Nastaveni provede Nainstalovat_Patraci_Agenty.bat.
   exit /b 1
 )
 echo [OK] Vysledky jsou ulozene v databazi Market Checkeru.

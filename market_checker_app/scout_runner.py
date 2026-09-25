@@ -31,7 +31,7 @@ def main() -> None:
     args = parser.parse_args()
     result = run(db_path=args.db_path, limit=args.limit)
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
-    if result["status"] in {"WAIT_ACCESS", "RATE_LIMITED"}:
+    if result["status"] == "WAIT_ACCESS":
         raise SystemExit(2)
 
 

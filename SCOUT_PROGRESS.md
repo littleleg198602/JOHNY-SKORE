@@ -18,7 +18,7 @@ Aktualizováno: 25. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_I
 | SC-18 | PARTIAL | Nová lehká cesta na SEC index bez XBRL downloadu; existující fundamentální agent už čte filings/XBRL. Potřebuje kompletní coverage, historical submissions a skutečné živé ověření. |
 | SC-19–30 | TODO nebo stávající základ | Existují analytické agentní moduly a některé SEC/RSS vstupy. Specifické nové konektory FINRA, USAspending, FDA, FDIC, FRED a další podle backlogu ještě hotové nejsou. |
 | SC-31 | PARTIAL, TESTED lokálně | Indexové SEC záznamy předá `ScoutIndexAgent` do `SourceResolutionAgent` a `QualityGateAgent` bez změny skóre; test celé orchestrace. Chybí extrakce obsahu a detailní as-of bundle. |
-| SC-32–33 | PARTIAL | Streamlit ukazuje poslední podání, otevřené otázky s odkazem na zdroj, poslední chyby a další pokus, stav fronty i tlačítko dávky; Windows .bat a volitelná denní úloha. Chybí ověřené odpovědi, zobrazení důkazů pro/proti a provozní Windows zkouška. |
+| SC-32–33 | PARTIAL | Streamlit ukazuje poslední podání, otevřené otázky s odkazem na zdroj, poslední chyby a další pokus, stav fronty i tlačítko dávky; Windows .bat a volitelná denní úloha. Instalátor jednou vyžádá kontaktní e-mail SEC, plánovaná dávka jej čte z uživatelského nastavení a nečeká na klávesu při chybě. Chybí ověřené odpovědi, zobrazení důkazů pro/proti a provozní Windows zkouška. |
 | SC-34 | TODO | Žádné nové feature zatím nevstupují do predikčního skóre; vyhodnocení přínosu začne až s podklady a dokončenými výsledky. |
 | SC-35 | PARTIAL | Místní testy, kompilace a zkouška plánování všech 687 bez přístupu k SEC. Chybí live known-positive SEC, Windows a end-to-end kontrola 48/687 tickerů. |
 
