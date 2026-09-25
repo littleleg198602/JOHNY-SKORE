@@ -321,6 +321,9 @@ class QualityGateAgent(BaseAgent):
         now: datetime,
         label: str,
         rejects: list[dict[str, str]],
+        *,
+        max_age_minutes: float | None = None,
+        age_reference: datetime | None = None,
     ) -> None:
         if value.tzinfo is None or value.utcoffset() is None:
             rejects.append(
@@ -328,19 +331,20 @@ class QualityGateAgent(BaseAgent):
             )
             return
 
-        age_minutes = (now - value).total_seconds() / 60.0
-        if age_minutes > self.config.max_signal_age_minutes:
+        age_minutes = ((age_reference or now) - value).total_seconds() / 60.0
+        future_minutes = (value - now).total_seconds() / 60.0
+        if max_age_minutes is not None and age_minutes > max_age_minutes:
             rejects.append(
                 _issue(
                     "stale_observation",
                     f"{label} je starý {age_minutes:.1f} minuty.",
                 )
             )
-        elif age_minutes < -self.config.max_future_clock_skew_minutes:
+        if future_minutes > self.config.max_future_clock_skew_minutes:
             rejects.append(
                 _issue(
                     "future_observation",
-                    f"{label} leží {abs(age_minutes):.1f} minuty v budoucnosti.",
+                    f"{label} leží {future_minutes:.1f} minuty v budoucnosti.",
                 )
             )
 
@@ -363,6 +367,7 @@ class QualityGateAgent(BaseAgent):
         signal: AgentSignal,
         *,
         now: datetime,
+        as_of: datetime,
         evidence_by_id: dict[str, AgentEvidence],
         evidence_id_counts: Counter[str],
         rejects: list[dict[str, str]],
@@ -424,7 +429,14 @@ class QualityGateAgent(BaseAgent):
                 _issue("missing_agent_identity", "Signálu chybí identita nebo verze agenta.")
             )
 
-        self._check_timestamp(signal.observed_at, now, "Signál", rejects)
+        self._check_timestamp(
+            signal.observed_at,
+            now,
+            "Signál",
+            rejects,
+            max_age_minutes=self.config.max_signal_age_minutes,
+            age_reference=as_of,
+        )
         self._check_expiry(signal.expires_at, now, "Signál", rejects)
 
         if not signal.evidence_ids:
@@ -1808,6 +1820,7 @@ class QualityGateAgent(BaseAgent):
                 self._check_signal(
                     signal,
                     now=now,
+                    as_of=context.started_at,
                     evidence_by_id=evidence_by_id,
                     evidence_id_counts=evidence_id_counts,
                     rejects=rejects,

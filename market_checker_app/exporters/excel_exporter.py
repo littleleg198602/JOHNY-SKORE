@@ -108,6 +108,7 @@ class ExcelExporter:
         delta: pd.DataFrame | None = None,
         dashboard_export: dict[str, pd.DataFrame] | None = None,
         open_position_audit: pd.DataFrame | None = None,
+        scout_evidence: pd.DataFrame | None = None,
     ) -> Path:
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -120,6 +121,10 @@ class ExcelExporter:
             signals_xlsx.to_excel(writer, sheet_name="Signals", index=False)
             sources_xlsx.to_excel(writer, sheet_name="Sources", index=False)
             articles_xlsx.to_excel(writer, sheet_name="Articles", index=False)
+            if scout_evidence is not None and not scout_evidence.empty:
+                self._sanitize_for_excel(scout_evidence).to_excel(
+                    writer, sheet_name="ScoutEvidence", index=False,
+                )
 
             dashboard_sheet = pd.concat(
                 [

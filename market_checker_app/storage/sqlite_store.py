@@ -1499,11 +1499,36 @@ class SQLiteStore:
             return int(cur.lastrowid)
 
     @staticmethod
+    def _sqlite_scalar(value: object) -> object:
+        """Convert nullable pandas/numpy scalars before sqlite3 sees them."""
+        if value is None or value is pd.NA or value is pd.NaT:
+            return None
+        if hasattr(value, "item") and not isinstance(value, (str, bytes)):
+            try:
+                value = value.item()
+            except (AttributeError, TypeError, ValueError):
+                pass
+        if value is None or value is pd.NA or value is pd.NaT:
+            return None
+        if isinstance(value, (float, int, str, bytes)):
+            if isinstance(value, float) and not math.isfinite(value):
+                return None
+            return value
+        try:
+            if bool(pd.isna(value)):
+                return None
+        except (TypeError, ValueError):
+            pass
+        if isinstance(value, datetime):
+            return to_iso(value)
+        return value
+
+    @staticmethod
     def _build_signal_payload(run_id: int, signals: pd.DataFrame, updated_at: str) -> list[tuple[object, ...]]:
         if signals.empty:
             return []
         return [
-            (
+            tuple(SQLiteStore._sqlite_scalar(value) for value in (
                 run_id,
                 row.ticker,
                 updated_at,
@@ -1561,7 +1586,7 @@ class SQLiteStore:
                 row.last_14d_change_pct if hasattr(row, "last_14d_change_pct") else None,
                 row.last_1m_change_pct,
                 row.last_3m_change_pct,
-            )
+            ))
             for row in signals.itertuples(index=False)
         ]
 

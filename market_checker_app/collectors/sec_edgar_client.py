@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 import gzip
 import json
 import math
@@ -10,8 +11,8 @@ import threading
 import time
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
-from urllib.request import Request, urlopen
+from urllib.parse import quote, urlsplit
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 import zlib
 from xml.etree import ElementTree
 
@@ -23,10 +24,50 @@ SEC_SUBMISSIONS_URL = "https://data.sec.gov/submissions/CIK{cik}.json"
 SEC_SUBMISSIONS_FILE_URL = "https://data.sec.gov/submissions/{name}"
 SEC_COMPANYFACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 SEC_ARCHIVES_ROOT = "https://www.sec.gov/Archives/edgar/data"
+MAX_SEC_DOCUMENT_BYTES = 4_000_000
+SEC_ALLOWED_HOSTS = frozenset({"www.sec.gov", "data.sec.gov"})
 
 
 class SecEdgarError(RuntimeError):
     """Raised when SEC EDGAR cannot provide a valid normalized response."""
+
+
+class SecRateLimitedError(SecEdgarError):
+    """The provider requests a cooldown longer than this worker may sleep."""
+
+    def __init__(self, seconds: float) -> None:
+        self.retry_after_seconds = max(121.0, seconds)
+        super().__init__(f"SEC rate limited; retry after {self.retry_after_seconds:.0f}s")
+
+
+class SecDocumentTooLargeError(SecEdgarError):
+    """The primary document exceeded the bounded download size."""
+
+
+class SecAccessBlockedError(SecEdgarError):
+    """Provider rejected access; stop the batch instead of probing all issuers."""
+
+
+def _allowed_sec_url(url: str) -> str:
+    parsed = urlsplit(url)
+    if (parsed.scheme != "https" or parsed.hostname not in SEC_ALLOWED_HOSTS
+            or parsed.username or parsed.password or parsed.port not in {None, 443}
+            or parsed.fragment or parsed.query):
+        raise SecEdgarError("SEC connector rejected a URL outside its source policy")
+    allowed_prefixes = (
+        ("/files/", "/Archives/edgar/data/")
+        if parsed.hostname == "www.sec.gov" else
+        ("/submissions/", "/api/xbrl/")
+    )
+    if not parsed.path.startswith(allowed_prefixes):
+        raise SecEdgarError("SEC connector rejected an unexpected endpoint")
+    return url
+
+
+class _SecRedirectPolicy(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        _allowed_sec_url(str(newurl))
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
 @dataclass(frozen=True, slots=True)
@@ -128,7 +169,7 @@ def _default_json_transport(
     timeout_seconds: float,
 ) -> dict[str, Any]:
     request = Request(url, headers=headers, method="GET")
-    with urlopen(request, timeout=timeout_seconds) as response:
+    with build_opener(_SecRedirectPolicy()).open(request, timeout=timeout_seconds) as response:
         payload = response.read()
         encoding = str(response.headers.get("Content-Encoding", "")).lower()
         if encoding == "gzip":
@@ -147,13 +188,17 @@ def _default_text_transport(
     timeout_seconds: float,
 ) -> bytes:
     request = Request(url, headers=headers, method="GET")
-    with urlopen(request, timeout=timeout_seconds) as response:
-        payload = response.read()
+    with build_opener(_SecRedirectPolicy()).open(request, timeout=timeout_seconds) as response:
+        payload = response.read(MAX_SEC_DOCUMENT_BYTES + 1)
+        if len(payload) > MAX_SEC_DOCUMENT_BYTES:
+            raise SecDocumentTooLargeError("SEC document exceeds the download limit")
         encoding = str(response.headers.get("Content-Encoding", "")).lower()
         if encoding == "gzip":
             payload = gzip.decompress(payload)
         elif encoding == "deflate":
             payload = zlib.decompress(payload)
+        if len(payload) > MAX_SEC_DOCUMENT_BYTES:
+            raise SecDocumentTooLargeError("SEC document exceeds the decompressed size limit")
     return payload
 
 
@@ -217,7 +262,30 @@ class SecEdgarClient:
                     now = self._monotonic()
             self._last_request_at = now
 
+    @staticmethod
+    def _retry_delay(attempt: int, error: Exception) -> float:
+        fallback = float(2 ** (attempt - 1))
+        if not isinstance(error, HTTPError):
+            return fallback
+        value = error.headers.get("Retry-After") if error.headers else None
+        if not value:
+            return fallback
+        try:
+            seconds = float(value)
+        except ValueError:
+            try:
+                target = parsedate_to_datetime(value)
+                if target.tzinfo is None:
+                    target = target.replace(tzinfo=timezone.utc)
+                seconds = (target - datetime.now(timezone.utc)).total_seconds()
+            except (TypeError, ValueError, OverflowError):
+                return fallback
+        # Bound a single worker's wait; a longer cooldown belongs to the
+        # durable queue rather than blocking the whole analysis process.
+        return max(fallback, seconds) if math.isfinite(seconds) else fallback
+
     def _request_json(self, url: str) -> dict[str, Any]:
+        _allowed_sec_url(url)
         headers = self._headers()
         last_error: Exception | None = None
         for attempt in range(1, self.max_attempts + 1):
@@ -226,17 +294,24 @@ class SecEdgarClient:
                 return self._transport(url, headers, self.timeout_seconds)
             except HTTPError as exc:
                 last_error = exc
+                if exc.code == 403:
+                    raise SecAccessBlockedError("SEC returned HTTP 403") from exc
                 retryable = exc.code in {429, 500, 502, 503, 504}
+                if exc.code == 429:
+                    delay = self._retry_delay(attempt, exc)
+                    if delay > 120:
+                        raise SecRateLimitedError(delay) from exc
                 if not retryable or attempt == self.max_attempts:
                     break
             except (URLError, TimeoutError, json.JSONDecodeError, SecEdgarError) as exc:
                 last_error = exc
                 if attempt == self.max_attempts:
                     break
-            self._sleep(float(2 ** (attempt - 1)))
+            self._sleep(min(120.0, self._retry_delay(attempt, last_error)))
         raise SecEdgarError(f"SEC požadavek selhal pro {url}: {last_error}") from last_error
 
     def _request_bytes(self, url: str) -> bytes:
+        _allowed_sec_url(url)
         headers = self._headers()
         last_error: Exception | None = None
         for attempt in range(1, self.max_attempts + 1):
@@ -245,9 +320,15 @@ class SecEdgarClient:
                 payload = self._text_transport(url, headers, self.timeout_seconds)
                 if not payload:
                     raise SecEdgarError(f"SEC endpoint {url} returned an empty body")
+                if len(payload) > MAX_SEC_DOCUMENT_BYTES:
+                    raise SecDocumentTooLargeError("SEC document exceeds the download limit")
                 return payload
             except (HTTPError, URLError, TimeoutError, SecEdgarError) as exc:
                 last_error = exc
+                if isinstance(exc, HTTPError) and exc.code == 403:
+                    raise SecAccessBlockedError("SEC returned HTTP 403") from exc
+                if isinstance(exc, SecDocumentTooLargeError):
+                    break
                 if isinstance(exc, HTTPError) and exc.code not in {
                     429,
                     500,
@@ -256,9 +337,13 @@ class SecEdgarClient:
                     504,
                 }:
                     break
+                if isinstance(exc, HTTPError) and exc.code == 429:
+                    delay = self._retry_delay(attempt, exc)
+                    if delay > 120:
+                        raise SecRateLimitedError(delay) from exc
                 if attempt == self.max_attempts:
                     break
-                self._sleep(float(2 ** (attempt - 1)))
+                self._sleep(min(120.0, self._retry_delay(attempt, exc)))
         raise SecEdgarError(f"SEC document request failed for {url}: {last_error}")
 
     @staticmethod
@@ -805,3 +890,58 @@ class SecEdgarClient:
             insider_transactions=tuple(insider_transactions),
             historical_submission_files_loaded=historical_files_loaded,
         )
+
+    def fetch_filing_index(
+        self,
+        ticker: str,
+        *,
+        allowed_forms: tuple[str, ...] = ("10-K", "10-Q", "8-K", "20-F", "6-K"),
+        max_filings: int = 30,
+        max_historical_submission_files: int = 0,
+    ) -> tuple[SecCompany, tuple[SecFiling, ...]] | None:
+        """Discover filing metadata without downloading XBRL facts or documents."""
+        company = self.resolve_company(ticker)
+        if company is None:
+            return None
+        submissions = self._request_json(SEC_SUBMISSIONS_URL.format(cik=company.cik))
+        payloads = [submissions]
+        filings = self._parse_filings(
+            self._merged_submissions(payloads), cik=company.cik,
+            allowed_forms=allowed_forms, limit=max_filings,
+        )
+        for name in self._historical_submission_names(submissions)[
+            : max(0, int(max_historical_submission_files))
+        ]:
+            if not self._needs_historical_filings(
+                filings, allowed_forms=allowed_forms, limit=max_filings,
+            ):
+                break
+            payloads.append(self._request_json(
+                SEC_SUBMISSIONS_FILE_URL.format(name=quote(name))
+            ))
+            filings = self._parse_filings(
+                self._merged_submissions(payloads), cik=company.cik,
+                allowed_forms=allowed_forms, limit=max_filings,
+            )
+        return company, tuple(filings)
+
+    def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
+        """Download only the bounded primary document identified by SEC itself."""
+        accession = filing.accession_number
+        filename = self._raw_primary_document(filing.form, filing.primary_document)
+        if not re.fullmatch(r"\d{10}-\d{2}-\d{6}", accession):
+            raise SecEdgarError("Malformed SEC accession in document lead")
+        parts = filename.split("/")
+        if not parts or any(
+            not re.fullmatch(r"[A-Za-z0-9_.-]+", part) or part in {".", ".."}
+            for part in parts
+        ):
+            raise SecEdgarError("Unsafe SEC primary document path")
+        if not re.fullmatch(r"\d{10}", cik):
+            raise SecEdgarError("Malformed CIK in document lead")
+        expected = self._filing_url(cik, accession, filename)
+        parsed = urlsplit(filing.filing_url)
+        if (filing.filing_url != expected or parsed.scheme != "https"
+                or parsed.hostname != "www.sec.gov" or parsed.query or parsed.fragment):
+            raise SecEdgarError("SEC document URL does not match its filing identity")
+        return self._request_bytes(expected)

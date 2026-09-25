@@ -71,6 +71,9 @@ from market_checker_app.services.stage4_evaluation_service import (
     Stage4EvaluationService,
 )
 from market_checker_app.services.source_discovery_service import SourceDiscoveryService
+from market_checker_app.services.news_scout_service import NewsScoutService
+from market_checker_app.agents.scout_index_agent import ScoutIndexAgent
+from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.services.source_degradation_service import (
     build_source_degradation_report,
 )
@@ -257,6 +260,10 @@ class PipelineService:
                 ),
             )
         )
+        if ScoutStore(self.config.sqlite_path).has_findings(
+            list(watchlist), as_of=datetime.now(timezone.utc),
+        ):
+            orchestrator.register(ScoutIndexAgent(self.config.sqlite_path))
         if self.config.fundamental_ingestion.enabled:
             orchestrator.register(
                 SecFundamentalsAgent(
@@ -582,6 +589,16 @@ class PipelineService:
                 progress_callback=_on_rss_progress,
             )
             warnings.extend(rss_warnings)
+            if articles and store is not None:
+                try:
+                    NewsScoutService(ScoutStore(self.config.sqlite_path)).ingest(
+                        articles, allowed_tickers=watchlist,
+                    )
+                except Exception as exc:
+                    warnings.append(
+                        "Pátrací RSS stopy se nepodařilo uložit: "
+                        f"{type(exc).__name__}: {exc}"
+                    )
         else:
             progress.log("INFO", "RSS zprávy jsou pro tento běh vypnuté")
 
@@ -1630,6 +1647,14 @@ class PipelineService:
             ),
             observed_at=started_at,
         )
+        scout_evidence_rows: list[dict[str, object]] = []
+        if agent_report is not None:
+            try:
+                scout_evidence_rows = ScoutStore(self.config.sqlite_path).findings_for_snapshot(
+                    agent_report.orchestration_id,
+                )
+            except Exception as exc:
+                warnings.append(f"Audit pátracích důkazů nelze načíst: {exc}")
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(article) for article in articles])
         warnings = list(dict.fromkeys(warnings))
@@ -1804,6 +1829,7 @@ class PipelineService:
             "agent_feature_snapshot_count": len(agent_feature_snapshots),
             "agent_feature_snapshots": agent_feature_snapshots,
             "agent_report": agent_report,
+            "scout_evidence_rows": scout_evidence_rows,
             "point_in_time_inputs": point_in_time_inputs,
             "progress_state": progress.snapshot(),
         }
