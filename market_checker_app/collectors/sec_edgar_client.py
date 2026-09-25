@@ -12,7 +12,7 @@ import time
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 import zlib
 from xml.etree import ElementTree
 
@@ -25,6 +25,7 @@ SEC_SUBMISSIONS_FILE_URL = "https://data.sec.gov/submissions/{name}"
 SEC_COMPANYFACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 SEC_ARCHIVES_ROOT = "https://www.sec.gov/Archives/edgar/data"
 MAX_SEC_DOCUMENT_BYTES = 4_000_000
+SEC_ALLOWED_HOSTS = frozenset({"www.sec.gov", "data.sec.gov"})
 
 
 class SecEdgarError(RuntimeError):
@@ -45,6 +46,28 @@ class SecDocumentTooLargeError(SecEdgarError):
 
 class SecAccessBlockedError(SecEdgarError):
     """Provider rejected access; stop the batch instead of probing all issuers."""
+
+
+def _allowed_sec_url(url: str) -> str:
+    parsed = urlsplit(url)
+    if (parsed.scheme != "https" or parsed.hostname not in SEC_ALLOWED_HOSTS
+            or parsed.username or parsed.password or parsed.port not in {None, 443}
+            or parsed.fragment or parsed.query):
+        raise SecEdgarError("SEC connector rejected a URL outside its source policy")
+    allowed_prefixes = (
+        ("/files/", "/Archives/edgar/data/")
+        if parsed.hostname == "www.sec.gov" else
+        ("/submissions/", "/api/xbrl/")
+    )
+    if not parsed.path.startswith(allowed_prefixes):
+        raise SecEdgarError("SEC connector rejected an unexpected endpoint")
+    return url
+
+
+class _SecRedirectPolicy(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        _allowed_sec_url(str(newurl))
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
 @dataclass(frozen=True, slots=True)
@@ -146,7 +169,7 @@ def _default_json_transport(
     timeout_seconds: float,
 ) -> dict[str, Any]:
     request = Request(url, headers=headers, method="GET")
-    with urlopen(request, timeout=timeout_seconds) as response:
+    with build_opener(_SecRedirectPolicy()).open(request, timeout=timeout_seconds) as response:
         payload = response.read()
         encoding = str(response.headers.get("Content-Encoding", "")).lower()
         if encoding == "gzip":
@@ -165,7 +188,7 @@ def _default_text_transport(
     timeout_seconds: float,
 ) -> bytes:
     request = Request(url, headers=headers, method="GET")
-    with urlopen(request, timeout=timeout_seconds) as response:
+    with build_opener(_SecRedirectPolicy()).open(request, timeout=timeout_seconds) as response:
         payload = response.read(MAX_SEC_DOCUMENT_BYTES + 1)
         if len(payload) > MAX_SEC_DOCUMENT_BYTES:
             raise SecDocumentTooLargeError("SEC document exceeds the download limit")
@@ -262,6 +285,7 @@ class SecEdgarClient:
         return max(fallback, seconds) if math.isfinite(seconds) else fallback
 
     def _request_json(self, url: str) -> dict[str, Any]:
+        _allowed_sec_url(url)
         headers = self._headers()
         last_error: Exception | None = None
         for attempt in range(1, self.max_attempts + 1):
@@ -287,6 +311,7 @@ class SecEdgarClient:
         raise SecEdgarError(f"SEC požadavek selhal pro {url}: {last_error}") from last_error
 
     def _request_bytes(self, url: str) -> bytes:
+        _allowed_sec_url(url)
         headers = self._headers()
         last_error: Exception | None = None
         for attempt in range(1, self.max_attempts + 1):

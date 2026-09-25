@@ -2215,15 +2215,21 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     scout_counts = scout_store.metrics()
     st.caption(f"Fronta: {scout_counts}. Průběžný sběr spouští také týdenní runner.")
     scout_rows = scout_store.latest_findings(
-        watchlist, as_of=datetime.now(timezone.utc), limit=50,
+        watchlist, as_of=datetime.now(timezone.utc), limit=50, source="sec",
     )
     if scout_rows:
         st.dataframe(pd.DataFrame(scout_rows), hide_index=True)
     else:
         st.info("Zatím není uložené žádné nalezené podání pro tento výběr.")
+    rss_candidates = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="rss",
+    )
+    if rss_candidates:
+        st.write("**Neověřené stopy z RSS — ověřit emitenta a primární zdroj**")
+        st.dataframe(pd.DataFrame(rss_candidates), hide_index=True)
     scout_leads = scout_store.open_leads(watchlist, as_of=datetime.now(timezone.utc))
     if scout_leads:
-        st.write("**Otevřené otázky k nalezeným podáním**")
+        st.write("**Otevřené otázky k nalezeným zdrojům**")
         st.dataframe(pd.DataFrame(scout_leads), hide_index=True)
     closed_scout_leads = scout_store.closed_leads(watchlist, as_of=datetime.now(timezone.utc))
     if closed_scout_leads:

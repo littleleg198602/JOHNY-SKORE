@@ -356,7 +356,8 @@ class ScoutStore:
             newly_seen = cur.rowcount == 1
             if not newly_seen:
                 conn.execute(
-                    "UPDATE scout_findings SET retrieved_at=? WHERE finding_id=?",
+                    "UPDATE scout_findings SET retrieved_at=MAX(retrieved_at, ?) "
+                    "WHERE finding_id=?",
                     (observed, finding_id),
                 )
         return finding_id, newly_seen
@@ -610,6 +611,7 @@ class ScoutStore:
 
     def latest_findings(
         self, subjects: list[str], *, as_of: datetime, limit: int = 100,
+        source: str | None = None,
     ) -> list[dict[str, object]]:
         if not subjects or limit < 1:
             return []
@@ -623,10 +625,11 @@ class ScoutStore:
                        first_observed_at, verification_status, finding_id,
                        details_json
                 FROM scout_findings
-                WHERE subject_id IN ({placeholders}) AND available_at<=?
+                WHERE subject_id IN ({placeholders}) AND (? IS NULL OR source=?)
+                    AND available_at<=?
                     AND first_observed_at<=?
                 ORDER BY first_observed_at DESC, finding_id DESC LIMIT ?
-            """, (*bounded, cutoff, cutoff, limit)).fetchall()
+            """, (*bounded, source, source, cutoff, cutoff, limit)).fetchall()
         output: list[dict[str, object]] = []
         for row in rows:
             item = dict(row)
@@ -673,6 +676,7 @@ class ScoutStore:
                 SELECT 1 FROM scout_findings
                 WHERE subject_id IN ({placeholders})
                   AND available_at<=? AND first_observed_at<=?
+                  AND verification_status='SOURCE_VERIFIED'
                 LIMIT 1
             """, (*bounded, cutoff, cutoff)).fetchone()
         return row is not None

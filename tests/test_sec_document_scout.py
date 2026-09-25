@@ -8,6 +8,7 @@ import unittest
 
 from market_checker_app.collectors.sec_edgar_client import (
     MAX_SEC_DOCUMENT_BYTES, SecEdgarClient, SecEdgarError, SecFiling,
+    _SecRedirectPolicy, _allowed_sec_url,
 )
 from market_checker_app.agents import (
     EntityRegistryAgent, OrchestratorAgent, PredictionV21AdapterAgent,
@@ -30,6 +31,24 @@ class DocumentIndex(FakeIndex):
 
 
 class SecDocumentScoutTest(unittest.TestCase):
+    def test_sec_connector_refuses_cross_domain_requests_and_redirects(self) -> None:
+        self.assertEqual("https://data.sec.gov/submissions/CIK0000320193.json",
+                         _allowed_sec_url(
+                             "https://data.sec.gov/submissions/CIK0000320193.json"
+                         ))
+        for url in (
+            "http://www.sec.gov/Archives/edgar/data/123/a.htm",
+            "https://example.com/Archives/edgar/data/123/a.htm",
+            "https://www.sec.gov@evil.example/Archives/edgar/data/123/a.htm",
+            "https://www.sec.gov/private/data",
+        ):
+            with self.assertRaises(SecEdgarError):
+                _allowed_sec_url(url)
+        with self.assertRaises(SecEdgarError):
+            _SecRedirectPolicy().redirect_request(
+                None, None, 302, "Found", {}, "https://evil.example/steal",
+            )
+
     def test_8k_section_leads_have_primary_source_and_stay_open(self) -> None:
         class EightK(DocumentIndex):
             def fetch_filing_index(self, ticker, **kwargs):

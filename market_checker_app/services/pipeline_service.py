@@ -71,6 +71,7 @@ from market_checker_app.services.stage4_evaluation_service import (
     Stage4EvaluationService,
 )
 from market_checker_app.services.source_discovery_service import SourceDiscoveryService
+from market_checker_app.services.news_scout_service import NewsScoutService
 from market_checker_app.agents.scout_index_agent import ScoutIndexAgent
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.services.source_degradation_service import (
@@ -588,6 +589,16 @@ class PipelineService:
                 progress_callback=_on_rss_progress,
             )
             warnings.extend(rss_warnings)
+            if articles and store is not None:
+                try:
+                    NewsScoutService(ScoutStore(self.config.sqlite_path)).ingest(
+                        articles, allowed_tickers=watchlist,
+                    )
+                except Exception as exc:
+                    warnings.append(
+                        "Pátrací RSS stopy se nepodařilo uložit: "
+                        f"{type(exc).__name__}: {exc}"
+                    )
         else:
             progress.log("INFO", "RSS zprávy jsou pro tento běh vypnuté")
 
