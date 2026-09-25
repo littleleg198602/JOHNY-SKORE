@@ -55,6 +55,7 @@ from market_checker_app.services.evaluation_service import EvaluationService
 from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.services.ranking_service import RankingService
+from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.services.sec_scout_service import SecScoutService
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
@@ -2167,6 +2168,21 @@ st.write(
 )
 
 with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
+    research_profiles = load_research_profiles()
+    st.caption(
+        f"Výzkumné profily: {len(research_profiles.profiles)}; "
+        f"přiřazeno {len(set(watchlist) & set(research_profiles.by_ticker))} "
+        f"z {len(watchlist)} vybraných tickerů. "
+        "Profily jsou zatím informační, nemění skóre."
+    )
+    unresolved_profiles = sorted(set(watchlist) & set(research_profiles.unmapped_input))
+    if unresolved_profiles:
+        st.warning(
+            "Profil ze studie chybí pro vstupní ticker "
+            f"{', '.join(unresolved_profiles)}; v dokumentu je místo něj "
+            f"{', '.join(research_profiles.source_only)}. "
+            "Původní seznam akcií se nemění."
+        )
     scout_store = ScoutStore(config.sqlite_path)
     if st.button("Prohledat další dávku SEC (max. 25 firem)"):
         scout_service = SecScoutService(scout_store, user_agent=sec_user_agent)

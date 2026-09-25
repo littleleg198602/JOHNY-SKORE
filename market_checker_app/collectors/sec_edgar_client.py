@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 import gzip
 import json
 import math
@@ -217,6 +218,28 @@ class SecEdgarClient:
                     now = self._monotonic()
             self._last_request_at = now
 
+    @staticmethod
+    def _retry_delay(attempt: int, error: Exception) -> float:
+        fallback = float(2 ** (attempt - 1))
+        if not isinstance(error, HTTPError):
+            return fallback
+        value = error.headers.get("Retry-After") if error.headers else None
+        if not value:
+            return fallback
+        try:
+            seconds = float(value)
+        except ValueError:
+            try:
+                target = parsedate_to_datetime(value)
+                if target.tzinfo is None:
+                    target = target.replace(tzinfo=timezone.utc)
+                seconds = (target - datetime.now(timezone.utc)).total_seconds()
+            except (TypeError, ValueError, OverflowError):
+                return fallback
+        # Bound a single worker's wait; a longer cooldown belongs to the
+        # durable queue rather than blocking the whole analysis process.
+        return min(120.0, max(fallback, seconds))
+
     def _request_json(self, url: str) -> dict[str, Any]:
         headers = self._headers()
         last_error: Exception | None = None
@@ -233,7 +256,7 @@ class SecEdgarClient:
                 last_error = exc
                 if attempt == self.max_attempts:
                     break
-            self._sleep(float(2 ** (attempt - 1)))
+            self._sleep(self._retry_delay(attempt, last_error))
         raise SecEdgarError(f"SEC požadavek selhal pro {url}: {last_error}") from last_error
 
     def _request_bytes(self, url: str) -> bytes:
@@ -258,7 +281,7 @@ class SecEdgarClient:
                     break
                 if attempt == self.max_attempts:
                     break
-                self._sleep(float(2 ** (attempt - 1)))
+                self._sleep(self._retry_delay(attempt, exc))
         raise SecEdgarError(f"SEC document request failed for {url}: {last_error}")
 
     @staticmethod
