@@ -7,7 +7,7 @@ Aktualizováno: 25. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_I
 | SC-00 | IMPLEMENTED, TESTED lokálně | Nullable `pd.NA` rank ukládá do SQLite NULL, skutečná transakce v testu. Počkat na CI a spojení PR. |
 | SC-01 | IMPLEMENTED, TESTED lokálně | 53minutový běh: důkaz z počátku i konce je platný; opravdu budoucí údaj je odmítnut. Ještě integrovat živý Windows běh. |
 | SC-02 | WAIT_MERGE | Dosud není v main ani otestováno na uživatelském Windows. |
-| SC-03 | PARTIAL | Stávající CSV se 687 řádky a pořadím zůstává. Audit originálního souboru/hash/diff ještě není nový systém. |
+| SC-03 | PARTIAL | Stávající CSV drží 687 řádků a pořadí; načtení produkčního souboru nyní kontroluje SHA-256 normalizovaného CSV. Audit přímého XLS zdroje a změnový diff ještě chybí. |
 | SC-04–07 | TODO/PARTIAL | SEC nález má zdroj a časy, ale úplné identity, 39 profilů a source-policy kontrakt čekají. |
 | SC-08 | IMPLEMENTED, TESTED lokálně | SQLite fronta, dedupe, lease token, zámek transakce, historie pokusů, restart; test končícího lease. Chybí verzované migrace pro případ dalších změn. |
 | SC-09 | PARTIAL | Denní Windows plánovač a týdenní dávka, max. 100 firem/den, backlog po výpadku. Chybí profilový scheduling a fairness pro jiné providery. Windows instalace neověřena. |
