@@ -6,7 +6,7 @@ import tempfile
 import unittest
 
 from market_checker_app.collectors.sec_edgar_client import (
-    SecCompany, SecFiling, SecRateLimitedError,
+    SecAccessBlockedError, SecCompany, SecFiling, SecRateLimitedError,
 )
 from market_checker_app.agents import (
     EntityRegistryAgent, OrchestratorAgent, PredictionV21AdapterAgent,
@@ -93,6 +93,25 @@ class SecScoutServiceTests(unittest.TestCase):
             self.assertEqual(1, first["processed"])
             self.assertEqual("RATE_LIMITED", scout.run_batch(as_of=now)["status"])
             self.assertEqual([], store.findings_as_of("AAPL", as_of=now))
+
+    def test_http_403_blocks_provider_instead_of_probing_every_ticker(self) -> None:
+        class BlockedIndex:
+            def __init__(self):
+                self.calls = 0
+
+            def fetch_filing_index(self, ticker, **kwargs):
+                self.calls += 1
+                raise SecAccessBlockedError("SEC returned HTTP 403")
+
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            client = BlockedIndex()
+            scout = SecScoutService(store, client=client)
+            scout.schedule(["AAPL", "MSFT"], as_of=now)
+            self.assertEqual("ACCESS_BLOCKED", scout.run_batch(as_of=now)["status"])
+            self.assertEqual("ACCESS_BLOCKED", scout.run_batch(as_of=now)["status"])
+            self.assertEqual(1, client.calls)
 
     def test_saved_filing_reaches_quality_checked_agent_report(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

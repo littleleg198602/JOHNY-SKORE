@@ -11,7 +11,7 @@ import threading
 import time
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 from urllib.request import Request, urlopen
 import zlib
 from xml.etree import ElementTree
@@ -24,6 +24,7 @@ SEC_SUBMISSIONS_URL = "https://data.sec.gov/submissions/CIK{cik}.json"
 SEC_SUBMISSIONS_FILE_URL = "https://data.sec.gov/submissions/{name}"
 SEC_COMPANYFACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json"
 SEC_ARCHIVES_ROOT = "https://www.sec.gov/Archives/edgar/data"
+MAX_SEC_DOCUMENT_BYTES = 4_000_000
 
 
 class SecEdgarError(RuntimeError):
@@ -36,6 +37,14 @@ class SecRateLimitedError(SecEdgarError):
     def __init__(self, seconds: float) -> None:
         self.retry_after_seconds = max(121.0, seconds)
         super().__init__(f"SEC rate limited; retry after {self.retry_after_seconds:.0f}s")
+
+
+class SecDocumentTooLargeError(SecEdgarError):
+    """The primary document exceeded the bounded download size."""
+
+
+class SecAccessBlockedError(SecEdgarError):
+    """Provider rejected access; stop the batch instead of probing all issuers."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -157,12 +166,16 @@ def _default_text_transport(
 ) -> bytes:
     request = Request(url, headers=headers, method="GET")
     with urlopen(request, timeout=timeout_seconds) as response:
-        payload = response.read()
+        payload = response.read(MAX_SEC_DOCUMENT_BYTES + 1)
+        if len(payload) > MAX_SEC_DOCUMENT_BYTES:
+            raise SecDocumentTooLargeError("SEC document exceeds the download limit")
         encoding = str(response.headers.get("Content-Encoding", "")).lower()
         if encoding == "gzip":
             payload = gzip.decompress(payload)
         elif encoding == "deflate":
             payload = zlib.decompress(payload)
+        if len(payload) > MAX_SEC_DOCUMENT_BYTES:
+            raise SecDocumentTooLargeError("SEC document exceeds the decompressed size limit")
     return payload
 
 
@@ -257,6 +270,8 @@ class SecEdgarClient:
                 return self._transport(url, headers, self.timeout_seconds)
             except HTTPError as exc:
                 last_error = exc
+                if exc.code == 403:
+                    raise SecAccessBlockedError("SEC returned HTTP 403") from exc
                 retryable = exc.code in {429, 500, 502, 503, 504}
                 if exc.code == 429:
                     delay = self._retry_delay(attempt, exc)
@@ -280,9 +295,15 @@ class SecEdgarClient:
                 payload = self._text_transport(url, headers, self.timeout_seconds)
                 if not payload:
                     raise SecEdgarError(f"SEC endpoint {url} returned an empty body")
+                if len(payload) > MAX_SEC_DOCUMENT_BYTES:
+                    raise SecDocumentTooLargeError("SEC document exceeds the download limit")
                 return payload
             except (HTTPError, URLError, TimeoutError, SecEdgarError) as exc:
                 last_error = exc
+                if isinstance(exc, HTTPError) and exc.code == 403:
+                    raise SecAccessBlockedError("SEC returned HTTP 403") from exc
+                if isinstance(exc, SecDocumentTooLargeError):
+                    break
                 if isinstance(exc, HTTPError) and exc.code not in {
                     429,
                     500,
@@ -878,3 +899,24 @@ class SecEdgarClient:
                 allowed_forms=allowed_forms, limit=max_filings,
             )
         return company, tuple(filings)
+
+    def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
+        """Download only the bounded primary document identified by SEC itself."""
+        accession = filing.accession_number
+        filename = self._raw_primary_document(filing.form, filing.primary_document)
+        if not re.fullmatch(r"\d{10}-\d{2}-\d{6}", accession):
+            raise SecEdgarError("Malformed SEC accession in document lead")
+        parts = filename.split("/")
+        if not parts or any(
+            not re.fullmatch(r"[A-Za-z0-9_.-]+", part) or part in {".", ".."}
+            for part in parts
+        ):
+            raise SecEdgarError("Unsafe SEC primary document path")
+        if not re.fullmatch(r"\d{10}", cik):
+            raise SecEdgarError("Malformed CIK in document lead")
+        expected = self._filing_url(cik, accession, filename)
+        parsed = urlsplit(filing.filing_url)
+        if (filing.filing_url != expected or parsed.scheme != "https"
+                or parsed.hostname != "www.sec.gov" or parsed.query or parsed.fragment):
+            raise SecEdgarError("SEC document URL does not match its filing identity")
+        return self._request_bytes(expected)

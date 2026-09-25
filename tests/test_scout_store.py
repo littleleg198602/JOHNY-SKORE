@@ -122,6 +122,34 @@ class ScoutStoreTests(unittest.TestCase):
                 "sec", as_of=now + timedelta(hours=1),
             ))
 
+    def test_source_leases_cannot_steal_other_provider_jobs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            store.enqueue(source="fda", subject_id="AAPL", reason="events", due_at=now)
+            store.enqueue(source="sec", subject_id="MSFT", reason="filings", due_at=now)
+            job = store.lease(source="sec", as_of=now)
+            self.assertEqual("sec", job.source)
+            self.assertEqual("fda", store.lease(source="fda", as_of=now).source)
+            self.assertIsNone(store.lease(source="sec", as_of=now))
+            with store._connect() as conn:
+                self.assertEqual(1, conn.execute(
+                    "SELECT COUNT(*) FROM scout_schema_migrations WHERE version=1"
+                ).fetchone()[0])
+
+    def test_provider_lease_renews_only_for_current_owner(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            token = store.claim_provider("sec", as_of=now, seconds=30)
+            self.assertFalse(store.renew_provider("sec", "other", as_of=now))
+            self.assertTrue(store.renew_provider(
+                "sec", token, as_of=now + timedelta(seconds=20), seconds=30,
+            ))
+            self.assertIsNone(store.claim_provider(
+                "sec", as_of=now + timedelta(seconds=40), seconds=30,
+            ))
+
 
 if __name__ == "__main__":
     unittest.main()

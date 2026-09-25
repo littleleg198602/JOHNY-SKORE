@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+import json
 from pathlib import Path
 
 from market_checker_app.agents.base import BaseAgent
@@ -29,6 +30,9 @@ class ScoutIndexAgent(BaseAgent):
         for row in rows:
             if row["source"] != "sec" or row["verification_status"] != "SOURCE_VERIFIED":
                 continue
+            details = json.loads(str(row["details_json"]))
+            content_observed = details.get("stage") == "filing_document"
+            item_locators = [item["locator"] for item in details.get("item_excerpts", [])]
             document_id = f"scout-index:{row['finding_id']}"
             observed_at = datetime.fromisoformat(str(row["first_observed_at"]))
             published_at = datetime.fromisoformat(str(row["published_at"]))
@@ -41,16 +45,24 @@ class ScoutIndexAgent(BaseAgent):
                 canonical_event_key=f"sec-filing:{ticker}:{row['source_object_id']}",
                 metadata={"locator": row["locator"],
                           "finding_id": row["finding_id"],
-                          "filing_index_only": True},
+                          "filing_index_only": not content_observed,
+                          "document_sha256": details.get("document_sha256"),
+                          "item_locators": item_locators},
             ))
             evidence.append(AgentEvidence(
                 evidence_id=f"scout-evidence:{row['finding_id']}", ticker=ticker,
                 agent_name=self.name, event_type="SEC_FILING_INDEX",
                 observed_at=observed_at,
-                summary=f"SEC eviduje podání {row['title']}.",
+                summary=(
+                    f"SEC primární dokument {row['title']} obsahuje sekce "
+                    f"{', '.join(item_locators)}; dopad se prověřuje."
+                    if content_observed and item_locators else
+                    f"SEC eviduje podání {row['title']}; dopad se prověřuje."
+                ),
                 direction=0.0, risk_score=0.0, confidence=0.5,
                 document_ids=[document_id], source_urls=[url],
-                metadata={"scoring_applied": False, "index_only": True,
+                metadata={"scoring_applied": False,
+                          "index_only": not content_observed,
                           "finding_id": row["finding_id"]},
             ))
         return AgentResult(

@@ -2198,10 +2198,17 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
                 "SEC požádala o odložení. Fronta pokračuje po "
                 f"{scout_batch['retry_at']}."
             )
+        elif scout_batch["status"] == "ACCESS_BLOCKED":
+            st.warning(
+                "SEC odmítla přístup (HTTP 403); další pokus nejdříve "
+                f"{scout_batch['retry_at']}. Zkontrolujte kontaktní User-Agent."
+            )
+        elif scout_batch["status"] == "LEASE_LOST":
+            st.warning("Kontrola SEC ztratila zámek poskytovatele; zbývající fronta čeká.")
         else:
             message = (
-                f"Zkontrolováno {scout_batch['processed']} firem, "
-                f"nových podání: {scout_batch['new_findings']}, "
+                f"Zpracováno {scout_batch['processed']} úloh, "
+                f"nových záznamů (index/dokument): {scout_batch['new_findings']}, "
                 f"chyb: {scout_batch['failed']}."
             )
             (st.warning if scout_batch["failed"] else st.success)(message)

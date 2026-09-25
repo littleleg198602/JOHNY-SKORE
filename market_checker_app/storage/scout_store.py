@@ -117,7 +117,15 @@ class ScoutStore:
                     created_at TEXT NOT NULL,
                     UNIQUE(finding_id, question)
                 );
+                CREATE TABLE IF NOT EXISTS scout_schema_migrations (
+                    version INTEGER PRIMARY KEY,
+                    applied_at TEXT NOT NULL
+                );
             """)
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(1, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
 
     def enqueue(
         self, *, source: str, subject_id: str, reason: str,
@@ -194,12 +202,18 @@ class ScoutStore:
         return True
 
     def provider_retry_at(self, source: str, *, as_of: datetime) -> str | None:
+        cooldown = self.provider_cooldown(source, as_of=as_of)
+        return cooldown["retry_at"] if cooldown else None
+
+    def provider_cooldown(
+        self, source: str, *, as_of: datetime,
+    ) -> dict[str, str] | None:
         with self._connect() as conn:
             row = conn.execute(
-                "SELECT retry_at FROM scout_provider_cooldowns "
+                "SELECT retry_at, reason FROM scout_provider_cooldowns "
                 "WHERE source=? AND retry_at>?", (source, _utc(as_of)),
             ).fetchone()
-        return str(row[0]) if row is not None else None
+        return {"retry_at": str(row[0]), "reason": str(row[1])} if row else None
 
     def release_provider(self, source: str, token: str) -> None:
         with self._connect() as conn:
@@ -208,7 +222,24 @@ class ScoutStore:
                 (source, token),
             )
 
-    def lease(self, *, as_of: datetime, seconds: int = 300) -> ScoutJob | None:
+    def renew_provider(
+        self, source: str, token: str, *, as_of: datetime, seconds: int = 1800,
+    ) -> bool:
+        if seconds < 1:
+            raise ValueError("Provider lease duration must be positive")
+        clock = _utc(as_of)
+        until = _utc(as_of + timedelta(seconds=seconds))
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            updated = conn.execute("""
+                UPDATE scout_provider_leases SET lease_until=?
+                WHERE source=? AND lease_token=? AND lease_until>?
+            """, (until, source, token, clock))
+        return updated.rowcount == 1
+
+    def lease(
+        self, *, as_of: datetime, seconds: int = 300, source: str | None = None,
+    ) -> ScoutJob | None:
         if seconds < 1:
             raise ValueError("lease duration must be positive")
         clock = _utc(as_of)
@@ -218,10 +249,11 @@ class ScoutStore:
             conn.execute("BEGIN IMMEDIATE")
             row = conn.execute("""
                 SELECT * FROM scout_jobs
-                WHERE (status='READY' AND due_at<=?)
-                   OR (status='LEASED' AND lease_until<=?)
+                WHERE (? IS NULL OR source=?) AND
+                    ((status='READY' AND due_at<=?)
+                    OR (status='LEASED' AND lease_until<=?))
                 ORDER BY priority DESC, due_at, updated_at, job_id LIMIT 1
-            """, (clock, clock)).fetchone()
+            """, (source, source, clock, clock)).fetchone()
             if row is None:
                 return None
             attempt = int(row["attempts"]) + 1
@@ -339,6 +371,14 @@ class ScoutStore:
             """, params).fetchall()
         return [dict(row) for row in rows]
 
+    def finding_by_id(self, finding_id: str, *, subject_id: str) -> dict[str, object] | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM scout_findings WHERE finding_id=? AND subject_id=?",
+                (finding_id, subject_id),
+            ).fetchone()
+        return dict(row) if row is not None else None
+
     def metrics(self) -> dict[str, int]:
         with self._connect() as conn:
             rows = conn.execute(
@@ -395,13 +435,24 @@ class ScoutStore:
         with self._connect() as conn:
             rows = conn.execute(f"""
                 SELECT subject_id, title, source_url, locator, available_at,
-                       first_observed_at, verification_status, finding_id
+                       first_observed_at, verification_status, finding_id,
+                       details_json
                 FROM scout_findings
                 WHERE subject_id IN ({placeholders}) AND available_at<=?
                     AND first_observed_at<=?
                 ORDER BY first_observed_at DESC, finding_id DESC LIMIT ?
             """, (*bounded, cutoff, cutoff, limit)).fetchall()
-        return [dict(row) for row in rows]
+        output: list[dict[str, object]] = []
+        for row in rows:
+            item = dict(row)
+            details = json.loads(str(item.pop("details_json")))
+            item["stage"] = details.get("stage", "unclassified")
+            item["item_locators"] = ", ".join(
+                str(section.get("locator", ""))
+                for section in details.get("item_excerpts", [])
+            )
+            output.append(item)
+        return output
 
     def findings_for_watchlist(
         self, subjects: list[str], *, as_of: datetime, per_subject: int = 2,

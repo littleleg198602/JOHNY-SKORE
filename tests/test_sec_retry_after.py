@@ -1,7 +1,9 @@
 import unittest
 from urllib.error import HTTPError
 
-from market_checker_app.collectors.sec_edgar_client import SecEdgarClient, SecRateLimitedError
+from market_checker_app.collectors.sec_edgar_client import (
+    SecAccessBlockedError, SecEdgarClient, SecRateLimitedError,
+)
 
 
 class SecRetryAfterTest(unittest.TestCase):
@@ -38,6 +40,19 @@ class SecRetryAfterTest(unittest.TestCase):
             client._request_json("https://data.sec.gov/submissions/test.json")
         self.assertEqual(caught.exception.retry_after_seconds, 3600)
         self.assertEqual([], sleeps)
+
+    def test_http_403_is_access_blocked_without_retry(self):
+        calls = 0
+
+        def transport(url, headers, timeout):
+            nonlocal calls
+            calls += 1
+            raise HTTPError(url, 403, "forbidden", {}, None)
+
+        client = SecEdgarClient(user_agent="App test@example.com", transport=transport)
+        with self.assertRaises(SecAccessBlockedError):
+            client._request_json("https://data.sec.gov/submissions/test.json")
+        self.assertEqual(1, calls)
 
 
 if __name__ == "__main__":
