@@ -12,12 +12,15 @@ class ResearchProfilesTest(unittest.TestCase):
         self.assertEqual(len(load_canonical_tickers()), 687)
         self.assertEqual(registry.source_only, ("P",))
         self.assertEqual(registry.unmapped_input, ("OKE",))
+        self.assertEqual(registry.for_ticker("OKE").code, "OIL_GAS")
+        self.assertIsNone(registry.for_ticker("P"))
 
     def test_irrelevant_metric_is_not_missing_evidence(self):
         registry = load_research_profiles()
         self.assertEqual(registry.applicability("JPM", "BANK"), "APPLICABLE")
         self.assertEqual(registry.applicability("JPM", "INDUSTRIAL"), "NOT_APPLICABLE")
-        self.assertEqual(registry.applicability("OKE", "OIL_GAS"), "UNKNOWN")
+        self.assertEqual(registry.applicability("OKE", "OIL_GAS"), "APPLICABLE")
+        self.assertEqual(registry.applicability("MISSING", "OIL_GAS"), "UNKNOWN")
 
 
 if __name__ == "__main__":

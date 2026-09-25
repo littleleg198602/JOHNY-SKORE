@@ -25,12 +25,16 @@ class ProfileRegistry:
     version: int
     profiles: tuple[ResearchProfile, ...]
     by_ticker: dict[str, ResearchProfile]
+    verified_overrides: dict[str, ResearchProfile]
     source_only: tuple[str, ...]
     unmapped_input: tuple[str, ...]
 
     def for_ticker(self, ticker: str) -> ResearchProfile | None:
         """An absent profile means unresolved applicability, never a penalty."""
-        return self.by_ticker.get(normalize_ticker(ticker))
+        ticker = normalize_ticker(ticker)
+        if ticker in self.source_only:
+            return None
+        return self.by_ticker.get(ticker) or self.verified_overrides.get(ticker)
 
     def applicability(self, ticker: str, profile_code: str) -> str:
         profile = self.for_ticker(ticker)
@@ -43,10 +47,11 @@ def load_research_profiles(path: Path = PROFILE_PATH) -> ProfileRegistry:
     """Validate the research taxonomy against the immutable production input.
 
     The research document has P where the actual source CSV has OKE. Keep that
-    discrepancy visible. No provider alias or sector is inferred from it.
+    discrepancy visible. The independently sourced OKE mapping is an explicit
+    taxonomy override, not an alias for research-only P.
     """
     raw = json.loads(Path(path).read_text(encoding="utf-8"))
-    if raw["schema_version"] != 1 or len(raw["profiles"]) != 39:
+    if raw["schema_version"] != 2 or len(raw["profiles"]) != 39:
         raise ValueError("Unsupported research profile catalogue")
     profiles = tuple(
         ResearchProfile(
@@ -71,5 +76,17 @@ def load_research_profiles(path: Path = PROFILE_PATH) -> ProfileRegistry:
         raise ValueError("Research-only ticker discrepancy changed")
     if unmapped_input != tuple(raw["unmapped_input_tickers"]):
         raise ValueError("Production ticker discrepancy changed")
+    by_code = {profile.code: profile for profile in profiles}
+    verified_overrides: dict[str, ResearchProfile] = {}
+    for ticker, record in raw["verified_profile_overrides"].items():
+        if (ticker not in unmapped_input or ticker in by_ticker
+                or record["profile"] not in by_code
+                or not record["source_url"].startswith("https://www.oneok.com/")
+                or not record["sec_10k_url"].startswith("https://www.sec.gov/Archives/")
+                or not record["verified_at"]):
+            raise ValueError(f"Invalid independently verified profile: {ticker}")
+        verified_overrides[ticker] = by_code[record["profile"]]
+    if set(verified_overrides) != set(unmapped_input):
+        raise ValueError("Unresolved production profile discrepancy")
     return ProfileRegistry(raw["schema_version"], profiles, by_ticker,
-                           source_only, unmapped_input)
+                           verified_overrides, source_only, unmapped_input)

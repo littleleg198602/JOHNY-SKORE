@@ -2171,17 +2171,16 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     research_profiles = load_research_profiles()
     st.caption(
         f"Výzkumné profily: {len(research_profiles.profiles)}; "
-        f"přiřazeno {len(set(watchlist) & set(research_profiles.by_ticker))} "
+        f"přiřazeno {sum(research_profiles.for_ticker(ticker) is not None for ticker in watchlist)} "
         f"z {len(watchlist)} vybraných tickerů. "
         "Profily jsou zatím informační, nemění skóre."
     )
-    unresolved_profiles = sorted(set(watchlist) & set(research_profiles.unmapped_input))
-    if unresolved_profiles:
-        st.warning(
-            "Profil ze studie chybí pro vstupní ticker "
-            f"{', '.join(unresolved_profiles)}; v dokumentu je místo něj "
-            f"{', '.join(research_profiles.source_only)}. "
-            "Původní seznam akcií se nemění."
+    corrected_profiles = sorted(set(watchlist) & set(research_profiles.verified_overrides))
+    if corrected_profiles:
+        st.info(
+            "Výzkum nezařadil " + ", ".join(corrected_profiles) +
+            "; profil OIL_GAS byl ověřen podle oficiálního ONEOK a SEC 10-K. "
+            "Výzkumné P není součástí produkčních 687 tickerů."
         )
     scout_store = ScoutStore(config.sqlite_path)
     if st.button("Prohledat další dávku SEC (max. 25 firem)"):

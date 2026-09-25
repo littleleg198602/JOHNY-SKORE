@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "source": "Hloubkový výzkum, tabulka 39 profilů, 25. 9. 2026",
   "source_only_tickers": [
     "P"
@@ -7,6 +7,15 @@
   "unmapped_input_tickers": [
     "OKE"
   ],
+  "verified_profile_overrides": {
+    "OKE": {
+      "profile": "OIL_GAS",
+      "issuer": "ONEOK, Inc.",
+      "source_url": "https://www.oneok.com/",
+      "sec_10k_url": "https://www.sec.gov/Archives/edgar/data/1039684/000103968426000006/oke-20251231.htm",
+      "verified_at": "2026-09-25"
+    }
+  },
   "profiles": [
     {
       "code": "SEM",
