@@ -2425,6 +2425,7 @@ if run_analysis:
                 path, result["signals"], result["sources"], result["articles"],
                 dashboard_tables, prepare_delta_for_excel(delta_df), dashboard_export,
                 pd.DataFrame(result.get("open_position_audit_rows", [])),
+                scout_evidence=pd.DataFrame(result.get("scout_evidence_rows", [])),
             )
             st.success(f"Excel export uložen: {path}")
             if result.get("run_id"):

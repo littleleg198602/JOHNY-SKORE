@@ -530,6 +530,40 @@ class ScoutStore:
         return ({"as_of": row[0], "finding_ids": json.loads(row[1])}
                 if row else None)
 
+    def findings_for_snapshot(self, orchestration_id: str) -> list[dict[str, object]]:
+        snapshot = self.analysis_snapshot(orchestration_id)
+        if snapshot is None:
+            return []
+        identifiers = snapshot["finding_ids"]
+        cutoff = snapshot["as_of"]
+        output: list[dict[str, object]] = []
+        with self._connect() as conn:
+            for start in range(0, len(identifiers), 800):
+                chunk = identifiers[start:start + 800]
+                placeholders = ", ".join("?" for _ in chunk)
+                rows = conn.execute(f"""
+                    SELECT finding_id, subject_id, title, source_url, locator,
+                           published_at, available_at, first_observed_at,
+                           verification_status, details_json
+                    FROM scout_findings
+                    WHERE finding_id IN ({placeholders})
+                      AND available_at<=? AND first_observed_at<=?
+                    ORDER BY subject_id, finding_id
+                """, (*chunk, cutoff, cutoff)).fetchall()
+                for row in rows:
+                    item = dict(row)
+                    details = json.loads(str(item.pop("details_json")))
+                    item["stage"] = details.get("stage", "unclassified")
+                    item["item_locators"] = ", ".join(
+                        str(section.get("locator", ""))
+                        for section in details.get("item_excerpts", [])
+                    )
+                    item["as_of"] = cutoff
+                    output.append(item)
+        if len(output) != len(identifiers):
+            raise ValueError("Scout snapshot refers to missing evidence")
+        return output
+
     def metrics(self) -> dict[str, int]:
         with self._connect() as conn:
             rows = conn.execute(

@@ -63,8 +63,7 @@ class NewsScoutService:
                     verification_status="UNVERIFIED",
                     details={"stage": "search_candidate", "publisher": article.publisher,
                              "feed_url": article.feed_url, "event_id": article.event_id,
-                             "identity_status": "TICKER_HINT_ONLY",
-                             "summary": article.summary[:600]},
+                             "identity_status": "TICKER_HINT_ONLY"},
                 )
                 if new:
                     created += 1

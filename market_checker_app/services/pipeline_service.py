@@ -1647,6 +1647,14 @@ class PipelineService:
             ),
             observed_at=started_at,
         )
+        scout_evidence_rows: list[dict[str, object]] = []
+        if agent_report is not None:
+            try:
+                scout_evidence_rows = ScoutStore(self.config.sqlite_path).findings_for_snapshot(
+                    agent_report.orchestration_id,
+                )
+            except Exception as exc:
+                warnings.append(f"Audit pátracích důkazů nelze načíst: {exc}")
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(article) for article in articles])
         warnings = list(dict.fromkeys(warnings))
@@ -1821,6 +1829,7 @@ class PipelineService:
             "agent_feature_snapshot_count": len(agent_feature_snapshots),
             "agent_feature_snapshots": agent_feature_snapshots,
             "agent_report": agent_report,
+            "scout_evidence_rows": scout_evidence_rows,
             "point_in_time_inputs": point_in_time_inputs,
             "progress_state": progress.snapshot(),
         }

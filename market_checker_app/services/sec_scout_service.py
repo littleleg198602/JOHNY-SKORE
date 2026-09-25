@@ -26,7 +26,10 @@ class FilingIndexClient(Protocol):
 class SecScoutService:
     """Find SEC filing leads in a durable queue; no predictions or orders."""
 
-    FORMS = ("10-K", "10-Q", "8-K", "20-F", "6-K", "40-F")
+    FORMS = (
+        "10-K", "10-Q", "8-K", "20-F", "6-K", "40-F",
+        "4", "SC 13D", "SC 13G",
+    )
 
     def __init__(
         self, store: ScoutStore, *, user_agent: str = "",
@@ -99,7 +102,10 @@ class SecScoutService:
                 if normalize_ticker(company.ticker) != job.subject_id:
                     raise ValueError("IDENTITY_CONFLICT: SEC ticker differs from job")
                 document_targets: set[str] = set()
-                for form_family in ("8-K", "10-Q", "10-K", "6-K", "20-F", "40-F"):
+                for form_family in (
+                    "8-K", "10-Q", "10-K", "6-K", "20-F", "40-F",
+                    "4", "SC 13D", "SC 13G",
+                ):
                     selected = next((f for f in filings if f.form.removesuffix("/A") == form_family), None)
                     if selected is not None:
                         document_targets.add(selected.accession_number)

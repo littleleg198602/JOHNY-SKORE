@@ -36,6 +36,9 @@ class FakeIndex:
 
 
 class SecScoutServiceTests(unittest.TestCase):
+    def test_ownership_forms_are_discovered_without_inferred_transactions(self) -> None:
+        self.assertTrue({"4", "SC 13D", "SC 13G"}.issubset(SecScoutService.FORMS))
+
     def test_filing_is_one_finding_even_after_catchup(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")

@@ -15,6 +15,7 @@ from market_checker_app.agents import (
     QualityGateAgent, SourceResolutionAgent,
 )
 from market_checker_app.agents.scout_index_agent import ScoutIndexAgent
+from market_checker_app.exporters.excel_exporter import ExcelExporter
 from market_checker_app.services.sec_document_extraction import extract_sec_item_excerpts
 from market_checker_app.services.sec_scout_service import SecScoutService
 from market_checker_app.storage.scout_store import ScoutStore
@@ -111,6 +112,19 @@ class SecDocumentScoutTest(unittest.TestCase):
             saved = store.analysis_snapshot(report.orchestration_id)
             self.assertEqual({row["finding_id"] for row in records},
                              set(saved["finding_ids"]))
+            export_rows = store.findings_for_snapshot(report.orchestration_id)
+            self.assertEqual({row["finding_id"] for row in records},
+                             {row["finding_id"] for row in export_rows})
+            workbook = Path(directory) / "report.xlsx"
+            ExcelExporter().export(
+                workbook, pd.DataFrame(), pd.DataFrame(), pd.DataFrame(), {},
+                scout_evidence=pd.DataFrame(export_rows),
+            )
+            with pd.ExcelFile(workbook) as sheets:
+                self.assertIn("ScoutEvidence", sheets.sheet_names)
+                exported = pd.read_excel(sheets, sheet_name="ScoutEvidence")
+            self.assertEqual({row["finding_id"] for row in records},
+                             set(exported["finding_id"]))
 
     def test_extracts_8k_items_without_script_and_without_claim_inference(self) -> None:
         raw = (b"<script>Item 9.99 false</script><h2>Item 2.02</h2>"
