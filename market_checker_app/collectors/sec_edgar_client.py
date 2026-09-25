@@ -805,3 +805,37 @@ class SecEdgarClient:
             insider_transactions=tuple(insider_transactions),
             historical_submission_files_loaded=historical_files_loaded,
         )
+
+    def fetch_filing_index(
+        self,
+        ticker: str,
+        *,
+        allowed_forms: tuple[str, ...] = ("10-K", "10-Q", "8-K", "20-F", "6-K"),
+        max_filings: int = 30,
+        max_historical_submission_files: int = 0,
+    ) -> tuple[SecCompany, tuple[SecFiling, ...]] | None:
+        """Discover filing metadata without downloading XBRL facts or documents."""
+        company = self.resolve_company(ticker)
+        if company is None:
+            return None
+        submissions = self._request_json(SEC_SUBMISSIONS_URL.format(cik=company.cik))
+        payloads = [submissions]
+        filings = self._parse_filings(
+            self._merged_submissions(payloads), cik=company.cik,
+            allowed_forms=allowed_forms, limit=max_filings,
+        )
+        for name in self._historical_submission_names(submissions)[
+            : max(0, int(max_historical_submission_files))
+        ]:
+            if not self._needs_historical_filings(
+                filings, allowed_forms=allowed_forms, limit=max_filings,
+            ):
+                break
+            payloads.append(self._request_json(
+                SEC_SUBMISSIONS_FILE_URL.format(name=quote(name))
+            ))
+            filings = self._parse_filings(
+                self._merged_submissions(payloads), cik=company.cik,
+                allowed_forms=allowed_forms, limit=max_filings,
+            )
+        return company, tuple(filings)

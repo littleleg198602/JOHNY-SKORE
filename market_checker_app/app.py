@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from datetime import datetime, timezone
 import os
 import re
 import sys
@@ -54,6 +55,7 @@ from market_checker_app.services.evaluation_service import EvaluationService
 from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.services.ranking_service import RankingService
+from market_checker_app.services.sec_scout_service import SecScoutService
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
     parse_regulatory_contract_sources,
@@ -66,6 +68,7 @@ from market_checker_app.services.watchlist_service import restrict_to_universe
 from market_checker_app.services.visualization_service import VisualizationService
 from market_checker_app.services.yahoo_enrichment_service import YahooEnrichmentService
 from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.storage.yahoo_cache_store import YahooCacheCoverage, YahooCacheStore
 from market_checker_app.utils.charts import (
     histogram_chart,
@@ -2162,6 +2165,32 @@ st.write(
     f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů "
     f"(US-687 scope; Yahoo-only: {len(yahoo_only_tickers)})"
 )
+
+with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
+    scout_store = ScoutStore(config.sqlite_path)
+    if st.button("Prohledat další dávku SEC (max. 25 firem)"):
+        scout_service = SecScoutService(scout_store, user_agent=sec_user_agent)
+        scout_service.schedule(watchlist, as_of=datetime.now(timezone.utc))
+        with st.spinner("Kontroluji firemní podání v SEC..."):
+            scout_batch = scout_service.run_batch(limit=25)
+        if scout_batch["status"] == "WAIT_ACCESS":
+            st.warning("Chybí jednorázově nastavený SEC User-Agent s kontaktem.")
+        else:
+            message = (
+                f"Zkontrolováno {scout_batch['processed']} firem, "
+                f"nových podání: {scout_batch['new_findings']}, "
+                f"chyb: {scout_batch['failed']}."
+            )
+            (st.warning if scout_batch["failed"] else st.success)(message)
+    scout_counts = scout_store.metrics()
+    st.caption(f"Fronta: {scout_counts}. Průběžný sběr spouští také týdenní runner.")
+    scout_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=50,
+    )
+    if scout_rows:
+        st.dataframe(pd.DataFrame(scout_rows), hide_index=True)
+    else:
+        st.info("Zatím není uložené žádné nalezené podání pro tento výběr.")
 
 
 def _render_yahoo_coverage(coverage: YahooCacheCoverage) -> None:

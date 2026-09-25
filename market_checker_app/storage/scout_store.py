@@ -1,0 +1,314 @@
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
+import hashlib
+import json
+from pathlib import Path
+import sqlite3
+from uuid import uuid4
+
+
+def _utc(value: datetime) -> str:
+    if value.tzinfo is None or value.utcoffset() is None:
+        raise ValueError("Scout timestamps require an explicit timezone")
+    return value.astimezone(timezone.utc).isoformat()
+
+
+def _key(*parts: object) -> str:
+    return hashlib.sha256("|".join(str(part) for part in parts).encode()).hexdigest()
+
+
+@dataclass(frozen=True, slots=True)
+class ScoutJob:
+    job_id: str
+    source: str
+    subject_id: str
+    reason: str
+    cursor: str | None
+    attempts: int
+    failure_count: int
+    lease_token: str
+
+
+class ScoutStore:
+    """Durable, independently leased work and immutable source observations."""
+
+    def __init__(self, db_path: Path) -> None:
+        self.db_path = Path(db_path)
+        self.ensure_schema()
+
+    def _connect(self) -> sqlite3.Connection:
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        conn = sqlite3.connect(self.db_path, timeout=30)
+        conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys=ON")
+        return conn
+
+    def ensure_schema(self) -> None:
+        with self._connect() as conn:
+            conn.executescript("""
+                CREATE TABLE IF NOT EXISTS scout_jobs (
+                    job_id TEXT PRIMARY KEY,
+                    dedupe_key TEXT NOT NULL UNIQUE,
+                    source TEXT NOT NULL,
+                    subject_id TEXT NOT NULL,
+                    reason TEXT NOT NULL,
+                    priority INTEGER NOT NULL DEFAULT 0,
+                    due_at TEXT NOT NULL,
+                    cursor TEXT,
+                    attempts INTEGER NOT NULL DEFAULT 0,
+                    failure_count INTEGER NOT NULL DEFAULT 0,
+                    status TEXT NOT NULL DEFAULT 'READY',
+                    lease_token TEXT,
+                    lease_until TEXT,
+                    last_error TEXT,
+                    updated_at TEXT NOT NULL
+                );
+                CREATE INDEX IF NOT EXISTS scout_jobs_ready
+                    ON scout_jobs(status, due_at, priority);
+                CREATE TABLE IF NOT EXISTS scout_attempts (
+                    job_id TEXT NOT NULL REFERENCES scout_jobs(job_id),
+                    attempt_no INTEGER NOT NULL,
+                    started_at TEXT NOT NULL,
+                    finished_at TEXT,
+                    outcome TEXT,
+                    error TEXT,
+                    PRIMARY KEY(job_id, attempt_no)
+                );
+                CREATE TABLE IF NOT EXISTS scout_findings (
+                    finding_id TEXT PRIMARY KEY,
+                    source TEXT NOT NULL,
+                    subject_id TEXT NOT NULL,
+                    source_object_id TEXT NOT NULL,
+                    content_hash TEXT NOT NULL,
+                    title TEXT NOT NULL,
+                    source_url TEXT NOT NULL,
+                    locator TEXT NOT NULL,
+                    published_at TEXT NOT NULL,
+                    available_at TEXT NOT NULL,
+                    first_observed_at TEXT NOT NULL,
+                    retrieved_at TEXT NOT NULL,
+                    verification_status TEXT NOT NULL,
+                    details_json TEXT NOT NULL,
+                    UNIQUE(source, subject_id, source_object_id, content_hash)
+                );
+                CREATE INDEX IF NOT EXISTS scout_findings_asof
+                    ON scout_findings(subject_id, available_at, first_observed_at);
+                CREATE TABLE IF NOT EXISTS scout_leads (
+                    lead_id TEXT PRIMARY KEY,
+                    subject_id TEXT NOT NULL,
+                    finding_id TEXT NOT NULL REFERENCES scout_findings(finding_id),
+                    parent_lead_id TEXT REFERENCES scout_leads(lead_id),
+                    question TEXT NOT NULL,
+                    depth INTEGER NOT NULL CHECK(depth BETWEEN 0 AND 2),
+                    status TEXT NOT NULL DEFAULT 'OPEN',
+                    due_at TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    UNIQUE(finding_id, question)
+                );
+            """)
+
+    def enqueue(
+        self, *, source: str, subject_id: str, reason: str,
+        due_at: datetime, priority: int = 0, cursor: str | None = None,
+    ) -> str:
+        due = _utc(due_at)
+        dedupe = _key(source, subject_id, reason)
+        job_id = f"scout:{dedupe[:24]}"
+        with self._connect() as conn:
+            conn.execute("""
+                INSERT INTO scout_jobs(job_id, dedupe_key, source, subject_id,
+                    reason, priority, due_at, cursor, updated_at)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(dedupe_key) DO UPDATE SET
+                    due_at=CASE WHEN scout_jobs.status='DONE' THEN excluded.due_at
+                        WHEN excluded.due_at < scout_jobs.due_at THEN excluded.due_at
+                        ELSE scout_jobs.due_at END,
+                    status=CASE WHEN scout_jobs.status='DONE' THEN 'READY'
+                        ELSE scout_jobs.status END,
+                    priority=MAX(scout_jobs.priority, excluded.priority),
+                    updated_at=excluded.updated_at
+            """, (job_id, dedupe, source, subject_id, reason, priority, due, cursor, due))
+        return job_id
+
+    def lease(self, *, as_of: datetime, seconds: int = 300) -> ScoutJob | None:
+        if seconds < 1:
+            raise ValueError("lease duration must be positive")
+        clock = _utc(as_of)
+        until = _utc(as_of + timedelta(seconds=seconds))
+        token = uuid4().hex
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute("""
+                SELECT * FROM scout_jobs
+                WHERE (status='READY' AND due_at<=?)
+                   OR (status='LEASED' AND lease_until<=?)
+                ORDER BY priority DESC, due_at, updated_at, job_id LIMIT 1
+            """, (clock, clock)).fetchone()
+            if row is None:
+                return None
+            attempt = int(row["attempts"]) + 1
+            conn.execute("""
+                UPDATE scout_jobs SET status='LEASED', lease_token=?,
+                    lease_until=?, attempts=?, updated_at=? WHERE job_id=?
+            """, (token, until, attempt, clock, row["job_id"]))
+            conn.execute("""
+                INSERT INTO scout_attempts(job_id, attempt_no, started_at)
+                VALUES(?, ?, ?)
+            """, (row["job_id"], attempt, clock))
+            return ScoutJob(row["job_id"], row["source"], row["subject_id"],
+                            row["reason"], row["cursor"], attempt,
+                            int(row["failure_count"]), token)
+
+    def finish(
+        self, job: ScoutJob, *, as_of: datetime, error: str | None = None,
+        retry_after: timedelta = timedelta(minutes=30), max_attempts: int = 5,
+        cursor: str | None = None,
+    ) -> bool:
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT lease_token FROM scout_jobs WHERE job_id=?", (job.job_id,)
+            ).fetchone()
+            if row is None or row["lease_token"] != job.lease_token:
+                return False
+            failures = job.failure_count + 1 if error else 0
+            status = "DONE" if error is None else (
+                "DEAD" if failures >= max_attempts else "READY"
+            )
+            due = clock if error is None else _utc(as_of + retry_after)
+            conn.execute("""
+                UPDATE scout_jobs SET status=?, due_at=?, cursor=?, failure_count=?,
+                    lease_token=NULL, lease_until=NULL, last_error=?, updated_at=?
+                WHERE job_id=?
+            """, (status, due, cursor if cursor is not None else job.cursor, failures,
+                  str(error)[:1000] if error else None, clock, job.job_id))
+            conn.execute("""
+                UPDATE scout_attempts SET finished_at=?, outcome=?, error=?
+                WHERE job_id=? AND attempt_no=?
+            """, (clock, status, str(error)[:1000] if error else None,
+                  job.job_id, job.attempts))
+            return True
+
+    def record_finding(
+        self, *, source: str, subject_id: str, source_object_id: str,
+        content_hash: str, title: str, source_url: str, locator: str,
+        published_at: datetime, available_at: datetime, observed_at: datetime,
+        details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
+    ) -> tuple[str, bool]:
+        published = _utc(published_at)
+        available = _utc(available_at)
+        observed = _utc(observed_at)
+        if available > observed:
+            raise ValueError("Source cannot be observed before it is available")
+        finding_id = f"finding:{_key(source, subject_id, source_object_id, content_hash)[:32]}"
+        with self._connect() as conn:
+            cur = conn.execute("""
+                INSERT OR IGNORE INTO scout_findings(finding_id, source, subject_id,
+                    source_object_id, content_hash, title, source_url, locator,
+                    published_at, available_at, first_observed_at, retrieved_at,
+                    verification_status, details_json)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (finding_id, source, subject_id, source_object_id, content_hash,
+                  title, source_url, locator, published, available, observed,
+                  observed, verification_status, json.dumps(details, sort_keys=True)))
+            newly_seen = cur.rowcount == 1
+            if not newly_seen:
+                conn.execute(
+                    "UPDATE scout_findings SET retrieved_at=? WHERE finding_id=?",
+                    (observed, finding_id),
+                )
+        return finding_id, newly_seen
+
+    def add_lead(
+        self, *, subject_id: str, finding_id: str, question: str,
+        as_of: datetime, parent_lead_id: str | None = None,
+    ) -> str:
+        clock = _utc(as_of)
+        lead_id = f"lead:{_key(finding_id, question)[:32]}"
+        with self._connect() as conn:
+            parent_depth = 0
+            if parent_lead_id:
+                parent = conn.execute(
+                    "SELECT depth FROM scout_leads WHERE lead_id=?",
+                    (parent_lead_id,),
+                ).fetchone()
+                if parent is None:
+                    raise ValueError("Unknown parent lead")
+                parent_depth = int(parent[0]) + 1
+            if parent_depth > 2:
+                raise ValueError("Maximum scout lead depth exceeded")
+            conn.execute("""
+                INSERT OR IGNORE INTO scout_leads(lead_id, subject_id, finding_id,
+                    parent_lead_id, question, depth, due_at, created_at)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+            """, (lead_id, subject_id, finding_id, parent_lead_id,
+                  question, parent_depth, clock, clock))
+        return lead_id
+
+    def findings_as_of(
+        self, subject_id: str, *, as_of: datetime,
+        actual_observation: bool = True,
+    ) -> list[dict[str, object]]:
+        cutoff = _utc(as_of)
+        predicate = "AND first_observed_at<=?" if actual_observation else ""
+        params = (subject_id, cutoff, cutoff) if actual_observation else (subject_id, cutoff)
+        with self._connect() as conn:
+            rows = conn.execute(f"""
+                SELECT * FROM scout_findings
+                WHERE subject_id=? AND available_at<=? {predicate}
+                ORDER BY available_at DESC, finding_id
+            """, params).fetchall()
+        return [dict(row) for row in rows]
+
+    def metrics(self) -> dict[str, int]:
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT status, COUNT(*) FROM scout_jobs GROUP BY status"
+            ).fetchall()
+        return {str(row[0]): int(row[1]) for row in rows}
+
+    def latest_findings(
+        self, subjects: list[str], *, as_of: datetime, limit: int = 100,
+    ) -> list[dict[str, object]]:
+        if not subjects or limit < 1:
+            return []
+        # The universe is bounded; bind each ticker rather than interpolating it.
+        bounded = list(dict.fromkeys(subjects))[:900]
+        placeholders = ", ".join("?" for _ in bounded)
+        cutoff = _utc(as_of)
+        with self._connect() as conn:
+            rows = conn.execute(f"""
+                SELECT subject_id, title, source_url, locator, available_at,
+                       first_observed_at, verification_status, finding_id
+                FROM scout_findings
+                WHERE subject_id IN ({placeholders}) AND available_at<=?
+                    AND first_observed_at<=?
+                ORDER BY first_observed_at DESC, finding_id DESC LIMIT ?
+            """, (*bounded, cutoff, cutoff, limit)).fetchall()
+        return [dict(row) for row in rows]
+
+    def findings_for_watchlist(
+        self, subjects: list[str], *, as_of: datetime, per_subject: int = 2,
+    ) -> list[dict[str, object]]:
+        if not subjects or per_subject < 1:
+            return []
+        bounded = list(dict.fromkeys(subjects))[:900]
+        placeholders = ", ".join("?" for _ in bounded)
+        cutoff = _utc(as_of)
+        with self._connect() as conn:
+            rows = conn.execute(f"""
+                SELECT * FROM (
+                    SELECT f.*, ROW_NUMBER() OVER (
+                        PARTITION BY subject_id
+                        ORDER BY available_at DESC, finding_id DESC
+                    ) AS position
+                    FROM scout_findings AS f
+                    WHERE subject_id IN ({placeholders})
+                      AND available_at<=? AND first_observed_at<=?
+                ) WHERE position<=?
+                ORDER BY subject_id, available_at DESC, finding_id
+            """, (*bounded, cutoff, cutoff, per_subject)).fetchall()
+        return [dict(row) for row in rows]
