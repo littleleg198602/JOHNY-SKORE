@@ -2193,6 +2193,11 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
             st.warning("Chybí jednorázově nastavený SEC User-Agent s kontaktem.")
         elif scout_batch["status"] == "BUSY":
             st.info("SEC právě kontroluje jiný běh. Fronta zůstala uložená.")
+        elif scout_batch["status"] == "RATE_LIMITED":
+            st.warning(
+                "SEC požádala o odložení. Fronta pokračuje po "
+                f"{scout_batch['retry_at']}."
+            )
         else:
             message = (
                 f"Zkontrolováno {scout_batch['processed']} firem, "

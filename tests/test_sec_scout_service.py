@@ -5,7 +5,9 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from market_checker_app.collectors.sec_edgar_client import SecCompany, SecFiling
+from market_checker_app.collectors.sec_edgar_client import (
+    SecCompany, SecFiling, SecRateLimitedError,
+)
 from market_checker_app.agents import (
     EntityRegistryAgent, OrchestratorAgent, PredictionV21AdapterAgent,
     QualityGateAgent, SourceResolutionAgent,
@@ -74,6 +76,22 @@ class SecScoutServiceTests(unittest.TestCase):
             summary = scout.run_batch(as_of=now)
             self.assertEqual("PARTIAL", summary["status"])
             self.assertEqual(1, summary["failed"])
+            self.assertEqual([], store.findings_as_of("AAPL", as_of=now))
+
+    def test_long_provider_cooldown_stops_batch_and_is_durable(self) -> None:
+        class LimitedIndex:
+            def fetch_filing_index(self, ticker, **kwargs):
+                raise SecRateLimitedError(3600)
+
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            scout = SecScoutService(store, client=LimitedIndex())
+            scout.schedule(["AAPL", "MSFT"], as_of=now)
+            first = scout.run_batch(as_of=now, limit=2)
+            self.assertEqual("RATE_LIMITED", first["status"])
+            self.assertEqual(1, first["processed"])
+            self.assertEqual("RATE_LIMITED", scout.run_batch(as_of=now)["status"])
             self.assertEqual([], store.findings_as_of("AAPL", as_of=now))
 
     def test_saved_filing_reaches_quality_checked_agent_report(self) -> None:

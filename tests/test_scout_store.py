@@ -103,6 +103,25 @@ class ScoutStoreTests(unittest.TestCase):
             first.release_provider("sec", token)
             self.assertIsNotNone(second.claim_provider("sec", as_of=now))
 
+    def test_provider_cooldown_survives_process_restart(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scout.db"
+            first = ScoutStore(path)
+            now = datetime.now(timezone.utc)
+            token = first.claim_provider("sec", as_of=now)
+            self.assertTrue(first.defer_provider(
+                "sec", token, as_of=now, retry_after=timedelta(hours=1),
+                reason="SEC Retry-After",
+            ))
+            first.release_provider("sec", token)
+            restarted = ScoutStore(path)
+            self.assertIsNone(restarted.claim_provider("sec", as_of=now + timedelta(minutes=30)))
+            self.assertEqual((now + timedelta(hours=1)).isoformat(),
+                             restarted.provider_retry_at("sec", as_of=now))
+            self.assertIsNotNone(restarted.claim_provider(
+                "sec", as_of=now + timedelta(hours=1),
+            ))
+
 
 if __name__ == "__main__":
     unittest.main()

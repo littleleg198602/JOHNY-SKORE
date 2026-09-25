@@ -30,6 +30,14 @@ class SecEdgarError(RuntimeError):
     """Raised when SEC EDGAR cannot provide a valid normalized response."""
 
 
+class SecRateLimitedError(SecEdgarError):
+    """The provider requests a cooldown longer than this worker may sleep."""
+
+    def __init__(self, seconds: float) -> None:
+        self.retry_after_seconds = max(121.0, seconds)
+        super().__init__(f"SEC rate limited; retry after {self.retry_after_seconds:.0f}s")
+
+
 @dataclass(frozen=True, slots=True)
 class SecCompany:
     ticker: str
@@ -238,7 +246,7 @@ class SecEdgarClient:
                 return fallback
         # Bound a single worker's wait; a longer cooldown belongs to the
         # durable queue rather than blocking the whole analysis process.
-        return min(120.0, max(fallback, seconds))
+        return max(fallback, seconds) if math.isfinite(seconds) else fallback
 
     def _request_json(self, url: str) -> dict[str, Any]:
         headers = self._headers()
@@ -250,13 +258,17 @@ class SecEdgarClient:
             except HTTPError as exc:
                 last_error = exc
                 retryable = exc.code in {429, 500, 502, 503, 504}
+                if exc.code == 429:
+                    delay = self._retry_delay(attempt, exc)
+                    if delay > 120:
+                        raise SecRateLimitedError(delay) from exc
                 if not retryable or attempt == self.max_attempts:
                     break
             except (URLError, TimeoutError, json.JSONDecodeError, SecEdgarError) as exc:
                 last_error = exc
                 if attempt == self.max_attempts:
                     break
-            self._sleep(self._retry_delay(attempt, last_error))
+            self._sleep(min(120.0, self._retry_delay(attempt, last_error)))
         raise SecEdgarError(f"SEC požadavek selhal pro {url}: {last_error}") from last_error
 
     def _request_bytes(self, url: str) -> bytes:
@@ -279,9 +291,13 @@ class SecEdgarClient:
                     504,
                 }:
                     break
+                if isinstance(exc, HTTPError) and exc.code == 429:
+                    delay = self._retry_delay(attempt, exc)
+                    if delay > 120:
+                        raise SecRateLimitedError(delay) from exc
                 if attempt == self.max_attempts:
                     break
-                self._sleep(self._retry_delay(attempt, exc))
+                self._sleep(min(120.0, self._retry_delay(attempt, exc)))
         raise SecEdgarError(f"SEC document request failed for {url}: {last_error}")
 
     @staticmethod

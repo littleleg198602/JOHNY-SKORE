@@ -72,6 +72,11 @@ class ScoutStore:
                     lease_token TEXT NOT NULL,
                     lease_until TEXT NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS scout_provider_cooldowns (
+                    source TEXT PRIMARY KEY,
+                    retry_at TEXT NOT NULL,
+                    reason TEXT NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS scout_attempts (
                     job_id TEXT NOT NULL REFERENCES scout_jobs(job_id),
                     attempt_no INTEGER NOT NULL,
@@ -145,6 +150,12 @@ class ScoutStore:
         token = uuid4().hex
         with self._connect() as conn:
             conn.execute("BEGIN IMMEDIATE")
+            cooldown = conn.execute(
+                "SELECT retry_at FROM scout_provider_cooldowns WHERE source=?",
+                (source,),
+            ).fetchone()
+            if cooldown is not None and cooldown[0] > clock:
+                return None
             row = conn.execute(
                 "SELECT lease_until FROM scout_provider_leases WHERE source=?",
                 (source,),
@@ -159,6 +170,36 @@ class ScoutStore:
                     lease_until=excluded.lease_until
             """, (source, token, until))
         return token
+
+    def defer_provider(
+        self, source: str, token: str, *, as_of: datetime,
+        retry_after: timedelta, reason: str,
+    ) -> bool:
+        until = _utc(as_of + retry_after)
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT lease_token FROM scout_provider_leases WHERE source=?",
+                (source,),
+            ).fetchone()
+            if row is None or row[0] != token:
+                return False
+            conn.execute("""
+                INSERT INTO scout_provider_cooldowns(source, retry_at, reason)
+                VALUES(?, ?, ?)
+                ON CONFLICT(source) DO UPDATE SET
+                    retry_at=MAX(retry_at, excluded.retry_at),
+                    reason=excluded.reason
+            """, (source, until, reason[:200]))
+        return True
+
+    def provider_retry_at(self, source: str, *, as_of: datetime) -> str | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT retry_at FROM scout_provider_cooldowns "
+                "WHERE source=? AND retry_at>?", (source, _utc(as_of)),
+            ).fetchone()
+        return str(row[0]) if row is not None else None
 
     def release_provider(self, source: str, token: str) -> None:
         with self._connect() as conn:

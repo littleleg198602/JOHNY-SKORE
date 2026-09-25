@@ -4,7 +4,9 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 from typing import Protocol
 
-from market_checker_app.collectors.sec_edgar_client import SecCompany, SecEdgarClient, SecFiling
+from market_checker_app.collectors.sec_edgar_client import (
+    SecCompany, SecEdgarClient, SecFiling, SecRateLimitedError,
+)
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.text import normalize_ticker
 
@@ -48,14 +50,20 @@ class SecScoutService:
             "sec", as_of=as_of or datetime.now(timezone.utc),
         )
         if token is None:
+            retry_at = self.store.provider_retry_at(
+                "sec", as_of=as_of or datetime.now(timezone.utc),
+            )
+            if retry_at:
+                return {"processed": 0, "new_findings": 0,
+                        "status": "RATE_LIMITED", "retry_at": retry_at}
             return {"processed": 0, "new_findings": 0, "status": "BUSY"}
         try:
-            return self._run_claimed_batch(as_of=as_of, limit=limit)
+            return self._run_claimed_batch(as_of=as_of, limit=limit, token=token)
         finally:
             self.store.release_provider("sec", token)
 
     def _run_claimed_batch(
-        self, *, as_of: datetime | None, limit: int,
+        self, *, as_of: datetime | None, limit: int, token: str,
     ) -> dict[str, int | str]:
         processed = new_findings = failed = 0
         for _ in range(limit):
@@ -107,6 +115,19 @@ class SecScoutService:
                             as_of=clock,
                         )
                 self.store.finish(job, as_of=clock)
+            except SecRateLimitedError as exc:
+                failed += 1
+                retry_after = timedelta(seconds=exc.retry_after_seconds)
+                self.store.finish(
+                    job, as_of=clock, error=str(exc), retry_after=retry_after,
+                )
+                self.store.defer_provider(
+                    "sec", token, as_of=clock, retry_after=retry_after,
+                    reason="SEC Retry-After",
+                )
+                return {"processed": processed, "new_findings": new_findings,
+                        "failed": failed, "status": "RATE_LIMITED",
+                        "retry_at": (clock + retry_after).isoformat()}
             except Exception as exc:
                 failed += 1
                 self.store.finish(
