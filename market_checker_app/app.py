@@ -2175,6 +2175,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
             scout_batch = scout_service.run_batch(limit=25)
         if scout_batch["status"] == "WAIT_ACCESS":
             st.warning("Chybí jednorázově nastavený SEC User-Agent s kontaktem.")
+        elif scout_batch["status"] == "BUSY":
+            st.info("SEC právě kontroluje jiný běh. Fronta zůstala uložená.")
         else:
             message = (
                 f"Zkontrolováno {scout_batch['processed']} firem, "

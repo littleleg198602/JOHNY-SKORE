@@ -44,6 +44,19 @@ class SecScoutService:
             return {"processed": 0, "new_findings": 0, "status": "WAIT_ACCESS"}
         if limit < 1:
             raise ValueError("Batch limit must be positive")
+        token = self.store.claim_provider(
+            "sec", as_of=as_of or datetime.now(timezone.utc),
+        )
+        if token is None:
+            return {"processed": 0, "new_findings": 0, "status": "BUSY"}
+        try:
+            return self._run_claimed_batch(as_of=as_of, limit=limit)
+        finally:
+            self.store.release_provider("sec", token)
+
+    def _run_claimed_batch(
+        self, *, as_of: datetime | None, limit: int,
+    ) -> dict[str, int | str]:
         processed = new_findings = failed = 0
         for _ in range(limit):
             clock = as_of or datetime.now(timezone.utc)

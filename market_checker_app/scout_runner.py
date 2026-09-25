@@ -31,6 +31,8 @@ def main() -> None:
     args = parser.parse_args()
     result = run(db_path=args.db_path, limit=args.limit)
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    if result["status"] == "WAIT_ACCESS":
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":

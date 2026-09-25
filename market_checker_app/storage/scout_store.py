@@ -67,6 +67,11 @@ class ScoutStore:
                 );
                 CREATE INDEX IF NOT EXISTS scout_jobs_ready
                     ON scout_jobs(status, due_at, priority);
+                CREATE TABLE IF NOT EXISTS scout_provider_leases (
+                    source TEXT PRIMARY KEY,
+                    lease_token TEXT NOT NULL,
+                    lease_until TEXT NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS scout_attempts (
                     job_id TEXT NOT NULL REFERENCES scout_jobs(job_id),
                     attempt_no INTEGER NOT NULL,
@@ -131,6 +136,36 @@ class ScoutStore:
                     updated_at=excluded.updated_at
             """, (job_id, dedupe, source, subject_id, reason, priority, due, cursor, due))
         return job_id
+
+    def claim_provider(
+        self, source: str, *, as_of: datetime, seconds: int = 1800,
+    ) -> str | None:
+        clock = _utc(as_of)
+        until = _utc(as_of + timedelta(seconds=seconds))
+        token = uuid4().hex
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT lease_until FROM scout_provider_leases WHERE source=?",
+                (source,),
+            ).fetchone()
+            if row is not None and row[0] > clock:
+                return None
+            conn.execute("""
+                INSERT INTO scout_provider_leases(source, lease_token, lease_until)
+                VALUES(?, ?, ?)
+                ON CONFLICT(source) DO UPDATE SET
+                    lease_token=excluded.lease_token,
+                    lease_until=excluded.lease_until
+            """, (source, token, until))
+        return token
+
+    def release_provider(self, source: str, token: str) -> None:
+        with self._connect() as conn:
+            conn.execute(
+                "DELETE FROM scout_provider_leases WHERE source=? AND lease_token=?",
+                (source, token),
+            )
 
     def lease(self, *, as_of: datetime, seconds: int = 300) -> ScoutJob | None:
         if seconds < 1:
@@ -312,3 +347,18 @@ class ScoutStore:
                 ORDER BY subject_id, available_at DESC, finding_id
             """, (*bounded, cutoff, cutoff, per_subject)).fetchall()
         return [dict(row) for row in rows]
+
+    def has_findings(self, subjects: list[str], *, as_of: datetime) -> bool:
+        if not subjects:
+            return False
+        bounded = list(dict.fromkeys(subjects))[:900]
+        placeholders = ", ".join("?" for _ in bounded)
+        cutoff = _utc(as_of)
+        with self._connect() as conn:
+            row = conn.execute(f"""
+                SELECT 1 FROM scout_findings
+                WHERE subject_id IN ({placeholders})
+                  AND available_at<=? AND first_observed_at<=?
+                LIMIT 1
+            """, (*bounded, cutoff, cutoff)).fetchone()
+        return row is not None

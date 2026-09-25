@@ -49,12 +49,14 @@ class ScoutStoreTests(unittest.TestCase):
             )[1])
             cutoff = published + timedelta(days=1)
             self.assertEqual([], store.findings_as_of("AAPL", as_of=cutoff))
+            self.assertFalse(store.has_findings(["AAPL"], as_of=cutoff))
             self.assertEqual(1, len(store.findings_as_of(
                 "AAPL", as_of=cutoff, actual_observation=False
             )))
             rows = store.findings_as_of("AAPL", as_of=seen + timedelta(days=1))
             self.assertEqual(identifier, rows[0]["finding_id"])
             self.assertEqual(seen.isoformat(), rows[0]["first_observed_at"])
+            self.assertTrue(store.has_findings(["AAPL"], as_of=seen))
 
     def test_leads_are_bounded_and_idempotent(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -80,6 +82,20 @@ class ScoutStoreTests(unittest.TestCase):
                 store.add_lead(subject_id="MU", finding_id=finding,
                                question="More?", as_of=now,
                                parent_lead_id=grandchild)
+
+    def test_two_processes_do_not_share_sec_rate_limit_slot(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scout.db"
+            first = ScoutStore(path)
+            second = ScoutStore(path)
+            now = datetime.now(timezone.utc)
+            token = first.claim_provider("sec", as_of=now, seconds=30)
+            self.assertIsNotNone(token)
+            self.assertIsNone(second.claim_provider("sec", as_of=now))
+            first.release_provider("sec", "incorrect-token")
+            self.assertIsNone(second.claim_provider("sec", as_of=now))
+            first.release_provider("sec", token)
+            self.assertIsNotNone(second.claim_provider("sec", as_of=now))
 
 
 if __name__ == "__main__":

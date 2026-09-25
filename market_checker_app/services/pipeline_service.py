@@ -72,6 +72,7 @@ from market_checker_app.services.stage4_evaluation_service import (
 )
 from market_checker_app.services.source_discovery_service import SourceDiscoveryService
 from market_checker_app.agents.scout_index_agent import ScoutIndexAgent
+from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.services.source_degradation_service import (
     build_source_degradation_report,
 )
@@ -258,7 +259,10 @@ class PipelineService:
                 ),
             )
         )
-        orchestrator.register(ScoutIndexAgent(self.config.sqlite_path))
+        if ScoutStore(self.config.sqlite_path).has_findings(
+            list(watchlist), as_of=datetime.now(timezone.utc),
+        ):
+            orchestrator.register(ScoutIndexAgent(self.config.sqlite_path))
         if self.config.fundamental_ingestion.enabled:
             orchestrator.register(
                 SecFundamentalsAgent(
