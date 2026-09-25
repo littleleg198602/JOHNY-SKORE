@@ -150,6 +150,71 @@ class ScoutStoreTests(unittest.TestCase):
                 "sec", as_of=now + timedelta(seconds=40), seconds=30,
             ))
 
+    def test_analysis_snapshot_is_immutable_and_historical(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            finding, _ = store.record_finding(
+                source="sec", subject_id="AAPL", source_object_id="index",
+                content_hash="abc", title="Test", source_url="https://www.sec.gov/",
+                locator="accession:test", published_at=now, available_at=now,
+                observed_at=now, details={},
+            )
+            with self.assertRaises(ValueError):
+                store.record_analysis_snapshot("old", as_of=now - timedelta(days=1),
+                                               finding_ids=[finding])
+            store.record_analysis_snapshot("run1", as_of=now, finding_ids=[finding])
+            store.record_analysis_snapshot("run1", as_of=now, finding_ids=[finding])
+            self.assertEqual([finding], store.analysis_snapshot("run1")["finding_ids"])
+            with self.assertRaises(ValueError):
+                store.record_analysis_snapshot("run1", as_of=now + timedelta(minutes=1),
+                                               finding_ids=[finding])
+
+    def test_lead_transitions_preserve_asof_status_and_require_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            finding, _ = store.record_finding(
+                source="sec", subject_id="AAPL", source_object_id="a",
+                content_hash="a", title="Source", source_url="https://www.sec.gov/a",
+                locator="Item 2.02", published_at=now, available_at=now,
+                observed_at=now, details={},
+            )
+            lead = store.add_lead(subject_id="AAPL", finding_id=finding,
+                                  question="Impact?", as_of=now)
+            later = now + timedelta(hours=1)
+            store.advance_lead(lead, status="INVESTIGATING", as_of=later,
+                               reason="Read the source")
+            self.assertEqual("OPEN", store.open_leads(["AAPL"], as_of=now)[0]["status"])
+            self.assertEqual("INVESTIGATING", store.open_leads(
+                ["AAPL"], as_of=later,
+            )[0]["status"])
+            with self.assertRaises(ValueError):
+                store.advance_lead(lead, status="VERIFIED", as_of=later,
+                                   reason="No evidence")
+            with self.assertRaises(ValueError):
+                store.advance_lead(lead, status="VERIFIED", as_of=later,
+                                   reason="Other issuer", evidence_for=("missing",))
+            with self.assertRaises(ValueError):
+                store.advance_lead(lead, status="VERIFIED", as_of=later,
+                                   reason="Only a source document", evidence_for=(finding,))
+            claim, _ = store.record_finding(
+                source="sec", subject_id="AAPL", source_object_id="claim:a",
+                content_hash="claim:a", title="Verified claim",
+                source_url="https://www.sec.gov/a", locator="Item 2.02",
+                published_at=now, available_at=later, observed_at=later,
+                verification_status="CLAIM_VERIFIED",
+                details={"claim_text": "Specific claim", "verification_method": "source_match"},
+            )
+            store.advance_lead(lead, status="VERIFIED", as_of=later,
+                               reason="Verified with cited claim", evidence_for=(claim,))
+            self.assertEqual([], store.open_leads(["AAPL"], as_of=later))
+            self.assertEqual([], store.closed_leads(["AAPL"], as_of=now))
+            self.assertEqual("VERIFIED", store.closed_leads(
+                ["AAPL"], as_of=later,
+            )[0]["status"])
+            self.assertEqual("OPEN", store.open_leads(["AAPL"], as_of=now)[0]["status"])
+
 
 if __name__ == "__main__":
     unittest.main()

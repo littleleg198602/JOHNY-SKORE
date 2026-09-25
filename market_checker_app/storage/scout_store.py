@@ -121,10 +121,35 @@ class ScoutStore:
                     version INTEGER PRIMARY KEY,
                     applied_at TEXT NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS scout_analysis_snapshots (
+                    orchestration_id TEXT PRIMARY KEY,
+                    as_of TEXT NOT NULL,
+                    finding_ids_json TEXT NOT NULL,
+                    created_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS scout_lead_transitions (
+                    transition_id TEXT PRIMARY KEY,
+                    lead_id TEXT NOT NULL REFERENCES scout_leads(lead_id),
+                    status TEXT NOT NULL,
+                    changed_at TEXT NOT NULL,
+                    reason TEXT NOT NULL,
+                    evidence_for_json TEXT NOT NULL,
+                    evidence_against_json TEXT NOT NULL
+                );
+                CREATE INDEX IF NOT EXISTS scout_lead_transitions_asof
+                    ON scout_lead_transitions(lead_id, changed_at);
             """)
             conn.execute(
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(1, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(2, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(3, ?)", (_utc(datetime.now(timezone.utc)),),
             )
 
     def enqueue(
@@ -311,6 +336,12 @@ class ScoutStore:
         observed = _utc(observed_at)
         if available > observed:
             raise ValueError("Source cannot be observed before it is available")
+        if verification_status not in {"SOURCE_VERIFIED", "CLAIM_VERIFIED", "UNVERIFIED"}:
+            raise ValueError("Unknown scout verification status")
+        if verification_status == "CLAIM_VERIFIED" and not (
+            details.get("claim_text") and details.get("verification_method")
+        ):
+            raise ValueError("Claim verification needs the precise claim and method")
         finding_id = f"finding:{_key(source, subject_id, source_object_id, content_hash)[:32]}"
         with self._connect() as conn:
             cur = conn.execute("""
@@ -337,14 +368,25 @@ class ScoutStore:
         clock = _utc(as_of)
         lead_id = f"lead:{_key(finding_id, question)[:32]}"
         with self._connect() as conn:
+            finding = conn.execute("""
+                SELECT 1 FROM scout_findings
+                WHERE finding_id=? AND subject_id=? AND available_at<=?
+                  AND first_observed_at<=?
+            """, (finding_id, subject_id, clock, clock)).fetchone()
+            if finding is None:
+                raise ValueError("Lead source is unavailable or belongs to another subject")
             parent_depth = 0
             if parent_lead_id:
                 parent = conn.execute(
-                    "SELECT depth FROM scout_leads WHERE lead_id=?",
+                    "SELECT depth, subject_id, created_at FROM scout_leads WHERE lead_id=?",
                     (parent_lead_id,),
                 ).fetchone()
                 if parent is None:
                     raise ValueError("Unknown parent lead")
+                if parent["subject_id"] != subject_id:
+                    raise ValueError("Parent lead belongs to a different subject")
+                if parent["created_at"] > clock:
+                    raise ValueError("Child lead predates its parent")
                 parent_depth = int(parent[0]) + 1
             if parent_depth > 2:
                 raise ValueError("Maximum scout lead depth exceeded")
@@ -355,6 +397,67 @@ class ScoutStore:
             """, (lead_id, subject_id, finding_id, parent_lead_id,
                   question, parent_depth, clock, clock))
         return lead_id
+
+    def advance_lead(
+        self, lead_id: str, *, status: str, as_of: datetime, reason: str,
+        evidence_for: tuple[str, ...] = (), evidence_against: tuple[str, ...] = (),
+    ) -> None:
+        """Transition a case with dated evidence; never rewrite its history."""
+        allowed = {
+            "OPEN": {"INVESTIGATING", "INSUFFICIENT_DATA", "EXPIRED"},
+            "INVESTIGATING": {"VERIFIED", "CONTRADICTED", "INSUFFICIENT_DATA", "EXPIRED"},
+        }
+        clock = _utc(as_of)
+        if not reason.strip():
+            raise ValueError("A lead transition needs an audit reason")
+        for_ids = sorted(set(evidence_for))
+        against_ids = sorted(set(evidence_against))
+        if set(for_ids) & set(against_ids):
+            raise ValueError("An observation cannot support and oppose the same lead")
+        if status == "VERIFIED" and not for_ids:
+            raise ValueError("Verified conclusion requires supporting evidence")
+        if status == "CONTRADICTED" and not against_ids:
+            raise ValueError("Contradicted conclusion requires contrary evidence")
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            lead = conn.execute(
+                "SELECT status, subject_id, created_at FROM scout_leads WHERE lead_id=?",
+                (lead_id,),
+            ).fetchone()
+            if lead is None or clock < lead["created_at"]:
+                raise ValueError("Unknown lead or transition before creation")
+            last_change = conn.execute(
+                "SELECT MAX(changed_at) FROM scout_lead_transitions WHERE lead_id=?",
+                (lead_id,),
+            ).fetchone()[0]
+            if last_change is not None and clock < last_change:
+                raise ValueError("Lead history cannot be backdated")
+            if status not in allowed.get(lead["status"], set()):
+                raise ValueError(f"Invalid lead transition: {lead['status']} → {status}")
+            for identifier in for_ids + against_ids:
+                required_status = (
+                    "CLAIM_VERIFIED" if status in {"VERIFIED", "CONTRADICTED"}
+                    else "SOURCE_VERIFIED"
+                )
+                finding = conn.execute("""
+                    SELECT 1 FROM scout_findings
+                    WHERE finding_id=? AND subject_id=?
+                      AND first_observed_at<=? AND available_at<=?
+                      AND verification_status=?
+                """, (identifier, lead["subject_id"], clock, clock,
+                      required_status)).fetchone()
+                if finding is None:
+                    raise ValueError("Transition cites unavailable or foreign evidence")
+            conn.execute("""
+                INSERT INTO scout_lead_transitions(
+                    transition_id, lead_id, status, changed_at, reason,
+                    evidence_for_json, evidence_against_json
+                ) VALUES(?, ?, ?, ?, ?, ?, ?)
+            """, (uuid4().hex, lead_id, status, clock, reason,
+                  json.dumps(for_ids), json.dumps(against_ids)))
+            conn.execute(
+                "UPDATE scout_leads SET status=? WHERE lead_id=?", (status, lead_id),
+            )
 
     def findings_as_of(
         self, subject_id: str, *, as_of: datetime,
@@ -379,6 +482,53 @@ class ScoutStore:
             ).fetchone()
         return dict(row) if row is not None else None
 
+    def record_analysis_snapshot(
+        self, orchestration_id: str, *, as_of: datetime,
+        finding_ids: list[str],
+    ) -> None:
+        """Freeze exactly which scout observations an analytical run consumed."""
+        if not orchestration_id:
+            raise ValueError("Missing orchestration ID")
+        cutoff = _utc(as_of)
+        identifiers = sorted(set(finding_ids))
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            for start in range(0, len(identifiers), 800):
+                chunk = identifiers[start:start + 800]
+                placeholders = ", ".join("?" for _ in chunk)
+                count = conn.execute(f"""
+                    SELECT COUNT(*) FROM scout_findings
+                    WHERE finding_id IN ({placeholders})
+                      AND available_at<=? AND first_observed_at<=?
+                      AND verification_status='SOURCE_VERIFIED'
+                """, (*chunk, cutoff, cutoff)).fetchone()[0]
+                if count != len(chunk):
+                    raise ValueError("Snapshot contains unavailable scout evidence")
+            payload = json.dumps(identifiers)
+            existing = conn.execute(
+                "SELECT as_of, finding_ids_json FROM scout_analysis_snapshots "
+                "WHERE orchestration_id=?", (orchestration_id,),
+            ).fetchone()
+            if existing:
+                if existing[0] != cutoff or existing[1] != payload:
+                    raise ValueError("Cannot rewrite an existing scout analysis snapshot")
+                return
+            conn.execute("""
+                INSERT INTO scout_analysis_snapshots(
+                    orchestration_id, as_of, finding_ids_json, created_at
+                ) VALUES(?, ?, ?, ?)
+            """, (orchestration_id, cutoff, payload,
+                  _utc(datetime.now(timezone.utc))))
+
+    def analysis_snapshot(self, orchestration_id: str) -> dict[str, object] | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT as_of, finding_ids_json FROM scout_analysis_snapshots "
+                "WHERE orchestration_id=?", (orchestration_id,),
+            ).fetchone()
+        return ({"as_of": row[0], "finding_ids": json.loads(row[1])}
+                if row else None)
+
     def metrics(self) -> dict[str, int]:
         with self._connect() as conn:
             rows = conn.execute(
@@ -396,16 +546,51 @@ class ScoutStore:
         cutoff = _utc(as_of)
         with self._connect() as conn:
             rows = conn.execute(f"""
-                SELECT l.subject_id, l.question, l.status, l.depth,
-                       l.created_at, f.source_url, f.locator,
-                       f.verification_status
+                SELECT * FROM (
+                    SELECT l.subject_id, l.question,
+                           COALESCE((
+                               SELECT t.status FROM scout_lead_transitions AS t
+                               WHERE t.lead_id=l.lead_id AND t.changed_at<=?
+                               ORDER BY t.changed_at DESC, t.rowid DESC LIMIT 1
+                           ), 'OPEN') AS status,
+                           l.depth, l.created_at, f.source_url, f.locator,
+                           f.verification_status
+                    FROM scout_leads AS l
+                    JOIN scout_findings AS f ON f.finding_id=l.finding_id
+                    WHERE l.subject_id IN ({placeholders}) AND l.created_at<=?
+                      AND f.available_at<=? AND f.first_observed_at<=?
+                ) WHERE status IN ('OPEN', 'INVESTIGATING')
+                ORDER BY created_at DESC, question DESC LIMIT ?
+            """, (cutoff, *bounded, cutoff, cutoff, cutoff, limit)).fetchall()
+        return [dict(row) for row in rows]
+
+    def closed_leads(
+        self, subjects: list[str], *, as_of: datetime, limit: int = 50,
+    ) -> list[dict[str, object]]:
+        if not subjects or limit < 1:
+            return []
+        bounded = list(dict.fromkeys(subjects))[:900]
+        placeholders = ", ".join("?" for _ in bounded)
+        cutoff = _utc(as_of)
+        with self._connect() as conn:
+            rows = conn.execute(f"""
+                SELECT l.subject_id, l.question, t.status, t.changed_at,
+                       t.reason, t.evidence_for_json, t.evidence_against_json,
+                       f.source_url, f.locator
                 FROM scout_leads AS l
                 JOIN scout_findings AS f ON f.finding_id=l.finding_id
+                JOIN scout_lead_transitions AS t ON t.transition_id=(
+                    SELECT historical.transition_id
+                    FROM scout_lead_transitions AS historical
+                    WHERE historical.lead_id=l.lead_id AND historical.changed_at<=?
+                    ORDER BY historical.changed_at DESC, historical.rowid DESC LIMIT 1
+                )
                 WHERE l.subject_id IN ({placeholders}) AND l.created_at<=?
                   AND f.available_at<=? AND f.first_observed_at<=?
-                  AND l.status IN ('OPEN', 'INVESTIGATING')
-                ORDER BY l.created_at DESC, l.lead_id DESC LIMIT ?
-            """, (*bounded, cutoff, cutoff, cutoff, limit)).fetchall()
+                  AND t.status IN ('VERIFIED', 'CONTRADICTED',
+                                   'INSUFFICIENT_DATA', 'EXPIRED')
+                ORDER BY t.changed_at DESC, l.lead_id DESC LIMIT ?
+            """, (cutoff, *bounded, cutoff, cutoff, cutoff, limit)).fetchall()
         return [dict(row) for row in rows]
 
     def recent_failures(self, subjects: list[str], *, limit: int = 20) -> list[dict[str, object]]:

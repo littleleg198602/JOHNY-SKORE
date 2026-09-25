@@ -2225,6 +2225,10 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     if scout_leads:
         st.write("**Otevřené otázky k nalezeným podáním**")
         st.dataframe(pd.DataFrame(scout_leads), hide_index=True)
+    closed_scout_leads = scout_store.closed_leads(watchlist, as_of=datetime.now(timezone.utc))
+    if closed_scout_leads:
+        st.write("**Uzavřené otázky a citované důkazy**")
+        st.dataframe(pd.DataFrame(closed_scout_leads), hide_index=True)
     scout_errors = scout_store.recent_failures(watchlist)
     if scout_errors:
         st.write("**Poslední chyby zdroje a další pokus**")

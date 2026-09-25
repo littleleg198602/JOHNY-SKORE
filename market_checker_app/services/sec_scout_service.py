@@ -218,6 +218,10 @@ class SecScoutService:
                 question=f"Co se v podání {filing.form} změnilo a co to znamená pro firmu?",
                 as_of=clock,
             )
+            self.store.advance_lead(
+                parent, status="INVESTIGATING", as_of=clock,
+                reason="Primární dokument SEC byl stažen a přiřazen k podání.",
+            )
             for locator, _excerpt in sections:
                 self.store.add_lead(
                     subject_id=subject_id, finding_id=finding_id,

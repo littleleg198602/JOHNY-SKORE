@@ -65,6 +65,10 @@ class ScoutIndexAgent(BaseAgent):
                           "index_only": not content_observed,
                           "finding_id": row["finding_id"]},
             ))
+        self.store.record_analysis_snapshot(
+            context.orchestration_id, as_of=context.started_at,
+            finding_ids=[str(item.metadata["finding_id"]) for item in documents],
+        )
         return AgentResult(
             documents=documents, evidence=evidence,
             metadata={"visible_findings": len(documents), "scoring_applied": False},

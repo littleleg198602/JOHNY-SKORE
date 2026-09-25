@@ -89,6 +89,9 @@ class SecDocumentScoutTest(unittest.TestCase):
                              {item.metadata["filing_index_only"] for item in scout_docs})
             self.assertTrue(all(item.direction == 0 for item in report.evidence
                                 if item.agent_name == "scout_index"))
+            saved = store.analysis_snapshot(report.orchestration_id)
+            self.assertEqual({row["finding_id"] for row in records},
+                             set(saved["finding_ids"]))
 
     def test_extracts_8k_items_without_script_and_without_claim_inference(self) -> None:
         raw = (b"<script>Item 9.99 false</script><h2>Item 2.02</h2>"
