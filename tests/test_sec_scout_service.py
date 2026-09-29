@@ -15,6 +15,7 @@ from market_checker_app.agents import (
 from market_checker_app.agents.scout_index_agent import ScoutIndexAgent
 from market_checker_app.services.sec_scout_service import SecScoutService
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
 import pandas as pd
 
 
@@ -38,6 +39,33 @@ class FakeIndex:
 class SecScoutServiceTests(unittest.TestCase):
     def test_ownership_forms_are_discovered_without_inferred_transactions(self) -> None:
         self.assertTrue({"4", "SC 13D", "SC 13G"}.issubset(SecScoutService.FORMS))
+
+    def test_687_tickers_rotate_with_daily_limit_and_offline_catchup(self) -> None:
+        class EmptyIndex:
+            def __init__(self):
+                self.visited: list[str] = []
+
+            def fetch_filing_index(self, ticker, **kwargs):
+                self.visited.append(ticker)
+                return SecCompany(ticker=ticker, cik="0000000001", name=ticker), ()
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scout.db"
+            index = EmptyIndex()
+            base = datetime(2026, 9, 29, tzinfo=timezone.utc)
+            tickers = load_canonical_tickers()
+            for run_number, day in enumerate((0, 1, 3, 4, 5, 6, 7), start=1):
+                # Day 2 is an offline PC; each later run restarts the store.
+                scout = SecScoutService(ScoutStore(path), client=index)
+                as_of = base + timedelta(days=day)
+                self.assertEqual(687, scout.schedule(tickers, as_of=as_of))
+                result = scout.run_batch(as_of=as_of, limit=100)
+                self.assertEqual("OK", result["status"])
+                self.assertEqual(100, result["processed"])
+                if run_number == 6:
+                    self.assertEqual(600, len(set(index.visited)))
+            self.assertEqual(687, len(set(index.visited)))
+            self.assertEqual(700, len(index.visited))
 
     def test_filing_is_one_finding_even_after_catchup(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
