@@ -18,7 +18,9 @@ SC-05 v PR #131, sloučeném jako `50574d5`, převádí všech 39 textových pro
 
 SC-06 v PR #132, sloučeném jako `ecb724f`, doplňuje časovou invariantu ukládaného nálezu: zveřejnění nesmí nastat po deklarované dostupnosti, dostupnost nesmí nastat po prvním pozorování. Nález s budoucím datem publikace se odmítne před zápisem a nevstoupí do historického replay. CI run 36566202962 prošel.
 
-SC-07 přidává na společné hranici uložení politiky dosud zapojených zdrojů: SEC citace musí být na přesném oficiálním HTTPS hostu a RSS zůstává `UNVERIFIED`; soukromá IP, podvržená SEC subdoména a neznámý provider jsou odmítnuté. Jde o lokálně testovanou část pravidel, nikoli o oprávnění nebo kvóty budoucích konektorů.
+SC-07 v PR #133, sloučeném jako `2266772`, přidává na společné hranici uložení politiky dosud zapojených zdrojů: SEC citace musí být na přesném oficiálním HTTPS hostu a RSS zůstává `UNVERIFIED`; soukromá IP, podvržená SEC subdoména a neznámý provider jsou odmítnuté. CI run 36596878077 prošel. Oprávnění a kvóty budoucích konektorů zbývají.
+
+SC-09 byl ověřen průchodem skutečné SQLite fronty všech 687 tickerů bez síťových volání: 100/den, restart databáze mezi dny a jeden den výpadku PC. Po šesti provedených dávkách je zpracováno 600 různých firem, po sedmé všech 687. Již existující pořadí dle `due_at` zachovává backlog; přidán regresní akceptační test. Profilové intervaly a fairness mezi budoucími providery zbývají.
 
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
@@ -32,7 +34,7 @@ SC-07 přidává na společné hranici uložení politiky dosud zapojených zdro
 | SC-07 | PARTIAL | Úložiště povoluje pouze SEC a RSS nálezy podle zdrojové politiky; SEC host je přesný, RSS kandidát nesmí získat stav ověření pouhým ingestem. Kvóty, retence a licence dalších zdrojů zbývají. |
 | SC-04–07 | PARTIAL | 39 profilů výzkumu je strojově čitelných, verzovaných a ověřených proti produkčnímu seznamu; `UNKNOWN` není chyba ani záporný bod. Výzkum uvádí `P`, ale skutečné CSV místo něj obsahuje `OKE`; P zůstává pouze výzkumný neprodukční řádek. `OKE` má oddělenou doloženou profilovou opravu `OIL_GAS` z oficiálního ONEOK a SEC 10-K, bez přepsání CSV. Profilové metriky zatím neřídí skóre/konektory. SEC konektor odmítá cizí hosty/cesty i přesměrování, RSS ukládá jen kandidátní veřejné HTTPS odkazy. Úplné identity a pravidla budoucích poskytovatelů čekají. |
 | SC-08 | MERGED, TESTED | SQLite fronta, dedupe, lease token, zámek transakce, historie pokusů, restart; test končícího lease. Schéma nyní eviduje verze 1–5. |
-| SC-09 | PARTIAL | Denní Windows plánovač a týdenní dávka, max. 100 firem/den, backlog po výpadku. Chybí profilový scheduling a fairness pro jiné providery. Windows instalace neověřena. |
+| SC-09 | PARTIAL / OFFLINE_VERIFIED | Denní Windows plánovač a týdenní dávka, max. 100 firem/den. Sedm restartovaných dávek s výpadkem dne obsáhne 687/687 bez vyhladovění. Chybí profilové intervaly a fairness pro další providery; Windows neověřen. |
 | SC-10 | PARTIAL | SEC client používá limit a retry včetně `Retry-After`; dlouhý požadavek i HTTP 403 zastaví dávku a uloží cooldown poskytovatele do SQLite. Fronta odděluje zdroje a obnovuje vlastnictví SEC během dávky. Chybí obecný circuit breaker pro ostatní zdroje. |
 | SC-11 | IMPLEMENTED, TESTED lokálně pro scout | `findings_as_of` a `ScoutIndexAgent` odmítají data nedostupná před cutoffem; pro každou orchestraci s nálezem ukládá neměnný cutoff a přesný seznam použitých finding IDs. Ostatní vrstvy analýzy mají vlastní existující snapshoty. |
 | SC-12–16 | PARTIAL | SEC index i omezený primární dokument mají samostatný otisk, URL/CIK/accession kontrolu, skutečnou dobu pozorování a otevřenou otázku; 8-K parser vytváří citované sekce Item do hloubky 1. RSS zprávy už vstupují jako časově omezené `UNVERIFIED` stopy s pouhým ticker hintem a otázkou na primární zdroj, nikdy do skóre; rozpočet jsou dva bezpečné unikátní odkazy na ticker a běh. Stavový cyklus leadů má časovou historii; závěr `VERIFIED`/`CONTRADICTED` vyžaduje zvláštní claim-level ověřený důkaz. Další primární zdroje a automatické ověření tvrzení chybí. |
@@ -46,4 +48,4 @@ SC-07 přidává na společné hranici uložení politiky dosud zapojených zdro
 
 Nepoužívat sloučení základního PR jako potvrzení dokončení všech 36 úkolů. Bez reálného SEC User-Agent se automatický sběr vrátí `WAIT_ACCESS`, nepředstírá nalezené podání. Zdroje s klíčem/licencí se nezapojují bez odpovídajícího přístupu. Žádné order API není přidáno.
 
-GitHub CI základní verze a SC-04 až SC-06 prošlo. SC-07 zdrojová politika čeká na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
+GitHub CI základní verze a SC-04 až SC-07 prošlo. SC-09 fairness akceptace čeká na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
