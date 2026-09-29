@@ -138,6 +138,20 @@ class ScoutStore:
                 );
                 CREATE INDEX IF NOT EXISTS scout_lead_transitions_asof
                     ON scout_lead_transitions(lead_id, changed_at);
+                CREATE TABLE IF NOT EXISTS scout_universe_snapshots (
+                    snapshot_id TEXT PRIMARY KEY,
+                    source_name TEXT NOT NULL,
+                    source_sha256 TEXT NOT NULL UNIQUE,
+                    row_count INTEGER NOT NULL,
+                    created_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS scout_universe_input_rows (
+                    snapshot_id TEXT NOT NULL REFERENCES scout_universe_snapshots(snapshot_id),
+                    input_position INTEGER NOT NULL,
+                    ticker TEXT NOT NULL,
+                    yahoo_ticker TEXT NOT NULL,
+                    PRIMARY KEY(snapshot_id, input_position)
+                );
             """)
             conn.execute(
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
@@ -151,6 +165,65 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(3, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(4, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
+
+    def record_universe_snapshot(
+        self, *, source_name: str, source_sha256: str,
+        records: list[dict[str, str]], as_of: datetime,
+    ) -> dict[str, object]:
+        """Archive input rows once; report changes without rewriting an old version."""
+        source_sha256 = str(source_sha256).strip().lower()
+        if len(source_sha256) != 64 or any(c not in "0123456789abcdef" for c in source_sha256):
+            raise ValueError("Universe source needs a SHA-256 digest")
+        rows = [(str(r["ticker"]), str(r["yahoo_ticker"])) for r in records]
+        if not rows or any(not ticker or not yahoo for ticker, yahoo in rows):
+            raise ValueError("Universe snapshot requires nonempty input rows")
+        snapshot_id = f"universe:{source_sha256}"
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            existing = conn.execute(
+                "SELECT snapshot_id FROM scout_universe_snapshots WHERE source_sha256=?",
+                (source_sha256,),
+            ).fetchone()
+            if existing is not None:
+                saved = [tuple(row) for row in conn.execute(
+                    "SELECT ticker, yahoo_ticker FROM scout_universe_input_rows "
+                    "WHERE snapshot_id=? ORDER BY input_position", (snapshot_id,),
+                )]
+                if saved != rows:
+                    raise ValueError("Universe digest already belongs to different rows")
+                return {"snapshot_id": snapshot_id, "status": "UNCHANGED", "changes": []}
+
+            previous = conn.execute(
+                "SELECT snapshot_id FROM scout_universe_snapshots "
+                "ORDER BY created_at DESC, rowid DESC LIMIT 1"
+            ).fetchone()
+            old = [tuple(row) for row in conn.execute(
+                "SELECT ticker, yahoo_ticker FROM scout_universe_input_rows "
+                "WHERE snapshot_id=? ORDER BY input_position", (previous[0],),
+            )] if previous else []
+            changes = [
+                {"position": pos, "before": old[pos - 1] if pos <= len(old) else None,
+                 "after": rows[pos - 1] if pos <= len(rows) else None}
+                for pos in range(1, max(len(old), len(rows)) + 1)
+                if (old[pos - 1] if pos <= len(old) else None)
+                != (rows[pos - 1] if pos <= len(rows) else None)
+            ] if previous else []
+            conn.execute(
+                "INSERT INTO scout_universe_snapshots VALUES(?, ?, ?, ?, ?)",
+                (snapshot_id, source_name, source_sha256, len(rows), clock),
+            )
+            conn.executemany(
+                "INSERT INTO scout_universe_input_rows VALUES(?, ?, ?, ?)",
+                [(snapshot_id, pos, ticker, yahoo)
+                 for pos, (ticker, yahoo) in enumerate(rows, start=1)],
+            )
+        return {"snapshot_id": snapshot_id, "status": "CHANGED" if previous else "CREATED",
+                "changes": changes}
 
     def enqueue(
         self, *, source: str, subject_id: str, reason: str,
