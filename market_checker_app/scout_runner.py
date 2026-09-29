@@ -10,7 +10,7 @@ from market_checker_app.config import DEFAULT_DB_PATH
 from market_checker_app.services.sec_scout_service import SecScoutService
 from market_checker_app.utils.ticker_universe import (
     CANONICAL_CSV_SHA256,
-    CANONICAL_SOURCE_FILE,
+    DEFAULT_TICKER_UNIVERSE_PATH,
     load_canonical_ticker_records,
 )
 from market_checker_app.storage.scout_store import ScoutStore
@@ -19,9 +19,24 @@ from market_checker_app.storage.scout_store import ScoutStore
 def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, object]:
     store = ScoutStore(db_path)
     now = datetime.now(timezone.utc)
-    records = load_canonical_ticker_records()
+    try:
+        records = load_canonical_ticker_records()
+    except ValueError as exc:
+        # A hash mismatch is an audit event, never permission to analyze the
+        # new list. Show the position-level difference from the archived list.
+        try:
+            candidate = load_canonical_ticker_records(DEFAULT_TICKER_UNIVERSE_PATH)
+            differences = store.preview_universe_changes(candidate)
+        except ValueError:
+            raise exc
+        if differences:
+            raise ValueError(
+                f"{exc} Změněných pozic: {len(differences)}; "
+                f"první rozdíly: {differences[:10]}"
+            ) from exc
+        raise
     universe_snapshot = store.record_universe_snapshot(
-        source_name=CANONICAL_SOURCE_FILE,
+        source_name=DEFAULT_TICKER_UNIVERSE_PATH.name,
         source_sha256=CANONICAL_CSV_SHA256,
         records=records,
         as_of=now,
