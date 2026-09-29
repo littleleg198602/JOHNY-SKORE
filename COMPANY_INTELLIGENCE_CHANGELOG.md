@@ -1,3 +1,8 @@
+## 2026-09-29 — SC-09 rotace fronty a výpadek PC
+
+- Integrační akceptace skutečné SQLite fronty plánuje všech 687 tickerů se 100úlohovou denní dávkou a restartem mezi dny. Jeden den PC neběží; starší `due_at` zůstává a backlog se dožene.
+- Po šesti dávkách je zpracováno 600 různých firem, po sedmé všech 687. Pořadí fronty již zajišťovalo tuto rotaci; produkční kód se nemění. Profilové intervaly, další provideři a živý Windows běh zůstávají otevřené.
+
 ## 2026-09-29 — SC-07 politika ukládaných zdrojů
 
 - Společné úložiště pátracích nálezů povoluje nyní jen explicitně zapojené zdroje SEC a RSS. Všechny citace vyžadují veřejné HTTPS; SEC citace musí být na přesném oficiálním hostu. RSS ingest nesmí deklarovat ověřený zdroj ani tvrzení.
