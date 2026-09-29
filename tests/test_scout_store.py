@@ -9,6 +9,42 @@ from market_checker_app.storage.scout_store import ScoutStore
 
 
 class ScoutStoreTests(unittest.TestCase):
+    def test_universe_rows_are_immutable_and_reordering_is_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            rows = [{"ticker": "GOOG", "yahoo_ticker": "GOOG"},
+                    {"ticker": "GOOGL", "yahoo_ticker": "GOOGL"}]
+            first = store.record_universe_snapshot(
+                source_name="export.xlsx", source_sha256="a" * 64,
+                records=rows, as_of=now,
+            )
+            self.assertEqual("CREATED", first["status"])
+            self.assertEqual("UNCHANGED", store.record_universe_snapshot(
+                source_name="export.xlsx", source_sha256="a" * 64,
+                records=rows, as_of=now + timedelta(days=1),
+            )["status"])
+            reordered = store.record_universe_snapshot(
+                source_name="export.xlsx", source_sha256="b" * 64,
+                records=list(reversed(rows)), as_of=now + timedelta(days=2),
+            )
+            self.assertEqual("CHANGED", reordered["status"])
+            self.assertEqual([1, 2], [item["position"] for item in reordered["changes"]])
+            with store._connect() as conn:
+                original = conn.execute(
+                    "SELECT ticker FROM scout_universe_input_rows "
+                    "WHERE snapshot_id=? ORDER BY input_position", (first["snapshot_id"],),
+                ).fetchall()
+                self.assertEqual(["GOOG", "GOOGL"], [row[0] for row in original])
+                self.assertEqual(2, conn.execute(
+                    "SELECT COUNT(*) FROM scout_universe_snapshots"
+                ).fetchone()[0])
+            with self.assertRaises(ValueError):
+                store.record_universe_snapshot(
+                    source_name="export.xlsx", source_sha256="a" * 64,
+                    records=list(reversed(rows)), as_of=now,
+                )
+
     def test_recovery_dedup_and_stale_worker_cannot_complete_new_lease(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "scout.db"
