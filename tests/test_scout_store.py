@@ -30,6 +30,9 @@ class ScoutStoreTests(unittest.TestCase):
             )
             self.assertEqual("CHANGED", reordered["status"])
             self.assertEqual([1, 2], [item["position"] for item in reordered["changes"]])
+            self.assertEqual([], store.preview_universe_changes(list(reversed(rows))))
+            self.assertEqual([1, 2], [item["position"] for item in
+                             store.preview_universe_changes(rows)])
             with store._connect() as conn:
                 original = conn.execute(
                     "SELECT ticker FROM scout_universe_input_rows "
