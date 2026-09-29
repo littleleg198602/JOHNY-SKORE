@@ -1,6 +1,12 @@
 # Průběh implementace pátracích agentů
 
-Aktualizováno: 25. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_IMPLEMENTATION_TASKS.md` na dokumentační větvi. Tento soubor sleduje první pracovní PR; `IMPLEMENTED` znamená existující kód, `TESTED` místní nebo CI test, `MERGED` teprve po spojení do main, `LIVE_VERIFIED` po běhu proti skutečnému zdroji.
+Aktualizováno: 29. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_IMPLEMENTATION_TASKS.md` na dokumentační větvi. Tento soubor sleduje první pracovní PR; `IMPLEMENTED` znamená existující kód, `TESTED` místní nebo CI test, `MERGED` teprve po spojení do main, `LIVE_VERIFIED` po běhu proti skutečnému zdroji.
+
+## Provozní audit 29. 9. 2026
+
+Živý `main` run [36431270885](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/36431270885) z 28. 9. zpracoval 687 vstupů, ale skončil `FAILED`: 0 použitelných cen, 0 způsobilých pořadí a 0 nových snapshotů. Uložení signálů selhalo na SQLite `NAType`, QualityGate odmítl starší průběžnou evidenci. SC-00/01 v tomto draft PR řeší tyto dvě chyby, ale nejsou sloučené ani živě ověřené.
+
+Další cenová závada je doložena stejným artefaktem: Yahoo stáhlo 685 řad; denní řady běžně obsahovaly rozpracovanou svíčku 28. 9. před uzavřením NYSE. Validátor kvůli tomu odmítl i předchozí platnou páteční cenu. Aktuální oprava ve větvi odfiltruje nedokončené seance a stále vyžaduje poslední skutečně uzavřený close. Read-only replay cache pro kanonických 687 tickerů vrátil **684 použitelných cen**; LEG má zastaralou řadu, BRKB/PSTG zůstávají bez ceny. To je kontrola cenového validátoru, nikoli nový úspěšný běh pipeline. Regresní testy pokrývají rozpracovanou, pouze budoucí a zastaralou řadu. Nový živý 687tickerový běh je stále nutný pro provozní akceptaci.
 
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
