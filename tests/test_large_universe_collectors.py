@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from email.utils import format_datetime
 import sys
 import unittest
 from unittest.mock import patch
@@ -15,13 +16,14 @@ from market_checker_app.collectors.rss_client import RSSClient
 
 class LargeUniverseCollectorTests(unittest.TestCase):
     def test_rss_yahoo_ticker_hint_assigns_company_name_article(self) -> None:
-        payload = b"""<?xml version="1.0"?>
+        recent_date = format_datetime(datetime.now(timezone.utc) - timedelta(days=1), usegmt=True)
+        payload = f"""<?xml version="1.0"?>
         <rss version="2.0"><channel><title>Yahoo</title><item>
           <title>Apple reports record revenue growth</title>
           <description>Quarterly results beat expectations.</description>
-          <pubDate>Wed, 01 Jul 2026 08:00:00 GMT</pubDate>
+          <pubDate>{recent_date}</pubDate>
           <link>https://example.test/apple-results</link>
-        </item></channel></rss>"""
+        </item></channel></rss>""".encode()
         client = RSSClient(max_workers=2)
         client._download = lambda source: payload  # type: ignore[method-assign]
 
@@ -35,13 +37,14 @@ class LargeUniverseCollectorTests(unittest.TestCase):
         self.assertEqual("AAPL", items[0].ticker)
 
     def test_google_news_query_hint_assigns_ticker_without_text_match(self) -> None:
-        payload = b"""<?xml version="1.0"?>
+        recent_date = format_datetime(datetime.now(timezone.utc) - timedelta(days=1), usegmt=True)
+        payload = f"""<?xml version="1.0"?>
         <rss version="2.0"><channel><title>Google News</title><item>
           <title>Apple reports record revenue growth</title>
           <description>Quarterly results beat expectations.</description>
-          <pubDate>Wed, 01 Jul 2026 08:00:00 GMT</pubDate>
+          <pubDate>{recent_date}</pubDate>
           <link>https://example.test/apple-results</link>
-        </item></channel></rss>"""
+        </item></channel></rss>""".encode()
         client = RSSClient(max_workers=2)
         client._download = lambda source: payload  # type: ignore[method-assign]
 
