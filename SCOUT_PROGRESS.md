@@ -1,25 +1,28 @@
 # Průběh implementace pátracích agentů
 
-Aktualizováno: 29. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_IMPLEMENTATION_TASKS.md` na dokumentační větvi. Tento soubor sleduje první pracovní PR; `IMPLEMENTED` znamená existující kód, `TESTED` místní nebo CI test, `MERGED` teprve po spojení do main, `LIVE_VERIFIED` po běhu proti skutečnému zdroji.
+Aktualizováno: 29. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_IMPLEMENTATION_TASKS.md` na dokumentační větvi. `IMPLEMENTED` znamená existující kód, `TESTED` místní nebo CI test, `MERGED` spojení do main, `LIVE_VERIFIED` běh proti skutečnému zdroji. Základní PR #129 je sloučený jako `0aab7da`; jeho CI run 36562964652 prošel všemi čtyřmi úlohami. Provozní akceptace zatím chybí.
 
 ## Provozní audit 29. 9. 2026
 
-Živý `main` run [36431270885](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/36431270885) z 28. 9. zpracoval 687 vstupů, ale skončil `FAILED`: 0 použitelných cen, 0 způsobilých pořadí a 0 nových snapshotů. Uložení signálů selhalo na SQLite `NAType`, QualityGate odmítl starší průběžnou evidenci. SC-00/01 v tomto draft PR řeší tyto dvě chyby, ale nejsou sloučené ani živě ověřené.
+Živý `main` run [36431270885](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/36431270885) z 28. 9. zpracoval 687 vstupů, ale skončil `FAILED`: 0 použitelných cen, 0 způsobilých pořadí a 0 nových snapshotů. Uložení signálů selhalo na SQLite `NAType`, QualityGate odmítl starší průběžnou evidenci. SC-00/01 jsou nyní v `main`, ale ještě nejsou živě ověřené po sloučení.
 
 Další cenová závada je doložena stejným artefaktem: Yahoo stáhlo 685 řad; denní řady běžně obsahovaly rozpracovanou svíčku 28. 9. před uzavřením NYSE. Validátor kvůli tomu odmítl i předchozí platnou páteční cenu. Aktuální oprava ve větvi odfiltruje nedokončené seance a stále vyžaduje poslední skutečně uzavřený close. Read-only replay cache pro kanonických 687 tickerů vrátil **684 použitelných cen**; LEG má zastaralou řadu, BRKB/PSTG zůstávají bez ceny. To je kontrola cenového validátoru, nikoli nový úspěšný běh pipeline. Regresní testy pokrývají rozpracovanou, pouze budoucí a zastaralou řadu. Nový živý 687tickerový běh je stále nutný pro provozní akceptaci.
 
 SC-03 nyní ukládá každý ověřený CSV vstup jako neměnný snapshot se SHA-256, původním pořadím a všemi řádky; neschválenou změnu CSV ukáže po pozicích a sběr nespustí. Lokální první běh a restart vytvořily právě jeden snapshot a 687 řádků. Přímé porovnání s původním `market_checker_20260818_213623.xlsx` (list `Signals`, sloupce `ticker`/`yahoo_ticker`) potvrdilo **687/687 shod ve stejném pořadí, 0 rozdílů**. SHA-256 tohoto XLS je `065444437863dbb65e65f5c97b0611545b0ceaa8c4ed778f5f9a68c874480f8b`. OKE je již ve zdrojovém XLS na pozici 177. Datovaná identita instrumentů a aliasy patří do SC-04 a zůstávají otevřené.
 
-První CI po opravě cen odhalilo dvě časově křehké RSS testovací fixture: článek s pevným datem 1. 7. 2026 po uplynutí 90denního okna správně vypadl ze sběru. Fixture nyní používají včerejší datum; kód RSS ani 90denní pravidlo se nemění. Celý release gate je třeba znovu ověřit na posledním commitu.
+První CI po opravě cen odhalilo dvě časově křehké RSS testovací fixture: článek s pevným datem 1. 7. 2026 po uplynutí 90denního okna správně vypadl ze sběru. Fixture nyní používají včerejší datum; kód RSS ani 90denní pravidlo se nemění. Poslední CI PR #129 prošlo.
+
+Navazující SC-04 změna ukládá pozorovaný přesný SEC ticker/CIK do samostatné historie. Při změně CIK pro stejný ticker uloží kandidáta do karantény a odmítne nové nálezy; při migraci čte i starší SEC nálezy bez této tabulky. GOOG a GOOGL mohou sdílet CIK, ale mají oddělené tickerové řádky. Jde o ochranu v lokálně testovaném navazujícím PR, nikoli o úplné časově platné aliasy, dcery, značky a produkty.
 
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
-| SC-00 | IMPLEMENTED, TESTED lokálně | Nullable `pd.NA` rank ukládá do SQLite NULL, skutečná transakce v testu. Počkat na CI a spojení PR. |
-| SC-01 | IMPLEMENTED, TESTED lokálně | 53minutový běh: důkaz z počátku i konce je platný; opravdu budoucí údaj je odmítnut. Ještě integrovat živý Windows běh. |
-| SC-02 | WAIT_MERGE | Dosud není v main ani otestováno na uživatelském Windows. |
-| SC-03 | CODE_COMPLETE / OFFLINE_VERIFIED | CSV drží 687 řádků, pořadí a SHA-256; ScoutStore archivuje neměnné verze a ukazuje změnový diff. Zdrojové XLS se shoduje 687/687. Provozní ověření na Windows ještě neproběhlo. |
+| SC-00 | MERGED, TESTED | Nullable `pd.NA` rank ukládá do SQLite NULL, skutečná transakce v testu. Čeká živý běh. |
+| SC-01 | MERGED, TESTED | 53minutový běh: důkaz z počátku i konce je platný; opravdu budoucí údaj je odmítnut. Ještě živý Windows běh. |
+| SC-02 | PARTIAL | Opravy jsou v main, ale Windows spouštění po sloučení nebylo ověřeno. |
+| SC-03 | MERGED / OFFLINE_VERIFIED | CSV drží 687 řádků, pořadí a SHA-256; ScoutStore archivuje neměnné verze a ukazuje změnový diff. Zdrojové XLS se shoduje 687/687. Provozní ověření na Windows ještě neproběhlo. |
+| SC-04 | PARTIAL | Oddělené identity emitenta/instrumentu a karanténa v EntityRegistryAgent existují; navazující SEC sběr navíc hlídá změnu CIK včetně starší DB. Datované aliasy, dcery, značky a produkty a živé sporné případy zbývají. |
 | SC-04–07 | PARTIAL | 39 profilů výzkumu je strojově čitelných, verzovaných a ověřených proti produkčnímu seznamu; `UNKNOWN` není chyba ani záporný bod. Výzkum uvádí `P`, ale skutečné CSV místo něj obsahuje `OKE`; P zůstává pouze výzkumný neprodukční řádek. `OKE` má oddělenou doloženou profilovou opravu `OIL_GAS` z oficiálního ONEOK a SEC 10-K, bez přepsání CSV. Profilové metriky zatím neřídí skóre/konektory. SEC konektor odmítá cizí hosty/cesty i přesměrování, RSS ukládá jen kandidátní veřejné HTTPS odkazy. Úplné identity a pravidla budoucích poskytovatelů čekají. |
-| SC-08 | IMPLEMENTED, TESTED lokálně | SQLite fronta, dedupe, lease token, zámek transakce, historie pokusů, restart; test končícího lease. Schéma eviduje verze 1–3; další změny musejí přidávat vlastní verze. |
+| SC-08 | MERGED, TESTED | SQLite fronta, dedupe, lease token, zámek transakce, historie pokusů, restart; test končícího lease. Schéma nyní eviduje verze 1–5. |
 | SC-09 | PARTIAL | Denní Windows plánovač a týdenní dávka, max. 100 firem/den, backlog po výpadku. Chybí profilový scheduling a fairness pro jiné providery. Windows instalace neověřena. |
 | SC-10 | PARTIAL | SEC client používá limit a retry včetně `Retry-After`; dlouhý požadavek i HTTP 403 zastaví dávku a uloží cooldown poskytovatele do SQLite. Fronta odděluje zdroje a obnovuje vlastnictví SEC během dávky. Chybí obecný circuit breaker pro ostatní zdroje. |
 | SC-11 | IMPLEMENTED, TESTED lokálně pro scout | `findings_as_of` a `ScoutIndexAgent` odmítají data nedostupná před cutoffem; pro každou orchestraci s nálezem ukládá neměnný cutoff a přesný seznam použitých finding IDs. Ostatní vrstvy analýzy mají vlastní existující snapshoty. |
@@ -32,6 +35,6 @@ První CI po opravě cen odhalilo dvě časově křehké RSS testovací fixture:
 | SC-34 | TODO | Žádné nové feature zatím nevstupují do predikčního skóre; vyhodnocení přínosu začne až s podklady a dokončenými výsledky. |
 | SC-35 | PARTIAL | Místní testy, kompilace a zkouška plánování všech 687 bez přístupu k SEC. Chybí live known-positive SEC, Windows a end-to-end kontrola 48/687 tickerů. |
 
-Nepoužívat tento PR jako potvrzení dokončení všech 36 úkolů. Bez reálného SEC User-Agent se automatický sběr vrátí `WAIT_ACCESS`, nepředstírá nalezené podání. Zdroje s klíčem/licencí se nezapojují bez odpovídajícího přístupu. Žádné order API není přidáno.
+Nepoužívat sloučení základního PR jako potvrzení dokončení všech 36 úkolů. Bez reálného SEC User-Agent se automatický sběr vrátí `WAIT_ACCESS`, nepředstírá nalezené podání. Zdroje s klíčem/licencí se nezapojují bez odpovídajícího přístupu. Žádné order API není přidáno.
 
-GitHub CI základní verze prošlo (`Market Checker test agents`, run 252). Nový SEC obsah a historie leadů procházejí místními testy a čekají na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
+GitHub CI základní verze prošlo na posledním head PR #129. Navazující SC-04 změna čeká na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
