@@ -16,7 +16,9 @@ Navazující SC-04 změna v PR #130, sloučeném jako `b02f80b`, ukládá pozoro
 
 SC-05 v PR #131, sloučeném jako `50574d5`, převádí všech 39 textových profilů na stabilně pojmenované kandidátní otázky metrik a zdrojů (`research-v1:profil:druh:pozice:otisk_popisu`). Pravidlo jiného profilu vrací `NOT_APPLICABLE`; podmíněný zdroj u vlastního profilu je pouze `CANDIDATE`, dokud není doložena konkrétní dcera, produkt nebo segment. Pravidla dosud nejsou napojena na skóre ani plánovač providerů; úplné ověření více segmentů zbývá.
 
-SC-06 doplňuje časovou invariantu ukládaného nálezu: zveřejnění nesmí nastat po deklarované dostupnosti, dostupnost nesmí nastat po prvním pozorování. Nález s budoucím datem publikace se odmítne před zápisem a nevstoupí do historického replay. Tato kontrola čeká na CI a sloučení.
+SC-06 v PR #132, sloučeném jako `ecb724f`, doplňuje časovou invariantu ukládaného nálezu: zveřejnění nesmí nastat po deklarované dostupnosti, dostupnost nesmí nastat po prvním pozorování. Nález s budoucím datem publikace se odmítne před zápisem a nevstoupí do historického replay. CI run 36566202962 prošel.
+
+SC-07 přidává na společné hranici uložení politiky dosud zapojených zdrojů: SEC citace musí být na přesném oficiálním HTTPS hostu a RSS zůstává `UNVERIFIED`; soukromá IP, podvržená SEC subdoména a neznámý provider jsou odmítnuté. Jde o lokálně testovanou část pravidel, nikoli o oprávnění nebo kvóty budoucích konektorů.
 
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
@@ -27,6 +29,7 @@ SC-06 doplňuje časovou invariantu ukládaného nálezu: zveřejnění nesmí n
 | SC-04 | PARTIAL | Oddělené identity emitenta/instrumentu a karanténa v EntityRegistryAgent existují; navazující SEC sběr navíc hlídá změnu CIK včetně starší DB. Datované aliasy, dcery, značky a produkty a živé sporné případy zbývají. |
 | SC-05 | MERGED / PARTIAL | 39 profilů má verzované metrické a zdrojové otázky; cizí profil je `NOT_APPLICABLE`, vlastní je pouze `CANDIDATE`. Doložení segmentů a zapojení do plánování čeká. PR #131 / CI 36565597107. |
 | SC-06 | PARTIAL | Nález ukládá původ, locator, časy a stav ověření; navazující ochrana odmítá publikaci po dostupnosti. Chybí sjednocení kontraktu dalších specialistů. |
+| SC-07 | PARTIAL | Úložiště povoluje pouze SEC a RSS nálezy podle zdrojové politiky; SEC host je přesný, RSS kandidát nesmí získat stav ověření pouhým ingestem. Kvóty, retence a licence dalších zdrojů zbývají. |
 | SC-04–07 | PARTIAL | 39 profilů výzkumu je strojově čitelných, verzovaných a ověřených proti produkčnímu seznamu; `UNKNOWN` není chyba ani záporný bod. Výzkum uvádí `P`, ale skutečné CSV místo něj obsahuje `OKE`; P zůstává pouze výzkumný neprodukční řádek. `OKE` má oddělenou doloženou profilovou opravu `OIL_GAS` z oficiálního ONEOK a SEC 10-K, bez přepsání CSV. Profilové metriky zatím neřídí skóre/konektory. SEC konektor odmítá cizí hosty/cesty i přesměrování, RSS ukládá jen kandidátní veřejné HTTPS odkazy. Úplné identity a pravidla budoucích poskytovatelů čekají. |
 | SC-08 | MERGED, TESTED | SQLite fronta, dedupe, lease token, zámek transakce, historie pokusů, restart; test končícího lease. Schéma nyní eviduje verze 1–5. |
 | SC-09 | PARTIAL | Denní Windows plánovač a týdenní dávka, max. 100 firem/den, backlog po výpadku. Chybí profilový scheduling a fairness pro jiné providery. Windows instalace neověřena. |
@@ -43,4 +46,4 @@ SC-06 doplňuje časovou invariantu ukládaného nálezu: zveřejnění nesmí n
 
 Nepoužívat sloučení základního PR jako potvrzení dokončení všech 36 úkolů. Bez reálného SEC User-Agent se automatický sběr vrátí `WAIT_ACCESS`, nepředstírá nalezené podání. Zdroje s klíčem/licencí se nezapojují bez odpovídajícího přístupu. Žádné order API není přidáno.
 
-GitHub CI základní verze, SC-04 a SC-05 prošlo. SC-06 časová ochrana čeká na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
+GitHub CI základní verze a SC-04 až SC-06 prošlo. SC-07 zdrojová politika čeká na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.

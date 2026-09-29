@@ -137,6 +137,36 @@ class ScoutStoreTests(unittest.TestCase):
                 "AAPL", as_of=observed + timedelta(days=2),
             ))
 
+    def test_storage_source_policy_rejects_forged_sec_and_promoted_rss(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime(2026, 9, 29, tzinfo=timezone.utc)
+            finding = dict(
+                subject_id="AAPL", source_object_id="candidate", content_hash="hash",
+                title="Candidate", locator="source:title", published_at=now,
+                available_at=now, observed_at=now, details={},
+            )
+            with self.assertRaisesRegex(ValueError, "official SEC"):
+                store.record_finding(
+                    source="sec", source_url="https://www.sec.gov.evil.example/Archives/a",
+                    **finding,
+                )
+            with self.assertRaisesRegex(ValueError, "approved storage policy"):
+                store.record_finding(
+                    source="unknown", source_url="https://example.org/story", **finding,
+                )
+            with self.assertRaisesRegex(ValueError, "RSS search candidates"):
+                store.record_finding(
+                    source="rss", source_url="https://example.org/story",
+                    verification_status="CLAIM_VERIFIED", **finding,
+                )
+            with self.assertRaises(ValueError):
+                store.record_finding(
+                    source="rss", source_url="https://127.0.0.1/story",
+                    verification_status="UNVERIFIED", **finding,
+                )
+            self.assertEqual([], store.findings_as_of("AAPL", as_of=now))
+
     def test_leads_are_bounded_and_idempotent(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")

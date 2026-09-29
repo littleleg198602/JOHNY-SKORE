@@ -7,7 +7,10 @@ import json
 from pathlib import Path
 import re
 import sqlite3
+from urllib.parse import urlsplit
 from uuid import uuid4
+
+from market_checker_app.utils.source_validation import public_https_reference
 
 
 def _utc(value: datetime) -> str:
@@ -499,6 +502,17 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
+        if source not in {"sec", "rss"}:
+            raise ValueError(f"Scout source has no approved storage policy: {source}")
+        source_url = public_https_reference(source_url)
+        parsed = urlsplit(source_url)
+        if source == "sec" and (
+            parsed.hostname not in {"www.sec.gov", "data.sec.gov"}
+            or parsed.port not in {None, 443}
+        ):
+            raise ValueError("SEC finding must cite an official SEC HTTPS host")
+        if source == "rss" and verification_status != "UNVERIFIED":
+            raise ValueError("RSS search candidates cannot verify a source or claim")
         published = _utc(published_at)
         available = _utc(available_at)
         observed = _utc(observed_at)
