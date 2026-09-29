@@ -20,7 +20,9 @@ SC-06 v PR #132, sloučeném jako `ecb724f`, doplňuje časovou invariantu uklá
 
 SC-07 v PR #133, sloučeném jako `2266772`, přidává na společné hranici uložení politiky dosud zapojených zdrojů: SEC citace musí být na přesném oficiálním HTTPS hostu a RSS zůstává `UNVERIFIED`; soukromá IP, podvržená SEC subdoména a neznámý provider jsou odmítnuté. CI run 36596878077 prošel. Oprávnění a kvóty budoucích konektorů zbývají.
 
-SC-09 byl ověřen průchodem skutečné SQLite fronty všech 687 tickerů bez síťových volání: 100/den, restart databáze mezi dny a jeden den výpadku PC. Po šesti provedených dávkách je zpracováno 600 různých firem, po sedmé všech 687. Již existující pořadí dle `due_at` zachovává backlog; přidán regresní akceptační test. Profilové intervaly a fairness mezi budoucími providery zbývají.
+SC-09 v PR #134, sloučeném jako `a0dd967`, byl ověřen průchodem skutečné SQLite fronty všech 687 tickerů bez síťových volání: 100/den, restart databáze mezi dny a jeden den výpadku PC. Po šesti provedených dávkách je zpracováno 600 různých firem, po sedmé všech 687. Již existující pořadí dle `due_at` zachovává backlog; CI run 36597493754 prošel. Profilové intervaly a fairness mezi budoucími providery zbývají.
+
+Další SC-04 změna přijímá jen explicitní ticker aliasy s datem počátku, případným koncem a veřejnou citací. `resolve_ticker_identity_as_of` zohledňuje zvlášť čas znalosti a skutečnou platnost aliasu; překryv dvou instrumentů odmítá místo libovolného přiřazení. Metadata aliasu se účastní otisku verzované identity, takže pozdější oprava nezmění starý známý snapshot. Tento obecný mechanismus ještě není napojen do cenové a SEC scout cesty a neověřuje konkrétní P/PSTG či LEG/SGI bez primárního zdroje.
 
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
@@ -28,7 +30,7 @@ SC-09 byl ověřen průchodem skutečné SQLite fronty všech 687 tickerů bez s
 | SC-01 | MERGED, TESTED | 53minutový běh: důkaz z počátku i konce je platný; opravdu budoucí údaj je odmítnut. Ještě živý Windows běh. |
 | SC-02 | PARTIAL | Opravy jsou v main, ale Windows spouštění po sloučení nebylo ověřeno. |
 | SC-03 | MERGED / OFFLINE_VERIFIED | CSV drží 687 řádků, pořadí a SHA-256; ScoutStore archivuje neměnné verze a ukazuje změnový diff. Zdrojové XLS se shoduje 687/687. Provozní ověření na Windows ještě neproběhlo. |
-| SC-04 | PARTIAL | Oddělené identity emitenta/instrumentu a karanténa v EntityRegistryAgent existují; navazující SEC sběr navíc hlídá změnu CIK včetně starší DB. Datované aliasy, dcery, značky a produkty a živé sporné případy zbývají. |
+| SC-04 | PARTIAL | Oddělené identity emitenta/instrumentu, SEC změna CIK v karanténě a datovaný alias s fail-closed as-of lookupem. Napojení aliasu do sběru, doložené mapování sporných tickerů, dcery, značky a produkty zbývají. |
 | SC-05 | MERGED / PARTIAL | 39 profilů má verzované metrické a zdrojové otázky; cizí profil je `NOT_APPLICABLE`, vlastní je pouze `CANDIDATE`. Doložení segmentů a zapojení do plánování čeká. PR #131 / CI 36565597107. |
 | SC-06 | PARTIAL | Nález ukládá původ, locator, časy a stav ověření; navazující ochrana odmítá publikaci po dostupnosti. Chybí sjednocení kontraktu dalších specialistů. |
 | SC-07 | PARTIAL | Úložiště povoluje pouze SEC a RSS nálezy podle zdrojové politiky; SEC host je přesný, RSS kandidát nesmí získat stav ověření pouhým ingestem. Kvóty, retence a licence dalších zdrojů zbývají. |
@@ -48,4 +50,4 @@ SC-09 byl ověřen průchodem skutečné SQLite fronty všech 687 tickerů bez s
 
 Nepoužívat sloučení základního PR jako potvrzení dokončení všech 36 úkolů. Bez reálného SEC User-Agent se automatický sběr vrátí `WAIT_ACCESS`, nepředstírá nalezené podání. Zdroje s klíčem/licencí se nezapojují bez odpovídajícího přístupu. Žádné order API není přidáno.
 
-GitHub CI základní verze a SC-04 až SC-07 prošlo. SC-09 fairness akceptace čeká na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
+GitHub CI základní verze, SC-04 až SC-07 a SC-09 akceptace prošlo. Datované aliasy čekají na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
