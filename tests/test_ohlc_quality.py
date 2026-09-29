@@ -42,7 +42,7 @@ class OhlcQualityTests(unittest.TestCase):
         self.assertIsNone(result.close)
         self.assertTrue(any("neodpovídá" in warning for warning in result.warnings))
 
-    def test_all_nan_non_numeric_infinite_and_future_close_are_never_used(self) -> None:
+    def test_invalid_and_future_closes_are_never_used(self) -> None:
         invalid = pd.DataFrame(
             {"Close": [float("nan"), "none", 0, float("inf")]},
             index=pd.to_datetime(["2026-09-10", "2026-09-11", "2026-09-12", "2026-09-13"], utc=True),
@@ -50,7 +50,10 @@ class OhlcQualityTests(unittest.TestCase):
         future = frame_from_sessions("2026-09-15", 66)
 
         self.assertFalse(assess_daily_ohlc(invalid, as_of=MONDAY_PREOPEN).price_usable)
-        self.assertFalse(assess_daily_ohlc(future, as_of=MONDAY_PREOPEN).price_usable)
+        recovered = assess_daily_ohlc(future, as_of=MONDAY_PREOPEN)
+        self.assertTrue(recovered.price_usable)
+        self.assertEqual(date(2026, 9, 11), recovered.close_at.date())
+        self.assertNotIn(pd.Timestamp("2026-09-15", tz="UTC"), recovered.normalized.index)
 
     def test_duplicate_sessions_do_not_create_technical_history(self) -> None:
         duplicate = pd.DataFrame(
@@ -89,8 +92,36 @@ class OhlcQualityTests(unittest.TestCase):
         as_of_before_close = datetime(2026, 9, 15, 16, tzinfo=timezone.utc)
         result = assess_daily_ohlc(frame_from_sessions("2026-09-15", 66), as_of=as_of_before_close)
 
+        self.assertTrue(result.price_usable)
+        self.assertEqual(date(2026, 9, 14), result.close_at.date())
+        self.assertEqual(65, result.observation_count)
+        self.assertTrue(any("Ignorováno" in warning for warning in result.warnings))
+
+    def test_unfinished_session_without_previous_close_is_not_usable(self) -> None:
+        as_of_before_close = datetime(2026, 9, 15, 16, tzinfo=timezone.utc)
+        frame = pd.DataFrame({"Close": [150.0]}, index=pd.to_datetime(["2026-09-15"], utc=True))
+        result = assess_daily_ohlc(frame, as_of=as_of_before_close)
+
         self.assertFalse(result.price_usable)
-        self.assertEqual((), result.available_lookbacks)
+        self.assertIsNone(result.close)
+        self.assertEqual(0, result.observation_count)
+
+    def test_unfinished_session_does_not_change_completed_close(self) -> None:
+        frame = frame_from_sessions("2026-09-28", 70)
+        frame.loc[pd.Timestamp("2026-09-25", tz="UTC"), "Close"] = 125.0
+        frame.loc[pd.Timestamp("2026-09-28", tz="UTC"), "Close"] = 900.0
+        as_of = datetime(2026, 9, 28, 13, 49, tzinfo=timezone.utc)
+        result = assess_daily_ohlc(frame, as_of=as_of)
+        price, _ = PipelineService._select_current_price(
+            ohlc=frame, tech_source="yfinance_bulk_fallback",
+            yahoo_metadata_price=None, as_of=as_of,
+        )
+
+        self.assertTrue(result.price_usable)
+        self.assertEqual(125.0, result.close)
+        self.assertEqual(125.0, price)
+        self.assertEqual(date(2026, 9, 25), result.close_at.date())
+        self.assertNotIn(pd.Timestamp("2026-09-28", tz="UTC"), result.normalized.index)
 
     def test_stale_ohlc_is_not_silently_replaced_by_undated_metadata_quote(self) -> None:
         stale = frame_from_sessions("2026-09-08", 66)
