@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 import sqlite3
 from uuid import uuid4
 
@@ -152,6 +153,18 @@ class ScoutStore:
                     yahoo_ticker TEXT NOT NULL,
                     PRIMARY KEY(snapshot_id, input_position)
                 );
+                CREATE TABLE IF NOT EXISTS scout_sec_identities (
+                    subject_id TEXT NOT NULL,
+                    cik TEXT NOT NULL,
+                    company_name TEXT NOT NULL,
+                    status TEXT NOT NULL CHECK(status IN ('ACTIVE', 'QUARANTINED')),
+                    first_observed_at TEXT NOT NULL,
+                    last_observed_at TEXT NOT NULL,
+                    reason TEXT NOT NULL,
+                    PRIMARY KEY(subject_id, cik)
+                );
+                CREATE UNIQUE INDEX IF NOT EXISTS scout_sec_identity_active
+                    ON scout_sec_identities(subject_id) WHERE status='ACTIVE';
             """)
             conn.execute(
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
@@ -169,6 +182,64 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(4, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(5, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
+
+    def observe_sec_identity(
+        self, *, subject_id: str, cik: str, company_name: str, as_of: datetime,
+    ) -> bool:
+        """Quarantine a changed issuer CIK before recording any new ticker findings.
+
+        Older databases have findings but no identity observations. Their SEC
+        source object IDs are checked in the same transaction before seeding
+        the active identity. Different share classes may share a CIK because
+        each ticker has its own identity row and its own findings.
+        """
+        subject_id = str(subject_id).strip().upper()
+        cik = str(cik).strip()
+        company_name = str(company_name).strip()
+        if not subject_id or not re.fullmatch(r"\d{10}", cik) or not company_name:
+            raise ValueError("SEC identity requires a ticker, ten-digit CIK and name")
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            known = {
+                row[0] for row in conn.execute(
+                    "SELECT cik FROM scout_sec_identities "
+                    "WHERE subject_id=? AND status='ACTIVE'", (subject_id,),
+                )
+            }
+            historical = {
+                match.group(1)
+                for row in conn.execute(
+                    "SELECT source_object_id FROM scout_findings "
+                    "WHERE source='sec' AND subject_id=?", (subject_id,),
+                )
+                if (match := re.fullmatch(r"(\d{10}):.+", row[0]))
+            }
+            known.update(historical)
+            if len(known | {cik}) != 1:
+                conn.execute("""
+                    INSERT INTO scout_sec_identities
+                        (subject_id, cik, company_name, status,
+                         first_observed_at, last_observed_at, reason)
+                    VALUES (?, ?, ?, 'QUARANTINED', ?, ?, ?)
+                    ON CONFLICT(subject_id, cik) DO UPDATE SET
+                        last_observed_at=excluded.last_observed_at
+                """, (subject_id, cik, company_name, clock, clock,
+                      "CIK differs from previously observed SEC issuer"))
+                return False
+            conn.execute("""
+                INSERT INTO scout_sec_identities
+                    (subject_id, cik, company_name, status,
+                     first_observed_at, last_observed_at, reason)
+                VALUES (?, ?, ?, 'ACTIVE', ?, ?, 'Exact SEC ticker and CIK')
+                ON CONFLICT(subject_id, cik) DO UPDATE SET
+                    last_observed_at=excluded.last_observed_at
+            """, (subject_id, cik, company_name, clock, clock))
+            return True
 
     def record_universe_snapshot(
         self, *, source_name: str, source_sha256: str,
