@@ -1,3 +1,8 @@
+## 2026-09-29 — SC-06 čas nálezu
+
+- `ScoutStore.record_finding` odmítá zveřejnění datované až po uvedené dostupnosti. S již existující kontrolou dostupnost ≤ první pozorování tak každý nový nález dodržuje časové pořadí pro as-of replay.
+- Integrační test ověřuje, že budoucí RSS článek nevytvoří žádný nález. Produkční RSS již budoucí pubDate filtruje; tato kontrola chrání i ostatní konektory. Žádná změna skóre ani obchodní exekuce.
+
 ## 2026-09-29 — SC-05 kandidátní pravidla profilů
 
 - Textové metriky a zdroje všech 39 profilů jsou vydané jako stabilní `research-v1` otázky. Pravidlo jiného profilu je `NOT_APPLICABLE`, pravidlo vlastního profilu jen `CANDIDATE`; podmíněný produkt, segment nebo bankovní dcera se tím netvrdí jako ověřený fakt.
