@@ -120,6 +120,23 @@ class ScoutStoreTests(unittest.TestCase):
             self.assertEqual(seen.isoformat(), rows[0]["first_observed_at"])
             self.assertTrue(store.has_findings(["AAPL"], as_of=seen))
 
+    def test_future_publication_cannot_enter_historical_findings(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            observed = datetime(2026, 9, 29, tzinfo=timezone.utc)
+            with self.assertRaisesRegex(ValueError, "before publication"):
+                store.record_finding(
+                    source="rss", subject_id="AAPL", source_object_id="future",
+                    content_hash="future", title="Future article",
+                    source_url="https://example.com/future", locator="rss:title",
+                    published_at=observed + timedelta(days=1),
+                    available_at=observed, observed_at=observed,
+                    verification_status="UNVERIFIED", details={},
+                )
+            self.assertEqual([], store.findings_as_of(
+                "AAPL", as_of=observed + timedelta(days=2),
+            ))
+
     def test_leads_are_bounded_and_idempotent(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")
