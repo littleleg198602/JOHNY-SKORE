@@ -1,12 +1,12 @@
 # Průběh implementace pátracích agentů
 
-Aktualizováno: 29. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_IMPLEMENTATION_TASKS.md` na dokumentační větvi. `IMPLEMENTED` znamená existující kód, `TESTED` místní nebo CI test, `MERGED` spojení do main, `LIVE_VERIFIED` běh proti skutečnému zdroji. Základní PR #129 je sloučený jako `0aab7da`; jeho CI run 36562964652 prošel všemi čtyřmi úlohami. Provozní akceptace zatím chybí.
+Aktualizováno: 29. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_IMPLEMENTATION_TASKS.md` na dokumentační větvi. `IMPLEMENTED` znamená existující kód, `TESTED` místní nebo CI test, `MERGED` spojení do main, `LIVE_VERIFIED` běh proti skutečnému zdroji. Základní PR #129 a navazující PR #130–136 jsou sloučené do `main`; poslední CI run 36599400943 prošel všemi čtyřmi úlohami. Provozní akceptace zatím chybí.
 
 ## Provozní audit 29. 9. 2026
 
 Živý `main` run [36431270885](https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/36431270885) z 28. 9. zpracoval 687 vstupů, ale skončil `FAILED`: 0 použitelných cen, 0 způsobilých pořadí a 0 nových snapshotů. Uložení signálů selhalo na SQLite `NAType`, QualityGate odmítl starší průběžnou evidenci. SC-00/01 jsou nyní v `main`, ale ještě nejsou živě ověřené po sloučení.
 
-Další cenová závada je doložena stejným artefaktem: Yahoo stáhlo 685 řad; denní řady běžně obsahovaly rozpracovanou svíčku 28. 9. před uzavřením NYSE. Validátor kvůli tomu odmítl i předchozí platnou páteční cenu. Aktuální oprava ve větvi odfiltruje nedokončené seance a stále vyžaduje poslední skutečně uzavřený close. Read-only replay cache pro kanonických 687 tickerů vrátil **684 použitelných cen**; LEG má zastaralou řadu, BRKB/PSTG zůstávají bez ceny. To je kontrola cenového validátoru, nikoli nový úspěšný běh pipeline. Regresní testy pokrývají rozpracovanou, pouze budoucí a zastaralou řadu. Nový živý 687tickerový běh je stále nutný pro provozní akceptaci.
+Další cenová závada je doložena stejným artefaktem: Yahoo stáhlo 685 řad; denní řady běžně obsahovaly rozpracovanou svíčku 28. 9. před uzavřením NYSE. Validátor kvůli tomu odmítl i předchozí platnou páteční cenu. Oprava v `main` odfiltruje nedokončené seance a stále vyžaduje poslední skutečně uzavřený close. Read-only replay cache pro kanonických 687 tickerů vrátil **684 použitelných cen**; LEG má zastaralou řadu, BRKB/PSTG zůstávají bez ceny. To je kontrola cenového validátoru, nikoli nový úspěšný běh pipeline. Regresní testy pokrývají rozpracovanou, pouze budoucí a zastaralou řadu. Nový živý 687tickerový běh je stále nutný pro provozní akceptaci.
 
 SC-03 nyní ukládá každý ověřený CSV vstup jako neměnný snapshot se SHA-256, původním pořadím a všemi řádky; neschválenou změnu CSV ukáže po pozicích a sběr nespustí. Lokální první běh a restart vytvořily právě jeden snapshot a 687 řádků. Přímé porovnání s původním `market_checker_20260818_213623.xlsx` (list `Signals`, sloupce `ticker`/`yahoo_ticker`) potvrdilo **687/687 shod ve stejném pořadí, 0 rozdílů**. SHA-256 tohoto XLS je `065444437863dbb65e65f5c97b0611545b0ceaa8c4ed778f5f9a68c874480f8b`. OKE je již ve zdrojovém XLS na pozici 177. Datovaná identita instrumentů a aliasy patří do SC-04 a zůstávají otevřené.
 
@@ -24,7 +24,7 @@ SC-09 v PR #134, sloučeném jako `a0dd967`, byl ověřen průchodem skutečné 
 
 SC-04 v PR #135, sloučeném jako `acccb63`, přijímá jen explicitní ticker aliasy s datem počátku, případným koncem a veřejnou citací. `resolve_ticker_identity_as_of` zohledňuje zvlášť čas znalosti a skutečnou platnost aliasu; překryv dvou instrumentů odmítá místo libovolného přiřazení. Metadata aliasu se účastní otisku verzované identity, takže pozdější oprava nezmění starý známý snapshot. Tento obecný mechanismus ještě není napojen do cenové a SEC scout cesty a neověřuje konkrétní P/PSTG či LEG/SGI bez primárního zdroje.
 
-SC-14 omezuje následné otázky: nová úroveň musí citovat jiný, nově pozorovaný `SOURCE_VERIFIED` nebo `CLAIM_VERIFIED` nález než rodič a jeden rodič má nejvýše tři přímé podotázky. Transakční zámek chrání limit proti souběžným běhům; již existující limit hloubky zůstává dvě úrovně. Celkový rozpočet per firma/den/provider a verziované spouštěče ještě chybí.
+SC-14 v PR #136, sloučeném jako `5ab138f`, omezuje následné otázky: nová úroveň musí citovat jiný, nově pozorovaný `SOURCE_VERIFIED` nebo `CLAIM_VERIFIED` nález než rodič a jeden rodič má nejvýše tři přímé podotázky. Transakční zámek chrání limit proti souběžným běhům; již existující limit hloubky zůstává dvě úrovně. CI run 36599400943 prošel. Celkový rozpočet per firma/den/provider a verziované spouštěče ještě chybí.
 
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
@@ -53,4 +53,4 @@ SC-14 omezuje následné otázky: nová úroveň musí citovat jiný, nově pozo
 
 Nepoužívat sloučení základního PR jako potvrzení dokončení všech 36 úkolů. Bez reálného SEC User-Agent se automatický sběr vrátí `WAIT_ACCESS`, nepředstírá nalezené podání. Zdroje s klíčem/licencí se nezapojují bez odpovídajícího přístupu. Žádné order API není přidáno.
 
-GitHub CI základní verze, SC-04 až SC-07 a SC-09 akceptace prošlo. SC-14 limit čeká na vlastní CI. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
+GitHub CI základní verze a navazujících PR #130–136 prošlo. Živá akceptace Windows/SEC/cen po sloučení stále chybí. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
