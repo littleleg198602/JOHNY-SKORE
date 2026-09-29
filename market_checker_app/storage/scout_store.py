@@ -502,6 +502,8 @@ class ScoutStore:
         published = _utc(published_at)
         available = _utc(available_at)
         observed = _utc(observed_at)
+        if published > available:
+            raise ValueError("Source cannot be available before publication")
         if available > observed:
             raise ValueError("Source cannot be observed before it is available")
         if verification_status not in {"SOURCE_VERIFIED", "CLAIM_VERIFIED", "UNVERIFIED"}:
