@@ -1,3 +1,8 @@
+## 2026-09-29 — SC-05 kandidátní pravidla profilů
+
+- Textové metriky a zdroje všech 39 profilů jsou vydané jako stabilní `research-v1` otázky. Pravidlo jiného profilu je `NOT_APPLICABLE`, pravidlo vlastního profilu jen `CANDIDATE`; podmíněný produkt, segment nebo bankovní dcera se tím netvrdí jako ověřený fakt.
+- Testy pokrývají banku versus průmyslovou metriku, zdroj vyžadující bankovní dceru, výzkumný ticker P mimo 687 a jedinečnost pravidel. Skóre a plánovač providerů beze změny; konkrétní segmentová vazba je další práce.
+
 ## 2026-09-29 — SC-04 SEC identita mezi běhy
 
 - Navazující pátrací sběr ukládá přesnou dvojici ticker/CIK do SQLite verze 5. Změněný CIK u stejného tickeru uloží jako `QUARANTINED` a nové filingy pro tuto dvojici odmítne; staré nálezy zůstanou oddělené.
