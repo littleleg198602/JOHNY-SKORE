@@ -4,11 +4,34 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.scout_runner import run as run_scout
+from market_checker_app.utils.ticker_universe import load_canonical_ticker_records
 
 
 class ScoutStoreTests(unittest.TestCase):
+    def test_runner_rejects_changed_input_and_shows_positions(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scout.db"
+            with patch.dict("os.environ", {"JOHNY_SKORE_SEC_USER_AGENT": ""}):
+                first = run_scout(db_path=path, limit=0)
+                self.assertEqual("CREATED", first["universe_snapshot"]["status"])
+                self.assertEqual("UNCHANGED", run_scout(
+                    db_path=path, limit=0,
+                )["universe_snapshot"]["status"])
+                changed = load_canonical_ticker_records()
+                changed[0], changed[1] = changed[1], changed[0]
+                with patch("market_checker_app.scout_runner.load_canonical_ticker_records",
+                           side_effect=[ValueError("Unapproved CSV digest"), changed]):
+                    with self.assertRaisesRegex(ValueError, "Změněných pozic: 2"):
+                        run_scout(db_path=path, limit=0)
+            with ScoutStore(path)._connect() as conn:
+                self.assertEqual(687, conn.execute(
+                    "SELECT COUNT(*) FROM scout_universe_input_rows"
+                ).fetchone()[0])
+
     def test_universe_rows_are_immutable_and_reordering_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")
