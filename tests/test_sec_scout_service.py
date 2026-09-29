@@ -81,6 +81,67 @@ class SecScoutServiceTests(unittest.TestCase):
             self.assertEqual(1, summary["failed"])
             self.assertEqual([], store.findings_as_of("AAPL", as_of=now))
 
+    def test_changed_cik_is_quarantined_and_old_findings_remain(self) -> None:
+        class ChangedIssuer(FakeIndex):
+            def fetch_filing_index(self, ticker, **kwargs):
+                company, filings = super().fetch_filing_index(ticker, **kwargs)
+                return SecCompany(ticker=ticker, cik="0000789019", name="Other Inc."), filings
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scout.db"
+            now = datetime.now(timezone.utc)
+            store = ScoutStore(path)
+            first = SecScoutService(store, client=FakeIndex(now - timedelta(days=1)))
+            first.schedule(["AAPL"], as_of=now)
+            self.assertEqual(1, first.run_batch(as_of=now)["new_findings"])
+            changed = SecScoutService(ScoutStore(path), client=ChangedIssuer(now))
+            later = now + timedelta(days=1)
+            changed.schedule(["AAPL"], as_of=later)
+            self.assertEqual("PARTIAL", changed.run_batch(as_of=later)["status"])
+            self.assertEqual(1, len(store.findings_as_of("AAPL", as_of=later)))
+            with store._connect() as conn:
+                rows = conn.execute(
+                    "SELECT cik, status FROM scout_sec_identities "
+                    "WHERE subject_id='AAPL' ORDER BY cik"
+                ).fetchall()
+                error = conn.execute(
+                    "SELECT last_error FROM scout_jobs WHERE subject_id='AAPL'"
+                ).fetchone()[0]
+            self.assertEqual(
+                [("0000320193", "ACTIVE"), ("0000789019", "QUARANTINED")],
+                [tuple(row) for row in rows],
+            )
+            self.assertIn("IDENTITY_CONFLICT", error)
+
+    def test_legacy_findings_seed_identity_and_share_classes_remain_separate(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            store.record_finding(
+                source="sec", subject_id="GOOG",
+                source_object_id="0001652044:0001652044-26-000001",
+                content_hash="old", title="Legacy", source_url="https://www.sec.gov/test",
+                locator="accession:old", published_at=now, available_at=now,
+                observed_at=now, details={"stage": "filing_index"},
+            )
+            self.assertFalse(store.observe_sec_identity(
+                subject_id="GOOG", cik="0000000001", company_name="Wrong", as_of=now,
+            ))
+            self.assertTrue(store.observe_sec_identity(
+                subject_id="GOOG", cik="0001652044", company_name="Alphabet", as_of=now,
+            ))
+            self.assertTrue(store.observe_sec_identity(
+                subject_id="GOOGL", cik="0001652044", company_name="Alphabet", as_of=now,
+            ))
+            with store._connect() as conn:
+                rows = conn.execute(
+                    "SELECT subject_id, cik, status FROM scout_sec_identities "
+                    "ORDER BY subject_id, status"
+                ).fetchall()
+            self.assertEqual(3, len(rows))
+            self.assertEqual(("GOOG", "0001652044", "ACTIVE"), tuple(rows[0]))
+            self.assertEqual(("GOOGL", "0001652044", "ACTIVE"), tuple(rows[2]))
+
     def test_long_provider_cooldown_stops_batch_and_is_durable(self) -> None:
         class LimitedIndex:
             def fetch_filing_index(self, ticker, **kwargs):

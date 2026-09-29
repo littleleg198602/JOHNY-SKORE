@@ -1,3 +1,9 @@
+## 2026-09-29 — SC-04 SEC identita mezi běhy
+
+- Navazující pátrací sběr ukládá přesnou dvojici ticker/CIK do SQLite verze 5. Změněný CIK u stejného tickeru uloží jako `QUARANTINED` a nové filingy pro tuto dvojici odmítne; staré nálezy zůstanou oddělené.
+- Migrace kontroluje i historické SEC nálezy před zavedením tabulky. Samostatné tickery GOOG/GOOGL smějí mít stejného emitenta, ale jejich nálezy a identita zůstávají oddělené.
+- Lokální testy ověřují restart, změnu emitenta, zachování starých nálezů, starší DB a dvě akciové třídy. Úplné datované aliasy a živý SEC/Windows běh zůstávají otevřené. Žádná změna skóre ani obchodní exekuce.
+
 ## 2026-09-17 — finální integrační release candidate
 
 - Sjednocena post-run cesta Streamlit UI a týdenního runneru: oba ukládají point-in-time snapshoty a generují kandidátní model, walk-forward, řízené ablation, makro a zdraví protistran.

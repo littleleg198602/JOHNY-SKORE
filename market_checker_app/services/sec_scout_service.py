@@ -101,6 +101,11 @@ class SecScoutService:
                 company, filings = index
                 if normalize_ticker(company.ticker) != job.subject_id:
                     raise ValueError("IDENTITY_CONFLICT: SEC ticker differs from job")
+                if not self.store.observe_sec_identity(
+                    subject_id=job.subject_id, cik=company.cik,
+                    company_name=company.name, as_of=clock,
+                ):
+                    raise ValueError("IDENTITY_CONFLICT: SEC CIK changed; candidate quarantined")
                 document_targets: set[str] = set()
                 for form_family in (
                     "8-K", "10-Q", "10-K", "6-K", "20-F", "40-F",
