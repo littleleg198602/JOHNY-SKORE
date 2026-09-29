@@ -8,19 +8,30 @@ from pathlib import Path
 
 from market_checker_app.config import DEFAULT_DB_PATH
 from market_checker_app.services.sec_scout_service import SecScoutService
-from market_checker_app.utils.ticker_universe import load_canonical_tickers
+from market_checker_app.utils.ticker_universe import (
+    CANONICAL_CSV_SHA256,
+    CANONICAL_SOURCE_FILE,
+    load_canonical_ticker_records,
+)
 from market_checker_app.storage.scout_store import ScoutStore
 
 
 def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, object]:
     store = ScoutStore(db_path)
     now = datetime.now(timezone.utc)
+    records = load_canonical_ticker_records()
+    universe_snapshot = store.record_universe_snapshot(
+        source_name=CANONICAL_SOURCE_FILE,
+        source_sha256=CANONICAL_CSV_SHA256,
+        records=records,
+        as_of=now,
+    )
     scout = SecScoutService(
         store, user_agent=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
     )
-    scheduled = scout.schedule(load_canonical_tickers(), as_of=now)
+    scheduled = scout.schedule([record["ticker"] for record in records], as_of=now)
     batch = scout.run_batch(limit=limit)
-    return {"scheduled_subjects": scheduled, **batch,
+    return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 
