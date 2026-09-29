@@ -1,3 +1,8 @@
+## 2026-09-29 — SC-14 omezení navazujících otázek
+
+- Podotázka musí mít jiný nově pozorovaný ověřený nález než rodič. Pouhá stejná zpráva nebo neověřená RSS stopa už nevytvoří další úroveň; uzavřený případ nezakládá nové podotázky.
+- Jeden případ má nejvýše tři přímé podotázky. Kontrola a zápis jsou v SQLite transakci s write lockem; testy pokrývají opakované volání, další úroveň, RSS a čtvrté dítě. Limit na firmu/den/provider a verzované spouštěče jsou další práce. Žádná změna predikčního skóre ani obchodování.
+
 ## 2026-09-29 — SC-04 datované ticker aliasy
 
 - Registr přijímá pouze doložený alias tickeru s intervalem platnosti a veřejnou citací. Čtení identity rozlišuje `known_at` a `effective_at`; překryv různých instrumentů odmítá místo sloučení.
