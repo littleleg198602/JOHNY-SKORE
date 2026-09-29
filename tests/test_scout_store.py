@@ -181,14 +181,34 @@ class ScoutStoreTests(unittest.TestCase):
                                     question="Inventory?", as_of=now)
             self.assertEqual(parent, store.add_lead(subject_id="MU", finding_id=finding,
                                                    question="Inventory?", as_of=now))
-            child = store.add_lead(subject_id="MU", finding_id=finding,
+            with self.assertRaisesRegex(ValueError, "new finding"):
+                store.add_lead(subject_id="MU", finding_id=finding,
+                               question="Same evidence?", as_of=now,
+                               parent_lead_id=parent)
+
+            def new_finding(index: int) -> str:
+                identifier, _ = store.record_finding(
+                    source="sec", subject_id="MU", source_object_id=f"item:{index}",
+                    content_hash=f"hash:{index}", title="New section",
+                    source_url="https://www.sec.gov/b", locator=f"Item {index}",
+                    published_at=now, available_at=now, observed_at=now, details={},
+                )
+                return identifier
+
+            child_finding = new_finding(1)
+            child = store.add_lead(subject_id="MU", finding_id=child_finding,
                                    question="Customer demand?", as_of=now,
                                    parent_lead_id=parent)
-            grandchild = store.add_lead(subject_id="MU", finding_id=finding,
+            self.assertEqual(child, store.add_lead(
+                subject_id="MU", finding_id=child_finding,
+                question="Customer demand?", as_of=now, parent_lead_id=parent,
+            ))
+            grandchild_finding = new_finding(2)
+            grandchild = store.add_lead(subject_id="MU", finding_id=grandchild_finding,
                                         question="Sector demand?", as_of=now,
                                         parent_lead_id=child)
             with self.assertRaises(ValueError):
-                store.add_lead(subject_id="MU", finding_id=finding,
+                store.add_lead(subject_id="MU", finding_id=new_finding(3),
                                question="More?", as_of=now,
                                parent_lead_id=grandchild)
             self.assertEqual([], store.open_leads(["MU"], as_of=now - timedelta(seconds=1)))
@@ -197,6 +217,44 @@ class ScoutStoreTests(unittest.TestCase):
             self.assertEqual({"Inventory?", "Customer demand?", "Sector demand?"},
                              {row["question"] for row in questions})
             self.assertEqual([], store.open_leads(["AAPL"], as_of=now))
+
+    def test_followup_budget_rejects_unverified_and_fourth_child(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+
+            def evidence(number: int, *, rss: bool = False) -> str:
+                finding, _ = store.record_finding(
+                    source="rss" if rss else "sec", subject_id="AAPL",
+                    source_object_id=f"source:{number}", content_hash=f"hash:{number}",
+                    title="Observed", locator="section", published_at=now,
+                    available_at=now, observed_at=now, details={},
+                    source_url=("https://example.org/story" if rss
+                                else "https://www.sec.gov/Archives/test"),
+                    verification_status="UNVERIFIED" if rss else "SOURCE_VERIFIED",
+                )
+                return finding
+
+            parent = store.add_lead(
+                subject_id="AAPL", finding_id=evidence(0),
+                question="What changed?", as_of=now,
+            )
+            with self.assertRaisesRegex(ValueError, "verified source evidence"):
+                store.add_lead(
+                    subject_id="AAPL", finding_id=evidence(1, rss=True),
+                    question="RSS follow-up?", as_of=now, parent_lead_id=parent,
+                )
+            for number in range(2, 5):
+                store.add_lead(
+                    subject_id="AAPL", finding_id=evidence(number),
+                    question=f"Item {number}?", as_of=now, parent_lead_id=parent,
+                )
+            with self.assertRaisesRegex(ValueError, "Maximum three"):
+                store.add_lead(
+                    subject_id="AAPL", finding_id=evidence(5),
+                    question="Fourth item?", as_of=now, parent_lead_id=parent,
+                )
+            self.assertEqual(4, len(store.open_leads(["AAPL"], as_of=now)))
 
     def test_two_processes_do_not_share_sec_rate_limit_slot(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
