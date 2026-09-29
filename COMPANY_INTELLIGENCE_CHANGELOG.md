@@ -1,3 +1,8 @@
+## 2026-09-29 — SC-07 politika ukládaných zdrojů
+
+- Společné úložiště pátracích nálezů povoluje nyní jen explicitně zapojené zdroje SEC a RSS. Všechny citace vyžadují veřejné HTTPS; SEC citace musí být na přesném oficiálním hostu. RSS ingest nesmí deklarovat ověřený zdroj ani tvrzení.
+- Testy odmítají podvržený SEC host, soukromou IP, neznámého poskytovatele a povýšení RSS článku na ověřený důkaz; nic z toho se nezapíše. Kvóty a retence budoucích poskytovatelů zůstávají otevřené. Skóre a obchodní exekuce se nemění.
+
 ## 2026-09-29 — SC-06 čas nálezu
 
 - `ScoutStore.record_finding` odmítá zveřejnění datované až po uvedené dostupnosti. S již existující kontrolou dostupnost ≤ první pozorování tak každý nový nález dodržuje časové pořadí pro as-of replay.
