@@ -8,12 +8,14 @@ Aktualizováno: 29. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_I
 
 Další cenová závada je doložena stejným artefaktem: Yahoo stáhlo 685 řad; denní řady běžně obsahovaly rozpracovanou svíčku 28. 9. před uzavřením NYSE. Validátor kvůli tomu odmítl i předchozí platnou páteční cenu. Aktuální oprava ve větvi odfiltruje nedokončené seance a stále vyžaduje poslední skutečně uzavřený close. Read-only replay cache pro kanonických 687 tickerů vrátil **684 použitelných cen**; LEG má zastaralou řadu, BRKB/PSTG zůstávají bez ceny. To je kontrola cenového validátoru, nikoli nový úspěšný běh pipeline. Regresní testy pokrývají rozpracovanou, pouze budoucí a zastaralou řadu. Nový živý 687tickerový běh je stále nutný pro provozní akceptaci.
 
+SC-03 nyní ukládá každý ověřený CSV vstup jako neměnný snapshot se SHA-256, původním pořadím a všemi řádky; změnu mezi verzemi vykáže po pozicích. Lokální první běh a restart vytvořily právě jeden snapshot a 687 řádků. Přímé porovnání s původním XLS a datovaná identita instrumentů zůstávají otevřené.
+
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
 | SC-00 | IMPLEMENTED, TESTED lokálně | Nullable `pd.NA` rank ukládá do SQLite NULL, skutečná transakce v testu. Počkat na CI a spojení PR. |
 | SC-01 | IMPLEMENTED, TESTED lokálně | 53minutový běh: důkaz z počátku i konce je platný; opravdu budoucí údaj je odmítnut. Ještě integrovat živý Windows běh. |
 | SC-02 | WAIT_MERGE | Dosud není v main ani otestováno na uživatelském Windows. |
-| SC-03 | PARTIAL | Stávající CSV drží 687 řádků a pořadí; načtení produkčního souboru nyní kontroluje SHA-256 normalizovaného CSV. Audit přímého XLS zdroje a změnový diff ještě chybí. |
+| SC-03 | PARTIAL, TESTED lokálně | CSV drží 687 řádků, pořadí a SHA-256; ScoutStore archivuje neměnné verze a vrací změnový diff po pozicích. Přímý audit původního XLS ještě chybí. |
 | SC-04–07 | PARTIAL | 39 profilů výzkumu je strojově čitelných, verzovaných a ověřených proti produkčnímu seznamu; `UNKNOWN` není chyba ani záporný bod. Výzkum uvádí `P`, ale skutečné CSV místo něj obsahuje `OKE`; P zůstává pouze výzkumný neprodukční řádek. `OKE` má oddělenou doloženou profilovou opravu `OIL_GAS` z oficiálního ONEOK a SEC 10-K, bez přepsání CSV. Profilové metriky zatím neřídí skóre/konektory. SEC konektor odmítá cizí hosty/cesty i přesměrování, RSS ukládá jen kandidátní veřejné HTTPS odkazy. Úplné identity a pravidla budoucích poskytovatelů čekají. |
 | SC-08 | IMPLEMENTED, TESTED lokálně | SQLite fronta, dedupe, lease token, zámek transakce, historie pokusů, restart; test končícího lease. Schéma eviduje verze 1–3; další změny musejí přidávat vlastní verze. |
 | SC-09 | PARTIAL | Denní Windows plánovač a týdenní dávka, max. 100 firem/den, backlog po výpadku. Chybí profilový scheduling a fairness pro jiné providery. Windows instalace neověřena. |
