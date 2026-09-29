@@ -5,6 +5,7 @@ from pathlib import Path
 import sqlite3
 import tempfile
 import unittest
+from datetime import datetime, timezone
 
 from market_checker_app.agents import (
     AgentStatus,
@@ -87,6 +88,96 @@ class EntityIdentifierValidationTests(unittest.TestCase):
 
 
 class EntityRegistryStage51Tests(unittest.TestCase):
+    def test_sourced_dated_alias_resolves_only_inside_its_window(self) -> None:
+        identity = _identity()
+        identity["dated_ticker_aliases"] = [{
+            "ticker": "OLD", "valid_from": "2020-01-01T00:00:00Z",
+            "valid_to": "2025-01-01T00:00:00Z",
+            "source_url": "https://www.sec.gov/Archives/old-ticker",
+        }]
+        report = _run_identity("AAPL", identity)
+        self.assertEqual(AgentStatus.SUCCESS, report.status)
+        with tempfile.TemporaryDirectory() as tmp:
+            store = SQLiteStore(Path(tmp) / "history.db")
+            store.save_orchestration_report(report)
+            before = store.resolve_ticker_identity_as_of(
+                "OLD", known_at=report.finished_at,
+                effective_at=datetime(2024, 1, 1, tzinfo=timezone.utc),
+            )
+            after = store.resolve_ticker_identity_as_of(
+                "OLD", known_at=report.finished_at,
+                effective_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+            )
+        self.assertEqual(["AAPL"], list(before["ticker"]))
+        self.assertTrue(after.empty)
+
+    def test_ambiguous_overlapping_alias_fails_closed(self) -> None:
+        first = _identity()
+        first["dated_ticker_aliases"] = [{
+            "ticker": "OLD", "valid_from": "2020-01-01T00:00:00Z",
+            "valid_to": "2025-01-01T00:00:00Z",
+            "source_url": SOURCE_URL,
+        }]
+        second = _identity(ticker="OTHER")
+        second.update({
+            "entity_id": "listing:other", "cik": "0000000001",
+            "isin": None, "lei": None,
+            "dated_ticker_aliases": [{
+                "ticker": "OLD", "valid_from": "2024-01-01T00:00:00Z",
+                "valid_to": "2026-01-01T00:00:00Z",
+                "source_url": "https://www.sec.gov/Archives/other",
+            }],
+        })
+        first_report = _run_identity("AAPL", first)
+        second_report = _run_identity("OTHER", second)
+        with tempfile.TemporaryDirectory() as tmp:
+            store = SQLiteStore(Path(tmp) / "history.db")
+            store.save_orchestration_report(first_report)
+            store.save_orchestration_report(second_report)
+            with self.assertRaisesRegex(ValueError, "Ambiguous dated ticker"):
+                store.resolve_ticker_identity_as_of(
+                    "OLD", known_at=second_report.finished_at,
+                    effective_at=datetime(2024, 6, 1, tzinfo=timezone.utc),
+                )
+
+    def test_unsourced_alias_is_rejected_before_persistence(self) -> None:
+        identity = _identity()
+        identity["dated_ticker_aliases"] = [{
+            "ticker": "OLD", "valid_from": "2020-01-01T00:00:00Z",
+        }]
+        report = _run_identity("AAPL", identity)
+        self.assertEqual(AgentStatus.FAILED, report.status)
+        self.assertEqual([], report.entities)
+
+    def test_later_alias_correction_preserves_the_prior_known_snapshot(self) -> None:
+        first = _identity()
+        first["dated_ticker_aliases"] = [{
+            "ticker": "OLD", "valid_from": "2020-01-01T00:00:00Z",
+            "valid_to": "2025-01-01T00:00:00Z", "source_url": SOURCE_URL,
+        }]
+        corrected = _identity()
+        corrected["dated_ticker_aliases"] = [{
+            "ticker": "OLD", "valid_from": "2020-01-01T00:00:00Z",
+            "valid_to": "2024-01-01T00:00:00Z", "source_url": SOURCE_URL,
+        }]
+        first_report = _run_identity("AAPL", first)
+        later_report = _run_identity("AAPL", corrected)
+        effective = datetime(2024, 6, 1, tzinfo=timezone.utc)
+        with tempfile.TemporaryDirectory() as tmp:
+            store = SQLiteStore(Path(tmp) / "history.db")
+            store.save_orchestration_report(first_report)
+            store.save_orchestration_report(later_report)
+            older_view = store.resolve_ticker_identity_as_of(
+                "OLD", known_at=first_report.finished_at, effective_at=effective,
+            )
+            corrected_view = store.resolve_ticker_identity_as_of(
+                "OLD", known_at=later_report.finished_at, effective_at=effective,
+            )
+            versions = store.read_entity_identity_versions("listing:apple:primary")
+        self.assertEqual(["AAPL"], list(older_view["ticker"]))
+        self.assertTrue(corrected_view.empty)
+        self.assertEqual(2, len(versions))
+
     def test_registry_separates_legal_issuer_and_instrument_identity(self) -> None:
         report = _run_identity("aapl", _identity())
 

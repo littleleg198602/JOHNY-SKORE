@@ -68,6 +68,34 @@ def _aliases(value: object) -> list[str]:
     )
 
 
+def _dated_ticker_aliases(value: object, current_ticker: str) -> list[dict[str, str | None]]:
+    """Accept only sourced, time-bounded ticker aliases for this instrument."""
+    if value is None:
+        return []
+    if not isinstance(value, (list, tuple)):
+        raise ValueError("dated_ticker_aliases must be a list")
+    aliases: list[dict[str, str | None]] = []
+    for item in value:
+        if not isinstance(item, Mapping):
+            raise ValueError("A dated ticker alias must be a mapping")
+        ticker = normalize_ticker(str(item.get("ticker") or ""))
+        start = _utc_datetime(item.get("valid_from"), "alias valid_from")
+        end = _utc_datetime(item.get("valid_to"), "alias valid_to")
+        source = _optional_text(item.get("source_url"))
+        if not ticker or ticker == current_ticker or start is None or source is None:
+            raise ValueError("Alias needs a different ticker, valid_from and source_url")
+        if end is not None and end <= start:
+            raise ValueError("Alias valid_to must be later than valid_from")
+        aliases.append({
+            "ticker": ticker, "valid_from": start.isoformat(),
+            "valid_to": end.isoformat() if end else None,
+            "source_url": public_https_reference(source),
+        })
+    if len({(a["ticker"], a["valid_from"]) for a in aliases}) != len(aliases):
+        raise ValueError("Duplicate dated ticker alias interval")
+    return aliases
+
+
 class PrimaryIdentityResolver(Protocol):
     def resolve(
         self,
@@ -154,6 +182,11 @@ class EntityRegistryAgent(BaseAgent):
             metadata = dict(metadata_value)
         else:
             raise ValueError("Entity metadata must be a mapping")
+        if "dated_ticker_aliases" in metadata:
+            raise ValueError("Use the validated dated_ticker_aliases identity field")
+        metadata["dated_ticker_aliases"] = _dated_ticker_aliases(
+            raw.get("dated_ticker_aliases"), ticker,
+        )
         metadata.update(
             {
                 "registry_stage": "5.1",
@@ -229,6 +262,9 @@ class EntityRegistryAgent(BaseAgent):
                 else None
             )
             metadata = dict(raw.metadata)
+            metadata["dated_ticker_aliases"] = _dated_ticker_aliases(
+                metadata.get("dated_ticker_aliases"), ticker,
+            )
             metadata.setdefault("registry_stage", "5.1")
             metadata.setdefault(
                 "identity_resolution",

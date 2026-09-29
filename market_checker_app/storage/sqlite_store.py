@@ -110,7 +110,7 @@ class SQLiteStore:
         snapshot = {
             column: current[column]
             for column in identity_columns
-            + ("source", "source_url", "confidence")
+            + ("source", "source_url", "confidence", "metadata_json")
         }
         snapshot_hash = hashlib.sha256(
             cls._json_dump(snapshot).encode("utf-8")
@@ -3390,6 +3390,47 @@ class SQLiteStore:
         )
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=tuple(params))
+
+    def resolve_ticker_identity_as_of(
+        self, ticker: str, *, known_at: datetime, effective_at: datetime,
+    ) -> pd.DataFrame:
+        """Resolve an exact ticker or sourced dated alias without guessing.
+
+        A current ticker and another instrument's historical alias may be
+        ambiguous at the effective time. Refuse that mapping instead of
+        attaching a price or filing to an arbitrary entity.
+        """
+        from market_checker_app.utils.text import normalize_ticker
+
+        target = normalize_ticker(str(ticker or ""))
+        if not target:
+            raise ValueError("Ticker lookup requires a symbol")
+        if known_at.tzinfo is None or effective_at.tzinfo is None:
+            raise ValueError("Ticker lookup requires timezone-aware dates")
+        effective = effective_at.astimezone(timezone.utc)
+        versions = self.read_entity_identity_as_of(known_at)
+        selected: list[int] = []
+        for index, row in versions.iterrows():
+            if row["ticker"] == target:
+                start = datetime.fromisoformat(row["effective_from"])
+                end = (datetime.fromisoformat(row["effective_to"])
+                       if row["effective_to"] else None)
+                if start <= effective and (end is None or effective < end):
+                    selected.append(index)
+                    continue
+            metadata = json.loads(row["metadata_json"] or "{}")
+            for alias in metadata.get("dated_ticker_aliases", []):
+                if alias["ticker"] != target:
+                    continue
+                start = datetime.fromisoformat(alias["valid_from"])
+                end = (datetime.fromisoformat(alias["valid_to"])
+                       if alias.get("valid_to") else None)
+                if start <= effective and (end is None or effective < end):
+                    selected.append(index)
+                    break
+        if len(selected) > 1:
+            raise ValueError(f"Ambiguous dated ticker identity: {target}")
+        return versions.loc[selected].reset_index(drop=True)
 
     def read_documents(self, ticker: str | None = None) -> pd.DataFrame:
         self.ensure_schema()
