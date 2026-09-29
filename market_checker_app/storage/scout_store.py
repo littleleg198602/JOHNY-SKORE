@@ -553,6 +553,7 @@ class ScoutStore:
         clock = _utc(as_of)
         lead_id = f"lead:{_key(finding_id, question)[:32]}"
         with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
             finding = conn.execute("""
                 SELECT 1 FROM scout_findings
                 WHERE finding_id=? AND subject_id=? AND available_at<=?
@@ -560,10 +561,22 @@ class ScoutStore:
             """, (finding_id, subject_id, clock, clock)).fetchone()
             if finding is None:
                 raise ValueError("Lead source is unavailable or belongs to another subject")
+            same_lead = conn.execute(
+                "SELECT subject_id, parent_lead_id FROM scout_leads WHERE lead_id=?",
+                (lead_id,),
+            ).fetchone()
+            if same_lead is not None and (
+                same_lead["subject_id"] != subject_id
+                or same_lead["parent_lead_id"] != parent_lead_id
+            ):
+                raise ValueError("Existing lead has a different parent or subject")
+            if same_lead is not None:
+                return lead_id
             parent_depth = 0
             if parent_lead_id:
                 parent = conn.execute(
-                    "SELECT depth, subject_id, created_at FROM scout_leads WHERE lead_id=?",
+                    "SELECT depth, subject_id, created_at, finding_id, status "
+                    "FROM scout_leads WHERE lead_id=?",
                     (parent_lead_id,),
                 ).fetchone()
                 if parent is None:
@@ -572,6 +585,29 @@ class ScoutStore:
                     raise ValueError("Parent lead belongs to a different subject")
                 if parent["created_at"] > clock:
                     raise ValueError("Child lead predates its parent")
+                if parent["status"] not in {"OPEN", "INVESTIGATING"}:
+                    raise ValueError("Resolved lead cannot create follow-up questions")
+                if parent["finding_id"] == finding_id:
+                    raise ValueError("Follow-up needs a new finding beyond its parent")
+                new_evidence = conn.execute(
+                    "SELECT 1 FROM scout_findings WHERE finding_id=? "
+                    "AND subject_id=? AND first_observed_at>=? "
+                    "AND verification_status IN ('SOURCE_VERIFIED', 'CLAIM_VERIFIED')",
+                    (finding_id, subject_id, parent["created_at"]),
+                ).fetchone()
+                if new_evidence is None:
+                    raise ValueError("Follow-up needs newly observed verified source evidence")
+                existing = conn.execute(
+                    "SELECT 1 FROM scout_leads WHERE lead_id=? AND parent_lead_id=?",
+                    (lead_id, parent_lead_id),
+                ).fetchone()
+                if existing is None:
+                    siblings = conn.execute(
+                        "SELECT COUNT(*) FROM scout_leads WHERE parent_lead_id=?",
+                        (parent_lead_id,),
+                    ).fetchone()[0]
+                    if siblings >= 3:
+                        raise ValueError("Maximum three follow-ups per lead")
                 parent_depth = int(parent[0]) + 1
             if parent_depth > 2:
                 raise ValueError("Maximum scout lead depth exceeded")
