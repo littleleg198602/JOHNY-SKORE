@@ -206,13 +206,7 @@ class ScoutStore:
                 "SELECT ticker, yahoo_ticker FROM scout_universe_input_rows "
                 "WHERE snapshot_id=? ORDER BY input_position", (previous[0],),
             )] if previous else []
-            changes = [
-                {"position": pos, "before": old[pos - 1] if pos <= len(old) else None,
-                 "after": rows[pos - 1] if pos <= len(rows) else None}
-                for pos in range(1, max(len(old), len(rows)) + 1)
-                if (old[pos - 1] if pos <= len(old) else None)
-                != (rows[pos - 1] if pos <= len(rows) else None)
-            ] if previous else []
+            changes = self._universe_changes(old, rows) if previous else []
             conn.execute(
                 "INSERT INTO scout_universe_snapshots VALUES(?, ?, ?, ?, ?)",
                 (snapshot_id, source_name, source_sha256, len(rows), clock),
@@ -224,6 +218,36 @@ class ScoutStore:
             )
         return {"snapshot_id": snapshot_id, "status": "CHANGED" if previous else "CREATED",
                 "changes": changes}
+
+    @staticmethod
+    def _universe_changes(
+        old: list[tuple[str, str]], new: list[tuple[str, str]],
+    ) -> list[dict[str, object]]:
+        return [
+            {"position": pos, "before": old[pos - 1] if pos <= len(old) else None,
+             "after": new[pos - 1] if pos <= len(new) else None}
+            for pos in range(1, max(len(old), len(new)) + 1)
+            if (old[pos - 1] if pos <= len(old) else None)
+            != (new[pos - 1] if pos <= len(new) else None)
+        ]
+
+    def preview_universe_changes(
+        self, records: list[dict[str, str]],
+    ) -> list[dict[str, object]]:
+        """Show an unapproved CSV change without saving it or scheduling jobs."""
+        with self._connect() as conn:
+            previous = conn.execute(
+                "SELECT snapshot_id FROM scout_universe_snapshots "
+                "ORDER BY created_at DESC, rowid DESC LIMIT 1"
+            ).fetchone()
+            if previous is None:
+                return []
+            old = [tuple(row) for row in conn.execute(
+                "SELECT ticker, yahoo_ticker FROM scout_universe_input_rows "
+                "WHERE snapshot_id=? ORDER BY input_position", (previous[0],),
+            )]
+        new = [(str(r["ticker"]), str(r["yahoo_ticker"])) for r in records]
+        return self._universe_changes(old, new)
 
     def enqueue(
         self, *, source: str, subject_id: str, reason: str,
