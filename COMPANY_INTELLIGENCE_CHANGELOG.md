@@ -1,3 +1,9 @@
+## 2026-09-29 — SC-04 datované ticker aliasy
+
+- Registr přijímá pouze doložený alias tickeru s intervalem platnosti a veřejnou citací. Čtení identity rozlišuje `known_at` a `effective_at`; překryv různých instrumentů odmítá místo sloučení.
+- Aliasová metadata jsou součástí otisku identity, takže pozdější oprava vytvoří novou verzi a historický as-of pohled zůstane zachován. Testy pokrývají platnost intervalu, nejednoznačný překryv, nepodložený alias a opravu známého snapshotu.
+- Skutečné historické aliasy P/PSTG a LEG/SGI nejsou bez přesného primárního dokladu zavedené. Integrace aliasové cesty do cen a SEC sběru, dcery a produkty zůstávají otevřené. Žádná změna skóre ani obchodní exekuce.
+
 ## 2026-09-29 — SC-09 rotace fronty a výpadek PC
 
 - Integrační akceptace skutečné SQLite fronty plánuje všech 687 tickerů se 100úlohovou denní dávkou a restartem mezi dny. Jeden den PC neběží; starší `due_at` zůstává a backlog se dožene.
