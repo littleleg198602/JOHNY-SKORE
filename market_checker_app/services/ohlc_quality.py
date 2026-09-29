@@ -111,12 +111,34 @@ def assess_daily_ohlc(
     if not rows:
         return OhlcQuality(empty, None, None, 0, False, False, ("OHLC Close neobsahuje kladnou konečnou cenu na platné seanci.",))
 
+    expected = last_completed_session(as_of)
+    warnings: list[str] = []
     normalized = pd.DataFrame(rows).sort_values("session")
+    # Daily providers can include the currently forming session in an otherwise
+    # valid history.  Never use that bar, including in technical lookbacks, but
+    # keep the last completed close when it is actually present.
+    if expected is not None:
+        incomplete_count = int((normalized["session"] > expected).sum())
+        if incomplete_count:
+            normalized = normalized.loc[normalized["session"] <= expected]
+            warnings.append(
+                f"Ignorováno {incomplete_count} OHLC řádků po poslední dokončené NYSE seanci."
+            )
+    if normalized.empty:
+        return OhlcQuality(
+            empty,
+            None,
+            None,
+            0,
+            False,
+            False,
+            tuple(warnings) or ("Chybí uzavřená NYSE seance.",),
+            (),
+            TECHNICAL_LOOKBACKS,
+        )
     duplicate_count = int(normalized.duplicated("session", keep="last").sum())
     normalized = normalized.drop_duplicates("session", keep="last").set_index("session")
     latest = normalized.index[-1]
-    expected = last_completed_session(as_of)
-    warnings: list[str] = []
     if duplicate_count:
         warnings.append(f"OHLC obsahuje {duplicate_count} duplicitních seancí; pro výpočet byla použita poslední verze.")
 

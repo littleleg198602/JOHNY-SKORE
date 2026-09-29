@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 from pathlib import Path
 
 from market_checker_app.utils.text import normalize_ticker
@@ -8,6 +9,7 @@ from market_checker_app.utils.text import normalize_ticker
 
 CANONICAL_TICKER_COUNT = 687
 CANONICAL_SOURCE_FILE = "market_checker_20260818_213623.xlsx"
+CANONICAL_CSV_SHA256 = "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
 DEFAULT_TICKER_UNIVERSE_PATH = (
     Path(__file__).resolve().parents[1] / "data" / "market_checker_687_tickers.csv"
 )
@@ -24,6 +26,16 @@ def load_canonical_ticker_records(
     """
 
     source_path = Path(path or DEFAULT_TICKER_UNIVERSE_PATH)
+    if path is None:
+        # Bind the production universe to its reviewed projection. A change to
+        # ticker identities or order needs an explicit source review and hash bump.
+        raw = source_path.read_text(encoding="utf-8").replace("\r\n", "\n")
+        digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()
+        if digest != CANONICAL_CSV_SHA256:
+            raise ValueError(
+                "Produkční seznam 687 tickerů se změnil bez doložené revize "
+                f"(SHA-256 {digest})."
+            )
     with source_path.open("r", encoding="utf-8", newline="") as handle:
         reader = csv.DictReader(handle)
         fieldnames = set(reader.fieldnames or ())

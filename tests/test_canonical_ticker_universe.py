@@ -4,6 +4,7 @@ import unittest
 
 from market_checker_app.utils.ticker_universe import (
     CANONICAL_SOURCE_FILE,
+    CANONICAL_CSV_SHA256,
     CANONICAL_TICKER_COUNT,
     DEFAULT_TICKER_UNIVERSE_PATH,
     load_canonical_ticker_records,
@@ -27,6 +28,10 @@ class CanonicalTickerUniverseTests(unittest.TestCase):
         self.assertEqual(
             "market_checker_20260818_213623.xlsx",
             CANONICAL_SOURCE_FILE,
+        )
+        self.assertEqual(
+            "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+            CANONICAL_CSV_SHA256,
         )
 
     def test_ticker_loader_preserves_excel_order(self) -> None:

@@ -24,6 +24,10 @@ if errorlevel 1 goto :error
 call :ensure_sec_user_agent
 if errorlevel 1 goto :error
 
+echo [INFO] Doplnuji prvni davku SEC stop pro analyticky report...
+%PYTHON_EXE% -m market_checker_app.scout_runner --db-path "outputs\market_checker_history.db" --limit 100
+if errorlevel 1 goto :error
+
 echo [INFO] Vyhodnocuji splatne historicke predikce pres spravedlivou frontu...
 %PYTHON_EXE% -m market_checker_app.prediction_label_runner --db-path "outputs\market_checker_history.db" --output-path "outputs\prediction_label_resolution_latest.json" --limit 1000 --page-size 120 --time-budget-seconds 240
 if errorlevel 1 goto :error
