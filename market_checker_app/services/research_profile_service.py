@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
 import json
 from pathlib import Path
 
@@ -9,6 +10,31 @@ from market_checker_app.utils.ticker_universe import load_canonical_tickers
 
 
 PROFILE_PATH = Path(__file__).resolve().parents[1] / "data" / "research_profiles.json"
+RULE_CATALOGUE_VERSION = 1
+
+
+@dataclass(frozen=True, slots=True)
+class ResearchRule:
+    """A research question, not a verified fact or a score contribution."""
+
+    rule_id: str
+    profile_code: str
+    kind: str
+    description: str
+
+
+def _rules(code: str, kind: str, source: str) -> tuple[ResearchRule, ...]:
+    descriptions = [part.strip() for part in source.split(";")]
+    if not descriptions or any(not part for part in descriptions):
+        raise ValueError(f"Empty {kind} rule in {code}")
+    return tuple(
+        ResearchRule(
+            rule_id=(f"research-v{RULE_CATALOGUE_VERSION}:{code}:{kind}:"
+                     f"{position}:{hashlib.sha256(description.encode('utf-8')).hexdigest()[:12]}"),
+            profile_code=code, kind=kind, description=description,
+        )
+        for position, description in enumerate(descriptions, start=1)
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -18,6 +44,14 @@ class ResearchProfile:
     tickers: tuple[str, ...]
     metrics: str
     sources: str
+
+    @property
+    def metric_rules(self) -> tuple[ResearchRule, ...]:
+        return _rules(self.code, "metric", self.metrics)
+
+    @property
+    def source_rules(self) -> tuple[ResearchRule, ...]:
+        return _rules(self.code, "source", self.sources)
 
 
 @dataclass(frozen=True, slots=True)
@@ -42,6 +76,23 @@ class ProfileRegistry:
             return "UNKNOWN"
         return "APPLICABLE" if profile.code == profile_code else "NOT_APPLICABLE"
 
+    def rule_status(self, ticker: str, rule_id: str) -> str:
+        """Scope a proposed question without treating missing evidence as bad news.
+
+        A matching profile only makes a question a candidate. Qualifiers such as
+        'only for banking subsidiaries' still require entity-level evidence.
+        """
+        profile = self.for_ticker(ticker)
+        if profile is None:
+            return "UNKNOWN"
+        rules = (rule for item in self.profiles
+                 for rule in item.metric_rules + item.source_rules)
+        selected = next((rule for rule in rules if rule.rule_id == rule_id), None)
+        if selected is None:
+            return "UNKNOWN"
+        return ("CANDIDATE" if selected.profile_code == profile.code
+                else "NOT_APPLICABLE")
+
 
 def load_research_profiles(path: Path = PROFILE_PATH) -> ProfileRegistry:
     """Validate the research taxonomy against the immutable production input.
@@ -63,6 +114,11 @@ def load_research_profiles(path: Path = PROFILE_PATH) -> ProfileRegistry:
     )
     if len({profile.code for profile in profiles}) != len(profiles):
         raise ValueError("Duplicate profile codes")
+    # Parse every profile into stable, typed questions at load time, including
+    # qualifiers inside their descriptions. No phrase becomes a numeric score.
+    for profile in profiles:
+        if not profile.metric_rules or not profile.source_rules:
+            raise ValueError(f"Profile {profile.code} has no research rules")
     by_ticker: dict[str, ResearchProfile] = {}
     for profile in profiles:
         for ticker in profile.tickers:
