@@ -176,6 +176,17 @@ class ScoutStore:
                     truncated INTEGER NOT NULL,
                     PRIMARY KEY(subject_id, company_name)
                 );
+                CREATE TABLE IF NOT EXISTS scout_background_workers (
+                    source TEXT PRIMARY KEY,
+                    run_id TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    started_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL,
+                    processed INTEGER NOT NULL DEFAULT 0,
+                    new_findings INTEGER NOT NULL DEFAULT 0,
+                    failed INTEGER NOT NULL DEFAULT 0,
+                    message TEXT NOT NULL DEFAULT ''
+                );
             """)
             conn.execute(
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
@@ -201,6 +212,69 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(6, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(7, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
+
+    def begin_background_worker(self, source: str, *, as_of: datetime) -> str | None:
+        """Prevent two UI clicks from launching duplicate backlog workers."""
+        clock = _utc(as_of)
+        stale = _utc(as_of - timedelta(hours=1))
+        run_id = uuid4().hex
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute(
+                "SELECT status, updated_at FROM scout_background_workers WHERE source=?",
+                (source,),
+            ).fetchone()
+            if row and row["status"] == "RUNNING" and row["updated_at"] > stale:
+                return None
+            conn.execute("""
+                INSERT INTO scout_background_workers
+                  (source, run_id, status, started_at, updated_at)
+                VALUES (?, ?, 'RUNNING', ?, ?)
+                ON CONFLICT(source) DO UPDATE SET
+                  run_id=excluded.run_id, status='RUNNING',
+                  started_at=excluded.started_at, updated_at=excluded.updated_at,
+                  processed=0, new_findings=0, failed=0, message=''
+            """, (source, run_id, clock, clock))
+        return run_id
+
+    def update_background_worker(
+        self, source: str, run_id: str, *, as_of: datetime, status: str,
+        processed: int, new_findings: int, failed: int, message: str = "",
+    ) -> bool:
+        with self._connect() as conn:
+            changed = conn.execute("""
+                UPDATE scout_background_workers SET status=?, updated_at=?,
+                  processed=?, new_findings=?, failed=?, message=?
+                WHERE source=? AND run_id=?
+            """, (status, _utc(as_of), processed, new_findings, failed,
+                  message[:500], source, run_id))
+        return changed.rowcount == 1
+
+    def background_worker_status(self, source: str) -> dict[str, object] | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM scout_background_workers WHERE source=?", (source,),
+            ).fetchone()
+        return dict(row) if row else None
+
+    def next_job_due(self, source: str) -> str | None:
+        with self._connect() as conn:
+            row = conn.execute("""
+                SELECT MIN(CASE WHEN status='LEASED' THEN lease_until ELSE due_at END)
+                FROM scout_jobs WHERE source=? AND status IN ('READY', 'LEASED')
+            """, (source,)).fetchone()
+        return str(row[0]) if row and row[0] else None
+
+    def completed_issuer_jobs(self) -> int:
+        with self._connect() as conn:
+            return int(conn.execute("""
+                SELECT COUNT(*) FROM scout_jobs WHERE source='sec'
+                  AND reason='daily_filings' AND status='DONE'
+            """).fetchone()[0])
 
     def recipient_discovery_due(
         self, *, as_of: datetime, limit: int = 5, interval_days: int = 30,
@@ -390,6 +464,22 @@ class ScoutStore:
                     priority=MAX(scout_jobs.priority, excluded.priority),
                     updated_at=excluded.updated_at
             """, (job_id, dedupe, source, subject_id, reason, priority, due, cursor, due))
+        return job_id
+
+    def enqueue_if_absent(
+        self, *, source: str, subject_id: str, reason: str,
+        due_at: datetime,
+    ) -> str:
+        """Seed a queue without restarting completed jobs from an earlier batch."""
+        due = _utc(due_at)
+        dedupe = _key(source, subject_id, reason)
+        job_id = f"scout:{dedupe[:24]}"
+        with self._connect() as conn:
+            conn.execute("""
+                INSERT OR IGNORE INTO scout_jobs(job_id, dedupe_key, source,
+                    subject_id, reason, priority, due_at, cursor, updated_at)
+                VALUES (?, ?, ?, ?, ?, 0, ?, NULL, ?)
+            """, (job_id, dedupe, source, subject_id, reason, due, due))
         return job_id
 
     def claim_provider(
