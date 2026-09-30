@@ -20,6 +20,10 @@ from market_checker_app.services.fdic_bank_scout_service import (
     FdicBankFindClient, FdicBankScoutService, load_verified_banks,
     DEFAULT_IDENTITIES as FDIC_IDENTITIES,
 )
+from market_checker_app.services.sec13f_scout_service import (
+    Sec13fHttpClient, Sec13fScoutService, load_verified_securities,
+    DEFAULT_SECURITIES as SEC13F_SECURITIES,
+)
 from market_checker_app.services.usaspending_scout_service import (
     UsaSpendingApiClient, UsaSpendingScoutService, load_verified_identities,
     DEFAULT_IDENTITIES,
@@ -119,12 +123,25 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         fdic_banks = {"status": "ERROR", "error": type(exc).__name__}
+    sec_user_agent = os.getenv("JOHNY_SKORE_SEC_USER_AGENT", "")
+    if sec_user_agent:
+        try:
+            security_path = Path(os.getenv("JOHNY_SKORE_SEC13F_SECURITIES_FILE") or SEC13F_SECURITIES)
+            sec13f_holdings = Sec13fScoutService(
+                store, client=Sec13fHttpClient(sec_user_agent),
+                securities=load_verified_securities(security_path),
+            ).run(as_of=now, universe={record["ticker"] for record in records})
+        except Exception as exc:
+            sec13f_holdings = {"status": "ERROR", "error": type(exc).__name__}
+    else:
+        sec13f_holdings = {"status": "WAIT_ACCESS", "new_findings": 0}
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
             "fda_recall_candidates": fda_recalls,
             "finra_short_interest": finra_short_interest,
             "fdic_banks": fdic_banks,
+            "sec13f_holdings": sec13f_holdings,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

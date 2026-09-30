@@ -1,0 +1,14 @@
+[
+  {
+    "ticker": "AAPL",
+    "cusip": "037833100",
+    "issuer_name": "APPLE INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000630/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-09-30T20:15:51+00:00"
+  }
+]

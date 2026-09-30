@@ -253,7 +253,7 @@ class ScoutStore:
     def record_specialist_check(self, source: str, *, subject_id: str,
                                 identity_key: str, as_of: datetime,
                                 candidate_count: int, truncated: bool) -> None:
-        if source not in {"fda", "finra"} or candidate_count < 0:
+        if source not in {"fda", "finra", "sec13f"} or candidate_count < 0:
             raise ValueError("Invalid specialist check")
         with self._connect() as conn:
             conn.execute("""
@@ -266,6 +266,15 @@ class ScoutStore:
                     truncated=excluded.truncated
             """, (source, subject_id, identity_key, _utc(as_of),
                   candidate_count, int(truncated)))
+
+    def dataset_ingested(self, source: str, identity_key: str) -> bool:
+        if source != "sec13f" or not identity_key:
+            raise ValueError("Invalid dataset identity")
+        with self._connect() as conn:
+            return conn.execute("""
+                SELECT 1 FROM scout_specialist_checks
+                WHERE source=? AND subject_id='DATASET' AND identity_key=?
+            """, (source, identity_key)).fetchone() is not None
 
     def begin_background_worker(self, source: str, *, as_of: datetime) -> str | None:
         """Prevent two UI clicks from launching duplicate backlog workers."""
@@ -688,7 +697,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -725,6 +734,11 @@ class ScoutStore:
             parsed.hostname != "api.fdic.gov" or parsed.port not in {None, 443}
         ):
             raise ValueError("FDIC finding must cite its official API HTTPS host")
+        if source == "sec13f" and (
+            parsed.hostname != "www.sec.gov" or parsed.port not in {None, 443}
+            or not parsed.path.startswith("/Archives/edgar/data/")
+        ):
+            raise ValueError("13F finding must cite an official EDGAR filing")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
         published = _utc(published_at)

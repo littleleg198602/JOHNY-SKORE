@@ -1,5 +1,21 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F – čtvrtletní vzorek institucionálních držeb (30. 9. 2026)
+
+Týdenní runner s platným SEC User-Agent zjišťuje nejnovější oficiální ZIP
+dataset, stáhne ho nejvýše jednou pro stejnou verzi doloženého registru
+instrumentů a z `SUBMISSION`/`INFOTABLE` vezme pouze přímé 13F-HR řádky
+běžných akcií se shodným CUSIP a názvem. První datovaná vazba je AAPL →
+`037833100` pro 2. kvartál 2026 (SEC 13(f) seznam, Schedule 13G a SEC
+katalog tickerů). Uloží nejvýše 25 největších řádků na ticker, s identitou
+manažera, podáním, reportovaným obdobím, počtem akcií a as-filed USD hodnotou.
+Pokud je řádků více, stav je `SAMPLED`; absence ve vzorku není důkazem absence
+institucionálních držitelů. Amendmenty, 13F-NT, opce a PRN se neinterpretují
+jako přímá akciová držba. Historická dostupnost začíná skutečným pozorováním
+datasetu, nikoli reportovaným kvartálem či pouhým filing date. Nálezy nemění
+skóre ani neimplikují nákup/prodej během kvartálu. Zbývají ověřené instrumenty
+dalších tickerů, rekonstrukce amendmentů a živé ověření staženého ZIP.
+
 ## FDIC bankovní specialista (30. 9. 2026)
 
 Veřejný BankFind API konektor sleduje poslední dva čtvrtletní výkazy jen pro

@@ -2245,6 +2245,12 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     if fdic_rows:
         st.write("**FDIC – výkazy doložené bankovní dcery; nejsou konsolidované údaje emitenta**")
         st.dataframe(pd.DataFrame(fdic_rows), hide_index=True)
+    sec13f_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="sec13f",
+    )
+    if sec13f_rows:
+        st.write("**SEC 13F – vybrané největší řádky držeb; reportované období není čas zveřejnění a změna držby není obchod**")
+        st.dataframe(pd.DataFrame(sec13f_rows), hide_index=True)
     energy_rows = scout_store.latest_findings(
         ["COMMODITY:WTI", "COMMODITY:JET_FUEL_GULF"],
         as_of=datetime.now(timezone.utc), limit=10, source="eia",
