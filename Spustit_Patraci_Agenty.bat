@@ -7,6 +7,7 @@ set "APP_DIR=%CD%\market_checker_app"
 rem Task Scheduler can retain an old environment after setx. Read the user
 rem setting on every start, without printing the contact address.
 for /f "usebackq delims=" %%A in (`powershell.exe -NoProfile -Command "[Environment]::GetEnvironmentVariable('JOHNY_SKORE_SEC_USER_AGENT','User')"`) do set "JOHNY_SKORE_SEC_USER_AGENT=%%A"
+for /f "usebackq delims=" %%A in (`powershell.exe -NoProfile -Command "[Environment]::GetEnvironmentVariable('JOHNY_SKORE_FRED_API_KEY','User')"`) do set "JOHNY_SKORE_FRED_API_KEY=%%A"
 
 if exist "%APP_DIR%\.venv\Scripts\python.exe" (
   set "PYTHON_EXE=%APP_DIR%\.venv\Scripts\python.exe"

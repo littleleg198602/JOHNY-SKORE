@@ -502,7 +502,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss"}:
+        if source not in {"sec", "rss", "fred"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -511,6 +511,10 @@ class ScoutStore:
             or parsed.port not in {None, 443}
         ):
             raise ValueError("SEC finding must cite an official SEC HTTPS host")
+        if source == "fred" and (
+            parsed.hostname != "fred.stlouisfed.org" or parsed.port not in {None, 443}
+        ):
+            raise ValueError("FRED finding must cite an official FRED HTTPS host")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
         published = _utc(published_at)
