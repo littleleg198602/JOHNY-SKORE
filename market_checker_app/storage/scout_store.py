@@ -502,7 +502,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss"}:
+        if source not in {"sec", "rss", "fred"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -511,6 +511,10 @@ class ScoutStore:
             or parsed.port not in {None, 443}
         ):
             raise ValueError("SEC finding must cite an official SEC HTTPS host")
+        if source == "fred" and (
+            parsed.hostname != "fred.stlouisfed.org" or parsed.port not in {None, 443}
+        ):
+            raise ValueError("FRED finding must cite an official FRED HTTPS host")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
         published = _utc(published_at)
@@ -889,6 +893,9 @@ class ScoutStore:
             item = dict(row)
             details = json.loads(str(item.pop("details_json")))
             item["stage"] = details.get("stage", "unclassified")
+            if item["stage"] == "exposure_candidate":
+                item["topic"] = details.get("kind")
+                item["cited_excerpt"] = details.get("quote")
             item["item_locators"] = ", ".join(
                 str(section.get("locator", ""))
                 for section in details.get("item_excerpts", [])
@@ -897,7 +904,7 @@ class ScoutStore:
         return output
 
     def findings_for_watchlist(
-        self, subjects: list[str], *, as_of: datetime, per_subject: int = 2,
+        self, subjects: list[str], *, as_of: datetime, per_subject: int = 8,
     ) -> list[dict[str, object]]:
         if not subjects or per_subject < 1:
             return []
@@ -909,7 +916,12 @@ class ScoutStore:
                 SELECT * FROM (
                     SELECT f.*, ROW_NUMBER() OVER (
                         PARTITION BY subject_id
-                        ORDER BY available_at DESC, finding_id DESC
+                        ORDER BY
+                            CASE json_extract(details_json, '$.stage')
+                                WHEN 'filing_document' THEN 0
+                                WHEN 'exposure_candidate' THEN 1
+                                ELSE 2 END,
+                            available_at DESC, finding_id DESC
                     ) AS position
                     FROM scout_findings AS f
                     WHERE subject_id IN ({placeholders})

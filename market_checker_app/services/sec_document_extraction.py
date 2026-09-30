@@ -50,3 +50,10 @@ def extract_sec_item_excerpts(document: bytes, *, form: str) -> tuple[tuple[str,
         if len(excerpts) >= 3:
             break
     return tuple(excerpts)
+
+
+def readable_sec_text(document: bytes, *, max_characters: int = 500_000) -> str:
+    """Bounded text for source-linked exposure discovery; excludes scripts/styles."""
+    parser = _ReadableText()
+    parser.feed(document.decode("utf-8", errors="replace"))
+    return " ".join(" ".join(parser.parts).split())[:max_characters]

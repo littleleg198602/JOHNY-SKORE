@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+import json
 import tempfile
 import unittest
 
@@ -31,7 +32,49 @@ class DocumentIndex(FakeIndex):
                 b"<h2>Item 5.02</h2><p>A director departed.</p></html>")
 
 
+class ExposureIndex(DocumentIndex):
+    def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
+        return (b"<html><script>single supplier of copper fake</script>"
+                b"<p>We depend on a single supplier for production.</p>"
+                b"<p>Our raw material costs for copper may increase.</p></html>")
+
+
 class SecDocumentScoutTest(unittest.TestCase):
+    def test_annual_filing_opens_supplier_and_commodity_questions(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            scout = SecScoutService(store, client=ExposureIndex(now - timedelta(days=1)))
+            scout.schedule(["AAPL"], as_of=now)
+            result = scout.run_batch(as_of=now, limit=2)
+            self.assertEqual("OK", result["status"])
+            self.assertEqual(4, result["new_findings"])
+            found = store.findings_as_of("AAPL", as_of=now)
+            exposures = [row for row in found
+                         if json.loads(row["details_json"])["stage"] == "exposure_candidate"]
+            self.assertEqual(2, len(exposures))
+            self.assertEqual({"supply_chain", "commodity_energy"},
+                             {json.loads(row["details_json"])["kind"] for row in exposures})
+            self.assertTrue(all("fake" not in json.loads(row["details_json"])["quote"]
+                                for row in exposures))
+            self.assertEqual(3, len(store.open_leads(["AAPL"], as_of=now)))
+            orchestrator = OrchestratorAgent(shadow_mode=True)
+            orchestrator.register(EntityRegistryAgent())
+            orchestrator.register(ScoutIndexAgent(store.db_path))
+            orchestrator.register(SourceResolutionAgent(dependencies=("entity_registry",)))
+            orchestrator.register(PredictionV21AdapterAgent())
+            orchestrator.register(QualityGateAgent())
+            report = orchestrator.run(watchlist=["AAPL"], state={"signals": pd.DataFrame([{
+                "ticker": "AAPL", "action": "NO_TRADE", "forecast": "FLAT",
+                "decision_confidence": 0.5, "risk_score": 0.0,
+                "action_reasons": '["test"]',
+            }])})
+            candidate_evidence = [item for item in report.evidence
+                                  if item.event_type == "SEC_EXPOSURE_CANDIDATE"]
+            self.assertEqual(2, len(candidate_evidence))
+            self.assertTrue(all(item.direction == 0 for item in candidate_evidence))
+            self.assertEqual(0, scout.run_batch(as_of=now, limit=2)["new_findings"])
+
     def test_sec_connector_refuses_cross_domain_requests_and_redirects(self) -> None:
         self.assertEqual("https://data.sec.gov/submissions/CIK0000320193.json",
                          _allowed_sec_url(
