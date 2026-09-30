@@ -24,6 +24,7 @@ from market_checker_app.agents import (
 from market_checker_app.agents.contracts import utc_now
 from market_checker_app.agents.base import BaseAgent
 from market_checker_app.models import RunMetadata
+from market_checker_app.services.progress_service import ProgressService
 from market_checker_app.storage.sqlite_store import SQLiteStore
 
 
@@ -122,6 +123,14 @@ class _InvalidPredictionAgent(BaseAgent):
 
 
 class StageOneAgentTests(unittest.TestCase):
+    def test_global_phase_clears_previous_ticker_caption(self):
+        progress = ProgressService(total_symbols=2)
+        progress.set_current("MSFT", 2, "analyze", "Analyzuji")
+        progress.set_global_step("agent_pipeline", "Auditní agent", 0.97)
+        state = progress.snapshot()
+        self.assertEqual("", state.current_symbol)
+        self.assertEqual(0, state.current_position)
+
     def test_orchestrator_resolves_dependencies_and_propagates_state(self):
         orchestrator = OrchestratorAgent()
         orchestrator.register(_DependentAgent())

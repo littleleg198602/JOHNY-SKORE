@@ -17,8 +17,10 @@ from market_checker_app.agents.contracts import (
 )
 from market_checker_app.collectors.sec_edgar_client import (
     SEC_TICKER_MAP_URL,
+    SecAccessBlockedError,
     SecCompanyBundle,
     SecEdgarClient,
+    SecRateLimitedError,
 )
 from market_checker_app.collectors.short_report_client import (
     FetchedShortReport,
@@ -145,8 +147,13 @@ class SecFundamentalsAgent(BaseAgent):
         bundle_failure_details: list[dict[str, object]] = []
         filing_text_client = self._filing_text_client_or_none()
 
-        for raw_ticker in context.watchlist:
+        progress_callback = context.state.get("sec_progress_callback")
+        if not callable(progress_callback):
+            progress_callback = None
+        for position, raw_ticker in enumerate(context.watchlist, start=1):
             ticker = normalize_ticker(raw_ticker)
+            if progress_callback is not None:
+                progress_callback(position - 1, len(context.watchlist), ticker)
             if not ticker:
                 continue
             try:
@@ -173,6 +180,15 @@ class SecFundamentalsAgent(BaseAgent):
                 warnings.append(
                     f"F2-SEC {ticker}: {type(exc).__name__}: {exc}"
                 )
+                if isinstance(exc, (SecAccessBlockedError, SecRateLimitedError)):
+                    remaining = len(context.watchlist) - position
+                    unresolved_tickers += remaining
+                    warnings.append(
+                        f"F2-SEC zastaven pro zbývajících {remaining} tickerů: "
+                        "SEC odmítlo přístup nebo vyžádalo delší pauzu. "
+                        "Tato data zůstávají nedostupná; další agenty lze dokončit."
+                    )
+                    break
                 continue
             if bundle is None:
                 unresolved_tickers += 1
@@ -423,6 +439,10 @@ class SecFundamentalsAgent(BaseAgent):
                 insider_transactions_by_ticker.setdefault(ticker, []).extend(
                     bundle.insider_transactions
                 )
+
+        else:
+            if progress_callback is not None:
+                progress_callback(len(context.watchlist), len(context.watchlist), "")
 
         if successful_tickers == 0:
             status = AgentStatus.UNAVAILABLE
