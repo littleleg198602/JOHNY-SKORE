@@ -168,6 +168,14 @@ class ScoutStore:
                 );
                 CREATE UNIQUE INDEX IF NOT EXISTS scout_sec_identity_active
                     ON scout_sec_identities(subject_id) WHERE status='ACTIVE';
+                CREATE TABLE IF NOT EXISTS scout_recipient_discovery_checks (
+                    subject_id TEXT NOT NULL,
+                    company_name TEXT NOT NULL,
+                    checked_at TEXT NOT NULL,
+                    candidate_count INTEGER NOT NULL,
+                    truncated INTEGER NOT NULL,
+                    PRIMARY KEY(subject_id, company_name)
+                );
             """)
             conn.execute(
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
@@ -189,6 +197,44 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(5, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(6, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
+
+    def recipient_discovery_due(
+        self, *, as_of: datetime, limit: int = 5, interval_days: int = 30,
+    ) -> list[dict[str, str]]:
+        """Visit known SEC issuer names fairly, then revisit after the interval."""
+        cutoff = _utc(as_of - timedelta(days=interval_days))
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            rows = conn.execute("""
+                SELECT s.subject_id, s.company_name
+                FROM scout_sec_identities AS s
+                LEFT JOIN scout_recipient_discovery_checks AS c
+                  ON c.subject_id=s.subject_id AND c.company_name=s.company_name
+                WHERE s.status='ACTIVE' AND s.first_observed_at<=?
+                  AND (c.checked_at IS NULL OR c.checked_at<=?)
+                ORDER BY c.checked_at ASC, s.first_observed_at ASC, s.subject_id ASC
+                LIMIT ?
+            """, (clock, cutoff, limit)).fetchall()
+        return [dict(row) for row in rows]
+
+    def record_recipient_discovery_check(
+        self, *, subject_id: str, company_name: str, as_of: datetime,
+        candidate_count: int, truncated: bool,
+    ) -> None:
+        with self._connect() as conn:
+            conn.execute("""
+                INSERT INTO scout_recipient_discovery_checks
+                  (subject_id, company_name, checked_at, candidate_count, truncated)
+                VALUES (?, ?, ?, ?, ?)
+                ON CONFLICT(subject_id, company_name) DO UPDATE SET
+                  checked_at=excluded.checked_at,
+                  candidate_count=excluded.candidate_count,
+                  truncated=excluded.truncated
+            """, (subject_id, company_name, _utc(as_of), candidate_count, int(truncated)))
 
     def observe_sec_identity(
         self, *, subject_id: str, cik: str, company_name: str, as_of: datetime,
@@ -912,6 +958,10 @@ class ScoutStore:
                 item["award_amount_usd"] = details.get("reported_award_amount_usd")
                 item["total_outlays_usd"] = details.get("reported_total_outlays_usd")
                 item["relationship_evidence_url"] = details.get("relationship_evidence_url")
+            if item["stage"] == "recipient_candidate":
+                item["recipient_uei"] = details.get("uei")
+                item["identity_status"] = details.get("identity_status")
+                item["missing_evidence"] = details.get("missing_evidence")
             item["item_locators"] = ", ".join(
                 str(section.get("locator", ""))
                 for section in details.get("item_excerpts", [])
