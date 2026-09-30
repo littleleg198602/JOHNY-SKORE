@@ -56,7 +56,7 @@ from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.research_profile_service import load_research_profiles
-from market_checker_app.services.sec_scout_service import SecScoutService
+from market_checker_app.scout_background_worker import start_sec_background_scan
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
     parse_regulatory_contract_sources,
@@ -2183,36 +2183,32 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
             "Výzkumné P není součástí produkčních 687 tickerů."
         )
     scout_store = ScoutStore(config.sqlite_path)
-    if st.button("Prohledat další dávku SEC (max. 25 firem)"):
-        scout_service = SecScoutService(scout_store, user_agent=sec_user_agent)
-        scout_service.schedule(watchlist, as_of=datetime.now(timezone.utc))
-        with st.spinner("Kontroluji firemní podání v SEC..."):
-            scout_batch = scout_service.run_batch(limit=25)
-        if scout_batch["status"] == "WAIT_ACCESS":
+    if st.button("Prohledat celou čekající frontu SEC na pozadí"):
+        launch_status = start_sec_background_scan(
+            scout_store, db_path=config.sqlite_path, user_agent=sec_user_agent,
+        )
+        if launch_status == "WAIT_ACCESS":
             st.warning("Chybí jednorázově nastavený SEC User-Agent s kontaktem.")
-        elif scout_batch["status"] == "BUSY":
-            st.info("SEC právě kontroluje jiný běh. Fronta zůstala uložená.")
-        elif scout_batch["status"] == "RATE_LIMITED":
-            st.warning(
-                "SEC požádala o odložení. Fronta pokračuje po "
-                f"{scout_batch['retry_at']}."
-            )
-        elif scout_batch["status"] == "ACCESS_BLOCKED":
-            st.warning(
-                "SEC odmítla přístup (HTTP 403); další pokus nejdříve "
-                f"{scout_batch['retry_at']}. Zkontrolujte kontaktní User-Agent."
-            )
-        elif scout_batch["status"] == "LEASE_LOST":
-            st.warning("Kontrola SEC ztratila zámek poskytovatele; zbývající fronta čeká.")
+        elif launch_status == "BUSY":
+            st.info("Pátrání SEC už běží na pozadí; druhý běh nespouštím.")
+        elif launch_status == "ERROR":
+            st.error("Proces SEC se nepodařilo spustit. Podrobnost je v uloženém stavu níže.")
         else:
-            message = (
-                f"Zpracováno {scout_batch['processed']} úloh, "
-                f"nových záznamů (index/dokument): {scout_batch['new_findings']}, "
-                f"chyb: {scout_batch['failed']}."
-            )
-            (st.warning if scout_batch["failed"] else st.success)(message)
+            st.success("Pátrání SEC běží na pozadí a samo navazuje další dávky.")
+    st.button("Obnovit stav pátrání SEC")
+    worker = scout_store.background_worker_status("sec")
+    if worker:
+        st.info(
+            f"Běh SEC: {worker['status']}; zpracováno {worker['processed']} úloh, "
+            f"nových nálezů {worker['new_findings']}, chyb {worker['failed']}. "
+            f"Aktualizováno {worker['updated_at']}. {worker['message']}"
+        )
     scout_counts = scout_store.metrics()
-    st.caption(f"Fronta: {scout_counts}. Průběžný sběr spouští také týdenní runner.")
+    st.caption(
+        f"Fronta: {scout_counts}; dokončené indexové kontroly tickerů: "
+        f"{scout_store.completed_issuer_jobs()}/687. Jedna úloha může být index "
+        "nebo navazující dokument. Denní plánovač navazuje po přerušení."
+    )
     scout_rows = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=50, source="sec",
     )

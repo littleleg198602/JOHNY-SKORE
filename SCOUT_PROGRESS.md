@@ -1,5 +1,25 @@
 # Průběh implementace pátracích agentů
 
+## Automatické pokračování SEC fronty z UI (30. 9. 2026)
+
+Na uživatelském snímku bylo po ručním kliknutí zpracováno pouze 25 úloh,
+zbylo 1 062 `READY` a 24 `DONE`. Jedna úloha znamená index firmy nebo
+navazující primární dokument, nikoli vždy jednu firmu. Dosavadní tlačítko
+spouštělo právě jednu synchronní dávku 25 úloh; denní plánovač samostatně
+zpracovával 100 úloh na spuštění. Proto UI po 25 samo nepokračovalo.
+
+Tlačítko nyní spouští nezávislý proces pro celý ověřený seznam 687 tickerů.
+Ten naplánuje jejich SEC kontroly jednou a pak automaticky vybírá další
+25úlohové dávky až do vyčerpání právě připravené fronty. Aktuální stav,
+počet zpracovaných úloh a chyb ukládá do SQLite; druhé kliknutí aktivní běh
+neduplikuje. UI ukazuje zvlášť dokončené indexové kontroly tickerů a
+počty všech úloh. Při `Retry-After`, HTTP 403 nebo pouze odložených
+chybách skončí stavem `PAUSED`; neobchází omezení zdroje. Odložené položky
+zachovává databáze a navazující denní plánovač. Pokud se PC nebo proces
+ukončí, nedokončené lease lze obnovit, po hodině lze spustit nový worker.
+Lokálně ověřeno na 60 tickerech přes hranici dávky 25, izolované chybě a
+zámku proti dvojímu spuštění; skutečný běh na uživatelově Windows čeká.
+
 Aktualizováno: 29. 9. 2026. Rozsah požadavku: SC-00 až SC-35 v `AGENT_SCOUT_IMPLEMENTATION_TASKS.md` na dokumentační větvi. `IMPLEMENTED` znamená existující kód, `TESTED` místní nebo CI test, `MERGED` spojení do main, `LIVE_VERIFIED` běh proti skutečnému zdroji. Základní PR #129 a navazující PR #130–136 jsou sloučené do `main`; poslední CI run 36599400943 prošel všemi čtyřmi úlohami. Provozní akceptace zatím chybí.
 
 ## Provozní audit 29. 9. 2026
