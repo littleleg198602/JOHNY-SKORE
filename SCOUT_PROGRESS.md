@@ -1,5 +1,17 @@
 # Průběh implementace pátracích agentů
 
+## FDIC bankovní specialista (30. 9. 2026)
+
+Veřejný BankFind API konektor sleduje poslední dva čtvrtletní výkazy jen pro
+ručně doložený vztah ticker → bankovní dcera → FDIC CERT. První záznam je
+JPM → JPMorgan Chase Bank, National Association → CERT 628; registr cituje
+FDIC detail instituce a SEC Exhibit 21 s dceřinou společností. Každý výsledek
+musí mít shodný CERT i celý právní název, datum v době doloženého vztahu a
+vlastní čas prvního pozorování. Aktiva, vklady, vlastní kapitál a čistý zisk
+se ukládají jako tisíce USD banky, nikoli konsolidovaná data JPM; skóre se
+nemění. Další banky potřebují samostatné datované vztahy. Živé API a skutečné
+schéma polí ještě vyžadují ověření v provozu.
+
 ## Form 4 klasifikace (30. 9. 2026)
 
 Governance agent rozlišuje přímý nederyvátový P/A či S/D obchod od
