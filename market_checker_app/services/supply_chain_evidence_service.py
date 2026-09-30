@@ -31,9 +31,9 @@ def _text(value: object) -> str | None:
 def _identity_status(counterparty: str, configured: object) -> str:
     value = _text(configured)
     if value:
-        allowed = {"IDENTIFIED", "ANONYMOUS"}
+        allowed = {"IDENTIFIED", "ANONYMOUS", "NAMED_ONLY"}
         if value.upper() not in allowed:
-            raise ValueError("counterparty_identity_status must be IDENTIFIED or ANONYMOUS")
+            raise ValueError("counterparty_identity_status must be IDENTIFIED, NAMED_ONLY or ANONYMOUS")
         return value.upper()
     return (
         "ANONYMOUS"
@@ -82,7 +82,10 @@ def build_supply_chain_evidence_metadata(
     )
     context = _text(relationship_context) or "RELATIONSHIP_DISCLOSED"
     missingness = {
-        "counterparty_identity": "NOT_DISCLOSED" if identity == "ANONYMOUS" else "KNOWN",
+        "counterparty_identity": (
+            "NOT_DISCLOSED" if identity == "ANONYMOUS" else
+            "NAME_ONLY" if identity == "NAMED_ONLY" else "KNOWN"
+        ),
         "product_or_input": "UNKNOWN" if product is None else "KNOWN",
         "counterparty_country": "UNKNOWN" if country is None else "KNOWN",
         "disclosure_period": "UNKNOWN" if period is None else "KNOWN",

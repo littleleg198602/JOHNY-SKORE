@@ -293,7 +293,10 @@ class SecScoutService:
                              "resource_or_counterparty": resource,
                              "identity_status": getattr(candidate.source, "counterparty_identity_status", None),
                              "confidence": candidate.source.confidence,
-                             "dependency_pct": getattr(candidate.source, "dependency_pct", None)},
+                             "dependency_pct": getattr(candidate.source, "dependency_pct", None),
+                             "product_or_input": getattr(candidate.source, "product_or_input", None),
+                             "hedged_share_pct": getattr(candidate.source, "hedged_share_pct", None),
+                             "disclosure_period": candidate.source.disclosure_period},
                 )
                 if new:
                     count += 1

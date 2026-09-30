@@ -59,6 +59,21 @@ _SUPPLY_DISRUPTION = re.compile(
     r"(?:disruption|interruption|shortage|constraint|delay)s?)",
     flags=re.IGNORECASE,
 )
+_NAMED_SUPPLIER = re.compile(
+    r"\b(?:[Ww]e|[Oo]ur company)\s+(?:purchase|procure|source)\s+"
+    r"(?P<product>(?:[a-z][a-z0-9-]*\s+){0,5}[a-z][a-z0-9-]*)\s+"
+    r"from\s+(?P<name>(?:[A-Z][A-Za-z0-9&-]*\s+){1,5}"
+    r"(?:Inc\.|Corporation|Corp\.|LLC|Ltd\.))",
+)
+_HEDGE_SHARE = re.compile(
+    r"\b(?:hedg(?:ed|e|ing)|fixed-price contracts? (?:cover|covered))\s+"
+    r"(?P<pct>\d{1,3}(?:\.\d+)?)\s*%\s+of\s+"
+    r"(?:our\s+)?(?:anticipated\s+|expected\s+|forecast\s+)?"
+    r"(?:[a-z-]+\s+){0,5}"
+    r"(?:purchases|requirements|consumption)\b",
+    flags=re.IGNORECASE,
+)
+_PERIOD = re.compile(r"\b(?:20\d{2}|FY\s*20\d{2})\b", flags=re.IGNORECASE)
 
 _RESOURCE_RULES: tuple[
     tuple[str, ResourceExposureType, tuple[str, ...]], ...
@@ -197,6 +212,8 @@ class FilingExposureDiscoveryService:
             dependency_pct: float | None = None,
             relationship_context: str | None = None,
             evidence_quote: str = "",
+            identity_status: str = "ANONYMOUS",
+            product_or_input: str | None = None,
         ) -> None:
             if len(supply) >= max(0, int(max_supply_chain)):
                 return
@@ -215,7 +232,8 @@ class FilingExposureDiscoveryService:
                         url=url,
                         dependency_pct=dependency_pct,
                         confidence=0.45,
-                        counterparty_identity_status="ANONYMOUS",
+                        counterparty_identity_status=identity_status,
+                        product_or_input=product_or_input,
                         relationship_context=relationship_context,
                         evidence_level="EXPLICIT_FILING",
                         evidence_quote=evidence_quote,
@@ -226,7 +244,23 @@ class FilingExposureDiscoveryService:
                 )
             )
 
+        # Exact named mentions receive the small per-filing budget before
+        # repeated anonymous concentration language can exhaust it.
         for sentence in sentences:
+            named = _NAMED_SUPPLIER.search(sentence)
+            if named:
+                add_supply(
+                    counterparty=named.group("name"),
+                    relationship_type=RelationshipType.SUPPLIER,
+                    support_term=named.group(0),
+                    reason="sec_named_supplier_with_product",
+                    identity_status="NAMED_ONLY",
+                    product_or_input=named.group("product"),
+                    relationship_context="EXPLICIT_NAMED_SOURCE",
+                    evidence_quote=sentence,
+                )
+        for sentence in sentences:
+            named = _NAMED_SUPPLIER.search(sentence)
             customer = _CUSTOMER_CONCENTRATION.search(sentence)
             if customer:
                 dependency = min(100.0, float(customer.group("pct")))
@@ -240,7 +274,7 @@ class FilingExposureDiscoveryService:
                     evidence_quote=sentence,
                 )
             supplier = _SUPPLIER_CONCENTRATION.search(sentence)
-            if supplier:
+            if supplier and not named:
                 add_supply(
                     counterparty="Unnamed critical supplier",
                     relationship_type=RelationshipType.SUPPLIER,
@@ -280,6 +314,13 @@ class FilingExposureDiscoveryService:
             lowered = sentence.casefold()
             if not any(marker in lowered for marker in _EXPOSURE_CONTEXT):
                 continue
+            matching_resources = [name for name, _kind, terms in _RESOURCE_RULES
+                                  if any(term in lowered for term in terms)]
+            hedge = _HEDGE_SHARE.search(sentence) if len(matching_resources) == 1 else None
+            hedge_pct = float(hedge.group("pct")) if hedge else None
+            if hedge_pct is not None and not 0 <= hedge_pct <= 100:
+                hedge_pct = None
+            period = _PERIOD.search(sentence)
             for resource_name, exposure_type, terms in _RESOURCE_RULES:
                 matched = next((term for term in terms if term in lowered), None)
                 if matched is None or resource_name in seen_resources:
@@ -298,6 +339,8 @@ class FilingExposureDiscoveryService:
                             url=url,
                             confidence=0.40,
                             evidence_quote=sentence,
+                            hedged_share_pct=hedge_pct,
+                            disclosure_period=period.group(0) if period else None,
                         ),
                         support_term=matched,
                         reason="sec_10k_material_or_energy_exposure",
