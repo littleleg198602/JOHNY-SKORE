@@ -16,6 +16,10 @@ from market_checker_app.services.fda_recall_scout_service import (
 from market_checker_app.services.finra_short_interest_scout_service import (
     FinraShortInterestClient, FinraShortInterestScoutService,
 )
+from market_checker_app.services.fdic_bank_scout_service import (
+    FdicBankFindClient, FdicBankScoutService, load_verified_banks,
+    DEFAULT_IDENTITIES as FDIC_IDENTITIES,
+)
 from market_checker_app.services.usaspending_scout_service import (
     UsaSpendingApiClient, UsaSpendingScoutService, load_verified_identities,
     DEFAULT_IDENTITIES,
@@ -108,11 +112,19 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             finra_short_interest = {"status": "ERROR", "error": type(exc).__name__}
     else:
         finra_short_interest = {"status": "WAIT_ACCESS", "new_findings": 0}
+    try:
+        bank_path = Path(os.getenv("JOHNY_SKORE_FDIC_BANKS_FILE") or FDIC_IDENTITIES)
+        fdic_banks = FdicBankScoutService(
+            store, client=FdicBankFindClient(), identities=load_verified_banks(bank_path),
+        ).run(as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        fdic_banks = {"status": "ERROR", "error": type(exc).__name__}
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
             "fda_recall_candidates": fda_recalls,
             "finra_short_interest": finra_short_interest,
+            "fdic_banks": fdic_banks,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

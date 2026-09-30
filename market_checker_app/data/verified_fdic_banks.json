@@ -1,0 +1,11 @@
+[
+  {
+    "ticker": "JPM",
+    "cert": 628,
+    "bank_name": "JPMorgan Chase Bank, National Association",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/628",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026008131/corp10k2025exhibit21.htm",
+    "effective_from": "2025-12-31",
+    "known_at": "2026-09-30T20:09:00+00:00"
+  }
+]

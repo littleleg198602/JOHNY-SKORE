@@ -688,7 +688,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -721,6 +721,10 @@ class ScoutStore:
             raise ValueError("FINRA finding must cite its official API HTTPS host")
         if source == "finra" and verification_status != "UNVERIFIED":
             raise ValueError("FINRA symbol candidates cannot verify instrument identity")
+        if source == "fdic" and (
+            parsed.hostname != "api.fdic.gov" or parsed.port not in {None, 443}
+        ):
+            raise ValueError("FDIC finding must cite its official API HTTPS host")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
         published = _utc(published_at)
