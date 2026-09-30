@@ -19,7 +19,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 | 13 vstupní náklady | ČÁSTEČNĚ | FRED makro a EIA WTI/jet-fuel spot mají oddělené volitelné konektory; čekají na klíče a live test. USDA, propojení firemních expozic s cenami a historické vintage chybí. |
 | 14 entity enrichment | ČÁSTEČNĚ | GLEIF/OpenFIGI a dcery/produkty na doložených ID |
 | 15 SAM | OTEVŘENO | Schválený klíč a reálná kvóta; doplnění USAspending |
-| 16 instituce | OTEVŘENO | SEC 13F managers, security crosswalk a čas zveřejnění |
+| 16 instituce | ČÁSTEČNĚ: SEC 13F vzorek | Čtvrtletní ZIP parser bere jen přesně doložené CUSIP, prozatím AAPL `037833100`, a ukládá nejvýše 25 velkých původních 13F-HR řádků na ticker; nejsou to všechny instituce. Amendmenty, další instrumenty a živý test zbývají. |
 | 17–21 placené piloty | NEZAPOJENO | Účet, datové oprávnění, coverage a měření přínosu před nákupem |
 | 22–26 drahé/alternativní | NEZAPOJENO | Jen cílený pilot s oprávněním a měřením přínosu |
 | 27 missingness | ČÁSTEČNĚ | Důvod mezery po prokazatelném hledání každého relevantního zdroje |
