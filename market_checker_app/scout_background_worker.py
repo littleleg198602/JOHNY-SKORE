@@ -59,7 +59,7 @@ def drain_sec_queue(
     """
     processed = new_findings = failed = 0
     try:
-        scheduled = scout.schedule(tickers, as_of=datetime.now(timezone.utc))
+        scheduled = scout.schedule(tickers, as_of=datetime.now(timezone.utc), new_only=True)
         busy_since: float | None = None
         while True:
             result = scout.run_batch(limit=batch_size)

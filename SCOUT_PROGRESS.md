@@ -9,7 +9,8 @@ spouštělo právě jednu synchronní dávku 25 úloh; denní plánovač samosta
 zpracovával 100 úloh na spuštění. Proto UI po 25 samo nepokračovalo.
 
 Tlačítko nyní spouští nezávislý proces pro celý ověřený seznam 687 tickerů.
-Ten naplánuje jejich SEC kontroly jednou a pak automaticky vybírá další
+Ten přidá jen dosud neznámé SEC kontroly (již hotové indexy z ruční dávky
+znovu nezařadí) a pak automaticky vybírá další
 25úlohové dávky až do vyčerpání právě připravené fronty. Aktuální stav,
 počet zpracovaných úloh a chyb ukládá do SQLite; druhé kliknutí aktivní běh
 neduplikuje. UI ukazuje zvlášť dokončené indexové kontroly tickerů a

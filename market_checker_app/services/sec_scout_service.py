@@ -44,10 +44,13 @@ class SecScoutService:
             SecEdgarClient(user_agent=user_agent) if user_agent and "@" in user_agent else None
         )
 
-    def schedule(self, tickers: list[str], *, as_of: datetime) -> int:
+    def schedule(
+        self, tickers: list[str], *, as_of: datetime, new_only: bool = False,
+    ) -> int:
         unique = {normalize_ticker(ticker) for ticker in tickers if normalize_ticker(ticker)}
         for ticker in sorted(unique):
-            self.store.enqueue(
+            enqueue = self.store.enqueue_if_absent if new_only else self.store.enqueue
+            enqueue(
                 source="sec", subject_id=ticker, reason="daily_filings",
                 due_at=as_of,
             )

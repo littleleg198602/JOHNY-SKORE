@@ -466,6 +466,22 @@ class ScoutStore:
             """, (job_id, dedupe, source, subject_id, reason, priority, due, cursor, due))
         return job_id
 
+    def enqueue_if_absent(
+        self, *, source: str, subject_id: str, reason: str,
+        due_at: datetime,
+    ) -> str:
+        """Seed a queue without restarting completed jobs from an earlier batch."""
+        due = _utc(due_at)
+        dedupe = _key(source, subject_id, reason)
+        job_id = f"scout:{dedupe[:24]}"
+        with self._connect() as conn:
+            conn.execute("""
+                INSERT OR IGNORE INTO scout_jobs(job_id, dedupe_key, source,
+                    subject_id, reason, priority, due_at, cursor, updated_at)
+                VALUES (?, ?, ?, ?, ?, 0, ?, NULL, ?)
+            """, (job_id, dedupe, source, subject_id, reason, due, due))
+        return job_id
+
     def claim_provider(
         self, source: str, *, as_of: datetime, seconds: int = 1800,
     ) -> str | None:

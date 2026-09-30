@@ -61,6 +61,22 @@ class ScoutBackgroundWorkerTests(unittest.TestCase):
             self.assertEqual(2, store.completed_issuer_jobs())
             self.assertIsNotNone(store.next_job_due("sec"))
 
+    def test_existing_completed_tickers_are_not_rescheduled_on_launch(self):
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            client = EmptyIndex()
+            scout = SecScoutService(store, client=client)
+            scout.schedule(["AAA", "BBB"], as_of=datetime.now(timezone.utc))
+            self.assertEqual(2, scout.run_batch(limit=2)["processed"])
+            run_id = store.begin_background_worker("sec", as_of=datetime.now(timezone.utc))
+            result = drain_sec_queue(
+                store, run_id=run_id, scout=scout,
+                tickers=["AAA", "BBB", "CCC"], batch_size=1,
+            )
+            self.assertEqual(1, result["processed"])
+            self.assertEqual(3, len(client.visited))
+            self.assertEqual({"DONE": 3}, store.metrics())
+
     def test_launch_is_single_instance_and_failure_is_visible(self):
         with TemporaryDirectory() as directory:
             path = Path(directory) / "scout.db"
