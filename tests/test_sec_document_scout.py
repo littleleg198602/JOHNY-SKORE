@@ -58,6 +58,21 @@ class SecDocumentScoutTest(unittest.TestCase):
             self.assertTrue(all("fake" not in json.loads(row["details_json"])["quote"]
                                 for row in exposures))
             self.assertEqual(3, len(store.open_leads(["AAPL"], as_of=now)))
+            orchestrator = OrchestratorAgent(shadow_mode=True)
+            orchestrator.register(EntityRegistryAgent())
+            orchestrator.register(ScoutIndexAgent(store.db_path))
+            orchestrator.register(SourceResolutionAgent(dependencies=("entity_registry",)))
+            orchestrator.register(PredictionV21AdapterAgent())
+            orchestrator.register(QualityGateAgent())
+            report = orchestrator.run(watchlist=["AAPL"], state={"signals": pd.DataFrame([{
+                "ticker": "AAPL", "action": "NO_TRADE", "forecast": "FLAT",
+                "decision_confidence": 0.5, "risk_score": 0.0,
+                "action_reasons": '["test"]',
+            }])})
+            candidate_evidence = [item for item in report.evidence
+                                  if item.event_type == "SEC_EXPOSURE_CANDIDATE"]
+            self.assertEqual(2, len(candidate_evidence))
+            self.assertTrue(all(item.direction == 0 for item in candidate_evidence))
             self.assertEqual(0, scout.run_batch(as_of=now, limit=2)["new_findings"])
 
     def test_sec_connector_refuses_cross_domain_requests_and_redirects(self) -> None:
