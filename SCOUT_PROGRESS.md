@@ -30,6 +30,8 @@ Navazující pátrání z hloubkového výzkumu: existující `FilingExposureDis
 
 Další inkrement veřejné extrakce rozlišuje citovaný právní název dodavatele od identifikované entity: `NAMED_ONLY` nezakládá ověřené CIK/LEI ani health rating. U jediné komodity ukládá výslovně uvedené procento hedge a období; u více komodit v jedné větě procento nepřiřadí. Tyto kandidáty stále nepromítá do skóre a před produkčním použitím vyžadují test na skutečných SEC podáních.
 
+Pojmenovaný dodavatel může získat doplňkový `sec_catalog_match` jen při jediné přesné shodě celého právního názvu v aktuálním SEC katalogu (share classes se stejným CIK lze sloučit). Zaznamenává se CIK, tickery, odkaz na katalog a skutečný čas pozorování. Jméno zůstává `NAMED_ONLY` pro historické tvrzení, dokud není datovaně doložena platnost a vztah případných dcer; podobné názvy se nespojují.
+
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
 | SC-00 | MERGED, TESTED | Nullable `pd.NA` rank ukládá do SQLite NULL, skutečná transakce v testu. Čeká živý běh. |
