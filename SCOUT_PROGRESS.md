@@ -1,5 +1,16 @@
 # Průběh implementace pátracích agentů
 
+## Viditelný stav všech zdrojů (30. 9. 2026)
+
+Denní runner nyní po dokončení zapisuje do SQLite poslední stav SEC, FRED,
+EIA, USAspending, hledání příjemců, FDA, FINRA, FDIC, 13F a NHTSA včetně
+počtu zkontrolovaných položek, nových nálezů a typu chyby. UI ukazuje i
+zdroj bez nálezu nebo takový, který ještě neběžel. `WAIT_ACCESS` a
+`WAIT_IDENTITY` se nepletou s nulovou událostí. Historie běhů zůstává pro
+audit; při pádu před dokončením běhu zůstane vidět poslední dokončený záznam,
+takže údaj není živý průběhový čítač. Denní Windows spouštěč při každém startu
+načte také uživatelský FINRA Client ID a Secret bez jejich tisku do konzole.
+
 ## NHTSA modelové svolávací akce (30. 9. 2026)
 
 Nový veřejný NHTSA API scout se po 30 dnech vrací k datovaně doloženému
