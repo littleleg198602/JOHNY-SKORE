@@ -16,7 +16,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 | 10 ceny | ČÁSTEČNĚ | Živá akceptace po opravě 28. 9., corporate actions a symboly BRKB/PSTG/LEG |
 | 11 short interest | OTEVŘENO | FINRA consolidated SI, datum zveřejnění a settlement |
 | 12 FDA | OTEVŘENO | Produktový/sponsor crosswalk, CRL/recall, sektorová fronta |
-| 13 vstupní náklady | ČÁSTEČNĚ | FRED makro konektor čeká na klíč a live test; EIA/USDA a propojení firemních expozic, hedge, jednotek a vintage chybí |
+| 13 vstupní náklady | ČÁSTEČNĚ | FRED makro a EIA WTI/jet-fuel spot mají oddělené volitelné konektory; čekají na klíče a live test. USDA, propojení firemních expozic s cenami a historické vintage chybí. |
 | 14 entity enrichment | ČÁSTEČNĚ | GLEIF/OpenFIGI a dcery/produkty na doložených ID |
 | 15 SAM | OTEVŘENO | Schválený klíč a reálná kvóta; doplnění USAspending |
 | 16 instituce | OTEVŘENO | SEC 13F managers, security crosswalk a čas zveřejnění |
@@ -60,3 +60,12 @@ vyhodnocovat protistrany a produkt/segment po datovaných důkazech, přidat
 EIA/USDA a USAspending, pak sektorové regulátory a FINRA. Každý zdroj musí
 mít živý pozitivní i negativní test a vlastní coverage. Predikční skóre se
 mění teprve po historickém vyhodnocení přínosu.
+
+EIA konektor sleduje jednou pro celý seznam dvě konkrétní denní spot řady:
+WTI Cushing (`RWTC`, USD/barel) a US Gulf Coast jet fuel
+(`EER_EPJK_PF4_RGC_DPG`, USD/galon). Vyžaduje bezplatný osobní EIA API klíč
+v uživatelské proměnné Windows `JOHNY_SKORE_EIA_API_KEY`; pokud chybí, výstup
+hlásí `WAIT_ACCESS`. Období řady není čas vydání hodnoty, proto historická
+dostupnost začíná až naším prvním pozorováním. Revize hodnot se verzují. UI
+ukazuje tyto ceny jako sdílené tržní proxy, ne firemní nákupní ceny. Živá
+kontrola EIA zatím neproběhla.

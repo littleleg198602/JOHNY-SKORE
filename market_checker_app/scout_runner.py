@@ -9,6 +9,7 @@ from pathlib import Path
 from market_checker_app.config import DEFAULT_DB_PATH
 from market_checker_app.services.sec_scout_service import SecScoutService
 from market_checker_app.services.fred_scout_service import FredApiClient, FredScoutService
+from market_checker_app.services.eia_scout_service import EiaApiClient, EiaScoutService
 from market_checker_app.utils.ticker_universe import (
     CANONICAL_CSV_SHA256,
     DEFAULT_TICKER_UNIVERSE_PATH,
@@ -55,8 +56,17 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             macro = {"status": "ERROR", "error": type(exc).__name__}
     else:
         macro = {"status": "WAIT_ACCESS", "new_findings": 0}
+    eia_key = os.getenv("JOHNY_SKORE_EIA_API_KEY", "")
+    if eia_key:
+        try:
+            energy = EiaScoutService(store, client=EiaApiClient(eia_key)).run(as_of=now)
+        except Exception as exc:
+            energy = {"status": "ERROR", "error": type(exc).__name__}
+    else:
+        energy = {"status": "WAIT_ACCESS", "new_findings": 0}
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
-            "macro_fred": macro, "queue": store.metrics(), "as_of": now.isoformat()}
+            "macro_fred": macro, "energy_eia": energy,
+            "queue": store.metrics(), "as_of": now.isoformat()}
 
 
 def main() -> None:
