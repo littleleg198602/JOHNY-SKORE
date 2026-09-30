@@ -31,6 +31,7 @@ class ScoutIndexAgent(BaseAgent):
             if row["source"] != "sec" or row["verification_status"] != "SOURCE_VERIFIED":
                 continue
             details = json.loads(str(row["details_json"]))
+            exposure = details.get("stage") == "exposure_candidate"
             content_observed = details.get("stage") == "filing_document"
             item_locators = [item["locator"] for item in details.get("item_excerpts", [])]
             document_id = f"scout-index:{row['finding_id']}"
@@ -39,21 +40,28 @@ class ScoutIndexAgent(BaseAgent):
             ticker = str(row["subject_id"])
             url = str(row["source_url"])
             documents.append(DocumentRecord(
-                document_id=document_id, ticker=ticker, source="SEC EDGAR index",
+                document_id=document_id, ticker=ticker,
+                source="SEC EDGAR evidence" if exposure else "SEC EDGAR index",
                 source_type="regulatory_filing", observed_at=observed_at,
                 published_at=published_at, url=url,
                 canonical_event_key=f"sec-filing:{ticker}:{row['source_object_id']}",
                 metadata={"locator": row["locator"],
                           "finding_id": row["finding_id"],
-                          "filing_index_only": not content_observed,
+                          "filing_index_only": not (content_observed or exposure),
+                          "exposure_candidate": exposure,
+                          "evidence_quote": details.get("quote") if exposure else None,
                           "document_sha256": details.get("document_sha256"),
                           "item_locators": item_locators},
             ))
             evidence.append(AgentEvidence(
                 evidence_id=f"scout-evidence:{row['finding_id']}", ticker=ticker,
-                agent_name=self.name, event_type="SEC_FILING_INDEX",
+                agent_name=self.name, event_type=("SEC_EXPOSURE_CANDIDATE" if exposure
+                                                  else "SEC_FILING_INDEX"),
                 observed_at=observed_at,
                 summary=(
+                    f"SEC podání uvádí {details.get('kind')}: "
+                    f"{details.get('quote')}; totožnost a dopad se prověřují."
+                    if exposure else
                     f"SEC primární dokument {row['title']} obsahuje sekce "
                     f"{', '.join(item_locators)}; dopad se prověřuje."
                     if content_observed and item_locators else
@@ -62,7 +70,8 @@ class ScoutIndexAgent(BaseAgent):
                 direction=0.0, risk_score=0.0, confidence=0.5,
                 document_ids=[document_id], source_urls=[url],
                 metadata={"scoring_applied": False,
-                          "index_only": not content_observed,
+                          "index_only": not (content_observed or exposure),
+                          "exposure_candidate": exposure,
                           "finding_id": row["finding_id"]},
             ))
         self.store.record_analysis_snapshot(

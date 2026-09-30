@@ -893,6 +893,9 @@ class ScoutStore:
             item = dict(row)
             details = json.loads(str(item.pop("details_json")))
             item["stage"] = details.get("stage", "unclassified")
+            if item["stage"] == "exposure_candidate":
+                item["topic"] = details.get("kind")
+                item["cited_excerpt"] = details.get("quote")
             item["item_locators"] = ", ".join(
                 str(section.get("locator", ""))
                 for section in details.get("item_excerpts", [])
@@ -901,7 +904,7 @@ class ScoutStore:
         return output
 
     def findings_for_watchlist(
-        self, subjects: list[str], *, as_of: datetime, per_subject: int = 2,
+        self, subjects: list[str], *, as_of: datetime, per_subject: int = 8,
     ) -> list[dict[str, object]]:
         if not subjects or per_subject < 1:
             return []
@@ -913,7 +916,12 @@ class ScoutStore:
                 SELECT * FROM (
                     SELECT f.*, ROW_NUMBER() OVER (
                         PARTITION BY subject_id
-                        ORDER BY available_at DESC, finding_id DESC
+                        ORDER BY
+                            CASE json_extract(details_json, '$.stage')
+                                WHEN 'filing_document' THEN 0
+                                WHEN 'exposure_candidate' THEN 1
+                                ELSE 2 END,
+                            available_at DESC, finding_id DESC
                     ) AS position
                     FROM scout_findings AS f
                     WHERE subject_id IN ({placeholders})

@@ -26,6 +26,8 @@ SC-04 v PR #135, sloučeném jako `acccb63`, přijímá jen explicitní ticker a
 
 SC-14 v PR #136, sloučeném jako `5ab138f`, omezuje následné otázky: nová úroveň musí citovat jiný, nově pozorovaný `SOURCE_VERIFIED` nebo `CLAIM_VERIFIED` nález než rodič a jeden rodič má nejvýše tři přímé podotázky. Transakční zámek chrání limit proti souběžným běhům; již existující limit hloubky zůstává dvě úrovně. CI run 36599400943 prošel. Celkový rozpočet per firma/den/provider a verziované spouštěče ještě chybí.
 
+Navazující pátrání z hloubkového výzkumu: existující `FilingExposureDiscoveryService` již v omezeném týdenním analytickém běhu extrahoval anonymní koncentraci dodavatelů/zákazníků a zmínky o materiálech. Nový SEC scout jej nyní volá také po stažení primárního 10-K/10-Q/20-F/40-F. Ukládá citovaný úsek, otisk dokumentu a otevřenou otázku; pro firmu nevyvozuje identitu anonymního dodavatele, skutečný nákupní koš, hedging ani dopad na marži. Průchod je omezen šesti supply a dvanácti commodity kandidáty na podání a 500 000 znaky textu. Další kroky výzkumu: úplnější extrakce 10-K příloh, identitní graf protistran, datované vztahy, EIA/USDA/USGS řady a prokázané napojení expozic na ceny. Tato změna v PR není živě ověřena.
+
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
 | SC-00 | MERGED, TESTED | Nullable `pd.NA` rank ukládá do SQLite NULL, skutečná transakce v testu. Čeká živý běh. |

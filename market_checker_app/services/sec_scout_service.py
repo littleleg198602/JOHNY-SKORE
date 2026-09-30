@@ -9,7 +9,10 @@ from market_checker_app.collectors.sec_edgar_client import (
     SecAccessBlockedError, SecCompany, SecEdgarClient, SecFiling,
     SecRateLimitedError,
 )
-from market_checker_app.services.sec_document_extraction import extract_sec_item_excerpts
+from market_checker_app.collectors.short_report_client import FetchedShortReport
+from market_checker_app.config import ShortReportSourceConfig
+from market_checker_app.services.filing_exposure_discovery_service import FilingExposureDiscoveryService
+from market_checker_app.services.sec_document_extraction import extract_sec_item_excerpts, readable_sec_text
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.text import normalize_ticker
 
@@ -240,4 +243,63 @@ class SecScoutService:
                     question=f"Prověřit {locator} z podání {accession} a dopad na firmu.",
                     as_of=clock,
                 )
-        return int(created)
+            extra_findings = 0
+            if filing.form.removesuffix("/A") in {"10-K", "10-Q", "20-F", "40-F"}:
+                extra_findings = self._record_exposure_candidates(
+                    subject_id=subject_id, filing=filing, document=document,
+                    document_hash=digest, document_finding_id=finding_id, clock=clock,
+                )
+            return int(created) + extra_findings
+        return 0
+
+    def _record_exposure_candidates(
+        self, *, subject_id: str, filing: SecFiling, document: bytes,
+        document_hash: str, document_finding_id: str, clock: datetime,
+    ) -> int:
+        fetched = FetchedShortReport(
+            source=ShortReportSourceConfig(
+                ticker=subject_id, publisher="SEC EDGAR",
+                published_at=filing.filed_at, url=filing.filing_url,
+            ),
+            final_url=filing.filing_url, mime_type="text/html",
+            title=filing.form, text=readable_sec_text(document),
+            content_hash=document_hash, size_bytes=len(document), extractor="sec-html-v1",
+        )
+        candidates = FilingExposureDiscoveryService().discover(fetched)
+        count = 0
+        for kind, findings in (("supply_chain", candidates.supply_chain),
+                               ("commodity_energy", candidates.commodity_energy)):
+            for position, candidate in enumerate(findings):
+                quote = candidate.evidence_quote[:1000]
+                # Each excerpt is a cited question, not a verified counterparty,
+                # hedge ratio, price, or forecast.
+                evidence_hash = hashlib.sha256(
+                    f"{document_hash}|{kind}|{candidate.reason}|{quote}".encode()
+                ).hexdigest()
+                resource = (candidate.source.counterparty if kind == "supply_chain"
+                            else candidate.source.resource_name)
+                candidate_id, new = self.store.record_finding(
+                    source="sec", subject_id=subject_id,
+                    source_object_id=f"{filing.accession_number}:{kind}:{position}",
+                    content_hash=evidence_hash,
+                    title=f"{subject_id}: {kind} – {resource}",
+                    source_url=filing.filing_url,
+                    locator=f"accession:{filing.accession_number}/exposure:{kind}:{position}",
+                    published_at=filing.filed_at, available_at=clock, observed_at=clock,
+                    details={"stage": "exposure_candidate", "kind": kind,
+                             "document_finding_id": document_finding_id,
+                             "document_sha256": document_hash,
+                             "reason": candidate.reason, "quote": quote,
+                             "resource_or_counterparty": resource,
+                             "identity_status": getattr(candidate.source, "counterparty_identity_status", None),
+                             "confidence": candidate.source.confidence,
+                             "dependency_pct": getattr(candidate.source, "dependency_pct", None)},
+                )
+                if new:
+                    count += 1
+                    self.store.add_lead(
+                        subject_id=subject_id, finding_id=candidate_id, as_of=clock,
+                        question=(f"Ověřit {kind} z podání {filing.accession_number}: "
+                                  f"{resource}; doložit identitu, období a finanční dopad."),
+                    )
+        return count
