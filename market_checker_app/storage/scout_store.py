@@ -253,7 +253,7 @@ class ScoutStore:
     def record_specialist_check(self, source: str, *, subject_id: str,
                                 identity_key: str, as_of: datetime,
                                 candidate_count: int, truncated: bool) -> None:
-        if source not in {"fda", "finra", "sec13f"} or candidate_count < 0:
+        if source not in {"fda", "finra", "sec13f", "nhtsa"} or candidate_count < 0:
             raise ValueError("Invalid specialist check")
         with self._connect() as conn:
             conn.execute("""
@@ -275,6 +275,19 @@ class ScoutStore:
                 SELECT 1 FROM scout_specialist_checks
                 WHERE source=? AND subject_id='DATASET' AND identity_key=?
             """, (source, identity_key)).fetchone() is not None
+
+    def specialist_check_due(self, source: str, *, subject_id: str,
+                             identity_key: str, as_of: datetime,
+                             refresh_days: int = 30) -> bool:
+        if source != "nhtsa" or refresh_days < 1 or not identity_key:
+            raise ValueError("Invalid specialist refresh")
+        cutoff = _utc(as_of - timedelta(days=refresh_days))
+        with self._connect() as conn:
+            row = conn.execute("""
+                SELECT checked_at FROM scout_specialist_checks
+                WHERE source=? AND subject_id=? AND identity_key=?
+            """, (source, subject_id, identity_key)).fetchone()
+        return row is None or row["checked_at"] <= cutoff
 
     def begin_background_worker(self, source: str, *, as_of: datetime) -> str | None:
         """Prevent two UI clicks from launching duplicate backlog workers."""
@@ -697,7 +710,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -739,6 +752,11 @@ class ScoutStore:
             or not parsed.path.startswith("/Archives/edgar/data/")
         ):
             raise ValueError("13F finding must cite an official EDGAR filing")
+        if source == "nhtsa" and (
+            parsed.hostname != "api.nhtsa.gov" or parsed.port not in {None, 443}
+            or parsed.path != "/recalls/recallsByVehicle"
+        ):
+            raise ValueError("NHTSA finding must cite its official recall API")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
         published = _utc(published_at)

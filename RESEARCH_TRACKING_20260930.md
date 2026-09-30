@@ -10,7 +10,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 | 01–04 identita, důkazy, SEC, Windows | ČÁSTEČNĚ | 651 identit mimo pilot, aliasy do cen/scoutu, živý 687 běh a Windows test |
 | 05 insider | ČÁSTEČNĚ: typy Form 4 | P/S non-derivative s odpovídajícím A/D jsou oddělené od A/M/F kompenzací a ostatních transakcí; 13D/G, 13F a historická akceptace zbývají. |
 | 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Doložená jedna vazba LMT → Sikorsky (`UTJWTSLMFNG4`); automatické dohledávání dalších UEI ze SEC názvu ukládá pouze kandidáty. Živý API běh a historie modifikací/obligations zbývají. |
-| 07 vládní rizika | ZÁKLAD analytického agenta | OFAC/DOJ a sektorové EPA/NHTSA s identitou před přiřazením |
+| 07 vládní rizika | ČÁSTEČNĚ: NHTSA modelový scout | Doložený TSLA Model 3 2026 má oddělené kampaně NHTSA, bez automatického finančního závěru. OFAC/DOJ/EPA a další produkty vyžadují vlastní identitní vazby a provozní test. |
 | 08 veřejná extrakce | ČÁSTEČNĚ | SEC scout nově ukládá omezené citované stopy dodavatelů a komodit z 10-K/Q/20-F/40-F; chybí přílohy, skutečná identita protistran a hedging |
 | 09 IR a zprávy | ČÁSTEČNĚ | Ověřené IR feedy a propojení RSS stopy s primárním oznámením |
 | 10 ceny | ČÁSTEČNĚ | Živá akceptace po opravě 28. 9., corporate actions a symboly BRKB/PSTG/LEG |
