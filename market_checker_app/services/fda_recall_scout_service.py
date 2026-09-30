@@ -1,0 +1,142 @@
+from __future__ import annotations
+
+from datetime import date, datetime, timezone
+import hashlib
+import json
+from typing import Protocol
+from urllib.error import HTTPError
+from urllib.parse import urlencode, urlsplit
+from urllib.request import Request, urlopen
+
+from market_checker_app.storage.scout_store import ScoutStore
+
+
+API_ROOT = "https://api.fda.gov"
+PRODUCT_TYPES = ("drug", "device")
+
+
+class FdaRecallClient(Protocol):
+    def recalls(self, product_type: str, firm_name: str, *, limit: int) -> dict: ...
+
+
+class OpenFdaRecallClient:
+    """Search the public enforcement reports; no API key is required."""
+
+    def __init__(self, api_key: str = "") -> None:
+        self.api_key = api_key
+
+    def recalls(self, product_type: str, firm_name: str, *, limit: int) -> dict:
+        if product_type not in PRODUCT_TYPES or not 1 <= limit <= 1000:
+            raise ValueError("Unsupported FDA recall request")
+        # The API search can match a phrase loosely; the service checks the
+        # entire recalling_firm field again before attributing a candidate.
+        phrase = firm_name.replace("\\", "\\\\").replace('"', '\\"')
+        query = {"search": f'recalling_firm:"{phrase}"', "limit": limit}
+        if self.api_key:
+            query["api_key"] = self.api_key
+        endpoint = f"{API_ROOT}/{product_type}/enforcement.json"
+        request = Request(f"{endpoint}?{urlencode(query)}",
+                          headers={"User-Agent": "JohnySkoreScout/1.0"})
+        try:
+            with urlopen(request, timeout=20) as response:
+                if urlsplit(response.geturl()).hostname != "api.fda.gov":
+                    raise ValueError("FDA redirected outside official host")
+                return json.load(response)
+        except HTTPError as exc:
+            if exc.code == 404:
+                return {"results": [], "meta": {"results": {"total": 0}}}
+            raise
+
+
+class FdaRecallScoutService:
+    """Collect exact-name recall candidates, without inferring product ownership."""
+
+    def __init__(self, store: ScoutStore, *, client: FdaRecallClient,
+                 max_subjects: int = 25, max_results: int = 100) -> None:
+        if max_subjects < 1 or not 1 <= max_results <= 1000:
+            raise ValueError("FDA request budget must be positive and bounded")
+        self.store, self.client = store, client
+        self.max_subjects, self.max_results = max_subjects, max_results
+
+    def run(self, *, as_of: datetime | None = None,
+            universe: set[str] | None = None) -> dict[str, int | str]:
+        clock = as_of or datetime.now(timezone.utc)
+        if clock.tzinfo is None or clock.utcoffset() is None:
+            raise ValueError("Observation time needs timezone")
+        # Filter after fetching due names, so an outside-universe name cannot
+        # exhaust the daily budget of the requested watchlist.
+        due = self.store.specialist_due("fda", as_of=clock, limit=900)
+        due = [row for row in due if universe is None or row["subject_id"] in universe]
+        due = due[:self.max_subjects]
+        created = checked = failed = truncated_count = 0
+        for issuer in due:
+            ticker, name, cik = (issuer[key] for key in ("subject_id", "company_name", "cik"))
+            candidates: list[tuple[str, dict]] = []
+            truncated = False
+            try:
+                for product_type in PRODUCT_TYPES:
+                    payload = self.client.recalls(product_type, name, limit=self.max_results)
+                    rows = payload["results"]
+                    total = payload["meta"]["results"]["total"]
+                    if not isinstance(rows, list) or not isinstance(total, int) or total < len(rows):
+                        raise ValueError("Malformed FDA response")
+                    truncated |= total > len(rows)
+                    for row in rows:
+                        if not isinstance(row, dict) or str(row.get("recalling_firm", "")).strip().casefold() != name.strip().casefold():
+                            continue
+                        number = row.get("recall_number")
+                        report_date = row.get("report_date")
+                        if not isinstance(number, str) or not number or not isinstance(report_date, str):
+                            continue
+                        try:
+                            reported = date.fromisoformat(f"{report_date[:4]}-{report_date[4:6]}-{report_date[6:8]}")
+                        except ValueError:
+                            continue
+                        if reported > clock.date():
+                            continue
+                        candidates.append((product_type, row))
+            except HTTPError as exc:
+                if exc.code in {403, 429}:
+                    return {"status": "RATE_LIMITED" if exc.code == 429 else "ACCESS_BLOCKED",
+                            "checked_issuers": checked, "new_findings": created,
+                            "failed_issuers": failed + 1, "truncated_issuers": truncated_count}
+                failed += 1
+                continue
+            except (OSError, ValueError, KeyError, TypeError):
+                failed += 1
+                continue  # Retry the issuer next time; do not mark its check complete.
+            for product_type, row in candidates:
+                number = row["recall_number"]
+                details = {
+                    "stage": "recall_candidate", "product_type": product_type,
+                    "recall_number": number, "report_date": row["report_date"],
+                    "recalling_firm": row["recalling_firm"],
+                    "product_description": row.get("product_description"),
+                    "reason_for_recall": row.get("reason_for_recall"),
+                    "classification": row.get("classification"),
+                    "status": row.get("status"), "issuer_sec_cik": cik,
+                    "identity_status": "NAME_ONLY",
+                    "missing_evidence": "dated manufacturer, product and issuer relationship",
+                    "product_attribution_allowed": False,
+                    "report_date_is_publication_time": False,
+                }
+                digest = hashlib.sha256(json.dumps(details, sort_keys=True).encode()).hexdigest()
+                _, fresh = self.store.record_finding(
+                    source="fda", subject_id=ticker,
+                    source_object_id=f"{product_type}:{number}", content_hash=digest,
+                    title=f"FDA recall candidate: {product_type} {number}",
+                    source_url=f"{API_ROOT}/{product_type}/enforcement.json",
+                    locator=f"recall_number:{number}", published_at=clock,
+                    available_at=clock, observed_at=clock,
+                    verification_status="UNVERIFIED", details=details,
+                )
+                created += int(fresh)
+            self.store.record_specialist_check(
+                "fda", subject_id=ticker, identity_key=f"{cik}:{name}",
+                as_of=clock, candidate_count=len(candidates), truncated=truncated,
+            )
+            checked += 1
+            truncated_count += int(truncated)
+        return {"status": "PARTIAL" if failed or truncated_count else "OK",
+                "checked_issuers": checked, "new_findings": created,
+                "failed_issuers": failed, "truncated_issuers": truncated_count}

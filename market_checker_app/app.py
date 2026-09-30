@@ -2227,6 +2227,18 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     if candidate_recipients:
         st.write("**USAspending – možní příjemci podle názvu; vztah k emitentovi neověřen**")
         st.dataframe(pd.DataFrame(candidate_recipients), hide_index=True)
+    fda_candidates = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="fda",
+    )
+    if fda_candidates:
+        st.write("**FDA – shoda názvu svolávající firmy; vztah výrobku k akcii neověřen**")
+        st.dataframe(pd.DataFrame(fda_candidates), hide_index=True)
+    finra_candidates = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="finra",
+    )
+    if finra_candidates:
+        st.write("**FINRA short interest – shoda symbolu; identita instrumentu neověřena**")
+        st.dataframe(pd.DataFrame(finra_candidates), hide_index=True)
     energy_rows = scout_store.latest_findings(
         ["COMMODITY:WTI", "COMMODITY:JET_FUEL_GULF"],
         as_of=datetime.now(timezone.utc), limit=10, source="eia",
