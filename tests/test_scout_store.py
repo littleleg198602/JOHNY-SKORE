@@ -12,6 +12,24 @@ from market_checker_app.utils.ticker_universe import load_canonical_ticker_recor
 
 
 class ScoutStoreTests(unittest.TestCase):
+    def test_source_run_status_survives_restart_and_latest_wins(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scout.db"
+            now = datetime(2026, 9, 30, tzinfo=timezone.utc)
+            store = ScoutStore(path)
+            store.record_source_run("finra", as_of=now,
+                                    summary={"status": "WAIT_ACCESS", "new_findings": 0})
+            store.record_source_run("finra", as_of=now + timedelta(days=1),
+                                    summary={"status": "OK", "checked_issuers": 25,
+                                             "new_findings": 3, "credential": "never-persist"})
+            store.record_source_run("fdic", as_of=now, summary={"status": "WAIT_IDENTITY"})
+            rows = ScoutStore(path).latest_source_runs()
+            self.assertEqual({"finra", "fdic"}, set(rows))
+            self.assertEqual("OK", rows["finra"]["status"])
+            self.assertEqual(25, rows["finra"]["checked_issuers"])
+            self.assertNotIn("credential", rows["finra"])
+            self.assertEqual("WAIT_IDENTITY", rows["fdic"]["status"])
+
     def test_runner_rejects_changed_input_and_shows_positions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "scout.db"

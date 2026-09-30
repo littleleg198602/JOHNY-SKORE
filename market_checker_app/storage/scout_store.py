@@ -185,6 +185,13 @@ class ScoutStore:
                     truncated INTEGER NOT NULL,
                     PRIMARY KEY(source, subject_id, identity_key)
                 );
+                CREATE TABLE IF NOT EXISTS scout_source_runs (
+                    source TEXT NOT NULL,
+                    observed_at TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    summary_json TEXT NOT NULL,
+                    PRIMARY KEY(source, observed_at)
+                );
                 CREATE TABLE IF NOT EXISTS scout_background_workers (
                     source TEXT PRIMARY KEY,
                     run_id TEXT NOT NULL,
@@ -229,6 +236,43 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(8, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(9, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
+
+    def record_source_run(self, source: str, *, as_of: datetime,
+                          summary: dict[str, object]) -> None:
+        allowed = {"sec", "fred", "eia", "usaspending", "recipient_discovery",
+                   "fda", "finra", "fdic", "sec13f", "nhtsa"}
+        if source not in allowed or not isinstance(summary, dict):
+            raise ValueError("Unknown scout source run")
+        status = summary.get("status")
+        if not isinstance(status, str) or not re.fullmatch(r"[A-Z_]{2,32}", status):
+            raise ValueError("Invalid scout source status")
+        safe = {key: value for key, value in summary.items()
+                if key in {"status", "new_findings", "checked_issuers", "checked_models",
+                           "checked_banks", "checked_uei", "failed_issuers", "failed_models",
+                           "failed_banks", "matched_rows", "saved_rows", "error",
+                           "processed", "failed", "scheduled_subjects", "truncated_issuers"}
+                and isinstance(value, (str, int, float, bool))}
+        with self._connect() as conn:
+            conn.execute("""
+                INSERT OR REPLACE INTO scout_source_runs(source, observed_at, status, summary_json)
+                VALUES(?, ?, ?, ?)
+            """, (source, _utc(as_of), status, json.dumps(safe, sort_keys=True)))
+
+    def latest_source_runs(self) -> dict[str, dict[str, object]]:
+        with self._connect() as conn:
+            rows = conn.execute("""
+                SELECT r.source, r.observed_at, r.status, r.summary_json
+                FROM scout_source_runs AS r
+                WHERE r.observed_at=(SELECT MAX(x.observed_at) FROM scout_source_runs AS x
+                                     WHERE x.source=r.source)
+                ORDER BY r.source
+            """).fetchall()
+        return {row["source"]: {"observed_at": row["observed_at"],
+                                **json.loads(row["summary_json"])} for row in rows}
 
     def specialist_due(self, source: str, *, as_of: datetime, limit: int,
                        refresh_days: int = 30) -> list[dict[str, str]]:

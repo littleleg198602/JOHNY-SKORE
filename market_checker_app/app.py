@@ -2209,6 +2209,28 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         f"{scout_store.completed_issuer_jobs()}/687. Jedna úloha může být index "
         "nebo navazující dokument. Denní plánovač navazuje po přerušení."
     )
+    last_runs = scout_store.latest_source_runs()
+    source_labels = {
+        "sec": "SEC podání", "fred": "FRED makro", "eia": "EIA komodity",
+        "usaspending": "USAspending zakázky", "recipient_discovery": "USAspending příjemci",
+        "fda": "FDA svolání", "finra": "FINRA short interest",
+        "fdic": "FDIC banky", "sec13f": "SEC 13F instituce",
+        "nhtsa": "NHTSA modelová svolání",
+    }
+    st.write("**Poslední běh pátracích zdrojů**")
+    st.dataframe(pd.DataFrame([
+        {"Zdroj": label, "Stav": (run.get("status") if run else "JEŠTĚ NEBĚŽEL"),
+         "Kdy": run.get("observed_at", "") if run else "",
+         "Zkontrolováno": next((run[key] for key in
+                               ("checked_issuers", "checked_models", "checked_banks", "checked_uei", "processed")
+                               if key in run), "") if run else "",
+         "Nové nálezy": run.get("new_findings", "") if run else "",
+         "Chyba": run.get("error", "") if run else ""}
+        for source, label in source_labels.items()
+        for run in [last_runs.get(source)]
+    ]), hide_index=True)
+    st.caption("Denní plánovač opakuje omezené dávky; WAIT_ACCESS vyžaduje přístup ke zdroji, "
+               "WAIT_IDENTITY doložený vztah. Prázdný nález není důkazem, že firma události nemá.")
     scout_rows = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=50, source="sec",
     )

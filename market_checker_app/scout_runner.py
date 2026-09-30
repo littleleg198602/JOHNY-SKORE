@@ -146,6 +146,14 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         nhtsa_recalls = {"status": "ERROR", "error": type(exc).__name__}
+    summaries = {
+        "sec": batch, "fred": macro, "eia": energy,
+        "usaspending": contracts, "recipient_discovery": recipient_discovery,
+        "fda": fda_recalls, "finra": finra_short_interest,
+        "fdic": fdic_banks, "sec13f": sec13f_holdings, "nhtsa": nhtsa_recalls,
+    }
+    for source, summary in summaries.items():
+        store.record_source_run(source, as_of=now, summary=summary)
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
