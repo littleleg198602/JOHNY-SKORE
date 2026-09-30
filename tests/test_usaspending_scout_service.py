@@ -5,7 +5,7 @@ import json
 import unittest
 
 from market_checker_app.services.usaspending_scout_service import (
-    UsaSpendingScoutService, load_verified_identities,
+    UsaSpendingScoutService, load_verified_identities, DEFAULT_IDENTITIES,
 )
 from market_checker_app.storage.scout_store import ScoutStore
 
@@ -38,6 +38,38 @@ class StubAwards:
 
 
 class UsaSpendingScoutTests(unittest.TestCase):
+    def test_documented_sikorsky_subsidiary_uei_is_scoped_to_lmt(self):
+        entries = load_verified_identities(DEFAULT_IDENTITIES)
+        sikorsky = next(entry for entry in entries if entry["uei"] == "UTJWTSLMFNG4")
+        self.assertEqual("LMT", sikorsky["ticker"])
+        self.assertEqual("2015-11-06", sikorsky["effective_from"])
+        self.assertIn("sec.gov/Archives/", sikorsky["continuity_evidence_url"])
+
+        class SikorskyAward:
+            def awards(self, uei, *, start, end, page):
+                return {"results": [{"generated_internal_id":
+                         "CONT_AWD_SPE4A125F1406_9700_SPE4A122G0005_9700",
+                         "Award ID": "SPE4A125F1406", "Recipient UEI": uei,
+                         "Recipient Name": "SIKORSKY AIRCRAFT CORPORATION",
+                         "Start Date": "2025-08-28", "Award Amount": 4162.13,
+                         "Total Outlays": 0.0}],
+                        "page_metadata": {"hasNext": False}}
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            service = UsaSpendingScoutService(store, client=SikorskyAward(),
+                                               identities=[sikorsky])
+            before = datetime(2026, 9, 30, 12, 15, tzinfo=timezone.utc)
+            after = datetime(2026, 9, 30, 12, 16, tzinfo=timezone.utc)
+            self.assertEqual("WAIT_IDENTITY", service.run(as_of=before)["status"])
+            self.assertEqual(1, service.run(as_of=after, universe={"LMT"})["new_findings"])
+            self.assertEqual(0, len(store.findings_as_of("LMT", as_of=before)))
+            finding = store.findings_as_of("LMT", as_of=after)[0]
+            detail = json.loads(finding["details_json"])
+            self.assertEqual(4162.13, detail["reported_award_amount_usd"])
+            self.assertEqual(0.0, detail["reported_total_outlays_usd"])
+            self.assertEqual(sikorsky["continuity_evidence_url"],
+                             detail["continuity_evidence_url"])
+
     def test_exact_uei_relationship_dates_revisions_and_point_in_time(self):
         with TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "test.db")

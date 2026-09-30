@@ -64,6 +64,8 @@ def load_verified_identities(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
                 raise ValueError(f"USAspending identity needs {key}")
         for key in ("uei_evidence_url", "relationship_evidence_url"):
             public_https_reference(entry[key])
+        if entry.get("continuity_evidence_url"):
+            public_https_reference(entry["continuity_evidence_url"])
         first = date.fromisoformat(entry["effective_from"])
         last = date.fromisoformat(entry["effective_to"]) if entry.get("effective_to") else None
         known = datetime.fromisoformat(entry["known_at"])
@@ -136,6 +138,7 @@ class UsaSpendingScoutService:
                                "contract_award_type": row.get("Contract Award Type"),
                                "uei_evidence_url": entry["uei_evidence_url"],
                                "relationship_evidence_url": entry["relationship_evidence_url"],
+                               "continuity_evidence_url": entry.get("continuity_evidence_url"),
                                "relationship_known_at": entry["known_at"],
                                "revenue_inferred": False,
                                "modification_history_complete": False}

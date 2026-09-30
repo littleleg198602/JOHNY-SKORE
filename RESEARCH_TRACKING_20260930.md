@@ -9,7 +9,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 |---|---|---|
 | 01–04 identita, důkazy, SEC, Windows | ČÁSTEČNĚ | 651 identit mimo pilot, aliasy do cen/scoutu, živý 687 běh a Windows test |
 | 05 insider | ZÁKLAD | Form 4 P/S/F/M, 13D/G a 13F interpretace a historická akceptace |
-| 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Připravené hledání pro doložené ticker–UEI vazby; registr je zatím prázdný, takže žádné kontrakty z něj ještě nebyly živě ověřeny. Automatické dohledávání UEI ze SEC názvu ukládá pouze kandidáty. Historie modifikací/obligations a dcery zbývají. |
+| 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Doložená jedna vazba LMT → Sikorsky (`UTJWTSLMFNG4`); automatické dohledávání dalších UEI ze SEC názvu ukládá pouze kandidáty. Živý API běh a historie modifikací/obligations zbývají. |
 | 07 vládní rizika | ZÁKLAD analytického agenta | OFAC/DOJ a sektorové EPA/NHTSA s identitou před přiřazením |
 | 08 veřejná extrakce | ČÁSTEČNĚ | SEC scout nově ukládá omezené citované stopy dodavatelů a komodit z 10-K/Q/20-F/40-F; chybí přílohy, skutečná identita protistran a hedging |
 | 09 IR a zprávy | ČÁSTEČNĚ | Ověřené IR feedy a propojení RSS stopy s primárním oznámením |
@@ -73,14 +73,25 @@ kontrola EIA zatím neproběhla.
 ## USAspending: přesný identifikátor před přiřazením firmě
 
 `market_checker_app/data/verified_usaspending_uei.json` je verzovaný registr
-doložených ticker–UEI vztahů, ve výchozím stavu `[]`. Konkrétní záznam musí
+doložených ticker–UEI vztahů. Konkrétní záznam musí
 mít `ticker`, `uei`, `recipient_name`, `uei_evidence_url`,
 `relationship_evidence_url`, `effective_from`, případně `effective_to`, a
 `known_at` s časovou zónou. Lze použít vlastní cestu přes
 `JOHNY_SKORE_USASPENDING_UEI_FILE`. První citace dokládá UEI příjemce,
 druhá datovaný vztah právnické osoby k emitentovi. Shoda názvu či tickeru
-sama nestačí; různé pobočky Lockheed Martin mají různá UEI. Pro současný
-prázdný registr runner výslovně vrací `WAIT_IDENTITY`, ne nulové zakázky.
+sama nestačí; různé pobočky Lockheed Martin mají různá UEI. Pokud registr
+neobsahuje způsobilý vztah, runner vrací `WAIT_IDENTITY`, ne nulové zakázky.
+
+První doložený záznam: `LMT` → **Sikorsky Aircraft Corporation**,
+UEI `UTJWTSLMFNG4`. USAspending jej uvádí u zakázky
+`CONT_AWD_SPE4A125F1406_9700_SPE4A122G0005_9700` s adresou ve Stratfordu
+a jako parent recipient uvádí Lockheed Martin Corp. SEC 2015 10-K uvádí
+dokončení akvizice 6. 11. 2015 a 2025 Exhibit 21 stále uvádí Sikorsky jako
+dceru. V registru jsou přímé odkazy na oba SEC dokumenty a USAspending
+zakázku; `known_at` je až okamžik našeho zjištění 30. 9. 2026 v 12:15 UTC.
+Starší historický backtest tento dnešní objev nesmí zpětně vidět. Při živém
+API běhu se i u tohoto UEI znovu ověří přesná shoda v každém řádku.
+Tento jeden vztah neprokazuje UEI dalších závodů či dcer Lockheed Martin.
 
 Konektor hledá pouze prime contracts A–D za posledních 730 dnů, nejvýše tři
 stránky na UEI a běh. Každý výsledek z textového vyhledávání přijme až po
