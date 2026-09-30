@@ -25,6 +25,18 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 | 27 missingness | ČÁSTEČNĚ | Důvod mezery po prokazatelném hledání každého relevantního zdroje |
 | 28 audit report | ČÁSTEČNĚ | Jednotný přehled coverage, výpadků a důkazů po živém běhu |
 
+### Další posun veřejné extrakce
+
+Extraktor nově umí omezený přesný vzor pro větu typu „We purchase [produkt]
+from [právní název s Inc./Corp./LLC/Ltd.]“. Výsledek je `NAMED_ONLY`:
+název a role jsou citovány, avšak právní identita/CIK/LEI ani dnešní vlastník
+zatím nejsou prokázáni. Pojmenované věty dostávají přednost v omezené dávce
+před opakovanými anonymními formulacemi. Výslovně uvedený podíl zajištění
+jediné komodity a období se ukládají k důkazové stopě. U dvou komodit ve stejné
+větě zůstává podíl nevyplněn. Obojí zůstává mimo predikční skóre. Přijetí
+vyžaduje živé SEC dokumenty a širší evaluaci na různých firmách; ručně
+zkonstruované testovací věty nejsou důkazem plošného pokrytí.
+
 ## Co přesně dnes dělá extrakce dodavatelů a komodit
 
 Starší `SupplyChainAgent` a `CommodityEnergyAgent` mají pravidla pro text

@@ -128,6 +128,33 @@ def _signals() -> pd.DataFrame:
 
 
 class FilingExposureDiscoveryTests(unittest.TestCase):
+    def test_named_supplier_is_a_name_only_candidate_and_hedge_needs_one_resource(self) -> None:
+        findings = FilingExposureDiscoveryService().discover(_fetched(
+            "We purchase semiconductor components from Acme Components Inc. "
+            "We hedged 60% of our anticipated jet fuel purchases for 2027. "
+            "We hedged 40% of natural gas and copper purchases for 2027."
+        ))
+        named = next(item for item in findings.supply_chain
+                     if item.source.counterparty == "Acme Components Inc.")
+        self.assertEqual("NAMED_ONLY", named.source.counterparty_identity_status)
+        self.assertEqual("semiconductor components", named.source.product_or_input)
+        resources = {item.source.resource_name: item.source for item in findings.commodity_energy}
+        self.assertEqual(60.0, resources["Jet fuel"].hedged_share_pct)
+        self.assertEqual("2027", resources["Jet fuel"].disclosure_period)
+        self.assertIsNone(resources["Natural gas"].hedged_share_pct)
+        self.assertIsNone(resources["Copper"].hedged_share_pct)
+
+    def test_named_supplier_needs_explicit_direction_and_legal_name(self) -> None:
+        findings = FilingExposureDiscoveryService().discover(_fetched(
+            "Acme Components Inc. purchases chips from us. "
+            "We may purchase chips from various suppliers. "
+            "We hedged 120% of our anticipated jet fuel purchases."
+        ))
+        self.assertFalse(any(item.source.counterparty_identity_status == "NAMED_ONLY"
+                             for item in findings.supply_chain))
+        self.assertTrue(all(item.source.hedged_share_pct is None
+                            for item in findings.commodity_energy))
+
     def test_explicit_concentrations_and_inputs_are_extracted_conservatively(self) -> None:
         findings = FilingExposureDiscoveryService().discover(_fetched())
 

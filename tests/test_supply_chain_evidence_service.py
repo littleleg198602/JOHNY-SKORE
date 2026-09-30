@@ -14,6 +14,19 @@ def _at(days: int) -> datetime:
 
 
 class SupplyChainEvidenceServiceTests(unittest.TestCase):
+    def test_named_supplier_without_registry_identity_is_not_identified(self) -> None:
+        metadata = build_supply_chain_evidence_metadata(
+            ticker="TEST", counterparty="Acme Components Inc.",
+            relationship_type=RelationshipType.SUPPLIER,
+            published_at=_at(0), observed_at=_at(1),
+            source_url="https://www.sec.gov/example",
+            counterparty_identity_status="NAMED_ONLY",
+            product_or_input="semiconductor components",
+        )
+        self.assertEqual("NAMED_ONLY", metadata["counterparty_identity_status"])
+        self.assertEqual("NAME_ONLY", metadata["evidence_missingness"]["counterparty_identity"])
+        self.assertFalse(metadata["prediction_input"])
+
     def test_anonymous_customer_stays_anonymous_with_explicit_missingness(self) -> None:
         metadata = build_supply_chain_evidence_metadata(
             ticker="TEST",

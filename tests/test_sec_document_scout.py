@@ -39,7 +39,28 @@ class ExposureIndex(DocumentIndex):
                 b"<p>Our raw material costs for copper may increase.</p></html>")
 
 
+class DetailedExposureIndex(DocumentIndex):
+    def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
+        return (b"<html><p>We purchase semiconductor components from Acme Components Inc.</p>"
+                b"<p>We hedged 60% of our anticipated jet fuel purchases for 2027.</p></html>")
+
+
 class SecDocumentScoutTest(unittest.TestCase):
+    def test_named_supplier_and_hedge_details_survive_storage(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime.now(timezone.utc)
+            scout = SecScoutService(store, client=DetailedExposureIndex(now - timedelta(days=1)))
+            scout.schedule(["AAPL"], as_of=now)
+            self.assertEqual("OK", scout.run_batch(as_of=now, limit=2)["status"])
+            details = [json.loads(row["details_json"]) for row in store.findings_as_of("AAPL", as_of=now)]
+            named = next(row for row in details if row.get("resource_or_counterparty") == "Acme Components Inc.")
+            self.assertEqual("NAMED_ONLY", named["identity_status"])
+            self.assertEqual("semiconductor components", named["product_or_input"])
+            fuel = next(row for row in details if row.get("resource_or_counterparty") == "Jet fuel")
+            self.assertEqual(60.0, fuel["hedged_share_pct"])
+            self.assertEqual("2027", fuel["disclosure_period"])
+
     def test_annual_filing_opens_supplier_and_commodity_questions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")
