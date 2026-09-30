@@ -2220,6 +2220,19 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         st.dataframe(pd.DataFrame(scout_rows), hide_index=True)
     else:
         st.info("Zatím není uložené žádné nalezené podání pro tento výběr.")
+    energy_rows = scout_store.latest_findings(
+        ["COMMODITY:WTI", "COMMODITY:JET_FUEL_GULF"],
+        as_of=datetime.now(timezone.utc), limit=10, source="eia",
+    )
+    if energy_rows:
+        st.write("**EIA ceny energií – sdílené tržní proxy, ne nákupní ceny firem**")
+        st.dataframe(pd.DataFrame(energy_rows), hide_index=True)
+    macro_rows = scout_store.latest_findings(
+        ["MACRO:US"], as_of=datetime.now(timezone.utc), limit=10, source="fred",
+    )
+    if macro_rows:
+        st.write("**FRED makrodata – společný kontext, ne údaj jednotlivé firmy**")
+        st.dataframe(pd.DataFrame(macro_rows), hide_index=True)
     rss_candidates = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=30, source="rss",
     )
