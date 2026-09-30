@@ -12,6 +12,7 @@ from market_checker_app.collectors.sec_edgar_client import (
 from market_checker_app.collectors.short_report_client import FetchedShortReport
 from market_checker_app.config import ShortReportSourceConfig
 from market_checker_app.services.filing_exposure_discovery_service import FilingExposureDiscoveryService
+from market_checker_app.services.sec_counterparty_identity import exact_catalog_cik
 from market_checker_app.services.sec_document_extraction import extract_sec_item_excerpts, readable_sec_text
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.text import normalize_ticker
@@ -211,6 +212,11 @@ class SecScoutService:
         document = self.client.fetch_filing_document(filing, cik=str(details["cik"]))
         digest = hashlib.sha256(document).hexdigest()
         sections = extract_sec_item_excerpts(document, form=filing.form)
+        catalog = None
+        if filing.form.removesuffix("/A") in {"10-K", "10-Q", "20-F", "40-F"}:
+            catalog_reader = getattr(self.client, "ticker_map", None)
+            if callable(catalog_reader):
+                catalog = catalog_reader()
         finding_id, created = self.store.record_finding(
             source="sec", subject_id=subject_id,
             source_object_id=str(index["source_object_id"]), content_hash=digest,
@@ -248,6 +254,7 @@ class SecScoutService:
                 extra_findings = self._record_exposure_candidates(
                     subject_id=subject_id, filing=filing, document=document,
                     document_hash=digest, document_finding_id=finding_id, clock=clock,
+                    catalog=catalog,
                 )
             return int(created) + extra_findings
         return 0
@@ -255,6 +262,7 @@ class SecScoutService:
     def _record_exposure_candidates(
         self, *, subject_id: str, filing: SecFiling, document: bytes,
         document_hash: str, document_finding_id: str, clock: datetime,
+        catalog: dict[str, SecCompany] | None,
     ) -> int:
         fetched = FetchedShortReport(
             source=ShortReportSourceConfig(
@@ -278,6 +286,12 @@ class SecScoutService:
                 ).hexdigest()
                 resource = (candidate.source.counterparty if kind == "supply_chain"
                             else candidate.source.resource_name)
+                catalog_match = (
+                    exact_catalog_cik(resource, catalog)
+                    if kind == "supply_chain" and catalog is not None
+                    and candidate.source.counterparty_identity_status == "NAMED_ONLY"
+                    else None
+                )
                 candidate_id, new = self.store.record_finding(
                     source="sec", subject_id=subject_id,
                     source_object_id=f"{filing.accession_number}:{kind}:{position}",
@@ -292,6 +306,12 @@ class SecScoutService:
                              "reason": candidate.reason, "quote": quote,
                              "resource_or_counterparty": resource,
                              "identity_status": getattr(candidate.source, "counterparty_identity_status", None),
+                             "sec_catalog_match": (
+                                 {"cik": catalog_match[0], "tickers": list(catalog_match[1]),
+                                  "observed_at": clock.isoformat(),
+                                  "source_url": "https://www.sec.gov/files/company_tickers_exchange.json"}
+                                 if catalog_match else None
+                             ),
                              "confidence": candidate.source.confidence,
                              "dependency_pct": getattr(candidate.source, "dependency_pct", None),
                              "product_or_input": getattr(candidate.source, "product_or_input", None),

@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 from market_checker_app.collectors.sec_edgar_client import (
-    MAX_SEC_DOCUMENT_BYTES, SecEdgarClient, SecEdgarError, SecFiling,
+    MAX_SEC_DOCUMENT_BYTES, SecCompany, SecEdgarClient, SecEdgarError, SecFiling,
     _SecRedirectPolicy, _allowed_sec_url,
 )
 from market_checker_app.agents import (
@@ -40,6 +40,9 @@ class ExposureIndex(DocumentIndex):
 
 
 class DetailedExposureIndex(DocumentIndex):
+    def ticker_map(self):
+        return {"ACME": SecCompany("ACME", "0000001234", "ACME COMPONENTS, INC.", "NYSE")}
+
     def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
         return (b"<html><p>We purchase semiconductor components from Acme Components Inc.</p>"
                 b"<p>We hedged 60% of our anticipated jet fuel purchases for 2027.</p></html>")
@@ -57,6 +60,8 @@ class SecDocumentScoutTest(unittest.TestCase):
             named = next(row for row in details if row.get("resource_or_counterparty") == "Acme Components Inc.")
             self.assertEqual("NAMED_ONLY", named["identity_status"])
             self.assertEqual("semiconductor components", named["product_or_input"])
+            self.assertEqual("0000001234", named["sec_catalog_match"]["cik"])
+            self.assertEqual(now.isoformat(), named["sec_catalog_match"]["observed_at"])
             fuel = next(row for row in details if row.get("resource_or_counterparty") == "Jet fuel")
             self.assertEqual(60.0, fuel["hedged_share_pct"])
             self.assertEqual("2027", fuel["disclosure_period"])

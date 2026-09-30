@@ -896,6 +896,9 @@ class ScoutStore:
             if item["stage"] == "exposure_candidate":
                 item["topic"] = details.get("kind")
                 item["cited_excerpt"] = details.get("quote")
+                match = details.get("sec_catalog_match") or {}
+                item["counterparty_cik"] = match.get("cik")
+                item["identity_status"] = details.get("identity_status")
             item["item_locators"] = ", ".join(
                 str(section.get("locator", ""))
                 for section in details.get("item_excerpts", [])

@@ -37,6 +37,15 @@ větě zůstává podíl nevyplněn. Obojí zůstává mimo predikční skóre. 
 vyžaduje živé SEC dokumenty a širší evaluaci na různých firmách; ručně
 zkonstruované testovací věty nejsou důkazem plošného pokrytí.
 
+U pojmenovaného dodavatele SEC scout nově porovnává úplný právní název
+s oficiálním aktuálním SEC katalogem tickerů. Povolí jediný CIK (více tříd
+téže firmy je přípustných), zapíše citaci katalogu a čas pozorování. Podobný
+název, dvě různé CIK či nedostupný katalog nedávají automatické propojení.
+Tento aktuální katalog sám o sobě nedokazuje, že protistrana měla stejný CIK
+nebo vlastnickou strukturu po celou historickou dobu vztahu. Další úkol je
+datovaný identitní graf pro dcery a změny vlastníka, včetně doloženého vztahu
+ke zdrojovému filingovému období.
+
 ## Co přesně dnes dělá extrakce dodavatelů a komodit
 
 Starší `SupplyChainAgent` a `CommodityEnergyAgent` mají pravidla pro text
