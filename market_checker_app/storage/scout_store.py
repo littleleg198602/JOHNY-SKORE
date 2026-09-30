@@ -176,6 +176,15 @@ class ScoutStore:
                     truncated INTEGER NOT NULL,
                     PRIMARY KEY(subject_id, company_name)
                 );
+                CREATE TABLE IF NOT EXISTS scout_specialist_checks (
+                    source TEXT NOT NULL,
+                    subject_id TEXT NOT NULL,
+                    identity_key TEXT NOT NULL,
+                    checked_at TEXT NOT NULL,
+                    candidate_count INTEGER NOT NULL,
+                    truncated INTEGER NOT NULL,
+                    PRIMARY KEY(source, subject_id, identity_key)
+                );
                 CREATE TABLE IF NOT EXISTS scout_background_workers (
                     source TEXT PRIMARY KEY,
                     run_id TEXT NOT NULL,
@@ -216,6 +225,47 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(7, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(8, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
+
+    def specialist_due(self, source: str, *, as_of: datetime, limit: int,
+                       refresh_days: int = 30) -> list[dict[str, str]]:
+        if source not in {"fda", "finra"} or limit < 1 or refresh_days < 1:
+            raise ValueError("Unsupported specialist check configuration")
+        cutoff = _utc(as_of - timedelta(days=refresh_days))
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            rows = conn.execute("""
+                SELECT i.subject_id, i.company_name, i.cik
+                FROM scout_sec_identities AS i
+                LEFT JOIN scout_specialist_checks AS c
+                  ON c.source=? AND c.subject_id=i.subject_id
+                 AND c.identity_key=i.cik || ':' || i.company_name
+                WHERE i.status='ACTIVE' AND i.first_observed_at<=?
+                  AND (c.checked_at IS NULL OR c.checked_at<=?)
+                ORDER BY c.checked_at IS NOT NULL, c.checked_at, i.subject_id
+                LIMIT ?
+            """, (source, clock, cutoff, limit)).fetchall()
+        return [dict(row) for row in rows]
+
+    def record_specialist_check(self, source: str, *, subject_id: str,
+                                identity_key: str, as_of: datetime,
+                                candidate_count: int, truncated: bool) -> None:
+        if source not in {"fda", "finra"} or candidate_count < 0:
+            raise ValueError("Invalid specialist check")
+        with self._connect() as conn:
+            conn.execute("""
+                INSERT INTO scout_specialist_checks
+                    (source, subject_id, identity_key, checked_at, candidate_count, truncated)
+                VALUES(?, ?, ?, ?, ?, ?)
+                ON CONFLICT(source, subject_id, identity_key) DO UPDATE SET
+                    checked_at=excluded.checked_at,
+                    candidate_count=excluded.candidate_count,
+                    truncated=excluded.truncated
+            """, (source, subject_id, identity_key, _utc(as_of),
+                  candidate_count, int(truncated)))
 
     def begin_background_worker(self, source: str, *, as_of: datetime) -> str | None:
         """Prevent two UI clicks from launching duplicate backlog workers."""
@@ -638,7 +688,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia", "usaspending"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -659,6 +709,18 @@ class ScoutStore:
             parsed.hostname != "api.usaspending.gov" or parsed.port not in {None, 443}
         ):
             raise ValueError("USAspending finding must cite its official API HTTPS host")
+        if source == "fda" and (
+            parsed.hostname != "api.fda.gov" or parsed.port not in {None, 443}
+        ):
+            raise ValueError("FDA finding must cite its official API HTTPS host")
+        if source == "fda" and verification_status != "UNVERIFIED":
+            raise ValueError("FDA name candidates cannot verify issuer or product identity")
+        if source == "finra" and (
+            parsed.hostname != "api.finra.org" or parsed.port not in {None, 443}
+        ):
+            raise ValueError("FINRA finding must cite its official API HTTPS host")
+        if source == "finra" and verification_status != "UNVERIFIED":
+            raise ValueError("FINRA symbol candidates cannot verify instrument identity")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
         published = _utc(published_at)

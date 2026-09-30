@@ -1,5 +1,37 @@
 # Průběh implementace pátracích agentů
 
+## Form 4 klasifikace (30. 9. 2026)
+
+Governance agent rozlišuje přímý nederyvátový P/A či S/D obchod od
+kompenzačních A/M/F a ostatních Form 4 transakcí. U neobchodních položek
+nevyvozuje finanční hodnotu nákupu/prodeje z počtu a vykázané ceny.
+Ověření právní identity a časová historická akceptace dalších insider
+typů zůstávají otevřené.
+
+## FINRA short interest – přístupový konektor (30. 9. 2026)
+
+FINRA Consolidated Short Interest má samostatnou omezenou dávku do 25
+aktivních SEC tickerů. Po zadání veřejného FINRA API Client ID a Secret
+v prostředí systému (`JOHNY_SKORE_FINRA_CLIENT_ID`,
+`JOHNY_SKORE_FINRA_CLIENT_SECRET`) používá oficiální OAuth a filtrovaný
+dotaz podle přesného `symbolCode`. Datum vypořádání ukládá odděleně od
+prvního skutečného pozorování; shodu samotného symbolu označí `UNVERIFIED`,
+bez doloženého historického instrumentu nemění skóre. Bez přístupu je
+`WAIT_ACCESS`; 401/403 a 429 zastaví další dotazy. Je nutné ověřit živé
+schéma API, vazbu symbolu na konkrétní třídu akcie a čas publikace.
+
+## FDA recall specialista – první veřejná cesta (30. 9. 2026)
+
+Přidán omezený pravidelný dotaz na openFDA drug/device enforcement pro aktivní
+SEC názvy emitentů. Najde jen celé shodné `recalling_firm`, uloží citaci
+`recall_number` a produktový popis jako `UNVERIFIED` kandidáta, nikoli
+prokázanou vazbu výrobku k akcii. Neznámý čas skutečného zveřejnění se
+nepřepisuje datem reportu; pro historické použití je nejdříve okamžik našeho
+pozorování. Zpracuje nejvýše 25 emitentů v běhu, po 30 dnech je znovu zařadí;
+chyba zdroje neoznačí kontrolu za hotovou. Dalším krokem je doložený
+produktový/sponsor crosswalk, další FDA události a živý pozitivní i negativní
+test. Tato změna nemění predikční skóre.
+
 ## Hlavní analýza po 686 tickerech (30. 9. 2026)
 
 Snímek uživatele ukazuje 686/686 tickerů, 97 % a „Spouštím auditní agentní

@@ -413,11 +413,22 @@ class GovernanceEventAgent(BaseAgent):
                         "M": "OPTION_EXERCISE",
                         "F": "TAX_WITHHOLDING",
                     }.get(code.upper(), code.upper())
+                    derivative = bool(getattr(transaction, "derivative", False))
+                    open_market_trade = (
+                        not derivative
+                        and (code.upper(), acquired_disposed) in {("P", "A"), ("S", "D")}
+                    )
+                    event_type = (
+                        GovernanceEventType.INSIDER_TRADE if open_market_trade
+                        else GovernanceEventType.STOCK_COMPENSATION
+                        if code.upper() in {"A", "M", "F"}
+                        else GovernanceEventType.INSIDER_OTHER_TRANSACTION
+                    )
                     shares = getattr(transaction, "shares", None)
                     price = getattr(transaction, "price_per_share", None)
                     event_value = (
                         float(shares) * float(price)
-                        if shares is not None and price is not None
+                        if open_market_trade and shares is not None and price is not None
                         else None
                     )
                     actor = str(getattr(transaction, "owner_name", "") or "") or None
@@ -449,10 +460,11 @@ class GovernanceEventAgent(BaseAgent):
                     event = self._event(
                         document=document,
                         legal_entity_id=entity.legal_entity_id,
-                        event_type=GovernanceEventType.INSIDER_TRADE,
+                        event_type=event_type,
                         status=GovernanceEventStatus.VERIFIED,
                         title=(
-                            f"Form 4 insider {transaction_type.lower()} – "
+                            f"Form 4 {'obchod' if open_market_trade else 'jiná transakce'} "
+                            f"{transaction_type.lower()} – "
                             f"{actor or 'unknown owner'}"
                         ),
                         confidence=1.0,
@@ -472,7 +484,8 @@ class GovernanceEventAgent(BaseAgent):
                             "accession_number": accession,
                             "owner_cik": getattr(transaction, "owner_cik", None),
                             "acquired_disposed": acquired_disposed,
-                            "derivative": bool(getattr(transaction, "derivative", False)),
+                            "derivative": derivative,
+                            "open_market_trade": open_market_trade,
                             "transaction_date": str(
                                 transaction_date or ""
                             ),

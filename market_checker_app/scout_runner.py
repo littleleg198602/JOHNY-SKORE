@@ -10,6 +10,12 @@ from market_checker_app.config import DEFAULT_DB_PATH
 from market_checker_app.services.sec_scout_service import SecScoutService
 from market_checker_app.services.fred_scout_service import FredApiClient, FredScoutService
 from market_checker_app.services.eia_scout_service import EiaApiClient, EiaScoutService
+from market_checker_app.services.fda_recall_scout_service import (
+    FdaRecallScoutService, OpenFdaRecallClient,
+)
+from market_checker_app.services.finra_short_interest_scout_service import (
+    FinraShortInterestClient, FinraShortInterestScoutService,
+)
 from market_checker_app.services.usaspending_scout_service import (
     UsaSpendingApiClient, UsaSpendingScoutService, load_verified_identities,
     DEFAULT_IDENTITIES,
@@ -85,9 +91,28 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         recipient_discovery = {"status": "ERROR", "error": type(exc).__name__}
+    try:
+        fda_recalls = FdaRecallScoutService(
+            store, client=OpenFdaRecallClient(os.getenv("JOHNY_SKORE_FDA_API_KEY", "")),
+        ).run(as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        fda_recalls = {"status": "ERROR", "error": type(exc).__name__}
+    finra_id = os.getenv("JOHNY_SKORE_FINRA_CLIENT_ID", "")
+    finra_secret = os.getenv("JOHNY_SKORE_FINRA_CLIENT_SECRET", "")
+    if finra_id and finra_secret:
+        try:
+            finra_short_interest = FinraShortInterestScoutService(
+                store, client=FinraShortInterestClient(finra_id, finra_secret),
+            ).run(as_of=now, universe={record["ticker"] for record in records})
+        except Exception as exc:
+            finra_short_interest = {"status": "ERROR", "error": type(exc).__name__}
+    else:
+        finra_short_interest = {"status": "WAIT_ACCESS", "new_findings": 0}
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
+            "fda_recall_candidates": fda_recalls,
+            "finra_short_interest": finra_short_interest,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

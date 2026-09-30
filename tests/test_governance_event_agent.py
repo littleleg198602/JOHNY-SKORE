@@ -71,9 +71,13 @@ class _FilingFixtureAgent(BaseAgent):
         *,
         future: bool = False,
         future_transaction: bool = False,
+        transaction_code: str = "P",
+        acquired_disposed: str = "A",
     ) -> None:
         self.future = future
         self.future_transaction = future_transaction
+        self.transaction_code = transaction_code
+        self.acquired_disposed = acquired_disposed
 
     def run(self, context: AgentContext) -> AgentResult:
         published_at = context.started_at + (
@@ -132,8 +136,8 @@ class _FilingFixtureAgent(BaseAgent):
                 if self.future_transaction
                 else published_at - timedelta(days=1)
             ),
-            transaction_code="P",
-            acquired_disposed="A",
+            transaction_code=self.transaction_code,
+            acquired_disposed=self.acquired_disposed,
             shares=1000.0,
             price_per_share=150.0,
             shares_owned_after=5000.0,
@@ -155,6 +159,8 @@ def _run_governance(
     future: bool = False,
     future_transaction: bool = False,
     quality_gate: bool = True,
+    transaction_code: str = "P",
+    acquired_disposed: str = "A",
 ):
     orchestrator = OrchestratorAgent(shadow_mode=True)
     orchestrator.register(EntityRegistryAgent({"AAPL": _identity()}))
@@ -162,6 +168,8 @@ def _run_governance(
         _FilingFixtureAgent(
             future=future,
             future_transaction=future_transaction,
+            transaction_code=transaction_code,
+            acquired_disposed=acquired_disposed,
         )
     )
     orchestrator.register(
@@ -180,6 +188,26 @@ def _run_governance(
 
 
 class GovernanceEventAgentTests(unittest.TestCase):
+    def test_form4_compensation_and_tax_are_not_open_market_trades(self) -> None:
+        for code, direction in (("A", "A"), ("M", "A"), ("F", "D")):
+            with self.subTest(code=code):
+                report = _run_governance(transaction_code=code,
+                                         acquired_disposed=direction)
+                insider = [event for event in report.governance_events
+                           if event.metadata.get("accession_number") == "sec-form4"]
+                self.assertEqual(1, len(insider))
+                self.assertEqual(GovernanceEventType.STOCK_COMPENSATION,
+                                 insider[0].event_type)
+                self.assertIsNone(insider[0].event_value)
+                self.assertFalse(insider[0].metadata["open_market_trade"])
+
+    def test_inconsistent_purchase_direction_is_not_a_trade(self) -> None:
+        report = _run_governance(transaction_code="P", acquired_disposed="D")
+        insider = [event for event in report.governance_events
+                   if event.metadata.get("accession_number") == "sec-form4"]
+        self.assertEqual(GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+                         insider[0].event_type)
+
     def test_all_required_event_families_are_normalized_without_a_trade_signal(self) -> None:
         report = _run_governance()
 

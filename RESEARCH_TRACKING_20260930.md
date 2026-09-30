@@ -8,14 +8,14 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 | Výzkumné body | Stav v projektu | Chybějící provozní cesta |
 |---|---|---|
 | 01–04 identita, důkazy, SEC, Windows | ČÁSTEČNĚ | 651 identit mimo pilot, aliasy do cen/scoutu, živý 687 běh a Windows test |
-| 05 insider | ZÁKLAD | Form 4 P/S/F/M, 13D/G a 13F interpretace a historická akceptace |
+| 05 insider | ČÁSTEČNĚ: typy Form 4 | P/S non-derivative s odpovídajícím A/D jsou oddělené od A/M/F kompenzací a ostatních transakcí; 13D/G, 13F a historická akceptace zbývají. |
 | 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Doložená jedna vazba LMT → Sikorsky (`UTJWTSLMFNG4`); automatické dohledávání dalších UEI ze SEC názvu ukládá pouze kandidáty. Živý API běh a historie modifikací/obligations zbývají. |
 | 07 vládní rizika | ZÁKLAD analytického agenta | OFAC/DOJ a sektorové EPA/NHTSA s identitou před přiřazením |
 | 08 veřejná extrakce | ČÁSTEČNĚ | SEC scout nově ukládá omezené citované stopy dodavatelů a komodit z 10-K/Q/20-F/40-F; chybí přílohy, skutečná identita protistran a hedging |
 | 09 IR a zprávy | ČÁSTEČNĚ | Ověřené IR feedy a propojení RSS stopy s primárním oznámením |
 | 10 ceny | ČÁSTEČNĚ | Živá akceptace po opravě 28. 9., corporate actions a symboly BRKB/PSTG/LEG |
-| 11 short interest | OTEVŘENO | FINRA consolidated SI, datum zveřejnění a settlement |
-| 12 FDA | OTEVŘENO | Produktový/sponsor crosswalk, CRL/recall, sektorová fronta |
+| 11 short interest | ČÁSTEČNĚ: FINRA kandidáti | Přesný symbol, settlement a revize s `UNVERIFIED` identitou; veřejné API vyžaduje FINRA účet/credential, live test, datovaný instrument crosswalk a skutečný čas zveřejnění zbývají. |
+| 12 FDA | ČÁSTEČNĚ: recall kandidáti | Denní dávka do 25 aktivních SEC emitentů hledá drug/device enforcement záznamy a ukládá jen přesnou shodu celého názvu jako `UNVERIFIED`; produktový/sponsor crosswalk, CRL, živý test a plná sektorová fronta zbývají. |
 | 13 vstupní náklady | ČÁSTEČNĚ | FRED makro a EIA WTI/jet-fuel spot mají oddělené volitelné konektory; čekají na klíče a live test. USDA, propojení firemních expozic s cenami a historické vintage chybí. |
 | 14 entity enrichment | ČÁSTEČNĚ | GLEIF/OpenFIGI a dcery/produkty na doložených ID |
 | 15 SAM | OTEVŘENO | Schválený klíč a reálná kvóta; doplnění USAspending |
