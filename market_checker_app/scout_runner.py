@@ -10,6 +10,10 @@ from market_checker_app.config import DEFAULT_DB_PATH
 from market_checker_app.services.sec_scout_service import SecScoutService
 from market_checker_app.services.fred_scout_service import FredApiClient, FredScoutService
 from market_checker_app.services.eia_scout_service import EiaApiClient, EiaScoutService
+from market_checker_app.services.usaspending_scout_service import (
+    UsaSpendingApiClient, UsaSpendingScoutService, load_verified_identities,
+    DEFAULT_IDENTITIES,
+)
 from market_checker_app.utils.ticker_universe import (
     CANONICAL_CSV_SHA256,
     DEFAULT_TICKER_UNIVERSE_PATH,
@@ -64,8 +68,16 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             energy = {"status": "ERROR", "error": type(exc).__name__}
     else:
         energy = {"status": "WAIT_ACCESS", "new_findings": 0}
+    try:
+        identity_path = Path(os.getenv("JOHNY_SKORE_USASPENDING_UEI_FILE") or DEFAULT_IDENTITIES)
+        contracts = UsaSpendingScoutService(
+            store, client=UsaSpendingApiClient(),
+            identities=load_verified_identities(identity_path),
+        ).run(as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        contracts = {"status": "ERROR", "error": type(exc).__name__}
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
-            "macro_fred": macro, "energy_eia": energy,
+            "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 
