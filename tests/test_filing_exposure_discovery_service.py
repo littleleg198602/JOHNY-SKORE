@@ -128,6 +128,18 @@ def _signals() -> pd.DataFrame:
 
 
 class FilingExposureDiscoveryTests(unittest.TestCase):
+    def test_explicit_named_supplier_list_from_tesla_10k(self) -> None:
+        excerpt = ("We are dependent on the continued supply of lithium-ion battery cells "
+                   "for our vehicles and energy storage products. Currently, we rely on "
+                   "suppliers such as Panasonic and Contemporary Amperex Technology Co. "
+                   "Limited (CATL) for these cells.")
+        findings = FilingExposureDiscoveryService().discover(_fetched(excerpt))
+        named = {item.source.counterparty: item for item in findings.supply_chain
+                 if item.source.counterparty_identity_status == "NAMED_ONLY"}
+        self.assertEqual({"Panasonic", "Contemporary Amperex Technology Co. Limited"}, set(named))
+        self.assertTrue(all(item.source.product_or_input is None for item in named.values()))
+        self.assertTrue(all("for these cells" in item.evidence_quote for item in named.values()))
+
     def test_named_supplier_is_a_name_only_candidate_and_hedge_needs_one_resource(self) -> None:
         findings = FilingExposureDiscoveryService().discover(_fetched(
             "We purchase semiconductor components from Acme Components Inc. "
