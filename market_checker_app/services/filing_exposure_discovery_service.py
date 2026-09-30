@@ -65,6 +65,11 @@ _NAMED_SUPPLIER = re.compile(
     r"from\s+(?P<name>(?:[A-Z][A-Za-z0-9&-]*\s+){1,5}"
     r"(?:Inc\.|Corporation|Corp\.|LLC|Ltd\.))",
 )
+_NAMED_SUPPLIER_LIST = re.compile(
+    r"\bwe\s+(?:currently\s+)?rely on suppliers such as\s+"
+    r"(?P<names>.{3,190}?)\s+for these cells\b",
+    flags=re.IGNORECASE,
+)
 _HEDGE_SHARE = re.compile(
     r"\b(?:hedg(?:ed|e|ing)|fixed-price contracts? (?:cover|covered))\s+"
     r"(?P<pct>\d{1,3}(?:\.\d+)?)\s*%\s+of\s+"
@@ -174,8 +179,9 @@ def _sentences(text: str) -> list[str]:
     normalized = re.sub(r"\s+", " ", str(text or "")).strip()
     if not normalized:
         return []
+    normalized = re.sub(r"\bCo\.(?=\s+(?:Limited|Ltd\.))", "Co\u2423", normalized)
     return [
-        sentence.strip()
+        sentence.replace("\u2423", ".").strip()
         for sentence in re.split(r"(?<=[.!?;])\s+", normalized)
         if sentence.strip()
     ]
@@ -259,6 +265,21 @@ class FilingExposureDiscoveryService:
                     relationship_context="EXPLICIT_NAMED_SOURCE",
                     evidence_quote=sentence,
                 )
+            supplier_list = _NAMED_SUPPLIER_LIST.search(sentence)
+            if supplier_list:
+                for item in re.split(r"\s+and\s+|,\s+(?=[A-Z])", supplier_list.group("names")):
+                    counterparty = re.sub(r"\s+\([A-Z0-9-]{2,12}\)$", "", item.strip())
+                    if not re.fullmatch(r"[A-Z][A-Za-z0-9&., -]{2,90}", counterparty):
+                        continue
+                    add_supply(
+                        counterparty=counterparty,
+                        relationship_type=RelationshipType.SUPPLIER,
+                        support_term=supplier_list.group(0),
+                        reason="sec_explicit_named_supplier_list",
+                        identity_status="NAMED_ONLY",
+                        relationship_context="EXPLICIT_NAMED_SOURCE",
+                        evidence_quote=sentence,
+                    )
         for sentence in sentences:
             named = _NAMED_SUPPLIER.search(sentence)
             customer = _CUSTOMER_CONCENTRATION.search(sentence)

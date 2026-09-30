@@ -1,5 +1,17 @@
 # Průběh implementace pátracích agentů
 
+## Citovaný seznam jmenovaných dodavatelů (30. 9. 2026)
+
+SEC extraktor nově zachytí i výslovnou formulaci „we rely on suppliers such as
+… for these cells“ a rozdělí uvedená jména bez domyšlené právní identity či
+podílu nákupů. Pozitivní kontrola používá skutečnou větu z 2025 Tesla 10-K:
+Panasonic a Contemporary Amperex Technology Co. Limited (CATL) jsou jmenováni
+jako dodavatelé, viz
+`https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm`.
+Obě jména zůstávají `NAMED_ONLY`; „cells“ neoznačujeme bez kontextového
+prokázání automaticky jako konkrétní komoditní nákupní koš. Navazující
+identitní graf a zdravotní stav protistran stále vyžadují další důkazy.
+
 ## SEC 13F – čtvrtletní vzorek institucionálních držeb (30. 9. 2026)
 
 Týdenní runner s platným SEC User-Agent zjišťuje nejnovější oficiální ZIP
