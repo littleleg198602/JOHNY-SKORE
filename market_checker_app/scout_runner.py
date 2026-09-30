@@ -24,6 +24,10 @@ from market_checker_app.services.sec13f_scout_service import (
     Sec13fHttpClient, Sec13fScoutService, load_verified_securities,
     DEFAULT_SECURITIES as SEC13F_SECURITIES,
 )
+from market_checker_app.services.nhtsa_recall_scout_service import (
+    NhtsaRecallClient, NhtsaRecallScoutService, load_verified_models,
+    DEFAULT_MODELS as NHTSA_MODELS,
+)
 from market_checker_app.services.usaspending_scout_service import (
     UsaSpendingApiClient, UsaSpendingScoutService, load_verified_identities,
     DEFAULT_IDENTITIES,
@@ -135,6 +139,13 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             sec13f_holdings = {"status": "ERROR", "error": type(exc).__name__}
     else:
         sec13f_holdings = {"status": "WAIT_ACCESS", "new_findings": 0}
+    try:
+        model_path = Path(os.getenv("JOHNY_SKORE_NHTSA_MODELS_FILE") or NHTSA_MODELS)
+        nhtsa_recalls = NhtsaRecallScoutService(
+            store, client=NhtsaRecallClient(), models=load_verified_models(model_path),
+        ).run(as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        nhtsa_recalls = {"status": "ERROR", "error": type(exc).__name__}
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
@@ -142,6 +153,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             "finra_short_interest": finra_short_interest,
             "fdic_banks": fdic_banks,
             "sec13f_holdings": sec13f_holdings,
+            "nhtsa_model_recalls": nhtsa_recalls,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

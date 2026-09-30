@@ -1,0 +1,11 @@
+[
+  {
+    "ticker": "TSLA",
+    "manufacturer": "Tesla, Inc.",
+    "make": "TESLA",
+    "model": "MODEL 3",
+    "model_year": 2026,
+    "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm",
+    "known_at": "2026-09-30T20:27:48+00:00"
+  }
+]

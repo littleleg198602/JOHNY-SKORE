@@ -1,5 +1,16 @@
 # Průběh implementace pátracích agentů
 
+## NHTSA modelové svolávací akce (30. 9. 2026)
+
+Nový veřejný NHTSA API scout se po 30 dnech vrací k datovaně doloženému
+modelu a ročníku. Pilot je TSLA → Tesla Model 3, modelový rok 2026, s citací
+Tesla 2025 10-K a přesným porovnáním výrobce, značky, modelu a ročníku v
+každém záznamu. Ukládá číslo kampaně, komponentu a textové shrnutí, odděluje
+datum přijetí hlášení od prvního pozorování a nevyvozuje dopad na tržby ani
+skóre. Měsíční dávka nejvýše deseti modelů zastaví další dotazy při 429/403.
+Chybějící další produkty a ročníky znamenají neúplné pokrytí; skutečný živý
+pozitivní/negativní běh API teprve musí projít.
+
 ## Citovaný seznam jmenovaných dodavatelů (30. 9. 2026)
 
 SEC extraktor nově zachytí i výslovnou formulaci „we rely on suppliers such as
