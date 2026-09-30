@@ -25,6 +25,7 @@ from market_checker_app.collectors.sec_edgar_client import (
     SecCompanyFact,
     SecEdgarClient,
     SecFiling,
+    SecAccessBlockedError,
 )
 from market_checker_app.config import FundamentalIngestionConfig
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -45,6 +46,20 @@ class _FakeClock:
     def sleep(self, seconds: float) -> None:
         self.sleeps.append(seconds)
         self.value += seconds
+
+
+class _MissingBundleClient:
+    def fetch_company_bundle(self, ticker: str, **kwargs):
+        return None
+
+
+class _BlockedBundleClient:
+    def __init__(self):
+        self.calls: list[str] = []
+
+    def fetch_company_bundle(self, ticker: str, **kwargs):
+        self.calls.append(ticker)
+        raise SecAccessBlockedError("SEC returned HTTP 403")
 
 
 def _ticker_map_payload() -> dict[str, object]:
@@ -227,6 +242,39 @@ def _run_acceptance(client: _FakeBundleClient):
 
 
 class SecEdgarClientTests(unittest.TestCase):
+    def test_sec_access_block_stops_remaining_requests(self) -> None:
+        client = _BlockedBundleClient()
+        orchestrator = OrchestratorAgent()
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(SecFundamentalsAgent(
+            FundamentalIngestionConfig(enabled=True, user_agent="Tests tests@example.com"),
+            client=client,
+        ))
+
+        report = orchestrator.run(watchlist=["AAPL", "MSFT", "GOOG"])
+        sec = next(execution for execution in report.executions if execution.agent_name == "f2_sec")
+        self.assertEqual(["AAPL"], client.calls)
+        self.assertEqual(AgentStatus.UNAVAILABLE, sec.status)
+        self.assertTrue(any("zbývajících 2 tickerů" in item for item in sec.result.warnings))
+
+    def test_agent_progress_identifies_each_sec_ticker(self) -> None:
+        orchestrator = OrchestratorAgent()
+        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(SecFundamentalsAgent(
+            FundamentalIngestionConfig(enabled=True, user_agent="Tests tests@example.com"),
+            client=_MissingBundleClient(),
+        ))
+        updates: list[tuple[str, float, int, str]] = []
+
+        orchestrator.run(
+            watchlist=["AAPL", "MSFT"],
+            progress_callback=lambda *event: updates.append(event),
+        )
+
+        self.assertIn(("f2_sec", 1.0, 2, "AAPL • 0/2"), updates)
+        self.assertIn(("f2_sec", 1.5, 2, "MSFT • 1/2"), updates)
+        self.assertEqual(("f2_sec", 2, 2, ""), updates[-1])
+
     def test_default_forms_cover_us_and_foreign_private_issuers(self) -> None:
         forms = FundamentalIngestionConfig().forms
 

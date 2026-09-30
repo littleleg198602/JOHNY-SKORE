@@ -110,6 +110,7 @@ class PipelineService:
         signals: pd.DataFrame,
         store: SQLiteStore | None = None,
         news_items: list[NewsItem] | None = None,
+        progress_callback: Callable[[str, float, int, str], None] | None = None,
     ) -> OrchestrationReport:
         discovered = SourceDiscoveryService().discover(
             list(news_items or []),
@@ -392,6 +393,7 @@ class PipelineService:
         report = orchestrator.run(
             watchlist=watchlist,
             state=agent_state,
+            progress_callback=progress_callback,
         )
         report.metadata.update(
             {
@@ -1358,11 +1360,21 @@ class PipelineService:
                 0.97,
             )
             try:
+                def _on_agent_progress(name: str, completed: float, count: int, ticker: str) -> None:
+                    fraction = completed / max(1, count)
+                    detail = f" — ticker {ticker}" if ticker else ""
+                    progress.set_global_step(
+                        "agent_pipeline",
+                        f"Auditní agent {name}{detail} ({int(completed)}/{count} agentů)",
+                        0.97 + 0.025 * fraction,
+                    )
+
                 agent_report = self._run_agents(
                     watchlist,
                     signals_df,
                     store,
                     news_items=articles,
+                    progress_callback=_on_agent_progress,
                 )
             except Exception as exc:
                 warnings.append(

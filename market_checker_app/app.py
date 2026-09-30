@@ -2356,7 +2356,7 @@ if use_rss:
         "Nefunkční Yahoo Finance RSS není ve výchozím seznamu."
     )
 
-if st.session_state.analysis_progress:
+if st.session_state.analysis_progress and not run_analysis:
     _render_progress_ui(st.session_state.analysis_progress, 0.0)
 
 if run_analysis and not watchlist:

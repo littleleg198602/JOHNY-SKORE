@@ -88,6 +88,8 @@ class ProgressService:
     def set_global_step(self, step: str, message: str, progress: float) -> None:
         self._state.current_step = step
         self._state.current_message = message
+        self._state.current_symbol = ""
+        self._state.current_position = 0
         self._state.ticker_progress = 0.0
         self._state.overall_progress = max(self._state.overall_progress, min(1.0, progress))
         self._emit()

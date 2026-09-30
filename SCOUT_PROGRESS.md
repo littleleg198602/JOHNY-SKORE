@@ -1,5 +1,18 @@
 # Průběh implementace pátracích agentů
 
+## Hlavní analýza po 686 tickerech (30. 9. 2026)
+
+Snímek uživatele ukazuje 686/686 tickerů, 97 % a „Spouštím auditní agentní
+pipeline“. Řádek RSS 1/691 je starý ukazatel z předchozího vykreslení stránky;
+RSS běží dříve než tickery. Auditní agenti dosud neposílali dílčí průběh,
+takže i dlouhé sekvenční načítání SEC výkazů pro celý watchlist vypadalo jako
+zastavené. Nový průběh ukazuje jméno agenta a u SEC počet procházených tickerů,
+odstraňuje starý ukazatel při novém spuštění a ruší popisek posledního tickeru
+po vstupu do další fáze. SEC HTTP 403 a dlouhý `Retry-After` zastaví další
+SEC požadavky v tomto běhu, zaznamenají nedostupná data a pustí navazující
+agenty dál. Tato změna sama nezrychluje legitimní jednotlivá SEC volání ani
+nedokládá dokončení konkrétního uživatelského běhu na Windows.
+
 ## Automatické pokračování SEC fronty z UI (30. 9. 2026)
 
 Na uživatelském snímku bylo po ručním kliknutí zpracováno pouze 25 úloh,

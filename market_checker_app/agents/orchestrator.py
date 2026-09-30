@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 from uuid import uuid4
 
 from market_checker_app.agents.base import BaseAgent
@@ -68,6 +69,7 @@ class OrchestratorAgent:
         state: dict[str, object] | None = None,
         pipeline_run_id: int | None = None,
         orchestration_id: str | None = None,
+        progress_callback: Callable[[str, float, int, str], None] | None = None,
     ) -> OrchestrationReport:
         started_at = utc_now()
         context = AgentContext(
@@ -81,7 +83,19 @@ class OrchestratorAgent:
         executions: list[AgentExecution] = []
         status_by_agent: dict[str, AgentStatus] = {}
 
-        for agent in self._ordered_agents():
+        ordered_agents = self._ordered_agents()
+        for position, agent in enumerate(ordered_agents, start=1):
+            if progress_callback is not None:
+                progress_callback(agent.name, position - 1, len(ordered_agents), "")
+                if agent.name == "f2_sec":
+                    context.state["sec_progress_callback"] = (
+                        lambda completed, total, ticker, name=agent.name, index=position: progress_callback(
+                            name,
+                            index - 1 + completed / max(1, total),
+                            len(ordered_agents),
+                            f"{ticker} • {completed}/{total}" if ticker else f"{completed}/{total}",
+                        )
+                    )
             agent_started = utc_now()
             timer_started = time.perf_counter()
             blocked_by = [
@@ -129,6 +143,9 @@ class OrchestratorAgent:
             )
             executions.append(execution)
             status_by_agent[agent.name] = result.status
+            context.state.pop("sec_progress_callback", None)
+            if progress_callback is not None:
+                progress_callback(agent.name, position, len(ordered_agents), "")
 
         required_failed = any(
             execution.required
