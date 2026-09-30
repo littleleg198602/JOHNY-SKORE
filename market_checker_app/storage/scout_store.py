@@ -502,7 +502,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -519,6 +519,10 @@ class ScoutStore:
             parsed.hostname != "www.eia.gov" or parsed.port not in {None, 443}
         ):
             raise ValueError("EIA finding must cite an official EIA HTTPS host")
+        if source == "usaspending" and (
+            parsed.hostname != "api.usaspending.gov" or parsed.port not in {None, 443}
+        ):
+            raise ValueError("USAspending finding must cite its official API HTTPS host")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
         published = _utc(published_at)
@@ -903,6 +907,11 @@ class ScoutStore:
                 match = details.get("sec_catalog_match") or {}
                 item["counterparty_cik"] = match.get("cik")
                 item["identity_status"] = details.get("identity_status")
+            if item["stage"] == "prime_contract":
+                item["recipient_uei"] = details.get("uei")
+                item["award_amount_usd"] = details.get("reported_award_amount_usd")
+                item["total_outlays_usd"] = details.get("reported_total_outlays_usd")
+                item["relationship_evidence_url"] = details.get("relationship_evidence_url")
             item["item_locators"] = ", ".join(
                 str(section.get("locator", ""))
                 for section in details.get("item_excerpts", [])

@@ -9,7 +9,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 |---|---|---|
 | 01–04 identita, důkazy, SEC, Windows | ČÁSTEČNĚ | 651 identit mimo pilot, aliasy do cen/scoutu, živý 687 běh a Windows test |
 | 05 insider | ZÁKLAD | Form 4 P/S/F/M, 13D/G a 13F interpretace a historická akceptace |
-| 06 kontrakty | ZÁKLAD analytického agenta | USAspending podle doloženého UEI a datovaných dcer, modifikace/obligations |
+| 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Připravené hledání pro doložené ticker–UEI vazby; registr je zatím prázdný, takže žádné kontrakty z něj ještě nebyly živě ověřeny. Historie modifikací/obligations a dcery zbývají. |
 | 07 vládní rizika | ZÁKLAD analytického agenta | OFAC/DOJ a sektorové EPA/NHTSA s identitou před přiřazením |
 | 08 veřejná extrakce | ČÁSTEČNĚ | SEC scout nově ukládá omezené citované stopy dodavatelů a komodit z 10-K/Q/20-F/40-F; chybí přílohy, skutečná identita protistran a hedging |
 | 09 IR a zprávy | ČÁSTEČNĚ | Ověřené IR feedy a propojení RSS stopy s primárním oznámením |
@@ -69,3 +69,26 @@ hlásí `WAIT_ACCESS`. Období řady není čas vydání hodnoty, proto historic
 dostupnost začíná až naším prvním pozorováním. Revize hodnot se verzují. UI
 ukazuje tyto ceny jako sdílené tržní proxy, ne firemní nákupní ceny. Živá
 kontrola EIA zatím neproběhla.
+
+## USAspending: přesný identifikátor před přiřazením firmě
+
+`market_checker_app/data/verified_usaspending_uei.json` je verzovaný registr
+doložených ticker–UEI vztahů, ve výchozím stavu `[]`. Konkrétní záznam musí
+mít `ticker`, `uei`, `recipient_name`, `uei_evidence_url`,
+`relationship_evidence_url`, `effective_from`, případně `effective_to`, a
+`known_at` s časovou zónou. Lze použít vlastní cestu přes
+`JOHNY_SKORE_USASPENDING_UEI_FILE`. První citace dokládá UEI příjemce,
+druhá datovaný vztah právnické osoby k emitentovi. Shoda názvu či tickeru
+sama nestačí; různé pobočky Lockheed Martin mají různá UEI. Pro současný
+prázdný registr runner výslovně vrací `WAIT_IDENTITY`, ne nulové zakázky.
+
+Konektor hledá pouze prime contracts A–D za posledních 730 dnů, nejvýše tři
+stránky na UEI a běh. Každý výsledek z textového vyhledávání přijme až po
+přesné shodě `Recipient UEI`; začátek zakázky musí ležet v doložené době
+vztahu. Ukládá nahlášenou `Award Amount` a `Total Outlays` odděleně,
+nikoli tržby firmy ani vyvozený strop kontraktu. Revize řádku dostanou nový
+otisk a čas prvního pozorování, úplná historie modifikací však zatím není
+k dispozici. Při limitu stránek hlásí `PARTIAL`. Chybějící zakázky mimo
+časové okno a limit nejsou negativním důkazem. Před produkčním přiřazením
+je potřeba naplnit registr ověřenými dokumenty a provést živý pozitivní
+i negativní test.
