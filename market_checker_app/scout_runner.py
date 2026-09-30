@@ -14,6 +14,9 @@ from market_checker_app.services.usaspending_scout_service import (
     UsaSpendingApiClient, UsaSpendingScoutService, load_verified_identities,
     DEFAULT_IDENTITIES,
 )
+from market_checker_app.services.usaspending_recipient_discovery import (
+    UsaSpendingRecipientClient, UsaSpendingRecipientDiscovery,
+)
 from market_checker_app.utils.ticker_universe import (
     CANONICAL_CSV_SHA256,
     DEFAULT_TICKER_UNIVERSE_PATH,
@@ -76,8 +79,15 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         contracts = {"status": "ERROR", "error": type(exc).__name__}
+    try:
+        recipient_discovery = UsaSpendingRecipientDiscovery(
+            store, client=UsaSpendingRecipientClient(),
+        ).run(as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        recipient_discovery = {"status": "ERROR", "error": type(exc).__name__}
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
+            "recipient_discovery_usaspending": recipient_discovery,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

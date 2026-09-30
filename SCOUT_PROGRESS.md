@@ -36,6 +36,8 @@ EIA spot ceny WTI a Gulf Coast jet fuel mají volitelný společný sběr se dv�
 
 USAspending má nový konektor na prime zakázky A–D: za posledních 730 dnů hledá pouze pro datovaně doložené ticker–UEI vazby v `market_checker_app/data/verified_usaspending_uei.json`, ověřuje přesnou shodu UEI v každém výsledku a ukládá částku zakázky a výdaje odděleně s verzí pozorování. Výchozí registr je `[]`; runner proto nyní vrací `WAIT_IDENTITY` a živé kontrakty zatím nevykazuje. Maximum tří stránek na UEI signalizuje `PARTIAL`; období před oknem a úplné modifikace nejsou pokryté. Další úkol je doložit vztahy příjemců a dcer primárními citacemi, doplnit registr a ověřit živý pozitivní i negativní případ. Název firmy nebo ticker nejsou důkazem vazby.
 
+PR #141 prošlo čtyřmi CI úlohami a bylo sloučeno. Navazující dohledávání příjemců automaticky zkouší přesný název aktivně pozorovaného SEC emitenta v oficiálním USAspending recipient endpointu. Ukládá až 100 jmen na běh s 30denním opakováním a max. dvě stránky; nalezená UEI jsou `UNVERIFIED` kandidáti `NAME_ONLY`, viditelní v samostatné sekci. Chybějící datovaný právní vztah je explicitní a kandidáti se automaticky nepřesunují do potvrzeného registru ani do skóre. Živé API ověření čeká.
+
 | Body | Aktuální stav | Důkaz a zbývající práce |
 |---|---|---|
 | SC-00 | MERGED, TESTED | Nullable `pd.NA` rank ukládá do SQLite NULL, skutečná transakce v testu. Čeká živý běh. |

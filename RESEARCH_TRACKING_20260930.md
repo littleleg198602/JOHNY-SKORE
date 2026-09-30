@@ -9,7 +9,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 |---|---|---|
 | 01–04 identita, důkazy, SEC, Windows | ČÁSTEČNĚ | 651 identit mimo pilot, aliasy do cen/scoutu, živý 687 běh a Windows test |
 | 05 insider | ZÁKLAD | Form 4 P/S/F/M, 13D/G a 13F interpretace a historická akceptace |
-| 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Připravené hledání pro doložené ticker–UEI vazby; registr je zatím prázdný, takže žádné kontrakty z něj ještě nebyly živě ověřeny. Historie modifikací/obligations a dcery zbývají. |
+| 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Připravené hledání pro doložené ticker–UEI vazby; registr je zatím prázdný, takže žádné kontrakty z něj ještě nebyly živě ověřeny. Automatické dohledávání UEI ze SEC názvu ukládá pouze kandidáty. Historie modifikací/obligations a dcery zbývají. |
 | 07 vládní rizika | ZÁKLAD analytického agenta | OFAC/DOJ a sektorové EPA/NHTSA s identitou před přiřazením |
 | 08 veřejná extrakce | ČÁSTEČNĚ | SEC scout nově ukládá omezené citované stopy dodavatelů a komodit z 10-K/Q/20-F/40-F; chybí přílohy, skutečná identita protistran a hedging |
 | 09 IR a zprávy | ČÁSTEČNĚ | Ověřené IR feedy a propojení RSS stopy s primárním oznámením |
@@ -92,3 +92,14 @@ k dispozici. Při limitu stránek hlásí `PARTIAL`. Chybějící zakázky mimo
 časové okno a limit nejsou negativním důkazem. Před produkčním přiřazením
 je potřeba naplnit registr ověřenými dokumenty a provést živý pozitivní
 i negativní test.
+
+Automatické dohledání příjemců zkouší oficiální USAspending `/api/v2/recipient/`
+pro aktivní názvy emitentů, které SEC scout už pozoroval. Nejvýše 100 názvů
+za běh, dvě stránky po 50 výsledcích na název, kontrola znovu po 30 dnech;
+pořadí z databáze dává prostor i dalším firmám. Pouze celý shodný název
+v seznamu příjemců vytvoří stopu s UEI a `NAME_ONLY`, `UNVERIFIED`.
+Vazba k emitentovi a datum případného vlastnictví stále vyžadují samostatný
+primární doklad. Kandidát nevstupuje do registru potvrzených UEI, zakázek
+ani skóre. UI jej ukazuje odděleně a popisuje chybějící důkaz. Stránkovací
+limit vrací `PARTIAL`; nulový počet kandidátů neříká, že firma nemá kontrakty.
+Živý test oficiálního API zatím neproběhl.
