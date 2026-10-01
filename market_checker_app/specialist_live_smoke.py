@@ -32,14 +32,23 @@ from market_checker_app.storage.scout_store import ScoutStore
 PUBLIC_SOURCES = ("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac", "usaspending")
 
 
-def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES) -> dict:
+def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES,
+        fdic_tickers: tuple[str, ...] | None = None) -> dict:
     if not sources or set(sources) - set(PUBLIC_SOURCES):
         raise ValueError("Unsupported live sources")
+    bank_identities = load_verified_banks()
+    if fdic_tickers is not None:
+        if ("fdic" not in sources or not fdic_tickers
+                or set(fdic_tickers) - {entry["ticker"] for entry in bank_identities}):
+            raise ValueError("FDIC smoke selection needs known manifest tickers and fdic source")
+        bank_identities = [entry for entry in bank_identities if entry["ticker"] in fdic_tickers]
     report = {"schema_version": 1,
               "started_at": datetime.now(timezone.utc).isoformat(),
               "platform_scope": "current execution host; not a Windows end-to-end acceptance",
               "full_universe_verified": False, "scoring_applied": False,
               "status": "RUNNING", "sources": list(sources), "cases": {}}
+    if fdic_tickers is not None:
+        report["fdic_selected_tickers"] = sorted(set(fdic_tickers))
 
     def check(name, action):
         if name.split("_", 1)[0] not in sources:
@@ -64,7 +73,7 @@ def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES) -> dict
     with TemporaryDirectory() as directory:
         store = ScoutStore(Path(directory) / "smoke.db")
         fdic_client = FdicBankFindClient()
-        for identity in load_verified_banks():
+        for identity in bank_identities:
             def bank_case(identity=identity):
                 payload = fdic_client.financials(identity["cert"])
                 class CapturedBank:
@@ -80,6 +89,7 @@ def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES) -> dict
                         and result["new_findings"] >= 1 and replay["new_findings"] == 0), {
                     "source_url": identity.get("financial_name_evidence_url", identity["fdic_evidence_url"]),
                     "ticker": identity["ticker"], "cert": identity["cert"],
+                    "identity": identity,
                     "summary": result, "replay_summary": replay, "payload": payload}
             check(f"fdic_positive_{identity['ticker']}", bank_case)
 
@@ -286,8 +296,10 @@ def main():
     parser = argparse.ArgumentParser(description="Omezené živé ověření veřejných specialistů.")
     parser.add_argument("--output-path", type=Path, default=Path("outputs/specialist_live_smoke_latest.json"))
     parser.add_argument("--sources", nargs="+", choices=PUBLIC_SOURCES, default=PUBLIC_SOURCES)
+    parser.add_argument("--fdic-tickers", nargs="+", help="Only these dated FDIC manifest tickers; absent CERT negative remains enabled")
     args = parser.parse_args()
-    report = run(output_path=args.output_path, sources=tuple(args.sources))
+    report = run(output_path=args.output_path, sources=tuple(args.sources),
+                 fdic_tickers=tuple(args.fdic_tickers) if args.fdic_tickers is not None else None)
     print(f"Public specialist smoke: {report['status']}")
     raise SystemExit(0 if report["status"] == "PASS" else 2)
 

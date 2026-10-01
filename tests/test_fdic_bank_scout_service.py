@@ -8,6 +8,8 @@ from market_checker_app.services.fdic_bank_scout_service import (
     FdicBankScoutService, load_verified_banks,
 )
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
+from market_checker_app.specialist_live_smoke import run as live_smoke
 
 
 NOW = datetime(2026, 9, 30, 21, tzinfo=timezone.utc)
@@ -78,7 +80,8 @@ class FdicBankScoutTests(unittest.TestCase):
 
     def test_production_bank_relationships_are_exact_and_dated(self):
         identities = load_verified_banks()
-        self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213)},
+        self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213),
+                          ("PNC", 6384), ("USB", 6548)},
                          {(row["ticker"], row["cert"]) for row in identities})
         citi = next(row for row in identities if row["ticker"] == "C")
         self.assertEqual("Citibank, National Association", citi["bank_name"])
@@ -102,6 +105,54 @@ class FdicBankScoutTests(unittest.TestCase):
             self.assertEqual(0, scout.run(
                 as_of=datetime(2026, 10, 2, tzinfo=timezone.utc),
                 universe={"BAC"})["new_findings"])
+
+    def test_new_bank_links_are_scoped_knowledge_dated_and_keep_issuer_provenance(self):
+        identities = [row for row in load_verified_banks() if row["ticker"] in {"PNC", "USB"}]
+        self.assertTrue({row["ticker"] for row in identities}.issubset(set(load_canonical_tickers())))
+        self.assertEqual({"PNC": "0000713676", "USB": "0000036104"},
+                         {row["ticker"]: row["issuer_cik"] for row in identities})
+        for identity in identities:
+            with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
+                clock = datetime.fromisoformat(identity["known_at"])
+                client = FakeBankFind(row={"CERT": identity["cert"], "NAME": identity["financial_name"],
+                                          "REPDTE": "20260630", "ASSET": 1200})
+                store = ScoutStore(Path(directory) / "test.db")
+                scout = FdicBankScoutService(store, client=client, identities=[identity])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock - timedelta(seconds=1))["status"])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock, universe={"OTHER"})["status"])
+                self.assertEqual([], client.calls)
+                self.assertEqual(1, scout.run(as_of=clock, universe={identity["ticker"]})["new_findings"])
+                self.assertEqual(0, scout.run(as_of=clock)["new_findings"])
+                finding = store.findings_as_of(identity["ticker"], as_of=clock)[0]
+                details = json.loads(finding["details_json"])
+                self.assertEqual(identity["issuer_cik"], details["issuer_cik"])
+                self.assertEqual(identity["issuer_identity_evidence_url"], details["issuer_identity_evidence_url"])
+                self.assertFalse(details["issuer_consolidated_values"])
+                self.assertFalse(details["scoring_applied"])
+                self.assertEqual([], store.findings_as_of(identity["ticker"], as_of=clock - timedelta(seconds=1)))
+
+    def test_issuer_cik_must_match_both_sec_citations(self):
+        base = next(row for row in load_verified_banks() if row["ticker"] == "PNC")
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            invalids = (
+                dict(base, issuer_cik="0000036104"),
+                dict(base, issuer_cik="713676"),
+                dict(base, issuer_identity_evidence_url=base["issuer_identity_evidence_url"].replace('/713676/', '/36104/')),
+                dict(base, relationship_evidence_url=base["relationship_evidence_url"].replace('/713676/', '/36104/')),
+                {key: value for key, value in base.items() if key != "issuer_name"},
+            )
+            for invalid in invalids:
+                path.write_text(json.dumps([invalid]))
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    load_verified_banks(path)
+
+    def test_live_smoke_rejects_unknown_or_out_of_source_selection_before_io(self):
+        with TemporaryDirectory() as directory:
+            for sources, tickers in ((('fdic',), ('NOT_REGISTERED',)), (('ofac',), ('PNC',)), (('fdic',), ())):
+                with self.assertRaises(ValueError):
+                    live_smoke(output_path=Path(directory) / "never.json", sources=sources, fdic_tickers=tickers)
+            self.assertFalse((Path(directory) / "never.json").exists())
 
     def test_dated_identity_and_bank_subsidiary_financials(self):
         with TemporaryDirectory() as directory:

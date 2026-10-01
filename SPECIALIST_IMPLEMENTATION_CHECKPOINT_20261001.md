@@ -67,7 +67,7 @@ Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
 | Short interest/borrow | FINRA účet a schema; datovaný instrument; licencovaný borrow pilot. |
 | FDA/medicína | Produkt/application/sponsor–emitent a širší události; dnešní schema není úplný crosswalk. |
 | Komodity | EIA živě s klíčem, USDA/USGS, firemní expozice a historická dostupnost hodnot. |
-| Banky | Další relevantní bankovní dcery z 22 BANK profilů, skupiny se nesmějí zaměnit za jednotlivé CERT. |
+| Banky | Registry má šest emitentů z 22 BANK profilů, nově PNC/USB. Zbývá dalších 16 emitentů, další banky uvnitř skupin a omezené obnovovací dávky; jednotlivý CERT není skupina. |
 | Zdravotní služby | CMS owner–dcera–emitent/provider, payer exposure a datované změny. |
 | Energie/utilities | Vlastní aktiva a expozice propojit s primárními tržními/regulatorními zdroji. |
 | Obrana/aerospace | Programy, dcery a recipient identity mimo jediný Sikorsky pilot. |
@@ -130,3 +130,45 @@ historie, sirotčí/duplicitní ID, chybu druhého exportu a deduplikaci.
 Další regulační kroky: Non-SDN/weak aliasy/vlastnictví, DOJ/EPA a další
 datované produkty; ostatní specialisté a přístupové/Windows/historické
 blokace uvedené výše zůstávají otevřené.
+
+## Navazující checkpoint — PNC a USB bankovní identity (1. 10. 2026)
+
+Přidány dvě doložené vazby: PNC (CIK 0000713676) → PNC Bank,
+National Association → CERT 6384 a USB (CIK 0000036104) → U.S. Bank
+National Association → CERT 6548. Oficiální SEC 2025 10-K/Exhibit 21
+a FDIC institutions odpovědi potvrzují právní jméno a vazbu na emitenta.
+FDIC financials dokládají přesné zkrácené názvy PNC BANK NATIONAL ASSN
+a U S BANK NATIONAL ASSN. Datum vztahu je 31. 12. 2025, čas znalosti
+je až tento běh; dřívější replay tyto identity nepoužije. Nové issuer
+CIK citace se při načtení musí shodovat s oběma SEC cestami a zapisují
+se do výsledků odděleně od banky. Starší čtyři mapování zůstávají zachovaná.
+
+Podklady a skutečné FDIC institution/financial payloady jsou v
+`evidence/fdic_expansion_identity_20261001.json`. Dvě kladné živé
+kontroly a záporný neexistující CERT jsou v
+`evidence/fdic_expansion_live_20261001.json`: každá nová banka uložila
+dva kvartální výkazy a replay nevytvořil duplicity. Nový smoke přepínač
+`--fdic-tickers PNC USB` omezuje opakování na zvolená mapování.
+Živé API bylo omezené na dva řádky na banku a kontrolu neexistujícího
+CERT, nikoli celé dějiny či všechny banky.
+
+Registry pokrývá šest různých tickerů z 22 BANK profilů; zbývá ALLY,
+CFG, CFR, COF, EWBC, FHN, FITB, HBAN, KEY, MTB, OZK, PNFP, RF, TFC,
+WAL a ZION. To je změřená úplnost mapování v repozitáři, nikoli runtime
+coverage na Windows, úplnost všech dcer skupiny či CUSIP/corporate-action
+historie. Bankovní hodnoty nejsou konsolidované hodnoty emitenta a skóre
+se nemění. Bankovní specialista zůstává PILOT/PENDING; všech 21 specialistů
+má stále otevřenou úplnou akceptaci.
+
+Další dostupná práce: ověřit zbývající bankovní dcery a přidat omezené
+obnovovací plánování FDIC; poté pokračovat produktovými/sponsor vztahy
+FDA a owner/provider vztahy CMS. SEC, FINRA, FRED a EIA nastavení na
+tomto hostu stále chybějí; přítomnost na Windows/GitHub není tímto testem
+ověřená. Windows a historická evaluace zůstávají otevřené.
+
+Celá místní sada má 468/468 PASS; čas, otisky kódu a registru i první
+neúspěšný pokus kvůli chybějícím importům hostitele jsou v
+`evidence/fdic_expansion_tests_20261001.json`. Po instalaci uložených
+projektových závislostí se testy neměnily. Kompilace a kontrola diffu
+prošly. Zelené testy nepřepisují stav PILOT/PENDING ani nedokládají
+historickou výkonnost nebo běh uživatelova Windows.

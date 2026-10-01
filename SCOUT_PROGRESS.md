@@ -1,5 +1,41 @@
 # Průběh implementace pátracích agentů
 
+## Další dvě bankovní dcery — PNC a USB (1. 10. 2026)
+
+SEC 2025 10-K/Exhibit 21 a skutečné FDIC institutions odpovědi doložily
+PNC → PNC Bank, National Association → CERT 6384 a USB → U.S. Bank
+National Association → CERT 6548. Registr obsahuje samostatné issuer
+CIK, citaci emitenta, datum vztahu 31. 12. 2025 a čas skutečné znalosti
+v tomto běhu. Obě SEC citace nového issuer CIK se musí shodovat v cestě;
+CIK a citace se ukládají do nálezu spolu s bankovním CERT, nikoli místo něj.
+Přesné FDIC financial names byly získány přímo z API. Dřívější časy
+tyto nové identity nepoužijí. Bankovní údaje nejsou konsolidovanými
+hodnotami akcie a nepřidávají se do skóre.
+
+`evidence/fdic_expansion_identity_20261001.json` ukládá podklady vztahu,
+SEC pozorované úryvky a skutečné FDIC payloady. Přepínač smoke
+`--fdic-tickers PNC USB` ověřil jen nové banky: dvě kladné kontroly
+s dvěma výkazy na banku a replay bez duplicit, plus záporný neexistující
+CERT. Všechny tři případy jsou PASS v
+`evidence/fdic_expansion_live_20261001.json`. Jde o pilot na Linuxu,
+nikoli Windows end-to-end nebo historickou akceptaci.
+
+Změřená úplnost mapování je šest tickerů z 22 BANK profilů; nezaručuje
+všechny banky uvnitř těchto šesti skupin nebo skutečné provozní pokrytí.
+Další dostupné kroky jsou 16 zbývajících emitentů, další relevantní dcery
+a omezené obnovovací dávky FDIC. Zdravotnické produktové/owner identity,
+další specialisté a Windows/historické důkazy zůstávají v checkpointu.
+Inventář zůstává **0/21 DONE**, bankovní specialista **PILOT/PENDING**.
+
+Celá místní sada prošla **468/468 testy**, včetně 687tickerových a UI
+kontrol. Devět cílených FDIC testů ověřuje nové issuer citace, odmítnutí
+jiného CIK, čas znalosti, scope, deduplikaci a neobchodní povahu dat.
+Otisky kódu i testovaného registru jsou v
+`evidence/fdic_expansion_tests_20261001.json`. První pokus měl chyby
+importů chybějících závislostí hostitele; po instalaci projektových
+requirements podle uložených constraints se kód testů nezměnil a
+celá sada prošla. Tento bootstrap je zaznamenaný v testovém důkazu.
+
 ## OFAC alternate entity names (1. 10. 2026, navazující checkpoint)
 
 Denní OFAC collector nově připojuje oficiální ALT.CSV přes ENT_NUM;

@@ -104,8 +104,10 @@
       "research": "sector BANK",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Four bank subsidiaries pass live BankFind schema, exact CERT/name and duplicate checks. Remaining: other relevant bank subsidiaries, Windows end-to-end evidence, measured coverage and historical evaluation.",
-      "source_smoke_evidence": "evidence/specialist_live_20261001.json"
+      "next": "Six bank subsidiaries have dated exact-CERT/name mappings and publisher checks, including new PNC/USB issuer-CIK citations. The registry covers six of 22 BANK-profile tickers, not complete subsidiary groups or runtime coverage. Remaining: other 16 issuers, other relevant bank subsidiaries, bounded refresh scheduling, Windows end-to-end, measured applicable live coverage and historical evaluation.",
+      "source_smoke_evidence": "evidence/specialist_live_20261001.json",
+      "expansion_identity_evidence": "evidence/fdic_expansion_identity_20261001.json",
+      "expansion_source_smoke_evidence": "evidence/fdic_expansion_live_20261001.json"
     },
     {
       "id": "health_services",

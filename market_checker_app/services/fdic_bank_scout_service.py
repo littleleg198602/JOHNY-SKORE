@@ -67,6 +67,18 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
                 raise ValueError("FDIC relationship needs official SEC citation")
             if key == "fdic_evidence_url" and not urlsplit(url).path.rstrip("/").endswith(f"/{cert}"):
                 raise ValueError("FDIC evidence must point to the cited CERT")
+        issuer_keys = ("issuer_cik", "issuer_name", "issuer_identity_evidence_url")
+        if any(key in entry for key in issuer_keys):
+            if not all(isinstance(entry.get(key), str) and entry[key].strip() for key in issuer_keys):
+                raise ValueError("FDIC issuer identity needs CIK, exact name and citation")
+            cik = entry["issuer_cik"]
+            if not re.fullmatch(r"\d{10}", cik) or int(cik) == 0:
+                raise ValueError("Invalid FDIC issuer CIK")
+            for key in ("issuer_identity_evidence_url", "relationship_evidence_url"):
+                citation = urlsplit(public_https_reference(entry[key]))
+                prefix = f"/Archives/edgar/data/{int(cik)}/"
+                if citation.hostname != "www.sec.gov" or not citation.path.startswith(prefix):
+                    raise ValueError("FDIC issuer citations must match its exact SEC CIK")
         start = date.fromisoformat(entry["effective_from"])
         known = datetime.fromisoformat(entry["known_at"])
         if known.tzinfo is None or known.utcoffset() is None or start > known.date():
@@ -165,6 +177,9 @@ class FdicBankScoutService:
                 if alias_available:
                     details.update(financial_name_known_at=entry["financial_name_known_at"],
                                    financial_name_evidence_url=entry["financial_name_evidence_url"])
+                if "issuer_cik" in entry:
+                    details.update(issuer_cik=entry["issuer_cik"], issuer_name=entry["issuer_name"],
+                                   issuer_identity_evidence_url=entry["issuer_identity_evidence_url"])
                 digest = hashlib.sha256(json.dumps(details, sort_keys=True).encode()).hexdigest()
                 _, fresh = self.store.record_finding(
                     source="fdic", subject_id=entry["ticker"],
