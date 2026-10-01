@@ -7,5 +7,23 @@
     "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026008131/corp10k2025exhibit21.htm",
     "effective_from": "2025-12-31",
     "known_at": "2026-09-30T20:09:00+00:00"
+  },
+  {
+    "ticker": "BAC",
+    "cert": 3510,
+    "bank_name": "Bank of America, National Association",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/3510",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000157/bac-1231202510xkex21.htm",
+    "effective_from": "2025-12-31",
+    "known_at": "2026-10-01T06:00:39+00:00"
+  },
+  {
+    "ticker": "WFC",
+    "cert": 3511,
+    "bank_name": "Wells Fargo Bank, National Association",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/3511",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/72971/000007297126000133/wfc-1231x2025xex21.htm",
+    "effective_from": "2025-12-31",
+    "known_at": "2026-10-01T06:02:24+00:00"
   }
 ]

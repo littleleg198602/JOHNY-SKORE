@@ -17,7 +17,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 | 11 short interest | ČÁSTEČNĚ: FINRA kandidáti | Přesný symbol, settlement a revize s `UNVERIFIED` identitou; veřejné API vyžaduje FINRA účet/credential, live test, datovaný instrument crosswalk a skutečný čas zveřejnění zbývají. |
 | 12 FDA | ČÁSTEČNĚ: recall a CRL kandidáti | Denní dávka do 25 aktivních SEC emitentů hledá drug/device enforcement záznamy a Complete Response Letters; ukládá jen přesnou shodu celého názvu jako `UNVERIFIED`. Datum historického dopisu není datum zveřejnění. Produktový/application/sponsor crosswalk, živý test a plná sektorová fronta zbývají. |
 | 13 vstupní náklady | ČÁSTEČNĚ | FRED makro a EIA WTI/jet-fuel spot mají oddělené volitelné konektory; čekají na klíče a live test. USDA, propojení firemních expozic s cenami a historické vintage chybí. |
-| 14 entity enrichment | ČÁSTEČNĚ | GLEIF/OpenFIGI a dcery/produkty na doložených ID |
+| 14 entity enrichment | ČÁSTEČNĚ | GLEIF přesné LEI/ISIN a 10firemní pilot existují; OpenFIGI a datované dcery/produkty pro sektorové zdroje zbývají. FDIC má doložené JPM CERT 628, BAC CERT 3510 a WFC CERT 3511, nikoli celou bankovní skupinu. |
 | 15 SAM | OTEVŘENO | Schválený klíč a reálná kvóta; doplnění USAspending |
 | 16 instituce | ČÁSTEČNĚ: SEC 13F vzorek | Čtvrtletní ZIP parser bere jen přesně doložené CUSIP, prozatím AAPL `037833100`, a ukládá nejvýše 25 velkých původních 13F-HR řádků na ticker; nejsou to všechny instituce. Amendmenty, další instrumenty a živý test zbývají. |
 | 17–21 placené piloty | NEZAPOJENO | Účet, datové oprávnění, coverage a měření přínosu před nákupem |

@@ -36,6 +36,31 @@ class FakeBankFind:
 
 
 class FdicBankScoutTests(unittest.TestCase):
+    def test_production_bank_relationships_are_exact_and_dated(self):
+        identities = load_verified_banks()
+        self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511)},
+                         {(row["ticker"], row["cert"]) for row in identities})
+        bac = next(row for row in identities if row["ticker"] == "BAC")
+        self.assertEqual("Bank of America, National Association", bac["bank_name"])
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            client = FakeBankFind(row={
+                "CERT": 3510, "NAME": bac["bank_name"], "REPDTE": "2026-06-30",
+                "ASSET": 1200, "DEP": 900, "EQ": 170, "NETINC": 13,
+            })
+            scout = FdicBankScoutService(store, client=client, identities=identities)
+            self.assertEqual("WAIT_IDENTITY", scout.run(
+                as_of=datetime(2026, 10, 1, 5, tzinfo=timezone.utc),
+                universe={"BAC"})["status"])
+            self.assertEqual(1, scout.run(
+                as_of=datetime(2026, 10, 1, 7, tzinfo=timezone.utc),
+                universe={"BAC"})["new_findings"])
+            self.assertEqual([3510], client.calls)
+            client.row["NAME"] = "Different Bank, National Association"
+            self.assertEqual(0, scout.run(
+                as_of=datetime(2026, 10, 2, tzinfo=timezone.utc),
+                universe={"BAC"})["new_findings"])
+
     def test_dated_identity_and_bank_subsidiary_financials(self):
         with TemporaryDirectory() as directory:
             path = Path(directory) / "identities.json"
