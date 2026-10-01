@@ -12,6 +12,37 @@ from market_checker_app.utils.ticker_universe import load_canonical_ticker_recor
 
 
 class ScoutStoreTests(unittest.TestCase):
+    def test_specialist_coverage_distinguishes_current_partial_and_stale(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime(2026, 10, 1, tzinfo=timezone.utc)
+            for ticker, cik in (("AAPL", "0000320193"), ("MSFT", "0000789019"),
+                                ("NVDA", "0001045810"), ("JPM", "0000019617")):
+                store.observe_sec_identity(subject_id=ticker, cik=cik,
+                                           company_name=f"{ticker} Inc.",
+                                           as_of=now - timedelta(days=40))
+            store.record_specialist_check("fda", subject_id="AAPL",
+                identity_key="0000320193:AAPL Inc.", as_of=now,
+                candidate_count=0, truncated=False)
+            store.record_specialist_check("fda", subject_id="MSFT",
+                identity_key="0000789019:MSFT Inc.", as_of=now,
+                candidate_count=100, truncated=True)
+            store.record_specialist_check("fda", subject_id="NVDA",
+                identity_key="0001045810:NVDA Inc.",
+                as_of=now - timedelta(days=31), candidate_count=0, truncated=False)
+            # A check attached to a different name must not count for JPM.
+            store.record_specialist_check("fda", subject_id="JPM",
+                identity_key="0000019617:Old Name", as_of=now,
+                candidate_count=0, truncated=False)
+            self.assertEqual({"active_identities": 4, "ever_checked": 3,
+                              "current_complete": 1, "current_partial": 1,
+                              "not_current": 2},
+                             store.specialist_coverage("fda", as_of=now))
+            self.assertEqual({"active_identities": 4, "ever_checked": 0,
+                              "current_complete": 0, "current_partial": 0,
+                              "not_current": 4},
+                             store.specialist_coverage("finra", as_of=now))
+
     def test_runner_keeps_completed_source_status_when_later_source_stops(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "scout.db"

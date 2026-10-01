@@ -1,5 +1,17 @@
 # Průběh implementace pátracích agentů
 
+## Kumulativní pokrytí FDA a FINRA (1. 10. 2026)
+
+UI vedle poslední dávky zobrazuje počet aktivních identit pozorovaných
+v SEC a pro FDA/FINRA rozlišuje úplnou kontrolu v posledních 30 dnech,
+neúplnou odpověď s limitem stránek, nikdy/stará data a historicky někdy
+provedenou kontrolu. Kontrola pro starší nebo jinak pojmenovanou identitu
+se k aktuální firmě nepřičítá. Jmenovatel není automaticky 687: dokud SEC
+nepozoroval přesnou identitu všech tickerů, u zbývajících není z čeho
+FDA/FINRA vyhledávání spouštět. Tato metrika nemění skóre ani nezastírá
+neúplný výsledek jako negativní událost.
+
+
 ## FDA potravinové svolávací akce (1. 10. 2026)
 
 Stejný omezený FDA scout nově dotazuje vedle léčiv a zdravotnických
