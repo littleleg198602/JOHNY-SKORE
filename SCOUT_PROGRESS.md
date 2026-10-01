@@ -1,5 +1,64 @@
 # Průběh implementace pátracích agentů
 
+## MTB — doložená dcera s neověřeným as-of; OZK vyžaduje jiný model (1. 10. 2026)
+
+Nově je registrováno MTB (CIK 0000036270) → Manufacturers and Traders
+Trust Company / CERT 588. SEC Exhibit 21.1 jmenuje banku (a/k/a M&T Bank),
+ale vlastní řádek vztahu nemá výslovné datum ani vlastnické procento.
+31. 12. 2025 v poznámce popisuje významnost vynechaných dalších dcer;
+nepovažuje se za výslovný as-of uvedené vazby. Datum vlastnictví zůstává
+neověřené. Přijímají se jen výkazy od konzervativní publication floor
+18. 2. 2026 podle ověřeného SEC filing indexu, nikoli od výročního období.
+Nálezy mají relationship_effective_from=null, relationship_as_of_verified=false
+a samostatnou report eligibility hranici / filing_publication_floor / index
+citaci. Nejde o datum akvizice, souvislou historii ani kompletní skupinu.
+
+R1 stejného filing dokládá M&T BANK CORPORATION, CIK a Common Stock /
+MTB, odděleně od prioritních tříd. FDIC institutions uvádí přesný právní
+název a financials přesný MANUFACTURERS&TRADERS TR CO. Zdrojová jména,
+SEC citace a krátké úryvky, data a skutečné publisher payloady jsou v
+`evidence/fdic_mtb_identity_20261001.json`. Originální SEC HTML nebyl
+stažen. RSSD není issuer CIK a výkazy CERT nejsou konsolidované hodnoty
+emitenta. Čas znalosti nové vazby je až její pozorování 1. 10. 2026.
+
+`evidence/fdic_mtb_live_20261001.json` má dva PASS případy: MTB uložilo
+dva výkazy k 31. 3. a 30. 6. 2026, skutečné opakované zpracování zachyceného
+payloadu nepřidalo duplicity a neexistující CERT vrátil prázdnou odpověď.
+Replay je bez další sítě. V tomto kroku proběhla čtyři nová FDIC API
+volání (jeden institutions, jeden první financials, dva smoke financials),
+s 20sekundovým timeoutem, nejvýše 1 MB a jedním institutions / dvěma
+financials řádky. Provozní kvóty a dávky zůstávají. Jde o omezený Linux
+pilot, nikoli zápornou akceptaci emitenta, Windows běh nebo historii.
+
+Současný oficiální Bank OZK 10-K na issuer IR výslovně uvádí FDIC,
+CERT 110, registranta BANK OZK a common stock OZK; OZKAP je jiná
+prioritní třída. IR seznam datuje filing 25. 2. 2026. Zdrojové odkazy
+a locatory jsou v `evidence/ozk_identity_model_gap_20261001.json`.
+Aktuální registr vyžaduje SEC vztahovou citaci a issuer CIK se SEC cestou;
+neumí samostatnou identitu přímého bankovního emitenta s FDIC filingem.
+Proto OZK zatím není přidané a neproběhl jeho FDIC API pilot. Nejde
+o chybějící klíč: zbývá implementace odděleného validovaného identity kind,
+zdrojového dokumentu a CERT, persistence/scheduler scope a živé kontroly.
+Historický holding, současný SEC CIK ani parent–subsidiary se nevymýšlí.
+Originální OZK PDF nebyl stažen; byla ověřena textová extrakce jeho titulní
+strany přes webový výzkum. Tato mezera není akceptační důkaz OZK.
+
+Mapa nyní má 17 z 22 BANK profilů kanonických 687 tickerů. Zbývá OZK,
+PNFP, RF, WAL a ZION, další relevantní banky a změny vlastnictví skupin.
+Captured-payload test ověřuje MTB zápis/replay, odmítnutí výkazu před
+publication floor, čas znalosti, canonical scope a persistenci nejistoty.
+Prázdná provozní databáze má 17 never-attempted a 0 usable, nikoli živé
+pokrytí 17 bank; původní diagnostické clocky zůstávají. FDIC má 21 PASS,
+diagnostika 12 PASS a celá místní sada 488/488 PASS. Kompilace/diff,
+časy a otisky jsou v `evidence/fdic_mtb_tests_20261001.json`.
+
+Bankovní specialista zůstává PILOT/PENDING, inventář 0/21 DONE.
+Další dostupný krok: OZK direct-bank model nebo PNFP/RF bankovní dcery;
+poté ostatní banky, FDA product/application/sponsor a CMS owner/provider.
+Skutečný Windows koncový běh, změřené relevantní provozní pokrytí,
+přístupy/licence a historická out-of-sample evaluace zůstávají otevřené.
+Skóre ani obchodování se nemění.
+
 ## FHN a KEY — datované dcery a vlastnická výjimka (1. 10. 2026)
 
 Registr doplněn o FHN (CIK 0000036966) → First Horizon Bank / CERT 4977

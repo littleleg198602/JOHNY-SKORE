@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "evidence_type": "primary_source_investigation_and_implementation_gap_not_acceptance",
+  "observed_at": "2026-10-01T20:21:45.816860+00:00",
+  "ticker": "OZK",
+  "registry_added": false,
+  "fdic_network_requests": 0,
+  "source_document": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+  "source_document_locator": "FDIC Form 10-K FY2025 cover, PDF page 1",
+  "observed_excerpt": "FDIC Certificate No. 110; BANK OZK; Common Stock, $0.01 par value per share OZK",
+  "source_document_observations": {
+    "registrant": "BANK OZK",
+    "fdic_certificate": 110,
+    "form_publisher": "FDIC",
+    "report_period_end": "2025-12-31",
+    "common_stock_symbol": "OZK",
+    "preferred_stock_symbol": "OZKAP"
+  },
+  "publication_listing": "https://ir.ozk.com/filings/documents",
+  "listing_date": "2026-02-25",
+  "retrieval_method": "Official issuer IR listing and linked PDF text extraction through web research; original PDF not downloaded",
+  "implementation_gap": "Existing registry accepts only SEC relationship citations and SEC-CIK-bound issuer identity. Direct bank issuer / FDIC filing provenance requires a separate validated identity kind, carried through request scope and persisted findings. This is a code/source-model gap, not missing credentials.",
+  "next": "Implement direct-bank issuer identity using exact publisher document and certificate; distinguish issuer from subsidiary and keep FDIC financials separate from issuer consolidated values. Validate source host/document, knowledge/report dates, persistence and captured/live positive and negative cases before adding OZK.",
+  "constraints": [
+    "Do not invent a current SEC CIK or parent-subsidiary link",
+    "Do not use historical holdco identity or OZKAP for common OZK",
+    "No FDIC institution/financial payload or Windows/history acceptance acquired for OZK in this step"
+  ],
+  "full_specialist_acceptance": false,
+  "scoring_applied": false
+}

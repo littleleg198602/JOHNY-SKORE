@@ -228,5 +228,22 @@
     "financial_name": "KEYBANK NATIONAL ASSN",
     "financial_name_known_at": "2026-10-01T18:32:18.544635+00:00",
     "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A17534&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+  },
+  {
+    "ticker": "MTB",
+    "cert": 588,
+    "issuer_cik": "0000036270",
+    "issuer_name": "M&T Bank Corporation",
+    "bank_name": "Manufacturers and Traders Trust Company",
+    "effective_from": "2026-02-18",
+    "effective_from_basis": "filing_publication_floor",
+    "effective_from_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/0000036270-26-000010-index.htm",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/ex211subsidiaries-dec.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/R1.htm",
+    "known_at": "2026-10-01T20:21:45.816860+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/588",
+    "financial_name": "MANUFACTURERS&TRADERS TR CO",
+    "financial_name_known_at": "2026-10-01T20:20:21.772153+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A588&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
   }
 ]

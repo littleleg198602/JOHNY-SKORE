@@ -85,7 +85,7 @@ class FdicBankScoutTests(unittest.TestCase):
         self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213),
                           ("PNC", 6384), ("USB", 6548), ("TFC", 9846), ("FITB", 6672),
                           ("CFG", 57957), ("HBAN", 6560), ("ALLY", 57803), ("CFR", 5510),
-                          ("COF", 4297), ("EWBC", 31628), ("FHN", 4977), ("KEY", 17534)},
+                          ("COF", 4297), ("EWBC", 31628), ("FHN", 4977), ("KEY", 17534), ("MTB", 588)},
                          {(row["ticker"], row["cert"]) for row in identities})
         citi = next(row for row in identities if row["ticker"] == "C")
         self.assertEqual("Citibank, National Association", citi["bank_name"])
@@ -222,10 +222,11 @@ class FdicBankScoutTests(unittest.TestCase):
     def test_captured_banks_do_not_backdate_relationship_or_knowledge(self):
         entries = []
         for filename in ("fdic_cfg_hban_identity_20261001.json", "fdic_ally_cfr_identity_20261001.json",
-                         "fdic_cof_ewbc_identity_20261001.json", "fdic_fhn_key_identity_20261001.json"):
+                         "fdic_cof_ewbc_identity_20261001.json", "fdic_fhn_key_identity_20261001.json",
+                         "fdic_mtb_identity_20261001.json"):
             entries.extend(json.loads((Path(__file__).resolve().parents[1] / "evidence" / filename).read_text())["entries"])
         identities = [row for row in load_verified_banks()
-                      if row["ticker"] in {"CFG", "HBAN", "ALLY", "CFR", "COF", "EWBC", "FHN", "KEY"}]
+                      if row["ticker"] in {"CFG", "HBAN", "ALLY", "CFR", "COF", "EWBC", "FHN", "KEY", "MTB"}]
         self.assertEqual({"CFG": (57957, "0000759944", "2026-01-22"),
                           "HBAN": (6560, "0000049196", "2025-12-31"),
                           "ALLY": (57803, "0000040729", "2025-12-31"),
@@ -233,7 +234,8 @@ class FdicBankScoutTests(unittest.TestCase):
                           "COF": (4297, "0000927628", "2025-12-31"),
                           "EWBC": (31628, "0001069157", "2025-12-31"),
                           "FHN": (4977, "0000036966", "2025-12-31"),
-                          "KEY": (17534, "0000091576", "2025-12-31")},
+                          "KEY": (17534, "0000091576", "2025-12-31"),
+                          "MTB": (588, "0000036270", "2026-02-18")},
                          {row["ticker"]: (row["cert"], row["issuer_cik"], row["effective_from"])
                           for row in identities})
         captures = {entry["identity"]["cert"]: entry for entry in entries}
@@ -297,6 +299,19 @@ class FdicBankScoutTests(unittest.TestCase):
                     self.assertEqual("filing_publication_floor", details["report_date_eligibility_basis"])
                     self.assertEqual(captured["filing_evidence"]["source_url"],
                                      details["report_date_floor_evidence_url"])
+                if identity["ticker"] == "MTB":
+                    # A materiality footnote's FY date cannot date the separate
+                    # undated issuer/subsidiary row. Preserve uncertainty.
+                    self.assertIsNone(captured["relationship_evidence"]["as_of"])
+                    self.assertFalse(captured["relationship_evidence"]["as_of_date_verified"])
+                    self.assertIsNone(details["relationship_effective_from"])
+                    self.assertFalse(details["relationship_as_of_verified"])
+                    self.assertEqual("2026-02-18", details["report_date_eligibility_from"])
+                    self.assertEqual("filing_publication_floor", details["report_date_eligibility_basis"])
+                    self.assertEqual(captured["filing_evidence"]["source_url"],
+                                     details["report_date_floor_evidence_url"])
+                    self.assertEqual("MANUFACTURERS&TRADERS TR CO", identity["financial_name"])
+                    self.assertFalse(captured["relationship_evidence"]["unqualified_wholly_owned_claim_accepted"])
 
     def test_live_smoke_rejects_unknown_or_out_of_source_selection_before_io(self):
         with TemporaryDirectory() as directory:

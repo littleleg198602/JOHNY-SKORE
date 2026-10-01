@@ -22,7 +22,7 @@ samostatnými akceptačními důkazy.
 
 FDIC má od 1. 10. perzistentní obnovovací dávky: výchozí pět bank za běh,
 deset požadavků za UTC den, 30 dní pro použitelnou odpověď a jeden den
-pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje šestnáct
+pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje sedmnáct
 mapovaných bank od 22 BANK profilů a skutečné pokusy od použitelných dat.
 Prázdná či odmítnutá odpověď nezvyšuje použitelnou coverage. Staré nálezy
 samotné nenahrazují refresh pokus; scope je nejvýše dva výkazy na CERT,
@@ -65,7 +65,7 @@ a zveřejnění. Citace a skutečné FDIC odpovědi jsou v
 `evidence/fdic_cof_ewbc_identity_20261001.json`, tři omezené živé případy
 v `evidence/fdic_cof_ewbc_live_20261001.json`.
 
-Aktuálně je mapováno šestnáct z 22 BANK profilů, nově FHN → First Horizon
+Po kroku FHN/KEY bylo mapováno šestnáct z 22 BANK profilů, nově FHN → First Horizon
 Bank / CERT 4977 a KEY → KeyBank National Association / CERT 17534,
 obě vztahová tvrzení výslovně k 31. 12. 2025. FHN vlastnická výjimka
 pro cizí nehlasovací prioritní akcie zůstává v důkazu, bez tvrzení
@@ -74,6 +74,18 @@ SEC citace a skutečné FDIC odpovědi jsou v
 `evidence/fdic_fhn_key_identity_20261001.json`, tři omezené živé případy
 v `evidence/fdic_fhn_key_live_20261001.json`. Zbývá šest emitentů,
 úplné skupiny, Windows běh, relevantní provozní pokrytí a historická evaluace.
+
+Aktuálně je mapováno sedmnáct z 22 BANK profilů. Nové MTB → Manufacturers
+and Traders Trust Company / CERT 588 má vztahové as-of neověřené;
+samostatná publication floor 18. 2. 2026 vychází z potvrzeného SEC indexu,
+nikoli z výročního období v poznámce o významnosti jiných dcer.
+Citace a skutečné FDIC payloady jsou v `evidence/fdic_mtb_identity_20261001.json`,
+dva omezené živé případy v `evidence/fdic_mtb_live_20261001.json`.
+OZK je přímý bankovní emitent podle vlastního FDIC 10-K, zatím bez
+odpovídajícího identity modelu v SEC-only registru; ověřené primární
+locatory a konkrétní mezera jsou v `evidence/ozk_identity_model_gap_20261001.json`.
+Zbývá pět emitentů (OZK, PNFP, RF, WAL, ZION), úplné skupiny,
+Windows běh, relevantní provozní pokrytí a historická evaluace.
 
 ## Co znamenají stavy
 
