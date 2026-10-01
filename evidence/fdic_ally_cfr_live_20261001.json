@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T17:21:25.656254+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_ALLY": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T17:21:25.658799+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57803&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "ALLY",
+      "cert": 57803,
+      "identity": {
+        "ticker": "ALLY",
+        "cert": 57803,
+        "issuer_cik": "0000040729",
+        "issuer_name": "Ally Financial Inc.",
+        "bank_name": "Ally Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/exhibit21ally2025123110-k.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/R1.htm",
+        "known_at": "2026-10-01T17:19:54.312876+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57803",
+        "financial_name": "ALLY BANK",
+        "financial_name_known_at": "2026-10-01T17:17:39.586614+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57803&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "payload": {
+        "meta": {
+          "total": 88,
+          "parameters": {
+            "filters": "CERT:57803",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 188184000,
+              "CERT": 57803,
+              "NETINC": 1119000,
+              "EQ": 15542000,
+              "DEP": 156614000,
+              "NAME": "ALLY BANK",
+              "ID": "57803_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 185664000,
+              "CERT": 57803,
+              "NETINC": 513000,
+              "EQ": 15378000,
+              "DEP": 156225000,
+              "NAME": "ALLY BANK",
+              "ID": "57803_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 88
+        }
+      }
+    },
+    "fdic_positive_CFR": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T17:21:31.654692+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A5510&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "CFR",
+      "cert": 5510,
+      "identity": {
+        "ticker": "CFR",
+        "cert": 5510,
+        "issuer_cik": "0000039263",
+        "issuer_name": "Cullen/Frost Bankers, Inc.",
+        "bank_name": "Frost Bank",
+        "effective_from": "2026-02-05",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/exhibit211-subsidiariesx10.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/R1.htm",
+        "known_at": "2026-10-01T17:19:54.312876+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/5510",
+        "financial_name": "FROST BANK",
+        "financial_name_known_at": "2026-10-01T17:17:53.592452+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A5510&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 3
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 4
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:5510",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 53950075,
+              "CERT": 5510,
+              "NETINC": 349946,
+              "EQ": 4659316,
+              "DEP": 43669523,
+              "NAME": "FROST BANK",
+              "ID": "5510_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 52769892,
+              "CERT": 5510,
+              "NETINC": 174000,
+              "EQ": 4524619,
+              "DEP": 43235075,
+              "NAME": "FROST BANK",
+              "ID": "5510_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T17:21:38.276563+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "ALLY",
+    "CFR"
+  ],
+  "finished_at": "2026-10-01T17:21:44.222240+00:00"
+}

@@ -84,7 +84,7 @@ class FdicBankScoutTests(unittest.TestCase):
         identities = load_verified_banks()
         self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213),
                           ("PNC", 6384), ("USB", 6548), ("TFC", 9846), ("FITB", 6672),
-                          ("CFG", 57957), ("HBAN", 6560)},
+                          ("CFG", 57957), ("HBAN", 6560), ("ALLY", 57803), ("CFR", 5510)},
                          {(row["ticker"], row["cert"]) for row in identities})
         citi = next(row for row in identities if row["ticker"] == "C")
         self.assertEqual("Citibank, National Association", citi["bank_name"])
@@ -196,22 +196,47 @@ class FdicBankScoutTests(unittest.TestCase):
                     self.assertEqual(("PARTIAL", 0, 1),
                                      (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
 
-    def test_cfg_hban_captures_do_not_backdate_relationship_or_knowledge(self):
-        evidence = json.loads((Path(__file__).resolve().parents[1] /
-                               "evidence/fdic_cfg_hban_identity_20261001.json").read_text())
-        identities = [row for row in load_verified_banks() if row["ticker"] in {"CFG", "HBAN"}]
+    def test_publication_floor_requires_matching_cik_and_changes_request_identity(self):
+        base = next(row for row in load_verified_banks() if row["ticker"] == "CFR")
+        clock = datetime.fromisoformat(base["known_at"])
+        old = {key: value for key, value in base.items()
+               if key not in {"effective_from_basis", "effective_from_evidence_url"}}
+        self.assertNotEqual(fdic_identity_key(old, clock), fdic_identity_key(base, clock))
+        invalids = (
+            dict(base, effective_from_basis="ownership_effective_date"),
+            dict(base, effective_from_evidence_url=base["effective_from_evidence_url"].replace('/39263/', '/40729/')),
+            dict(base, effective_from_evidence_url=base["effective_from_evidence_url"].replace('www.sec.gov/', 'www.sec.gov:444/')),
+            {key: value for key, value in base.items() if key != "effective_from_basis"},
+            {key: value for key, value in base.items() if key != "effective_from_evidence_url"},
+            {key: value for key, value in base.items()
+             if key not in {"issuer_cik", "issuer_name", "issuer_identity_evidence_url"}},
+        )
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            for invalid in invalids:
+                path.write_text(json.dumps([invalid]))
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    load_verified_banks(path)
+
+    def test_captured_banks_do_not_backdate_relationship_or_knowledge(self):
+        entries = []
+        for filename in ("fdic_cfg_hban_identity_20261001.json", "fdic_ally_cfr_identity_20261001.json"):
+            entries.extend(json.loads((Path(__file__).resolve().parents[1] / "evidence" / filename).read_text())["entries"])
+        identities = [row for row in load_verified_banks() if row["ticker"] in {"CFG", "HBAN", "ALLY", "CFR"}]
         self.assertEqual({"CFG": (57957, "0000759944", "2026-01-22"),
-                          "HBAN": (6560, "0000049196", "2025-12-31")},
+                          "HBAN": (6560, "0000049196", "2025-12-31"),
+                          "ALLY": (57803, "0000040729", "2025-12-31"),
+                          "CFR": (5510, "0000039263", "2026-02-05")},
                          {row["ticker"]: (row["cert"], row["issuer_cik"], row["effective_from"])
                           for row in identities})
-        captures = {entry["identity"]["cert"]: entry for entry in evidence["entries"]}
+        captures = {entry["identity"]["cert"]: entry for entry in entries}
         for identity in identities:
             with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
                 captured = captures[identity["cert"]]
                 self.assertEqual(identity, captured["identity"])
                 institution = captured["fdic_publisher_observation"]["institutions"]["data"][0]["data"]
                 self.assertEqual((identity["cert"], identity["bank_name"], 1),
-                                 (institution["CERT"], institution["NAME"], institution["ACTIVE"]))
+                                 (institution["CERT"], " ".join(institution["NAME"].split()), institution["ACTIVE"]))
                 class CapturedClient:
                     calls = 0
                     payload = captured["fdic_publisher_observation"]["financials"]
@@ -244,6 +269,20 @@ class FdicBankScoutTests(unittest.TestCase):
                                  (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
                 if identity["ticker"] == "CFG":
                     self.assertFalse(captured["relationship_evidence"]["exact_legal_name_corroboration"]["exhibit_as_of_date_verified"])
+                if identity["ticker"] == "CFR":
+                    # SEC's undated exhibit cannot create a FY2025 relationship
+                    # date. The verified publication date is a conservative floor.
+                    self.assertIsNone(captured["relationship_evidence"]["as_of"])
+                    self.assertFalse(captured["relationship_evidence"]["as_of_date_verified"])
+                    self.assertEqual(identity["effective_from"], captured["filing_evidence"]["filing_date"])
+                    self.assertEqual("Frost  Bank", institution["NAME"])
+                    self.assertEqual("FROST BANK", identity["financial_name"])
+                    self.assertIsNone(details["relationship_effective_from"])
+                    self.assertFalse(details["relationship_as_of_verified"])
+                    self.assertEqual("2026-02-05", details["report_date_eligibility_from"])
+                    self.assertEqual("filing_publication_floor", details["report_date_eligibility_basis"])
+                    self.assertEqual(captured["filing_evidence"]["source_url"],
+                                     details["report_date_floor_evidence_url"])
 
     def test_live_smoke_rejects_unknown_or_out_of_source_selection_before_io(self):
         with TemporaryDirectory() as directory:

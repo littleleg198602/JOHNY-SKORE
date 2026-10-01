@@ -51,7 +51,8 @@ class FdicBankFindClient:
 def fdic_identity_key(entry: dict, clock: datetime) -> str:
     """A changed legal relationship or newly known financial alias is due again."""
     keys = ("ticker", "cert", "bank_name", "fdic_evidence_url", "relationship_evidence_url",
-            "effective_from", "known_at", "issuer_cik", "issuer_name", "issuer_identity_evidence_url")
+            "effective_from", "effective_from_basis", "effective_from_evidence_url",
+            "known_at", "issuer_cik", "issuer_name", "issuer_identity_evidence_url")
     identity = {key: entry[key] for key in keys if key in entry}
     if ("financial_name" in entry
             and datetime.fromisoformat(entry["financial_name_known_at"]) <= clock):
@@ -125,6 +126,16 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
                 prefix = f"/Archives/edgar/data/{int(cik)}/"
                 if citation.hostname != "www.sec.gov" or not citation.path.startswith(prefix):
                     raise ValueError("FDIC issuer citations must match its exact SEC CIK")
+        floor_keys = ("effective_from_basis", "effective_from_evidence_url")
+        if any(key in entry for key in floor_keys):
+            if (entry.get("effective_from_basis") != "filing_publication_floor"
+                    or "issuer_cik" not in entry):
+                raise ValueError("FDIC publication floor needs exact issuer identity and basis")
+            citation = urlsplit(public_https_reference(entry.get("effective_from_evidence_url", "")))
+            prefix = f"/Archives/edgar/data/{int(entry['issuer_cik'])}/"
+            if (citation.hostname != "www.sec.gov" or citation.port not in {None, 443}
+                    or not citation.path.startswith(prefix)):
+                raise ValueError("FDIC publication floor citation must match its exact SEC CIK")
         start = date.fromisoformat(entry["effective_from"])
         known = datetime.fromisoformat(entry["known_at"])
         if known.tzinfo is None or known.utcoffset() is None or start > known.date():
@@ -284,6 +295,14 @@ class FdicBankScoutService:
                            "issuer_consolidated_values": False,
                            "report_date_is_publication_time": False,
                            "scoring_applied": False}
+                if entry.get("effective_from_basis") == "filing_publication_floor":
+                    # An undated exhibit plus its publication date does not
+                    # establish an ownership effective date or historical as-of.
+                    details.update(relationship_effective_from=None,
+                                   relationship_as_of_verified=False,
+                                   report_date_eligibility_from=entry["effective_from"],
+                                   report_date_eligibility_basis=entry["effective_from_basis"],
+                                   report_date_floor_evidence_url=entry["effective_from_evidence_url"])
                 if alias_available:
                     details.update(financial_name_known_at=entry["financial_name_known_at"],
                                    financial_name_evidence_url=entry["financial_name_evidence_url"])

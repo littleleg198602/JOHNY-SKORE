@@ -1,5 +1,59 @@
 # Průběh implementace pátracích agentů
 
+## ALLY a CFR — bankovní identity a konzervativní časová hranice (1. 10. 2026)
+
+Přidané vazby ALLY (CIK 0000040729) → Ally Bank / CERT 57803 a
+CFR (CIK 0000039263) → Frost Bank / CERT 5510. Ally Exhibit 21 výslovně
+uvádí 31. 12. 2025. CFR Exhibit 21.1 potvrzuje Frost Bank a 100 % hlasovacích
+práv Cullen/Frost, ale neuvádí vlastní as-of datum. Pro nový CFR scope je
+proto hranice reportů konzervativně 5. 2. 2026 podle potvrzeného SEC filing
+indexu, nikoli 31. 12. 2025. Tato hranice není datum nabytí vlastnictví;
+skutečné datum účinnosti a souvislá historická vazba zůstávají neověřené.
+Evidence má CFR as_of=null, samostatný publication date a popsané pravidlo.
+Uložené nálezy mají relationship_effective_from=null a
+relationship_as_of_verified=false; odděleně uchovávají report eligibility
+hranici, basis filing_publication_floor a filing index citaci se stejným
+CIK. Úplná dvojice provenance je validovaná a mění identitu scheduleru.
+
+SEC R1 reporty ve stejných filings dokládají issuer CIK a common-stock
+symbol; filing indexy odděleně potvrzují zveřejnění 25. 2. 2026 (ALLY)
+a 5. 2. 2026 (CFR). Citace, krátké úryvky a skutečné FDIC institutions /
+financials payloady s časy jsou v `evidence/fdic_ally_cfr_identity_20261001.json`.
+Originální SEC HTML nebyl stažen. FDIC institutions uchovává původní
+„Frost  Bank“ se dvěma mezerami; proti právnímu SEC jménu byl porovnán
+pouze whitespace. Financials má samostatně doložený přesný FROST BANK
+a ALLY BANK. Názvy zdrojů se nepřepisují ani fuzzy nedoplňují. Issuer CIK
+není FDIC holdco RSSD a bankovní výkazy nejsou konsolidované hodnoty emitenta.
+
+`evidence/fdic_ally_cfr_live_20261001.json` má tři PASS případy: obě banky
+uložily po dvou výkazech, zachycený payload byl skutečně znovu zpracován
+bez duplicit a neexistující CERT vrátil prázdnou odpověď. V tomto kroku
+proběhlo sedm API volání (2 institutions, 2 první financials, 3 smoke
+financials); replay je bez další sítě. Živé případy předcházejí doplnění
+publication-floor persistence. Jejich původní identity a časy se zachovávají;
+po této opravě byl skutečný zachycený payload zpracován offline a výsledné
+nálezy jsou v identity důkazu, bez dalších API volání. Timeout 20 sekund, nejvýše dva
+financials řádky a denní/dávkové limity sběrače se nemění. Jde o omezený
+Linux publisher pilot, nikoli Windows, celý bankovní sektor nebo historie.
+
+Registry mapuje 12 z 22 BANK profilů kanonických 687 tickerů; chybí COF,
+EWBC, FHN, KEY, MTB, OZK, PNFP, RF, WAL a ZION, další relevantní banky
+skupin a změny vlastnictví. Společný captured-payload test rozšířený o
+ALLY/CFR ověřuje znalost/scope, hranici reportů a uchování CFR nejistoty.
+Diagnostika před prvním provozním pokusem zůstává 12 never-attempted a
+0 usable, bez falešné akceptace. FDIC má 21 PASS, diagnostika 9 PASS,
+celá místní sada 485/485 PASS; kompilace/diff a časy/otisky jsou v
+`evidence/fdic_ally_cfr_tests_20261001.json`. První lokální pokus měl
+21 import chyb hostitele; po instalaci verzovaných requirements/constraints
+prošel původní kód (484 PASS); po doplnění provenance proběhlo nové
+plné ověření 485 PASS. Obě etapy jsou odlišené v test evidence.
+
+Banky zůstávají PILOT/PENDING, celý inventář 0/21 DONE. Další dostupný
+krok: COF/EWBC a zbývající datované dcery, FDA product/application/sponsor
+a CMS owner/provider vazby. Windows koncový běh, relevantní živé pokrytí,
+přístupy/licence a historická out-of-sample evaluace zůstávají otevřené.
+Skóre a obchodování se nemění.
+
 ## CFG a HBAN — další datované bankovní identity (1. 10. 2026)
 
 Přidané vazby CFG (CIK 0000759944) → Citizens Bank, National Association /

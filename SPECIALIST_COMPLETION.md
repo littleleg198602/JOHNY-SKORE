@@ -22,7 +22,7 @@ samostatnými akceptačními důkazy.
 
 FDIC má od 1. 10. perzistentní obnovovací dávky: výchozí pět bank za běh,
 deset požadavků za UTC den, 30 dní pro použitelnou odpověď a jeden den
-pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje deset
+pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje dvanáct
 mapovaných bank od 22 BANK profilů a skutečné pokusy od použitelných dat.
 Prázdná či odmítnutá odpověď nezvyšuje použitelnou coverage. Staré nálezy
 samotné nenahrazují refresh pokus; scope je nejvýše dva výkazy na CERT,
@@ -40,14 +40,22 @@ jsou v `evidence/fdic_tfc_fitb_identity_20261001.json`, tři omezené
 kladné/záporné publisher kontroly v `evidence/fdic_tfc_fitb_live_20261001.json`.
 Tento předchozí pilot nemění PILOT/PENDING nebo 0/21 DONE.
 
-Aktuálně je mapováno deset z 22 BANK profilů: CFG → Citizens Bank, National
+Po kroku CFG/HBAN bylo mapováno deset z 22 BANK profilů: CFG → Citizens Bank, National
 Association / CERT 57957 a HBAN → The Huntington National Bank / CERT 6560.
 CFG datum vztahového tvrzení je 22. 1. 2026 podle prospektového dodatku,
 nikoli neověřené datum Exhibit 21; HBAN má výslovné datum 31. 12. 2025.
 Důkazy a tři omezené živé případy jsou v
 `evidence/fdic_cfg_hban_identity_20261001.json` a
-`evidence/fdic_cfg_hban_live_20261001.json`. Zbývajících 12 emitentů,
-kompletní skupiny, Windows běh a historická evaluace zůstávají otevřené.
+`evidence/fdic_cfg_hban_live_20261001.json`.
+
+Aktuálně je mapováno dvanáct z 22 BANK profilů, nově ALLY → Ally Bank /
+CERT 57803 a CFR → Frost Bank / CERT 5510. ALLY má výslovné as-of datum
+31. 12. 2025; CFR as-of zůstává neověřené a přijímá pouze výkazy od
+konzervativní hranice 5. 2. 2026 z ověřeného filing indexu. Není to
+datum akvizice. Citace a skutečné publisher odpovědi jsou v
+`evidence/fdic_ally_cfr_identity_20261001.json`, tři živé případy v
+`evidence/fdic_ally_cfr_live_20261001.json`. Zbývá deset emitentů,
+kompletní skupiny, Windows běh a historická evaluace.
 
 ## Co znamenají stavy
 

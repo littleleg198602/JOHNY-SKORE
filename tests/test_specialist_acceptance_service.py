@@ -78,6 +78,23 @@ class SpecialistAcceptanceTests(unittest.TestCase):
             self.assertNotIn("PRIVATE_TEST", json.dumps(report))
             self.assertFalse(report["completion_verified"])
 
+    def test_ally_cfr_onboarding_measures_twelve_mappings_without_accepting_completion(self):
+        clock = max(datetime.fromisoformat(entry["known_at"]) for entry in load_verified_banks()
+                    if entry["ticker"] in {"ALLY", "CFR"})
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            report = build_specialist_acceptance_report(store, as_of=clock, environment={})
+            coverage = report["rotating_source_coverage"]["fdic"]
+            self.assertEqual((22, 12, 10, 12, 0),
+                             (coverage["applicable_profile_subjects"], coverage["mapped_subjects"],
+                              coverage["unmapped_profile_subjects"], coverage["never_attempted_banks"],
+                              coverage["current_usable_banks"]))
+            prior = build_specialist_acceptance_report(
+                store, as_of=clock-timedelta(seconds=1), environment={})["rotating_source_coverage"]["fdic"]
+            self.assertEqual(10, prior["mapped_subjects"])
+            self.assertFalse(coverage["complete_issuer_groups_verified"])
+            self.assertFalse(report["completion_verified"])
+
     def test_unknown_observation_time_is_rejected(self):
         with TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "test.db")
