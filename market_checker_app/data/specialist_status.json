@@ -43,9 +43,10 @@
       "research": "07",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "NHTSA pilot and OFAC SDN exact primary-name collection have live publisher evidence. Expand dated vehicle/product identities, SDN aliases, Non-SDN/ownership analysis, DOJ and EPA; Windows, applicable coverage and historical evaluation remain.",
+      "next": "NHTSA pilot and OFAC SDN primary/ALT exact-name collection have live publisher evidence. Expand dated vehicle/product identities, weak aliases, Non-SDN/ownership analysis, DOJ and EPA; Windows, applicable coverage and historical evaluation remain.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
-      "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json"
+      "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json",
+      "ofac_alias_source_smoke_evidence": "evidence/ofac_alias_live_20261001.json"
     },
     {
       "id": "suppliers",

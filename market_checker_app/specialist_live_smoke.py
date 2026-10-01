@@ -18,7 +18,7 @@ from market_checker_app.services.nhtsa_recall_scout_service import (
 from market_checker_app.services.healthcare_scout_service import (
     CmsHospitalOwnerClient, ClinicalTrialsClient, _candidate,
 )
-from market_checker_app.services.ofac_scout_service import OfacSdnClient, SDN_URL
+from market_checker_app.services.ofac_scout_service import ALT_URL, OfacSdnClient, SDN_URL
 from market_checker_app.services.usaspending_scout_service import (
     API_URL as USA_AWARDS_URL, UsaSpendingApiClient, UsaSpendingScoutService,
     load_verified_identities,
@@ -195,13 +195,31 @@ def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES) -> dict
                                    "scope": "SDN publisher parser only; no watchlist issuer assigned"}
         check("ofac_positive_entity_schema", ofac_positive)
 
+        def ofac_alias_positive():
+            snapshot = ofac_snapshot()
+            matches = [entity for entity in snapshot.entities
+                       if entity["sdn_id"] == "36" and entity["name"] == "AEROCARIBBEAN AIRLINES"
+                       and any(alias["alias_id"] == "12" and alias["name"] == "AERO-CARIBBEAN"
+                               and alias["alias_type"] == "aka" for alias in entity.get("aliases", []))]
+            return bool(matches) and bool(snapshot.alias_content_sha256), {
+                "source_url": SDN_URL, "alias_source_url": ALT_URL,
+                "matched_entities": matches, "query_name": "AERO-CARIBBEAN",
+                "snapshot_sha256": snapshot.content_sha256,
+                "alias_snapshot_sha256": snapshot.alias_content_sha256,
+                "alias_total_rows": snapshot.alias_total_rows,
+                "scope": "Publisher ENT_NUM join and exact alternate-name positive; no watchlist issuer assigned"}
+        check("ofac_positive_alias_join", ofac_alias_positive)
+
         def ofac_negative():
             snapshot = ofac_snapshot()
             matches = [entity for entity in snapshot.entities
-                       if entity["name"].strip().casefold() == absent_name.casefold()]
+                       if entity["name"].strip().casefold() == absent_name.casefold()
+                       or any(alias["name"].strip().casefold() == absent_name.casefold()
+                              for alias in entity.get("aliases", []))]
             return matches == [], {"source_url": SDN_URL, "query_name": absent_name,
                                    "snapshot_sha256": snapshot.content_sha256,
-                                   "scope": "absent primary entity name; no sanctions clearance"}
+                                   "alias_snapshot_sha256": snapshot.alias_content_sha256,
+                                   "scope": "absent exact primary/ALT entity name; no sanctions clearance"}
         check("ofac_negative_name", ofac_negative)
 
         awards_client = UsaSpendingApiClient()

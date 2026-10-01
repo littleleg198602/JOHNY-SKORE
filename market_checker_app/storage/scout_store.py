@@ -255,7 +255,7 @@ class ScoutStore:
                            "checked_banks", "checked_uei", "failed_issuers", "failed_models",
                            "failed_banks", "usable_banks", "rejected_rows", "matched_rows", "saved_rows", "error",
                            "processed", "failed", "scheduled_subjects", "truncated_issuers",
-                           "snapshot_sha256", "budget_exhausted", "checked_names",
+                           "snapshot_sha256", "alias_snapshot_sha256", "alias_rows", "budget_exhausted", "checked_names",
                            "new_candidates", "truncated_names", "failed_names", "truncated_uei"}
                 and isinstance(value, (str, int, float, bool))}
         with self._connect() as conn:
@@ -289,13 +289,14 @@ class ScoutStore:
                 FROM scout_sec_identities AS i
                 LEFT JOIN scout_specialist_checks AS c
                   ON c.source=? AND c.subject_id=i.subject_id
-                 AND c.identity_key=i.cik || ':' || i.company_name
+                 AND c.identity_key=i.cik || ':' || i.company_name ||
+                     CASE WHEN ?='ofac' THEN ':sdn-alt-v1' ELSE '' END
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
                   AND (c.checked_at IS NULL OR c.checked_at<=?
                        OR (c.truncated=1 AND c.checked_at<=?))
                 ORDER BY c.checked_at IS NOT NULL, c.checked_at, i.subject_id
                 LIMIT ?
-            """, (source, clock, cutoff, partial_cutoff, limit)).fetchall()
+            """, (source, source, clock, cutoff, partial_cutoff, limit)).fetchall()
         return [dict(row) for row in rows]
 
     def specialist_coverage(self, source: str, *, as_of: datetime,
@@ -325,9 +326,10 @@ class ScoutStore:
                 FROM scout_sec_identities AS i
                 LEFT JOIN scout_specialist_checks AS c
                   ON c.source=? AND c.subject_id=i.subject_id
-                 AND c.identity_key=i.cik || ':' || i.company_name
+                 AND c.identity_key=i.cik || ':' || i.company_name ||
+                     CASE WHEN ?='ofac' THEN ':sdn-alt-v1' ELSE '' END
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
-            """ + scope, (cutoff, cutoff, source, clock, *selected)).fetchone()
+            """ + scope, (cutoff, cutoff, source, source, clock, *selected)).fetchone()
         active = int(row["active"])
         complete = int(row["current_complete"])
         partial = int(row["current_partial"])
@@ -340,6 +342,10 @@ class ScoutStore:
                                 candidate_count: int, truncated: bool) -> None:
         if source not in {"fda", "finra", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac"} or candidate_count < 0:
             raise ValueError("Invalid specialist check")
+        # A legacy primary-name-only OFAC check cannot satisfy ALT coverage.
+        # Preserve old history and make each upgraded identity immediately due.
+        if source == "ofac":
+            identity_key += ":sdn-alt-v1"
         with self._connect() as conn:
             conn.execute("""
                 INSERT INTO scout_specialist_checks

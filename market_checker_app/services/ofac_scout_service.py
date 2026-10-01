@@ -15,6 +15,7 @@ from market_checker_app.storage.scout_store import ScoutStore
 
 
 SDN_URL = "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV"
+ALT_URL = "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV"
 DOWNLOAD_HOSTS = {"sanctionslistservice.ofac.treas.gov",
                   "wc2h-sls-prod-public-published.s3.us-gov-west-1.amazonaws.com"}
 
@@ -33,19 +34,28 @@ class OfacSnapshot:
     entities: tuple[dict, ...]
     content_sha256: str
     total_rows: int
+    record_ids: frozenset[str] = frozenset()
+    alias_content_sha256: str = ""
+    alias_total_rows: int = 0
+
+
+def _csv_text(body: bytes, *, byte_budget: int) -> str:
+    if not body or len(body) > byte_budget:
+        raise ValueError("OFAC export exceeds byte budget or is empty")
+    text = body.decode("utf-8-sig").rstrip("\r\n")
+    # The publisher's legacy files can end with DOS EOF, but nowhere else.
+    if text.endswith("\x1a"):
+        text = text[:-1]
+    if "\x1a" in text:
+        raise ValueError("Embedded EOF in OFAC export")
+    return text
 
 
 def parse_sdn_csv(body: bytes) -> OfacSnapshot:
-    if not body or len(body) > 8_000_000:
-        raise ValueError("OFAC export exceeds byte budget or is empty")
     entities, seen = [], set()
     total = 0
-    text = body.decode("utf-8-sig").rstrip("\r\n")
-    # The live OFAC flat file has a trailing DOS EOF marker. Only accept it
-    # at EOF; an embedded or otherwise malformed row remains an error.
-    if text.endswith("\x1a"):
-        text = text[:-1]
-    for row in csv.reader(io.StringIO(text)):
+    text = _csv_text(body, byte_budget=8_000_000)
+    for row in csv.reader(io.StringIO(text), strict=True):
         total += 1
         if total > 100_000 or len(row) != 12:
             raise ValueError("Malformed OFAC CSV export")
@@ -63,17 +73,53 @@ def parse_sdn_csv(body: bytes) -> OfacSnapshot:
         entities.append({"sdn_id": entity_id, "name": name, "programs": programs})
     if not entities:
         raise ValueError("OFAC snapshot contains no entity records")
-    return OfacSnapshot(tuple(entities), hashlib.sha256(body).hexdigest(), total)
+    return OfacSnapshot(tuple(entities), hashlib.sha256(body).hexdigest(), total, frozenset(seen))
+
+
+def attach_sdn_aliases(snapshot: OfacSnapshot, body: bytes) -> OfacSnapshot:
+    """Join publisher ALT.CSV by ENT_NUM, never by name or row position.
+
+    Weak aliases in primary remarks, addresses and Non-SDN are outside this
+    contract. Unknown parents fail closed: the exports may have changed during
+    download. Separate fingerprints do not assert an atomic publisher release.
+    """
+    text = _csv_text(body, byte_budget=2_000_000)
+    by_id = {entity["sdn_id"]: {**entity, "aliases": []} for entity in snapshot.entities}
+    seen, total = set(), 0
+    for row in csv.reader(io.StringIO(text), strict=True):
+        total += 1
+        if total > 100_000 or len(row) != 5:
+            raise ValueError("Malformed OFAC alias export")
+        parent, alias_id, kind, name, remarks = (value.strip() for value in row)
+        if (not re.fullmatch(r"[1-9]\d{0,11}", parent)
+                or not re.fullmatch(r"[1-9]\d{0,11}", alias_id)
+                or alias_id in seen or parent not in snapshot.record_ids
+                or kind not in {"aka", "fka", "nka"}
+                or not name or name == "-0-" or len(name) > 350 or len(remarks) > 200):
+            raise ValueError("Invalid, duplicate or orphan OFAC alias")
+        seen.add(alias_id)
+        # Validate every row, but do not retain individuals/vessels/aircraft.
+        if parent in by_id:
+            by_id[parent]["aliases"].append({"alias_id": alias_id, "alias_type": kind,
+                                             "name": name, "remarks": remarks})
+    if not total:
+        raise ValueError("OFAC alias export contains no rows")
+    return OfacSnapshot(tuple(by_id.values()), snapshot.content_sha256, snapshot.total_rows,
+                        snapshot.record_ids, hashlib.sha256(body).hexdigest(), total)
 
 
 class OfacSdnClient:
-    def snapshot(self) -> OfacSnapshot:
+    def _download(self, url: str, *, byte_budget: int) -> bytes:
         opener = build_opener(_OfacRedirects())
-        request = Request(SDN_URL, headers={"Accept": "text/csv", "User-Agent": "JohnySkoreScout/1.0"})
+        request = Request(url, headers={"Accept": "text/csv", "User-Agent": "JohnySkoreScout/1.0"})
         with opener.open(request, timeout=20) as response:
             if urlsplit(response.geturl()).hostname not in DOWNLOAD_HOSTS:
                 raise ValueError("OFAC response left its approved export hosts")
-            return parse_sdn_csv(response.read(8_000_001))
+            return response.read(byte_budget + 1)
+
+    def snapshot(self) -> OfacSnapshot:
+        primary = parse_sdn_csv(self._download(SDN_URL, byte_budget=8_000_000))
+        return attach_sdn_aliases(primary, self._download(ALT_URL, byte_budget=2_000_000))
 
 
 class OfacSdnScoutService:
@@ -99,18 +145,25 @@ class OfacSdnScoutService:
                     "error": "OFAC_EXPORT_UNAVAILABLE_OR_INVALID"}
         by_name = {}
         for entity in snapshot.entities:
-            by_name.setdefault(entity["name"].strip().casefold(), []).append(entity)
+            names = [{"name": entity["name"], "name_type": "primary"}]
+            names.extend({**alias, "name_type": "alternate"} for alias in entity.get("aliases", []))
+            for name in names:
+                key = name["name"].strip().casefold()
+                by_name.setdefault(key, {}).setdefault(entity["sdn_id"], (entity, []))[1].append(name)
         checked = created = 0
         for issuer in due:
-            matches = by_name.get(issuer["company_name"].strip().casefold(), [])
-            for entity in matches:
-                details = {"stage": "ofac_sdn_exact_name_candidate", **entity,
+            matches = by_name.get(issuer["company_name"].strip().casefold(), {})
+            for entity, matched_names in matches.values():
+                details = {"stage": "ofac_sdn_exact_name_candidate",
+                           "sdn_id": entity["sdn_id"], "name": entity["name"], "programs": entity["programs"],
+                           "matched_names": sorted(matched_names, key=lambda row: (row["name_type"], row.get("alias_id", ""))),
                            "query_issuer_name": issuer["company_name"], "issuer_sec_cik": issuer["cik"],
                            "issuer_identity_verified": False, "scoring_applied": False,
-                           "scope": "SDN primary entity name only; no aliases, Non-SDN or ownership look-through",
-                           "snapshot_source": SDN_URL}
+                           "scope": "SDN primary and ALT entity names only; no weak aliases, Non-SDN or ownership look-through",
+                           "snapshot_source": SDN_URL, "alias_snapshot_source": ALT_URL}
                 digest = hashlib.sha256(json.dumps(details, sort_keys=True).encode()).hexdigest()
                 details["snapshot_content_sha256"] = snapshot.content_sha256
+                details["alias_snapshot_content_sha256"] = snapshot.alias_content_sha256
                 _, fresh = self.store.record_finding(
                     source="ofac", subject_id=issuer["subject_id"], source_object_id=entity["sdn_id"],
                     content_hash=digest, title=f"OFAC SDN name candidate: {entity['name']}",
@@ -120,8 +173,12 @@ class OfacSdnScoutService:
                 created += int(fresh)
             self.store.record_specialist_check("ofac", subject_id=issuer["subject_id"],
                                                identity_key=f"{issuer['cik']}:{issuer['company_name']}",
-                                               as_of=clock, candidate_count=len(matches), truncated=False)
+                                               as_of=clock, candidate_count=len(matches),
+                                               truncated=not bool(snapshot.alias_content_sha256))
             checked += 1
-        return {"status": "OK", "checked_issuers": checked, "new_findings": created,
+        return {"status": "OK" if snapshot.alias_content_sha256 else "PARTIAL",
+                "checked_issuers": checked, "new_findings": created,
                 "snapshot_sha256": snapshot.content_sha256,
+                "alias_snapshot_sha256": snapshot.alias_content_sha256,
+                "alias_rows": snapshot.alias_total_rows,
                 "matched_rows": sum(len(by_name.get(i["company_name"].strip().casefold(), [])) for i in due)}

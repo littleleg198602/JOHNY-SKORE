@@ -60,7 +60,7 @@ Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
 | SEC | Živý běh celé fronty 687 firem, historie oprav a Windows akceptace. |
 | Insider | Živé typy Form 4 a datovaní reporting persons/instrumenty 13D/G. |
 | Kontrakty | Další ticker–dcera–UEI, modifikace zakázek a aktuální živé důkazy; SAM přístup. |
-| Regulace | Další vozidla, OFAC aliasy/Non-SDN/vlastnictví, DOJ a EPA. |
+| Regulace | Další vozidla, OFAC weak aliasy/Non-SDN/vlastnictví, DOJ a EPA; ALT.CSV entity aliasy jsou zapojené a mají živý zdrojový důkaz. |
 | Dodavatelé | Z citovaných právních názvů vytvořit datované entity a vztahy; koncentrace a živé dokumenty. |
 | IR a zprávy | Ověřené firemní IR kanály a spojení RSS s primárním oznámením. |
 | Ceny | Živá akceptace 687 po close opravě; BRKB/PSTG/LEG a corporate actions. |
@@ -93,3 +93,40 @@ data ani nezřizuje účty. Oznámení vyžaduje celý inventář DONE/VERIFIED 
 skutečně existující akceptační důkazy, ne jen neprázdné cesty či zelené testy.
 
 Žádná část tohoto úkolu nepovoluje automatické zadávání obchodů.
+
+## Navazující checkpoint — OFAC ALT.CSV (1. 10. 2026)
+
+Další dostupný krok regulace je implementovaný: oficiální ALT.CSV se
+spojuje se SDN.CSV výhradně přes ENT_NUM. Parser kontroluje všech pět
+polí, jedinečnost ALT_NUM a existenci rodiče; uchovává pouze organizační
+entity. Shoda celého aktivně pozorovaného SEC názvu s primary/aka/fka/nka
+vytváří UNVERIFIED kandidáta s uvedením shodného názvu a obou otisků,
+nikoli potvrzenou sankci emitenta nebo změnu skóre. Stejné aliasy jednoho
+SDN vytvoří jeden kandidát. Opakování bez změny nálezu nevytváří duplicity.
+
+Denní sběr stáhne nejvýše dva exporty (SDN 8 MB, ALT 2 MB; 20sekundový
+timeout každého požadavku). Neplatný/neúplný ALT včetně sirotčího ENT_NUM
+nedokončí žádnou kontrolu emitenta. Starší primary-only kontrola zůstává
+v historii, ale díky verzovanému scope klíči nepřispívá do aktuálního
+pokrytí a firma je ihned splatná pro rozšířenou kontrolu. Primary-only
+snapshot bez ALT je PARTIAL. Oddělené otisky nedokládají atomickou verzi
+obou publikací. Weak aliasy v remarks, adresy/spillover, Non-SDN,
+vlastnický look-through a primární ověření emitenta stále chybějí.
+
+`evidence/ofac_alias_live_20261001.json` obsahuje tři skutečné PASS
+kontroly publikace: primary entity, alias AERO-CARIBBEAN přes ENT_NUM 36
+a ALT_NUM 12 a nepřítomné celé jméno v obou tabulkách. Ověřeno 19 452
+primárních řádků (10 006 entit) a 20 220 ALT řádků. Nebyl přiřazen žádný
+watchlistový emitent; nejde o Windows akceptaci nebo relevantní pokrytí
+687 tickerů. Regulační specialista proto zůstává PARTIAL/PENDING.
+
+Oficiální kontrakt byl ověřen 1. 10. 2026:
+https://ofac.treasury.gov/media/29976/download?inline=
+a https://ofac.treasury.gov/sdn-list-data-formats-data-schemas/tutorial-on-the-use-of-list-related-legacy-flat-files.
+Celá deterministická sada prošla 465 testy včetně UI a 687tickerových
+kontraktů. Otisky kódu a časy jsou v `evidence/ofac_alias_tests_20261001.json`;
+9 cílených OFAC kontrol ověřuje mimo jiné migraci scope bez přepsání
+historie, sirotčí/duplicitní ID, chybu druhého exportu a deduplikaci.
+Další regulační kroky: Non-SDN/weak aliasy/vlastnictví, DOJ/EPA a další
+datované produkty; ostatní specialisté a přístupové/Windows/historické
+blokace uvedené výše zůstávají otevřené.

@@ -1,5 +1,37 @@
 # Průběh implementace pátracích agentů
 
+## OFAC alternate entity names (1. 10. 2026, navazující checkpoint)
+
+Denní OFAC collector nově připojuje oficiální ALT.CSV přes ENT_NUM;
+ověřuje ALT_NUM, typ aka/fka/nka a všechny rodiče před zahájením kontrol.
+Jména fyzických osob/plavidel/letadel se neuchovávají jako emitenti.
+Přesný SEC název hledá mezi primary i alternate entity names; více
+aliasů téhož SDN vytvoří jeden UNVERIFIED kandidát s oběma otisky a
+konkrétními shodnými jmény. Bez ALT nemůže výsledek být úplnou kontrolou
+tohoto scope. Chyba druhého exportu nezapisuje falešnou kontrolu bez
+nálezu. Starší primary-only historie nezvyšuje rozšířené pokrytí:
+verzovaný scope klíč zařadí takovou identitu ihned znovu do fronty.
+
+Rozpočet je SDN do 8 MB a ALT do 2 MB, každý stažený nejvýše jednou
+za běh se stejnými povolenými redirect hosty a timeoutem 20 sekund.
+Oddělené otisky nejsou důkazem atomické publikace. Weak aliases v
+remarks, adresy/spillover, Non-SDN a vlastnické look-through zůstávají
+otevřené; jmenná shoda nedokládá vztah sankcionovaného subjektu k akcii.
+
+Oficiální DAT_SPEC/Tutorial byly znovu ověřeny. Živý parser prošel třemi
+případy v `evidence/ofac_alias_live_20261001.json`: primary entity,
+AERO-CARIBBEAN (ENT_NUM 36, ALT_NUM 12) a absence konkrétního jména v
+obou exportech. 19 452 primary řádků / 10 006 entit / 20 220 ALT řádků
+jsou rozsah publikace, nikoli akceptované pokrytí watchlistu.
+
+Celá deterministická sada má **465/465 PASS**, včetně 687tickerových
+a UI kontrol; 9 cílených OFAC testů zahrnuje chybu ALT, sirotčí/duplicitní
+ID, vynechání osobních aliasů, scope migraci a deduplikaci. Časy a otisky
+testovaného kódu jsou v `evidence/ofac_alias_tests_20261001.json`.
+Inventář zůstává **0/21 DONE**. Windows, datované identity a historická
+evaluace nejsou tímto testem doložené. Další konkrétní kroky a přístupové
+blokace zůstávají v aktuálním implementačním checkpointu.
+
 ## Živé veřejné zdroje a opravy jejich parserů (1. 10. 2026)
 
 V `evidence/specialist_live_20261001.json` je 13 skutečných kontrol:
