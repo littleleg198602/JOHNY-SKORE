@@ -1,5 +1,14 @@
 # Průběh implementace pátracích agentů
 
+## Stránkování openFDA (1. 10. 2026)
+
+FDA pro drug/device/food recall a CRL nyní při překročení jedné stránky
+načte druhou stránku pomocí oficiálního `skip`/`limit` (výchozí rozpočet
+nejvýše 2 × 100 záznamů na endpoint a firmu). Úplnost je ověřena proti
+`meta.results.total` a stránkovému offsetu. Přesah nebo nestabilní odpověď
+zůstává `PARTIAL`; po dni lze s vyšším výslovným rozpočtem dohledat další
+stránku. Kandidáti nadále nejsou důkazem vztahu produktu k emitentovi.
+
 ## Opakování částečných kontrol FDA/FINRA (1. 10. 2026)
 
 Odpověď dosažená na limitu není úplná. Dávkový plánovač ji nabídne znovu
