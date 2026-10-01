@@ -3,8 +3,8 @@
 Pracovní větev: `fix/specialist-daily-capacity`, PR #160.
 Autoritativní inventář všech 21 specialistů:
 `market_checker_app/data/specialist_status.json`. Dosud **0/21 DONE**.
-Tento dokument je uložený plán pokračování, nikoli tvrzení, že běží
-samostatní vývojoví agenti nebo že již proběhla úplná provozní akceptace.
+Tento dokument uchovává plán pokračování a akceptaci. Automatické
+pokračování je popsané níže; úplná provozní akceptace dosud neproběhla.
 
 ## Co je doložené v tomto checkpointu
 
@@ -40,6 +40,18 @@ samostatní vývojoví agenti nebo že již proběhla úplná provozní akceptac
   `evidence/ofac_live_20261001.json` (2). Všech 19 případů PASS na zdejším
   Linux hostu; nejde o Windows nebo o všech 687 firem.
 
+Navazující krok: `evidence/usaspending_live_20261001.json` dokládá další
+čtyři PASS případy. Sikorsky UEI pilot uložil 100 zakázek z jedné stránky,
+replay nevytvořil duplicity a další stránka správně zůstala PARTIAL.
+Negativní UEI a recipient name jsou pouze absence v omezeném dotazu.
+Součet je **23 živých případů u sedmi veřejných zdrojů**.
+
+V UI je stažení provozního přehledu specialistů: 687tickerový archiv se
+ověřuje podle skutečných řádků a pořadí, SEC počty se omezují na kanonický
+universe, zdroje bez běhu mají NEVER_RUN, sektorové kontroly zachovávají
+PARTIAL a přístupové údaje nejsou exportovány. Přehled nedokládá automaticky
+Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
+
 ## Zbývající práce podle specialisty
 
 | Specialista | Další konkrétní krok |
@@ -71,8 +83,13 @@ FRED ani EIA klíč. To nevypovídá o jejich přítomnosti na uživatelově Win
 nebo v GitHub secrets. Windows koncový běh, datové licence a skutečnou
 historickou výkonnost nelze nahradit syntetickými testy.
 
-Uživatel požádal o oznámení až po dokončení všech specialistů. Kontrola
-dokončení je nastavená a vyžaduje kompletní inventář i skutečně existující
-důkazy; sama nepředstavuje pokračující implementační proces.
+Uživatel požádal o pokračování a oznámení až po dokončení všech specialistů.
+Je nastavené automatické pokračování s hodinovým intervalem: načte tento
+checkpoint a aktuální GitHub stav, vezme další dostupný konkrétní krok,
+ověří změnu a uloží ji na pracovní větev/PR. Při chybějícím oprávnění či
+Windows/historických důkazech zachová blokaci a pracuje na jiném dostupném
+kroku; nevytváří prázdné commity. Bez dalšího pokynu nemerguje PR, nekupuje
+data ani nezřizuje účty. Oznámení vyžaduje celý inventář DONE/VERIFIED a
+skutečně existující akceptační důkazy, ne jen neprázdné cesty či zelené testy.
 
 Žádná část tohoto úkolu nepovoluje automatické zadávání obchodů.

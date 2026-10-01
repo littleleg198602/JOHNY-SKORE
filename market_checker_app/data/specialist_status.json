@@ -34,7 +34,8 @@
       "research": "06, 15",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Expand dated ticker-subsidiary-UEI evidence beyond LMT-Sikorsky, verify USAspending API and modifications, then add SAM.gov when access is available."
+      "next": "USAspending Sikorsky exact-UEI collection and duplicate replay pass live bounded checks. Expand dated ticker-subsidiary-UEI evidence beyond the single pilot, obtain modification history and full applicable coverage, then SAM.gov with access.",
+      "source_smoke_evidence": "evidence/usaspending_live_20261001.json"
     },
     {
       "id": "regulatory",
@@ -128,7 +129,8 @@
       "research": "sector AEROSPACE/DEFENSE_IT",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Expand verified contract-recipient identities and dated program relationships beyond the single UEI pilot."
+      "next": "The Sikorsky UEI pilot has live award/recipient evidence. Expand verified identities and dated program relationships beyond it; Windows, sector coverage and historical evaluation remain.",
+      "source_smoke_evidence": "evidence/usaspending_live_20261001.json"
     },
     {
       "id": "sector_other",
@@ -168,7 +170,7 @@
       "research": "27",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Prove source-specific attempted/usable/failed states and resolve claims with independent primary evidence."
+      "next": "Portable runtime export measures archive integrity, scoped identities, source states and partial coverage without accepting completion. Prove attempted/usable/failed semantics for every provider and independently verify claims."
     },
     {
       "id": "evaluation",
@@ -176,7 +178,7 @@
       "research": "28",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Collect live coverage, outage and evidence report; historical out-of-sample measurement before changing prediction score."
+      "next": "Runtime diagnostic export now exists in the UI. Obtain actual Windows end-to-end evidence, complete applicable coverage and historical out-of-sample measurement before changing prediction score."
     }
   ]
 }

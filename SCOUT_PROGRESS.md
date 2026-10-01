@@ -333,3 +333,41 @@ SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261001.md uchovává další práci
 pro všech 21 specialistů a konkrétní nevyřešené přístupy, identity a
 akceptaci. Je nastavená kontrola budoucího úplného dokončení s oznámením
 až po skutečně existujících důkazech; kontrola sama nepíše další kód.
+
+## 1. 10. 2026 — USAspending živě a přenosná provozní diagnostika
+
+Oficiální USAspending API prošlo čtyřmi novými případy. Dokumentovaný
+Sikorsky UEI UTJWTSLMFNG4 uložil přes stávající collector 100 aktuálních
+zakázek pro LMT; opakování stejného zachyceného payloadu nepřidalo duplicity.
+První stránka měla hasNext, takže výsledek zůstává PARTIAL. Negativní
+UEI, pozitivní recipient schema a negativní název prošly také. Úplný
+payload, výsledek a scope jsou v evidence/usaspending_live_20261001.json.
+Celkem je uložených 23 PASS případů sedmi veřejných zdrojů, nikoli úplná
+akceptace 21 specialistů.
+
+UI má tlačítko Stáhnout provozní přehled specialistů. Přehled skutečně
+čte archiv vstupu, pořadí 687 řádků, SEC identity a dokončené indexy jen
+v kanonickém scope, poslední běhy zdrojů a aktuální sektorové pokrytí.
+NEVER_RUN neznamená nulové nálezy; částečná stránka zůstává částečná.
+Exportuje systém/Python a jen boolean přítomnosti přístupových nastavení,
+nikoli hodnoty klíčů, cesty nebo adresy vlastníků. Přehled neprovádí
+externí volání, nevytváří záznam běhu a nepřepisuje DONE/VERIFIED.
+I na Windows je to diagnostika, nikoli automatický důkaz koncového běhu.
+Přítomný klíč není úspěšná autentizace. Uložení souhrnu příjemců už zachovává
+checked/new/truncated/failed počty, které předtím propadávaly allowlistem.
+
+Navazující testy ověřují prázdnou databázi na Windows bez falešného
+potvrzení, poškozený archiv, cizí ticker, sektorový jmenovatel, zachování
+PARTIAL/WAIT_ACCESS a neexportování přístupových hodnot. Předchozí celá
+sada 456 testů a GitHub CI prošly; navazující kontrola má samostatný
+čas a otisky kódu v evidence/specialist_acceptance_tests_20261001.json.
+Inventář zůstává 0/21 DONE. Další dostupný vývoj i závislosti jsou otevřeně
+uvedené v checkpointu; kontrola budoucího dokončení nenahrazuje vývoj.
+
+Po uložení tohoto kroku byla původní kontrola dokončení rozšířena podle
+uživatelského požadavku na automatické pokračování implementace. Hodinový
+běh obnoví stav z GitHubu, provede další dostupný konkrétní krok, ověří ho
+a uloží na pracovní větev/PR. Nepřepisuje souběžnou práci a nevymýšlí chybějící
+důkazy; při skutečné blokaci pracuje na jiném dostupném úkolu a bez práce
+nevytváří prázdný commit. Oznámení pošle až po skutečné akceptaci všech 21.
+Nepovoluje automatický merge, nákup dat, zakládání účtů nebo obchody.

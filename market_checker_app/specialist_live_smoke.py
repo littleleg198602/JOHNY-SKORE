@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -19,11 +19,21 @@ from market_checker_app.services.healthcare_scout_service import (
     CmsHospitalOwnerClient, ClinicalTrialsClient, _candidate,
 )
 from market_checker_app.services.ofac_scout_service import OfacSdnClient, SDN_URL
+from market_checker_app.services.usaspending_scout_service import (
+    API_URL as USA_AWARDS_URL, UsaSpendingApiClient, UsaSpendingScoutService,
+    load_verified_identities,
+)
+from market_checker_app.services.usaspending_recipient_discovery import (
+    RECIPIENT_URL, UsaSpendingRecipientClient,
+)
 from market_checker_app.storage.scout_store import ScoutStore
 
 
-def run(*, output_path: Path, sources: tuple[str, ...] = ("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac")) -> dict:
-    if not sources or set(sources) - {"fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac"}:
+PUBLIC_SOURCES = ("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac", "usaspending")
+
+
+def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES) -> dict:
+    if not sources or set(sources) - set(PUBLIC_SOURCES):
         raise ValueError("Unsupported live sources")
     report = {"schema_version": 1,
               "started_at": datetime.now(timezone.utc).isoformat(),
@@ -194,6 +204,58 @@ def run(*, output_path: Path, sources: tuple[str, ...] = ("fdic", "fda", "nhtsa"
                                    "scope": "absent primary entity name; no sanctions clearance"}
         check("ofac_negative_name", ofac_negative)
 
+        awards_client = UsaSpendingApiClient()
+        def contracts_positive():
+            identity = next(e for e in load_verified_identities() if e["uei"] == "UTJWTSLMFNG4")
+            now = datetime.now(timezone.utc)
+            payload = awards_client.awards(identity["uei"], start=now.date() - timedelta(days=730),
+                                           end=now.date(), page=1)
+            class CapturedAwards:
+                def awards(self, uei, *, start, end, page):
+                    if uei != identity["uei"] or page != 1:
+                        raise ValueError("Unexpected live replay query")
+                    return payload
+            service = UsaSpendingScoutService(store, client=CapturedAwards(),
+                                               identities=[identity], max_pages=1)
+            result = service.run(as_of=now, universe={identity["ticker"]})
+            replay = service.run(as_of=now, universe={identity["ticker"]})
+            has_next = payload["page_metadata"]["hasNext"]
+            passed = (result["new_findings"] > 0 and replay["new_findings"] == 0
+                      and result["status"] == ("PARTIAL" if has_next else "OK"))
+            return passed, {"source_url": USA_AWARDS_URL, "ticker": identity["ticker"],
+                            "uei": identity["uei"], "summary": result, "replay_summary": replay,
+                            "scope": "documented Sikorsky UEI pilot; one page, not all LMT awards",
+                            "payload": payload}
+        check("usaspending_positive_contract_uei", contracts_positive)
+
+        def contracts_negative():
+            now = datetime.now(timezone.utc).date()
+            absent_uei = "Z9Q8W7E6R5T4"
+            payload = awards_client.awards(absent_uei, start=now - timedelta(days=730), end=now, page=1)
+            return payload.get("results") == [] and payload.get("page_metadata", {}).get("hasNext") is False, {
+                "source_url": USA_AWARDS_URL, "query_uei": absent_uei,
+                "scope": "absent UEI within two-year bounded search, not issuer-wide absence", "payload": payload}
+        check("usaspending_negative_contract_uei", contracts_negative)
+
+        recipient_client = UsaSpendingRecipientClient()
+        def recipient_positive():
+            name = "SIKORSKY AIRCRAFT CORPORATION"
+            payload = recipient_client.recipients(name, page=1)
+            matches = [r for r in payload["results"]
+                       if r.get("name") == name and r.get("uei") == "UTJWTSLMFNG4" and r.get("id")]
+            return bool(matches) and isinstance(payload["page_metadata"]["hasNext"], bool), {
+                "source_url": RECIPIENT_URL, "query_name": name,
+                "scope": "publisher schema and exact name/UEI only; no new issuer identity inferred",
+                "payload": payload}
+        check("usaspending_positive_recipient_schema", recipient_positive)
+
+        def recipient_negative():
+            payload = recipient_client.recipients(absent_name, page=1)
+            return payload.get("results") == [] and payload.get("page_metadata", {}).get("hasNext") is False, {
+                "source_url": RECIPIENT_URL, "query_name": absent_name,
+                "scope": "absent name only, not absence of government contracts", "payload": payload}
+        check("usaspending_negative_recipient_name", recipient_negative)
+
     report["finished_at"] = datetime.now(timezone.utc).isoformat()
     report["status"] = "PASS" if all(row["status"] == "PASS" for row in report["cases"].values()) else "PARTIAL"
     temporary = output_path.with_suffix(output_path.suffix + ".tmp")
@@ -205,8 +267,7 @@ def run(*, output_path: Path, sources: tuple[str, ...] = ("fdic", "fda", "nhtsa"
 def main():
     parser = argparse.ArgumentParser(description="Omezené živé ověření veřejných specialistů.")
     parser.add_argument("--output-path", type=Path, default=Path("outputs/specialist_live_smoke_latest.json"))
-    parser.add_argument("--sources", nargs="+", choices=("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac"),
-                        default=("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac"))
+    parser.add_argument("--sources", nargs="+", choices=PUBLIC_SOURCES, default=PUBLIC_SOURCES)
     args = parser.parse_args()
     report = run(output_path=args.output_path, sources=tuple(args.sources))
     print(f"Public specialist smoke: {report['status']}")

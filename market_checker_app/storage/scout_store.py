@@ -255,7 +255,8 @@ class ScoutStore:
                            "checked_banks", "checked_uei", "failed_issuers", "failed_models",
                            "failed_banks", "usable_banks", "rejected_rows", "matched_rows", "saved_rows", "error",
                            "processed", "failed", "scheduled_subjects", "truncated_issuers",
-                           "snapshot_sha256", "budget_exhausted"}
+                           "snapshot_sha256", "budget_exhausted", "checked_names",
+                           "new_candidates", "truncated_names", "failed_names", "truncated_uei"}
                 and isinstance(value, (str, int, float, bool))}
         with self._connect() as conn:
             conn.execute("""
@@ -432,6 +433,50 @@ class ScoutStore:
                 SELECT COUNT(*) FROM scout_jobs WHERE source='sec'
                   AND reason='daily_filings' AND status='DONE'
             """).fetchone()[0])
+
+    def specialist_runtime_diagnostics(self, *, records: list[dict[str, str]],
+                                       source_sha256: str, as_of: datetime) -> dict[str, object]:
+        """Read canonical-scope runtime facts without creating evidence of a run."""
+        subjects = sorted({row["ticker"] for row in records})
+        if not subjects:
+            raise ValueError("Runtime diagnostics require a nonempty universe")
+        placeholders = ",".join("?" for _ in subjects)
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            snapshot = conn.execute("""
+                SELECT snapshot_id, created_at, row_count FROM scout_universe_snapshots
+                WHERE source_sha256=? AND created_at<=?
+            """, (source_sha256, clock)).fetchone()
+            archived = [tuple(row) for row in conn.execute("""
+                SELECT ticker, yahoo_ticker FROM scout_universe_input_rows
+                WHERE snapshot_id=? ORDER BY input_position
+            """, (snapshot["snapshot_id"],))] if snapshot else []
+            identities = conn.execute(f"""
+                SELECT status, COUNT(DISTINCT subject_id) AS count FROM scout_sec_identities
+                WHERE first_observed_at<=? AND subject_id IN ({placeholders}) GROUP BY status
+            """, (clock, *subjects)).fetchall()
+            completed = conn.execute(f"""
+                SELECT COUNT(DISTINCT subject_id) FROM scout_jobs
+                WHERE source='sec' AND reason='daily_filings' AND status='DONE'
+                  AND updated_at<=? AND subject_id IN ({placeholders})
+            """, (clock, *subjects)).fetchone()[0]
+            findings = conn.execute(f"""
+                SELECT source, verification_status, COUNT(*) AS versions,
+                       COUNT(DISTINCT subject_id) AS subjects
+                FROM scout_findings WHERE available_at<=? AND first_observed_at<=?
+                  AND subject_id IN ({placeholders}) GROUP BY source, verification_status
+                ORDER BY source, verification_status
+            """, (clock, clock, *subjects)).fetchall()
+        expected = [(row["ticker"], row["yahoo_ticker"]) for row in records]
+        return {
+            "universe_archive": {"present": snapshot is not None,
+                                 "matches_current_input": bool(snapshot) and archived == expected,
+                                 "archived_rows": len(archived),
+                                 "created_at": snapshot["created_at"] if snapshot else None},
+            "sec_identity_subjects": {row["status"]: int(row["count"]) for row in identities},
+            "completed_sec_index_subjects": int(completed),
+            "findings_in_canonical_scope": [dict(row) for row in findings],
+        }
 
     def recipient_discovery_due(
         self, *, as_of: datetime, limit: int = 5, interval_days: int = 30,

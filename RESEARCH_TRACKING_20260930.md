@@ -9,7 +9,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 |---|---|---|
 | 01–04 identita, důkazy, SEC, Windows | ČÁSTEČNĚ | 651 identit mimo pilot, aliasy do cen/scoutu, živý 687 běh a Windows test |
 | 05 insider | ČÁSTEČNĚ: typy Form 4 | P/S non-derivative s odpovídajícím A/D jsou oddělené od A/M/F kompenzací a ostatních transakcí; 13D/G, 13F a historická akceptace zbývají. |
-| 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Doložená jedna vazba LMT → Sikorsky (`UTJWTSLMFNG4`); automatické dohledávání dalších UEI ze SEC názvu ukládá pouze kandidáty. Živý API běh a historie modifikací/obligations zbývají. |
+| 06 kontrakty | ČÁSTEČNĚ: USAspending scout | LMT → Sikorsky (`UTJWTSLMFNG4`) prošel živým uložením 100 zakázek a replay bez duplicit; další stránka zůstává PARTIAL. Další UEI ze SEC názvu jsou pouze kandidáti. Historie modifikací a úplné relevantní pokrytí zbývají. |
 | 07 vládní rizika | ČÁSTEČNĚ: NHTSA a OFAC SDN | Živě ověřený parser NHTSA a export SDN; přesný SDN název je jen kandidát. Další vozidla, aliasy, Non-SDN, vlastnická analýza, DOJ/EPA a akceptace zbývají. |
 | 08 veřejná extrakce | ČÁSTEČNĚ | SEC scout nově ukládá omezené citované stopy dodavatelů a komodit z 10-K/Q/20-F/40-F; chybí přílohy, skutečná identita protistran a hedging |
 | 09 IR a zprávy | ČÁSTEČNĚ | Ověřené IR feedy a propojení RSS stopy s primárním oznámením |
@@ -113,4 +113,8 @@ Vazba k emitentovi a datum případného vlastnictví stále vyžadují samostat
 primární doklad. Kandidát nevstupuje do registru potvrzených UEI, zakázek
 ani skóre. UI jej ukazuje odděleně a popisuje chybějící důkaz. Stránkovací
 limit vrací `PARTIAL`; nulový počet kandidátů neříká, že firma nemá kontrakty.
-Živý test oficiálního API zatím neproběhl.
+Živý test 1. 10. 2026 potvrzuje pozitivní Sikorsky name/UEI schema a
+negativní neexistující název; oba payloady jsou uložené v
+`evidence/usaspending_live_20261001.json`. Stejný soubor dokládá omezený
+pozitivní a negativní award dotaz a duplicate replay. Není tím prokázaná
+identita dalších emitentů ani historie modifikací nebo celé pokrytí.

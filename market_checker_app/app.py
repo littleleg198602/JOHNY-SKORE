@@ -57,6 +57,7 @@ from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.services.specialist_status_service import load_specialist_status
+from market_checker_app.services.specialist_acceptance_service import build_specialist_acceptance_report
 from market_checker_app.scout_background_worker import start_sec_background_scan
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
@@ -2168,6 +2169,7 @@ st.write(
     f"(US-687 scope; Yahoo-only: {len(yahoo_only_tickers)})"
 )
 
+scout_store = ScoutStore(config.sqlite_path)
 with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
     specialist_inventory = load_specialist_status()
     st.caption(
@@ -2180,6 +2182,13 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
         for row in specialist_inventory["specialists"]
     ]), hide_index=True)
     st.caption(specialist_inventory["completion_rule"])
+    diagnostic = build_specialist_acceptance_report(scout_store)
+    diagnostic_name = "specialist_acceptance_" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + ".json"
+    st.download_button("Stáhnout provozní přehled specialistů",
+                       data=json.dumps(diagnostic, ensure_ascii=False, indent=2),
+                       file_name=diagnostic_name, mime="application/json")
+    st.caption("Přehled obsahuje skutečné uložené běhy, pokrytí a mezery tohoto počítače. "
+               "Samotné stažení přehledu nepotvrzuje dokončení ani koncový Windows test.")
 
 with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     research_profiles = load_research_profiles()
@@ -2196,7 +2205,6 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
             "; profil OIL_GAS byl ověřen podle oficiálního ONEOK a SEC 10-K. "
             "Výzkumné P není součástí produkčních 687 tickerů."
         )
-    scout_store = ScoutStore(config.sqlite_path)
     if st.button("Prohledat celou čekající frontu SEC na pozadí"):
         launch_status = start_sec_background_scan(
             scout_store, db_path=config.sqlite_path, user_agent=sec_user_agent,
@@ -2238,9 +2246,9 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         {"Zdroj": label, "Stav": (run.get("status") if run else "JEŠTĚ NEBĚŽEL"),
          "Kdy": run.get("observed_at", "") if run else "",
          "Zkontrolováno": next((run[key] for key in
-                               ("checked_issuers", "checked_models", "checked_banks", "checked_uei", "processed")
+                               ("checked_issuers", "checked_models", "checked_banks", "checked_uei", "checked_names", "processed")
                                if key in run), "") if run else "",
-         "Nové nálezy": run.get("new_findings", "") if run else "",
+         "Nové nálezy / kandidáti": run.get("new_findings", run.get("new_candidates", "")) if run else "",
          "Použitelné banky": run.get("usable_banks", "") if run else "",
          "Odmítnuté řádky": run.get("rejected_rows", "") if run else "",
          "Vyčerpán rozpočet": run.get("budget_exhausted", "") if run else "",
