@@ -42,6 +42,17 @@ class ScoutStoreTests(unittest.TestCase):
                               "current_complete": 0, "current_partial": 0,
                               "not_current": 4},
                              store.specialist_coverage("finra", as_of=now))
+            self.assertEqual(2, len(store.specialist_due(
+                "fda", as_of=now, limit=4)))
+            self.assertEqual(["JPM", "NVDA", "MSFT"], [row["subject_id"] for row in
+                store.specialist_due("fda", as_of=now + timedelta(days=1), limit=4)])
+            store.record_specialist_check("finra", subject_id="AAPL",
+                identity_key="0000320193:AAPL Inc.",
+                as_of=now - timedelta(days=16), candidate_count=0, truncated=False)
+            self.assertEqual(0, store.specialist_coverage(
+                "finra", as_of=now, refresh_days=15)["current_complete"])
+            self.assertEqual(1, store.specialist_coverage(
+                "finra", as_of=now, refresh_days=30)["current_complete"])
 
     def test_runner_keeps_completed_source_status_when_later_source_stops(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

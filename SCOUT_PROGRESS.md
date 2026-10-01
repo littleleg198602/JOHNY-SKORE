@@ -1,5 +1,13 @@
 # Průběh implementace pátracích agentů
 
+## Opakování částečných kontrol FDA/FINRA (1. 10. 2026)
+
+Odpověď dosažená na limitu není úplná. Dávkový plánovač ji nabídne znovu
+po dni, ale nejprve obslouží identity bez jakékoli kontroly a starší
+kontroly. Opakování se stejným limitem stránek samo o sobě chybějící
+stránky nedohledá; takový výsledek zůstává `PARTIAL`. Přehled pokrytí
+ukazuje skutečné intervaly: FDA 30 dní a FINRA 15 dní.
+
 ## Citigroup / FDIC CERT 7213 (1. 10. 2026)
 
 V datovaném registru bank přibyla vazba C na Citibank, National Association

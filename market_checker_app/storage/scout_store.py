@@ -279,6 +279,7 @@ class ScoutStore:
         if source not in {"fda", "finra"} or limit < 1 or refresh_days < 1:
             raise ValueError("Unsupported specialist check configuration")
         cutoff = _utc(as_of - timedelta(days=refresh_days))
+        partial_cutoff = _utc(as_of - timedelta(days=1))
         clock = _utc(as_of)
         with self._connect() as conn:
             rows = conn.execute("""
@@ -288,10 +289,11 @@ class ScoutStore:
                   ON c.source=? AND c.subject_id=i.subject_id
                  AND c.identity_key=i.cik || ':' || i.company_name
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
-                  AND (c.checked_at IS NULL OR c.checked_at<=?)
+                  AND (c.checked_at IS NULL OR c.checked_at<=?
+                       OR (c.truncated=1 AND c.checked_at<=?))
                 ORDER BY c.checked_at IS NOT NULL, c.checked_at, i.subject_id
                 LIMIT ?
-            """, (source, clock, cutoff, limit)).fetchall()
+            """, (source, clock, cutoff, partial_cutoff, limit)).fetchall()
         return [dict(row) for row in rows]
 
     def specialist_coverage(self, source: str, *, as_of: datetime,
