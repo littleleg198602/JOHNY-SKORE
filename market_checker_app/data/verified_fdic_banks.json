@@ -106,5 +106,35 @@
     "financial_name": "FIFTH THIRD BANK NA",
     "financial_name_known_at": "2026-10-01T14:36:13.237516+00:00",
     "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6672&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+  },
+  {
+    "ticker": "CFG",
+    "cert": 57957,
+    "issuer_cik": "0000759944",
+    "issuer_name": "Citizens Financial Group, Inc.",
+    "bank_name": "Citizens Bank, National Association",
+    "effective_from": "2026-01-22",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/759944/000119312526022234/d38715d424b2.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/759944/000075994426000139/cfg-20260721.htm",
+    "known_at": "2026-10-01T16:31:58.620723+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57957",
+    "financial_name": "CITIZENS BANK NATIONAL ASSN",
+    "financial_name_known_at": "2026-10-01T16:30:34.546834+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57957&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+  },
+  {
+    "ticker": "HBAN",
+    "cert": 6560,
+    "issuer_cik": "0000049196",
+    "issuer_name": "Huntington Bancshares Incorporated",
+    "bank_name": "The Huntington National Bank",
+    "effective_from": "2025-12-31",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/49196/000004919626000015/hban20251231ex211-10k.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/49196/000004919626000073/hban-20260903.htm",
+    "known_at": "2026-10-01T16:31:58.620723+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/6560",
+    "financial_name": "HUNTINGTON NATIONAL BANK",
+    "financial_name_known_at": "2026-10-01T16:30:40.703072+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6560&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
   }
 ]

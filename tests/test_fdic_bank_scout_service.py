@@ -83,7 +83,8 @@ class FdicBankScoutTests(unittest.TestCase):
     def test_production_bank_relationships_are_exact_and_dated(self):
         identities = load_verified_banks()
         self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213),
-                          ("PNC", 6384), ("USB", 6548), ("TFC", 9846), ("FITB", 6672)},
+                          ("PNC", 6384), ("USB", 6548), ("TFC", 9846), ("FITB", 6672),
+                          ("CFG", 57957), ("HBAN", 6560)},
                          {(row["ticker"], row["cert"]) for row in identities})
         citi = next(row for row in identities if row["ticker"] == "C")
         self.assertEqual("Citibank, National Association", citi["bank_name"])
@@ -194,6 +195,55 @@ class FdicBankScoutTests(unittest.TestCase):
                     rejected = scout.run(as_of=clock, recheck=True)
                     self.assertEqual(("PARTIAL", 0, 1),
                                      (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
+
+    def test_cfg_hban_captures_do_not_backdate_relationship_or_knowledge(self):
+        evidence = json.loads((Path(__file__).resolve().parents[1] /
+                               "evidence/fdic_cfg_hban_identity_20261001.json").read_text())
+        identities = [row for row in load_verified_banks() if row["ticker"] in {"CFG", "HBAN"}]
+        self.assertEqual({"CFG": (57957, "0000759944", "2026-01-22"),
+                          "HBAN": (6560, "0000049196", "2025-12-31")},
+                         {row["ticker"]: (row["cert"], row["issuer_cik"], row["effective_from"])
+                          for row in identities})
+        captures = {entry["identity"]["cert"]: entry for entry in evidence["entries"]}
+        for identity in identities:
+            with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
+                captured = captures[identity["cert"]]
+                self.assertEqual(identity, captured["identity"])
+                institution = captured["fdic_publisher_observation"]["institutions"]["data"][0]["data"]
+                self.assertEqual((identity["cert"], identity["bank_name"], 1),
+                                 (institution["CERT"], institution["NAME"], institution["ACTIVE"]))
+                class CapturedClient:
+                    calls = 0
+                    payload = captured["fdic_publisher_observation"]["financials"]
+                    def financials(self, cert):
+                        self.calls += 1
+                        return self.payload
+                client = CapturedClient()
+                store = ScoutStore(Path(directory) / "test.db")
+                clock = datetime.fromisoformat(identity["known_at"])
+                scout = FdicBankScoutService(store, client=client, identities=[identity])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock-timedelta(seconds=1))["status"])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock, universe={"OTHER"})["status"])
+                self.assertEqual(0, client.calls)
+                result = scout.run(as_of=clock, universe=set(load_canonical_tickers()))
+                self.assertEqual(("OK", 2, 1),
+                                 (result["status"], result["new_findings"], result["usable_banks"]))
+                replay = scout.run(as_of=clock, recheck=True)
+                self.assertEqual((1, 0, 2), (replay["checked_banks"], replay["new_findings"], client.calls))
+                details = json.loads(store.findings_as_of(identity["ticker"], as_of=clock)[0]["details_json"])
+                self.assertEqual(identity["issuer_cik"], details["issuer_cik"])
+                self.assertEqual(identity["relationship_evidence_url"], details["relationship_evidence_url"])
+                self.assertFalse(details["issuer_consolidated_values"])
+                self.assertFalse(details["scoring_applied"])
+                # Modified captured fixture: a report predating the evidenced
+                # relationship must not be used under the newly onboarded link.
+                prior_date = (datetime.fromisoformat(identity["effective_from"])-timedelta(days=1)).strftime("%Y%m%d")
+                client.payload = {"data": [{"data": dict(client.payload["data"][0]["data"], REPDTE=prior_date)}]}
+                rejected = scout.run(as_of=clock, recheck=True)
+                self.assertEqual(("PARTIAL", 0, 1),
+                                 (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
+                if identity["ticker"] == "CFG":
+                    self.assertFalse(captured["relationship_evidence"]["exact_legal_name_corroboration"]["exhibit_as_of_date_verified"])
 
     def test_live_smoke_rejects_unknown_or_out_of_source_selection_before_io(self):
         with TemporaryDirectory() as directory:

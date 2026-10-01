@@ -22,7 +22,7 @@ samostatnými akceptačními důkazy.
 
 FDIC má od 1. 10. perzistentní obnovovací dávky: výchozí pět bank za běh,
 deset požadavků za UTC den, 30 dní pro použitelnou odpověď a jeden den
-pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje osm
+pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje deset
 mapovaných bank od 22 BANK profilů a skutečné pokusy od použitelných dat.
 Prázdná či odmítnutá odpověď nezvyšuje použitelnou coverage. Staré nálezy
 samotné nenahrazují refresh pokus; scope je nejvýše dva výkazy na CERT,
@@ -32,14 +32,22 @@ Zachycené payloady a restart/kvóta replay jsou doložené v
 v `evidence/fdic_scheduler_tests_20261001.json`. Nejde o nový živý běh,
 Windows akceptaci ani historickou evaluaci. Stav zůstává PILOT/PENDING.
 
-Datované bankovní mapování rozšířené na osm z 22 BANK profilů:
+V předchozím kroku bylo datované bankovní mapování rozšířené na osm z 22 BANK profilů:
 TFC → Truist Bank / CERT 9846 a FITB → Fifth Third Bank, National
 Association / CERT 6672. FITB Exhibit 21 platí k 15. 2. 2026, nikoli
 k výročnímu období 31. 12. 2025. SEC vztahy a skutečné FDIC payloady
 jsou v `evidence/fdic_tfc_fitb_identity_20261001.json`, tři omezené
 kladné/záporné publisher kontroly v `evidence/fdic_tfc_fitb_live_20261001.json`.
-Čtrnáct dalších emitentů a úplnost dceřiných skupin zůstávají otevřené;
-pilot nemění PILOT/PENDING nebo 0/21 DONE.
+Tento předchozí pilot nemění PILOT/PENDING nebo 0/21 DONE.
+
+Aktuálně je mapováno deset z 22 BANK profilů: CFG → Citizens Bank, National
+Association / CERT 57957 a HBAN → The Huntington National Bank / CERT 6560.
+CFG datum vztahového tvrzení je 22. 1. 2026 podle prospektového dodatku,
+nikoli neověřené datum Exhibit 21; HBAN má výslovné datum 31. 12. 2025.
+Důkazy a tři omezené živé případy jsou v
+`evidence/fdic_cfg_hban_identity_20261001.json` a
+`evidence/fdic_cfg_hban_live_20261001.json`. Zbývajících 12 emitentů,
+kompletní skupiny, Windows běh a historická evaluace zůstávají otevřené.
 
 ## Co znamenají stavy
 

@@ -104,7 +104,7 @@
       "research": "sector BANK",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Eight of 22 BANK-profile tickers have dated subsidiary CERT mappings, now including TFC/Truist Bank and FITB/Fifth Third Bank, National Association with exact live financial names. FITB relationship evidence is dated 2026-02-15, not the 2025 year-end reporting period. Persistent bounded refresh and runtime diagnostics are implemented. Remaining: other 14 issuers, all relevant subsidiary groups and dated ownership changes, actual Windows end-to-end with measured applicable live coverage, historical availability and out-of-sample evaluation.",
+      "next": "Ten of 22 BANK-profile tickers have dated subsidiary CERT mappings, now including CFG/Citizens Bank, National Association and HBAN/The Huntington National Bank with exact live financial names. CFG relationship statement is dated 2026-01-22 by the prospectus supplement, not its undated Exhibit 21; HBAN Exhibit 21 is explicitly as of 2025-12-31. Persistent bounded refresh and runtime diagnostics are implemented. Remaining: other 12 issuers (start ALLY/CFR), all relevant subsidiary groups and dated ownership changes, actual Windows end-to-end with measured applicable live coverage, historical availability and out-of-sample evaluation.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "expansion_identity_evidence": "evidence/fdic_expansion_identity_20261001.json",
       "expansion_source_smoke_evidence": "evidence/fdic_expansion_live_20261001.json",
@@ -112,7 +112,10 @@
       "scheduler_captured_replay_evidence": "evidence/fdic_scheduler_replay_20261001.json",
       "tfc_fitb_identity_evidence": "evidence/fdic_tfc_fitb_identity_20261001.json",
       "tfc_fitb_source_smoke_evidence": "evidence/fdic_tfc_fitb_live_20261001.json",
-      "tfc_fitb_test_evidence": "evidence/fdic_tfc_fitb_tests_20261001.json"
+      "tfc_fitb_test_evidence": "evidence/fdic_tfc_fitb_tests_20261001.json",
+      "cfg_hban_identity_evidence": "evidence/fdic_cfg_hban_identity_20261001.json",
+      "cfg_hban_source_smoke_evidence": "evidence/fdic_cfg_hban_live_20261001.json",
+      "cfg_hban_test_evidence": "evidence/fdic_cfg_hban_tests_20261001.json"
     },
     {
       "id": "health_services",

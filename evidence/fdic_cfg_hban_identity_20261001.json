@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "evidence_type": "dated_identity_and_bounded_live_publisher_observations_not_full_acceptance",
+  "verified_at": "2026-10-01T16:31:58.620723+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "CFG",
+        "cert": 57957,
+        "issuer_cik": "0000759944",
+        "issuer_name": "Citizens Financial Group, Inc.",
+        "bank_name": "Citizens Bank, National Association",
+        "effective_from": "2026-01-22",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/759944/000119312526022234/d38715d424b2.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/759944/000075994426000139/cfg-20260721.htm",
+        "known_at": "2026-10-01T16:31:58.620723+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57957",
+        "financial_name": "CITIZENS BANK NATIONAL ASSN",
+        "financial_name_known_at": "2026-10-01T16:30:34.546834+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57957&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/759944/000119312526022234/d38715d424b2.htm",
+        "as_of": "2026-01-22",
+        "observed_no_later_than": "2026-10-01T16:31:58.620723+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "scope": "Dated issuer-to-subsidiary statement; acquisition date, continuous ownership and complete group not inferred",
+        "source_locator": "Prospectus supplement cover date and Summary S-1 primary subsidiary paragraph",
+        "observed_excerpt": "Prospectus Supplement dated January 22, 2026; Our primary subsidiary is Citizens Bank, N.A.",
+        "date_basis": "Explicit supplement date, not the accompanying October 4, 2024 prospectus or FY2025 period",
+        "exact_legal_name_corroboration": {
+          "source_url": "https://www.sec.gov/Archives/edgar/data/759944/000075994426000028/exhibit211-q42025.htm",
+          "source_locator": "Exhibit 21.1 subsidiaries table under Citizens Financial Group, Inc.",
+          "observed_excerpt": "Citizens Bank, National Association | USA",
+          "observed_no_later_than": "2026-10-01T16:31:58.620723+00:00",
+          "exhibit_as_of_date_verified": false,
+          "scope": "Corroborates full legal name; undated exhibit does not establish 2025-12-31 effective date"
+        }
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/759944/000075994426000139/cfg-20260721.htm",
+        "issuer_cik": "0000759944",
+        "issuer_name": "Citizens Financial Group, Inc.",
+        "ticker": "CFG",
+        "source_locator": "8-K embedded CIK, registrant name and common-stock trading-symbol row",
+        "event_date": "2026-07-21",
+        "signature_date": "2026-07-21",
+        "filing_date_verified": false,
+        "observed_excerpt": "Citizens Financial Group, Inc.; Common stock, $0.01 par value per share | CFG",
+        "observed_no_later_than": "2026-10-01T16:31:58.620723+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated CIK/common-stock symbol only; not CUSIP/ISIN/current exchange/corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 57957,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A57957&fields=CERT%2CNAME%2CACTIVE%2CRSSDID%2CRSSDHCR&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T16:30:05.394565+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:57957",
+              "fields": "CERT,NAME,ACTIVE,RSSDID,RSSDHCR",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "RSSDHCR": "1132449",
+                "CERT": 57957,
+                "NAME": "Citizens Bank, National Association",
+                "ID": "57957"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials": {
+          "meta": {
+            "total": 85,
+            "parameters": {
+              "filters": "CERT:57957",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 232517438,
+                "CERT": 57957,
+                "NETINC": 1133526,
+                "EQ": 26478553,
+                "DEP": 188731766,
+                "NAME": "CITIZENS BANK NATIONAL ASSN",
+                "ID": "57957_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 227134099,
+                "CERT": 57957,
+                "NETINC": 533380,
+                "EQ": 26651224,
+                "DEP": 186851400,
+                "NAME": "CITIZENS BANK NATIONAL ASSN",
+                "ID": "57957_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 85
+          }
+        },
+        "financials_observed_at": "2026-10-01T16:30:34.546834+00:00",
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57957&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "limitations": [
+        "Bounded latest-two-report pilot",
+        "Bank financials are not issuer consolidated values",
+        "FDIC holding-company RSSD fields do not establish a SEC CIK",
+        "No Windows or historical-OOS acceptance"
+      ]
+    },
+    {
+      "identity": {
+        "ticker": "HBAN",
+        "cert": 6560,
+        "issuer_cik": "0000049196",
+        "issuer_name": "Huntington Bancshares Incorporated",
+        "bank_name": "The Huntington National Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/49196/000004919626000015/hban20251231ex211-10k.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/49196/000004919626000073/hban-20260903.htm",
+        "known_at": "2026-10-01T16:31:58.620723+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/6560",
+        "financial_name": "HUNTINGTON NATIONAL BANK",
+        "financial_name_known_at": "2026-10-01T16:30:40.703072+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6560&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/49196/000004919626000015/hban20251231ex211-10k.htm",
+        "as_of": "2025-12-31",
+        "observed_no_later_than": "2026-10-01T16:31:58.620723+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "scope": "Dated issuer-to-subsidiary statement; acquisition date, continuous ownership and complete group not inferred",
+        "source_locator": "Exhibit 21.1 explicit December 31, 2025 heading and exact subsidiary row",
+        "observed_excerpt": "at December 31, 2025; The Huntington National Bank (United States)",
+        "date_basis": "Explicit exhibit as-of date"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/49196/000004919626000073/hban-20260903.htm",
+        "issuer_cik": "0000049196",
+        "issuer_name": "Huntington Bancshares Incorporated",
+        "ticker": "HBAN",
+        "source_locator": "8-K embedded CIK, registrant name and common-stock trading-symbol row",
+        "event_date": "2026-09-03",
+        "signature_date": "2026-09-10",
+        "filing_date_verified": false,
+        "observed_excerpt": "Huntington Bancshares Incorporated; Common Stock—Par Value $0.01 per Share | HBAN",
+        "observed_no_later_than": "2026-10-01T16:31:58.620723+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated CIK/common-stock symbol only; not CUSIP/ISIN/current exchange/corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 6560,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A6560&fields=CERT%2CNAME%2CACTIVE%2CRSSDID%2CRSSDHCR&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T16:30:11.140751+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:6560",
+              "fields": "CERT,NAME,ACTIVE,RSSDID,RSSDHCR",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "RSSDHCR": "1068191",
+                "CERT": 6560,
+                "NAME": "The Huntington National Bank",
+                "ID": "6560"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:6560",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 283073605,
+                "CERT": 6560,
+                "NETINC": 1431831,
+                "EQ": 33284616,
+                "DEP": 227123103,
+                "NAME": "HUNTINGTON NATIONAL BANK",
+                "ID": "6560_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 284135374,
+                "CERT": 6560,
+                "NETINC": 629840,
+                "EQ": 33143721,
+                "DEP": 227513232,
+                "NAME": "HUNTINGTON NATIONAL BANK",
+                "ID": "6560_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        },
+        "financials_observed_at": "2026-10-01T16:30:40.703072+00:00",
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6560&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "limitations": [
+        "Bounded latest-two-report pilot",
+        "Bank financials are not issuer consolidated values",
+        "FDIC holding-company RSSD fields do not establish a SEC CIK",
+        "No Windows or historical-OOS acceptance"
+      ]
+    }
+  ],
+  "manifest_sha256": "d75a3124b18cdf5c471d99207a6b1cf9acdb9ad7371eba73d0e83b1407bceaf8",
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 10,
+    "unmapped_tickers": [
+      "ALLY",
+      "CFR",
+      "COF",
+      "EWBC",
+      "FHN",
+      "KEY",
+      "MTB",
+      "OZK",
+      "PNFP",
+      "RF",
+      "WAL",
+      "ZION"
+    ],
+    "basis": "Dated manifest vs canonical BANK profile; not live runtime or complete group coverage"
+  },
+  "full_specialist_acceptance": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "scoring_applied": false
+}

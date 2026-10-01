@@ -125,7 +125,8 @@ class SpecialistAcceptanceTests(unittest.TestCase):
 
     def test_new_tfc_fitb_mappings_do_not_invent_live_runtime_coverage(self):
         identities = load_verified_banks()
-        clock = max(datetime.fromisoformat(entry["known_at"]) for entry in identities)
+        clock = max(datetime.fromisoformat(entry["known_at"]) for entry in identities
+                    if entry["ticker"] in {"TFC", "FITB"})
         with TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "test.db")
             report = build_specialist_acceptance_report(store, as_of=clock, environment={})
@@ -134,6 +135,24 @@ class SpecialistAcceptanceTests(unittest.TestCase):
                              (coverage["applicable_profile_subjects"], coverage["mapped_subjects"],
                               coverage["unmapped_profile_subjects"], coverage["never_attempted_banks"],
                               coverage["current_usable_banks"]))
+            self.assertFalse(coverage["complete_issuer_groups_verified"])
+            self.assertFalse(report["completion_verified"])
+
+    def test_cfg_hban_onboarding_increases_mapping_but_not_runtime_coverage(self):
+        identities = load_verified_banks()
+        clock = max(datetime.fromisoformat(entry["known_at"]) for entry in identities
+                    if entry["ticker"] in {"CFG", "HBAN"})
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            report = build_specialist_acceptance_report(store, as_of=clock, environment={})
+            coverage = report["rotating_source_coverage"]["fdic"]
+            self.assertEqual((22, 10, 12, 10, 0),
+                             (coverage["applicable_profile_subjects"], coverage["mapped_subjects"],
+                              coverage["unmapped_profile_subjects"], coverage["never_attempted_banks"],
+                              coverage["current_usable_banks"]))
+            prior = build_specialist_acceptance_report(
+                store, as_of=clock-timedelta(seconds=1), environment={})["rotating_source_coverage"]["fdic"]
+            self.assertEqual(8, prior["mapped_subjects"])
             self.assertFalse(coverage["complete_issuer_groups_verified"])
             self.assertFalse(report["completion_verified"])
 

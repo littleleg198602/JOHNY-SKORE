@@ -1,5 +1,49 @@
 # Průběh implementace pátracích agentů
 
+## CFG a HBAN — další datované bankovní identity (1. 10. 2026)
+
+Přidané vazby CFG (CIK 0000759944) → Citizens Bank, National Association /
+CERT 57957 a HBAN (CIK 0000049196) → The Huntington National Bank / CERT 6560.
+CFG vztah je doložený v části Summary prospektového dodatku datovaného
+22. 1. 2026. Doprovodný prospekt z 4. 10. 2024 ani výroční období 2025
+nenahrazují toto datum. Exhibit 21.1 potvrzuje úplný právní název CFG banky,
+ale nemá vlastní potvrzené as-of datum. HBAN Exhibit 21.1 výslovně uvádí
+31. 12. 2025. Jde o doložená data vztahových tvrzení, nikoli datum akvizice
+nebo potvrzení celé souvislé historie vlastnictví.
+
+SEC 8-K dokládají issuer CIK/common-stock ticker; data události a podpisu
+jsou oddělená, nepotvrzený filing date zůstává nepřijatý. Originální SEC
+HTML nebyl stažen. Skutečné FDIC institutions a financials payloady jsou
+uložené s časy v `evidence/fdic_cfg_hban_identity_20261001.json`. Přesné
+financial názvy jsou CITIZENS BANK NATIONAL ASSN a HUNTINGTON NATIONAL BANK.
+Identita se použije až od pozorování 1. 10. 2026; RSSD holdco není SEC CIK
+a výkazy banky nejsou konsolidované hodnoty emitenta.
+
+`evidence/fdic_cfg_hban_live_20261001.json` obsahuje tři PASS případy:
+obě banky po dvou výkazech, skutečné opakované zpracování zachyceného
+payloadu bez duplicit a živý prázdný neexistující CERT. Celkem sedm
+síťových volání (2 institutions, 2 první financials, 3 smoke financials),
+20sekundový timeout a nejvýše dva výkazy na financials dotaz. Replay
+další síťové volání nedělá. Pilot na Linuxu není Windows ani úplná live
+coverage. Perzistentní dávkové/denní limity sběrače se nemění.
+
+Registry nyní mapuje 10 z 22 BANK profilů kanonických 687 tickerů.
+Zbývá ALLY, CFR, COF, EWBC, FHN, KEY, MTB, OZK, PNFP, RF, WAL a ZION,
+další banky skupin a změny vlastnictví. Nové testy odmítají výkazy před
+datem vztahu, práci před časem znalosti a mimo scope; diagnostika odlišuje
+mapování od nikdy neprovedeného provozního pokusu. FDIC má 20 PASS,
+diagnostika 8 PASS a celá místní sada 483/483 PASS včetně UI a 687 vstupu.
+Kompilace/diff kontroly a otisky jsou v `evidence/fdic_cfg_hban_tests_20261001.json`.
+První lokální pokus měl 21 import chyb kvůli chybějícím závislostem;
+po instalaci verzovaných requirements/constraints prošel nezměněný kód.
+
+Bankovní stav zůstává PILOT/PENDING, inventář 0/21 DONE. Další dostupná
+práce: zbývajících 12 bankovních emitentů (začít ALLY/CFR), další datované
+dcery a FDA product/application/sponsor nebo CMS owner/provider vazby.
+Skutečný Windows běh, kompletní relevantní živé pokrytí, přístupy/licence
+a historické out-of-sample důkazy zůstávají otevřené. Skóre ani obchodování
+se nemění.
+
 ## TFC a FITB — dvě další doložené bankovní dcery (1. 10. 2026)
 
 Registr rozšířen o TFC (CIK 0000092230) → Truist Bank → CERT 9846 a
