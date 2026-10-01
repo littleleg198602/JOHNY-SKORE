@@ -294,6 +294,36 @@ class ScoutStore:
             """, (source, clock, cutoff, limit)).fetchall()
         return [dict(row) for row in rows]
 
+    def specialist_coverage(self, source: str, *, as_of: datetime,
+                            refresh_days: int = 30) -> dict[str, int]:
+        """Count current SEC identities checked by a rotating specialist.
+
+        An incomplete paginated result remains partial even when it was checked
+        recently. Historical checks for a different identity key do not count.
+        """
+        if source not in {"fda", "finra"} or refresh_days < 1:
+            raise ValueError("Unsupported specialist coverage")
+        clock = _utc(as_of)
+        cutoff = _utc(as_of - timedelta(days=refresh_days))
+        with self._connect() as conn:
+            row = conn.execute("""
+                SELECT COUNT(*) AS active,
+                       COALESCE(SUM(c.checked_at IS NOT NULL), 0) AS ever_checked,
+                       COALESCE(SUM(c.checked_at>? AND c.truncated=0), 0) AS current_complete,
+                       COALESCE(SUM(c.checked_at>? AND c.truncated=1), 0) AS current_partial
+                FROM scout_sec_identities AS i
+                LEFT JOIN scout_specialist_checks AS c
+                  ON c.source=? AND c.subject_id=i.subject_id
+                 AND c.identity_key=i.cik || ':' || i.company_name
+                WHERE i.status='ACTIVE' AND i.first_observed_at<=?
+            """, (cutoff, cutoff, source, clock)).fetchone()
+        active = int(row["active"])
+        complete = int(row["current_complete"])
+        partial = int(row["current_partial"])
+        return {"active_identities": active, "ever_checked": int(row["ever_checked"]),
+                "current_complete": complete, "current_partial": partial,
+                "not_current": active - complete - partial}
+
     def record_specialist_check(self, source: str, *, subject_id: str,
                                 identity_key: str, as_of: datetime,
                                 candidate_count: int, truncated: bool) -> None:

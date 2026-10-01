@@ -2245,6 +2245,19 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     ]), hide_index=True)
     st.caption("Denní plánovač opakuje omezené dávky; WAIT_ACCESS vyžaduje přístup ke zdroji, "
                "WAIT_IDENTITY doložený vztah. Prázdný nález není důkazem, že firma události nemá.")
+    coverage_time = datetime.now(timezone.utc)
+    st.write("**Kumulativní pokrytí dávkových specialistů za 30 dní**")
+    st.dataframe(pd.DataFrame([
+        {"Zdroj": source_labels[source], "Aktivní SEC identity": coverage["active_identities"],
+         "Úplně zkontrolováno": coverage["current_complete"],
+         "Částečný výsledek": coverage["current_partial"],
+         "Čeká / zastaralo": coverage["not_current"],
+         "Někdy zkontrolováno": coverage["ever_checked"]}
+        for source in ("fda", "finra")
+        for coverage in [scout_store.specialist_coverage(source, as_of=coverage_time)]
+    ]), hide_index=True)
+    st.caption("Jmenovatelem jsou jen již pozorované aktivní SEC identity, nikoli automaticky všech 687 tickerů. "
+               "Při limitu stránek jde o částečnou kontrolu; starší než 30 dní se musí opakovat.")
     scout_rows = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=50, source="sec",
     )
