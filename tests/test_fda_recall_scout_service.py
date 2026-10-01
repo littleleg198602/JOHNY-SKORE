@@ -56,6 +56,31 @@ class FakeCrlFda(FakeFda):
 
 
 class FdaScoutTests(unittest.TestCase):
+    def test_food_enforcement_is_a_separate_unverified_candidate(self):
+        class FoodFda(FakeFda):
+            def recalls(self, product_type, firm_name, *, limit):
+                if product_type != "food":
+                    return {"meta": {"results": {"total": 0}}, "results": []}
+                return {"meta": {"results": {"total": 2}}, "results": [
+                    {"recalling_firm": firm_name, "recall_number": "F-123-2026",
+                     "report_date": "20260930", "product_description": "Food product"},
+                    {"recalling_firm": "Another Company", "recall_number": "F-124-2026",
+                     "report_date": "20260930"},
+                ]}
+
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            store.observe_sec_identity(subject_id="FOOD", cik="0000000002",
+                                       company_name="Example Foods Inc.", as_of=NOW)
+            summary = FdaRecallScoutService(store, client=FoodFda()).run(as_of=NOW)
+            self.assertEqual(1, summary["new_findings"])
+            with store._connect() as conn:
+                row = conn.execute("SELECT source_object_id, verification_status, details_json "
+                                   "FROM scout_findings WHERE source='fda'").fetchone()
+            self.assertEqual("food:F-123-2026", row["source_object_id"])
+            self.assertEqual("UNVERIFIED", row["verification_status"])
+            self.assertFalse(json.loads(row["details_json"])["product_attribution_allowed"])
+
     def test_crl_name_match_is_candidate_with_observation_time(self):
         with TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "test.db")

@@ -12,7 +12,7 @@ from market_checker_app.storage.scout_store import ScoutStore
 
 
 API_ROOT = "https://api.fda.gov"
-PRODUCT_TYPES = ("drug", "device")
+PRODUCT_TYPES = ("drug", "device", "food")
 
 
 class FdaRecallClient(Protocol):

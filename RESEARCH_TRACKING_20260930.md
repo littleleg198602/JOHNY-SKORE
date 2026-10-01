@@ -15,7 +15,7 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 | 09 IR a zprávy | ČÁSTEČNĚ | Ověřené IR feedy a propojení RSS stopy s primárním oznámením |
 | 10 ceny | ČÁSTEČNĚ | Živá akceptace po opravě 28. 9., corporate actions a symboly BRKB/PSTG/LEG |
 | 11 short interest | ČÁSTEČNĚ: FINRA kandidáti | Přesný symbol, settlement a revize s `UNVERIFIED` identitou; veřejné API vyžaduje FINRA účet/credential, live test, datovaný instrument crosswalk a skutečný čas zveřejnění zbývají. |
-| 12 FDA | ČÁSTEČNĚ: recall a CRL kandidáti | Denní dávka do 25 aktivních SEC emitentů hledá drug/device enforcement záznamy a Complete Response Letters; ukládá jen přesnou shodu celého názvu jako `UNVERIFIED`. Datum historického dopisu není datum zveřejnění. Produktový/application/sponsor crosswalk, živý test a plná sektorová fronta zbývají. |
+| 12 FDA | ČÁSTEČNĚ: recall a CRL kandidáti | Denní dávka do 25 aktivních SEC emitentů hledá drug/device/food enforcement záznamy a Complete Response Letters; ukládá jen přesnou shodu celého názvu jako `UNVERIFIED`. Datum historického dopisu není datum zveřejnění. Produktový/application/sponsor crosswalk, živý test a plná sektorová fronta zbývají. |
 | 13 vstupní náklady | ČÁSTEČNĚ | FRED makro a EIA WTI/jet-fuel spot mají oddělené volitelné konektory; čekají na klíče a live test. USDA, propojení firemních expozic s cenami a historické vintage chybí. |
 | 14 entity enrichment | ČÁSTEČNĚ | GLEIF přesné LEI/ISIN a 10firemní pilot existují; OpenFIGI a datované dcery/produkty pro sektorové zdroje zbývají. FDIC má doložené JPM CERT 628, BAC CERT 3510 a WFC CERT 3511, nikoli celou bankovní skupinu. |
 | 15 SAM | OTEVŘENO | Schválený klíč a reálná kvóta; doplnění USAspending |
