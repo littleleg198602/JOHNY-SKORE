@@ -1,5 +1,30 @@
 # Průběh implementace pátracích agentů
 
+## Živé veřejné zdroje a opravy jejich parserů (1. 10. 2026)
+
+V `evidence/specialist_live_20261001.json` je 13 skutečných kontrol:
+čtyři kladné FDIC banky (po dvou výkazech), záporný neexistující CERT,
+FDA drug kandidát, tři záporné enforcement dotazy, CRL schéma a záporný
+CRL dotaz, kladné modelové svolání NHTSA a odmítnutí neplatného modelu.
+Opakované zpracování FDIC/NHTSA nevytvořilo duplicity. Jde o omezený
+zdrojový test na aktuálním hostiteli, nikoli o Windows akceptaci nebo
+pokrytí všech 687 firem. Inventář proto zůstává PILOT/PARTIAL.
+
+Živý FDIC vrací finanční názvy jako `BANK OF AMERICA NA`, nikoli celý
+právní název z SEC. Registr proto obsahuje přesný název doložený API
+pro shodný CERT, citaci a čas prvního pozorování. Dřívější historický
+běh tento alias nepoužije. Odmítnuté řádky jsou viditelné jako PARTIAL
+a zvlášť od použitelné banky.
+
+NHTSA živě vrátila `18/06/2025`: parser nyní důsledně používá
+den/měsíc/rok, ponechává datum prvního pozorování oddělené a odmítnutý
+záznam znovu nabídne po dni. Test fronty již nevolá živé API při
+ověřování neměnnosti seznamu; unit suite nezávisí na těchto službách.
+
+Připomínku k openFDA tempu jsme ověřili proti oficiálnímu
+`https://open.fda.gov/apis/authentication/`: aktuálně uvádí 240/min
+s klíčem i bez něj, bez klíče 1 000/den. Odstup 0,35 s proto zůstává.
+
 ## Denní kapacita FDA/FINRA pro 687 tickerů (1. 10. 2026)
 
 Denní plánovač má nyní rozpočet 40 FDA a 75 FINRA emitentů. Při úplných

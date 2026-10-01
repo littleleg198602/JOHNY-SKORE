@@ -7,7 +7,7 @@ import math
 from pathlib import Path
 import re
 from typing import Protocol
-from urllib.parse import urlencode, urlsplit
+from urllib.parse import parse_qs, urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 from market_checker_app.storage.scout_store import ScoutStore
@@ -71,6 +71,18 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
         known = datetime.fromisoformat(entry["known_at"])
         if known.tzinfo is None or known.utcoffset() is None or start > known.date():
             raise ValueError("FDIC relationship needs dated evidence")
+        alias_keys = ("financial_name", "financial_name_known_at", "financial_name_evidence_url")
+        if any(key in entry for key in alias_keys):
+            if not all(isinstance(entry.get(key), str) and entry[key].strip() for key in alias_keys):
+                raise ValueError("FDIC financial name needs exact name, observation and citation")
+            alias_known = datetime.fromisoformat(entry["financial_name_known_at"])
+            if alias_known.tzinfo is None or alias_known.utcoffset() is None:
+                raise ValueError("FDIC financial name needs observed time")
+            alias_url = urlsplit(public_https_reference(entry["financial_name_evidence_url"]))
+            filters = parse_qs(alias_url.query).get("filters", [])
+            if (alias_url.hostname != "api.fdic.gov" or alias_url.port not in {None, 443}
+                    or alias_url.path != "/banks/financials" or filters != [f"CERT:{cert}"]):
+                raise ValueError("FDIC financial name citation must match the exact CERT")
     return entries
 
 
@@ -91,7 +103,7 @@ class FdicBankScoutService:
                     and datetime.fromisoformat(entry["known_at"]) <= clock]
         if not eligible:
             return {"status": "WAIT_IDENTITY", "checked_banks": 0, "new_findings": 0}
-        created = checked = failed = 0
+        created = checked = failed = usable = rejected = 0
         for entry in eligible:
             try:
                 payload = self.client.financials(entry["cert"])
@@ -102,20 +114,31 @@ class FdicBankScoutService:
                 failed += 1
                 continue
             checked += 1
+            bank_usable = False
+            expected_name = entry["bank_name"]
+            alias_available = ("financial_name" in entry and
+                               datetime.fromisoformat(entry["financial_name_known_at"]) <= clock)
+            if alias_available:
+                expected_name = entry["financial_name"]
             for wrapper in rows:
                 row = wrapper.get("data") if isinstance(wrapper, dict) else None
-                if not isinstance(row, dict) or row.get("CERT") != entry["cert"]:
+                if (not isinstance(row, dict) or isinstance(row.get("CERT"), bool)
+                        or not isinstance(row.get("CERT"), int) or row["CERT"] != entry["cert"]):
+                    rejected += 1
                     continue
-                if str(row.get("NAME", "")).strip().casefold() != entry["bank_name"].strip().casefold():
+                if str(row.get("NAME", "")).strip().casefold() != expected_name.strip().casefold():
+                    rejected += 1
                     continue
                 try:
                     raw_date = str(row["REPDTE"])
                     report_date = (datetime.strptime(raw_date, "%Y%m%d").date()
                                    if re.fullmatch(r"\d{8}", raw_date)
-                                   else date.fromisoformat(raw_date[:10]))
+                                   else date.fromisoformat(raw_date))
                 except (ValueError, KeyError):
+                    rejected += 1
                     continue
                 if not date.fromisoformat(entry["effective_from"]) <= report_date <= clock.date():
+                    rejected += 1
                     continue
                 values: dict[str, int | float | None] = {}
                 for field in MONETARY_FIELDS:
@@ -126,9 +149,11 @@ class FdicBankScoutService:
                     else:
                         values[field] = None
                 if not any(value is not None for value in values.values()):
+                    rejected += 1
                     continue
                 details = {"stage": "bank_subsidiary_financials", "cert": entry["cert"],
                            "bank_name": entry["bank_name"], "report_date": report_date.isoformat(),
+                           "source_financial_name": row["NAME"],
                            "amounts_thousands_usd": values,
                            "fdic_evidence_url": entry["fdic_evidence_url"],
                            "relationship_evidence_url": entry["relationship_evidence_url"],
@@ -137,6 +162,9 @@ class FdicBankScoutService:
                            "issuer_consolidated_values": False,
                            "report_date_is_publication_time": False,
                            "scoring_applied": False}
+                if alias_available:
+                    details.update(financial_name_known_at=entry["financial_name_known_at"],
+                                   financial_name_evidence_url=entry["financial_name_evidence_url"])
                 digest = hashlib.sha256(json.dumps(details, sort_keys=True).encode()).hexdigest()
                 _, fresh = self.store.record_finding(
                     source="fdic", subject_id=entry["ticker"],
@@ -149,5 +177,8 @@ class FdicBankScoutService:
                     details=details,
                 )
                 created += int(fresh)
-        return {"status": "PARTIAL" if failed else "OK", "checked_banks": checked,
+                bank_usable = True
+            usable += int(bank_usable)
+        return {"status": "PARTIAL" if failed or rejected else "OK", "checked_banks": checked,
+                "usable_banks": usable, "rejected_rows": rejected,
                 "new_findings": created, "failed_banks": failed}

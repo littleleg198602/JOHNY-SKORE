@@ -6,7 +6,10 @@
     "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/628",
     "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/19617/000162828026008131/corp10k2025exhibit21.htm",
     "effective_from": "2025-12-31",
-    "known_at": "2026-09-30T20:09:00+00:00"
+    "known_at": "2026-09-30T20:09:00+00:00",
+    "financial_name": "JPMORGAN CHASE BANK NA",
+    "financial_name_known_at": "2026-10-01T09:05:27.919080+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A628&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json"
   },
   {
     "ticker": "BAC",
@@ -15,7 +18,10 @@
     "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/3510",
     "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/70858/000007085826000157/bac-1231202510xkex21.htm",
     "effective_from": "2025-12-31",
-    "known_at": "2026-10-01T06:00:39+00:00"
+    "known_at": "2026-10-01T06:00:39+00:00",
+    "financial_name": "BANK OF AMERICA NA",
+    "financial_name_known_at": "2026-10-01T09:05:27.919080+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A3510&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json"
   },
   {
     "ticker": "WFC",
@@ -24,7 +30,10 @@
     "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/3511",
     "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/72971/000007297126000133/wfc-1231x2025xex21.htm",
     "effective_from": "2025-12-31",
-    "known_at": "2026-10-01T06:02:24+00:00"
+    "known_at": "2026-10-01T06:02:24+00:00",
+    "financial_name": "WELLS FARGO BANK NA",
+    "financial_name_known_at": "2026-10-01T09:05:27.919080+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A3511&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json"
   },
   {
     "ticker": "C",
@@ -33,6 +42,9 @@
     "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/7213",
     "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/831001/000083100126000011/citi-exh2101x12312025.htm",
     "effective_from": "2025-12-31",
-    "known_at": "2026-10-01T06:28:00+00:00"
+    "known_at": "2026-10-01T06:28:00+00:00",
+    "financial_name": "CITIBANK NATIONAL ASSN",
+    "financial_name_known_at": "2026-10-01T09:05:27.919080+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A7213&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json"
   }
 ]

@@ -253,7 +253,7 @@ class ScoutStore:
         safe = {key: value for key, value in summary.items()
                 if key in {"status", "new_findings", "checked_issuers", "checked_models",
                            "checked_banks", "checked_uei", "failed_issuers", "failed_models",
-                           "failed_banks", "matched_rows", "saved_rows", "error",
+                           "failed_banks", "usable_banks", "rejected_rows", "matched_rows", "saved_rows", "error",
                            "processed", "failed", "scheduled_subjects", "truncated_issuers"}
                 and isinstance(value, (str, int, float, bool))}
         with self._connect() as conn:
@@ -360,10 +360,11 @@ class ScoutStore:
         cutoff = _utc(as_of - timedelta(days=refresh_days))
         with self._connect() as conn:
             row = conn.execute("""
-                SELECT checked_at FROM scout_specialist_checks
+                SELECT checked_at, truncated FROM scout_specialist_checks
                 WHERE source=? AND subject_id=? AND identity_key=?
             """, (source, subject_id, identity_key)).fetchone()
-        return row is None or row["checked_at"] <= cutoff
+        return (row is None or row["checked_at"] <= cutoff
+                or (row["truncated"] and row["checked_at"] <= _utc(as_of - timedelta(days=1))))
 
     def begin_background_worker(self, source: str, *, as_of: datetime) -> str | None:
         """Prevent two UI clicks from launching duplicate backlog workers."""

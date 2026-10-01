@@ -36,6 +36,46 @@ class FakeBankFind:
 
 
 class FdicBankScoutTests(unittest.TestCase):
+    def test_exact_financial_name_is_dated_and_mismatch_is_visible(self):
+        identity = dict(IDENTITY, financial_name="JPMORGAN CHASE BANK NA",
+                        financial_name_known_at=NOW.isoformat(),
+                        financial_name_evidence_url="https://api.fdic.gov/banks/financials?filters=CERT%3A628")
+        row = {"CERT": 628, "NAME": "JPMORGAN CHASE BANK NA", "REPDTE": "20260630",
+               "ASSET": 1000, "DEP": 800, "EQ": 150, "NETINC": 12}
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            client = FakeBankFind(row=row)
+            scout = FdicBankScoutService(store, client=client, identities=[identity])
+            before = scout.run(as_of=NOW - timedelta(minutes=1))
+            self.assertEqual(("PARTIAL", 0, 1),
+                             (before["status"], before["usable_banks"], before["rejected_rows"]))
+            accepted = scout.run(as_of=NOW)
+            self.assertEqual(("OK", 1, 1),
+                             (accepted["status"], accepted["usable_banks"], accepted["new_findings"]))
+            client.row = dict(row, NAME="JPMORGAN CHASE BANK")
+            self.assertEqual("PARTIAL", scout.run(as_of=NOW)["status"])
+            client.row = dict(row, CERT=3510)
+            self.assertEqual(0, scout.run(as_of=NOW)["usable_banks"])
+            client.row = dict(row, REPDTE="2026-06-30junk")
+            self.assertEqual(0, scout.run(as_of=NOW)["usable_banks"])
+            store.record_source_run("fdic", as_of=NOW, summary=before)
+            self.assertEqual(1, store.latest_source_runs()["fdic"]["rejected_rows"])
+
+    def test_financial_name_manifest_rejects_wrong_cert_and_unobserved_alias(self):
+        base = dict(IDENTITY, financial_name="JPMORGAN CHASE BANK NA",
+                    financial_name_known_at=NOW.isoformat(),
+                    financial_name_evidence_url="https://api.fdic.gov/banks/financials?filters=CERT%3A628")
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            for invalid in (
+                dict(base, financial_name_evidence_url="https://api.fdic.gov/banks/financials?filters=CERT%3A3510"),
+                dict(base, financial_name_known_at="2026-10-01T09:00:00"),
+                {key: value for key, value in base.items() if key != "financial_name_known_at"},
+            ):
+                path.write_text(json.dumps([invalid]))
+                with self.assertRaises(ValueError):
+                    load_verified_banks(path)
+
     def test_production_bank_relationships_are_exact_and_dated(self):
         identities = load_verified_banks()
         self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213)},

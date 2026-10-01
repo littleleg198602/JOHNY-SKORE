@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import ExitStack
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import tempfile
@@ -118,7 +119,15 @@ class ScoutStoreTests(unittest.TestCase):
     def test_runner_rejects_changed_input_and_shows_positions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "scout.db"
-            with patch.dict("os.environ", {"JOHNY_SKORE_SEC_USER_AGENT": ""}):
+            # A universe persistence test must not wait for live source APIs.
+            with ExitStack() as stack:
+                stack.enter_context(patch.dict("os.environ", {}, clear=True))
+                for service in (
+                    "UsaSpendingScoutService", "UsaSpendingRecipientDiscovery",
+                    "FdaRecallScoutService", "FdicBankScoutService", "NhtsaRecallScoutService",
+                ):
+                    stack.enter_context(patch(f"market_checker_app.scout_runner.{service}.run",
+                                              return_value={"status": "OK", "new_findings": 0}))
                 first = run_scout(db_path=path, limit=0)
                 self.assertEqual("CREATED", first["universe_snapshot"]["status"])
                 self.assertEqual("UNCHANGED", run_scout(

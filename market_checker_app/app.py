@@ -2239,6 +2239,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
                                ("checked_issuers", "checked_models", "checked_banks", "checked_uei", "processed")
                                if key in run), "") if run else "",
          "Nové nálezy": run.get("new_findings", "") if run else "",
+         "Použitelné banky": run.get("usable_banks", "") if run else "",
+         "Odmítnuté řádky": run.get("rejected_rows", "") if run else "",
          "Chyba": run.get("error", "") if run else ""}
         for source, label in source_labels.items()
         for run in [last_runs.get(source)]
