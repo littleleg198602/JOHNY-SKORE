@@ -38,8 +38,10 @@ class FakeBankFind:
 class FdicBankScoutTests(unittest.TestCase):
     def test_production_bank_relationships_are_exact_and_dated(self):
         identities = load_verified_banks()
-        self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511)},
+        self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213)},
                          {(row["ticker"], row["cert"]) for row in identities})
+        citi = next(row for row in identities if row["ticker"] == "C")
+        self.assertEqual("Citibank, National Association", citi["bank_name"])
         bac = next(row for row in identities if row["ticker"] == "BAC")
         self.assertEqual("Bank of America, National Association", bac["bank_name"])
         with TemporaryDirectory() as directory:

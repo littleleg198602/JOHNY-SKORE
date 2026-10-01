@@ -1,5 +1,14 @@
 # Průběh implementace pátracích agentů
 
+## Citigroup / FDIC CERT 7213 (1. 10. 2026)
+
+V datovaném registru bank přibyla vazba C na Citibank, National Association
+(FDIC CERT 7213). Citigroup ji uvádí jako dceřinou společnost v SEC Exhibit
+21.01 k 31. 12. 2025 a FDIC ji identifikuje pod tímto certifikátem. Scout
+zprávu přiřadí až po ověření čísla certifikátu a přesného jména ve výsledku;
+údaje jsou údaji dceřiné banky, nikoli konsolidovanou hodnotou akcie C.
+Živé schéma BankFind a kladný/záporný běh stále čekají.
+
 ## Kumulativní pokrytí FDA a FINRA (1. 10. 2026)
 
 UI vedle poslední dávky zobrazuje počet aktivních identit pozorovaných
