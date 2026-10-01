@@ -12,6 +12,19 @@ from market_checker_app.utils.ticker_universe import load_canonical_ticker_recor
 
 
 class ScoutStoreTests(unittest.TestCase):
+    def test_runner_keeps_completed_source_status_when_later_source_stops(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scout.db"
+            with patch.dict("os.environ", {"JOHNY_SKORE_FRED_API_KEY": "dummy",
+                                        "JOHNY_SKORE_SEC_USER_AGENT": ""}):
+                with patch("market_checker_app.scout_runner.FredScoutService.run",
+                           side_effect=KeyboardInterrupt):
+                    with self.assertRaises(KeyboardInterrupt):
+                        run_scout(db_path=path, limit=0)
+            rows = ScoutStore(path).latest_source_runs()
+            self.assertEqual("WAIT_ACCESS", rows["sec"]["status"])
+            self.assertNotIn("fred", rows)
+
     def test_source_run_status_survives_restart_and_latest_wins(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "scout.db"
