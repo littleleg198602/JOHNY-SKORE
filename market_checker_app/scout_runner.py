@@ -16,6 +16,10 @@ from market_checker_app.services.fda_recall_scout_service import (
 from market_checker_app.services.finra_short_interest_scout_service import (
     FinraShortInterestClient, FinraShortInterestScoutService,
 )
+from market_checker_app.services.healthcare_scout_service import (
+    CmsHospitalOwnerClient, ClinicalTrialsClient, HealthcareNameScoutService,
+)
+from market_checker_app.services.ofac_scout_service import OfacSdnClient, OfacSdnScoutService
 from market_checker_app.services.fdic_bank_scout_service import (
     FdicBankFindClient, FdicBankScoutService, load_verified_banks,
     DEFAULT_IDENTITIES as FDIC_IDENTITIES,
@@ -166,6 +170,20 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
     except Exception as exc:
         nhtsa_recalls = {"status": "ERROR", "error": type(exc).__name__}
     nhtsa_recalls = recorded("nhtsa", nhtsa_recalls)
+    healthcare_results = {}
+    for client in (CmsHospitalOwnerClient(), ClinicalTrialsClient()):
+        try:
+            summary = HealthcareNameScoutService(store, client=client).run(
+                as_of=now, universe={record["ticker"] for record in records})
+        except Exception as exc:
+            summary = {"status": "ERROR", "error": type(exc).__name__}
+        healthcare_results[client.source] = recorded(client.source, summary)
+    try:
+        ofac = OfacSdnScoutService(store, client=OfacSdnClient()).run(
+            as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        ofac = {"status": "ERROR", "error": type(exc).__name__}
+    ofac = recorded("ofac", ofac)
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
@@ -174,6 +192,9 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             "fdic_banks": fdic_banks,
             "sec13f_holdings": sec13f_holdings,
             "nhtsa_model_recalls": nhtsa_recalls,
+            "cms_hospital_owner_candidates": healthcare_results["cms"],
+            "clinical_trial_candidates": healthcare_results["clinicaltrials"],
+            "ofac_sdn_candidates": ofac,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

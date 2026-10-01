@@ -42,8 +42,9 @@
       "research": "07",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Expand NHTSA beyond the TSLA Model 3 2026 pilot; add identity-safe OFAC, DOJ, EPA and applicable sector sources.",
-      "source_smoke_evidence": "evidence/specialist_live_20261001.json"
+      "next": "NHTSA pilot and OFAC SDN exact primary-name collection have live publisher evidence. Expand dated vehicle/product identities, SDN aliases, Non-SDN/ownership analysis, DOJ and EPA; Windows, applicable coverage and historical evaluation remain.",
+      "source_smoke_evidence": "evidence/specialist_live_20261001.json",
+      "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json"
     },
     {
       "id": "suppliers",
@@ -83,8 +84,9 @@
       "research": "12",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Drug, device, food recall and CRL name candidates have bounded two-page collection; dated product/application/sponsor-to-issuer proof, live positive/negative cases and wider event coverage remain.",
-      "source_smoke_evidence": "evidence/specialist_live_20261001.json"
+      "next": "Drug, device, food recall, CRL and ClinicalTrials sponsor/collaborator name collection have live publisher evidence. Dated product/application/sponsor-to-issuer proof, wider event coverage, Windows and historical evaluation remain.",
+      "source_smoke_evidence": "evidence/specialist_live_20261001.json",
+      "clinicaltrials_source_smoke_evidence": "evidence/healthcare_live_20261001.json"
     },
     {
       "id": "commodities",
@@ -109,7 +111,8 @@
       "research": "sector HEALTH_SERVICES",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Add applicable primary sector sources, dated entity mapping and live evidence."
+      "next": "CMS hospital organizational-owner collection has live positive/negative publisher evidence and scoped coverage. Dated issuer/subsidiary/provider links, payer exposure, Windows acceptance and historical evaluation remain.",
+      "source_smoke_evidence": "evidence/healthcare_live_20261001.json"
     },
     {
       "id": "oil_utilities",

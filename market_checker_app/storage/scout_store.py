@@ -244,7 +244,7 @@ class ScoutStore:
     def record_source_run(self, source: str, *, as_of: datetime,
                           summary: dict[str, object]) -> None:
         allowed = {"sec", "fred", "eia", "usaspending", "recipient_discovery",
-                   "fda", "finra", "fdic", "sec13f", "nhtsa"}
+                   "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac"}
         if source not in allowed or not isinstance(summary, dict):
             raise ValueError("Unknown scout source run")
         status = summary.get("status")
@@ -254,7 +254,8 @@ class ScoutStore:
                 if key in {"status", "new_findings", "checked_issuers", "checked_models",
                            "checked_banks", "checked_uei", "failed_issuers", "failed_models",
                            "failed_banks", "usable_banks", "rejected_rows", "matched_rows", "saved_rows", "error",
-                           "processed", "failed", "scheduled_subjects", "truncated_issuers"}
+                           "processed", "failed", "scheduled_subjects", "truncated_issuers",
+                           "snapshot_sha256", "budget_exhausted"}
                 and isinstance(value, (str, int, float, bool))}
         with self._connect() as conn:
             conn.execute("""
@@ -276,7 +277,7 @@ class ScoutStore:
 
     def specialist_due(self, source: str, *, as_of: datetime, limit: int,
                        refresh_days: int = 30) -> list[dict[str, str]]:
-        if source not in {"fda", "finra"} or limit < 1 or refresh_days < 1:
+        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac"} or limit < 1 or refresh_days < 1:
             raise ValueError("Unsupported specialist check configuration")
         cutoff = _utc(as_of - timedelta(days=refresh_days))
         partial_cutoff = _utc(as_of - timedelta(days=1))
@@ -297,16 +298,23 @@ class ScoutStore:
         return [dict(row) for row in rows]
 
     def specialist_coverage(self, source: str, *, as_of: datetime,
-                            refresh_days: int = 30) -> dict[str, int]:
+                            refresh_days: int = 30,
+                            subjects: set[str] | None = None) -> dict[str, int]:
         """Count current SEC identities checked by a rotating specialist.
 
         An incomplete paginated result remains partial even when it was checked
         recently. Historical checks for a different identity key do not count.
         """
-        if source not in {"fda", "finra"} or refresh_days < 1:
+        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac"} or refresh_days < 1:
             raise ValueError("Unsupported specialist coverage")
         clock = _utc(as_of)
         cutoff = _utc(as_of - timedelta(days=refresh_days))
+        selected = sorted(subjects) if subjects is not None else []
+        if subjects is not None and not selected:
+            return {"active_identities": 0, "ever_checked": 0, "current_complete": 0,
+                    "current_partial": 0, "not_current": 0}
+        scope = (" AND i.subject_id IN (" + ",".join("?" for _ in selected) + ")"
+                 if subjects is not None else "")
         with self._connect() as conn:
             row = conn.execute("""
                 SELECT COUNT(*) AS active,
@@ -318,7 +326,7 @@ class ScoutStore:
                   ON c.source=? AND c.subject_id=i.subject_id
                  AND c.identity_key=i.cik || ':' || i.company_name
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
-            """, (cutoff, cutoff, source, clock)).fetchone()
+            """ + scope, (cutoff, cutoff, source, clock, *selected)).fetchone()
         active = int(row["active"])
         complete = int(row["current_complete"])
         partial = int(row["current_partial"])
@@ -329,7 +337,7 @@ class ScoutStore:
     def record_specialist_check(self, source: str, *, subject_id: str,
                                 identity_key: str, as_of: datetime,
                                 candidate_count: int, truncated: bool) -> None:
-        if source not in {"fda", "finra", "sec13f", "nhtsa"} or candidate_count < 0:
+        if source not in {"fda", "finra", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac"} or candidate_count < 0:
             raise ValueError("Invalid specialist check")
         with self._connect() as conn:
             conn.execute("""
@@ -787,7 +795,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -836,6 +844,23 @@ class ScoutStore:
             raise ValueError("NHTSA finding must cite its official recall API")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
+        healthcare_paths = {
+            "cms": ("data.cms.gov", "/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data"),
+            "clinicaltrials": ("clinicaltrials.gov", "/api/v2/studies"),
+        }
+        if source in healthcare_paths:
+            host, path = healthcare_paths[source]
+            if parsed.hostname != host or parsed.port not in {None, 443} or parsed.path != path:
+                raise ValueError("Healthcare finding must cite its official dataset API")
+            if verification_status != "UNVERIFIED":
+                raise ValueError("Healthcare name candidates cannot verify issuer identity")
+        if source == "ofac":
+            if (parsed.hostname != "sanctionslistservice.ofac.treas.gov"
+                    or parsed.port not in {None, 443}
+                    or parsed.path != "/api/PublicationPreview/exports/SDN.CSV"):
+                raise ValueError("OFAC candidate must cite its official SDN export")
+            if verification_status != "UNVERIFIED":
+                raise ValueError("OFAC name candidates cannot verify sanctioned issuer identity")
         published = _utc(published_at)
         available = _utc(available_at)
         observed = _utc(observed_at)

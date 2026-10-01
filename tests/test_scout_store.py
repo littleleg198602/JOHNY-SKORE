@@ -125,6 +125,8 @@ class ScoutStoreTests(unittest.TestCase):
                 for service in (
                     "UsaSpendingScoutService", "UsaSpendingRecipientDiscovery",
                     "FdaRecallScoutService", "FdicBankScoutService", "NhtsaRecallScoutService",
+                    "HealthcareNameScoutService",
+                    "OfacSdnScoutService",
                 ):
                     stack.enter_context(patch(f"market_checker_app.scout_runner.{service}.run",
                                               return_value={"status": "OK", "new_findings": 0}))

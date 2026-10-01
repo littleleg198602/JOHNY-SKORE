@@ -2230,6 +2230,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         "fda": "FDA svolání a dopisy CRL", "finra": "FINRA short interest",
         "fdic": "FDIC banky", "sec13f": "SEC 13F instituce",
         "nhtsa": "NHTSA modelová svolání",
+        "cms": "CMS vlastnictví nemocnic", "clinicaltrials": "ClinicalTrials studie",
+        "ofac": "OFAC SDN shody jmen",
     }
     st.write("**Poslední běh pátracích zdrojů**")
     st.dataframe(pd.DataFrame([
@@ -2241,6 +2243,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
          "Nové nálezy": run.get("new_findings", "") if run else "",
          "Použitelné banky": run.get("usable_banks", "") if run else "",
          "Odmítnuté řádky": run.get("rejected_rows", "") if run else "",
+         "Vyčerpán rozpočet": run.get("budget_exhausted", "") if run else "",
          "Chyba": run.get("error", "") if run else ""}
         for source, label in source_labels.items()
         for run in [last_runs.get(source)]
@@ -2248,6 +2251,11 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     st.caption("Denní plánovač opakuje omezené dávky; WAIT_ACCESS vyžaduje přístup ke zdroji, "
                "WAIT_IDENTITY doložený vztah. Prázdný nález není důkazem, že firma události nemá.")
     coverage_time = datetime.now(timezone.utc)
+    coverage_profiles = load_research_profiles()
+    coverage_subjects = {
+        "cms": {t for t, p in coverage_profiles.by_ticker.items() if p.code == "HEALTH_SERVICES"},
+        "clinicaltrials": {t for t, p in coverage_profiles.by_ticker.items() if p.code in {"PHARMA", "MEDTECH"}},
+    }
     st.write("**Kumulativní pokrytí dávkových specialistů**")
     st.dataframe(pd.DataFrame([
         {"Zdroj": source_labels[source], "Aktivní SEC identity": coverage["active_identities"],
@@ -2256,13 +2264,16 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
          "Částečný výsledek": coverage["current_partial"],
          "Čeká / zastaralo": coverage["not_current"],
          "Někdy zkontrolováno": coverage["ever_checked"]}
-        for source, interval in (("fda", 30), ("finra", 15))
+        for source, interval in (("fda", 30), ("finra", 15), ("cms", 30),
+                                 ("clinicaltrials", 30), ("ofac", 1))
         for coverage in [scout_store.specialist_coverage(
-            source, as_of=coverage_time, refresh_days=interval)]
+            source, as_of=coverage_time, refresh_days=interval,
+            subjects=coverage_subjects.get(source))]
     ]), hide_index=True)
     st.caption("Jmenovatelem jsou jen již pozorované aktivní SEC identity, nikoli automaticky všech 687 tickerů. "
                "Při limitu stránek jde o částečnou kontrolu; ta se zkusí znovu po dni. "
-               "FDA se obnovuje po 30 dnech, FINRA po 15 dnech.")
+               "CMS a ClinicalTrials počítají jen příslušné sektorové profily. "
+               "FDA/CMS/ClinicalTrials se obnovují po 30 dnech, FINRA po 15 dnech a OFAC po dni.")
     scout_rows = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=50, source="sec",
     )
@@ -2316,6 +2327,18 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     if nhtsa_rows:
         st.write("**NHTSA – kampaně doloženého modelu/roku; finanční dopad na emitenta není ověřen**")
         st.dataframe(pd.DataFrame(nhtsa_rows), hide_index=True)
+    for source, label in (("cms", "CMS vlastnictví nemocnic"),
+                          ("clinicaltrials", "ClinicalTrials studie"),
+                          ("ofac", "OFAC SDN")):
+        healthcare_rows = scout_store.latest_findings(
+            watchlist, as_of=datetime.now(timezone.utc), limit=30, source=source)
+        if healthcare_rows:
+            st.write(f"**{label} — kandidáti podle přesného jména**")
+            st.caption("Samotné jméno nepotvrzuje právní vazbu k akcii ani finanční dopad.")
+            if source == "ofac":
+                st.caption("SDN hlavní jména; chybí aliasy, Non-SDN a pohled přes vlastnictví. "
+                           "Prázdný výsledek není potvrzení bez sankcí.")
+            st.dataframe(pd.DataFrame(healthcare_rows), hide_index=True)
     energy_rows = scout_store.latest_findings(
         ["COMMODITY:WTI", "COMMODITY:JET_FUEL_GULF"],
         as_of=datetime.now(timezone.utc), limit=10, source="eia",

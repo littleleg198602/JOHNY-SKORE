@@ -15,17 +15,25 @@ from market_checker_app.services.fdic_bank_scout_service import (
 from market_checker_app.services.nhtsa_recall_scout_service import (
     NhtsaRecallClient, NhtsaRecallScoutService, load_verified_models,
 )
+from market_checker_app.services.healthcare_scout_service import (
+    CmsHospitalOwnerClient, ClinicalTrialsClient, _candidate,
+)
+from market_checker_app.services.ofac_scout_service import OfacSdnClient, SDN_URL
 from market_checker_app.storage.scout_store import ScoutStore
 
 
-def run(*, output_path: Path) -> dict:
+def run(*, output_path: Path, sources: tuple[str, ...] = ("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac")) -> dict:
+    if not sources or set(sources) - {"fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac"}:
+        raise ValueError("Unsupported live sources")
     report = {"schema_version": 1,
               "started_at": datetime.now(timezone.utc).isoformat(),
               "platform_scope": "current execution host; not a Windows end-to-end acceptance",
               "full_universe_verified": False, "scoring_applied": False,
-              "status": "RUNNING", "cases": {}}
+              "status": "RUNNING", "sources": list(sources), "cases": {}}
 
     def check(name, action):
+        if name.split("_", 1)[0] not in sources:
+            return
         observed = datetime.now(timezone.utc).isoformat()
         try:
             passed, detail = action()
@@ -141,6 +149,51 @@ def run(*, output_path: Path) -> dict:
                 "scope": "absent make/model only", "payload": payload}
         check("nhtsa_negative_absent_model", model_negative)
 
+        for client, positive_name in ((CmsHospitalOwnerClient(), "LIFEPOINT HOLDINGS 2 LLC"),
+                                      (ClinicalTrialsClient(), "Pfizer")):
+            def healthcare_positive(client=client, name=positive_name):
+                rows, cursor = client.page(name, size=2, cursor=None)
+                clock = datetime.now(timezone.utc)
+                accepted = [candidate for row in rows
+                            if (candidate := _candidate(client.source, row, name, clock)) is not None]
+                return bool(accepted), {"source_url": client.source_url, "query_name": name,
+                                       "scope": "publisher schema and exact name; no watchlist issuer assigned",
+                                       "next_cursor_present": cursor is not None,
+                                       "parsed_candidates": accepted}
+            check(f"{client.source}_positive_name_schema", healthcare_positive)
+
+            def healthcare_negative(client=client):
+                rows, cursor = client.page(absent_name, size=2, cursor=None)
+                return rows == [] and cursor is None, {"source_url": client.source_url,
+                                                        "query_name": absent_name,
+                                                        "scope": "absent exact name, not issuer-wide absence",
+                                                        "returned_rows": len(rows)}
+            check(f"{client.source}_negative_name", healthcare_negative)
+
+        snapshot_holder = []
+        def ofac_snapshot():
+            if not snapshot_holder:
+                snapshot_holder.append(OfacSdnClient().snapshot())
+            return snapshot_holder[0]
+
+        def ofac_positive():
+            snapshot = ofac_snapshot()
+            matches = [entity for entity in snapshot.entities if entity["name"] == "AEROCARIBBEAN AIRLINES"]
+            return bool(matches), {"source_url": SDN_URL, "matched_entities": matches,
+                                   "snapshot_sha256": snapshot.content_sha256,
+                                   "total_rows": snapshot.total_rows, "entity_rows": len(snapshot.entities),
+                                   "scope": "SDN publisher parser only; no watchlist issuer assigned"}
+        check("ofac_positive_entity_schema", ofac_positive)
+
+        def ofac_negative():
+            snapshot = ofac_snapshot()
+            matches = [entity for entity in snapshot.entities
+                       if entity["name"].strip().casefold() == absent_name.casefold()]
+            return matches == [], {"source_url": SDN_URL, "query_name": absent_name,
+                                   "snapshot_sha256": snapshot.content_sha256,
+                                   "scope": "absent primary entity name; no sanctions clearance"}
+        check("ofac_negative_name", ofac_negative)
+
     report["finished_at"] = datetime.now(timezone.utc).isoformat()
     report["status"] = "PASS" if all(row["status"] == "PASS" for row in report["cases"].values()) else "PARTIAL"
     temporary = output_path.with_suffix(output_path.suffix + ".tmp")
@@ -152,7 +205,10 @@ def run(*, output_path: Path) -> dict:
 def main():
     parser = argparse.ArgumentParser(description="Omezené živé ověření veřejných specialistů.")
     parser.add_argument("--output-path", type=Path, default=Path("outputs/specialist_live_smoke_latest.json"))
-    report = run(output_path=parser.parse_args().output_path)
+    parser.add_argument("--sources", nargs="+", choices=("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac"),
+                        default=("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac"))
+    args = parser.parse_args()
+    report = run(output_path=args.output_path, sources=tuple(args.sources))
     print(f"Public specialist smoke: {report['status']}")
     raise SystemExit(0 if report["status"] == "PASS" else 2)
 

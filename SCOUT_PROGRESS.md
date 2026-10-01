@@ -303,3 +303,33 @@ PR #141 prošlo čtyřmi CI úlohami a bylo sloučeno. Navazující dohledáván
 Nepoužívat sloučení základního PR jako potvrzení dokončení všech 36 úkolů. Bez reálného SEC User-Agent se automatický sběr vrátí `WAIT_ACCESS`, nepředstírá nalezené podání. Zdroje s klíčem/licencí se nezapojují bez odpovídajícího přístupu. Žádné order API není přidáno.
 
 GitHub CI základní verze a navazujících PR #130–136 prošlo. Živá akceptace Windows/SEC/cen po sloučení stále chybí. Výzkumné `P` nesmí automaticky nahradit produkční `OKE` ani se bez ověřeného časového aliasu sloučit s `PSTG`.
+
+## 1. 10. 2026 — CMS, ClinicalTrials a OFAC veřejný sběr
+
+CMS hospital-all-owners a ClinicalTrials.gov nyní mají samostatné omezené
+sběrače přesných organizačních/sponsor názvů. CMS vybírá jen 19 relevantních
+zdravotních profilů, ClinicalTrials 49 PHARMA/MEDTECH; dvě stránky po 100
+a nejvýše deset emitentů na běh. Časový rozpočet 60 sekund a tři chyby
+zastaví další dotazy; nedokončené identity zůstávají splatné. Kandidáti
+nedokládají vztah produktu, studie nebo nemocnice k emitentovi a zůstávají
+UNVERIFIED. CMS neukládá osobní vlastníky ani jejich adresy.
+
+OFAC stahuje oficiální SDN export jednou, ověřuje jeho strukturu a
+unikátní ID a porovnává jen přesné primární organizační názvy. Živý CSV
+obsahuje koncový DOS EOF, který parser nyní korektně přijímá pouze na
+konci. Otisk snapshotu je uložený; cizí redirect není povolen. Absence
+názvu neznamená sankční clearance: aliasy, Non-SDN a 50% vlastnická
+analýza dosud nejsou zapojené. Nové zdroje jsou v denním runneru, UI,
+politikách uložení i odděleném přehledu aktuálního pokrytí.
+
+Uložené živé důkazy mají 19 PASS případů celkem: 13 FDA/FDIC/NHTSA,
+čtyři CMS/ClinicalTrials a dva OFAC. Celá sada prošla: **456 testů**,
+Linux/Python 3.12.14; příkaz, čas a otisky testovaného Python kódu jsou
+v evidence/specialist_tests_20261001.json. Nejde o koncový Windows běh
+ani prokázané identity a pokrytí všech 687 firem. Inventář zůstává
+pravdivě PARTIAL/PILOT/NOT_STARTED; 0/21 DONE.
+
+SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261001.md uchovává další práci
+pro všech 21 specialistů a konkrétní nevyřešené přístupy, identity a
+akceptaci. Je nastavená kontrola budoucího úplného dokončení s oznámením
+až po skutečně existujících důkazech; kontrola sama nepíše další kód.

@@ -1,7 +1,7 @@
 # Hloubkový výzkum: vazba na skutečný provoz
 
 Zdroj: `Market_Checker_hloubkovy_vyzkum_2026-09-22.md`, kapitoly 1–20 a
-implementační pořadí 01–28. Stav níže je kontrola kódu k 30. 9. 2026,
+implementační pořadí 01–28. Stav níže je kontrola kódu aktualizovaná 1. 10. 2026,
 nikoli potvrzení úspěšného živého běhu. `ZÁKLAD` označuje existující
 analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů.
 
@@ -10,14 +10,14 @@ analytický modul, který nemusí mít automatický sběr pro všech 687 vstupů
 | 01–04 identita, důkazy, SEC, Windows | ČÁSTEČNĚ | 651 identit mimo pilot, aliasy do cen/scoutu, živý 687 běh a Windows test |
 | 05 insider | ČÁSTEČNĚ: typy Form 4 | P/S non-derivative s odpovídajícím A/D jsou oddělené od A/M/F kompenzací a ostatních transakcí; 13D/G, 13F a historická akceptace zbývají. |
 | 06 kontrakty | ČÁSTEČNĚ: USAspending scout | Doložená jedna vazba LMT → Sikorsky (`UTJWTSLMFNG4`); automatické dohledávání dalších UEI ze SEC názvu ukládá pouze kandidáty. Živý API běh a historie modifikací/obligations zbývají. |
-| 07 vládní rizika | ČÁSTEČNĚ: NHTSA modelový scout | Doložený TSLA Model 3 2026 má oddělené kampaně NHTSA, bez automatického finančního závěru. OFAC/DOJ/EPA a další produkty vyžadují vlastní identitní vazby a provozní test. |
+| 07 vládní rizika | ČÁSTEČNĚ: NHTSA a OFAC SDN | Živě ověřený parser NHTSA a export SDN; přesný SDN název je jen kandidát. Další vozidla, aliasy, Non-SDN, vlastnická analýza, DOJ/EPA a akceptace zbývají. |
 | 08 veřejná extrakce | ČÁSTEČNĚ | SEC scout nově ukládá omezené citované stopy dodavatelů a komodit z 10-K/Q/20-F/40-F; chybí přílohy, skutečná identita protistran a hedging |
 | 09 IR a zprávy | ČÁSTEČNĚ | Ověřené IR feedy a propojení RSS stopy s primárním oznámením |
 | 10 ceny | ČÁSTEČNĚ | Živá akceptace po opravě 28. 9., corporate actions a symboly BRKB/PSTG/LEG |
 | 11 short interest | ČÁSTEČNĚ: FINRA kandidáti | Přesný symbol, settlement a revize s `UNVERIFIED` identitou; veřejné API vyžaduje FINRA účet/credential, live test, datovaný instrument crosswalk a skutečný čas zveřejnění zbývají. |
-| 12 FDA | ČÁSTEČNĚ: recall a CRL kandidáti | Denní dávka do 25 aktivních SEC emitentů hledá drug/device/food enforcement záznamy a Complete Response Letters; ukládá jen přesnou shodu celého názvu jako `UNVERIFIED`. Datum historického dopisu není datum zveřejnění. Produktový/application/sponsor crosswalk, živý test a plná sektorová fronta zbývají. |
+| 12 FDA | ČÁSTEČNĚ: recall, CRL a ClinicalTrials | FDA dávka 40 emitentů; sponsor/collaborator studie 10 relevantních emitentů. Živé případy ověřují veřejné schema a přesný název; kandidáti jsou `UNVERIFIED`. Produktový/application/sponsor crosswalk, Windows, pokrytí a historie zbývají. |
 | 13 vstupní náklady | ČÁSTEČNĚ | FRED makro a EIA WTI/jet-fuel spot mají oddělené volitelné konektory; čekají na klíče a live test. USDA, propojení firemních expozic s cenami a historické vintage chybí. |
-| 14 entity enrichment | ČÁSTEČNĚ | GLEIF přesné LEI/ISIN a 10firemní pilot existují; OpenFIGI a datované dcery/produkty pro sektorové zdroje zbývají. FDIC má doložené JPM CERT 628, BAC CERT 3510 a WFC CERT 3511, nikoli celou bankovní skupinu. |
+| 14 entity enrichment | ČÁSTEČNĚ | GLEIF přesné LEI/ISIN a 10firemní pilot existují; OpenFIGI a datované dcery/produkty pro sektorové zdroje zbývají. FDIC živě ověřuje JPM 628, BAC 3510, WFC 3511 a C 7213 s datovanými přesnými API názvy; nejsou to celé bankovní skupiny. |
 | 15 SAM | OTEVŘENO | Schválený klíč a reálná kvóta; doplnění USAspending |
 | 16 instituce | ČÁSTEČNĚ: SEC 13F vzorek | Čtvrtletní ZIP parser bere jen přesně doložené CUSIP, prozatím AAPL `037833100`, a ukládá nejvýše 25 velkých původních 13F-HR řádků na ticker; nejsou to všechny instituce. Amendmenty, další instrumenty a živý test zbývají. |
 | 17–21 placené piloty | NEZAPOJENO | Účet, datové oprávnění, coverage a měření přínosu před nákupem |
