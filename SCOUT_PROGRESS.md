@@ -1,5 +1,65 @@
 # Průběh implementace pátracích agentů
 
+## FHN a KEY — datované dcery a vlastnická výjimka (1. 10. 2026)
+
+Registr doplněn o FHN (CIK 0000036966) → First Horizon Bank / CERT 4977
+a KEY (CIK 0000091576) → KeyBank National Association / CERT 17534.
+Obě SEC přílohy výslovně datují vztahové tvrzení k 31. 12. 2025;
+filing indexy odděleně potvrzují zveřejnění 26. 2. 2026 (FHN) a
+23. 2. 2026 (KEY). Datum akvizice ani souvislá historie se neodvozují.
+
+FHN tabulka uvádí přímou konsolidovanou bankovní dceru, ale footnote (1)
+výslovně zachovává 300 000 nehlasovacích prioritních akcií mimo vlastnictví
+First Horizon, s celkovou likvidační preferencí 300 milionů USD a bez
+účasti s common stock při likvidaci. Proto důkaz nepřijímá bezvýhradné
+100% vlastnictví banky ani poměrné přepočítávání bankovních hodnot.
+KEY footnote naproti tomu výslovně uvádí 100% vlastnictví KeyBank.
+FHN vynechává neaktivní entity a bankovní dcery uvádí samostatně;
+KEY vynechává dcery nevýznamné v souhrnu. Registry netvrdí celé skupiny.
+
+SEC R1 reporty dokládají issuer CIK a common-stock symbol, odděleně
+od prioritních tříd. FHN R1 používá FIRST HORIZON CORP; plný název
+First Horizon Corporation je doložen v úvodu Exhibit 21. KEY R1
+uvádí KeyCorp a Common Shares / KEY. Citace, krátké úryvky, locatory,
+vlastnická výjimka a skutečné FDIC institutions/financials payloady
+s časy jsou v `evidence/fdic_fhn_key_identity_20261001.json`.
+Originální SEC HTML nebyl stažen. Financial názvy jsou přesně
+FIRST HORIZON BANK a KEYBANK NATIONAL ASSN. RSSD není SEC CIK;
+výkazy jednotlivého CERT nejsou konsolidované hodnoty emitenta.
+Nové vazby jsou známé až od pozorování 1. 10. 2026.
+
+`evidence/fdic_fhn_key_live_20261001.json` má tři PASS případy:
+každá nová banka uložila výkazy k 31. 3. a 30. 6. 2026, skutečné
+znovuzpracování zachycené odpovědi nevytvořilo duplicity a neexistující
+CERT vrátil prázdný publisher payload. Replay je bez další sítě.
+V tomto kroku proběhlo sedm API volání (2 institutions, 2 první
+financials, 3 smoke financials), s 20sekundovým timeoutem a limitem
+1 MB / jeden institution / dva financials řádky. Provozní dávkové
+a denní limity se nemění. Jde o omezený Linux pilot; neexistující
+CERT nedokládá zápornou akceptaci emitenta nebo Windows běh.
+
+Registry mapuje 16 z 22 BANK profilů kanonických 687 tickerů;
+chybí MTB, OZK, PNFP, RF, WAL a ZION a další relevantní banky /
+datované změny vlastnictví. Rozšířený captured-payload test ověřuje
+zápis/replay a odmítnutí výkazu před vztahovým datem, časem znalosti
+či mimo canonical scope. Diagnostika v prázdné provozní databázi
+ukazuje 16 never-attempted a 0 usable, bez falešného živého pokrytí.
+Předchozí testovací clocky zůstávají. FDIC má 21 PASS, diagnostika
+11 PASS a celá místní sada 487/487 PASS; kompilace/diff a časy/otisky
+jsou v `evidence/fdic_fhn_key_tests_20261001.json`.
+
+První plný pokus měl 385 načtených testů a 21 importních chyb, protože
+obnovené prostředí nemělo předepsané závislosti. Po instalaci requirements
+s constraints repozitáře prošel opakovaný běh bez změny testovaných souborů;
+první neúspěch a shodné otisky jsou zachovány v testovacím důkazu.
+
+Banky zůstávají PILOT/PENDING a inventář 0/21 DONE. Další dostupný
+krok: MTB/OZK a zbývající bankovní identity, další dcery / změny
+vlastnictví, FDA product/application/sponsor a CMS owner/provider.
+Skutečný Windows koncový běh, relevantní provozní pokrytí, přístupy/
+licence a historická out-of-sample evaluace zůstávají otevřené.
+Skóre a obchodování se nemění.
+
 ## COF a EWBC — další dvě datované bankovní dcery (1. 10. 2026)
 
 Registr doplněn o COF (CIK 0000927628) → Capital One, National Association /

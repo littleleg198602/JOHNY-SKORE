@@ -85,7 +85,7 @@ class FdicBankScoutTests(unittest.TestCase):
         self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213),
                           ("PNC", 6384), ("USB", 6548), ("TFC", 9846), ("FITB", 6672),
                           ("CFG", 57957), ("HBAN", 6560), ("ALLY", 57803), ("CFR", 5510),
-                          ("COF", 4297), ("EWBC", 31628)},
+                          ("COF", 4297), ("EWBC", 31628), ("FHN", 4977), ("KEY", 17534)},
                          {(row["ticker"], row["cert"]) for row in identities})
         citi = next(row for row in identities if row["ticker"] == "C")
         self.assertEqual("Citibank, National Association", citi["bank_name"])
@@ -222,16 +222,18 @@ class FdicBankScoutTests(unittest.TestCase):
     def test_captured_banks_do_not_backdate_relationship_or_knowledge(self):
         entries = []
         for filename in ("fdic_cfg_hban_identity_20261001.json", "fdic_ally_cfr_identity_20261001.json",
-                         "fdic_cof_ewbc_identity_20261001.json"):
+                         "fdic_cof_ewbc_identity_20261001.json", "fdic_fhn_key_identity_20261001.json"):
             entries.extend(json.loads((Path(__file__).resolve().parents[1] / "evidence" / filename).read_text())["entries"])
         identities = [row for row in load_verified_banks()
-                      if row["ticker"] in {"CFG", "HBAN", "ALLY", "CFR", "COF", "EWBC"}]
+                      if row["ticker"] in {"CFG", "HBAN", "ALLY", "CFR", "COF", "EWBC", "FHN", "KEY"}]
         self.assertEqual({"CFG": (57957, "0000759944", "2026-01-22"),
                           "HBAN": (6560, "0000049196", "2025-12-31"),
                           "ALLY": (57803, "0000040729", "2025-12-31"),
                           "CFR": (5510, "0000039263", "2026-02-05"),
                           "COF": (4297, "0000927628", "2025-12-31"),
-                          "EWBC": (31628, "0001069157", "2025-12-31")},
+                          "EWBC": (31628, "0001069157", "2025-12-31"),
+                          "FHN": (4977, "0000036966", "2025-12-31"),
+                          "KEY": (17534, "0000091576", "2025-12-31")},
                          {row["ticker"]: (row["cert"], row["issuer_cik"], row["effective_from"])
                           for row in identities})
         captures = {entry["identity"]["cert"]: entry for entry in entries}
@@ -274,7 +276,7 @@ class FdicBankScoutTests(unittest.TestCase):
                                  (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
                 if identity["ticker"] == "CFG":
                     self.assertFalse(captured["relationship_evidence"]["exact_legal_name_corroboration"]["exhibit_as_of_date_verified"])
-                if identity["ticker"] in {"COF", "EWBC"}:
+                if identity["ticker"] in {"COF", "EWBC", "FHN", "KEY"}:
                     self.assertTrue(captured["relationship_evidence"]["as_of_date_verified"])
                     self.assertEqual("2025-12-31", captured["relationship_evidence"]["as_of"])
                     self.assertEqual("2025-12-31", details["relationship_effective_from"])

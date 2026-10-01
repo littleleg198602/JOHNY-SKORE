@@ -118,6 +118,23 @@ class SpecialistAcceptanceTests(unittest.TestCase):
             self.assertFalse(coverage["complete_issuer_groups_verified"])
             self.assertFalse(report["completion_verified"])
 
+    def test_fhn_key_onboarding_measures_sixteen_mappings_without_accepting_completion(self):
+        clock = max(datetime.fromisoformat(entry["known_at"]) for entry in load_verified_banks()
+                    if entry["ticker"] in {"FHN", "KEY"})
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            report = build_specialist_acceptance_report(store, as_of=clock, environment={})
+            coverage = report["rotating_source_coverage"]["fdic"]
+            self.assertEqual((22, 16, 6, 16, 0),
+                             (coverage["applicable_profile_subjects"], coverage["mapped_subjects"],
+                              coverage["unmapped_profile_subjects"], coverage["never_attempted_banks"],
+                              coverage["current_usable_banks"]))
+            prior = build_specialist_acceptance_report(
+                store, as_of=clock-timedelta(seconds=1), environment={})["rotating_source_coverage"]["fdic"]
+            self.assertEqual(14, prior["mapped_subjects"])
+            self.assertFalse(coverage["complete_issuer_groups_verified"])
+            self.assertFalse(report["completion_verified"])
+
     def test_fdic_manifest_mapping_is_not_runtime_usable_or_group_completeness(self):
         clock = NOW + timedelta(hours=2)
         with TemporaryDirectory() as directory:

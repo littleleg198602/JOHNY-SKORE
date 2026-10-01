@@ -22,7 +22,7 @@ samostatnými akceptačními důkazy.
 
 FDIC má od 1. 10. perzistentní obnovovací dávky: výchozí pět bank za běh,
 deset požadavků za UTC den, 30 dní pro použitelnou odpověď a jeden den
-pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje čtrnáct
+pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje šestnáct
 mapovaných bank od 22 BANK profilů a skutečné pokusy od použitelných dat.
 Prázdná či odmítnutá odpověď nezvyšuje použitelnou coverage. Staré nálezy
 samotné nenahrazují refresh pokus; scope je nejvýše dva výkazy na CERT,
@@ -56,15 +56,24 @@ datum akvizice. Citace a skutečné publisher odpovědi jsou v
 `evidence/fdic_ally_cfr_identity_20261001.json`, tři živé případy v
 `evidence/fdic_ally_cfr_live_20261001.json`.
 
-Aktuálně je mapováno čtrnáct z 22 BANK profilů, nově COF → Capital One,
+Po kroku COF/EWBC bylo mapováno čtrnáct z 22 BANK profilů, nově COF → Capital One,
 National Association / CERT 4297 a EWBC → East West Bank / CERT 31628.
 Obě SEC přílohy výslovně dokládají as-of 31. 12. 2025 a vynechávají
 další dcery; nedokládají úplnost skupin ani kontinuální historii.
 R1 / filing indexy rozlišují issuer/common-stock identitu, datum vztahu
 a zveřejnění. Citace a skutečné FDIC odpovědi jsou v
 `evidence/fdic_cof_ewbc_identity_20261001.json`, tři omezené živé případy
-v `evidence/fdic_cof_ewbc_live_20261001.json`. Zbývá osm emitentů,
-kompletní skupiny, Windows běh, relevantní provozní pokrytí a historická evaluace.
+v `evidence/fdic_cof_ewbc_live_20261001.json`.
+
+Aktuálně je mapováno šestnáct z 22 BANK profilů, nově FHN → First Horizon
+Bank / CERT 4977 a KEY → KeyBank National Association / CERT 17534,
+obě vztahová tvrzení výslovně k 31. 12. 2025. FHN vlastnická výjimka
+pro cizí nehlasovací prioritní akcie zůstává v důkazu, bez tvrzení
+bezvýhradného 100% vlastnictví nebo přepočítávání bankovních hodnot.
+SEC citace a skutečné FDIC odpovědi jsou v
+`evidence/fdic_fhn_key_identity_20261001.json`, tři omezené živé případy
+v `evidence/fdic_fhn_key_live_20261001.json`. Zbývá šest emitentů,
+úplné skupiny, Windows běh, relevantní provozní pokrytí a historická evaluace.
 
 ## Co znamenají stavy
 

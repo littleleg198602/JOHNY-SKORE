@@ -198,5 +198,35 @@
     "financial_name": "EAST WEST BANK",
     "financial_name_known_at": "2026-10-01T17:43:24.104468+00:00",
     "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A31628&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+  },
+  {
+    "ticker": "FHN",
+    "cert": 4977,
+    "issuer_cik": "0000036966",
+    "issuer_name": "First Horizon Corporation",
+    "bank_name": "First Horizon Bank",
+    "effective_from": "2025-12-31",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/afy2025xexh21xsubsidiaries.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/R1.htm",
+    "known_at": "2026-10-01T18:32:46.153161+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/4977",
+    "financial_name": "FIRST HORIZON BANK",
+    "financial_name_known_at": "2026-10-01T18:32:05.170308+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4977&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+  },
+  {
+    "ticker": "KEY",
+    "cert": 17534,
+    "issuer_cik": "0000091576",
+    "issuer_name": "KeyCorp",
+    "bank_name": "KeyBank National Association",
+    "effective_from": "2025-12-31",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/key-123125xexx21.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/R1.htm",
+    "known_at": "2026-10-01T18:32:46.153161+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/17534",
+    "financial_name": "KEYBANK NATIONAL ASSN",
+    "financial_name_known_at": "2026-10-01T18:32:18.544635+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A17534&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
   }
 ]

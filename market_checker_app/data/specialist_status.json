@@ -104,7 +104,7 @@
       "research": "sector BANK",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Fourteen of 22 BANK-profile tickers have subsidiary CERT mappings, now including COF/Capital One, National Association and EWBC/East West Bank with exact live financial names. Both SEC exhibits explicitly date their subsidiary statements 2025-12-31 and omit other subsidiaries; complete issuer groups and continuous ownership history are not established. CFR retains an unverified relationship date separately from its documented publication-based report eligibility floor. Persistent bounded refresh and runtime diagnostics are implemented. Remaining: other 8 issuers (start FHN/KEY), all relevant subsidiary groups and dated ownership changes, actual Windows end-to-end with measured applicable live coverage, historical availability and out-of-sample evaluation.",
+      "next": "Sixteen of 22 BANK-profile tickers have subsidiary CERT mappings, now including FHN/First Horizon Bank and KEY/KeyBank National Association with exact live financial names and explicit 2025-12-31 relationship statements. FHN bank-specific external non-voting preferred interests are preserved in evidence without an unqualified 100% ownership claim or proportional financial allocation. KEY Exhibit 21 expressly states 100% ownership. Complete groups and continuous ownership history remain unverified. CFR retains unknown ownership date separately from its publication-based report eligibility floor. Persistent bounded refresh and runtime diagnostics exist. Remaining: other 6 issuers (start MTB/OZK), all relevant subsidiary groups and dated ownership changes, actual Windows end-to-end with measured applicable live coverage, historical availability and out-of-sample evaluation.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "expansion_identity_evidence": "evidence/fdic_expansion_identity_20261001.json",
       "expansion_source_smoke_evidence": "evidence/fdic_expansion_live_20261001.json",
@@ -121,7 +121,10 @@
       "ally_cfr_test_evidence": "evidence/fdic_ally_cfr_tests_20261001.json",
       "cof_ewbc_identity_evidence": "evidence/fdic_cof_ewbc_identity_20261001.json",
       "cof_ewbc_source_smoke_evidence": "evidence/fdic_cof_ewbc_live_20261001.json",
-      "cof_ewbc_test_evidence": "evidence/fdic_cof_ewbc_tests_20261001.json"
+      "cof_ewbc_test_evidence": "evidence/fdic_cof_ewbc_tests_20261001.json",
+      "fhn_key_identity_evidence": "evidence/fdic_fhn_key_identity_20261001.json",
+      "fhn_key_source_smoke_evidence": "evidence/fdic_fhn_key_live_20261001.json",
+      "fhn_key_test_evidence": "evidence/fdic_fhn_key_tests_20261001.json"
     },
     {
       "id": "health_services",
