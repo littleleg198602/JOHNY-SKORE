@@ -168,5 +168,35 @@
     "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A5510&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
     "effective_from_basis": "filing_publication_floor",
     "effective_from_evidence_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/0000039263-26-000011-index.htm"
+  },
+  {
+    "ticker": "COF",
+    "cert": 4297,
+    "issuer_cik": "0000927628",
+    "issuer_name": "Capital One Financial Corporation",
+    "bank_name": "Capital One, National Association",
+    "effective_from": "2025-12-31",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000024/cof-12312025x10kxex21.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000024/R1.htm",
+    "known_at": "2026-10-01T17:44:55.476395+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/4297",
+    "financial_name": "CAPITAL ONE NATIONAL ASSN",
+    "financial_name_known_at": "2026-10-01T17:43:17.632311+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4297&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+  },
+  {
+    "ticker": "EWBC",
+    "cert": 31628,
+    "issuer_cik": "0001069157",
+    "issuer_name": "East West Bancorp, Inc.",
+    "bank_name": "East West Bank",
+    "effective_from": "2025-12-31",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/1069157/000106915726000009/ewbc21110k12312025.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/1069157/000106915726000009/R1.htm",
+    "known_at": "2026-10-01T17:44:55.476395+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/31628",
+    "financial_name": "EAST WEST BANK",
+    "financial_name_known_at": "2026-10-01T17:43:24.104468+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A31628&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
   }
 ]

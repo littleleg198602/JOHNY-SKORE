@@ -1,5 +1,55 @@
 # Průběh implementace pátracích agentů
 
+## COF a EWBC — další dvě datované bankovní dcery (1. 10. 2026)
+
+Registr doplněn o COF (CIK 0000927628) → Capital One, National Association /
+CERT 4297 a EWBC (CIK 0001069157) → East West Bank / CERT 31628.
+Obě SEC přílohy výslovně uvádějí as-of 31. 12. 2025. Filing indexy
+odděleně potvrzují zveřejnění 19. 2. 2026 (COF) a 27. 2. 2026 (EWBC).
+Nejde o datum akvizice ani souvislou historickou vlastnickou vazbu.
+Obě přílohy výslovně vynechávají ostatní dcery považované v souhrnu
+za nevýznamné: ani tato bankovní mapa netvrdí úplnost skupin.
+
+R1 reporty stejných filings nezávisle potvrzují issuer CIK a common-stock
+symbol. COF R1 používá CAPITAL ONE FINANCIAL CORP; parent-company sloupec
+Exhibit 21 uvádí plný Capital One Financial Corporation. Preferred-stock
+symboly z téhož R1 nejsou přiřazené k COF common-stock scope. EWBC příloha
+navíc výslovně uvádí 100% vlastnictví East West Bank. SEC úryvky, locatory,
+indexy a skutečné FDIC institutions/financials odpovědi s časy jsou v
+`evidence/fdic_cof_ewbc_identity_20261001.json`. Originální SEC HTML nebyl
+stažen. FDIC RSSD není CIK emitenta a bankovní výkazy nejsou jeho
+konsolidované hodnoty. Přesné financial názvy jsou CAPITAL ONE NATIONAL
+ASSN a EAST WEST BANK; jiné jméno se fuzzy nedoplňuje. Čas znalosti
+nových vazeb je až 1. 10. 2026, nikoli datum výročního období.
+
+`evidence/fdic_cof_ewbc_live_20261001.json` obsahuje tři PASS případy:
+každá nová banka uložila dva kvartální výkazy (31. 3. a 30. 6. 2026),
+skutečné opakované zpracování zachycené odpovědi nevytvořilo duplicity
+a neexistující CERT vrátil prázdný publisher payload. Replay se provádí
+bez další sítě. V tomto kroku proběhlo sedm API volání: dvě institutions,
+dvě první financials a tři smoke financials. Každý dotaz má 20sekundový
+timeout, nejvýše 1 MB a jeden institution / dva financials řádky.
+Dávkové/denní limity provozního sběrače se nemění. Jde o omezený Linux
+pilot; absence neexistujícího CERT není negativní akceptace celé firmy.
+
+Mapa nyní pokrývá 14 z 22 BANK profilů kanonických 687 tickerů;
+chybí FHN, KEY, MTB, OZK, PNFP, RF, WAL a ZION a další relevantní banky
+skupin / datované změny vlastnictví. Rozšířený test skutečných captured
+payloadů ověřuje zápis, replay, odmítnutí výkazu před datem vztahu,
+čas znalosti a canonical scope. Nová diagnostická kontrola měří
+14 never-attempted a 0 usable v prázdné provozní databázi, nikoli živé
+pokrytí 14 bank. Původní clocky předchozích onboarding kroků zůstávají.
+FDIC má 21 PASS, diagnostika 10 PASS; celá místní sada 486/486 PASS,
+kompilace a diff kontrola jsou uložené s otisky a časy v
+`evidence/fdic_cof_ewbc_tests_20261001.json`.
+
+Bankovní specialista zůstává PILOT/PENDING a inventář 0/21 DONE.
+Další dostupná práce: FHN/KEY a zbývající bankovní identity, další dcery
+a změny vlastnictví, FDA product/application/sponsor a CMS owner/provider
+vazby. Skutečný Windows koncový běh, změřené relevantní provozní pokrytí,
+přístupy/licence a historická out-of-sample evaluace zůstávají otevřené.
+Skóre ani obchodování se nemění.
+
 ## ALLY a CFR — bankovní identity a konzervativní časová hranice (1. 10. 2026)
 
 Přidané vazby ALLY (CIK 0000040729) → Ally Bank / CERT 57803 a

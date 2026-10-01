@@ -22,7 +22,7 @@ samostatnými akceptačními důkazy.
 
 FDIC má od 1. 10. perzistentní obnovovací dávky: výchozí pět bank za běh,
 deset požadavků za UTC den, 30 dní pro použitelnou odpověď a jeden den
-pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje dvanáct
+pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje čtrnáct
 mapovaných bank od 22 BANK profilů a skutečné pokusy od použitelných dat.
 Prázdná či odmítnutá odpověď nezvyšuje použitelnou coverage. Staré nálezy
 samotné nenahrazují refresh pokus; scope je nejvýše dva výkazy na CERT,
@@ -48,14 +48,23 @@ Důkazy a tři omezené živé případy jsou v
 `evidence/fdic_cfg_hban_identity_20261001.json` a
 `evidence/fdic_cfg_hban_live_20261001.json`.
 
-Aktuálně je mapováno dvanáct z 22 BANK profilů, nově ALLY → Ally Bank /
+Po kroku ALLY/CFR bylo mapováno dvanáct z 22 BANK profilů, nově ALLY → Ally Bank /
 CERT 57803 a CFR → Frost Bank / CERT 5510. ALLY má výslovné as-of datum
 31. 12. 2025; CFR as-of zůstává neověřené a přijímá pouze výkazy od
 konzervativní hranice 5. 2. 2026 z ověřeného filing indexu. Není to
 datum akvizice. Citace a skutečné publisher odpovědi jsou v
 `evidence/fdic_ally_cfr_identity_20261001.json`, tři živé případy v
-`evidence/fdic_ally_cfr_live_20261001.json`. Zbývá deset emitentů,
-kompletní skupiny, Windows běh a historická evaluace.
+`evidence/fdic_ally_cfr_live_20261001.json`.
+
+Aktuálně je mapováno čtrnáct z 22 BANK profilů, nově COF → Capital One,
+National Association / CERT 4297 a EWBC → East West Bank / CERT 31628.
+Obě SEC přílohy výslovně dokládají as-of 31. 12. 2025 a vynechávají
+další dcery; nedokládají úplnost skupin ani kontinuální historii.
+R1 / filing indexy rozlišují issuer/common-stock identitu, datum vztahu
+a zveřejnění. Citace a skutečné FDIC odpovědi jsou v
+`evidence/fdic_cof_ewbc_identity_20261001.json`, tři omezené živé případy
+v `evidence/fdic_cof_ewbc_live_20261001.json`. Zbývá osm emitentů,
+kompletní skupiny, Windows běh, relevantní provozní pokrytí a historická evaluace.
 
 ## Co znamenají stavy
 

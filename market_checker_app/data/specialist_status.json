@@ -104,7 +104,7 @@
       "research": "sector BANK",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Twelve of 22 BANK-profile tickers have subsidiary CERT mappings, now including ALLY/Ally Bank and CFR/Frost Bank with exact live financial names. ALLY Exhibit 21 is explicitly as of 2025-12-31. CFR Exhibit 21 has no verified as-of date: use a conservative report eligibility floor of 2026-02-05 from the verified filing index, without inferring acquisition or continuous ownership history. Persistent bounded refresh and runtime diagnostics are implemented. Remaining: other 10 issuers (start COF/EWBC), all relevant subsidiary groups and dated ownership changes, actual Windows end-to-end with measured applicable live coverage, historical availability and out-of-sample evaluation.",
+      "next": "Fourteen of 22 BANK-profile tickers have subsidiary CERT mappings, now including COF/Capital One, National Association and EWBC/East West Bank with exact live financial names. Both SEC exhibits explicitly date their subsidiary statements 2025-12-31 and omit other subsidiaries; complete issuer groups and continuous ownership history are not established. CFR retains an unverified relationship date separately from its documented publication-based report eligibility floor. Persistent bounded refresh and runtime diagnostics are implemented. Remaining: other 8 issuers (start FHN/KEY), all relevant subsidiary groups and dated ownership changes, actual Windows end-to-end with measured applicable live coverage, historical availability and out-of-sample evaluation.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "expansion_identity_evidence": "evidence/fdic_expansion_identity_20261001.json",
       "expansion_source_smoke_evidence": "evidence/fdic_expansion_live_20261001.json",
@@ -118,7 +118,10 @@
       "cfg_hban_test_evidence": "evidence/fdic_cfg_hban_tests_20261001.json",
       "ally_cfr_identity_evidence": "evidence/fdic_ally_cfr_identity_20261001.json",
       "ally_cfr_source_smoke_evidence": "evidence/fdic_ally_cfr_live_20261001.json",
-      "ally_cfr_test_evidence": "evidence/fdic_ally_cfr_tests_20261001.json"
+      "ally_cfr_test_evidence": "evidence/fdic_ally_cfr_tests_20261001.json",
+      "cof_ewbc_identity_evidence": "evidence/fdic_cof_ewbc_identity_20261001.json",
+      "cof_ewbc_source_smoke_evidence": "evidence/fdic_cof_ewbc_live_20261001.json",
+      "cof_ewbc_test_evidence": "evidence/fdic_cof_ewbc_tests_20261001.json"
     },
     {
       "id": "health_services",
