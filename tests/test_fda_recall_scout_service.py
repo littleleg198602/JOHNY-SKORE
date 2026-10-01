@@ -16,7 +16,7 @@ class FakeFda:
         self.calls = []
         self.fail = fail
 
-    def recalls(self, product_type, firm_name, *, limit):
+    def recalls(self, product_type, firm_name, *, limit, skip=0):
         self.calls.append((product_type, firm_name, limit))
         if self.fail:
             raise OSError("temporary API failure")
@@ -29,7 +29,7 @@ class FakeFda:
             ]}
         return {"meta": {"results": {"total": 0}}, "results": []}
 
-    def complete_response_letters(self, firm_name, *, limit):
+    def complete_response_letters(self, firm_name, *, limit, skip=0):
         self.calls.append(("crl", firm_name, limit))
         if self.fail:
             raise OSError("temporary API failure")
@@ -37,7 +37,7 @@ class FakeFda:
 
 
 class FakeCrlFda(FakeFda):
-    def complete_response_letters(self, firm_name, *, limit):
+    def complete_response_letters(self, firm_name, *, limit, skip=0):
         self.calls.append(("crl", firm_name, limit))
         return {"meta": {"results": {"total": 4}}, "results": [
             {"company_name": firm_name, "letter_type": "COMPLETE RESPONSE",
@@ -56,9 +56,39 @@ class FakeCrlFda(FakeFda):
 
 
 class FdaScoutTests(unittest.TestCase):
+    def test_second_page_is_collected_and_page_cap_remains_partial(self):
+        class PagedFda(FakeFda):
+            def recalls(self, product_type, firm_name, *, limit, skip=0):
+                self.calls.append((product_type, skip))
+                if product_type != "drug":
+                    return {"meta": {"results": {"total": 0, "skip": skip}}, "results": []}
+                return {"meta": {"results": {"total": 3, "skip": skip}}, "results": [
+                    {"recalling_firm": firm_name, "recall_number": f"D-{skip + 1}-2026",
+                     "report_date": "20260929"},
+                ]}
+
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            store.observe_sec_identity(subject_id="TEST", cik="0000000001",
+                                       company_name="Example Pharma Inc.", as_of=NOW)
+            client = PagedFda()
+            first = FdaRecallScoutService(store, client=client, max_results=1,
+                                          max_pages=2).run(as_of=NOW)
+            self.assertEqual(("PARTIAL", 2, 1),
+                             (first["status"], first["new_findings"], first["truncated_issuers"]))
+            self.assertIn(("drug", 1), client.calls)
+            complete = FdaRecallScoutService(store, client=client, max_results=1,
+                                             max_pages=3).run(as_of=NOW + timedelta(days=1))
+            self.assertEqual(("OK", 1), (complete["status"], complete["new_findings"]))
+            self.assertEqual(1, store.specialist_coverage(
+                "fda", as_of=NOW + timedelta(days=1))["current_complete"])
+            with store._connect() as conn:
+                self.assertEqual(3, conn.execute(
+                    "SELECT COUNT(*) FROM scout_findings WHERE source='fda'").fetchone()[0])
+
     def test_food_enforcement_is_a_separate_unverified_candidate(self):
         class FoodFda(FakeFda):
-            def recalls(self, product_type, firm_name, *, limit):
+            def recalls(self, product_type, firm_name, *, limit, skip=0):
                 if product_type != "food":
                     return {"meta": {"results": {"total": 0}}, "results": []}
                 return {"meta": {"results": {"total": 2}}, "results": [
