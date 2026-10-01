@@ -66,6 +66,15 @@ dalších tickerů, rekonstrukce amendmentů a živé ověření staženého ZIP
 
 ## FDIC bankovní specialista (30. 9. 2026)
 
+K 1. 10. 2026 přibyla druhá přesná vazba: BAC → Bank of America,
+National Association → FDIC CERT 3510. FDIC detail certifikátu a SEC
+Exhibit 21 Bank of America Corporation k 31. 12. 2025 jsou uloženy v
+`verified_fdic_banks.json`; `known_at` je až čas našeho zjištění.
+Třetí je WFC → Wells Fargo Bank, National Association → CERT 3511,
+doložený FDIC a SEC Exhibit 21 Wells Fargo & Company ke stejnému datu.
+Nepřiřazují se další banky podle podobného názvu. Živé API a skutečné
+schéma jeho finančních polí stále čekají na ověření.
+
 Veřejný BankFind API konektor sleduje poslední dva čtvrtletní výkazy jen pro
 ručně doložený vztah ticker → bankovní dcera → FDIC CERT. První záznam je
 JPM → JPMorgan Chase Bank, National Association → CERT 628; registr cituje
