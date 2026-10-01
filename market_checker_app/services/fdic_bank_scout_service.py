@@ -1,22 +1,27 @@
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 import hashlib
 import json
 import math
 from pathlib import Path
 import re
+import time
 from typing import Protocol
+from urllib.error import HTTPError
 from urllib.parse import parse_qs, urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.source_validation import public_https_reference
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
 
 
 FINANCIALS_URL = "https://api.fdic.gov/banks/financials"
 DEFAULT_IDENTITIES = Path(__file__).resolve().parents[1] / "data" / "verified_fdic_banks.json"
 MONETARY_FIELDS = ("ASSET", "DEP", "EQ", "NETINC")
+FDIC_REFRESH_DAYS = 30
+FDIC_DAILY_REQUEST_BUDGET = 10
 
 
 class FdicFinancialClient(Protocol):
@@ -37,7 +42,48 @@ class FdicBankFindClient:
         with urlopen(request, timeout=20) as response:
             if urlsplit(response.geturl()).hostname != "api.fdic.gov":
                 raise ValueError("FDIC redirected outside official host")
-            return json.load(response)
+            body = response.read(1_000_001)
+            if len(body) > 1_000_000:
+                raise ValueError("FDIC response exceeds byte budget")
+            return json.loads(body)
+
+
+def fdic_identity_key(entry: dict, clock: datetime) -> str:
+    """A changed legal relationship or newly known financial alias is due again."""
+    keys = ("ticker", "cert", "bank_name", "fdic_evidence_url", "relationship_evidence_url",
+            "effective_from", "known_at", "issuer_cik", "issuer_name", "issuer_identity_evidence_url")
+    identity = {key: entry[key] for key in keys if key in entry}
+    if ("financial_name" in entry
+            and datetime.fromisoformat(entry["financial_name_known_at"]) <= clock):
+        identity.update({key: entry[key] for key in
+                         ("financial_name", "financial_name_known_at", "financial_name_evidence_url")})
+    return "latest-two-v1:" + hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+
+
+def fdic_coverage(store: ScoutStore, identities: list[dict], *, as_of: datetime,
+                  subjects: set[str]) -> dict[str, int]:
+    """Count recent requests for mapped subsidiaries, never complete issuer groups."""
+    if as_of.tzinfo is None or as_of.utcoffset() is None:
+        raise ValueError("FDIC coverage time needs timezone")
+    eligible = [entry for entry in identities if entry["ticker"] in subjects
+                and datetime.fromisoformat(entry["known_at"]) <= as_of]
+    states = store.fdic_check_states(as_of=as_of)
+    result = {"mapped_subjects": len({entry["ticker"] for entry in eligible}),
+              "mapped_banks": len(eligible), "never_attempted_banks": 0, "stale_banks": 0,
+              "current_usable_banks": 0, "current_partial_banks": 0,
+              "current_empty_banks": 0, "current_failed_banks": 0, "inflight_banks": 0}
+    for entry in eligible:
+        state = states.get((entry["ticker"], fdic_identity_key(entry, as_of)))
+        if state is None:
+            result["never_attempted_banks"] += 1
+        elif state["attempted_at"] <= (as_of - timedelta(days=FDIC_REFRESH_DAYS)).astimezone(timezone.utc).isoformat():
+            result["stale_banks"] += 1
+        else:
+            key = {"USABLE": "current_usable_banks", "PARTIAL": "current_partial_banks",
+                   "EMPTY": "current_empty_banks", "FAILED": "current_failed_banks",
+                   "RUNNING": "inflight_banks"}[state["outcome"]]
+            result[key] += 1
+    return result
 
 
 def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
@@ -102,31 +148,91 @@ class FdicBankScoutService:
     """Observe bank subsidiary balance sheets for dated, cited CERT links."""
 
     def __init__(self, store: ScoutStore, *, client: FdicFinancialClient,
-                 identities: list[dict]) -> None:
+                 identities: list[dict], max_banks: int = 5,
+                 daily_request_budget: int = FDIC_DAILY_REQUEST_BUDGET,
+                 max_run_seconds: float = 60, max_failures: int = 3) -> None:
+        for value, upper in ((max_banks, 20), (daily_request_budget, 50), (max_failures, 10)):
+            if isinstance(value, bool) or not isinstance(value, int) or not 1 <= value <= upper:
+                raise ValueError("FDIC query budget must be bounded")
+        if isinstance(max_run_seconds, bool) or not 1 <= max_run_seconds <= 300:
+            raise ValueError("FDIC time budget must be bounded")
         self.store, self.client, self.identities = store, client, identities
+        self.max_banks, self.daily_request_budget = max_banks, daily_request_budget
+        self.max_run_seconds, self.max_failures = max_run_seconds, max_failures
 
     def run(self, *, as_of: datetime | None = None,
-            universe: set[str] | None = None) -> dict[str, int | str]:
+            universe: set[str] | None = None, recheck: bool = False) -> dict[str, int | str]:
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
             raise ValueError("Observation time needs timezone")
+        scope = set(load_canonical_tickers())
+        if universe is not None:
+            scope &= universe
         eligible = [entry for entry in self.identities
-                    if (universe is None or entry["ticker"] in universe)
+                    if entry["ticker"] in scope
                     and datetime.fromisoformat(entry["known_at"]) <= clock]
         if not eligible:
             return {"status": "WAIT_IDENTITY", "checked_banks": 0, "new_findings": 0}
-        created = checked = failed = usable = rejected = 0
+        token = self.store.claim_provider("fdic", as_of=clock, seconds=math.ceil(self.max_run_seconds) + 25)
+        if token is None:
+            cooldown = self.store.provider_cooldown("fdic", as_of=clock)
+            return {"status": ("RATE_LIMITED" if cooldown["reason"] == "FDIC HTTP 429"
+                               else "ACCESS_BLOCKED") if cooldown else "BUSY",
+                    "checked_banks": 0, "new_findings": 0,
+                    **({"retry_at": cooldown["retry_at"]} if cooldown else {})}
+        try:
+            return self._run_claimed(eligible, clock, token, recheck=recheck)
+        finally:
+            self.store.release_provider("fdic", token)
+
+    def _run_claimed(self, eligible: list[dict], clock: datetime, token: str, *, recheck: bool):
+        states = self.store.fdic_check_states(as_of=clock)
+        due = []
         for entry in eligible:
+            key = fdic_identity_key(entry, clock)
+            state = states.get((entry["ticker"], key))
+            interval = FDIC_REFRESH_DAYS if state and state["outcome"] == "USABLE" else 1
+            if recheck or state is None or datetime.fromisoformat(state["attempted_at"]) <= clock - timedelta(days=interval):
+                due.append((state["attempted_at"] if state else "", entry["ticker"], entry["cert"], entry, key))
+        due.sort(key=lambda item: item[:3])
+        created = checked = failed = usable = rejected = attempted = empty = 0
+        status = "OK" if due else "NO_DUE_WORK"
+        exhausted = False
+        deadline = time.monotonic() + self.max_run_seconds
+        for _, _, _, entry, identity_key in due:
+            if attempted >= self.max_banks or failed >= self.max_failures or time.monotonic() >= deadline:
+                exhausted = True
+                break
+            request_id = self.store.reserve_fdic_request(
+                subject_id=entry["ticker"], identity_key=identity_key, as_of=clock,
+                daily_limit=self.daily_request_budget, lease_token=token)
+            if request_id is None:
+                exhausted = True
+                break
+            attempted += 1
             try:
                 payload = self.client.financials(entry["cert"])
                 rows = payload["data"]
                 if not isinstance(rows, list) or len(rows) > 2:
                     raise ValueError("Malformed or unbounded FDIC response")
+            except HTTPError as exc:
+                failed += 1
+                self.store.finish_fdic_request(request_id, as_of=clock, outcome="FAILED")
+                if exc.code in {401, 403, 429}:
+                    status = "RATE_LIMITED" if exc.code == 429 else "ACCESS_BLOCKED"
+                    self.store.defer_provider("fdic", token, as_of=clock,
+                                              retry_after=timedelta(hours=1 if exc.code == 429 else 24),
+                                              reason=f"FDIC HTTP {exc.code}")
+                    break
+                continue
             except (OSError, ValueError, KeyError, TypeError):
                 failed += 1
+                self.store.finish_fdic_request(request_id, as_of=clock, outcome="FAILED")
                 continue
             checked += 1
-            bank_usable = False
+            bank_usable = 0
+            bank_rejected_before = rejected
+            seen_dates = set()
             expected_name = entry["bank_name"]
             alias_available = ("financial_name" in entry and
                                datetime.fromisoformat(entry["financial_name_known_at"]) <= clock)
@@ -152,6 +258,10 @@ class FdicBankScoutService:
                 if not date.fromisoformat(entry["effective_from"]) <= report_date <= clock.date():
                     rejected += 1
                     continue
+                if report_date in seen_dates:
+                    rejected += 1
+                    continue
+                seen_dates.add(report_date)
                 values: dict[str, int | float | None] = {}
                 for field in MONETARY_FIELDS:
                     value = row.get(field)
@@ -192,8 +302,18 @@ class FdicBankScoutService:
                     details=details,
                 )
                 created += int(fresh)
-                bank_usable = True
-            usable += int(bank_usable)
-        return {"status": "PARTIAL" if failed or rejected else "OK", "checked_banks": checked,
+                bank_usable += 1
+            usable += int(bank_usable > 0)
+            bank_rejected = rejected - bank_rejected_before
+            empty += int(not rows)
+            self.store.finish_fdic_request(request_id, as_of=clock,
+                                           outcome="PARTIAL" if bank_rejected else "USABLE" if bank_usable else "EMPTY",
+                                           usable_rows=bank_usable, rejected_rows=bank_rejected)
+        if status == "OK" and (failed or rejected or empty or exhausted):
+            status = "PARTIAL"
+        return {"status": status, "checked_banks": checked,
                 "usable_banks": usable, "rejected_rows": rejected,
-                "new_findings": created, "failed_banks": failed}
+                "new_findings": created, "failed_banks": failed, "empty_banks": empty,
+                "attempted_banks": attempted, "due_banks": len(due),
+                "deferred_banks": len(due) - attempted, "budget_exhausted": exhausted,
+                "daily_requests": self.store.fdic_daily_requests(as_of=clock)}

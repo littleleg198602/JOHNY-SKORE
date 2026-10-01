@@ -192,6 +192,18 @@ class ScoutStore:
                     summary_json TEXT NOT NULL,
                     PRIMARY KEY(source, observed_at)
                 );
+                CREATE TABLE IF NOT EXISTS scout_fdic_requests (
+                    request_id TEXT PRIMARY KEY,
+                    subject_id TEXT NOT NULL,
+                    identity_key TEXT NOT NULL,
+                    attempted_at TEXT NOT NULL,
+                    finished_at TEXT,
+                    outcome TEXT NOT NULL DEFAULT 'RUNNING',
+                    usable_rows INTEGER NOT NULL DEFAULT 0,
+                    rejected_rows INTEGER NOT NULL DEFAULT 0
+                );
+                CREATE INDEX IF NOT EXISTS scout_fdic_requests_identity
+                    ON scout_fdic_requests(subject_id, identity_key, attempted_at);
                 CREATE TABLE IF NOT EXISTS scout_background_workers (
                     source TEXT PRIMARY KEY,
                     run_id TEXT NOT NULL,
@@ -240,6 +252,10 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(9, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(10, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
 
     def record_source_run(self, source: str, *, as_of: datetime,
                           summary: dict[str, object]) -> None:
@@ -256,6 +272,8 @@ class ScoutStore:
                            "failed_banks", "usable_banks", "rejected_rows", "matched_rows", "saved_rows", "error",
                            "processed", "failed", "scheduled_subjects", "truncated_issuers",
                            "snapshot_sha256", "alias_snapshot_sha256", "alias_rows", "budget_exhausted", "checked_names",
+                           "attempted_banks", "empty_banks", "due_banks", "deferred_banks",
+                           "daily_requests", "retry_at",
                            "new_candidates", "truncated_names", "failed_names", "truncated_uei"}
                 and isinstance(value, (str, int, float, bool))}
         with self._connect() as conn:
@@ -275,6 +293,68 @@ class ScoutStore:
             """).fetchall()
         return {row["source"]: {"observed_at": row["observed_at"],
                                 **json.loads(row["summary_json"])} for row in rows}
+
+    def fdic_check_states(self, *, as_of: datetime) -> dict[tuple[str, str], dict]:
+        """Latest attempts for each dated manifest identity; never infer from findings."""
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            rows = conn.execute("""
+                SELECT * FROM (
+                    SELECT *, ROW_NUMBER() OVER (
+                        PARTITION BY subject_id, identity_key ORDER BY attempted_at DESC, rowid DESC
+                    ) AS latest FROM scout_fdic_requests WHERE attempted_at<=?
+                ) WHERE latest=1
+            """, (clock,)).fetchall()
+        states = {}
+        for row in rows:
+            state = dict(row)
+            if state["finished_at"] is None or state["finished_at"] > clock:
+                state.update(outcome="RUNNING", usable_rows=0, rejected_rows=0)
+            states[(row["subject_id"], row["identity_key"])] = state
+        return states
+
+    def fdic_daily_requests(self, *, as_of: datetime) -> int:
+        _utc(as_of)
+        start = as_of.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        with self._connect() as conn:
+            return int(conn.execute("""
+                SELECT COUNT(*) FROM scout_fdic_requests WHERE attempted_at>=? AND attempted_at<?
+            """, (_utc(start), _utc(start + timedelta(days=1)))).fetchone()[0])
+
+    def reserve_fdic_request(self, *, subject_id: str, identity_key: str,
+                             as_of: datetime, daily_limit: int, lease_token: str) -> str | None:
+        """Consume quota before I/O, including failures and interrupted attempts."""
+        if not subject_id or not identity_key or not 1 <= daily_limit <= 50:
+            raise ValueError("Invalid FDIC request reservation")
+        clock = _utc(as_of)
+        start = as_of.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        request_id = uuid4().hex
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            owned = conn.execute("""
+                SELECT 1 FROM scout_provider_leases
+                WHERE source='fdic' AND lease_token=? AND lease_until>?
+            """, (lease_token, clock)).fetchone()
+            used = conn.execute("""
+                SELECT COUNT(*) FROM scout_fdic_requests WHERE attempted_at>=? AND attempted_at<?
+            """, (_utc(start), _utc(start + timedelta(days=1)))).fetchone()[0]
+            if not owned or used >= daily_limit:
+                return None
+            conn.execute("""
+                INSERT INTO scout_fdic_requests(request_id, subject_id, identity_key, attempted_at)
+                VALUES(?, ?, ?, ?)
+            """, (request_id, subject_id, identity_key, clock))
+        return request_id
+
+    def finish_fdic_request(self, request_id: str, *, as_of: datetime, outcome: str,
+                            usable_rows: int = 0, rejected_rows: int = 0) -> None:
+        if outcome not in {"USABLE", "PARTIAL", "EMPTY", "FAILED"} or min(usable_rows, rejected_rows) < 0:
+            raise ValueError("Invalid FDIC request result")
+        with self._connect() as conn:
+            conn.execute("""
+                UPDATE scout_fdic_requests SET finished_at=?, outcome=?, usable_rows=?, rejected_rows=?
+                WHERE request_id=? AND outcome='RUNNING' AND attempted_at<=?
+            """, (_utc(as_of), outcome, usable_rows, rejected_rows, request_id, _utc(as_of)))
 
     def specialist_due(self, source: str, *, as_of: datetime, limit: int,
                        refresh_days: int = 30) -> list[dict[str, str]]:

@@ -4,9 +4,13 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import os
 import platform
+from pathlib import Path
 from typing import Mapping
 
 from market_checker_app.services.research_profile_service import load_research_profiles
+from market_checker_app.services.fdic_bank_scout_service import (
+    DEFAULT_IDENTITIES, FDIC_REFRESH_DAYS, fdic_coverage, load_verified_banks,
+)
 from market_checker_app.services.specialist_status_service import load_specialist_status
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.ticker_universe import (
@@ -47,6 +51,17 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
                             "refresh_days": interval,
                             **store.specialist_coverage(source, as_of=clock,
                                                         refresh_days=interval, subjects=applicable)}
+    bank_subjects = {t for t, p in profiles.by_ticker.items() if p.code == "BANK"} & universe
+    try:
+        bank_identities = load_verified_banks(Path(env.get("JOHNY_SKORE_FDIC_BANKS_FILE") or DEFAULT_IDENTITIES))
+        bank_coverage = fdic_coverage(store, bank_identities, as_of=clock, subjects=bank_subjects)
+        coverage["fdic"] = {"status": "MEASURED", "applicable_profile_subjects": len(bank_subjects),
+                            "refresh_days": FDIC_REFRESH_DAYS, "query_scope": "latest_two_reports_per_CERT",
+                            "complete_issuer_groups_verified": False, **bank_coverage,
+                            "unmapped_profile_subjects": len(bank_subjects) - bank_coverage["mapped_subjects"]}
+    except (OSError, ValueError, KeyError, TypeError):
+        coverage["fdic"] = {"status": "INVALID_IDENTITY_MANIFEST",
+                            "applicable_profile_subjects": len(bank_subjects)}
     specialists = inventory["specialists"]
     return {
         "schema_version": 1, "generated_at": clock.astimezone(timezone.utc).isoformat(),

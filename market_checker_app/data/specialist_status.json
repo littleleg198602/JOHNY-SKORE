@@ -104,10 +104,12 @@
       "research": "sector BANK",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Six bank subsidiaries have dated exact-CERT/name mappings and publisher checks, including new PNC/USB issuer-CIK citations. The registry covers six of 22 BANK-profile tickers, not complete subsidiary groups or runtime coverage. Remaining: other 16 issuers, other relevant bank subsidiaries, bounded refresh scheduling, Windows end-to-end, measured applicable live coverage and historical evaluation.",
+      "next": "Six of 22 BANK-profile tickers have dated subsidiary CERT mappings. Persistent bounded FDIC refresh and scoped attempted/usable/partial/empty/failed diagnostics are implemented and replay-tested against captured publisher payloads. Remaining: other 16 issuers and all relevant subsidiary groups, actual Windows end-to-end with measured live coverage, historical availability and out-of-sample evaluation. Old findings alone do not count as new refresh coverage.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "expansion_identity_evidence": "evidence/fdic_expansion_identity_20261001.json",
-      "expansion_source_smoke_evidence": "evidence/fdic_expansion_live_20261001.json"
+      "expansion_source_smoke_evidence": "evidence/fdic_expansion_live_20261001.json",
+      "scheduler_test_evidence": "evidence/fdic_scheduler_tests_20261001.json",
+      "scheduler_captured_replay_evidence": "evidence/fdic_scheduler_replay_20261001.json"
     },
     {
       "id": "health_services",

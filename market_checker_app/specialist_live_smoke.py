@@ -81,12 +81,16 @@ def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES,
                         if cert != identity["cert"]:
                             raise ValueError("Unexpected certificate")
                         return payload
-                service = FdicBankScoutService(store, client=CapturedBank(), identities=[identity])
+                # Captured replays also reserve quota. The smoke is bounded by
+                # the selected manifest, while only the initial capture does I/O.
+                service = FdicBankScoutService(store, client=CapturedBank(), identities=[identity],
+                                               daily_request_budget=max(10, 2 * len(bank_identities)))
                 now = datetime.now(timezone.utc)
                 result = service.run(as_of=now)
-                replay = service.run(as_of=now)
+                replay = service.run(as_of=now, recheck=True)
                 return (result["status"] == "OK" and result["usable_banks"] == 1
-                        and result["new_findings"] >= 1 and replay["new_findings"] == 0), {
+                        and result["new_findings"] >= 1 and replay["checked_banks"] == 1
+                        and replay["usable_banks"] == 1 and replay["new_findings"] == 0), {
                     "source_url": identity.get("financial_name_evidence_url", identity["fdic_evidence_url"]),
                     "ticker": identity["ticker"], "cert": identity["cert"],
                     "identity": identity,

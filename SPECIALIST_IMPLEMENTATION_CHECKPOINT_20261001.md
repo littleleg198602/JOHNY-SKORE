@@ -172,3 +172,51 @@ neúspěšný pokus kvůli chybějícím importům hostitele jsou v
 projektových závislostí se testy neměnily. Kompilace a kontrola diffu
 prošly. Zelené testy nepřepisují stav PILOT/PENDING ani nedokládají
 historickou výkonnost nebo běh uživatelova Windows.
+
+## Omezené FDIC obnovování a skutečné běhové pokrytí (1. 10. 2026)
+
+FDIC sběr nově ukládá pokus do SQLite před požadavkem: výchozí limit je
+pět bank v dávce a deset požadavků za UTC den napříč restartovanými běhy.
+Selhání i přerušený pokus spotřebují kapacitu. Provider lease brání
+souběžnému sběru; rezervace ověřuje jeho token. Nikdy nezkoušené banky
+mají přednost, potom nejstarší splatné pokusy. Použitelný výsledek se
+obnoví za 30 dní, neúplný/prázdný/chybný/přerušený za jeden den.
+Identita zahrnuje ticker, CERT, přesná jména, datované vztahy a citace;
+nově známý financial alias či změna identity otevře nový scope bez
+přepisování starých pokusů. Sběr omezuje scope na kanonický vstup.
+
+Po 60 sekundách se nezahajuje další požadavek; právě běžící požadavek
+má 20sekundový síťový timeout. Tři síťová/strukturální selhání ukončí
+dávku, HTTP 401/403 okamžitě uloží 24hodinovou pauzu a 429 hodinovou.
+Odpověď má nejvýše 1 MB a dva výkazy; duplicitní report date, odmítnutý
+CERT/jméno/datum či chybějící hodnoty nedokládají použitelnou kontrolu.
+Prázdná odpověď je samostatný stav EMPTY, nikoli úplná záporná akceptace
+emitenta. NO_DUE_WORK znamená pouze žádnou splatnou práci. Omezený
+recheck v smoke skutečně znovu zpracuje zachycený payload pro deduplikaci;
+nezaměňuje přeskočený požadavek s replay testem.
+
+Provozní diagnostika FDIC odděluje 22 relevantních BANK profilů, šest
+mapovaných tickerů/bank, 16 nemapovaných, nikdy nezkoušené, zastaralé,
+použitelné, částečné, prázdné, chybné a přerušené pokusy. Scope je výslovně
+latest-two-reports-per-CERT; nedokládá úplnost dceřiných skupin. Staré
+nálezy bez nové evidence pokusu nevytvářejí falešné běhové pokrytí.
+Neplatný uživatelský identity manifest je samostatná chyba diagnostiky.
+
+`evidence/fdic_scheduler_replay_20261001.json` ověřuje uložené skutečné
+publisher payloady všech šesti mapovaných bank. Při simulovaném limitu
+2/dávku a 3/den proběhlo 2/1/0 pokusů první den, 2/1/0 další den a
+obnova dvou bank po 30 dnech bez duplicit. SQLite se před každou dávkou
+znovu otevřela. Vzniklo 12 verzí výkazů; šest použitelných bank v tomto
+replay není nové živé pokrytí. Důkaz obsahuje původní pozorované časy,
+zdrojové cesty a otisky payloadů i kódu. V tomto kroku neproběhl žádný
+nový síťový sběr ani Windows běh nebo historická evaluace.
+
+Cílené FDIC kontroly mají 18 PASS, diagnostika šest PASS. Celá místní
+sada má 479/479 PASS včetně UI a přesného 687tickerového vstupu;
+časy a otisky jsou v `evidence/fdic_scheduler_tests_20261001.json`.
+Bankovní specialista zůstává PILOT/PENDING a inventář 0/21 DONE.
+Další práce: doložit zbývajících 16 bankovních emitentů a další relevantní
+dcery, rozšířit datované FDA produkt/application/sponsor a CMS owner/provider
+vztahy. Chybějící SEC/FINRA/FRED/EIA přístup na tomto hostu, skutečný
+Windows běh a historické vyhodnocení zůstávají otevřené. Skóre ani
+obchodování se nemění.
