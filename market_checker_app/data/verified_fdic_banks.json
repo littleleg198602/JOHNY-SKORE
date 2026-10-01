@@ -245,5 +245,27 @@
     "financial_name": "MANUFACTURERS&TRADERS TR CO",
     "financial_name_known_at": "2026-10-01T20:20:21.772153+00:00",
     "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A588&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+  },
+  {
+    "ticker": "OZK",
+    "cert": 110,
+    "bank_name": "Bank OZK",
+    "issuer_identity_kind": "direct_bank",
+    "issuer_name": "Bank OZK",
+    "issuer_identity_publisher": "FDIC",
+    "issuer_identity_evidence_url": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+    "issuer_identity_as_of": "2025-12-31",
+    "issuer_identity_filing_date": "2026-02-25",
+    "issuer_filing_index_url": "https://ir.ozk.com/filings/documents",
+    "issuer_instrument_class": "common_stock",
+    "issuer_instrument_symbol": "OZK",
+    "effective_from": "2025-12-31",
+    "effective_from_basis": "direct_bank_identity_as_of",
+    "effective_from_evidence_url": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+    "known_at": "2026-10-01T20:43:33.511132+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/110",
+    "financial_name": "BANK OZK",
+    "financial_name_known_at": "2026-10-01T20:41:44.125964+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A110&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
   }
 ]

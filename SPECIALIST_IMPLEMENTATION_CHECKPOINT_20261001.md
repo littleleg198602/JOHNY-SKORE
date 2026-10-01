@@ -67,7 +67,7 @@ Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
 | Short interest/borrow | FINRA účet a schema; datovaný instrument; licencovaný borrow pilot. |
 | FDA/medicína | Produkt/application/sponsor–emitent a širší události; dnešní schema není úplný crosswalk. |
 | Komodity | EIA živě s klíčem, USDA/USGS, firemní expozice a historická dostupnost hodnot. |
-| Banky | Registry má sedmnáct emitentů z 22 BANK profilů, nově MTB/CERT 588 s neověřeným as-of a doloženou publication floor 18. 2. 2026; totéž oddělení nejistoty zůstává u CFR. FHN vlastnická výjimka je zachována. Úplné skupiny se netvrdí. OZK 10-K u FDIC dokládá přímého bankovního emitenta/CERT 110/common OZK, pro který zbývá samostatný validovaný model; současný SEC registry jej nepřijímá. Omezené perzistentní obnovování existuje. Zbývá 5 emitentů (OZK model nebo PNFP/RF), další banky/změny vlastnictví uvnitř skupin, skutečný Windows běh a historická evaluace. |
+| Banky | Registry mapuje 18 z 22 BANK profilů: 17 přes bankovní dcery a OZK/CERT 110 přes nový validovaný direct-bank model s konkrétním FDIC filingem, datem a common OZK instrumentem. Omezený živý pilot, persistence/scope a kvóty prošly; nejde o celé skupiny ani provozní pokrytí. MTB/CFR as-of zůstávají neověřené odděleně od publication floor; FHN výjimka je zachována. Zbývá PNFP, RF, WAL a ZION, další banky/změny vlastnictví, skutečný Windows běh a historická evaluace. |
 | Zdravotní služby | CMS owner–dcera–emitent/provider, payer exposure a datované změny. |
 | Energie/utilities | Vlastní aktiva a expozice propojit s primárními tržními/regulatorními zdroji. |
 | Obrana/aerospace | Programy, dcery a recipient identity mimo jediný Sikorsky pilot. |
@@ -535,3 +535,56 @@ poté ostatní banky, FDA product/application/sponsor a CMS owner/provider.
 Skutečný Windows koncový běh, změřené relevantní provozní pokrytí,
 přístupy/licence a historická out-of-sample evaluace zůstávají otevřené.
 Skóre ani obchodování se nemění.
+
+## OZK — oddělený přímý bankovní emitent a omezený živý pilot (1. 10. 2026)
+
+Předchozí konkrétní modelová mezera OZK je vyřešena: registr přijímá
+samostatný `issuer_identity_kind=direct_bank`, odlišný od SEC dceřiných
+vztahů. Pro OZK/CERT 110 je schválen jen konkrétní ověřený FDIC 10-K
+na oficiálním issuer IR, s přesným dokumentem, registrantem Bank OZK,
+FDIC vydavatelem a common-stock symbolem OZK. Preferovaná třída OZKAP
+není součástí této identity. Titulní strana datuje identitu k 31. 12. 2025;
+IR index dokládá publikaci 25. 2. 2026. Čas znalosti je až
+1. 10. 2026 20:43:33 UTC. Nevymýšlí se SEC CIK, holding ani rodič–dcera.
+Další přímý emitent nebo nový dokument vyžaduje samostatnou zdrojovou
+kontrolu a změnu schváleného seznamu; libovolný IR odkaz se nepřijímá.
+
+Nálezy jsou `bank_issuer_financials` / `direct_bank_issuer`, s explicitní
+neaplikovatelností dceřiného vztahu. Mají datovanou issuer/instrument
+identitu, knowledge time a oddělenou report eligibility hranici; žádná
+vlastnická ani vztahová historie se z nich neodvozuje. Výkazy CERT zůstávají
+FDIC bankovními údaji, nikoli konsolidovanými údaji emitenta. Nová metadata
+jsou součástí scheduler scope; změna znalosti neobchází uloženou denní kvótu.
+Dosavadní SEC mapy, nejisté as-of CFR/MTB a kvalifikace vlastnictví FHN
+zůstávají zachované.
+
+Primární locatory, datum, krátké úryvky, manifest a skutečné odpovědi jsou
+v `evidence/fdic_ozk_identity_20261001.json`. Původní modelová mezera v
+`evidence/ozk_identity_model_gap_20261001.json` zůstává historickým snímkem,
+nikoli tvrzením o nynějším registru. Originální PDF nebyl stažen; ověřena
+byla oficiální textová extrakce. FDIC institutions uvádí Bank OZK a CERT
+110; přesné finanční jméno je BANK OZK.
+
+`evidence/fdic_ozk_live_20261001.json` má dva PASS případy: živý OZK
+payload uložil dva výkazy k 31. 3. a 30. 6. 2026, replay zachycené odpovědi
+nepřidal duplicity a skutečné volání pro neexistující CERT vrátilo prázdno.
+Replay nepoužívá síť. Celkem proběhla čtyři nová FDIC API volání,
+20 sekund / nejvýše 1 MB / jeden institutions a dva financials řádky.
+Záporný případ neznamená úplnou absenci událostí u emitenta. Je to omezený
+Linux pilot, nikoli Windows end-to-end nebo historická akceptace.
+
+Registry nyní mapuje 18 z 22 BANK profilů kanonických 687 tickerů:
+17 emitentů přes bankovní dcery a jeden přímý bankovní emitent. Prázdná
+provozní databáze má 18 never-attempted a 0 usable, nikoli pokrytí 18 bank.
+Chybí PNFP, RF, WAL a ZION, další relevantní dcery a změny vlastnictví.
+Nové testy odmítají nesprávný issuer kind, CERT, dokument, publisher,
+common/preferred instrument, datum i vymyšlený CIK či vztah; ověřují
+persistenci/replay, knowledge time, scope a kvótu přes restart. FDIC má
+24 PASS, diagnostika 13 PASS a celá místní sada 492/492 PASS. Časy,
+otisky a kompilace/diff jsou v `evidence/fdic_ozk_tests_20261001.json`.
+
+Bankovní specialista zůstává PILOT/PENDING a inventář 0/21 DONE.
+Další dostupný krok: PNFP/RF datované bankovní identity; pak další banky,
+FDA product/application/sponsor a CMS owner/provider. Skutečný Windows
+koncový běh, relevantní provozní pokrytí a historická out-of-sample evaluace
+zůstávají otevřené. Skóre ani obchodování se nemění.

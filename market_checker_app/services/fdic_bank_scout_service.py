@@ -22,6 +22,20 @@ DEFAULT_IDENTITIES = Path(__file__).resolve().parents[1] / "data" / "verified_fd
 MONETARY_FIELDS = ("ASSET", "DEP", "EQ", "NETINC")
 FDIC_REFRESH_DAYS = 30
 FDIC_DAILY_REQUEST_BUDGET = 10
+# Direct-bank filings are manually reviewed exact documents, not a general
+# permission to replace SEC provenance with arbitrary issuer-hosted URLs.
+DIRECT_BANK_FILINGS = {
+    ("OZK", 110): {
+        "issuer_name": "Bank OZK",
+        "issuer_identity_publisher": "FDIC",
+        "issuer_identity_evidence_url": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+        "issuer_identity_as_of": "2025-12-31",
+        "issuer_identity_filing_date": "2026-02-25",
+        "issuer_filing_index_url": "https://ir.ozk.com/filings/documents",
+        "issuer_instrument_class": "common_stock",
+        "issuer_instrument_symbol": "OZK",
+    },
+}
 
 
 class FdicFinancialClient(Protocol):
@@ -52,7 +66,10 @@ def fdic_identity_key(entry: dict, clock: datetime) -> str:
     """A changed legal relationship or newly known financial alias is due again."""
     keys = ("ticker", "cert", "bank_name", "fdic_evidence_url", "relationship_evidence_url",
             "effective_from", "effective_from_basis", "effective_from_evidence_url",
-            "known_at", "issuer_cik", "issuer_name", "issuer_identity_evidence_url")
+            "known_at", "issuer_cik", "issuer_name", "issuer_identity_evidence_url",
+            "issuer_identity_kind", "issuer_identity_publisher", "issuer_identity_as_of",
+            "issuer_identity_filing_date", "issuer_filing_index_url",
+            "issuer_instrument_class", "issuer_instrument_symbol")
     identity = {key: entry[key] for key in keys if key in entry}
     if ("financial_name" in entry
             and datetime.fromisoformat(entry["financial_name_known_at"]) <= clock):
@@ -105,7 +122,11 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
         seen.add((ticker, cert))
         if not isinstance(entry.get("bank_name"), str) or not entry["bank_name"].strip():
             raise ValueError("FDIC identity needs exact bank name")
-        for key in ("fdic_evidence_url", "relationship_evidence_url"):
+        kind = entry.get("issuer_identity_kind", "subsidiary")
+        if not isinstance(kind, str) or kind not in {"subsidiary", "direct_bank"}:
+            raise ValueError("Unknown FDIC issuer identity kind")
+        direct = kind == "direct_bank"
+        for key in (("fdic_evidence_url",) if direct else ("fdic_evidence_url", "relationship_evidence_url")):
             url = public_https_reference(entry.get(key, ""))
             host = urlsplit(url).hostname
             if key == "fdic_evidence_url" and host not in {"www.fdic.gov", "banks.data.fdic.gov"}:
@@ -114,8 +135,24 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
                 raise ValueError("FDIC relationship needs official SEC citation")
             if key == "fdic_evidence_url" and not urlsplit(url).path.rstrip("/").endswith(f"/{cert}"):
                 raise ValueError("FDIC evidence must point to the cited CERT")
+        if direct:
+            approved = DIRECT_BANK_FILINGS.get((ticker, cert))
+            if (approved is None or any(entry.get(key) != value for key, value in approved.items())
+                    or entry["bank_name"] != approved["issuer_name"]
+                    or any(key in entry for key in ("issuer_cik", "relationship_evidence_url"))):
+                raise ValueError("Direct FDIC bank identity needs its reviewed exact issuer/CERT/common-stock filing")
+            for key in ("issuer_identity_evidence_url", "issuer_filing_index_url"):
+                public_https_reference(entry[key])
+            if (entry.get("effective_from_basis") != "direct_bank_identity_as_of"
+                    or entry.get("effective_from") != entry["issuer_identity_as_of"]
+                    or entry.get("effective_from_evidence_url") != entry["issuer_identity_evidence_url"]):
+                raise ValueError("Direct bank report eligibility needs its cited identity as-of")
+        elif any(key in entry for key in ("issuer_identity_publisher", "issuer_identity_as_of",
+                                        "issuer_identity_filing_date", "issuer_filing_index_url",
+                                        "issuer_instrument_class", "issuer_instrument_symbol")):
+            raise ValueError("Direct bank provenance cannot be used for a subsidiary")
         issuer_keys = ("issuer_cik", "issuer_name", "issuer_identity_evidence_url")
-        if any(key in entry for key in issuer_keys):
+        if not direct and any(key in entry for key in issuer_keys):
             if not all(isinstance(entry.get(key), str) and entry[key].strip() for key in issuer_keys):
                 raise ValueError("FDIC issuer identity needs CIK, exact name and citation")
             cik = entry["issuer_cik"]
@@ -127,7 +164,7 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
                 if citation.hostname != "www.sec.gov" or not citation.path.startswith(prefix):
                     raise ValueError("FDIC issuer citations must match its exact SEC CIK")
         floor_keys = ("effective_from_basis", "effective_from_evidence_url")
-        if any(key in entry for key in floor_keys):
+        if not direct and any(key in entry for key in floor_keys):
             if (entry.get("effective_from_basis") != "filing_publication_floor"
                     or "issuer_cik" not in entry):
                 raise ValueError("FDIC publication floor needs exact issuer identity and basis")
@@ -140,6 +177,8 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
         known = datetime.fromisoformat(entry["known_at"])
         if known.tzinfo is None or known.utcoffset() is None or start > known.date():
             raise ValueError("FDIC relationship needs dated evidence")
+        if direct and not start <= date.fromisoformat(entry["issuer_identity_filing_date"]) <= known.date():
+            raise ValueError("Direct bank filing must be published by its knowledge time")
         alias_keys = ("financial_name", "financial_name_known_at", "financial_name_evidence_url")
         if any(key in entry for key in alias_keys):
             if not all(isinstance(entry.get(key), str) and entry[key].strip() for key in alias_keys):
@@ -156,7 +195,7 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
 
 
 class FdicBankScoutService:
-    """Observe bank subsidiary balance sheets for dated, cited CERT links."""
+    """Observe bank reports for dated subsidiary or reviewed direct-issuer CERT identities."""
 
     def __init__(self, store: ScoutStore, *, client: FdicFinancialClient,
                  identities: list[dict], max_banks: int = 5,
@@ -289,13 +328,27 @@ class FdicBankScoutService:
                            "source_financial_name": row["NAME"],
                            "amounts_thousands_usd": values,
                            "fdic_evidence_url": entry["fdic_evidence_url"],
-                           "relationship_evidence_url": entry["relationship_evidence_url"],
+                           "relationship_evidence_url": entry.get("relationship_evidence_url"),
                            "relationship_effective_from": entry["effective_from"],
                            "relationship_known_at": entry["known_at"],
                            "issuer_consolidated_values": False,
                            "report_date_is_publication_time": False,
                            "scoring_applied": False}
-                if entry.get("effective_from_basis") == "filing_publication_floor":
+                if entry.get("issuer_identity_kind") == "direct_bank":
+                    details.pop("relationship_known_at")
+                    details.update(stage="bank_issuer_financials", relationship_type="direct_bank_issuer",
+                                   subsidiary_relationship_applicable=False,
+                                   relationship_effective_from=None, relationship_as_of_verified=False,
+                                   issuer_identity_known_at=entry["known_at"],
+                                   report_date_eligibility_from=entry["effective_from"],
+                                   report_date_eligibility_basis=entry["effective_from_basis"],
+                                   report_date_identity_evidence_url=entry["effective_from_evidence_url"])
+                    details.update({key: entry[key] for key in
+                                    ("issuer_identity_kind", "issuer_name", "issuer_identity_publisher",
+                                     "issuer_identity_evidence_url", "issuer_identity_as_of",
+                                     "issuer_identity_filing_date", "issuer_filing_index_url",
+                                     "issuer_instrument_class", "issuer_instrument_symbol")})
+                elif entry.get("effective_from_basis") == "filing_publication_floor":
                     # An undated exhibit plus its publication date does not
                     # establish an ownership effective date or historical as-of.
                     details.update(relationship_effective_from=None,

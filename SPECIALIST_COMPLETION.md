@@ -22,7 +22,7 @@ samostatnými akceptačními důkazy.
 
 FDIC má od 1. 10. perzistentní obnovovací dávky: výchozí pět bank za běh,
 deset požadavků za UTC den, 30 dní pro použitelnou odpověď a jeden den
-pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje sedmnáct
+pro částečnou/prázdnou/chybnou kontrolu. Diagnostika odděluje osmnáct
 mapovaných bank od 22 BANK profilů a skutečné pokusy od použitelných dat.
 Prázdná či odmítnutá odpověď nezvyšuje použitelnou coverage. Staré nálezy
 samotné nenahrazují refresh pokus; scope je nejvýše dva výkazy na CERT,
@@ -75,17 +75,29 @@ SEC citace a skutečné FDIC odpovědi jsou v
 v `evidence/fdic_fhn_key_live_20261001.json`. Zbývá šest emitentů,
 úplné skupiny, Windows běh, relevantní provozní pokrytí a historická evaluace.
 
-Aktuálně je mapováno sedmnáct z 22 BANK profilů. Nové MTB → Manufacturers
+Po kroku MTB bylo mapováno sedmnáct z 22 BANK profilů. Nové MTB → Manufacturers
 and Traders Trust Company / CERT 588 má vztahové as-of neověřené;
 samostatná publication floor 18. 2. 2026 vychází z potvrzeného SEC indexu,
 nikoli z výročního období v poznámce o významnosti jiných dcer.
 Citace a skutečné FDIC payloady jsou v `evidence/fdic_mtb_identity_20261001.json`,
 dva omezené živé případy v `evidence/fdic_mtb_live_20261001.json`.
-OZK je přímý bankovní emitent podle vlastního FDIC 10-K, zatím bez
+V tomto předchozím kroku byl OZK přímý bankovní emitent podle vlastního FDIC 10-K, zatím bez
 odpovídajícího identity modelu v SEC-only registru; ověřené primární
 locatory a konkrétní mezera jsou v `evidence/ozk_identity_model_gap_20261001.json`.
 Zbývá pět emitentů (OZK, PNFP, RF, WAL, ZION), úplné skupiny,
 Windows běh, relevantní provozní pokrytí a historická evaluace.
+
+Aktuálně registry mapuje 18 z 22 BANK profilů: 17 dceřiných vazeb a nový
+přímý bankovní emitent OZK / CERT 110. Oddělený direct-bank model vyžaduje
+konkrétní schválený FDIC filing, common OZK instrument (nikoli OZKAP),
+as-of 31. 12. 2025, publikaci 25. 2. 2026 a znalost až 1. 10. 2026.
+Neobsahuje vymyšlený CIK nebo parent–subsidiary vztah. FDIC reporty nejsou
+issuer konsolidované hodnoty; scope hash, kvóty a restart byly ověřeny.
+Zdrojový důkaz je v `evidence/fdic_ozk_identity_20261001.json`, dva omezené
+živé případy v `evidence/fdic_ozk_live_20261001.json`, 492 místních testů
+v `evidence/fdic_ozk_tests_20261001.json`. Předchozí OZK gap je historický
+snímek. Zbývá PNFP, RF, WAL a ZION, úplné skupiny, relevantní provozní
+pokrytí, Windows běh a historická evaluace. Počet DONE zůstává 0/21.
 
 ## Co znamenají stavy
 
