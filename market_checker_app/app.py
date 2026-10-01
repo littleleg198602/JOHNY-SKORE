@@ -56,6 +56,7 @@ from market_checker_app.services.history_service import HistoryService
 from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.research_profile_service import load_research_profiles
+from market_checker_app.services.specialist_status_service import load_specialist_status
 from market_checker_app.scout_background_worker import start_sec_background_scan
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
@@ -2166,6 +2167,19 @@ st.write(
     f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů "
     f"(US-687 scope; Yahoo-only: {len(yahoo_only_tickers)})"
 )
+
+with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
+    specialist_inventory = load_specialist_status()
+    st.caption(
+        f"Stav k {specialist_inventory['as_of']}. 'Kód' popisuje implementaci, "
+        "'Živě' skutečný provozní důkaz. PILOT ani PARTIAL nejsou dokončený specialista."
+    )
+    st.dataframe(pd.DataFrame([
+        {"Specialista": row["name"], "Výzkum": row["research"],
+         "Kód": row["code"], "Živě": row["live"], "Co zbývá": row["next"]}
+        for row in specialist_inventory["specialists"]
+    ]), hide_index=True)
+    st.caption(specialist_inventory["completion_rule"])
 
 with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     research_profiles = load_research_profiles()

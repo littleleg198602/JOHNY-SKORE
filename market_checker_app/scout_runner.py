@@ -68,11 +68,17 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         records=records,
         as_of=now,
     )
+    def recorded(source: str, summary: dict[str, object]) -> dict[str, object]:
+        # Persist each completed source immediately. A later source can hang or
+        # the process can stop without erasing the earlier progress in the UI.
+        store.record_source_run(source, as_of=datetime.now(timezone.utc), summary=summary)
+        return summary
+
     scout = SecScoutService(
         store, user_agent=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
     )
     scheduled = scout.schedule([record["ticker"] for record in records], as_of=now)
-    batch = scout.run_batch(limit=limit)
+    batch = recorded("sec", scout.run_batch(limit=limit))
     fred_key = os.getenv("JOHNY_SKORE_FRED_API_KEY", "")
     if fred_key:
         try:
@@ -81,6 +87,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             macro = {"status": "ERROR", "error": type(exc).__name__}
     else:
         macro = {"status": "WAIT_ACCESS", "new_findings": 0}
+    macro = recorded("fred", macro)
     eia_key = os.getenv("JOHNY_SKORE_EIA_API_KEY", "")
     if eia_key:
         try:
@@ -89,6 +96,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             energy = {"status": "ERROR", "error": type(exc).__name__}
     else:
         energy = {"status": "WAIT_ACCESS", "new_findings": 0}
+    energy = recorded("eia", energy)
     try:
         identity_path = Path(os.getenv("JOHNY_SKORE_USASPENDING_UEI_FILE") or DEFAULT_IDENTITIES)
         contracts = UsaSpendingScoutService(
@@ -97,18 +105,21 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         contracts = {"status": "ERROR", "error": type(exc).__name__}
+    contracts = recorded("usaspending", contracts)
     try:
         recipient_discovery = UsaSpendingRecipientDiscovery(
             store, client=UsaSpendingRecipientClient(),
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         recipient_discovery = {"status": "ERROR", "error": type(exc).__name__}
+    recipient_discovery = recorded("recipient_discovery", recipient_discovery)
     try:
         fda_recalls = FdaRecallScoutService(
             store, client=OpenFdaRecallClient(os.getenv("JOHNY_SKORE_FDA_API_KEY", "")),
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         fda_recalls = {"status": "ERROR", "error": type(exc).__name__}
+    fda_recalls = recorded("fda", fda_recalls)
     finra_id = os.getenv("JOHNY_SKORE_FINRA_CLIENT_ID", "")
     finra_secret = os.getenv("JOHNY_SKORE_FINRA_CLIENT_SECRET", "")
     if finra_id and finra_secret:
@@ -120,6 +131,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             finra_short_interest = {"status": "ERROR", "error": type(exc).__name__}
     else:
         finra_short_interest = {"status": "WAIT_ACCESS", "new_findings": 0}
+    finra_short_interest = recorded("finra", finra_short_interest)
     try:
         bank_path = Path(os.getenv("JOHNY_SKORE_FDIC_BANKS_FILE") or FDIC_IDENTITIES)
         fdic_banks = FdicBankScoutService(
@@ -127,6 +139,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         fdic_banks = {"status": "ERROR", "error": type(exc).__name__}
+    fdic_banks = recorded("fdic", fdic_banks)
     sec_user_agent = os.getenv("JOHNY_SKORE_SEC_USER_AGENT", "")
     if sec_user_agent:
         try:
@@ -139,6 +152,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             sec13f_holdings = {"status": "ERROR", "error": type(exc).__name__}
     else:
         sec13f_holdings = {"status": "WAIT_ACCESS", "new_findings": 0}
+    sec13f_holdings = recorded("sec13f", sec13f_holdings)
     try:
         model_path = Path(os.getenv("JOHNY_SKORE_NHTSA_MODELS_FILE") or NHTSA_MODELS)
         nhtsa_recalls = NhtsaRecallScoutService(
@@ -146,14 +160,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         nhtsa_recalls = {"status": "ERROR", "error": type(exc).__name__}
-    summaries = {
-        "sec": batch, "fred": macro, "eia": energy,
-        "usaspending": contracts, "recipient_discovery": recipient_discovery,
-        "fda": fda_recalls, "finra": finra_short_interest,
-        "fdic": fdic_banks, "sec13f": sec13f_holdings, "nhtsa": nhtsa_recalls,
-    }
-    for source, summary in summaries.items():
-        store.record_source_run(source, as_of=now, summary=summary)
+    nhtsa_recalls = recorded("nhtsa", nhtsa_recalls)
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,

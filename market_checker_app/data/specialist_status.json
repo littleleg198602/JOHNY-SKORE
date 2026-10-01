@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-30",
+  "scope": "687 US watchlist tickers; sector sources apply only to relevant companies",
+  "completion_rule": "DONE requires implemented collection, dated issuer/instrument/product identity, positive and negative live evidence, Windows end-to-end run, measured applicable coverage and historical evaluation before any score change.",
+  "specialists": [
+    {"id": "identity", "name": "Identity and subsidiaries", "research": "01-04, 14", "code": "PARTIAL", "live": "PENDING", "next": "Dated alias, subsidiary, brand and product mappings for applicable issuers; wire into price and scout paths. GLEIF exact-ID client and ten-company pilot already exist."},
+    {"id": "sec", "name": "SEC filings and fundamentals", "research": "01-04, 08", "code": "PARTIAL", "live": "PENDING", "next": "Run full 687 watchlist on Windows, verify coverage and historical amendments; SEC queue already auto-continues in bounded batches."},
+    {"id": "insider", "name": "Insider and beneficial ownership", "research": "05", "code": "PARTIAL", "live": "PENDING", "next": "Verify Form 4 trade classes on live filings and interpret already indexed 13D/G documents with dated reporting-person and instrument identity."},
+    {"id": "contracts", "name": "Government contracts and grants", "research": "06, 15", "code": "PARTIAL", "live": "PENDING", "next": "Expand dated ticker-subsidiary-UEI evidence beyond LMT-Sikorsky, verify USAspending API and modifications, then add SAM.gov when access is available."},
+    {"id": "regulatory", "name": "Government and regulatory risks", "research": "07", "code": "PARTIAL", "live": "PENDING", "next": "Expand NHTSA beyond the TSLA Model 3 2026 pilot; add identity-safe OFAC, DOJ, EPA and applicable sector sources."},
+    {"id": "suppliers", "name": "Suppliers and private counterparties", "research": "08", "code": "PARTIAL", "live": "PENDING", "next": "Resolve named SEC filing candidates to dated legal entities and subsidiaries; validate on live filings and assess customer/supplier concentration."},
+    {"id": "ir_news", "name": "Investor relations and primary news", "research": "09", "code": "PARTIAL", "live": "PENDING", "next": "Verify company IR feeds and link RSS leads to primary announcements and claim-level evidence."},
+    {"id": "prices", "name": "Prices and corporate actions", "research": "10", "code": "PARTIAL", "live": "PENDING", "next": "Accept live 687 run after close validation; resolve BRKB/PSTG/LEG aliases and corporate actions."},
+    {"id": "short_interest", "name": "Short interest and borrow", "research": "11, 17-21", "code": "PARTIAL", "live": "WAIT_ACCESS", "next": "FINRA credentials, live schema and publication timing, dated symbol/instrument mapping; borrow requires licensed pilot."},
+    {"id": "fda", "name": "FDA and medical products", "research": "12", "code": "PARTIAL", "live": "PENDING", "next": "Verify recall candidates by dated product/sponsor ownership and live positive/negative cases; expand event types."},
+    {"id": "commodities", "name": "Materials, energy, input costs and hedging", "research": "13", "code": "PARTIAL", "live": "WAIT_ACCESS", "next": "Validate EIA WTI/jet fuel with API key; add applicable USDA/USGS series and dated company exposure-to-price links."},
+    {"id": "bank_fdic", "name": "Banks and FDIC", "research": "sector BANK", "code": "PILOT", "live": "PENDING", "next": "Live BankFind test and dated CERT links for relevant bank subsidiaries beyond JPM CERT 628."},
+    {"id": "health_services", "name": "Health services and payer exposure", "research": "sector HEALTH_SERVICES", "code": "PARTIAL", "live": "PENDING", "next": "Add applicable primary sector sources, dated entity mapping and live evidence."},
+    {"id": "oil_utilities", "name": "Oil, gas and utilities", "research": "sector OIL_GAS/UTILITIES", "code": "PARTIAL", "live": "PENDING", "next": "Add company exposure and asset mappings to primary energy and regulatory data; live cases."},
+    {"id": "aerospace", "name": "Aerospace and defense IT", "research": "sector AEROSPACE/DEFENSE_IT", "code": "PARTIAL", "live": "PENDING", "next": "Expand verified contract-recipient identities and dated program relationships beyond the single UEI pilot."},
+    {"id": "sector_other", "name": "Semiconductors, technology, retail and other profiles", "research": "39 sector profiles", "code": "PARTIAL", "live": "PENDING", "next": "Connect profile-specific candidate source/metric questions to actual providers and validate applicable coverage."},
+    {"id": "institutions", "name": "Institutional holdings", "research": "16", "code": "PILOT", "live": "PENDING", "next": "Expand exact CUSIP registry beyond AAPL; interpret 13F amendments, coverage and live SEC ZIP."},
+    {"id": "consensus_options", "name": "Consensus, options and Level 2", "research": "17-21", "code": "NOT_STARTED", "live": "WAIT_ACCESS", "next": "Select licensed providers, verify entitlements and run measured pilots before integration."},
+    {"id": "alternative", "name": "Alternative and expensive signals", "research": "22-26", "code": "NOT_STARTED", "live": "WAIT_ACCESS", "next": "Targeted licensed pilot and measured incremental value, with source terms and historical availability."},
+    {"id": "verification", "name": "Claim verification and missingness", "research": "27", "code": "PARTIAL", "live": "PENDING", "next": "Prove source-specific attempted/usable/failed states and resolve claims with independent primary evidence."},
+    {"id": "evaluation", "name": "Historical evaluation and audit", "research": "28", "code": "PARTIAL", "live": "PENDING", "next": "Collect live coverage, outage and evidence report; historical out-of-sample measurement before changing prediction score."}
+  ]
+}
