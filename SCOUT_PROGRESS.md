@@ -1,5 +1,16 @@
 # Průběh implementace pátracích agentů
 
+## Denní kapacita FDA/FINRA pro 687 tickerů (1. 10. 2026)
+
+Denní plánovač má nyní rozpočet 40 FDA a 75 FINRA emitentů. Při úplných
+odpovědích a 687 doložených SEC identitách je první oběh nejvýše 18,
+respektive 10 denních spuštění; tím se vejde do obnovovacích oken 30 a
+15 dní. Pořadí ukládá SQLite a další den pokračuje u dalších firem.
+FDA klient rozkládá požadavky nejméně o 0,35 s; nejvýše 40 × 4 endpointy ×
+2 stránky znamená 320 požadavků za den, pod veřejným denním limitem 1 000.
+Skutečné pokrytí může zdržet výpadek, 429, chybějící identita, neúplná
+odpověď či nepřítomné FINRA přihlašovací údaje; zobrazuje ho UI.
+
 ## Stránkování openFDA (1. 10. 2026)
 
 FDA pro drug/device/food recall a CRL nyní při překročení jedné stránky

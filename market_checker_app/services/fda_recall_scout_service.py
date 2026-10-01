@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime, timezone
 import hashlib
 import json
+import time
 from typing import Callable, Protocol
 from urllib.error import HTTPError
 from urllib.parse import urlencode, urlsplit
@@ -25,8 +26,14 @@ class OpenFdaRecallClient:
 
     def __init__(self, api_key: str = "") -> None:
         self.api_key = api_key
+        self._next_request_at = 0.0
 
     def _query(self, endpoint: str, search: str, limit: int, skip: int) -> dict:
+        # A single daily runner stays below the public 240 requests/minute cap.
+        delay = self._next_request_at - time.monotonic()
+        if delay > 0:
+            time.sleep(delay)
+        self._next_request_at = time.monotonic() + 0.35
         query = {"search": search, "limit": limit}
         if skip:
             query["skip"] = skip

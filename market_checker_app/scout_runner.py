@@ -42,6 +42,9 @@ from market_checker_app.utils.ticker_universe import (
 )
 from market_checker_app.storage.scout_store import ScoutStore
 
+FDA_DAILY_ISSUER_BUDGET = 40
+FINRA_DAILY_ISSUER_BUDGET = 75
+
 
 def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, object]:
     store = ScoutStore(db_path)
@@ -116,6 +119,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
     try:
         fda_recalls = FdaRecallScoutService(
             store, client=OpenFdaRecallClient(os.getenv("JOHNY_SKORE_FDA_API_KEY", "")),
+            max_subjects=FDA_DAILY_ISSUER_BUDGET,
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         fda_recalls = {"status": "ERROR", "error": type(exc).__name__}
@@ -126,6 +130,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         try:
             finra_short_interest = FinraShortInterestScoutService(
                 store, client=FinraShortInterestClient(finra_id, finra_secret),
+                max_subjects=FINRA_DAILY_ISSUER_BUDGET,
             ).run(as_of=now, universe={record["ticker"] for record in records})
         except Exception as exc:
             finra_short_interest = {"status": "ERROR", "error": type(exc).__name__}
