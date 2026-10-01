@@ -67,7 +67,7 @@ Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
 | Short interest/borrow | FINRA účet a schema; datovaný instrument; licencovaný borrow pilot. |
 | FDA/medicína | Produkt/application/sponsor–emitent a širší události; dnešní schema není úplný crosswalk. |
 | Komodity | EIA živě s klíčem, USDA/USGS, firemní expozice a historická dostupnost hodnot. |
-| Banky | Registry má šest emitentů z 22 BANK profilů, nově PNC/USB. Zbývá dalších 16 emitentů, další banky uvnitř skupin a omezené obnovovací dávky; jednotlivý CERT není skupina. |
+| Banky | Registry má osm emitentů z 22 BANK profilů, nově TFC/FITB. Omezené perzistentní obnovování již existuje. Zbývá 14 emitentů, další banky/změny vlastnictví uvnitř skupin, skutečný Windows běh a historická evaluace; jednotlivý CERT není skupina. |
 | Zdravotní služby | CMS owner–dcera–emitent/provider, payer exposure a datované změny. |
 | Energie/utilities | Vlastní aktiva a expozice propojit s primárními tržními/regulatorními zdroji. |
 | Obrana/aerospace | Programy, dcery a recipient identity mimo jediný Sikorsky pilot. |
@@ -220,3 +220,51 @@ dcery, rozšířit datované FDA produkt/application/sponsor a CMS owner/provide
 vztahy. Chybějící SEC/FINRA/FRED/EIA přístup na tomto hostu, skutečný
 Windows běh a historické vyhodnocení zůstávají otevřené. Skóre ani
 obchodování se nemění.
+
+## TFC a FITB — dvě další doložené bankovní dcery (1. 10. 2026)
+
+Registr rozšířen o TFC (CIK 0000092230) → Truist Bank → CERT 9846 a
+FITB (CIK 0000035527) → Fifth Third Bank, National Association → CERT 6672.
+Oficiální SEC Exhibit 21 a 8-K cover doložily vztah a issuer/common-stock
+symbol; přímo zachycené FDIC institutions odpovědi potvrdily přesný CERT,
+právní název a aktivní banku. Financials vrací TRUIST BANK a FIFTH THIRD
+BANK NA. Citace se vážou na správný CIK a identita se použije až od času
+zjištění v tomto běhu. Datum vztahu TFC je 31. 12. 2025, ale FITB Exhibit
+21 výslovně uvádí 15. 2. 2026: datum výročního období proto není zaměněné
+za datum vztahu. Starší FITB výkazy pod tímto novým vztahem odmítáme.
+
+`evidence/fdic_tfc_fitb_identity_20261001.json` uchovává SEC pozorované
+úryvky s citacemi/locatory, datované identity a skutečné FDIC institutions
+/financials payloady. Original SEC HTML nebyl stažen; údaj o filing date
+TFC 8-K není potvrzený a důkaz ho nenahrazuje datem podpisu. TFC 8-K je
+datovaný událostí 5. 6. a podpisem 8. 6. 2026. Instrument scope je pouze
+doložený CIK a ticker, nikoli CUSIP/ISIN nebo aktuální exchange/corporate-
+action historie. Bankovní data nejsou konsolidované údaje emitenta;
+RSSD holdco čísla se neinterpretují jako SEC CIK.
+
+Smoke `--sources fdic --fdic-tickers TFC FITB` prošel třemi skutečnými
+případy v `evidence/fdic_tfc_fitb_live_20261001.json`: obě nové banky
+uložily po dvou kvartálních výkazech, zachycený payload byl skutečně znovu
+zpracován bez duplicit a záporný neexistující CERT vrátil prázdný výsledek.
+Dotazy mají nejvýše dva výkazy; sedm živých API volání v tomto kroku
+zahrnuje dvě institution, dvě první financial a tři smoke financial
+kontroly. Replay neprovádí další síťové dotazy. Jde o publisher pilot
+na Linuxu, nikoli Windows koncový běh, relevantní live coverage nebo
+historickou akceptaci.
+
+Změřený rozsah registry je osm tickerů z 22 BANK profilů. Chybí ALLY,
+CFG, CFR, COF, EWBC, FHN, HBAN, KEY, MTB, OZK, PNFP, RF, WAL a ZION;
+další dcery již mapovaných emitentů a změny vlastnictví jsou samostatná
+otevřená práce. Registry není úplnost skupin ani runtime coverage.
+FDIC testy mají 19 PASS a diagnostika sedm PASS; celá místní sada
+481/481 PASS včetně UI a kanonických 687 tickerů. Otisky a časy jsou v
+`evidence/fdic_tfc_fitb_tests_20261001.json`. Nové testy používají skutečně
+zachycené payloady, ověřují datované FITB hranice, znalost/scope a rozdíl
+mezi novým mapováním a nikdy neprovedeným provozním sběrem.
+
+Stav bank zůstává PILOT/PENDING a celý inventář 0/21 DONE. Další kroky:
+zbývajících 14 emitentů a relevantní dcery/změny vlastnictví, datované
+FDA product/application/sponsor a CMS owner/provider vazby. SEC kontakt,
+FINRA, FRED a EIA přístup stále nejsou nastavené na tomto hostu; skutečné
+Windows a historické out-of-sample důkazy chybějí. Skóre a obchodování
+se nemění.

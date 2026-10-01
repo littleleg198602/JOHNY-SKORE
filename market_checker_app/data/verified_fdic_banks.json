@@ -76,5 +76,35 @@
     "financial_name": "U S BANK NATIONAL ASSN",
     "financial_name_known_at": "2026-10-01T13:14:06.612961+00:00",
     "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6548&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json"
+  },
+  {
+    "ticker": "TFC",
+    "cert": 9846,
+    "issuer_cik": "0000092230",
+    "issuer_name": "Truist Financial Corporation",
+    "bank_name": "Truist Bank",
+    "effective_from": "2025-12-31",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000030/ex21subs4q25.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000066/tfc-20260605.htm",
+    "known_at": "2026-10-01T14:38:41.642755+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/9846",
+    "financial_name": "TRUIST BANK",
+    "financial_name_known_at": "2026-10-01T14:36:01.514646+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A9846&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+  },
+  {
+    "ticker": "FITB",
+    "cert": 6672,
+    "issuer_cik": "0000035527",
+    "issuer_name": "Fifth Third Bancorp",
+    "bank_name": "Fifth Third Bank, National Association",
+    "effective_from": "2026-02-15",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/35527/000003552726000124/fitb-12312025xexx21.htm",
+    "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/35527/000003552726000209/fitb-20260821.htm",
+    "known_at": "2026-10-01T14:38:41.642755+00:00",
+    "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/6672",
+    "financial_name": "FIFTH THIRD BANK NA",
+    "financial_name_known_at": "2026-10-01T14:36:13.237516+00:00",
+    "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6672&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
   }
 ]

@@ -83,7 +83,7 @@ class FdicBankScoutTests(unittest.TestCase):
     def test_production_bank_relationships_are_exact_and_dated(self):
         identities = load_verified_banks()
         self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213),
-                          ("PNC", 6384), ("USB", 6548)},
+                          ("PNC", 6384), ("USB", 6548), ("TFC", 9846), ("FITB", 6672)},
                          {(row["ticker"], row["cert"]) for row in identities})
         citi = next(row for row in identities if row["ticker"] == "C")
         self.assertEqual("Citibank, National Association", citi["bank_name"])
@@ -148,6 +148,52 @@ class FdicBankScoutTests(unittest.TestCase):
                 path.write_text(json.dumps([invalid]))
                 with self.subTest(invalid=invalid), self.assertRaises(ValueError):
                     load_verified_banks(path)
+
+    def test_tfc_fitb_real_captures_preserve_relationship_date_and_knowledge_scope(self):
+        evidence = json.loads((Path(__file__).resolve().parents[1] /
+                               "evidence/fdic_tfc_fitb_identity_20261001.json").read_text())
+        identities = [row for row in load_verified_banks() if row["ticker"] in {"TFC", "FITB"}]
+        self.assertEqual({"TFC": (9846, "0000092230", "2025-12-31"),
+                          "FITB": (6672, "0000035527", "2026-02-15")},
+                         {row["ticker"]: (row["cert"], row["issuer_cik"], row["effective_from"])
+                          for row in identities})
+        captures = {entry["identity"]["cert"]: entry for entry in evidence["entries"]}
+        for identity in identities:
+            with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
+                captured = captures[identity["cert"]]
+                self.assertEqual(identity, captured["identity"])
+                self.assertEqual(identity["bank_name"], captured["fdic_publisher_observation"]["institutions"]["data"][0]["data"]["NAME"])
+                class CapturedClient:
+                    calls = 0
+                    payload = captured["fdic_publisher_observation"]["financials"]
+                    def financials(self, cert):
+                        self.calls += 1
+                        self.assert_cert = cert
+                        return self.payload
+                client = CapturedClient()
+                store = ScoutStore(Path(directory) / "test.db")
+                clock = datetime.fromisoformat(identity["known_at"])
+                scout = FdicBankScoutService(store, client=client, identities=[identity])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock - timedelta(seconds=1))["status"])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock, universe={"OTHER"})["status"])
+                self.assertEqual(0, client.calls)
+                result = scout.run(as_of=clock, universe=set(load_canonical_tickers()))
+                self.assertEqual(("OK", 2, 1), (result["status"], result["new_findings"], result["usable_banks"]))
+                replay = scout.run(as_of=clock, recheck=True)
+                self.assertEqual((1, 0, 2), (replay["checked_banks"], replay["new_findings"], client.calls))
+                finding = json.loads(store.findings_as_of(identity["ticker"], as_of=clock)[0]["details_json"])
+                self.assertEqual(identity["issuer_cik"], finding["issuer_cik"])
+                self.assertEqual(identity["effective_from"], finding["relationship_effective_from"])
+                self.assertFalse(finding["scoring_applied"])
+                self.assertFalse(finding["issuer_consolidated_values"])
+                if identity["ticker"] == "FITB":
+                    # The 2025 10-K Exhibit 21 itself is dated February 15,
+                    # 2026. Do not backdate it to the 10-K reporting period.
+                    row = dict(client.payload["data"][0]["data"], REPDTE="20251231")
+                    client.payload = {"data": [{"data": row}]}
+                    rejected = scout.run(as_of=clock, recheck=True)
+                    self.assertEqual(("PARTIAL", 0, 1),
+                                     (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
 
     def test_live_smoke_rejects_unknown_or_out_of_source_selection_before_io(self):
         with TemporaryDirectory() as directory:
@@ -229,7 +275,9 @@ class BoundedFdicTests(unittest.TestCase):
         return RegistryClient()
 
     def test_rotation_restart_and_shared_daily_quota_then_thirty_day_refresh(self):
-        identities = load_verified_banks()
+        # Fixed six-bank fixture; later identity onboarding has a separate test.
+        identities = [entry for entry in load_verified_banks()
+                      if entry["ticker"] in {"JPM", "BAC", "WFC", "C", "PNC", "USB"}]
         with TemporaryDirectory() as directory:
             path = Path(directory) / "test.db"
             client = self.client(identities)

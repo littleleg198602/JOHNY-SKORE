@@ -123,6 +123,20 @@ class SpecialistAcceptanceTests(unittest.TestCase):
             self.assertEqual("INVALID_IDENTITY_MANIFEST", banks["status"])
             self.assertNotIn("current_usable_banks", banks)
 
+    def test_new_tfc_fitb_mappings_do_not_invent_live_runtime_coverage(self):
+        identities = load_verified_banks()
+        clock = max(datetime.fromisoformat(entry["known_at"]) for entry in identities)
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            report = build_specialist_acceptance_report(store, as_of=clock, environment={})
+            coverage = report["rotating_source_coverage"]["fdic"]
+            self.assertEqual((22, 8, 14, 8, 0),
+                             (coverage["applicable_profile_subjects"], coverage["mapped_subjects"],
+                              coverage["unmapped_profile_subjects"], coverage["never_attempted_banks"],
+                              coverage["current_usable_banks"]))
+            self.assertFalse(coverage["complete_issuer_groups_verified"])
+            self.assertFalse(report["completion_verified"])
+
 
 if __name__ == "__main__":
     unittest.main()
