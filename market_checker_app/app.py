@@ -2227,7 +2227,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     source_labels = {
         "sec": "SEC podání", "fred": "FRED makro", "eia": "EIA komodity",
         "usaspending": "USAspending zakázky", "recipient_discovery": "USAspending příjemci",
-        "fda": "FDA svolání", "finra": "FINRA short interest",
+        "fda": "FDA svolání a dopisy CRL", "finra": "FINRA short interest",
         "fdic": "FDIC banky", "sec13f": "SEC 13F instituce",
         "nhtsa": "NHTSA modelová svolání",
     }
@@ -2266,9 +2266,14 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     fda_candidates = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=30, source="fda",
     )
-    if fda_candidates:
+    fda_recalls = [row for row in fda_candidates if row["stage"] == "recall_candidate"]
+    fda_letters = [row for row in fda_candidates if row["stage"] == "crl_candidate"]
+    if fda_recalls:
         st.write("**FDA – shoda názvu svolávající firmy; vztah výrobku k akcii neověřen**")
-        st.dataframe(pd.DataFrame(fda_candidates), hide_index=True)
+        st.dataframe(pd.DataFrame(fda_recalls), hide_index=True)
+    if fda_letters:
+        st.write("**FDA CRL – shoda názvu firmy; datum dopisu není datum veřejného vydání, vazba aplikace k akcii neověřena**")
+        st.dataframe(pd.DataFrame(fda_letters), hide_index=True)
     finra_candidates = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=30, source="finra",
     )

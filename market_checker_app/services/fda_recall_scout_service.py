@@ -17,6 +17,7 @@ PRODUCT_TYPES = ("drug", "device")
 
 class FdaRecallClient(Protocol):
     def recalls(self, product_type: str, firm_name: str, *, limit: int) -> dict: ...
+    def complete_response_letters(self, firm_name: str, *, limit: int) -> dict: ...
 
 
 class OpenFdaRecallClient:
@@ -25,17 +26,11 @@ class OpenFdaRecallClient:
     def __init__(self, api_key: str = "") -> None:
         self.api_key = api_key
 
-    def recalls(self, product_type: str, firm_name: str, *, limit: int) -> dict:
-        if product_type not in PRODUCT_TYPES or not 1 <= limit <= 1000:
-            raise ValueError("Unsupported FDA recall request")
-        # The API search can match a phrase loosely; the service checks the
-        # entire recalling_firm field again before attributing a candidate.
-        phrase = firm_name.replace("\\", "\\\\").replace('"', '\\"')
-        query = {"search": f'recalling_firm:"{phrase}"', "limit": limit}
+    def _query(self, endpoint: str, search: str, limit: int) -> dict:
+        query = {"search": search, "limit": limit}
         if self.api_key:
             query["api_key"] = self.api_key
-        endpoint = f"{API_ROOT}/{product_type}/enforcement.json"
-        request = Request(f"{endpoint}?{urlencode(query)}",
+        request = Request(f"{API_ROOT}/{endpoint}?{urlencode(query)}",
                           headers={"User-Agent": "JohnySkoreScout/1.0"})
         try:
             with urlopen(request, timeout=20) as response:
@@ -46,6 +41,21 @@ class OpenFdaRecallClient:
             if exc.code == 404:
                 return {"results": [], "meta": {"results": {"total": 0}}}
             raise
+
+    def recalls(self, product_type: str, firm_name: str, *, limit: int) -> dict:
+        if product_type not in PRODUCT_TYPES or not 1 <= limit <= 1000:
+            raise ValueError("Unsupported FDA recall request")
+        # The API search can match a phrase loosely; the service checks the
+        # entire recalling_firm field again before attributing a candidate.
+        phrase = firm_name.replace("\\", "\\\\").replace('"', '\\"')
+        return self._query(f"{product_type}/enforcement.json",
+                           f'recalling_firm:"{phrase}"', limit)
+
+    def complete_response_letters(self, firm_name: str, *, limit: int) -> dict:
+        if not 1 <= limit <= 1000:
+            raise ValueError("Unsupported FDA CRL request")
+        phrase = firm_name.replace("\\", "\\\\").replace('"', '\\"')
+        return self._query("transparency/crl.json", f'company_name:"{phrase}"', limit)
 
 
 class FdaRecallScoutService:
@@ -72,6 +82,7 @@ class FdaRecallScoutService:
         for issuer in due:
             ticker, name, cik = (issuer[key] for key in ("subject_id", "company_name", "cik"))
             candidates: list[tuple[str, dict]] = []
+            letter_candidates: list[dict] = []
             truncated = False
             try:
                 for product_type in PRODUCT_TYPES:
@@ -95,6 +106,32 @@ class FdaRecallScoutService:
                         if reported > clock.date():
                             continue
                         candidates.append((product_type, row))
+                payload = self.client.complete_response_letters(name, limit=self.max_results)
+                rows = payload["results"]
+                total = payload["meta"]["results"]["total"]
+                if not isinstance(rows, list) or not isinstance(total, int) or total < len(rows):
+                    raise ValueError("Malformed FDA CRL response")
+                truncated |= total > len(rows)
+                for row in rows:
+                    if not isinstance(row, dict):
+                        continue
+                    if str(row.get("company_name", "")).strip().casefold() != name.strip().casefold():
+                        continue
+                    if str(row.get("letter_type", "")).strip().upper() != "COMPLETE RESPONSE":
+                        continue
+                    application = row.get("application_number")
+                    filename = row.get("file_name")
+                    letter_date = row.get("letter_date")
+                    if not all(isinstance(value, str) and value.strip()
+                               for value in (application, filename, letter_date)):
+                        continue
+                    try:
+                        signed = datetime.strptime(letter_date, "%m/%d/%Y").date()
+                    except ValueError:
+                        continue
+                    if signed > clock.date():
+                        continue
+                    letter_candidates.append(row)
             except HTTPError as exc:
                 if exc.code in {403, 429}:
                     return {"status": "RATE_LIMITED" if exc.code == 429 else "ACCESS_BLOCKED",
@@ -131,9 +168,36 @@ class FdaRecallScoutService:
                     verification_status="UNVERIFIED", details=details,
                 )
                 created += int(fresh)
+            for row in letter_candidates:
+                application = row["application_number"]
+                filename = row["file_name"]
+                letter_date = row["letter_date"]
+                details = {
+                    "stage": "crl_candidate", "application_number": application,
+                    "file_name": filename, "letter_date": letter_date,
+                    "letter_type": "COMPLETE RESPONSE", "company_name": row["company_name"],
+                    "issuer_sec_cik": cik, "identity_status": "NAME_ONLY",
+                    "missing_evidence": "dated application, sponsor, product and issuer relationship",
+                    "product_attribution_allowed": False,
+                    "letter_date_is_publication_time": False,
+                }
+                digest = hashlib.sha256(json.dumps(details, sort_keys=True).encode()).hexdigest()
+                _, fresh = self.store.record_finding(
+                    source="fda", subject_id=ticker,
+                    source_object_id=f"crl:{application}:{filename}:{letter_date}",
+                    content_hash=digest,
+                    title=f"FDA CRL candidate: {application}",
+                    source_url=f"{API_ROOT}/transparency/crl.json",
+                    locator=f"application:{application}/file:{filename}",
+                    # FDA can disclose historic letters much later than signing.
+                    published_at=clock, available_at=clock, observed_at=clock,
+                    verification_status="UNVERIFIED", details=details,
+                )
+                created += int(fresh)
             self.store.record_specialist_check(
                 "fda", subject_id=ticker, identity_key=f"{cik}:{name}",
-                as_of=clock, candidate_count=len(candidates), truncated=truncated,
+                as_of=clock, candidate_count=len(candidates) + len(letter_candidates),
+                truncated=truncated,
             )
             checked += 1
             truncated_count += int(truncated)

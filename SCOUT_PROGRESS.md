@@ -1,5 +1,19 @@
 # Průběh implementace pátracích agentů
 
+## FDA Complete Response Letters (1. 10. 2026)
+
+FDA scout vedle drug/device svolávacích akcí vyhledává veřejné Complete
+Response Letters v oficiálním openFDA `transparency/crl.json`. Každý dotaz
+na název aktivně pozorovaného SEC emitenta znovu ověřuje celý `company_name`,
+typ `COMPLETE RESPONSE`, číslo aplikace, soubor a platné datum dopisu. Dopis
+je samostatný `UNVERIFIED` kandidát, bez automatického přiřazení produktu,
+aplikace či ekonomického dopadu na akcii. FDA může historický dopis zveřejnit
+později; `letter_date` se ukládá odděleně a dostupnost začíná nejdříve
+skutečným prvním pozorováním. Pokud selže některý FDA endpoint, kontrola
+emitenta se neoznačí za hotovou; limit odpovědi hlásí `PARTIAL`.
+Lokální pozitivní a negativní testy prošly. Živý běh, datovaný
+application/sponsor/product crosswalk a skutečné pokrytí zatím chybějí.
+
 ## Viditelný stav všech zdrojů (30. 9. 2026)
 
 Denní runner nyní po dokončení zapisuje do SQLite poslední stav SEC, FRED,

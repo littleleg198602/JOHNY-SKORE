@@ -29,8 +29,52 @@ class FakeFda:
             ]}
         return {"meta": {"results": {"total": 0}}, "results": []}
 
+    def complete_response_letters(self, firm_name, *, limit):
+        self.calls.append(("crl", firm_name, limit))
+        if self.fail:
+            raise OSError("temporary API failure")
+        return {"meta": {"results": {"total": 0}}, "results": []}
+
+
+class FakeCrlFda(FakeFda):
+    def complete_response_letters(self, firm_name, *, limit):
+        self.calls.append(("crl", firm_name, limit))
+        return {"meta": {"results": {"total": 4}}, "results": [
+            {"company_name": firm_name, "letter_type": "COMPLETE RESPONSE",
+             "application_number": "NDA 123456", "file_name": "letter.pdf",
+             "letter_date": "09/20/2025"},
+            {"company_name": "Similar Other Inc.", "letter_type": "COMPLETE RESPONSE",
+             "application_number": "NDA 987654", "file_name": "other.pdf",
+             "letter_date": "09/20/2025"},
+            {"company_name": firm_name, "letter_type": "APPROVAL",
+             "application_number": "NDA 543210", "file_name": "approval.pdf",
+             "letter_date": "09/20/2025"},
+            {"company_name": firm_name, "letter_type": "COMPLETE RESPONSE",
+             "application_number": "NDA 234567", "file_name": "future.pdf",
+             "letter_date": "10/20/2026"},
+        ]}
+
 
 class FdaScoutTests(unittest.TestCase):
+    def test_crl_name_match_is_candidate_with_observation_time(self):
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            store.observe_sec_identity(subject_id="TEST", cik="0000000001",
+                                       company_name="Example Pharma Inc.", as_of=NOW)
+            summary = FdaRecallScoutService(store, client=FakeCrlFda()).run(as_of=NOW)
+            self.assertEqual(2, summary["new_findings"])
+            with store._connect() as conn:
+                rows = conn.execute("SELECT source_object_id, published_at, verification_status, "
+                                    "details_json FROM scout_findings WHERE source='fda' "
+                                    "AND source_object_id LIKE 'crl:%'").fetchall()
+            self.assertEqual(1, len(rows))
+            self.assertEqual(NOW.isoformat(), rows[0]["published_at"])
+            self.assertEqual("UNVERIFIED", rows[0]["verification_status"])
+            detail = json.loads(rows[0]["details_json"])
+            self.assertEqual("09/20/2025", detail["letter_date"])
+            self.assertFalse(detail["letter_date_is_publication_time"])
+            self.assertFalse(detail["product_attribution_allowed"])
+
     def test_exact_name_is_only_unverified_candidate_and_rotates(self):
         with TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "test.db")
