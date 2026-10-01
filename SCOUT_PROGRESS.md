@@ -1,5 +1,15 @@
 # Průběh implementace pátracích agentů
 
+## FDA potravinové svolávací akce (1. 10. 2026)
+
+Stejný omezený FDA scout nově dotazuje vedle léčiv a zdravotnických
+prostředků také oficiální `food/enforcement.json`. I zde přijme pouze
+shodu celého `recalling_firm` s pozorovaným SEC názvem; `recall_number`
+je oddělené podle typu produktu a záznam zůstává `UNVERIFIED` bez datované
+vazby konkrétního výrobku na emitenta. Potravinový profil tak dostává
+samostatnou stopu, nikoli automatický závěr o dopadu svolání.
+
+
 ## FDA Complete Response Letters (1. 10. 2026)
 
 FDA scout vedle drug/device svolávacích akcí vyhledává veřejné Complete
