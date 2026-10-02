@@ -219,7 +219,8 @@
       "research": "27",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Portable runtime export measures archive integrity, scoped identities, source states and partial coverage without accepting completion. Prove attempted/usable/failed semantics for every provider and independently verify claims."
+      "next": "Portable runtime export measures archive integrity, scoped identities, source states and partial coverage without accepting completion. Evidence references are now content-read, schema/path checked and SHA-256 recorded; DONE/VERIFIED fails closed unless six explicit semantic acceptance assertions are true. Remaining: prove attempted/usable/failed semantics for every provider and independently verify each claim.",
+      "evidence_content_audit": "evidence/specialist_evidence_content_audit_tests_20261003.json"
     },
     {
       "id": "evaluation",

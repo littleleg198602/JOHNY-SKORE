@@ -1,5 +1,25 @@
 # Průběh implementace pátracích agentů
 
+## Akceptace — audit obsahu důkazů (3. 10. 2026)
+
+Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
+Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
+neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
+a SHA-256. Aktuálních 48 odkazovaných souborů je čitelných a schématicky
+platných; to samo o sobě není důkaz dokončení.
+
+Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení
+šesti oddělených tvrzení: datované identity, pozitivní a negativní živý
+případ, skutečný Windows end-to-end, změřené relevantní pokrytí a historické
+out-of-sample vyhodnocení. completion_verified může být true pouze pro
+všech 21 řádků současně. Testy záměrně dokazují, že existující JSON s
+nepravdivým Windows tvrzením ani únik cesty neprojde. Cílená sada prošla
+20/20, compileall a diff kontrola prošly. Audit je v
+evidence/specialist_evidence_content_audit_tests_20261003.json.
+
+Aktuálně je stále 0/21 DONE; kontrola pouze brání budoucímu falešnému
+dokončení a nemění skóre, živé coverage ani obchodování.
+
 ## SEC 13F — patnáct přesně citovaných instrumentů (2. 10. 2026)
 
 Registr 2026 Q2 byl rozšířen o V, MA, JNJ, XOM a WMT. Všech pět je v

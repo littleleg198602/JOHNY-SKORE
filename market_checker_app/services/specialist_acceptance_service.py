@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import hashlib
+import json
 import os
 import platform
 from pathlib import Path
-from typing import Mapping
+from typing import Mapping, Sequence
 
 from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.services.fdic_bank_scout_service import (
@@ -20,6 +22,101 @@ from market_checker_app.utils.ticker_universe import (
 
 SOURCE_NAMES = ("sec", "fred", "eia", "usaspending", "recipient_discovery", "fda",
                 "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa")
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+COMPLETION_EVIDENCE_FIELDS = {
+    "identity_evidence": "dated_issuer_instrument_product_identity_verified",
+    "positive_live_evidence": "positive_live_case_verified",
+    "negative_live_evidence": "negative_live_case_verified",
+    "windows_run_evidence": "actual_windows_end_to_end_verified",
+    "coverage_evidence": "measured_applicable_coverage_verified",
+    "historical_evaluation_evidence": "out_of_sample_evaluation_verified",
+}
+
+
+def _read_evidence(reference: object, repository_root: Path) -> tuple[dict | None, dict]:
+    result = {"reference": reference if isinstance(reference, str) else None,
+              "content_verified": False, "issues": []}
+    if not isinstance(reference, str) or not reference.startswith("evidence/"):
+        result["issues"].append("INVALID_REFERENCE")
+        return None, result
+    path = (repository_root / reference).resolve()
+    evidence_root = (repository_root / "evidence").resolve()
+    if path.parent != evidence_root or path.suffix.lower() != ".json":
+        result["issues"].append("OUTSIDE_EVIDENCE_ROOT")
+        return None, result
+    try:
+        raw = path.read_bytes()
+        payload = json.loads(raw.decode("utf-8"))
+    except FileNotFoundError:
+        result["issues"].append("MISSING_FILE")
+        return None, result
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        result["issues"].append("INVALID_JSON")
+        return None, result
+    if not isinstance(payload, dict):
+        result["issues"].append("JSON_ROOT_NOT_OBJECT")
+        return None, result
+    if not isinstance(payload.get("schema_version"), int) or payload["schema_version"] < 1:
+        result["issues"].append("UNSUPPORTED_SCHEMA")
+        return payload, result
+    result.update({"content_verified": True, "size_bytes": len(raw),
+                   "sha256": hashlib.sha256(raw).hexdigest()})
+    return payload, result
+
+
+def audit_specialist_evidence(specialists: Sequence[dict], *,
+                              repository_root: Path = REPOSITORY_ROOT) -> dict:
+    """Read referenced JSON and fail closed on any claimed completion.
+
+    A path or a non-empty file is deliberately insufficient. DONE/VERIFIED
+    claims need six separate evidence documents whose content opts into the
+    exact acceptance assertion under an acceptance object.
+    """
+    references: dict[str, dict] = {}
+    completion_claims = []
+    for row in specialists:
+        specialist_id = str(row.get("id", ""))
+        for key, reference in row.items():
+            if not key.endswith("_evidence") or not isinstance(reference, str):
+                continue
+            _payload, result = _read_evidence(reference, repository_root)
+            references.setdefault(reference, result)
+        if row.get("code") != "DONE" and row.get("live") != "VERIFIED":
+            continue
+        checks = {}
+        for field, assertion in COMPLETION_EVIDENCE_FIELDS.items():
+            payload, result = _read_evidence(row.get(field), repository_root)
+            accepted = bool(
+                result["content_verified"] and isinstance(payload, dict)
+                and isinstance(payload.get("acceptance"), dict)
+                and payload["acceptance"].get(assertion) is True
+            )
+            checks[field] = {
+                "reference": result["reference"],
+                "content_verified": result["content_verified"],
+                "assertion": assertion,
+                "assertion_verified": accepted,
+                "issues": result["issues"] + ([] if accepted else ["ASSERTION_NOT_VERIFIED"]),
+            }
+        completion_claims.append({
+            "specialist_id": specialist_id,
+            "state_claim_valid": row.get("code") == "DONE" and row.get("live") == "VERIFIED",
+            "evidence_verified": all(check["assertion_verified"] for check in checks.values()),
+            "checks": checks,
+        })
+    invalid_references = sorted(
+        reference for reference, result in references.items() if not result["content_verified"])
+    return {
+        "referenced_files": len(references),
+        "content_verified_files": len(references) - len(invalid_references),
+        "invalid_references": invalid_references,
+        "references": references,
+        "completion_claims": completion_claims,
+        "all_completion_claims_verified": bool(completion_claims) and all(
+            claim["state_claim_valid"] and claim["evidence_verified"]
+            for claim in completion_claims),
+    }
 
 
 def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | None = None,
@@ -64,6 +161,9 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
         coverage["fdic"] = {"status": "INVALID_IDENTITY_MANIFEST",
                             "applicable_profile_subjects": len(bank_subjects)}
     specialists = inventory["specialists"]
+    evidence_audit = audit_specialist_evidence(specialists)
+    every_specialist_claims_completion = bool(specialists) and all(
+        row["code"] == "DONE" and row["live"] == "VERIFIED" for row in specialists)
     return {
         "schema_version": 1, "generated_at": clock.astimezone(timezone.utc).isoformat(),
         "report_type": "runtime_diagnostic_not_completion_certificate",
@@ -78,7 +178,11 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
         "access_presence_is_successful_authentication": False,
         "inventory_as_of": inventory["as_of"], "specialists": specialists,
         "inventory_done_count": sum(row["code"] == "DONE" for row in specialists),
-        "inventory_total": len(specialists), "completion_verified": False,
+        "inventory_total": len(specialists),
+        "evidence_content_audit": evidence_audit,
+        "completion_verified": bool(
+            len(specialists) == 21 and every_specialist_claims_completion
+            and evidence_audit["all_completion_claims_verified"]),
         "unproven_acceptance": ["dated issuer/product/instrument coverage",
                                 "positive and negative live cases for every specialist",
                                 "Windows end-to-end run and relevant coverage",

@@ -5,7 +5,9 @@ from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
-from market_checker_app.services.specialist_acceptance_service import build_specialist_acceptance_report
+from market_checker_app.services.specialist_acceptance_service import (
+    audit_specialist_evidence, build_specialist_acceptance_report,
+)
 from market_checker_app.services.fdic_bank_scout_service import FdicBankScoutService, load_verified_banks
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.ticker_universe import CANONICAL_CSV_SHA256, load_canonical_ticker_records
@@ -15,6 +17,59 @@ NOW = datetime(2026, 10, 1, 12, tzinfo=timezone.utc)
 
 
 class SpecialistAcceptanceTests(unittest.TestCase):
+    def test_evidence_audit_reads_content_and_rejects_filename_only_completion(self):
+        fields = {
+            "identity_evidence": "dated_issuer_instrument_product_identity_verified",
+            "positive_live_evidence": "positive_live_case_verified",
+            "negative_live_evidence": "negative_live_case_verified",
+            "windows_run_evidence": "actual_windows_end_to_end_verified",
+            "coverage_evidence": "measured_applicable_coverage_verified",
+            "historical_evaluation_evidence": "out_of_sample_evaluation_verified",
+        }
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "evidence").mkdir()
+            row = {"id": "example", "code": "DONE", "live": "VERIFIED"}
+            for index, (field, assertion) in enumerate(fields.items()):
+                reference = f"evidence/{index}.json"
+                row[field] = reference
+                (root / reference).write_text(json.dumps({
+                    "schema_version": 1, "acceptance": {assertion: True},
+                }), encoding="utf-8")
+            audit = audit_specialist_evidence([row], repository_root=root)
+            self.assertTrue(audit["all_completion_claims_verified"])
+            self.assertEqual((6, 6), (audit["referenced_files"], audit["content_verified_files"]))
+            self.assertTrue(all(item["sha256"] for item in audit["references"].values()))
+
+            (root / row["windows_run_evidence"]).write_text(json.dumps({
+                "schema_version": 1,
+                "acceptance": {"actual_windows_end_to_end_verified": False},
+            }), encoding="utf-8")
+            audit = audit_specialist_evidence([row], repository_root=root)
+            self.assertFalse(audit["all_completion_claims_verified"])
+            windows = audit["completion_claims"][0]["checks"]["windows_run_evidence"]
+            self.assertTrue(windows["content_verified"])
+            self.assertFalse(windows["assertion_verified"])
+
+    def test_evidence_audit_rejects_missing_invalid_and_escaping_references(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "evidence").mkdir()
+            (root / "evidence" / "broken.json").write_text("{broken", encoding="utf-8")
+            rows = [{
+                "id": "partial", "code": "PARTIAL", "live": "PENDING",
+                "missing_evidence": "evidence/missing.json",
+                "broken_evidence": "evidence/broken.json",
+                "escape_evidence": "evidence/../secret.json",
+            }]
+            audit = audit_specialist_evidence(rows, repository_root=root)
+            self.assertEqual(3, audit["referenced_files"])
+            self.assertEqual(0, audit["content_verified_files"])
+            self.assertFalse(audit["all_completion_claims_verified"])
+            self.assertIn("MISSING_FILE", audit["references"]["evidence/missing.json"]["issues"])
+            self.assertIn("INVALID_JSON", audit["references"]["evidence/broken.json"]["issues"])
+            self.assertIn("OUTSIDE_EVIDENCE_ROOT", audit["references"]["evidence/../secret.json"]["issues"])
+
     def test_empty_windows_database_does_not_invent_a_run_or_completion(self):
         with TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "test.db")

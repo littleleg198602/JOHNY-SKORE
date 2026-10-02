@@ -6,6 +6,18 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
+omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
+SHA-256. Aktuálních 48 odkazů je obsahově čitelných, ale žádný název ani
+neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
+každého specialisty šest explicitních obsahových tvrzení: datovanou
+issuer/instrument/product identitu, pozitivní a negativní živý případ,
+skutečný Windows end-to-end, změřené relevantní pokrytí a historické
+out-of-sample vyhodnocení. Teprve shoda všech 21 řádků může nastavit
+completion_verified=true. Test auditní brány je v
+evidence/specialist_evidence_content_audit_tests_20261003.json; stav
+zůstává 0/21 DONE.
+
 SEC 13F registry byl dále rozšířen o V, MA, JNJ, XOM a WMT, tedy na patnáct
 kanonických instrumentů pro 2026 Q2. Přesné issuer CIK/CUSIP/název/třída
 z oficiálního listu jsou spojené s konkrétními Schedule 13G/13D; lokální
