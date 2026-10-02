@@ -85,8 +85,13 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   regrese: shodný Windows wall-clock čas překročil hranici reportů, takže
   cutoff prvního reportu připustil i pozorování dalšího. Společný UTC clock
   teď pod zámkem posune shodný/zpětný vzorek o mikrosekundu; vynucený
-  konstantní-clock test a 525/525 místních testů prošly. Nový Windows CI
-  výsledek zůstává povinný; podrobnosti jsou v
+  konstantní-clock test a 525/525 místních testů prošly. Navazující
+  `windows-latest` běh na opravném commitu `9d83c221` dokončil také
+  **525/525** testů za 758,382 sekundy bez selhání, chyb a přeskočení.
+  Workflow `37012267755`, job `110854588580` uložil artifact `11228802805`
+  a deterministic release gate prošel. Tím je tato konkrétní CI regrese
+  uzavřená; stále nejde o skutečný uživatelský Windows end-to-end běh.
+  Podrobnosti jsou v
   `evidence/windows_monotonic_clock_tests_20261002.json`.
 
 ## Ověření
@@ -107,7 +112,8 @@ selhání a přeskočení; targeted EPA/acceptance sada má 20 PASS. Otisky a
 časy jsou v `evidence/epa_echo_tests_20261002.json`. Nejde o nový Windows
 průchod ani historickou evaluaci.
 Po opravě nově pozorované Windows hranice času prošla sada **525/525**;
-samotný místní Linux průchod nenahrazuje nový Windows výsledek.
+místně i na hostovaném GitHub Windows runneru. Hostovaný CI výsledek
+nenahrazuje skutečný koncový běh na uživatelově Windows počítači.
 
 ## Co zůstává otevřené
 

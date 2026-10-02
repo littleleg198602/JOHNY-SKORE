@@ -6,12 +6,22 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+GitHub Windows CI na opravném commitu `9d83c221` dokončilo všech **525**
+testů bez selhání, chyb a přeskočení za 758,382 sekundy. Workflow
+`37012267755`, job `110854588580` a artifact `11228802805` doplňují
+konkrétní auditní stopu; všechny joby včetně deterministic release gate
+prošly. Tím je ověřena tato konkrétní oprava monotónní hranice znalosti na
+hostovaném Windows runneru. Nejde o uživatelský živý end-to-end běh,
+relevantní coverage ani historické OOS vyhodnocení, takže stav zůstává
+0/21 DONE.
+
 Windows CI na `20cdbd7` nově odhalilo dvě as-of regrese při shodném
 wall-clock čase přes hranici dvou reportů. Procesní UTC clock nyní pod
 zámkem posune shodný/zpětný vzorek o mikrosekundu, takže report cutoff je
 striktně po vlastních pozorováních a před dalším během. Vynucený konstantní
-clock test i 525/525 místních testů prošly; nový Windows průchod je povinný.
-Důkaz je v `evidence/windows_monotonic_clock_tests_20261002.json`.
+clock test i 525/525 místních testů prošly. Navazující Windows průchod na
+`9d83c221` také prošel 525/525. Důkaz je v
+`evidence/windows_monotonic_clock_tests_20261002.json`.
 
 EPA ECHO je nově zapojené jako omezený exact-name facility lead pro 104
 tickerů z pěti relevantních profilů. FRS ID je identita zařízení, ne důkaz

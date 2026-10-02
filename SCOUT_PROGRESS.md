@@ -1,5 +1,19 @@
 # Průběh implementace pátracích agentů
 
+## Windows čas znalosti — oprava prošla celou sadou (2. 10. 2026)
+
+Commit `9d83c221` prošel na GitHub `windows-latest` celou deterministickou
+sadu **525/525** testů za 758,382 sekundy bez selhání, chyb a přeskočení.
+Workflow `37012267755`, job `110854588580` uložil log a JSON jako artifact
+`11228802805`; všechny ostatní joby i společný deterministic release gate
+také skončily úspěšně. Tím je uzavřená konkrétní CI regrese hranice času
+znalosti popsaná níže.
+
+Jde o hostovanou kontrolu Windows kompatibility, ne o skutečný koncový běh
+na uživatelově Windows počítači. Běh nepřinesl relevantní živé coverage
+687 tickerů ani historické out-of-sample vyhodnocení. Proto se stav žádného
+specialisty nemění a inventář zůstává 0/21 DONE.
+
 ## Windows čas znalosti — monotónní hranice reportů (2. 10. 2026)
 
 Rozšířený Windows běh na commitu `20cdbd7` dokončil všech 524 testů, ale
@@ -14,8 +28,9 @@ striktně za jeho pozorováními a další report začíná až potom. Perzisten
 `agent_run_id` zůstává druhou ochranou pořadí databázových verzí. Nový test
 vynutí konstantní Windows clock přes oba reporty; původní dvě regrese prošly
 pětkrát opakovaně. Celá místní sada má 525/525 PASS. Důkaz je v
-`evidence/windows_monotonic_clock_tests_20261002.json`. Nový GitHub Windows
-běh je povinný; nejde o uživatelský end-to-end běh ani dokončení specialisty.
+`evidence/windows_monotonic_clock_tests_20261002.json`. Navazující GitHub
+Windows běh na `9d83c221` prošel 525/525; nejde však o uživatelský
+end-to-end běh ani dokončení specialisty.
 
 ## EPA ECHO — omezené facility-name leads (2. 10. 2026)
 
