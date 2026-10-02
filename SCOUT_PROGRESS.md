@@ -23,10 +23,18 @@ doinstalování připnutých runtime závislostí celá místní deterministick�
 22 chybějícími importy se nepočítá jako úspěch; časy, otisky a omezení jsou
 v `evidence/usaspending_noc_tests_20261002.json`.
 
+Navazující GitHub `windows-latest` job `110990378505` na commitu
+`8df9d476` dokončil **528/528** testů bez selhání, chyb a přeskočení;
+workflow `37052898902` i deterministic release gate prošly. Stažený artifact
+`11248265909` obsahoval úplný log a strojový JSON a jeho SHA-256 souhlasil
+s upload logem. Auditní záznam je v
+`evidence/usaspending_noc_windows_tests_20261002.json`.
+
 Jde o druhý pilot, ne kompletní recipient/subsidiary nebo modification
 historii, relevantní coverage, uživatelský Windows end-to-end či historické
 vyhodnocení. Contracts i aerospace zůstávají PARTIAL/PENDING a inventář
-0/21 DONE; skóre ani obchodování se nemění.
+0/21 DONE. Hostovaný Windows běh je pouze kompatibilita: neprovedl živý
+USAspending sběr na uživatelově počítači; skóre ani obchodování se nemění.
 
 ## SEC 13F — deset přesně citovaných instrumentů (2. 10. 2026)
 

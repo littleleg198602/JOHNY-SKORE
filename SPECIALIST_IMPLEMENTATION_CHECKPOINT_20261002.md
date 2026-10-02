@@ -13,7 +13,11 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   absent-UEI kontrola vrátila nulu. Findings nyní zachovávají vztahové
   effective-from/to i knowledge time. Cílená sada prošla 25/25 a celá místní
   deterministická sada 528/528; test evidence zachovává i první clean-host
-  diagnostiku chybějících závislostí. Je to druhý pilot, ne úplná coverage.
+  diagnostiku chybějících závislostí. Navazující GitHub-hosted Windows job
+  `110990378505` a release gate prošly 528/528; stažený artifact
+  `11248265909` byl obsahově i hashově ověřen. Jde pouze o kompatibilitu,
+  nikoli živý uživatelský Windows end-to-end. Je to druhý pilot, ne úplná
+  coverage.
 - Druhý SEC 13F identity krok přidal GOOGL, TSLA, AVGO, AMD a JPM. Registr
   tak obsahuje deset kanonických tickerů z archivu 687, s přesným issuer CIK,
   CUSIP, názvem a třídou pro 2026 Q2 a s konkrétním Schedule 13G pro každý

@@ -14,7 +14,9 @@ duplicity a absent-UEI kontrola vrátila nulu. Důkazy jsou v
 `evidence/usaspending_noc_identity_20261002.json` a
 `evidence/usaspending_noc_live_20261002.json`. Cílená sada prošla 25/25 a
 celá místní deterministická sada 528/528; přesné časy, otisky a clean-host
-diagnostika jsou v `evidence/usaspending_noc_tests_20261002.json`. Dva piloty nejsou úplná
+diagnostika jsou v `evidence/usaspending_noc_tests_20261002.json`.
+Navazující hostovaný Windows průchod 528/528 a ověřený artifact jsou v
+`evidence/usaspending_noc_windows_tests_20261002.json`. Dva piloty nejsou úplná
 coverage, modification historie, Windows end-to-end ani historická evaluace.
 
 SEC 13F instrument registry nyní obsahuje deset kanonických tickerů pro

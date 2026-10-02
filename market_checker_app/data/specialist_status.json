@@ -38,7 +38,8 @@
       "source_smoke_evidence": "evidence/usaspending_live_20261001.json",
       "noc_identity_evidence": "evidence/usaspending_noc_identity_20261002.json",
       "noc_source_smoke_evidence": "evidence/usaspending_noc_live_20261002.json",
-      "noc_test_evidence": "evidence/usaspending_noc_tests_20261002.json"
+      "noc_test_evidence": "evidence/usaspending_noc_tests_20261002.json",
+      "noc_hosted_windows_evidence": "evidence/usaspending_noc_windows_tests_20261002.json"
     },
     {
       "id": "regulatory",
@@ -170,7 +171,8 @@
       "source_smoke_evidence": "evidence/usaspending_live_20261001.json",
       "noc_identity_evidence": "evidence/usaspending_noc_identity_20261002.json",
       "noc_source_smoke_evidence": "evidence/usaspending_noc_live_20261002.json",
-      "noc_test_evidence": "evidence/usaspending_noc_tests_20261002.json"
+      "noc_test_evidence": "evidence/usaspending_noc_tests_20261002.json",
+      "noc_hosted_windows_evidence": "evidence/usaspending_noc_windows_tests_20261002.json"
     },
     {
       "id": "sector_other",
