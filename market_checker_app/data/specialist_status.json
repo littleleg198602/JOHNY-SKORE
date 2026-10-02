@@ -43,11 +43,12 @@
       "research": "07",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "NHTSA and separate OFAC SDN/Non-SDN primary+alias collectors are implemented with exact-name candidates and independent coverage. Non-SDN program restrictions are retained and are not treated as SDN asset blocking. Remaining: dated vehicle/product and subsidiary identities, weak aliases/ownership analysis, DOJ/EPA, measured relevant live coverage and historical evaluation.",
+      "next": "NHTSA, separate OFAC SDN/Non-SDN primary+alias collection and a bounded DOJ press-release title collector are implemented. DOJ leads retain publisher time separately from first observation and never establish issuer identity or liability. Remaining: dated vehicle/product/subsidiary identities, weak aliases/ownership analysis, EPA, measured relevant live coverage and historical evaluation.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json",
       "ofac_alias_source_smoke_evidence": "evidence/ofac_alias_live_20261001.json",
-      "ofac_non_sdn_source_smoke_evidence": "evidence/ofac_non_sdn_live_20261002.json"
+      "ofac_non_sdn_source_smoke_evidence": "evidence/ofac_non_sdn_live_20261002.json",
+      "doj_source_smoke_evidence": "evidence/doj_live_20261002.json"
     },
     {
       "id": "suppliers",

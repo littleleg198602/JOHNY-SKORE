@@ -2241,6 +2241,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         "cms": "CMS vlastnictví nemocnic", "clinicaltrials": "ClinicalTrials studie",
         "ofac": "OFAC SDN shody jmen",
         "ofac_non_sdn": "OFAC Non-SDN shody jmen",
+        "doj": "DOJ tiskové zprávy",
     }
     st.write("**Poslední běh pátracích zdrojů**")
     st.dataframe(pd.DataFrame([
@@ -2274,7 +2275,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
          "Čeká / zastaralo": coverage["not_current"],
          "Někdy zkontrolováno": coverage["ever_checked"]}
         for source, interval in (("fda", 30), ("finra", 15), ("cms", 30),
-                                 ("clinicaltrials", 30), ("ofac", 1), ("ofac_non_sdn", 1))
+                                 ("clinicaltrials", 30), ("ofac", 1), ("ofac_non_sdn", 1), ("doj", 30))
         for coverage in [scout_store.specialist_coverage(
             source, as_of=coverage_time, refresh_days=interval,
             subjects=coverage_subjects.get(source))]
@@ -2339,7 +2340,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     for source, label in (("cms", "CMS vlastnictví nemocnic"),
                           ("clinicaltrials", "ClinicalTrials studie"),
                           ("ofac", "OFAC SDN"),
-                          ("ofac_non_sdn", "OFAC Non-SDN")):
+                          ("ofac_non_sdn", "OFAC Non-SDN"),
+                          ("doj", "DOJ tiskové zprávy")):
         healthcare_rows = scout_store.latest_findings(
             watchlist, as_of=datetime.now(timezone.utc), limit=30, source=source)
         if healthcare_rows:
@@ -2351,6 +2353,9 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
             if source == "ofac_non_sdn":
                 st.caption("Non-SDN seznamy mají různá omezení podle programu. "
                            "Shoda jména sama neznamená blokaci majetku ani potvrzenou vazbu na akcii.")
+            if source == "doj":
+                st.caption("Hledání přesného názvu v titulcích DOJ. Nález nepotvrzuje právní odpovědnost firmy; "
+                           "prázdný výsledek nedokládá kontrolu všech řízení a firemních značek.")
             st.dataframe(pd.DataFrame(healthcare_rows), hide_index=True)
     energy_rows = scout_store.latest_findings(
         ["COMMODITY:WTI", "COMMODITY:JET_FUEL_GULF"],

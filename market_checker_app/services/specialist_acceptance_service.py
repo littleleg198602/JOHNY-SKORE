@@ -19,7 +19,7 @@ from market_checker_app.utils.ticker_universe import (
 
 
 SOURCE_NAMES = ("sec", "fred", "eia", "usaspending", "recipient_discovery", "fda",
-                "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn")
+                "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj")
 
 
 def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | None = None,
@@ -44,7 +44,7 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
     for source, interval, codes in (("fda", 30, None), ("finra", 15, None),
                                      ("cms", 30, {"HEALTH_SERVICES"}),
                                      ("clinicaltrials", 30, {"PHARMA", "MEDTECH"}),
-                                     ("ofac", 1, None), ("ofac_non_sdn", 1, None)):
+                                     ("ofac", 1, None), ("ofac_non_sdn", 1, None), ("doj", 30, None)):
         applicable = (universe if codes is None else
                       {t for t, p in profiles.by_ticker.items() if p.code in codes} & universe)
         coverage[source] = {"applicable_profile_subjects": len(applicable),

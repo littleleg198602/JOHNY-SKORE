@@ -6,6 +6,21 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Od 2. 10. je zapojen i omezený DOJ press-release title collector. Přesná
+slova názvu v titulku jsou pouze neověřený lead; publisher datum se nebere
+za datum prvního pozorování a shoda nedokládá issuer identity ani právní
+odpovědnost. Pozitivní a absent-name publisher smoke je v
+`evidence/doj_live_20261002.json`. DOJ scope je součástí coverage a identity
+změny znovu otevírají kontrolu. Tím není regulační specialista DONE.
+
+První vyžádaná Windows CI sada na commitu `714bb97` odhalila nezavřené
+SQLite file handles: Python context manager provedl transakci, ale spojení
+nezavřel, takže Windows nedokázal mazat dočasné databáze. Oprava zavírá
+spojení po commit/rollback ve všech pěti store a přidává přímé lifecycle
+testy. Nový deterministický runner průběžně uchovává traceback i JSON
+souhrn. Lokální sada má 518/518 PASS; nový Windows CI výsledek je povinný
+a nesmí být nahrazen lokálním Linux testem.
+
 Od 1. 10. lze ve stejné části UI stáhnout **provozní přehled specialistů**
 jako JSON: skutečné uložené běhy zdrojů, aktuální sektorové pokrytí,
 integritu archivovaného 687tickerového vstupu a počet doložených SEC identit.

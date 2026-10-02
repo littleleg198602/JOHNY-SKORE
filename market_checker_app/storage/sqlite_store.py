@@ -4,6 +4,8 @@ import hashlib
 import json
 import math
 import sqlite3
+
+from market_checker_app.storage.sqlite_connection import ClosingSQLiteConnection
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
@@ -41,7 +43,7 @@ class SQLiteStore:
 
     def _connect(self) -> sqlite3.Connection:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        conn = sqlite3.connect(self.db_path)
+        conn = sqlite3.connect(self.db_path, factory=ClosingSQLiteConnection)
         conn.execute("PRAGMA foreign_keys = ON")
         return conn
 

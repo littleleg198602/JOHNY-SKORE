@@ -28,7 +28,7 @@ jobs:
       - name: Compile every Python module
         run: python -m compileall -q market_checker_app tests
       - name: Run deterministic test suite
-        run: python -m unittest discover -s tests -p 'test_*.py' -v
+        run: python -X utf8 -m market_checker_app.deterministic_test_runner
 
   scale-agent:
     name: 687 ticker scale and progress agent
@@ -84,15 +84,15 @@ jobs:
       - name: Compile every Python module
         run: python -m compileall -q market_checker_app tests
       - name: Run deterministic Windows suite
-        run: |
-          python -m unittest discover -s tests -p 'test_*.py' -v 2>&1 | Tee-Object -FilePath windows-tests.log
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+        run: python -X utf8 -m market_checker_app.deterministic_test_runner --log-path windows-tests.log --result-path windows-tests.json
       - name: Preserve Windows verification log
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: windows-deterministic-tests
-          path: windows-tests.log
+          path: |
+            windows-tests.log
+            windows-tests.json
           if-no-files-found: error
 
   release-agent:

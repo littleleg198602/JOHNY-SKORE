@@ -9,6 +9,9 @@ from tempfile import TemporaryDirectory
 from urllib.error import HTTPError
 
 from market_checker_app.services.fda_recall_scout_service import OpenFdaRecallClient
+from market_checker_app.services.doj_scout_service import (
+    DOJ_URL, DojPressReleaseClient, parse_doj_candidate,
+)
 from market_checker_app.services.fdic_bank_scout_service import (
     FdicBankFindClient, FdicBankScoutService, load_verified_banks,
 )
@@ -29,7 +32,7 @@ from market_checker_app.services.usaspending_recipient_discovery import (
 from market_checker_app.storage.scout_store import ScoutStore
 
 
-PUBLIC_SOURCES = ("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac", "usaspending")
+PUBLIC_SOURCES = ("fdic", "fda", "nhtsa", "cms", "clinicaltrials", "ofac", "usaspending", "doj")
 
 
 def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES,
@@ -116,6 +119,27 @@ def run(*, output_path: Path, sources: tuple[str, ...] = PUBLIC_SOURCES,
         check("fda_positive_drug_name", fda_positive)
 
         absent_name = "JOHNY SKORE NONEXISTENT ENTITY 9AE78462"
+        doj_client = DojPressReleaseClient()
+        def doj_positive():
+            rows, total = doj_client.page("Google", size=2, page=0)
+            clock = datetime.now(timezone.utc)
+            accepted = [candidate for row in rows
+                        if (candidate := parse_doj_candidate(row, "Google", clock)) is not None]
+            return bool(accepted), {"source_url": DOJ_URL, "query_name": "Google",
+                                    "query_page": 0, "page_size": 2, "total_query_results": total,
+                                    "scope": "publisher title-query/parser only; no watchlist issuer assigned",
+                                    "complete_issuer_legal_risk_coverage": False,
+                                    "payload_rows": rows, "parsed_candidates": accepted}
+        check("doj_positive_title_schema", doj_positive)
+
+        def doj_negative():
+            rows, total = doj_client.page(absent_name, size=2, page=0)
+            return rows == [] and total == 0, {"source_url": DOJ_URL, "query_name": absent_name,
+                                                "query_page": 0, "page_size": 2,
+                                                "total_query_results": total, "payload_rows": rows,
+                                                "scope": "absent exact title query, not issuer-wide absence"}
+        check("doj_negative_title_name", doj_negative)
+
         for product in ("drug", "device", "food"):
             def fda_negative(product=product):
                 payload = fda_client.recalls(product, absent_name, limit=1)

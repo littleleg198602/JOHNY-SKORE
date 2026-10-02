@@ -48,12 +48,26 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   `windows-latest`, ukládá její log a zahrnuje ji do release gate.
   To je ověření kompatibility na Windows runneru, nikoli živý koncový běh
   uživatelova PC. Výsledek CI musí být ověřen na konkrétním commitu.
+- Samostatný DOJ collector ukládá přesné titulkové shody z oficiálního API
+  jako `UNVERIFIED` leads. Má 2MB odpověď, 20sekundový request timeout,
+  maximálně dvě stránky / 25 položek, tři chyby a 60 sekund na běh. Datum
+  vydavatele je oddělené od prvního pozorování; shoda nezakládá identitu,
+  odpovědnost, úplnost právních událostí ani skóre. Skutečné pozitivní a
+  absent-title případy jsou v `evidence/doj_live_20261002.json`.
+- První Windows CI na commitu `714bb97` skončilo timeoutem po řadě chyb při
+  práci s dočasnými SQLite databázemi. Vlastní `sqlite3.Connection` context
+  manager spojení nezavírá. Pět aplikačních store proto používá closing
+  connection, které po commit/rollback vždy zavře file handle. Nové testy
+  ověřují uzavření a přejmenování databáze se stále živým Python objektem.
+  CI runner nyní průběžně vypisuje traceback a uloží strojový JSON souhrn.
 
 ## Ověření
 
-Celá místní sada skutečně spustila **506 z 506 objevených testů**:
+Po doplnění DOJ a SQLite lifecycle opravy celá místní sada skutečně spustila
+**518 z 518 objevených testů**:
 žádná chyba, selhání ani přeskočení. Důkaz s časy a otisky kódu je v
-`evidence/specialist_tests_20261002.json`. Kompilace a `git diff --check`
+`evidence/specialist_tests_20261002.json` a nový krok v
+`evidence/doj_sqlite_tests_20261002.json`. Kompilace a `git diff --check`
 prošly. Před během byly nainstalovány uložené requirements a constraints;
 první diagnostika s chybějícími závislostmi se nepočítá jako průchod.
 
@@ -63,7 +77,7 @@ Inventář nadále poctivě uvádí **0/21 úplných provozních akceptací**.
 22 bankovních mapování nejsou 22 specialisté ani úplnost bankovních skupin.
 Bankovní financials nejsou automaticky konsolidované výkazy emitenta.
 
-Další proveditelná práce: DOJ/EPA, datované FDA/CMS/ClinicalTrials
+Další proveditelná práce: EPA, datované FDA/CMS/ClinicalTrials
 entity a produkty, další UEI/CUSIP a relevantní sektorové vazby.
 Konkrétní zbývající úkol každého specialisty je v inventáři a předchozím
 checkpointu. FINRA/FRED/EIA a SEC kontakt na tomto hostu chybějí;

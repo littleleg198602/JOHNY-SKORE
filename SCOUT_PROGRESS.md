@@ -1,5 +1,39 @@
 # Průběh implementace pátracích agentů
 
+## DOJ leads a Windows SQLite životní cyklus (2. 10. 2026)
+
+Přibyl samostatný omezený sběrač oficiálních tiskových zpráv DOJ. Dotazuje
+pouze title filtr, nejvýše 25 emitentů, dvě stránky po 25 položkách, tři
+chyby a 60 sekund na běh. Odpověď má limit 2 MB a klient respektuje
+publikovaný limit požadavků. Přijímá jen kanonické UUID, oficiální HTTPS
+press-release URL, nebudoucí publisher datum a celé přesné slovní znění
+dotazovaného názvu v titulku. Google proto nesmí automaticky představovat
+Alphabet Inc. API shoda zůstává `UNVERIFIED`: nedokládá identitu emitenta,
+odpovědnost ani úplné právní riziko a nemění skóre.
+
+Skutečný omezený live smoke 2. 10. zachytil dva výsledky titulkového dotazu
+Google a nulový výsledek uměle neexistujícího přesného názvu. Důkaz je v
+`evidence/doj_live_20261002.json`; není přiřazen žádné akcii. Sběrač je
+zapojený do runneru, perzistence, obnovovacího scope, UI, diagnostiky a
+oddělené source policy. Chybná stránka, duplicitní UUID, změna total, limit
+stránek nebo přístupová chyba nemohou vytvořit úplnou negativní kontrolu.
+
+První skutečný GitHub Windows CI běh odkryl široké `ERROR` při mazání
+dočasných SQLite souborů a doběhl do patnáctiminutového timeoutu. Příčinou
+je standardní context manager `sqlite3.Connection`, který commitne či
+rollbackne, ale spojení nezavře; Linux dovolí otevřený soubor smazat,
+Windows ne. Všechny aplikační SQLite store nyní používají spojení, které
+po transakci vždy uzavře native handle. Samostatné testy drží Python objekt
+živý, ověřují commit, rollback, uzavření a přejmenování databáze.
+Deterministický runner průběžně zapisuje traceback a strojový souhrn, aby
+další Windows chyba nezmizela při timeoutu.
+
+Místně prošlo 518/518 testů bez chyb a přeskočení. Windows oprava musí ještě
+projít novým konkrétním GitHub CI během; ten stále není uživatelův skutečný
+koncový Windows běh. Inventář proto zůstává 0/21 DONE. Další dostupné kroky
+jsou EPA a datované zdravotnické/product/subsidiary identity; licence,
+relevantní coverage a historické out-of-sample vyhodnocení zůstávají otevřené.
+
 ## OZK — oddělený přímý bankovní emitent a omezený živý pilot (1. 10. 2026)
 
 Předchozí konkrétní modelová mezera OZK je vyřešena: registr přijímá
