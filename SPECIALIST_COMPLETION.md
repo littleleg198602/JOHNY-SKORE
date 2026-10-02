@@ -6,6 +6,12 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Windows CI na commitu `aaa5197` dokončilo 518 testů bez předchozích SQLite
+lock chyb, ale našlo jediný deterministický problém: dvě identity verze se
+shodným timestampem byly sekundárně řazené podle obsahového hashe. Čtení
+nyní používá monotónní `agent_run_id`, tedy skutečné pořadí persistence;
+regresní test vynutí shodný čas. Nový Windows průchod zůstává povinný.
+
 Od 2. 10. je zapojen i omezený DOJ press-release title collector. Přesná
 slova názvu v titulku jsou pouze neověřený lead; publisher datum se nebere
 za datum prvního pozorování a shoda nedokládá issuer identity ani právní

@@ -60,14 +60,21 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   connection, které po commit/rollback vždy zavře file handle. Nové testy
   ověřují uzavření a přejmenování databáze se stále živým Python objektem.
   CI runner nyní průběžně vypisuje traceback a uloží strojový JSON souhrn.
+- Následující Windows CI na commitu `aaa5197` spustilo všech 518 testů a
+  potvrdilo odstranění SQLite lock chyb. Selhal jediný test chronologie:
+  dvě identity verze se shodným timestampem byly řazené podle hash ID.
+  Čtení nyní při shodném čase používá monotónní `agent_run_id`; nový test
+  přesně reprodukuje Windows podmínku. Nový Windows CI průchod je otevřený.
 
 ## Ověření
 
-Po doplnění DOJ a SQLite lifecycle opravy celá místní sada skutečně spustila
-**518 z 518 objevených testů**:
+Po doplnění deterministického identity pořadí celá místní sada skutečně
+spustila **519 z 519 objevených testů**:
 žádná chyba, selhání ani přeskočení. Důkaz s časy a otisky kódu je v
 `evidence/specialist_tests_20261002.json` a nový krok v
-`evidence/doj_sqlite_tests_20261002.json`. Kompilace a `git diff --check`
+`evidence/doj_sqlite_tests_20261002.json`; nejnovější Windows-order krok je
+v `evidence/windows_identity_order_tests_20261002.json`. Kompilace a
+`git diff --check`
 prošly. Před během byly nainstalovány uložené requirements a constraints;
 první diagnostika s chybějícími závislostmi se nepočítá jako průchod.
 

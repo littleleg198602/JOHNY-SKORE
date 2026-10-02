@@ -228,6 +228,23 @@ class EntityRegistryStage51Tests(unittest.TestCase):
         self.assertEqual(["AAPL"], list(first_view["ticker"]))
         self.assertEqual(["APPL"], list(second_view["ticker"]))
 
+    def test_versions_use_persisted_run_sequence_when_timestamps_are_equal(self) -> None:
+        first = _run_identity("AAPL", _identity())
+        second = _run_identity("APPL", _identity(
+            ticker="APPL", name="Apple Corporation", exchange="NYSE",
+            valid_from="2026-08-21T00:00:00Z",
+        ))
+        second.executions[0].finished_at = first.executions[0].finished_at
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = SQLiteStore(Path(tmp) / "history.db")
+            store.save_orchestration_report(first)
+            store.save_orchestration_report(second)
+            versions = store.read_entity_identity_versions("listing:apple:primary")
+
+        self.assertEqual(["AAPL", "APPL"], list(versions["ticker"]))
+        self.assertEqual(sorted(versions["agent_run_id"]), list(versions["agent_run_id"]))
+
     def test_unchanged_identity_reuses_version_but_keeps_observations(self) -> None:
         first = _run_identity("AAPL", _identity())
         second = _run_identity("AAPL", _identity())

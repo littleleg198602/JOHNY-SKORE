@@ -3339,7 +3339,10 @@ class SQLiteStore:
         if entity_id is not None:
             query += " WHERE entity_id = ?"
             params = (entity_id,)
-        query += " ORDER BY entity_id ASC, observed_at ASC, version_id ASC"
+        # Windows can return the same high-resolution wall-clock timestamp for
+        # two consecutive agent reports. agent_run_id is the durable insertion
+        # sequence; the content hash is not a chronological tie-breaker.
+        query += " ORDER BY entity_id ASC, observed_at ASC, agent_run_id ASC, version_id ASC"
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=params)
 
@@ -3388,7 +3391,7 @@ class SQLiteStore:
         query = (
             "SELECT * FROM entity_identity_versions WHERE "
             + " AND ".join(clauses)
-            + " ORDER BY entity_id ASC, observed_at DESC, version_id DESC"
+            + " ORDER BY entity_id ASC, observed_at DESC, agent_run_id DESC, version_id DESC"
         )
         with self._connect() as conn:
             return pd.read_sql_query(query, conn, params=tuple(params))

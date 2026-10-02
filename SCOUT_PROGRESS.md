@@ -1,5 +1,20 @@
 # Průběh implementace pátracích agentů
 
+## Deterministické pořadí identity na Windows (2. 10. 2026)
+
+Opakovaný GitHub Windows běh na commitu `aaa5197` spustil všech 518 testů
+a doběhl bez předchozích SQLite lock chyb. Odhalil jediný další rozdíl:
+dva po sobě uložené identity reporty mohou mít na Windows stejný timestamp.
+Čtecí dotaz pak používal obsahový hash `version_id` jako tie-breaker a
+vrátil starou/novou identitu v náhodném chronologickém pořadí.
+
+Pořadí verzí a as-of čtení nyní při shodném čase používá perzistentní
+monotónní `agent_run_id`; hash zůstává až posledním stabilním tie-breakerem.
+Nový regresní test nastaví oběma reportům záměrně stejný čas a ověří AAPL →
+APPL podle skutečného pořadí zápisu. Nejde o změnu identity, historie ani
+skóre. Oprava musí projít novým GitHub Windows během; uživatelský koncový
+Windows běh a plné akceptace zůstávají otevřené.
+
 ## DOJ leads a Windows SQLite životní cyklus (2. 10. 2026)
 
 Přibyl samostatný omezený sběrač oficiálních tiskových zpráv DOJ. Dotazuje
