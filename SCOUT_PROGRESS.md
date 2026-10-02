@@ -10,9 +10,17 @@ listu a odpovídající issuer/instrument/CUSIP z konkrétního Schedule 13G.
 Citace, pole a čas znalosti jsou v
 `evidence/sec13f_identity_expansion2_20261002.json`.
 
+Navazující GitHub `windows-latest` job `110945954943` na commitu
+`b112003c` dokončil **527/527** testů bez selhání, chyb a přeskočení;
+workflow `37039539524` i deterministic release gate prošly. Stažený artifact
+`11242338229` obsahoval log a strojový JSON a jeho SHA-256 odpovídal
+hodnotě z upload logu. Přesný výsledek je v
+`evidence/sec13f_identity_expansion2_tests_20261002.json`.
+
 Registr dál není plné pokrytí, živý ZIP běh ani rekonstrukce amendments a
 nemění skóre. Na tomto hostu stále chybí deklarovaný SEC User-Agent; skutečný
-uživatelský Windows end-to-end běh a historická evaluace také chybí.
+uživatelský Windows end-to-end běh a historická evaluace také chybí. Tento
+hostovaný CI běh je jen kontrola kompatibility, nikoli koncová akceptace.
 Institucionální specialista proto zůstává PILOT/PENDING a inventář 0/21 DONE.
 
 ## SEC 13F — pět přesně citovaných instrumentů (2. 10. 2026)

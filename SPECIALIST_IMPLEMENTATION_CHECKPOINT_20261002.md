@@ -137,8 +137,12 @@ nikoli živý 13F ZIP nebo uživatelský end-to-end běh.
 Po druhém identity rozšíření na deset instrumentů prošly cílené kontroly
 **21/21** a úplná místní sada znovu **527/527**. Kompilace i
 `git diff --check` prošly; otisky a časy jsou v
-`evidence/sec13f_identity_expansion2_tests_20261002.json`. Windows CI pro
-tento nový commit, živý 13F ZIP a historická evaluace zatím nejsou důkazem.
+`evidence/sec13f_identity_expansion2_tests_20261002.json`. Navazující
+hostovaný Windows job `110945954943` na commitu `b112003c` prošel stejných
+**527/527**, workflow `37039539524` i release gate uspěly a stažený artifact
+`11242338229` měl ověřený obsah a SHA-256. Jde o kompatibilitu na hostovaném
+runneru; živý 13F ZIP, uživatelský Windows end-to-end a historická evaluace
+zatím nejsou důkazem.
 
 ## Co zůstává otevřené
 
