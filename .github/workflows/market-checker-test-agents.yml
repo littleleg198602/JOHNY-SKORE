@@ -69,7 +69,10 @@ jobs:
   windows-agent:
     name: Windows contracts, persistence and UI
     runs-on: windows-latest
-    timeout-minutes: 15
+    # A complete run currently needs about 12.5 minutes after dependency
+    # setup on hosted Windows. Keep a bounded allowance for runner variance;
+    # cancellation is not a passing result and the release gate still fails.
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

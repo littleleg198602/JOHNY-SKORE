@@ -1,5 +1,17 @@
 # Průběh implementace pátracích agentů
 
+## Windows sada — zachovaný plný scope, opravený časový limit (2. 10. 2026)
+
+Běh na commitu `58990b3` nehlásil testovací chybu, ale GitHub jej zrušil
+po dosažení 15minutového limitu během pozdní části plné sady. Předchozí
+Windows běh potřeboval samotných 747 sekund na 518 testů; instalace a setup
+se počítají do stejného job limitu. Nejde tedy o doklad průchodu.
+
+Windows job má nyní pevný limit 25 minut. Rozsah 519 testů, ukládání logu,
+JSON výsledek i release gate zůstávají beze změny; timeout či zrušení stále
+znamená failure. Nový běh musí dokončit celou sadu. Toto je CI kompatibilita,
+nikoli skutečný koncový běh na uživatelově Windows počítači.
+
 ## Deterministické pořadí identity na Windows (2. 10. 2026)
 
 Opakovaný GitHub Windows běh na commitu `aaa5197` spustil všech 518 testů

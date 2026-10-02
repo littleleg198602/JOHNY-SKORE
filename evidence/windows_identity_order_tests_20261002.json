@@ -33,7 +33,11 @@
     "primary_order": ["entity_id", "observed_at", "agent_run_id"],
     "hash_role": "final stable tie-breaker only",
     "forced_equal_timestamp_regression_test": true,
-    "new_windows_ci_result": "PENDING",
+    "new_windows_ci_result": "CANCELLED_AT_15_MINUTE_JOB_LIMIT_WITHOUT_RECORDED_TEST_FAILURE",
+    "new_windows_workflow_run_id": 36986283137,
+    "new_windows_job_id": 110771947339,
+    "last_completed_test_before_cancellation": "test_retry_after_header_is_honored_and_bounded",
+    "timeout_change": "bounded job timeout raised from 15 to 25 minutes; test scope and release-gate requirements unchanged",
     "actual_user_windows_end_to_end": "NOT_RUN",
     "scoring_changed": false
   },

@@ -65,6 +65,11 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   dvě identity verze se shodným timestampem byly řazené podle hash ID.
   Čtení nyní při shodném čase používá monotónní `agent_run_id`; nový test
   přesně reprodukuje Windows podmínku. Nový Windows CI průchod je otevřený.
+- Běh s opravou na `58990b3` neměl zaznamenanou testovací chybu, ale byl
+  zrušen 15minutovým job limitem v pozdní části celé sady. Předchozí samotná
+  sada trvala 747 sekund; setup a instalace jsou ve stejném limitu. Windows
+  job má proto pevně 25 minut. Test scope, artefakty a release gate zůstávají
+  stejné a timeout není úspěch. Nový úplný Windows průchod je otevřený.
 
 ## Ověření
 

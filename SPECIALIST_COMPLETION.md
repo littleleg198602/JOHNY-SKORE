@@ -6,6 +6,12 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Windows běh na `58990b3` byl bez zaznamenané testovací chyby zrušen pevně
+po 15 minutách ještě před dokončením sady. Samotných 518 testů v předchozím
+běhu trvalo 747 sekund a setup/instalace se počítají do limitu. Job proto
+dostal stále omezených 25 minut; plný test scope a release gate se
+nezmenšují a timeout nadále selže. Nový úplný průchod je povinný.
+
 Windows CI na commitu `aaa5197` dokončilo 518 testů bez předchozích SQLite
 lock chyb, ale našlo jediný deterministický problém: dvě identity verze se
 shodným timestampem byly sekundárně řazené podle obsahového hashe. Čtení
