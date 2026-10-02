@@ -1,5 +1,18 @@
 # Průběh implementace pátracích agentů
 
+## Windows CI — úplná deterministická sada prošla (2. 10. 2026)
+
+Na commitu `2945cc9` dokončil GitHub `windows-latest` job 519/519 testů
+za 709,826 sekundy bez selhání a chyb; prošel i společný deterministic
+release gate. Workflow run `36995388024`, job `110800809096` uložil log
+a JSON jako artifact `11222061817`. Tím je doložená Windows kompatibilita
+SQLite lifecycle i deterministického pořadí identity při shodném čase.
+
+Tento CI runner není skutečný koncový běh na uživatelově Windows počítači,
+neprovedl živé zdroje v plném relevantním scope a nedokládá historické
+out-of-sample vyhodnocení. Proto nemění žádný specialista na DONE/VERIFIED;
+inventář zůstává 0/21.
+
 ## Windows sada — zachovaný plný scope, opravený časový limit (2. 10. 2026)
 
 Běh na commitu `58990b3` nehlásil testovací chybu, ale GitHub jej zrušil
@@ -9,8 +22,8 @@ se počítají do stejného job limitu. Nejde tedy o doklad průchodu.
 
 Windows job má nyní pevný limit 25 minut. Rozsah 519 testů, ukládání logu,
 JSON výsledek i release gate zůstávají beze změny; timeout či zrušení stále
-znamená failure. Nový běh musí dokončit celou sadu. Toto je CI kompatibilita,
-nikoli skutečný koncový běh na uživatelově Windows počítači.
+znamená failure. Navazující běh `36995388024` celou sadu dokončil. Toto je
+CI kompatibilita, nikoli skutečný koncový běh na uživatelově Windows počítači.
 
 ## Deterministické pořadí identity na Windows (2. 10. 2026)
 
@@ -24,8 +37,8 @@ Pořadí verzí a as-of čtení nyní při shodném čase používá perzistentn
 monotónní `agent_run_id`; hash zůstává až posledním stabilním tie-breakerem.
 Nový regresní test nastaví oběma reportům záměrně stejný čas a ověří AAPL →
 APPL podle skutečného pořadí zápisu. Nejde o změnu identity, historie ani
-skóre. Oprava musí projít novým GitHub Windows během; uživatelský koncový
-Windows běh a plné akceptace zůstávají otevřené.
+skóre. Oprava prošla celou GitHub Windows sadou na `2945cc9`; uživatelský
+koncový Windows běh a plné akceptace zůstávají otevřené.
 
 ## DOJ leads a Windows SQLite životní cyklus (2. 10. 2026)
 

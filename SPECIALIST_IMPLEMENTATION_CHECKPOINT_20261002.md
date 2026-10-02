@@ -69,7 +69,13 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   zrušen 15minutovým job limitem v pozdní části celé sady. Předchozí samotná
   sada trvala 747 sekund; setup a instalace jsou ve stejném limitu. Windows
   job má proto pevně 25 minut. Test scope, artefakty a release gate zůstávají
-  stejné a timeout není úspěch. Nový úplný Windows průchod je otevřený.
+  stejné a timeout není úspěch.
+- Navazující GitHub `windows-latest` běh na `2945cc9` dokončil **519/519**
+  testů za 709,826 sekundy bez selhání a chyb. Workflow `36995388024`,
+  job `110800809096` uložil log i JSON jako artifact `11222061817`; prošel
+  také společný deterministic release gate. Tím je uzavřená tato CI
+  regresní kontrola SQLite handles a identity order. Není to skutečný
+  uživatelský Windows end-to-end běh ani živá akceptace zdrojů.
 
 ## Ověření
 
@@ -82,6 +88,8 @@ v `evidence/windows_identity_order_tests_20261002.json`. Kompilace a
 `git diff --check`
 prošly. Před během byly nainstalovány uložené requirements a constraints;
 první diagnostika s chybějícími závislostmi se nepočítá jako průchod.
+Hostovaný Windows průchod navíc dokončil stejných 519 testů; inventář se
+tím nemění, protože chybí koncový živý běh a ostatní akceptační důkazy.
 
 ## Co zůstává otevřené
 

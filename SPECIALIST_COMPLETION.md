@@ -6,17 +6,27 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+GitHub Windows CI na commitu `2945cc9` nyní dokončilo všech 519 testů
+bez selhání nebo chyb (workflow `36995388024`, job `110800809096`) a prošel
+i společný release gate. Log a JSON jsou uložené v artifactu `11222061817`;
+strojový souhrn je také v
+`evidence/windows_identity_order_tests_20261002.json`. Jde o ověření
+kompatibility na hostovaném runneru, nikoli koncový živý běh na uživatelově
+Windows počítači, coverage 687 tickerů nebo historickou evaluaci. Stav
+0/21 DONE se proto nemění.
+
 Windows běh na `58990b3` byl bez zaznamenané testovací chyby zrušen pevně
 po 15 minutách ještě před dokončením sady. Samotných 518 testů v předchozím
 běhu trvalo 747 sekund a setup/instalace se počítají do limitu. Job proto
 dostal stále omezených 25 minut; plný test scope a release gate se
-nezmenšují a timeout nadále selže. Nový úplný průchod je povinný.
+nezmenšují a timeout nadále selže. Navazující úplný průchod na `2945cc9`
+prošel.
 
 Windows CI na commitu `aaa5197` dokončilo 518 testů bez předchozích SQLite
 lock chyb, ale našlo jediný deterministický problém: dvě identity verze se
 shodným timestampem byly sekundárně řazené podle obsahového hashe. Čtení
 nyní používá monotónní `agent_run_id`, tedy skutečné pořadí persistence;
-regresní test vynutí shodný čas. Nový Windows průchod zůstává povinný.
+regresní test vynutí shodný čas. Opravená sada prošla na `2945cc9`.
 
 Od 2. 10. je zapojen i omezený DOJ press-release title collector. Přesná
 slova názvu v titulku jsou pouze neověřený lead; publisher datum se nebere
@@ -30,8 +40,8 @@ SQLite file handles: Python context manager provedl transakci, ale spojení
 nezavřel, takže Windows nedokázal mazat dočasné databáze. Oprava zavírá
 spojení po commit/rollback ve všech pěti store a přidává přímé lifecycle
 testy. Nový deterministický runner průběžně uchovává traceback i JSON
-souhrn. Lokální sada má 518/518 PASS; nový Windows CI výsledek je povinný
-a nesmí být nahrazen lokálním Linux testem.
+souhrn. Tehdejší lokální sada měla 518/518 PASS; navazující opravy a nový
+regresní test mají úplný Windows výsledek 519/519 na `2945cc9`.
 
 Od 1. 10. lze ve stejné části UI stáhnout **provozní přehled specialistů**
 jako JSON: skutečné uložené běhy zdrojů, aktuální sektorové pokrytí,
