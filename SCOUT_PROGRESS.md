@@ -17,10 +17,19 @@ clean-host diagnostika s 22 importními chybami se nepočítá jako úspěch.
 Časy a otisky jsou v
 `evidence/sec13f_identity_expansion3_tests_20261002.json`.
 
+Navazující GitHub-hosted Windows retry job `111042792217` na commitu
+`01151de7` dokončil **528/528** testů bez selhání, chyb a přeskočení;
+workflow `37062619610` i deterministic release gate prošly. První pokus byl
+externě zrušen během sady a nepočítá se jako úspěch. Stažený artifact
+`11253952762` obsahoval úplný log a strojový JSON a jeho SHA-256 souhlasil
+s upload logem. Auditní záznam je v
+`evidence/sec13f_identity_expansion3_windows_tests_20261002.json`.
+
 Na hostu stále není deklarovaný SEC User-Agent, proto nebyl předstírán živý
 ZIP běh. Patnáct instrumentů není plné relevantní pokrytí, rekonstrukce
 amendments, uživatelský Windows end-to-end ani historická evaluace. Skóre
-se nemění; institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+se nemění; hostovaný Windows běh je jen kontrola kompatibility, institutions
+zůstává PILOT/PENDING a inventář 0/21 DONE.
 
 ## USAspending — NOC / Northrop Grumman Systems (2. 10. 2026)
 

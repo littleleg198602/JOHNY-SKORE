@@ -194,7 +194,8 @@
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
       "test_expansion2_evidence": "evidence/sec13f_identity_expansion2_tests_20261002.json",
       "identity_expansion3_evidence": "evidence/sec13f_identity_expansion3_20261002.json",
-      "test_expansion3_evidence": "evidence/sec13f_identity_expansion3_tests_20261002.json"
+      "test_expansion3_evidence": "evidence/sec13f_identity_expansion3_tests_20261002.json",
+      "windows_expansion3_evidence": "evidence/sec13f_identity_expansion3_windows_tests_20261002.json"
     },
     {
       "id": "consensus_options",

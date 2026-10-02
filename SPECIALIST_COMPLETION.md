@@ -11,8 +11,12 @@ kanonických instrumentů pro 2026 Q2. Přesné issuer CIK/CUSIP/název/třída
 z oficiálního listu jsou spojené s konkrétními Schedule 13G/13D; lokální
 sada prošla 528/528. Důkazy jsou v
 `evidence/sec13f_identity_expansion3_20261002.json` a
-`evidence/sec13f_identity_expansion3_tests_20261002.json`. Bez deklarovaného
-SEC User-Agent nevznikl live ZIP důkaz. Plné pokrytí, amendments, Windows
+`evidence/sec13f_identity_expansion3_tests_20261002.json`. Navazující
+GitHub-hosted Windows retry dokončil 528/528 a jeho stažený artifact byl
+obsahově i hashově ověřen v
+`evidence/sec13f_identity_expansion3_windows_tests_20261002.json`; první
+zrušený pokus se nepočítá jako úspěch. Bez deklarovaného SEC User-Agent
+nevznikl live ZIP důkaz. Plné pokrytí, amendments, uživatelský Windows
 end-to-end a historie zůstávají otevřené; stav je stále PILOT/PENDING.
 
 USAspending má druhou nezávisle doloženou vazbu: NOC → 100% dcera Northrop
