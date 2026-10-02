@@ -6,6 +6,13 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
 
 ## Dokončené změny
 
+- SEC 13F registry byl rozšířen z AAPL na pět přesně citovaných 2026 Q2
+  instrumentů: AAPL, MSFT, NVDA, AMZN a META. Záznam vyžaduje platný CUSIP
+  check digit, desetimístný issuer CIK, shodu issuer name i security class,
+  čtvrtletní efektivní okno a knowledge time. Evidence odkazuje jen na
+  oficiální SEC 13F list, Schedule 13G a ticker/CIK publikaci. Chybějící
+  deklarovaný SEC User-Agent na tomto hostu se nezastupuje vymyšlenou
+  kontaktní identitou, takže live ZIP akceptace zůstává otevřená.
 - Zachována a ověřena rozpracovaná mapování RF a WAL včetně zachycených
   skutečných odpovědí a testů znalostního času. Jejich starší důkazy
   `fdic_rf_wal_identity_20261001.json` a `fdic_rf_wal_live_20261001.json`
@@ -114,6 +121,10 @@ průchod ani historickou evaluaci.
 Po opravě nově pozorované Windows hranice času prošla sada **525/525**;
 místně i na hostovaném GitHub Windows runneru. Hostovaný CI výsledek
 nenahrazuje skutečný koncový běh na uživatelově Windows počítači.
+Po rozšíření 13F identity registru a dvou fail-closed regresích prošla nová
+úplná místní sada **527/527** bez selhání, chyb a přeskočení. Kompilace a
+`git diff --check` prošly; strojový výsledek a otisky jsou v
+`evidence/sec13f_identity_tests_20261002.json`.
 
 ## Co zůstává otevřené
 
@@ -122,7 +133,9 @@ Inventář nadále poctivě uvádí **0/21 úplných provozních akceptací**.
 Bankovní financials nejsou automaticky konsolidované výkazy emitenta.
 
 Další proveditelná práce: datované EPA facility-owner, FDA/CMS/ClinicalTrials
-entity a produkty, další UEI/CUSIP a relevantní sektorové vazby.
+entity a produkty, další UEI/CUSIP a relevantní sektorové vazby. U 13F
+zbývá živý oficiální ZIP s deklarovaným SEC kontaktem, rekonstrukce amendments,
+měřené relevantní coverage a historická dostupnost.
 Konkrétní zbývající úkol každého specialisty je v inventáři a předchozím
 checkpointu. FINRA/FRED/EIA a SEC kontakt na tomto hostu chybějí;
 licencované konsensus/options/Level 2 a alternativní zdroje nemají

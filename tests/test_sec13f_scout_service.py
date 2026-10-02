@@ -15,7 +15,7 @@ from market_checker_app.storage.scout_store import ScoutStore
 NOW = datetime(2026, 9, 30, 21, tzinfo=timezone.utc)
 URL = "https://www.sec.gov/files/datastandardsinnovation/data/form-13f-data-sets/01jun2026-31aug2026_form13f.zip"
 SECURITY = {
-    "ticker": "AAPL", "cusip": "037833100", "issuer_name": "APPLE INC",
+    "ticker": "AAPL", "issuer_cik": "0000320193", "cusip": "037833100", "issuer_name": "APPLE INC",
     "class_description": "COM",
     "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
     "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000630/xslSCHEDULE_13G_X02/primary_doc.xml",
@@ -58,6 +58,20 @@ class FakeClient:
 
 
 class Sec13fTests(unittest.TestCase):
+    def test_production_manifest_has_five_cited_canonical_instruments(self):
+        securities = load_verified_securities()
+        self.assertEqual(
+            {
+                ("AAPL", "0000320193", "037833100", "COM"),
+                ("MSFT", "0000789019", "594918104", "COM"),
+                ("NVDA", "0001045810", "67066G104", "COM"),
+                ("AMZN", "0001018724", "023135106", "COM"),
+                ("META", "0001326801", "30303M102", "CL A"),
+            },
+            {(entry["ticker"], entry["issuer_cik"], entry["cusip"],
+              entry["class_description"]) for entry in securities},
+        )
+
     def test_bounded_dated_ingest_and_no_repeat_download(self):
         with TemporaryDirectory() as directory:
             path = Path(directory) / "securities.json"
@@ -93,6 +107,24 @@ class Sec13fTests(unittest.TestCase):
                                      content_hash="x", title="13F", source_url="https://example.org/filing",
                                      locator="x", published_at=NOW, available_at=NOW,
                                      observed_at=NOW, details={})
+
+    def test_bad_cusip_check_digit_and_wrong_dataset_class_fail_closed(self):
+        with TemporaryDirectory() as directory:
+            bad_path = Path(directory) / "bad.json"
+            bad_path.write_text(json.dumps([dict(SECURITY, cusip="037833101")]), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "canonical ticker and CUSIP"):
+                load_verified_securities(bad_path)
+
+            class_path = Path(directory) / "class.json"
+            class_path.write_text(
+                json.dumps([dict(SECURITY, class_description="CL A")]), encoding="utf-8"
+            )
+            store = ScoutStore(Path(directory) / "class.db")
+            result = Sec13fScoutService(
+                store, client=FakeClient(), securities=load_verified_securities(class_path)
+            ).run(as_of=NOW, universe={"AAPL"})
+            self.assertEqual(0, result["new_findings"])
+            self.assertEqual(0, result["matched_rows"])
 
 
 if __name__ == "__main__":

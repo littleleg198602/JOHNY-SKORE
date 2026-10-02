@@ -1,6 +1,7 @@
 [
   {
     "ticker": "AAPL",
+    "issuer_cik": "0000320193",
     "cusip": "037833100",
     "issuer_name": "APPLE INC",
     "class_description": "COM",
@@ -10,5 +11,57 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-09-30T20:15:51+00:00"
+  },
+  {
+    "ticker": "MSFT",
+    "issuer_cik": "0000789019",
+    "cusip": "594918104",
+    "issuer_name": "MICROSOFT CORP",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/789019/000010290926001884/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T14:32:20.379409+00:00"
+  },
+  {
+    "ticker": "NVDA",
+    "issuer_cik": "0001045810",
+    "cusip": "67066G104",
+    "issuer_name": "NVIDIA CORPORATION",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1045810/000210011926000017/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T14:32:20.379409+00:00"
+  },
+  {
+    "ticker": "AMZN",
+    "issuer_cik": "0001018724",
+    "cusip": "023135106",
+    "issuer_name": "AMAZON COM INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1018724/000210011926000133/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T14:32:20.379409+00:00"
+  },
+  {
+    "ticker": "META",
+    "issuer_cik": "0001326801",
+    "cusip": "30303M102",
+    "issuer_name": "META PLATFORMS INC",
+    "class_description": "CL A",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1326801/000031506626002069/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T14:32:20.379409+00:00"
   }
 ]

@@ -1,5 +1,23 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — pět přesně citovaných instrumentů (2. 10. 2026)
+
+Omezený 13F registr už není jen AAPL: pro čtvrtletí 2026 Q2 nyní obsahuje
+také MSFT, NVDA, AMZN a META. Každý z pěti záznamů má kanonický ticker,
+desetimístný issuer CIK, devítimístný CUSIP, třídu instrumentu, hranice
+čtvrtletí, čas znalosti a odkazy na oficiální SEC 13F securities list,
+Schedule 13G a ticker/CIK publikaci. Konkrétní pole a omezení jsou v
+`evidence/sec13f_identity_expansion_20261002.json`.
+
+Loader nově ověřuje CUSIP check digit a issuer CIK. Řádek z 13F datasetu se
+uloží jen při shodě CUSIP, normalizovaného názvu emitenta i třídy cenného
+papíru; issuer CIK se zachová v detailu nálezu. Místní úplná sada po změně
+prošla **527/527** testů. Na tomto hostu chybí deklarovaný SEC User-Agent,
+proto nebyl předstírán živý ZIP běh. Pět identit není coverage 687 tickerů,
+nezahrnuje 13F amendments ani historickou corporate-action kontinuitu a
+nemění skóre. Institucionální specialista zůstává PILOT/PENDING a inventář
+0/21 DONE.
+
 ## Windows čas znalosti — oprava prošla celou sadou (2. 10. 2026)
 
 Commit `9d83c221` prošel na GitHub `windows-latest` celou deterministickou

@@ -22,6 +22,23 @@ DEFAULT_SECURITIES = Path(__file__).resolve().parents[1] / "data" / "verified_13
 MAX_ZIP_BYTES = 150_000_000
 
 
+def _valid_cusip(value: str) -> bool:
+    """Validate the standard ninth-character CUSIP check digit."""
+    if not re.fullmatch(r"[A-Z0-9]{8}[0-9]", value):
+        return False
+    total = 0
+    for index, character in enumerate(value[:8], start=1):
+        number = int(character) if character.isdigit() else ord(character) - ord("A") + 10
+        if index % 2 == 0:
+            number *= 2
+        total += number // 10 + number % 10
+    return (10 - total % 10) % 10 == int(value[-1])
+
+
+def _security_label(value: str) -> str:
+    return re.sub(r"[^A-Z0-9]", "", value.upper())
+
+
 def _official_zip_url(url: str) -> str:
     parsed = urlsplit(public_https_reference(url))
     if (parsed.hostname != "www.sec.gov" or parsed.port not in {None, 443}
@@ -79,8 +96,10 @@ def load_verified_securities(path: Path = DEFAULT_SECURITIES) -> list[dict]:
             raise ValueError("13F security must be an object")
         ticker, cusip = entry.get("ticker"), entry.get("cusip")
         if (not isinstance(ticker, str) or not re.fullmatch(r"[A-Z][A-Z0-9.-]{0,12}", ticker)
-                or not isinstance(cusip, str) or not re.fullmatch(r"[A-Z0-9]{9}", cusip)):
+                or not isinstance(cusip, str) or not _valid_cusip(cusip)):
             raise ValueError("13F security requires canonical ticker and CUSIP")
+        if not isinstance(entry.get("issuer_cik"), str) or not re.fullmatch(r"[0-9]{10}", entry["issuer_cik"]):
+            raise ValueError("13F security requires a ten-digit issuer CIK")
         start, end = date.fromisoformat(entry["effective_from"]), date.fromisoformat(entry["effective_to"])
         known = datetime.fromisoformat(entry["known_at"])
         if end < start or known.tzinfo is None or known.utcoffset() is None:
@@ -172,7 +191,9 @@ class Sec13fScoutService:
                     for entry in by_cusip[row["CUSIP"]]:
                         if not (entry["effective_from"] <= filing[2].isoformat() <= entry["effective_to"]):
                             continue
-                        if re.sub(r"[^A-Z0-9]", "", row["NAMEOFISSUER"].upper()) != re.sub(r"[^A-Z0-9]", "", entry["issuer_name"].upper()):
+                        if _security_label(row["NAMEOFISSUER"]) != _security_label(entry["issuer_name"]):
+                            continue
+                        if _security_label(row["TITLEOFCLASS"]) != _security_label(entry["class_description"]):
                             continue
                         try:
                             value, shares = int(row["VALUE"]), int(row["SSHPRNAMT"])
@@ -195,7 +216,8 @@ class Sec13fScoutService:
                 filing_url = (f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/"
                               f"{accession.replace('-', '')}/{accession}-index.htm")
                 details = {"stage": "13f_ordinary_share_holding", "manager_cik": cik,
-                           "cusip": entry["cusip"], "security_class": entry["class_description"],
+                           "issuer_cik": entry["issuer_cik"], "cusip": entry["cusip"],
+                           "security_class": entry["class_description"],
                            "filing_date": filed.isoformat(), "period_of_report": period.isoformat(),
                            "as_filed_value_usd": value, "reported_shares": int(row["SSHPRNAMT"]),
                            "information_table_key": row["INFOTABLE_SK"],

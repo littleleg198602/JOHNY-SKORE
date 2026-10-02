@@ -180,7 +180,9 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Expand exact CUSIP registry beyond AAPL; interpret 13F amendments, coverage and live SEC ZIP."
+      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry now covers AAPL, MSFT, NVDA, AMZN and META with check-digit and dataset-name/class validation. Remaining: declared SEC User-Agent live ZIP run, 13F amendment reconstruction, wider dated instrument/corporate-action coverage, Windows acceptance and historical evaluation.",
+      "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
+      "test_evidence": "evidence/sec13f_identity_tests_20261002.json"
     },
     {
       "id": "consensus_options",

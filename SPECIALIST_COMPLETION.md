@@ -6,6 +6,17 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+SEC 13F instrument registry nyní obsahuje pět kanonických tickerů pro
+2026 Q2: AAPL, MSFT, NVDA, AMZN a META. Přibyly přesné CUSIP/issuer CIK/
+třída záznamy s oficiálním 13F listem, Schedule 13G, ticker/CIK zdrojem,
+efektivním čtvrtletím a časem znalosti. CUSIP check digit, issuer name a
+security class se validují fail-closed. Důkaz je v
+`evidence/sec13f_identity_expansion_20261002.json`, úplná místní sada
+527/527 v `evidence/sec13f_identity_tests_20261002.json`. Chybějící
+deklarovaný SEC User-Agent znamená, že nevznikl falešný live ZIP důkaz.
+Amendments, plné relevantní coverage, Windows end-to-end a historie
+zůstávají otevřené; institutions je stále PILOT/PENDING.
+
 GitHub Windows CI na opravném commitu `9d83c221` dokončilo všech **525**
 testů bez selhání, chyb a přeskočení za 758,382 sekundy. Workflow
 `37012267755`, job `110854588580` a artifact `11228802805` doplňují
