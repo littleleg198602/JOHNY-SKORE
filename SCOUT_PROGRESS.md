@@ -1,5 +1,20 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — deset přesně citovaných instrumentů (2. 10. 2026)
+
+Omezený registr byl rozšířen o GOOGL, TSLA, AVGO, AMD a JPM. Spolu s
+předchozími AAPL, MSFT, NVDA, AMZN a META nyní obsahuje deset kanonických
+tickerů ze vstupu 687. Každý nový záznam spojuje ticker a issuer CIK z
+oficiální SEC publikace, přesný CUSIP/název/třídu z 2026 Q2 13F securities
+listu a odpovídající issuer/instrument/CUSIP z konkrétního Schedule 13G.
+Citace, pole a čas znalosti jsou v
+`evidence/sec13f_identity_expansion2_20261002.json`.
+
+Registr dál není plné pokrytí, živý ZIP běh ani rekonstrukce amendments a
+nemění skóre. Na tomto hostu stále chybí deklarovaný SEC User-Agent; skutečný
+uživatelský Windows end-to-end běh a historická evaluace také chybí.
+Institucionální specialista proto zůstává PILOT/PENDING a inventář 0/21 DONE.
+
 ## SEC 13F — pět přesně citovaných instrumentů (2. 10. 2026)
 
 Omezený 13F registr už není jen AAPL: pro čtvrtletí 2026 Q2 nyní obsahuje

@@ -63,5 +63,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-02T14:32:20.379409+00:00"
+  },
+  {
+    "ticker": "GOOGL",
+    "issuer_cik": "0001652044",
+    "cusip": "02079K305",
+    "issuer_name": "ALPHABET INC",
+    "class_description": "CAP STK CL A",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1652044/000210011926000161/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T17:07:55.189175+00:00"
+  },
+  {
+    "ticker": "TSLA",
+    "issuer_cik": "0001318605",
+    "cusip": "88160R101",
+    "issuer_name": "TESLA INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1318605/000210011926001134/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T17:07:55.189175+00:00"
+  },
+  {
+    "ticker": "AVGO",
+    "issuer_cik": "0001730168",
+    "cusip": "11135F101",
+    "issuer_name": "BROADCOM INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1730168/000010290926000847/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T17:07:55.189175+00:00"
+  },
+  {
+    "ticker": "AMD",
+    "issuer_cik": "0000002488",
+    "cusip": "007903107",
+    "issuer_name": "ADVANCED MICRO DEVICES INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2488/000210011926000052/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T17:07:55.189175+00:00"
+  },
+  {
+    "ticker": "JPM",
+    "issuer_cik": "0000019617",
+    "cusip": "46625H100",
+    "issuer_name": "JPMORGAN CHASE & CO",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/19617/000210011926000693/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T17:07:55.189175+00:00"
   }
 ]

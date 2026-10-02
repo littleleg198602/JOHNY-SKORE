@@ -11,7 +11,8 @@ SEC 13F instrument registry nyní obsahuje pět kanonických tickerů pro
 třída záznamy s oficiálním 13F listem, Schedule 13G, ticker/CIK zdrojem,
 efektivním čtvrtletím a časem znalosti. CUSIP check digit, issuer name a
 security class se validují fail-closed. Důkaz je v
-`evidence/sec13f_identity_expansion_20261002.json`, úplná místní sada
+`evidence/sec13f_identity_expansion_20261002.json` a navazující rozšíření
+na deset instrumentů v `evidence/sec13f_identity_expansion2_20261002.json`, úplná místní sada
 527/527 v `evidence/sec13f_identity_tests_20261002.json`. Stejných 527
 testů prošlo i na hostovaném GitHub Windows runneru (workflow
 `37021509189`, job `110885473281`, artifact `11234027903`) včetně release

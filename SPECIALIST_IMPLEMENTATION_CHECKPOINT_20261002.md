@@ -6,6 +6,11 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
 
 ## Dokončené změny
 
+- Druhý SEC 13F identity krok přidal GOOGL, TSLA, AVGO, AMD a JPM. Registr
+  tak obsahuje deset kanonických tickerů z archivu 687, s přesným issuer CIK,
+  CUSIP, názvem a třídou pro 2026 Q2 a s konkrétním Schedule 13G pro každý
+  nový instrument. Nejde o plnou coverage, živý ZIP běh, amendments ani
+  historickou evaluaci; stav institutions zůstává PILOT/PENDING.
 - SEC 13F registry byl rozšířen z AAPL na pět přesně citovaných 2026 Q2
   instrumentů: AAPL, MSFT, NVDA, AMZN a META. Záznam vyžaduje platný CUSIP
   check digit, desetimístný issuer CIK, shodu issuer name i security class,
@@ -129,6 +134,11 @@ Po rozšíření 13F identity registru a dvou fail-closed regresích prošla nov
 za 684,297 sekundy (workflow `37021509189`, job `110885473281`, artifact
 `11234027903`) a release gate prošel. Je to Windows kompatibilita kódu,
 nikoli živý 13F ZIP nebo uživatelský end-to-end běh.
+Po druhém identity rozšíření na deset instrumentů prošly cílené kontroly
+**21/21** a úplná místní sada znovu **527/527**. Kompilace i
+`git diff --check` prošly; otisky a časy jsou v
+`evidence/sec13f_identity_expansion2_tests_20261002.json`. Windows CI pro
+tento nový commit, živý 13F ZIP a historická evaluace zatím nejsou důkazem.
 
 ## Co zůstává otevřené
 
