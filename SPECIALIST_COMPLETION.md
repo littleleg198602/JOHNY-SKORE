@@ -6,6 +6,14 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+EPA ECHO je nově zapojené jako omezený exact-name facility lead pro 104
+tickerů z pěti relevantních profilů. FRS ID je identita zařízení, ne důkaz
+datovaného vlastnictví emitentem, úplné skupiny nebo ekologické odpovědnosti.
+Živý publisher smoke má přesný DOW INC i absent-name případ v
+`evidence/epa_echo_live_20261002.json`; 524/524 místních testů je v
+`evidence/epa_echo_tests_20261002.json`. Regulační specialista tím není
+DONE/VERIFIED a celkový stav zůstává 0/21.
+
 GitHub Windows CI na commitu `2945cc9` nyní dokončilo všech 519 testů
 bez selhání nebo chyb (workflow `36995388024`, job `110800809096`) a prošel
 i společný release gate. Log a JSON jsou uložené v artifactu `11222061817`;

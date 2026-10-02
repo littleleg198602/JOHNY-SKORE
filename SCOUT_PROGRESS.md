@@ -1,5 +1,23 @@
 # Průběh implementace pátracích agentů
 
+## EPA ECHO — omezené facility-name leads (2. 10. 2026)
+
+Nový veřejný EPA ECHO sběr dotazuje jen 104 kanonických tickerů z profilů
+CHEMICALS, METALS, INDUSTRIAL, HOME a PACKAGING, nejvýše deset emitentů
+za běh. Každý požadavek má 20sekundový timeout a 2MB limit; celý běh má
+60 sekund a končí po třech chybách. Volné výsledky oficiálního exact-name
+filtru jsou ještě jednou lokálně filtrovány přes přesnou normalizovanou
+shodu. Truncovaný či odmítnutý payload zůstává PARTIAL a opakuje se po dni.
+
+FRS Registry ID dokládá jen identitu facility z publisher datasetu. Shoda
+názvu není datovaný vztah zařízení k emitentovi, úplnost skupiny, ekologická
+odpovědnost ani dopad do skóre. Sběr je v runneru, source policy, perzistenci,
+coverage diagnostice a UI. Živý bounded smoke ověřil jeden přesný DOW INC
+záznam a nulový výsledek umělého jména; obsah a hash odpovědí jsou v
+`evidence/epa_echo_live_20261002.json`. Celá sada po instalaci deklarovaných
+závislostí prošla 524/524; důkaz je v `evidence/epa_echo_tests_20261002.json`.
+Regulační specialista zůstává PARTIAL/PENDING a inventář 0/21 DONE.
+
 ## Windows CI — úplná deterministická sada prošla (2. 10. 2026)
 
 Na commitu `2945cc9` dokončil GitHub `windows-latest` job 519/519 testů

@@ -23,6 +23,8 @@ from market_checker_app.services.ofac_scout_service import (
     OfacSdnClient, OfacSdnScoutService, OfacConsolidatedClient, OfacConsolidatedScoutService,
 )
 from market_checker_app.services.doj_scout_service import DojPressReleaseClient, DojPressReleaseScoutService
+from market_checker_app.services.epa_echo_scout_service import EpaEchoFacilityClient, EpaEchoScoutService
+from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.services.fdic_bank_scout_service import (
     FdicBankFindClient, FdicBankScoutService, load_verified_banks,
     DEFAULT_IDENTITIES as FDIC_IDENTITIES,
@@ -199,6 +201,15 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
     except Exception as exc:
         doj = {"status": "ERROR", "error": type(exc).__name__}
     doj = recorded("doj", doj)
+    profiles = load_research_profiles()
+    epa_subjects = {ticker for ticker, profile in profiles.by_ticker.items()
+                    if profile.code in {"CHEMICALS", "METALS", "INDUSTRIAL", "HOME", "PACKAGING"}}
+    try:
+        epa = EpaEchoScoutService(store, client=EpaEchoFacilityClient()).run(
+            as_of=now, universe={record["ticker"] for record in records} & epa_subjects)
+    except Exception as exc:
+        epa = {"status":"ERROR", "error":type(exc).__name__}
+    epa = recorded("epa", epa)
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
@@ -212,6 +223,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             "ofac_sdn_candidates": ofac,
             "ofac_non_sdn_candidates": non_sdn,
             "doj_press_release_candidates": doj,
+            "epa_echo_facility_candidates": epa,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

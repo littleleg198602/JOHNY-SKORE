@@ -2242,6 +2242,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         "ofac": "OFAC SDN shody jmen",
         "ofac_non_sdn": "OFAC Non-SDN shody jmen",
         "doj": "DOJ tiskové zprávy",
+        "epa": "EPA ECHO zařízení",
     }
     st.write("**Poslední běh pátracích zdrojů**")
     st.dataframe(pd.DataFrame([
@@ -2265,6 +2266,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     coverage_subjects = {
         "cms": {t for t, p in coverage_profiles.by_ticker.items() if p.code == "HEALTH_SERVICES"},
         "clinicaltrials": {t for t, p in coverage_profiles.by_ticker.items() if p.code in {"PHARMA", "MEDTECH"}},
+        "epa": {t for t, p in coverage_profiles.by_ticker.items()
+                if p.code in {"CHEMICALS", "METALS", "INDUSTRIAL", "HOME", "PACKAGING"}},
     }
     st.write("**Kumulativní pokrytí dávkových specialistů**")
     st.dataframe(pd.DataFrame([
@@ -2275,7 +2278,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
          "Čeká / zastaralo": coverage["not_current"],
          "Někdy zkontrolováno": coverage["ever_checked"]}
         for source, interval in (("fda", 30), ("finra", 15), ("cms", 30),
-                                 ("clinicaltrials", 30), ("ofac", 1), ("ofac_non_sdn", 1), ("doj", 30))
+                                 ("clinicaltrials", 30), ("ofac", 1), ("ofac_non_sdn", 1), ("doj", 30), ("epa", 30))
         for coverage in [scout_store.specialist_coverage(
             source, as_of=coverage_time, refresh_days=interval,
             subjects=coverage_subjects.get(source))]
@@ -2283,7 +2286,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     st.caption("Jmenovatelem jsou jen již pozorované aktivní SEC identity, nikoli automaticky všech 687 tickerů. "
                "Při limitu stránek jde o částečnou kontrolu; ta se zkusí znovu po dni. "
                "CMS a ClinicalTrials počítají jen příslušné sektorové profily. "
-               "FDA/CMS/ClinicalTrials se obnovují po 30 dnech, FINRA po 15 dnech a OFAC po dni.")
+               "FDA/CMS/ClinicalTrials/EPA se obnovují po 30 dnech, FINRA po 15 dnech a OFAC po dni.")
     scout_rows = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=50, source="sec",
     )
@@ -2341,7 +2344,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
                           ("clinicaltrials", "ClinicalTrials studie"),
                           ("ofac", "OFAC SDN"),
                           ("ofac_non_sdn", "OFAC Non-SDN"),
-                          ("doj", "DOJ tiskové zprávy")):
+                          ("doj", "DOJ tiskové zprávy"),
+                          ("epa", "EPA ECHO zařízení")):
         healthcare_rows = scout_store.latest_findings(
             watchlist, as_of=datetime.now(timezone.utc), limit=30, source=source)
         if healthcare_rows:
@@ -2356,6 +2360,9 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
             if source == "doj":
                 st.caption("Hledání přesného názvu v titulcích DOJ. Nález nepotvrzuje právní odpovědnost firmy; "
                            "prázdný výsledek nedokládá kontrolu všech řízení a firemních značek.")
+            if source == "epa":
+                st.caption("Přesná shoda názvu zařízení je pouze lead. Nedokládá vlastnictví zařízení, "
+                           "úplnost skupiny, ekologickou odpovědnost ani dopad na emitenta.")
             st.dataframe(pd.DataFrame(healthcare_rows), hide_index=True)
     energy_rows = scout_store.latest_findings(
         ["COMMODITY:WTI", "COMMODITY:JET_FUEL_GULF"],

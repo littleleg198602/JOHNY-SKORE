@@ -54,6 +54,11 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   vydavatele je oddělené od prvního pozorování; shoda nezakládá identitu,
   odpovědnost, úplnost právních událostí ani skóre. Skutečné pozitivní a
   absent-title případy jsou v `evidence/doj_live_20261002.json`.
+- EPA ECHO collector vytváří jen přesné facility-name leads pro 104 tickerů
+  pěti relevantních profilů. Má deset emitentů, 60 sekund, tři chyby,
+  20sekundový request timeout a 2MB odpověď. FRS ID dokládá zařízení, nikoli
+  jeho vztah k emitentovi, úplnost skupiny nebo odpovědnost. DOW INC a
+  absent-name publisher smoke jsou v `evidence/epa_echo_live_20261002.json`.
 - První Windows CI na commitu `714bb97` skončilo timeoutem po řadě chyb při
   práci s dočasnými SQLite databázemi. Vlastní `sqlite3.Connection` context
   manager spojení nezavírá. Pět aplikačních store proto používá closing
@@ -90,6 +95,10 @@ prošly. Před během byly nainstalovány uložené requirements a constraints;
 první diagnostika s chybějícími závislostmi se nepočítá jako průchod.
 Hostovaný Windows průchod navíc dokončil stejných 519 testů; inventář se
 tím nemění, protože chybí koncový živý běh a ostatní akceptační důkazy.
+Po EPA inkrementu prošla rozšířená místní sada **524/524** bez chyb,
+selhání a přeskočení; targeted EPA/acceptance sada má 20 PASS. Otisky a
+časy jsou v `evidence/epa_echo_tests_20261002.json`. Nejde o nový Windows
+průchod ani historickou evaluaci.
 
 ## Co zůstává otevřené
 
@@ -97,7 +106,7 @@ Inventář nadále poctivě uvádí **0/21 úplných provozních akceptací**.
 22 bankovních mapování nejsou 22 specialisté ani úplnost bankovních skupin.
 Bankovní financials nejsou automaticky konsolidované výkazy emitenta.
 
-Další proveditelná práce: EPA, datované FDA/CMS/ClinicalTrials
+Další proveditelná práce: datované EPA facility-owner, FDA/CMS/ClinicalTrials
 entity a produkty, další UEI/CUSIP a relevantní sektorové vazby.
 Konkrétní zbývající úkol každého specialisty je v inventáři a předchozím
 checkpointu. FINRA/FRED/EIA a SEC kontakt na tomto hostu chybějí;

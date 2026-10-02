@@ -43,12 +43,13 @@
       "research": "07",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "NHTSA, separate OFAC SDN/Non-SDN primary+alias collection and a bounded DOJ press-release title collector are implemented. DOJ leads retain publisher time separately from first observation and never establish issuer identity or liability. Remaining: dated vehicle/product/subsidiary identities, weak aliases/ownership analysis, EPA, measured relevant live coverage and historical evaluation.",
+      "next": "NHTSA, separate OFAC SDN/Non-SDN, bounded DOJ title leads and bounded EPA ECHO exact facility-name leads are implemented. EPA facility identity never establishes issuer ownership, group completeness or liability. Remaining: dated vehicle/product/subsidiary/facility ownership identities, weak aliases/ownership analysis, measured relevant live coverage and historical evaluation.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json",
       "ofac_alias_source_smoke_evidence": "evidence/ofac_alias_live_20261001.json",
       "ofac_non_sdn_source_smoke_evidence": "evidence/ofac_non_sdn_live_20261002.json",
-      "doj_source_smoke_evidence": "evidence/doj_live_20261002.json"
+      "doj_source_smoke_evidence": "evidence/doj_live_20261002.json",
+      "epa_source_smoke_evidence": "evidence/epa_echo_live_20261002.json"
     },
     {
       "id": "suppliers",

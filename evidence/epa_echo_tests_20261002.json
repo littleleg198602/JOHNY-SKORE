@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-02T11:51:10.249557+00:00",
+  "ended_at": "2026-10-02T11:52:45.334667+00:00",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "python_version": "3.12.14",
+  "discovered_tests": 524,
+  "tests_run": 524,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "successful": true,
+  "targeted_epa_and_acceptance_tests": 20,
+  "compileall": "PASS",
+  "git_diff_check": "PASS",
+  "first_full_attempt": "NOT_COUNTED_MISSING_DECLARED_DEPENDENCIES",
+  "file_sha256": {
+    "market_checker_app/services/epa_echo_scout_service.py": "bd98299c5cc659e897599e2350dc19d819ec690946c473602f8d63a24723358d",
+    "tests/test_epa_echo_scout_service.py": "9b06c8466082b2747a995088bdae3e183ed47ac5756538408c2b78c1eacde065",
+    "market_checker_app/storage/scout_store.py": "78a33e9a3886eecf0ea3bf007ef1f325ae8254e615d35abf50a37677214a9b2a",
+    "market_checker_app/scout_runner.py": "832f6b5d7d215696878b00c82538c4789499abce69ee6040c2f38f6ca528c7b0",
+    "market_checker_app/services/specialist_acceptance_service.py": "88d34d4e9d4daf286693f07d587b86df006fbf9a0013531264d296088634f364",
+    "market_checker_app/app.py": "25a2990c636fdb982f9e04c15eca6051cb879348363d35c9703098c3618eab05"
+  }
+}

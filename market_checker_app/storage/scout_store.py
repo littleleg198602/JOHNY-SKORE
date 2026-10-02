@@ -262,7 +262,7 @@ class ScoutStore:
     def record_source_run(self, source: str, *, as_of: datetime,
                           summary: dict[str, object]) -> None:
         allowed = {"sec", "fred", "eia", "usaspending", "recipient_discovery",
-                   "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj"}
+                   "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"}
         if source not in allowed or not isinstance(summary, dict):
             raise ValueError("Unknown scout source run")
         status = summary.get("status")
@@ -360,7 +360,7 @@ class ScoutStore:
 
     def specialist_due(self, source: str, *, as_of: datetime, limit: int,
                        refresh_days: int = 30) -> list[dict[str, str]]:
-        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj"} or limit < 1 or refresh_days < 1:
+        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"} or limit < 1 or refresh_days < 1:
             raise ValueError("Unsupported specialist check configuration")
         cutoff = _utc(as_of - timedelta(days=refresh_days))
         partial_cutoff = _utc(as_of - timedelta(days=1))
@@ -373,7 +373,7 @@ class ScoutStore:
                   ON c.source=? AND c.subject_id=i.subject_id
                  AND c.identity_key=i.cik || ':' || i.company_name ||
                      CASE ? WHEN 'ofac' THEN ':sdn-alt-v1' WHEN 'ofac_non_sdn' THEN ':non-sdn-alt-v1'
-                            WHEN 'doj' THEN ':title-name-v1' ELSE '' END
+                            WHEN 'doj' THEN ':title-name-v1' WHEN 'epa' THEN ':echo-exact-name-v1' ELSE '' END
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
                   AND (c.checked_at IS NULL OR c.checked_at<=?
                        OR (c.truncated=1 AND c.checked_at<=?))
@@ -390,7 +390,7 @@ class ScoutStore:
         An incomplete paginated result remains partial even when it was checked
         recently. Historical checks for a different identity key do not count.
         """
-        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj"} or refresh_days < 1:
+        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"} or refresh_days < 1:
             raise ValueError("Unsupported specialist coverage")
         clock = _utc(as_of)
         cutoff = _utc(as_of - timedelta(days=refresh_days))
@@ -411,7 +411,7 @@ class ScoutStore:
                   ON c.source=? AND c.subject_id=i.subject_id
                  AND c.identity_key=i.cik || ':' || i.company_name ||
                      CASE ? WHEN 'ofac' THEN ':sdn-alt-v1' WHEN 'ofac_non_sdn' THEN ':non-sdn-alt-v1'
-                            WHEN 'doj' THEN ':title-name-v1' ELSE '' END
+                            WHEN 'doj' THEN ':title-name-v1' WHEN 'epa' THEN ':echo-exact-name-v1' ELSE '' END
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
             """ + scope, (cutoff, cutoff, source, source, clock, *selected)).fetchone()
         active = int(row["active"])
@@ -424,7 +424,7 @@ class ScoutStore:
     def record_specialist_check(self, source: str, *, subject_id: str,
                                 identity_key: str, as_of: datetime,
                                 candidate_count: int, truncated: bool) -> None:
-        if source not in {"fda", "finra", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj"} or candidate_count < 0:
+        if source not in {"fda", "finra", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"} or candidate_count < 0:
             raise ValueError("Invalid specialist check")
         # A legacy primary-name-only OFAC check cannot satisfy ALT coverage.
         # Preserve old history and make each upgraded identity immediately due.
@@ -434,6 +434,8 @@ class ScoutStore:
             identity_key += ":non-sdn-alt-v1"
         if source == "doj":
             identity_key += ":title-name-v1"
+        if source == "epa":
+            identity_key += ":echo-exact-name-v1"
         with self._connect() as conn:
             conn.execute("""
                 INSERT INTO scout_specialist_checks
@@ -934,7 +936,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -1007,6 +1009,12 @@ class ScoutStore:
                 raise ValueError("DOJ candidate must cite its official press release")
             if verification_status != "UNVERIFIED":
                 raise ValueError("DOJ name candidates cannot verify issuer identity or liability")
+        if source == "epa":
+            if (parsed.hostname != "echodata.epa.gov" or parsed.port not in {None, 443}
+                    or parsed.path != "/echo/echo_rest_services.get_facility_info"):
+                raise ValueError("EPA ECHO candidate must cite its official facility endpoint")
+            if verification_status != "UNVERIFIED":
+                raise ValueError("EPA facility-name candidates cannot verify issuer ownership or liability")
         published = _utc(published_at)
         available = _utc(available_at)
         observed = _utc(observed_at)
