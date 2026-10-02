@@ -219,8 +219,9 @@
       "research": "27",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Portable runtime export measures archive integrity, scoped identities, source states and partial coverage without accepting completion. Evidence references are now content-read, schema/path checked and SHA-256 recorded; DONE/VERIFIED fails closed unless six explicit semantic acceptance assertions are true. Remaining: prove attempted/usable/failed semantics for every provider and independently verify each claim.",
-      "evidence_content_audit": "evidence/specialist_evidence_content_audit_tests_20261003.json"
+      "next": "Portable runtime export measures archive integrity, scoped identities, source states and partial coverage without accepting completion. Evidence references are content-read, schema/path checked and SHA-256 recorded; DONE/VERIFIED fails closed unless six explicit semantic acceptance assertions are true. The gate passed 531/531 on GitHub-hosted Windows, which is compatibility only. Remaining: actual user Windows end-to-end and proof of attempted/usable/failed semantics for every provider plus independent claim verification.",
+      "evidence_content_audit": "evidence/specialist_evidence_content_audit_tests_20261003.json",
+      "evidence_content_audit_hosted_windows_evidence": "evidence/specialist_evidence_content_audit_windows_20261003.json"
     },
     {
       "id": "evaluation",
