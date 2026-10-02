@@ -9,5 +9,16 @@
     "effective_from": "2015-11-06",
     "effective_to": null,
     "known_at": "2026-09-30T12:15:48+00:00"
+  },
+  {
+    "ticker": "NOC",
+    "uei": "LCV2N9FVV739",
+    "recipient_name": "NORTHROP GRUMMAN SYSTEMS CORPORATION",
+    "uei_evidence_url": "https://www.usaspending.gov/award/CONT_AWD_SPE4A525F6417_9700_SPE4A122G0004_9700",
+    "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/1133421/000113342126000003/noc-12312025xex21.htm",
+    "continuity_evidence_url": "https://www.sec.gov/Archives/edgar/data/1133421/000113342126000003/0001133421-26-000003-index.html",
+    "effective_from": "2025-12-31",
+    "effective_to": null,
+    "known_at": "2026-10-02T19:04:36.156823+00:00"
   }
 ]

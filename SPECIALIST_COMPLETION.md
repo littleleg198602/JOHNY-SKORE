@@ -6,6 +6,17 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+USAspending má druhou nezávisle doloženou vazbu: NOC → 100% dcera Northrop
+Grumman Systems Corporation → UEI `LCV2N9FVV739`, účinnou od 31. 12. 2025
+a známou až od 2. 10. 2026. Jednostránkový živý běh uložil devět eligible
+awardů a zůstal PARTIAL, protože API hlásilo další stránku; replay nepřidal
+duplicity a absent-UEI kontrola vrátila nulu. Důkazy jsou v
+`evidence/usaspending_noc_identity_20261002.json` a
+`evidence/usaspending_noc_live_20261002.json`. Cílená sada prošla 25/25 a
+celá místní deterministická sada 528/528; přesné časy, otisky a clean-host
+diagnostika jsou v `evidence/usaspending_noc_tests_20261002.json`. Dva piloty nejsou úplná
+coverage, modification historie, Windows end-to-end ani historická evaluace.
+
 SEC 13F instrument registry nyní obsahuje deset kanonických tickerů pro
 2026 Q2: AAPL, MSFT, NVDA, AMZN, META, GOOGL, TSLA, AVGO, AMD a JPM.
 Přesné CUSIP/issuer CIK/třída záznamy mají oficiální 13F list, Schedule 13G,

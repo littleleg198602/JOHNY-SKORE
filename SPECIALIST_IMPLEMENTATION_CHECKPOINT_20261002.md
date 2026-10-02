@@ -6,6 +6,14 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
 
 ## Dokončené změny
 
+- USAspending registr přidal NOC → 100% dceru Northrop Grumman Systems
+  Corporation → UEI `LCV2N9FVV739`. Doložené období začíná 31. 12. 2025;
+  starší vztah se neodvozuje. Omezená jedna stránka uložila devět eligible
+  awardů, zůstala PARTIAL kvůli další stránce, replay nepřidal duplicity a
+  absent-UEI kontrola vrátila nulu. Findings nyní zachovávají vztahové
+  effective-from/to i knowledge time. Cílená sada prošla 25/25 a celá místní
+  deterministická sada 528/528; test evidence zachovává i první clean-host
+  diagnostiku chybějících závislostí. Je to druhý pilot, ne úplná coverage.
 - Druhý SEC 13F identity krok přidal GOOGL, TSLA, AVGO, AMD a JPM. Registr
   tak obsahuje deset kanonických tickerů z archivu 687, s přesným issuer CIK,
   CUSIP, názvem a třídou pro 2026 Q2 a s konkrétním Schedule 13G pro každý

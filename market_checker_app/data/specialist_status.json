@@ -34,8 +34,11 @@
       "research": "06, 15",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "USAspending Sikorsky exact-UEI collection and duplicate replay pass live bounded checks. Expand dated ticker-subsidiary-UEI evidence beyond the single pilot, obtain modification history and full applicable coverage, then SAM.gov with access.",
-      "source_smoke_evidence": "evidence/usaspending_live_20261001.json"
+      "next": "USAspending now has two independently dated ticker-subsidiary-UEI mappings: LMT/Sikorsky and NOC/Northrop Grumman Systems. The bounded NOC run stored nine eligible awards, stayed PARTIAL at the one-page cap and replayed without duplicates. Expand beyond two pilots, obtain modification history and full applicable coverage, then SAM.gov with access.",
+      "source_smoke_evidence": "evidence/usaspending_live_20261001.json",
+      "noc_identity_evidence": "evidence/usaspending_noc_identity_20261002.json",
+      "noc_source_smoke_evidence": "evidence/usaspending_noc_live_20261002.json",
+      "noc_test_evidence": "evidence/usaspending_noc_tests_20261002.json"
     },
     {
       "id": "regulatory",
@@ -163,8 +166,11 @@
       "research": "sector AEROSPACE/DEFENSE_IT",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "The Sikorsky UEI pilot has live award/recipient evidence. Expand verified identities and dated program relationships beyond it; Windows, sector coverage and historical evaluation remain.",
-      "source_smoke_evidence": "evidence/usaspending_live_20261001.json"
+      "next": "Sikorsky/LMT and Northrop Grumman Systems/NOC now have exact dated subsidiary/UEI evidence and bounded live award checks. Expand verified identities and dated program relationships beyond two pilots; Windows, sector coverage and historical evaluation remain.",
+      "source_smoke_evidence": "evidence/usaspending_live_20261001.json",
+      "noc_identity_evidence": "evidence/usaspending_noc_identity_20261002.json",
+      "noc_source_smoke_evidence": "evidence/usaspending_noc_live_20261002.json",
+      "noc_test_evidence": "evidence/usaspending_noc_tests_20261002.json"
     },
     {
       "id": "sector_other",

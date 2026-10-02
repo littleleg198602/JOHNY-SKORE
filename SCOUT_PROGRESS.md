@@ -1,5 +1,33 @@
 # Průběh implementace pátracích agentů
 
+## USAspending — NOC / Northrop Grumman Systems (2. 10. 2026)
+
+Registr vládních kontraktů byl rozšířen z jediného LMT/Sikorsky pilotu o
+NOC → Northrop Grumman Systems Corporation → UEI `LCV2N9FVV739`. Aktuální
+SEC 10-K dokládá NOC, common stock a CIK 0001133421; Exhibit 21 dokládá
+Northrop Grumman Systems jako 100% dceru k 31. 12. 2025. Oficiální
+USAspending award dokládá přesný název příjemce, UEI a parent recipient.
+Citace, filing publication time, čas znalosti a omezení jsou v
+`evidence/usaspending_noc_identity_20261002.json`.
+
+Omezený živý běh použil jednu stránku po 100 řádcích. Po odmítnutí awardů
+před doloženou vztahovou hranicí uložil devět nálezů; protože API hlásilo
+další stránku, stav zůstal poctivě PARTIAL. Síťový replay nepřidal duplicity
+a syntetický absent-UEI dotaz vrátil nulu. Hash odpovědí, přesné award ID
+a request budget jsou v `evidence/usaspending_noc_live_20261002.json`.
+Nálezy nově zachovávají relationship effective-from/to vedle knowledge time.
+Nový captured-payload test ověřuje přesné NOC scope, vztahovou hranici,
+knowledge time a odmítnutí cizího tickeru. Cílená sada prošla 25/25 a po
+doinstalování připnutých runtime závislostí celá místní deterministická sada
+**528/528** bez selhání, chyb a přeskočení. První clean-host diagnostika s
+22 chybějícími importy se nepočítá jako úspěch; časy, otisky a omezení jsou
+v `evidence/usaspending_noc_tests_20261002.json`.
+
+Jde o druhý pilot, ne kompletní recipient/subsidiary nebo modification
+historii, relevantní coverage, uživatelský Windows end-to-end či historické
+vyhodnocení. Contracts i aerospace zůstávají PARTIAL/PENDING a inventář
+0/21 DONE; skóre ani obchodování se nemění.
+
 ## SEC 13F — deset přesně citovaných instrumentů (2. 10. 2026)
 
 Omezený registr byl rozšířen o GOOGL, TSLA, AVGO, AMD a JPM. Spolu s
