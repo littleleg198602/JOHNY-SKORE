@@ -188,11 +188,13 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry now covers ten canonical instruments: AAPL, MSFT, NVDA, AMZN, META, GOOGL, TSLA, AVGO, AMD and JPM, with check-digit and dataset-name/class validation. Remaining: declared SEC User-Agent live ZIP run, 13F amendment reconstruction, wider dated instrument/corporate-action coverage, Windows acceptance and historical evaluation.",
+      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry now covers fifteen canonical instruments: AAPL, MSFT, NVDA, AMZN, META, GOOGL, TSLA, AVGO, AMD, JPM, V, MA, JNJ, XOM and WMT, with check-digit and dataset-name/class validation. Remaining: declared SEC User-Agent live ZIP run, 13F amendment reconstruction, wider dated instrument/corporate-action coverage, Windows acceptance and historical evaluation.",
       "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
       "test_evidence": "evidence/sec13f_identity_tests_20261002.json",
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
-      "test_expansion2_evidence": "evidence/sec13f_identity_expansion2_tests_20261002.json"
+      "test_expansion2_evidence": "evidence/sec13f_identity_expansion2_tests_20261002.json",
+      "identity_expansion3_evidence": "evidence/sec13f_identity_expansion3_20261002.json",
+      "test_expansion3_evidence": "evidence/sec13f_identity_expansion3_tests_20261002.json"
     },
     {
       "id": "consensus_options",

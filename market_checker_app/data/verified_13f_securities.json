@@ -128,5 +128,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-02T17:07:55.189175+00:00"
+  },
+  {
+    "ticker": "V",
+    "issuer_cik": "0001403161",
+    "cusip": "92826C839",
+    "issuer_name": "VISA INC",
+    "class_description": "COM CL A",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1403161/000010290926002577/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T20:39:10.301926+00:00"
+  },
+  {
+    "ticker": "MA",
+    "issuer_cik": "0001141391",
+    "cusip": "57636Q104",
+    "issuer_name": "MASTERCARD INCORPORATED",
+    "class_description": "CL A",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1141391/000200639726000007/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T20:39:10.301926+00:00"
+  },
+  {
+    "ticker": "JNJ",
+    "issuer_cik": "0000200406",
+    "cusip": "478160104",
+    "issuer_name": "JOHNSON & JOHNSON",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000380/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T20:39:10.301926+00:00"
+  },
+  {
+    "ticker": "XOM",
+    "issuer_cik": "0000034088",
+    "cusip": "30231G102",
+    "issuer_name": "EXXON MOBIL CORP",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T20:39:10.301926+00:00"
+  },
+  {
+    "ticker": "WMT",
+    "issuer_cik": "0000104169",
+    "cusip": "931142103",
+    "issuer_name": "WALMART INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/104169/000114036126007628/xslSCHEDULE_13D_X01/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-02T20:39:10.301926+00:00"
   }
 ]

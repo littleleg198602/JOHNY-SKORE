@@ -6,6 +6,12 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
 
 ## Dokončené změny
 
+- Třetí SEC 13F identity krok přidal V, MA, JNJ, XOM a WMT. Registr nyní
+  obsahuje patnáct kanonických 2026 Q2 instrumentů s přesným issuer CIK,
+  checksum-valid CUSIP, názvem/třídou z oficiálního listu a konkrétním
+  Schedule 13G/13D. Cílená sada prošla 21/21 a celá místní sada 528/528.
+  Bez deklarovaného SEC User-Agent nebyl předstírán live ZIP běh; plné
+  pokrytí, amendments, Windows a historická evaluace zůstávají otevřené.
 - USAspending registr přidal NOC → 100% dceru Northrop Grumman Systems
   Corporation → UEI `LCV2N9FVV739`. Doložené období začíná 31. 12. 2025;
   starší vztah se neodvozuje. Omezená jedna stránka uložila devět eligible

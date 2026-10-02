@@ -1,5 +1,27 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — patnáct přesně citovaných instrumentů (2. 10. 2026)
+
+Registr 2026 Q2 byl rozšířen o V, MA, JNJ, XOM a WMT. Všech pět je v
+kanonickém vstupu 687; každý záznam má přesný ticker/issuer CIK, CUSIP,
+název a třídu z oficiálního SEC 13F securities listu a konkrétní Schedule
+13G/13D, které potvrzuje stejný instrument. Citace, locatory, event date,
+čas znalosti a omezení jsou v
+`evidence/sec13f_identity_expansion3_20261002.json`.
+
+Produkční test nyní vyžaduje přesně všech patnáct schválených identit;
+CUSIP check digit a fail-closed shoda názvu/třídy zůstávají zachované.
+Cílená sada prošla 21/21 a po instalaci připnutých závislostí celá místní
+deterministická sada **528/528** bez selhání, chyb a přeskočení. První
+clean-host diagnostika s 22 importními chybami se nepočítá jako úspěch.
+Časy a otisky jsou v
+`evidence/sec13f_identity_expansion3_tests_20261002.json`.
+
+Na hostu stále není deklarovaný SEC User-Agent, proto nebyl předstírán živý
+ZIP běh. Patnáct instrumentů není plné relevantní pokrytí, rekonstrukce
+amendments, uživatelský Windows end-to-end ani historická evaluace. Skóre
+se nemění; institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+
 ## USAspending — NOC / Northrop Grumman Systems (2. 10. 2026)
 
 Registr vládních kontraktů byl rozšířen z jediného LMT/Sikorsky pilotu o

@@ -6,6 +6,15 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+SEC 13F registry byl dále rozšířen o V, MA, JNJ, XOM a WMT, tedy na patnáct
+kanonických instrumentů pro 2026 Q2. Přesné issuer CIK/CUSIP/název/třída
+z oficiálního listu jsou spojené s konkrétními Schedule 13G/13D; lokální
+sada prošla 528/528. Důkazy jsou v
+`evidence/sec13f_identity_expansion3_20261002.json` a
+`evidence/sec13f_identity_expansion3_tests_20261002.json`. Bez deklarovaného
+SEC User-Agent nevznikl live ZIP důkaz. Plné pokrytí, amendments, Windows
+end-to-end a historie zůstávají otevřené; stav je stále PILOT/PENDING.
+
 USAspending má druhou nezávisle doloženou vazbu: NOC → 100% dcera Northrop
 Grumman Systems Corporation → UEI `LCV2N9FVV739`, účinnou od 31. 12. 2025
 a známou až od 2. 10. 2026. Jednostránkový živý běh uložil devět eligible

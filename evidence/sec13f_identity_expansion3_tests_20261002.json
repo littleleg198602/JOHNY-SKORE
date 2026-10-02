@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "evidence_type": "deterministic_test_run",
+  "subject": "Third SEC 13F identity expansion to fifteen canonical instruments",
+  "run": {
+    "started_at": "2026-10-02T20:42:00.247461+00:00",
+    "ended_at": "2026-10-02T20:43:33.392963+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 528,
+    "tests_run": 528,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "targeted_run": {
+    "tests_run": 21,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "modules": [
+      "tests.test_sec13f_scout_service",
+      "tests.test_specialist_status",
+      "tests.test_specialist_acceptance_service"
+    ]
+  },
+  "additional_checks": {
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "json_validation": "PASS"
+  },
+  "sha256": {
+    "market_checker_app/data/verified_13f_securities.json": "b1a2d995542be2c9a0c8cfc34344b30a219cf19c44e8ed03e1ec106b111876df",
+    "tests/test_sec13f_scout_service.py": "1a58307d41880c5a139f21d6ac25d5331911e447eb5b776cb1ce464e63e20dae",
+    "evidence/sec13f_identity_expansion3_20261002.json": "e84ceb6e349f338207b784d5ba86e4bae3314d3566de534339a241615cf39395"
+  },
+  "diagnostic": "The first clean-host attempt discovered 424 runnable tests and 22 import errors because repository runtime dependencies were absent. It is retained as a diagnostic and is not counted as a passing run. After installing requirements under the repository constraints, the unchanged tested files passed the complete 528-test suite.",
+  "acceptance_limits": {
+    "hosted_windows_run": "PENDING",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}
