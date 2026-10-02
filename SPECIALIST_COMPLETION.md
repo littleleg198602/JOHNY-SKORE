@@ -12,8 +12,11 @@ třída záznamy s oficiálním 13F listem, Schedule 13G, ticker/CIK zdrojem,
 efektivním čtvrtletím a časem znalosti. CUSIP check digit, issuer name a
 security class se validují fail-closed. Důkaz je v
 `evidence/sec13f_identity_expansion_20261002.json`, úplná místní sada
-527/527 v `evidence/sec13f_identity_tests_20261002.json`. Chybějící
-deklarovaný SEC User-Agent znamená, že nevznikl falešný live ZIP důkaz.
+527/527 v `evidence/sec13f_identity_tests_20261002.json`. Stejných 527
+testů prošlo i na hostovaném GitHub Windows runneru (workflow
+`37021509189`, job `110885473281`, artifact `11234027903`) včetně release
+gate. Chybějící deklarovaný SEC User-Agent znamená, že nevznikl falešný
+live ZIP důkaz.
 Amendments, plné relevantní coverage, Windows end-to-end a historie
 zůstávají otevřené; institutions je stále PILOT/PENDING.
 

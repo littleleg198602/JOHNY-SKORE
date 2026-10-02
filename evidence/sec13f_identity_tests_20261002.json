@@ -23,6 +23,22 @@
       "tests.test_specialist_acceptance_service"
     ]
   },
+  "github_windows_verification": {
+    "commit": "991b0cb43684e799f43b31fd3c53bf60ff1f80d8",
+    "workflow_run_id": 37021509189,
+    "job_id": 110885473281,
+    "platform": "GitHub windows-latest / Python 3.12.10",
+    "tests_run": 527,
+    "duration_seconds": 684.297,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "PASS",
+    "artifact_id": 11234027903,
+    "artifact_sha256": "d5448855eef7fecdfe5da299996db76d4116b3f4f7242644a119fd808431dc22",
+    "release_gate": "PASS",
+    "actual_user_windows_end_to_end": "NOT_RUN"
+  },
   "compileall": "PASS",
   "git_diff_check": "PASS",
   "file_sha256": {

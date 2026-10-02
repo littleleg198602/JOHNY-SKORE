@@ -124,7 +124,11 @@ nenahrazuje skutečný koncový běh na uživatelově Windows počítači.
 Po rozšíření 13F identity registru a dvou fail-closed regresích prošla nová
 úplná místní sada **527/527** bez selhání, chyb a přeskočení. Kompilace a
 `git diff --check` prošly; strojový výsledek a otisky jsou v
-`evidence/sec13f_identity_tests_20261002.json`.
+`evidence/sec13f_identity_tests_20261002.json`. Navazující hostovaný
+`windows-latest` běh na commitu `991b0cb` dokončil stejných **527/527**
+za 684,297 sekundy (workflow `37021509189`, job `110885473281`, artifact
+`11234027903`) a release gate prošel. Je to Windows kompatibilita kódu,
+nikoli živý 13F ZIP nebo uživatelský end-to-end běh.
 
 ## Co zůstává otevřené
 

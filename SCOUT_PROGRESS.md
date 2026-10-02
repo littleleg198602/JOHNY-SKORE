@@ -11,9 +11,11 @@ Schedule 13G a ticker/CIK publikaci. Konkrétní pole a omezení jsou v
 
 Loader nově ověřuje CUSIP check digit a issuer CIK. Řádek z 13F datasetu se
 uloží jen při shodě CUSIP, normalizovaného názvu emitenta i třídy cenného
-papíru; issuer CIK se zachová v detailu nálezu. Místní úplná sada po změně
-prošla **527/527** testů. Na tomto hostu chybí deklarovaný SEC User-Agent,
-proto nebyl předstírán živý ZIP běh. Pět identit není coverage 687 tickerů,
+papíru; issuer CIK se zachová v detailu nálezu. Místní i navazující
+hostovaná GitHub Windows sada prošly **527/527** testů. Windows workflow
+`37021509189`, job `110885473281` uložil artifact `11234027903` a prošel
+i deterministic release gate. Na tomto hostu chybí deklarovaný SEC
+User-Agent, proto nebyl předstírán živý ZIP běh. Pět identit není coverage 687 tickerů,
 nezahrnuje 13F amendments ani historickou corporate-action kontinuitu a
 nemění skóre. Institucionální specialista zůstává PILOT/PENDING a inventář
 0/21 DONE.
