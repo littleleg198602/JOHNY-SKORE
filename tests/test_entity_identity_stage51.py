@@ -7,6 +7,7 @@ from contextlib import closing
 import tempfile
 import unittest
 from datetime import datetime, timezone
+from unittest.mock import patch
 
 from market_checker_app.agents import (
     AgentStatus,
@@ -89,6 +90,17 @@ class EntityIdentifierValidationTests(unittest.TestCase):
 
 
 class EntityRegistryStage51Tests(unittest.TestCase):
+    def test_equal_windows_clock_samples_keep_report_cutoffs_strictly_ordered(self) -> None:
+        frozen = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
+        with patch("market_checker_app.agents.contracts.datetime") as clock, \
+                patch("market_checker_app.agents.contracts._last_utc_now", None):
+            clock.now.return_value = frozen
+            first = _run_identity("AAPL", _identity())
+            second = _run_identity("APPL", _identity(ticker="APPL"))
+        self.assertLess(first.executions[0].finished_at, first.finished_at)
+        self.assertLess(first.finished_at, second.executions[0].finished_at)
+        self.assertLess(second.executions[0].finished_at, second.finished_at)
+
     def test_sourced_dated_alias_resolves_only_inside_its_window(self) -> None:
         identity = _identity()
         identity["dated_ticker_aliases"] = [{

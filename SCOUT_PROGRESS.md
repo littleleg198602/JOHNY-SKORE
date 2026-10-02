@@ -1,5 +1,22 @@
 # Průběh implementace pátracích agentů
 
+## Windows čas znalosti — monotónní hranice reportů (2. 10. 2026)
+
+Rozšířený Windows běh na commitu `20cdbd7` dokončil všech 524 testů, ale
+odhalil dvě selhání as-of pohledu identity. Windows vrátil shodný wall-clock
+čas nejen dvěma verzím, ale i konci prvního reportu a pozorování následujícího
+reportu. Dotaz s časem prvního reportu proto správně podle stejného timestampu
+viděl i pozdější zápis, a historický test ztratil hranici znalosti.
+
+Společný `utc_now` nyní pod procesním zámkem zachovává UTC wall clock, ale
+shodný nebo zpětný vzorek posune o jednu mikrosekundu. Konec reportu je tak
+striktně za jeho pozorováními a další report začíná až potom. Perzistentní
+`agent_run_id` zůstává druhou ochranou pořadí databázových verzí. Nový test
+vynutí konstantní Windows clock přes oba reporty; původní dvě regrese prošly
+pětkrát opakovaně. Celá místní sada má 525/525 PASS. Důkaz je v
+`evidence/windows_monotonic_clock_tests_20261002.json`. Nový GitHub Windows
+běh je povinný; nejde o uživatelský end-to-end běh ani dokončení specialisty.
+
 ## EPA ECHO — omezené facility-name leads (2. 10. 2026)
 
 Nový veřejný EPA ECHO sběr dotazuje jen 104 kanonických tickerů z profilů

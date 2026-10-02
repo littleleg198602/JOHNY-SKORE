@@ -52,6 +52,16 @@
     "actual_user_windows_end_to_end": "NOT_RUN",
     "scoring_changed": false
   },
+  "subsequent_regression": {
+    "commit": "20cdbd770ce5c68d65365ad7df75446b1e54a07a",
+    "workflow_run_id": 37003786748,
+    "job_id": 110827221952,
+    "tests_run": 524,
+    "failures": 2,
+    "cause": "equal Windows wall-clock samples crossed report boundaries, so a datetime-only first-report cutoff also admitted the next observation",
+    "follow_up_evidence": "evidence/windows_monotonic_clock_tests_20261002.json",
+    "new_windows_rerun_required": true
+  },
   "file_sha256": {
     "market_checker_app/storage/sqlite_store.py": "84a8a60e986e23ab09231a19037c14137d87afb5768e6fea61b6c121470dac08",
     "tests/test_entity_identity_stage51.py": "de2d593c3a8959ede8877e2ad17bc0c64a2dead3b190e9fc88ddac7078b7ea42"

@@ -1,14 +1,31 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from enum import Enum, IntEnum
 import math
+from threading import Lock
 from typing import Any
 
 
+_utc_now_lock = Lock()
+_last_utc_now: datetime | None = None
+
+
 def utc_now() -> datetime:
-    return datetime.now(timezone.utc)
+    """Return a process-monotonic UTC wall clock at datetime precision.
+
+    Windows may return the same wall-clock value for consecutive calls.  A
+    report cutoff must still sort after every observation created inside that
+    report, so advance equal/backward samples by one microsecond.
+    """
+    global _last_utc_now
+    sampled = datetime.now(timezone.utc)
+    with _utc_now_lock:
+        if _last_utc_now is not None and sampled <= _last_utc_now:
+            sampled = _last_utc_now + timedelta(microseconds=1)
+        _last_utc_now = sampled
+        return sampled
 
 
 def _bounded(value: float, low: float, high: float, label: str) -> float:

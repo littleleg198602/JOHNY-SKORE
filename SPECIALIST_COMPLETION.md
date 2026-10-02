@@ -6,6 +6,13 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Windows CI na `20cdbd7` nově odhalilo dvě as-of regrese při shodném
+wall-clock čase přes hranici dvou reportů. Procesní UTC clock nyní pod
+zámkem posune shodný/zpětný vzorek o mikrosekundu, takže report cutoff je
+striktně po vlastních pozorováních a před dalším během. Vynucený konstantní
+clock test i 525/525 místních testů prošly; nový Windows průchod je povinný.
+Důkaz je v `evidence/windows_monotonic_clock_tests_20261002.json`.
+
 EPA ECHO je nově zapojené jako omezený exact-name facility lead pro 104
 tickerů z pěti relevantních profilů. FRS ID je identita zařízení, ne důkaz
 datovaného vlastnictví emitentem, úplné skupiny nebo ekologické odpovědnosti.

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "observed_windows_regression": {
+    "commit": "20cdbd770ce5c68d65365ad7df75446b1e54a07a",
+    "workflow_run_id": 37003786748,
+    "job_id": 110827221952,
+    "platform": "GitHub windows-latest / Python 3.12.10",
+    "tests_run": 524,
+    "failures": 2,
+    "errors": 0,
+    "failed_tests": [
+      "test_identity_changes_are_versioned_without_losing_old_ticker",
+      "test_later_alias_correction_preserves_the_prior_known_snapshot"
+    ],
+    "cause": "Windows returned equal wall-clock samples across consecutive orchestration boundaries; the first report cutoff therefore also included the next report observation",
+    "artifact_id": 11226005220,
+    "release_gate": "FAIL"
+  },
+  "fix_contract": {
+    "clock": "process-monotonic UTC wall clock at datetime microsecond precision",
+    "equal_or_backward_sample": "advance the last emitted UTC value by one microsecond under a process lock",
+    "report_cutoff_after_contained_observations": true,
+    "persisted_agent_run_id_ordering_retained": true,
+    "forced_constant_windows_clock_regression_test": true,
+    "scoring_changed": false,
+    "actual_user_windows_end_to_end": "NOT_RUN"
+  },
+  "local_verification": {
+    "started_at": "2026-10-02T13:16:09.866863+00:00",
+    "ended_at": "2026-10-02T13:17:47.397623+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 525,
+    "tests_run": 525,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "targeted_entity_tests": 14,
+    "repeated_original_regressions": 5,
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "file_sha256": {
+    "market_checker_app/agents/contracts.py": "b46d98163eaf04f465fc930e98b4c4fdcc71e979364bc89ce069328a2841dd51",
+    "tests/test_entity_identity_stage51.py": "442dfb919568a29b2372de3ddab5c67fecd0103ac44571fe5c33c05a72b11f01",
+    "market_checker_app/storage/sqlite_store.py": "84a8a60e986e23ab09231a19037c14137d87afb5768e6fea61b6c121470dac08"
+  }
+}

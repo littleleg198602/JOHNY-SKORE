@@ -81,6 +81,13 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   také společný deterministic release gate. Tím je uzavřená tato CI
   regresní kontrola SQLite handles a identity order. Není to skutečný
   uživatelský Windows end-to-end běh ani živá akceptace zdrojů.
+- Rozšířený běh na `20cdbd7` spustil 524 testů a odhalil dvě další as-of
+  regrese: shodný Windows wall-clock čas překročil hranici reportů, takže
+  cutoff prvního reportu připustil i pozorování dalšího. Společný UTC clock
+  teď pod zámkem posune shodný/zpětný vzorek o mikrosekundu; vynucený
+  konstantní-clock test a 525/525 místních testů prošly. Nový Windows CI
+  výsledek zůstává povinný; podrobnosti jsou v
+  `evidence/windows_monotonic_clock_tests_20261002.json`.
 
 ## Ověření
 
@@ -99,6 +106,8 @@ Po EPA inkrementu prošla rozšířená místní sada **524/524** bez chyb,
 selhání a přeskočení; targeted EPA/acceptance sada má 20 PASS. Otisky a
 časy jsou v `evidence/epa_echo_tests_20261002.json`. Nejde o nový Windows
 průchod ani historickou evaluaci.
+Po opravě nově pozorované Windows hranice času prošla sada **525/525**;
+samotný místní Linux průchod nenahrazuje nový Windows výsledek.
 
 ## Co zůstává otevřené
 
