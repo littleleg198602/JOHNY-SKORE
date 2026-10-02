@@ -35,6 +35,18 @@ DIRECT_BANK_FILINGS = {
         "issuer_instrument_class": "common_stock",
         "issuer_instrument_symbol": "OZK",
     },
+    ("ZION", 2270): {
+        "issuer_name": "Zions Bancorporation, National Association",
+        "bank_name": "Zions Bancorporation, N.A.",
+        "issuer_cik": "0000109380",
+        "issuer_identity_publisher": "SEC",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/109380/000010938026000046/R1.htm",
+        "issuer_identity_as_of": "2025-12-31",
+        "issuer_identity_filing_date": "2026-02-24",
+        "issuer_filing_index_url": "https://www.sec.gov/Archives/edgar/data/109380/000010938026000046/0000109380-26-000046-index.htm",
+        "issuer_instrument_class": "common_stock",
+        "issuer_instrument_symbol": "ZION",
+    },
 }
 
 
@@ -138,8 +150,9 @@ def load_verified_banks(path: Path = DEFAULT_IDENTITIES) -> list[dict]:
         if direct:
             approved = DIRECT_BANK_FILINGS.get((ticker, cert))
             if (approved is None or any(entry.get(key) != value for key, value in approved.items())
-                    or entry["bank_name"] != approved["issuer_name"]
-                    or any(key in entry for key in ("issuer_cik", "relationship_evidence_url"))):
+                    or entry["bank_name"] != approved.get("bank_name", approved["issuer_name"])
+                    or "relationship_evidence_url" in entry
+                    or ("issuer_cik" in entry and "issuer_cik" not in approved)):
                 raise ValueError("Direct FDIC bank identity needs its reviewed exact issuer/CERT/common-stock filing")
             for key in ("issuer_identity_evidence_url", "issuer_filing_index_url"):
                 public_https_reference(entry[key])

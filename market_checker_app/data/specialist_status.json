@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-01",
+  "as_of": "2026-10-02",
   "scope": "687 US watchlist tickers; sector sources apply only to relevant companies",
   "completion_rule": "DONE requires implemented collection, dated issuer/instrument/product identity, positive and negative live evidence, Windows end-to-end run, measured applicable coverage and historical evaluation before any score change.",
   "specialists": [
@@ -43,10 +43,11 @@
       "research": "07",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "NHTSA pilot and OFAC SDN primary/ALT exact-name collection have live publisher evidence. Expand dated vehicle/product identities, weak aliases, Non-SDN/ownership analysis, DOJ and EPA; Windows, applicable coverage and historical evaluation remain.",
+      "next": "NHTSA and separate OFAC SDN/Non-SDN primary+alias collectors are implemented with exact-name candidates and independent coverage. Non-SDN program restrictions are retained and are not treated as SDN asset blocking. Remaining: dated vehicle/product and subsidiary identities, weak aliases/ownership analysis, DOJ/EPA, measured relevant live coverage and historical evaluation.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json",
-      "ofac_alias_source_smoke_evidence": "evidence/ofac_alias_live_20261001.json"
+      "ofac_alias_source_smoke_evidence": "evidence/ofac_alias_live_20261001.json",
+      "ofac_non_sdn_source_smoke_evidence": "evidence/ofac_non_sdn_live_20261002.json"
     },
     {
       "id": "suppliers",
@@ -86,7 +87,7 @@
       "research": "12",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Drug, device, food recall, CRL and ClinicalTrials sponsor/collaborator name collection have live publisher evidence. Dated product/application/sponsor-to-issuer proof, wider event coverage, Windows and historical evaluation remain.",
+      "next": "FDA drug/device/food recall and CRL, and ClinicalTrials collection are implemented. FDA has bounded body/time/failure budgets; endpoint 404 and rejected exact-firm rows cannot become complete negatives. Remaining: dated application/product/sponsor-to-issuer mappings, wider event coverage, measured Windows/live coverage and historical evaluation.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "clinicaltrials_source_smoke_evidence": "evidence/healthcare_live_20261001.json"
     },
@@ -104,7 +105,7 @@
       "research": "sector BANK",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Eighteen of 22 BANK-profile tickers are mapped: 17 through subsidiaries and OZK/CERT 110 through a separate validated direct-bank issuer identity. OZK requires the exact reviewed FDIC filing/common OZK instrument (preferred OZKAP excluded), identity as-of 2025-12-31, filing publication 2026-02-25 and knowledge time 2026-10-01; no SEC CIK or parent relationship inferred. Bounded live positive/replay/absent-CERT cases, persisted provenance/scope and non-resettable quota tests pass. FDIC bank reports are not issuer consolidated statements. MTB and CFR retain unknown relationship as-of separately from SEC publication floors; FHN external non-voting preferred interests remain qualified. Full groups and continuous ownership history are unverified. Remaining: PNFP/RF/WAL/ZION identities, relevant subsidiary groups and ownership changes, actual Windows end-to-end with measured applicable live coverage, historical availability and out-of-sample evaluation.",
+      "next": "All 22 BANK-profile tickers now have exact CERT mappings (20 subsidiaries, OZK and ZION direct issuers). PNFP uses successor CIK 0002082866 and a March 31, 2026 relationship floor; legacy CIK 0001115055 is not reused. RF/WAL, PNFP/ZION actual bounded positive/replay/absent-CERT evidence is saved. Remaining: relevant subsidiary groups and ownership changes, current instrument history, measured Windows end-to-end coverage and historical availability/out-of-sample evaluation. Mapping completeness is not runtime or full group completeness.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "expansion_identity_evidence": "evidence/fdic_expansion_identity_20261001.json",
       "expansion_source_smoke_evidence": "evidence/fdic_expansion_live_20261001.json",
@@ -131,7 +132,11 @@
       "ozk_identity_model_gap": "evidence/ozk_identity_model_gap_20261001.json",
       "ozk_identity_evidence": "evidence/fdic_ozk_identity_20261001.json",
       "ozk_source_smoke_evidence": "evidence/fdic_ozk_live_20261001.json",
-      "ozk_test_evidence": "evidence/fdic_ozk_tests_20261001.json"
+      "ozk_test_evidence": "evidence/fdic_ozk_tests_20261001.json",
+      "rf_wal_identity_evidence": "evidence/fdic_rf_wal_identity_20261001.json",
+      "rf_wal_source_smoke_evidence": "evidence/fdic_rf_wal_live_20261001.json",
+      "pnfp_zion_identity_evidence": "evidence/fdic_pnfp_zion_identity_20261002.json",
+      "pnfp_zion_source_smoke_evidence": "evidence/fdic_pnfp_zion_live_20261002.json"
     },
     {
       "id": "health_services",

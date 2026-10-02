@@ -260,7 +260,7 @@ class ScoutStore:
     def record_source_run(self, source: str, *, as_of: datetime,
                           summary: dict[str, object]) -> None:
         allowed = {"sec", "fred", "eia", "usaspending", "recipient_discovery",
-                   "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac"}
+                   "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn"}
         if source not in allowed or not isinstance(summary, dict):
             raise ValueError("Unknown scout source run")
         status = summary.get("status")
@@ -358,7 +358,7 @@ class ScoutStore:
 
     def specialist_due(self, source: str, *, as_of: datetime, limit: int,
                        refresh_days: int = 30) -> list[dict[str, str]]:
-        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac"} or limit < 1 or refresh_days < 1:
+        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn"} or limit < 1 or refresh_days < 1:
             raise ValueError("Unsupported specialist check configuration")
         cutoff = _utc(as_of - timedelta(days=refresh_days))
         partial_cutoff = _utc(as_of - timedelta(days=1))
@@ -370,7 +370,7 @@ class ScoutStore:
                 LEFT JOIN scout_specialist_checks AS c
                   ON c.source=? AND c.subject_id=i.subject_id
                  AND c.identity_key=i.cik || ':' || i.company_name ||
-                     CASE WHEN ?='ofac' THEN ':sdn-alt-v1' ELSE '' END
+                     CASE ? WHEN 'ofac' THEN ':sdn-alt-v1' WHEN 'ofac_non_sdn' THEN ':non-sdn-alt-v1' ELSE '' END
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
                   AND (c.checked_at IS NULL OR c.checked_at<=?
                        OR (c.truncated=1 AND c.checked_at<=?))
@@ -387,7 +387,7 @@ class ScoutStore:
         An incomplete paginated result remains partial even when it was checked
         recently. Historical checks for a different identity key do not count.
         """
-        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac"} or refresh_days < 1:
+        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn"} or refresh_days < 1:
             raise ValueError("Unsupported specialist coverage")
         clock = _utc(as_of)
         cutoff = _utc(as_of - timedelta(days=refresh_days))
@@ -407,7 +407,7 @@ class ScoutStore:
                 LEFT JOIN scout_specialist_checks AS c
                   ON c.source=? AND c.subject_id=i.subject_id
                  AND c.identity_key=i.cik || ':' || i.company_name ||
-                     CASE WHEN ?='ofac' THEN ':sdn-alt-v1' ELSE '' END
+                     CASE ? WHEN 'ofac' THEN ':sdn-alt-v1' WHEN 'ofac_non_sdn' THEN ':non-sdn-alt-v1' ELSE '' END
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
             """ + scope, (cutoff, cutoff, source, source, clock, *selected)).fetchone()
         active = int(row["active"])
@@ -420,12 +420,14 @@ class ScoutStore:
     def record_specialist_check(self, source: str, *, subject_id: str,
                                 identity_key: str, as_of: datetime,
                                 candidate_count: int, truncated: bool) -> None:
-        if source not in {"fda", "finra", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac"} or candidate_count < 0:
+        if source not in {"fda", "finra", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn"} or candidate_count < 0:
             raise ValueError("Invalid specialist check")
         # A legacy primary-name-only OFAC check cannot satisfy ALT coverage.
         # Preserve old history and make each upgraded identity immediately due.
         if source == "ofac":
             identity_key += ":sdn-alt-v1"
+        if source == "ofac_non_sdn":
+            identity_key += ":non-sdn-alt-v1"
         with self._connect() as conn:
             conn.execute("""
                 INSERT INTO scout_specialist_checks
@@ -926,7 +928,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -985,11 +987,12 @@ class ScoutStore:
                 raise ValueError("Healthcare finding must cite its official dataset API")
             if verification_status != "UNVERIFIED":
                 raise ValueError("Healthcare name candidates cannot verify issuer identity")
-        if source == "ofac":
+        if source in {"ofac", "ofac_non_sdn"}:
+            export_name = "SDN.CSV" if source == "ofac" else "CONS_PRIM.CSV"
             if (parsed.hostname != "sanctionslistservice.ofac.treas.gov"
                     or parsed.port not in {None, 443}
-                    or parsed.path != "/api/PublicationPreview/exports/SDN.CSV"):
-                raise ValueError("OFAC candidate must cite its official SDN export")
+                    or parsed.path != f"/api/PublicationPreview/exports/{export_name}"):
+                raise ValueError("OFAC candidate must cite its official SDN or Non-SDN export for that source")
             if verification_status != "UNVERIFIED":
                 raise ValueError("OFAC name candidates cannot verify sanctioned issuer identity")
         published = _utc(published_at)

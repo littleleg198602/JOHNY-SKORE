@@ -169,6 +169,36 @@ class SpecialistAcceptanceTests(unittest.TestCase):
             self.assertFalse(coverage["complete_issuer_groups_verified"])
             self.assertFalse(report["completion_verified"])
 
+    def test_rf_wal_onboarding_measures_twenty_mappings_without_accepting_completion(self):
+        clock = max(datetime.fromisoformat(entry["known_at"]) for entry in load_verified_banks()
+                    if entry["ticker"] in {"RF", "WAL"})
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            report = build_specialist_acceptance_report(store, as_of=clock, environment={})
+            coverage = report["rotating_source_coverage"]["fdic"]
+            self.assertEqual((22, 20, 2, 20, 0),
+                             (coverage["applicable_profile_subjects"], coverage["mapped_subjects"],
+                              coverage["unmapped_profile_subjects"], coverage["never_attempted_banks"],
+                              coverage["current_usable_banks"]))
+            prior = build_specialist_acceptance_report(
+                store, as_of=clock-timedelta(seconds=1), environment={})["rotating_source_coverage"]["fdic"]
+            self.assertEqual(18, prior["mapped_subjects"])
+            self.assertFalse(coverage["complete_issuer_groups_verified"])
+            self.assertFalse(report["completion_verified"])
+
+    def test_all_bank_profile_tickers_are_mapped_without_inventing_runtime_acceptance(self):
+        clock = max(datetime.fromisoformat(i["known_at"]) for i in load_verified_banks())
+        with TemporaryDirectory() as directory:
+            report = build_specialist_acceptance_report(ScoutStore(Path(directory)/"test.db"),
+                                                       as_of=clock, environment={})
+            coverage = report["rotating_source_coverage"]["fdic"]
+            self.assertEqual((22, 22, 0, 22, 0),
+                             (coverage["applicable_profile_subjects"], coverage["mapped_subjects"],
+                              coverage["unmapped_profile_subjects"], coverage["never_attempted_banks"],
+                              coverage["current_usable_banks"]))
+            self.assertFalse(coverage["complete_issuer_groups_verified"])
+            self.assertFalse(report["completion_verified"])
+
     def test_fdic_manifest_mapping_is_not_runtime_usable_or_group_completeness(self):
         clock = NOW + timedelta(hours=2)
         with TemporaryDirectory() as directory:

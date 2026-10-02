@@ -2240,6 +2240,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         "nhtsa": "NHTSA modelová svolání",
         "cms": "CMS vlastnictví nemocnic", "clinicaltrials": "ClinicalTrials studie",
         "ofac": "OFAC SDN shody jmen",
+        "ofac_non_sdn": "OFAC Non-SDN shody jmen",
     }
     st.write("**Poslední běh pátracích zdrojů**")
     st.dataframe(pd.DataFrame([
@@ -2273,7 +2274,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
          "Čeká / zastaralo": coverage["not_current"],
          "Někdy zkontrolováno": coverage["ever_checked"]}
         for source, interval in (("fda", 30), ("finra", 15), ("cms", 30),
-                                 ("clinicaltrials", 30), ("ofac", 1))
+                                 ("clinicaltrials", 30), ("ofac", 1), ("ofac_non_sdn", 1))
         for coverage in [scout_store.specialist_coverage(
             source, as_of=coverage_time, refresh_days=interval,
             subjects=coverage_subjects.get(source))]
@@ -2337,15 +2338,19 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         st.dataframe(pd.DataFrame(nhtsa_rows), hide_index=True)
     for source, label in (("cms", "CMS vlastnictví nemocnic"),
                           ("clinicaltrials", "ClinicalTrials studie"),
-                          ("ofac", "OFAC SDN")):
+                          ("ofac", "OFAC SDN"),
+                          ("ofac_non_sdn", "OFAC Non-SDN")):
         healthcare_rows = scout_store.latest_findings(
             watchlist, as_of=datetime.now(timezone.utc), limit=30, source=source)
         if healthcare_rows:
             st.write(f"**{label} — kandidáti podle přesného jména**")
             st.caption("Samotné jméno nepotvrzuje právní vazbu k akcii ani finanční dopad.")
             if source == "ofac":
-                st.caption("SDN hlavní jména; chybí aliasy, Non-SDN a pohled přes vlastnictví. "
+                st.caption("SDN hlavní a alternativní jména; pohled přes vlastnictví a slabé aliasy nejsou ověřené. "
                            "Prázdný výsledek není potvrzení bez sankcí.")
+            if source == "ofac_non_sdn":
+                st.caption("Non-SDN seznamy mají různá omezení podle programu. "
+                           "Shoda jména sama neznamená blokaci majetku ani potvrzenou vazbu na akcii.")
             st.dataframe(pd.DataFrame(healthcare_rows), hide_index=True)
     energy_rows = scout_store.latest_findings(
         ["COMMODITY:WTI", "COMMODITY:JET_FUEL_GULF"],

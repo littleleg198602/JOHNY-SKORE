@@ -19,7 +19,9 @@ from market_checker_app.services.finra_short_interest_scout_service import (
 from market_checker_app.services.healthcare_scout_service import (
     CmsHospitalOwnerClient, ClinicalTrialsClient, HealthcareNameScoutService,
 )
-from market_checker_app.services.ofac_scout_service import OfacSdnClient, OfacSdnScoutService
+from market_checker_app.services.ofac_scout_service import (
+    OfacSdnClient, OfacSdnScoutService, OfacConsolidatedClient, OfacConsolidatedScoutService,
+)
 from market_checker_app.services.fdic_bank_scout_service import (
     FdicBankFindClient, FdicBankScoutService, load_verified_banks,
     DEFAULT_IDENTITIES as FDIC_IDENTITIES,
@@ -184,6 +186,12 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
     except Exception as exc:
         ofac = {"status": "ERROR", "error": type(exc).__name__}
     ofac = recorded("ofac", ofac)
+    try:
+        non_sdn = OfacConsolidatedScoutService(store, client=OfacConsolidatedClient()).run(
+            as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        non_sdn = {"status": "ERROR", "error": type(exc).__name__}
+    non_sdn = recorded("ofac_non_sdn", non_sdn)
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
@@ -195,6 +203,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             "cms_hospital_owner_candidates": healthcare_results["cms"],
             "clinical_trial_candidates": healthcare_results["clinicaltrials"],
             "ofac_sdn_candidates": ofac,
+            "ofac_non_sdn_candidates": non_sdn,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

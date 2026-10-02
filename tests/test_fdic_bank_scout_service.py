@@ -86,7 +86,8 @@ class FdicBankScoutTests(unittest.TestCase):
                           ("PNC", 6384), ("USB", 6548), ("TFC", 9846), ("FITB", 6672),
                           ("CFG", 57957), ("HBAN", 6560), ("ALLY", 57803), ("CFR", 5510),
                           ("COF", 4297), ("EWBC", 31628), ("FHN", 4977), ("KEY", 17534), ("MTB", 588),
-                          ("OZK", 110)},
+                          ("OZK", 110), ("RF", 12368), ("WAL", 57512),
+                          ("PNFP", 35583), ("ZION", 2270)},
                          {(row["ticker"], row["cert"]) for row in identities})
         citi = next(row for row in identities if row["ticker"] == "C")
         self.assertEqual("Citibank, National Association", citi["bank_name"])
@@ -226,8 +227,11 @@ class FdicBankScoutTests(unittest.TestCase):
                          "fdic_cof_ewbc_identity_20261001.json", "fdic_fhn_key_identity_20261001.json",
                          "fdic_mtb_identity_20261001.json"):
             entries.extend(json.loads((Path(__file__).resolve().parents[1] / "evidence" / filename).read_text())["entries"])
+        entries.extend(json.loads((Path(__file__).resolve().parents[1] / "evidence" /
+                                  "fdic_rf_wal_identity_20261001.json").read_text())["entries"])
         identities = [row for row in load_verified_banks()
-                      if row["ticker"] in {"CFG", "HBAN", "ALLY", "CFR", "COF", "EWBC", "FHN", "KEY", "MTB"}]
+                      if row["ticker"] in {"CFG", "HBAN", "ALLY", "CFR", "COF", "EWBC", "FHN", "KEY", "MTB",
+                                           "RF", "WAL"}]
         self.assertEqual({"CFG": (57957, "0000759944", "2026-01-22"),
                           "HBAN": (6560, "0000049196", "2025-12-31"),
                           "ALLY": (57803, "0000040729", "2025-12-31"),
@@ -236,7 +240,9 @@ class FdicBankScoutTests(unittest.TestCase):
                           "EWBC": (31628, "0001069157", "2025-12-31"),
                           "FHN": (4977, "0000036966", "2025-12-31"),
                           "KEY": (17534, "0000091576", "2025-12-31"),
-                          "MTB": (588, "0000036270", "2026-02-18")},
+                          "MTB": (588, "0000036270", "2026-02-18"),
+                          "RF": (12368, "0001281761", "2025-12-31"),
+                          "WAL": (57512, "0001212545", "2025-12-31")},
                          {row["ticker"]: (row["cert"], row["issuer_cik"], row["effective_from"])
                           for row in identities})
         captures = {entry["identity"]["cert"]: entry for entry in entries}
@@ -279,13 +285,16 @@ class FdicBankScoutTests(unittest.TestCase):
                                  (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
                 if identity["ticker"] == "CFG":
                     self.assertFalse(captured["relationship_evidence"]["exact_legal_name_corroboration"]["exhibit_as_of_date_verified"])
-                if identity["ticker"] in {"COF", "EWBC", "FHN", "KEY"}:
+                if identity["ticker"] in {"COF", "EWBC", "FHN", "KEY", "RF", "WAL"}:
                     self.assertTrue(captured["relationship_evidence"]["as_of_date_verified"])
                     self.assertEqual("2025-12-31", captured["relationship_evidence"]["as_of"])
                     self.assertEqual("2025-12-31", details["relationship_effective_from"])
                     self.assertNotIn("report_date_eligibility_basis", details)
                     self.assertNotEqual(identity["effective_from"], captured["filing_evidence"]["filing_date"])
                     self.assertEqual(identity["ticker"], captured["issuer_identity_evidence"]["ticker"])
+                if identity["ticker"] in {"RF", "WAL"}:
+                    self.assertFalse(captured["relationship_evidence"]["unqualified_wholly_owned_claim_accepted"])
+                    self.assertEqual(identity["financial_name"], institution["NAME"].upper())
                 if identity["ticker"] == "CFR":
                     # SEC's undated exhibit cannot create a FY2025 relationship
                     # date. The verified publication date is a conservative floor.
@@ -397,6 +406,58 @@ class FdicBankScoutTests(unittest.TestCase):
                 self.assertEqual(("PARTIAL", 0, 0, 1),
                                  (result["status"], result["new_findings"], result["usable_banks"], result["rejected_rows"]))
                 self.assertEqual([], store.findings_as_of("OZK", as_of=clock))
+
+    def test_pnfp_successor_and_zion_direct_issuer_use_actual_captured_reports(self):
+        evidence = json.loads((Path(__file__).resolve().parents[1] / "evidence" /
+                               "fdic_pnfp_zion_identity_20261002.json").read_text())
+        for entry in evidence["entries"]:
+            identity = next(i for i in load_verified_banks() if i["ticker"] == entry["identity"]["ticker"])
+            clock = datetime.fromisoformat(identity["known_at"])
+            class CapturedClient:
+                def financials(self, cert):
+                    self_test.assertEqual(identity["cert"], cert)
+                    return entry["fdic_publisher_observation"]["financials"]
+            self_test = self
+            with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
+                store = ScoutStore(Path(directory) / "test.db")
+                scout = FdicBankScoutService(store, client=CapturedClient(), identities=[identity])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock-timedelta(seconds=1))["status"])
+                result = scout.run(as_of=clock)
+                self.assertEqual(("OK", 2, 1), (result["status"], result["new_findings"], result["usable_banks"]))
+                self.assertEqual(0, scout.run(as_of=clock, recheck=True)["new_findings"])
+                reopened = ScoutStore(store.db_path)
+                details = json.loads(reopened.findings_as_of(identity["ticker"], as_of=clock)[0]["details_json"])
+                self.assertEqual(identity["issuer_cik"], details["issuer_cik"])
+                if identity["ticker"] == "PNFP":
+                    self.assertEqual("0002082866", details["issuer_cik"])
+                    self.assertEqual("2026-03-31", details["relationship_effective_from"])
+                    self.assertEqual("0001115055", entry["primary_evidence"]["corporate_action"]["old_cik"])
+                else:
+                    self.assertEqual("bank_issuer_financials", details["stage"])
+                    self.assertEqual("ZION", details["issuer_instrument_symbol"])
+                    self.assertEqual("SEC", details["issuer_identity_publisher"])
+                    self.assertFalse(details["subsidiary_relationship_applicable"])
+                    self.assertIsNone(details["relationship_effective_from"])
+                self.assertFalse(details["issuer_consolidated_values"])
+                self.assertFalse(details["scoring_applied"])
+
+    def test_zion_direct_and_pnfp_successor_reject_wrong_identity_or_earlier_report(self):
+        identities = {i["ticker"]: i for i in load_verified_banks()}
+        zion, pnfp = identities["ZION"], identities["PNFP"]
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            for invalid in (dict(zion, issuer_cik="0001115055"), dict(zion, issuer_instrument_symbol="ZIONP"),
+                            dict(zion, issuer_identity_publisher="FDIC"), dict(zion, cert=2271),
+                            dict(zion, relationship_evidence_url=pnfp["relationship_evidence_url"]),
+                            dict(pnfp, issuer_cik="0001115055")):
+                path.write_text(json.dumps([invalid]))
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    load_verified_banks(path)
+            clock = datetime.fromisoformat(pnfp["known_at"])
+            client = FakeBankFind(row={"CERT": 35583, "NAME": "PINNACLE BANK", "REPDTE": "20251231", "ASSET": 1000})
+            result = FdicBankScoutService(ScoutStore(Path(directory)/"test.db"), client=client,
+                                         identities=[pnfp]).run(as_of=clock)
+            self.assertEqual(("PARTIAL", 0, 1), (result["status"], result["new_findings"], result["rejected_rows"]))
 
     def test_direct_bank_new_knowledge_scope_cannot_reset_persistent_daily_quota(self):
         identity = next(row for row in load_verified_banks() if row["ticker"] == "OZK")

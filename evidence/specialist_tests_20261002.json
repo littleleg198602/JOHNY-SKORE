@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-02T06:05:07.155039+00:00",
+  "completed_at": "2026-10-02T06:06:43.339499+00:00",
+  "discovered_tests": 506,
+  "tests_run": 506,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "successful": true,
+  "all_discovered_tests_ran": true,
+  "failure_details": [],
+  "host_scope": "Linux deterministic suite; not Windows or historical-performance acceptance",
+  "scoring_applied": false,
+  "tested_files_sha256": {
+    "market_checker_app/services/fda_recall_scout_service.py": "569a4a8991cc71b3bc2c81a70848728d707d109e2bd0d4abbd2a2217e56a2bae",
+    "market_checker_app/services/fdic_bank_scout_service.py": "cb9ead903ff0671e9f23218ad397e2278d071e1205add0fcf073a97bf1af9ea0",
+    "market_checker_app/services/ofac_scout_service.py": "8ed1d5643c43c6cf6bfc532c30bcfe8578737bec7ecd6d3e6464bb5c50a9b0b0",
+    "market_checker_app/storage/scout_store.py": "ad67d451f68750196266ac57ec27d3d12366ea9813eb296f37bf72a2ed16c0f0",
+    "market_checker_app/scout_runner.py": "db55e3e26ec4035fdd9dbbb7f30fc089fc6f84ff2f8a88b0c9b6c3745033e4ad",
+    "market_checker_app/app.py": "d1301c5dbddd5709446b35d88082070ae97a7018337762fc6cfbc78d11cfccac",
+    "market_checker_app/services/specialist_acceptance_service.py": "e42fea319bbdb321868275e4a54bf6c31ad8368d207dda24f2e50bc61f53dc36",
+    "market_checker_app/data/verified_fdic_banks.json": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+    ".github/workflows/market-checker-test-agents.yml": "78dc539b24e9e0a381a57b76cf3cd0bd97271d1a4f9ca43a4f000e552cd1ec41"
+  }
+}

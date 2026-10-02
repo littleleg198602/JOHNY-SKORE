@@ -1,5 +1,10 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Nejnovější navazující stav je v
+`SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261002.md`: bankovní registr
+22/22, ochrany FDA, samostatný Non-SDN sběr a deterministická Windows CI.
+Níže uvedené datované kroky jsou zachovaná historie, nikoli aktuální součet.
+
 Pracovní větev: `fix/specialist-daily-capacity`, PR #160.
 Autoritativní inventář všech 21 specialistů:
 `market_checker_app/data/specialist_status.json`. Dosud **0/21 DONE**.
