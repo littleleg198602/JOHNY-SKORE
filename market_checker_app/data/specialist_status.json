@@ -78,7 +78,8 @@
       "code": "PARTIAL",
       "live": "PENDING",
       "next": "Canonical BRKB now translates to Yahoo BRK-B only at the provider boundary while reports and caches retain BRKB; bulk, retry and corporate-action paths are covered deterministically. Remaining: verify a live BRKB response, resolve PSTG/LEG data gaps and accept a measured 687-ticker after-close Windows run with historical corporate actions.",
-      "brkb_yahoo_alias_evidence": "evidence/price_brkb_yahoo_alias_tests_20261003.json"
+      "brkb_yahoo_alias_evidence": "evidence/price_brkb_yahoo_alias_tests_20261003.json",
+      "brkb_yahoo_alias_hosted_windows_evidence": "evidence/price_brkb_yahoo_alias_windows_20261003.json"
     },
     {
       "id": "short_interest",

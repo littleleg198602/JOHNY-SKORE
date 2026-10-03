@@ -16,12 +16,20 @@ důkaz, 687-ticker after-close Windows běh ani historická evaluace. PSTG a
 LEG zůstávají otevřené; prices je proto dál PARTIAL/PENDING a inventář
 0/21 DONE.
 
+Navazující GitHub-hosted Windows job 111111841149 na commitu 47665023
+dokončil stejných 534/534 testů bez selhání, chyb a přeskočení. Workflow
+37091239382 i deterministic release gate prošly. Stažený artifact
+11263535162 obsahoval úplný log a strojový JSON; SHA-256 staženého ZIPu
+souhlasil s workflow metadaty i upload logem. Auditní záznam je v
+evidence/price_brkb_yahoo_alias_windows_20261003.json. Jde pouze o
+hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
+
 ## Akceptace — audit obsahu důkazů (3. 10. 2026)
 
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 52 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 53 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

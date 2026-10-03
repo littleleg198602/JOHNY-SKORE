@@ -14,9 +14,14 @@ evidence/price_brkb_yahoo_alias_tests_20261003.json. Živá odpověď, PSTG/LEG,
 after-close Windows coverage a historie zůstávají otevřené, takže stav
 prices ani celkových 0/21 DONE se nemění.
 
+Navazující GitHub-hosted Windows job 111111841149 prošel 534/534, prošel i
+release gate a stažený artifact 11263535162 byl obsahově i hashově ověřen v
+evidence/price_brkb_yahoo_alias_windows_20261003.json. Je to jen ověření
+kompatibility, nikoli živý uživatelský Windows end-to-end běh.
+
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 52 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 53 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,
