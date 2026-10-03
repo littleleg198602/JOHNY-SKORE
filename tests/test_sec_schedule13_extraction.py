@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import unittest
+from datetime import datetime, timedelta, timezone
 
-from market_checker_app.services.sec_document_extraction import extract_schedule_13_ownership
+from market_checker_app.services.sec_document_extraction import (
+    extract_schedule_13_ownership,
+    match_schedule_13_instrument,
+)
 
 
 SCHEDULE_13D = b"""
@@ -55,6 +59,49 @@ class Schedule13ExtractionTests(unittest.TestCase):
             form="SC 13G",
         )
         self.assertIsNone(result)
+
+    def test_registry_match_requires_exact_dated_identity_known_at_cutoff(self) -> None:
+        ownership = extract_schedule_13_ownership(
+            SCHEDULE_13D.replace(b"03/09/2026", b"05/09/2026"),
+            form="SC 13D",
+        )
+        registry = [{
+            "ticker": "NWL", "issuer_cik": "0000814453", "cusip": "644393100",
+            "issuer_name": "NEWELL BRANDS INC", "class_description": "COM",
+            "effective_from": "2026-04-01", "effective_to": "2026-06-30",
+            "known_at": "2026-10-03T12:00:00+00:00",
+            "cusip_evidence_url": "https://www.sec.gov/files/list.txt",
+            "instrument_evidence_url": "https://www.sec.gov/Archives/instrument.xml",
+            "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+        }]
+        cutoff = datetime(2026, 10, 3, 13, tzinfo=timezone.utc)
+        matched = match_schedule_13_instrument(
+            ownership, ticker="NWL", issuer_cik="814453",
+            knowledge_at=cutoff, securities=registry,
+        )
+        assert matched is not None
+        self.assertTrue(matched["instrument_identity_verified"])
+        self.assertEqual("REGISTRY_MATCHED", matched["instrument"]["identity_status"])
+        self.assertEqual("644393100", matched["instrument"]["registry_match"]["cusip"])
+        self.assertFalse(matched["reporting_person_identity_verified"])
+        self.assertFalse(matched["ownership_change_interpreted"])
+
+        for ticker, cik, known_at in (
+            ("OTHER", "814453", cutoff),
+            ("NWL", "320193", cutoff),
+            ("NWL", "814453", cutoff - timedelta(days=1)),
+        ):
+            with self.subTest(ticker=ticker, cik=cik, known_at=known_at):
+                rejected = match_schedule_13_instrument(
+                    ownership, ticker=ticker, issuer_cik=cik,
+                    knowledge_at=known_at, securities=registry,
+                )
+                assert rejected is not None
+                self.assertFalse(rejected["instrument_identity_verified"])
+                self.assertEqual(
+                    "AS_FILED_NOT_REGISTRY_MATCHED",
+                    rejected["instrument"]["identity_status"],
+                )
 
 
 if __name__ == "__main__":

@@ -283,6 +283,9 @@ class GovernanceEventAgent(BaseAgent):
         if form in {"SC 13D", "SC 13G"}:
             ownership = document.metadata.get("beneficial_ownership")
             ownership = ownership if isinstance(ownership, Mapping) else None
+            instrument_verified = bool(
+                ownership and ownership.get("instrument_identity_verified") is True
+            )
             yield self._event(
                 document=document,
                 legal_entity_id=legal_entity_id,
@@ -296,7 +299,7 @@ class GovernanceEventAgent(BaseAgent):
                     "as_filed_cover_fields": dict(ownership) if ownership else None,
                     "as_filed_cover_fields_extracted": bool(ownership),
                     "beneficial_owner_identity_verified": False,
-                    "instrument_identity_verified": False,
+                    "instrument_identity_verified": instrument_verified,
                     "ownership_change_interpreted": False,
                     "human_review_required": True,
                     "scoring_applied": False,

@@ -6,6 +6,15 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Schedule 13D/G as-filed CUSIP se nyní přes reviewovaný SEC registr vyřeší
+jen při jediné přesné shodě tickeru, issuer CIK, CUSIP, effective intervalu a
+knowledge-time hranice. Aktuálně je takto dostupných jen 15 instrumentů pro
+2026 Q2; více CUSIPů nebo jakýkoli nesoulad fail-closed zůstane bez shody.
+Reporting-person jména jsou dál `NAME_ONLY`, změna vlastnictví se neodvozuje
+a skóre se nemění. Cíleně prošlo 47/47 a celá místní sada 541/541; viz
+`evidence/sec13dg_instrument_registry_match_tests_20261003.json`. Nejde o
+plné instrumentové pokrytí ani živou akceptaci, stav zůstává 0/21 DONE.
+
 ScoutIndex už pro stejný issuer/accession nevydává index i primární dokument
 jako dvě analytické reprezentace. Source-verified primární dokument má
 přednost, zatímco indexový finding zůstává v analysis snapshotu a exportu.
@@ -96,7 +105,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 63 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 64 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,

@@ -1,5 +1,23 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13D/G — datovaná instrumentová shoda pro omezený registr (3. 10. 2026)
+
+As-filed CUSIP ze Schedule 13 se nyní může označit `REGISTRY_MATCHED`, ale
+pouze při jediné přesné shodě kanonického tickeru, issuer CIK a CUSIP s
+reviewovaným SEC registrem a jen v jeho effective-from/to intervalu. Registry
+`known_at` musí být nejpozději v čase analýzy, takže historický replay nesmí
+použít později zjištěnou identitu. Více CUSIPů, chybný ticker/CIK, datum mimo
+interval nebo budoucí knowledge time selžou zavřeně.
+
+Omezení zůstává zásadní: registr obsahuje jen 15 instrumentů pro 2026 Q2,
+reporting-person jména jsou stále `NAME_ONLY` a žádná změna vlastnictví se
+neinterpretuje ani neskóruje. Cílená sada prošla 47/47 a po instalaci
+deklarovaných závislostí celá místní deterministická sada 541/541. První
+clean-host pokus skončil po 435 testech s 22 importními chybami a nepočítá se
+jako úspěch. Důkaz je v
+`evidence/sec13dg_instrument_registry_match_tests_20261003.json`. Insider
+zůstává PARTIAL/PENDING a inventář 0/21 DONE.
+
 ## SEC — Windows kontrola deduplikace primárního dokumentu (3. 10. 2026)
 
 GitHub-hosted Windows job 111209849536 na commitu 0fa93d7f dokončil 540/540
@@ -169,7 +187,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 63 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 64 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

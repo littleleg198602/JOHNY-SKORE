@@ -56,7 +56,7 @@ class OwnershipDocumentIndex(DocumentIndex):
         company, filings = super().fetch_filing_index(ticker, **kwargs)
         return company, (replace(
             filings[0], form="SC 13G",
-            report_date=datetime(2026, 3, 13, tzinfo=timezone.utc),
+            report_date=datetime(2026, 5, 13, tzinfo=timezone.utc),
         ),)
 
     def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
@@ -65,7 +65,7 @@ class OwnershipDocumentIndex(DocumentIndex):
         <p>Common Stock</p><p>(Title of Class of Securities)</p>
         <p>037833100</p><p>(CUSIP Number)</p>
         <p>Notice Recipient</p><p>(Name, Address and Telephone Number of Person Authorized to Receive Notices and Communications)</p>
-        <p>03/13/2026</p><p>(Date of Event Which Requires Filing of This Statement)</p>
+        <p>05/13/2026</p><p>(Date of Event Which Requires Filing of This Statement)</p>
         <div>1 | Name of reporting person Example Asset Manager LLC</div>
         <div>2 | Check the appropriate box if a member of a Group</div>
         <div>11 | Aggregate amount beneficially owned by each reporting person 100,000.00</div>
@@ -77,7 +77,7 @@ class SecDocumentScoutTest(unittest.TestCase):
     def test_source_verified_13g_keeps_identity_into_governance_without_claiming_change(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")
-            now = datetime(2026, 4, 1, tzinfo=timezone.utc)
+            now = datetime(2026, 10, 3, tzinfo=timezone.utc)
             scout = SecScoutService(
                 store, client=OwnershipDocumentIndex(now - timedelta(days=1)),
             )
@@ -107,7 +107,7 @@ class SecDocumentScoutTest(unittest.TestCase):
             self.assertEqual("SC 13G", document.metadata["form"])
             self.assertEqual("0000320193-26-000001", document.metadata["accession_number"])
             self.assertEqual("0000320193", document.metadata["issuer_cik"])
-            self.assertEqual("2026-03-13T00:00:00+00:00", document.metadata["report_date"])
+            self.assertEqual("2026-05-13T00:00:00+00:00", document.metadata["report_date"])
             ownership_events = [
                 item for item in report.governance_events
                 if item.event_type == GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING
@@ -124,7 +124,10 @@ class SecDocumentScoutTest(unittest.TestCase):
             self.assertEqual("NAME_ONLY",
                              cover["reporting_persons"][0]["identity_status"])
             self.assertFalse(event.metadata["beneficial_owner_identity_verified"])
-            self.assertFalse(event.metadata["instrument_identity_verified"])
+            self.assertTrue(event.metadata["instrument_identity_verified"])
+            self.assertEqual("REGISTRY_MATCHED", cover["instrument"]["identity_status"])
+            self.assertEqual("0000320193",
+                             cover["instrument"]["registry_match"]["issuer_cik"])
             self.assertFalse(event.metadata["ownership_change_interpreted"])
             self.assertFalse(event.metadata["scoring_applied"])
 

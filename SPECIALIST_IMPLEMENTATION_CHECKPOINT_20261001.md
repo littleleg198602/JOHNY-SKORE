@@ -1,5 +1,14 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 3. 10.: Schedule 13 as-filed CUSIP se nyní vyřeší proti
+reviewovanému SEC registru jen při přesné shodě tickeru, issuer CIK, CUSIP,
+effective intervalu a knowledge-time hranice. Registr pokrývá pouze 15
+instrumentů v 2026 Q2; osoby zůstávají `NAME_ONLY` a změna vlastnictví se
+neinterpretuje. Cíleně prošlo 47/47 a celá místní sada 541/541; viz
+`evidence/sec13dg_instrument_registry_match_tests_20261003.json`. Živé
+případy, širší pokrytí, amendment porovnání, Windows end-to-end a OOS
+evaluace zůstávají otevřené.
+
 Aktualizace 3. 10.: ScoutIndex už pro stejný issuer/accession neposílá index
 i source-verified primární dokument jako dvě governance reprezentace.
 Primární dokument má přednost, indexový finding však zůstává v neměnném

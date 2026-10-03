@@ -28,13 +28,14 @@
       "research": "05",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Source-verified 13D/G documents preserve filing identity and now extract bounded as-filed event date, checksum-valid CUSIP/class and reporting-person names/positions through ScoutIndex into fail-closed governance metadata. Names remain NAME_ONLY, instruments are not registry-matched and no ownership change is inferred from one filing. Remaining: legal person and dated instrument resolution, amendment comparison, live positive/negative cases and Form 4 classes; then Windows, coverage and historical acceptance.",
+      "next": "Source-verified 13D/G documents preserve filing identity and bounded cover fields. A single as-filed CUSIP can now resolve only against the 15-instrument reviewed SEC registry when ticker, issuer CIK, CUSIP, effective interval and knowledge-time cutoff all agree. Names remain NAME_ONLY and no ownership change is inferred. Remaining: legal-person resolution, wider dated instrument coverage, amendment comparison, live positive/negative cases and Form 4 classes; then Windows, coverage and historical acceptance.",
       "sec13dg_fail_closed_test_evidence": "evidence/sec13dg_fail_closed_filing_tests_20261003.json",
       "sec13dg_fail_closed_hosted_windows_evidence": "evidence/sec13dg_fail_closed_filing_windows_20261003.json",
       "sec13dg_pipeline_identity_test_evidence": "evidence/sec13dg_pipeline_identity_tests_20261003.json",
       "sec13dg_pipeline_identity_hosted_windows_evidence": "evidence/sec13dg_pipeline_identity_windows_20261003.json",
       "sec13dg_cover_extraction_test_evidence": "evidence/sec13dg_cover_extraction_tests_20261003.json",
-      "sec13dg_cover_extraction_hosted_windows_evidence": "evidence/sec13dg_cover_extraction_windows_20261003.json"
+      "sec13dg_cover_extraction_hosted_windows_evidence": "evidence/sec13dg_cover_extraction_windows_20261003.json",
+      "sec13dg_instrument_registry_match_test_evidence": "evidence/sec13dg_instrument_registry_match_tests_20261003.json"
     },
     {
       "id": "contracts",

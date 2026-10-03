@@ -1,9 +1,13 @@
 from __future__ import annotations
 
-from datetime import datetime
+from copy import deepcopy
+from datetime import date, datetime
 from html.parser import HTMLParser
 import math
 import re
+from typing import Mapping
+
+from market_checker_app.services.sec13f_scout_service import load_verified_securities
 
 
 class _ReadableText(HTMLParser):
@@ -178,3 +182,76 @@ def extract_schedule_13_ownership(document: bytes, *, form: str) -> dict[str, ob
         "ownership_change_interpreted": False,
         "scoring_applied": False,
     }
+
+
+def match_schedule_13_instrument(
+    ownership: Mapping[str, object] | None,
+    *,
+    ticker: str,
+    issuer_cik: str,
+    knowledge_at: datetime,
+    securities: list[dict] | None = None,
+) -> dict[str, object] | None:
+    """Attach one exact, dated SEC registry match without resolving the owner.
+
+    A checksum-valid CUSIP from the filing is still only an as-filed identifier.
+    It becomes registry matched here only when exactly one reviewed SEC 13F
+    manifest row agrees on canonical ticker, issuer CIK, CUSIP and effective
+    date, and that row was already known at ``knowledge_at``.  This deliberately
+    does not interpret an ownership change or verify a reporting person.
+    """
+    if ownership is None:
+        return None
+    result = deepcopy(dict(ownership))
+    instrument = result.get("instrument")
+    if not isinstance(instrument, Mapping):
+        return result
+    cusips = instrument.get("cusips")
+    event_value = result.get("event_date")
+    if (not isinstance(cusips, list) or len(cusips) != 1
+            or not isinstance(cusips[0], str)
+            or not isinstance(event_value, str)
+            or knowledge_at.tzinfo is None or knowledge_at.utcoffset() is None):
+        return result
+    try:
+        event_date = date.fromisoformat(event_value)
+    except ValueError:
+        return result
+    normalized_ticker = ticker.strip().upper()
+    normalized_cik = issuer_cik.strip().zfill(10)
+    matches = []
+    for entry in securities if securities is not None else load_verified_securities():
+        try:
+            known_at = datetime.fromisoformat(str(entry["known_at"]))
+            effective_from = date.fromisoformat(str(entry["effective_from"]))
+            effective_to = date.fromisoformat(str(entry["effective_to"]))
+        except (KeyError, TypeError, ValueError):
+            continue
+        if known_at.tzinfo is None or known_at.utcoffset() is None:
+            continue
+        if (
+            known_at <= knowledge_at
+            and effective_from <= event_date <= effective_to
+            and str(entry.get("ticker", "")).strip().upper() == normalized_ticker
+            and str(entry.get("issuer_cik", "")).strip().zfill(10) == normalized_cik
+            and str(entry.get("cusip", "")).strip().upper() == cusips[0].upper()
+        ):
+            matches.append(entry)
+    if len(matches) != 1:
+        return result
+    match = matches[0]
+    resolved_instrument = dict(instrument)
+    resolved_instrument.update({
+        "identity_status": "REGISTRY_MATCHED",
+        "registry_match": {
+            key: match[key]
+            for key in (
+                "ticker", "issuer_cik", "cusip", "issuer_name",
+                "class_description", "effective_from", "effective_to", "known_at",
+                "cusip_evidence_url", "instrument_evidence_url", "ticker_evidence_url",
+            )
+        },
+    })
+    result["instrument"] = resolved_instrument
+    result["instrument_identity_verified"] = True
+    return result
