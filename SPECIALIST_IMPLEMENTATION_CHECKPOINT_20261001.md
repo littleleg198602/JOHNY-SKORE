@@ -9,6 +9,11 @@ viz `evidence/sec13dg_cover_extraction_tests_20261003.json`. Živý SEC,
 právní identity, amendment historie, Windows end-to-end, coverage a OOS
 evaluace zůstávají otevřené.
 
+Navazující GitHub-hosted Windows job 111190444784 prošel 540/540, prošel i
+release gate a stažený artifact 11272746709 byl obsahově a hashově ověřen.
+Viz `evidence/sec13dg_cover_extraction_windows_20261003.json`. Jde jen o
+ověření kompatibility, nikoli živý SEC nebo uživatelský Windows end-to-end.
+
 Aktualizace 3. 10.: SC 13D/G primární dokument už při průchodu SEC scout →
 ScoutIndex → governance neztrácí form, accession, issuer CIK, report date ani
 hash. Captured end-to-end test zůstává fail-closed UNVERIFIED a bez skóre;

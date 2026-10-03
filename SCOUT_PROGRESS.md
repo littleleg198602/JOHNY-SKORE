@@ -2,6 +2,15 @@
 
 ## SEC 13D/G — as-filed cover fields bez domyšlené změny (3. 10. 2026)
 
+Navazující GitHub-hosted Windows job 111190444784 na commitu 5ef9803f
+dokončil 540/540 testů bez selhání, chyb a přeskočení. Workflow
+37118714020 i deterministic release gate prošly. Stažený artifact
+11272746709 obsahoval úplný log a strojový JSON; SHA-256 staženého ZIPu
+souhlasil s metadaty workflow. Auditní záznam je v
+`evidence/sec13dg_cover_extraction_windows_20261003.json`. Jde pouze o
+hostovanou kompatibilitu, ne živý SEC ani skutečný uživatelský Windows
+end-to-end běh.
+
 Omezený parser primárního SC 13D/G dokumentu nyní ukládá datum události,
 název třídy, pouze checksum-valid CUSIP a až 32 cover-page reporting persons
 s as-filed počtem akcií a procentem třídy. Pole přežijí SEC scout → uložený
@@ -133,7 +142,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 60 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 61 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

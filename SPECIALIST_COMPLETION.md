@@ -14,6 +14,12 @@ filingu se neinterpretuje. Cíleně prošlo 28/28 a celá místní sada 540/540;
 viz `evidence/sec13dg_cover_extraction_tests_20261003.json`. Stav zůstává
 PARTIAL/PENDING a 0/21 DONE.
 
+Stejný cover parser následně prošel kompletní GitHub-hosted Windows sadou
+540/540, úspěšným release gate a stažený artifact 11272746709 souhlasil s
+publikovaným SHA-256. Audit je v
+`evidence/sec13dg_cover_extraction_windows_20261003.json`. Hostovaný runner
+není živý SEC ani koncový běh na uživatelově Windows; stav se proto nemění.
+
 Primární SC 13D/G dokument ze skutečné SEC scout cesty nyní zachová form,
 accession, issuer CIK, report date a hash až do analytického dokumentu a
 governance normalizace. End-to-end captured test potvrzuje, že SC 13G skončí
@@ -76,7 +82,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 60 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 61 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,
