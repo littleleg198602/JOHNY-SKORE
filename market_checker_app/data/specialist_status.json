@@ -222,7 +222,8 @@
       "next": "Portable runtime export measures archive integrity, scoped identities, source states and partial coverage without accepting completion. Evidence references are content-read and hashed; DONE/VERIFIED requires six semantic assertions. All 16 source statuses now have fail-closed attempted/usable/complete/partial/blocked/failed semantics. Remaining: actual user Windows end-to-end, measured provider coverage and independent claim verification.",
       "evidence_content_audit": "evidence/specialist_evidence_content_audit_tests_20261003.json",
       "evidence_content_audit_hosted_windows_evidence": "evidence/specialist_evidence_content_audit_windows_20261003.json",
-      "source_run_semantics_evidence": "evidence/specialist_source_semantics_tests_20261003.json"
+      "source_run_semantics_evidence": "evidence/specialist_source_semantics_tests_20261003.json",
+      "source_run_semantics_hosted_windows_evidence": "evidence/specialist_source_semantics_windows_20261003.json"
     },
     {
       "id": "evaluation",

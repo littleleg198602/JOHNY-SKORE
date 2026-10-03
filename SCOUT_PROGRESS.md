@@ -33,6 +33,14 @@ zavřeně. Žádný provozní status sám není akceptace specialisty. Cílené 
 dotčené testy prošly 58/58; přesný kontrakt je v
 evidence/specialist_source_semantics_tests_20261003.json.
 
+Navazující GitHub-hosted Windows job 111089918113 na commitu fedb0c8d
+dokončil 532/532 testů bez selhání, chyb a přeskočení. Workflow
+37083839180 i deterministic release gate prošly. Stažený artifact
+11260106223 obsahoval úplný log a strojový JSON; SHA-256 staženého ZIPu
+souhlasil s workflow metadaty i upload logem. Auditní záznam je v
+evidence/specialist_source_semantics_windows_20261003.json. Jde jen o
+hostovanou kompatibilitu, nikoli skutečný uživatelský Windows end-to-end.
+
 Aktuálně je stále 0/21 DONE; kontrola pouze brání budoucímu falešnému
 dokončení a nemění skóre, živé coverage ani obchodování.
 
