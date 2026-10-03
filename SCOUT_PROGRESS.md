@@ -1,5 +1,21 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13D/G — identita podání přes celý pipeline (3. 10. 2026)
+
+Source-verified primární dokument ze SEC fronty už při převodu do analytického
+`DocumentRecord` neztrácí form, accession, issuer CIK, report date ani hash
+dokumentu. Zachycený end-to-end test vede SC 13G od omezeného indexu a stažení
+přes uložený finding až do `GovernanceEventAgent`; výsledek zůstává správně
+`BENEFICIAL_OWNERSHIP_FILING` / `UNVERIFIED`, bez interpretace změny a bez
+skóre. Tím se opravuje chybějící propojení, nikoli obsahový parser 13D/G.
+
+Cílená sada prošla 46/46 a po instalaci deklarovaných závislostí celá místní
+deterministická sada 537/537. První clean-host pokus skončil po 431 testech s
+22 importními chybami a nepočítá se jako úspěch. Přesný kontrakt a otisky jsou
+v `evidence/sec13dg_pipeline_identity_tests_20261003.json`. Stále chybí živý
+SEC běh, parsování reporting person/CUSIP/třídy a změny vlastnictví, skutečný
+Windows end-to-end, coverage a historie; insider zůstává PARTIAL/PENDING.
+
 ## SEC 13D/G — fail-closed význam nezpracovaného filingu (3. 10. 2026)
 
 Navazující GitHub-hosted Windows job 111149500619 na commitu e1553b59
@@ -90,7 +106,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 57 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 58 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

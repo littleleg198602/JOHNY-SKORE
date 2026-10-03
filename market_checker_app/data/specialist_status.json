@@ -26,9 +26,10 @@
       "research": "05",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Raw indexed 13D/G documents now fail closed as unverified filings rather than verified ownership changes. Parse and date reporting-person, instrument and ownership change; verify Form 4 trade classes on live filings; then run Windows, coverage and historical acceptance.",
+      "next": "Source-verified 13D/G primary documents now preserve form, accession, issuer CIK, report date and document hash through ScoutIndex into fail-closed governance filings. Remaining: parse and date reporting-person, CUSIP/class and ownership change; verify Form 4 trade classes live; then Windows, coverage and historical acceptance.",
       "sec13dg_fail_closed_test_evidence": "evidence/sec13dg_fail_closed_filing_tests_20261003.json",
-      "sec13dg_fail_closed_hosted_windows_evidence": "evidence/sec13dg_fail_closed_filing_windows_20261003.json"
+      "sec13dg_fail_closed_hosted_windows_evidence": "evidence/sec13dg_fail_closed_filing_windows_20261003.json",
+      "sec13dg_pipeline_identity_test_evidence": "evidence/sec13dg_pipeline_identity_tests_20261003.json"
     },
     {
       "id": "contracts",

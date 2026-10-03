@@ -1,5 +1,12 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 3. 10.: SC 13D/G primární dokument už při průchodu SEC scout →
+ScoutIndex → governance neztrácí form, accession, issuer CIK, report date ani
+hash. Captured end-to-end test zůstává fail-closed UNVERIFIED a bez skóre;
+46/46 cílených a 537/537 všech místních testů prošlo. Viz
+`evidence/sec13dg_pipeline_identity_tests_20261003.json`. Obsahový parser,
+živý SEC, Windows end-to-end, coverage a historie zůstávají otevřené.
+
 Aktualizace 3. 10.: surový SC 13D/G filing už nevytváří VERIFIED
 `BENEFICIAL_OWNERSHIP_CHANGE`. Dokud nejsou parsované a datované reporting
 person, instrument a samotná změna, jde o `BENEFICIAL_OWNERSHIP_FILING` /

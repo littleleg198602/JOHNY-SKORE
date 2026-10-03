@@ -231,6 +231,7 @@ class SecScoutService:
             details={"stage": "filing_document", "parser_version": "sec-html-v1",
                      "index_finding_id": index_finding_id, "form": filing.form,
                      "cik": details["cik"], "accession": accession,
+                     "report_date": details.get("report_date"),
                      "document_sha256": digest, "bytes": len(document),
                      "item_excerpts": [{"locator": item, "excerpt": excerpt}
                                        for item, excerpt in sections]},

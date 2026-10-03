@@ -12,8 +12,11 @@ from market_checker_app.collectors.sec_edgar_client import (
     _SecRedirectPolicy, _allowed_sec_url,
 )
 from market_checker_app.agents import (
-    EntityRegistryAgent, OrchestratorAgent, PredictionV21AdapterAgent,
+    EntityRegistryAgent, GovernanceEventAgent, OrchestratorAgent, PredictionV21AdapterAgent,
     QualityGateAgent, SourceResolutionAgent,
+)
+from market_checker_app.agents.contracts import (
+    GovernanceEventStatus, GovernanceEventType,
 )
 from market_checker_app.agents.scout_index_agent import ScoutIndexAgent
 from market_checker_app.exporters.excel_exporter import ExcelExporter
@@ -48,7 +51,59 @@ class DetailedExposureIndex(DocumentIndex):
                 b"<p>We hedged 60% of our anticipated jet fuel purchases for 2027.</p></html>")
 
 
+class OwnershipDocumentIndex(DocumentIndex):
+    def fetch_filing_index(self, ticker, **kwargs):
+        company, filings = super().fetch_filing_index(ticker, **kwargs)
+        return company, (replace(
+            filings[0], form="SC 13G",
+            report_date=datetime(2026, 3, 13, tzinfo=timezone.utc),
+        ),)
+
+    def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
+        return b"<html><p>Schedule 13G primary source.</p></html>"
+
+
 class SecDocumentScoutTest(unittest.TestCase):
+    def test_source_verified_13g_keeps_identity_into_governance_without_claiming_change(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime(2026, 4, 1, tzinfo=timezone.utc)
+            scout = SecScoutService(
+                store, client=OwnershipDocumentIndex(now - timedelta(days=1)),
+            )
+            scout.schedule(["AAPL"], as_of=now)
+            self.assertEqual("OK", scout.run_batch(as_of=now, limit=2)["status"])
+
+            orchestrator = OrchestratorAgent(shadow_mode=True)
+            orchestrator.register(EntityRegistryAgent({"AAPL": {
+                "entity_id": "listing:aapl",
+                "ticker": "AAPL",
+                "name": "Apple Inc.",
+                "cik": "320193",
+                "lei": "HWUPKR0MPOU8FGXBT394",
+                "isin": "US0378331005",
+                "source": "primary_manifest",
+                "source_url": "https://www.sec.gov/Archives/edgar/data/320193/",
+                "confidence": 1.0,
+            }}))
+            orchestrator.register(ScoutIndexAgent(store.db_path))
+            orchestrator.register(GovernanceEventAgent(
+                dependencies=("entity_registry", "scout_index"),
+            ))
+            report = orchestrator.run(watchlist=["AAPL"])
+
+            document = next(item for item in report.documents
+                            if not item.metadata["filing_index_only"])
+            self.assertEqual("SC 13G", document.metadata["form"])
+            self.assertEqual("0000320193-26-000001", document.metadata["accession_number"])
+            self.assertEqual("0000320193", document.metadata["issuer_cik"])
+            self.assertEqual("2026-03-13T00:00:00+00:00", document.metadata["report_date"])
+            event = next(item for item in report.governance_events
+                         if item.event_type == GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING)
+            self.assertEqual(GovernanceEventStatus.UNVERIFIED, event.status)
+            self.assertFalse(event.metadata["ownership_change_interpreted"])
+            self.assertFalse(event.metadata["scoring_applied"])
+
     def test_named_supplier_and_hedge_details_survive_storage(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")
