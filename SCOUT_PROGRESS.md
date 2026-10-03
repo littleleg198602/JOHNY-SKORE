@@ -1,5 +1,16 @@
 # Průběh implementace pátracích agentů
 
+## SEC — Windows kontrola deduplikace primárního dokumentu (3. 10. 2026)
+
+GitHub-hosted Windows job 111209849536 na commitu 0fa93d7f dokončil 540/540
+testů bez selhání, chyb a přeskočení. Workflow 37125492712 i deterministic
+release gate prošly. Stažený artifact 11275586495 obsahoval úplný log a
+strojový JSON; SHA-256 staženého ZIPu souhlasil s metadaty workflow. Auditní
+záznam je v `evidence/sec_filing_primary_dedup_windows_20261003.json`.
+Jde pouze o hostovanou kompatibilitu opravy reprezentace, ne živý SEC,
+skutečný uživatelský Windows end-to-end, coverage nebo historickou evaluaci.
+Stav specialistů se nemění.
+
 ## SEC — primární dokument bez duplicitního index eventu (3. 10. 2026)
 
 Po zapojení 13D/G cover parseru se ukázala navazující chyba: ScoutIndex pro
@@ -158,7 +169,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 62 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 63 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

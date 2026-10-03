@@ -14,6 +14,12 @@ místní sada 540/540. Viz
 `evidence/sec_filing_primary_dedup_tests_20261003.json`. Nejde o živou
 akceptaci a stav zůstává 0/21 DONE.
 
+Stejná deduplikační oprava následně prošla kompletní GitHub-hosted Windows
+sadou 540/540, úspěšným release gate a stažený artifact 11275586495 souhlasil
+s publikovaným SHA-256. Audit je v
+`evidence/sec_filing_primary_dedup_windows_20261003.json`. Hostovaný runner
+není živý SEC ani koncový běh na uživatelově Windows; stav se proto nemění.
+
 SC 13D/G primární dokument nyní fail-closed extrahuje as-filed datum události,
 název třídy, checksum-valid CUSIP a nejvýše 32 reporting persons včetně počtu
 akcií a procenta. Data přežijí celý scout/index/governance průchod, ale jméno
@@ -90,7 +96,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 62 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 63 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,

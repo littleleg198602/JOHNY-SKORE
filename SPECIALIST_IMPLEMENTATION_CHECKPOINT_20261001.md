@@ -7,6 +7,11 @@ snapshotu/exportu. Cíleně prošlo 43/43 a celá místní sada 540/540; viz
 `evidence/sec_filing_primary_dedup_tests_20261003.json`. Živý SEC, skutečný
 Windows end-to-end, coverage a historie zůstávají otevřené.
 
+Navazující GitHub-hosted Windows job 111209849536 prošel 540/540, prošel i
+release gate a stažený artifact 11275586495 byl obsahově a hashově ověřen.
+Viz `evidence/sec_filing_primary_dedup_windows_20261003.json`. Jde jen o
+ověření kompatibility, nikoli živý SEC nebo uživatelský Windows end-to-end.
+
 Aktualizace 3. 10.: omezený SC 13D/G cover parser ukládá as-filed datum
 události, třídu, checksum-valid CUSIP a nejvýše 32 reporting persons s počtem
 akcií/procentem; metadata přežijí scout → ScoutIndex → governance. Jméno je

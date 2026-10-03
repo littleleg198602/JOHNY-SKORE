@@ -19,7 +19,8 @@
       "code": "PARTIAL",
       "live": "PENDING",
       "next": "Source-verified primary documents now supersede duplicate index representations per issuer/accession while the index finding stays in the audit snapshot. Run the full 687 watchlist on actual Windows, verify live coverage and historical amendments; SEC queue already auto-continues in bounded batches.",
-      "primary_document_dedup_test_evidence": "evidence/sec_filing_primary_dedup_tests_20261003.json"
+      "primary_document_dedup_test_evidence": "evidence/sec_filing_primary_dedup_tests_20261003.json",
+      "primary_document_dedup_hosted_windows_evidence": "evidence/sec_filing_primary_dedup_windows_20261003.json"
     },
     {
       "id": "insider",
