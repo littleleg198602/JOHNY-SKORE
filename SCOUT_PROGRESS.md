@@ -2,6 +2,15 @@
 
 ## SEC 13D/G — identita podání přes celý pipeline (3. 10. 2026)
 
+Navazující GitHub-hosted Windows job 111167791904 na commitu e7210757
+dokončil 537/537 testů bez selhání, chyb a přeskočení. Workflow
+37110670557 i deterministic release gate prošly. Stažený artifact
+11270157230 obsahoval úplný log a strojový JSON; SHA-256 staženého ZIPu
+souhlasil s metadaty workflow. Auditní záznam je v
+`evidence/sec13dg_pipeline_identity_windows_20261003.json`. Jde pouze o
+hostovanou kompatibilitu, ne živý SEC ani skutečný uživatelský Windows
+end-to-end běh.
+
 Source-verified primární dokument ze SEC fronty už při převodu do analytického
 `DocumentRecord` neztrácí form, accession, issuer CIK, report date ani hash
 dokumentu. Zachycený end-to-end test vede SC 13G od omezeného indexu a stažení
@@ -106,7 +115,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 58 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 59 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

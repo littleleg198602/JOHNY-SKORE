@@ -7,6 +7,11 @@ hash. Captured end-to-end test zůstává fail-closed UNVERIFIED a bez skóre;
 `evidence/sec13dg_pipeline_identity_tests_20261003.json`. Obsahový parser,
 živý SEC, Windows end-to-end, coverage a historie zůstávají otevřené.
 
+Navazující GitHub-hosted Windows job 111167791904 prošel 537/537, prošel i
+release gate a stažený artifact 11270157230 byl obsahově a hashově ověřen.
+Viz `evidence/sec13dg_pipeline_identity_windows_20261003.json`. Jde jen o
+ověření kompatibility, nikoli živý SEC nebo uživatelský Windows end-to-end.
+
 Aktualizace 3. 10.: surový SC 13D/G filing už nevytváří VERIFIED
 `BENEFICIAL_OWNERSHIP_CHANGE`. Dokud nejsou parsované a datované reporting
 person, instrument a samotná změna, jde o `BENEFICIAL_OWNERSHIP_FILING` /

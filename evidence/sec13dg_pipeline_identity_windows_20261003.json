@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T10:27:05+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "SEC 13D/G filing identity preservation through ScoutIndex and governance",
+  "source_commit": "e7210757acc35f972cc16a488fdfe990e5302c74",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37110670557,
+    "run_number": 369,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111167791904,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-03T08:44:43.934392+00:00",
+    "ended_at": "2026-10-03T08:59:03.541000+00:00",
+    "discovered_tests": 537,
+    "tests_run": 537,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "test_duration_seconds": 857.330
+  },
+  "release_gate": {
+    "job_id": 111170180780,
+    "conclusion": "success",
+    "all_test_agents_required": true
+  },
+  "artifact": {
+    "id": 11270157230,
+    "name": "windows-deterministic-tests",
+    "size_in_bytes": 16418,
+    "expires_at": "2027-01-01T08:43:47Z",
+    "sha256_from_metadata": "4d990e7723b388fd902d8a7c10d879e60a7ad6b0be5af5f1ac59ba21305f86ab",
+    "sha256_downloaded": "4d990e7723b388fd902d8a7c10d879e60a7ad6b0be5af5f1ac59ba21305f86ab",
+    "download_verified": true,
+    "contents": {
+      "windows-tests.log_bytes": 96431,
+      "windows-tests.json_bytes": 373,
+      "machine_result_matches_job": true
+    }
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed_by_validation_commit": false
+  },
+  "acceptance_limits": {
+    "hosted_windows_compatibility_verified": true,
+    "actual_user_windows_end_to_end_verified": false,
+    "live_sec_user_agent_run": false,
+    "reporting_person_and_instrument_identity_verified": false,
+    "positive_and_negative_live_cases_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

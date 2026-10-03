@@ -14,6 +14,13 @@ jako UNVERIFIED filing bez změny skóre. Cíleně prošlo 46/46 a celá místn�
 Reporting person, instrument a vlastnická změna se ještě neparsují, proto se
 stav insider ani celkových 0/21 DONE nemění.
 
+Stejný pipeline kontrakt následně prošel kompletní GitHub-hosted Windows
+sadou 537/537, úspěšným release gate a stažený artifact 11270157230
+souhlasil s publikovaným SHA-256. Audit je v
+`evidence/sec13dg_pipeline_identity_windows_20261003.json`. Hostovaný runner
+není živý SEC ani koncový běh na uživatelově Windows, takže stav zůstává
+PARTIAL/PENDING.
+
 Nezpracovaný typ SC 13D/G už není vydáván za ověřenou změnu vlastnictví.
 Agent jej ukládá jako `BENEFICIAL_OWNERSHIP_FILING` / `UNVERIFIED` a
 explicitně značí chybějící reporting-person identitu, instrument i
@@ -61,7 +68,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 58 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 59 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,
