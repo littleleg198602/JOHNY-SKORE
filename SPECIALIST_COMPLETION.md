@@ -6,6 +6,14 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+SC 13D/G primární dokument nyní fail-closed extrahuje as-filed datum události,
+název třídy, checksum-valid CUSIP a nejvýše 32 reporting persons včetně počtu
+akcií a procenta. Data přežijí celý scout/index/governance průchod, ale jméno
+je stále `NAME_ONLY`, instrument není registry-matched a změna proti minulému
+filingu se neinterpretuje. Cíleně prošlo 28/28 a celá místní sada 540/540;
+viz `evidence/sec13dg_cover_extraction_tests_20261003.json`. Stav zůstává
+PARTIAL/PENDING a 0/21 DONE.
+
 Primární SC 13D/G dokument ze skutečné SEC scout cesty nyní zachová form,
 accession, issuer CIK, report date a hash až do analytického dokumentu a
 governance normalizace. End-to-end captured test potvrzuje, že SC 13G skončí
@@ -68,7 +76,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 59 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 60 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,

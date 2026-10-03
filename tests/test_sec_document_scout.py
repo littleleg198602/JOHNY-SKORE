@@ -60,7 +60,17 @@ class OwnershipDocumentIndex(DocumentIndex):
         ),)
 
     def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
-        return b"<html><p>Schedule 13G primary source.</p></html>"
+        return b"""<html><body><h1>SCHEDULE 13G</h1>
+        <p>Apple Inc.</p><p>(Name of Issuer)</p>
+        <p>Common Stock</p><p>(Title of Class of Securities)</p>
+        <p>037833100</p><p>(CUSIP Number)</p>
+        <p>Notice Recipient</p><p>(Name, Address and Telephone Number of Person Authorized to Receive Notices and Communications)</p>
+        <p>03/13/2026</p><p>(Date of Event Which Requires Filing of This Statement)</p>
+        <div>1 | Name of reporting person Example Asset Manager LLC</div>
+        <div>2 | Check the appropriate box if a member of a Group</div>
+        <div>11 | Aggregate amount beneficially owned by each reporting person 100,000.00</div>
+        <div>13 | Percent of class represented by amount in Row (11) 1.0 %</div>
+        </body></html>"""
 
 
 class SecDocumentScoutTest(unittest.TestCase):
@@ -98,9 +108,21 @@ class SecDocumentScoutTest(unittest.TestCase):
             self.assertEqual("0000320193-26-000001", document.metadata["accession_number"])
             self.assertEqual("0000320193", document.metadata["issuer_cik"])
             self.assertEqual("2026-03-13T00:00:00+00:00", document.metadata["report_date"])
-            event = next(item for item in report.governance_events
-                         if item.event_type == GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING)
+            event = next(
+                item for item in report.governance_events
+                if item.event_type == GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING
+                and item.metadata["as_filed_cover_fields_extracted"]
+            )
             self.assertEqual(GovernanceEventStatus.UNVERIFIED, event.status)
+            cover = event.metadata["as_filed_cover_fields"]
+            self.assertEqual(["037833100"], cover["instrument"]["cusips"])
+            self.assertEqual("Common Stock", cover["instrument"]["class_title"])
+            self.assertEqual("Example Asset Manager LLC",
+                             cover["reporting_persons"][0]["name"])
+            self.assertEqual("NAME_ONLY",
+                             cover["reporting_persons"][0]["identity_status"])
+            self.assertFalse(event.metadata["beneficial_owner_identity_verified"])
+            self.assertFalse(event.metadata["instrument_identity_verified"])
             self.assertFalse(event.metadata["ownership_change_interpreted"])
             self.assertFalse(event.metadata["scoring_applied"])
 

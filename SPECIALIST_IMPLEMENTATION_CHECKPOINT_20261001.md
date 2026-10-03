@@ -1,5 +1,14 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 3. 10.: omezený SC 13D/G cover parser ukládá as-filed datum
+události, třídu, checksum-valid CUSIP a nejvýše 32 reporting persons s počtem
+akcií/procentem; metadata přežijí scout → ScoutIndex → governance. Jméno je
+`NAME_ONLY`, instrument není registry-matched a změna vlastnictví se z
+jediného filingu neodvozuje. Cíleně prošlo 28/28 a celá místní sada 540/540;
+viz `evidence/sec13dg_cover_extraction_tests_20261003.json`. Živý SEC,
+právní identity, amendment historie, Windows end-to-end, coverage a OOS
+evaluace zůstávají otevřené.
+
 Aktualizace 3. 10.: SC 13D/G primární dokument už při průchodu SEC scout →
 ScoutIndex → governance neztrácí form, accession, issuer CIK, report date ani
 hash. Captured end-to-end test zůstává fail-closed UNVERIFIED a bez skóre;

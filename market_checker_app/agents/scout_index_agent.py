@@ -53,6 +53,7 @@ class ScoutIndexAgent(BaseAgent):
                           "accession_number": details.get("accession"),
                           "issuer_cik": details.get("cik"),
                           "report_date": details.get("report_date"),
+                          "beneficial_ownership": details.get("beneficial_ownership"),
                           "evidence_quote": details.get("quote") if exposure else None,
                           "document_sha256": details.get("document_sha256"),
                           "item_locators": item_locators},

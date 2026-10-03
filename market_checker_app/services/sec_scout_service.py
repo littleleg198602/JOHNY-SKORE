@@ -13,7 +13,11 @@ from market_checker_app.collectors.short_report_client import FetchedShortReport
 from market_checker_app.config import ShortReportSourceConfig
 from market_checker_app.services.filing_exposure_discovery_service import FilingExposureDiscoveryService
 from market_checker_app.services.sec_counterparty_identity import exact_catalog_cik
-from market_checker_app.services.sec_document_extraction import extract_sec_item_excerpts, readable_sec_text
+from market_checker_app.services.sec_document_extraction import (
+    extract_schedule_13_ownership,
+    extract_sec_item_excerpts,
+    readable_sec_text,
+)
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.text import normalize_ticker
 
@@ -215,6 +219,7 @@ class SecScoutService:
         document = self.client.fetch_filing_document(filing, cik=str(details["cik"]))
         digest = hashlib.sha256(document).hexdigest()
         sections = extract_sec_item_excerpts(document, form=filing.form)
+        ownership = extract_schedule_13_ownership(document, form=filing.form)
         catalog = None
         if filing.form.removesuffix("/A") in {"10-K", "10-Q", "20-F", "40-F"}:
             catalog_reader = getattr(self.client, "ticker_map", None)
@@ -233,6 +238,7 @@ class SecScoutService:
                      "cik": details["cik"], "accession": accession,
                      "report_date": details.get("report_date"),
                      "document_sha256": digest, "bytes": len(document),
+                     "beneficial_ownership": ownership,
                      "item_excerpts": [{"locator": item, "excerpt": excerpt}
                                        for item, excerpt in sections]},
         )

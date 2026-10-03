@@ -1,5 +1,23 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13D/G — as-filed cover fields bez domyšlené změny (3. 10. 2026)
+
+Omezený parser primárního SC 13D/G dokumentu nyní ukládá datum události,
+název třídy, pouze checksum-valid CUSIP a až 32 cover-page reporting persons
+s as-filed počtem akcií a procentem třídy. Pole přežijí SEC scout → uložený
+finding → ScoutIndex → governance event. Jméno reporting person zůstává
+`NAME_ONLY`, CUSIP/třída `AS_FILED_NOT_REGISTRY_MATCHED`; jediný filing
+neprokazuje změnu proti minulému stavu. Událost je proto dál UNVERIFIED,
+vyžaduje kontrolu a nemá skóre.
+
+Cílená sada prošla 28/28 a po instalaci deklarovaných závislostí celá místní
+deterministická sada 540/540. První clean-host pokus skončil po 434 testech s
+22 importními chybami a nepočítá se jako úspěch. Přesné limity a otisky jsou
+v `evidence/sec13dg_cover_extraction_tests_20261003.json`. Chybí živé kladné
+i záporné SEC případy, právní identita osob, datovaná instrumentová registry
+shoda, porovnání amendments, skutečný Windows end-to-end, coverage a historie;
+insider zůstává PARTIAL/PENDING.
+
 ## SEC 13D/G — identita podání přes celý pipeline (3. 10. 2026)
 
 Navazující GitHub-hosted Windows job 111167791904 na commitu e7210757
@@ -115,7 +133,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 59 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 60 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení
