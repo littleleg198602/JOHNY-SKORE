@@ -7,6 +7,7 @@ from unittest.mock import patch
 
 from market_checker_app.services.specialist_acceptance_service import (
     audit_specialist_evidence, build_specialist_acceptance_report,
+    classify_source_run,
 )
 from market_checker_app.services.fdic_bank_scout_service import FdicBankScoutService, load_verified_banks
 from market_checker_app.storage.scout_store import ScoutStore
@@ -17,6 +18,26 @@ NOW = datetime(2026, 10, 1, 12, tzinfo=timezone.utc)
 
 
 class SpecialistAcceptanceTests(unittest.TestCase):
+    def test_source_run_semantics_are_explicit_and_never_acceptance(self):
+        cases = {
+            "never": ({"status": "NEVER_RUN"}, "NOT_ATTEMPTED", False, False),
+            "wait": ({"status": "WAIT_ACCESS"}, "NOT_ATTEMPTED", False, False),
+            "ok": ({"status": "OK", "new_findings": 0}, "COMPLETE", True, True),
+            "sampled": ({"status": "SAMPLED"}, "BOUNDED_PARTIAL", True, True),
+            "partial_empty": ({"status": "PARTIAL", "failed": 1}, "PARTIAL", True, False),
+            "partial_output": ({"status": "PARTIAL", "saved_rows": 2}, "PARTIAL", True, True),
+            "blocked": ({"status": "RATE_LIMITED"}, "BLOCKED", True, False),
+            "failed": ({"status": "ERROR"}, "FAILED", True, False),
+            "unknown": ({"status": "NEW_STATE"}, "UNKNOWN", False, False),
+        }
+        for name, (summary, category, attempted, usable) in cases.items():
+            with self.subTest(name=name):
+                result = classify_source_run(summary)
+                self.assertEqual(category, result["classification"])
+                self.assertEqual(attempted, result["attempted"])
+                self.assertEqual(usable, result["result_usable"])
+                self.assertFalse(result["acceptance_proven"])
+
     def test_evidence_audit_reads_content_and_rejects_filename_only_completion(self):
         fields = {
             "identity_evidence": "dated_issuer_instrument_product_identity_verified",
@@ -81,6 +102,12 @@ class SpecialistAcceptanceTests(unittest.TestCase):
             self.assertEqual(0, report["inventory_done_count"])
             self.assertEqual(687, report["universe"]["expected_subjects"])
             self.assertTrue(all(row["status"] == "NEVER_RUN" for row in report["source_runs"].values()))
+            self.assertEqual(set(report["source_runs"]), set(report["source_run_semantics"]))
+            self.assertEqual(0, report["source_run_semantic_counts"]["attempted"])
+            self.assertTrue(all(
+                row["classification"] == "NOT_ATTEMPTED"
+                and not row["acceptance_proven"]
+                for row in report["source_run_semantics"].values()))
             self.assertFalse(report["runtime"]["universe_archive"]["present"])
             self.assertFalse(report["runtime"]["universe_archive"]["matches_current_input"])
             with store._connect() as conn:
@@ -130,6 +157,12 @@ class SpecialistAcceptanceTests(unittest.TestCase):
             self.assertFalse(report["access_presence_is_successful_authentication"])
             self.assertEqual("WAIT_ACCESS", report["source_runs"]["finra"]["status"])
             self.assertEqual(3, report["source_runs"]["recipient_discovery"]["new_candidates"])
+            discovery = report["source_run_semantics"]["recipient_discovery"]
+            self.assertEqual("PARTIAL", discovery["classification"])
+            self.assertTrue(discovery["attempted"])
+            self.assertTrue(discovery["result_usable"])
+            self.assertFalse(discovery["complete"])
+            self.assertFalse(report["source_run_semantics"]["finra"]["attempted"])
             self.assertNotIn("PRIVATE_TEST", json.dumps(report))
             self.assertFalse(report["completion_verified"])
 

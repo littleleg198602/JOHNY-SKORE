@@ -8,7 +8,7 @@ Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 49 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 50 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,
@@ -23,6 +23,14 @@ workflow 37076717022, job 111068152597, release gate a stažený artifact
 11256859768 byly ověřeny v
 evidence/specialist_evidence_content_audit_windows_20261003.json.
 Hostovaný CI není skutečný koncový běh na uživatelově Windows počítači.
+
+Pro všech 16 provozních zdrojů report nově zveřejňuje jednotnou,
+fail-closed klasifikaci attempted/result_usable/complete/partial/blocked/
+failed. Čekání na přístup nebo identitu není pokus, PARTIAL bez pozitivního
+uloženého či zpracovaného počtu není použitelný výsledek a neznámý status
+není automaticky úspěch. Ani COMPLETE není akceptace specialisty. Kontrakt
+a 58/58 testů jsou v
+evidence/specialist_source_semantics_tests_20261003.json.
 
 SEC 13F registry byl dále rozšířen o V, MA, JNJ, XOM a WMT, tedy na patnáct
 kanonických instrumentů pro 2026 Q2. Přesné issuer CIK/CUSIP/název/třída

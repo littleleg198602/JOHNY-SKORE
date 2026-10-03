@@ -5,7 +5,7 @@
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 49 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 50 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení
@@ -24,6 +24,14 @@ dokončil 531/531 testů bez selhání, chyb a přeskočení. Workflow
 souhlasil s workflow metadaty i upload logem. Auditní záznam je v
 evidence/specialist_evidence_content_audit_windows_20261003.json.
 Jde pouze o hostovanou kompatibilitu, ne uživatelský Windows end-to-end.
+
+Report navíc pro všech 16 provozních zdrojů odděluje nikdy neprovedený nebo
+čekající stav, skutečný pokus, úplný výsledek, omezený/částečný výsledek,
+blokaci a chybu. PARTIAL se považuje za použitelný jen při doloženém
+kladném počtu uložených či zpracovaných výsledků; neznámý stav selže
+zavřeně. Žádný provozní status sám není akceptace specialisty. Cílené a
+dotčené testy prošly 58/58; přesný kontrakt je v
+evidence/specialist_source_semantics_tests_20261003.json.
 
 Aktuálně je stále 0/21 DONE; kontrola pouze brání budoucímu falešnému
 dokončení a nemění skóre, živé coverage ani obchodování.

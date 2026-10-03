@@ -6,7 +6,7 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
 
 ## Dokončené změny
 
-- Akceptační diagnostika nyní načítá a hashově eviduje obsah všech 49
+- Akceptační diagnostika nyní načítá a hashově eviduje obsah všech 50
   odkazovaných JSON důkazů; neplatná cesta, chybějící soubor, ne-JSON objekt
   nebo nepodporované schéma selže zavřeně. Budoucí DONE/VERIFIED vyžaduje
   šest samostatných obsahových tvrzení pro datovanou identitu, pozitivní a
@@ -18,6 +18,12 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
   release gate prošel a stažený artifact 11256859768 byl obsahově i hashově
   ověřen. Jde jen o kompatibilitu, nikoli uživatelský Windows end-to-end.
   Inventář zůstává poctivě 0/21 DONE.
+- Pro všech 16 provozních zdrojů je nyní explicitní normalizace stavu na
+  nikdy neprovedeno, complete, bounded partial, partial, blocked, failed a
+  unknown. Report odděluje attempted, result_usable a complete; PARTIAL
+  potřebuje pozitivní uložený/zpracovaný počet a unknown selže zavřeně.
+  Stav zdroje nikdy sám neprokazuje akceptaci. Dotčená sada prošla 58/58;
+  důkaz je v evidence/specialist_source_semantics_tests_20261003.json.
 - Třetí SEC 13F identity krok přidal V, MA, JNJ, XOM a WMT. Registr nyní
   obsahuje patnáct kanonických 2026 Q2 instrumentů s přesným issuer CIK,
   checksum-valid CUSIP, názvem/třídou z oficiálního listu a konkrétním

@@ -32,6 +32,54 @@ COMPLETION_EVIDENCE_FIELDS = {
     "coverage_evidence": "measured_applicable_coverage_verified",
     "historical_evaluation_evidence": "out_of_sample_evaluation_verified",
 }
+SOURCE_STATUS_CLASSES = {
+    "NEVER_RUN": "NOT_ATTEMPTED",
+    "WAIT_ACCESS": "NOT_ATTEMPTED",
+    "WAIT_IDENTITY": "NOT_ATTEMPTED",
+    "OK": "COMPLETE",
+    "NO_DUE_WORK": "COMPLETE",
+    "SAMPLED": "BOUNDED_PARTIAL",
+    "PARTIAL": "PARTIAL",
+    "ACCESS_BLOCKED": "BLOCKED",
+    "RATE_LIMITED": "BLOCKED",
+    "LEASE_LOST": "BLOCKED",
+    "ERROR": "FAILED",
+}
+OUTPUT_COUNT_FIELDS = (
+    "new_findings", "saved_rows", "matched_rows", "usable_banks",
+    "processed", "new_candidates",
+)
+
+
+def classify_source_run(summary: Mapping[str, object]) -> dict:
+    """Normalize persisted source status without promoting it to acceptance."""
+    status = summary.get("status")
+    status_class = SOURCE_STATUS_CLASSES.get(status, "UNKNOWN")
+    attempted = status_class not in {"NOT_ATTEMPTED", "UNKNOWN"}
+    positive_output = any(
+        isinstance(summary.get(field), (int, float))
+        and not isinstance(summary.get(field), bool)
+        and summary[field] > 0
+        for field in OUTPUT_COUNT_FIELDS
+    )
+    result_usable = (
+        status_class == "COMPLETE"
+        or status_class == "BOUNDED_PARTIAL"
+        or (status_class == "PARTIAL" and positive_output)
+    )
+    return {
+        "status": status,
+        "classification": status_class,
+        "attempted": attempted,
+        "result_usable": result_usable,
+        "complete": status_class == "COMPLETE",
+        "partial": status_class in {"PARTIAL", "BOUNDED_PARTIAL"},
+        "blocked": status_class == "BLOCKED",
+        "failed": status_class == "FAILED",
+        "positive_output_recorded": positive_output,
+        "unknown_status": status_class == "UNKNOWN",
+        "acceptance_proven": False,
+    }
 
 
 def _read_evidence(reference: object, repository_root: Path) -> tuple[dict | None, dict]:
@@ -130,6 +178,12 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
     inventory = load_specialist_status()
     runs = store.latest_source_runs()
     source_facts = {name: runs.get(name, {"status": "NEVER_RUN"}) for name in SOURCE_NAMES}
+    source_semantics = {name: classify_source_run(source_facts[name]) for name in SOURCE_NAMES}
+    source_semantic_counts = {
+        key: sum(bool(row[key]) for row in source_semantics.values())
+        for key in ("attempted", "result_usable", "complete", "partial",
+                    "blocked", "failed", "unknown_status")
+    }
     env = os.environ if environment is None else environment
     access_keys = {
         "sec_contact": ("JOHNY_SKORE_SEC_USER_AGENT",),
@@ -172,7 +226,11 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
         "universe": {"expected_subjects": len(records), "csv_sha256": CANONICAL_CSV_SHA256},
         "runtime": store.specialist_runtime_diagnostics(
             records=records, source_sha256=CANONICAL_CSV_SHA256, as_of=clock),
-        "source_runs": source_facts, "rotating_source_coverage": coverage,
+        "source_runs": source_facts,
+        "source_run_semantics": source_semantics,
+        "source_run_semantic_counts": source_semantic_counts,
+        "source_status_is_not_acceptance": True,
+        "rotating_source_coverage": coverage,
         "configured_access_present": {provider: all(bool(env.get(key, "").strip()) for key in keys)
                                       for provider, keys in access_keys.items()},
         "access_presence_is_successful_authentication": False,
