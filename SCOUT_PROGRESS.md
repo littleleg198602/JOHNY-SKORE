@@ -1,5 +1,24 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13D/G — fail-closed význam nezpracovaného filingu (3. 10. 2026)
+
+Samotný typ formuláře už nevytváří falešně ověřenou změnu významného
+vlastnictví. Nezpracované SC 13D/G se ukládají jako samostatný
+`BENEFICIAL_OWNERSHIP_FILING` ve stavu `UNVERIFIED`; metadata výslovně
+uvádějí, že identita reporting person, instrument a interpretace změny
+nejsou ověřené, je nutná kontrola a skóre se nepoužívá. Typ
+`BENEFICIAL_OWNERSHIP_CHANGE` zůstává vyhrazený pro budoucí skutečně
+interpretovanou změnu.
+
+Cílená sada prošla 32/32 a po instalaci deklarovaných závislostí celá
+místní deterministická sada 536/536. První clean-host pokus skončil po 430
+testech s 22 importními chybami a nepočítá se jako úspěch. Přesné otisky a
+omezení jsou v `evidence/sec13dg_fail_closed_filing_tests_20261003.json`.
+Chybí živý SEC běh s deklarovaným User-Agentem, datované identity a
+interpretace reporting person/instrument/change, pozitivní i negativní
+živý případ, skutečný Windows end-to-end, coverage a historická evaluace.
+Insider proto zůstává PARTIAL/PENDING a inventář 0/21 DONE.
+
 ## SEC 13F — rekonstrukce amendments v jednom čtvrtletním archivu (3. 10. 2026)
 
 Navazující GitHub-hosted Windows job 111138490778 na commitu 106b1410
@@ -62,7 +81,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 53 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 56 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

@@ -284,12 +284,19 @@ class GovernanceEventAgent(BaseAgent):
             yield self._event(
                 document=document,
                 legal_entity_id=legal_entity_id,
-                event_type=GovernanceEventType.BENEFICIAL_OWNERSHIP_CHANGE,
-                status=GovernanceEventStatus.VERIFIED,
-                title=f"SEC {form} – významný vlastnický podíl",
-                confidence=1.0,
+                event_type=GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING,
+                status=GovernanceEventStatus.UNVERIFIED,
+                title=f"SEC {form} – filing vyžaduje identitu a interpretaci změny",
+                confidence=0.5,
                 discriminator=form,
-                metadata={"form": form, "scoring_applied": False},
+                metadata={
+                    "form": form,
+                    "beneficial_owner_identity_verified": False,
+                    "instrument_identity_verified": False,
+                    "ownership_change_interpreted": False,
+                    "human_review_required": True,
+                    "scoring_applied": False,
+                },
             )
         if form == "S-1" or form.startswith("424B"):
             yield self._event(

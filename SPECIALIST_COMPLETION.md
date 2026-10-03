@@ -6,6 +6,15 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Nezpracovaný typ SC 13D/G už není vydáván za ověřenou změnu vlastnictví.
+Agent jej ukládá jako `BENEFICIAL_OWNERSHIP_FILING` / `UNVERIFIED` a
+explicitně značí chybějící reporting-person identitu, instrument i
+interpretaci změny; skóre zůstává vypnuté. Cílená sada prošla 32/32 a celá
+místní sada 536/536. Důkaz je v
+`evidence/sec13dg_fail_closed_filing_tests_20261003.json`. Bez živého SEC
+parsování, Windows end-to-end, coverage a historie zůstává insider
+PARTIAL/PENDING a celek 0/21 DONE.
+
 SEC 13F sběrač nyní rekonstruuje `13F-HR/A` řetězce, pokud je původní filing
 i všechny amendments v témže čtvrtletním SEC archivu. Restatement nahradí
 dřívější efektivní filingy, new holdings se k nim přidají; osiřelé,
@@ -37,7 +46,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 53 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 56 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,

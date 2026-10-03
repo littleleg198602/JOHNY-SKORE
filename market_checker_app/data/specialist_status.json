@@ -26,7 +26,8 @@
       "research": "05",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Verify Form 4 trade classes on live filings and interpret already indexed 13D/G documents with dated reporting-person and instrument identity."
+      "next": "Raw indexed 13D/G documents now fail closed as unverified filings rather than verified ownership changes. Parse and date reporting-person, instrument and ownership change; verify Form 4 trade classes on live filings; then run Windows, coverage and historical acceptance.",
+      "sec13dg_fail_closed_test_evidence": "evidence/sec13dg_fail_closed_filing_tests_20261003.json"
     },
     {
       "id": "contracts",
