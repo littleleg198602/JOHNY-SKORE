@@ -203,6 +203,89 @@ def _schedule_13_amendment_comparisons(
     return comparisons
 
 
+FORM4_CODE_SOURCE_URL = (
+    "https://www.sec.gov/edgar/searchedgar/ownershipformcodes.html"
+)
+FORM4_TRANSACTION_TYPES = {
+    "P": "PURCHASE",
+    "S": "SALE",
+    "V": "VOLUNTARILY_REPORTED_TRANSACTION",
+    "A": "RULE_16B3_GRANT_AWARD_OR_ACQUISITION",
+    "D": "RULE_16B3_DISPOSITION_TO_ISSUER",
+    "F": "EXERCISE_PRICE_OR_TAX_WITHHOLDING",
+    "I": "RULE_16B3_DISCRETIONARY_TRANSACTION",
+    "M": "RULE_16B3_DERIVATIVE_EXERCISE_OR_CONVERSION",
+    "C": "DERIVATIVE_CONVERSION",
+    "E": "SHORT_DERIVATIVE_EXPIRATION",
+    "H": "LONG_DERIVATIVE_EXPIRATION_OR_CANCELLATION",
+    "O": "OUT_OF_MONEY_DERIVATIVE_EXERCISE",
+    "X": "IN_OR_AT_MONEY_DERIVATIVE_EXERCISE",
+    "G": "BONA_FIDE_GIFT",
+    "L": "RULE_16A6_SMALL_ACQUISITION",
+    "W": "WILL_OR_DESCENT_DISTRIBUTION",
+    "Z": "VOTING_TRUST_DEPOSIT_OR_WITHDRAWAL",
+    "J": "OTHER_DESCRIBED_TRANSACTION",
+    "K": "EQUITY_SWAP_TRANSACTION",
+    "U": "CHANGE_OF_CONTROL_TENDER_DISPOSITION",
+}
+FORM4_ALLOWED_DIRECTIONS = {
+    "P": {"A"},
+    "S": {"D"},
+    "A": {"A"},
+    "D": {"D"},
+    "F": {"D"},
+    "E": {"D"},
+    "H": {"D"},
+    "L": {"A"},
+    "U": {"D"},
+}
+FORM4_COMPENSATION_CODES = {"A", "D", "F", "I", "M"}
+
+
+def _classify_form4_transaction(
+    *,
+    code: str,
+    acquired_disposed: str,
+    derivative: bool,
+) -> dict[str, object]:
+    normalized_code = code.strip().upper()
+    normalized_direction = acquired_disposed.strip().upper()
+    documented = normalized_code in FORM4_TRANSACTION_TYPES
+    allowed = FORM4_ALLOWED_DIRECTIONS.get(normalized_code, {"A", "D"})
+    direction_consistent = normalized_direction in allowed
+    classification_verified = documented and direction_consistent
+    open_market_trade = (
+        classification_verified
+        and not derivative
+        and (normalized_code, normalized_direction) in {("P", "A"), ("S", "D")}
+    )
+    event_type = (
+        GovernanceEventType.INSIDER_TRADE
+        if open_market_trade
+        else GovernanceEventType.STOCK_COMPENSATION
+        if classification_verified and normalized_code in FORM4_COMPENSATION_CODES
+        else GovernanceEventType.INSIDER_OTHER_TRANSACTION
+    )
+    return {
+        "code": normalized_code,
+        "acquired_disposed": normalized_direction,
+        "transaction_type": (
+            FORM4_TRANSACTION_TYPES[normalized_code]
+            if classification_verified else "UNRECOGNIZED_OR_INCONSISTENT"
+        ),
+        "event_type": event_type,
+        "event_status": (
+            GovernanceEventStatus.VERIFIED
+            if classification_verified else GovernanceEventStatus.UNVERIFIED
+        ),
+        "sec_code_documented": documented,
+        "direction_consistent": direction_consistent,
+        "classification_verified": classification_verified,
+        "open_market_trade": open_market_trade,
+        "human_review_required": not open_market_trade,
+    }
+
+
 TEXT_PATTERNS: tuple[
     tuple[GovernanceEventType, re.Pattern[str], str, float], ...
 ] = (
@@ -601,24 +684,18 @@ class GovernanceEventAgent(BaseAgent):
                     acquired_disposed = str(
                         getattr(transaction, "acquired_disposed", "") or ""
                     ).upper()
-                    transaction_type = {
-                        "P": "PURCHASE",
-                        "S": "SALE",
-                        "A": "GRANT",
-                        "M": "OPTION_EXERCISE",
-                        "F": "TAX_WITHHOLDING",
-                    }.get(code.upper(), code.upper())
                     derivative = bool(getattr(transaction, "derivative", False))
-                    open_market_trade = (
-                        not derivative
-                        and (code.upper(), acquired_disposed) in {("P", "A"), ("S", "D")}
+                    classification = _classify_form4_transaction(
+                        code=code,
+                        acquired_disposed=acquired_disposed,
+                        derivative=derivative,
                     )
-                    event_type = (
-                        GovernanceEventType.INSIDER_TRADE if open_market_trade
-                        else GovernanceEventType.STOCK_COMPENSATION
-                        if code.upper() in {"A", "M", "F"}
-                        else GovernanceEventType.INSIDER_OTHER_TRANSACTION
-                    )
+                    transaction_type = str(classification["transaction_type"])
+                    open_market_trade = bool(classification["open_market_trade"])
+                    event_type = classification["event_type"]
+                    assert isinstance(event_type, GovernanceEventType)
+                    event_status = classification["event_status"]
+                    assert isinstance(event_status, GovernanceEventStatus)
                     shares = getattr(transaction, "shares", None)
                     price = getattr(transaction, "price_per_share", None)
                     event_value = (
@@ -656,7 +733,7 @@ class GovernanceEventAgent(BaseAgent):
                         document=document,
                         legal_entity_id=entity.legal_entity_id,
                         event_type=event_type,
-                        status=GovernanceEventStatus.VERIFIED,
+                        status=event_status,
                         title=(
                             f"Form 4 {'obchod' if open_market_trade else 'jiná transakce'} "
                             f"{transaction_type.lower()} – "
@@ -681,6 +758,19 @@ class GovernanceEventAgent(BaseAgent):
                             "acquired_disposed": acquired_disposed,
                             "derivative": derivative,
                             "open_market_trade": open_market_trade,
+                            "sec_code_documented": classification[
+                                "sec_code_documented"
+                            ],
+                            "direction_consistent": classification[
+                                "direction_consistent"
+                            ],
+                            "classification_verified": classification[
+                                "classification_verified"
+                            ],
+                            "human_review_required": classification[
+                                "human_review_required"
+                            ],
+                            "transaction_code_source_url": FORM4_CODE_SOURCE_URL,
                             "transaction_date": str(
                                 transaction_date or ""
                             ),

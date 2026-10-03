@@ -128,11 +128,13 @@ class _FilingFixtureAgent(BaseAgent):
         future_transaction: bool = False,
         transaction_code: str = "P",
         acquired_disposed: str = "A",
+        derivative: bool = False,
     ) -> None:
         self.future = future
         self.future_transaction = future_transaction
         self.transaction_code = transaction_code
         self.acquired_disposed = acquired_disposed
+        self.derivative = derivative
 
     def run(self, context: AgentContext) -> AgentResult:
         published_at = context.started_at + (
@@ -197,7 +199,7 @@ class _FilingFixtureAgent(BaseAgent):
             price_per_share=150.0,
             shares_owned_after=5000.0,
             ownership_nature="D",
-            derivative=False,
+            derivative=self.derivative,
             source_url=documents[5].url or "",
         )
         return AgentResult(
@@ -216,6 +218,7 @@ def _run_governance(
     quality_gate: bool = True,
     transaction_code: str = "P",
     acquired_disposed: str = "A",
+    derivative: bool = False,
 ):
     orchestrator = OrchestratorAgent(shadow_mode=True)
     orchestrator.register(EntityRegistryAgent({"AAPL": _identity()}))
@@ -225,6 +228,7 @@ def _run_governance(
             future_transaction=future_transaction,
             transaction_code=transaction_code,
             acquired_disposed=acquired_disposed,
+            derivative=derivative,
         )
     )
     orchestrator.register(
@@ -355,6 +359,52 @@ class GovernanceEventAgentTests(unittest.TestCase):
                                  insider[0].event_type)
                 self.assertIsNone(insider[0].event_value)
                 self.assertFalse(insider[0].metadata["open_market_trade"])
+                self.assertEqual(GovernanceEventStatus.VERIFIED,
+                                 insider[0].status)
+                self.assertTrue(insider[0].metadata["classification_verified"])
+                self.assertTrue(insider[0].metadata["human_review_required"])
+
+    def test_all_documented_form4_codes_are_classified_fail_closed(self) -> None:
+        cases = {
+            ("P", "A"): GovernanceEventType.INSIDER_TRADE,
+            ("S", "D"): GovernanceEventType.INSIDER_TRADE,
+            ("V", "A"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("A", "A"): GovernanceEventType.STOCK_COMPENSATION,
+            ("D", "D"): GovernanceEventType.STOCK_COMPENSATION,
+            ("F", "D"): GovernanceEventType.STOCK_COMPENSATION,
+            ("I", "A"): GovernanceEventType.STOCK_COMPENSATION,
+            ("M", "A"): GovernanceEventType.STOCK_COMPENSATION,
+            ("C", "D"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("E", "D"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("H", "D"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("O", "A"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("X", "A"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("G", "D"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("L", "A"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("W", "A"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("Z", "D"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("J", "A"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("K", "D"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+            ("U", "D"): GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+        }
+        for (code, direction), expected_type in cases.items():
+            with self.subTest(code=code, direction=direction):
+                report = _run_governance(
+                    transaction_code=code, acquired_disposed=direction,
+                )
+                event = next(
+                    item for item in report.governance_events
+                    if item.metadata.get("accession_number") == "sec-form4"
+                )
+                self.assertEqual(expected_type, event.event_type)
+                self.assertEqual(GovernanceEventStatus.VERIFIED, event.status)
+                self.assertTrue(event.metadata["sec_code_documented"])
+                self.assertTrue(event.metadata["direction_consistent"])
+                self.assertTrue(event.metadata["classification_verified"])
+                self.assertEqual(
+                    expected_type != GovernanceEventType.INSIDER_TRADE,
+                    event.metadata["human_review_required"],
+                )
 
     def test_inconsistent_purchase_direction_is_not_a_trade(self) -> None:
         report = _run_governance(transaction_code="P", acquired_disposed="D")
@@ -362,6 +412,41 @@ class GovernanceEventAgentTests(unittest.TestCase):
                    if event.metadata.get("accession_number") == "sec-form4"]
         self.assertEqual(GovernanceEventType.INSIDER_OTHER_TRANSACTION,
                          insider[0].event_type)
+        self.assertEqual(GovernanceEventStatus.UNVERIFIED, insider[0].status)
+        self.assertTrue(insider[0].metadata["sec_code_documented"])
+        self.assertFalse(insider[0].metadata["direction_consistent"])
+        self.assertFalse(insider[0].metadata["classification_verified"])
+        self.assertTrue(insider[0].metadata["human_review_required"])
+
+    def test_unknown_form4_code_is_unverified_and_requires_review(self) -> None:
+        report = _run_governance(transaction_code="Q", acquired_disposed="A")
+        event = next(
+            item for item in report.governance_events
+            if item.metadata.get("accession_number") == "sec-form4"
+        )
+        self.assertEqual(GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+                         event.event_type)
+        self.assertEqual(GovernanceEventStatus.UNVERIFIED, event.status)
+        self.assertEqual("UNRECOGNIZED_OR_INCONSISTENT",
+                         event.transaction_type)
+        self.assertFalse(event.metadata["sec_code_documented"])
+        self.assertFalse(event.metadata["classification_verified"])
+        self.assertTrue(event.metadata["human_review_required"])
+
+    def test_derivative_purchase_code_never_becomes_open_market_trade(self) -> None:
+        report = _run_governance(
+            transaction_code="P", acquired_disposed="A", derivative=True,
+        )
+        event = next(
+            item for item in report.governance_events
+            if item.metadata.get("accession_number") == "sec-form4"
+        )
+        self.assertEqual(GovernanceEventType.INSIDER_OTHER_TRANSACTION,
+                         event.event_type)
+        self.assertEqual(GovernanceEventStatus.VERIFIED, event.status)
+        self.assertFalse(event.metadata["open_market_trade"])
+        self.assertIsNone(event.event_value)
+        self.assertTrue(event.metadata["human_review_required"])
 
     def test_all_required_event_families_are_normalized_without_a_trade_signal(self) -> None:
         report = _run_governance()

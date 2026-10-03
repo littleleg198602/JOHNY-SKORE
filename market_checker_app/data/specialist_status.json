@@ -28,7 +28,7 @@
       "research": "05",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Source-verified 13D/G documents preserve filing identity and bounded cover fields. A single as-filed CUSIP resolves only against the 15-instrument reviewed SEC registry. Amendments now produce fail-closed AS_FILED_CANDIDATE deltas only when the exact issuer, instrument, form family and NAME_ONLY person set agree and all numeric cover fields exist; this is not an interpreted ownership change. Remaining: legal-person resolution, wider dated instrument coverage, live positive/negative amendment cases and Form 4 classes; then Windows, coverage and historical acceptance.",
+      "next": "Source-verified 13D/G documents preserve filing identity and bounded cover fields. A single as-filed CUSIP resolves only against the 15-instrument reviewed SEC registry. Amendments produce fail-closed AS_FILED_CANDIDATE deltas only when the exact issuer, instrument, form family and NAME_ONLY person set agree and all numeric cover fields exist; this is not an interpreted ownership change. All 20 official Form 4 codes are now classified fail-closed, but only non-derivative P/A and S/D qualify as open-market trades. Remaining: legal-person resolution, wider dated instrument coverage, live positive/negative ownership and Form 4 cases; then Windows, coverage and historical acceptance.",
       "sec13dg_fail_closed_test_evidence": "evidence/sec13dg_fail_closed_filing_tests_20261003.json",
       "sec13dg_fail_closed_hosted_windows_evidence": "evidence/sec13dg_fail_closed_filing_windows_20261003.json",
       "sec13dg_pipeline_identity_test_evidence": "evidence/sec13dg_pipeline_identity_tests_20261003.json",
@@ -38,7 +38,8 @@
       "sec13dg_instrument_registry_match_test_evidence": "evidence/sec13dg_instrument_registry_match_tests_20261003.json",
       "sec13dg_instrument_registry_match_hosted_windows_evidence": "evidence/sec13dg_instrument_registry_match_windows_20261003.json",
       "sec13dg_amendment_comparison_test_evidence": "evidence/sec13dg_amendment_comparison_tests_20261003.json",
-      "sec13dg_amendment_comparison_hosted_windows_evidence": "evidence/sec13dg_amendment_comparison_windows_20261003.json"
+      "sec13dg_amendment_comparison_hosted_windows_evidence": "evidence/sec13dg_amendment_comparison_windows_20261003.json",
+      "form4_transaction_classification_test_evidence": "evidence/sec_form4_transaction_classification_tests_20261003.json"
     },
     {
       "id": "contracts",

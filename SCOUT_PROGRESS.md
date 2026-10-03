@@ -1,5 +1,22 @@
 # Průběh implementace pátracích agentů
 
+## Form 4 — úplná fail-closed klasifikace kódů (3. 10. 2026)
+
+Governance nyní rozlišuje všech 20 kódů zveřejněných SEC pro Form 4. Za
+open-market obchod se považuje pouze nederivátový `P/A` nebo `S/D` se
+zdokumentovaným kódem a konzistentním směrem. Ostatní známé kódy se ukládají
+jako kompenzace nebo jiná transakce s povinnou lidskou kontrolou; neznámý kód
+či nekonzistentní směr zůstane `UNVERIFIED` a nikdy nedostane hodnotu obchodu.
+Skóre se nemění.
+
+Cíleně prošlo 17/17, compileall a po instalaci deklarovaných závislostí celá
+místní sada 546/546. První clean-host pokus skončil 22 importními chybami a
+není počítán jako PASS. Přesný kontrakt a otisky jsou v
+`evidence/sec_form4_transaction_classification_tests_20261003.json`.
+Chybí živé pozitivní a negativní případy, právní identity, skutečný Windows
+end-to-end, změřené relevantní pokrytí a historická evaluace. Insider proto
+zůstává PARTIAL/PENDING a inventář 0/21 DONE.
+
 ## Schedule 13D/G — Windows kontrola amendment porovnání (3. 10. 2026)
 
 GitHub-hosted Windows job 111249541988 na commitu cdccd2ca dokončil 543/543

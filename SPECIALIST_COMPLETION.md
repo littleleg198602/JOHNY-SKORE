@@ -6,6 +6,15 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Form 4 governance nyní fail-closed klasifikuje všech 20 oficiálních SEC
+transaction codes. Open-market trade vznikne jen pro nederivátové `P/A` a
+`S/D`; jiné známé kódy vyžadují lidskou kontrolu a neznámý nebo směrově
+nekonzistentní kód zůstane UNVERIFIED. Skóre se nemění. Cíleně prošlo 17/17,
+compileall a celá místní sada 546/546; viz
+`evidence/sec_form4_transaction_classification_tests_20261003.json`. Bez
+živých případů, právních identit, uživatelského Windows end-to-end, coverage
+a historie zůstává insider PARTIAL/PENDING a celek 0/21 DONE.
+
 Stejné fail-closed porovnání amendments následně prošlo kompletní
 GitHub-hosted Windows sadou 543/543, úspěšným release gate a stažený artifact
 11279019848 souhlasil s publikovaným SHA-256. Audit je v

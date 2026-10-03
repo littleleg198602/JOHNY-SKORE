@@ -1,5 +1,15 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 3. 10.: governance nyní podle oficiálního seznamu SEC
+fail-closed klasifikuje všech 20 Form 4 transaction codes. Pouze nederivátové
+`P/A` a `S/D` mohou být open-market trade; ostatní dokumentované kódy
+vyžadují lidskou kontrolu a neznámý či směrově nekonzistentní kód zůstane
+UNVERIFIED bez hodnoty obchodu. Skóre se nemění. Cíleně prošlo 17/17,
+compileall a celá místní sada 546/546; viz
+`evidence/sec_form4_transaction_classification_tests_20261003.json`. Živé
+případy, identity, Windows end-to-end, coverage a OOS evaluace zůstávají
+otevřené.
+
 Aktualizace 3. 10.: source-verified primární Schedule 13D/G amendments se
 nyní porovnají s jediným bezprostředním předchůdcem jen při shodě tickeru,
 issuer CIK, rodiny formuláře, jednoho registry-matched CUSIP a přesné množiny
