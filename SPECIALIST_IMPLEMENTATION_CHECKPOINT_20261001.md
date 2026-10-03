@@ -9,6 +9,11 @@ neinterpretuje. Cíleně prošlo 47/47 a celá místní sada 541/541; viz
 případy, širší pokrytí, amendment porovnání, Windows end-to-end a OOS
 evaluace zůstávají otevřené.
 
+Navazující GitHub-hosted Windows job 111231903251 prošel 541/541, prošel i
+release gate a stažený artifact 11277384887 byl obsahově a hashově ověřen.
+Viz `evidence/sec13dg_instrument_registry_match_windows_20261003.json`.
+Jde jen o kompatibilitu, nikoli živý SEC nebo uživatelský Windows end-to-end.
+
 Aktualizace 3. 10.: ScoutIndex už pro stejný issuer/accession neposílá index
 i source-verified primární dokument jako dvě governance reprezentace.
 Primární dokument má přednost, indexový finding však zůstává v neměnném

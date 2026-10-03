@@ -2,6 +2,15 @@
 
 ## SEC 13D/G — datovaná instrumentová shoda pro omezený registr (3. 10. 2026)
 
+Navazující GitHub-hosted Windows job 111231903251 na commitu a9fce274
+dokončil 541/541 testů bez selhání, chyb a přeskočení. Workflow 37133069400
+i deterministic release gate prošly. Stažený artifact 11277384887 obsahoval
+úplný log a strojový JSON; SHA-256 staženého ZIPu souhlasil s metadaty
+workflow. Audit je v
+`evidence/sec13dg_instrument_registry_match_windows_20261003.json`. Jde jen
+o hostovanou kompatibilitu, ne živý SEC ani skutečný uživatelský Windows
+end-to-end běh.
+
 As-filed CUSIP ze Schedule 13 se nyní může označit `REGISTRY_MATCHED`, ale
 pouze při jediné přesné shodě kanonického tickeru, issuer CIK a CUSIP s
 reviewovaným SEC registrem a jen v jeho effective-from/to intervalu. Registry
@@ -187,7 +196,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 64 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 65 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

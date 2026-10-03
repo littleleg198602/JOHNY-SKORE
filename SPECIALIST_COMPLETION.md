@@ -15,6 +15,13 @@ a skóre se nemění. Cíleně prošlo 47/47 a celá místní sada 541/541; viz
 `evidence/sec13dg_instrument_registry_match_tests_20261003.json`. Nejde o
 plné instrumentové pokrytí ani živou akceptaci, stav zůstává 0/21 DONE.
 
+Stejná instrumentová shoda následně prošla kompletní GitHub-hosted Windows
+sadou 541/541, úspěšným release gate a stažený artifact 11277384887 souhlasil
+s publikovaným SHA-256. Audit je v
+`evidence/sec13dg_instrument_registry_match_windows_20261003.json`.
+Hostovaný runner není živý SEC ani koncový běh na uživatelově Windows;
+stav se proto nemění.
+
 ScoutIndex už pro stejný issuer/accession nevydává index i primární dokument
 jako dvě analytické reprezentace. Source-verified primární dokument má
 přednost, zatímco indexový finding zůstává v analysis snapshotu a exportu.
@@ -105,7 +112,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 64 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 65 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,
