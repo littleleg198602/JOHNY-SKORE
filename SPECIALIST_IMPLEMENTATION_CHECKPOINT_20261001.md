@@ -7,6 +7,11 @@ UNVERIFIED bez dopadu do skóre. Cíleně prošlo 32/32 a celá místní sada
 536/536; viz `evidence/sec13dg_fail_closed_filing_tests_20261003.json`.
 Živé případy, skutečný Windows end-to-end, coverage a OOS evaluace chybí.
 
+Navazující GitHub-hosted Windows job 111149500619 prošel 536/536, prošel i
+release gate a stažený artifact 11267017998 byl obsahově a hashově ověřen.
+Viz `evidence/sec13dg_fail_closed_filing_windows_20261003.json`. Je to jen
+ověření kompatibility, nikoli živý SEC nebo uživatelský Windows end-to-end.
+
 Aktualizace 3. 10.: SEC 13F sběrač rekonstruuje restatement/new-holdings
 amendments, pokud je celý manager/period řetězec ve stejném čtvrtletním ZIPu.
 Osiřelé a nejednoznačné řetězce selžou zavřeně jako PARTIAL. Deterministicky

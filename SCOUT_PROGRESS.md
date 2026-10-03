@@ -2,6 +2,15 @@
 
 ## SEC 13D/G — fail-closed význam nezpracovaného filingu (3. 10. 2026)
 
+Navazující GitHub-hosted Windows job 111149500619 na commitu e1553b59
+dokončil 536/536 testů bez selhání, chyb a přeskočení. Workflow
+37104221313 i deterministic release gate prošly. Stažený artifact
+11267017998 obsahoval úplný log a strojový JSON; SHA-256 staženého ZIPu
+souhlasil s metadaty workflow. Auditní záznam je v
+`evidence/sec13dg_fail_closed_filing_windows_20261003.json`. Jde pouze o
+hostovanou kompatibilitu, ne živý SEC ani skutečný uživatelský Windows
+end-to-end běh.
+
 Samotný typ formuláře už nevytváří falešně ověřenou změnu významného
 vlastnictví. Nezpracované SC 13D/G se ukládají jako samostatný
 `BENEFICIAL_OWNERSHIP_FILING` ve stavu `UNVERIFIED`; metadata výslovně
@@ -81,7 +90,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 56 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 57 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

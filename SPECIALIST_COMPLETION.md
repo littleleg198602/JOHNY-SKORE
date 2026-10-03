@@ -15,6 +15,13 @@ místní sada 536/536. Důkaz je v
 parsování, Windows end-to-end, coverage a historie zůstává insider
 PARTIAL/PENDING a celek 0/21 DONE.
 
+Stejná změna následně prošla kompletní GitHub-hosted Windows sadou 536/536,
+úspěšným release gate a stažený artifact 11267017998 souhlasil s publikovaným
+SHA-256. Audit je v
+`evidence/sec13dg_fail_closed_filing_windows_20261003.json`. Hostovaný runner
+nedokládá živé parsování ani koncový běh na uživatelově Windows, proto se
+stav nemění.
+
 SEC 13F sběrač nyní rekonstruuje `13F-HR/A` řetězce, pokud je původní filing
 i všechny amendments v témže čtvrtletním SEC archivu. Restatement nahradí
 dřívější efektivní filingy, new holdings se k nim přidají; osiřelé,
@@ -46,7 +53,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 56 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 57 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,
