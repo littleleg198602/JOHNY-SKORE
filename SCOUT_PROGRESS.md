@@ -2,6 +2,15 @@
 
 ## SEC 13F — rekonstrukce amendments v jednom čtvrtletním archivu (3. 10. 2026)
 
+Navazující GitHub-hosted Windows job 111138490778 na commitu 106b1410
+dokončil 536/536 testů bez selhání, chyb a přeskočení. Workflow 37100351318
+i deterministic release gate prošly. Stažený artifact 11265719882 obsahoval
+úplný log a strojový JSON; SHA-256 staženého ZIPu souhlasil s metadaty i
+upload logem. Auditní záznam je v
+`evidence/sec13f_amendment_reconstruction_windows_20261003.json`. Jde pouze
+o hostovanou kompatibilitu, ne živý SEC ZIP ani uživatelský Windows
+end-to-end běh.
+
 13F sběrač už neignoruje `13F-HR/A`. Podle oficiálních polí SUBMISSION a
 COVERPAGE seskupí filingy podle manager CIK a period of report. `RESTATEMENT`
 nahradí dřívější efektivní filingy, zatímco `NEW HOLDINGS` přidá nový filing

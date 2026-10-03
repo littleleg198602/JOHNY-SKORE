@@ -16,6 +16,12 @@ celá místní sada po instalaci deklarovaných závislostí 536/536; důkaz je 
 ZIP, přes-čtvrtletní řetězce, širší identity, skutečný Windows běh, coverage
 a historická evaluace chybí, takže institutions zůstává PILOT/PENDING.
 
+Navazující GitHub-hosted Windows job 111138490778 prošel 536/536, prošel i
+release gate a stažený artifact 11265719882 byl obsahově i hashově ověřen v
+`evidence/sec13f_amendment_reconstruction_windows_20261003.json`. Je to jen
+ověření kompatibility; ne živý SEC ZIP ani skutečný uživatelský Windows
+end-to-end běh.
+
 Kanonický BRKB se nyní na všech Yahoo hranicích převádí na BRK-B, zatímco
 kanonický seznam 687, cache a reporty dál používají BRKB. Dávkové OHLC,
 individuální retry a corporate-action cesta zachovají kanonický výstupní

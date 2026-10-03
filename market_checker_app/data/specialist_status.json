@@ -198,7 +198,8 @@
       "identity_expansion3_evidence": "evidence/sec13f_identity_expansion3_20261002.json",
       "test_expansion3_evidence": "evidence/sec13f_identity_expansion3_tests_20261002.json",
       "windows_expansion3_evidence": "evidence/sec13f_identity_expansion3_windows_tests_20261002.json",
-      "amendment_reconstruction_test_evidence": "evidence/sec13f_amendment_reconstruction_tests_20261003.json"
+      "amendment_reconstruction_test_evidence": "evidence/sec13f_amendment_reconstruction_tests_20261003.json",
+      "amendment_reconstruction_hosted_windows_evidence": "evidence/sec13f_amendment_reconstruction_windows_20261003.json"
     },
     {
       "id": "consensus_options",

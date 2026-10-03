@@ -7,6 +7,11 @@ prošlo 536/536; živý ZIP, přes-čtvrtletní historie, Windows end-to-end,
 coverage a OOS evaluace zůstávají otevřené. Viz
 `evidence/sec13f_amendment_reconstruction_tests_20261003.json`.
 
+Stejný krok následně prošel v GitHub-hosted Windows jobu 111138490778:
+536/536, úspěšný release gate a hashově ověřený artifact 11265719882. Viz
+`evidence/sec13f_amendment_reconstruction_windows_20261003.json`. Hostovaný
+runner nenahrazuje živý SEC ani uživatelský Windows end-to-end běh.
+
 Nejnovější navazující stav je v
 `SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261002.md`: bankovní registr
 22/22, ochrany FDA, samostatný Non-SDN sběr a deterministická Windows CI.
