@@ -31,6 +31,10 @@ def sample_zip():
                   f"{accession}\t15-MAY-2026\t13F-HR\t1108893\t31-MAR-2026\n"
                   "0001108893-26-000004\t15-AUG-2026\t13F-HR\t1108893\t30-JUN-2026\n"
                   "0001108893-26-000005\t16-AUG-2026\t13F-HR/A\t1108893\t30-JUN-2026\n")
+    coverpage = ("ACCESSION_NUMBER\tISAMENDMENT\tAMENDMENTNO\tAMENDMENTTYPE\n"
+                 "0001108893-26-000003\t\t\t\n"
+                 "0001108893-26-000004\t\t\t\n"
+                 "0001108893-26-000005\tY\t1\tRESTATEMENT\n")
     header = "ACCESSION_NUMBER\tINFOTABLE_SK\tCUSIP\tNAMEOFISSUER\tTITLEOFCLASS\tVALUE\tSSHPRNAMT\tSSHPRNAMTTYPE\tPUTCALL\n"
     rows = [
         "0001108893-26-000004\t1\t037833100\tAPPLE, INC.\tCOM\t45539635\t179438\tSH\t",
@@ -41,20 +45,46 @@ def sample_zip():
     stream = BytesIO()
     with ZipFile(stream, "w") as archive:
         archive.writestr("SUBMISSION.tsv", submission)
+        archive.writestr("COVERPAGE.tsv", coverpage)
         archive.writestr("INFOTABLE.tsv", header + "\n".join(rows) + "\n")
     return stream.getvalue()
 
 
+def amendment_zip(*, amendment_type="NEW HOLDINGS", amendment_number=1, include_initial=True):
+    initial = "0001108893-26-000004"
+    amendment = "0001108893-26-000005"
+    submission = "ACCESSION_NUMBER\tFILING_DATE\tSUBMISSIONTYPE\tCIK\tPERIODOFREPORT\n"
+    if include_initial:
+        submission += f"{initial}\t15-AUG-2026\t13F-HR\t1108893\t30-JUN-2026\n"
+    submission += f"{amendment}\t16-AUG-2026\t13F-HR/A\t1108893\t30-JUN-2026\n"
+    coverpage = "ACCESSION_NUMBER\tISAMENDMENT\tAMENDMENTNO\tAMENDMENTTYPE\n"
+    if include_initial:
+        coverpage += f"{initial}\t\t\t\n"
+    coverpage += f"{amendment}\tY\t{amendment_number}\t{amendment_type}\n"
+    info = ("ACCESSION_NUMBER\tINFOTABLE_SK\tCUSIP\tNAMEOFISSUER\tTITLEOFCLASS\t"
+            "VALUE\tSSHPRNAMT\tSSHPRNAMTTYPE\tPUTCALL\n")
+    if include_initial:
+        info += f"{initial}\t1\t037833100\tAPPLE INC\tCOM\t200\t20\tSH\t\n"
+    info += f"{amendment}\t2\t037833100\tAPPLE INC\tCOM\t100\t10\tSH\t\n"
+    stream = BytesIO()
+    with ZipFile(stream, "w") as archive:
+        archive.writestr("SUBMISSION.tsv", submission)
+        archive.writestr("COVERPAGE.tsv", coverpage)
+        archive.writestr("INFOTABLE.tsv", info)
+    return stream.getvalue()
+
+
 class FakeClient:
-    def __init__(self):
+    def __init__(self, payload=None):
         self.downloads = 0
+        self.payload = payload or sample_zip()
 
     def latest_url(self):
         return URL
 
     def dataset(self, url):
         self.downloads += 1
-        return sample_zip()
+        return self.payload
 
 
 class Sec13fTests(unittest.TestCase):
@@ -100,10 +130,49 @@ class Sec13fTests(unittest.TestCase):
             self.assertEqual(1, len(rows))
             self.assertIn("/Archives/edgar/data/1108893/", rows[0]["source_url"])
             details = json.loads(rows[0]["details_json"])
-            self.assertEqual(45539635, details["as_filed_value_usd"])
+            self.assertEqual(100, details["as_filed_value_usd"])
             self.assertEqual("2026-06-30", details["period_of_report"])
-            self.assertFalse(details["amendments_included"])
+            self.assertTrue(details["amendments_included"])
+            self.assertEqual("13F-HR/A", details["submission_type"])
+            self.assertEqual(["0001108893-26-000005"], details["effective_filing_accessions"])
+            self.assertEqual(
+                ["0001108893-26-000004", "0001108893-26-000005"],
+                details["filing_chain_accessions"],
+            )
             self.assertEqual(NOW.isoformat(), rows[0]["published_at"])
+
+    def test_new_holdings_amendment_adds_to_initial_without_superseding_it(self):
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "new-holdings.db")
+            result = Sec13fScoutService(
+                store, client=FakeClient(amendment_zip()), securities=[SECURITY]
+            ).run(as_of=NOW, universe={"AAPL"})
+            self.assertEqual("OK", result["status"])
+            self.assertEqual(1, result["reconstructed_amendment_groups"])
+            self.assertEqual(2, result["new_findings"])
+            with store._connect() as conn:
+                details = [json.loads(row[0]) for row in conn.execute(
+                    "SELECT details_json FROM scout_findings WHERE source='sec13f' "
+                    "ORDER BY source_object_id"
+                ).fetchall()]
+            self.assertEqual([200, 100], [row["as_filed_value_usd"] for row in details])
+            self.assertTrue(all(row["amendments_included"] for row in details))
+            self.assertTrue(all(len(row["effective_filing_accessions"]) == 2 for row in details))
+
+    def test_orphan_and_unknown_amendments_fail_closed(self):
+        for name, payload in (
+            ("orphan", amendment_zip(include_initial=False)),
+            ("unknown", amendment_zip(amendment_type="OTHER")),
+            ("missing-prior-amendment", amendment_zip(amendment_number=2)),
+        ):
+            with self.subTest(name=name), TemporaryDirectory() as directory:
+                result = Sec13fScoutService(
+                    ScoutStore(Path(directory) / f"{name}.db"),
+                    client=FakeClient(payload), securities=[SECURITY],
+                ).run(as_of=NOW, universe={"AAPL"})
+                self.assertEqual("PARTIAL", result["status"])
+                self.assertEqual(1, result["unresolved_amendment_groups"])
+                self.assertEqual(0, result["new_findings"])
 
     def test_manifest_and_untrusted_url_fail_closed(self):
         with TemporaryDirectory() as directory:

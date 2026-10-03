@@ -190,14 +190,15 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry now covers fifteen canonical instruments: AAPL, MSFT, NVDA, AMZN, META, GOOGL, TSLA, AVGO, AMD, JPM, V, MA, JNJ, XOM and WMT, with check-digit and dataset-name/class validation. Remaining: declared SEC User-Agent live ZIP run, 13F amendment reconstruction, wider dated instrument/corporate-action coverage, Windows acceptance and historical evaluation.",
+      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers fifteen canonical instruments. Self-contained manager/period amendment chains in one quarterly SEC archive now reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. Remaining: declared SEC User-Agent live ZIP run, cross-quarter amendment chains, wider dated instrument/corporate-action coverage, Windows acceptance and historical evaluation.",
       "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
       "test_evidence": "evidence/sec13f_identity_tests_20261002.json",
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
       "test_expansion2_evidence": "evidence/sec13f_identity_expansion2_tests_20261002.json",
       "identity_expansion3_evidence": "evidence/sec13f_identity_expansion3_20261002.json",
       "test_expansion3_evidence": "evidence/sec13f_identity_expansion3_tests_20261002.json",
-      "windows_expansion3_evidence": "evidence/sec13f_identity_expansion3_windows_tests_20261002.json"
+      "windows_expansion3_evidence": "evidence/sec13f_identity_expansion3_windows_tests_20261002.json",
+      "amendment_reconstruction_test_evidence": "evidence/sec13f_amendment_reconstruction_tests_20261003.json"
     },
     {
       "id": "consensus_options",

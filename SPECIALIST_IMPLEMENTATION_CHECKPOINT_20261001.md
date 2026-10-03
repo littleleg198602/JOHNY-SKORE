@@ -1,5 +1,12 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 3. 10.: SEC 13F sběrač rekonstruuje restatement/new-holdings
+amendments, pokud je celý manager/period řetězec ve stejném čtvrtletním ZIPu.
+Osiřelé a nejednoznačné řetězce selžou zavřeně jako PARTIAL. Deterministicky
+prošlo 536/536; živý ZIP, přes-čtvrtletní historie, Windows end-to-end,
+coverage a OOS evaluace zůstávají otevřené. Viz
+`evidence/sec13f_amendment_reconstruction_tests_20261003.json`.
+
 Nejnovější navazující stav je v
 `SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261002.md`: bankovní registr
 22/22, ochrany FDA, samostatný Non-SDN sběr a deterministická Windows CI.
@@ -77,7 +84,7 @@ Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
 | Energie/utilities | Vlastní aktiva a expozice propojit s primárními tržními/regulatorními zdroji. |
 | Obrana/aerospace | Programy, dcery a recipient identity mimo jediný Sikorsky pilot. |
 | Ostatní sektory | Připojit konkrétní poskytovatele k otázkám 39 profilů a změřit relevantní pokrytí. |
-| Instituce | Více doložených CUSIP, 13F amendments a živý SEC ZIP. |
+| Instituce | Živý SEC ZIP, amendments přes hranice čtvrtletních archivů a více doložených CUSIP; lokální same-archive restatement/new-holdings rekonstrukce je hotová. |
 | Konsensus/options/Level 2 | Poskytovatel, entitlement a měřený licencovaný pilot. |
 | Alternativní data | Vybraný licencovaný pilot a změřená přidaná hodnota. |
 | Ověřování/missingness | Doložit hledání, usable/failed stavy a nezávislé primární potvrzení tvrzení. |

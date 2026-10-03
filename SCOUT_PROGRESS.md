@@ -1,5 +1,29 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — rekonstrukce amendments v jednom čtvrtletním archivu (3. 10. 2026)
+
+13F sběrač už neignoruje `13F-HR/A`. Podle oficiálních polí SUBMISSION a
+COVERPAGE seskupí filingy podle manager CIK a period of report. `RESTATEMENT`
+nahradí dřívější efektivní filingy, zatímco `NEW HOLDINGS` přidá nový filing
+k existující sadě. Uložený nález zachovává typ podání, celý filing chain a
+konkrétní efektivní accessions. Skóre se nemění.
+
+Rekonstrukce je záměrně omezená na řetězec, který je celý přítomen v jednom
+oficiálním čtvrtletním ZIPu. Osiřelý amendment, více počátečních filingů,
+neplatný `ISAMENDMENT` nebo neznámý typ vyřadí celou skupinu a vrátí
+`PARTIAL`; nespojí se se zastaralými řádky. Nové testy pokrývají restatement,
+new holdings i záporné případy. Cílená sada prošla 37/37 a po instalaci
+připnutých závislostí celá místní deterministická sada 536/536. První
+clean-host pokus s 22 chybějícími importy ani chybný seznam tří neexistujících
+test modulů se nepočítají jako úspěch. Přesný rozsah a otisky jsou v
+`evidence/sec13f_amendment_reconstruction_tests_20261003.json`.
+
+Na hostu stále není deklarovaný SEC User-Agent, takže neproběhl živý ZIP.
+Chybí řetězce přes hranici čtvrtletních archivů, širší datované instrumenty,
+skutečný Windows end-to-end, změřené relevantní pokrytí a historická
+out-of-sample evaluace. Institutions proto zůstává PILOT/PENDING a inventář
+0/21 DONE.
+
 ## Ceny — BRKB na hranici Yahoo provideru (3. 10. 2026)
 
 Kanonický identifikátor BRKB zůstává beze změny v seznamu 687, reportech a

@@ -6,6 +6,16 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+SEC 13F sběrač nyní rekonstruuje `13F-HR/A` řetězce, pokud je původní filing
+i všechny amendments v témže čtvrtletním SEC archivu. Restatement nahradí
+dřívější efektivní filingy, new holdings se k nim přidají; osiřelé,
+nejednoznačné nebo neznámé řetězce fail-closed vracejí PARTIAL. U nálezů se
+ukládají efektivní accessions i celý lineage. Cílená sada prošla 37/37 a
+celá místní sada po instalaci deklarovaných závislostí 536/536; důkaz je v
+`evidence/sec13f_amendment_reconstruction_tests_20261003.json`. Živý SEC
+ZIP, přes-čtvrtletní řetězce, širší identity, skutečný Windows běh, coverage
+a historická evaluace chybí, takže institutions zůstává PILOT/PENDING.
+
 Kanonický BRKB se nyní na všech Yahoo hranicích převádí na BRK-B, zatímco
 kanonický seznam 687, cache a reporty dál používají BRKB. Dávkové OHLC,
 individuální retry a corporate-action cesta zachovají kanonický výstupní
