@@ -1,5 +1,19 @@
 # Průběh implementace pátracích agentů
 
+## Form 4 — Windows kontrola klasifikace kódů (3. 10. 2026)
+
+GitHub-hosted Windows job 111277493196 na commitu 7e6a0c8f dokončil 546/546
+testů bez selhání, chyb a přeskočení. Workflow 37148581786 i deterministic
+release gate prošly. Stažený artifact 11282313919 obsahoval úplný log a
+strojový JSON; SHA-256 ZIPu souhlasil s metadaty workflow a oba vnitřní
+soubory byly obsahově zkontrolované. Audit je v
+`evidence/sec_form4_transaction_classification_windows_20261003.json`.
+
+Jde pouze o hostovanou Windows kompatibilitu fail-closed klasifikace. Není to
+živý Form 4 případ ani koncový běh na uživatelově Windows a nedokládá právní
+identitu, coverage nebo historii. Insider zůstává PARTIAL/PENDING a inventář
+0/21 DONE.
+
 ## Form 4 — úplná fail-closed klasifikace kódů (3. 10. 2026)
 
 Governance nyní rozlišuje všech 20 kódů zveřejněných SEC pro Form 4. Za

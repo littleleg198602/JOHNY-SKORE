@@ -1,5 +1,10 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Navazující GitHub-hosted Windows job 111277493196 prošel 546/546, prošel i
+release gate a stažený artifact 11282313919 byl obsahově a hashově ověřen.
+Viz `evidence/sec_form4_transaction_classification_windows_20261003.json`.
+Jde jen o kompatibilitu, nikoli živý SEC nebo uživatelský Windows end-to-end.
+
 Aktualizace 3. 10.: governance nyní podle oficiálního seznamu SEC
 fail-closed klasifikuje všech 20 Form 4 transaction codes. Pouze nederivátové
 `P/A` a `S/D` mohou být open-market trade; ostatní dokumentované kódy
