@@ -1,5 +1,21 @@
 # Průběh implementace pátracích agentů
 
+## SEC — primární dokument bez duplicitního index eventu (3. 10. 2026)
+
+Po zapojení 13D/G cover parseru se ukázala navazující chyba: ScoutIndex pro
+stejný issuer/accession předával index i source-verified primární dokument,
+takže governance mohl vytvořit dvě filing události. Nyní se podle kanonického
+subjectu a SEC source objectu předá jen primární dokument; indexový finding se
+nezahodí a zůstává v neměnném analysis snapshotu a exportu. Žádné skóre se
+nemění.
+
+Cílená sada prošla 43/43 a po instalaci deklarovaných závislostí celá místní
+deterministická sada 540/540. První clean-host pokus skončil po 434 testech s
+22 importními chybami a nepočítá se jako úspěch. Regresní důkaz a otisky jsou
+v `evidence/sec_filing_primary_dedup_tests_20261003.json`. Jde o opravu
+reprezentace, ne živý SEC, uživatelský Windows end-to-end, coverage nebo
+historickou evaluaci; stav specialistů se nemění.
+
 ## SEC 13D/G — as-filed cover fields bez domyšlené změny (3. 10. 2026)
 
 Navazující GitHub-hosted Windows job 111190444784 na commitu 5ef9803f
@@ -142,7 +158,7 @@ hostovanou kompatibilitu, ne živý 687-ticker běh na uživatelově Windows.
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 61 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 62 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

@@ -1,5 +1,12 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 3. 10.: ScoutIndex už pro stejný issuer/accession neposílá index
+i source-verified primární dokument jako dvě governance reprezentace.
+Primární dokument má přednost, indexový finding však zůstává v neměnném
+snapshotu/exportu. Cíleně prošlo 43/43 a celá místní sada 540/540; viz
+`evidence/sec_filing_primary_dedup_tests_20261003.json`. Živý SEC, skutečný
+Windows end-to-end, coverage a historie zůstávají otevřené.
+
 Aktualizace 3. 10.: omezený SC 13D/G cover parser ukládá as-filed datum
 události, třídu, checksum-valid CUSIP a nejvýše 32 reporting persons s počtem
 akcií/procentem; metadata přežijí scout → ScoutIndex → governance. Jméno je

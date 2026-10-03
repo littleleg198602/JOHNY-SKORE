@@ -6,6 +6,14 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+ScoutIndex už pro stejný issuer/accession nevydává index i primární dokument
+jako dvě analytické reprezentace. Source-verified primární dokument má
+přednost, zatímco indexový finding zůstává v analysis snapshotu a exportu.
+Tím odpadá duplicitní 13D/G governance filing; cíleně prošlo 43/43 a celá
+místní sada 540/540. Viz
+`evidence/sec_filing_primary_dedup_tests_20261003.json`. Nejde o živou
+akceptaci a stav zůstává 0/21 DONE.
+
 SC 13D/G primární dokument nyní fail-closed extrahuje as-filed datum události,
 název třídy, checksum-valid CUSIP a nejvýše 32 reporting persons včetně počtu
 akcií a procenta. Data přežijí celý scout/index/governance průchod, ale jméno
@@ -82,7 +90,7 @@ kompatibility, nikoli živý uživatelský Windows end-to-end běh.
 
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 61 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 62 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,

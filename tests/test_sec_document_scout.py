@@ -108,11 +108,13 @@ class SecDocumentScoutTest(unittest.TestCase):
             self.assertEqual("0000320193-26-000001", document.metadata["accession_number"])
             self.assertEqual("0000320193", document.metadata["issuer_cik"])
             self.assertEqual("2026-03-13T00:00:00+00:00", document.metadata["report_date"])
-            event = next(
+            ownership_events = [
                 item for item in report.governance_events
                 if item.event_type == GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING
-                and item.metadata["as_filed_cover_fields_extracted"]
-            )
+            ]
+            self.assertEqual(1, len(ownership_events))
+            event = ownership_events[0]
+            self.assertTrue(event.metadata["as_filed_cover_fields_extracted"])
             self.assertEqual(GovernanceEventStatus.UNVERIFIED, event.status)
             cover = event.metadata["as_filed_cover_fields"]
             self.assertEqual(["037833100"], cover["instrument"]["cusips"])
@@ -250,11 +252,14 @@ class SecDocumentScoutTest(unittest.TestCase):
             )
             scout_docs = [document for document in report.documents
                           if document.source == "SEC EDGAR index"]
-            self.assertEqual(2, len(scout_docs))
-            self.assertEqual({True, False},
-                             {item.metadata["filing_index_only"] for item in scout_docs})
+            self.assertEqual(1, len(scout_docs))
+            self.assertFalse(scout_docs[0].metadata["filing_index_only"])
             self.assertTrue(all(item.direction == 0 for item in report.evidence
                                 if item.agent_name == "scout_index"))
+            scout_execution = next(item for item in report.executions
+                                   if item.agent_name == "scout_index")
+            self.assertEqual(1, scout_execution.result.metadata["superseded_index_documents"])
+            self.assertEqual(2, scout_execution.result.metadata["source_findings_in_snapshot"])
             saved = store.analysis_snapshot(report.orchestration_id)
             self.assertEqual({row["finding_id"] for row in records},
                              set(saved["finding_ids"]))

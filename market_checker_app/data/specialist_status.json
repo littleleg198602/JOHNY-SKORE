@@ -18,7 +18,8 @@
       "research": "01-04, 08",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Run full 687 watchlist on Windows, verify coverage and historical amendments; SEC queue already auto-continues in bounded batches."
+      "next": "Source-verified primary documents now supersede duplicate index representations per issuer/accession while the index finding stays in the audit snapshot. Run the full 687 watchlist on actual Windows, verify live coverage and historical amendments; SEC queue already auto-continues in bounded batches.",
+      "primary_document_dedup_test_evidence": "evidence/sec_filing_primary_dedup_tests_20261003.json"
     },
     {
       "id": "insider",
