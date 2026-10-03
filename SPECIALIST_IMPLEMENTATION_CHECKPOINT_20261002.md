@@ -6,7 +6,13 @@ Autoritativní inventář je `market_checker_app/data/specialist_status.json`.
 
 ## Dokončené změny
 
-- Akceptační diagnostika nyní načítá a hashově eviduje obsah všech 51
+- Kanonický BRKB se nyní převádí na Yahoo BRK-B pouze na provider hranici;
+  reporty, cache a kanonický vstup 687 dál používají BRKB. Oprava pokrývá
+  metadata, bulk OHLC, individuální retry i corporate-action OHLC. Cílená
+  sada prošla 48/48 a celá místní sada 534/534. Živý Yahoo důkaz, PSTG/LEG,
+  uživatelský Windows after-close běh a historická evaluace zůstávají
+  otevřené; důkaz je v evidence/price_brkb_yahoo_alias_tests_20261003.json.
+- Akceptační diagnostika nyní načítá a hashově eviduje obsah všech 52
   odkazovaných JSON důkazů; neplatná cesta, chybějící soubor, ne-JSON objekt
   nebo nepodporované schéma selže zavřeně. Budoucí DONE/VERIFIED vyžaduje
   šest samostatných obsahových tvrzení pro datovanou identitu, pozitivní a

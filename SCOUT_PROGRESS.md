@@ -1,11 +1,27 @@
 # Průběh implementace pátracích agentů
 
+## Ceny — BRKB na hranici Yahoo provideru (3. 10. 2026)
+
+Kanonický identifikátor BRKB zůstává beze změny v seznamu 687, reportech a
+cache. Pouze při volání Yahoo se nyní převádí na BRK-B. Převod platí pro
+metadata, dávkové OHLC, individuální retry i přísnou corporate-action OHLC
+cestu; dříve individuální retry používal chybné BRKB a mohl selhat i po
+správném dávkovém požadavku. Loader kanonického vstupu vrací pro tento řádek
+explicitně dvojici BRKB / BRK-B bez změny zdrojového CSV nebo jeho SHA-256.
+
+Cílená sada prošla 48/48 a celá místní deterministická sada 534/534 bez
+selhání, chyb a přeskočení. Přesné otisky a omezení jsou v
+evidence/price_brkb_yahoo_alias_tests_20261003.json. Neproběhl živý Yahoo
+důkaz, 687-ticker after-close Windows běh ani historická evaluace. PSTG a
+LEG zůstávají otevřené; prices je proto dál PARTIAL/PENDING a inventář
+0/21 DONE.
+
 ## Akceptace — audit obsahu důkazů (3. 10. 2026)
 
 Provozní report už nepovažuje neprázdný název souboru za akceptační důkaz.
 Načte každý odkazovaný JSON přímo z evidence/, odmítne chybějící,
 neplatný, nepodporovaný nebo cestou unikající soubor a zveřejní jeho velikost
-a SHA-256. Aktuálních 50 odkazovaných souborů je čitelných a schématicky
+a SHA-256. Aktuálních 52 odkazovaných souborů je čitelných a schématicky
 platných; to samo o sobě není důkaz dokončení.
 
 Případný stav DONE/VERIFIED nyní fail-closed vyžaduje obsahové potvrzení

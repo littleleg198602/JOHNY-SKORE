@@ -6,9 +6,17 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Kanonický BRKB se nyní na všech Yahoo hranicích převádí na BRK-B, zatímco
+kanonický seznam 687, cache a reporty dál používají BRKB. Dávkové OHLC,
+individuální retry a corporate-action cesta zachovají kanonický výstupní
+klíč. Cílená sada prošla 48/48 a celá místní sada 534/534; důkaz je v
+evidence/price_brkb_yahoo_alias_tests_20261003.json. Živá odpověď, PSTG/LEG,
+after-close Windows coverage a historie zůstávají otevřené, takže stav
+prices ani celkových 0/21 DONE se nemění.
+
 Akceptační report nyní skutečně načítá obsah všech odkazovaných JSON důkazů,
 omezuje cesty na přímé soubory v evidence/, ověřuje schéma a zveřejňuje
-SHA-256. Aktuálních 51 odkazů je obsahově čitelných, ale žádný název ani
+SHA-256. Aktuálních 52 odkazů je obsahově čitelných, ale žádný název ani
 neprázdný soubor sám nedokončuje specialistu. DONE/VERIFIED vyžaduje u
 každého specialisty šest explicitních obsahových tvrzení: datovanou
 issuer/instrument/product identitu, pozitivní a negativní živý případ,

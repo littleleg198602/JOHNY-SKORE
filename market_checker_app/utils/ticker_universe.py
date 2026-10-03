@@ -4,6 +4,7 @@ import csv
 import hashlib
 from pathlib import Path
 
+from market_checker_app.utils.symbols import normalize_yahoo_symbol
 from market_checker_app.utils.text import normalize_ticker
 
 
@@ -50,7 +51,7 @@ def load_canonical_ticker_records(
         seen: set[str] = set()
         for row_number, row in enumerate(reader, start=2):
             ticker = normalize_ticker(str(row.get("ticker") or ""))
-            yahoo_ticker = normalize_ticker(
+            yahoo_ticker = normalize_yahoo_symbol(
                 str(row.get("yahoo_ticker") or ticker)
             )
             if not ticker:
