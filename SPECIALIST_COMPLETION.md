@@ -6,6 +6,16 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+SEC 13F registr pro 2026 Q2 byl rozšířen z 15 na 20 přesně citovaných
+kanonických instrumentů: LLY, INTC, CSCO, ABBV a DIS mají CUSIP, issuer CIK,
+třídu a datovaný instrument potvrzené oficiálním seznamem a SEC podáním.
+Cíleně prošlo 27/27 a celá místní sada 546/546; viz
+`evidence/sec13f_identity_expansion4_20261003.json` a
+`evidence/sec13f_identity_expansion4_tests_20261003.json`. Stále nejde o
+plné pokrytí, živý SEC ZIP, uživatelský Windows end-to-end ani historickou
+OOS evaluaci. Skóre se nemění, institutions zůstává PILOT/PENDING a celek
+0/21 DONE.
+
 Stejná Form 4 klasifikace následně prošla kompletní GitHub-hosted Windows
 sadou 546/546, úspěšným release gate a stažený artifact 11282313919 souhlasil
 s publikovaným SHA-256. Audit je v
@@ -42,7 +52,7 @@ insider PARTIAL/PENDING a celek 0/21 DONE.
 
 Schedule 13D/G as-filed CUSIP se nyní přes reviewovaný SEC registr vyřeší
 jen při jediné přesné shodě tickeru, issuer CIK, CUSIP, effective intervalu a
-knowledge-time hranice. Aktuálně je takto dostupných jen 15 instrumentů pro
+knowledge-time hranice. V době tohoto kroku bylo takto dostupných jen 15 instrumentů pro
 2026 Q2; více CUSIPů nebo jakýkoli nesoulad fail-closed zůstane bez shody.
 Reporting-person jména jsou dál `NAME_ONLY`, změna vlastnictví se neodvozuje
 a skóre se nemění. Cíleně prošlo 47/47 a celá místní sada 541/541; viz

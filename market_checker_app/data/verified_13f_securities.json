@@ -193,5 +193,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-02T20:39:10.301926+00:00"
+  },
+  {
+    "ticker": "LLY",
+    "issuer_cik": "0000059478",
+    "cusip": "532457108",
+    "issuer_name": "ELI LILLY & CO",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/59478/000031601126000029/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T21:40:32.263174+00:00"
+  },
+  {
+    "ticker": "INTC",
+    "issuer_cik": "0000050863",
+    "cusip": "458140100",
+    "issuer_name": "INTEL CORP",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/50863/000210011926000597/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T21:40:32.263174+00:00"
+  },
+  {
+    "ticker": "CSCO",
+    "issuer_cik": "0000858877",
+    "cusip": "17275R102",
+    "issuer_name": "CISCO SYS INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000916/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T21:40:32.263174+00:00"
+  },
+  {
+    "ticker": "ABBV",
+    "issuer_cik": "0001551152",
+    "cusip": "00287Y109",
+    "issuer_name": "ABBVIE INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1551152/000210011926000126/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T21:40:32.263174+00:00"
+  },
+  {
+    "ticker": "DIS",
+    "issuer_cik": "0001744489",
+    "cusip": "254687106",
+    "issuer_name": "WALT DISNEY CO",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1744489/000210011926001267/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T21:40:32.263174+00:00"
   }
 ]

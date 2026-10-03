@@ -1,5 +1,15 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 3. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 20
+kanonických instrumentů. LLY, INTC, CSCO, ABBV a DIS mají přesný CUSIP,
+issuer CIK, třídu a datovaný instrument doložené oficiálním 13F seznamem a
+samostatným SEC podáním. Cíleně prošlo 27/27 a celá místní sada 546/546; viz
+`evidence/sec13f_identity_expansion4_20261003.json` a
+`evidence/sec13f_identity_expansion4_tests_20261003.json`. Bez živého SEC
+ZIPu, širší corporate-action historie, uživatelského Windows end-to-end,
+změřeného pokrytí a OOS evaluace zůstává institutions PILOT/PENDING a
+inventář 0/21 DONE. Skóre se nemění.
+
 Navazující GitHub-hosted Windows job 111277493196 prošel 546/546, prošel i
 release gate a stažený artifact 11282313919 byl obsahově a hashově ověřen.
 Viz `evidence/sec_form4_transaction_classification_windows_20261003.json`.
@@ -34,7 +44,7 @@ kompatibilitu, nikoli živý SEC nebo uživatelský Windows end-to-end.
 
 Aktualizace 3. 10.: Schedule 13 as-filed CUSIP se nyní vyřeší proti
 reviewovanému SEC registru jen při přesné shodě tickeru, issuer CIK, CUSIP,
-effective intervalu a knowledge-time hranice. Registr pokrývá pouze 15
+effective intervalu a knowledge-time hranice. V době tohoto kroku registr pokrýval pouze 15
 instrumentů v 2026 Q2; osoby zůstávají `NAME_ONLY` a změna vlastnictví se
 neinterpretuje. Cíleně prošlo 47/47 a celá místní sada 541/541; viz
 `evidence/sec13dg_instrument_registry_match_tests_20261003.json`. Živé

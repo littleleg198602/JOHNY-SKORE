@@ -1,5 +1,23 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — čtvrté rozšíření datovaného registru (3. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 20 kanonických instrumentů. Nově
+přibyly LLY, INTC, CSCO, ABBV a DIS; u každého je přesný CUSIP, issuer CIK,
+třída, řádek oficiálního SEC 13F seznamu a samostatné SEC podání potvrzující
+instrument. Všech pět tickerů je v nezměněném kanonickém vstupu 687.
+
+Cíleně prošlo 27/27 a po instalaci deklarovaných závislostí celá místní sada
+546/546. První clean-host pokus skončil 22 importními chybami a není počítán
+jako PASS. Obsahové zdroje a limity jsou v
+`evidence/sec13f_identity_expansion4_20261003.json`, výsledky a otisky v
+`evidence/sec13f_identity_expansion4_tests_20261003.json`.
+
+Nejde o plné pokrytí 687 instrumentů ani živý SEC 13F ZIP. Chybí declared
+SEC User-Agent, corporate-action historie, skutečný Windows end-to-end,
+změřené relevantní pokrytí a historická OOS evaluace; skóre se nemění,
+institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+
 ## Form 4 — Windows kontrola klasifikace kódů (3. 10. 2026)
 
 GitHub-hosted Windows job 111277493196 na commitu 7e6a0c8f dokončil 546/546
@@ -85,7 +103,7 @@ reviewovaným SEC registrem a jen v jeho effective-from/to intervalu. Registry
 použít později zjištěnou identitu. Více CUSIPů, chybný ticker/CIK, datum mimo
 interval nebo budoucí knowledge time selžou zavřeně.
 
-Omezení zůstává zásadní: registr obsahuje jen 15 instrumentů pro 2026 Q2,
+Omezení v době tohoto kroku zůstávalo zásadní: registr obsahoval jen 15 instrumentů pro 2026 Q2,
 reporting-person jména jsou stále `NAME_ONLY` a žádná změna vlastnictví se
 neinterpretuje ani neskóruje. Cílená sada prošla 47/47 a po instalaci
 deklarovaných závislostí celá místní deterministická sada 541/541. První

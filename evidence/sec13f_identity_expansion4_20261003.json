@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T21:40:32.263174+00:00",
+  "publisher": "U.S. Securities and Exchange Commission",
+  "scope": "Five additional canonical instruments, bringing the bounded 2026 Q2 SEC 13F registry to twenty; not full-universe coverage or a live 13F dataset run",
+  "quarter": {
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt"
+  },
+  "ticker_source": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "limitation": "Current SEC ticker-to-CIK publication observed at knowledge time; it does not establish continuous historical ticker ownership or corporate-action continuity"
+  },
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "new_tickers_present": ["LLY", "INTC", "CSCO", "ABBV", "DIS"]
+  },
+  "entries": [
+    {
+      "ticker": "LLY",
+      "issuer_cik": "0000059478",
+      "cusip": "532457108",
+      "issuer_name_in_13f_list": "ELI LILLY & CO",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 15464 / CUSIP 532457108",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/59478/000031601126000029/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Eli Lilly and Company / Common Stock Without Par Value / CUSIP 532457108 / event 2026-06-30"
+    },
+    {
+      "ticker": "INTC",
+      "issuer_cik": "0000050863",
+      "cusip": "458140100",
+      "issuer_name_in_13f_list": "INTEL CORP",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 12536 / CUSIP 458140100",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/50863/000210011926000597/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Intel Corporation / Common Stock / CUSIP 458140100 / event 2026-03-31"
+    },
+    {
+      "ticker": "CSCO",
+      "issuer_cik": "0000858877",
+      "cusip": "17275R102",
+      "issuer_name_in_13f_list": "CISCO SYS INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 6169 / CUSIP 17275R102",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000916/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Cisco Systems, Inc. / Common Stock / CUSIP 17275R102 / event 2026-03-13"
+    },
+    {
+      "ticker": "ABBV",
+      "issuer_cik": "0001551152",
+      "cusip": "00287Y109",
+      "issuer_name_in_13f_list": "ABBVIE INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 2678 / CUSIP 00287Y109",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1551152/000210011926000126/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "AbbVie Inc. / Common Stock / CUSIP 00287Y109 / event 2026-03-31"
+    },
+    {
+      "ticker": "DIS",
+      "issuer_cik": "0001744489",
+      "cusip": "254687106",
+      "issuer_name_in_13f_list": "DISNEY WALT CO",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 7774 / CUSIP 254687106",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1744489/000210011926001267/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "The Walt Disney Company / Common Stock / CUSIP 254687106 / filing 2026-04-30"
+    }
+  ],
+  "validation_contract": {
+    "cusip_check_digit_required": true,
+    "issuer_name_must_match_dataset": true,
+    "security_class_must_match_dataset": true,
+    "issuer_cik_required": true,
+    "amendments_included": false,
+    "scoring_changed": false
+  },
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}
