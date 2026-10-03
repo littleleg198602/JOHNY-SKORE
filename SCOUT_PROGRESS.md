@@ -1,5 +1,27 @@
 # Průběh implementace pátracích agentů
 
+## Schedule 13D/G — fail-closed porovnání amendments (3. 10. 2026)
+
+Governance cesta nyní pozná source-verified primární dokument a porovná
+pozdější `SC 13D/A` nebo `SC 13G/A` jen s jediným bezprostředním předchůdcem.
+Musí se přesně shodovat ticker, issuer CIK, rodina formuláře, jeden
+registry-matched CUSIP a množina as-filed jmen; každý reporting person musí
+mít počet akcií i procento. Uložené delty nesou oba accessions, oba časy a
+hodnoty po osobách, ale stav je pouze `AS_FILED_CANDIDATE` / `NAME_ONLY`.
+Nevzniká VERIFIED ownership change, právní identita osoby ani skóre.
+
+Osiřelý amendment, dva stejně aktuální předchůdci, změna jména, chybějící
+číselné pole, index-only dokument a údaj za knowledge-time hranicí nevytvoří
+porovnání. Cíleně prošlo 21/21 a po instalaci deklarovaných závislostí celá
+místní sada 543/543. První clean-host běh skončil 22 chybami importu a není
+počítán jako PASS. Přesný kontrakt, časy a otisky jsou v
+`evidence/sec13dg_amendment_comparison_tests_20261003.json`.
+
+Chybí právní identity reporting persons, širší datované instrumenty,
+pozitivní a negativní živé amendments, skutečný Windows end-to-end,
+změřené relevantní pokrytí a historická evaluace. Insider zůstává
+PARTIAL/PENDING a inventář 0/21 DONE.
+
 ## SEC 13D/G — datovaná instrumentová shoda pro omezený registr (3. 10. 2026)
 
 Navazující GitHub-hosted Windows job 111231903251 na commitu a9fce274

@@ -1,13 +1,24 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 3. 10.: source-verified primární Schedule 13D/G amendments se
+nyní porovnají s jediným bezprostředním předchůdcem jen při shodě tickeru,
+issuer CIK, rodiny formuláře, jednoho registry-matched CUSIP a přesné množiny
+as-filed jmen. Všichni musí mít počet akcií i procento. Výstup je pouze
+`AS_FILED_CANDIDATE`: jména zůstávají `NAME_ONLY`, právní identita ani změna
+vlastnictví nejsou potvrzené, vyžaduje se lidská kontrola a skóre je vypnuté.
+Osiřelý amendment, nejednoznačný předchůdce, změna jmen, chybějící číslo,
+index-only nebo budoucí dokument fail-closed nevytvoří porovnání. Cíleně
+prošlo 21/21 a celá místní sada 543/543; viz
+`evidence/sec13dg_amendment_comparison_tests_20261003.json`. Živé případy,
+právní identity, širší pokrytí, Windows a OOS evaluace zůstávají otevřené.
+
 Aktualizace 3. 10.: Schedule 13 as-filed CUSIP se nyní vyřeší proti
 reviewovanému SEC registru jen při přesné shodě tickeru, issuer CIK, CUSIP,
 effective intervalu a knowledge-time hranice. Registr pokrývá pouze 15
 instrumentů v 2026 Q2; osoby zůstávají `NAME_ONLY` a změna vlastnictví se
 neinterpretuje. Cíleně prošlo 47/47 a celá místní sada 541/541; viz
 `evidence/sec13dg_instrument_registry_match_tests_20261003.json`. Živé
-případy, širší pokrytí, amendment porovnání, Windows end-to-end a OOS
-evaluace zůstávají otevřené.
+případy, širší pokrytí, Windows end-to-end a OOS evaluace zůstávají otevřené.
 
 Navazující GitHub-hosted Windows job 111231903251 prošel 541/541, prošel i
 release gate a stažený artifact 11277384887 byl obsahově a hashově ověřen.
@@ -139,7 +150,7 @@ Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
 |---|---|
 | Identita | Datované aliasy, dcery, značky a produkty; zapojit do cen i sektorových zdrojů. |
 | SEC | Živý běh celé fronty 687 firem, historie oprav a Windows akceptace. |
-| Insider | Živé typy Form 4 a datovaní reporting persons/instrumenty 13D/G. |
+| Insider | Schedule 13 amendment delty jsou jen as-filed kandidáti; zbývá právní identita reporting persons, širší datované instrumenty, živé pozitivní/negativní případy a typy Form 4. |
 | Kontrakty | Další ticker–dcera–UEI, modifikace zakázek a aktuální živé důkazy; SAM přístup. |
 | Regulace | Další vozidla, OFAC weak aliasy/Non-SDN/vlastnictví, DOJ a EPA; ALT.CSV entity aliasy jsou zapojené a mají živý zdrojový důkaz. |
 | Dodavatelé | Z citovaných právních názvů vytvořit datované entity a vztahy; koncentrace a živé dokumenty. |

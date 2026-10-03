@@ -66,6 +66,7 @@ class ScoutIndexAgent(BaseAgent):
                 metadata={"locator": row["locator"],
                           "finding_id": row["finding_id"],
                           "filing_index_only": not (content_observed or exposure),
+                          "source_verified_primary": content_observed,
                           "exposure_candidate": exposure,
                           "form": details.get("form"),
                           "accession_number": details.get("accession"),

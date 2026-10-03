@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from datetime import timezone
+from datetime import datetime, timezone
 import hashlib
+import math
 import re
 from typing import Iterable
 
@@ -30,6 +31,176 @@ def _stable_id(*parts: object) -> str:
 
 def _base_form(value: object) -> str:
     return str(value or "").strip().upper().removesuffix("/A")
+
+
+def _schedule_13_cover(document: DocumentRecord) -> dict[str, object] | None:
+    """Return comparison-safe as-filed fields from one SEC primary document."""
+    form = str(document.metadata.get("form") or "").strip().upper()
+    if _base_form(form) not in {"SC 13D", "SC 13G"}:
+        return None
+    if document.metadata.get("source_verified_primary") is not True:
+        return None
+    ownership = document.metadata.get("beneficial_ownership")
+    if not isinstance(ownership, Mapping):
+        return None
+    if ownership.get("instrument_identity_verified") is not True:
+        return None
+    instrument = ownership.get("instrument")
+    if not isinstance(instrument, Mapping):
+        return None
+    cusips = instrument.get("cusips")
+    registry_match = instrument.get("registry_match")
+    if (
+        not isinstance(cusips, list)
+        or len(cusips) != 1
+        or not isinstance(cusips[0], str)
+        or not isinstance(registry_match, Mapping)
+        or str(registry_match.get("cusip") or "").strip().upper()
+        != cusips[0].strip().upper()
+    ):
+        return None
+    issuer_cik = str(document.metadata.get("issuer_cik") or "").strip()
+    accession = str(document.metadata.get("accession_number") or "").strip()
+    if not issuer_cik or not accession:
+        return None
+    people = ownership.get("reporting_persons")
+    if not isinstance(people, list) or not people:
+        return None
+    normalized_people: list[dict[str, object]] = []
+    names: set[str] = set()
+    for person in people:
+        if not isinstance(person, Mapping):
+            return None
+        name = str(person.get("name") or "").strip()
+        shares = person.get("aggregate_beneficial_shares")
+        percent = person.get("percent_of_class")
+        if not name or name in names:
+            return None
+        if isinstance(shares, bool) or isinstance(percent, bool):
+            return None
+        try:
+            shares_value = float(shares)
+            percent_value = float(percent)
+        except (TypeError, ValueError):
+            return None
+        if (
+            not math.isfinite(shares_value)
+            or shares_value < 0.0
+            or not math.isfinite(percent_value)
+            or not 0.0 <= percent_value <= 100.0
+        ):
+            return None
+        names.add(name)
+        normalized_people.append({
+            "name": name,
+            "aggregate_beneficial_shares": shares_value,
+            "percent_of_class": percent_value,
+        })
+    normalized_people.sort(key=lambda row: str(row["name"]))
+    published_at = document.published_at or document.observed_at
+    return {
+        "document": document,
+        "form": form,
+        "base_form": _base_form(form),
+        "is_amendment": form.endswith("/A"),
+        "ticker": document.ticker.strip().upper(),
+        "issuer_cik": issuer_cik.zfill(10),
+        "accession_number": accession,
+        "cusip": cusips[0].strip().upper(),
+        "people": normalized_people,
+        "person_names": tuple(row["name"] for row in normalized_people),
+        "published_at": published_at,
+    }
+
+
+def _schedule_13_amendment_comparisons(
+    documents: Iterable[DocumentRecord],
+    *,
+    knowledge_at: datetime,
+) -> dict[str, dict[str, object]]:
+    """Build fail-closed amendment deltas without resolving owner identity."""
+    covers = []
+    for document in documents:
+        published_at = document.published_at or document.observed_at
+        if published_at > knowledge_at:
+            continue
+        cover = _schedule_13_cover(document)
+        if cover is not None:
+            covers.append(cover)
+    covers.sort(key=lambda row: (
+        row["published_at"], row["accession_number"],
+    ))
+    comparisons: dict[str, dict[str, object]] = {}
+    for current in covers:
+        if current["is_amendment"] is not True:
+            continue
+        same_instrument = [
+            prior for prior in covers
+            if prior["published_at"] < current["published_at"]
+            and prior["ticker"] == current["ticker"]
+            and prior["issuer_cik"] == current["issuer_cik"]
+            and prior["base_form"] == current["base_form"]
+            and prior["cusip"] == current["cusip"]
+        ]
+        if not same_instrument or not any(
+            prior["is_amendment"] is False for prior in same_instrument
+        ):
+            continue
+        latest_at = max(prior["published_at"] for prior in same_instrument)
+        predecessors = [
+            prior for prior in same_instrument
+            if prior["published_at"] == latest_at
+        ]
+        if len(predecessors) != 1:
+            continue
+        prior = predecessors[0]
+        if prior["person_names"] != current["person_names"]:
+            continue
+        prior_people = {
+            str(row["name"]): row for row in prior["people"]
+        }
+        deltas = []
+        for row in current["people"]:
+            name = str(row["name"])
+            earlier = prior_people[name]
+            deltas.append({
+                "name": name,
+                "identity_status": "NAME_ONLY",
+                "prior_aggregate_beneficial_shares": earlier[
+                    "aggregate_beneficial_shares"
+                ],
+                "current_aggregate_beneficial_shares": row[
+                    "aggregate_beneficial_shares"
+                ],
+                "shares_delta": row["aggregate_beneficial_shares"]
+                - earlier["aggregate_beneficial_shares"],
+                "prior_percent_of_class": earlier["percent_of_class"],
+                "current_percent_of_class": row["percent_of_class"],
+                "percent_delta": row["percent_of_class"]
+                - earlier["percent_of_class"],
+            })
+        current_document = current["document"]
+        prior_document = prior["document"]
+        assert isinstance(current_document, DocumentRecord)
+        assert isinstance(prior_document, DocumentRecord)
+        comparisons[current_document.document_id] = {
+            "comparison_status": "AS_FILED_CANDIDATE",
+            "prior_document_id": prior_document.document_id,
+            "current_document_id": current_document.document_id,
+            "prior_accession_number": prior["accession_number"],
+            "current_accession_number": current["accession_number"],
+            "prior_published_at": prior["published_at"].isoformat(),
+            "current_published_at": current["published_at"].isoformat(),
+            "issuer_cik": current["issuer_cik"],
+            "instrument_cusip": current["cusip"],
+            "reporting_person_basis": "EXACT_AS_FILED_NAME_ONLY",
+            "reporting_person_deltas": deltas,
+            "beneficial_owner_identity_verified": False,
+            "ownership_change_interpreted": False,
+            "human_review_required": True,
+            "scoring_applied": False,
+        }
+    return comparisons
 
 
 TEXT_PATTERNS: tuple[
@@ -244,6 +415,7 @@ class GovernanceEventAgent(BaseAgent):
         *,
         legal_entity_id: str,
         text: str,
+        amendment_comparison: Mapping[str, object] | None = None,
     ) -> Iterable[GovernanceEvent]:
         form = _base_form(document.metadata.get("form"))
         items = self._items(document)
@@ -301,6 +473,10 @@ class GovernanceEventAgent(BaseAgent):
                     "beneficial_owner_identity_verified": False,
                     "instrument_identity_verified": instrument_verified,
                     "ownership_change_interpreted": False,
+                    "amendment_comparison": (
+                        dict(amendment_comparison)
+                        if amendment_comparison is not None else None
+                    ),
                     "human_review_required": True,
                     "scoring_applied": False,
                 },
@@ -357,6 +533,10 @@ class GovernanceEventAgent(BaseAgent):
         warnings: list[str] = []
         future_documents = 0
         future_transactions = 0
+        amendment_comparisons = _schedule_13_amendment_comparisons(
+            documents,
+            knowledge_at=context.started_at,
+        )
 
         document_by_accession = {
             (
@@ -385,6 +565,7 @@ class GovernanceEventAgent(BaseAgent):
                 document,
                 legal_entity_id=legal_entity_id,
                 text=text,
+                amendment_comparison=amendment_comparisons.get(document.document_id),
             ):
                 events[event.event_id] = event
 
@@ -559,6 +740,7 @@ class GovernanceEventAgent(BaseAgent):
                 "events": len(ordered_events),
                 "future_documents_ignored": future_documents,
                 "future_transactions_ignored": future_transactions,
+                "schedule_13_amendment_candidates": len(amendment_comparisons),
                 "signals_emitted": 0,
                 "scoring_applied": False,
             },

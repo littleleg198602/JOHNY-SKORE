@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from types import SimpleNamespace
 import tempfile
@@ -25,6 +25,9 @@ from market_checker_app.agents.base import BaseAgent
 from market_checker_app.agents.contracts import AgentContext
 from market_checker_app.collectors.sec_edgar_client import SecInsiderTransaction
 from market_checker_app.config import GovernanceEventConfig
+from market_checker_app.agents.governance_event_agent import (
+    _schedule_13_amendment_comparisons,
+)
 from market_checker_app.storage.sqlite_store import SQLiteStore
 
 
@@ -58,6 +61,58 @@ def _signals() -> pd.DataFrame:
                 "action_reasons": '["confirmed"]',
             }
         ]
+    )
+
+
+def _schedule_13_document(
+    document_id: str,
+    *,
+    form: str,
+    published_at: datetime,
+    name: str = "Example Asset Manager LLC",
+    shares: float | None = 100.0,
+    percent: float | None = 5.0,
+    primary: bool = True,
+) -> DocumentRecord:
+    person: dict[str, object] = {
+        "name": name,
+        "identity_status": "NAME_ONLY",
+    }
+    if shares is not None:
+        person["aggregate_beneficial_shares"] = shares
+    if percent is not None:
+        person["percent_of_class"] = percent
+    return DocumentRecord(
+        document_id=document_id,
+        ticker="AAPL",
+        source="SEC EDGAR evidence",
+        source_type="regulatory_filing",
+        source_authority="SEC",
+        observed_at=published_at + timedelta(hours=1),
+        published_at=published_at,
+        url=f"https://www.sec.gov/Archives/{document_id}.htm",
+        legal_entity_id=LEGAL_ENTITY_ID,
+        issuer_id=LEGAL_ENTITY_ID,
+        instrument_id="isin:US0378331005",
+        metadata={
+            "form": form,
+            "accession_number": document_id,
+            "issuer_cik": "320193",
+            "filing_index_only": not primary,
+            "source_verified_primary": primary,
+            "beneficial_ownership": {
+                "instrument_identity_verified": True,
+                "instrument": {
+                    "cusips": ["037833100"],
+                    "identity_status": "REGISTRY_MATCHED",
+                    "registry_match": {"cusip": "037833100"},
+                },
+                "reporting_persons": [person],
+                "reporting_person_identity_verified": False,
+                "ownership_change_interpreted": False,
+                "scoring_applied": False,
+            },
+        },
     )
 
 
@@ -188,6 +243,106 @@ def _run_governance(
 
 
 class GovernanceEventAgentTests(unittest.TestCase):
+    def test_schedule_13_amendment_comparison_is_as_filed_only(self) -> None:
+        original = _schedule_13_document(
+            "original", form="SC 13G",
+            published_at=datetime(2026, 5, 1, tzinfo=timezone.utc),
+        )
+        amendment = _schedule_13_document(
+            "amendment", form="SC 13G/A",
+            published_at=datetime(2026, 6, 1, tzinfo=timezone.utc),
+            shares=125.0, percent=6.25,
+        )
+
+        comparisons = _schedule_13_amendment_comparisons(
+            [amendment, original],
+            knowledge_at=datetime(2026, 7, 1, tzinfo=timezone.utc),
+        )
+
+        self.assertEqual({"amendment"}, set(comparisons))
+        comparison = comparisons["amendment"]
+        self.assertEqual("AS_FILED_CANDIDATE", comparison["comparison_status"])
+        self.assertEqual("original", comparison["prior_accession_number"])
+        self.assertEqual("amendment", comparison["current_accession_number"])
+        self.assertEqual("EXACT_AS_FILED_NAME_ONLY",
+                         comparison["reporting_person_basis"])
+        delta = comparison["reporting_person_deltas"][0]
+        self.assertEqual(25.0, delta["shares_delta"])
+        self.assertEqual(1.25, delta["percent_delta"])
+        self.assertFalse(comparison["beneficial_owner_identity_verified"])
+        self.assertFalse(comparison["ownership_change_interpreted"])
+        self.assertTrue(comparison["human_review_required"])
+        self.assertFalse(comparison["scoring_applied"])
+
+        event = next(iter(GovernanceEventAgent()._document_events(
+            amendment,
+            legal_entity_id=LEGAL_ENTITY_ID,
+            text="",
+            amendment_comparison=comparison,
+        )))
+        self.assertEqual(GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING,
+                         event.event_type)
+        self.assertEqual(GovernanceEventStatus.UNVERIFIED, event.status)
+        self.assertEqual(comparison, event.metadata["amendment_comparison"])
+        self.assertFalse(event.metadata["ownership_change_interpreted"])
+        self.assertFalse(event.metadata["scoring_applied"])
+
+    def test_schedule_13_amendment_comparison_fails_closed(self) -> None:
+        cutoff = datetime(2026, 7, 1, tzinfo=timezone.utc)
+        original_at = datetime(2026, 5, 1, tzinfo=timezone.utc)
+        amendment_at = datetime(2026, 6, 1, tzinfo=timezone.utc)
+        original = _schedule_13_document(
+            "original", form="SC 13D", published_at=original_at,
+        )
+        amendment = _schedule_13_document(
+            "amendment", form="SC 13D/A", published_at=amendment_at,
+            shares=110.0,
+        )
+        cases = {
+            "orphan_amendment": [amendment],
+            "changed_name": [
+                original,
+                _schedule_13_document(
+                    "changed-name", form="SC 13D/A",
+                    published_at=amendment_at, name="Different Name", shares=110.0,
+                ),
+            ],
+            "missing_numeric_field": [
+                original,
+                _schedule_13_document(
+                    "missing-percent", form="SC 13D/A",
+                    published_at=amendment_at, shares=110.0, percent=None,
+                ),
+            ],
+            "not_primary": [
+                original,
+                _schedule_13_document(
+                    "index-only", form="SC 13D/A",
+                    published_at=amendment_at, shares=110.0, primary=False,
+                ),
+            ],
+            "future_amendment": [
+                original,
+                _schedule_13_document(
+                    "future", form="SC 13D/A",
+                    published_at=cutoff + timedelta(days=1), shares=110.0,
+                ),
+            ],
+            "ambiguous_predecessor": [
+                original,
+                _schedule_13_document(
+                    "second-original", form="SC 13D",
+                    published_at=original_at,
+                ),
+                amendment,
+            ],
+        }
+        for label, documents in cases.items():
+            with self.subTest(label=label):
+                self.assertEqual({}, _schedule_13_amendment_comparisons(
+                    documents, knowledge_at=cutoff,
+                ))
+
     def test_form4_compensation_and_tax_are_not_open_market_trades(self) -> None:
         for code, direction in (("A", "A"), ("M", "A"), ("F", "D")):
             with self.subTest(code=code):

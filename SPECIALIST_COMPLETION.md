@@ -6,6 +6,18 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Source-verified primární Schedule 13D/G amendment se nyní porovná s jediným
+bezprostředním předchůdcem, pouze pokud souhlasí ticker, issuer CIK, rodina
+formuláře, jeden registry-matched CUSIP a přesná množina as-filed jmen a
+všichni mají oba číselné cover údaje. Výsledkem je pouze
+`AS_FILED_CANDIDATE`; jména zůstávají `NAME_ONLY`, změna vlastnictví se
+neinterpretuje, je nutná lidská kontrola a skóre se nemění. Osiřelé,
+nejednoznačné, index-only, budoucí nebo neúplné řetězce fail-closed.
+Cíleně prošlo 21/21 a celá místní sada 543/543; viz
+`evidence/sec13dg_amendment_comparison_tests_20261003.json`. Bez živých
+případů, právních identit, Windows end-to-end, coverage a historie zůstává
+insider PARTIAL/PENDING a celek 0/21 DONE.
+
 Schedule 13D/G as-filed CUSIP se nyní přes reviewovaný SEC registr vyřeší
 jen při jediné přesné shodě tickeru, issuer CIK, CUSIP, effective intervalu a
 knowledge-time hranice. Aktuálně je takto dostupných jen 15 instrumentů pro
