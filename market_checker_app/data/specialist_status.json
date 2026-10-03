@@ -37,7 +37,8 @@
       "sec13dg_cover_extraction_hosted_windows_evidence": "evidence/sec13dg_cover_extraction_windows_20261003.json",
       "sec13dg_instrument_registry_match_test_evidence": "evidence/sec13dg_instrument_registry_match_tests_20261003.json",
       "sec13dg_instrument_registry_match_hosted_windows_evidence": "evidence/sec13dg_instrument_registry_match_windows_20261003.json",
-      "sec13dg_amendment_comparison_test_evidence": "evidence/sec13dg_amendment_comparison_tests_20261003.json"
+      "sec13dg_amendment_comparison_test_evidence": "evidence/sec13dg_amendment_comparison_tests_20261003.json",
+      "sec13dg_amendment_comparison_hosted_windows_evidence": "evidence/sec13dg_amendment_comparison_windows_20261003.json"
     },
     {
       "id": "contracts",

@@ -1,5 +1,19 @@
 # Průběh implementace pátracích agentů
 
+## Schedule 13D/G — Windows kontrola amendment porovnání (3. 10. 2026)
+
+GitHub-hosted Windows job 111249541988 na commitu cdccd2ca dokončil 543/543
+testů bez selhání, chyb a přeskočení. Workflow 37139070882 i deterministic
+release gate prošly. Stažený artifact 11279019848 obsahoval úplný log a
+strojový JSON; SHA-256 ZIPu souhlasil s metadaty workflow a oba vnitřní
+soubory byly obsahově zkontrolované. Audit je v
+`evidence/sec13dg_amendment_comparison_windows_20261003.json`.
+
+Jde pouze o hostovanou Windows kompatibilitu fail-closed porovnání. Není to
+živý SEC amendment ani koncový běh na uživatelově Windows a nedokládá právní
+identitu, coverage nebo historii. Insider zůstává PARTIAL/PENDING a inventář
+0/21 DONE.
+
 ## Schedule 13D/G — fail-closed porovnání amendments (3. 10. 2026)
 
 Governance cesta nyní pozná source-verified primární dokument a porovná

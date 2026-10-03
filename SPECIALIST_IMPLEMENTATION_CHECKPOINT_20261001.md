@@ -12,6 +12,11 @@ prošlo 21/21 a celá místní sada 543/543; viz
 `evidence/sec13dg_amendment_comparison_tests_20261003.json`. Živé případy,
 právní identity, širší pokrytí, Windows a OOS evaluace zůstávají otevřené.
 
+Navazující GitHub-hosted Windows job 111249541988 prošel 543/543, prošel i
+release gate a stažený artifact 11279019848 byl obsahově a hashově ověřen.
+Viz `evidence/sec13dg_amendment_comparison_windows_20261003.json`. Jde jen o
+kompatibilitu, nikoli živý SEC nebo uživatelský Windows end-to-end.
+
 Aktualizace 3. 10.: Schedule 13 as-filed CUSIP se nyní vyřeší proti
 reviewovanému SEC registru jen při přesné shodě tickeru, issuer CIK, CUSIP,
 effective intervalu a knowledge-time hranice. Registr pokrývá pouze 15

@@ -6,6 +6,12 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Stejné fail-closed porovnání amendments následně prošlo kompletní
+GitHub-hosted Windows sadou 543/543, úspěšným release gate a stažený artifact
+11279019848 souhlasil s publikovaným SHA-256. Audit je v
+`evidence/sec13dg_amendment_comparison_windows_20261003.json`. Hostovaný
+runner není živý SEC ani koncový běh na uživatelově Windows; stav se nemění.
+
 Source-verified primární Schedule 13D/G amendment se nyní porovná s jediným
 bezprostředním předchůdcem, pouze pokud souhlasí ticker, issuer CIK, rodina
 formuláře, jeden registry-matched CUSIP a přesná množina as-filed jmen a
