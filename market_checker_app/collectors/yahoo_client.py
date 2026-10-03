@@ -423,9 +423,12 @@ class YahooClient:
             _, _, history, _, history_warning = self._fetch_bundle(ticker)
             return self._copy_history(history), history_warning
 
+        yahoo_symbol = self.normalize_yahoo_symbol(ticker)
         try:
             history = self._call_with_retry(
-                lambda: yf.Ticker(ticker).history(period=period, interval=interval, auto_adjust=False)
+                lambda: yf.Ticker(yahoo_symbol).history(
+                    period=period, interval=interval, auto_adjust=False
+                )
             )
             if history is None or history.empty:
                 return history, f"OHLC data pro {ticker} nejsou na Yahoo dostupná."
@@ -437,9 +440,10 @@ class YahooClient:
         self, ticker: str, period: str = "1y", interval: str = "1d"
     ) -> tuple[pd.DataFrame | None, str | None]:
         """Fetch history without the expensive Yahoo metadata endpoint."""
+        yahoo_symbol = self.normalize_yahoo_symbol(ticker)
         try:
             history = self._call_with_retry(
-                lambda: yf.Ticker(ticker).history(
+                lambda: yf.Ticker(yahoo_symbol).history(
                     period=period,
                     interval=interval,
                     auto_adjust=False,

@@ -30,6 +30,7 @@ def load_specialist_status(path: Path = DEFAULT_STATUS_PATH) -> dict[str, object
         if row["code"] == "DONE":
             if row["live"] != "VERIFIED" or not all(
                 row.get(key) for key in (
+                    "identity_evidence",
                     "positive_live_evidence", "negative_live_evidence",
                     "windows_run_evidence", "coverage_evidence",
                     "historical_evaluation_evidence",

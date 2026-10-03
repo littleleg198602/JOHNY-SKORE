@@ -216,7 +216,7 @@ class GovernanceEventAgentTests(unittest.TestCase):
         self.assertTrue(
             {
                 GovernanceEventType.INSIDER_TRADE,
-                GovernanceEventType.BENEFICIAL_OWNERSHIP_CHANGE,
+                GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING,
                 GovernanceEventType.AUDITOR_CHANGE,
                 GovernanceEventType.QUALIFIED_OPINION,
                 GovernanceEventType.RESTATEMENT,
@@ -237,6 +237,20 @@ class GovernanceEventAgentTests(unittest.TestCase):
         self.assertEqual(GovernanceEventStatus.VERIFIED, insider.status)
         self.assertEqual("PURCHASE", insider.transaction_type)
         self.assertEqual(150000.0, insider.event_value)
+        ownership_filings = [
+            item for item in report.governance_events
+            if item.event_type == GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING
+        ]
+        self.assertEqual(2, len(ownership_filings))
+        self.assertTrue(all(
+            item.status == GovernanceEventStatus.UNVERIFIED
+            and item.metadata["human_review_required"]
+            and not item.metadata["beneficial_owner_identity_verified"]
+            and not item.metadata["instrument_identity_verified"]
+            and not item.metadata["ownership_change_interpreted"]
+            and not item.metadata["scoring_applied"]
+            for item in ownership_filings
+        ))
         self.assertTrue(
             all(item.legal_entity_id == LEGAL_ENTITY_ID for item in report.governance_events)
         )

@@ -3,8 +3,13 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
+from io import BytesIO
+from urllib.error import HTTPError
 
-from market_checker_app.services.fda_recall_scout_service import FdaRecallScoutService
+from market_checker_app.services.fda_recall_scout_service import (
+    FdaRecallScoutService, OpenFdaRecallClient, MAX_RESPONSE_BYTES,
+)
 from market_checker_app.storage.scout_store import ScoutStore
 
 
@@ -56,6 +61,77 @@ class FakeCrlFda(FakeFda):
 
 
 class FdaScoutTests(unittest.TestCase):
+    def test_deadline_retains_previous_issuer_and_does_not_complete_interrupted_issuer(self):
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            for index in range(3):
+                store.observe_sec_identity(subject_id=f"T{index}", cik=f"{index+1:010d}",
+                                           company_name=f"Company {index} Inc.", as_of=NOW)
+            client = FakeFda()
+            with patch("market_checker_app.services.fda_recall_scout_service.time.monotonic",
+                       side_effect=[0, 0, 0, 1, 2, 3, 4, 4, 6]):
+                result = FdaRecallScoutService(store, client=client, max_run_seconds=5).run(as_of=NOW)
+            self.assertEqual(("PARTIAL", 1, 1, True),
+                             (result["status"], result["checked_issuers"], result["failed_issuers"],
+                              result["budget_exhausted"]))
+            self.assertEqual(1, len(store.latest_findings(["T0"], as_of=NOW, source="fda")))
+            reopened = ScoutStore(store.db_path)
+            self.assertEqual(["T1", "T2"], [r["subject_id"] for r in reopened.specialist_due("fda", as_of=NOW, limit=10)])
+            self.assertEqual([], reopened.latest_findings(["T1", "T2"], as_of=NOW, source="fda"))
+
+    def test_failure_limit_prevents_repeating_every_failed_issuer(self):
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            for index in range(5):
+                store.observe_sec_identity(subject_id=f"T{index}", cik=f"{index+1:010d}",
+                                           company_name=f"Company {index} Inc.", as_of=NOW)
+            client = FakeFda(fail=True)
+            result = FdaRecallScoutService(store, client=client, max_failures=2).run(as_of=NOW)
+            self.assertEqual(("PARTIAL", 2, True),
+                             (result["status"], result["failed_issuers"], result["budget_exhausted"]))
+            self.assertEqual(2, len(client.calls))
+            self.assertEqual(0, store.specialist_coverage("fda", as_of=NOW)["ever_checked"])
+
+    def test_rejected_exact_firm_row_cannot_be_a_complete_negative(self):
+        class MalformedFda(FakeFda):
+            def recalls(self, product_type, firm_name, *, limit, skip=0):
+                if product_type == "drug":
+                    return {"meta": {"results": {"total": 1}}, "results": [
+                        {"recalling_firm": firm_name, "recall_number": "D-1", "report_date": "20260929extra"}]}
+                return {"meta": {"results": {"total": 0}}, "results": []}
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            store.observe_sec_identity(subject_id="ONE", cik="0000000001", company_name="One Inc.", as_of=NOW)
+            result = FdaRecallScoutService(store, client=MalformedFda()).run(as_of=NOW)
+            self.assertEqual(("PARTIAL", 1, 0), (result["status"], result["rejected_rows"], result["new_findings"]))
+            self.assertEqual(0, store.specialist_coverage("fda", as_of=NOW)["current_complete"])
+            self.assertEqual(1, len(store.specialist_due("fda", as_of=NOW+timedelta(days=1), limit=10)))
+
+    def test_only_documented_no_match_404_counts_as_empty(self):
+        for body, empty in ((b'{"error":{"code":"NOT_FOUND","message":"No matches found!"}}', True),
+                            (b'{"error":{"code":"NOT_FOUND","message":"Unknown endpoint"}}', False),
+                            (b'<html>Not found</html>', False)):
+            with self.subTest(body=body):
+                error = HTTPError("https://api.fda.gov/drug/enforcement.json", 404, "Not Found", {}, BytesIO(body))
+                with patch("market_checker_app.services.fda_recall_scout_service.urlopen", side_effect=error):
+                    client = OpenFdaRecallClient()
+                    if empty:
+                        self.assertEqual([], client.recalls("drug", "One Inc.", limit=1)["results"])
+                    else:
+                        with self.assertRaises(HTTPError):
+                            client.recalls("drug", "One Inc.", limit=1)
+
+    def test_response_byte_budget_and_invalid_budgets(self):
+        with patch("market_checker_app.services.fda_recall_scout_service.urlopen") as opened:
+            opened.return_value.__enter__.return_value.geturl.return_value = "https://api.fda.gov/drug/enforcement.json"
+            opened.return_value.__enter__.return_value.read.return_value = b" " * (MAX_RESPONSE_BYTES+1)
+            with self.assertRaisesRegex(ValueError, "byte budget"):
+                OpenFdaRecallClient().recalls("drug", "One Inc.", limit=1)
+        for options in ({"max_run_seconds": float("inf")}, {"max_run_seconds": True},
+                        {"max_failures": 0}, {"max_subjects": 1000}, {"max_pages": True}):
+            with self.subTest(options=options), self.assertRaises(ValueError):
+                FdaRecallScoutService(None, client=FakeFda(), **options)
+
     def test_second_page_is_collected_and_page_cap_remains_partial(self):
         class PagedFda(FakeFda):
             def recalls(self, product_type, firm_name, *, limit, skip=0):

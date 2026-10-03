@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import math
 import sqlite3
+
+from market_checker_app.storage.sqlite_connection import ClosingSQLiteConnection
 from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
@@ -113,7 +115,7 @@ class YahooCacheStore:
 
     def _connect(self) -> sqlite3.Connection:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        conn = sqlite3.connect(self.db_path, timeout=30.0)
+        conn = sqlite3.connect(self.db_path, timeout=30.0, factory=ClosingSQLiteConnection)
         conn.row_factory = sqlite3.Row
         return conn
 

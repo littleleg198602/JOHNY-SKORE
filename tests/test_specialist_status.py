@@ -25,3 +25,21 @@ class SpecialistStatusTests(unittest.TestCase):
             path.write_text(json.dumps(payload), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "cannot be DONE"):
                 load_specialist_status(path)
+
+    def test_inventory_rejects_done_without_identity_evidence(self):
+        payload = load_specialist_status()
+        row = payload["specialists"][0]
+        row.update({
+            "code": "DONE", "live": "VERIFIED",
+            "positive_live_evidence": "evidence/positive.json",
+            "negative_live_evidence": "evidence/negative.json",
+            "windows_run_evidence": "evidence/windows.json",
+            "coverage_evidence": "evidence/coverage.json",
+            "historical_evaluation_evidence": "evidence/history.json",
+        })
+        row.pop("identity_evidence", None)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "inventory.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "cannot be DONE"):
+                load_specialist_status(path)

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "evidence_type": "deterministic_tests_not_live_or_Windows_acceptance",
+  "started_at": "2026-10-01T20:23:07.919291+00:00",
+  "finished_at": "2026-10-01T20:25:31.745788+00:00",
+  "platform": "Linux",
+  "python": "3.12.14",
+  "command": "python -m unittest discover -s tests -p test_*.py -v",
+  "returncode": 0,
+  "tests": 488,
+  "reported_seconds": 142.148,
+  "elapsed_seconds": 143.827,
+  "result": "PASS",
+  "tested_sha256": {
+    "market_checker_app/data/verified_fdic_banks.json": "1823ee5f438ceda55acf9e798db46c4f7bbfa3fe5498e190ae0569dd23bacdbf",
+    "market_checker_app/services/fdic_bank_scout_service.py": "de27f50d2bb985add8c1683e958060dbf60e2f11688b0fc4627fe4a32a1564ca",
+    "market_checker_app/services/specialist_acceptance_service.py": "735162263c7a2fb23b7b34b7655f5ddd8688e7cb320c6a7d3be6546a9fe98588",
+    "market_checker_app/specialist_live_smoke.py": "aee9eb7fd39310994d57e1176f3fda7ce2fc0a98da7cc2f84b9fafe369ce62dd",
+    "market_checker_app/storage/scout_store.py": "a99504a3a4c657bbcb9d998b7794e055203eb797123ea774e52ed04a329d63bc",
+    "tests/test_fdic_bank_scout_service.py": "2ed5bf88615f24fde27f69a77287534eb4c6bae81e35e803de4168ec95357e6d",
+    "tests/test_specialist_acceptance_service.py": "049addb90f04ac9cdb6c8530056fd5685d95f4dd0ee5238d568ebf66bd91893e",
+    "evidence/fdic_mtb_identity_20261001.json": "c2c7c854b12e4e6c7a2e0f9cec4ca446ab3ee9c14bb92e4f8bf2c99c455c1c7d",
+    "evidence/fdic_mtb_live_20261001.json": "58508a04171753e630364a0bc9a19236307f25e22f2f9931bc6f0f2a6d716f01",
+    "evidence/ozk_identity_model_gap_20261001.json": "db1e346c73fc08cd4a0b1a09aa46dbcbcddb3f4f7052cad8983e4067568df7de"
+  },
+  "targeted_tests": {
+    "fdic": 21,
+    "diagnostics": 12
+  },
+  "live_smoke_command": "python -m market_checker_app.specialist_live_smoke --sources fdic --fdic-tickers MTB --output-path evidence/fdic_mtb_live_20261001.json",
+  "scoring_applied": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "other_checks": {
+    "compile": {
+      "returncode": 0,
+      "command": "python -m compileall -q market_checker_app tests"
+    },
+    "diff_check": {
+      "returncode": 0,
+      "command": "git diff --check"
+    }
+  },
+  "checks_verified_at": "2026-10-01T20:25:52.489206+00:00"
+}

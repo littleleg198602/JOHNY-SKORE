@@ -281,15 +281,29 @@ class GovernanceEventAgent(BaseAgent):
                 metadata={"sec_item": "3.02", "scoring_applied": False},
             )
         if form in {"SC 13D", "SC 13G"}:
+            ownership = document.metadata.get("beneficial_ownership")
+            ownership = ownership if isinstance(ownership, Mapping) else None
+            instrument_verified = bool(
+                ownership and ownership.get("instrument_identity_verified") is True
+            )
             yield self._event(
                 document=document,
                 legal_entity_id=legal_entity_id,
-                event_type=GovernanceEventType.BENEFICIAL_OWNERSHIP_CHANGE,
-                status=GovernanceEventStatus.VERIFIED,
-                title=f"SEC {form} – významný vlastnický podíl",
-                confidence=1.0,
+                event_type=GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING,
+                status=GovernanceEventStatus.UNVERIFIED,
+                title=f"SEC {form} – filing vyžaduje identitu a interpretaci změny",
+                confidence=0.5,
                 discriminator=form,
-                metadata={"form": form, "scoring_applied": False},
+                metadata={
+                    "form": form,
+                    "as_filed_cover_fields": dict(ownership) if ownership else None,
+                    "as_filed_cover_fields_extracted": bool(ownership),
+                    "beneficial_owner_identity_verified": False,
+                    "instrument_identity_verified": instrument_verified,
+                    "ownership_change_interpreted": False,
+                    "human_review_required": True,
+                    "scoring_applied": False,
+                },
             )
         if form == "S-1" or form.startswith("424B"):
             yield self._event(

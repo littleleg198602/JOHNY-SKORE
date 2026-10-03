@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "Canonical BRKB to Yahoo BRK-B provider-boundary translation",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "pull_request": 160,
+  "tested_head_sha": "47665023f9d529b5307826ac97f5138a1ef5b837",
+  "tested_merge_sha": "91722db73e73b02865c0ea9e8901dcfb65e6a513",
+  "workflow": {
+    "id": 37091239382,
+    "name": "Market Checker test agents",
+    "run_number": 363,
+    "status": "completed",
+    "conclusion": "success",
+    "release_gate_job_id": 111114093378,
+    "release_gate_conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111111841149,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "runner_os": "Microsoft Windows Server 2025",
+    "runner_image": "windows-2025-vs2026",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-10-03T02:52:26.247496+00:00",
+    "ended_at": "2026-10-03T03:04:37.015008+00:00",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "discovered_tests": 534,
+    "tests_run": 534,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "duration_seconds_reported_by_unittest": 728.568
+  },
+  "artifact": {
+    "id": 11263535162,
+    "name": "windows-deterministic-tests",
+    "size_bytes": 16335,
+    "files": [
+      "windows-tests.log",
+      "windows-tests.json"
+    ],
+    "sha256": "3fb96d17a1e6d8106c9a36ec93e425100293c63668640d75d0b4f51954db5b19",
+    "upload_log_digest_matches_download": true,
+    "downloaded_and_content_verified": true
+  },
+  "acceptance_limits": {
+    "compatibility_only": true,
+    "live_brkb_yahoo_response_verified": false,
+    "pstg_and_leg_resolved": false,
+    "full_687_after_close_run": "NOT_RUN",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "measured_applicable_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

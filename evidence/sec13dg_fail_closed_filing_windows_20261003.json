@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T07:01:10+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "Fail-closed semantics for raw Schedule 13D/G filings",
+  "source_commit": "e1553b59ab4653095f10c43f474bf852e5cb3770",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37104221313,
+    "run_number": 367,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111149500619,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-03T06:48:51.036293+00:00",
+    "ended_at": "2026-10-03T07:01:08.393410+00:00",
+    "discovered_tests": 536,
+    "tests_run": 536,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "test_duration_seconds": 735.106
+  },
+  "release_gate": {
+    "job_id": 111151522615,
+    "conclusion": "success",
+    "all_test_agents_required": true
+  },
+  "artifact": {
+    "id": 11267017998,
+    "name": "windows-deterministic-tests",
+    "size_in_bytes": 16388,
+    "expires_at": "2027-01-01T06:47:51Z",
+    "sha256_from_metadata": "ac4e2edc9a03cdebb667f80f907dabe164ba16a22b33c9f97bdd628ee5c113af",
+    "sha256_downloaded": "ac4e2edc9a03cdebb667f80f907dabe164ba16a22b33c9f97bdd628ee5c113af",
+    "download_verified": true,
+    "contents": {
+      "windows-tests.log_bytes": 96216,
+      "windows-tests.json_bytes": 373,
+      "machine_result_matches_job": true
+    }
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed_by_validation_commit": false
+  },
+  "acceptance_limits": {
+    "hosted_windows_compatibility_verified": true,
+    "actual_user_windows_end_to_end_verified": false,
+    "live_sec_user_agent_run": false,
+    "reporting_person_and_instrument_identity_verified": false,
+    "positive_and_negative_live_cases_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

@@ -1,0 +1,475 @@
+{
+  "schema_version": 1,
+  "evidence_type": "dated_identity_and_bounded_live_publisher_observations_not_full_acceptance",
+  "verified_at": "2026-10-01T17:19:54.312876+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "ALLY",
+        "cert": 57803,
+        "issuer_cik": "0000040729",
+        "issuer_name": "Ally Financial Inc.",
+        "bank_name": "Ally Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/exhibit21ally2025123110-k.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/R1.htm",
+        "known_at": "2026-10-01T17:19:54.312876+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57803",
+        "financial_name": "ALLY BANK",
+        "financial_name_known_at": "2026-10-01T17:17:39.586614+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57803&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/exhibit21ally2025123110-k.htm",
+        "observed_no_later_than": "2026-10-01T17:19:54.312876+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "registry_report_eligibility_from": "2025-12-31",
+        "scope": "Issuer-to-subsidiary statement only; acquisition date, continuous ownership and complete group not inferred",
+        "as_of": "2025-12-31",
+        "as_of_date_verified": true,
+        "source_locator": "Exhibit 21 explicit December 31, 2025 heading and Ally Bank row",
+        "observed_excerpt": "Ally Financial Inc. Subsidiaries as of December 31, 2025; Ally Bank | Utah",
+        "date_basis": "Explicit exhibit as-of date"
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/0000040729-26-000005-index.htm",
+        "filing_date": "2026-02-25",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0000040729",
+        "observed_no_later_than": "2026-10-01T17:19:54.312876+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and Exhibit 21 document link",
+        "observed_excerpt": "Filing Date 2026-02-25; Period of Report 2025-12-31; CIK 0000040729",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/R1.htm",
+        "issuer_cik": "0000040729",
+        "issuer_name": "Ally Financial Inc.",
+        "ticker": "ALLY",
+        "source_locator": "R1 document/entity information, CIK and common-stock trading-symbol rows",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-25",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/0000040729-26-000005-index.htm",
+        "observed_excerpt": "ALLY FINANCIAL INC.; 0000040729; Common Stock, par value $0.01 per share | ALLY",
+        "observed_no_later_than": "2026-10-01T17:19:54.312876+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only; not CUSIP/ISIN/current exchange/corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 57803,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A57803&fields=CERT%2CNAME%2CACTIVE%2CRSSDID%2CRSSDHCR&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T17:16:46.978054+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:57803",
+              "fields": "CERT,NAME,ACTIVE,RSSDID,RSSDHCR",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "RSSDHCR": "1562859",
+                "CERT": 57803,
+                "NAME": "Ally Bank",
+                "ID": "57803"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials": {
+          "meta": {
+            "total": 88,
+            "parameters": {
+              "filters": "CERT:57803",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 188184000,
+                "CERT": 57803,
+                "NETINC": 1119000,
+                "EQ": 15542000,
+                "DEP": 156614000,
+                "NAME": "ALLY BANK",
+                "ID": "57803_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 185664000,
+                "CERT": 57803,
+                "NETINC": 513000,
+                "EQ": 15378000,
+                "DEP": 156225000,
+                "NAME": "ALLY BANK",
+                "ID": "57803_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 88
+          }
+        },
+        "financials_observed_at": "2026-10-01T17:17:39.586614+00:00",
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57803&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "institution_name_comparison": {
+        "raw_fdic_name": "Ally Bank",
+        "sec_legal_name": "Ally Bank",
+        "rule": "Collapse whitespace only; raw publisher name preserved; financials require separately evidenced exact name"
+      },
+      "limitations": [
+        "Bounded latest-two-report pilot",
+        "Bank financials are not issuer consolidated values",
+        "FDIC holding-company RSSD fields do not establish a SEC CIK",
+        "No Windows or historical-OOS acceptance"
+      ]
+    },
+    {
+      "identity": {
+        "ticker": "CFR",
+        "cert": 5510,
+        "issuer_cik": "0000039263",
+        "issuer_name": "Cullen/Frost Bankers, Inc.",
+        "bank_name": "Frost Bank",
+        "effective_from": "2026-02-05",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/exhibit211-subsidiariesx10.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/R1.htm",
+        "known_at": "2026-10-01T17:19:54.312876+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/5510",
+        "financial_name": "FROST BANK",
+        "financial_name_known_at": "2026-10-01T17:17:53.592452+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A5510&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "effective_from_basis": "filing_publication_floor",
+        "effective_from_evidence_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/0000039263-26-000011-index.htm"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/exhibit211-subsidiariesx10.htm",
+        "observed_no_later_than": "2026-10-01T17:19:54.312876+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "registry_report_eligibility_from": "2026-02-05",
+        "scope": "Issuer-to-subsidiary statement only; acquisition date, continuous ownership and complete group not inferred",
+        "as_of": null,
+        "as_of_date_verified": false,
+        "source_locator": "Exhibit 21.1 Frost Bank row and percentage of voting securities owned by Cullen/Frost column",
+        "observed_excerpt": "Frost Bank | Texas | 100%",
+        "date_basis": "Conservative report eligibility floor from verified filing publication 2026-02-05; undated exhibit is not backdated to FY2025",
+        "limitation": "Actual ownership effective date and historical ownership before publication remain unverified"
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/0000039263-26-000011-index.htm",
+        "filing_date": "2026-02-05",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0000039263",
+        "observed_no_later_than": "2026-10-01T17:19:54.312876+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and Exhibit 21 document link",
+        "observed_excerpt": "Filing Date 2026-02-05; Period of Report 2025-12-31; CIK 0000039263",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/R1.htm",
+        "issuer_cik": "0000039263",
+        "issuer_name": "Cullen/Frost Bankers, Inc.",
+        "ticker": "CFR",
+        "source_locator": "R1 document/entity information, CIK and common-stock trading-symbol rows",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-05",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/0000039263-26-000011-index.htm",
+        "observed_excerpt": "CULLEN/FROST BANKERS, INC.; 0000039263; Common Stock, $.01 Par Value | CFR",
+        "observed_no_later_than": "2026-10-01T17:19:54.312876+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only; not CUSIP/ISIN/current exchange/corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 5510,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A5510&fields=CERT%2CNAME%2CACTIVE%2CRSSDID%2CRSSDHCR&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T17:16:55.565895+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:5510",
+              "fields": "CERT,NAME,ACTIVE,RSSDID,RSSDHCR",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "RSSDHCR": "1102367",
+                "CERT": 5510,
+                "NAME": "Frost  Bank",
+                "ID": "5510"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:5510",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 53950075,
+                "CERT": 5510,
+                "NETINC": 349946,
+                "EQ": 4659316,
+                "DEP": 43669523,
+                "NAME": "FROST BANK",
+                "ID": "5510_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 52769892,
+                "CERT": 5510,
+                "NETINC": 174000,
+                "EQ": 4524619,
+                "DEP": 43235075,
+                "NAME": "FROST BANK",
+                "ID": "5510_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        },
+        "financials_observed_at": "2026-10-01T17:17:53.592452+00:00",
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A5510&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "institution_name_comparison": {
+        "raw_fdic_name": "Frost  Bank",
+        "sec_legal_name": "Frost Bank",
+        "rule": "Collapse whitespace only; raw publisher name preserved; financials require separately evidenced exact name"
+      },
+      "limitations": [
+        "Bounded latest-two-report pilot",
+        "Bank financials are not issuer consolidated values",
+        "FDIC holding-company RSSD fields do not establish a SEC CIK",
+        "No Windows or historical-OOS acceptance"
+      ]
+    }
+  ],
+  "manifest_sha256": "65eae366727d140c2678348f00c08e2a309e59d94a1d1039842c269417ea7037",
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 12,
+    "unmapped_tickers": [
+      "COF",
+      "EWBC",
+      "FHN",
+      "KEY",
+      "MTB",
+      "OZK",
+      "PNFP",
+      "RF",
+      "WAL",
+      "ZION"
+    ],
+    "basis": "Dated manifest vs canonical BANK profile; not live runtime or complete group coverage"
+  },
+  "full_specialist_acceptance": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "scoring_applied": false,
+  "processing_provenance_note": "Live smoke cases were captured before publication-floor persistence fields were added. Their captured identities and network times are preserved unchanged. Later offline processing of the actual captured publisher payloads verifies the final manifest and persistence without additional requests.",
+  "post_provenance_captured_replay": {
+    "evidence_type": "offline_actual_publisher_payload_reprocessing_not_new_live_observation",
+    "processed_at": "2026-10-01T17:33:05.322738+00:00",
+    "result": "PASS",
+    "network_requests": 0,
+    "service_sha256": "de27f50d2bb985add8c1683e958060dbf60e2f11688b0fc4627fe4a32a1564ca",
+    "manifest_sha256": "65eae366727d140c2678348f00c08e2a309e59d94a1d1039842c269417ea7037",
+    "cases": [
+      {
+        "ticker": "ALLY",
+        "cert": 57803,
+        "first": {
+          "status": "OK",
+          "checked_banks": 1,
+          "usable_banks": 1,
+          "rejected_rows": 0,
+          "new_findings": 2,
+          "failed_banks": 0,
+          "empty_banks": 0,
+          "attempted_banks": 1,
+          "due_banks": 1,
+          "deferred_banks": 0,
+          "budget_exhausted": false,
+          "daily_requests": 1
+        },
+        "recheck": {
+          "status": "OK",
+          "checked_banks": 1,
+          "usable_banks": 1,
+          "rejected_rows": 0,
+          "new_findings": 0,
+          "failed_banks": 0,
+          "empty_banks": 0,
+          "attempted_banks": 1,
+          "due_banks": 1,
+          "deferred_banks": 0,
+          "budget_exhausted": false,
+          "daily_requests": 2
+        },
+        "input_payload_sha256": "1ccdedccee574cc6bd007842dde5dccb41b2c7b9f2bcdea936b79322ff123d72",
+        "persisted_findings": [
+          {
+            "finding_id": "finding:43ecbf2d1b14c073bb067e570483f588",
+            "source": "fdic",
+            "subject_id": "ALLY",
+            "source_object_id": "57803:2026-06-30",
+            "content_hash": "ef24e155805773720b2b50686dc8b833ca7ac7fa5f7c18dccc85a8255b9877bb",
+            "title": "FDIC Ally Bank: 2026-06-30",
+            "source_url": "https://api.fdic.gov/banks/financials",
+            "locator": "CERT:57803/REPDTE:2026-06-30",
+            "published_at": "2026-10-01T17:33:05.322738+00:00",
+            "available_at": "2026-10-01T17:33:05.322738+00:00",
+            "first_observed_at": "2026-10-01T17:33:05.322738+00:00",
+            "retrieved_at": "2026-10-01T17:33:05.322738+00:00",
+            "verification_status": "SOURCE_VERIFIED",
+            "details_json": "{\"amounts_thousands_usd\": {\"ASSET\": 188184000, \"DEP\": 156614000, \"EQ\": 15542000, \"NETINC\": 1119000}, \"bank_name\": \"Ally Bank\", \"cert\": 57803, \"fdic_evidence_url\": \"https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57803\", \"financial_name_evidence_url\": \"https://api.fdic.gov/banks/financials?filters=CERT%3A57803&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json\", \"financial_name_known_at\": \"2026-10-01T17:17:39.586614+00:00\", \"issuer_cik\": \"0000040729\", \"issuer_consolidated_values\": false, \"issuer_identity_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/R1.htm\", \"issuer_name\": \"Ally Financial Inc.\", \"relationship_effective_from\": \"2025-12-31\", \"relationship_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/exhibit21ally2025123110-k.htm\", \"relationship_known_at\": \"2026-10-01T17:19:54.312876+00:00\", \"report_date\": \"2026-06-30\", \"report_date_is_publication_time\": false, \"scoring_applied\": false, \"source_financial_name\": \"ALLY BANK\", \"stage\": \"bank_subsidiary_financials\"}"
+          },
+          {
+            "finding_id": "finding:b045f7dd68b04cd46bea8fd1bf01eb70",
+            "source": "fdic",
+            "subject_id": "ALLY",
+            "source_object_id": "57803:2026-03-31",
+            "content_hash": "b171f92dab3e443a701670229a8e605cd01dfc33cbb262feb11a5915500955e1",
+            "title": "FDIC Ally Bank: 2026-03-31",
+            "source_url": "https://api.fdic.gov/banks/financials",
+            "locator": "CERT:57803/REPDTE:2026-03-31",
+            "published_at": "2026-10-01T17:33:05.322738+00:00",
+            "available_at": "2026-10-01T17:33:05.322738+00:00",
+            "first_observed_at": "2026-10-01T17:33:05.322738+00:00",
+            "retrieved_at": "2026-10-01T17:33:05.322738+00:00",
+            "verification_status": "SOURCE_VERIFIED",
+            "details_json": "{\"amounts_thousands_usd\": {\"ASSET\": 185664000, \"DEP\": 156225000, \"EQ\": 15378000, \"NETINC\": 513000}, \"bank_name\": \"Ally Bank\", \"cert\": 57803, \"fdic_evidence_url\": \"https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57803\", \"financial_name_evidence_url\": \"https://api.fdic.gov/banks/financials?filters=CERT%3A57803&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json\", \"financial_name_known_at\": \"2026-10-01T17:17:39.586614+00:00\", \"issuer_cik\": \"0000040729\", \"issuer_consolidated_values\": false, \"issuer_identity_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/R1.htm\", \"issuer_name\": \"Ally Financial Inc.\", \"relationship_effective_from\": \"2025-12-31\", \"relationship_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/40729/000004072926000005/exhibit21ally2025123110-k.htm\", \"relationship_known_at\": \"2026-10-01T17:19:54.312876+00:00\", \"report_date\": \"2026-03-31\", \"report_date_is_publication_time\": false, \"scoring_applied\": false, \"source_financial_name\": \"ALLY BANK\", \"stage\": \"bank_subsidiary_financials\"}"
+          }
+        ],
+        "network_requests": 0
+      },
+      {
+        "ticker": "CFR",
+        "cert": 5510,
+        "first": {
+          "status": "OK",
+          "checked_banks": 1,
+          "usable_banks": 1,
+          "rejected_rows": 0,
+          "new_findings": 2,
+          "failed_banks": 0,
+          "empty_banks": 0,
+          "attempted_banks": 1,
+          "due_banks": 1,
+          "deferred_banks": 0,
+          "budget_exhausted": false,
+          "daily_requests": 1
+        },
+        "recheck": {
+          "status": "OK",
+          "checked_banks": 1,
+          "usable_banks": 1,
+          "rejected_rows": 0,
+          "new_findings": 0,
+          "failed_banks": 0,
+          "empty_banks": 0,
+          "attempted_banks": 1,
+          "due_banks": 1,
+          "deferred_banks": 0,
+          "budget_exhausted": false,
+          "daily_requests": 2
+        },
+        "input_payload_sha256": "31f573c728a9ed899fc66270289b32015361ee9bb9c1344e2d7caa3525809a7a",
+        "persisted_findings": [
+          {
+            "finding_id": "finding:308adb2659a233fae3bfcfe35f01285f",
+            "source": "fdic",
+            "subject_id": "CFR",
+            "source_object_id": "5510:2026-06-30",
+            "content_hash": "7784fe9503f818d8bcddf8fba452a462ecf905c0946f7f692bdc0cda5c21f1a1",
+            "title": "FDIC Frost Bank: 2026-06-30",
+            "source_url": "https://api.fdic.gov/banks/financials",
+            "locator": "CERT:5510/REPDTE:2026-06-30",
+            "published_at": "2026-10-01T17:33:05.322738+00:00",
+            "available_at": "2026-10-01T17:33:05.322738+00:00",
+            "first_observed_at": "2026-10-01T17:33:05.322738+00:00",
+            "retrieved_at": "2026-10-01T17:33:05.322738+00:00",
+            "verification_status": "SOURCE_VERIFIED",
+            "details_json": "{\"amounts_thousands_usd\": {\"ASSET\": 53950075, \"DEP\": 43669523, \"EQ\": 4659316, \"NETINC\": 349946}, \"bank_name\": \"Frost Bank\", \"cert\": 5510, \"fdic_evidence_url\": \"https://banks.data.fdic.gov/bankfind-suite/bankfind/details/5510\", \"financial_name_evidence_url\": \"https://api.fdic.gov/banks/financials?filters=CERT%3A5510&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json\", \"financial_name_known_at\": \"2026-10-01T17:17:53.592452+00:00\", \"issuer_cik\": \"0000039263\", \"issuer_consolidated_values\": false, \"issuer_identity_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/R1.htm\", \"issuer_name\": \"Cullen/Frost Bankers, Inc.\", \"relationship_as_of_verified\": false, \"relationship_effective_from\": null, \"relationship_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/exhibit211-subsidiariesx10.htm\", \"relationship_known_at\": \"2026-10-01T17:19:54.312876+00:00\", \"report_date\": \"2026-06-30\", \"report_date_eligibility_basis\": \"filing_publication_floor\", \"report_date_eligibility_from\": \"2026-02-05\", \"report_date_floor_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/0000039263-26-000011-index.htm\", \"report_date_is_publication_time\": false, \"scoring_applied\": false, \"source_financial_name\": \"FROST BANK\", \"stage\": \"bank_subsidiary_financials\"}"
+          },
+          {
+            "finding_id": "finding:dc857eea617a1a3b5987843f64469936",
+            "source": "fdic",
+            "subject_id": "CFR",
+            "source_object_id": "5510:2026-03-31",
+            "content_hash": "1cd4ceea2843c0cbbd24f65f5458b7a976bf6909f31d59013bbb702e9397a513",
+            "title": "FDIC Frost Bank: 2026-03-31",
+            "source_url": "https://api.fdic.gov/banks/financials",
+            "locator": "CERT:5510/REPDTE:2026-03-31",
+            "published_at": "2026-10-01T17:33:05.322738+00:00",
+            "available_at": "2026-10-01T17:33:05.322738+00:00",
+            "first_observed_at": "2026-10-01T17:33:05.322738+00:00",
+            "retrieved_at": "2026-10-01T17:33:05.322738+00:00",
+            "verification_status": "SOURCE_VERIFIED",
+            "details_json": "{\"amounts_thousands_usd\": {\"ASSET\": 52769892, \"DEP\": 43235075, \"EQ\": 4524619, \"NETINC\": 174000}, \"bank_name\": \"Frost Bank\", \"cert\": 5510, \"fdic_evidence_url\": \"https://banks.data.fdic.gov/bankfind-suite/bankfind/details/5510\", \"financial_name_evidence_url\": \"https://api.fdic.gov/banks/financials?filters=CERT%3A5510&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json\", \"financial_name_known_at\": \"2026-10-01T17:17:53.592452+00:00\", \"issuer_cik\": \"0000039263\", \"issuer_consolidated_values\": false, \"issuer_identity_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/R1.htm\", \"issuer_name\": \"Cullen/Frost Bankers, Inc.\", \"relationship_as_of_verified\": false, \"relationship_effective_from\": null, \"relationship_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/exhibit211-subsidiariesx10.htm\", \"relationship_known_at\": \"2026-10-01T17:19:54.312876+00:00\", \"report_date\": \"2026-03-31\", \"report_date_eligibility_basis\": \"filing_publication_floor\", \"report_date_eligibility_from\": \"2026-02-05\", \"report_date_floor_evidence_url\": \"https://www.sec.gov/Archives/edgar/data/39263/000003926326000011/0000039263-26-000011-index.htm\", \"report_date_is_publication_time\": false, \"scoring_applied\": false, \"source_financial_name\": \"FROST BANK\", \"stage\": \"bank_subsidiary_financials\"}"
+          }
+        ],
+        "network_requests": 0
+      }
+    ],
+    "Windows_end_to_end": false,
+    "historical_out_of_sample_evaluation": false
+  }
+}

@@ -16,6 +16,15 @@ from market_checker_app.services.fda_recall_scout_service import (
 from market_checker_app.services.finra_short_interest_scout_service import (
     FinraShortInterestClient, FinraShortInterestScoutService,
 )
+from market_checker_app.services.healthcare_scout_service import (
+    CmsHospitalOwnerClient, ClinicalTrialsClient, HealthcareNameScoutService,
+)
+from market_checker_app.services.ofac_scout_service import (
+    OfacSdnClient, OfacSdnScoutService, OfacConsolidatedClient, OfacConsolidatedScoutService,
+)
+from market_checker_app.services.doj_scout_service import DojPressReleaseClient, DojPressReleaseScoutService
+from market_checker_app.services.epa_echo_scout_service import EpaEchoFacilityClient, EpaEchoScoutService
+from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.services.fdic_bank_scout_service import (
     FdicBankFindClient, FdicBankScoutService, load_verified_banks,
     DEFAULT_IDENTITIES as FDIC_IDENTITIES,
@@ -41,6 +50,9 @@ from market_checker_app.utils.ticker_universe import (
     load_canonical_ticker_records,
 )
 from market_checker_app.storage.scout_store import ScoutStore
+
+FDA_DAILY_ISSUER_BUDGET = 40
+FINRA_DAILY_ISSUER_BUDGET = 75
 
 
 def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, object]:
@@ -116,6 +128,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
     try:
         fda_recalls = FdaRecallScoutService(
             store, client=OpenFdaRecallClient(os.getenv("JOHNY_SKORE_FDA_API_KEY", "")),
+            max_subjects=FDA_DAILY_ISSUER_BUDGET,
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         fda_recalls = {"status": "ERROR", "error": type(exc).__name__}
@@ -126,6 +139,7 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         try:
             finra_short_interest = FinraShortInterestScoutService(
                 store, client=FinraShortInterestClient(finra_id, finra_secret),
+                max_subjects=FINRA_DAILY_ISSUER_BUDGET,
             ).run(as_of=now, universe={record["ticker"] for record in records})
         except Exception as exc:
             finra_short_interest = {"status": "ERROR", "error": type(exc).__name__}
@@ -161,6 +175,41 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
     except Exception as exc:
         nhtsa_recalls = {"status": "ERROR", "error": type(exc).__name__}
     nhtsa_recalls = recorded("nhtsa", nhtsa_recalls)
+    healthcare_results = {}
+    for client in (CmsHospitalOwnerClient(), ClinicalTrialsClient()):
+        try:
+            summary = HealthcareNameScoutService(store, client=client).run(
+                as_of=now, universe={record["ticker"] for record in records})
+        except Exception as exc:
+            summary = {"status": "ERROR", "error": type(exc).__name__}
+        healthcare_results[client.source] = recorded(client.source, summary)
+    try:
+        ofac = OfacSdnScoutService(store, client=OfacSdnClient()).run(
+            as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        ofac = {"status": "ERROR", "error": type(exc).__name__}
+    ofac = recorded("ofac", ofac)
+    try:
+        non_sdn = OfacConsolidatedScoutService(store, client=OfacConsolidatedClient()).run(
+            as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        non_sdn = {"status": "ERROR", "error": type(exc).__name__}
+    non_sdn = recorded("ofac_non_sdn", non_sdn)
+    try:
+        doj = DojPressReleaseScoutService(store, client=DojPressReleaseClient()).run(
+            as_of=now, universe={record["ticker"] for record in records})
+    except Exception as exc:
+        doj = {"status": "ERROR", "error": type(exc).__name__}
+    doj = recorded("doj", doj)
+    profiles = load_research_profiles()
+    epa_subjects = {ticker for ticker, profile in profiles.by_ticker.items()
+                    if profile.code in {"CHEMICALS", "METALS", "INDUSTRIAL", "HOME", "PACKAGING"}}
+    try:
+        epa = EpaEchoScoutService(store, client=EpaEchoFacilityClient()).run(
+            as_of=now, universe={record["ticker"] for record in records} & epa_subjects)
+    except Exception as exc:
+        epa = {"status":"ERROR", "error":type(exc).__name__}
+    epa = recorded("epa", epa)
     return {"scheduled_subjects": scheduled, "universe_snapshot": universe_snapshot, **batch,
             "macro_fred": macro, "energy_eia": energy, "contracts_usaspending": contracts,
             "recipient_discovery_usaspending": recipient_discovery,
@@ -169,6 +218,12 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             "fdic_banks": fdic_banks,
             "sec13f_holdings": sec13f_holdings,
             "nhtsa_model_recalls": nhtsa_recalls,
+            "cms_hospital_owner_candidates": healthcare_results["cms"],
+            "clinical_trial_candidates": healthcare_results["clinicaltrials"],
+            "ofac_sdn_candidates": ofac,
+            "ofac_non_sdn_candidates": non_sdn,
+            "doj_press_release_candidates": doj,
+            "epa_echo_facility_candidates": epa,
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 

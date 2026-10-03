@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T13:17:33.291532+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_PNC": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T13:17:33.294450+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6384&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json",
+      "ticker": "PNC",
+      "cert": 6384,
+      "identity": {
+        "ticker": "PNC",
+        "cert": 6384,
+        "bank_name": "PNC Bank, National Association",
+        "issuer_cik": "0000713676",
+        "issuer_name": "The PNC Financial Services Group, Inc.",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/713676/000071367626000020/pnc-20251231.htm",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/6384",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/713676/000071367626000020/q42025exhibit21subsidiaries.htm",
+        "effective_from": "2025-12-31",
+        "known_at": "2026-10-01T13:16:14.886766+00:00",
+        "financial_name": "PNC BANK NATIONAL ASSN",
+        "financial_name_known_at": "2026-10-01T13:13:49.914880+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6384&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:6384",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 609771726,
+              "CERT": 6384,
+              "NETINC": 3954707,
+              "EQ": 63179108,
+              "DEP": 457798362,
+              "NAME": "PNC BANK NATIONAL ASSN",
+              "ID": "6384_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 567948516,
+              "CERT": 6384,
+              "NETINC": 1870675,
+              "EQ": 59440316,
+              "DEP": 441507226,
+              "NAME": "PNC BANK NATIONAL ASSN",
+              "ID": "6384_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_positive_USB": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T13:17:48.301046+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6548&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json",
+      "ticker": "USB",
+      "cert": 6548,
+      "identity": {
+        "ticker": "USB",
+        "cert": 6548,
+        "bank_name": "U.S. Bank National Association",
+        "issuer_cik": "0000036104",
+        "issuer_name": "U.S. Bancorp",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/36104/000003610426000011/usb-20251231.htm",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/6548",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/36104/000003610426000011/a2025exx21subsidiariesofus.htm",
+        "effective_from": "2025-12-31",
+        "known_at": "2026-10-01T13:16:14.886766+00:00",
+        "financial_name": "U S BANK NATIONAL ASSN",
+        "financial_name_known_at": "2026-10-01T13:14:06.612961+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6548&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:6548",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 705554946,
+              "CERT": 6548,
+              "NETINC": 4225746,
+              "EQ": 68833913,
+              "DEP": 541886374,
+              "NAME": "U S BANK NATIONAL ASSN",
+              "ID": "6548_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 683379960,
+              "CERT": 6548,
+              "NETINC": 1991808,
+              "EQ": 67968276,
+              "DEP": 539835606,
+              "NAME": "U S BANK NATIONAL ASSN",
+              "ID": "6548_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T13:17:58.453744+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "PNC",
+    "USB"
+  ],
+  "finished_at": "2026-10-01T13:18:08.110381+00:00"
+}

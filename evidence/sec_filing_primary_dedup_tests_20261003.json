@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T13:11:20+00:00",
+  "evidence_type": "deterministic_regression_test",
+  "subject": "Prefer a source-verified SEC primary document over its duplicate filing index representation",
+  "base_commit": "e1dbaa13e33263c22a12ace1387a4d5db6b03fca",
+  "pull_request": 160,
+  "regression": {
+    "previous_behavior": "ScoutIndex emitted both filing_index and filing_document for one issuer/accession, causing duplicate downstream governance filings.",
+    "fixed_behavior": "The source-verified primary document is emitted once; the index finding remains retained in the immutable analysis snapshot.",
+    "dedupe_key": ["canonical subject_id", "SEC source_object_id (issuer CIK plus accession)"],
+    "primary_stage": "filing_document",
+    "snapshot_retains_superseded_index": true,
+    "scoring_applied": false
+  },
+  "validation": {
+    "focused_command": "python -m unittest tests.test_sec_document_scout tests.test_sec_scout_service tests.test_governance_event_agent tests.test_scout_store",
+    "focused_tests_run": 43,
+    "focused_failures": 0,
+    "focused_errors": 0,
+    "full_command": "python -m unittest discover -s tests",
+    "full_tests_run": 540,
+    "full_failures": 0,
+    "full_errors": 0,
+    "full_duration_seconds": 93.359,
+    "initial_clean_host_attempt": {
+      "tests_run_before_import_failures": 434,
+      "import_errors": 22,
+      "successful": false,
+      "reason": "Declared project dependencies were not installed; the failed attempt is not counted as a pass."
+    },
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "sha256": {
+    "market_checker_app/agents/scout_index_agent.py": "a809e69e6de190911db561c8c85dcc33b91a4e62f389f34c6fde67997830eab0",
+    "tests/test_sec_document_scout.py": "2ce3aac26d71e776e296731dc33305c616e8c409ee6b7d35ec61bb588dff0cb3"
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed": false
+  },
+  "acceptance_limits": {
+    "duplicate_representation_regression_fixed": true,
+    "live_sec_user_agent_run": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "positive_and_negative_live_cases_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

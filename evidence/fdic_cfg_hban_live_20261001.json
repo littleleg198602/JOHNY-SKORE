@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T16:33:16.579708+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_CFG": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T16:33:16.584788+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57957&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "CFG",
+      "cert": 57957,
+      "identity": {
+        "ticker": "CFG",
+        "cert": 57957,
+        "issuer_cik": "0000759944",
+        "issuer_name": "Citizens Financial Group, Inc.",
+        "bank_name": "Citizens Bank, National Association",
+        "effective_from": "2026-01-22",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/759944/000119312526022234/d38715d424b2.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/759944/000075994426000139/cfg-20260721.htm",
+        "known_at": "2026-10-01T16:31:58.620723+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57957",
+        "financial_name": "CITIZENS BANK NATIONAL ASSN",
+        "financial_name_known_at": "2026-10-01T16:30:34.546834+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57957&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "payload": {
+        "meta": {
+          "total": 85,
+          "parameters": {
+            "filters": "CERT:57957",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 232517438,
+              "CERT": 57957,
+              "NETINC": 1133526,
+              "EQ": 26478553,
+              "DEP": 188731766,
+              "NAME": "CITIZENS BANK NATIONAL ASSN",
+              "ID": "57957_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 227134099,
+              "CERT": 57957,
+              "NETINC": 533380,
+              "EQ": 26651224,
+              "DEP": 186851400,
+              "NAME": "CITIZENS BANK NATIONAL ASSN",
+              "ID": "57957_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 85
+        }
+      }
+    },
+    "fdic_positive_HBAN": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T16:33:22.245056+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6560&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "HBAN",
+      "cert": 6560,
+      "identity": {
+        "ticker": "HBAN",
+        "cert": 6560,
+        "issuer_cik": "0000049196",
+        "issuer_name": "Huntington Bancshares Incorporated",
+        "bank_name": "The Huntington National Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/49196/000004919626000015/hban20251231ex211-10k.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/49196/000004919626000073/hban-20260903.htm",
+        "known_at": "2026-10-01T16:31:58.620723+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/6560",
+        "financial_name": "HUNTINGTON NATIONAL BANK",
+        "financial_name_known_at": "2026-10-01T16:30:40.703072+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6560&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 3
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 4
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:6560",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 283073605,
+              "CERT": 6560,
+              "NETINC": 1431831,
+              "EQ": 33284616,
+              "DEP": 227123103,
+              "NAME": "HUNTINGTON NATIONAL BANK",
+              "ID": "6560_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 284135374,
+              "CERT": 6560,
+              "NETINC": 629840,
+              "EQ": 33143721,
+              "DEP": 227513232,
+              "NAME": "HUNTINGTON NATIONAL BANK",
+              "ID": "6560_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T16:33:26.584531+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "CFG",
+    "HBAN"
+  ],
+  "finished_at": "2026-10-01T16:33:30.837244+00:00"
+}

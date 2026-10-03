@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sqlite3
+from contextlib import closing
 import tempfile
 import unittest
 
@@ -40,7 +41,7 @@ class ScoutPrerequisiteTests(unittest.TestCase):
             run_id = store.save_run(
                 RunMetadata(now, now, 2, 2, 0, 0), ranked, now.isoformat()
             )
-            with sqlite3.connect(store.db_path) as conn:
+            with closing(sqlite3.connect(store.db_path)) as conn, conn:
                 saved = dict(conn.execute(
                     "SELECT ticker, rank_in_watchlist FROM signal_history WHERE run_id=?",
                     (run_id,),

@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T11:56:50+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "Fail-closed extraction of Schedule 13D/G as-filed cover fields",
+  "source_commit": "5ef9803fc8e22f00df57a7a7cbb9d98ce10a3f52",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37118714020,
+    "run_number": 371,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111190444784,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-03T11:09:46.619536+00:00",
+    "ended_at": "2026-10-03T11:22:56.912300+00:00",
+    "discovered_tests": 540,
+    "tests_run": 540,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "test_duration_seconds": 787.950
+  },
+  "release_gate": {
+    "job_id": 111192631237,
+    "conclusion": "success",
+    "all_test_agents_required": true
+  },
+  "artifact": {
+    "id": 11272746709,
+    "name": "windows-deterministic-tests",
+    "size_in_bytes": 16505,
+    "expires_at": "2027-01-01T11:08:41Z",
+    "sha256_from_metadata": "6cc6dd5a0c0b7698c6a2e79110f24baefc2ff79161a74b85dec7f3f8fa73cfab",
+    "sha256_downloaded": "6cc6dd5a0c0b7698c6a2e79110f24baefc2ff79161a74b85dec7f3f8fa73cfab",
+    "download_verified": true,
+    "contents": {
+      "windows-tests.log_bytes": 96992,
+      "windows-tests.json_bytes": 373,
+      "machine_result_matches_job": true
+    }
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed_by_validation_commit": false
+  },
+  "acceptance_limits": {
+    "hosted_windows_compatibility_verified": true,
+    "actual_user_windows_end_to_end_verified": false,
+    "live_sec_user_agent_run": false,
+    "reporting_person_legal_identity_verified": false,
+    "instrument_registry_match_verified": false,
+    "ownership_change_interpreted": false,
+    "positive_and_negative_live_cases_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

@@ -1,0 +1,554 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T09:14:10.401131+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "cases": {
+    "fdic_positive_JPM": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:14:10.404164+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A628&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json",
+      "ticker": "JPM",
+      "cert": 628,
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:628",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 4091315000,
+              "CERT": 628,
+              "NETINC": 31335000,
+              "EQ": 341580000,
+              "DEP": 2820284000,
+              "NAME": "JPMORGAN CHASE BANK NA",
+              "ID": "628_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 4016571000,
+              "CERT": 628,
+              "NETINC": 13974000,
+              "EQ": 335931000,
+              "DEP": 2787994000,
+              "NAME": "JPMORGAN CHASE BANK NA",
+              "ID": "628_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_positive_BAC": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:14:21.163784+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A3510&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json",
+      "ticker": "BAC",
+      "cert": 3510,
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:3510",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 2654645000,
+              "CERT": 3510,
+              "NETINC": 14947000,
+              "EQ": 240789000,
+              "DEP": 2121804000,
+              "NAME": "BANK OF AMERICA NA",
+              "ID": "3510_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 2672192000,
+              "CERT": 3510,
+              "NETINC": 7417000,
+              "EQ": 241710000,
+              "DEP": 2128004000,
+              "NAME": "BANK OF AMERICA NA",
+              "ID": "3510_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_positive_WFC": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:14:28.966000+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A3511&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json",
+      "ticker": "WFC",
+      "cert": 3511,
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:3511",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 1907928000,
+              "CERT": 3511,
+              "NETINC": 12808000,
+              "EQ": 169518000,
+              "DEP": 1563534000,
+              "NAME": "WELLS FARGO BANK NA",
+              "ID": "3511_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 1852239000,
+              "CERT": 3511,
+              "NETINC": 5961000,
+              "EQ": 173016000,
+              "DEP": 1516982000,
+              "NAME": "WELLS FARGO BANK NA",
+              "ID": "3511_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_positive_C": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:14:34.607431+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A7213&fields=CERT%2CNAME%2CREPDTE&limit=2&format=json",
+      "ticker": "C",
+      "cert": 7213,
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:7213",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 1976180000,
+              "CERT": 7213,
+              "NETINC": 10118000,
+              "EQ": 171296000,
+              "DEP": 1547586000,
+              "NAME": "CITIBANK NATIONAL ASSN",
+              "ID": "7213_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 1933622000,
+              "CERT": 7213,
+              "NETINC": 5011000,
+              "EQ": 171401000,
+              "DEP": 1501029000,
+              "NAME": "CITIBANK NATIONAL ASSN",
+              "ID": "7213_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:14:43.482334+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    },
+    "fda_positive_drug_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:14:51.341332+00:00",
+      "source_url": "https://api.fda.gov/drug/enforcement.json?search=recalling_firm%3A%22Pfizer+Inc.%22&limit=1",
+      "scope": "name candidate only; no product-to-issuer attribution",
+      "payload": {
+        "meta": {
+          "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+          "terms": "https://open.fda.gov/terms/",
+          "license": "https://open.fda.gov/license/",
+          "last_updated": "2026-09-23",
+          "results": {
+            "skip": 0,
+            "limit": 1,
+            "total": 120
+          }
+        },
+        "results": [
+          {
+            "status": "Terminated",
+            "city": "New York",
+            "state": "NY",
+            "country": "United States",
+            "classification": "Class III",
+            "openfda": {
+              "application_number": [
+                "NDA020779"
+              ],
+              "brand_name": [
+                "VIRACEPT"
+              ],
+              "generic_name": [
+                "NELFINAVIR MESYLATE"
+              ],
+              "manufacturer_name": [
+                "AGOURON"
+              ],
+              "product_ndc": [
+                "63010-010",
+                "63010-027"
+              ],
+              "product_type": [
+                "HUMAN PRESCRIPTION DRUG"
+              ],
+              "route": [
+                "ORAL"
+              ],
+              "substance_name": [
+                "NELFINAVIR MESYLATE"
+              ],
+              "rxcui": [
+                "212118",
+                "311924",
+                "403978",
+                "542370"
+              ],
+              "spl_id": [
+                "4af6d4ca-b410-48e3-925e-ce23a14db18a"
+              ],
+              "spl_set_id": [
+                "e72c2bc6-9462-4a2e-8e1d-b97592376cbd"
+              ],
+              "package_ndc": [
+                "63010-010-30",
+                "63010-027-70"
+              ],
+              "is_original_packager": [
+                true
+              ],
+              "upc": [
+                "0363010010309"
+              ],
+              "unii": [
+                "98D603VP8V"
+              ]
+            },
+            "product_type": "Drugs",
+            "event_id": "68660",
+            "recalling_firm": "Pfizer Inc.",
+            "address_1": "235 East 42nd Street",
+            "address_2": "N/A",
+            "postal_code": "10017-5703",
+            "voluntary_mandated": "Voluntary: Firm initiated",
+            "initial_firm_notification": "Letter",
+            "distribution_pattern": "Nationwide and Puerto Rico",
+            "recall_number": "D-1443-2014",
+            "product_description": "VIRACEPT (R) (nelfinavir mesylate) Tablets, 625 mg, 120-count bottle, Rx only, Manufactured by: Agouron Pharmaceuticals, Inc. A Pfizer Company,  Distributed by: ViV Healthcare Company, Research Triangle Park, NC 27709  NDC 63010-027-70",
+            "product_quantity": "1200  tablets",
+            "reason_for_recall": "Labeling: Incorrect or missing lot and or Exp Date: The bottles were labeled with an incorrect expiry date 11/2016.  The correct expiry date is 09/2016.",
+            "recall_initiation_date": "20140708",
+            "center_classification_date": "20140717",
+            "termination_date": "20150706",
+            "report_date": "20140723",
+            "code_info": "Lot H45241, exp. 11/16"
+          }
+        ]
+      }
+    },
+    "fda_negative_drug_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:14:58.264721+00:00",
+      "source_url": "https://api.fda.gov/drug/enforcement.json",
+      "query_firm": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+      "scope": "absent name only",
+      "payload": {
+        "results": [],
+        "meta": {
+          "results": {
+            "total": 0
+          }
+        }
+      }
+    },
+    "fda_negative_device_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:15:06.611284+00:00",
+      "source_url": "https://api.fda.gov/device/enforcement.json",
+      "query_firm": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+      "scope": "absent name only",
+      "payload": {
+        "results": [],
+        "meta": {
+          "results": {
+            "total": 0
+          }
+        }
+      }
+    },
+    "fda_negative_food_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:15:12.546098+00:00",
+      "source_url": "https://api.fda.gov/food/enforcement.json",
+      "query_firm": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+      "scope": "absent name only",
+      "payload": {
+        "results": [],
+        "meta": {
+          "results": {
+            "total": 0
+          }
+        }
+      }
+    },
+    "fda_positive_crl_schema": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:15:18.734267+00:00",
+      "source_url": "https://api.fda.gov/transparency/crl.json",
+      "scope": "live CRL schema only; no issuer/product attribution",
+      "payload": {
+        "meta": {
+          "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+          "terms": "https://open.fda.gov/terms/",
+          "license": "https://open.fda.gov/license/",
+          "last_updated": "2026-08-13",
+          "results": {
+            "skip": 0,
+            "limit": 1,
+            "total": 445
+          }
+        },
+        "results": [
+          {
+            "letter_date": "09/22/2025",
+            "approver_title": "Silver Spring, MD 20993",
+            "file_name": "CRL_NDA209531_20250922.pdf",
+            "letter_year": "2025",
+            "approval_status": "Unapproved",
+            "approver_name": "U.S. Food and Drug Administration",
+            "approver_center": [],
+            "company_rep": "Charlene Wheeler, MSHS",
+            "company_address": "225 Binney Street\nCambridge, MA 02142",
+            "company_name": "Biogen, Inc.",
+            "text": "‘4 ¢ BN U.S. FOOD & DRUG\n\nADMINISTRATION\n\nNDA 209531/S-016\nCOMPLETE RESPONSE\n\nBiogen, Inc.\n\nAttention: Charlene Wheeler, MSHS\nDirector, Global Regulatory Sciences\n225 Binney Street\n\nCambridge, MA 02142\n\nDear Charlene Wheeler:\nPlease refer to your su mental new drug application (SNDA)\nfor Spinraza (nusinersen) injection.\n\nThis “Prior Approval” efficacy supplement to your application proposes revisions\nthroughout the Prescribing Information (PI) regarding a completed clinical study [Study\n4 (NCT04089566)] to provide support for inclusion of an additional higher dosing\nregimen. Two corresponding additional strength presentations [28 mg/5 mL (5.6 mg/mL)\nand 50 mg/5 mL (10 mg/mL)] were proposed for administration of the new dosing\nregimen. This sNDA also proposes revisions to the Pediatric Use subsection (8.4) of the\nPI to include results from a combined 6- and 13-week toxicity study in juvenile monkeys.\n\nWe have completed our review of this application, as amended, and have determined\nthat we cannot approve this application in its present form. We have described our\nreasons for this action below and, where possible, our recommendations to address\nthese issues.\n\nNONCLINICAL AND PRODUCT QUALITY\n\nReference ID: 5663424\n\nNDA 209531/S-016\nPage 2\n\nPRESCRIBING INFORMATION\n\nSubmit draft labeling that is responsive to our electronic communication dated\nnl which may be a resubmission of your draft labeling provided in an\nelectronic response communication also dated 88\n\nPrior to resubmitting the labeling, use the SRPI checklist to correct any formatting errors\nto ensure conformance with the format items in regulations and guidances. In addition,\n\nsubmit updated content of labeling [21 CFR 314.50(I)(1)(i) in structured product labeling\n(SPL) format as described at FDA.gov.\"\n\nTo facilitate review of your submission, provide a highlighted or marked-up copy that\nshows all changes, as well as a clean Word version. The marked-up copy should\ninclude annotations that support any proposed changes.\n\nYour proposed Prescribing Information (PI) must conform to the content and format\nregulations found at 21 CFR 201.56(a) and (d) and 201.57. As you develop your\nproposed PI, we encourage you to review the labeling review resources on the\nPrescription Drug Labeling Resources? and Pregnancy and Lactation Labeling Final\nRule? websites, which include:\n\n¢ The Final Rule (Physician Labeling Rule) on the content and format of the PI\nfor human drug and biological products\n\n¢ The Final Rule (Pregnancy and Lactation Labeling Rule) on the content and\nformat of information in the PI on pregnancy, lactation, and females and\nmales of reproductive potential\n\n1 http:/Awww.fda.gov/ForIndustry/DataStandards/StructuredProductLabeling/default.htm\n\n2 https://www.fda.gov/drugs/laws-acts-and-rules/prescription-drug-labeling-resources\n\n3 https://www.fda.gov/drugs/labeling-information-drug-products/pregnancy-and-lactation-labeling-drugs-\nfinal-rule\n\nU.S. Food and Drug Administration\n\nSilver Spring, MD 20993\n\nwww.fda.gov\n\nReference ID: 5663424\n\nNDA 209531/S-016\nPage 3\n\ne Regulations and related guidance documents\ne Asample tool illustrating the format for Highlights and Contents, and\n\ne The Selected Requirements for Prescribing Information (SRPI) - a checklist\nof important format items from labeling regulations and guidances.\n\ne FDA's established pharmacologic class (EPC) text phrases for inclusion in the\nHighlights Indications and Usage heading.\n\ne Additional resources for the PI, patient labeling, and carton/container labeling.\nCARTON AND CONTAINER LABELING\n\nSubmit draft carton and container labeling based on your carton and container labeling\nsubmission dated omy\n\nSAFETY UPDATE\n\nWhen you respond to the above deficiencies, include a safety update as described at\n21 CFR 314.50(d)(5)(vi)(b). The safety update should include data from all nonclinical\nand clinical studies/trials of the drug under consideration regardless of indication,\ndosage form, or dose level.\n\n(1) Describe in detail any significant changes or findings in the safety profile.\n\n(2) When assembling the sections describing discontinuations due to adverse\nevents, serious adverse events, and common adverse events, incorporate new\nsafety data as follows:\n\ne Present new safety data from the studies/clinical trials for the proposed\nindication using the same format as in the original submission.\n\ne Present tabulations of the new safety data combined with the supplemental\napplication data.\n\ne Include tables that compare frequencies of adverse events in the\nsupplemental application with the retabulated frequencies described in the\nbullet above.\n\ne For indications other than the proposed indication, provide separate tables for\nthe frequencies of adverse events occurring in clinical trials.\n\n(3) Present a retabulation of the reasons for premature trial discontinuation by\nincorporating the drop-outs from the newly completed trials. Describe any new\ntrends or patterns identified.\n\nU.S. Food and Drug Administration\n\nSilver Spring, MD 20993\nwww.fda.gov\n\nReference ID: 5663424\n\nNDA 209531/S-016\nPage 4\n\n(4) Provide case report forms and narrative summaries for each subject who died\nduring a clinical trial or who did not complete a trial because of an adverse event.\nIn addition, provide narrative summaries for serious adverse events.\n\n(5) Describe any information that suggests a substantial change in the incidence of\ncommon, but less serious, adverse events between the new data and the\nsupplemental application data.\n\n(6) Provide updated exposure information for the clinical studies/trials (e.g., number\nof subjects, person time).\n\n(7) Provide a summary of worldwide experience on the safety of this drug. Include\nan updated estimate of use for drug marketed in other countries.\n\n(8) Provide English translations of current approved foreign labeling not previously\nsubmitted.\n\nADDITIONAL COMMENTS\nWe have the following comments/recommendations that are not approvability issues:\n\nUpon our review of your Form 356h, we noticed that it does not contain all the\nfacilities listed in Module 3. In your resubmission, ensure that Form 356h includes all\nrelevant facilities. Additionally, we recommend that you include FEI numbers in\nModule 3 to facilitate our review process. Furthermore, please also confirm if\nconducts microbiological and/or sterility\ntests because these tests have been included in the release testing for the drug\nproduct, but the facility's role in performing these specific tests is unclear from\nSection 3.2.P.3.1. If these tests are not performed at)\", indicate it clearly in\nModule 3 Section 3.2.P.3.1. For additional guidance on Agency expectations\nregarding facility information that should be included in an application, refer to FDA\nguidance document titled Identification of Manufacturing Establishments in\nApplications Submitted to CBER and CDER Questions and Answers.*\n\nOTHER\n\nWithin one year after the date of this letter, you are required to resubmit or take other\nactions available under 21 CFR 314.110). If you do not take one of these actions, we\nmay consider your lack of response a request to withdraw the application under\n\n21 CFR 314.65. You may also request an extension of time in which to resubmit the\napplication.\n\n4 https://www.fda.gov/regulatory-information/search-fda-guidance-documents/identification-\nmanufacturing-establishments-applications-submitted-cber-and-cder-questions-and\n\nU.S. Food and Drug Administration\n\nSilver Spring, MD 20993\n\nwww.fda.gov\n\nReference ID: 5663424\n\nNDA 209531/S-016\nPage 5\n\nA resubmission must fully address all the deficiencies listed in this letter and should be\nclearly marked with \"RESUBMISSION* in large font, bolded type at the beginning of the\ncover letter of the submission. The cover letter should clearly state that you consider\nthis resubmission a complete response to the deficiencies outlined in this letter. A partial\nresponse to this letter will not be processed as a resubmission and will not start a new\nreview cycle.\n\nYou may request a meeting or teleconference with us to discuss what steps you need to\ntake before the application may be approved. If you wish to have such a meeting,\nsubmit your meeting request as described in the draft guidance for industry Formal\nMeetings Between the FDA and Sponsors or Applicants of PDUFA Products.\n\nIf you have any questions, contact\n\nSincerely,\n\n{See appended electronic signature page}\n\nU.S. Food and Drug Administration\nSilver Spring, MD 20993\nwww.fda.gov\n\nReference ID: 5663424\n\nSignature Page 1 of 1\n\nThis is a representation of an electronic record that was signed\nelectronically. Following this are manifestations of any and all\nelectronic signatures for this electronic record.\n\n(bp) (4)\n\n09/22/2025 04:34:14 PM\n\nReference ID: 5663424\n",
+            "application_number": [
+              "NDA 209531/S-016"
+            ],
+            "letter_type": "COMPLETE RESPONSE"
+          }
+        ]
+      }
+    },
+    "fda_negative_crl_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:15:26.165916+00:00",
+      "source_url": "https://api.fda.gov/transparency/crl.json",
+      "query_firm": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+      "scope": "absent name only",
+      "payload": {
+        "results": [],
+        "meta": {
+          "results": {
+            "total": 0
+          }
+        }
+      }
+    },
+    "nhtsa_positive_TSLA_2026": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:15:33.261870+00:00",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle",
+      "make": "TESLA",
+      "model": "MODEL 3",
+      "year": 2026,
+      "summary": {
+        "status": "OK",
+        "checked_models": 1,
+        "new_findings": 1,
+        "failed_models": 0,
+        "rejected_rows": 0
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_models": 0,
+        "new_findings": 0,
+        "failed_models": 0,
+        "rejected_rows": 0
+      },
+      "payload": {
+        "Count": 1,
+        "Message": "Results returned successfully",
+        "results": [
+          {
+            "Manufacturer": "Tesla, Inc.",
+            "NHTSACampaignNumber": "25V410000",
+            "parkIt": false,
+            "parkOutSide": false,
+            "overTheAirUpdate": false,
+            "ReportReceivedDate": "18/06/2025",
+            "Component": "SEATS:CRITICAL FASTENERS",
+            "Summary": "Tesla, Inc. (Tesla) is recalling certain 2026 Model 3 and Model Y vehicles. The fasteners attaching the seat back to the seat bottom may have been improperly tightened.",
+            "Consequence": "The seat may not properly restrain the occupant, increasing the risk of injury during a crash.",
+            "Remedy": "Tesla Service Centers will inspect and tighten or replace the seat assembly fasteners as necessary, free of charge. Owner notification letters were mailed August 16, 2025. Owners may contact Tesla customer service at 1-877-798-3752. Tesla's number for this recall is SB-25-13-003.",
+            "Notes": null,
+            "ModelYear": "2026",
+            "Make": "TESLA",
+            "Model": "MODEL 3"
+          }
+        ]
+      }
+    },
+    "nhtsa_negative_absent_model": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:15:41.493058+00:00",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle",
+      "scope": "invalid make/model is rejected, not interpreted as no recalls",
+      "http_status": 400
+    }
+  },
+  "finished_at": "2026-10-01T09:15:50.722441+00:00"
+}

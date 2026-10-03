@@ -7,6 +7,8 @@ import json
 from pathlib import Path
 import re
 import sqlite3
+
+from market_checker_app.storage.sqlite_connection import ClosingSQLiteConnection
 from urllib.parse import urlsplit
 from uuid import uuid4
 
@@ -44,7 +46,7 @@ class ScoutStore:
 
     def _connect(self) -> sqlite3.Connection:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        conn = sqlite3.connect(self.db_path, timeout=30)
+        conn = sqlite3.connect(self.db_path, timeout=30, factory=ClosingSQLiteConnection)
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA foreign_keys=ON")
         return conn
@@ -192,6 +194,18 @@ class ScoutStore:
                     summary_json TEXT NOT NULL,
                     PRIMARY KEY(source, observed_at)
                 );
+                CREATE TABLE IF NOT EXISTS scout_fdic_requests (
+                    request_id TEXT PRIMARY KEY,
+                    subject_id TEXT NOT NULL,
+                    identity_key TEXT NOT NULL,
+                    attempted_at TEXT NOT NULL,
+                    finished_at TEXT,
+                    outcome TEXT NOT NULL DEFAULT 'RUNNING',
+                    usable_rows INTEGER NOT NULL DEFAULT 0,
+                    rejected_rows INTEGER NOT NULL DEFAULT 0
+                );
+                CREATE INDEX IF NOT EXISTS scout_fdic_requests_identity
+                    ON scout_fdic_requests(subject_id, identity_key, attempted_at);
                 CREATE TABLE IF NOT EXISTS scout_background_workers (
                     source TEXT PRIMARY KEY,
                     run_id TEXT NOT NULL,
@@ -240,11 +254,15 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(9, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(10, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
 
     def record_source_run(self, source: str, *, as_of: datetime,
                           summary: dict[str, object]) -> None:
         allowed = {"sec", "fred", "eia", "usaspending", "recipient_discovery",
-                   "fda", "finra", "fdic", "sec13f", "nhtsa"}
+                   "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"}
         if source not in allowed or not isinstance(summary, dict):
             raise ValueError("Unknown scout source run")
         status = summary.get("status")
@@ -253,8 +271,12 @@ class ScoutStore:
         safe = {key: value for key, value in summary.items()
                 if key in {"status", "new_findings", "checked_issuers", "checked_models",
                            "checked_banks", "checked_uei", "failed_issuers", "failed_models",
-                           "failed_banks", "matched_rows", "saved_rows", "error",
-                           "processed", "failed", "scheduled_subjects", "truncated_issuers"}
+                           "failed_banks", "usable_banks", "rejected_rows", "matched_rows", "saved_rows", "error",
+                           "processed", "failed", "scheduled_subjects", "truncated_issuers",
+                           "snapshot_sha256", "alias_snapshot_sha256", "alias_rows", "budget_exhausted", "checked_names",
+                           "attempted_banks", "empty_banks", "due_banks", "deferred_banks",
+                           "daily_requests", "retry_at",
+                           "new_candidates", "truncated_names", "failed_names", "truncated_uei"}
                 and isinstance(value, (str, int, float, bool))}
         with self._connect() as conn:
             conn.execute("""
@@ -274,9 +296,71 @@ class ScoutStore:
         return {row["source"]: {"observed_at": row["observed_at"],
                                 **json.loads(row["summary_json"])} for row in rows}
 
+    def fdic_check_states(self, *, as_of: datetime) -> dict[tuple[str, str], dict]:
+        """Latest attempts for each dated manifest identity; never infer from findings."""
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            rows = conn.execute("""
+                SELECT * FROM (
+                    SELECT *, ROW_NUMBER() OVER (
+                        PARTITION BY subject_id, identity_key ORDER BY attempted_at DESC, rowid DESC
+                    ) AS latest FROM scout_fdic_requests WHERE attempted_at<=?
+                ) WHERE latest=1
+            """, (clock,)).fetchall()
+        states = {}
+        for row in rows:
+            state = dict(row)
+            if state["finished_at"] is None or state["finished_at"] > clock:
+                state.update(outcome="RUNNING", usable_rows=0, rejected_rows=0)
+            states[(row["subject_id"], row["identity_key"])] = state
+        return states
+
+    def fdic_daily_requests(self, *, as_of: datetime) -> int:
+        _utc(as_of)
+        start = as_of.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        with self._connect() as conn:
+            return int(conn.execute("""
+                SELECT COUNT(*) FROM scout_fdic_requests WHERE attempted_at>=? AND attempted_at<?
+            """, (_utc(start), _utc(start + timedelta(days=1)))).fetchone()[0])
+
+    def reserve_fdic_request(self, *, subject_id: str, identity_key: str,
+                             as_of: datetime, daily_limit: int, lease_token: str) -> str | None:
+        """Consume quota before I/O, including failures and interrupted attempts."""
+        if not subject_id or not identity_key or not 1 <= daily_limit <= 50:
+            raise ValueError("Invalid FDIC request reservation")
+        clock = _utc(as_of)
+        start = as_of.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        request_id = uuid4().hex
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            owned = conn.execute("""
+                SELECT 1 FROM scout_provider_leases
+                WHERE source='fdic' AND lease_token=? AND lease_until>?
+            """, (lease_token, clock)).fetchone()
+            used = conn.execute("""
+                SELECT COUNT(*) FROM scout_fdic_requests WHERE attempted_at>=? AND attempted_at<?
+            """, (_utc(start), _utc(start + timedelta(days=1)))).fetchone()[0]
+            if not owned or used >= daily_limit:
+                return None
+            conn.execute("""
+                INSERT INTO scout_fdic_requests(request_id, subject_id, identity_key, attempted_at)
+                VALUES(?, ?, ?, ?)
+            """, (request_id, subject_id, identity_key, clock))
+        return request_id
+
+    def finish_fdic_request(self, request_id: str, *, as_of: datetime, outcome: str,
+                            usable_rows: int = 0, rejected_rows: int = 0) -> None:
+        if outcome not in {"USABLE", "PARTIAL", "EMPTY", "FAILED"} or min(usable_rows, rejected_rows) < 0:
+            raise ValueError("Invalid FDIC request result")
+        with self._connect() as conn:
+            conn.execute("""
+                UPDATE scout_fdic_requests SET finished_at=?, outcome=?, usable_rows=?, rejected_rows=?
+                WHERE request_id=? AND outcome='RUNNING' AND attempted_at<=?
+            """, (_utc(as_of), outcome, usable_rows, rejected_rows, request_id, _utc(as_of)))
+
     def specialist_due(self, source: str, *, as_of: datetime, limit: int,
                        refresh_days: int = 30) -> list[dict[str, str]]:
-        if source not in {"fda", "finra"} or limit < 1 or refresh_days < 1:
+        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"} or limit < 1 or refresh_days < 1:
             raise ValueError("Unsupported specialist check configuration")
         cutoff = _utc(as_of - timedelta(days=refresh_days))
         partial_cutoff = _utc(as_of - timedelta(days=1))
@@ -287,26 +371,35 @@ class ScoutStore:
                 FROM scout_sec_identities AS i
                 LEFT JOIN scout_specialist_checks AS c
                   ON c.source=? AND c.subject_id=i.subject_id
-                 AND c.identity_key=i.cik || ':' || i.company_name
+                 AND c.identity_key=i.cik || ':' || i.company_name ||
+                     CASE ? WHEN 'ofac' THEN ':sdn-alt-v1' WHEN 'ofac_non_sdn' THEN ':non-sdn-alt-v1'
+                            WHEN 'doj' THEN ':title-name-v1' WHEN 'epa' THEN ':echo-exact-name-v1' ELSE '' END
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
                   AND (c.checked_at IS NULL OR c.checked_at<=?
                        OR (c.truncated=1 AND c.checked_at<=?))
                 ORDER BY c.checked_at IS NOT NULL, c.checked_at, i.subject_id
                 LIMIT ?
-            """, (source, clock, cutoff, partial_cutoff, limit)).fetchall()
+            """, (source, source, clock, cutoff, partial_cutoff, limit)).fetchall()
         return [dict(row) for row in rows]
 
     def specialist_coverage(self, source: str, *, as_of: datetime,
-                            refresh_days: int = 30) -> dict[str, int]:
+                            refresh_days: int = 30,
+                            subjects: set[str] | None = None) -> dict[str, int]:
         """Count current SEC identities checked by a rotating specialist.
 
         An incomplete paginated result remains partial even when it was checked
         recently. Historical checks for a different identity key do not count.
         """
-        if source not in {"fda", "finra"} or refresh_days < 1:
+        if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"} or refresh_days < 1:
             raise ValueError("Unsupported specialist coverage")
         clock = _utc(as_of)
         cutoff = _utc(as_of - timedelta(days=refresh_days))
+        selected = sorted(subjects) if subjects is not None else []
+        if subjects is not None and not selected:
+            return {"active_identities": 0, "ever_checked": 0, "current_complete": 0,
+                    "current_partial": 0, "not_current": 0}
+        scope = (" AND i.subject_id IN (" + ",".join("?" for _ in selected) + ")"
+                 if subjects is not None else "")
         with self._connect() as conn:
             row = conn.execute("""
                 SELECT COUNT(*) AS active,
@@ -316,9 +409,11 @@ class ScoutStore:
                 FROM scout_sec_identities AS i
                 LEFT JOIN scout_specialist_checks AS c
                   ON c.source=? AND c.subject_id=i.subject_id
-                 AND c.identity_key=i.cik || ':' || i.company_name
+                 AND c.identity_key=i.cik || ':' || i.company_name ||
+                     CASE ? WHEN 'ofac' THEN ':sdn-alt-v1' WHEN 'ofac_non_sdn' THEN ':non-sdn-alt-v1'
+                            WHEN 'doj' THEN ':title-name-v1' WHEN 'epa' THEN ':echo-exact-name-v1' ELSE '' END
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
-            """, (cutoff, cutoff, source, clock)).fetchone()
+            """ + scope, (cutoff, cutoff, source, source, clock, *selected)).fetchone()
         active = int(row["active"])
         complete = int(row["current_complete"])
         partial = int(row["current_partial"])
@@ -329,8 +424,18 @@ class ScoutStore:
     def record_specialist_check(self, source: str, *, subject_id: str,
                                 identity_key: str, as_of: datetime,
                                 candidate_count: int, truncated: bool) -> None:
-        if source not in {"fda", "finra", "sec13f", "nhtsa"} or candidate_count < 0:
+        if source not in {"fda", "finra", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"} or candidate_count < 0:
             raise ValueError("Invalid specialist check")
+        # A legacy primary-name-only OFAC check cannot satisfy ALT coverage.
+        # Preserve old history and make each upgraded identity immediately due.
+        if source == "ofac":
+            identity_key += ":sdn-alt-v1"
+        if source == "ofac_non_sdn":
+            identity_key += ":non-sdn-alt-v1"
+        if source == "doj":
+            identity_key += ":title-name-v1"
+        if source == "epa":
+            identity_key += ":echo-exact-name-v1"
         with self._connect() as conn:
             conn.execute("""
                 INSERT INTO scout_specialist_checks
@@ -360,10 +465,11 @@ class ScoutStore:
         cutoff = _utc(as_of - timedelta(days=refresh_days))
         with self._connect() as conn:
             row = conn.execute("""
-                SELECT checked_at FROM scout_specialist_checks
+                SELECT checked_at, truncated FROM scout_specialist_checks
                 WHERE source=? AND subject_id=? AND identity_key=?
             """, (source, subject_id, identity_key)).fetchone()
-        return row is None or row["checked_at"] <= cutoff
+        return (row is None or row["checked_at"] <= cutoff
+                or (row["truncated"] and row["checked_at"] <= _utc(as_of - timedelta(days=1))))
 
     def begin_background_worker(self, source: str, *, as_of: datetime) -> str | None:
         """Prevent two UI clicks from launching duplicate backlog workers."""
@@ -423,6 +529,50 @@ class ScoutStore:
                 SELECT COUNT(*) FROM scout_jobs WHERE source='sec'
                   AND reason='daily_filings' AND status='DONE'
             """).fetchone()[0])
+
+    def specialist_runtime_diagnostics(self, *, records: list[dict[str, str]],
+                                       source_sha256: str, as_of: datetime) -> dict[str, object]:
+        """Read canonical-scope runtime facts without creating evidence of a run."""
+        subjects = sorted({row["ticker"] for row in records})
+        if not subjects:
+            raise ValueError("Runtime diagnostics require a nonempty universe")
+        placeholders = ",".join("?" for _ in subjects)
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            snapshot = conn.execute("""
+                SELECT snapshot_id, created_at, row_count FROM scout_universe_snapshots
+                WHERE source_sha256=? AND created_at<=?
+            """, (source_sha256, clock)).fetchone()
+            archived = [tuple(row) for row in conn.execute("""
+                SELECT ticker, yahoo_ticker FROM scout_universe_input_rows
+                WHERE snapshot_id=? ORDER BY input_position
+            """, (snapshot["snapshot_id"],))] if snapshot else []
+            identities = conn.execute(f"""
+                SELECT status, COUNT(DISTINCT subject_id) AS count FROM scout_sec_identities
+                WHERE first_observed_at<=? AND subject_id IN ({placeholders}) GROUP BY status
+            """, (clock, *subjects)).fetchall()
+            completed = conn.execute(f"""
+                SELECT COUNT(DISTINCT subject_id) FROM scout_jobs
+                WHERE source='sec' AND reason='daily_filings' AND status='DONE'
+                  AND updated_at<=? AND subject_id IN ({placeholders})
+            """, (clock, *subjects)).fetchone()[0]
+            findings = conn.execute(f"""
+                SELECT source, verification_status, COUNT(*) AS versions,
+                       COUNT(DISTINCT subject_id) AS subjects
+                FROM scout_findings WHERE available_at<=? AND first_observed_at<=?
+                  AND subject_id IN ({placeholders}) GROUP BY source, verification_status
+                ORDER BY source, verification_status
+            """, (clock, clock, *subjects)).fetchall()
+        expected = [(row["ticker"], row["yahoo_ticker"]) for row in records]
+        return {
+            "universe_archive": {"present": snapshot is not None,
+                                 "matches_current_input": bool(snapshot) and archived == expected,
+                                 "archived_rows": len(archived),
+                                 "created_at": snapshot["created_at"] if snapshot else None},
+            "sec_identity_subjects": {row["status"]: int(row["count"]) for row in identities},
+            "completed_sec_index_subjects": int(completed),
+            "findings_in_canonical_scope": [dict(row) for row in findings],
+        }
 
     def recipient_discovery_due(
         self, *, as_of: datetime, limit: int = 5, interval_days: int = 30,
@@ -786,7 +936,7 @@ class ScoutStore:
         published_at: datetime, available_at: datetime, observed_at: datetime,
         details: dict[str, object], verification_status: str = "SOURCE_VERIFIED",
     ) -> tuple[str, bool]:
-        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa"}:
+        if source not in {"sec", "rss", "fred", "eia", "usaspending", "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"}:
             raise ValueError(f"Scout source has no approved storage policy: {source}")
         source_url = public_https_reference(source_url)
         parsed = urlsplit(source_url)
@@ -835,6 +985,36 @@ class ScoutStore:
             raise ValueError("NHTSA finding must cite its official recall API")
         if source == "rss" and verification_status != "UNVERIFIED":
             raise ValueError("RSS search candidates cannot verify a source or claim")
+        healthcare_paths = {
+            "cms": ("data.cms.gov", "/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data"),
+            "clinicaltrials": ("clinicaltrials.gov", "/api/v2/studies"),
+        }
+        if source in healthcare_paths:
+            host, path = healthcare_paths[source]
+            if parsed.hostname != host or parsed.port not in {None, 443} or parsed.path != path:
+                raise ValueError("Healthcare finding must cite its official dataset API")
+            if verification_status != "UNVERIFIED":
+                raise ValueError("Healthcare name candidates cannot verify issuer identity")
+        if source in {"ofac", "ofac_non_sdn"}:
+            export_name = "SDN.CSV" if source == "ofac" else "CONS_PRIM.CSV"
+            if (parsed.hostname != "sanctionslistservice.ofac.treas.gov"
+                    or parsed.port not in {None, 443}
+                    or parsed.path != f"/api/PublicationPreview/exports/{export_name}"):
+                raise ValueError("OFAC candidate must cite its official SDN or Non-SDN export for that source")
+            if verification_status != "UNVERIFIED":
+                raise ValueError("OFAC name candidates cannot verify sanctioned issuer identity")
+        if source == "doj":
+            if (parsed.hostname not in {"www.justice.gov", "justice.gov"}
+                    or parsed.port not in {None, 443} or "/pr/" not in parsed.path):
+                raise ValueError("DOJ candidate must cite its official press release")
+            if verification_status != "UNVERIFIED":
+                raise ValueError("DOJ name candidates cannot verify issuer identity or liability")
+        if source == "epa":
+            if (parsed.hostname != "echodata.epa.gov" or parsed.port not in {None, 443}
+                    or parsed.path != "/echo/echo_rest_services.get_facility_info"):
+                raise ValueError("EPA ECHO candidate must cite its official facility endpoint")
+            if verification_status != "UNVERIFIED":
+                raise ValueError("EPA facility-name candidates cannot verify issuer ownership or liability")
         published = _utc(published_at)
         available = _utc(available_at)
         observed = _utc(observed_at)

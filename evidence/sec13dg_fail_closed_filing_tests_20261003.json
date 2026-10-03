@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T06:44:11+00:00",
+  "evidence_type": "deterministic_sec13dg_fail_closed_semantics_test",
+  "subject": "Raw Schedule 13D/G documents remain unverified filings until owner, instrument and change are parsed",
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "modified": false
+  },
+  "implementation": {
+    "raw_event_type": "BENEFICIAL_OWNERSHIP_FILING",
+    "raw_event_status": "UNVERIFIED",
+    "raw_event_confidence": 0.5,
+    "beneficial_owner_identity_verified": false,
+    "instrument_identity_verified": false,
+    "ownership_change_interpreted": false,
+    "human_review_required": true,
+    "scoring_applied": false,
+    "verified_change_type_reserved": "BENEFICIAL_OWNERSHIP_CHANGE"
+  },
+  "validation": {
+    "focused_command": "python -m unittest -v tests.test_governance_event_agent tests.test_extended_sec_filings tests.test_sec_scout_service tests.test_agent_stage1",
+    "focused_tests_run": 32,
+    "full_command": "python -m unittest discover -s tests -v",
+    "full_tests_run": 536,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "diagnostics": [
+    "An initial clean-host discovery ran 430 tests but ended with 22 import errors because declared runtime dependencies were absent; it is not counted as a passing run.",
+    "After installing repository requirements under constraints, all 536 discovered tests passed without changing the tested implementation."
+  ],
+  "sha256": {
+    "market_checker_app/agents/contracts.py": "79de9ade3a6cc79699f6e925ef3611b829ff753116ee0d659ff3dcd23064b018",
+    "market_checker_app/agents/governance_event_agent.py": "14583911a4a743b2528a450d86c86333372770fa6ecbd4b4e7638841cc09cd03",
+    "tests/test_governance_event_agent.py": "a9e044b0f6b99cde83206f2af67fb981e5bbabc64468171756021dd15094f382"
+  },
+  "acceptance_limits": {
+    "live_sec_user_agent_available": false,
+    "reporting_person_identity_parsed": false,
+    "instrument_identity_parsed": false,
+    "ownership_change_interpreted": false,
+    "positive_and_negative_live_cases": false,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "measured_applicable_coverage": false,
+    "historical_out_of_sample_evaluation": false,
+    "specialist_done": false
+  }
+}

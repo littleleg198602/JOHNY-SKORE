@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "SEC 13F fifteen-instrument identity registry",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "pull_request": 160,
+  "tested_head_sha": "01151de7295b0169be566361a92d53f61aa3df6f",
+  "tested_merge_sha": "49504c0c0cc16e7d4d5302544a17ea05a2189d35",
+  "workflow": {
+    "id": 37062619610,
+    "name": "Market Checker test agents",
+    "run_number": 357,
+    "status": "completed",
+    "conclusion": "success",
+    "release_gate_job_id": 111048658846,
+    "release_gate_conclusion": "success",
+    "initial_attempt": {
+      "windows_job_id": 111022629814,
+      "conclusion": "cancelled",
+      "counts_as_pass": false,
+      "note": "The first attempt was externally cancelled during the deterministic suite and its partial artifact is not acceptance evidence. The failed jobs were rerun without changing the tested head."
+    }
+  },
+  "windows_job": {
+    "id": 111042792217,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "runner_os": "Microsoft Windows Server 2025",
+    "runner_image": "windows-2025-vs2026",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-10-02T21:47:00.294615+00:00",
+    "ended_at": "2026-10-02T22:04:52.110785+00:00",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "discovered_tests": 528,
+    "tests_run": 528,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "duration_seconds_reported_by_unittest": 1069.618
+  },
+  "artifact": {
+    "id": 11253952762,
+    "name": "windows-deterministic-tests",
+    "size_bytes": 16184,
+    "files": [
+      "windows-tests.log",
+      "windows-tests.json"
+    ],
+    "sha256": "029a694b6ef94a13ff429807c9a6b582fbdec3c6bc7cccb0cbaf9411d726e319",
+    "upload_log_digest_matches_download": true,
+    "downloaded_and_content_verified": true
+  },
+  "acceptance_limits": {
+    "compatibility_only": true,
+    "live_sec_13f_zip_run": false,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "measured_applicable_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}
