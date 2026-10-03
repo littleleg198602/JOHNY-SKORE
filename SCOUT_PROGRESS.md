@@ -1,5 +1,20 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — Windows kontrola dvaceti instrumentů (4. 10. 2026)
+
+GitHub-hosted Windows job 111300792020 na commitu abb3e462 dokončil 546/546
+testů bez selhání, chyb a přeskočení. Workflow 37156481785 i deterministic
+release gate prošly. Stažený artifact 11285503410 obsahoval úplný log a
+strojový JSON; SHA-256 ZIPu souhlasil s metadaty workflow a oba vnitřní
+soubory byly obsahově zkontrolované. Audit je v
+`evidence/sec13f_identity_expansion4_windows_20261003.json`.
+
+Jde pouze o hostovanou Windows kompatibilitu přesně citovaného registru.
+Není to živý SEC 13F ZIP ani koncový běh na uživatelově Windows a nedokládá
+plné instrumentové/corporate-action pokrytí, změřenou relevantní coverage
+nebo historickou OOS evaluaci. Institutions zůstává PILOT/PENDING a inventář
+0/21 DONE.
+
 ## SEC 13F — čtvrté rozšíření datovaného registru (3. 10. 2026)
 
 Reviewovaný registr 2026 Q2 nyní obsahuje 20 kanonických instrumentů. Nově

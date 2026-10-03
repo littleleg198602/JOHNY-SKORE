@@ -1,5 +1,12 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Navazující GitHub-hosted Windows job 111300792020 prošel 546/546, prošel i
+release gate a stažený artifact 11285503410 byl obsahově a hashově ověřen.
+Viz `evidence/sec13f_identity_expansion4_windows_20261003.json`. Jde jen o
+kompatibilitu registru dvaceti instrumentů, nikoli živý SEC ZIP nebo
+uživatelský Windows end-to-end; plné pokrytí a OOS historie zůstávají
+otevřené.
+
 Aktualizace 3. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 20
 kanonických instrumentů. LLY, INTC, CSCO, ABBV a DIS mají přesný CUSIP,
 issuer CIK, třídu a datovaný instrument doložené oficiálním 13F seznamem a

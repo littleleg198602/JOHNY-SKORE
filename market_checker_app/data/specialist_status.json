@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-03",
+  "as_of": "2026-10-04",
   "scope": "687 US watchlist tickers; sector sources apply only to relevant companies",
   "completion_rule": "DONE requires implemented collection, dated issuer/instrument/product identity, positive and negative live evidence, Windows end-to-end run, measured applicable coverage and historical evaluation before any score change.",
   "specialists": [
@@ -28,7 +28,7 @@
       "research": "05",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Source-verified 13D/G documents preserve filing identity and bounded cover fields. A single as-filed CUSIP resolves only against the 15-instrument reviewed SEC registry. Amendments produce fail-closed AS_FILED_CANDIDATE deltas only when the exact issuer, instrument, form family and NAME_ONLY person set agree and all numeric cover fields exist; this is not an interpreted ownership change. All 20 official Form 4 codes are now classified fail-closed, but only non-derivative P/A and S/D qualify as open-market trades. Remaining: legal-person resolution, wider dated instrument coverage, live positive/negative ownership and Form 4 cases; then Windows, coverage and historical acceptance.",
+      "next": "Source-verified 13D/G documents preserve filing identity and bounded cover fields. A single as-filed CUSIP resolves only against the 20-instrument reviewed SEC registry. Amendments produce fail-closed AS_FILED_CANDIDATE deltas only when the exact issuer, instrument, form family and NAME_ONLY person set agree and all numeric cover fields exist; this is not an interpreted ownership change. All 20 official Form 4 codes are now classified fail-closed, but only non-derivative P/A and S/D qualify as open-market trades. Remaining: legal-person resolution, wider dated instrument coverage, live positive/negative ownership and Form 4 cases; then Windows, coverage and historical acceptance.",
       "sec13dg_fail_closed_test_evidence": "evidence/sec13dg_fail_closed_filing_tests_20261003.json",
       "sec13dg_fail_closed_hosted_windows_evidence": "evidence/sec13dg_fail_closed_filing_windows_20261003.json",
       "sec13dg_pipeline_identity_test_evidence": "evidence/sec13dg_pipeline_identity_tests_20261003.json",
@@ -214,6 +214,7 @@
       "windows_expansion3_evidence": "evidence/sec13f_identity_expansion3_windows_tests_20261002.json",
       "identity_expansion4_evidence": "evidence/sec13f_identity_expansion4_20261003.json",
       "test_expansion4_evidence": "evidence/sec13f_identity_expansion4_tests_20261003.json",
+      "windows_expansion4_evidence": "evidence/sec13f_identity_expansion4_windows_20261003.json",
       "amendment_reconstruction_test_evidence": "evidence/sec13f_amendment_reconstruction_tests_20261003.json",
       "amendment_reconstruction_hosted_windows_evidence": "evidence/sec13f_amendment_reconstruction_windows_20261003.json"
     },
