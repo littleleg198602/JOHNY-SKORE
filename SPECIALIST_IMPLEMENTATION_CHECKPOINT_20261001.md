@@ -1,5 +1,14 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 4. 10.: commit c4f0e6ad prošel kompletní GitHub-hosted Windows
+sadou 546/546 bez selhání, chyb či přeskočení; workflow 37163695763 a
+deterministic release gate uspěly. Stažený artifact 11288702243 měl shodný
+SHA-256 a jeho log i strojový výsledek byly obsahově ověřeny. Audit je v
+`evidence/sec13f_identity_expansion5_windows_20261004.json`. Jde pouze o
+hostovanou kompatibilitu, ne živý SEC ZIP, skutečný koncový běh na
+uživatelově Windows, úplné pokrytí, corporate-action historii ani OOS
+vyhodnocení. Institutions proto zůstává PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 4. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 25
 kanonických instrumentů. BAC, PFE, KO, ORCL a NFLX mají přesný CUSIP,
 issuer CIK, třídu a instrument doložené oficiálním 13F seznamem a SEC
