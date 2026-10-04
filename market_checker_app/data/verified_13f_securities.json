@@ -258,5 +258,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-03T21:40:32.263174+00:00"
+  },
+  {
+    "ticker": "BAC",
+    "issuer_cik": "0000070858",
+    "cusip": "060505104",
+    "issuer_name": "BANK OF AMER CORP",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/70858/000010290926000100/xslSCHEDULE_13G_X01/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T23:54:06.862292+00:00"
+  },
+  {
+    "ticker": "PFE",
+    "issuer_cik": "0000078003",
+    "cusip": "717081103",
+    "issuer_name": "PFIZER INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/78003/000210011926001294/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T23:54:06.862292+00:00"
+  },
+  {
+    "ticker": "KO",
+    "issuer_cik": "0000021344",
+    "cusip": "191216100",
+    "issuer_name": "COCA COLA CO",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/21344/000210011926000313/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T23:54:06.862292+00:00"
+  },
+  {
+    "ticker": "ORCL",
+    "issuer_cik": "0001341439",
+    "cusip": "68389X105",
+    "issuer_name": "ORACLE CORP",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000110465924021637/tv01623-oraclecorp.htm",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T23:54:06.862292+00:00"
+  },
+  {
+    "ticker": "NFLX",
+    "issuer_cik": "0001065280",
+    "cusip": "64110L106",
+    "issuer_name": "NETFLIX INC.",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/315066/000031506626002077/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-03T23:54:06.862292+00:00"
   }
 ]

@@ -6,6 +6,16 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+SEC 13F registr pro 2026 Q2 byl rozšířen z 20 na 25 přesně citovaných
+kanonických instrumentů: BAC, PFE, KO, ORCL a NFLX mají CUSIP, issuer CIK,
+třídu a instrument doložené oficiálním seznamem a SEC podáním. U ORCL je
+starší doplňkové podání výslovně omezené a současný kvartál dokládá seznam
+2026 Q2. Cíleně prošlo 27/27 a celá místní sada 546/546; viz
+`evidence/sec13f_identity_expansion5_20261004.json` a
+`evidence/sec13f_identity_expansion5_tests_20261004.json`. Bez živého ZIPu,
+plného pokrytí, uživatelského Windows end-to-end a OOS historie zůstává
+institutions PILOT/PENDING a celek 0/21 DONE; skóre se nemění.
+
 Registr dvaceti SEC 13F instrumentů následně prošel GitHub-hosted Windows
 sadou 546/546 a release gate. Stažený artifact 11285503410 měl shodný
 publikovaný a lokálně ověřený SHA-256; úplný audit je v

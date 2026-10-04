@@ -1,5 +1,25 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — páté rozšíření datovaného registru (4. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 25 kanonických instrumentů. Nově
+přibyly BAC, PFE, KO, ORCL a NFLX; u každého je přesný CUSIP, issuer CIK,
+třída, řádek oficiálního SEC 13F seznamu a samostatné SEC podání potvrzující
+instrument. Všech pět tickerů je v nezměněném kanonickém vstupu 687. U ORCL
+je zvlášť přiznáno, že doplňkové podání je starší; současný kvartál dokládá
+oficiální 2026 Q2 seznam a úplná corporate-action kontinuita zůstává otevřená.
+
+Cíleně prošlo 27/27 a po instalaci deklarovaných závislostí celá místní sada
+546/546. První clean-host pokus skončil 22 importními chybami a není počítán
+jako PASS. Obsahové zdroje a limity jsou v
+`evidence/sec13f_identity_expansion5_20261004.json`, výsledky a otisky v
+`evidence/sec13f_identity_expansion5_tests_20261004.json`.
+
+Nejde o plné pokrytí 687 instrumentů ani živý SEC 13F ZIP. Chybí declared
+SEC User-Agent, úplná corporate-action historie, skutečný Windows end-to-end,
+změřené relevantní pokrytí a historická OOS evaluace; skóre se nemění,
+institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+
 ## SEC 13F — Windows kontrola dvaceti instrumentů (4. 10. 2026)
 
 GitHub-hosted Windows job 111300792020 na commitu abb3e462 dokončil 546/546

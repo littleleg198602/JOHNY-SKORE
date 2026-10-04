@@ -1,5 +1,15 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 4. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 25
+kanonických instrumentů. BAC, PFE, KO, ORCL a NFLX mají přesný CUSIP,
+issuer CIK, třídu a instrument doložené oficiálním 13F seznamem a SEC
+podáním; starší doplňkové podání ORCL je výslovně omezené a nepředstírá
+úplnou corporate-action kontinuitu. Cíleně prošlo 27/27 a celá místní sada
+546/546; viz `evidence/sec13f_identity_expansion5_20261004.json` a
+`evidence/sec13f_identity_expansion5_tests_20261004.json`. Živý SEC ZIP,
+širší historie, uživatelský Windows end-to-end, coverage a OOS evaluace
+zůstávají otevřené; institutions je PILOT/PENDING a inventář 0/21 DONE.
+
 Navazující GitHub-hosted Windows job 111300792020 prošel 546/546, prošel i
 release gate a stažený artifact 11285503410 byl obsahově a hashově ověřen.
 Viz `evidence/sec13f_identity_expansion4_windows_20261003.json`. Jde jen o
