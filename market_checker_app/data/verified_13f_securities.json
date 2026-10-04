@@ -388,5 +388,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-04T04:04:45.897016+00:00"
+  },
+  {
+    "ticker": "LRCX",
+    "issuer_cik": "0000707549",
+    "cusip": "512807306",
+    "issuer_name": "LAM RESEARCH CORP",
+    "class_description": "COM NEW",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T06:51:20.254180+00:00"
+  },
+  {
+    "ticker": "CVX",
+    "issuer_cik": "0000093410",
+    "cusip": "166764100",
+    "issuer_name": "CHEVRON CORPORATION",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/93410/000119312526227102/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T06:51:20.254180+00:00"
+  },
+  {
+    "ticker": "UNH",
+    "issuer_cik": "0000731766",
+    "cusip": "91324P102",
+    "issuer_name": "UNITEDHEALTH GROUP INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T06:51:20.254180+00:00"
+  },
+  {
+    "ticker": "MRK",
+    "issuer_cik": "0000310158",
+    "cusip": "58933Y105",
+    "issuer_name": "MERCK & CO INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T06:51:20.254180+00:00"
+  },
+  {
+    "ticker": "PG",
+    "issuer_cik": "0000080424",
+    "cusip": "742718109",
+    "issuer_name": "PROCTER & GAMBLE CO",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T06:51:20.254180+00:00"
   }
 ]

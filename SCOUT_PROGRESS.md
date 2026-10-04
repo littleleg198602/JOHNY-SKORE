@@ -1,5 +1,26 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — sedmé rozšíření datovaného registru (4. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 35 kanonických instrumentů. Nově
+přibyly LRCX, CVX, UNH, MRK a PG; u každého je přesný CUSIP, issuer CIK,
+třída, řádek oficiálního SEC 13F seznamu a další datované SEC podání
+potvrzující instrument. Všech pět tickerů je v nezměněném kanonickém vstupu
+687. Čtyři instrumenty dokládá informační tabulka 13F s report period
+30. 6. 2026, CVX samostatný Schedule 13G s event date 31. 3. 2026.
+
+Cíleně prošlo 27/27, compileall a po instalaci deklarovaných závislostí celá
+místní sada 546/546. První complete-suite pokus před instalací závislostí
+skončil 22 importními chybami a není počítán jako PASS. Obsahové zdroje a
+limity jsou v `evidence/sec13f_identity_expansion7_20261004.json`, výsledky
+a otisky v `evidence/sec13f_identity_expansion7_tests_20261004.json`.
+
+Aktuální identity coverage je 35/687 (0,050946), tedy 652 tickerů zůstává
+bez reviewované 13F identity. Nejde o živý SEC ZIP ani holdings coverage;
+chybí širší corporate-action historie, uživatelský Windows end-to-end a
+historická OOS evaluace. Skóre se nemění, institutions zůstává PILOT/PENDING
+a inventář 0/21 DONE.
+
 ## SEC 13F — Windows kontrola třiceti instrumentů (4. 10. 2026)
 
 GitHub-hosted Windows job 111359053021 na commitu e2ae367b dokončil 546/546

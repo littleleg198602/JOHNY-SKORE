@@ -1,5 +1,17 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 4. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 35
+kanonických instrumentů. LRCX, CVX, UNH, MRK a PG mají přesný CUSIP,
+issuer CIK, třídu a datovanou instrumentovou identitu doložené oficiálním
+13F seznamem a SEC podáním. Cíleně prošlo 27/27, compileall a po instalaci
+deklarovaných závislostí celá místní sada 546/546; první complete-suite
+pokus s 22 importními chybami není počítán jako PASS. Viz
+`evidence/sec13f_identity_expansion7_20261004.json` a
+`evidence/sec13f_identity_expansion7_tests_20261004.json`. Coverage je
+poctivě 35/687, 652 identit zbývá. Živý SEC ZIP/holdings coverage, širší
+historie, uživatelský Windows end-to-end a OOS evaluace zůstávají otevřené;
+institutions je PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 4. 10.: commit e2ae367b prošel kompletní GitHub-hosted Windows
 sadou 546/546 bez selhání, chyb či přeskočení; workflow 37176153703 a
 deterministic release gate uspěly. Stažený artifact 11292928433 měl shodný
