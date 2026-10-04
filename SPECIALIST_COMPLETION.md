@@ -6,6 +6,14 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+SEC 13F nyní měří identity coverage vůči skutečně požadovanému universu a
+knowledge-time hranici na všech výsledkových cestách. Aktuální reviewovaný
+registr pokrývá 25/687 kanonických tickerů (0,036390), takže diagnostika
+výslovně přiznává 662 chybějících identit. Cíleně prošlo 27/27 a celá místní
+sada 546/546; viz `evidence/sec13f_identity_coverage_tests_20261004.json`.
+Není to živá holdings coverage ani úplnost corporate actions, proto stav
+zůstává institutions PILOT/PENDING a celek 0/21 DONE.
+
 Registr pětadvaceti SEC 13F instrumentů následně prošel GitHub-hosted
 Windows sadou 546/546 a release gate. Stažený artifact 11288702243 měl shodný
 publikovaný a lokálně ověřený SHA-256; úplný audit je v

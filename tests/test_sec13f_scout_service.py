@@ -130,9 +130,19 @@ class Sec13fTests(unittest.TestCase):
             client = FakeClient()
             scout = Sec13fScoutService(store, client=client,
                                        securities=load_verified_securities(path))
-            self.assertEqual("WAIT_IDENTITY", scout.run(as_of=NOW - timedelta(hours=2))["status"])
-            self.assertEqual(1, scout.run(as_of=NOW, universe={"AAPL"})["new_findings"])
-            self.assertEqual("CURRENT", scout.run(as_of=NOW + timedelta(days=1))["status"])
+            waiting = scout.run(as_of=NOW - timedelta(hours=2))
+            self.assertEqual("WAIT_IDENTITY", waiting["status"])
+            self.assertEqual(0.0, waiting["identity_coverage_ratio"])
+            ingested = scout.run(as_of=NOW, universe={"AAPL", "MSFT", "ZZZ"})
+            self.assertEqual(1, ingested["new_findings"])
+            self.assertEqual("requested_universe", ingested["identity_coverage_basis"])
+            self.assertEqual(3, ingested["identity_requested_tickers"])
+            self.assertEqual(1, ingested["identity_mapped_tickers"])
+            self.assertEqual(2, ingested["identity_unmapped_tickers"])
+            self.assertEqual(0.333333, ingested["identity_coverage_ratio"])
+            current = scout.run(as_of=NOW + timedelta(days=1), universe={"AAPL", "MSFT"})
+            self.assertEqual("CURRENT", current["status"])
+            self.assertEqual(0.5, current["identity_coverage_ratio"])
             self.assertEqual(1, client.downloads)
             with store._connect() as conn:
                 rows = conn.execute("SELECT source_url, published_at, details_json FROM scout_findings "

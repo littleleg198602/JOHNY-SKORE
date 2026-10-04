@@ -1,5 +1,14 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 4. 10.: SEC 13F služba nyní vrací měřenou identity coverage pro
+požadované universum na cestách WAIT_IDENTITY, CURRENT i po ingestu. Měření
+respektuje `known_at`, takže historický cutoff nepoužije později objevený
+mapping. Současný registr je poctivě 25/687 (0,036390), ne plné pokrytí.
+Cíleně prošlo 27/27, compileall a celá místní sada 546/546; audit je v
+`evidence/sec13f_identity_coverage_tests_20261004.json`. Živá holdings
+coverage, corporate-action historie, uživatelský Windows a OOS evaluace
+zůstávají otevřené; institutions je PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 4. 10.: commit c4f0e6ad prošel kompletní GitHub-hosted Windows
 sadou 546/546 bez selhání, chyb či přeskočení; workflow 37163695763 a
 deterministic release gate uspěly. Stažený artifact 11288702243 měl shodný

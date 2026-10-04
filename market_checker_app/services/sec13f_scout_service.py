@@ -145,15 +145,32 @@ class Sec13fScoutService:
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
             raise ValueError("13F observation time needs timezone")
+        requested_tickers = set(universe) if universe is not None else {
+            entry["ticker"] for entry in self.securities
+        }
         eligible = [e for e in self.securities if (universe is None or e["ticker"] in universe)
                     and datetime.fromisoformat(e["known_at"]) <= clock]
+        mapped_tickers = {entry["ticker"] for entry in eligible}
+        coverage = {
+            "identity_coverage_basis": (
+                "requested_universe" if universe is not None else "reviewed_manifest"
+            ),
+            "identity_requested_tickers": len(requested_tickers),
+            "identity_mapped_tickers": len(mapped_tickers),
+            "identity_unmapped_tickers": len(requested_tickers - mapped_tickers),
+            "identity_coverage_ratio": (
+                round(len(mapped_tickers) / len(requested_tickers), 6)
+                if requested_tickers else 0.0
+            ),
+        }
         if not eligible:
-            return {"status": "WAIT_IDENTITY", "new_findings": 0}
+            return {"status": "WAIT_IDENTITY", "new_findings": 0, **coverage}
         url = _official_zip_url(self.client.latest_url())
         fingerprint = hashlib.sha256(json.dumps(eligible, sort_keys=True).encode()).hexdigest()
         identity_key = f"{url}#{fingerprint}"
         if self.store.dataset_ingested("sec13f", identity_key):
-            return {"status": "CURRENT", "new_findings": 0, "dataset_url": url}
+            return {"status": "CURRENT", "new_findings": 0,
+                    "dataset_url": url, **coverage}
         data = self.client.dataset(url)
         if not isinstance(data, bytes) or len(data) > MAX_ZIP_BYTES:
             raise ValueError("Invalid 13F ZIP")
@@ -321,4 +338,4 @@ class Sec13fScoutService:
                 "saved_rows": sum(len(b) for b in selected.values()),
                 "reconstructed_amendment_groups": reconstructed_amendment_groups,
                 "unresolved_amendment_groups": unresolved_amendment_groups,
-                "dataset_url": url}
+                "dataset_url": url, **coverage}

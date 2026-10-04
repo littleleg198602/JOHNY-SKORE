@@ -1,5 +1,22 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — měřená identity coverage bez předstírání úplnosti (4. 10. 2026)
+
+SEC 13F běh nyní na všech cestách (`WAIT_IDENTITY`, `CURRENT` i zpracovaný
+dataset) vrací počet požadovaných, datovaně známých a chybějících tickerů a
+poměr identity coverage. Do čitatele se započítá jen mapping s `known_at`
+nejpozději v čase analýzy; později zjištěná identita se do historického
+replaye nepropíše. Pro aktuální reviewovaný registr je tak poctivě změřeno
+25/687, tedy 0,036390, nikoli úplné pokrytí.
+
+Cíleně prošlo 27/27, compileall a po instalaci deklarovaných závislostí celá
+místní sada 546/546. První clean-host pokus skončil 22 importními chybami a
+není počítán jako PASS. Audit a otisky jsou v
+`evidence/sec13f_identity_coverage_tests_20261004.json`. Nejde o změřenou
+coverage živého ZIPu nebo holdings řádků; Windows uživatele, corporate-action
+historie a OOS evaluace zůstávají otevřené. Institutions je dál
+PILOT/PENDING a inventář 0/21 DONE.
+
 ## SEC 13F — Windows kontrola pětadvaceti instrumentů (4. 10. 2026)
 
 GitHub-hosted Windows job 111322196211 na commitu c4f0e6ad dokončil 546/546
