@@ -1,5 +1,15 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 4. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 30
+kanonických instrumentů. COST, AMAT, GE, CAT a TXN mají přesný CUSIP,
+issuer CIK, třídu a datovanou instrumentovou identitu doložené oficiálním
+13F seznamem a SEC podáním. Cíleně prošlo 27/27, compileall a celá místní
+sada 546/546; viz `evidence/sec13f_identity_expansion6_20261004.json` a
+`evidence/sec13f_identity_expansion6_tests_20261004.json`. Coverage je
+poctivě 30/687, ne úplná. Živý SEC ZIP/holdings coverage, širší historie,
+uživatelský Windows end-to-end a OOS evaluace zůstávají otevřené;
+institutions je PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 4. 10.: knowledge-time-aware SEC 13F coverage diagnostika na
 commitu 8233fe54 prošla GitHub-hosted Windows sadou 546/546, workflow
 37168590578 i release gate. Stažený artifact 11291000157 měl shodný SHA-256

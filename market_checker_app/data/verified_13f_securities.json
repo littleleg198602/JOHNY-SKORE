@@ -323,5 +323,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-03T23:54:06.862292+00:00"
+  },
+  {
+    "ticker": "COST",
+    "issuer_cik": "0000909832",
+    "cusip": "22160K105",
+    "issuer_name": "COSTCO WHOLESALE CORPORATION",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/909832/000210011926000302/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T04:04:45.897016+00:00"
+  },
+  {
+    "ticker": "AMAT",
+    "issuer_cik": "0000006951",
+    "cusip": "038222105",
+    "issuer_name": "APPLIED MATLS INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/6951/000210011926000140/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T04:04:45.897016+00:00"
+  },
+  {
+    "ticker": "GE",
+    "issuer_cik": "0000040545",
+    "cusip": "369604301",
+    "issuer_name": "GE AEROSPACE",
+    "class_description": "COM NEW",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/40545/000031506626001191/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T04:04:45.897016+00:00"
+  },
+  {
+    "ticker": "CAT",
+    "issuer_cik": "0000018230",
+    "cusip": "149123101",
+    "issuer_name": "CATERPILLAR INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/18230/000010290926000342/xslSCHEDULE_13G_X01/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T04:04:45.897016+00:00"
+  },
+  {
+    "ticker": "TXN",
+    "issuer_cik": "0000097476",
+    "cusip": "882508104",
+    "issuer_name": "TEXAS INSTRS INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/97476/000210011926001153/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T04:04:45.897016+00:00"
   }
 ]

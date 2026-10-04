@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-04T04:04:45.897016+00:00",
+  "publisher": "U.S. Securities and Exchange Commission",
+  "scope": "Five additional canonical instruments, bringing the bounded 2026 Q2 SEC 13F registry to thirty; not full-universe coverage or a live 13F dataset run",
+  "quarter": {
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt"
+  },
+  "ticker_source": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "limitation": "Current SEC ticker-to-CIK publication observed at knowledge time; it does not establish continuous historical ticker ownership or corporate-action continuity"
+  },
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "new_tickers_present": ["COST", "AMAT", "GE", "CAT", "TXN"]
+  },
+  "entries": [
+    {
+      "ticker": "COST",
+      "issuer_cik": "0000909832",
+      "cusip": "22160K105",
+      "issuer_name_in_13f_list": "COSTCO WHOLESALE CORPORATION",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 6903 / CUSIP 22160K105",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/909832/000210011926000302/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Costco Wholesale Corp / Common Stock / CUSIP 22160K105 / event 2026-03-31"
+    },
+    {
+      "ticker": "AMAT",
+      "issuer_cik": "0000006951",
+      "cusip": "038222105",
+      "issuer_name_in_13f_list": "APPLIED MATLS INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 3969 / CUSIP 038222105",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/6951/000210011926000140/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Applied Materials Inc / Common Stock / CUSIP 038222105 / event 2026-03-31"
+    },
+    {
+      "ticker": "GE",
+      "issuer_cik": "0000040545",
+      "cusip": "369604301",
+      "issuer_name_in_13f_list": "GE AEROSPACE",
+      "class_in_13f_list": "COM NEW",
+      "official_list_locator": "line 10508 / CUSIP 369604301",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/40545/000031506626001191/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "GE Aerospace / Common Stock / CUSIP 369604301 / event 2026-03-31"
+    },
+    {
+      "ticker": "CAT",
+      "issuer_cik": "0000018230",
+      "cusip": "149123101",
+      "issuer_name_in_13f_list": "CATERPILLAR INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 5891 / CUSIP 149123101",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/18230/000010290926000342/xslSCHEDULE_13G_X01/primary_doc.xml",
+      "instrument_evidence_fields": "Caterpillar Inc / Common Stock / CUSIP 149123101 / event 2026-02-27"
+    },
+    {
+      "ticker": "TXN",
+      "issuer_cik": "0000097476",
+      "cusip": "882508104",
+      "issuer_name_in_13f_list": "TEXAS INSTRS INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 22111 / CUSIP 882508104",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/97476/000210011926001153/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Texas Instruments Inc / Common Stock / CUSIP 882508104 / event 2026-03-31"
+    }
+  ],
+  "validation_contract": {
+    "cusip_check_digit_required": true,
+    "issuer_name_must_match_dataset": true,
+    "security_class_must_match_dataset": true,
+    "issuer_cik_required": true,
+    "amendments_included": false,
+    "scoring_changed": false
+  },
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

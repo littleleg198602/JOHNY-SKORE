@@ -1,5 +1,24 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — šesté rozšíření datovaného registru (4. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 30 kanonických instrumentů. Nově
+přibyly COST, AMAT, GE, CAT a TXN; u každého je přesný CUSIP, issuer CIK,
+třída, řádek oficiálního SEC 13F seznamu a samostatné SEC podání potvrzující
+instrument i datovanou událost. Všech pět tickerů je v nezměněném kanonickém
+vstupu 687.
+
+Cíleně prošlo 27/27, compileall a po instalaci deklarovaných závislostí celá
+místní sada 546/546. Dva chybné diagnostické příkazy nejsou počítány jako
+PASS a jsou výslovně zapsané v testovacím auditu. Obsahové zdroje a limity
+jsou v `evidence/sec13f_identity_expansion6_20261004.json`, výsledky a otisky
+v `evidence/sec13f_identity_expansion6_tests_20261004.json`.
+
+Aktuální identity coverage je 30/687 (0,043668), nikoli plné pokrytí. Nejde
+o živý SEC 13F ZIP ani holdings coverage; chybí širší corporate-action
+historie, uživatelský Windows end-to-end a historická OOS evaluace. Skóre se
+nemění, institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+
 ## SEC 13F — Windows kontrola identity coverage (4. 10. 2026)
 
 GitHub-hosted Windows job 111336684273 na commitu 8233fe54 dokončil 546/546
