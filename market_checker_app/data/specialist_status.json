@@ -225,6 +225,7 @@
       "windows_expansion6_evidence": "evidence/sec13f_identity_expansion6_windows_20261004.json",
       "identity_expansion7_evidence": "evidence/sec13f_identity_expansion7_20261004.json",
       "test_expansion7_evidence": "evidence/sec13f_identity_expansion7_tests_20261004.json",
+      "windows_expansion7_evidence": "evidence/sec13f_identity_expansion7_windows_20261004.json",
       "amendment_reconstruction_test_evidence": "evidence/sec13f_amendment_reconstruction_tests_20261003.json",
       "amendment_reconstruction_hosted_windows_evidence": "evidence/sec13f_amendment_reconstruction_windows_20261003.json"
     },

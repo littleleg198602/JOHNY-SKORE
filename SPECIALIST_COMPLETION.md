@@ -6,6 +6,15 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Registr pětatřiceti SEC 13F instrumentů následně prošel GitHub-hosted
+Windows sadou 546/546 a release gate. Stažený artifact 11296483122 měl
+shodný publikovaný a lokálně ověřený SHA-256; log, strojový výsledek a
+přítomnost testu registru 35 instrumentů byly obsahově ověřeny. Úplný audit
+je v `evidence/sec13f_identity_expansion7_windows_20261004.json`. Hostovaný
+runner není živý SEC ZIP/holdings coverage ani uživatelský Windows
+end-to-end a nedokládá úplné corporate actions či OOS historii. Stav proto
+zůstává institutions PILOT/PENDING a celek 0/21 DONE.
+
 SEC 13F registr pro 2026 Q2 byl rozšířen z 30 na 35 přesně citovaných
 kanonických instrumentů: LRCX, CVX, UNH, MRK a PG mají CUSIP, issuer CIK,
 třídu a datovanou instrumentovou identitu doloženou oficiálním seznamem a
