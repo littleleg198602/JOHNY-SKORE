@@ -1,5 +1,27 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — osmé rozšíření datovaného registru (4. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 40 kanonických instrumentů. Nově
+přibyly ADBE, AMGN, QCOM, ABT a AXP; u každého je přesný CUSIP, issuer CIK,
+třída, řádek oficiálního SEC 13F seznamu a datované informační podání 13F
+s report period 30. 6. 2026 potvrzující instrument. Všech pět tickerů je v
+nezměněném kanonickém vstupu 687.
+
+Obsahové zdroje a limity jsou v
+`evidence/sec13f_identity_expansion8_20261004.json`; výsledky testů a otisky
+jsou v `evidence/sec13f_identity_expansion8_tests_20261004.json`. Cíleně
+prošlo 27/27, compileall a po instalaci deklarovaných závislostí celá místní
+sada 546/546. Pokus s nedostupným `/usr/bin/time` testy nespustil a pokus
+před instalací závislostí skončil 22 importními chybami po 440 testech;
+ani jeden není počítán jako PASS.
+
+Aktuální identity coverage je 40/687 (0,058224), tedy 647 tickerů zůstává
+bez reviewované 13F identity. Nejde o živý SEC ZIP ani holdings coverage;
+chybí širší corporate-action historie, uživatelský Windows end-to-end a
+historická OOS evaluace. Skóre se nemění, institutions zůstává PILOT/PENDING
+a inventář 0/21 DONE.
+
 ## SEC 13F — Windows kontrola pětatřiceti instrumentů (4. 10. 2026)
 
 GitHub-hosted Windows job 111383171363 na commitu d9499095 dokončil 546/546

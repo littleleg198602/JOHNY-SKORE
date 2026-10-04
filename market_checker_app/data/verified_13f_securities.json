@@ -453,5 +453,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-04T06:51:20.254180+00:00"
+  },
+  {
+    "ticker": "ADBE",
+    "issuer_cik": "0000796343",
+    "cusip": "00724F101",
+    "issuer_name": "ADOBE INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T09:28:06.383317+00:00"
+  },
+  {
+    "ticker": "AMGN",
+    "issuer_cik": "0000318154",
+    "cusip": "031162100",
+    "issuer_name": "AMGEN INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T09:28:06.383317+00:00"
+  },
+  {
+    "ticker": "QCOM",
+    "issuer_cik": "0000804328",
+    "cusip": "747525103",
+    "issuer_name": "QUALCOMM INC",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T09:28:06.383317+00:00"
+  },
+  {
+    "ticker": "ABT",
+    "issuer_cik": "0000001800",
+    "cusip": "002824100",
+    "issuer_name": "ABBOTT LABORATORIES",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T09:28:06.383317+00:00"
+  },
+  {
+    "ticker": "AXP",
+    "issuer_cik": "0000004962",
+    "cusip": "025816109",
+    "issuer_name": "AMERICAN EXPRESS CO",
+    "class_description": "COM",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-04T09:28:06.383317+00:00"
   }
 ]

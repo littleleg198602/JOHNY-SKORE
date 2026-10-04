@@ -6,6 +6,19 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+SEC 13F registr pro 2026 Q2 byl rozšířen z 35 na 40 přesně citovaných
+kanonických instrumentů: ADBE, AMGN, QCOM, ABT a AXP mají CUSIP, issuer CIK,
+třídu a datovanou instrumentovou identitu doloženou oficiálním seznamem a
+13F informačním podáním. Viz
+`evidence/sec13f_identity_expansion8_20261004.json` a
+`evidence/sec13f_identity_expansion8_tests_20261004.json`. Cíleně prošlo
+27/27, compileall a po instalaci deklarovaných závislostí celá místní sada
+546/546; dva předchozí diagnostické pokusy popsané v auditu nejsou PASS.
+Runtime coverage je nyní 40/687 (0,058224), takže bez živého ZIPu/holdings
+coverage, širší corporate-action historie, uživatelského Windows end-to-end
+a OOS historie zůstává institutions PILOT/PENDING a celek 0/21 DONE; skóre
+se nemění.
+
 Registr pětatřiceti SEC 13F instrumentů následně prošel GitHub-hosted
 Windows sadou 546/546 a release gate. Stažený artifact 11296483122 měl
 shodný publikovaný a lokálně ověřený SHA-256; log, strojový výsledek a

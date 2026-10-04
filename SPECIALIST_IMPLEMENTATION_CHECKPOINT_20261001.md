@@ -1,5 +1,17 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 4. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 40
+kanonických instrumentů. ADBE, AMGN, QCOM, ABT a AXP mají přesný CUSIP,
+issuer CIK, třídu a datovanou instrumentovou identitu doložené oficiálním
+13F seznamem a informačním podáním s report period 30. 6. 2026. Viz
+`evidence/sec13f_identity_expansion8_20261004.json` a
+`evidence/sec13f_identity_expansion8_tests_20261004.json`. Cíleně prošlo
+27/27, compileall a po instalaci deklarovaných závislostí celá místní sada
+546/546; dva dřívější diagnostické pokusy výslovně zapsané v auditu nejsou
+PASS. Coverage je poctivě 40/687, 647 identit zbývá. Živý SEC ZIP/holdings
+coverage, širší historie, uživatelský Windows end-to-end a OOS evaluace
+zůstávají otevřené; institutions je PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 4. 10.: commit d9499095 prošel kompletní GitHub-hosted Windows
 sadou 546/546 bez selhání, chyb či přeskočení; workflow 37184379421 a
 deterministic release gate uspěly. Stažený artifact 11296483122 měl shodný
