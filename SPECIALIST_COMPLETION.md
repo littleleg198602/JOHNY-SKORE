@@ -6,6 +6,13 @@ v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
 vstupních tickerů; sektorový zdroj se vyhodnocuje jen pro relevantní firmy.
 Mapování pokrývá výzkumné kroky 01–28 a sektorové profily.
 
+Knowledge-time-aware SEC 13F identity coverage následně prošla kompletní
+GitHub-hosted Windows sadou 546/546 a release gate. Stažený artifact
+11291000157 měl shodný publikovaný a lokálně ověřený SHA-256; úplný audit je
+v `evidence/sec13f_identity_coverage_windows_20261004.json`. Hostovaný runner
+není živá ZIP/holdings coverage ani uživatelský Windows end-to-end. Stav
+proto zůstává institutions PILOT/PENDING a celek 0/21 DONE.
+
 SEC 13F nyní měří identity coverage vůči skutečně požadovanému universu a
 knowledge-time hranici na všech výsledkových cestách. Aktuální reviewovaný
 registr pokrývá 25/687 kanonických tickerů (0,036390), takže diagnostika

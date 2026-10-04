@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-04T02:44:40+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "Knowledge-time-aware SEC 13F identity coverage diagnostics",
+  "source_commit": "8233fe5426b0a003047d9adf81071a2c142ad182",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37168590578,
+    "run_number": 385,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111336684273,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-04T01:38:40.621645+00:00",
+    "ended_at": "2026-10-04T01:54:48.368979+00:00",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "unittest_duration_seconds": 966.011
+  },
+  "release_gate": {
+    "job_id": 111339196022,
+    "conclusion": "success",
+    "all_test_agents_required": true
+  },
+  "artifact": {
+    "id": 11291000157,
+    "name": "windows-deterministic-tests",
+    "size_in_bytes": 16638,
+    "expires_at": "2027-01-02T01:37:49Z",
+    "sha256_from_metadata": "22b5dd9053ac748a1cca2d599990c64971b080d58b533a62295ee752fa11e1e8",
+    "sha256_downloaded": "22b5dd9053ac748a1cca2d599990c64971b080d58b533a62295ee752fa11e1e8",
+    "download_verified": true,
+    "contents": {
+      "windows-tests.log_bytes": 98089,
+      "windows-tests.json_bytes": 373,
+      "windows-tests.log_sha256": "3e868ffbaabc140614f99c9bb023835abb9ecd30d1367d626e7ea32a4ec39a69",
+      "windows-tests.json_sha256": "e0199478bd697f6a06f2de072039e376607d5d66b0f14be396969b471c2043eb",
+      "machine_result_matches_job": true,
+      "identity_coverage_regression_present_and_passed": true
+    }
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "reviewed_mapped_tickers": 25,
+    "reviewed_unmapped_tickers": 662,
+    "identity_coverage_ratio": 0.03639,
+    "canonical_csv_changed_by_validation_commit": false
+  },
+  "acceptance_limits": {
+    "hosted_windows_compatibility_verified": true,
+    "live_sec_13f_zip_coverage_measured": false,
+    "holdings_row_coverage_measured": false,
+    "full_instrument_and_corporate_action_coverage_verified": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "historical_out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

@@ -1,5 +1,14 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 4. 10.: knowledge-time-aware SEC 13F coverage diagnostika na
+commitu 8233fe54 prošla GitHub-hosted Windows sadou 546/546, workflow
+37168590578 i release gate. Stažený artifact 11291000157 měl shodný SHA-256
+a log i strojový JSON byly obsahově ověřeny; viz
+`evidence/sec13f_identity_coverage_windows_20261004.json`. Je to jen
+hostovaná kompatibilita měření 25/687, nikoli živá holdings coverage,
+uživatelský Windows end-to-end nebo OOS akceptace. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 4. 10.: SEC 13F služba nyní vrací měřenou identity coverage pro
 požadované universum na cestách WAIT_IDENTITY, CURRENT i po ingestu. Měření
 respektuje `known_at`, takže historický cutoff nepoužije později objevený

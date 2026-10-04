@@ -1,5 +1,20 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — Windows kontrola identity coverage (4. 10. 2026)
+
+GitHub-hosted Windows job 111336684273 na commitu 8233fe54 dokončil 546/546
+testů bez selhání, chyb a přeskočení. Workflow 37168590578 i deterministic
+release gate prošly. Stažený artifact 11291000157 obsahoval úplný log a
+strojový JSON; SHA-256 ZIPu souhlasil s metadaty workflow a oba vnitřní
+soubory byly obsahově zkontrolované. Coverage regresní test byl v logu a
+prošel. Audit je v
+`evidence/sec13f_identity_coverage_windows_20261004.json`.
+
+Jde pouze o hostovanou Windows kompatibilitu diagnostiky 25/687. Není to
+změřená coverage živého SEC ZIPu nebo holdings řádků ani koncový běh na
+uživatelově Windows. Corporate-action historie a OOS evaluace zůstávají
+otevřené; institutions je PILOT/PENDING a inventář 0/21 DONE.
+
 ## SEC 13F — měřená identity coverage bez předstírání úplnosti (4. 10. 2026)
 
 SEC 13F běh nyní na všech cestách (`WAIT_IDENTITY`, `CURRENT` i zpracovaný

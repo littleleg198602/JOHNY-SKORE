@@ -219,6 +219,7 @@
       "test_expansion5_evidence": "evidence/sec13f_identity_expansion5_tests_20261004.json",
       "windows_expansion5_evidence": "evidence/sec13f_identity_expansion5_windows_20261004.json",
       "identity_coverage_test_evidence": "evidence/sec13f_identity_coverage_tests_20261004.json",
+      "identity_coverage_hosted_windows_evidence": "evidence/sec13f_identity_coverage_windows_20261004.json",
       "amendment_reconstruction_test_evidence": "evidence/sec13f_amendment_reconstruction_tests_20261003.json",
       "amendment_reconstruction_hosted_windows_evidence": "evidence/sec13f_amendment_reconstruction_windows_20261003.json"
     },
