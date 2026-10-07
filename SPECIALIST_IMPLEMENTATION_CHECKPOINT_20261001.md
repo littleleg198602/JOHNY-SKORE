@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 7. 10.: commit 203000d0 s registrem 50 instrumentů prošel
+hostovaným Linux i Windows během 546/546 a release gate. Artifact
+11466148694 byl stažen; publikovaný SHA-256 souhlasil, log i JSON byly
+obsahově ověřeny a test registru prošel. Viz
+`evidence/sec13f_identity_expansion10_tests_20261007.json` a
+`evidence/sec13f_identity_expansion10_windows_20261007.json`. Hostovaný běh
+nenahrazuje živý SEC ZIP/holdings, uživatelský Windows end-to-end,
+corporate-action historii ani OOS evaluaci; institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 7. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 50
 kanonických instrumentů přidáním MS, PANW, RTX, DELL a GS. Přesné CUSIP,
 issuer CIK, třídy, data událostí a zdrojové URL jsou obsahově zaznamenány v
