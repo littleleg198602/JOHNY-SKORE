@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 7. 10.: commit c91f4534 s registrem 55 instrumentů prošel
+hostovaným Linux i Windows během 546/546 a release gate. Artifact
+11469924912 byl stažen; publikovaný SHA-256 souhlasil, log i JSON byly
+obsahově ověřeny a test registru prošel. Viz
+`evidence/sec13f_identity_expansion11_tests_20261007.json` a
+`evidence/sec13f_identity_expansion11_windows_20261007.json`. Hostovaný běh
+nenahrazuje živý SEC ZIP/holdings, uživatelský Windows end-to-end,
+corporate-action historii ani OOS evaluaci; institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 7. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 55
 kanonických instrumentů přidáním TMO, NOW, BKNG, UPS a UNP. Přesné CUSIP,
 issuer CIK, třídy, data instrumentových událostí, stáří podpůrných podání a

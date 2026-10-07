@@ -1,5 +1,15 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Hostovaná kontrola 55instrumentového SEC 13F registru na commitu
+c91f4534 uspěla: Linux i Windows 546/546 a release gate. Artifact
+11469924912 měl shodný SHA-256 a jeho log, JSON i test registru byly
+obsahově ověřeny; viz
+`evidence/sec13f_identity_expansion11_tests_20261007.json` a
+`evidence/sec13f_identity_expansion11_windows_20261007.json`. Nejde o živý
+SEC ZIP/holdings ani uživatelský Windows end-to-end, takže institutions
+zůstává PILOT/PENDING a 0/21 DONE.
+
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen z 50 na 55 kanonických
 instrumentů (TMO, NOW, BKNG, UPS a UNP). Oficiální SEC zdroje, datované
 identity, stáří doplňkových podání a přesné limity jsou v
