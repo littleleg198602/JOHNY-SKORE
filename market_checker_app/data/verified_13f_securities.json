@@ -713,5 +713,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-07T08:35:51+00:00"
+  },
+  {
+    "ticker": "GOOG",
+    "issuer_cik": "0001652044",
+    "cusip": "02079K107",
+    "issuer_name": "ALPHABET INC",
+    "class_description": "CAP STK CL C",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000583/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T11:05:45+00:00"
+  },
+  {
+    "ticker": "PM",
+    "issuer_cik": "0001413329",
+    "cusip": "718172109",
+    "issuer_name": "PHILIP MORRIS INTL INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1413329/000142284826000081/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T11:05:45+00:00"
+  },
+  {
+    "ticker": "TMUS",
+    "issuer_cik": "0001283699",
+    "cusip": "872590104",
+    "issuer_name": "T-MOBILE US INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/946770/000095015726000408/xslSCHEDULE_13D_X02/primary_doc.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T11:05:45+00:00"
+  },
+  {
+    "ticker": "PEP",
+    "issuer_cik": "0000077476",
+    "cusip": "713448108",
+    "issuer_name": "PEPSICO INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T11:05:45+00:00"
+  },
+  {
+    "ticker": "NEE",
+    "issuer_cik": "0000753308",
+    "cusip": "65339F101",
+    "issuer_name": "NEXTERA ENERGY INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T11:05:45+00:00"
   }
 ]

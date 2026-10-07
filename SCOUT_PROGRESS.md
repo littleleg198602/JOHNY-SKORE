@@ -1,5 +1,22 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — dvanácté rozšíření datovaného registru (7. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 60 kanonických instrumentů. Nově
+přibyly GOOG, PM, TMUS, PEP a NEE; přesný CUSIP, issuer CIK, třída a
+omezená doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou
+a datovanými SEC podáními z roku 2026. GOOG je samostatný Class C instrument
+vedle již evidovaného GOOGL Class A. Měřené knowledge-time coverage je
+60/687 (0,087336), takže 627 tickerů zůstává bez mapování. Zdrojový audit
+je v `evidence/sec13f_identity_expansion12_20261007.json`.
+
+V tomto kroku není tvrzen lokální ani hostovaný průchod testů. Nejde o živý
+SEC ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE. Další krok je obsahově ověřit hostovaný
+Linux/Windows workflow a potom pokračovat v omezeném rozšiřování identit.
+
+
 ## SEC 13F — hostovaná kontrola registru 55 instrumentů (7. 10. 2026)
 
 Commit c91f4534 prošel workflow 37595479514: Linux i GitHub-hosted Windows

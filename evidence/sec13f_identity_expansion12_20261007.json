@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-07T11:05:45+00:00",
+  "evidence_type": "reviewed_sec13f_instrument_identity_expansion",
+  "subject": "SEC 13F canonical identity registry expansion from 55 to 60",
+  "effective_period": {
+    "from": "2026-04-01",
+    "to": "2026-06-30",
+    "basis": "SEC 2026 Q2 official 13(f) securities list"
+  },
+  "canonical_universe": {
+    "total": 687,
+    "mapped_before": 55,
+    "mapped_after": 60,
+    "coverage_ratio": 0.087336,
+    "unmapped_after": 627
+  },
+  "sources": {
+    "official_13f_list": {
+      "url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "last_reviewed_period": "2026 Q2",
+      "facts": "Exact issuer, CUSIP and class rows reviewed for all five additions."
+    },
+    "official_company_tickers": {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "observed_at": "2026-10-07T11:05:45+00:00",
+      "facts": "Ticker-to-issuer-CIK mappings reviewed for all five additions."
+    }
+  },
+  "additions": [
+    {
+      "ticker": "GOOG",
+      "issuer_cik": "0001652044",
+      "cusip": "02079K107",
+      "issuer_name": "ALPHABET INC",
+      "class_description": "CAP STK CL C",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000583/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_event_date": "2026-03-13",
+      "instrument_evidence_note": "2026 Schedule 13G identifies Alphabet common stock and exact Class C CUSIP; the official Q2 list supplies the period-bounded class description.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T11:05:45+00:00"
+    },
+    {
+      "ticker": "PM",
+      "issuer_cik": "0001413329",
+      "cusip": "718172109",
+      "issuer_name": "PHILIP MORRIS INTL INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1413329/000142284826000081/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "2026 Schedule 13G identifies Philip Morris International common stock and exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T11:05:45+00:00"
+    },
+    {
+      "ticker": "TMUS",
+      "issuer_cik": "0001283699",
+      "cusip": "872590104",
+      "issuer_name": "T-MOBILE US INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/946770/000095015726000408/xslSCHEDULE_13D_X02/primary_doc.xml",
+      "instrument_event_date": "2026-03-19",
+      "instrument_evidence_note": "2026 Schedule 13D identifies T-Mobile US common stock and exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T11:05:45+00:00"
+    },
+    {
+      "ticker": "PEP",
+      "issuer_cik": "0000077476",
+      "cusip": "713448108",
+      "issuer_name": "PEPSICO INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records PepsiCo common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T11:05:45+00:00"
+    },
+    {
+      "ticker": "NEE",
+      "issuer_cik": "0000753308",
+      "cusip": "65339F101",
+      "issuer_name": "NEXTERA ENERGY INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records NextEra Energy common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T11:05:45+00:00"
+    }
+  ],
+  "validation": {
+    "canonical_membership_reviewed": true,
+    "duplicate_ticker_or_cusip": false,
+    "cusip_check_digit_reviewed": true,
+    "source_content_reviewed": true,
+    "automated_tests_run": false,
+    "note": "GOOG, PM and TMUS have dated 2026 Schedule 13 filings with exact CUSIPs. PEP and NEE have dated Q1 2026 Form 13F information-table rows with exact issuer/class/CUSIP. The current 2026-Q2 list bounds every registry row. Source and fixture changes are committed without a test pass; hosted workflow evidence must be recorded separately after completion."
+  },
+  "acceptance_limits": [
+    "No live SEC quarterly ZIP was downloaded or parsed in this step.",
+    "No holdings-level positive or negative live case is claimed.",
+    "No actual end-user Windows run, complete corporate-action history or historical out-of-sample evaluation is claimed.",
+    "No score or trading behavior changed; institutions remains PILOT/PENDING and 0/21 specialists are DONE."
+  ],
+  "next_work": [
+    "Verify the hosted Linux and Windows workflow for the 60-instrument registry and preserve content-checked evidence.",
+    "Continue bounded dated identity coverage without exceeding source quotas or changing scoring.",
+    "Run a declared-User-Agent live SEC ZIP acceptance when credentials/runtime access permit."
+  ]
+}
