@@ -1,5 +1,14 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 7. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 45
+kanonických instrumentů přidáním CRM, HD, MCD, IBM a SBUX. Přesné CUSIP,
+issuer CIK, třídy, data událostí a zdrojové URL jsou obsahově zaznamenány v
+`evidence/sec13f_identity_expansion9_20261007.json`. Měřené identity coverage
+je 45/687 (0,065502), 642 položek zůstává bez mapování. Hostované testy jsou
+čekající a průchod se netvrdí. Bez živého SEC ZIP/holdings, skutečného
+uživatelského Windows běhu, úplné corporate-action historie a OOS evaluace
+zůstává institutions PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 4. 10.: commit 59567fe9 prošel kompletní GitHub-hosted Windows
 sadou 546/546 bez selhání, chyb či přeskočení; workflow 37192709082 a
 deterministic release gate uspěly. Stažený artifact 11300161059 měl shodný

@@ -1,5 +1,21 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — deváté rozšíření datovaného registru (7. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 45 kanonických instrumentů. CRM,
+HD, MCD, IBM a SBUX mají přesný CUSIP, issuer CIK, třídu a omezenou dobu
+platnosti doložené oficiálním SEC seznamem, ticker mapou a samostatnými
+podáními s datem události. Měřené knowledge-time coverage je 45/687
+(0,065502), takže 642 tickerů zůstává bez mapování. Zdrojový audit je v
+`evidence/sec13f_identity_expansion9_20261007.json`.
+
+V tomto kroku nebyl tvrzen žádný lokální průchod testů; změna má teprve
+projít hostovaným workflow. Nejde o živý SEC ZIP/holdings běh, koncový běh
+na uživatelově Windows, úplnou corporate-action historii ani OOS evaluaci.
+Institutions proto zůstává PILOT/PENDING a inventář 0/21 DONE. Další krok je
+uložit obsahově ověřený Linux/Windows workflow důkaz a potom pokračovat v
+omezeném rozšiřování identit.
+
 ## SEC 13F — Windows kontrola čtyřiceti instrumentů (4. 10. 2026)
 
 GitHub-hosted Windows job 111408094925 na commitu 59567fe9 dokončil 546/546

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-04",
+  "as_of": "2026-10-07",
   "scope": "687 US watchlist tickers; sector sources apply only to relevant companies",
   "completion_rule": "DONE requires implemented collection, dated issuer/instrument/product identity, positive and negative live evidence, Windows end-to-end run, measured applicable coverage and historical evaluation before any score change.",
   "specialists": [
@@ -204,7 +204,7 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers forty canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 40/687 (0.058224), explicitly leaving 647 unmapped. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. Remaining: declared SEC User-Agent live ZIP run and holdings coverage, cross-quarter amendment chains, wider dated instrument/corporate-action coverage, actual user Windows acceptance and historical evaluation.",
+      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers forty-five canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 45/687 (0.065502), explicitly leaving 642 unmapped. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. Expansion 9 source review is recorded; hosted tests are pending and no pass is claimed. Remaining: declared SEC User-Agent live ZIP run and holdings coverage, cross-quarter amendment chains, wider dated instrument/corporate-action coverage, actual user Windows acceptance and historical evaluation.",
       "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
       "test_evidence": "evidence/sec13f_identity_tests_20261002.json",
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
@@ -230,7 +230,8 @@
       "test_expansion8_evidence": "evidence/sec13f_identity_expansion8_tests_20261004.json",
       "windows_expansion8_evidence": "evidence/sec13f_identity_expansion8_windows_20261004.json",
       "amendment_reconstruction_test_evidence": "evidence/sec13f_amendment_reconstruction_tests_20261003.json",
-      "amendment_reconstruction_hosted_windows_evidence": "evidence/sec13f_amendment_reconstruction_windows_20261003.json"
+      "amendment_reconstruction_hosted_windows_evidence": "evidence/sec13f_amendment_reconstruction_windows_20261003.json",
+      "identity_expansion9_evidence": "evidence/sec13f_identity_expansion9_20261007.json"
     },
     {
       "id": "consensus_options",

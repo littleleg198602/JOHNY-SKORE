@@ -1,5 +1,14 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen ze 40 na 45 kanonických
+instrumentů (CRM, HD, MCD, IBM, SBUX). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion9_20261007.json`. Coverage je 45/687
+(0,065502), 642 tickerů zůstává nezmapovaných. Hostované testy jsou zatím
+čekající a žádný průchod se netvrdí; nejde o živý ZIP/holdings běh ani
+uživatelský Windows end-to-end. Stav zůstává institutions PILOT/PENDING a
+0/21 DONE.
+
 Strojově čitelný seznam je v
 `market_checker_app/data/specialist_status.json` a aplikace ho zobrazuje
 v části **Co je hotové a co zbývá — specialisté**. Zahrnuje všech 687
