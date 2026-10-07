@@ -1,5 +1,15 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Hostovaná kontrola 65instrumentového SEC 13F registru na commitu
+59d0edfa uspěla: Linux i Windows 546/546 a release gate. Artifact
+11483827661 měl shodný SHA-256 a jeho log, JSON i test registru byly
+obsahově ověřeny; viz
+`evidence/sec13f_identity_expansion13_tests_20261007.json` a
+`evidence/sec13f_identity_expansion13_windows_20261007.json`. Nejde o živý
+SEC ZIP/holdings ani uživatelský Windows end-to-end, takže institutions
+zůstává PILOT/PENDING a 0/21 DONE.
+
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen z 60 na 65 kanonických
 instrumentů (VRTX, DHR, ADP, ISRG a IBKR). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v
