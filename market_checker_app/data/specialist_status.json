@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-07",
+  "as_of": "2026-10-08",
   "scope": "687 US watchlist tickers; sector sources apply only to relevant companies",
   "completion_rule": "DONE requires implemented collection, dated issuer/instrument/product identity, positive and negative live evidence, Windows end-to-end run, measured applicable coverage and historical evaluation before any score change.",
   "specialists": [
@@ -204,7 +204,7 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers eighty-five canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 85/687 (0.123726), explicitly leaving 602 unmapped. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. Expansion 17 passed the hosted Linux and Windows deterministic suites (546/546 each) and release gate. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
+      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers ninety canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 90/687 (0.131004), explicitly leaving 597 unmapped. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. Expansion 18 source identities are reviewed but its tests are still pending; expansion 17 passed hosted Linux and Windows 546/546 plus release gate. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: verify expansion 18 in hosted Linux/Windows, run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
       "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
       "test_evidence": "evidence/sec13f_identity_tests_20261002.json",
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
@@ -257,7 +257,8 @@
       "windows_expansion16_evidence": "evidence/sec13f_identity_expansion16_windows_20261007.json",
       "identity_expansion17_evidence": "evidence/sec13f_identity_expansion17_20261007.json",
       "test_expansion17_evidence": "evidence/sec13f_identity_expansion17_tests_20261008.json",
-      "windows_expansion17_evidence": "evidence/sec13f_identity_expansion17_windows_20261008.json"
+      "windows_expansion17_evidence": "evidence/sec13f_identity_expansion17_windows_20261008.json",
+      "identity_expansion18_evidence": "evidence/sec13f_identity_expansion18_20261008.json"
     },
     {
       "id": "consensus_options",

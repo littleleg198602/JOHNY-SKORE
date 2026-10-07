@@ -1,5 +1,22 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — osmnácté rozšíření datovaného registru (8. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 90 kanonických instrumentů. Nově
+přibyly SCHW, MRVL, ADI, BA a T; přesný CUSIP, issuer CIK, třída a omezená
+doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanou Q1 2026 informační tabulkou. MRVL používá aktuální domácí CUSIP
+573874104; starší zahraniční CUSIP se nepřenáší. Měřené knowledge-time
+coverage je 90/687 (0,131004), takže 597 tickerů zůstává bez mapování.
+Zdrojový audit je v `evidence/sec13f_identity_expansion18_20261008.json`.
+
+V tomto kroku není tvrzen lokální ani hostovaný průchod testů. Nejde o živý
+SEC ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE. Další krok je obsahově ověřit hostovaný
+Linux/Windows workflow a potom pokračovat v omezeném rozšiřování identit.
+
+
 ## SEC 13F — hostovaná kontrola registru 85 instrumentů (8. 10. 2026)
 
 Commit b009df52 prošel workflow 37693469757: Linux i GitHub-hosted Windows

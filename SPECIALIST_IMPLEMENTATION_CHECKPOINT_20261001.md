@@ -1,5 +1,18 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 90
+kanonických instrumentů přidáním SCHW, MRVL, ADI, BA a T. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion18_20261008.json`. MRVL je mapován na
+aktuální domácí CUSIP 573874104; starší zahraniční CUSIP není vydáván za
+současný instrument. Měřené identity coverage je 90/687 (0,131004), 597
+položek zůstává bez mapování. Testy jsou čekající a průchod se netvrdí. Bez
+živého SEC ZIP/holdings, skutečného uživatelského Windows běhu, úplné
+corporate-action historie a OOS evaluace zůstává institutions PILOT/PENDING
+a inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: commit b009df52 s registrem 85 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Artifact
 11514169564 byl stažen; publikovaný SHA-256 souhlasil, log i JSON byly

@@ -1,5 +1,16 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen z 85 na 90 kanonických
+instrumentů (SCHW, MRVL, ADI, BA a T). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion18_20261008.json`. MRVL používá aktuální
+domácí CUSIP 573874104, nikoli starší zahraniční instrument. Coverage je
+90/687 (0,131004), 597 tickerů zůstává nezmapovaných. Testy jsou zatím
+čekající a žádný průchod se netvrdí; nejde o živý ZIP/holdings běh ani
+uživatelský Windows end-to-end. Stav zůstává institutions PILOT/PENDING a
+0/21 DONE.
+
+
 Hostovaná kontrola 85instrumentového SEC 13F registru na commitu
 b009df52 uspěla: Linux i Windows 546/546 a release gate. Artifact
 11514169564 měl shodný SHA-256 a jeho log, JSON i test registru byly
