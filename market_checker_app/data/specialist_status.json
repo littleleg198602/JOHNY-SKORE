@@ -204,7 +204,7 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers seventy-five canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 75/687 (0.109170), explicitly leaving 612 unmapped. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. Expansion 15 passed the hosted Linux and Windows deterministic suites (546/546 each) and release gate. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
+      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers eighty canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 80/687 (0.116448), explicitly leaving 607 unmapped. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. Expansion 16 source identities are reviewed, while automated and hosted Linux/Windows verification is pending. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: verify expansion 16 in hosted Linux/Windows, run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
       "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
       "test_evidence": "evidence/sec13f_identity_tests_20261002.json",
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
@@ -251,7 +251,8 @@
       "windows_expansion14_evidence": "evidence/sec13f_identity_expansion14_windows_20261007.json",
       "identity_expansion15_evidence": "evidence/sec13f_identity_expansion15_20261007.json",
       "test_expansion15_evidence": "evidence/sec13f_identity_expansion15_tests_20261007.json",
-      "windows_expansion15_evidence": "evidence/sec13f_identity_expansion15_windows_20261007.json"
+      "windows_expansion15_evidence": "evidence/sec13f_identity_expansion15_windows_20261007.json",
+      "identity_expansion16_evidence": "evidence/sec13f_identity_expansion16_20261007.json"
     },
     {
       "id": "consensus_options",

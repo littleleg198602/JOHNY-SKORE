@@ -973,5 +973,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-07T18:13:47+00:00"
+  },
+  {
+    "ticker": "ANET",
+    "issuer_cik": "0001596532",
+    "cusip": "040413205",
+    "issuer_name": "ARISTA NETWORKS INC",
+    "class_description": "COM SHS",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T20:22:57+00:00"
+  },
+  {
+    "ticker": "SHW",
+    "issuer_cik": "0000089800",
+    "cusip": "824348106",
+    "issuer_name": "SHERWIN WILLIAMS CO",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T20:22:57+00:00"
+  },
+  {
+    "ticker": "MCK",
+    "issuer_cik": "0000927653",
+    "cusip": "58155Q103",
+    "issuer_name": "MCKESSON CORP",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T20:22:57+00:00"
+  },
+  {
+    "ticker": "WM",
+    "issuer_cik": "0000823768",
+    "cusip": "94106L109",
+    "issuer_name": "WASTE MGMT INC DEL",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T20:22:57+00:00"
+  },
+  {
+    "ticker": "JCI",
+    "issuer_cik": "0000833444",
+    "cusip": "G51502105",
+    "issuer_name": "JOHNSON CONTROLS INTERNATIONAL",
+    "class_description": "SHS",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T20:22:57+00:00"
   }
 ]
