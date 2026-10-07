@@ -1,5 +1,21 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — patnácté rozšíření datovaného registru (7. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 75 kanonických instrumentů. Nově
+přibyly CPRT, ALL, NOC, CME a FCX; přesný CUSIP, issuer CIK, třída a
+omezená doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou
+a datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
+75/687 (0,109170), takže 612 tickerů zůstává bez mapování. Zdrojový audit je
+v `evidence/sec13f_identity_expansion15_20261007.json`.
+
+V tomto kroku není tvrzen lokální ani hostovaný průchod testů. Nejde o živý
+SEC ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE. Další krok je obsahově ověřit hostovaný
+Linux/Windows workflow a potom pokračovat v omezeném rozšiřování identit.
+
+
 ## SEC 13F — hostovaná kontrola registru 70 instrumentů (7. 10. 2026)
 
 Commit f67b2b52 prošel workflow 37652873925: Linux i GitHub-hosted Windows

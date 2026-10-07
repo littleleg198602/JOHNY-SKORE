@@ -908,5 +908,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-07T16:25:47+00:00"
+  },
+  {
+    "ticker": "CPRT",
+    "issuer_cik": "0000900075",
+    "cusip": "217204106",
+    "issuer_name": "COPART INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T18:13:47+00:00"
+  },
+  {
+    "ticker": "ALL",
+    "issuer_cik": "0000899051",
+    "cusip": "020002101",
+    "issuer_name": "ALLSTATE CORP",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T18:13:47+00:00"
+  },
+  {
+    "ticker": "NOC",
+    "issuer_cik": "0001133421",
+    "cusip": "666807102",
+    "issuer_name": "NORTHROP GRUMMAN CORP",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T18:13:47+00:00"
+  },
+  {
+    "ticker": "CME",
+    "issuer_cik": "0001156375",
+    "cusip": "12572Q105",
+    "issuer_name": "CME GROUP INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T18:13:47+00:00"
+  },
+  {
+    "ticker": "FCX",
+    "issuer_cik": "0000831259",
+    "cusip": "35671D857",
+    "issuer_name": "FREEPORT MCMORAN INC",
+    "class_description": "CL B",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T18:13:47+00:00"
   }
 ]

@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 7. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 75
+kanonických instrumentů přidáním CPRT, ALL, NOC, CME a FCX. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion15_20261007.json`. Měřené identity
+coverage je 75/687 (0,109170), 612 položek zůstává bez mapování. Testy jsou
+čekající a průchod se netvrdí. Bez živého SEC ZIP/holdings, skutečného
+uživatelského Windows běhu, úplné corporate-action historie a OOS evaluace
+zůstává institutions PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 7. 10.: commit f67b2b52 s registrem 70 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Artifact
 11497468294 byl stažen; publikovaný SHA-256 souhlasil, log i JSON byly
