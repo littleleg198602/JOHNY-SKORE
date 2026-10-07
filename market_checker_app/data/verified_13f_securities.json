@@ -583,5 +583,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-07T04:58:18.271+00:00"
+  },
+  {
+    "ticker": "MS",
+    "issuer_cik": "0000895421",
+    "cusip": "617446448",
+    "issuer_name": "MORGAN STANLEY",
+    "class_description": "COM NEW",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926001885/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T06:50:00+00:00"
+  },
+  {
+    "ticker": "PANW",
+    "issuer_cik": "0001327567",
+    "cusip": "697435105",
+    "issuer_name": "PALO ALTO NETWORKS INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1327567/000210011926000936/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T06:50:00+00:00"
+  },
+  {
+    "ticker": "RTX",
+    "issuer_cik": "0000101829",
+    "cusip": "75513E101",
+    "issuer_name": "RTX CORPORATION",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/101829/000142284826000064/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T06:50:00+00:00"
+  },
+  {
+    "ticker": "DELL",
+    "issuer_cik": "0001571996",
+    "cusip": "24703L202",
+    "issuer_name": "DELL TECHNOLOGIES INC",
+    "class_description": "CL C",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1571996/000210011926000390/xslSCHEDULE_13G_X02/primary_doc.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T06:50:00+00:00"
+  },
+  {
+    "ticker": "GS",
+    "issuer_cik": "0000886982",
+    "cusip": "38141G104",
+    "issuer_name": "GOLDMAN SACHS GROUP INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/886982/000119312526084728/d59319d424b2.htm",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-07T06:50:00+00:00"
   }
 ]

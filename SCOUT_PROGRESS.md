@@ -1,5 +1,23 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — desáté rozšíření datovaného registru (7. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 50 kanonických instrumentů. Nově
+přibyly MS, PANW, RTX, DELL a GS; přesný CUSIP, issuer CIK, třída a omezená
+doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanými SEC podáními. U GS přesný CUSIP a třídu určuje Q2 seznam a
+samostatné podání dokládá issuer, common stock a ticker. Měřené
+knowledge-time coverage je 50/687 (0,072780), takže 637 tickerů zůstává bez
+mapování. Zdrojový audit je v
+`evidence/sec13f_identity_expansion10_20261007.json`.
+
+V tomto kroku není tvrzen lokální ani hostovaný průchod testů. Nejde o živý
+SEC ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE. Další krok je obsahově ověřit hostovaný
+Linux/Windows workflow a potom pokračovat v omezeném rozšiřování identit.
+
+
 ## SEC 13F — hostovaná kontrola registru 45 instrumentů (7. 10. 2026)
 
 Commit 63db25c3 prošel workflow 37574055101: Linux i GitHub-hosted Windows
