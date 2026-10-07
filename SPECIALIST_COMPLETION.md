@@ -1,5 +1,14 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen z 80 na 85 kanonických
+instrumentů (WFC, KLAC, C, VZ a APH). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion17_20261007.json`. Coverage je 85/687
+(0,123726), 602 tickerů zůstává nezmapovaných. Testy jsou zatím čekající a
+žádný průchod se netvrdí; nejde o živý ZIP/holdings běh ani uživatelský
+Windows end-to-end. Stav zůstává institutions PILOT/PENDING a 0/21 DONE.
+
+
 Hostovaná kontrola 80instrumentového SEC 13F registru na commitu
 7982bb0d uspěla: Linux i Windows 546/546 a release gate. Artifact
 11510427261 měl shodný SHA-256 a jeho log, JSON i test registru byly
