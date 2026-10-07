@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 7. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 65
+kanonických instrumentů přidáním VRTX, DHR, ADP, ISRG a IBKR. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion13_20261007.json`. Měřené identity
+coverage je 65/687 (0,094614), 622 položek zůstává bez mapování. Testy jsou
+čekající a průchod se netvrdí. Bez živého SEC ZIP/holdings, skutečného
+uživatelského Windows běhu, úplné corporate-action historie a OOS evaluace
+zůstává institutions PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 7. 10.: commit 3b43b970 s registrem 60 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Artifact
 11478541436 byl stažen; publikovaný SHA-256 souhlasil, log i JSON byly

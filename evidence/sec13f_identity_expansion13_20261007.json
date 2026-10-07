@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-07T12:41:46+00:00",
+  "evidence_type": "reviewed_sec13f_instrument_identity_expansion",
+  "subject": "SEC 13F canonical identity registry expansion from 60 to 65",
+  "effective_period": {
+    "from": "2026-04-01",
+    "to": "2026-06-30",
+    "basis": "SEC 2026 Q2 official 13(f) securities list"
+  },
+  "canonical_universe": {
+    "total": 687,
+    "mapped_before": 60,
+    "mapped_after": 65,
+    "coverage_ratio": 0.094614,
+    "unmapped_after": 622
+  },
+  "sources": {
+    "official_13f_list": {
+      "url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "last_reviewed_period": "2026 Q2",
+      "facts": "Exact issuer, CUSIP and class rows reviewed for all five additions."
+    },
+    "official_company_tickers": {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "observed_at": "2026-10-07T12:41:46+00:00",
+      "facts": "Ticker-to-issuer-CIK mappings reviewed for all five additions."
+    },
+    "filed_information_table": {
+      "url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "report_period": "2026-03-31",
+      "facts": "Filed Q1 2026 Form 13F information table records every added issuer, class and exact CUSIP."
+    }
+  },
+  "additions": [
+    {
+      "ticker": "VRTX",
+      "issuer_cik": "0000875320",
+      "cusip": "92532F100",
+      "issuer_name": "VERTEX PHARMACEUTICALS INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Vertex Pharmaceuticals common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T12:41:46+00:00"
+    },
+    {
+      "ticker": "DHR",
+      "issuer_cik": "0000313616",
+      "cusip": "235851102",
+      "issuer_name": "DANAHER CORP DEL",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Danaher common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T12:41:46+00:00"
+    },
+    {
+      "ticker": "ADP",
+      "issuer_cik": "0000008670",
+      "cusip": "053015103",
+      "issuer_name": "AUTOMATIC DATA PROCESSING IN",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Automatic Data Processing common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T12:41:46+00:00"
+    },
+    {
+      "ticker": "ISRG",
+      "issuer_cik": "0001035267",
+      "cusip": "46120E602",
+      "issuer_name": "INTUITIVE SURGICAL INC",
+      "class_description": "COM NEW",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Intuitive Surgical common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T12:41:46+00:00"
+    },
+    {
+      "ticker": "IBKR",
+      "issuer_cik": "0001381197",
+      "cusip": "45841N107",
+      "issuer_name": "INTERACTIVE BROKERS GROUP IN",
+      "class_description": "COM CL A",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Interactive Brokers Group Class A common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T12:41:46+00:00"
+    }
+  ],
+  "validation": {
+    "canonical_membership_reviewed": true,
+    "duplicate_ticker_or_cusip": false,
+    "cusip_check_digit_reviewed": true,
+    "source_content_reviewed": true,
+    "automated_tests_run": false,
+    "note": "All five additions have dated Q1 2026 Form 13F information-table rows with exact issuer/class/CUSIP. The current 2026-Q2 list bounds every registry row, and the official ticker map supplies issuer CIK. Source and fixture changes are committed without a test pass; hosted workflow evidence must be recorded separately after completion."
+  },
+  "acceptance_limits": [
+    "No live SEC quarterly ZIP was downloaded or parsed in this step.",
+    "No holdings-level positive or negative live case is claimed.",
+    "No actual end-user Windows run, complete corporate-action history or historical out-of-sample evaluation is claimed.",
+    "No score or trading behavior changed; institutions remains PILOT/PENDING and 0/21 specialists are DONE."
+  ],
+  "next_work": [
+    "Verify the hosted Linux and Windows workflow for the 65-instrument registry and preserve content-checked evidence.",
+    "Continue bounded dated identity coverage without exceeding source quotas or changing scoring.",
+    "Run a declared-User-Agent live SEC ZIP acceptance when credentials/runtime access permit."
+  ]
+}

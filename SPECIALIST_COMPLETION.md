@@ -1,5 +1,14 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen z 60 na 65 kanonických
+instrumentů (VRTX, DHR, ADP, ISRG a IBKR). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion13_20261007.json`. Coverage je 65/687
+(0,094614), 622 tickerů zůstává nezmapovaných. Testy jsou zatím čekající a
+žádný průchod se netvrdí; nejde o živý ZIP/holdings běh ani uživatelský
+Windows end-to-end. Stav zůstává institutions PILOT/PENDING a 0/21 DONE.
+
+
 Hostovaná kontrola 60instrumentového SEC 13F registru na commitu
 3b43b970 uspěla: Linux i Windows 546/546 a release gate. Artifact
 11478541436 měl shodný SHA-256 a jeho log, JSON i test registru byly
