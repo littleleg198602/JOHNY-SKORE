@@ -1,5 +1,14 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Hostovaná kontrola 80instrumentového SEC 13F registru na commitu
+7982bb0d uspěla: Linux i Windows 546/546 a release gate. Artifact
+11510427261 měl shodný SHA-256 a jeho log, JSON i test registru byly
+obsahově ověřeny. Důkazy jsou v
+`evidence/sec13f_identity_expansion16_tests_20261007.json` a
+`evidence/sec13f_identity_expansion16_windows_20261007.json`. Nejde o živý
+holdings běh ani uživatelský Windows end-to-end; stav zůstává 0/21 DONE.
+
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen ze 75 na 80 kanonických
 instrumentů (ANET, SHW, MCK, WM a JCI). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v
