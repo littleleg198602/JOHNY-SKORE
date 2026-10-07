@@ -1,5 +1,14 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen z 65 na 70 kanonických
+instrumentů (CRWD, DE, LMT, GD a NET). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion14_20261007.json`. Coverage je 70/687
+(0,101892), 617 tickerů zůstává nezmapovaných. Testy jsou zatím čekající a
+žádný průchod se netvrdí; nejde o živý ZIP/holdings běh ani uživatelský
+Windows end-to-end. Stav zůstává institutions PILOT/PENDING a 0/21 DONE.
+
+
 Hostovaná kontrola 65instrumentového SEC 13F registru na commitu
 59d0edfa uspěla: Linux i Windows 546/546 a release gate. Artifact
 11483827661 měl shodný SHA-256 a jeho log, JSON i test registru byly
