@@ -1,5 +1,14 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen z 50 na 55 kanonických
+instrumentů (TMO, NOW, BKNG, UPS a UNP). Oficiální SEC zdroje, datované
+identity, stáří doplňkových podání a přesné limity jsou v
+`evidence/sec13f_identity_expansion11_20261007.json`. Coverage je 55/687
+(0,080058), 632 tickerů zůstává nezmapovaných. Testy jsou zatím čekající a
+žádný průchod se netvrdí; nejde o živý ZIP/holdings běh ani uživatelský
+Windows end-to-end. Stav zůstává institutions PILOT/PENDING a 0/21 DONE.
+
+
 Hostovaná kontrola 50instrumentového SEC 13F registru na commitu
 203000d0 uspěla: Linux i Windows 546/546 a release gate. Artifact
 11466148694 měl shodný SHA-256 a jeho log, JSON i test registru byly

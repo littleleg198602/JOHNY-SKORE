@@ -1,5 +1,24 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — jedenácté rozšíření datovaného registru (7. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 55 kanonických instrumentů. Nově
+přibyly TMO, NOW, BKNG, UPS a UNP; přesný CUSIP, issuer CIK, třída a
+omezená doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou
+a samostatnými SEC podáními. U TMO, NOW a UPS jsou doplňková přesná
+instrumentová podání starší, což audit výslovně zachovává; aktuální
+periodická identita je proto omezena na seznam 2026 Q2. Měřené
+knowledge-time coverage je 55/687 (0,080058), takže 632 tickerů zůstává bez
+mapování. Zdrojový audit je v
+`evidence/sec13f_identity_expansion11_20261007.json`.
+
+V tomto kroku není tvrzen lokální ani hostovaný průchod testů. Nejde o živý
+SEC ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE. Další krok je obsahově ověřit hostovaný
+Linux/Windows workflow a potom pokračovat v omezeném rozšiřování identit.
+
+
 ## SEC 13F — hostovaná kontrola registru 50 instrumentů (7. 10. 2026)
 
 Commit 203000d0 prošel workflow 37583995312: Linux i GitHub-hosted Windows

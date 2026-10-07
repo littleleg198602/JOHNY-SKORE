@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 7. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 55
+kanonických instrumentů přidáním TMO, NOW, BKNG, UPS a UNP. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí, stáří podpůrných podání a
+zdrojové URL jsou obsahově zaznamenány v
+`evidence/sec13f_identity_expansion11_20261007.json`. Měřené identity
+coverage je 55/687 (0,080058), 632 položek zůstává bez mapování. Testy jsou
+čekající a průchod se netvrdí. Bez živého SEC ZIP/holdings, skutečného
+uživatelského Windows běhu, úplné corporate-action historie a OOS evaluace
+zůstává institutions PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 7. 10.: commit 203000d0 s registrem 50 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Artifact
 11466148694 byl stažen; publikovaný SHA-256 souhlasil, log i JSON byly
