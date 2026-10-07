@@ -1,5 +1,15 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Hostovaná kontrola 60instrumentového SEC 13F registru na commitu
+3b43b970 uspěla: Linux i Windows 546/546 a release gate. Artifact
+11478541436 měl shodný SHA-256 a jeho log, JSON i test registru byly
+obsahově ověřeny; viz
+`evidence/sec13f_identity_expansion12_tests_20261007.json` a
+`evidence/sec13f_identity_expansion12_windows_20261007.json`. Nejde o živý
+SEC ZIP/holdings ani uživatelský Windows end-to-end, takže institutions
+zůstává PILOT/PENDING a 0/21 DONE.
+
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen z 55 na 60 kanonických
 instrumentů (GOOG, PM, TMUS, PEP a NEE). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v
