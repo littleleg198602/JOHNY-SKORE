@@ -88,7 +88,7 @@ class FakeClient:
 
 
 class Sec13fTests(unittest.TestCase):
-    def test_production_manifest_has_one_hundred_five_cited_canonical_instruments(self):
+    def test_production_manifest_has_one_hundred_ten_cited_canonical_instruments(self):
         securities = load_verified_securities()
         self.assertEqual(
             {
@@ -197,6 +197,11 @@ class Sec13fTests(unittest.TestCase):
                 ("AGCO", "0000880266", "001084102", "COM"),
                 ("AAP", "0001158449", "00751Y106", "COM"),
                 ("AME", "0001037868", "031100100", "COM"),
+                ("AKAM", "0001086222", "00971T101", "COM"),
+                ("ALB", "0000915913", "012653101", "COM"),
+                ("ALGN", "0001097149", "016255101", "COM"),
+                ("LNT", "0000352541", "018802108", "COM"),
+                ("ALLY", "0000040729", "02005N100", "COM"),
             },
             {(entry["ticker"], entry["issuer_cik"], entry["cusip"],
               entry["class_description"]) for entry in securities},

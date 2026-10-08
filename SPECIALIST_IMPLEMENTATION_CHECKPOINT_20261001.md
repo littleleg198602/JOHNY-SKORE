@@ -1,5 +1,18 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 110
+kanonických instrumentů přidáním AKAM, ALB, ALGN, LNT a ALLY. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion22_20261008.json`. Měřené identity
+coverage je 110/687 (0,160116), 577 položek zůstává bez mapování. BLK nebyl
+přidán, protože jeho změna holdingové společnosti, CIK a CUSIP v roce 2026
+vyžaduje samostatný datovaný audit. Testy jsou čekající a průchod se
+netvrdí. Bez živého SEC ZIP/holdings, skutečného uživatelského Windows běhu,
+úplné corporate-action historie a OOS evaluace zůstává institutions
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: commit a633cf92 s registrem 105 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Jmenovitý test je v
 obou úplných job logách úspěšný. Stažený artifact 11531267764 odpovídá
