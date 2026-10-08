@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-10-08T11:16:36+00:00",
+  "observed_at": "2026-10-08T12:10:24+00:00",
   "evidence_type": "hosted_windows_compatibility_test",
   "subject": "SEC 13F one-hundred-fifteen-instrument identity registry",
   "source_commit": "1e8c1ff1493e6db5d248ca89c7beab149589668b",
@@ -45,19 +45,41 @@
     "expired": false,
     "published_at": "2026-10-08T10:29:13+00:00",
     "metadata_upload_log_digest_agree": true,
-    "downloaded_sha256": null,
-    "digest_matches": null,
-    "archive_content_checked": false,
-    "files": [],
-    "download_status": "WAIT_TRANSIENT_PROXY",
-    "download_error": "The connector returned a signed artifact URL, but repeated downloads through the file proxy returned HTTP 502 during this run.",
+    "downloaded_sha256": "b9261d43bf4d06b51977eae2f4887f16e8a075568e513781c15d6e872feb6f6f",
+    "digest_matches": true,
+    "archive_content_checked": true,
+    "files": [
+      {
+        "name": "windows-tests.log",
+        "size_bytes": 98105,
+        "sha256": "95828058ff74364131fed9bf540ac2efe4771a86e9cbaa8390452160971b088e",
+        "content_checked": true,
+        "observed_facts": [
+          "The named one-hundred-fifteen-instrument registry test passed.",
+          "The log reports Ran 546 tests and OK."
+        ]
+      },
+      {
+        "name": "windows-tests.json",
+        "size_bytes": 373,
+        "sha256": "5bcfd6d5746c4d93ed19f583ba261f37d6e104ee05d8ac549b7f6ad201a2fcf3",
+        "content_checked": true,
+        "observed_facts": [
+          "The structured result identifies Windows Server 2025 and Python 3.12.10.",
+          "It reports 546 discovered and executed tests, zero failures, errors and skips, and successful true."
+        ]
+      }
+    ],
+    "download_status": "VERIFIED",
     "job_log_content_checked": true,
     "job_log_facts": [
       "The deterministic runner command wrote windows-tests.log and windows-tests.json.",
       "The complete job log contains the named registry test with an ok result.",
       "The complete job log reports Ran 546 tests and OK.",
       "The upload step reports artifact ID 11543387520, size 16643 bytes and SHA-256 b9261d43bf4d06b51977eae2f4887f16e8a075568e513781c15d6e872feb6f6f.",
-      "The artifact metadata reports the same ID, size and SHA-256."
+      "The artifact metadata reports the same ID, size and SHA-256.",
+      "The downloaded archive SHA-256 matches the published digest.",
+      "Both contained files were extracted, hashed and content-checked."
     ]
   },
   "release_gate": {
@@ -68,13 +90,14 @@
   "actual_user_windows_run": false,
   "acceptance_limits": [
     "This verifies GitHub-hosted Windows test execution only.",
-    "The artifact archive and contained files have not yet been independently downloaded or content-checked; no such claim is made.",
+    "The downloaded artifact verifies the hosted deterministic result and named registry test, not data-source behavior.",
     "It does not prove a live SEC quarterly ZIP or holdings-level positive/negative cases.",
     "It is not an end-to-end run on the user's Windows machine.",
     "It does not prove complete corporate-action coverage or historical out-of-sample performance.",
     "Institutions remains PILOT/PENDING and the complete inventory remains 0/21 DONE."
   ],
   "next_work": [
-    "Retry artifact download and verify the archive digest plus both contained files when the signed file proxy recovers."
+    "Run a declared SEC User-Agent live quarterly ZIP and measure holdings-level positive, negative and coverage outcomes.",
+    "Perform end-to-end acceptance on the user's Windows machine and historical out-of-sample evaluation before any score change."
   ]
 }

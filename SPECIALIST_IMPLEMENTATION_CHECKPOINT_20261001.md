@@ -3,9 +3,8 @@
 Aktualizace 8. 10.: commit 1e8c1ff1 s registrem 115 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Jmenovitý test je v
 obou úplných job logách úspěšný. Artifact 11543387520 má v metadatech a
-upload logu stejný publikovaný SHA-256, ale podepsaný souborový proxy endpoint
-při opakovaném stažení vracel HTTP 502. Obsah archivu proto zůstává čekající
-na kontrolu a není vydáván za ověřený. Přesná evidence je v
+upload logu stejný publikovaný SHA-256. Opakované stažení uspělo, archiv má
+shodný SHA-256 a jeho log i JSON byly hashově a obsahově ověřeny. Přesná evidence je v
 `evidence/sec13f_identity_expansion23_tests_20261008.json` a
 `evidence/sec13f_identity_expansion23_windows_20261008.json`. Nejde o živý
 SEC ZIP/holdings ani o koncový běh na uživatelově Windows a není doložena

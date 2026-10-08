@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "observed_at": "2026-10-08T11:16:36+00:00",
+  "observed_at": "2026-10-08T12:10:24+00:00",
   "evidence_type": "hosted_deterministic_verification",
   "subject": "SEC 13F one-hundred-fifteen-instrument identity registry",
   "source_commit": "1e8c1ff1493e6db5d248ca89c7beab149589668b",
@@ -49,7 +49,7 @@
   "acceptance_limits": [
     "Hosted deterministic tests do not constitute a live SEC ZIP/holdings run.",
     "GitHub-hosted Windows is not the end-user Windows environment.",
-    "The artifact metadata and upload log agree on the published digest, but the archive download repeatedly returned HTTP 502, so archive and contained-file content checks remain pending.",
+    "The downloaded artifact matches the published digest and both contained files were independently hashed and content-checked.",
     "No corporate-action completeness or historical out-of-sample evaluation is claimed.",
     "No specialist status or score was promoted."
   ]
