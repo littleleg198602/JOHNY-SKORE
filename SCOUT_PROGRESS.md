@@ -1,5 +1,21 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — hostovaná kontrola registru 110 instrumentů (8. 10. 2026)
+
+Commit 9a5ff53d prošel workflow 37746292639: Linux i GitHub-hosted Windows
+546/546, jmenovitý test 110instrumentového registru a release gate. Stažený
+artifact 11536851183 odpovídá publikovanému SHA-256 a oba soubory byly
+obsahově ověřeny. Přesné joby, časy, hashe a limity jsou v
+`evidence/sec13f_identity_expansion22_tests_20261008.json` a
+`evidence/sec13f_identity_expansion22_windows_20261008.json`.
+
+Tím není doložen živý SEC ZIP/holdings běh, pozitivní a negativní živý
+případ, koncový běh na uživatelově Windows, úplná corporate-action historie
+ani historické OOS vyhodnocení. Institutions proto zůstává PILOT/PENDING a
+inventář 0/21 DONE. Další práce je pokračovat v datovaných identitách a
+samostatně auditovat přechod BLK; změna skóre se neprovádí.
+
+
 ## SEC 13F — dvacáté druhé rozšíření datovaného registru (8. 10. 2026)
 
 Reviewovaný registr 2026 Q2 nyní obsahuje 110 kanonických instrumentů. Nově

@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: commit 9a5ff53d s registrem 110 instrumentů prošel
+hostovaným Linux i Windows během 546/546 a release gate. Jmenovitý test je v
+obou úplných job logách úspěšný. Stažený artifact 11536851183 odpovídá
+publikovanému SHA-256; jeho log i JSON byly obsahově ověřeny. Přesná
+evidence je v `evidence/sec13f_identity_expansion22_tests_20261008.json` a
+`evidence/sec13f_identity_expansion22_windows_20261008.json`. Nejde o živý
+SEC ZIP/holdings ani o koncový běh na uživatelově Windows a není doložena
+úplná corporate-action historie nebo OOS; institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 110
 kanonických instrumentů přidáním AKAM, ALB, ALGN, LNT a ALLY. Přesné CUSIP,
 issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
