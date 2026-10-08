@@ -88,7 +88,7 @@ class FakeClient:
 
 
 class Sec13fTests(unittest.TestCase):
-    def test_production_manifest_has_one_hundred_thirty_cited_canonical_instruments(self):
+    def test_production_manifest_has_one_hundred_thirty_five_cited_canonical_instruments(self):
         securities = load_verified_securities()
         self.assertEqual(
             {
@@ -222,6 +222,11 @@ class Sec13fTests(unittest.TestCase):
                 ("PGR", "0000080661", "743315103", "COM"),
                 ("FTNT", "0001262039", "34959E109", "COM"),
                 ("HWM", "0000004281", "443201108", "COM"),
+                ("PWR", "0001050915", "74762E102", "COM"),
+                ("MPC", "0001510295", "56585A102", "COM"),
+                ("PNC", "0000713676", "693475105", "COM"),
+                ("USB", "0000036104", "902973304", "COM NEW"),
+                ("VLO", "0001035002", "91913Y100", "COM"),
             },
             {(entry["ticker"], entry["issuer_cik"], entry["cusip"],
               entry["class_description"]) for entry in securities},

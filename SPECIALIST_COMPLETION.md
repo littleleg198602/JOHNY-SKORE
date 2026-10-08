@@ -1,5 +1,17 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen ze 130 na 135 kanonických
+instrumentů (PWR, MPC, PNC, USB a VLO). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion27_20261008.json`. Coverage je 135/687
+(0,196507), 552 tickerů zůstává nezmapovaných. BLK zůstává odložen pro
+samostatný audit změny holdingové společnosti, CIK a CUSIP v roce 2026; SO
+nebylo přidáno bez potvrzujícího řádku ve zvolené podané Q1 tabulce.
+Zaměřená lokální sada SEC 13F prošla 6/6, hostovaná kontrola nového stavu
+zatím chybí. Nejde o živý ZIP/holdings běh ani uživatelský Windows
+end-to-end. Stav zůstává institutions PILOT/PENDING a 0/21 DONE.
+
+
 Hostovaná kontrola 130instrumentového SEC 13F registru na commitu
 71332bce uspěla: Linux i Windows 546/546, jmenovitý test registru a release
 gate. Artifact 11569938078 má shodný publikovaný i stažený SHA-256 a jeho

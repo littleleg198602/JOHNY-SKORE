@@ -1688,5 +1688,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-08T18:02:53+00:00"
+  },
+  {
+    "ticker": "PWR",
+    "issuer_cik": "0001050915",
+    "cusip": "74762E102",
+    "issuer_name": "QUANTA SVCS INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T19:47:49+00:00"
+  },
+  {
+    "ticker": "MPC",
+    "issuer_cik": "0001510295",
+    "cusip": "56585A102",
+    "issuer_name": "MARATHON PETE CORP",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T19:47:49+00:00"
+  },
+  {
+    "ticker": "PNC",
+    "issuer_cik": "0000713676",
+    "cusip": "693475105",
+    "issuer_name": "PNC FINL SVCS GROUP INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T19:47:49+00:00"
+  },
+  {
+    "ticker": "USB",
+    "issuer_cik": "0000036104",
+    "cusip": "902973304",
+    "issuer_name": "US BANCORP",
+    "class_description": "COM NEW",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T19:47:49+00:00"
+  },
+  {
+    "ticker": "VLO",
+    "issuer_cik": "0001035002",
+    "cusip": "91913Y100",
+    "issuer_name": "VALERO ENERGY CORP",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T19:47:49+00:00"
   }
 ]
