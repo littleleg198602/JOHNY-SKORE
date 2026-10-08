@@ -1,5 +1,22 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — dvacáté páté rozšíření datovaného registru (8. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 125 kanonických instrumentů. Nově
+přibyly BMY, CB, PH, SYK a SPGI; přesný CUSIP, issuer CIK, třída a omezená
+doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
+125/687 (0,181951), takže 562 tickerů zůstává bez mapování. BLK zůstává
+odložen pro samostatný audit přechodu holdingové společnosti, CIK a CUSIP v
+roce 2026. Zdrojový audit je v
+`evidence/sec13f_identity_expansion25_20261008.json`.
+
+Zaměřená lokální sada SEC 13F prošla 6/6. Hostovaná kontrola nového registru
+zatím není doložena. Nejde o živý SEC ZIP/holdings běh, koncový běh na
+uživatelově Windows, úplnou corporate-action historii ani OOS evaluaci.
+Institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+
+
 ## SEC 13F — hostovaná kontrola registru 120 instrumentů (8. 10. 2026)
 
 Commit d06bddf4 prošel workflow 37778904470: Linux i GitHub-hosted Windows

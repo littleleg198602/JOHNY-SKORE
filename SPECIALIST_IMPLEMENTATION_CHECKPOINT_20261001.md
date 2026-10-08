@@ -1,5 +1,19 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 125
+kanonických instrumentů přidáním BMY, CB, PH, SYK a SPGI. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion25_20261008.json`. Měřené identity
+coverage je 125/687 (0,181951), 562 položek zůstává bez mapování. BLK nebyl
+přidán, protože jeho změna holdingové společnosti, CIK a CUSIP v roce 2026
+vyžaduje samostatný datovaný audit. Zaměřená lokální sada SEC 13F prošla
+6/6; hostovaná kontrola nového registru zatím není doložena. Bez živého SEC
+ZIP/holdings, skutečného uživatelského Windows běhu, úplné corporate-action
+historie a OOS evaluace zůstává institutions PILOT/PENDING a inventář 0/21
+DONE.
+
+
 Aktualizace 8. 10.: commit d06bddf4 s registrem 120 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Jmenovitý test je v
 obou úplných job logách úspěšný. Artifact 11551966956 má v metadatech a
