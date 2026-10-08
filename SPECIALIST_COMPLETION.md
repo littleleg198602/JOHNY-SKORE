@@ -1,5 +1,16 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen z 95 na 100 kanonických
+instrumentů (ACN, AEP, AMT, APD a AIG). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion20_20261008.json`. Coverage je 100/687
+(0,145560), 587 tickerů zůstává nezmapovaných. BLK zůstává odložen pro
+samostatný audit změny holdingové společnosti, CIK a CUSIP v roce 2026.
+Testy jsou zatím čekající a žádný průchod se netvrdí; nejde o živý
+ZIP/holdings běh ani uživatelský Windows end-to-end. Stav zůstává
+institutions PILOT/PENDING a 0/21 DONE.
+
+
 Hostovaná kontrola 95instrumentového SEC 13F registru na commitu
 3778cf54 uspěla: Linux i Windows 546/546 a release gate. Artifact
 11522323163 měl shodný SHA-256 a jeho log, JSON i test registru byly

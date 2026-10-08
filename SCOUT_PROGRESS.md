@@ -1,5 +1,23 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — dvacáté rozšíření datovaného registru (8. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 100 kanonických instrumentů. Nově
+přibyly ACN, AEP, AMT, APD a AIG; přesný CUSIP, issuer CIK, třída a omezená
+doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
+100/687 (0,145560), takže 587 tickerů zůstává bez mapování. BLK zůstává
+odložen pro samostatný audit přechodu holdingové společnosti, CIK a CUSIP v
+roce 2026. Zdrojový audit je v
+`evidence/sec13f_identity_expansion20_20261008.json`.
+
+V tomto kroku není tvrzen lokální ani hostovaný průchod testů. Nejde o živý
+SEC ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE. Další krok je obsahově ověřit hostovaný
+Linux/Windows workflow a potom pokračovat v omezeném rozšiřování identit.
+
+
 ## SEC 13F — hostovaná kontrola registru 95 instrumentů (8. 10. 2026)
 
 Commit 3778cf54 prošel workflow 37712091910: Linux i GitHub-hosted Windows

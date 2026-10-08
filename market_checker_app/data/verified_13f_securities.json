@@ -1233,5 +1233,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-08T01:12:33+00:00"
+  },
+  {
+    "ticker": "ACN",
+    "issuer_cik": "0001467373",
+    "cusip": "G1151C101",
+    "issuer_name": "ACCENTURE PLC IRELAND",
+    "class_description": "SHS CLASS A",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T03:09:34+00:00"
+  },
+  {
+    "ticker": "AEP",
+    "issuer_cik": "0000004904",
+    "cusip": "025537101",
+    "issuer_name": "AMERICAN ELEC PWR CO INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T03:09:34+00:00"
+  },
+  {
+    "ticker": "AMT",
+    "issuer_cik": "0001053507",
+    "cusip": "03027X100",
+    "issuer_name": "AMERICAN TOWER CORP",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T03:09:34+00:00"
+  },
+  {
+    "ticker": "APD",
+    "issuer_cik": "0000002969",
+    "cusip": "009158106",
+    "issuer_name": "AIR PRODUCTS AND CHEMICALS INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T03:09:34+00:00"
+  },
+  {
+    "ticker": "AIG",
+    "issuer_cik": "0000005272",
+    "cusip": "026874784",
+    "issuer_name": "AMERICAN INTL GROUP INC",
+    "class_description": "COM NEW",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T03:09:34+00:00"
   }
 ]
