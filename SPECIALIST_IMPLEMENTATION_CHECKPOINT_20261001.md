@@ -1,5 +1,18 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 95
+kanonických instrumentů přidáním WDC, GILD, BX, TJX a ETN. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion19_20261008.json`. Měřené identity
+coverage je 95/687 (0,138282), 592 položek zůstává bez mapování. BLK nebyl
+přidán, protože jeho změna holdingové společnosti, CIK a CUSIP v roce 2026
+vyžaduje samostatný datovaný audit. Testy jsou čekající a průchod se
+netvrdí. Bez živého SEC ZIP/holdings, skutečného uživatelského Windows běhu,
+úplné corporate-action historie a OOS evaluace zůstává institutions
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: commit 850dfe32 s registrem 90 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Artifact
 11519466773 byl stažen; publikovaný SHA-256 souhlasil, log i JSON byly

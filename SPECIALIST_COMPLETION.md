@@ -1,5 +1,16 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen z 90 na 95 kanonických
+instrumentů (WDC, GILD, BX, TJX a ETN). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion19_20261008.json`. Coverage je 95/687
+(0,138282), 592 tickerů zůstává nezmapovaných. BLK byl odložen pro
+samostatný audit změny holdingové společnosti, CIK a CUSIP v roce 2026.
+Testy jsou zatím čekající a žádný průchod se netvrdí; nejde o živý
+ZIP/holdings běh ani uživatelský Windows end-to-end. Stav zůstává
+institutions PILOT/PENDING a 0/21 DONE.
+
+
 Hostovaná kontrola 90instrumentového SEC 13F registru na commitu
 850dfe32 uspěla: Linux i Windows 546/546 a release gate. Artifact
 11519466773 měl shodný SHA-256 a jeho log, JSON i test registru byly
