@@ -1298,5 +1298,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-08T03:09:34+00:00"
+  },
+  {
+    "ticker": "A",
+    "issuer_cik": "0001090872",
+    "cusip": "00846U101",
+    "issuer_name": "AGILENT TECHNOLOGIES INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T05:48:36+00:00"
+  },
+  {
+    "ticker": "AFL",
+    "issuer_cik": "0000004977",
+    "cusip": "001055102",
+    "issuer_name": "AFLAC INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T05:48:36+00:00"
+  },
+  {
+    "ticker": "AGCO",
+    "issuer_cik": "0000880266",
+    "cusip": "001084102",
+    "issuer_name": "AGCO CORP",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T05:48:36+00:00"
+  },
+  {
+    "ticker": "AAP",
+    "issuer_cik": "0001158449",
+    "cusip": "00751Y106",
+    "issuer_name": "ADVANCE AUTO PARTS INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T05:48:36+00:00"
+  },
+  {
+    "ticker": "AME",
+    "issuer_cik": "0001037868",
+    "cusip": "031100100",
+    "issuer_name": "AMETEK INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-08T05:48:36+00:00"
   }
 ]

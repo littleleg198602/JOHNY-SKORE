@@ -1,5 +1,18 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 105
+kanonických instrumentů přidáním A, AFL, AGCO, AAP a AME. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion21_20261008.json`. Měřené identity
+coverage je 105/687 (0,152838), 582 položek zůstává bez mapování. BLK nebyl
+přidán, protože jeho změna holdingové společnosti, CIK a CUSIP v roce 2026
+vyžaduje samostatný datovaný audit. Testy jsou čekající a průchod se
+netvrdí. Bez živého SEC ZIP/holdings, skutečného uživatelského Windows běhu,
+úplné corporate-action historie a OOS evaluace zůstává institutions
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: commit 5ea6b772 s registrem 100 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Úplné job logy
 obsahují úspěšný jmenovitý test registru. Artifact 11526502893 byl publikován
