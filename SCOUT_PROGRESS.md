@@ -1,5 +1,23 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — dvacáté čtvrté rozšíření datovaného registru (8. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 120 kanonických instrumentů. Nově
+přibyly COP, UBER, GLW, COF a PLD; přesný CUSIP, issuer CIK, třída a
+omezená doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
+120/687 (0,174672), takže 567 tickerů zůstává bez mapování. BLK zůstává
+odložen pro samostatný audit přechodu holdingové společnosti, CIK a CUSIP v
+roce 2026. Zdrojový audit je v
+`evidence/sec13f_identity_expansion24_20261008.json`.
+
+Zaměřená lokální sada SEC 13F prošla 6/6; hostovaný průchod zatím tvrzen
+není. Nejde o živý SEC ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE. Další krok je obsahově ověřit hostovaný
+Linux/Windows workflow a potom pokračovat v omezeném rozšiřování identit.
+
+
 ## SEC 13F — hostovaná kontrola registru 115 instrumentů (8. 10. 2026)
 
 Commit 1e8c1ff1 prošel workflow 37762456729: Linux i GitHub-hosted Windows
