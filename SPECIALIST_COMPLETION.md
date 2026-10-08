@@ -2,9 +2,9 @@
 
 Hostovaná kontrola 100instrumentového SEC 13F registru na commitu
 5ea6b772 uspěla: Linux i Windows 546/546 a release gate. Úplné job logy
-obsahují úspěšný jmenovitý test registru. Artifact 11526502893 má publikovaný
-SHA-256, ale jeho nezávislé stažení a obsahová kontrola čekají po přechodné
-chybě HTTP 502. Důkazy jsou v
+obsahují úspěšný jmenovitý test registru. Stažený artifact 11526502893 měl
+shodný publikovaný a lokálně ověřený SHA-256 a jeho log i JSON byly obsahově
+a hashově zkontrolovány. Důkazy jsou v
 `evidence/sec13f_identity_expansion20_tests_20261008.json` a
 `evidence/sec13f_identity_expansion20_windows_20261008.json`. Nejde o živý
 holdings běh ani uživatelský Windows end-to-end; stav zůstává 0/21 DONE.

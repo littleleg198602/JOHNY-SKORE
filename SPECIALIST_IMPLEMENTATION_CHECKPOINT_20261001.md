@@ -4,8 +4,9 @@ Aktualizace 8. 10.: commit 5ea6b772 s registrem 100 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Úplné job logy
 obsahují úspěšný jmenovitý test registru. Artifact 11526502893 byl publikován
 s SHA-256 d562a894ed8d2ac846254bf1aafb2d3a61d590f84ac058b2932d077cf8b9e48a,
-ale nezávislé stažení a obsahová kontrola zůstávají čekající po čtyřech
-přechodných HTTP 502. Audity jsou v
+stažený archiv měl shodný SHA-256 a jeho log i JSON byly obsahově a hashově
+zkontrolovány. Původní přechodné HTTP 502 se při opakování neobjevilo. Audity
+jsou v
 `evidence/sec13f_identity_expansion20_tests_20261008.json` a
 `evidence/sec13f_identity_expansion20_windows_20261008.json`. Jde o
 hostovanou kompatibilitu, nikoli živý SEC holdings běh nebo skutečný
