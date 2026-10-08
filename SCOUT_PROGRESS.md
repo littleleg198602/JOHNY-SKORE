@@ -1,5 +1,22 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — dvacáté šesté rozšíření datovaného registru (8. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 130 kanonických instrumentů. Nově
+přibyly NEM, CVS, PGR, FTNT a HWM; přesný CUSIP, issuer CIK, třída a omezená
+doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
+130/687 (0,189229), takže 557 tickerů zůstává bez mapování. BLK zůstává
+odložen pro samostatný audit přechodu holdingové společnosti, CIK a CUSIP v
+roce 2026. Zdrojový audit je v
+`evidence/sec13f_identity_expansion26_20261008.json`.
+
+Zaměřená lokální sada SEC 13F prošla 6/6; hostovaná kontrola této expanze
+teprve čeká. Nejde o živý SEC ZIP/holdings běh, koncový běh na uživatelově
+Windows, úplnou corporate-action historii ani OOS evaluaci. Institutions
+zůstává PILOT/PENDING a inventář 0/21 DONE.
+
+
 ## SEC 13F — hostovaná kontrola registru 125 instrumentů (8. 10. 2026)
 
 Commit da0e15cd prošel workflow 37803771164: Linux i GitHub-hosted Windows
