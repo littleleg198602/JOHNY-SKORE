@@ -1,5 +1,17 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: commit d06bddf4 s registrem 120 instrumentů prošel
+hostovaným Linux i Windows během 546/546 a release gate. Jmenovitý test je v
+obou úplných job logách úspěšný. Artifact 11551966956 má v metadatech a
+upload logu stejný publikovaný SHA-256; stažený archiv má shodný SHA-256 a
+jeho log i JSON byly hashově a obsahově ověřeny. Přesná evidence je v
+`evidence/sec13f_identity_expansion24_tests_20261008.json` a
+`evidence/sec13f_identity_expansion24_windows_20261008.json`. Nejde o živý
+SEC ZIP/holdings ani o koncový běh na uživatelově Windows a není doložena
+úplná corporate-action historie nebo OOS; institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 120
 kanonických instrumentů přidáním COP, UBER, GLW, COF a PLD. Přesné CUSIP,
 issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
@@ -8,7 +20,8 @@ obsahově zaznamenány v
 coverage je 120/687 (0,174672), 567 položek zůstává bez mapování. BLK nebyl
 přidán, protože jeho změna holdingové společnosti, CIK a CUSIP v roce 2026
 vyžaduje samostatný datovaný audit. Zaměřená lokální sada SEC 13F prošla
-6/6; hostovaný průchod zatím není tvrzen. Bez živého SEC ZIP/holdings, skutečného uživatelského Windows běhu,
+6/6 a samostatná hostovaná kontrola je doložena výše. Bez živého SEC
+ZIP/holdings, skutečného uživatelského Windows běhu,
 úplné corporate-action historie a OOS evaluace zůstává institutions
 PILOT/PENDING a inventář 0/21 DONE.
 
