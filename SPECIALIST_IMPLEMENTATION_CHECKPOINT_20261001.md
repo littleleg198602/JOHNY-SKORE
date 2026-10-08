@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: commit a633cf92 s registrem 105 instrumentů prošel
+hostovaným Linux i Windows během 546/546 a release gate. Jmenovitý test je v
+obou úplných job logách úspěšný. Stažený artifact 11531267764 odpovídá
+publikovanému SHA-256; jeho log i JSON byly obsahově ověřeny. Přesná
+evidence je v `evidence/sec13f_identity_expansion21_tests_20261008.json` a
+`evidence/sec13f_identity_expansion21_windows_20261008.json`. Nejde o živý
+SEC ZIP/holdings ani o koncový běh na uživatelově Windows a není doložena
+úplná corporate-action historie nebo OOS; institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 105
 kanonických instrumentů přidáním A, AFL, AGCO, AAP a AME. Přesné CUSIP,
 issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou

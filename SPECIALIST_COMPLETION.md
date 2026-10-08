@@ -1,5 +1,15 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Hostovaná kontrola 105instrumentového SEC 13F registru na commitu
+a633cf92 uspěla: Linux i Windows 546/546 a release gate. Úplné job logy
+obsahují úspěšný jmenovitý test registru. Artifact 11531267764 odpovídá
+publikovanému SHA-256 a jeho log i JSON byly obsahově ověřeny. Důkazy jsou v
+`evidence/sec13f_identity_expansion21_tests_20261008.json` a
+`evidence/sec13f_identity_expansion21_windows_20261008.json`. GitHub-hosted
+Windows není uživatelův koncový běh a živé případy, úplná historie ani OOS
+nejsou doloženy; institutions zůstává PILOT/PENDING a 0/21 DONE.
+
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen ze 100 na 105 kanonických
 instrumentů (A, AFL, AGCO, AAP a AME). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v
