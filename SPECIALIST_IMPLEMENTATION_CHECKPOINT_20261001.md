@@ -1,5 +1,18 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: commit 5ea6b772 s registrem 100 instrumentů prošel
+hostovaným Linux i Windows během 546/546 a release gate. Úplné job logy
+obsahují úspěšný jmenovitý test registru. Artifact 11526502893 byl publikován
+s SHA-256 d562a894ed8d2ac846254bf1aafb2d3a61d590f84ac058b2932d077cf8b9e48a,
+ale nezávislé stažení a obsahová kontrola zůstávají čekající po čtyřech
+přechodných HTTP 502. Audity jsou v
+`evidence/sec13f_identity_expansion20_tests_20261008.json` a
+`evidence/sec13f_identity_expansion20_windows_20261008.json`. Jde o
+hostovanou kompatibilitu, nikoli živý SEC holdings běh nebo skutečný
+uživatelský Windows end-to-end. Institutions zůstává PILOT/PENDING a
+inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 100
 kanonických instrumentů přidáním ACN, AEP, AMT, APD a AIG. Přesné CUSIP,
 issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou

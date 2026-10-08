@@ -1,5 +1,15 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Hostovaná kontrola 100instrumentového SEC 13F registru na commitu
+5ea6b772 uspěla: Linux i Windows 546/546 a release gate. Úplné job logy
+obsahují úspěšný jmenovitý test registru. Artifact 11526502893 má publikovaný
+SHA-256, ale jeho nezávislé stažení a obsahová kontrola čekají po přechodné
+chybě HTTP 502. Důkazy jsou v
+`evidence/sec13f_identity_expansion20_tests_20261008.json` a
+`evidence/sec13f_identity_expansion20_windows_20261008.json`. Nejde o živý
+holdings běh ani uživatelský Windows end-to-end; stav zůstává 0/21 DONE.
+
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen z 95 na 100 kanonických
 instrumentů (ACN, AEP, AMT, APD a AIG). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v

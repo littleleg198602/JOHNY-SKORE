@@ -204,7 +204,7 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers one hundred canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 100/687 (0.145560), explicitly leaving 587 unmapped. Expansion 20 source identities are reviewed with tests pending; expansion 19 passed hosted Linux and Windows 546/546 plus release gate. BLK remains deferred for a separate dated 2026 holding-company/CIK/CUSIP transition review. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
+      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers one hundred canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 100/687 (0.145560), explicitly leaving 587 unmapped. Expansion 20 passed hosted Linux and Windows 546/546 plus release gate; its published artifact digest is recorded, while independent archive download and content verification remain pending after transient HTTP 502 responses. BLK remains deferred for a separate dated 2026 holding-company/CIK/CUSIP transition review. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: retry artifact verification, run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
       "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
       "test_evidence": "evidence/sec13f_identity_tests_20261002.json",
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
@@ -264,7 +264,9 @@
       "identity_expansion19_evidence": "evidence/sec13f_identity_expansion19_20261008.json",
       "test_expansion19_evidence": "evidence/sec13f_identity_expansion19_tests_20261008.json",
       "windows_expansion19_evidence": "evidence/sec13f_identity_expansion19_windows_20261008.json",
-      "identity_expansion20_evidence": "evidence/sec13f_identity_expansion20_20261008.json"
+      "identity_expansion20_evidence": "evidence/sec13f_identity_expansion20_20261008.json",
+      "test_expansion20_evidence": "evidence/sec13f_identity_expansion20_tests_20261008.json",
+      "windows_expansion20_evidence": "evidence/sec13f_identity_expansion20_windows_20261008.json"
     },
     {
       "id": "consensus_options",
