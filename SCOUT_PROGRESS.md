@@ -1,5 +1,22 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — hostovaná kontrola registru 135 instrumentů (8. 10. 2026)
+
+Commit 3fd4753e prošel workflow 37835177568: Linux i GitHub-hosted Windows
+546/546, jmenovitý test 135instrumentového registru a release gate. Úplné
+job logy byly obsahově ověřeny. Artifact 11576181642 má v GitHub metadatech
+i upload logu shodný publikovaný SHA-256; stažený archiv má stejný SHA-256 a
+oba obsažené soubory byly hashově i obsahově zkontrolovány. Přesné výsledky
+jsou v `evidence/sec13f_identity_expansion27_tests_20261008.json` a
+`evidence/sec13f_identity_expansion27_windows_20261008.json`.
+
+Kontrola není živý SEC ZIP/holdings běh, pozitivní a negativní živý případ,
+koncový běh na uživatelově Windows, úplná corporate-action historie ani
+historické OOS vyhodnocení. Institutions zůstává PILOT/PENDING a inventář
+0/21 DONE; změna skóre se neprovádí. Další dostupná práce je živý omezený
+SEC ZIP běh s deklarovaným User-Agentem nebo další datované identity.
+
+
 ## SEC 13F — dvacáté sedmé rozšíření datovaného registru (8. 10. 2026)
 
 Reviewovaný registr 2026 Q2 nyní obsahuje 135 kanonických instrumentů. Nově
@@ -12,8 +29,8 @@ roce 2026; SO nebylo přidáno, protože ve zvolené podané Q1 tabulce nebyl
 dohledán potřebný potvrzující řádek. Zdrojový audit je v
 `evidence/sec13f_identity_expansion27_20261008.json`.
 
-Zaměřená lokální sada SEC 13F prošla 6/6. Hostovaná kontrola tohoto
-135instrumentového stavu zatím nebyla provedena. Nejde o živý SEC
+Zaměřená lokální sada SEC 13F prošla 6/6 a samostatná hostovaná kontrola
+Linux/Windows i release gate je doložena výše. Nejde o živý SEC
 ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
 corporate-action historii ani OOS evaluaci. Institutions zůstává
 PILOT/PENDING a inventář 0/21 DONE.
