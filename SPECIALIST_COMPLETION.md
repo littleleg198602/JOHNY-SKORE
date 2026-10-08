@@ -1,13 +1,23 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Hostovaná kontrola 125instrumentového SEC 13F registru na commitu
+da0e15cd uspěla: Linux i Windows 546/546, jmenovitý test registru a release
+gate. Artifact 11563415601 má shodný publikovaný i stažený SHA-256 a jeho
+log i JSON byly hashově a obsahově ověřeny. Důkazy jsou v
+`evidence/sec13f_identity_expansion25_tests_20261008.json` a
+`evidence/sec13f_identity_expansion25_windows_20261008.json`. GitHub-hosted
+Windows není uživatelův koncový běh a živé případy, úplná historie ani OOS
+nejsou doloženy; institutions zůstává PILOT/PENDING a 0/21 DONE.
+
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen ze 120 na 125 kanonických
 instrumentů (BMY, CB, PH, SYK a SPGI). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v
 `evidence/sec13f_identity_expansion25_20261008.json`. Coverage je 125/687
 (0,181951), 562 tickerů zůstává nezmapovaných. BLK zůstává odložen pro
 samostatný audit změny holdingové společnosti, CIK a CUSIP v roce 2026.
-Zaměřená lokální sada SEC 13F prošla 6/6; hostovaná kontrola nového registru
-zatím není doložena. Nejde o živý ZIP/holdings běh ani uživatelský Windows
+Zaměřená lokální sada SEC 13F prošla 6/6 a samostatná hostovaná kontrola je
+doložena výše. Nejde o živý ZIP/holdings běh ani uživatelský Windows
 end-to-end. Stav zůstává institutions PILOT/PENDING a 0/21 DONE.
 
 
