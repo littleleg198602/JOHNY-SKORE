@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 8. 10.: commit 3778cf54 s registrem 95 instrumentů prošel
+hostovaným Linux i Windows během 546/546 a release gate. Artifact
+11522323163 byl stažen; publikovaný SHA-256 souhlasil, log i JSON byly
+obsahově zkontrolovány a jmenovitý test registru prošel. Audity jsou v
+`evidence/sec13f_identity_expansion19_tests_20261008.json` a
+`evidence/sec13f_identity_expansion19_windows_20261008.json`. Jde o
+hostovanou kompatibilitu, nikoli živý SEC holdings běh nebo skutečný
+uživatelský Windows end-to-end. Institutions zůstává PILOT/PENDING a
+inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 95
 kanonických instrumentů přidáním WDC, GILD, BX, TJX a ETN. Přesné CUSIP,
 issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
