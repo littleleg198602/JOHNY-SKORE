@@ -11,6 +11,9 @@ from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.services.public_source_budget import (
+    PublicBudgetExhausted, PublicSourceBudget, bounded_public_source,
+)
 
 
 API_ROOT = "https://api.fda.gov"
@@ -127,8 +130,9 @@ class FdaRecallScoutService:
                 return combined, True
         return combined, True
 
+    @bounded_public_source("fda")
     def run(self, *, as_of: datetime | None = None,
-            universe: set[str] | None = None) -> dict[str, int | str]:
+            universe: set[str] | None = None, _budget: PublicSourceBudget) -> dict[str, int | str]:
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
             raise ValueError("Observation time needs timezone")
@@ -136,7 +140,7 @@ class FdaRecallScoutService:
         # exhaust the daily budget of the requested watchlist.
         due = self.store.specialist_due("fda", as_of=clock, limit=900)
         due = [row for row in due if universe is None or row["subject_id"] in universe]
-        due = due[:self.max_subjects]
+        due = _budget.select_due(due)[:self.max_subjects]
         created = checked = failed = truncated_count = rejected = 0
         deadline = time.monotonic() + self.max_run_seconds
         budget_exhausted = False
@@ -150,8 +154,9 @@ class FdaRecallScoutService:
             truncated = False
             try:
                 for product_type in PRODUCT_TYPES:
-                    rows, partial = self._pages(lambda skip: self.client.recalls(
-                        product_type, name, limit=self.max_results, skip=skip), deadline=deadline)
+                    rows, partial = self._pages(lambda skip: _budget.call(
+                        ticker, f"{cik}:{name}", lambda: self.client.recalls(
+                            product_type, name, limit=self.max_results, skip=skip)), deadline=deadline)
                     truncated |= partial
                     for row in rows:
                         if not isinstance(row, dict):
@@ -177,8 +182,9 @@ class FdaRecallScoutService:
                             rejected += 1
                             continue
                         candidates.append((product_type, row))
-                rows, partial = self._pages(lambda skip: self.client.complete_response_letters(
-                    name, limit=self.max_results, skip=skip), deadline=deadline)
+                rows, partial = self._pages(lambda skip: _budget.call(
+                    ticker, f"{cik}:{name}", lambda: self.client.complete_response_letters(
+                        name, limit=self.max_results, skip=skip)), deadline=deadline)
                 truncated |= partial
                 for row in rows:
                     if not isinstance(row, dict):
@@ -206,6 +212,9 @@ class FdaRecallScoutService:
                         rejected += 1
                         continue
                     letter_candidates.append(row)
+            except PublicBudgetExhausted:
+                budget_exhausted = True
+                break  # No completed check or findings for an interrupted issuer.
             except HTTPError as exc:
                 if exc.code in {401, 403, 429}:
                     return {"status": "RATE_LIMITED" if exc.code == 429 else "ACCESS_BLOCKED",

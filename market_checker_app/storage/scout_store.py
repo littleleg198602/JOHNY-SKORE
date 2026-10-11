@@ -14,6 +14,8 @@ from uuid import uuid4
 
 from market_checker_app.utils.source_validation import public_https_reference
 
+PUBLIC_BUDGET_SOURCES = frozenset({"fda", "cms", "clinicaltrials", "doj", "epa"})
+
 
 def _utc(value: datetime) -> str:
     if value.tzinfo is None or value.utcoffset() is None:
@@ -206,6 +208,18 @@ class ScoutStore:
                 );
                 CREATE INDEX IF NOT EXISTS scout_fdic_requests_identity
                     ON scout_fdic_requests(subject_id, identity_key, attempted_at);
+                CREATE TABLE IF NOT EXISTS scout_public_requests (
+                    request_id TEXT PRIMARY KEY,
+                    source TEXT NOT NULL,
+                    subject_id TEXT NOT NULL,
+                    identity_key TEXT NOT NULL,
+                    run_token TEXT NOT NULL,
+                    attempted_at TEXT NOT NULL,
+                    outcome TEXT NOT NULL DEFAULT 'RUNNING'
+                        CHECK(outcome IN ('RUNNING', 'RETURNED', 'FAILED'))
+                );
+                CREATE INDEX IF NOT EXISTS scout_public_requests_daily
+                    ON scout_public_requests(source, attempted_at, subject_id);
                 CREATE TABLE IF NOT EXISTS scout_background_workers (
                     source TEXT PRIMARY KEY,
                     run_id TEXT NOT NULL,
@@ -258,6 +272,10 @@ class ScoutStore:
                 "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
                 "VALUES(10, ?)", (_utc(datetime.now(timezone.utc)),),
             )
+            conn.execute(
+                "INSERT OR IGNORE INTO scout_schema_migrations(version, applied_at) "
+                "VALUES(11, ?)", (_utc(datetime.now(timezone.utc)),),
+            )
 
     def record_source_run(self, source: str, *, as_of: datetime,
                           summary: dict[str, object]) -> None:
@@ -275,7 +293,9 @@ class ScoutStore:
                            "processed", "failed", "scheduled_subjects", "truncated_issuers",
                            "snapshot_sha256", "alias_snapshot_sha256", "alias_rows", "budget_exhausted", "checked_names",
                            "attempted_banks", "empty_banks", "due_banks", "deferred_banks",
-                           "daily_requests", "retry_at",
+                           "daily_requests", "daily_issuers", "daily_request_limit",
+                           "daily_issuer_limit", "attempted_requests", "attempted_issuers",
+                           "quota_deferred_issuers", "retry_at",
                            "new_candidates", "truncated_names", "failed_names", "truncated_uei"}
                 and isinstance(value, (str, int, float, bool))}
         with self._connect() as conn:
@@ -295,6 +315,88 @@ class ScoutStore:
             """).fetchall()
         return {row["source"]: {"observed_at": row["observed_at"],
                                 **json.loads(row["summary_json"])} for row in rows}
+
+    @staticmethod
+    def _public_day(source: str, as_of: datetime) -> tuple[str, str]:
+        if source not in PUBLIC_BUDGET_SOURCES:
+            raise ValueError("Unsupported public-source budget")
+        _utc(as_of)
+        start = as_of.astimezone(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        return _utc(start), _utc(start + timedelta(days=1))
+
+    def public_daily_usage(self, source: str, *, as_of: datetime) -> dict[str, int]:
+        start, end = self._public_day(source, as_of)
+        with self._connect() as conn:
+            row = conn.execute("""
+                SELECT COUNT(*) AS requests, COUNT(DISTINCT subject_id) AS issuers
+                FROM scout_public_requests WHERE source=? AND attempted_at>=? AND attempted_at<?
+            """, (source, start, end)).fetchone()
+        return {"daily_requests": int(row["requests"]), "daily_issuers": int(row["issuers"])}
+
+    def public_subject_attempts(self, source: str, *, as_of: datetime) -> dict[str, str]:
+        """Operational retry/fairness state, never a completed or usable check."""
+        _, end = self._public_day(source, as_of)
+        with self._connect() as conn:
+            rows = conn.execute("""
+                SELECT subject_id, MAX(attempted_at) AS attempted_at
+                FROM scout_public_requests WHERE source=? AND attempted_at<? GROUP BY subject_id
+            """, (source, end)).fetchall()
+        return {row["subject_id"]: row["attempted_at"] for row in rows}
+
+    def reserve_public_request(self, source: str, *, subject_id: str, identity_key: str,
+                               as_of: datetime, daily_issuer_limit: int,
+                               daily_request_limit: int, lease_token: str) -> dict[str, str]:
+        """Atomically consume both quotas before I/O; crashes never refund them.
+
+        A subject's pages share one provider lease. Another run can retry that
+        subject only on the next UTC day, even after an identity/scope change.
+        """
+        start, end = self._public_day(source, as_of)
+        if (not isinstance(subject_id, str) or not subject_id.strip()
+                or not isinstance(identity_key, str) or not identity_key.strip()
+                or not isinstance(lease_token, str) or not lease_token
+                or any(isinstance(v, bool) or not isinstance(v, int) or not 1 <= v <= maximum
+                       for v, maximum in ((daily_issuer_limit, 100), (daily_request_limit, 1000)))):
+            raise ValueError("Invalid public-source reservation")
+        clock = _utc(as_of)
+        with self._connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            owned = conn.execute("""
+                SELECT 1 FROM scout_provider_leases
+                WHERE source=? AND lease_token=? AND lease_until>?
+            """, (source, lease_token, clock)).fetchone()
+            paused = conn.execute("""
+                SELECT 1 FROM scout_provider_cooldowns WHERE source=? AND retry_at>?
+            """, (source, clock)).fetchone()
+            if not owned or paused:
+                return {"status": "LEASE_LOST"}
+            rows = conn.execute("""
+                SELECT subject_id, run_token FROM scout_public_requests
+                WHERE source=? AND attempted_at>=? AND attempted_at<?
+            """, (source, start, end)).fetchall()
+            if any(row["subject_id"] == subject_id and row["run_token"] != lease_token for row in rows):
+                return {"status": "WAIT_QUOTA"}
+            subjects = {row["subject_id"] for row in rows}
+            if (len(rows) >= daily_request_limit
+                    or (subject_id not in subjects and len(subjects) >= daily_issuer_limit)):
+                return {"status": "WAIT_QUOTA"}
+            request_id = uuid4().hex
+            conn.execute("""
+                INSERT INTO scout_public_requests
+                    (request_id, source, subject_id, identity_key, run_token, attempted_at)
+                VALUES(?, ?, ?, ?, ?, ?)
+            """, (request_id, source, subject_id, identity_key, lease_token, clock))
+        return {"status": "RESERVED", "request_id": request_id}
+
+    def finish_public_request(self, request_id: str, *, outcome: str) -> None:
+        # RETURNED means only that the client returned. Row validation and
+        # specialist checks separately decide whether the payload is usable.
+        if outcome not in {"RETURNED", "FAILED"}:
+            raise ValueError("Invalid public-source request outcome")
+        with self._connect() as conn:
+            conn.execute("""
+                UPDATE scout_public_requests SET outcome=? WHERE request_id=? AND outcome='RUNNING'
+            """, (outcome, request_id))
 
     def fdic_check_states(self, *, as_of: datetime) -> dict[tuple[str, str], dict]:
         """Latest attempts for each dated manifest identity; never infer from findings."""

@@ -13,6 +13,9 @@ from urllib.request import Request, urlopen
 
 from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.services.public_source_budget import (
+    PublicBudgetExhausted, PublicSourceBudget, bounded_public_source,
+)
 
 
 CMS_DATASET = "029c119f-f79c-49be-9100-344d31d10344"
@@ -160,7 +163,9 @@ class HealthcareNameScoutService:
         self.max_subjects, self.page_size, self.max_pages = max_subjects, page_size, max_pages
         self.max_run_seconds, self.max_failures = max_run_seconds, max_failures
 
-    def run(self, *, as_of: datetime | None = None, universe: set[str] | None = None):
+    @bounded_public_source()
+    def run(self, *, as_of: datetime | None = None, universe: set[str] | None = None,
+            _budget: PublicSourceBudget):
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
             raise ValueError("Healthcare observation needs timezone")
@@ -172,8 +177,9 @@ class HealthcareNameScoutService:
             applicable &= universe
         if not applicable:
             return {"status": "NOT_APPLICABLE", "checked_issuers": 0, "new_findings": 0}
-        due = [row for row in self.store.specialist_due(source, as_of=clock, limit=900)
-               if row["subject_id"] in applicable][:self.max_subjects]
+        due = _budget.select_due([
+            row for row in self.store.specialist_due(source, as_of=clock, limit=900)
+            if row["subject_id"] in applicable])[:self.max_subjects]
         coverage = self.store.specialist_coverage(source, as_of=clock, subjects=applicable)
         if not due:
             return {"status": "WAIT_IDENTITY" if coverage["active_identities"] == 0 else "OK",
@@ -198,7 +204,9 @@ class HealthcareNameScoutService:
                         # Keep this issuer due; a timeout between pages is
                         # not a complete negative query and commits no rows.
                         raise TimeoutError("Healthcare time budget exhausted")
-                    rows, next_cursor = self.client.page(name, size=self.page_size, cursor=cursor)
+                    rows, next_cursor = _budget.call(
+                        issuer["subject_id"], f"{issuer['cik']}:{name}",
+                        lambda: self.client.page(name, size=self.page_size, cursor=cursor))
                     if not isinstance(rows, list) or len(rows) > self.page_size:
                         raise ValueError("Malformed healthcare page")
                     for row in rows:
@@ -223,6 +231,9 @@ class HealthcareNameScoutService:
                     cursor = next_cursor
                 else:
                     incomplete = True
+            except PublicBudgetExhausted:
+                budget_exhausted = True
+                break
             except HTTPError as exc:
                 failed += 1
                 if exc.code in {401, 403, 429}:

@@ -36,6 +36,9 @@ SOURCE_STATUS_CLASSES = {
     "NEVER_RUN": "NOT_ATTEMPTED",
     "WAIT_ACCESS": "NOT_ATTEMPTED",
     "WAIT_IDENTITY": "NOT_ATTEMPTED",
+    "WAIT_QUOTA": "NOT_ATTEMPTED",
+    "BUSY": "NOT_ATTEMPTED",
+    "NOT_APPLICABLE": "NOT_ATTEMPTED",
     "OK": "COMPLETE",
     "NO_DUE_WORK": "COMPLETE",
     "SAMPLED": "BOUNDED_PARTIAL",
@@ -56,6 +59,9 @@ def classify_source_run(summary: Mapping[str, object]) -> dict:
     status = summary.get("status")
     status_class = SOURCE_STATUS_CLASSES.get(status, "UNKNOWN")
     attempted = status_class not in {"NOT_ATTEMPTED", "UNKNOWN"}
+    if "attempted_requests" in summary:
+        count = summary["attempted_requests"]
+        attempted = attempted and isinstance(count, int) and not isinstance(count, bool) and count > 0
     positive_output = any(
         isinstance(summary.get(field), (int, float))
         and not isinstance(summary.get(field), bool)

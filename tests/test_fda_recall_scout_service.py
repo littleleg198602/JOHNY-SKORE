@@ -238,8 +238,11 @@ class FdaScoutTests(unittest.TestCase):
                                        company_name="Apple Inc.", as_of=NOW)
             failing = FdaRecallScoutService(store, client=FakeFda(fail=True))
             self.assertEqual(1, failing.run(as_of=NOW)["failed_issuers"])
+            self.assertEqual(0, store.specialist_coverage("fda", as_of=NOW)["ever_checked"])
+            self.assertEqual("WAIT_QUOTA", FdaRecallScoutService(store, client=FakeFda()).run(
+                as_of=NOW)["status"])
             self.assertEqual(1, FdaRecallScoutService(store, client=FakeFda()).run(
-                as_of=NOW)["checked_issuers"])
+                as_of=NOW + timedelta(days=1))["checked_issuers"])
 
     def test_fda_source_policy_rejects_foreign_host_and_verified_identity(self):
         with TemporaryDirectory() as directory:

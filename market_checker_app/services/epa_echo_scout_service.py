@@ -13,6 +13,9 @@ from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.services.public_source_budget import (
+    PublicBudgetExhausted, PublicSourceBudget, bounded_public_source,
+)
 
 
 EPA_ECHO_URL = "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
@@ -93,12 +96,14 @@ class EpaEchoScoutService:
         self.store, self.client = store, client
         self.max_subjects, self.max_run_seconds, self.max_failures = max_subjects, max_run_seconds, max_failures
 
-    def run(self, *, as_of: datetime | None = None, universe: set[str] | None = None) -> dict:
+    @bounded_public_source("epa")
+    def run(self, *, as_of: datetime | None = None, universe: set[str] | None = None,
+            _budget: PublicSourceBudget) -> dict:
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
             raise ValueError("EPA ECHO observation needs timezone")
         due = self.store.specialist_due("epa", as_of=clock, limit=900)
-        due = [row for row in due if universe is None or row["subject_id"] in universe][:self.max_subjects]
+        due = _budget.select_due([row for row in due if universe is None or row["subject_id"] in universe])[:self.max_subjects]
         if not due:
             active = self.store.specialist_coverage("epa", as_of=clock, subjects=universe)["active_identities"]
             return {"status":"OK" if active else "WAIT_IDENTITY", "checked_issuers":0, "new_findings":0}
@@ -110,7 +115,12 @@ class EpaEchoScoutService:
                 exhausted = True
                 break
             try:
-                rows, total = self.client.facilities(issuer["company_name"])
+                rows, total = _budget.call(
+                    issuer["subject_id"], f"{issuer['cik']}:{issuer['company_name']}",
+                    lambda: self.client.facilities(issuer["company_name"]))
+            except PublicBudgetExhausted:
+                exhausted = True
+                break
             except HTTPError as exc:
                 failed += 1
                 if exc.code in {401,403,429}:

@@ -15,6 +15,9 @@ from urllib.request import Request, urlopen
 from uuid import UUID
 
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.services.public_source_budget import (
+    PublicBudgetExhausted, PublicSourceBudget, bounded_public_source,
+)
 from market_checker_app.utils.source_validation import public_https_reference
 
 
@@ -128,12 +131,14 @@ class DojPressReleaseScoutService:
         self.max_subjects, self.page_size, self.max_pages = max_subjects, page_size, max_pages
         self.max_run_seconds, self.max_failures = max_run_seconds, max_failures
 
-    def run(self, *, as_of: datetime | None = None, universe: set[str] | None = None):
+    @bounded_public_source("doj")
+    def run(self, *, as_of: datetime | None = None, universe: set[str] | None = None,
+            _budget: PublicSourceBudget):
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
             raise ValueError("DOJ observation needs timezone")
         due = self.store.specialist_due("doj", as_of=clock, limit=900)
-        due = [i for i in due if universe is None or i["subject_id"] in universe][:self.max_subjects]
+        due = _budget.select_due([i for i in due if universe is None or i["subject_id"] in universe])[:self.max_subjects]
         if not due:
             active = self.store.specialist_coverage("doj", as_of=clock, subjects=universe)["active_identities"]
             return {"status": "OK" if active else "WAIT_IDENTITY", "checked_issuers": 0, "new_findings": 0}
@@ -151,7 +156,9 @@ class DojPressReleaseScoutService:
                     if time.monotonic() >= deadline:
                         exhausted = True
                         raise TimeoutError("DOJ time budget exhausted")
-                    rows, total = self.client.page(issuer["company_name"], size=self.page_size, page=page)
+                    rows, total = _budget.call(
+                        issuer["subject_id"], f"{issuer['cik']}:{issuer['company_name']}",
+                        lambda: self.client.page(issuer["company_name"], size=self.page_size, page=page))
                     if (not isinstance(rows, list) or len(rows) > self.page_size
                             or isinstance(total, bool) or not isinstance(total, int) or total < page*self.page_size+len(rows)):
                         raise ValueError("Malformed DOJ page")
@@ -180,6 +187,9 @@ class DojPressReleaseScoutService:
                         break
                 else:
                     incomplete = True
+            except PublicBudgetExhausted:
+                exhausted = True
+                break
             except HTTPError as exc:
                 failed += 1
                 if exc.code in {401, 403, 429}:

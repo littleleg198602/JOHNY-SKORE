@@ -141,7 +141,9 @@ class HealthcareScoutTests(unittest.TestCase):
             service = HealthcareNameScoutService(store, client=client)
             self.assertEqual("PARTIAL", service.run(as_of=NOW)["status"])
             client.error = HTTPError(CMS_URL, 429, "Too many", {}, None)
-            self.assertEqual("RATE_LIMITED", service.run(as_of=NOW)["status"])
+            self.assertEqual("WAIT_QUOTA", service.run(as_of=NOW)["status"])
+            self.assertEqual(1, len(client.calls))  # Failed requests are not refunded.
+            self.assertEqual("RATE_LIMITED", service.run(as_of=NOW + timedelta(days=1))["status"])
             self.assertEqual(0, store.specialist_coverage("cms", as_of=NOW)["ever_checked"])
 
     def test_profile_scope_never_queries_unrelated_issuer(self):
