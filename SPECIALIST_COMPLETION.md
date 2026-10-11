@@ -1,5 +1,50 @@
 # Pátrací specialisté: jediný seznam stavu
 
+## 11. 10. 2026 — trvalé denní kvóty pěti veřejných sběračů
+
+FDA, CMS, ClinicalTrials, DOJ a EPA dříve obnovily rozpočet při každém
+spuštění. Offline reprodukce na původním HEAD 96cc165 prokázala 50 firem
+místo denního limitu FDA 40 a opakování téhož chybného dotazu po restartu.
+Nový společný SQLite ledger rezervuje požadavek před I/O; selhání, odmítnutí,
+restart ani změna identity/scope kvótu nevrací. Výhradní provider lease brání
+souběžným voláním, HTTP 401/403/429 ukládají cooldown včetně Retry-After.
+Stránkování stejné firmy sdílí jeden běh; další běh ji znovu zkusí až další
+UTC den. Nedokončená firma zůstává splatná a dříve dokončené firmy zůstanou
+uložené. Dosud nezkoušené firmy mají přednost před staršími neúspěchy.
+
+| Zdroj | Firem / UTC den | Požadavků / UTC den |
+|---|---:|---:|
+| FDA | 40 | 320 |
+| CMS | 10 | 20 |
+| ClinicalTrials | 10 | 20 |
+| DOJ | 25 | 50 |
+| EPA | 10 | 10 |
+
+Jde o konzervativní limity aplikace, nikoli licenční oprávnění vydavatele.
+Telemetrie uchová pokusy, denní spotřebu a retry_at; WAIT_QUOTA/BUSY nejsou
+nové pokusy ani úspěšné kontroly. RETURNED znamená jen návrat klienta,
+nikoli validní data, ověřenou identitu či dokončení specialisty.
+
+Cíleně prošlo 12/12 nových quota testů, 108/108 sběračů a 18/18 akceptačních
+kontrol. Celá místní sada prošla 558/558 bez chyb a přeskočení, kompilace
+a diff kontrola také. Skutečný offline FDA collector s restarty a opakováním
+běhu zpracoval kanonických 687 tickerů za 18 denních dávek bez dalších
+volání ve stejný den. Nové payloady a identity jsou syntetické, síťových
+volání bylo nula; nejde o živé pokrytí. Důkaz, předchozí neúspěšné testovací
+pokusy a přesné otisky jsou v
+`evidence/public_source_daily_quotas_tests_20261011.json`.
+Hostovaná Windows kontrola čeká; skutečný uživatelský Windows běh a OOS
+historie chybí. Všechny stavy zůstávají beze změny, inventář je 0/21 DONE.
+
+Další dostupná práce: datované FDA application/product/sponsor–issuer vazby,
+CMS owner/subsidiary/provider–issuer vazby, energetická aktiva a expozice,
+poté připojení dalších sektorových zdrojů a kvóty zbývajících providerů.
+Nedoplňovat další SEC 13F identity jako výchozí jediný krok. Dokončené
+same-archive amendments, Form 4 klasifikaci ani bankovní mapu 22/22 není
+nutné opakovat bez nové chyby. Přístupy, skutečný Windows a historická data
+zůstávají oddělenými blokacemi; skóre a obchodování se nemění.
+
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen ze 145 na 150 kanonických
 instrumentů (HCA, MRSH, DDOG, EMR a ICE). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v

@@ -1,5 +1,50 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+## 11. 10. 2026 — trvalé denní kvóty pěti veřejných sběračů
+
+FDA, CMS, ClinicalTrials, DOJ a EPA dříve obnovily rozpočet při každém
+spuštění. Offline reprodukce na původním HEAD 96cc165 prokázala 50 firem
+místo denního limitu FDA 40 a opakování téhož chybného dotazu po restartu.
+Nový společný SQLite ledger rezervuje požadavek před I/O; selhání, odmítnutí,
+restart ani změna identity/scope kvótu nevrací. Výhradní provider lease brání
+souběžným voláním, HTTP 401/403/429 ukládají cooldown včetně Retry-After.
+Stránkování stejné firmy sdílí jeden běh; další běh ji znovu zkusí až další
+UTC den. Nedokončená firma zůstává splatná a dříve dokončené firmy zůstanou
+uložené. Dosud nezkoušené firmy mají přednost před staršími neúspěchy.
+
+| Zdroj | Firem / UTC den | Požadavků / UTC den |
+|---|---:|---:|
+| FDA | 40 | 320 |
+| CMS | 10 | 20 |
+| ClinicalTrials | 10 | 20 |
+| DOJ | 25 | 50 |
+| EPA | 10 | 10 |
+
+Jde o konzervativní limity aplikace, nikoli licenční oprávnění vydavatele.
+Telemetrie uchová pokusy, denní spotřebu a retry_at; WAIT_QUOTA/BUSY nejsou
+nové pokusy ani úspěšné kontroly. RETURNED znamená jen návrat klienta,
+nikoli validní data, ověřenou identitu či dokončení specialisty.
+
+Cíleně prošlo 12/12 nových quota testů, 108/108 sběračů a 18/18 akceptačních
+kontrol. Celá místní sada prošla 558/558 bez chyb a přeskočení, kompilace
+a diff kontrola také. Skutečný offline FDA collector s restarty a opakováním
+běhu zpracoval kanonických 687 tickerů za 18 denních dávek bez dalších
+volání ve stejný den. Nové payloady a identity jsou syntetické, síťových
+volání bylo nula; nejde o živé pokrytí. Důkaz, předchozí neúspěšné testovací
+pokusy a přesné otisky jsou v
+`evidence/public_source_daily_quotas_tests_20261011.json`.
+Hostovaná Windows kontrola čeká; skutečný uživatelský Windows běh a OOS
+historie chybí. Všechny stavy zůstávají beze změny, inventář je 0/21 DONE.
+
+Další dostupná práce: datované FDA application/product/sponsor–issuer vazby,
+CMS owner/subsidiary/provider–issuer vazby, energetická aktiva a expozice,
+poté připojení dalších sektorových zdrojů a kvóty zbývajících providerů.
+Nedoplňovat další SEC 13F identity jako výchozí jediný krok. Dokončené
+same-archive amendments, Form 4 klasifikaci ani bankovní mapu 22/22 není
+nutné opakovat bez nové chyby. Přístupy, skutečný Windows a historická data
+zůstávají oddělenými blokacemi; skóre a obchodování se nemění.
+
+
 Aktualizace 11. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 150
 kanonických instrumentů přidáním HCA, MRSH, DDOG, EMR a ICE. Přesné CUSIP,
 issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
@@ -793,7 +838,7 @@ Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
 |---|---|
 | Identita | Datované aliasy, dcery, značky a produkty; zapojit do cen i sektorových zdrojů. |
 | SEC | Živý běh celé fronty 687 firem, historie oprav a Windows akceptace. |
-| Insider | Schedule 13 amendment delty jsou jen as-filed kandidáti; zbývá právní identita reporting persons, širší datované instrumenty, živé pozitivní/negativní případy a typy Form 4. |
+| Insider | Schedule 13 amendment delty jsou jen as-filed kandidáti; zbývá právní identita reporting persons, širší datované instrumenty, živé pozitivní/negativní případy a živé Form 4 případy; klasifikace všech 20 kódů je již implementovaná. |
 | Kontrakty | Další ticker–dcera–UEI, modifikace zakázek a aktuální živé důkazy; SAM přístup. |
 | Regulace | Další vozidla, OFAC weak aliasy/Non-SDN/vlastnictví, DOJ a EPA; ALT.CSV entity aliasy jsou zapojené a mají živý zdrojový důkaz. |
 | Dodavatelé | Z citovaných právních názvů vytvořit datované entity a vztahy; koncentrace a živé dokumenty. |
@@ -802,10 +847,10 @@ Windows end-to-end nebo historickou evaluaci a nepřepisuje stav specialistů.
 | Short interest/borrow | FINRA účet a schema; datovaný instrument; licencovaný borrow pilot. |
 | FDA/medicína | Produkt/application/sponsor–emitent a širší události; dnešní schema není úplný crosswalk. |
 | Komodity | EIA živě s klíčem, USDA/USGS, firemní expozice a historická dostupnost hodnot. |
-| Banky | Registry mapuje 18 z 22 BANK profilů: 17 přes bankovní dcery a OZK/CERT 110 přes nový validovaný direct-bank model s konkrétním FDIC filingem, datem a common OZK instrumentem. Omezený živý pilot, persistence/scope a kvóty prošly; nejde o celé skupiny ani provozní pokrytí. MTB/CFR as-of zůstávají neověřené odděleně od publication floor; FHN výjimka je zachována. Zbývá PNFP, RF, WAL a ZION, další banky/změny vlastnictví, skutečný Windows běh a historická evaluace. |
+| Banky | Mapování všech 22 BANK profilů je hotové jako omezený identity pilot: 20 dcer a OZK/ZION jako přímí emitenti. Zbývají úplné relevantní skupiny, datované změny vlastnictví a instrumenty, změřený Windows/live provoz a historická evaluace. PNFP používá doložený successor CIK 0002082866. |
 | Zdravotní služby | CMS owner–dcera–emitent/provider, payer exposure a datované změny. |
 | Energie/utilities | Vlastní aktiva a expozice propojit s primárními tržními/regulatorními zdroji. |
-| Obrana/aerospace | Programy, dcery a recipient identity mimo jediný Sikorsky pilot. |
+| Obrana/aerospace | Rozšířit datované programy a dceřiné recipient identity mimo již doložené Sikorsky/LMT a Northrop Grumman Systems/NOC; měřené pokrytí, Windows a historie chybí. |
 | Ostatní sektory | Připojit konkrétní poskytovatele k otázkám 39 profilů a změřit relevantní pokrytí. |
 | Instituce | Živý SEC ZIP, amendments přes hranice čtvrtletních archivů a více doložených CUSIP; lokální same-archive restatement/new-holdings rekonstrukce je hotová. |
 | Konsensus/options/Level 2 | Poskytovatel, entitlement a měřený licencovaný pilot. |
