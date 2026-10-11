@@ -6,10 +6,15 @@ issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
 obsahově zaznamenány v
 `evidence/sec13f_identity_expansion30_20261011.json`. Měřené identity
 coverage je 150/687 (0,218341), 537 položek zůstává bez mapování. Zaměřená
-lokální sada SEC 13F prošla 6/6; hostovaná Linux/Windows kontrola tohoto
-rozšíření zatím není doložena. Bez živého SEC ZIP/holdings, skutečného
-uživatelského Windows běhu, úplné corporate-action historie a OOS evaluace
-zůstává institutions PILOT/PENDING a inventář 0/21 DONE.
+lokální sada SEC 13F prošla 6/6. Commit a5bfe718 prošel hostovaným Linux i
+Windows během 546/546, jmenovitým testem registru a release gate. Artifact
+11696312134 má shodný publikovaný a stažený SHA-256 a jeho dva soubory byly
+hashově a obsahově ověřeny. Přesná evidence je v
+`evidence/sec13f_identity_expansion30_tests_20261011.json` a
+`evidence/sec13f_identity_expansion30_windows_20261011.json`. Bez živého SEC
+ZIP/holdings, skutečného uživatelského Windows běhu, úplné corporate-action
+historie a OOS evaluace zůstává institutions PILOT/PENDING a inventář 0/21
+DONE.
 
 Aktualizace 11. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 145
 kanonických instrumentů přidáním MMM, CSX, CMCSA, MNST a WMB. Přesné CUSIP,

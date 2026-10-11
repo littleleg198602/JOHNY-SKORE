@@ -5,9 +5,14 @@ instrumentů (HCA, MRSH, DDOG, EMR a ICE). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v
 `evidence/sec13f_identity_expansion30_20261011.json`. Coverage je 150/687
 (0,218341), 537 tickerů zůstává nezmapovaných. Zaměřená lokální sada SEC 13F
-prošla 6/6; hostovaná Linux/Windows kontrola tohoto rozšíření zatím chybí.
-Nejde o živý ZIP/holdings běh ani uživatelský Windows end-to-end. Stav
-zůstává institutions PILOT/PENDING a 0/21 DONE.
+prošla 6/6. Commit a5bfe718 následně uspěl na Linuxu i GitHub-hosted Windows
+546/546 včetně jmenovitého testu registru a release gate. Artifact
+11696312134 má shodný publikovaný a stažený SHA-256; oba soubory byly
+hashově a obsahově ověřeny. Důkazy jsou v
+`evidence/sec13f_identity_expansion30_tests_20261011.json` a
+`evidence/sec13f_identity_expansion30_windows_20261011.json`. Nejde o živý
+ZIP/holdings běh ani uživatelský Windows end-to-end. Stav zůstává
+institutions PILOT/PENDING a 0/21 DONE.
 
 Registr SEC 13F pro 2026 Q2 byl rozšířen ze 140 na 145 kanonických
 instrumentů (MMM, CSX, CMCSA, MNST a WMB). Oficiální SEC zdroje, datované
