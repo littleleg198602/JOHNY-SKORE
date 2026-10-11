@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T09:23:55.793464+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "cms",
+    "clinicaltrials"
+  ],
+  "cases": {
+    "cms_positive_name_schema": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:23:55.800614+00:00",
+      "source_url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+      "query_name": "LIFEPOINT HOLDINGS 2 LLC",
+      "scope": "publisher schema and exact name; no watchlist issuer assigned",
+      "next_cursor_present": true,
+      "parsed_candidates": [
+        [
+          "O20020812000015:0244144871:35:2025-03-01",
+          {
+            "ENROLLMENT ID": "O20020812000015",
+            "ASSOCIATE ID - OWNER": "0244144871",
+            "ORGANIZATION NAME": "SOUTHERN TENNESSEE MEDICAL CENTER LLC",
+            "ASSOCIATION DATE - OWNER": "2025-03-01",
+            "ROLE CODE - OWNER": "35",
+            "ORGANIZATION NAME - OWNER": "LIFEPOINT HOLDINGS 2 LLC",
+            "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+            "PERCENTAGE OWNERSHIP": "80",
+            "stage": "cms_hospital_owner_name_candidate",
+            "dataset_id": "029c119f-f79c-49be-9100-344d31d10344",
+            "association_date_is_publication_time": false
+          }
+        ],
+        [
+          "O20040814000029:0244144871:34:1999-04-01",
+          {
+            "ENROLLMENT ID": "O20040814000029",
+            "ASSOCIATE ID - OWNER": "0244144871",
+            "ORGANIZATION NAME": "HILLSIDE HOSPITAL LLC",
+            "ASSOCIATION DATE - OWNER": "1999-04-01",
+            "ROLE CODE - OWNER": "34",
+            "ORGANIZATION NAME - OWNER": "LIFEPOINT HOLDINGS 2 LLC",
+            "ROLE TEXT - OWNER": "5% OR GREATER DIRECT OWNERSHIP INTEREST",
+            "PERCENTAGE OWNERSHIP": "100",
+            "stage": "cms_hospital_owner_name_candidate",
+            "dataset_id": "029c119f-f79c-49be-9100-344d31d10344",
+            "association_date_is_publication_time": false
+          }
+        ]
+      ]
+    },
+    "cms_negative_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:24:03.673855+00:00",
+      "source_url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+      "query_name": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+      "scope": "absent exact name, not issuer-wide absence",
+      "returned_rows": 0
+    },
+    "clinicaltrials_positive_name_schema": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:24:10.242866+00:00",
+      "source_url": "https://clinicaltrials.gov/api/v2/studies",
+      "query_name": "Pfizer",
+      "scope": "publisher schema and exact name; no watchlist issuer assigned",
+      "next_cursor_present": true,
+      "parsed_candidates": [
+        [
+          "NCT06279234",
+          {
+            "stage": "clinical_trial_sponsor_name_candidate",
+            "nct_id": "NCT06279234",
+            "title": "A Study to Learn How Different Amounts of PF-06954522 Are Tolerated and Act in Adults With Type 2 Diabetes Mellitus",
+            "matched_roles": [
+              "LEAD_SPONSOR"
+            ],
+            "lead_sponsor": "Pfizer",
+            "overall_status": "COMPLETED",
+            "last_update_posted": "2025-06-03",
+            "has_results": false,
+            "posted_date_is_first_observation": false,
+            "phases": [
+              "PHASE1"
+            ]
+          }
+        ],
+        [
+          "NCT01188655",
+          {
+            "stage": "clinical_trial_sponsor_name_candidate",
+            "nct_id": "NCT01188655",
+            "title": "Observational Non-Interventional Study With Enbrel (Etanercept) in Patients With Ankylosing Spondylitis",
+            "matched_roles": [
+              "LEAD_SPONSOR"
+            ],
+            "lead_sponsor": "Pfizer",
+            "overall_status": "COMPLETED",
+            "last_update_posted": "2011-09-12",
+            "has_results": true,
+            "posted_date_is_first_observation": false
+          }
+        ]
+      ]
+    },
+    "clinicaltrials_negative_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T09:24:17.838711+00:00",
+      "source_url": "https://clinicaltrials.gov/api/v2/studies",
+      "query_name": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+      "scope": "absent exact name, not issuer-wide absence",
+      "returned_rows": 0
+    }
+  },
+  "finished_at": "2026-10-01T09:24:26.915182+00:00"
+}

@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "evidence_type": "captured_payload_scheduler_replay_NOT_new_live_acceptance",
+  "generated_at": "2026-10-01T14:05:23.264218+00:00",
+  "platform": "Linux",
+  "network_requests_in_this_check": 0,
+  "new_live_source_evidence": false,
+  "simulated_schedule_times_are_not_source_observation_times": true,
+  "procedure": "Reopen SQLite before every run; captured official financials only. max_banks=2, daily_budget=3; day one 2/1/0 attempts, next day 2/1/0, day 30 reingests two captured payloads with zero duplicate findings.",
+  "source_captures": [
+    {
+      "artifact": "evidence/specialist_live_20261001.json",
+      "artifact_sha256": "1ba9a7db54c1797d2d51b505c25e12a78ac358f4a07b403bfb13504cc6331a1e",
+      "case": "fdic_positive_JPM",
+      "source_observed_at": "2026-10-01T09:14:10.404164+00:00",
+      "cert": 628,
+      "payload_sha256": "1aae5833b19e40a734a6dc5394042487e7eb206a3dce0530dfb27f09bf8d0be1"
+    },
+    {
+      "artifact": "evidence/specialist_live_20261001.json",
+      "artifact_sha256": "1ba9a7db54c1797d2d51b505c25e12a78ac358f4a07b403bfb13504cc6331a1e",
+      "case": "fdic_positive_BAC",
+      "source_observed_at": "2026-10-01T09:14:21.163784+00:00",
+      "cert": 3510,
+      "payload_sha256": "79be525b55ba8b3c5ac8fabc03219f4c3c930c33403e80c91ab156baa48a71bc"
+    },
+    {
+      "artifact": "evidence/specialist_live_20261001.json",
+      "artifact_sha256": "1ba9a7db54c1797d2d51b505c25e12a78ac358f4a07b403bfb13504cc6331a1e",
+      "case": "fdic_positive_WFC",
+      "source_observed_at": "2026-10-01T09:14:28.966000+00:00",
+      "cert": 3511,
+      "payload_sha256": "15e22d90cf56ccee3e65a2ec30b5b5f0f8da166eca3a7a8deb9efb4577057dc1"
+    },
+    {
+      "artifact": "evidence/specialist_live_20261001.json",
+      "artifact_sha256": "1ba9a7db54c1797d2d51b505c25e12a78ac358f4a07b403bfb13504cc6331a1e",
+      "case": "fdic_positive_C",
+      "source_observed_at": "2026-10-01T09:14:34.607431+00:00",
+      "cert": 7213,
+      "payload_sha256": "7718b5cd2bba4984a239764b5079e97c3d0783e29624a5148a6e9dcc9f00c542"
+    },
+    {
+      "artifact": "evidence/fdic_expansion_live_20261001.json",
+      "artifact_sha256": "275567cc8257591016d830311ac7f1cae17298904c2f1b999ed17467887f5263",
+      "case": "fdic_positive_PNC",
+      "source_observed_at": "2026-10-01T13:17:33.294450+00:00",
+      "cert": 6384,
+      "payload_sha256": "3aa0b4007fa48237a5a74eaebf0bcb74a5529fb2b861d4f32cb2c33426806ec6"
+    },
+    {
+      "artifact": "evidence/fdic_expansion_live_20261001.json",
+      "artifact_sha256": "275567cc8257591016d830311ac7f1cae17298904c2f1b999ed17467887f5263",
+      "case": "fdic_positive_USB",
+      "source_observed_at": "2026-10-01T13:17:48.301046+00:00",
+      "cert": 6548,
+      "payload_sha256": "1a65da53bb3b2152674123b4797456ec436b1e60c985018033305c28081593b5"
+    }
+  ],
+  "code_sha256": {
+    "market_checker_app/services/fdic_bank_scout_service.py": "bb061fb8271269771a13f30e87db68eb69b527a12b14a415fa0b206cfa4a5b15",
+    "market_checker_app/storage/scout_store.py": "a99504a3a4c657bbcb9d998b7794e055203eb797123ea774e52ed04a329d63bc",
+    "market_checker_app/services/specialist_acceptance_service.py": "735162263c7a2fb23b7b34b7655f5ddd8688e7cb320c6a7d3be6546a9fe98588"
+  },
+  "steps": [
+    {
+      "simulated_as_of": "2026-10-01T14:05:23.144993+00:00",
+      "summary": {
+        "status": "PARTIAL",
+        "checked_banks": 2,
+        "usable_banks": 2,
+        "rejected_rows": 0,
+        "new_findings": 4,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 2,
+        "due_banks": 6,
+        "deferred_banks": 4,
+        "budget_exhausted": true,
+        "daily_requests": 2
+      },
+      "coverage": {
+        "status": "MEASURED",
+        "applicable_profile_subjects": 22,
+        "refresh_days": 30,
+        "query_scope": "latest_two_reports_per_CERT",
+        "complete_issuer_groups_verified": false,
+        "mapped_subjects": 6,
+        "mapped_banks": 6,
+        "never_attempted_banks": 4,
+        "stale_banks": 0,
+        "current_usable_banks": 2,
+        "current_partial_banks": 0,
+        "current_empty_banks": 0,
+        "current_failed_banks": 0,
+        "inflight_banks": 0,
+        "unmapped_profile_subjects": 16
+      }
+    },
+    {
+      "simulated_as_of": "2026-10-01T14:06:23.144993+00:00",
+      "summary": {
+        "status": "PARTIAL",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 4,
+        "deferred_banks": 3,
+        "budget_exhausted": true,
+        "daily_requests": 3
+      },
+      "coverage": {
+        "status": "MEASURED",
+        "applicable_profile_subjects": 22,
+        "refresh_days": 30,
+        "query_scope": "latest_two_reports_per_CERT",
+        "complete_issuer_groups_verified": false,
+        "mapped_subjects": 6,
+        "mapped_banks": 6,
+        "never_attempted_banks": 3,
+        "stale_banks": 0,
+        "current_usable_banks": 3,
+        "current_partial_banks": 0,
+        "current_empty_banks": 0,
+        "current_failed_banks": 0,
+        "inflight_banks": 0,
+        "unmapped_profile_subjects": 16
+      }
+    },
+    {
+      "simulated_as_of": "2026-10-01T14:07:23.144993+00:00",
+      "summary": {
+        "status": "PARTIAL",
+        "checked_banks": 0,
+        "usable_banks": 0,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 0,
+        "due_banks": 3,
+        "deferred_banks": 3,
+        "budget_exhausted": true,
+        "daily_requests": 3
+      },
+      "coverage": {
+        "status": "MEASURED",
+        "applicable_profile_subjects": 22,
+        "refresh_days": 30,
+        "query_scope": "latest_two_reports_per_CERT",
+        "complete_issuer_groups_verified": false,
+        "mapped_subjects": 6,
+        "mapped_banks": 6,
+        "never_attempted_banks": 3,
+        "stale_banks": 0,
+        "current_usable_banks": 3,
+        "current_partial_banks": 0,
+        "current_empty_banks": 0,
+        "current_failed_banks": 0,
+        "inflight_banks": 0,
+        "unmapped_profile_subjects": 16
+      }
+    },
+    {
+      "simulated_as_of": "2026-10-02T14:05:23.144993+00:00",
+      "summary": {
+        "status": "PARTIAL",
+        "checked_banks": 2,
+        "usable_banks": 2,
+        "rejected_rows": 0,
+        "new_findings": 4,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 2,
+        "due_banks": 3,
+        "deferred_banks": 1,
+        "budget_exhausted": true,
+        "daily_requests": 2
+      },
+      "coverage": {
+        "status": "MEASURED",
+        "applicable_profile_subjects": 22,
+        "refresh_days": 30,
+        "query_scope": "latest_two_reports_per_CERT",
+        "complete_issuer_groups_verified": false,
+        "mapped_subjects": 6,
+        "mapped_banks": 6,
+        "never_attempted_banks": 1,
+        "stale_banks": 0,
+        "current_usable_banks": 5,
+        "current_partial_banks": 0,
+        "current_empty_banks": 0,
+        "current_failed_banks": 0,
+        "inflight_banks": 0,
+        "unmapped_profile_subjects": 16
+      }
+    },
+    {
+      "simulated_as_of": "2026-10-02T14:06:23.144993+00:00",
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 3
+      },
+      "coverage": {
+        "status": "MEASURED",
+        "applicable_profile_subjects": 22,
+        "refresh_days": 30,
+        "query_scope": "latest_two_reports_per_CERT",
+        "complete_issuer_groups_verified": false,
+        "mapped_subjects": 6,
+        "mapped_banks": 6,
+        "never_attempted_banks": 0,
+        "stale_banks": 0,
+        "current_usable_banks": 6,
+        "current_partial_banks": 0,
+        "current_empty_banks": 0,
+        "current_failed_banks": 0,
+        "inflight_banks": 0,
+        "unmapped_profile_subjects": 16
+      }
+    },
+    {
+      "simulated_as_of": "2026-10-02T14:07:23.144993+00:00",
+      "summary": {
+        "status": "NO_DUE_WORK",
+        "checked_banks": 0,
+        "usable_banks": 0,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 0,
+        "due_banks": 0,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 3
+      },
+      "coverage": {
+        "status": "MEASURED",
+        "applicable_profile_subjects": 22,
+        "refresh_days": 30,
+        "query_scope": "latest_two_reports_per_CERT",
+        "complete_issuer_groups_verified": false,
+        "mapped_subjects": 6,
+        "mapped_banks": 6,
+        "never_attempted_banks": 0,
+        "stale_banks": 0,
+        "current_usable_banks": 6,
+        "current_partial_banks": 0,
+        "current_empty_banks": 0,
+        "current_failed_banks": 0,
+        "inflight_banks": 0,
+        "unmapped_profile_subjects": 16
+      }
+    },
+    {
+      "simulated_as_of": "2026-10-31T14:05:23.144993+00:00",
+      "summary": {
+        "status": "OK",
+        "checked_banks": 2,
+        "usable_banks": 2,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 2,
+        "due_banks": 2,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "coverage": {
+        "status": "MEASURED",
+        "applicable_profile_subjects": 22,
+        "refresh_days": 30,
+        "query_scope": "latest_two_reports_per_CERT",
+        "complete_issuer_groups_verified": false,
+        "mapped_subjects": 6,
+        "mapped_banks": 6,
+        "never_attempted_banks": 0,
+        "stale_banks": 0,
+        "current_usable_banks": 6,
+        "current_partial_banks": 0,
+        "current_empty_banks": 0,
+        "current_failed_banks": 0,
+        "inflight_banks": 0,
+        "unmapped_profile_subjects": 16
+      }
+    }
+  ],
+  "result": "PASS",
+  "mapped_BANK_profile_subjects": 6,
+  "applicable_BANK_profile_subjects": 22,
+  "complete_issuer_groups_verified": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "score_changed": false
+}

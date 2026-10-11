@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-04T06:51:20.254180+00:00",
+  "publisher": "U.S. Securities and Exchange Commission",
+  "scope": "Five additional canonical instruments, bringing the bounded 2026 Q2 SEC 13F registry to thirty-five; not full-universe coverage or a live 13F dataset run",
+  "quarter": {
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt"
+  },
+  "ticker_source": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "limitation": "Current SEC ticker-to-CIK publication observed at knowledge time; it does not establish continuous historical ticker ownership or corporate-action continuity"
+  },
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "new_tickers_present": ["LRCX", "CVX", "UNH", "MRK", "PG"]
+  },
+  "entries": [
+    {
+      "ticker": "LRCX",
+      "issuer_cik": "0000707549",
+      "cusip": "512807306",
+      "issuer_name_in_13f_list": "LAM RESEARCH CORP",
+      "class_in_13f_list": "COM NEW",
+      "official_list_locator": "line 15220 / CUSIP 512807306",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "Lam Research Corporation / COM NEW / CUSIP 512807306 / report period 2026-06-30"
+    },
+    {
+      "ticker": "CVX",
+      "issuer_cik": "0000093410",
+      "cusip": "166764100",
+      "issuer_name_in_13f_list": "CHEVRON CORPORATION",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 6090 / CUSIP 166764100",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/93410/000119312526227102/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Chevron Corporation / Common Stock / CUSIP 166764100 / event 2026-03-31"
+    },
+    {
+      "ticker": "UNH",
+      "issuer_cik": "0000731766",
+      "cusip": "91324P102",
+      "issuer_name_in_13f_list": "UNITEDHEALTH GROUP INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 23570 / CUSIP 91324P102",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "UnitedHealth Group Inc. / COM / CUSIP 91324P102 / report period 2026-06-30"
+    },
+    {
+      "ticker": "MRK",
+      "issuer_cik": "0000310158",
+      "cusip": "58933Y105",
+      "issuer_name_in_13f_list": "MERCK & CO INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 16135 / CUSIP 58933Y105",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "Merck & Co., Inc / COM / CUSIP 58933Y105 / report period 2026-06-30"
+    },
+    {
+      "ticker": "PG",
+      "issuer_cik": "0000080424",
+      "cusip": "742718109",
+      "issuer_name_in_13f_list": "PROCTER & GAMBLE CO",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 18485 / CUSIP 742718109",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "The Procter & Gamble Co. / COM / CUSIP 742718109 / report period 2026-06-30"
+    }
+  ],
+  "validation_contract": {
+    "cusip_check_digit_required": true,
+    "issuer_name_must_match_dataset": true,
+    "security_class_must_match_dataset": true,
+    "issuer_cik_required": true,
+    "amendments_included": false,
+    "scoring_changed": false
+  },
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "identity_coverage": "35/687",
+    "unmapped_tickers": 652,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

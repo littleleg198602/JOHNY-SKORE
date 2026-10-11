@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "evidence_type": "deterministic_test_run",
+  "subject": "Seventh SEC 13F identity expansion to thirty-five canonical instruments",
+  "run": {
+    "started_at": "2026-10-04T06:54:02+00:00",
+    "ended_at": "2026-10-04T06:55:40+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "duration_seconds": 97.074,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true
+  },
+  "targeted_run": {
+    "tests_run": 27,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "modules": [
+      "tests.test_sec13f_scout_service",
+      "tests.test_specialist_status",
+      "tests.test_specialist_acceptance_service"
+    ]
+  },
+  "additional_checks": {
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "json_validation": "PASS",
+    "canonical_ticker_count": 687,
+    "reviewed_registry_count": 35,
+    "reviewed_registry_unique_tickers": 35,
+    "reviewed_registry_unique_cusips": 35
+  },
+  "sha256": {
+    "market_checker_app/data/verified_13f_securities.json": "979e6dc19ca317f2e835c281cdc60253ccec8ff558c8639e893c381e85d35237",
+    "tests/test_sec13f_scout_service.py": "e02c7cf4f9776a45439e88e66acfed915ab13f73cd34db4fa8c630c1752a4452",
+    "evidence/sec13f_identity_expansion7_20261004.json": "5d3de3803e1d964f7148510ea695b9abed15ff8dc00aa8c93ba34ceddbc12eb6"
+  },
+  "diagnostic": "The first complete-suite invocation ran before repository-declared dependencies were installed and ended with 22 import errors after 440 tests. It is not counted as a pass. After installing market_checker_app/requirements.txt, the complete 546-test discovery run above passed.",
+  "acceptance_limits": {
+    "hosted_windows_run": "PENDING",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "full_687_coverage": false,
+    "identity_coverage": "35/687",
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

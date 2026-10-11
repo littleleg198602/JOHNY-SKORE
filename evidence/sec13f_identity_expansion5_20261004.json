@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T23:54:06.862292+00:00",
+  "publisher": "U.S. Securities and Exchange Commission",
+  "scope": "Five additional canonical instruments, bringing the bounded 2026 Q2 SEC 13F registry to twenty-five; not full-universe coverage or a live 13F dataset run",
+  "quarter": {
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt"
+  },
+  "ticker_source": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "limitation": "Current SEC ticker-to-CIK publication observed at knowledge time; it does not establish continuous historical ticker ownership or corporate-action continuity"
+  },
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "new_tickers_present": ["BAC", "PFE", "KO", "ORCL", "NFLX"]
+  },
+  "entries": [
+    {
+      "ticker": "BAC",
+      "issuer_cik": "0000070858",
+      "cusip": "060505104",
+      "issuer_name_in_13f_list": "BANK OF AMER CORP",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 4515 / CUSIP 060505104",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/70858/000010290926000100/xslSCHEDULE_13G_X01/primary_doc.xml",
+      "instrument_evidence_fields": "Bank of America Corp / Common Stock / CUSIP 060505104 / event 2025-12-31"
+    },
+    {
+      "ticker": "PFE",
+      "issuer_cik": "0000078003",
+      "cusip": "717081103",
+      "issuer_name_in_13f_list": "PFIZER INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 18135 / CUSIP 717081103",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/78003/000210011926001294/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Pfizer Inc / Common Stock / CUSIP 717081103 / event 2026-03-31"
+    },
+    {
+      "ticker": "KO",
+      "issuer_cik": "0000021344",
+      "cusip": "191216100",
+      "issuer_name_in_13f_list": "COCA COLA CO",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 6299 / CUSIP 191216100",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/21344/000210011926000313/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Coca-Cola Co/The / Common Stock / CUSIP 191216100 / event 2026-03-31"
+    },
+    {
+      "ticker": "ORCL",
+      "issuer_cik": "0001341439",
+      "cusip": "68389X105",
+      "issuer_name_in_13f_list": "ORACLE CORP",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 17472 / CUSIP 68389X105",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000110465924021637/tv01623-oraclecorp.htm",
+      "instrument_evidence_fields": "Oracle Corp / Common Stock / CUSIP 68389X105 / event 2023-12-29",
+      "limitation": "The separate class/CUSIP filing predates the effective quarter; the official 2026 Q2 13F list is the contemporaneous quarter evidence, and continuous corporate-action history remains unverified"
+    },
+    {
+      "ticker": "NFLX",
+      "issuer_cik": "0001065280",
+      "cusip": "64110L106",
+      "issuer_name_in_13f_list": "NETFLIX INC.",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 16698 / CUSIP 64110L106",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/315066/000031506626002077/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Netflix Inc / Common Stock / CUSIP 64110L106 / event 2026-06-30"
+    }
+  ],
+  "validation_contract": {
+    "cusip_check_digit_required": true,
+    "issuer_name_must_match_dataset": true,
+    "security_class_must_match_dataset": true,
+    "issuer_cik_required": true,
+    "amendments_included": false,
+    "scoring_changed": false
+  },
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

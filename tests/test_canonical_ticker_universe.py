@@ -26,6 +26,10 @@ class CanonicalTickerUniverseTests(unittest.TestCase):
         self.assertEqual("NVDA", records[0]["ticker"])
         self.assertEqual("OLN", records[-1]["ticker"])
         self.assertEqual(
+            {"ticker": "BRKB", "yahoo_ticker": "BRK-B"},
+            next(record for record in records if record["ticker"] == "BRKB"),
+        )
+        self.assertEqual(
             "market_checker_20260818_213623.xlsx",
             CANONICAL_SOURCE_FILE,
         )

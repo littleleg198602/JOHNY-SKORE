@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T16:57:02+00:00",
+  "evidence_type": "deterministic_regression_test",
+  "subject": "Fail-closed Schedule 13D/G amendment comparison from source-verified primary documents",
+  "base_commit": "8db3dcba2112214b69e5a04cc02fff69d6c78cb4",
+  "pull_request": 160,
+  "comparison_contract": {
+    "required_source": "SOURCE_VERIFIED SEC primary document, not filing index",
+    "required_chain": "earlier original filing and one unambiguous later /A predecessor chain",
+    "required_exact_fields": [
+      "canonical ticker",
+      "issuer CIK",
+      "Schedule 13D or Schedule 13G family",
+      "single registry-matched CUSIP",
+      "exact as-filed reporting-person name set"
+    ],
+    "required_numeric_fields": [
+      "aggregate beneficial shares for every reporting person",
+      "percent of class for every reporting person"
+    ],
+    "knowledge_time_enforced": true,
+    "comparison_output": "AS_FILED_CANDIDATE",
+    "reporting_person_identity_resolved": false,
+    "ownership_change_interpreted": false,
+    "human_review_required": true,
+    "scoring_applied": false
+  },
+  "negative_cases": [
+    "orphan amendment",
+    "changed as-filed reporting-person name",
+    "missing numeric cover field",
+    "index-only document",
+    "future amendment",
+    "ambiguous predecessor"
+  ],
+  "validation": {
+    "focused_command": "python -m unittest tests.test_governance_event_agent tests.test_sec_document_scout tests.test_sec_schedule13_extraction",
+    "focused_tests_run": 21,
+    "focused_failures": 0,
+    "focused_errors": 0,
+    "full_command": "python -m unittest discover -s tests -p 'test_*.py'",
+    "full_tests_run": 543,
+    "full_failures": 0,
+    "full_errors": 0,
+    "full_duration_seconds": 135.492,
+    "initial_clean_host_attempt": {
+      "tests_run_before_import_failures": 437,
+      "import_errors": 22,
+      "successful": false,
+      "reason": "Declared project dependencies were not installed; the failed attempt is not counted as a pass."
+    },
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "sha256": {
+    "market_checker_app/agents/governance_event_agent.py": "ddfeca38a65b08f2be82a205f09062b6806122493bd79e7e197093c72a55ae18",
+    "market_checker_app/agents/scout_index_agent.py": "8042cf47b8cbc39c322b75480b571cd9f0a5a8644f4961bd6556698c44e4884c",
+    "tests/test_governance_event_agent.py": "9ef1ae1e283b29101b20891390e77dd3637bc68d0ddf3d3828a4ee94638dd0c6"
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed": false,
+    "comparison_is_document_driven": true
+  },
+  "acceptance_limits": {
+    "local_as_filed_amendment_comparison_verified": true,
+    "reporting_person_legal_identity_verified": false,
+    "ownership_change_interpreted": false,
+    "positive_and_negative_live_cases_verified": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

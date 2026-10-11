@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-02T17:07:55.189175+00:00",
+  "publisher": "U.S. Securities and Exchange Commission",
+  "scope": "Five additional canonical instruments, bringing the bounded 2026 Q2 SEC 13F registry to ten; not full-universe coverage or a live 13F dataset run",
+  "quarter": {
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt"
+  },
+  "ticker_source": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "limitation": "Current SEC ticker-to-CIK publication observed at knowledge time; it does not establish continuous historical ticker ownership or corporate-action continuity"
+  },
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "new_tickers_present": ["GOOGL", "TSLA", "AVGO", "AMD", "JPM"]
+  },
+  "entries": [
+    {
+      "ticker": "GOOGL",
+      "issuer_cik": "0001652044",
+      "cusip": "02079K305",
+      "issuer_name_in_13f_list": "ALPHABET INC",
+      "class_in_13f_list": "CAP STK CL A",
+      "official_list_locator": "CUSIP 02079K305",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1652044/000210011926000161/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Alphabet Inc / Class A Common Stock / CUSIP 02079K305 / event 2026-03-31"
+    },
+    {
+      "ticker": "TSLA",
+      "issuer_cik": "0001318605",
+      "cusip": "88160R101",
+      "issuer_name_in_13f_list": "TESLA INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "CUSIP 88160R101",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1318605/000210011926001134/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Tesla Inc / Common Stock / CUSIP 88160R101 / event 2026-03-31"
+    },
+    {
+      "ticker": "AVGO",
+      "issuer_cik": "0001730168",
+      "cusip": "11135F101",
+      "issuer_name_in_13f_list": "BROADCOM INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "CUSIP 11135F101",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1730168/000010290926000847/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Broadcom Inc / Common Stock / CUSIP 11135F101 / event 2026-03-13"
+    },
+    {
+      "ticker": "AMD",
+      "issuer_cik": "0000002488",
+      "cusip": "007903107",
+      "issuer_name_in_13f_list": "ADVANCED MICRO DEVICES INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "CUSIP 007903107",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2488/000210011926000052/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Advanced Micro Devices Inc / Common Stock / CUSIP 007903107 / event 2026-03-31"
+    },
+    {
+      "ticker": "JPM",
+      "issuer_cik": "0000019617",
+      "cusip": "46625H100",
+      "issuer_name_in_13f_list": "JPMORGAN CHASE & CO",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "CUSIP 46625H100",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/19617/000210011926000693/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "JPMorgan Chase & Co / Common Stock / CUSIP 46625H100 / event 2026-03-31"
+    }
+  ],
+  "validation_contract": {
+    "cusip_check_digit_required": true,
+    "issuer_name_must_match_dataset": true,
+    "security_class_must_match_dataset": true,
+    "issuer_cik_required": true,
+    "amendments_included": false,
+    "scoring_changed": false
+  },
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

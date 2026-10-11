@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-02T14:32:20.379409+00:00",
+  "publisher": "U.S. Securities and Exchange Commission",
+  "scope": "Five canonical instruments for the 2026 Q2 SEC 13F securities list; this is not a full-universe registry or a live 13F dataset run",
+  "quarter": {
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt"
+  },
+  "ticker_source": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "limitation": "Current SEC ticker-to-CIK publication observed at knowledge time; it does not establish continuous historical ticker ownership or corporate-action continuity"
+  },
+  "entries": [
+    {
+      "ticker": "AAPL",
+      "issuer_cik": "0000320193",
+      "cusip": "037833100",
+      "issuer_name_in_13f_list": "APPLE INC",
+      "class_in_13f_list": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000630/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "manifest_known_at": "2026-09-30T20:15:51+00:00",
+      "status": "PREVIOUSLY_CONFIGURED"
+    },
+    {
+      "ticker": "MSFT",
+      "issuer_cik": "0000789019",
+      "cusip": "594918104",
+      "issuer_name_in_13f_list": "MICROSOFT CORP",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "CUSIP 594918104",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/789019/000010290926001884/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Microsoft Corp / Common Stock / CUSIP 594918104 / event 2026-03-13",
+      "manifest_known_at": "2026-10-02T14:32:20.379409+00:00"
+    },
+    {
+      "ticker": "NVDA",
+      "issuer_cik": "0001045810",
+      "cusip": "67066G104",
+      "issuer_name_in_13f_list": "NVIDIA CORPORATION",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "CUSIP 67066G104",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1045810/000210011926000017/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "NVIDIA Corp / Common Stock / CUSIP 67066G104 / event 2026-03-31",
+      "manifest_known_at": "2026-10-02T14:32:20.379409+00:00"
+    },
+    {
+      "ticker": "AMZN",
+      "issuer_cik": "0001018724",
+      "cusip": "023135106",
+      "issuer_name_in_13f_list": "AMAZON COM INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "CUSIP 023135106",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1018724/000210011926000133/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Amazon.com Inc / Common Stock / CUSIP 023135106 / event 2026-03-31",
+      "manifest_known_at": "2026-10-02T14:32:20.379409+00:00"
+    },
+    {
+      "ticker": "META",
+      "issuer_cik": "0001326801",
+      "cusip": "30303M102",
+      "issuer_name_in_13f_list": "META PLATFORMS INC",
+      "class_in_13f_list": "CL A",
+      "official_list_locator": "CUSIP 30303M102",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1326801/000031506626002069/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "META PLATFORMS INC / CLASS A COMMON STOCK / CUSIP 30303M102 / signed 2026-08-05",
+      "manifest_known_at": "2026-10-02T14:32:20.379409+00:00"
+    }
+  ],
+  "validation_contract": {
+    "cusip_check_digit_required": true,
+    "issuer_name_must_match_dataset": true,
+    "security_class_must_match_dataset": true,
+    "issuer_cik_required": true,
+    "amendments_included": false,
+    "scoring_changed": false
+  },
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

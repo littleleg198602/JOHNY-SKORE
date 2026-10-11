@@ -139,6 +139,8 @@ class UsaSpendingScoutService:
                                "uei_evidence_url": entry["uei_evidence_url"],
                                "relationship_evidence_url": entry["relationship_evidence_url"],
                                "continuity_evidence_url": entry.get("continuity_evidence_url"),
+                               "relationship_effective_from": entry["effective_from"],
+                               "relationship_effective_to": entry.get("effective_to"),
                                "relationship_known_at": entry["known_at"],
                                "revenue_inferred": False,
                                "modification_history_complete": False}

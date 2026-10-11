@@ -83,7 +83,7 @@ class NhtsaRecallScoutService:
                     and datetime.fromisoformat(entry["known_at"]) <= clock]
         if not eligible:
             return {"status": "WAIT_IDENTITY", "checked_models": 0, "new_findings": 0}
-        checked = created = failed = 0
+        checked = created = failed = rejected = 0
         for entry in eligible:
             if checked + failed >= self.max_models:
                 break
@@ -110,22 +110,30 @@ class NhtsaRecallScoutService:
                 continue
             checked += 1
             matched = 0
+            rejected_before = rejected
             for row in rows:
                 if not isinstance(row, dict):
+                    rejected += 1
                     continue
                 if (str(row.get("Make", "")).casefold() != entry["make"].casefold()
                         or str(row.get("Model", "")).casefold() != entry["model"].casefold()
                         or str(row.get("ModelYear", "")) != str(entry["model_year"])
                         or str(row.get("Manufacturer", "")).casefold() != entry["manufacturer"].casefold()):
+                    rejected += 1
                     continue
                 campaign = row.get("NHTSACampaignNumber")
                 if not isinstance(campaign, str) or not re.fullmatch(r"\d{2}[A-Z]\d{6}", campaign):
+                    rejected += 1
                     continue
                 try:
-                    reported = datetime.strptime(row["ReportReceivedDate"], "%m/%d/%Y").date()
+                    # Live recall API evidence uses day/month/year (18/06/2025).
+                    # Use that contract consistently; never guess per row.
+                    reported = datetime.strptime(row["ReportReceivedDate"], "%d/%m/%Y").date()
                 except (KeyError, TypeError, ValueError):
+                    rejected += 1
                     continue
                 if reported > clock.date():
+                    rejected += 1
                     continue
                 details = {"stage": "nhtsa_model_year_recall", "make": entry["make"],
                            "model": entry["model"], "model_year": entry["model_year"],
@@ -150,6 +158,8 @@ class NhtsaRecallScoutService:
                 matched += 1
             self.store.record_specialist_check("nhtsa", subject_id=entry["ticker"],
                                                identity_key=identity_key, as_of=clock,
-                                               candidate_count=matched, truncated=False)
-        return {"status": "PARTIAL" if failed or len(eligible) > self.max_models else "OK",
-                "checked_models": checked, "new_findings": created, "failed_models": failed}
+                                               candidate_count=matched,
+                                               truncated=rejected > rejected_before)
+        return {"status": "PARTIAL" if failed or rejected or len(eligible) > self.max_models else "OK",
+                "checked_models": checked, "new_findings": created, "failed_models": failed,
+                "rejected_rows": rejected}

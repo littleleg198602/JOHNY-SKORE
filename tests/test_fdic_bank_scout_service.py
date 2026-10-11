@@ -3,11 +3,15 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
+from urllib.error import HTTPError
 
 from market_checker_app.services.fdic_bank_scout_service import (
-    FdicBankScoutService, load_verified_banks,
+    FdicBankFindClient, FdicBankScoutService, fdic_coverage, fdic_identity_key, load_verified_banks,
 )
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
+from market_checker_app.specialist_live_smoke import run as live_smoke
 
 
 NOW = datetime(2026, 9, 30, 21, tzinfo=timezone.utc)
@@ -36,9 +40,54 @@ class FakeBankFind:
 
 
 class FdicBankScoutTests(unittest.TestCase):
+    def test_exact_financial_name_is_dated_and_mismatch_is_visible(self):
+        identity = dict(IDENTITY, financial_name="JPMORGAN CHASE BANK NA",
+                        financial_name_known_at=NOW.isoformat(),
+                        financial_name_evidence_url="https://api.fdic.gov/banks/financials?filters=CERT%3A628")
+        row = {"CERT": 628, "NAME": "JPMORGAN CHASE BANK NA", "REPDTE": "20260630",
+               "ASSET": 1000, "DEP": 800, "EQ": 150, "NETINC": 12}
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            client = FakeBankFind(row=row)
+            scout = FdicBankScoutService(store, client=client, identities=[identity])
+            before = scout.run(as_of=NOW - timedelta(minutes=1))
+            self.assertEqual(("PARTIAL", 0, 1),
+                             (before["status"], before["usable_banks"], before["rejected_rows"]))
+            accepted = scout.run(as_of=NOW)
+            self.assertEqual(("OK", 1, 1),
+                             (accepted["status"], accepted["usable_banks"], accepted["new_findings"]))
+            client.row = dict(row, NAME="JPMORGAN CHASE BANK")
+            self.assertEqual("PARTIAL", scout.run(as_of=NOW, recheck=True)["status"])
+            client.row = dict(row, CERT=3510)
+            self.assertEqual(0, scout.run(as_of=NOW, recheck=True)["usable_banks"])
+            client.row = dict(row, REPDTE="2026-06-30junk")
+            self.assertEqual(0, scout.run(as_of=NOW, recheck=True)["usable_banks"])
+            store.record_source_run("fdic", as_of=NOW, summary=before)
+            self.assertEqual(1, store.latest_source_runs()["fdic"]["rejected_rows"])
+
+    def test_financial_name_manifest_rejects_wrong_cert_and_unobserved_alias(self):
+        base = dict(IDENTITY, financial_name="JPMORGAN CHASE BANK NA",
+                    financial_name_known_at=NOW.isoformat(),
+                    financial_name_evidence_url="https://api.fdic.gov/banks/financials?filters=CERT%3A628")
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            for invalid in (
+                dict(base, financial_name_evidence_url="https://api.fdic.gov/banks/financials?filters=CERT%3A3510"),
+                dict(base, financial_name_known_at="2026-10-01T09:00:00"),
+                {key: value for key, value in base.items() if key != "financial_name_known_at"},
+            ):
+                path.write_text(json.dumps([invalid]))
+                with self.assertRaises(ValueError):
+                    load_verified_banks(path)
+
     def test_production_bank_relationships_are_exact_and_dated(self):
         identities = load_verified_banks()
-        self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213)},
+        self.assertEqual({("JPM", 628), ("BAC", 3510), ("WFC", 3511), ("C", 7213),
+                          ("PNC", 6384), ("USB", 6548), ("TFC", 9846), ("FITB", 6672),
+                          ("CFG", 57957), ("HBAN", 6560), ("ALLY", 57803), ("CFR", 5510),
+                          ("COF", 4297), ("EWBC", 31628), ("FHN", 4977), ("KEY", 17534), ("MTB", 588),
+                          ("OZK", 110), ("RF", 12368), ("WAL", 57512),
+                          ("PNFP", 35583), ("ZION", 2270)},
                          {(row["ticker"], row["cert"]) for row in identities})
         citi = next(row for row in identities if row["ticker"] == "C")
         self.assertEqual("Citibank, National Association", citi["bank_name"])
@@ -62,6 +111,379 @@ class FdicBankScoutTests(unittest.TestCase):
             self.assertEqual(0, scout.run(
                 as_of=datetime(2026, 10, 2, tzinfo=timezone.utc),
                 universe={"BAC"})["new_findings"])
+
+    def test_new_bank_links_are_scoped_knowledge_dated_and_keep_issuer_provenance(self):
+        identities = [row for row in load_verified_banks() if row["ticker"] in {"PNC", "USB"}]
+        self.assertTrue({row["ticker"] for row in identities}.issubset(set(load_canonical_tickers())))
+        self.assertEqual({"PNC": "0000713676", "USB": "0000036104"},
+                         {row["ticker"]: row["issuer_cik"] for row in identities})
+        for identity in identities:
+            with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
+                clock = datetime.fromisoformat(identity["known_at"])
+                client = FakeBankFind(row={"CERT": identity["cert"], "NAME": identity["financial_name"],
+                                          "REPDTE": "20260630", "ASSET": 1200})
+                store = ScoutStore(Path(directory) / "test.db")
+                scout = FdicBankScoutService(store, client=client, identities=[identity])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock - timedelta(seconds=1))["status"])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock, universe={"OTHER"})["status"])
+                self.assertEqual([], client.calls)
+                self.assertEqual(1, scout.run(as_of=clock, universe={identity["ticker"]})["new_findings"])
+                self.assertEqual(0, scout.run(as_of=clock)["new_findings"])
+                finding = store.findings_as_of(identity["ticker"], as_of=clock)[0]
+                details = json.loads(finding["details_json"])
+                self.assertEqual(identity["issuer_cik"], details["issuer_cik"])
+                self.assertEqual(identity["issuer_identity_evidence_url"], details["issuer_identity_evidence_url"])
+                self.assertFalse(details["issuer_consolidated_values"])
+                self.assertFalse(details["scoring_applied"])
+                self.assertEqual([], store.findings_as_of(identity["ticker"], as_of=clock - timedelta(seconds=1)))
+
+    def test_issuer_cik_must_match_both_sec_citations(self):
+        base = next(row for row in load_verified_banks() if row["ticker"] == "PNC")
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            invalids = (
+                dict(base, issuer_cik="0000036104"),
+                dict(base, issuer_cik="713676"),
+                dict(base, issuer_identity_evidence_url=base["issuer_identity_evidence_url"].replace('/713676/', '/36104/')),
+                dict(base, relationship_evidence_url=base["relationship_evidence_url"].replace('/713676/', '/36104/')),
+                {key: value for key, value in base.items() if key != "issuer_name"},
+            )
+            for invalid in invalids:
+                path.write_text(json.dumps([invalid]))
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    load_verified_banks(path)
+
+    def test_tfc_fitb_real_captures_preserve_relationship_date_and_knowledge_scope(self):
+        evidence = json.loads((Path(__file__).resolve().parents[1] /
+                               "evidence/fdic_tfc_fitb_identity_20261001.json").read_text())
+        identities = [row for row in load_verified_banks() if row["ticker"] in {"TFC", "FITB"}]
+        self.assertEqual({"TFC": (9846, "0000092230", "2025-12-31"),
+                          "FITB": (6672, "0000035527", "2026-02-15")},
+                         {row["ticker"]: (row["cert"], row["issuer_cik"], row["effective_from"])
+                          for row in identities})
+        captures = {entry["identity"]["cert"]: entry for entry in evidence["entries"]}
+        for identity in identities:
+            with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
+                captured = captures[identity["cert"]]
+                self.assertEqual(identity, captured["identity"])
+                self.assertEqual(identity["bank_name"], captured["fdic_publisher_observation"]["institutions"]["data"][0]["data"]["NAME"])
+                class CapturedClient:
+                    calls = 0
+                    payload = captured["fdic_publisher_observation"]["financials"]
+                    def financials(self, cert):
+                        self.calls += 1
+                        self.assert_cert = cert
+                        return self.payload
+                client = CapturedClient()
+                store = ScoutStore(Path(directory) / "test.db")
+                clock = datetime.fromisoformat(identity["known_at"])
+                scout = FdicBankScoutService(store, client=client, identities=[identity])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock - timedelta(seconds=1))["status"])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock, universe={"OTHER"})["status"])
+                self.assertEqual(0, client.calls)
+                result = scout.run(as_of=clock, universe=set(load_canonical_tickers()))
+                self.assertEqual(("OK", 2, 1), (result["status"], result["new_findings"], result["usable_banks"]))
+                replay = scout.run(as_of=clock, recheck=True)
+                self.assertEqual((1, 0, 2), (replay["checked_banks"], replay["new_findings"], client.calls))
+                finding = json.loads(store.findings_as_of(identity["ticker"], as_of=clock)[0]["details_json"])
+                self.assertEqual(identity["issuer_cik"], finding["issuer_cik"])
+                self.assertEqual(identity["effective_from"], finding["relationship_effective_from"])
+                self.assertFalse(finding["scoring_applied"])
+                self.assertFalse(finding["issuer_consolidated_values"])
+                if identity["ticker"] == "FITB":
+                    # The 2025 10-K Exhibit 21 itself is dated February 15,
+                    # 2026. Do not backdate it to the 10-K reporting period.
+                    row = dict(client.payload["data"][0]["data"], REPDTE="20251231")
+                    client.payload = {"data": [{"data": row}]}
+                    rejected = scout.run(as_of=clock, recheck=True)
+                    self.assertEqual(("PARTIAL", 0, 1),
+                                     (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
+
+    def test_publication_floor_requires_matching_cik_and_changes_request_identity(self):
+        base = next(row for row in load_verified_banks() if row["ticker"] == "CFR")
+        clock = datetime.fromisoformat(base["known_at"])
+        old = {key: value for key, value in base.items()
+               if key not in {"effective_from_basis", "effective_from_evidence_url"}}
+        self.assertNotEqual(fdic_identity_key(old, clock), fdic_identity_key(base, clock))
+        invalids = (
+            dict(base, effective_from_basis="ownership_effective_date"),
+            dict(base, effective_from_evidence_url=base["effective_from_evidence_url"].replace('/39263/', '/40729/')),
+            dict(base, effective_from_evidence_url=base["effective_from_evidence_url"].replace('www.sec.gov/', 'www.sec.gov:444/')),
+            {key: value for key, value in base.items() if key != "effective_from_basis"},
+            {key: value for key, value in base.items() if key != "effective_from_evidence_url"},
+            {key: value for key, value in base.items()
+             if key not in {"issuer_cik", "issuer_name", "issuer_identity_evidence_url"}},
+        )
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            for invalid in invalids:
+                path.write_text(json.dumps([invalid]))
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    load_verified_banks(path)
+
+    def test_captured_banks_do_not_backdate_relationship_or_knowledge(self):
+        entries = []
+        for filename in ("fdic_cfg_hban_identity_20261001.json", "fdic_ally_cfr_identity_20261001.json",
+                         "fdic_cof_ewbc_identity_20261001.json", "fdic_fhn_key_identity_20261001.json",
+                         "fdic_mtb_identity_20261001.json"):
+            entries.extend(json.loads((Path(__file__).resolve().parents[1] / "evidence" / filename).read_text())["entries"])
+        entries.extend(json.loads((Path(__file__).resolve().parents[1] / "evidence" /
+                                  "fdic_rf_wal_identity_20261001.json").read_text())["entries"])
+        identities = [row for row in load_verified_banks()
+                      if row["ticker"] in {"CFG", "HBAN", "ALLY", "CFR", "COF", "EWBC", "FHN", "KEY", "MTB",
+                                           "RF", "WAL"}]
+        self.assertEqual({"CFG": (57957, "0000759944", "2026-01-22"),
+                          "HBAN": (6560, "0000049196", "2025-12-31"),
+                          "ALLY": (57803, "0000040729", "2025-12-31"),
+                          "CFR": (5510, "0000039263", "2026-02-05"),
+                          "COF": (4297, "0000927628", "2025-12-31"),
+                          "EWBC": (31628, "0001069157", "2025-12-31"),
+                          "FHN": (4977, "0000036966", "2025-12-31"),
+                          "KEY": (17534, "0000091576", "2025-12-31"),
+                          "MTB": (588, "0000036270", "2026-02-18"),
+                          "RF": (12368, "0001281761", "2025-12-31"),
+                          "WAL": (57512, "0001212545", "2025-12-31")},
+                         {row["ticker"]: (row["cert"], row["issuer_cik"], row["effective_from"])
+                          for row in identities})
+        captures = {entry["identity"]["cert"]: entry for entry in entries}
+        for identity in identities:
+            with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
+                captured = captures[identity["cert"]]
+                self.assertEqual(identity, captured["identity"])
+                institution = captured["fdic_publisher_observation"]["institutions"]["data"][0]["data"]
+                self.assertEqual((identity["cert"], identity["bank_name"], 1),
+                                 (institution["CERT"], " ".join(institution["NAME"].split()), institution["ACTIVE"]))
+                class CapturedClient:
+                    calls = 0
+                    payload = captured["fdic_publisher_observation"]["financials"]
+                    def financials(self, cert):
+                        self.calls += 1
+                        return self.payload
+                client = CapturedClient()
+                store = ScoutStore(Path(directory) / "test.db")
+                clock = datetime.fromisoformat(identity["known_at"])
+                scout = FdicBankScoutService(store, client=client, identities=[identity])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock-timedelta(seconds=1))["status"])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock, universe={"OTHER"})["status"])
+                self.assertEqual(0, client.calls)
+                result = scout.run(as_of=clock, universe=set(load_canonical_tickers()))
+                self.assertEqual(("OK", 2, 1),
+                                 (result["status"], result["new_findings"], result["usable_banks"]))
+                replay = scout.run(as_of=clock, recheck=True)
+                self.assertEqual((1, 0, 2), (replay["checked_banks"], replay["new_findings"], client.calls))
+                details = json.loads(store.findings_as_of(identity["ticker"], as_of=clock)[0]["details_json"])
+                self.assertEqual(identity["issuer_cik"], details["issuer_cik"])
+                self.assertEqual(identity["relationship_evidence_url"], details["relationship_evidence_url"])
+                self.assertFalse(details["issuer_consolidated_values"])
+                self.assertFalse(details["scoring_applied"])
+                # Modified captured fixture: a report predating the evidenced
+                # relationship must not be used under the newly onboarded link.
+                prior_date = (datetime.fromisoformat(identity["effective_from"])-timedelta(days=1)).strftime("%Y%m%d")
+                client.payload = {"data": [{"data": dict(client.payload["data"][0]["data"], REPDTE=prior_date)}]}
+                rejected = scout.run(as_of=clock, recheck=True)
+                self.assertEqual(("PARTIAL", 0, 1),
+                                 (rejected["status"], rejected["usable_banks"], rejected["rejected_rows"]))
+                if identity["ticker"] == "CFG":
+                    self.assertFalse(captured["relationship_evidence"]["exact_legal_name_corroboration"]["exhibit_as_of_date_verified"])
+                if identity["ticker"] in {"COF", "EWBC", "FHN", "KEY", "RF", "WAL"}:
+                    self.assertTrue(captured["relationship_evidence"]["as_of_date_verified"])
+                    self.assertEqual("2025-12-31", captured["relationship_evidence"]["as_of"])
+                    self.assertEqual("2025-12-31", details["relationship_effective_from"])
+                    self.assertNotIn("report_date_eligibility_basis", details)
+                    self.assertNotEqual(identity["effective_from"], captured["filing_evidence"]["filing_date"])
+                    self.assertEqual(identity["ticker"], captured["issuer_identity_evidence"]["ticker"])
+                if identity["ticker"] in {"RF", "WAL"}:
+                    self.assertFalse(captured["relationship_evidence"]["unqualified_wholly_owned_claim_accepted"])
+                    self.assertEqual(identity["financial_name"], institution["NAME"].upper())
+                if identity["ticker"] == "CFR":
+                    # SEC's undated exhibit cannot create a FY2025 relationship
+                    # date. The verified publication date is a conservative floor.
+                    self.assertIsNone(captured["relationship_evidence"]["as_of"])
+                    self.assertFalse(captured["relationship_evidence"]["as_of_date_verified"])
+                    self.assertEqual(identity["effective_from"], captured["filing_evidence"]["filing_date"])
+                    self.assertEqual("Frost  Bank", institution["NAME"])
+                    self.assertEqual("FROST BANK", identity["financial_name"])
+                    self.assertIsNone(details["relationship_effective_from"])
+                    self.assertFalse(details["relationship_as_of_verified"])
+                    self.assertEqual("2026-02-05", details["report_date_eligibility_from"])
+                    self.assertEqual("filing_publication_floor", details["report_date_eligibility_basis"])
+                    self.assertEqual(captured["filing_evidence"]["source_url"],
+                                     details["report_date_floor_evidence_url"])
+                if identity["ticker"] == "MTB":
+                    # A materiality footnote's FY date cannot date the separate
+                    # undated issuer/subsidiary row. Preserve uncertainty.
+                    self.assertIsNone(captured["relationship_evidence"]["as_of"])
+                    self.assertFalse(captured["relationship_evidence"]["as_of_date_verified"])
+                    self.assertIsNone(details["relationship_effective_from"])
+                    self.assertFalse(details["relationship_as_of_verified"])
+                    self.assertEqual("2026-02-18", details["report_date_eligibility_from"])
+                    self.assertEqual("filing_publication_floor", details["report_date_eligibility_basis"])
+                    self.assertEqual(captured["filing_evidence"]["source_url"],
+                                     details["report_date_floor_evidence_url"])
+                    self.assertEqual("MANUFACTURERS&TRADERS TR CO", identity["financial_name"])
+                    self.assertFalse(captured["relationship_evidence"]["unqualified_wholly_owned_claim_accepted"])
+
+    def test_direct_bank_identity_rejects_unreviewed_documents_and_false_subsidiary_or_instrument(self):
+        base = next(row for row in load_verified_banks() if row["ticker"] == "OZK")
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            for invalid in (
+                dict(base, issuer_identity_kind="unknown"),
+                dict(base, issuer_identity_kind=[]),
+                dict(base, issuer_identity_kind="subsidiary"),
+                {k: v for k, v in base.items() if k != "issuer_identity_kind"},
+                dict(base, issuer_cik="0001095315"),
+                dict(base, relationship_evidence_url="https://www.sec.gov/Archives/edgar/data/1095315/ex21.htm"),
+                dict(base, cert=111), dict(base, ticker="OZKAP"),
+                dict(base, bank_name="Bank of the Ozarks, Inc."),
+                dict(base, issuer_instrument_symbol="OZKAP"),
+                dict(base, issuer_instrument_class="preferred_stock"),
+                dict(base, issuer_identity_publisher="SEC"),
+                dict(base, issuer_identity_as_of="2024-12-31"),
+                dict(base, issuer_identity_filing_date="2025-12-31"),
+                dict(base, issuer_identity_evidence_url=base["issuer_identity_evidence_url"]+"?redirect=other"),
+                dict(base, issuer_identity_evidence_url=base["issuer_identity_evidence_url"].replace('ir.ozk.com', 'ir.ozk.com.example')),
+                dict(base, issuer_identity_evidence_url="https://ir.ozk.com/static-files/another-document"),
+                dict(base, issuer_filing_index_url="https://ir.ozk.com/filings/sec-filings"),
+                dict(base, effective_from="2024-12-31"),
+                dict(base, effective_from_basis="filing_publication_floor"),
+                dict(base, effective_from_evidence_url=base["issuer_filing_index_url"]),
+                dict(base, known_at="2026-02-24T12:00:00+00:00"),
+            ):
+                with self.subTest(invalid=invalid):
+                    path.write_text(json.dumps([invalid]))
+                    with self.assertRaises(ValueError):
+                        load_verified_banks(path)
+
+    def test_captured_direct_bank_keeps_issuer_provenance_and_rejects_wrong_or_early_reports(self):
+        captured = json.loads((Path(__file__).resolve().parents[1] / "evidence" /
+                              "fdic_ozk_identity_20261001.json").read_text())["entries"][0]
+        identity = next(row for row in load_verified_banks() if row["ticker"] == "OZK")
+        self.assertEqual(identity, captured["identity"])
+        class CapturedClient:
+            calls = 0
+            payload = captured["fdic_publisher_observation"]["financials"]
+            def financials(self, cert):
+                self.calls += 1
+                return self.payload
+        clock = datetime.fromisoformat(identity["known_at"])
+        with TemporaryDirectory() as directory:
+            client = CapturedClient(); store = ScoutStore(Path(directory) / "test.db")
+            scout = FdicBankScoutService(store, client=client, identities=[identity])
+            self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock-timedelta(seconds=1))["status"])
+            self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock, universe={"OTHER"})["status"])
+            self.assertEqual(0, client.calls)
+            self.assertEqual(2, scout.run(as_of=clock)["new_findings"])
+            reopened = ScoutStore(Path(directory) / "test.db")
+            replay = FdicBankScoutService(reopened, client=client, identities=[identity]).run(as_of=clock, recheck=True)
+            self.assertEqual((1, 0, 2), (replay["checked_banks"], replay["new_findings"], client.calls))
+            details = json.loads(reopened.findings_as_of("OZK", as_of=clock)[0]["details_json"])
+            self.assertEqual("bank_issuer_financials", details["stage"])
+            self.assertEqual("direct_bank_issuer", details["relationship_type"])
+            self.assertFalse(details["subsidiary_relationship_applicable"])
+            self.assertIsNone(details["relationship_evidence_url"])
+            self.assertIsNone(details["relationship_effective_from"])
+            self.assertNotIn("issuer_cik", details)
+            self.assertNotIn("relationship_known_at", details)
+            self.assertFalse(details["issuer_consolidated_values"])
+            self.assertFalse(details["scoring_applied"])
+            for key in ("issuer_name", "issuer_identity_publisher", "issuer_identity_evidence_url",
+                        "issuer_identity_as_of", "issuer_identity_filing_date", "issuer_filing_index_url",
+                        "issuer_instrument_class", "issuer_instrument_symbol"):
+                self.assertEqual(identity[key], details[key])
+            self.assertEqual(identity["known_at"], details["issuer_identity_known_at"])
+            self.assertEqual("2025-12-31", details["report_date_eligibility_from"])
+            self.assertEqual("direct_bank_identity_as_of", details["report_date_eligibility_basis"])
+        # Modified captured fixtures are deterministic rejections, not live negatives.
+        original = captured["fdic_publisher_observation"]["financials"]["data"][0]["data"]
+        for changed in (dict(original, CERT=111), dict(original, NAME="Different Bank"),
+                        dict(original, REPDTE="20251230"),
+                        dict(original, REPDTE=(clock+timedelta(days=1)).strftime("%Y%m%d"))):
+            with self.subTest(row=changed), TemporaryDirectory() as directory:
+                client = CapturedClient(); client.payload = {"data": [{"data": changed}]}
+                store = ScoutStore(Path(directory) / "test.db")
+                result = FdicBankScoutService(store, client=client, identities=[identity]).run(as_of=clock)
+                self.assertEqual(("PARTIAL", 0, 0, 1),
+                                 (result["status"], result["new_findings"], result["usable_banks"], result["rejected_rows"]))
+                self.assertEqual([], store.findings_as_of("OZK", as_of=clock))
+
+    def test_pnfp_successor_and_zion_direct_issuer_use_actual_captured_reports(self):
+        evidence = json.loads((Path(__file__).resolve().parents[1] / "evidence" /
+                               "fdic_pnfp_zion_identity_20261002.json").read_text())
+        for entry in evidence["entries"]:
+            identity = next(i for i in load_verified_banks() if i["ticker"] == entry["identity"]["ticker"])
+            clock = datetime.fromisoformat(identity["known_at"])
+            class CapturedClient:
+                def financials(self, cert):
+                    self_test.assertEqual(identity["cert"], cert)
+                    return entry["fdic_publisher_observation"]["financials"]
+            self_test = self
+            with self.subTest(ticker=identity["ticker"]), TemporaryDirectory() as directory:
+                store = ScoutStore(Path(directory) / "test.db")
+                scout = FdicBankScoutService(store, client=CapturedClient(), identities=[identity])
+                self.assertEqual("WAIT_IDENTITY", scout.run(as_of=clock-timedelta(seconds=1))["status"])
+                result = scout.run(as_of=clock)
+                self.assertEqual(("OK", 2, 1), (result["status"], result["new_findings"], result["usable_banks"]))
+                self.assertEqual(0, scout.run(as_of=clock, recheck=True)["new_findings"])
+                reopened = ScoutStore(store.db_path)
+                details = json.loads(reopened.findings_as_of(identity["ticker"], as_of=clock)[0]["details_json"])
+                self.assertEqual(identity["issuer_cik"], details["issuer_cik"])
+                if identity["ticker"] == "PNFP":
+                    self.assertEqual("0002082866", details["issuer_cik"])
+                    self.assertEqual("2026-03-31", details["relationship_effective_from"])
+                    self.assertEqual("0001115055", entry["primary_evidence"]["corporate_action"]["old_cik"])
+                else:
+                    self.assertEqual("bank_issuer_financials", details["stage"])
+                    self.assertEqual("ZION", details["issuer_instrument_symbol"])
+                    self.assertEqual("SEC", details["issuer_identity_publisher"])
+                    self.assertFalse(details["subsidiary_relationship_applicable"])
+                    self.assertIsNone(details["relationship_effective_from"])
+                self.assertFalse(details["issuer_consolidated_values"])
+                self.assertFalse(details["scoring_applied"])
+
+    def test_zion_direct_and_pnfp_successor_reject_wrong_identity_or_earlier_report(self):
+        identities = {i["ticker"]: i for i in load_verified_banks()}
+        zion, pnfp = identities["ZION"], identities["PNFP"]
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            for invalid in (dict(zion, issuer_cik="0001115055"), dict(zion, issuer_instrument_symbol="ZIONP"),
+                            dict(zion, issuer_identity_publisher="FDIC"), dict(zion, cert=2271),
+                            dict(zion, relationship_evidence_url=pnfp["relationship_evidence_url"]),
+                            dict(pnfp, issuer_cik="0001115055")):
+                path.write_text(json.dumps([invalid]))
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    load_verified_banks(path)
+            clock = datetime.fromisoformat(pnfp["known_at"])
+            client = FakeBankFind(row={"CERT": 35583, "NAME": "PINNACLE BANK", "REPDTE": "20251231", "ASSET": 1000})
+            result = FdicBankScoutService(ScoutStore(Path(directory)/"test.db"), client=client,
+                                         identities=[pnfp]).run(as_of=clock)
+            self.assertEqual(("PARTIAL", 0, 1), (result["status"], result["new_findings"], result["rejected_rows"]))
+
+    def test_direct_bank_new_knowledge_scope_cannot_reset_persistent_daily_quota(self):
+        identity = next(row for row in load_verified_banks() if row["ticker"] == "OZK")
+        clock = datetime.fromisoformat(identity["known_at"])
+        newer = dict(identity, known_at=(clock+timedelta(hours=1)).isoformat())
+        self.assertNotEqual(fdic_identity_key(identity, clock), fdic_identity_key(newer, clock+timedelta(hours=1)))
+        with TemporaryDirectory() as directory:
+            client = FakeBankFind(row={"CERT": 110, "NAME": "BANK OZK", "REPDTE": "20260630", "ASSET": 1000})
+            path = Path(directory) / "test.db"
+            first = FdicBankScoutService(ScoutStore(path), client=client, identities=[identity], daily_request_budget=1)
+            self.assertEqual(1, first.run(as_of=clock)["new_findings"])
+            reopened = ScoutStore(path)
+            second = FdicBankScoutService(reopened, client=client, identities=[newer], daily_request_budget=1)
+            result = second.run(as_of=clock+timedelta(hours=1))
+            self.assertTrue(result["budget_exhausted"])
+            self.assertEqual((0, 1), (result["attempted_banks"], result["daily_requests"]))
+            self.assertEqual([110], client.calls)
+            coverage = fdic_coverage(reopened, [newer], as_of=clock+timedelta(hours=1), subjects={"OZK"})
+            self.assertEqual((1, 0), (coverage["never_attempted_banks"], coverage["current_usable_banks"]))
+
+    def test_live_smoke_rejects_unknown_or_out_of_source_selection_before_io(self):
+        with TemporaryDirectory() as directory:
+            for sources, tickers in ((('fdic',), ('NOT_REGISTERED',)), (('ofac',), ('PNC',)), (('fdic',), ())):
+                with self.assertRaises(ValueError):
+                    live_smoke(output_path=Path(directory) / "never.json", sources=sources, fdic_tickers=tickers)
+            self.assertFalse((Path(directory) / "never.json").exists())
 
     def test_dated_identity_and_bank_subsidiary_financials(self):
         with TemporaryDirectory() as directory:
@@ -98,13 +520,13 @@ class FdicBankScoutTests(unittest.TestCase):
             store = ScoutStore(Path(directory) / "test.db")
             for row in rows:
                 self.assertEqual(0, FdicBankScoutService(store, client=FakeBankFind(row),
-                                    identities=[IDENTITY]).run(as_of=NOW)["new_findings"])
+                                    identities=[IDENTITY]).run(as_of=NOW, recheck=True)["new_findings"])
             failed = FdicBankScoutService(store, client=FakeBankFind(error=True),
-                                          identities=[IDENTITY]).run(as_of=NOW)
+                                          identities=[IDENTITY]).run(as_of=NOW, recheck=True)
             self.assertEqual(("PARTIAL", 1), (failed["status"], failed["failed_banks"]))
             compact_date = dict(rows[1], NAME=IDENTITY["bank_name"], REPDTE="20260630")
             self.assertEqual(1, FdicBankScoutService(store, client=FakeBankFind(compact_date),
-                                identities=[IDENTITY]).run(as_of=NOW)["new_findings"])
+                                identities=[IDENTITY]).run(as_of=NOW, recheck=True)["new_findings"])
 
     def test_manifest_and_source_host_policy(self):
         with TemporaryDirectory() as directory:
@@ -119,6 +541,195 @@ class FdicBankScoutTests(unittest.TestCase):
                                      content_hash="x", title="FDIC", source_url="https://fdic.example/financials",
                                      locator="CERT:628", published_at=NOW, available_at=NOW,
                                      observed_at=NOW, details={})
+
+
+class BoundedFdicTests(unittest.TestCase):
+    clock = datetime(2026, 10, 1, 14, tzinfo=timezone.utc)
+
+    def client(self, identities):
+        class RegistryClient:
+            calls = []
+            def financials(self, cert):
+                self.calls.append(cert)
+                identity = next(entry for entry in identities if entry["cert"] == cert)
+                return {"data": [{"data": {"CERT": cert,
+                        "NAME": identity.get("financial_name", identity["bank_name"]),
+                        "REPDTE": "20260630", "ASSET": 1000}}]}
+        return RegistryClient()
+
+    def test_rotation_restart_and_shared_daily_quota_then_thirty_day_refresh(self):
+        # Fixed six-bank fixture; later identity onboarding has a separate test.
+        identities = [entry for entry in load_verified_banks()
+                      if entry["ticker"] in {"JPM", "BAC", "WFC", "C", "PNC", "USB"}]
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "test.db"
+            client = self.client(identities)
+            scout = FdicBankScoutService(ScoutStore(path), client=client, identities=identities,
+                                         max_banks=2, daily_request_budget=3)
+            first = scout.run(as_of=self.clock)
+            self.assertEqual((2, 4, True), (first["attempted_banks"], first["deferred_banks"], first["budget_exhausted"]))
+            restarted = FdicBankScoutService(ScoutStore(path), client=client, identities=list(reversed(identities)),
+                                             max_banks=2, daily_request_budget=3)
+            second = restarted.run(as_of=self.clock + timedelta(hours=1))
+            self.assertEqual((1, 3), (second["attempted_banks"], second["daily_requests"]))
+            self.assertEqual(0, restarted.run(as_of=self.clock + timedelta(hours=2))["attempted_banks"])
+            next_day = self.clock + timedelta(days=1)
+            restarted.run(as_of=next_day)
+            restarted.run(as_of=next_day + timedelta(hours=1))
+            self.assertEqual(6, len(set(client.calls)))
+            self.assertEqual(6, len(client.calls))
+            self.assertEqual("NO_DUE_WORK", restarted.run(as_of=next_day + timedelta(hours=2))["status"])
+            refreshed = restarted.run(as_of=self.clock + timedelta(days=30))
+            self.assertEqual(2, refreshed["attempted_banks"])
+            self.assertEqual(0, refreshed["new_findings"])
+
+    def test_partial_empty_failed_and_new_alias_have_honest_coverage_and_retry(self):
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            client = FakeBankFind(row={"CERT": 628, "NAME": "WRONG", "REPDTE": "20260630", "ASSET": 1})
+            scout = FdicBankScoutService(store, client=client, identities=[IDENTITY])
+            self.assertEqual("PARTIAL", scout.run(as_of=NOW)["status"])
+            self.assertEqual("NO_DUE_WORK", scout.run(as_of=NOW + timedelta(hours=23))["status"])
+            self.assertEqual(1, fdic_coverage(store, [IDENTITY], as_of=NOW, subjects={"JPM"})["current_partial_banks"])
+            client.row = None
+            self.assertEqual(1, scout.run(as_of=NOW + timedelta(days=1))["usable_banks"])
+            self.assertEqual(0, scout.run(as_of=NOW + timedelta(days=2))["attempted_banks"])
+            client.error = True
+            self.assertEqual(1, scout.run(as_of=NOW + timedelta(days=2), recheck=True)["failed_banks"])
+            coverage = fdic_coverage(store, [IDENTITY], as_of=NOW + timedelta(days=2), subjects={"JPM"})
+            self.assertEqual((0, 1), (coverage["current_usable_banks"], coverage["current_failed_banks"]))
+            self.assertEqual(1, fdic_coverage(store, [IDENTITY], as_of=NOW, subjects={"JPM"})["current_partial_banks"])
+            client.error = False
+            alias = dict(IDENTITY, financial_name=IDENTITY["bank_name"],
+                         financial_name_known_at=(NOW + timedelta(days=2)).isoformat(),
+                         financial_name_evidence_url="https://api.fdic.gov/banks/financials?filters=CERT%3A628")
+            self.assertEqual(fdic_identity_key(IDENTITY, NOW), fdic_identity_key(alias, NOW))
+            self.assertEqual(1, FdicBankScoutService(store, client=client, identities=[alias]).run(
+                as_of=NOW + timedelta(days=2))["attempted_banks"])
+            class Empty:
+                def financials(self, cert): return {"data": []}
+            empty = FdicBankScoutService(store, client=Empty(), identities=[alias]).run(
+                as_of=NOW + timedelta(days=3), recheck=True)
+            self.assertEqual(("PARTIAL", 1, 0), (empty["status"], empty["empty_banks"], empty["usable_banks"]))
+            self.assertEqual(1, fdic_coverage(store, [alias], as_of=NOW + timedelta(days=3),
+                                            subjects={"JPM"})["current_empty_banks"])
+            self.assertEqual(1, fdic_coverage(store, [alias], as_of=NOW + timedelta(days=33),
+                                            subjects={"JPM"})["stale_banks"])
+
+    def test_http_access_and_rate_limits_stop_batch_and_persist_cooldown(self):
+        identities = load_verified_banks()
+        for code in (401, 403, 429):
+            with self.subTest(code=code), TemporaryDirectory() as directory:
+                path = Path(directory) / "test.db"
+                class Blocked:
+                    calls = 0
+                    def financials(self, cert):
+                        self.calls += 1
+                        raise HTTPError("https://api.fdic.gov/banks/financials", code, "blocked", {}, None)
+                client = Blocked()
+                first = FdicBankScoutService(ScoutStore(path), client=client, identities=identities).run(as_of=self.clock)
+                expected = "RATE_LIMITED" if code == 429 else "ACCESS_BLOCKED"
+                self.assertEqual((expected, 1, 1), (first["status"], first["attempted_banks"], client.calls))
+                second = FdicBankScoutService(ScoutStore(path), client=client, identities=identities).run(
+                    as_of=self.clock + timedelta(minutes=30))
+                self.assertEqual(expected, second["status"])
+                self.assertIn("retry_at", second)
+                self.assertEqual(1, client.calls)
+                later = self.clock + timedelta(hours=1 if code == 429 else 24)
+                FdicBankScoutService(ScoutStore(path), client=client, identities=identities).run(as_of=later)
+                self.assertEqual(2, client.calls)
+
+    def test_failed_attempts_are_rotated_and_consume_quota(self):
+        identities = load_verified_banks()
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "test.db"
+            client = FakeBankFind(error=True)
+            service = FdicBankScoutService(ScoutStore(path), client=client, identities=identities,
+                                           max_failures=2, daily_request_budget=3)
+            result = service.run(as_of=self.clock)
+            self.assertEqual((2, True), (result["failed_banks"], result["budget_exhausted"]))
+            service.run(as_of=self.clock + timedelta(minutes=1))
+            self.assertEqual(3, len(set(client.calls)))
+            self.assertEqual(0, service.run(as_of=self.clock + timedelta(minutes=2), recheck=True)["attempted_banks"])
+
+    def test_provider_lease_and_interrupted_attempt_survive_restart(self):
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "test.db"
+            store = ScoutStore(path)
+            token = store.claim_provider("fdic", as_of=NOW, seconds=30)
+            request_id = store.reserve_fdic_request(subject_id="JPM", identity_key=fdic_identity_key(IDENTITY, NOW),
+                                                    as_of=NOW, daily_limit=1, lease_token=token)
+            self.assertIsNotNone(request_id)
+            client = FakeBankFind()
+            scout = FdicBankScoutService(ScoutStore(path), client=client, identities=[IDENTITY])
+            self.assertEqual("BUSY", scout.run(as_of=NOW)["status"])
+            self.assertEqual("NO_DUE_WORK", scout.run(as_of=NOW + timedelta(seconds=31))["status"])
+            self.assertEqual([], client.calls)
+            self.assertEqual(1, fdic_coverage(store, [IDENTITY], as_of=NOW, subjects={"JPM"})["inflight_banks"])
+            self.assertEqual(1, store.fdic_daily_requests(as_of=NOW))
+            self.assertEqual(1, scout.run(as_of=NOW + timedelta(days=1))["attempted_banks"])
+            self.assertIsNone(store.reserve_fdic_request(subject_id="JPM", identity_key="new",
+                                                         as_of=NOW, daily_limit=10, lease_token=token))
+
+    def test_time_budget_stops_before_next_request_and_keeps_unattempted_due(self):
+        identities = load_verified_banks()
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            client = self.client(identities)
+            with patch("market_checker_app.services.fdic_bank_scout_service.time.monotonic",
+                       side_effect=[0, 0, 61]):
+                result = FdicBankScoutService(store, client=client, identities=identities).run(as_of=self.clock)
+            self.assertEqual((1, 5, True), (result["attempted_banks"], result["deferred_banks"], result["budget_exhausted"]))
+            self.assertEqual(5, fdic_coverage(store, identities, as_of=self.clock,
+                                            subjects=set(load_canonical_tickers()))["never_attempted_banks"])
+
+    def test_duplicate_and_unbounded_responses_do_not_claim_usable_coverage(self):
+        for payload in ({"data": [{"data": {"CERT": 628, "NAME": IDENTITY["bank_name"],
+                                                 "REPDTE": "20260630", "ASSET": 1}}] * 2},
+                        {"data": [1, 2, 3]}, {"data": None}, {}):
+            with self.subTest(payload=payload), TemporaryDirectory() as directory:
+                store = ScoutStore(Path(directory) / "test.db")
+                class Payload:
+                    def financials(self, cert): return payload
+                result = FdicBankScoutService(store, client=Payload(), identities=[IDENTITY]).run(as_of=NOW)
+                self.assertEqual("PARTIAL", result["status"])
+                self.assertEqual(0, fdic_coverage(store, [IDENTITY], as_of=NOW,
+                                                subjects={"JPM"})["current_usable_banks"])
+
+    def test_canonical_scope_and_invalid_budgets_are_rejected_before_io(self):
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            client = FakeBankFind()
+            scout = FdicBankScoutService(store, client=client, identities=[dict(IDENTITY, ticker="OUTSIDE")])
+            self.assertEqual("WAIT_IDENTITY", scout.run(as_of=NOW, universe={"OUTSIDE"})["status"])
+            for config in ({"max_banks": 0}, {"daily_request_budget": 51}, {"max_failures": True},
+                           {"max_run_seconds": float("nan")}, {"max_run_seconds": 301}):
+                with self.subTest(config=config), self.assertRaises(ValueError):
+                    FdicBankScoutService(store, client=client, identities=[IDENTITY], **config)
+            with self.assertRaises(ValueError):
+                store.fdic_daily_requests(as_of=NOW.replace(tzinfo=None))
+            self.assertEqual([], client.calls)
+
+    def test_http_body_is_bounded_and_redirect_cannot_escape_official_host(self):
+        class Response:
+            host = "https://api.fdic.gov/banks/financials"
+            body = b'{"data": []}'
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def geturl(self): return self.host
+            def read(self, size):
+                self.read_limit = size
+                return self.body[:size]
+        response = Response()
+        with patch("market_checker_app.services.fdic_bank_scout_service.urlopen", return_value=response):
+            self.assertEqual({"data": []}, FdicBankFindClient().financials(628))
+            self.assertEqual(1_000_001, response.read_limit)
+            response.body = b" " * 1_000_001
+            with self.assertRaisesRegex(ValueError, "byte budget"):
+                FdicBankFindClient().financials(628)
+            response.host = "https://example.com/financials"
+            with self.assertRaisesRegex(ValueError, "official host"):
+                FdicBankFindClient().financials(628)
 
 
 if __name__ == "__main__":

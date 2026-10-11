@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-07T06:00:33.217+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "SEC 13F forty-five-instrument identity registry",
+  "source_commit": "63db25c3eb00b7726130675b641d0cd1c7b68195",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37574055101,
+    "run_number": 393,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 112638880495,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-07T04:59:51.008531+00:00",
+    "ended_at": "2026-10-07T05:11:55.258689+00:00",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "registry_test": {
+    "name": "test_production_manifest_has_forty_five_cited_canonical_instruments",
+    "present_in_complete_log": true,
+    "passed": true,
+    "log_line": 359
+  },
+  "artifact": {
+    "id": 11462305935,
+    "name": "windows-deterministic-tests",
+    "size_bytes": 16638,
+    "expires_at": "2027-01-05T04:58:52Z",
+    "published_sha256": "276c4cd97e4622b90d4e787a93943faa36f5c7af3da356a12114c16c2e3bbbf9",
+    "downloaded_sha256": "276c4cd97e4622b90d4e787a93943faa36f5c7af3da356a12114c16c2e3bbbf9",
+    "digest_matches": true,
+    "files": [
+      {
+        "name": "windows-tests.log",
+        "size_bytes": 98087,
+        "sha256": "96ef87d2bf1cbadbf3511de4d80502d12cb4238fa7770b69ce8ff7a10f7dacab",
+        "content_checked": true
+      },
+      {
+        "name": "windows-tests.json",
+        "size_bytes": 373,
+        "sha256": "35dca1e5a6e5ad98570d658fe018743611c413257e67ee36772fac18d12bb69b",
+        "content_checked": true
+      }
+    ]
+  },
+  "release_gate": {
+    "job_id": 112642212556,
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "actual_user_windows_run": false,
+  "acceptance_limits": [
+    "This verifies GitHub-hosted Windows compatibility only.",
+    "It does not prove a live SEC quarterly ZIP or holdings-level positive/negative cases.",
+    "It is not an end-to-end run on the user's Windows machine.",
+    "It does not prove complete corporate-action coverage or historical out-of-sample performance.",
+    "Institutions remains PILOT/PENDING and the complete inventory remains 0/21 DONE."
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-07T04:58:18.271+00:00",
+  "evidence_type": "reviewed_sec13f_instrument_identity_expansion",
+  "subject": "SEC 13F canonical identity registry expansion from 40 to 45",
+  "effective_period": {
+    "from": "2026-04-01",
+    "to": "2026-06-30",
+    "basis": "SEC 2026 Q2 official 13(f) securities list"
+  },
+  "canonical_universe": {
+    "total": 687,
+    "mapped_before": 40,
+    "mapped_after": 45,
+    "coverage_ratio": 0.065502,
+    "unmapped_after": 642
+  },
+  "sources": {
+    "official_13f_list": {
+      "url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "last_reviewed_period": "2026 Q2",
+      "facts": "Exact issuer, CUSIP and class rows reviewed for all five additions."
+    },
+    "official_company_tickers": {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "observed_at": "2026-10-07T04:58:18.271+00:00",
+      "facts": "Ticker-to-issuer-CIK mappings reviewed for all five additions."
+    }
+  },
+  "additions": [
+    {
+      "ticker": "CRM",
+      "issuer_cik": "0001108524",
+      "cusip": "79466L302",
+      "issuer_name": "SALESFORCE INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1108524/000009375124000767/Salesforce_Inc.htm",
+      "instrument_event_date": "2024-09-30",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T04:58:18.271+00:00"
+    },
+    {
+      "ticker": "HD",
+      "issuer_cik": "0000354950",
+      "cusip": "437076102",
+      "issuer_name": "HOME DEPOT INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/354950/000210011926000600/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_event_date": "2026-03-31",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T04:58:18.271+00:00"
+    },
+    {
+      "ticker": "MCD",
+      "issuer_cik": "0000063908",
+      "cusip": "580135101",
+      "issuer_name": "MCDONALDS CORP",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/63908/000093247125001157/xslSCHEDULE_13G_X01/primary_doc.xml",
+      "instrument_event_date": "2025-08-29",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T04:58:18.271+00:00"
+    },
+    {
+      "ticker": "IBM",
+      "issuer_cik": "0000051143",
+      "cusip": "459200101",
+      "issuer_name": "INTERNATIONAL BUSINESS MACHS",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/51143/000210011926000629/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_event_date": "2026-03-31",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T04:58:18.271+00:00"
+    },
+    {
+      "ticker": "SBUX",
+      "issuer_cik": "0000829224",
+      "cusip": "855244109",
+      "issuer_name": "STARBUCKS CORP",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000110465921019139/tv01885-starbuckscorp.htm",
+      "instrument_event_date": "2020-12-31",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T04:58:18.271+00:00"
+    }
+  ],
+  "validation": {
+    "canonical_membership_reviewed": true,
+    "duplicate_ticker_or_cusip": false,
+    "cusip_check_digit_reviewed": true,
+    "source_content_reviewed": true,
+    "automated_tests_run": false,
+    "note": "Source and fixture changes were committed without a local test pass; hosted workflow evidence must be recorded separately after completion."
+  },
+  "acceptance_limits": [
+    "No live SEC quarterly ZIP was downloaded or parsed in this step.",
+    "No holdings-level positive or negative live case is claimed.",
+    "No actual end-user Windows run, complete corporate-action history or historical out-of-sample evaluation is claimed.",
+    "No score or trading behavior changed; institutions remains PILOT/PENDING and 0/21 specialists are DONE."
+  ],
+  "next_work": [
+    "Verify the hosted Linux and Windows workflow for the 45-instrument registry and preserve content-checked evidence.",
+    "Continue bounded dated identity coverage without exceeding source quotas or changing scoring.",
+    "Run a declared-User-Agent live SEC ZIP acceptance when credentials/runtime access permit."
+  ]
+}

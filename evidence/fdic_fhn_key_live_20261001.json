@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T18:32:46.866689+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_FHN": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T18:32:46.872180+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4977&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "FHN",
+      "cert": 4977,
+      "identity": {
+        "ticker": "FHN",
+        "cert": 4977,
+        "issuer_cik": "0000036966",
+        "issuer_name": "First Horizon Corporation",
+        "bank_name": "First Horizon Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/afy2025xexh21xsubsidiaries.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/R1.htm",
+        "known_at": "2026-10-01T18:32:46.153161+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/4977",
+        "financial_name": "FIRST HORIZON BANK",
+        "financial_name_known_at": "2026-10-01T18:32:05.170308+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4977&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:4977",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 84116168,
+              "CERT": 4977,
+              "NETINC": 585001,
+              "EQ": 9409740,
+              "DEP": 68788699,
+              "NAME": "FIRST HORIZON BANK",
+              "ID": "4977_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 83823830,
+              "CERT": 4977,
+              "NETINC": 292686,
+              "EQ": 9404506,
+              "DEP": 67203642,
+              "NAME": "FIRST HORIZON BANK",
+              "ID": "4977_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_positive_KEY": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T18:33:01.161208+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A17534&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "KEY",
+      "cert": 17534,
+      "identity": {
+        "ticker": "KEY",
+        "cert": 17534,
+        "issuer_cik": "0000091576",
+        "issuer_name": "KeyCorp",
+        "bank_name": "KeyBank National Association",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/key-123125xexx21.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/R1.htm",
+        "known_at": "2026-10-01T18:32:46.153161+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/17534",
+        "financial_name": "KEYBANK NATIONAL ASSN",
+        "financial_name_known_at": "2026-10-01T18:32:18.544635+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A17534&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 3
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 4
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:17534",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 188555486,
+              "CERT": 17534,
+              "NETINC": 1183792,
+              "EQ": 18727875,
+              "DEP": 158480379,
+              "NAME": "KEYBANK NATIONAL ASSN",
+              "ID": "17534_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 185983433,
+              "CERT": 17534,
+              "NETINC": 581466,
+              "EQ": 18841264,
+              "DEP": 153305440,
+              "NAME": "KEYBANK NATIONAL ASSN",
+              "ID": "17534_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T18:33:14.143910+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "FHN",
+    "KEY"
+  ],
+  "finished_at": "2026-10-01T18:33:26.820149+00:00"
+}

@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T14:40:28.643395+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_TFC": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T14:40:28.646201+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A9846&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "TFC",
+      "cert": 9846,
+      "identity": {
+        "ticker": "TFC",
+        "cert": 9846,
+        "issuer_cik": "0000092230",
+        "issuer_name": "Truist Financial Corporation",
+        "bank_name": "Truist Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000030/ex21subs4q25.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000066/tfc-20260605.htm",
+        "known_at": "2026-10-01T14:38:41.642755+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/9846",
+        "financial_name": "TRUIST BANK",
+        "financial_name_known_at": "2026-10-01T14:36:01.514646+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A9846&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:9846",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 548346000,
+              "CERT": 9846,
+              "NETINC": 3155000,
+              "EQ": 62971000,
+              "DEP": 419212000,
+              "NAME": "TRUIST BANK",
+              "ID": "9846_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 541180000,
+              "CERT": 9846,
+              "NETINC": 1573000,
+              "EQ": 63082000,
+              "DEP": 413574000,
+              "NAME": "TRUIST BANK",
+              "ID": "9846_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_positive_FITB": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T14:40:34.860205+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6672&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "FITB",
+      "cert": 6672,
+      "identity": {
+        "ticker": "FITB",
+        "cert": 6672,
+        "issuer_cik": "0000035527",
+        "issuer_name": "Fifth Third Bancorp",
+        "bank_name": "Fifth Third Bank, National Association",
+        "effective_from": "2026-02-15",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/35527/000003552726000124/fitb-12312025xexx21.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/35527/000003552726000209/fitb-20260821.htm",
+        "known_at": "2026-10-01T14:38:41.642755+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/6672",
+        "financial_name": "FIFTH THIRD BANK NA",
+        "financial_name_known_at": "2026-10-01T14:36:13.237516+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6672&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 3
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 4
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:6672",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 299177000,
+              "CERT": 6672,
+              "NETINC": 1312000,
+              "EQ": 37673000,
+              "DEP": 240928000,
+              "NAME": "FIFTH THIRD BANK NA",
+              "ID": "6672_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 296118000,
+              "CERT": 6672,
+              "NETINC": 395000,
+              "EQ": 37413000,
+              "DEP": 240416000,
+              "NAME": "FIFTH THIRD BANK NA",
+              "ID": "6672_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T14:40:41.625910+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "FITB",
+    "TFC"
+  ],
+  "finished_at": "2026-10-01T14:40:50.461015+00:00"
+}

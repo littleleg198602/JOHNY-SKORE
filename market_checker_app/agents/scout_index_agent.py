@@ -25,12 +25,30 @@ class ScoutIndexAgent(BaseAgent):
         rows = self.store.findings_for_watchlist(
             list(context.watchlist), as_of=context.started_at,
         )
+        parsed_rows = [(row, json.loads(str(row["details_json"]))) for row in rows]
+        primary_documents = {
+            (str(row["subject_id"]), str(row["source_object_id"]))
+            for row, details in parsed_rows
+            if row["source"] == "sec"
+            and row["verification_status"] == "SOURCE_VERIFIED"
+            and details.get("stage") == "filing_document"
+        }
+        visible_finding_ids = [
+            str(row["finding_id"])
+            for row, _details in parsed_rows
+            if row["source"] == "sec"
+            and row["verification_status"] == "SOURCE_VERIFIED"
+        ]
         documents: list[DocumentRecord] = []
         evidence: list[AgentEvidence] = []
-        for row in rows:
+        superseded_indexes = 0
+        for row, details in parsed_rows:
             if row["source"] != "sec" or row["verification_status"] != "SOURCE_VERIFIED":
                 continue
-            details = json.loads(str(row["details_json"]))
+            source_key = (str(row["subject_id"]), str(row["source_object_id"]))
+            if details.get("stage") == "filing_index" and source_key in primary_documents:
+                superseded_indexes += 1
+                continue
             exposure = details.get("stage") == "exposure_candidate"
             content_observed = details.get("stage") == "filing_document"
             item_locators = [item["locator"] for item in details.get("item_excerpts", [])]
@@ -48,7 +66,13 @@ class ScoutIndexAgent(BaseAgent):
                 metadata={"locator": row["locator"],
                           "finding_id": row["finding_id"],
                           "filing_index_only": not (content_observed or exposure),
+                          "source_verified_primary": content_observed,
                           "exposure_candidate": exposure,
+                          "form": details.get("form"),
+                          "accession_number": details.get("accession"),
+                          "issuer_cik": details.get("cik"),
+                          "report_date": details.get("report_date"),
+                          "beneficial_ownership": details.get("beneficial_ownership"),
                           "evidence_quote": details.get("quote") if exposure else None,
                           "document_sha256": details.get("document_sha256"),
                           "item_locators": item_locators},
@@ -76,9 +100,12 @@ class ScoutIndexAgent(BaseAgent):
             ))
         self.store.record_analysis_snapshot(
             context.orchestration_id, as_of=context.started_at,
-            finding_ids=[str(item.metadata["finding_id"]) for item in documents],
+            finding_ids=visible_finding_ids,
         )
         return AgentResult(
             documents=documents, evidence=evidence,
-            metadata={"visible_findings": len(documents), "scoring_applied": False},
+            metadata={"visible_findings": len(documents),
+                      "source_findings_in_snapshot": len(visible_finding_ids),
+                      "superseded_index_documents": superseded_indexes,
+                      "scoring_applied": False},
         )

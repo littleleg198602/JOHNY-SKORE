@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T22:11:23.369053+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_RF": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T22:11:23.375129+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A12368&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "RF",
+      "cert": 12368,
+      "identity": {
+        "ticker": "RF",
+        "cert": 12368,
+        "issuer_cik": "0001281761",
+        "issuer_name": "Regions Financial Corporation",
+        "bank_name": "Regions Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000019/rf-20251231exx21.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000019/R1.htm",
+        "known_at": "2026-10-01T22:09:24.414365+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/12368",
+        "financial_name": "REGIONS BANK",
+        "financial_name_known_at": "2026-10-01T22:08:52.411973+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A12368&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:12368",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 159787000,
+              "CERT": 12368,
+              "NETINC": 1159000,
+              "EQ": 17939000,
+              "DEP": 131776000,
+              "NAME": "REGIONS BANK",
+              "ID": "12368_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 159430000,
+              "CERT": 12368,
+              "NETINC": 573000,
+              "EQ": 18064000,
+              "DEP": 132760000,
+              "NAME": "REGIONS BANK",
+              "ID": "12368_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_positive_WAL": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T22:11:28.706959+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57512&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "WAL",
+      "cert": 57512,
+      "identity": {
+        "ticker": "WAL",
+        "cert": 57512,
+        "issuer_cik": "0001212545",
+        "issuer_name": "Western Alliance Bancorporation",
+        "bank_name": "Western Alliance Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/1212545/000162828026010336/ex211listofsubsidiaries123.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/1212545/000162828026010336/R1.htm",
+        "known_at": "2026-10-01T22:09:24.414365+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57512",
+        "financial_name": "WESTERN ALLIANCE BANK",
+        "financial_name_known_at": "2026-10-01T22:08:57.003026+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57512&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 3
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 4
+      },
+      "payload": {
+        "meta": {
+          "total": 94,
+          "parameters": {
+            "filters": "CERT:57512",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 98568765,
+              "CERT": 57512,
+              "NETINC": 561931,
+              "EQ": 7932402,
+              "DEP": 82322362,
+              "NAME": "WESTERN ALLIANCE BANK",
+              "ID": "57512_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 98766387,
+              "CERT": 57512,
+              "NETINC": 174873,
+              "EQ": 7718589,
+              "DEP": 83216785,
+              "NAME": "WESTERN ALLIANCE BANK",
+              "ID": "57512_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 94
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T22:11:33.279617+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "RF",
+    "WAL"
+  ],
+  "finished_at": "2026-10-01T22:11:38.916017+00:00"
+}

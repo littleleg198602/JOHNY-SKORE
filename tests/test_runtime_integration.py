@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sqlite3
+from contextlib import closing
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -558,7 +559,7 @@ class RuntimeIntegrationTests(unittest.TestCase):
     def test_existing_database_is_migrated_additively_for_v21(self):
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "history.db"
-            with sqlite3.connect(db_path) as conn:
+            with closing(sqlite3.connect(db_path)) as conn, conn:
                 conn.execute(
                     "CREATE TABLE signal_history (id INTEGER PRIMARY KEY, run_id INTEGER, ticker TEXT)"
                 )

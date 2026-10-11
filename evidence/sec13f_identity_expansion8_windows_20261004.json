@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-04T09:55:10+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "SEC 13F forty-instrument identity registry",
+  "source_commit": "59567fe93d50fad7e82c7da2568775b10a264ea0",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37192709082,
+    "run_number": 391,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111408094925,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-04T09:37:26.925701+00:00",
+    "ended_at": "2026-10-04T09:45:54.984434+00:00",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "unittest_duration_seconds": 506.600,
+    "machine_result_duration_seconds": 508.058733
+  },
+  "release_gate": {
+    "job_id": 111409540127,
+    "conclusion": "success",
+    "all_test_agents_required": true
+  },
+  "artifact": {
+    "id": 11300161059,
+    "name": "windows-deterministic-tests",
+    "size_in_bytes": 16634,
+    "expires_at": "2027-01-02T09:36:41Z",
+    "sha256_from_metadata": "85daf7bd05decf66bbec8ff0ef6549130e40a7423f35c9997a2f415e3dce17b6",
+    "sha256_downloaded": "85daf7bd05decf66bbec8ff0ef6549130e40a7423f35c9997a2f415e3dce17b6",
+    "download_verified": true,
+    "contents": {
+      "windows-tests.log_bytes": 98077,
+      "windows-tests.json_bytes": 373,
+      "windows-tests.log_sha256": "909dfe86f19696d86c60dc90b3d5a7c665de56c109a9caf01648adadb586cd49",
+      "windows-tests.json_sha256": "dcc43de5065aa7c95fd41f8445033975fda9b7fa9998449454dc13a081a27f82",
+      "machine_result_matches_job": true,
+      "forty_instrument_registry_test_present_and_passed": true
+    }
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "reviewed_identity_tickers": 40,
+    "unmapped_tickers": 647,
+    "identity_coverage_ratio": 0.058224,
+    "canonical_csv_changed_by_validation_commit": false
+  },
+  "acceptance_limits": {
+    "hosted_windows_compatibility_verified": true,
+    "live_sec_13f_zip_verified": false,
+    "full_instrument_and_corporate_action_coverage_verified": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

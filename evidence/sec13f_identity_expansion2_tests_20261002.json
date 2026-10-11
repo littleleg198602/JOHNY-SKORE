@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-02T17:11:03.607947+00:00",
+  "ended_at": "2026-10-02T17:13:19.486099+00:00",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "python_version": "3.12.14",
+  "dependencies": "market_checker_app/requirements.txt constrained by market_checker_app/constraints.txt",
+  "full_suite": {
+    "discovered_tests": 527,
+    "tests_run": 527,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true
+  },
+  "targeted_suite": {
+    "tests_run": 21,
+    "failures": 0,
+    "errors": 0,
+    "modules": [
+      "tests.test_sec13f_scout_service",
+      "tests.test_specialist_status",
+      "tests.test_specialist_acceptance_service"
+    ]
+  },
+  "compileall": "PASS",
+  "git_diff_check": "PASS",
+  "file_sha256": {
+    "market_checker_app/data/verified_13f_securities.json": "11658beb8215c6aecb0aeb897e11824249bc938ea5e51ce67b35bbb07f0926aa",
+    "tests/test_sec13f_scout_service.py": "4d9424639447d17b6ddfd31569b8e0202f068bc860edc871a123613d41fc8ab3",
+    "evidence/sec13f_identity_expansion2_20261002.json": "ec5076a084f01b18155a8b87613f96e0045ab4c801fc34fcf8beea88ae64275d"
+  },
+  "github_windows_verification": {
+    "commit": "b112003c9292f87cc94511e6ee9c63b8ddfc0de0",
+    "workflow_run_id": 37039539524,
+    "job_id": 110945954943,
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-02T17:17:33.656885+00:00",
+    "ended_at": "2026-10-02T17:33:04.926526+00:00",
+    "duration_seconds": 931.27,
+    "tests_run": 527,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "result": "PASS",
+    "artifact_id": 11242338229,
+    "artifact_size_bytes": 16158,
+    "artifact_sha256": "13eb7d5ecdbd512bde5e9fa6dd738e7ccc62faf3ae06d17046ffe45a436d3086",
+    "artifact_contents_verified": ["windows-tests.log", "windows-tests.json"],
+    "release_gate_job_id": 110952376452,
+    "release_gate": "PASS",
+    "actual_user_windows_end_to_end": "NOT_RUN"
+  },
+  "diagnostic_note": "An initial clean-host discovery was not counted because declared dependencies were absent. After installing requirements under constraints, the complete suite was rerun and passed.",
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "hosted_windows_ci_for_this_commit": "PASS",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}
