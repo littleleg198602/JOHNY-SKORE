@@ -1,14 +1,23 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Hostovaná kontrola 140instrumentového SEC 13F registru na commitu
+f6ad74f4 uspěla: Linux i Windows 546/546, jmenovitý test registru a release
+gate. Artifact 11691398790 má shodný publikovaný i stažený SHA-256 a jeho
+log i JSON byly hashově a obsahově ověřeny. Důkazy jsou v
+`evidence/sec13f_identity_expansion28_tests_20261011.json` a
+`evidence/sec13f_identity_expansion28_windows_20261011.json`. GitHub-hosted
+Windows není uživatelův koncový běh a živé případy, úplná historie ani OOS
+nejsou doloženy; institutions zůstává PILOT/PENDING a 0/21 DONE.
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen ze 135 na 140 kanonických
 instrumentů (KKR, CVNA, DUK, INTU a MAR). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v
 `evidence/sec13f_identity_expansion28_20261011.json`. Coverage je 140/687
 (0,203785), 547 tickerů zůstává nezmapovaných. BLK a SO zůstávají odloženy
-podle uvedených zdrojových limitů. Zaměřená lokální sada SEC 13F prošla 6/6,
-hostovaná kontrola nového stavu zatím chybí. Nejde o živý ZIP/holdings běh
-ani uživatelský Windows end-to-end. Stav zůstává institutions PILOT/PENDING
-a 0/21 DONE.
+podle uvedených zdrojových limitů. Zaměřená lokální sada SEC 13F prošla 6/6
+a samostatná hostovaná kontrola je doložena výše. Nejde o živý ZIP/holdings
+běh ani uživatelský Windows end-to-end. Stav zůstává institutions
+PILOT/PENDING a 0/21 DONE.
 
 
 Hostovaná kontrola 135instrumentového SEC 13F registru na commitu
