@@ -5,9 +5,14 @@ instrumentů (MMM, CSX, CMCSA, MNST a WMB). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v
 `evidence/sec13f_identity_expansion29_20261011.json`. Coverage je 145/687
 (0,211063), 542 tickerů zůstává nezmapovaných. Zaměřená lokální sada SEC 13F
-prošla 6/6; hostovaná Linux/Windows kontrola tohoto rozšíření zatím chybí.
-Nejde o živý ZIP/holdings běh ani uživatelský Windows end-to-end. Stav
-zůstává institutions PILOT/PENDING a 0/21 DONE.
+prošla 6/6. Commit ed5d85de následně uspěl na Linuxu i GitHub-hosted Windows
+546/546 včetně jmenovitého testu registru a release gate. Artifact
+11693850352 má shodný publikovaný a stažený SHA-256; oba soubory byly
+hashově a obsahově ověřeny. Důkazy jsou v
+`evidence/sec13f_identity_expansion29_tests_20261011.json` a
+`evidence/sec13f_identity_expansion29_windows_20261011.json`. Nejde o živý
+ZIP/holdings běh ani uživatelský Windows end-to-end. Stav zůstává
+institutions PILOT/PENDING a 0/21 DONE.
 
 Hostovaná kontrola 140instrumentového SEC 13F registru na commitu
 f6ad74f4 uspěla: Linux i Windows 546/546, jmenovitý test registru a release

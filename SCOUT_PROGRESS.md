@@ -10,10 +10,17 @@ datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
 zůstávají odloženy podle dříve uvedených zdrojových limitů. Zdrojový audit je
 v `evidence/sec13f_identity_expansion29_20261011.json`.
 
-Zaměřená lokální sada SEC 13F prošla 6/6. Hostovaná kontrola tohoto rozšíření
-na Linuxu a Windows zatím není doložena. Nejde o živý SEC ZIP/holdings běh,
-koncový běh na uživatelově Windows, úplnou corporate-action historii ani OOS
-evaluaci. Institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+Zaměřená lokální sada SEC 13F prošla 6/6. Commit ed5d85de prošel workflow
+38116010263: Linux i GitHub-hosted Windows 546/546, jmenovitý test
+145instrumentového registru a release gate. Úplné job logy byly obsahově
+ověřeny. Artifact 11693850352 má v metadatech i upload logu shodný SHA-256;
+stažený archiv má tentýž SHA-256 a oba soubory byly hashově a obsahově
+zkontrolovány. Přesné výsledky jsou v
+`evidence/sec13f_identity_expansion29_tests_20261011.json` a
+`evidence/sec13f_identity_expansion29_windows_20261011.json`. Nejde o živý
+SEC ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE.
 
 ## SEC 13F — hostovaná kontrola registru 140 instrumentů (11. 10. 2026)
 
