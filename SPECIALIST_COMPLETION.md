@@ -1,5 +1,14 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen ze 145 na 150 kanonických
+instrumentů (HCA, MRSH, DDOG, EMR a ICE). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion30_20261011.json`. Coverage je 150/687
+(0,218341), 537 tickerů zůstává nezmapovaných. Zaměřená lokální sada SEC 13F
+prošla 6/6; hostovaná Linux/Windows kontrola tohoto rozšíření zatím chybí.
+Nejde o živý ZIP/holdings běh ani uživatelský Windows end-to-end. Stav
+zůstává institutions PILOT/PENDING a 0/21 DONE.
+
 Registr SEC 13F pro 2026 Q2 byl rozšířen ze 140 na 145 kanonických
 instrumentů (MMM, CSX, CMCSA, MNST a WMB). Oficiální SEC zdroje, datované
 identity a přesné limity jsou v

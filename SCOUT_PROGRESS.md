@@ -1,5 +1,20 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — třicáté rozšíření datovaného registru (11. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 150 kanonických instrumentů. Nově
+přibyly HCA, MRSH, DDOG, EMR a ICE; přesný CUSIP, issuer CIK, třída a
+omezená doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
+150/687 (0,218341), takže 537 tickerů zůstává bez mapování. BLK a SO
+zůstávají odloženy podle dříve uvedených zdrojových limitů. Zdrojový audit je
+v `evidence/sec13f_identity_expansion30_20261011.json`.
+
+Zaměřená lokální sada SEC 13F prošla 6/6. Hostovaná kontrola tohoto rozšíření
+na Linuxu a Windows zatím není doložena. Nejde o živý SEC ZIP/holdings běh,
+koncový běh na uživatelově Windows, úplnou corporate-action historii ani OOS
+evaluaci. Institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+
 ## SEC 13F — dvacáté deváté rozšíření datovaného registru (11. 10. 2026)
 
 Reviewovaný registr 2026 Q2 nyní obsahuje 145 kanonických instrumentů. Nově

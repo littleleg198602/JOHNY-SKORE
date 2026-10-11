@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 11. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 150
+kanonických instrumentů přidáním HCA, MRSH, DDOG, EMR a ICE. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion30_20261011.json`. Měřené identity
+coverage je 150/687 (0,218341), 537 položek zůstává bez mapování. Zaměřená
+lokální sada SEC 13F prošla 6/6; hostovaná Linux/Windows kontrola tohoto
+rozšíření zatím není doložena. Bez živého SEC ZIP/holdings, skutečného
+uživatelského Windows běhu, úplné corporate-action historie a OOS evaluace
+zůstává institutions PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 11. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 145
 kanonických instrumentů přidáním MMM, CSX, CMCSA, MNST a WMB. Přesné CUSIP,
 issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
