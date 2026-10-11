@@ -1,5 +1,14 @@
 # Pátrací specialisté: jediný seznam stavu
 
+Registr SEC 13F pro 2026 Q2 byl rozšířen ze 140 na 145 kanonických
+instrumentů (MMM, CSX, CMCSA, MNST a WMB). Oficiální SEC zdroje, datované
+identity a přesné limity jsou v
+`evidence/sec13f_identity_expansion29_20261011.json`. Coverage je 145/687
+(0,211063), 542 tickerů zůstává nezmapovaných. Zaměřená lokální sada SEC 13F
+prošla 6/6; hostovaná Linux/Windows kontrola tohoto rozšíření zatím chybí.
+Nejde o živý ZIP/holdings běh ani uživatelský Windows end-to-end. Stav
+zůstává institutions PILOT/PENDING a 0/21 DONE.
+
 Hostovaná kontrola 140instrumentového SEC 13F registru na commitu
 f6ad74f4 uspěla: Linux i Windows 546/546, jmenovitý test registru a release
 gate. Artifact 11691398790 má shodný publikovaný i stažený SHA-256 a jeho

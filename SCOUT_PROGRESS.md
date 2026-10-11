@@ -1,5 +1,20 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — dvacáté deváté rozšíření datovaného registru (11. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 145 kanonických instrumentů. Nově
+přibyly MMM, CSX, CMCSA, MNST a WMB; přesný CUSIP, issuer CIK, třída a
+omezená doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
+145/687 (0,211063), takže 542 tickerů zůstává bez mapování. BLK a SO
+zůstávají odloženy podle dříve uvedených zdrojových limitů. Zdrojový audit je
+v `evidence/sec13f_identity_expansion29_20261011.json`.
+
+Zaměřená lokální sada SEC 13F prošla 6/6. Hostovaná kontrola tohoto rozšíření
+na Linuxu a Windows zatím není doložena. Nejde o živý SEC ZIP/holdings běh,
+koncový běh na uživatelově Windows, úplnou corporate-action historii ani OOS
+evaluaci. Institutions zůstává PILOT/PENDING a inventář 0/21 DONE.
+
 ## SEC 13F — hostovaná kontrola registru 140 instrumentů (11. 10. 2026)
 
 Commit f6ad74f4 prošel workflow 38110751861: Linux i GitHub-hosted Windows

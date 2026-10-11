@@ -1818,5 +1818,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-11T04:06:41+00:00"
+  },
+  {
+    "ticker": "MMM",
+    "issuer_cik": "0000066740",
+    "cusip": "88579Y101",
+    "issuer_name": "3M CO",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T05:43:36+00:00"
+  },
+  {
+    "ticker": "CSX",
+    "issuer_cik": "0000277948",
+    "cusip": "126408103",
+    "issuer_name": "CSX CORP",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T05:43:36+00:00"
+  },
+  {
+    "ticker": "CMCSA",
+    "issuer_cik": "0001166691",
+    "cusip": "20030N101",
+    "issuer_name": "COMCAST CORP NEW",
+    "class_description": "CL A",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T05:43:36+00:00"
+  },
+  {
+    "ticker": "MNST",
+    "issuer_cik": "0000865752",
+    "cusip": "61174X109",
+    "issuer_name": "MONSTER BEVERAGE CORP NEW",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T05:43:36+00:00"
+  },
+  {
+    "ticker": "WMB",
+    "issuer_cik": "0000107263",
+    "cusip": "969457100",
+    "issuer_name": "WILLIAMS COS INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T05:43:36+00:00"
   }
 ]

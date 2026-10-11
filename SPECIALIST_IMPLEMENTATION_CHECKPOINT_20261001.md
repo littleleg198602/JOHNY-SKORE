@@ -1,5 +1,16 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 11. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 145
+kanonických instrumentů přidáním MMM, CSX, CMCSA, MNST a WMB. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion29_20261011.json`. Měřené identity
+coverage je 145/687 (0,211063), 542 položek zůstává bez mapování. Zaměřená
+lokální sada SEC 13F prošla 6/6; hostovaná Linux/Windows kontrola tohoto
+rozšíření zatím není doložena. Bez živého SEC ZIP/holdings, skutečného
+uživatelského Windows běhu, úplné corporate-action historie a OOS evaluace
+zůstává institutions PILOT/PENDING a inventář 0/21 DONE.
+
 Aktualizace 11. 10.: commit f6ad74f4 s registrem 140 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Jmenovitý test je v
 obou úplných job logách úspěšný. Artifact 11691398790 má v metadatech a
