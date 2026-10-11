@@ -204,7 +204,7 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers one hundred thirty-five canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 135/687 (0.196507), explicitly leaving 552 unmapped. Expansion 27 adds five source-reviewed identities; its focused local SEC 13F suite passed 6/6, hosted Linux and Windows passed 546/546 plus release gate, and the downloaded Windows artifact digest and both files were verified. BLK remains deferred for a separate dated 2026 holding-company/CIK/CUSIP transition review; SO remains unmapped because the selected filed Q1 corroboration table did not yield the required row. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
+      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers one hundred forty canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 140/687 (0.203785), explicitly leaving 547 unmapped. Expansion 28 adds five source-reviewed identities and its focused local SEC 13F suite passed 6/6; hosted verification of this 140-instrument state is pending. Expansion 27's 135-instrument state passed hosted Linux and Windows 546/546 plus release gate, and the downloaded Windows artifact digest and both files were verified. BLK remains deferred for a separate dated 2026 holding-company/CIK/CUSIP transition review; SO remains unmapped because the selected filed Q1 corroboration table did not yield the required row. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
       "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
       "test_evidence": "evidence/sec13f_identity_tests_20261002.json",
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
@@ -287,7 +287,8 @@
       "windows_expansion26_evidence": "evidence/sec13f_identity_expansion26_windows_20261008.json",
       "identity_expansion27_evidence": "evidence/sec13f_identity_expansion27_20261008.json",
       "test_expansion27_evidence": "evidence/sec13f_identity_expansion27_tests_20261008.json",
-      "windows_expansion27_evidence": "evidence/sec13f_identity_expansion27_windows_20261008.json"
+      "windows_expansion27_evidence": "evidence/sec13f_identity_expansion27_windows_20261008.json",
+      "identity_expansion28_evidence": "evidence/sec13f_identity_expansion28_20261011.json"
     },
     {
       "id": "consensus_options",

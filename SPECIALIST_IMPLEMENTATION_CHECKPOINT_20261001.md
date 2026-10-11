@@ -1,5 +1,18 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+Aktualizace 11. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 140
+kanonických instrumentů přidáním KKR, CVNA, DUK, INTU a MAR. Přesné CUSIP,
+issuer CIK, třídy, data instrumentových událostí a zdrojové URL jsou
+obsahově zaznamenány v
+`evidence/sec13f_identity_expansion28_20261011.json`. Měřené identity
+coverage je 140/687 (0,203785), 547 položek zůstává bez mapování. BLK a SO
+zůstávají odloženy podle uvedených zdrojových limitů. Zaměřená lokální sada
+SEC 13F prošla 6/6, hostovaná kontrola nového stavu zatím chybí. Bez živého
+SEC ZIP/holdings, skutečného uživatelského Windows běhu, úplné
+corporate-action historie a OOS evaluace zůstává institutions PILOT/PENDING
+a inventář 0/21 DONE.
+
+
 Aktualizace 8. 10.: commit 3fd4753e s registrem 135 instrumentů prošel
 hostovaným Linux i Windows během 546/546 a release gate. Jmenovitý test je v
 obou úplných job logách úspěšný. Artifact 11576181642 má v metadatech a
@@ -10,7 +23,6 @@ jeho log i JSON byly hashově a obsahově ověřeny. Přesná evidence je v
 SEC ZIP/holdings ani o koncový běh na uživatelově Windows a není doložena
 úplná corporate-action historie nebo OOS; institutions zůstává
 PILOT/PENDING a inventář 0/21 DONE.
-
 
 Aktualizace 8. 10.: omezený SEC 13F registr 2026 Q2 byl rozšířen na 135
 kanonických instrumentů přidáním PWR, MPC, PNC, USB a VLO. Přesné CUSIP,

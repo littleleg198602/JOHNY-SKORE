@@ -1,5 +1,24 @@
 # Průběh implementace pátracích agentů
 
+## SEC 13F — dvacáté osmé rozšíření datovaného registru (11. 10. 2026)
+
+Reviewovaný registr 2026 Q2 nyní obsahuje 140 kanonických instrumentů. Nově
+přibyly KKR, CVNA, DUK, INTU a MAR; přesný CUSIP, issuer CIK, třída a
+omezená doba platnosti jsou doložené oficiálním SEC seznamem, ticker mapou a
+datovanou Q1 2026 informační tabulkou. Měřené knowledge-time coverage je
+140/687 (0,203785), takže 547 tickerů zůstává bez mapování. BLK zůstává
+odložen pro samostatný audit přechodu holdingové společnosti, CIK a CUSIP v
+roce 2026; SO zůstává odloženo bez potvrzujícího řádku ve zvolené podané Q1
+tabulce. Zdrojový audit je v
+`evidence/sec13f_identity_expansion28_20261011.json`.
+
+Zaměřená lokální sada SEC 13F prošla 6/6. Hostovaná kontrola tohoto
+140instrumentového stavu zatím nebyla provedena. Nejde o živý SEC
+ZIP/holdings běh, koncový běh na uživatelově Windows, úplnou
+corporate-action historii ani OOS evaluaci. Institutions zůstává
+PILOT/PENDING a inventář 0/21 DONE.
+
+
 ## SEC 13F — hostovaná kontrola registru 135 instrumentů (8. 10. 2026)
 
 Commit 3fd4753e prošel workflow 37835177568: Linux i GitHub-hosted Windows
@@ -13,9 +32,7 @@ jsou v `evidence/sec13f_identity_expansion27_tests_20261008.json` a
 Kontrola není živý SEC ZIP/holdings běh, pozitivní a negativní živý případ,
 koncový běh na uživatelově Windows, úplná corporate-action historie ani
 historické OOS vyhodnocení. Institutions zůstává PILOT/PENDING a inventář
-0/21 DONE; změna skóre se neprovádí. Další dostupná práce je živý omezený
-SEC ZIP běh s deklarovaným User-Agentem nebo další datované identity.
-
+0/21 DONE; změna skóre se neprovádí.
 
 ## SEC 13F — dvacáté sedmé rozšíření datovaného registru (8. 10. 2026)
 

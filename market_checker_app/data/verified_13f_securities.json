@@ -1753,5 +1753,70 @@
     "effective_from": "2026-04-01",
     "effective_to": "2026-06-30",
     "known_at": "2026-10-08T19:47:49+00:00"
+  },
+  {
+    "ticker": "KKR",
+    "issuer_cik": "0001404912",
+    "cusip": "48251W104",
+    "issuer_name": "KKR & CO INC",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T04:06:41+00:00"
+  },
+  {
+    "ticker": "CVNA",
+    "issuer_cik": "0001690820",
+    "cusip": "146869102",
+    "issuer_name": "CARVANA CO",
+    "class_description": "CL A",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T04:06:41+00:00"
+  },
+  {
+    "ticker": "DUK",
+    "issuer_cik": "0001326160",
+    "cusip": "26441C204",
+    "issuer_name": "DUKE ENERGY CORP NEW",
+    "class_description": "COM NEW",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T04:06:41+00:00"
+  },
+  {
+    "ticker": "INTU",
+    "issuer_cik": "0000896878",
+    "cusip": "461202103",
+    "issuer_name": "INTUIT",
+    "class_description": "COM",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T04:06:41+00:00"
+  },
+  {
+    "ticker": "MAR",
+    "issuer_cik": "0001048286",
+    "cusip": "571903202",
+    "issuer_name": "MARRIOTT INTL INC NEW",
+    "class_description": "CL A",
+    "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+    "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+    "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json",
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "known_at": "2026-10-11T04:06:41+00:00"
   }
 ]
