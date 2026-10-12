@@ -103,3 +103,28 @@ Automatické pokračování bylo při kontrole skutečně vypnuté. Jeho pokyn
 se opravuje na sloučený PR 160 a navazující nezveřejněné dávky; zapnutí se
 nepředstírá. Po uznaném souhlasu je další krok zveřejnění připravené větve,
 nový PR, jeho CI a navázání dalších specialistů z uložené fronty.
+
+### Zveřejnění po výslovném souhlasu, 12. října
+
+Uživatel výslovně schválil zveřejnění obou připravených dávek kódu, testů a
+důkazů do veřejného `littleleg198602/JOHNY-SKORE` v novém PR. Standardní
+Git skončil pouze chybou chybějícího přihlášení; připojená aplikace GitHub
+pak zveřejnila schválený celek do větve
+`continuation/specialists-after-160-20261012`. Nový vzdálený snapshot je
+`8dfd00059c50ffb73822181986f90a9922d02d80` a jeho strom
+`89a7e70c3f05f8b7ec6894d13b65e7d795b0c85e` je přesně totožný s připraveným
+místním stromem `1cd44fee5299b133276d9fe3d0017d4a68381af1`.
+
+Vzdálený snapshot má novou historii od aktuálního `main`; původní testové
+commity v historických důkazech zůstávají místními referencemi. Přesná shoda
+stromu a nezměněný program, testy, workflow a launchery proti
+`2c8c4b685a63a3c23b91b49d6a4a32705bddd002` dokládají přenos ověřeného kódu.
+Neměnný 899-testový Linux log byl znovu obsahově hashově ověřen. Přesný
+manifest, vzdálené identity a hranice ověření jsou v
+`evidence/publication_20261012.json`.
+
+Dřívější blokace zveřejnění je tímto souhlasem a úspěšným zápisem vyřešená.
+Následuje otevření nového PR a jeho hostované CI; toto doplnění netvrdí, že
+už prošlo. Automatické pokračování bude navazovat na skutečnou vzdálenou
+větev a její frontu, bez opakování těchto dvou již zveřejněných dávek.
+Úplná akceptace specialistů zůstává samostatným nehotovým úkolem.
