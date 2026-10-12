@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, timezone
 import hashlib
 from io import StringIO
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -669,10 +670,10 @@ class Sec13fBulkTests(unittest.TestCase):
                             process.terminate()
                             break
                     time.sleep(0.01)
-                process.communicate(timeout=10)
+                stdout, stderr = process.communicate(timeout=10)
                 state = json.loads(checkpoint.read_text(encoding="utf-8"))
                 stopped_at = state["next_index"]
-                self.assertGreaterEqual(stopped_at, 3)
+                self.assertGreaterEqual(stopped_at, 3, stderr or stdout)
                 self.assertLess(stopped_at, 687)
                 self.assertNotEqual(process.returncode, 0)
             finally:
@@ -687,6 +688,67 @@ class Sec13fBulkTests(unittest.TestCase):
             self.assertEqual(result["status"], "COMPLETE_REVIEW_QUEUE")
             self.assertTrue(all(row["scoring_allowed"] is False for row in result["results"]))
             self.assertIn("687/687 saved", resumed.stdout)
+
+    def test_atomic_checkpoint_recovers_temporary_windows_reader_locks(self):
+        original_replace = os.replace
+        for winerror in [5, 32, 33]:
+            with self.subTest(winerror=winerror), TemporaryDirectory() as directory:
+                root = Path(directory)
+                checkpoint = root / "candidates.json"
+                before = b'{"next_index": 2}\n'
+                checkpoint.write_bytes(before)
+                attempts = []
+
+                def replace(source, destination):
+                    attempts.append(1)
+                    if len(attempts) < 3:
+                        self.assertEqual(checkpoint.read_bytes(), before)
+                        error = PermissionError(13, "temporary fixture reader lock")
+                        error.winerror = winerror
+                        raise error
+                    return original_replace(source, destination)
+
+                with patch("market_checker_app.services.sec13f_identity_bulk.os.replace", side_effect=replace), \
+                        patch("market_checker_app.services.sec13f_identity_bulk.time.sleep"):
+                    atomic_json(checkpoint, {"next_index": 3})
+                self.assertEqual(json.loads(checkpoint.read_text(encoding="utf-8")), {"next_index": 3})
+                self.assertEqual(len(attempts), 3)
+                self.assertEqual(list(root.iterdir()), [checkpoint])
+
+    def test_atomic_checkpoint_preserves_previous_state_when_windows_lock_persists(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = root / "candidates.json"
+            before = b'{"next_index": 2}\n'
+            checkpoint.write_bytes(before)
+            error = PermissionError(13, "persistent fixture reader lock")
+            error.winerror = 32
+            with patch("market_checker_app.services.sec13f_identity_bulk.os.replace", side_effect=error) as replace, \
+                    patch("market_checker_app.services.sec13f_identity_bulk.time.sleep"):
+                with self.assertRaises(PermissionError) as caught:
+                    atomic_json(checkpoint, {"next_index": 3})
+            self.assertIs(caught.exception, error)
+            self.assertGreater(replace.call_count, 1)
+            self.assertLessEqual(replace.call_count, 25)
+            self.assertEqual(checkpoint.read_bytes(), before)
+            self.assertEqual(list(root.iterdir()), [checkpoint])
+
+    def test_atomic_checkpoint_does_not_retry_other_permission_failures(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = root / "candidates.json"
+            before = b'{"next_index": 2}\n'
+            checkpoint.write_bytes(before)
+            error = PermissionError(13, "fixture permissions denied")
+            with patch("market_checker_app.services.sec13f_identity_bulk.os.replace", side_effect=error) as replace, \
+                    patch("market_checker_app.services.sec13f_identity_bulk.time.sleep") as sleep:
+                with self.assertRaises(PermissionError) as caught:
+                    atomic_json(checkpoint, {"next_index": 3})
+            self.assertIs(caught.exception, error)
+            replace.assert_called_once()
+            sleep.assert_not_called()
+            self.assertEqual(checkpoint.read_bytes(), before)
+            self.assertEqual(list(root.iterdir()), [checkpoint])
 
 
 if __name__ == "__main__":

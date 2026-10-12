@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-12T13:45:40.638718+00:00",
+  "initial_published_head": "8ab4aaa47e8bee6a6f7ca0f50b8c9edae46afa4f",
+  "initial_workflow_run": 38254020363,
+  "initial_windows_job": 114827295447,
+  "initial_windows_job_conclusion": "cancelled",
+  "initial_windows_test_summary": [
+    "Ran 899 tests in 1433.834s",
+    "FAILED (failures=1)"
+  ],
+  "initial_failing_test": "test_terminated_cli_process_resumes_saved_cursor_to_exactly_687",
+  "initial_failure": "AssertionError: 2 not greater than or equal to 3",
+  "initial_child_stderr": "Not exposed by the original assertion; the repair preserves child output in future failures.",
+  "failure_mechanism_scope": "Windows readers can temporarily deny atomic destination replacement. This specific child exception was not captured by the initial test. Fault injection verifies bounded handling; the real hosted Windows process-resume test must pass before the repair is accepted.",
+  "repair": "Retry only Windows access/sharing/lock PermissionErrors for at most 20 attempts with 50ms gaps; preserve old complete checkpoint, propagate lasting or other errors, clean up unpublished temporary files. Keep the original interruption threshold and 687-ticker resume assertions.",
+  "local_targeted_verification": {
+    "command": "python -X utf8 -m unittest discover -s tests -p 'test_sec13f_identity*.py' -v",
+    "tests_run": 81,
+    "seconds": 6.023,
+    "exit_code": 0,
+    "summary": "OK"
+  },
+  "changed_code_sha256": {
+    "market_checker_app/services/sec13f_identity_bulk.py": "d7d1ed1860c85d30e5af385ad5515cda162aec9dfd0cf2f3d19090f22db4db73",
+    "tests/test_sec13f_identity_bulk.py": "a54b2e0bf5e3ba373ab70122c9cd485fbbddb4f8fbb6fbbeccf597fae4527203",
+    ".github/workflows/market-checker-test-agents.yml": "cf5785586e64398a037b3a0e9fdf6edc753145861d7443e9405e547368a93d5c"
+  },
+  "workflow_repair": "Focused SEC checkpoint regressions run before the full Windows suite. A bounded 35-minute job limit replaces 25 minutes, which the 23.9-minute suite plus setup/artifact upload reached.",
+  "hosted_ci_of_repair": "pending",
+  "specialist_acceptance": "No new live or end-user Windows acceptance claims."
+}

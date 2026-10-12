@@ -19,6 +19,7 @@ import os
 from pathlib import Path
 import re
 import tempfile
+import time
 from urllib.parse import urlsplit
 from xml.etree import ElementTree
 
@@ -172,7 +173,17 @@ def atomic_json(path: Path, payload: object) -> None:
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(name, path)
+        # Windows readers can briefly deny replacement of the destination.
+        # Keep the complete temporary file and the previous checkpoint intact
+        # until the same atomic rename succeeds, or the bounded retry expires.
+        for attempt in range(20):
+            try:
+                os.replace(name, path)
+                break
+            except PermissionError as error:
+                if getattr(error, "winerror", None) not in {5, 32, 33} or attempt == 19:
+                    raise
+                time.sleep(0.05)
     finally:
         if os.path.exists(name):
             os.unlink(name)
