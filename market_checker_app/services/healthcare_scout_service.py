@@ -1,7 +1,8 @@
-"""Primary healthcare name candidates, separate from verified issuer exposure."""
+"""Primary healthcare leads with optional dated, object-specific identity links."""
 from __future__ import annotations
 
 from datetime import date, datetime, timezone
+from copy import deepcopy
 import hashlib
 import json
 import re
@@ -15,6 +16,9 @@ from market_checker_app.services.research_profile_service import load_research_p
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.services.public_source_budget import (
     PublicBudgetExhausted, PublicSourceBudget, bounded_public_source,
+)
+from market_checker_app.services.healthcare_identity_service import (
+    HealthcareIdentityRegistry, exact_query_names,
 )
 
 
@@ -65,7 +69,7 @@ class ClinicalTrialsClient:
         if cursor is not None and (not isinstance(cursor, str) or not cursor or len(cursor) > 4000):
             raise ValueError("Invalid clinical trial cursor")
         query = {"query.spons": name, "pageSize": size, "format": "json",
-                 "fields": "NCTId,BriefTitle,OverallStatus,LeadSponsorName,CollaboratorName,Phase,StudyFirstPostDate,LastUpdatePostDate,PrimaryCompletionDate,HasResults"}
+                 "fields": "NCTId,BriefTitle,OverallStatus,LeadSponsorName,CollaboratorName,InterventionName,Phase,StudyFirstPostDate,LastUpdatePostDate,PrimaryCompletionDate,HasResults"}
         if cursor:
             query["pageToken"] = cursor
         payload = _json(f"{TRIALS_URL}?{urlencode(query)}", "clinicaltrials.gov")
@@ -107,7 +111,8 @@ def _candidate(source: str, row: dict, name: str, clock: datetime) -> tuple[str,
         object_id = ":".join(row[k] for k in ("ENROLLMENT ID", "ASSOCIATE ID - OWNER",
                                               "ROLE CODE - OWNER", "ASSOCIATION DATE - OWNER"))
         details.update(stage="cms_hospital_owner_name_candidate", dataset_id=CMS_DATASET,
-                       association_date_is_publication_time=False)
+                       association_date_is_publication_time=False,
+                       matched_entity_name=row["ORGANIZATION NAME - OWNER"])
         return object_id, details
 
     protocol = row.get("protocolSection")
@@ -131,7 +136,8 @@ def _candidate(source: str, row: dict, name: str, clock: datetime) -> tuple[str,
         roles.append("COLLABORATOR")
     if not roles or not isinstance(status.get("overallStatus"), str):
         return None
-    posted = status.get("lastUpdatePostDateStruct", {}).get("date")
+    posted_struct = status.get("lastUpdatePostDateStruct", {})
+    posted = posted_struct.get("date") if isinstance(posted_struct, dict) else None
     try:
         if not isinstance(posted, str) or date.fromisoformat(posted) > clock.date():
             return None
@@ -140,19 +146,69 @@ def _candidate(source: str, row: dict, name: str, clock: datetime) -> tuple[str,
     details = {"stage": "clinical_trial_sponsor_name_candidate", "nct_id": nct,
                "title": str(identification.get("briefTitle", ""))[:1000],
                "matched_roles": roles, "lead_sponsor": lead.get("name"),
+               "matched_entity_name": name,
                "overall_status": status["overallStatus"], "last_update_posted": posted,
                "has_results": row.get("hasResults"),
                "posted_date_is_first_observation": False}
     design = protocol.get("designModule", {})
     if isinstance(design, dict) and isinstance(design.get("phases"), list):
         details["phases"] = design["phases"]
+    interventions = protocol.get("armsInterventionsModule", {})
+    values = interventions.get("interventions", []) if isinstance(interventions, dict) else []
+    details["intervention_names"] = [item["name"] for item in values
+                                    if isinstance(item, dict) and isinstance(item.get("name"), str)] if isinstance(values, list) else []
     return nct, details
+
+
+def _identity_details(registry: HealthcareIdentityRegistry, source: str, detail: dict,
+                      issuer: dict, clock: datetime) -> dict:
+    common = dict(source=source, ticker=issuer["subject_id"], cik=issuer["cik"],
+                  entity_name=detail["matched_entity_name"], as_of=clock)
+    if source == "cms":
+        identifiers = dict(enrollment_id=detail["ENROLLMENT ID"],
+                           owner_associate_id=detail["ASSOCIATE ID - OWNER"],
+                           provider_name=detail["ORGANIZATION NAME"],
+                           association_date=detail["ASSOCIATION DATE - OWNER"],
+                           owner_role_code=detail["ROLE CODE - OWNER"])
+        # The publisher supplies a current ownership snapshot, not a historical
+        # snapshot of the issuer chain at the (often old) association date.
+        result = registry.resolve(kind="cms_provider_owner", identifiers=identifiers,
+                                  event_date=clock.date(), **common)
+        result["ownership_attribution_time_basis"] = "OBSERVED_SNAPSHOT"
+        result["historical_association_attribution_allowed"] = False
+        return result
+    resolutions = [registry.resolve(
+        kind="clinical_trial_sponsor", identifiers=dict(
+            nct_id=detail["nct_id"], role=role, intervention_name=intervention,
+            record_version_date=detail["last_update_posted"]),
+        event_date=date.fromisoformat(detail["last_update_posted"]), **common)
+        for role in dict.fromkeys(detail["matched_roles"])
+        for intervention in dict.fromkeys(detail["intervention_names"])]
+    allowed = [r for r in resolutions if r["issuer_attribution_allowed"]]
+    if len(allowed) == 1 and not any(r["identity_resolution"] == "AMBIGUOUS_OBJECT" for r in resolutions):
+        return allowed[0]
+    if len(resolutions) == 1:
+        return resolutions[0]
+    return {"identity_status": "NAME_ONLY", "issuer_attribution_allowed": False,
+            "identity_resolution": "AMBIGUOUS_OBJECT" if allowed else "UNMAPPED_OBJECT",
+            "identity_evidence": None, "missing_evidence": "dated trial, intervention, sponsor role and issuer relationship"}
+
+
+def _finding_digest(detail: dict) -> str:
+    content = deepcopy(detail)
+    evidence = content.get("identity_evidence")
+    if isinstance(evidence, dict) and evidence.get("time_basis") == "OBSERVED_SNAPSHOT":
+        # A later observation of unchanged CMS content is a replay, not a new
+        # ownership event. The store retains first/last observation separately.
+        evidence.pop("matched_event_date", None)
+    return hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()
 
 
 class HealthcareNameScoutService:
     def __init__(self, store: ScoutStore, *, client: NameClient,
                  max_subjects: int = 10, page_size: int = 100, max_pages: int = 2,
-                 max_run_seconds: float = 60, max_failures: int = 3):
+                 max_run_seconds: float = 60, max_failures: int = 3,
+                 identities: HealthcareIdentityRegistry | None = None):
         if client.source not in {"cms", "clinicaltrials"}:
             raise ValueError("Unknown healthcare source")
         if not 1 <= max_subjects <= 50 or not 1 <= page_size <= 100 or not 1 <= max_pages <= 10:
@@ -162,6 +218,7 @@ class HealthcareNameScoutService:
         self.store, self.client = store, client
         self.max_subjects, self.page_size, self.max_pages = max_subjects, page_size, max_pages
         self.max_run_seconds, self.max_failures = max_run_seconds, max_failures
+        self.identities = identities if identities is not None else HealthcareIdentityRegistry.load()
 
     @bounded_public_source()
     def run(self, *, as_of: datetime | None = None, universe: set[str] | None = None,
@@ -177,14 +234,17 @@ class HealthcareNameScoutService:
             applicable &= universe
         if not applicable:
             return {"status": "NOT_APPLICABLE", "checked_issuers": 0, "new_findings": 0}
+        identity_versions = self.identities.identity_versions(self.store, source, as_of=clock)
         due = _budget.select_due([
-            row for row in self.store.specialist_due(source, as_of=clock, limit=900)
+            row for row in self.store.specialist_due(source, as_of=clock, limit=900,
+                                                    identity_versions=identity_versions)
             if row["subject_id"] in applicable])[:self.max_subjects]
-        coverage = self.store.specialist_coverage(source, as_of=clock, subjects=applicable)
+        coverage = self.store.specialist_coverage(source, as_of=clock, subjects=applicable,
+                                                  identity_versions=identity_versions)
         if not due:
             return {"status": "WAIT_IDENTITY" if coverage["active_identities"] == 0 else "OK",
                     "checked_issuers": 0, "new_findings": 0}
-        checked = created = failed = truncated_issuers = rejected = 0
+        checked = created = failed = truncated_issuers = rejected = identity_linked = 0
         deadline = time.monotonic() + self.max_run_seconds
         budget_exhausted = False
         for issuer in due:
@@ -192,45 +252,48 @@ class HealthcareNameScoutService:
                 budget_exhausted = True
                 break
             name = issuer["company_name"]
-            cursor = None
-            seen_cursors: set[str] = set()
-            seen_rows: set[str] = set()
             candidates = []
-            incomplete = False
+            query_names = exact_query_names(name, self.identities.query_names(
+                source, issuer["subject_id"], issuer["cik"], as_of=clock))
+            incomplete = len(query_names) > 5
             try:
-                for _ in range(self.max_pages):
-                    if time.monotonic() >= deadline:
-                        budget_exhausted = True
-                        # Keep this issuer due; a timeout between pages is
-                        # not a complete negative query and commits no rows.
-                        raise TimeoutError("Healthcare time budget exhausted")
-                    rows, next_cursor = _budget.call(
-                        issuer["subject_id"], f"{issuer['cik']}:{name}",
-                        lambda: self.client.page(name, size=self.page_size, cursor=cursor))
-                    if not isinstance(rows, list) or len(rows) > self.page_size:
-                        raise ValueError("Malformed healthcare page")
-                    for row in rows:
-                        if not isinstance(row, dict):
-                            raise ValueError("Malformed healthcare row")
-                        digest = hashlib.sha256(json.dumps(row, sort_keys=True).encode()).hexdigest()
-                        if digest in seen_rows:
-                            incomplete = True
-                            continue
-                        seen_rows.add(digest)
-                        candidate = _candidate(source, row, name, clock)
-                        if candidate is None:
-                            rejected += 1
-                            incomplete = True
-                        else:
-                            candidates.append(candidate)
-                    if next_cursor is None:
-                        break
-                    if not isinstance(next_cursor, str) or not next_cursor or next_cursor in seen_cursors:
-                        raise ValueError("Repeated healthcare cursor")
-                    seen_cursors.add(next_cursor)
-                    cursor = next_cursor
-                else:
-                    incomplete = True
+                for query_name in query_names[:5]:
+                    cursor = None
+                    seen_cursors: set[str] = set()
+                    seen_rows: set[str] = set()
+                    for _ in range(self.max_pages):
+                        if time.monotonic() >= deadline:
+                            budget_exhausted = True
+                            # Keep this issuer due; a timeout between pages is
+                            # not a complete negative query and commits no rows.
+                            raise TimeoutError("Healthcare time budget exhausted")
+                        rows, next_cursor = _budget.call(
+                            issuer["subject_id"], f"{issuer['cik']}:{name}",
+                            lambda: self.client.page(query_name, size=self.page_size, cursor=cursor))
+                        if not isinstance(rows, list) or len(rows) > self.page_size:
+                            raise ValueError("Malformed healthcare page")
+                        for row in rows:
+                            if not isinstance(row, dict):
+                                raise ValueError("Malformed healthcare row")
+                            digest = hashlib.sha256(json.dumps(row, sort_keys=True).encode()).hexdigest()
+                            if digest in seen_rows:
+                                incomplete = True
+                                continue
+                            seen_rows.add(digest)
+                            candidate = _candidate(source, row, query_name, clock)
+                            if candidate is None:
+                                rejected += 1
+                                incomplete = True
+                            else:
+                                candidates.append(candidate)
+                        if next_cursor is None:
+                            break
+                        if not isinstance(next_cursor, str) or not next_cursor or next_cursor in seen_cursors:
+                            raise ValueError("Repeated healthcare cursor")
+                        seen_cursors.add(next_cursor)
+                        cursor = next_cursor
+                    else:
+                        incomplete = True
             except PublicBudgetExhausted:
                 budget_exhausted = True
                 break
@@ -247,8 +310,10 @@ class HealthcareNameScoutService:
                 continue
             for object_id, detail in candidates:
                 detail.update(query_issuer_name=name, issuer_cik=issuer["cik"],
-                              issuer_attribution_allowed=False, scoring_applied=False)
-                digest = hashlib.sha256(json.dumps(detail, sort_keys=True).encode()).hexdigest()
+                              scoring_applied=False, issuer_financial_impact_verified=False)
+                detail.update(_identity_details(self.identities, source, detail, issuer, clock))
+                identity_linked += int(detail["issuer_attribution_allowed"])
+                digest = _finding_digest(detail)
                 _, fresh = self.store.record_finding(
                     source=source, subject_id=issuer["subject_id"], source_object_id=object_id,
                     content_hash=digest, title=f"{source}: {object_id}", source_url=self.client.source_url,
@@ -257,10 +322,13 @@ class HealthcareNameScoutService:
                 created += int(fresh)
             self.store.record_specialist_check(source, subject_id=issuer["subject_id"],
                                                identity_key=f"{issuer['cik']}:{name}", as_of=clock,
-                                               candidate_count=len(candidates), truncated=incomplete)
+                                               candidate_count=len(candidates), truncated=incomplete,
+                                               identity_version=identity_versions[issuer["subject_id"]])
             checked += 1
             truncated_issuers += int(incomplete)
         return {"status": "PARTIAL" if failed or truncated_issuers or budget_exhausted else "OK",
                 "checked_issuers": checked, "new_findings": created,
                 "failed_issuers": failed, "truncated_issuers": truncated_issuers,
-                "rejected_rows": rejected, "budget_exhausted": budget_exhausted}
+                "rejected_rows": rejected, "budget_exhausted": budget_exhausted,
+                "identity_linked_candidates": identity_linked,
+                "query_scope": "documented exact names; not issuer-wide healthcare coverage"}

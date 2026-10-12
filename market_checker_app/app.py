@@ -58,6 +58,16 @@ from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.services.specialist_status_service import load_specialist_status
 from market_checker_app.services.specialist_acceptance_service import build_specialist_acceptance_report
+from market_checker_app.services.specialist_evaluation_service import (
+    build_specialist_evaluation_report, read_archived_prediction_snapshots,
+)
+from market_checker_app.services.healthcare_identity_service import (
+    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry,
+)
+from market_checker_app.services.specialist_identity_config import configured_regulatory_identities
+from market_checker_app.services.specialist_source_archive_service import (
+    build_specialist_source_archive, export_specialist_source_archive,
+)
 from market_checker_app.scout_background_worker import start_sec_background_scan
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
@@ -2189,6 +2199,99 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
                        file_name=diagnostic_name, mime="application/json")
     st.caption("Přehled obsahuje skutečné uložené běhy, pokrytí a mezery tohoto počítače. "
                "Samotné stažení přehledu nepotvrzuje dokončení ani koncový Windows test.")
+    healthcare_report = diagnostic["healthcare_identity_coverage"]
+    st.write("**Zdravotnictví — identity a skutečný rozsah kontrol**")
+    st.dataframe(pd.DataFrame([
+        {"Zdroj": source.upper(), "Kandidáti podle oboru": row["applicable_profile_subjects"],
+         "Firmy s doloženými objekty": row["documented_issuer_object_subjects"],
+         "Firmy s odpovídající SEC identitou": row["mapped_subjects"],
+         "Dotázané firmy": row["queried_issuers"],
+         "Úplné kontroly rozsahu dotazu": row["current_complete_source_checks"],
+         "Částečné kontroly": row["current_partial_source_checks"],
+         "Neověřené vazby": row["unresolved_subjects"]}
+        for source, row in healthcare_report["sources"].items()
+    ]), hide_index=True)
+    st.caption("Oborový výběr označuje kandidáty k prověření. Doložená aplikace, studie nebo nemocnice "
+               "nepotvrzuje úplnou skupinu firmy; prázdný dotaz nepotvrzuje nepřítomnost událostí.")
+    st.download_button("Stáhnout pokrytí zdravotnických identit",
+                       data=json.dumps(healthcare_report, ensure_ascii=False, indent=2, allow_nan=False),
+                       file_name="healthcare_identity_coverage.json", mime="application/json")
+    st.write("**Archiv pozorování jednotlivých zdrojů**")
+    st.caption("Archiv zachová události a rozsah kontrol známé nyní pro všech 687 tickerů. "
+               "Chybějící minulou historii ani úplnost dřívějších kontrol z dnešního stavu nedoplní.")
+    if st.button("Uložit archiv jednotlivých zdrojů"):
+        try:
+            with st.spinner("Ukládám zdrojová pozorování a jejich časové údaje…"):
+                source_archive = build_specialist_source_archive(
+                    scout_store, as_of=datetime.now(timezone.utc))
+                archive_path = export_specialist_source_archive(source_archive, config.output_dir / "specialist_source_archives")
+            st.session_state["specialist_source_archive"] = {
+                "db_path": str(config.sqlite_path.resolve()), "archive": source_archive,
+                "filename": archive_path.name,
+            }
+        except Exception as exc:
+            st.session_state.pop("specialist_source_archive", None)
+            st.error(f"Uložení zdrojového archivu selhalo: {type(exc).__name__}")
+    source_cached = st.session_state.get("specialist_source_archive")
+    if source_cached and source_cached["db_path"] == str(config.sqlite_path.resolve()):
+        source_archive = source_cached["archive"]
+        st.caption(f"Zachováno pozorování: {source_archive['input']['exported_observations']}; "
+                   f"kontrol: {source_archive['input']['exported_checks']}. "
+                   "Archiv slouží k dalšímu vyhodnocení; přijetí specialistů nepotvrzuje.")
+        st.download_button("Stáhnout archiv jednotlivých zdrojů",
+                           data=json.dumps(source_archive, ensure_ascii=False, indent=2, allow_nan=False),
+                           file_name=source_cached["filename"], mime="application/json")
+    st.write("**Historické vyhodnocení specialistů**")
+    st.caption("Vyhodnocení použije uložené snapshoty a výsledky známé k okamžiku spuštění. "
+               "Pro srovnání vyžaduje alespoň 200 trénovacích a 200 hodnoticích vzorků za 12 týdnů. "
+               "Výsledek ukazuje dostupnou historii a přínos skupin vlastností; aktivaci skórování nepotvrzuje.")
+    if st.button("Vyhodnotit uloženou historii specialistů"):
+        try:
+            with st.spinner("Vyhodnocuji archiv a časově oddělená srovnání…"):
+                archived_snapshots = read_archived_prediction_snapshots(config.sqlite_path)
+                history_report = build_specialist_evaluation_report(
+                    archived_snapshots, as_of=datetime.now(timezone.utc),
+                )
+            st.session_state["specialist_history_report"] = {
+                "db_path": str(config.sqlite_path.resolve()), "report": history_report,
+            }
+        except Exception as exc:
+            st.session_state.pop("specialist_history_report", None)
+            st.error(f"Vyhodnocení archivu selhalo: {type(exc).__name__}")
+    history_cached = st.session_state.get("specialist_history_report")
+    if history_cached and history_cached["db_path"] == str(config.sqlite_path.resolve()):
+        history_report = history_cached["report"]
+        history_input = history_report["input"]
+        st.caption(
+            f"Vyhodnoceno k {history_report['generated_at']}; "
+            f"archivovaných řádků {history_input['snapshot_rows']}, "
+            f"ověřených snapshotů {history_input['integrity_verified_rows']}, "
+            f"známých vyřešených výsledků {history_input['resolved_labels_known_at_cutoff']}."
+        )
+        if history_report["status"] == "INSUFFICIENT_DATA":
+            st.info("Archiv zatím neposkytuje dostatek odpovídající historie pro srovnání. "
+                    f"Důvod: {history_report['reason']}.")
+        else:
+            st.info("Dostupná historie umožnila průzkumné srovnání. "
+                    "Přijetí specialistů vyžaduje také jejich vlastní zdrojové a provozní důkazy.")
+        st.dataframe(pd.DataFrame([
+            {"Specialista": row["name"], "Stav historie": row["status"],
+             "Snapshoty s vlastnostmi": row["observed_feature_snapshot_count"],
+             "Se srovnatelnými tržními daty": row["matched_market_feature_snapshot_count"],
+             "Se známým výsledkem": row["eligible_labeled_snapshot_count"]}
+            for row in history_report["specialist_coverage"]
+        ]), hide_index=True)
+        st.dataframe(pd.DataFrame([
+            {"Srovnání": name, "Stav": row["status"],
+             "Hodnoticí vzorky": row.get("sample_count", 0),
+             "Týdny": row.get("distinct_weeks", 0)}
+            for name, row in history_report["comparisons"].items()
+        ]), hide_index=True)
+        st.download_button(
+            "Stáhnout historické vyhodnocení specialistů",
+            data=json.dumps(history_report, ensure_ascii=False, indent=2, allow_nan=False),
+            file_name="specialist_historical_evaluation.json", mime="application/json",
+        )
 
 with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     research_profiles = load_research_profiles()
@@ -2249,20 +2352,45 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         {"Zdroj": label, "Stav": (run.get("status") if run else "JEŠTĚ NEBĚŽEL"),
          "Kdy": run.get("observed_at", "") if run else "",
          "Zkontrolováno": next((run[key] for key in
-                               ("checked_issuers", "checked_models", "checked_banks", "checked_uei", "checked_names", "processed")
+                               ("checked_issuers", "checked_models", "checked_banks", "checked_uei", "checked_names", "checked_series", "processed")
                                if key in run), "") if run else "",
          "Nové nálezy / kandidáti": run.get("new_findings", run.get("new_candidates", "")) if run else "",
          "Použitelné banky": run.get("usable_banks", "") if run else "",
          "Odmítnuté řádky": run.get("rejected_rows", "") if run else "",
          "Vyčerpán rozpočet": run.get("budget_exhausted", "") if run else "",
+         "Denní požadavky / limit": (
+             f"{run.get('daily_requests', run.get('daily_requests_used'))} / {run['daily_request_limit']}"
+             if run and ("daily_requests" in run or "daily_requests_used" in run)
+             and "daily_request_limit" in run else ""),
+         "Denní subjekty / limit": (
+             f"{run['daily_issuers']} / {run['daily_issuer_limit']}"
+             if run and "daily_issuers" in run and "daily_issuer_limit" in run else
+             f"{run['daily_series']} / {run['daily_series_limit']}"
+             if run and "daily_series" in run and "daily_series_limit" in run else ""),
+         "Další pokus od (UTC)": run.get("retry_at", "") if run else "",
+         "Úplné kontroly zakázek / příjemců": run.get("coverage_complete_uei", run.get("coverage_complete_names", "")) if run else "",
+         "Částečné kontroly zakázek / příjemců": run.get("coverage_partial_uei", run.get("coverage_partial_names", "")) if run else "",
+         "Důvod přerušení": run.get("stop_reason", "") if run else "",
          "Chyba": run.get("error", "") if run else ""}
         for source, label in source_labels.items()
         for run in [last_runs.get(source)]
     ]), hide_index=True)
     st.caption("Denní plánovač opakuje omezené dávky; WAIT_ACCESS vyžaduje přístup ke zdroji, "
-               "WAIT_IDENTITY doložený vztah. Prázdný nález není důkazem, že firma události nemá.")
+               "WAIT_IDENTITY doložený vztah. WAIT_QUOTA počká na obnovení denního rozpočtu; "
+               "BUSY znamená, že zdroj právě zpracovává jiný běh. Požadavky se počítají i při chybě "
+               "a po restartu. Prázdný nález není důkazem, že firma události nemá.")
     coverage_time = datetime.now(timezone.utc)
+    try:
+        healthcare_identities = HealthcareIdentityRegistry.load(Path(
+            os.getenv("JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE") or DEFAULT_HEALTHCARE_IDENTITIES))
+    except (OSError, ValueError, KeyError, TypeError):
+        healthcare_identities = None
+        st.warning("Soubor zdravotnických identit je neplatný nebo nedostupný. "
+                   "Pokrytí FDA, CMS a ClinicalTrials zatím nelze ověřit.")
     coverage_profiles = load_research_profiles()
+    regulatory_identities, regulatory_manifest_status = configured_regulatory_identities()
+    if regulatory_manifest_status == "INVALID_IDENTITY_MANIFEST":
+        st.warning("Soubor vlastnictví regulatorních zařízení je neplatný nebo nedostupný. Pokrytí EPA nelze ověřit.")
     coverage_subjects = {
         "cms": {t for t, p in coverage_profiles.by_ticker.items() if p.code == "HEALTH_SERVICES"},
         "clinicaltrials": {t for t, p in coverage_profiles.by_ticker.items() if p.code in {"PHARMA", "MEDTECH"}},
@@ -2279,9 +2407,14 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
          "Někdy zkontrolováno": coverage["ever_checked"]}
         for source, interval in (("fda", 30), ("finra", 15), ("cms", 30),
                                  ("clinicaltrials", 30), ("ofac", 1), ("ofac_non_sdn", 1), ("doj", 30), ("epa", 30))
+        if source not in {"fda", "cms", "clinicaltrials"} or healthcare_identities is not None
+        if source != "epa" or regulatory_manifest_status != "INVALID_IDENTITY_MANIFEST"
         for coverage in [scout_store.specialist_coverage(
             source, as_of=coverage_time, refresh_days=interval,
-            subjects=coverage_subjects.get(source))]
+            subjects=coverage_subjects.get(source),
+            identity_versions=(healthcare_identities.identity_versions(scout_store, source, as_of=coverage_time)
+                               if source in {"fda", "cms", "clinicaltrials"} else
+                               regulatory_identities.identity_versions(scout_store, as_of=coverage_time) if source == "epa" else None))]
     ]), hide_index=True)
     st.caption("Jmenovatelem jsou jen již pozorované aktivní SEC identity, nikoli automaticky všech 687 tickerů. "
                "Při limitu stránek jde o částečnou kontrolu; ta se zkusí znovu po dni. "
@@ -2302,6 +2435,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     if verified_contracts:
         st.write("**USAspending – zakázky přes doložené UEI; částka a výdaje nejsou tržby**")
         st.dataframe(pd.DataFrame(verified_contracts), hide_index=True)
+        st.caption("Rozdíly závazků a výdajů porovnávají uložené kumulativní hodnoty stejné zakázky. "
+                   "Samy nepotvrzují novou zakázku, jednotlivou transakci ani úplnou historii změn.")
     if candidate_recipients:
         st.write("**USAspending – možní příjemci podle názvu; vztah k emitentovi neověřen**")
         st.dataframe(pd.DataFrame(candidate_recipients), hide_index=True)

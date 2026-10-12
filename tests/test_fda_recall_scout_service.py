@@ -11,6 +11,7 @@ from market_checker_app.services.fda_recall_scout_service import (
     FdaRecallScoutService, OpenFdaRecallClient, MAX_RESPONSE_BYTES,
 )
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.services.healthcare_identity_service import HealthcareIdentityRegistry
 
 
 NOW = datetime(2026, 9, 30, 16, tzinfo=timezone.utc)
@@ -76,7 +77,9 @@ class FdaScoutTests(unittest.TestCase):
                               result["budget_exhausted"]))
             self.assertEqual(1, len(store.latest_findings(["T0"], as_of=NOW, source="fda")))
             reopened = ScoutStore(store.db_path)
-            self.assertEqual(["T1", "T2"], [r["subject_id"] for r in reopened.specialist_due("fda", as_of=NOW, limit=10)])
+            versions = HealthcareIdentityRegistry.load().identity_versions(reopened, "fda", as_of=NOW)
+            self.assertEqual(["T1", "T2"], [r["subject_id"] for r in reopened.specialist_due(
+                "fda", as_of=NOW, limit=10, identity_versions=versions)])
             self.assertEqual([], reopened.latest_findings(["T1", "T2"], as_of=NOW, source="fda"))
 
     def test_failure_limit_prevents_repeating_every_failed_issuer(self):
@@ -157,7 +160,9 @@ class FdaScoutTests(unittest.TestCase):
                                              max_pages=3).run(as_of=NOW + timedelta(days=1))
             self.assertEqual(("OK", 1), (complete["status"], complete["new_findings"]))
             self.assertEqual(1, store.specialist_coverage(
-                "fda", as_of=NOW + timedelta(days=1))["current_complete"])
+                "fda", as_of=NOW + timedelta(days=1), identity_versions=
+                HealthcareIdentityRegistry.load().identity_versions(
+                    store, "fda", as_of=NOW + timedelta(days=1)))["current_complete"])
             with store._connect() as conn:
                 self.assertEqual(3, conn.execute(
                     "SELECT COUNT(*) FROM scout_findings WHERE source='fda'").fetchone()[0])

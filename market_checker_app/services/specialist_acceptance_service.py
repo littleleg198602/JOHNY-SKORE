@@ -14,6 +14,11 @@ from market_checker_app.services.fdic_bank_scout_service import (
     DEFAULT_IDENTITIES, FDIC_REFRESH_DAYS, fdic_coverage, load_verified_banks,
 )
 from market_checker_app.services.specialist_status_service import load_specialist_status
+from market_checker_app.services.healthcare_identity_service import (
+    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry,
+)
+from market_checker_app.services.healthcare_coverage_service import build_healthcare_coverage_report
+from market_checker_app.services.specialist_identity_config import configured_regulatory_identities
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.ticker_universe import (
     CANONICAL_CSV_SHA256, load_canonical_ticker_records,
@@ -191,6 +196,12 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
                     "blocked", "failed", "unknown_status")
     }
     env = os.environ if environment is None else environment
+    try:
+        healthcare_identities = HealthcareIdentityRegistry.load(Path(
+            env.get("JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE") or DEFAULT_HEALTHCARE_IDENTITIES))
+    except (OSError, ValueError, KeyError, TypeError):
+        healthcare_identities = None
+    regulatory_identities, regulatory_manifest_status = configured_regulatory_identities(env)
     access_keys = {
         "sec_contact": ("JOHNY_SKORE_SEC_USER_AGENT",),
         "fred": ("JOHNY_SKORE_FRED_API_KEY",),
@@ -205,10 +216,22 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
                                      ("epa", 30, {"CHEMICALS", "METALS", "INDUSTRIAL", "HOME", "PACKAGING"})):
         applicable = (universe if codes is None else
                       {t for t, p in profiles.by_ticker.items() if p.code in codes} & universe)
+        if source in {"fda", "cms", "clinicaltrials"} and healthcare_identities is None:
+            coverage[source] = {"status": "INVALID_IDENTITY_MANIFEST",
+                                "applicable_profile_subjects": len(applicable)}
+            continue
+        if source == "epa" and regulatory_manifest_status == "INVALID_IDENTITY_MANIFEST":
+            coverage[source] = {"status": "INVALID_IDENTITY_MANIFEST",
+                                "applicable_profile_subjects": len(applicable)}
+            continue
+        versions = (healthcare_identities.identity_versions(store, source, as_of=clock)
+                    if source in {"fda", "cms", "clinicaltrials"} else
+                    regulatory_identities.identity_versions(store, as_of=clock) if source == "epa" else None)
         coverage[source] = {"applicable_profile_subjects": len(applicable),
                             "refresh_days": interval,
                             **store.specialist_coverage(source, as_of=clock,
-                                                        refresh_days=interval, subjects=applicable)}
+                                                        refresh_days=interval, subjects=applicable,
+                                                        identity_versions=versions)}
     bank_subjects = {t for t, p in profiles.by_ticker.items() if p.code == "BANK"} & universe
     try:
         bank_identities = load_verified_banks(Path(env.get("JOHNY_SKORE_FDIC_BANKS_FILE") or DEFAULT_IDENTITIES))
@@ -237,6 +260,11 @@ def build_specialist_acceptance_report(store: ScoutStore, *, as_of: datetime | N
         "source_run_semantic_counts": source_semantic_counts,
         "source_status_is_not_acceptance": True,
         "rotating_source_coverage": coverage,
+        "healthcare_identity_coverage": build_healthcare_coverage_report(
+            store, as_of=clock, identities=healthcare_identities,
+            identities_path=Path(env.get("JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE") or DEFAULT_HEALTHCARE_IDENTITIES),
+            profiles=profiles),
+        "regulatory_identity_manifest_status": regulatory_manifest_status,
         "configured_access_present": {provider: all(bool(env.get(key, "").strip()) for key in keys)
                                       for provider, keys in access_keys.items()},
         "access_presence_is_successful_authentication": False,

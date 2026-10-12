@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "workstream": "healthcare_cli",
+  "created_at": "2026-10-11T16:29:21.974503+00:00",
+  "baseline_commit": "2afe381c9ab97582bf39293b220d1f48b42d62ff",
+  "implementation": "Standalone offline healthcare identity/scoped-query diagnostic for Windows launcher and Python module.",
+  "entry_points": {
+    "windows_launcher": "Zkontrolovat_Zdravotnicke_Identity.bat",
+    "python_module": "python -m market_checker_app.healthcare_coverage",
+    "arguments": [
+      "--db-path",
+      "--output",
+      "--as-of"
+    ],
+    "default_output": "outputs/healthcare_coverage_latest.json",
+    "configuration": "JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE is used and recorded in report.inputs; otherwise default manifest."
+  },
+  "read_only_contract": {
+    "constructs_scout_store": false,
+    "creates_missing_database": false,
+    "migrates_database": false,
+    "network_requests": 0,
+    "canonical_subjects": 687,
+    "database_access": "Existing diagnostic service uses SQLite URI mode=ro plus query_only=ON. CLI supplies a db_path handle without constructing ScoutStore."
+  },
+  "output_contract": {
+    "atomic_replace": true,
+    "temp_fsync_before_replace": true,
+    "cleanup_on_failure": true,
+    "protected": [
+      "selected and default DB",
+      "configured and default healthcare manifest",
+      "all production data registries/canonical input/profile catalogue",
+      "hardlink/symlink aliases and symlink parent directories"
+    ],
+    "argument_limits": {
+      "path_characters": 4096,
+      "as_of_characters": 64,
+      "timezone_required": true,
+      "json_output_required": true
+    }
+  },
+  "tests": {
+    "command": "python -m unittest tests.test_healthcare_coverage_cli tests.test_healthcare_coverage_service -v",
+    "tests_run": 36,
+    "new_cli_tests": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "observed_result": "Ran 36 tests in 0.793s; OK",
+    "meaningful_cases": [
+      "Absent database not created and ScoutStore initialization explicitly forbidden",
+      "Configured manifest content hash and input path reported",
+      "Existing DB contents unchanged; same collector scope check counted",
+      "Malformed/naive/oversized times rejected before filesystem mutations; timezone offsets identical",
+      "Bounded paths, web URLs and non-JSON outputs rejected",
+      "DB/custom registry/production files protected including hardlinks/symlinks/directory aliases",
+      "Existing report preserved and temp files removed on serialization/replace failure",
+      "Missing manifest saved as an explicit gap with no invented identity",
+      "Real Python module subprocess from a directory containing spaces; report parsed and DB stayed absent",
+      "Windows BAT references offline module and venv fallback; no app or collector invocation"
+    ]
+  },
+  "changed_files_sha256": {
+    "market_checker_app/healthcare_coverage.py": "448ab0317e87139f531ef61ab1faa805c22281e81ed7f95a2bc97a06cc067ce6",
+    "Zkontrolovat_Zdravotnicke_Identity.bat": "762256b29bd386a279cf57defd8a8b5f9ee48c03b77a106ef80681fbd4033fdd",
+    "tests/test_healthcare_coverage_cli.py": "7c7fad809f28e82b35116d40268c3dd1dd1ef4b0a4e9a907b7d02ba41dad6e0b",
+    "HEALTHCARE_COVERAGE.md": "f60174aa05153b5cf167406d33669f249968efc7a5a6c37c85085eedfdf2acc4"
+  },
+  "actual_user_windows_run_performed": false,
+  "live_source_validation_performed": false,
+  "acceptance": {
+    "live_verified": false,
+    "negative_issuer_completeness_verified": false,
+    "actual_windows_end_to_end_verified": false,
+    "out_of_sample_evaluation_verified": false
+  },
+  "score_changes": false,
+  "trading_changes": false,
+  "blockers": [
+    "Launcher was inspected and CLI was executed on Linux; no actual user Windows execution is claimed.",
+    "Broader dated healthcare identities, source-wide positive/negative live cases and historical evaluation remain outstanding.",
+    "The report only diagnoses saved evidence; it does not collect missing identity or source data."
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "workstream": "healthcare",
+  "created_at": "2026-10-11T16:23:21.608952+00:00",
+  "implementation": "Read-only issuer/object coverage and current scoped-query diagnostic for exact canonical 687 input.",
+  "baseline_commit": "209eeed",
+  "integration_api": {
+    "signature": "build_healthcare_coverage_report(store: ScoutStore | None = None, *, as_of: datetime | None = None, identities: HealthcareIdentityRegistry | None = None, identities_path: Path = DEFAULT_HEALTHCARE_IDENTITIES, profiles: ProfileRegistry | None = None, refresh_days: int = 30) -> dict",
+    "module": "market_checker_app.services.healthcare_coverage_service",
+    "registry_accessor": "HealthcareIdentityRegistry.records() -> tuple[dict, ...] returns detached validated records.",
+    "configuration": "Coordinator supplies its exact identities registry or JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE as identities_path.",
+    "runtime_reads": "SQLite URI mode=ro and query_only=ON, no schema creation or updates. Missing DB or tables stay unavailable.",
+    "identity_versions": "Per-source hashes match collector identity_versions for active valid issuer rows; scope/known records/exact names are included, heartbeats excluded."
+  },
+  "tests": {
+    "command": "python -m unittest tests.test_healthcare_coverage_service tests.test_healthcare_identity_service tests.test_healthcare_scout_service tests.test_fda_recall_scout_service tests.test_specialist_check_scope -v",
+    "tests_run": 66,
+    "new_coverage_tests": 22,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "observed_result": "Ran 66 tests in 1.992s; OK",
+    "meaningful_cases": [
+      "Canonical SHA and exact 687 order; FDA 111/CMS 19/ClinicalTrials 49 research cohorts",
+      "Current SEC identity AND dated exact object vs separate query counts",
+      "Future issuer, object, source check and finding exclusion; aware offsets",
+      "Expired historical FDA/trial events vs exclusive CMS current snapshot intervals",
+      "Wrong CIK, known conflicts, malformed rows and unknown applicability",
+      "Complete/partial/stale/changed-scope name checks; zero candidates cannot certify negative completeness",
+      "New competing object mappings invalidate scope and deny ambiguity",
+      "Malformed record/evidence/duplicate IDs/count mismatch invalidate entire manifest scope",
+      "SQLite unchanged and no use of write-capable ScoutStore connection; absent DB creates no files",
+      "Detached record accessor cannot mutate registry",
+      "Name-only findings remain unverified; no live/Windows/history certificate"
+    ]
+  },
+  "repository_manifest_diagnostic_without_runtime_store": {
+    "universe": {
+      "expected_subjects": 687,
+      "subjects": 687,
+      "csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    "identity_manifest": {
+      "status": "VALID",
+      "errors": [],
+      "sha256": "fbd27ff5030218e43a73ceb2de5eab444587c2fd787be436717681a5655cbd69",
+      "record_count": 5,
+      "valid_record_count": 5,
+      "malformed_record_count": 0
+    },
+    "runtime": {
+      "status": "NOT_PROVIDED",
+      "complete_read": false
+    },
+    "source_counts": {
+      "fda": {
+        "applicable_profile_subjects": 111,
+        "documented_issuer_object_subjects": 1,
+        "mapped_subjects": 0,
+        "mapped_objects": 0,
+        "queried_issuers": 0,
+        "current_complete_source_checks": 0,
+        "expired_interval_records": 2,
+        "historical_event_only_records": 2,
+        "object_status_counts": {
+          "EXACT_DATED_OBJECT": 2
+        }
+      },
+      "cms": {
+        "applicable_profile_subjects": 19,
+        "documented_issuer_object_subjects": 1,
+        "mapped_subjects": 0,
+        "mapped_objects": 0,
+        "queried_issuers": 0,
+        "current_complete_source_checks": 0,
+        "expired_interval_records": 0,
+        "historical_event_only_records": 0,
+        "object_status_counts": {
+          "EXACT_DATED_OBJECT": 2
+        }
+      },
+      "clinicaltrials": {
+        "applicable_profile_subjects": 49,
+        "documented_issuer_object_subjects": 1,
+        "mapped_subjects": 0,
+        "mapped_objects": 0,
+        "queried_issuers": 0,
+        "current_complete_source_checks": 0,
+        "expired_interval_records": 1,
+        "historical_event_only_records": 1,
+        "object_status_counts": {
+          "EXACT_DATED_OBJECT": 1
+        }
+      }
+    },
+    "explanation": "Report inspects existing five dated manifest records without querying primary publishers or claiming runtime identities. It documents one issuer/object subject per source, zero operational mappings with no runtime DB, and no live completeness."
+  },
+  "changed_files_sha256": {
+    "market_checker_app/services/healthcare_coverage_service.py": "6cba186ab46bdefffd69c4d45626b5d64e4d7ddaa57bded93a6242e650ee6a49",
+    "market_checker_app/services/healthcare_identity_service.py": "f6268b19f26edee3eac63d5490510e4cea185116461379065eb69dd47280f8c8",
+    "tests/test_healthcare_coverage_service.py": "412092e459a8d4b9631a830daa11ffbf10ed1597b7136dd16ff7481aafbb4639"
+  },
+  "acceptance": {
+    "live_verified": false,
+    "negative_issuer_completeness_verified": false,
+    "actual_windows_end_to_end_verified": false,
+    "out_of_sample_evaluation_verified": false
+  },
+  "score_changes": false,
+  "trading_changes": false,
+  "network_requests": 0,
+  "blockers": [
+    "Broader dated product/provider/sponsor and subsidiary identity coverage remains incomplete.",
+    "The three profile denominators are research candidate cohorts; they do not prove sector exposure or complete issuer group coverage.",
+    "FDA currently searches all active canonical issuers; the report exposes a separate smaller sector research denominator and does not change rotation.",
+    "No new live positive or negative healthcare publisher case was verified in this implementation.",
+    "No actual user Windows end-to-end run or historical out-of-sample healthcare impact evaluation exists in this workstream.",
+    "Parent coordinator owns runtime/UI wiring and final acceptance; no shared progress/status/runner/app/data files were changed."
+  ]
+}

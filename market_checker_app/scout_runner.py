@@ -19,11 +19,15 @@ from market_checker_app.services.finra_short_interest_scout_service import (
 from market_checker_app.services.healthcare_scout_service import (
     CmsHospitalOwnerClient, ClinicalTrialsClient, HealthcareNameScoutService,
 )
+from market_checker_app.services.healthcare_identity_service import (
+    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry,
+)
 from market_checker_app.services.ofac_scout_service import (
     OfacSdnClient, OfacSdnScoutService, OfacConsolidatedClient, OfacConsolidatedScoutService,
 )
 from market_checker_app.services.doj_scout_service import DojPressReleaseClient, DojPressReleaseScoutService
 from market_checker_app.services.epa_echo_scout_service import EpaEchoFacilityClient, EpaEchoScoutService
+from market_checker_app.services.specialist_identity_config import configured_regulatory_identities
 from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.services.fdic_bank_scout_service import (
     FdicBankFindClient, FdicBankScoutService, load_verified_banks,
@@ -126,9 +130,17 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         recipient_discovery = {"status": "ERROR", "error": type(exc).__name__}
     recipient_discovery = recorded("recipient_discovery", recipient_discovery)
     try:
+        healthcare_identities = HealthcareIdentityRegistry.load(Path(
+            os.getenv("JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE") or DEFAULT_HEALTHCARE_IDENTITIES))
+    except (OSError, ValueError, KeyError, TypeError):
+        healthcare_identities = None
+    try:
+        if healthcare_identities is None:
+            raise ValueError("Invalid healthcare identity manifest")
         fda_recalls = FdaRecallScoutService(
             store, client=OpenFdaRecallClient(os.getenv("JOHNY_SKORE_FDA_API_KEY", "")),
             max_subjects=FDA_DAILY_ISSUER_BUDGET,
+            identities=healthcare_identities,
         ).run(as_of=now, universe={record["ticker"] for record in records})
     except Exception as exc:
         fda_recalls = {"status": "ERROR", "error": type(exc).__name__}
@@ -178,7 +190,9 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
     healthcare_results = {}
     for client in (CmsHospitalOwnerClient(), ClinicalTrialsClient()):
         try:
-            summary = HealthcareNameScoutService(store, client=client).run(
+            if healthcare_identities is None:
+                raise ValueError("Invalid healthcare identity manifest")
+            summary = HealthcareNameScoutService(store, client=client, identities=healthcare_identities).run(
                 as_of=now, universe={record["ticker"] for record in records})
         except Exception as exc:
             summary = {"status": "ERROR", "error": type(exc).__name__}
@@ -205,8 +219,12 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
     epa_subjects = {ticker for ticker, profile in profiles.by_ticker.items()
                     if profile.code in {"CHEMICALS", "METALS", "INDUSTRIAL", "HOME", "PACKAGING"}}
     try:
-        epa = EpaEchoScoutService(store, client=EpaEchoFacilityClient()).run(
+        regulatory_identities, regulatory_manifest_status = configured_regulatory_identities()
+        if regulatory_manifest_status == "INVALID_IDENTITY_MANIFEST":
+            raise ValueError("Invalid regulatory identity manifest")
+        epa = EpaEchoScoutService(store, client=EpaEchoFacilityClient(), identities=regulatory_identities).run(
             as_of=now, universe={record["ticker"] for record in records} & epa_subjects)
+        epa["identity_manifest_status"] = regulatory_manifest_status
     except Exception as exc:
         epa = {"status":"ERROR", "error":type(exc).__name__}
     epa = recorded("epa", epa)

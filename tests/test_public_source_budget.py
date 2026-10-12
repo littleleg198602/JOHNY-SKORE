@@ -8,6 +8,7 @@ from unittest.mock import patch
 from urllib.error import HTTPError
 
 from market_checker_app.services.fda_recall_scout_service import FdaRecallScoutService
+from market_checker_app.services.healthcare_identity_service import HealthcareIdentityRegistry
 from market_checker_app.services.healthcare_scout_service import (
     CMS_URL, TRIALS_URL, HealthcareNameScoutService,
 )
@@ -112,7 +113,9 @@ class PublicSourceBudgetTests(unittest.TestCase):
                              (result["status"], result["checked_issuers"], result["attempted_requests"], result["attempted_issuers"]))
             self.assertEqual(6, len(client.calls))
             reopened = ScoutStore(store.db_path)
-            self.assertEqual(["MSFT"], [row["subject_id"] for row in reopened.specialist_due("fda", as_of=NOW, limit=10)])
+            versions = HealthcareIdentityRegistry.load().identity_versions(reopened, "fda", as_of=NOW)
+            self.assertEqual(["MSFT"], [row["subject_id"] for row in reopened.specialist_due(
+                "fda", as_of=NOW, limit=10, identity_versions=versions)])
             again = FdaRecallScoutService(reopened, client=client).run(as_of=NOW)
             self.assertEqual(("WAIT_QUOTA", 0), (again["status"], again["attempted_requests"]))
             self.assertEqual(6, len(client.calls))
@@ -265,7 +268,9 @@ class PublicSourceBudgetTests(unittest.TestCase):
                 self.assertEqual(0, repeated["attempted_requests"])
                 self.assertEqual(before, len(client.calls))
             self.assertEqual(687 * 4, len(client.calls))
-            self.assertEqual(687, store.specialist_coverage("fda", as_of=clock)["current_complete"])
+            versions = HealthcareIdentityRegistry.load().identity_versions(store, "fda", as_of=clock)
+            self.assertEqual(687, store.specialist_coverage(
+                "fda", as_of=clock, identity_versions=versions)["current_complete"])
             self.assertEqual({f"Synthetic {ticker} Inc." for ticker in tickers}, set(client.calls))
 
 

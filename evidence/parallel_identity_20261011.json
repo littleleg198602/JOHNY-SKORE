@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-11T11:24:00.239475+00:00",
+  "evidence_type": "local_deterministic_bulk_identity_workflow_verification",
+  "subject": "SEC-only preparation of the canonical 687-ticker identity review queue",
+  "base_commit": "073b67baf5467e509007ae6ebf9f5cbfe200115a",
+  "branch": "parallel/identity-bulk-20261011",
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Linux"
+  },
+  "owned_files": [
+    "market_checker_app/services/sec13f_identity_bulk.py",
+    "market_checker_app/sec13f_identity_bulk.py",
+    "tests/test_sec13f_identity_bulk.py",
+    "Pripravit_SEC_Registry.bat",
+    "SEC13F_BULK_WORKFLOW.md",
+    "evidence/parallel_identity_20261011.json"
+  ],
+  "canonical_universe": {
+    "total": 687,
+    "csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "first_ticker": "NVDA",
+    "last_ticker": "OLN",
+    "canonical_order_preserved": true,
+    "brkb_provider_lookup_alias": "BRK-B",
+    "brkb_output_key_preserved": "BRKB"
+  },
+  "production_registry": {
+    "rows_before": 150,
+    "rows_after": 150,
+    "mapped_tickers_before": 150,
+    "mapped_tickers_after": 150,
+    "unmapped_canonical_tickers": 537,
+    "new_verified_identities": 0,
+    "production_registry_changed": false,
+    "specialist_done_changed": false,
+    "scoring_changed": false,
+    "coverage_basis": "Existing cited registry count; not a new live holdings or identity coverage measurement"
+  },
+  "production_file_integrity": {
+    "market_checker_app/data/verified_13f_securities.json": {
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+      "matches_base_commit": true
+    },
+    "market_checker_app/data/verified_fdic_banks.json": {
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+      "matches_base_commit": true
+    },
+    "market_checker_app/data/verified_nhtsa_models.json": {
+      "sha256": "7da598327500a1bcef9468f3a43646f53655bc2821248951b49ef0af516997bd",
+      "matches_base_commit": true
+    },
+    "market_checker_app/data/verified_usaspending_uei.json": {
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56",
+      "matches_base_commit": true
+    }
+  },
+  "actual_source_run": {
+    "status": "NOT_RUN_MISSING_FULL_CACHED_GLOBAL_INPUTS",
+    "quarter": "2026q2",
+    "complete_official_global_cache_inputs_available": false,
+    "cache_search_roots": ["/workspace/scratch/334b3a149083", "/tmp"],
+    "cache_searches": [
+      "Named 13flist and company_tickers files, including ignored files",
+      "Archived JSON snapshot metadata with kind ticker_catalog or 13f_list"
+    ],
+    "search_matches": 0,
+    "actual_candidate_status_counts": null,
+    "live_sec_capture_performed": false,
+    "live_quarterly_zip_or_holdings_run_performed": false,
+    "source_format_review": {
+      "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "format_table_url": "https://www.sec.gov/rules-regulations/staff-guidance/official-list-section-13f-securities",
+      "scope": "Public first-row excerpt and fixed-width format table only; neither was archived as a complete runtime snapshot",
+      "regression": "Synthetic CALL/PUT identifiers with nonstandard check digits are parsed as non-equity rows and excluded from identity candidates/export"
+    }
+  },
+  "verification": {
+    "owned_suite": {
+      "command": "python -m unittest tests.test_sec13f_identity_bulk -v",
+      "tests_run": 56,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 4.928,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "existing_sec_and_ticker_contracts": {
+      "command": "python -m unittest tests.test_sec13f_scout_service tests.test_sec_schedule13_extraction tests.test_sec_document_scout tests.test_sec_counterparty_identity tests.test_sec_retry_after tests.test_canonical_ticker_universe tests.test_ticker_traceability tests.test_687_ticker_contract -v",
+      "tests_run": 29,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 22.041,
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "compile": {
+      "command": "python -m compileall -q market_checker_app/services/sec13f_identity_bulk.py market_checker_app/sec13f_identity_bulk.py tests/test_sec13f_identity_bulk.py",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "cli_help": {
+      "commands": [
+        "python -m market_checker_app.sec13f_identity_bulk --help",
+        "python -m market_checker_app.sec13f_identity_bulk prepare --help"
+      ],
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "process_termination_and_resume": {
+      "test": "test_terminated_cli_process_resumes_saved_cursor_to_exactly_687",
+      "uses_real_subprocess_termination": true,
+      "source_basis": "Synthetic cached global snapshots",
+      "interrupted_cursor_assertion": "Between 3 and 686 inclusive",
+      "resumed_cursor": 687,
+      "canonical_ticker_order_asserted": true,
+      "all_scoring_allowed_flags_false": true,
+      "result": "PASS"
+    },
+    "interrupted_global_capture": {
+      "test": "test_interrupted_global_capture_reuses_completed_source_and_only_downloads_missing_one",
+      "source_basis": "Injected deterministic SEC client transport; no live network",
+      "ticker_catalog_transport_calls": 1,
+      "quarterly_list_transport_calls_including_failed_attempt": 2,
+      "completed_first_source_reused": true,
+      "result": "PASS"
+    },
+    "file_protection": {
+      "production_data_directory_protected": true,
+      "fdic_nhtsa_usaspending_and_13f_registry_cli_guards_passed": true,
+      "audit_destination_guard_passed": true,
+      "capture_and_prepare_workspace_guards_passed": true,
+      "resolved_symlink_guards_passed": true,
+      "review_and_archived_source_inputs_protected": true,
+      "result": "PASS"
+    },
+    "identity_boundaries": [
+      "Exact and fuzzy issuer-name joins remain CANDIDATE_ONLY with scoring_allowed false",
+      "Export requires a dated explicit review plus exact archived CIK/CUSIP/class and same-context ticker/class proofs",
+      "Wrong or reused CIK, conflicting classes, duplicate contexts, catalog ties and overlapping/duplicate identities fail closed",
+      "Future snapshots and backdated known_at/reviewed_at fail closed",
+      "Immutable source bytes and atomic per-ticker checkpoints are digest/source/universe/clock bound",
+      "Unsupported ADR, preferred, continuation, nil, excluded-text and corporate-action cases require a separate review"
+    ]
+  },
+  "acceptance_limits": [
+    "The 687 completion and interruption/resume checks use synthetic global snapshots; no complete official-source candidate count is claimed.",
+    "Both complete official global inputs were unavailable in the inspected caches; the commit did not wait for or perform a live SEC capture.",
+    "Structured Schedule 13 and inline-XBRL proof parsing was verified deterministically, not with newly downloaded production filing snapshots.",
+    "An exact document at one date does not prove continuous identity validity for the whole quarter; the bounded binding interval still requires explicit source review.",
+    "The tool intentionally rejects unsupported or ambiguous identity formats, present-day catalog mismatches and corporate-action transitions.",
+    "No actual user Windows run, hosted workflow result, full repository test run or historical out-of-sample evaluation is claimed.",
+    "No production registry, shared runner/storage/status implementation, specialist completion or score was changed.",
+    "No GitHub write, push or deployment was performed."
+  ],
+  "next_work": [
+    "Run prepare once both full official cached global inputs are available and measure the actual 687 candidate-status counts.",
+    "Capture and review structured instrument and same-context ticker/class filings for a larger exact-reviewed batch.",
+    "Integrate only the reviewed proposal with its matching SHA-256 audit after source review, then verify it against production contracts.",
+    "Verify the batch launcher and cache publication on the user's Windows environment."
+  ]
+}

@@ -1,5 +1,33 @@
 # Průběh implementace pátracích agentů
 
+## 11. 10. 2026 — druhá dávka šesti vývojových agentů a zapojení do aplikace
+
+Z GitHubu byly obnoveny aktuální inventář, checkpoint a HEAD otevřeného
+PR #160. Šest izolovaných vývojových větví přidalo audit přechodů SEC
+instrumentů, zdravotnické pokrytí, datované EPA FRS vlastnictví, změny
+kumulativních závazků USAspending, nezávislé právní identity protistran SEC
+a neměnný archiv jednotlivých zdrojů. Uvolněný zdravotnický agent dokončil
+navíc samostatné CLI a Windows launcher. Rozdělení skutečných agentů,
+převzaté commity a konkrétní další práce jsou v `PARALLEL_SPECIALIST_WORK.md`.
+
+Koordinátor doplnil denní EIA kvóty pro dvě surovinové série, zachování
+výsledků při pozdější chybě a zapojení nových identit do běhu i přehledu.
+Aplikace poskytuje zvláštní explicitní archivní export, zdravotnickou
+diagnostiku a kladné i záporné rozdíly kumulativních závazků/výdajů. Rozdíly nejsou
+tržby ani ověřené jednotlivé transakce. Zdrojové buňky mají vlastní čas
+znalosti a scope; agregáty ani name-only kandidáti nepřidávají pokrytí.
+
+Commit `2c8c4b6` prošel celou lokální Linux sadou: 899/899, bez chyb,
+selhání a přeskočení. Kompilace a diff kontrola prošly. Úplný log, otisky,
+obsahový audit osmi předávacích důkazů a 167 referencí inventáře jsou v
+`evidence/parallel2_integration_20261011.json`.
+
+Produkční registry zachovány: 13F 150/687, 537 nezmapovaných. Úplná akceptace
+zůstává 0/21; nové implementační důkazy jsou v `evidence/parallel2_*_20261011.json`.
+Chybí širší datované identity, skutečné živé pozitivní i negativní případy,
+relevantní pokrytí, koncový uživatelský Windows a dostatečná OOS historie.
+Bez nich se nemění skóre, neaktivuje obchodování a neposílá oznámení dokončení.
+
 ## SEC 13F — třicáté rozšíření datovaného registru (11. 10. 2026)
 
 Reviewovaný registr 2026 Q2 nyní obsahuje 150 kanonických instrumentů. Nově

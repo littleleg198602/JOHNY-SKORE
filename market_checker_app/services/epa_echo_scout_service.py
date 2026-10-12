@@ -1,4 +1,4 @@
-"""Bounded EPA ECHO facility-name leads; facility ownership stays unverified."""
+"""Bounded EPA ECHO leads with optional dated FRS ownership evidence."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -16,10 +16,12 @@ from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.services.public_source_budget import (
     PublicBudgetExhausted, PublicSourceBudget, bounded_public_source,
 )
+from market_checker_app.services.regulatory_identity_service import RegulatoryIdentityRegistry
 
 
 EPA_ECHO_URL = "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
 MAX_BYTES = 2_000_000
+MAX_QUERY_NAMES = 5
 
 
 def echo_url(name: str) -> str:
@@ -85,7 +87,8 @@ def parse_epa_facility(row: dict, name: str) -> tuple[str, dict] | None:
 
 class EpaEchoScoutService:
     def __init__(self, store: ScoutStore, *, client: EpaEchoClient, max_subjects: int = 10,
-                 max_run_seconds: float = 60, max_failures: int = 3):
+                 max_run_seconds: float = 60, max_failures: int = 3,
+                 identities: RegulatoryIdentityRegistry | None = None):
         if (isinstance(max_subjects, bool) or not isinstance(max_subjects, int)
                 or not 1 <= max_subjects <= 50 or isinstance(max_failures, bool)
                 or not isinstance(max_failures, int) or not 1 <= max_failures <= 10):
@@ -93,7 +96,10 @@ class EpaEchoScoutService:
         if (isinstance(max_run_seconds, bool) or not isinstance(max_run_seconds, (int, float))
                 or not math.isfinite(max_run_seconds) or not 1 <= max_run_seconds <= 300):
             raise ValueError("EPA ECHO time budget must be bounded")
+        if identities is not None and not isinstance(identities, RegulatoryIdentityRegistry):
+            raise ValueError("EPA ECHO identities need a reviewed RegulatoryIdentityRegistry")
         self.store, self.client = store, client
+        self.identities = identities if identities is not None else RegulatoryIdentityRegistry()
         self.max_subjects, self.max_run_seconds, self.max_failures = max_subjects, max_run_seconds, max_failures
 
     @bounded_public_source("epa")
@@ -102,67 +108,141 @@ class EpaEchoScoutService:
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
             raise ValueError("EPA ECHO observation needs timezone")
-        due = self.store.specialist_due("epa", as_of=clock, limit=900)
+        identity_versions = self.identities.identity_versions(self.store, as_of=clock)
+        due = self.store.specialist_due("epa", as_of=clock, limit=900, identity_versions=identity_versions)
         due = _budget.select_due([row for row in due if universe is None or row["subject_id"] in universe])[:self.max_subjects]
         if not due:
-            active = self.store.specialist_coverage("epa", as_of=clock, subjects=universe)["active_identities"]
-            return {"status":"OK" if active else "WAIT_IDENTITY", "checked_issuers":0, "new_findings":0}
+            coverage = self.store.specialist_coverage("epa", as_of=clock, subjects=universe,
+                                                      identity_versions=identity_versions)
+            status = ("PARTIAL" if coverage["current_partial"] else
+                      "OK" if coverage["active_identities"] else "WAIT_IDENTITY")
+            return {"status":status, "checked_issuers":0, "new_findings":0,
+                    "current_partial_checks":coverage["current_partial"],
+                    "verified_facilities":0, "unresolved_facilities":0,
+                    "complete_facility_group_verified":False, "issuer_liability_negative_verified":False,
+                    "negative_scope":"bounded exact facility-name queries only"}
         deadline = time.monotonic() + self.max_run_seconds
         checked = created = failed = rejected = truncated = 0
+        verified = unresolved = missing_reviewed = 0
         exhausted = False
         for issuer in due:
             if time.monotonic() >= deadline or failed >= self.max_failures:
                 exhausted = True
                 break
-            try:
-                rows, total = _budget.call(
-                    issuer["subject_id"], f"{issuer['cik']}:{issuer['company_name']}",
-                    lambda: self.client.facilities(issuer["company_name"]))
-            except PublicBudgetExhausted:
-                exhausted = True
-                break
-            except HTTPError as exc:
-                failed += 1
-                if exc.code in {401,403,429}:
-                    return {"status":"RATE_LIMITED" if exc.code == 429 else "ACCESS_BLOCKED",
-                            "checked_issuers":checked,"new_findings":created,"failed_issuers":failed}
-                continue
-            except (OSError, ValueError, TypeError, KeyError):
-                failed += 1
-                continue
-            incomplete = total > len(rows)
-            candidates, seen = [], set()
-            for row in rows:
+            ticker, cik, name = issuer["subject_id"], issuer["cik"], issuer["company_name"]
+            names = {}
+            for value in (name, *self.identities.query_names(ticker, cik, as_of=clock)):
+                names.setdefault(value.strip().casefold(), value.strip())
+            query_names = list(names.values())
+            incomplete = len(query_names) > MAX_QUERY_NAMES
+            candidates, conflicted = {}, set()
+            successful_queries = 0
+            stop_status = None
+            for query_name in query_names[:MAX_QUERY_NAMES]:
+                if time.monotonic() >= deadline or failed >= self.max_failures:
+                    incomplete = exhausted = True
+                    break
                 try:
-                    candidate = parse_epa_facility(row, issuer["company_name"])
-                except (ValueError, TypeError, AttributeError):
-                    rejected += 1
+                    rows, total = _budget.call(
+                        ticker, f"{cik}:{name}:registry-{identity_versions[ticker]}",
+                        lambda: self.client.facilities(query_name))
+                    if (not isinstance(rows, list) or len(rows) > 100
+                            or isinstance(total, bool) or not isinstance(total, int)
+                            or not len(rows) <= total < 10_000_000_000):
+                        raise ValueError("Unbounded or inconsistent EPA ECHO result")
+                except PublicBudgetExhausted:
+                    incomplete = exhausted = True
+                    break
+                except HTTPError as exc:
+                    failed += 1
+                    incomplete = True
+                    if exc.code in {401,403,429}:
+                        stop_status = "RATE_LIMITED" if exc.code == 429 else "ACCESS_BLOCKED"
+                        break
+                    continue
+                except (OSError, ValueError, TypeError, KeyError):
+                    failed += 1
                     incomplete = True
                     continue
-                if candidate is None:
-                    continue
-                registry, detail = candidate
-                if registry in seen:
-                    rejected += 1
-                    incomplete = True
-                    continue
-                seen.add(registry)
-                candidates.append((registry, detail))
-            for registry, detail in candidates:
+                successful_queries += 1
+                incomplete |= total > len(rows)
+                seen = set()
+                for row in rows:
+                    try:
+                        candidate = parse_epa_facility(row, query_name)
+                    except (ValueError, TypeError, AttributeError):
+                        rejected += 1
+                        incomplete = True
+                        continue
+                    if candidate is None:
+                        continue
+                    registry, detail = candidate
+                    if registry in seen or registry in conflicted:
+                        rejected += 1
+                        incomplete = True
+                        conflicted.add(registry)
+                        candidates.pop(registry, None)
+                        continue
+                    seen.add(registry)
+                    previous = candidates.get(registry)
+                    if previous is not None:
+                        if previous["facility_name"].strip().casefold() != detail["facility_name"].strip().casefold():
+                            rejected += 1
+                            incomplete = True
+                            conflicted.add(registry)
+                            candidates.pop(registry, None)
+                            continue
+                        previous["matched_query_names"].append(query_name)
+                        continue
+                    detail["query_issuer_name"] = name
+                    detail["matched_query_names"] = [query_name]
+                    detail.update(self.identities.resolve(
+                        ticker=ticker, cik=cik, frs_registry_id=registry,
+                        facility_name=detail["facility_name"], observation_date=clock.date(), as_of=clock))
+                    detail["stage"] = ("epa_echo_dated_facility_ownership" if
+                                       detail["issuer_facility_relationship_verified"] else
+                                       "epa_echo_exact_facility_name_candidate")
+                    detail["identity_scope_sha256"] = identity_versions[ticker]
+                    candidates[registry] = detail
+            expected = self.identities.reviewed_facility_ids(ticker, cik, as_of=clock)
+            missing = expected - candidates.keys()
+            missing_reviewed += len(missing)
+            incomplete |= bool(missing)
+            for registry, detail in candidates.items():
                 detail["issuer_sec_cik"] = issuer["cik"]
+                detail["matched_query_names"] = sorted(detail["matched_query_names"])
                 digest = hashlib.sha256(json.dumps(detail, sort_keys=True).encode()).hexdigest()
                 _, fresh = self.store.record_finding(
                     source="epa", subject_id=issuer["subject_id"], source_object_id=registry,
                     content_hash=digest, title=f"EPA ECHO facility {detail['facility_name']}",
-                    source_url=echo_url(issuer["company_name"]), locator=f"FRS:{registry}",
+                    source_url=echo_url(detail["matched_query_names"][0]), locator=f"FRS:{registry}",
                     published_at=clock, available_at=clock, observed_at=clock,
                     details=detail, verification_status="UNVERIFIED")
                 created += int(fresh)
-            self.store.record_specialist_check("epa", subject_id=issuer["subject_id"],
-                                               identity_key=f"{issuer['cik']}:{issuer['company_name']}",
-                                               as_of=clock, candidate_count=len(candidates), truncated=incomplete)
-            checked += 1
-            truncated += int(incomplete)
+                verified += int(detail["issuer_facility_relationship_verified"])
+                unresolved += int(not detail["issuer_facility_relationship_verified"])
+            # No response is not a completed negative check. A usable earlier
+            # query survives a later quota/failure and is recorded as partial.
+            if successful_queries:
+                self.store.record_specialist_check("epa", subject_id=ticker,
+                                                   identity_key=f"{cik}:{name}", as_of=clock,
+                                                   candidate_count=len(candidates), truncated=incomplete,
+                                                   identity_version=identity_versions[ticker])
+                checked += 1
+                truncated += int(incomplete)
+            if stop_status:
+                return {"status":stop_status, "checked_issuers":checked, "new_findings":created,
+                        "failed_issuers":failed, "truncated_issuers":truncated, "rejected_rows":rejected,
+                        "verified_facilities":verified, "unresolved_facilities":unresolved,
+                        "missing_reviewed_facilities":missing_reviewed,
+                        "complete_facility_group_verified":False, "issuer_liability_negative_verified":False,
+                        "negative_scope":"bounded exact facility-name queries only"}
+            if exhausted:
+                break
         return {"status":"PARTIAL" if failed or truncated or exhausted else "OK",
                 "checked_issuers":checked,"new_findings":created,"failed_issuers":failed,
-                "truncated_issuers":truncated,"rejected_rows":rejected,"budget_exhausted":exhausted}
+                "truncated_issuers":truncated,"rejected_rows":rejected,"budget_exhausted":exhausted,
+                "verified_facilities":verified, "unresolved_facilities":unresolved,
+                "missing_reviewed_facilities":missing_reviewed,
+                "complete_facility_group_verified":False, "issuer_liability_negative_verified":False,
+                "negative_scope":"bounded exact facility-name queries only"}

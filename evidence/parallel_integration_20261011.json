@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-11T11:31:50.240920+00:00",
+  "result": "PARALLEL_IMPLEMENTATIONS_AND_COMBINED_OFFLINE_SUITE_VERIFIED",
+  "tested_commit": "d10cc7d5fcfa05a4a6dfd7dd869afde47c262519",
+  "published_base_before_this_batch": "e0ce88621ddfe79cc32b90fb488c052bfb20c7ae",
+  "combined_verification": {
+    "started_at": "2026-10-11T11:27:27.168966+00:00",
+    "ended_at": "2026-10-11T11:29:16.947661+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 735,
+    "tests_run": 735,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "command": "python -X utf8 -m market_checker_app.deterministic_test_runner --log-path parallel_final_tests.log --result-path parallel_final_tests.json",
+  "elapsed_seconds": 109.778695,
+  "compileall_passed": true,
+  "git_diff_check_passed": true,
+  "content_audit": {
+    "changed_files": 56,
+    "credential_pattern_matches": {
+      "private_key": [],
+      "github_token": [],
+      "aws_access_key": [],
+      "openai_key": []
+    },
+    "protected_existing_files_unchanged": {
+      "market_checker_app/analysis/scoring.py": true,
+      "market_checker_app/analysis/confidence.py": true,
+      "market_checker_app/data/verified_13f_securities.json": true,
+      "market_checker_app/data/verified_fdic_banks.json": true,
+      "market_checker_app/data/verified_nhtsa_models.json": true,
+      "market_checker_app/data/verified_usaspending_uei.json": true
+    },
+    "tracked_database_files": []
+  },
+  "lane_handoffs": {
+    "identity_bulk": {
+      "worker_commit": "1d14370a232c95f99797eaf41c704e386b48a95b",
+      "evidence": "evidence/parallel_identity_20261011.json"
+    },
+    "healthcare": {
+      "worker_commit": "174da0f7be7425440ec10e7bfe669854e5a77637",
+      "evidence": "evidence/parallel_healthcare_20261011.json"
+    },
+    "regulatory": {
+      "worker_commit": "5d59287",
+      "evidence": "evidence/parallel_regulatory_20261011.json"
+    },
+    "contracts": {
+      "worker_commit": "8ff5ec8b92d8bb19e4cc6162a4630dae3215aed1",
+      "evidence": "evidence/parallel_contracts_20261011.json"
+    },
+    "sec": {
+      "worker_commit": "002329d",
+      "evidence": "evidence/parallel_sec_20261011.json"
+    },
+    "evaluation": {
+      "worker_commit": "af4dbcbe9288ca944884053a459bb0fbba16bb1b",
+      "evidence": "evidence/parallel_evaluation_20261011.json"
+    }
+  },
+  "changed_file_sha256": {
+    "PARALLEL_SPECIALIST_WORK.md": "df7c057bb238cae1c67fbd89b3bc3532b261d97b9944cb6be1ec465699ce3178",
+    "Pripravit_SEC_Registry.bat": "76914c05f5653c3c3d1aab77c23abfc62b1693e2071201243a15e6c6ae4fea4b",
+    "SEC13F_BULK_WORKFLOW.md": "aed4580d2f329cbf8f2e0e91615cccc64461606fbf180b70ff52c970abdaeac3",
+    "SPECIALIST_HISTORICAL_EVALUATION.md": "313e5d7e1abdc0a7b596ee2d9e36f7d454c2253a147f2e54681e13f3315a885e",
+    "Vyhodnotit_Specialisty.bat": "799c7c8dc30073f46b57edd06760b75a87e714ad2f2479172274b738b1e26315",
+    "evidence/parallel_baseline_20261011.json": "fbd34c741d9408516ff6c1a7522a65df70154a7e9f72ab206063554aeb71970a",
+    "evidence/parallel_contracts_20261011.json": "abebfd5f4d968d7f80f8b22d605dd56a4d17fa46d8cd4b94ffc553f14462acdd",
+    "evidence/parallel_evaluation_20261011.json": "1d9240d727925313086520e3b23a22c80790cd34aeee4bbcd31ccedf64cb5f28",
+    "evidence/parallel_healthcare_20261011.json": "1d929c677044c89b44c5228d59d15e9239c83754a4236f6c7c1e1334cc9926c2",
+    "evidence/parallel_identity_20261011.json": "a03d2e70e90f90fd70093ac9e0e17da113c9d2300193c867ea2682e771b381be",
+    "evidence/parallel_regulatory_20261011.json": "1e3cabb29626bc54f080bb19f6bb108dfb5af5144ca67564997faf93fd8a90cb",
+    "evidence/parallel_sec_20261011.json": "4065b12a619e8625eb80667003daf84efa785b44305490a20e9706bb64532584",
+    "evidence/parallel_sec_20261011_form4_award.xml": "736af15182c9bf4f8d69688da1f5b5af2f2783ed3164d002d58bc40bdc4ba3c2",
+    "evidence/parallel_sec_20261011_form4_sale.xml": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+    "evidence/parallel_sec_20261011_form4_withholding.xml": "109021e0ea68059001d932f502839775e3ae7ccff2313d917f6be79fd7365e83",
+    "market_checker_app/agents/governance_event_agent.py": "7284bac87c6e079ef56fa141a29b8473585a55e678c44b57b124c1e341b49054",
+    "market_checker_app/agents/scout_index_agent.py": "88e8585d92cacde8113e44b2af154825bf2e44a7db94bd8d4240187fd87d49df",
+    "market_checker_app/app.py": "f7b6058d97a600e1b0942dd1d6da36f0fcad2b14cf52aba19ec73f43baa7bedf",
+    "market_checker_app/data/specialist_status.json": "2972bff5054d9048eaefa8630462f57f649435dab1ef87bfdd629f0d8b28139c",
+    "market_checker_app/data/verified_healthcare_identities.json": "fbd27ff5030218e43a73ceb2de5eab444587c2fd787be436717681a5655cbd69",
+    "market_checker_app/scout_runner.py": "c14a7360c4f7348da14f9b040b4690b990cf4f07cd9cb8c24eb008717726ca4a",
+    "market_checker_app/sec13f_identity_bulk.py": "ddb71ca9f1866a0f009a1e575fb18a8248bf4453919255bccb6797de2daee066",
+    "market_checker_app/services/fda_recall_scout_service.py": "354789c14d3dd54c5a359957aa536a76a7a9dbe6eb6ba136e765fd6adf8df304",
+    "market_checker_app/services/healthcare_identity_service.py": "225f143ca9df61ee725919e509651cb4626b2276c12222a193d3cab99dcec5a8",
+    "market_checker_app/services/healthcare_scout_service.py": "09f25875a864bcec6e79b5975e02468884b5206d29882da9a8ff43cd2d1e8826",
+    "market_checker_app/services/ofac_scout_service.py": "ce6cf9199eb643eef60e6cd09a972b25f5448ac88a0d9018349c9af6bbc85520",
+    "market_checker_app/services/pipeline_service.py": "8abb585956b0418e23683096616e0e43052a4b0b74738724ef82c8e91c45fad8",
+    "market_checker_app/services/sec13f_identity_bulk.py": "9947dc99cce43386517d7d9d125c3dec518bf527ef6aa4a3e07f57d56a6b0573",
+    "market_checker_app/services/sec_form4_service.py": "24705f5eb55594a515b0fc26bb0bc0f323ecd3be70e20aaa7e47c3eb06dd69f9",
+    "market_checker_app/services/sec_scout_service.py": "c0d93374cf033e114ff2f4133f1151e8a916b17ed87054b2f64e6dd24935b07c",
+    "market_checker_app/services/specialist_acceptance_service.py": "fd38e3bef7d8f791247a6a180a18e724c701cad42c5f904f4722ccfb2690fcad",
+    "market_checker_app/services/specialist_evaluation_service.py": "14c6fa9c75974897860b45ecb27e9332b8c66be59bf039f8f138b28091641aae",
+    "market_checker_app/services/usaspending_recipient_discovery.py": "b6fcb5d657d62cf069e8c0c2580e5b2d5e45846c53d27d23a211215a5c5bd877",
+    "market_checker_app/services/usaspending_request_budget.py": "38ef97fb6072e6d9e1e87b9cd9cc3b31345b0380a40fa8e2bd9db91d338ea4e0",
+    "market_checker_app/services/usaspending_scout_service.py": "1ffe5e274bd069093b2739831ea68cf4389ba248f89bacae34d309b5de4da8ac",
+    "market_checker_app/specialist_evaluation.py": "ed5527c633cf067d01562d136b3ac07bb3d887df4b357a08c2fbfaa757a9c441",
+    "market_checker_app/storage/scout_store.py": "f38e3275792376066fbb97c5a3c1698480dffa5fdac9927b15f283795a6b830b",
+    "market_checker_app/storage/usaspending_checkpoint_store.py": "fe992b053346bfd4aeaeeb65f1914803a1d9e079a60524fe6fea90cdf3b186af",
+    "tests/fixtures/healthcare/hca_cms_captured_20261011.json": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+    "tests/fixtures/healthcare/lly_crl_captured_20261011.json": "6683d88c891bc2a39e4b859a5f99b68b21469e0f73983e6f5ce675d09c7f5e77",
+    "tests/fixtures/healthcare/lly_trial_captured_20261011.json": "848bbcb8c80e052968c6dd0491f9fa64aa88e405959f50d8dd99b3326b527c5e",
+    "tests/test_fda_recall_scout_service.py": "d2f29a29faf9f3cc2b8e51824bf86645bb47605d5f8369a4976eaf2d97268c33",
+    "tests/test_healthcare_identity_service.py": "e7a627075063e89ce7c14194ddb3acacadeee691e1ca0ee681af96ec1b66e914",
+    "tests/test_healthcare_scout_service.py": "f72ae326448c60eb5de41807ba090da706a2f0470a03e9d4a78a90f07b84ef06",
+    "tests/test_ofac_consolidated_scout_service.py": "208b15520bcd1eab74855638b0d14d74ed58a5acd894bd0be1c0d0c556df9810",
+    "tests/test_ofac_remarks_evidence.py": "c31b757ccd3569bd9a8fd95e4396c084cb62aa7613dbb609f98b19be8cc9716e",
+    "tests/test_ofac_scout_service.py": "40aa3b78fb7c70e6f5bdc08b9b72901c6c07b435eeb9c0cefda73440d9f5d017",
+    "tests/test_public_source_budget.py": "731779ca80f6051d4f29d60d02e6ccc985caee05643b97e30044003279a6b5c1",
+    "tests/test_sec13f_identity_bulk.py": "0b8bc9605ea5e0989f0f6137494449b3044821f22d3a8cc00dac40156ea58384",
+    "tests/test_sec_form4_observation.py": "dd5ec5590ef5a6d668f4249044b745011eb91ff484e94d1c0f8c6a7c5dc76313",
+    "tests/test_specialist_acceptance_service.py": "1f7c396b4a18745a689258f43460964913f44fd98c3addcf49247f08a02a3325",
+    "tests/test_specialist_check_scope.py": "f153ec09350d732e0422a294b04f2a3155891ffba0d79fd5410fb8e0ce330373",
+    "tests/test_specialist_evaluation_service.py": "65b12a4a673f3b3f63fadf32dbcb6e48d114aa3e1783d6d5a7f2202e2d1b19a3",
+    "tests/test_streamlit_ui_smoke.py": "00631f9ac8a2b2773c0803f54899fda3557be802e0367c8b5916e83bb9265264",
+    "tests/test_usaspending_request_budget.py": "7d5eff80c163d786937770ca795ab2d14d39a66b57d1ee8c3fce9aa42fcfe430",
+    "tests/test_usaspending_resumable_collection.py": "bde18bec4f7d124913556ff0d51b9be7e32636dc5463aa2696627ce58ad57b83"
+  },
+  "specialist_acceptance": {
+    "total": 21,
+    "done_and_verified": 0,
+    "completion_verified": false
+  },
+  "limits": [
+    "Offline and fixture replay does not establish fresh live provider coverage.",
+    "SEC official global inputs were not captured in this finishing batch; reviewed production instruments remain 150/687.",
+    "Synthetic history throughput is not actual source-attributable out-of-sample evidence.",
+    "Hosted or local Linux testing is not actual user-PC Windows end-to-end acceptance.",
+    "Licensed provider access remains unresolved where previously required."
+  ],
+  "scoring_applied": false,
+  "trading_enabled": false
+}

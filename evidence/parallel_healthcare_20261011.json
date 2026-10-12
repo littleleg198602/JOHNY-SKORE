@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-11T11:11:29.067447+00:00",
+  "worktree": "/workspace/scratch/334b3a149083/JOHNY-parallel-healthcare",
+  "branch": "parallel/healthcare-20261011",
+  "status": "PASS_TARGETED_OFFLINE",
+  "storage_dependency_commit": "02dacaa63e555e1cf103b7c6fd2f40a281cdf3d8",
+  "storage_dependency_local_cherry_pick": "07772ce",
+  "validation": {
+    "command": "python -m unittest tests.test_healthcare_identity_service tests.test_healthcare_scout_service tests.test_fda_recall_scout_service tests.test_public_source_budget tests.test_specialist_check_scope -v",
+    "exit_code": 0,
+    "tests_run": 56,
+    "module_test_counts": {
+      "tests.test_healthcare_identity_service": 19,
+      "tests.test_healthcare_scout_service": 10,
+      "tests.test_fda_recall_scout_service": 11,
+      "tests.test_public_source_budget": 12,
+      "tests.test_specialist_check_scope": 4
+    },
+    "failures": 0,
+    "errors": 0,
+    "observed_summary": "Ran 56 tests in 3.212s; OK",
+    "earlier_attempts": [
+      {
+        "command": "python -m pytest -q tests/test_healthcare_identity_service.py tests/test_healthcare_scout_service.py tests/test_fda_recall_scout_service.py tests/test_public_source_budget.py tests/test_specialist_check_scope.py",
+        "exit_code": 1,
+        "tests_run": 0,
+        "result": "pytest is not installed in the supplied runtime"
+      },
+      {
+        "command": "python -m unittest tests.test_healthcare_identity_service tests.test_healthcare_scout_service tests.test_fda_recall_scout_service tests.test_public_source_budget tests.test_specialist_check_scope -v",
+        "exit_code": 1,
+        "tests_run": 50,
+        "failures": 5,
+        "result": "Existing due/coverage assertions omitted identity_versions; exact FDA/CMS assertions were updated and the final suite passed."
+      }
+    ],
+    "meaningful_cases": [
+      "Saved FDA CRL application_number arrays plus scalar compatibility",
+      "Original and supplement scope, exact letter file and signing date",
+      "Equivalent application spellings deduplicated; multiple products denied",
+      "Malformed arrays rejected as partial instead of a complete negative",
+      "Exact object, entity, role, CIK, effective interval and first-known time",
+      "ClinicalTrials NCT/intervention/sponsor role/record-version matching",
+      "CMS provider/owner/role exact match with current snapshot basis",
+      "NAME_ONLY fallback, UNVERIFIED finding storage, scoring disabled",
+      "Registry activation and relevant competing issuer links invalidate checks",
+      "SEC heartbeat updates do not invalidate stable identity versions",
+      "Persistent request/issuer quota, restart, deadline, paging and failure limits",
+      "Canonical 687-subject rotation using synthetic empty offline publisher fixtures"
+    ]
+  },
+  "saved_primary_evidence": {
+    "capture_origin": "Preserved previous worker fixtures and manifest; no new live request was made during this completion pass.",
+    "capture_known_at": [
+      "2026-10-11T10:17:04.506747+00:00"
+    ],
+    "fixture_form": "Projected publisher fields rather than complete primary HTTP responses or SEC filing copies.",
+    "fixtures": [
+      {
+        "path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+        "sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2"
+      },
+      {
+        "path": "tests/fixtures/healthcare/lly_crl_captured_20261011.json",
+        "sha256": "6683d88c891bc2a39e4b859a5f99b68b21469e0f73983e6f5ce675d09c7f5e77"
+      },
+      {
+        "path": "tests/fixtures/healthcare/lly_trial_captured_20261011.json",
+        "sha256": "848bbcb8c80e052968c6dd0491f9fa64aa88e405959f50d8dd99b3326b527c5e"
+      }
+    ],
+    "manifest_path": "market_checker_app/data/verified_healthcare_identities.json",
+    "manifest_sha256": "fbd27ff5030218e43a73ceb2de5eab444587c2fd787be436717681a5655cbd69",
+    "record_count": 5,
+    "objects": [
+      {
+        "record_id": "lly-crl-bla761215-original2-2021-12-17",
+        "source": "fda",
+        "ticker": "LLY",
+        "issuer_cik": "0000059478",
+        "identifiers": {
+          "application_number": "BLA761215/ORIGINAL2",
+          "letter_file_name": "761215Orig2s000OtherActionLtrs.pdf",
+          "letter_date": "2021-12-17"
+        },
+        "time_basis": "EVENT_DATE",
+        "effective_from": "2021-12-17",
+        "effective_to": "2021-12-18",
+        "known_at": "2026-10-11T10:17:04.506747+00:00",
+        "primary_evidence": [
+          {
+            "url": "https://api.fda.gov/transparency/crl.json",
+            "locator": "file_name:761215Orig2s000OtherActionLtrs.pdf/letter_date:12/17/2021/application:BLA761215/ORIGINAL2",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+            "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          }
+        ]
+      },
+      {
+        "record_id": "lly-crl-bla761248-2023-01-18",
+        "source": "fda",
+        "ticker": "LLY",
+        "issuer_cik": "0000059478",
+        "identifiers": {
+          "application_number": "BLA761248",
+          "letter_file_name": "761248_2024_Orig1s000OtherActionLtrs.pdf",
+          "letter_date": "2023-01-18"
+        },
+        "time_basis": "EVENT_DATE",
+        "effective_from": "2023-01-18",
+        "effective_to": "2023-01-19",
+        "known_at": "2026-10-11T10:17:04.506747+00:00",
+        "primary_evidence": [
+          {
+            "url": "https://api.fda.gov/transparency/crl.json",
+            "locator": "file_name:761248_2024_Orig1s000OtherActionLtrs.pdf/letter_date:01/18/2023/application:BLA761248",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+            "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          }
+        ]
+      },
+      {
+        "record_id": "lly-trial-nct03954834-version-2021-10-20",
+        "source": "clinicaltrials",
+        "ticker": "LLY",
+        "issuer_cik": "0000059478",
+        "identifiers": {
+          "nct_id": "NCT03954834",
+          "role": "LEAD_SPONSOR",
+          "intervention_name": "Tirzepatide",
+          "record_version_date": "2021-10-20"
+        },
+        "time_basis": "EVENT_DATE",
+        "effective_from": "2021-10-20",
+        "effective_to": "2021-10-21",
+        "known_at": "2026-10-11T10:17:04.506747+00:00",
+        "primary_evidence": [
+          {
+            "url": "https://clinicaltrials.gov/api/v2/studies/NCT03954834",
+            "locator": "protocolSection: NCT ID, leadSponsor, Tirzepatide intervention and lastUpdatePostDate",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+            "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          }
+        ]
+      },
+      {
+        "record_id": "hca-cms-o20021115000002-2026-10-11",
+        "source": "cms",
+        "ticker": "HCA",
+        "issuer_cik": "0000860730",
+        "identifiers": {
+          "enrollment_id": "O20021115000002",
+          "owner_associate_id": "1052593506",
+          "provider_name": "HTI MEMORIAL HOSPITAL CORPORATION",
+          "association_date": "2007-06-28",
+          "owner_role_code": "35"
+        },
+        "time_basis": "OBSERVED_SNAPSHOT",
+        "effective_from": "2026-10-11",
+        "effective_to": null,
+        "known_at": "2026-10-11T10:17:04.506747+00:00",
+        "primary_evidence": [
+          {
+            "url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+            "locator": "ENROLLMENT ID:O20021115000002/ASSOCIATE ID - OWNER:1052593506/ROLE CODE - OWNER:35",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312526044769/hca-20251231.htm",
+            "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          }
+        ]
+      },
+      {
+        "record_id": "hca-cms-o20030204000016-2026-10-11",
+        "source": "cms",
+        "ticker": "HCA",
+        "issuer_cik": "0000860730",
+        "identifiers": {
+          "enrollment_id": "O20030204000016",
+          "owner_associate_id": "1052593506",
+          "provider_name": "HCA HEALTHONE LLC",
+          "association_date": "2011-08-05",
+          "owner_role_code": "35"
+        },
+        "time_basis": "OBSERVED_SNAPSHOT",
+        "effective_from": "2026-10-11",
+        "effective_to": null,
+        "known_at": "2026-10-11T10:17:04.506747+00:00",
+        "primary_evidence": [
+          {
+            "url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+            "locator": "ENROLLMENT ID:O20030204000016/ASSOCIATE ID - OWNER:1052593506/ROLE CODE - OWNER:35",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312526044769/hca-20251231.htm",
+            "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-11T10:17:04.506747+00:00"
+          }
+        ]
+      }
+    ]
+  },
+  "integration_api": {
+    "registry": "HealthcareIdentityRegistry.load(path=DEFAULT_HEALTHCARE_IDENTITIES)",
+    "identity_versions": "registry.identity_versions(store: ScoutStore, source: str, *, as_of: datetime) -> dict[str, str]",
+    "sources": [
+      "fda",
+      "cms",
+      "clinicaltrials"
+    ],
+    "version_basis": "Stable active SEC subject/CIK/company_name and SHA-256 of applicable known dated records, including competing links for the same object; observation heartbeat times are excluded.",
+    "collector_injection": "identities=registry on FdaRecallScoutService and HealthcareNameScoutService",
+    "store_usage": "Pass the same map to specialist_due and specialist_coverage; pass versions[ticker] as identity_version to record_specialist_check.",
+    "environment_configuration": "Parent integration owns JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE; the registry module adds no environment helper."
+  },
+  "live_validation_performed_in_completion_pass": false,
+  "full_universe_live_coverage_verified": false,
+  "historical_financial_impact_verified": false,
+  "scoring_applied": false,
+  "limitations": [
+    "No NDA215866 object was present in the preserved fixtures or manifest; no coverage for it is claimed.",
+    "No default FDA recall manufacturer/product ownership link is seeded; unmatched recalls remain NAME_ONLY.",
+    "Five object-specific seed links do not establish issuer-wide product or provider coverage.",
+    "Current CMS owner snapshots do not establish the historical issuer chain at the old association date.",
+    "Application holder and trial sponsor identity do not establish efficacy, approval, financial materiality or investment direction.",
+    "Broader manufacturer, subsidiary, acquirer and historical ownership chains remain incomplete.",
+    "Fixtures were replayed offline; inherited publisher capture claims were not revalidated against the network.",
+    "UI, runner, acceptance integration and Windows end-to-end checks are owned by the parent and are not claimed by this worktree."
+  ]
+}

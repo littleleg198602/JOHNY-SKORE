@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-11T11:12:50.168591+00:00",
+  "lane": "sec",
+  "result": "IMPLEMENTATION_AND_OFFLINE_INTEGRATION_VERIFIED",
+  "verification": {
+    "command": "python -m unittest tests.test_sec_form4_observation tests.test_sec_scout_service tests.test_sec_document_scout tests.test_governance_event_agent tests.test_sec_schedule13_extraction tests.test_runtime_integration -q",
+    "tests_run": 67,
+    "passed": 67,
+    "elapsed_seconds": 3.836,
+    "host": "Linux",
+    "log_file": "parallel_sec_tests_final.log"
+  },
+  "file_sha256": {
+    "market_checker_app/services/sec_form4_service.py": "24705f5eb55594a515b0fc26bb0bc0f323ecd3be70e20aaa7e47c3eb06dd69f9",
+    "market_checker_app/services/sec_scout_service.py": "c0d93374cf033e114ff2f4133f1151e8a916b17ed87054b2f64e6dd24935b07c",
+    "market_checker_app/services/pipeline_service.py": "8abb585956b0418e23683096616e0e43052a4b0b74738724ef82c8e91c45fad8",
+    "market_checker_app/agents/scout_index_agent.py": "88e8585d92cacde8113e44b2af154825bf2e44a7db94bd8d4240187fd87d49df",
+    "market_checker_app/agents/governance_event_agent.py": "7284bac87c6e079ef56fa141a29b8473585a55e678c44b57b124c1e341b49054",
+    "tests/test_sec_form4_observation.py": "dd5ec5590ef5a6d668f4249044b745011eb91ff484e94d1c0f8c6a7c5dc76313"
+  },
+  "saved_public_sec_fixtures": [
+    {
+      "path": "evidence/parallel_sec_20261011_form4_withholding.xml",
+      "sha256": "109021e0ea68059001d932f502839775e3ae7ccff2313d917f6be79fd7365e83",
+      "issuer_cik": "0000789019",
+      "accession_number": "0000789019-26-000214",
+      "expected_primary_index_reference": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000214/0000789019-26-000214-index.html",
+      "validation": "saved_prior_lane_fixture_replay_no_fresh_http_claim"
+    },
+    {
+      "path": "evidence/parallel_sec_20261011_form4_award.xml",
+      "sha256": "736af15182c9bf4f8d69688da1f5b5af2f2783ed3164d002d58bc40bdc4ba3c2",
+      "issuer_cik": "0000789019",
+      "accession_number": "0000789019-26-000185",
+      "expected_primary_index_reference": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000185/0000789019-26-000185-index.html",
+      "validation": "saved_prior_lane_fixture_replay_no_fresh_http_claim"
+    },
+    {
+      "path": "evidence/parallel_sec_20261011_form4_sale.xml",
+      "sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+      "issuer_cik": "0000789019",
+      "accession_number": "0000789019-26-000161",
+      "expected_primary_index_reference": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/0000789019-26-000161-index.html",
+      "validation": "saved_prior_lane_fixture_replay_no_fresh_http_claim"
+    }
+  ],
+  "verified_behavior": [
+    "bounded XML rejects DTD, malformed and future dates, wrong issuer CIK and nonfinite quantities",
+    "exact row, security title, as-filed owner CIK, derivative and footnote provenance retained",
+    "joint reports never allocated to first owner",
+    "new parser versions preserve prior finding and audit history",
+    "primary-document replay survives synchronous state overwrite",
+    "pipeline registers governance from durable scout findings with synchronous SEC disabled"
+  ],
+  "limits": [
+    "as-filed owner CIK is not independent legal-person verification",
+    "instrument identity and execution venue remain unverified",
+    "10b5-1 checkbox is a document field, not a per-transaction determination",
+    "amendments remain unverified",
+    "no fresh HTTP success asserted by finishing coordinator",
+    "no actual user-PC Windows end-to-end validation"
+  ],
+  "scoring_applied": false,
+  "completion_verified": false
+}

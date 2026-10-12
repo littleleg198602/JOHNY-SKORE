@@ -14,6 +14,10 @@ from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.services.public_source_budget import (
     PublicBudgetExhausted, PublicSourceBudget, bounded_public_source,
 )
+from market_checker_app.services.healthcare_identity_service import (
+    HealthcareIdentityRegistry, application_values, exact_query_names,
+    normalize_application, resolve_fda_crl, resolve_fda_recall,
+)
 
 
 API_ROOT = "https://api.fda.gov"
@@ -86,12 +90,13 @@ class OpenFdaRecallClient:
 
 
 class FdaRecallScoutService:
-    """Collect exact-name recall candidates, without inferring product ownership."""
+    """Preserve name leads and separately resolve documented dated products."""
 
     def __init__(self, store: ScoutStore, *, client: FdaRecallClient,
                  max_subjects: int = 25, max_results: int = 100,
                  max_pages: int = 2, max_run_seconds: float = 60,
-                 max_failures: int = 3) -> None:
+                 max_failures: int = 3,
+                 identities: HealthcareIdentityRegistry | None = None) -> None:
         if any(isinstance(v, bool) or not isinstance(v, int) or not 1 <= v <= upper
                for v, upper in ((max_subjects, 100), (max_results, 1000),
                                 (max_pages, 10), (max_failures, 10))):
@@ -102,6 +107,7 @@ class FdaRecallScoutService:
         self.store, self.client = store, client
         self.max_subjects, self.max_results, self.max_pages = max_subjects, max_results, max_pages
         self.max_run_seconds, self.max_failures = max_run_seconds, max_failures
+        self.identities = identities if identities is not None else HealthcareIdentityRegistry.load()
 
     def _pages(self, fetch: Callable[[int], dict], *, deadline: float) -> tuple[list[dict], bool]:
         """Collect bounded offset pages; never call an incomplete result complete."""
@@ -138,10 +144,12 @@ class FdaRecallScoutService:
             raise ValueError("Observation time needs timezone")
         # Filter after fetching due names, so an outside-universe name cannot
         # exhaust the daily budget of the requested watchlist.
-        due = self.store.specialist_due("fda", as_of=clock, limit=900)
+        identity_versions = self.identities.identity_versions(self.store, "fda", as_of=clock)
+        due = self.store.specialist_due("fda", as_of=clock, limit=900,
+                                        identity_versions=identity_versions)
         due = [row for row in due if universe is None or row["subject_id"] in universe]
         due = _budget.select_due(due)[:self.max_subjects]
-        created = checked = failed = truncated_count = rejected = 0
+        created = checked = failed = truncated_count = rejected = identity_linked = 0
         deadline = time.monotonic() + self.max_run_seconds
         budget_exhausted = False
         for issuer in due:
@@ -152,66 +160,79 @@ class FdaRecallScoutService:
             candidates: list[tuple[str, dict]] = []
             letter_candidates: list[dict] = []
             truncated = False
+            query_names = exact_query_names(name, self.identities.query_names(
+                "fda", ticker, cik, as_of=clock))
+            truncated |= len(query_names) > 5
+            query_names = query_names[:5]
+            seen_objects: set[str] = set()
             try:
-                for product_type in PRODUCT_TYPES:
+                for query_name in query_names:
+                    for product_type in PRODUCT_TYPES:
+                        rows, partial = self._pages(lambda skip: _budget.call(
+                            ticker, f"{cik}:{name}", lambda: self.client.recalls(
+                                product_type, query_name, limit=self.max_results, skip=skip)), deadline=deadline)
+                        truncated |= partial
+                        for row in rows:
+                            if not isinstance(row, dict):
+                                raise ValueError("Malformed FDA recall row")
+                            if str(row.get("recalling_firm", "")).strip().casefold() != query_name.strip().casefold():
+                                continue
+                            number = row.get("recall_number")
+                            report_date = row.get("report_date")
+                            if (not isinstance(number, str) or not number.strip()
+                                    or not isinstance(report_date, str) or len(report_date) != 8
+                                    or not report_date.isdigit()):
+                                truncated = True
+                                rejected += 1
+                                continue
+                            try:
+                                reported = date.fromisoformat(f"{report_date[:4]}-{report_date[4:6]}-{report_date[6:8]}")
+                            except ValueError:
+                                truncated = True
+                                rejected += 1
+                                continue
+                            if reported > clock.date():
+                                truncated = True
+                                rejected += 1
+                                continue
+                            # Case variants of a documented name can produce
+                            # the same official row; retain one content version.
+                            key = product_type + json.dumps(row, sort_keys=True)
+                            if key not in seen_objects:
+                                seen_objects.add(key)
+                                candidates.append((product_type, row))
                     rows, partial = self._pages(lambda skip: _budget.call(
-                        ticker, f"{cik}:{name}", lambda: self.client.recalls(
-                            product_type, name, limit=self.max_results, skip=skip)), deadline=deadline)
+                        ticker, f"{cik}:{name}", lambda: self.client.complete_response_letters(
+                            query_name, limit=self.max_results, skip=skip)), deadline=deadline)
                     truncated |= partial
                     for row in rows:
                         if not isinstance(row, dict):
-                            raise ValueError("Malformed FDA recall row")
-                        if str(row.get("recalling_firm", "")).strip().casefold() != name.strip().casefold():
+                            raise ValueError("Malformed FDA CRL row")
+                        if str(row.get("company_name", "")).strip().casefold() != query_name.strip().casefold():
                             continue
-                        number = row.get("recall_number")
-                        report_date = row.get("report_date")
-                        if (not isinstance(number, str) or not number.strip()
-                                or not isinstance(report_date, str) or len(report_date) != 8
-                                or not report_date.isdigit()):
+                        if str(row.get("letter_type", "")).strip().upper() != "COMPLETE RESPONSE":
+                            continue
+                        filename = row.get("file_name")
+                        letter_date = row.get("letter_date")
+                        if not all(isinstance(value, str) and value.strip() for value in (filename, letter_date)):
                             truncated = True
                             rejected += 1
                             continue
                         try:
-                            reported = date.fromisoformat(f"{report_date[:4]}-{report_date[4:6]}-{report_date[6:8]}")
+                            application_values(row.get("application_number"))
+                            signed = datetime.strptime(letter_date, "%m/%d/%Y").date()
                         except ValueError:
                             truncated = True
                             rejected += 1
                             continue
-                        if reported > clock.date():
+                        if signed > clock.date():
                             truncated = True
                             rejected += 1
                             continue
-                        candidates.append((product_type, row))
-                rows, partial = self._pages(lambda skip: _budget.call(
-                    ticker, f"{cik}:{name}", lambda: self.client.complete_response_letters(
-                        name, limit=self.max_results, skip=skip)), deadline=deadline)
-                truncated |= partial
-                for row in rows:
-                    if not isinstance(row, dict):
-                        raise ValueError("Malformed FDA CRL row")
-                    if str(row.get("company_name", "")).strip().casefold() != name.strip().casefold():
-                        continue
-                    if str(row.get("letter_type", "")).strip().upper() != "COMPLETE RESPONSE":
-                        continue
-                    application = row.get("application_number")
-                    filename = row.get("file_name")
-                    letter_date = row.get("letter_date")
-                    if not all(isinstance(value, str) and value.strip()
-                               for value in (application, filename, letter_date)):
-                        truncated = True
-                        rejected += 1
-                        continue
-                    try:
-                        signed = datetime.strptime(letter_date, "%m/%d/%Y").date()
-                    except ValueError:
-                        truncated = True
-                        rejected += 1
-                        continue
-                    if signed > clock.date():
-                        truncated = True
-                        rejected += 1
-                        continue
-                    letter_candidates.append(row)
+                        key = "crl" + json.dumps(row, sort_keys=True)
+                        if key not in seen_objects:
+                            seen_objects.add(key)
+                            letter_candidates.append(row)
             except PublicBudgetExhausted:
                 budget_exhausted = True
                 break  # No completed check or findings for an interrupted issuer.
@@ -240,11 +261,17 @@ class FdaRecallScoutService:
                     "reason_for_recall": row.get("reason_for_recall"),
                     "classification": row.get("classification"),
                     "status": row.get("status"), "issuer_sec_cik": cik,
-                    "identity_status": "NAME_ONLY",
-                    "missing_evidence": "dated manufacturer, product and issuer relationship",
-                    "product_attribution_allowed": False,
+                    "openfda_product_identifiers": {key: row.get("openfda", {}).get(key)
+                                                   for key in ("application_number", "product_ndc")}
+                    if isinstance(row.get("openfda"), dict) else {},
                     "report_date_is_publication_time": False,
+                    "scoring_applied": False, "issuer_financial_impact_verified": False,
                 }
+                reported = datetime.strptime(row["report_date"], "%Y%m%d").date()
+                details.update(resolve_fda_recall(self.identities, ticker=ticker, cik=cik,
+                                                 product_type=product_type, row=row,
+                                                 reported=reported, as_of=clock))
+                identity_linked += int(details["issuer_attribution_allowed"])
                 digest = hashlib.sha256(json.dumps(details, sort_keys=True).encode()).hexdigest()
                 _, fresh = self.store.record_finding(
                     source="fda", subject_id=ticker,
@@ -258,25 +285,30 @@ class FdaRecallScoutService:
                 created += int(fresh)
             for row in letter_candidates:
                 application = row["application_number"]
+                application_key = ",".join(sorted({normalize_application(value) or value
+                                                   for value in application_values(application)}))
                 filename = row["file_name"]
                 letter_date = row["letter_date"]
                 details = {
                     "stage": "crl_candidate", "application_number": application,
                     "file_name": filename, "letter_date": letter_date,
                     "letter_type": "COMPLETE RESPONSE", "company_name": row["company_name"],
-                    "issuer_sec_cik": cik, "identity_status": "NAME_ONLY",
-                    "missing_evidence": "dated application, sponsor, product and issuer relationship",
-                    "product_attribution_allowed": False,
+                    "issuer_sec_cik": cik,
                     "letter_date_is_publication_time": False,
+                    "scoring_applied": False, "issuer_financial_impact_verified": False,
                 }
+                signed = datetime.strptime(letter_date, "%m/%d/%Y").date()
+                details.update(resolve_fda_crl(self.identities, ticker=ticker, cik=cik,
+                                              row=row, signed=signed, as_of=clock))
+                identity_linked += int(details["issuer_attribution_allowed"])
                 digest = hashlib.sha256(json.dumps(details, sort_keys=True).encode()).hexdigest()
                 _, fresh = self.store.record_finding(
                     source="fda", subject_id=ticker,
-                    source_object_id=f"crl:{application}:{filename}:{letter_date}",
+                    source_object_id=f"crl:{application_key}:{filename}:{letter_date}",
                     content_hash=digest,
-                    title=f"FDA CRL candidate: {application}",
+                    title=f"FDA CRL candidate: {', '.join(application_values(application))}",
                     source_url=f"{API_ROOT}/transparency/crl.json",
-                    locator=f"application:{application}/file:{filename}",
+                    locator=f"application:{application_key}/file:{filename}",
                     # FDA can disclose historic letters much later than signing.
                     published_at=clock, available_at=clock, observed_at=clock,
                     verification_status="UNVERIFIED", details=details,
@@ -285,11 +317,13 @@ class FdaRecallScoutService:
             self.store.record_specialist_check(
                 "fda", subject_id=ticker, identity_key=f"{cik}:{name}",
                 as_of=clock, candidate_count=len(candidates) + len(letter_candidates),
-                truncated=truncated,
+                truncated=truncated, identity_version=identity_versions[ticker],
             )
             checked += 1
             truncated_count += int(truncated)
         return {"status": "PARTIAL" if failed or truncated_count or budget_exhausted else "OK",
                 "checked_issuers": checked, "new_findings": created,
                 "failed_issuers": failed, "truncated_issuers": truncated_count,
-                "rejected_rows": rejected, "budget_exhausted": budget_exhausted}
+                "rejected_rows": rejected, "budget_exhausted": budget_exhausted,
+                "identity_linked_candidates": identity_linked,
+                "query_scope": "documented exact names; not issuer-wide product coverage"}

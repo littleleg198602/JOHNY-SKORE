@@ -261,9 +261,10 @@ class PipelineService:
                 ),
             )
         )
-        if ScoutStore(self.config.sqlite_path).has_findings(
+        has_scout_findings = ScoutStore(self.config.sqlite_path).has_findings(
             list(watchlist), as_of=datetime.now(timezone.utc),
-        ):
+        )
+        if has_scout_findings:
             orchestrator.register(ScoutIndexAgent(self.config.sqlite_path))
         if self.config.fundamental_ingestion.enabled:
             orchestrator.register(
@@ -287,8 +288,11 @@ class PipelineService:
         if self.config.governance_events.enabled and (
             self.config.fundamental_ingestion.enabled
             or self.config.european_filings.enabled
+            or has_scout_findings
         ):
             governance_dependencies = ["entity_registry"]
+            if has_scout_findings:
+                governance_dependencies.append("scout_index")
             if self.config.fundamental_ingestion.enabled:
                 governance_dependencies.append("f2_sec")
             if self.config.european_filings.enabled:

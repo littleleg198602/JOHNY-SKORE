@@ -1,5 +1,42 @@
 # Pátrací specialisté: jediný seznam stavu
 
+## 11. 10. 2026 — šest dalších konkrétních vývojových výstupů
+
+Aktuální inventář stále obsahuje přesně 21 specialistů: 17 PARTIAL,
+2 PILOT, 2 NOT_STARTED; **0 code=DONE / live=VERIFIED**. Šest vývojových
+agentů není šest dokončených specialistů. Každý odevzdal izolovaný lokální
+commit a obsahový důkaz; koordinátor převzal změny a zapojil je do aplikace.
+Přesná tabulka a nehotová fronta jsou v `PARALLEL_SPECIALIST_WORK.md`.
+
+Dokončené implementační části: reviewované přechody instrumentových identit;
+FDA/CMS/ClinicalTrials objektové a dotazové pokrytí plus read-only CLI;
+datované EPA FRS vlastnictví; oddělený audit kumulativních částek zakázky;
+nezávislé datované právní identity protistran SEC; neměnný archiv pozorování
+16 jednotlivých zdrojů. EIA má sdílené trvalé kvóty dvou sérií a částečný
+výsledek přežije pozdější chybu. Tyto části mají lokální testové důkazy,
+nikoli nové živé či koncové Windows přijetí. Registry a skóre zůstávají
+zachovány; 13F stále 150/687 a 537 bez mapování.
+
+Čas znalosti, interval vlastnictví, nezávislý zdroj identity a přesný objekt
+musí souhlasit. Alias a name-only nezakládají issuer attribution; datovaná
+dceřiná společnost či zařízení neznamená automatický právní nebo finanční
+účinek na mateřskou firmu. Nový archiv přiznává přepsané historické kontroly
+a chybějící zdrojové příznaky; sám není OOS evaluací. Důkazy druhé dávky:
+`evidence/parallel2_*_20261011.json`. Obsahová společná kontrola a ověřený
+commit: `evidence/parallel2_integration_20261011.json`.
+
+Celá deterministická sada ověřila commit `2c8c4b6`: 899 testů na Linuxu,
+žádné chyby, selhání či přeskočení. Osm předávacích důkazů a 167 referencí
+inventáře byly obsahově načteny a hashovány; devět produkčních datových
+souborů je shodných s předchozí lokální dávkou. Aktuální inventář dostal
+pouze popis skutečného pokroku, žádné zvýšení code/live stavu.
+
+Otevřené akceptační překážky: širší datované issuer/instrument/product vazby,
+živé pozitivní i úplné negativní případy, měřené relevantní pokrytí,
+skutečný koncový Windows a dostatečná zdrojově přiřaditelná historie.
+FINRA, EIA a licencované konsensus/opce/alternativní zdroje potřebují
+příslušné klíče či oprávnění. Nepořizovat účty ani licence bez pokynu.
+
 ## 11. 10. 2026 — trvalé denní kvóty pěti veřejných sběračů
 
 FDA, CMS, ClinicalTrials, DOJ a EPA dříve obnovily rozpočet při každém

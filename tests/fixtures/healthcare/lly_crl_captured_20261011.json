@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "results": {
+      "total": 2
+    }
+  },
+  "results": [
+    {
+      "company_name": "Eli Lilly and Company",
+      "letter_type": "COMPLETE RESPONSE",
+      "application_number": [
+        "BLA 761215/Original 2",
+        "BLA 761215"
+      ],
+      "file_name": "761215Orig2s000OtherActionLtrs.pdf",
+      "letter_date": "12/17/2021"
+    },
+    {
+      "company_name": "Eli Lilly and Company",
+      "letter_type": "COMPLETE RESPONSE",
+      "application_number": [
+        "BLA 761248"
+      ],
+      "file_name": "761248_2024_Orig1s000OtherActionLtrs.pdf",
+      "letter_date": "01/18/2023"
+    }
+  ]
+}

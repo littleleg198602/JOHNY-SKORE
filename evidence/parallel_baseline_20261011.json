@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "scope": "Existing unfinished public-source quota work preserved before parallel development",
+  "base_commit": "96cc1653d660fb12cea6ff9a3ed101ffa956d248",
+  "code_commit": "073b67b",
+  "test_command": "python -m unittest tests.test_public_source_budget tests.test_fda_recall_scout_service tests.test_healthcare_scout_service tests.test_doj_scout_service tests.test_epa_echo_scout_service tests.test_specialist_acceptance_service tests.test_scout_store -q",
+  "tests_run": 83,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_duration_seconds": 4.757,
+  "files_sha256": {
+    "market_checker_app/services/public_source_budget.py": "8c135c7c297d7d08c02af1a84ee20a9e94dbeea2d703f59feee9dcf4112da6cb",
+    "market_checker_app/storage/scout_store.py": "922da32b73265650849e3f6cadbf5d1099aa9c53b0499676534c6dd016149686",
+    "market_checker_app/services/specialist_acceptance_service.py": "2208997758f18cb031bc853f6c1e564bc049cfe129c023fb9b05f01f6dea4f0f",
+    "market_checker_app/services/fda_recall_scout_service.py": "d69393468263053ec92d7f779ce49d8b9436dcf13f8960ebbd378cf901e06df7",
+    "market_checker_app/services/healthcare_scout_service.py": "647e08d51d39971d4e52620d1aaff7c012bb1a27096272afa40781ba64ea89fa",
+    "market_checker_app/services/doj_scout_service.py": "db1875937b1f817080f2c1316754650cd22a97cf3eab54d7c81d4a6d56d7185f",
+    "market_checker_app/services/epa_echo_scout_service.py": "88ac4df5dc6d51be7ab605565f1c030f5a9b31b98057c5e5464b4db42f45e6eb",
+    "tests/test_public_source_budget.py": "8b248b2cfdd9977e85de72d3557a109dd71188113cf6f7a4ac87614e439e3e47"
+  },
+  "verified_properties": [
+    "atomic per-source/day requests and issuer quotas across independent connections",
+    "provider leases prevent overlapping I/O",
+    "failed, rejected and interrupted requests consume quota without completing issuer checks",
+    "failures rotate behind never-attempted issuers",
+    "UTC-day rollover and persisted HTTP cooldowns",
+    "source diagnostics retain attempted counts and quota statuses"
+  ],
+  "limitations": [
+    "No full-specialist DONE claim",
+    "No new live source acceptance in this quota checkpoint",
+    "Hosted and user-Windows acceptance for this commit still pending"
+  ]
+}

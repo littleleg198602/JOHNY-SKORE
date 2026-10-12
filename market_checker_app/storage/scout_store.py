@@ -14,7 +14,32 @@ from uuid import uuid4
 
 from market_checker_app.utils.source_validation import public_https_reference
 
-PUBLIC_BUDGET_SOURCES = frozenset({"fda", "cms", "clinicaltrials", "doj", "epa"})
+PUBLIC_BUDGET_SOURCES = frozenset({"fda", "cms", "clinicaltrials", "doj", "epa", "eia"})
+SPECIALIST_CHECK_SCOPES = {
+    "fda": ":healthcare-object-v1", "cms": ":healthcare-object-v1",
+    "clinicaltrials": ":healthcare-object-v1",
+    "ofac": ":sdn-alt-comments-v1", "ofac_non_sdn": ":non-sdn-alt-comments-v1",
+    "doj": ":title-name-v1", "epa": ":echo-exact-name-v1",
+}
+
+
+def _identity_versions(versions: dict[str, str] | None) -> dict[str, str]:
+    if versions is None:
+        return {}
+    if not isinstance(versions, dict) or len(versions) > 900:
+        raise ValueError("Invalid specialist identity versions")
+    for subject, version in versions.items():
+        if (not isinstance(subject, str) or not re.fullmatch(r"[A-Z0-9.-]{1,32}", subject)
+                or not isinstance(version, str) or not re.fullmatch(r"[a-f0-9]{64}", version)):
+            raise ValueError("Specialist identity version needs a subject and SHA-256")
+    return dict(versions)
+
+
+def _specialist_check_key(source: str, subject_id: str, identity_key: str,
+                          versions: dict[str, str]) -> str:
+    version = versions.get(subject_id)
+    return (identity_key + SPECIALIST_CHECK_SCOPES.get(source, "")
+            + (":registry-" + version if version else ""))
 
 
 def _utc(value: datetime) -> str:
@@ -296,6 +321,19 @@ class ScoutStore:
                            "daily_requests", "daily_issuers", "daily_request_limit",
                            "daily_issuer_limit", "attempted_requests", "attempted_issuers",
                            "quota_deferred_issuers", "retry_at",
+                           "eligible_uei", "due_uei", "attempted_uei", "completed_uei",
+                           "partial_uei", "failed_uei", "terminal_uei", "resumed_uei",
+                           "coverage_complete_uei", "coverage_partial_uei",
+                           "coverage_unchecked_uei", "coverage_stale_uei",
+                           "identity_covered_tickers", "identity_unmapped_tickers",
+                           "search_lookback_days", "issuer_coverage_complete",
+                           "eligible_names", "due_names", "attempted_names", "completed_names",
+                           "partial_names", "resumed_names", "coverage_complete_names",
+                           "coverage_partial_names", "coverage_unchecked_names", "coverage_stale_names",
+                           "contract_attribution_allowed", "daily_requests_used",
+                           "pagination_snapshot_guaranteed", "stop_reason",
+                           "comments_snapshot_sha256", "comments_rows", "remarks_supplement_status",
+                           "publisher_remarks_complete", "weak_aliases_screened", "weak_alias_extraction_complete",
                            "new_candidates", "truncated_names", "failed_names", "truncated_uei"}
                 and isinstance(value, (str, int, float, bool))}
         with self._connect() as conn:
@@ -461,32 +499,37 @@ class ScoutStore:
             """, (_utc(as_of), outcome, usable_rows, rejected_rows, request_id, _utc(as_of)))
 
     def specialist_due(self, source: str, *, as_of: datetime, limit: int,
-                       refresh_days: int = 30) -> list[dict[str, str]]:
+                       refresh_days: int = 30,
+                       identity_versions: dict[str, str] | None = None) -> list[dict[str, str]]:
         if source not in {"fda", "finra", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"} or limit < 1 or refresh_days < 1:
             raise ValueError("Unsupported specialist check configuration")
         cutoff = _utc(as_of - timedelta(days=refresh_days))
         partial_cutoff = _utc(as_of - timedelta(days=1))
         clock = _utc(as_of)
+        versions = _identity_versions(identity_versions)
         with self._connect() as conn:
+            conn.create_function("scout_check_key", 3,
+                                 lambda subject, cik, name: _specialist_check_key(
+                                     source, subject, cik + ":" + name, versions))
             rows = conn.execute("""
                 SELECT i.subject_id, i.company_name, i.cik
                 FROM scout_sec_identities AS i
                 LEFT JOIN scout_specialist_checks AS c
                   ON c.source=? AND c.subject_id=i.subject_id
-                 AND c.identity_key=i.cik || ':' || i.company_name ||
-                     CASE ? WHEN 'ofac' THEN ':sdn-alt-v1' WHEN 'ofac_non_sdn' THEN ':non-sdn-alt-v1'
-                            WHEN 'doj' THEN ':title-name-v1' WHEN 'epa' THEN ':echo-exact-name-v1' ELSE '' END
+                 AND c.identity_key=scout_check_key(i.subject_id, i.cik, i.company_name)
+                 AND c.checked_at<=?
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
                   AND (c.checked_at IS NULL OR c.checked_at<=?
                        OR (c.truncated=1 AND c.checked_at<=?))
                 ORDER BY c.checked_at IS NOT NULL, c.checked_at, i.subject_id
                 LIMIT ?
-            """, (source, source, clock, cutoff, partial_cutoff, limit)).fetchall()
+            """, (source, clock, clock, cutoff, partial_cutoff, limit)).fetchall()
         return [dict(row) for row in rows]
 
     def specialist_coverage(self, source: str, *, as_of: datetime,
                             refresh_days: int = 30,
-                            subjects: set[str] | None = None) -> dict[str, int]:
+                            subjects: set[str] | None = None,
+                            identity_versions: dict[str, str] | None = None) -> dict[str, int]:
         """Count current SEC identities checked by a rotating specialist.
 
         An incomplete paginated result remains partial even when it was checked
@@ -496,6 +539,7 @@ class ScoutStore:
             raise ValueError("Unsupported specialist coverage")
         clock = _utc(as_of)
         cutoff = _utc(as_of - timedelta(days=refresh_days))
+        versions = _identity_versions(identity_versions)
         selected = sorted(subjects) if subjects is not None else []
         if subjects is not None and not selected:
             return {"active_identities": 0, "ever_checked": 0, "current_complete": 0,
@@ -503,6 +547,9 @@ class ScoutStore:
         scope = (" AND i.subject_id IN (" + ",".join("?" for _ in selected) + ")"
                  if subjects is not None else "")
         with self._connect() as conn:
+            conn.create_function("scout_check_key", 3,
+                                 lambda subject, cik, name: _specialist_check_key(
+                                     source, subject, cik + ":" + name, versions))
             row = conn.execute("""
                 SELECT COUNT(*) AS active,
                        COALESCE(SUM(c.checked_at IS NOT NULL), 0) AS ever_checked,
@@ -511,11 +558,10 @@ class ScoutStore:
                 FROM scout_sec_identities AS i
                 LEFT JOIN scout_specialist_checks AS c
                   ON c.source=? AND c.subject_id=i.subject_id
-                 AND c.identity_key=i.cik || ':' || i.company_name ||
-                     CASE ? WHEN 'ofac' THEN ':sdn-alt-v1' WHEN 'ofac_non_sdn' THEN ':non-sdn-alt-v1'
-                            WHEN 'doj' THEN ':title-name-v1' WHEN 'epa' THEN ':echo-exact-name-v1' ELSE '' END
+                 AND c.identity_key=scout_check_key(i.subject_id, i.cik, i.company_name)
+                 AND c.checked_at<=?
                 WHERE i.status='ACTIVE' AND i.first_observed_at<=?
-            """ + scope, (cutoff, cutoff, source, source, clock, *selected)).fetchone()
+            """ + scope, (cutoff, cutoff, source, clock, clock, *selected)).fetchone()
         active = int(row["active"])
         complete = int(row["current_complete"])
         partial = int(row["current_partial"])
@@ -525,19 +571,14 @@ class ScoutStore:
 
     def record_specialist_check(self, source: str, *, subject_id: str,
                                 identity_key: str, as_of: datetime,
-                                candidate_count: int, truncated: bool) -> None:
+                                candidate_count: int, truncated: bool,
+                                identity_version: str | None = None) -> None:
         if source not in {"fda", "finra", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"} or candidate_count < 0:
             raise ValueError("Invalid specialist check")
-        # A legacy primary-name-only OFAC check cannot satisfy ALT coverage.
-        # Preserve old history and make each upgraded identity immediately due.
-        if source == "ofac":
-            identity_key += ":sdn-alt-v1"
-        if source == "ofac_non_sdn":
-            identity_key += ":non-sdn-alt-v1"
-        if source == "doj":
-            identity_key += ":title-name-v1"
-        if source == "epa":
-            identity_key += ":echo-exact-name-v1"
+        # Source upgrades and dated registry changes preserve the old check
+        # while making the new query scope due. Findings keep their own audit.
+        versions = _identity_versions({subject_id: identity_version} if identity_version is not None else None)
+        identity_key = _specialist_check_key(source, subject_id, identity_key, versions)
         with self._connect() as conn:
             conn.execute("""
                 INSERT INTO scout_specialist_checks
@@ -1504,6 +1545,13 @@ class ScoutStore:
                 item["award_amount_usd"] = details.get("reported_award_amount_usd")
                 item["total_outlays_usd"] = details.get("reported_total_outlays_usd")
                 item["relationship_evidence_url"] = details.get("relationship_evidence_url")
+                audit = details.get("modification_audit")
+                audit = audit if isinstance(audit, dict) else {}
+                item["revision_audit_status"] = audit.get("status", "NO_ARCHIVED_COMPARISON")
+                comparable = audit.get("comparable") is True
+                item["observed_obligation_delta_usd"] = audit.get("obligation_delta_usd") if comparable else None
+                item["observed_outlays_delta_usd"] = audit.get("outlays_delta_usd") if comparable else None
+                item["source_revision_order_confirmed"] = comparable and audit.get("source_revision_order_confirmed") is True
             if item["stage"] == "recipient_candidate":
                 item["recipient_uei"] = details.get("uei")
                 item["identity_status"] = details.get("identity_status")

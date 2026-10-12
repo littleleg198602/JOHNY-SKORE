@@ -26,6 +26,8 @@ from market_checker_app.services.filing_exposure_discovery_service import (
 from market_checker_app.services.supply_chain_evidence_service import (
     build_supply_chain_evidence_metadata,
 )
+from market_checker_app.services.sec_counterparty_identity import DatedCounterpartyIdentityRegistry
+from market_checker_app.services.specialist_identity_config import configured_counterparty_identities
 from market_checker_app.utils.text import normalize_ticker
 
 
@@ -42,10 +44,16 @@ class SupplyChainAgent(BaseAgent):
         config: SupplyChainConfig | None = None,
         *,
         client: ShortReportClient | None = None,
+        counterparty_identities: DatedCounterpartyIdentityRegistry | None = None,
         dependencies: tuple[str, ...] | None = None,
     ) -> None:
         self.config = config or SupplyChainConfig()
         self.client = client
+        if counterparty_identities is None:
+            self.counterparty_identities, self.counterparty_identity_manifest_status = configured_counterparty_identities()
+        else:
+            self.counterparty_identities = counterparty_identities
+            self.counterparty_identity_manifest_status = "SUPPLIED"
         if dependencies is not None:
             self.dependencies = dependencies
         if self.config.source_verification.enabled and self.client is None:
@@ -95,6 +103,8 @@ class SupplyChainAgent(BaseAgent):
                                 self.config.max_auto_discovered_relationships_per_filing
                             ),
                             max_commodity_energy=0,
+                            counterparty_identities=self.counterparty_identities,
+                            as_of=context.started_at,
                         )
                         for finding in findings.supply_chain:
                             candidates.append(
@@ -141,7 +151,8 @@ class SupplyChainAgent(BaseAgent):
         documents = {}
         relationships: list[CompanyRelationship] = []
         evidence: list[AgentEvidence] = []
-        warnings: list[str] = []
+        warnings: list[str] = (["Soubor doložených identit protistran je neplatný; shody jmen zůstávají neověřené."]
+                               if self.counterparty_identity_manifest_status == "INVALID_IDENTITY_MANIFEST" else [])
         rejected_sources = 0
         seen_records: set[str] = set()
 
@@ -252,6 +263,8 @@ class SupplyChainAgent(BaseAgent):
                     evidence_level=source.evidence_level,
                     discovery_method=discovery_method,
                     existing=relationship.metadata,
+                    counterparty_identities=self.counterparty_identities,
+                    identity_as_of=context.started_at,
                 )
             except (AttributeError, TypeError, ValueError) as exc:
                 rejected_sources += 1
@@ -322,7 +335,7 @@ class SupplyChainAgent(BaseAgent):
             by_ticker.setdefault(relationship.ticker, []).append(relationship)
         if not relationships:
             status = AgentStatus.UNAVAILABLE
-        elif rejected_sources:
+        elif rejected_sources or self.counterparty_identity_manifest_status == "INVALID_IDENTITY_MANIFEST":
             status = AgentStatus.PARTIAL
         else:
             status = AgentStatus.SUCCESS
@@ -339,6 +352,7 @@ class SupplyChainAgent(BaseAgent):
                 "auto_discovered_relationships": auto_discovered_count,
                 "relationships": len(relationships),
                 "rejected_sources": rejected_sources,
+                "counterparty_identity_manifest_status": self.counterparty_identity_manifest_status,
                 "scoring_applied": False,
             },
             state_updates={"supply_chain_relationships_by_ticker": by_ticker},
