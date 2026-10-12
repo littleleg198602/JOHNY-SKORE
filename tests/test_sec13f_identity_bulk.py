@@ -15,7 +15,7 @@ from unittest.mock import patch
 from market_checker_app.collectors.sec_edgar_client import SecAccessBlockedError, SecEdgarClient, SecEdgarError
 from market_checker_app.sec13f_identity_bulk import capture_source, export_reviewed, main, run_preparation
 from market_checker_app.services.sec13f_identity_bulk import (
-    EXCHANGE_URL, PRODUCTION_DATA_DIRECTORY, SourceSnapshot, Sec13fIdentityBulk, TICKER_URL, atomic_json, list_url,
+    EXCHANGE_URL, PRODUCTION_DATA_DIRECTORY, SourceSnapshot, Sec13fIdentityBulk, TICKER_URL, atomic_json, list_quarter, list_url,
     load_snapshots, parse_13f_list, parse_schedule13, parse_ticker_catalog,
     parse_ticker_filing, save_snapshot, share_class,
 )
@@ -94,6 +94,37 @@ def builder(sources=None, *, universe=None, existing=None, as_of=NOW):
 
 
 class Sec13fBulkTests(unittest.TestCase):
+    def test_current_sec_q3_endpoint_and_legacy_quarter_urls_keep_exact_citations(self):
+        self.assertEqual(list_url("2026q3"), "https://www.sec.gov/files/investment/13flist2026q3.txt")
+        self.assertEqual(list_url("2026q2"), "https://www.sec.gov/files/investment/13flist2026q2-txt.txt")
+        self.assertEqual(list_quarter(list_url("2026q3")), "2026q3")
+        self.assertEqual(list_quarter(list_url("2026q2")), "2026q2")
+        for url in ("https://example.test/files/investment/13flist2026q3.txt",
+                    "https://www.sec.gov/files/investment/13flist2026q3.txt?x=1",
+                    "https://www.sec.gov/files/investment/13flist2026q3-txt.txt/extra"):
+            with self.subTest(url=url), self.assertRaises(ValueError):
+                list_quarter(url)
+
+    def test_preparation_selects_latest_official_list_variant_without_redownload_or_quarter_mix(self):
+        # Synthetic payloads/times exercise the real Q3 URL spelling change.
+        # The Q2 source is retained in the same archive, but cannot serve Q3.
+        current = SourceSnapshot("13f_list", list_url("2026q3"), OBSERVED, securities().payload)
+        older_variant = SourceSnapshot("13f_list", "https://www.sec.gov/files/investment/13flist2026q3-txt.txt",
+                                       OBSERVED - timedelta(seconds=1), securities().payload)
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            for source in [catalog(), securities(), older_variant, current]:
+                save_snapshot(root, source)
+            registry = root / "existing.json"
+            registry.write_text("[]", encoding="utf-8")
+            with patch("market_checker_app.sec13f_identity_bulk._configured_client", side_effect=AssertionError("no redownload")):
+                result = run_preparation(workspace=root, quarter="2026q3", checkpoint=root / "candidates.json",
+                                         existing_path=registry, batch_size=1, one_batch=True,
+                                         capture_global=True, as_of=NOW)
+            self.assertEqual(result["quarter"], "2026q3")
+            self.assertEqual(result["snapshot_ids"], sorted([catalog().snapshot_id, current.snapshot_id]))
+            self.assertEqual(result["results"][0]["list_snapshot_id"], current.snapshot_id)
+
     def test_official_option_rows_with_synthetic_check_digits_never_become_identities(self):
         # Three rows from the official 2026q2 list, with a synthetic fixture
         # timestamp. This is a format regression test, not a live capture.
@@ -153,6 +184,24 @@ class Sec13fBulkTests(unittest.TestCase):
         source = securities([("037833100", "APPLE INC", "COM")] * 2)
         with self.assertRaisesRegex(ValueError, "duplicate CUSIP"):
             parse_13f_list(source)
+
+    def test_repeated_official_etf_option_identifiers_preserve_each_line_without_equity_attribution(self):
+        # Actual Q3 TXT rows 3009/3013, with synthetic observation time.
+        payload = (b"00768Y905 ADVISORSHARES TR              CALL                                   E\n"
+                   b"00768Y905 ADVISORSHARES TR              CALL                       *D*         E\n")
+        source = SourceSnapshot("13f_list", list_url("2026q3"), OBSERVED, payload)
+        rows = parse_13f_list(source)
+        self.assertEqual([row["line_number"] for row in rows], [1, 2])
+        self.assertEqual([row["flags"] for row in rows], ["E", "*D*         E"])
+        company = catalog([{"ticker": "ADVS", "cik_str": 123456, "title": "ADVISORSHARES TR"}])
+        service = Sec13fIdentityBulk(snapshots=[company, source], universe=["ADVS"],
+                                    quarter="2026q3", as_of=NOW)
+        self.assertEqual(service.candidate("ADVS")["candidate_instruments"], [])
+
+    def test_option_duplicate_exception_cannot_hide_equity_or_different_option_class(self):
+        for classes in [("COM", "CALL"), ("CALL", "COM"), ("CALL", "PUT")]:
+            with self.subTest(classes=classes), self.assertRaisesRegex(ValueError, "duplicate CUSIP"):
+                parse_13f_list(securities([("037833100", "APPLE INC", title) for title in classes]))
 
     def test_catalog_exchange_format_preserves_canonical_punctuation(self):
         source = SourceSnapshot("ticker_catalog", "https://www.sec.gov/files/company_tickers_exchange.json", OBSERVED,

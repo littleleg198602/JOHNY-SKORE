@@ -1,0 +1,42 @@
+{
+  "acquisition_method": "urllib.request raw HTTP body",
+  "request_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22&limit=100&skip=0",
+  "response_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22&limit=100&skip=0",
+  "requested_at": "2026-10-12T14:44:19.907975+00:00",
+  "observed_at": "2026-10-12T14:44:25.208826+00:00",
+  "http_status": 200,
+  "request_headers": {
+    "Accept": "application/json",
+    "User-Agent": "JohnySkorePrimaryEvidence/1.0"
+  },
+  "response_headers": {
+    "Date": "Mon, 12 Oct 2026 14:44:25 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Content-Length": "23740",
+    "Connection": "close",
+    "Vary": "Accept-Encoding",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Origin": "*",
+    "Age": "0",
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    "Content-Security-Policy": "default-src 'none'",
+    "Etag": "W/\"5cbc-q1IOPUVfZpiagkDPrHP1My2Ym40\"",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "Via": "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])",
+    "X-Api-Umbrella-Request-Id": "d16296qhuvd10cj8vrig",
+    "X-Cache": "MISS",
+    "X-Content-Type-Options": "nosniff",
+    "X-Vcap-Request-Id": "39d0c15d-b785-4ad8-755e-7c5a95dd59cc",
+    "X-Xss-Protection": "1; mode=block",
+    "X-Frame-Options": "deny"
+  },
+  "byte_budget": 4000000,
+  "body_bytes": 23740,
+  "body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+  "body_complete_within_byte_budget": true,
+  "error": null,
+  "body_path": "fda_crl_pfizer_exact_phrase.body.json",
+  "storage_encoding": "identity",
+  "archived_bytes": 23740,
+  "archive_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748"
+}

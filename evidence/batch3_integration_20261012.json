@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-12T15:38:40.146912+00:00",
+  "base_commit": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "tested_code_snapshot": "4e38c57e3322fe933f30e452864bba648177fd54",
+  "scope": "Third specialist batch: real bounded publisher captures, explicit reviewed identity scopes and immutable source-run preservation; not full specialist acceptance.",
+  "review_fixes": {
+    "form4_accession_limit_before_version_expansion": true,
+    "old_available_versions_preserved": true,
+    "simultaneous_latest_conflicts_fail_closed": true,
+    "eia_series_aliases_and_counts_persisted": true
+  },
+  "source_outputs": {
+    "identity": "evidence/batch3_identity_20261012.json",
+    "healthcare": "evidence/batch3_healthcare_20261012/validation.json",
+    "regulatory": "evidence/batch3_regulatory_20261012/validation.json",
+    "contracts": "evidence/batch3_contracts_acceptance_20261012.json",
+    "sec": "evidence/batch3_sec_20261012/verification.json",
+    "evaluation": "evidence/batch3_evaluation_incremental_archive_20261012.json",
+    "registry_adoption": "evidence/batch3_identity_import_20261012/adoption.json"
+  },
+  "registry_scopes": {
+    "healthcare_records": 10,
+    "nhtsa_model_records": 3,
+    "legal_entity_records": 5,
+    "new_verified_instruments": 0,
+    "historical_q2_instruments": 150,
+    "current_q3_instrument_coverage": 0,
+    "sikorsky_sec_parent_bridge": "WITHHELD_DATES_NOT_ALIGNED"
+  },
+  "verified_focused_runs": {
+    "root_integration": 106,
+    "scale": 5,
+    "transaction_ui": 1,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "full_linux_run": {
+    "started_at": "2026-10-12T15:34:50.709229+00:00",
+    "ended_at": "2026-10-12T15:37:10.652471+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 990,
+    "tests_run": 990,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "result_path": "evidence/batch3_linux_tests_20261012.json",
+    "result_sha256": "6121275c89d99c78d88e99fc87a9774c3b7d3d356cf74111523c294246ca3ada",
+    "log_path": "evidence/batch3_linux_tests_20261012.log",
+    "log_sha256": "385ef8e92e0c607eb6bf6b94ea67f33f6a606a825c2ecb2c79c6c24767f083c1",
+    "duration_seconds": 139.075
+  },
+  "hosted_windows": {
+    "status": "NOT_YET_RUN_FOR_THIS_HEAD",
+    "verification_location": "New PR exact-head CI job and contents of windows-deterministic-tests artifact",
+    "previous_head": "9acb3b7c7ed8d11bdda82c8503a6e583c8c1deb0",
+    "previous_head_tests": 902,
+    "previous_head_proves_current_changes": false
+  },
+  "initial_registry_combined_check": {
+    "tests": 70,
+    "failures": 5,
+    "errors": 1,
+    "reason": "Old semantic tests read growing production rows as a fixed five-record seed and derived a moving NOW.",
+    "log": "evidence/batch3_identity_import_20261012/legacy_seed_coupling_failures.log",
+    "fix": "e57766aee769b28cec1431b3185809f5441a566b",
+    "assertions_relaxed": false
+  },
+  "claims": {
+    "all_21_specialists_done": false,
+    "full_acceptance_count": 0,
+    "user_windows_end_to_end_verified": false,
+    "issuer_wide_live_coverage_verified": false,
+    "out_of_sample_improvement_verified": false,
+    "production_scores_changed": false,
+    "automatic_trading_enabled": false,
+    "publication_credentials_exported": false
+  },
+  "tested_code_tree": "c8388e21da278461385128a304f3e2430d9551a4",
+  "healthcare_growth_final_regression": {
+    "tests": 65,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "fixed_seed_sha256": "fbd27ff5030218e43a73ceb2de5eab444587c2fd787be436717681a5655cbd69",
+    "production_loader_is_separate": true,
+    "assertions_relaxed": false
+  },
+  "compilation_passed": true,
+  "diff_check_passed": true,
+  "windows_ci_time_budget": {
+    "minutes": 40,
+    "basis": "Previous exact-head hosted902-test full suite took1788.625seconds before setup/focused checkpoints; new990-test archive/filesystem suite gets bounded additional headroom. Cancellation remains release failure."
+  },
+  "source_output_sha256": {
+    "identity": "9bdc43a825bf7aa8e81dea7ab0e0cbaf464e50259c54568baf309a4f29ce4496",
+    "healthcare": "e08548adb326cae2bf586e43a926cdd2dbad08286f5e5e19f93f7c183f11c181",
+    "regulatory": "5390fabc957592d0a7e575e65fa55fd359da276918884087738d3738782041c3",
+    "contracts": "37192660b569d957c60ff1656a26441d124be34b49c8605b3c05171f5189b15b",
+    "sec": "881b14bd3cfc0e0398a15c1d08a8061fad624b0c9d2b90b8df19695279504c8b",
+    "evaluation": "644a2303a6f416da4225bf21942b5ca6c43a94432490b4e634ea6abbc3adfe56",
+    "registry_adoption": "3e56710cc0b60493d3a8b52936d611376fe0d381024f8b15e25bc4f0916a1eb5"
+  }
+}

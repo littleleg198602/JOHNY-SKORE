@@ -305,7 +305,8 @@ class ScoutStore:
     def record_source_run(self, source: str, *, as_of: datetime,
                           summary: dict[str, object]) -> None:
         allowed = {"sec", "fred", "eia", "usaspending", "recipient_discovery",
-                   "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa"}
+                   "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa",
+                   "usaspending_transactions"}
         if source not in allowed or not isinstance(summary, dict):
             raise ValueError("Unknown scout source run")
         status = summary.get("status")
@@ -321,6 +322,14 @@ class ScoutStore:
                            "daily_requests", "daily_issuers", "daily_request_limit",
                            "daily_issuer_limit", "attempted_requests", "attempted_issuers",
                            "quota_deferred_issuers", "retry_at",
+                           "daily_series", "daily_series_limit", "attempted_series",
+                           "quota_deferred_series", "checked_series", "incomplete_series",
+                           "failed_series", "usable_rows", "query_scope", "quota_unit",
+                           "company_exposure_verified",
+                           "source_archive_status", "source_archive_filename", "source_archive_error",
+                           "accepted_rows", "captured_pages", "acquisition_mode", "traversal_complete",
+                           "modification_history_complete", "revenue_inferred", "company_exposure_inferred",
+                           "publisher_publication_time_verified", "source_revision_order_verified",
                            "eligible_uei", "due_uei", "attempted_uei", "completed_uei",
                            "partial_uei", "failed_uei", "terminal_uei", "resumed_uei",
                            "coverage_complete_uei", "coverage_partial_uei",
@@ -1511,6 +1520,7 @@ class ScoutStore:
     def latest_findings(
         self, subjects: list[str], *, as_of: datetime, limit: int = 100,
         source: str | None = None,
+        stage: str | None = None,
     ) -> list[dict[str, object]]:
         if not subjects or limit < 1:
             return []
@@ -1525,10 +1535,11 @@ class ScoutStore:
                        details_json
                 FROM scout_findings
                 WHERE subject_id IN ({placeholders}) AND (? IS NULL OR source=?)
+                    AND (? IS NULL OR json_extract(details_json, '$.stage')=?)
                     AND available_at<=?
                     AND first_observed_at<=?
                 ORDER BY first_observed_at DESC, finding_id DESC LIMIT ?
-            """, (*bounded, source, source, cutoff, cutoff, limit)).fetchall()
+            """, (*bounded, source, source, stage, stage, cutoff, cutoff, limit)).fetchall()
         output: list[dict[str, object]] = []
         for row in rows:
             item = dict(row)
@@ -1556,6 +1567,13 @@ class ScoutStore:
                 item["recipient_uei"] = details.get("uei")
                 item["identity_status"] = details.get("identity_status")
                 item["missing_evidence"] = details.get("missing_evidence")
+            if item["stage"] == "award_transaction":
+                for key in ("transaction_id", "generated_internal_id", "recipient_name", "uei",
+                            "action_date", "modification_number", "reported_transaction_obligation_usd",
+                            "source_response_completed_at", "publisher_publication_time_verified",
+                            "issuer_attribution_allowed", "revenue_inferred", "company_exposure_inferred",
+                            "source_revision_order_verified", "modification_history_complete"):
+                    item[key] = details.get(key)
             item["item_locators"] = ", ".join(
                 str(section.get("locator", ""))
                 for section in details.get("item_excerpts", [])
@@ -1565,7 +1583,14 @@ class ScoutStore:
 
     def findings_for_watchlist(
         self, subjects: list[str], *, as_of: datetime, per_subject: int = 8,
+        form4_parser_version: str | None = None,
     ) -> list[dict[str, object]]:
+        """Limit current evidence slots, retaining selected Form 4 version history.
+
+        With a parser version, an accession with a usable Form 4 observation
+        occupies one slot. Its older available primary versions are returned for
+        audit and ambiguity checks, so the returned row count can exceed the cap.
+        """
         if not subjects or per_subject < 1:
             return []
         bounded = list(dict.fromkeys(subjects))[:900]
@@ -1573,8 +1598,31 @@ class ScoutStore:
         cutoff = _utc(as_of)
         with self._connect() as conn:
             rows = conn.execute(f"""
-                SELECT * FROM (
-                    SELECT f.*, ROW_NUMBER() OVER (
+                WITH known AS (
+                    SELECT * FROM scout_findings
+                    WHERE subject_id IN ({placeholders})
+                      AND available_at<=? AND first_observed_at<=?
+                ), eligible AS (
+                    SELECT k.*, ROW_NUMBER() OVER (
+                        PARTITION BY subject_id, source_object_id
+                        ORDER BY first_observed_at DESC, finding_id DESC
+                    ) AS version_position
+                    FROM known AS k
+                    WHERE source='sec' AND verification_status='SOURCE_VERIFIED'
+                      AND json_extract(details_json, '$.stage')='filing_document'
+                      AND json_type(details_json, '$.form4_observation')='object'
+                      AND json_extract(details_json, '$.form4_observation.parser_version')=?
+                ), current_form4 AS (
+                    SELECT subject_id, source_object_id, finding_id AS slot_id
+                    FROM eligible WHERE version_position=1
+                ), members AS (
+                    SELECT k.*, COALESCE(c.slot_id, k.finding_id) AS slot_id
+                    FROM known AS k LEFT JOIN current_form4 AS c
+                      ON c.subject_id=k.subject_id AND c.source_object_id=k.source_object_id
+                     AND k.source='sec' AND k.verification_status='SOURCE_VERIFIED'
+                     AND json_extract(k.details_json, '$.stage')='filing_document'
+                ), ranked AS (
+                    SELECT slot_id, ROW_NUMBER() OVER (
                         PARTITION BY subject_id
                         ORDER BY
                             CASE json_extract(details_json, '$.stage')
@@ -1583,12 +1631,15 @@ class ScoutStore:
                                 ELSE 2 END,
                             available_at DESC, finding_id DESC
                     ) AS position
-                    FROM scout_findings AS f
-                    WHERE subject_id IN ({placeholders})
-                      AND available_at<=? AND first_observed_at<=?
-                ) WHERE position<=?
-                ORDER BY subject_id, available_at DESC, finding_id
-            """, (*bounded, cutoff, cutoff, per_subject)).fetchall()
+                    FROM members WHERE finding_id=slot_id
+                )
+                SELECT k.*, r.position FROM known AS k
+                JOIN members AS m ON m.finding_id=k.finding_id
+                JOIN ranked AS r ON r.slot_id=m.slot_id
+                WHERE r.position<=?
+                ORDER BY k.subject_id, k.first_observed_at DESC,
+                         k.available_at DESC, k.finding_id
+            """, (*bounded, cutoff, cutoff, form4_parser_version, per_subject)).fetchall()
         return [dict(row) for row in rows]
 
     def has_findings(self, subjects: list[str], *, as_of: datetime) -> bool:

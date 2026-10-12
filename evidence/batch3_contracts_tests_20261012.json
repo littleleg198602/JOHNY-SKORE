@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-12T15:15:53.299367+00:00",
+  "completed_at": "2026-10-12T15:15:54.283267+00:00",
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "tests.test_award_transaction_history_service",
+    "tests.test_usaspending_request_budget",
+    "tests.test_usaspending_scout_service",
+    "tests.test_usaspending_resumable_collection",
+    "tests.test_usaspending_recipient_discovery",
+    "tests.test_award_modification_service",
+    "-q"
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "----------------------------------------------------------------------\nRan 98 tests in 0.868s\n\nOK\n",
+  "synthetic_cases_count_as_live_acceptance": false,
+  "actual_archive_test_acquisition_mode": "ARCHIVE_REPLAY",
+  "live_acceptance_evidence": "evidence/batch3_contracts_acceptance_20261012.json",
+  "platform": "current Linux host; Windows end-to-end not run"
+}

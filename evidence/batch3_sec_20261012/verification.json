@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-10-12T15:21:27.457798+00:00",
+  "result": "PRIMARY_BYTES_AND_OFFLINE_PROPOSAL_REPLAY_PASS",
+  "baseline_commit": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "proposal_records": 5,
+  "direct_public_records": 4,
+  "private_legal_entity_records": 1,
+  "runtime_subsidiary_records": 0,
+  "withheld_subsidiary_candidates": 1,
+  "production_registry_rows_written": 0,
+  "primary_http_200_captures": 15,
+  "blocked_publishers": [],
+  "tests": {
+    "command": "python -m unittest tests.test_sec_counterparty_identity tests.test_batch3_sec_counterparty_proposal tests.test_supply_chain_evidence_service tests.test_filing_exposure_discovery_service tests.test_company_network_stage3 tests.test_counterparty_health_service tests.test_sec_document_scout -v",
+    "run": 64,
+    "elapsed_seconds": 0.464,
+    "passed": true,
+    "log": "evidence/batch3_sec_20261012/tests.log"
+  },
+  "historical_clock_conflicts": [
+    "AAPL",
+    "NVDA"
+  ],
+  "scoring_applied": false,
+  "trading_enabled": false,
+  "files_sha256": {
+    "evidence/batch3_sec_20261012/counterparty_proposal.json": "fc3df953b785c0b5f8161d9a7c81a3cebf9b17959064d11313c857c72adc2eea",
+    "evidence/batch3_sec_20261012/withheld_subsidiary_candidate.json": "b771e713b5f2dc2cb5824ab8c12c05dd680ac98e009c5bd1fc567abac57af37c",
+    "evidence/batch3_sec_20261012/captures.json": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7",
+    "evidence/batch3_sec_20261012/tests.log": "a732c777384188bd108f09837ef0fa62470e49da8fad7c205bfbb0ff3181cd40",
+    "evidence/batch3_sec_20261012/build_proposal.py": "54d52d3763a0a5f0bffeb0daa02d7e7060412fce6d73ae2923b5f05d8db2dce9",
+    "evidence/batch3_sec_20261012/capture_primary.py": "d37ca7c77dfe46bcdb8d408cccd080dd256040076de7b57cc9ab0ac8e55db471",
+    "evidence/batch3_sec_20261012/README.md": "91cf39cc936a7a364e23f952984fe585b97b086b889e1c600fa4cdde819139b1"
+  },
+  "primary_source_sha256": {
+    "primary/msft_2026_index.html": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6",
+    "primary/msft_2026_R1.htm": "509808a1105ba840c8d14026da505dba2e6457964ef204b5002b861a3be00a81",
+    "primary/lmt_2025_index.html": "f86a56294ac74f4e8565fd4e600d4f27a693efa308def97f64f7fb5e1977b1ea",
+    "primary/lmt_2025_R1.htm": "83eca2c4124032100450f848c3f7d91c28ba661938bc36c4bfc2fc5828ea4fbe",
+    "primary/lmt_2025_ex21.htm": "8e5686e7781dd4541a637c081daa6a906e046736ecc07fb4d35c694b3a52d694",
+    "primary/aapl_2025_index.html": "6d76ceacb872a43243a35436157c695d7a2625342c99dee0fe3ebb20eb7ab639",
+    "primary/aapl_2025_R1.htm": "6083668bba54cdcffd9c7ee90f612506346f4aeabc9586b20c4fd095455bd8e8",
+    "primary/nvda_2026_index.html": "ba36b0aa8f66dd5e5a4de1b0ecc67335df014b0149a0350c9806cf9bdd366075",
+    "primary/nvda_2026_R1.htm": "15bccf274000d3e18e6ea6b600a08e267a9c5dd1f59ccb3dea82151d6e14027e",
+    "primary/sikorsky_gleif.json": "45c18f70c66f93c7ef4f5298c8e8a2b7e71b163466b28cede03dce334ce97064",
+    "primary/nvda_2026_10k.htm": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+    "primary/msft_submissions.json": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c",
+    "primary/lmt_submissions.json": "1239eb3139490eb2e498f793380e150a5805844ec549f1ee1966129ac61e24d4",
+    "primary/aapl_submissions.json": "2821703cf04e1138923243a87cc5148673feb9d3792a5b6a7747d1e1a093bf7f",
+    "primary/nvda_submissions.json": "a700c65f586670b6a56725f903900abc1b39a06110e7c30cf691d8ecb902e52d"
+  },
+  "implementation_sha256": {
+    "market_checker_app/services/sec_counterparty_identity.py": "1c206541d360b59872f7d40a1f56d6f7f0ecc9d8afb1d82f1ee78a2009687755",
+    "tests/test_sec_counterparty_identity.py": "0748f68ae57373836cae4b45461235b653fd644ea983d3b52592ac58147ad7bc",
+    "tests/test_batch3_sec_counterparty_proposal.py": "1b22f66f864ee7ab698c5b982ac98fe05ec5655a8266da4189a58f88c8638a1a"
+  },
+  "remaining": [
+    "Exact source event/snapshot days only; continuous corporate legal-effective intervals unverified.",
+    "No date-aligned Sikorsky ownership bridge; issuer attribution withheld.",
+    "AAPL/NVDA reported API/index acceptance clocks conflict; first publication unverified.",
+    "No supplier/customer exposure relationship or financial health/rating/impact established.",
+    "Fresh live exposure ingestion, user Windows and out-of-sample evaluation unverified."
+  ],
+  "checks": {
+    "git_diff_check": {
+      "passed": true,
+      "returncode": 0,
+      "command": "git diff --check"
+    },
+    "compileall": {
+      "passed": true,
+      "returncode": 0,
+      "command": "python -m compileall -q market_checker_app/services/sec_counterparty_identity.py tests/test_sec_counterparty_identity.py tests/test_batch3_sec_counterparty_proposal.py evidence/batch3_sec_20261012/build_proposal.py evidence/batch3_sec_20261012/capture_primary.py"
+    }
+  }
+}

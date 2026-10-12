@@ -1,0 +1,383 @@
+{
+  "schema_version": 1,
+  "report_type": "archived_healthcare_proposal_replay",
+  "generated_at": "2026-10-12T15:14:55.348317+00:00",
+  "replay_as_of": "2026-10-12T14:52:34.382658+00:00",
+  "network_requests": 0,
+  "runtime_store_provided": false,
+  "production_registry_mutated": false,
+  "verified_capture_count": 18,
+  "verified_captures": [
+    {
+      "capture_key": "fda_crl_abbvie",
+      "http_status": 200,
+      "original_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "body_bytes": 55713
+    },
+    {
+      "capture_key": "fda_crl_abbvie_2023_positive_control",
+      "http_status": 200,
+      "original_body_sha256": "e6305e5dc402133536823e654fb8b7dfc839f8bf20b91ee3b9eeb33fba10b5a4",
+      "body_bytes": 34796
+    },
+    {
+      "capture_key": "fda_crl_abbvie_exact_phrase",
+      "http_status": 200,
+      "original_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "body_bytes": 55713
+    },
+    {
+      "capture_key": "fda_crl_abbvie_partial",
+      "http_status": 200,
+      "original_body_sha256": "b7dff2324cf41d063c5cad668851c91b31a63c2690f003c6897aa9be4a998082",
+      "body_bytes": 34794
+    },
+    {
+      "capture_key": "fda_crl_merck",
+      "http_status": 200,
+      "original_body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+      "body_bytes": 14967
+    },
+    {
+      "capture_key": "fda_crl_merck_exact_phrase",
+      "http_status": 200,
+      "original_body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+      "body_bytes": 14967
+    },
+    {
+      "capture_key": "fda_crl_pfizer",
+      "http_status": 200,
+      "original_body_sha256": "63c5119d2a51d5d8de416b070bfb345743a40e112d76ce5e5469ad498b57bd01",
+      "body_bytes": 36661
+    },
+    {
+      "capture_key": "fda_crl_pfizer_2026_negative",
+      "http_status": 404,
+      "original_body_sha256": "57b1e7534d003e4246182162fd2469cdf038de39405056f44fc006715e5496da",
+      "body_bytes": 80
+    },
+    {
+      "capture_key": "fda_crl_pfizer_exact_phrase",
+      "http_status": 200,
+      "original_body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+      "body_bytes": 23740
+    },
+    {
+      "capture_key": "fda_crl_scope_documentation",
+      "http_status": 200,
+      "original_body_sha256": "e1aafef7aa8e51f7982c63703dc5a938943a720948c5d285ca60849336006b26",
+      "body_bytes": 122082
+    },
+    {
+      "capture_key": "fda_crl_searchable_fields",
+      "http_status": 200,
+      "original_body_sha256": "4869a45f4b18079855e94a5a3df6beb46fec700f9f6509981dd22686a56f4262",
+      "body_bytes": 126427
+    },
+    {
+      "capture_key": "sec_abbv_2023_10q",
+      "http_status": 200,
+      "original_body_sha256": "b3c31869e3a7cd57650e96b7df35f8e19c582daa3d500672c0d93392613d4ce2",
+      "body_bytes": 2087608
+    },
+    {
+      "capture_key": "sec_abbv_2024_10q",
+      "http_status": 200,
+      "original_body_sha256": "83eeeb5145aeda19f4bca707285c1eeaa515365c5e15089dc6b59d630be7f034",
+      "body_bytes": 2349173
+    },
+    {
+      "capture_key": "sec_abbv_2026_10q",
+      "http_status": 200,
+      "original_body_sha256": "f5ec43b10ca9ed88305f13c2e747a7f59da11c6883e9da47d4aab4efe1325967",
+      "body_bytes": 1464199
+    },
+    {
+      "capture_key": "sec_mrk_2012_10k",
+      "http_status": 200,
+      "original_body_sha256": "302aecedb462fad97f4b9b5296095bac645937c382eeea514dcec848e8a8af2a",
+      "body_bytes": 2682584
+    },
+    {
+      "capture_key": "sec_mrk_2013_10q",
+      "http_status": 200,
+      "original_body_sha256": "936e8e31fe639f6263c2ec271d7cc5a964122645c4839fbdd8f87af51f3c6ef4",
+      "body_bytes": 1957096
+    },
+    {
+      "capture_key": "sec_pfe_2017_10k",
+      "http_status": 200,
+      "original_body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+      "body_bytes": 816055
+    },
+    {
+      "capture_key": "sec_pfe_2017_index",
+      "http_status": 403,
+      "original_body_sha256": "7f61f3fa9fc62a06fd27af979c530f78afccc12c6648e737da0dfd69d7b4726f",
+      "body_bytes": 453
+    }
+  ],
+  "event_replays": [
+    {
+      "record_id": "pfe-crl-bla761081-2018-04-20",
+      "ticker": "PFE",
+      "application_number": "BLA761081",
+      "letter_date": "2018-04-20",
+      "effective_from": "2018-04-20",
+      "effective_to": "2018-04-21",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_pfizer_exact_phrase",
+      "source_record_json_pointer": "/results/0",
+      "primary_body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+      "object_resolution": "EXACT_DATED_OBJECT",
+      "product_attribution_allowed_at_event": true,
+      "before_known_resolution": "NOT_YET_KNOWN",
+      "exclusive_end_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "current_event_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "wrong_issuer_resolution": "WRONG_ISSUER",
+      "wrong_letter_resolution": "UNMAPPED_OBJECT",
+      "ownership_history_established": false
+    },
+    {
+      "record_id": "mrk-crl-nda204569-2013-06-28",
+      "ticker": "MRK",
+      "application_number": "NDA204569",
+      "letter_date": "2013-06-28",
+      "effective_from": "2013-06-28",
+      "effective_to": "2013-06-29",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_merck_exact_phrase",
+      "source_record_json_pointer": "/results/0",
+      "primary_body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+      "object_resolution": "EXACT_DATED_OBJECT",
+      "product_attribution_allowed_at_event": true,
+      "before_known_resolution": "NOT_YET_KNOWN",
+      "exclusive_end_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "current_event_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "wrong_issuer_resolution": "WRONG_ISSUER",
+      "wrong_letter_resolution": "UNMAPPED_OBJECT",
+      "ownership_history_established": false
+    },
+    {
+      "record_id": "abbv-crl-nda216962-2023-03-17",
+      "ticker": "ABBV",
+      "application_number": "NDA216962",
+      "letter_date": "2023-03-17",
+      "effective_from": "2023-03-17",
+      "effective_to": "2023-03-18",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_abbvie_exact_phrase",
+      "source_record_json_pointer": "/results/0",
+      "primary_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "object_resolution": "EXACT_DATED_OBJECT",
+      "product_attribution_allowed_at_event": true,
+      "before_known_resolution": "NOT_YET_KNOWN",
+      "exclusive_end_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "current_event_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "wrong_issuer_resolution": "WRONG_ISSUER",
+      "wrong_letter_resolution": "UNMAPPED_OBJECT",
+      "ownership_history_established": false
+    },
+    {
+      "record_id": "abbv-crl-nda216962-2024-06-18",
+      "ticker": "ABBV",
+      "application_number": "NDA216962",
+      "letter_date": "2024-06-18",
+      "effective_from": "2024-06-18",
+      "effective_to": "2024-06-19",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_abbvie_exact_phrase",
+      "source_record_json_pointer": "/results/1",
+      "primary_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "object_resolution": "EXACT_DATED_OBJECT",
+      "product_attribution_allowed_at_event": true,
+      "before_known_resolution": "NOT_YET_KNOWN",
+      "exclusive_end_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "current_event_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "wrong_issuer_resolution": "WRONG_ISSUER",
+      "wrong_letter_resolution": "UNMAPPED_OBJECT",
+      "ownership_history_established": false
+    },
+    {
+      "record_id": "abbv-crl-bla761459-2026-04-22",
+      "ticker": "ABBV",
+      "application_number": "BLA761459",
+      "letter_date": "2026-04-22",
+      "effective_from": "2026-04-22",
+      "effective_to": "2026-04-23",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_abbvie_exact_phrase",
+      "source_record_json_pointer": "/results/2",
+      "primary_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "object_resolution": "EXACT_DATED_OBJECT",
+      "product_attribution_allowed_at_event": true,
+      "before_known_resolution": "NOT_YET_KNOWN",
+      "exclusive_end_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "current_event_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "wrong_issuer_resolution": "WRONG_ISSUER",
+      "wrong_letter_resolution": "UNMAPPED_OBJECT",
+      "ownership_history_established": false
+    }
+  ],
+  "queries": [
+    {
+      "capture_key": "fda_crl_pfizer_exact_phrase",
+      "publisher": "FDA openFDA CRL dataset",
+      "request_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22&limit=100&skip=0",
+      "search": "company_name:\"Pfizer Inc.\"",
+      "http_status": 200,
+      "observed_at": "2026-10-12T14:44:25.208826+00:00",
+      "original_body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+      "response_meta_last_updated": "2026-08-13",
+      "page_size": 100,
+      "pages_replayed": 1,
+      "skip": 0,
+      "returned_count": 1,
+      "publisher_query_total": 1,
+      "partial": false,
+      "status": "COMPLETE_QUERY_POSITIVE",
+      "issuer_wide_scope": false,
+      "completeness_scope": "Only this exact search expression in this published CRL dataset snapshot."
+    },
+    {
+      "capture_key": "fda_crl_merck_exact_phrase",
+      "publisher": "FDA openFDA CRL dataset",
+      "request_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Merck+%26+Co.%2C+Inc.%22&limit=100&skip=0",
+      "search": "company_name:\"Merck & Co., Inc.\"",
+      "http_status": 200,
+      "observed_at": "2026-10-12T14:49:28.022976+00:00",
+      "original_body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+      "response_meta_last_updated": "2026-08-13",
+      "page_size": 100,
+      "pages_replayed": 1,
+      "skip": 0,
+      "returned_count": 1,
+      "publisher_query_total": 1,
+      "partial": false,
+      "status": "COMPLETE_QUERY_POSITIVE",
+      "issuer_wide_scope": false,
+      "completeness_scope": "Only this exact search expression in this published CRL dataset snapshot."
+    },
+    {
+      "capture_key": "fda_crl_abbvie_exact_phrase",
+      "publisher": "FDA openFDA CRL dataset",
+      "request_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+      "search": "company_name:\"AbbVie Inc.\"",
+      "http_status": 200,
+      "observed_at": "2026-10-12T14:49:22.429721+00:00",
+      "original_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "response_meta_last_updated": "2026-08-13",
+      "page_size": 100,
+      "pages_replayed": 1,
+      "skip": 0,
+      "returned_count": 3,
+      "publisher_query_total": 3,
+      "partial": false,
+      "status": "COMPLETE_QUERY_POSITIVE",
+      "issuer_wide_scope": false,
+      "completeness_scope": "Only this exact search expression in this published CRL dataset snapshot."
+    },
+    {
+      "capture_key": "fda_crl_abbvie_partial",
+      "publisher": "FDA openFDA CRL dataset",
+      "request_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=1&skip=0",
+      "search": "company_name:\"AbbVie Inc.\"",
+      "http_status": 200,
+      "observed_at": "2026-10-12T14:44:31.359345+00:00",
+      "original_body_sha256": "b7dff2324cf41d063c5cad668851c91b31a63c2690f003c6897aa9be4a998082",
+      "response_meta_last_updated": "2026-08-13",
+      "page_size": 1,
+      "pages_replayed": 1,
+      "skip": 0,
+      "returned_count": 1,
+      "publisher_query_total": 3,
+      "partial": true,
+      "status": "PARTIAL_QUERY_POSITIVE",
+      "issuer_wide_scope": false,
+      "completeness_scope": "Only this exact search expression in this published CRL dataset snapshot."
+    },
+    {
+      "capture_key": "fda_crl_pfizer_2026_negative",
+      "publisher": "FDA openFDA CRL dataset",
+      "request_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22+AND+letter_year%3A%222026%22&limit=100&skip=0",
+      "search": "company_name:\"Pfizer Inc.\" AND letter_year:\"2026\"",
+      "http_status": 404,
+      "observed_at": "2026-10-12T14:44:37.338422+00:00",
+      "original_body_sha256": "57b1e7534d003e4246182162fd2469cdf038de39405056f44fc006715e5496da",
+      "response_meta_last_updated": null,
+      "page_size": 100,
+      "pages_replayed": 1,
+      "skip": 0,
+      "returned_count": 0,
+      "publisher_query_total": 0,
+      "partial": false,
+      "status": "COMPLETE_QUERY_NO_MATCH",
+      "issuer_wide_scope": false,
+      "completeness_scope": "Only this exact search expression in this published CRL dataset snapshot."
+    },
+    {
+      "capture_key": "fda_crl_abbvie_2023_positive_control",
+      "publisher": "FDA openFDA CRL dataset",
+      "request_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22+AND+letter_year%3A%222023%22&limit=100&skip=0",
+      "search": "company_name:\"AbbVie Inc.\" AND letter_year:\"2023\"",
+      "http_status": 200,
+      "observed_at": "2026-10-12T14:50:09.432664+00:00",
+      "original_body_sha256": "e6305e5dc402133536823e654fb8b7dfc839f8bf20b91ee3b9eeb33fba10b5a4",
+      "response_meta_last_updated": "2026-08-13",
+      "page_size": 100,
+      "pages_replayed": 1,
+      "skip": 0,
+      "returned_count": 1,
+      "publisher_query_total": 1,
+      "partial": false,
+      "status": "COMPLETE_QUERY_POSITIVE",
+      "issuer_wide_scope": false,
+      "completeness_scope": "Only this exact search expression in this published CRL dataset snapshot."
+    }
+  ],
+  "proposal_coverage_diagnostic": {
+    "identity_manifest": {
+      "status": "VALID",
+      "errors": [],
+      "sha256": "045d2c45b69926baf9ca185a9cd6021f0ebda9fa5e4d2f70694c86997c7afce3",
+      "record_count": 5,
+      "valid_record_count": 5,
+      "malformed_record_count": 0
+    },
+    "runtime": {
+      "status": "NOT_PROVIDED",
+      "complete_read": false
+    },
+    "fda": {
+      "documented_issuer_object_subjects": 3,
+      "mapped_subjects": 0,
+      "mapped_objects": 0,
+      "queried_issuers": 0,
+      "current_complete_source_checks": 0,
+      "current_partial_source_checks": 0,
+      "issuer_wide_complete_checks": 0,
+      "negative_issuer_completeness_verified": false,
+      "object_status_counts": {
+        "EXACT_DATED_OBJECT": 5
+      },
+      "expired_interval_records": 5,
+      "historical_event_only_records": 5
+    },
+    "acceptance": {
+      "live_verified": false,
+      "negative_issuer_completeness_verified": false,
+      "actual_windows_end_to_end_verified": false,
+      "out_of_sample_evaluation_verified": false
+    }
+  },
+  "limitations": [
+    "Five direct-issuer letter events, four applications, three canonical issuers only.",
+    "One-day effective intervals bound each event and are not actual ownership begin/end dates.",
+    "Letter dates are not first publication dates; actual capture and review clocks govern availability.",
+    "FDA may release archive batches and does not expose a complete issuer-wide inventory.",
+    "The letter_year filter is exercised by the real 2023 positive control but is absent from the captured public searchable-fields page.",
+    "Pfizer Ireland BLA761184 is withheld because a c/o address is insufficient dated ownership evidence.",
+    "An optional SEC index request returned 403; it was not retried or used as identity evidence.",
+    "This is an offline byte replay, not a runtime source check, historical impact evaluation, or Windows acceptance."
+  ]
+}

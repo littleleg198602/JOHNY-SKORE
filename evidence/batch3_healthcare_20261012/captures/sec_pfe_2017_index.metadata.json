@@ -1,0 +1,33 @@
+{
+  "acquisition_method": "urllib.request raw HTTP body",
+  "request_url": "https://www.sec.gov/Archives/edgar/data/78003/0000078003-18-000027-index.htm",
+  "response_url": "https://www.sec.gov/Archives/edgar/data/78003/0000078003-18-000027-index.htm",
+  "requested_at": "2026-10-12T14:47:32.868369+00:00",
+  "observed_at": "2026-10-12T14:47:37.479465+00:00",
+  "http_status": 403,
+  "request_headers": {
+    "Accept": "text/html",
+    "User-Agent": "JohnySkorePrimaryEvidence/1.0"
+  },
+  "response_headers": {
+    "Mime-Version": "1.0",
+    "Content-Type": "text/html",
+    "Content-Length": "453",
+    "Expires": "Mon, 12 Oct 2026 14:47:37 GMT",
+    "Date": "Mon, 12 Oct 2026 14:47:37 GMT",
+    "Connection": "close",
+    "Strict-Transport-Security": "max-age=31536000 ; includeSubDomains ; preload"
+  },
+  "byte_budget": 4000000,
+  "body_bytes": 453,
+  "body_sha256": "7f61f3fa9fc62a06fd27af979c530f78afccc12c6648e737da0dfd69d7b4726f",
+  "body_complete_within_byte_budget": true,
+  "error": "HTTP Error 403: Forbidden",
+  "body_path": "sec_pfe_2017_index.body.html.gz",
+  "storage_encoding": "gzip",
+  "archived_bytes": 281,
+  "archive_sha256": "947cfb447eb06262268cb6c065d533373969c9b5d92179e9ef4593456d6369eb",
+  "response_headers_omitted": [
+    "Set-Cookie"
+  ]
+}

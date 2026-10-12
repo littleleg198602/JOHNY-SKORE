@@ -1,5 +1,19 @@
 # Pátrací specialisté: jediný seznam stavu
 
+## 12. 10. 2026 — práce po sloučení PR #161
+
+Třetí dávka přidává skutečné úplné SEC Q3 vstupy a review frontu 687,
+primární FDA/NHTSA/SEC/GLEIF vazby, raw transakce jednoho USAspending
+awardu a automatické neměnné archivy dokončených zdrojových běhů.
+Form4 verze se vybírají před limitem; EIA series telemetrie přežívá restart.
+Registry mají 10 healthcare/3 modelové/5 právních záznamů s přesným scope.
+Historických 150 Q2 instrumentů stále pokrývá 0 current Q3; žádný nový
+instrument není schválený. Úplná akceptace zůstává 0/21, skóre se nemění.
+Konkrétní výsledky, limity a aktuální implementační fronta jsou v
+`PARALLEL_SPECIALIST_WORK.md`; společná kontrola v
+`evidence/batch3_integration_20261012.json`. Hostované Windows nového
+HEAD jsou samostatná CI kontrola, nikoli uživatelský koncový běh.
+
 ## 11. 10. 2026 — šest dalších konkrétních vývojových výstupů
 
 Aktuální inventář stále obsahuje přesně 21 specialistů: 17 PARTIAL,

@@ -4,6 +4,71 @@ Platí od 11. 10. 2026. Vývoj běží v nejvýše šesti oddělených větvích
 koordinátor přebírá změny, řeší integraci a provádí společné kontroly.
 Počet vývojových větví není počet dokončených analytických specialistů.
 
+## Třetí navazující dávka — 12. 10. 2026
+
+Základem je skutečně sloučený PR #161, main
+`a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5`. Šest izolovaných vývojových
+větví odevzdalo konkrétní zdrojové captures, kód, replay a testy. Koordinátor
+zapojil archivaci každého dokončeného zdroje a explicitní načtení transakcí
+vybrané doložené zakázky do UI/CLI; současně opravil obě potvrzené P2 review.
+
+| Vlastník | Odevzdaný commit | Konkrétní výstup |
+|---|---|---|
+| identity_bulk | `9cbc75c` | Úplný raw SEC katalog (10 445 položek) a Q3 TXT (25 789 řádků); skutečná příprava 687/687. |
+| healthcare | `c4e74f1` | 18 HTTP captures a 5 CRL event-only vazeb PFE/MRK/ABBV, čtyři aplikace; skutečné scope/partial/NOT_FOUND replay. |
+| regulatory | `ffc976a` | 24 NHTSA/SEC captures, přesné modely F/GM 2026, 5+3 campaigns; HTTP400 prázdné odpovědi zůstávají PARTIAL. |
+| contracts | `55fc322` | Bounded LIVE sběrač a neměnný raw archiv 14 USAspending transakcí jednoho doloženého Sikorsky/LMT awardu. |
+| sec | `2da667f` | 15 primárních SEC/GLEIF captures; čtyři filing-day DIRECT a jedna snapshot-day PRIVATE identita, oprava Trading Symbol(s). |
+| evaluation | `0aadf86` | Neměnné archivy jednotlivých zdrojových běhů, bounded replay a pravdivý dnešní replay starších FDIC payloadů. |
+| identity_bulk — import | `d50e18a` | Jediný vlastník posoudil 35 raw referencí a přijal 5 healthcare +2 modelové +5 právních vazeb. |
+
+Následný fix `e57766a` oddělil pevný původní pětizáznamový testovací
+snapshot od rostoucího produkčního registru. Původní boundary assertions
+zůstávají zachované a nový samostatný test validuje všechny skutečné
+produkční řádky. První rozšířená kombinovaná kontrola měla 5 selhání a 1
+chybu kvůli tomuto coupling; úplný původní log zůstává v import evidence.
+
+Produkční registry nyní obsahují 10 healthcare event/object záznamů,
+3 přesné NHTSA modely a 5 časově úzkých právních identit. Dceřiná vazba
+Sikorsky→LMT v nové SEC identity větvi zůstává withheld: důkazy nemají
+společný doložený den. Samostatná již existující USAspending UEI kontinuita
+zůstává zachována. Čtyři právní DIRECT záznamy nejsou dnešním průběžným
+pokrytím emitentů. Jednodenní gate je scope důkazu, nikoli domyšlené
+historické právní datum.
+
+687 instrumentových návrhů není 687 ověřených identit. Stav fronty je
+663 NEEDS_REVIEW, 22 WAIT_INSTRUMENT_EVIDENCE, 2 WAIT_TICKER_CIK.
+Původních 150 instrumentových záznamů se vztahuje na Q2 a pokrývá **0
+pozic Q3**. XOM má aktuální odlišný CIK a starý CUSIP je v Q3 označen jako
+deleted; přechod není schválen. Výstup a audit jsou
+`evidence/batch3_identity_20261012.json` a
+`evidence/batch3_identity_bulk_20261012/registry_review.json`.
+
+### Aktuální fronta po třetí dávce
+
+1. identity_bulk: nezávislé primární instrumentové a corporate-action
+   důkazy pro current Q3 návrhy; XOM/LEG/PSTG nejdříve prověřit, ne přepsat
+   staré intervaly. Samotný přesný název a současný katalog nestačí.
+2. healthcare: širší produktové/aplikační/sponzorské/CMS vazby v čase a
+   relevantní jmenovatele; publisher NOT_FOUND nezaměňovat s celou skupinou.
+3. regulatory: úplný negativní NHTSA případ s úspěšnou odpovědí, další
+   dated model/FRS/DOJ vazby; HTTP400 není kontrola bez událostí.
+4. contracts: další doložené UEI/awardy a source revision timing; 14 řádků
+   jednoho awardu není kompletní historie revizí ani výnosy firmy.
+5. sec: aktuální dated právní/subsidiary/brand identity a primární IR,
+   instrumentové/osobní vazby Form4; konfliktní publication clocks zachovat.
+6. evaluation: průběžně shromažďovat skutečně dostupné source-run archivy
+   a point-in-time label data. Dnešní replay nelze backdatovat na 1. říjen;
+   chybějící dříve přepsané kontroly nebyly získány zpět.
+7. koordinátor: integrace dalších konkrétních specialistů a datovaných
+   firemních expozic, relevantní pokrytí a skutečný uživatelský Windows běh.
+
+Code/live stavy všech 21 specialistů zůstávají beze změny: **0/21 plně
+akceptováno**. Hostovaná deterministická Windows sada se kontroluje pro
+každý nový HEAD zvlášť; předchozí 902/902 na PR #161 je důkaz předchozího
+kódu. Aktuální výsledek a přesný hash budou doložené CI nového PR.
+Integrační důkaz této dávky: `evidence/batch3_integration_20261012.json`.
+
 ## Druhá převzatá dávka — 11. 10. 2026
 
 Aktuální GitHub HEAD PR #160 byl znovu načten: `e0ce88621ddfe79cc32b90fb488c052bfb20c7ae`.

@@ -1,0 +1,24 @@
+{
+  "capture_id": "nhtsa_manufacturers_ford_name",
+  "requested_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetManufacturerDetails/Ford%20Motor%20Company?format=json",
+  "started_at": "2026-10-12T14:43:33.148484+00:00",
+  "method": "GET",
+  "timeout_seconds": 20,
+  "max_response_bytes": 4000000,
+  "http_status": 200,
+  "final_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetManufacturerDetails/Ford%20Motor%20Company?format=json",
+  "response_headers": {
+    "Date": "Mon, 12 Oct 2026 14:43:36 GMT",
+    "Content-Type": "application/json",
+    "Content-Length": "4218"
+  },
+  "outcome": "CAPTURED",
+  "count": 5,
+  "result_rows": 5,
+  "observed_at": "2026-10-12T14:43:36.888538+00:00",
+  "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_manufacturers_ford_name.json",
+  "archive_sha256": "282995bd93d483f1d89799253e8172b27ed65196e491853c9345a7626a40b8af",
+  "archive_bytes": 4218,
+  "count_field": "Count",
+  "results_field": "Results"
+}

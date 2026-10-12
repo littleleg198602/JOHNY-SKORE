@@ -1,0 +1,24 @@
+{
+  "capture_id": "nhtsa_model_ford_f150_2026",
+  "requested_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/FORD/modelyear/2026?format=json",
+  "started_at": "2026-10-12T14:44:59.614948+00:00",
+  "method": "GET",
+  "timeout_seconds": 20,
+  "max_response_bytes": 4000000,
+  "http_status": 200,
+  "final_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/FORD/modelyear/2026?format=json",
+  "response_headers": {
+    "Date": "Mon, 12 Oct 2026 14:45:04 GMT",
+    "Content-Type": "application/json",
+    "Content-Length": "4224"
+  },
+  "outcome": "CAPTURED",
+  "count": 50,
+  "result_rows": 50,
+  "observed_at": "2026-10-12T14:45:04.828362+00:00",
+  "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_model_ford_f150_2026.json",
+  "archive_sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+  "archive_bytes": 4224,
+  "count_field": "Count",
+  "results_field": "Results"
+}

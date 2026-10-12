@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "kind": "NHTSA_MODEL_ISSUER_SCOPE_PROPOSAL",
+  "baseline_commit": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "reviewed_at": "2026-10-12T15:08:33.934642+00:00",
+  "status": "REVIEWED_PROPOSAL_PENDING_COORDINATOR_ADOPTION",
+  "proposed_manifest_path": "evidence/batch3_regulatory_20261012/models.proposed.json",
+  "canonical_universe": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "count": 687,
+    "selected_tickers": [
+      "F",
+      "GM"
+    ]
+  },
+  "production_registry_modified": false,
+  "proposed_records_count": 2,
+  "records": [
+    {
+      "proposal_id": "nhtsa-f-f-150-2026-observed-20261012",
+      "verification_status": "REVIEWED_PROPOSAL",
+      "reviewer": "Codex batch3/regulatory-20261012; independent coordinator adoption pending",
+      "reviewed_at": "2026-10-12T15:08:33.934642+00:00",
+      "known_at": "2026-10-12T15:08:33.934642+00:00",
+      "service_record": {
+        "ticker": "F",
+        "manufacturer": "Ford Motor Company",
+        "make": "FORD",
+        "model": "F-150",
+        "model_year": 2026,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+        "known_at": "2026-10-12T15:08:33.934642+00:00"
+      },
+      "issuer_name": "Ford Motor Company",
+      "issuer_cik": "0000037996",
+      "relationship": "MANUFACTURER_IS_ISSUER",
+      "relationship_scope": "product observation to the documented issuer entity; no legal liability or financial impact inheritance",
+      "effective_knowledge": {
+        "time_basis": "OBSERVED_SNAPSHOT",
+        "model_years": [
+          2026
+        ],
+        "first_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "source_statement_dates": [
+          "2025-12-31"
+        ],
+        "historical_relationship_at_campaign_date_verified": false,
+        "effective_from": null,
+        "effective_to": null,
+        "interval_status": "NOT_ASSERTED; source dates and campaign production windows are not issuer ownership intervals",
+        "publication_time_from_report_date": false
+      },
+      "evidence": [
+        {
+          "capture_id": "sec_ford_2025_10k",
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+          "locator": "Cover; common-stock trading symbol F; dei:EntityCentralIndexKey=0000037996; Part I Item 1 Business",
+          "supports": "Own-CIK SEC filing identifies Ford Motor Company, ticker F. The body states its Delaware incorporation in 1919.",
+          "observed_at": "2026-10-12T14:42:20.318978+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/sec_ford_2025_10k.html.gz",
+          "archive_sha256": "73d126f4857b8dee09e3cc8a0eb35a0496762a5c5cd561f9f82526995458a694",
+          "raw_response_sha256": "c4a046afeaf12b49f2d24b7eb1903e6cd57aeab9b7c3a22d227c6137c69580ff"
+        },
+        {
+          "capture_id": "sec_ford_2025_10k",
+          "purpose": "ISSUER_PRODUCT_RELATIONSHIP",
+          "url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+          "locator": "Part II Item 7; Ford Blue 2025 Full Year; lower F-150 wholesales",
+          "supports": "Own-CIK SEC filing describes F-150 wholesales in the Ford Blue business. It supports the product relationship without asserting an unreported model year.",
+          "observed_at": "2026-10-12T14:42:20.318978+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/sec_ford_2025_10k.html.gz",
+          "archive_sha256": "73d126f4857b8dee09e3cc8a0eb35a0496762a5c5cd561f9f82526995458a694",
+          "raw_response_sha256": "c4a046afeaf12b49f2d24b7eb1903e6cd57aeab9b7c3a22d227c6137c69580ff"
+        },
+        {
+          "capture_id": "nhtsa_manufacturer_ford_976",
+          "purpose": "MANUFACTURER_IDENTITY",
+          "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetManufacturerDetails/976?format=json",
+          "locator": "Results[0]; Mfr_ID=976; Mfr_Name=FORD MOTOR COMPANY; Country=UNITED STATES (USA)",
+          "supports": "Exact manufacturer-ID query returned one US legal manufacturer. The full name agrees with the SEC legal name; no foreign Ford affiliate is selected.",
+          "observed_at": "2026-10-12T14:44:59.659857+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_manufacturer_ford_976.json",
+          "archive_sha256": "58f0a65ce615f0ba7ac1abb6d4cae3a8fbe710c05a3ac1e797402516d163589c",
+          "raw_response_sha256": "58f0a65ce615f0ba7ac1abb6d4cae3a8fbe710c05a3ac1e797402516d163589c"
+        },
+        {
+          "capture_id": "nhtsa_makes_ford_976",
+          "purpose": "MANUFACTURER_MAKE",
+          "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakeForManufacturer/976?format=json",
+          "locator": "Results entry Make_ID=460; Make_Name=FORD; Mfr_Name=FORD MOTOR COMPANY",
+          "supports": "Exact manufacturer-ID response associates the selected FORD make. Other returned historical makes are outside this proposal.",
+          "observed_at": "2026-10-12T14:44:59.614577+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_makes_ford_976.json",
+          "archive_sha256": "4e48e5921fdeb811736b624cf016aa546397bd6d3f01f79b363414d5d49bd928",
+          "raw_response_sha256": "4e48e5921fdeb811736b624cf016aa546397bd6d3f01f79b363414d5d49bd928"
+        },
+        {
+          "capture_id": "nhtsa_model_ford_f150_2026",
+          "purpose": "MODEL_YEAR_IDENTITY",
+          "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/FORD/modelyear/2026?format=json",
+          "locator": "Results entry Make_ID=460; Model_ID=1801; Model_Name=F-150; requested modelyear=2026",
+          "supports": "Official vPIC model-year response includes the exact F-150 model. No other model years are proposed.",
+          "observed_at": "2026-10-12T14:45:04.828362+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_model_ford_f150_2026.json",
+          "archive_sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+          "raw_response_sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9"
+        },
+        {
+          "capture_id": "nhtsa_ford_26v104_acknowledgement",
+          "purpose": "DATED_MANUFACTURER_MODEL",
+          "url": "https://static.nhtsa.gov/odi/rcl/2026/RCAK-26V104-7010.pdf",
+          "locator": "Page 1; letter dated 2026-02-25; campaign 26V104; FORD/F-150/2021-2026",
+          "supports": "Official NHTSA acknowledgement names Ford Motor Company and explicitly includes F-150 model year 2026. The broader letter year range is not adopted.",
+          "observed_at": "2026-10-12T14:49:59.396816+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_ford_26v104_acknowledgement.pdf",
+          "archive_sha256": "c432388d4ff76bed606c0f164d3d0c17e77b6bab7732b188850e45e28ec0c9f9",
+          "raw_response_sha256": "c432388d4ff76bed606c0f164d3d0c17e77b6bab7732b188850e45e28ec0c9f9"
+        },
+        {
+          "capture_id": "nhtsa_recalls_ford_f150_2026",
+          "purpose": "EXACT_LIVE_RECALL_SCOPE",
+          "url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=F-150&modelYear=2026",
+          "locator": "Count=5; each results row Manufacturer=Ford Motor Company, Make=FORD, Model=F-150, ModelYear=2026",
+          "supports": "All five campaigns agree with the exact proposed manufacturer/make/model/year. This is a current observation of the returned campaign set.",
+          "observed_at": "2026-10-12T14:41:59.312765+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_recalls_ford_f150_2026.json",
+          "archive_sha256": "50926b6cbaf7eb3a4637d40e7b6527afa9b5c016ad0b27555132c1f9feab3235",
+          "raw_response_sha256": "50926b6cbaf7eb3a4637d40e7b6527afa9b5c016ad0b27555132c1f9feab3235"
+        }
+      ],
+      "live_scope_summary": {
+        "capture_id": "nhtsa_recalls_ford_f150_2026",
+        "http_status": 200,
+        "observed_at": "2026-10-12T14:41:59.312765+00:00",
+        "returned_count": 5,
+        "exact_matching_count": 5,
+        "campaigns": [
+          {
+            "campaign": "26V104000",
+            "report_received_date": "2026-02-20"
+          },
+          {
+            "campaign": "26V550000",
+            "report_received_date": "2026-08-25"
+          },
+          {
+            "campaign": "26V576000",
+            "report_received_date": "2026-09-09"
+          },
+          {
+            "campaign": "26V577000",
+            "report_received_date": "2026-09-09"
+          },
+          {
+            "campaign": "26V578000",
+            "report_received_date": "2026-09-09"
+          }
+        ]
+      },
+      "issuer_legal_liability_verified": false,
+      "issuer_financial_impact_verified": false,
+      "scoring_applied": false,
+      "automatic_trading_enabled": false
+    },
+    {
+      "proposal_id": "nhtsa-gm-silverado-1500-2026-observed-20261012",
+      "verification_status": "REVIEWED_PROPOSAL",
+      "reviewer": "Codex batch3/regulatory-20261012; independent coordinator adoption pending",
+      "reviewed_at": "2026-10-12T15:08:33.934642+00:00",
+      "known_at": "2026-10-12T15:08:33.934642+00:00",
+      "service_record": {
+        "ticker": "GM",
+        "manufacturer": "General Motors, LLC",
+        "make": "CHEVROLET",
+        "model": "SILVERADO 1500",
+        "model_year": 2026,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/1467858/000119312526344698/d145571d8k.htm",
+        "known_at": "2026-10-12T15:08:33.934642+00:00"
+      },
+      "issuer_name": "General Motors Company",
+      "issuer_cik": "0001467858",
+      "relationship": "MANUFACTURER_IS_DOCUMENTED_WHOLLY_OWNED_SUBSIDIARY",
+      "relationship_scope": "product observation to the documented issuer entity; no legal liability or financial impact inheritance",
+      "effective_knowledge": {
+        "time_basis": "OBSERVED_SNAPSHOT",
+        "model_years": [
+          2026
+        ],
+        "first_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "source_statement_dates": [
+          "2025-12-31",
+          "2026-08-07"
+        ],
+        "historical_relationship_at_campaign_date_verified": false,
+        "effective_from": null,
+        "effective_to": null,
+        "interval_status": "NOT_ASSERTED; source dates and campaign production windows are not issuer ownership intervals",
+        "publication_time_from_report_date": false
+      },
+      "evidence": [
+        {
+          "capture_id": "sec_gm_2025_10k",
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/gm-20251231.htm",
+          "locator": "Cover; GENERAL MOTORS COMPANY; trading symbol GM; dei:EntityCentralIndexKey=0001467858",
+          "supports": "Own-CIK SEC filing identifies the listed parent, General Motors Company, ticker GM.",
+          "observed_at": "2026-10-12T14:42:25.445739+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/sec_gm_2025_10k.html.gz",
+          "archive_sha256": "07d4f6a33a728b62718d93f7c2b8342cba05ee4d474c2347aaac2a6309f40d73",
+          "raw_response_sha256": "d73211092182a879796501948b50cf495329c47eecf5c06f6fd90109d639eb13"
+        },
+        {
+          "capture_id": "sec_gm_2025_ex21",
+          "purpose": "DATED_LEGAL_ENTITY_LIST",
+          "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/ex-21x12312025.htm",
+          "locator": "Exhibit 21; list as of 2025-12-31; General Motors LLC / Delaware",
+          "supports": "Own-CIK Exhibit 21 lists the exact Delaware General Motors LLC entity. Because the heading includes both subsidiaries and joint ventures, this list alone is not used to infer wholly owned status.",
+          "observed_at": "2026-10-12T14:42:29.460143+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/sec_gm_2025_ex21.html.gz",
+          "archive_sha256": "90da504f2ed87c8f93f6c39321c1c4e584d67c41096d26cd1b1edc05bd146042",
+          "raw_response_sha256": "76f2d45ee319a5471b7904206ac869003318ff534252e8373fe2ffd33ee1a43c"
+        },
+        {
+          "capture_id": "sec_gm_20260807_8k",
+          "purpose": "EXACT_MANUFACTURER_ISSUER_RELATIONSHIP",
+          "url": "https://www.sec.gov/Archives/edgar/data/1467858/000119312526344698/d145571d8k.htm",
+          "locator": "Item 1.01; event dated 2026-08-07; General Motors LLC; wholly owned subsidiary of General Motors Company; filing signed 2026-08-11",
+          "supports": "Own-CIK SEC filing explicitly identifies General Motors LLC as a wholly owned subsidiary of the listed General Motors Company. This is independent of the recall brand names.",
+          "observed_at": "2026-10-12T14:46:41.559706+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/sec_gm_20260807_8k.html.gz",
+          "archive_sha256": "fbbdb21aeb4afa0bbf6d80134317de927fd3882443ccef72ffa087a204a58d17",
+          "raw_response_sha256": "19aab8c66d8c351de56259fc6428941cb2a32887b78a0f439a8669e7106d9695"
+        },
+        {
+          "capture_id": "nhtsa_manufacturer_gm_984",
+          "purpose": "MANUFACTURER_IDENTITY",
+          "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetManufacturerDetails/984?format=json",
+          "locator": "Results[0]; Mfr_ID=984; Mfr_Name=GENERAL MOTORS LLC; Country=UNITED STATES (USA)",
+          "supports": "Exact manufacturer-ID query returned one US legal manufacturer, using the same legal-name spelling as SEC. ADAM OPEL AG and SHANGHAI GENERAL MOTORS CORP LTD. name-search matches are not selected.",
+          "observed_at": "2026-10-12T14:44:59.607447+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_manufacturer_gm_984.json",
+          "archive_sha256": "5fb391db343926d093ad155355a608270f1c51894680356ba987b4e66b24bc6f",
+          "raw_response_sha256": "5fb391db343926d093ad155355a608270f1c51894680356ba987b4e66b24bc6f"
+        },
+        {
+          "capture_id": "nhtsa_makes_gm_984",
+          "purpose": "MANUFACTURER_MAKE",
+          "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakeForManufacturer/984?format=json",
+          "locator": "Results entry Make_ID=467; Make_Name=CHEVROLET; Mfr_Name=GENERAL MOTORS LLC",
+          "supports": "Exact manufacturer-ID response associates the selected CHEVROLET make. Other current or historical makes are outside this proposal.",
+          "observed_at": "2026-10-12T14:45:04.765580+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_makes_gm_984.json",
+          "archive_sha256": "0e1ffd9af4c57ce5d6ebd4c05f26ec0d001a55bc87b018a85ba187f14f583902",
+          "raw_response_sha256": "0e1ffd9af4c57ce5d6ebd4c05f26ec0d001a55bc87b018a85ba187f14f583902"
+        },
+        {
+          "capture_id": "nhtsa_gm_25v815_part573",
+          "purpose": "DATED_MANUFACTURER_MODEL",
+          "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25V815-5190.pdf",
+          "locator": "Page 1 Manufacturer Name=General Motors, LLC; submission 2025-11-25; page 2 Vehicle 3=2026-2026 CHEVROLET SILVERADO 1500",
+          "supports": "The manufacturer-submitted Part 573 report explicitly pairs the recall API spelling General Motors, LLC with the exact model/year. Its Vehicle 3 production dates are 2025-08-04 through 2025-10-08; they describe this campaign population, not a general issuer ownership interval.",
+          "observed_at": "2026-10-12T14:46:42.174192+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_gm_25v815_part573.pdf",
+          "archive_sha256": "b043dc7227deaa11013692b5a4b44d900e268f8963880de0bb813ea4df4dabd1",
+          "raw_response_sha256": "b043dc7227deaa11013692b5a4b44d900e268f8963880de0bb813ea4df4dabd1"
+        },
+        {
+          "capture_id": "nhtsa_gm_25v815_acknowledgement",
+          "purpose": "DATED_MANUFACTURER_MODEL",
+          "url": "https://static.nhtsa.gov/odi/rcl/2025/RCAK-25V815-2019.pdf",
+          "locator": "Page 1; letter dated 2025-12-02; campaign 25V815; CHEVROLET/SILVERADO 1500/2026",
+          "supports": "The independent NHTSA acknowledgement names General Motors, LLC and the exact proposed model/year.",
+          "observed_at": "2026-10-12T14:46:42.385885+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_gm_25v815_acknowledgement.pdf",
+          "archive_sha256": "e53b8f63c9e49ff283f176225d320ef983b3f9c9c615c006c80f5873151c9ed3",
+          "raw_response_sha256": "e53b8f63c9e49ff283f176225d320ef983b3f9c9c615c006c80f5873151c9ed3"
+        },
+        {
+          "capture_id": "nhtsa_recalls_chevrolet_silverado1500_2026",
+          "purpose": "EXACT_LIVE_RECALL_SCOPE",
+          "url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=SILVERADO%201500&modelYear=2026",
+          "locator": "Count=3; each results row Manufacturer=General Motors, LLC, Make=CHEVROLET, Model=SILVERADO 1500, ModelYear=2026",
+          "supports": "All three returned campaigns agree with the exact proposed manufacturer/make/model/year. The comma spelling is preserved in the service manifest.",
+          "observed_at": "2026-10-12T14:41:58.783439+00:00",
+          "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_recalls_chevrolet_silverado1500_2026.json",
+          "archive_sha256": "e940aa7759c07b14a53080dd7b968b10915daa738bbbdf483edbeec3fc7c16a4",
+          "raw_response_sha256": "e940aa7759c07b14a53080dd7b968b10915daa738bbbdf483edbeec3fc7c16a4"
+        }
+      ],
+      "live_scope_summary": {
+        "capture_id": "nhtsa_recalls_chevrolet_silverado1500_2026",
+        "http_status": 200,
+        "observed_at": "2026-10-12T14:41:58.783439+00:00",
+        "returned_count": 3,
+        "exact_matching_count": 3,
+        "campaigns": [
+          {
+            "campaign": "25V815000",
+            "report_received_date": "2025-11-25"
+          },
+          {
+            "campaign": "26V114000",
+            "report_received_date": "2026-02-26"
+          },
+          {
+            "campaign": "26V289000",
+            "report_received_date": "2026-05-07"
+          }
+        ]
+      },
+      "issuer_legal_liability_verified": false,
+      "issuer_financial_impact_verified": false,
+      "scoring_applied": false,
+      "automatic_trading_enabled": false,
+      "manufacturer_name_review": {
+        "sec_legal_name": "General Motors LLC",
+        "vpic_legal_name": "GENERAL MOTORS LLC",
+        "recall_api_exact_name": "General Motors, LLC",
+        "review_decision": "Accept this specific reviewed punctuation/case variant only for the exact 2026 CHEVROLET/SILVERADO 1500 product observation.",
+        "inference_explicit": true,
+        "basis": "Same legal tokens in SEC wholly owned subsidiary statement and unique US exact-ID vPIC manufacturer; comma-form Part573, NHTSA acknowledgement and every captured recall row agree.",
+        "automatic_punctuation_normalization_allowed": false,
+        "ownership_or_liability_from_brand_only": false
+      }
+    }
+  ],
+  "bounded_live_collection": {
+    "capture_count": 24,
+    "http_200_count": 22,
+    "http_400_count": 2,
+    "access_blocks_or_rate_limits": 0,
+    "max_concurrent_requests": 4,
+    "largest_raw_response_bytes": 5281613,
+    "scope": "24 one-shot read-only primary-source requests; no retries of HTTP400; no credentialed sources",
+    "captures_manifest": "raw/*.metadata.json"
+  },
+  "partial_live_probes": [
+    {
+      "capture_id": "nhtsa_recalls_ford_f650sd_2026",
+      "query": {
+        "ticker_context_only": "F",
+        "make": "FORD",
+        "model": "F-650 SD",
+        "model_year": 2026
+      },
+      "http_status": 400,
+      "observed_at": "2026-10-12T14:43:41.153699+00:00",
+      "response_body": {
+        "Count": 0,
+        "Message": "Results returned successfully",
+        "results": []
+      },
+      "service_status": "PARTIAL",
+      "complete_negative": false,
+      "reason": "HTTP 400 remains an error, even though the body is an empty successful-results envelope. No no-recall finding or complete specialist check is allowed.",
+      "proposal_inclusion": false,
+      "model_verification": "ODI model listing returned F-650 SD; vPIC model listing returned F-650. No alias is adopted."
+    },
+    {
+      "capture_id": "nhtsa_recalls_cadillac_ct4_2026",
+      "query": {
+        "ticker_context_only": "GM",
+        "make": "CADILLAC",
+        "model": "CT4",
+        "model_year": 2026
+      },
+      "http_status": 400,
+      "observed_at": "2026-10-12T14:43:41.081464+00:00",
+      "response_body": {
+        "Count": 0,
+        "Message": "Results returned successfully",
+        "results": []
+      },
+      "service_status": "PARTIAL",
+      "complete_negative": false,
+      "reason": "HTTP 400 remains an error, even though the body is an empty successful-results envelope. No no-recall finding or complete specialist check is allowed.",
+      "proposal_inclusion": false,
+      "model_verification": "CT4 is present in exact 2026 CADILLAC vPIC response; failed recall still cannot prove absence."
+    }
+  ],
+  "complete_negative_live": {
+    "status": "NOT_ESTABLISHED",
+    "accepted_negative_model_scopes": 0,
+    "reason": "Both empty recall probes had HTTP400. Existing fail-closed service semantics are retained."
+  },
+  "limitations": [
+    "Only the two exact 2026 model scopes are proposed; every other make/model/year and other manufacturer affiliate remains out of scope.",
+    "GM comma equivalence is an explicit review inference; the exact comma-form recall manufacturer must remain in the service manifest.",
+    "The knowledge clock begins after the captured evidence and this review; no source filing or report date is used as first availability.",
+    "Model-year lookup, manufacturer/make association and SEC product prose alone do not identify a specific campaign population; exact recall rows and dated acknowledgement/Part573 carry that part of the evidence.",
+    "No issuer legal liability, fines, financial effect, complete vehicle group, historical backfill, Windows run or all-universe regulatory acceptance is established.",
+    "HTTP400 zero-result bodies remain partial failures; no complete-negative live acceptance is claimed.",
+    "Identity owner must review and adopt the candidate records; this proposal does not edit the production registry."
+  ]
+}

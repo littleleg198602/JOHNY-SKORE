@@ -19,6 +19,33 @@ class StubEia:
 
 
 class EiaScoutTests(unittest.TestCase):
+    def test_series_summary_survives_restart_without_issuer_coverage_or_credentials(self):
+        with TemporaryDirectory() as directory:
+            db = Path(directory) / "scout.db"
+            clock = datetime(2026, 9, 30, tzinfo=timezone.utc)
+            store = ScoutStore(db)
+            first = EiaScoutService(store, client=StubEia()).run(as_of=clock)
+            store.record_source_run("eia", as_of=clock,
+                                    summary={**first, "api_key": "synthetic-test-key"})
+            saved = ScoutStore(db).latest_source_runs()["eia"]
+            for key in ("daily_series", "daily_series_limit", "attempted_series",
+                        "quota_deferred_series", "checked_series", "incomplete_series",
+                        "failed_series", "usable_rows", "query_scope", "quota_unit",
+                        "company_exposure_verified"):
+                self.assertIn(key, first)
+                self.assertEqual(first[key], saved[key], key)
+            self.assertFalse(saved["company_exposure_verified"])
+            self.assertNotIn("checked_issuers", saved)
+            self.assertNotIn("api_key", saved)
+            self.assertNotIn("synthetic-test-key", json.dumps(saved))
+            second = EiaScoutService(ScoutStore(db), client=StubEia()).run(as_of=clock)
+            store.record_source_run("eia", as_of=clock + timedelta(minutes=1), summary=second)
+            saved = ScoutStore(db).latest_source_runs()["eia"]
+            self.assertEqual(("WAIT_QUOTA", 0, 0, 2),
+                             (saved["status"], saved["attempted_requests"],
+                              saved["attempted_series"], saved["daily_series"]))
+            self.assertFalse(saved["company_exposure_verified"])
+
     def test_energy_series_have_separate_units_and_safe_availability(self):
         with TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")

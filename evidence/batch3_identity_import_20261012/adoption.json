@@ -1,0 +1,644 @@
+{
+  "schema_version": 1,
+  "reviewer": "Codex sole registry owner batch3/identity-20261012",
+  "reviewed_at": "2026-10-12T15:24:55.853667+00:00",
+  "status": "PRIMARY_REVIEWED_IMPORT",
+  "healthcare": {
+    "commit": "c4e74f13f604ef520eec4d50618276f5bf12bf70",
+    "proposal_path": "evidence/batch3_healthcare_20261012/identity_proposal.json",
+    "proposal_sha256": "045d2c45b69926baf9ca185a9cd6021f0ebda9fa5e4d2f70694c86997c7afce3",
+    "decisions": [
+      {
+        "record_id": "pfe-crl-bla761081-2018-04-20",
+        "decision": "ACCEPT_EXACT_LETTER_EVENT_ONLY",
+        "application": "BLA761081",
+        "event_date": "2018-04-20",
+        "known_at": "2026-10-12T14:52:33.382658+00:00",
+        "issuer_cik": "0000078003",
+        "proof": [
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_pfizer_exact_phrase.body.json",
+            "archive_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+            "raw_body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+            "raw_bytes": 23740,
+            "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22&limit=100&skip=0",
+            "locator": "results[0]: company_name:Pfizer Inc./application:BLA761081/file_name:761081_2019_Orig1s000OtherActionLtrs.pdf/letter_date:04/20/2018; text header and electronic signature",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-12T14:44:25.208826+00:00",
+            "json_pointer": "/results/0",
+            "event_date": "2018-04-20"
+          },
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_10k.body.html.gz",
+            "archive_sha256": "a88263dff67918610305607fde11f5188b2146c4941be9401889ff81c2f75da2",
+            "raw_body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+            "raw_bytes": 816055,
+            "url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+            "locator": "cover exact registrant and Item 5 common-stock trading symbol; CIK in official EDGAR archive path",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-12T14:44:19.890070+00:00"
+          }
+        ],
+        "continuous_ownership_verified": false,
+        "issuer_wide_scope_verified": false
+      },
+      {
+        "record_id": "mrk-crl-nda204569-2013-06-28",
+        "decision": "ACCEPT_EXACT_LETTER_EVENT_ONLY",
+        "application": "NDA204569",
+        "event_date": "2013-06-28",
+        "known_at": "2026-10-12T14:52:33.382658+00:00",
+        "issuer_cik": "0000310158",
+        "proof": [
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_merck_exact_phrase.body.json",
+            "archive_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+            "raw_body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+            "raw_bytes": 14967,
+            "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Merck+%26+Co.%2C+Inc.%22&limit=100&skip=0",
+            "locator": "results[0]: company_name:Merck & Co., Inc./application:NDA204569/file_name:CRL_NDA204569_20130628.pdf/letter_date:06/28/2013; text header and electronic signature",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-12T14:49:28.022976+00:00",
+            "json_pointer": "/results/0",
+            "event_date": "2013-06-28"
+          },
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/sec_mrk_2012_10k.body.html.gz",
+            "archive_sha256": "b4ec39a0b342b16c512f93758e3b936163af31024d2432fb9342d4cf3268c729",
+            "raw_body_sha256": "302aecedb462fad97f4b9b5296095bac645937c382eeea514dcec848e8a8af2a",
+            "raw_bytes": 2682584,
+            "url": "https://www.sec.gov/Archives/edgar/data/310158/000119312513084618/d438975d10k.htm",
+            "locator": "cover exact registrant and Item 5 common-stock trading symbol; CIK in official EDGAR archive path",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-12T14:45:27.010273+00:00"
+          },
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/sec_mrk_2013_10q.body.html.gz",
+            "archive_sha256": "f22f5b45bf1c231cc03fe4cdddfd6167c1080dfeed19cc39aa44484a9dbd1de5",
+            "raw_body_sha256": "936e8e31fe639f6263c2ec271d7cc5a964122645c4839fbdd8f87af51f3c6ef4",
+            "raw_bytes": 1957096,
+            "url": "https://www.sec.gov/Archives/edgar/data/310158/000031015813000004/mrk0630201310q.htm",
+            "locator": "cover registrant, CIK in official EDGAR archive path, and 2013 suvorexant CRL disclosure in Research and Development",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-12T14:45:22.018672+00:00"
+          }
+        ],
+        "continuous_ownership_verified": false,
+        "issuer_wide_scope_verified": false
+      },
+      {
+        "record_id": "abbv-crl-nda216962-2023-03-17",
+        "decision": "ACCEPT_EXACT_LETTER_EVENT_ONLY",
+        "application": "NDA216962",
+        "event_date": "2023-03-17",
+        "known_at": "2026-10-12T14:52:33.382658+00:00",
+        "issuer_cik": "0001551152",
+        "proof": [
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_abbvie_exact_phrase.body.json",
+            "archive_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "raw_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "raw_bytes": 55713,
+            "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+            "locator": "results[0]: company_name:AbbVie Inc./application:NDA216962/file_name:216962_2025_Orig1s000OtherActionLtrs.pdf/letter_date:03/17/2023; text header and electronic signature",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-12T14:49:22.429721+00:00",
+            "json_pointer": "/results/0",
+            "event_date": "2023-03-17"
+          },
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2023_10q.body.html.gz",
+            "archive_sha256": "c4b1d29a2d3d3de4cb012069532b489f9957ec430a0f0adb27ce0455aac2396f",
+            "raw_body_sha256": "b3c31869e3a7cd57650e96b7df35f8e19c582daa3d500672c0d93392613d4ce2",
+            "raw_bytes": 2087608,
+            "url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115223000023/abbv-20230331.htm",
+            "locator": "cover exact registrant and common-stock trading-symbol table, explicit inline CIK fact",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-12T14:45:37.566667+00:00",
+            "inline_cik": "0001551152"
+          }
+        ],
+        "continuous_ownership_verified": false,
+        "issuer_wide_scope_verified": false
+      },
+      {
+        "record_id": "abbv-crl-nda216962-2024-06-18",
+        "decision": "ACCEPT_EXACT_LETTER_EVENT_ONLY",
+        "application": "NDA216962",
+        "event_date": "2024-06-18",
+        "known_at": "2026-10-12T14:52:33.382658+00:00",
+        "issuer_cik": "0001551152",
+        "proof": [
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_abbvie_exact_phrase.body.json",
+            "archive_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "raw_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "raw_bytes": 55713,
+            "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+            "locator": "results[1]: company_name:AbbVie Inc./application:NDA216962/file_name:216962_2025_Orig1s000OtherActionLtrs.pdf/letter_date:06/18/2024; text header and electronic signature",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-12T14:49:22.429721+00:00",
+            "json_pointer": "/results/1",
+            "event_date": "2024-06-18"
+          },
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2024_10q.body.html.gz",
+            "archive_sha256": "50b604f9d16190ebe74c51e39d5ec9948bc7649c7202005860e453972250ef81",
+            "raw_body_sha256": "83eeeb5145aeda19f4bca707285c1eeaa515365c5e15089dc6b59d630be7f034",
+            "raw_bytes": 2349173,
+            "url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115224000031/abbv-20240630.htm",
+            "locator": "cover exact registrant and common-stock trading-symbol table, explicit inline CIK fact",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-12T14:45:42.513628+00:00",
+            "inline_cik": "0001551152"
+          }
+        ],
+        "continuous_ownership_verified": false,
+        "issuer_wide_scope_verified": false
+      },
+      {
+        "record_id": "abbv-crl-bla761459-2026-04-22",
+        "decision": "ACCEPT_EXACT_LETTER_EVENT_ONLY",
+        "application": "BLA761459",
+        "event_date": "2026-04-22",
+        "known_at": "2026-10-12T14:52:33.382658+00:00",
+        "issuer_cik": "0001551152",
+        "proof": [
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_abbvie_exact_phrase.body.json",
+            "archive_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "raw_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "raw_bytes": 55713,
+            "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+            "locator": "results[2]: company_name:AbbVie Inc./application:BLA761459/file_name:CRL_BLA761459_20260422.pdf/letter_date:04/22/2026; text header and electronic signature",
+            "purpose": "OBJECT_RELATIONSHIP",
+            "observed_at": "2026-10-12T14:49:22.429721+00:00",
+            "json_pointer": "/results/2",
+            "event_date": "2026-04-22"
+          },
+          {
+            "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2026_10q.body.html.gz",
+            "archive_sha256": "3e9384eb36b5cdd8cbc6b6867038e0fb1fbd57c07b4eaeb8e6c12c4f35339973",
+            "raw_body_sha256": "f5ec43b10ca9ed88305f13c2e747a7f59da11c6883e9da47d4aab4efe1325967",
+            "raw_bytes": 1464199,
+            "url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000017/abbv-20260331.htm",
+            "locator": "cover exact registrant and common-stock trading-symbol table, explicit inline CIK fact",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-12T14:45:49.217865+00:00",
+            "inline_cik": "0001551152"
+          }
+        ],
+        "continuous_ownership_verified": false,
+        "issuer_wide_scope_verified": false
+      }
+    ],
+    "withheld": [
+      {
+        "entity": "Pfizer Ireland Pharmaceuticals",
+        "reason": "c/o Pfizer Inc. address is not a dated ownership chain"
+      }
+    ]
+  },
+  "nhtsa": {
+    "commit": "ffc976a6943774e9b99d6c41cb98412b49d40e1e",
+    "proposal_path": "evidence/batch3_regulatory_20261012/proposal.json",
+    "proposal_sha256": "64b3e1efbdd11cd8db899602fc3f314f9a0997bb03b3eaaf1f2ea63836ebaca5",
+    "decisions": [
+      {
+        "ticker": "F",
+        "decision": "ACCEPT_EXACT_2026_MODEL_OBSERVATION",
+        "service_record": {
+          "ticker": "F",
+          "manufacturer": "Ford Motor Company",
+          "make": "FORD",
+          "model": "F-150",
+          "model_year": 2026,
+          "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+          "known_at": "2026-10-12T15:08:33.934642+00:00"
+        },
+        "proof": [
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/sec_ford_2025_10k.html.gz",
+            "archive_sha256": "73d126f4857b8dee09e3cc8a0eb35a0496762a5c5cd561f9f82526995458a694",
+            "raw_body_sha256": "c4a046afeaf12b49f2d24b7eb1903e6cd57aeab9b7c3a22d227c6137c69580ff",
+            "raw_bytes": 5281613,
+            "capture_id": "sec_ford_2025_10k",
+            "url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+            "locator": "Cover; common-stock trading symbol F; dei:EntityCentralIndexKey=0000037996; Part I Item 1 Business",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-12T14:42:20.318978+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/sec_ford_2025_10k.html.gz",
+            "archive_sha256": "73d126f4857b8dee09e3cc8a0eb35a0496762a5c5cd561f9f82526995458a694",
+            "raw_body_sha256": "c4a046afeaf12b49f2d24b7eb1903e6cd57aeab9b7c3a22d227c6137c69580ff",
+            "raw_bytes": 5281613,
+            "capture_id": "sec_ford_2025_10k",
+            "url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+            "locator": "Part II Item 7; Ford Blue 2025 Full Year; lower F-150 wholesales",
+            "purpose": "ISSUER_PRODUCT_RELATIONSHIP",
+            "observed_at": "2026-10-12T14:42:20.318978+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_manufacturer_ford_976.json",
+            "archive_sha256": "58f0a65ce615f0ba7ac1abb6d4cae3a8fbe710c05a3ac1e797402516d163589c",
+            "raw_body_sha256": "58f0a65ce615f0ba7ac1abb6d4cae3a8fbe710c05a3ac1e797402516d163589c",
+            "raw_bytes": 1698,
+            "capture_id": "nhtsa_manufacturer_ford_976",
+            "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetManufacturerDetails/976?format=json",
+            "locator": "Results[0]; Mfr_ID=976; Mfr_Name=FORD MOTOR COMPANY; Country=UNITED STATES (USA)",
+            "purpose": "MANUFACTURER_IDENTITY",
+            "observed_at": "2026-10-12T14:44:59.659857+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_makes_ford_976.json",
+            "archive_sha256": "4e48e5921fdeb811736b624cf016aa546397bd6d3f01f79b363414d5d49bd928",
+            "raw_body_sha256": "4e48e5921fdeb811736b624cf016aa546397bd6d3f01f79b363414d5d49bd928",
+            "raw_bytes": 514,
+            "capture_id": "nhtsa_makes_ford_976",
+            "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakeForManufacturer/976?format=json",
+            "locator": "Results entry Make_ID=460; Make_Name=FORD; Mfr_Name=FORD MOTOR COMPANY",
+            "purpose": "MANUFACTURER_MAKE",
+            "observed_at": "2026-10-12T14:44:59.614577+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_model_ford_f150_2026.json",
+            "archive_sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+            "raw_body_sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+            "raw_bytes": 4224,
+            "capture_id": "nhtsa_model_ford_f150_2026",
+            "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/FORD/modelyear/2026?format=json",
+            "locator": "Results entry Make_ID=460; Model_ID=1801; Model_Name=F-150; requested modelyear=2026",
+            "purpose": "MODEL_YEAR_IDENTITY",
+            "observed_at": "2026-10-12T14:45:04.828362+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_ford_26v104_acknowledgement.pdf",
+            "archive_sha256": "c432388d4ff76bed606c0f164d3d0c17e77b6bab7732b188850e45e28ec0c9f9",
+            "raw_body_sha256": "c432388d4ff76bed606c0f164d3d0c17e77b6bab7732b188850e45e28ec0c9f9",
+            "raw_bytes": 122564,
+            "capture_id": "nhtsa_ford_26v104_acknowledgement",
+            "url": "https://static.nhtsa.gov/odi/rcl/2026/RCAK-26V104-7010.pdf",
+            "locator": "Page 1; letter dated 2026-02-25; campaign 26V104; FORD/F-150/2021-2026",
+            "purpose": "DATED_MANUFACTURER_MODEL",
+            "observed_at": "2026-10-12T14:49:59.396816+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_recalls_ford_f150_2026.json",
+            "archive_sha256": "50926b6cbaf7eb3a4637d40e7b6527afa9b5c016ad0b27555132c1f9feab3235",
+            "raw_body_sha256": "50926b6cbaf7eb3a4637d40e7b6527afa9b5c016ad0b27555132c1f9feab3235",
+            "raw_bytes": 5895,
+            "capture_id": "nhtsa_recalls_ford_f150_2026",
+            "url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=F-150&modelYear=2026",
+            "locator": "Count=5; each results row Manufacturer=Ford Motor Company, Make=FORD, Model=F-150, ModelYear=2026",
+            "purpose": "EXACT_LIVE_RECALL_SCOPE",
+            "observed_at": "2026-10-12T14:41:59.312765+00:00"
+          }
+        ],
+        "historical_parent_at_campaign_date_verified": false,
+        "issuer_legal_liability_verified": false,
+        "financial_impact_verified": false
+      },
+      {
+        "ticker": "GM",
+        "decision": "ACCEPT_EXACT_2026_MODEL_OBSERVATION",
+        "service_record": {
+          "ticker": "GM",
+          "manufacturer": "General Motors, LLC",
+          "make": "CHEVROLET",
+          "model": "SILVERADO 1500",
+          "model_year": 2026,
+          "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/1467858/000119312526344698/d145571d8k.htm",
+          "known_at": "2026-10-12T15:08:33.934642+00:00"
+        },
+        "proof": [
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/sec_gm_2025_10k.html.gz",
+            "archive_sha256": "07d4f6a33a728b62718d93f7c2b8342cba05ee4d474c2347aaac2a6309f40d73",
+            "raw_body_sha256": "d73211092182a879796501948b50cf495329c47eecf5c06f6fd90109d639eb13",
+            "raw_bytes": 4119842,
+            "capture_id": "sec_gm_2025_10k",
+            "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/gm-20251231.htm",
+            "locator": "Cover; GENERAL MOTORS COMPANY; trading symbol GM; dei:EntityCentralIndexKey=0001467858",
+            "purpose": "ISSUER_IDENTITY",
+            "observed_at": "2026-10-12T14:42:25.445739+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/sec_gm_2025_ex21.html.gz",
+            "archive_sha256": "90da504f2ed87c8f93f6c39321c1c4e584d67c41096d26cd1b1edc05bd146042",
+            "raw_body_sha256": "76f2d45ee319a5471b7904206ac869003318ff534252e8373fe2ffd33ee1a43c",
+            "raw_bytes": 92038,
+            "capture_id": "sec_gm_2025_ex21",
+            "url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/ex-21x12312025.htm",
+            "locator": "Exhibit 21; list as of 2025-12-31; General Motors LLC / Delaware",
+            "purpose": "DATED_LEGAL_ENTITY_LIST",
+            "observed_at": "2026-10-12T14:42:29.460143+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/sec_gm_20260807_8k.html.gz",
+            "archive_sha256": "fbbdb21aeb4afa0bbf6d80134317de927fd3882443ccef72ffa087a204a58d17",
+            "raw_body_sha256": "19aab8c66d8c351de56259fc6428941cb2a32887b78a0f439a8669e7106d9695",
+            "raw_bytes": 32090,
+            "capture_id": "sec_gm_20260807_8k",
+            "url": "https://www.sec.gov/Archives/edgar/data/1467858/000119312526344698/d145571d8k.htm",
+            "locator": "Item 1.01; event dated 2026-08-07; General Motors LLC; wholly owned subsidiary of General Motors Company; filing signed 2026-08-11",
+            "purpose": "EXACT_MANUFACTURER_ISSUER_RELATIONSHIP",
+            "observed_at": "2026-10-12T14:46:41.559706+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_manufacturer_gm_984.json",
+            "archive_sha256": "5fb391db343926d093ad155355a608270f1c51894680356ba987b4e66b24bc6f",
+            "raw_body_sha256": "5fb391db343926d093ad155355a608270f1c51894680356ba987b4e66b24bc6f",
+            "raw_bytes": 1667,
+            "capture_id": "nhtsa_manufacturer_gm_984",
+            "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetManufacturerDetails/984?format=json",
+            "locator": "Results[0]; Mfr_ID=984; Mfr_Name=GENERAL MOTORS LLC; Country=UNITED STATES (USA)",
+            "purpose": "MANUFACTURER_IDENTITY",
+            "observed_at": "2026-10-12T14:44:59.607447+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_makes_gm_984.json",
+            "archive_sha256": "0e1ffd9af4c57ce5d6ebd4c05f26ec0d001a55bc87b018a85ba187f14f583902",
+            "raw_body_sha256": "0e1ffd9af4c57ce5d6ebd4c05f26ec0d001a55bc87b018a85ba187f14f583902",
+            "raw_bytes": 1500,
+            "capture_id": "nhtsa_makes_gm_984",
+            "url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetMakeForManufacturer/984?format=json",
+            "locator": "Results entry Make_ID=467; Make_Name=CHEVROLET; Mfr_Name=GENERAL MOTORS LLC",
+            "purpose": "MANUFACTURER_MAKE",
+            "observed_at": "2026-10-12T14:45:04.765580+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_gm_25v815_part573.pdf",
+            "archive_sha256": "b043dc7227deaa11013692b5a4b44d900e268f8963880de0bb813ea4df4dabd1",
+            "raw_body_sha256": "b043dc7227deaa11013692b5a4b44d900e268f8963880de0bb813ea4df4dabd1",
+            "raw_bytes": 383273,
+            "capture_id": "nhtsa_gm_25v815_part573",
+            "url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25V815-5190.pdf",
+            "locator": "Page 1 Manufacturer Name=General Motors, LLC; submission 2025-11-25; page 2 Vehicle 3=2026-2026 CHEVROLET SILVERADO 1500",
+            "purpose": "DATED_MANUFACTURER_MODEL",
+            "observed_at": "2026-10-12T14:46:42.174192+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_gm_25v815_acknowledgement.pdf",
+            "archive_sha256": "e53b8f63c9e49ff283f176225d320ef983b3f9c9c615c006c80f5873151c9ed3",
+            "raw_body_sha256": "e53b8f63c9e49ff283f176225d320ef983b3f9c9c615c006c80f5873151c9ed3",
+            "raw_bytes": 121163,
+            "capture_id": "nhtsa_gm_25v815_acknowledgement",
+            "url": "https://static.nhtsa.gov/odi/rcl/2025/RCAK-25V815-2019.pdf",
+            "locator": "Page 1; letter dated 2025-12-02; campaign 25V815; CHEVROLET/SILVERADO 1500/2026",
+            "purpose": "DATED_MANUFACTURER_MODEL",
+            "observed_at": "2026-10-12T14:46:42.385885+00:00"
+          },
+          {
+            "path": "evidence/batch3_regulatory_20261012/raw/nhtsa_recalls_chevrolet_silverado1500_2026.json",
+            "archive_sha256": "e940aa7759c07b14a53080dd7b968b10915daa738bbbdf483edbeec3fc7c16a4",
+            "raw_body_sha256": "e940aa7759c07b14a53080dd7b968b10915daa738bbbdf483edbeec3fc7c16a4",
+            "raw_bytes": 4403,
+            "capture_id": "nhtsa_recalls_chevrolet_silverado1500_2026",
+            "url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=SILVERADO%201500&modelYear=2026",
+            "locator": "Count=3; each results row Manufacturer=General Motors, LLC, Make=CHEVROLET, Model=SILVERADO 1500, ModelYear=2026",
+            "purpose": "EXACT_LIVE_RECALL_SCOPE",
+            "observed_at": "2026-10-12T14:41:58.783439+00:00"
+          }
+        ],
+        "historical_parent_at_campaign_date_verified": false,
+        "issuer_legal_liability_verified": false,
+        "financial_impact_verified": false
+      }
+    ],
+    "withheld": [
+      {
+        "model": "F-650 SD",
+        "reason": "HTTP400 and unproven F-650 alias"
+      },
+      {
+        "model": "CADILLAC CT4",
+        "reason": "HTTP400 empty result is not a complete negative"
+      }
+    ]
+  },
+  "counterparties": {
+    "commit": "2da667f605998507c760ccea772e1be6e753c994",
+    "proposal_path": "evidence/batch3_sec_20261012/counterparty_proposal.json",
+    "proposal_sha256": "fc3df953b785c0b5f8161d9a7c81a3cebf9b17959064d11313c857c72adc2eea",
+    "decisions": [
+      {
+        "record_id": "batch3-sec-msft-direct-2026-07-29",
+        "decision": "ACCEPT_EVENT_OR_REGISTER_SNAPSHOT_DAY_ONLY",
+        "effective_from": "2026-07-29",
+        "effective_to": "2026-07-30",
+        "relationship_role": "DIRECT_ISSUER",
+        "known_at": "2026-10-12T15:18:07.979722+00:00",
+        "proof": [
+          {
+            "path": "evidence/batch3_sec_20261012/primary/msft_2026_R1.htm",
+            "archive_sha256": "509808a1105ba840c8d14026da505dba2e6457964ef204b5002b861a3be00a81",
+            "raw_body_sha256": "509808a1105ba840c8d14026da505dba2e6457964ef204b5002b861a3be00a81",
+            "raw_bytes": 84123,
+            "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+            "locator": "R1 table: Entity Registrant Name and Entity Central Index Key rows",
+            "purpose": "ENTITY_IDENTITY",
+            "published_at": "2026-07-29T20:08:01.000Z",
+            "published_at_semantics": "Reported SEC UTC filing acceptance event; exact first renderer dissemination not verified",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:45:21.373636+00:00"
+          },
+          {
+            "path": "evidence/batch3_sec_20261012/primary/msft_2026_R1.htm",
+            "archive_sha256": "509808a1105ba840c8d14026da505dba2e6457964ef204b5002b861a3be00a81",
+            "raw_body_sha256": "509808a1105ba840c8d14026da505dba2e6457964ef204b5002b861a3be00a81",
+            "raw_bytes": 84123,
+            "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+            "locator": "R1 table: Entity Registrant Name and common-stock Trading Symbol rows",
+            "purpose": "ISSUER_IDENTITY",
+            "published_at": "2026-07-29T20:08:01.000Z",
+            "published_at_semantics": "Reported SEC UTC filing acceptance event; exact first renderer dissemination not verified",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:45:21.373636+00:00"
+          }
+        ],
+        "continuous_legal_interval_verified": false,
+        "financial_attribution_allowed": false
+      },
+      {
+        "record_id": "batch3-sec-lmt-direct-2026-01-29",
+        "decision": "ACCEPT_EVENT_OR_REGISTER_SNAPSHOT_DAY_ONLY",
+        "effective_from": "2026-01-29",
+        "effective_to": "2026-01-30",
+        "relationship_role": "DIRECT_ISSUER",
+        "known_at": "2026-10-12T15:18:07.979722+00:00",
+        "proof": [
+          {
+            "path": "evidence/batch3_sec_20261012/primary/lmt_2025_R1.htm",
+            "archive_sha256": "83eca2c4124032100450f848c3f7d91c28ba661938bc36c4bfc2fc5828ea4fbe",
+            "raw_body_sha256": "83eca2c4124032100450f848c3f7d91c28ba661938bc36c4bfc2fc5828ea4fbe",
+            "raw_bytes": 65093,
+            "url": "https://www.sec.gov/Archives/edgar/data/936468/000162828026004195/R1.htm",
+            "locator": "R1 table: Entity Registrant Name and Entity Central Index Key rows",
+            "purpose": "ENTITY_IDENTITY",
+            "published_at": "2026-01-29T22:18:08.000Z",
+            "published_at_semantics": "Reported SEC UTC filing acceptance event; exact first renderer dissemination not verified",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:45:34.123845+00:00"
+          },
+          {
+            "path": "evidence/batch3_sec_20261012/primary/lmt_2025_R1.htm",
+            "archive_sha256": "83eca2c4124032100450f848c3f7d91c28ba661938bc36c4bfc2fc5828ea4fbe",
+            "raw_body_sha256": "83eca2c4124032100450f848c3f7d91c28ba661938bc36c4bfc2fc5828ea4fbe",
+            "raw_bytes": 65093,
+            "url": "https://www.sec.gov/Archives/edgar/data/936468/000162828026004195/R1.htm",
+            "locator": "R1 table: Entity Registrant Name and common-stock Trading Symbol rows",
+            "purpose": "ISSUER_IDENTITY",
+            "published_at": "2026-01-29T22:18:08.000Z",
+            "published_at_semantics": "Reported SEC UTC filing acceptance event; exact first renderer dissemination not verified",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:45:34.123845+00:00"
+          }
+        ],
+        "continuous_legal_interval_verified": false,
+        "financial_attribution_allowed": false
+      },
+      {
+        "record_id": "batch3-sec-aapl-direct-2025-10-31",
+        "decision": "ACCEPT_EVENT_OR_REGISTER_SNAPSHOT_DAY_ONLY",
+        "effective_from": "2025-10-31",
+        "effective_to": "2025-11-01",
+        "relationship_role": "DIRECT_ISSUER",
+        "known_at": "2026-10-12T15:18:07.979722+00:00",
+        "proof": [
+          {
+            "path": "evidence/batch3_sec_20261012/primary/aapl_2025_R1.htm",
+            "archive_sha256": "6083668bba54cdcffd9c7ee90f612506346f4aeabc9586b20c4fd095455bd8e8",
+            "raw_body_sha256": "6083668bba54cdcffd9c7ee90f612506346f4aeabc9586b20c4fd095455bd8e8",
+            "raw_bytes": 87966,
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/R1.htm",
+            "locator": "R1 table: Entity Registrant Name and Entity Central Index Key rows",
+            "purpose": "ENTITY_IDENTITY",
+            "published_at": "2026-10-12T14:45:53.583784+00:00",
+            "published_at_semantics": "Conservative first-observed availability bound; original publication time conflicted",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:45:53.583784+00:00"
+          },
+          {
+            "path": "evidence/batch3_sec_20261012/primary/aapl_2025_R1.htm",
+            "archive_sha256": "6083668bba54cdcffd9c7ee90f612506346f4aeabc9586b20c4fd095455bd8e8",
+            "raw_body_sha256": "6083668bba54cdcffd9c7ee90f612506346f4aeabc9586b20c4fd095455bd8e8",
+            "raw_bytes": 87966,
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/R1.htm",
+            "locator": "R1 table: Entity Registrant Name and common-stock Trading Symbol rows",
+            "purpose": "ISSUER_IDENTITY",
+            "published_at": "2026-10-12T14:45:53.583784+00:00",
+            "published_at_semantics": "Conservative first-observed availability bound; original publication time conflicted",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:45:53.583784+00:00"
+          }
+        ],
+        "continuous_legal_interval_verified": false,
+        "financial_attribution_allowed": false
+      },
+      {
+        "record_id": "batch3-sec-nvda-direct-2026-02-25",
+        "decision": "ACCEPT_EVENT_OR_REGISTER_SNAPSHOT_DAY_ONLY",
+        "effective_from": "2026-02-25",
+        "effective_to": "2026-02-26",
+        "relationship_role": "DIRECT_ISSUER",
+        "known_at": "2026-10-12T15:18:07.979722+00:00",
+        "proof": [
+          {
+            "path": "evidence/batch3_sec_20261012/primary/nvda_2026_10k.htm",
+            "archive_sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+            "raw_body_sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+            "raw_bytes": 1967927,
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+            "locator": "Cover exact charter-name heading; ix:nonnumeric[name=dei:EntityCentralIndexKey]",
+            "purpose": "ENTITY_IDENTITY",
+            "published_at": "2026-10-12T14:48:19.742085+00:00",
+            "published_at_semantics": "Conservative first-observed availability bound; original publication time conflicted",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:48:19.742085+00:00"
+          },
+          {
+            "path": "evidence/batch3_sec_20261012/primary/nvda_2026_10k.htm",
+            "archive_sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+            "raw_body_sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+            "raw_bytes": 1967927,
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+            "locator": "Cover exact charter-name heading; same-column header Trading Symbol(s) and Common Stock value NVDA",
+            "purpose": "ISSUER_IDENTITY",
+            "published_at": "2026-10-12T14:48:19.742085+00:00",
+            "published_at_semantics": "Conservative first-observed availability bound; original publication time conflicted",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:48:19.742085+00:00"
+          }
+        ],
+        "continuous_legal_interval_verified": false,
+        "financial_attribution_allowed": false
+      },
+      {
+        "record_id": "batch3-sec-sikorsky-legal-entity-2026-10-12",
+        "decision": "ACCEPT_EVENT_OR_REGISTER_SNAPSHOT_DAY_ONLY",
+        "effective_from": "2026-10-12",
+        "effective_to": "2026-10-13",
+        "relationship_role": "PRIVATE_LEGAL_ENTITY",
+        "known_at": "2026-10-12T15:18:07.979722+00:00",
+        "proof": [
+          {
+            "path": "evidence/batch3_sec_20261012/primary/sikorsky_gleif.json",
+            "archive_sha256": "45c18f70c66f93c7ef4f5298c8e8a2b7e71b163466b28cede03dce334ce97064",
+            "raw_body_sha256": "45c18f70c66f93c7ef4f5298c8e8a2b7e71b163466b28cede03dce334ce97064",
+            "raw_bytes": 2474,
+            "url": "https://api.gleif.org/api/v1/lei-records/54930054HRQM5ZB1WZ32",
+            "locator": "JSON data.attributes.entity.legalName.name and data.attributes.lei",
+            "purpose": "ENTITY_IDENTITY",
+            "published_at": "2026-10-12T00:00:00Z",
+            "published_at_semantics": "GLEIF golden-copy publishDate",
+            "publication_time_verified": false,
+            "observed_at": "2026-10-12T14:46:13.786251+00:00"
+          }
+        ],
+        "continuous_legal_interval_verified": false,
+        "financial_attribution_allowed": false
+      }
+    ],
+    "withheld": [
+      {
+        "entity": "Sikorsky Aircraft Corporation → LMT",
+        "reason": "No proven common effective day between LEI snapshot and dated parent exhibit"
+      }
+    ]
+  },
+  "added_records": {
+    "healthcare": 5,
+    "nhtsa_models": 2,
+    "counterparties": 5
+  },
+  "baseline_preservation": {
+    "healthcare_records": 5,
+    "nhtsa_records": 1,
+    "records_and_knowledge_clocks_preserved": true,
+    "13f_records": 150,
+    "13f_sha256_before": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "13f_sha256_after": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+  },
+  "production_manifests": [
+    {
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256_before": "fbd27ff5030218e43a73ceb2de5eab444587c2fd787be436717681a5655cbd69",
+      "sha256_after": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    {
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "sha256_before": "7da598327500a1bcef9468f3a43646f53655bc2821248951b49ef0af516997bd",
+      "sha256_after": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e"
+    },
+    {
+      "path": "market_checker_app/data/verified_counterparty_identities.json",
+      "sha256_before": null,
+      "sha256_after": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e"
+    }
+  ],
+  "score_changed": false,
+  "specialist_completion_changed": false,
+  "automatic_trading_enabled": false,
+  "scope": "Exact archived healthcare letter events; two 2026 model observations; four filing-day direct issuers; one private legal-entity snapshot. No issuer-wide coverage or continuous/historical ownership inferred."
+}

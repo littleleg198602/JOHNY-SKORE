@@ -48,12 +48,16 @@ from market_checker_app.services.usaspending_scout_service import (
 from market_checker_app.services.usaspending_recipient_discovery import (
     UsaSpendingRecipientClient, UsaSpendingRecipientDiscovery,
 )
+from market_checker_app.services.award_transaction_history_service import AwardTransactionHistoryService
 from market_checker_app.utils.ticker_universe import (
     CANONICAL_CSV_SHA256,
     DEFAULT_TICKER_UNIVERSE_PATH,
     load_canonical_ticker_records,
 )
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.services.specialist_incremental_archive_service import (
+    SUPPORTED_INCREMENTAL_SOURCES, capture_specialist_source_run,
+)
 
 FDA_DAILY_ISSUER_BUDGET = 40
 FINRA_DAILY_ISSUER_BUDGET = 75
@@ -84,17 +88,38 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         records=records,
         as_of=now,
     )
-    def recorded(source: str, summary: dict[str, object]) -> dict[str, object]:
+    source_started = datetime.now(timezone.utc)
+
+    def recorded(source: str, summary: dict[str, object], *,
+                 provider_as_of: datetime | None = now) -> dict[str, object]:
+        nonlocal source_started
         # Persist each completed source immediately. A later source can hang or
         # the process can stop without erasing the earlier progress in the UI.
-        store.record_source_run(source, as_of=datetime.now(timezone.utc), summary=summary)
-        return summary
+        completed = datetime.now(timezone.utc)
+        store.record_source_run(source, as_of=completed, summary=summary)
+        result = dict(summary)
+        if source in SUPPORTED_INCREMENTAL_SOURCES:
+            try:
+                path = capture_specialist_source_run(
+                    store, source=source, summary=summary, observed_at=completed,
+                    started_at=source_started, provider_as_of=provider_as_of,
+                )
+                result.update(source_archive_status="SAVED", source_archive_filename=path.name)
+            except Exception as exc:
+                # Preserve the provider result; a missing archive remains an
+                # explicit separate failure and contributes no historical proof.
+                result.update(source_archive_status="ERROR", source_archive_error=type(exc).__name__)
+        else:
+            result["source_archive_status"] = "NOT_SUPPORTED"
+        store.record_source_run(source, as_of=completed, summary=result)
+        source_started = datetime.now(timezone.utc)
+        return result
 
     scout = SecScoutService(
         store, user_agent=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
     )
     scheduled = scout.schedule([record["ticker"] for record in records], as_of=now)
-    batch = recorded("sec", scout.run_batch(limit=limit))
+    batch = recorded("sec", scout.run_batch(limit=limit), provider_as_of=None)
     fred_key = os.getenv("JOHNY_SKORE_FRED_API_KEY", "")
     if fred_key:
         try:
@@ -245,15 +270,43 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
             "queue": store.metrics(), "as_of": now.isoformat()}
 
 
+def run_award_transactions(*, db_path: Path = DEFAULT_DB_PATH,
+                           subject_id: str, award_finding_id: str) -> dict[str, object]:
+    """Explicit one-award collection sharing the existing daily HTTP budget."""
+    store = ScoutStore(db_path)
+    try:
+        path = Path(os.getenv("JOHNY_SKORE_USASPENDING_UEI_FILE") or DEFAULT_IDENTITIES)
+        result = AwardTransactionHistoryService(
+            store, archive_directory=db_path.parent / "award_transaction_captures",
+            identities=load_verified_identities(path),
+        ).run(subject_id=subject_id, award_finding_id=award_finding_id)
+    except Exception as exc:
+        result = {"status": "ERROR", "error": type(exc).__name__, "new_findings": 0}
+    captures = result.pop("capture_manifests", [])
+    result["source_archive_status"] = "SAVED" if captures else "NOT_CREATED"
+    store.record_source_run("usaspending_transactions", as_of=datetime.now(timezone.utc), summary=result)
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Průběžný sběr SEC stop pro Market Checker.")
     parser.add_argument("--db-path", type=Path, default=DEFAULT_DB_PATH)
     parser.add_argument("--limit", type=int, default=100)
+    parser.add_argument("--award-subject", help="Ticker uložené doložené prime zakázky")
+    parser.add_argument("--award-finding-id", help="ID uloženého nálezu prime zakázky")
     args = parser.parse_args()
-    result = run(db_path=args.db_path, limit=args.limit)
+    if bool(args.award_subject) != bool(args.award_finding_id):
+        parser.error("--award-subject a --award-finding-id vyžadují společné zadání")
+    if args.award_subject:
+        result = run_award_transactions(db_path=args.db_path, subject_id=args.award_subject,
+                                        award_finding_id=args.award_finding_id)
+    else:
+        result = run(db_path=args.db_path, limit=args.limit)
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     if result["status"] in {"WAIT_ACCESS", "ACCESS_BLOCKED", "LEASE_LOST"}:
         raise SystemExit(2)
+    if args.award_subject and result["status"] not in {"COMPLETE", "NO_MATCH"}:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

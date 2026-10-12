@@ -11,14 +11,16 @@ from unittest.mock import patch
 
 from market_checker_app.services.healthcare_coverage_service import build_healthcare_coverage_report
 from market_checker_app.services.healthcare_identity_service import (
-    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry,
+    HealthcareIdentityRegistry,
 )
 from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.ticker_universe import CANONICAL_CSV_SHA256, load_canonical_tickers
 
 
-RECORDS = json.loads(DEFAULT_HEALTHCARE_IDENTITIES.read_text())["records"]
+# Growing production evidence must not move this suite's historical boundaries.
+SEED_IDENTITIES = Path(__file__).parent / "fixtures" / "healthcare" / "reviewed_seed_identities_20261011.json"
+RECORDS = json.loads(SEED_IDENTITIES.read_text())["records"]
 NOW = max(datetime.fromisoformat(row["known_at"]) for row in RECORDS) + timedelta(seconds=1)
 
 

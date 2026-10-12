@@ -2338,6 +2338,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     source_labels = {
         "sec": "SEC podání", "fred": "FRED makro", "eia": "EIA komodity",
         "usaspending": "USAspending zakázky", "recipient_discovery": "USAspending příjemci",
+        "usaspending_transactions": "USAspending transakce jedné zakázky",
         "fda": "FDA svolání a dopisy CRL", "finra": "FINRA short interest",
         "fdic": "FDIC banky", "sec13f": "SEC 13F instituce",
         "nhtsa": "NHTSA modelová svolání",
@@ -2356,6 +2357,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
                                if key in run), "") if run else "",
          "Nové nálezy / kandidáti": run.get("new_findings", run.get("new_candidates", "")) if run else "",
          "Použitelné banky": run.get("usable_banks", "") if run else "",
+         "Transakční řádky": run.get("accepted_rows", "") if run else "",
          "Odmítnuté řádky": run.get("rejected_rows", "") if run else "",
          "Vyčerpán rozpočet": run.get("budget_exhausted", "") if run else "",
          "Denní požadavky / limit": (
@@ -2371,6 +2373,10 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
          "Úplné kontroly zakázek / příjemců": run.get("coverage_complete_uei", run.get("coverage_complete_names", "")) if run else "",
          "Částečné kontroly zakázek / příjemců": run.get("coverage_partial_uei", run.get("coverage_partial_names", "")) if run else "",
          "Důvod přerušení": run.get("stop_reason", "") if run else "",
+         "Historie běhu": ({"SAVED": "Uložena", "ERROR": "Chyba uložení",
+                            "NOT_SUPPORTED": "Bez archivace"}.get(run.get("source_archive_status"), "")
+                           if run else ""),
+         "Chyba historie": run.get("source_archive_error", "") if run else "",
          "Chyba": run.get("error", "") if run else ""}
         for source, label in source_labels.items()
         for run in [last_runs.get(source)]
@@ -2378,7 +2384,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     st.caption("Denní plánovač opakuje omezené dávky; WAIT_ACCESS vyžaduje přístup ke zdroji, "
                "WAIT_IDENTITY doložený vztah. WAIT_QUOTA počká na obnovení denního rozpočtu; "
                "BUSY znamená, že zdroj právě zpracovává jiný běh. Požadavky se počítají i při chybě "
-               "a po restartu. Prázdný nález není důkazem, že firma události nemá.")
+               "a po restartu. Historie se uchovává po dokončení zdroje; chyba uložení je uvedena zvlášť. "
+               "Prázdný nález není důkazem, že firma události nemá.")
     coverage_time = datetime.now(timezone.utc)
     try:
         healthcare_identities = HealthcareIdentityRegistry.load(Path(
@@ -2427,16 +2434,41 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         st.dataframe(pd.DataFrame(scout_rows), hide_index=True)
     else:
         st.info("Zatím není uložené žádné nalezené podání pro tento výběr.")
-    contract_rows = scout_store.latest_findings(
-        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="usaspending",
+    verified_contracts = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="usaspending", stage="prime_contract",
     )
-    verified_contracts = [row for row in contract_rows if row["stage"] == "prime_contract"]
-    candidate_recipients = [row for row in contract_rows if row["stage"] == "recipient_candidate"]
+    verified_contracts = [row for row in verified_contracts if row["verification_status"] == "SOURCE_VERIFIED"]
+    candidate_recipients = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="usaspending", stage="recipient_candidate",
+    )
     if verified_contracts:
         st.write("**USAspending – zakázky přes doložené UEI; částka a výdaje nejsou tržby**")
         st.dataframe(pd.DataFrame(verified_contracts), hide_index=True)
         st.caption("Rozdíly závazků a výdajů porovnávají uložené kumulativní hodnoty stejné zakázky. "
                    "Samy nepotvrzují novou zakázku, jednotlivou transakci ani úplnou historii změn.")
+        target = st.selectbox(
+            "Zakázka pro historii transakcí", options=range(len(verified_contracts)),
+            format_func=lambda index: f"{verified_contracts[index]['subject_id']}: {verified_contracts[index]['title']}",
+        )
+        if st.button("Načíst transakce vybrané zakázky"):
+            from market_checker_app.scout_runner import run_award_transactions
+            selected = verified_contracts[target]
+            with st.spinner("Načítám omezenou historii jedné zakázky…"):
+                collected = run_award_transactions(
+                    db_path=config.sqlite_path, subject_id=str(selected["subject_id"]),
+                    award_finding_id=str(selected["finding_id"]),
+                )
+            st.info(f"Stav: {collected['status']}; použitelných transakcí: {collected.get('accepted_rows', 0)}; "
+                    f"nových uložených řádků: {collected.get('new_findings', 0)}.")
+    transaction_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30,
+        source="usaspending", stage="award_transaction",
+    )
+    if transaction_rows:
+        st.write("**USAspending – transakce jednotlivých zakázek**")
+        st.dataframe(pd.DataFrame(transaction_rows), hide_index=True)
+        st.caption("Datum akce pochází ze zdroje; dostupnost odpovídá zachycení odpovědi. "
+                   "Závazek není tržba. Tyto řádky nedokládají všechny historické revize ani pokrytí celé firmy.")
     if candidate_recipients:
         st.write("**USAspending – možní příjemci podle názvu; vztah k emitentovi neověřen**")
         st.dataframe(pd.DataFrame(candidate_recipients), hide_index=True)

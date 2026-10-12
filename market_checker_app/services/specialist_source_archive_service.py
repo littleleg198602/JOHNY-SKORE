@@ -7,6 +7,7 @@ recreate overwritten negative checks at an earlier prediction timestamp.
 from __future__ import annotations
 
 from collections import Counter, defaultdict
+from contextlib import nullcontext
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -241,7 +242,8 @@ def _check(source: str, ticker: str | None, key: object, stamp: object, status: 
 def build_specialist_source_archive(
     store: ScoutStore, *, as_of: datetime,
     maximum_observations: int = 10_000, observations_per_source_ticker: int = 20,
-    maximum_checks: int = 10_000,
+    maximum_checks: int = 10_000, source: str | None = None,
+    _read_connection=None,
 ) -> dict:
     """Capture a consistent SQLite read snapshot over the approved 687 tickers.
 
@@ -251,6 +253,9 @@ def build_specialist_source_archive(
     cutoff = _utc(as_of)
     if cutoff is None:
         raise ValueError("Source archive cutoff needs an explicit timezone")
+    if source is not None and source not in SOURCES:
+        raise ValueError("Source archive requires an approved source")
+    sources = (source,) if source is not None else SOURCES
     for value, maximum in ((maximum_observations, 20_000), (observations_per_source_ticker, 100), (maximum_checks, 20_000)):
         if isinstance(value, bool) or not isinstance(value, int) or not 1 <= value <= maximum:
             raise ValueError("Source archive limits must be bounded positive integers")
@@ -261,18 +266,21 @@ def build_specialist_source_archive(
     if len(subjects) != CANONICAL_TICKER_COUNT or len(set(subjects)) != CANONICAL_TICKER_COUNT:
         raise ValueError("Source archive requires the exact canonical 687 tickers")
     placeholders = ",".join("?" for _ in subjects)
-    source_slots = ",".join("?" for _ in SOURCES)
+    source_slots = ",".join("?" for _ in sources)
     scope = f"source IN ({source_slots}) AND subject_id IN ({placeholders})"
-    params = (*SOURCES, *subjects, cutoff, cutoff, cutoff)
+    params = (*sources, *subjects, cutoff, cutoff, cutoff)
     predicate = f"{scope} AND archive_utc(published_at)<=? AND archive_utc(available_at)<=? AND archive_utc(first_observed_at)<=?"
     rejected = Counter()
     findings, checks, source_runs = [], [], []
     totals, tables = {}, set()
     check_limits_hit = False
-    with store._connect() as conn:
+    # The incremental hook supplies its existing read connection so the
+    # source state, exact run record and request ledger share one snapshot.
+    with (nullcontext(_read_connection) if _read_connection is not None else store._connect()) as conn:
         conn.execute("PRAGMA query_only=ON")
         conn.create_function("archive_utc", 1, _utc, deterministic=True)
-        conn.execute("BEGIN")
+        if not conn.in_transaction:
+            conn.execute("BEGIN")
         tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         if "scout_findings" in tables:
             totals = {(row["source"], row["subject_id"]): row["count"] for row in conn.execute(
@@ -301,7 +309,7 @@ def build_specialist_source_archive(
                   AND (subject_id IN ({placeholders}) OR (source='sec13f' AND subject_id='DATASET'))
                   AND archive_utc(checked_at)<=?
                 ORDER BY archive_utc(checked_at) DESC, source, subject_id, identity_key LIMIT ?
-            """, (*SOURCES, *subjects, cutoff, maximum_checks + 1)).fetchall()
+            """, (*sources, *subjects, cutoff, maximum_checks + 1)).fetchall()
             check_limits_hit |= len(rows) > maximum_checks
             for row in rows[:maximum_checks]:
                 status = "QUERY_PARTIAL" if row["truncated"] else "QUERY_COMPLETE_ZERO_CANDIDATES" if row["candidate_count"] == 0 else "QUERY_COMPLETE_CANDIDATES"
@@ -309,7 +317,7 @@ def build_specialist_source_archive(
                     row["identity_key"], row["checked_at"], status, "LATEST_SPECIALIST_CHECK",
                     candidate_count=row["candidate_count"]))
         remaining = maximum_checks - len(checks)
-        if "scout_fdic_requests" in tables:
+        if "fdic" in sources and "scout_fdic_requests" in tables:
             rows = conn.execute(f"""
                 SELECT * FROM (SELECT *, ROW_NUMBER() OVER (
                     PARTITION BY subject_id, identity_key ORDER BY archive_utc(attempted_at) DESC, request_id
@@ -326,12 +334,14 @@ def build_specialist_source_archive(
                     "LATEST_FDIC_ATTEMPT", usable_rows=row["usable_rows"] if known else 0,
                     rejected_rows=row["rejected_rows"] if known else 0))
         remaining = maximum_checks - len(checks)
-        if "scout_usaspending_checkpoints" in tables:
+        if "usaspending" in sources and "scout_usaspending_checkpoints" in tables:
             rows = conn.execute(f"""
-                SELECT subject_id, identity_key, updated_at, state_json FROM scout_usaspending_checkpoints
+                SELECT subject_id, identity_key, updated_at,
+                    CASE WHEN LENGTH(CAST(state_json AS BLOB))<=? THEN state_json ELSE 'null' END AS state_json
+                FROM scout_usaspending_checkpoints
                 WHERE kind='awards' AND subject_id IN ({placeholders}) AND archive_utc(updated_at)<=?
                 ORDER BY archive_utc(updated_at) DESC, subject_id, identity_key LIMIT ?
-            """, (*subjects, cutoff, remaining + 1)).fetchall()
+            """, (MAX_DETAILS_BYTES, *subjects, cutoff, remaining + 1)).fetchall()
             check_limits_hit |= len(rows) > remaining
             for row in rows[:remaining]:
                 try:
@@ -351,7 +361,7 @@ def build_specialist_source_archive(
                 ) AS position FROM scout_source_runs
                 WHERE source IN ({source_slots}) AND archive_utc(observed_at)<=?)
                 WHERE position=1 ORDER BY source
-            """, (*SOURCES, cutoff)).fetchall()
+            """, (*sources, cutoff)).fetchall()
             source_runs = [{"source": row["source"], "observed_at": _utc(row["observed_at"]),
                             "status": row["status"] if re.fullmatch(r"[A-Z_]{2,32}", row["status"]) else "UNKNOWN",
                             "per_ticker_coverage_inferred": False} for row in rows]
@@ -363,7 +373,7 @@ def build_specialist_source_archive(
         if item["ticker"] is not None:
             grouped_checks[item["source"], item["ticker"]].append(item)
     matrix = []
-    for source in SOURCES:
+    for source in sources:
         for ticker in subjects:
             observed = grouped[source, ticker]
             latest = max(grouped_checks[source, ticker], key=lambda row: (row["checked_at"], row["check_hash"]), default=None)
@@ -392,7 +402,7 @@ def build_specialist_source_archive(
         "production_scores_changed": False, "prediction_snapshots_changed": False,
         "universe": {"source": CANONICAL_SOURCE_FILE, "csv_sha256": CANONICAL_CSV_SHA256,
                      "ticker_count": len(subjects), "records": records},
-        "source_routing": {key: list(value) for key, value in SOURCE_SPECIALISTS.items()}, "source_runs": source_runs,
+        "source_routing": {key: list(SOURCE_SPECIALISTS[key]) for key in sources}, "source_runs": source_runs,
         "observations": findings, "checks": sorted(checks, key=lambda row: row["check_hash"]),
         "source_ticker_missingness": matrix,
         "bounds": {"maximum_observations": maximum_observations,

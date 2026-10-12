@@ -9,6 +9,39 @@ from streamlit.testing.v1 import AppTest
 
 
 class StreamlitUISmokeTests(unittest.TestCase):
+    def test_transaction_button_targets_only_selected_verified_award(self) -> None:
+        from datetime import datetime, timezone
+        from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings
+        from market_checker_app.storage.scout_store import ScoutStore
+
+        app_path = Path(__file__).resolve().parents[1] / "market_checker_app" / "app.py"
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("market_checker_app.services.agent_runtime_service.AgentRuntimeService.load",
+                   return_value=(AgentRuntimeSettings(), None)), \
+             patch("market_checker_app.scout_runner.run_award_transactions",
+                   return_value={"status": "COMPLETE", "accepted_rows": 14, "new_findings": 14}) as collect, \
+             patch("socket.socket.connect", side_effect=AssertionError("UI test attempted live network")):
+            database = Path(directory) / "history.db"
+            clock = datetime(2026, 10, 1, tzinfo=timezone.utc)
+            finding_id = ScoutStore(database).record_finding(
+                source="usaspending", subject_id="LMT", source_object_id="test-prime",
+                content_hash="test-primary", title="Selected test award",
+                source_url="https://api.usaspending.gov/api/v2/search/spending_by_award/",
+                locator="test", published_at=clock, available_at=clock, observed_at=clock,
+                details={"stage": "prime_contract"},
+            )[0]
+            app = AppTest.from_file(str(app_path)).run(timeout=30)
+            next(field for field in app.text_input if field.label == "DB soubor").set_value(str(database))
+            next(field for field in app.text_area
+                 if field.label == "Ruční watchlist (jeden ticker na řádek)").set_value("LMT")
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            collect.assert_not_called()
+            next(button for button in app.button if button.label == "Načíst transakce vybrané zakázky").click()
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            collect.assert_called_once_with(db_path=database, subject_id="LMT", award_finding_id=finding_id)
+
     def test_source_archive_export_is_explicit_immutable_and_not_acceptance(self) -> None:
         import json
         from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings

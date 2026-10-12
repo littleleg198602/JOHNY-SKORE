@@ -62,7 +62,17 @@ def quarter_period(quarter: str) -> tuple[date, date]:
 
 def list_url(quarter: str) -> str:
     quarter_period(quarter)
+    # The SEC current-list page advertises this quarter without the legacy
+    # "-txt" suffix. Preserve older evidence URLs rather than rewriting them.
+    if quarter == "2026q3":
+        return "https://www.sec.gov/files/investment/13flist2026q3.txt"
     return f"https://www.sec.gov/files/investment/13flist{quarter}-txt.txt"
+
+
+def list_quarter(url: str) -> str:
+    official_url("13f_list", url)
+    return re.fullmatch(r"/files/investment/13flist(20[0-9]{2}q[1-4])(?:-txt)?\.txt",
+                        urlsplit(url).path).group(1)
 
 
 def _ticker(value: str) -> str:
@@ -105,7 +115,7 @@ def official_url(kind: str, url: str) -> str:
     if kind == "ticker_catalog":
         valid = url in {TICKER_URL, EXCHANGE_URL}
     elif kind == "13f_list":
-        valid = re.fullmatch(r"/files/investment/13flist20[0-9]{2}q[1-4]-txt\.txt", parsed.path) is not None
+        valid = re.fullmatch(r"/files/investment/13flist20[0-9]{2}q[1-4](?:-txt)?\.txt", parsed.path) is not None
     elif kind in {"schedule13", "ticker_filing", "corporate_action_filing"}:
         valid = re.fullmatch(r"/Archives/edgar/data/[0-9]{1,10}/[0-9]{18}/(?:[A-Za-z0-9_.-]+/)*[A-Za-z0-9_.-]+", parsed.path) is not None
         valid = valid and all(part not in {".", ".."} for part in parsed.path.split("/"))
@@ -278,7 +288,7 @@ def read_checkpoint(path: Path) -> dict | None:
 def parse_13f_list(snapshot: SourceSnapshot) -> list[dict]:
     if snapshot.kind != "13f_list":
         raise ValueError("Expected the quarterly SEC securities list")
-    rows, seen = [], set()
+    rows, seen = [], {}
     for line_number, line in enumerate(snapshot.payload.decode("utf-8-sig").splitlines(), 1):
         if line_number > MAX_SOURCE_ROWS:
             raise ValueError("SEC securities-list row budget exceeded")
@@ -293,14 +303,20 @@ def parse_13f_list(snapshot: SourceSnapshot) -> list[dict]:
         row = {"cusip": line[:9], "issuer_name": line[10:40].strip(),
                "class_description": line[40:67].strip(), "flags": line[67:].strip(),
                "line_number": line_number}
-        if not _name(row["issuer_name"]) or not row["class_description"] or row["cusip"] in seen:
+        option_class = row["class_description"] in {"CALL", "PUT"}
+        if (not _name(row["issuer_name"]) or not row["class_description"]
+                or row["cusip"] in seen and (not option_class or seen[row["cusip"]] != row["class_description"])):
             raise ValueError("Missing labels or duplicate CUSIP in SEC list")
         # SEC's synthetic option identifiers do not always have a standard
         # CUSIP check digit. They remain non-equity rows and cannot become a
         # candidate or an exported identity. All other rows require a checksum.
-        if not _valid_cusip(row["cusip"]) and row["class_description"] not in {"CALL", "PUT"}:
+        if not _valid_cusip(row["cusip"]) and not option_class:
             raise ValueError(f"Invalid CUSIP in SEC securities-list row {line_number}")
-        seen.add(row["cusip"])
+        # The official list repeats synthetic ETF option identifiers, sometimes
+        # with different addition/deletion flags. Preserve all original lines;
+        # neither occurrence can be an equity candidate or reviewed identity.
+        # An option/equity or CALL/PUT collision still fails closed.
+        seen[row["cusip"]] = row["class_description"]
         rows.append(row)
     if not rows:
         raise ValueError("No securities in SEC list")
@@ -624,7 +640,7 @@ class Sec13fIdentityBulk:
         if any(_clock(snapshot.observed_at) > self.as_of for snapshot in snapshots):
             raise ValueError("SEC snapshots contain future knowledge")
         catalogs = [snapshot for snapshot in snapshots if snapshot.kind == "ticker_catalog"]
-        lists = [snapshot for snapshot in snapshots if snapshot.kind == "13f_list" and snapshot.url == list_url(quarter)]
+        lists = [snapshot for snapshot in snapshots if snapshot.kind == "13f_list" and list_quarter(snapshot.url) == quarter]
         if len(catalogs) != 1 or len(lists) != 1:
             raise ValueError("Select exactly one ticker catalog and one quarterly securities list")
         self.catalog_snapshot, self.list_snapshot = catalogs[0], lists[0]

@@ -1,5 +1,28 @@
 # Archiv jednotlivých zdrojů NEW ANALYZER
 
+## Archivy jednotlivých běhů
+
+Průběžný runner po každém dokončeném podporovaném zdroji uloží bounded
+source-run archiv do `outputs/specialist_source_runs/<source>/` vedle
+zvolené SQLite databáze. Uchová právě jeden zdroj × 687 kanonických pozic,
+pozorování, verze kontrol a pokusy. FRED/EIA jsou shared context; souhrnný
+13F check není kontrola jednotlivých emitentů. Recipient discovery a
+explicitní transakční lane mají vlastní scope, ne issuer archive coverage.
+Transakční raw odpovědi se uchovávají v `award_transaction_captures` vedle DB.
+
+Dostupnost archivu je skutečný čas vytvoření. Fyzický start a completion
+zdroje jsou oddělené od jeho případného dřívějšího logického `as_of`.
+NO_DUE/BUSY/WAIT_QUOTA nezakládá nový úspěšný dotaz. Při chybě archivu
+zůstane uložený provider výsledek a v aplikaci je samostatná chyba historie.
+Replay kontroluje hash i tuto dostupnost; dnešní export nemůže obnovit
+historicky dostupné přepsané kontroly. Výchozí limity jsou 2000 pozorování,
+kontrol a pokusů, 20 shared rows a 32 MB na archiv, se zřetelnými truncation
+příznaky. Explicitní archiv celého současného stavu zůstává dostupný.
+
+API a měřené důkazy: `evidence/batch3_evaluation_incremental_archive_20261012.json`.
+Tyto archivy zachovávají důkazy pro následné vyhodnocení; nevytvářejí štítky,
+OOS převahu ani oprávnění měnit skóre.
+
 `specialist_source_archive_service.py` připraví samostatný archiv skutečných
 pozorování ve ScoutStore. Používá přesně původních 687 tickerů včetně BRKB;
 provider alias BRK-B ani obecný makroekonomický kontext nepřisuzuje firmám.

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "candidate_status": "WITHHELD_DATES_NOT_ALIGNED",
+  "legal_name": "SIKORSKY AIRCRAFT CORPORATION",
+  "entity_identifier": {
+    "scheme": "LEI",
+    "authority": "GLEIF",
+    "value": "54930054HRQM5ZB1WZ32"
+  },
+  "proposed_relationship_role": "SUBSIDIARY_OF_ISSUER",
+  "proposed_issuer_cik": "0000936468",
+  "proposed_issuer_ticker": "LMT",
+  "proposed_issuer_legal_name": "Lockheed Martin Corporation",
+  "entity_identity_snapshot_date": "2026-10-12",
+  "relationship_source_report_date": "2025-12-31",
+  "known_at": "2026-10-12T15:18:07.979722+00:00",
+  "reason": "Exact current legal-entity register identity and exact dated SEC parent exhibit are separately supported, but no common effective day or continuous ownership interval is independently established. Current LMT attribution and historical backdating are withheld.",
+  "issuer_attribution_allowed": false,
+  "financial_attribution_allowed": false,
+  "evidence": [
+    {
+      "purpose": "ENTITY_IDENTITY",
+      "url": "https://api.gleif.org/api/v1/lei-records/54930054HRQM5ZB1WZ32",
+      "locator": "JSON data.attributes.entity.legalName.name and data.attributes.lei",
+      "quote": "SIKORSKY AIRCRAFT CORPORATION \u2026 54930054HRQM5ZB1WZ32",
+      "quote_fragments": [
+        "SIKORSKY AIRCRAFT CORPORATION",
+        "54930054HRQM5ZB1WZ32"
+      ],
+      "quote_extraction": "Selected verbatim source fields/cells; whitespace normalized; ellipsis marks omitted material.",
+      "publisher": "GLEIF",
+      "published_at": "2026-10-12T00:00:00Z",
+      "observed_at": "2026-10-12T14:46:13.786251+00:00",
+      "archived_source_path": "evidence/batch3_sec_20261012/primary/sikorsky_gleif.json",
+      "archived_source_sha256": "45c18f70c66f93c7ef4f5298c8e8a2b7e71b163466b28cede03dce334ce97064",
+      "http_last_modified": null,
+      "publication_time_verified": false,
+      "verified_first_publication_at": null,
+      "published_at_semantics": "GLEIF golden-copy publishDate"
+    },
+    {
+      "purpose": "ISSUER_IDENTITY",
+      "url": "https://www.sec.gov/Archives/edgar/data/936468/000162828026004195/R1.htm",
+      "locator": "R1 table: Entity Registrant Name and common-stock Trading Symbol rows",
+      "quote": "Entity Registrant Name LOCKHEED MARTIN CORPORATION \u2026 Trading Symbol LMT",
+      "quote_fragments": [
+        "Entity Registrant Name LOCKHEED MARTIN CORPORATION",
+        "Trading Symbol LMT"
+      ],
+      "quote_extraction": "Selected verbatim source fields/cells; whitespace normalized; ellipsis marks omitted material.",
+      "publisher": "SEC EDGAR",
+      "published_at": "2026-01-29T22:18:08.000Z",
+      "observed_at": "2026-10-12T14:45:34.123845+00:00",
+      "archived_source_path": "evidence/batch3_sec_20261012/primary/lmt_2025_R1.htm",
+      "archived_source_sha256": "83eca2c4124032100450f848c3f7d91c28ba661938bc36c4bfc2fc5828ea4fbe",
+      "http_last_modified": "Thu, 29 Jan 2026 22:18:50 GMT",
+      "publication_time_verified": false,
+      "verified_first_publication_at": null,
+      "published_at_semantics": "Reported SEC UTC filing acceptance event; exact first renderer dissemination not verified",
+      "reported_acceptance_at": "2026-01-29T22:18:08.000Z",
+      "reported_acceptance_conflict": false,
+      "filing_clock_evidence": {
+        "accession_number": "0001628280-26-004195",
+        "filing_date": "2026-01-29",
+        "report_date": "2025-12-31",
+        "reported_acceptance_at": "2026-01-29T22:18:08.000Z",
+        "reported_acceptance_at_source": "https://data.sec.gov/submissions/CIK0000936468.json",
+        "reported_acceptance_at_locator": "filings.recent.acceptanceDateTime[64], accessionNumber[64]=0001628280-26-004195",
+        "index_accepted_text": "2026-01-29 17:18:08",
+        "index_source_url": "https://www.sec.gov/Archives/edgar/data/936468/000162828026004195/0001628280-26-004195-index.html",
+        "index_accepted_timezone_interpretation": "America/New_York; source index has no explicit zone",
+        "index_http_last_modified": "Thu, 29 Jan 2026 22:18:08 GMT",
+        "index_interpreted_utc": "2026-01-29T22:18:08+00:00",
+        "reported_acceptance_conflict": false,
+        "publication_time_verified": false,
+        "verified_first_publication_at": null,
+        "publication_limitation": "SEC acceptance is documented; exact first dissemination of the renderer is unverified."
+      }
+    },
+    {
+      "purpose": "ENTITY_TO_ISSUER",
+      "url": "https://www.sec.gov/Archives/edgar/data/936468/000162828026004195/ex21q42025.htm",
+      "locator": "Exhibit 21 heading and exact named subsidiary table row (Place of Formation: Delaware)",
+      "quote": "Subsidiaries of Lockheed Martin Corporation \u2026 Sikorsky Aircraft Corporation Delaware",
+      "quote_fragments": [
+        "Subsidiaries of Lockheed Martin Corporation",
+        "Sikorsky Aircraft Corporation Delaware"
+      ],
+      "quote_extraction": "Selected verbatim source fields/cells; whitespace normalized; ellipsis marks omitted material.",
+      "publisher": "SEC EDGAR",
+      "published_at": "2026-01-29T22:18:08.000Z",
+      "observed_at": "2026-10-12T14:45:40.597923+00:00",
+      "archived_source_path": "evidence/batch3_sec_20261012/primary/lmt_2025_ex21.htm",
+      "archived_source_sha256": "8e5686e7781dd4541a637c081daa6a906e046736ecc07fb4d35c694b3a52d694",
+      "http_last_modified": "Thu, 29 Jan 2026 22:18:50 GMT",
+      "publication_time_verified": false,
+      "verified_first_publication_at": null,
+      "published_at_semantics": "Reported SEC UTC filing acceptance event; exact first renderer dissemination not verified",
+      "reported_acceptance_at": "2026-01-29T22:18:08.000Z",
+      "reported_acceptance_conflict": false,
+      "filing_clock_evidence": {
+        "accession_number": "0001628280-26-004195",
+        "filing_date": "2026-01-29",
+        "report_date": "2025-12-31",
+        "reported_acceptance_at": "2026-01-29T22:18:08.000Z",
+        "reported_acceptance_at_source": "https://data.sec.gov/submissions/CIK0000936468.json",
+        "reported_acceptance_at_locator": "filings.recent.acceptanceDateTime[64], accessionNumber[64]=0001628280-26-004195",
+        "index_accepted_text": "2026-01-29 17:18:08",
+        "index_source_url": "https://www.sec.gov/Archives/edgar/data/936468/000162828026004195/0001628280-26-004195-index.html",
+        "index_accepted_timezone_interpretation": "America/New_York; source index has no explicit zone",
+        "index_http_last_modified": "Thu, 29 Jan 2026 22:18:08 GMT",
+        "index_interpreted_utc": "2026-01-29T22:18:08+00:00",
+        "reported_acceptance_conflict": false,
+        "publication_time_verified": false,
+        "verified_first_publication_at": null,
+        "publication_limitation": "SEC acceptance is documented; exact first dissemination of the renderer is unverified."
+      }
+    }
+  ]
+}
