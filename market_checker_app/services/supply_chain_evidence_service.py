@@ -12,6 +12,9 @@ from collections.abc import Mapping
 from datetime import datetime, timezone
 
 from market_checker_app.agents.contracts import RelationshipType
+from market_checker_app.services.sec_counterparty_identity import (
+    DatedCounterpartyIdentityRegistry,
+)
 
 
 ANONYMOUS_COUNTERPARTY_PREFIX = "unnamed "
@@ -38,7 +41,7 @@ def _identity_status(counterparty: str, configured: object) -> str:
     return (
         "ANONYMOUS"
         if counterparty.casefold().startswith(ANONYMOUS_COUNTERPARTY_PREFIX)
-        else "IDENTIFIED"
+        else "NAMED_ONLY"
     )
 
 
@@ -64,6 +67,8 @@ def build_supply_chain_evidence_metadata(
     evidence_quote: object = None,
     evidence_level: object = None,
     discovery_method: object = None,
+    counterparty_identities: DatedCounterpartyIdentityRegistry | None = None,
+    identity_as_of: datetime | None = None,
     existing: Mapping[str, object] | None = None,
 ) -> dict[str, object]:
     """Return machine-readable provenance for one oriented relationship edge."""
@@ -71,7 +76,28 @@ def build_supply_chain_evidence_metadata(
     published = _utc(published_at)
     observed = _utc(observed_at)
     age_days = max(0, (observed.date() - published.date()).days)
-    identity = _identity_status(counterparty, counterparty_identity_status)
+    configured_identity = _identity_status(counterparty, counterparty_identity_status)
+    identity = configured_identity
+    # A configured IDENTIFIED flag is a claim, not independent legal-person
+    # evidence. Every named edge passes the same dated resolver.
+    resolution: dict[str, object] = {
+        "counterparty_identity_status": "NAMED_ONLY",
+        "counterparty_identity_resolution": "NO_DATED_IDENTITY_MANIFEST",
+        "counterparty_identity_evidence": None,
+        "counterparty_issuer_attribution_allowed": False,
+        "counterparty_financials_attribution_allowed": False,
+    }
+    if configured_identity == "ANONYMOUS" or counterparty.casefold().startswith(ANONYMOUS_COUNTERPARTY_PREFIX):
+        identity = "ANONYMOUS"
+        resolution.update(counterparty_identity_status=identity,
+                          counterparty_identity_resolution="ANONYMOUS_COUNTERPARTY")
+    else:
+        if counterparty_identities is not None:
+            resolution = counterparty_identities.resolve(
+                disclosed_name=counterparty, published_at=published,
+                as_of=identity_as_of or observed, exposure_source_url=source_url,
+            )
+        identity = str(resolution["counterparty_identity_status"])
     period = _text(disclosure_period)
     product = _text(product_or_input)
     country = _text(counterparty_country)
@@ -92,6 +118,7 @@ def build_supply_chain_evidence_metadata(
         "evidence_quote": "NOT_CAPTURED" if quote is None else "CAPTURED",
     }
     metadata = dict(existing or {})
+    metadata.update(resolution)
     metadata.update(
         {
             "evidence_schema_version": "supply_chain_evidence_v1",
@@ -102,6 +129,7 @@ def build_supply_chain_evidence_metadata(
                 else f"{ticker} -> {counterparty}"
             ),
             "counterparty_identity_status": identity,
+            "configured_counterparty_identity_status": configured_identity,
             "product_or_input": product,
             "counterparty_country": country,
             "disclosure_period": period,

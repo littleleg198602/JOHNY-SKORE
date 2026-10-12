@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-11T10:15:16.171045+00:00",
+  "status": "PASS",
+  "scope": "Bounded actual publisher OFAC SDN/Non-SDN snapshots and controlled replay; synthetic query identities are not watchlist issuers or verified sanctioned identities.",
+  "base_commit": "073b67b",
+  "implemented_gap": "Preserve primary remarks, exact ENT_NUM spillover, hashes and documented weak AKA corroboration; no weak-name or Linked To name becomes a screening candidate.",
+  "primary_documentation": [
+    {
+      "url": "https://ofac.treasury.gov/faqs/123",
+      "supports": "CSV weak AKA are in quoted primary remarks, separate from ALT strong aliases."
+    },
+    {
+      "url": "https://ofac.treasury.gov/faqs/124",
+      "supports": "Weak AKA may corroborate matches arising from other information."
+    },
+    {
+      "url": "https://ofac.treasury.gov/system/files/126/dat_spec.txt",
+      "supports": "Publisher null marker, 1000-character primary remarks, spillover and weak-alias contract."
+    },
+    {
+      "url": "https://ofac.treasury.gov/sdn-list-data-formats-data-schemas/tutorial-on-the-use-of-list-related-legacy-flat-files",
+      "supports": "Supplement ENT_NUM relation is one-to-one; all legacy files required for complete list data."
+    }
+  ],
+  "verification": {
+    "target_command": "python -m unittest tests.test_nhtsa_recall_scout_service tests.test_doj_scout_service tests.test_epa_echo_scout_service tests.test_ofac_scout_service tests.test_ofac_consolidated_scout_service tests.test_ofac_remarks_evidence -q",
+    "tests_run": 44,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "git_diff_check": "PASS"
+  },
+  "publisher_requests": 6,
+  "request_timeout_seconds": 20,
+  "export_byte_budgets": {
+    "SDN.CSV": 8000000,
+    "ALT.CSV": 2000000,
+    "SDN_COMMENTS.CSV": 2000000,
+    "CONS_PRIM.CSV": 1000000,
+    "CONS_ALT.CSV": 1000000,
+    "CONS_COMMENTS.CSV": 2000000
+  },
+  "acceptance": {
+    "regulatory_specialist_done": false,
+    "issuer_sanctions_identity_verified": false,
+    "ownership_analysis_completed": false,
+    "list_publication_time_verified": false,
+    "release_atomicity_verified": false,
+    "full_watchlist_coverage": false,
+    "Windows_end_to_end": false,
+    "historical_evaluation": false,
+    "scoring_applied": false
+  },
+  "remaining_blockers": [
+    "Independent dated issuer/subsidiary/entity identities and ownership analysis.",
+    "Address and typed legal identifier corroboration; current narrow extractor does not assert complete weak-alias extraction.",
+    "Measured relevant watchlist coverage, actual user Windows end-to-end and historical/out-of-sample acceptance."
+  ],
+  "unavailable_observations": [
+    {
+      "surface": "web search fetch",
+      "sources": [
+        "SDN_COMMENTS.CSV",
+        "CONS_COMMENTS.CSV"
+      ],
+      "status": "UNAVAILABLE",
+      "effect": "Direct bounded publisher downloads subsequently succeeded; no web failure was represented as a negative."
+    }
+  ],
+  "sources": [
+    {
+      "list_kind": "SDN",
+      "downloads": [
+        {
+          "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+          "status": "PASS",
+          "bytes": 5727333,
+          "content_sha256": "64be7a7991059f59a2ebb43bc5dcc7e2951e1e27cbed8cbe41b0231b3a161946",
+          "observed_at": "2026-10-11T10:12:41.269070+00:00"
+        },
+        {
+          "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV",
+          "status": "PASS",
+          "bytes": 1063323,
+          "content_sha256": "ff6075fc9635c5034475fa49c0c2e0e03300e1c9375771d75f99c4d4bf799c1b",
+          "observed_at": "2026-10-11T10:12:53.899883+00:00"
+        },
+        {
+          "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN_COMMENTS.CSV",
+          "status": "PASS",
+          "bytes": 48137,
+          "content_sha256": "8255ce1eb2b85e08bac9e378eb8b28c59ca4926a3645f9421502cc11d48b86f1",
+          "observed_at": "2026-10-11T10:08:38.720974+00:00"
+        }
+      ],
+      "primary_rows": 19416,
+      "entity_rows": 10018,
+      "alias_rows": 20182,
+      "comments_rows": 36,
+      "spilled_entity_rows": 21,
+      "explicit_weak_entity_alias_rows": 2049,
+      "spillover_join_verified": true,
+      "selected_publisher_entity": {
+        "publisher_id": "17018",
+        "name": "PUBLIC JOINT STOCK COMPANY SBERBANK OF RUSSIA",
+        "primary_remarks_characters": 1000,
+        "remarks_characters": 1461,
+        "weak_aliases": [
+          {
+            "name": "SBERBANK INDIA",
+            "alias_quality": "weak",
+            "source_field": "remarks",
+            "screening_eligible": false
+          },
+          {
+            "name": "SBERBANK MUMBAI",
+            "alias_quality": "weak",
+            "source_field": "remarks",
+            "screening_eligible": false
+          }
+        ],
+        "primary_remarks_sha256": "0b2b908596abf75f68afabc703e8f88dcd2b200affff56cad9939250c0a4b8ce",
+        "spillover_remarks_sha256": "be1104e4c238f3ea259e427fd3c1ae72f243fac1d6ee19a780a83558276f3e75"
+      },
+      "controlled_pipeline": {
+        "query_identities_are_synthetic": true,
+        "queries": {
+          "REGPOS": "PUBLIC JOINT STOCK COMPANY SBERBANK OF RUSSIA",
+          "REGNONE": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+          "REGWEAK": "SBERBANK INDIA"
+        },
+        "summary": {
+          "status": "OK",
+          "checked_issuers": 3,
+          "new_findings": 1,
+          "snapshot_sha256": "64be7a7991059f59a2ebb43bc5dcc7e2951e1e27cbed8cbe41b0231b3a161946",
+          "alias_snapshot_sha256": "ff6075fc9635c5034475fa49c0c2e0e03300e1c9375771d75f99c4d4bf799c1b",
+          "alias_rows": 20182,
+          "comments_snapshot_sha256": "8255ce1eb2b85e08bac9e378eb8b28c59ca4926a3645f9421502cc11d48b86f1",
+          "comments_rows": 36,
+          "remarks_supplement_status": "COMPLETE",
+          "publisher_remarks_complete": true,
+          "weak_aliases_screened": false,
+          "weak_alias_extraction_complete": false,
+          "ownership_look_through_performed": false,
+          "publication_time_verified": false,
+          "snapshot_release_atomicity_verified": false,
+          "matched_rows": 1
+        },
+        "negative_candidate_counts": {
+          "REGNONE": 0,
+          "REGWEAK": 0
+        },
+        "positive_verification_status": "UNVERIFIED",
+        "positive_issuer_identity_verified": false,
+        "no_evidence_before_observation": true,
+        "reopen_replay_new_findings": 0,
+        "missing_supplement_status": "PARTIAL",
+        "missing_supplement_complete_checks": 0
+      }
+    },
+    {
+      "list_kind": "NON_SDN",
+      "downloads": [
+        {
+          "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/CONS_PRIM.CSV",
+          "status": "PASS",
+          "bytes": 262892,
+          "content_sha256": "0a3b74f6eb28450a9993b42a234c1801471d4dcb41220f6a7b8e466575bc3889",
+          "observed_at": "2026-10-11T10:13:27.823867+00:00"
+        },
+        {
+          "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/CONS_ALT.CSV",
+          "status": "PASS",
+          "bytes": 69302,
+          "content_sha256": "ee4e86b664c7a11aacd0fe227f35336cff3467602bb9607653bb4ce193811474",
+          "observed_at": "2026-10-11T10:13:39.765000+00:00"
+        },
+        {
+          "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/CONS_COMMENTS.CSV",
+          "status": "PASS",
+          "bytes": 2754,
+          "content_sha256": "ca3e37e4d78952e6d8280ee804bc185a9ebcaa7fa5b7216937f45aaab7f8fce6",
+          "observed_at": "2026-10-11T10:13:51.902724+00:00"
+        }
+      ],
+      "primary_rows": 481,
+      "entity_rows": 363,
+      "alias_rows": 1110,
+      "comments_rows": 10,
+      "spilled_entity_rows": 10,
+      "explicit_weak_entity_alias_rows": 69,
+      "spillover_join_verified": true,
+      "selected_publisher_entity": {
+        "publisher_id": "17018",
+        "name": "PUBLIC JOINT STOCK COMPANY SBERBANK OF RUSSIA",
+        "primary_remarks_characters": 1000,
+        "remarks_characters": 1461,
+        "weak_aliases": [
+          {
+            "name": "SBERBANK INDIA",
+            "alias_quality": "weak",
+            "source_field": "remarks",
+            "screening_eligible": false
+          },
+          {
+            "name": "SBERBANK MUMBAI",
+            "alias_quality": "weak",
+            "source_field": "remarks",
+            "screening_eligible": false
+          }
+        ],
+        "primary_remarks_sha256": "0b2b908596abf75f68afabc703e8f88dcd2b200affff56cad9939250c0a4b8ce",
+        "spillover_remarks_sha256": "be1104e4c238f3ea259e427fd3c1ae72f243fac1d6ee19a780a83558276f3e75"
+      },
+      "controlled_pipeline": {
+        "query_identities_are_synthetic": true,
+        "queries": {
+          "REGPOS": "PUBLIC JOINT STOCK COMPANY SBERBANK OF RUSSIA",
+          "REGNONE": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+          "REGWEAK": "SBERBANK INDIA"
+        },
+        "summary": {
+          "status": "OK",
+          "checked_issuers": 3,
+          "new_findings": 1,
+          "snapshot_sha256": "0a3b74f6eb28450a9993b42a234c1801471d4dcb41220f6a7b8e466575bc3889",
+          "alias_snapshot_sha256": "ee4e86b664c7a11aacd0fe227f35336cff3467602bb9607653bb4ce193811474",
+          "alias_rows": 1110,
+          "comments_snapshot_sha256": "ca3e37e4d78952e6d8280ee804bc185a9ebcaa7fa5b7216937f45aaab7f8fce6",
+          "comments_rows": 10,
+          "remarks_supplement_status": "COMPLETE",
+          "publisher_remarks_complete": true,
+          "weak_aliases_screened": false,
+          "weak_alias_extraction_complete": false,
+          "ownership_look_through_performed": false,
+          "publication_time_verified": false,
+          "snapshot_release_atomicity_verified": false,
+          "matched_rows": 1
+        },
+        "negative_candidate_counts": {
+          "REGNONE": 0,
+          "REGWEAK": 0
+        },
+        "positive_verification_status": "UNVERIFIED",
+        "positive_issuer_identity_verified": false,
+        "no_evidence_before_observation": true,
+        "reopen_replay_new_findings": 0,
+        "missing_supplement_status": "PARTIAL",
+        "missing_supplement_complete_checks": 0
+      }
+    }
+  ]
+}

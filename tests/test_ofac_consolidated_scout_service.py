@@ -7,9 +7,9 @@ import unittest
 from unittest.mock import patch
 
 from market_checker_app.services.ofac_scout_service import (
-    ALT_URL, SDN_URL, CONSOLIDATED_URL, CONSOLIDATED_ALT_URL,
+    ALT_URL, SDN_URL, CONSOLIDATED_URL, CONSOLIDATED_ALT_URL, CONSOLIDATED_COMMENTS_URL,
     OfacConsolidatedClient, OfacConsolidatedScoutService, OfacSdnScoutService,
-    attach_sdn_aliases, parse_consolidated_csv, parse_sdn_csv,
+    attach_sdn_aliases, attach_sdn_comments, parse_consolidated_csv, parse_sdn_csv,
 )
 from market_checker_app.services.specialist_acceptance_service import build_specialist_acceptance_report
 from market_checker_app.storage.scout_store import ScoutStore
@@ -23,7 +23,7 @@ ALIASES = b'1,10,aka,"Former Example Inc.",-0-\n2,20,aka,"Excluded Person",-0-\n
 
 class FakeConsolidated:
     def snapshot(self):
-        return attach_sdn_aliases(parse_consolidated_csv(PRIMARY), ALIASES)
+        return attach_sdn_comments(attach_sdn_aliases(parse_consolidated_csv(PRIMARY), ALIASES), b'\r\n')
 
 
 class OfacConsolidatedTests(unittest.TestCase):
@@ -55,7 +55,7 @@ class OfacConsolidatedTests(unittest.TestCase):
     def test_sdn_check_and_same_record_id_cannot_complete_non_sdn(self):
         class FakeSdn:
             def snapshot(self):
-                return attach_sdn_aliases(parse_sdn_csv(PRIMARY), ALIASES)
+                return attach_sdn_comments(attach_sdn_aliases(parse_sdn_csv(PRIMARY), ALIASES), b'\r\n')
         with TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory)/"test.db")
             store.observe_sec_identity(subject_id="ONE", cik="0000000001", company_name="Example Entity Inc.", as_of=NOW)
@@ -76,11 +76,13 @@ class OfacConsolidatedTests(unittest.TestCase):
 
     def test_bounded_download_urls_and_malformed_primary(self):
         client = OfacConsolidatedClient()
-        with patch.object(client, "_download", side_effect=[PRIMARY, ALIASES]) as download:
+        with patch.object(client, "_download", side_effect=[PRIMARY, ALIASES, b'\r\n']) as download:
             snapshot = client.snapshot()
         self.assertEqual(1, len(snapshot.entities))
-        self.assertEqual([CONSOLIDATED_URL, CONSOLIDATED_ALT_URL], [c.args[0] for c in download.call_args_list])
-        self.assertEqual([1_000_000, 1_000_000], [c.kwargs["byte_budget"] for c in download.call_args_list])
+        self.assertEqual([CONSOLIDATED_URL, CONSOLIDATED_ALT_URL, CONSOLIDATED_COMMENTS_URL],
+                         [c.args[0] for c in download.call_args_list])
+        self.assertEqual([1_000_000, 1_000_000, 2_000_000],
+                         [c.kwargs["byte_budget"] for c in download.call_args_list])
         for body in (b'', PRIMARY+PRIMARY, b'<html>unavailable</html>', b' ' * 1_000_001):
             with self.subTest(body=body[:20]), self.assertRaises((ValueError, csv.Error)):
                 parse_consolidated_csv(body)

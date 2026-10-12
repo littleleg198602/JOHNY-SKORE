@@ -20,6 +20,7 @@ PUBLIC_DAILY_LIMITS = {
     "clinicaltrials": (10, 20),
     "doj": (25, 50),
     "epa": (10, 10),
+    "eia": (2, 2),  # two shared commodity series, not company identities
 }
 T = TypeVar("T")
 

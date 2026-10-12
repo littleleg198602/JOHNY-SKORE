@@ -10,6 +10,9 @@ from market_checker_app.services.specialist_acceptance_service import (
     classify_source_run,
 )
 from market_checker_app.services.fdic_bank_scout_service import FdicBankScoutService, load_verified_banks
+from market_checker_app.services.healthcare_identity_service import (
+    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry,
+)
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.ticker_universe import CANONICAL_CSV_SHA256, load_canonical_ticker_records
 
@@ -18,6 +21,61 @@ NOW = datetime(2026, 10, 1, 12, tzinfo=timezone.utc)
 
 
 class SpecialistAcceptanceTests(unittest.TestCase):
+    def test_report_uses_configured_dated_healthcare_registry_after_restart(self):
+        records = json.loads(DEFAULT_HEALTHCARE_IDENTITIES.read_text(encoding="utf-8"))["records"]
+        subject = next(row for row in records if row["source"] == "fda")
+        clock = max(datetime.fromisoformat(row["known_at"]) for row in records) + timedelta(seconds=1)
+        with TemporaryDirectory() as directory:
+            manifest = Path(directory) / "healthcare.json"
+            manifest.write_text(json.dumps({"schema_version": 1, "records": []}), encoding="utf-8")
+            store = ScoutStore(Path(directory) / "test.db")
+            store.observe_sec_identity(subject_id=subject["ticker"], cik=subject["issuer_cik"],
+                                       company_name=subject["entity_name"], as_of=clock)
+            versions = HealthcareIdentityRegistry.load(manifest).identity_versions(store, "fda", as_of=clock)
+            store.record_specialist_check(
+                "fda", subject_id=subject["ticker"],
+                identity_key=subject["issuer_cik"] + ":" + subject["entity_name"],
+                as_of=clock, candidate_count=0, truncated=False,
+                identity_version=versions[subject["ticker"]],
+            )
+            environment = {"JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE": str(manifest)}
+            report = build_specialist_acceptance_report(store, as_of=clock, environment=environment)
+            self.assertEqual(1, report["rotating_source_coverage"]["fda"]["current_complete"])
+            manifest.write_text(DEFAULT_HEALTHCARE_IDENTITIES.read_text(encoding="utf-8"), encoding="utf-8")
+            reopened = ScoutStore(store.db_path)
+            report = build_specialist_acceptance_report(reopened, as_of=clock, environment=environment)
+            self.assertEqual(0, report["rotating_source_coverage"]["fda"]["current_complete"])
+            self.assertEqual(1, report["rotating_source_coverage"]["fda"]["not_current"])
+            self.assertFalse(report["completion_verified"])
+            manifest.write_text("{broken", encoding="utf-8")
+            report = build_specialist_acceptance_report(reopened, as_of=clock, environment=environment)
+            for source in ("fda", "cms", "clinicaltrials"):
+                self.assertEqual("INVALID_IDENTITY_MANIFEST", report["rotating_source_coverage"][source]["status"])
+
+    def test_partial_contract_coverage_and_quota_survive_source_summary_storage(self):
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            store.record_source_run("usaspending", as_of=NOW, summary={
+                "status": "PARTIAL", "attempted_requests": 3, "new_findings": 2,
+                "daily_requests_used": 120, "daily_request_limit": 120,
+                "completed_uei": 0, "partial_uei": 1, "resumed_uei": 1,
+                "coverage_complete_uei": 0, "coverage_partial_uei": 1,
+                "pagination_snapshot_guaranteed": False, "issuer_coverage_complete": False,
+                "stop_reason": "WAIT_QUOTA", "retry_at": "2026-10-02T00:00:00+00:00",
+                "request_headers": "private diagnostic must not be persisted",
+            })
+            report = build_specialist_acceptance_report(ScoutStore(store.db_path), as_of=NOW, environment={})
+            source = report["source_runs"]["usaspending"]
+            self.assertEqual(120, source["daily_requests_used"])
+            self.assertEqual(1, source["coverage_partial_uei"])
+            self.assertFalse(source["pagination_snapshot_guaranteed"])
+            self.assertNotIn("request_headers", source)
+            semantics = report["source_run_semantics"]["usaspending"]
+            self.assertTrue(semantics["partial"])
+            self.assertTrue(semantics["result_usable"])
+            self.assertFalse(semantics["complete"])
+            self.assertFalse(report["completion_verified"])
+
     def test_source_run_semantics_are_explicit_and_never_acceptance(self):
         cases = {
             "never": ({"status": "NEVER_RUN"}, "NOT_ATTEMPTED", False, False),
@@ -129,7 +187,9 @@ class SpecialistAcceptanceTests(unittest.TestCase):
                     conn.execute("UPDATE scout_jobs SET status='DONE', updated_at=? WHERE job_id=?",
                                  (NOW.isoformat(), job_id))
             store.record_specialist_check("cms", subject_id="HCA", identity_key="0000000001:HCA Inc.",
-                                          as_of=NOW, candidate_count=0, truncated=True)
+                                          as_of=NOW, candidate_count=0, truncated=True,
+                                          identity_version=HealthcareIdentityRegistry.load().identity_versions(
+                                              store, "cms", as_of=NOW)["HCA"])
             report = build_specialist_acceptance_report(store, as_of=NOW, environment={})
             self.assertTrue(report["runtime"]["universe_archive"]["matches_current_input"])
             self.assertEqual(687, report["runtime"]["universe_archive"]["archived_rows"])

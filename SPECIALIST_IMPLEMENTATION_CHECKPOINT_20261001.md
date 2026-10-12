@@ -1,5 +1,32 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+## 11. 10. 2026 — převzatá druhá paralelní dávka
+
+Aktuální vzdálený HEAD `e0ce886` a všechny čtyři stavové vstupy byly
+načteny z GitHubu; předchozí lokální dávka `209eeed` byla zachována.
+Šest skutečných vývojových agentů v šesti worktrees dokončilo audit
+instrumentových přechodů, zdravotnické pokrytí, EPA FRS vlastnictví,
+USAspending změny kumulativních částek, datované SEC protistrany a archiv
+jednotlivých zdrojů. Uvolněný `healthcare` dokončil další CLI/Windows
+launcher. Koordinátor doplnil EIA kvóty a společné zapojení běhu/UI.
+
+Převzaté commity, přesné vstupy a další implementační úkoly jsou v
+`PARALLEL_SPECIALIST_WORK.md`; jednotlivé důkazy jsou
+`evidence/parallel2_*_20261011.json`, společné obsahové ověření v
+`evidence/parallel2_integration_20261011.json`. Nové datové registry nejsou
+odvozené z fixture testů. Zachováno 687 vstupů, 150 reviewovaných 13F
+instrumentů a 537 nezmapovaných; inventář stále 0/21 plně hotových.
+
+Společný ověřený commit `2c8c4b6`: 899/899 deterministických Linux testů,
+0 chyb, selhání a přeskočení, kompilace a diff kontrola prošly. Log je
+obsahově ověřený a uložený spolu s JSON výsledkem a hashovým auditem.
+
+Další práce není opakování dokončených workflow: skutečné omezené primární
+archivy, datované vztahy objektů/vlastníků/protistran, živé kontroly,
+zdrojově specifická historická pozorování a OOS, uživatelský Windows.
+Chybějící klíče, oprávnění a historie se zaznamenávají jako otevřené
+překážky; skóre, licence a automatické obchodování se nerozšiřují.
+
 ## 11. 10. 2026 — trvalé denní kvóty pěti veřejných sběračů
 
 FDA, CMS, ClinicalTrials, DOJ a EPA dříve obnovily rozpočet při každém

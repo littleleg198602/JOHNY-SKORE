@@ -13,11 +13,15 @@ from market_checker_app.collectors.short_report_client import FetchedShortReport
 from market_checker_app.config import ShortReportSourceConfig
 from market_checker_app.services.filing_exposure_discovery_service import FilingExposureDiscoveryService
 from market_checker_app.services.sec_counterparty_identity import exact_catalog_cik
+from market_checker_app.services.specialist_identity_config import configured_counterparty_identities
 from market_checker_app.services.sec_document_extraction import (
     extract_schedule_13_ownership,
     extract_sec_item_excerpts,
     match_schedule_13_instrument,
     readable_sec_text,
+)
+from market_checker_app.services.sec_form4_service import (
+    PARSER_VERSION as FORM4_PARSER_VERSION, extract_form4_observation,
 )
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.text import normalize_ticker
@@ -45,6 +49,7 @@ class SecScoutService:
         client: FilingIndexClient | None = None,
     ) -> None:
         self.store = store
+        self.counterparty_identities, self.counterparty_identity_manifest_status = configured_counterparty_identities()
         self.client = client or (
             SecEdgarClient(user_agent=user_agent) if user_agent and "@" in user_agent else None
         )
@@ -121,11 +126,25 @@ class SecScoutService:
                 document_targets: set[str] = set()
                 for form_family in (
                     "8-K", "10-Q", "10-K", "6-K", "20-F", "40-F",
-                    "4", "SC 13D", "SC 13G",
+                    "SC 13D", "SC 13G",
                 ):
                     selected = next((f for f in filings if f.form.removesuffix("/A") == form_family), None)
                     if selected is not None:
                         document_targets.add(selected.accession_number)
+                # Every Form 4 in the already bounded index gets a document job,
+                # including amendments. Selecting only the latest loses rows
+                # from other reporting owners filed on the same day.
+                form4_accessions = {f.accession_number for f in filings
+                                    if f.form.removesuffix("/A") == "4"}
+                parsed_form4_accessions: set[str] = set()
+                if form4_accessions:
+                    for previous in self.store.findings_as_of(job.subject_id, as_of=clock):
+                        previous_details = json.loads(str(previous["details_json"]))
+                        observation = previous_details.get("form4_observation")
+                        if (previous_details.get("stage") == "filing_document"
+                                and isinstance(observation, dict)
+                                and observation.get("parser_version") == FORM4_PARSER_VERSION):
+                            parsed_form4_accessions.add(str(previous_details.get("accession")))
                 for filing in filings:
                     if filing.filed_at > clock:
                         continue
@@ -160,7 +179,8 @@ class SecScoutService:
                                       "a co to znamená pro firmu?"),
                             as_of=clock,
                         )
-                    if (created and filing.accession_number in document_targets
+                    if ((created and filing.accession_number in document_targets
+                         or filing.accession_number in form4_accessions - parsed_form4_accessions)
                             and callable(getattr(self.client, "fetch_filing_document", None))):
                         self.store.enqueue(
                             source="sec", subject_id=job.subject_id,
@@ -219,6 +239,9 @@ class SecScoutService:
         )
         document = self.client.fetch_filing_document(filing, cik=str(details["cik"]))
         digest = hashlib.sha256(document).hexdigest()
+        form4_observation = extract_form4_observation(
+            document, filing=filing, issuer_cik=str(details["cik"]), observed_at=clock,
+        )
         sections = extract_sec_item_excerpts(document, form=filing.form)
         ownership = extract_schedule_13_ownership(document, form=filing.form)
         ownership = match_schedule_13_instrument(
@@ -234,18 +257,24 @@ class SecScoutService:
                 catalog = catalog_reader()
         finding_id, created = self.store.record_finding(
             source="sec", subject_id=subject_id,
-            source_object_id=str(index["source_object_id"]), content_hash=digest,
+            source_object_id=str(index["source_object_id"]),
+            # A parser upgrade is a new observation, not a mutation of an old
+            # SOURCE_VERIFIED document that lacked transaction normalization.
+            content_hash=(hashlib.sha256(f"{digest}|{FORM4_PARSER_VERSION}".encode()).hexdigest()
+                          if form4_observation is not None else digest),
             title=f"{index['title']}: primární dokument",
             source_url=filing.filing_url,
             locator=f"accession:{accession}/primary:{filing.primary_document}",
             published_at=filing.filed_at, available_at=clock, observed_at=clock,
             verification_status="SOURCE_VERIFIED",
-            details={"stage": "filing_document", "parser_version": "sec-html-v1",
+            details={"stage": "filing_document", "parser_version": (
+                         FORM4_PARSER_VERSION if form4_observation is not None else "sec-html-v1"),
                      "index_finding_id": index_finding_id, "form": filing.form,
                      "cik": details["cik"], "accession": accession,
                      "report_date": details.get("report_date"),
                      "document_sha256": digest, "bytes": len(document),
                      "beneficial_ownership": ownership,
+                     "form4_observation": form4_observation,
                      "item_excerpts": [{"locator": item, "excerpt": excerpt}
                                        for item, excerpt in sections]},
         )
@@ -290,7 +319,8 @@ class SecScoutService:
             title=filing.form, text=readable_sec_text(document),
             content_hash=document_hash, size_bytes=len(document), extractor="sec-html-v1",
         )
-        candidates = FilingExposureDiscoveryService().discover(fetched)
+        candidates = FilingExposureDiscoveryService().discover(
+            fetched, counterparty_identities=self.counterparty_identities, as_of=clock)
         count = 0
         for kind, findings in (("supply_chain", candidates.supply_chain),
                                ("commodity_energy", candidates.commodity_energy)):
@@ -299,7 +329,9 @@ class SecScoutService:
                 # Each excerpt is a cited question, not a verified counterparty,
                 # hedge ratio, price, or forecast.
                 evidence_hash = hashlib.sha256(
-                    f"{document_hash}|{kind}|{candidate.reason}|{quote}".encode()
+                    (f"{document_hash}|{kind}|{candidate.reason}|{quote}"
+                     + ("|" + self.counterparty_identities.fingerprint(as_of=clock)
+                        if kind == "supply_chain" else "")).encode()
                 ).hexdigest()
                 resource = (candidate.source.counterparty if kind == "supply_chain"
                             else candidate.source.resource_name)
@@ -323,6 +355,8 @@ class SecScoutService:
                              "reason": candidate.reason, "quote": quote,
                              "resource_or_counterparty": resource,
                              "identity_status": getattr(candidate.source, "counterparty_identity_status", None),
+                             "counterparty_identity_resolution": getattr(candidate, "identity_resolution", None),
+                             "counterparty_identity_manifest_status": self.counterparty_identity_manifest_status,
                              "sec_catalog_match": (
                                  {"cik": catalog_match[0], "tickers": list(catalog_match[1]),
                                   "observed_at": clock.isoformat(),

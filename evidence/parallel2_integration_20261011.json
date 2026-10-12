@@ -1,0 +1,1638 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-11T16:47:03.596660+00:00",
+  "evidence_type": "deterministic_integrated_code_and_content_audit",
+  "tested_commit": "2c8c4b685a63a3c23b91b49d6a4a32705bddd002",
+  "second_batch_local_base": "209eeed4659d97d6e96118acc76b5f780dcc8ace",
+  "restored_github_head": "e0ce88621ddfe79cc32b90fb488c052bfb20c7ae",
+  "github_persistence": "Pending normal non-force push; this file does not assert publication or hosted checks",
+  "combined_verification": {
+    "started_at": "2026-10-11T16:41:14.204568+00:00",
+    "ended_at": "2026-10-11T16:44:27.007439+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 899,
+    "tests_run": 899,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "command": "python -X utf8 -m market_checker_app.deterministic_test_runner --log-path outputs/parallel2_full_tests.log --result-path outputs/parallel2_full_tests.json",
+  "full_test_log": {
+    "file": "evidence/parallel2_integration_tests_20261011.log",
+    "bytes": 166663,
+    "sha256": "d72897a8556d951d6f9f1bf7d4a637319fbf9ab8fb2b650e2c90016d2f07ae77",
+    "content_read": true,
+    "summary_matches_result": true
+  },
+  "compileall_passed": true,
+  "git_diff_check_passed": true,
+  "lane_handoffs": [
+    {
+      "development_agent": "identity_bulk",
+      "worker_commit": "5eda707eb301ac87031571be0dfb825554920f6d",
+      "integrated_commit": "2cc8f7e68239c909d9da0e5612f0751f4ba6993d"
+    },
+    {
+      "development_agent": "healthcare",
+      "worker_commit": "2afe381c9ab97582bf39293b220d1f48b42d62ff",
+      "integrated_commit": "130b93627e078a61cc5f1ee28dccd7afedee252b"
+    },
+    {
+      "development_agent": "regulatory",
+      "worker_commit": "2b0eef9d8afcc00de53fde224be8ef5fcec19e16",
+      "integrated_commit": "1600c44ce84ab383f9b52b9406b5aca8e3a0581c"
+    },
+    {
+      "development_agent": "contracts",
+      "worker_commit": "424b70fa9ccfed3e2148af98b8ff9f0c52db20e7",
+      "integrated_commit": "cc9ba6d5d5fcacd7961560573fa8d69770d1cf12"
+    },
+    {
+      "development_agent": "sec",
+      "worker_commit": "7a80d8dd86c0e327942f5167c388dba55c92e384",
+      "integrated_commit": "7daa42a08186f54a2a3c0453ad42b86ec23a65c6"
+    },
+    {
+      "development_agent": "evaluation",
+      "worker_commit": "603c117e4659f32f4f5f81d604fbf669f93c56a2",
+      "integrated_commit": "53dd85ee461d9557670ec95435bd2969bf23c6ee"
+    }
+  ],
+  "reassigned_available_agent": {
+    "development_agent": "healthcare",
+    "next_concrete_output": "Read-only healthcare coverage CLI and Windows launcher",
+    "worker_commit": "42210c125a9b5f6517a06528dc040728233d640e",
+    "integrated_commit": "1d6ba71eefefa36fe1a29cb4c029f353d134c913"
+  },
+  "worker_evidence_content_audit": {
+    "identity": {
+      "file": "evidence/parallel2_identity_20261011.json",
+      "bytes": 9115,
+      "sha256": "c5d78769dbf24d44911497736a3261bab942b6f2bb853707a2c50d3a732727f7",
+      "parsed_json": true,
+      "owned_hash_checks": [],
+      "source_basis": "Local tests and fixtures; stored earlier capture references do not imply a new live run"
+    },
+    "healthcare": {
+      "file": "evidence/parallel2_healthcare_20261011.json",
+      "bytes": 6192,
+      "sha256": "78a36fd2aef0bc4e20c0231955674d8da9f68f1479c7ece2e0a86c52f8aeae64",
+      "parsed_json": true,
+      "owned_hash_checks": [
+        {
+          "file": "market_checker_app/services/healthcare_coverage_service.py",
+          "handoff_sha256": "6cba186ab46bdefffd69c4d45626b5d64e4d7ddaa57bded93a6242e650ee6a49",
+          "integrated_sha256": "6cba186ab46bdefffd69c4d45626b5d64e4d7ddaa57bded93a6242e650ee6a49",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "market_checker_app/services/healthcare_identity_service.py",
+          "handoff_sha256": "f6268b19f26edee3eac63d5490510e4cea185116461379065eb69dd47280f8c8",
+          "integrated_sha256": "f6268b19f26edee3eac63d5490510e4cea185116461379065eb69dd47280f8c8",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "tests/test_healthcare_coverage_service.py",
+          "handoff_sha256": "412092e459a8d4b9631a830daa11ffbf10ed1597b7136dd16ff7481aafbb4639",
+          "integrated_sha256": "412092e459a8d4b9631a830daa11ffbf10ed1597b7136dd16ff7481aafbb4639",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        }
+      ],
+      "source_basis": "Local tests and fixtures; stored earlier capture references do not imply a new live run"
+    },
+    "healthcare_cli": {
+      "file": "evidence/parallel2_healthcare_cli_20261011.json",
+      "bytes": 4002,
+      "sha256": "a5fd394dd8544ee5e03b6b3480d03ff047fa411206e0a7050c84b5449a4d505c",
+      "parsed_json": true,
+      "owned_hash_checks": [
+        {
+          "file": "market_checker_app/healthcare_coverage.py",
+          "handoff_sha256": "448ab0317e87139f531ef61ab1faa805c22281e81ed7f95a2bc97a06cc067ce6",
+          "integrated_sha256": "448ab0317e87139f531ef61ab1faa805c22281e81ed7f95a2bc97a06cc067ce6",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "Zkontrolovat_Zdravotnicke_Identity.bat",
+          "handoff_sha256": "762256b29bd386a279cf57defd8a8b5f9ee48c03b77a106ef80681fbd4033fdd",
+          "integrated_sha256": "762256b29bd386a279cf57defd8a8b5f9ee48c03b77a106ef80681fbd4033fdd",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "tests/test_healthcare_coverage_cli.py",
+          "handoff_sha256": "7c7fad809f28e82b35116d40268c3dd1dd1ef4b0a4e9a907b7d02ba41dad6e0b",
+          "integrated_sha256": "7c7fad809f28e82b35116d40268c3dd1dd1ef4b0a4e9a907b7d02ba41dad6e0b",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "HEALTHCARE_COVERAGE.md",
+          "handoff_sha256": "f60174aa05153b5cf167406d33669f249968efc7a5a6c37c85085eedfdf2acc4",
+          "integrated_sha256": "f60174aa05153b5cf167406d33669f249968efc7a5a6c37c85085eedfdf2acc4",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        }
+      ],
+      "source_basis": "Local tests and fixtures; stored earlier capture references do not imply a new live run"
+    },
+    "regulatory": {
+      "file": "evidence/parallel2_regulatory_20261011.json",
+      "bytes": 3782,
+      "sha256": "8ca71051128280afd89d91e3263af06957d10493ada33e068ccf0dc96df6daac",
+      "parsed_json": true,
+      "owned_hash_checks": [],
+      "source_basis": "Local tests and fixtures; stored earlier capture references do not imply a new live run"
+    },
+    "contracts": {
+      "file": "evidence/parallel2_contracts_20261011.json",
+      "bytes": 15193,
+      "sha256": "5a700eb889553fd1cce20eddc25efe6797020d56b3a21c4c8db074a8d7b41606",
+      "parsed_json": true,
+      "owned_hash_checks": [
+        {
+          "file": "market_checker_app/services/award_modification_service.py",
+          "handoff_sha256": "878014232b3a34464b94d5deb3a7264a4bc3b6a6512d4829930d0620f962aca5",
+          "integrated_sha256": "878014232b3a34464b94d5deb3a7264a4bc3b6a6512d4829930d0620f962aca5",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "market_checker_app/services/usaspending_scout_service.py",
+          "handoff_sha256": "6a0061a467ccdf1a36d7fe44bd54ee0854eed8498e89a368819b74fc3944900a",
+          "integrated_sha256": "6a0061a467ccdf1a36d7fe44bd54ee0854eed8498e89a368819b74fc3944900a",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "tests/test_award_modification_service.py",
+          "handoff_sha256": "4ff9c0362c7b7343a196593eed35cd25b3b93af6997a7a9a8593bfcf97243b40",
+          "integrated_sha256": "4ff9c0362c7b7343a196593eed35cd25b3b93af6997a7a9a8593bfcf97243b40",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        }
+      ],
+      "source_basis": "Local tests and fixtures; stored earlier capture references do not imply a new live run"
+    },
+    "sec": {
+      "file": "evidence/parallel2_sec_20261011.json",
+      "bytes": 32003,
+      "sha256": "1b08e5639f517d62ca196d6661468db6e1484482f4f5987c1c9303e6608ba031",
+      "parsed_json": true,
+      "owned_hash_checks": [
+        {
+          "file": "market_checker_app/services/sec_counterparty_identity.py",
+          "handoff_sha256": "ee6a474c7e19542e8b2db9d527e1f3c0cac8cc72fd9234ce82dbd8d55ab3ad52",
+          "integrated_sha256": "ee6a474c7e19542e8b2db9d527e1f3c0cac8cc72fd9234ce82dbd8d55ab3ad52",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "market_checker_app/services/supply_chain_evidence_service.py",
+          "handoff_sha256": "fe306062a60585a569f991a89b99c91320b707eb94db8fbac9d7f7291b9974a8",
+          "integrated_sha256": "fe306062a60585a569f991a89b99c91320b707eb94db8fbac9d7f7291b9974a8",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "market_checker_app/services/filing_exposure_discovery_service.py",
+          "handoff_sha256": "b2e66b2ba1732b53b79d337ad69e383e95ccef176c7edd2d10723ab57f8dfc9f",
+          "integrated_sha256": "b2e66b2ba1732b53b79d337ad69e383e95ccef176c7edd2d10723ab57f8dfc9f",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "tests/test_sec_counterparty_identity.py",
+          "handoff_sha256": "bb7d47d5bf7202267a759463f359ba4b80444a8b792b64d9b83ba240b088d8ed",
+          "integrated_sha256": "bb7d47d5bf7202267a759463f359ba4b80444a8b792b64d9b83ba240b088d8ed",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "tests/test_supply_chain_evidence_service.py",
+          "handoff_sha256": "db4519acac6999534badad54696fb012b85842751ae1f76958dd86ad753c518d",
+          "integrated_sha256": "db4519acac6999534badad54696fb012b85842751ae1f76958dd86ad753c518d",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "tests/test_filing_exposure_discovery_service.py",
+          "handoff_sha256": "d47c8565eec990f4b4ed541357aaee64009f4dc79d808f5092b96e32ab90b330",
+          "integrated_sha256": "d47c8565eec990f4b4ed541357aaee64009f4dc79d808f5092b96e32ab90b330",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        }
+      ],
+      "source_basis": "Local tests and fixtures; stored earlier capture references do not imply a new live run"
+    },
+    "evaluation": {
+      "file": "evidence/parallel2_evaluation_20261011.json",
+      "bytes": 7916,
+      "sha256": "91316d62338ec977d0bd938f3f6e42a6339dfddda84f1873fbcb0c22d84e6838",
+      "parsed_json": true,
+      "owned_hash_checks": [
+        {
+          "file": "SPECIALIST_SOURCE_ARCHIVE.md",
+          "handoff_sha256": "cb4c32a06ad969545a349b1b0771f4789fdbc6705ea7e680f2c8fa02cd4b8c46",
+          "integrated_sha256": "cb4c32a06ad969545a349b1b0771f4789fdbc6705ea7e680f2c8fa02cd4b8c46",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "market_checker_app/services/specialist_source_archive_service.py",
+          "handoff_sha256": "44e5e4aee571abc5ebbf7617bbd52e156ca5a58b7813e4765489141a9240c33d",
+          "integrated_sha256": "44e5e4aee571abc5ebbf7617bbd52e156ca5a58b7813e4765489141a9240c33d",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "tests/test_specialist_source_archive_service.py",
+          "handoff_sha256": "e0aa9e96b3dddcf7cffead8fd81909e0aab9bcacedc3bfae1a63f7a4ece4c441",
+          "integrated_sha256": "e0aa9e96b3dddcf7cffead8fd81909e0aab9bcacedc3bfae1a63f7a4ece4c441",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        }
+      ],
+      "source_basis": "Local tests and fixtures; stored earlier capture references do not imply a new live run"
+    },
+    "eia": {
+      "file": "evidence/parallel2_eia_20261011.json",
+      "bytes": 2112,
+      "sha256": "ecff34f48381cad99bfe3f0991b084c389694022a383889639117669e62efe28",
+      "parsed_json": true,
+      "owned_hash_checks": [
+        {
+          "file": "market_checker_app/services/eia_scout_service.py",
+          "handoff_sha256": "b445d6ff82f0f580ec3b1f0723957e700932ae48df50b62d2286d9449f6f4354",
+          "integrated_sha256": "b445d6ff82f0f580ec3b1f0723957e700932ae48df50b62d2286d9449f6f4354",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "market_checker_app/services/public_source_budget.py",
+          "handoff_sha256": "70c5c64f854d42b1367f20427fa0d90725be81b77891f16f89170ccced75cf64",
+          "integrated_sha256": "70c5c64f854d42b1367f20427fa0d90725be81b77891f16f89170ccced75cf64",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        },
+        {
+          "file": "market_checker_app/storage/scout_store.py",
+          "handoff_sha256": "75ed11630b49ad6497dbf52b29345a276c91bca9cd4fa204bdb6cc822890689f",
+          "integrated_sha256": "54b5ef299f06c42c7f10c0667464c69d72539ea7fabbaa0b9dce23d1d17a19cb",
+          "matches_handoff": false,
+          "coordinator_followup": "Read-only signed award revision fields in latest_findings"
+        },
+        {
+          "file": "tests/test_eia_scout_service.py",
+          "handoff_sha256": "86f7a2a9a7107f09f3541a773fe2d46956c2d2199a920e1f1ef7930b46ee8dc4",
+          "integrated_sha256": "86f7a2a9a7107f09f3541a773fe2d46956c2d2199a920e1f1ef7930b46ee8dc4",
+          "matches_handoff": true,
+          "coordinator_followup": null
+        }
+      ],
+      "source_basis": "Local tests and fixtures; stored earlier capture references do not imply a new live run"
+    }
+  },
+  "changed_code_test_data_sha256": {
+    "Zkontrolovat_Zdravotnicke_Identity.bat": "762256b29bd386a279cf57defd8a8b5f9ee48c03b77a106ef80681fbd4033fdd",
+    "evidence/parallel2_contracts_20261011.json": "5a700eb889553fd1cce20eddc25efe6797020d56b3a21c4c8db074a8d7b41606",
+    "evidence/parallel2_eia_20261011.json": "ecff34f48381cad99bfe3f0991b084c389694022a383889639117669e62efe28",
+    "evidence/parallel2_evaluation_20261011.json": "91316d62338ec977d0bd938f3f6e42a6339dfddda84f1873fbcb0c22d84e6838",
+    "evidence/parallel2_healthcare_20261011.json": "78a36fd2aef0bc4e20c0231955674d8da9f68f1479c7ece2e0a86c52f8aeae64",
+    "evidence/parallel2_healthcare_cli_20261011.json": "a5fd394dd8544ee5e03b6b3480d03ff047fa411206e0a7050c84b5449a4d505c",
+    "evidence/parallel2_identity_20261011.json": "c5d78769dbf24d44911497736a3261bab942b6f2bb853707a2c50d3a732727f7",
+    "evidence/parallel2_regulatory_20261011.json": "8ca71051128280afd89d91e3263af06957d10493ada33e068ccf0dc96df6daac",
+    "evidence/parallel2_sec_20261011.json": "1b08e5639f517d62ca196d6661468db6e1484482f4f5987c1c9303e6608ba031",
+    "market_checker_app/agents/scout_index_agent.py": "0de8a0f38ca159e9ba6e8a155c99a3eebd2a2adcfc717cfb82b8ef45975e777d",
+    "market_checker_app/agents/supply_chain_agent.py": "9ca1dd2639c038b64a3c65a2e46a26d0942dd27bcad4300f2356fd75c59f8b75",
+    "market_checker_app/app.py": "5e3bd54b6f5e03acc3643037fae2115858785494e07ffc09d1beb5b4df051928",
+    "market_checker_app/data/specialist_status.json": "6b1768d1711437ef05a388acce461563b5c7725c9e8b2b9580f18160a992a3d8",
+    "market_checker_app/healthcare_coverage.py": "448ab0317e87139f531ef61ab1faa805c22281e81ed7f95a2bc97a06cc067ce6",
+    "market_checker_app/scout_runner.py": "98a3773c7812a5400874f9e49c7b39c4c25bbd3bfcad5b6aa309dfaaa384d5c6",
+    "market_checker_app/sec13f_identity_bulk.py": "58314c29513010d3cb46b07fc6d8501cdbf2fd4aa0cd7b96beec4230e50fd87e",
+    "market_checker_app/services/award_modification_service.py": "878014232b3a34464b94d5deb3a7264a4bc3b6a6512d4829930d0620f962aca5",
+    "market_checker_app/services/eia_scout_service.py": "b445d6ff82f0f580ec3b1f0723957e700932ae48df50b62d2286d9449f6f4354",
+    "market_checker_app/services/epa_echo_scout_service.py": "f8b2b6d410ac46d8f5afd78a1555043df75e6901f098075a90aa54b7b7d01167",
+    "market_checker_app/services/filing_exposure_discovery_service.py": "b2e66b2ba1732b53b79d337ad69e383e95ccef176c7edd2d10723ab57f8dfc9f",
+    "market_checker_app/services/healthcare_coverage_service.py": "6cba186ab46bdefffd69c4d45626b5d64e4d7ddaa57bded93a6242e650ee6a49",
+    "market_checker_app/services/healthcare_identity_service.py": "f6268b19f26edee3eac63d5490510e4cea185116461379065eb69dd47280f8c8",
+    "market_checker_app/services/public_source_budget.py": "70c5c64f854d42b1367f20427fa0d90725be81b77891f16f89170ccced75cf64",
+    "market_checker_app/services/regulatory_identity_service.py": "0664ae1de39c67b7ad7f51cb93d5be8c840641ef9cdf5ad19dafc6d5b82b6eab",
+    "market_checker_app/services/sec13f_identity_bulk.py": "7514b0a2f3fb34c10e9979940fcb547dab61e765a368a409948e2137dee29c4e",
+    "market_checker_app/services/sec_counterparty_identity.py": "ee6a474c7e19542e8b2db9d527e1f3c0cac8cc72fd9234ce82dbd8d55ab3ad52",
+    "market_checker_app/services/sec_scout_service.py": "617cb98901c5fb7220ae977a96300518bf1abcdd38750211f34db5a7a0d485c4",
+    "market_checker_app/services/specialist_acceptance_service.py": "83fd0c9911db686796bb7bd5241b6cb9cd9cf0598f7c0fc8b500cb6af2e7b13a",
+    "market_checker_app/services/specialist_identity_config.py": "37f9d434fc0c49b49f007f5a7db74de2e8e687b8dd6d2b59f61622c9c91793f7",
+    "market_checker_app/services/specialist_source_archive_service.py": "44e5e4aee571abc5ebbf7617bbd52e156ca5a58b7813e4765489141a9240c33d",
+    "market_checker_app/services/supply_chain_evidence_service.py": "fe306062a60585a569f991a89b99c91320b707eb94db8fbac9d7f7291b9974a8",
+    "market_checker_app/services/usaspending_scout_service.py": "6a0061a467ccdf1a36d7fe44bd54ee0854eed8498e89a368819b74fc3944900a",
+    "market_checker_app/storage/scout_store.py": "54b5ef299f06c42c7f10c0667464c69d72539ea7fabbaa0b9dce23d1d17a19cb",
+    "tests/test_award_modification_service.py": "4ff9c0362c7b7343a196593eed35cd25b3b93af6997a7a9a8593bfcf97243b40",
+    "tests/test_eia_scout_service.py": "86f7a2a9a7107f09f3541a773fe2d46956c2d2199a920e1f1ef7930b46ee8dc4",
+    "tests/test_epa_echo_scout_service.py": "3586192f9a7d7ee7254d53bac3aa109f154e22c49e046410f9640529062642a7",
+    "tests/test_filing_exposure_discovery_service.py": "d47c8565eec990f4b4ed541357aaee64009f4dc79d808f5092b96e32ab90b330",
+    "tests/test_healthcare_coverage_cli.py": "7c7fad809f28e82b35116d40268c3dd1dd1ef4b0a4e9a907b7d02ba41dad6e0b",
+    "tests/test_healthcare_coverage_service.py": "412092e459a8d4b9631a830daa11ffbf10ed1597b7136dd16ff7481aafbb4639",
+    "tests/test_regulatory_identity_service.py": "6d6733eef03314d9f4a07a2c9f8dc7394f8b935e5c879e0fdaaf123abef55818",
+    "tests/test_sec13f_identity_bulk.py": "a285d0b10e848927f97bddb239b6654deaefe7dced3141e77f70a910d48d1ebb",
+    "tests/test_sec13f_identity_transitions.py": "07f622d89d0ff3dde3ccd6e1308574d1bc6428ad8e9c7f744ac3d02f22860c26",
+    "tests/test_sec_counterparty_identity.py": "bb7d47d5bf7202267a759463f359ba4b80444a8b792b64d9b83ba240b088d8ed",
+    "tests/test_specialist_parallel_integration.py": "30be92e0471b8a2d7ce067b3125e241ec27c8e84bf9992e77e80abf3fb936d8b",
+    "tests/test_specialist_source_archive_service.py": "e0aa9e96b3dddcf7cffead8fd81909e0aab9bcacedc3bfae1a63f7a4ece4c441",
+    "tests/test_streamlit_ui_smoke.py": "7258186328062b647d9f58f7640363928dda52723838cfc1d03d5c006398222e",
+    "tests/test_supply_chain_evidence_service.py": "db4519acac6999534badad54696fb012b85842751ae1f76958dd86ad753c518d"
+  },
+  "production_file_integrity": [
+    {
+      "file": "market_checker_app/data/company_identity_pilot.txt",
+      "sha256": "bf3037b983e2101d999adbdab55b1c8a2baaa0ef9a14ea85a28b25a5000f064d",
+      "matches_second_batch_base": true
+    },
+    {
+      "file": "market_checker_app/data/european_authority_registry.json",
+      "sha256": "7c779c2b316f059c1d88cba0a1f95de014036751ba074012d1b9f21ab91f1c6e",
+      "matches_second_batch_base": true
+    },
+    {
+      "file": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+      "matches_second_batch_base": true
+    },
+    {
+      "file": "market_checker_app/data/research_profiles.json",
+      "sha256": "8ea5a42704fd17b67035f8bece41135e6800335aa7c053b1a92b0912a6990276",
+      "matches_second_batch_base": true
+    },
+    {
+      "file": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+      "matches_second_batch_base": true
+    },
+    {
+      "file": "market_checker_app/data/verified_fdic_banks.json",
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+      "matches_second_batch_base": true
+    },
+    {
+      "file": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "fbd27ff5030218e43a73ceb2de5eab444587c2fd787be436717681a5655cbd69",
+      "matches_second_batch_base": true
+    },
+    {
+      "file": "market_checker_app/data/verified_nhtsa_models.json",
+      "sha256": "7da598327500a1bcef9468f3a43646f53655bc2821248951b49ef0af516997bd",
+      "matches_second_batch_base": true
+    },
+    {
+      "file": "market_checker_app/data/verified_usaspending_uei.json",
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56",
+      "matches_second_batch_base": true
+    }
+  ],
+  "specialist_acceptance": {
+    "inventory_total": 21,
+    "code_done_live_verified": 0,
+    "completion_verified": false,
+    "states": {
+      "PARTIAL/PENDING": 15,
+      "PARTIAL/WAIT_ACCESS": 2,
+      "PILOT/PENDING": 2,
+      "NOT_STARTED/WAIT_ACCESS": 2
+    },
+    "evidence_content_audit": {
+      "referenced_files": 167,
+      "content_verified_files": 167,
+      "invalid_references": [],
+      "references": {
+        "evidence/parallel_identity_20261011.json": {
+          "reference": "evidence/parallel_identity_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 8193,
+          "sha256": "a03d2e70e90f90fd70093ac9e0e17da113c9d2300193c867ea2682e771b381be"
+        },
+        "evidence/parallel2_identity_20261011.json": {
+          "reference": "evidence/parallel2_identity_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 9115,
+          "sha256": "c5d78769dbf24d44911497736a3261bab942b6f2bb853707a2c50d3a732727f7"
+        },
+        "evidence/sec_filing_primary_dedup_tests_20261003.json": {
+          "reference": "evidence/sec_filing_primary_dedup_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2311,
+          "sha256": "bb1288ee6337c8aeda4f5f9eaae7af6a01d5ae8442755d9eefda0eae4223e205"
+        },
+        "evidence/sec_filing_primary_dedup_windows_20261003.json": {
+          "reference": "evidence/sec_filing_primary_dedup_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2146,
+          "sha256": "5fd9582a5a20baf4ded2763631d09083cd85bb3eede5b018c8188dba63d7c892"
+        },
+        "evidence/parallel_sec_20261011.json": {
+          "reference": "evidence/parallel_sec_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3698,
+          "sha256": "4065b12a619e8625eb80667003daf84efa785b44305490a20e9706bb64532584"
+        },
+        "evidence/sec13dg_fail_closed_filing_tests_20261003.json": {
+          "reference": "evidence/sec13dg_fail_closed_filing_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2485,
+          "sha256": "e70777c2b39683a981163c2cfa7b0dbc2e29005f85446345ac605458278fc75e"
+        },
+        "evidence/sec13dg_fail_closed_filing_windows_20261003.json": {
+          "reference": "evidence/sec13dg_fail_closed_filing_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2112,
+          "sha256": "5abd5bd2d7f9d68367df5fc130b1061dfbc17b3863ce2a9f55bef66a34d3c329"
+        },
+        "evidence/sec13dg_pipeline_identity_tests_20261003.json": {
+          "reference": "evidence/sec13dg_pipeline_identity_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2676,
+          "sha256": "9dfb15a00b2b667fb61fdc2f0d47984699d812ef4a2cbf509016a3606e03c65e"
+        },
+        "evidence/sec13dg_pipeline_identity_windows_20261003.json": {
+          "reference": "evidence/sec13dg_pipeline_identity_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2132,
+          "sha256": "37e3b2d06a192d28fbfb296e906a503801aff41d5d0ba2f988427b1378f0f007"
+        },
+        "evidence/sec13dg_cover_extraction_tests_20261003.json": {
+          "reference": "evidence/sec13dg_cover_extraction_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2953,
+          "sha256": "992ef8a6f403561ae435496c4c5ca107296375c21743b83d0211f00b354dc82f"
+        },
+        "evidence/sec13dg_cover_extraction_windows_20261003.json": {
+          "reference": "evidence/sec13dg_cover_extraction_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2205,
+          "sha256": "2ed8ae2fef648566864ee10bf6ceb645d0e550b772b84e1091c7ef0b0ac9754a"
+        },
+        "evidence/sec13dg_instrument_registry_match_tests_20261003.json": {
+          "reference": "evidence/sec13dg_instrument_registry_match_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2956,
+          "sha256": "3e5df51d5783aeefa7ee941f54e734aed6b3a4df47703a6a739270ce95641dd7"
+        },
+        "evidence/sec13dg_instrument_registry_match_windows_20261003.json": {
+          "reference": "evidence/sec13dg_instrument_registry_match_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2306,
+          "sha256": "8415df2276943e72f5234c71c51691c8d0662b51ec0820369cb07975edd931ca"
+        },
+        "evidence/sec13dg_amendment_comparison_tests_20261003.json": {
+          "reference": "evidence/sec13dg_amendment_comparison_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3031,
+          "sha256": "80ec99cba0e7e70793430e89c94af5d6338c59f62149552d96b03a9a2b9479e4"
+        },
+        "evidence/sec13dg_amendment_comparison_windows_20261003.json": {
+          "reference": "evidence/sec13dg_amendment_comparison_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2408,
+          "sha256": "73f5a677e2ad87625b72ef034ad5d39c22fef12115e73df7ea6807ae01b7ed58"
+        },
+        "evidence/sec_form4_transaction_classification_tests_20261003.json": {
+          "reference": "evidence/sec_form4_transaction_classification_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2854,
+          "sha256": "510ebcc54b4fdcf82b24d564267b7826a302c8dd0fcd5ebbcdb708312a1e9ef2"
+        },
+        "evidence/sec_form4_transaction_classification_windows_20261003.json": {
+          "reference": "evidence/sec_form4_transaction_classification_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2439,
+          "sha256": "54a76981d514654d3c25b0e8a70f81cbd48fb0948a4c0fd357f2eaa272030779"
+        },
+        "evidence/usaspending_live_20261001.json": {
+          "reference": "evidence/usaspending_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 71683,
+          "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+        },
+        "evidence/usaspending_noc_identity_20261002.json": {
+          "reference": "evidence/usaspending_noc_identity_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1976,
+          "sha256": "2cd57854c48b2e811f58ca7e2e3d871a497b42985489b2973522f6513f87ec2a"
+        },
+        "evidence/usaspending_noc_live_20261002.json": {
+          "reference": "evidence/usaspending_noc_live_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2462,
+          "sha256": "d5815f9b57ef3d665a70c136353213f4404df3a375110c2209071c9d7e69621e"
+        },
+        "evidence/usaspending_noc_tests_20261002.json": {
+          "reference": "evidence/usaspending_noc_tests_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2196,
+          "sha256": "d988845a043f0b1c16ddc9dc672f5ae0ca7b87e7f6e598990ae76a823d91e06e"
+        },
+        "evidence/usaspending_noc_windows_tests_20261002.json": {
+          "reference": "evidence/usaspending_noc_windows_tests_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1863,
+          "sha256": "6d879d52fa758472faaaf76d073ca837ed35cc39bb666766f4c335eb379f790d"
+        },
+        "evidence/parallel_contracts_20261011.json": {
+          "reference": "evidence/parallel_contracts_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 14331,
+          "sha256": "abebfd5f4d968d7f80f8b22d605dd56a4d17fa46d8cd4b94ffc553f14462acdd"
+        },
+        "evidence/parallel2_contracts_20261011.json": {
+          "reference": "evidence/parallel2_contracts_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 15193,
+          "sha256": "5a700eb889553fd1cce20eddc25efe6797020d56b3a21c4c8db074a8d7b41606"
+        },
+        "evidence/specialist_live_20261001.json": {
+          "reference": "evidence/specialist_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 26539,
+          "sha256": "1ba9a7db54c1797d2d51b505c25e12a78ac358f4a07b403bfb13504cc6331a1e"
+        },
+        "evidence/ofac_live_20261001.json": {
+          "reference": "evidence/ofac_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1399,
+          "sha256": "31295a827c2c489fa61b7296019f54d76dedddecb984c91567f14c9b3affcaf2"
+        },
+        "evidence/ofac_alias_live_20261001.json": {
+          "reference": "evidence/ofac_alias_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2775,
+          "sha256": "aa37f21b327935144bc2d5e0e349af39d796794913b79297cdf954dfaf065a04"
+        },
+        "evidence/ofac_non_sdn_live_20261002.json": {
+          "reference": "evidence/ofac_non_sdn_live_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1848,
+          "sha256": "e6d22bec8871d2a45fdef531b54b95514b55158db76c13700930e4b816a713a2"
+        },
+        "evidence/doj_live_20261002.json": {
+          "reference": "evidence/doj_live_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3607,
+          "sha256": "cdbf8bd67013d4634227f305be0cb421d18a4249e5f234f6f22a23f5c1c9457a"
+        },
+        "evidence/epa_echo_live_20261002.json": {
+          "reference": "evidence/epa_echo_live_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1574,
+          "sha256": "8b6a2c94eccee5b32d2cc4796c7cd103e0b72baec44f969498dc30dcf5a07341"
+        },
+        "evidence/public_source_daily_quotas_tests_20261011.json": {
+          "reference": "evidence/public_source_daily_quotas_tests_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 14719,
+          "sha256": "25ea56a9af77595c9fa712aaecac036ff34bee8a3ec31f25bede4495f1cffb87"
+        },
+        "evidence/parallel_regulatory_20261011.json": {
+          "reference": "evidence/parallel_regulatory_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 10404,
+          "sha256": "1e3cabb29626bc54f080bb19f6bb108dfb5af5144ca67564997faf93fd8a90cb"
+        },
+        "evidence/parallel2_regulatory_20261011.json": {
+          "reference": "evidence/parallel2_regulatory_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3782,
+          "sha256": "8ca71051128280afd89d91e3263af06957d10493ada33e068ccf0dc96df6daac"
+        },
+        "evidence/parallel2_sec_20261011.json": {
+          "reference": "evidence/parallel2_sec_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 32003,
+          "sha256": "1b08e5639f517d62ca196d6661468db6e1484482f4f5987c1c9303e6608ba031"
+        },
+        "evidence/price_brkb_yahoo_alias_tests_20261003.json": {
+          "reference": "evidence/price_brkb_yahoo_alias_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2526,
+          "sha256": "b34698d8d87099eeb72d380c0a63865204b2407df40593028e9bd1037adaea76"
+        },
+        "evidence/price_brkb_yahoo_alias_windows_20261003.json": {
+          "reference": "evidence/price_brkb_yahoo_alias_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1969,
+          "sha256": "573d16e34fb0043fb755a2783e88e0965b12f3d122da8a23794c5c8f2daa28db"
+        },
+        "evidence/healthcare_live_20261001.json": {
+          "reference": "evidence/healthcare_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4586,
+          "sha256": "60bf44cd9d08b366c840dbc7e6fc01df57c74b54470d5b3a3380e390bf160de0"
+        },
+        "evidence/parallel_healthcare_20261011.json": {
+          "reference": "evidence/parallel_healthcare_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 12237,
+          "sha256": "1d929c677044c89b44c5228d59d15e9239c83754a4236f6c7c1e1334cc9926c2"
+        },
+        "evidence/parallel2_healthcare_20261011.json": {
+          "reference": "evidence/parallel2_healthcare_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6192,
+          "sha256": "78a36fd2aef0bc4e20c0231955674d8da9f68f1479c7ece2e0a86c52f8aeae64"
+        },
+        "evidence/parallel2_healthcare_cli_20261011.json": {
+          "reference": "evidence/parallel2_healthcare_cli_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4002,
+          "sha256": "a5fd394dd8544ee5e03b6b3480d03ff047fa411206e0a7050c84b5449a4d505c"
+        },
+        "evidence/parallel2_eia_20261011.json": {
+          "reference": "evidence/parallel2_eia_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2112,
+          "sha256": "ecff34f48381cad99bfe3f0991b084c389694022a383889639117669e62efe28"
+        },
+        "evidence/fdic_expansion_identity_20261001.json": {
+          "reference": "evidence/fdic_expansion_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 10224,
+          "sha256": "1eca3ecba646958201f6d6636501d1f1a26eb73397b6169eaf5efe6b9f562f04"
+        },
+        "evidence/fdic_expansion_live_20261001.json": {
+          "reference": "evidence/fdic_expansion_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6724,
+          "sha256": "275567cc8257591016d830311ac7f1cae17298904c2f1b999ed17467887f5263"
+        },
+        "evidence/fdic_scheduler_tests_20261001.json": {
+          "reference": "evidence/fdic_scheduler_tests_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1634,
+          "sha256": "1033c56d6efe36a5bea0a2e3a90d546b74703a6e818bae0eb024767ec574eddb"
+        },
+        "evidence/fdic_scheduler_replay_20261001.json": {
+          "reference": "evidence/fdic_scheduler_replay_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 10507,
+          "sha256": "6442ddef700323c96c3e6eca880789923d34e687ccc16bc93ca3d90a4b188c67"
+        },
+        "evidence/fdic_tfc_fitb_identity_20261001.json": {
+          "reference": "evidence/fdic_tfc_fitb_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 11598,
+          "sha256": "1ab41e157f645be59a335897e8372ec8365888a73b2bf0121e6215685afaa45f"
+        },
+        "evidence/fdic_tfc_fitb_live_20261001.json": {
+          "reference": "evidence/fdic_tfc_fitb_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7576,
+          "sha256": "b76e551f32bce36c9dc4ac8f954582e65884c8a9c26784b4c21b53473b362662"
+        },
+        "evidence/fdic_tfc_fitb_tests_20261001.json": {
+          "reference": "evidence/fdic_tfc_fitb_tests_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2107,
+          "sha256": "cb6f5187d9afe04ec608ec87486094e5b71f9d711e5e27fee14d3d6d5b0a9232"
+        },
+        "evidence/fdic_cfg_hban_identity_20261001.json": {
+          "reference": "evidence/fdic_cfg_hban_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 12593,
+          "sha256": "f3549ee81268203a8a4d69a4b685bc55acbb1749d2945e28ce2b258781f328ea"
+        },
+        "evidence/fdic_cfg_hban_live_20261001.json": {
+          "reference": "evidence/fdic_cfg_hban_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7681,
+          "sha256": "d5acdab6f416dd2d808bd7812dfce65570740f42ec0a6715984d2deb82f4bd0f"
+        },
+        "evidence/fdic_cfg_hban_tests_20261001.json": {
+          "reference": "evidence/fdic_cfg_hban_tests_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2605,
+          "sha256": "a184581258e7350f7285a0d551fe0a6881c5f61e6293970f1edb7fa77c4f8b95"
+        },
+        "evidence/fdic_ally_cfr_identity_20261001.json": {
+          "reference": "evidence/fdic_ally_cfr_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 25924,
+          "sha256": "f8b83d6dfebee5d265c42ba96249b9d011320cc20224ea4efe663f05ba9db305"
+        },
+        "evidence/fdic_ally_cfr_live_20261001.json": {
+          "reference": "evidence/fdic_ally_cfr_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7510,
+          "sha256": "16233472f30d948914864f13f56c738be537398c7f5d97d21e69b895fdb8de0b"
+        },
+        "evidence/fdic_ally_cfr_tests_20261001.json": {
+          "reference": "evidence/fdic_ally_cfr_tests_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2834,
+          "sha256": "4989ea180e23694c3b70980ba9b5dd515729283f1ce8294a9f0ad979c876e9b1"
+        },
+        "evidence/fdic_cof_ewbc_identity_20261001.json": {
+          "reference": "evidence/fdic_cof_ewbc_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 16126,
+          "sha256": "27f803df8203e200889f5be60af4d29c137f48f4eaa967fcef7573df6755dfd4"
+        },
+        "evidence/fdic_cof_ewbc_live_20261001.json": {
+          "reference": "evidence/fdic_cof_ewbc_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7606,
+          "sha256": "d1323c904eb76de3213097d8c4957187bc29880593b6c9186e25d6b0431e782d"
+        },
+        "evidence/fdic_cof_ewbc_tests_20261001.json": {
+          "reference": "evidence/fdic_cof_ewbc_tests_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2184,
+          "sha256": "6b7beedaf967f3c881350056fc62570d85ac0abb20ac62d6931de7873b22589b"
+        },
+        "evidence/fdic_fhn_key_identity_20261001.json": {
+          "reference": "evidence/fdic_fhn_key_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 16966,
+          "sha256": "aebcc208e1c84a8e582049a6a1fd8590a08ff68c5a80045a7fe61e41dd2bf8d5"
+        },
+        "evidence/fdic_fhn_key_live_20261001.json": {
+          "reference": "evidence/fdic_fhn_key_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7573,
+          "sha256": "ccd690dfc2dac00870fa0414297c9c1d0daff536bddeb94a89d4f87f992fcb2e"
+        },
+        "evidence/fdic_fhn_key_tests_20261001.json": {
+          "reference": "evidence/fdic_fhn_key_tests_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3925,
+          "sha256": "06b98bce81a6df09bf9cfb9176e778f4b739d71a660f415425775c769437a4d0"
+        },
+        "evidence/fdic_mtb_identity_20261001.json": {
+          "reference": "evidence/fdic_mtb_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 9150,
+          "sha256": "c2c7c854b12e4e6c7a2e0f9cec4ca446ab3ee9c14bb92e4f8bf2c99c455c1c7d"
+        },
+        "evidence/fdic_mtb_live_20261001.json": {
+          "reference": "evidence/fdic_mtb_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4572,
+          "sha256": "58508a04171753e630364a0bc9a19236307f25e22f2f9931bc6f0f2a6d716f01"
+        },
+        "evidence/fdic_mtb_tests_20261001.json": {
+          "reference": "evidence/fdic_mtb_tests_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2287,
+          "sha256": "2f97dc0e2118d8513ff3805422f6f11029e18b53cbafcf2fda4f8be15ec025eb"
+        },
+        "evidence/fdic_ozk_identity_20261001.json": {
+          "reference": "evidence/fdic_ozk_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7873,
+          "sha256": "6b6bfcfd846cf7afb9cb9569f1eb07e5a57b8bfde76856806c3ca0d95f6cfbcf"
+        },
+        "evidence/fdic_ozk_live_20261001.json": {
+          "reference": "evidence/fdic_ozk_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4631,
+          "sha256": "4daff0c5d84e6e483a964cb0d039f6d42637431a4119733da0ce758dd5ac3f7b"
+        },
+        "evidence/fdic_ozk_tests_20261001.json": {
+          "reference": "evidence/fdic_ozk_tests_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2287,
+          "sha256": "f2ed9796fb796f3ff392e0c1f0c72f029bbeb44c9e9f0a706ed6941e96b07968"
+        },
+        "evidence/fdic_rf_wal_identity_20261001.json": {
+          "reference": "evidence/fdic_rf_wal_identity_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 16714,
+          "sha256": "79cca622c4353a1b9ea9b54ac305b897918ad4e5b1221f072b68fccf6178d6a4"
+        },
+        "evidence/fdic_rf_wal_live_20261001.json": {
+          "reference": "evidence/fdic_rf_wal_live_20261001.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7582,
+          "sha256": "71b1d4586d29cc4f52fef08b038288c441ce77480f8732a6198f66a5f75e7239"
+        },
+        "evidence/fdic_pnfp_zion_identity_20261002.json": {
+          "reference": "evidence/fdic_pnfp_zion_identity_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 10353,
+          "sha256": "aa0ea412763be0e7bd7e5c9747f25d377f2ef7be94b1a48c7a9895c2e1750ba1"
+        },
+        "evidence/fdic_pnfp_zion_live_20261002.json": {
+          "reference": "evidence/fdic_pnfp_zion_live_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 8047,
+          "sha256": "7f7cc3aa862d76fccfcc27bf483bd25342af6664197697272ca0a3c9780d4c9d"
+        },
+        "evidence/sec13f_identity_expansion_20261002.json": {
+          "reference": "evidence/sec13f_identity_expansion_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3830,
+          "sha256": "53aaf821587d2908749deede472dac805a1f54a50293f4c3a75377e07b6a040d"
+        },
+        "evidence/sec13f_identity_tests_20261002.json": {
+          "reference": "evidence/sec13f_identity_tests_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1985,
+          "sha256": "3756940d513df0842dd4bc8d401c1980b2a0a1dcb6e4e1d84cf253b29ca1edf8"
+        },
+        "evidence/sec13f_identity_expansion2_20261002.json": {
+          "reference": "evidence/sec13f_identity_expansion2_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3859,
+          "sha256": "ec5076a084f01b18155a8b87613f96e0045ab4c801fc34fcf8beea88ae64275d"
+        },
+        "evidence/sec13f_identity_expansion2_tests_20261002.json": {
+          "reference": "evidence/sec13f_identity_expansion2_tests_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2480,
+          "sha256": "aff307b64b53249e1f293b474ad0a1f013aa606de2fe85f8337b7ddf95d9b816"
+        },
+        "evidence/sec13f_identity_expansion3_20261002.json": {
+          "reference": "evidence/sec13f_identity_expansion3_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3896,
+          "sha256": "e84ceb6e349f338207b784d5ba86e4bae3314d3566de534339a241615cf39395"
+        },
+        "evidence/sec13f_identity_expansion3_tests_20261002.json": {
+          "reference": "evidence/sec13f_identity_expansion3_tests_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1934,
+          "sha256": "26474a272d9fdff1a8ee8bcc8b1690bf2fcfd8605ed0a2dd1d7e75a9d5e89e34"
+        },
+        "evidence/sec13f_identity_expansion3_windows_tests_20261002.json": {
+          "reference": "evidence/sec13f_identity_expansion3_windows_tests_20261002.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2201,
+          "sha256": "1086c5be33b38b7159a6659055f2acd8bf32c225ecfa5e65cdaac051189f46c8"
+        },
+        "evidence/sec13f_identity_expansion4_20261003.json": {
+          "reference": "evidence/sec13f_identity_expansion4_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3920,
+          "sha256": "887176796bf955c1317d2ae57c2c615cc11252b3e9bb7b0ad169edf7ccdaf82b"
+        },
+        "evidence/sec13f_identity_expansion4_tests_20261003.json": {
+          "reference": "evidence/sec13f_identity_expansion4_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1814,
+          "sha256": "cf9706fa5829d215b9aaf3c44956d5707ea14cf6ecd7a4aef8d46c4a7352231f"
+        },
+        "evidence/sec13f_identity_expansion4_windows_20261003.json": {
+          "reference": "evidence/sec13f_identity_expansion4_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2329,
+          "sha256": "81dacff325e33a3c2745716cb19043d85089caab348f15bfc566a8eeca38506f"
+        },
+        "evidence/sec13f_identity_expansion5_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion5_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4082,
+          "sha256": "65aed8e7b32b4030fdc3e05b75fde4ccf403fa70fd0c12bbae181dc0fb42fc38"
+        },
+        "evidence/sec13f_identity_expansion5_tests_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion5_tests_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1871,
+          "sha256": "8fb57f4321699226a630cfbd920979bbf21fd6e3228fd6d62194142078a05d39"
+        },
+        "evidence/sec13f_identity_expansion5_windows_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion5_windows_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2339,
+          "sha256": "bd037ece3a44242ebafd67363a6a5f1b1f3556bef163614d5d751190cb073a15"
+        },
+        "evidence/sec13f_identity_coverage_tests_20261004.json": {
+          "reference": "evidence/sec13f_identity_coverage_tests_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2792,
+          "sha256": "c94f4ebbea6416a9f8ef8be7c61d8a80d0b88906b858f3d01ffc68763e9d38f7"
+        },
+        "evidence/sec13f_identity_coverage_windows_20261004.json": {
+          "reference": "evidence/sec13f_identity_coverage_windows_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2467,
+          "sha256": "5e96f2a980c76433aecc16f2c3fc19a1b3b8ab924eaacd464197f20f59175008"
+        },
+        "evidence/sec13f_identity_expansion6_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion6_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4016,
+          "sha256": "6b499a5f4cdd7cd78c91b775d111e56e71ec82063c33fb08218ef85eef4f9450"
+        },
+        "evidence/sec13f_identity_expansion6_tests_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion6_tests_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2131,
+          "sha256": "cffc1eae1895db69c30c5981e55c184929f8eb4d656303ab576c1ec79905d6c0"
+        },
+        "evidence/sec13f_identity_expansion6_windows_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion6_windows_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2487,
+          "sha256": "3c86b2cdee0aa8b46566c2bada8a031e2940f3451abad568ad4d6b68c27c2045"
+        },
+        "evidence/sec13f_identity_expansion7_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion7_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4148,
+          "sha256": "5d3de3803e1d964f7148510ea695b9abed15ff8dc00aa8c93ba34ceddbc12eb6"
+        },
+        "evidence/sec13f_identity_expansion7_tests_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion7_tests_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2040,
+          "sha256": "265b7733db65cd398482544d2d91a7cca6ec10035752bb4bf1695a206fb29498"
+        },
+        "evidence/sec13f_identity_expansion7_windows_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion7_windows_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2497,
+          "sha256": "d35b59c7783b5e3f5cc48a82cb28ba9ae6b7b78054c7fffa15fdf9688da63d04"
+        },
+        "evidence/sec13f_identity_expansion8_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion8_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4093,
+          "sha256": "98a45370533b06b9fc8c3d6b573c19c191024f3c2ce95208936d0be5f4689403"
+        },
+        "evidence/sec13f_identity_expansion8_tests_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion8_tests_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2202,
+          "sha256": "8c76a0d5fea917e3e1c8a81152fd08434bbd1a63b074ddfed8e7c61741b15187"
+        },
+        "evidence/sec13f_identity_expansion8_windows_20261004.json": {
+          "reference": "evidence/sec13f_identity_expansion8_windows_20261004.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2485,
+          "sha256": "05e0d41fd9b2f88788f817d0f471d21d574dfb9cc6c43948c80e4e9673011bc8"
+        },
+        "evidence/sec13f_amendment_reconstruction_tests_20261003.json": {
+          "reference": "evidence/sec13f_amendment_reconstruction_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3591,
+          "sha256": "c875780e96a6f5f23e28b30af79ae9272c7a39fbdec3085860a23508068b959b"
+        },
+        "evidence/sec13f_amendment_reconstruction_windows_20261003.json": {
+          "reference": "evidence/sec13f_amendment_reconstruction_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2319,
+          "sha256": "a152d5ca70be59e38c984829d173adf5510e94c652ac0f4873bbf19cf26dd613"
+        },
+        "evidence/sec13f_identity_expansion9_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion9_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 5353,
+          "sha256": "d24c7e9d3a1ffc7fb4bfb3febd2f2449bdd4e6d6a6517335e0b4f8ac7cc3ddcc"
+        },
+        "evidence/sec13f_identity_expansion9_tests_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion9_tests_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1654,
+          "sha256": "16f7fe05b3aea9f2813295898919c013eb9b6b7bd292745269b88f3ef9ff27fa"
+        },
+        "evidence/sec13f_identity_expansion9_windows_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion9_windows_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2515,
+          "sha256": "b10c20f680e2746a22b3b74f56b97b73fe5f4fa1cb9fc726ff85e5777783ee7c"
+        },
+        "evidence/sec13f_identity_expansion10_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion10_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 5561,
+          "sha256": "56fa1ff8cb09b54f21f25d848280628385baa3f1f4d52cfaaec61bddcb9c196b"
+        },
+        "evidence/sec13f_identity_expansion10_tests_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion10_tests_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1641,
+          "sha256": "5fa545bf4e4a49db1ac63ba4bbc88fd5205c4cedf36ab56d95e2475b0ad0308e"
+        },
+        "evidence/sec13f_identity_expansion10_windows_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion10_windows_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2501,
+          "sha256": "a00b8bc20783638ae9e67689d1ec09158b353c788a76cbdb6e9266c8f267a579"
+        },
+        "evidence/sec13f_identity_expansion11_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion11_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6460,
+          "sha256": "83dee7c200d02b88c50b340daa6c2a43255e8a0b6546de5842fe3f8df05d8b74"
+        },
+        "evidence/sec13f_identity_expansion11_tests_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion11_tests_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1651,
+          "sha256": "f415088df1041333fa45741247448391aacfac5a59c46d18bc947c3bb498939a"
+        },
+        "evidence/sec13f_identity_expansion11_windows_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion11_windows_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2511,
+          "sha256": "f67555e4b7a81380b95633bd263809ea5e02034f6f40b99529dabbe1551f4866"
+        },
+        "evidence/sec13f_identity_expansion12_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion12_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6242,
+          "sha256": "0a545ad126cc7fcdc88cbd3d24f5e7cc936fcb531c147c66fdecf32c49e9a4ed"
+        },
+        "evidence/sec13f_identity_expansion12_tests_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion12_tests_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1641,
+          "sha256": "654da8c05132ebd13f2bfdc9b0cca3775ba5fc11d8507e867075eee5212ab139"
+        },
+        "evidence/sec13f_identity_expansion12_windows_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion12_windows_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2459,
+          "sha256": "90721a6963852bb8f6ab0f30564f8e28a4ff211a1a1ed427b591be75a72ad697"
+        },
+        "evidence/sec13f_identity_expansion13_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion13_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6598,
+          "sha256": "7d888fa7a93f23b00cb1e5ba36a798776c01e47151cb80f86a8e1549f4540257"
+        },
+        "evidence/sec13f_identity_expansion13_tests_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion13_tests_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1651,
+          "sha256": "761dec32630fe81ccf8e2480f1aa8c522f59e491b64a7482ef256ebcdd1cd869"
+        },
+        "evidence/sec13f_identity_expansion13_windows_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion13_windows_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2469,
+          "sha256": "a615575d7b5cdfe3ca348a3c29b99b973b59514a6c973f86dce06429aced14ed"
+        },
+        "evidence/sec13f_identity_expansion14_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion14_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6527,
+          "sha256": "966b0a110b5b9b5475fa4d11506b1ddbd93dc5f1ea7e84b40a1cbce810b3145c"
+        },
+        "evidence/sec13f_identity_expansion14_tests_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion14_tests_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1645,
+          "sha256": "854abed7fa45df55ac933db324a3843158272b9f285e3e52d1aaffe8dd2f5c12"
+        },
+        "evidence/sec13f_identity_expansion14_windows_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion14_windows_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2463,
+          "sha256": "4462a6870f89fda6fd264ee8f4eacf4074ad66a41c7fb0c2deb5821e47f663f2"
+        },
+        "evidence/sec13f_identity_expansion15_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion15_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6487,
+          "sha256": "81a8319cc347ace1cb4281a325807cb11b36e005f5cf73b544c210cce81f4c52"
+        },
+        "evidence/sec13f_identity_expansion15_tests_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion15_tests_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1655,
+          "sha256": "e97034f7cdce2bf80c4217208b3954044036893ded5d2ef77c92746384b4f35c"
+        },
+        "evidence/sec13f_identity_expansion15_windows_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion15_windows_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2473,
+          "sha256": "0764380c94e70403acb3cea49deaf34317a74450e7561f6d1d817efa02495e87"
+        },
+        "evidence/sec13f_identity_expansion16_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion16_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6530,
+          "sha256": "168329c61b0716fc4bb57f5fae9c559e881182c3d151036a5b67b6ac57e80baa"
+        },
+        "evidence/sec13f_identity_expansion16_tests_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion16_tests_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1643,
+          "sha256": "581b9961395ccf183ccfd2beee272440cc219ae459e24ac456362cb32b3dbac5"
+        },
+        "evidence/sec13f_identity_expansion16_windows_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion16_windows_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2461,
+          "sha256": "484bc3dfc388cfea7f88dc5e5e986259d6261d85a70462948a796e81a69460a5"
+        },
+        "evidence/sec13f_identity_expansion17_20261007.json": {
+          "reference": "evidence/sec13f_identity_expansion17_20261007.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6501,
+          "sha256": "af6259f4b3abd5b9d532f89f09eeb0ec1e0f51624898256dd0a1009a3e26a19d"
+        },
+        "evidence/sec13f_identity_expansion17_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion17_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1653,
+          "sha256": "434b7e407abc02584386eaf979560ea0798e8cb418405e45d0034d48aa6835ee"
+        },
+        "evidence/sec13f_identity_expansion17_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion17_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2471,
+          "sha256": "86983b4fdd40345dc65180b7a76472255545cc5d1ac2cce0c896fa0ea319a532"
+        },
+        "evidence/sec13f_identity_expansion18_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion18_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6683,
+          "sha256": "c65219efb743408f397ef445a82654bd2a91e91286d23cb4ef52d192bee354cb"
+        },
+        "evidence/sec13f_identity_expansion18_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion18_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1643,
+          "sha256": "2715d23a6cb9fa2b286a7483fa1b07481d285e1b086eeef7495c69fa68815b26"
+        },
+        "evidence/sec13f_identity_expansion18_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion18_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2461,
+          "sha256": "ce8f332ff982b6d2d0648f69ef9e5f281594df17baba055882ba18156bc9ce93"
+        },
+        "evidence/sec13f_identity_expansion19_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion19_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6934,
+          "sha256": "fd5acd984597134cd924186b309ed1c157d8a66bdff55142cdbeb385290ff1ba"
+        },
+        "evidence/sec13f_identity_expansion19_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion19_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1653,
+          "sha256": "53b8d61a9f18cffc08d88ce017bd3562460ac6afe56896017ed4de1600aab1f3"
+        },
+        "evidence/sec13f_identity_expansion19_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion19_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 2471,
+          "sha256": "55c0f4c7464ebbfb80526743e742250deec21286e2ed7bb2f04fdda3bf3572dc"
+        },
+        "evidence/sec13f_identity_expansion20_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion20_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7044,
+          "sha256": "2f6c9a855913c7d852311624b68b908c9c05f1a3f1fee48ff4d3ae96d1c70bea"
+        },
+        "evidence/sec13f_identity_expansion20_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion20_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1810,
+          "sha256": "1602d882759f97e05a7c189ce7c9a19b63eaaa438f339791561b32afa4b4d382"
+        },
+        "evidence/sec13f_identity_expansion20_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion20_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3378,
+          "sha256": "bddec2aa92b349d2819dd92f2ce01c681b151996c3deaf20a819bd3da19eecee"
+        },
+        "evidence/sec13f_identity_expansion21_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion21_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6942,
+          "sha256": "e4fb610c375966ad839a2d486e0affa064cc4ef9cb2d50de49dc352016462f80"
+        },
+        "evidence/sec13f_identity_expansion21_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion21_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1820,
+          "sha256": "d370729b139d5d6f482510234c3b780e10909ba8e12e5bdf9593ad10c5ad480c"
+        },
+        "evidence/sec13f_identity_expansion21_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion21_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3111,
+          "sha256": "68205553de307d478d170364f129112b3da8bed774ba47af7d1810ffaad540a2"
+        },
+        "evidence/sec13f_identity_expansion22_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion22_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 6980,
+          "sha256": "8e369abf872947f81b2ce545a9bf19ff087abdf8ff6b9c0991d4ce6a054be449"
+        },
+        "evidence/sec13f_identity_expansion22_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion22_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1818,
+          "sha256": "86f25303a55db78c8ef1bca4426ad59efd88138bda73b23fd7bc116b2af25e06"
+        },
+        "evidence/sec13f_identity_expansion22_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion22_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 3109,
+          "sha256": "cb942ae1b97a352dbfd01c204a68c1e34231fabe02550b1dff52bf9b009c99aa"
+        },
+        "evidence/sec13f_identity_expansion23_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion23_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7032,
+          "sha256": "860d2615a65b4b27d4ebb533b028fd6a60a5ceea7ecb02966933c5abcd8c3a97"
+        },
+        "evidence/sec13f_identity_expansion23_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion23_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1844,
+          "sha256": "0d9a1d4512ffc319311708474b1186a86e73e2d768aa66f730d325d3e3b310fb"
+        },
+        "evidence/sec13f_identity_expansion23_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion23_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4299,
+          "sha256": "ec7653df433b5ce07dd52479c5b40e4e599579f8026642cffed5e9121913edda"
+        },
+        "evidence/sec13f_identity_expansion24_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion24_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7189,
+          "sha256": "a1c8da8c8f935ca2c360c5a8de5b53b72ab714d39661c0ccf2de45697b473c39"
+        },
+        "evidence/sec13f_identity_expansion24_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion24_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1842,
+          "sha256": "70de2c965d22c367e2f5a72f77ce0d89d58166989a9f87d64a44b0ebe39cb0a0"
+        },
+        "evidence/sec13f_identity_expansion24_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion24_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4326,
+          "sha256": "4441dc4dabc55533c5c9fbec9bc05803523d2b7972a6f1eb09e0cc5fd7e2d03e"
+        },
+        "evidence/sec13f_identity_expansion25_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion25_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7186,
+          "sha256": "157ee07b8441e034472406a22395e87f7c10ef009b6863d74d7d582db9873789"
+        },
+        "evidence/sec13f_identity_expansion25_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion25_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1852,
+          "sha256": "6c145579cb7fea8ee1c83a4af0bbb0f52b274249e9510bbde6c80e2eb97c663f"
+        },
+        "evidence/sec13f_identity_expansion25_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion25_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4323,
+          "sha256": "1ae80c3524fb63f24a933916e0d5096e23adc654a073eca2f06851bf90292d10"
+        },
+        "evidence/sec13f_identity_expansion26_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion26_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7169,
+          "sha256": "effd8ef18bd43d85c5e7d346cf93a05a996ce3fbc3560d2bda426eb30a5267cf"
+        },
+        "evidence/sec13f_identity_expansion26_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion26_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1842,
+          "sha256": "b3136fdc906a9cda6b799002bbdba37ba49b24989d1baa4f8277ea2b7b74b1d3"
+        },
+        "evidence/sec13f_identity_expansion26_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion26_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4308,
+          "sha256": "aebb0a8b09d172ee1cf400546017c3914711aab08ee3d83fa44a5a167abcb8c4"
+        },
+        "evidence/sec13f_identity_expansion27_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion27_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7579,
+          "sha256": "0a7c6c9a24f60fc76672dc1b00d09933fce64ba25f693ad4b3696c238170e445"
+        },
+        "evidence/sec13f_identity_expansion27_tests_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion27_tests_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1852,
+          "sha256": "5ddd7cc07ff15789fc59dd70018a1ccd335e9c2ad02cd04633931e113fdca341"
+        },
+        "evidence/sec13f_identity_expansion27_windows_20261008.json": {
+          "reference": "evidence/sec13f_identity_expansion27_windows_20261008.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4323,
+          "sha256": "61826a38294575e0c3139000a275d184506e0df16a03a7e71eb536004451ac5d"
+        },
+        "evidence/sec13f_identity_expansion28_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion28_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7541,
+          "sha256": "5935088c632390194564c9f4b4137b614300b206dba31728c708f60665c21cc0"
+        },
+        "evidence/sec13f_identity_expansion28_tests_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion28_tests_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1840,
+          "sha256": "3a3e6b7d0c299622297f22d44f4b31d253d27e88544c287402fc22c9224f9bfb"
+        },
+        "evidence/sec13f_identity_expansion28_windows_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion28_windows_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4228,
+          "sha256": "45483c912a8e3a6d169ed8294705ce0ca6b61777ede25355f69a7ddd09a03636"
+        },
+        "evidence/sec13f_identity_expansion29_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion29_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7524,
+          "sha256": "16f8fedcc36d6e596279ecb38350e3b58f9ef4a02bc37a53947afdca34a90597"
+        },
+        "evidence/sec13f_identity_expansion29_tests_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion29_tests_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1850,
+          "sha256": "c6e38b4e709c42858e7513479bb79ff6651156711a538b6b24970d38364b37ba"
+        },
+        "evidence/sec13f_identity_expansion29_windows_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion29_windows_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4243,
+          "sha256": "3e47b284efd56bd475b257685ff68a5ae133faa6091b32754584806d0bdc6cdd"
+        },
+        "evidence/sec13f_identity_expansion30_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion30_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7381,
+          "sha256": "e2131ece6df475de67a260a588fcc04419e19e6ab33e89b8b6d4025b78caca68"
+        },
+        "evidence/sec13f_identity_expansion30_tests_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion30_tests_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1840,
+          "sha256": "7219a1dacce4e097fe0dd5a6fdbdf2aa1468dcb47a8944761b71ccbc21489527"
+        },
+        "evidence/sec13f_identity_expansion30_windows_20261011.json": {
+          "reference": "evidence/sec13f_identity_expansion30_windows_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 4228,
+          "sha256": "b763fcc10ffe35d8808e1c5a01571a32c2e0cf2682e776c43b1466ecd6b2c828"
+        },
+        "evidence/specialist_evidence_content_audit_windows_20261003.json": {
+          "reference": "evidence/specialist_evidence_content_audit_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1848,
+          "sha256": "bcc411b0f99415fda5dbf69fae3e6d702a6e44b8719cba6d19815a723791f07e"
+        },
+        "evidence/specialist_source_semantics_tests_20261003.json": {
+          "reference": "evidence/specialist_source_semantics_tests_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1868,
+          "sha256": "a3f21a52797f7808fb0fb41a838aa80a7c557675204b1ec785fd8686f8a529d9"
+        },
+        "evidence/specialist_source_semantics_windows_20261003.json": {
+          "reference": "evidence/specialist_source_semantics_windows_20261003.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 1826,
+          "sha256": "4ec82c5999dbe985e2fa680427955946abfff21bde550ecdbe1d60e974e7aa8b"
+        },
+        "evidence/parallel2_evaluation_20261011.json": {
+          "reference": "evidence/parallel2_evaluation_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 7916,
+          "sha256": "91316d62338ec977d0bd938f3f6e42a6339dfddda84f1873fbcb0c22d84e6838"
+        },
+        "evidence/parallel_evaluation_20261011.json": {
+          "reference": "evidence/parallel_evaluation_20261011.json",
+          "content_verified": true,
+          "issues": [],
+          "size_bytes": 5248,
+          "sha256": "1d9240d727925313086520e3b23a22c80790cd34aeee4bbcd31ccedf64cb5f28"
+        }
+      },
+      "completion_claims": [],
+      "all_completion_claims_verified": false
+    },
+    "empty_store_diagnostic_is_live_runtime_evidence": false,
+    "source_run_semantic_counts_for_empty_synthetic_store": {
+      "attempted": 0,
+      "result_usable": 0,
+      "complete": 0,
+      "partial": 0,
+      "blocked": 0,
+      "failed": 0,
+      "unknown_status": 0
+    }
+  },
+  "canonical_scope": {
+    "tickers": 687,
+    "csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "reviewed_13f_instruments": 150,
+    "unmapped_13f_tickers": 537
+  },
+  "root_targeted_preverification_errors": [
+    {
+      "tests_run": 5,
+      "errors": 1,
+      "reason": "New display fixture initially omitted required published_at argument"
+    },
+    {
+      "tests_run": 1,
+      "errors": 1,
+      "reason": "New fixture used unsupported None publication time; corrected to explicit synthetic CLOCK before full suite"
+    }
+  ],
+  "limits": {
+    "new_live_source_acceptance": false,
+    "actual_user_windows_end_to_end": false,
+    "new_measured_applicable_live_coverage": false,
+    "out_of_sample_verified": false,
+    "public_provider_keys_or_licensed_entitlements_verified": false,
+    "historical_data_backfilled": false,
+    "source_archive": "Explicit safe projection of visible current stored observations; overwritten earlier checks and absent history remain missing",
+    "identities": "Worker transitions, FRS and counterparty identity cases are synthetic; no fixture record enters production manifests",
+    "remaining_work_plan": "PARALLEL_SPECIALIST_WORK.md"
+  },
+  "scoring_applied": false,
+  "trading_enabled": false,
+  "acceptance": {
+    "dated_issuer_instrument_product_identity_verified": false,
+    "positive_live_case_verified": false,
+    "negative_live_case_verified": false,
+    "actual_windows_end_to_end_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false
+  }
+}

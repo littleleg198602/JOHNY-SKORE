@@ -21,6 +21,7 @@ from market_checker_app.agents.contracts import (
     utc_now,
 )
 from market_checker_app.config import GovernanceEventConfig
+from market_checker_app.services.sec_form4_service import form4_transactions_as_of
 
 
 def _stable_id(*parts: object) -> str:
@@ -621,14 +622,19 @@ class GovernanceEventAgent(BaseAgent):
             knowledge_at=context.started_at,
         )
 
-        document_by_accession = {
-            (
-                str(document.ticker).strip().upper(),
-                str(document.metadata.get("accession_number")),
-            ): document
-            for document in documents
-            if document.metadata.get("accession_number")
-        }
+        document_by_accession: dict[tuple[str, str], DocumentRecord] = {}
+        for document in documents:
+            accession = document.metadata.get("accession_number")
+            if not accession:
+                continue
+            key = (str(document.ticker).strip().upper(), str(accession))
+            prior = document_by_accession.get(key)
+            # Durable primary XML carries issuer checks and first-observation
+            # time that a synchronous/index representation does not have.
+            if (prior is None or document.metadata.get("source_verified_primary") is True
+                    and (prior.metadata.get("source_verified_primary") is not True
+                         or document.observed_at > prior.observed_at)):
+                document_by_accession[key] = document
         for document in documents:
             published_at = document.published_at or document.observed_at
             if published_at > context.started_at:
@@ -652,7 +658,26 @@ class GovernanceEventAgent(BaseAgent):
             ):
                 events[event.event_id] = event
 
-        raw_transactions = context.state.get("sec_insider_transactions_by_ticker")
+        supplied_transactions = context.state.get("sec_insider_transactions_by_ticker")
+        raw_transactions = {ticker: list(rows) for ticker, rows in supplied_transactions.items()
+                            if isinstance(rows, list)} if isinstance(supplied_transactions, Mapping) else {}
+        for (ticker, accession), document in document_by_accession.items():
+            observation = document.metadata.get("form4_observation")
+            if (document.metadata.get("source_verified_primary") is not True
+                    or not isinstance(observation, Mapping)
+                    or document.observed_at > context.started_at):
+                continue
+            # f2_sec may run after scout_index and overwrite its state. Prefer
+            # the durable issuer-checked representation even in that ordering;
+            # a joint report replaces legacy rows with an unallocated report.
+            durable_rows = form4_transactions_as_of(
+                observation, issuer_cik=str(document.metadata.get("issuer_cik") or ""),
+                accession_number=accession, source_url=document.url or "",
+                knowledge_at=context.started_at,
+            )
+            raw_transactions[ticker] = [row for row in raw_transactions.get(ticker, [])
+                                       if getattr(row, "accession_number", None) != accession]
+            raw_transactions[ticker].extend(durable_rows)
         if isinstance(raw_transactions, Mapping):
             for ticker, transactions in raw_transactions.items():
                 if not isinstance(transactions, list):
@@ -680,6 +705,17 @@ class GovernanceEventAgent(BaseAgent):
                     )
                     if document_published_at > context.started_at:
                         continue
+                    transaction_issuer = getattr(transaction, "issuer_cik", None)
+                    durable_observation = transaction_issuer is not None
+                    if durable_observation:
+                        issuer = str(transaction_issuer).strip().zfill(10)
+                        if (not entity.cik or str(entity.cik).strip().zfill(10) != issuer
+                                or str(document.metadata.get("issuer_cik") or "").strip().zfill(10) != issuer
+                                or document.metadata.get("source_verified_primary") is not True
+                                or document.observed_at > context.started_at
+                                or getattr(transaction, "observed_at") > context.started_at):
+                            warnings.append(f"Governance {ticker}: Form 4 {accession} issuer/provenance conflict.")
+                            continue
                     code = str(getattr(transaction, "transaction_code", "UNKNOWN"))
                     acquired_disposed = str(
                         getattr(transaction, "acquired_disposed", "") or ""
@@ -696,6 +732,11 @@ class GovernanceEventAgent(BaseAgent):
                     assert isinstance(event_type, GovernanceEventType)
                     event_status = classification["event_status"]
                     assert isinstance(event_status, GovernanceEventStatus)
+                    amendment = bool(getattr(transaction, "is_amendment", False))
+                    if amendment:
+                        # Amendment rows are as filed; no comparison to the
+                        # original or incremental ownership change is implied.
+                        event_status = GovernanceEventStatus.UNVERIFIED
                     shares = getattr(transaction, "shares", None)
                     price = getattr(transaction, "price_per_share", None)
                     event_value = (
@@ -741,6 +782,12 @@ class GovernanceEventAgent(BaseAgent):
                         ),
                         confidence=1.0,
                         discriminator=(
+                            getattr(transaction, "row_locator", None),
+                            getattr(transaction, "issuer_cik", None),
+                            getattr(transaction, "security_title", None),
+                            getattr(transaction, "owner_cik", None),
+                            getattr(transaction, "ownership_nature", None),
+                            derivative,
                             actor,
                             transaction_date_key,
                             code,
@@ -757,7 +804,11 @@ class GovernanceEventAgent(BaseAgent):
                             "owner_cik": getattr(transaction, "owner_cik", None),
                             "acquired_disposed": acquired_disposed,
                             "derivative": derivative,
-                            "open_market_trade": open_market_trade,
+                            # SEC P/S covers open-market OR private trades.
+                            # New XML observations never assert the venue.
+                            "open_market_trade": open_market_trade if not durable_observation else False,
+                            "purchase_sale_coded": open_market_trade,
+                            "execution_venue_verified": False,
                             "sec_code_documented": classification[
                                 "sec_code_documented"
                             ],
@@ -767,9 +818,22 @@ class GovernanceEventAgent(BaseAgent):
                             "classification_verified": classification[
                                 "classification_verified"
                             ],
-                            "human_review_required": classification[
-                                "human_review_required"
-                            ],
+                            "human_review_required": durable_observation or classification["human_review_required"],
+                            "issuer_cik": transaction_issuer,
+                            "security_title": getattr(transaction, "security_title", None),
+                            "row_locator": getattr(transaction, "row_locator", None),
+                            "ownership_nature": getattr(transaction, "ownership_nature", None),
+                            "shares_owned_after": getattr(transaction, "shares_owned_after", None),
+                            "rule_10b5_1_checkbox": getattr(transaction, "rule_10b5_1_checkbox", None),
+                            "rule_10b5_1_scope": "DOCUMENT_CHECKBOX_NOT_PER_TRANSACTION",
+                            "as_filed_footnotes": dict(getattr(transaction, "footnotes", ())),
+                            "as_filed_remarks": getattr(transaction, "remarks", None),
+                            "is_amendment": amendment,
+                            "reporting_owner_identity_verified": False,
+                            "instrument_identity_verified": False,
+                            "ticker_attribution": "ISSUER_CONTEXT_ONLY" if durable_observation else "LEGACY_BUNDLE",
+                            "verification_scope": "AS_FILED_CODE_CLASSIFICATION",
+                            "ownership_change_interpreted": False,
                             "transaction_code_source_url": FORM4_CODE_SOURCE_URL,
                             "transaction_date": str(
                                 transaction_date or ""

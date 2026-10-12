@@ -1,0 +1,61 @@
+{
+  "base_code_sha": "209eeed4659d97d6e96118acc76b5f780dcc8ace",
+  "claims": {
+    "actual_out_of_sample_performance_verified": false,
+    "actual_provider_history_evaluated": false,
+    "live_relevant_coverage_verified": false,
+    "prediction_snapshots_changed": false,
+    "production_scores_changed": false,
+    "source_archive_implementation_tested": true,
+    "source_publisher_publication_times_verified": false,
+    "specialist_done_verified": false,
+    "windows_runtime_verified": false
+  },
+  "environment": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python": "3.12.14"
+  },
+  "evidence_type": "local_unit_tests_and_explicitly_synthetic_sqlite_export",
+  "generated_at": "2026-10-11T16:26:39.067109+00:00",
+  "owned_file_sha256": {
+    "SPECIALIST_SOURCE_ARCHIVE.md": "cb4c32a06ad969545a349b1b0771f4789fdbc6705ea7e680f2c8fa02cd4b8c46",
+    "market_checker_app/services/specialist_source_archive_service.py": "44e5e4aee571abc5ebbf7617bbd52e156ca5a58b7813e4765489141a9240c33d",
+    "tests/test_specialist_source_archive_service.py": "e0aa9e96b3dddcf7cffead8fd81909e0aab9bcacedc3bfae1a63f7a4ece4c441"
+  },
+  "remaining_work": [
+    "Coordinator should wire explicit UI/CLI export on the existing ScoutStore, without changing PIT evaluation claims.",
+    "Persist real bounded source archives over time, with reviewed dated issuer/product/instrument relationships.",
+    "Measure relevant live source coverage and independent positive/negative cases; current checks are mutable latest state.",
+    "Acquire existing user Windows end-to-end and historical labels/outcomes; no data purchases or account setup occurred.",
+    "Source publication times and overwritten historical checks cannot be recovered merely by exporting current tables."
+  ],
+  "schema_version": 1,
+  "synthetic_canonical_scope_export": {
+    "archive_hash": "895820a3fb88aaa0d0e9113024a3cce178a6756ffba8ad1d987c180fd3f6f419",
+    "canonical_ticker_count": 687,
+    "database_sha256_unchanged": true,
+    "export_build_seconds": 0.190619,
+    "export_roundtrip_exact": true,
+    "exported_checks": 687,
+    "exported_observations": 687,
+    "file_sha256": "e2ee384e1daf8ef7424b8d84e18f29461b7bdec226702d8c7d9cd8585e878687",
+    "fixture_source": "fda",
+    "network_calls": 0,
+    "observation_export_complete": true,
+    "real_issuer_identity_verified": false,
+    "relevant_coverage_verified_count": 0,
+    "serialized_bytes": 7940674,
+    "source_ticker_cells": 10992,
+    "synthetic_fixture_only": true
+  },
+  "targeted_tests": {
+    "command": "python -m unittest discover -s tests -p 'test_specialist_source_archive_service.py' -v",
+    "elapsed_seconds": 6.30826,
+    "errors": 0,
+    "failures": 0,
+    "log": "test_archive_and_observation_hashes_are_reproducible_and_checkable (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_archive_and_observation_hashes_are_reproducible_and_checkable) ... ok\ntest_bounded_export_reports_omitted_findings_and_checks (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_bounded_export_reports_omitted_findings_and_checks) ... ok\ntest_canonical_brkb_is_kept_and_alias_or_unrelated_subjects_are_excluded (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_canonical_brkb_is_kept_and_alias_or_unrelated_subjects_are_excluded) ... ok\ntest_changed_source_content_retains_both_immutable_versions (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_changed_source_content_retains_both_immutable_versions) ... ok\ntest_complete_zero_query_partial_query_and_never_checked_remain_different (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_complete_zero_query_partial_query_and_never_checked_remain_different) ... ok\ntest_content_addressed_file_is_valid_idempotent_and_refuses_tampering (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_content_addressed_file_is_valid_idempotent_and_refuses_tampering) ... ok\ntest_dataset13f_check_does_not_mark_all_tickers_complete (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_dataset13f_check_does_not_mark_all_tickers_complete) ... ok\ntest_empty_source_archive_has_every_canonical_slot_without_false_coverage (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_empty_source_archive_has_every_canonical_slot_without_false_coverage) ... ok\ntest_exact_subsecond_cutoff_and_timezone_normalisation (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_exact_subsecond_cutoff_and_timezone_normalisation) ... ok\ntest_explicit_projection_omits_credentials_queries_errors_and_raw_text (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_explicit_projection_omits_credentials_queries_errors_and_raw_text) ... ok\ntest_fdic_finish_after_cutoff_is_running_with_no_future_counts (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_fdic_finish_after_cutoff_is_running_with_no_future_counts) ... ok\ntest_future_observation_never_backfills_an_old_source_event (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_future_observation_never_backfills_an_old_source_event) ... ok\ntest_future_or_naive_identity_knowledge_is_rejected (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_future_or_naive_identity_knowledge_is_rejected) ... ok\ntest_historical_report_dates_and_known_time_are_distinct (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_historical_report_dates_and_known_time_are_distinct) ... ok\ntest_immutable_observation_hash_survives_mutable_retrieval_heartbeat (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_immutable_observation_hash_survives_mutable_retrieval_heartbeat) ... ok\ntest_invalid_and_oversized_json_is_rejected_and_nonfinite_values_are_omitted (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_invalid_and_oversized_json_is_rejected_and_nonfinite_values_are_omitted) ... ok\ntest_invalid_limits_missing_database_or_invalid_canonical_input_fail_closed (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_invalid_limits_missing_database_or_invalid_canonical_input_fail_closed) ... ok\ntest_list_applications_are_preserved_as_candidates_without_identity_credit (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_list_applications_are_preserved_as_candidates_without_identity_credit) ... ok\ntest_overwritten_latest_check_is_not_an_earlier_negative_evidence (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_overwritten_latest_check_is_not_an_earlier_negative_evidence) ... ok\ntest_per_source_attribution_never_credits_fda_to_cms_or_13f (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_per_source_attribution_never_credits_fda_to_cms_or_13f) ... ok\ntest_reads_existing_scoutstore_without_writes_or_optional_schema_creation (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_reads_existing_scoutstore_without_writes_or_optional_schema_creation) ... ok\ntest_report_metadata_cannot_mutate_later_archives (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_report_metadata_cannot_mutate_later_archives) ... ok\ntest_usaspending_traversal_export_is_not_a_historical_snapshot_claim (test_specialist_source_archive_service.SpecialistSourceArchiveServiceTests.test_usaspending_traversal_export_is_not_a_historical_snapshot_claim) ... ok\n\n----------------------------------------------------------------------\nRan 23 tests in 5.059s\n\nOK\n",
+    "log_sha256": "a96270dedea641eda39d78b6a6bcf203519bc9dff7a78273891d5557f3385dcd",
+    "skipped": 0,
+    "tests_run": 23
+  }
+}

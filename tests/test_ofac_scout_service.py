@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 from market_checker_app.services.ofac_scout_service import (
     ALT_URL, SDN_URL, OfacSdnClient, OfacSdnScoutService, _OfacRedirects,
-    attach_sdn_aliases, parse_sdn_csv,
+    attach_sdn_aliases, attach_sdn_comments, parse_sdn_csv,
 )
 from market_checker_app.storage.scout_store import ScoutStore
 
@@ -25,7 +25,7 @@ ALIASES = (b'1,10,aka,"Former Example Corp.",-0-\n'
 class FakeOfac:
     def __init__(self, fail=False):
         self.fail, self.calls = fail, 0
-        self.payload = attach_sdn_aliases(parse_sdn_csv(CSV), ALIASES)
+        self.payload = attach_sdn_comments(attach_sdn_aliases(parse_sdn_csv(CSV), ALIASES), b'\r\n')
 
     def snapshot(self):
         self.calls += 1

@@ -1,0 +1,117 @@
+{
+  "base_code_sha": "073b67baf5467e509007ae6ebf9f5cbfe200115a",
+  "claims": {
+    "actual_out_of_sample_performance_verified": false,
+    "actual_source_provider_coverage_verified": false,
+    "network_collectors_run": false,
+    "production_scoring_changed": false,
+    "specialist_done_verified": false,
+    "windows_runtime_verified": false
+  },
+  "empty_archive_control": {
+    "completion_verified": false,
+    "reason": "NO_ARCHIVED_SNAPSHOT_HISTORY",
+    "snapshot_rows": 0,
+    "specialist_rows": 21,
+    "status": "INSUFFICIENT_DATA"
+  },
+  "environment": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "pandas_market_calendars": "5.5.0",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python": "3.12.14"
+  },
+  "evidence_type": "local_tests_and_explicitly_synthetic_throughput_only",
+  "generated_at": "2026-10-11T11:12:52.245551+00:00",
+  "limitations": [
+    "This throughput fixture contains artificial features and labels and gives no financial performance evidence.",
+    "No actual archived prediction database was evaluated in this isolated checkout.",
+    "Source-specific FDA, FDIC, 13F and other collector fields are not inferred from aggregate agent proxies.",
+    "The current universe is not a historical survivor-free universe and evidence cohorts are selective.",
+    "The launcher was inspected but was not executed on Windows in this run.",
+    "Full reports retain every fold training snapshot ID; the synthetic 20-week smoke serialized to 58,605,858 bytes, so larger archives can create large JSON downloads."
+  ],
+  "local_archive": {
+    "actual_historical_data_evaluated": false,
+    "database_path": "outputs/market_checker_history.db",
+    "database_present_in_isolated_checkout": false
+  },
+  "owned_file_sha256": {
+    "SPECIALIST_HISTORICAL_EVALUATION.md": "648c7a75de78b23f59a78404d96cd744bbe7b9b4d7cc52aee6dd191d09162f14",
+    "Vyhodnotit_Specialisty.bat": "799c7c8dc30073f46b57edd06760b75a87e714ad2f2479172274b738b1e26315",
+    "market_checker_app/services/specialist_evaluation_service.py": "14c6fa9c75974897860b45ecb27e9332b8c66be59bf039f8f138b28091641aae",
+    "market_checker_app/specialist_evaluation.py": "ed5527c633cf067d01562d136b3ac07bb3d887df4b357a08c2fbfaa757a9c441",
+    "tests/test_specialist_evaluation_service.py": "65b12a4a673f3b3f63fadf32dbcb6e48d114aa3e1783d6d5a7f2202e2d1b19a3"
+  },
+  "schema_version": 1,
+  "synthetic_throughput_smoke": {
+    "acceptance": {
+      "out_of_sample_evaluation_verified": false
+    },
+    "activation_allowed": false,
+    "actual_issuer_or_production_data": false,
+    "as_of": "2026-08-03T22:00:00+00:00",
+    "comparisons": {
+      "claim_verification": {
+        "distinct_weeks": 15,
+        "overlap_excluded_count": 2748,
+        "sample_count": 10305,
+        "status": "EVALUATED_EXPLORATORY"
+      },
+      "financial_forensics": {
+        "distinct_weeks": 15,
+        "overlap_excluded_count": 2748,
+        "sample_count": 10305,
+        "status": "EVALUATED_EXPLORATORY"
+      },
+      "governance_events": {
+        "distinct_weeks": 15,
+        "overlap_excluded_count": 2748,
+        "sample_count": 10305,
+        "status": "EVALUATED_EXPLORATORY"
+      },
+      "regulatory_events": {
+        "distinct_weeks": 15,
+        "overlap_excluded_count": 2748,
+        "sample_count": 10305,
+        "status": "EVALUATED_EXPLORATORY"
+      },
+      "sec_fundamentals": {
+        "distinct_weeks": 15,
+        "overlap_excluded_count": 2748,
+        "sample_count": 10305,
+        "status": "EVALUATED_EXPLORATORY"
+      }
+    },
+    "completion_verified": false,
+    "fixture_generation_seconds": 1.175383,
+    "fixture_recipe": "687 SYN000..SYN686 instruments x 20 weekly timestamps from 2026-03-02T22:00:00+00:00; test _payload(index % 8 - 3, clock); artificial asset closes 100->103 or 97 and benchmark 100; actual NYSE calendar only for cutoff/horizon mechanics",
+    "instrument_count": 687,
+    "integrity_verified_rows": 13740,
+    "iterations": 400,
+    "json_serialization_seconds": 0.630972,
+    "minimum_evaluation_samples": 200,
+    "minimum_training_samples": 200,
+    "minimum_weeks": 12,
+    "report_build_seconds": 24.389261,
+    "resolved_synthetic_labels_known_at_cutoff": 13740,
+    "serialized_report_bytes": 58605858,
+    "serialized_report_sha256": "40d59bfdb054bdcd639992fe35bfe8acb84b0170860fed5fbb39e15d5e06f1e4",
+    "snapshot_id_hash_sha256": "94f10245ac063b250ddb2bd5f5a02ff1f25e86f737b5bc5144b4ead6b631344d",
+    "snapshot_rows": 13740,
+    "source_specific_attribution_proven": false,
+    "specialist_rows": 21,
+    "synthetic_fixture": true,
+    "weekly_timestamp_count": 20
+  },
+  "targeted_tests": {
+    "command": "python -m unittest tests.test_specialist_evaluation_service tests.test_candidate_model_service tests.test_candidate_model_evaluation_service tests.test_prediction_contract tests.test_prediction_snapshot_storage tests.test_prediction_label_service tests.test_prediction_v21_guardrails tests.test_agent_feature_service tests.test_sec_fundamental_feature_service -v",
+    "elapsed_seconds": 4.012,
+    "errors": 0,
+    "failures": 0,
+    "log_sha256": "8b2b3d05a6c0c06f01b3a079f85d2be23114ee02b54b56b036f593d39598e3af",
+    "new_evaluation_tests_run": 25,
+    "tests_run": 59
+  }
+}

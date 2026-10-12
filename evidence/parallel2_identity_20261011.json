@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-11T16:28:11.130448+00:00",
+  "evidence_type": "local_deterministic_sec_identity_transition_validation",
+  "subject": "Primary-source reviewed CIK/CUSIP/security-class transitions without overwriting past identity versions",
+  "base_commit": "209eeed4659d97d6e96118acc76b5f780dcc8ace",
+  "branch": "automation/identity_bulk-20261011T1209",
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "Linux"
+  },
+  "owned_files": [
+    "market_checker_app/services/sec13f_identity_bulk.py",
+    "market_checker_app/sec13f_identity_bulk.py",
+    "tests/test_sec13f_identity_bulk.py",
+    "tests/test_sec13f_identity_transitions.py",
+    "SEC13F_BULK_WORKFLOW.md",
+    "evidence/parallel2_identity_20261011.json"
+  ],
+  "investigation": {
+    "existing_loader": "load_verified_securities validates individual dated rows and duplicate ticker/CUSIP/interval tuples; it does not validate cross-row identity transitions.",
+    "previous_bulk_gap": "Non-overlapping CIK/CUSIP/class changes were accepted with only the ordinary review and next-version identity proofs; there was no hash-bound prior version or primary corporate-action passage.",
+    "scope": "The new checks are in preparation/export; the runtime loader and production scoring are unchanged."
+  },
+  "implementation": [
+    "Preflight all baseline and proposed intervals by normalized canonical ticker and CUSIP; reject incompatible issuer/CUSIP/class overlap and duplicate overlap.",
+    "Require archived primary issuer SEC HTML for each changed temporal boundary involving a new reviewed row, independent of batch ordering.",
+    "Bind exact prior and next registry versions with SHA-256 of the 11 production identity fields, including original known_at, intervals and citation URLs.",
+    "Require bounded primary passages quoting both exact ticker/CIK/CUSIP/class identities and an effective date in the preserved interval gap.",
+    "Reject unarchived, hidden, script-only, swapped, unrelated, duplicate, backdated or date-conflicting transition claims.",
+    "Require both changed boundaries when inserting a newly reviewed version between two existing identities.",
+    "Load corporate-action snapshots through the same bounded archive and SEC capture client; require publication time before network access.",
+    "Keep all baseline rows intact in the proposal; record baseline bytes SHA-256 and reject a concurrent baseline change before writing outputs."
+  ],
+  "verification": {
+    "targeted_and_runtime_contracts": {
+      "command": "python -m unittest tests.test_sec13f_identity_bulk tests.test_sec13f_identity_transitions tests.test_sec13f_scout_service tests.test_canonical_ticker_universe -q",
+      "tests_run": 86,
+      "owned_tests": 78,
+      "new_transition_tests": 22,
+      "existing_sec_runtime_and_canonical_tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 7.229,
+      "exit_code": 0,
+      "result": "PASS",
+      "source_basis": "Synthetic archived fixtures and existing static production manifest; no network transport."
+    },
+    "compile": {
+      "command": "python -m compileall -q market_checker_app/services/sec13f_identity_bulk.py market_checker_app/sec13f_identity_bulk.py tests/test_sec13f_identity_bulk.py tests/test_sec13f_identity_transitions.py",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "diff_whitespace": {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    "additional_integration_import": {
+      "command": "python -m unittest tests.test_sec13f_identity_bulk tests.test_sec13f_identity_transitions tests.test_sec13f_scout_service tests.test_canonical_ticker_universe tests.test_687_ticker_contract -v",
+      "result": "BLOCKED_IMPORT_DEPENDENCY",
+      "actual_tests_passed_before_import_error": 86,
+      "import_errors": 1,
+      "missing_dependency": "pandas_market_calendars",
+      "fixture_or_implementation_failures": 0,
+      "exit_code": 1,
+      "resolved_by": "Coordinator-prepared isolated repository dependency environment; see exact_687_prepared_environment."
+    },
+    "positive_cases": [
+      "test_dated_cik_change_preserves_exact_past_version_and_clock",
+      "test_cusip_change_requires_primary_action_even_with_unchanged_cik",
+      "test_share_class_change_is_separate_despite_same_cik_and_cusip",
+      "test_batch_order_cannot_hide_a_cusip_transition",
+      "test_inserting_history_must_review_both_changed_temporal_boundaries",
+      "test_export_archives_transition_provenance_and_keeps_baseline_bytes"
+    ],
+    "negative_cases": [
+      "test_overlapping_cik_cusip_and_class_changes_are_rejected",
+      "test_existing_manifest_conflicts_cannot_be_carried_into_a_proposal",
+      "test_canonical_aliases_cannot_hide_an_overlap",
+      "test_changed_predecessor_dates_or_knowledge_invalidate_hash_bound_review",
+      "test_transition_action_must_be_observed_before_review",
+      "test_action_date_must_fit_the_gap_without_extending_either_interval",
+      "test_hidden_script_or_changed_passage_is_not_primary_evidence",
+      "test_both_identity_quotes_require_exact_cusip_and_normalized_class",
+      "test_no_proposal_is_written_if_baseline_changes_during_validation"
+    ],
+    "exact_687_prepared_environment": {
+      "command": "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python -m unittest tests.test_687_ticker_contract -v",
+      "tests_run": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 35.188,
+      "exit_code": 0,
+      "result": "PASS",
+      "source_basis": "Existing synthetic 687-ticker cached Yahoo and injected MT5 batch fixture; live Yahoo is forbidden by the test.",
+      "dependency_environment_prepared_by": "coordinator"
+    }
+  },
+  "production_file_integrity": {
+    "market_checker_app/data/verified_13f_securities.json": {
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+      "matches_base_commit": true
+    },
+    "market_checker_app/data/verified_fdic_banks.json": {
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+      "matches_base_commit": true
+    },
+    "market_checker_app/data/verified_nhtsa_models.json": {
+      "sha256": "7da598327500a1bcef9468f3a43646f53655bc2821248951b49ef0af516997bd",
+      "matches_base_commit": true
+    },
+    "market_checker_app/data/verified_usaspending_uei.json": {
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56",
+      "matches_base_commit": true
+    },
+    "market_checker_app/data/specialist_status.json": {
+      "sha256": "2972bff5054d9048eaefa8630462f57f649435dab1ef87bfdd629f0d8b28139c",
+      "matches_base_commit": true
+    }
+  },
+  "production_registry": {
+    "rows_before": 150,
+    "rows_after": 150,
+    "new_verified_identities": 0,
+    "production_registry_changed": false,
+    "specialist_done_changed": false,
+    "scoring_changed": false,
+    "automatic_trading_enabled": false
+  },
+  "live_source_run": {
+    "live_corporate_action_filing_captured": false,
+    "live_transition_accepted": false,
+    "source_quotes_in_tests": "Fabricated deterministic passages with explicit synthetic fixture labels.",
+    "new_production_issuer_cik_cusip_class_or_action_claims": 0,
+    "user_windows_run_performed": false,
+    "historical_out_of_sample_evaluation_performed": false
+  },
+  "acceptance_limits": [
+    "Exact quote matching proves source presence; a named reviewer still verifies old/new roles, legal effect and whether an announced change took effect.",
+    "The primary excerpt must explicitly quote old and new ticker/CIK/CUSIP/class and its date; incomplete or unsupported filings stay unresolved.",
+    "Current SEC catalog and independent exact Schedule 13 and same-context ticker/class evidence remain required for each proposed row; retired ticker/catalog mismatches are not accepted by this path.",
+    "This work does not retroactively certify transition evidence for unrelated historical version pairs already present in a baseline; it rejects their overlaps and validates every new changed boundary.",
+    "The individual runtime loader remains unchanged; directly editing production files outside reviewed bulk export bypasses these new review guards.",
+    "No live source, relevant coverage, user Windows, or historical acceptance evidence was created; specialist DONE remains unsupported.",
+    "The earlier missing-dependency import was resolved using the coordinator-prepared isolated interpreter; the exact 687 regression passed with synthetic cached data and provides no new live identity coverage."
+  ],
+  "next_work": [
+    "Capture an actual issuer corporate-action filing and independently review its exact old/new instrument identities and effective date.",
+    "Measure accepted and unresolved transitions in a bounded source-backed bulk proposal, keeping prior versions and its matching audit together.",
+    "Exercise the same reviewed export on the user Windows environment."
+  ],
+  "updated_at": "2026-10-11T16:30:14.550919+00:00"
+}

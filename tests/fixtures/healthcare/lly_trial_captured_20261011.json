@@ -1,0 +1,104 @@
+{
+  "protocolSection": {
+    "identificationModule": {
+      "nctId": "NCT03954834",
+      "orgStudyIdInfo": {
+        "id": "17000"
+      },
+      "secondaryIdInfos": [
+        {
+          "id": "I8F-MC-GPGK",
+          "type": "OTHER",
+          "domain": "Eli Lilly and Company"
+        }
+      ],
+      "organization": {
+        "fullName": "Eli Lilly and Company",
+        "class": "INDUSTRY"
+      },
+      "briefTitle": "A Study of Tirzepatide (LY3298176) in Participants With Type 2 Diabetes Not Controlled With Diet and Exercise Alone",
+      "officialTitle": "A Randomized, Double-blind, Placebo-Controlled Trial Comparing the Efficacy and Safety of Three Tirzepatide Doses Versus Placebo in Patients With Type 2 Diabetes, Inadequately Controlled With Diet and Exercise Alone",
+      "acronym": "SURPASS-1"
+    },
+    "sponsorCollaboratorsModule": {
+      "responsibleParty": {
+        "type": "SPONSOR"
+      },
+      "leadSponsor": {
+        "name": "Eli Lilly and Company",
+        "class": "INDUSTRY"
+      }
+    },
+    "statusModule": {
+      "statusVerifiedDate": "2021-10",
+      "overallStatus": "COMPLETED",
+      "expandedAccessInfo": {
+        "hasExpandedAccess": false
+      },
+      "startDateStruct": {
+        "date": "2019-06-03",
+        "type": "ACTUAL"
+      },
+      "primaryCompletionDateStruct": {
+        "date": "2020-10-05",
+        "type": "ACTUAL"
+      },
+      "completionDateStruct": {
+        "date": "2020-10-28",
+        "type": "ACTUAL"
+      },
+      "studyFirstSubmitDate": "2019-05-15",
+      "studyFirstSubmitQcDate": "2019-05-16",
+      "studyFirstPostDateStruct": {
+        "date": "2019-05-17",
+        "type": "ACTUAL"
+      },
+      "resultsFirstSubmitDate": "2021-09-15",
+      "resultsFirstSubmitQcDate": "2021-10-18",
+      "resultsFirstPostDateStruct": {
+        "date": "2021-10-20",
+        "type": "ACTUAL"
+      },
+      "lastUpdateSubmitDate": "2021-10-18",
+      "lastUpdatePostDateStruct": {
+        "date": "2021-10-20",
+        "type": "ACTUAL"
+      }
+    },
+    "designModule": {
+      "studyType": "INTERVENTIONAL",
+      "phases": [
+        "PHASE3"
+      ],
+      "designInfo": {
+        "allocation": "RANDOMIZED",
+        "interventionModel": "PARALLEL",
+        "primaryPurpose": "TREATMENT",
+        "maskingInfo": {
+          "masking": "DOUBLE",
+          "whoMasked": [
+            "PARTICIPANT",
+            "INVESTIGATOR"
+          ]
+        }
+      },
+      "enrollmentInfo": {
+        "count": 478,
+        "type": "ACTUAL"
+      }
+    },
+    "armsInterventionsModule": {
+      "interventions": [
+        {
+          "name": "Tirzepatide",
+          "type": "DRUG"
+        },
+        {
+          "name": "Placebo",
+          "type": "DRUG"
+        }
+      ]
+    }
+  },
+  "hasResults": true
+}

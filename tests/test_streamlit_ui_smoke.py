@@ -9,6 +9,65 @@ from streamlit.testing.v1 import AppTest
 
 
 class StreamlitUISmokeTests(unittest.TestCase):
+    def test_source_archive_export_is_explicit_immutable_and_not_acceptance(self) -> None:
+        import json
+        from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings
+        from market_checker_app.prediction_contract import canonical_hash
+
+        app_path = Path(__file__).resolve().parents[1] / "market_checker_app" / "app.py"
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("market_checker_app.services.agent_runtime_service.AgentRuntimeService.load", return_value=(AgentRuntimeSettings(), None)), \
+             patch("socket.socket.connect", side_effect=AssertionError("Archive export attempted live network")):
+            app = AppTest.from_file(str(app_path)).run(timeout=30)
+            database = Path(directory) / "history.db"
+            for field in app.text_input:
+                if field.label == "DB soubor": field.set_value(str(database))
+                if field.label == "Output directory": field.set_value(directory)
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            self.assertNotIn("specialist_source_archive", app.session_state)
+            next(button for button in app.button if button.label == "Uložit archiv jednotlivých zdrojů").click()
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            cached = app.session_state["specialist_source_archive"]
+            archive = cached["archive"]
+            self.assertEqual(str(database.resolve()), cached["db_path"])
+            self.assertEqual(687, archive["universe"]["ticker_count"])
+            self.assertFalse(archive["completion_verified"])
+            self.assertFalse(archive["out_of_sample_evaluation_verified"])
+            self.assertEqual(0, archive["input"]["exported_observations"])
+            path = Path(directory) / "specialist_source_archives" / cached["filename"]
+            saved = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(archive, saved)
+            self.assertEqual(saved["archive_hash"], canonical_hash({k: v for k, v in saved.items() if k != "archive_hash"}))
+
+    def test_specialist_history_is_explicit_and_empty_archive_stays_insufficient(self) -> None:
+        from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings
+
+        app_path = Path(__file__).resolve().parents[1] / "market_checker_app" / "app.py"
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("market_checker_app.services.agent_runtime_service.AgentRuntimeService.load", return_value=(AgentRuntimeSettings(), None)), \
+             patch("socket.socket.connect", side_effect=AssertionError("History report attempted live network")):
+            app = AppTest.from_file(str(app_path)).run(timeout=30)
+            database = Path(directory) / "history.db"
+            next(field for field in app.text_input if field.label == "DB soubor").set_value(str(database))
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            self.assertNotIn("specialist_history_report", app.session_state)
+            next(button for button in app.button
+                 if button.label == "Vyhodnotit uloženou historii specialistů").click()
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            cached = app.session_state["specialist_history_report"]
+            self.assertEqual(str(database.resolve()), cached["db_path"])
+            report = cached["report"]
+            self.assertEqual("INSUFFICIENT_DATA", report["status"])
+            self.assertEqual(0, report["input"]["snapshot_rows"])
+            self.assertEqual(21, len(report["specialist_coverage"]))
+            self.assertFalse(report["completion_verified"])
+            self.assertFalse(report["activation_allowed"])
+            self.assertIsNone(app.session_state["last_result"])
+
     def test_invalid_optional_manifest_is_quarantined_without_blocking_analysis(self) -> None:
         from tests.test_runtime_integration import _FakeYahooClient
         from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings

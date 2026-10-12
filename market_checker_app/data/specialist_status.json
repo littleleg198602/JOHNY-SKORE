@@ -10,8 +10,10 @@
       "research": "01-04, 14",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Dated alias, subsidiary, brand and product mappings for applicable issuers; wire into price and scout paths. GLEIF exact-ID client and ten-company pilot already exist.",
-      "development_lane": "identity_bulk"
+      "next": "Reviewed SEC bulk exports now validate exact dated corporate-action transitions against hash-bound neighboring instrument identities and visible primary SEC paragraphs. Existing row validity and knowledge times are preserved; incompatible overlaps, hidden/future transitions and concurrent baseline changes fail closed. Production 13F remains 150/687. Remaining: actual official-cache capture and wider primary issuer/subsidiary/brand/product identities; test transitions are synthetic.",
+      "development_lane": "identity_bulk",
+      "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
+      "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json"
     },
     {
       "id": "sec",
@@ -19,10 +21,11 @@
       "research": "01-04, 08",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Source-verified primary documents now supersede duplicate index representations per issuer/accession while the index finding stays in the audit snapshot. Run the full 687 watchlist on actual Windows, verify live coverage and historical amendments; SEC queue already auto-continues in bounded batches.",
+      "next": "Durable SEC primary-document replay now includes bounded Form 4 XML and works when synchronous SEC ingestion is disabled. Index findings and superseded parser observations remain in audit history. Remaining: actual 687-ticker Windows end-to-end run, measured live filing coverage and historical acceptance.",
       "primary_document_dedup_test_evidence": "evidence/sec_filing_primary_dedup_tests_20261003.json",
       "primary_document_dedup_hosted_windows_evidence": "evidence/sec_filing_primary_dedup_windows_20261003.json",
-      "development_lane": "sec"
+      "development_lane": "sec",
+      "parallel_implementation_evidence": "evidence/parallel_sec_20261011.json"
     },
     {
       "id": "insider",
@@ -30,7 +33,7 @@
       "research": "05",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Source-verified 13D/G documents preserve filing identity and bounded cover fields. A single as-filed CUSIP resolves only against the 30-instrument reviewed SEC registry. Amendments produce fail-closed AS_FILED_CANDIDATE deltas only when the exact issuer, instrument, form family and NAME_ONLY person set agree and all numeric cover fields exist; this is not an interpreted ownership change. All 20 official Form 4 codes are now classified fail-closed, but only non-derivative P/A and S/D qualify as open-market trades. Remaining: legal-person resolution, wider dated instrument coverage, live positive/negative ownership and Form 4 cases; then Windows, coverage and historical acceptance.",
+      "next": "Bounded primary Form 4 XML now retains exact issuer CIK, as-filed reporting-owner CIKs, security titles, dated transaction rows, derivatives, footnotes, amendments and document-level 10b5-1 checkbox. Joint-owner reports are never assigned to the first owner. P/S codes do not verify execution venue; instrument and independent legal-person identity remain unverified and scoring is disabled. Existing exact reviewed Schedule 13D/G comparison remains fail-closed. Remaining: wider dated instrument/person identities, relevant positive/negative live coverage, user Windows and historical acceptance.",
       "sec13dg_fail_closed_test_evidence": "evidence/sec13dg_fail_closed_filing_tests_20261003.json",
       "sec13dg_fail_closed_hosted_windows_evidence": "evidence/sec13dg_fail_closed_filing_windows_20261003.json",
       "sec13dg_pipeline_identity_test_evidence": "evidence/sec13dg_pipeline_identity_tests_20261003.json",
@@ -43,7 +46,8 @@
       "sec13dg_amendment_comparison_hosted_windows_evidence": "evidence/sec13dg_amendment_comparison_windows_20261003.json",
       "form4_transaction_classification_test_evidence": "evidence/sec_form4_transaction_classification_tests_20261003.json",
       "form4_transaction_classification_hosted_windows_evidence": "evidence/sec_form4_transaction_classification_windows_20261003.json",
-      "development_lane": "sec"
+      "development_lane": "sec",
+      "parallel_implementation_evidence": "evidence/parallel_sec_20261011.json"
     },
     {
       "id": "contracts",
@@ -51,13 +55,15 @@
       "research": "06, 15",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "USAspending now has two independently dated ticker-subsidiary-UEI mappings: LMT/Sikorsky and NOC/Northrop Grumman Systems. The bounded NOC run stored nine eligible awards, stayed PARTIAL at the one-page cap and replayed without duplicates. Expand beyond two pilots, obtain modification history and full applicable coverage, then SAM.gov with access.",
+      "next": "USAspending retains persistent quotas, resumable pinned windows and earlier positives after later failure. New read-only audit compares observed cumulative obligations and outlays for the exact award/UEI with knowledge-time, currency, scope and source-revision guards; signed restatements are shown separately in UI. Derived audit does not change source hashes or replay deduplication. Snapshot differences are not revenue, transactions or complete modification history. Remaining: primary version/transaction history, broader recipients, live scope coverage, Windows and OOS.",
       "source_smoke_evidence": "evidence/usaspending_live_20261001.json",
       "noc_identity_evidence": "evidence/usaspending_noc_identity_20261002.json",
       "noc_source_smoke_evidence": "evidence/usaspending_noc_live_20261002.json",
       "noc_test_evidence": "evidence/usaspending_noc_tests_20261002.json",
       "noc_hosted_windows_evidence": "evidence/usaspending_noc_windows_tests_20261002.json",
-      "development_lane": "contracts"
+      "development_lane": "contracts",
+      "parallel_implementation_evidence": "evidence/parallel_contracts_20261011.json",
+      "parallel_second_batch_evidence": "evidence/parallel2_contracts_20261011.json"
     },
     {
       "id": "regulatory",
@@ -65,7 +71,7 @@
       "research": "07",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "DOJ and EPA now have persistent UTC-day issuer/request quotas, exclusive provider leases and durable HTTP cooldown. NHTSA, separate OFAC SDN/Non-SDN, bounded DOJ title leads and bounded EPA ECHO exact facility-name leads are implemented. EPA facility identity never establishes issuer ownership, group completeness or liability. Remaining: dated vehicle/product/subsidiary/facility ownership identities, weak aliases/ownership analysis, measured relevant live coverage and historical evaluation.",
+      "next": "OFAC remarks and weak-alias provenance remain preserved. EPA now resolves exact FRS registry IDs only against independently documented, dated facility ownership, current SEC CIK and known-at scope; aliases require reviewed relationships and registry changes invalidate checks. Facility links never transfer convictions, fines or issuer liability. No production EPA manifest was created from fixtures. Remaining: real facility/product/subsidiary identities, NHTSA/DOJ legal effects, applicable live cases, Windows and history.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json",
       "ofac_alias_source_smoke_evidence": "evidence/ofac_alias_live_20261001.json",
@@ -73,7 +79,9 @@
       "doj_source_smoke_evidence": "evidence/doj_live_20261002.json",
       "epa_source_smoke_evidence": "evidence/epa_echo_live_20261002.json",
       "public_quota_test_evidence": "evidence/public_source_daily_quotas_tests_20261011.json",
-      "development_lane": "regulatory"
+      "development_lane": "regulatory",
+      "parallel_implementation_evidence": "evidence/parallel_regulatory_20261011.json",
+      "parallel_second_batch_evidence": "evidence/parallel2_regulatory_20261011.json"
     },
     {
       "id": "suppliers",
@@ -81,8 +89,9 @@
       "research": "08",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Resolve named SEC filing candidates to dated legal entities and subsidiaries; validate on live filings and assess customer/supplier concentration.",
-      "development_lane": "sec"
+      "next": "Dated legal entity and subsidiary resolver now requires exact disclosed names, independent primary legal identifiers and separate parent relationship citations visible at the filing and analysis clocks. SEC ingestion, durable ScoutIndex and SupplyChain use the same configured manifest; ambiguous/future/expired/same-document evidence and manual IDENTIFIED flags fail closed. No fixture-derived production counterparties exist and financial attribution stays disabled. Remaining: real primary identities and live filings, applicable supplier/customer scope and concentration, user Windows and historical acceptance.",
+      "development_lane": "sec",
+      "parallel_second_batch_evidence": "evidence/parallel2_sec_20261011.json"
     },
     {
       "id": "ir_news",
@@ -119,11 +128,14 @@
       "research": "12",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "FDA and ClinicalTrials now consume persistent UTC-day issuer/request quotas before I/O; failure, restart, scope changes and overlapping runs cannot reset them. FDA drug/device/food recall and CRL, and ClinicalTrials collection are implemented. FDA has bounded body/time/failure budgets; endpoint 404 and rejected exact-firm rows cannot become complete negatives. Remaining: dated application/product/sponsor-to-issuer mappings, wider event coverage, measured Windows/live coverage and historical evaluation.",
+      "next": "Dated application/product resolution and persistent quotas remain implemented. A 687-input diagnostic now separates research sector candidates, documented object links, current SEC issuer mapping, queries, complete/partial/stale checks and unresolved subjects; the FDA 111-sector cohort is not a definitive applicable denominator. UI and read-only CLI expose the report. Two Lilly CRL links do not establish complete firm coverage. Remaining: broader primary product/application ownership, relevant live positive/negative evidence, actual Windows and historical acceptance.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "clinicaltrials_source_smoke_evidence": "evidence/healthcare_live_20261001.json",
       "public_quota_test_evidence": "evidence/public_source_daily_quotas_tests_20261011.json",
-      "development_lane": "healthcare"
+      "development_lane": "healthcare",
+      "parallel_implementation_evidence": "evidence/parallel_healthcare_20261011.json",
+      "parallel_second_batch_evidence": "evidence/parallel2_healthcare_20261011.json",
+      "coverage_cli_evidence": "evidence/parallel2_healthcare_cli_20261011.json"
     },
     {
       "id": "commodities",
@@ -131,8 +143,9 @@
       "research": "13",
       "code": "PARTIAL",
       "live": "WAIT_ACCESS",
-      "next": "Validate EIA WTI/jet fuel with API key; add applicable USDA/USGS series and dated company exposure-to-price links.",
-      "development_lane": "contracts"
+      "next": "EIA WTI/jet-fuel collection now shares persistent daily budgets of two commodity series/two requests, provider lease, cooldown and bounded two-row/250000-byte responses. Restart cannot reset quota; earlier series results survive a later failure. Series counts are not issuer coverage, economic periods are not publication dates and API values are never exported. Remaining: actual API-key live schema/timing validation, applicable USDA/USGS series and dated company exposure links, Windows and history.",
+      "development_lane": "contracts",
+      "parallel_second_batch_evidence": "evidence/parallel2_eia_20261011.json"
     },
     {
       "id": "bank_fdic",
@@ -180,10 +193,13 @@
       "research": "sector HEALTH_SERVICES",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "CMS now has persistent UTC-day issuer/request quotas, exclusive provider leases, durable HTTP cooldown and fair retries. CMS hospital organizational-owner collection has live positive/negative publisher evidence and scoped coverage. Dated issuer/subsidiary/provider links, payer exposure, Windows acceptance and historical evaluation remain.",
+      "next": "CMS provider/owner-role and ClinicalTrials sponsor/intervention/version objects remain dated and exact. New canonical coverage diagnostic plus UI and read-only CLI distinguish documented objects, current mapped SEC identities and complete/partial/stale source queries. CMS 19 and trials 49 research cohorts are not final relevant coverage; HCA rows and one Lilly trial are bounded pilots. Remaining: broader primary provider/product/subsidiary links, payer exposure, actual applicable live coverage, user Windows and history.",
       "source_smoke_evidence": "evidence/healthcare_live_20261001.json",
       "public_quota_test_evidence": "evidence/public_source_daily_quotas_tests_20261011.json",
-      "development_lane": "healthcare"
+      "development_lane": "healthcare",
+      "parallel_implementation_evidence": "evidence/parallel_healthcare_20261011.json",
+      "parallel_second_batch_evidence": "evidence/parallel2_healthcare_20261011.json",
+      "coverage_cli_evidence": "evidence/parallel2_healthcare_cli_20261011.json"
     },
     {
       "id": "oil_utilities",
@@ -200,13 +216,14 @@
       "research": "sector AEROSPACE/DEFENSE_IT",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Sikorsky/LMT and Northrop Grumman Systems/NOC now have exact dated subsidiary/UEI evidence and bounded live award checks. Expand verified identities and dated program relationships beyond two pilots; Windows, sector coverage and historical evaluation remain.",
+      "next": "Dated LMT/Sikorsky and NOC subsidiary/UEI pilots remain bounded. Runtime now retains observed award obligation/outlay revisions without interpreting them as revenue or new wins. Remaining: primary broader recipient/program identities, real modification/transaction history, measured sector live coverage, user Windows and source-attributable OOS evaluation.",
       "source_smoke_evidence": "evidence/usaspending_live_20261001.json",
       "noc_identity_evidence": "evidence/usaspending_noc_identity_20261002.json",
       "noc_source_smoke_evidence": "evidence/usaspending_noc_live_20261002.json",
       "noc_test_evidence": "evidence/usaspending_noc_tests_20261002.json",
       "noc_hosted_windows_evidence": "evidence/usaspending_noc_windows_tests_20261002.json",
-      "development_lane": "contracts"
+      "development_lane": "contracts",
+      "parallel_second_batch_evidence": "evidence/parallel2_contracts_20261011.json"
     },
     {
       "id": "sector_other",
@@ -223,7 +240,7 @@
       "research": "16",
       "code": "PILOT",
       "live": "PENDING",
-      "next": "Exact 2026 Q2 CUSIP/issuer CIK/class registry covers one hundred fifty canonical instruments. Runtime identity coverage is knowledge-time aware and currently measures 150/687 (0.218341), explicitly leaving 537 unmapped. Expansion 30 adds five source-reviewed identities, its focused local SEC 13F suite passed 6/6, and hosted Linux and Windows passed 546/546 plus release gate; the downloaded Windows artifact digest and both files were verified. BLK remains deferred for a separate dated 2026 holding-company/CIK/CUSIP transition review; SO remains unmapped because the selected filed Q1 corroboration table did not yield the required row. Self-contained manager/period amendment chains in one quarterly SEC archive reconstruct RESTATEMENT and NEW HOLDINGS; orphaned, ambiguous or unknown chains fail closed as PARTIAL. This is not a live SEC ZIP/holdings run or actual user-Windows acceptance. Remaining: run a declared SEC User-Agent live ZIP and measure holdings coverage, cover cross-quarter amendment chains, widen dated instrument/corporate-action coverage, perform actual user Windows acceptance and historical evaluation.",
+      "next": "Production 2026 Q2 registry remains 150/687 instruments with 537 unmapped. Canonical bulk preparation and reviewed export now require independently dated ticker/CIK/CUSIP/class transition proof and preserve prior identity intervals and knowledge times. All 687 slots passed the prepared-environment regression. No global official-cache capture or new live holdings run occurred. Remaining: primary BLK/SO transitions, wider instruments, actual holdings/amendments coverage, user Windows and historical acceptance.",
       "identity_evidence": "evidence/sec13f_identity_expansion_20261002.json",
       "test_evidence": "evidence/sec13f_identity_tests_20261002.json",
       "identity_expansion2_evidence": "evidence/sec13f_identity_expansion2_20261002.json",
@@ -316,7 +333,9 @@
       "identity_expansion30_evidence": "evidence/sec13f_identity_expansion30_20261011.json",
       "test_expansion30_evidence": "evidence/sec13f_identity_expansion30_tests_20261011.json",
       "windows_expansion30_evidence": "evidence/sec13f_identity_expansion30_windows_20261011.json",
-      "development_lane": "identity_bulk"
+      "development_lane": "identity_bulk",
+      "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
+      "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json"
     },
     {
       "id": "consensus_options",
@@ -342,13 +361,14 @@
       "research": "27",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Public-source telemetry now persists attempted requests/issuers and UTC-day usage; WAIT_QUOTA, BUSY and NOT_APPLICABLE never claim a new attempt. Portable runtime export measures archive integrity, scoped identities, source states and partial coverage without accepting completion. Evidence references are content-read and hashed; DONE/VERIFIED requires six semantic assertions. All 16 source statuses now have fail-closed attempted/usable/complete/partial/blocked/failed semantics. Remaining: actual user Windows end-to-end, measured provider coverage and independent claim verification.",
+      "next": "Fail-closed content audits and six-assertion specialist acceptance remain enforced. New explicit immutable source archive projects only safe attributable fields for 687 tickers across 16 sources; event, availability and observation times stay distinct, aggregate macro/13F states do not establish per-issuer checks. UI exports actual diagnostics and archives without acceptance credit. Remaining: actual live positive/negative cases, relevant coverage, independent primary claim identities, user Windows and source history.",
       "evidence_content_audit": "evidence/specialist_evidence_content_audit_tests_20261003.json",
       "evidence_content_audit_hosted_windows_evidence": "evidence/specialist_evidence_content_audit_windows_20261003.json",
       "source_run_semantics_evidence": "evidence/specialist_source_semantics_tests_20261003.json",
       "source_run_semantics_hosted_windows_evidence": "evidence/specialist_source_semantics_windows_20261003.json",
       "public_quota_test_evidence": "evidence/public_source_daily_quotas_tests_20261011.json",
-      "development_lane": "evaluation"
+      "development_lane": "evaluation",
+      "parallel_second_batch_evidence": "evidence/parallel2_evaluation_20261011.json"
     },
     {
       "id": "evaluation",
@@ -356,14 +376,19 @@
       "research": "28",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Runtime diagnostic export now exists in the UI. Obtain actual Windows end-to-end evidence, complete applicable coverage and historical out-of-sample measurement before changing prediction score.",
-      "development_lane": "evaluation"
+      "next": "Read-only historical evaluation remains explicit with hash/availability/fold checks and unchanged 200-sample/12-week defaults. New source-attributable immutable archive and explicit UI export retain visible observations and scope for 687 by 16 source cells, disclose overwritten check/retrieval gaps and never backfill history or accept OOS. Remaining: actual incremental per-run source archives, enough real feature/label availability and independent out-of-sample comparison, user Windows and live acceptance before any score change.",
+      "development_lane": "evaluation",
+      "parallel_implementation_evidence": "evidence/parallel_evaluation_20261011.json",
+      "parallel_second_batch_evidence": "evidence/parallel2_evaluation_20261011.json"
     }
   ],
   "parallel_development": {
     "max_worker_agents": 6,
     "coordinator": "integration, combined tests, GitHub persistence and required access",
     "plan": "PARALLEL_SPECIALIST_WORK.md",
-    "lane_assignment_is_not_completion_evidence": true
+    "lane_assignment_is_not_completion_evidence": true,
+    "integration_scope": "Six independent implementation lanes; lane completion is not specialist acceptance.",
+    "integration_evidence": "evidence/parallel2_integration_20261011.json",
+    "latest_batch": "Dated instrument transitions, healthcare coverage plus reassigned read-only CLI, EPA FRS ownership, cumulative award revisions, independent SEC counterparty identity and immutable source archives; runtime/UI integrated by coordinator."
   }
 }

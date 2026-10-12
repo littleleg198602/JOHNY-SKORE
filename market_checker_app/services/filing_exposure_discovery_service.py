@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 import re
 
 from market_checker_app.agents.contracts import (
@@ -12,6 +13,7 @@ from market_checker_app.config import (
     CommodityEnergySourceConfig,
     SupplyChainSourceConfig,
 )
+from market_checker_app.services.sec_counterparty_identity import DatedCounterpartyIdentityRegistry
 
 
 @dataclass(frozen=True, slots=True)
@@ -20,6 +22,7 @@ class FilingSupplyChainFinding:
     support_term: str
     reason: str
     evidence_quote: str
+    identity_resolution: dict[str, object] | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -200,11 +203,15 @@ class FilingExposureDiscoveryService:
         *,
         max_supply_chain: int = 6,
         max_commodity_energy: int = 12,
+        counterparty_identities: DatedCounterpartyIdentityRegistry | None = None,
+        as_of: datetime | None = None,
     ) -> FilingExposureFindings:
         ticker = fetched.source.ticker.strip().upper()
         published_at = fetched.source.published_at
         url = fetched.final_url
         sentences = _sentences(fetched.text)
+        if counterparty_identities is not None and as_of is None:
+            raise ValueError("Counterparty identity resolution needs explicit knowledge time")
 
         supply: list[FilingSupplyChainFinding] = []
         seen_supply: set[tuple[str, str]] = set()
@@ -227,6 +234,13 @@ class FilingExposureDiscoveryService:
             if key in seen_supply:
                 return
             seen_supply.add(key)
+            identity_resolution = None
+            if identity_status == "NAMED_ONLY" and counterparty_identities is not None:
+                identity_resolution = counterparty_identities.resolve(
+                    disclosed_name=counterparty, published_at=published_at,
+                    as_of=as_of, exposure_source_url=url,
+                )
+                identity_status = str(identity_resolution["counterparty_identity_status"])
             supply.append(
                 FilingSupplyChainFinding(
                     source=SupplyChainSourceConfig(
@@ -247,6 +261,7 @@ class FilingExposureDiscoveryService:
                     support_term=support_term,
                     reason=reason,
                     evidence_quote=evidence_quote,
+                    identity_resolution=identity_resolution,
                 )
             )
 

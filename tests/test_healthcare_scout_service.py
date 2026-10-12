@@ -11,6 +11,7 @@ from market_checker_app.services.healthcare_scout_service import (
     HealthcareNameScoutService,
 )
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.services.healthcare_identity_service import HealthcareIdentityRegistry
 
 NOW = datetime(2026, 10, 1, 9, tzinfo=timezone.utc)
 CMS_ROW = {"ENROLLMENT ID": "TEST-1", "ASSOCIATE ID - OWNER": "001",
@@ -131,7 +132,9 @@ class HealthcareScoutTests(unittest.TestCase):
             result = HealthcareNameScoutService(store, client=client, page_size=1).run(as_of=NOW)
             self.assertEqual(("PARTIAL", 1, 1),
                              (result["status"], result["new_findings"], result["truncated_issuers"]))
-            self.assertEqual(1, store.specialist_coverage("cms", as_of=NOW, subjects={"HCA"})["current_partial"])
+            versions = HealthcareIdentityRegistry.load().identity_versions(store, "cms", as_of=NOW)
+            self.assertEqual(1, store.specialist_coverage("cms", as_of=NOW, subjects={"HCA"},
+                                                        identity_versions=versions)["current_partial"])
             self.assertEqual(0, store.specialist_coverage("cms", as_of=NOW, subjects={"NVDA"})["active_identities"])
 
     def test_outage_does_not_complete_identity_and_rate_limit_stops_batch(self):

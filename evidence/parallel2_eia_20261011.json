@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-11T12:17:26.612807+00:00",
+  "type": "implementation_and_offline_test_evidence_not_acceptance",
+  "base_commit": "209eeed4659d97d6e96118acc76b5f780dcc8ace",
+  "changes": [
+    "EIA two-series UTC-day request reservations persist across process restart; failed requests are charged before network I/O.",
+    "Exclusive provider lease and 401/403/429 cooldown reuse the shared quota ledger.",
+    "Client bounds response bytes and rows and verifies the final official endpoint.",
+    "Per-series failure preserves previous successful findings, invalid/empty/ambiguous results stay PARTIAL.",
+    "Diagnostics count commodity series, never issuer coverage; economic period is not a publication time."
+  ],
+  "tests": [
+    {
+      "command": "python -m unittest discover -s tests -p 'test_eia_scout_service.py' -v",
+      "tests_run": 8,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_public_source_budget.py' -v",
+      "tests_run": 12,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "file_sha256": {
+    "market_checker_app/services/eia_scout_service.py": "b445d6ff82f0f580ec3b1f0723957e700932ae48df50b62d2286d9449f6f4354",
+    "market_checker_app/services/public_source_budget.py": "70c5c64f854d42b1367f20427fa0d90725be81b77891f16f89170ccced75cf64",
+    "market_checker_app/storage/scout_store.py": "75ed11630b49ad6497dbf52b29345a276c91bca9cd4fa204bdb6cc822890689f",
+    "tests/test_eia_scout_service.py": "86f7a2a9a7107f09f3541a773fe2d46956c2d2199a920e1f1ef7930b46ee8dc4"
+  },
+  "live_network_requests": 0,
+  "actual_user_windows_run": false,
+  "company_exposure_verified": false,
+  "historical_out_of_sample_verified": false,
+  "scoring_applied": false,
+  "trading_enabled": false,
+  "remaining": [
+    "Actual authenticated EIA bounded live response; do not create API access.",
+    "Dated company commodity/exposure relationships and relevant sector coverage.",
+    "Actual user Windows end-to-end and source-attributable OOS history."
+  ]
+}

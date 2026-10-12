@@ -32,6 +32,8 @@ from market_checker_app.config import (
 from market_checker_app.services.filing_exposure_discovery_service import (
     FilingExposureDiscoveryService,
 )
+from market_checker_app.services.sec_counterparty_identity import DatedCounterpartyIdentityRegistry
+from tests.test_sec_counterparty_identity import CLOCK, identity_record, subsidiary_record
 
 
 PUBLISHED_AT = datetime(2025, 10, 31, tzinfo=timezone.utc)
@@ -128,6 +130,39 @@ def _signals() -> pd.DataFrame:
 
 
 class FilingExposureDiscoveryTests(unittest.TestCase):
+    def test_named_supply_discovery_resolves_independent_dated_legal_entity(self) -> None:
+        findings = FilingExposureDiscoveryService().discover(_fetched(
+            "We purchase semiconductor components from Acme Components Inc. "
+            "We purchase chips from Acme Components Inc."
+        ), counterparty_identities=DatedCounterpartyIdentityRegistry([identity_record()]), as_of=CLOCK)
+        self.assertEqual(1, len(findings.supply_chain))
+        finding = findings.supply_chain[0]
+        self.assertEqual("IDENTIFIED", finding.source.counterparty_identity_status)
+        self.assertEqual("EXACT_DATED_LEGAL_ENTITY", finding.identity_resolution["counterparty_identity_resolution"])
+        self.assertEqual("0000001234", finding.identity_resolution["counterparty_identity_evidence"]["entity_identifier"]["value"])
+        self.assertEqual("semiconductor components", finding.source.product_or_input)
+        self.assertIsNone(finding.source.dependency_pct)
+        self.assertEqual(0.45, finding.source.confidence)
+        self.assertFalse(finding.identity_resolution["counterparty_financials_attribution_allowed"])
+
+    def test_future_or_competing_identities_stay_named_candidates_in_discovery(self) -> None:
+        future = identity_record()
+        future["known_at"] = "2025-12-01T00:00:00Z"
+        text = "We purchase semiconductor components from Acme Components Inc."
+        for records, reason in (([future], "NOT_YET_KNOWN"),
+                                ([identity_record(), subsidiary_record()], "AMBIGUOUS_DATED_IDENTITY")):
+            with self.subTest(reason=reason):
+                finding = FilingExposureDiscoveryService().discover(_fetched(text),
+                    counterparty_identities=DatedCounterpartyIdentityRegistry(records), as_of=CLOCK).supply_chain[0]
+                self.assertEqual("NAMED_ONLY", finding.source.counterparty_identity_status)
+                self.assertEqual(reason, finding.identity_resolution["counterparty_identity_resolution"])
+                self.assertIsNone(finding.source.dependency_pct)
+
+    def test_discovery_requires_explicit_knowledge_time_for_dated_identity(self) -> None:
+        with self.assertRaisesRegex(ValueError, "knowledge time"):
+            FilingExposureDiscoveryService().discover(_fetched(),
+                counterparty_identities=DatedCounterpartyIdentityRegistry([identity_record()]))
+
     def test_explicit_named_supplier_list_from_tesla_10k(self) -> None:
         excerpt = ("We are dependent on the continued supply of lithium-ion battery cells "
                    "for our vehicles and energy storage products. Currently, we rely on "
