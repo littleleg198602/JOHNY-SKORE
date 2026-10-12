@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-08T10:12:50+00:00",
+  "evidence_type": "reviewed_sec13f_instrument_identity_expansion",
+  "subject": "SEC 13F canonical identity registry expansion from 110 to 115",
+  "effective_period": {
+    "from": "2026-04-01",
+    "to": "2026-06-30",
+    "basis": "SEC 2026 Q2 official 13(f) securities list"
+  },
+  "canonical_universe": {
+    "total": 687,
+    "mapped_before": 110,
+    "mapped_after": 115,
+    "coverage_ratio": 0.167394,
+    "unmapped_after": 572
+  },
+  "sources": {
+    "official_13f_list": {
+      "url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "last_reviewed_period": "2026 Q2",
+      "facts": "Exact issuer, CUSIP and class rows reviewed for all five additions."
+    },
+    "official_company_tickers": {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "observed_at": "2026-10-08T10:12:50+00:00",
+      "facts": "Ticker-to-issuer-CIK mappings reviewed for all five additions."
+    },
+    "filed_information_table": {
+      "url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "report_period": "2026-03-31",
+      "facts": "Filed Q1 2026 Form 13F information table records every added issuer and exact CUSIP."
+    }
+  },
+  "additions": [
+    {
+      "ticker": "ALNY",
+      "issuer_cik": "0001178670",
+      "cusip": "02043Q107",
+      "issuer_name": "ALNYLAM PHARMACEUTICALS INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Alnylam Pharmaceuticals common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T10:12:50+00:00"
+    },
+    {
+      "ticker": "MO",
+      "issuer_cik": "0000764180",
+      "cusip": "02209S103",
+      "issuer_name": "ALTRIA GROUP INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Altria Group common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T10:12:50+00:00"
+    },
+    {
+      "ticker": "AFG",
+      "issuer_cik": "0001042046",
+      "cusip": "025932104",
+      "issuer_name": "AMERICAN FINANCIAL GROUP INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records American Financial Group common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T10:12:50+00:00"
+    },
+    {
+      "ticker": "AWK",
+      "issuer_cik": "0001410636",
+      "cusip": "030420103",
+      "issuer_name": "AMERICAN WTR WKS CO INC NEW",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records American Water Works common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T10:12:50+00:00"
+    },
+    {
+      "ticker": "AMP",
+      "issuer_cik": "0000820027",
+      "cusip": "03076C106",
+      "issuer_name": "AMERIPRISE FINL INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Ameriprise Financial common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T10:12:50+00:00"
+    }
+  ],
+  "deferred_review": {
+    "ticker": "BLK",
+    "reason": "A 2026 holding-company, issuer-CIK and CUSIP transition requires a separate dated corporate-action review before mapping."
+  },
+  "validation": {
+    "canonical_input_count": 687,
+    "registry_count_after": 115,
+    "new_entries": 5,
+    "new_tickers_unique": true,
+    "new_cusips_unique": true,
+    "cusip_check_digits_valid": true,
+    "source_identity_fields_complete": true,
+    "automated_tests_run_in_this_step": false
+  },
+  "acceptance_limits": [
+    "This is a bounded registry expansion, not a complete 687-instrument identity history.",
+    "No live SEC quarterly ZIP or holdings-level positive/negative case was executed in this step.",
+    "No local or hosted test result is claimed in this source-review step.",
+    "The filed table corroborates the instrument and CUSIP; the official 13(f) list controls the bounded class label.",
+    "BLK is intentionally excluded pending a separate dated review of its 2026 holding-company, issuer-CIK and CUSIP transition.",
+    "No actual end-user Windows run or historical out-of-sample evaluation is claimed.",
+    "Institutions remains PILOT/PENDING and the inventory remains 0/21 DONE."
+  ],
+  "next_work": [
+    "Verify the 115-instrument registry in the hosted Linux and Windows workflow and content-check its artifact.",
+    "Review BLK's dated 2026 holding-company, issuer-CIK and CUSIP transition before adding any mapping.",
+    "Continue bounded dated identity and corporate-action expansion without treating unmapped tickers as absent holdings.",
+    "Run a declared SEC User-Agent live quarterly ZIP and measure holdings coverage when runtime access is available."
+  ]
+}

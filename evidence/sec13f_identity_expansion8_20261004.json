@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-04T09:28:06.383317+00:00",
+  "publisher": "U.S. Securities and Exchange Commission",
+  "scope": "Five additional canonical instruments, bringing the bounded 2026 Q2 SEC 13F registry to forty; not full-universe coverage or a live 13F dataset run",
+  "quarter": {
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt"
+  },
+  "ticker_source": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "limitation": "Current SEC ticker-to-CIK publication observed at knowledge time; it does not establish continuous historical ticker ownership or corporate-action continuity"
+  },
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "new_tickers_present": ["ADBE", "AMGN", "QCOM", "ABT", "AXP"]
+  },
+  "entries": [
+    {
+      "ticker": "ADBE",
+      "issuer_cik": "0000796343",
+      "cusip": "00724F101",
+      "issuer_name_in_13f_list": "ADOBE INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 2829 / CUSIP 00724F101",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "Adobe Inc / COM / CUSIP 00724F101 / report period 2026-06-30"
+    },
+    {
+      "ticker": "AMGN",
+      "issuer_cik": "0000318154",
+      "cusip": "031162100",
+      "issuer_name_in_13f_list": "AMGEN INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 3722 / CUSIP 031162100",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "Amgen Inc. / COM / CUSIP 031162100 / report period 2026-06-30"
+    },
+    {
+      "ticker": "QCOM",
+      "issuer_cik": "0000804328",
+      "cusip": "747525103",
+      "issuer_name_in_13f_list": "QUALCOMM INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 19177 / CUSIP 747525103",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "QUALCOMM Inc. / COM / CUSIP 747525103 / report period 2026-06-30"
+    },
+    {
+      "ticker": "ABT",
+      "issuer_cik": "0000001800",
+      "cusip": "002824100",
+      "issuer_name_in_13f_list": "ABBOTT LABORATORIES",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 2675 / CUSIP 002824100",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "Abbott Laboratories / COM / CUSIP 002824100 / report period 2026-06-30"
+    },
+    {
+      "ticker": "AXP",
+      "issuer_cik": "0000004962",
+      "cusip": "025816109",
+      "issuer_name_in_13f_list": "AMERICAN EXPRESS CO",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 3644 / CUSIP 025816109",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1134283/000113428326000007/xslForm13F_X02/13F_XML_output_2026-06-30.xml",
+      "instrument_evidence_fields": "American Express Company / COM / CUSIP 025816109 / report period 2026-06-30"
+    }
+  ],
+  "validation_contract": {
+    "cusip_check_digit_required": true,
+    "issuer_name_must_match_dataset": true,
+    "security_class_must_match_dataset": true,
+    "issuer_cik_required": true,
+    "amendments_included": false,
+    "scoring_changed": false
+  },
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "identity_coverage": "40/687",
+    "unmapped_tickers": 647,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

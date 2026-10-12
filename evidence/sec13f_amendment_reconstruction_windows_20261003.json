@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T05:47:16+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "SEC 13F same-archive amendment reconstruction",
+  "source_commit": "106b1410b73fbbc2f33ece152587210cf5aa67b5",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37100351318,
+    "run_number": 365,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success",
+    "merge_sha": "ec9e27473be765a28f781b71c7a46f984489f224"
+  },
+  "windows_job": {
+    "id": 111138490778,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "image": "windows-2025-vs2026",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-03T05:37:11.124653+00:00",
+    "ended_at": "2026-10-03T05:47:08.463303+00:00",
+    "discovered_tests": 536,
+    "tests_run": 536,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "duration_seconds": 595.092
+  },
+  "release_gate": {
+    "job_id": 111140188379,
+    "conclusion": "success",
+    "contract_result": "success",
+    "scale_result": "success",
+    "ui_result": "success",
+    "windows_result": "success"
+  },
+  "artifact": {
+    "id": 11265719882,
+    "name": "windows-deterministic-tests",
+    "size_in_bytes": 16385,
+    "expires_at": "2027-01-01T05:36:12Z",
+    "sha256_from_metadata": "6dcce5f78514dfe06f288dead6cf49e83c01d382435869d943a318532bcf1061",
+    "sha256_from_upload_log": "6dcce5f78514dfe06f288dead6cf49e83c01d382435869d943a318532bcf1061",
+    "sha256_downloaded": "6dcce5f78514dfe06f288dead6cf49e83c01d382435869d943a318532bcf1061",
+    "download_verified": true,
+    "contents": {
+      "windows-tests.log_bytes": 96216,
+      "windows-tests.json_bytes": 373,
+      "machine_result_matches_job": true
+    }
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed_by_validation_commit": false
+  },
+  "acceptance_limits": {
+    "hosted_windows_compatibility_verified": true,
+    "actual_user_windows_end_to_end_verified": false,
+    "live_sec_13f_zip_run": false,
+    "cross_quarter_amendment_chain_reconstruction": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

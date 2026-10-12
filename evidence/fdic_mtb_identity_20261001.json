@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "evidence_type": "dated_identity_and_bounded_live_publisher_observations_not_full_acceptance",
+  "verified_at": "2026-10-01T20:21:45.816860+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "MTB",
+        "cert": 588,
+        "issuer_cik": "0000036270",
+        "issuer_name": "M&T Bank Corporation",
+        "bank_name": "Manufacturers and Traders Trust Company",
+        "effective_from": "2026-02-18",
+        "effective_from_basis": "filing_publication_floor",
+        "effective_from_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/0000036270-26-000010-index.htm",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/ex211subsidiaries-dec.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/R1.htm",
+        "known_at": "2026-10-01T20:21:45.816860+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/588",
+        "financial_name": "MANUFACTURERS&TRADERS TR CO",
+        "financial_name_known_at": "2026-10-01T20:20:21.772153+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A588&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/ex211subsidiaries-dec.htm",
+        "observed_no_later_than": "2026-10-01T20:21:45.816860+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "source_locator": "Exhibit 21.1 Subsidiaries of Registrant table and omitted-subsidiary footnote",
+        "observed_excerpt": "Manufacturers and Traders Trust Company (a/k/a M&T Bank)",
+        "as_of": null,
+        "as_of_date_verified": false,
+        "registry_report_eligibility_from": "2026-02-18",
+        "date_basis": "Conservative verified SEC publication floor; December 31, 2025 in the omission/materiality footnote is not accepted as an explicit date of the listed issuer-bank relationship",
+        "ownership_statement": "Listed subsidiary; no ownership percentage inferred from the undated row",
+        "unqualified_wholly_owned_claim_accepted": false,
+        "omitted_entities": "Other subsidiaries of the parent and its banking subsidiaries are expressly omitted based on aggregate materiality; other banks and full group are not mapped",
+        "scope": "Single cited subsidiary CERT, not complete group, acquisition date or continuous ownership history"
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/0000036270-26-000010-index.htm",
+        "filing_date": "2026-02-18",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0000036270",
+        "observed_no_later_than": "2026-10-01T20:21:45.816860+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and Exhibit 21.1 link",
+        "observed_excerpt": "Filing Date 2026-02-18; Period of Report 2025-12-31; CIK 0000036270",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/R1.htm",
+        "issuer_cik": "0000036270",
+        "issuer_name": "M&T Bank Corporation",
+        "source_registrant_name": "M&T BANK CORPORATION",
+        "ticker": "MTB",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-18",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/0000036270-26-000010-index.htm",
+        "source_locator": "R1 registrant name, CIK and Common Stock $0.50 par value / MTB rows; preferred classes are separate",
+        "observed_excerpt": "M&T BANK CORPORATION; 0000036270; Common Stock, $0.50 par value; MTB",
+        "observed_no_later_than": "2026-10-01T20:21:45.816860+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated common-stock symbol and issuer CIK only, not CUSIP/ISIN/current exchange or corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 588,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A588&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T20:20:15.571827+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:588",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 588,
+                "NAME": "Manufacturers and Traders Trust Company",
+                "ID": "588"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A588&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-01T20:20:21.772153+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:588",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 218788000,
+                "CERT": 588,
+                "NETINC": 1510000,
+                "EQ": 28164000,
+                "DEP": 172325000,
+                "NAME": "MANUFACTURERS&TRADERS TR CO",
+                "ID": "588_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 214201000,
+                "CERT": 588,
+                "NETINC": 679000,
+                "EQ": 28171000,
+                "DEP": 167256000,
+                "NAME": "MANUFACTURERS&TRADERS TR CO",
+                "ID": "588_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        }
+      },
+      "limitations": [
+        "Unknown relationship as-of date; publication floor only",
+        "Latest two subsidiary reports only",
+        "Other relevant banks and subsidiaries not mapped",
+        "Not issuer consolidated values or historical continuous ownership",
+        "No Windows or historical-out-of-sample acceptance"
+      ]
+    }
+  ],
+  "manifest_sha256": "1823ee5f438ceda55acf9e798db46c4f7bbfa3fe5498e190ae0569dd23bacdbf",
+  "preliminary_publisher_requests": [
+    {
+      "url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A588&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+      "started_at": "2026-10-01T20:20:07.812791+00:00",
+      "observed_at": "2026-10-01T20:20:15.571827+00:00",
+      "bytes": 317,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/financials?filters=CERT%3A588&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "started_at": "2026-10-01T20:20:15.572829+00:00",
+      "observed_at": "2026-10-01T20:20:21.772153+00:00",
+      "bytes": 580,
+      "result": "PASS"
+    }
+  ],
+  "request_scope": {
+    "preliminary_requests": 2,
+    "smoke_requests_planned": 2,
+    "max_total_new_requests": 4,
+    "timeout_seconds": 20,
+    "max_response_bytes": 1000000,
+    "institutions_rows": 1,
+    "financials_rows": 2,
+    "smoke_requests_completed": 2,
+    "total_new_requests": 4,
+    "captured_payload_rechecks_use_network": false
+  },
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 17,
+    "unmapped_tickers": [
+      "OZK",
+      "PNFP",
+      "RF",
+      "WAL",
+      "ZION"
+    ],
+    "basis": "Manifest vs canonical BANK profiles; not runtime usable coverage or complete groups"
+  },
+  "full_specialist_acceptance": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "scoring_applied": false,
+  "source_smoke_evidence": "evidence/fdic_mtb_live_20261001.json",
+  "source_smoke_sha256": "58508a04171753e630364a0bc9a19236307f25e22f2f9931bc6f0f2a6d716f01"
+}

@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-02T20:39:10.301926+00:00",
+  "publisher": "U.S. Securities and Exchange Commission",
+  "scope": "Five additional canonical instruments, bringing the bounded 2026 Q2 SEC 13F registry to fifteen; not full-universe coverage or a live 13F dataset run",
+  "quarter": {
+    "effective_from": "2026-04-01",
+    "effective_to": "2026-06-30",
+    "official_list_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt"
+  },
+  "ticker_source": {
+    "url": "https://www.sec.gov/files/company_tickers.json",
+    "limitation": "Current SEC ticker-to-CIK publication observed at knowledge time; it does not establish continuous historical ticker ownership or corporate-action continuity"
+  },
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "new_tickers_present": ["V", "MA", "JNJ", "XOM", "WMT"]
+  },
+  "entries": [
+    {
+      "ticker": "V",
+      "issuer_cik": "0001403161",
+      "cusip": "92826C839",
+      "issuer_name_in_13f_list": "VISA INC",
+      "class_in_13f_list": "COM CL A",
+      "official_list_locator": "line 24425 / CUSIP 92826C839",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1403161/000010290926002577/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Visa Inc / Common Stock / CUSIP 92826C839 / event 2026-03-13"
+    },
+    {
+      "ticker": "MA",
+      "issuer_cik": "0001141391",
+      "cusip": "57636Q104",
+      "issuer_name_in_13f_list": "MASTERCARD INCORPORATED",
+      "class_in_13f_list": "CL A",
+      "official_list_locator": "line 15996 / CUSIP 57636Q104",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1141391/000200639726000007/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Mastercard Inc / Class A common stock / CUSIP 57636Q104 / event 2026-03-31"
+    },
+    {
+      "ticker": "JNJ",
+      "issuer_cik": "0000200406",
+      "cusip": "478160104",
+      "issuer_name_in_13f_list": "JOHNSON & JOHNSON",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 14750 / CUSIP 478160104",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926000380/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Johnson & Johnson / Common Stock / CUSIP 478160104 / event 2026-03-13"
+    },
+    {
+      "ticker": "XOM",
+      "issuer_cik": "0000034088",
+      "cusip": "30231G102",
+      "issuer_name_in_13f_list": "EXXON MOBIL CORP",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 8940 / CUSIP 30231G102",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/xslSCHEDULE_13G_X02/primary_doc.xml",
+      "instrument_evidence_fields": "Exxon Mobil Corp / Common Stock / CUSIP 30231G102 / event 2026-06-30"
+    },
+    {
+      "ticker": "WMT",
+      "issuer_cik": "0000104169",
+      "cusip": "931142103",
+      "issuer_name_in_13f_list": "WALMART INC",
+      "class_in_13f_list": "COM",
+      "official_list_locator": "line 24598 / CUSIP 931142103",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/104169/000114036126007628/xslSCHEDULE_13D_X01/primary_doc.xml",
+      "instrument_evidence_fields": "Walmart Inc / Common Stock / CUSIP 931142103 / event 2026-02-27"
+    }
+  ],
+  "validation_contract": {
+    "cusip_check_digit_required": true,
+    "issuer_name_must_match_dataset": true,
+    "security_class_must_match_dataset": true,
+    "issuer_cik_required": true,
+    "amendments_included": false,
+    "scoring_changed": false
+  },
+  "acceptance_limits": {
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "windows_end_to_end": "NOT_RUN",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

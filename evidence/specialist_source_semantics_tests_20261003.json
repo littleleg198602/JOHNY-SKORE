@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T00:49:38+00:00",
+  "evidence_type": "deterministic_runtime_semantics_test",
+  "subject": "Attempted, usable, partial, blocked and failed source-run semantics",
+  "tested_head_sha": "5fb084f9ac236c58123c764ca107deddaff2968f",
+  "implementation": {
+    "source_count": 16,
+    "status_classes": {
+      "NOT_ATTEMPTED": ["NEVER_RUN", "WAIT_ACCESS", "WAIT_IDENTITY"],
+      "COMPLETE": ["OK", "NO_DUE_WORK"],
+      "BOUNDED_PARTIAL": ["SAMPLED"],
+      "PARTIAL": ["PARTIAL"],
+      "BLOCKED": ["ACCESS_BLOCKED", "RATE_LIMITED", "LEASE_LOST"],
+      "FAILED": ["ERROR"]
+    },
+    "partial_output_requires_positive_persisted_count": true,
+    "unknown_status_fails_closed": true,
+    "source_status_is_acceptance": false,
+    "empty_database_example": {
+      "attempted": 0,
+      "result_usable": 0,
+      "complete": 0,
+      "partial": 0,
+      "blocked": 0,
+      "failed": 0,
+      "unknown_status": 0
+    }
+  },
+  "validation": {
+    "command": "python -m unittest tests.test_specialist_acceptance_service tests.test_specialist_status tests.test_scout_store tests.test_doj_scout_service tests.test_epa_echo_scout_service tests.test_ofac_consolidated_scout_service",
+    "tests_run": 58,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "sha256": {
+    "market_checker_app/services/specialist_acceptance_service.py": "60362444fe2938161bf6aa9f2983e6e26aa076d17b1d4ea6609c6d21378238ff",
+    "tests/test_specialist_acceptance_service.py": "9e619fc63eb93c9e2e50387f1cc510ef73cc687cb8d0e6c99a1c41127421bd03"
+  },
+  "acceptance_limits": {
+    "runtime_semantics_implemented": true,
+    "live_source_coverage_proven": false,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

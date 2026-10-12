@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T20:35:36+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "Fail-closed classification of all official SEC Form 4 transaction codes",
+  "source_commit": "7e6a0c8f51a417d694939a6c9a7ada49174b9d83",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37148581786,
+    "run_number": 379,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111277493196,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-03T19:38:37.293268+00:00",
+    "ended_at": "2026-10-03T19:47:51.835159+00:00",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "job_test_wall_seconds": 554.541891,
+    "unittest_duration_seconds": 552.496
+  },
+  "release_gate": {
+    "job_id": 111279276909,
+    "conclusion": "success",
+    "all_test_agents_required": true
+  },
+  "artifact": {
+    "id": 11282313919,
+    "name": "windows-deterministic-tests",
+    "size_in_bytes": 16637,
+    "expires_at": "2027-01-01T19:37:49Z",
+    "sha256_from_metadata": "7b5a20b31bb83c6e15244c3330725ea20d6dc2219b225f8ca33bb3f6ae48d7ba",
+    "sha256_downloaded": "7b5a20b31bb83c6e15244c3330725ea20d6dc2219b225f8ca33bb3f6ae48d7ba",
+    "download_verified": true,
+    "contents": {
+      "windows-tests.log_bytes": 98081,
+      "windows-tests.json_bytes": 373,
+      "windows-tests.log_sha256": "6b3ddf96aaeec649aad54d93c9b9788b5500676a0cb5dfe7512172966fd82d9b",
+      "windows-tests.json_sha256": "1664410f147ad8cc3af566af13d29f48e1cf832414b8e141fa47dcb79610a2d9",
+      "machine_result_matches_job": true,
+      "form4_classification_tests_present_and_passed": true
+    }
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed_by_validation_commit": false
+  },
+  "acceptance_limits": {
+    "hosted_windows_compatibility_verified": true,
+    "local_form4_code_classification_verified": true,
+    "legal_person_identity_verified": false,
+    "positive_and_negative_live_cases_verified": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

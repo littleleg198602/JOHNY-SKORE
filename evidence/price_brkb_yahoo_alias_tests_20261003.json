@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T02:47:45+00:00",
+  "evidence_type": "deterministic_provider_symbol_translation_test",
+  "subject": "Canonical BRKB to Yahoo BRK-B provider-boundary translation",
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "canonical_ticker": "BRKB",
+    "canonical_ticker_changed": false
+  },
+  "implementation": {
+    "provider": "Yahoo",
+    "provider_symbol": "BRK-B",
+    "translation_boundary": "Yahoo metadata, bulk OHLC, individual OHLC retry and corporate-action OHLC clients",
+    "canonical_cache_and_output_key": "BRKB",
+    "canonical_csv_modified": false,
+    "scoring_changed": false
+  },
+  "validation": {
+    "focused_command": "python -m unittest tests.test_canonical_ticker_universe tests.test_yahoo_metadata_client tests.test_yahoo_corporate_action_history tests.test_yahoo_ohlc_cache_store tests.test_pipeline_current_price tests.test_specialist_acceptance_service tests.test_specialist_status",
+    "focused_tests_run": 48,
+    "full_command": "python -m unittest discover -s tests -v",
+    "full_tests_run": 534,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "sha256": {
+    "market_checker_app/utils/symbols.py": "5c68062c50cdf1ea18f56c2bd3002be4c601845cd84c31ed0b4588341c209eeb",
+    "market_checker_app/utils/ticker_universe.py": "d4fe3ed1a9bef5fff569c7f42d2627c9a4580812df2ca4344ebd97565535df46",
+    "market_checker_app/collectors/yahoo_client.py": "6548f20926f10361dec484a873deb5ab79b3fca2e1b930540b632e58033c1350",
+    "market_checker_app/services/yahoo_corporate_action_history.py": "01d5477ec2aa4f76a364ee2595a69e554bb2c8ac84ff896925976e36d9c90e3b",
+    "tests/test_canonical_ticker_universe.py": "55946028499e0b388f39ef7f76c9d563d2e25b36637c21476e6e1bb00e6354dd",
+    "tests/test_yahoo_metadata_client.py": "024bda90f998cd00f2b4c585b47b590fafdea68e8bd1c6b5daf99a35d3dd32af",
+    "tests/test_yahoo_corporate_action_history.py": "3b1417076c4f40d9054a97abef58d28179ae518a367cf680e4d3a211aaa8fd1f"
+  },
+  "acceptance_limits": {
+    "live_brkb_yahoo_response_verified": false,
+    "pstg_and_leg_resolved": false,
+    "full_687_after_close_run": "NOT_RUN",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "measured_applicable_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

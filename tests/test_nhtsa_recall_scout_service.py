@@ -24,9 +24,6 @@ class FakeRecalls:
              "Manufacturer": "Tesla, Inc.", "NHTSACampaignNumber": "26V123000",
              "ReportReceivedDate": "09/01/2026", "Component": "ELECTRICAL SYSTEM",
              "Summary": "A described model-year campaign", "parkIt": False},
-            {"Make": "TESLA", "Model": "MODEL Y", "ModelYear": "2026",
-             "Manufacturer": "Tesla, Inc.", "NHTSACampaignNumber": "26V456000",
-             "ReportReceivedDate": "09/02/2026"},
         ]
         self.fail, self.calls = fail, []
 
@@ -38,6 +35,27 @@ class FakeRecalls:
 
 
 class NhtsaRecallTests(unittest.TestCase):
+    def test_live_day_month_date_and_rejected_response_retry(self):
+        row = {"Make": "TESLA", "Model": "MODEL 3", "ModelYear": "2026",
+               "Manufacturer": "Tesla, Inc.", "NHTSACampaignNumber": "25V410000",
+               "ReportReceivedDate": "18/06/2025"}
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            client = FakeRecalls([row])
+            service = NhtsaRecallScoutService(store, client=client, models=[MODEL])
+            self.assertEqual(1, service.run(as_of=NOW)["new_findings"])
+            with store._connect() as conn:
+                details = json.loads(conn.execute("SELECT details_json FROM scout_findings").fetchone()[0])
+            self.assertEqual("2025-06-18", details["report_received_date"])
+            client.rows = [dict(row, ReportReceivedDate="09/29/2026")]
+            partial = service.run(as_of=NOW + timedelta(days=31))
+            self.assertEqual(("PARTIAL", 1), (partial["status"], partial["rejected_rows"]))
+            client.rows = [dict(row, ReportReceivedDate="05/06/2025")]
+            self.assertEqual(1, service.run(as_of=NOW + timedelta(days=32))["checked_models"])
+            with store._connect() as conn:
+                details = json.loads(conn.execute("SELECT details_json FROM scout_findings ORDER BY first_observed_at DESC").fetchone()[0])
+            self.assertEqual("2025-06-05", details["report_received_date"])
+
     def test_exact_model_manufacturer_date_and_monthly_refresh(self):
         with TemporaryDirectory() as directory:
             path = Path(directory) / "models.json"

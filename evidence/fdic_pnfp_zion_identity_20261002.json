@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-02T05:54:00.799207+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "PNFP",
+        "cert": 35583,
+        "bank_name": "Pinnacle Bank",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/35583",
+        "known_at": "2026-10-02T05:54:00.799207+00:00",
+        "financial_name": "PINNACLE BANK",
+        "financial_name_known_at": "2026-10-02T05:52:36.470179+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A35583&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "issuer_cik": "0002082866",
+        "issuer_name": "Pinnacle Financial Partners, Inc.",
+        "effective_from": "2026-03-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/2082866/000208286626000043/pnfp-20260331.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/2082866/000208286626000043/R1.htm"
+      },
+      "primary_evidence": {
+        "relationship_as_of": "2026-03-31",
+        "relationship_date_basis": "March 31 quarterly report corporate profile explicitly identifies the wholly-owned Pinnacle Bank under the successor issuer",
+        "quarterly_filing_date_verified": false,
+        "source_locator": "INTRODUCTION AND CORPORATE PROFILE and Note 2 Business Combination",
+        "issuer_identity_locator": "R1 Entity Central Index Key and Common Stock/PNFP; preferred classes excluded",
+        "corporate_action": {
+          "old_cik": "0001115055",
+          "new_cik": "0002082866",
+          "same_common_ticker": "PNFP",
+          "successor_effective_date": "2026-01-01",
+          "new_exchange_trading_from": "2026-01-02",
+          "new_exchange": "NYSE",
+          "old_exchange": "Nasdaq",
+          "primary_source": "https://www.sec.gov/Archives/edgar/data/2082866/000114036126000050/ef20061822_8k12b.htm",
+          "filing_index": "https://www.sec.gov/Archives/edgar/data/2082866/000114036126000050/0001140361-26-000050-index.htm",
+          "verified_filing_date": "2026-01-02",
+          "scope": "Successor issuer evidence; no legacy SEC identity, historic CUSIP or price continuity inferred"
+        },
+        "ownership_scope": "One cited bank; full group and continuous ownership history remain unverified"
+      },
+      "known_at": "2026-10-02T05:54:00.799207+00:00",
+      "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+      "fdic_publisher_observation": {
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:35583",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 35583,
+                "NAME": "Pinnacle Bank",
+                "ID": "35583"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A35583&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-02T05:48:30.909355+00:00",
+        "financials": {
+          "meta": {
+            "total": 103,
+            "parameters": {
+              "filters": "CERT:35583",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 128791735,
+                "CERT": 35583,
+                "NETINC": 557603,
+                "EQ": 14808918,
+                "DEP": 102245160,
+                "NAME": "PINNACLE BANK",
+                "ID": "35583_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 122628191,
+                "CERT": 35583,
+                "NETINC": 230906,
+                "EQ": 14486990,
+                "DEP": 101064128,
+                "NAME": "PINNACLE BANK",
+                "ID": "35583_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 103
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A35583&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-02T05:52:36.470179+00:00"
+      }
+    },
+    {
+      "identity": {
+        "ticker": "ZION",
+        "cert": 2270,
+        "bank_name": "Zions Bancorporation, N.A.",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/2270",
+        "known_at": "2026-10-02T05:54:00.799207+00:00",
+        "financial_name": "ZIONS BCORP N A",
+        "financial_name_known_at": "2026-10-02T05:52:30.984192+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A2270&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "issuer_name": "Zions Bancorporation, National Association",
+        "issuer_cik": "0000109380",
+        "issuer_identity_publisher": "SEC",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/109380/000010938026000046/R1.htm",
+        "issuer_identity_as_of": "2025-12-31",
+        "issuer_identity_filing_date": "2026-02-24",
+        "issuer_filing_index_url": "https://www.sec.gov/Archives/edgar/data/109380/000010938026000046/0000109380-26-000046-index.htm",
+        "issuer_instrument_class": "common_stock",
+        "issuer_instrument_symbol": "ZION",
+        "issuer_identity_kind": "direct_bank",
+        "effective_from": "2025-12-31",
+        "effective_from_basis": "direct_bank_identity_as_of",
+        "effective_from_evidence_url": "https://www.sec.gov/Archives/edgar/data/109380/000010938026000046/R1.htm"
+      },
+      "primary_evidence": {
+        "issuer_identity_as_of": "2025-12-31",
+        "identity_kind": "direct SEC-reporting national bank, not parent/subsidiary",
+        "source_locator": "R1 registrant name, CIK and Common Stock/ZION rows; SEC filing index publication date",
+        "verified_filing_date": "2026-02-24",
+        "common_symbol": "ZION",
+        "preferred_symbol_excluded": "ZIONP",
+        "same_bank_corroboration": "FDIC CERT 2270 exact institution name and separate financial abbreviation",
+        "relationship_applicable": false,
+        "complete_group_verified": false
+      },
+      "known_at": "2026-10-02T05:54:00.799207+00:00",
+      "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+      "fdic_publisher_observation": {
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:2270",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 2270,
+                "NAME": "Zions Bancorporation, N.A.",
+                "ID": "2270"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A2270&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-02T05:48:25.363838+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:2270",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 89041284,
+                "CERT": 2270,
+                "NETINC": 685692,
+                "EQ": 7680845,
+                "DEP": 76616434,
+                "NAME": "ZIONS BCORP N A",
+                "ID": "2270_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 87956932,
+                "CERT": 2270,
+                "NETINC": 232932,
+                "EQ": 7295506,
+                "DEP": 76926168,
+                "NAME": "ZIONS BCORP N A",
+                "ID": "2270_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A2270&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-02T05:52:30.984192+00:00"
+      }
+    }
+  ],
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 22,
+    "unmapped_tickers": [],
+    "complete_issuer_groups_verified": false,
+    "runtime_coverage_verified": false
+  },
+  "new_preliminary_api_requests": 4,
+  "max_response_bytes": 1000000,
+  "timeout_seconds": 20,
+  "manifest_sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "full_specialist_acceptance": false,
+  "scoring_applied": false
+}

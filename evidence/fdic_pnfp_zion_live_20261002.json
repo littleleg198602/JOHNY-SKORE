@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-02T05:55:58.538473+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_PNFP": {
+      "status": "PASS",
+      "observed_at": "2026-10-02T05:55:58.541819+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A35583&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "PNFP",
+      "cert": 35583,
+      "identity": {
+        "ticker": "PNFP",
+        "cert": 35583,
+        "bank_name": "Pinnacle Bank",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/35583",
+        "known_at": "2026-10-02T05:54:00.799207+00:00",
+        "financial_name": "PINNACLE BANK",
+        "financial_name_known_at": "2026-10-02T05:52:36.470179+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A35583&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "issuer_cik": "0002082866",
+        "issuer_name": "Pinnacle Financial Partners, Inc.",
+        "effective_from": "2026-03-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/2082866/000208286626000043/pnfp-20260331.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/2082866/000208286626000043/R1.htm"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "payload": {
+        "meta": {
+          "total": 103,
+          "parameters": {
+            "filters": "CERT:35583",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 128791735,
+              "CERT": 35583,
+              "NETINC": 557603,
+              "EQ": 14808918,
+              "DEP": 102245160,
+              "NAME": "PINNACLE BANK",
+              "ID": "35583_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 122628191,
+              "CERT": 35583,
+              "NETINC": 230906,
+              "EQ": 14486990,
+              "DEP": 101064128,
+              "NAME": "PINNACLE BANK",
+              "ID": "35583_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 103
+        }
+      }
+    },
+    "fdic_positive_ZION": {
+      "status": "PASS",
+      "observed_at": "2026-10-02T05:56:03.940804+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A2270&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "ZION",
+      "cert": 2270,
+      "identity": {
+        "ticker": "ZION",
+        "cert": 2270,
+        "bank_name": "Zions Bancorporation, N.A.",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/2270",
+        "known_at": "2026-10-02T05:54:00.799207+00:00",
+        "financial_name": "ZIONS BCORP N A",
+        "financial_name_known_at": "2026-10-02T05:52:30.984192+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A2270&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "issuer_name": "Zions Bancorporation, National Association",
+        "issuer_cik": "0000109380",
+        "issuer_identity_publisher": "SEC",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/109380/000010938026000046/R1.htm",
+        "issuer_identity_as_of": "2025-12-31",
+        "issuer_identity_filing_date": "2026-02-24",
+        "issuer_filing_index_url": "https://www.sec.gov/Archives/edgar/data/109380/000010938026000046/0000109380-26-000046-index.htm",
+        "issuer_instrument_class": "common_stock",
+        "issuer_instrument_symbol": "ZION",
+        "issuer_identity_kind": "direct_bank",
+        "effective_from": "2025-12-31",
+        "effective_from_basis": "direct_bank_identity_as_of",
+        "effective_from_evidence_url": "https://www.sec.gov/Archives/edgar/data/109380/000010938026000046/R1.htm"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 3
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 4
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:2270",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 89041284,
+              "CERT": 2270,
+              "NETINC": 685692,
+              "EQ": 7680845,
+              "DEP": 76616434,
+              "NAME": "ZIONS BCORP N A",
+              "ID": "2270_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 87956932,
+              "CERT": 2270,
+              "NETINC": 232932,
+              "EQ": 7295506,
+              "DEP": 76926168,
+              "NAME": "ZIONS BCORP N A",
+              "ID": "2270_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-02T05:56:10.075602+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "PNFP",
+    "ZION"
+  ],
+  "finished_at": "2026-10-02T05:56:15.121558+00:00"
+}

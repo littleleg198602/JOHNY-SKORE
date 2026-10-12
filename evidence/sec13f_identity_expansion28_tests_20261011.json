@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-11T05:10:30+00:00",
+  "evidence_type": "hosted_deterministic_verification",
+  "subject": "SEC 13F one-hundred-forty-instrument identity registry",
+  "source_commit": "f6ad74f47033d573291e39efad5dcd0d72c33b2a",
+  "pull_request": 160,
+  "workflow": {
+    "id": 38110751861,
+    "run_number": 433,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "jobs": {
+    "linux": {
+      "id": 114385623377,
+      "name": "Contract, source and persistence agent",
+      "conclusion": "success",
+      "compile": "success",
+      "tests_run": 546,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "windows": {
+      "id": 114385623365,
+      "name": "Windows contracts, persistence and UI",
+      "conclusion": "success",
+      "compile": "success",
+      "tests_run": 546,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "release_gate": {
+      "id": 114387681644,
+      "name": "Deterministic release gate",
+      "conclusion": "success"
+    }
+  },
+  "registry_test": {
+    "name": "test_production_manifest_has_one_hundred_forty_cited_canonical_instruments",
+    "linux": "passed",
+    "windows": "passed",
+    "verified_in_complete_job_logs": true
+  },
+  "windows_artifact_evidence": "evidence/sec13f_identity_expansion28_windows_20261011.json",
+  "acceptance_limits": [
+    "Hosted deterministic tests do not constitute a live SEC ZIP/holdings run.",
+    "GitHub-hosted Windows is not the end-user Windows environment.",
+    "The downloaded artifact matches the published digest and both contained files were independently hashed and content-checked.",
+    "No corporate-action completeness or historical out-of-sample evaluation is claimed.",
+    "No specialist status or score was promoted."
+  ]
+}

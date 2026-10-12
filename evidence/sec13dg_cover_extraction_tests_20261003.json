@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T11:05:58+00:00",
+  "evidence_type": "deterministic_parser_test",
+  "subject": "Fail-closed extraction of Schedule 13D/G as-filed cover fields",
+  "base_commit": "0cee8f3ba7d0db0ab7ad7c7e71353a07751e1c13",
+  "pull_request": 160,
+  "implementation": {
+    "supported_forms": ["SC 13D", "SC 13D/A", "SC 13G", "SC 13G/A"],
+    "maximum_document_characters": 500000,
+    "maximum_reporting_persons": 32,
+    "extracted_fields": [
+      "event_date",
+      "security_class_title",
+      "checksum_valid_CUSIP",
+      "reporting_person_name",
+      "aggregate_beneficial_shares",
+      "percent_of_class"
+    ],
+    "reporting_person_identity_status": "NAME_ONLY",
+    "instrument_identity_status": "AS_FILED_NOT_REGISTRY_MATCHED",
+    "ownership_change_interpreted": false,
+    "scoring_applied": false
+  },
+  "validation": {
+    "focused_command": "python -m unittest tests.test_sec_schedule13_extraction tests.test_sec_document_scout tests.test_governance_event_agent tests.test_sec_scout_service",
+    "focused_tests_run": 28,
+    "focused_failures": 0,
+    "focused_errors": 0,
+    "full_command": "python -m unittest discover -s tests",
+    "full_tests_run": 540,
+    "full_failures": 0,
+    "full_errors": 0,
+    "full_duration_seconds": 96.382,
+    "initial_clean_host_attempt": {
+      "tests_run_before_import_failures": 434,
+      "import_errors": 22,
+      "successful": false,
+      "reason": "Declared project dependencies were not installed; the failed attempt is not counted as a pass."
+    },
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "sha256": {
+    "market_checker_app/services/sec_document_extraction.py": "b7a715f59f224c322e27c7acd4cbebb990a93502ce4a3a63d7b77d7bdf92b630",
+    "market_checker_app/services/sec_scout_service.py": "4398881b0ee431006411c7cd6cca79c217383ed3a1cf0b58aa8c7b704910b340",
+    "market_checker_app/agents/scout_index_agent.py": "42e192afd649ea3219dd39a51198430df1461204ac7e25f07104d5e405e4407f",
+    "market_checker_app/agents/governance_event_agent.py": "400944c7b7fbbaba95a0602c9290af34990b1d1225241dc3bd0ecf20260792b3",
+    "tests/test_sec_schedule13_extraction.py": "47fe482d64f8b0fbf3db303bb80220d16fd6f9fa7ec57c0bdcd0eccd36692d2b",
+    "tests/test_sec_document_scout.py": "3a9346a5112d3c98abb9fa6da4ccc08c71c5b6ab4523e0c11071a05a0d97f91d"
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed": false
+  },
+  "acceptance_limits": {
+    "captured_source_parser_verified": true,
+    "live_sec_user_agent_run": false,
+    "reporting_person_legal_identity_verified": false,
+    "instrument_registry_match_verified": false,
+    "ownership_change_interpreted": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "positive_and_negative_live_cases_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

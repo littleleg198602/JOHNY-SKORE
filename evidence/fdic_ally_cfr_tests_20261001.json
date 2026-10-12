@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "evidence_type": "deterministic_tests_not_live_or_Windows_acceptance",
+  "started_at": "2026-10-01T17:33:05.836134+00:00",
+  "finished_at": "2026-10-01T17:34:42.392165+00:00",
+  "platform": "Linux",
+  "python": "3.12.14",
+  "command": "python -m unittest discover -s tests -p test_*.py -v",
+  "returncode": 0,
+  "tests": 485,
+  "reported_seconds": 95.357,
+  "elapsed_seconds": 96.556,
+  "result": "PASS",
+  "tested_sha256": {
+    "market_checker_app/data/verified_fdic_banks.json": "65eae366727d140c2678348f00c08e2a309e59d94a1d1039842c269417ea7037",
+    "market_checker_app/services/fdic_bank_scout_service.py": "de27f50d2bb985add8c1683e958060dbf60e2f11688b0fc4627fe4a32a1564ca",
+    "market_checker_app/services/specialist_acceptance_service.py": "735162263c7a2fb23b7b34b7655f5ddd8688e7cb320c6a7d3be6546a9fe98588",
+    "market_checker_app/specialist_live_smoke.py": "aee9eb7fd39310994d57e1176f3fda7ce2fc0a98da7cc2f84b9fafe369ce62dd",
+    "market_checker_app/storage/scout_store.py": "a99504a3a4c657bbcb9d998b7794e055203eb797123ea774e52ed04a329d63bc",
+    "tests/test_fdic_bank_scout_service.py": "3501863670324453c36290e547fcedd0aa7d9bb1cf65d8d16ca243bd91fbc271",
+    "tests/test_specialist_acceptance_service.py": "07b1c71839cab5c573c908c00285edf174046bc3ec9c6ea9c0098fdd2fdf4972",
+    "evidence/fdic_ally_cfr_identity_20261001.json": "f8b83d6dfebee5d265c42ba96249b9d011320cc20224ea4efe663f05ba9db305"
+  },
+  "scoring_applied": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "initial_attempt": {
+    "started_at": "2026-10-01T17:21:25.625102+00:00",
+    "finished_at": "2026-10-01T17:21:32.164969+00:00",
+    "returncode": 1,
+    "tests": 382,
+    "result": "FAIL",
+    "reason": "21 import errors: committed project dependencies absent on this host (pandas_market_calendars, feedparser, yfinance, streamlit)",
+    "resolution": "Installed committed requirements.txt with constraints.txt before rerunning unchanged code"
+  },
+  "before_publication_floor_provenance_change": {
+    "started_at": "2026-10-01T17:24:25.556014+00:00",
+    "finished_at": "2026-10-01T17:26:04.626311+00:00",
+    "returncode": 0,
+    "tests": 484,
+    "result": "PASS"
+  },
+  "other_checks": {
+    "compile": {
+      "returncode": 0,
+      "command": "python -m compileall -q market_checker_app tests"
+    },
+    "diff_check": {
+      "returncode": 0,
+      "command": "git diff --check"
+    }
+  },
+  "targeted_tests": {
+    "fdic": 21,
+    "diagnostics": 9
+  },
+  "live_smoke_command": "python -m market_checker_app.specialist_live_smoke --sources fdic --fdic-tickers ALLY CFR --output-path evidence/fdic_ally_cfr_live_20261001.json",
+  "live_smoke_sha256": "16233472f30d948914864f13f56c738be537398c7f5d97d21e69b895fdb8de0b",
+  "checks_verified_at": "2026-10-01T17:35:25.166140+00:00"
+}

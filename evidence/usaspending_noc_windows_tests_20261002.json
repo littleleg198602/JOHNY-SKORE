@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "NOC / Northrop Grumman Systems USAspending identity and bounded collection",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "pull_request": 160,
+  "tested_head_sha": "8df9d47675f0ec1563131fe278e9c9056f6ee2df",
+  "tested_merge_sha": "fd8fc8118cf10a479e8f6ddf4286dc9b9ecd2456",
+  "workflow": {
+    "id": 37052898902,
+    "name": "Market Checker test agents",
+    "run_number": 355,
+    "status": "completed",
+    "conclusion": "success",
+    "release_gate_job_id": 110995944368,
+    "release_gate_conclusion": "success"
+  },
+  "windows_job": {
+    "id": 110990378505,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "runner_os": "Microsoft Windows Server 2025",
+    "runner_image": "windows-2025-vs2026",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-10-02T19:16:24.293811+00:00",
+    "ended_at": "2026-10-02T19:30:24.800264+00:00",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "discovered_tests": 528,
+    "tests_run": 528,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "duration_seconds_reported_by_unittest": 838.121
+  },
+  "artifact": {
+    "id": 11248265909,
+    "name": "windows-deterministic-tests",
+    "size_bytes": 16175,
+    "files": [
+      "windows-tests.log",
+      "windows-tests.json"
+    ],
+    "sha256": "d931deb190e7858b60b158aedd68381e33d3fc583f33531f249f59df86e29554",
+    "downloaded_and_content_verified": true
+  },
+  "acceptance_limits": {
+    "compatibility_only": true,
+    "live_usaspending_network_run_on_windows": false,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "measured_applicable_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

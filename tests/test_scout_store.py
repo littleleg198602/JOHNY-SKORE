@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import ExitStack
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import tempfile
@@ -7,11 +8,41 @@ import unittest
 from unittest.mock import patch
 
 from market_checker_app.storage.scout_store import ScoutStore
-from market_checker_app.scout_runner import run as run_scout
+from market_checker_app.scout_runner import (
+    FDA_DAILY_ISSUER_BUDGET, FINRA_DAILY_ISSUER_BUDGET, run as run_scout,
+)
 from market_checker_app.utils.ticker_universe import load_canonical_ticker_records
 
 
 class ScoutStoreTests(unittest.TestCase):
+    def test_daily_specialist_budgets_cover_687_before_refresh(self) -> None:
+        tickers = [row["ticker"] for row in load_canonical_ticker_records()]
+        self.assertEqual(687, len(tickers))
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            start = datetime(2026, 10, 1, tzinfo=timezone.utc)
+            for index, ticker in enumerate(tickers, 1):
+                store.observe_sec_identity(
+                    subject_id=ticker, cik=f"{index:010d}",
+                    company_name=f"Example {index} Inc.",
+                    as_of=start - timedelta(days=1))
+            for source, budget, days, refresh in (
+                ("fda", FDA_DAILY_ISSUER_BUDGET, 18, 30),
+                ("finra", FINRA_DAILY_ISSUER_BUDGET, 10, 15),
+            ):
+                for day in range(days):
+                    clock = start + timedelta(days=day)
+                    due = store.specialist_due(source, as_of=clock, limit=budget,
+                                               refresh_days=refresh)
+                    for row in due:
+                        store.record_specialist_check(
+                            source, subject_id=row["subject_id"],
+                            identity_key=f"{row['cik']}:{row['company_name']}",
+                            as_of=clock, candidate_count=0, truncated=False)
+                self.assertEqual(687, store.specialist_coverage(
+                    source, as_of=start + timedelta(days=days - 1),
+                    refresh_days=refresh)["current_complete"])
+
     def test_specialist_coverage_distinguishes_current_partial_and_stale(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")
@@ -88,7 +119,18 @@ class ScoutStoreTests(unittest.TestCase):
     def test_runner_rejects_changed_input_and_shows_positions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "scout.db"
-            with patch.dict("os.environ", {"JOHNY_SKORE_SEC_USER_AGENT": ""}):
+            # A universe persistence test must not wait for live source APIs.
+            with ExitStack() as stack:
+                stack.enter_context(patch.dict("os.environ", {}, clear=True))
+                for service in (
+                    "UsaSpendingScoutService", "UsaSpendingRecipientDiscovery",
+                    "FdaRecallScoutService", "FdicBankScoutService", "NhtsaRecallScoutService",
+                    "HealthcareNameScoutService",
+                    "OfacSdnScoutService",
+                    "DojPressReleaseScoutService",
+                ):
+                    stack.enter_context(patch(f"market_checker_app.scout_runner.{service}.run",
+                                              return_value={"status": "OK", "new_findings": 0}))
                 first = run_scout(db_path=path, limit=0)
                 self.assertEqual("CREATED", first["universe_snapshot"]["status"])
                 self.assertEqual("UNCHANGED", run_scout(

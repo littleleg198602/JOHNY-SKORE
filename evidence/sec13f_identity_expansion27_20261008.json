@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-08T19:47:49+00:00",
+  "evidence_type": "reviewed_sec13f_instrument_identity_expansion",
+  "subject": "SEC 13F canonical identity registry expansion from 130 to 135",
+  "effective_period": {
+    "from": "2026-04-01",
+    "to": "2026-06-30",
+    "basis": "SEC 2026 Q2 official 13(f) securities list"
+  },
+  "canonical_universe": {
+    "total": 687,
+    "mapped_before": 130,
+    "mapped_after": 135,
+    "coverage_ratio": 0.196507,
+    "unmapped_after": 552
+  },
+  "sources": {
+    "official_13f_list": {
+      "url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "last_reviewed_period": "2026 Q2",
+      "facts": "Exact issuer, CUSIP and class rows reviewed for all five additions."
+    },
+    "official_company_tickers": {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "observed_at": "2026-10-08T19:47:49+00:00",
+      "facts": "Ticker-to-issuer-CIK mappings reviewed for all five additions."
+    },
+    "filed_information_table": {
+      "url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "report_period": "2026-03-31",
+      "facts": "Filed Q1 2026 Form 13F information table records every added issuer and exact CUSIP."
+    }
+  },
+  "additions": [
+    {
+      "ticker": "PWR",
+      "issuer_cik": "0001050915",
+      "cusip": "74762E102",
+      "issuer_name": "QUANTA SVCS INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Quanta Services common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T19:47:49+00:00"
+    },
+    {
+      "ticker": "MPC",
+      "issuer_cik": "0001510295",
+      "cusip": "56585A102",
+      "issuer_name": "MARATHON PETE CORP",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Marathon Petroleum common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T19:47:49+00:00"
+    },
+    {
+      "ticker": "PNC",
+      "issuer_cik": "0000713676",
+      "cusip": "693475105",
+      "issuer_name": "PNC FINL SVCS GROUP INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records PNC Financial Services common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T19:47:49+00:00"
+    },
+    {
+      "ticker": "USB",
+      "issuer_cik": "0000036104",
+      "cusip": "902973304",
+      "issuer_name": "US BANCORP",
+      "class_description": "COM NEW",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records US Bancorp common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T19:47:49+00:00"
+    },
+    {
+      "ticker": "VLO",
+      "issuer_cik": "0001035002",
+      "cusip": "91913Y100",
+      "issuer_name": "VALERO ENERGY CORP",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Valero Energy common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T19:47:49+00:00"
+    }
+  ],
+  "deferred_review": [
+    {
+      "ticker": "BLK",
+      "reason": "A 2026 holding-company, issuer-CIK and CUSIP transition requires a separate dated corporate-action review before mapping."
+    },
+    {
+      "ticker": "SO",
+      "reason": "The selected filed Q1 2026 corroboration table did not yield the required issuer/CUSIP row; no broader absence is claimed."
+    }
+  ],
+  "validation": {
+    "canonical_input_count": 687,
+    "registry_count_after": 135,
+    "new_entries": 5,
+    "new_tickers_unique": true,
+    "new_cusips_unique": true,
+    "cusip_check_digits_valid": true,
+    "source_identity_fields_complete": true,
+    "automated_tests_run_in_this_step": true,
+    "local_test": {
+      "command": "python -m unittest tests.test_sec13f_scout_service",
+      "tests_run": 6,
+      "failures": 0,
+      "errors": 0,
+      "result": "PASS"
+    }
+  },
+  "acceptance_limits": [
+    "This is a bounded registry expansion, not a complete 687-instrument identity history.",
+    "No live SEC quarterly ZIP or holdings-level positive/negative case was executed in this step.",
+    "The focused local SEC 13F suite passed; no hosted Linux or Windows result is claimed in this source-review step.",
+    "The filed table corroborates the instrument and CUSIP; the official 13(f) list controls the bounded class label.",
+    "BLK is intentionally excluded pending a separate dated review of its 2026 holding-company, issuer-CIK and CUSIP transition.",
+    "SO is intentionally excluded because the selected filed Q1 table did not provide the required corroborating row; this is not a claim that no corroboration exists elsewhere.",
+    "No actual end-user Windows run or historical out-of-sample evaluation is claimed.",
+    "Institutions remains PILOT/PENDING and the inventory remains 0/21 DONE."
+  ],
+  "next_work": [
+    "Verify the 135-instrument registry in the hosted Linux and Windows workflow and content-check its artifact.",
+    "Review BLK's dated 2026 holding-company, issuer-CIK and CUSIP transition before adding any mapping.",
+    "Continue bounded dated identity and corporate-action expansion without treating unmapped tickers as absent holdings.",
+    "Run a declared SEC User-Agent live quarterly ZIP and measure holdings coverage when runtime access is available."
+  ]
+}

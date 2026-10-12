@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-04T01:34:36.167098+00:00",
+  "evidence_type": "deterministic_sec13f_identity_coverage_test",
+  "subject": "Knowledge-time-aware SEC 13F identity coverage diagnostics",
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "modified": false
+  },
+  "implementation": {
+    "coverage_basis_values": [
+      "requested_universe",
+      "reviewed_manifest"
+    ],
+    "returned_metrics": [
+      "identity_requested_tickers",
+      "identity_mapped_tickers",
+      "identity_unmapped_tickers",
+      "identity_coverage_ratio"
+    ],
+    "knowledge_time_rule": "Only mappings with known_at not later than the analysis cutoff count as mapped.",
+    "status_paths_covered": [
+      "WAIT_IDENTITY",
+      "CURRENT",
+      "completed dataset ingest"
+    ],
+    "current_registry_measurement": {
+      "canonical_tickers": 687,
+      "reviewed_mapped_tickers": 25,
+      "reviewed_unmapped_tickers": 662,
+      "identity_coverage_ratio": 0.03639,
+      "all_registry_tickers_are_canonical": true
+    },
+    "scoring_changed": false
+  },
+  "validation": {
+    "focused_command": "python -m unittest tests.test_sec13f_scout_service tests.test_specialist_status tests.test_specialist_acceptance_service",
+    "focused_tests_run": 27,
+    "focused_failures": 0,
+    "focused_errors": 0,
+    "full_command": "python -m unittest discover -s tests -p 'test_*.py'",
+    "full_started_at": "2026-10-04T01:32:35.312552+00:00",
+    "full_ended_at": "2026-10-04T01:34:36.167098+00:00",
+    "full_tests_run": 546,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "compileall": "PASS"
+  },
+  "diagnostics": [
+    "The first clean-host full discovery ran 440 tests and ended with 22 import errors because repository-declared runtime dependencies were absent; it is not counted as a passing run.",
+    "After installing requirements under repository constraints, the unchanged tested files passed all 546 discovered tests."
+  ],
+  "sha256": {
+    "market_checker_app/services/sec13f_scout_service.py": "9b54396271a03ebdefc9a2f4249e3853624a09336a957656fd1d9fc9d0453391",
+    "tests/test_sec13f_scout_service.py": "eaa28624ad461a2aa1dca49af55f875d178788467b8b01c700d3b33343053ee5"
+  },
+  "acceptance_limits": {
+    "reviewed_identity_registry_coverage_measured": true,
+    "live_sec_13f_zip_coverage_measured": false,
+    "holdings_row_coverage_measured": false,
+    "full_instrument_and_corporate_action_coverage_verified": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "historical_out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

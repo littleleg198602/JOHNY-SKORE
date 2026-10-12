@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "evidence_type": "deterministic_test_run",
+  "subject": "Fourth SEC 13F identity expansion to twenty canonical instruments",
+  "recorded_at": "2026-10-03T21:47:17.852497+00:00",
+  "run": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "duration_seconds": 93.404,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true
+  },
+  "targeted_run": {
+    "tests_run": 27,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "modules": [
+      "tests.test_sec13f_scout_service",
+      "tests.test_specialist_status",
+      "tests.test_specialist_acceptance_service"
+    ]
+  },
+  "additional_checks": {
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "json_validation": "PASS"
+  },
+  "sha256": {
+    "market_checker_app/data/verified_13f_securities.json": "963143c88cf006b653163cb4424938b2b8513a2b5ceebcb4642a841610a62824",
+    "tests/test_sec13f_scout_service.py": "83db59cda11a459e508170a13076f9c0b69d301776e2f7385a6df73df2096dc9",
+    "evidence/sec13f_identity_expansion4_20261003.json": "887176796bf955c1317d2ae57c2c615cc11252b3e9bb7b0ad169edf7ccdaf82b"
+  },
+  "diagnostic": "The first clean-host attempt ran 440 tests and reported 22 import errors because declared repository runtime dependencies were absent. It is not counted as a passing run. After installing market_checker_app/requirements.txt, the unchanged tested files passed the complete 546-test suite.",
+  "acceptance_limits": {
+    "hosted_windows_run": "PENDING",
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "full_687_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T11:58:11.500732+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "ofac"
+  ],
+  "cases": {
+    "ofac_positive_entity_schema": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T11:58:11.504669+00:00",
+      "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+      "matched_entities": [
+        {
+          "sdn_id": "36",
+          "name": "AEROCARIBBEAN AIRLINES",
+          "programs": "CUBA",
+          "aliases": [
+            {
+              "alias_id": "12",
+              "alias_type": "aka",
+              "name": "AERO-CARIBBEAN",
+              "remarks": "-0-"
+            }
+          ]
+        }
+      ],
+      "snapshot_sha256": "04e849cec43e2d1149fe8cafb24c5ba8c6d8f1442469d92ea19b8202e12a99d8",
+      "total_rows": 19452,
+      "entity_rows": 10006,
+      "scope": "SDN publisher parser only; no watchlist issuer assigned"
+    },
+    "ofac_positive_alias_join": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T11:58:32.381183+00:00",
+      "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+      "alias_source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV",
+      "matched_entities": [
+        {
+          "sdn_id": "36",
+          "name": "AEROCARIBBEAN AIRLINES",
+          "programs": "CUBA",
+          "aliases": [
+            {
+              "alias_id": "12",
+              "alias_type": "aka",
+              "name": "AERO-CARIBBEAN",
+              "remarks": "-0-"
+            }
+          ]
+        }
+      ],
+      "query_name": "AERO-CARIBBEAN",
+      "snapshot_sha256": "04e849cec43e2d1149fe8cafb24c5ba8c6d8f1442469d92ea19b8202e12a99d8",
+      "alias_snapshot_sha256": "85c9d8db3cf58c588060489cd843b23d444ff1b821f48b5beb4d39037e419924",
+      "alias_total_rows": 20220,
+      "scope": "Publisher ENT_NUM join and exact alternate-name positive; no watchlist issuer assigned"
+    },
+    "ofac_negative_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T11:58:32.381570+00:00",
+      "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV",
+      "query_name": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+      "snapshot_sha256": "04e849cec43e2d1149fe8cafb24c5ba8c6d8f1442469d92ea19b8202e12a99d8",
+      "alias_snapshot_sha256": "85c9d8db3cf58c588060489cd843b23d444ff1b821f48b5beb4d39037e419924",
+      "scope": "absent exact primary/ALT entity name; no sanctions clearance"
+    }
+  },
+  "finished_at": "2026-10-01T11:58:32.387761+00:00"
+}

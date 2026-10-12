@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "observed_windows_run": {
+    "commit": "aaa51977ffd6299d683455b4515c0425dcc73430",
+    "workflow_run_id": 36979398102,
+    "job_id": 110750240676,
+    "platform": "GitHub windows-latest",
+    "tests_run": 518,
+    "failures": 1,
+    "errors": 0,
+    "sqlite_lock_failures": 0,
+    "failed_test": "test_identity_changes_are_versioned_without_losing_old_ticker",
+    "observed_order": ["APPL", "AAPL"],
+    "required_order": ["AAPL", "APPL"],
+    "cause": "equal observed_at values used content-hash version_id as the chronological tie-breaker"
+  },
+  "local_verification": {
+    "started_at": "2026-10-02T08:46:21.756297+00:00",
+    "ended_at": "2026-10-02T08:48:47.334327+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 519,
+    "tests_run": 519,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "targeted_identity_tests": 13,
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "fix_contract": {
+    "primary_order": ["entity_id", "observed_at", "agent_run_id"],
+    "hash_role": "final stable tie-breaker only",
+    "forced_equal_timestamp_regression_test": true,
+    "intermediate_windows_ci_result": "CANCELLED_AT_15_MINUTE_JOB_LIMIT_WITHOUT_RECORDED_TEST_FAILURE",
+    "intermediate_windows_workflow_run_id": 36986283137,
+    "intermediate_windows_job_id": 110771947339,
+    "intermediate_last_completed_test": "test_retry_after_header_is_honored_and_bounded",
+    "timeout_change": "bounded job timeout raised from 15 to 25 minutes; test scope and release-gate requirements unchanged",
+    "final_windows_ci_result": "PASS",
+    "final_windows_commit": "2945cc97680832e4ba4b4337b7c36c68ed8df14c",
+    "final_windows_workflow_run_id": 36995388024,
+    "final_windows_job_id": 110800809096,
+    "final_windows_runner": "GitHub windows-latest / Python 3.12.10",
+    "final_tests_run": 519,
+    "final_failures": 0,
+    "final_errors": 0,
+    "final_duration_seconds": 709.826,
+    "final_release_gate": "PASS",
+    "final_artifact_id": 11222061817,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "scoring_changed": false
+  },
+  "subsequent_regression": {
+    "commit": "20cdbd770ce5c68d65365ad7df75446b1e54a07a",
+    "workflow_run_id": 37003786748,
+    "job_id": 110827221952,
+    "tests_run": 524,
+    "failures": 2,
+    "cause": "equal Windows wall-clock samples crossed report boundaries, so a datetime-only first-report cutoff also admitted the next observation",
+    "follow_up_evidence": "evidence/windows_monotonic_clock_tests_20261002.json",
+    "new_windows_rerun_required": true
+  },
+  "file_sha256": {
+    "market_checker_app/storage/sqlite_store.py": "84a8a60e986e23ab09231a19037c14137d87afb5768e6fea61b6c121470dac08",
+    "tests/test_entity_identity_stage51.py": "de2d593c3a8959ede8877e2ad17bc0c64a2dead3b190e9fc88ddac7078b7ea42"
+  }
+}

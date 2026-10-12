@@ -85,6 +85,7 @@ class YahooMetadataClientTests(unittest.TestCase):
         self.assertGreater(YahooClient.rate_limit_remaining_seconds(), 0)
 
     def test_maps_only_known_class_share_symbols(self):
+        self.assertEqual("BRK-B", YahooClient.normalize_yahoo_symbol("BRKB"))
         self.assertEqual("BRK-B", YahooClient.normalize_yahoo_symbol("brk.b"))
         self.assertEqual("BF-B", YahooClient.normalize_yahoo_symbol("BF.B"))
         self.assertEqual("VOD.L", YahooClient.normalize_yahoo_symbol("VOD.L"))
@@ -114,6 +115,36 @@ class YahooMetadataClientTests(unittest.TestCase):
         self.assertEqual({"AAPL", "MSFT"}, set(frames))
         self.assertEqual([100.0, 101.0], frames["AAPL"]["Close"].tolist())
         self.assertEqual([200.0, 202.0], frames["MSFT"]["Close"].tolist())
+
+    def test_bulk_and_single_retry_translate_canonical_brkb_only_at_provider_boundary(self):
+        history = pd.DataFrame(
+            {("BRK-B", "Close"): [500.0, 501.0]},
+            index=pd.date_range("2026-01-01", periods=2, tz="UTC"),
+        )
+        history.columns = pd.MultiIndex.from_tuples(history.columns)
+
+        with patch(
+            "market_checker_app.collectors.yahoo_client.yf.download",
+            return_value=history,
+        ) as bulk:
+            frames, warnings = YahooClient(retry_attempts=1).fetch_ohlc_batch(
+                ["BRKB"], batch_size=1,
+            )
+
+        self.assertEqual({}, warnings)
+        self.assertEqual({"BRKB"}, set(frames))
+        self.assertEqual(["BRK-B"], bulk.call_args.kwargs["tickers"])
+
+        single_history = pd.DataFrame(
+            {"Close": [500.0]}, index=pd.date_range("2026-01-01", periods=1, tz="UTC")
+        )
+        with patch("market_checker_app.collectors.yahoo_client.yf.Ticker") as ticker:
+            ticker.return_value.history.return_value = single_history
+            frame, warning = YahooClient(retry_attempts=1).fetch_ohlc_only("BRKB")
+
+        self.assertIsNone(warning)
+        self.assertFalse(frame.empty)
+        ticker.assert_called_once_with("BRK-B")
 
     def test_bulk_ohlc_failure_does_not_fabricate_prices(self):
         with patch(

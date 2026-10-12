@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-02T07:30:24.393518+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "doj"
+  ],
+  "cases": {
+    "doj_positive_title_schema": {
+      "status": "PASS",
+      "observed_at": "2026-10-02T07:30:24.397205+00:00",
+      "source_url": "https://www.justice.gov/api/v1/press_releases.json",
+      "query_name": "Google",
+      "query_page": 0,
+      "page_size": 2,
+      "total_query_results": 37,
+      "scope": "publisher title-query/parser only; no watchlist issuer assigned",
+      "complete_issuer_legal_risk_coverage": false,
+      "payload_rows": [
+        {
+          "changed": "<time datetime=\"2026-09-16T19:29:20-04:00\">1789601360</time>\n",
+          "date": "1789560000",
+          "title": "Department of Justice Again Wins Substantial Relief Against Google",
+          "url": "https://www.justice.gov/opa/pr/department-justice-again-wins-substantial-relief-against-google",
+          "uuid": "52b541b0-1f60-4b76-b789-ca615b86f244"
+        },
+        {
+          "changed": "<time datetime=\"2026-05-27T18:13:16-04:00\">1779919996</time>\n",
+          "date": "1779883200",
+          "title": "Google Employee Charged With Insider Trading ",
+          "url": "https://www.justice.gov/usao-sdny/pr/google-employee-charged-insider-trading",
+          "uuid": "89c43137-5dc1-4197-8d00-1cca74d7fe3f"
+        }
+      ],
+      "parsed_candidates": [
+        [
+          "52b541b0-1f60-4b76-b789-ca615b86f244",
+          {
+            "stage": "doj_press_release_name_candidate",
+            "title": "Department of Justice Again Wins Substantial Relief Against Google",
+            "release_url": "https://www.justice.gov/opa/pr/department-justice-again-wins-substantial-relief-against-google",
+            "query_entity_name": "Google",
+            "source_declared_at": "2026-09-16T12:00:00+00:00",
+            "declared_time_is_first_observation": false,
+            "query_scope": "DOJ API title filter and exact full-name words in title",
+            "complete_issuer_legal_risk_coverage": false,
+            "issuer_identity_verified": false,
+            "liability_verified": false,
+            "scoring_applied": false
+          }
+        ],
+        [
+          "89c43137-5dc1-4197-8d00-1cca74d7fe3f",
+          {
+            "stage": "doj_press_release_name_candidate",
+            "title": "Google Employee Charged With Insider Trading ",
+            "release_url": "https://www.justice.gov/usao-sdny/pr/google-employee-charged-insider-trading",
+            "query_entity_name": "Google",
+            "source_declared_at": "2026-05-27T12:00:00+00:00",
+            "declared_time_is_first_observation": false,
+            "query_scope": "DOJ API title filter and exact full-name words in title",
+            "complete_issuer_legal_risk_coverage": false,
+            "issuer_identity_verified": false,
+            "liability_verified": false,
+            "scoring_applied": false
+          }
+        ]
+      ]
+    },
+    "doj_negative_title_name": {
+      "status": "PASS",
+      "observed_at": "2026-10-02T07:30:35.423026+00:00",
+      "source_url": "https://www.justice.gov/api/v1/press_releases.json",
+      "query_name": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+      "query_page": 0,
+      "page_size": 2,
+      "total_query_results": 0,
+      "payload_rows": [],
+      "scope": "absent exact title query, not issuer-wide absence"
+    }
+  },
+  "finished_at": "2026-10-02T07:30:41.338867+00:00"
+}

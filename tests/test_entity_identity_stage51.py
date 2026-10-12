@@ -3,9 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import sqlite3
+from contextlib import closing
 import tempfile
 import unittest
 from datetime import datetime, timezone
+from unittest.mock import patch
 
 from market_checker_app.agents import (
     AgentStatus,
@@ -88,6 +90,17 @@ class EntityIdentifierValidationTests(unittest.TestCase):
 
 
 class EntityRegistryStage51Tests(unittest.TestCase):
+    def test_equal_windows_clock_samples_keep_report_cutoffs_strictly_ordered(self) -> None:
+        frozen = datetime(2026, 10, 2, 12, tzinfo=timezone.utc)
+        with patch("market_checker_app.agents.contracts.datetime") as clock, \
+                patch("market_checker_app.agents.contracts._last_utc_now", None):
+            clock.now.return_value = frozen
+            first = _run_identity("AAPL", _identity())
+            second = _run_identity("APPL", _identity(ticker="APPL"))
+        self.assertLess(first.executions[0].finished_at, first.finished_at)
+        self.assertLess(first.finished_at, second.executions[0].finished_at)
+        self.assertLess(second.executions[0].finished_at, second.finished_at)
+
     def test_sourced_dated_alias_resolves_only_inside_its_window(self) -> None:
         identity = _identity()
         identity["dated_ticker_aliases"] = [{
@@ -227,6 +240,23 @@ class EntityRegistryStage51Tests(unittest.TestCase):
         self.assertEqual(["AAPL"], list(first_view["ticker"]))
         self.assertEqual(["APPL"], list(second_view["ticker"]))
 
+    def test_versions_use_persisted_run_sequence_when_timestamps_are_equal(self) -> None:
+        first = _run_identity("AAPL", _identity())
+        second = _run_identity("APPL", _identity(
+            ticker="APPL", name="Apple Corporation", exchange="NYSE",
+            valid_from="2026-08-21T00:00:00Z",
+        ))
+        second.executions[0].finished_at = first.executions[0].finished_at
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = SQLiteStore(Path(tmp) / "history.db")
+            store.save_orchestration_report(first)
+            store.save_orchestration_report(second)
+            versions = store.read_entity_identity_versions("listing:apple:primary")
+
+        self.assertEqual(["AAPL", "APPL"], list(versions["ticker"]))
+        self.assertEqual(sorted(versions["agent_run_id"]), list(versions["agent_run_id"]))
+
     def test_unchanged_identity_reuses_version_but_keeps_observations(self) -> None:
         first = _run_identity("AAPL", _identity())
         second = _run_identity("AAPL", _identity())
@@ -290,7 +320,7 @@ class EntityRegistryStage51Tests(unittest.TestCase):
     def test_existing_database_gets_additive_identity_columns(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             db_path = Path(tmp) / "legacy.db"
-            with sqlite3.connect(db_path) as conn:
+            with closing(sqlite3.connect(db_path)) as conn, conn:
                 conn.execute(
                     """
                     CREATE TABLE entities (

@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T20:22:34.953966+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_MTB": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T20:22:34.960323+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A588&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "MTB",
+      "cert": 588,
+      "identity": {
+        "ticker": "MTB",
+        "cert": 588,
+        "issuer_cik": "0000036270",
+        "issuer_name": "M&T Bank Corporation",
+        "bank_name": "Manufacturers and Traders Trust Company",
+        "effective_from": "2026-02-18",
+        "effective_from_basis": "filing_publication_floor",
+        "effective_from_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/0000036270-26-000010-index.htm",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/ex211subsidiaries-dec.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/36270/000003627026000010/R1.htm",
+        "known_at": "2026-10-01T20:21:45.816860+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/588",
+        "financial_name": "MANUFACTURERS&TRADERS TR CO",
+        "financial_name_known_at": "2026-10-01T20:20:21.772153+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A588&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:588",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 218788000,
+              "CERT": 588,
+              "NETINC": 1510000,
+              "EQ": 28164000,
+              "DEP": 172325000,
+              "NAME": "MANUFACTURERS&TRADERS TR CO",
+              "ID": "588_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 214201000,
+              "CERT": 588,
+              "NETINC": 679000,
+              "EQ": 28171000,
+              "DEP": 167256000,
+              "NAME": "MANUFACTURERS&TRADERS TR CO",
+              "ID": "588_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T20:22:41.236055+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "MTB"
+  ],
+  "finished_at": "2026-10-01T20:22:45.681085+00:00"
+}

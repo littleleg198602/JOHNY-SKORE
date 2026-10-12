@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-02T19:06:21.451675+00:00",
+  "source": "https://api.usaspending.gov/api/v2/search/spending_by_award/",
+  "scope": "One 100-row page for the independently verified NOC subsidiary UEI, replayed once, plus one absent-UEI control; not all awards or modification history",
+  "request_budget": {
+    "positive_pages": 2,
+    "negative_pages": 1,
+    "page_limit": 100,
+    "timeout_seconds_per_request": 20,
+    "search_window_days": 730
+  },
+  "positive_run": {
+    "uei": "LCV2N9FVV739",
+    "recipient_name": "NORTHROP GRUMMAN SYSTEMS CORPORATION",
+    "api_results_on_page": 100,
+    "api_has_next": true,
+    "api_response_sha256": "1ba1103c08171924457ba2a8f4786079a9d01cb4fd92dc525f418b9eac510da1",
+    "status": "PARTIAL",
+    "stored_findings": 9,
+    "reason_partial": "The API reported another page and max_pages was deliberately one; rows before the cited 2025-12-31 relationship floor were also rejected",
+    "finding_ids": [
+      "CONT_AWD_SPE4A626F142K_9700_SPE4A122G0004_9700",
+      "CONT_AWD_SPE4A526F3731_9700_SPE4A122G0004_9700",
+      "CONT_AWD_SPE4A626F207R_9700_SPE4A122G0004_9700",
+      "CONT_AWD_SPE4A626F206Q_9700_SPE4A122G0004_9700",
+      "CONT_AWD_SPE7L326F1528_9700_SPE4A122G0004_9700",
+      "CONT_AWD_SPE4A626F206B_9700_SPE4A122G0004_9700",
+      "CONT_AWD_SPE4A526F4501_9700_SPE4A122G0004_9700",
+      "CONT_AWD_SPE7L526F0008_9700_SPE4A122G0004_9700",
+      "CONT_AWD_SPE4A626F6593_9700_SPE4A122G0004_9700"
+    ],
+    "relationship_effective_from_in_every_finding": "2025-12-31",
+    "relationship_known_at_in_every_finding": "2026-10-02T19:04:36.156823+00:00",
+    "revenue_inferred": false,
+    "modification_history_complete": false
+  },
+  "replay": {
+    "status": "PARTIAL",
+    "new_findings": 0,
+    "stored_findings_after_replay": 9,
+    "network_requests_repeated": 1
+  },
+  "negative_control": {
+    "uei": "ZZZZZZZZZZZZ",
+    "results_count": 0,
+    "has_next": false,
+    "response_sha256": "5cc484926f14c184be05ce9b2bd6b001082a6bcebe57ed9860182733b87ea806",
+    "limitation": "This confirms only an empty result for the exact synthetic UEI and bounded query, not absence of NOC contracts or events"
+  },
+  "acceptance_limits": {
+    "full_award_history": false,
+    "full_modification_history": false,
+    "measured_applicable_687_coverage": false,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-10-03T19:35:25Z",
+  "specialist_id": "insider",
+  "scope": "Deterministic fail-closed classification of SEC Form 4 transaction codes",
+  "official_source": {
+    "authority": "U.S. Securities and Exchange Commission",
+    "url": "https://www.sec.gov/edgar/searchedgar/ownershipformcodes.html",
+    "codes_implemented": [
+      "P", "S", "V", "A", "D", "F", "I", "M", "C", "E",
+      "H", "O", "X", "G", "L", "W", "Z", "J", "K", "U"
+    ]
+  },
+  "contract": {
+    "open_market_trade": "Only a non-derivative P/A purchase or S/D sale with a documented code and consistent direction",
+    "other_documented_codes": "Normalized to compensation or other-transaction evidence, retain VERIFIED code classification, require human review and never become an open-market trade",
+    "unknown_or_direction_inconsistent": "INSIDER_OTHER_TRANSACTION / UNVERIFIED with UNRECOGNIZED_OR_INCONSISTENT transaction type and human review required",
+    "event_value": "Calculated only for a verified open-market P/A or S/D transaction",
+    "scoring_applied": false,
+    "knowledge_time": "Existing filing and transaction knowledge-time guards remain unchanged",
+    "canonical_universe_changed": false
+  },
+  "tests": {
+    "focused_command": "python -m unittest tests.test_governance_event_agent tests.test_extended_sec_filings",
+    "focused_result": {
+      "tests_run": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 0.072
+    },
+    "compile_command": "python -m compileall -q market_checker_app tests",
+    "compile_result": "PASS",
+    "full_command": "python -m unittest discover -s tests -p 'test_*.py'",
+    "full_result": {
+      "tests_run": 546,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "duration_seconds": 120.684
+    },
+    "note": "A prior clean-host full-suite attempt had 22 dependency import errors. After installing the repository-declared requirements, the recorded full run passed; the failed import attempt is not counted as a pass."
+  },
+  "file_sha256": {
+    "market_checker_app/agents/governance_event_agent.py": "8bedf45eeefbf9c49c546654910c0f39c14e79decb91215ab105820c48a2498f",
+    "tests/test_governance_event_agent.py": "33ad3235614f0bfd7f3eb8fb890f7dfe35564e102bea7541ca759475c8b01166"
+  },
+  "acceptance_limits": {
+    "specialist_code_done": false,
+    "specialist_live_verified": false,
+    "live_positive_case": false,
+    "live_negative_case": false,
+    "actual_user_windows_end_to_end": false,
+    "relevant_coverage_measured": false,
+    "historical_out_of_sample_evaluation": false,
+    "reason": "This is deterministic local code and regression evidence only. It does not establish live issuer/person identity, live Form 4 cases, Windows end-to-end acceptance, coverage or historical predictive value."
+  }
+}

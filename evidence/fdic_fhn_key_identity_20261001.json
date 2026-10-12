@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "evidence_type": "dated_identity_and_bounded_live_publisher_observations_not_full_acceptance",
+  "verified_at": "2026-10-01T18:32:46.153161+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "FHN",
+        "cert": 4977,
+        "issuer_cik": "0000036966",
+        "issuer_name": "First Horizon Corporation",
+        "bank_name": "First Horizon Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/afy2025xexh21xsubsidiaries.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/R1.htm",
+        "known_at": "2026-10-01T18:32:46.153161+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/4977",
+        "financial_name": "FIRST HORIZON BANK",
+        "financial_name_known_at": "2026-10-01T18:32:05.170308+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4977&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/afy2025xexh21xsubsidiaries.htm",
+        "observed_no_later_than": "2026-10-01T18:32:46.153161+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "as_of": "2025-12-31",
+        "as_of_date_verified": true,
+        "registry_report_eligibility_from": "2025-12-31",
+        "source_locator": "Exhibit 21 dated introduction, direct First Horizon Bank row and its specific footnote (1)",
+        "observed_excerpt": "at December 31, 2025 (unless otherwise noted); First Horizon Bank (1) | Direct | Tennessee",
+        "date_basis": "Explicit exhibit as-of date, distinct from SEC filing publication",
+        "scope": "Dated issuer-to-bank subsidiary statement only; acquisition date, continuous ownership and complete group not inferred",
+        "ownership_statement": "Direct consolidated bank subsidiary; introductory ownership wording is subject to the bank-specific footnote (1)",
+        "unqualified_wholly_owned_claim_accepted": false,
+        "ownership_exception": {
+          "source_locator": "Footnote (1) to First Horizon consolidated subsidiaries table",
+          "as_of": "2025-12-31",
+          "non_voting_preferred_shares_not_owned_by_issuer": 300000,
+          "aggregate_liquidation_preference_usd": 300000000,
+          "liquidation_participating_with_common_stock": false,
+          "interpretation": "External non-voting preferred interests are preserved; no unqualified 100% ownership or proportional issuer financial allocation inferred"
+        },
+        "omitted_entities": "Inactive entities with no material assets or activities are omitted; separately scheduled bank subsidiaries and other entities are not mapped here"
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/0000036966-26-000051-index.html",
+        "filing_date": "2026-02-26",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0000036966",
+        "observed_no_later_than": "2026-10-01T18:32:46.153161+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and Exhibit 21 link",
+        "observed_excerpt": "Filing Date 2026-02-26; Period of Report 2025-12-31; CIK 0000036966",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/R1.htm",
+        "issuer_cik": "0000036966",
+        "issuer_name": "First Horizon Corporation",
+        "source_registrant_name": "FIRST HORIZON CORP",
+        "ticker": "FHN",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-26",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/36966/000003696626000051/0000036966-26-000051-index.html",
+        "source_locator": "R1 registrant name, CIK and common-stock trading-symbol rows; preferred classes are separate",
+        "observed_excerpt": "FIRST HORIZON CORP; 0000036966; Common Capital Stock | FHN",
+        "observed_no_later_than": "2026-10-01T18:32:46.153161+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only; not preferred symbols, CUSIP/ISIN/current exchange/corporate-action history",
+        "name_corroboration": "R1 uses FIRST HORIZON CORP; Exhibit 21 introduction spells First Horizon Corporation. No FDIC RSSD/CIK equivalence inferred."
+      },
+      "fdic_publisher_observation": {
+        "cert": 4977,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A4977&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T18:31:31.682213+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:4977",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 4977,
+                "NAME": "First Horizon Bank",
+                "ID": "4977"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4977&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-01T18:32:05.170308+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:4977",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 84116168,
+                "CERT": 4977,
+                "NETINC": 585001,
+                "EQ": 9409740,
+                "DEP": 68788699,
+                "NAME": "FIRST HORIZON BANK",
+                "ID": "4977_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 83823830,
+                "CERT": 4977,
+                "NETINC": 292686,
+                "EQ": 9404506,
+                "DEP": 67203642,
+                "NAME": "FIRST HORIZON BANK",
+                "ID": "4977_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        }
+      },
+      "limitations": [
+        "Latest two subsidiary reports only",
+        "Not all subsidiaries and ownership changes mapped",
+        "Not issuer consolidated values or continuous historical ownership",
+        "No Windows or historical-out-of-sample acceptance"
+      ]
+    },
+    {
+      "identity": {
+        "ticker": "KEY",
+        "cert": 17534,
+        "issuer_cik": "0000091576",
+        "issuer_name": "KeyCorp",
+        "bank_name": "KeyBank National Association",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/key-123125xexx21.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/R1.htm",
+        "known_at": "2026-10-01T18:32:46.153161+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/17534",
+        "financial_name": "KEYBANK NATIONAL ASSN",
+        "financial_name_known_at": "2026-10-01T18:32:18.544635+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A17534&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/key-123125xexx21.htm",
+        "observed_no_later_than": "2026-10-01T18:32:46.153161+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "as_of": "2025-12-31",
+        "as_of_date_verified": true,
+        "registry_report_eligibility_from": "2025-12-31",
+        "source_locator": "Exhibit 21 explicit December 31, 2025 heading, KeyBank row and ownership footnote",
+        "observed_excerpt": "SUBSIDIARIES OF THE REGISTRANT AT DECEMBER 31, 2025; KeyBank National Association | KeyCorp",
+        "date_basis": "Explicit exhibit as-of date, distinct from SEC filing publication",
+        "scope": "Dated issuer-to-bank subsidiary statement only; acquisition date, continuous ownership and complete group not inferred",
+        "ownership_statement": "Footnote expressly states KeyBank National Association is 100% owned by KeyCorp",
+        "unqualified_wholly_owned_claim_accepted": true,
+        "omitted_entities": "Other subsidiaries considered insignificant in aggregate are expressly omitted"
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/0001628280-26-010546-index.htm",
+        "filing_date": "2026-02-23",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0000091576",
+        "observed_no_later_than": "2026-10-01T18:32:46.153161+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and Exhibit 21 link",
+        "observed_excerpt": "Filing Date 2026-02-23; Period of Report 2025-12-31; CIK 0000091576",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/R1.htm",
+        "issuer_cik": "0000091576",
+        "issuer_name": "KeyCorp",
+        "source_registrant_name": "KeyCorp",
+        "ticker": "KEY",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-23",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/91576/000162828026010546/0001628280-26-010546-index.htm",
+        "source_locator": "R1 registrant name, CIK and common-stock trading-symbol rows; preferred classes are separate",
+        "observed_excerpt": "KeyCorp; 0000091576; Common Shares, $1 par value | KEY",
+        "observed_no_later_than": "2026-10-01T18:32:46.153161+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only; not preferred symbols, CUSIP/ISIN/current exchange/corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 17534,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A17534&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T18:31:47.149054+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:17534",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 17534,
+                "NAME": "KeyBank National Association",
+                "ID": "17534"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A17534&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-01T18:32:18.544635+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:17534",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 188555486,
+                "CERT": 17534,
+                "NETINC": 1183792,
+                "EQ": 18727875,
+                "DEP": 158480379,
+                "NAME": "KEYBANK NATIONAL ASSN",
+                "ID": "17534_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 185983433,
+                "CERT": 17534,
+                "NETINC": 581466,
+                "EQ": 18841264,
+                "DEP": 153305440,
+                "NAME": "KEYBANK NATIONAL ASSN",
+                "ID": "17534_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        }
+      },
+      "limitations": [
+        "Latest two subsidiary reports only",
+        "Not all subsidiaries and ownership changes mapped",
+        "Not issuer consolidated values or continuous historical ownership",
+        "No Windows or historical-out-of-sample acceptance"
+      ]
+    }
+  ],
+  "manifest_sha256": "270835673f837cfaf65539f9a24768490deda6b55c8b63e931555e3b236469af",
+  "preliminary_publisher_requests": [
+    {
+      "url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A4977&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+      "started_at": "2026-10-01T18:31:11.843579+00:00",
+      "observed_at": "2026-10-01T18:31:31.682213+00:00",
+      "bytes": 299,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A17534&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+      "started_at": "2026-10-01T18:31:31.686472+00:00",
+      "observed_at": "2026-10-01T18:31:47.149054+00:00",
+      "bytes": 312,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4977&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "started_at": "2026-10-01T18:31:47.150682+00:00",
+      "observed_at": "2026-10-01T18:32:05.170308+00:00",
+      "bytes": 560,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/financials?filters=CERT%3A17534&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "started_at": "2026-10-01T18:32:05.171283+00:00",
+      "observed_at": "2026-10-01T18:32:18.544635+00:00",
+      "bytes": 578,
+      "result": "PASS"
+    }
+  ],
+  "request_scope": {
+    "preliminary_requests": 4,
+    "smoke_requests_planned": 3,
+    "max_total_new_requests": 7,
+    "timeout_seconds": 20,
+    "max_response_bytes": 1000000,
+    "institutions_rows": 1,
+    "financials_rows": 2,
+    "smoke_requests_completed": 3,
+    "total_new_requests": 7,
+    "captured_payload_rechecks_use_network": false
+  },
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 16,
+    "unmapped_tickers": [
+      "MTB",
+      "OZK",
+      "PNFP",
+      "RF",
+      "WAL",
+      "ZION"
+    ],
+    "basis": "Current manifest vs canonical BANK profiles, not live runtime or complete group coverage"
+  },
+  "full_specialist_acceptance": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "scoring_applied": false,
+  "source_smoke_evidence": "evidence/fdic_fhn_key_live_20261001.json",
+  "source_smoke_sha256": "ccd690dfc2dac00870fa0414297c9c1d0daff536bddeb94a89d4f87f992fcb2e"
+}

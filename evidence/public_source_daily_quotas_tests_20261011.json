@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-11T10:06:35.167226+00:00",
+  "evidence_type": "public_source_persistent_quota_implementation_and_offline_tests",
+  "base_commit": "96cc1653d660fb12cea6ff9a3ed101ffa956d248",
+  "pull_request": 160,
+  "sources": [
+    "fda",
+    "cms",
+    "clinicaltrials",
+    "doj",
+    "epa"
+  ],
+  "application_daily_limits": {
+    "fda": {
+      "issuers": 40,
+      "requests": 320
+    },
+    "cms": {
+      "issuers": 10,
+      "requests": 20
+    },
+    "clinicaltrials": {
+      "issuers": 10,
+      "requests": 20
+    },
+    "doj": {
+      "issuers": 25,
+      "requests": 50
+    },
+    "epa": {
+      "issuers": 10,
+      "requests": 10
+    }
+  },
+  "limits_are_publisher_entitlements": false,
+  "reproduction_before": {
+    "schema_version": 1,
+    "started_at": "2026-10-11T10:02:56.335700+00:00",
+    "ended_at": "2026-10-11T10:02:56.368286+00:00",
+    "base_commit": "96cc1653d660fb12cea6ff9a3ed101ffa956d248",
+    "evidence_type": "offline_synthetic_before_after_reproduction",
+    "network_calls": 0,
+    "fixtures_have_real_issuer_identity": false,
+    "observation_clock": "2026-10-11T10:00:00+00:00",
+    "canonical_subject_count": 687,
+    "canonical_csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "same_day_capacity": {
+      "first_run": {
+        "status": "OK",
+        "checked_issuers": 25,
+        "new_findings": 0,
+        "failed_issuers": 0,
+        "truncated_issuers": 0,
+        "rejected_rows": 0,
+        "budget_exhausted": false
+      },
+      "restarted_same_day_run": {
+        "status": "OK",
+        "checked_issuers": 25,
+        "new_findings": 0,
+        "failed_issuers": 0,
+        "truncated_issuers": 0,
+        "rejected_rows": 0,
+        "budget_exhausted": false
+      },
+      "total_checked_issuers": 50,
+      "client_calls": 200,
+      "configured_daily_issuer_limit": 40
+    },
+    "failed_subject_retry": {
+      "first_run": {
+        "status": "PARTIAL",
+        "checked_issuers": 0,
+        "new_findings": 0,
+        "failed_issuers": 1,
+        "truncated_issuers": 0,
+        "rejected_rows": 0,
+        "budget_exhausted": false
+      },
+      "restarted_same_day_run": {
+        "status": "PARTIAL",
+        "checked_issuers": 0,
+        "new_findings": 0,
+        "failed_issuers": 1,
+        "truncated_issuers": 0,
+        "rejected_rows": 0,
+        "budget_exhausted": false
+      },
+      "client_calls": 2,
+      "completed_checks": 0
+    },
+    "code_sha256": {
+      "market_checker_app/storage/scout_store.py": "78a33e9a3886eecf0ea3bf007ef1f325ae8254e615d35abf50a37677214a9b2a",
+      "market_checker_app/services/fda_recall_scout_service.py": "569a4a8991cc71b3bc2c81a70848728d707d109e2bd0d4abbd2a2217e56a2bae"
+    }
+  },
+  "reproduction_after": {
+    "schema_version": 1,
+    "started_at": "2026-10-11T10:02:56.321782+00:00",
+    "ended_at": "2026-10-11T10:02:56.456159+00:00",
+    "base_commit": "96cc1653d660fb12cea6ff9a3ed101ffa956d248",
+    "evidence_type": "offline_synthetic_before_after_reproduction",
+    "network_calls": 0,
+    "fixtures_have_real_issuer_identity": false,
+    "observation_clock": "2026-10-11T10:00:00+00:00",
+    "canonical_subject_count": 687,
+    "canonical_csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "same_day_capacity": {
+      "first_run": {
+        "status": "OK",
+        "checked_issuers": 25,
+        "new_findings": 0,
+        "failed_issuers": 0,
+        "truncated_issuers": 0,
+        "rejected_rows": 0,
+        "budget_exhausted": false,
+        "daily_requests": 100,
+        "daily_issuers": 25,
+        "attempted_requests": 100,
+        "attempted_issuers": 25,
+        "daily_request_limit": 320,
+        "daily_issuer_limit": 40,
+        "quota_deferred_issuers": 0
+      },
+      "restarted_same_day_run": {
+        "status": "PARTIAL",
+        "checked_issuers": 15,
+        "new_findings": 0,
+        "failed_issuers": 0,
+        "truncated_issuers": 0,
+        "rejected_rows": 0,
+        "budget_exhausted": true,
+        "retry_at": "2026-10-12T00:00:00+00:00",
+        "daily_requests": 160,
+        "daily_issuers": 40,
+        "attempted_requests": 60,
+        "attempted_issuers": 15,
+        "daily_request_limit": 320,
+        "daily_issuer_limit": 40,
+        "quota_deferred_issuers": 0
+      },
+      "total_checked_issuers": 40,
+      "client_calls": 160,
+      "configured_daily_issuer_limit": 40
+    },
+    "failed_subject_retry": {
+      "first_run": {
+        "status": "PARTIAL",
+        "checked_issuers": 0,
+        "new_findings": 0,
+        "failed_issuers": 1,
+        "truncated_issuers": 0,
+        "rejected_rows": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1,
+        "daily_issuers": 1,
+        "attempted_requests": 1,
+        "attempted_issuers": 1,
+        "daily_request_limit": 320,
+        "daily_issuer_limit": 40,
+        "quota_deferred_issuers": 0
+      },
+      "restarted_same_day_run": {
+        "status": "WAIT_QUOTA",
+        "checked_issuers": 0,
+        "new_findings": 0,
+        "failed_issuers": 0,
+        "truncated_issuers": 0,
+        "rejected_rows": 0,
+        "budget_exhausted": true,
+        "retry_at": "2026-10-12T00:00:00+00:00",
+        "daily_requests": 1,
+        "daily_issuers": 1,
+        "attempted_requests": 0,
+        "attempted_issuers": 0,
+        "daily_request_limit": 320,
+        "daily_issuer_limit": 40,
+        "quota_deferred_issuers": 1
+      },
+      "client_calls": 1,
+      "completed_checks": 0
+    },
+    "code_sha256": {
+      "market_checker_app/storage/scout_store.py": "922da32b73265650849e3f6cadbf5d1099aa9c53b0499676534c6dd016149686",
+      "market_checker_app/services/fda_recall_scout_service.py": "d69393468263053ec92d7f779ce49d8b9436dcf13f8960ebbd378cf901e06df7",
+      "market_checker_app/services/public_source_budget.py": "8c135c7c297d7d08c02af1a84ee20a9e94dbeea2d703f59feee9dcf4112da6cb"
+    }
+  },
+  "quota_tests": {
+    "tests_run": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "command": "python -m unittest discover -s tests -p 'test_public_source_budget.py' -v",
+    "checks": [
+      "atomic quota across concurrent SQLite connections",
+      "failure and crash consumption",
+      "provider lease and expiry",
+      "same-day retries and scope/identity changes cannot reset quota",
+      "UTC midnight and timezone normalization",
+      "all five collector integrations across restart",
+      "FDA partial-issuer discard with prior completed checks retained",
+      "persistent HTTP cooldown and Retry-After",
+      "never-attempted subjects precede failed retries",
+      "persisted safe telemetry and WAIT_QUOTA semantics",
+      "actual FDA collector traverses canonical 687 with daily restart and same-day repetition in 18 days"
+    ]
+  },
+  "focused_collectors": {
+    "tests_run": 108,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "command": "python -m unittest discover -s tests -p 'test_*scout_service.py' -v"
+  },
+  "focused_acceptance": {
+    "tests_run": 18,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "command": "python -m unittest discover -s tests -p 'test_specialist_acceptance_service.py' -v"
+  },
+  "full_local_suite": {
+    "command": "python -X utf8 -m market_checker_app.deterministic_test_runner",
+    "started_at": "2026-10-11T10:02:12.747263+00:00",
+    "ended_at": "2026-10-11T10:03:53.169380+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 558,
+    "tests_run": 558,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "initial_checks_not_counted_as_passes": [
+    {
+      "check": "first healthcare focused run",
+      "tests_run": 10,
+      "failures": 1,
+      "reason": "old fixture expected an immediate same-day failed-subject retry; updated to WAIT_QUOTA then next-day retry"
+    },
+    {
+      "check": "first scout suite",
+      "tests_run": 108,
+      "failures": 1,
+      "reason": "FDA failed-source fixture expected an immediate retry; changed to preserve due state and next-day retry"
+    },
+    {
+      "check": "first full run",
+      "started_at": "2026-10-11T09:59:22.415771+00:00",
+      "ended_at": "2026-10-11T10:01:03.632560+00:00",
+      "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+      "python_version": "3.12.14",
+      "discovered_tests": 557,
+      "tests_run": 557,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "successful": false,
+      "reason": "the suite loaded the old FDA retry fixture before its correction; final complete rerun passed"
+    }
+  ],
+  "compileall": {
+    "command": "python -m compileall -q market_checker_app tests",
+    "passed": true
+  },
+  "diff_check": {
+    "command": "git diff --check",
+    "passed": true
+  },
+  "code_sha256": {
+    "market_checker_app/services/public_source_budget.py": "8c135c7c297d7d08c02af1a84ee20a9e94dbeea2d703f59feee9dcf4112da6cb",
+    "market_checker_app/services/fda_recall_scout_service.py": "d69393468263053ec92d7f779ce49d8b9436dcf13f8960ebbd378cf901e06df7",
+    "market_checker_app/services/healthcare_scout_service.py": "647e08d51d39971d4e52620d1aaff7c012bb1a27096272afa40781ba64ea89fa",
+    "market_checker_app/services/doj_scout_service.py": "db1875937b1f817080f2c1316754650cd22a97cf3eab54d7c81d4a6d56d7185f",
+    "market_checker_app/services/epa_echo_scout_service.py": "88ac4df5dc6d51be7ab605565f1c030f5a9b31b98057c5e5464b4db42f45e6eb",
+    "market_checker_app/services/specialist_acceptance_service.py": "2208997758f18cb031bc853f6c1e564bc049cfe129c023fb9b05f01f6dea4f0f",
+    "market_checker_app/storage/scout_store.py": "922da32b73265650849e3f6cadbf5d1099aa9c53b0499676534c6dd016149686",
+    "tests/test_public_source_budget.py": "8b248b2cfdd9977e85de72d3557a109dd71188113cf6f7a4ac87614e439e3e47",
+    "tests/test_fda_recall_scout_service.py": "61ac4611388c558882587d177d15514a9231efdaf8c6e64a6dc6ec2ddcec70cf",
+    "tests/test_healthcare_scout_service.py": "7b140e43828e19c37801a9ee538b4ae13aabd01dfed04c913f72c7dfd0163f83"
+  },
+  "log_sha256": {
+    "specialists-20261011-budget-tests-final.log": "c578298e26170277f08150ce8451d0cfe9fdb940a10afb5a2d9c421b7678bb4e",
+    "specialists-20261011-scout-tests-final.log": "198f80efb33e172df6b96f650d950001b705817866f81d0b0f341d23f3953269",
+    "specialists-20261011-acceptance-tests.log": "8b9cdc5a6f41291a7d389085175b9c0d3474e7f8b17b2dcf1b1b108ba5875246",
+    "specialists-20261011-full-final.log": "4d8e93ebfa86db71ed60ad48ba0363d2174a88b61b1d57ba6423422a2ecb0d36"
+  },
+  "hosted_windows_verification": {
+    "status": "PENDING",
+    "actual_user_windows_end_to_end": false
+  },
+  "acceptance": {
+    "dated_issuer_instrument_product_identity_verified": false,
+    "positive_live_case_verified": false,
+    "negative_live_case_verified": false,
+    "actual_windows_end_to_end_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false
+  },
+  "limitations": [
+    "All new API fixtures and CIK/name observations are explicitly synthetic; network calls were zero.",
+    "The 687 traversal proves offline collector scheduling only, not live issuer/product identities or coverage.",
+    "RETURNED request outcome proves only client return; body validation and completed checks remain separate.",
+    "Application quotas require every cooperating process to use the same SQLite database.",
+    "Actual user Windows end-to-end and historical out-of-sample data remain unavailable here.",
+    "FDA/CMS/ClinicalTrials/DOJ/EPA leads remain UNVERIFIED; no scores or trading behavior changed.",
+    "The remaining source collectors have their own existing budgets; this step does not claim universal provider quotas."
+  ],
+  "next_work": [
+    "FDA dated application/product/sponsor-to-issuer links and live product cases",
+    "CMS dated organizational-owner/subsidiary/provider-to-issuer links",
+    "primary energy exposure and asset mappings, then broader sector routing",
+    "remaining provider quotas/access and actual user Windows/historical acceptance"
+  ],
+  "source_commit": "b58e0396759d5195d6437448aa69c143bb78209e",
+  "quota_test_log": "test_actual_collector_rotates_canonical_687_with_restarts_and_repeated_daily_runs (test_public_source_budget.PublicSourceBudgetTests.test_actual_collector_rotates_canonical_687_with_restarts_and_repeated_daily_runs) ... ok\ntest_all_five_collectors_share_restart_persistent_limits (test_public_source_budget.PublicSourceBudgetTests.test_all_five_collectors_share_restart_persistent_limits) ... ok\ntest_atomic_request_limit_with_concurrent_connections (test_public_source_budget.PublicSourceBudgetTests.test_atomic_request_limit_with_concurrent_connections) ... ok\ntest_distinct_issuer_limit_and_pages_share_one_subject (test_public_source_budget.PublicSourceBudgetTests.test_distinct_issuer_limit_and_pages_share_one_subject) ... ok\ntest_every_fda_endpoint_page_is_charged_and_interrupted_issuer_stays_due (test_public_source_budget.PublicSourceBudgetTests.test_every_fda_endpoint_page_is_charged_and_interrupted_issuer_stays_due) ... ok\ntest_failed_subjects_rotate_after_never_attempted_on_next_day (test_public_source_budget.PublicSourceBudgetTests.test_failed_subjects_rotate_after_never_attempted_on_next_day) ... ok\ntest_lease_expiry_stops_request_and_exception_releases_provider (test_public_source_budget.PublicSourceBudgetTests.test_lease_expiry_stops_request_and_exception_releases_provider) ... ok\ntest_provider_lease_prevents_overlapping_network_calls (test_public_source_budget.PublicSourceBudgetTests.test_provider_lease_prevents_overlapping_network_calls) ... ok\ntest_rate_limit_and_retry_after_survive_restart_without_new_requests (test_public_source_budget.PublicSourceBudgetTests.test_rate_limit_and_retry_after_survive_restart_without_new_requests) ... ok\ntest_requests_crossing_midnight_use_each_utc_day_and_providers_are_independent (test_public_source_budget.PublicSourceBudgetTests.test_requests_crossing_midnight_use_each_utc_day_and_providers_are_independent) ... ok\ntest_restart_running_request_and_identity_changes_do_not_reset_quota (test_public_source_budget.PublicSourceBudgetTests.test_restart_running_request_and_identity_changes_do_not_reset_quota) ... ok\ntest_scope_before_budget_and_telemetry_survive_persistence (test_public_source_budget.PublicSourceBudgetTests.test_scope_before_budget_and_telemetry_survive_persistence) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 2.541s\n\nOK\n"
+}

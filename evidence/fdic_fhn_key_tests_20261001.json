@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "evidence_type": "deterministic_tests_not_live_or_Windows_acceptance",
+  "started_at": "2026-10-01T18:40:08.725078+00:00",
+  "finished_at": "2026-10-01T18:42:32.432219+00:00",
+  "platform": "Linux",
+  "python": "3.12.14",
+  "command": "python -m unittest discover -s tests -p test_*.py -v",
+  "returncode": 0,
+  "tests": 487,
+  "reported_seconds": 142.085,
+  "elapsed_seconds": 143.707,
+  "result": "PASS",
+  "tested_sha256": {
+    "market_checker_app/data/verified_fdic_banks.json": "270835673f837cfaf65539f9a24768490deda6b55c8b63e931555e3b236469af",
+    "market_checker_app/services/fdic_bank_scout_service.py": "de27f50d2bb985add8c1683e958060dbf60e2f11688b0fc4627fe4a32a1564ca",
+    "market_checker_app/services/specialist_acceptance_service.py": "735162263c7a2fb23b7b34b7655f5ddd8688e7cb320c6a7d3be6546a9fe98588",
+    "market_checker_app/specialist_live_smoke.py": "aee9eb7fd39310994d57e1176f3fda7ce2fc0a98da7cc2f84b9fafe369ce62dd",
+    "market_checker_app/storage/scout_store.py": "a99504a3a4c657bbcb9d998b7794e055203eb797123ea774e52ed04a329d63bc",
+    "tests/test_fdic_bank_scout_service.py": "7a5616c2b8fdd18ea2380586b42c89671723897a57cc7ddc3c740858c0f6f460",
+    "tests/test_specialist_acceptance_service.py": "63557d5d2fe9b32bc6e354c0a77ad91667739e0a3e44ddc18c0690af1e827493",
+    "evidence/fdic_fhn_key_identity_20261001.json": "aebcc208e1c84a8e582049a6a1fd8590a08ff68c5a80045a7fe61e41dd2bf8d5",
+    "evidence/fdic_fhn_key_live_20261001.json": "ccd690dfc2dac00870fa0414297c9c1d0daff536bddeb94a89d4f87f992fcb2e"
+  },
+  "targeted_tests": {
+    "fdic": 21,
+    "diagnostics": 11
+  },
+  "live_smoke_command": "python -m market_checker_app.specialist_live_smoke --sources fdic --fdic-tickers FHN KEY --output-path evidence/fdic_fhn_key_live_20261001.json",
+  "scoring_applied": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "initial_attempt": {
+    "started_at": "2026-10-01T18:34:15.484985+00:00",
+    "finished_at": "2026-10-01T18:34:24.865239+00:00",
+    "tests": 385,
+    "returncode": 1,
+    "result": "FAIL",
+    "reported_seconds": 8.506,
+    "tested_sha256": {
+      "market_checker_app/data/verified_fdic_banks.json": "270835673f837cfaf65539f9a24768490deda6b55c8b63e931555e3b236469af",
+      "market_checker_app/services/fdic_bank_scout_service.py": "de27f50d2bb985add8c1683e958060dbf60e2f11688b0fc4627fe4a32a1564ca",
+      "market_checker_app/services/specialist_acceptance_service.py": "735162263c7a2fb23b7b34b7655f5ddd8688e7cb320c6a7d3be6546a9fe98588",
+      "market_checker_app/specialist_live_smoke.py": "aee9eb7fd39310994d57e1176f3fda7ce2fc0a98da7cc2f84b9fafe369ce62dd",
+      "market_checker_app/storage/scout_store.py": "a99504a3a4c657bbcb9d998b7794e055203eb797123ea774e52ed04a329d63bc",
+      "tests/test_fdic_bank_scout_service.py": "7a5616c2b8fdd18ea2380586b42c89671723897a57cc7ddc3c740858c0f6f460",
+      "tests/test_specialist_acceptance_service.py": "63557d5d2fe9b32bc6e354c0a77ad91667739e0a3e44ddc18c0690af1e827493",
+      "evidence/fdic_fhn_key_identity_20261001.json": "aebcc208e1c84a8e582049a6a1fd8590a08ff68c5a80045a7fe61e41dd2bf8d5",
+      "evidence/fdic_fhn_key_live_20261001.json": "ccd690dfc2dac00870fa0414297c9c1d0daff536bddeb94a89d4f87f992fcb2e"
+    },
+    "import_errors": 21,
+    "missing_modules": [
+      "pandas_market_calendars",
+      "feedparser",
+      "yfinance",
+      "streamlit"
+    ],
+    "reason": "Committed runtime dependencies absent from restored execution environment",
+    "resolution": "Installed market_checker_app/requirements.txt with market_checker_app/constraints.txt; reran unchanged tested files"
+  },
+  "other_checks": {
+    "compile": {
+      "returncode": 0,
+      "command": "python -m compileall -q market_checker_app tests"
+    },
+    "diff_check": {
+      "returncode": 0,
+      "command": "git diff --check"
+    }
+  },
+  "checks_verified_at": "2026-10-01T18:42:57.131759+00:00"
+}

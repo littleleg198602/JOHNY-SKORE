@@ -5,6 +5,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sqlite3
 
+from market_checker_app.storage.sqlite_connection import ClosingSQLiteConnection
+
 from market_checker_app.prediction_contract import PRIMARY_TARGET_VERSION
 from market_checker_app.services.us_equity_calendar import target_us_equity_window
 
@@ -52,7 +54,7 @@ class PredictionLabelQueueStore:
 
     def _connect(self) -> sqlite3.Connection:
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        conn = sqlite3.connect(self.db_path, timeout=30.0)
+        conn = sqlite3.connect(self.db_path, timeout=30.0, factory=ClosingSQLiteConnection)
         conn.row_factory = sqlite3.Row
         return conn
 

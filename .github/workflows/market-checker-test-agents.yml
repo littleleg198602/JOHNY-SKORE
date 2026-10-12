@@ -28,7 +28,7 @@ jobs:
       - name: Compile every Python module
         run: python -m compileall -q market_checker_app tests
       - name: Run deterministic test suite
-        run: python -m unittest discover -s tests -p 'test_*.py' -v
+        run: python -X utf8 -m market_checker_app.deterministic_test_runner
 
   scale-agent:
     name: 687 ticker scale and progress agent
@@ -66,10 +66,42 @@ jobs:
       - name: Verify the application and Yahoo controls render
         run: python -m unittest discover -s tests -p 'test_streamlit_ui_smoke.py' -v
 
+  windows-agent:
+    name: Windows contracts, persistence and UI
+    runs-on: windows-latest
+    # A complete run currently needs about 12.5 minutes after dependency
+    # setup on hosted Windows. Keep a bounded allowance for runner variance;
+    # cancellation is not a passing result and the release gate still fails.
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            market_checker_app/requirements.txt
+            market_checker_app/constraints.txt
+      - name: Install project dependencies
+        run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
+      - name: Compile every Python module
+        run: python -m compileall -q market_checker_app tests
+      - name: Run deterministic Windows suite
+        run: python -X utf8 -m market_checker_app.deterministic_test_runner --log-path windows-tests.log --result-path windows-tests.json
+      - name: Preserve Windows verification log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-deterministic-tests
+          path: |
+            windows-tests.log
+            windows-tests.json
+          if-no-files-found: error
+
   release-agent:
     name: Deterministic release gate
     if: always()
-    needs: [contract-agent, scale-agent, ui-agent]
+    needs: [contract-agent, scale-agent, ui-agent, windows-agent]
     runs-on: ubuntu-latest
     steps:
       - name: Require every test agent to pass
@@ -77,7 +109,9 @@ jobs:
           CONTRACT_RESULT: ${{ needs.contract-agent.result }}
           SCALE_RESULT: ${{ needs.scale-agent.result }}
           UI_RESULT: ${{ needs.ui-agent.result }}
+          WINDOWS_RESULT: ${{ needs.windows-agent.result }}
         run: |
           test "$CONTRACT_RESULT" = "success"
           test "$SCALE_RESULT" = "success"
           test "$UI_RESULT" = "success"
+          test "$WINDOWS_RESULT" = "success"

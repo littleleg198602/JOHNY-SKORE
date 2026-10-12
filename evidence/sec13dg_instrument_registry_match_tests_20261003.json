@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T15:17:52+00:00",
+  "evidence_type": "deterministic_regression_test",
+  "subject": "Exact dated Schedule 13D/G instrument resolution against the reviewed SEC registry",
+  "base_commit": "efd091f6c6110dae664723967d78318bcd4909c7",
+  "pull_request": 160,
+  "resolution_contract": {
+    "registry": "market_checker_app/data/verified_13f_securities.json",
+    "registry_instruments": 15,
+    "required_exact_fields": [
+      "canonical ticker",
+      "issuer CIK",
+      "checksum-valid as-filed CUSIP"
+    ],
+    "required_time_bounds": [
+      "Schedule 13 event date inside registry effective_from/effective_to",
+      "registry known_at no later than analysis knowledge time"
+    ],
+    "ambiguous_or_multiple_as_filed_cusips_fail_closed": true,
+    "reporting_person_identity_resolved": false,
+    "ownership_change_interpreted": false,
+    "scoring_applied": false
+  },
+  "validation": {
+    "focused_command": "python -m unittest tests.test_sec_schedule13_extraction tests.test_sec_document_scout tests.test_sec_scout_service tests.test_governance_event_agent tests.test_scout_store",
+    "focused_tests_run": 47,
+    "focused_failures": 0,
+    "focused_errors": 0,
+    "full_command": "python -m unittest discover -s tests",
+    "full_tests_run": 541,
+    "full_failures": 0,
+    "full_errors": 0,
+    "full_duration_seconds": 94.199,
+    "initial_clean_host_attempt": {
+      "tests_run_before_import_failures": 435,
+      "import_errors": 22,
+      "successful": false,
+      "reason": "Declared project dependencies were not installed; the failed attempt is not counted as a pass."
+    },
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "sha256": {
+    "market_checker_app/services/sec_document_extraction.py": "b3862e60776fbffb842f790938b913f19a5c1a37fba35ef0813fb56d28be9baf",
+    "market_checker_app/services/sec_scout_service.py": "077b35d7479317e3b3f2b4a726a5ed45f113bf396dd1c538d5bf227730ff0c10",
+    "market_checker_app/agents/governance_event_agent.py": "c61bd71550cbd0dc3930e54708e60c767ca16c787f6a2911a27afa4cde71f7ec",
+    "tests/test_sec_schedule13_extraction.py": "ac6949c064dafbdbe7573fee92f3bb7b26f395c970033b7a49c45bef88a74198",
+    "tests/test_sec_document_scout.py": "e4fac5138c5ba25cc7e72430ed3021ec97121a37898a1d183250deb379437ec7"
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed": false,
+    "resolved_registry_subset": 15
+  },
+  "acceptance_limits": {
+    "dated_instrument_registry_resolution_verified_for_subset": true,
+    "full_applicable_instrument_coverage_verified": false,
+    "reporting_person_legal_identity_verified": false,
+    "ownership_change_interpreted": false,
+    "positive_and_negative_live_cases_verified": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

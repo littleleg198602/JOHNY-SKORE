@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "started_at": "2026-10-02T06:07:06.654734+00:00",
+  "observed_at": "2026-10-02T06:07:29.117792+00:00",
+  "source": "ofac_non_sdn",
+  "source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/CONS_PRIM.CSV",
+  "alias_source_url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/CONS_ALT.CSV",
+  "publisher_requests": 2,
+  "max_bytes_per_export": 1000000,
+  "request_timeout_seconds": 20,
+  "primary_rows": 481,
+  "entity_rows": 363,
+  "alias_rows": 1110,
+  "primary_sha256": "0a3b74f6eb28450a9993b42a234c1801471d4dcb41220f6a7b8e466575bc3889",
+  "alias_sha256": "ee4e86b664c7a11aacd0fe227f35336cff3467602bb9607653bb4ce193811474",
+  "positive_entity": {
+    "sdn_id": "15268",
+    "name": "BANK OF KUNLUN CO LTD",
+    "programs": "561-Related",
+    "remarks": "SWIFT/BIC CKLBCNBJ; United States financial institutions are prohibited from opening or maintaining a correspondent account or a payable-through account for the foreign financial institution listed here, pursuant to 31 C.F.R. section 561.201(c).",
+    "aliases": [
+      {
+        "alias_id": "22509",
+        "alias_type": "fka",
+        "name": "KARAMAY URBAN CREDIT COOPERATIVES",
+        "remarks": "-0-"
+      },
+      {
+        "alias_id": "22510",
+        "alias_type": "fka",
+        "name": "KARAMAY CITY COMMERCIAL BANK CO LTD.",
+        "remarks": "-0-"
+      }
+    ]
+  },
+  "exact_alias_parent_join_verified": true,
+  "negative_exact_name": "JOHNY SKORE NONEXISTENT ENTITY 9AE78462",
+  "negative_returned_records": 0,
+  "scope": "Actual publisher downloads and parser/alias validation; no watchlist issuer or sanctions liability assigned",
+  "Windows_end_to_end": false,
+  "complete_issuer_coverage": false,
+  "historical_evaluation": false,
+  "scoring_applied": false
+}

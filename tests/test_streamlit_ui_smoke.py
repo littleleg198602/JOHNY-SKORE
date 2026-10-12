@@ -86,6 +86,8 @@ class StreamlitUISmokeTests(unittest.TestCase):
         self.assertIn("Doplnit Yahoo cache", labels)
         self.assertIn("Spustit analýzu", labels)
         self.assertIn("Uložit nastavení agentů", labels)
+        self.assertIn("Stáhnout provozní přehled specialistů",
+                      [element.proto.label for element in app.get("download_button")])
         number_labels = [field.label for field in app.number_input]
         self.assertIn("Yahoo tickerů v jedné automatické dávce", number_labels)
         checkbox_labels = [field.label for field in app.checkbox]

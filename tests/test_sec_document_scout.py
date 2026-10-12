@@ -12,8 +12,11 @@ from market_checker_app.collectors.sec_edgar_client import (
     _SecRedirectPolicy, _allowed_sec_url,
 )
 from market_checker_app.agents import (
-    EntityRegistryAgent, OrchestratorAgent, PredictionV21AdapterAgent,
+    EntityRegistryAgent, GovernanceEventAgent, OrchestratorAgent, PredictionV21AdapterAgent,
     QualityGateAgent, SourceResolutionAgent,
+)
+from market_checker_app.agents.contracts import (
+    GovernanceEventStatus, GovernanceEventType,
 )
 from market_checker_app.agents.scout_index_agent import ScoutIndexAgent
 from market_checker_app.exporters.excel_exporter import ExcelExporter
@@ -48,7 +51,86 @@ class DetailedExposureIndex(DocumentIndex):
                 b"<p>We hedged 60% of our anticipated jet fuel purchases for 2027.</p></html>")
 
 
+class OwnershipDocumentIndex(DocumentIndex):
+    def fetch_filing_index(self, ticker, **kwargs):
+        company, filings = super().fetch_filing_index(ticker, **kwargs)
+        return company, (replace(
+            filings[0], form="SC 13G",
+            report_date=datetime(2026, 5, 13, tzinfo=timezone.utc),
+        ),)
+
+    def fetch_filing_document(self, filing: SecFiling, *, cik: str) -> bytes:
+        return b"""<html><body><h1>SCHEDULE 13G</h1>
+        <p>Apple Inc.</p><p>(Name of Issuer)</p>
+        <p>Common Stock</p><p>(Title of Class of Securities)</p>
+        <p>037833100</p><p>(CUSIP Number)</p>
+        <p>Notice Recipient</p><p>(Name, Address and Telephone Number of Person Authorized to Receive Notices and Communications)</p>
+        <p>05/13/2026</p><p>(Date of Event Which Requires Filing of This Statement)</p>
+        <div>1 | Name of reporting person Example Asset Manager LLC</div>
+        <div>2 | Check the appropriate box if a member of a Group</div>
+        <div>11 | Aggregate amount beneficially owned by each reporting person 100,000.00</div>
+        <div>13 | Percent of class represented by amount in Row (11) 1.0 %</div>
+        </body></html>"""
+
+
 class SecDocumentScoutTest(unittest.TestCase):
+    def test_source_verified_13g_keeps_identity_into_governance_without_claiming_change(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            now = datetime(2026, 10, 3, tzinfo=timezone.utc)
+            scout = SecScoutService(
+                store, client=OwnershipDocumentIndex(now - timedelta(days=1)),
+            )
+            scout.schedule(["AAPL"], as_of=now)
+            self.assertEqual("OK", scout.run_batch(as_of=now, limit=2)["status"])
+
+            orchestrator = OrchestratorAgent(shadow_mode=True)
+            orchestrator.register(EntityRegistryAgent({"AAPL": {
+                "entity_id": "listing:aapl",
+                "ticker": "AAPL",
+                "name": "Apple Inc.",
+                "cik": "320193",
+                "lei": "HWUPKR0MPOU8FGXBT394",
+                "isin": "US0378331005",
+                "source": "primary_manifest",
+                "source_url": "https://www.sec.gov/Archives/edgar/data/320193/",
+                "confidence": 1.0,
+            }}))
+            orchestrator.register(ScoutIndexAgent(store.db_path))
+            orchestrator.register(GovernanceEventAgent(
+                dependencies=("entity_registry", "scout_index"),
+            ))
+            report = orchestrator.run(watchlist=["AAPL"])
+
+            document = next(item for item in report.documents
+                            if not item.metadata["filing_index_only"])
+            self.assertEqual("SC 13G", document.metadata["form"])
+            self.assertEqual("0000320193-26-000001", document.metadata["accession_number"])
+            self.assertEqual("0000320193", document.metadata["issuer_cik"])
+            self.assertEqual("2026-05-13T00:00:00+00:00", document.metadata["report_date"])
+            ownership_events = [
+                item for item in report.governance_events
+                if item.event_type == GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING
+            ]
+            self.assertEqual(1, len(ownership_events))
+            event = ownership_events[0]
+            self.assertTrue(event.metadata["as_filed_cover_fields_extracted"])
+            self.assertEqual(GovernanceEventStatus.UNVERIFIED, event.status)
+            cover = event.metadata["as_filed_cover_fields"]
+            self.assertEqual(["037833100"], cover["instrument"]["cusips"])
+            self.assertEqual("Common Stock", cover["instrument"]["class_title"])
+            self.assertEqual("Example Asset Manager LLC",
+                             cover["reporting_persons"][0]["name"])
+            self.assertEqual("NAME_ONLY",
+                             cover["reporting_persons"][0]["identity_status"])
+            self.assertFalse(event.metadata["beneficial_owner_identity_verified"])
+            self.assertTrue(event.metadata["instrument_identity_verified"])
+            self.assertEqual("REGISTRY_MATCHED", cover["instrument"]["identity_status"])
+            self.assertEqual("0000320193",
+                             cover["instrument"]["registry_match"]["issuer_cik"])
+            self.assertFalse(event.metadata["ownership_change_interpreted"])
+            self.assertFalse(event.metadata["scoring_applied"])
+
     def test_named_supplier_and_hedge_details_survive_storage(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             store = ScoutStore(Path(directory) / "scout.db")
@@ -173,11 +255,14 @@ class SecDocumentScoutTest(unittest.TestCase):
             )
             scout_docs = [document for document in report.documents
                           if document.source == "SEC EDGAR index"]
-            self.assertEqual(2, len(scout_docs))
-            self.assertEqual({True, False},
-                             {item.metadata["filing_index_only"] for item in scout_docs})
+            self.assertEqual(1, len(scout_docs))
+            self.assertFalse(scout_docs[0].metadata["filing_index_only"])
             self.assertTrue(all(item.direction == 0 for item in report.evidence
                                 if item.agent_name == "scout_index"))
+            scout_execution = next(item for item in report.executions
+                                   if item.agent_name == "scout_index")
+            self.assertEqual(1, scout_execution.result.metadata["superseded_index_documents"])
+            self.assertEqual(2, scout_execution.result.metadata["source_findings_in_snapshot"])
             saved = store.analysis_snapshot(report.orchestration_id)
             self.assertEqual({row["finding_id"] for row in records},
                              set(saved["finding_ids"]))

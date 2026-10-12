@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-02T11:52:53+00:00",
+  "publisher": "US EPA ECHO",
+  "documentation_url": "https://echo.epa.gov/tools/web-services",
+  "endpoint": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info",
+  "scope": "exact facility-name publisher schema smoke; not issuer ownership, group completeness, environmental liability, or scoring evidence",
+  "positive": {
+    "query_name": "DOW INC",
+    "query_rows": 1,
+    "returned_rows": 1,
+    "locally_exact_rows": 1,
+    "facility_name": "DOW INC",
+    "frs_registry_id": "110019986586",
+    "response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+    "pass": true
+  },
+  "negative": {
+    "query_name": "JOHNY SKORE NONEXISTENT ENTITY 20261002",
+    "query_rows": 0,
+    "returned_rows": 0,
+    "locally_exact_rows": 0,
+    "response_sha256": "fbf8b9ed5f9b226d17013dd9c853928b5f523eb7098cddf63f201f3b6433625c",
+    "pass": true,
+    "interpretation": "publisher endpoint accepted the bounded query and returned no rows; this is not a negative issuer-liability conclusion"
+  },
+  "controls": {
+    "official_https_host_only": true,
+    "response_body_limit_bytes": 2000000,
+    "request_timeout_seconds": 20,
+    "max_issuers_per_run": 10,
+    "max_run_seconds": 60,
+    "max_failures": 3,
+    "refresh_days": 30,
+    "applicable_canonical_profile_subjects": 104,
+    "issuer_facility_relationship_verified": false,
+    "complete_facility_group_verified": false,
+    "environmental_liability_verified": false,
+    "scoring_applied": false
+  }
+}

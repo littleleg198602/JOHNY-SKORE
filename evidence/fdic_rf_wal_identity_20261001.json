@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "evidence_type": "dated_identity_and_bounded_live_publisher_observations_not_full_acceptance",
+  "verified_at": "2026-10-01T22:09:24.414365+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "RF",
+        "cert": 12368,
+        "issuer_cik": "0001281761",
+        "issuer_name": "Regions Financial Corporation",
+        "bank_name": "Regions Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000019/rf-20251231exx21.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000019/R1.htm",
+        "known_at": "2026-10-01T22:09:24.414365+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/12368",
+        "financial_name": "REGIONS BANK",
+        "financial_name_known_at": "2026-10-01T22:08:52.411973+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A12368&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000019/rf-20251231exx21.htm",
+        "observed_no_later_than": "2026-10-01T22:09:24.414365+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "as_of": "2025-12-31",
+        "as_of_date_verified": true,
+        "registry_report_eligibility_from": "2025-12-31",
+        "source_locator": "Exhibit 21 title/date, Regions Bank row 39 and bank-specific footnote (1)",
+        "observed_excerpt": "REGIONS FINANCIAL CORPORATION; SUBSIDIARIES DECEMBER 31, 2025; Regions Bank (1); Affiliate state bank chartered under the banking laws of Alabama",
+        "date_basis": "Explicit exhibit as-of date, distinct from SEC filing publication",
+        "scope": "Dated issuer-to-bank subsidiary statement for one CERT; acquisition date, continuous ownership and complete group are not inferred",
+        "ownership_statement": "The issuer's dated Exhibit 21 lists Regions Bank as a subsidiary; footnote identifies the bank charter, but no ownership percentage is stated",
+        "unqualified_wholly_owned_claim_accepted": false,
+        "omitted_entities": "Only the cited bank/CERT is onboarded; the exhibit's other subsidiaries and any unlisted immaterial entities are outside this mapping"
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000019/0001281761-26-000019-index.html",
+        "filing_date": "2026-02-24",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0001281761",
+        "observed_no_later_than": "2026-10-01T22:09:24.414365+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and Exhibit 21 link",
+        "observed_excerpt": "Filing Date 2026-02-24; Period of Report 2025-12-31; CIK 0001281761",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000019/R1.htm",
+        "issuer_cik": "0001281761",
+        "issuer_name": "Regions Financial Corporation",
+        "source_registrant_name": "REGIONS FINANCIAL CORPORATION",
+        "ticker": "RF",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-24",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1281761/000128176126000019/0001281761-26-000019-index.html",
+        "source_locator": "R1 registrant name, CIK and Common Stock, $.01 par value / RF rows; preferred classes are separate where present",
+        "observed_excerpt": "REGIONS FINANCIAL CORPORATION; 0001281761; Common Stock, $.01 par value; RF",
+        "observed_no_later_than": "2026-10-01T22:09:24.414365+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only; not preferred symbols, CUSIP/ISIN/current exchange/corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 12368,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A12368&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T22:08:43.081470+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:12368",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 12368,
+                "NAME": "Regions Bank",
+                "ID": "12368"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A12368&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-01T22:08:52.411973+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:12368",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 159787000,
+                "CERT": 12368,
+                "NETINC": 1159000,
+                "EQ": 17939000,
+                "DEP": 131776000,
+                "NAME": "REGIONS BANK",
+                "ID": "12368_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 159430000,
+                "CERT": 12368,
+                "NETINC": 573000,
+                "EQ": 18064000,
+                "DEP": 132760000,
+                "NAME": "REGIONS BANK",
+                "ID": "12368_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        }
+      },
+      "limitations": [
+        "Latest two subsidiary reports only",
+        "No ownership percentage inferred from the cited subsidiary listing",
+        "Not all subsidiaries and ownership changes mapped",
+        "Not issuer consolidated values or continuous historical ownership",
+        "No Windows or historical-out-of-sample acceptance"
+      ]
+    },
+    {
+      "identity": {
+        "ticker": "WAL",
+        "cert": 57512,
+        "issuer_cik": "0001212545",
+        "issuer_name": "Western Alliance Bancorporation",
+        "bank_name": "Western Alliance Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/1212545/000162828026010336/ex211listofsubsidiaries123.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/1212545/000162828026010336/R1.htm",
+        "known_at": "2026-10-01T22:09:24.414365+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/57512",
+        "financial_name": "WESTERN ALLIANCE BANK",
+        "financial_name_known_at": "2026-10-01T22:08:57.003026+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57512&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1212545/000162828026010336/ex211listofsubsidiaries123.htm",
+        "observed_no_later_than": "2026-10-01T22:09:24.414365+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "as_of": "2025-12-31",
+        "as_of_date_verified": true,
+        "registry_report_eligibility_from": "2025-12-31",
+        "source_locator": "Exhibit 21.1 heading, explicit as-of date and Western Alliance Bank row",
+        "observed_excerpt": "WESTERN ALLIANCE BANCORPORATION; LIST OF SUBSIDIARIES; As of December 31, 2025; Western Alliance Bank",
+        "date_basis": "Explicit exhibit as-of date, distinct from SEC filing publication",
+        "scope": "Dated issuer-to-bank subsidiary statement for one CERT; acquisition date, continuous ownership and complete group are not inferred",
+        "ownership_statement": "The issuer's dated Exhibit 21.1 lists Western Alliance Bank as a subsidiary; no ownership percentage is inferred",
+        "unqualified_wholly_owned_claim_accepted": false,
+        "omitted_entities": "Only the cited bank/CERT is onboarded; other subsidiaries, divisions and continuous ownership history are outside this mapping"
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1212545/000162828026010336/0001628280-26-010336-index.htm",
+        "filing_date": "2026-02-23",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0001212545",
+        "observed_no_later_than": "2026-10-01T22:09:24.414365+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and Exhibit 21 link",
+        "observed_excerpt": "Filing Date 2026-02-23; Period of Report 2025-12-31; CIK 0001212545",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1212545/000162828026010336/R1.htm",
+        "issuer_cik": "0001212545",
+        "issuer_name": "Western Alliance Bancorporation",
+        "source_registrant_name": "WESTERN ALLIANCE BANCORPORATION",
+        "ticker": "WAL",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-23",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1212545/000162828026010336/0001628280-26-010336-index.htm",
+        "source_locator": "R1 registrant name, CIK and Common Stock, $0.0001 Par Value / WAL rows; preferred classes are separate where present",
+        "observed_excerpt": "WESTERN ALLIANCE BANCORPORATION; 0001212545; Common Stock, $0.0001 Par Value; WAL",
+        "observed_no_later_than": "2026-10-01T22:09:24.414365+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only; not preferred symbols, CUSIP/ISIN/current exchange/corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 57512,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A57512&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T22:08:47.773953+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:57512",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 57512,
+                "NAME": "Western Alliance Bank",
+                "ID": "57512"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57512&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-01T22:08:57.003026+00:00",
+        "financials": {
+          "meta": {
+            "total": 94,
+            "parameters": {
+              "filters": "CERT:57512",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 98568765,
+                "CERT": 57512,
+                "NETINC": 561931,
+                "EQ": 7932402,
+                "DEP": 82322362,
+                "NAME": "WESTERN ALLIANCE BANK",
+                "ID": "57512_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 98766387,
+                "CERT": 57512,
+                "NETINC": 174873,
+                "EQ": 7718589,
+                "DEP": 83216785,
+                "NAME": "WESTERN ALLIANCE BANK",
+                "ID": "57512_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 94
+          }
+        }
+      },
+      "limitations": [
+        "Latest two subsidiary reports only",
+        "No ownership percentage inferred from the cited subsidiary listing",
+        "Not all subsidiaries and ownership changes mapped",
+        "Not issuer consolidated values or continuous historical ownership",
+        "No Windows or historical-out-of-sample acceptance"
+      ]
+    }
+  ],
+  "manifest_sha256": "382f7ae32ca1ea2b81a3e4d232d40d46ac1029029aec6ad37a198d571d7a4ae9",
+  "preliminary_publisher_requests": [
+    {
+      "url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A12368&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+      "started_at": "2026-10-01T22:08:37.478749+00:00",
+      "observed_at": "2026-10-01T22:08:43.081470+00:00",
+      "bytes": 296,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A57512&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+      "started_at": "2026-10-01T22:08:43.082556+00:00",
+      "observed_at": "2026-10-01T22:08:47.773953+00:00",
+      "bytes": 305,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/financials?filters=CERT%3A12368&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "started_at": "2026-10-01T22:08:47.775251+00:00",
+      "observed_at": "2026-10-01T22:08:52.411973+00:00",
+      "bytes": 560,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/financials?filters=CERT%3A57512&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "started_at": "2026-10-01T22:08:52.413682+00:00",
+      "observed_at": "2026-10-01T22:08:57.003026+00:00",
+      "bytes": 569,
+      "result": "PASS"
+    }
+  ],
+  "request_scope": {
+    "preliminary_requests": 4,
+    "smoke_requests_planned": 3,
+    "max_total_new_requests": 7,
+    "timeout_seconds": 20,
+    "max_response_bytes": 1000000,
+    "institutions_rows": 1,
+    "financials_rows": 2,
+    "smoke_requests_completed": 3,
+    "total_new_requests": 7,
+    "captured_payload_rechecks_use_network": false
+  },
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 20,
+    "unmapped_tickers": [
+      "PNFP",
+      "ZION"
+    ],
+    "basis": "Current manifest vs canonical BANK profiles; not runtime usable coverage or complete groups"
+  },
+  "full_specialist_acceptance": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "scoring_applied": false,
+  "source_smoke_evidence": "evidence/fdic_rf_wal_live_20261001.json",
+  "source_smoke_sha256": "71b1d4586d29cc4f52fef08b038288c441ce77480f8732a6198f66a5f75e7239"
+}

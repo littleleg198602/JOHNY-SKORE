@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T20:48:21.797243+00:00",
+  "platform_scope": "current execution host; not a Windows end-to-end acceptance",
+  "full_universe_verified": false,
+  "scoring_applied": false,
+  "status": "PASS",
+  "sources": [
+    "fdic"
+  ],
+  "cases": {
+    "fdic_positive_OZK": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T20:48:21.801088+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A110&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "ticker": "OZK",
+      "cert": 110,
+      "identity": {
+        "ticker": "OZK",
+        "cert": 110,
+        "bank_name": "Bank OZK",
+        "issuer_identity_kind": "direct_bank",
+        "issuer_name": "Bank OZK",
+        "issuer_identity_publisher": "FDIC",
+        "issuer_identity_evidence_url": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+        "issuer_identity_as_of": "2025-12-31",
+        "issuer_identity_filing_date": "2026-02-25",
+        "issuer_filing_index_url": "https://ir.ozk.com/filings/documents",
+        "issuer_instrument_class": "common_stock",
+        "issuer_instrument_symbol": "OZK",
+        "effective_from": "2025-12-31",
+        "effective_from_basis": "direct_bank_identity_as_of",
+        "effective_from_evidence_url": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+        "known_at": "2026-10-01T20:43:33.511132+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/110",
+        "financial_name": "BANK OZK",
+        "financial_name_known_at": "2026-10-01T20:41:44.125964+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A110&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 2,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 1
+      },
+      "replay_summary": {
+        "status": "OK",
+        "checked_banks": 1,
+        "usable_banks": 1,
+        "rejected_rows": 0,
+        "new_findings": 0,
+        "failed_banks": 0,
+        "empty_banks": 0,
+        "attempted_banks": 1,
+        "due_banks": 1,
+        "deferred_banks": 0,
+        "budget_exhausted": false,
+        "daily_requests": 2
+      },
+      "payload": {
+        "meta": {
+          "total": 170,
+          "parameters": {
+            "filters": "CERT:110",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [
+          {
+            "data": {
+              "REPDTE": "20260630",
+              "ASSET": 41703134,
+              "CERT": 110,
+              "NETINC": 330735,
+              "EQ": 6278068,
+              "DEP": 33996752,
+              "NAME": "BANK OZK",
+              "ID": "110_20260630"
+            },
+            "score": 0
+          },
+          {
+            "data": {
+              "REPDTE": "20260331",
+              "ASSET": 41663976,
+              "CERT": 110,
+              "NETINC": 163364,
+              "EQ": 6156210,
+              "DEP": 33764925,
+              "NAME": "BANK OZK",
+              "ID": "110_20260331"
+            },
+            "score": 0
+          }
+        ],
+        "totals": {
+          "count": 170
+        }
+      }
+    },
+    "fdic_negative_absent_cert": {
+      "status": "PASS",
+      "observed_at": "2026-10-01T20:48:30.754643+00:00",
+      "source_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A99999999&limit=2",
+      "scope": "absent certificate, not an issuer-wide absence claim",
+      "payload": {
+        "meta": {
+          "total": 0,
+          "parameters": {
+            "filters": "CERT:99999999",
+            "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+            "limit": "2"
+          },
+          "index": {
+            "name": "risview_20260819185831",
+            "createTimestamp": "2026-08-19T18:58:33Z"
+          }
+        },
+        "data": [],
+        "totals": {
+          "count": 0
+        }
+      }
+    }
+  },
+  "fdic_selected_tickers": [
+    "OZK"
+  ],
+  "finished_at": "2026-10-01T20:48:36.498455+00:00"
+}

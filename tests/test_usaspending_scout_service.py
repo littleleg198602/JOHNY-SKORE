@@ -69,6 +69,40 @@ class UsaSpendingScoutTests(unittest.TestCase):
             self.assertEqual(0.0, detail["reported_total_outlays_usd"])
             self.assertEqual(sikorsky["continuity_evidence_url"],
                              detail["continuity_evidence_url"])
+            self.assertEqual("2015-11-06", detail["relationship_effective_from"])
+            self.assertIsNone(detail["relationship_effective_to"])
+
+    def test_documented_northrop_subsidiary_uei_is_scoped_to_noc(self):
+        entries = load_verified_identities(DEFAULT_IDENTITIES)
+        northrop = next(entry for entry in entries if entry["uei"] == "LCV2N9FVV739")
+        self.assertEqual("NOC", northrop["ticker"])
+        self.assertEqual("NORTHROP GRUMMAN SYSTEMS CORPORATION",
+                         northrop["recipient_name"])
+        self.assertEqual("2025-12-31", northrop["effective_from"])
+        self.assertIn("000113342126000003", northrop["relationship_evidence_url"])
+
+        class NorthropAward:
+            def awards(self, uei, *, start, end, page):
+                return {"results": [{"generated_internal_id":
+                         "CONT_AWD_SPE4A525F6417_9700_SPE4A122G0004_9700",
+                         "Award ID": "SPE4A525F6417", "Recipient UEI": uei,
+                         "Recipient Name": "NORTHROP GRUMMAN SYSTEMS CORPORATION",
+                         "Start Date": "2026-06-23", "Award Amount": 9984595.0,
+                         "Total Outlays": 0.0}],
+                        "page_metadata": {"hasNext": False}}
+
+        with TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "test.db")
+            service = UsaSpendingScoutService(store, client=NorthropAward(),
+                                               identities=[northrop])
+            before = datetime(2026, 10, 2, 19, 4, tzinfo=timezone.utc)
+            after = datetime(2026, 10, 2, 19, 5, tzinfo=timezone.utc)
+            self.assertEqual("WAIT_IDENTITY", service.run(as_of=before)["status"])
+            self.assertEqual(1, service.run(as_of=after, universe={"NOC"})["new_findings"])
+            detail = json.loads(store.findings_as_of("NOC", as_of=after)[0]["details_json"])
+            self.assertEqual("2025-12-31", detail["relationship_effective_from"])
+            self.assertIsNone(detail["relationship_effective_to"])
+            self.assertEqual(northrop["known_at"], detail["relationship_known_at"])
 
     def test_exact_uei_relationship_dates_revisions_and_point_in_time(self):
         with TemporaryDirectory() as directory:

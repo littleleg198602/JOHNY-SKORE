@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-07T08:35:51+00:00",
+  "evidence_type": "reviewed_sec13f_instrument_identity_expansion",
+  "subject": "SEC 13F canonical identity registry expansion from 50 to 55",
+  "effective_period": {
+    "from": "2026-04-01",
+    "to": "2026-06-30",
+    "basis": "SEC 2026 Q2 official 13(f) securities list"
+  },
+  "canonical_universe": {
+    "total": 687,
+    "mapped_before": 50,
+    "mapped_after": 55,
+    "coverage_ratio": 0.080058,
+    "unmapped_after": 632
+  },
+  "sources": {
+    "official_13f_list": {
+      "url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "last_reviewed_period": "2026 Q2",
+      "facts": "Exact issuer, CUSIP and class rows reviewed for all five additions."
+    },
+    "official_company_tickers": {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "observed_at": "2026-10-07T08:35:51+00:00",
+      "facts": "Ticker-to-issuer-CIK mappings reviewed for all five additions."
+    }
+  },
+  "additions": [
+    {
+      "ticker": "TMO",
+      "issuer_cik": "0000097745",
+      "cusip": "883556102",
+      "issuer_name": "THERMO FISHER SCIENTIFIC INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/810672/000081067219000003/xslForm13F_X01/13F-AffinityQ12019.xml",
+      "instrument_event_date": "2019-03-31",
+      "instrument_evidence_note": "Exact issuer, class and CUSIP appear in a filed Q1 2019 Form 13F information table; the current 2026-Q2 list supplies the period-bounded CUSIP/class row.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T08:35:51+00:00"
+    },
+    {
+      "ticker": "NOW",
+      "issuer_cik": "0001373715",
+      "cusip": "81762P102",
+      "issuer_name": "SERVICENOW INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000110465922018546/tv01872-servicenowinc.htm",
+      "instrument_event_date": "2021-12-31",
+      "instrument_evidence_note": "Schedule 13G/A identifies ServiceNow common stock and exact CUSIP; the current 2026-Q2 list supplies the period-bounded CUSIP/class row.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T08:35:51+00:00"
+    },
+    {
+      "ticker": "BKNG",
+      "issuer_cik": "0001075531",
+      "cusip": "09857L108",
+      "issuer_name": "BOOKING HOLDINGS INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/1113000/000143893426002060/xslNPX-INFO-TABLE_X01/BRDC8Y_0001113000_2026.xml",
+      "instrument_event_date": "2026-06-02",
+      "instrument_evidence_note": "2026 Form N-PX information table records the exact CUSIP for Booking Holdings; the current Q2 list supplies issuer/class spelling.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T08:35:51+00:00"
+    },
+    {
+      "ticker": "UPS",
+      "issuer_cik": "0001090727",
+      "cusip": "911312106",
+      "issuer_name": "UNITED PARCEL SVCS INC",
+      "class_description": "CL B",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/102909/000093247119004498/unitedparcelserviceinc.htm",
+      "instrument_event_date": "2018-12-31",
+      "instrument_evidence_note": "Schedule 13G/A identifies United Parcel Service common stock and exact CUSIP; the current 2026-Q2 list supplies the period-bounded Class B row.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T08:35:51+00:00"
+    },
+    {
+      "ticker": "UNP",
+      "issuer_cik": "0000100885",
+      "cusip": "907818108",
+      "issuer_name": "UNION PAC CORP",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/2056907/000205690726000002/xslForm13F_X02/TPFGQ1202613F.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Union Pacific common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-07T08:35:51+00:00"
+    }
+  ],
+  "validation": {
+    "canonical_membership_reviewed": true,
+    "duplicate_ticker_or_cusip": false,
+    "cusip_check_digit_reviewed": true,
+    "source_content_reviewed": true,
+    "automated_tests_run": false,
+    "note": "TMO, NOW and UPS use older exact-CUSIP SEC filings only as corroborating instrument evidence; current period identity and class remain bounded to the official 2026-Q2 13(f) list. BKNG has dated 2026 N-PX evidence and UNP has dated 2026 Form 13F evidence. Source and fixture changes are committed without a test pass; hosted workflow evidence must be recorded separately after completion."
+  },
+  "acceptance_limits": [
+    "No live SEC quarterly ZIP was downloaded or parsed in this step.",
+    "No holdings-level positive or negative live case is claimed.",
+    "No actual end-user Windows run, complete corporate-action history or historical out-of-sample evaluation is claimed.",
+    "No score or trading behavior changed; institutions remains PILOT/PENDING and 0/21 specialists are DONE."
+  ],
+  "next_work": [
+    "Verify the hosted Linux and Windows workflow for the 55-instrument registry and preserve content-checked evidence.",
+    "Continue bounded dated identity coverage without exceeding source quotas or changing scoring.",
+    "Run a declared-User-Agent live SEC ZIP acceptance when credentials/runtime access permit."
+  ]
+}

@@ -7,6 +7,11 @@ from market_checker_app.utils.text import normalize_ticker
 # dependency-free utility so entity registration does not need to import the
 # network collector (and, transitively, yfinance).
 YAHOO_SYMBOL_ALIASES: dict[str, str] = {
+    # The reviewed 687-ticker export uses BRKB as its canonical identifier,
+    # while the exchange-style alias is BRK.B and Yahoo requires BRK-B.
+    # Keep the canonical key intact in reports/caches and translate only at
+    # the provider boundary.
+    "BRKB": "BRK-B",
     "BRK.B": "BRK-B",
     "BF.B": "BF-B",
 }

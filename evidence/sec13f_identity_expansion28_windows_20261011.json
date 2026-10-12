@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-11T05:10:30+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "SEC 13F one-hundred-forty-instrument identity registry",
+  "source_commit": "f6ad74f47033d573291e39efad5dcd0d72c33b2a",
+  "pull_request": 160,
+  "workflow": {
+    "id": 38110751861,
+    "run_number": 433,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 114385623365,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "runner_os": "Microsoft Windows Server 2025",
+    "runner_image": "windows-2025-vs2026",
+    "runner_image_version": "20260925.250.1",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-11T04:11:44.994427+00:00",
+    "ended_at": "2026-10-11T04:23:39.827352+00:00",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "registry_test": {
+    "name": "test_production_manifest_has_one_hundred_forty_cited_canonical_instruments",
+    "present_in_complete_job_log": true,
+    "passed": true,
+    "job_log_timestamp": "2026-10-11T04:20:15.8781158+00:00"
+  },
+  "artifact": {
+    "id": 11691398790,
+    "name": "windows-deterministic-tests",
+    "size_bytes": 16640,
+    "published_sha256": "00e5aad3bc56dc52d9b59654143e6f1fae1072d6d64b9c89525d94bb10e5d0ce",
+    "expired": false,
+    "published_at": "2026-10-11T04:23:41+00:00",
+    "metadata_upload_log_digest_agree": true,
+    "downloaded_sha256": "00e5aad3bc56dc52d9b59654143e6f1fae1072d6d64b9c89525d94bb10e5d0ce",
+    "digest_matches": true,
+    "archive_content_checked": true,
+    "files": [
+      {
+        "name": "windows-tests.log",
+        "size_bytes": 98101,
+        "sha256": "1106f3a89ed087a94c1b0ba501c138fc8f7752df26ace65ce8e324d9e6164d44",
+        "content_checked": true,
+        "observed_facts": [
+          "The named one-hundred-forty-instrument registry test passed.",
+          "The log reports Ran 546 tests and OK."
+        ]
+      },
+      {
+        "name": "windows-tests.json",
+        "size_bytes": 373,
+        "sha256": "fd62e6086f51c64a06f6f34dc5a44f4029898164d88309870d812906e7bad992",
+        "content_checked": true,
+        "observed_facts": [
+          "The structured result identifies Windows Server 2025 and Python 3.12.10.",
+          "It reports 546 discovered and executed tests, zero failures, errors and skips, and successful true."
+        ]
+      }
+    ],
+    "download_status": "VERIFIED",
+    "job_log_content_checked": true,
+    "job_log_facts": [
+      "The deterministic runner command wrote windows-tests.log and windows-tests.json.",
+      "The complete job log contains the named registry test with an ok result.",
+      "The complete job log reports Ran 546 tests and OK.",
+      "The upload step reports artifact ID 11691398790.",
+      "The artifact metadata reports the same ID, size and SHA-256.",
+      "The downloaded archive SHA-256 matches the published digest.",
+      "Both contained files were extracted, hashed and content-checked."
+    ]
+  },
+  "release_gate": {
+    "job_id": 114387681644,
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "actual_user_windows_run": false,
+  "acceptance_limits": [
+    "This verifies GitHub-hosted Windows test execution only.",
+    "The downloaded artifact verifies the hosted deterministic result and named registry test, not data-source behavior.",
+    "It does not prove a live SEC quarterly ZIP or holdings-level positive/negative cases.",
+    "It is not an end-to-end run on the user's Windows machine.",
+    "It does not prove complete corporate-action coverage or historical out-of-sample performance.",
+    "Institutions remains PILOT/PENDING and the complete inventory remains 0/21 DONE."
+  ],
+  "next_work": [
+    "Run a declared SEC User-Agent live quarterly ZIP and measure holdings-level positive, negative and coverage outcomes.",
+    "Perform end-to-end acceptance on the user's Windows machine and historical out-of-sample evaluation before any score change."
+  ]
+}

@@ -61,6 +61,27 @@ class YahooCorporateActionHistoryClientTests(unittest.TestCase):
         self.assertIn("AAPL", warnings)
         self.assertIn("split", warnings["AAPL"])
 
+    def test_canonical_brkb_uses_provider_symbol_and_preserves_output_key(self) -> None:
+        history = pd.DataFrame(
+            {
+                ("BRK-B", "Close"): [500.0],
+                ("BRK-B", "Stock Splits"): [0.0],
+            },
+            index=pd.to_datetime(["2026-09-11"], utc=True),
+        )
+        history.columns = pd.MultiIndex.from_tuples(history.columns)
+        client = YahooCorporateActionHistoryClient(retry_attempts=1)
+
+        with patch(
+            "market_checker_app.services.yahoo_corporate_action_history.yf.download",
+            return_value=history,
+        ) as mocked:
+            frames, warnings = client.fetch_batch(["BRKB"])
+
+        self.assertEqual({}, warnings)
+        self.assertEqual({"BRKB"}, set(frames))
+        self.assertEqual(["BRK-B"], mocked.call_args.kwargs["tickers"])
+
 
 if __name__ == "__main__":
     unittest.main()

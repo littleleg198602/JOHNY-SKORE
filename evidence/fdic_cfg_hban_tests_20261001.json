@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "evidence_type": "deterministic_tests_not_live_or_Windows_acceptance",
+  "started_at": "2026-10-01T16:35:02.725210+00:00",
+  "finished_at": "2026-10-01T16:38:07.017498+00:00",
+  "platform": "Linux",
+  "python": "3.12.14",
+  "command": "python -m unittest discover -s tests -p test_*.py -v",
+  "returncode": 0,
+  "tests": 483,
+  "reported_seconds": 181.863,
+  "elapsed_seconds": 184.293,
+  "result": "PASS",
+  "tested_sha256": {
+    "market_checker_app/data/verified_fdic_banks.json": "d75a3124b18cdf5c471d99207a6b1cf9acdb9ad7371eba73d0e83b1407bceaf8",
+    "market_checker_app/services/fdic_bank_scout_service.py": "bb061fb8271269771a13f30e87db68eb69b527a12b14a415fa0b206cfa4a5b15",
+    "market_checker_app/services/specialist_acceptance_service.py": "735162263c7a2fb23b7b34b7655f5ddd8688e7cb320c6a7d3be6546a9fe98588",
+    "market_checker_app/specialist_live_smoke.py": "aee9eb7fd39310994d57e1176f3fda7ce2fc0a98da7cc2f84b9fafe369ce62dd",
+    "market_checker_app/storage/scout_store.py": "a99504a3a4c657bbcb9d998b7794e055203eb797123ea774e52ed04a329d63bc",
+    "tests/test_fdic_bank_scout_service.py": "60a986821a377cb20722744f4afb7dde77327575be19f8295beae3a0884813a7",
+    "tests/test_specialist_acceptance_service.py": "1db05ff7a44a6016f581660250978094c103d706c135ec9344f23b8bca9b3da2",
+    "evidence/fdic_cfg_hban_identity_20261001.json": "f3549ee81268203a8a4d69a4b685bc55acbb1749d2945e28ce2b258781f328ea"
+  },
+  "scoring_applied": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "initial_attempt": {
+    "started_at": "2026-10-01T16:33:50.592446+00:00",
+    "finished_at": "2026-10-01T16:34:01.279979+00:00",
+    "returncode": 1,
+    "tests": 381,
+    "result": "FAIL",
+    "reason": "21 import errors: committed project dependencies absent on this host (pandas_market_calendars, feedparser, yfinance, streamlit)",
+    "resolution": "Installed committed requirements.txt with constraints.txt before rerunning unchanged code"
+  },
+  "other_checks": {
+    "compile": {
+      "returncode": 0,
+      "command": "-m compileall -q market_checker_app tests"
+    },
+    "diff_check": {
+      "returncode": 0,
+      "command": "git diff --check"
+    }
+  },
+  "targeted_tests": {
+    "fdic": 20,
+    "diagnostics": 8
+  },
+  "live_smoke_command": "python -m market_checker_app.specialist_live_smoke --sources fdic --fdic-tickers CFG HBAN --output-path evidence/fdic_cfg_hban_live_20261001.json",
+  "live_smoke_sha256": "d5acdab6f416dd2d808bd7812dfce65570740f42ec0a6715984d2deb82f4bd0f",
+  "checks_verified_at": "2026-10-01T16:38:34.733511+00:00"
+}

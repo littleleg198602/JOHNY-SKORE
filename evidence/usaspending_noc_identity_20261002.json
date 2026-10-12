@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-02T19:04:36.156823+00:00",
+  "ticker": "NOC",
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "ticker_present": true
+  },
+  "issuer": {
+    "name": "NORTHROP GRUMMAN CORP /DE/",
+    "cik": "0001133421",
+    "instrument": "Common Stock",
+    "ticker": "NOC",
+    "exchange": "NYSE",
+    "evidence_url": "https://www.sec.gov/Archives/edgar/data/1133421/000113342126000003/R1.htm"
+  },
+  "relationship": {
+    "parent": "Northrop Grumman Corporation",
+    "subsidiary": "Northrop Grumman Systems Corporation",
+    "ownership_percentage": 100,
+    "jurisdiction": "Delaware",
+    "effective_from": "2025-12-31",
+    "effective_to": null,
+    "evidence_url": "https://www.sec.gov/Archives/edgar/data/1133421/000113342126000003/noc-12312025xex21.htm",
+    "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1133421/000113342126000003/0001133421-26-000003-index.html",
+    "filing_accepted_at": "2026-01-27T16:02:49-05:00",
+    "period_of_report": "2025-12-31",
+    "limitation": "Exhibit 21 lists significant subsidiaries and states that additional subsidiaries are omitted; this is not complete group coverage or continuous ownership history"
+  },
+  "recipient": {
+    "name": "NORTHROP GRUMMAN SYSTEMS CORPORATION",
+    "uei": "LCV2N9FVV739",
+    "evidence_url": "https://www.usaspending.gov/award/CONT_AWD_SPE4A525F6417_9700_SPE4A122G0004_9700",
+    "evidence_fields": "official USAspending award identifies the recipient name, UEI and Northrop Grumman Corporation as parent recipient"
+  },
+  "manifest_known_at": "2026-10-02T19:04:36.156823+00:00",
+  "acceptance_limits": {
+    "relationship_before_2025_12_31": "NOT_ASSERTED",
+    "full_recipient_or_subsidiary_group": false,
+    "modification_history_complete": false,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

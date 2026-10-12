@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "Fail-closed specialist source-run semantics",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "pull_request": 160,
+  "tested_head_sha": "fedb0c8de9ee95b8bab0dd6c2a503f15396b48bd",
+  "tested_merge_sha": "863c92eb9c05e46ee5844104ff0c015d5e145f89",
+  "workflow": {
+    "id": 37083839180,
+    "name": "Market Checker test agents",
+    "run_number": 361,
+    "status": "completed",
+    "conclusion": "success",
+    "release_gate_job_id": 111092021949,
+    "release_gate_conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111089918113,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "runner_os": "Microsoft Windows Server 2025",
+    "runner_image": "windows-2025-vs2026",
+    "status": "completed",
+    "conclusion": "success",
+    "started_at": "2026-10-03T00:53:02.975147+00:00",
+    "ended_at": "2026-10-03T01:02:41.527883+00:00",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "discovered_tests": 532,
+    "tests_run": 532,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "duration_seconds_reported_by_unittest": 576.366
+  },
+  "artifact": {
+    "id": 11260106223,
+    "name": "windows-deterministic-tests",
+    "size_bytes": 16270,
+    "files": [
+      "windows-tests.log",
+      "windows-tests.json"
+    ],
+    "sha256": "400a8bb4aee5afc6e0ef13d44c0736c040f46fa9b9cc34d3412ed9eddae1f574",
+    "upload_log_digest_matches_download": true,
+    "downloaded_and_content_verified": true
+  },
+  "acceptance_limits": {
+    "compatibility_only": true,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "measured_applicable_coverage": false,
+    "historical_evaluation": false,
+    "specialist_done": false
+  }
+}

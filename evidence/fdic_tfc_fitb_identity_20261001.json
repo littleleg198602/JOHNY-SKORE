@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "evidence_type": "dated_identity_and_bounded_live_publisher_observations_not_full_acceptance",
+  "verified_at": "2026-10-01T14:38:41.642755+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "TFC",
+        "cert": 9846,
+        "issuer_cik": "0000092230",
+        "issuer_name": "Truist Financial Corporation",
+        "bank_name": "Truist Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000030/ex21subs4q25.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000066/tfc-20260605.htm",
+        "known_at": "2026-10-01T14:38:41.642755+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/9846",
+        "financial_name": "TRUIST BANK",
+        "financial_name_known_at": "2026-10-01T14:36:01.514646+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A9846&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000030/ex21subs4q25.htm",
+        "source_locator": "Exhibit 21 heading and exact named bank subsidiary row",
+        "as_of": "2025-12-31",
+        "observed_excerpt": "As of December 31, 2025; Truist Bank | North Carolina",
+        "observed_no_later_than": "2026-10-01T14:38:41.642755+00:00",
+        "retrieval_method": "Official SEC document read through web research; original HTML not downloaded",
+        "scope": "Issuer-to-subsidiary link; direct intermediate ownership and complete subsidiary group not inferred"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/92230/000009223026000066/tfc-20260605.htm",
+        "issuer_cik": "0000092230",
+        "issuer_name": "Truist Financial Corporation",
+        "ticker": "TFC",
+        "source_locator": "8-K cover registrant and common-stock trading-symbol row",
+        "event_date": "2026-06-05",
+        "observed_excerpt": "Truist Financial Corporation; Common Stock, $5 par value | TFC | New York Stock Exchange",
+        "observed_no_later_than": "2026-10-01T14:38:41.642755+00:00",
+        "retrieval_method": "Official SEC page extraction via web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only, not CUSIP/ISIN/current exchange or corporate-action history",
+        "signature_date": "2026-06-08",
+        "filing_date_verified": false
+      },
+      "fdic_publisher_observation": {
+        "cert": 9846,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A9846&fields=CERT%2CNAME%2CACTIVE%2CRSSDID%2CRSSDHCR&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T14:35:52.370892+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:9846",
+              "fields": "CERT,NAME,ACTIVE,RSSDID,RSSDHCR",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "RSSDHCR": "1074156",
+                "CERT": 9846,
+                "NAME": "Truist Bank",
+                "ID": "9846"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_observed_at": "2026-10-01T14:36:01.514646+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:9846",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 548346000,
+                "CERT": 9846,
+                "NETINC": 3155000,
+                "EQ": 62971000,
+                "DEP": 419212000,
+                "NAME": "TRUIST BANK",
+                "ID": "9846_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 541180000,
+                "CERT": 9846,
+                "NETINC": 1573000,
+                "EQ": 63082000,
+                "DEP": 413574000,
+                "NAME": "TRUIST BANK",
+                "ID": "9846_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A9846&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "limitations": [
+        "Bounded latest-two-report pilot",
+        "Bank financials are not issuer consolidated values",
+        "FDIC holding-company RSSD fields do not establish a SEC CIK",
+        "No Windows or historical-OOS acceptance"
+      ]
+    },
+    {
+      "identity": {
+        "ticker": "FITB",
+        "cert": 6672,
+        "issuer_cik": "0000035527",
+        "issuer_name": "Fifth Third Bancorp",
+        "bank_name": "Fifth Third Bank, National Association",
+        "effective_from": "2026-02-15",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/35527/000003552726000124/fitb-12312025xexx21.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/35527/000003552726000209/fitb-20260821.htm",
+        "known_at": "2026-10-01T14:38:41.642755+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/6672",
+        "financial_name": "FIFTH THIRD BANK NA",
+        "financial_name_known_at": "2026-10-01T14:36:13.237516+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6672&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/35527/000003552726000124/fitb-12312025xexx21.htm",
+        "source_locator": "Exhibit 21 heading and exact named bank subsidiary row",
+        "as_of": "2026-02-15",
+        "observed_excerpt": "As of February 15, 2026; Fifth Third Bank, National Association | United States",
+        "observed_no_later_than": "2026-10-01T14:38:41.642755+00:00",
+        "retrieval_method": "Official SEC document read through web research; original HTML not downloaded",
+        "scope": "Issuer-to-subsidiary link; direct intermediate ownership and complete subsidiary group not inferred"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/35527/000003552726000209/fitb-20260821.htm",
+        "issuer_cik": "0000035527",
+        "issuer_name": "Fifth Third Bancorp",
+        "ticker": "FITB",
+        "source_locator": "8-K cover registrant and common-stock trading-symbol row",
+        "filing_date": "2026-08-21",
+        "event_date": "2026-08-21",
+        "observed_excerpt": "Fifth Third Bancorp; Common Stock, Without Par Value | FITB | New York Stock Exchange",
+        "observed_no_later_than": "2026-10-01T14:38:41.642755+00:00",
+        "retrieval_method": "Official SEC page extraction via web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only, not CUSIP/ISIN/current exchange or corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 6672,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A6672&fields=CERT%2CNAME%2CACTIVE%2CRSSDID%2CRSSDHCR&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T14:36:07.948580+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:6672",
+              "fields": "CERT,NAME,ACTIVE,RSSDID,RSSDHCR",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "RSSDHCR": "1070345",
+                "CERT": 6672,
+                "NAME": "Fifth Third Bank, National Association",
+                "ID": "6672"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_observed_at": "2026-10-01T14:36:13.237516+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:6672",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 299177000,
+                "CERT": 6672,
+                "NETINC": 1312000,
+                "EQ": 37673000,
+                "DEP": 240928000,
+                "NAME": "FIFTH THIRD BANK NA",
+                "ID": "6672_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 296118000,
+                "CERT": 6672,
+                "NETINC": 395000,
+                "EQ": 37413000,
+                "DEP": 240416000,
+                "NAME": "FIFTH THIRD BANK NA",
+                "ID": "6672_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A6672&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "limitations": [
+        "Bounded latest-two-report pilot",
+        "Bank financials are not issuer consolidated values",
+        "FDIC holding-company RSSD fields do not establish a SEC CIK",
+        "No Windows or historical-OOS acceptance"
+      ]
+    }
+  ],
+  "manifest_sha256": "619c2113b81493c8c697fe68ae311517d551b09c7d2c807d69f8eda40cf0628c",
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 8,
+    "unmapped_tickers": [
+      "ALLY",
+      "CFG",
+      "CFR",
+      "COF",
+      "EWBC",
+      "FHN",
+      "HBAN",
+      "KEY",
+      "MTB",
+      "OZK",
+      "PNFP",
+      "RF",
+      "WAL",
+      "ZION"
+    ],
+    "basis": "Dated manifest vs canonical BANK profile; not live runtime or complete group coverage"
+  },
+  "full_specialist_acceptance": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "scoring_applied": false
+}

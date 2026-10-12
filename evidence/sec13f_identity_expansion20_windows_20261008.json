@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-08T04:46:39+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "SEC 13F one-hundred-instrument identity registry",
+  "source_commit": "5ea6b772e39cbceb8d482d0f8d9565469bfc006d",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37721811790,
+    "run_number": 415,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 113130941106,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "runner_image": "windows-2025-vs2026",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-08T03:15:43.091616+00:00",
+    "ended_at": "2026-10-08T03:27:25.859040+00:00",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "registry_test": {
+    "name": "test_production_manifest_has_one_hundred_cited_canonical_instruments",
+    "present_in_complete_job_log": true,
+    "passed": true,
+    "artifact_log_line": 359
+  },
+  "artifact": {
+    "id": 11526502893,
+    "name": "windows-deterministic-tests",
+    "size_bytes": 16638,
+    "published_sha256": "d562a894ed8d2ac846254bf1aafb2d3a61d590f84ac058b2932d077cf8b9e48a",
+    "expired": false,
+    "published_at": "2026-10-08T03:27:27+00:00",
+    "downloaded_sha256": "d562a894ed8d2ac846254bf1aafb2d3a61d590f84ac058b2932d077cf8b9e48a",
+    "digest_matches": true,
+    "archive_content_checked": true,
+    "download_history": [
+      {
+        "result": "transient_error",
+        "http_status": 502,
+        "attempts": 4
+      },
+      {
+        "result": "success",
+        "observed_at": "2026-10-08T04:46:39+00:00"
+      }
+    ],
+    "files": [
+      {
+        "name": "windows-tests.log",
+        "size_bytes": 98089,
+        "sha256": "f8467e9add380a104f4af710e5ca537edfa248ec0e9454779f2128e5da51e10e",
+        "content_checked": true
+      },
+      {
+        "name": "windows-tests.json",
+        "size_bytes": 373,
+        "sha256": "9f3fa36bf05c16a1a8f7c80767156be68f1a8f985efcb3b00f2798ad3e2736a1",
+        "content_checked": true
+      }
+    ],
+    "job_log_content_checked": true,
+    "job_log_facts": [
+      "The deterministic runner command wrote windows-tests.log and windows-tests.json.",
+      "The complete job log contains the named registry test with an ok result.",
+      "The complete job log reports Ran 546 tests and OK.",
+      "The upload step reports the same artifact ID and published SHA-256."
+    ]
+  },
+  "release_gate": {
+    "job_id": 113134129533,
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "actual_user_windows_run": false,
+  "acceptance_limits": [
+    "This verifies GitHub-hosted Windows compatibility only.",
+    "The artifact archive checksum and both contained files were independently verified after the transient download errors cleared.",
+    "It does not prove a live SEC quarterly ZIP or holdings-level positive/negative cases.",
+    "It is not an end-to-end run on the user's Windows machine.",
+    "It does not prove complete corporate-action coverage or historical out-of-sample performance.",
+    "Institutions remains PILOT/PENDING and the complete inventory remains 0/21 DONE."
+  ]
+}

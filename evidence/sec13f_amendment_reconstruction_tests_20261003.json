@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T05:28:09+00:00",
+  "evidence_type": "deterministic_sec13f_amendment_reconstruction_test",
+  "subject": "Fail-closed reconstruction of self-contained SEC 13F amendment chains",
+  "canonical_input": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "expected_count": 687,
+    "csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "modified": false
+  },
+  "primary_source_contract": {
+    "documentation_url": "https://www.sec.gov/files/form_13f_readme.pdf",
+    "documentation_locators": [
+      "Overview submission types: 13F-HR and 13F-HR/A",
+      "Organization: data are as-filed and include amendments of prior submissions",
+      "COVERPAGE fields: ISAMENDMENT, AMENDMENTNO and AMENDMENTTYPE",
+      "AMENDMENTTYPE: restatement or adds new holdings entries"
+    ],
+    "dataset_index_url": "https://www.sec.gov/data-research/sec-markets-data/form-13f-data-sets"
+  },
+  "implementation": {
+    "group_key": ["manager CIK", "period of report"],
+    "ordering": ["filing date", "accession number"],
+    "restatement_behavior": "Replace all earlier effective filings in the chain",
+    "new_holdings_behavior": "Add the amendment filing to the effective chain",
+    "fail_closed_cases": [
+      "amendment without an initial 13F-HR in the same quarterly archive",
+      "multiple or chronologically ambiguous initial filings",
+      "non-contiguous AMENDMENTNO sequence",
+      "missing or false ISAMENDMENT flag",
+      "unknown AMENDMENTTYPE"
+    ],
+    "persisted_lineage": [
+      "submission_type",
+      "effective_filing_accessions",
+      "filing_chain_accessions",
+      "amendment_reconstruction_scope"
+    ],
+    "partial_status_for_unresolved_groups": true,
+    "bounded_submission_rows": 200000,
+    "bounded_coverpage_rows": 200000,
+    "bounded_infotable_rows": 15000000,
+    "scoring_changed": false
+  },
+  "validation": {
+    "focused_command": "python -m unittest -v tests.test_sec13f_scout_service tests.test_scout_background_worker tests.test_scout_prerequisites tests.test_specialist_status tests.test_specialist_acceptance_service tests.test_full_universe_acceptance_service",
+    "focused_tests_run": 37,
+    "full_command": "python -m unittest discover -s tests -v",
+    "full_tests_run": 536,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "compileall": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "diagnostics": [
+    "An initial clean-host full discovery ran 430 tests but ended with 22 import errors because declared runtime dependencies were absent; it is not counted as a passing run.",
+    "A separate mistyped targeted invocation referenced three nonexistent test modules and is not counted as a passing run.",
+    "After installing requirements under repository constraints, the unchanged tested files passed all 536 discovered tests."
+  ],
+  "sha256": {
+    "market_checker_app/services/sec13f_scout_service.py": "130bdac1f7e0ae5b7d97b03f180d349417ce528665b9024b784932ccb588234a",
+    "tests/test_sec13f_scout_service.py": "bfa7f374dc9fb912098dc4c9bf09fd93cc9bffeb457818832ab581e7db9cc26a"
+  },
+  "acceptance_limits": {
+    "synthetic_payloads_only": true,
+    "live_sec_13f_zip_run": "NOT_RUN_NO_SEC_USER_AGENT_ON_THIS_HOST",
+    "cross_quarter_amendment_chain_reconstruction": false,
+    "wider_dated_instrument_coverage": false,
+    "actual_user_windows_end_to_end": "NOT_RUN",
+    "measured_applicable_coverage": false,
+    "historical_out_of_sample_evaluation": false,
+    "specialist_done": false
+  }
+}

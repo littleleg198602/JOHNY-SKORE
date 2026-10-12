@@ -1,0 +1,359 @@
+{
+  "schema_version": 1,
+  "evidence_type": "dated_identity_and_bounded_live_publisher_observations_not_full_acceptance",
+  "verified_at": "2026-10-01T17:44:55.476395+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "COF",
+        "cert": 4297,
+        "issuer_cik": "0000927628",
+        "issuer_name": "Capital One Financial Corporation",
+        "bank_name": "Capital One, National Association",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000024/cof-12312025x10kxex21.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000024/R1.htm",
+        "known_at": "2026-10-01T17:44:55.476395+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/4297",
+        "financial_name": "CAPITAL ONE NATIONAL ASSN",
+        "financial_name_known_at": "2026-10-01T17:43:17.632311+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4297&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000024/cof-12312025x10kxex21.htm",
+        "observed_no_later_than": "2026-10-01T17:44:55.476395+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "as_of": "2025-12-31",
+        "as_of_date_verified": true,
+        "registry_report_eligibility_from": "2025-12-31",
+        "source_locator": "Explicit December 31, 2025 exhibit heading and bank subsidiary row",
+        "observed_excerpt": "SUBSIDIARIES AS OF DECEMBER 31, 2025; Capital One, National Association | Capital One Financial Corporation",
+        "date_basis": "Explicit exhibit as-of date, distinct from SEC filing publication",
+        "scope": "Dated issuer-to-bank subsidiary statement only; acquisition date, continuous ownership and complete group not inferred",
+        "omitted_subsidiaries": "Exhibit expressly omits other subsidiaries considered insignificant in aggregate"
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000024/0000927628-26-000024-index.htm",
+        "filing_date": "2026-02-19",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0000927628",
+        "observed_no_later_than": "2026-10-01T17:44:55.476395+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and exhibit link",
+        "observed_excerpt": "Filing Date 2026-02-19; Period of Report 2025-12-31; CIK 0000927628",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000024/R1.htm",
+        "issuer_cik": "0000927628",
+        "issuer_name": "Capital One Financial Corporation",
+        "source_registrant_name": "CAPITAL ONE FINANCIAL CORP",
+        "ticker": "COF",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-19",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/927628/000092762826000024/0000927628-26-000024-index.htm",
+        "source_locator": "R1 registrant name, CIK and common-stock trading-symbol rows",
+        "observed_excerpt": "CAPITAL ONE FINANCIAL CORP; 0000927628; Common stock | COF",
+        "observed_no_later_than": "2026-10-01T17:44:55.476395+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only; not preferred symbols, CUSIP/ISIN/current exchange/corporate-action history",
+        "name_corroboration": "R1 uses CAPITAL ONE FINANCIAL CORP; Exhibit 21 parent-company column spells Capital One Financial Corporation. No FDIC RSSD/CIK equivalence inferred."
+      },
+      "fdic_publisher_observation": {
+        "cert": 4297,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A4297&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T17:43:05.492248+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:4297",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 4297,
+                "NAME": "Capital One, National Association",
+                "ID": "4297"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4297&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-01T17:43:17.632311+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:4297",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 662157000,
+                "CERT": 4297,
+                "NETINC": 5552000,
+                "EQ": 98721000,
+                "DEP": 512600000,
+                "NAME": "CAPITAL ONE NATIONAL ASSN",
+                "ID": "4297_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 672010000,
+                "CERT": 4297,
+                "NETINC": 2317000,
+                "EQ": 97280000,
+                "DEP": 520795000,
+                "NAME": "CAPITAL ONE NATIONAL ASSN",
+                "ID": "4297_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        }
+      },
+      "limitations": [
+        "Latest two subsidiary reports only",
+        "Other subsidiaries expressly omitted in SEC exhibit",
+        "Not issuer consolidated values or continuous historical ownership",
+        "No Windows or historical-out-of-sample acceptance"
+      ]
+    },
+    {
+      "identity": {
+        "ticker": "EWBC",
+        "cert": 31628,
+        "issuer_cik": "0001069157",
+        "issuer_name": "East West Bancorp, Inc.",
+        "bank_name": "East West Bank",
+        "effective_from": "2025-12-31",
+        "relationship_evidence_url": "https://www.sec.gov/Archives/edgar/data/1069157/000106915726000009/ewbc21110k12312025.htm",
+        "issuer_identity_evidence_url": "https://www.sec.gov/Archives/edgar/data/1069157/000106915726000009/R1.htm",
+        "known_at": "2026-10-01T17:44:55.476395+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/31628",
+        "financial_name": "EAST WEST BANK",
+        "financial_name_known_at": "2026-10-01T17:43:24.104468+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A31628&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "relationship_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1069157/000106915726000009/ewbc21110k12312025.htm",
+        "observed_no_later_than": "2026-10-01T17:44:55.476395+00:00",
+        "retrieval_method": "Official SEC page extraction through web research; original HTML not downloaded",
+        "as_of": "2025-12-31",
+        "as_of_date_verified": true,
+        "registry_report_eligibility_from": "2025-12-31",
+        "source_locator": "Explicit December 31, 2025 exhibit heading and bank subsidiary row",
+        "observed_excerpt": "As of December 31, 2025; East West Bank | California",
+        "date_basis": "Explicit exhibit as-of date, distinct from SEC filing publication",
+        "scope": "Dated issuer-to-bank subsidiary statement only; acquisition date, continuous ownership and complete group not inferred",
+        "omitted_subsidiaries": "Exhibit expressly omits other subsidiaries considered insignificant in aggregate",
+        "ownership_statement": "Exhibit footnote expressly states 100% ownership by East West Bancorp, Inc."
+      },
+      "filing_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1069157/000106915726000009/0001069157-26-000009-index.htm",
+        "filing_date": "2026-02-27",
+        "filing_date_verified": true,
+        "period_of_report": "2025-12-31",
+        "issuer_cik": "0001069157",
+        "observed_no_later_than": "2026-10-01T17:44:55.476395+00:00",
+        "source_locator": "SEC Filing Detail filing date, period of report, filer CIK and exhibit link",
+        "observed_excerpt": "Filing Date 2026-02-27; Period of Report 2025-12-31; CIK 0001069157",
+        "retrieval_method": "Official SEC filing index extraction through web research; original HTML not downloaded"
+      },
+      "issuer_identity_evidence": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1069157/000106915726000009/R1.htm",
+        "issuer_cik": "0001069157",
+        "issuer_name": "East West Bancorp, Inc.",
+        "source_registrant_name": "EAST WEST BANCORP, INC.",
+        "ticker": "EWBC",
+        "report_period_end": "2025-12-31",
+        "filing_date": "2026-02-27",
+        "filing_date_verified": true,
+        "filing_index_url": "https://www.sec.gov/Archives/edgar/data/1069157/000106915726000009/0001069157-26-000009-index.htm",
+        "source_locator": "R1 registrant name, CIK and common-stock trading-symbol rows",
+        "observed_excerpt": "EAST WEST BANCORP, INC.; 0001069157; Common stock | EWBC",
+        "observed_no_later_than": "2026-10-01T17:44:55.476395+00:00",
+        "retrieval_method": "Official SEC R1 report extraction through web research; original HTML not downloaded",
+        "instrument_scope": "Dated issuer CIK/common-stock symbol only; not preferred symbols, CUSIP/ISIN/current exchange/corporate-action history"
+      },
+      "fdic_publisher_observation": {
+        "cert": 31628,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A31628&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T17:43:12.989309+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:31628",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 31628,
+                "NAME": "East West Bank",
+                "ID": "31628"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A31628&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-01T17:43:24.104468+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:31628",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 84318631,
+                "CERT": 31628,
+                "NETINC": 728273,
+                "EQ": 8311609,
+                "DEP": 70314669,
+                "NAME": "EAST WEST BANK",
+                "ID": "31628_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 82474471,
+                "CERT": 31628,
+                "NETINC": 360281,
+                "EQ": 8218667,
+                "DEP": 69086073,
+                "NAME": "EAST WEST BANK",
+                "ID": "31628_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        }
+      },
+      "limitations": [
+        "Latest two subsidiary reports only",
+        "Other subsidiaries expressly omitted in SEC exhibit",
+        "Not issuer consolidated values or continuous historical ownership",
+        "No Windows or historical-out-of-sample acceptance"
+      ]
+    }
+  ],
+  "manifest_sha256": "67f503fac5cbc24474fbe80de1020b3f160d7eb21d3a3efc50a982d61b8fdd31",
+  "preliminary_publisher_requests": [
+    {
+      "url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A4297&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+      "started_at": "2026-10-01T17:42:56.679878+00:00",
+      "observed_at": "2026-10-01T17:43:05.492248+00:00",
+      "bytes": 314,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A31628&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+      "started_at": "2026-10-01T17:43:05.492884+00:00",
+      "observed_at": "2026-10-01T17:43:12.989309+00:00",
+      "bytes": 298,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/financials?filters=CERT%3A4297&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "started_at": "2026-10-01T17:43:12.989954+00:00",
+      "observed_at": "2026-10-01T17:43:17.632311+00:00",
+      "bytes": 582,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/financials?filters=CERT%3A31628&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "started_at": "2026-10-01T17:43:17.633084+00:00",
+      "observed_at": "2026-10-01T17:43:24.104468+00:00",
+      "bytes": 557,
+      "result": "PASS"
+    }
+  ],
+  "request_scope": {
+    "preliminary_requests": 4,
+    "smoke_requests_planned": 3,
+    "max_total_new_requests": 7,
+    "timeout_seconds": 20,
+    "max_response_bytes": 1000000,
+    "institutions_rows": 1,
+    "financials_rows": 2,
+    "smoke_requests_completed": 3,
+    "total_new_requests": 7,
+    "captured_payload_rechecks_use_network": false
+  },
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 14,
+    "unmapped_tickers": [
+      "FHN",
+      "KEY",
+      "MTB",
+      "OZK",
+      "PNFP",
+      "RF",
+      "WAL",
+      "ZION"
+    ],
+    "basis": "Current manifest vs canonical BANK profiles, not live runtime or complete group coverage"
+  },
+  "full_specialist_acceptance": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "scoring_applied": false,
+  "source_smoke_evidence": "evidence/fdic_cof_ewbc_live_20261001.json",
+  "source_smoke_sha256": "d1323c904eb76de3213097d8c4957187bc29880593b6c9186e25d6b0431e782d"
+}

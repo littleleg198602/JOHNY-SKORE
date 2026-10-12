@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "evidence_type": "reviewed_direct_bank_identity_and_bounded_live_publisher_observations_not_full_acceptance",
+  "verified_at": "2026-10-01T20:43:33.511132+00:00",
+  "entries": [
+    {
+      "identity": {
+        "ticker": "OZK",
+        "cert": 110,
+        "bank_name": "Bank OZK",
+        "issuer_identity_kind": "direct_bank",
+        "issuer_name": "Bank OZK",
+        "issuer_identity_publisher": "FDIC",
+        "issuer_identity_evidence_url": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+        "issuer_identity_as_of": "2025-12-31",
+        "issuer_identity_filing_date": "2026-02-25",
+        "issuer_filing_index_url": "https://ir.ozk.com/filings/documents",
+        "issuer_instrument_class": "common_stock",
+        "issuer_instrument_symbol": "OZK",
+        "effective_from": "2025-12-31",
+        "effective_from_basis": "direct_bank_identity_as_of",
+        "effective_from_evidence_url": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+        "known_at": "2026-10-01T20:43:33.511132+00:00",
+        "fdic_evidence_url": "https://banks.data.fdic.gov/bankfind-suite/bankfind/details/110",
+        "financial_name": "BANK OZK",
+        "financial_name_known_at": "2026-10-01T20:41:44.125964+00:00",
+        "financial_name_evidence_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A110&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json"
+      },
+      "direct_issuer_evidence": {
+        "source_url": "https://ir.ozk.com/static-files/658c7447-2668-48cd-94fb-fa8d00e1c485",
+        "observed_no_later_than": "2026-10-01T20:43:33.511132+00:00",
+        "source_locator": "FY2025 FDIC Form 10-K cover, PDF page 1",
+        "observed_excerpt": "FDIC Certificate No. 110; BANK OZK; Common Stock, $0.01 par value per share OZK",
+        "regulator": "FDIC",
+        "distribution_host": "ir.ozk.com",
+        "registrant": "BANK OZK",
+        "certificate": 110,
+        "report_period_end": "2025-12-31",
+        "common_stock_symbol": "OZK",
+        "preferred_stock_symbol": "OZKAP",
+        "document_date_basis": "Explicit report period and registrant/CERT/common instrument on the same filing cover; no parent or subsidiary relationship inferred",
+        "retrieval_method": "Official issuer-hosted FDIC filing text verified through web research; original PDF not downloaded",
+        "scope": "Dated direct bank issuer identity only, not all subsidiaries, continuous corporate-action history, issuer consolidated financials or CUSIP/ISIN"
+      },
+      "filing_evidence": {
+        "source_url": "https://ir.ozk.com/filings/documents",
+        "filing_date": "2026-02-25",
+        "filing_date_verified": true,
+        "observed_no_later_than": "2026-10-01T20:43:33.511132+00:00",
+        "source_locator": "Official issuer IR Document Highlights: dated 10-K link to the exact reviewed PDF",
+        "observed_excerpt": "2/25/2026 | 10-K | Latest 10-K",
+        "retrieval_method": "Official IR listing extraction through web research"
+      },
+      "fdic_publisher_observation": {
+        "cert": 110,
+        "institutions_url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A110&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+        "institutions_observed_at": "2026-10-01T20:41:38.589794+00:00",
+        "institutions": {
+          "meta": {
+            "total": 1,
+            "parameters": {
+              "filters": "CERT:110",
+              "fields": "CERT,NAME,ACTIVE",
+              "limit": "1"
+            },
+            "index": {
+              "name": "institutions_20260929113351",
+              "createTimestamp": "2026-09-29T14:36:50Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "ACTIVE": 1,
+                "CERT": 110,
+                "NAME": "Bank OZK",
+                "ID": "110"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 1
+          }
+        },
+        "financials_url": "https://api.fdic.gov/banks/financials?filters=CERT%3A110&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+        "financials_observed_at": "2026-10-01T20:41:44.125964+00:00",
+        "financials": {
+          "meta": {
+            "total": 170,
+            "parameters": {
+              "filters": "CERT:110",
+              "fields": "CERT,NAME,REPDTE,ASSET,DEP,EQ,NETINC",
+              "limit": "2"
+            },
+            "index": {
+              "name": "risview_20260819185831",
+              "createTimestamp": "2026-08-19T18:58:33Z"
+            }
+          },
+          "data": [
+            {
+              "data": {
+                "REPDTE": "20260630",
+                "ASSET": 41703134,
+                "CERT": 110,
+                "NETINC": 330735,
+                "EQ": 6278068,
+                "DEP": 33996752,
+                "NAME": "BANK OZK",
+                "ID": "110_20260630"
+              },
+              "score": 0
+            },
+            {
+              "data": {
+                "REPDTE": "20260331",
+                "ASSET": 41663976,
+                "CERT": 110,
+                "NETINC": 163364,
+                "EQ": 6156210,
+                "DEP": 33764925,
+                "NAME": "BANK OZK",
+                "ID": "110_20260331"
+              },
+              "score": 0
+            }
+          ],
+          "totals": {
+            "count": 170
+          }
+        }
+      },
+      "limitations": [
+        "FDIC bank reports are not issuer consolidated statements",
+        "Other issuer subsidiaries not mapped",
+        "No current SEC CIK or historical holding-company equivalence inferred",
+        "Preferred OZKAP not the common-stock scope",
+        "No Windows or historical-out-of-sample acceptance"
+      ]
+    }
+  ],
+  "manifest_sha256": "33a4058ad66d91b31f65c4ee6dc788882af5045464f22e918c1e4c5aa5ad7b58",
+  "prior_implementation_gap": "evidence/ozk_identity_model_gap_20261001.json",
+  "prior_gap_resolution": "Exact reviewed direct-bank identity implemented and OZK registered; prior investigation remains a historical snapshot",
+  "preliminary_publisher_requests": [
+    {
+      "url": "https://api.fdic.gov/banks/institutions?filters=CERT%3A110&fields=CERT%2CNAME%2CACTIVE&limit=1&format=json",
+      "started_at": "2026-10-01T20:41:31.458882+00:00",
+      "observed_at": "2026-10-01T20:41:38.589794+00:00",
+      "bytes": 286,
+      "result": "PASS"
+    },
+    {
+      "url": "https://api.fdic.gov/banks/financials?filters=CERT%3A110&fields=CERT%2CNAME%2CREPDTE%2CASSET%2CDEP%2CEQ%2CNETINC&sort_by=REPDTE&sort_order=DESC&limit=2&format=json",
+      "started_at": "2026-10-01T20:41:38.590730+00:00",
+      "observed_at": "2026-10-01T20:41:44.125964+00:00",
+      "bytes": 535,
+      "result": "PASS"
+    }
+  ],
+  "request_scope": {
+    "preliminary_requests": 2,
+    "smoke_requests_planned": 2,
+    "max_total_new_requests": 4,
+    "timeout_seconds": 20,
+    "max_response_bytes": 1000000,
+    "institutions_rows": 1,
+    "financials_rows": 2,
+    "smoke_requests_completed": 2,
+    "total_new_requests": 4,
+    "captured_payload_rechecks_use_network": false
+  },
+  "mapping_coverage": {
+    "applicable_BANK_profile_tickers": 22,
+    "mapped_tickers": 18,
+    "unmapped_tickers": [
+      "PNFP",
+      "RF",
+      "WAL",
+      "ZION"
+    ],
+    "basis": "Manifest vs canonical BANK profiles; not runtime usable coverage or complete groups"
+  },
+  "full_specialist_acceptance": false,
+  "Windows_end_to_end": false,
+  "historical_out_of_sample_evaluation": false,
+  "scoring_applied": false,
+  "source_smoke_evidence": "evidence/fdic_ozk_live_20261001.json",
+  "source_smoke_sha256": "4daff0c5d84e6e483a964cb0d039f6d42637431a4119733da0ce758dd5ac3f7b"
+}

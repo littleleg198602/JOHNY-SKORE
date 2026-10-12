@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from contextlib import closing
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -33,7 +34,7 @@ class YahooCacheStoreTest(unittest.TestCase):
         )
 
     def test_schema_has_expected_columns_and_is_independent(self) -> None:
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn, conn:
             columns = {row[1] for row in conn.execute("PRAGMA table_info(yahoo_metadata_cache)")}
             tables = {row[0] for row in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         self.assertEqual(
@@ -69,7 +70,7 @@ class YahooCacheStoreTest(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.store.upsert_success("MSFT", {"bad": object()})
         self.assertEqual(self.store.get("MSFT").record.data, {"version": 2})  # type: ignore[union-attr]
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn, conn:
             count = conn.execute("SELECT COUNT(*) FROM yahoo_metadata_cache WHERE ticker='MSFT'").fetchone()[0]
         self.assertEqual(count, 1)
 
@@ -149,7 +150,7 @@ class YahooCacheStoreTest(unittest.TestCase):
 
     def test_corrupt_json_does_not_crash_and_is_scheduled_for_refresh(self) -> None:
         self.store.upsert_success("BROKEN", {"valid": True})
-        with sqlite3.connect(self.db_path) as conn:
+        with closing(sqlite3.connect(self.db_path)) as conn, conn:
             conn.execute(
                 "UPDATE yahoo_metadata_cache SET data_json = ? WHERE ticker = ?",
                 (json.dumps(["not", "an", "object"]), "BROKEN"),

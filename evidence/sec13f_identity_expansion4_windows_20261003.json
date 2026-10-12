@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-03T22:04:08+00:00",
+  "evidence_type": "hosted_windows_compatibility_test",
+  "subject": "SEC 13F twenty-instrument identity registry",
+  "source_commit": "abb3e462fa3ee9ef6a5b851f6539a1593cf3c5bf",
+  "pull_request": 160,
+  "workflow": {
+    "id": 37156481785,
+    "run_number": 381,
+    "name": "Market Checker test agents",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "windows_job": {
+    "id": 111300792020,
+    "name": "Windows contracts, persistence and UI",
+    "runner": "GitHub-hosted",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "started_at": "2026-10-03T21:53:01.015033+00:00",
+    "ended_at": "2026-10-03T22:04:06.314443+00:00",
+    "discovered_tests": 546,
+    "tests_run": 546,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true,
+    "unittest_duration_seconds": 663.168
+  },
+  "release_gate": {
+    "job_id": 111302830610,
+    "conclusion": "success",
+    "all_test_agents_required": true
+  },
+  "artifact": {
+    "id": 11285503410,
+    "name": "windows-deterministic-tests",
+    "size_in_bytes": 16632,
+    "expires_at": "2027-01-01T21:52:02Z",
+    "sha256_from_metadata": "04a056bbb2972c4ba6dbdee7b098bc3cbcbcc87d7b46d3fb71653580ebcf9286",
+    "sha256_downloaded": "04a056bbb2972c4ba6dbdee7b098bc3cbcbcc87d7b46d3fb71653580ebcf9286",
+    "download_verified": true,
+    "contents": {
+      "windows-tests.log_bytes": 98079,
+      "windows-tests.json_bytes": 373,
+      "windows-tests.log_sha256": "809d2e63515e3c8504318b1997e6ff3f9e6bd20858b06e78faf954ec0b300862",
+      "windows-tests.json_sha256": "3c58fecbae95375af9fbe1073145c2d41f57d46a54fd183d626d1e1d2456f9da",
+      "machine_result_matches_job": true,
+      "twenty_instrument_registry_test_present_and_passed": true
+    }
+  },
+  "canonical_scope": {
+    "expected_tickers": 687,
+    "canonical_csv_changed_by_validation_commit": false
+  },
+  "acceptance_limits": {
+    "hosted_windows_compatibility_verified": true,
+    "live_sec_13f_zip_verified": false,
+    "full_instrument_and_corporate_action_coverage_verified": false,
+    "actual_user_windows_end_to_end_verified": false,
+    "measured_applicable_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "specialist_done": false
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-08T15:44:06+00:00",
+  "evidence_type": "reviewed_sec13f_instrument_identity_expansion",
+  "subject": "SEC 13F canonical identity registry expansion from 120 to 125",
+  "effective_period": {
+    "from": "2026-04-01",
+    "to": "2026-06-30",
+    "basis": "SEC 2026 Q2 official 13(f) securities list"
+  },
+  "canonical_universe": {
+    "total": 687,
+    "mapped_before": 120,
+    "mapped_after": 125,
+    "coverage_ratio": 0.181951,
+    "unmapped_after": 562
+  },
+  "sources": {
+    "official_13f_list": {
+      "url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "last_reviewed_period": "2026 Q2",
+      "facts": "Exact issuer, CUSIP and class rows reviewed for all five additions."
+    },
+    "official_company_tickers": {
+      "url": "https://www.sec.gov/files/company_tickers.json",
+      "observed_at": "2026-10-08T15:44:06+00:00",
+      "facts": "Ticker-to-issuer-CIK mappings reviewed for all five additions."
+    },
+    "filed_information_table": {
+      "url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "report_period": "2026-03-31",
+      "facts": "Filed Q1 2026 Form 13F information table records every added issuer and exact CUSIP."
+    }
+  },
+  "additions": [
+    {
+      "ticker": "BMY",
+      "issuer_cik": "0000014272",
+      "cusip": "110122108",
+      "issuer_name": "BRISTOL-MYERS SQUIBB CO",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Bristol-Myers Squibb common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T15:44:06+00:00"
+    },
+    {
+      "ticker": "CB",
+      "issuer_cik": "0000896159",
+      "cusip": "H1467J104",
+      "issuer_name": "CHUBB LIMITED",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Chubb common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T15:44:06+00:00"
+    },
+    {
+      "ticker": "PH",
+      "issuer_cik": "0000076334",
+      "cusip": "701094104",
+      "issuer_name": "PARKER-HANNIFIN CORP",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Parker-Hannifin common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T15:44:06+00:00"
+    },
+    {
+      "ticker": "SYK",
+      "issuer_cik": "0000310764",
+      "cusip": "863667101",
+      "issuer_name": "STRYKER CORPORATION",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records Stryker common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T15:44:06+00:00"
+    },
+    {
+      "ticker": "SPGI",
+      "issuer_cik": "0000064040",
+      "cusip": "78409V104",
+      "issuer_name": "S&P GLOBAL INC",
+      "class_description": "COM",
+      "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/714364/000071436426000004/xslForm13F_X02/Ogorek_Holdings_13F_2026Q1.xml",
+      "instrument_event_date": "2026-03-31",
+      "instrument_evidence_note": "Filed Q1 2026 Form 13F information table records S&P Global common stock and the exact CUSIP.",
+      "cusip_class_source": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+      "ticker_cik_source": "https://www.sec.gov/files/company_tickers.json",
+      "effective_from": "2026-04-01",
+      "effective_to": "2026-06-30",
+      "known_at": "2026-10-08T15:44:06+00:00"
+    }
+  ],
+  "deferred_review": {
+    "ticker": "BLK",
+    "reason": "A 2026 holding-company, issuer-CIK and CUSIP transition requires a separate dated corporate-action review before mapping."
+  },
+  "validation": {
+    "canonical_input_count": 687,
+    "registry_count_after": 125,
+    "new_entries": 5,
+    "new_tickers_unique": true,
+    "new_cusips_unique": true,
+    "cusip_check_digits_valid": true,
+    "source_identity_fields_complete": true,
+    "automated_tests_run_in_this_step": true,
+    "local_test": {
+      "command": "python -m unittest tests.test_sec13f_scout_service",
+      "tests_run": 6,
+      "failures": 0,
+      "errors": 0,
+      "result": "PASS"
+    }
+  },
+  "acceptance_limits": [
+    "This is a bounded registry expansion, not a complete 687-instrument identity history.",
+    "No live SEC quarterly ZIP or holdings-level positive/negative case was executed in this step.",
+    "The focused local SEC 13F suite passed; no hosted Linux or Windows result is claimed in this source-review step.",
+    "The filed table corroborates the instrument and CUSIP; the official 13(f) list controls the bounded class label.",
+    "BLK is intentionally excluded pending a separate dated review of its 2026 holding-company, issuer-CIK and CUSIP transition.",
+    "No actual end-user Windows run or historical out-of-sample evaluation is claimed.",
+    "Institutions remains PILOT/PENDING and the inventory remains 0/21 DONE."
+  ],
+  "next_work": [
+    "Verify the 125-instrument registry in the hosted Linux and Windows workflow and content-check its artifact.",
+    "Review BLK's dated 2026 holding-company, issuer-CIK and CUSIP transition before adding any mapping.",
+    "Continue bounded dated identity and corporate-action expansion without treating unmapped tickers as absent holdings.",
+    "Run a declared SEC User-Agent live quarterly ZIP and measure holdings coverage when runtime access is available."
+  ]
+}

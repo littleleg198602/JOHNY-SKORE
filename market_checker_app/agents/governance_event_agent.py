@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from datetime import timezone
+from datetime import datetime, timezone
 import hashlib
+import math
 import re
 from typing import Iterable
 
@@ -30,6 +31,259 @@ def _stable_id(*parts: object) -> str:
 
 def _base_form(value: object) -> str:
     return str(value or "").strip().upper().removesuffix("/A")
+
+
+def _schedule_13_cover(document: DocumentRecord) -> dict[str, object] | None:
+    """Return comparison-safe as-filed fields from one SEC primary document."""
+    form = str(document.metadata.get("form") or "").strip().upper()
+    if _base_form(form) not in {"SC 13D", "SC 13G"}:
+        return None
+    if document.metadata.get("source_verified_primary") is not True:
+        return None
+    ownership = document.metadata.get("beneficial_ownership")
+    if not isinstance(ownership, Mapping):
+        return None
+    if ownership.get("instrument_identity_verified") is not True:
+        return None
+    instrument = ownership.get("instrument")
+    if not isinstance(instrument, Mapping):
+        return None
+    cusips = instrument.get("cusips")
+    registry_match = instrument.get("registry_match")
+    if (
+        not isinstance(cusips, list)
+        or len(cusips) != 1
+        or not isinstance(cusips[0], str)
+        or not isinstance(registry_match, Mapping)
+        or str(registry_match.get("cusip") or "").strip().upper()
+        != cusips[0].strip().upper()
+    ):
+        return None
+    issuer_cik = str(document.metadata.get("issuer_cik") or "").strip()
+    accession = str(document.metadata.get("accession_number") or "").strip()
+    if not issuer_cik or not accession:
+        return None
+    people = ownership.get("reporting_persons")
+    if not isinstance(people, list) or not people:
+        return None
+    normalized_people: list[dict[str, object]] = []
+    names: set[str] = set()
+    for person in people:
+        if not isinstance(person, Mapping):
+            return None
+        name = str(person.get("name") or "").strip()
+        shares = person.get("aggregate_beneficial_shares")
+        percent = person.get("percent_of_class")
+        if not name or name in names:
+            return None
+        if isinstance(shares, bool) or isinstance(percent, bool):
+            return None
+        try:
+            shares_value = float(shares)
+            percent_value = float(percent)
+        except (TypeError, ValueError):
+            return None
+        if (
+            not math.isfinite(shares_value)
+            or shares_value < 0.0
+            or not math.isfinite(percent_value)
+            or not 0.0 <= percent_value <= 100.0
+        ):
+            return None
+        names.add(name)
+        normalized_people.append({
+            "name": name,
+            "aggregate_beneficial_shares": shares_value,
+            "percent_of_class": percent_value,
+        })
+    normalized_people.sort(key=lambda row: str(row["name"]))
+    published_at = document.published_at or document.observed_at
+    return {
+        "document": document,
+        "form": form,
+        "base_form": _base_form(form),
+        "is_amendment": form.endswith("/A"),
+        "ticker": document.ticker.strip().upper(),
+        "issuer_cik": issuer_cik.zfill(10),
+        "accession_number": accession,
+        "cusip": cusips[0].strip().upper(),
+        "people": normalized_people,
+        "person_names": tuple(row["name"] for row in normalized_people),
+        "published_at": published_at,
+    }
+
+
+def _schedule_13_amendment_comparisons(
+    documents: Iterable[DocumentRecord],
+    *,
+    knowledge_at: datetime,
+) -> dict[str, dict[str, object]]:
+    """Build fail-closed amendment deltas without resolving owner identity."""
+    covers = []
+    for document in documents:
+        published_at = document.published_at or document.observed_at
+        if published_at > knowledge_at:
+            continue
+        cover = _schedule_13_cover(document)
+        if cover is not None:
+            covers.append(cover)
+    covers.sort(key=lambda row: (
+        row["published_at"], row["accession_number"],
+    ))
+    comparisons: dict[str, dict[str, object]] = {}
+    for current in covers:
+        if current["is_amendment"] is not True:
+            continue
+        same_instrument = [
+            prior for prior in covers
+            if prior["published_at"] < current["published_at"]
+            and prior["ticker"] == current["ticker"]
+            and prior["issuer_cik"] == current["issuer_cik"]
+            and prior["base_form"] == current["base_form"]
+            and prior["cusip"] == current["cusip"]
+        ]
+        if not same_instrument or not any(
+            prior["is_amendment"] is False for prior in same_instrument
+        ):
+            continue
+        latest_at = max(prior["published_at"] for prior in same_instrument)
+        predecessors = [
+            prior for prior in same_instrument
+            if prior["published_at"] == latest_at
+        ]
+        if len(predecessors) != 1:
+            continue
+        prior = predecessors[0]
+        if prior["person_names"] != current["person_names"]:
+            continue
+        prior_people = {
+            str(row["name"]): row for row in prior["people"]
+        }
+        deltas = []
+        for row in current["people"]:
+            name = str(row["name"])
+            earlier = prior_people[name]
+            deltas.append({
+                "name": name,
+                "identity_status": "NAME_ONLY",
+                "prior_aggregate_beneficial_shares": earlier[
+                    "aggregate_beneficial_shares"
+                ],
+                "current_aggregate_beneficial_shares": row[
+                    "aggregate_beneficial_shares"
+                ],
+                "shares_delta": row["aggregate_beneficial_shares"]
+                - earlier["aggregate_beneficial_shares"],
+                "prior_percent_of_class": earlier["percent_of_class"],
+                "current_percent_of_class": row["percent_of_class"],
+                "percent_delta": row["percent_of_class"]
+                - earlier["percent_of_class"],
+            })
+        current_document = current["document"]
+        prior_document = prior["document"]
+        assert isinstance(current_document, DocumentRecord)
+        assert isinstance(prior_document, DocumentRecord)
+        comparisons[current_document.document_id] = {
+            "comparison_status": "AS_FILED_CANDIDATE",
+            "prior_document_id": prior_document.document_id,
+            "current_document_id": current_document.document_id,
+            "prior_accession_number": prior["accession_number"],
+            "current_accession_number": current["accession_number"],
+            "prior_published_at": prior["published_at"].isoformat(),
+            "current_published_at": current["published_at"].isoformat(),
+            "issuer_cik": current["issuer_cik"],
+            "instrument_cusip": current["cusip"],
+            "reporting_person_basis": "EXACT_AS_FILED_NAME_ONLY",
+            "reporting_person_deltas": deltas,
+            "beneficial_owner_identity_verified": False,
+            "ownership_change_interpreted": False,
+            "human_review_required": True,
+            "scoring_applied": False,
+        }
+    return comparisons
+
+
+FORM4_CODE_SOURCE_URL = (
+    "https://www.sec.gov/edgar/searchedgar/ownershipformcodes.html"
+)
+FORM4_TRANSACTION_TYPES = {
+    "P": "PURCHASE",
+    "S": "SALE",
+    "V": "VOLUNTARILY_REPORTED_TRANSACTION",
+    "A": "RULE_16B3_GRANT_AWARD_OR_ACQUISITION",
+    "D": "RULE_16B3_DISPOSITION_TO_ISSUER",
+    "F": "EXERCISE_PRICE_OR_TAX_WITHHOLDING",
+    "I": "RULE_16B3_DISCRETIONARY_TRANSACTION",
+    "M": "RULE_16B3_DERIVATIVE_EXERCISE_OR_CONVERSION",
+    "C": "DERIVATIVE_CONVERSION",
+    "E": "SHORT_DERIVATIVE_EXPIRATION",
+    "H": "LONG_DERIVATIVE_EXPIRATION_OR_CANCELLATION",
+    "O": "OUT_OF_MONEY_DERIVATIVE_EXERCISE",
+    "X": "IN_OR_AT_MONEY_DERIVATIVE_EXERCISE",
+    "G": "BONA_FIDE_GIFT",
+    "L": "RULE_16A6_SMALL_ACQUISITION",
+    "W": "WILL_OR_DESCENT_DISTRIBUTION",
+    "Z": "VOTING_TRUST_DEPOSIT_OR_WITHDRAWAL",
+    "J": "OTHER_DESCRIBED_TRANSACTION",
+    "K": "EQUITY_SWAP_TRANSACTION",
+    "U": "CHANGE_OF_CONTROL_TENDER_DISPOSITION",
+}
+FORM4_ALLOWED_DIRECTIONS = {
+    "P": {"A"},
+    "S": {"D"},
+    "A": {"A"},
+    "D": {"D"},
+    "F": {"D"},
+    "E": {"D"},
+    "H": {"D"},
+    "L": {"A"},
+    "U": {"D"},
+}
+FORM4_COMPENSATION_CODES = {"A", "D", "F", "I", "M"}
+
+
+def _classify_form4_transaction(
+    *,
+    code: str,
+    acquired_disposed: str,
+    derivative: bool,
+) -> dict[str, object]:
+    normalized_code = code.strip().upper()
+    normalized_direction = acquired_disposed.strip().upper()
+    documented = normalized_code in FORM4_TRANSACTION_TYPES
+    allowed = FORM4_ALLOWED_DIRECTIONS.get(normalized_code, {"A", "D"})
+    direction_consistent = normalized_direction in allowed
+    classification_verified = documented and direction_consistent
+    open_market_trade = (
+        classification_verified
+        and not derivative
+        and (normalized_code, normalized_direction) in {("P", "A"), ("S", "D")}
+    )
+    event_type = (
+        GovernanceEventType.INSIDER_TRADE
+        if open_market_trade
+        else GovernanceEventType.STOCK_COMPENSATION
+        if classification_verified and normalized_code in FORM4_COMPENSATION_CODES
+        else GovernanceEventType.INSIDER_OTHER_TRANSACTION
+    )
+    return {
+        "code": normalized_code,
+        "acquired_disposed": normalized_direction,
+        "transaction_type": (
+            FORM4_TRANSACTION_TYPES[normalized_code]
+            if classification_verified else "UNRECOGNIZED_OR_INCONSISTENT"
+        ),
+        "event_type": event_type,
+        "event_status": (
+            GovernanceEventStatus.VERIFIED
+            if classification_verified else GovernanceEventStatus.UNVERIFIED
+        ),
+        "sec_code_documented": documented,
+        "direction_consistent": direction_consistent,
+        "classification_verified": classification_verified,
+        "open_market_trade": open_market_trade,
+        "human_review_required": not open_market_trade,
+    }
 
 
 TEXT_PATTERNS: tuple[
@@ -244,6 +498,7 @@ class GovernanceEventAgent(BaseAgent):
         *,
         legal_entity_id: str,
         text: str,
+        amendment_comparison: Mapping[str, object] | None = None,
     ) -> Iterable[GovernanceEvent]:
         form = _base_form(document.metadata.get("form"))
         items = self._items(document)
@@ -281,15 +536,33 @@ class GovernanceEventAgent(BaseAgent):
                 metadata={"sec_item": "3.02", "scoring_applied": False},
             )
         if form in {"SC 13D", "SC 13G"}:
+            ownership = document.metadata.get("beneficial_ownership")
+            ownership = ownership if isinstance(ownership, Mapping) else None
+            instrument_verified = bool(
+                ownership and ownership.get("instrument_identity_verified") is True
+            )
             yield self._event(
                 document=document,
                 legal_entity_id=legal_entity_id,
-                event_type=GovernanceEventType.BENEFICIAL_OWNERSHIP_CHANGE,
-                status=GovernanceEventStatus.VERIFIED,
-                title=f"SEC {form} – významný vlastnický podíl",
-                confidence=1.0,
+                event_type=GovernanceEventType.BENEFICIAL_OWNERSHIP_FILING,
+                status=GovernanceEventStatus.UNVERIFIED,
+                title=f"SEC {form} – filing vyžaduje identitu a interpretaci změny",
+                confidence=0.5,
                 discriminator=form,
-                metadata={"form": form, "scoring_applied": False},
+                metadata={
+                    "form": form,
+                    "as_filed_cover_fields": dict(ownership) if ownership else None,
+                    "as_filed_cover_fields_extracted": bool(ownership),
+                    "beneficial_owner_identity_verified": False,
+                    "instrument_identity_verified": instrument_verified,
+                    "ownership_change_interpreted": False,
+                    "amendment_comparison": (
+                        dict(amendment_comparison)
+                        if amendment_comparison is not None else None
+                    ),
+                    "human_review_required": True,
+                    "scoring_applied": False,
+                },
             )
         if form == "S-1" or form.startswith("424B"):
             yield self._event(
@@ -343,6 +616,10 @@ class GovernanceEventAgent(BaseAgent):
         warnings: list[str] = []
         future_documents = 0
         future_transactions = 0
+        amendment_comparisons = _schedule_13_amendment_comparisons(
+            documents,
+            knowledge_at=context.started_at,
+        )
 
         document_by_accession = {
             (
@@ -371,6 +648,7 @@ class GovernanceEventAgent(BaseAgent):
                 document,
                 legal_entity_id=legal_entity_id,
                 text=text,
+                amendment_comparison=amendment_comparisons.get(document.document_id),
             ):
                 events[event.event_id] = event
 
@@ -406,24 +684,18 @@ class GovernanceEventAgent(BaseAgent):
                     acquired_disposed = str(
                         getattr(transaction, "acquired_disposed", "") or ""
                     ).upper()
-                    transaction_type = {
-                        "P": "PURCHASE",
-                        "S": "SALE",
-                        "A": "GRANT",
-                        "M": "OPTION_EXERCISE",
-                        "F": "TAX_WITHHOLDING",
-                    }.get(code.upper(), code.upper())
                     derivative = bool(getattr(transaction, "derivative", False))
-                    open_market_trade = (
-                        not derivative
-                        and (code.upper(), acquired_disposed) in {("P", "A"), ("S", "D")}
+                    classification = _classify_form4_transaction(
+                        code=code,
+                        acquired_disposed=acquired_disposed,
+                        derivative=derivative,
                     )
-                    event_type = (
-                        GovernanceEventType.INSIDER_TRADE if open_market_trade
-                        else GovernanceEventType.STOCK_COMPENSATION
-                        if code.upper() in {"A", "M", "F"}
-                        else GovernanceEventType.INSIDER_OTHER_TRANSACTION
-                    )
+                    transaction_type = str(classification["transaction_type"])
+                    open_market_trade = bool(classification["open_market_trade"])
+                    event_type = classification["event_type"]
+                    assert isinstance(event_type, GovernanceEventType)
+                    event_status = classification["event_status"]
+                    assert isinstance(event_status, GovernanceEventStatus)
                     shares = getattr(transaction, "shares", None)
                     price = getattr(transaction, "price_per_share", None)
                     event_value = (
@@ -461,7 +733,7 @@ class GovernanceEventAgent(BaseAgent):
                         document=document,
                         legal_entity_id=entity.legal_entity_id,
                         event_type=event_type,
-                        status=GovernanceEventStatus.VERIFIED,
+                        status=event_status,
                         title=(
                             f"Form 4 {'obchod' if open_market_trade else 'jiná transakce'} "
                             f"{transaction_type.lower()} – "
@@ -486,6 +758,19 @@ class GovernanceEventAgent(BaseAgent):
                             "acquired_disposed": acquired_disposed,
                             "derivative": derivative,
                             "open_market_trade": open_market_trade,
+                            "sec_code_documented": classification[
+                                "sec_code_documented"
+                            ],
+                            "direction_consistent": classification[
+                                "direction_consistent"
+                            ],
+                            "classification_verified": classification[
+                                "classification_verified"
+                            ],
+                            "human_review_required": classification[
+                                "human_review_required"
+                            ],
+                            "transaction_code_source_url": FORM4_CODE_SOURCE_URL,
                             "transaction_date": str(
                                 transaction_date or ""
                             ),
@@ -545,6 +830,7 @@ class GovernanceEventAgent(BaseAgent):
                 "events": len(ordered_events),
                 "future_documents_ignored": future_documents,
                 "future_transactions_ignored": future_transactions,
+                "schedule_13_amendment_candidates": len(amendment_comparisons),
                 "signals_emitted": 0,
                 "scoring_applied": False,
             },
