@@ -4,6 +4,25 @@ Platí od 11. 10. 2026. Vývoj běží v nejvýše šesti oddělených větvích
 koordinátor přebírá změny, řeší integraci a provádí společné kontroly.
 Počet vývojových větví není počet dokončených analytických specialistů.
 
+## Opravy review a Windows checkoutu — 13. 10. 2026
+
+První PR #162 HEAD `290e093` ověřil 990 Linux testů, UI i 687 kontrakty.
+Skutečný Windows běh 38272126978 však selhal: 990 discovered, 981 executed,
+4 failures a 1 error. Checkout změnil LF na CRLF v byte-hash důkazech;
+čtyři původní rozdílné otisky jsou přesně reprodukované touto konverzí.
+Následná oprava zachovává původní bajty archivů, pinned dat a fixtures
+při checkoutu na obou platformách. Test provádí skutečný Git clone
+s core.autocrlf=true a kontroluje původní i smíšené/binary source bytes.
+Přísné hash assertions ani data se neuvolňují či nepřepisují.
+
+Review transakčního sběrače se současně řeší: veřejný status vyčerpané
+sdílené kvóty je WAIT_QUOTA, ztráty lease LEASE_LOST; již uložené stránky
+zůstávají zachované a traversal není kompletní. CLI vrací retry exit 2.
+Čtyři testy skutečných SQLite reservation/lease přechodů a CLI případ
+se obejdou bez HTTP. Cílená integrační kontrola 62 testů prošla.
+První neúspěšný Windows běh se nevydává za akceptaci nové opravy.
+Důkaz: `evidence/windows_checkout_fix_20261013.json`.
+
 ## Třetí navazující dávka — 12. 10. 2026
 
 Základem je skutečně sloučený PR #161, main

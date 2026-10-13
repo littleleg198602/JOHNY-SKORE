@@ -305,6 +305,8 @@ def main() -> None:
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     if result["status"] in {"WAIT_ACCESS", "ACCESS_BLOCKED", "LEASE_LOST"}:
         raise SystemExit(2)
+    if args.award_subject and result["status"] in {"WAIT_QUOTA", "BUSY", "RATE_LIMITED"}:
+        raise SystemExit(2)
     if args.award_subject and result["status"] not in {"COMPLETE", "NO_MATCH"}:
         raise SystemExit(1)
 

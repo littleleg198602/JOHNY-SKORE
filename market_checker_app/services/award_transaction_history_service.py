@@ -536,7 +536,11 @@ class AwardTransactionHistoryService:
                     break
             defects = (result["rejected_rows"] or result["duplicate_rows"] or result["conflicting_transaction_ids"]
                        or not result["source_order_consistent"] or result.get("stop_reason"))
-            if result["traversal_complete"] and not defects:
+            if result.get("stop_reason") in {"WAIT_QUOTA", "LEASE_LOST"}:
+                # A reservation deferral is operational state, not evidence
+                # that the source failed. Keep any already archived rows.
+                result["status"] = result["stop_reason"]
+            elif result["traversal_complete"] and not defects:
                 result["status"] = "COMPLETE" if result["accepted_rows"] else "NO_MATCH"
             else:
                 result["status"] = "PARTIAL" if result["captured_pages"] or result["accepted_rows"] else "ERROR"

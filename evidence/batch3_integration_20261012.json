@@ -56,11 +56,17 @@
     "duration_seconds": 139.075
   },
   "hosted_windows": {
-    "status": "NOT_YET_RUN_FOR_THIS_HEAD",
+    "status": "INITIAL_CURRENT_HEAD_FAILED_CHECKOUT_BYTE_CONVERSION",
     "verification_location": "New PR exact-head CI job and contents of windows-deterministic-tests artifact",
     "previous_head": "9acb3b7c7ed8d11bdda82c8503a6e583c8c1deb0",
     "previous_head_tests": 902,
-    "previous_head_proves_current_changes": false
+    "previous_head_proves_current_changes": false,
+    "failed_head": "290e0936a71c1d27a637469459e9ff48baa191cf",
+    "failed_run": 38272126978,
+    "failed_tests_run": 981,
+    "failed_discovered_tests": 990,
+    "failures": 4,
+    "errors": 1
   },
   "initial_registry_combined_check": {
     "tests": 70,
@@ -105,5 +111,6 @@
     "sec": "881b14bd3cfc0e0398a15c1d08a8061fad624b0c9d2b90b8df19695279504c8b",
     "evaluation": "644a2303a6f416da4225bf21942b5ca6c43a94432490b4e634ea6abbc3adfe56",
     "registry_adoption": "3e56710cc0b60493d3a8b52936d611376fe0d381024f8b15e25bc4f0916a1eb5"
-  }
+  },
+  "followup_verification_evidence": "evidence/windows_checkout_fix_20261013.json"
 }
