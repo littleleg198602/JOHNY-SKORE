@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "captured_on": "2026-10-13",
+  "scope": "Bounded LLY CRL query and first HCA owner page; not full issuer or sector coverage.",
+  "cms": {
+    "observed_at": "2026-10-13T20:01:12.376729+00:00",
+    "source_url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+    "query_name": "HCA HEALTHCARE INC",
+    "size": 20,
+    "offset": 0,
+    "next_cursor": "20",
+    "complete": false,
+    "rows": [
+      {
+        "ENROLLMENT ID": "O20021115000002",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "HTI MEMORIAL HOSPITAL CORPORATION",
+        "ASSOCIATION DATE - OWNER": "2007-06-28",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030204000016",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "HCA HEALTHONE LLC",
+        "ASSOCIATION DATE - OWNER": "2011-08-05",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030310000005",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "MIDWEST DIVISION - RMC LLC",
+        "ASSOCIATION DATE - OWNER": "2011-10-18",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030321000037",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "CENTRAL TENNESSEE HOSPITAL CORPORATION",
+        "ASSOCIATION DATE - OWNER": "2017-05-08",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030401000012",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "CHCA CLEAR LAKE LP",
+        "ASSOCIATION DATE - OWNER": "2011-07-01",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030401000015",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "COLUMBIA MEDICAL CENTER OF PLANO SUBSIDIARY, L.P.",
+        "ASSOCIATION DATE - OWNER": "2011-09-30",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030401000018",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "CHCA WOMANS HOSPITAL LP",
+        "ASSOCIATION DATE - OWNER": "2011-08-09",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030402000012",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "MIDWEST DIVISION - LSH LLC",
+        "ASSOCIATION DATE - OWNER": "2011-01-01",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030408000041",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "MIDWEST DIVISION-OPRMC LLC",
+        "ASSOCIATION DATE - OWNER": "2011-06-27",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030425000015",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "MIDWEST DIVISION - MMC, LLC",
+        "ASSOCIATION DATE - OWNER": "2011-08-25",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030428000029",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "CENTERPOINT MEDICAL CENTER OF INDEPENDENCE, LLC",
+        "ASSOCIATION DATE - OWNER": "2011-07-13",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030515000002",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "DOCTORS HOSPITAL OF AUGUSTA LLC",
+        "ASSOCIATION DATE - OWNER": "2011-10-17",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030611000025",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "COLUMBIA OGDEN MEDICAL CENTER INC",
+        "ASSOCIATION DATE - OWNER": "2017-05-08",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030709000010",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "COLUMBIA MEDICAL CENTER OF MCKINNEY SUBSIDIARY LP",
+        "ASSOCIATION DATE - OWNER": "2011-08-25",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030820000011",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "RIVERSIDE HEALTHCARE SYSTEM, L.P.",
+        "ASSOCIATION DATE - OWNER": "2016-07-26",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20030829000014",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "GOOD SAMARITAN HOSPITAL, L.P.",
+        "ASSOCIATION DATE - OWNER": "2016-06-10",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20031003000046",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "HCA HEALTH SERVICES OF TENNESSEE, INC",
+        "ASSOCIATION DATE - OWNER": "2011-03-17",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20031021000001",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "METHODIST HEALTHCARE SYSTEM OF SAN ANTONIO LTD LLP",
+        "ASSOCIATION DATE - OWNER": "2017-07-01",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20031110000487",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "CHCA CONROE LP",
+        "ASSOCIATION DATE - OWNER": "2011-06-23",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      {
+        "ENROLLMENT ID": "O20031110000567",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "COLUMBIA VALLEY HEALTHCARE SYSTEM, L.P.",
+        "ASSOCIATION DATE - OWNER": "2011-09-28",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      }
+    ]
+  },
+  "fda": {
+    "observed_at": "2026-10-13T20:01:23.841199+00:00",
+    "source_url": "https://api.fda.gov/transparency/crl.json",
+    "query_name": "Eli Lilly and Company",
+    "limit": 20,
+    "meta": {
+      "disclaimer": "Do not rely on openFDA to make decisions regarding medical care. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated. We may limit or otherwise restrict your access to the API in line with our Terms of Service.",
+      "terms": "https://open.fda.gov/terms/",
+      "license": "https://open.fda.gov/license/",
+      "last_updated": "2026-08-13",
+      "results": {
+        "skip": 0,
+        "limit": 20,
+        "total": 5
+      }
+    },
+    "rows": [
+      {
+        "company_name": "Eli Lilly and Company",
+        "application_number": [
+          "BLA 761306"
+        ],
+        "file_name": "761306_2024_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "09/28/2023",
+        "letter_type": "COMPLETE RESPONSE",
+        "primary_text_excerpt": "g YN U.S. FOOD & DRUG\n\nADMINISTRATION\n\nBLA 761306\n\nCOMPLETE RESPONSE\n\nEli Lilly and Company\nAttention: Ana M. Vaz.\nAssociate VP, GRA-NA\nLilly Corporate Center\nIndianapolis, IN 46285\n\nDear Ana Vaz:\n\nPlease refer to your biologics license application (BLA) dated and received September\n28, 2022, and your amendments, submitted under section 351(a) of the Public Health\nService Act for lebrikizumab injection.\n\nWe have completed our review of this application and have determined that we cannot\napprove this application in its present form. We have described our reasons for this\naction below and, where possible, our recommendations to address these issues.\n\nPRODUCT QUALITY\n\n(1) As part of the facility evaluation of\n\n(b) (4)\n\ndrug substance manufacturing facility, a Remote\nRegulatory Assessment (RRA) was performed. FDA identified issues during the\nRRA and conducted a pre-license inspection (PLI) t"
+      },
+      {
+        "company_name": "Eli Lilly and Company",
+        "application_number": [
+          "BLA 761215/Original 2",
+          "BLA 761215"
+        ],
+        "file_name": "Pages from 761215Orig2s000.pdf",
+        "letter_date": "12/17/2021",
+        "letter_type": "COMPLETE RESPONSE",
+        "primary_text_excerpt": "g YN U.S. FOOD & DRUG\n\nADMINISTRATION\n\nBLA 761215/Original 2\nCOMPLETE RESPONSE\n\nEli Lilly and Company\n\nAttention: Ingrid Hensley, PhD\n\nAdvisor, Global Regulatory Affairs- North America, Diabetes\nLilly Corporate Center\n\nDrop Code 2543\n\nIndianapolis, IN 46285\n\nDear Dr. Hensley,\n\nPlease refer to your biologics license application (BLA) dated December 17, 2020,\nreceived December 18, 2020, and your amendments, submitted under section 351(k) of\nthe Public Health Service Act for Rezvoglar (insulin glargine-aglr) injection, 3 mL (100\nUnits/mL).\n\nBLA 761215 seeks licensure of Rezvoglar (insulin glargine-aglr) as an interchangeable\nbiosimilar with U.S.-licensed Lantus. For administrative purposes, we have designated\nthe following:\n\ne BLA 761215/Original 1 \u2014 biosimilarity\nBLA 761215/Original 2 \u2014 interchangeability\n\nThe subject of this action letter is BLA 761215/Original2. A separate action letter "
+      },
+      {
+        "company_name": "Eli Lilly and Company",
+        "application_number": [
+          "BLA 761215/Original 2",
+          "BLA 761215"
+        ],
+        "file_name": "761215Orig2s000OtherActionLtrs.pdf",
+        "letter_date": "12/17/2021",
+        "letter_type": "COMPLETE RESPONSE",
+        "primary_text_excerpt": "g YN U.S. FOOD & DRUG\n\nADMINISTRATION\n\nBLA 761215/Original 2\nCOMPLETE RESPONSE\n\nEli Lilly and Company\n\nAttention: Ingrid Hensley, PhD\n\nAdvisor, Global Regulatory Affairs- North America, Diabetes\nLilly Corporate Center\n\nDrop Code 2543\n\nIndianapolis, IN 46285\n\nDear Dr. Hensley,\n\nPlease refer to your biologics license application (BLA) dated December 17, 2020,\nreceived December 18, 2020, and your amendments, submitted under section 351(k) of\nthe Public Health Service Act for Rezvoglar (insulin glargine-aglr) injection, 3 mL (100\nUnits/mL).\n\nBLA 761215 seeks licensure of Rezvoglar (insulin glargine-aglr) as an interchangeable\nbiosimilar with U.S.-licensed Lantus. For administrative purposes, we have designated\nthe following:\n\ne BLA 761215/Original 1 \u2014 biosimilarity\nBLA 761215/Original 2 \u2014 interchangeability\n\nThe subject of this action letter is BLA 761215/Original2. A separate action letter "
+      },
+      {
+        "company_name": "Eli Lilly and Company",
+        "application_number": [
+          "BLA 761248"
+        ],
+        "file_name": "761248_2024_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "01/18/2023",
+        "letter_type": "COMPLETE RESPONSE",
+        "primary_text_excerpt": "\u00a2 YN U.S. FOOD & DRUG\n\nADMINISTRATION\n\nBLA 761248\nCOMPLETE RESPONSE\n\nEli Lilly and Company\n\nAttention: Angela Murff-Maxey\n\nSenior Director, Global Regulatory Affairs - NA\nLilly Corporate Center\n\nDrop Code 253\n\nIndianapolis, IN 46285\n\nDear Ms. Murff-Maxey:\n\nPlease refer to your biologics license application (BLA) dated and received on May 18,\n2022, and your amendments, submitted under section 351(a) of the Public Health\nService Act for Kisunla (LY3002813) injection.\n\nWe have completed our review of this application, as amended, and have determined\nthat we cannot approve this application in its present form. We have described our\nreasons for this action below and, where possible, our recommendations to address\nthese issues.\n\nCLINICAL\n\nThe safety database is insufficient to adequately characterize the long-term safety of\nKisunla in the treatment of Alzheimer\u2019s disease. As stated in the pre-"
+      },
+      {
+        "company_name": "Eli Lilly and Company",
+        "application_number": [
+          "BLA 761279"
+        ],
+        "file_name": "761279_2023_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "03/30/2023",
+        "letter_type": "COMPLETE RESPONSE",
+        "primary_text_excerpt": "\u00a2 YN U.S. FOOD & DRUG\n\nADMINISTRATION\n\nBLA 761279\nCOMPLETE RESPONSE\n\nEli Lilly and Company\n\nAttention: Conrad J. Wong, Ph.D.\n\nSenior Director\n\nGlobal Regulatory Affairs \u2014 North America\nLilly Corporate Center, Drop Code 2543\nIndianapolis, IN 46285\n\nDear Dr. Wong:\n\nPlease refer to your biologics license application (BLA) dated and received March 30,\n2022, submitted under section 351(a) of the Public Health Service Act for LY3074828\ninjection for moderately to severely active ulcerative colitis.\n\nWe have completed our review of this application, as amended, and have determined\nthat we cannot approve this application in its present form. We have described our\nreasons for this action below and, where possible, our recommendations to address\nthese issues.\n\nFACILITY INSPECTIONS\n\nFollowing pre-license inspection of the ELI LILLY AND COMPANY, Indianapolis,\nIndiana (FEI 1819470), manufacturing fac"
+      }
+    ]
+  },
+  "new_record_ids": [
+    "hca-cms-o20030310000005-2026-10-13",
+    "hca-cms-o20030321000037-2026-10-13",
+    "hca-cms-o20030401000012-2026-10-13",
+    "hca-cms-o20030401000015-2026-10-13",
+    "hca-cms-o20030401000018-2026-10-13",
+    "hca-cms-o20030402000012-2026-10-13",
+    "hca-cms-o20030408000041-2026-10-13",
+    "hca-cms-o20030425000015-2026-10-13",
+    "hca-cms-o20030428000029-2026-10-13",
+    "hca-cms-o20030515000002-2026-10-13",
+    "hca-cms-o20030611000025-2026-10-13",
+    "hca-cms-o20030709000010-2026-10-13",
+    "hca-cms-o20030820000011-2026-10-13",
+    "hca-cms-o20030829000014-2026-10-13",
+    "hca-cms-o20031003000046-2026-10-13",
+    "hca-cms-o20031021000001-2026-10-13",
+    "hca-cms-o20031110000487-2026-10-13",
+    "hca-cms-o20031110000567-2026-10-13",
+    "lly-crl-bla761306-2023-09-28-capture-20261013",
+    "lly-crl-bla761215-original2-2021-12-17-capture-20261013",
+    "lly-crl-bla761279-2023-03-30-capture-20261013"
+  ],
+  "new_records": 21,
+  "registry_records": 26,
+  "issuer_identity_basis": "Reuse reviewed LLY/HCA SEC identity citations observed 2026-10-11 from original manifest; SEC filings were not fetched again. Object relationships were fetched live on 2026-10-13.",
+  "raw_capture_sha256": {
+    "cms": "bdd80b778528ce2ac8f660306de4c7bc0bc5c46348c65b25f8c9f1aa217290ec",
+    "fda": "7f0419b9e1862ca3801709d4a6a9ffac2813851763fd6caabbeb18ad854f5bd4"
+  },
+  "limitations": [
+    "CMS association date is not ownership start or publication time.",
+    "FDA same application/date with a different file is a document variant, not an additional product or independent event.",
+    "Historical FDA event dates do not imply knowledge before capture.",
+    "No new issuer, financial impact, scoring, Windows or OOS acceptance."
+  ],
+  "completion_verified": false,
+  "deterministic_validation": {
+    "started_at": "2026-10-13T20:04:15.227356+00:00",
+    "ended_at": "2026-10-13T20:06:16.437673+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "python_version": "3.12.14",
+    "discovered_tests": 906,
+    "tests_run": 906,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "deterministic_log_sha256": "1f2364397d399e39e3d2673ec109a2c6a11d5f2fbd73d17d262209204ac50872",
+  "registry_sha256": "3e2ea77de8457b63371f2e948f3b6154e627e3000f0bb739f227d0a3a9164c60"
+}

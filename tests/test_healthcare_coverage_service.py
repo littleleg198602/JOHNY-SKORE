@@ -18,7 +18,9 @@ from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.ticker_universe import CANONICAL_CSV_SHA256, load_canonical_tickers
 
 
-RECORDS = json.loads(DEFAULT_HEALTHCARE_IDENTITIES.read_text())["records"]
+# Historical scope and ambiguity cases use the original captured registry.
+RECORDS = json.loads((Path(__file__).parent / "fixtures" / "healthcare" /
+                      "identity_manifest_captured_20261011.json").read_text())["records"]
 NOW = max(datetime.fromisoformat(row["known_at"]) for row in RECORDS) + timedelta(seconds=1)
 
 

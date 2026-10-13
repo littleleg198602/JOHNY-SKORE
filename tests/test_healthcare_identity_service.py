@@ -17,7 +17,9 @@ from market_checker_app.services.healthcare_scout_service import (
 from market_checker_app.storage.scout_store import ScoutStore
 
 
-RECORDS = json.loads(DEFAULT_HEALTHCARE_IDENTITIES.read_text())["records"]
+# Keep original replay cases fixed while the production registry grows.
+RECORDS = json.loads((Path(__file__).parent / "fixtures" / "healthcare" /
+                      "identity_manifest_captured_20261011.json").read_text())["records"]
 NOW = max(datetime.fromisoformat(row["known_at"]) for row in RECORDS) + timedelta(seconds=1)
 FIXTURES = Path(__file__).parent / "fixtures" / "healthcare"
 
