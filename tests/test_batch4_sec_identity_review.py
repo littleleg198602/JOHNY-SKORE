@@ -4,11 +4,11 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 import tempfile
 import unittest
 
-from evidence.batch4_sec_20261013.build_review import build_review_artifact
+from evidence.batch4_sec_20261013.build_review import build_review_artifact, repository_reference
 from market_checker_app.services.sec_form4_identity_review import (
     IDENTITY_REVIEW_VERSION, review_form4_identities,
 )
@@ -53,6 +53,28 @@ def _review(record, documents, *, observation=None, clock=NOW, **kwargs):
 
 
 class Batch4SecIdentityReviewTests(unittest.TestCase):
+    def test_repository_reference_serializes_windows_and_posix_to_identical_git_paths(self):
+        expected = "evidence/batch3_sec_20261012/primary/msft_2026_R1.htm"
+        references = []
+        for root in (PurePosixPath("/checkout/JOHNY-SKORE"), PureWindowsPath(r"C:\checkout\JOHNY-SKORE")):
+            with self.subTest(flavor=type(root).__name__):
+                reference = repository_reference(root / expected, root=root)
+                self.assertEqual(expected, reference)
+                self.assertNotIn("\\", reference)
+                references.append(json.dumps({"prior_path": reference}, sort_keys=True))
+        self.assertEqual(references[0], references[1])
+
+    def test_repository_reference_rejects_other_roots_drives_and_parent_traversal(self):
+        for root, foreign in (
+            (PurePosixPath("/checkout/repo"), PurePosixPath("/checkout/repo-neighbour/evidence/a.htm")),
+            (PureWindowsPath(r"C:\checkout\repo"), PureWindowsPath(r"C:\checkout\repo-neighbour\evidence\a.htm")),
+            (PureWindowsPath(r"C:\checkout\repo"), PureWindowsPath(r"D:\checkout\repo\evidence\a.htm")),
+            (PurePosixPath("/checkout/repo"), PurePosixPath("/checkout/repo/evidence/../../a.htm")),
+            (PureWindowsPath(r"C:\checkout\repo"), PureWindowsPath(r"C:\checkout\repo\evidence\..\..\a.htm")),
+        ):
+            with self.subTest(root=str(root), foreign=str(foreign)), self.assertRaises(ValueError):
+                repository_reference(foreign, root=root)
+
     def test_source_owners_roles_rows_and_footnotes_do_not_verify_identity_or_mutate_source(self):
         original = _parse()
         before = deepcopy(original)

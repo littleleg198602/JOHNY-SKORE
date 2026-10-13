@@ -2,7 +2,7 @@
 from datetime import date, datetime, timedelta, timezone
 import hashlib
 import json
-from pathlib import Path
+from pathlib import Path, PurePath
 import re
 
 from market_checker_app.collectors.sec_edgar_client import SecFiling
@@ -15,6 +15,14 @@ ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parents[1]
 ACCESSION = "0000789019-26-000161"
 TEN_K_ACCESSION = "0001193125-26-323660"
+
+
+def repository_reference(path: PurePath, *, root: PurePath = REPO) -> str:
+    """Serialize a contained repository reference independently of host paths."""
+    relative = path.relative_to(root)
+    if ".." in relative.parts:
+        raise ValueError("Repository reference cannot traverse outside its root")
+    return relative.as_posix()
 
 
 def build_review_artifact():
@@ -87,7 +95,7 @@ def build_review_artifact():
             "acceptance_clock_timezone_not_inferred_by_review": True,
         },
         "raw_cover_revision": {
-            "prior_path": str(old_cover_path.relative_to(REPO)),
+            "prior_path": repository_reference(old_cover_path),
             "prior_sha256": hashlib.sha256(old_cover).hexdigest(),
             "current_sha256": instrument_capture["sha256"],
             "raw_bytes_changed": old_cover != documents[instrument_capture["sha256"]],
@@ -111,4 +119,4 @@ def build_review_artifact():
 if __name__ == "__main__":
     output = ROOT / "identity_review.json"
     output.write_text(json.dumps(build_review_artifact(), indent=2) + "\n", encoding="utf-8")
-    print(output.relative_to(REPO))
+    print(repository_reference(output))

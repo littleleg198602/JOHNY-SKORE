@@ -37,8 +37,8 @@ Semaglutide/Placebo nepřebírají atribuci Lilly.
 Původní performance diagnostika před scalar optimalizací zachovává 1 timing
 failure (75,498s při neměnném 60s limitu); 5585 emit pokusů vytvořilo 393
 snapshotů. Finální publikační sada ověřila 1181/1181 testů bez errors/failures/skips,
-včetně celého 687 cached testu s původním 60s limitem. Nový hostovaný
-Windows/required CI výsledek je po publikaci stále samostatné ověření. Profil starého
+včetně celého 687 cached testu s původním 60s limitem. Tento lokální pre-CI
+výsledek patří původnímu snapshotu čtvrté dávky. Profil starého
 kódu ani běh se souběžnými agenty se nevydává za férové srovnání výkonu/OOS.
 Původní publisher raw bytes a whitespace upozornění zůstávají zachované.
 Z 41 zachycených odpovědí je 40 veřejných raw (38 HTTP200 / 2 HTTP400),
@@ -46,6 +46,27 @@ jedno dokumentační HTML s přístupovou hodnotou zůstává withheld s otiskem
 Obsahový audit ověřil 153 současných odkazů s otisky; staré diagnostiky jsou označené vlastní
 verzí, nejsou akceptací finálního kódu. Důkaz:
 `evidence/batch4_content_audit_20261013.json`.
+
+### Následná oprava Windows repository reference
+
+Čtvrtá dávka byla publikovaná jako HEAD `71d5ef65`, strom `8f52eeda`.
+Hostovaný run `38454009731` ověřil Linux 1181/1181, UI a 687 scale/budget.
+Windows vykonaly všech 1181 případů, ale jeden selhal; release gate neprošel.
+Producent SEC review zapsal `raw_cover_revision.prior_path` pomocí
+platformního `str(Path)` se zpětnými lomítky. Nová oprava používá kanonický
+Git odkaz přes `relative_to(root).as_posix()` a odmítá cizí kořeny či traversal.
+Původní přesné porovnání artefaktu, data a hash assertions zůstávají zachované.
+Dvě regrese ověřují Windows/POSIX serializaci a odmítnutí cizích cest.
+Nová místní úplná sada prošla 1183/1183 bez errors/failures/skips; 60s limit
+se nemění. Ověření nového publikovaného HEAD na hostovaných Windows
+je samostatná podmínka, původní neúspěch není akceptace opravy.
+
+Původní Windows ZIP, JSON a log zůstávají v
+`evidence/batch4_windows_failure_20261013/` včetně původních CRLF bajtů.
+Přesné otisky, příčina, nový kód, testy a čekající hostované ověření jsou v
+`evidence/batch4_windows_path_fix_20261013.json`. Původní SEC handoff a raw
+archivy jsou neměnné; staré source hashes popisují jejich původní verzi.
+Fronta níže ani úplná akceptace 0/21 se touto platformní opravou nemění.
 
 ### Aktuální konkrétní fronta po čtvrté dávce
 
