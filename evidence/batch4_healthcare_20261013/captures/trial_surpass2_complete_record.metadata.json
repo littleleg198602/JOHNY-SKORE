@@ -1,0 +1,21 @@
+{
+  "capture_key": "trial_surpass2_complete_record",
+  "request_url": "https://clinicaltrials.gov/api/v2/studies/NCT03987919",
+  "response_url": "https://clinicaltrials.gov/api/v2/studies/NCT03987919",
+  "requested_at": "2026-10-13T08:54:46.888560+00:00",
+  "observed_at": "2026-10-13T08:54:54.067977+00:00",
+  "http_status": 200,
+  "response_headers": {
+    "date": "Tue, 13 Oct 2026 08:54:53 GMT",
+    "content-type": "application/json",
+    "etag": "\"0/0.34.1/mv0qip6w\""
+  },
+  "body_path": "trial_surpass2_complete_record.body.json",
+  "storage_encoding": "identity",
+  "body_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+  "body_bytes": 120326,
+  "archive_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+  "archived_bytes": 120326,
+  "byte_budget": 4000000,
+  "body_complete_within_byte_budget": true
+}

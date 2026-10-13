@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "capture_method": "bounded urllib HTTPS; exact Microsoft hosts; shared redirect budget",
+  "max_requests": 6,
+  "max_bytes_per_capture": 2000000,
+  "timeout_seconds": 15,
+  "http_requests": [
+    {
+      "url": "https://www.microsoft.com/en-us/investor/default",
+      "requested_at": "2026-10-13T13:11:05.661215+00:00"
+    },
+    {
+      "url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+      "requested_at": "2026-10-13T13:11:18.873231+00:00"
+    },
+    {
+      "url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+      "requested_at": "2026-10-13T13:11:29.388624+00:00"
+    },
+    {
+      "url": "https://aka.ms/AA13ep0o",
+      "requested_at": "2026-10-13T13:16:18.515053+00:00"
+    },
+    {
+      "url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+      "requested_at": "2026-10-13T13:16:29.372305+00:00"
+    }
+  ],
+  "request_count": 5,
+  "captures": [
+    {
+      "url": "https://www.microsoft.com/en-us/investor/default",
+      "retrieval_started_at": "2026-10-13T13:11:05.661170+00:00",
+      "http_status": 200,
+      "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+      "content_type": "text/html; charset=utf-8",
+      "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+      "last_modified": null,
+      "path": "primary/ir_authority.html",
+      "size_bytes": 286802,
+      "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T13:11:18.872702+00:00"
+    },
+    {
+      "url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+      "retrieval_started_at": "2026-10-13T13:11:18.873131+00:00",
+      "http_status": 200,
+      "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+      "content_type": "application/rss+xml; charset=UTF-8",
+      "http_date": "Tue, 13 Oct 2026 13:11:29 GMT",
+      "last_modified": "Mon, 12 Oct 2026 18:01:00 GMT",
+      "path": "primary/press_releases_feed.xml",
+      "size_bytes": 126731,
+      "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T13:11:29.327804+00:00"
+    },
+    {
+      "url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+      "retrieval_started_at": "2026-10-13T13:11:29.388595+00:00",
+      "http_status": 200,
+      "resolved_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+      "content_type": "text/html; charset=UTF-8",
+      "http_date": "Tue, 13 Oct 2026 13:11:41 GMT",
+      "last_modified": "Wed, 07 Oct 2026 13:17:44 GMT",
+      "path": "primary/announcement.html",
+      "size_bytes": 136764,
+      "sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T13:11:41.261743+00:00"
+    },
+    {
+      "url": "https://aka.ms/AA13ep0o",
+      "retrieval_started_at": "2026-10-13T13:16:18.515015+00:00",
+      "http_status": 200,
+      "resolved_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+      "content_type": "text/html; charset=UTF-8",
+      "http_date": "Tue, 13 Oct 2026 13:16:41 GMT",
+      "last_modified": "Tue, 15 Sep 2026 15:06:44 GMT",
+      "path": "primary/ir_linked_announcement.html",
+      "size_bytes": 138075,
+      "sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T13:16:41.328571+00:00"
+    }
+  ],
+  "blocked_hosts": [],
+  "request_user_agent": "JOHNY-SKORE primary-IR-audit/1.0 (github.com/littleleg198602/JOHNY-SKORE)",
+  "limits": [
+    "one bounded feed/page traversal, not complete publisher coverage",
+    "capture clocks are actual availability, not RSS publication dates",
+    "Microsoft host/brand provenance does not verify dated issuer/instrument identity"
+  ]
+}

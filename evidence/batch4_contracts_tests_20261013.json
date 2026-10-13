@@ -1,0 +1,32 @@
+{
+  "completed_at": "2026-10-13T13:02:11.090162+00:00",
+  "discovered": 63,
+  "errors": 0,
+  "executed": 63,
+  "expected_failures": 0,
+  "failures": 0,
+  "fixtures_count_as_live": false,
+  "kind": "focused_local_deterministic_tests",
+  "log": "evidence/batch4_contracts_tests_20261013.log",
+  "log_sha256": "ddcb1940a2b8f01ea4685d1fcab0296e153eb5989154ef8dcfb03026f20a7c79",
+  "modules": [
+    "tests.test_batch4_contracts_revision_clocks",
+    "tests.test_award_transaction_history_service",
+    "tests.test_award_transaction_history_deferrals",
+    "tests.test_award_transaction_cli",
+    "tests.test_usaspending_request_budget"
+  ],
+  "platform": "Linux",
+  "python_version": "3.12.14",
+  "schema_version": 1,
+  "skips": 0,
+  "source_files": {
+    "market_checker_app/services/award_transaction_history_service.py": "5fde9ba1ca7e80f7b7427fa520d7820507c263089f5ae85dace559ec715a3065",
+    "market_checker_app/storage/award_transaction_store.py": "9cb24c9704ffc439818022d79c7f09bf2d9be8829960a793a6cf5ae4b39840d2",
+    "tests/test_batch4_contracts_revision_clocks.py": "515e5f4e908bb9a68b594f28ae0b48977db80a4880475d9156cfb10abbf4e4ef"
+  },
+  "started_at": "2026-10-13T13:02:10.289584+00:00",
+  "successful": true,
+  "unexpected_successes": 0,
+  "windows_end_to_end": false
+}

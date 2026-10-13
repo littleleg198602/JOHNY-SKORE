@@ -32,6 +32,7 @@ from market_checker_app.services.usaspending_scout_service import (
     API_URL as AWARD_SEARCH_URL, _validate_identities, load_verified_identities,
 )
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.storage.award_transaction_store import AwardTransactionStore
 from market_checker_app.storage.usaspending_checkpoint_store import UsaSpendingCheckpointStore
 
 
@@ -58,6 +59,11 @@ def _utc(value: object) -> datetime:
 
 def _json(value: object) -> bytes:
     return json.dumps(value, sort_keys=True, allow_nan=False, separators=(",", ":")).encode("utf-8")
+
+
+def _ingestion_clock() -> datetime:
+    """A caller's historical cutoff cannot substitute for actual local import."""
+    return datetime.now(timezone.utc)
 
 
 def _reject_constant(value: str) -> None:
@@ -333,6 +339,50 @@ def _transaction(row: object, *, captured_at: datetime) -> dict:
     return row
 
 
+def _modified_clock_audit(row: dict, *, captured_at: datetime) -> dict:
+    """Validate optional reported clocks without assigning source-release semantics.
+
+    The documented endpoint supplies an action date, not publication or revision
+    timestamps. Extra modified fields are retained verbatim. A calendar date or
+    an unzoned time cannot be converted to UTC by inventing a timezone, and even
+    a valid UTC timestamp is not proof of publisher availability or revision order.
+    """
+    fields, conflicts = {}, []
+    for name in sorted(MODIFIED_FIELDS.intersection(row)):
+        value = row[name]
+        field = {"raw": value, "status": "INVALID", "utc": None,
+                 "capture_time_comparable": False, "relation_to_capture": "UNKNOWN"}
+        try:
+            if value is None:
+                field["status"] = "NULL"
+            elif isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+                date.fromisoformat(value)
+                field["status"] = "DATE_ONLY"
+            elif isinstance(value, str) and re.fullmatch(
+                    r"\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})?", value):
+                parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+                if parsed.tzinfo is None or parsed.utcoffset() is None:
+                    field["status"] = "TIMEZONE_UNSPECIFIED"
+                else:
+                    timestamp = parsed.astimezone(timezone.utc)
+                    field.update(status="TIMESTAMP_UTC", utc=timestamp.isoformat(), capture_time_comparable=True,
+                                 relation_to_capture="AFTER" if timestamp > captured_at else "AT_OR_BEFORE")
+                    if timestamp > captured_at:
+                        field["status"] = "AFTER_CAPTURE"
+        except (ValueError, OverflowError):
+            field["status"] = "INVALID"
+        if field["status"] in {"INVALID", "AFTER_CAPTURE"}:
+            conflicts.append({"field": name, "reason": field["status"]})
+        fields[name] = field
+    nonnull = [item for item in fields.values() if item["status"] != "NULL"]
+    status = ("CONFLICT" if conflicts else "UNREPORTED" if not nonnull
+              else "VALIDATED_UTC" if all(item["status"] == "TIMESTAMP_UTC" for item in nonnull)
+              else "UNRESOLVED_PRECISION")
+    return {"status": status, "fields": fields, "conflicts": conflicts,
+            "timezone_inferred": False, "publisher_clock_semantics_verified": False,
+            "publication_or_revision_order_inferred": False}
+
+
 class _ReplayBudget:
     """Bound offline reads without pretending they were source HTTP attempts."""
 
@@ -384,8 +434,10 @@ class AwardTransactionHistoryService:
         self.identities = _validate_identities(identities if identities is not None else load_verified_identities())
         self.max_pages, self.page_size, self.max_requests = max_pages, page_size, max_requests
         self.max_run_seconds, self.daily_request_limit = max_run_seconds, daily_request_limit
+        self.transaction_store = AwardTransactionStore(store)
 
     def run(self, *, subject_id: str, award_finding_id: str, as_of: datetime | None = None) -> dict:
+        run_started = time.monotonic()
         clock = _utc(as_of or datetime.now(timezone.utc))
         result = {"status": "ERROR", "collector_version": COLLECTOR_VERSION,
                   "source_url": SOURCE_URL, "documentation_url": DOCUMENTATION_URL,
@@ -393,6 +445,7 @@ class AwardTransactionHistoryService:
                   "award_finding_id": award_finding_id, "new_findings": 0,
                   "attempted_requests": 0, "io_attempts": 0, "captured_pages": 0,
                   "accepted_rows": 0, "rejected_rows": 0, "duplicate_rows": 0,
+                  "new_source_observations": 0, "modified_clock_conflicts": 0,
                   "conflicting_transaction_ids": 0, "attributable_rows": 0,
                   "traversal_complete": False, "pagination_snapshot_guaranteed": False,
                   "modification_history_complete": False, "issuer_coverage_complete": False,
@@ -442,8 +495,12 @@ class AwardTransactionHistoryService:
                     # these requests never save ordinary award traversal checkpoints.
                     capture, manifest = budget.call("awards", key, subject_id, page=page, fetch=fetch)
                     captured_at = _utc(capture.metadata["response_completed_at"])
-                    if not live and captured_at > budget.now():
-                        raise ValueError("Archived transaction response was not available as of this run")
+                    # Include target validation and lease acquisition in the
+                    # observation clock. The quota budget starts later and can
+                    # otherwise lag the genuine HTTP clock by those operations.
+                    observation_clock = clock + timedelta(seconds=max(0, time.monotonic() - run_started))
+                    if captured_at > observation_clock:
+                        raise ValueError("Transaction response was not available as of this run")
                     payload = json.loads(capture.body, parse_constant=_reject_constant)
                     rows = page_rows(payload, limit=self.page_size)
                     has_next = page_has_next(payload, page=page, rows=rows)
@@ -452,7 +509,7 @@ class AwardTransactionHistoryService:
                             or meta.get("previous") != (page - 1 if page > 1 else None)
                             or meta.get("hasPrevious") is not (page > 1)):
                         raise ValueError("Malformed transaction pagination links")
-                    observed = max(budget.now(), captured_at)
+                    observed = max(observation_clock, captured_at)
                     available = max(captured_at, _utc(identity["known_at"]), _utc(target["available_at"]))
                     observed = max(observed, available)
                     for index, raw in enumerate(rows):
@@ -478,6 +535,8 @@ class AwardTransactionHistoryService:
                         attributable = (action >= date.fromisoformat(identity["effective_from"])
                                         and (not identity.get("effective_to") or action <= date.fromisoformat(identity["effective_to"])))
                         modified = {field: row[field] for field in MODIFIED_FIELDS if field in row}
+                        modified_clock_audit = _modified_clock_audit(row, captured_at=captured_at)
+                        result["modified_clock_conflicts"] += len(modified_clock_audit["conflicts"])
                         stable = {"collector_version": COLLECTOR_VERSION, "source_transaction": row,
                                   "source_origin": "FIXTURE" if self.client.capture_mode == "FIXTURE" else "PUBLISHER_CAPTURE",
                                   "generated_internal_id": award["generated_internal_id"], "verified_identity": identity}
@@ -487,6 +546,7 @@ class AwardTransactionHistoryService:
                                    "action_date": row["action_date"], "modification_number": row["modification_number"],
                                    "reported_transaction_obligation_usd": row["federal_action_obligation"],
                                    "source_modified_fields": modified, "source_transaction": row,
+                                   "source_modified_clock_audit": modified_clock_audit,
                                    "source_order": {"page": page, "row_index": index, "sort": "action_date", "order": "asc"},
                                    "within_action_date_order_verified": False,
                                    "source_response_sha256": capture.metadata["response_sha256"],
@@ -513,6 +573,15 @@ class AwardTransactionHistoryService:
                             locator=f"transaction_id:{transaction_id}", published_at=captured_at,
                             available_at=available, observed_at=observed, details=details,
                             verification_status="UNVERIFIED" if self.client.capture_mode == "FIXTURE" else "SOURCE_VERIFIED")
+                        observation = self.transaction_store.record_observation(
+                            subject_id=subject_id, generated_award_id=award["generated_internal_id"],
+                            source_object_id=f"{identity['uei']}:{award['generated_internal_id']}:transaction:{transaction_id}",
+                            finding_id=finding_id, award_finding_id=award_finding_id, source_row_sha256=source_hash,
+                            capture_metadata=capture.metadata, capture_manifest=manifest.name,
+                            page=page, row_index=index, action_date=row["action_date"],
+                            modified_clock_audit=modified_clock_audit, available_at=available,
+                            ingested_at=observed if self.client.capture_mode == "FIXTURE" else _ingestion_clock())
+                        result["new_source_observations"] += int(observation["new_observation"])
                         result["new_findings"] += int(new)
                         result["accepted_rows"] += 1
                         result["attributable_rows"] += int(attributable)
@@ -520,6 +589,8 @@ class AwardTransactionHistoryService:
                                                                "modification_number": row["modification_number"],
                                                                "federal_action_obligation": row["federal_action_obligation"],
                                                                "source_modified_fields": modified, "page": page, "row_index": index,
+                                                               "source_modified_clock_audit": modified_clock_audit,
+                                                               "source_observation": observation,
                                                                "finding_id": finding_id, "source_row_sha256": source_hash})
                     if budget.remaining() <= 0:
                         raise UsaSpendingBudgetExhausted("RUN_BUDGET")
@@ -535,6 +606,7 @@ class AwardTransactionHistoryService:
                     result["stop_reason"] = ("RATE_LIMITED" if error.code == 429 else "ACCESS_BLOCKED" if error.code in {401, 403} else "HTTP_ERROR") if isinstance(error, HTTPError) else "SOURCE_ERROR"
                     break
             defects = (result["rejected_rows"] or result["duplicate_rows"] or result["conflicting_transaction_ids"]
+                       or result["modified_clock_conflicts"]
                        or not result["source_order_consistent"] or result.get("stop_reason"))
             if result.get("stop_reason") in {"WAIT_QUOTA", "LEASE_LOST"}:
                 # A reservation deferral is operational state, not evidence

@@ -2251,6 +2251,7 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
                 archived_snapshots = read_archived_prediction_snapshots(config.sqlite_path)
                 history_report = build_specialist_evaluation_report(
                     archived_snapshots, as_of=datetime.now(timezone.utc),
+                    label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
                 )
             st.session_state["specialist_history_report"] = {
                 "db_path": str(config.sqlite_path.resolve()), "report": history_report,
@@ -2268,6 +2269,13 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
             f"ověřených snapshotů {history_input['integrity_verified_rows']}, "
             f"známých vyřešených výsledků {history_input['resolved_labels_known_at_cutoff']}."
         )
+        label_audit = history_report.get("label_availability", {})
+        if label_audit:
+            st.caption(
+                f"Výsledků s doloženou dostupností cen: {label_audit.get('eligible_recorded_label_count', 0)}. "
+                "Výsledek vstoupí do historického srovnání až od skutečného získání cen; "
+                "samotné datum uzavření burzy jejich dostupnost nedokládá."
+            )
         if history_report["status"] == "INSUFFICIENT_DATA":
             st.info("Archiv zatím neposkytuje dostatek odpovídající historie pro srovnání. "
                     f"Důvod: {history_report['reason']}.")
@@ -2459,7 +2467,29 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
                     award_finding_id=str(selected["finding_id"]),
                 )
             st.info(f"Stav: {collected['status']}; použitelných transakcí: {collected.get('accepted_rows', 0)}; "
-                    f"nových uložených řádků: {collected.get('new_findings', 0)}.")
+                    f"nových uložených řádků: {collected.get('new_findings', 0)}; "
+                    f"nových zdrojových pozorování: {collected.get('new_source_observations', 0)}; "
+                    f"konfliktů času revize: {collected.get('modified_clock_conflicts', 0)}.")
+        selected = verified_contracts[target]
+        if selected.get("generated_internal_id"):
+            from market_checker_app.storage.award_transaction_store import AwardTransactionStore
+            transaction_audit = AwardTransactionStore(scout_store).observations_for_award(
+                subject_id=str(selected["subject_id"]), generated_award_id=str(selected["generated_internal_id"]),
+                as_of=datetime.now(timezone.utc), limit=100,
+            )
+            if transaction_audit["observations"]:
+                st.write("**Zachycené verze transakcí vybrané zakázky**")
+                st.dataframe(pd.DataFrame([
+                    {"Transakce": row["source_object_id"], "Hash řádku": row["source_row_sha256"],
+                     "Zachyceno u zdroje": row["response_completed_at"], "Dostupné": row["available_at"],
+                     "Poprvé uloženo": row["first_ingested_at"],
+                     "Čas revize": row["audit"]["modified_clock_audit"]["status"]}
+                    for row in transaction_audit["observations"]
+                ]), hide_index=True)
+                st.caption("Přehled ukazuje skutečné uložené verze a čas jejich získání. "
+                           "Pořadí zachycení samo nedokládá pořadí revizí vydavatele.")
+                if transaction_audit["truncated"]:
+                    st.caption("Zobrazeno prvních 100 pozorování vybrané zakázky.")
     transaction_rows = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=30,
         source="usaspending", stage="award_transaction",
@@ -2545,11 +2575,19 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         st.write("**FRED makrodata – společný kontext, ne údaj jednotlivé firmy**")
         st.dataframe(pd.DataFrame(macro_rows), hide_index=True)
     rss_candidates = scout_store.latest_findings(
-        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="rss",
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="rss", stage="search_candidate",
     )
     if rss_candidates:
         st.write("**Neověřené stopy z RSS — ověřit emitenta a primární zdroj**")
         st.dataframe(pd.DataFrame(rss_candidates), hide_index=True)
+    ir_source_reviews = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30,
+        source="rss", stage="ir_primary_source_review",
+    )
+    if ir_source_reviews:
+        st.write("**Kontroly primárních IR zdrojů**")
+        st.caption("Kontrola potvrzuje přesný zdroj článku. Vazba na emitenta a dopad na skóre vyžadují vlastní důkazy.")
+        st.dataframe(pd.DataFrame(ir_source_reviews), hide_index=True)
     scout_leads = scout_store.open_leads(watchlist, as_of=datetime.now(timezone.utc))
     if scout_leads:
         st.write("**Otevřené otázky k nalezeným zdrojům**")

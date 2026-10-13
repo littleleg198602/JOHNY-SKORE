@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 from typing import Protocol
 from urllib.error import HTTPError
-from urllib.parse import urlencode, urlsplit
+from urllib.parse import parse_qsl, urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 from market_checker_app.storage.scout_store import ScoutStore
@@ -16,6 +16,8 @@ from market_checker_app.utils.source_validation import public_https_reference
 
 BASE_URL = "https://api.nhtsa.gov/recalls/recallsByVehicle"
 DEFAULT_MODELS = Path(__file__).resolve().parents[1] / "data" / "verified_nhtsa_models.json"
+MAX_RESPONSE_BYTES = 4_000_000
+SUCCESS_MESSAGE = "Results returned successfully"
 
 
 def recall_url(make: str, model: str, model_year: int) -> str:
@@ -31,9 +33,47 @@ class NhtsaRecallClient:
         url = recall_url(make, model, model_year)
         with urlopen(Request(url, headers={"Accept": "application/json",
                                            "User-Agent": "JohnySkoreScout/1.0"}), timeout=20) as response:
-            if urlsplit(response.geturl()).hostname != "api.nhtsa.gov":
-                raise ValueError("NHTSA redirected outside official host")
-            return json.load(response)
+            actual, requested = urlsplit(response.geturl()), urlsplit(url)
+            if (actual.scheme != "https" or actual.hostname != "api.nhtsa.gov"
+                    or actual.port not in {None, 443} or actual.username or actual.password
+                    or actual.path != requested.path or actual.fragment
+                    or sorted(parse_qsl(actual.query, keep_blank_values=True))
+                    != sorted(parse_qsl(requested.query, keep_blank_values=True))):
+                raise ValueError("NHTSA redirected outside exact official query")
+            if response.getcode() != 200:
+                raise ValueError("NHTSA response was not HTTP 200")
+            if response.headers.get_content_type() != "application/json":
+                raise ValueError("NHTSA response was not JSON")
+            body = response.read(MAX_RESPONSE_BYTES + 1)
+            if len(body) > MAX_RESPONSE_BYTES:
+                raise ValueError("NHTSA response exceeds byte bound")
+            return json.loads(body, object_pairs_hook=_unique_json_object)
+
+
+def _unique_json_object(pairs: list[tuple[str, object]]) -> dict:
+    result: dict = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("Ambiguous duplicate key in NHTSA response")
+        result[key] = value
+    return result
+
+
+def _validated_rows(payload: dict) -> list:
+    if not isinstance(payload, dict):
+        raise ValueError("NHTSA response must be an object")
+    rows, count = payload["results"], payload["Count"]
+    if (not isinstance(rows, list) or isinstance(count, bool) or not isinstance(count, int)
+            or count != len(rows) or len(rows) > 1000):
+        raise ValueError("Malformed or unbounded NHTSA response")
+    # Nonempty legacy client fixtures are still validated by every exact row.
+    # An empty result has no rows to establish success: require the publisher's
+    # success envelope, and never convert an explicit failure into a negative.
+    if (not rows or "Message" in payload) and payload.get("Message") != SUCCESS_MESSAGE:
+        raise ValueError("NHTSA response does not establish publisher success")
+    if any(payload.get(key) for key in ("Error", "Errors", "error", "errors")):
+        raise ValueError("NHTSA response includes publisher error metadata")
+    return rows
 
 
 def load_verified_models(path: Path = DEFAULT_MODELS) -> list[dict]:
@@ -87,17 +127,19 @@ class NhtsaRecallScoutService:
         for entry in eligible:
             if checked + failed >= self.max_models:
                 break
-            identity_key = ":".join((entry["make"], entry["model"], str(entry["model_year"]),
-                                     entry["known_at"]))
+            # Scope corrections must invalidate old monthly negative checks.
+            # The version also prevents reuse of empties accepted without a
+            # successful publisher envelope by older collector versions.
+            identity_key = "publisher-success-v2:" + hashlib.sha256(json.dumps(
+                {key: entry[key] for key in ("make", "model", "model_year", "manufacturer",
+                                             "product_evidence_url", "known_at")},
+                sort_keys=True).encode()).hexdigest()
             if not self.store.specialist_check_due("nhtsa", subject_id=entry["ticker"],
                                                    identity_key=identity_key, as_of=clock):
                 continue
             try:
                 payload = self.client.recalls(entry["make"], entry["model"], entry["model_year"])
-                rows, count = payload["results"], payload["Count"]
-                if (not isinstance(rows, list) or isinstance(count, bool) or not isinstance(count, int)
-                        or count != len(rows) or len(rows) > 1000):
-                    raise ValueError("Malformed or unbounded NHTSA response")
+                rows = _validated_rows(payload)
             except HTTPError as exc:
                 if exc.code in {401, 403, 429}:
                     return {"status": "RATE_LIMITED" if exc.code == 429 else "ACCESS_BLOCKED",

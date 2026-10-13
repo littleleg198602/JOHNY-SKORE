@@ -1,0 +1,2046 @@
+{
+  "acceptance": {
+    "actual_prior_capture_content_verified": true,
+    "all_company_awards": false,
+    "archive_replay": true,
+    "historical_source_revisions_complete": false,
+    "issuer_revenue_inferred": false,
+    "new_live_observation": false,
+    "publisher_publication_time_verified": false,
+    "scores_or_trading_changed": false,
+    "source_modified_clock_known_in_actual_response": false,
+    "source_revision_order_verified": false,
+    "windows_end_to_end": false
+  },
+  "basis_commit": "22bcb749873b9bfd89e8f6d52e5bb7909a186789",
+  "completed_at": "2026-10-13T13:03:02.187201+00:00",
+  "dependencies": [
+    {
+      "path": "evidence/batch3_contracts_acceptance_20261012.json",
+      "sha256": "37192660b569d957c60ff1656a26441d124be34b49c8605b3c05171f5189b15b"
+    },
+    {
+      "path": "evidence/usaspending_live_20261001.json",
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+    },
+    {
+      "path": "evidence/batch3_contracts_live_20261012/capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+      "sha256": "f3353ef9d38297ee3b630ec1cd596143fac53d14949f4b40738823b5acf67190"
+    },
+    {
+      "path": "evidence/batch3_contracts_live_20261012/body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "path": "evidence/batch4_contracts_replay_20261013/body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "path": "evidence/batch4_contracts_replay_20261013/capture-587a14ed88ff410cb351e388a6c4090f.json",
+      "sha256": "223dd743e49216a8a009ed4cdd409aac9b4087475ee70105940270c44b3b0899"
+    },
+    {
+      "path": "evidence/batch4_contracts_replay_20261013/capture-da15f3a0932c4265a120c0746e7344c9.json",
+      "sha256": "223dd743e49216a8a009ed4cdd409aac9b4087475ee70105940270c44b3b0899"
+    },
+    {
+      "path": "evidence/batch4_contracts_tests_20261013.json",
+      "sha256": "7d97270ecc2e238370e1c2e8a4bab53aba8a28bc38dd50206a9c2ca56ea9d3a8"
+    },
+    {
+      "path": "evidence/batch4_contracts_tests_20261013.log",
+      "sha256": "ddcb1940a2b8f01ea4685d1fcab0296e153eb5989154ef8dcfb03026f20a7c79"
+    }
+  ],
+  "first_replay": {
+    "accepted_rows": 14,
+    "acquisition_mode": "ARCHIVE_REPLAY",
+    "attempted_requests": 0,
+    "attributable_rows": 14,
+    "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+    "capture_manifests": [
+      "evidence/batch4_contracts_replay_20261013/capture-da15f3a0932c4265a120c0746e7344c9.json"
+    ],
+    "captured_pages": 1,
+    "collector_version": "award_transaction_history_v1",
+    "company_exposure_inferred": false,
+    "conflicting_transaction_ids": 0,
+    "coverage_scope": "Reported transaction rows for one generated award ID in this bounded traversal",
+    "documentation_url": "https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/transactions.md",
+    "duplicate_rows": 0,
+    "generated_internal_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+    "io_attempts": 1,
+    "issuer_coverage_complete": false,
+    "modification_history_complete": false,
+    "modified_clock_conflicts": 0,
+    "new_findings": 0,
+    "new_source_observations": 14,
+    "pagination_snapshot_guaranteed": false,
+    "publisher_publication_time_verified": false,
+    "recipient_name": "SIKORSKY AIRCRAFT CORPORATION",
+    "rejected_rows": 0,
+    "revenue_inferred": false,
+    "snapshot_totals_differenced": false,
+    "source_order_consistent": true,
+    "source_revision_order_verified": false,
+    "source_transactions": [
+      {
+        "action_date": "2021-01-21",
+        "federal_action_obligation": 206698313.0,
+        "finding_id": "finding:c720634dc5e37751bafcbdd80224d26c",
+        "modification_number": "0",
+        "page": 1,
+        "row_index": 0,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:bfd4831af84214f52c4d9b79739b1738327be1e4cf7a31288e8868cb21d2d59d",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "bc33b37eb4bb5054c983013054c4e7402e7e730e94549324529f2febbc262ab1",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_0_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2021-03-09",
+        "federal_action_obligation": 45628.0,
+        "finding_id": "finding:8f14772318173f66fef311106a2ecf0a",
+        "modification_number": "P00001",
+        "page": 1,
+        "row_index": 1,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:bb27b23db337ec8e1b4b457648c04d57a12e36152d2ada09f80d059a206786c7",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "badc8a08f69f140ac5c81de3321a531ddc586a3e5d824fc5dbf7abf8e4888917",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00001_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2022-03-30",
+        "federal_action_obligation": 5120284.0,
+        "finding_id": "finding:c6794e38736102ae857de54cc69f51f7",
+        "modification_number": "P00002",
+        "page": 1,
+        "row_index": 2,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:78529234e285cf0d3686a10b493b27e3bb1a15824d38ff381ef2379bb59ee8ee",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "60a300b4910ef0df9f957a66dc04fe4cc0f3f59dc56e46ea168c82ea31994a73",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00002_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2022-08-09",
+        "federal_action_obligation": 3332913.42,
+        "finding_id": "finding:968e5a7e39ab3363161f9887656b1fed",
+        "modification_number": "P00003",
+        "page": 1,
+        "row_index": 3,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:fc14beb9e285c12e45c07fd2c7a27a3bd6fee973bf44d58a771b7500e945730a",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "835fc06d42464d0537b276eee9f6fe5eb64ac7666f1d335c76005c1d6827c684",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00003_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2022-09-26",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:eaa2be00f80840ce0ada7e5b07eeca36",
+        "modification_number": "P00004",
+        "page": 1,
+        "row_index": 4,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:f1bcfc9a2a1413e3ed6274b1afb2d742634dcffdab26eb5b0656d0f4418e737a",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "58b4d7f97e94b70e28f70ad1579c9390c8adc86daad706596383545f72fa1c05",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00004_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2023-09-15",
+        "federal_action_obligation": 18003391.0,
+        "finding_id": "finding:7329efe0ee7f1c5fc223e1e052771e94",
+        "modification_number": "P00005",
+        "page": 1,
+        "row_index": 5,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:2b6a54114825159e92ea14039c48dead1867c1990b9e490767d9961b82744b1f",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "720c0a826d5c0a93aba06c11ce0104103139497d6e3dafe412eebb63818358e5",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00005_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2024-06-04",
+        "federal_action_obligation": 10618581.12,
+        "finding_id": "finding:e2681f08a77e26140004608900a9eabb",
+        "modification_number": "P00006",
+        "page": 1,
+        "row_index": 6,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:1d63a55713c1d310b2268b3fc9cfe2d935e07bb05926f1aa85808464da8a59d4",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "16794b102dc572979779302849a86eb54ada3ccec644589c21cce08dcb27f374",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00006_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2024-08-30",
+        "federal_action_obligation": -300000.0,
+        "finding_id": "finding:fcff93037b52cc99fd1b6a808c24e27b",
+        "modification_number": "P00007",
+        "page": 1,
+        "row_index": 7,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:bfa9855b6f7ad562e50be9091ccb7ad9de4b90a2f71890938f498cf241ca905e",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "e46cbf20df7b5f899517b411419bd9de3265c3ab76380c8d799cdc79fbfe3b71",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00007_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2024-12-23",
+        "federal_action_obligation": 5170346.0,
+        "finding_id": "finding:1ac2fbeea17bbc4ea53a3dbfa0d362a4",
+        "modification_number": "P00008",
+        "page": 1,
+        "row_index": 8,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:94e1334b0300f8e0244f69743ad490cd6fc43ba2104ef553bb250a59e4ae5f33",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "5745a5cff6792e2308ed1e41fd6470eddaaa5066a59c39fc6fd2d8ca2b4b1b68",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00008_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2025-03-13",
+        "federal_action_obligation": 509996.0,
+        "finding_id": "finding:8d5a72497d2b1cc479331d4ccab7a677",
+        "modification_number": "P00009",
+        "page": 1,
+        "row_index": 9,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:d13ddc59eefb7d7b2b2a77a4a4504efef205424a74e0a48c0ae13a3fc6b22cd7",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "ac44edcc6446b7a546c2b96196543a5bde6ebd0a29c0892f200a070760b38963",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00009_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2025-09-19",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:a73e4d0140bac545ede45dd0a4085065",
+        "modification_number": "P00010",
+        "page": 1,
+        "row_index": 10,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:a19df48510fcb83bcffb06b1bd2f118d5ac03120a67e7192402379421568d9ca",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "2f671c92e14b3e1c1d17ccaccd74dd3487a9ee7520472da5ff62f2da644c881d",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00010_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2026-07-31",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:51381a26cbb5ce442f8e38ed868f7d0d",
+        "modification_number": "A00001",
+        "page": 1,
+        "row_index": 11,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:3a9ca3343002617491cef05adc09b8dd22aac0f26df8bbe113c73820abb55f49",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "74d776ede08932eb20ecfa4e109fa8010d13f3f7239eabde8ecbc271eed87bad",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_A00001_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2026-09-01",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:b5adf7a540e3a18607dfc8cd2b2f311d",
+        "modification_number": "P00011",
+        "page": 1,
+        "row_index": 12,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:4eaf0add1e5af5d4bcb70805809bd72a89aa62f79dd23ffc6dd3413e630b40c0",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "c970d8c915211f9754ff1af71781cf08afa2bde5b0c828e5cc0ee21e20cb952d",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00011_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2026-09-25",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:ea80f05f0fcaf22c51d79ad9a877362f",
+        "modification_number": "P00012",
+        "page": 1,
+        "row_index": 13,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": true,
+          "observation_id": "transaction-observation:89c729b1bf3c54e19ecd121b85f2b8e091c4fe75d352c87e42a10b52a9538e17",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "91aff41a844b21ac9dd4e38cbc5ba8f3ab825b2da5402b6813f92b877b621e1b",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00012_70Z02321DAMH00400_0"
+      }
+    ],
+    "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+    "status": "COMPLETE",
+    "subject_id": "LMT",
+    "traversal_complete": true,
+    "uei": "UTJWTSLMFNG4"
+  },
+  "historical_query_after_original_capture": {
+    "as_of": "2026-10-12T15:12:10.077127+00:00",
+    "observations_visible": 0,
+    "reason": "Actual UTC first ingestion is independent of the requested as_of cutoff; original capture clocks do not backdate this local ledger import."
+  },
+  "idempotent_replay": {
+    "accepted_rows": 14,
+    "acquisition_mode": "ARCHIVE_REPLAY",
+    "attempted_requests": 0,
+    "attributable_rows": 14,
+    "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+    "capture_manifests": [
+      "evidence/batch4_contracts_replay_20261013/capture-587a14ed88ff410cb351e388a6c4090f.json"
+    ],
+    "captured_pages": 1,
+    "collector_version": "award_transaction_history_v1",
+    "company_exposure_inferred": false,
+    "conflicting_transaction_ids": 0,
+    "coverage_scope": "Reported transaction rows for one generated award ID in this bounded traversal",
+    "documentation_url": "https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/transactions.md",
+    "duplicate_rows": 0,
+    "generated_internal_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+    "io_attempts": 1,
+    "issuer_coverage_complete": false,
+    "modification_history_complete": false,
+    "modified_clock_conflicts": 0,
+    "new_findings": 0,
+    "new_source_observations": 0,
+    "pagination_snapshot_guaranteed": false,
+    "publisher_publication_time_verified": false,
+    "recipient_name": "SIKORSKY AIRCRAFT CORPORATION",
+    "rejected_rows": 0,
+    "revenue_inferred": false,
+    "snapshot_totals_differenced": false,
+    "source_order_consistent": true,
+    "source_revision_order_verified": false,
+    "source_transactions": [
+      {
+        "action_date": "2021-01-21",
+        "federal_action_obligation": 206698313.0,
+        "finding_id": "finding:c720634dc5e37751bafcbdd80224d26c",
+        "modification_number": "0",
+        "page": 1,
+        "row_index": 0,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:bfd4831af84214f52c4d9b79739b1738327be1e4cf7a31288e8868cb21d2d59d",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "bc33b37eb4bb5054c983013054c4e7402e7e730e94549324529f2febbc262ab1",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_0_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2021-03-09",
+        "federal_action_obligation": 45628.0,
+        "finding_id": "finding:8f14772318173f66fef311106a2ecf0a",
+        "modification_number": "P00001",
+        "page": 1,
+        "row_index": 1,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:bb27b23db337ec8e1b4b457648c04d57a12e36152d2ada09f80d059a206786c7",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "badc8a08f69f140ac5c81de3321a531ddc586a3e5d824fc5dbf7abf8e4888917",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00001_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2022-03-30",
+        "federal_action_obligation": 5120284.0,
+        "finding_id": "finding:c6794e38736102ae857de54cc69f51f7",
+        "modification_number": "P00002",
+        "page": 1,
+        "row_index": 2,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:78529234e285cf0d3686a10b493b27e3bb1a15824d38ff381ef2379bb59ee8ee",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "60a300b4910ef0df9f957a66dc04fe4cc0f3f59dc56e46ea168c82ea31994a73",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00002_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2022-08-09",
+        "federal_action_obligation": 3332913.42,
+        "finding_id": "finding:968e5a7e39ab3363161f9887656b1fed",
+        "modification_number": "P00003",
+        "page": 1,
+        "row_index": 3,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:fc14beb9e285c12e45c07fd2c7a27a3bd6fee973bf44d58a771b7500e945730a",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "835fc06d42464d0537b276eee9f6fe5eb64ac7666f1d335c76005c1d6827c684",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00003_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2022-09-26",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:eaa2be00f80840ce0ada7e5b07eeca36",
+        "modification_number": "P00004",
+        "page": 1,
+        "row_index": 4,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:f1bcfc9a2a1413e3ed6274b1afb2d742634dcffdab26eb5b0656d0f4418e737a",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "58b4d7f97e94b70e28f70ad1579c9390c8adc86daad706596383545f72fa1c05",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00004_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2023-09-15",
+        "federal_action_obligation": 18003391.0,
+        "finding_id": "finding:7329efe0ee7f1c5fc223e1e052771e94",
+        "modification_number": "P00005",
+        "page": 1,
+        "row_index": 5,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:2b6a54114825159e92ea14039c48dead1867c1990b9e490767d9961b82744b1f",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "720c0a826d5c0a93aba06c11ce0104103139497d6e3dafe412eebb63818358e5",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00005_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2024-06-04",
+        "federal_action_obligation": 10618581.12,
+        "finding_id": "finding:e2681f08a77e26140004608900a9eabb",
+        "modification_number": "P00006",
+        "page": 1,
+        "row_index": 6,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:1d63a55713c1d310b2268b3fc9cfe2d935e07bb05926f1aa85808464da8a59d4",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "16794b102dc572979779302849a86eb54ada3ccec644589c21cce08dcb27f374",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00006_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2024-08-30",
+        "federal_action_obligation": -300000.0,
+        "finding_id": "finding:fcff93037b52cc99fd1b6a808c24e27b",
+        "modification_number": "P00007",
+        "page": 1,
+        "row_index": 7,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:bfa9855b6f7ad562e50be9091ccb7ad9de4b90a2f71890938f498cf241ca905e",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "e46cbf20df7b5f899517b411419bd9de3265c3ab76380c8d799cdc79fbfe3b71",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00007_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2024-12-23",
+        "federal_action_obligation": 5170346.0,
+        "finding_id": "finding:1ac2fbeea17bbc4ea53a3dbfa0d362a4",
+        "modification_number": "P00008",
+        "page": 1,
+        "row_index": 8,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:94e1334b0300f8e0244f69743ad490cd6fc43ba2104ef553bb250a59e4ae5f33",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "5745a5cff6792e2308ed1e41fd6470eddaaa5066a59c39fc6fd2d8ca2b4b1b68",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00008_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2025-03-13",
+        "federal_action_obligation": 509996.0,
+        "finding_id": "finding:8d5a72497d2b1cc479331d4ccab7a677",
+        "modification_number": "P00009",
+        "page": 1,
+        "row_index": 9,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:d13ddc59eefb7d7b2b2a77a4a4504efef205424a74e0a48c0ae13a3fc6b22cd7",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "ac44edcc6446b7a546c2b96196543a5bde6ebd0a29c0892f200a070760b38963",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00009_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2025-09-19",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:a73e4d0140bac545ede45dd0a4085065",
+        "modification_number": "P00010",
+        "page": 1,
+        "row_index": 10,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:a19df48510fcb83bcffb06b1bd2f118d5ac03120a67e7192402379421568d9ca",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "2f671c92e14b3e1c1d17ccaccd74dd3487a9ee7520472da5ff62f2da644c881d",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00010_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2026-07-31",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:51381a26cbb5ce442f8e38ed868f7d0d",
+        "modification_number": "A00001",
+        "page": 1,
+        "row_index": 11,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:3a9ca3343002617491cef05adc09b8dd22aac0f26df8bbe113c73820abb55f49",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "74d776ede08932eb20ecfa4e109fa8010d13f3f7239eabde8ecbc271eed87bad",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_A00001_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2026-09-01",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:b5adf7a540e3a18607dfc8cd2b2f311d",
+        "modification_number": "P00011",
+        "page": 1,
+        "row_index": 12,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:4eaf0add1e5af5d4bcb70805809bd72a89aa62f79dd23ffc6dd3413e630b40c0",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "c970d8c915211f9754ff1af71781cf08afa2bde5b0c828e5cc0ee21e20cb952d",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00011_70Z02321DAMH00400_0"
+      },
+      {
+        "action_date": "2026-09-25",
+        "federal_action_obligation": 0.0,
+        "finding_id": "finding:ea80f05f0fcaf22c51d79ad9a877362f",
+        "modification_number": "P00012",
+        "page": 1,
+        "row_index": 13,
+        "source_modified_clock_audit": {
+          "conflicts": [],
+          "fields": {},
+          "publication_or_revision_order_inferred": false,
+          "publisher_clock_semantics_verified": false,
+          "status": "UNREPORTED",
+          "timezone_inferred": false
+        },
+        "source_modified_fields": {},
+        "source_observation": {
+          "different_rows_in_prior_captures": 0,
+          "historical_revisions_complete": false,
+          "new_observation": false,
+          "observation_id": "transaction-observation:89c729b1bf3c54e19ecd121b85f2b8e091c4fe75d352c87e42a10b52a9538e17",
+          "source_revision_order_verified": false
+        },
+        "source_row_sha256": "91aff41a844b21ac9dd4e38cbc5ba8f3ab825b2da5402b6813f92b877b621e1b",
+        "transaction_id": "CONT_TX_7008_7008_70Z02321FAMH00300_P00012_70Z02321DAMH00400_0"
+      }
+    ],
+    "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+    "status": "COMPLETE",
+    "subject_id": "LMT",
+    "traversal_complete": true,
+    "uei": "UTJWTSLMFNG4"
+  },
+  "implementation": "Immutable exact-capture transaction observations and optional modified-clock validation; stable finding hashes unchanged",
+  "ingestion_clock_policy": {
+    "ARCHIVE_REPLAY": "Actual UTC clock at local ledger insertion",
+    "FIXTURE": "Explicit synthetic logical observation clock; never publisher capture history",
+    "LIVE": "Actual UTC clock at local ledger insertion"
+  },
+  "new_live_capture": {
+    "attempted": false,
+    "reason": "Read-only inspection of the existing integration task database found no persisted USAspending quota tables or verified prime-award target. No fresh reset quota ledger was created to issue another request."
+  },
+  "observation_audit": {
+    "capture_order_is_publisher_revision_order": false,
+    "historical_revisions_complete": false,
+    "observations": [
+      {
+        "audit": {
+          "action_date_raw": "2024-06-04",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:e2681f08a77e26140004608900a9eabb",
+          "first_ingested_at": "2026-10-13T13:03:02.165757+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 6,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "16794b102dc572979779302849a86eb54ada3ccec644589c21cce08dcb27f374"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:e2681f08a77e26140004608900a9eabb",
+        "first_ingested_at": "2026-10-13T13:03:02.165757+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:1d63a55713c1d310b2268b3fc9cfe2d935e07bb05926f1aa85808464da8a59d4",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00006_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "16794b102dc572979779302849a86eb54ada3ccec644589c21cce08dcb27f374",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2023-09-15",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:7329efe0ee7f1c5fc223e1e052771e94",
+          "first_ingested_at": "2026-10-13T13:03:02.164977+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 5,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "720c0a826d5c0a93aba06c11ce0104103139497d6e3dafe412eebb63818358e5"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:7329efe0ee7f1c5fc223e1e052771e94",
+        "first_ingested_at": "2026-10-13T13:03:02.164977+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:2b6a54114825159e92ea14039c48dead1867c1990b9e490767d9961b82744b1f",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00005_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "720c0a826d5c0a93aba06c11ce0104103139497d6e3dafe412eebb63818358e5",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2026-07-31",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:51381a26cbb5ce442f8e38ed868f7d0d",
+          "first_ingested_at": "2026-10-13T13:03:02.169980+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 11,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "74d776ede08932eb20ecfa4e109fa8010d13f3f7239eabde8ecbc271eed87bad"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:51381a26cbb5ce442f8e38ed868f7d0d",
+        "first_ingested_at": "2026-10-13T13:03:02.169980+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:3a9ca3343002617491cef05adc09b8dd22aac0f26df8bbe113c73820abb55f49",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_A00001_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "74d776ede08932eb20ecfa4e109fa8010d13f3f7239eabde8ecbc271eed87bad",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2026-09-01",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:b5adf7a540e3a18607dfc8cd2b2f311d",
+          "first_ingested_at": "2026-10-13T13:03:02.170743+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 12,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "c970d8c915211f9754ff1af71781cf08afa2bde5b0c828e5cc0ee21e20cb952d"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:b5adf7a540e3a18607dfc8cd2b2f311d",
+        "first_ingested_at": "2026-10-13T13:03:02.170743+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:4eaf0add1e5af5d4bcb70805809bd72a89aa62f79dd23ffc6dd3413e630b40c0",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00011_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "c970d8c915211f9754ff1af71781cf08afa2bde5b0c828e5cc0ee21e20cb952d",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2022-03-30",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:c6794e38736102ae857de54cc69f51f7",
+          "first_ingested_at": "2026-10-13T13:03:02.161261+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 2,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "60a300b4910ef0df9f957a66dc04fe4cc0f3f59dc56e46ea168c82ea31994a73"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:c6794e38736102ae857de54cc69f51f7",
+        "first_ingested_at": "2026-10-13T13:03:02.161261+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:78529234e285cf0d3686a10b493b27e3bb1a15824d38ff381ef2379bb59ee8ee",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00002_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "60a300b4910ef0df9f957a66dc04fe4cc0f3f59dc56e46ea168c82ea31994a73",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2026-09-25",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:ea80f05f0fcaf22c51d79ad9a877362f",
+          "first_ingested_at": "2026-10-13T13:03:02.171523+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 13,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "91aff41a844b21ac9dd4e38cbc5ba8f3ab825b2da5402b6813f92b877b621e1b"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:ea80f05f0fcaf22c51d79ad9a877362f",
+        "first_ingested_at": "2026-10-13T13:03:02.171523+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:89c729b1bf3c54e19ecd121b85f2b8e091c4fe75d352c87e42a10b52a9538e17",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00012_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "91aff41a844b21ac9dd4e38cbc5ba8f3ab825b2da5402b6813f92b877b621e1b",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2024-12-23",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:1ac2fbeea17bbc4ea53a3dbfa0d362a4",
+          "first_ingested_at": "2026-10-13T13:03:02.167520+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 8,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "5745a5cff6792e2308ed1e41fd6470eddaaa5066a59c39fc6fd2d8ca2b4b1b68"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:1ac2fbeea17bbc4ea53a3dbfa0d362a4",
+        "first_ingested_at": "2026-10-13T13:03:02.167520+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:94e1334b0300f8e0244f69743ad490cd6fc43ba2104ef553bb250a59e4ae5f33",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00008_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "5745a5cff6792e2308ed1e41fd6470eddaaa5066a59c39fc6fd2d8ca2b4b1b68",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2025-09-19",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:a73e4d0140bac545ede45dd0a4085065",
+          "first_ingested_at": "2026-10-13T13:03:02.169234+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 10,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "2f671c92e14b3e1c1d17ccaccd74dd3487a9ee7520472da5ff62f2da644c881d"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:a73e4d0140bac545ede45dd0a4085065",
+        "first_ingested_at": "2026-10-13T13:03:02.169234+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:a19df48510fcb83bcffb06b1bd2f118d5ac03120a67e7192402379421568d9ca",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00010_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "2f671c92e14b3e1c1d17ccaccd74dd3487a9ee7520472da5ff62f2da644c881d",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2021-03-09",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:8f14772318173f66fef311106a2ecf0a",
+          "first_ingested_at": "2026-10-13T13:03:02.160507+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 1,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "badc8a08f69f140ac5c81de3321a531ddc586a3e5d824fc5dbf7abf8e4888917"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:8f14772318173f66fef311106a2ecf0a",
+        "first_ingested_at": "2026-10-13T13:03:02.160507+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:bb27b23db337ec8e1b4b457648c04d57a12e36152d2ada09f80d059a206786c7",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00001_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "badc8a08f69f140ac5c81de3321a531ddc586a3e5d824fc5dbf7abf8e4888917",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2024-08-30",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:fcff93037b52cc99fd1b6a808c24e27b",
+          "first_ingested_at": "2026-10-13T13:03:02.166740+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 7,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "e46cbf20df7b5f899517b411419bd9de3265c3ab76380c8d799cdc79fbfe3b71"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:fcff93037b52cc99fd1b6a808c24e27b",
+        "first_ingested_at": "2026-10-13T13:03:02.166740+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:bfa9855b6f7ad562e50be9091ccb7ad9de4b90a2f71890938f498cf241ca905e",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00007_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "e46cbf20df7b5f899517b411419bd9de3265c3ab76380c8d799cdc79fbfe3b71",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2021-01-21",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:c720634dc5e37751bafcbdd80224d26c",
+          "first_ingested_at": "2026-10-13T13:03:02.159395+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 0,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "bc33b37eb4bb5054c983013054c4e7402e7e730e94549324529f2febbc262ab1"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:c720634dc5e37751bafcbdd80224d26c",
+        "first_ingested_at": "2026-10-13T13:03:02.159395+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:bfd4831af84214f52c4d9b79739b1738327be1e4cf7a31288e8868cb21d2d59d",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_0_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "bc33b37eb4bb5054c983013054c4e7402e7e730e94549324529f2febbc262ab1",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2025-03-13",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:8d5a72497d2b1cc479331d4ccab7a677",
+          "first_ingested_at": "2026-10-13T13:03:02.168504+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 9,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "ac44edcc6446b7a546c2b96196543a5bde6ebd0a29c0892f200a070760b38963"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:8d5a72497d2b1cc479331d4ccab7a677",
+        "first_ingested_at": "2026-10-13T13:03:02.168504+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:d13ddc59eefb7d7b2b2a77a4a4504efef205424a74e0a48c0ae13a3fc6b22cd7",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00009_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "ac44edcc6446b7a546c2b96196543a5bde6ebd0a29c0892f200a070760b38963",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2022-09-26",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:eaa2be00f80840ce0ada7e5b07eeca36",
+          "first_ingested_at": "2026-10-13T13:03:02.163231+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 4,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "58b4d7f97e94b70e28f70ad1579c9390c8adc86daad706596383545f72fa1c05"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:eaa2be00f80840ce0ada7e5b07eeca36",
+        "first_ingested_at": "2026-10-13T13:03:02.163231+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:f1bcfc9a2a1413e3ed6274b1afb2d742634dcffdab26eb5b0656d0f4418e737a",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00004_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "58b4d7f97e94b70e28f70ad1579c9390c8adc86daad706596383545f72fa1c05",
+        "subject_id": "LMT"
+      },
+      {
+        "audit": {
+          "action_date_raw": "2022-08-09",
+          "availability_basis": "max(original_response_completed_at, relationship_known_at, award_available_at)",
+          "available_at": "2026-10-12T15:12:09.077127+00:00",
+          "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+          "capture_manifest": "capture-da15f3a0932c4265a120c0746e7344c9.json",
+          "capture_metadata": {
+            "byte_limit": 4000000,
+            "capture_mode": "ARCHIVE_REPLAY",
+            "complete_response": true,
+            "http_status": 200,
+            "method": "POST",
+            "original_capture_manifest": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+            "original_capture_mode": "LIVE",
+            "request": {
+              "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+              "limit": 100,
+              "order": "asc",
+              "page": 1,
+              "sort": "action_date"
+            },
+            "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+            "response_bytes": 6220,
+            "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+            "response_headers": {
+              "Content-Length": "6220",
+              "Content-Type": "application/json",
+              "Date": "Mon, 12 Oct 2026 15:12:09 GMT"
+            },
+            "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+            "schema_version": "award_transaction_capture_v1",
+            "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+            "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+            "timeout_seconds": 8
+          },
+          "finding_id": "finding:968e5a7e39ab3363161f9887656b1fed",
+          "first_ingested_at": "2026-10-13T13:03:02.162089+00:00",
+          "historical_revisions_complete": false,
+          "http_headers_are_transaction_revision_timestamps": false,
+          "ingestion_mode": "ARCHIVE_REPLAY",
+          "modified_clock_audit": {
+            "conflicts": [],
+            "fields": {},
+            "publication_or_revision_order_inferred": false,
+            "publisher_clock_semantics_verified": false,
+            "status": "UNREPORTED",
+            "timezone_inferred": false
+          },
+          "page": 1,
+          "publisher_publication_time_verified": false,
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+          "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "row_index": 3,
+          "schema_version": "award_transaction_observation_v1",
+          "source_capture_identity_sha256": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "source_origin": "PUBLISHER_CAPTURE",
+          "source_request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "source_revision_order_verified": false,
+          "source_row_sha256": "835fc06d42464d0537b276eee9f6fe5eb64ac7666f1d335c76005c1d6827c684"
+        },
+        "available_at": "2026-10-12T15:12:09.077127+00:00",
+        "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+        "finding_id": "finding:968e5a7e39ab3363161f9887656b1fed",
+        "first_ingested_at": "2026-10-13T13:03:02.162089+00:00",
+        "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "observation_id": "transaction-observation:fc14beb9e285c12e45c07fd2c7a27a3bd6fee973bf44d58a771b7500e945730a",
+        "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+        "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+        "source_object_id": "UTJWTSLMFNG4:CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008:transaction:CONT_TX_7008_7008_70Z02321FAMH00300_P00003_70Z02321DAMH00400_0",
+        "source_origin": "PUBLISHER_CAPTURE",
+        "source_row_sha256": "835fc06d42464d0537b276eee9f6fe5eb64ac7666f1d335c76005c1d6827c684",
+        "subject_id": "LMT"
+      }
+    ],
+    "source_revision_order_verified": false,
+    "truncated": false
+  },
+  "primary_documentation": {
+    "documented_source_dates": [
+      "action_date"
+    ],
+    "freshly_checked_date": "2026-10-13",
+    "interpretation": "Optional modified fields are audited if supplied; action_date/modification_number/header dates are not publisher availability or revision-order evidence.",
+    "modified_or_release_clock_documented": false,
+    "url": "https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/transactions.md"
+  },
+  "prior_finding_hashes_and_details_unchanged": true,
+  "prior_source_capture": {
+    "body": "evidence/batch3_contracts_live_20261012/body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+    "body_bytes": 6220,
+    "body_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+    "capture_manifest": "evidence/batch3_contracts_live_20261012/capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+    "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+    "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+    "source_rows": 14
+  },
+  "remaining_work": [
+    "Broader independently evidenced UEI and exact-award coverage",
+    "Genuine incremental source captures on a persistent shared quota ledger",
+    "Publisher-documented release/revision timestamps or independently archived revision/deletion history",
+    "Relevant issuer coverage denominators, point-in-time history/OOS evidence and actual end-user Windows acceptance"
+  ],
+  "replay_directory": "evidence/batch4_contracts_replay_20261013",
+  "schema_version": 1,
+  "started_at": "2026-10-13T13:03:02.145905+00:00"
+}

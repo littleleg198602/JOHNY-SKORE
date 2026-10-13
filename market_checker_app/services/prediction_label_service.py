@@ -4,6 +4,7 @@ from collections.abc import Callable, Mapping
 from datetime import date, datetime, timedelta, timezone
 import json
 import math
+from pathlib import Path
 
 import pandas as pd
 
@@ -17,6 +18,9 @@ from market_checker_app.services.us_equity_calendar import (
 )
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.services.us_equity_calendar_service import expected_sessions, session_label
+from market_checker_app.services.specialist_label_availability_service import (
+    build_recorded_label_observation, persist_label_observation,
+)
 
 
 PriceHistoryLoader = Callable[
@@ -38,10 +42,20 @@ class PredictionLabelService:
         self,
         *,
         maturity_grace_days: int = 14,
+        label_archive_directory: Path | None = None,
+        observation_clock: Callable[[], datetime] | None = None,
     ) -> None:
         if maturity_grace_days < 1:
             raise ValueError("maturity_grace_days must be positive")
         self.maturity_grace_days = maturity_grace_days
+        self.label_archive_directory = Path(label_archive_directory) if label_archive_directory is not None else None
+        self._observation_clock = observation_clock or (lambda: datetime.now(timezone.utc))
+
+    def _observed_now(self) -> datetime:
+        observed = self._observation_clock()
+        if not isinstance(observed, datetime) or observed.tzinfo is None or observed.utcoffset() is None:
+            raise ValueError("Label observation clock must return a timezone-aware datetime")
+        return observed.astimezone(timezone.utc)
 
     @staticmethod
     def _history_from_result(
@@ -200,7 +214,13 @@ class PredictionLabelService:
         as_of: datetime | None = None,
         limit: int | None = None,
     ) -> dict[str, int]:
-        """Resolve currently mature PENDING rows and persist labels idempotently."""
+        """Resolve mature PENDING rows, preserving actual prices before finality.
+
+        ``as_of`` decides which exchange windows are due; it is not a physical
+        retrieval clock. New labels use actual completion time and immutable
+        sidecars. Finalized legacy values, provenance and hashes remain intact.
+        Unknown loader metadata is captured as unknown, never verified.
+        """
 
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
@@ -215,6 +235,8 @@ class PredictionLabelService:
                 "unavailable": 0,
                 "deferred": 0,
                 "source_failures": 0,
+                "archive_written": 0,
+                "archive_failures": 0,
             }
         pending_frame = pending_frame[
             pending_frame["label_status"].astype(str).str.upper() == "PENDING"
@@ -225,6 +247,7 @@ class PredictionLabelService:
             pending_frame = pending_frame.head(limit)
 
         history_cache: dict[str, pd.DataFrame | None] = {}
+        observed_cache: dict[str, datetime] = {}
         source_failures = 0
 
         def load(ticker: str) -> pd.DataFrame | None:
@@ -233,16 +256,22 @@ class PredictionLabelService:
             if key not in history_cache:
                 try:
                     raw = price_loader(key)
-                    history_cache[key] = self._history_from_result(raw)
-                    if history_cache[key] is None:
-                        source_failures += 1
                 except Exception:
                     history_cache[key] = None
                     source_failures += 1
+                else:
+                    frame = self._history_from_result(raw)
+                    history_cache[key] = frame.copy(deep=True) if isinstance(frame, pd.DataFrame) else None
+                    if history_cache[key] is None:
+                        source_failures += 1
+                    else:
+                        observed_cache[key] = self._observed_now()
             return history_cache[key]
 
         labels: list[dict[str, object]] = []
         deferred = 0
+        archive_written = 0
+        archive_failures = 0
         for raw_row in pending_frame.to_dict(orient="records"):
             snapshot = self._snapshot_mapping(raw_row)
             snapshot_as_of = self._as_of(snapshot.get("as_of"))
@@ -300,14 +329,42 @@ class PredictionLabelService:
             if target_observed_at > clock:
                 deferred += 1
                 continue
-            labels.append(
-                resolve_excess_return_label(
+            # A retrospective/current loader return is observed now, even
+            # when as_of and the cache's provider clock describe an earlier
+            # evaluation. Never backdate the new label to the exchange close.
+            asset_observed = observed_cache[ticker]
+            benchmark_observed = observed_cache[benchmark]
+            if min(asset_observed, benchmark_observed) < target_due_at:
+                deferred += 1
+                continue
+            try:
+                captured_at = self._observed_now()
+                provisional = resolve_excess_return_label(
                     snapshot,
                     asset_values,
                     benchmark_values,
-                    target_observed_at=target_observed_at,
+                    target_observed_at=captured_at,
                 )
-            )
+                def provenance(history: pd.DataFrame) -> Mapping | None:
+                    metadata = history.attrs.get("point_in_time_price_provenance")
+                    return metadata if isinstance(metadata, Mapping) else None
+
+                observation = build_recorded_label_observation(provisional,
+                    asset_prices=asset_values, benchmark_prices=benchmark_values,
+                    asset_observed_at=asset_observed, benchmark_observed_at=benchmark_observed,
+                    captured_at=captured_at, asset_provenance=provenance(asset_history),
+                    benchmark_provenance=provenance(benchmark_history))
+                directory = self.label_archive_directory or Path(store.db_path).parent / "prediction_label_observations"
+                persist_label_observation(observation, directory)
+                archive_written += 1
+                completed_at = max(self._observed_now(), captured_at)
+                labels.append(resolve_excess_return_label(snapshot, asset_values, benchmark_values,
+                    target_observed_at=completed_at))
+            except (OSError, ValueError):
+                # A failed capture must remain retryable, rather than create a
+                # finalized outcome whose PIT evidence was silently discarded.
+                archive_failures += 1
+                deferred += 1
 
         updated = store.update_prediction_snapshot_labels(labels)
         resolved = sum(
@@ -326,4 +383,6 @@ class PredictionLabelService:
             "unavailable": int(unavailable),
             "deferred": int(deferred),
             "source_failures": int(source_failures),
+            "archive_written": int(archive_written),
+            "archive_failures": int(archive_failures),
         }

@@ -1,0 +1,466 @@
+{
+  "as_of": "2026-10-13T08:51:43.692956+00:00",
+  "canonical_universe_size": 687,
+  "new_verified_identities": 0,
+  "production_registry_changed": false,
+  "quarter": "2026q3",
+  "records": [
+    {
+      "automatic_symbol_alias_allowed": false,
+      "blockers": [
+        "NO_EXACT_DATED_ACTIVE_CIK_CUSIP_CLASS_PROOF",
+        "DELETED_BASELINE_CUSIP",
+        "CATALOG_CIK_CHANGED_REQUIRES_PRIMARY_TRANSITION",
+        "EXPLICIT_DATED_BINDING_AND_TRANSITION_REVIEW_NOT_EXPORTED"
+      ],
+      "candidate_instruments": [
+        {
+          "class_description": "COM SHS",
+          "cusip": "30233Q108",
+          "flags": "*A*         E",
+          "issuer_cik_candidate": "0002115436",
+          "issuer_name": "EXXONMOBIL HOLDINGS CORP",
+          "line_number": 9206,
+          "match_basis": "EXACT_NAME_CANDIDATE",
+          "name_similarity": 1.0
+        }
+      ],
+      "candidates_truncated": false,
+      "catalog_proves_historical_validity": false,
+      "dated_structured_instrument_claims": [],
+      "evidence_counts": {
+        "historical_versions": 1,
+        "other_catalog_symbols": 0,
+        "other_filing_contexts": 3,
+        "same_ticker_filing_contexts": 1,
+        "structured_instrument_claims": 0
+      },
+      "evidence_truncated": false,
+      "historical_versions": [
+        {
+          "covers_selected_quarter": false,
+          "identity": {
+            "class_description": "COM",
+            "cusip": "30231G102",
+            "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+            "effective_from": "2026-04-01",
+            "effective_to": "2026-06-30",
+            "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/xslSCHEDULE_13G_X02/primary_doc.xml",
+            "issuer_cik": "0000034088",
+            "issuer_name": "EXXON MOBIL CORP",
+            "known_at": "2026-10-02T20:39:10.301926+00:00",
+            "ticker": "XOM",
+            "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json"
+          },
+          "identity_sha256": "4710e0c5192b6811d65bb70748bcf3426ac5e8e5072101bb22f4337c9e7d242b",
+          "past_interval_or_knowledge_changed": false,
+          "selected_list_row": {
+            "class_description": "COM",
+            "cusip": "30231G102",
+            "flags": "*D*         E",
+            "issuer_name": "EXXON MOBIL CORP",
+            "line_number": 9200
+          },
+          "selected_list_status": "DELETED_IN_SELECTED_LIST"
+        }
+      ],
+      "identity_status": "REVIEW_ONLY",
+      "new_identity_approved": false,
+      "observed_current_catalog_matches": [
+        {
+          "issuer_cik": "0002115436",
+          "issuer_name": "ExxonMobil Holdings Corp",
+          "ticker": "XOM"
+        }
+      ],
+      "preparation_status": "NEEDS_REVIEW",
+      "primary_statements": [
+        {
+          "effective_date_text": "July 1, 2026",
+          "effective_on": "2026-07-01",
+          "excerpt": "On July 1, 2026, Exxon Mobil Corporation, a New Jersey corporation and the predecessor registrant (“ ExxonMobil ”), completed its previously announced redomiciliation reorganization (the “ Redomiciliation Merger ”) pursuant to the Agreement and Plan of Merger, dated as of April 8, 2026 (the “ Merger Agreement ”), by and among ExxonMobil, ExxonMobil Holdings Corporation, a Texas corporation, and Ensign LLC, a Texas limited liability company. This Current Report on Form 8-K is being filed for the purpose of establishing ExxonMobil Holdings Corporation as the successor registrant of ExxonMobil’s common stock pursuant to Rule 12g-3(a) under the Securities Exchange Act of 1934, as amended (the “ Exchange Act ”) and to disclose certain related matters. The Redomiciliation Merger became effective on July 1, 2026 in accordance with the terms of the Merger Agreement (the “ Effective Time ”).",
+          "identity_transition_approved": false,
+          "scope": "PRIMARY_STATEMENT_ONLY",
+          "source_observed_at": "2026-10-13T08:46:17.427994+00:00",
+          "source_published_at": "2026-07-01T16:36:49+00:00",
+          "source_snapshot_id": "937a5b356c96fb9bf779995b92550e35ce7414db3c1332cc964b08f621481352",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm"
+        }
+      ],
+      "same_cik_other_catalog_symbols": [],
+      "same_cik_other_dated_filing_contexts": [
+        {
+          "anchor_date": "2026-07-07",
+          "class_title": "0.524% Notes due 2028",
+          "context_ref": "c-3",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0002115436",
+          "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+          "source_observed_at": "2026-10-13T08:51:15.890354+00:00",
+          "source_published_at": "2026-07-07T20:19:57+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+          "ticker": "XOM/28"
+        },
+        {
+          "anchor_date": "2026-07-07",
+          "class_title": "0.835% Notes due 2032",
+          "context_ref": "c-4",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0002115436",
+          "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+          "source_observed_at": "2026-10-13T08:51:15.890354+00:00",
+          "source_published_at": "2026-07-07T20:19:57+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+          "ticker": "XOM/32"
+        },
+        {
+          "anchor_date": "2026-07-07",
+          "class_title": "1.408% Notes due 2039",
+          "context_ref": "c-5",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0002115436",
+          "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+          "source_observed_at": "2026-10-13T08:51:15.890354+00:00",
+          "source_published_at": "2026-07-07T20:19:57+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+          "ticker": "XOM/39A"
+        }
+      ],
+      "same_ticker_dated_filing_contexts": [
+        {
+          "anchor_date": "2026-07-07",
+          "class_title": "Common Stock, without par value",
+          "context_ref": "c-2",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0002115436",
+          "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+          "source_observed_at": "2026-10-13T08:51:15.890354+00:00",
+          "source_published_at": "2026-07-07T20:19:57+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+          "ticker": "XOM"
+        }
+      ],
+      "scoring_allowed": false,
+      "ticker": "XOM"
+    },
+    {
+      "automatic_symbol_alias_allowed": false,
+      "blockers": [
+        "UNRESOLVED_CURRENT_TICKER_CIK",
+        "NO_EXACT_DATED_ACTIVE_CIK_CUSIP_CLASS_PROOF",
+        "DELETED_INSTRUMENT_CUSIP",
+        "NO_SAME_CONTEXT_TICKER_CIK_CLASS_IN_SELECTED_QUARTER",
+        "EXPLICIT_DATED_BINDING_AND_TRANSITION_REVIEW_NOT_EXPORTED"
+      ],
+      "candidate_instruments": [],
+      "candidates_truncated": false,
+      "catalog_proves_historical_validity": false,
+      "dated_structured_instrument_claims": [
+        {
+          "class_title": "COMMON STOCK",
+          "cusip": "524660107",
+          "event_date": "2026-08-31",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0000058492",
+          "issuer_name": "LEGGETT & PLATT INC",
+          "proves_continuous_quarter_validity": false,
+          "selected_list_row": {
+            "class_description": "COM",
+            "cusip": "524660107",
+            "flags": "*D*         E",
+            "issuer_name": "LEGGETT & PLATT INC",
+            "line_number": 15683
+          },
+          "selected_list_status": "DELETED_IN_SELECTED_LIST",
+          "snapshot_id": "476898cd65424f7eac0fe086583143430a05de08d27a9abedcc13e8d1c0f09e4",
+          "source_observed_at": "2026-10-13T08:51:23.811758+00:00",
+          "source_published_at": "2026-09-08T13:58:16+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002283/primary_doc.xml"
+        }
+      ],
+      "evidence_counts": {
+        "historical_versions": 0,
+        "other_catalog_symbols": 0,
+        "other_filing_contexts": 0,
+        "same_ticker_filing_contexts": 1,
+        "structured_instrument_claims": 1
+      },
+      "evidence_truncated": false,
+      "historical_versions": [],
+      "identity_status": "REVIEW_ONLY",
+      "new_identity_approved": false,
+      "observed_current_catalog_matches": [],
+      "preparation_status": "WAIT_TICKER_CIK",
+      "primary_statements": [
+        {
+          "effective_date_text": "August 26, 2026",
+          "effective_on": "2026-08-26",
+          "excerpt": "On August 26, 2026 (the “ Closing Date ”), Sparrow Unity Corporation, a Missouri corporation (“ Merger Sub ”) and wholly owned indirect subsidiary of Somnigroup International Inc., a Delaware corporation (“ Parent ”), merged with and into Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), with the Company continuing as the surviving corporation (the “ Merger ” and the time of consummation thereof, the “ Effective Time ”) pursuant to the previously announced Agreement and Plan of Merger, dated as of April 13, 2026 (the “ Merger Agreement ”), by and among the Company, Parent and Merger Sub.",
+          "identity_transition_approved": false,
+          "scope": "PRIMARY_STATEMENT_ONLY",
+          "source_observed_at": "2026-10-13T08:46:22.597523+00:00",
+          "source_published_at": "2026-08-26T17:27:01+00:00",
+          "source_snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+        },
+        {
+          "effective_date_text": null,
+          "effective_on": null,
+          "excerpt": "On the Closing Date, in connection with the consummation of the Merger, the Company notified the New York Stock Exchange (“ NYSE ”) that the Merger had been consummated and requested that the trading of Company common stock on NYSE be suspended and that the listing of Company common stock on NYSE be withdrawn. In addition, the Company requested that NYSE file with the SEC a notification on Form 25 to report the delisting of Company common stock from NYSE and to deregister Company common stock under Section 12(b) of the Securities Exchange Act of 1934, as amended (the “ Exchange Act ”). The Company intends to file with the SEC a Form 15 requesting the termination of registration of Company common stock under Section 12(g) of the Exchange Act and the suspension of reporting obligations under Section 13 and Section 15(d) of the Exchange Act.",
+          "identity_transition_approved": false,
+          "scope": "PRIMARY_STATEMENT_ONLY",
+          "source_observed_at": "2026-10-13T08:46:22.597523+00:00",
+          "source_published_at": "2026-08-26T17:27:01+00:00",
+          "source_snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+        }
+      ],
+      "same_cik_other_catalog_symbols": [],
+      "same_cik_other_dated_filing_contexts": [],
+      "same_ticker_dated_filing_contexts": [
+        {
+          "anchor_date": "2026-08-26",
+          "class_title": "Common Stock, par value $.01 per share",
+          "context_ref": "duration_2026-08-26_to_2026-08-26",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0000058492",
+          "snapshot_id": "ab246e20a59e47993a5a9e624299d6a5b1f2c111d136eeac0df447044da1e01d",
+          "source_observed_at": "2026-10-13T08:46:22.597523+00:00",
+          "source_published_at": "2026-08-26T17:27:01+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm",
+          "ticker": "LEG"
+        }
+      ],
+      "scoring_allowed": false,
+      "ticker": "LEG"
+    },
+    {
+      "automatic_symbol_alias_allowed": false,
+      "blockers": [
+        "UNRESOLVED_CURRENT_TICKER_CIK",
+        "NO_EXACT_DATED_ACTIVE_CIK_CUSIP_CLASS_PROOF",
+        "NO_SAME_CONTEXT_TICKER_CIK_CLASS_IN_SELECTED_QUARTER",
+        "EXPLICIT_DATED_BINDING_AND_TRANSITION_REVIEW_NOT_EXPORTED"
+      ],
+      "candidate_instruments": [],
+      "candidates_truncated": false,
+      "catalog_proves_historical_validity": false,
+      "dated_structured_instrument_claims": [
+        {
+          "class_title": "Common Stock",
+          "cusip": "74624M102",
+          "event_date": "2026-03-31",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0001474432",
+          "issuer_name": "Everpure Inc",
+          "proves_continuous_quarter_validity": false,
+          "selected_list_row": {
+            "class_description": "CL A",
+            "cusip": "74624M102",
+            "flags": "E",
+            "issuer_name": "EVERPURE INC",
+            "line_number": 19488
+          },
+          "selected_list_status": "ACTIVE_LIST_ROW_ONLY",
+          "snapshot_id": "a70bfd09852395834093bd64cc71a03c413151105249d410e2aea9e781a48302",
+          "source_observed_at": "2026-10-13T08:51:32.791299+00:00",
+          "source_published_at": "2026-04-30T02:36:07+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000210011926000481/primary_doc.xml"
+        }
+      ],
+      "evidence_counts": {
+        "historical_versions": 0,
+        "other_catalog_symbols": 1,
+        "other_filing_contexts": 2,
+        "same_ticker_filing_contexts": 1,
+        "structured_instrument_claims": 1
+      },
+      "evidence_truncated": false,
+      "historical_versions": [],
+      "identity_status": "REVIEW_ONLY",
+      "new_identity_approved": false,
+      "observed_current_catalog_matches": [],
+      "preparation_status": "WAIT_TICKER_CIK",
+      "primary_statements": [
+        {
+          "effective_date_text": null,
+          "effective_on": null,
+          "excerpt": "In April 2026, we also updated our ticker symbol (NYSE: P), reflecting our expansion from a storage provider to a leader in the future of data management.",
+          "identity_transition_approved": false,
+          "scope": "PRIMARY_STATEMENT_ONLY",
+          "source_observed_at": "2026-10-13T08:46:35.542470+00:00",
+          "source_published_at": "2026-06-06T00:08:55+00:00",
+          "source_snapshot_id": "935b034a48ea9762d68448285150b853f32f3cbf0fbbba1570b297eef0e2c4b7",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000061/pstg-20260503.htm"
+        }
+      ],
+      "same_cik_other_catalog_symbols": [
+        {
+          "issuer_cik": "0001474432",
+          "issuer_name": "Everpure, Inc.",
+          "ticker": "P"
+        }
+      ],
+      "same_cik_other_dated_filing_contexts": [
+        {
+          "anchor_date": "2026-05-03",
+          "class_title": "Class A Common Stock, $0.0001 par value per share",
+          "context_ref": "c-1",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0001474432",
+          "snapshot_id": "663a3f23ce1955b21ea0eba098ae4564f8d413d04333e4bcdf98730397fb7c68",
+          "source_observed_at": "2026-10-13T08:46:35.542470+00:00",
+          "source_published_at": "2026-06-06T00:08:55+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000061/pstg-20260503.htm",
+          "ticker": "P"
+        },
+        {
+          "anchor_date": "2026-08-02",
+          "class_title": "Class A Common Stock, $0.0001 par value per share",
+          "context_ref": "c-1",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0001474432",
+          "snapshot_id": "4f804fcc0a1750fe383c88ca8042659212edac6ce77bdc775697b2ba30322dcc",
+          "source_observed_at": "2026-10-13T08:46:29.713061+00:00",
+          "source_published_at": "2026-09-05T00:03:31+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000088/pstg-20260802.htm",
+          "ticker": "P"
+        }
+      ],
+      "same_ticker_dated_filing_contexts": [
+        {
+          "anchor_date": "2026-02-23",
+          "class_title": "Class A Common Stock, $0.0001 par value per share",
+          "context_ref": "c-1",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0001474432",
+          "snapshot_id": "9fdccafb61929e60d98b8d85fc41062556a58f7ce30120adbc9905daf9394631",
+          "source_observed_at": "2026-10-13T08:51:43.692956+00:00",
+          "source_published_at": "2026-02-24T02:23:05+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/pstg-20260223.htm",
+          "ticker": "PSTG"
+        }
+      ],
+      "scoring_allowed": false,
+      "ticker": "PSTG"
+    }
+  ],
+  "review_sha256": "f366ae75ace6a68b4a2ad76de64095486ed586e14b89b1b5c52e0bdd80d44a63",
+  "schema_version": 1,
+  "score_changed": false,
+  "selected_tickers": [
+    "XOM",
+    "LEG",
+    "PSTG"
+  ],
+  "source_fingerprint": "b0580094d4e69db8a60588d22a45c00066fff6acabae12cefa98d08dc733c24a",
+  "sources": {
+    "1c51843f5a1dac5a5d83757cd1ca327db2eb5d2ed7a3ffa99f173cd1de450638": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-13T08:46:29.713061+00:00",
+      "published_at": "2026-09-05T00:03:31+00:00",
+      "sha256": "a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000088/pstg-20260802.htm"
+    },
+    "29684c90ac1799af68d03cd02a358d8d2057c902e8f56237d7e7ceb1cd6bf0b6": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-13T08:51:43.692956+00:00",
+      "published_at": "2026-02-24T02:23:05+00:00",
+      "sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/pstg-20260223.htm"
+    },
+    "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-13T08:46:22.597523+00:00",
+      "published_at": "2026-08-26T17:27:01+00:00",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+    },
+    "38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a": {
+      "kind": "ticker_catalog",
+      "observed_at": "2026-10-12T14:49:01.942947+00:00",
+      "published_at": null,
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+      "url": "https://www.sec.gov/files/company_tickers.json"
+    },
+    "476898cd65424f7eac0fe086583143430a05de08d27a9abedcc13e8d1c0f09e4": {
+      "kind": "schedule13",
+      "observed_at": "2026-10-13T08:51:23.811758+00:00",
+      "published_at": "2026-09-08T13:58:16+00:00",
+      "sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002283/primary_doc.xml"
+    },
+    "4f804fcc0a1750fe383c88ca8042659212edac6ce77bdc775697b2ba30322dcc": {
+      "kind": "ticker_filing",
+      "observed_at": "2026-10-13T08:46:29.713061+00:00",
+      "published_at": "2026-09-05T00:03:31+00:00",
+      "sha256": "a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000088/pstg-20260802.htm"
+    },
+    "663a3f23ce1955b21ea0eba098ae4564f8d413d04333e4bcdf98730397fb7c68": {
+      "kind": "ticker_filing",
+      "observed_at": "2026-10-13T08:46:35.542470+00:00",
+      "published_at": "2026-06-06T00:08:55+00:00",
+      "sha256": "511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000061/pstg-20260503.htm"
+    },
+    "935b034a48ea9762d68448285150b853f32f3cbf0fbbba1570b297eef0e2c4b7": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-13T08:46:35.542470+00:00",
+      "published_at": "2026-06-06T00:08:55+00:00",
+      "sha256": "511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000061/pstg-20260503.htm"
+    },
+    "937a5b356c96fb9bf779995b92550e35ce7414db3c1332cc964b08f621481352": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-13T08:46:17.427994+00:00",
+      "published_at": "2026-07-01T16:36:49+00:00",
+      "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm"
+    },
+    "9fdccafb61929e60d98b8d85fc41062556a58f7ce30120adbc9905daf9394631": {
+      "kind": "ticker_filing",
+      "observed_at": "2026-10-13T08:51:43.692956+00:00",
+      "published_at": "2026-02-24T02:23:05+00:00",
+      "sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/pstg-20260223.htm"
+    },
+    "a70bfd09852395834093bd64cc71a03c413151105249d410e2aea9e781a48302": {
+      "kind": "schedule13",
+      "observed_at": "2026-10-13T08:51:32.791299+00:00",
+      "published_at": "2026-04-30T02:36:07+00:00",
+      "sha256": "622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000210011926000481/primary_doc.xml"
+    },
+    "ab246e20a59e47993a5a9e624299d6a5b1f2c111d136eeac0df447044da1e01d": {
+      "kind": "ticker_filing",
+      "observed_at": "2026-10-13T08:46:22.597523+00:00",
+      "published_at": "2026-08-26T17:27:01+00:00",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+    },
+    "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e": {
+      "kind": "ticker_filing",
+      "observed_at": "2026-10-13T08:51:15.890354+00:00",
+      "published_at": "2026-07-07T20:19:57+00:00",
+      "sha256": "d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm"
+    },
+    "b753a599502c561cd7593107f64c744a1092e89c73b2e642926855b5e8b49b9d": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-13T08:51:15.890354+00:00",
+      "published_at": "2026-07-07T20:19:57+00:00",
+      "sha256": "d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm"
+    },
+    "fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c": {
+      "kind": "13f_list",
+      "observed_at": "2026-10-12T14:49:07.942392+00:00",
+      "published_at": null,
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+      "url": "https://www.sec.gov/files/investment/13flist2026q3.txt"
+    }
+  },
+  "specialist_done_changed": false,
+  "status": "READ_ONLY_INSTRUMENT_TRANSITION_REVIEW"
+}

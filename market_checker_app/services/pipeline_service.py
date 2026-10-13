@@ -531,23 +531,11 @@ class PipelineService:
         started_at = utc_now()
         warnings: list[str] = []
         errors: list[str] = []
-        progress_on_update = progress_callback
-        if large_universe_mode and progress_callback is not None:
-            last_progress_emit = 0.0
-
-            def _throttled_progress_callback(state: AnalysisProgressState) -> None:
-                nonlocal last_progress_emit
-                now = time.monotonic()
-                if last_progress_emit == 0.0 or state.current_step == "done" or now - last_progress_emit >= 0.15:
-                    last_progress_emit = now
-                    progress_callback(state)
-
-            progress_on_update = _throttled_progress_callback
-
         progress = ProgressService(
             total_symbols=len(watchlist),
             max_logs=30,
-            on_update=progress_on_update,
+            on_update=progress_callback,
+            emit_interval_seconds=0.15 if large_universe_mode else 0.0,
         )
 
         progress.set_global_step("start", "Inicializuji pipeline", 0.01)

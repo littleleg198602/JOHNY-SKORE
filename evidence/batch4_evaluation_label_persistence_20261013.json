@@ -1,0 +1,105 @@
+{
+  "base_sha": "5382459a72cb19d96fe4d2060f3e2c11b0ce6d64",
+  "claims": {
+    "actual_price_provider_calls": 0,
+    "automatic_immutable_label_price_persistence_implemented": true,
+    "historical_price_labels_backdated": false,
+    "legacy_finalized_rows_or_hashes_modified": false,
+    "metadata_not_inferred_from_plain_frames": true,
+    "observed_time_separated_from_exchange_endpoint": true,
+    "out_of_sample_acceptance_verified": false,
+    "production_scores_changed": false,
+    "specialists_accepted": 0,
+    "target_formula_changed": false,
+    "windows_runtime_verified": false
+  },
+  "evidence_type": "deterministic_price_capture_persistence_and_actual_clock_guardrail_tests_only",
+  "explicitly_synthetic_persistence_controls": [
+    {
+      "acceptance_verified": false,
+      "actual_provider_data": false,
+      "captured_at": "2026-10-13T13:00:00+00:00",
+      "eligible_pit_label_count": 0,
+      "explicit_synthetic_provider_metadata_supplied": false,
+      "financial_performance_claimed": false,
+      "immutable_original_columns_preserved": true,
+      "input_prices": "DETERMINISTIC_TEST_FIXTURE",
+      "label_reason_counts": {
+        "MISSING_PRICE_SOURCE_PROVENANCE": 1
+      },
+      "observation_hash": "b33d9fbf0f0571e27d6ba860501081611956a2cd2a0ae4dac5221be7cdd48e28",
+      "resolution": {
+        "archive_failures": 0,
+        "archive_written": 1,
+        "deferred": 0,
+        "pending_before": 1,
+        "resolved": 1,
+        "source_failures": 0,
+        "unavailable": 0
+      },
+      "session_prices_consumed": 6,
+      "target_observed_at": "2026-10-13T13:00:00+00:00",
+      "target_value": 0.050000000000000044
+    },
+    {
+      "acceptance_verified": false,
+      "actual_provider_data": false,
+      "captured_at": "2026-10-13T13:00:00+00:00",
+      "eligible_pit_label_count": 1,
+      "explicit_synthetic_provider_metadata_supplied": true,
+      "financial_performance_claimed": false,
+      "immutable_original_columns_preserved": true,
+      "input_prices": "DETERMINISTIC_TEST_FIXTURE",
+      "label_reason_counts": {},
+      "observation_hash": "fad995bd93c4f34a91b12ee10a77b191ad79d0e334c5d65872a1e2563921ac5c",
+      "resolution": {
+        "archive_failures": 0,
+        "archive_written": 1,
+        "deferred": 0,
+        "pending_before": 1,
+        "resolved": 1,
+        "source_failures": 0,
+        "unavailable": 0
+      },
+      "session_prices_consumed": 6,
+      "target_observed_at": "2026-10-13T13:00:00+00:00",
+      "target_value": 0.050000000000000044
+    }
+  ],
+  "generated_at": "2026-10-13T13:12:53.172047+00:00",
+  "owned_file_sha256": {
+    "evidence/batch4_evaluation_label_persistence_20261013.py": "93c42316a40abcc64393eb57b97d8eb6cb5816d3b6fc91eee10f3e1f5adf494f",
+    "market_checker_app/services/prediction_label_service.py": "0839eab00e4f5b28bb53983cb3d3dddbff77b005142507f31057396b4b67d190",
+    "market_checker_app/services/specialist_label_availability_service.py": "4f9cd93339711b8f1a762b37b21cf65568487037509b891f9a0ccc233c34578f",
+    "tests/test_batch4_evaluation_label_persistence.py": "9f9792c8b8a7ed512f9c475bebb355cfedbf1c37a47fdb47cfd691f7901bba4c"
+  },
+  "remaining_work": [
+    "Current production action-cache/runners do not supply point_in_time_price_provenance. Their exact prices are preserved, but source/revision/corporate-action metadata remains UNKNOWN and those labels remain excluded from specialist PIT comparisons.",
+    "A genuine bounded provider/cache metadata adapter must separately establish actual source identities, revision knowledge and corporate-action window scope; a split column alone is not an independently verified complete history.",
+    "No real historical price database, genuine new provider capture, OOS evidence or user Windows end-to-end run was produced by this fixture test run."
+  ],
+  "schema_version": 1,
+  "tests": {
+    "discovered": 82,
+    "elapsed_seconds": 6.850824,
+    "errors": 0,
+    "executed": 82,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch4_evaluation_label_persistence_20261013.log",
+    "log_sha256": "d93a4e03c555806845aed651098adb1cc0724a4680c9e8f6763a4cfcf215c085",
+    "modules": [
+      "tests.test_batch4_evaluation_label_persistence",
+      "tests.test_batch4_evaluation_label_availability",
+      "tests.test_specialist_evaluation_service",
+      "tests.test_prediction_label_service",
+      "tests.test_prediction_label_runner",
+      "tests.test_prediction_label_queue_fairness",
+      "tests.test_prediction_contract",
+      "tests.test_prediction_snapshot_storage"
+    ],
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  }
+}

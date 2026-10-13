@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "request_count": 10,
+  "max_request_count": 12,
+  "captures": [
+    {
+      "capture_key": "sec_lly_2021_10k",
+      "request_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947822000068/lly-20211231.htm",
+      "response_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947822000068/lly-20211231.htm",
+      "requested_at": "2026-10-13T08:56:02.808591+00:00",
+      "observed_at": "2026-10-13T08:56:10.108272+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "content-type": "text/html",
+        "last-modified": "Wed, 23 Feb 2022 16:02:08 GMT",
+        "date": "Tue, 13 Oct 2026 08:56:09 GMT"
+      },
+      "body_path": "sec_lly_2021_10k.body.html.gz",
+      "storage_encoding": "gzip",
+      "body_sha256": "aaafe8d91ce31af80d5379fcc948ed0722587c1de0b2c7be84d8ef02f8abab40",
+      "body_bytes": 4281878,
+      "archive_sha256": "b79cd606e6ae3de2d08943aef57f54a5d30d60aeea05b338f9b088d5b095b6f6",
+      "archived_bytes": 367360,
+      "byte_budget": 8000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "sec_lly_2024_10k",
+      "request_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947825000067/lly-20241231.htm",
+      "response_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947825000067/lly-20241231.htm",
+      "requested_at": "2026-10-13T08:56:10.205866+00:00",
+      "observed_at": "2026-10-13T08:56:15.994072+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "content-type": "text/html",
+        "last-modified": "Wed, 19 Feb 2025 15:11:28 GMT",
+        "date": "Tue, 13 Oct 2026 08:56:15 GMT"
+      },
+      "body_path": "sec_lly_2024_10k.body.html.gz",
+      "storage_encoding": "gzip",
+      "body_sha256": "a0a7655d5f8b3779682d41b0c3c4aee561e76fdc7aace87ceb6937a4fece15fe",
+      "body_bytes": 3200191,
+      "archive_sha256": "917d5dd3933da60ee10ff2ee60a5d089b517b4b703abd3d7f343437d77c08f4f",
+      "archived_bytes": 219877,
+      "byte_budget": 8000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "sec_lly_2025_10k",
+      "request_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+      "response_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+      "requested_at": "2026-10-13T08:56:16.068242+00:00",
+      "observed_at": "2026-10-13T08:56:21.079895+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "content-type": "text/html",
+        "last-modified": "Thu, 12 Feb 2026 18:59:01 GMT",
+        "date": "Tue, 13 Oct 2026 08:56:20 GMT"
+      },
+      "body_path": "sec_lly_2025_10k.body.html.gz",
+      "storage_encoding": "gzip",
+      "body_sha256": "8e1b3b844d73abca3f9fbcda5a0da20b23dcb6a5c30eac34610d1309e2dbd50e",
+      "body_bytes": 2370079,
+      "archive_sha256": "4ca25e33621811cd53ce8c542024363299247f7d28553e1c76f78bdb59ff2cdc",
+      "archived_bytes": 184992,
+      "byte_budget": 8000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "trial_lilly_positive_page_1",
+      "request_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557",
+      "response_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557",
+      "requested_at": "2026-10-13T08:51:24.302420+00:00",
+      "observed_at": "2026-10-13T08:51:32.634862+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "date": "Tue, 13 Oct 2026 08:51:32 GMT",
+        "content-type": "application/json",
+        "etag": "\"0/0.34.1/mv0qip6w\""
+      },
+      "body_path": "trial_lilly_positive_page_1.body.json",
+      "storage_encoding": "identity",
+      "body_sha256": "2f6d3f7629361a279f356c9eea6a381cd46c3afa5bdc45fb3e21c9cd7169ed14",
+      "body_bytes": 765,
+      "archive_sha256": "2f6d3f7629361a279f356c9eea6a381cd46c3afa5bdc45fb3e21c9cd7169ed14",
+      "archived_bytes": 765,
+      "byte_budget": 4000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "trial_lilly_positive_page_2",
+      "request_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxoZvWj3Pg",
+      "response_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxoZvWj3Pg",
+      "requested_at": "2026-10-13T08:51:32.642281+00:00",
+      "observed_at": "2026-10-13T08:51:39.615973+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "date": "Tue, 13 Oct 2026 08:51:39 GMT",
+        "content-type": "application/json",
+        "etag": "\"0/0.34.1/mv0qip6w\""
+      },
+      "body_path": "trial_lilly_positive_page_2.body.json",
+      "storage_encoding": "identity",
+      "body_sha256": "9c428b317773c64f560a0bb5adcec8ee9d4117e8c1cfc98a382a9a4ddeb6257d",
+      "body_bytes": 748,
+      "archive_sha256": "9c428b317773c64f560a0bb5adcec8ee9d4117e8c1cfc98a382a9a4ddeb6257d",
+      "archived_bytes": 748,
+      "byte_budget": 4000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "trial_lilly_positive_page_3",
+      "request_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxuY_ml3_cW",
+      "response_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxuY_ml3_cW",
+      "requested_at": "2026-10-13T08:54:33.659598+00:00",
+      "observed_at": "2026-10-13T08:54:40.073131+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "date": "Tue, 13 Oct 2026 08:54:40 GMT",
+        "content-type": "application/json",
+        "etag": "\"0/0.34.1/mv0qip6w\""
+      },
+      "body_path": "trial_lilly_positive_page_3.body.json",
+      "storage_encoding": "identity",
+      "body_sha256": "e5660ca1fb1bc482c0112c159084af7c325461ac1624b4de41dd67edef2981b9",
+      "body_bytes": 16,
+      "archive_sha256": "e5660ca1fb1bc482c0112c159084af7c325461ac1624b4de41dd67edef2981b9",
+      "archived_bytes": 16,
+      "byte_budget": 4000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "trial_pfizer_exact_study_negative",
+      "request_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Pfizer&pageSize=2&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557",
+      "response_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Pfizer&pageSize=2&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557",
+      "requested_at": "2026-10-13T08:54:40.085836+00:00",
+      "observed_at": "2026-10-13T08:54:46.875310+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "date": "Tue, 13 Oct 2026 08:54:46 GMT",
+        "content-type": "application/json",
+        "etag": "\"0/0.34.1/mv0qip6w\""
+      },
+      "body_path": "trial_pfizer_exact_study_negative.body.json",
+      "storage_encoding": "identity",
+      "body_sha256": "b54968c05ff881a1ef7ce604b6a340248f8e2aee8637bef06da0f5693f520df8",
+      "body_bytes": 31,
+      "archive_sha256": "b54968c05ff881a1ef7ce604b6a340248f8e2aee8637bef06da0f5693f520df8",
+      "archived_bytes": 31,
+      "byte_budget": 4000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "trial_summit_complete_record",
+      "request_url": "https://clinicaltrials.gov/api/v2/studies/NCT04847557",
+      "response_url": "https://clinicaltrials.gov/api/v2/studies/NCT04847557",
+      "requested_at": "2026-10-13T08:54:54.072852+00:00",
+      "observed_at": "2026-10-13T08:55:01.441775+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "date": "Tue, 13 Oct 2026 08:55:01 GMT",
+        "content-type": "application/json",
+        "etag": "\"0/0.34.1/mv0qip6w\""
+      },
+      "body_path": "trial_summit_complete_record.body.json",
+      "storage_encoding": "identity",
+      "body_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "body_bytes": 125361,
+      "archive_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "archived_bytes": 125361,
+      "byte_budget": 4000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "trial_surpass2_complete_record",
+      "request_url": "https://clinicaltrials.gov/api/v2/studies/NCT03987919",
+      "response_url": "https://clinicaltrials.gov/api/v2/studies/NCT03987919",
+      "requested_at": "2026-10-13T08:54:46.888560+00:00",
+      "observed_at": "2026-10-13T08:54:54.067977+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "date": "Tue, 13 Oct 2026 08:54:53 GMT",
+        "content-type": "application/json",
+        "etag": "\"0/0.34.1/mv0qip6w\""
+      },
+      "body_path": "trial_surpass2_complete_record.body.json",
+      "storage_encoding": "identity",
+      "body_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "body_bytes": 120326,
+      "archive_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "archived_bytes": 120326,
+      "byte_budget": 4000000,
+      "body_complete_within_byte_budget": true
+    },
+    {
+      "capture_key": "sec_lly_submissions",
+      "request_url": "https://data.sec.gov/submissions/CIK0000059478.json",
+      "response_url": "https://data.sec.gov/submissions/CIK0000059478.json",
+      "requested_at": "2026-10-13T08:58:56.860498+00:00",
+      "observed_at": "2026-10-13T08:59:03.680613+00:00",
+      "http_status": 200,
+      "response_headers": {
+        "content-type": "application/json",
+        "date": "Tue, 13 Oct 2026 08:59:03 GMT"
+      },
+      "body_path": "sec_lly_submissions.body.json",
+      "storage_encoding": "identity",
+      "body_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "body_bytes": 158719,
+      "archive_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "archived_bytes": 158719,
+      "byte_budget": 4000000,
+      "body_complete_within_byte_budget": true
+    }
+  ],
+  "reused_capture_keys": [
+    "trial_lilly_positive_page_1",
+    "trial_lilly_positive_page_2",
+    "trial_lilly_positive_page_3",
+    "trial_pfizer_exact_study_negative",
+    "trial_surpass2_complete_record",
+    "trial_summit_complete_record",
+    "sec_lly_2021_10k",
+    "sec_lly_2024_10k",
+    "sec_lly_2025_10k"
+  ],
+  "scope": "Two exact NCT IDs, their displayed sponsor/interventions and independent Lilly annual filings",
+  "source_response_is_historical_availability_proof": false,
+  "status": "COMPLETE",
+  "clinicaltrials_budget": {
+    "status": "OK",
+    "checked_issuers": 0,
+    "queries": [
+      {
+        "capture_key": "trial_lilly_positive_page_1",
+        "returned_count": 1,
+        "has_next_page": true
+      },
+      {
+        "capture_key": "trial_lilly_positive_page_2",
+        "returned_count": 1,
+        "has_next_page": true
+      },
+      {
+        "capture_key": "trial_lilly_positive_page_3",
+        "returned_count": 0,
+        "has_next_page": false
+      },
+      {
+        "capture_key": "trial_pfizer_exact_study_negative",
+        "returned_count": 0,
+        "has_next_page": false
+      }
+    ],
+    "issuer_wide_check_written": false,
+    "daily_requests": 4,
+    "daily_issuers": 1,
+    "attempted_requests": 4,
+    "attempted_issuers": 1,
+    "daily_request_limit": 20,
+    "daily_issuer_limit": 10,
+    "quota_deferred_issuers": 0
+  },
+  "resume_reservations_include_verified_cached_captures": true
+}

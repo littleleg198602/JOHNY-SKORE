@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-13T08:59:59.321338+00:00",
+  "trial_reviews": [
+    {
+      "record_id": "lly-trial-nct03987919-2022-02-14-pinned-sponsor",
+      "source_capture_key": "trial_surpass2_complete_record",
+      "source_body_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "relationship_snapshot_sha256": "492b7f7511243e624c204b31ea7f30f3f93c4c3ca87f95d7cafa8b68efd1684e",
+      "publisher_record_version": {
+        "nct_id": "NCT03987919",
+        "lead_sponsor": "Eli Lilly and Company",
+        "collaborators": [],
+        "intervention_names": [
+          "Semaglutide",
+          "Tirzepatide"
+        ],
+        "record_version_date": "2022-02-14",
+        "record_version_type": "ACTUAL",
+        "study_first_posted": "2019-06-17",
+        "study_first_posted_type": "ACTUAL",
+        "last_update_submitted": "2022-01-21",
+        "relationship_snapshot_sha256": "492b7f7511243e624c204b31ea7f30f3f93c4c3ca87f95d7cafa8b68efd1684e",
+        "publisher_clock_precision": "DAY",
+        "publisher_version_id_available": false,
+        "publisher_clocks_are_first_observation": false
+      },
+      "matched_issuer_capture_keys": [
+        "sec_lly_2021_10k",
+        "sec_lly_2025_10k"
+      ],
+      "excluded_intervention_names": [
+        "Semaglutide"
+      ],
+      "scope": "Displayed lead sponsorship of Tirzepatide in this observed exact record version; no ownership of comparator/placebo, historical ownership chain or whole group"
+    },
+    {
+      "record_id": "lly-trial-nct04847557-2025-08-20-pinned-sponsor",
+      "source_capture_key": "trial_summit_complete_record",
+      "source_body_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "relationship_snapshot_sha256": "b04dfb88c8bcbe47e5ef300ccd75672064b1f187e68729897bc00faa65b20809",
+      "publisher_record_version": {
+        "nct_id": "NCT04847557",
+        "lead_sponsor": "Eli Lilly and Company",
+        "collaborators": [],
+        "intervention_names": [
+          "Placebo",
+          "Tirzepatide"
+        ],
+        "record_version_date": "2025-08-20",
+        "record_version_type": "ACTUAL",
+        "study_first_posted": "2021-04-19",
+        "study_first_posted_type": "ACTUAL",
+        "last_update_submitted": "2025-08-15",
+        "relationship_snapshot_sha256": "b04dfb88c8bcbe47e5ef300ccd75672064b1f187e68729897bc00faa65b20809",
+        "publisher_clock_precision": "DAY",
+        "publisher_version_id_available": false,
+        "publisher_clocks_are_first_observation": false
+      },
+      "matched_issuer_capture_keys": [
+        "sec_lly_2024_10k",
+        "sec_lly_2025_10k"
+      ],
+      "excluded_intervention_names": [
+        "Placebo"
+      ],
+      "scope": "Displayed lead sponsorship of Tirzepatide in this observed exact record version; no ownership of comparator/placebo, historical ownership chain or whole group"
+    }
+  ],
+  "independent_issuer_reviews": [
+    {
+      "capture_key": "sec_lly_2021_10k",
+      "issuer_name": "ELI LILLY AND COMPANY",
+      "issuer_cik": "0000059478",
+      "ticker": "LLY",
+      "body_sha256": "aaafe8d91ce31af80d5379fcc948ed0722587c1de0b2c7be84d8ef02f8abab40",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947822000068/lly-20211231.htm",
+      "excerpts": [
+        {
+          "normalized_text_start": 105750,
+          "normalized_text_end": 105771,
+          "text": "ELI LILLY AND COMPANY"
+        },
+        {
+          "normalized_text_start": 106271,
+          "normalized_text_end": 106326,
+          "text": "Common Stock (no par value) LLY New York Stock Exchange"
+        },
+        {
+          "normalized_text_start": 147120,
+          "normalized_text_end": 147131,
+          "text": "Tirzepatide"
+        }
+      ],
+      "scope": "Annual report cover and product mention; not continuous ownership or trial availability history"
+    },
+    {
+      "capture_key": "sec_lly_2024_10k",
+      "issuer_name": "ELI LILLY AND COMPANY",
+      "issuer_cik": "0000059478",
+      "ticker": "LLY",
+      "body_sha256": "a0a7655d5f8b3779682d41b0c3c4aee561e76fdc7aace87ceb6937a4fece15fe",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947825000067/lly-20241231.htm",
+      "excerpts": [
+        {
+          "normalized_text_start": 97465,
+          "normalized_text_end": 97486,
+          "text": "ELI LILLY AND COMPANY"
+        },
+        {
+          "normalized_text_start": 97986,
+          "normalized_text_end": 98041,
+          "text": "Common Stock (no par value) LLY New York Stock Exchange"
+        },
+        {
+          "normalized_text_start": 234745,
+          "normalized_text_end": 234756,
+          "text": "tirzepatide"
+        }
+      ],
+      "scope": "Annual report cover and product mention; not continuous ownership or trial availability history"
+    },
+    {
+      "capture_key": "sec_lly_2025_10k",
+      "issuer_name": "ELI LILLY AND COMPANY",
+      "issuer_cik": "0000059478",
+      "ticker": "LLY",
+      "body_sha256": "8e1b3b844d73abca3f9fbcda5a0da20b23dcb6a5c30eac34610d1309e2dbd50e",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+      "excerpts": [
+        {
+          "normalized_text_start": 52149,
+          "normalized_text_end": 52170,
+          "text": "ELI LILLY AND COMPANY"
+        },
+        {
+          "normalized_text_start": 52670,
+          "normalized_text_end": 52725,
+          "text": "Common Stock (no par value) LLY New York Stock Exchange"
+        },
+        {
+          "normalized_text_start": 239723,
+          "normalized_text_end": 239734,
+          "text": "Tirzepatide"
+        }
+      ],
+      "scope": "Annual report cover and product mention; not continuous ownership or trial availability history"
+    }
+  ]
+}

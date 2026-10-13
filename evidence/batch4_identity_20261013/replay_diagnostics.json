@@ -1,0 +1,255 @@
+{
+  "baseline_registry_sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+  "configured_edgar_contact_guard_unchanged": true,
+  "filing_parse_results": [
+    {
+      "contexts": [
+        {
+          "anchor_date": "2026-08-26",
+          "class_title": "Common Stock, par value $.01 per share",
+          "context_ref": "duration_2026-08-26_to_2026-08-26",
+          "issuer_cik": "0000058492",
+          "snapshot_id": "ab246e20a59e47993a5a9e624299d6a5b1f2c111d136eeac0df447044da1e01d",
+          "ticker": "LEG"
+        }
+      ],
+      "status": "SAME_CONTEXT_DEI_PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+    },
+    {
+      "fact": {
+        "class_title": "Common Stock",
+        "cusip": "74624M102",
+        "event_date": "2026-03-31",
+        "issuer_cik": "0001474432",
+        "issuer_name": "Everpure Inc",
+        "snapshot_id": "a70bfd09852395834093bd64cc71a03c413151105249d410e2aea9e781a48302"
+      },
+      "status": "STRUCTURED_INSTRUMENT_PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000210011926000481/primary_doc.xml"
+    },
+    {
+      "error": "Incomplete corporate-action filing HTML",
+      "original_bytes_not_repaired": true,
+      "status": "NO_COMPLETE_VISIBLE_ACTION_PROOF",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm"
+    },
+    {
+      "contexts": [
+        {
+          "anchor_date": "2026-07-07",
+          "class_title": "Common Stock, without par value",
+          "context_ref": "c-2",
+          "issuer_cik": "0002115436",
+          "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+          "ticker": "XOM"
+        },
+        {
+          "anchor_date": "2026-07-07",
+          "class_title": "0.524% Notes due 2028",
+          "context_ref": "c-3",
+          "issuer_cik": "0002115436",
+          "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+          "ticker": "XOM/28"
+        },
+        {
+          "anchor_date": "2026-07-07",
+          "class_title": "0.835% Notes due 2032",
+          "context_ref": "c-4",
+          "issuer_cik": "0002115436",
+          "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+          "ticker": "XOM/32"
+        },
+        {
+          "anchor_date": "2026-07-07",
+          "class_title": "1.408% Notes due 2039",
+          "context_ref": "c-5",
+          "issuer_cik": "0002115436",
+          "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+          "ticker": "XOM/39A"
+        }
+      ],
+      "status": "SAME_CONTEXT_DEI_PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm"
+    },
+    {
+      "contexts": [
+        {
+          "anchor_date": "2026-05-03",
+          "class_title": "Class A Common Stock, $0.0001 par value per share",
+          "context_ref": "c-1",
+          "issuer_cik": "0001474432",
+          "snapshot_id": "663a3f23ce1955b21ea0eba098ae4564f8d413d04333e4bcdf98730397fb7c68",
+          "ticker": "P"
+        }
+      ],
+      "status": "SAME_CONTEXT_DEI_PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000061/pstg-20260503.htm"
+    },
+    {
+      "error": "Incomplete filing or missing SEC DEI namespace",
+      "plain_cover_table_not_promoted": true,
+      "status": "NO_SUPPORTED_SAME_CONTEXT_DEI_PROOF",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm"
+    },
+    {
+      "contexts": [
+        {
+          "anchor_date": "2026-02-23",
+          "class_title": "Class A Common Stock, $0.0001 par value per share",
+          "context_ref": "c-1",
+          "issuer_cik": "0001474432",
+          "snapshot_id": "9fdccafb61929e60d98b8d85fc41062556a58f7ce30120adbc9905daf9394631",
+          "ticker": "PSTG"
+        }
+      ],
+      "status": "SAME_CONTEXT_DEI_PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/pstg-20260223.htm"
+    },
+    {
+      "fact": {
+        "class_title": "COMMON STOCK",
+        "cusip": "524660107",
+        "event_date": "2026-08-31",
+        "issuer_cik": "0000058492",
+        "issuer_name": "LEGGETT & PLATT INC",
+        "snapshot_id": "476898cd65424f7eac0fe086583143430a05de08d27a9abedcc13e8d1c0f09e4"
+      },
+      "status": "STRUCTURED_INSTRUMENT_PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002283/primary_doc.xml"
+    },
+    {
+      "contexts": [
+        {
+          "anchor_date": "2026-08-02",
+          "class_title": "Class A Common Stock, $0.0001 par value per share",
+          "context_ref": "c-1",
+          "issuer_cik": "0001474432",
+          "snapshot_id": "4f804fcc0a1750fe383c88ca8042659212edac6ce77bdc775697b2ba30322dcc",
+          "ticker": "P"
+        }
+      ],
+      "status": "SAME_CONTEXT_DEI_PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000088/pstg-20260802.htm"
+    }
+  ],
+  "network_requested_during_replay": false,
+  "original_bytes_verified": true,
+  "production_registry_changed": false,
+  "publication_clock_links": [
+    {
+      "accession": "0001193125-26-366694",
+      "clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation",
+      "filing_date": "2026-08-26",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm",
+      "historical_available_at_not_reconstructed": true,
+      "metadata_source": {
+        "observed_at": "2026-10-13T08:45:09.617754+00:00",
+        "sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98",
+        "url": "https://data.sec.gov/submissions/CIK0000058492.json"
+      },
+      "publication_time": "2026-08-26T17:27:01.000Z",
+      "report_date": "2026-08-26"
+    },
+    {
+      "accession": "0002100119-26-000481",
+      "clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation",
+      "filing_date": "2026-04-29",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1474432/000210011926000481/primary_doc.xml",
+      "historical_available_at_not_reconstructed": true,
+      "metadata_source": {
+        "observed_at": "2026-10-13T08:45:13.453166+00:00",
+        "sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+        "url": "https://data.sec.gov/submissions/CIK0001474432.json"
+      },
+      "publication_time": "2026-04-30T02:36:07.000Z",
+      "report_date": ""
+    },
+    {
+      "accession": "0002115436-26-000003",
+      "clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation",
+      "filing_date": "2026-07-07",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+      "historical_available_at_not_reconstructed": true,
+      "metadata_source": {
+        "observed_at": "2026-10-13T08:45:05.936771+00:00",
+        "sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56",
+        "url": "https://data.sec.gov/submissions/CIK0002115436.json"
+      },
+      "publication_time": "2026-07-07T20:19:57.000Z",
+      "report_date": "2026-07-07"
+    },
+    {
+      "accession": "0001474432-26-000061",
+      "clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation",
+      "filing_date": "2026-06-05",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000061/pstg-20260503.htm",
+      "historical_available_at_not_reconstructed": true,
+      "metadata_source": {
+        "observed_at": "2026-10-13T08:45:13.453166+00:00",
+        "sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+        "url": "https://data.sec.gov/submissions/CIK0001474432.json"
+      },
+      "publication_time": "2026-06-06T00:08:55.000Z",
+      "report_date": "2026-05-03"
+    },
+    {
+      "accession": "0001193125-26-291990",
+      "clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation",
+      "filing_date": "2026-07-01",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm",
+      "historical_available_at_not_reconstructed": true,
+      "metadata_source": {
+        "observed_at": "2026-10-13T08:45:05.936771+00:00",
+        "sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56",
+        "url": "https://data.sec.gov/submissions/CIK0002115436.json"
+      },
+      "publication_time": "2026-07-01T16:36:49.000Z",
+      "report_date": "2026-07-01"
+    },
+    {
+      "accession": "0001474432-26-000011",
+      "clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation",
+      "filing_date": "2026-02-23",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/pstg-20260223.htm",
+      "historical_available_at_not_reconstructed": true,
+      "metadata_source": {
+        "observed_at": "2026-10-13T08:45:13.453166+00:00",
+        "sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+        "url": "https://data.sec.gov/submissions/CIK0001474432.json"
+      },
+      "publication_time": "2026-02-24T02:23:05.000Z",
+      "report_date": "2026-02-23"
+    },
+    {
+      "accession": "0000315066-26-002283",
+      "clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation",
+      "filing_date": "2026-09-08",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002283/primary_doc.xml",
+      "historical_available_at_not_reconstructed": true,
+      "metadata_source": {
+        "observed_at": "2026-10-13T08:45:09.617754+00:00",
+        "sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98",
+        "url": "https://data.sec.gov/submissions/CIK0000058492.json"
+      },
+      "publication_time": "2026-09-08T13:58:16.000Z",
+      "report_date": ""
+    },
+    {
+      "accession": "0001474432-26-000088",
+      "clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation",
+      "filing_date": "2026-09-04",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000088/pstg-20260802.htm",
+      "historical_available_at_not_reconstructed": true,
+      "metadata_source": {
+        "observed_at": "2026-10-13T08:45:13.453166+00:00",
+        "sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+        "url": "https://data.sec.gov/submissions/CIK0001474432.json"
+      },
+      "publication_time": "2026-09-05T00:03:31.000Z",
+      "report_date": "2026-08-02"
+    }
+  ],
+  "raw_capture_count": 11,
+  "selected_snapshot_count": 15
+}

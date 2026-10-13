@@ -4,6 +4,75 @@ Platí od 11. 10. 2026. Vývoj běží v nejvýše šesti oddělených větvích
 koordinátor přebírá změny, řeší integraci a provádí společné kontroly.
 Počet vývojových větví není počet dokončených analytických specialistů.
 
+## Čtvrtá navazující dávka — 13. 10. 2026
+
+Základ je otevřený PR #162, GitHub HEAD `22bcb749`; main zůstává
+`a7aa1fec`. Původních 996/996 Linux a hostovaných Windows testů patří
+pouze tomuto základu. Šest skutečných vývojových agentů navázalo v původních
+izolovaných worktrees; přerušená práce se po dočasném limitu používání
+převzala bez resetu. Koordinátor převzal commity a zapojil výstupy do běhu/UI.
+
+| Vlastník | Konkrétní odevzdaný výstup | Lokální commit |
+|---|---|---|
+| identity_bulk | Přechod stejného CUSIP mezi tickery vyžaduje primární review; přesný SEC SGML a aktuální Schedule13 XML; 11 raw captures, XOM/LEG/PSTG review. | `50346cf` |
+| healthcare | Přesný pin sponsor/intervention snapshotu, publisher clocks a rozsah NCT; konkurenční vazby obnovují kontroly; 10 skutečných captures. | `edaba8c`, `d181185` |
+| regulatory | Striktní NHTSA HTTP/JSON/success envelope a obnova po změně scope; 8 captures; 7 veřejných raw / dokumentační HTML withheld; 2 HTTP400 prázdné případy zůstávají PARTIAL. | `df2f9c6` |
+| contracts | Neměnný audit každého skutečného zachycení transakce; clocks revize/capture/ingestion oddělené; 14-row upgrade/replay bez HTTP a změny starých nálezů. | `5e3c73a` |
+| sec | Sibling Form4 identity review s přesnou osobou/třídou/derivative/footnotes; 5 skutečných captures, žádná adopce person/instrument. | `0eadd73` |
+| evaluation | PIT label audit vyžaduje přesné cenové důkazy; label resolver je uchová před finalizací a používá skutečný čas získání. | `5382459`, `eb59a90` |
+| regulatory — další úkol | Historické provozní output expozice XOM: 3 SEC captures, 2 explicitní výstupy, makrotext nepřidává firemní expozici. | `11797ed` |
+| identity_bulk — jediný vlastník importů | Obsahové a časové review obou klinických návrhů: WITHHOLD 2 / adopt 0; produkčních 10 řádků beze změny. | `90f0d21` |
+| sec — další úkol | Přesná IR RSS/page/portal provenance: 4 skutečné HTTP200 captures / 5 requestů; dva source-only pozitivní případy, homepage PARTIAL; skutečný čas importu, issuer atribuce vypnutá. | `7d1f990` |
+| regulatory — bezpečný publikační scope | Dokumentační HTML s přístupovou hodnotou vyřazené; původní otisk/metadata, 7 původních API raw a striktní WITHHELD guard; bez bypassu. | `7845f57` |
+| koordinátor | Throttle před snapshot deepcopy, bezpečné vlastní kopie scalar rows, monotónnost; Form4/transaction/label/IR audity v běhu, UI a CLI. | `c601705`, `78650f8`, `6aea39d`, `f16c5ec` |
+
+Canonical 687 a produkční instrument/healthcare/NHTSA/legal registry jsou
+zachované. Současné Q3 pokrytí historických 150 Q2 instrumentů stále 0;
+žádná nová identita ani automatický PSTG→P alias není schválený. XOM má
+konfliktní class/CIK/CUSIP přechod a neúplný HTML doklad, LEG deleted CUSIP.
+NCT sponsor pins dokazují dnešní zobrazený objekt; samy nejsou neměnnou
+historickou verzí ani sponsor-to-CIK vazbou k požadovaným event days.
+Semaglutide/Placebo nepřebírají atribuci Lilly.
+
+Původní performance diagnostika před scalar optimalizací zachovává 1 timing
+failure (75,498s při neměnném 60s limitu); 5585 emit pokusů vytvořilo 393
+snapshotů. Finální publikační sada ověřila 1181/1181 testů bez errors/failures/skips,
+včetně celého 687 cached testu s původním 60s limitem. Nový hostovaný
+Windows/required CI výsledek je po publikaci stále samostatné ověření. Profil starého
+kódu ani běh se souběžnými agenty se nevydává za férové srovnání výkonu/OOS.
+Původní publisher raw bytes a whitespace upozornění zůstávají zachované.
+Z 41 zachycených odpovědí je 40 veřejných raw (38 HTTP200 / 2 HTTP400),
+jedno dokumentační HTML s přístupovou hodnotou zůstává withheld s otiskem.
+Obsahový audit ověřil 153 současných odkazů s otisky; staré diagnostiky jsou označené vlastní
+verzí, nejsou akceptací finálního kódu. Důkaz:
+`evidence/batch4_content_audit_20261013.json`.
+
+### Aktuální konkrétní fronta po čtvrté dávce
+
+1. identity_bulk: přesný datovaný XOM transition bridge a důkazy class/CUSIP;
+   LEG merger/delisting instrument history; PSTG→P nezávislý symbol/class/CIK
+   bridge. Další Q3 review nemá prodlužovat Q2 intervaly.
+2. healthcare: oddělený OBSERVED_SNAPSHOT sponsor contract s prospektivní
+   issuer evidencí; historický EVENT_DATE vyžaduje vlastní dated bridge.
+   Širší CMS/product/ownership scope a relevantní jmenovatele.
+3. regulatory: skutečný HTTP200 kompletní negativní NHTSA případ; další
+   dated FRS/DOJ vazby. Prázdný HTTP400 se neopravuje na bezudálostní kontrolu.
+4. contracts: širší doložené UEI/awardy a další skutečné captures s původní
+   trvalou kvótou; source revision/deletion timing, nikoli jen traversal.
+5. sec/IR: širší nezávislé person/instrument/legal/primary IR důkazy a
+   explicitní issuer atribuce. Source authority a RSS lead jsou oddělené.
+6. evaluation/prices: skutečný provider/action-cache provenance adapter pro
+   ukládané cenové důkazy; UNKNOWN capture stále nemůže do PIT srovnání.
+   Stejné provenance gates rozšířit do ostatních shadow/candidate evaluátorů;
+   skutečná prospektivní historie a OOS zůstávají chybějící.
+7. energy/ostatní: další datované provozní firemní expozice, kvantifikace
+   se samostatným primárním zdrojem, širší relevantní pokrytí; přístupy/licence
+   a skutečný uživatelský Windows koncový běh vést jako vlastní otevřené důkazy.
+
+Úplná akceptace zůstává **0/21**. Nové testy a zachycené piloty nejsou DONE.
+Společné ověření/přenos je v `evidence/batch4_integration_20261013.json`;
+průběžná pre-CI diagnostika nenahrazuje ověřený artefakt konkrétního HEAD.
+
 ## Opravy review a Windows checkoutu — 13. 10. 2026
 
 První PR #162 HEAD `290e093` ověřil 990 Linux testů, UI i 687 kontrakty.

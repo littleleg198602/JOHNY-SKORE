@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "command": "python -m unittest tests.test_batch4_sec_identity_review tests.test_sec_form4_observation tests.test_sec_scout_service tests.test_sec_document_scout tests.test_governance_event_agent tests.test_sec_schedule13_extraction tests.test_runtime_integration -v",
+  "started_at": "2026-10-13T13:03:15.515246+00:00",
+  "completed_at": "2026-10-13T13:03:19.885252+00:00",
+  "host": "Linux",
+  "python_version": "3.12.14",
+  "tests_run": 95,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true,
+  "elapsed_seconds": 4.37,
+  "log": "evidence/batch4_sec_20261013/tests.log",
+  "log_sha256": "994d34caea333ec06a84b45f47542e0b40fc080926b31d98e8eb93b6fad01b94",
+  "preceding_environment_setup_failure": "evidence/batch4_sec_20261013/tests_primary_missing_dependencies.json",
+  "windows_end_to_end_verified": false,
+  "scoring_applied": false,
+  "completion_verified": false,
+  "source_sha256": {
+    "market_checker_app/services/sec_scout_service.py": "82b5d1568e3a1617b6f03099c6963a2f4c2dfbcc0b8581779d5f6b155fbaf410",
+    "market_checker_app/services/sec_form4_identity_review.py": "2dbe85c8180bc5b38e9454ed1bab61ef8cc4ee97a7f5228cc0106c1d994d352f",
+    "tests/test_batch4_sec_identity_review.py": "2034dbe35f0dc4234423d44c288b35d06aff514d6eda5c2a3aa6699fa67837f6"
+  }
+}

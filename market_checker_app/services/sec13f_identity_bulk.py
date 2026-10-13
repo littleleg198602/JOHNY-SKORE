@@ -395,7 +395,21 @@ def parse_schedule13(snapshot: SourceSnapshot) -> dict:
         raise ValueError("Schedule 13 form conflicts with its XML namespace")
     cover = one(one(root, "formData"), "coverPageHeader")
     issuer = one(cover, "issuerInfo")
-    cik, cusip = value(issuer, "issuerCik"), value(issuer, "issuerCusip").upper()
+    cik = value(issuer, "issuerCik")
+    containers = [child for child in issuer
+                  if child.tag.rsplit("}", 1)[-1].lower() in {"issuercusip", "issuercusips"}]
+    if len(containers) != 1:
+        raise ValueError("Missing/ambiguous Schedule 13 issuer CUSIP container")
+    if containers[0].tag.rsplit("}", 1)[-1].lower() == "issuercusip":
+        cusip = value(issuer, "issuerCusip").upper()
+    else:
+        # Current official XML can use the plural container even for one
+        # instrument. Keep export single-instrument and fail closed if the
+        # filing lists multiple identifiers or conflicting namespace claims.
+        grouped_cusips = one(issuer, "issuerCusips")
+        if len(grouped_cusips) != 1:
+            raise ValueError("Schedule 13 requires a single unambiguous issuer CUSIP")
+        cusip = value(grouped_cusips, "issuerCusipNumber").upper()
     if not re.fullmatch(r"[0-9]{1,10}", cik) or int(cik) == 0 or not _valid_cusip(cusip):
         raise ValueError("Invalid Schedule 13 CIK/CUSIP")
     event = value(cover, "eventDateRequiresFilingThisStatement" if "13G" in form else "dateOfEvent")
@@ -594,8 +608,23 @@ class _ActionPassageParser(HTMLParser):
 def _action_text(snapshot: SourceSnapshot) -> str:
     if snapshot.kind != "corporate_action_filing":
         raise ValueError("Transition requires an archived primary corporate-action filing")
+    payload = snapshot.payload.decode("utf-8-sig")
+    if payload.lstrip().upper().startswith("<DOCUMENT>"):
+        # Some official .htm responses retain the single EDGAR SGML document
+        # envelope. Its unclosed metadata tags are not HTML; do not weaken the
+        # visible-text parser to accommodate them. Accept only this exact
+        # envelope for the requested filename, leaving the archived bytes intact.
+        envelope = re.fullmatch(
+            r"\s*<DOCUMENT>\s*<TYPE>[A-Za-z0-9/-]+\s*<SEQUENCE>[0-9]+\s*"
+            r"<FILENAME>([A-Za-z0-9_.-]+)\s*(?:<DESCRIPTION>[^\r\n<]*\r?\n)?"
+            r"<TEXT>\s*(<HTML(?:\s[^>]*)?>.*</HTML>)\s*</TEXT>\s*</DOCUMENT>\s*",
+            payload, re.I | re.S,
+        )
+        if envelope is None or envelope[1] != urlsplit(snapshot.url).path.rsplit("/", 1)[-1]:
+            raise ValueError("Malformed or mismatched single SEC DOCUMENT envelope")
+        payload = envelope[2]
     parser = _ActionPassageParser()
-    parser.feed(snapshot.payload.decode("utf-8-sig"))
+    parser.feed(payload)
     parser.close()
     if not parser.has_html or parser.stack:
         raise ValueError("Incomplete corporate-action filing HTML")
@@ -715,7 +744,13 @@ class Sec13fIdentityBulk:
         if any(entry["ticker"] == ticker and entry["issuer_cik"] == cik
                and _clock(entry["known_at"]) <= self.as_of
                and date.fromisoformat(entry["effective_from"]) <= self.period[0]
-               and date.fromisoformat(entry["effective_to"]) >= self.period[1] for entry in self.existing):
+               and date.fromisoformat(entry["effective_to"]) >= self.period[1]
+               and entry["cusip"] in self.by_cusip
+               and "*D*" not in self.by_cusip[entry["cusip"]]["flags"]
+               and share_class(entry["class_description"]) is not None
+               and share_class(entry["class_description"]) == share_class(
+                   self.by_cusip[entry["cusip"]]["class_description"])
+               for entry in self.existing):
             result["status"] = "ALREADY_REVIEWED"
         return result
 
@@ -831,12 +866,20 @@ class Sec13fIdentityBulk:
         grouped, required, claims = defaultdict(list), {}, {}
         new_ids = {identity_version_sha256(entry) for entry in accepted}
         for entry in [*self.existing, *accepted]:
-            grouped[_ticker(entry["ticker"])].append(entry)
-        for versions in grouped.values():
+            grouped[("ticker", _ticker(entry["ticker"]))].append(entry)
+            # A renamed symbol can disappear from the current catalog while
+            # the same CUSIP survives under another canonical symbol. Grouping
+            # only by ticker misses that boundary and silently permits an
+            # unproved OLD -> NEW continuity. Different CUSIPs/classes of the
+            # same issuer still remain independent instruments.
+            grouped[("cusip", entry["cusip"])].append(entry)
+        for (field, _), versions in grouped.items():
             versions.sort(key=lambda row: date.fromisoformat(row["effective_from"]))
             for previous, current in zip(versions, versions[1:]):
                 pair = identity_version_sha256(previous), identity_version_sha256(current)
-                if _identity(previous) != _identity(current) and new_ids.intersection(pair):
+                changed = (_identity(previous) != _identity(current) if field == "ticker"
+                           else _ticker(previous["ticker"]) != _ticker(current["ticker"]))
+                if changed and new_ids.intersection(pair):
                     required[pair] = (previous, current)
         for entry in reviewed:
             transitions = entry["review"].get("identity_transitions", [])
@@ -853,7 +896,7 @@ class Sec13fIdentityBulk:
                     raise ValueError("Transition is duplicate, unrelated, or not the exact chronological neighbour")
                 claims[pair] = (entry, transition)
         if claims.keys() != required.keys():
-            raise ValueError("CIK/CUSIP/security-class change requires a dated primary identity-transition review")
+            raise ValueError("Ticker/CIK/CUSIP/security-class change requires a dated primary identity-transition review")
         for pair, (previous, current) in required.items():
             owner, transition = claims[pair]
             source_id = transition.get("source_snapshot_id")

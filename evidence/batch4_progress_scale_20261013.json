@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-13T08:48:10.500541+00:00",
+  "completed_at": "2026-10-13T08:49:27.276482+00:00",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "tests_run": 1,
+  "failures": 1,
+  "errors": 0,
+  "skips": 0,
+  "successful": false,
+  "elapsed_wall_seconds": 76.779858,
+  "instrumentation": {
+    "emission_attempts": 5585,
+    "snapshot_calls": 393
+  },
+  "unchanged_timing_budget_seconds": 60,
+  "nested_snapshots_independent": true,
+  "focused_snapshot_tests": 5,
+  "log": "evidence/batch4_progress_scale_20261013.log",
+  "log_sha256": "474afc4b78edd52cb1e4eb2b0e8d16f2486611f4332b5bb980459580bf2206ef",
+  "concurrent_agents_present": true,
+  "baseline_profile_not_fair_comparison": true,
+  "performance_ratio_claimed": false,
+  "full_specialist_acceptance": false,
+  "tested_files": {
+    "market_checker_app/services/progress_service.py": "5f889669c8d2881faf4d92bcd30c17d70f566c2a3b2d6bc639a107dd7f4230cc",
+    "market_checker_app/services/pipeline_service.py": "9307c7a746001f49bd2b155ab92f5508d2245423156b441925abd3412db6958b",
+    "tests/test_687_ticker_contract.py": "153164b9ca951537aa715e99062ae1ea8e4719bb24f1f6a6c8761ecac7c38805",
+    "tests/test_progress_snapshots.py": "532e604e5a3edfe1b933cc0cc043dbd3a831db7f8bd7c86efdfc242201cbb3cf"
+  },
+  "tested_commit": "c601705daff8f9fa6cd57a461a3ff9c85f636208",
+  "diagnostic_stage": "PRE_SCALAR_ROW_OPTIMIZATION",
+  "functional_assertions_passed_before_timing_failure": true,
+  "subsequent_scalar_copy_commit": "78650f86489bd143f52b91d07bb601857bdeeb59"
+}

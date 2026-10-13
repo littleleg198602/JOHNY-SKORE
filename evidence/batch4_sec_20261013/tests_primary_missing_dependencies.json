@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "command": "python -m unittest tests.test_batch4_sec_identity_review tests.test_sec_form4_observation tests.test_sec_scout_service tests.test_sec_document_scout tests.test_governance_event_agent tests.test_sec_schedule13_extraction tests.test_runtime_integration -v",
+  "started_at": "2026-10-13T12:59:09.436495+00:00",
+  "completed_at": "2026-10-13T12:59:12.346840+00:00",
+  "host": "Linux",
+  "tests_run": 84,
+  "failures": 0,
+  "errors": 2,
+  "skips": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": false,
+  "elapsed_seconds": 2.91,
+  "log": "evidence/batch4_sec_20261013/tests.log",
+  "log_sha256": "3965403b5bb5d95d544bd20478f9c6d99003dc4446b927b79626e12be3ade2f0",
+  "windows_end_to_end_verified": false,
+  "scoring_applied": false,
+  "completion_verified": false
+}

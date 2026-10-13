@@ -74,6 +74,75 @@ def _text(value: object) -> str:
     return value.strip()
 
 
+def clinical_trial_version(row: dict) -> dict:
+    """Validate publisher clocks and pin only the observed sponsor/object scope.
+
+    A posting date is day-precision publisher metadata, not an immutable
+    publisher version ID or the time our application first knew the record.
+    The digest identifies this sponsor/intervention snapshot; unrelated
+    outcomes, addresses and free text are deliberately outside its scope.
+    """
+    protocol = row.get("protocolSection")
+    if not isinstance(protocol, dict):
+        raise ValueError("Missing clinical trial protocol")
+    identification = protocol.get("identificationModule", {})
+    sponsors = protocol.get("sponsorCollaboratorsModule", {})
+    status = protocol.get("statusModule", {})
+    interventions = protocol.get("armsInterventionsModule", {})
+    if not all(isinstance(section, dict) for section in
+               (identification, sponsors, status, interventions)):
+        raise ValueError("Malformed clinical trial modules")
+    nct = identification.get("nctId")
+    if not isinstance(nct, str) or not re.fullmatch(r"NCT\d{8}", nct):
+        raise ValueError("Invalid clinical trial NCT ID")
+
+    def posted(key: str, *, required: bool) -> tuple[str | None, str | None]:
+        value = status.get(key)
+        if value is None and not required:
+            return None, None
+        if not isinstance(value, dict) or not isinstance(value.get("date"), str):
+            raise ValueError("Invalid clinical trial publication date")
+        parsed = date.fromisoformat(value["date"])
+        if parsed.isoformat() != value["date"] or value.get("type") not in {None, "ACTUAL"}:
+            raise ValueError("Clinical trial publication date must be actual ISO day")
+        return parsed.isoformat(), value.get("type")
+
+    updated, update_type = posted("lastUpdatePostDateStruct", required=True)
+    first, first_type = posted("studyFirstPostDateStruct", required=False)
+    submitted = status.get("lastUpdateSubmitDate")
+    if submitted is not None:
+        if not isinstance(submitted, str) or date.fromisoformat(submitted).isoformat() != submitted:
+            raise ValueError("Invalid clinical trial last update submission date")
+    if (first and first > updated) or (submitted and submitted > updated):
+        raise ValueError("Conflicting clinical trial publication clocks")
+    lead = sponsors.get("leadSponsor", {})
+    collaborators = sponsors.get("collaborators", [])
+    values = interventions.get("interventions", [])
+    if (not isinstance(lead, dict) or not isinstance(collaborators, list)
+            or len(collaborators) > 100 or not isinstance(values, list) or len(values) > 1000):
+        raise ValueError("Malformed clinical trial sponsor/intervention scope")
+    lead_name = _text(lead.get("name"))
+    collaborator_names = [_text(item.get("name")) if isinstance(item, dict)
+                          else _text(None) for item in collaborators]
+    intervention_names = [_text(item.get("name")) if isinstance(item, dict)
+                          else _text(None) for item in values]
+    scope = {"nct_id": nct, "lead_sponsor": lead_name,
+             "collaborators": sorted(set(collaborator_names)),
+             "intervention_names": sorted(set(intervention_names)),
+             "record_version_date": updated, "record_version_type": update_type,
+             "study_first_posted": first, "study_first_posted_type": first_type,
+             "last_update_submitted": submitted}
+    # API field projection can omit the ACTUAL labels while retaining the
+    # same source day. Do not mistake two projections for two relationships.
+    digest_scope = {key: value for key, value in scope.items()
+                    if key not in {"record_version_type", "study_first_posted_type"}}
+    return dict(scope,
+                relationship_snapshot_sha256=hashlib.sha256(json.dumps(
+                    digest_scope, sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
+                publisher_clock_precision="DAY", publisher_version_id_available=False,
+                publisher_clocks_are_first_observation=False)
+
+
 def _validate_record(raw: dict) -> dict:
     if not isinstance(raw, dict):
         raise ValueError("Healthcare identity must be an object")
@@ -93,7 +162,9 @@ def _validate_record(raw: dict) -> dict:
             or not re.fullmatch(r"\d{10}", row["issuer_cik"])):
         raise ValueError("Healthcare identity needs exact ticker and SEC CIK")
     identifiers = row.get("identifiers")
-    if not isinstance(identifiers, dict) or set(identifiers) != required:
+    optional = {"relationship_snapshot_sha256"} if kind == "clinical_trial_sponsor" else set()
+    if (not isinstance(identifiers, dict) or not required <= set(identifiers)
+            or not set(identifiers) <= required | optional):
         raise ValueError("Healthcare identity needs object-specific identifiers")
     identifiers = {key: _text(value) for key, value in identifiers.items()}
     row["identifiers"] = identifiers
@@ -108,7 +179,9 @@ def _validate_record(raw: dict) -> dict:
             raise ValueError("Healthcare recall needs exact product identifiers")
     if kind == "clinical_trial_sponsor":
         if (not re.fullmatch(r"NCT\d{8}", identifiers["nct_id"])
-                or identifiers["role"] != row["relationship"]):
+                or identifiers["role"] != row["relationship"]
+                or ("relationship_snapshot_sha256" in identifiers
+                    and not re.fullmatch(r"[a-f0-9]{64}", identifiers["relationship_snapshot_sha256"]))):
             raise ValueError("Healthcare trial ID or sponsor role mismatch")
     if kind == "cms_provider_owner":
         expected_role = "34" if row["relationship"] == "DIRECT_OWNER" else "35"
@@ -194,14 +267,22 @@ class HealthcareIdentityRegistry:
                  and date.fromisoformat(row["effective_from"]) <= clock.date()]
         own = [row for row in known if (row["ticker"], row["issuer_cik"]) == (ticker, cik)]
         def object_key(row: dict) -> tuple[str, str, str]:
+            identifiers = row["identifiers"]
+            if row["kind"] == "clinical_trial_sponsor":
+                # A date-only competing link can match a pinned lookup too.
+                # Group their required object scope together for invalidation;
+                # the full records (including pins) still enter the digest.
+                identifiers = {key: value for key, value in identifiers.items()
+                               if key != "relationship_snapshot_sha256"}
             return (row["kind"], row["entity_name"].casefold(),
-                    json.dumps(row["identifiers"], sort_keys=True))
+                    json.dumps(identifiers, sort_keys=True))
         objects = {object_key(row) for row in own}
         # A newly known competing issuer link can change an exact resolution
         # to ambiguous; it must invalidate this object's previous check too.
         records = sorted((row for row in known if object_key(row) in objects),
                          key=lambda row: row["record_id"])
-        payload = {"resolver_version": "healthcare-object-v1", "records": records}
+        payload = {"resolver_version": ("healthcare-trial-snapshot-v2" if source == "clinicaltrials"
+                                        else "healthcare-object-v1"), "records": records}
         return hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
 
     def identity_versions(self, store: ScoutStore, source: str, *, as_of: datetime) -> dict[str, str]:

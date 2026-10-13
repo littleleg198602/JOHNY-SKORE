@@ -1552,6 +1552,7 @@ class ScoutStore:
                 item["counterparty_cik"] = match.get("cik")
                 item["identity_status"] = details.get("identity_status")
             if item["stage"] == "prime_contract":
+                item["generated_internal_id"] = details.get("generated_internal_id")
                 item["recipient_uei"] = details.get("uei")
                 item["award_amount_usd"] = details.get("reported_award_amount_usd")
                 item["total_outlays_usd"] = details.get("reported_total_outlays_usd")
@@ -1574,6 +1575,23 @@ class ScoutStore:
                             "issuer_attribution_allowed", "revenue_inferred", "company_exposure_inferred",
                             "source_revision_order_verified", "modification_history_complete"):
                     item[key] = details.get(key)
+                clock_audit = details.get("source_modified_clock_audit")
+                item["modified_clock_status"] = (clock_audit.get("status", "NOT_RECORDED")
+                                                  if isinstance(clock_audit, dict) else "NOT_RECORDED")
+            if item["stage"] == "filing_document":
+                review = details.get("form4_identity_review")
+                if isinstance(review, dict):
+                    item["form4_identity_review_status"] = review.get("status")
+                    item["form4_reviewed_owners"] = len(review.get("reporting_owners", []))
+                    item["form4_reviewed_instruments"] = len(review.get("instruments", []))
+            if item["stage"] == "ir_primary_source_review":
+                review = details.get("primary_source_review")
+                review = review if isinstance(review, dict) else {}
+                item["source_verification_status"] = review.get("source_verification_status", "PARTIAL")
+                item["source_capture_available_at"] = review.get("source_available_at")
+                item["local_verification_available_at"] = review.get("local_verification_available_at")
+                item["issuer_attribution_allowed"] = details.get("issuer_attribution_allowed") is True
+                item["scoring_applied"] = details.get("scoring_applied") is True
             item["item_locators"] = ", ".join(
                 str(section.get("locator", ""))
                 for section in details.get("item_excerpts", [])

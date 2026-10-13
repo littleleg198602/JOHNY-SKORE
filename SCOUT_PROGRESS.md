@@ -1,5 +1,31 @@
 # Průběh implementace pátracích agentů
 
+## 13. 10. 2026 — čtvrtá implementační dávka
+
+Šest vývojových větví přidalo přesné transition/version/scope a source-clock
+kontroly pro SEC instrumenty, studie, NHTSA, zakázky a Form4; evaluator
+vyžaduje cenové důkazy se skutečným časem dostupnosti a resolver je uchovává
+před finalizací. Koordinátor optimalizoval kopírování progress snapshotů se
+zachováním callback izolace, monotónnosti, 687 řádků a 60s test limitu;
+source/identity/label audity jsou zapojené do běhu, UI a CLI. Uvolněný agent
+přidal dva historické XOM output fakty z přesného SEC podání. Další IR
+review ověřuje přesný RSS/page/portal zdroj ze čtyř skutečných captures;
+čas lokálního importu nelze backdatovat a issuer atribuce zůstává vypnutá.
+
+Jediný vlastník registrů withheld oba historické klinické návrhy kvůli
+chybějícímu dated sponsor-to-CIK bridge; produkční registry i canonical 687
+zůstávají zachované. Current Q3 coverage starých 150 Q2 řádků je stále 0.
+Žádné skóre, obchodování, licence ani code/live akceptace se nepovyšují.
+Přesné commity, limity a další dostupné implementační úkoly jsou v
+`PARALLEL_SPECIALIST_WORK.md`; společný důkaz a aktuální testové výsledky
+v `evidence/batch4_integration_20261013.json`. Všech 21 zůstává neakceptováno;
+Finální publikační sada: 1181/1181, nula errors/failures/skips; 687 cached
+test prošel s neměnným 60s limitem. Hostované CI nového HEAD a
+uživatelský Windows/OOS jsou samostatné důkazy. Jedno NHTSA dokumentační
+HTML s embedded přístupovou hodnotou je withheld po odmítnutí GitHub
+secret gate; původní otisk/metadata zůstávají, všech 7 API raw odpovědí
+a jejich hash assertions beze změny. Žádná výjimka kontroly se nepožadovala.
+
 ## 12. 10. 2026 — práce po sloučení PR #161
 
 Třetí dávka přidává skutečné úplné SEC Q3 vstupy a review frontu 687,
