@@ -141,6 +141,31 @@ def _recorded_capture(*, ticker: str, sessions: Sequence, prices: Sequence[float
     payload_hash = metadata.get("provider_payload_sha256")
     if isinstance(payload_hash, str) and _SHA256.fullmatch(payload_hash):
         capture["provider_payload_sha256"] = payload_hash
+    # Preserve actual adapter traceability without upgrading observed changes
+    # to a dated publisher revision or a complete corporate-action history.
+    for field in ("price_observation_id", "source_capture_id", "cache_frame_sha256", "corporate_actions_input_sha256"):
+        value = metadata.get(field)
+        if isinstance(value, str) and _SHA256.fullmatch(value):
+            capture[field] = value
+    for field in ("cache_read_at", "observed_content_revision_at"):
+        if (stamp_value := _time(metadata.get(field))) is not None:
+            capture[field] = stamp_value.isoformat()
+    if metadata.get("publisher_revision_timing_status") == "UNKNOWN":
+        capture["publisher_revision_timing_status"] = "UNKNOWN"
+    if metadata.get("observed_content_revision_status") in {"FIRST_CAPTURE", "UNCHANGED_RETRIEVAL", "EXTENDED_ONLY", "CONTENT_CHANGED"}:
+        capture["observed_content_revision_status"] = metadata["observed_content_revision_status"]
+    input_rows = metadata.get("corporate_action_session_inputs")
+    if isinstance(input_rows, list) and len(input_rows) <= 1000:
+        expected = {session.session_date.isoformat() for session in sessions}
+        selected = []
+        for row in input_rows:
+            if not isinstance(row, Mapping) or row.get("session_date") not in expected or not isinstance(row.get("values"), Mapping):
+                continue
+            values = {key: _number(value) if value is not None else None for key, value in row["values"].items()
+                if key in {"Stock Splits", "Dividends", "Capital Gains"} and (value is None or _number(value) is not None)}
+            selected.append({"session_date": row["session_date"], "values": values})
+        capture["recorded_action_session_inputs"] = selected
+        capture["recorded_action_input_window_complete"] = len(selected) == len(expected) and {row["session_date"] for row in selected} == expected
     capture["capture_hash"] = canonical_hash(capture)
     return capture
 
@@ -300,6 +325,11 @@ def _audit_capture(capture: object, *, ticker: str, sessions: Sequence,
         provider_observed = _time(capture["provider_observed_at"])
         if provider_observed is None or provider_observed > observed:
             return None, None, "INVALID_PROVIDER_PRICE_OBSERVATION"
+    for field in ("cache_read_at", "observed_content_revision_at"):
+        if field in capture:
+            stamp = _time(capture[field])
+            if stamp is None or stamp > observed:
+                return None, None, "INVALID_CACHE_PROVENANCE_KNOWLEDGE"
     revision = capture.get("revision_status")
     revision_at = observed
     if revision == "KNOWN_REVISION":

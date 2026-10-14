@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-13",
+  "as_of": "2026-10-14",
   "scope": "687 US watchlist tickers; sector sources apply only to relevant companies",
   "completion_rule": "DONE requires implemented collection, dated issuer/instrument/product identity, positive and negative live evidence, Windows end-to-end run, measured applicable coverage and historical evaluation before any score change.",
   "specialists": [
@@ -10,12 +10,13 @@
       "research": "01-04, 14",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Exact same-CUSIP ticker transitions now require primary review; current deleted/class-incompatible rows do not inherit ALREADY_REVIEWED. Eleven raw sources document XOM/LEG/PSTG gaps with zero identity or alias approvals. Two pinned clinical proposals are withheld because event-day sponsor/CIK proof is absent. Remaining: exact dated instrument/transition bridges and wider Q3 coverage.",
+      "next": "Dated XOM new-CUSIP/class and conflict resolution, exact PSTG action day/class bridge and LEG history; no aliases or Q2 extension. Current Q3 coverage0/150.",
       "development_lane": "identity_bulk",
       "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json",
       "third_batch_evidence": "evidence/batch3_identity_20261012.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "sec",
@@ -29,7 +30,8 @@
       "development_lane": "sec",
       "parallel_implementation_evidence": "evidence/parallel_sec_20261011.json",
       "third_batch_evidence": "evidence/batch3_sec_20261012/verification.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "insider",
@@ -53,7 +55,8 @@
       "development_lane": "sec",
       "parallel_implementation_evidence": "evidence/parallel_sec_20261011.json",
       "third_batch_evidence": "evidence/batch3_integration_20261012.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "contracts",
@@ -61,7 +64,7 @@
       "research": "06, 15",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Immutable per-capture transaction observation ledger separates raw modified/action/capture/local-ingestion clocks; replay cannot backdate local knowledge or duplicate prior findings. Real14-row upgrade/replay made0 HTTP calls and0 new findings. Unknown revision clocks remain unknown, malformed/future clocks PARTIAL. Remaining: wider UEI/award captures on existing quotas, original revision/deletion timing, coverage and historical/userWindows evidence.",
+      "next": "Recover genuinely archived verified prime targets with actual current ingestion; retain durable daily quota, broaden UEI/awards and actual source revision history. Absence is not deletion.",
       "source_smoke_evidence": "evidence/usaspending_live_20261001.json",
       "noc_identity_evidence": "evidence/usaspending_noc_identity_20261002.json",
       "noc_source_smoke_evidence": "evidence/usaspending_noc_live_20261002.json",
@@ -71,7 +74,8 @@
       "parallel_implementation_evidence": "evidence/parallel_contracts_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_contracts_20261011.json",
       "third_batch_evidence": "evidence/batch3_contracts_acceptance_20261012.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "regulatory",
@@ -79,7 +83,7 @@
       "research": "07",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Primary NHTSA/SEC captures support exact 2026 Ford F-150 and GM Chevrolet Silverado1500 scopes with 5+3 observed campaigns. Empty HTTP400 responses remain PARTIAL, not negative completed checks. FDA/OFAC/EPA legal effects never transfer to parents by a product/model identity. Remaining: complete-negative source cases, wider dated EPA/NHTSA/DOJ relationships, relevant coverage, user Windows and history.",
+      "next": "Actual full HTTP200 NHTSA negative remains missing; respect exhausted shared8-request UTC-day budget, broaden dated FRS/DOJ scope.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json",
       "ofac_alias_source_smoke_evidence": "evidence/ofac_alias_live_20261001.json",
@@ -91,7 +95,8 @@
       "parallel_implementation_evidence": "evidence/parallel_regulatory_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_regulatory_20261011.json",
       "third_batch_evidence": "evidence/batch3_regulatory_20261012/validation.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "suppliers",
@@ -103,7 +108,8 @@
       "development_lane": "sec",
       "parallel_second_batch_evidence": "evidence/parallel2_sec_20261011.json",
       "third_batch_evidence": "evidence/batch3_sec_20261012/verification.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "ir_news",
@@ -111,10 +117,11 @@
       "research": "09",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Captured RSS/page/IR portal audits verify source-only provenance with physical import availability; ticker hints and issuer attribution remain UNVERIFIED. Next: quota-managed leased LIVE traversal, independent dated issuer/instrument proof and broader relevant coverage.",
+      "next": "Whole IR authority body withheld; obtain independent safe complete publisher-source and issuer evidence without replacement/export bypass. Actual LIVE remains PARTIAL.",
       "development_lane": "sec",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fourth_batch_primary_source_evidence": "evidence/batch4_ir_20261013/handoff.json"
+      "fourth_batch_primary_source_evidence": "evidence/batch4_ir_20261013/handoff.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "prices",
@@ -122,11 +129,12 @@
       "research": "10",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Progress throttling now precedes deepcopy; owned scalar rows copy safely while nested/unknown data retains deepcopy. Callbacks remain independent/monotone and final all687 rows preserved; scores/60s budget unchanged. New resolved label prices archive before finality at actual acquisition time; missing provider provenance remains UNKNOWN. Remaining: genuine provider/action-cache metadata adapter, dated symbol/instrument bridges and measured actual userWindows run.",
+      "next": "Actual provider/cache captures now survive reload, but publisher revision remainsUNKNOWN; Oct13 Close missing, strict PIT excluded. Build real prospective action/price history.",
       "brkb_yahoo_alias_evidence": "evidence/price_brkb_yahoo_alias_tests_20261003.json",
       "brkb_yahoo_alias_hosted_windows_evidence": "evidence/price_brkb_yahoo_alias_windows_20261003.json",
       "development_lane": "evaluation",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "short_interest",
@@ -136,7 +144,8 @@
       "live": "WAIT_ACCESS",
       "next": "FINRA credentials, live schema and publication timing, dated symbol/instrument mapping; borrow requires licensed pilot.",
       "development_lane": "coordinator_access",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "fda",
@@ -153,7 +162,8 @@
       "parallel_second_batch_evidence": "evidence/parallel2_healthcare_20261011.json",
       "coverage_cli_evidence": "evidence/parallel2_healthcare_cli_20261011.json",
       "third_batch_evidence": "evidence/batch3_healthcare_20261012/validation.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "commodities",
@@ -165,7 +175,8 @@
       "development_lane": "contracts",
       "parallel_second_batch_evidence": "evidence/parallel2_eia_20261011.json",
       "third_batch_evidence": "evidence/batch3_integration_20261012.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "bank_fdic",
@@ -206,7 +217,8 @@
       "pnfp_zion_identity_evidence": "evidence/fdic_pnfp_zion_identity_20261002.json",
       "pnfp_zion_source_smoke_evidence": "evidence/fdic_pnfp_zion_live_20261002.json",
       "development_lane": "healthcare",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "health_services",
@@ -214,14 +226,15 @@
       "research": "sector HEALTH_SERVICES",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "ClinicalTrials exact sponsor/intervention snapshot pinning and publisher clocks are validated; scope/competing links invalidate checks. Ten actual captures and two studies remain research observations. Two historical EVENT_DATE proposals withheld; no sponsor-toCIK interval invented. Remaining: observed-snapshot attribution contract, independent dated ownership/CMS objects and relevant denominators/history/userWindows.",
+      "next": "Prospective exact issuer bridge before a new original clinical object capture in the same cohort and durable quota; broader CMS/product/ownership. Old archived snapshots do not give current coverage.",
       "source_smoke_evidence": "evidence/healthcare_live_20261001.json",
       "public_quota_test_evidence": "evidence/public_source_daily_quotas_tests_20261011.json",
       "development_lane": "healthcare",
       "parallel_implementation_evidence": "evidence/parallel_healthcare_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_healthcare_20261011.json",
       "coverage_cli_evidence": "evidence/parallel2_healthcare_cli_20261011.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "oil_utilities",
@@ -231,7 +244,8 @@
       "live": "PENDING",
       "next": "Historical XOM2025 disclosure/index/submissions provide two exact operational output observations with oldCIK/accession/report/publication/capture clocks; no inferred current instrument, asset ownership, revenue share or score. Remaining: wider dated assets/exposures, actual source coverage and historical/userWindows acceptance.",
       "development_lane": "contracts",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "aerospace",
@@ -248,7 +262,8 @@
       "development_lane": "contracts",
       "parallel_second_batch_evidence": "evidence/parallel2_contracts_20261011.json",
       "third_batch_evidence": "evidence/batch3_contracts_acceptance_20261012.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "sector_other",
@@ -258,7 +273,8 @@
       "live": "PENDING",
       "next": "Connect profile-specific candidate source/metric questions to actual providers and validate applicable coverage.",
       "development_lane": "regulatory",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "institutions",
@@ -363,7 +379,8 @@
       "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json",
       "third_batch_evidence": "evidence/batch3_identity_20261012.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "consensus_options",
@@ -373,7 +390,8 @@
       "live": "WAIT_ACCESS",
       "next": "Select licensed providers, verify entitlements and run measured pilots before integration.",
       "development_lane": "coordinator_access",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "alternative",
@@ -383,7 +401,8 @@
       "live": "WAIT_ACCESS",
       "next": "Targeted licensed pilot and measured incremental value, with source terms and historical availability.",
       "development_lane": "coordinator_access",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "verification",
@@ -391,7 +410,7 @@
       "research": "27",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Source-run preservation now complements immutable transaction capture ledger, exact object/version response guards, Form4 identity gaps and price-observation PIT audit. Pilot captures/tests are separate from full acceptance; future timestamps, incomplete negatives and historical identity gaps remain explicit. Remaining: genuine relevant source/identity coverage, end-userWindows and actual OOS.",
+      "next": "Dated issuer/instrument/product/person identity and positive/negative LIVE cases for relevant scope; unit/helper readiness is not full acceptance.",
       "evidence_content_audit": "evidence/specialist_evidence_content_audit_tests_20261003.json",
       "evidence_content_audit_hosted_windows_evidence": "evidence/specialist_evidence_content_audit_windows_20261003.json",
       "source_run_semantics_evidence": "evidence/specialist_source_semantics_tests_20261003.json",
@@ -400,7 +419,8 @@
       "development_lane": "evaluation",
       "parallel_second_batch_evidence": "evidence/parallel2_evaluation_20261011.json",
       "third_batch_evidence": "evidence/batch3_evaluation_incremental_archive_20261012.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     },
     {
       "id": "evaluation",
@@ -408,12 +428,13 @@
       "research": "28",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Specialist PIT comparisons now require bounded content-hashed exact-session price observations, supplied revision/action provenance and actual capture/availability clocks. Resolver writes immutable observations before new-label finality; archive failure stays PENDING. Legacy hashes/values preserved. Missing production provider metadata remains UNKNOWN; no genuine historical price archive/OOS result recovered. Remaining: real adapter, broader PIT consumers, prospective source/labels history and OOS.",
+      "next": "Strict specialist/candidate/layer training label knowledge and price provenance; genuine prospective histories/OOS and end-user Windows stillmissing. No score/trading changes.",
       "development_lane": "evaluation",
       "parallel_implementation_evidence": "evidence/parallel_evaluation_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_evaluation_20261011.json",
       "third_batch_evidence": "evidence/batch3_evaluation_incremental_archive_20261012.json",
-      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json"
+      "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
     }
   ],
   "parallel_development": {
@@ -423,6 +444,7 @@
     "lane_assignment_is_not_completion_evidence": true,
     "integration_scope": "Six independent implementation lanes; lane completion is not specialist acceptance.",
     "integration_evidence": "evidence/batch4_integration_20261013.json",
-    "latest_batch": "Exact transition/version/scope/source-clock guards, immutable transaction and label captures, independent Form4 identity review, historical energy exposures and runtime/UI progress optimization; full acceptance0/21."
+    "latest_batch": "Batch5: six actual isolated workers plus three followups, durable NHTSA/IR quotas, independent corporate-action/snapshot/audit/price gates and explicit runtime/UI. Full acceptance0/21.",
+    "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
   }
 }

@@ -2,9 +2,12 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+import hashlib
 import json
 import os
 from pathlib import Path
+import re
+import tempfile
 
 from market_checker_app.config import DEFAULT_DB_PATH
 from market_checker_app.services.sec_scout_service import SecScoutService
@@ -63,6 +66,26 @@ FDA_DAILY_ISSUER_BUDGET = 40
 FINRA_DAILY_ISSUER_BUDGET = 75
 
 
+def _record_completed_source_run(store: ScoutStore, source: str, summary: dict[str, object], *,
+                                 started_at: datetime, provider_as_of: datetime | None = None) -> dict[str, object]:
+    completed = datetime.now(timezone.utc)
+    store.record_source_run(source, as_of=completed, summary=summary)
+    result = dict(summary)
+    if source in SUPPORTED_INCREMENTAL_SOURCES:
+        try:
+            path = capture_specialist_source_run(
+                store, source=source, summary=summary, observed_at=completed,
+                started_at=started_at, provider_as_of=provider_as_of,
+            )
+            result.update(source_archive_status="SAVED", source_archive_filename=path.name)
+        except Exception as exc:
+            result.update(source_archive_status="ERROR", source_archive_error=type(exc).__name__)
+    else:
+        result["source_archive_status"] = "NOT_SUPPORTED"
+    store.record_source_run(source, as_of=completed, summary=result)
+    return result
+
+
 def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, object]:
     store = ScoutStore(db_path)
     now = datetime.now(timezone.utc)
@@ -95,23 +118,9 @@ def run(*, db_path: Path = DEFAULT_DB_PATH, limit: int = 100) -> dict[str, objec
         nonlocal source_started
         # Persist each completed source immediately. A later source can hang or
         # the process can stop without erasing the earlier progress in the UI.
-        completed = datetime.now(timezone.utc)
-        store.record_source_run(source, as_of=completed, summary=summary)
-        result = dict(summary)
-        if source in SUPPORTED_INCREMENTAL_SOURCES:
-            try:
-                path = capture_specialist_source_run(
-                    store, source=source, summary=summary, observed_at=completed,
-                    started_at=source_started, provider_as_of=provider_as_of,
-                )
-                result.update(source_archive_status="SAVED", source_archive_filename=path.name)
-            except Exception as exc:
-                # Preserve the provider result; a missing archive remains an
-                # explicit separate failure and contributes no historical proof.
-                result.update(source_archive_status="ERROR", source_archive_error=type(exc).__name__)
-        else:
-            result["source_archive_status"] = "NOT_SUPPORTED"
-        store.record_source_run(source, as_of=completed, summary=result)
+        result = _record_completed_source_run(
+            store, source, summary, started_at=source_started, provider_as_of=provider_as_of,
+        )
         source_started = datetime.now(timezone.utc)
         return result
 
@@ -288,21 +297,121 @@ def run_award_transactions(*, db_path: Path = DEFAULT_DB_PATH,
     return result
 
 
+def run_primary_ir(*, db_path: Path, ticker: str, feed_url: str, authority_url: str,
+                   publisher_hosts: tuple[str, ...], candidate_id: str | None = None,
+                   original_url: str | None = None, requested_as_of: datetime | None = None,
+                   max_requests: int = 6) -> dict[str, object]:
+    """Explicit bounded source review, sharing the retained RSS quota ledger."""
+    from market_checker_app.services.ir_primary_scout_service import IRPrimaryScoutService
+
+    db_path = Path(db_path)
+    if not db_path.is_file():
+        raise ValueError("Primary IR collection requires the existing shared database")
+    store = ScoutStore(db_path)
+    started = datetime.now(timezone.utc)
+    try:
+        result = IRPrimaryScoutService(store, max_requests=max_requests).run(
+            ticker, feed_url=feed_url, authority_url=authority_url,
+            publisher_hosts=publisher_hosts, candidate_id=candidate_id,
+            original_url=original_url, requested_as_of=requested_as_of,
+        )
+    except Exception as exc:
+        result = {"status": "ERROR", "error": type(exc).__name__,
+                  "issuer_attribution_allowed": False, "scoring_applied": False}
+    return _record_completed_source_run(store, "rss", result, started_at=started)
+
+
+def run_award_capture_audit(*, db_path: Path, subject_id: str, award_finding_id: str,
+                           baseline_manifest_names: list[str], current_manifest_names: list[str],
+                           as_of: datetime | None = None) -> dict[str, object]:
+    """Read original selected-award captures; persist a separate physical audit."""
+    db_path = Path(db_path)
+    store = ScoutStore(db_path)
+    directory = db_path.parent / "award_transaction_captures"
+    root = directory.resolve()
+
+    def selected(names: list[str]) -> list[Path]:
+        if not 1 <= len(names) <= 5 or len(set(names)) != len(names):
+            raise ValueError("Choose one to five distinct manifests per traversal")
+        paths = []
+        for name in names:
+            if not isinstance(name, str) or not re.fullmatch(r"capture-[A-Za-z0-9_-]{1,100}\.json", name):
+                raise ValueError("Choose a retained capture manifest filename")
+            path = directory / name
+            if path.is_symlink() or path.resolve().parent != root or not path.is_file():
+                raise ValueError("Capture manifests must remain in their retained directory")
+            paths.append(path)
+        return paths
+
+    try:
+        baseline, current = selected(baseline_manifest_names), selected(current_manifest_names)
+        path = Path(os.getenv("JOHNY_SKORE_USASPENDING_UEI_FILE") or DEFAULT_IDENTITIES)
+        result = AwardTransactionHistoryService(
+            store, archive_directory=directory, identities=load_verified_identities(path),
+        ).audit_capture_versions(subject_id=subject_id, award_finding_id=award_finding_id,
+                                 baseline_manifests=baseline, current_manifests=current, as_of=as_of)
+    except Exception as exc:
+        result = {"status": "INVALID_COMPARISON", "error": type(exc).__name__,
+                  "audit_recorded_at": datetime.now(timezone.utc).isoformat(),
+                  "publisher_deletion_verified": False, "scoring_applied": False}
+    # This is a new audit of earlier observations. No source body, finding,
+    # quota counter or source availability is changed by the comparison.
+    payload = json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8") + b"\n"
+    digest = hashlib.sha256(payload).hexdigest()
+    destination = db_path.parent / "award_transaction_audits" / f"audit-{digest}.json"
+    try:
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        if destination.exists():
+            if destination.read_bytes() != payload:
+                raise ValueError("Stored audit does not match its content hash")
+        else:
+            with tempfile.NamedTemporaryFile(dir=destination.parent, delete=False) as stream:
+                temporary = Path(stream.name)
+                stream.write(payload)
+                stream.flush()
+                os.fsync(stream.fileno())
+            try:
+                os.replace(temporary, destination)
+            finally:
+                temporary.unlink(missing_ok=True)
+        result.update(audit_archive_status="SAVED", audit_archive_filename=destination.name,
+                      audit_archive_sha256=digest)
+    except Exception as exc:
+        result.update(audit_archive_status="ERROR", audit_archive_error=type(exc).__name__)
+    store.record_source_run("usaspending_transaction_audit", as_of=datetime.now(timezone.utc), summary=result)
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Průběžný sběr SEC stop pro Market Checker.")
     parser.add_argument("--db-path", type=Path, default=DEFAULT_DB_PATH)
     parser.add_argument("--limit", type=int, default=100)
     parser.add_argument("--award-subject", help="Ticker uložené doložené prime zakázky")
     parser.add_argument("--award-finding-id", help="ID uloženého nálezu prime zakázky")
+    parser.add_argument("--award-baseline-manifest", action="append", default=[], help="Uložená stránka prvního průchodu (1–5)")
+    parser.add_argument("--award-current-manifest", action="append", default=[], help="Uložená stránka druhého průchodu (1–5)")
     args = parser.parse_args()
     if bool(args.award_subject) != bool(args.award_finding_id):
         parser.error("--award-subject a --award-finding-id vyžadují společné zadání")
-    if args.award_subject:
+    comparison = bool(args.award_baseline_manifest or args.award_current_manifest)
+    if comparison and not (args.award_subject and args.award_baseline_manifest and args.award_current_manifest):
+        parser.error("Porovnání vyžaduje vybranou zakázku a oba průchody")
+    if comparison:
+        result = run_award_capture_audit(db_path=args.db_path, subject_id=args.award_subject,
+            award_finding_id=args.award_finding_id, baseline_manifest_names=args.award_baseline_manifest,
+            current_manifest_names=args.award_current_manifest)
+    elif args.award_subject:
         result = run_award_transactions(db_path=args.db_path, subject_id=args.award_subject,
                                         award_finding_id=args.award_finding_id)
     else:
         result = run(db_path=args.db_path, limit=args.limit)
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    if comparison:
+        if result["audit_archive_status"] != "SAVED" or result["status"] not in {
+            "SAME_SOURCE_CAPTURE", "COMPLETE_CAPTURE_COMPARISON",
+        }:
+            raise SystemExit(1)
+        return
     if result["status"] in {"WAIT_ACCESS", "ACCESS_BLOCKED", "LEASE_LOST"}:
         raise SystemExit(2)
     if args.award_subject and result["status"] in {"WAIT_QUOTA", "BUSY", "RATE_LIMITED"}:

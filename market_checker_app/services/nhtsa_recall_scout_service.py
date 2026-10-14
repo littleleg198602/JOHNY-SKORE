@@ -3,14 +3,18 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 from pathlib import Path
 import re
 from typing import Protocol
 from urllib.error import HTTPError
 from urllib.parse import parse_qsl, urlencode, urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.services.public_source_budget import (
+    PUBLIC_DAILY_LIMITS, PublicBudgetExhausted, PublicSourceBudget,
+)
 from market_checker_app.utils.source_validation import public_https_reference
 
 
@@ -20,8 +24,35 @@ MAX_RESPONSE_BYTES = 4_000_000
 SUCCESS_MESSAGE = "Results returned successfully"
 
 
+class _NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # One shared reservation permits one transport operation. Even an
+        # official redirect cannot start another request before scope checks.
+        return None
+
+
+def urlopen(request: Request, *, timeout: float):
+    """NHTSA-only transport seam; reject redirects before any second I/O.
+
+    Preserve the existing mock seam without using urllib's default opener.
+    Build lazily so importing the read-only reporting API initializes no client.
+    """
+    return build_opener(_NoRedirect()).open(request, timeout=timeout)
+
+
 def recall_url(make: str, model: str, model_year: int) -> str:
     return f"{BASE_URL}?{urlencode({'make': make, 'model': model, 'modelYear': model_year})}"
+
+
+def validate_nhtsa_response_scope(final_url: str, requested_url: str) -> None:
+    """One exact authority/query gate shared by collection and raw case review."""
+    actual, requested = urlsplit(final_url), urlsplit(requested_url)
+    if (actual.scheme != "https" or actual.hostname != "api.nhtsa.gov"
+            or actual.port not in {None, 443} or actual.username or actual.password
+            or actual.path != requested.path or actual.fragment
+            or sorted(parse_qsl(actual.query, keep_blank_values=True))
+            != sorted(parse_qsl(requested.query, keep_blank_values=True))):
+        raise ValueError("NHTSA redirected outside exact official query")
 
 
 class NhtsaClient(Protocol):
@@ -29,17 +60,13 @@ class NhtsaClient(Protocol):
 
 
 class NhtsaRecallClient:
+    is_live = True
+
     def recalls(self, make: str, model: str, model_year: int) -> dict:
         url = recall_url(make, model, model_year)
         with urlopen(Request(url, headers={"Accept": "application/json",
                                            "User-Agent": "JohnySkoreScout/1.0"}), timeout=20) as response:
-            actual, requested = urlsplit(response.geturl()), urlsplit(url)
-            if (actual.scheme != "https" or actual.hostname != "api.nhtsa.gov"
-                    or actual.port not in {None, 443} or actual.username or actual.password
-                    or actual.path != requested.path or actual.fragment
-                    or sorted(parse_qsl(actual.query, keep_blank_values=True))
-                    != sorted(parse_qsl(requested.query, keep_blank_values=True))):
-                raise ValueError("NHTSA redirected outside exact official query")
+            validate_nhtsa_response_scope(response.geturl(), url)
             if response.getcode() != 200:
                 raise ValueError("NHTSA response was not HTTP 200")
             if response.headers.get_content_type() != "application/json":
@@ -109,24 +136,51 @@ class NhtsaRecallScoutService:
     """Observe model-year campaigns for explicitly documented issuer products."""
 
     def __init__(self, store: ScoutStore, *, client: NhtsaClient,
-                 models: list[dict], max_models: int = 10) -> None:
+                 models: list[dict], max_models: int = 10,
+                 max_run_seconds: float = 180) -> None:
         if not 1 <= max_models <= 25:
             raise ValueError("NHTSA query budget must be bounded")
         self.store, self.client, self.models, self.max_models = store, client, models, max_models
+        if (isinstance(max_run_seconds, bool) or not math.isfinite(max_run_seconds)
+                or not 1 <= max_run_seconds <= 180):
+            raise ValueError("NHTSA run time must be bounded")
+        self.max_run_seconds = max_run_seconds
 
     def run(self, *, as_of: datetime | None = None,
             universe: set[str] | None = None) -> dict[str, int | str]:
         clock = as_of or datetime.now(timezone.utc)
         if clock.tzinfo is None or clock.utcoffset() is None:
             raise ValueError("NHTSA observation time needs timezone")
+        if getattr(self.client, "is_live", False):
+            actual = datetime.now(timezone.utc)
+            if clock.astimezone(timezone.utc).date() != actual.date():
+                raise ValueError("LIVE NHTSA requests require their actual UTC day")
+            clock = actual
         eligible = [entry for entry in self.models if (universe is None or entry["ticker"] in universe)
                     and datetime.fromisoformat(entry["known_at"]) <= clock]
         if not eligible:
             return {"status": "WAIT_IDENTITY", "checked_models": 0, "new_findings": 0}
+        if "nhtsa" not in PUBLIC_DAILY_LIMITS:
+            return {"status": "WAIT_SHARED_BUDGET", "checked_models": 0, "new_findings": 0}
+        budget = PublicSourceBudget(self.store, "nhtsa", as_of=clock,
+                                    max_run_seconds=self.max_run_seconds)
+        if not budget.acquire():
+            return {**budget.blocked_summary(), "checked_models": 0,
+                    "new_findings": 0, "budget_subject_type": "VEHICLE_MAKE_ONLY"}
+        try:
+            result = budget.annotate(self._run_due(eligible, clock=clock, budget=budget))
+            result["budget_subject_type"] = "VEHICLE_MAKE_ONLY"
+            if budget.stop_status == "WAIT_QUOTA":
+                result["status"] = "WAIT_QUOTA"
+            return result
+        finally:
+            budget.release()
+
+    def _run_due(self, eligible: list[dict], *, clock: datetime,
+                 budget: PublicSourceBudget) -> dict[str, int | str]:
         checked = created = failed = rejected = 0
+        due = []
         for entry in eligible:
-            if checked + failed >= self.max_models:
-                break
             # Scope corrections must invalidate old monthly negative checks.
             # The version also prevents reuse of empties accepted without a
             # successful publisher envelope by older collector versions.
@@ -137,9 +191,18 @@ class NhtsaRecallScoutService:
             if not self.store.specialist_check_due("nhtsa", subject_id=entry["ticker"],
                                                    identity_key=identity_key, as_of=clock):
                 continue
+            due.append({"subject_id": "MAKE:" + entry["make"].upper(),
+                        "entry": entry, "identity_key": identity_key})
+        for candidate in budget.select_due(due):
+            if checked + failed >= self.max_models:
+                break
+            entry, identity_key = candidate["entry"], candidate["identity_key"]
             try:
-                payload = self.client.recalls(entry["make"], entry["model"], entry["model_year"])
+                payload = budget.call(candidate["subject_id"], identity_key,
+                    lambda: self.client.recalls(entry["make"], entry["model"], entry["model_year"]))
                 rows = _validated_rows(payload)
+            except PublicBudgetExhausted:
+                break
             except HTTPError as exc:
                 if exc.code in {401, 403, 429}:
                     return {"status": "RATE_LIMITED" if exc.code == 429 else "ACCESS_BLOCKED",

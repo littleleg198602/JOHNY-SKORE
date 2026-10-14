@@ -1,0 +1,205 @@
+{
+  "actual_capture_replay": [
+    {
+      "actual_import_started_at": "2026-10-14T05:18:59.955103+00:00",
+      "cache_frame_sha256": "52a6487e1af0e8e3e95dca8f93038239b9f8c5ca9d2abb386f965bd672682951",
+      "cache_observation": "evidence/batch5_prices_20261014/observations/yahoo_price_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+      "cache_observation_id": "3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666",
+      "evidence_origin": "CURRENT_OFFLINE_IMPORT_OF_ACTUAL_CAPTURED_CHART",
+      "logical_clock_is_physical": false,
+      "logical_fetched_at": "2026-10-01T12:00:00+00:00",
+      "observed_content_revision_status": "FIRST_CAPTURE",
+      "original_response_observed_at": "2026-10-14T00:07:52.561748+00:00",
+      "physical_cache_captured_at": "2026-10-14T05:18:59.964007+00:00",
+      "provider_frame_sha256": "9be244ca60e3fcfb03bc89056588e944d21e5d292b2bab86709e0ac68544dbbf",
+      "provider_observation": "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+      "provider_observation_id": "338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3",
+      "provider_rows": 22,
+      "publisher_revision_timing_status": "UNKNOWN",
+      "raw_path": "evidence/batch5_prices_20261014/raw/ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182.json",
+      "raw_sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182",
+      "recent_window_lookup_status": "incomplete",
+      "recent_window_missing_sessions": [
+        "2026-10-13"
+      ],
+      "recorded_action_input_sessions": 5,
+      "requested_action_input_sessions": 6,
+      "strict_pit_eligible": false,
+      "ticker": "AAPL",
+      "usable_cached_rows": 21
+    },
+    {
+      "actual_import_started_at": "2026-10-14T05:18:59.972844+00:00",
+      "cache_frame_sha256": "70d155da8aa710f195d13463e38cb7d4500f0dd655331dc9f9f7172d31703905",
+      "cache_observation": "evidence/batch5_prices_20261014/observations/yahoo_price_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+      "cache_observation_id": "f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3",
+      "evidence_origin": "CURRENT_OFFLINE_IMPORT_OF_ACTUAL_CAPTURED_CHART",
+      "logical_clock_is_physical": false,
+      "logical_fetched_at": "2026-10-01T12:00:00+00:00",
+      "observed_content_revision_status": "FIRST_CAPTURE",
+      "original_response_observed_at": "2026-10-14T00:07:56.585594+00:00",
+      "physical_cache_captured_at": "2026-10-14T05:18:59.979447+00:00",
+      "provider_frame_sha256": "612105e7a9618995a4082ecb5c5de6b805eca5e67b73263b4bdbc0c36ba1ec9f",
+      "provider_observation": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+      "provider_observation_id": "00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572",
+      "provider_rows": 22,
+      "publisher_revision_timing_status": "UNKNOWN",
+      "raw_path": "evidence/batch5_prices_20261014/raw/e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66.json",
+      "raw_sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66",
+      "recent_window_lookup_status": "incomplete",
+      "recent_window_missing_sessions": [
+        "2026-10-13"
+      ],
+      "recorded_action_input_sessions": 5,
+      "requested_action_input_sessions": 6,
+      "strict_pit_eligible": false,
+      "ticker": "SPY",
+      "usable_cached_rows": 21
+    }
+  ],
+  "artifact_sha256": {
+    "evidence/batch5_prices_20261014/live_probe.json": "9ffb4ffd22dd3a49af6125924155fe434eef6e9a147d2e5e4880fba98f2b2bee",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json": "17fa37032d4b3a11db559f5ac2e2d13103fb30f269f4944bc3b8e49f5ac0d673",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json": "ceb51a5a54ac108fe25f45cb3723262b4ddb1b4e15e35cc67a9d9bcd0df70b23",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json": "8b208427d5803dd8167fa60efb7b001bd578e67cf7562f0f756afe2a2d62df96",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json": "3c40cd641da45f93b9c043dfffe882cf718afcd11983d4133fc1d607571de74a",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json": "46f14b3f4c90cb1e1af9f7040f20838ee998ce5ab3ff8fea341a30e8ce3a6ee0",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json": "06dae1963277a7a6679ce43cd5c30163936ffbea70c19ac19e623aa79fe91c59",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json": "4ad3a6f0dd9bcb2a0414cacda679913af205188f8680c9f93e9ed4974d75131a",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json": "d1e463919e61a19bcbc034e800f546df0107974b801a8a73d72741f1c0cb9b15",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json": "5e7b4a296cd39dcbb1dc623c6a546031b64f4dbcbee3f9e4a8c0ac4e4fa255b6",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json": "6d5ecdc369acc28f8454ab96c34985bfc01d12be78c5b512ae543d0290e53328",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json": "88c4df08605994ffd17f06f1cb86c4bacf32c56d9a904da433ae4bd326447c2c",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json": "a12934db619882f10e89fae61b9cb85921df407fda0cf657b0584768300f2a2c",
+    "evidence/batch5_prices_20261014/observations/yahoo_price_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json": "cc34609984e6123980319b684d70f460e1a3e186788fc61ef7d332415082f2ba",
+    "evidence/batch5_prices_20261014/raw/ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182.json": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182",
+    "evidence/batch5_prices_20261014/raw/e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66.json": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66",
+    "evidence/batch5_prices_20261014/tests.log": "6579b4befe90e30f6d8578b1e19477f4eed48936265f2ca41fe7e51cfe046a25"
+  },
+  "base_sha": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "claims": {
+    "canonical_universe_changed": false,
+    "out_of_sample_acceptance_verified": false,
+    "score_changed": false,
+    "specialists_accepted": 0,
+    "target_formula_changed": false,
+    "timing_budget_changed": false
+  },
+  "generated_at": "2026-10-14T05:19:04.030988+00:00",
+  "limitations": [
+    "These are two current response captures and a current offline import. Market event timestamps and October 1 TTL metadata never backdate their availability.",
+    "Both 22-row source envelopes have a null October 13 Close. Only 21 closes are usable; the latest exact horizon remains missing, independently of the earlier six-session diagnostic window.",
+    "AAPL/SPY pilot and earlier six-session retrospective input window are not universe coverage, a historical prediction, a completed OOS sample or specialist acceptance.",
+    "Yahoo does not supply independently dated publisher correction knowledge in these quote/action arrays. Publisher revision timing remains UNKNOWN and strict PIT excludes both roles.",
+    "Observed content changes and price extensions are local observations, never an inferred publisher correction. Parsed zero action inputs are not complete corporate-action history.",
+    "The legacy unannotated raw pipeline keeps its previous write path and UNKNOWN provenance; new immutable I/O is limited to the strict action cache or genuinely annotated provider frames.",
+    "Actual user Windows end-to-end, true historical source versions and other shadow/candidate evaluator provenance gates remain separate work."
+  ],
+  "owned_file_sha256": {
+    "evidence/batch5_prices_20261014/reproduce.py": "bac5812e443fa0e6a03e2f5e4caae57cc2282089e6f2f79dc0fd96a455ff3cad",
+    "market_checker_app/services/specialist_label_availability_service.py": "c7960dbaf1195981283b4a7ccbb41496139b3680d53b2e0b00fac184ad35791b",
+    "market_checker_app/services/yahoo_corporate_action_history.py": "251e47a2368a1a971bdc1360998805cf158b339e5c7a49041d339e7eaad89de8",
+    "market_checker_app/services/yahoo_price_provenance_service.py": "7e3d192bbfb154b81bf2862eb2d152c0824500d020916f6580dbc655b999a17d",
+    "market_checker_app/storage/yahoo_ohlc_cache_store.py": "25a5efd79eb12fd96ad2e38128e872cd17aa611a9caed329b760fd10d2d66aed",
+    "tests/test_batch5_price_provenance.py": "d63827ce2fff5d1081d8f28c39f19030698b83d825e3e5d3216b54035f702231"
+  },
+  "primary_local_library_source": {
+    "distribution": "yfinance",
+    "functions_used": [
+      "parse_quotes",
+      "parse_actions"
+    ],
+    "publisher_revision_timestamp_exposed_by_these_functions": false,
+    "source_file": "yfinance/utils.py",
+    "source_file_sha256": "e046f6d2a19cc5f21a354c4179c611c692c2fd344557a31738f161371e991295",
+    "version": "1.6.0"
+  },
+  "retrospective_price_window_audit": {
+    "actual_historical_prediction_exists": false,
+    "endpoint_close_is_event_time": "2026-10-12T20:00:00+00:00",
+    "observed_price_input_at": "2026-10-14T05:19:00.201606+00:00",
+    "out_of_sample_sample_count": 0,
+    "roles": {
+      "asset": {
+        "complete_recorded_action_input_window": true,
+        "consumed_prices": [
+          332.8900146484,
+          333.6300048828,
+          336.6700134277,
+          340.4200134277,
+          336.6400146484,
+          340.9700012207
+        ],
+        "consumed_session_count": 6,
+        "issue": "MISSING_PRICE_REVISION_PROVENANCE",
+        "price_observation_id": "3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666",
+        "ticker": "AAPL"
+      },
+      "benchmark": {
+        "complete_recorded_action_input_window": true,
+        "consumed_prices": [
+          774.8300170898,
+          779.0900268555,
+          777.2199707031,
+          773.9299926758,
+          778.5700073242,
+          778.0999755859
+        ],
+        "consumed_session_count": 6,
+        "issue": "MISSING_PRICE_REVISION_PROVENANCE",
+        "price_observation_id": "f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3",
+        "ticker": "SPY"
+      }
+    },
+    "saved_label_count": 0,
+    "scope": "RETROSPECTIVE_PRICE_INPUT_WINDOW_ONLY_NO_PREDICTION_CREATED",
+    "separate_recent_window_gap": {
+      "exact_window_ending_oct13_available": false,
+      "horizon_shifted": false,
+      "meta_regular_market_price_substituted": false,
+      "reason": "MISSING_EXPECTED_OCT13_CLOSE_IN_BOTH_SOURCE_ARRAYS"
+    },
+    "session_dates": [
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07",
+      "2026-10-08",
+      "2026-10-09",
+      "2026-10-12"
+    ]
+  },
+  "schema_version": 1,
+  "source": {
+    "actual_captured_chart_responses": 2,
+    "fresh_price_requests_in_capture": 2,
+    "fresh_requests_in_replay": 0,
+    "new_backdated_predictions": 0,
+    "raw_bytes_preserved": true
+  },
+  "tests": {
+    "discovered": 84,
+    "elapsed_seconds": 3.696118,
+    "errors": 0,
+    "executed": 84,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_sha256": "6579b4befe90e30f6d8578b1e19477f4eed48936265f2ca41fe7e51cfe046a25",
+    "modules": [
+      "tests.test_batch5_price_provenance",
+      "tests.test_yahoo_ohlc_cache_store",
+      "tests.test_yahoo_corporate_action_history",
+      "tests.test_price_methodology",
+      "tests.test_batch4_evaluation_label_availability",
+      "tests.test_batch4_evaluation_label_persistence",
+      "tests.test_prediction_label_service",
+      "tests.test_prediction_label_runner",
+      "tests.test_prediction_label_queue_fairness"
+    ],
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  }
+}

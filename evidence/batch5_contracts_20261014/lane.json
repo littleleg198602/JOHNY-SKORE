@@ -1,0 +1,340 @@
+{
+  "acceptance": {
+    "OOS_evidence": false,
+    "actual_prior_capture_bytes_verified": true,
+    "company_award_coverage_complete": false,
+    "historical_revisions_complete": false,
+    "issuer_revenue_inferred": false,
+    "new_live_capture": false,
+    "publisher_changed_revision_observed_in_actual_cases": false,
+    "publisher_deletion_verified": false,
+    "scoring_or_trading_changed": false,
+    "source_revision_or_deletion_date_known": false,
+    "windows_end_to_end": false
+  },
+  "basis_commit": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "completed_at": "2026-10-14T00:14:51.355056+00:00",
+  "dependencies": [
+    {
+      "path": "evidence/batch3_contracts_acceptance_20261012.json",
+      "sha256": "37192660b569d957c60ff1656a26441d124be34b49c8605b3c05171f5189b15b"
+    },
+    {
+      "path": "evidence/batch3_contracts_live_20261012/body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "path": "evidence/batch3_contracts_live_20261012/capture-6524208d7c5a40c4b5e36637aded7d32.json",
+      "sha256": "223dd743e49216a8a009ed4cdd409aac9b4087475ee70105940270c44b3b0899"
+    },
+    {
+      "path": "evidence/batch3_contracts_live_20261012/capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+      "sha256": "f3353ef9d38297ee3b630ec1cd596143fac53d14949f4b40738823b5acf67190"
+    },
+    {
+      "path": "evidence/batch3_contracts_probe_20261012.json",
+      "sha256": "cd7a244ad89536906ad222d7d968e2a0e785ebeaf37dee9fcc186f29006c72cf"
+    },
+    {
+      "path": "evidence/batch3_contracts_probe_20261012.response",
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "path": "evidence/batch4_contracts_revision_20261013.json",
+      "sha256": "69bd2d4a1e9c8ddce195fa9bc1bff097fb9764ee994ae593799ca198af4193f5"
+    },
+    {
+      "path": "evidence/batch5_contracts_20261014/body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "path": "evidence/batch5_contracts_20261014/capture-probe-import.json",
+      "sha256": "0fc9b80c79d9e59646b004e107456beb778a6290ede74ca671625bb4d60a8d5c"
+    },
+    {
+      "path": "evidence/usaspending_live_20261001.json",
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+    }
+  ],
+  "durable_quota_history": {
+    "counter_reset": false,
+    "inspections": [
+      {
+        "opened_mode": "READ_ONLY",
+        "quota_tables": [],
+        "task_database": "JOHNY-batch3-integration-20261012",
+        "verified_prime_award_targets": 0
+      },
+      {
+        "opened_mode": "READ_ONLY",
+        "quota_tables": [],
+        "task_database": "JOHNY-batch4-integration-20261013",
+        "verified_prime_award_targets": 0
+      },
+      {
+        "opened_mode": "READ_ONLY",
+        "quota_tables": [],
+        "task_database": "JOHNY-SKORE",
+        "verified_prime_award_targets": 0
+      }
+    ],
+    "new_source_http_attempts": 0,
+    "status": "BLOCKED_MISSING_DURABLE_USASPENDING_QUOTA_AND_TARGET_HISTORY"
+  },
+  "genuine_capture_comparison": {
+    "acquisition_mode": "ARCHIVE_COMPARISON",
+    "as_of": "2026-10-14T00:14:51.350170+00:00",
+    "audit_recorded_at": "2026-10-14T00:14:51.350175+00:00",
+    "award_available_at": "2026-10-01T11:02:40.046467+00:00",
+    "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+    "baseline": {
+      "ambiguous_transaction_ids": [],
+      "defects": [],
+      "pages": [
+        {
+          "body_file": "body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+          "body_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "capture_identity": "0084832429252c7eba049cb2b236391dc6f8eb29bb665d71163915925f0480bb",
+          "capture_mode": "ARCHIVE_REPLAY",
+          "manifest_name": "capture-probe-import.json",
+          "manifest_sha256": "0fc9b80c79d9e59646b004e107456beb778a6290ede74ca671625bb4d60a8d5c",
+          "original_capture_mode": "LIVE",
+          "request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "request_started_at": "2026-10-12T14:42:07.123521+00:00",
+          "response_completed_at": "2026-10-12T14:42:14.095355+00:00"
+        }
+      ],
+      "pagination_snapshot_guaranteed": false,
+      "query_scope": {
+        "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "limit": 100,
+        "order": "asc",
+        "sort": "action_date"
+      },
+      "reported_rows": 14,
+      "request_started_at": "2026-10-12T14:42:07.123521+00:00",
+      "response_completed_at": "2026-10-12T14:42:14.095355+00:00",
+      "source_origin": "PUBLISHER_CAPTURE",
+      "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+      "traversal_complete": true,
+      "valid_rows": 14
+    },
+    "company_revenue_inferred": false,
+    "counts": {
+      "newly_reported": 0,
+      "not_reported_in_later_traversal": 0,
+      "payload_changed": 0,
+      "presence_unresolved": 0,
+      "unchanged": 14
+    },
+    "coverage_scope": "Two exact-query bounded traversals for one generated award and verified UEI",
+    "current": {
+      "ambiguous_transaction_ids": [],
+      "defects": [],
+      "pages": [
+        {
+          "body_file": "body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+          "body_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "capture_identity": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "capture_mode": "LIVE",
+          "manifest_name": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+          "manifest_sha256": "f3353ef9d38297ee3b630ec1cd596143fac53d14949f4b40738823b5acf67190",
+          "original_capture_mode": null,
+          "request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00"
+        }
+      ],
+      "pagination_snapshot_guaranteed": false,
+      "query_scope": {
+        "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "limit": 100,
+        "order": "asc",
+        "sort": "action_date"
+      },
+      "reported_rows": 14,
+      "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+      "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+      "source_origin": "PUBLISHER_CAPTURE",
+      "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+      "traversal_complete": true,
+      "valid_rows": 14
+    },
+    "events": [],
+    "events_truncated": false,
+    "fixtures_count_as_live": false,
+    "generated_internal_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+    "http_attempts": 0,
+    "issuer_coverage_complete": false,
+    "modification_history_complete": false,
+    "new_source_capture_comparison": true,
+    "publisher_deletion_verified": false,
+    "publisher_revision_time_verified": false,
+    "read_only": true,
+    "relationship_known_at": "2026-09-30T12:15:48+00:00",
+    "schema_version": "award_transaction_capture_revision_audit_v1",
+    "scoring_applied": false,
+    "source_manifest_is_publisher_signed": false,
+    "source_origin": "PUBLISHER_CAPTURE",
+    "source_revision_order_verified": false,
+    "status": "COMPLETE_CAPTURE_COMPARISON",
+    "subject_id": "LMT",
+    "uei": "UTJWTSLMFNG4",
+    "verified_identity_sha256": "46af37c3a63e40a3d63b5200e371f4611ab2df859c708398fffa8c3c8eac79c9"
+  },
+  "kind": "read_only_source_capture_revision_and_presence_audit",
+  "preservation": {
+    "after_history_sha256": "45b3d5fde74015182cec27e80f5fb0091cbcb9a63ff7b406c52438662ab83fed",
+    "before_history_sha256": "45b3d5fde74015182cec27e80f5fb0091cbcb9a63ff7b406c52438662ab83fed",
+    "findings_and_first_ingestion_clocks_unchanged": true,
+    "historical_findings": 15,
+    "historical_observations": 14,
+    "new_http_attempts": 0,
+    "new_quota_ledger_created": false,
+    "offline_history_source": "Committed actual batch3 findings and batch4 observation export reconstructed only for read-only verification",
+    "prior_source_bytes_and_metadata_unchanged": true
+  },
+  "remaining_work": [
+    "Original persistent source lease/daily ledger and verified live award state for new requests",
+    "Wider dated UEI/award coverage and genuine incremental captures",
+    "Publisher-documented revision/deletion clocks or independently archived correction history",
+    "Relevant denominators, longer point-in-time history/OOS evaluation and actual user Windows acceptance"
+  ],
+  "same_original_capture_replay": {
+    "acquisition_mode": "ARCHIVE_COMPARISON",
+    "as_of": "2026-10-14T00:14:51.351771+00:00",
+    "audit_recorded_at": "2026-10-14T00:14:51.351773+00:00",
+    "award_available_at": "2026-10-01T11:02:40.046467+00:00",
+    "award_finding_id": "finding:e4182e785ee8905a0621645841bdd3bb",
+    "baseline": {
+      "ambiguous_transaction_ids": [],
+      "defects": [],
+      "pages": [
+        {
+          "body_file": "body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+          "body_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "capture_identity": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "capture_mode": "LIVE",
+          "manifest_name": "capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+          "manifest_sha256": "f3353ef9d38297ee3b630ec1cd596143fac53d14949f4b40738823b5acf67190",
+          "original_capture_mode": null,
+          "request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00"
+        }
+      ],
+      "pagination_snapshot_guaranteed": false,
+      "query_scope": {
+        "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "limit": 100,
+        "order": "asc",
+        "sort": "action_date"
+      },
+      "reported_rows": 14,
+      "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+      "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+      "source_origin": "PUBLISHER_CAPTURE",
+      "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+      "traversal_complete": true,
+      "valid_rows": 14
+    },
+    "company_revenue_inferred": false,
+    "counts": {
+      "newly_reported": 0,
+      "not_reported_in_later_traversal": 0,
+      "payload_changed": 0,
+      "presence_unresolved": 0,
+      "unchanged": 14
+    },
+    "coverage_scope": "Two exact-query bounded traversals for one generated award and verified UEI",
+    "current": {
+      "ambiguous_transaction_ids": [],
+      "defects": [],
+      "pages": [
+        {
+          "body_file": "body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+          "body_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+          "capture_identity": "d834496978bd02e5293e9814c3ab54be328eac8ee65b22622839145c9de3a441",
+          "capture_mode": "ARCHIVE_REPLAY",
+          "manifest_name": "capture-6524208d7c5a40c4b5e36637aded7d32.json",
+          "manifest_sha256": "223dd743e49216a8a009ed4cdd409aac9b4087475ee70105940270c44b3b0899",
+          "original_capture_mode": "LIVE",
+          "request": {
+            "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+            "limit": 100,
+            "order": "asc",
+            "page": 1,
+            "sort": "action_date"
+          },
+          "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+          "response_completed_at": "2026-10-12T15:12:09.077127+00:00"
+        }
+      ],
+      "pagination_snapshot_guaranteed": false,
+      "query_scope": {
+        "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+        "limit": 100,
+        "order": "asc",
+        "sort": "action_date"
+      },
+      "reported_rows": 14,
+      "request_started_at": "2026-10-12T15:12:01.246351+00:00",
+      "response_completed_at": "2026-10-12T15:12:09.077127+00:00",
+      "source_origin": "PUBLISHER_CAPTURE",
+      "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+      "traversal_complete": true,
+      "valid_rows": 14
+    },
+    "events": [],
+    "events_truncated": false,
+    "fixtures_count_as_live": false,
+    "generated_internal_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+    "http_attempts": 0,
+    "issuer_coverage_complete": false,
+    "modification_history_complete": false,
+    "new_source_capture_comparison": false,
+    "publisher_deletion_verified": false,
+    "publisher_revision_time_verified": false,
+    "read_only": true,
+    "relationship_known_at": "2026-09-30T12:15:48+00:00",
+    "schema_version": "award_transaction_capture_revision_audit_v1",
+    "scoring_applied": false,
+    "source_manifest_is_publisher_signed": false,
+    "source_origin": "PUBLISHER_CAPTURE",
+    "source_revision_order_verified": false,
+    "status": "SAME_SOURCE_CAPTURE",
+    "subject_id": "LMT",
+    "uei": "UTJWTSLMFNG4",
+    "verified_identity_sha256": "46af37c3a63e40a3d63b5200e371f4611ab2df859c708398fffa8c3c8eac79c9"
+  },
+  "schema_version": 1,
+  "scope": {
+    "generated_award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+    "source_observations": "Two original Oct12 requests for one exact award; Oct13 replay retains the Oct12 collector capture",
+    "ticker": "LMT",
+    "uei": "UTJWTSLMFNG4"
+  },
+  "started_at": "2026-10-14T00:14:51.333852+00:00",
+  "tests": {
+    "path": "evidence/batch5_contracts_20261014/tests.json",
+    "sha256": "1dc8a1fbc5c1fb539e8233c291ea45f92cfd3f833c834f728ec613404018f76d"
+  }
+}

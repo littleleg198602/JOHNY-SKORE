@@ -1,5 +1,9 @@
-"""Reproduce source-only positive and partial controls from actual IR captures."""
-from datetime import datetime
+"""Replay safe originals; withheld required bodies produce a current PARTIAL.
+
+Historical manifests/reports stay immutable. New diagnostics are written only
+to the additive batch5 withholding evidence, never the old source_review.json.
+"""
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -7,22 +11,52 @@ from pathlib import Path
 import feedparser
 
 from market_checker_app.models import NewsItem
-from market_checker_app.services.ir_primary_verification_service import CapturedIRDocument, verify_primary_ir_lead
+from market_checker_app.services.ir_primary_verification_service import (
+    CapturedIRDocument, UnavailableIRDocument, capture_available_at, verify_primary_ir_lead,
+)
 
 
 ROOT = Path(__file__).resolve().parent
 PUBLISHER_HOSTS = ("news.microsoft.com", "www.microsoft.com")
+WITHHOLDING_RECORD = ROOT.parent / "batch5_ir_prior_withholding_20261014/withholding.json"
+CURRENT_REPORT_PATH = WITHHOLDING_RECORD.parent / "current_review.json"
 
 
-def load_captures():
-    manifest = json.loads((ROOT / "captures.json").read_bytes())
+def load_captures(root=None, withholding_path=None):
+    root = Path(root or ROOT)
+    record_path = Path(withholding_path or WITHHOLDING_RECORD)
+    manifest = json.loads((root / "captures.json").read_bytes())
     if manifest["request_count"] > 6 or len(manifest["http_requests"]) != manifest["request_count"]:
         raise ValueError("IR capture manifest exceeds shared request bound")
+    withholding = json.loads(record_path.read_bytes()) if record_path.is_file() else None
     captures = {}
     for item in manifest["captures"]:
         if item.get("http_status") != 200:
             continue
-        body = (ROOT / item["path"]).read_bytes()
+        if item["path"] == "primary/ir_authority.html":
+            # Known rejected authority bytes are never opened again, even if
+            # accidentally restored at this pathname. A missing disclosure
+            # record likewise cannot recover source verification from them.
+            if withholding is not None:
+                rows = [row for row in withholding["withdrawals"] if row["repository_path"] ==
+                        "evidence/batch4_ir_20261013/primary/ir_authority.html"]
+                if (len(rows) != 1 or rows[0]["original_capture_metadata"] != item
+                        or rows[0]["retention"] != "WITHHELD_SENSITIVE_BODY"
+                        or not withholding["whole_body_gate_positive"]):
+                    raise ValueError("IR authority withholding metadata conflicts with the original manifest")
+                unavailable_at = datetime.fromisoformat(withholding["audit_completed_at"])
+                reason = "WITHHELD_SENSITIVE_BODY"
+            else:
+                unavailable_at, reason = datetime.now(timezone.utc), "MISSING_CAPTURE_BODY"
+            captures[Path(item["path"]).name] = UnavailableIRDocument(
+                requested_url=item["url"], resolved_url=item["resolved_url"],
+                observed_at=datetime.fromisoformat(item["observed_at"]), unavailable_at=unavailable_at,
+                sha256=item["sha256"], size_bytes=item["size_bytes"], reason=reason,
+                content_type=item["content_type"], http_status=item["http_status"],
+                http_date=item["http_date"], last_modified=item["last_modified"],
+            )
+            continue
+        body = (root / item["path"]).read_bytes()
         if len(body) != item["size_bytes"] or hashlib.sha256(body).hexdigest() != item["sha256"]:
             raise ValueError("IR raw capture bytes/hash conflict")
         captures[Path(item["path"]).name] = CapturedIRDocument(
@@ -49,34 +83,41 @@ def lead_for_page(captures, page):
 def build_review_artifact():
     manifest, captures = load_captures()
     authority, feed = captures["ir_authority.html"], captures["press_releases_feed.xml"]
-    clock = max(row.observed_at for row in captures.values())
-    positives = []
+    clock = max(capture_available_at(row) for row in captures.values())
+    partial_cases = []
     for filename in ("announcement.html", "ir_linked_announcement.html"):
         page = captures[filename]
         report = verify_primary_ir_lead(
             lead_for_page(captures, page), feed_capture=feed, primary_capture=page, authority_capture=authority,
             publisher_hosts=PUBLISHER_HOSTS, knowledge_at=clock,
         )
-        positives.append({"capture_path": "primary/" + filename, "review": report})
+        partial_cases.append({"capture_path": "primary/" + filename, "review": report})
     dividend_lead = lead_for_page(captures, captures["ir_linked_announcement.html"])
     partial = verify_primary_ir_lead(
         dividend_lead, feed_capture=feed, primary_capture=authority, authority_capture=authority,
         publisher_hosts=PUBLISHER_HOSTS, knowledge_at=clock,
     )
     return {
-        "schema_version": 1, "result": "PRIMARY_PUBLISHER_SOURCE_ONLY_REVIEW",
+        "schema_version": 2, "result": "PRIMARY_IR_REQUIRED_BODY_WITHHELD",
         "actual_http_requests": manifest["request_count"], "raw_http_200_captures": len(captures),
-        "positive_source_only_cases": positives,
+        "http_requests_in_current_replay": 0,
+        "readable_original_captures": sum(isinstance(row, CapturedIRDocument) for row in captures.values()),
+        "withheld_required_captures": sum(isinstance(row, UnavailableIRDocument) for row in captures.values()),
+        "positive_source_only_cases": [], "current_partial_source_only_cases": partial_cases,
+        "historical_positive_reports_are_current_acceptance": False,
+        "current_report_available_at": clock.isoformat(),
         "actual_partial_control": {
-            "control_semantics": "Actual HTTP200 IR homepage is not the RSS lead's original announcement. This is a page-binding/non-article control, not a completed negative issuer search.",
+            "control_semantics": "The historical HTTP200 IR portal control body is now entirely withheld. Current replay rejects missing required bodies before parsing; it cannot reproduce the original page-content control or prove a negative issuer search.",
             "capture_path": "primary/ir_authority.html", "review": partial,
         },
         "rss_feed_capture_scope": "first 30 entries, actual feed contains 10; no all-publisher coverage claim",
         "issuer_identity_verified": False, "issuer_attribution_allowed": False,
         "scoring_applied": False, "completion_verified": False, "windows_end_to_end_verified": False,
         "network_or_quota_in_runtime_verifier": False,
-        "next_task": "Quota-managed leased LIVE primary traversal and independent dated legal-issuer/instrument evidence before issuer-scoped acceptance.",
-        "limits": ["SOURCE_VERIFIED concerns captured publisher content, not claim truth or issuer attribution",
+        "next_task": "An IR portal whose entire original body can pass the disclosure gate, plus independently dated issuer/instrument evidence.",
+        "limits": ["The old source_review.json remains immutable historical source-version evidence; its two positives are not current acceptance",
+                   "A required portal body is entirely withheld; original hash/clocks are metadata and cannot replace content verification",
+                   "SOURCE_VERIFIED concerns captured publisher content, not claim truth or issuer attribution",
                    "database RSS findings remain UNVERIFIED; original leads persist unchanged",
                    "reported publication clocks do not prove exact first dissemination; capture clocks remain October",
                    "earnings release date is a prospective announcement, not already released financial results",
@@ -87,6 +128,7 @@ def build_review_artifact():
 
 
 if __name__ == "__main__":
-    target = ROOT / "source_review.json"
-    target.write_text(json.dumps(build_review_artifact(), indent=2) + "\n", encoding="utf-8")
-    print(target)
+    # Historical source_review.json is never an output of the current guard.
+    with CURRENT_REPORT_PATH.open("x", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(build_review_artifact(), indent=2, sort_keys=True) + "\n")
+    print(CURRENT_REPORT_PATH.name)

@@ -1,0 +1,16 @@
+{
+  "attempted_at": "2026-10-14T00:15:39.430062+00:00",
+  "completed_at": "2026-10-14T00:15:43.665279+00:00",
+  "content_encoding": null,
+  "content_type": "text/html; charset=utf-8",
+  "http_date": "Wed, 14 Oct 2026 00:15:43 GMT",
+  "last_modified": null,
+  "requested_url": "https://www.microsoft.com/en-us/investor/default",
+  "retention": "WITHHELD_SENSITIVE_BODY",
+  "role": "authority",
+  "runtime_mode": "LIVE_HTTP",
+  "sequence": 2,
+  "sha256": "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+  "size_bytes": 287254,
+  "status": 200
+}

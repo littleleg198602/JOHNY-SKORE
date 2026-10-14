@@ -1,0 +1,38 @@
+{
+  "body_file": "body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+  "byte_limit": 4000000,
+  "capture_mode": "ARCHIVE_REPLAY",
+  "complete_response": true,
+  "http_status": 200,
+  "legacy_import": {
+    "complete_response_basis": "Recorded RETURNED HTTP200, exact Content-Length/response_bytes/body hash verified",
+    "original_body_path": "evidence/batch3_contracts_probe_20261012.response",
+    "original_metadata_path": "evidence/batch3_contracts_probe_20261012.json",
+    "original_metadata_sha256": "cd7a244ad89536906ad222d7d968e2a0e785ebeaf37dee9fcc186f29006c72cf",
+    "original_schema_version": 1
+  },
+  "method": "POST",
+  "original_capture_manifest": "batch3_contracts_probe_20261012.json",
+  "original_capture_mode": "LIVE",
+  "request": {
+    "award_id": "CONT_AWD_70Z02321FAMH00300_7008_70Z02321DAMH00400_7008",
+    "limit": 100,
+    "order": "asc",
+    "page": 1,
+    "sort": "action_date"
+  },
+  "request_started_at": "2026-10-12T14:42:07.123521+00:00",
+  "response_bytes": 6220,
+  "response_completed_at": "2026-10-12T14:42:14.095355+00:00",
+  "response_headers": {
+    "Content-Length": "6220",
+    "Content-Type": "application/json",
+    "Date": "Mon, 12 Oct 2026 14:42:14 GMT"
+  },
+  "response_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+  "schema_version": "award_transaction_capture_v1",
+  "source_url": "https://api.usaspending.gov/api/v2/transactions/",
+  "source_url_final": "https://api.usaspending.gov/api/v2/transactions/",
+  "status": "RETURNED",
+  "timeout_seconds": 12
+}

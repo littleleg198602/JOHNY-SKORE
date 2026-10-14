@@ -1,0 +1,130 @@
+{
+  "canonical_symbols": 687,
+  "network_requested_during_replay": false,
+  "new_aliases": 0,
+  "new_http_requests": 0,
+  "new_verified_identities": 0,
+  "prior_PSTG_registry_versions": 0,
+  "production_registry_changed": false,
+  "publication_clock_links": [
+    {
+      "accession": "0001474432-26-000011",
+      "filed_on": "2026-02-23",
+      "historical_knowledge_reconstructed": false,
+      "metadata_sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+      "observed_at": "2026-10-13T08:51:43.692956+00:00",
+      "publication_at": "2026-02-24T02:23:05.000Z",
+      "reported_at": "2026-02-23",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/pstg-20260223.htm"
+    },
+    {
+      "accession": "0001474432-26-000061",
+      "filed_on": "2026-06-05",
+      "historical_knowledge_reconstructed": false,
+      "metadata_sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+      "observed_at": "2026-10-13T08:46:35.542470+00:00",
+      "publication_at": "2026-06-06T00:08:55.000Z",
+      "reported_at": "2026-05-03",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000061/pstg-20260503.htm"
+    },
+    {
+      "accession": "0001474432-26-000088",
+      "filed_on": "2026-09-04",
+      "historical_knowledge_reconstructed": false,
+      "metadata_sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+      "observed_at": "2026-10-13T08:46:29.713061+00:00",
+      "publication_at": "2026-09-05T00:03:31.000Z",
+      "reported_at": "2026-08-02",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000088/pstg-20260802.htm"
+    },
+    {
+      "accession": "0002100119-26-000481",
+      "filed_on": "2026-04-29",
+      "historical_knowledge_reconstructed": false,
+      "metadata_sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+      "observed_at": "2026-10-13T08:51:32.791299+00:00",
+      "publication_at": "2026-04-30T02:36:07.000Z",
+      "reported_at": "",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000210011926000481/primary_doc.xml"
+    }
+  ],
+  "registry_sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+  "retained_primary_responses_selected": 5,
+  "scope": "Current catalog, formerNames, quarterly list and first/last covers do not establish effective day",
+  "source_inventory": [
+    {
+      "bytes": 865,
+      "path": "evidence/batch4_identity_20261013/captures/2be20b35d97ffdb8d52b3c6b89f0499c7debe64ddde8bc63c7c9eaaff714ee30.json",
+      "sha256": "4b467ce034671c27bf82c3a4087b3750e77830b97524e2436fe61ec02b80c874"
+    },
+    {
+      "bytes": 5629,
+      "path": "evidence/batch4_identity_20261013/captures/622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a.bin",
+      "sha256": "622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a"
+    },
+    {
+      "bytes": 871,
+      "path": "evidence/batch4_identity_20261013/captures/7218f3785433f5eb16d0fb322134a9978323833cd3557f29166d2174ad2c732d.json",
+      "sha256": "d53bc7a3da2980c19172b4a559b1599e2a5282c935052fc6c04597dc46bfc1df"
+    },
+    {
+      "bytes": 1320999,
+      "path": "evidence/batch4_identity_20261013/captures/511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b.bin",
+      "sha256": "511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b"
+    },
+    {
+      "bytes": 872,
+      "path": "evidence/batch4_identity_20261013/captures/9e94ff7b56c0c2754f484da2574802cadae985d4a04a34880b12291404dd909d.json",
+      "sha256": "b6ea263cd075395a484525f03500b48f36622592d0677f0a162ff094b7ca65bc"
+    },
+    {
+      "bytes": 31810,
+      "path": "evidence/batch4_identity_20261013/captures/50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786.bin",
+      "sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786"
+    },
+    {
+      "bytes": 871,
+      "path": "evidence/batch4_identity_20261013/captures/d0cede9f282a654d0e90dee06851d09ffeaa767e1da752c485ea37f8c8b248bf.json",
+      "sha256": "a871d4880738db3bda5faec2ee1c0bff2976ba2097841192388cf015a80c0b66"
+    },
+    {
+      "bytes": 1614197,
+      "path": "evidence/batch4_identity_20261013/captures/a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a.bin",
+      "sha256": "a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a"
+    },
+    {
+      "bytes": 784,
+      "path": "evidence/batch4_identity_20261013/captures/fa92eff28a7568ebceff171ae194030eb331b402e48a5c89d57ad3de407e4573.json",
+      "sha256": "5c88746e1c45b7adecef6fe8850cde7d7fac972f3befc1cfab0b6b69529bd26c"
+    },
+    {
+      "bytes": 157897,
+      "path": "evidence/batch4_identity_20261013/captures/aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149.bin",
+      "sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149"
+    },
+    {
+      "bytes": 247,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a.json",
+      "sha256": "98995b942e0a4564f78a4ba8ad12aa5ee8444eea8b07fc2f9aac4b77b104fec7"
+    },
+    {
+      "bytes": 799583,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+    },
+    {
+      "bytes": 249,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c.json",
+      "sha256": "0e4c7eddeb5bb88152b2798f3bd9421ecee08b4992478adf75e95103f17b430e"
+    },
+    {
+      "bytes": 2088909,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+    }
+  ]
+}

@@ -100,6 +100,84 @@ class CapturedIRDocument:
         }
 
 
+@dataclass(frozen=True, slots=True)
+class UnavailableIRDocument:
+    """A pinned original-body identity with no readable body or substitute."""
+    requested_url: str
+    resolved_url: str
+    observed_at: datetime
+    unavailable_at: datetime
+    sha256: str
+    size_bytes: int
+    reason: str
+    http_status: int = 200
+    content_type: str = "text/html"
+    http_date: str | None = None
+    last_modified: str | None = None
+    capture_origin: str = "PINNED_CAPTURE_REPLAY"
+
+    @property
+    def available_at(self):
+        observed, unavailable = _aware(self.observed_at), _aware(self.unavailable_at)
+        if unavailable < observed:
+            raise IRPrimaryVerificationError("IR unavailability knowledge cannot predate its original observation")
+        return unavailable
+
+    def summary(self):
+        _url(self.requested_url); _url(self.resolved_url)
+        self.available_at
+        if (not isinstance(self.sha256, str) or not re.fullmatch(r"[0-9a-f]{64}", self.sha256)
+                or isinstance(self.size_bytes, bool) or not isinstance(self.size_bytes, int)
+                or not 0 <= self.size_bytes <= MAX_IR_CAPTURE_BYTES
+                or self.reason not in {"WITHHELD_SENSITIVE_BODY", "MISSING_CAPTURE_BODY"}
+                or self.capture_origin not in {"PINNED_CAPTURE_REPLAY", "SYNTHETIC_TEST_FIXTURE"}):
+            raise IRPrimaryVerificationError("Unavailable IR capture requires exact bounded original metadata")
+        if any(value is not None and (not isinstance(value, str) or len(value) > 1_024)
+               for value in (self.content_type, self.http_date, self.last_modified)):
+            raise IRPrimaryVerificationError("IR capture headers exceed bounded reference policy")
+        return {
+            "requested_url": self.requested_url, "resolved_url": self.resolved_url,
+            "observed_at": self.observed_at.isoformat(), "http_status": self.http_status,
+            "content_type": self.content_type, "http_date": self.http_date, "last_modified": self.last_modified,
+            "sha256": self.sha256, "size_bytes": self.size_bytes, "capture_origin": self.capture_origin,
+            "body_available": False, "capture_retention": self.reason,
+            "unavailability_observed_at": self.unavailable_at.isoformat(),
+        }
+
+
+def capture_available_at(capture):
+    return capture.available_at if isinstance(capture, UnavailableIRDocument) else _aware(capture.observed_at)
+
+
+def _unavailable_review(lead, captures, provenance, *, clock, hosts, original, feed_url):
+    missing = [{"role": role, "reason": capture.reason} for role, capture in captures.items()
+               if isinstance(capture, UnavailableIRDocument)]
+    return {
+        "review_version": IR_PRIMARY_REVIEW_VERSION, "verification_mode": "READ_ONLY_CAPTURE_REVIEW",
+        "reviewed_at": clock.isoformat(), "requested_ticker": lead.ticker,
+        "source_verification_status": "PARTIAL", "source_verified": False,
+        "reasons": [f"{item['role'].upper()}_CAPTURE_{item['reason']}" for item in missing],
+        "missing_required_captures": missing,
+        "lead": {"original_url": original, "feed_url": feed_url, "title": lead.title,
+                 "published_at": _aware(lead.published_at).isoformat(), "observed_at": _aware(lead.observed_at).isoformat()},
+        "captures": provenance, "publisher_hosts_policy": sorted(hosts),
+        "publication_clocks": {"rss_raw": [], "primary_raw": [], "http_dates_are_not_publication_clocks": True,
+                               "exact_first_dissemination_verified": False},
+        "source_available_at": max(_aware(lead.observed_at), *(capture_available_at(item) for item in captures.values())).isoformat(),
+        "quoted_claim": {"quote": "", "locator": None, "source_url": captures["primary"].resolved_url,
+                         "source_sha256": provenance["primary"]["sha256"], "quote_matches_primary_article": False,
+                         "claim_truth_independently_verified": False},
+        "publisher_ir_link": {"authority_url": captures["authority"].resolved_url,
+                              "authority_cites_requested_or_resolved_page": False,
+                              "authority_cites_exact_requested_alias": False, "primary_cites_ir_portal": []},
+        "issuer_as_named_mentions": [], "issuer_identity_status": "TICKER_HINT_ONLY",
+        "issuer_identity_verified": False, "issuer_attribution_allowed": False,
+        "claim_truth_independently_verified": False, "scoring_applied": False,
+        "feed_scope": {"entries_examined": 0, "max_entries": MAX_FEED_ENTRIES, "all_publisher_history_complete": False},
+        "network_requests_performed": 0, "quota_or_lease_modified": False,
+    }
+
+
 class _Page(HTMLParser):
     _VOID = {"meta", "link", "br", "img", "input", "hr", "source", "wbr", "area", "base", "embed", "param", "track", "col"}
 
@@ -161,8 +239,10 @@ class _Page(HTMLParser):
 
 
 def verify_primary_ir_lead(
-    lead: NewsItem, *, feed_capture: CapturedIRDocument, primary_capture: CapturedIRDocument,
-    authority_capture: CapturedIRDocument, publisher_hosts: tuple[str, ...], knowledge_at: datetime,
+    lead: NewsItem, *, feed_capture: CapturedIRDocument | UnavailableIRDocument,
+    primary_capture: CapturedIRDocument | UnavailableIRDocument,
+    authority_capture: CapturedIRDocument | UnavailableIRDocument,
+    publisher_hosts: tuple[str, ...], knowledge_at: datetime,
     claim_quote: str | None = None,
 ) -> dict[str, object]:
     """Review one exact lead/page pair; issuer and claim truth remain unverified.
@@ -180,14 +260,21 @@ provider leases and archives belong to a separate quota-managed caller.
             or any(not re.fullmatch(r"[a-z0-9.-]+", host) for host in hosts)):
         raise IRPrimaryVerificationError("IR source review needs a bounded explicit publisher host policy")
     captures = {"feed": feed_capture, "primary": primary_capture, "authority": authority_capture}
+    if any(not isinstance(capture, (CapturedIRDocument, UnavailableIRDocument)) for capture in captures.values()):
+        raise IRPrimaryVerificationError("IR review requires captured or explicitly unavailable document metadata")
     provenance = {kind: capture.summary() for kind, capture in captures.items()}
-    if any(_aware(capture.observed_at) > clock for capture in captures.values()):
+    if any(capture_available_at(capture) > clock for capture in captures.values()):
         raise IRPrimaryVerificationError("IR source review cannot expose future capture bytes")
     lead_observed, lead_published = _aware(lead.observed_at), _aware(lead.published_at)
     if lead_observed > clock:
         raise IRPrimaryVerificationError("IR source review cannot expose a future RSS lead")
     original = _url(lead.original_url or lead.url)
     feed_url = _url(lead.feed_url or lead.source)
+    if any(isinstance(capture, UnavailableIRDocument) for capture in captures.values()):
+        # No parser/body read is reached when a required body is withheld or
+        # missing. Exact original hashes/clocks remain metadata, never proof.
+        return _unavailable_review(lead, captures, provenance, clock=clock, hosts=hosts,
+                                   original=original, feed_url=feed_url)
     reasons = []
     if lead_published > lead_observed:
         reasons.append("RSS_LEAD_PUBLICATION_CLOCK_CONFLICT")
@@ -308,4 +395,5 @@ provider leases and archives belong to a separate quota-managed caller.
     }
 
 
-__all__ = ["CapturedIRDocument", "IRPrimaryVerificationError", "IR_PRIMARY_REVIEW_VERSION", "verify_primary_ir_lead"]
+__all__ = ["CapturedIRDocument", "UnavailableIRDocument", "capture_available_at", "IRPrimaryVerificationError",
+           "IR_PRIMARY_REVIEW_VERSION", "verify_primary_ir_lead"]

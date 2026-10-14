@@ -4,6 +4,91 @@ Platí od 11. 10. 2026. Vývoj běží v nejvýše šesti oddělených větvích
 koordinátor přebírá změny, řeší integraci a provádí společné kontroly.
 Počet vývojových větví není počet dokončených analytických specialistů.
 
+## Pátá navazující dávka — 14. 10. 2026
+
+Základ PR #162 `5c5ea0ba`, main `a7aa1fec`; žádný merge nebo force push.
+Šest skutečných workerů ve vlastních izolovaných větvích
+`batch5/<lane>-20261014`; koordinátor znovu použil integrační worktree.
+První výstupy i následné úkoly jsou převzaté jako lokální commity.
+Limit používání byl přechodný; nedošlo k resetu práce nebo opakování LIVE.
+
+| Vlastník | Konkrétní výstup | Lokální commit |
+|---|---|---|
+| identity_bulk | Nezávislý XOM corporate-action/class/CUSIP bridge, šest HTTP200 raw; žádná adopce. | `effead5` |
+| healthcare | Prospektivní OBSERVED_SNAPSHOT sponsor contract, přesné capture/arm/issuer gates; skutečné dva případy withheld, 0 HTTP. | `93e6106` |
+| regulatory | Osm skutečných model/year captures, striktní negative review a stejná kvóta pro běžný runtime NHTSA sběrač. | `366b4cd` |
+| contracts | Read-only original-byte revision/absence audit stejného awardu/UEI, 14 unchanged, replay SAME_SOURCE_CAPTURE, 0 HTTP. | `4462bdd` |
+| sec | LIVE primary IR s centrální rezervací každého hopu, whole-body withholding, CLI retry a 2 safe / 1 withheld body. | `a86336f` |
+| evaluation | Skutečný provider/action-cache provenance adapter, 2 HTTP200 chart captures, null Oct13 Close a UNKNOWN revision zachované. | `ed3e56c` |
+| identity_bulk — další úkol | Same-CIK PSTG→P symbol bridge; přesný day/class/CUSIP stále missing, 0 HTTP, žádný alias. | `a342492` |
+| regulatory — další úkol | Read-only bounded scope-review API bez DDL/constructor/HTTP, přesných 8 uložených případů a kvóta beze změny. | `329ab50` |
+| contracts — další úkol | Přísný candidate walk-forward label/price gate; fold knowledge před predikcí, legacy diagnostic oddělená. | viz integrační důkaz |
+| regulatory — redirect guard | Skutečný urllib offline 302/307, žádná druhá neúčtovaná operace; 52 cílených testů, 0 HTTP. | `7732268` |
+| sec — bezpečný historický replay | Celé starší IR authority body vyřazené; neměnná metadata/reporty, současný PARTIAL před parserem; 73 testů, 0 HTTP. | `ff42983` |
+| koordinátor | Sdílené NHTSA/RSS limity, explicitní audit/IR/UI/source archivy, klinické clocks a strict shadow/layer běh. | viz integrační důkaz |
+
+Pět původních production registrů v cílech uživatele zůstává beze změny:
+canonical687; 150 historicalQ2/currentQ3=0; healthcare10/NHTSA3/legal5;
+verified adoption0, full acceptance0/21. Source quota je prospektivní od
+skutečného UTC14October; zmizelá starší temporary historie se nepředstírá.
+NHTSA8requests/3makes a RSS3requests/1ticker zůstávají v původní společné DB.
+Z 19 nových source HTTP odpovědí je 18 bezpečných original raw bodies;
+další veřejný batch5 body je přesná kopie staršího transaction capture,
+nikoli nový požadavek. Čtyři SEC discovery queries jsou samostatný research.
+Celé nové IR authority body i dříve odmítnuté NHTSA dokumentační body jsou
+withheld; žádný sanitizovaný či zakódovaný náhradní export.
+
+Současný export navíc vyřazuje celé starší IR authority HTML po potvrzené detekci přístupových hodnot. Původní otisk, metadata a historické handoff/review záznamy zůstávají; jejich dvě source-only positives nejsou současná akceptace. Metadata-only unavailable capture vrací PARTIAL před čtením těla. Žádné náhradní HTML nebo přepsání původní historie; předchozí veřejná ancestry se neforce-přepisuje.
+
+Běžný NHTSA klient nově odmítá redirect před druhou transportní operací;
+každý pokus zůstává účtovaný, uložené řádky i vyčerpaná denní kvóta zůstávají.
+52 cílených offline/contract testů ověřilo tento guard, 73 IR/budget testů
+ověřilo metadata-only unavailable kontrakt. Tyto mechanické testy nejsou LIVE
+negative, issuer ani Windows/OOS akceptace. Důkazy:
+`evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json` a
+`evidence/batch5_ir_prior_withholding_20261014/handoff.json`.
+Úplný výsledek 1358/1358 před těmito dvěma opravami patří pouze commitu
+`4c26be8`; původní JSON/log jsou zachované v `batch5_pre_redirect_linux*`
+a kvalifikace v `evidence/batch5_coordinator_20261014/pre_redirect_qualification.json`.
+Finální společné kontroly mají vlastní JSON, celý console capture a otisky
+v integračním důkazu; staré výsledky se nepřebírají jako akceptace nového kódu.
+
+Finální společná sada 1371/1371 prošla bez failures/errors/skips/expected/unexpected
+v 151,097 s. JSON a úplný console log jsou v `evidence/batch5_linux_20261014.json`
+a `evidence/batch5_linux_console_20261014.log`; runner-side log je zachovaný
+zvlášť. Přesný otestovaný code snapshot `baac707` a otisky 42 source/test
+souborů jsou v integračním důkazu. Hostované kontroly nového HEAD zůstávají
+samostatné; nevzniká žádná user Windows, source/history ani OOS akceptace.
+
+
+Důkazy: `evidence/batch5_integration_20261014.json`, jednotlivé
+`evidence/batch5_*_20261014/`, `evidence/batch5_coordinator_20261014/content_audit.json`.
+CI tohoto nového HEAD a end-user Windows/OOS jsou samostatné podmínky;
+zelený původní 1183-run není akceptace nového snapshotu.
+
+### Aktuální konkrétní fronta po páté dávce
+
+1. Datované nezávislé XOM new-CUSIP/class a konflikt July7; LEG corporate-action
+   history; přesný PSTG→P action day a post-rename instrument proof. Neprodlužovat Q2.
+2. Nový skutečný klinický capture s předchozí přesnou issuer vazbou ve stejné
+   původní kohortě a doloženou trvalou kvótou; širší CMS/product/ownership scope.
+   Staré '& Co' a pozdější SEC capture nejsou historický sponsor bridge.
+3. Genuine kompletní HTTP200 NHTSA negative; po vyčerpání kvóty neopakovat
+   dotazy téhož UTC dne. Další dated FRS/DOJ identity a relevantní jmenovatele.
+4. Obnovit doložené prime-award targety z původních úplných archivů s dnešním
+   ingestion clock, pokud obsah opravdu existuje; zachovat originální kvótu,
+   širší UEI/awardy a další actual captures/revision timing. Nemyslet absenci jako deletion.
+5. Bezpečný úplný primární IR authority doklad bez náhradního těla; samostatné
+   person/instrument/legal a issuer identity. SOURCE_VERIFIED není issuer VERIFIED.
+6. Prospektivní ceny/actions a source/label historie; skutečná dated publisher
+   revision provenance a exaktní session/knowledge gates. UNKNOWN zůstává excluded,
+   žádné zpětně vyrobené forecasty nebo posuny chybějících horizontů.
+7. Další datované operational exposures a kvantifikace z nezávislých primárních
+   zdrojů; ostatní specialisté, povolené přístupy a uživatelský Windows end-to-end.
+
+Původní 60-second test budget i production score jsou zachované. Šest workerů
+neznamená 21 hotových analytických specialistů; žádné oznámení dokončení.
+
 ## Čtvrtá navazující dávka — 13. 10. 2026
 
 Základ je otevřený PR #162, GitHub HEAD `22bcb749`; main zůstává

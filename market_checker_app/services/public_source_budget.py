@@ -21,6 +21,8 @@ PUBLIC_DAILY_LIMITS = {
     "doj": (25, 50),
     "epa": (10, 10),
     "eia": (2, 2),  # two shared commodity series, not company identities
+    "nhtsa": (4, 8),  # model/make review subjects, not verified issuers
+    "rss": (3, 6),  # primary IR source subjects; every HTTP hop counts
 }
 T = TypeVar("T")
 

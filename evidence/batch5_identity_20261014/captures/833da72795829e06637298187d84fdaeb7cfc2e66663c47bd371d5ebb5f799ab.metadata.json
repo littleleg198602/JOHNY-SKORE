@@ -1,0 +1,21 @@
+{
+  "access_values_exported": false,
+  "body_path": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874.bin",
+  "bytes": 3118947,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm",
+  "http_status": 200,
+  "max_attempts": 1,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-13T23:59:43.702340+00:00",
+  "raw_sha256": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm",
+  "response_headers": {
+    "Content-Length": null,
+    "Content-Type": "text/html",
+    "Date": "Tue, 13 Oct 2026 23:59:43 GMT",
+    "Last-Modified": "Mon, 03 Aug 2026 18:56:27 GMT"
+  },
+  "started_at": "2026-10-13T23:59:40.186307+00:00",
+  "status": "PUBLIC_RAW_CAPTURED"
+}

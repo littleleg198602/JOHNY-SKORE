@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "verified_at": "2026-10-14T05:29:12.626477+00:00",
+  "baseline_commit": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "test_count": 131,
+  "new_lane_tests": 26,
+  "test_seconds": 3.854,
+  "errors": 0,
+  "failures": 0,
+  "skips": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "test_command": "python -m unittest tests.test_batch5_healthcare_snapshot tests.test_healthcare_scout_service tests.test_healthcare_identity_service tests.test_healthcare_coverage_service tests.test_healthcare_coverage_cli tests.test_healthcare_production_identity_manifest tests.test_batch3_healthcare_evidence tests.test_batch4_healthcare tests.test_batch4_healthcare_identity_review -v",
+  "full_suite_run": false,
+  "changed_input_sha256": {
+    "market_checker_app/services/healthcare_identity_service.py": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923",
+    "market_checker_app/services/healthcare_scout_service.py": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078",
+    "market_checker_app/services/healthcare_coverage_service.py": "ec40cb5f8a917b5287f8fb19347c99e7630456e389ca73ad0da35038d671f277",
+    "tests/test_batch5_healthcare_snapshot.py": "9f88a70a5db4414596d5a278f86450fc300efe22bb8556dc45a9b4cf5578f633",
+    "evidence/batch5_healthcare_20261014/review_sources.py": "cd702ccec0bdede174512f923d426ca90cb8f3b2a2be279239a72c7d7a6207a8",
+    "evidence/batch5_healthcare_20261014/README.md": "613ac8769f7c7175493a8ef48b269f2cbffde851bde4de9929d134b7845e5b8d",
+    "evidence/batch5_healthcare_20261014/source_review.json": "346e5aa7bf28e2f2594c3c0bb99b8d5d2c326b0f3c9fd36b91230a615fee24ba",
+    "evidence/batch5_healthcare_20261014/identity_proposal.json": "ac5fb86a9e04b196c876918d7213a312976374bdcd27671fe9ed714e11e36138",
+    "evidence/batch5_healthcare_20261014/focused_tests.log": "b722b0ba1ca0e350ae3e4b2681bb54e06bdeca471f258d7604e9baffd111d409"
+  },
+  "raw_source_body_sha256": {
+    "trial_surpass2_complete_record": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+    "trial_summit_complete_record": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+    "sec_lly_submissions": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d"
+  },
+  "registry_sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+  "production_registry_modified": false,
+  "proposed_records": 0,
+  "source_requests": 0,
+  "new_quota_store_created": false,
+  "clinical_history_status": "WAIT_QUOTA_HISTORY",
+  "synthetic_positive_fixture_is_live_evidence": false,
+  "historical_ownership_claimed": false,
+  "actual_user_windows_verified": false,
+  "OOS_verified": false,
+  "full_specialist_acceptance": false,
+  "runtime_api": [
+    "build_clinical_trial_snapshot_record: original-byte + exact experimental-arm + prospective exact-name issuer bridge gates",
+    "ClinicalTrialsClient.study: one full exact object; caller reserves existing durable quota",
+    "HealthcareIdentityRegistry.resolve: separate clinical_trial_sponsor_snapshot kind, observed_at mandatory; source event day cannot replace observation day",
+    "Healthcare coverage: separate documented/current observed snapshots; explicit historical/product-ownership falseflags"
+  ]
+}

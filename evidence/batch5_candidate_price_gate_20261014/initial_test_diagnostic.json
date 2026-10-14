@@ -1,0 +1,13 @@
+{
+  "acceptance": false,
+  "cause": "The shared specialist helper returns feature_payload objects. The candidate model API consumes feature_payload_json (the existing SQL snapshot layout), so both unchanged legacy and strict fitters correctly had zero training rows. The synthetic candidate fixture now projects its identical feature payload to the SQL JSON field; candidate formula and provenance gate unchanged.",
+  "code_sha256": "2737118139dc3c580be37b4c4a581378913087863e890f14a7cc3cb12532f2f9",
+  "errors": 0,
+  "executed": 20,
+  "failures": 5,
+  "kind": "initial_test_fixture_diagnostic",
+  "recorded_at": "2026-10-14T05:25:59.716741+00:00",
+  "schema_version": 1,
+  "skips": 0,
+  "test_sha256_before_fixture_fix": "cc3569b6160e57018e4288b2623dd2870d0d7ca27762ea82f2c5e2afab425f62"
+}

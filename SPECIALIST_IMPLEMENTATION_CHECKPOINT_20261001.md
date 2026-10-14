@@ -1,5 +1,84 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+## 14. 10. 2026 — pátá implementační dávka
+
+Navazuje na otevřený PR #162, veřejný HEAD `5c5ea0ba`, main `a7aa1fec`.
+Předchozích 1183/1183 Linux/hostovaných Windows testů a všech pět checks
+patří tomuto základu; obsahové ověření artefaktu je v PR. Nový výstup má
+vlastní společný důkaz `evidence/batch5_integration_20261014.json` a
+hostované kontroly svého konkrétního HEAD. Staré pre-CI záznamy se nemění.
+
+Šest skutečných izolovaných vývojových větví odevzdalo konkrétní kód,
+primární zachycení, replay a testy; uvolnění agenti převzali další úkoly.
+Koordinátor zapojil explicitní IR sběr, offline audit vybrané zakázky,
+čtení NHTSA auditů a přísné cenové gates do běhu a UI. Limit používání
+přechodně přerušil agenty; práce pokračovala ze zachovaných větví bez
+opakování skutečných požadavků nebo změny již schváleného základního HEAD.
+
+Nové NHTSA a primární IR cesty používají jedinou trvalou sdílenou kvótu,
+lease a cooldown. NHTSA provedla 8 skutečných požadavků: 4 HTTP200
+pozitivní případy a 4 HTTP400 prázdné PARTIAL případy; kompletní negativní
+živý případ stále chybí. IR provedla 3 HTTP200 požadavky, ale celé tělo
+stránky vydavatele s přístupovou hodnotou zůstává withheld s původním
+otiskem a časy. Feed/článek mají původní raw bajty, výsledek PARTIAL,
+issuer atribuce/skóre vypnuté. Žádné čištěné, kódované nebo zabalené
+náhradní tělo ani bypass GitHub pravidla.
+
+Současný export navíc vyřazuje celé starší IR authority HTML po potvrzené detekci přístupových hodnot. Původní otisk, metadata a historické handoff/review záznamy zůstávají; jejich dvě source-only positives nejsou současná akceptace. Metadata-only unavailable capture vrací PARTIAL před čtením těla. Žádné náhradní HTML nebo přepsání původní historie; předchozí veřejná ancestry se neforce-přepisuje.
+
+Běžný NHTSA klient nově odmítá redirect před druhou transportní operací;
+každý pokus zůstává účtovaný, uložené řádky i vyčerpaná denní kvóta zůstávají.
+52 cílených offline/contract testů ověřilo tento guard, 73 IR/budget testů
+ověřilo metadata-only unavailable kontrakt. Tyto mechanické testy nejsou LIVE
+negative, issuer ani Windows/OOS akceptace. Důkazy:
+`evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json` a
+`evidence/batch5_ir_prior_withholding_20261014/handoff.json`.
+Úplný výsledek 1358/1358 před těmito dvěma opravami patří pouze commitu
+`4c26be8`; původní JSON/log jsou zachované v `batch5_pre_redirect_linux*`
+a kvalifikace v `evidence/batch5_coordinator_20261014/pre_redirect_qualification.json`.
+Finální společné kontroly mají vlastní JSON, celý console capture a otisky
+v integračním důkazu; staré výsledky se nepřebírají jako akceptace nového kódu.
+
+Finální společná sada 1371/1371 prošla bez failures/errors/skips/expected/unexpected
+v 151,097 s. JSON a úplný console log jsou v `evidence/batch5_linux_20261014.json`
+a `evidence/batch5_linux_console_20261014.log`; runner-side log je zachovaný
+zvlášť. Přesný otestovaný code snapshot `baac707` a otisky 42 source/test
+souborů jsou v integračním důkazu. Hostované kontroly nového HEAD zůstávají
+samostatné; nevzniká žádná user Windows, source/history ani OOS akceptace.
+
+
+XOM transition bridge zůstává PARTIAL kvůli chybějícímu datovanému
+novému CUSIP/class a konkurujícímu July7 dokladu. PSTG→P má pozorovaný
+symbolový bracket, nikoli doložený přesný action day; žádný automatický
+alias nebo domyšlený předchozí registr. Klinický OBSERVED_SNAPSHOT je
+oddělený od EVENT_DATE a vyžaduje prospektivní přesnou issuer vazbu.
+Oba skutečné starší klinické případy jsou WITHHOLD: exact-name/pořadí
+source clock nesouhlasí, dnešní klinická stránka a historie kvóty chybí.
+
+Zakázkový audit porovnává skutečné original-byte průchody stejného awardu
+a UEI. Starší dva captures mají 14 nezměněných řádků; opakování téhož
+capture je SAME_SOURCE_CAPTURE. Nepřítomnost neprokazuje publisher deletion
+ani datum revize; přerušený průchod nedokládá absenci. Tento krok má 0 HTTP.
+Yahoo adapter zachovává skutečné provider/cache/physical provenance.
+Obě nové odpovědi mají 22 timestamps, ale jen 21 použitelných cen;
+Oct13 Close je null a horizont se neposouvá. Publisher revision UNKNOWN
+stále brání PIT zařazení; žádné vytvořené historické predikce/OOS.
+Stejné gates používá shadow candidate a layer porovnání. Legacy label-only
+výsledky jsou explicitně diagnostické, nikoli verified OOS.
+
+Canonical 687, 150 historických Q2 instrumentů s 0 současným Q3 pokrytím,
+10 healthcare / 3 NHTSA / 5 legal záznamů zůstávají beze změny; adopt 0.
+Původní 60-second budget, score a zákaz automatického obchodování se nemění.
+Aktuální source-run archivy mají skutečnou místní dostupnost. Pozdější
+archivace dříve dokončených dvou sběračů není nový LIVE sběr ani historická
+dostupnost. Staré handoff otisky popisují vlastní zdrojové verze; následné
+změny kódu mají samostatné otisky a společné kontroly.
+
+Úplná akceptace **0/21**. Povinné relevantní identity/live pozitivní i
+negativní případy, širší pokrytí, skutečná historie/OOS a uživatelský Windows
+koncový běh zůstávají otevřené. Podrobné výstupy a další konkrétní fronta
+jsou v aktuálním začátku `PARALLEL_SPECIALIST_WORK.md`; žádný merge.
+
 ## 13. 10. 2026 — čtvrtá implementační dávka
 
 Šest vývojových větví přidalo přesné transition/version/scope a source-clock

@@ -101,9 +101,10 @@ class Batch4RegulatoryValidationTests(unittest.TestCase):
                                  (result["status"], result["checked_models"], result["failed_models"]))
                 self.assertEqual((0, []), counts(store))
                 client.payload = deepcopy(EMPTY)
-                self.assertEqual("OK", service.run(as_of=NOW)["status"])
+                self.assertEqual("WAIT_QUOTA", service.run(as_of=NOW)["status"])
+                self.assertEqual("OK", service.run(as_of=NOW + timedelta(days=1))["status"])
                 self.assertEqual(2, len(client.calls))
-                self.assertEqual((0, [(0, 0, NOW.isoformat())]), counts(store))
+                self.assertEqual((0, [(0, 0, (NOW + timedelta(days=1)).isoformat())]), counts(store))
 
     def test_successful_empty_fixture_checks_only_exact_model_and_refreshes(self) -> None:
         # Synthetic success contract, explicitly not a claimed live HTTP200 negative.
@@ -154,11 +155,12 @@ class Batch4RegulatoryValidationTests(unittest.TestCase):
             store.record_specialist_check("nhtsa", subject_id="F", identity_key=old_key,
                                           as_of=NOW, candidate_count=0, truncated=False)
             client = PayloadClient(EMPTY)
-            for entry in (MODEL, dict(MODEL, manufacturer="Documented corrected manufacturer"),
-                          dict(MODEL, product_evidence_url="https://www.sec.gov/Archives/edgar/data/37996/reviewed.htm")):
+            for offset, entry in enumerate((MODEL, dict(MODEL, manufacturer="Documented corrected manufacturer"),
+                          dict(MODEL, product_evidence_url="https://www.sec.gov/Archives/edgar/data/37996/reviewed.htm"))):
                 service = NhtsaRecallScoutService(store, client=client, models=[entry])
-                self.assertEqual(1, service.run(as_of=NOW)["checked_models"])
-                self.assertEqual(0, service.run(as_of=NOW)["checked_models"])
+                day = NOW + timedelta(days=offset)
+                self.assertEqual(1, service.run(as_of=day)["checked_models"])
+                self.assertEqual(0, service.run(as_of=day)["checked_models"])
             self.assertEqual(3, len(client.calls))
             self.assertEqual(4, len(counts(store)[1]))
             self.assertEqual(0, counts(store)[0])
@@ -213,10 +215,11 @@ class Batch4RegulatoryValidationTests(unittest.TestCase):
                 store = ScoutStore(Path(directory) / "check.db")
                 error = HTTPError(metadata["requested_url"], metadata["http_status"],
                                   "Captured HTTP error", None, BytesIO(raw(capture_id)))
-                with patch("market_checker_app.services.nhtsa_recall_scout_service.urlopen", side_effect=error) as http:
+                with patch("market_checker_app.services.nhtsa_recall_scout_service.urlopen", side_effect=error) as http, \
+                     patch.object(NhtsaRecallClient, "is_live", False):
                     service = NhtsaRecallScoutService(store, client=NhtsaRecallClient(), models=[entry])
-                    for _ in range(2):
-                        result = service.run(as_of=NOW)
+                    for offset in range(2):
+                        result = service.run(as_of=NOW + timedelta(days=offset))
                         self.assertEqual(("PARTIAL", 0, 1),
                                          (result["status"], result["checked_models"], result["failed_models"]))
                     self.assertEqual(2, http.call_count)
@@ -238,7 +241,8 @@ class Batch4RegulatoryValidationTests(unittest.TestCase):
                 store = ScoutStore(Path(directory) / "check.db")
                 with patch("market_checker_app.services.nhtsa_recall_scout_service.urlopen", return_value=
                            ArchivedResponse(raw(capture_id), metadata["final_url"],
-                                            status=metadata["http_status"], content_type=metadata["content_type"])):
+                                            status=metadata["http_status"], content_type=metadata["content_type"])), \
+                     patch.object(NhtsaRecallClient, "is_live", False):
                     result = NhtsaRecallScoutService(store, client=NhtsaRecallClient(), models=[entry]).run(as_of=NOW)
                 self.assertEqual(("OK", expected, 0),
                                  (result["status"], result["new_findings"], result["rejected_rows"]))

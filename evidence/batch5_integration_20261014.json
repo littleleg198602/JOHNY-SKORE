@@ -1,0 +1,258 @@
+{
+  "acceptance": {
+    "actual_user_windows_end_to_end": false,
+    "canonical_tickers": 687,
+    "code_counts": {
+      "NOT_STARTED": 2,
+      "PARTIAL": 17,
+      "PILOT": 2
+    },
+    "current_q3_coverage": 0,
+    "full_accepted": 0,
+    "genuine_oos": false,
+    "healthcare_records": 10,
+    "historical_q2_instruments": 150,
+    "legal_records": 5,
+    "live_counts": {
+      "PENDING": 17,
+      "WAIT_ACCESS": 4
+    },
+    "nhtsa_models": 3,
+    "production_score_changed": false,
+    "specialists": 21,
+    "trading_enabled": false,
+    "verified_adoption": 0
+  },
+  "actual_isolated_worker_agents": 6,
+  "clinical_source_http": 0,
+  "content_audit": {
+    "path": "evidence/batch5_coordinator_20261014/content_audit.json",
+    "sha256": "bcaf927b944e5f8174c6bee8711081400d431f97063a51f546e5bc3e0485b9f9"
+  },
+  "created_at": "2026-10-14T10:33:32.717285+00:00",
+  "earlier_local_version_qualification": {
+    "current_final_acceptance": false,
+    "path": "evidence/batch5_coordinator_20261014/pre_redirect_qualification.json",
+    "sha256": "4f4d83269fa6b396afba6d53c54980fc31115c75c1f52bdb06af1e549c5d3aa5"
+  },
+  "historical_temporary_quota_reconstructed": false,
+  "http200": 15,
+  "http400": 4,
+  "kind": "BATCH5_REAL_IMPLEMENTATION_INTEGRATION_PRE_CI",
+  "later_local_source_archival": {
+    "path": "evidence/batch5_coordinator_20261014/source_run_archival.json",
+    "sha256": "5d04a65c09b650664834e70972969603f11f5da118700828b7211f07d5859061"
+  },
+  "local_verification": {
+    "code_snapshot_commit": "baac707436adaba86d8006d12b80be39b828cd7f",
+    "code_snapshot_tree": "86f565db92eae1456a2e97b9af341eadae46dc59",
+    "console_path": "evidence/batch5_linux_console_20261014.log",
+    "console_sha256": "b750752e9539d56d4072449f43826c2d300bb0d3ae61350fb7b3f5ddc40d1431",
+    "elapsed_seconds": 151.097,
+    "original_60_second_gate_changed": false,
+    "result": {
+      "discovered_tests": 1371,
+      "ended_at": "2026-10-14T10:31:39.749127+00:00",
+      "errors": 0,
+      "expected_failures": 0,
+      "failures": 0,
+      "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+      "python_version": "3.12.14",
+      "skipped": 0,
+      "started_at": "2026-10-14T10:29:07.479950+00:00",
+      "successful": true,
+      "tests_run": 1371,
+      "unexpected_successes": 0
+    },
+    "result_path": "evidence/batch5_linux_20261014.json",
+    "result_sha256": "ee003d3e35571c7a801b37112ad67923c3c2455aff6bb90b94b5dcea138650b8",
+    "status": "PASS"
+  },
+  "main_basis": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "new_safe_original_bodies": 18,
+  "older_transaction_body_duplicate_is_new_http": false,
+  "original_diagnostics": [
+    {
+      "current_acceptance": false,
+      "path": "evidence/batch5_coordinator_20261014/initial_award_runner_diagnostic.log",
+      "sha256": "f9c608d653baa840f5791e7d5d1d9972a3109e2c06e7d5a21fc60665befbb3ed"
+    },
+    {
+      "current_acceptance": false,
+      "path": "evidence/batch5_coordinator_20261014/initial_source_projection_diagnostic.log",
+      "sha256": "156ca074ca129b68f4407788a844d00a45563b852a4c083fd5b75624d037d8b0"
+    },
+    {
+      "current_acceptance": false,
+      "path": "evidence/batch5_coordinator_20261014/initial_clinical_fixture_diagnostic.log",
+      "sha256": "a3c16959a275b2efc34004dc643c2b18ece2a17ebffe1062746fc3316d2dc3b5"
+    }
+  ],
+  "original_raw_or_fixture_hashes_relaxed": false,
+  "post_security_runtime_integration": {
+    "path": "evidence/batch5_coordinator_20261014/post_security_integration_tests.log",
+    "sha256": "b457b102301f7bb56c4cd7497287cf276be036d3aa485992a59b926530f712f7",
+    "status": "PASS",
+    "tests": 9
+  },
+  "pr": 162,
+  "prior_ir_whole_body_withdrawal": {
+    "historical_reports_are_current_acceptance": false,
+    "original_body_present_in_current_tree": false,
+    "path": "evidence/batch5_ir_prior_withholding_20261014/withholding.json",
+    "public_prior_ancestry_rewritten": false,
+    "replacement_or_sanitized_body_created": false,
+    "sha256": "f2fdac5191493ce014f7d0c016b85d794875b8947b90f526af76c5ab78db71fc"
+  },
+  "prior_public_head_ci": {
+    "head": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+    "linux_tests": 1183,
+    "new_head_acceptance_inferred": false,
+    "required_checks_passed": 5,
+    "run": 38460303370,
+    "windows_tests": 1183
+  },
+  "prospective_shared_daily_quota": [
+    {
+      "requests": 8,
+      "source": "nhtsa",
+      "subjects": 3
+    },
+    {
+      "requests": 3,
+      "source": "rss",
+      "subjects": 1
+    }
+  ],
+  "public_base_commit": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "quota_reset": false,
+  "rejected_nhtsa_docs_body_reintroduced": false,
+  "remaining_work": "PARALLEL_SPECIALIST_WORK.md (current front queue; no merge authorized)",
+  "required_checks_for_new_public_head": "PENDING_NEW_HEAD_CI",
+  "root_integration": [
+    "Explicit selected RSS primary-source action + immediate future run archival",
+    "Selected verified award offline capture comparison + physically dated immutable report",
+    "Read-only bounded NHTSA research model/year report",
+    "Clinical snapshot clocks and explicit historical/product falseflags",
+    "Strict shadow candidate/layer label/price gates with unchanged fitter and score",
+    "Regular NHTSA redirects rejected before an unreserved second transport operation",
+    "Entire prior IR authority body withdrawn; exact metadata retained and current replay PARTIAL before any body parsing"
+  ],
+  "schema_version": 1,
+  "secret_gate_bypassed": false,
+  "source_and_test_hashes": {
+    "market_checker_app/app.py": "dc7f04ece6e2c4ed51d41405634b77f98d8f9e50030345ba9c31cdb11bcf9038",
+    "market_checker_app/ir_primary_runner.py": "38a2d2841040e8df3be3985980fab7699237a4c3194dffabf747682833aa2f39",
+    "market_checker_app/scout_runner.py": "6e9390ac39cfc97a8f74106e11496500e6ad32db9977697f8b0095b77fbe5708",
+    "market_checker_app/services/award_transaction_history_service.py": "b4122ad9e85b72c0dd5e4264b6b3e094e537ece32995c0bd14812c2e5341601a",
+    "market_checker_app/services/candidate_model_evaluation_service.py": "5365a2bf71051f5cece57e4f605f019ea9fe4caad10d259b4634f500665b634b",
+    "market_checker_app/services/healthcare_coverage_service.py": "ec40cb5f8a917b5287f8fb19347c99e7630456e389ca73ad0da35038d671f277",
+    "market_checker_app/services/healthcare_identity_service.py": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923",
+    "market_checker_app/services/healthcare_scout_service.py": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078",
+    "market_checker_app/services/ir_primary_scout_service.py": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de",
+    "market_checker_app/services/ir_primary_verification_service.py": "ab4d8f157ac0d351082db6e8c3226d16716a1ce3a1078a7a40df193d1c8524d9",
+    "market_checker_app/services/layer_ablation_service.py": "7fdb7bc1bf2b64f17641eb4bb74199dcb183f16d0cd989cede016b0f83f32d0c",
+    "market_checker_app/services/nhtsa_negative_review_service.py": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6",
+    "market_checker_app/services/nhtsa_recall_scout_service.py": "c029146642ac47b6ce2873b08c02c59d83a9efbdebeef0b649b05e510c5a3bb0",
+    "market_checker_app/services/public_source_budget.py": "4459bf520c5d38b1a93a5a49fd6a6941a27cf479dfcd0b40bab6d587fb1e868f",
+    "market_checker_app/services/sec13f_transition_review.py": "91d8e06d614b7031984ba6b81a14ed44df9691111170f3bc60ee96e283ace546",
+    "market_checker_app/services/sec_corporate_action_bridge.py": "48b23fcb2f7fda8194b7eac52980d2be8413ea2dc6d7c66d6e608a047fcf0a30",
+    "market_checker_app/services/specialist_label_availability_service.py": "c7960dbaf1195981283b4a7ccbb41496139b3680d53b2e0b00fac184ad35791b",
+    "market_checker_app/services/usaspending_transaction_scout_service.py": "94d8dd6d9a6d88fffbef16fc4bc8b84191e1492d5a49ce907364975eb17b8f42",
+    "market_checker_app/services/yahoo_corporate_action_history.py": "251e47a2368a1a971bdc1360998805cf158b339e5c7a49041d339e7eaad89de8",
+    "market_checker_app/services/yahoo_price_provenance_service.py": "7e3d192bbfb154b81bf2862eb2d152c0824500d020916f6580dbc655b999a17d",
+    "market_checker_app/storage/scout_store.py": "9fba2e0a3bae056be66cbdb9f2073954ac0e6f219df7df6924696d29e86f06f8",
+    "market_checker_app/storage/yahoo_ohlc_cache_store.py": "25a5efd79eb12fd96ad2e38128e872cd17aa611a9caed329b760fd10d2d66aed",
+    "market_checker_app/weekly_shadow_runner.py": "e049a285f1f81df7f4da333e02d337e351dcb93ede648037f5f42459ab35d7d6",
+    "tests/test_batch3_regulatory_nhtsa_evidence.py": "6e6f9b34d0276e5a53130c41e18f97c2714ff45e3c184e26a1729b3b69c4b26b",
+    "tests/test_batch4_ir_primary_verification.py": "7910a998b778c82f915997c0be592d304b8b2372d8421d6ffe688f6d1e5fa83e",
+    "tests/test_batch4_regulatory_nhtsa_validation.py": "471f1203876fd6c9f827d9ca7320abeaab5381dae7b7f4c1caf44c8d1e390bf6",
+    "tests/test_batch5_candidate_price_gate.py": "1976f3c4af7e5777f7bea4ecf50e12bb47a89d98adfed23ac1b4bb398c42c9e3",
+    "tests/test_batch5_contracts_capture_revisions.py": "b8def6e2f7a7441310fbd5588be3244b59ecd6a4baadfebb6b9c773d55598839",
+    "tests/test_batch5_coordinator_integration.py": "317eb0f564049c432d9ef4622b12d817a404ddb40b278373b469117d38587b75",
+    "tests/test_batch5_healthcare_snapshot.py": "9f88a70a5db4414596d5a278f86450fc300efe22bb8556dc45a9b4cf5578f633",
+    "tests/test_batch5_identity_bridge.py": "8f612718b45b35d6d7f8c55510d36a09bb20150e929055cd9281afaa6dd942ce",
+    "tests/test_batch5_identity_symbol.py": "ebea0f4e66dc677d3c511b4567396b5298273fe6ce9add2efefa4854160ffb92",
+    "tests/test_batch5_ir_primary_scout.py": "6dbe66ca50841d2153122beb70eaf038ee234fd50068152dc2b0faa47f8c8bcf",
+    "tests/test_batch5_ir_prior_withholding.py": "84c57637ec5d14c9fec074023c20901229ff67bef6643af7744dfac695a66a29",
+    "tests/test_batch5_layer_price_gate.py": "85f9354be38cbdab5472fe38d7788b261d72d72076b6f092c44efb36c0627276",
+    "tests/test_batch5_nhtsa_readonly_report.py": "20aca46b0d94a5af9071038b883d1eb2ceba755c210a8cf1ae3fa9dd40dcbca7",
+    "tests/test_batch5_nhtsa_redirect_guard.py": "25764bd8078277ec396fc1d7b7192a025407fe3c88cfc2c870963b88e4f35694",
+    "tests/test_batch5_nhtsa_scope_review.py": "414f0701432b1e5df9e191c298cd5ce189e44b16864d0f255aebdd95fa72a8e7",
+    "tests/test_batch5_price_provenance.py": "d63827ce2fff5d1081d8f28c39f19030698b83d825e3e5d3216b54035f702231",
+    "tests/test_batch5_public_budgets.py": "5f7e14b607868255b01969d1e77ef1f49f7e9fe818b84b94cf5a049a94a30d60",
+    "tests/test_batch5_source_actions_ui.py": "be5872c081ef2ad305d50bd0a1fb4170a65b1324e76d45f8f77baaf993f81eb0",
+    "tests/test_nhtsa_recall_scout_service.py": "60b5bed7b20b07b061415b17915a81a8c280a22b522d16e68273d61489248a7d"
+  },
+  "source_http_responses": 19,
+  "usaspending_source_http": 0,
+  "whole_withheld_ir_body": 1,
+  "worker_outputs": [
+    {
+      "lane": "identity_bulk",
+      "local_commit": "effead5d86f277e9dce8f196536049ef8e1601d1",
+      "path": "evidence/batch5_identity_20261014/handoff.json",
+      "sha256": "f5865417bc7853c4ea3537af1a55847a48a4109fa51351369b7d29dd8db9bb93"
+    },
+    {
+      "lane": "healthcare",
+      "local_commit": "93e610662c20a06e5efd308d41de00ded7abe84d",
+      "path": "evidence/batch5_healthcare_20261014/validation.json",
+      "sha256": "879fe167086f4951b39e8c57fe85a98882ac7b116f2f3a6710a034b2d035eaff"
+    },
+    {
+      "lane": "regulatory",
+      "local_commit": "366b4cd3e63805f561a980b1f92d03b85dfd0002",
+      "path": "evidence/batch5_regulatory_20261014/handoff.json",
+      "sha256": "935ed13068e0465bb3002e0b96d9768a35966aed24bcb1958b40e1a1d434ea4e"
+    },
+    {
+      "lane": "contracts",
+      "local_commit": "4462bdd5e54d207ebce9204db4c9d250ebbf4d8a",
+      "path": "evidence/batch5_contracts_20261014/lane.json",
+      "sha256": "4350235e9102e7db86a97bc55345b3015a7a0e140bd219b1d5277dfd5104eed1"
+    },
+    {
+      "lane": "sec",
+      "local_commit": "a86336f4adfcfa35f27cb0a33071df19f91ef0ef",
+      "path": "evidence/batch5_ir_20261014/handoff.json",
+      "sha256": "e268df778274bcdfd92309a8d8e2721d2dafd887caec48ced897cf7c8ddae993"
+    },
+    {
+      "lane": "evaluation",
+      "local_commit": "ed3e56c3dcd1c016e17f2a51faa023761eaba017",
+      "path": "evidence/batch5_prices_20261014/handoff.json",
+      "sha256": "e3e951c8905d48205ede5d65e11038e31a3316646a241c66d4c97888f329163a"
+    },
+    {
+      "lane": "identity_bulk_followup",
+      "local_commit": "a34249292f58df5402c5e3a96a6a082cd9c31957",
+      "path": "evidence/batch5_identity_symbol_20261014/handoff.json",
+      "sha256": "c8882f66a556b6b496889cf315d698b61fd30bbd8d4fd756695d6502da1e83ad"
+    },
+    {
+      "lane": "regulatory_followup",
+      "local_commit": "329ab5024028b0f96dfa1b5293cc49f827caad93",
+      "path": "evidence/batch5_nhtsa_report_20261014/handoff.json",
+      "sha256": "3dacf1588f20d1d81912f1d8505272147e166869633e5c32fb70cd5636344614"
+    },
+    {
+      "lane": "contracts_followup",
+      "local_commit": "f6e8060f45dabb94f289115c776de39c01dd08d6",
+      "path": "evidence/batch5_candidate_price_gate_20261014/lane.json",
+      "sha256": "c2b857e06e2b853052112a162614e363a408650f4fb1ddffdde0f07323c88c3c"
+    },
+    {
+      "lane": "regulatory_redirect_guard",
+      "local_commit": "7732268fa32ef365cbf99f9ffd2dfe922eb0346a",
+      "path": "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+      "sha256": "fee3d4120812d56a8f4e4d73fe6be78393c9e199aa864db868fa801de8882a6f"
+    },
+    {
+      "lane": "sec_prior_body_withdrawal",
+      "local_commit": "ff429834f9e275096c8a673c626966f9d9140663",
+      "path": "evidence/batch5_ir_prior_withholding_20261014/handoff.json",
+      "sha256": "55e8b25ec25af2eabb947d706a88b898dcdc58bc51e5382341f76c8d91647bff"
+    }
+  ]
+}

@@ -2490,6 +2490,36 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
                            "Pořadí zachycení samo nedokládá pořadí revizí vydavatele.")
                 if transaction_audit["truncated"]:
                     st.caption("Zobrazeno prvních 100 pozorování vybrané zakázky.")
+                capture_times = {
+                    row["audit"]["capture_manifest"]: row["response_completed_at"]
+                    for row in transaction_audit["observations"]
+                    if row["audit"].get("capture_manifest")
+                }
+                capture_names = sorted(capture_times, key=lambda name: (capture_times[name], name))
+                st.caption("Porovnání zachycených průchodů ověří původní odpovědi i všechny vybrané stránky. "
+                           "Nepřítomnost v pozdější odpovědi sama nepotvrzuje smazání ani čas opravy vydavatele.")
+                baseline_names = st.multiselect(
+                    "Stránky dřívějšího průchodu", options=capture_names, max_selections=5,
+                    format_func=lambda name: f"{capture_times[name]} · {name}", key="award_audit_baseline",
+                )
+                current_names = st.multiselect(
+                    "Stránky pozdějšího průchodu", options=capture_names, max_selections=5,
+                    format_func=lambda name: f"{capture_times[name]} · {name}", key="award_audit_current",
+                )
+                if st.button("Porovnat zachycené průchody", disabled=not baseline_names or not current_names):
+                    from market_checker_app.scout_runner import run_award_capture_audit
+                    comparison = run_award_capture_audit(
+                        db_path=config.sqlite_path, subject_id=str(selected["subject_id"]),
+                        award_finding_id=str(selected["finding_id"]), baseline_manifest_names=baseline_names,
+                        current_manifest_names=current_names,
+                    )
+                    st.info(f"Stav: {comparison['status']}; uložení auditu: {comparison['audit_archive_status']}.")
+                    if comparison.get("counts"):
+                        st.dataframe(pd.DataFrame([comparison["counts"]]), hide_index=True)
+                    if comparison.get("events"):
+                        st.dataframe(pd.DataFrame(comparison["events"]), hide_index=True)
+                    if comparison.get("events_truncated"):
+                        st.caption("Audit uvádí jen omezený počet změn; úplnost událostí není doložená.")
     transaction_rows = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=30,
         source="usaspending", stage="award_transaction",
@@ -2537,6 +2567,22 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     if nhtsa_rows:
         st.write("**NHTSA – kampaně doloženého modelu/roku; finanční dopad na emitenta není ověřen**")
         st.dataframe(pd.DataFrame(nhtsa_rows), hide_index=True)
+    if st.button("Zobrazit uložené kontroly modelů NHTSA"):
+        from market_checker_app.services.nhtsa_negative_review_service import read_nhtsa_scope_reviews
+        scoped = read_nhtsa_scope_reviews(scout_store, as_of=datetime.now(timezone.utc), limit=8)
+        st.info(f"Stav archivu: {scoped['status']}; doložené živé negativní kontroly modelu/roku: "
+                f"{scoped['live_complete_negative_model_years']}.")
+        if scoped["reviews"]:
+            st.dataframe(pd.DataFrame([
+                {"Značka": row["scope"]["make"], "Model": row["scope"]["model"],
+                 "Rok": row["scope"]["model_year"], "Stav": row["status"],
+                 "HTTP": row.get("http_status"), "Dostupné": row["known_at"],
+                 "Úplná negativní kontrola": row["complete_negative"],
+                 "Živý negativní případ": row["live_complete_negative_verified"]}
+                for row in scoped["reviews"]
+            ]), hide_index=True)
+        st.caption("Kontrola se týká přesného modelu a roku. Prázdná HTTP400 odpověď zůstává částečná; "
+                   "tyto záznamy nedokládají úplnou kontrolu emitenta ani finanční dopad.")
     for source, label in (("cms", "CMS vlastnictví nemocnic"),
                           ("clinicaltrials", "ClinicalTrials studie"),
                           ("ofac", "OFAC SDN"),
@@ -2548,6 +2594,9 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         if healthcare_rows:
             st.write(f"**{label} — kandidáti podle přesného jména**")
             st.caption("Samotné jméno nepotvrzuje právní vazbu k akcii ani finanční dopad.")
+            if source == "clinicaltrials":
+                st.caption("Dnešní snapshot sponzora se posuzuje zvlášť od historického data studie. "
+                           "Vazba sponzora sama nepotvrzuje vlastnictví léčiva; porovnávací léčiva a placebo mají vlastní role.")
             if source == "ofac":
                 st.caption("SDN hlavní a alternativní jména; pohled přes vlastnictví a slabé aliasy nejsou ověřené. "
                            "Prázdný výsledek není potvrzení bez sankcí.")
@@ -2580,6 +2629,32 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     if rss_candidates:
         st.write("**Neověřené stopy z RSS — ověřit emitenta a primární zdroj**")
         st.dataframe(pd.DataFrame(rss_candidates), hide_index=True)
+        ir_target = st.selectbox(
+            "Stopa pro kontrolu primárního zdroje", options=range(len(rss_candidates)),
+            format_func=lambda index: f"{rss_candidates[index]['subject_id']}: {rss_candidates[index]['title']}",
+        )
+        ir_candidate = rss_candidates[ir_target]
+        with st.form("primary_ir_source_review"):
+            ir_feed_url = st.text_input("RSS kanál primárního vydavatele")
+            ir_authority_url = st.text_input("Stránka vydavatele odkazující na tento RSS kanál")
+            ir_publisher_hosts = st.text_input("Domény primárního vydavatele (oddělené čárkou)")
+            ir_submitted = st.form_submit_button("Načíst a zkontrolovat primární zdroj")
+        st.caption("Kontrola čerpá společnou denní kvótu a zachová původní odpovědi. "
+                   "Ověření zdroje samo nepotvrzuje vazbu na emitenta ani nepřidává body.")
+        if ir_submitted:
+            hosts = tuple(host.strip() for host in ir_publisher_hosts.split(",") if host.strip())
+            if not ir_feed_url or not ir_authority_url or not hosts:
+                st.info("Zadejte RSS kanál, odkazující stránku a domény jeho vydavatele.")
+            else:
+                from market_checker_app.scout_runner import run_primary_ir
+                with st.spinner("Kontroluji primární RSS a odkazovaný článek…"):
+                    reviewed = run_primary_ir(
+                        db_path=config.sqlite_path, ticker=str(ir_candidate["subject_id"]),
+                        candidate_id=str(ir_candidate["finding_id"]), feed_url=ir_feed_url,
+                        authority_url=ir_authority_url, publisher_hosts=hosts,
+                    )
+                st.info(f"Stav zdroje: {reviewed['status']}; archiv: {reviewed['source_archive_status']}; "
+                        f"počet požadavků: {reviewed.get('attempted_requests', 0)}.")
     ir_source_reviews = scout_store.latest_findings(
         watchlist, as_of=datetime.now(timezone.utc), limit=30,
         source="rss", stage="ir_primary_source_review",

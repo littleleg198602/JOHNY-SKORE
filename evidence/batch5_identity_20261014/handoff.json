@@ -1,0 +1,198 @@
+{
+  "api": "instrument_transition_review(service, tickers=[...], corporate_action_bridges=[claim])",
+  "baseline_commit": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "code_sha256": {
+    "market_checker_app/services/sec13f_transition_review.py": "91d8e06d614b7031984ba6b81a14ed44df9691111170f3bc60ee96e283ace546",
+    "market_checker_app/services/sec_corporate_action_bridge.py": "500e9053fdab1324824738ace438470faf1529197c0913e552b479d6d706bcac",
+    "tests/test_batch5_identity_bridge.py": "8f612718b45b35d6d7f8c55510d36a09bb20150e929055cd9281afaa6dd942ce"
+  },
+  "implementation": [
+    "Exact immutable prior identity hash; independent action and instrument/ticker/name claims",
+    "Explicit class par terms; independently dated DEI issuer names, nil-fact rejection and conflicting earlier class sources",
+    "Strict EX-4.(VI) SGML envelope with filename/visible-text/original-byte safeguards",
+    "Partial/readiness review output never exports an identity or extends an interval; prior default report bytes remain unchanged"
+  ],
+  "inventory": [
+    {
+      "bytes": 1909,
+      "path": "evidence/batch5_identity_20261014/README.md",
+      "sha256": "53301058f193393985f6f47bb7a141eb57cb0cde6fe100dc972db19531add38f"
+    },
+    {
+      "bytes": 4675,
+      "path": "evidence/batch5_identity_20261014/bridge_proposal.json",
+      "sha256": "91e6d5c21000ed990921613d048a4efc1ea8f22df3b7795f1cacd51fe767bbf1"
+    },
+    {
+      "bytes": 3897,
+      "path": "evidence/batch5_identity_20261014/capture_sources.py",
+      "sha256": "ca32130fb8a9f21e460ac1fa63c7b67f9592138dede36433b7d82dd4b3848013"
+    },
+    {
+      "bytes": 843,
+      "path": "evidence/batch5_identity_20261014/captures/0d4845a9ba273684dc2ac9885fe0c2719aed55b8a6f2cc5b3beacf05b71b4391.metadata.json",
+      "sha256": "486caa6218c11f63c79412aeb3b0def21773db317b9f9b0e33fd192400339ce0"
+    },
+    {
+      "bytes": 6939,
+      "path": "evidence/batch5_identity_20261014/captures/1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56.bin",
+      "sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56"
+    },
+    {
+      "bytes": 48018,
+      "path": "evidence/batch5_identity_20261014/captures/4a0cd04bfa177992012a7a1054be1e020cf9c2f5cb7d1405a76ebfab8de9eead.bin",
+      "sha256": "4a0cd04bfa177992012a7a1054be1e020cf9c2f5cb7d1405a76ebfab8de9eead"
+    },
+    {
+      "bytes": 73235,
+      "path": "evidence/batch5_identity_20261014/captures/5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464.bin",
+      "sha256": "5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464"
+    },
+    {
+      "bytes": 766,
+      "path": "evidence/batch5_identity_20261014/captures/6184e86d63ee20e590a23859d25a9fa36503d36de0a23c67c4c766c07cbcb03c.metadata.json",
+      "sha256": "efd6cb147beee9168c2ec908b6c2277faa67a957f476e00f63594c748695cd5e"
+    },
+    {
+      "bytes": 847,
+      "path": "evidence/batch5_identity_20261014/captures/833da72795829e06637298187d84fdaeb7cfc2e66663c47bd371d5ebb5f799ab.metadata.json",
+      "sha256": "3aa1188e4400a1e999a750a23e43b3b26fc17b4a4574dd23ade7e1cc303b1918"
+    },
+    {
+      "bytes": 842,
+      "path": "evidence/batch5_identity_20261014/captures/858755ea99739510cc587e7a950ad1c3f01067d2c653c1cf317f8ee456cac6ba.metadata.json",
+      "sha256": "d08d499777ed139936800b9b787fd57446b34432dbbc1868530d6631fe010f8f"
+    },
+    {
+      "bytes": 849,
+      "path": "evidence/batch5_identity_20261014/captures/96cc6d5525278b41907816b036f3532b841066f526807d3aa925608edc00c6be.metadata.json",
+      "sha256": "f2fe6c9582033348a6e6f5d7312e5c53582460c183e2a1742a66476b23fff6a2"
+    },
+    {
+      "bytes": 6282,
+      "path": "evidence/batch5_identity_20261014/captures/9b771628d6514fb132d86a22dc30dc7545bbed3c8184afbcc3c06fb1319cbb0d.bin",
+      "sha256": "9b771628d6514fb132d86a22dc30dc7545bbed3c8184afbcc3c06fb1319cbb0d"
+    },
+    {
+      "bytes": 3118947,
+      "path": "evidence/batch5_identity_20261014/captures/bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874.bin",
+      "sha256": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874"
+    },
+    {
+      "bytes": 850,
+      "path": "evidence/batch5_identity_20261014/captures/c6928f552a64a960729f452334851f0f2a7ce37f9b30c41303056fc2298f57ba.metadata.json",
+      "sha256": "ce848ea5b9862aee14cd036cf8c75ad667a209da5ead5de6cdf7158c6cd3f004"
+    },
+    {
+      "bytes": 6435,
+      "path": "evidence/batch5_identity_20261014/captures/cc9b8b1211b4c0ef9d0b4c17465a68e530a246f6993b39d597dca391ec697232.bin",
+      "sha256": "cc9b8b1211b4c0ef9d0b4c17465a68e530a246f6993b39d597dca391ec697232"
+    },
+    {
+      "bytes": 2593,
+      "path": "evidence/batch5_identity_20261014/final_bridge_tests.log",
+      "sha256": "d9b365f2d517ffa9b7a14abac2176cdbc3436ff4b98d4b577ef3641842bb669c"
+    },
+    {
+      "bytes": 22116,
+      "path": "evidence/batch5_identity_20261014/focused_tests.log",
+      "sha256": "9672fca91ba8509dc90e6301509d8b5fa40c611ab3a2cb640f148caf1e201254"
+    },
+    {
+      "bytes": 9169,
+      "path": "evidence/batch5_identity_20261014/replay_bridge.py",
+      "sha256": "3ebac25b0a0a38ec488519d8d216d69cc49fc0ab67f9830ffdb4ecc4e8d3c728"
+    },
+    {
+      "bytes": 7441,
+      "path": "evidence/batch5_identity_20261014/replay_diagnostics.json",
+      "sha256": "990071996b1812541a76470d9a8ac06c7e5ebe9a377fb0c1f07e6117c7d2f306"
+    },
+    {
+      "bytes": 29251,
+      "path": "evidence/batch5_identity_20261014/review.json",
+      "sha256": "babc76e2b6ed7d20b7e35ad1853cb896328a220c13765834326768f624952edc"
+    }
+  ],
+  "lane": "identity_bulk",
+  "limits": [
+    "No complete new-CIK/CUSIP/class or effective-date CUSIP bridge is available",
+    "An earlier source class contradiction is preserved; latest capture does not erase it",
+    "A point-in-time SEC claim is not continuous quarter validity or prior source-check history",
+    "No source score, paid-data access, user/hosted Windows, OOS or DONE acceptance is claimed"
+  ],
+  "preservation": {
+    "automatic_alias_created": false,
+    "canonical_tickers": 687,
+    "new_verified_identities": 0,
+    "production_registry_changed": false,
+    "registry_path": "market_checker_app/data/verified_13f_securities.json",
+    "registry_sha256_after": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "registry_sha256_before": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "score_changed": false,
+    "selected_q3_full_interval_coverage": 0,
+    "specialist_done_changed": false,
+    "stored_records": 150
+  },
+  "real_review": {
+    "action_effective_on": "2026-07-01",
+    "blockers": [
+      "TO_CIK_CUSIP_CLASS_BINDING_MISSING",
+      "CONFLICTING_TO_CLASS_SOURCE",
+      "DATED_OLD_NEW_CUSIP_ACTION_BRIDGE_MISSING"
+    ],
+    "bridge_status": "PRIMARY_BRIDGE_PARTIAL",
+    "candidate_new_cusip": "30233Q108",
+    "new_cik": "0002115436",
+    "new_ticker_class_anchor": "2026-07-31",
+    "old_cik": "0000034088",
+    "old_cusip": "30231G102",
+    "old_instrument_event": "2026-06-30",
+    "prior_july7_class_conflict_preserved": true
+  },
+  "recorded_at": "2026-10-14T00:16:04.967192+00:00",
+  "schema_version": 1,
+  "source_usage": {
+    "access_values_exported": false,
+    "network_during_replay": false,
+    "new_primary_http_requests": 6,
+    "new_primary_request_limit": 6,
+    "new_public_raw_bodies": 6,
+    "parent_total_request_limit": 10,
+    "primary_attempts_per_url": 1,
+    "web_discovery_queries": 4
+  },
+  "status": "INDEPENDENT_XOM_BRIDGE_REVIEW_COMPLETE_WITH_MISSING_PROOFS",
+  "verification": {
+    "code_and_metadata_diff_check_exit_code": 0,
+    "compile_exit_code": 0,
+    "full_staged_diff_check_exit_code": 0,
+    "full_suite_run": false,
+    "offline_replay_saved_content_matches": true,
+    "old_batch4_report_bytes_replay_unchanged": true,
+    "review_content_sha256": "36a20ab120430d412b16b7144af7be8d2d57f50a9910eea042f4211661e22e81",
+    "test_runs": [
+      {
+        "duration_seconds": 9.172,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch5_identity_20261014/focused_tests.log",
+        "sha256": "9672fca91ba8509dc90e6301509d8b5fa40c611ab3a2cb640f148caf1e201254",
+        "skips": 0,
+        "tests_run": 111
+      },
+      {
+        "duration_seconds": 2.436,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch5_identity_20261014/final_bridge_tests.log",
+        "sha256": "d9b365f2d517ffa9b7a14abac2176cdbc3436ff4b98d4b577ef3641842bb669c",
+        "skips": 0,
+        "tests_run": 12
+      }
+    ],
+    "windows_verified": false
+  }
+}

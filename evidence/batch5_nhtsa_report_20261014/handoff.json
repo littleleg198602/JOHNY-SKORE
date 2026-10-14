@@ -1,0 +1,118 @@
+{
+  "api": {
+    "availability_column": "scout_nhtsa_scope_reviews.known_at",
+    "availability_cutoff": "physical known_at <= UTC as_of; inclusive",
+    "counts_scope": "RETURNED_REVIEW_WINDOW",
+    "function": "read_nhtsa_scope_reviews(store, *, as_of: datetime, limit: int = 8)",
+    "imports_or_constructs_http_client_in_report": false,
+    "legacy_method_delegates": "NhtsaNegativeReviewService.report",
+    "limit_inclusive": [
+      1,
+      100
+    ],
+    "module": "market_checker_app.services.nhtsa_negative_review_service",
+    "no_records_status": "NO_RECORDED_REVIEWS",
+    "read_error_status": "REVIEW_READ_ERROR",
+    "read_snapshot": true,
+    "record_fields_preserved": true,
+    "records_status": "RECORDED_REVIEWS",
+    "schema_or_source_or_registry_or_quota_mutation": false,
+    "sqlite_query_only": true,
+    "sqlite_uri_mode": "ro"
+  },
+  "canonical_tickers": 687,
+  "code_sha256": {
+    "market_checker_app/services/nhtsa_negative_review_service.py": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6"
+  },
+  "evidence_capture_script": {
+    "database_read_only": true,
+    "http_requests": 0,
+    "path": "evidence/batch5_nhtsa_report_20261014/capture_existing_report.py",
+    "requires_explicit_existing_database": true,
+    "sha256": "b74528ae8473d5ade6257084273fe92f0bbcb9d72c58331e728be23278ff3a44"
+  },
+  "kind": "READ_ONLY_NHTSA_SCOPE_REVIEW_UI_API",
+  "limits": [
+    "No genuine LIVE HTTP200 complete-negative case was established; HTTP400 empties remain PARTIAL.",
+    "Returned model-year review window does not establish issuer-wide absence, company ownership or issuer attribution.",
+    "This read-only output creates no observations, identities, labels or historical availability.",
+    "No relevant full-universe coverage, historical OOS, Windows user acceptance or specialist DONE claim."
+  ],
+  "prediction_input": false,
+  "previous_lane_evidence": {
+    "all_previous_files_byte_identical": true,
+    "file_count": 21,
+    "old_code_hashes_are_historical_first_output": true,
+    "sha256": {
+      "evidence/batch5_regulatory_20261014/README.md": "8c5f8ed7bed152fc9fcaf9dca4c48ec3a0b5c72270fdaa1fdffc61af98ee27e5",
+      "evidence/batch5_regulatory_20261014/capture_live.py": "5bd6a7847c912e6bd0f012cccaee2aa6c02642f093f131516c3be31651d78f1d",
+      "evidence/batch5_regulatory_20261014/captures/14e3f07d4f3937979509b08949b3e1f03734b02cb5a701b66486f22cb1cf33c6/response.json": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "evidence/batch5_regulatory_20261014/captures/14e3f07d4f3937979509b08949b3e1f03734b02cb5a701b66486f22cb1cf33c6/review.json": "bda2272f4cd3e47e93baf3cd3ca5edcb67202e575fd662524a502aed2c727ad4",
+      "evidence/batch5_regulatory_20261014/captures/35681237a45ea4457bf64f02fe651b8747423196ae5da86847997a3a59f2e634/response.json": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "evidence/batch5_regulatory_20261014/captures/35681237a45ea4457bf64f02fe651b8747423196ae5da86847997a3a59f2e634/review.json": "b890644ef64fbd698b79bb8bc11ad0ce8f8cdf5f186f101816c946d1b3769efb",
+      "evidence/batch5_regulatory_20261014/captures/621a23a9a3cf6aa384859a838c1152de987d29ee1a7b140dc8b5e6ae0e256af9/response.json": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "evidence/batch5_regulatory_20261014/captures/621a23a9a3cf6aa384859a838c1152de987d29ee1a7b140dc8b5e6ae0e256af9/review.json": "3d6b1b2a8444985a26a1e3bc1a48f058272d791e726000de46a59a27aad7ae2e",
+      "evidence/batch5_regulatory_20261014/captures/9c354b67af1c20d11f8785f2e67fc3f33e43dc16ff4b9423fe66c30fe5a60556/response.json": "3609b831ede0af4e59d6904d2a21cf2788e34d821a4c2f0ca25bf031615a663b",
+      "evidence/batch5_regulatory_20261014/captures/9c354b67af1c20d11f8785f2e67fc3f33e43dc16ff4b9423fe66c30fe5a60556/review.json": "9500fbcd1867fde4ce872eb6ae1f1b467ecaee287ef73899c54d8cf3a9975918",
+      "evidence/batch5_regulatory_20261014/captures/a8c710a3370273ba69ddf470d3efdc733d6c779138a170f87bb24610e9396125/response.json": "4db26aaacaa8c5f4c4e629ae479d6e5c2d656dd4540f9bbeb9cc00dc672ad0f0",
+      "evidence/batch5_regulatory_20261014/captures/a8c710a3370273ba69ddf470d3efdc733d6c779138a170f87bb24610e9396125/review.json": "40cb8609f7cf8b7cdee431196680e3ad10986f3c51293415dbdf0780db3bbc9b",
+      "evidence/batch5_regulatory_20261014/captures/d60fbcc42242787e0d43e4a4eacd697addadea96b6712e5385efba52860333d9/response.json": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "evidence/batch5_regulatory_20261014/captures/d60fbcc42242787e0d43e4a4eacd697addadea96b6712e5385efba52860333d9/review.json": "7a7df98d6a1420df062439f45704bbaacbc01706220357c0b3759100a7e7945f",
+      "evidence/batch5_regulatory_20261014/captures/e11f42e084184ed99d6f9058cfbf1059107189ae84d1c774eee6d4ccfbee4a08/response.json": "e7bb49a74196b0440b670b6dd8c995b7460be89ad0bd59f3e31d820c33a2d955",
+      "evidence/batch5_regulatory_20261014/captures/e11f42e084184ed99d6f9058cfbf1059107189ae84d1c774eee6d4ccfbee4a08/review.json": "a9fa9aeea961aad4d9329ec2ae9a848bd2d7bfb31633ea8f37de89c907d02bfe",
+      "evidence/batch5_regulatory_20261014/captures/f4bccdacc73fbfd6becc232317e9377f5687aeea95a67ae8d869af7de16913bc/response.json": "62c226ab5f8bc0b99dd4a48121c2f356a8099850ae1a9902bbd2a469bb411623",
+      "evidence/batch5_regulatory_20261014/captures/f4bccdacc73fbfd6becc232317e9377f5687aeea95a67ae8d869af7de16913bc/review.json": "8324b8452c84bb6b54516228d3e25c97db34ecca71078d96c171487ff2254652",
+      "evidence/batch5_regulatory_20261014/handoff.json": "935ed13068e0465bb3002e0b96d9768a35966aed24bcb1958b40e1a1d434ea4e",
+      "evidence/batch5_regulatory_20261014/live_run.json": "5fa28a0a9fc468e546e414e933dc68676e8199ad6bc93a080252485090d10844",
+      "evidence/batch5_regulatory_20261014/tests.log": "49c1c4da8de9c39800161dcfdf1a5663a4315b2de08086cf2bb46614bed3c778"
+    }
+  },
+  "previous_local_lane_commit": "366b4cd3e63805f561a980b1f92d03b85dfd0002",
+  "previous_root_integrated_commit": "41194fc",
+  "production_registry_modified": false,
+  "read_only_actual_existing_store_proof": {
+    "as_of": "2026-10-14T05:26:55.562291+00:00",
+    "charged_make_subjects_after": 3,
+    "charged_make_subjects_before": 3,
+    "charged_requests_after": 8,
+    "charged_requests_before": 8,
+    "complete_negative_model_years": 0,
+    "http200_positive_cases": 4,
+    "http400_empty_partial_cases": 4,
+    "http_requests_in_this_output": 0,
+    "live_complete_negative_model_years": 0,
+    "path": "evidence/batch5_nhtsa_report_20261014/existing_report.json",
+    "physical_history_unchanged": true,
+    "rejected_documentation_refetched": false,
+    "reported_actual_pinned_reviews": 8,
+    "sha256": "3bd365183e7fbcd860518d4e47e2dcd56c7f99dd323e95e7847978bca1d259a1"
+  },
+  "recorded_at": "2026-10-14T05:28:10.582418+00:00",
+  "root_integration": "Import and call standalone read-only API on existing store; root owns app/scout-runner wiring.",
+  "schema_version": 1,
+  "scoring_applied": false,
+  "test_sha256": {
+    "tests/test_batch5_nhtsa_readonly_report.py": "20aca46b0d94a5af9071038b883d1eb2ceba755c210a8cf1ae3fa9dd40dcbca7",
+    "tests/test_batch5_nhtsa_scope_review.py": "414f0701432b1e5df9e191c298cd5ce189e44b16864d0f255aebdd95fa72a8e7"
+  },
+  "unchanged_canonical_registry_hashes": {
+    "market_checker_app/data/market_checker_687_tickers.csv": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "market_checker_app/data/verified_nhtsa_models.json": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e"
+  },
+  "validation": {
+    "command": "python -m unittest tests.test_batch5_nhtsa_readonly_report tests.test_batch5_nhtsa_scope_review -v",
+    "diff_check": "PASS",
+    "environment": "Local Linux Python3.12; read-only actual existing-store proof plus offline/synthetic regression tests. No Windows acceptance.",
+    "errors": 0,
+    "existing_scope_review_regressions": 16,
+    "failures": 0,
+    "log_path": "evidence/batch5_nhtsa_report_20261014/tests.log",
+    "log_sha256": "37d030b8803c456be01769c452ffba077767de7e2c70cb80df925830b38df47f",
+    "new_readonly_tests": 9,
+    "py_compile": "PASS",
+    "skips": 0,
+    "tests_discovered": 25,
+    "tests_executed": 25
+  },
+  "verified_model_records": 3
+}

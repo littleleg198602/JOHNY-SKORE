@@ -436,6 +436,16 @@ class AwardTransactionHistoryService:
         self.max_run_seconds, self.daily_request_limit = max_run_seconds, daily_request_limit
         self.transaction_store = AwardTransactionStore(store)
 
+    def audit_capture_versions(self, *, subject_id: str, award_finding_id: str,
+                              baseline_manifests: list[Path], current_manifests: list[Path],
+                              as_of: datetime | None = None) -> dict:
+        """Read-only same-award capture comparison; completeness is revalidated."""
+        from market_checker_app.services.usaspending_transaction_scout_service import audit_award_transaction_capture_versions
+        return audit_award_transaction_capture_versions(
+            self.store, subject_id=subject_id, award_finding_id=award_finding_id,
+            baseline_manifests=baseline_manifests, current_manifests=current_manifests,
+            identities=self.identities, as_of=as_of)
+
     def run(self, *, subject_id: str, award_finding_id: str, as_of: datetime | None = None) -> dict:
         run_started = time.monotonic()
         clock = _utc(as_of or datetime.now(timezone.utc))

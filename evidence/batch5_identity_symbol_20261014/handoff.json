@@ -1,0 +1,283 @@
+{
+  "api": {
+    "bridge_kind": "SAME_CIK_SYMBOL_RENAME",
+    "direct": "review_symbol_rename_bridge(service, claim)",
+    "dispatch": "instrument_transition_review(..., corporate_action_bridges=[claim])"
+  },
+  "base_local_commit": "effead5d86f277e9dce8f196536049ef8e1601d1",
+  "code_sha256": {
+    "market_checker_app/services/sec13f_transition_review.py": "91d8e06d614b7031984ba6b81a14ed44df9691111170f3bc60ee96e283ace546",
+    "market_checker_app/services/sec_corporate_action_bridge.py": "48b23fcb2f7fda8194b7eac52980d2be8413ea2dc6d7c66d6e608a047fcf0a30",
+    "tests/test_batch5_identity_symbol.py": "ebea0f4e66dc677d3c511b4567396b5298273fe6ce9add2efefa4854160ffb92"
+  },
+  "implementation": [
+    "Independent exact same-CIK/unchanged-CUSIP symbol tuples; target stays outside canonical input",
+    "Directed primary symbol action and exact day are distinct from a dated cover bracket",
+    "Independent CIK/CUSIP/class/name documents, immutable URLs and preserved competing name/class/date sources",
+    "Later prior-registry knowledge is included; missing prior PSTG version is never invented",
+    "Unverified proposals and all scoring/alias/interval/production changes remain disabled"
+  ],
+  "inventory": [
+    {
+      "bytes": 2818,
+      "path": "evidence/batch5_identity_symbol_20261014/README.md",
+      "sha256": "955d09758ce4a3f8a76593340a8f438081e83cae24ca10950e14a4c94450fdf6"
+    },
+    {
+      "bytes": 4101,
+      "path": "evidence/batch5_identity_symbol_20261014/final_symbol_clock_tests.log",
+      "sha256": "4155d7089b8f320a9d5c0296101ddd155a7a815b73aebc140c89c5aee5590178"
+    },
+    {
+      "bytes": 3893,
+      "path": "evidence/batch5_identity_symbol_20261014/final_symbol_tests.log",
+      "sha256": "427a21752f60aae1d12d6685725bcb7f09115a3dae2062a64dc4eacd580d26cc"
+    },
+    {
+      "bytes": 25677,
+      "path": "evidence/batch5_identity_symbol_20261014/focused_tests.log",
+      "sha256": "e06a4c104f9369307a29d63c348ab000e6c44d1c574b96799121dd8659171394"
+    },
+    {
+      "bytes": 6818,
+      "path": "evidence/batch5_identity_symbol_20261014/initial_focused_tests.log",
+      "sha256": "ceb8a103422658ec6dd0da587232a974d84960b4d930dbdacb42d07f1b801016"
+    },
+    {
+      "bytes": 6220,
+      "path": "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json",
+      "sha256": "f4316f96e812b03a200b9aa70a8bd1acf6bcaa55719fc2204fb262276ee2552d"
+    },
+    {
+      "bytes": 8662,
+      "path": "evidence/batch5_identity_symbol_20261014/replay_symbol.py",
+      "sha256": "837f4be45883c01bac29f7756023fbcd08a93647ba0def4abe7768428c1a32c4"
+    },
+    {
+      "bytes": 14300,
+      "path": "evidence/batch5_identity_symbol_20261014/review.json",
+      "sha256": "38dbd896132431bd6a3b3b02c57b489c18f2ee0b2156dbb5c8f22d7d9088d773"
+    },
+    {
+      "bytes": 1480,
+      "path": "evidence/batch5_identity_symbol_20261014/symbol_proposal.json",
+      "sha256": "f453b42d0e5f9973a659834b1e047c31b27d9cf35a2c834c68d9f6937e07288f"
+    }
+  ],
+  "lane": "identity_bulk",
+  "limits": [
+    "Monthly April action passage is not an exact effective day or a directed old/new symbol claim",
+    "Generic Common Stock is not independently dated Class A instrument proof",
+    "No post-rename CIK/CUSIP/Class A proof or dated symbol/CUSIP action bridge is archived",
+    "Current catalog/list and names cannot supply historical bindings, earlier source availability or continuous quarter identity",
+    "No registry promotion, automatic alias, Q2 extension, score, historical OOS, Windows or DONE acceptance"
+  ],
+  "preservation": {
+    "canonical_tickers": 687,
+    "canonical_universe": {
+      "bytes": 5846,
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    "first_output_inventory_unchanged": true,
+    "first_output_report_replay_unchanged": true,
+    "new_aliases": 0,
+    "new_verified_identities": 0,
+    "prior_PSTG_registry_versions": 0,
+    "production_registry_changed": false,
+    "registry": {
+      "bytes": 87325,
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+    },
+    "registry_sha256_after": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "registry_sha256_before": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "score_changed": false,
+    "selected_q3_full_interval_coverage": 0,
+    "specialist_done_changed": false,
+    "stored_records": 150
+  },
+  "real_review": {
+    "action_effective_on": null,
+    "blockers": [
+      "DIRECTED_OLD_NEW_SYMBOL_ACTION_MISSING",
+      "SYMBOL_ACTION_EFFECTIVE_DAY_MISSING",
+      "FROM_ACTION_ISSUER_NAME_BINDING_MISSING",
+      "FROM_ACTION_CLASS_BINDING_MISSING",
+      "FROM_STRUCTURED_INSTRUMENT_CONFLICT",
+      "TO_ACTION_ISSUER_NAME_BINDING_MISSING",
+      "TO_ACTION_CLASS_BINDING_MISSING",
+      "TO_CIK_CUSIP_CLASS_BINDING_MISSING",
+      "DATED_SYMBOL_CUSIP_ACTION_BRIDGE_MISSING"
+    ],
+    "bridge_status": "PRIMARY_BRIDGE_PARTIAL",
+    "candidate_cusip": "74624M102",
+    "canonical_from_symbol": "PSTG",
+    "evidence_known_at": "2026-10-13T08:51:43.692956+00:00",
+    "historical_knowledge_reconstructed": false,
+    "observed_symbol_anchor_bracket": {
+      "earliest_new_anchor": "2026-05-03",
+      "establishes_effective_day": false,
+      "latest_old_anchor": "2026-02-23"
+    },
+    "observed_to_symbol": "P",
+    "unchanged_cik": "0001474432"
+  },
+  "recorded_at": "2026-10-14T05:26:42.138595+00:00",
+  "schema_version": 1,
+  "source_inventory": [
+    {
+      "bytes": 865,
+      "path": "evidence/batch4_identity_20261013/captures/2be20b35d97ffdb8d52b3c6b89f0499c7debe64ddde8bc63c7c9eaaff714ee30.json",
+      "sha256": "4b467ce034671c27bf82c3a4087b3750e77830b97524e2436fe61ec02b80c874"
+    },
+    {
+      "bytes": 5629,
+      "path": "evidence/batch4_identity_20261013/captures/622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a.bin",
+      "sha256": "622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a"
+    },
+    {
+      "bytes": 871,
+      "path": "evidence/batch4_identity_20261013/captures/7218f3785433f5eb16d0fb322134a9978323833cd3557f29166d2174ad2c732d.json",
+      "sha256": "d53bc7a3da2980c19172b4a559b1599e2a5282c935052fc6c04597dc46bfc1df"
+    },
+    {
+      "bytes": 1320999,
+      "path": "evidence/batch4_identity_20261013/captures/511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b.bin",
+      "sha256": "511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b"
+    },
+    {
+      "bytes": 872,
+      "path": "evidence/batch4_identity_20261013/captures/9e94ff7b56c0c2754f484da2574802cadae985d4a04a34880b12291404dd909d.json",
+      "sha256": "b6ea263cd075395a484525f03500b48f36622592d0677f0a162ff094b7ca65bc"
+    },
+    {
+      "bytes": 31810,
+      "path": "evidence/batch4_identity_20261013/captures/50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786.bin",
+      "sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786"
+    },
+    {
+      "bytes": 871,
+      "path": "evidence/batch4_identity_20261013/captures/d0cede9f282a654d0e90dee06851d09ffeaa767e1da752c485ea37f8c8b248bf.json",
+      "sha256": "a871d4880738db3bda5faec2ee1c0bff2976ba2097841192388cf015a80c0b66"
+    },
+    {
+      "bytes": 1614197,
+      "path": "evidence/batch4_identity_20261013/captures/a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a.bin",
+      "sha256": "a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a"
+    },
+    {
+      "bytes": 784,
+      "path": "evidence/batch4_identity_20261013/captures/fa92eff28a7568ebceff171ae194030eb331b402e48a5c89d57ad3de407e4573.json",
+      "sha256": "5c88746e1c45b7adecef6fe8850cde7d7fac972f3befc1cfab0b6b69529bd26c"
+    },
+    {
+      "bytes": 157897,
+      "path": "evidence/batch4_identity_20261013/captures/aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149.bin",
+      "sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149"
+    },
+    {
+      "bytes": 247,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a.json",
+      "sha256": "98995b942e0a4564f78a4ba8ad12aa5ee8444eea8b07fc2f9aac4b77b104fec7"
+    },
+    {
+      "bytes": 799583,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+    },
+    {
+      "bytes": 249,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c.json",
+      "sha256": "0e4c7eddeb5bb88152b2798f3bd9421ecee08b4992478adf75e95103f17b430e"
+    },
+    {
+      "bytes": 2088909,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+    }
+  ],
+  "source_usage": {
+    "access_values_exported": false,
+    "network_during_replay": false,
+    "new_http_requests": 0,
+    "new_public_raw_bodies": 0,
+    "new_web_queries": 0,
+    "raw_original_bytes_verified": true,
+    "retained_primary_responses_selected": 5
+  },
+  "status": "SAME_CIK_SYMBOL_REVIEW_COMPLETE_WITH_MISSING_PROOFS",
+  "superseded_code_snapshot": {
+    "current_version_sha256": "48b23fcb2f7fda8194b7eac52980d2be8413ea2dc6d7c66d6e608a047fcf0a30",
+    "first_handoff": {
+      "bytes": 8622,
+      "path": "evidence/batch5_identity_20261014/handoff.json",
+      "sha256": "f5865417bc7853c4ea3537af1a55847a48a4109fa51351369b7d29dd8db9bb93"
+    },
+    "first_output_commit": "effead5d86f277e9dce8f196536049ef8e1601d1",
+    "first_version_sha256": "500e9053fdab1324824738ace438470faf1529197c0913e552b479d6d706bcac",
+    "interpretation": "First handoff code hashes describe its first committed version; original artifacts remain immutable",
+    "path": "market_checker_app/services/sec_corporate_action_bridge.py"
+  },
+  "verification": {
+    "bridge_content_sha256": "efee40eb37a28f503f075161b29290fd232606c339e4d26363684a42280827b9",
+    "compile_exit_code": 0,
+    "first_XOM_review_bytes_unchanged": true,
+    "full_staged_diff_check_exit_code": 0,
+    "full_suite_run": false,
+    "new_test_cases": 19,
+    "replay_saved_content_matches": true,
+    "review_content_sha256": "16a218bcd053979d434ba8286c9a3898896b7580c35d09d31f1c9bfe49ce3111",
+    "test_runs": [
+      {
+        "bytes": 6818,
+        "duration_seconds": 4.381,
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 1,
+        "path": "evidence/batch5_identity_symbol_20261014/initial_focused_tests.log",
+        "sha256": "ceb8a103422658ec6dd0da587232a974d84960b4d930dbdacb42d07f1b801016",
+        "skips": 0,
+        "tests_run": 28,
+        "version_scope": "Retained intermediate diagnostic; see README"
+      },
+      {
+        "bytes": 25677,
+        "duration_seconds": 11.94,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch5_identity_symbol_20261014/focused_tests.log",
+        "sha256": "e06a4c104f9369307a29d63c348ab000e6c44d1c574b96799121dd8659171394",
+        "skips": 0,
+        "tests_run": 128,
+        "version_scope": "Retained intermediate diagnostic; see README"
+      },
+      {
+        "bytes": 3893,
+        "duration_seconds": 2.325,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch5_identity_symbol_20261014/final_symbol_tests.log",
+        "sha256": "427a21752f60aae1d12d6685725bcb7f09115a3dae2062a64dc4eacd580d26cc",
+        "skips": 0,
+        "tests_run": 18,
+        "version_scope": "Retained intermediate diagnostic; see README"
+      },
+      {
+        "bytes": 4101,
+        "duration_seconds": 2.343,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch5_identity_symbol_20261014/final_symbol_clock_tests.log",
+        "sha256": "4155d7089b8f320a9d5c0296101ddd155a7a815b73aebc140c89c5aee5590178",
+        "skips": 0,
+        "tests_run": 19,
+        "version_scope": "Final current module"
+      }
+    ],
+    "windows_verified": false
+  }
+}

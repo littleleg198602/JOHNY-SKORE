@@ -1,0 +1,17 @@
+{
+  "attempted_at": "2026-10-14T00:15:43.687475+00:00",
+  "completed_at": "2026-10-14T00:15:47.547412+00:00",
+  "content_encoding": null,
+  "content_type": "text/html; charset=UTF-8",
+  "http_date": "Wed, 14 Oct 2026 00:15:47 GMT",
+  "last_modified": "Wed, 07 Oct 2026 13:17:44 GMT",
+  "raw_path": "03_primary_e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c.raw",
+  "requested_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+  "retention": "ORIGINAL_BYTES_ARCHIVED",
+  "role": "primary",
+  "runtime_mode": "LIVE_HTTP",
+  "sequence": 3,
+  "sha256": "e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c",
+  "size_bytes": 136764,
+  "status": 200
+}

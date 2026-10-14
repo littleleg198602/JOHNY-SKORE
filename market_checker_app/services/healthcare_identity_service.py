@@ -6,7 +6,7 @@ impact, a drug's efficacy, or ownership of every product in a corporate group.
 from __future__ import annotations
 
 from copy import deepcopy
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -26,10 +26,20 @@ KINDS = {
                            {"RECALLING_PRODUCT_ENTITY"}, "EVENT_DATE"),
     "clinical_trial_sponsor": ("clinicaltrials", {"nct_id", "role", "intervention_name", "record_version_date"},
                                {"LEAD_SPONSOR", "COLLABORATOR"}, "EVENT_DATE"),
+    "clinical_trial_sponsor_snapshot": (
+        "clinicaltrials", {"nct_id", "role", "intervention_name", "record_version_date",
+                           "relationship_snapshot_sha256", "source_body_sha256", "source_observed_at"},
+        {"LEAD_SPONSOR", "COLLABORATOR"}, "OBSERVED_SNAPSHOT"),
     "cms_provider_owner": ("cms", {"enrollment_id", "owner_associate_id", "provider_name",
                                   "association_date", "owner_role_code"},
                            {"DIRECT_OWNER", "INDIRECT_OWNER"}, "OBSERVED_SNAPSHOT"),
 }
+
+CLINICAL_TRIAL_KINDS = {"clinical_trial_sponsor", "clinical_trial_sponsor_snapshot"}
+
+
+def healthcare_resolver_version(source: str) -> str:
+    return "healthcare-trial-observed-snapshot-v3" if source == "clinicaltrials" else "healthcare-object-v1"
 
 
 def _aware(value: str | datetime) -> datetime:
@@ -143,6 +153,183 @@ def clinical_trial_version(row: dict) -> dict:
                 publisher_clocks_are_first_observation=False)
 
 
+def _sha256(value: object) -> str:
+    if not isinstance(value, str) or not re.fullmatch(r"[a-f0-9]{64}", value):
+        raise ValueError("Healthcare snapshot needs a full original-body SHA-256")
+    return value
+
+
+def _snapshot_contract(row: dict, *, known: datetime, start: date, end: date | None) -> None:
+    """Validate an observed object/issuer cohort, never its publisher event day.
+
+    The closed one-day interval limits the observed cohort. It is not a
+    continuous legal interval, and the exact capture clock remains mandatory.
+    """
+    ids = row["identifiers"]
+    observed = _aware(ids["source_observed_at"])
+    _sha256(ids["source_body_sha256"])
+    if any(row.get(key) is not False for key in (
+            "historical_trial_sponsor_attribution_allowed", "trial_sponsor_identity_is_product_ownership",
+            "issuer_wide_scope")):
+        raise ValueError("Clinical snapshot cannot assert historical, product-ownership or issuer-wide scope")
+    if (start != observed.date() or end != start + timedelta(days=1)
+            or observed > known):
+        raise ValueError("Clinical snapshot must retain its exact observed-day scope")
+    scope = row.get("intervention_scope")
+    if (not isinstance(scope, dict) or set(scope) != {"type", "intervention_type", "arm_labels"}
+            or scope["type"] != "EXPERIMENTAL_ARM_SPONSORSHIP_ONLY"
+            or not isinstance(scope["arm_labels"], list) or not 1 <= len(scope["arm_labels"]) <= 100
+            or any(not isinstance(label, str) or not label.strip() for label in scope["arm_labels"])
+            or len(set(scope["arm_labels"])) != len(scope["arm_labels"])
+            or not isinstance(scope["intervention_type"], str) or not scope["intervention_type"].strip()):
+        raise ValueError("Clinical snapshot must document the selected experimental-arm scope")
+    bridge = row.get("issuer_bridge")
+    required = {"schema_version", "type", "source_url", "body_sha256", "observed_at", "known_at",
+                "issuer_name", "issuer_cik", "ticker", "entity_name", "snapshot_date"}
+    if (not isinstance(bridge, dict) or set(bridge) != required or bridge["schema_version"] != 1
+            or bridge["type"] != "SEC_SUBMISSIONS_DIRECT_NAMED_ISSUER"):
+        raise ValueError("Clinical snapshot requires an independent dated issuer bridge")
+    official = f"https://data.sec.gov/submissions/CIK{row['issuer_cik']}.json"
+    if bridge["source_url"] != official:
+        raise ValueError("Clinical snapshot issuer bridge must be its own SEC submissions body")
+    _sha256(bridge["body_sha256"])
+    issuer_observed, issuer_known = _aware(bridge["observed_at"]), _aware(bridge["known_at"])
+    if (issuer_observed.date() != observed.date() or bridge["snapshot_date"] != start.isoformat()
+            or not issuer_observed <= observed <= known or not issuer_observed <= issuer_known <= known
+            or (bridge["issuer_cik"], bridge["ticker"]) != (row["issuer_cik"], row["ticker"])
+            or _text(bridge["entity_name"]).casefold() != row["entity_name"].casefold()
+            or _text(bridge["issuer_name"]).casefold() != row["entity_name"].casefold()):
+        raise ValueError("Clinical snapshot needs an exact named issuer bridge in the observed cohort")
+    for purpose, url, body_hash, clock in (
+            ("OBJECT_RELATIONSHIP", None, ids["source_body_sha256"], observed),
+            ("ISSUER_IDENTITY", official, bridge["body_sha256"], issuer_observed)):
+        matches = [item for item in row["evidence"] if item["purpose"] == purpose
+                   and (url is None or item["url"] == url)
+                   and item.get("body_sha256") == body_hash
+                   and _aware(item["observed_at"]) == clock]
+        if len(matches) != 1:
+            raise ValueError("Clinical snapshot evidence must pin both original source bodies and clocks")
+    # The object URL is checked separately, not inferred from a publisher name.
+    object_evidence = next(item for item in row["evidence"] if item["purpose"] == "OBJECT_RELATIONSHIP")
+    parsed = urlsplit(object_evidence["url"])
+    if (parsed.hostname != "clinicaltrials.gov"
+            or parsed.path != f"/api/v2/studies/{ids['nct_id']}" or parsed.query):
+        raise ValueError("Clinical snapshot evidence must identify the exact captured NCT object")
+
+
+def build_clinical_trial_snapshot_record(*, ticker: str, cik: str, intervention: str, role: str,
+                                         trial_metadata: dict, trial_body: bytes,
+                                         issuer_metadata: dict, issuer_body: bytes,
+                                         reviewed_at: datetime) -> dict:
+    """Build a proposal only from original bytes and a direct same-day issuer.
+
+    This performs no network/store/registry mutation. Differently spelled
+    issuer names need their own independently dated bridge; no '& Co' alias or
+    old annual-report period is inferred. Withheld/truncated bytes cannot enter.
+    """
+    known = _aware(reviewed_at)
+
+    def original(metadata: dict, body: bytes, *, host: str) -> tuple[dict, datetime]:
+        if (not isinstance(metadata, dict) or not isinstance(body, bytes)
+                or metadata.get("raw_publication_permitted") is False
+                or str(metadata.get("status", "")).startswith("WITHHELD")
+                or metadata.get("http_status") != 200
+                or metadata.get("body_complete_within_byte_budget") is not True):
+            raise ValueError("WITHHELD_OR_INCOMPLETE_PRIMARY_CAPTURE")
+        if (len(body) != metadata.get("body_bytes") or len(body) > 4_000_000
+                or len(body) > metadata.get("byte_budget", 0)
+                or hashlib.sha256(body).hexdigest() != _sha256(metadata.get("body_sha256"))):
+            raise ValueError("PRIMARY_CAPTURE_INTEGRITY_FAILED")
+        for key in ("request_url", "response_url"):
+            parsed = urlsplit(public_https_reference(metadata.get(key)))
+            if parsed.hostname != host or parsed.fragment or parsed.port not in {None, 443}:
+                raise ValueError("PRIMARY_CAPTURE_PUBLISHER_MISMATCH")
+        if metadata["request_url"] != metadata["response_url"]:
+            raise ValueError("PRIMARY_CAPTURE_OBJECT_REDIRECT")
+        requested, observed = _aware(metadata.get("requested_at")), _aware(metadata.get("observed_at"))
+        if not requested <= observed <= known:
+            raise ValueError("PRIMARY_CAPTURE_NOT_AVAILABLE_AT_REVIEW")
+        payload = json.loads(body)
+        if not isinstance(payload, dict):
+            raise ValueError("PRIMARY_CAPTURE_NOT_AN_OBJECT")
+        return payload, observed
+
+    trial, observed = original(trial_metadata, trial_body, host="clinicaltrials.gov")
+    issuer, issuer_observed = original(issuer_metadata, issuer_body, host="data.sec.gov")
+    version = clinical_trial_version(trial)
+    if observed.date() != issuer_observed.date():
+        raise ValueError("ISSUER_BRIDGE_OUTSIDE_SOURCE_OBSERVED_COHORT")
+    issuer_cik = issuer.get("cik")
+    if (isinstance(issuer_cik, bool) or not isinstance(issuer_cik, (str, int))
+            or not str(issuer_cik).isdigit() or str(issuer_cik).zfill(10) != cik):
+        raise ValueError("ISSUER_BRIDGE_CIK_MISMATCH")
+    issuer_name = _text(issuer.get("name"))
+    if role == "LEAD_SPONSOR":
+        entity_name = version["lead_sponsor"]
+    elif role == "COLLABORATOR":
+        matches = [name for name in version["collaborators"] if name.casefold() == issuer_name.casefold()]
+        if len(matches) != 1:
+            raise ValueError("NO_EXACT_COLLABORATOR_ISSUER_BRIDGE")
+        entity_name = matches[0]
+    else:
+        raise ValueError("INVALID_SNAPSHOT_SPONSOR_ROLE")
+    if entity_name.casefold() != issuer_name.casefold():
+        raise ValueError("EXACT_SPONSOR_ISSUER_NAME_BRIDGE_MISSING")
+    if issuer_observed > observed:
+        raise ValueError("ISSUER_EVIDENCE_NOT_AVAILABLE_AT_SOURCE_OBSERVATION")
+    tickers = issuer.get("tickers")
+    if (not isinstance(tickers, list) or not 1 <= len(tickers) <= 100
+            or any(not isinstance(value, str) for value in tickers) or tickers.count(ticker) != 1):
+        raise ValueError("ISSUER_BRIDGE_TICKER_MISMATCH")
+    if intervention not in version["intervention_names"]:
+        raise ValueError("SNAPSHOT_INTERVENTION_NOT_CAPTURED")
+    arms_module = trial["protocolSection"].get("armsInterventionsModule", {})
+    selected = [item for item in arms_module.get("interventions", []) if item["name"] == intervention]
+    groups = arms_module.get("armGroups")
+    if (len(selected) != 1 or not isinstance(groups, list) or not 1 <= len(groups) <= 100
+            or any(not isinstance(group, dict) for group in groups)):
+        raise ValueError("EXPERIMENTAL_ARM_SCOPE_NOT_CAPTURED")
+    selected = selected[0]
+    intervention_type = _text(selected.get("type"))
+    reference = f"{intervention_type.replace('_', ' ').title()}: {intervention}"
+    matched = [group for group in groups if isinstance(group.get("interventionNames"), list)
+               and reference in group["interventionNames"]]
+    labels = selected.get("armGroupLabels")
+    if (not matched or any(group.get("type") != "EXPERIMENTAL" for group in matched)
+            or not isinstance(labels, list) or not labels
+            or any(not isinstance(label, str) or not label.strip() for label in labels)
+            or set(labels) != {_text(group.get("label")) for group in matched}):
+        raise ValueError("COMPARATOR_OR_UNDOCUMENTED_INTERVENTION_SCOPE")
+    ids = {"nct_id": version["nct_id"], "role": role, "intervention_name": intervention,
+           "record_version_date": version["record_version_date"],
+           "relationship_snapshot_sha256": version["relationship_snapshot_sha256"],
+           "source_body_sha256": trial_metadata["body_sha256"], "source_observed_at": observed.isoformat()}
+    scope_id = hashlib.sha256(json.dumps(ids, sort_keys=True, separators=(",", ":")).encode()).hexdigest()[:16]
+    record = {"record_id": f"{ticker.lower()}-trial-{version['nct_id'].lower()}-observed-{scope_id}",
+              "source": "clinicaltrials", "kind": "clinical_trial_sponsor_snapshot", "ticker": ticker,
+              "issuer_cik": cik, "entity_name": entity_name, "product_or_provider": intervention,
+              "relationship": role, "time_basis": "OBSERVED_SNAPSHOT", "identifiers": ids,
+              "effective_from": observed.date().isoformat(),
+              "effective_to": (observed.date() + timedelta(days=1)).isoformat(), "known_at": known.isoformat(),
+              "issuer_bridge": {"schema_version": 1, "type": "SEC_SUBMISSIONS_DIRECT_NAMED_ISSUER",
+                                "source_url": issuer_metadata["response_url"],
+                                "body_sha256": issuer_metadata["body_sha256"],
+                                "observed_at": issuer_observed.isoformat(), "known_at": known.isoformat(),
+                                "issuer_name": issuer_name, "issuer_cik": cik, "ticker": ticker,
+                                "entity_name": entity_name, "snapshot_date": observed.date().isoformat()},
+              "intervention_scope": {"type": "EXPERIMENTAL_ARM_SPONSORSHIP_ONLY",
+                                     "intervention_type": intervention_type, "arm_labels": sorted(set(labels))},
+              "evidence": [{"url": trial_metadata["response_url"], "locator": "exact captured NCT, role, intervention and snapshot digest",
+                            "purpose": "OBJECT_RELATIONSHIP", "observed_at": observed.isoformat(),
+                            "body_sha256": trial_metadata["body_sha256"]},
+                           {"url": issuer_metadata["response_url"], "locator": "same-day SEC submissions exact name, CIK and ticker; no name alias",
+                            "purpose": "ISSUER_IDENTITY", "observed_at": issuer_observed.isoformat(),
+                            "body_sha256": issuer_metadata["body_sha256"]}],
+              "historical_trial_sponsor_attribution_allowed": False, "trial_sponsor_identity_is_product_ownership": False,
+              "issuer_wide_scope": False}
+    return _validate_record(record)
+
+
 def _validate_record(raw: dict) -> dict:
     if not isinstance(raw, dict):
         raise ValueError("Healthcare identity must be an object")
@@ -177,7 +364,7 @@ def _validate_record(raw: dict) -> dict:
                 or not re.fullmatch(r"[DFZ]-\d+-\d{4}", identifiers["recall_number"])
                 or not re.fullmatch(r"\d{4,5}-\d{3,4}", identifiers["product_ndc"])):
             raise ValueError("Healthcare recall needs exact product identifiers")
-    if kind == "clinical_trial_sponsor":
+    if kind in CLINICAL_TRIAL_KINDS:
         if (not re.fullmatch(r"NCT\d{8}", identifiers["nct_id"])
                 or identifiers["role"] != row["relationship"]
                 or ("relationship_snapshot_sha256" in identifiers
@@ -209,7 +396,9 @@ def _validate_record(raw: dict) -> dict:
             raise ValueError("Healthcare evidence must use its public official HTTPS endpoint")
         if item["purpose"] == "ISSUER_IDENTITY":
             prefix = f"/Archives/edgar/data/{int(row['issuer_cik'])}/"
-            if parsed.hostname != "www.sec.gov" or not parsed.path.startswith(prefix):
+            snapshot_issuer = (kind == "clinical_trial_sponsor_snapshot" and parsed.hostname == "data.sec.gov"
+                               and parsed.path == f"/submissions/CIK{row['issuer_cik']}.json" and not parsed.query)
+            if not snapshot_issuer and (parsed.hostname != "www.sec.gov" or not parsed.path.startswith(prefix)):
                 raise ValueError("Healthcare issuer evidence must cite its own SEC CIK")
         else:
             allowed = {
@@ -224,6 +413,8 @@ def _validate_record(raw: dict) -> dict:
         purposes.add(item["purpose"])
     if purposes != {"OBJECT_RELATIONSHIP", "ISSUER_IDENTITY"}:
         raise ValueError("Healthcare identity requires both object and issuer evidence")
+    if kind == "clinical_trial_sponsor_snapshot":
+        _snapshot_contract(row, known=known, start=start, end=end)
     return row
 
 
@@ -281,8 +472,7 @@ class HealthcareIdentityRegistry:
         # to ambiguous; it must invalidate this object's previous check too.
         records = sorted((row for row in known if object_key(row) in objects),
                          key=lambda row: row["record_id"])
-        payload = {"resolver_version": ("healthcare-trial-snapshot-v2" if source == "clinicaltrials"
-                                        else "healthcare-object-v1"), "records": records}
+        payload = {"resolver_version": healthcare_resolver_version(source), "records": records}
         return hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
 
     def identity_versions(self, store: ScoutStore, source: str, *, as_of: datetime) -> dict[str, str]:
@@ -310,13 +500,22 @@ class HealthcareIdentityRegistry:
 
     def resolve(self, *, source: str, kind: str, ticker: str, cik: str,
                 entity_name: str, identifiers: dict[str, str], event_date: date,
-                as_of: datetime) -> dict:
+                as_of: datetime, observed_at: datetime | None = None) -> dict:
         clock = _aware(as_of)
         denied = {"identity_status": "NAME_ONLY", "issuer_attribution_allowed": False,
                   "identity_evidence": None, "missing_evidence": "dated object, role and issuer relationship"}
         if (kind not in KINDS or not isinstance(event_date, date) or isinstance(event_date, datetime)
                 or event_date > clock.date() or not isinstance(identifiers, dict)):
             return dict(denied, identity_resolution="INVALID_OBJECT")
+        if kind == "clinical_trial_sponsor_snapshot":
+            try:
+                observed = _aware(observed_at)
+                pinned = _aware(identifiers["source_observed_at"])
+                _sha256(identifiers.get("source_body_sha256"))
+                if observed != pinned or event_date != observed.date() or observed > clock:
+                    return dict(denied, identity_resolution="INVALID_SNAPSHOT_OBSERVATION")
+            except (ValueError, TypeError, KeyError):
+                return dict(denied, identity_resolution="MISSING_SNAPSHOT_OBSERVATION")
         candidates = [row for row in self._records
                       if row["source"] == source and row["kind"] == kind
                       and row["entity_name"].casefold() == str(entity_name).strip().casefold()
@@ -338,6 +537,12 @@ class HealthcareIdentityRegistry:
         if (row["ticker"], row["issuer_cik"]) != (ticker, cik):
             return dict(denied, identity_resolution="WRONG_ISSUER")
         details = deepcopy(row)
+        if kind == "clinical_trial_sponsor_snapshot":
+            details["matched_observed_at"] = observed.isoformat()
+            return {"identity_status": "OBSERVED_SNAPSHOT_IDENTITY_VERIFIED", "issuer_attribution_allowed": True,
+                    "identity_resolution": "EXACT_OBSERVED_SNAPSHOT", "identity_evidence": details,
+                    "missing_evidence": None, "trial_attribution_time_basis": "OBSERVED_SNAPSHOT",
+                    "historical_trial_sponsor_attribution_allowed": False}
         details["matched_event_date"] = event_date.isoformat()
         return {"identity_status": "DATED_IDENTITY_VERIFIED", "issuer_attribution_allowed": True,
                 "identity_resolution": "EXACT_DATED_OBJECT", "identity_evidence": details,

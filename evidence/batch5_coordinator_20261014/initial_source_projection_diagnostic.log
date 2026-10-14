@@ -1,0 +1,74 @@
+test_capture_path_escape_and_missing_file_are_rejected_before_body_read (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_capture_path_escape_and_missing_file_are_rejected_before_body_read) ... ok
+test_ir_archive_failure_keeps_completed_source_result_without_exception_values (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_ir_archive_failure_keeps_completed_source_result_without_exception_values) ... ok
+test_ir_completed_action_archives_all_canonical_slots_and_keeps_source_only_status (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_ir_completed_action_archives_all_canonical_slots_and_keeps_source_only_status) ... ok
+test_selected_award_offline_comparison_retains_inputs_and_records_new_audit (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_selected_award_offline_comparison_retains_inputs_and_records_new_audit) ... ok
+test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead (tests.test_batch5_source_actions_ui.Batch5SourceActionsUITests.test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead) ... 2026-10-14 05:17:37.909 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2026-10-14 05:17:38.960 Uncaught app execution
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/johny-tests-20261011/lib/python3.12/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 136, in exec_func_with_error_handling
+    result = func()
+             ^^^^^^
+  File "/workspace/scratch/334b3a149083/johny-tests-20261011/lib/python3.12/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 816, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/app.py", line 2610, in <module>
+    rss_candidates = scout_store.latest_findings(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/storage/scout_store.py", line 1550, in latest_findings
+    if item["source"] == "clinicaltrials":
+       ~~~~^^^^^^^^^^
+KeyError: 'source'
+FAIL
+test_analysis_snapshot_is_immutable_and_historical (tests.test_scout_store.ScoutStoreTests.test_analysis_snapshot_is_immutable_and_historical) ... ok
+test_archive_failure_keeps_completed_provider_and_sanitized_receipt (tests.test_scout_store.ScoutStoreTests.test_archive_failure_keeps_completed_provider_and_sanitized_receipt) ... ok
+test_as_of_requires_actual_observation_and_keeps_first_seen (tests.test_scout_store.ScoutStoreTests.test_as_of_requires_actual_observation_and_keeps_first_seen) ... ok
+test_awards_remain_visible_when_transaction_rows_fill_the_recent_limit (tests.test_scout_store.ScoutStoreTests.test_awards_remain_visible_when_transaction_rows_fill_the_recent_limit) ... ERROR
+test_daily_specialist_budgets_cover_687_before_refresh (tests.test_scout_store.ScoutStoreTests.test_daily_specialist_budgets_cover_687_before_refresh) ... ok
+test_followup_budget_rejects_unverified_and_fourth_child (tests.test_scout_store.ScoutStoreTests.test_followup_budget_rejects_unverified_and_fourth_child) ... ok
+test_future_publication_cannot_enter_historical_findings (tests.test_scout_store.ScoutStoreTests.test_future_publication_cannot_enter_historical_findings) ... ok
+test_lead_transitions_preserve_asof_status_and_require_evidence (tests.test_scout_store.ScoutStoreTests.test_lead_transitions_preserve_asof_status_and_require_evidence) ... ok
+test_leads_are_bounded_and_idempotent (tests.test_scout_store.ScoutStoreTests.test_leads_are_bounded_and_idempotent) ... ok
+test_provider_cooldown_survives_process_restart (tests.test_scout_store.ScoutStoreTests.test_provider_cooldown_survives_process_restart) ... ok
+test_provider_lease_renews_only_for_current_owner (tests.test_scout_store.ScoutStoreTests.test_provider_lease_renews_only_for_current_owner) ... ok
+test_recovery_dedup_and_stale_worker_cannot_complete_new_lease (tests.test_scout_store.ScoutStoreTests.test_recovery_dedup_and_stale_worker_cannot_complete_new_lease) ... ok
+test_runner_keeps_completed_source_status_when_later_source_stops (tests.test_scout_store.ScoutStoreTests.test_runner_keeps_completed_source_status_when_later_source_stops) ... ok
+test_runner_rejects_changed_input_and_shows_positions (tests.test_scout_store.ScoutStoreTests.test_runner_rejects_changed_input_and_shows_positions) ... ok
+test_source_leases_cannot_steal_other_provider_jobs (tests.test_scout_store.ScoutStoreTests.test_source_leases_cannot_steal_other_provider_jobs) ... ok
+test_source_run_status_survives_restart_and_latest_wins (tests.test_scout_store.ScoutStoreTests.test_source_run_status_survives_restart_and_latest_wins) ... ok
+test_specialist_coverage_distinguishes_current_partial_and_stale (tests.test_scout_store.ScoutStoreTests.test_specialist_coverage_distinguishes_current_partial_and_stale) ... ok
+test_storage_source_policy_rejects_forged_sec_and_promoted_rss (tests.test_scout_store.ScoutStoreTests.test_storage_source_policy_rejects_forged_sec_and_promoted_rss) ... ok
+test_two_processes_do_not_share_sec_rate_limit_slot (tests.test_scout_store.ScoutStoreTests.test_two_processes_do_not_share_sec_rate_limit_slot) ... ok
+test_universe_rows_are_immutable_and_reordering_is_reported (tests.test_scout_store.ScoutStoreTests.test_universe_rows_are_immutable_and_reordering_is_reported) ... ok
+test_normal_deferrals_use_retry_exit_code_and_keep_explicit_status (tests.test_award_transaction_cli.AwardTransactionCliTests.test_normal_deferrals_use_retry_exit_code_and_keep_explicit_status) ... ok
+
+======================================================================
+ERROR: test_awards_remain_visible_when_transaction_rows_fill_the_recent_limit (tests.test_scout_store.ScoutStoreTests.test_awards_remain_visible_when_transaction_rows_fill_the_recent_limit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/tests/test_scout_store.py", line 33, in test_awards_remain_visible_when_transaction_rows_fill_the_recent_limit
+    awards = store.latest_findings(["LMT"], as_of=later, source="usaspending", limit=2,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/storage/scout_store.py", line 1550, in latest_findings
+    if item["source"] == "clinicaltrials":
+       ~~~~^^^^^^^^^^
+KeyError: 'source'
+
+======================================================================
+FAIL: test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead (tests.test_batch5_source_actions_ui.Batch5SourceActionsUITests.test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/tests/test_batch5_source_actions_ui.py", line 37, in test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead
+    self.assertEqual([], list(app.exception))
+AssertionError: Lists differ: [] != [Exception(message="'source'", stack_trace[442 chars]^'])]
+
+Second list contains 1 additional elements.
+First extra element 0:
+Exception(message="'source'", stack_trace=['File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/app.py", line 2610, in <module>\n    rss_candidates = scout_store.latest_findings(\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^', 'File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/storage/scout_store.py", line 1550, in latest_findings\n    if item["source"] == "clinicaltrials":\n       ~~~~^^^^^^^^^^'])
+
+- []
++ [Exception(message="'source'", stack_trace=['File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/app.py", line 2610, in <module>\n    rss_candidates = scout_store.latest_findings(\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^', 'File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/storage/scout_store.py", line 1550, in latest_findings\n    if item["source"] == "clinicaltrials":\n       ~~~~^^^^^^^^^^'])]
+
+----------------------------------------------------------------------
+Ran 26 tests in 3.653s
+
+FAILED (failures=1, errors=1)

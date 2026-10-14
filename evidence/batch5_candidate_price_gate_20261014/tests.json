@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-10-14T05:33:01.560550+00:00",
+  "discovered": 46,
+  "errors": 0,
+  "executed": 46,
+  "expected_failures": 0,
+  "failures": 0,
+  "fixtures_count_as_live": false,
+  "initial_diagnostic": "evidence/batch5_candidate_price_gate_20261014/initial_test_diagnostic.json",
+  "kind": "focused_candidate_and_shared_label_gate_tests",
+  "log": "evidence/batch5_candidate_price_gate_20261014/tests.log",
+  "log_sha256": "f2e21dc199bfd3cd16ee59cbd2d52f9de8bd8f655d3235004e3ae0f5754d09c1",
+  "modules": [
+    "tests.test_batch5_candidate_price_gate",
+    "tests.test_candidate_model_evaluation_service",
+    "tests.test_candidate_model_service",
+    "tests.test_batch4_evaluation_label_availability"
+  ],
+  "platform": "Linux",
+  "python_version": "3.12.14",
+  "schema_version": 1,
+  "skips": 0,
+  "source_files": {
+    "market_checker_app/services/candidate_model_evaluation_service.py": "5365a2bf71051f5cece57e4f605f019ea9fe4caad10d259b4634f500665b634b",
+    "tests/test_batch5_candidate_price_gate.py": "1976f3c4af7e5777f7bea4ecf50e12bb47a89d98adfed23ac1b4bb398c42c9e3"
+  },
+  "started_at": "2026-10-14T05:32:57.305892+00:00",
+  "successful": true,
+  "unchanged_dependencies": {
+    "market_checker_app/services/candidate_model_service.py": "ed2b8049bfe1a94b77f05ed7187a08b13d48d8c3b6b8220eff446607c4b91d5d",
+    "market_checker_app/services/specialist_label_availability_service.py": "4f9cd93339711b8f1a762b37b21cf65568487037509b891f9a0ccc233c34578f",
+    "tests/test_batch4_evaluation_label_availability.py": "9ee0a528c3fbca3f2a3afca8473bdd54f5e2817acbc576aedb8999af87687596",
+    "tests/test_specialist_evaluation_service.py": "04a4da768dfe7203f88aff97c602f02c46f5ada39b8cf1e8ced4fb3dd652b65e"
+  },
+  "unexpected_successes": 0,
+  "windows_end_to_end": false
+}

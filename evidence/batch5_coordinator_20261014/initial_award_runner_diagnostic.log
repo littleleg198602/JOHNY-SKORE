@@ -1,0 +1,44 @@
+test_selected_award_offline_comparison_retains_inputs_and_records_new_audit (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_selected_award_offline_comparison_retains_inputs_and_records_new_audit) ... ERROR
+test_capture_path_escape_and_missing_file_are_rejected_before_body_read (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_capture_path_escape_and_missing_file_are_rejected_before_body_read) ... 
+  test_capture_path_escape_and_missing_file_are_rejected_before_body_read (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_capture_path_escape_and_missing_file_are_rejected_before_body_read) (name='../capture-outside.json') ... ERROR
+test_capture_path_escape_and_missing_file_are_rejected_before_body_read (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_capture_path_escape_and_missing_file_are_rejected_before_body_read) ... ERROR
+
+======================================================================
+ERROR: test_selected_award_offline_comparison_retains_inputs_and_records_new_audit (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_selected_award_offline_comparison_retains_inputs_and_records_new_audit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/tests/test_batch5_coordinator_integration.py", line 30, in test_selected_award_offline_comparison_retains_inputs_and_records_new_audit
+    result = run_award_capture_audit(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/scout_runner.py", line 381, in run_award_capture_audit
+    store.record_source_run("usaspending_transaction_audit", as_of=datetime.now(timezone.utc), summary=result)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/storage/scout_store.py", line 311, in record_source_run
+    raise ValueError("Unknown scout source run")
+ValueError: Unknown scout source run
+
+======================================================================
+ERROR: test_capture_path_escape_and_missing_file_are_rejected_before_body_read (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_capture_path_escape_and_missing_file_are_rejected_before_body_read) (name='../capture-outside.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/tests/test_batch5_coordinator_integration.py", line 55, in test_capture_path_escape_and_missing_file_are_rejected_before_body_read
+    result = run_award_capture_audit(db_path=store.db_path, subject_id="AAA",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/scout_runner.py", line 381, in run_award_capture_audit
+    store.record_source_run("usaspending_transaction_audit", as_of=datetime.now(timezone.utc), summary=result)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/storage/scout_store.py", line 311, in record_source_run
+    raise ValueError("Unknown scout source run")
+ValueError: Unknown scout source run
+
+======================================================================
+ERROR: test_capture_path_escape_and_missing_file_are_rejected_before_body_read (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_capture_path_escape_and_missing_file_are_rejected_before_body_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/tests/test_batch5_coordinator_integration.py", line 57, in test_capture_path_escape_and_missing_file_are_rejected_before_body_read
+    self.assertEqual("INVALID_COMPARISON", result["status"])
+                                           ^^^^^^
+UnboundLocalError: cannot access local variable 'result' where it is not associated with a value
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.014s
+
+FAILED (errors=3)

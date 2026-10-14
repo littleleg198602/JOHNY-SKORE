@@ -58,7 +58,7 @@ from market_checker_app.services.candidate_model_service import (
     build_candidate_model_report,
 )
 from market_checker_app.services.candidate_model_evaluation_service import (
-    evaluate_candidate_walk_forward,
+    evaluate_candidate_walk_forward_strict,
 )
 from market_checker_app.services.prediction_label_service import (
     PredictionLabelService,
@@ -1028,11 +1028,18 @@ def finalize_analysis_run(
                 "predictions": [],
             }
         try:
-            candidate_evaluation_report = evaluate_candidate_walk_forward(
+            evaluation_as_of = datetime.now(timezone.utc)
+            candidate_evaluation_report = evaluate_candidate_walk_forward_strict(
                 store.read_prediction_snapshots(),
+                as_of=evaluation_as_of,
+                label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
             )
             from market_checker_app.services.layer_ablation_service import evaluate_layer_ablation
-            candidate_evaluation_report["layer_ablation"] = evaluate_layer_ablation(store.read_prediction_snapshots())
+            candidate_evaluation_report["layer_ablation"] = evaluate_layer_ablation(
+                store.read_prediction_snapshots(), strict_price_provenance=True,
+                as_of=evaluation_as_of,
+                label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
+            )
             candidate_evaluation_report["persisted"] = (
                 store.save_candidate_model_evaluation(candidate_evaluation_report)
             )

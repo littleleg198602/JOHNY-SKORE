@@ -14,7 +14,7 @@ from uuid import uuid4
 
 from market_checker_app.utils.source_validation import public_https_reference
 
-PUBLIC_BUDGET_SOURCES = frozenset({"fda", "cms", "clinicaltrials", "doj", "epa", "eia"})
+PUBLIC_BUDGET_SOURCES = frozenset({"fda", "cms", "clinicaltrials", "doj", "epa", "eia", "nhtsa", "rss"})
 SPECIALIST_CHECK_SCOPES = {
     "fda": ":healthcare-object-v1", "cms": ":healthcare-object-v1",
     "clinicaltrials": ":healthcare-object-v1",
@@ -306,7 +306,7 @@ class ScoutStore:
                           summary: dict[str, object]) -> None:
         allowed = {"sec", "fred", "eia", "usaspending", "recipient_discovery",
                    "fda", "finra", "fdic", "sec13f", "nhtsa", "cms", "clinicaltrials", "ofac", "ofac_non_sdn", "doj", "epa",
-                   "usaspending_transactions"}
+                   "rss", "usaspending_transactions", "usaspending_transaction_audit"}
         if source not in allowed or not isinstance(summary, dict):
             raise ValueError("Unknown scout source run")
         status = summary.get("status")
@@ -327,6 +327,8 @@ class ScoutStore:
                            "failed_series", "usable_rows", "query_scope", "quota_unit",
                            "company_exposure_verified",
                            "source_archive_status", "source_archive_filename", "source_archive_error",
+                           "audit_archive_status", "audit_archive_filename", "audit_archive_sha256", "audit_archive_error",
+                           "issuer_attribution_allowed", "scoring_applied", "runtime_mode",
                            "accepted_rows", "captured_pages", "acquisition_mode", "traversal_complete",
                            "modification_history_complete", "revenue_inferred", "company_exposure_inferred",
                            "publisher_publication_time_verified", "source_revision_order_verified",
@@ -1545,6 +1547,14 @@ class ScoutStore:
             item = dict(row)
             details = json.loads(str(item.pop("details_json")))
             item["stage"] = details.get("stage", "unclassified")
+            if source == "clinicaltrials":
+                item["trial_attribution_time_basis"] = details.get("trial_attribution_time_basis", "EVENT_DATE")
+                for flag in ("historical_trial_sponsor_attribution_allowed", "trial_sponsor_identity_is_product_ownership"):
+                    item[flag] = details.get(flag) if isinstance(details.get(flag), bool) else None
+                observation = details.get("source_observation")
+                if isinstance(observation, dict):
+                    item["source_body_sha256"] = observation.get("body_sha256")
+                    item["source_observed_at"] = observation.get("observed_at")
             if item["stage"] == "exposure_candidate":
                 item["topic"] = details.get("kind")
                 item["cited_excerpt"] = details.get("quote")

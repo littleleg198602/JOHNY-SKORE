@@ -209,9 +209,12 @@ class Batch3RegulatoryEvidenceTests(unittest.TestCase):
             before = service.run(as_of=clock - timedelta(microseconds=1), universe={"F", "GM"})
             self.assertEqual({"status": "WAIT_IDENTITY", "checked_models": 0, "new_findings": 0}, before)
             self.assertEqual([], client.calls)
+            summary = service.run(as_of=clock, universe={"F", "GM"})
             self.assertEqual({"status": "OK", "checked_models": 2, "new_findings": 8,
                               "failed_models": 0, "rejected_rows": 0},
-                             service.run(as_of=clock, universe={"F", "GM"}))
+                             {key: summary[key] for key in
+                              ("status", "checked_models", "new_findings", "failed_models", "rejected_rows")})
+            self.assertEqual((2, 8), (summary["daily_requests"], summary["daily_request_limit"]))
             with store._connect() as conn:
                 rows = conn.execute("SELECT subject_id, COUNT(*) AS n FROM scout_findings "
                                     "WHERE source='nhtsa' GROUP BY subject_id").fetchall()
@@ -270,7 +273,10 @@ class Batch3RegulatoryEvidenceTests(unittest.TestCase):
                 store = ScoutStore(Path(directory) / "replay.db")
                 summary = NhtsaRecallScoutService(store, client=ArchivedRecalls(), models=[model]).run(as_of=clock)
                 self.assertEqual({"status": "PARTIAL", "checked_models": 0, "new_findings": 0,
-                                  "failed_models": 1, "rejected_rows": 0}, summary)
+                                  "failed_models": 1, "rejected_rows": 0},
+                                 {key: summary[key] for key in
+                                  ("status", "checked_models", "new_findings", "failed_models", "rejected_rows")})
+                self.assertEqual(1, summary["daily_requests"])
                 self.assertEqual([], finding_details(store))
                 with store._connect() as conn:
                     self.assertEqual(0, conn.execute("SELECT COUNT(*) FROM scout_specialist_checks").fetchone()[0])

@@ -12,7 +12,7 @@ from unittest.mock import patch
 from evidence.batch4_ir_20261013.build_review import build_review_artifact, lead_for_page, load_captures
 from market_checker_app.models import NewsItem
 from market_checker_app.services.ir_primary_verification_service import (
-    CapturedIRDocument, IRPrimaryVerificationError, verify_primary_ir_lead,
+    CapturedIRDocument, IRPrimaryVerificationError, capture_available_at, verify_primary_ir_lead,
 )
 from market_checker_app.services.news_scout_service import NewsScoutService
 from market_checker_app.storage.scout_store import ScoutStore
@@ -55,38 +55,52 @@ def _verify(lead=None, feed=None, page=None, authority=None, **kwargs):
 
 
 class Batch4IRPrimaryVerificationTests(unittest.TestCase):
-    def test_actual_captures_reproduce_source_only_positive_and_truthful_partial_control(self):
+    def test_actual_captures_with_withheld_authority_are_partial_and_history_is_preserved(self):
         artifact = build_review_artifact()
-        self.assertEqual(json.loads((ROOT / "evidence/batch4_ir_20261013/source_review.json").read_bytes()), artifact)
+        historical = json.loads((ROOT / "evidence/batch4_ir_20261013/source_review.json").read_bytes())
+        current = ROOT / "evidence/batch5_ir_prior_withholding_20261014/current_review.json"
+        self.assertEqual(json.loads(current.read_bytes()), artifact)
         self.assertEqual(5, artifact["actual_http_requests"])
         self.assertEqual(4, artifact["raw_http_200_captures"])
-        for case in artifact["positive_source_only_cases"]:
+        self.assertEqual(3, artifact["readable_original_captures"])
+        self.assertEqual(1, artifact["withheld_required_captures"])
+        self.assertEqual([], artifact["positive_source_only_cases"])
+        self.assertEqual(0, artifact["http_requests_in_current_replay"])
+        self.assertFalse(artifact["historical_positive_reports_are_current_acceptance"])
+        self.assertEqual(2, len(historical["positive_source_only_cases"]))
+        for case in artifact["current_partial_source_only_cases"]:
             report = case["review"]
-            self.assertEqual("SOURCE_VERIFIED", report["source_verification_status"])
-            self.assertTrue(report["quoted_claim"]["quote_matches_primary_article"])
+            self.assertEqual("PARTIAL", report["source_verification_status"])
+            self.assertIn("AUTHORITY_CAPTURE_WITHHELD_SENSITIVE_BODY", report["reasons"])
+            self.assertFalse(report["quoted_claim"]["quote_matches_primary_article"])
             self.assertFalse(report["quoted_claim"]["claim_truth_independently_verified"])
             self.assertFalse(report["issuer_identity_verified"])
             self.assertFalse(report["issuer_attribution_allowed"])
             self.assertFalse(report["scoring_applied"])
             self.assertFalse(report["feed_scope"]["all_publisher_history_complete"])
-            self.assertEqual(10, report["feed_scope"]["entries_examined"])
+            self.assertEqual(0, report["feed_scope"]["entries_examined"])
         control = artifact["actual_partial_control"]["review"]
         self.assertEqual("PARTIAL", control["source_verification_status"])
-        self.assertIn("RSS_ORIGINAL_PRIMARY_URL_MISMATCH", control["reasons"])
-        self.assertIn("PRIMARY_ARTICLE_BODY_UNAVAILABLE", control["reasons"])
+        self.assertIn("PRIMARY_CAPTURE_WITHHELD_SENSITIVE_BODY", control["reasons"])
+        self.assertIn("AUTHORITY_CAPTURE_WITHHELD_SENSITIVE_BODY", control["reasons"])
 
     def test_actual_ir_short_link_is_captured_provenance_not_invented_alias(self):
-        report = build_review_artifact()["positive_source_only_cases"][1]["review"]
+        report = build_review_artifact()["current_partial_source_only_cases"][1]["review"]
         self.assertEqual("https://aka.ms/AA13ep0o", report["captures"]["primary"]["requested_url"])
-        self.assertTrue(report["publisher_ir_link"]["authority_cites_exact_requested_alias"])
+        self.assertFalse(report["publisher_ir_link"]["authority_cites_exact_requested_alias"])
         self.assertTrue(report["captures"]["primary"]["resolved_url"].endswith("dividend-increase-7/"))
         self.assertFalse(report["issuer_attribution_allowed"])
+        self.assertEqual("PARTIAL", report["source_verification_status"])
 
     def test_actual_publication_clock_is_not_backdated_capture_availability(self):
-        report = build_review_artifact()["positive_source_only_cases"][0]["review"]
-        self.assertEqual(["Wed, 07 Oct 2026 20:17:43 +0000"], report["publication_clocks"]["rss_raw"])
-        self.assertEqual(["2026-10-07T20:17:43+00:00"], report["publication_clocks"]["primary_raw"])
-        self.assertTrue(report["source_available_at"].startswith("2026-10-13"))
+        report = build_review_artifact()["current_partial_source_only_cases"][0]["review"]
+        historical = json.loads((ROOT / "evidence/batch4_ir_20261013/source_review.json").read_bytes())
+        prior = historical["positive_source_only_cases"][0]["review"]
+        self.assertEqual(["Wed, 07 Oct 2026 20:17:43 +0000"], prior["publication_clocks"]["rss_raw"])
+        self.assertEqual(["2026-10-07T20:17:43+00:00"], prior["publication_clocks"]["primary_raw"])
+        self.assertTrue(prior["source_available_at"].startswith("2026-10-13"))
+        self.assertTrue(report["source_available_at"].startswith("2026-10-14"))
+        self.assertEqual([], report["publication_clocks"]["primary_raw"])
         self.assertFalse(report["publication_clocks"]["exact_first_dissemination_verified"])
 
     def test_verifier_does_no_http_or_quota_operations_and_never_mutates_sentiment(self):
@@ -265,7 +279,7 @@ class Batch4IRPrimaryVerificationTests(unittest.TestCase):
         _, captures = load_captures()
         page = captures["ir_linked_announcement.html"]
         lead = lead_for_page(captures, page)
-        clock = max(row.observed_at for row in captures.values())
+        clock = max(capture_available_at(row) for row in captures.values())
         with tempfile.TemporaryDirectory() as directory, patch(
                 "market_checker_app.services.news_scout_service._local_ingestion_clock", return_value=clock):
             store = ScoutStore(Path(directory) / "scout.db")
@@ -276,7 +290,8 @@ class Batch4IRPrimaryVerificationTests(unittest.TestCase):
                 feed_capture=captures["press_releases_feed.xml"], primary_capture=page,
                 authority_capture=captures["ir_authority.html"], publisher_hosts=("www.microsoft.com", "news.microsoft.com"),
                 as_of=clock)
-            self.assertEqual("SOURCE_VERIFIED", report["primary_source_review"]["source_verification_status"])
+            self.assertEqual("PARTIAL", report["primary_source_review"]["source_verification_status"])
+            self.assertIn("AUTHORITY_CAPTURE_WITHHELD_SENSITIVE_BODY", report["primary_source_review"]["reasons"])
             self.assertFalse(store.has_findings(["MSFT"], as_of=clock))
             self.assertFalse(report["primary_source_review"]["quota_or_lease_modified"])
 
@@ -284,7 +299,7 @@ class Batch4IRPrimaryVerificationTests(unittest.TestCase):
         _, captures = load_captures()
         page = captures["ir_linked_announcement.html"]
         lead = lead_for_page(captures, page)
-        cutoff = max(row.observed_at for row in captures.values())
+        cutoff = max(capture_available_at(row) for row in captures.values())
         physical_import = cutoff + timedelta(days=1)
         with tempfile.TemporaryDirectory() as directory, patch(
                 "market_checker_app.services.news_scout_service._local_ingestion_clock", return_value=physical_import):
@@ -300,6 +315,7 @@ class Batch4IRPrimaryVerificationTests(unittest.TestCase):
             self.assertEqual(physical_import, datetime.fromisoformat(row["available_at"]))
             self.assertEqual(physical_import, datetime.fromisoformat(row["first_observed_at"]))
             report = imported["primary_source_review"]
+            self.assertEqual("PARTIAL", report["source_verification_status"])
             self.assertEqual(cutoff.isoformat(), report["reviewed_at"])
             self.assertEqual(physical_import.isoformat(), report["local_import_completed_at"])
             self.assertTrue(report["requested_cutoff_is_not_local_availability"])

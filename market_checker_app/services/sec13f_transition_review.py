@@ -38,7 +38,8 @@ def _instrument_fact(service: Sec13fIdentityBulk, fact: dict) -> dict:
 
 
 def instrument_transition_review(service: Sec13fIdentityBulk, *, tickers: list[str],
-                                 primary_statements: list[dict] | None = None) -> dict:
+                                 primary_statements: list[dict] | None = None,
+                                 corporate_action_bridges: list[dict] | None = None) -> dict:
     """Report exact evidence and blockers; never infer an alias or approval.
 
     Primary statements are explicit, bounded source-presence reviews. They
@@ -192,5 +193,13 @@ def instrument_transition_review(service: Sec13fIdentityBulk, *, tickers: list[s
               "records": records, "new_verified_identities": 0,
               "production_registry_changed": False, "score_changed": False,
               "specialist_done_changed": False}
+    if corporate_action_bridges is not None:
+        if (not isinstance(corporate_action_bridges, list) or len(corporate_action_bridges) > 2 * len(tickers)
+                or any(not isinstance(claim, dict) or claim.get("ticker") not in tickers
+                       for claim in corporate_action_bridges)):
+            raise ValueError("Corporate-action bridge reviews exceed the bounded selected scope")
+        from market_checker_app.services.sec_corporate_action_bridge import review_corporate_action_bridge
+        report["corporate_action_bridge_reviews"] = [review_corporate_action_bridge(service, claim)
+                                                     for claim in corporate_action_bridges]
     report["review_sha256"] = hashlib.sha256(json.dumps(report, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     return report

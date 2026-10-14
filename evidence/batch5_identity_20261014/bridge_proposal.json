@@ -1,0 +1,24 @@
+{
+  "action_excerpt": "On July 1, 2026, Exxon Mobil Corporation, a New Jersey corporation and the predecessor registrant (“ ExxonMobil ”), completed its previously announced redomiciliation reorganization (the “ Redomiciliation Merger ”) pursuant to the Agreement and Plan of Merger, dated as of April 8, 2026 (the “ Merger Agreement ”), by and among ExxonMobil, ExxonMobil Holdings Corporation, a Texas corporation, and Ensign LLC, a Texas limited liability company. This Current Report on Form 8-K is being filed for the purpose of establishing ExxonMobil Holdings Corporation as the successor registrant of ExxonMobil’s common stock pursuant to Rule 12g-3(a) under the Securities Exchange Act of 1934, as amended (the “ Exchange Act ”) and to disclose certain related matters. The Redomiciliation Merger became effective on July 1, 2026 in accordance with the terms of the Merger Agreement (the “ Effective Time ”). The foregoing description of the Merger Agreement is not complete and is qualified in its entirety by reference to the Merger Agreement, a copy of which was filed as Annex A to the proxy statement included in ExxonMobil’s definitive proxy statement on Schedule 14A filed with the Commission on April 8, 2026. Item 1.01 Entry Into a Material Definitive Agreement. Upon the consummation of the Redomiciliation Merger and pursuant to the terms of the indenture, dated as of March 20, 2014, between ExxonMobil and Deutsche Bank Trust Company Americas, as trustee (the “ Trustee ”), as amended and supplemented from time to time (the “ Indenture ”), ExxonMobil Holdings Corporation, ExxonMobil and the Trustee entered into a second supplemental indenture (the “ Second Supplemental Indenture ”) pursuant to which ExxonMobil Holdings Corporation fully and unconditionally guaranteed, on a senior unsecured basis, all of ExxonMobil’s payment and performance obligations under the Indenture and the notes issued thereunder (collectively, the “ Notes ”). ExxonMobil remains the primary obligor under the Indenture and the Notes, and the Notes continue to be the senior unsecured obligations of ExxonMobil. The foregoing description is not complete and is qualified in its entirety by reference to the Second Supplemental Indenture, a copy of which is filed as Exhibit 4(i) hereto. Item 2.01 Completion of Acquisition or Disposition of Assets. The information set forth in the Explanatory Note and the last paragraph of Item 5.02 of this Current Report on Form 8-K is incorporated by reference into this Item 2.01. At the Effective Time, each share of common stock, without par value, of ExxonMobil (“ ExxonMobil Common Stock ”) issued and outstanding immediately prior to the Effective Time (other than treasury shares, which were cancelled) was automatically exchanged for one share of common stock, par value $0.001 per share, of ExxonMobil Holdings Corporation (“ ExxonMobil Holdings Corporation Common Stock ”), and, as a result, the former shareholders of ExxonMobil automatically became shareholders of ExxonMobil Holdings Corporation, holding the same number and percentage of shares of ExxonMobil Holdings Corporation Common Stock as they held of ExxonMobil Common Stock immediately prior to the Redomiciliation Merger. ExxonMobil Holdings Corporation replaced ExxonMobil as the publicly held corporation traded on the New York Stock Exchange (the “ NYSE ”). It is currently expected that, on July 2, 2026, shares of ExxonMobil Holdings Corporation Common Stock will commence trading under the current ExxonMobil ticker symbol “XOM” on the NYSE.",
+  "action_snapshot_id": "937a5b356c96fb9bf779995b92550e35ce7414db3c1332cc964b08f621481352",
+  "cusip_bridge_snapshot_id": null,
+  "effective_date_text": "July 1, 2026",
+  "effective_on": "2026-07-01",
+  "from_class_title": "common stock, without par value",
+  "from_identity_sha256": "4710e0c5192b6811d65bb70748bcf3426ac5e8e5072101bb22f4337c9e7d242b",
+  "from_instrument_snapshot_id": "98aa465c6b508c2a78f2794f5f0d8dc15ae80a9dfbc2eaba924c4470a4501f41",
+  "from_name_text": "Exxon Mobil Corporation",
+  "from_ticker_snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+  "ticker": "XOM",
+  "to_class_title": "common stock, par value $0.001 per share",
+  "to_identity": {
+    "class_description": "COM SHS",
+    "cusip": "30233Q108",
+    "issuer_cik": "0002115436",
+    "issuer_name": "EXXONMOBIL HOLDINGS CORP",
+    "ticker": "XOM"
+  },
+  "to_instrument_snapshot_id": null,
+  "to_name_text": "ExxonMobil Holdings Corporation",
+  "to_ticker_snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4"
+}
