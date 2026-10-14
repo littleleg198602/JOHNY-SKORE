@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import replace
 from datetime import datetime, timedelta, timezone
 from email.utils import format_datetime
-from contextlib import redirect_stderr, redirect_stdout
+from contextlib import closing, contextmanager, redirect_stderr, redirect_stdout
 import hashlib
 import io
 import json
@@ -32,6 +32,15 @@ AUTHORITY = "https://publisher.test/investor/default"
 HOSTS = ("publisher.test",)
 TITLE = "Quarterly dividend announcement"
 EVIDENCE = Path(__file__).resolve().parents[1] / "evidence/batch5_ir_20261014"
+
+
+@contextmanager
+def _fixture_connection(db_path):
+    # SQLite's transaction context does not release its file handle. Close
+    # after its normal commit/rollback, including failures inside the fixture.
+    with closing(sqlite3.connect(db_path)) as connection:
+        with connection:
+            yield connection
 
 
 def responses():
@@ -83,7 +92,7 @@ class Batch5IRPrimaryScoutTests(unittest.TestCase):
                            publisher_hosts=HOSTS, original_url=PAGE, requested_as_of=PUBLISHED)
 
     def request_rows(self):
-        with sqlite3.connect(self.store.db_path) as connection:
+        with _fixture_connection(self.store.db_path) as connection:
             connection.row_factory = sqlite3.Row
             return [dict(row) for row in connection.execute("SELECT * FROM scout_public_requests ORDER BY rowid")]
 
@@ -242,12 +251,66 @@ class Batch5IRPrimaryScoutTests(unittest.TestCase):
     def test_lease_loss_after_complete_capture_keeps_bytes_but_prevents_import(self):
         def lose(url):
             if url == PAGE:
-                with sqlite3.connect(self.store.db_path) as connection:
+                with _fixture_connection(self.store.db_path) as connection:
                     connection.execute("DELETE FROM scout_provider_leases WHERE source='rss'")
         report = self.run_service(client=Transport(callback=lose))
         self.assertEqual("LEASE_LOST", report["status"])
         self.assertEqual(3, len(report["capture_receipts"]))
         self.assertEqual([], self.store.findings_as_of("MSFT", as_of=NOW))
+
+    def test_fixture_connections_close_after_real_ledger_read_and_lease_loss_write(self):
+        original_connect = sqlite3.connect
+        held_connections = []
+        class TrackingConnection(sqlite3.Connection):
+            close_calls = 0
+            def close(self):
+                self.close_calls += 1
+                super().close()
+        def connect(*args, **kwargs):
+            if "factory" in kwargs:
+                # Production ScoutStore already supplies its closing factory.
+                return original_connect(*args, **kwargs)
+            connection = original_connect(*args, **kwargs, factory=TrackingConnection)
+            held_connections.append(connection)
+            return connection
+        with patch("sqlite3.connect", side_effect=connect):
+            self.assertEqual([], self.request_rows())
+            # Exercise the actual fixture callback and retain every connection
+            # strongly; garbage collection cannot make this regression pass.
+            self.test_lease_loss_after_complete_capture_keeps_bytes_but_prevents_import()
+        self.assertEqual(2, len(held_connections))
+        for connection in held_connections:
+            self.assertEqual(1, connection.close_calls)
+            with self.assertRaises(sqlite3.ProgrammingError):
+                connection.execute("SELECT 1")
+
+    def test_fixture_connection_closes_after_commit_and_exception_rollback(self):
+        original_connect = sqlite3.connect
+        held_connections = []
+        class TrackingConnection(sqlite3.Connection):
+            close_calls = 0
+            def close(self):
+                self.close_calls += 1
+                super().close()
+        def connect(*args, **kwargs):
+            connection = original_connect(*args, **kwargs, factory=TrackingConnection)
+            held_connections.append(connection)
+            return connection
+        with patch("sqlite3.connect", side_effect=connect):
+            with _fixture_connection(self.store.db_path) as connection:
+                connection.execute("CREATE TABLE fixture_close_guard(value TEXT)")
+                connection.execute("INSERT INTO fixture_close_guard VALUES('committed')")
+            with self.assertRaisesRegex(RuntimeError, "synthetic transaction failure"):
+                with _fixture_connection(self.store.db_path) as connection:
+                    connection.execute("INSERT INTO fixture_close_guard VALUES('rolled-back')")
+                    raise RuntimeError("synthetic transaction failure")
+            with _fixture_connection(self.store.db_path) as connection:
+                self.assertEqual([("committed",)], connection.execute("SELECT value FROM fixture_close_guard").fetchall())
+        self.assertEqual(3, len(held_connections))
+        for connection in held_connections:
+            self.assertEqual(1, connection.close_calls)
+            with self.assertRaises(sqlite3.ProgrammingError):
+                connection.execute("SELECT 1")
 
     def test_request_limit_stops_before_io_and_retains_completed_raw(self):
         client = Transport()

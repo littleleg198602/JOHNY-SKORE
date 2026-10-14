@@ -1,5 +1,40 @@
 # Průběh implementace pátracích agentů
 
+## 14. 10. 2026 — oprava životnosti testovacích SQLite spojení
+
+Původní head páté dávky `e550b334` a run `38551067090` prošly Linux
+1371/1371, UI a 687/60s kontrolou. Windows dokončily všech 1371 testů,
+ale měly **12 errors / 0 failures/skips/expected/unexpected**; release gate
+neprošel. Všech dvanáct zaznamenaných tracebacků je `WinError 32` při
+úklidu dočasné DB: deset v IR fixture, dvě v price-provenance fixture.
+Produkční stores již používají existující ClosingSQLiteConnection.
+
+Původní ZIP artifact `11888031678` (43963 bytes) byl stažený a skutečně
+obsahově přečtený; SHA256 `92e7ceb205ca6d98b4730ed5310b616ee85ef9001d82c2aaf32d9a6d470a281f`.
+Původní CRLF JSON/log, decoded job log a Linux log jsou zachované v
+`evidence/batch5_windows_failure_20261014/`; žádný neúspěch se nepřepisuje.
+
+Agenti sec a evaluation opravili pět nativních spojení testovacích fixture:
+commit/rollback proběhne před vždy provedeným close. Všechna assertions
+původních 28 IR a 17 price testů jsou obsahově zachovaná; přibylo šest
+regresí se silnými referencemi na spojení a kontrolou zavřeného native API.
+Tyto regrese odhalí stejnou mezeru i na Linuxu. Cíleně prošlo 75 IR/budget
+a 54 price/cache testů. Žádné potlačení cleanup errors, gc/retries,
+změna dat/hashů/budgetu, source HTTP, kvóty, produkčního kódu nebo skóre.
+Původní historické capture/reproduce helpery a všech 148 batch5 evidence
+souborů z publikovaného e550 tree zůstávají byte-identical.
+
+Nový místní výsledkový JSON zaznamenal 1377 discovered=executed,
+successful=true a všechny failure/error/skip/expected/unexpected počty 0.
+Oba původní lokální logy ale končí před terminal summary; chybějící
+footer se nedopisuje a plain OK se z nich nevyvozuje. JSON a tyto původní
+částečné captures jsou `evidence/batch5_linux_sqlite_fix*`. Úplný hostovaný
+log a nový Windows ZIP/JSON jsou stále samostatnou podmínkou konkrétního
+nového HEAD. Důkaz opravy: `evidence/batch5_windows_sqlite_fix_20261014.json`.
+
+Žádný merge. Úplná akceptace zůstává 0/21; aktuální konkrétní source/identity
+fronta po páté dávce níže pokračuje bez změny.
+
 ## 14. 10. 2026 — pátá implementační dávka
 
 Navazuje na otevřený PR #162, veřejný HEAD `5c5ea0ba`, main `a7aa1fec`.

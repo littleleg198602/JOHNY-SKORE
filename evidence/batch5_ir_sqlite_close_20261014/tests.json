@@ -1,0 +1,22 @@
+{
+  "completed_at": "2026-10-14T11:13:36.284454+00:00",
+  "discovered": 75,
+  "elapsed_seconds": 5.021074418999888,
+  "errors": 0,
+  "executed": 75,
+  "expected_failures": 0,
+  "failures": 0,
+  "hosted_windows_verified_by_this_run": false,
+  "http_requests": 0,
+  "log_sha256": "a1099da2232b6e8ee1194d1abb35db8aa291737dd01a0cf5367b55927539bf6b",
+  "modules": [
+    "tests.test_batch5_ir_primary_scout",
+    "tests.test_batch4_ir_primary_verification",
+    "tests.test_batch5_ir_prior_withholding",
+    "tests.test_public_source_budget"
+  ],
+  "skips": 0,
+  "started_at": "2026-10-14T11:13:31.263377+00:00",
+  "successful": true,
+  "unexpected_successes": 0
+}

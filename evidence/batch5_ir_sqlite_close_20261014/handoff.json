@@ -1,0 +1,101 @@
+{
+  "after_source_hashes": {
+    "evidence/batch5_ir_20261014/capture_live.py": {
+      "sha256": "8cadac8e17452113d70d821fa6824758e06feb53caf88ea9c9396c438f587742",
+      "size_bytes": 4188
+    },
+    "market_checker_app/ir_primary_runner.py": {
+      "sha256": "38a2d2841040e8df3be3985980fab7699237a4c3194dffabf747682833aa2f39",
+      "size_bytes": 1668
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de",
+      "size_bytes": 24571
+    },
+    "market_checker_app/services/ir_primary_verification_service.py": {
+      "sha256": "ab4d8f157ac0d351082db6e8c3226d16716a1ce3a1078a7a40df193d1c8524d9",
+      "size_bytes": 21532
+    },
+    "tests/test_batch5_ir_primary_scout.py": {
+      "sha256": "4099b38864c3855454af6c9fdfade964f5a24b20cdb33803ae1d34f328df4149",
+      "size_bytes": 27834
+    }
+  },
+  "before_source_hashes": {
+    "evidence/batch5_ir_20261014/capture_live.py": {
+      "sha256": "8cadac8e17452113d70d821fa6824758e06feb53caf88ea9c9396c438f587742",
+      "size_bytes": 4188
+    },
+    "market_checker_app/ir_primary_runner.py": {
+      "sha256": "38a2d2841040e8df3be3985980fab7699237a4c3194dffabf747682833aa2f39",
+      "size_bytes": 1668
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de",
+      "size_bytes": 24571
+    },
+    "market_checker_app/services/ir_primary_verification_service.py": {
+      "sha256": "ab4d8f157ac0d351082db6e8c3226d16716a1ce3a1078a7a40df193d1c8524d9",
+      "size_bytes": 21532
+    },
+    "tests/test_batch5_ir_primary_scout.py": {
+      "sha256": "6dbe66ca50841d2153122beb70eaf038ee234fd50068152dc2b0faa47f8c8bcf",
+      "size_bytes": 24512
+    }
+  },
+  "connection_regressions": {
+    "actual_ledger_read_and_lease_loss_write_tested": true,
+    "cleanup_suppression_gc_or_retries": false,
+    "closed_connections_reject_sql": true,
+    "commit_rows_persist": true,
+    "exception_insert_rolls_back": true,
+    "explicit_close_calls_each": 1,
+    "strong_references_held": true
+  },
+  "created_at": "2026-10-14T11:15:05.993681+00:00",
+  "files": {
+    "evidence/batch5_ir_sqlite_close_20261014/README.md": {
+      "sha256": "365dbbeb2ff4002559f0fd17168b5f80a6669c0b628f371afce8a3862f080e12",
+      "size_bytes": 2159
+    },
+    "evidence/batch5_ir_sqlite_close_20261014/before.json": {
+      "sha256": "0a8fe3aa29052f839f5e5a32d79431c98b61a45ed70b7d978d3d5e27c3d2a100",
+      "size_bytes": 5409
+    },
+    "evidence/batch5_ir_sqlite_close_20261014/tests.json": {
+      "sha256": "81d06318ae89ba6305c5caf1f517e44acd953c05cf3ab26bd1dbda97f4fd5a64",
+      "size_bytes": 659
+    },
+    "evidence/batch5_ir_sqlite_close_20261014/tests.log": {
+      "sha256": "a1099da2232b6e8ee1194d1abb35db8aa291737dd01a0cf5367b55927539bf6b",
+      "size_bytes": 15863
+    }
+  },
+  "historical_capture_helper_source_unchanged": true,
+  "historical_diagnostic_limitation": "Original capture_live.py retains two read-only raw SQLite transaction contexts; its preserved source is not run by this fix",
+  "hosted_windows_after_fix_verified": false,
+  "http_requests": 0,
+  "new_close_tracking_test_count": 2,
+  "next_check": "Coordinator must integrate evaluation fixture fix and qualify exact new tree on hosted Windows",
+  "original_assertion_asts_identical": true,
+  "original_reported_windows_failure_overwritten": false,
+  "original_test_method_count": 28,
+  "prior_evidence_files_byte_identical": 21,
+  "production_code_unchanged": true,
+  "quota_resets": 0,
+  "schema_version": 1,
+  "scoring_or_registry_changes": false,
+  "single_output": "Explicitly close SQLite ledger-reader and lease-loss writer fixture connections after commit/rollback",
+  "temporary_directory_setup_ast_unchanged": true,
+  "tests": {
+    "discovered": 75,
+    "errors": 0,
+    "executed": 75,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_sha256": "a1099da2232b6e8ee1194d1abb35db8aa291737dd01a0cf5367b55927539bf6b",
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  }
+}

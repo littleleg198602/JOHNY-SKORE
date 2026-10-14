@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime, timedelta, timezone
+from contextlib import closing, contextmanager
 import hashlib
 import json
 from pathlib import Path
@@ -49,6 +50,15 @@ def _cache(directory, clock=NOW):
 
 def _captures(directory):
     return sorted((Path(directory) / "yahoo_price_observations").glob("yahoo_price_*.json"))
+
+
+@contextmanager
+def _fixture_connection(path):
+    # A native SQLite transaction context commits/rolls back but does not
+    # release its handle. Keep both semantics, including exceptional exits.
+    with closing(sqlite3.connect(path)) as connection:
+        with connection:
+            yield connection
 
 
 class Batch5PriceProvenanceTests(unittest.TestCase):
@@ -122,7 +132,7 @@ class Batch5PriceProvenanceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             cache = _cache(temp)
             cache.upsert_success("AAPL", _frame())
-            with sqlite3.connect(cache.db_path) as conn:
+            with _fixture_connection(cache.db_path) as conn:
                 conn.execute("UPDATE yahoo_ohlc_cache_v2 SET capture_provenance_json='{}'")
             lookup = cache.get("AAPL")
             self.assertTrue(lookup.usable)
@@ -166,14 +176,14 @@ class Batch5PriceProvenanceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             cache = _cache(temp)
             cache.upsert_success("AAPL", _frame())
-            with sqlite3.connect(cache.db_path) as conn:
+            with _fixture_connection(cache.db_path) as conn:
                 before = conn.execute("SELECT frame_json FROM yahoo_ohlc_cache_v2").fetchone()[0]
                 changed = before.replace("100.0", "900.0")
                 conn.execute("UPDATE yahoo_ohlc_cache_v2 SET frame_json=?", (changed,))
             self.assertEqual("corrupt", cache.get("AAPL").state)
             with self.assertRaises(ValueError):
                 cache.upsert_success("AAPL", _frame((102.0,), ("2026-09-14",)))
-            with sqlite3.connect(cache.db_path) as conn:
+            with _fixture_connection(cache.db_path) as conn:
                 self.assertEqual(changed, conn.execute("SELECT frame_json FROM yahoo_ohlc_cache_v2").fetchone()[0])
 
     def test_access_bearing_whole_frame_is_withheld_before_a_merge_or_export(self):
@@ -277,6 +287,69 @@ class Batch5PriceProvenanceTests(unittest.TestCase):
                     cache.upsert_success("AAPL", _frame((102.0,), ("2026-09-14",)))
             self.assertEqual(before, cache.db_path.read_bytes())
             self.assertEqual([100.0, 101.0], cache.get("AAPL").frame["Close"].tolist())
+
+    def _assert_closed(self, connection):
+        # Linux permits unlinking an open database, so cleanup succeeding is
+        # not a lifetime assertion. Retain the object and probe its native API.
+        with self.assertRaisesRegex(sqlite3.ProgrammingError, "closed"):
+            connection.execute("SELECT 1")
+
+    def test_fixture_transaction_commits_then_closes_its_retained_handle(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "fixture.db"
+            with _fixture_connection(path) as connection:
+                connection.execute("CREATE TABLE values_fixture (value INTEGER)")
+                connection.execute("INSERT INTO values_fixture VALUES (1)")
+            self._assert_closed(connection)
+            with _fixture_connection(path) as reader:
+                self.assertEqual([(1,)], reader.execute("SELECT value FROM values_fixture").fetchall())
+            self._assert_closed(reader)
+
+    def test_fixture_transaction_rolls_back_then_closes_on_exception(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "fixture.db"
+            with _fixture_connection(path) as created:
+                created.execute("CREATE TABLE values_fixture (value INTEGER)")
+                created.execute("INSERT INTO values_fixture VALUES (1)")
+            with self.assertRaisesRegex(RuntimeError, "fixture abort"):
+                with _fixture_connection(path) as failed:
+                    failed.execute("INSERT INTO values_fixture VALUES (2)")
+                    raise RuntimeError("fixture abort")
+            self._assert_closed(failed)
+            with _fixture_connection(path) as reader:
+                self.assertEqual([(1,)], reader.execute("SELECT value FROM values_fixture").fetchall())
+            self._assert_closed(reader)
+
+    def test_actual_windows_failure_fixtures_release_every_retained_connection(self):
+        connect = sqlite3.connect
+        retained = []
+        def tracked(*args, **kwargs):
+            connection = connect(*args, **kwargs)
+            retained.append(connection)
+            return connection
+        try:
+            with patch("tests.test_batch5_price_provenance.sqlite3.connect", side_effect=tracked):
+                self.test_legacy_cache_without_capture_remains_usable_and_unproven()
+                self.test_changed_cache_bytes_without_matching_capture_are_corrupt_and_not_overwritten()
+            self.assertGreater(len(retained), 0)
+            for connection in retained:
+                self._assert_closed(connection)
+        finally:
+            # Clean the deliberately retained objects even when this regression
+            # exposes an unclosed connection. This does not suppress the failure.
+            for connection in retained:
+                connection.close()
+
+    def test_closed_handle_assertion_detects_native_transaction_leak_on_linux(self):
+        with tempfile.TemporaryDirectory() as temp:
+            connection = sqlite3.connect(Path(temp) / "negative.db")
+            try:
+                with connection:
+                    connection.execute("CREATE TABLE values_fixture (value INTEGER)")
+                with self.assertRaises(AssertionError):
+                    self._assert_closed(connection)
+            finally:
+                connection.close()
 
 
 if __name__ == "__main__":
