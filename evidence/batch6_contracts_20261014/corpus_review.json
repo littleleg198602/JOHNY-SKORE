@@ -1,0 +1,463 @@
+{
+  "actual_available_archive_rejections": [
+    {
+      "bytes": 71683,
+      "git_blob": "a15b418260c3a3503b98642f2ebfad6ea8295923",
+      "path": "evidence/usaspending_live_20261001.json",
+      "report": {
+        "acquisition_mode": "OFFLINE_ARCHIVE_RECOVERY",
+        "as_of": "2026-10-14T13:41:53.836009+00:00",
+        "body_bytes_retained_or_replaced": false,
+        "current_live_collection": false,
+        "database_changed": false,
+        "finding_ids": [],
+        "fixtures_count_as_live": false,
+        "historical_availability_reconstructed": false,
+        "http_attempts": 0,
+        "issuer_coverage_complete": false,
+        "modification_history_complete": false,
+        "new_findings": 0,
+        "pages": [],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_publication_time_verified": false,
+        "publisher_revision_time_verified": false,
+        "query_scope": null,
+        "quota_reconstructed": false,
+        "reason": "ARCHIVE_BYTE_BOUND_EXCEEDED",
+        "recovered_awards": 0,
+        "recovery_recorded_at": "2026-10-14T13:41:53.836015+00:00",
+        "revenue_inferred": false,
+        "schema_version": "usaspending_prime_archive_recovery_v1",
+        "scoring_applied": false,
+        "source_manifest_is_publisher_signed": false,
+        "status": "REJECTED",
+        "subject_id": "LMT",
+        "traversal_complete": false
+      },
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+    },
+    {
+      "bytes": 2462,
+      "git_blob": "d0b1624013c9b3a0b8de4e52b8c26972eacd27b9",
+      "path": "evidence/usaspending_noc_live_20261002.json",
+      "report": {
+        "acquisition_mode": "OFFLINE_ARCHIVE_RECOVERY",
+        "as_of": "2026-10-14T13:41:53.838690+00:00",
+        "body_bytes_retained_or_replaced": false,
+        "current_live_collection": false,
+        "database_changed": false,
+        "finding_ids": [],
+        "fixtures_count_as_live": false,
+        "historical_availability_reconstructed": false,
+        "http_attempts": 0,
+        "issuer_coverage_complete": false,
+        "modification_history_complete": false,
+        "new_findings": 0,
+        "pages": [],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_publication_time_verified": false,
+        "publisher_revision_time_verified": false,
+        "query_scope": null,
+        "quota_reconstructed": false,
+        "reason": "NOT_ORIGINAL_PRIME_CAPTURE",
+        "recovered_awards": 0,
+        "recovery_recorded_at": "2026-10-14T13:41:53.838694+00:00",
+        "revenue_inferred": false,
+        "schema_version": "usaspending_prime_archive_recovery_v1",
+        "scoring_applied": false,
+        "source_manifest_is_publisher_signed": false,
+        "status": "REJECTED",
+        "subject_id": "LMT",
+        "traversal_complete": false
+      },
+      "sha256": "d5815f9b57ef3d665a70c136353213f4404df3a375110c2209071c9d7e69621e"
+    },
+    {
+      "bytes": 874,
+      "git_blob": "7ab5af72ef2a91f43fdd4acdf1a593437a0ba3a5",
+      "path": "evidence/batch3_contracts_live_20261012/capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+      "report": {
+        "acquisition_mode": "OFFLINE_ARCHIVE_RECOVERY",
+        "as_of": "2026-10-14T13:41:53.843229+00:00",
+        "body_bytes_retained_or_replaced": false,
+        "current_live_collection": false,
+        "database_changed": false,
+        "finding_ids": [],
+        "fixtures_count_as_live": false,
+        "historical_availability_reconstructed": false,
+        "http_attempts": 0,
+        "issuer_coverage_complete": false,
+        "modification_history_complete": false,
+        "new_findings": 0,
+        "pages": [],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_publication_time_verified": false,
+        "publisher_revision_time_verified": false,
+        "query_scope": null,
+        "quota_reconstructed": false,
+        "reason": "NOT_ORIGINAL_PRIME_CAPTURE",
+        "recovered_awards": 0,
+        "recovery_recorded_at": "2026-10-14T13:41:53.843232+00:00",
+        "revenue_inferred": false,
+        "schema_version": "usaspending_prime_archive_recovery_v1",
+        "scoring_applied": false,
+        "source_manifest_is_publisher_signed": false,
+        "status": "REJECTED",
+        "subject_id": "LMT",
+        "traversal_complete": false
+      },
+      "sha256": "f3353ef9d38297ee3b630ec1cd596143fac53d14949f4b40738823b5acf67190"
+    },
+    {
+      "bytes": 1568,
+      "git_blob": "76a16fda0ed6578fb5f6ac23e7fe4e3398b2719d",
+      "path": "evidence/batch5_contracts_20261014/capture-probe-import.json",
+      "report": {
+        "acquisition_mode": "OFFLINE_ARCHIVE_RECOVERY",
+        "as_of": "2026-10-14T13:41:53.845288+00:00",
+        "body_bytes_retained_or_replaced": false,
+        "current_live_collection": false,
+        "database_changed": false,
+        "finding_ids": [],
+        "fixtures_count_as_live": false,
+        "historical_availability_reconstructed": false,
+        "http_attempts": 0,
+        "issuer_coverage_complete": false,
+        "modification_history_complete": false,
+        "new_findings": 0,
+        "pages": [],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_publication_time_verified": false,
+        "publisher_revision_time_verified": false,
+        "query_scope": null,
+        "quota_reconstructed": false,
+        "reason": "NOT_ORIGINAL_PRIME_CAPTURE",
+        "recovered_awards": 0,
+        "recovery_recorded_at": "2026-10-14T13:41:53.845291+00:00",
+        "revenue_inferred": false,
+        "schema_version": "usaspending_prime_archive_recovery_v1",
+        "scoring_applied": false,
+        "source_manifest_is_publisher_signed": false,
+        "status": "REJECTED",
+        "subject_id": "LMT",
+        "traversal_complete": false
+      },
+      "sha256": "0fc9b80c79d9e59646b004e107456beb778a6290ede74ca671625bb4d60a8d5c"
+    }
+  ],
+  "actual_recovered_prime_awards": 0,
+  "candidate_usaspending_documents": [
+    {
+      "bytes": 73652,
+      "git_blob": "0bef5c8b55f24299d79b26487d91f2e2669e5e22",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch3_contracts_acceptance_20261012.json",
+      "sha256": "37192660b569d957c60ff1656a26441d124be34b49c8605b3c05171f5189b15b"
+    },
+    {
+      "bytes": 991,
+      "git_blob": "47c2b2d8df9a9b211b38bcfcab4b6cb3d2b68efb",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch3_contracts_live_20261012/capture-6524208d7c5a40c4b5e36637aded7d32.json",
+      "sha256": "223dd743e49216a8a009ed4cdd409aac9b4087475ee70105940270c44b3b0899"
+    },
+    {
+      "bytes": 874,
+      "git_blob": "7ab5af72ef2a91f43fdd4acdf1a593437a0ba3a5",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch3_contracts_live_20261012/capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+      "sha256": "f3353ef9d38297ee3b630ec1cd596143fac53d14949f4b40738823b5acf67190"
+    },
+    {
+      "bytes": 864,
+      "git_blob": "547710aa66c702d2c98b4528461463d2faf8d02f",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch3_contracts_probe_20261012.json",
+      "sha256": "cd7a244ad89536906ad222d7d968e2a0e785ebeaf37dee9fcc186f29006c72cf"
+    },
+    {
+      "bytes": 901,
+      "git_blob": "5579b925f3abbd0e3428ebb302a332339a7da70d",
+      "official_api_scopes": [],
+      "path": "evidence/batch3_contracts_tests_20261012.json",
+      "sha256": "83616bb46fad13116a16a2ec0c3236d9b46cb15c0bed4eb00aa9a1df838c9f39"
+    },
+    {
+      "bytes": 991,
+      "git_blob": "47c2b2d8df9a9b211b38bcfcab4b6cb3d2b68efb",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch4_contracts_replay_20261013/capture-587a14ed88ff410cb351e388a6c4090f.json",
+      "sha256": "223dd743e49216a8a009ed4cdd409aac9b4087475ee70105940270c44b3b0899"
+    },
+    {
+      "bytes": 991,
+      "git_blob": "47c2b2d8df9a9b211b38bcfcab4b6cb3d2b68efb",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch4_contracts_replay_20261013/capture-da15f3a0932c4265a120c0746e7344c9.json",
+      "sha256": "223dd743e49216a8a009ed4cdd409aac9b4087475ee70105940270c44b3b0899"
+    },
+    {
+      "bytes": 98969,
+      "git_blob": "01e5108986d38be637625a5a1774e228896b58b3",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch4_contracts_revision_20261013.json",
+      "sha256": "69bd2d4a1e9c8ddce195fa9bc1bff097fb9764ee994ae593799ca198af4193f5"
+    },
+    {
+      "bytes": 1277,
+      "git_blob": "b3d28f3783560e5485970f556eb40640db2dfd14",
+      "official_api_scopes": [],
+      "path": "evidence/batch4_contracts_tests_20261013.json",
+      "sha256": "7d97270ecc2e238370e1c2e8a4bab53aba8a28bc38dd50206a9c2ca56ea9d3a8"
+    },
+    {
+      "bytes": 1568,
+      "git_blob": "76a16fda0ed6578fb5f6ac23e7fe4e3398b2719d",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch5_contracts_20261014/capture-probe-import.json",
+      "sha256": "0fc9b80c79d9e59646b004e107456beb778a6290ede74ca671625bb4d60a8d5c"
+    },
+    {
+      "bytes": 14342,
+      "git_blob": "d9fe8c6546454727643cc053fbc0a7116ce0da0b",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/transactions/"
+      ],
+      "path": "evidence/batch5_contracts_20261014/lane.json",
+      "sha256": "4350235e9102e7db86a97bc55345b3015a7a0e140bd219b1d5277dfd5104eed1"
+    },
+    {
+      "bytes": 1431,
+      "git_blob": "661f1d9305bf91ef480ff014e251e17ca738f559",
+      "official_api_scopes": [],
+      "path": "evidence/batch5_contracts_20261014/tests.json",
+      "sha256": "1dc8a1fbc5c1fb539e8233c291ea45f92cfd3f833c834f728ec613404018f76d"
+    },
+    {
+      "bytes": 76896,
+      "git_blob": "afda62112242b6d7ac3065b35aec063d8ad9ab34",
+      "official_api_scopes": [],
+      "path": "evidence/batch5_coordinator_20261014/content_audit.json",
+      "sha256": "bcaf927b944e5f8174c6bee8711081400d431f97063a51f546e5bc3e0485b9f9"
+    },
+    {
+      "bytes": 13732,
+      "git_blob": "09e863278c8a88ea7b5af82f664baff4c8fa1888",
+      "official_api_scopes": [],
+      "path": "evidence/batch5_integration_20261014.json",
+      "sha256": "85e0b97e91b7d94b0563b3e7a1091c67a238ff6a2cccc73c1fa71f733854a1cf"
+    },
+    {
+      "bytes": 28511,
+      "git_blob": "83dde3a616fa20df6ebeaaeb36fecfe2ca439c3c",
+      "official_api_scopes": [],
+      "path": "evidence/fdic_expansion_tests_20261001.json",
+      "sha256": "f81ff8a8124b1acda4c0aec9f2be0899cc36a43b1369fa5c0ba672332fdf9e58"
+    },
+    {
+      "bytes": 28225,
+      "git_blob": "98c709e0066277b43f114b8a008acf8ba7cb7f64",
+      "official_api_scopes": [],
+      "path": "evidence/ofac_alias_tests_20261001.json",
+      "sha256": "eff58be6e44fbf8ac150d03c2f7086b35613b0ccbd26cbc1ef52e33806f50480"
+    },
+    {
+      "bytes": 15193,
+      "git_blob": "ceb9f435a2d4bbaf95b06d5ea8a2d9d0e3693ed0",
+      "official_api_scopes": [],
+      "path": "evidence/parallel2_contracts_20261011.json",
+      "sha256": "5a700eb889553fd1cce20eddc25efe6797020d56b3a21c4c8db074a8d7b41606"
+    },
+    {
+      "bytes": 7916,
+      "git_blob": "2041baef615034fe036a2be3fbbe88e8d7ef3864",
+      "official_api_scopes": [],
+      "path": "evidence/parallel2_evaluation_20261011.json",
+      "sha256": "91316d62338ec977d0bd938f3f6e42a6339dfddda84f1873fbcb0c22d84e6838"
+    },
+    {
+      "bytes": 9115,
+      "git_blob": "d235f8549a711b2cf707558a7a91527816e7e200",
+      "official_api_scopes": [],
+      "path": "evidence/parallel2_identity_20261011.json",
+      "sha256": "c5d78769dbf24d44911497736a3261bab942b6f2bb853707a2c50d3a732727f7"
+    },
+    {
+      "bytes": 79231,
+      "git_blob": "c169e550e242e618dc6367a48c2fe659a2d8ab59",
+      "official_api_scopes": [],
+      "path": "evidence/parallel2_integration_20261011.json",
+      "sha256": "ffe400b0546c012b27bbf2a0fb97a1c4569f88d52e963ed5de91f44677d91f44"
+    },
+    {
+      "bytes": 14331,
+      "git_blob": "55893f10cfa8be4bcc152aa0b36156829037e21a",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/recipient/",
+        "https://api.usaspending.gov/api/v2/search/spending_by_award/"
+      ],
+      "path": "evidence/parallel_contracts_20261011.json",
+      "sha256": "abebfd5f4d968d7f80f8b22d605dd56a4d17fa46d8cd4b94ffc553f14462acdd"
+    },
+    {
+      "bytes": 8193,
+      "git_blob": "ee2504544aeca553d12e7286f85ebeb327a71353",
+      "official_api_scopes": [],
+      "path": "evidence/parallel_identity_20261011.json",
+      "sha256": "a03d2e70e90f90fd70093ac9e0e17da113c9d2300193c867ea2682e771b381be"
+    },
+    {
+      "bytes": 9907,
+      "git_blob": "06f09409e05c12f299da687482b12c68e1030590",
+      "official_api_scopes": [],
+      "path": "evidence/parallel_integration_20261011.json",
+      "sha256": "dd6eadd97fe71b2f0a4af72d7daf80ff544c51cd84474b9f241d5ed48c8f1b08"
+    },
+    {
+      "bytes": 30496,
+      "git_blob": "5265d055a5a02e43cd1b11b0b05eb5b7b6b1c9ad",
+      "official_api_scopes": [],
+      "path": "evidence/publication_20261012.json",
+      "sha256": "fe81ce5c5cfe911bb09931ce3a172b2d07d08d697a68cd6ff9d79735190de449"
+    },
+    {
+      "bytes": 28076,
+      "git_blob": "4078234a8973ed3dc3203f07e5934fb61f63f3b7",
+      "official_api_scopes": [],
+      "path": "evidence/specialist_acceptance_tests_20261001.json",
+      "sha256": "cd4f3b223eb0e31a5356a87783a2c0640f90fbacd0d49a768cc93e89625f7aac"
+    },
+    {
+      "bytes": 27651,
+      "git_blob": "0bdd13ae422517e32c9c03d9bcbd84f3ac9f9aee",
+      "official_api_scopes": [],
+      "path": "evidence/specialist_tests_20261001.json",
+      "sha256": "6adf338d6d6eedc07831ff5a49c596d03e6a721a8f5ec799edf2fc72453181b8"
+    },
+    {
+      "bytes": 71683,
+      "git_blob": "a15b418260c3a3503b98642f2ebfad6ea8295923",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/recipient/",
+        "https://api.usaspending.gov/api/v2/search/spending_by_award/"
+      ],
+      "path": "evidence/usaspending_live_20261001.json",
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+    },
+    {
+      "bytes": 1976,
+      "git_blob": "fcf497e17ed0d7dd0c45d65b8833983f0bc528cf",
+      "official_api_scopes": [],
+      "path": "evidence/usaspending_noc_identity_20261002.json",
+      "sha256": "2cd57854c48b2e811f58ca7e2e3d871a497b42985489b2973522f6513f87ec2a"
+    },
+    {
+      "bytes": 2462,
+      "git_blob": "d0b1624013c9b3a0b8de4e52b8c26972eacd27b9",
+      "official_api_scopes": [
+        "https://api.usaspending.gov/api/v2/search/spending_by_award/"
+      ],
+      "path": "evidence/usaspending_noc_live_20261002.json",
+      "sha256": "d5815f9b57ef3d665a70c136353213f4404df3a375110c2209071c9d7e69621e"
+    },
+    {
+      "bytes": 2196,
+      "git_blob": "529144539dfd7fd346e6abc2602a85972abf8599",
+      "official_api_scopes": [],
+      "path": "evidence/usaspending_noc_tests_20261002.json",
+      "sha256": "d988845a043f0b1c16ddc9dc672f5ae0ca7b87e7f6e598990ae76a823d91e06e"
+    },
+    {
+      "bytes": 1863,
+      "git_blob": "68500a420fbacfe2b1200ef2f763be25464cd983",
+      "official_api_scopes": [],
+      "path": "evidence/usaspending_noc_windows_tests_20261002.json",
+      "sha256": "6d879d52fa758472faaaf76d073ca837ed35cc39bb666766f4c335eb379f790d"
+    },
+    {
+      "bytes": 33391,
+      "git_blob": "8d78e72aed3bec04fa83be9f0e5e882ca0231d27",
+      "official_api_scopes": [],
+      "path": "market_checker_app/data/specialist_status.json",
+      "sha256": "192629cf6e62668f1c0dd34ed6f28f72823703b68d957d27617b76b53a3ed0e6"
+    },
+    {
+      "bytes": 1159,
+      "git_blob": "21178107cbb5cf461ba17865e8dfbc952c4919ec",
+      "official_api_scopes": [],
+      "path": "market_checker_app/data/verified_usaspending_uei.json",
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56"
+    }
+  ],
+  "completed_at": "2026-10-14T13:41:53.847084+00:00",
+  "embedded_prime_pages": [
+    {
+      "bytes": 71683,
+      "git_blob": "a15b418260c3a3503b98642f2ebfad6ea8295923",
+      "has_next": true,
+      "json_pointer": "/cases/usaspending_positive_contract_uei/payload",
+      "original_http_response_bytes_and_request_manifest_present": false,
+      "page": 1,
+      "path": "evidence/usaspending_live_20261001.json",
+      "reported_rows": 100,
+      "reported_ueis": [
+        "UTJWTSLMFNG4"
+      ],
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef",
+      "usable_for_recovery": false
+    },
+    {
+      "bytes": 71683,
+      "git_blob": "a15b418260c3a3503b98642f2ebfad6ea8295923",
+      "has_next": false,
+      "json_pointer": "/cases/usaspending_negative_contract_uei/payload",
+      "original_http_response_bytes_and_request_manifest_present": false,
+      "page": 1,
+      "path": "evidence/usaspending_live_20261001.json",
+      "reported_rows": 0,
+      "reported_ueis": [],
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef",
+      "usable_for_recovery": false
+    }
+  ],
+  "examined_blob_paths": 506,
+  "examined_bytes_with_duplicate_paths": 8447190,
+  "examined_unique_blobs": 492,
+  "kind": "published_original_git_blob_corpus_review",
+  "limitations": [
+    "LMT original positive is one parsed 100-row page with hasNext=true, no terminal continuation or original HTTP body/request manifest",
+    "NOC positive summary says hasNext=true; its declared response hash has no exact body in this reviewed tree",
+    "Copied prime rows and 14-row transaction bodies cannot stand in for complete original prime pages",
+    "The terminal empty control is not a verified recipient positive and lacks original body/request provenance",
+    "This review covers the stated published tree; absent external artifacts or disappeared uncommitted DBs are not inferred",
+    "Fresh USAspending collection remains blocked by missing original durable quota history; no quota state reconstructed"
+  ],
+  "new_source_http_attempts": 0,
+  "noc_exact_body_locations_in_reviewed_corpus": [],
+  "noc_reported_response_sha256": "1ba1103c08171924457ba2a8f4786079a9d01cb4fd92dc525f418b9eac510da1",
+  "original_prime_capture_manifests": [],
+  "oversized_blob_paths_not_decoded": [],
+  "public_base_commit": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "public_base_tree": "00ec9bc47fd52c88c9f5f3dcbdb54823dbdb2415",
+  "quota_reconstructed": false,
+  "schema_version": 1,
+  "scope": "Every JSON/JSONL/response blob <=4 MiB in the published base tree; no scratch DB as source evidence",
+  "started_at": "2026-10-14T13:41:53.709753+00:00",
+  "task_database_opened": false
+}

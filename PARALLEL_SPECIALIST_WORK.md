@@ -1,5 +1,75 @@
 # Souběžné dokončování specialistů
 
+## Šestá navazující dávka — 14. 10. 2026
+
+Místní finální sada této verze: **1603 discovered=executed**, plain OK,
+164.440s, všechny failure/error/skip/expected/unexpected počty0. Code
+snapshot `10d00ba`; source/test otisky a úplný console/JSON jsou v integračním
+důkazu. Nové hosted CI/Windows musí ověřit vlastní konkrétní public HEAD.
+
+Základ je skutečný otevřený PR #162 `cbc6c4a3`, main `a7aa1fec`.
+Jeho všech pět checks a původní Windows ZIP/JSON/log 1377/1377 jsou
+obsahově ověřené v `evidence/batch6_baseline_ci_20261014/`; patří pouze
+základu, nikoli této nové verzi. Stávající důkazy ani selhání se nepřepisují.
+
+Šest skutečných izolovaných vývojových větví dokončilo LEG stock-merger
+review, přesné CMS provider/owner původní capture gates, EPA FRS ownership
+review, úplné prime-archive recovery, nezávislý Form4 owner-account bridge
+a prospektivní forecast/label recorder. Uvolnění agenti dále opravili
+co-filer DEI CIK/name/context pairing a provozní metric scope. Koordinátor
+převzal lokální commity a zapojil explicitní offline CLI/UI a neměnné,
+fyzicky datované review archivy. Vývojoví agenti nejsou analytické specialisty.
+
+Dvanáct nových primárních SEC research HTTP200 original bodies: šest
+LEG/SGI, jeden HCA, dva DOW a tři dokumenty jediného Nadella accession.
+Více dokumentů jednoho accession není více nezávislých disclosures.
+NHTSA/EPA/CMS/Clinical/USAspending/RSS sběrače neprovedly nový požadavek;
+původní UTC14 ledger NHTSA8/3makes a RSS3/1ticker se neobnovuje ani neresetuje.
+Chybějící původní kvótová historie blokuje další odpovídající LIVE operace.
+
+Skutečný LEG bridge zůstává PRIMARY_BRIDGE_PARTIAL. Form25 filing day
+není datum delistingu; direct/indirect control a nezávislé dated CUSIP/class
+vazby se nevymýšlejí. Dva projected HCA CMS případy jsou WITHHOLD, chybí
+původní CMS body/request/version a CCN/PAC/name časová vazba. DOW SEC
+c-2 podporuje `Dow Inc./1751788`; c-1 odděleně `Chemical/29915` — nikoli
+stejný parent CIK. EPA facility/program/ownership stále PARTIAL. DOW91
+manufacturing sites je pouze COMBINED_REPORT_GROUP candidate; množství
+se nepřiřazuje jednotlivému issuerovi, přesný measurement day není doložen.
+2014 Form3 podporuje účet, nikoli natural-person kind nebo Sep2026 validitu.
+
+Skutečný original prime corpus nemá úplný obnovitelný traversal; recovery0.
+Skutečná retained DB nemá prediction_snapshots, authentic registrations0,
+real labels0. Všech16 předchozích cenových verzí má publisher revision UNKNOWN.
+Recorder nevyrobí zpětný forecast, neposune chybějící seanci ani nepřijme
+UNKNOWN revisions. Fitter, skóre a původní 687/60s budget jsou beze změny.
+
+Důkaz a výsledná kvalifikace: `evidence/batch6_integration_20261014.json`.
+Úplná místní sada nové verze a následné skutečné CI/Windows tohoto HEAD
+jsou vlastní kvalifikace; jednotkové hosted Windows nejsou user Windows
+nebo úplná source/history/OOS akceptace. Canonical687, historicalQ2
+150/currentQ3=0, healthcare10/NHTSA3/legal5, verifiedadopt0, acceptance0/21.
+Celá tři vyřazená přístupová body zůstávají absent; žádné náhradní exporty.
+
+### Aktuální konkrétní fronta po šesté dávce
+
+- identity_bulk: dated LEG direct/indirect-control a action/CUSIP/class bridge,
+  XOM newCUSIP/July7 conflict a PSTG exact effective day; bez aliasů a Q2 extension.
+- healthcare: původní CMS exact enrollment/CCN/PAC a právní issuer vazba známá
+  před capture; obnovit skutečnou durable historii, potom širší clinical/product scope.
+- regulatory: původní exact FRS/program a nezávislá dated ownership/DOJ vazba;
+  genuine complete HTTP200 NHTSA negative až v legitimním dalším budget day.
+- contracts: skutečné kompletní original prime pages a dřívější přesná UEI
+  identity se zachovanou kvótou; širší awards a skutečná revision/deletion timing.
+- sec: safe original primary IR authority a nezávislé dated natural-person,
+  instrument/legal identity; nepoužívat vyřazená body nebo account-kind inference.
+- evaluation: autentické prospektivní stored forecasts, source/action/price a
+  pozdější exact labels s doloženou publisher revision; širší operational evidence
+  a skutečný user Windows, historická OOS akceptace před jakoukoli změnou skóre.
+
+Žádný merge nebo force push. Dokud není všech21 obsahově DONE/VERIFIED,
+žádné oznámení Janovi. Nový HEAD nevznikne pouze kvůli statusu.
+
+
 Platí od 11. 10. 2026. Vývoj běží v nejvýše šesti oddělených větvích;
 koordinátor přebírá změny, řeší integraci a provádí společné kontroly.
 Počet vývojových větví není počet dokončených analytických specialistů.

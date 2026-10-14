@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-14T13:46:53.186770+00:00",
+  "primary_read_date": "2026-10-14",
+  "method": "READ_ONLY_PRIMARY_PUBLIC_SCHEMA_AND_FEDERAL_CMS_CATALOG_DISCOVERY",
+  "web_tool_calls": 5,
+  "web_search_queries": 7,
+  "web_open_commands": 4,
+  "web_find_commands": 3,
+  "original_body_captures_created_by_discovery": 0,
+  "collector_cms_api_calls": 0,
+  "current_cms_row_or_ccn_obtained": false,
+  "raw_cms_body_or_version_available": false,
+  "sources": [
+    {
+      "url": "https://data.cms.gov/sites/default/files/2026-02/Hospital_Data_Guidance.pdf",
+      "publisher": "CMS",
+      "document_front_revision": "Version 1.4 / February 2025; URL month is not historical availability",
+      "original_bytes_archived": false,
+      "role_in_contract": "Schema only: Enrollments supplies CCN and provider PAC; ownership joins by enrollment. Role codes 34/35 distinguish direct/indirect interests. Association date is a provider-reported relationship date; files describe current enrollment, not full historical records."
+    },
+    {
+      "url": "https://catalog.data.gov/dataset/hospital-enrollments-2025-12-01",
+      "publisher": "HHS/OEDA federal CMS catalog",
+      "original_bytes_archived": false,
+      "role_in_contract": "Identifies the Hospital Enrollments series API UUID f6f6505c-e8b0-4d57-b258-e2b94133aaf2. This catalog is neither a captured hospital/CCN mapping nor a current ownership snapshot."
+    },
+    {
+      "url": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospital-enrollments",
+      "publisher": "CMS",
+      "original_bytes_archived": false,
+      "role_in_contract": "Official dataset landing page; web extractor returned no data rows."
+    },
+    {
+      "url": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospital-all-owners",
+      "publisher": "CMS",
+      "original_bytes_archived": false,
+      "role_in_contract": "Official dataset landing page; web extractor returned no data rows."
+    }
+  ],
+  "independent_source_capture": "sec_hca_submissions.metadata.json",
+  "independent_primary_captures": 1,
+  "authorized_capture_cap": 4,
+  "ownership_or_negative_acceptance_obtained": false,
+  "unsafe_body_reconstruction_or_substitute": false
+}

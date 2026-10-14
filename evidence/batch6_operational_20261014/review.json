@@ -1,0 +1,314 @@
+{
+  "acceptance": {
+    "asset_ownership_verified": false,
+    "current_instrument_identity_verified": false,
+    "current_q3_identity_verified": false,
+    "historical_availability_reconstructed": false,
+    "historical_oos_verified": false,
+    "individual_issuer_quantity_attribution_verified": false,
+    "quantity_or_revenue_share_inferred": false,
+    "scoring_applied": false,
+    "specialist_done": false,
+    "windows_end_to_end_verified": false
+  },
+  "cases": {
+    "chemical_dimension_requires_separate_review": {
+      "as_of": "2026-10-14T17:15:08.609238+00:00",
+      "asset_ownership_inferred": false,
+      "candidate": null,
+      "current_instrument_identity_verified": false,
+      "current_live_collection": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "forward_looking_inference": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-14T17:15:08.609238+00:00",
+      "issuer_identity_promoted": false,
+      "knowledge_at": "2026-10-14T17:15:08.609238+00:00",
+      "market_price_inference": false,
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "reason": "CONTEXT_ENTITY_OR_DIMENSIONS_NEED_SEPARATE_REVIEW",
+      "review_recorded_at": "2026-10-14T17:15:08.609238+00:00",
+      "schema_version": "sec-original-operational-metric-review-v1",
+      "scoring_applied": false,
+      "source": {
+        "accession_number": "0001751788-26-000018",
+        "archive_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+        "archive_routing_cik": "0001751788",
+        "body_bytes": 5279652,
+        "body_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+        "capture_completed_utc": "2026-10-14T13:28:22.735778+00:00",
+        "publisher_publication_at": null,
+        "publisher_publication_clock_verified": false,
+        "source_capture_completed_at": "2026-10-14T13:28:22.735778+00:00",
+        "source_capture_started_at": "2026-10-14T13:28:14.746091+00:00",
+        "source_metadata_sha256": "dacd945ab4900c0727e1db1e991a2b119144c92853af04145ec86310e2dea152",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm"
+      },
+      "source_manifest_is_publisher_signed": false,
+      "status": "REJECTED"
+    },
+    "combined_group_count": {
+      "as_of": "2026-10-14T17:15:07.056561+00:00",
+      "asset_ownership_inferred": false,
+      "candidate": {
+        "approximate_in_source": false,
+        "candidate_id": "operational-metric:8f5b629ca9952cf3932fb6b939cac303b44ebf13616688b64cdbab1f454dabe4",
+        "cofiler_dei_context_pairs": [
+          {
+            "context_dimensions": [],
+            "context_entity_identifier": "0001751788",
+            "context_has_segment_or_scenario": false,
+            "context_id": "c-2",
+            "issuer_cik": "0001751788",
+            "issuer_name": "Dow Inc."
+          },
+          {
+            "context_dimensions": [
+              {
+                "dimension": "dei:LegalEntityAxis",
+                "member": "dow:TheDowChemicalCompanyMember"
+              }
+            ],
+            "context_entity_identifier": "0001751788",
+            "context_has_segment_or_scenario": true,
+            "context_id": "c-1",
+            "issuer_cik": "0000029915",
+            "issuer_name": "The Dow Chemical Company"
+          }
+        ],
+        "fiscal_reporting_period": {
+          "document_type": "10-K",
+          "end": "2025-12-31",
+          "fiscal_year_focus": "2025",
+          "start": "2025-01-01"
+        },
+        "individual_issuer_quantity_attribution_verified": false,
+        "issuer_anchor": {
+          "cik_fact_ids": [
+            "f-71"
+          ],
+          "context_dimensions": [],
+          "context_entity_identifier": "0001751788",
+          "context_id": "c-2",
+          "fiscal_year_fact_ids": [
+            "f-72"
+          ],
+          "identity_status": "EXACT_DEI_SAME_CONTEXT_CANDIDATE",
+          "issuer_cik": "0001751788",
+          "issuer_name": "Dow Inc.",
+          "name_fact_ids": [
+            "f-12"
+          ],
+          "period_fact_ids": [
+            "f-8"
+          ]
+        },
+        "metric_kind": "MANUFACTURING_SITE_COUNT",
+        "metric_measurement_date_verified": false,
+        "metric_passage": {
+          "byte_end": 1001882,
+          "byte_start": 1001798,
+          "literal_visible_passage": "Collectively, the Company operates 91 manufacturing sites in 29 countries.",
+          "original_byte_sha256": "4ca862ccb0b37c5596d359e3cd4ec6aee6918ca6ef546f020ed7e359ef7ba9c2"
+        },
+        "period_basis": "LITERAL_FILING_FISCAL_CONTEXT_NOT_AN_INFERRED_METRIC_MEASUREMENT_DAY",
+        "scope_kind": "COMBINED_REPORT_GROUP",
+        "scope_passage": {
+          "byte_end": 732509,
+          "byte_start": 731632,
+          "literal_visible_passage": "This Annual Report on Form 10-K is a combined report being filed by Dow Inc. and The Dow Chemical Company and its consolidated subsidiaries (\u201cTDCC\u201d and together with Dow Inc., \u201cDow\u201d or the \"Company\"). This Annual Report on Form 10-K reflects the results of Dow and its consolidated subsidiaries. As a result of the parent/subsidiary relationship between Dow Inc. and TDCC, and considering that the financial statements and disclosures of each company are substantially similar, the companies are filing a combined report for this Annual Report on Form 10-K. The information reflected in this report is equally applicable to both Dow Inc. and TDCC, except where otherwise noted. Each of Dow Inc. and TDCC is filing information in this report on its own behalf and neither company makes any representation to the information relating to the other company.",
+          "original_byte_sha256": "ce530f0cf3b9e18ced1d331a000b9fb60386fdc22128b5ad73edc4313477d38e"
+        },
+        "source_body_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+        "unit_literal": "manufacturing sites",
+        "value": "91",
+        "value_literal": "91"
+      },
+      "current_instrument_identity_verified": false,
+      "current_live_collection": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "forward_looking_inference": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-14T17:15:07.056561+00:00",
+      "issuer_identity_promoted": false,
+      "knowledge_at": "2026-10-14T17:15:07.056561+00:00",
+      "market_price_inference": false,
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "review_recorded_at": "2026-10-14T17:15:07.056561+00:00",
+      "schema_version": "sec-original-operational-metric-review-v1",
+      "scoring_applied": false,
+      "source": {
+        "accession_number": "0001751788-26-000018",
+        "archive_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+        "archive_routing_cik": "0001751788",
+        "body_bytes": 5279652,
+        "body_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+        "capture_completed_utc": "2026-10-14T13:28:22.735778+00:00",
+        "publisher_publication_at": null,
+        "publisher_publication_clock_verified": false,
+        "source_capture_completed_at": "2026-10-14T13:28:22.735778+00:00",
+        "source_capture_started_at": "2026-10-14T13:28:14.746091+00:00",
+        "source_metadata_sha256": "dacd945ab4900c0727e1db1e991a2b119144c92853af04145ec86310e2dea152",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm"
+      },
+      "source_manifest_is_publisher_signed": false,
+      "status": "CANDIDATE_REVIEWED"
+    },
+    "cross_context_parent_name_chemical_cik": {
+      "as_of": "2026-10-14T17:15:08.047343+00:00",
+      "asset_ownership_inferred": false,
+      "candidate": null,
+      "current_instrument_identity_verified": false,
+      "current_live_collection": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "forward_looking_inference": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-14T17:15:08.047343+00:00",
+      "issuer_identity_promoted": false,
+      "knowledge_at": "2026-10-14T17:15:08.047343+00:00",
+      "market_price_inference": false,
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "reason": "DEI_NAME_CIK_SAME_CONTEXT_MISMATCH",
+      "review_recorded_at": "2026-10-14T17:15:08.047343+00:00",
+      "schema_version": "sec-original-operational-metric-review-v1",
+      "scoring_applied": false,
+      "source": {
+        "accession_number": "0001751788-26-000018",
+        "archive_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+        "archive_routing_cik": "0001751788",
+        "body_bytes": 5279652,
+        "body_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+        "capture_completed_utc": "2026-10-14T13:28:22.735778+00:00",
+        "publisher_publication_at": null,
+        "publisher_publication_clock_verified": false,
+        "source_capture_completed_at": "2026-10-14T13:28:22.735778+00:00",
+        "source_capture_started_at": "2026-10-14T13:28:14.746091+00:00",
+        "source_metadata_sha256": "dacd945ab4900c0727e1db1e991a2b119144c92853af04145ec86310e2dea152",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm"
+      },
+      "source_manifest_is_publisher_signed": false,
+      "status": "REJECTED"
+    },
+    "historical_capture_is_not_today_ingestion": {
+      "as_of": "2026-10-14T13:28:22.735778+00:00",
+      "asset_ownership_inferred": false,
+      "candidate": null,
+      "current_instrument_identity_verified": false,
+      "current_live_collection": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "forward_looking_inference": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-14T17:15:10.112721+00:00",
+      "issuer_identity_promoted": false,
+      "knowledge_at": "2026-10-14T17:15:10.112721+00:00",
+      "market_price_inference": false,
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "reason": "AFTER_PHYSICAL_KNOWLEDGE_CUTOFF",
+      "review_recorded_at": "2026-10-14T17:15:10.112721+00:00",
+      "schema_version": "sec-original-operational-metric-review-v1",
+      "scoring_applied": false,
+      "source": {
+        "accession_number": "0001751788-26-000018",
+        "archive_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+        "archive_routing_cik": "0001751788",
+        "body_bytes": 5279652,
+        "body_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+        "capture_completed_utc": "2026-10-14T13:28:22.735778+00:00",
+        "publisher_publication_at": null,
+        "publisher_publication_clock_verified": false,
+        "source_capture_completed_at": "2026-10-14T13:28:22.735778+00:00",
+        "source_capture_started_at": "2026-10-14T13:28:14.746091+00:00",
+        "source_metadata_sha256": "dacd945ab4900c0727e1db1e991a2b119144c92853af04145ec86310e2dea152",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm"
+      },
+      "source_manifest_is_publisher_signed": false,
+      "status": "REJECTED"
+    },
+    "single_issuer_attribution_withheld": {
+      "as_of": "2026-10-14T17:15:09.179447+00:00",
+      "asset_ownership_inferred": false,
+      "candidate": null,
+      "current_instrument_identity_verified": false,
+      "current_live_collection": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "forward_looking_inference": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-14T17:15:09.179447+00:00",
+      "issuer_identity_promoted": false,
+      "knowledge_at": "2026-10-14T17:15:09.179447+00:00",
+      "market_price_inference": false,
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "reason": "INDIVIDUAL_ATTRIBUTION_AMBIGUOUS_IN_COFILING",
+      "review_recorded_at": "2026-10-14T17:15:09.179447+00:00",
+      "schema_version": "sec-original-operational-metric-review-v1",
+      "scoring_applied": false,
+      "source": {
+        "accession_number": "0001751788-26-000018",
+        "archive_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+        "archive_routing_cik": "0001751788",
+        "body_bytes": 5279652,
+        "body_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+        "capture_completed_utc": "2026-10-14T13:28:22.735778+00:00",
+        "publisher_publication_at": null,
+        "publisher_publication_clock_verified": false,
+        "source_capture_completed_at": "2026-10-14T13:28:22.735778+00:00",
+        "source_capture_started_at": "2026-10-14T13:28:14.746091+00:00",
+        "source_metadata_sha256": "dacd945ab4900c0727e1db1e991a2b119144c92853af04145ec86310e2dea152",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm"
+      },
+      "source_manifest_is_publisher_signed": false,
+      "status": "REJECTED"
+    }
+  },
+  "code_and_selection_sha256": {
+    "evidence/batch6_operational_20261014/replay_review.py": "5862cefa570ae12618ed4df1fd671c105cc85b6eabe25454fde5b85db253f570",
+    "evidence/batch6_operational_20261014/selection.json": "8931427d066db663a3ceca24e0a2306ef1f0f97eedecc5d503813440e9c763fc",
+    "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+    "tests/test_batch6_sec_operational_metrics.py": "aa82c5bd9a885b1088f8d2a6bc3d220bdfb76fbac1ba53b5f5bf4cd61ef5e19f"
+  },
+  "completed_at": "2026-10-14T17:15:10.551315+00:00",
+  "kind": "offline_review_of_genuine_original_sec_capture",
+  "new_source_http_attempts": 0,
+  "python_version": "3.12.14",
+  "schema_version": 1,
+  "source_body_copied_or_replaced": false,
+  "source_bytes_and_metadata_unchanged": true,
+  "source_references": {
+    "body": {
+      "bytes": 5279652,
+      "repository_relative_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+      "sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122"
+    },
+    "metadata": {
+      "repository_relative_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.metadata.json",
+      "sha256": "22b893218915dbf851067754cbd2b1b7c3c731114bcfd3e0aab80886485586ed"
+    }
+  },
+  "source_scope": "One literal operating count in one combined 2025 co-filing; no 687 coverage or current instrument inference",
+  "started_at": "2026-10-14T17:15:07.050561+00:00"
+}

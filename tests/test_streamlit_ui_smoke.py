@@ -9,6 +9,58 @@ from streamlit.testing.v1 import AppTest
 
 
 class StreamlitUISmokeTests(unittest.TestCase):
+    def test_prospective_history_report_is_explicit_and_has_no_manufactured_forecasts(self) -> None:
+        from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings
+        app_path = Path(__file__).resolve().parents[1] / "market_checker_app/app.py"
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("market_checker_app.services.agent_runtime_service.AgentRuntimeService.load",
+                   return_value=(AgentRuntimeSettings(), None)), \
+             patch("socket.socket.connect", side_effect=AssertionError("History UI attempted HTTP")):
+            app = AppTest.from_file(str(app_path)).run(timeout=30)
+            database = Path(directory) / "history.db"
+            next(field for field in app.text_input if field.label == "DB soubor").set_value(str(database))
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            self.assertNotIn("prospective_specialist_report", app.session_state)
+            history = Path(directory) / "prospective_specialist_history"
+            self.assertFalse(history.exists())
+            next(button for button in app.button if button.label == "Provést vybraný úkon s historií").click()
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            report = app.session_state["prospective_specialist_report"]["report"]
+            self.assertEqual("WAIT_PROSPECTIVE_HISTORY", report["status"])
+            self.assertEqual(0, report["registered_forecast_count"])
+            self.assertEqual(0, report["eligible_real_label_count"])
+            self.assertFalse(report["activation_allowed"])
+            self.assertFalse(history.exists())
+
+    def test_retained_identity_review_is_explicit_and_keeps_actual_hca_withheld(self) -> None:
+        from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings
+        app_path = Path(__file__).resolve().parents[1] / "market_checker_app/app.py"
+        with tempfile.TemporaryDirectory() as directory, \
+             patch("market_checker_app.services.agent_runtime_service.AgentRuntimeService.load",
+                   return_value=(AgentRuntimeSettings(), None)), \
+             patch("socket.socket.connect", side_effect=AssertionError("Evidence UI attempted HTTP")):
+            app = AppTest.from_file(str(app_path)).run(timeout=30)
+            database = Path(directory) / "history.db"
+            next(field for field in app.text_input if field.label == "DB soubor").set_value(str(database))
+            next(field for field in app.text_input if field.label == "Output directory").set_value(directory)
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            self.assertNotIn("captured_identity_review", app.session_state)
+            self.assertFalse((Path(directory) / "captured_identity_reviews").exists())
+            next(field for field in app.selectbox if field.label == "Uložená vazba k posouzení").set_value(
+                "evidence/specialist_review_plans/HCA_nemocnice_1.json")
+            next(button for button in app.button if button.label == "Zkontrolovat vybrané uložené doklady").click()
+            app.run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            result = app.session_state["captured_identity_review"]["report"]
+            self.assertEqual("WITHHOLD", result["review"]["decision"])
+            self.assertEqual(0, result["registry_adoptions"])
+            self.assertEqual(0, result["source_http_requests"])
+            self.assertFalse(result["issuer_attribution_allowed"])
+            self.assertTrue((Path(directory) / "captured_identity_reviews" / result["archive_filename"]).is_file())
+
     def test_transaction_button_targets_only_selected_verified_award(self) -> None:
         from datetime import datetime, timezone
         from market_checker_app.services.agent_runtime_service import AgentRuntimeSettings

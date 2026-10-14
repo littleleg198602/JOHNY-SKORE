@@ -10,13 +10,14 @@
       "research": "01-04, 14",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Dated XOM new-CUSIP/class and conflict resolution, exact PSTG action day/class bridge and LEG history; no aliases or Q2 extension. Current Q3 coverage0/150.",
+      "next": "Resolve exact LEG dated CUSIP/class/action and direct-versus-indirect control; XOM new-CUSIP/July7 and PSTG exact-day gaps remain. Co-filer DEI contexts are separate. No alias/Q3 adoption; current Q3=0.",
       "development_lane": "identity_bulk",
       "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json",
       "third_batch_evidence": "evidence/batch3_identity_20261012.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "sec",
@@ -24,14 +25,15 @@
       "research": "01-04, 08",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Current available Form4 accession versions are selected before the watchlist cap; older versions remain in audit and simultaneous ambiguity fails closed. Independent raw SEC/GLEIF evidence documents four filing-day issuer scopes and one private snapshot-day entity; Trading Symbol(s) cover headers are supported. Clock conflicts and parent-bridge gaps are retained. Remaining: wider dated legal identities, current relevant filing/IR coverage, user Windows end-to-end and historical acceptance.",
+      "next": "Exact DOW co-filer contexts and dated owner-account primary packets are reviewable in explicit retained-evidence CLI/UI. Broader independently dated legal/person/instrument and safe primary IR authority, actual source coverage/history/userWindows remain.",
       "primary_document_dedup_test_evidence": "evidence/sec_filing_primary_dedup_tests_20261003.json",
       "primary_document_dedup_hosted_windows_evidence": "evidence/sec_filing_primary_dedup_windows_20261003.json",
       "development_lane": "sec",
       "parallel_implementation_evidence": "evidence/parallel_sec_20261011.json",
       "third_batch_evidence": "evidence/batch3_sec_20261012/verification.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "insider",
@@ -39,7 +41,7 @@
       "research": "05",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Form4 source facts remain as-filed; sibling bounded exact person/instrument/footnote review is available in ScoutIndex and UI, without identity or execution promotion. Five actual captures/eight source rows keep person/profile/class/date/identifier gaps. Remaining: independent dated identities and relevant live/coverage/history/userWindows acceptance.",
+      "next": "Independent 2014 Form3 corroborates one SEC owner account and eight source rows; report-day/person-kind/alias/instrument evidence remains withheld. No promotion from account to natural person or historical Sep2026 identity.",
       "sec13dg_fail_closed_test_evidence": "evidence/sec13dg_fail_closed_filing_tests_20261003.json",
       "sec13dg_fail_closed_hosted_windows_evidence": "evidence/sec13dg_fail_closed_filing_windows_20261003.json",
       "sec13dg_pipeline_identity_test_evidence": "evidence/sec13dg_pipeline_identity_tests_20261003.json",
@@ -56,7 +58,8 @@
       "parallel_implementation_evidence": "evidence/parallel_sec_20261011.json",
       "third_batch_evidence": "evidence/batch3_integration_20261012.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "contracts",
@@ -64,7 +67,7 @@
       "research": "06, 15",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Recover genuinely archived verified prime targets with actual current ingestion; retain durable daily quota, broaden UEI/awards and actual source revision history. Absence is not deletion.",
+      "next": "Offline exact complete prime-archive recovery is implemented; actual original corpus yields zero recoverable targets. Obtain complete original pages with preserved durable quota and identity-before-capture, broader UEI/award/revision history; transactions and absence do not become prime/deletion evidence.",
       "source_smoke_evidence": "evidence/usaspending_live_20261001.json",
       "noc_identity_evidence": "evidence/usaspending_noc_identity_20261002.json",
       "noc_source_smoke_evidence": "evidence/usaspending_noc_live_20261002.json",
@@ -75,7 +78,8 @@
       "parallel_second_batch_evidence": "evidence/parallel2_contracts_20261011.json",
       "third_batch_evidence": "evidence/batch3_contracts_acceptance_20261012.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "regulatory",
@@ -83,7 +87,7 @@
       "research": "07",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Actual full HTTP200 NHTSA negative remains missing; respect exhausted shared8-request UTC-day budget, broaden dated FRS/DOJ scope.",
+      "next": "Original-byte EPA exact facility/program and independent dated FRS ownership missing; DOW legal c-2 fact alone is insufficient. NHTSA exhausted8-request UTC14 budget; genuine complete HTTP200 negative still missing. Recover durable history and broaden FRS/DOJ.",
       "source_smoke_evidence": "evidence/specialist_live_20261001.json",
       "ofac_source_smoke_evidence": "evidence/ofac_live_20261001.json",
       "ofac_alias_source_smoke_evidence": "evidence/ofac_alias_live_20261001.json",
@@ -96,7 +100,8 @@
       "parallel_second_batch_evidence": "evidence/parallel2_regulatory_20261011.json",
       "third_batch_evidence": "evidence/batch3_regulatory_20261012/validation.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "suppliers",
@@ -104,12 +109,13 @@
       "research": "08",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Independent primary evidence now supports four exact SEC filing-day legal issuers and a Sikorsky private-entity snapshot, with no inferred current parent attribution or continuous ownership window. LMT subsidiary bridge is withheld because evidence dates do not align; exact-name/identifier resolution remains audit only. Remaining: dated wider counterparty/brand/subsidiary identities, exposure facts, current sources and OOS.",
+      "next": "Exact combined-report operational scopes do not prove owner-to-issuer attribution or revenue shares. Preserve dated independent counterparties and legal relationships; broader direct exposure and point-in-time histories remain.",
       "development_lane": "sec",
       "parallel_second_batch_evidence": "evidence/parallel2_sec_20261011.json",
       "third_batch_evidence": "evidence/batch3_sec_20261012/verification.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "ir_news",
@@ -129,12 +135,13 @@
       "research": "10",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Actual provider/cache captures now survive reload, but publisher revision remainsUNKNOWN; Oct13 Close missing, strict PIT excluded. Build real prospective action/price history.",
+      "next": "Prospective recorder freezes authentic existing pending forecasts before exact first forward NYSE open and later matching labels. Actual forecast corpus0; 16 prior price versions remain UNKNOWN publisher revision/excluded. Build genuine price/action/source history.",
       "brkb_yahoo_alias_evidence": "evidence/price_brkb_yahoo_alias_tests_20261003.json",
       "brkb_yahoo_alias_hosted_windows_evidence": "evidence/price_brkb_yahoo_alias_windows_20261003.json",
       "development_lane": "evaluation",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "short_interest",
@@ -226,7 +233,7 @@
       "research": "sector HEALTH_SERVICES",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Prospective exact issuer bridge before a new original clinical object capture in the same cohort and durable quota; broader CMS/product/ownership. Old archived snapshots do not give current coverage.",
+      "next": "Two actual projected HCA owner scopes remain WITHHOLD: original CMS response/request/version, CCN/PAC crosswalk and exact earlier legal-name bridge missing. No fresh CMS/clinical calls without proven durable history; broader objects and sponsor coverage remain.",
       "source_smoke_evidence": "evidence/healthcare_live_20261001.json",
       "public_quota_test_evidence": "evidence/public_source_daily_quotas_tests_20261011.json",
       "development_lane": "healthcare",
@@ -234,7 +241,8 @@
       "parallel_second_batch_evidence": "evidence/parallel2_healthcare_20261011.json",
       "coverage_cli_evidence": "evidence/parallel2_healthcare_cli_20261011.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "oil_utilities",
@@ -271,10 +279,11 @@
       "research": "39 sector profiles",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Connect profile-specific candidate source/metric questions to actual providers and validate applicable coverage.",
+      "next": "One literal DOW91 manufacturing-sites metric is reviewed for COMBINED_REPORT_GROUP only, with two exact DEI registrants. Individual issuer quantity, metric measurement day, asset ownership/exposure shares remain unverified; broaden actual operational evidence.",
       "development_lane": "regulatory",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "institutions",
@@ -410,7 +419,7 @@
       "research": "27",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Dated issuer/instrument/product/person identity and positive/negative LIVE cases for relevant scope; unit/helper readiness is not full acceptance.",
+      "next": "Captured-review plans explicitly pin original whole bodies, retain unavailable sources as missing and archive current physical results. Dated identity/positive-negative LIVE/relevant denominator/history/userWindows still required; no registry or full acceptance promotion.",
       "evidence_content_audit": "evidence/specialist_evidence_content_audit_tests_20261003.json",
       "evidence_content_audit_hosted_windows_evidence": "evidence/specialist_evidence_content_audit_windows_20261003.json",
       "source_run_semantics_evidence": "evidence/specialist_source_semantics_tests_20261003.json",
@@ -420,7 +429,8 @@
       "parallel_second_batch_evidence": "evidence/parallel2_evaluation_20261011.json",
       "third_batch_evidence": "evidence/batch3_evaluation_incremental_archive_20261012.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     },
     {
       "id": "evaluation",
@@ -428,13 +438,14 @@
       "research": "28",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Strict specialist/candidate/layer training label knowledge and price provenance; genuine prospective histories/OOS and end-user Windows stillmissing. No score/trading changes.",
+      "next": "Explicit register/attach/report preserves physical clocks, exact sessions and immutable source/label pins; actual0 registrations/eligible labels, WAIT_FORECAST_CORPUS. Broader real prospective history, independently dated publisher revision, OOS and userWindows remain; no score/fitter activation.",
       "development_lane": "evaluation",
       "parallel_implementation_evidence": "evidence/parallel_evaluation_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_evaluation_20261011.json",
       "third_batch_evidence": "evidence/batch3_evaluation_incremental_archive_20261012.json",
       "fourth_batch_integration_evidence": "evidence/batch4_integration_20261013.json",
-      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+      "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+      "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
     }
   ],
   "parallel_development": {
@@ -444,7 +455,8 @@
     "lane_assignment_is_not_completion_evidence": true,
     "integration_scope": "Six independent implementation lanes; lane completion is not specialist acceptance.",
     "integration_evidence": "evidence/batch4_integration_20261013.json",
-    "latest_batch": "Batch5: six actual isolated workers plus three followups, durable NHTSA/IR quotas, independent corporate-action/snapshot/audit/price gates and explicit runtime/UI. Full acceptance0/21.",
-    "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json"
+    "latest_batch": "Batch6: six actual isolated workers and two concrete followups; original-byte identity/facility/owner/prime/prospective/operational reviews with explicit runtime/UI. Full acceptance0/21.",
+    "fifth_batch_integration_evidence": "evidence/batch5_integration_20261014.json",
+    "sixth_batch_integration_evidence": "evidence/batch6_integration_20261014.json"
   }
 }

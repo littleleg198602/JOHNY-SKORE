@@ -1,0 +1,65 @@
+{
+  "captures": {
+    "issuer": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 161899,
+        "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.body.json",
+        "sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87"
+      },
+      "metadata": {
+        "attempts_in_this_capture": 1,
+        "body_bytes": 161899,
+        "body_path": "sec_hca_submissions.body.json",
+        "body_sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87",
+        "capture_form": "ORIGINAL_HTTP_RESPONSE",
+        "cms_or_clinical_request": false,
+        "complete_response_body": true,
+        "content_type": "application/json",
+        "http_date": "Wed, 14 Oct 2026 13:35:04 GMT",
+        "http_status": 200,
+        "last_modified": null,
+        "new_quota_store_created": false,
+        "observed_at": "2026-10-14T13:35:04.920566+00:00",
+        "raw_publication_permitted": true,
+        "request_purpose": "BOUNDED_INDEPENDENT_SEC_PRIMARY_ISSUER_RESEARCH",
+        "requested_at": "2026-10-14T13:34:53.967668+00:00",
+        "requested_url": "https://data.sec.gov/submissions/CIK0000860730.json",
+        "research_request_allowance": 4,
+        "response_url": "https://data.sec.gov/submissions/CIK0000860730.json",
+        "schema_version": 1,
+        "status": "HTTP_200_COMPLETE"
+      }
+    },
+    "owner": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 815,
+        "path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+        "sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2"
+      },
+      "metadata": {
+        "body_bytes": 815,
+        "body_sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+        "capture_form": "PROJECTED_PUBLISHER_FIELDS",
+        "raw_publication_permitted": true
+      }
+    },
+    "provider": {
+      "body_available": false,
+      "body_ref": null,
+      "metadata": {
+        "capture_form": "MISSING_BODY"
+      }
+    }
+  },
+  "kind": "CMS_PROVIDER_OWNER",
+  "request": {
+    "scope": {
+      "enrollment_id": "O20030204000016",
+      "owner_associate_id": "1052593506",
+      "owner_role_code": "35"
+    }
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

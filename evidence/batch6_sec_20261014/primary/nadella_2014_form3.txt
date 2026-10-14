@@ -1,0 +1,238 @@
+<SEC-DOCUMENT>0001582737-14-000015.txt : 20140207
+<SEC-HEADER>0001582737-14-000015.hdr.sgml : 20140207
+<ACCEPTANCE-DATETIME>20140207180916
+ACCESSION NUMBER:		0001582737-14-000015
+CONFORMED SUBMISSION TYPE:	3
+PUBLIC DOCUMENT COUNT:		2
+CONFORMED PERIOD OF REPORT:	20140204
+FILED AS OF DATE:		20140207
+DATE AS OF CHANGE:		20140207
+
+ISSUER:		
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			MICROSOFT CORP
+		CENTRAL INDEX KEY:			0000789019
+		STANDARD INDUSTRIAL CLASSIFICATION:	SERVICES-PREPACKAGED SOFTWARE [7372]
+		IRS NUMBER:				911144442
+		STATE OF INCORPORATION:			WA
+		FISCAL YEAR END:			0630
+
+	BUSINESS ADDRESS:	
+		STREET 1:		ONE MICROSOFT WAY
+		CITY:			REDMOND
+		STATE:			WA
+		ZIP:			98052-6399
+		BUSINESS PHONE:		425-882-8080
+
+	MAIL ADDRESS:	
+		STREET 1:		ONE MICROSOFT WAY
+		CITY:			REDMOND
+		STATE:			WA
+		ZIP:			98052-6399
+
+REPORTING-OWNER:	
+
+	OWNER DATA:	
+		COMPANY CONFORMED NAME:			Nadella Satya
+		CENTRAL INDEX KEY:			0001513142
+
+	FILING VALUES:
+		FORM TYPE:		3
+		SEC ACT:		1934 Act
+		SEC FILE NUMBER:	000-14278
+		FILM NUMBER:		14585661
+
+	MAIL ADDRESS:	
+		STREET 1:		C/O MICROSOFT CORPORATION
+		STREET 2:		ONE MICROSOFT WAY
+		CITY:			REDMOND
+		STATE:			WA
+		ZIP:			98052-6399
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>3
+<SEQUENCE>1
+<FILENAME>edgar.xml
+<DESCRIPTION>PRIMARY DOCUMENT
+<TEXT>
+<XML>
+<?xml version="1.0"?>
+<ownershipDocument>
+
+    <schemaVersion>X0206</schemaVersion>
+
+    <documentType>3</documentType>
+
+    <periodOfReport>2014-02-04</periodOfReport>
+
+    <noSecuritiesOwned>0</noSecuritiesOwned>
+
+    <issuer>
+        <issuerCik>0000789019</issuerCik>
+        <issuerName>MICROSOFT CORP</issuerName>
+        <issuerTradingSymbol>MSFT</issuerTradingSymbol>
+    </issuer>
+
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerCik>0001513142</rptOwnerCik>
+            <rptOwnerName>Nadella Satya</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerAddress>
+            <rptOwnerStreet1>C/O MICROSOFT CORPORATION</rptOwnerStreet1>
+            <rptOwnerStreet2>ONE MICROSOFT WAY</rptOwnerStreet2>
+            <rptOwnerCity>REDMOND</rptOwnerCity>
+            <rptOwnerState>WA</rptOwnerState>
+            <rptOwnerZipCode>98052-6399</rptOwnerZipCode>
+            <rptOwnerStateDescription></rptOwnerStateDescription>
+        </reportingOwnerAddress>
+        <reportingOwnerRelationship>
+            <isDirector>1</isDirector>
+            <isOfficer>1</isOfficer>
+            <isTenPercentOwner>0</isTenPercentOwner>
+            <isOther>0</isOther>
+            <officerTitle>Chief Executive Officer</officerTitle>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+
+    <nonDerivativeTable>
+        <nonDerivativeHolding>
+            <securityTitle>
+                <value>Common Stock</value>
+            </securityTitle>
+            <postTransactionAmounts>
+                <sharesOwnedFollowingTransaction>
+                    <value>1089443</value>
+                    <footnoteId id="F1"/>
+                </sharesOwnedFollowingTransaction>
+            </postTransactionAmounts>
+            <ownershipNature>
+                <directOrIndirectOwnership>
+                    <value>D</value>
+                </directOrIndirectOwnership>
+                <natureOfOwnership>
+                    <value></value>
+                </natureOfOwnership>
+            </ownershipNature>
+        </nonDerivativeHolding>
+    </nonDerivativeTable>
+
+    <footnotes>
+        <footnote id="F1">Includes an aggreate of 975,777 shares represented by stock awards that vest, subject to continued employment, as follows: 56,137 shares vest on August 29, 2014, 140,588 shares vest on August 31, 2014, 117,961 shares vest on August 15, 2015,  56,138 shares vest on August 29, 2015, 91,743 shares vest on August 31, 2015, 117,962 shares vest on August 15, 2016, 56,138 shares vest on August 29, 2016, 47,048 shares vest on August 31, 2016, 117,962 shares vest on August 15, 2017, 56,138 shares vest on August 29, 2017, and 117,962 shares vest on August 15, 2018.</footnote>
+    </footnotes>
+
+    <remarks></remarks>
+
+    <ownerSignature>
+        <signatureName>Keith R. Dolliver, Attorney-in-Fact for Satya Nadella</signatureName>
+        <signatureDate>2014-02-07</signatureDate>
+    </ownerSignature>
+</ownershipDocument>
+</XML>
+</TEXT>
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>EX-24
+<SEQUENCE>2
+<FILENAME>nadellapoa.htm
+<DESCRIPTION>POWER OF ATTORNEY
+<TEXT>
+<HTML><BODY><PRE>
+
+
+
+
+
+
+
+February 3, 2014
+
+
+
+
+
+
+
+Securities and Exchange Commission
+
+100 F Street, N.E.
+
+Washington, D.C.  20549
+
+
+
+Re: Microsoft Corporation - Power of Attorney
+
+
+
+To whom it may concern:
+
+
+
+This will confirm that I have granted each of the individuals listed below the
+
+authority to, on my behalf, execute and file the Initial Statement of Beneficial
+
+Ownership of Securities (Form 3),
+
+the Statement of Changes in Beneficial Ownership of Securities (Form 4) and
+
+the Annual Statement of Changes in Beneficial Ownership (Form 5), in
+
+connection with transactions in Microsoft Corporation securities, as my
+
+Attorney-In-Fact.  Such power of attorney shall remain in full force and effect
+
+until either (i) I am no longer subject to the reporting requirements under
+
+Section 16 of the Securities Act of 1933, as amended or (ii) I have provided
+
+you with written notice withdrawing this authority.
+
+
+
+The individuals who are authorized to act as my Attorney-In-Fact under this
+
+Power of Attorney are as follows:
+
+
+
+Keith R. Dolliver
+
+Peter A. Kraus
+
+Christyne Mayberry
+
+Ben O. Orndorff
+
+John A. Seethoff
+
+Bradford L. Smith
+
+
+
+This Power of Attorney is effective immediately upon filing with the Securities
+
+Exchange Commission and for purposes of my future Form 4 and Form 5 filings
+
+relating to Microsoft securities and transactions.
+
+
+
+Sincerely,
+
+
+
+
+
+/s/ Satya Nadella
+
+Satya Nadella
+
+
+
+</PRE></BODY></HTML>
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>

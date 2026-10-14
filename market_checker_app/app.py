@@ -68,6 +68,7 @@ from market_checker_app.services.specialist_identity_config import configured_re
 from market_checker_app.services.specialist_source_archive_service import (
     build_specialist_source_archive, export_specialist_source_archive,
 )
+from market_checker_app.specialist_evidence_ui import render_specialist_evidence_actions
 from market_checker_app.scout_background_worker import start_sec_background_scan
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
@@ -2300,6 +2301,9 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
             data=json.dumps(history_report, ensure_ascii=False, indent=2, allow_nan=False),
             file_name="specialist_historical_evaluation.json", mime="application/json",
         )
+
+    render_specialist_evidence_actions(st, source_root=PROJECT_ROOT,
+        db_path=config.sqlite_path, output_dir=config.output_dir)
 
 with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     research_profiles = load_research_profiles()

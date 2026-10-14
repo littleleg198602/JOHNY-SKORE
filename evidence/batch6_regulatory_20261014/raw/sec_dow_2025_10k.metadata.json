@@ -1,0 +1,19 @@
+{
+  "archive_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+  "automatic_redirects": false,
+  "capture_id": "sec_dow_2025_10k",
+  "content_type": "text/html",
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm",
+  "http_status": 200,
+  "max_bytes": 6000000,
+  "observed_at": "2026-10-14T13:28:22.735778+00:00",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "public_raw_available": true,
+  "quota_source": "SEC_RESEARCH_NOT_EPA_OR_NHTSA",
+  "raw_response_bytes": 5279652,
+  "raw_response_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+  "reason": "",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm",
+  "started_at": "2026-10-14T13:28:14.746091+00:00",
+  "status": "CAPTURED"
+}

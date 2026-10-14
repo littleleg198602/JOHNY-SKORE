@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "read_at": "2026-10-14T17:33:07.396822+00:00",
+  "retained_database_exists": true,
+  "same_original_database_read_only": true,
+  "database_content_unchanged_by_audit": true,
+  "original_request_history": [
+    {
+      "source": "nhtsa",
+      "day": "2026-10-14",
+      "requests": 8,
+      "subjects": 3,
+      "first_attempt": "2026-10-14T00:07:12.620833+00:00",
+      "last_attempt": "2026-10-14T00:07:41.232127+00:00"
+    },
+    {
+      "source": "rss",
+      "day": "2026-10-14",
+      "requests": 3,
+      "subjects": 1,
+      "first_attempt": "2026-10-14T00:15:32.957191+00:00",
+      "last_attempt": "2026-10-14T00:15:43.687483+00:00"
+    }
+  ],
+  "prediction_snapshots_table_present": false,
+  "quota_copied_reset_or_reconstructed": false,
+  "api_operations_performed": 0,
+  "nhtsa_today_exhausted": true,
+  "cms_epa_clinical_usaspending_current_day_history_proven": false,
+  "missing_history_bypassed": false
+}

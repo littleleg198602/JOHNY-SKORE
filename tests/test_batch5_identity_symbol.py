@@ -5,9 +5,10 @@ import hashlib
 import json
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 from market_checker_app.services.sec13f_identity_bulk import SourceSnapshot
-from market_checker_app.services.sec_corporate_action_bridge import review_corporate_action_bridge, review_symbol_rename_bridge
+from market_checker_app.services.sec_corporate_action_bridge import issuer_names, review_corporate_action_bridge, review_symbol_rename_bridge
 from market_checker_app.services.sec13f_transition_review import instrument_transition_review
 from tests.test_batch5_identity_bridge import named_cover
 from tests.test_sec13f_identity_bulk import OBSERVED, PUBLISHED, NOW, builder, catalog, cover, instrument, reviewed, securities
@@ -241,7 +242,7 @@ class SameCikSymbolBridgeTests(unittest.TestCase):
         report = review_symbol_rename_bridge(rebuild(service, replacements={old_catalog.snapshot_id: collision}), claim)
         self.assertIn("TO_OBSERVED_CATALOG_CIK_UNRESOLVED", report["blockers"])
 
-    def test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged(self):
+    def test_actual_retained_sources_preserve_frozen_xom_version_and_correct_cofiler_scope(self):
         from evidence.batch5_identity_symbol_20261014.replay_symbol import build_inputs
         from evidence.batch5_identity_20261014.replay_bridge import build_inputs as old_inputs
         root = Path(__file__).resolve().parents[1]
@@ -262,7 +263,34 @@ class SameCikSymbolBridgeTests(unittest.TestCase):
         self.assertNotIn("P", service.universe_set)
         self.assertFalse(bridge["automatic_alias_allowed"])
         original = json.loads((root / "evidence" / "batch5_identity_20261014" / "review.json").read_bytes())
-        self.assertEqual(original, old_inputs()[2])
+        # The original producer joined the child name to the generic parent
+        # context identifier. Preserve its exact artifact under that version;
+        # the current producer must use the child's explicit same-context CIK.
+        from evidence.batch6_cofiler_20261014.original_issuer_binder import issuer_names as original_binder
+        with patch("market_checker_app.services.sec_corporate_action_bridge.issuer_names", original_binder):
+            self.assertEqual(original, old_inputs()[2])
+        old_service, old_claim, current, _ = old_inputs()
+        source = old_service.snapshots[old_claim["from_ticker_snapshot_id"]]
+        self.assertEqual([
+            {"issuer_name": "Exxon Mobil Corporation", "issuer_cik": "0000034088",
+             "anchor_date": "2026-06-30", "context_ref": "c-1"},
+            {"issuer_name": "ExxonMobil Holdings Corporation", "issuer_cik": "0002115436",
+             "anchor_date": "2026-06-30", "context_ref": "c-2"},
+        ], issuer_names(source))
+        expected = deepcopy(original)
+        updated_bridge = expected["corporate_action_bridge_reviews"][0]
+        updated_bridge["proofs"]["from"]["independent_issuer_names"] = [{
+            "issuer_name": "Exxon Mobil Corporation", "issuer_cik": "0000034088",
+            "anchor_date": "2026-06-30", "context_ref": "c-1"}]
+        updated_bridge.pop("bridge_sha256")
+        updated_bridge["bridge_sha256"] = hashlib.sha256(
+            json.dumps(updated_bridge, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        expected.pop("review_sha256")
+        expected["review_sha256"] = hashlib.sha256(
+            json.dumps(expected, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        # All remaining fields, including the three real blockers, prior
+        # identities, raw source pins and clocks remain exactly equal.
+        self.assertEqual(expected, current)
 
 
 if __name__ == "__main__":

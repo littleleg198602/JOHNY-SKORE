@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "qualification": "HISTORICAL_ROOT_FOCUSED_VERSIONS_NOT_FINAL_CODE_ACCEPTANCE",
+  "source_http_requests": 0,
+  "initial_observed_run": {
+    "tests_run": 13,
+    "failures": 2,
+    "errors": 0,
+    "plain_ok": false,
+    "issues": [
+      "Wrong test directory for genuine transaction manifest",
+      "Expected PARTIAL instead of exact PRIMARY_BRIDGE_PARTIAL status"
+    ],
+    "complete_original_console_saved": false
+  },
+  "prior_qualified_focus": {
+    "path": "evidence/batch6_coordinator_20261014/root_focus.log",
+    "tests_run": 13,
+    "failures": 0,
+    "errors": 0,
+    "plain_ok": true
+  },
+  "prior_qualified_ui": {
+    "path": "evidence/batch6_coordinator_20261014/root_ui_focus.log",
+    "tests_run": 1,
+    "failures": 0,
+    "errors": 0,
+    "plain_ok": true
+  },
+  "prior_combined_focus": {
+    "path": "evidence/batch6_coordinator_20261014/root_final_focus.log",
+    "tests_run": 15,
+    "failures": 0,
+    "errors": 0,
+    "plain_ok": true
+  },
+  "later_changes": [
+    "Additional actual EPA/operational runtime regressions",
+    "Explicit whole-withheld status and decoded input guards"
+  ],
+  "final_acceptance_requires_new_combined_run": true
+}

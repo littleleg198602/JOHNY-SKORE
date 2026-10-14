@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "ingested_at": "2026-10-14T13:40:29.027104+00:00",
+  "reviewed_at": "2026-10-14T13:40:29.027104+00:00",
+  "review_scope": "TWO_RETAINED_PROJECTED_HCA_OWNER_ENROLLMENTS; NO_CCN_OR_GROUP_INFERENCE",
+  "projected_fixture": {
+    "path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+    "sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+    "bytes": 815,
+    "capture_form": "PROJECTED_PUBLISHER_FIELDS",
+    "unchanged": true
+  },
+  "legacy_manifest": {
+    "path": "evidence/parallel_healthcare_20261011.json",
+    "sha256": "1d929c677044c89b44c5228d59d15e9239c83754a4236f6c7c1e1334cc9926c2",
+    "unchanged": true
+  },
+  "independent_sec_capture": {
+    "metadata_path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.metadata.json",
+    "metadata_sha256": "d126bcc298d0b42282815ed24d86487144619fc7f803217c910378a839b66826",
+    "source_url": "https://data.sec.gov/submissions/CIK0000860730.json",
+    "requested_at": "2026-10-14T13:34:53.967668+00:00",
+    "observed_at": "2026-10-14T13:35:04.920566+00:00",
+    "http_status": 200,
+    "status": "HTTP_200_COMPLETE",
+    "body_bytes": 161899,
+    "body_sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87",
+    "body_path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.body.json"
+  },
+  "cases": [
+    {
+      "exact_legacy_scope": {
+        "enrollment_id": "O20021115000002",
+        "owner_associate_id": "1052593506",
+        "owner_role_code": "35",
+        "provider_name": "HTI MEMORIAL HOSPITAL CORPORATION",
+        "legal_owner_name": "HCA HEALTHCARE INC",
+        "ccn": null,
+        "provider_associate_id": null
+      },
+      "source_association_date": "2007-06-28",
+      "source_association_date_is_publication_or_knowledge_time": false,
+      "legacy_capture_known_at_claim": [
+        "2026-10-11T10:17:04.506747+00:00"
+      ],
+      "legacy_original_http_capture_reproducible": false,
+      "original_projected_bytes_sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+      "projected_byte_hash_is_original_http_body_hash": false,
+      "current_independent_sec_name": "HCA Healthcare, Inc.",
+      "punctuation_or_brand_alias_inferred": false,
+      "current_ingested_at": "2026-10-14T13:40:29.027104+00:00",
+      "review": {
+        "schema_version": 1,
+        "contract_version": "cms-exact-ccn-owner-original-bytes-v1",
+        "reviewed_at": "2026-10-14T13:40:29.027104+00:00",
+        "ingested_at": "2026-10-14T13:40:29.027104+00:00",
+        "scope": {
+          "ticker": "HCA",
+          "issuer_cik": "0000860730",
+          "enrollment_id": "O20021115000002",
+          "owner_associate_id": "1052593506",
+          "owner_role_code": "35",
+          "expected_ccn": null
+        },
+        "decision": "WITHHOLD",
+        "identity_status": "UNVERIFIED",
+        "issuer_attribution_allowed": false,
+        "candidate_bridge_complete": false,
+        "proposed_record": null,
+        "reasons": [
+          "OWNERS_PROJECTED_OR_NONORIGINAL_BYTES",
+          "PROVIDER_ORIGINAL_CAPTURE_MISSING"
+        ],
+        "original_capture_pins": {
+          "issuer": {
+            "source_url": "https://data.sec.gov/submissions/CIK0000860730.json",
+            "body_sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87",
+            "body_bytes": 161899,
+            "requested_at": "2026-10-14T13:34:53.967668+00:00",
+            "observed_at": "2026-10-14T13:35:04.920566+00:00"
+          }
+        },
+        "exact_enrollment_query_complete": false,
+        "historical_ownership_attribution_allowed": false,
+        "association_date_is_publication_or_knowledge_time": false,
+        "issuer_wide_scope": false,
+        "ultimate_parent_inferred": false,
+        "product_ownership_inferred": false,
+        "negative_issuer_completeness_verified": false,
+        "live_acceptance_verified": false,
+        "score_changes": false,
+        "source_http_requests": 0,
+        "registry_modified": false
+      },
+      "additional_exact_source_gaps": [
+        "ORIGINAL_CMS_RESPONSE_AND_REQUEST_URL_NOT_RETAINED",
+        "HOSPITAL_ENROLLMENTS_CCN_AND_PROVIDER_PAC_CAPTURE_MISSING",
+        "OWNER_ROW_PROVIDER_PAC_NOT_PRESERVED",
+        "CMS_PUBLISHER_DATASET_VERSION_AND_PUBLICATION_CLOCK_NOT_CAPTURED",
+        "EXACT_LEGAL_OWNER_ISSUER_NAME_BRIDGE_MISSING",
+        "CURRENT_SEC_CAPTURE_CANNOT_BACKDATE_LEGACY_CMS_OBSERVATION"
+      ]
+    },
+    {
+      "exact_legacy_scope": {
+        "enrollment_id": "O20030204000016",
+        "owner_associate_id": "1052593506",
+        "owner_role_code": "35",
+        "provider_name": "HCA HEALTHONE LLC",
+        "legal_owner_name": "HCA HEALTHCARE INC",
+        "ccn": null,
+        "provider_associate_id": null
+      },
+      "source_association_date": "2011-08-05",
+      "source_association_date_is_publication_or_knowledge_time": false,
+      "legacy_capture_known_at_claim": [
+        "2026-10-11T10:17:04.506747+00:00"
+      ],
+      "legacy_original_http_capture_reproducible": false,
+      "original_projected_bytes_sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+      "projected_byte_hash_is_original_http_body_hash": false,
+      "current_independent_sec_name": "HCA Healthcare, Inc.",
+      "punctuation_or_brand_alias_inferred": false,
+      "current_ingested_at": "2026-10-14T13:40:29.027104+00:00",
+      "review": {
+        "schema_version": 1,
+        "contract_version": "cms-exact-ccn-owner-original-bytes-v1",
+        "reviewed_at": "2026-10-14T13:40:29.027104+00:00",
+        "ingested_at": "2026-10-14T13:40:29.027104+00:00",
+        "scope": {
+          "ticker": "HCA",
+          "issuer_cik": "0000860730",
+          "enrollment_id": "O20030204000016",
+          "owner_associate_id": "1052593506",
+          "owner_role_code": "35",
+          "expected_ccn": null
+        },
+        "decision": "WITHHOLD",
+        "identity_status": "UNVERIFIED",
+        "issuer_attribution_allowed": false,
+        "candidate_bridge_complete": false,
+        "proposed_record": null,
+        "reasons": [
+          "OWNERS_PROJECTED_OR_NONORIGINAL_BYTES",
+          "PROVIDER_ORIGINAL_CAPTURE_MISSING"
+        ],
+        "original_capture_pins": {
+          "issuer": {
+            "source_url": "https://data.sec.gov/submissions/CIK0000860730.json",
+            "body_sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87",
+            "body_bytes": 161899,
+            "requested_at": "2026-10-14T13:34:53.967668+00:00",
+            "observed_at": "2026-10-14T13:35:04.920566+00:00"
+          }
+        },
+        "exact_enrollment_query_complete": false,
+        "historical_ownership_attribution_allowed": false,
+        "association_date_is_publication_or_knowledge_time": false,
+        "issuer_wide_scope": false,
+        "ultimate_parent_inferred": false,
+        "product_ownership_inferred": false,
+        "negative_issuer_completeness_verified": false,
+        "live_acceptance_verified": false,
+        "score_changes": false,
+        "source_http_requests": 0,
+        "registry_modified": false
+      },
+      "additional_exact_source_gaps": [
+        "ORIGINAL_CMS_RESPONSE_AND_REQUEST_URL_NOT_RETAINED",
+        "HOSPITAL_ENROLLMENTS_CCN_AND_PROVIDER_PAC_CAPTURE_MISSING",
+        "OWNER_ROW_PROVIDER_PAC_NOT_PRESERVED",
+        "CMS_PUBLISHER_DATASET_VERSION_AND_PUBLICATION_CLOCK_NOT_CAPTURED",
+        "EXACT_LEGAL_OWNER_ISSUER_NAME_BRIDGE_MISSING",
+        "CURRENT_SEC_CAPTURE_CANNOT_BACKDATE_LEGACY_CMS_OBSERVATION"
+      ]
+    }
+  ],
+  "proposed_records": [],
+  "proposal_count": 0,
+  "production_healthcare_registry_sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+  "production_registry_modified": false,
+  "canonical_subject_count": 687,
+  "canonical_csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+  "source_http_requests_in_replay": 0,
+  "new_cms_or_clinical_http_requests": 0,
+  "http_count_scope": "Explicit collector API operations; read-only public schema/catalog discovery is recorded separately",
+  "bounded_sec_research_requests": 1,
+  "authorized_primary_capture_cap": 4,
+  "source_history_status": "WAIT_QUOTA_HISTORY",
+  "quota_gap": "Current-day original CMS quota history was not proven; no CMS call, store initialization, copy or reset was made.",
+  "new_quota_store_created": false,
+  "actual_complete_cms_positive_obtained": false,
+  "actual_complete_cms_negative_obtained": false,
+  "live_acceptance_verified": false,
+  "historical_ownership_attribution_allowed": false,
+  "issuer_wide_scope": false,
+  "score_changes": false,
+  "out_of_sample_verified": false,
+  "actual_user_windows_verified": false,
+  "remaining_work": [
+    "Recover the original CMS durable request history before a live CMS operation",
+    "Complete exact-enrollment Hospital Enrollments and All Owners original responses",
+    "Independent exact legal-owner issuer bridge available in that captured cohort",
+    "Broader dated provider/product exposure denominators, genuine complete negatives and point-in-time history"
+  ]
+}

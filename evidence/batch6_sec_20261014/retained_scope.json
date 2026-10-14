@@ -1,0 +1,14 @@
+{
+  "canonical_universe_count": 687,
+  "no_requests_to_nhtsa_clinicaltrials_or_usaspending_in_this_lane": true,
+  "provider_lease_acquired_and_released": true,
+  "public_request_rows_by_source": {
+    "nhtsa": 8,
+    "rss": 3
+  },
+  "retained_existing_db_read_only_survey": true,
+  "sec_daily_history_not_reconstructed": true,
+  "sec_daily_quota_managed_collector_claim": false,
+  "sec_one_off_primary_requests": 3,
+  "surveyed_at": "2026-10-14T13:52:29.995606+00:00"
+}

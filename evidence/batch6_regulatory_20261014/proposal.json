@@ -1,0 +1,18 @@
+{
+  "facility_name": "DOW INC",
+  "facility_pin": {
+    "capture_id": "epa_dow_20261002_summary_only",
+    "json_pointer": "/Results/Facilities/0"
+  },
+  "frs_registry_id": "110019986586",
+  "issuer_anchor_date": "2025-12-31",
+  "issuer_cik": "0001751788",
+  "issuer_name": "Dow Inc.",
+  "issuer_pin": {
+    "capture_id": "sec_dow_2025_10k"
+  },
+  "owner_entity_name": null,
+  "ownership_date": null,
+  "ownership_pin": null,
+  "ticker": "DOW"
+}
