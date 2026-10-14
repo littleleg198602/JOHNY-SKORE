@@ -278,7 +278,7 @@ def read_checkpoint(path: Path) -> dict | None:
 def parse_13f_list(snapshot: SourceSnapshot) -> list[dict]:
     if snapshot.kind != "13f_list":
         raise ValueError("Expected the quarterly SEC securities list")
-    rows, seen = [], set()
+    rows, seen = [], {}
     for line_number, line in enumerate(snapshot.payload.decode("utf-8-sig").splitlines(), 1):
         if line_number > MAX_SOURCE_ROWS:
             raise ValueError("SEC securities-list row budget exceeded")
@@ -293,14 +293,19 @@ def parse_13f_list(snapshot: SourceSnapshot) -> list[dict]:
         row = {"cusip": line[:9], "issuer_name": line[10:40].strip(),
                "class_description": line[40:67].strip(), "flags": line[67:].strip(),
                "line_number": line_number}
-        if not _name(row["issuer_name"]) or not row["class_description"] or row["cusip"] in seen:
+        option = row["class_description"] in {"CALL", "PUT"}
+        # Official lists reuse synthetic option identifiers (including rows
+        # with different addition/deletion flags). Preserve those source rows,
+        # but continue rejecting every collision involving an equity identity.
+        if (not _name(row["issuer_name"]) or not row["class_description"]
+                or (row["cusip"] in seen and not (option and seen[row["cusip"]]))):
             raise ValueError("Missing labels or duplicate CUSIP in SEC list")
         # SEC's synthetic option identifiers do not always have a standard
         # CUSIP check digit. They remain non-equity rows and cannot become a
         # candidate or an exported identity. All other rows require a checksum.
         if not _valid_cusip(row["cusip"]) and row["class_description"] not in {"CALL", "PUT"}:
             raise ValueError(f"Invalid CUSIP in SEC securities-list row {line_number}")
-        seen.add(row["cusip"])
+        seen[row["cusip"]] = option
         rows.append(row)
     if not rows:
         raise ValueError("No securities in SEC list")
@@ -632,7 +637,8 @@ class Sec13fIdentityBulk:
             raise ValueError("Quarterly list snapshot precedes the quarter close")
         self.catalog = parse_ticker_catalog(self.catalog_snapshot)
         self.rows = parse_13f_list(self.list_snapshot)
-        self.by_cusip = {row["cusip"]: row for row in self.rows}
+        self.by_cusip = {row["cusip"]: row for row in self.rows
+                         if share_class(row["class_description"]) is not None}
         self.by_name = defaultdict(list)
         self.by_token = defaultdict(list)
         for row in self.rows:

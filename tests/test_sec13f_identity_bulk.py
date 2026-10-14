@@ -94,6 +94,26 @@ def builder(sources=None, *, universe=None, existing=None, as_of=NOW):
 
 
 class Sec13fBulkTests(unittest.TestCase):
+    def test_repeated_official_synthetic_options_are_preserved_but_never_indexed_as_equity(self):
+        payload = (b"G8267K906 SMX SEC MATTERS PLC           CALL                       *A*         E\n"
+                   b"G8267K906 SMX SEC MATTERS PLC           CALL                       *D*         E\n"
+                   b"G8267K956 SMX SEC MATTERS PLC           PUT                        *A*         E\n"
+                   b"G8267K956 SMX SEC MATTERS PLC           PUT                        *D*         E\n")
+        # Real publisher rows, synthetic fixture observation time.
+        base = securities([("037833100", "APPLE INC", "COM")])
+        source = SourceSnapshot("13f_list", base.url, OBSERVED, base.payload + payload)
+        self.assertEqual(5, len(parse_13f_list(source)))
+        service = builder([catalog(), source])
+        self.assertEqual({"037833100"}, set(service.by_cusip))
+        self.assertEqual(["037833100"], [r["cusip"] for r in service.candidate("AAPL")["candidate_instruments"]])
+
+    def test_option_collision_with_equity_is_rejected_in_both_orders(self):
+        equity = securities().payload
+        option = securities([("037833100", "APPLE INC", "CALL")]).payload
+        for body in (equity + option, option + equity):
+            with self.assertRaisesRegex(ValueError, "duplicate CUSIP"):
+                parse_13f_list(SourceSnapshot("13f_list", list_url("2026q2"), OBSERVED, body))
+
     def test_official_option_rows_with_synthetic_check_digits_never_become_identities(self):
         # Three rows from the official 2026q2 list, with a synthetic fixture
         # timestamp. This is a format regression test, not a live capture.

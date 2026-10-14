@@ -202,3 +202,39 @@ na uživatelově Windows ani stav specialisty DONE se touto změnou nedokládá.
 Oficiální formáty: [kvartální seznam SEC](https://www.sec.gov/divisions/investment/13flists.htm),
 [SEC API](https://www.sec.gov/search-filings/edgar-application-programming-interfaces),
 [Schedule 13D/G XML specification](https://www.sec.gov/file/schedule-13d-13g-tech-specs-20).
+
+## Ověření skutečného globálního cache — 14. října 2026
+
+Oficiální kvartální TXT 2026q2 a aktuální SEC ticker katalog byly skutečně
+načteny a hashově uloženy. TXT má 25 333 řádků a 1 030 opakovaných syntetických
+opčních identifikátorů. Tyto opakované CALL/PUT řádky, někdy s rozdílným
+addition/deletion příznakem, nejsou konfliktní akciové identity. Parser je
+uchovává jako zdrojové řádky a nepřidává je do akciového indexu. Kolize
+zahrnující akcii nadále odmítá v obou pořadích; kontrolní číslice akcií a
+validace formátu zůstávají vynucené.
+
+Původní parser kvůli těmto legitimním opčním řádkům celý živý vstup odmítl.
+Po opravě proběhla skutečná příprava všech 687 slotů: 149 ALREADY_REVIEWED,
+515 NEEDS_REVIEW, 21 WAIT_INSTRUMENT_EVIDENCE a 2 WAIT_TICKER_CIK (LEG, PSTG).
+Je to úplná review fronta, nikoli 687 ověřených instrumentů.
+
+Aktuální katalog přiřazuje XOM k CIK 0002115436, historický Q2 registr používá
+CIK 0000034088. Primární 8-K původního emitenta potvrzuje redomiciliation
+merger účinný 1. července 2026 a výměnu akcií jedna za jednu. Nový emitent
+má samostatné primární podání. Historický Q2 záznam proto nebyl přepsán ani
+nový katalog vydáván za důkaz identity v Q2. Nový interval, instrumentové
+vazby a případné historické aliasy stále vyžadují úplný review postup.
+
+Důkaz včetně hashů, příkladů opčních řádků a primárních XOM pasáží je v
+`evidence/identity_specialist_audit_20261014.json`. Raw cache a restartovatelná
+fronta jsou v `outputs/identity_specialist_20261014`. Specialistovi č. 1
+zůstává stav PARTIAL/PENDING: širší dceřiné, značkové a produktové vazby,
+LEG/PSTG, nové instrumentové intervaly, koncový Windows a historická
+akceptace nejsou tímto krokem dokončené.
+
+Další primární kontrola chybějících katalogových symbolů načetla původní
+emitenty. LEG v podání z 26. srpna 2026 uvádí dokončení fúze, přechod pod
+Somnigroup a požadavek na pozastavení/stažení obchodování na NYSE. Původní
+CIK PSTG nyní uvádí Everpure a obchodovaný symbol P. Samotná současná krycí
+stránka neprokazuje datum změny tickeru ani nepřerušenou platnost instrumentu;
+statické aliasy, původní universe a historické registry proto nebyly změněny.

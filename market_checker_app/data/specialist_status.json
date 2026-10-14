@@ -10,10 +10,12 @@
       "research": "01-04, 14",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Reviewed SEC bulk exports now validate exact dated corporate-action transitions against hash-bound neighboring instrument identities and visible primary SEC paragraphs. Existing row validity and knowledge times are preserved; incompatible overlaps, hidden/future transitions and concurrent baseline changes fail closed. Production 13F remains 150/687. Remaining: actual official-cache capture and wider primary issuer/subsidiary/brand/product identities; test transitions are synthetic.",
+      "next": "Actual SEC 2026q2 list and ticker catalog are captured and all 687 review slots prepared. Repeated synthetic option CUSIPs remain non-equity; equity collisions still fail closed. Current catalog has unique issuer candidates for 685 tickers; LEG August 26 primary filing discloses merger and requested suspension/withdrawal; original PSTG CIK currently has symbol P (Everpure), without an approved dated alias interval. XOM moved from CIK 0000034088 to 0002115436 effective July 1, 2026 according to primary SEC filings; historical Q2 mapping is preserved. Remaining: reviewed dated instrument intervals, broader primary subsidiary/brand/product identities and full live/Windows/history acceptance.",
       "development_lane": "identity_bulk",
       "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
-      "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json"
+      "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json",
+      "official_cache_audit_evidence": "evidence/identity_specialist_audit_20261014.json",
+      "last_audited_at": "2026-10-14T12:31:06.091355+00:00"
     },
     {
       "id": "sec",
