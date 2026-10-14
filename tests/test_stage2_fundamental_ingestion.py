@@ -29,6 +29,15 @@ from market_checker_app.collectors.sec_edgar_client import (
 )
 from market_checker_app.config import FundamentalIngestionConfig
 from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.services.primary_listing_service import PrimaryListingRegistry
+
+
+def _issuer_only_registry():
+    # This suite exercises SEC ingestion's ticker-only fallback. Real retained
+    # cover captures must not change its fixture scope with the wall clock.
+    return EntityRegistryAgent(listing_registry=PrimaryListingRegistry({
+        'schema_version':1,'scope':'AS_REPORTED_REGISTERED_CLASS','records':[],
+    }))
 
 
 def _dt(value: str) -> datetime:
@@ -230,7 +239,7 @@ def _run_acceptance(client: _FakeBundleClient):
         user_agent="JohnySkoreTests tests@example.com",
     )
     orchestrator = OrchestratorAgent(shadow_mode=True)
-    orchestrator.register(EntityRegistryAgent())
+    orchestrator.register(_issuer_only_registry())
     orchestrator.register(SecFundamentalsAgent(config, client=client))
     orchestrator.register(PredictionV21AdapterAgent())
     orchestrator.register(QualityGateAgent())
@@ -376,7 +385,7 @@ class StageTwoAcceptanceTests(unittest.TestCase):
             user_agent="JohnySkoreTests tests@example.com",
         )
         orchestrator = OrchestratorAgent(shadow_mode=True)
-        orchestrator.register(EntityRegistryAgent())
+        orchestrator.register(_issuer_only_registry())
         orchestrator.register(
             SecFundamentalsAgent(config, client=_SameIssuerShareClassClient())
         )

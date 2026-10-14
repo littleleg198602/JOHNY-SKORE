@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "specialist": "identity",
+  "observed_at": "2026-10-14T17:03:29.177947+00:00",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "scope": "Current canonical issuer resolution and exact AS_REPORTED registered-class runtime; not complete subsidiary/product, Windows or historical acceptance",
+  "canonical_tickers": 687,
+  "issuer_ciks_present": 687,
+  "registered_class_observations": 685,
+  "runtime_states": {
+    "RESOLVED_AS_REPORTED": 685,
+    "ISSUER_ONLY": 1,
+    "INACTIVE": 1
+  },
+  "primary_registry_sha256": "c2f5ec2122d0c9e49604653fe40cc311f5a1af0f347d6a5cbc2431a917439e1e",
+  "reviewed_events_sha256": "9aca7958b98fe5784176c03bd6beaa1f173e5c357f648e1225f99a74950025fd",
+  "issuer_catalog": {
+    "sha256": "856eea28fd92ac1767dc845daf14a2bae8693960194684b4c974bb026ef5c693",
+    "observed_at": "2026-10-14T13:17:07.238770+00:00"
+  },
+  "primary_bytes_revalidated": 685,
+  "citi_repeat_capture": {
+    "status": "VALIDATED",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/831001/000110465926115323/c-20261013xex99d3.htm",
+    "sha256": "7cbc98396ceacf85225d0f77bfebd6005ac994c0a5c454bd86ec5a822ad83f19",
+    "context_source": {
+      "kind": "ticker_filing",
+      "observed_at": "2026-10-14T16:59:11.945563+00:00",
+      "published_at": "2026-10-13T18:09:22+00:00",
+      "sha256": "09ff13d755f3aad59a8b3d9c16375844f29ed237e0672a274bd4bb246a884d1e",
+      "url": "https://www.sec.gov/Archives/edgar/data/831001/000110465926115323/c-20261013x8k.htm"
+    },
+    "known_at": "2026-10-14T16:59:12.243281+00:00"
+  },
+  "special_cases": {
+    "XOM": {
+      "cik": "0002115436",
+      "canonical_ticker": "XOM",
+      "yahoo_ticker": "XOM",
+      "parent_entity_id": null,
+      "share_class": "Common Stock, par value $0.001 per share",
+      "resolution": "RESOLVED_AS_REPORTED",
+      "instrument_status": "ACTIVE",
+      "class_source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526402986/d15072d8k.htm"
+    },
+    "LEG": {
+      "cik": "0000058492",
+      "canonical_ticker": "LEG",
+      "yahoo_ticker": "LEG",
+      "parent_entity_id": "cik:0001206264",
+      "share_class": null,
+      "resolution": "INACTIVE",
+      "instrument_status": "INACTIVE",
+      "class_source_url": null
+    },
+    "PSTG": {
+      "cik": "0001474432",
+      "canonical_ticker": "PSTG",
+      "yahoo_ticker": "P",
+      "parent_entity_id": null,
+      "share_class": "Class A Common Stock, $0.0001 par value per share",
+      "resolution": "RESOLVED_AS_REPORTED",
+      "instrument_status": "ACTIVE",
+      "class_source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000084/pstg-20260826.htm"
+    },
+    "C": {
+      "cik": "0000831001",
+      "canonical_ticker": "C",
+      "yahoo_ticker": "C",
+      "parent_entity_id": null,
+      "share_class": "Common Stock, par value $.01 per share",
+      "resolution": "RESOLVED_AS_REPORTED",
+      "instrument_status": null,
+      "class_source_url": "https://www.sec.gov/Archives/edgar/data/831001/000110465926115323/c-20261013xex99d3.htm"
+    },
+    "OZK": {
+      "cik": "0001569650",
+      "canonical_ticker": "OZK",
+      "yahoo_ticker": "OZK",
+      "parent_entity_id": null,
+      "share_class": null,
+      "resolution": "ISSUER_ONLY",
+      "instrument_status": null,
+      "class_source_url": null
+    }
+  },
+  "scoring_applied": false,
+  "external_blockers": [
+    {
+      "ticker": "OZK",
+      "domain": "www.nasdaqtrader.com",
+      "observed_error": "Proxy CONNECT 403; current environment egress denies official symbol directory",
+      "draft_saved": true,
+      "requires_publish": true
+    }
+  ],
+  "remaining_acceptance": [
+    "OZK independent primary registered-class observation",
+    "Relevant wider subsidiary/brand/product identities",
+    "Actual Windows end-to-end run of this change",
+    "Historical evaluation and applicable specialist acceptance"
+  ],
+  "linux_registry_persistence": {
+    "observed_at": "2026-10-14T17:04:32.230708+00:00",
+    "entities_persisted": 687,
+    "inactive_LEG_not_resolved": true,
+    "canonical_PSTG_and_successor_XOM_resolved": true,
+    "output_database": "outputs/identity_runtime_persistence_20261014.db",
+    "scope": "Identity orchestrator and SQLite with real retained primary observations; no complete user Windows or financial pipeline claim"
+  },
+  "date_only_transition_policy": "Prior binding ends at start of event date; successor/ended observation starts next UTC day. Uncertain transition day grants no identity credit.",
+  "nasdaq_collector": {
+    "implemented": true,
+    "parser_fixture_tests": "PASS; not live evidence",
+    "live_attempted_at": "2026-10-14T17:17:39.793679+00:00",
+    "live_status": "ACCESS_BLOCKED",
+    "observed_error": "urlopen error Tunnel connection failed: 403 Forbidden",
+    "production_capture_written": false
+  },
+  "final_runtime_observed_at": "2026-10-14T17:18:58.837379+00:00",
+  "test_evidence": "evidence/identity_runtime_tests_20261014.json",
+  "tests_run": 952,
+  "tests_successful": true
+}

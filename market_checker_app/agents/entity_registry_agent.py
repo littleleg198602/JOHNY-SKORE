@@ -26,6 +26,12 @@ from market_checker_app.utils.entity_identifiers import (
 )
 from market_checker_app.utils.source_validation import public_https_reference
 from market_checker_app.utils.text import normalize_ticker
+from market_checker_app.services.reviewed_identity_service import (
+    ReviewedIdentityRegistry, apply_decision, clock,
+)
+from market_checker_app.services.issuer_catalog_service import IssuerCatalog
+from market_checker_app.services.primary_listing_service import PrimaryListingRegistry
+from market_checker_app.services.nasdaq_listing_service import NasdaqListingRegistry
 
 
 def _optional_text(value: object, *, uppercase: bool = False) -> str | None:
@@ -120,9 +126,13 @@ class EntityRegistryAgent(BaseAgent):
         identity_records: Mapping[str, EntityRecord | Mapping[str, Any]] | None = None,
         *,
         primary_registry_client: PrimaryIdentityResolver | None = None,
+        reviewed_registry: ReviewedIdentityRegistry | None = None,
+        listing_registry: PrimaryListingRegistry | None = None,
     ) -> None:
         self._identity_records = dict(identity_records or {})
         self._primary_registry_client = primary_registry_client
+        self._reviewed_registry = reviewed_registry
+        self._listing_registry = listing_registry
 
     @staticmethod
     def _normalized_records(
@@ -144,7 +154,7 @@ class EntityRegistryAgent(BaseAgent):
         raw: Mapping[str, Any],
         observed_aliases: list[str],
     ) -> EntityRecord:
-        declared_ticker = normalize_ticker(raw.get("ticker"))
+        declared_ticker = normalize_ticker(raw.get("ticker") or "")
         if declared_ticker and declared_ticker != ticker:
             raise ValueError(
                 f"Identity record ticker {declared_ticker!r} does not match {ticker}"
@@ -423,13 +433,84 @@ class EntityRegistryAgent(BaseAgent):
 
         conflicts: list[IdentityConflictRecord] = []
         warnings: list[str] = []
+        reviewed = self._reviewed_registry or ReviewedIdentityRegistry.load()
+        catalog = IssuerCatalog.load(as_of=context.started_at)
+        listings = self._listing_registry or PrimaryListingRegistry.load()
+        exchange = NasdaqListingRegistry.load_optional()
+        dated_entities = []
+        for entity in entities:
+            # Fill only unconfigured identities. An explicit user's registry
+            # is never replaced by the present-day ticker catalog.
+            if entity.ticker not in configured:
+                binding = catalog.lookup(entity.ticker, as_of=context.started_at)
+                if binding:
+                    entity = replace(entity, cik=binding['cik'], name=binding['name'],
+                        legal_entity_id='cik:'+binding['cik'], issuer_id='cik:'+binding['cik'],
+                        source='sec_issuer_catalog', source_url=binding['source_url'],
+                        valid_from=clock(binding['known_at']), confidence=0.75,
+                        metadata={**entity.metadata, 'identity_resolution':'ISSUER_ONLY',
+                            'known_at':binding['known_at'],'issuer_catalog_sha256':binding['source_sha256'],
+                            'instrument_identity_verified':False})
+            decision = reviewed.decision(entity.ticker, as_of=context.started_at)
+            if decision and entity.cik not in {None, decision['previous_cik'], decision['cik']}:
+                conflicts.append(IdentityConflictRecord(
+                    conflict_id=_stable_id(entity.entity_id, entity.cik, decision['cik'], decision['id']),
+                    ticker=entity.ticker, entity_id=entity.entity_id, field_name='cik',
+                    existing_value=entity.cik, candidate_value=decision['cik'],
+                    existing_source=entity.source, candidate_source='reviewed_primary_identity',
+                    observed_at=context.started_at, candidate_source_url=decision['primary_url'],
+                    reason='Configured CIK contradicts the reviewed primary identity.'))
+                entity = replace(entity, metadata={**entity.metadata, 'identity_resolution':'QUARANTINED'})
+            elif decision:
+                entity = apply_decision(entity, decision)
+            else:
+                when = clock(context.started_at)
+                unavailable = ((entity.valid_from and entity.valid_from > when)
+                               or (entity.valid_to and entity.valid_to <= when)
+                               or (entity.metadata.get('known_at') and clock(entity.metadata['known_at']) > when))
+                if unavailable:
+                    entity = replace(entity, cik=None, isin=None, lei=None,
+                        legal_entity_id=None, issuer_id=None, instrument_id=None,
+                        confidence=0.0, metadata={**entity.metadata, 'identity_resolution':'UNAVAILABLE_AT_ASOF'})
+            # Explicit instrument registries remain authoritative. Reviewed
+            # succession may replace the old issuer before selecting a class.
+            if (entity.ticker not in configured
+                    and entity.metadata.get('identity_resolution') not in {'QUARANTINED','INACTIVE'}):
+                proof=listings.lookup(entity.ticker, symbol=entity.yahoo_ticker,
+                    cik=entity.cik, as_of=context.started_at, catalog=catalog)
+                if proof is None and exchange:
+                    proof=exchange.lookup(entity.yahoo_ticker,cik=entity.cik,
+                        as_of=context.started_at,catalog=catalog)
+                if proof:
+                    entity=replace(entity, share_class=proof['class_title'],
+                        instrument_id=f"issuer:{entity.cik}:symbol:{proof['ticker']}:class:{_stable_id(proof['class_title'])}",
+                        source=entity.source if decision else ('nasdaq_primary_listing' if proof.get('scope') else 'sec_primary_listing'),
+                        source_url=entity.source_url if decision else proof['source_url'],
+                        valid_from=(entity.valid_from if decision else
+                            max(entity.valid_from or clock(proof['known_at']),clock(proof['known_at']))),
+                        confidence=1.0,
+                        metadata={**entity.metadata,'identity_resolution':'RESOLVED_AS_REPORTED',
+                            'instrument_identity_verified':True,
+                            'instrument_identifier_scope':proof.get('scope','AS_REPORTED_REGISTERED_CLASS')+'; no inferred CUSIP, ISIN or LEI',
+                            'class_as_reported_at':proof['anchor_date'],
+                            'class_known_at':proof['known_at'],
+                            'class_source_sha256':proof['sha256'],
+                            'class_source_url':proof['source_url'],
+                            'class_snapshot_id':proof['snapshot_id'],
+                            'class_context_ref':proof['context_ref'],
+                            'class_context_source':proof.get('context_source'),
+                            'known_at':max(clock(entity.metadata.get('known_at',proof['known_at'])),clock(proof['known_at'])).isoformat()})
+            dated_entities.append(entity)
+        entities = dated_entities
         primary_attempted = 0
         primary_resolved = 0
         lookup_failures = 0
         if self._primary_registry_client is not None:
             enriched: list[EntityRecord] = []
             for entity in entities:
-                if not entity.lei and not entity.isin:
+                if (entity.metadata.get('instrument_status') == 'INACTIVE'
+                        or entity.metadata.get('identity_resolution') == 'QUARANTINED'
+                        or (not entity.lei and not entity.isin)):
                     enriched.append(entity)
                     continue
                 primary_attempted += 1
@@ -486,11 +567,13 @@ class EntityRegistryAgent(BaseAgent):
             1
             for entity in entities
             if entity.legal_entity_id and entity.instrument_id
+            and entity.metadata.get('identity_resolution') not in {'QUARANTINED', 'INACTIVE', 'ISSUER_ONLY'}
         )
         unresolved_tickers = sorted(
             entity.ticker
             for entity in entities
             if not (entity.legal_entity_id and entity.instrument_id)
+            or entity.metadata.get('identity_resolution') in {'QUARANTINED', 'INACTIVE', 'ISSUER_ONLY'}
         )
         return AgentResult(
             status=(

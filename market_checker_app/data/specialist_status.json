@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-11",
+  "as_of": "2026-10-14",
   "scope": "687 US watchlist tickers; sector sources apply only to relevant companies",
   "completion_rule": "DONE requires implemented collection, dated issuer/instrument/product identity, positive and negative live evidence, Windows end-to-end run, measured applicable coverage and historical evaluation before any score change.",
   "specialists": [
@@ -10,12 +10,14 @@
       "research": "01-04, 14",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Actual SEC 2026q2 list and ticker catalog are captured and all 687 review slots prepared. Repeated synthetic option CUSIPs remain non-equity; equity collisions still fail closed. Current catalog has unique issuer candidates for 685 tickers; LEG August 26 primary filing discloses merger and requested suspension/withdrawal; original PSTG CIK currently has symbol P (Everpure), without an approved dated alias interval. XOM moved from CIK 0000034088 to 0002115436 effective July 1, 2026 according to primary SEC filings; historical Q2 mapping is preserved. Remaining: reviewed dated instrument intervals, broader primary subsidiary/brand/product identities and full live/Windows/history acceptance.",
+      "next": "Default application runtime now resolves all 687 issuer slots and 685 exact primary registered-class observations; LEG is inactive and OZK remains issuer-only. Dated reviewed XOM succession preserves prior issuer history, LEG retains its own identity separately from parent SGI, and PSTG resolves to observed current symbol P without inventing a historical alias interval. Source hashes, separate reporting/knowledge dates, stale/future/ambiguity guards and immutable history are enforced. Remaining: official OZK class evidence (Nasdaq egress draft pending publication), relevant broader subsidiary/brand/product identities, actual Windows end-to-end and historical acceptance. No score activation or specialist DONE claim.",
       "development_lane": "identity_bulk",
       "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json",
       "official_cache_audit_evidence": "evidence/identity_specialist_audit_20261014.json",
-      "last_audited_at": "2026-10-14T12:31:06.091355+00:00"
+      "last_audited_at": "2026-10-14T17:03:29.177947+00:00",
+      "runtime_primary_evidence": "evidence/identity_runtime_primary_20261014.json",
+      "runtime_test_evidence": "evidence/identity_runtime_tests_20261014.json"
     },
     {
       "id": "sec",

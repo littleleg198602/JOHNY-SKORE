@@ -1772,6 +1772,46 @@ class SQLiteStore:
                 agent_run_id = int(cursor.lastrowid)
 
                 for entity in result.entities:
+                    closing = entity.metadata.get('close_previous_identity')
+                    if closing:
+                        from market_checker_app.services.reviewed_identity_service import ReviewedIdentityRegistry, clock
+                        approved = ReviewedIdentityRegistry.load().decision(entity.ticker, as_of=report.started_at)
+                        if (approved is None or closing.get('event_id') != approved['id']
+                                or entity.cik != approved['cik']
+                                or entity.source_url != approved['primary_url']
+                                or closing.get('previous_cik') != approved['previous_cik']
+                                or closing.get('valid_to') != approved['close_prior_at']):
+                            raise sqlite3.IntegrityError('Unverified identity closure')
+                        cutoff = approved['close_prior_at']
+                        prior_rows = conn.execute(
+                            'SELECT entity_id,valid_from,valid_to,metadata_json FROM entities '
+                            'WHERE ticker=? AND (cik=? OR cik IS NULL)',
+                            (entity.ticker, approved['previous_cik'])).fetchall()
+                        for prior_id, start, end, raw_metadata in prior_rows:
+                            metadata = json.loads(raw_metadata or '{}')
+                            if (metadata.get('reviewed_identity_event') == approved['id']
+                                    and metadata.get('instrument_status') == approved['instrument_status']):
+                                continue
+                            metadata.update(reviewed_identity_event=approved['id'],
+                                            reviewed_invalid_after=cutoff)
+                            active = conn.execute(
+                                'SELECT effective_from FROM entity_identity_versions '
+                                'WHERE entity_id=? AND superseded_at IS NULL', (prior_id,)).fetchone()
+                            start = start or (active[0] if active else None)
+                            if start and clock(start) < clock(cutoff):
+                                end = min(end, cutoff) if end else cutoff
+                            conn.execute('UPDATE entities SET valid_from=?,valid_to=?,metadata_json=? WHERE entity_id=?',
+                                (start, end, self._json_dump(metadata), prior_id))
+                            self._persist_entity_identity_version(conn, entity_id=prior_id,
+                                orchestration_id=report.orchestration_id, agent_run_id=agent_run_id,
+                                observed_at=to_iso(report.started_at))
+                            if approved['kind'] == 'ISSUER_SUCCESSION':
+                                # Only this authenticated old->new issuer event
+                                # may release the identifiers on the current row.
+                                # The prior values remain in immutable versions.
+                                conn.execute('UPDATE entities SET cik=NULL,isin=NULL,lei=NULL,legal_entity_id=NULL,'
+                                    'issuer_id=NULL,instrument_id=NULL,parent_entity_id=NULL,valid_from=NULL,valid_to=NULL '
+                                    'WHERE entity_id=?', (prior_id,))
                     existing_columns = (
                         "ticker",
                         "aliases_json",
@@ -3413,9 +3453,28 @@ class SQLiteStore:
         if known_at.tzinfo is None or effective_at.tzinfo is None:
             raise ValueError("Ticker lookup requires timezone-aware dates")
         effective = effective_at.astimezone(timezone.utc)
-        versions = self.read_entity_identity_as_of(known_at)
+        self.ensure_schema()
+        with self._connect() as conn:
+            versions = pd.read_sql_query(
+                'SELECT * FROM entity_identity_versions WHERE observed_at<=? '
+                'AND effective_from<=? '
+                'ORDER BY entity_id,observed_at DESC,rowid DESC', conn,
+                params=[known_at.astimezone(timezone.utc).isoformat(), effective.isoformat()])
+        # The most recently known description of each effective interval is
+        # authoritative, even when another interval is now the active version.
+        # Select that description before checking its end: excluding a closed
+        # correction in SQL would resurrect an older open-ended observation.
+        # Multiple descriptions written in one transaction share a clock;
+        # insertion order resolves that tie. Digest IDs carry no chronology.
+        if not versions.empty:
+            versions = versions.drop_duplicates('entity_id', keep='first')
         selected: list[int] = []
         for index, row in versions.iterrows():
+            metadata = json.loads(row['metadata_json'] or '{}')
+            invalid_after = metadata.get('reviewed_invalid_after')
+            if metadata.get('instrument_status') == 'INACTIVE' or (
+                    invalid_after and effective >= datetime.fromisoformat(invalid_after)):
+                continue
             if row["ticker"] == target:
                 start = datetime.fromisoformat(row["effective_from"])
                 end = (datetime.fromisoformat(row["effective_to"])

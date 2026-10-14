@@ -1768,6 +1768,8 @@ class QualityGateAgent(BaseAgent):
                 if isinstance(registered_entities, dict)
                 else None
             )
+            if entity is not None and entity.metadata.get('instrument_status') == 'INACTIVE':
+                rejects.append(_issue('inactive_instrument', 'Primární zdroj potvrzuje ukončený instrument.'))
             legal_entity_id = (
                 entity.legal_entity_id if hasattr(entity, "legal_entity_id") else None
             )

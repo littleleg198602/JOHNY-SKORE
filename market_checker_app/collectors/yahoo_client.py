@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from datetime import datetime, timezone
 import time
 from typing import Any
 
@@ -117,8 +118,10 @@ class YahooClient:
 
     @classmethod
     def normalize_yahoo_symbol(cls, ticker: str) -> str:
-        """Map only known class-share notation while preserving other suffixes."""
-        return normalize_yahoo_symbol(ticker)
+        """Use reviewed current symbol bindings only at the provider boundary."""
+        from market_checker_app.services.reviewed_identity_service import ReviewedIdentityRegistry
+        symbol = ReviewedIdentityRegistry.load().provider_symbol(normalize_yahoo_symbol(ticker), as_of=datetime.now(timezone.utc))
+        return normalize_yahoo_symbol(symbol)
 
     @classmethod
     def _metadata_status(cls, info: Any) -> tuple[str, int]:
