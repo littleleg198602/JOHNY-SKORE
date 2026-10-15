@@ -1,0 +1,390 @@
+{
+  "recorded_at": "2026-10-15T12:25:04+00:00",
+  "public_head": "bfedb764da3a189df1d9f8eb799cf834867f8083",
+  "public_tree": "e368e91e634cbc86b09c65381ae8a262db254898",
+  "run": {
+    "id": 38701933085,
+    "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38701933085",
+    "status": "completed",
+    "conclusion": "failure",
+    "created_at": "2026-10-15T07:54:31Z",
+    "updated_at": "2026-10-15T08:30:18Z"
+  },
+  "jobs": [
+    {
+      "id": 116311951823,
+      "name": "Contract, source and persistence agent",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38701933085/job/116311951823",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-15T07:54:33Z",
+      "completed_at": "2026-10-15T08:00:30Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T07:54:34Z",
+          "completed_at": "2026-10-15T07:54:35Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T07:54:35Z",
+          "completed_at": "2026-10-15T07:54:38Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T07:54:38Z",
+          "completed_at": "2026-10-15T07:54:40Z"
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T07:54:40Z",
+          "completed_at": "2026-10-15T07:54:59Z"
+        },
+        {
+          "name": "Compile every Python module",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T07:54:59Z",
+          "completed_at": "2026-10-15T07:55:00Z"
+        },
+        {
+          "name": "Run deterministic test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-15T07:55:00Z",
+          "completed_at": "2026-10-15T08:00:27Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-15T08:00:27Z",
+          "completed_at": "2026-10-15T08:00:28Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-15T08:00:28Z",
+          "completed_at": "2026-10-15T08:00:28Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-15T08:00:28Z",
+          "completed_at": "2026-10-15T08:00:28Z"
+        }
+      ]
+    },
+    {
+      "id": 116311952050,
+      "name": "Streamlit UI agent",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38701933085/job/116311952050",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-15T07:54:33Z",
+      "completed_at": "2026-10-15T07:55:16Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T07:54:34Z",
+          "completed_at": "2026-10-15T07:54:35Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T07:54:35Z",
+          "completed_at": "2026-10-15T07:54:38Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T07:54:38Z",
+          "completed_at": "2026-10-15T07:54:40Z"
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T07:54:40Z",
+          "completed_at": "2026-10-15T07:54:59Z"
+        },
+        {
+          "name": "Verify the application and Yahoo controls render",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T07:54:59Z",
+          "completed_at": "2026-10-15T07:55:13Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-15T07:55:13Z",
+          "completed_at": "2026-10-15T07:55:14Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-15T07:55:14Z",
+          "completed_at": "2026-10-15T07:55:14Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-15T07:55:14Z",
+          "completed_at": "2026-10-15T07:55:14Z"
+        }
+      ]
+    },
+    {
+      "id": 116311952169,
+      "name": "Windows contracts, persistence and UI",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38701933085/job/116311952169",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-10-15T07:54:33Z",
+      "completed_at": "2026-10-15T08:30:11Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T07:54:34Z",
+          "completed_at": "2026-10-15T07:54:35Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T07:54:35Z",
+          "completed_at": "2026-10-15T07:54:43Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T07:54:43Z",
+          "completed_at": "2026-10-15T07:54:53Z"
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T07:54:53Z",
+          "completed_at": "2026-10-15T07:55:55Z"
+        },
+        {
+          "name": "Compile every Python module",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T07:55:55Z",
+          "completed_at": "2026-10-15T07:55:57Z"
+        },
+        {
+          "name": "Verify SEC checkpoint and process resume regressions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-15T07:55:57Z",
+          "completed_at": "2026-10-15T07:56:28Z"
+        },
+        {
+          "name": "Run deterministic Windows suite",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 7,
+          "started_at": "2026-10-15T07:56:28Z",
+          "completed_at": "2026-10-15T08:30:06Z"
+        },
+        {
+          "name": "Preserve Windows verification log",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-15T08:30:06Z",
+          "completed_at": "2026-10-15T08:30:07Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 15,
+          "started_at": "2026-10-15T08:30:07Z",
+          "completed_at": "2026-10-15T08:30:07Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-15T08:30:07Z",
+          "completed_at": "2026-10-15T08:30:09Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-15T08:30:09Z",
+          "completed_at": "2026-10-15T08:30:09Z"
+        }
+      ]
+    },
+    {
+      "id": 116311952211,
+      "name": "687 ticker scale and progress agent",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38701933085/job/116311952211",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-15T07:54:33Z",
+      "completed_at": "2026-10-15T07:55:29Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T07:54:34Z",
+          "completed_at": "2026-10-15T07:54:35Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-15T07:54:35Z",
+          "completed_at": "2026-10-15T07:54:37Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T07:54:37Z",
+          "completed_at": "2026-10-15T07:54:40Z"
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-15T07:54:40Z",
+          "completed_at": "2026-10-15T07:55:00Z"
+        },
+        {
+          "name": "Verify exact 687-ticker contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-15T07:55:00Z",
+          "completed_at": "2026-10-15T07:55:27Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-15T07:55:27Z",
+          "completed_at": "2026-10-15T07:55:27Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-15T07:55:27Z",
+          "completed_at": "2026-10-15T07:55:27Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-15T07:55:27Z",
+          "completed_at": "2026-10-15T07:55:27Z"
+        }
+      ]
+    },
+    {
+      "id": 116325819709,
+      "name": "Deterministic release gate",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38701933085/job/116325819709",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-10-15T08:30:14Z",
+      "completed_at": "2026-10-15T08:30:17Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-15T08:30:15Z",
+          "completed_at": "2026-10-15T08:30:15Z"
+        },
+        {
+          "name": "Require every test agent to pass",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 2,
+          "started_at": "2026-10-15T08:30:15Z",
+          "completed_at": "2026-10-15T08:30:15Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-15T08:30:15Z",
+          "completed_at": "2026-10-15T08:30:15Z"
+        }
+      ]
+    }
+  ],
+  "original_artifact": {
+    "id": 11958427081,
+    "bytes": 56555,
+    "sha256": "15ee9f60f464fcf0cd609345c37557b35c6dc50f21b03d65268b230f78df942f",
+    "verification_path": "evidence/batch7_windows_failure_20261015/content_verification.json"
+  },
+  "acceptance": false,
+  "production_guard_relaxation_authorized": false
+}

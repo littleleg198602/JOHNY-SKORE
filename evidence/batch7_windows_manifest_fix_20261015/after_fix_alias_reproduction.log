@@ -1,0 +1,10 @@
+test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (tests.test_batch7_source_manifest.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads) ... ok
+test_symlink_active_lock_and_version_directory_are_not_followed (tests.test_batch7_source_manifest.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) ... ok
+test_windows_junction_aliases_cannot_escape_source_or_version_roots (tests.test_batch7_source_manifest.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) ... ok
+test_canonical_reparse_targets_work_after_posix_and_windows_root_alias_resolution (tests.test_batch7_source_manifest.SourceManifestTests.test_canonical_reparse_targets_work_after_posix_and_windows_root_alias_resolution) ... ok
+test_actual_directory_reparse_is_rejected_for_sources_and_publication (tests.test_batch7_source_manifest.SourceManifestTests.test_actual_directory_reparse_is_rejected_for_sources_and_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.104s
+
+OK

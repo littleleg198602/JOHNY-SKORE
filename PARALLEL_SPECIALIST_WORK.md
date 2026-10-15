@@ -1,5 +1,29 @@
 # Souběžné dokončování specialistů
 
+## Oprava Windows fixture sedmé dávky — 15. 10. 2026
+
+Skutečný hosted run `38701933085` na public HEAD `bfedb764` měl Linux1833
+plain OK, UI/687 success, ale Windows1833 s9failures/0errors a release gate
+failure. Původní ZIP, oba CRLF members, úplné decoded logy a obsahové ověření
+jsou v `evidence/batch7_windows_failure_20261015/`; neúspěch se zachovává.
+
+Příčinou byly testovací aliasy `RUNNER~1` versus canonical root služby.
+Oprava canonicalizuje fixture před vytvořením cest a pro každý reparse mock
+ověřuje skutečný zásah guardu. Všech31 původních methods a106 assertions
+zůstává, dvě nové regrese ověřují distinct alias a skutečný POSIX symlink /
+Windows junction bez skips. Původní fixture reprodukuje stejných9failures
+přes `root/../root`. Produkční guard ani žádný z205 produkčních souborů
+se nemění; všech1029 dříve publikovaných evidencefiles/52,119,114bytes je shodných.
+
+Nová místní combined sada: **1835 discovered=executed, plain OK, 224.841s**,
+0failures/errors/skips/expected/unexpected. Code snapshot `946337f`.
+Neměnný pre-hosted-CI důkaz: `evidence/batch7_windows_manifest_fix_20261015.json`,
+JSON a úplný console/runner jsou `evidence/batch7_linux_manifest_fix_20261015*`.
+Nový přesný public HEAD vyžaduje vlastní hosted qualification; následný ověřený
+obsah patří do PR #162 a skutečného artefaktu, ne do přepsaného pre-CI záznamu.
+Žádné nové source HTTP, DB/quota/registry/model/score/trading změny. Fullacceptance
+zůstává0/21; aktuální source/identity fronta sedmé dávky je uvedená níže.
+
 ## Sedmá navazující dávka — 15. 10. 2026
 
 Finální místní sada této verze: **1833 discovered=executed**, plain OK,

@@ -4,7 +4,9 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import hashlib
 import json
+import os
 from pathlib import Path
+import subprocess
 import tempfile
 import threading
 import unittest
@@ -57,11 +59,44 @@ def label(root, *, captured=None, ticker="AAPL"):
     return record, path
 
 
+def root_aliases(canonical, temporary_name):
+    aliases = [("temporary-spelling", Path(temporary_name)),
+               ("parent-roundtrip", canonical / ".." / canonical.name)]
+    if os.name == "nt":
+        import ctypes
+        from ctypes import wintypes
+        short_path = ctypes.WinDLL("kernel32", use_last_error=True).GetShortPathNameW
+        short_path.argtypes = (wintypes.LPCWSTR, wintypes.LPWSTR, wintypes.DWORD)
+        short_path.restype = wintypes.DWORD
+        size = short_path(str(canonical), None, 0)
+        if size == 0:
+            # Short-name discovery is optional; the distinct non-reparse alias
+            # still proves canonical guard targeting. Actual Windows junctions
+            # are exercised separately, with failures rather than skips.
+            aliases.append(("windows-short-unavailable-parent-roundtrip", canonical / ".." / canonical.name))
+            return aliases
+        if size > 32_768:
+            raise AssertionError("Native short-path lookup exceeded the fixture path bound")
+        buffer = ctypes.create_unicode_buffer(size)
+        written = short_path(str(canonical), buffer, size)
+        if not 0 < written < size:
+            raise AssertionError("Native short-path lookup returned an incomplete fixture path")
+        # Volumes without 8.3 names may return the long spelling. The distinct
+        # parent-roundtrip alias is still exercised without skipping a test.
+        short_alias=Path(buffer.value)
+        label="windows-short-spelling" if short_alias!=canonical else "windows-no-distinct-short-spelling"
+        aliases.append((label, short_alias))
+    return aliases
+
+
 class SourceManifestTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
-        self.root = Path(self.temporary.name)
+        # The service canonicalizes its root. Windows TemporaryDirectory may
+        # return RUNNER~1 while resolve() returns the long profile name.
+        # Create every fixture path and reparse target in that same namespace.
+        self.root = Path(self.temporary.name).resolve()
         self.asset = price(self.root)
         self.benchmark = price(self.root,"SPY")
         self.service = ProspectiveSourceManifestService(self.root, observation_clock=lambda:NOW)
@@ -281,29 +316,112 @@ class SourceManifestTests(unittest.TestCase):
         original=Path.is_symlink
         for selected in (self.asset,self.asset.parent):
             with self.subTest(selected=selected):
-                def symlink(path):return path==selected or original(path)
+                hits=[]
+                def symlink(path):
+                    if path==selected:
+                        hits.append(path)
+                        return True
+                    return original(path)
                 with patch.object(Path,"is_symlink",symlink):
                     with self.assertRaisesRegex(ValueError,"SYMLINK"):
                         self.prepare()
+                self.assertIn(selected,hits,"The source reparse mock must reach the intended canonical path")
         self.assertNoPublication()
 
     def test_symlink_active_lock_and_version_directory_are_not_followed(self):
         prepared=self.prepare();original=Path.is_symlink
         for selected in (self.root/MANIFEST_FILENAME,self.root/"prospective_source_manifest.lock",self.root/VERSIONS_DIRECTORY):
             with self.subTest(selected=selected):
-                def symlink(path):return path==selected or original(path)
+                hits=[]
+                def symlink(path):
+                    if path==selected:
+                        hits.append(path)
+                        return True
+                    return original(path)
                 with patch.object(Path,"is_symlink",symlink):
                     with self.assertRaisesRegex(ValueError,"SYMLINK"):
                         self.service.publish(prepared,activate=True)
+                self.assertIn(selected,hits,"The publication reparse mock must reach the intended canonical path")
         self.assertNoPublication()
 
     def test_windows_junction_aliases_cannot_escape_source_or_version_roots(self):
         prepared=self.prepare()
+        original=getattr(Path,"is_junction",lambda path:False)
         for selected in (self.asset.parent,self.root/VERSIONS_DIRECTORY):
             with self.subTest(selected=selected):
-                with patch.object(Path,"is_junction",lambda path:path==selected,create=True):
+                hits=[]
+                def junction(path):
+                    if path==selected:
+                        hits.append(path)
+                        return True
+                    return original(path)
+                with patch.object(Path,"is_junction",junction,create=True):
                     with self.assertRaisesRegex(ValueError,"SYMLINK"):
                         self.service.publish(prepared,activate=True)
+                self.assertIn(selected,hits,"The junction mock must reach the intended canonical path")
+        self.assertNoPublication()
+
+    def test_canonical_reparse_targets_work_after_posix_and_windows_root_alias_resolution(self):
+        self.assertEqual(self.root,self.root.resolve())
+        parent_alias=self.root/".."/self.root.name
+        self.assertNotEqual(parent_alias,self.root)
+        for spelling,alias in root_aliases(self.root,self.temporary.name):
+            with self.subTest(spelling=spelling):
+                self.assertEqual(self.root,alias.resolve())
+                service=ProspectiveSourceManifestService(alias,observation_clock=lambda:NOW)
+                self.assertEqual(self.root,service.root)
+                prepared=service.prepare(forecast_sources=[self.row])
+                for kind in ("is_symlink","is_junction"):
+                    original=getattr(Path,kind,lambda path:False)
+                    for selected in (self.asset.parent,self.root/"prospective_source_manifest.lock",self.root/VERSIONS_DIRECTORY):
+                        with self.subTest(kind=kind,selected=selected):
+                            hits=[]
+                            def reparse(path):
+                                if path==selected:
+                                    hits.append(path)
+                                    return True
+                                return original(path)
+                            with patch.object(Path,kind,reparse,create=True):
+                                with self.assertRaisesRegex(ValueError,"SYMLINK"):
+                                    service.publish(prepared,activate=True)
+                            self.assertIn(selected,hits)
+                            self.assertNoPublication()
+
+    def test_actual_directory_reparse_is_rejected_for_sources_and_publication(self):
+        def make_reparse(link,target):
+            if os.name=="nt":
+                completed=subprocess.run([os.environ.get("COMSPEC","cmd.exe"),"/d","/c","mklink","/J",str(link),str(target)],
+                    capture_output=True,text=True,timeout=10,check=False)
+                self.assertEqual(0,completed.returncode,"Temporary junction creation failed: "+completed.stderr)
+                self.assertTrue(link.is_junction())
+            else:
+                link.symlink_to(target,target_is_directory=True)
+                self.assertTrue(link.is_symlink())
+        def remove_reparse(link):
+            if os.name=="nt":link.rmdir()
+            else:link.unlink()
+        before={path:path.read_bytes() for path in (self.asset,self.benchmark)}
+        link=self.root/"reparse_sources"
+        make_reparse(link,self.asset.parent)
+        try:
+            selected=deepcopy(self.row)
+            selected["source_archive_paths"]=["reparse_sources/"+self.asset.name]
+            with self.assertRaisesRegex(ValueError,"SYMLINK"):
+                self.prepare([selected])
+        finally:
+            remove_reparse(link)
+        self.assertNoPublication()
+        prepared=self.prepare()
+        destination=self.root/"version_destination";destination.mkdir()
+        link=self.root/VERSIONS_DIRECTORY
+        make_reparse(link,destination)
+        try:
+            with self.assertRaisesRegex(ValueError,"SYMLINK"):
+                self.service.publish(prepared,activate=True)
+            self.assertEqual([],list(destination.iterdir()))
+        finally:
+            remove_reparse(link)
+        self.assertEqual(before,{path:path.read_bytes() for path in before})
         self.assertNoPublication()
 
     def test_byte_and_entry_budgets_fail_before_publication(self):

@@ -1,0 +1,22 @@
+{
+  "head_sha": "bfedb764da3a189df1d9f8eb799cf834867f8083",
+  "run_id": 38701933085,
+  "job_id": 116311952169,
+  "decoded_utf8_sha256": "b2b5bab4a182a7ef2dfc36e630211152daa615b11fc5c772e59eafc72c119df2",
+  "bytes": 491061,
+  "test_summaries": [
+    {
+      "tests": 63,
+      "seconds": 29.978
+    },
+    {
+      "tests": 1833,
+      "seconds": 2014.103
+    }
+  ],
+  "plain_ok": false,
+  "failure_terminal_summary_verified": true,
+  "failures": 9,
+  "original_zip_members_verified_separately": true,
+  "full_specialist_acceptance": false
+}
