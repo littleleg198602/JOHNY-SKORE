@@ -1,0 +1,63 @@
+{
+  "actual_attempts": 4,
+  "api_wide_negative_impossibility_claim": false,
+  "blocker": "Two empty exact-model-year publisher responses have HTTP400; successful200 responses contain campaigns. No genuine200 empty negative in this bounded probe.",
+  "capture_index": {
+    "bytes": 9488,
+    "path": "evidence/batch7_nhtsa_20261015/capture_index.json",
+    "sha256": "ff3e698e0a2cb47324681ea275e8ad931bbe9f210e797622791bf5726aaa466e"
+  },
+  "final_readonly_check": {
+    "bytes": 612,
+    "path": "evidence/batch7_nhtsa_20261015/retained_ledger_final_readonly_check.json",
+    "sha256": "1e209b65eb0d885154d881e259e416c4b40d07f06de16ff1839b87766d508679"
+  },
+  "full_specialist_acceptance": false,
+  "genuine_http200_complete_negative_cases": 0,
+  "historical_availability_reconstructed": false,
+  "http400_empty_partial_cases": 2,
+  "issuer_attribution_verified": false,
+  "issuer_wide_absence_verified": false,
+  "kind": "ACTUAL_BOUNDED_NHTSA_EXACT_MODEL_YEAR_PROBE",
+  "live_run": {
+    "bytes": 9893,
+    "path": "evidence/batch7_nhtsa_20261015/live_run.json",
+    "sha256": "142d0c85c7d67d33f3a4ab88c41644c740a2f500e432ccd01ca9a042e01848f3"
+  },
+  "manufacturer_ownership_inferred": false,
+  "offline_tests": {
+    "bytes": 546,
+    "path": "evidence/batch7_nhtsa_20261015/offline_tests.json",
+    "sha256": "6f003297f7c0676f7ba0f4c8783980ff7b0c281df16746f16de5f098e93a59e3"
+  },
+  "parent_prior_row_hashes_verified": true,
+  "physical_recorded_at": "2026-10-15T07:34:55.468562+00:00",
+  "positive_campaign_rows": 3,
+  "positive_exact_model_year_cases": 2,
+  "prior_request_rows_unchanged": 11,
+  "prior_review_rows_unchanged": 8,
+  "registry_adoptions": 0,
+  "remaining_daily_make_slots": 1,
+  "remaining_daily_requests": 4,
+  "retained_ledger_after": {
+    "bytes": 9429,
+    "path": "evidence/batch7_nhtsa_20261015/retained_ledger_after.json",
+    "sha256": "2688561ed624a50310e4183abe4842bbd7a4915d8ef2c0e01e0a5b8f6c71589b"
+  },
+  "schema_version": 1,
+  "scope": "Four independently documented2026 models; vehicle make subjects only, not issuer identity.",
+  "scoring_applied": false,
+  "source_capture_end": "2026-10-15T07:29:37.218332+00:00",
+  "source_capture_start": "2026-10-15T07:29:10.641490+00:00",
+  "source_code_pins": {
+    "evidence/batch7_nhtsa_20261015/run_probe.py": "66958d578f0e56678c0f75fa55a400d1ca400bdfb5156e73b8d9e8de09fde127",
+    "market_checker_app/services/nhtsa_negative_review_service.py": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6",
+    "market_checker_app/services/nhtsa_recall_scout_service.py": "c029146642ac47b6ce2873b08c02c59d83a9efbdebeef0b649b05e510c5a3bb0",
+    "market_checker_app/services/public_source_budget.py": "4459bf520c5d38b1a93a5a49fd6a6941a27cf479dfcd0b40bab6d587fb1e868f",
+    "market_checker_app/storage/scout_store.py": "9fba2e0a3bae056be66cbdb9f2073954ac0e6f219df7df6924696d29e86f06f8"
+  },
+  "source_guard_changed": false,
+  "status": "PARTIAL",
+  "trading_enabled": false,
+  "unused_daily_quota_is_authorization_for_more_calls": false
+}

@@ -18,7 +18,12 @@ MAX_BODY_BYTES = 8_000_000
 MAX_TOTAL_BYTES = 24_000_000
 MAX_CAPTURES = 16
 _HASH = re.compile(r"[a-f0-9]{64}")
-_KINDS = {"CMS_PROVIDER_OWNER", "EPA_FRS_OWNER", "FORM4_PERSON", "STOCK_MERGER_EXCHANGE", "SEC_OPERATIONAL_METRIC"}
+_KINDS = {"CMS_PROVIDER_OWNER", "EPA_FRS_OWNER", "FORM4_PERSON", "STOCK_MERGER_EXCHANGE", "SEC_OPERATIONAL_METRIC",
+          "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
+          "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY"}
+_BODY_BUDGETS = {kind: 4_000_000 for kind in (
+    "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
+    "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY")}
 
 
 def _time(value: object) -> datetime:
@@ -85,6 +90,7 @@ def read_review_plan(source_root: Path, plan_name: str) -> tuple[dict, str]:
 
 def _load_captures(plan: dict, source_root: Path, cutoff: datetime) -> dict[str, tuple[dict, bytes | None]]:
     result, total = {}, 0
+    body_budget = min(MAX_BODY_BYTES, _BODY_BUDGETS.get(plan.get("kind"), MAX_BODY_BYTES))
     for key, item in plan["captures"].items():
         if (not isinstance(key, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", key)
                 or not isinstance(item, dict) or set(item) != {"metadata", "body_available", "body_ref"}
@@ -107,7 +113,7 @@ def _load_captures(plan: dict, source_root: Path, cutoff: datetime) -> dict[str,
             raise ValueError("Known unavailable body cannot be restored")
         if (not isinstance(ref, dict) or set(ref) != {"path", "sha256", "bytes"}
                 or not isinstance(ref["sha256"], str) or not _HASH.fullmatch(ref["sha256"])
-                or type(ref["bytes"]) is not int or not 0 < ref["bytes"] <= MAX_BODY_BYTES):
+                or type(ref["bytes"]) is not int or not 0 < ref["bytes"] <= body_budget):
             raise ValueError("Missing exact original-byte pin")
         total += ref["bytes"]
         if total > MAX_TOTAL_BYTES:
@@ -125,6 +131,63 @@ def _load_captures(plan: dict, source_root: Path, cutoff: datetime) -> dict[str,
 
 def _dispatch(plan: dict, captures: dict, source_root: Path, clock: datetime, cutoff: datetime) -> dict:
     request, kind = plan["request"], plan["kind"]
+    if kind == "HEALTHCARE_PRODUCT_SCOPE":
+        from market_checker_app.services.healthcare_product_scope_review import (
+            FdaProductApplicationScope, CapturedHealthcareSource, SecOwnershipSelection,
+            review_healthcare_product_scope,
+        )
+        scope = dict(request["scope"])
+        if "product_markers" in scope:
+            scope["product_markers"] = tuple(scope["product_markers"])
+        def healthcare_source(key: str):
+            return CapturedHealthcareSource(*captures[key]) if key in captures else None
+        return review_healthcare_product_scope(scope=FdaProductApplicationScope(**scope),
+            fda_capture=healthcare_source("fda"), ownership_capture=healthcare_source("ownership"),
+            issuer_capture=healthcare_source("issuer"),
+            ownership_selection=SecOwnershipSelection(**request["ownership_selection"])
+                if request.get("ownership_selection") is not None else None,
+            reviewed_at=clock)
+    if kind == "SEC_SUPPLY_CHAIN_SCOPE":
+        from market_checker_app.services.sec_supply_chain_scope_review import review_sec_supply_chain_scope
+        issuer_metadata, issuer_body = captures["issuer"]
+        counterparty_metadata, counterparty_body = captures.get("counterparty", (None, None))
+        return review_sec_supply_chain_scope(issuer_body, issuer_capture=issuer_metadata,
+            selection=request["selection"], counterparty_body=counterparty_body,
+            counterparty_capture=counterparty_metadata,
+            counterparty_selection=request.get("counterparty_selection"),
+            as_of=cutoff if "as_of" in plan else None)
+    if kind == "DOJ_ENFORCEMENT_SCOPE":
+        from market_checker_app.services.doj_enforcement_scope_review import review_doj_enforcement_scope
+        from market_checker_app.services.sec_counterparty_identity import DatedCounterpartyIdentityRegistry
+        selected = {key: {"metadata": metadata, "body": body} for key, (metadata, body) in captures.items()}
+        return review_doj_enforcement_scope(request, selected, as_of=cutoff, ingested_at=clock,
+            legal_records=DatedCounterpartyIdentityRegistry.load()._records)
+    if kind == "SEC_IR_DISCLOSURE_AUTHORITY":
+        from market_checker_app.services.sec_ir_disclosure_authority_review import (
+            SECIRDisclosureCapture, review_sec_ir_disclosure_authority,
+        )
+        selected = {}
+        for key, (metadata, body) in captures.items():
+            fields = dict(metadata)
+            for field in ("observed_at", "known_at"):
+                if fields.get(field) is not None:
+                    fields[field] = _time(fields[field])
+            selected[key] = SECIRDisclosureCapture(body=body, **fields)
+        return review_sec_ir_disclosure_authority(source_capture=selected["source"],
+            index_capture=selected["index"], selection=request["selection"], knowledge_at=cutoff)
+    if kind == "SEC_PERSON_KIND":
+        from market_checker_app.services.sec_person_kind_review import PersonKindCapture, review_sec_person_kind
+        selected = {}
+        for key, (metadata, body) in captures.items():
+            fields = dict(metadata)
+            for field in ("observed_at", "known_at"):
+                if fields.get(field) is not None:
+                    fields[field] = _time(fields[field])
+            selected[key] = PersonKindCapture(body=body, **fields)
+        return review_sec_person_kind(account_descriptor=request["account_descriptor"],
+            person_fact=request["person_fact"], account_capture=selected["account"],
+            primary_capture=selected["primary"], index_capture=selected["index"],
+            knowledge_at=cutoff, requested_event_days=tuple(request.get("requested_event_days", ())))
     if kind == "SEC_OPERATIONAL_METRIC":
         from market_checker_app.services.sec_operational_metrics_review import review_sec_operational_metric
         metadata, body = captures["source"]
@@ -169,9 +232,18 @@ def _dispatch(plan: dict, captures: dict, source_root: Path, clock: datetime, cu
         return review_form4_person_bridge(request["observation"],
             source_capture=selected["source"], evidence=[v for k,v in selected.items() if k != "source"],
             knowledge_at=cutoff, scope_mode=request.get("scope_mode", "EVENT_DATE"))
+    service = _bulk_service(plan, captures, cutoff)
+    if kind == "SEC_CONTROL_INSTRUMENT":
+        from market_checker_app.services.sec_control_instrument_review import review_control_instrument_bridge
+        return review_control_instrument_bridge(service, request["review_request"])
+    from market_checker_app.services.sec13f_transition_review import instrument_transition_review
+    return instrument_transition_review(service, tickers=request["tickers"],
+        corporate_action_bridges=[request["proposal"]])
+
+
+def _bulk_service(plan: dict, captures: dict, cutoff: datetime):
     from market_checker_app.services.sec13f_identity_bulk import Sec13fIdentityBulk, SourceSnapshot
     from market_checker_app.services.sec_corporate_action_bridge import Form25Snapshot
-    from market_checker_app.services.sec13f_transition_review import instrument_transition_review
     from market_checker_app.services.sec13f_scout_service import load_verified_securities
     from market_checker_app.utils.ticker_universe import load_canonical_ticker_records
     snapshots = []
@@ -184,11 +256,9 @@ def _dispatch(plan: dict, captures: dict, source_root: Path, clock: datetime, cu
         if metadata.get("snapshot_id") != snapshot.snapshot_id or metadata.get("sha256") != snapshot.sha256:
             raise ValueError("Merger snapshot semantic and original-byte pins disagree")
         snapshots.append(snapshot)
-    service = Sec13fIdentityBulk(snapshots=snapshots,
-        universe=[row["ticker"] for row in load_canonical_ticker_records()], quarter=request["quarter"],
+    return Sec13fIdentityBulk(snapshots=snapshots,
+        universe=[row["ticker"] for row in load_canonical_ticker_records()], quarter=plan["request"]["quarter"],
         as_of=cutoff, existing=load_verified_securities())
-    return instrument_transition_review(service, tickers=request["tickers"],
-        corporate_action_bridges=[request["proposal"]])
 
 
 def _publish(result: dict, directory: Path) -> tuple[str, str]:

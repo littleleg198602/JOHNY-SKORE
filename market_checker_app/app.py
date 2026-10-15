@@ -1605,6 +1605,16 @@ with st.sidebar:
     compare_prev = st.checkbox("Porovnat s předchozím během", value=True)
     save_history = st.checkbox("Ukládat historii do SQLite", value=True)
     sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
+    prospective_history_enabled = st.checkbox(
+        "Zachovávat nové předpovědi pro historické ověření", value=False,
+        disabled=not save_history,
+        help="Zachová již uloženou předpověď před první navazující seancí a její původní doklady.",
+    )
+    prospective_audit_archive_value = st.text_input(
+        "Složka vybraných důkazů předpovědí", value="",
+        disabled=not (save_history and prospective_history_enabled),
+        help="Předem určené původní zdrojové archivy a pozdější doložené výsledky. Chybějící historie se nedoplňuje zpětně.",
+    )
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
     use_rss = st.checkbox("Použít RSS zprávy", value=True)
     identity_records_text = st.text_area(
@@ -1890,6 +1900,9 @@ config = AppConfig(
     compare_previous_run=compare_prev,
     save_history=save_history,
     sqlite_path=sqlite_path,
+    prospective_history_enabled=bool(save_history and prospective_history_enabled),
+    prospective_audit_archive_root=(Path(prospective_audit_archive_value.strip())
+        if save_history and prospective_history_enabled and prospective_audit_archive_value.strip() else None),
     max_rss_items_per_source=int(max_rss),
     entity_registry=EntityRegistryConfig(identity_records=identity_records),
     fundamental_ingestion=FundamentalIngestionConfig(
@@ -2887,6 +2900,15 @@ if st.session_state.last_result:
             st.write("Stav běhu:", summary.get("pipeline_status"))
             if summary.get("reason"):
                 st.info(summary["reason"])
+            prospective = summary.get("prospective_forecast_history")
+            if isinstance(prospective, dict):
+                registration = prospective.get("registration", {})
+                history = prospective.get("history", {})
+                st.write("Zachování nových předpovědí:", registration.get("status", "WAIT"))
+                st.caption(f"Nově zachovaných předpovědí: {registration.get('registered_count', 0)}; "
+                           f"opakovaně ověřených: {registration.get('registration_replay_count', 0)}; "
+                           f"způsobilých skutečných výsledků: {history.get('eligible_real_label_count', 0)}.")
+                st.json(prospective, expanded=False)
             for key, title in (
                 ("macro_sector_regime", "Makro a sektorový režim"),
                 ("counterparty_health", "Veřejné podklady protistran"),

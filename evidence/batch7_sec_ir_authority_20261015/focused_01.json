@@ -1,0 +1,67 @@
+{
+  "completed_at": "2026-10-15T07:30:26.804826+00:00",
+  "discovered": 69,
+  "elapsed_seconds": 5.3823943789999475,
+  "errors": 0,
+  "executed": 69,
+  "expected_failures": 0,
+  "failures": 0,
+  "live_http_requests_in_tests": 0,
+  "log_sha256": "2ba841b783f75838e2ee52c669591bb361244105995bfd2b2d4a8d1637f6c488",
+  "modules": [
+    "tests.test_batch7_sec_ir_authority",
+    "tests.test_batch6_cofiler_identity",
+    "tests.test_batch6_sec_operational_metrics"
+  ],
+  "skips": 0,
+  "source_pins": {
+    "evidence/batch7_sec_ir_authority_20261015/build_review.py": {
+      "bytes": 6629,
+      "sha256": "54b38b87c6cc57fdd2f472b8d4715d471b7c6eef96e533b1ee6bceae11b42f51"
+    },
+    "evidence/batch7_sec_ir_authority_20261015/run_focused_tests.py": {
+      "bytes": 3438,
+      "sha256": "9e73e512bd30f6cd35a6b94615d6b872fc3bac1fc3a4d5e8e59ec2cc0a11ca6e"
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "bytes": 24571,
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    "market_checker_app/services/sec13f_identity_bulk.py": {
+      "bytes": 53750,
+      "sha256": "d579300dac475688aaf45464df0bfd0226b4f62470ba9cd03fa0f297211d01ba"
+    },
+    "market_checker_app/services/sec_corporate_action_bridge.py": {
+      "bytes": 55323,
+      "sha256": "337e73165538d9eb407c46bb13d961820c0f101849bb353687be16068f81827b"
+    },
+    "market_checker_app/services/sec_ir_disclosure_authority_review.py": {
+      "bytes": 15890,
+      "sha256": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7"
+    },
+    "market_checker_app/services/sec_operational_metrics_review.py": {
+      "bytes": 22925,
+      "sha256": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20535,
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    "tests/test_batch6_cofiler_identity.py": {
+      "bytes": 13649,
+      "sha256": "2bb1b977a64ab902942db54ca4db2505168a4948783ed9ed2c2d989a4c516427"
+    },
+    "tests/test_batch6_sec_operational_metrics.py": {
+      "bytes": 18005,
+      "sha256": "aa82c5bd9a885b1088f8d2a6bc3d220bdfb76fbac1ba53b5f5bf4cd61ef5e19f"
+    },
+    "tests/test_batch7_sec_ir_authority.py": {
+      "bytes": 22010,
+      "sha256": "92085b24efe3f7eefc70d6c3aae447669a1cc1ac3a6524bfdccc09fd088feea2"
+    }
+  },
+  "started_at": "2026-10-15T07:30:21.422435+00:00",
+  "successful": true,
+  "unexpected_successes": 0,
+  "windows_claim": false
+}

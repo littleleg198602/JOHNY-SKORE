@@ -778,6 +778,8 @@ def run_weekly_shadow(
     resolve_labels: bool = False,
     counterparty_health_sources: list[dict[str, object]] | None = None,
     macro_observations: list[dict[str, object]] | None = None,
+    prospective_history_enabled: bool | None = None,
+    prospective_audit_archive_root: Path | None = None,
 ) -> dict[str, object]:
     from market_checker_app.services.pipeline_service import PipelineService
 
@@ -808,6 +810,8 @@ def run_weekly_shadow(
         pipeline=pipeline, resolve_labels=resolve_labels,
         counterparty_health_sources=counterparty_health_sources,
         macro_observations=macro_observations, strict=True,
+        prospective_history_enabled=prospective_history_enabled,
+        prospective_audit_archive_root=prospective_audit_archive_root,
     )
 
 
@@ -817,6 +821,8 @@ def finalize_analysis_run(
     counterparty_health_sources: list[dict[str, object]] | None = None,
     macro_observations: list[dict[str, object]] | None = None,
     strict: bool = False,
+    prospective_history_enabled: bool | None = None,
+    prospective_audit_archive_root: Path | None = None,
 ) -> dict[str, object]:
     """Shared UI/weekly persistence and analysis; never modifies signals.
 
@@ -922,6 +928,7 @@ def finalize_analysis_run(
     snapshot_records: list[dict[str, object]] = []
     snapshot_error: str | None = None
     saved_snapshot_count = 0
+    snapshot_persistence_attempted = False
     candidate_model_report: dict[str, object] = {
         "status": "DISABLED",
         "reason": "POINT_IN_TIME_SNAPSHOT_UNAVAILABLE",
@@ -938,6 +945,36 @@ def finalize_analysis_run(
         "activation_allowed": False,
     }
     candidate_evaluation_error: str | None = None
+    prospective_adapter = None
+    prospective_audit = None
+    audit_enabled = (getattr(config, "prospective_history_enabled", False)
+                     if prospective_history_enabled is None else prospective_history_enabled)
+
+    def capture_persisted_forecasts() -> None:
+        nonlocal prospective_adapter, prospective_audit
+        if not audit_enabled or prospective_audit is not None:
+            return
+        try:
+            if audit_enabled is not True:
+                raise ValueError("INVALID_PROSPECTIVE_HISTORY_OPT_IN")
+            from market_checker_app.services.prospective_forecast_registration_adapter import (
+                ProspectiveForecastRegistrationAdapter,
+            )
+            audit_root = (prospective_audit_archive_root if prospective_audit_archive_root is not None
+                          else getattr(config, "prospective_audit_archive_root", None))
+            prospective_adapter = ProspectiveForecastRegistrationAdapter(
+                db_path=store.db_path, audit_archive_root=audit_root,
+            )
+            registration = (prospective_adapter.register_after_persistence(
+                str(row["snapshot_id"]) for row in snapshot_records)
+                if snapshot_persistence_attempted else {"status": "WAIT",
+                    "reason": "SNAPSHOT_PERSISTENCE_NOT_ATTEMPTED", "registered_count": 0})
+            prospective_audit = {"registration": registration}
+        except Exception:
+            # Diagnostic failures must not change stored model output or echo
+            # arbitrary source/exception content into the normal report.
+            prospective_audit = {"registration": {"status": "PARTIAL",
+                "reason": "PROSPECTIVE_REGISTRATION_RUNTIME_ERROR", "registered_count": 0}}
     run_id = result.get("run_id")
     raw_point_in_time_inputs = result.get("point_in_time_inputs")
     if run_id is not None and isinstance(raw_point_in_time_inputs, list):
@@ -982,9 +1019,11 @@ def finalize_analysis_run(
             )
         if snapshot_error is None:
             try:
+                snapshot_persistence_attempted = True
                 saved_snapshot_count = store.save_prediction_snapshots(
                     snapshot_records
                 )
+                capture_persisted_forecasts()
                 # A repeated finalization must not turn an idempotent insert
                 # into a failure. Count the immutable requested IDs present.
                 persisted = store.read_prediction_snapshots()
@@ -998,6 +1037,10 @@ def finalize_analysis_run(
                 snapshot_error = f"snapshot uložení selhalo: {type(exc).__name__}: {exc}"
     else:
         snapshot_error = "běh nebo point-in-time vstupy nejsou uloženy"
+    # Keep audit I/O outside the default path and outside model configuration.
+    # Even a partial store failure is followed by read-only validation of the
+    # exact requested IDs; already committed forecasts must remain recoverable.
+    capture_persisted_forecasts()
     if snapshot_error is None and snapshot_records:
         try:
             metadata = result.get("metadata")
@@ -1089,6 +1132,13 @@ def finalize_analysis_run(
                 "source_failures": 0,
             }
     summary_warnings = list(result.get("warnings", []))
+    if prospective_adapter is not None:
+        try:
+            prospective_audit["label_attachment"] = prospective_adapter.attach_explicit_labels()
+            prospective_audit["history"] = prospective_adapter.read_history_report()
+        except Exception:
+            prospective_audit["label_attachment"] = {"status": "PARTIAL",
+                "reason": "PROSPECTIVE_ATTACHMENT_RUNTIME_ERROR", "attached_count": 0}
     for error in (macro_error, counterparty_health_error, candidate_evaluation_error):
         if error:
             summary_warnings.append(error)
@@ -1198,10 +1248,17 @@ def finalize_analysis_run(
         "decision_results": _decision_detail_records(result),
     }
     failures: list[str] = []
+    if prospective_audit is not None:
+        summary["prospective_forecast_history"] = _json_safe(prospective_audit)
     degradations: list[str] = [error for error in (
         macro_error, counterparty_health_error, candidate_model_error,
         candidate_evaluation_error, label_resolution_error,
     ) if error]
+    if prospective_audit is not None and any(
+        stage.get("status") in {"WAIT", "PARTIAL"}
+        for stage in (prospective_audit.get("registration", {}), prospective_audit.get("label_attachment", {}))
+    ):
+        degradations.append("Prospektivní historie čeká na uloženou predikci nebo přesné lokální zdrojové/label důkazy; podrobnosti jsou v prospective_forecast_history.")
     if summary_warnings:
         degradations.append("Běh obsahuje upozornění na kvalitu nebo dostupnost dat; podrobnosti jsou ve warnings.")
     if result.get("agent_status") == "PARTIAL":
@@ -1371,6 +1428,12 @@ def _parser() -> argparse.ArgumentParser:
             "cen; bez tohoto přepínače se další Yahoo dávka nespouští."
         ),
     )
+    parser.add_argument(
+        "--register-prospective-history", action=argparse.BooleanOptionalAction, default=None,
+        help="Explicitně zachová již uložené předpovědi; vyžaduje lokální audit root a přesný source manifest. Bez sběru zdrojů.",
+    )
+    parser.add_argument("--prospective-audit-archive-root", type=Path,
+        help="Lokální root s prospective_source_manifest.json a výslovně uvedenými source/label archivy.")
     return parser
 
 
@@ -1428,6 +1491,8 @@ def main() -> None:
             resolve_labels=args.resolve_labels,
             counterparty_health_sources=counterparty_health_sources,
             macro_observations=macro_observations,
+            prospective_history_enabled=args.register_prospective_history,
+            prospective_audit_archive_root=args.prospective_audit_archive_root,
         )
     except (
         RuntimeConfigurationError,

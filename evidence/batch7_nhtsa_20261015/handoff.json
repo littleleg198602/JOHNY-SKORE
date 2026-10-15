@@ -1,0 +1,405 @@
+{
+  "actual_execution_script": {
+    "bytes": 7892,
+    "path": "evidence/batch7_nhtsa_20261015/run_probe.py",
+    "sha256": "66958d578f0e56678c0f75fa55a400d1ca400bdfb5156e73b8d9e8de09fde127"
+  },
+  "actual_live_run": {
+    "actual_http200_positive_exact_model_year_cases": 2,
+    "actual_http400_empty_partial_cases": 2,
+    "actual_make_subjects": 3,
+    "actual_requests": 4,
+    "additional_http_after_four_capture_run": 0,
+    "api_wide_no_negative_claim": false,
+    "auto_redirects": false,
+    "capture_index": {
+      "bytes": 9488,
+      "path": "evidence/batch7_nhtsa_20261015/capture_index.json",
+      "sha256": "ff3e698e0a2cb47324681ea275e8ad931bbe9f210e797622791bf5726aaa466e"
+    },
+    "charged_utc_day": "2026-10-15",
+    "genuine_http200_complete_negative_cases": 0,
+    "maximum_original_bytes": 4000000,
+    "negative_blocker": "Two empty exact-model-year publisher responses have HTTP400; successful200 responses contain campaigns. No genuine200 empty negative in this bounded probe.",
+    "new_catalog_requests": 0,
+    "original_body_bytes": 4232,
+    "proof": {
+      "bytes": 9893,
+      "path": "evidence/batch7_nhtsa_20261015/live_run.json",
+      "sha256": "142d0c85c7d67d33f3a4ab88c41644c740a2f500e432ccd01ca9a042e01848f3"
+    },
+    "publisher_empty_error_cases": [
+      "CHEVROLET BrightDrop2026",
+      "CHEVROLET Suburban HD2026"
+    ],
+    "publisher_positive_cases": [
+      "CADILLAC Escalade IQL2026",
+      "FORD Mustang GTD2026"
+    ],
+    "source_capture_end": "2026-10-15T07:29:37.218332+00:00",
+    "source_capture_start": "2026-10-15T07:29:10.641490+00:00",
+    "source_subject_type": "VEHICLE_MAKE_ONLY",
+    "strict_matched_campaign_rows": 3,
+    "unreserved_or_web_nhtsa_requests": 0
+  },
+  "actual_source_code_pins": {
+    "evidence/batch7_nhtsa_20261015/run_probe.py": "66958d578f0e56678c0f75fa55a400d1ca400bdfb5156e73b8d9e8de09fde127",
+    "market_checker_app/services/nhtsa_negative_review_service.py": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6",
+    "market_checker_app/services/nhtsa_recall_scout_service.py": "c029146642ac47b6ce2873b08c02c59d83a9efbdebeef0b649b05e510c5a3bb0",
+    "market_checker_app/services/public_source_budget.py": "4459bf520c5d38b1a93a5a49fd6a6941a27cf479dfcd0b40bab6d587fb1e868f",
+    "market_checker_app/storage/scout_store.py": "9fba2e0a3bae056be66cbdb9f2073954ac0e6f219df7df6924696d29e86f06f8"
+  },
+  "branch": "batch7/regulatory-20261015",
+  "canonical_tickers": 687,
+  "focused_offline_checks": {
+    "console": {
+      "bytes": 990,
+      "path": "evidence/batch7_nhtsa_20261015/offline_tests.log",
+      "sha256": "056996ae25b3835beb84f0a784c8abf336aa5da8638ac241dda2af0d527fc714"
+    },
+    "cutoff_before_new_reviews": {
+      "bytes": 19093,
+      "path": "evidence/batch7_nhtsa_20261015/readonly_before_new_reviews.json",
+      "sha256": "62af6eadf6eeb6adad4bc600c7fc3b2e0d143743e009b77462787e682e104e9f"
+    },
+    "discovered": 6,
+    "errors": 0,
+    "executed": 6,
+    "expected_failures": 0,
+    "failures": 0,
+    "full_suite_or_hosted_windows_claim": false,
+    "new_db_rows": 0,
+    "new_http": 0,
+    "offline_replays": {
+      "bytes": 8722,
+      "path": "evidence/batch7_nhtsa_20261015/offline_replays.json",
+      "sha256": "231d2a41634d0885b057c445a32a30896b4a29392551b37db82b423993ff30ae"
+    },
+    "plain_ok": true,
+    "post_run_report": {
+      "bytes": 28423,
+      "path": "evidence/batch7_nhtsa_20261015/readonly_report.json",
+      "sha256": "20a517bdd790fd07f86c9d63883afd4953a783fb843d4ad08bc810254d6978ad"
+    },
+    "proof": {
+      "bytes": 546,
+      "path": "evidence/batch7_nhtsa_20261015/offline_tests.json",
+      "sha256": "6f003297f7c0676f7ba0f4c8783980ff7b0c281df16746f16de5f098e93a59e3"
+    },
+    "python": "3.12.14",
+    "skips": 0,
+    "unchanged_prior_full_suites_rerun": false,
+    "unexpected_successes": 0,
+    "verifier": {
+      "bytes": 8371,
+      "path": "evidence/batch7_nhtsa_20261015/verify_offline.py",
+      "sha256": "1a540dc67b7a3598c325132d38c9a368329a86d71c4c20797c887162e2fe1093"
+    }
+  },
+  "full_specialist_acceptance": false,
+  "historical_availability_reconstructed": false,
+  "historical_oos_acceptance_verified": false,
+  "immutable_physical_summary_review": {
+    "first_historical_availability_claim": false,
+    "physical_recorded_at": "2026-10-15T07:34:55.468562+00:00",
+    "proof": {
+      "bytes": 291,
+      "path": "evidence/batch7_nhtsa_20261015/summary_review_record.json",
+      "sha256": "ec1a3a854591448c4971f89c7aac5b4a008e40502f68c000d35bcc0b07dcef0c"
+    },
+    "review": {
+      "bytes": 3024,
+      "path": "evidence/batch7_nhtsa_20261015/reviews/48c47486c20b380bc7209cf8c78d77650153d4ecae2b1e43565cc0d741f65db2/review.json",
+      "sha256": "48c47486c20b380bc7209cf8c78d77650153d4ecae2b1e43565cc0d741f65db2"
+    },
+    "status": "PARTIAL"
+  },
+  "issuer_attribution_allowed": false,
+  "issuer_wide_absence_verified": false,
+  "kind": "ACTUAL_NEW_UTC_DAY_BOUNDED_NHTSA_MODEL_YEAR_SOURCE_PROBE",
+  "local_prior_lane_commit": "e436c36049f3ede96f928a65dd07397ed1fba92f",
+  "manufacturer_ownership_inferred": false,
+  "model3_registry_unchanged": true,
+  "new_scope_captures": [
+    {
+      "body": {
+        "bytes": 2966,
+        "path": "evidence/batch7_nhtsa_20261015/captures/61039ae01d397b29ec93205647acaf31dc051192018d38b7d9d69aba47023a0a/response.json",
+        "sha256": "295857f5ca97bee46efc80d3623a85534dcdda18221847120d6e76b99a45726a"
+      },
+      "complete_negative": false,
+      "content_type": "application/json;charset=UTF-8",
+      "final_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CADILLAC&model=Escalade+IQL&modelYear=2026",
+      "http_status": 200,
+      "known_at": "2026-10-15T07:29:16.835011+00:00",
+      "live_complete_negative_verified": false,
+      "physical_reviewed_at": "2026-10-15T07:29:16.835011+00:00",
+      "public_whole_original_available": true,
+      "publisher_count_field": 2,
+      "publisher_result_rows": 2,
+      "reason": "EXACT_MODEL_YEAR_CAMPAIGNS",
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CADILLAC&model=Escalade+IQL&modelYear=2026",
+      "review": {
+        "bytes": 2150,
+        "path": "evidence/batch7_nhtsa_20261015/captures/61039ae01d397b29ec93205647acaf31dc051192018d38b7d9d69aba47023a0a/review.json",
+        "sha256": "d97ce7e128441aaf01deecad130dfa2b8d20806c59158146efa204d9372456b2"
+      },
+      "review_id": "61039ae01d397b29ec93205647acaf31dc051192018d38b7d9d69aba47023a0a",
+      "scope": {
+        "catalog_evidence": {
+          "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_cadillac_2026.json",
+          "make_id": 469,
+          "model_id": 35680,
+          "observed_at": "2026-10-13T08:44:16.489553+00:00",
+          "publisher_rows": 12,
+          "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+          "sha256": "b9d8ff432876d22966464e2282abf868f34d1c0ee8c7efae1a73c27b8585579f",
+          "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CADILLAC/modelyear/2026?format=json"
+        },
+        "known_at": "2026-10-13T08:44:16.489553+00:00",
+        "make": "CADILLAC",
+        "model": "Escalade IQL",
+        "model_year": 2026
+      },
+      "sensitive_cues_found": false,
+      "source_observed_at": "2026-10-15T07:29:16.834983+00:00",
+      "started_at": "2026-10-15T07:29:10.641490+00:00",
+      "status": "POSITIVE_EXACT_MODEL_YEAR",
+      "strict_matched_campaign_rows": 2
+    },
+    {
+      "body": {
+        "bytes": 66,
+        "path": "evidence/batch7_nhtsa_20261015/captures/e4a069681adf2511dd1403cada087166cff9c62c564ded6f1dd4551c1ed1ae01/response.json",
+        "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+      },
+      "complete_negative": false,
+      "content_type": "application/json;charset=UTF-8",
+      "final_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=BrightDrop&modelYear=2026",
+      "http_status": 400,
+      "known_at": "2026-10-15T07:29:24.127056+00:00",
+      "live_complete_negative_verified": false,
+      "physical_reviewed_at": "2026-10-15T07:29:24.127056+00:00",
+      "public_whole_original_available": true,
+      "publisher_count_field": 0,
+      "publisher_result_rows": 0,
+      "reason": "HTTP_400_IS_NOT_COMPLETE_NEGATIVE",
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=BrightDrop&modelYear=2026",
+      "review": {
+        "bytes": 2139,
+        "path": "evidence/batch7_nhtsa_20261015/captures/e4a069681adf2511dd1403cada087166cff9c62c564ded6f1dd4551c1ed1ae01/review.json",
+        "sha256": "2b5f609e2abb64bba98b9f5f6fd48d4b60adc5c7feaa227d3efb0caec0c41319"
+      },
+      "review_id": "e4a069681adf2511dd1403cada087166cff9c62c564ded6f1dd4551c1ed1ae01",
+      "scope": {
+        "catalog_evidence": {
+          "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+          "make_id": 467,
+          "model_id": 34740,
+          "observed_at": "2026-10-13T08:44:25.024795+00:00",
+          "publisher_rows": 29,
+          "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+          "sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+          "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json"
+        },
+        "known_at": "2026-10-13T08:44:25.024795+00:00",
+        "make": "CHEVROLET",
+        "model": "BrightDrop",
+        "model_year": 2026
+      },
+      "sensitive_cues_found": false,
+      "source_observed_at": "2026-10-15T07:29:24.127026+00:00",
+      "started_at": "2026-10-15T07:29:16.838796+00:00",
+      "status": "PARTIAL",
+      "strict_matched_campaign_rows": 0
+    },
+    {
+      "body": {
+        "bytes": 66,
+        "path": "evidence/batch7_nhtsa_20261015/captures/3cfae34fc1580519616f2c9e58a96a8088adfbbdd32c3a0c6177af18dbb36512/response.json",
+        "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+      },
+      "complete_negative": false,
+      "content_type": "application/json;charset=UTF-8",
+      "final_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=Suburban+HD&modelYear=2026",
+      "http_status": 400,
+      "known_at": "2026-10-15T07:29:30.318642+00:00",
+      "live_complete_negative_verified": false,
+      "physical_reviewed_at": "2026-10-15T07:29:30.318642+00:00",
+      "public_whole_original_available": true,
+      "publisher_count_field": 0,
+      "publisher_result_rows": 0,
+      "reason": "HTTP_400_IS_NOT_COMPLETE_NEGATIVE",
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=Suburban+HD&modelYear=2026",
+      "review": {
+        "bytes": 2142,
+        "path": "evidence/batch7_nhtsa_20261015/captures/3cfae34fc1580519616f2c9e58a96a8088adfbbdd32c3a0c6177af18dbb36512/review.json",
+        "sha256": "8d7eed10eccb9a0f717f2764d7e6b02ea521b85b45f78232266a85116b4a4cbd"
+      },
+      "review_id": "3cfae34fc1580519616f2c9e58a96a8088adfbbdd32c3a0c6177af18dbb36512",
+      "scope": {
+        "catalog_evidence": {
+          "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+          "make_id": 467,
+          "model_id": 35053,
+          "observed_at": "2026-10-13T08:44:25.024795+00:00",
+          "publisher_rows": 29,
+          "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+          "sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+          "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json"
+        },
+        "known_at": "2026-10-13T08:44:25.024795+00:00",
+        "make": "CHEVROLET",
+        "model": "Suburban HD",
+        "model_year": 2026
+      },
+      "sensitive_cues_found": false,
+      "source_observed_at": "2026-10-15T07:29:30.318614+00:00",
+      "started_at": "2026-10-15T07:29:24.129413+00:00",
+      "status": "PARTIAL",
+      "strict_matched_campaign_rows": 0
+    },
+    {
+      "body": {
+        "bytes": 1134,
+        "path": "evidence/batch7_nhtsa_20261015/captures/20fd199863a38b7e951decd94c63f534d5a5000f05f5393bf26ce944ab9e29a3/response.json",
+        "sha256": "3b9206dc989f515dcd08af56f800896d9566e5bea919c2cccbca86d7ec0485c9"
+      },
+      "complete_negative": false,
+      "content_type": "application/json;charset=UTF-8",
+      "final_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=Mustang+GTD&modelYear=2026",
+      "http_status": 200,
+      "known_at": "2026-10-15T07:29:37.218354+00:00",
+      "live_complete_negative_verified": false,
+      "physical_reviewed_at": "2026-10-15T07:29:37.218354+00:00",
+      "public_whole_original_available": true,
+      "publisher_count_field": 1,
+      "publisher_result_rows": 1,
+      "reason": "EXACT_MODEL_YEAR_CAMPAIGNS",
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=Mustang+GTD&modelYear=2026",
+      "review": {
+        "bytes": 2127,
+        "path": "evidence/batch7_nhtsa_20261015/captures/20fd199863a38b7e951decd94c63f534d5a5000f05f5393bf26ce944ab9e29a3/review.json",
+        "sha256": "cae67a39d3e719579a68ef505cb456d13602866c51467f85a674d05401669895"
+      },
+      "review_id": "20fd199863a38b7e951decd94c63f534d5a5000f05f5393bf26ce944ab9e29a3",
+      "scope": {
+        "catalog_evidence": {
+          "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_ford_2026.json",
+          "make_id": 460,
+          "model_id": 35300,
+          "observed_at": "2026-10-13T08:44:21.133744+00:00",
+          "publisher_rows": 50,
+          "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+          "sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+          "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/FORD/modelyear/2026?format=json"
+        },
+        "known_at": "2026-10-13T08:44:21.133744+00:00",
+        "make": "FORD",
+        "model": "Mustang GTD",
+        "model_year": 2026
+      },
+      "sensitive_cues_found": false,
+      "source_observed_at": "2026-10-15T07:29:37.218332+00:00",
+      "started_at": "2026-10-15T07:29:30.322681+00:00",
+      "status": "POSITIVE_EXACT_MODEL_YEAR",
+      "strict_matched_campaign_rows": 1
+    }
+  ],
+  "one_shot_capture_already_executed": true,
+  "precommitted_plan": {
+    "bytes": 7170,
+    "path": "evidence/batch7_nhtsa_20261015/precommitted_plan.json",
+    "sha256": "e518d185ef348bac6a46856ad07f64db38f7fd5c27e1131cf4009bb84c069520"
+  },
+  "prior_repository_preservation": {
+    "all_exact_base_git_blob_bytes": true,
+    "files": 848,
+    "proof": {
+      "bytes": 226355,
+      "path": "evidence/batch7_nhtsa_20261015/prior_preservation.json",
+      "sha256": "e769e64322c6d09a3c590c671804562fe7cf83e4aa47369c6e9f48f466b85219"
+    },
+    "total_bytes": 42464514
+  },
+  "production_source_or_test_or_registry_changes": false,
+  "recapture_script_must_not_be_rerun": true,
+  "recorded_at": "2026-10-15T07:38:40.340099+00:00",
+  "registry_adoptions": 0,
+  "remaining_work": [
+    "A genuine successful HTTP200 complete-empty exact documented model-year response is still missing.",
+    "No issuer/group/manufacturer legal bridge is adopted by this source-only review.",
+    "Broader relevant coverage, historical source availability, actual Windows end-to-end use and historical OOS are not established."
+  ],
+  "retained_runtime_history": {
+    "after": {
+      "bytes": 9429,
+      "path": "evidence/batch7_nhtsa_20261015/retained_ledger_after.json",
+      "sha256": "2688561ed624a50310e4183abe4842bbd7a4915d8ef2c0e01e0a5b8f6c71589b"
+    },
+    "before": {
+      "bytes": 6957,
+      "path": "evidence/batch7_nhtsa_20261015/retained_ledger_before.json",
+      "sha256": "b8cecdec4e71e2771bb7c989900dac23a03929e65fa6935674f6c77e49508841"
+    },
+    "daily_make_limit": 4,
+    "daily_make_subjects": 3,
+    "daily_request_limit": 8,
+    "daily_requests": 4,
+    "failed_requests_refunded": false,
+    "final_readonly_check": {
+      "bytes": 612,
+      "path": "evidence/batch7_nhtsa_20261015/retained_ledger_final_readonly_check.json",
+      "sha256": "1e209b65eb0d885154d881e259e416c4b40d07f06de16ff1839b87766d508679"
+    },
+    "new_db_created_copied_reconstructed_or_reset": false,
+    "new_request_outcomes": {
+      "FAILED": 2,
+      "RETURNED": 2
+    },
+    "new_request_rows": 4,
+    "new_scope_review_rows": 4,
+    "original_database": "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/outputs/market_checker_history.db",
+    "original_request_row_hashes_unchanged": true,
+    "original_request_rows": 11,
+    "original_scope_review_row_hashes_unchanged": true,
+    "original_scope_review_rows": 8,
+    "parent_beforeproof_exact_json_copy": {
+      "bytes": 3067,
+      "path": "evidence/batch7_nhtsa_20261015/parent_retained_beforeproof.json",
+      "sha256": "58e816cc05291c32112d0128d4162353472aace9fadea0c05422f1b6014c2aa9"
+    },
+    "post_run_provider_lease_released": true,
+    "remaining_daily_make_slots": 1,
+    "remaining_daily_requests": 4,
+    "run_tokens_exported": false,
+    "same_day_make_retry_gate_preserved": true
+  },
+  "runtime_api_used": [
+    "documented_model_scope",
+    "NhtsaNegativeReviewService.run",
+    "NhtsaRawRecallClient.capture",
+    "PublicSourceBudget",
+    "read_nhtsa_scope_reviews"
+  ],
+  "schema_version": 1,
+  "scoring_applied": false,
+  "specialist_done_or_verified_promotions": 0,
+  "superseded_verifier_launch_diagnostic": {
+    "acceptance": false,
+    "new_http": 0,
+    "proof": {
+      "bytes": 591,
+      "path": "evidence/batch7_nhtsa_20261015/diagnostics/offline_verifier_launch_error.json",
+      "sha256": "0d6df66f3bef355778ea33c6d36a1564b3ec9b762816a44aec84900be5313917"
+    },
+    "source_snapshot": {
+      "bytes": 8356,
+      "path": "evidence/batch7_nhtsa_20261015/diagnostics/pre_unittest_run_attribute.py",
+      "sha256": "eb27560aa690442c6780dc64efe7b3a9a9fe02156c15be64ce2fa23c7bb3d4d6"
+    },
+    "tests_executed": 0
+  },
+  "trading_enabled": false,
+  "verified_identity_promotions": 0
+}

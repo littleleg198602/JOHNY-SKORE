@@ -1,0 +1,10 @@
+test_actual_doj_complaint_remains_allegations_and_case_date_identity_gap (tests.test_batch7_evidence_actions.ActualCapturedReviewIntegrationTests.test_actual_doj_complaint_remains_allegations_and_case_date_identity_gap) ... ok
+test_actual_fda_application_does_not_gain_product_ownership_on_runtime_ingestion (tests.test_batch7_evidence_actions.ActualCapturedReviewIntegrationTests.test_actual_fda_application_does_not_gain_product_ownership_on_runtime_ingestion) ... ok
+test_actual_legal_control_conflict_survives_runtime_without_q3_adoption (tests.test_batch7_evidence_actions.ActualCapturedReviewIntegrationTests.test_actual_legal_control_conflict_survives_runtime_without_q3_adoption) ... ok
+test_actual_person_fact_keeps_110_byte_version_gap_and_account_identity_withheld (tests.test_batch7_evidence_actions.ActualCapturedReviewIntegrationTests.test_actual_person_fact_keeps_110_byte_version_gap_and_account_identity_withheld) ... ok
+test_actual_supplier_runtime_uses_physical_ingestion_and_retains_unknown_quantity (tests.test_batch7_evidence_actions.ActualCapturedReviewIntegrationTests.test_actual_supplier_runtime_uses_physical_ingestion_and_retains_unknown_quantity) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 4.494s
+
+OK

@@ -1,0 +1,18 @@
+{
+  "archive_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_complaint.pdf",
+  "automatic_redirects": false,
+  "capture_id": "doj_apple_complaint",
+  "content_type": "application/pdf",
+  "final_url": "https://www.justice.gov/d9/2024-03/420763.pdf",
+  "http_status": 200,
+  "max_original_bytes": 4000000,
+  "observed_at": "2026-10-14T23:30:05.894425+00:00",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "public_raw_available": true,
+  "raw_response_bytes": 1096132,
+  "raw_response_sha256": "8179346e0243ba8e5650821b7f88eccf96284332a7ffa413756cafefc1cfbe1b",
+  "reason": "",
+  "requested_url": "https://www.justice.gov/d9/2024-03/420763.pdf",
+  "started_at": "2026-10-14T23:29:59.234009+00:00",
+  "status": "ORIGINAL_BYTES_CAPTURED"
+}

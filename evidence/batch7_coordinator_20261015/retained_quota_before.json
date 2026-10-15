@@ -1,0 +1,27 @@
+{
+  "recorded_at": "2026-10-14T23:26:58.836477+00:00",
+  "read_only": true,
+  "history_reconstructed": false,
+  "original_retained_database_available": true,
+  "ledger": [
+    {
+      "source": "nhtsa",
+      "utc_day": "2026-10-14",
+      "requests": 8,
+      "subjects": 3,
+      "first": "2026-10-14T00:07:12.620833+00:00",
+      "last": "2026-10-14T00:07:41.232127+00:00"
+    },
+    {
+      "source": "rss",
+      "utc_day": "2026-10-14",
+      "requests": 3,
+      "subjects": 1,
+      "first": "2026-10-14T00:15:32.957191+00:00",
+      "last": "2026-10-14T00:15:43.687483+00:00"
+    }
+  ],
+  "prediction_snapshots_present": false,
+  "db_sha256": "90e358deac7e0be610aface369602dbc03282900b8f0175c3f9b3a1d9bc421a3",
+  "database_bytes_unchanged_by_read": true
+}

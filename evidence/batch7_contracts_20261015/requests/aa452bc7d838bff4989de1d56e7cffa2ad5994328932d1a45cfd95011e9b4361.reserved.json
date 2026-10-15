@@ -1,0 +1,13 @@
+{
+  "automatic_redirects": false,
+  "max_attempts": 4,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "public_raw_available": false,
+  "quota_scope": "EXPLICIT_BATCH7_SEC_RESEARCH_ONLY",
+  "requested_url": "https://data.sec.gov/submissions/CIK0001046179.json",
+  "started_at": "2026-10-14T23:27:19.195489+00:00",
+  "status": "RESERVED",
+  "usaspending_requests": 0
+}

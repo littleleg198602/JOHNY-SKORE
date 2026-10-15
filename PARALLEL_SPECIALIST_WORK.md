@@ -1,5 +1,79 @@
 # Souběžné dokončování specialistů
 
+## Sedmá navazující dávka — 15. 10. 2026
+
+Finální místní sada této verze: **1833 discovered=executed**, plain OK,
+208.320s, všechny failure/error/skip/expected/unexpected počty0. Code snapshot
+`faf2f43`; 23 current source/test SHA a úplný JSON/console jsou v integračním
+důkazu. Hosted CI/Windows zatím není nová akceptace této verze.
+
+Základ je skutečný otevřený PR #162 `089ce4db`, main `a7aa1fec`.
+Jeho obsahově ověřené CI1603/1603 a původní Windows ZIP/JSON/log jsou
+zachované v `evidence/batch7_baseline_ci_20261015/`; kvalifikují pouze
+základ. Nová verze vyžaduje vlastní CI konkrétního publikovaného HEAD.
+Původní důkazy, neúspěchy a jejich vlastní verze se nepřepisují.
+
+Šest skutečných izolovaných vývojových větví dodalo exact LEG control/instrument
+review, FDA product/application/ownership scope, datovaný DOJ complaint review,
+literální SEC supplier scope, nezávislý person-kind disclosure a post-persistence
+prospective forecast adapter. Další konkrétní výstupy: přísnější SEC accession/date
+guards, safe SEC-disclosed IR URL, explicitní versioned source selection a nový
+NHTSA probe v původní DB. Koordinátor přebírá lokální commity a zapojuje jejich
+původní případy do CLI/UI; vývojoví agenti nejsou analytické specialisty.
+
+Nových20 primárních HTTP odpovědí:14SEC +2DOJ research originals a4 běžné
+quota-managed NHTSA requests. Celkem18HTTP200/2HTTP400. Retained PFE parent
+rearchive, NVDA bodies a ostatní offline replays nejsou nové HTTP. NHTSA UTC15
+použilo4/8requests a3/4makes; všech11 starších ledger rows zůstalo shodných,
+UTC14 NHTSA8 aRSS3 se neresetuje ani nepřenáší do nového quotaDB.
+Chybějící původní durable Clinical/CMS/FDA/USAspending historie nebyla vyrobena.
+
+LEG má4 control edges a nevyřešený DIRECT/INDIRECT conflict; plánované ovládnutí
+není dokončená akce, quarter anchors neřeší Q3. FDA corpus má5 konkrétních
+událostí/4applications, ale žádnou nově strukturovanou product/ownership identitu.
+DOJ `2:24-cv-04055` zachycuje pouze žalobní tvrzení2024-03-21 a dřívější SEC
+issuer snapshot; výsledek řízení, case-date registry identity a kontinuita chybí.
+NVDA doslova uvádí TSMC/Samsung foundry wafer vztah, nezávislý TSMC R1 poskytuje
+jediný legal/date-column snapshot; množství/podíl/sole-source a časová kontinuita
+zůstávají nedoložené. Person bio podporuje pojmenovaný údaj, nikoli account-CIK,
+alias nebo historickou platnost; index/served body rozdíl110bytes je zachovaný.
+SEC NVDA IR věta zachovává přesné `http://investor.nvidia.com`, rozdíl111bytes
+a jediný disclosure; current publisher authority/LIVE/feed aktivace zůstávají false.
+NHTSA nové4scopes daly2positive/2HTTP400PARTIAL, genuine complete negative0.
+
+Nové předpovědi lze výslovně registrovat bezprostředně po skutečném uložení.
+Explicitní source selection zachovává immutable verze, přesné původní raw pins,
+asset/benchmark scope, skutečné hodiny a compare-and-swap aktivního výběru.
+Peer kontroly opravily SEC index accession/future-day a fyzický clock rollback
+před registrací/publikací; chybný druhý source zachová skutečný uložený subset.
+Default zůstává vypnutý. Samostatné audit settings nemění model fingerprint,
+fitter, skóre nebo původní687/60s budget. Skutečná retained DB stále nemá
+prediction_snapshots; authentic registrations0/real labels0. UNKNOWN publisher
+revision se nepřijímá. Jednotkové syntetické forecasty nejsou živá/OOS akceptace.
+
+Důkaz integrace a vlastní kvalifikace: `evidence/batch7_integration_20261015.json`.
+Canonical687, historicalQ2 instrument150/currentQ3=0, healthcare10/NHTSA3/legal5,
+verifiedadopt0 a fullacceptance0/21. Všechna3whole access-bearing bodies zůstávají
+absent; žádný sanitized/encoded/wrapped substitute, private-ancestry push ani merge.
+
+### Aktuální konkrétní fronta po sedmé dávce
+
+- identity_bulk: nezávislý dated LEG direct/indirect control, action/CUSIP/class;
+  XOMnewCUSIP/July7 konflikt aPSTG exactday, bezQ2 extension nebo aliasu.
+- healthcare: original CMSCCN/PAC/provider-name bridge a předem doložená issuer
+  vazba; skutečná durable source historie, structured product role a širší clinical scope.
+- regulatory: genuine HTTP200complete NHTSAnegative pouze přes legitimní zbývající
+  rozpočet/další den; original FRS/program/datedownership, DOJ case-date identity a disposition.
+- contracts: úplné original prime pages/dřívější UEI/durable quota; širší awards,
+  revision/deletion timing a supplier-specific množství/denominátory/časová kontinuita.
+- sec: safe original publisher authority a nezávislá dated natural-person/account,
+  instrument/legal identity; SEC-disclosed URI není source activation.
+- evaluation: genuine prospective normal forecasts a source/action/price/labels historie
+  s actual publisher revision; širší relevantní provozní pokrytí, userWindows a OOS.
+
+Žádný merge/force push, scoring/OOS activation nebo trading. Bez obsahové
+DONE/VERIFIED akceptace všech21 se neposílá dokončovací oznámení.
+
 ## Šestá navazující dávka — 14. 10. 2026
 
 Místní finální sada této verze: **1603 discovered=executed**, plain OK,

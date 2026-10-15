@@ -1,0 +1,15 @@
+{
+  "all_11_prior_rows_unchanged": true,
+  "all_15_after_rows_unchanged": true,
+  "canonical_row_json_hash_format": "SHA256(UTF8 json.dumps(dict(row),sort_keys=True,separators=(comma,colon)))",
+  "daily_make_subject_limit": 4,
+  "daily_request_limit": 8,
+  "original_database_path": "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/outputs/market_checker_history.db",
+  "read_only": true,
+  "recorded_at": "2026-10-15T07:34:55.468481+00:00",
+  "remaining_make_slots": 1,
+  "remaining_requests": 4,
+  "run_tokens_exported": false,
+  "today_nhtsa_make_subjects": 3,
+  "today_nhtsa_requests": 4
+}

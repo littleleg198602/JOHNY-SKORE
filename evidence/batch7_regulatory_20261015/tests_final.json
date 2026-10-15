@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_batch7_doj_scope",
+    "-v"
+  ],
+  "elapsed_seconds": 25.60382240499996,
+  "exit_code": 0,
+  "finished_at": "2026-10-15T04:32:04.360394+00:00",
+  "log_path": "evidence/batch7_regulatory_20261015/tests_final.log",
+  "log_sha256": "1f0e3a241f4cb2eb56686439e047bc898ebe1462b0e04bd1acc35d6065d90246",
+  "source_hashes": {
+    "market_checker_app/services/doj_enforcement_scope_review.py": "891113065a849998e510695e1929caa3e76a9486fe01db28ce1ad6359dc76465",
+    "tests/test_batch7_doj_scope.py": "344a4b6c987a08903610c6c0392643c76c5a8ba7546896cce30328e6b9202a38"
+  },
+  "started_at": "2026-10-15T04:31:38.756579+00:00",
+  "supersedes_diagnostic": "evidence/batch7_regulatory_20261015/tests_initial.json"
+}

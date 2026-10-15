@@ -1,0 +1,10 @@
+{
+  "recorded_at": "2026-10-15T07:25:25.976229+00:00",
+  "original_dispatch_sha256": "89b426b18bc71d87673d8a155458ea6e92b66d79dbad90d7b3573b6c472ffc40",
+  "actual_failure_report": "runtime_reviews/review-556e21d940c69ef45b148c6dcd7afcca030ee5b6e02e233a157c75408d48b892.json",
+  "cause": "Root supplied start-of-review clock as a historical knowledge cutoff to a newly physically ingested supply review. The guard correctly returned AFTER_PHYSICAL_KNOWLEDGE_CUTOFF.",
+  "correction": "Default current review uses the source reviewer physical ingestion clock. Only an explicitly selected plan as_of is forwarded; original capture cutoff is still checked before body reads.",
+  "source_bodies_modified": false,
+  "guard_relaxed": false,
+  "source_http_requests": 0
+}

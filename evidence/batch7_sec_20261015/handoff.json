@@ -1,0 +1,184 @@
+{
+  "actual_new_primary_http_requests": 2,
+  "application_quota_managed_live_acceptance_claim": false,
+  "base_commit": "089ce4dbe03952d84daac5cfe47760b09020954b",
+  "branch": "batch7/sec-20261015",
+  "canonical_universe_unchanged": true,
+  "capture_day_utc": "2026-10-14",
+  "created_at": "2026-10-15T04:32:26.610357+00:00",
+  "daily_history_recovered_reset_or_reconstructed": false,
+  "existing_registries_and_old_evidence_unchanged": true,
+  "full_specialist_acceptance": false,
+  "http200_complete_original_bodies": 2,
+  "index_and_primary_count_as_one_disclosure": true,
+  "maximum_primary_research_requests": 4,
+  "new_independent_person_disclosures": 1,
+  "next_blockers": [
+    "Independently dated legal-person/account-CIK and approved-name bridge",
+    "Historical 2014 or September2026 natural-person validity; current served dated annotation is insufficient",
+    "Exact historical as-filed byte version, preserving the 110-byte index/served-body conflict",
+    "Independent instrument identity and wider relevant-universe coverage",
+    "Complete genuine live/history/OOS and user-Windows acceptance outside this narrow source review"
+  ],
+  "original_capture_bodies_retained": true,
+  "owned_output": "Original-byte independently dated named-person bio review; account-CIK and historical identity remain withheld",
+  "physical_handoff_created_at_is_not_historical_availability": true,
+  "previous_whole_withheld_bodies_restored": false,
+  "qualification": {
+    "actual_http_requests_in_tests": 0,
+    "discovered": 57,
+    "earlier_exact_source_qualification_retained": "evidence/batch7_sec_20261015/focused_01.json",
+    "errors": 0,
+    "executed": 57,
+    "expected_failures": 0,
+    "failures": 0,
+    "local_only": true,
+    "log": "evidence/batch7_sec_20261015/focused_02.log",
+    "report": "evidence/batch7_sec_20261015/focused_02.json",
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "results": {
+    "account_cik": "0001513142",
+    "actual_original_primary_bytes": 2430522,
+    "approved_alias": false,
+    "bio_name_as_published": "Satya Nadella",
+    "exact_as_filed_body_version_verified": false,
+    "historical_event_validity_proven": false,
+    "index_declared_primary_bytes": 2430412,
+    "instrument_verified_rows": 0,
+    "issuer_attribution_allowed": false,
+    "named_age_birthplace_bio_supported": true,
+    "person_cik_verified_rows": 0,
+    "publisher_size_conflict_preserved": true,
+    "source_account_name": "Nadella Satya",
+    "source_account_to_person_cik_verified": false,
+    "source_rows_preserved": 8,
+    "status": "PARTIAL"
+  },
+  "retained_original_input_pins": {
+    "evidence/batch4_sec_20261013/primary/msft_submissions.json": {
+      "bytes": 185250,
+      "sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c"
+    },
+    "evidence/batch6_sec_20261014/captures.json": {
+      "bytes": 2447,
+      "sha256": "d15b1596c30d0e6e7f2231eaec61944ac53bbab77bafe71c91a77accca892c08"
+    },
+    "evidence/batch6_sec_20261014/primary/nadella_2014_form3.txt": {
+      "bytes": 5836,
+      "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053"
+    }
+  },
+  "review_knowledge_at": "2026-10-14T23:27:25.325473+00:00",
+  "review_knowledge_at_is_input_cutoff_not_physical_ingestion": true,
+  "runtime_api": {
+    "capture_keys": [
+      "account",
+      "primary",
+      "index"
+    ],
+    "capture_type": "PersonKindCapture",
+    "function": "review_sec_person_kind",
+    "module": "market_checker_app.services.sec_person_kind_review",
+    "optional_keyword_inputs": {
+      "requested_event_days": []
+    },
+    "per_original_body_cap_bytes": 4000000,
+    "plan": "evidence/batch7_sec_20261015/actual_review_plan.json",
+    "plan_kind": "SEC_PERSON_KIND",
+    "pure_no_http_store_registry_or_scoring": true,
+    "required_keyword_inputs": [
+      "account_descriptor",
+      "account_capture",
+      "person_fact",
+      "primary_capture",
+      "index_capture",
+      "knowledge_at"
+    ],
+    "root_dispatch_physical_ingestion_required": true
+  },
+  "schema_version": 1,
+  "scoring_applied": false,
+  "source_and_artifact_pins": {
+    "evidence/batch7_sec_20261015/README.md": {
+      "bytes": 5652,
+      "sha256": "5fce135f71936cd6e9655b7cb292a14a9ca9546a0a8eca32becdf08eeeac5bf6"
+    },
+    "evidence/batch7_sec_20261015/actual_review_plan.json": {
+      "bytes": 3005,
+      "sha256": "de5573be4e158a42d639cc631f1eeed73c9edfef020cfb680027ca00ba395fc1"
+    },
+    "evidence/batch7_sec_20261015/attempt-01-reserved.json": {
+      "bytes": 568,
+      "sha256": "a38c882e07b79d1b3b509502ec19f07c9a29a473f087c904ae6ec7fe694981d8"
+    },
+    "evidence/batch7_sec_20261015/attempt-01-result.json": {
+      "bytes": 958,
+      "sha256": "ce9b62b878bf35c9fa2d82fd91108cb7ee13f575d7581645ddd6aa27f99544f9"
+    },
+    "evidence/batch7_sec_20261015/attempt-02-reserved.json": {
+      "bytes": 555,
+      "sha256": "ee5bb1a462337f4b76148331360e62d4c5b7496dcf982b393c236f88087f6c1b"
+    },
+    "evidence/batch7_sec_20261015/attempt-02-result.json": {
+      "bytes": 940,
+      "sha256": "f9d6eb87bd85a69b87a69c686718c4abf8aa7039d02df3a8e7f2149fd68b4af7"
+    },
+    "evidence/batch7_sec_20261015/build_review.py": {
+      "bytes": 8187,
+      "sha256": "ebb04c538ad1794bbcd7b22670f7a247e0f6ca0087ccf9a857a6fe000bad4046"
+    },
+    "evidence/batch7_sec_20261015/capture_primary.py": {
+      "bytes": 5597,
+      "sha256": "e3e1bfa2b64c6fb3af0025d3713b498047575a1bbea6b4c6713f975fb0d1c783"
+    },
+    "evidence/batch7_sec_20261015/focused_01.json": {
+      "bytes": 1927,
+      "sha256": "de9476447e77befc608c5c277f32e45d54e69249b36add4c6d86aea831944dce"
+    },
+    "evidence/batch7_sec_20261015/focused_01.log": {
+      "bytes": 12000,
+      "sha256": "dc6aa421b9c7dba06324b9fbf8c93ac4e9f84f66d0cb9355529d396acac4033c"
+    },
+    "evidence/batch7_sec_20261015/focused_02.json": {
+      "bytes": 1928,
+      "sha256": "38b3edeabd7750a079454150f049368b695a4720925b64f6e078d01669860d60"
+    },
+    "evidence/batch7_sec_20261015/focused_02.log": {
+      "bytes": 12213,
+      "sha256": "b155c67e76472ba230125e78520280b2f3f1c5df378bf45a40fbb3a53e59fd80"
+    },
+    "evidence/batch7_sec_20261015/person_kind_review.json": {
+      "bytes": 9388,
+      "sha256": "ffe0317b87498262af2c67eaf7d86367f74dbccf7b6605badbe6048b7615b584"
+    },
+    "evidence/batch7_sec_20261015/primary/msft_2025_proxy.htm": {
+      "bytes": 2430522,
+      "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac"
+    },
+    "evidence/batch7_sec_20261015/primary/msft_2025_proxy_index.html": {
+      "bytes": 33931,
+      "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a"
+    },
+    "evidence/batch7_sec_20261015/retained_post_capture_scope.json": {
+      "bytes": 711,
+      "sha256": "a49d35c44331a26f97cfecf16fa625868af3c73dd45172ac2d156b88f72bd585"
+    },
+    "evidence/batch7_sec_20261015/run_focused_tests.py": {
+      "bytes": 3009,
+      "sha256": "4d5b4da7a56508503b471d56a2ba899947ecd117ce2a99ef96d6d49b5c339c39"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20125,
+      "sha256": "fc1057e9026a1fb281fe40963e42644fd3231a4aa591008c1a958c8489bb2c5c"
+    },
+    "tests/test_batch7_person_kind.py": {
+      "bytes": 24107,
+      "sha256": "9c452a225912babd85eee02d0c0ecc4af5a1fdc58edc79dc42a568d0e6726163"
+    }
+  },
+  "trading_allowed": false,
+  "whole_sensitive_body_gate_passed_for_both_new_originals": true,
+  "windows_or_historical_oos_claim": false
+}

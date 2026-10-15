@@ -1,0 +1,54 @@
+{
+  "completed_at": "2026-10-15T04:31:04.390001+00:00",
+  "discovered": 57,
+  "elapsed_seconds": 3.8876314210000373,
+  "errors": 0,
+  "executed": 57,
+  "expected_failures": 0,
+  "failures": 0,
+  "live_http_requests_in_tests": 0,
+  "log_sha256": "b155c67e76472ba230125e78520280b2f3f1c5df378bf45a40fbb3a53e59fd80",
+  "modules": [
+    "tests.test_batch7_person_kind",
+    "tests.test_batch6_form4_person_bridge"
+  ],
+  "skips": 0,
+  "source_pins": {
+    "evidence/batch7_sec_20261015/build_review.py": {
+      "bytes": 8187,
+      "sha256": "ebb04c538ad1794bbcd7b22670f7a247e0f6ca0087ccf9a857a6fe000bad4046"
+    },
+    "evidence/batch7_sec_20261015/capture_primary.py": {
+      "bytes": 5597,
+      "sha256": "e3e1bfa2b64c6fb3af0025d3713b498047575a1bbea6b4c6713f975fb0d1c783"
+    },
+    "evidence/batch7_sec_20261015/run_focused_tests.py": {
+      "bytes": 3009,
+      "sha256": "4d5b4da7a56508503b471d56a2ba899947ecd117ce2a99ef96d6d49b5c339c39"
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "bytes": 24571,
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    "market_checker_app/services/sec_form4_person_bridge.py": {
+      "bytes": 22929,
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20125,
+      "sha256": "fc1057e9026a1fb281fe40963e42644fd3231a4aa591008c1a958c8489bb2c5c"
+    },
+    "tests/test_batch6_form4_person_bridge.py": {
+      "bytes": 16470,
+      "sha256": "9365304b6ef0c756d2e3e0cfee81508bba611edada69c5d429af5d9935da9bff"
+    },
+    "tests/test_batch7_person_kind.py": {
+      "bytes": 24107,
+      "sha256": "9c452a225912babd85eee02d0c0ecc4af5a1fdc58edc79dc42a568d0e6726163"
+    }
+  },
+  "started_at": "2026-10-15T04:31:00.502374+00:00",
+  "successful": true,
+  "unexpected_successes": 0,
+  "windows_claim": false
+}

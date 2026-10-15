@@ -1,0 +1,26 @@
+{
+  "access_values_exported": false,
+  "app_quota_managed_live_claimed": false,
+  "attempts": 1,
+  "body_path": "275f5e5adef469c3297ee9621dd793baee6422f46232d18e782c97f2524689ee.bin",
+  "bytes": 16626,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/exhibit991-somnigroupcompl.htm",
+  "historical_request_ledger_reconstructed": false,
+  "http_status": 200,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-14T23:29:18.942027+00:00",
+  "raw_sha256": "275f5e5adef469c3297ee9621dd793baee6422f46232d18e782c97f2524689ee",
+  "redirects_allowed": false,
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/exhibit991-somnigroupcompl.htm",
+  "research_only": true,
+  "response_headers": {
+    "Content-Encoding": null,
+    "Content-Length": "16626",
+    "Content-Type": "text/html",
+    "Date": "Wed, 14 Oct 2026 23:29:18 GMT",
+    "Last-Modified": "Wed, 26 Aug 2026 16:41:57 GMT"
+  },
+  "started_at": "2026-10-14T23:29:14.269507+00:00",
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED"
+}

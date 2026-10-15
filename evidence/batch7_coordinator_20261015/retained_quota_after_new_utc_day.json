@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-10-15T07:37:47.307967+00:00",
+  "read_only": true,
+  "original_retained_database": true,
+  "all_11_prior_rows_unchanged": true,
+  "prior_rows_count": 11,
+  "current_rows_count": 15,
+  "usage": [
+    {
+      "source": "nhtsa",
+      "utc_day": "2026-10-14",
+      "requests": 8,
+      "subjects": 3
+    },
+    {
+      "source": "nhtsa",
+      "utc_day": "2026-10-15",
+      "requests": 4,
+      "subjects": 3
+    },
+    {
+      "source": "rss",
+      "utc_day": "2026-10-14",
+      "requests": 3,
+      "subjects": 1
+    }
+  ],
+  "active_leases": 0,
+  "new_database_created": false,
+  "quota_reset_or_reconstructed": false,
+  "db_sha256": "0a6c669c3b5977dc5e884e313715b7c49dc9d033eef1f7d2af121aa2223b0963",
+  "database_bytes_unchanged_by_read": true
+}

@@ -1,0 +1,132 @@
+{
+  "analysis_only": true,
+  "audit_root": "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015",
+  "current_manifest_sha256": null,
+  "feature_source_coverage_verified": false,
+  "fitter_changed": false,
+  "forecast_source_scopes": [
+    {
+      "benchmark_ticker": "SPY",
+      "snapshot_id": null,
+      "sources": [
+        {
+          "path": "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+          "scope": "EXACT_TICKER_PRICE_REFERENCE"
+        },
+        {
+          "path": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+          "scope": "EXACT_TICKER_PRICE_REFERENCE"
+        }
+      ],
+      "ticker": "AAPL"
+    },
+    {
+      "benchmark_ticker": "SPY",
+      "snapshot_id": null,
+      "sources": [
+        {
+          "path": "evidence/batch5_coordinator_20261014/source_runs/rss/specialist_source_run_9947758362370d6e8dac1763eb956ae3ddab0555844a507a213e26d95aadfd27_47ed52005d8796380d2472d593f0d74ea72c63da085ca0b7d23f78da124bd151.json",
+          "scope": "RECORDED_TICKER_REFERENCE_ONLY"
+        },
+        {
+          "path": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+          "scope": "EXACT_TICKER_PRICE_REFERENCE"
+        }
+      ],
+      "ticker": "MSFT"
+    }
+  ],
+  "forecasts_created": 0,
+  "historical_acceptance_verified": false,
+  "label_pins": [],
+  "labels_created": 0,
+  "manifest": {
+    "forecast_sources": [
+      {
+        "benchmark_ticker": "SPY",
+        "source_archive_paths": [
+          "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+          "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json"
+        ],
+        "ticker": "AAPL"
+      },
+      {
+        "benchmark_ticker": "SPY",
+        "source_archive_paths": [
+          "evidence/batch5_coordinator_20261014/source_runs/rss/specialist_source_run_9947758362370d6e8dac1763eb956ae3ddab0555844a507a213e26d95aadfd27_47ed52005d8796380d2472d593f0d74ea72c63da085ca0b7d23f78da124bd151.json",
+          "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json"
+        ],
+        "ticker": "MSFT"
+      }
+    ],
+    "label_observations": [],
+    "schema_version": "prospective_forecast_source_manifest_v1"
+  },
+  "manifest_sha256": "e45df361919206e1c7930efefb6c6838180433663c209915e92c1e245c352130",
+  "preparation_hash": "5daf497ee315668c73f2a8a2059a13af067294db6def0df2f118d36cc8b92506",
+  "prepared_at": "2026-10-15T07:32:45.184932+00:00",
+  "publisher_authenticity_independently_verified": false,
+  "schema_version": "prospective_source_manifest_preparation_v1",
+  "scores_changed": false,
+  "selected_total_file_bytes": 509173,
+  "source_discovery_performed": false,
+  "source_http_requests": 0,
+  "source_pins": [
+    {
+      "file_bytes": 500908,
+      "file_sha256": "77ef55a0048982719185f7eba804089c0d7ae0471b7625138972835d7338f0ec",
+      "path": "evidence/batch5_coordinator_20261014/source_runs/rss/specialist_source_run_9947758362370d6e8dac1763eb956ae3ddab0555844a507a213e26d95aadfd27_47ed52005d8796380d2472d593f0d74ea72c63da085ca0b7d23f78da124bd151.json",
+      "reference": {
+        "archive_filename": "specialist_source_run_9947758362370d6e8dac1763eb956ae3ddab0555844a507a213e26d95aadfd27_47ed52005d8796380d2472d593f0d74ea72c63da085ca0b7d23f78da124bd151.json",
+        "available_at": "2026-10-14T05:21:15.058355+00:00",
+        "content_hash": "47ed52005d8796380d2472d593f0d74ea72c63da085ca0b7d23f78da124bd151",
+        "evidence_origin": "RECORDED_SCOUTSTORE_STATE",
+        "file_bytes": 500908,
+        "file_sha256": "77ef55a0048982719185f7eba804089c0d7ae0471b7625138972835d7338f0ec",
+        "kind": "SPECIALIST_SOURCE_RUN",
+        "observed_at": "2026-10-14T05:21:15.046918+00:00",
+        "source": "rss",
+        "source_id": "9947758362370d6e8dac1763eb956ae3ddab0555844a507a213e26d95aadfd27"
+      }
+    },
+    {
+      "file_bytes": 4082,
+      "file_sha256": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3",
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+      "reference": {
+        "archive_filename": "yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+        "available_at": "2026-10-14T05:18:59.974992+00:00",
+        "content_hash": "00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "file_bytes": 4082,
+        "file_sha256": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3",
+        "frame_sha256": "612105e7a9618995a4082ecb5c5de6b805eca5e67b73263b4bdbc0c36ba1ec9f",
+        "kind": "YAHOO_PRICE_OBSERVATION",
+        "observed_at": "2026-10-14T05:18:59.974992+00:00",
+        "publisher_revision_timing_status": "UNKNOWN",
+        "source_id": "00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572",
+        "ticker": "SPY"
+      }
+    },
+    {
+      "file_bytes": 4183,
+      "file_sha256": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f",
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+      "reference": {
+        "archive_filename": "yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+        "available_at": "2026-10-14T05:18:59.957858+00:00",
+        "content_hash": "338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "file_bytes": 4183,
+        "file_sha256": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f",
+        "frame_sha256": "9be244ca60e3fcfb03bc89056588e944d21e5d292b2bab86709e0ac68544dbbf",
+        "kind": "YAHOO_PRICE_OBSERVATION",
+        "observed_at": "2026-10-14T05:18:59.957858+00:00",
+        "publisher_revision_timing_status": "UNKNOWN",
+        "source_id": "338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3",
+        "ticker": "AAPL"
+      }
+    }
+  ],
+  "source_validation_cutoff": "2026-10-15T07:32:45.066402+00:00"
+}

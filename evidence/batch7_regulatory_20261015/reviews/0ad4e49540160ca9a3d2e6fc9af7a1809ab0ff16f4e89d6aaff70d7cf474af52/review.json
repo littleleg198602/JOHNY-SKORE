@@ -1,0 +1,170 @@
+{
+  "adjudication_verified": false,
+  "as_of": "2026-10-15T04:34:03.649657+00:00",
+  "captures": [
+    {
+      "actual_primary_capture": true,
+      "body_bytes": 1096132,
+      "body_sha256": "8179346e0243ba8e5650821b7f88eccf96284332a7ffa413756cafefc1cfbe1b",
+      "capture_id": "doj_apple_complaint",
+      "content_type": "application/pdf",
+      "observed_at": "2026-10-14T23:30:05.894425+00:00",
+      "original_body_pin_verified": true,
+      "pdf_page_count": 88,
+      "review_reason": "ORIGINAL_PIN_AND_SELECTED_CONTENT_REVIEWED",
+      "source_url": "https://www.justice.gov/d9/2024-03/420763.pdf",
+      "started_at": "2026-10-14T23:29:59.234009+00:00"
+    },
+    {
+      "actual_primary_capture": true,
+      "body_bytes": 85447,
+      "body_sha256": "e7d3e7fdf4d0f87f8a40fbc74e907b85a6f5d1b5656d97059941461b085783da",
+      "capture_id": "doj_apple_release",
+      "content_type": "text/html",
+      "observed_at": "2026-10-14T23:30:10.897034+00:00",
+      "original_body_pin_verified": true,
+      "review_reason": "ORIGINAL_PIN_AND_SELECTED_CONTENT_REVIEWED",
+      "source_url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-apple-monopolizing-smartphone-markets",
+      "started_at": "2026-10-14T23:30:07.133459+00:00"
+    },
+    {
+      "actual_primary_capture": true,
+      "body_bytes": 1559034,
+      "body_sha256": "d76de55ead22cb553096b3495f55c8e0f6cd94f36242d9c87737b55952816724",
+      "capture_id": "sec_apple_2023_10k",
+      "content_type": "text/html",
+      "observed_at": "2026-10-14T23:30:14.924474+00:00",
+      "original_body_pin_verified": true,
+      "review_reason": "ORIGINAL_PIN_AND_SELECTED_CONTENT_REVIEWED",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm",
+      "started_at": "2026-10-14T23:30:10.907264+00:00"
+    },
+    {
+      "actual_primary_capture": true,
+      "body_bytes": 12838,
+      "body_sha256": "ce2b5125c09b615c9bc47ac81aebd2b2a396004f7da7c5fc4b75ab4878edf433",
+      "capture_id": "sec_apple_2023_index",
+      "content_type": "text/html",
+      "observed_at": "2026-10-14T23:30:19.064660+00:00",
+      "original_body_pin_verified": true,
+      "review_reason": "ORIGINAL_PIN_AND_SELECTED_CONTENT_REVIEWED",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/0000320193-23-000106-index.html",
+      "started_at": "2026-10-14T23:30:15.091822+00:00"
+    }
+  ],
+  "case_document_scope_supported": true,
+  "case_entity_same_literal_as_issuer": true,
+  "company_wide_liability_verified": false,
+  "complete_issuer_enforcement_coverage": false,
+  "contract_version": "doj-case-entity-original-bytes-v1",
+  "court_document_number": "1",
+  "current_case_status_verified": false,
+  "document_stage_supported": true,
+  "documentary_filed_on": "2024-03-21",
+  "exact_case_entity_supported": true,
+  "historical_availability_reconstructed": false,
+  "http_requests": 0,
+  "independent_earlier_legal_identity_supported": true,
+  "ingested_at": "2026-10-15T04:34:03.649657+00:00",
+  "issuer_attribution_verified": false,
+  "issuer_conviction_verified": false,
+  "issuer_documentary_anchor_date": "2023-09-30",
+  "issuer_documentary_published_on": "2023-11-03",
+  "issuer_fine_verified": false,
+  "issuer_identity_fact": {
+    "anchor_date": "2023-09-30",
+    "context_ref": "c-1",
+    "issuer_cik": "0000320193",
+    "issuer_name": "Apple Inc."
+  },
+  "issuer_index_accepted_display": [
+    "2023-11-02 18:08:27"
+  ],
+  "issuer_index_accepted_timezone_verified": false,
+  "known_at": "2026-10-15T04:34:03.649657+00:00",
+  "live_acceptance_verified": false,
+  "missing_evidence": [
+    "MISSING_CASE_DATE_REGISTERED_IDENTITY",
+    "MISSING_IDENTITY_KNOWN_BEFORE_CASE_DAY",
+    "MISSING_INDEPENDENT_LEGAL_CONTINUITY"
+  ],
+  "parent_liability_verified": false,
+  "passage_reviews": [
+    {
+      "capture_id": "doj_apple_complaint",
+      "page": 1,
+      "purpose": "CAPTION",
+      "supported": true
+    },
+    {
+      "capture_id": "doj_apple_complaint",
+      "page": 3,
+      "purpose": "CASE_ENTITY",
+      "supported": true
+    },
+    {
+      "capture_id": "doj_apple_complaint",
+      "page": 3,
+      "purpose": "DOCUMENT_STAGE",
+      "supported": true
+    },
+    {
+      "capture_id": "doj_apple_release",
+      "page": 1,
+      "purpose": "SOURCE_PUBLICATION",
+      "supported": true
+    },
+    {
+      "capture_id": "doj_apple_release",
+      "page": 1,
+      "purpose": "LEGAL_ENTITY",
+      "supported": true
+    }
+  ],
+  "prediction_input": false,
+  "publication_time_verified": false,
+  "recorded_case_stage": "ALLEGATIONS_ONLY",
+  "registry_adoption_allowed": false,
+  "registry_identity": {
+    "case_date_supported": false,
+    "known_before_case_day": false,
+    "legal_continuity_supported": false,
+    "record_id": null,
+    "registry_fingerprint_sha256": "8128f79d57ac60a0ebeee57d38135f4ed1b7a3a0e05e4cb80a7c8cb7b51d5e1e",
+    "resolution": "OUTSIDE_EFFECTIVE_PERIOD"
+  },
+  "release_documentary_published_on": "2024-03-21",
+  "release_legal_description_supported": true,
+  "release_publication_supported": true,
+  "release_reported_datetime_attribute": [
+    "2024-03-21T12:00:00Z"
+  ],
+  "release_updated_display": [
+    "February 6, 2025"
+  ],
+  "report_available_at_cutoff": true,
+  "review_fingerprint_sha256": "5fff8462a26a6c5a77b712b44588c439876d3b3ea498c2e7e9cd36be539d075b",
+  "review_kind": "DOJ_ENFORCEMENT_SCOPE",
+  "schema_version": 1,
+  "scope": {
+    "case_entity_name": "Apple Inc.",
+    "case_entity_role": "DEFENDANT",
+    "court": "IN THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF NEW JERSEY",
+    "court_capture_id": "doj_apple_complaint",
+    "docket": "2:24-cv-04055",
+    "document_kind": "COMPLAINT",
+    "filed_on": "2024-03-21",
+    "issuer_anchor_date": "2023-09-30",
+    "issuer_capture_id": "sec_apple_2023_10k",
+    "issuer_cik": "0000320193",
+    "issuer_legal_name": "Apple Inc.",
+    "issuer_publication_capture_id": "sec_apple_2023_index",
+    "issuer_published_on": "2023-11-03",
+    "issuer_ticker": "AAPL",
+    "release_capture_id": "doj_apple_release",
+    "release_published_on": "2024-03-21"
+  },
+  "scoring_applied": false,
+  "selected_passages_all_supported": true,
+  "status": "PARTIAL"
+}

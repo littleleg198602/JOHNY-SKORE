@@ -1,0 +1,263 @@
+{
+  "actual_review": {
+    "immutable_review": {
+      "bytes": 6221,
+      "path": "evidence/batch7_regulatory_20261015/reviews/0ad4e49540160ca9a3d2e6fc9af7a1809ab0ff16f4e89d6aaff70d7cf474af52/review.json",
+      "sha256": "0ad4e49540160ca9a3d2e6fc9af7a1809ab0ff16f4e89d6aaff70d7cf474af52"
+    },
+    "known_at": "2026-10-15T04:34:03.649657+00:00",
+    "missing_evidence": [
+      "MISSING_CASE_DATE_REGISTERED_IDENTITY",
+      "MISSING_IDENTITY_KNOWN_BEFORE_CASE_DAY",
+      "MISSING_INDEPENDENT_LEGAL_CONTINUITY"
+    ],
+    "physical_ingested_at": "2026-10-15T04:34:03.649657+00:00",
+    "replay": {
+      "bytes": 6221,
+      "path": "evidence/batch7_regulatory_20261015/replay.json",
+      "sha256": "0ad4e49540160ca9a3d2e6fc9af7a1809ab0ff16f4e89d6aaff70d7cf474af52"
+    },
+    "review_record": {
+      "bytes": 1254,
+      "path": "evidence/batch7_regulatory_20261015/review_record.json",
+      "sha256": "685c6e26b88f967baa772bca7760e525786adf139d8995b901eab7c7e0b8cfef"
+    },
+    "status": "PARTIAL"
+  },
+  "actual_scope": {
+    "case_entity_name": "APPLE INC.",
+    "case_entity_role": "DEFENDANT",
+    "court": "D.N.J.",
+    "current_case_disposition_asserted": false,
+    "current_q3_instrument_identity_asserted": false,
+    "docket": "2:24-cv-04055",
+    "document_filed_on": "2024-03-21",
+    "document_number": "1",
+    "independent_issuer_document_anchor": "2023-09-30",
+    "independent_issuer_filing_day": "2023-11-03",
+    "issuer_cik": "0000320193",
+    "issuer_index_accepted_display": [
+      "2023-11-02 18:08:27"
+    ],
+    "issuer_index_accepted_timezone": "UNKNOWN",
+    "issuer_legal_name": "Apple Inc.",
+    "issuer_ticker": "AAPL",
+    "legal_registry_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+    "recorded_case_stage": "ALLEGATIONS_ONLY",
+    "same_context_issuer_identity": {
+      "anchor_date": "2023-09-30",
+      "context_ref": "c-1",
+      "issuer_cik": "0000320193",
+      "issuer_name": "Apple Inc."
+    }
+  },
+  "adjudication_verified": false,
+  "api": {
+    "adoption_and_scoring_permitted": false,
+    "caller_responsibility": "Pin metadata/whole original bytes before dispatch; supply actual physical ingestion time and validated existing production legal rows.",
+    "capture_limit": 4,
+    "capture_map": "{capture_id: {metadata: dict, body: bytes | None}}; bounded list also accepted",
+    "capture_packet": {
+      "bytes": 963,
+      "path": "evidence/batch7_regulatory_20261015/capture_packet.json",
+      "sha256": "9f323963dcfe5360231ee9eb5b1bab3f0d9c81208efdb2dbd351bb13f551b150"
+    },
+    "filesystem_http_db_quota_io": false,
+    "module": "market_checker_app.services.doj_enforcement_scope_review",
+    "pdf_page_limit": 120,
+    "per_capture_byte_limit": 4000000,
+    "physical_availability_gate": "ingested_at <= as_of; no source decoding before report availability",
+    "request": {
+      "bytes": 1587,
+      "path": "evidence/batch7_regulatory_20261015/request.json",
+      "sha256": "131ba912c68bc165643173d19c562acbb63528cf30d1e5bc59eec87404d7df12"
+    },
+    "review": "review_doj_enforcement_scope(request, captures, *, as_of, ingested_at, legal_records=())",
+    "selected_decoded_text_limit": 2000000,
+    "selected_pdf_page_limit": 12
+  },
+  "branch": "batch7/regulatory-20261015",
+  "canonical_tickers": 687,
+  "capture_index": {
+    "bytes": 3724,
+    "path": "evidence/batch7_regulatory_20261015/capture_index.json",
+    "sha256": "e8bca77df5af2861987e48b3412c1d768a6538193c7a17a536b716be05e6b04e"
+  },
+  "company_wide_liability_verified": false,
+  "content_audit": {
+    "bytes": 3274,
+    "path": "evidence/batch7_regulatory_20261015/content_audit.json",
+    "sha256": "648a9d662741c9d273149bc202d22c2b09e480b6225aa98c193a7328ab09a2bd"
+  },
+  "git_source_hygiene": {
+    "original_inclusive_exit_code": 2,
+    "path": "evidence/batch7_regulatory_20261015/git_diff_check_original_raw.json",
+    "preserved_exclusions": [
+      "Exact original publisher HTML bodies",
+      "Exact superseded failed tests_initial.log console bytes"
+    ],
+    "raw_hashes_or_test_assertions_relaxed": false,
+    "sha256": "26374038f7fcfb394ad2bdd3dcb1de156bdbe9c44aa812c7734fca7ac551f1c9",
+    "source_test_mutable_evidence_exit_code": 0
+  },
+  "historical_availability_reconstructed": false,
+  "historical_oos_acceptance_verified": false,
+  "issuer_attribution_allowed": false,
+  "kind": "ORIGINAL_BYTE_DATED_DOJ_CASE_LEGAL_ENTITY_SCOPE_REVIEW",
+  "live_acceptance_verified": false,
+  "new_original_sources": [
+    {
+      "capture_id": "doj_apple_complaint",
+      "metadata": {
+        "bytes": 743,
+        "path": "evidence/batch7_regulatory_20261015/raw/doj_apple_complaint.metadata.json",
+        "sha256": "cb96f174874c58851f815458e93c1f5fcda6556fffacb7abd3aaf6a7ea5c860e"
+      },
+      "original_body": {
+        "bytes": 1096132,
+        "path": "evidence/batch7_regulatory_20261015/raw/doj_apple_complaint.pdf",
+        "sha256": "8179346e0243ba8e5650821b7f88eccf96284332a7ffa413756cafefc1cfbe1b"
+      }
+    },
+    {
+      "capture_id": "doj_apple_release",
+      "metadata": {
+        "bytes": 859,
+        "path": "evidence/batch7_regulatory_20261015/raw/doj_apple_release.metadata.json",
+        "sha256": "241528380c8158fc2e21870280a5b5fdc24ea4009f30354d36b5dedd378ef8f9"
+      },
+      "original_body": {
+        "bytes": 85447,
+        "path": "evidence/batch7_regulatory_20261015/raw/doj_apple_release.html",
+        "sha256": "e7d3e7fdf4d0f87f8a40fbc74e907b85a6f5d1b5656d97059941461b085783da"
+      }
+    },
+    {
+      "capture_id": "sec_apple_2023_10k",
+      "metadata": {
+        "bytes": 812,
+        "path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.metadata.json",
+        "sha256": "492ae033c7e76510da6e502a4f7fe6c75100db04fe2e337082ca8e454de96059"
+      },
+      "original_body": {
+        "bytes": 1559034,
+        "path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.html",
+        "sha256": "d76de55ead22cb553096b3495f55c8e0f6cd94f36242d9c87737b55952816724"
+      }
+    },
+    {
+      "capture_id": "sec_apple_2023_index",
+      "metadata": {
+        "bytes": 857,
+        "path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_index.metadata.json",
+        "sha256": "2e2853e85079008fe72cee64a8975041e037f7ca6a9382c6d290cb2a219c3f8f"
+      },
+      "original_body": {
+        "bytes": 12838,
+        "path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_index.html",
+        "sha256": "ce2b5125c09b615c9bc47ac81aebd2b2a396004f7da7c5fc4b75ab4878edf433"
+      }
+    }
+  ],
+  "prior_preservation": {
+    "all_exact_base_git_blob_bytes": true,
+    "file_count": 822,
+    "proof": {
+      "bytes": 219481,
+      "path": "evidence/batch7_regulatory_20261015/prior_preservation.json",
+      "sha256": "61418ea8eb9b8207e1820dc700e21ba8e89271a0fd52a7a594de0e12cc3add4b"
+    },
+    "scope": "All earlier tracked evidence and market_checker_app/data files at public base.",
+    "total_bytes": 39328744
+  },
+  "production_registry_modified": false,
+  "public_base_commit": "089ce4dbe03952d84daac5cfe47760b09020954b",
+  "qualified_tests": {
+    "console": {
+      "bytes": 3633,
+      "path": "evidence/batch7_regulatory_20261015/tests_final.log",
+      "sha256": "1f0e3a241f4cb2eb56686439e047bc898ebe1462b0e04bd1acc35d6065d90246"
+    },
+    "discovered": 19,
+    "errors": 0,
+    "executed": 19,
+    "expected_failures": 0,
+    "failures": 0,
+    "full_suite_or_hosted_windows_claim": false,
+    "plain_ok": true,
+    "proof": {
+      "bytes": 831,
+      "path": "evidence/batch7_regulatory_20261015/tests_final.json",
+      "sha256": "2b0b2512b637c65f4d88fcc85497fb378aef9f173ed57e9035ed808e4b97e47a"
+    },
+    "pypdf": "6.16.1",
+    "python": "3.12.14",
+    "skips": 0,
+    "source_test_hashes": {
+      "market_checker_app/services/doj_enforcement_scope_review.py": "891113065a849998e510695e1929caa3e76a9486fe01db28ce1ad6359dc76465",
+      "tests/test_batch7_doj_scope.py": "344a4b6c987a08903610c6c0392643c76c5a8ba7546896cce30328e6b9202a38"
+    },
+    "unexpected_successes": 0
+  },
+  "recorded_at": "2026-10-15T04:35:18.320774+00:00",
+  "remaining_gaps": [
+    "Existing AAPL legal identity is a 2025 document-day snapshot, not registered at the 2024 case date.",
+    "No identity knowledge before the case day or continuous legal identity to that day is established.",
+    "A historical complaint is allegations; a current disposition, adjudication, fine or issuer/group liability is unverified.",
+    "Relevant issuer-wide enforcement denominator, live negatives, genuine source history, Windows end-to-end use and historical OOS remain unestablished."
+  ],
+  "requests": {
+    "actual_direct_primary_capture_attempts": 4,
+    "actual_http200_original_bodies": 4,
+    "automatic_redirects": false,
+    "directory_date_is_historical_availability": false,
+    "doj_scout_api_requests": 0,
+    "epa_api_requests": 0,
+    "new_http_after_four_captures": 0,
+    "nhtsa_api_requests": 0,
+    "original_body_bytes": 2753451,
+    "physical_review_utc_day": "2026-10-15",
+    "precommitted_plan": {
+      "bytes": 938,
+      "path": "evidence/batch7_regulatory_20261015/research_plan.json",
+      "sha256": "5cb033fc2259d0f107324a7af52b036d4e0712d5f3afb98d43f0b425c8cf7b28"
+    },
+    "quota_db_read_written_copied_reconstructed_or_reset": false,
+    "source_capture_utc_day": "2026-10-14"
+  },
+  "schema_version": 1,
+  "scoring_changed": false,
+  "specialist_done_or_verified_promotions": 0,
+  "superseded_diagnostic": {
+    "cause": "Full caption legal name was matched by a brand prefix; fixed by exact original caption-line comparison.",
+    "console": {
+      "bytes": 4531,
+      "path": "evidence/batch7_regulatory_20261015/tests_initial.log",
+      "sha256": "fe66238d40f85c986c93aabc4929c1e00034dbc43719556b1360461312808e74"
+    },
+    "current_acceptance": false,
+    "discovered": 19,
+    "errors": 0,
+    "executed": 19,
+    "failures": 1,
+    "proof": {
+      "bytes": 748,
+      "path": "evidence/batch7_regulatory_20261015/tests_initial.json",
+      "sha256": "16405d14ddef367307f8984f8452322f8899d491ce75caebcc0bbbad6321e446"
+    },
+    "source_snapshots": [
+      {
+        "bytes": 27293,
+        "path": "evidence/batch7_regulatory_20261015/source_versions/pre_exact_caption_line_service.py",
+        "sha256": "9bd148f1b931a01d6db229971db2569c47d5dc565dc5a323cda2c70e2611c9c0"
+      },
+      {
+        "bytes": 17816,
+        "path": "evidence/batch7_regulatory_20261015/source_versions/pre_exact_caption_line_test.py",
+        "sha256": "478436702d278ae5774c44c47207d2675390c4ba646d86fe2190fe3bbb9dd953"
+      }
+    ]
+  },
+  "trading_enabled": false,
+  "verified_identity_adoptions": 0
+}

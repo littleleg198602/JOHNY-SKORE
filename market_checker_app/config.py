@@ -612,6 +612,9 @@ class AppConfig:
     compare_previous_run: bool = True
     save_history: bool = True
     sqlite_path: Path = DEFAULT_DB_PATH
+    # Post-persistence audit only; these settings do not affect the model.
+    prospective_history_enabled: bool = False
+    prospective_audit_archive_root: Path | None = None
     max_rss_items_per_source: int = DEFAULT_MAX_RSS_ITEMS
     max_tickers_per_run: int = DEFAULT_MAX_TICKERS_PER_RUN
     large_universe_threshold: int = DEFAULT_LARGE_UNIVERSE_THRESHOLD

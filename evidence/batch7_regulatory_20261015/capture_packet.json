@@ -1,0 +1,21 @@
+{
+  "captures": {
+    "doj_apple_complaint": {
+      "metadata_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_complaint.metadata.json",
+      "original_body_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_complaint.pdf"
+    },
+    "doj_apple_release": {
+      "metadata_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_release.metadata.json",
+      "original_body_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_release.html"
+    },
+    "sec_apple_2023_10k": {
+      "metadata_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.metadata.json",
+      "original_body_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.html"
+    },
+    "sec_apple_2023_index": {
+      "metadata_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_index.metadata.json",
+      "original_body_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_index.html"
+    }
+  },
+  "schema_version": 1
+}

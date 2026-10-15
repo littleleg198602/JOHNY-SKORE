@@ -1,0 +1,351 @@
+{
+  "app_quota_managed_live_claimed": false,
+  "canonical_tickers": 687,
+  "current_quarter_verified_coverage": 0,
+  "historical_availability_reconstructed": false,
+  "historical_request_ledger_reconstructed": false,
+  "network_requested_during_replay": false,
+  "new_aliases": 0,
+  "new_primary_http_requests": 6,
+  "new_public_original_raw_bodies": 6,
+  "new_verified_identities": 0,
+  "production_registry_changed": false,
+  "publication_clock_links": [
+    {
+      "accession": "0001140361-26-014337",
+      "filed_on": "2026-04-13",
+      "form": "8-K",
+      "historical_availability_reconstructed": false,
+      "metadata_raw_sha256": "6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0001206264.json",
+      "multiple_files_are_independent_disclosures": false,
+      "observed_at": "2026-10-14T23:26:00.636289+00:00",
+      "publication_at": "2026-04-13T10:53:34.000Z",
+      "reported_on": "2026-04-13",
+      "started_at": "2026-10-14T23:25:56.543256+00:00",
+      "url": "https://www.sec.gov/Archives/edgar/data/1206264/000114036126014337/ef20070363_8k.htm"
+    },
+    {
+      "accession": "0001206264-26-000113",
+      "filed_on": "2026-08-07",
+      "form": "10-Q",
+      "historical_availability_reconstructed": false,
+      "metadata_raw_sha256": "6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0001206264.json",
+      "multiple_files_are_independent_disclosures": false,
+      "observed_at": "2026-10-14T23:25:33.068935+00:00",
+      "publication_at": "2026-08-07T11:02:59.000Z",
+      "reported_on": "2026-06-30",
+      "started_at": "2026-10-14T23:25:28.704101+00:00",
+      "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000113/sgi-20260630.htm"
+    },
+    {
+      "accession": "0001206264-26-000121",
+      "filed_on": "2026-08-26",
+      "form": "8-K",
+      "historical_availability_reconstructed": false,
+      "metadata_raw_sha256": "6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0001206264.json",
+      "multiple_files_are_independent_disclosures": false,
+      "observed_at": "2026-10-14T23:29:18.942027+00:00",
+      "publication_at": "2026-08-26T16:41:36.000Z",
+      "reported_on": "2026-08-26",
+      "started_at": "2026-10-14T23:29:14.269507+00:00",
+      "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/exhibit991-somnigroupcompl.htm"
+    },
+    {
+      "accession": "0001193125-26-151966",
+      "filed_on": "2026-04-13",
+      "form": "8-K",
+      "historical_availability_reconstructed": false,
+      "metadata_raw_sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0000058492.json",
+      "multiple_files_are_independent_disclosures": false,
+      "observed_at": "2026-10-14T23:27:07.607727+00:00",
+      "publication_at": "2026-04-13T11:23:41.000Z",
+      "reported_on": "2026-04-13",
+      "started_at": "2026-10-14T23:27:03.317859+00:00",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526151966/d38467d8k.htm"
+    },
+    {
+      "accession": "0001193125-26-151966",
+      "filed_on": "2026-04-13",
+      "form": "8-K",
+      "historical_availability_reconstructed": false,
+      "metadata_raw_sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0000058492.json",
+      "multiple_files_are_independent_disclosures": false,
+      "observed_at": "2026-10-14T23:28:23.714712+00:00",
+      "publication_at": "2026-04-13T11:23:41.000Z",
+      "reported_on": "2026-04-13",
+      "started_at": "2026-10-14T23:28:18.093412+00:00",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526151966/d38467dex21.htm"
+    },
+    {
+      "accession": "0002100121-26-000938",
+      "filed_on": "2026-07-31",
+      "form": "SCHEDULE 13G/A",
+      "historical_availability_reconstructed": false,
+      "metadata_raw_sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98",
+      "metadata_url": "https://data.sec.gov/submissions/CIK0000058492.json",
+      "multiple_files_are_independent_disclosures": false,
+      "observed_at": "2026-10-14T23:25:47.067656+00:00",
+      "publication_at": "2026-07-31T15:24:47.000Z",
+      "reported_on": "",
+      "started_at": "2026-10-14T23:25:42.920745+00:00",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000210012126000938/primary_doc.xml"
+    }
+  ],
+  "registry_sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+  "source_content_inspections": [
+    {
+      "completed_control_inferred_from_press_release": false,
+      "cusip_absence_scope": "THIS_EXACT_CAPTURE_ONLY; NOT GLOBAL_ABSENCE_OR_DELISTING",
+      "independent_disclosure_key": [
+        "1206264",
+        "000114036126014337"
+      ],
+      "inspection_only": true,
+      "source": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T23:26:00.636289+00:00",
+        "published_at": "2026-04-13T10:53:34+00:00",
+        "sha256": "a36c868755cc26ca7d34b73096b33d2b9be99f819cf5f2077c803f433920b50e",
+        "snapshot_id": "af4b8462a5c321358885019df0f6630183a8d0b2988bdde920f279af7bcfc302",
+        "url": "https://www.sec.gov/Archives/edgar/data/1206264/000114036126014337/ef20070363_8k.htm"
+      },
+      "visible_literal_old_cusip": false,
+      "visible_literal_recipient_cusip": false
+    },
+    {
+      "completed_control_inferred_from_press_release": false,
+      "cusip_absence_scope": "THIS_EXACT_CAPTURE_ONLY; NOT GLOBAL_ABSENCE_OR_DELISTING",
+      "independent_disclosure_key": [
+        "1206264",
+        "000120626426000121"
+      ],
+      "inspection_only": true,
+      "source": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T23:29:18.942027+00:00",
+        "published_at": "2026-08-26T16:41:36+00:00",
+        "sha256": "275f5e5adef469c3297ee9621dd793baee6422f46232d18e782c97f2524689ee",
+        "snapshot_id": "16158eed5acbc94c290ee1354c609fefdad6749d3f5aa83e6dcadcb29d125f8a",
+        "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/exhibit991-somnigroupcompl.htm"
+      },
+      "visible_literal_old_cusip": false,
+      "visible_literal_recipient_cusip": false
+    },
+    {
+      "completed_control_inferred_from_press_release": false,
+      "cusip_absence_scope": "THIS_EXACT_CAPTURE_ONLY; NOT GLOBAL_ABSENCE_OR_DELISTING",
+      "independent_disclosure_key": [
+        "58492",
+        "000119312526151966"
+      ],
+      "inspection_only": false,
+      "source": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T23:27:07.607727+00:00",
+        "published_at": "2026-04-13T11:23:41+00:00",
+        "sha256": "74bfc5720c373748d848f6338899b3dee0fa57e7b2ed5bbd8b01a015718bb55d",
+        "snapshot_id": "9f049a3973e601b72a4e8de117657474bfb630e47f692ac9b86db3bb5e1eaa02",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526151966/d38467d8k.htm"
+      },
+      "visible_literal_old_cusip": false,
+      "visible_literal_recipient_cusip": false
+    },
+    {
+      "completed_control_inferred_from_press_release": false,
+      "cusip_absence_scope": "THIS_EXACT_CAPTURE_ONLY; NOT GLOBAL_ABSENCE_OR_DELISTING",
+      "independent_disclosure_key": [
+        "58492",
+        "000119312526151966"
+      ],
+      "inspection_only": false,
+      "source": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T23:28:23.714712+00:00",
+        "published_at": "2026-04-13T11:23:41+00:00",
+        "sha256": "4198f7f8bfc9ca05edf840129b9486d819f2c5e45180a9fb2bcb31a6a4c9d2db",
+        "snapshot_id": "7d1a1d6bd8b732993ee948c8f86786b0cdc0992a98ad7f76451f1f6b93ba8595",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526151966/d38467dex21.htm"
+      },
+      "visible_literal_old_cusip": false,
+      "visible_literal_recipient_cusip": false
+    }
+  ],
+  "source_inventory": [
+    {
+      "bytes": 910,
+      "path": "evidence/batch6_identity_20261014/captures/46d8dce6bc7e93bf52db0d5cda06b009beb5c2e7eddf4cf5674b82283802a8c2.metadata.json",
+      "sha256": "68da94ce690994f6100a838362de7278bd51954424d49c1d0a88421c7e1375fa"
+    },
+    {
+      "bytes": 6887,
+      "path": "evidence/batch6_identity_20261014/captures/a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698.bin",
+      "sha256": "a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698"
+    },
+    {
+      "bytes": 833,
+      "path": "evidence/batch6_identity_20261014/captures/7aa2e82f0f38239598f9eacc7d89d99d52dbee2f102a228e8b79b375cc98a725.metadata.json",
+      "sha256": "af494e2bc9c87cf289a2c4cb2e744f7971bef1bc73a936c25fddd2c7ad063fba"
+    },
+    {
+      "bytes": 172225,
+      "path": "evidence/batch6_identity_20261014/captures/6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4.bin",
+      "sha256": "6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4"
+    },
+    {
+      "bytes": 914,
+      "path": "evidence/batch6_identity_20261014/captures/cf04d97524b7afbc114af6f86f98fa936e1bc805f97247f76443b019a880966b.metadata.json",
+      "sha256": "523d97d5fc4363f4d77b2d4bc9a2ed9bd9fda6b0b3392be51058aa406c53b29d"
+    },
+    {
+      "bytes": 6904,
+      "path": "evidence/batch6_identity_20261014/captures/bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2.bin",
+      "sha256": "bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2"
+    },
+    {
+      "bytes": 910,
+      "path": "evidence/batch6_identity_20261014/captures/d947ee893858ef43fcd004c4aedc0e92bc3417429d3c2d9f9a16997c71954430.metadata.json",
+      "sha256": "ed965f63c7734f10ec5c312a75b037d6ecab59705775b5ed4b444b0690092ea7"
+    },
+    {
+      "bytes": 1060,
+      "path": "evidence/batch6_identity_20261014/captures/54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d.bin",
+      "sha256": "54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d"
+    },
+    {
+      "bytes": 919,
+      "path": "evidence/batch6_identity_20261014/captures/db2cdc60146587058eab4d408ab4888114f95a9a1c9612fcc8809a34a61d277c.metadata.json",
+      "sha256": "c1bf711332c3aed2df298147101537936a6915ae22fc59925d89d320435ba99c"
+    },
+    {
+      "bytes": 38236,
+      "path": "evidence/batch6_identity_20261014/captures/869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146.bin",
+      "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146"
+    },
+    {
+      "bytes": 914,
+      "path": "evidence/batch6_identity_20261014/captures/f6fcc224d7601464aa774f94198b73b6bc081dff8cde3b16eccbbc88082e6008.metadata.json",
+      "sha256": "6a93716a7a1dccf836ae376e8e366d059cd90a21e42f2311a54138ad6b2abe9c"
+    },
+    {
+      "bytes": 1980178,
+      "path": "evidence/batch6_identity_20261014/captures/494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d.bin",
+      "sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d"
+    },
+    {
+      "bytes": 862,
+      "path": "evidence/batch4_identity_20261013/captures/0727cd2189a797d82f066ded90209aca3f94a15d7480061b0b1c916da146b5a6.json",
+      "sha256": "d437f03664109656e1777eb864dba482d76fd3dbcb8ea35ade38a40605ac98f9"
+    },
+    {
+      "bytes": 41778,
+      "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4"
+    },
+    {
+      "bytes": 784,
+      "path": "evidence/batch4_identity_20261013/captures/4c272eeb028484145b93a691fdc329021dd1d2d3d3a6133991dcff6bb7baa9ff.json",
+      "sha256": "980e1f59b12723f553b26c58601af61494d9fe52b73a74695857a371196ed842"
+    },
+    {
+      "bytes": 159299,
+      "path": "evidence/batch4_identity_20261013/captures/fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98.bin",
+      "sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98"
+    },
+    {
+      "bytes": 861,
+      "path": "evidence/batch4_identity_20261013/captures/b35be8b7faead91abc4e5bdf23e8d0eb895f55497e93c364858cc323cf7e6033.json",
+      "sha256": "a46e64ffe16df7d3eacd039395cd60e5b81a6bac71c7fdf466ff8c7dbfdcae3a"
+    },
+    {
+      "bytes": 6847,
+      "path": "evidence/batch4_identity_20261013/captures/2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd.bin",
+      "sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd"
+    },
+    {
+      "bytes": 247,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a.json",
+      "sha256": "98995b942e0a4564f78a4ba8ad12aa5ee8444eea8b07fc2f9aac4b77b104fec7"
+    },
+    {
+      "bytes": 799583,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+    },
+    {
+      "bytes": 249,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c.json",
+      "sha256": "0e4c7eddeb5bb88152b2798f3bd9421ecee08b4992478adf75e95103f17b430e"
+    },
+    {
+      "bytes": 2088909,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+    },
+    {
+      "bytes": 1038,
+      "path": "evidence/batch7_identity_20261015/captures/0957959078b008276a97ac2b8e8a122a665f3f17b9faffe8fa1b9eac47b11f9b.metadata.json",
+      "sha256": "35b78e601cb1b94258ee9ad909fc03e1bc631d1ad7fb18b4af65ad726bad1336"
+    },
+    {
+      "bytes": 1974270,
+      "path": "evidence/batch7_identity_20261015/captures/16a2b25183657231c1adc23cca179fed1982a0ade3b5e44afb33461972e13ba9.bin",
+      "sha256": "16a2b25183657231c1adc23cca179fed1982a0ade3b5e44afb33461972e13ba9"
+    },
+    {
+      "bytes": 1026,
+      "path": "evidence/batch7_identity_20261015/captures/7dd792c11cdff46a638f0e9bbe7c3fe80bf0ff4b6a66655cfd9f7eb7e7f70457.metadata.json",
+      "sha256": "4671b70a8832fd618beb6ea47a53d619926f16cb12fc42b8e7a32f43ec51e0c7"
+    },
+    {
+      "bytes": 71626,
+      "path": "evidence/batch7_identity_20261015/captures/74bfc5720c373748d848f6338899b3dee0fa57e7b2ed5bbd8b01a015718bb55d.bin",
+      "sha256": "74bfc5720c373748d848f6338899b3dee0fa57e7b2ed5bbd8b01a015718bb55d"
+    },
+    {
+      "bytes": 1030,
+      "path": "evidence/batch7_identity_20261015/captures/9209533aa33cc226d2579cf05e65b0a07eb54c8ceec1652a7de27bdacdc5ed42.metadata.json",
+      "sha256": "e20bdee858e528bcddc27bf7f79b7e41f83d9085f8de8fa25fac82d1e5511cc6"
+    },
+    {
+      "bytes": 5636,
+      "path": "evidence/batch7_identity_20261015/captures/e7ad05d9bd5d711f81072600f8448505752dc9cce1009adc61fc5a974961306c.bin",
+      "sha256": "e7ad05d9bd5d711f81072600f8448505752dc9cce1009adc61fc5a974961306c"
+    },
+    {
+      "bytes": 1067,
+      "path": "evidence/batch7_identity_20261015/captures/a4a7be4ea23d9058ac98b90b5f627718f524b80e7dd277ae9a2079a387eb9be2.metadata.json",
+      "sha256": "b5c5b75ed2e6d7f1a47ef5e3163c1c4e15bfa351b07f95ec565a552c93d59eaa"
+    },
+    {
+      "bytes": 16626,
+      "path": "evidence/batch7_identity_20261015/captures/275f5e5adef469c3297ee9621dd793baee6422f46232d18e782c97f2524689ee.bin",
+      "sha256": "275f5e5adef469c3297ee9621dd793baee6422f46232d18e782c97f2524689ee"
+    },
+    {
+      "bytes": 1041,
+      "path": "evidence/batch7_identity_20261015/captures/bc1cc757e2fcfcd054005a6af7451ab87410b515b9e2b0e72f71600947c86f6b.metadata.json",
+      "sha256": "5c38a081ea02dd7bc294ec074d1a042a62174030442bfda2c8755f940c2c5562"
+    },
+    {
+      "bytes": 42169,
+      "path": "evidence/batch7_identity_20261015/captures/a36c868755cc26ca7d34b73096b33d2b9be99f819cf5f2077c803f433920b50e.bin",
+      "sha256": "a36c868755cc26ca7d34b73096b33d2b9be99f819cf5f2077c803f433920b50e"
+    },
+    {
+      "bytes": 1031,
+      "path": "evidence/batch7_identity_20261015/captures/eefccc9b8a0c987068221c3e9588e48192990ae1bb8d05db4a87f4ab7814e653.metadata.json",
+      "sha256": "2275ea29748d51d6805ff6db08c522389039353015312383a85f3cacf6d5fba5"
+    },
+    {
+      "bytes": 597563,
+      "path": "evidence/batch7_identity_20261015/captures/4198f7f8bfc9ca05edf840129b9486d819f2c5e45180a9fb2bcb31a6a4c9d2db.bin",
+      "sha256": "4198f7f8bfc9ca05edf840129b9486d819f2c5e45180a9fb2bcb31a6a4c9d2db"
+    }
+  ],
+  "stored_records": 150
+}

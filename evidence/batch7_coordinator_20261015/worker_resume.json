@@ -1,0 +1,57 @@
+{
+  "recorded_at": "2026-10-15T04:29:22.835431+00:00",
+  "temporary_usage_limit_observed_for": [
+    "identity_bulk",
+    "regulatory",
+    "contracts"
+  ],
+  "all_six_resumed_from_original_worktrees": true,
+  "original_source_attempts_not_repeated": true,
+  "lanes": {
+    "identity_bulk": {
+      "branch": "batch7/identity_bulk-20261015",
+      "head": "089ce4dbe03952d84daac5cfe47760b09020954b",
+      "retained_outputs": [
+        "evidence/batch7_identity_20261015/final_replay.log",
+        "evidence/batch7_identity_20261015/initial_focused_tests.log",
+        "evidence/batch7_identity_20261015/final_focused_tests.log",
+        "evidence/batch7_identity_20261015/initial_replay.log",
+        "evidence/batch7_identity_20261015/captured_review_plan.json",
+        "evidence/batch7_identity_20261015/focused_tests.log"
+      ]
+    },
+    "healthcare": {
+      "branch": "batch7/healthcare-20261015",
+      "head": "089ce4dbe03952d84daac5cfe47760b09020954b",
+      "retained_outputs": [
+        "evidence/batch7_healthcare_20261015/retained_pfe_review_plan.json",
+        "evidence/batch7_healthcare_20261015/focused_tests.log"
+      ]
+    },
+    "regulatory": {
+      "branch": "batch7/regulatory-20261015",
+      "head": "089ce4dbe03952d84daac5cfe47760b09020954b",
+      "retained_outputs": []
+    },
+    "contracts": {
+      "branch": "batch7/contracts-20261015",
+      "head": "089ce4dbe03952d84daac5cfe47760b09020954b",
+      "retained_outputs": []
+    },
+    "sec": {
+      "branch": "batch7/sec-20261015",
+      "head": "089ce4dbe03952d84daac5cfe47760b09020954b",
+      "retained_outputs": [
+        "evidence/batch7_sec_20261015/focused_01.log",
+        "evidence/batch7_sec_20261015/actual_review_plan.json"
+      ]
+    },
+    "evaluation": {
+      "branch": "batch7/evaluation-20261015",
+      "head": "5735b9887118744ce2e4cb0297178d36ce273f97",
+      "retained_outputs": []
+    }
+  },
+  "main": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "public_head": "089ce4dbe03952d84daac5cfe47760b09020954b"
+}

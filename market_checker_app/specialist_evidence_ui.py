@@ -16,6 +16,12 @@ _LABELS = {
     "FORM4_PERSON": "Účet a osoba ve Form 4",
     "STOCK_MERGER_EXCHANGE": "Výměna instrumentu při fúzi",
     "SEC_OPERATIONAL_METRIC": "Provozní rozsah podle SEC",
+    "SEC_CONTROL_INSTRUMENT": "Kontrola firmy a datovaný instrument",
+    "HEALTHCARE_PRODUCT_SCOPE": "Žádost FDA a vlastnictví produktu",
+    "DOJ_ENFORCEMENT_SCOPE": "Rozsah konkrétního případu DOJ",
+    "SEC_SUPPLY_CHAIN_SCOPE": "Doložený dodavatelský vztah",
+    "SEC_PERSON_KIND": "Datovaný údaj o fyzické osobě v SEC",
+    "SEC_IR_DISCLOSURE_AUTHORITY": "Web investorů uvedený v podání SEC",
 }
 
 
@@ -44,6 +50,68 @@ def _display(st, result: dict, *, name: str) -> None:
         indent=2, allow_nan=False), file_name=name, mime="application/json", key=name)
 
 
+def render_prospective_source_selection(st, *, output_dir: Path) -> None:
+    st.write("**Výběr zdrojů pro příští předpovědi**")
+    st.caption("Vyber existující cenové a zdrojové archivy pro jednu akcii a její benchmark. "
+               "Nejdřív ověř výběr; uloženou verzi lze výslovně použít při příštím ukládání předpovědí. "
+               "Starší verze výběru zůstanou zachované.")
+    with st.form("prospective_source_selection"):
+        audit_root = st.text_input("Složka zdrojových důkazů", value=str(output_dir))
+        ticker = st.text_input("Akcie pro tento výběr zdrojů", value="")
+        benchmark = st.text_input("Benchmark tohoto výběru", value="SPY")
+        sources = st.text_area("Vybrané původní cenové a zdrojové soubory", value="",
+                               help="Jeden relativní název existujícího archivu na řádek.")
+        snapshot = st.text_input("Omezit výběr na přesné ID předpovědi (volitelné)", value="")
+        label_id = st.text_input("ID předpovědi s doloženým výsledkem (volitelné)", value="")
+        label_path = st.text_input("Soubor doloženého výsledku (volitelné)", value="")
+        prepare = st.form_submit_button("Ověřit tento výběr zdrojů")
+    rows, labels = [], []
+    if ticker.strip() or sources.strip():
+        row = {"ticker": ticker.strip(), "benchmark_ticker": benchmark.strip(),
+               "source_archive_paths": [name.strip() for name in sources.splitlines() if name.strip()]}
+        if snapshot.strip():
+            row["snapshot_id"] = snapshot.strip()
+        rows.append(row)
+    if label_id.strip() or label_path.strip():
+        labels.append({"snapshot_id": label_id.strip(), "path": label_path.strip()})
+    selection = {"root": audit_root, "forecast_sources": rows, "label_observations": labels}
+    if prepare:
+        try:
+            from market_checker_app.services.prospective_source_manifest_service import ProspectiveSourceManifestService
+            prepared = ProspectiveSourceManifestService(Path(audit_root)).prepare(
+                forecast_sources=rows, label_observations=labels)
+            st.session_state["prospective_source_selection_prepared"] = {"selection": selection, "prepared": prepared}
+            st.session_state.pop("prospective_source_selection_saved", None)
+        except (ValueError, OSError, KeyError, TypeError, OverflowError):
+            st.session_state.pop("prospective_source_selection_prepared", None)
+            st.session_state.pop("prospective_source_selection_saved", None)
+            st.error("Vybrané původní zdroje, jejich čas nebo vazbu na akcii nelze ověřit.")
+    cached = st.session_state.get("prospective_source_selection_prepared")
+    if cached and cached["selection"] == selection:
+        prepared = cached["prepared"]
+        st.caption(f"Ověřeno zdrojových souborů: {len(prepared['source_pins'])}; "
+                   f"výsledků: {len(prepared['label_pins'])}. Čas ověření: {prepared['prepared_at']}.")
+        st.info("Tato verze obsahuje pouze právě zobrazený výběr. Při použití nahradí aktivní výběr "
+                "v této složce; jeho původní verze zůstane uložená.")
+        activate = st.checkbox("Použít tento výběr při příštím ukládání předpovědí", value=False)
+        if st.button("Uložit tuto verzi výběru zdrojů"):
+            try:
+                from market_checker_app.services.prospective_source_manifest_service import ProspectiveSourceManifestService
+                result = ProspectiveSourceManifestService(Path(audit_root)).publish(prepared,
+                    activate=activate,
+                    expected_current_sha256=prepared["current_manifest_sha256"] if activate else None)
+                st.session_state["prospective_source_selection_saved"] = {"selection": selection, "report": result}
+            except (ValueError, OSError, KeyError, TypeError, OverflowError):
+                st.session_state.pop("prospective_source_selection_saved", None)
+                st.error("Zdroje nebo aktivní výběr se změnily. Znovu ověř právě vybraný obsah.")
+    saved = st.session_state.get("prospective_source_selection_saved")
+    if saved and saved["selection"] == selection:
+        result = saved["report"]
+        st.success("Výběr zdrojů je připraven pro příští ukládání předpovědí."
+                   if result["active_manifest_path"] else "Verze výběru zdrojů je uložená.")
+        _display(st, result, name="prospective_source_selection.json")
+
+
 def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, output_dir: Path) -> None:
     st.write("**Kontrola uložených primárních dokladů**")
     st.caption("Kontrola porovná přesné uložené doklady a čas jejich získání. Výsledek ukáže "
@@ -68,6 +136,24 @@ def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, 
         st.caption("Poslední uložená kontrola: " + cached["report"]["recorded_at"])
         leaf = cached["report"]["review"]
         candidate = leaf.get("candidate") or {}
+        claim = leaf.get("claim") or {}
+        person = leaf.get("dated_person_fact") or {}
+        if claim.get("relationship_statement_supported"):
+            st.caption("Dodavatelský doklad: " + claim["counterparty_name"] +
+                       "; vstup: " + claim["product_or_input"] + ".")
+            if claim.get("quantified_exposure", {}).get("value") is None:
+                st.caption("Množství a podíl nákupů čekají na doložení.")
+        if leaf.get("natural_person_fact_supported"):
+            st.caption("Zachycený životopisný údaj: " + person["name_as_published"] +
+                       "; datum podání: " + person["source_document_filing_day"] + ".")
+        if leaf.get("recorded_case_stage") == "ALLEGATIONS_ONLY":
+            st.caption("Doklad zachycuje tvrzení v konkrétní žalobě. Výsledek řízení čeká na samostatný doklad.")
+        if leaf.get("control_conflicts"):
+            st.caption(f"Nevyřešené rozdíly v popisu kontroly firmy: {len(leaf['control_conflicts'])}.")
+        if leaf.get("issuer_disclosed_ir_website_fact_supported"):
+            st.caption("Podání uvádí web pro investory: " +
+                       leaf["issuer_disclosed_website_fact"]["ir_url_literal"] +
+                       ". Současná autorita vydavatele a aktivace zdroje čekají na doložení.")
         if candidate.get("scope_kind") == "COMBINED_REPORT_GROUP":
             st.info("Doklad uvádí " + candidate["value_literal"] +
                     " výrobních provozů ve společně vykazované skupině. "
@@ -95,6 +181,8 @@ def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, 
     cached = st.session_state.get("prime_archive_recovery")
     if cached and cached["context"] == context:
         _display(st, cached["report"], name="prime_archive_recovery.json")
+
+    render_prospective_source_selection(st, output_dir=output_dir)
 
     st.write("**Průběžná historie skutečných předpovědí**")
     st.caption("Registrace zachová již uloženou předpověď před otevřením první navazující burzovní "
