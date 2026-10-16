@@ -1,0 +1,29 @@
+test_actual_later_opposition_and_judicial_opinion_are_distinct_events (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_actual_later_opposition_and_judicial_opinion_are_distinct_events) ... ok
+test_actual_order_contract_is_procedural_and_proposed_order_is_not_issued (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_actual_order_contract_is_procedural_and_proposed_order_is_not_issued) ... FAIL
+test_caption_variants_never_become_issuer_alias_or_earlier_identity (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_caption_variants_never_become_issuer_alias_or_earlier_identity) ... ok
+test_doj_html_report_remains_a_report_without_original_court_order (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_doj_html_report_remains_a_report_without_original_court_order) ... ok
+test_exact_plaintiff_and_motion_number_cannot_be_prefixes (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_exact_plaintiff_and_motion_number_cannot_be_prefixes) ... ok
+test_future_observation_and_known_clock_fail_closed (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_future_observation_and_known_clock_fail_closed) ... ok
+test_hash_size_status_redirect_and_encoded_substitute_guards (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_hash_size_status_redirect_and_encoded_substitute_guards) ... ok
+test_missing_decoder_and_oversize_original_are_partial (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_missing_decoder_and_oversize_original_are_partial) ... ok
+test_none_cutoff_uses_actual_now_and_explicit_past_never_decodes (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_none_cutoff_uses_actual_now_and_explicit_past_never_decodes) ... ok
+test_opinion_mentioning_accompanying_order_is_not_that_order (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_opinion_mentioning_accompanying_order_is_not_that_order) ... ok
+test_original_hashes_and_unavailable_source_bodies_are_exact (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_original_hashes_and_unavailable_source_bodies_are_exact) ... ok
+test_party_opposition_cannot_become_a_court_decision (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_party_opposition_cannot_become_a_court_decision) ... ok
+test_request_guards_and_no_adoption_liability_current_docket_or_score (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_request_guards_and_no_adoption_liability_current_docket_or_score) ... ok
+test_whole_withheld_body_cannot_be_restored_by_passing_bytes (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_whole_withheld_body_cannot_be_restored_by_passing_bytes) ... ok
+test_wrong_docket_court_document_or_filing_day_is_rejected (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_wrong_docket_court_document_or_filing_day_is_rejected) ... ok
+test_wrong_page_or_action_word_never_inherits_the_real_denial (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_wrong_page_or_action_word_never_inherits_the_real_denial) ... ok
+
+======================================================================
+FAIL: test_actual_order_contract_is_procedural_and_proposed_order_is_not_issued (tests.test_batch8_doj_case_posture.Batch8DojCasePostureTests.test_actual_order_contract_is_procedural_and_proposed_order_is_not_issued)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/tests/test_batch8_doj_case_posture.py", line 226, in test_actual_order_contract_is_procedural_and_proposed_order_is_not_issued
+    self.assertTrue(report["event_reviews"][0]["original_court_order_supported"])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 16 tests in 11.341s
+
+FAILED (failures=1)

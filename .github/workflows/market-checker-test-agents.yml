@@ -69,10 +69,11 @@ jobs:
   windows-agent:
     name: Windows contracts, persistence and UI
     runs-on: windows-latest
-    # The 899-test run took 23.9 minutes, plus dependency setup, and reached
-    # the previous 25-minute boundary. Allow bounded runner variance and
-    # artifact upload; cancellation still fails the release gate.
-    timeout-minutes: 35
+    # The verified 902-test Windows suite took 29.8 minutes (run38258101028),
+    # before setup and the focused checkpoint step. This batch adds real
+    # archive replay and filesystem regressions; retain bounded headroom for
+    # those checks and artifact upload. Cancellation still fails the gate.
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

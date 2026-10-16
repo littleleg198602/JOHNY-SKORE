@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "capture_method": "bounded urllib HTTPS; identity encoding; SEC redirects only",
+  "request_user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)",
+  "captures": [
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/0000789019-26-000161-index.html",
+      "retrieval_started_at": "2026-10-13T08:46:30.724311+00:00",
+      "http_status": 200,
+      "resolved_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/0000789019-26-000161-index.html",
+      "content_type": "text/html; charset=UTF-8",
+      "http_date": "Tue, 13 Oct 2026 08:46:37 GMT",
+      "last_modified": "Wed, 02 Sep 2026 22:04:41 GMT",
+      "path": "primary/msft_form4_index.html",
+      "size_bytes": 8113,
+      "sha256": "d77ed536ebefe89db8e31f3f6ee752e8693a610d2c05c6daf8aed139ef3664cd",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T08:46:37.109268+00:00"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/form4.xml",
+      "retrieval_started_at": "2026-10-13T08:46:37.110024+00:00",
+      "http_status": 200,
+      "resolved_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/form4.xml",
+      "content_type": "text/xml",
+      "http_date": "Tue, 13 Oct 2026 08:46:41 GMT",
+      "last_modified": "Wed, 02 Sep 2026 22:04:53 GMT",
+      "path": "primary/msft_form4.xml",
+      "size_bytes": 20046,
+      "sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T08:46:41.691791+00:00"
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0001513142.json",
+      "retrieval_started_at": "2026-10-13T08:46:41.693234+00:00",
+      "http_status": 200,
+      "resolved_url": "https://data.sec.gov/submissions/CIK0001513142.json",
+      "content_type": "application/json",
+      "http_date": "Tue, 13 Oct 2026 08:46:47 GMT",
+      "last_modified": null,
+      "path": "primary/nadella_submissions.json",
+      "size_bytes": 17733,
+      "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T08:46:47.328762+00:00"
+    },
+    {
+      "url": "https://data.sec.gov/submissions/CIK0000789019.json",
+      "retrieval_started_at": "2026-10-13T08:46:47.329882+00:00",
+      "http_status": 200,
+      "resolved_url": "https://data.sec.gov/submissions/CIK0000789019.json",
+      "content_type": "application/json",
+      "http_date": "Tue, 13 Oct 2026 08:46:54 GMT",
+      "last_modified": null,
+      "path": "primary/msft_submissions.json",
+      "size_bytes": 185250,
+      "sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T08:46:54.793221+00:00"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+      "retrieval_started_at": "2026-10-13T08:46:54.795492+00:00",
+      "http_status": 200,
+      "resolved_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+      "content_type": "text/html",
+      "http_date": "Tue, 13 Oct 2026 08:47:00 GMT",
+      "last_modified": "Wed, 29 Jul 2026 20:08:56 GMT",
+      "path": "primary/msft_2026_R1.htm",
+      "size_bytes": 84130,
+      "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+      "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+      "observed_at": "2026-10-13T08:47:00.476528+00:00"
+    }
+  ],
+  "publisher_batch_blocked": false,
+  "limits": [
+    "capture time is knowledge time, not historical availability",
+    "HTTP date/Last-Modified are retained, not substituted for filing publication",
+    "a filing index is the same disclosure, not independent owner or instrument evidence"
+  ]
+}

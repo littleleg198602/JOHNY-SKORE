@@ -1,0 +1,20 @@
+{
+  "code_test_sha256": {
+    "market_checker_app/services/doj_case_posture_review.py": "1b431d4cc0ccbb07085c3c985435e6edbaec61881df02da01cfe4dd3447c39d5",
+    "tests/test_batch8_doj_case_posture.py": "e18142c1babf4ae727ed00d7bba46f517c96cc9962659b22253d31a118e8227a"
+  },
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_batch8_doj_case_posture",
+    "-v"
+  ],
+  "elapsed_seconds": 10.893505078999965,
+  "exit_code": 1,
+  "finished_at": "2026-10-15T18:22:23.493140+00:00",
+  "log_sha256": "9b5cebf096b9158a2a59e1676b80c040ef1cc1f47b87b5a4e11e2b2fe32966c2",
+  "source_http_or_quota_db_actions": 0,
+  "started_at": "2026-10-15T18:22:12.599638+00:00",
+  "superseded_diagnostic": "tests_initial.json: generated synthetic PDF apostrophe differs from its selected text pin; corrected fixture pin only, no production normalization."
+}

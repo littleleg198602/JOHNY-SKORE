@@ -1,0 +1,21 @@
+{
+  "capture_key": "sec_lly_2025_10k",
+  "request_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+  "response_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+  "requested_at": "2026-10-13T08:56:16.068242+00:00",
+  "observed_at": "2026-10-13T08:56:21.079895+00:00",
+  "http_status": 200,
+  "response_headers": {
+    "content-type": "text/html",
+    "last-modified": "Thu, 12 Feb 2026 18:59:01 GMT",
+    "date": "Tue, 13 Oct 2026 08:56:20 GMT"
+  },
+  "body_path": "sec_lly_2025_10k.body.html.gz",
+  "storage_encoding": "gzip",
+  "body_sha256": "8e1b3b844d73abca3f9fbcda5a0da20b23dcb6a5c30eac34610d1309e2dbd50e",
+  "body_bytes": 2370079,
+  "archive_sha256": "4ca25e33621811cd53ce8c542024363299247f7d28553e1c76f78bdb59ff2cdc",
+  "archived_bytes": 184992,
+  "byte_budget": 8000000,
+  "body_complete_within_byte_budget": true
+}

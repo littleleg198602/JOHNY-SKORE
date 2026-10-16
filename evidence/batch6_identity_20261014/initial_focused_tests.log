@@ -1,0 +1,78 @@
+test_a_later_post_conversion_old_schedule_is_retained_without_active_identity_inference (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_a_later_post_conversion_old_schedule_is_retained_without_active_identity_inference) ... ok
+test_actual_leg_review_matches_original_bytes_and_never_promotes_deleted_stock (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_actual_leg_review_matches_original_bytes_and_never_promotes_deleted_stock) ... ok
+test_deleted_or_absent_old_list_does_not_prove_merger_or_delisting (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_deleted_or_absent_old_list_does_not_prove_merger_or_delisting) ... ok
+test_different_anchor_days_cannot_be_extended_to_an_exact_dated_tuple (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_different_anchor_days_cannot_be_extended_to_an_exact_dated_tuple) ... ok
+test_direct_indirect_control_relation_conflict_is_preserved (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_direct_indirect_control_relation_conflict_is_preserved) ... ERROR
+test_exact_leading_decimal_par_spelling_is_supported_without_collapsing_values (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_exact_leading_decimal_par_spelling_is_supported_without_collapsing_values) ... ok
+test_form25_namespace_duplicate_issuer_dtd_and_wrong_archive_are_rejected (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_form25_namespace_duplicate_issuer_dtd_and_wrong_archive_are_rejected) ... ok
+test_form25_original_bytes_issuer_class_and_clock_are_separate_from_effective_delisting (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_form25_original_bytes_issuer_class_and_clock_are_separate_from_effective_delisting) ... ok
+test_fractional_cash_does_not_become_all_cash_or_a_different_share_ratio (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_fractional_cash_does_not_become_all_cash_or_a_different_share_ratio) ... ERROR
+test_independent_merger_proof_is_reviewable_without_identity_or_delisting_inference (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_independent_merger_proof_is_reviewable_without_identity_or_delisting_inference) ... ok
+test_prior_intervals_and_later_knowledge_are_preserved_without_export (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_prior_intervals_and_later_knowledge_are_preserved_without_export) ... ok
+test_same_recipient_completion_file_is_not_independent_ticker_proof (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_same_recipient_completion_file_is_not_independent_ticker_proof) ... ok
+test_whole_withheld_capture_cannot_be_read_or_used_as_a_form25_source (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_whole_withheld_capture_cannot_be_read_or_used_as_a_form25_source) ... ok
+test_wrong_recipient_cik_is_rejected_and_future_knowledge_is_not_used (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_wrong_recipient_cik_is_rejected_and_future_knowledge_is_not_used) ... ok
+test_action_day_and_exact_immutable_prior_hash_cannot_be_shifted (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_action_day_and_exact_immutable_prior_hash_cannot_be_shifted) ... ok
+test_actual_xom_bridge_replays_exact_original_sources_and_preserves_old_interval (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_actual_xom_bridge_replays_exact_original_sources_and_preserves_old_interval) ... ok
+test_classification_keeps_no_par_and_different_exact_par_values_distinct (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_classification_keeps_no_par_and_different_exact_par_values_distinct) ... ok
+test_complete_independent_fixture_is_reviewable_but_never_exports_or_extends_identity (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_complete_independent_fixture_is_reviewable_but_never_exports_or_extends_identity) ... ok
+test_exact_exhibit_type_envelope_preserves_hidden_exclusion_filename_and_raw_bytes (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_exact_exhibit_type_envelope_preserves_hidden_exclusion_filename_and_raw_bytes) ... ok
+test_future_prior_knowledge_is_rejected (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_future_prior_knowledge_is_rejected) ... ok
+test_later_correct_cover_cannot_discard_an_earlier_conflicting_class_claim (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_later_correct_cover_cannot_discard_an_earlier_conflicting_class_claim) ... ok
+test_missing_new_instrument_and_cusip_action_stay_explicit_gaps (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_missing_new_instrument_and_cusip_action_stay_explicit_gaps) ... ok
+test_nil_issuer_name_cannot_complete_the_independent_name_binding (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_nil_issuer_name_cannot_complete_the_independent_name_binding) ... ok
+test_withheld_new_body_metadata_cannot_be_loaded_as_a_bridge_proof (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_withheld_new_body_metadata_cannot_be_loaded_as_a_bridge_proof) ... ok
+test_wrong_cik_instrument_is_a_conflict_not_a_name_based_identity (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_wrong_cik_instrument_is_a_conflict_not_a_name_based_identity) ... ok
+test_wrong_primary_role_kind_or_unrelated_action_is_rejected (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_wrong_primary_role_kind_or_unrelated_action_is_rejected) ... ok
+test_a_prior_registry_interval_and_knowledge_clock_are_preserved_exactly (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_a_prior_registry_interval_and_knowledge_clock_are_preserved_exactly) ... ok
+test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged) ... ok
+test_changed_cik_cusip_or_unchanged_symbol_requires_a_separate_transition_contract (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_changed_cik_cusip_or_unchanged_symbol_requires_a_separate_transition_contract) ... ok
+test_claimed_first_day_of_a_month_does_not_become_a_proven_effective_day (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_claimed_first_day_of_a_month_does_not_become_a_proven_effective_day) ... ok
+test_competing_name_and_par_terms_are_preserved_despite_good_selected_cover (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_competing_name_and_par_terms_are_preserved_despite_good_selected_cover) ... ok
+test_competing_symbol_date_after_the_action_is_not_discarded (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_competing_symbol_date_after_the_action_is_not_discarded) ... ok
+test_current_catalog_collision_does_not_resolve_from_name_or_same_cik_assumption (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_current_catalog_collision_does_not_resolve_from_name_or_same_cik_assumption) ... ok
+test_duplicate_same_context_issuer_names_cannot_be_selected_by_matching_one (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_duplicate_same_context_issuer_names_cannot_be_selected_by_matching_one) ... ok
+test_effective_day_after_action_publication_is_a_source_clock_conflict (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_effective_day_after_action_publication_is_a_source_clock_conflict) ... ok
+test_future_prior_identity_knowledge_is_not_used (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_future_prior_identity_knowledge_is_not_used) ... ok
+test_independent_exact_bridge_is_reviewable_without_alias_or_canonical_changes (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_independent_exact_bridge_is_reviewable_without_alias_or_canonical_changes) ... ok
+test_issuer_name_in_a_different_context_cannot_bind_the_symbol (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_issuer_name_in_a_different_context_cannot_bind_the_symbol) ... ok
+test_later_prior_registry_knowledge_is_included_in_the_evidence_clock (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_later_prior_registry_knowledge_is_included_in_the_evidence_clock) ... ok
+test_observation_and_publication_clocks_cannot_be_backdated_to_the_action_day (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_observation_and_publication_clocks_cannot_be_backdated_to_the_action_day) ... ok
+test_old_and_new_symbols_at_the_same_anchor_are_an_order_conflict (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_old_and_new_symbols_at_the_same_anchor_are_an_order_conflict) ... ok
+test_one_generic_class_schedule_cannot_supply_exact_class_a_binding (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_one_generic_class_schedule_cannot_supply_exact_class_a_binding) ... ok
+test_reversed_or_disconnected_symbols_do_not_prove_a_directed_rename (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_reversed_or_disconnected_symbols_do_not_prove_a_directed_rename) ... ok
+test_same_cik_and_catalog_names_cannot_supply_an_effective_day (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_same_cik_and_catalog_names_cannot_supply_an_effective_day) ... ok
+test_two_versions_of_one_document_url_are_not_independent_old_new_sources (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_two_versions_of_one_document_url_are_not_independent_old_new_sources) ... ok
+
+======================================================================
+ERROR: test_direct_indirect_control_relation_conflict_is_preserved (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_direct_indirect_control_relation_conflict_is_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch6-identity_bulk-20261014/tests/test_batch6_leg_action_bridge.py", line 174, in test_direct_indirect_control_relation_conflict_is_preserved
+    report=review_stock_merger_bridge(rebuild(service,replacements),claim)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch6-identity_bulk-20261014/market_checker_app/services/sec_corporate_action_bridge.py", line 497, in review_stock_merger_bridge
+    cusip_action = _snapshot(service, claim.get("cusip_bridge_snapshot_id"), "corporate_action_filing")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch6-identity_bulk-20261014/market_checker_app/services/sec_corporate_action_bridge.py", line 108, in _snapshot
+    raise ValueError("Bridge source is missing or has the wrong primary document kind")
+ValueError: Bridge source is missing or has the wrong primary document kind
+
+======================================================================
+ERROR: test_fractional_cash_does_not_become_all_cash_or_a_different_share_ratio (tests.test_batch6_leg_action_bridge.LegActionBridgeTests.test_fractional_cash_does_not_become_all_cash_or_a_different_share_ratio)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch6-identity_bulk-20261014/tests/test_batch6_leg_action_bridge.py", line 136, in test_fractional_cash_does_not_become_all_cash_or_a_different_share_ratio
+    report = review_stock_merger_bridge(rebuild(service,{original.snapshot_id:revised}),claim)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch6-identity_bulk-20261014/market_checker_app/services/sec_corporate_action_bridge.py", line 497, in review_stock_merger_bridge
+    cusip_action = _snapshot(service, claim.get("cusip_bridge_snapshot_id"), "corporate_action_filing")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch6-identity_bulk-20261014/market_checker_app/services/sec_corporate_action_bridge.py", line 108, in _snapshot
+    raise ValueError("Bridge source is missing or has the wrong primary document kind")
+ValueError: Bridge source is missing or has the wrong primary document kind
+
+----------------------------------------------------------------------
+Ran 45 tests in 9.503s
+
+FAILED (errors=2)

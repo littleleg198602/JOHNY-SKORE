@@ -1,0 +1,18 @@
+{
+  "archive_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.html",
+  "automatic_redirects": false,
+  "capture_id": "sec_apple_2023_10k",
+  "content_type": "text/html",
+  "final_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm",
+  "http_status": 200,
+  "max_original_bytes": 4000000,
+  "observed_at": "2026-10-14T23:30:14.924474+00:00",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "public_raw_available": true,
+  "raw_response_bytes": 1559034,
+  "raw_response_sha256": "d76de55ead22cb553096b3495f55c8e0f6cd94f36242d9c87737b55952816724",
+  "reason": "",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm",
+  "started_at": "2026-10-14T23:30:10.907264+00:00",
+  "status": "ORIGINAL_BYTES_CAPTURED"
+}

@@ -1,0 +1,19 @@
+{
+  "archive_path": null,
+  "automatic_redirects": false,
+  "capture_id": "court_public_order",
+  "error_type": "URLError",
+  "maximum_bytes": 4000000,
+  "observed_at": "2026-10-15T13:43:59.288997+00:00",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+  "public_raw_available": false,
+  "raw_response_bytes": null,
+  "raw_response_sha256": null,
+  "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+  "reserved_at": "2026-10-15T13:43:57.029246+00:00",
+  "sequence": 3,
+  "started_at": "2026-10-15T13:43:57.029246+00:00",
+  "status": "TRANSPORT_OR_CAPTURE_ERROR",
+  "timeout_seconds": 25
+}

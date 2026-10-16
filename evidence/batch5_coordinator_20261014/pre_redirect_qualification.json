@@ -1,0 +1,35 @@
+{
+  "artifacts": [
+    {
+      "path": "evidence/batch5_pre_redirect_linux_20261014.json",
+      "sha256": "94866b2b6ca4eda4bb30a4797553f9076f330e9f1957d2cf0438862cfd4b02b1"
+    },
+    {
+      "path": "evidence/batch5_pre_redirect_linux_console_20261014.log",
+      "sha256": "45f2e8af0c83490f4f221da51e75616b85cbefbe57c009dd8b24af6b738c0259"
+    },
+    {
+      "path": "evidence/batch5_pre_redirect_linux_runner_20261014.log",
+      "sha256": "88fd6809af09b064edcd243129719dbb405ac1659853426288fb3c5ae6aba31f"
+    }
+  ],
+  "current_final_acceptance": false,
+  "recorded_at": "2026-10-14T10:12:45.615025+00:00",
+  "result": {
+    "discovered_tests": 1358,
+    "ended_at": "2026-10-14T05:45:26.216787+00:00",
+    "errors": 0,
+    "expected_failures": 0,
+    "failures": 0,
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "skipped": 0,
+    "started_at": "2026-10-14T05:43:02.161095+00:00",
+    "successful": true,
+    "tests_run": 1358,
+    "unexpected_successes": 0
+  },
+  "scope": "COMPLETE_PRE_REDIRECT_SOFTWARE_VERSION",
+  "subsequent_review_issue": "Regular urllib client could follow an unreserved redirect; final source change and checks are separate",
+  "tested_local_commit": "4c26be8341b6f6dfb2b31bba0482fb71f904ad6a"
+}

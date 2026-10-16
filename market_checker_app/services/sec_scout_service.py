@@ -23,6 +23,9 @@ from market_checker_app.services.sec_document_extraction import (
 from market_checker_app.services.sec_form4_service import (
     PARSER_VERSION as FORM4_PARSER_VERSION, extract_form4_observation,
 )
+from market_checker_app.services.sec_form4_identity_review import (
+    IDENTITY_REVIEW_VERSION as FORM4_IDENTITY_REVIEW_VERSION, review_form4_identities,
+)
 from market_checker_app.storage.scout_store import ScoutStore
 from market_checker_app.utils.text import normalize_ticker
 
@@ -242,6 +245,11 @@ class SecScoutService:
         form4_observation = extract_form4_observation(
             document, filing=filing, issuer_cik=str(details["cik"]), observed_at=clock,
         )
+        form4_identity_review = (
+            review_form4_identities(form4_observation, knowledge_at=clock,
+                                   source_document_sha256=digest)
+            if form4_observation is not None else None
+        )
         sections = extract_sec_item_excerpts(document, form=filing.form)
         ownership = extract_schedule_13_ownership(document, form=filing.form)
         ownership = match_schedule_13_instrument(
@@ -260,7 +268,8 @@ class SecScoutService:
             source_object_id=str(index["source_object_id"]),
             # A parser upgrade is a new observation, not a mutation of an old
             # SOURCE_VERIFIED document that lacked transaction normalization.
-            content_hash=(hashlib.sha256(f"{digest}|{FORM4_PARSER_VERSION}".encode()).hexdigest()
+            content_hash=(hashlib.sha256(
+                f"{digest}|{FORM4_PARSER_VERSION}|{FORM4_IDENTITY_REVIEW_VERSION}".encode()).hexdigest()
                           if form4_observation is not None else digest),
             title=f"{index['title']}: primární dokument",
             source_url=filing.filing_url,
@@ -275,6 +284,7 @@ class SecScoutService:
                      "document_sha256": digest, "bytes": len(document),
                      "beneficial_ownership": ownership,
                      "form4_observation": form4_observation,
+                     "form4_identity_review": form4_identity_review,
                      "item_excerpts": [{"locator": item, "excerpt": excerpt}
                                        for item, excerpt in sections]},
         )

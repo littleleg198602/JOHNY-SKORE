@@ -1,0 +1,248 @@
+{
+  "as_of": "2026-10-16T00:20:05.328408+00:00",
+  "company_wide_liability_verified": false,
+  "contract_version": "doj-court-procedural-posture-v1",
+  "court_opinions_supported": 1,
+  "current_complete_docket_verified": false,
+  "event_reviews": [
+    {
+      "caption_entity_name": "APPLE, INC.",
+      "caption_literal_matches_issuer": false,
+      "caption_plaintiff_name": "UNITED STATES",
+      "caption_variant_adopted_as_alias": false,
+      "capture_id": "doj_opposition_pdf",
+      "case_docket_and_filing_supported": true,
+      "court_procedural_decision_supported": false,
+      "document_date_supported": false,
+      "document_kind_supported": true,
+      "documentary_filed_on": "2024-09-12",
+      "doj_reported_procedure_only": false,
+      "event_id": "opposition_filed_20240912",
+      "exact_parties_supported": true,
+      "final_judgment_verified": false,
+      "issuer_attribution_verified": false,
+      "judicial_authority_supported": false,
+      "liability_verified": false,
+      "merits_adjudication_verified": false,
+      "missing_evidence": [
+        "MISSING_CASE_DATE_REGISTERED_IDENTITY",
+        "MISSING_IDENTITY_KNOWN_BEFORE_EVENT",
+        "MISSING_INDEPENDENT_LEGAL_CONTINUITY"
+      ],
+      "original_court_order_supported": false,
+      "party_opposition_filing_supported": true,
+      "passage_reviews": [
+        {
+          "page": 1,
+          "purpose": "COURT_CAPTION",
+          "supported": true
+        },
+        {
+          "page": 1,
+          "purpose": "PLAINTIFF",
+          "supported": true
+        },
+        {
+          "page": 1,
+          "purpose": "CASE_ENTITY",
+          "supported": true
+        },
+        {
+          "page": 1,
+          "purpose": "DOCUMENT_TYPE",
+          "supported": true
+        }
+      ],
+      "procedural_event_supported": true,
+      "procedural_posture": "OPPOSITION_FILED",
+      "registry_identity": {
+        "case_date_supported": false,
+        "known_before_case_day": false,
+        "legal_continuity_supported": false,
+        "record_id": null,
+        "registry_fingerprint_sha256": "8128f79d57ac60a0ebeee57d38135f4ed1b7a3a0e05e4cb80a7c8cb7b51d5e1e",
+        "resolution": "UNMAPPED_NAME"
+      },
+      "selected_document_kind": "PARTY_OPPOSITION",
+      "selected_document_number": "106",
+      "selected_filed_on": "2024-09-12",
+      "status": "SOURCE_PROCEDURAL_EVENT_REVIEWABLE"
+    },
+    {
+      "caption_entity_name": "APPLE, INC.",
+      "caption_literal_matches_issuer": false,
+      "caption_plaintiff_name": "UNITED STATES OF AMERICA",
+      "caption_variant_adopted_as_alias": false,
+      "capture_id": "govinfo_case_opinion",
+      "case_docket_and_filing_supported": true,
+      "court_procedural_decision_supported": true,
+      "document_date_supported": true,
+      "document_dated_on": "2025-06-30",
+      "document_kind_supported": true,
+      "documentary_filed_on": "2025-06-30",
+      "doj_reported_procedure_only": false,
+      "event_id": "court_opinion_20250630",
+      "exact_parties_supported": true,
+      "final_judgment_verified": false,
+      "issuer_attribution_verified": false,
+      "judicial_authority_supported": true,
+      "liability_verified": false,
+      "merits_adjudication_verified": false,
+      "missing_evidence": [
+        "MISSING_CASE_DATE_REGISTERED_IDENTITY",
+        "MISSING_IDENTITY_KNOWN_BEFORE_EVENT",
+        "MISSING_INDEPENDENT_LEGAL_CONTINUITY"
+      ],
+      "original_court_order_supported": false,
+      "party_opposition_filing_supported": false,
+      "passage_reviews": [
+        {
+          "page": 1,
+          "purpose": "COURT_CAPTION",
+          "supported": true
+        },
+        {
+          "page": 1,
+          "purpose": "PLAINTIFF",
+          "supported": true
+        },
+        {
+          "page": 1,
+          "purpose": "CASE_ENTITY",
+          "supported": true
+        },
+        {
+          "page": 1,
+          "purpose": "DOCUMENT_TYPE",
+          "supported": true
+        },
+        {
+          "page": 1,
+          "purpose": "PROCEDURAL_ACTION",
+          "supported": true
+        },
+        {
+          "page": 1,
+          "purpose": "JUDGE",
+          "supported": true
+        },
+        {
+          "page": 33,
+          "purpose": "DOCUMENT_DATE",
+          "supported": true
+        }
+      ],
+      "procedural_event_supported": true,
+      "procedural_posture": "MOTION_TO_DISMISS_DENIED",
+      "registry_identity": {
+        "case_date_supported": false,
+        "known_before_case_day": false,
+        "legal_continuity_supported": false,
+        "record_id": null,
+        "registry_fingerprint_sha256": "8128f79d57ac60a0ebeee57d38135f4ed1b7a3a0e05e4cb80a7c8cb7b51d5e1e",
+        "resolution": "UNMAPPED_NAME"
+      },
+      "selected_document_kind": "COURT_OPINION",
+      "selected_document_number": "283",
+      "selected_filed_on": "2025-06-30",
+      "status": "SOURCE_PROCEDURAL_EVENT_REVIEWABLE"
+    }
+  ],
+  "final_judgment_verified": false,
+  "historical_availability_reconstructed": false,
+  "http_requests": 0,
+  "ingested_at": "2026-10-16T00:20:05.327393+00:00",
+  "issuer_attribution_verified": false,
+  "issuer_conviction_verified": false,
+  "issuer_fine_verified": false,
+  "known_at": "2026-10-16T00:20:05.327393+00:00",
+  "latest_supported_documentary_event_day": "2025-06-30",
+  "live_acceptance_verified": false,
+  "merits_adjudication_verified": false,
+  "missing_evidence": [
+    "MISSING_CASE_DATE_REGISTERED_IDENTITY",
+    "MISSING_IDENTITY_KNOWN_BEFORE_EVENT",
+    "MISSING_INDEPENDENT_LEGAL_CONTINUITY",
+    "NO_SELECTED_ORIGINAL_COURT_ORDER_SUPPORTED",
+    "CURRENT_COMPLETE_DOCKET_AND_MERITS_NOT_ESTABLISHED"
+  ],
+  "original_complaint_rereviewed": false,
+  "original_court_orders_supported": 0,
+  "prediction_input": false,
+  "publication_time_verified": false,
+  "registry_adoption_allowed": false,
+  "report_available_at_cutoff": true,
+  "review_kind": "DOJ_CASE_POSTURE",
+  "schema_version": 1,
+  "scope": {
+    "case_entity_name": "Apple Inc.",
+    "case_entity_role": "DEFENDANT",
+    "court": "UNITED STATES DISTRICT COURT DISTRICT OF NEW JERSEY",
+    "docket": "2:24-cv-04055",
+    "issuer_cik": "0000320193",
+    "issuer_legal_name": "Apple Inc.",
+    "issuer_ticker": "AAPL",
+    "originating_complaint_filed_on": "2024-03-21",
+    "plaintiff_name": "UNITED STATES OF AMERICA"
+  },
+  "scoring_applied": false,
+  "source_reviews": [
+    {
+      "capture_id": "njd_case_page",
+      "http_status": 200,
+      "observed_at": "2026-10-15T13:39:58.766720+00:00",
+      "original_body_pin_verified": false,
+      "raw_response_bytes": 28995,
+      "raw_response_sha256": "27f03d6bb63f0590a82369556419c4eb8f5fb9ab3b3da44a9c8695d18d7b7532",
+      "review_reason": "MISSING_OR_WHOLE_WITHHELD_ORIGINAL",
+      "source_url": "https://www.njd.uscourts.gov/united-states-v-apple-inc-24-4055",
+      "started_at": "2026-10-15T13:39:49.012741+00:00"
+    },
+    {
+      "capture_id": "govinfo_case_opinion",
+      "content_type": "application/pdf",
+      "http_status": 200,
+      "observed_at": "2026-10-15T13:40:16.524451+00:00",
+      "original_body_pin_verified": true,
+      "raw_response_bytes": 1344697,
+      "raw_response_sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa",
+      "review_reason": "ORIGINAL_PIN_AND_SELECTED_CONTENT_REVIEWED",
+      "source_url": "https://www.govinfo.gov/content/pkg/USCOURTS-njd-2_24-cv-04055/pdf/USCOURTS-njd-2_24-cv-04055-0.pdf",
+      "started_at": "2026-10-15T13:39:58.828252+00:00"
+    },
+    {
+      "capture_id": "court_public_order",
+      "observed_at": "2026-10-15T13:43:59.288997+00:00",
+      "original_body_pin_verified": false,
+      "review_reason": "MISSING_OR_WHOLE_WITHHELD_ORIGINAL",
+      "source_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+      "started_at": "2026-10-15T13:43:57.029246+00:00"
+    },
+    {
+      "capture_id": "doj_case_index",
+      "content_type": "text/html",
+      "http_status": 200,
+      "observed_at": "2026-10-15T18:10:37.550969+00:00",
+      "original_body_pin_verified": true,
+      "raw_response_bytes": 107793,
+      "raw_response_sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+      "review_reason": "ORIGINAL_PIN_AND_SELECTED_CONTENT_REVIEWED",
+      "source_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+      "started_at": "2026-10-15T18:10:30.131061+00:00"
+    },
+    {
+      "capture_id": "doj_opposition_pdf",
+      "content_type": "application/pdf",
+      "http_status": 200,
+      "observed_at": "2026-10-15T18:12:02.727684+00:00",
+      "original_body_pin_verified": true,
+      "raw_response_bytes": 577500,
+      "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+      "review_reason": "ORIGINAL_PIN_AND_SELECTED_CONTENT_REVIEWED",
+      "source_url": "https://www.justice.gov/atr/media/1368741/dl",
+      "started_at": "2026-10-15T18:11:55.083970+00:00"
+    }
+  ],
+  "status": "PARTIAL",
+  "supported_procedural_events": 2
+}

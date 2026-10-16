@@ -1,0 +1,43 @@
+{
+  "actual_default_as_of": "2026-10-16T00:20:05.328408+00:00",
+  "capture_index": {
+    "bytes": 5532,
+    "path": "evidence/batch8_regulatory_20261015/capture_index.json",
+    "sha256": "8cea359ac82ae63861b889187ba7776747e1791de074dfbe72f3fb7c5e7d05b4"
+  },
+  "central_captured_plan": {
+    "bytes": 9477,
+    "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+    "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+  },
+  "historical_knowledge_backdated": false,
+  "kind": "DOJ_CASE_POSTURE",
+  "legal_registry_read_only": {
+    "bytes": 26803,
+    "path": "market_checker_app/data/verified_counterparty_identities.json",
+    "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e"
+  },
+  "physical_report_known_at": "2026-10-16T00:20:05.327393+00:00",
+  "qualified_code_and_test_sha256": {
+    "market_checker_app/services/doj_case_posture_review.py": "1b431d4cc0ccbb07085c3c985435e6edbaec61881df02da01cfe4dd3447c39d5",
+    "tests/test_batch8_doj_case_posture.py": "3b7ad1aac1106b9f17809e3157fb2a8ed48b3a4639a6fa4081d30c944e940289"
+  },
+  "qualified_tests": {
+    "bytes": 943,
+    "path": "evidence/batch8_regulatory_20261015/tests_qualified.json",
+    "sha256": "2a261c333587b7d115b28eec143af9f82e3811c0f31ccac076f3e607b347c0ac"
+  },
+  "report": {
+    "bytes": 9036,
+    "path": "evidence/batch8_regulatory_20261015/reviews/f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804/review.json",
+    "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804"
+  },
+  "request": {
+    "bytes": 2692,
+    "path": "evidence/batch8_regulatory_20261015/request.json",
+    "sha256": "330e0d36abeac5fc660cbc84649b6fe55d669ecad631ec2be1cfdea8a062f6dc"
+  },
+  "schema_version": 1,
+  "source_http_or_quota_db_actions_during_review": 0,
+  "source_observation_clocks_preserved": true
+}

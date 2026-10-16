@@ -1,0 +1,52 @@
+[
+  {
+    "archive_path": null,
+    "capture_id": "epa_dow_20261002_summary_only",
+    "observed_at": "2026-10-02T11:52:53+00:00",
+    "origin": "LEGACY_SUMMARY_ONLY",
+    "original_source_body_recovered": false,
+    "public_raw_available": false,
+    "raw_response_bytes": null,
+    "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+    "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info",
+    "summary_path": "evidence/epa_echo_live_20261002.json"
+  },
+  {
+    "archive_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html",
+    "automatic_redirects": false,
+    "capture_id": "sec_dow_2025_10k_index",
+    "content_type": "text/html; charset=UTF-8",
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/0001751788-26-000018-index.htm",
+    "http_status": 200,
+    "max_bytes": 6000000,
+    "observed_at": "2026-10-14T13:28:14.745226+00:00",
+    "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+    "public_raw_available": true,
+    "quota_source": "SEC_RESEARCH_NOT_EPA_OR_NHTSA",
+    "raw_response_bytes": 18034,
+    "raw_response_sha256": "94dfcc4f3e55b4eed10b83f2934a791aca769acc3377162567a088eeb0bb04d2",
+    "reason": "",
+    "requested_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/0001751788-26-000018-index.htm",
+    "started_at": "2026-10-14T13:28:04.199068+00:00",
+    "status": "CAPTURED"
+  },
+  {
+    "archive_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+    "automatic_redirects": false,
+    "capture_id": "sec_dow_2025_10k",
+    "content_type": "text/html",
+    "final_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm",
+    "http_status": 200,
+    "max_bytes": 6000000,
+    "observed_at": "2026-10-14T13:28:22.735778+00:00",
+    "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+    "public_raw_available": true,
+    "quota_source": "SEC_RESEARCH_NOT_EPA_OR_NHTSA",
+    "raw_response_bytes": 5279652,
+    "raw_response_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+    "reason": "",
+    "requested_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm",
+    "started_at": "2026-10-14T13:28:14.746091+00:00",
+    "status": "CAPTURED"
+  }
+]

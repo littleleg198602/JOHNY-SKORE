@@ -1,0 +1,119 @@
+{
+  "after_fix": {
+    "context_bindings": [
+      {
+        "anchor_date": "2025-12-31",
+        "context_identifiers": [
+          "0001751788"
+        ],
+        "context_ref": "c-2",
+        "explicit_same_context_dei_ciks": [
+          "0001751788"
+        ],
+        "legal_entity_dimensions": [],
+        "member_label_used_to_infer_cik": false,
+        "name": "Dow Inc.",
+        "resolved_cik": "0001751788"
+      },
+      {
+        "anchor_date": "2025-12-31",
+        "context_identifiers": [
+          "0001751788"
+        ],
+        "context_ref": "c-1",
+        "explicit_same_context_dei_ciks": [
+          "0000029915"
+        ],
+        "legal_entity_dimensions": [
+          {
+            "axis": "dei:LegalEntityAxis",
+            "member": "dow:TheDowChemicalCompanyMember"
+          }
+        ],
+        "member_label_used_to_infer_cik": false,
+        "name": "The Dow Chemical Company",
+        "resolved_cik": "0000029915"
+      }
+    ],
+    "facts": [
+      {
+        "anchor_date": "2025-12-31",
+        "context_ref": "c-2",
+        "issuer_cik": "0001751788",
+        "issuer_name": "Dow Inc."
+      },
+      {
+        "anchor_date": "2025-12-31",
+        "context_ref": "c-1",
+        "issuer_cik": "0000029915",
+        "issuer_name": "The Dow Chemical Company"
+      }
+    ]
+  },
+  "before_fix": {
+    "binder_fixture_sha256": "d31314babd779bd7a522c08343537e012226261fa2b334da83fb9b21ea9e0043",
+    "code_commit": "e869fb60b12fcc850e5d2a51e73a3fa3b726377d",
+    "facts": [
+      {
+        "anchor_date": "2025-12-31",
+        "context_ref": "c-2",
+        "issuer_cik": "0001751788",
+        "issuer_name": "Dow Inc."
+      },
+      {
+        "anchor_date": "2025-12-31",
+        "context_ref": "c-1",
+        "issuer_cik": "0001751788",
+        "issuer_name": "The Dow Chemical Company"
+      }
+    ],
+    "historical_wrong_parent_join_is_not_acceptance": true,
+    "module_sha256": "6222a1734caf76b0f7bd5216c62665a3fc08268be991c8750352ab317508d627"
+  },
+  "bulk_max_source_bytes_unchanged": 4000000,
+  "capture_clocks": {
+    "document_observed_at": "2026-10-14T13:28:22.735778+00:00",
+    "index_observed_at": "2026-10-14T13:28:14.745226+00:00"
+  },
+  "knowledge_backdated_to_report_day": false,
+  "new_http_requests": 0,
+  "original_bytes_unchanged": true,
+  "production_registry_changed": false,
+  "publisher_clock": {
+    "accepted_display": "2026-02-03 07:53:43",
+    "accepted_timezone": "UNKNOWN",
+    "filed_on": "2026-02-03",
+    "publication_clock_reconstructed": false,
+    "published_at_utc": null
+  },
+  "retained_research_capture_max_bytes": 6000000,
+  "review_sha256": "3860ff4c38fa4493053dfa839e54e4508ab69d89c7c60aefab985a2a6e284488",
+  "schema_version": 1,
+  "scope": "PRIMARY_CONTEXT_FACTS_ONLY",
+  "score_changed": false,
+  "source_inventory": [
+    {
+      "bytes": 5279652,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+      "sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122"
+    },
+    {
+      "bytes": 835,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.metadata.json",
+      "sha256": "22b893218915dbf851067754cbd2b1b7c3c731114bcfd3e0aab80886485586ed"
+    },
+    {
+      "bytes": 18034,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html",
+      "sha256": "94dfcc4f3e55b4eed10b83f2934a791aca769acc3377162567a088eeb0bb04d2"
+    },
+    {
+      "bytes": 888,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.metadata.json",
+      "sha256": "9a563c00de21b913eb795f3fcf2a22c7fd3a7ed957ecec83227753406f05d22b"
+    }
+  ],
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm",
+  "status": "COFILER_EXPLICIT_CIK_NAME_DATE_CORRECTED",
+  "verified_identities_added": 0
+}

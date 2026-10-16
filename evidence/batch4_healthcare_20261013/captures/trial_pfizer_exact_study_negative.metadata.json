@@ -1,0 +1,21 @@
+{
+  "capture_key": "trial_pfizer_exact_study_negative",
+  "request_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Pfizer&pageSize=2&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557",
+  "response_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Pfizer&pageSize=2&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557",
+  "requested_at": "2026-10-13T08:54:40.085836+00:00",
+  "observed_at": "2026-10-13T08:54:46.875310+00:00",
+  "http_status": 200,
+  "response_headers": {
+    "date": "Tue, 13 Oct 2026 08:54:46 GMT",
+    "content-type": "application/json",
+    "etag": "\"0/0.34.1/mv0qip6w\""
+  },
+  "body_path": "trial_pfizer_exact_study_negative.body.json",
+  "storage_encoding": "identity",
+  "body_sha256": "b54968c05ff881a1ef7ce604b6a340248f8e2aee8637bef06da0f5693f520df8",
+  "body_bytes": 31,
+  "archive_sha256": "b54968c05ff881a1ef7ce604b6a340248f8e2aee8637bef06da0f5693f520df8",
+  "archived_bytes": 31,
+  "byte_budget": 4000000,
+  "body_complete_within_byte_budget": true
+}

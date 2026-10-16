@@ -1,0 +1,10 @@
+{
+  "automatic_redirects": false,
+  "capture_id": "doj_opposition_pdf",
+  "maximum_bytes": 4000000,
+  "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+  "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+  "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+  "sequence": 5,
+  "timeout_seconds": 25
+}

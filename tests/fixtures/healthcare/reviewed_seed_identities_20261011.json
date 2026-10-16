@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "scope": "Object-specific identity evidence only. No issuer-wide product coverage, historical CMS ownership chain, financial impact or scoring.",
+  "record_count": 5,
+  "records": [
+    {
+      "record_id": "lly-crl-bla761215-original2-2021-12-17",
+      "source": "fda",
+      "kind": "fda_crl",
+      "ticker": "LLY",
+      "issuer_cik": "0000059478",
+      "entity_name": "Eli Lilly and Company",
+      "product_or_provider": "Rezvoglar (insulin glargine-aglr)",
+      "relationship": "APPLICATION_HOLDER",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "application_number": "BLA761215/ORIGINAL2",
+        "letter_file_name": "761215Orig2s000OtherActionLtrs.pdf",
+        "letter_date": "2021-12-17"
+      },
+      "effective_from": "2021-12-17",
+      "effective_to": "2021-12-18",
+      "known_at": "2026-10-11T10:17:04.506747+00:00",
+      "evidence": [
+        {
+          "url": "https://api.fda.gov/transparency/crl.json",
+          "locator": "file_name:761215Orig2s000OtherActionLtrs.pdf/letter_date:12/17/2021/application:BLA761215/ORIGINAL2",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+          "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "lly-crl-bla761248-2023-01-18",
+      "source": "fda",
+      "kind": "fda_crl",
+      "ticker": "LLY",
+      "issuer_cik": "0000059478",
+      "entity_name": "Eli Lilly and Company",
+      "product_or_provider": "donanemab",
+      "relationship": "APPLICATION_HOLDER",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "application_number": "BLA761248",
+        "letter_file_name": "761248_2024_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "2023-01-18"
+      },
+      "effective_from": "2023-01-18",
+      "effective_to": "2023-01-19",
+      "known_at": "2026-10-11T10:17:04.506747+00:00",
+      "evidence": [
+        {
+          "url": "https://api.fda.gov/transparency/crl.json",
+          "locator": "file_name:761248_2024_Orig1s000OtherActionLtrs.pdf/letter_date:01/18/2023/application:BLA761248",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+          "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "lly-trial-nct03954834-version-2021-10-20",
+      "source": "clinicaltrials",
+      "kind": "clinical_trial_sponsor",
+      "ticker": "LLY",
+      "issuer_cik": "0000059478",
+      "entity_name": "Eli Lilly and Company",
+      "product_or_provider": "Tirzepatide",
+      "relationship": "LEAD_SPONSOR",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "nct_id": "NCT03954834",
+        "role": "LEAD_SPONSOR",
+        "intervention_name": "Tirzepatide",
+        "record_version_date": "2021-10-20"
+      },
+      "effective_from": "2021-10-20",
+      "effective_to": "2021-10-21",
+      "known_at": "2026-10-11T10:17:04.506747+00:00",
+      "evidence": [
+        {
+          "url": "https://clinicaltrials.gov/api/v2/studies/NCT03954834",
+          "locator": "protocolSection: NCT ID, leadSponsor, Tirzepatide intervention and lastUpdatePostDate",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+          "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "hca-cms-o20021115000002-2026-10-11",
+      "source": "cms",
+      "kind": "cms_provider_owner",
+      "ticker": "HCA",
+      "issuer_cik": "0000860730",
+      "entity_name": "HCA HEALTHCARE INC",
+      "product_or_provider": "HTI MEMORIAL HOSPITAL CORPORATION",
+      "relationship": "INDIRECT_OWNER",
+      "time_basis": "OBSERVED_SNAPSHOT",
+      "identifiers": {
+        "enrollment_id": "O20021115000002",
+        "owner_associate_id": "1052593506",
+        "provider_name": "HTI MEMORIAL HOSPITAL CORPORATION",
+        "association_date": "2007-06-28",
+        "owner_role_code": "35"
+      },
+      "effective_from": "2026-10-11",
+      "effective_to": null,
+      "known_at": "2026-10-11T10:17:04.506747+00:00",
+      "evidence": [
+        {
+          "url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+          "locator": "ENROLLMENT ID:O20021115000002/ASSOCIATE ID - OWNER:1052593506/ROLE CODE - OWNER:35",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312526044769/hca-20251231.htm",
+          "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "hca-cms-o20030204000016-2026-10-11",
+      "source": "cms",
+      "kind": "cms_provider_owner",
+      "ticker": "HCA",
+      "issuer_cik": "0000860730",
+      "entity_name": "HCA HEALTHCARE INC",
+      "product_or_provider": "HCA HEALTHONE LLC",
+      "relationship": "INDIRECT_OWNER",
+      "time_basis": "OBSERVED_SNAPSHOT",
+      "identifiers": {
+        "enrollment_id": "O20030204000016",
+        "owner_associate_id": "1052593506",
+        "provider_name": "HCA HEALTHONE LLC",
+        "association_date": "2011-08-05",
+        "owner_role_code": "35"
+      },
+      "effective_from": "2026-10-11",
+      "effective_to": null,
+      "known_at": "2026-10-11T10:17:04.506747+00:00",
+      "evidence": [
+        {
+          "url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+          "locator": "ENROLLMENT ID:O20030204000016/ASSOCIATE ID - OWNER:1052593506/ROLE CODE - OWNER:35",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312526044769/hca-20251231.htm",
+          "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        }
+      ]
+    }
+  ]
+}

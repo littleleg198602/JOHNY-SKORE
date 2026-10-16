@@ -1,0 +1,20 @@
+{
+  "capture_key": "sec_lly_submissions",
+  "request_url": "https://data.sec.gov/submissions/CIK0000059478.json",
+  "response_url": "https://data.sec.gov/submissions/CIK0000059478.json",
+  "requested_at": "2026-10-13T08:58:56.860498+00:00",
+  "observed_at": "2026-10-13T08:59:03.680613+00:00",
+  "http_status": 200,
+  "response_headers": {
+    "content-type": "application/json",
+    "date": "Tue, 13 Oct 2026 08:59:03 GMT"
+  },
+  "body_path": "sec_lly_submissions.body.json",
+  "storage_encoding": "identity",
+  "body_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+  "body_bytes": 158719,
+  "archive_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+  "archived_bytes": 158719,
+  "byte_budget": 4000000,
+  "body_complete_within_byte_budget": true
+}

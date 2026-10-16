@@ -1,0 +1,105 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "HEALTHCARE_PRODUCT_SCOPE",
+  "plan_sha256": "4388a185ea0f0f70bfbcc02163f6038e070f3f27752f20120ab4a516529b81d6",
+  "recorded_at": "2026-10-15T07:24:47.855965+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-15T07:24:47.619283+00:00",
+  "review": {
+    "application_holder_role_inferred": false,
+    "candidate_legal_bridge_complete": false,
+    "decision": "WITHHOLD",
+    "historical_knowledge_reconstructed": false,
+    "historical_ownership_attribution_allowed": false,
+    "identity_status": "UNVERIFIED",
+    "ingested_at": "2026-10-15T07:24:47.619283+00:00",
+    "issuer_attribution_allowed": false,
+    "issuer_wide_scope": false,
+    "live_acceptance_verified": false,
+    "negative_issuer_completeness_verified": false,
+    "original_capture_pins": {
+      "fda": {
+        "body_bytes": 23740,
+        "body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+        "observed_at": "2026-10-12T14:44:25.208826+00:00",
+        "query_limit": 100,
+        "query_search": "company_name:\"Pfizer Inc.\"",
+        "query_skip": 0,
+        "requested_at": "2026-10-12T14:44:19.907975+00:00",
+        "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22&limit=100&skip=0"
+      },
+      "issuer": {
+        "accession_digits": "000007800318000027",
+        "archive_routing_cik": "0000078003",
+        "body_bytes": 816055,
+        "body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+        "observed_at": "2026-10-12T14:44:19.890070+00:00",
+        "requested_at": "2026-10-12T14:44:14.903431+00:00",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm"
+      },
+      "ownership": {
+        "accession_digits": "000007800318000027",
+        "archive_routing_cik": "0000078003",
+        "body_bytes": 258262,
+        "body_sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f",
+        "observed_at": "2026-10-14T23:30:38.781155+00:00",
+        "requested_at": "2026-10-14T23:30:31.825538+00:00",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm"
+      }
+    },
+    "ownership_facts": null,
+    "prediction_input": false,
+    "product_ownership_verified": false,
+    "proposed_record": null,
+    "quota_modified": false,
+    "reasons": [
+      "EXACT_DATED_OWNERSHIP_SELECTION_MISSING",
+      "LEGAL_OWNER_EVIDENCE_NOT_AVAILABLE_BEFORE_ORIGINAL_FDA_OBJECT"
+    ],
+    "registry_modified": false,
+    "reviewed_at": "2026-10-15T07:24:47.619283+00:00",
+    "schema_version": "healthcare-product-application-legal-scope-v1",
+    "score_changes": false,
+    "source_http_requests": 0,
+    "source_object_facts": {
+      "application_holder_role_inferred": false,
+      "application_number": "BLA761081",
+      "approval_status_as_displayed": "Approved",
+      "approval_status_is_event_day_state": false,
+      "company_field_role": "CRL_ADDRESSEE_ONLY",
+      "company_name": "Pfizer Inc.",
+      "exact_query_complete": true,
+      "file_name": "761081_2019_Orig1s000OtherActionLtrs.pdf",
+      "filename_does_not_define_event_date": true,
+      "issuer_wide_scope": false,
+      "letter_date": "2018-04-20",
+      "letter_text_sha256": "b2c6cc4564d05f915955076f6100851c4f2f4fc2c0f30f76908b011d5d0fb9e5",
+      "original_application_values": [
+        "BLA 761081"
+      ],
+      "original_capture_observed_at": "2026-10-12T14:44:25.208826+00:00",
+      "original_letter_date": "04/20/2018",
+      "product_mentions": [
+        {
+          "first_text_offset": 5421,
+          "literal_source_text": "trastuzumab",
+          "mentions": 2,
+          "requested_marker": "trastuzumab",
+          "role": "LETTER_TEXT_MENTION_ONLY"
+        }
+      ],
+      "product_ownership_proven_by_letter_text": false,
+      "publisher_last_updated": "2026-08-13",
+      "publisher_version_is_first_observation": false,
+      "query_total": 1,
+      "returned_rows": 1,
+      "source_object_locator": "/results/0",
+      "source_object_sha256": "8e8bcf887a4a121c4c3864bde68623b82a5ff5288803e70c9ce8cbddf2185874",
+      "structured_product_identity_available": false
+    }
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

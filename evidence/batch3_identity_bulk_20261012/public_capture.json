@@ -1,0 +1,62 @@
+{
+  "attempts": [
+    {
+      "bytes": 799583,
+      "final_url": "https://www.sec.gov/files/company_tickers.json",
+      "http_status": 200,
+      "observed_at": "2026-10-12T14:49:01.942455+00:00",
+      "requested_url": "https://www.sec.gov/files/company_tickers.json",
+      "response_headers": {
+        "Content-Length": null,
+        "Content-Type": "application/json",
+        "Date": "Mon, 12 Oct 2026 14:49:01 GMT",
+        "Last-Modified": "Fri, 09 Oct 2026 20:52:47 GMT"
+      },
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+      "started_at": "2026-10-12T14:48:55.518873+00:00"
+    },
+    {
+      "bytes": 2088909,
+      "final_url": "https://www.sec.gov/files/investment/13flist2026q3.txt",
+      "http_status": 200,
+      "observed_at": "2026-10-12T14:49:07.941128+00:00",
+      "requested_url": "https://www.sec.gov/files/investment/13flist2026q3.txt",
+      "response_headers": {
+        "Content-Length": null,
+        "Content-Type": "text/plain",
+        "Date": "Mon, 12 Oct 2026 14:49:07 GMT",
+        "Last-Modified": "Thu, 08 Oct 2026 13:39:40 GMT"
+      },
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+      "started_at": "2026-10-12T14:49:01.949136+00:00"
+    }
+  ],
+  "completed_at": "2026-10-12T14:49:07.954547+00:00",
+  "configured_edgar_guard_unchanged": true,
+  "last_modified_is_publication_time": false,
+  "max_request_attempts": 1,
+  "max_source_bytes": 4000000,
+  "publisher_publication_time_known": false,
+  "schema_version": 1,
+  "sources": [
+    {
+      "kind": "ticker_catalog",
+      "observed_at": "2026-10-12T14:49:01.942947+00:00",
+      "published_at": null,
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+      "snapshot_id": "38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a",
+      "url": "https://www.sec.gov/files/company_tickers.json"
+    },
+    {
+      "kind": "13f_list",
+      "observed_at": "2026-10-12T14:49:07.942392+00:00",
+      "published_at": null,
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+      "snapshot_id": "fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c",
+      "url": "https://www.sec.gov/files/investment/13flist2026q3.txt"
+    }
+  ],
+  "status": "COMPLETE_TWO_PUBLIC_GLOBAL_INPUTS",
+  "transport": "ordinary bounded urllib HTTPS with official SEC redirect policy",
+  "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public repository: littleleg198602/JOHNY-SKORE)"
+}

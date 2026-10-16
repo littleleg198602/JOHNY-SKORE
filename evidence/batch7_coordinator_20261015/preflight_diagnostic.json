@@ -1,0 +1,6 @@
+{
+  "initial_preflight": "ASSERTION_FAILED_BEFORE_ARCHIVING",
+  "reason": "Six verified JSON registries plus canonical687CSV form the seven protected production inputs; initial glob counted only JSON.",
+  "no_runtime_or_test_failure": true,
+  "read_only_database_not_started_by_failed_preflight": true
+}

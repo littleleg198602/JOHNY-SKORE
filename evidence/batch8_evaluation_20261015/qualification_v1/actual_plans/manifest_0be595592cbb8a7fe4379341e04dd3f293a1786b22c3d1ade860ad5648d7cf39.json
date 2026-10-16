@@ -1,0 +1,27 @@
+{
+  "instruments": [
+    {
+      "interval": "1d",
+      "methodology": "PROVIDER_VALUES_AS_RETURNED",
+      "provider": "yfinance",
+      "provider_symbol": "AAPL",
+      "require_actions": false,
+      "source": {
+        "available_at": "2026-10-14T05:16:26.777899+00:00",
+        "capture_id": "0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39",
+        "captured_at": "2026-10-14T05:16:26.777899+00:00",
+        "file_bytes": 4183,
+        "file_sha256": "8b208427d5803dd8167fa60efb7b001bd578e67cf7562f0f756afe2a2d62df96",
+        "first_session": "2026-09-14",
+        "frame_sha256": "9be244ca60e3fcfb03bc89056588e944d21e5d292b2bab86709e0ac68544dbbf",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "last_session": "2026-10-13",
+        "observed_at": "2026-10-14T05:16:26.777899+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+        "row_count": 22
+      },
+      "ticker": "AAPL"
+    }
+  ],
+  "schema_version": "captured_market_data_manifest_v1"
+}

@@ -1,0 +1,21 @@
+{
+  "absolute_deadline_enforcement": "POSIX_SETITIMER",
+  "absolute_timeout_seconds": 25,
+  "application_collector_or_quota_db_used": false,
+  "complete_original_body_received": false,
+  "elapsed_seconds": 3.893053220999718,
+  "failure_type": "URLError",
+  "http_status": null,
+  "maximum_original_body_bytes": 4000000,
+  "observed_at": "2026-10-15T13:42:42.324660+00:00",
+  "purpose": "CURRENT_OWNERSHIP_PACKET",
+  "received_prefix_bytes": 0,
+  "received_prefix_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "redirects_or_retries_allowed": false,
+  "research_plan_sha256": "d9735d505a911ffcfd5e0f5a29ad06f185b1b667d97601c3e94b9cf6150e02e0",
+  "reserved_at": "2026-10-15T13:42:38.431442+00:00",
+  "retention": "NOT_CAPTURED_COMPLETE_BODY",
+  "sequence": 2,
+  "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt",
+  "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+}

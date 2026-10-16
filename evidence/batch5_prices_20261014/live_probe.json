@@ -1,0 +1,35 @@
+{
+  "automatic_redirects": false,
+  "captures": [
+    {
+      "access_value_detected": false,
+      "body_withheld": false,
+      "bytes": 3491,
+      "error_type": null,
+      "http_status": 200,
+      "observed_at": "2026-10-14T00:07:52.561748+00:00",
+      "raw_path": "evidence/batch5_prices_20261014/raw/ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182.json",
+      "response_sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182",
+      "started_at": "2026-10-14T00:07:47.587763+00:00",
+      "ticker": "AAPL",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?range=1mo&interval=1d&events=div%2Csplits",
+      "usable_chart": true
+    },
+    {
+      "access_value_detected": false,
+      "body_withheld": false,
+      "bytes": 3573,
+      "error_type": null,
+      "http_status": 200,
+      "observed_at": "2026-10-14T00:07:56.585594+00:00",
+      "raw_path": "evidence/batch5_prices_20261014/raw/e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66.json",
+      "response_sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66",
+      "started_at": "2026-10-14T00:07:52.562656+00:00",
+      "ticker": "SPY",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?range=1mo&interval=1d&events=div%2Csplits",
+      "usable_chart": true
+    }
+  ],
+  "maximum_requests": 2,
+  "price_requests_attempted": 2
+}

@@ -1,0 +1,24 @@
+{
+  "fixture_kind": "SYNTHETIC_INDEX_MUTATIONS_OF_PINNED_ACTUAL_CAPTURE",
+  "future_filing_day": {
+    "expected_invariant": "Index filing day cannot be after original capture or knowledge",
+    "invariant_violated": true,
+    "original_observed_at": "2026-10-14T23:26:39.546292+00:00",
+    "prior_natural_person_fact_supported": true,
+    "prior_reported_filing_day": "2099-10-21",
+    "prior_requested_future_point_matched": true,
+    "synthetic_index_sha256": "6d7c7453665e81f64fbf212e3c9b0babf770310b2485e4a1bfe6b6bba517930f"
+  },
+  "invariant_violations": 2,
+  "original_capture_http_requests_performed": 0,
+  "person_cik_identity_was_verified": false,
+  "prior_commit": "2ca2d7e77ccd411c633763331acf8aef03ed1d9a",
+  "recorded_at": "2026-10-15T04:39:32.687024+00:00",
+  "source_originals_or_old_evidence_modified": false,
+  "wrong_basename": {
+    "expected_invariant": "Index basename accession equals original accession directory",
+    "index_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/0001193125-25-245151-index.html",
+    "invariant_violated": true,
+    "prior_natural_person_fact_supported": true
+  }
+}

@@ -1,0 +1,1576 @@
+from __future__ import annotations
+
+import argparse
+from dataclasses import replace
+from datetime import datetime, timezone
+import json
+import math
+import os
+from pathlib import Path
+import platform
+import tempfile
+from typing import Sequence
+
+import pandas as pd
+
+from market_checker_app.config import (
+    AppConfig,
+    ClaimVerificationConfig,
+    CommodityEnergyConfig,
+    DecisionAgentConfig,
+    EntityRegistryConfig,
+    EvaluationAgentConfig,
+    EuropeanFilingConfig,
+    FinancialForensicsConfig,
+    FundamentalIngestionConfig,
+    RegulatoryContractConfig,
+    ShortReportConfig,
+    Stage3SourceVerificationConfig,
+    SupplyChainConfig,
+)
+from market_checker_app.services.agent_runtime_service import (
+    AgentRuntimeService,
+    AgentRuntimeSettings,
+)
+from market_checker_app.services.company_intelligence_manifest_service import (
+    parse_identity_records,
+)
+from market_checker_app.services.short_report_manifest_service import (
+    parse_short_report_sources,
+)
+from market_checker_app.services.stage3_manifest_service import (
+    parse_commodity_energy_sources,
+    parse_regulatory_contract_sources,
+    parse_supply_chain_sources,
+)
+from market_checker_app.services.watchlist_service import (
+    WatchlistError,
+    load_watchlist,
+    normalize_watchlist,
+    restrict_to_universe,
+    select_watchlist_pilot,
+)
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
+from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.models import AnalysisProgressState
+from market_checker_app.prediction_contract import build_point_in_time_snapshot
+from market_checker_app.release_manifest import build_release_manifest
+from market_checker_app.services.candidate_model_service import (
+    build_candidate_model_report,
+)
+from market_checker_app.services.candidate_model_evaluation_service import (
+    evaluate_candidate_walk_forward_strict,
+)
+from market_checker_app.services.prediction_label_service import (
+    PredictionLabelService,
+)
+from market_checker_app.services.ticker_traceability_service import (
+    build_ticker_traceability,
+    summarize_ticker_traceability,
+)
+
+
+DEFAULT_RSS_SOURCE = (
+    "https://news.google.com/rss/search?"
+    "q={ticker}%20stock&hl=en-US&gl=US&ceid=US:en"
+)
+DEFAULT_SHORT_REPORT_RSS_SOURCE = "https://muddywatersresearch.com/feed/"
+DEFAULT_RSS_SOURCES = (
+    DEFAULT_RSS_SOURCE,
+    DEFAULT_SHORT_REPORT_RSS_SOURCE,
+)
+
+
+class RuntimeConfigurationError(ValueError):
+    pass
+
+
+def _console_progress(state: AnalysisProgressState) -> None:
+    """Render live progress for the local Windows launcher."""
+
+    progress = max(0.0, min(1.0, float(state.overall_progress)))
+    width = 28
+    filled = int(round(progress * width))
+    bar = "#" * filled + "." * (width - filled)
+    position = ""
+    if state.current_symbol:
+        position = f" | {state.current_symbol} {state.current_position}/{state.total_symbols}"
+    print(
+        f"\\r[PROGRESS] [{bar}] {progress * 100:5.1f}%{position} | {state.current_message}   ",
+        end="",
+        flush=True,
+    )
+
+
+def _validated_sources(
+    settings: AgentRuntimeSettings,
+) -> tuple[
+    dict[str, dict[str, object]],
+    tuple[object, ...],
+    tuple[object, ...],
+    tuple[str, ...],
+    tuple[object, ...],
+    tuple[object, ...],
+    tuple[object, ...],
+    tuple[object, ...],
+]:
+    identity_records, identity_errors = parse_identity_records(
+        settings.identity_records_text
+    )
+    # Operational scope is deliberately US-only.  Legacy European manifest
+    # fields remain readable for backward compatibility, but are dormant and
+    # cannot register a network agent in the 687-equity production runner.
+    european_filings: tuple[object, ...] = ()
+    european_feeds: tuple[object, ...] = ()
+    european_allowed_hosts: tuple[str, ...] = ()
+    short_reports, short_errors = parse_short_report_sources(
+        settings.short_report_sources_text
+    )
+    supply_chain, supply_errors = parse_supply_chain_sources(
+        settings.supply_chain_sources_text
+    )
+    commodity_energy, commodity_errors = parse_commodity_energy_sources(
+        settings.commodity_energy_sources_text
+    )
+    regulatory_contract, regulatory_errors = parse_regulatory_contract_sources(
+        settings.regulatory_contract_sources_text
+    )
+    errors = (
+        identity_errors
+        + short_errors
+        + supply_errors
+        + commodity_errors
+        + regulatory_errors
+    )
+    if errors:
+        raise RuntimeConfigurationError("\n".join(errors))
+    if (
+        settings.supply_chain_enabled
+        and not supply_chain
+        and not (
+            settings.sec_fundamentals_enabled
+            and settings.auto_discover_supply_chain_from_sec
+        )
+    ):
+        raise RuntimeConfigurationError(
+            "SupplyChainAgent je zapnutý, ale trvalá konfigurace neobsahuje platný zdroj."
+        )
+    if (
+        settings.commodity_energy_enabled
+        and not commodity_energy
+        and not (
+            settings.sec_fundamentals_enabled
+            and settings.auto_discover_commodity_energy_from_sec
+        )
+    ):
+        raise RuntimeConfigurationError(
+            "CommodityEnergyAgent je zapnutý, ale trvalá konfigurace neobsahuje platný zdroj."
+        )
+    identity_required_tickers: set[str] = set()
+    identity_required_tickers.update(
+        str(getattr(source, "ticker", "")).strip().upper()
+        for source in regulatory_contract
+        if str(getattr(source, "source_type", "")).strip().lower()
+        != "media_article"
+    )
+    missing_identity = sorted(
+        ticker
+        for ticker in identity_required_tickers
+        if ticker and ticker not in identity_records
+    )
+    if missing_identity:
+        raise RuntimeConfigurationError(
+            "Identity manifest neobsahuje přesnou identitu pro: "
+            + ", ".join(missing_identity)
+        )
+    return (
+        identity_records,
+        european_filings,
+        european_feeds,
+        european_allowed_hosts,
+        short_reports,
+        supply_chain,
+        commodity_energy,
+        regulatory_contract,
+    )
+
+
+def build_runtime_config(
+    settings: AgentRuntimeSettings,
+    *,
+    output_dir: Path,
+    sqlite_path: Path,
+    sec_user_agent: str,
+) -> AppConfig:
+    """Build the same safe agent configuration for unattended weekly runs."""
+
+    (
+        identity_records,
+        european_filings,
+        european_feeds,
+        european_allowed_hosts,
+        short_reports,
+        supply_chain,
+        commodity_energy,
+        regulatory_contract,
+    ) = _validated_sources(settings)
+    if settings.sec_fundamentals_enabled and (
+        not sec_user_agent.strip() or "@" not in sec_user_agent
+    ):
+        raise RuntimeConfigurationError(
+            "SEC ingest je zapnutý, ale JOHNY_SKORE_SEC_USER_AGENT neobsahuje "
+            "název aplikace a kontaktní e-mail."
+        )
+    return AppConfig(
+        output_dir=output_dir,
+        sqlite_path=sqlite_path,
+        save_history=True,
+        export_excel=False,
+        compare_previous_run=True,
+        agent_stage1_enabled=True,
+        agent_shadow_mode=True,
+        entity_registry=EntityRegistryConfig(
+            identity_records=identity_records,
+        ),
+        fundamental_ingestion=FundamentalIngestionConfig(
+            enabled=settings.sec_fundamentals_enabled,
+            user_agent=sec_user_agent.strip(),
+        ),
+        european_filings=EuropeanFilingConfig(
+            enabled=False,
+            sources=(),
+            feeds=(),
+            allowed_local_exchange_hosts=(),
+        ),
+        financial_forensics=FinancialForensicsConfig(
+            enabled=(
+                settings.sec_fundamentals_enabled
+                and settings.financial_forensics_enabled
+            ),
+        ),
+        short_reports=ShortReportConfig(
+            enabled=settings.short_reports_enabled,
+            sources=short_reports,
+            auto_discover_from_news=settings.auto_discover_short_reports,
+        ),
+        claim_verification=ClaimVerificationConfig(
+            enabled=(
+                settings.verify_short_report_claims
+                and settings.sec_fundamentals_enabled
+                and settings.financial_forensics_enabled
+                and (
+                    settings.short_reports_enabled
+                    or settings.auto_discover_short_reports
+                )
+            ),
+        ),
+        supply_chain=SupplyChainConfig(
+            enabled=(
+                settings.supply_chain_enabled
+                or (
+                    settings.sec_fundamentals_enabled
+                    and settings.auto_discover_supply_chain_from_sec
+                )
+            ),
+            sources=supply_chain,
+            auto_discover_from_sec_filings=(
+                settings.auto_discover_supply_chain_from_sec
+            ),
+            source_verification=Stage3SourceVerificationConfig(
+                enabled=(
+                    settings.supply_chain_enabled
+                    or (
+                        settings.sec_fundamentals_enabled
+                        and settings.auto_discover_supply_chain_from_sec
+                    )
+                ),
+            ),
+        ),
+        commodity_energy=CommodityEnergyConfig(
+            enabled=(
+                settings.commodity_energy_enabled
+                or (
+                    settings.sec_fundamentals_enabled
+                    and settings.auto_discover_commodity_energy_from_sec
+                )
+            ),
+            sources=commodity_energy,
+            auto_discover_from_sec_filings=(
+                settings.auto_discover_commodity_energy_from_sec
+            ),
+            source_verification=Stage3SourceVerificationConfig(
+                enabled=(
+                    settings.commodity_energy_enabled
+                    or (
+                        settings.sec_fundamentals_enabled
+                        and settings.auto_discover_commodity_energy_from_sec
+                    )
+                ),
+            ),
+        ),
+        regulatory_contract=RegulatoryContractConfig(
+            enabled=settings.regulatory_contract_enabled,
+            sources=regulatory_contract,
+            auto_discover_from_news=settings.auto_discover_regulatory_events,
+            source_verification=Stage3SourceVerificationConfig(
+                enabled=(
+                    settings.regulatory_contract_enabled
+                    or settings.auto_discover_regulatory_events
+                ),
+            ),
+        ),
+        decision_agent=DecisionAgentConfig(
+            enabled=settings.stage4_shadow_enabled,
+        ),
+        evaluation_agent=EvaluationAgentConfig(
+            enabled=settings.stage4_shadow_enabled,
+        ),
+    )
+
+
+def _atomic_json(path: Path, payload: dict[str, object]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as handle:
+            temporary_path = Path(handle.name)
+            json.dump(payload, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary_path, path)
+    finally:
+        if temporary_path is not None and temporary_path.exists():
+            temporary_path.unlink()
+
+
+def _tickers(
+    explicit: Sequence[str],
+    store: SQLiteStore,
+    *,
+    ticker_file: Path | None = None,
+    ticker_limit: int | None = None,
+    required_tickers: Sequence[str] = (),
+) -> list[str]:
+    if explicit:
+        normalized = normalize_watchlist(explicit)
+    elif ticker_file is not None:
+        normalized = load_watchlist(ticker_file)
+    else:
+        persisted = store.list_tickers()
+        normalized = normalize_watchlist(persisted) if persisted else []
+    if not normalized:
+        return []
+    return select_watchlist_pilot(
+        normalized,
+        ticker_limit,
+        required_tickers=required_tickers,
+    )
+
+
+def _required_runtime_tickers(config: AppConfig) -> list[str]:
+    sources = (
+        tuple(config.short_reports.sources)
+        + tuple(config.supply_chain.sources)
+        + tuple(config.commodity_energy.sources)
+        + tuple(config.regulatory_contract.sources)
+    )
+    return list(
+        dict.fromkeys(
+            str(getattr(source, "ticker", "")).strip().upper()
+            for source in sources
+            if str(getattr(source, "ticker", "")).strip()
+        )
+    )
+
+
+def _readiness_summary(
+    result: dict[str, object],
+    config: AppConfig,
+) -> dict[str, object]:
+    """Build a fail-closed analytical validation verdict.
+
+    This project never executes trades. The verdict only describes whether
+    there is enough out-of-sample evidence to trust the analytical overlay.
+    """
+
+    activation_state = str(result.get("activation_state") or "INSUFFICIENT_DATA")
+    gate_passed = bool(result.get("evaluation_gate_passed"))
+    consecutive_passes = int(result.get("evaluation_consecutive_passes") or 0)
+    required_passes = int(
+        result.get("evaluation_required_consecutive_passes")
+        or config.evaluation_agent.required_consecutive_passes
+    )
+    accuracy_improvement_proven = bool(
+        gate_passed
+        and consecutive_passes >= required_passes
+        and activation_state in {"ELIGIBLE", "ENABLED"}
+    )
+
+    blockers = [
+        str(reason)
+        for reason in result.get("evaluation_activation_reasons", [])
+        if str(reason).strip()
+    ]
+    if int(result.get("evaluation_sample_count") or 0) < int(
+        config.evaluation_agent.minimum_oos_samples
+    ):
+        blockers.append(
+            "minimum_oos_samples:"
+            f"{int(result.get('evaluation_sample_count') or 0)}/"
+            f"{config.evaluation_agent.minimum_oos_samples}"
+        )
+    if int(result.get("evaluation_distinct_weeks") or 0) < int(
+        config.evaluation_agent.minimum_distinct_weeks
+    ):
+        blockers.append(
+            "minimum_distinct_weeks:"
+            f"{int(result.get('evaluation_distinct_weeks') or 0)}/"
+            f"{config.evaluation_agent.minimum_distinct_weeks}"
+        )
+    if consecutive_passes < required_passes:
+        blockers.append(
+            f"independent_gate_passes:{consecutive_passes}/{required_passes}"
+        )
+    if result.get("quality_gate_decision") != "PASS":
+        blockers.append(
+            f"quality_gate:{result.get('quality_gate_decision') or 'MISSING'}"
+        )
+    if not accuracy_improvement_proven:
+        blockers.append("analytical_improvement_not_proven")
+
+    return {
+        "accuracy_improvement_proven": accuracy_improvement_proven,
+        "analysis_validation_ready": accuracy_improvement_proven,
+        "analysis_only": True,
+        "activation_state": activation_state,
+        "evaluation_gate_passed": gate_passed,
+        "consecutive_gate_passes": consecutive_passes,
+        "required_consecutive_gate_passes": required_passes,
+        "shadow_mode": config.agent_shadow_mode,
+        "blockers": list(dict.fromkeys(blockers)),
+    }
+def _source_health_summary(
+    result: dict[str, object],
+    config: AppConfig,
+) -> dict[str, object]:
+    yahoo_bulk_attempted = int(
+        result.get("bulk_yahoo_ohlc_attempted_count") or 0
+    )
+    yahoo_bulk_failures = int(
+        result.get("bulk_yahoo_ohlc_failure_count") or 0
+    )
+    pipeline_health = result.get("source_health")
+    current_prices = (
+        pipeline_health.get("current_prices", {})
+        if isinstance(pipeline_health, dict)
+        else {}
+    )
+    return {
+        "current_prices": _json_safe(current_prices),
+        "price_history": {
+            "yahoo_bulk_attempted": yahoo_bulk_attempted,
+            "yahoo_bulk_loaded": int(
+                result.get("bulk_yahoo_ohlc_count") or 0
+            ),
+            "yahoo_bulk_failures": yahoo_bulk_failures,
+            "yahoo_bulk_failure_details": _json_safe(
+                result.get("bulk_yahoo_ohlc_failure_details") or []
+            ),
+            "status": (
+                "NOT_USED"
+                if yahoo_bulk_attempted == 0
+                else ("PARTIAL" if yahoo_bulk_failures else "SUCCESS")
+            ),
+        },
+        "entity_registry": {
+            "configured_records": len(config.entity_registry.identity_records),
+            "status": result.get("entity_registry_status"),
+            "unresolved": int(
+                result.get("entity_unresolved_identity_count") or 0
+            ),
+            "conflicts": int(
+                result.get("entity_identity_conflict_count") or 0
+            ),
+        },
+        "sec_edgar": {
+            "configured": config.fundamental_ingestion.enabled,
+            "status": result.get("fundamental_ingestion_status"),
+            "documents": int(result.get("fundamental_document_count") or 0),
+            "facts": int(result.get("fundamental_fact_count") or 0),
+            "feature_snapshots": int(
+                result.get("fundamental_feature_snapshot_count") or 0
+            ),
+            "filing_text_documents": int(
+                result.get("fundamental_filing_text_document_count") or 0
+            ),
+            "filing_text_failures": int(
+                result.get("fundamental_filing_text_failure_count") or 0
+            ),
+            "filing_text_failure_details": _json_safe(
+                result.get("fundamental_filing_text_failure_details") or []
+            ),
+            "bundle_failure_details": _json_safe(
+                result.get("fundamental_bundle_failure_details") or []
+            ),
+        },
+        "financial_forensics": {
+            "configured": config.financial_forensics.enabled,
+            "status": result.get("financial_forensics_status"),
+            "evidence": int(
+                result.get("financial_forensics_evidence_count") or 0
+            ),
+        },
+        "european_filings": {
+            "configured": config.european_filings.enabled,
+            "status": result.get("european_filings_status"),
+            "documents": int(result.get("european_filing_document_count") or 0),
+            "direct_sources": len(config.european_filings.sources),
+            "feeds": len(config.european_filings.feeds),
+        },
+        "source_resolution": {
+            "status": result.get("source_resolution_status"),
+            "canonical_events": int(result.get("source_resolution_count") or 0),
+            "conflicts_resolved": int(
+                result.get("source_resolution_conflict_count") or 0
+            ),
+        },
+        "short_reports": {
+            "configured": bool(
+                config.short_reports.enabled
+                or config.short_reports.auto_discover_from_news
+            ),
+            "status": result.get("short_report_status"),
+            "documents": int(result.get("short_report_document_count") or 0),
+            "claims": int(result.get("short_report_claim_count") or 0),
+            "auto_discovered": int(
+                result.get("auto_discovered_short_reports") or 0
+            ),
+        },
+        "supply_chain": {
+            "configured": config.supply_chain.enabled,
+            "status": result.get("supply_chain_status"),
+            "relationships": int(
+                result.get("supply_chain_relationship_count") or 0
+            ),
+            "auto_discovered": int(
+                result.get("auto_discovered_supply_chain_relationships") or 0
+            ),
+        },
+        "commodity_energy": {
+            "configured": config.commodity_energy.enabled,
+            "status": result.get("commodity_energy_status"),
+            "exposures": int(
+                result.get("commodity_energy_exposure_count") or 0
+            ),
+            "auto_discovered": int(
+                result.get("auto_discovered_commodity_energy_exposures") or 0
+            ),
+        },
+        "regulatory_contracts": {
+            "configured": bool(
+                config.regulatory_contract.enabled
+                or config.regulatory_contract.auto_discover_from_news
+            ),
+            "status": result.get("regulatory_contract_status"),
+            "events": int(
+                result.get("regulatory_contract_event_count") or 0
+            ),
+            "auto_discovered": int(
+                result.get("auto_discovered_regulatory_events") or 0
+            ),
+        },
+    }
+
+
+_SIGNAL_DETAIL_COLUMNS = (
+    "ticker",
+    "current_price",
+    "current_price_source",
+    "current_price_status",
+    "current_price_reason",
+    "current_price_fetched_at",
+    "ohlc_close_at",
+    "ohlc_observation_count",
+    "ohlc_price_usable",
+    "ohlc_history_usable",
+    "ohlc_available_lookbacks",
+    "ohlc_missing_lookbacks",
+    "tech_source_used",
+    "technical_status",
+    "technical_reason",
+    "ranking_eligible",
+    "ranking_status",
+    "ranking_reason",
+    "rank_in_watchlist",
+    "percentile_in_watchlist",
+    "raw_total_score",
+    "final_total_score",
+    "final_confidence",
+    "confidence_kind",
+    "data_quality_score",
+    "news_confidence",
+    "tech_confidence",
+    "yahoo_confidence",
+    "decision_signal",
+    "forecast",
+    "action",
+    "action_reasons",
+    "signal_strength",
+    "blocked_reasons",
+    "reasons",
+    "warnings",
+)
+
+
+def _json_safe(value: object) -> object:
+    if value is None:
+        return None
+    enum_value = getattr(value, "value", None)
+    if enum_value is not None and isinstance(enum_value, (str, int, float, bool)):
+        return enum_value
+    item = getattr(value, "item", None)
+    if callable(item):
+        try:
+            return _json_safe(item())
+        except (TypeError, ValueError):
+            pass
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, dict):
+        return {str(key): _json_safe(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_safe(item) for item in value]
+    if isinstance(value, (str, int, float, bool)):
+        return value
+    return str(value)
+
+
+def _universe_coverage(
+    requested_tickers: list[str],
+    ticker_results: list[dict[str, object]],
+) -> dict[str, object]:
+    requested = list(dict.fromkeys(str(ticker).strip().upper() for ticker in requested_tickers if str(ticker).strip()))
+    reported = {
+        str(row.get("ticker") or "").strip().upper()
+        for row in ticker_results
+        if str(row.get("ticker") or "").strip()
+    }
+    missing = [ticker for ticker in requested if ticker not in reported]
+    eligible = [
+        row
+        for row in ticker_results
+        if bool(row.get("ranking_eligible"))
+    ]
+    return {
+        "requested": len(requested),
+        "reported": len(reported),
+        "missing": len(missing),
+        "missing_tickers": missing,
+        "coverage_pct": round(100.0 * len(reported) / len(requested), 2) if requested else 0.0,
+        "ranking_eligible": len(eligible),
+        "ranking_ineligible": len(reported) - len(eligible),
+        "ranking_usable_coverage_pct": (
+            round(100.0 * len(eligible) / len(requested), 2) if requested else 0.0
+        ),
+    }
+
+
+def _signal_detail_records(result: dict[str, object]) -> list[dict[str, object]]:
+    signals = result.get("signals")
+    if signals is None or not hasattr(signals, "to_dict"):
+        return []
+    columns = set(getattr(signals, "columns", []))
+    selected = [column for column in _SIGNAL_DETAIL_COLUMNS if column in columns]
+    return [
+        {
+            column: _json_safe(record.get(column))
+            for column in selected
+        }
+        for record in signals.to_dict(orient="records")
+    ]
+
+
+_DECISION_DETAIL_FIELDS = (
+    "decision_id",
+    "ticker",
+    "policy_name",
+    "policy_version",
+    "baseline_action",
+    "baseline_forecast",
+    "proposed_action",
+    "proposed_forecast",
+    "baseline_p_up",
+    "baseline_p_flat",
+    "baseline_p_down",
+    "p_up",
+    "p_flat",
+    "p_down",
+    "confidence",
+    "hard_veto",
+    "activation_state",
+    "applied_to_prediction",
+    "reasons",
+    "conflicts",
+    "evidence_ids",
+    "claim_ids",
+    "regulatory_event_ids",
+    "metadata",
+)
+
+
+def _decision_detail_records(result: dict[str, object]) -> list[dict[str, object]]:
+    report = result.get("agent_report")
+    decisions = getattr(report, "decisions", []) if report is not None else []
+    return [
+        {
+            field: _json_safe(getattr(decision, field, None))
+            for field in _DECISION_DETAIL_FIELDS
+        }
+        for decision in decisions
+    ]
+
+
+def _quality_gate_issues(result: dict[str, object]) -> list[dict[str, object]]:
+    report = result.get("agent_report")
+    executions = getattr(report, "executions", [])
+    issues: list[dict[str, object]] = []
+    for execution in executions:
+        if getattr(execution, "agent_name", "") != "quality_gate":
+            continue
+        checks = getattr(execution.result, "quality_checks", [])
+        for check in checks:
+            metadata = getattr(check, "metadata", {}) or {}
+            rejects = metadata.get("rejects", [])
+            warnings = metadata.get("warnings", [])
+            decision = _json_safe(getattr(check, "decision", None))
+            if decision == "PASS" and not rejects and not warnings:
+                continue
+            issues.append(
+                {
+                    "ticker": _json_safe(getattr(check, "ticker", None)),
+                    "gate_name": _json_safe(getattr(check, "gate_name", None)),
+                    "decision": decision,
+                    "message": _json_safe(getattr(check, "message", "")),
+                    "rejects": _json_safe(rejects),
+                    "warnings": _json_safe(warnings),
+                }
+            )
+    return issues
+
+
+def run_weekly_shadow(
+    *,
+    config: AppConfig,
+    tickers: list[str],
+    rss_sources: list[str],
+    rss_enabled: bool,
+    mt5_enabled: bool,
+    yahoo_metadata_enabled: bool | None,
+    resolve_labels: bool = False,
+    counterparty_health_sources: list[dict[str, object]] | None = None,
+    macro_observations: list[dict[str, object]] | None = None,
+    prospective_history_enabled: bool | None = None,
+    prospective_audit_archive_root: Path | None = None,
+) -> dict[str, object]:
+    from market_checker_app.services.pipeline_service import PipelineService
+
+    if not config.agent_shadow_mode:
+        raise RuntimeConfigurationError("Týdenní runner smí běžet pouze v shadow režimu.")
+    if not tickers:
+        raise RuntimeConfigurationError(
+            "Chybí tickery: zadejte --tickers nebo nejprve vytvořte historii v SQLite."
+        )
+
+    pipeline = None
+    if config.captured_market_manifest is not None or config.captured_market_archive_root is not None:
+        pipeline = PipelineService(config)
+        if resolve_labels:
+            raise RuntimeConfigurationError("Archivní vstupy běhu nejsou potvrzenou metodikou pozdějších cenových labelů.")
+        readiness = pipeline.yahoo_client.readiness(tickers, include_benchmarks=True)
+        if readiness["status"] != "READY":
+            raise RuntimeConfigurationError("WAIT_DATA: vybrané původní cenové archivy nejsou úplné a aktuální.")
+
+    config.ensure_output_dir()
+    store = SQLiteStore(config.sqlite_path)
+    store.ensure_schema()
+    print(f"[INFO] Začínám zpracování {len(tickers)} tickerů; průběh se bude zobrazovat níže.", flush=True)
+    if pipeline is None:
+        pipeline = PipelineService(config)
+    result = pipeline.run(
+        tickers,
+        rss_sources,
+        store,
+        progress_callback=_console_progress,
+        rss_enabled=rss_enabled,
+        mt5_enabled=mt5_enabled,
+        yahoo_metadata_enabled=yahoo_metadata_enabled,
+    )
+    print("", flush=True)
+    return finalize_analysis_run(
+        result=result, config=config, tickers=tickers, store=store,
+        pipeline=pipeline, resolve_labels=resolve_labels,
+        counterparty_health_sources=counterparty_health_sources,
+        macro_observations=macro_observations, strict=True,
+        prospective_history_enabled=prospective_history_enabled,
+        prospective_audit_archive_root=prospective_audit_archive_root,
+    )
+
+
+def finalize_analysis_run(
+    *, result: dict[str, object], config: AppConfig, tickers: list[str],
+    store: SQLiteStore, pipeline: object, resolve_labels: bool = False,
+    counterparty_health_sources: list[dict[str, object]] | None = None,
+    macro_observations: list[dict[str, object]] | None = None,
+    strict: bool = False,
+    prospective_history_enabled: bool | None = None,
+    prospective_audit_archive_root: Path | None = None,
+) -> dict[str, object]:
+    """Shared UI/weekly persistence and analysis; never modifies signals.
+
+    Label loading remains opt-in. All other steps consume only this run and
+    local history. Failures are retained in the exported report in both paths.
+    """
+    def check_captured_inputs(phase: str) -> None:
+        if config.captured_market_manifest is None:
+            return
+        captured = result.get("captured_market_data")
+        if not isinstance(captured, dict) or not isinstance(captured.get("preflight"), dict):
+            raise RuntimeConfigurationError("WAIT_DATA:CAPTURED_RUN_BINDING_MISSING")
+        checked = pipeline.yahoo_client.revalidate_for_persistence(tickers,
+            expected_readiness=captured["preflight"])
+        captured[phase] = checked
+        if checked["status"] != "READY":
+            raise RuntimeConfigurationError("WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_FORECAST_PERSISTENCE")
+
+    if config.captured_market_manifest is not None:
+        if resolve_labels:
+            raise RuntimeConfigurationError("Captured run inputs cannot resolve target labels.")
+        check_captured_inputs("finalizer_entry")
+    macro_error: str | None = None
+    try:
+        from market_checker_app.services.macro_regime_service import build_macro_regime_report
+        store.save_macro_observations(macro_observations or [])
+        macro_report = build_macro_regime_report(
+            store.read_macro_observations().to_dict(orient="records"),
+            as_of=getattr(result.get("metadata"), "finished_at", datetime.now(timezone.utc)),
+        )
+        macro_report["persisted"] = store.save_macro_regime_report(macro_report)
+    except Exception as exc:
+        macro_error = f"makro report selhal: {type(exc).__name__}: {exc}"
+        macro_report = {"status": "FAILED", "reason": "MACRO_RUNTIME_ERROR", "analysis_only": True}
+    counterparty_health_error: str | None = None
+    try:
+        from market_checker_app.services.counterparty_health_service import (
+            build_counterparty_health_report,
+        )
+
+        metadata = result.get("metadata")
+        counterparty_as_of = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+        counterparty_health_report = build_counterparty_health_report(
+            [row for row in store.read_company_relationships().to_dict(orient="records")
+             if row.get("ticker") in tickers],
+            store.read_fundamental_feature_snapshots().to_dict(orient="records"),
+            counterparty_health_sources or [],
+            as_of=counterparty_as_of,
+            identities=store.read_entity_identity_versions().to_dict(orient="records"),
+        )
+        counterparty_health_report["persisted"] = store.save_counterparty_health_report(
+            counterparty_health_report
+        )
+    except Exception as exc:
+        counterparty_health_error = f"zdraví protistran selhalo: {type(exc).__name__}: {exc}"
+        counterparty_health_report = {
+            "status": "FAILED",
+            "reason": "COUNTERPARTY_HEALTH_RUNTIME_ERROR",
+            "analysis_only": True,
+            "ranking_modified": False,
+            "decision_modified": False,
+            "activation_allowed": False,
+        }
+    open_position_audit_error: str | None = None
+    open_position_audit_report: dict[str, object]
+    try:
+        from market_checker_app.collectors.mt5_client import MT5Client
+        from market_checker_app.services.open_position_audit_service import (
+            build_open_position_audit,
+        )
+
+        if config.captured_market_manifest is not None:
+            positions, position_read_error = [], "Archivní cenový režim: MT5 připojení je vypnuté."
+        else:
+            positions, position_read_error = MT5Client().load_open_positions()
+        metadata = result.get("metadata")
+        audit_observed_at = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+        signals = result.get("signals")
+        if not isinstance(signals, pd.DataFrame):
+            raise TypeError("výsledné signály nemají tabulkový formát")
+        if position_read_error:
+            open_position_audit_error = position_read_error
+            open_position_audit_report = {
+                "status": "UNAVAILABLE",
+                "reason": position_read_error,
+                "observed_at": audit_observed_at.isoformat(),
+                "analysis_only": True,
+                "automated_trading": {"enabled": False, "execution_path": "absent"},
+                "positions": [],
+            }
+        else:
+            run_id_for_audit = result.get("run_id")
+            previous_audits = (
+                store.read_latest_open_position_audits_before(int(run_id_for_audit))
+                if run_id_for_audit is not None else pd.DataFrame()
+            )
+            open_position_audit_report = build_open_position_audit(
+                positions,
+                signals,
+                previous_audits,
+                observed_at=audit_observed_at,
+            )
+            if run_id_for_audit is not None:
+                open_position_audit_report["persisted_count"] = store.save_open_position_audits(
+                    int(run_id_for_audit),
+                    list(open_position_audit_report["positions"]),
+                    observed_at=str(open_position_audit_report["observed_at"]),
+                )
+    except Exception as exc:
+        open_position_audit_error = f"audit otevřených pozic selhal: {type(exc).__name__}: {exc}"
+        open_position_audit_report = {
+            "status": "FAILED",
+            "reason": "OPEN_POSITION_AUDIT_RUNTIME_ERROR",
+            "observed_at": datetime.now(timezone.utc).isoformat(),
+            "analysis_only": True,
+            "automated_trading": {"enabled": False, "execution_path": "absent"},
+            "positions": [],
+        }
+    result["open_position_audit"] = open_position_audit_report
+    result["open_position_audit_rows"] = open_position_audit_report.get("positions", [])
+    readiness = _readiness_summary(result, config)
+    snapshot_records: list[dict[str, object]] = []
+    snapshot_error: str | None = None
+    saved_snapshot_count = 0
+    snapshot_persistence_attempted = False
+    candidate_model_report: dict[str, object] = {
+        "status": "DISABLED",
+        "reason": "POINT_IN_TIME_SNAPSHOT_UNAVAILABLE",
+        "analysis_only": True,
+        "ranking_modified": False,
+        "predictions": [],
+    }
+    candidate_model_error: str | None = None
+    candidate_evaluation_report: dict[str, object] = {
+        "status": "NOT_RUN",
+        "reason": "SNAPSHOT_STORAGE_UNAVAILABLE",
+        "analysis_only": True,
+        "ranking_modified": False,
+        "activation_allowed": False,
+    }
+    candidate_evaluation_error: str | None = None
+    prospective_adapter = None
+    prospective_audit = None
+    audit_enabled = (getattr(config, "prospective_history_enabled", False)
+                     if prospective_history_enabled is None else prospective_history_enabled)
+
+    def capture_persisted_forecasts() -> None:
+        nonlocal prospective_adapter, prospective_audit
+        if not audit_enabled or prospective_audit is not None:
+            return
+        try:
+            if audit_enabled is not True:
+                raise ValueError("INVALID_PROSPECTIVE_HISTORY_OPT_IN")
+            from market_checker_app.services.prospective_forecast_registration_adapter import (
+                ProspectiveForecastRegistrationAdapter,
+            )
+            audit_root = (prospective_audit_archive_root if prospective_audit_archive_root is not None
+                          else getattr(config, "prospective_audit_archive_root", None))
+            prospective_adapter = ProspectiveForecastRegistrationAdapter(
+                db_path=store.db_path, audit_archive_root=audit_root,
+            )
+            registration = (prospective_adapter.register_after_persistence(
+                str(row["snapshot_id"]) for row in snapshot_records)
+                if snapshot_persistence_attempted else {"status": "WAIT",
+                    "reason": "SNAPSHOT_PERSISTENCE_NOT_ATTEMPTED", "registered_count": 0})
+            prospective_audit = {"registration": registration}
+        except Exception:
+            # Diagnostic failures must not change stored model output or echo
+            # arbitrary source/exception content into the normal report.
+            prospective_audit = {"registration": {"status": "PARTIAL",
+                "reason": "PROSPECTIVE_REGISTRATION_RUNTIME_ERROR", "registered_count": 0}}
+    run_id = result.get("run_id")
+    raw_point_in_time_inputs = result.get("point_in_time_inputs")
+    if run_id is not None and isinstance(raw_point_in_time_inputs, list):
+        metadata = result.get("metadata")
+        observed_at = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+        manifest = build_release_manifest(config=config)
+        for item in raw_point_in_time_inputs:
+            if not isinstance(item, dict):
+                continue
+            try:
+                payload = dict(item.get("feature_payload") or {})
+                payload["macro_features"] = {
+                    str(row["indicator_id"]): row["value"]
+                    for row in macro_report.get("selected_observations", [])
+                    if row.get("scope") == "GLOBAL"
+                }
+                payload["macro_report_id"] = macro_report.get("report_id")
+                snapshot_records.append(
+                    build_point_in_time_snapshot(
+                        run_id=int(run_id),
+                        ticker=str(item.get("ticker") or ""),
+                        observed_at=observed_at,
+                        feature_payload=payload,
+                        baseline_output=item.get("baseline_output") or {},
+                        provenance=item.get("provenance") or {},
+                        benchmark_ticker=str(
+                            item.get("benchmark_ticker") or "SPY"
+                        ),
+                        benchmark_selection=str(
+                            item.get("benchmark_selection") or "unknown"
+                        ),
+                        release_manifest=manifest,
+                    )
+                )
+            except (TypeError, ValueError) as exc:
+                snapshot_error = f"snapshot konstrukce selhala: {exc}"
+                break
+        if snapshot_error is None and len(snapshot_records) != len(tickers):
+            snapshot_error = (
+                "snapshot kontrakt vytvořil "
+                f"{len(snapshot_records)}/{len(tickers)} záznamů"
+            )
+        if snapshot_error is None:
+            try:
+                check_captured_inputs("before_baseline_snapshot_write")
+                snapshot_persistence_attempted = True
+                saved_snapshot_count = store.save_prediction_snapshots(
+                    snapshot_records
+                )
+                capture_persisted_forecasts()
+                # A repeated finalization must not turn an idempotent insert
+                # into a failure. Count the immutable requested IDs present.
+                persisted = store.read_prediction_snapshots()
+                requested_ids = {str(row["snapshot_id"]) for row in snapshot_records}
+                persisted_ids = (
+                    set(persisted["snapshot_id"].astype(str))
+                    if "snapshot_id" in persisted.columns else set()
+                )
+                saved_snapshot_count = len(requested_ids & persisted_ids)
+            except Exception as exc:
+                snapshot_error = f"snapshot uložení selhalo: {type(exc).__name__}: {exc}"
+    else:
+        snapshot_error = "běh nebo point-in-time vstupy nejsou uloženy"
+    # Keep audit I/O outside the default path and outside model configuration.
+    # Even a partial store failure is followed by read-only validation of the
+    # exact requested IDs; already committed forecasts must remain recoverable.
+    capture_persisted_forecasts()
+    if snapshot_error is None and snapshot_records:
+        try:
+            metadata = result.get("metadata")
+            model_as_of = getattr(metadata, "finished_at", datetime.now(timezone.utc))
+            candidate_model_report = build_candidate_model_report(
+                store.read_prediction_snapshots(),
+                prediction_snapshot_ids=[
+                    str(snapshot.get("snapshot_id") or "")
+                    for snapshot in snapshot_records
+                ],
+                as_of=model_as_of,
+            )
+            if candidate_model_report.get("artifact") is not None:
+                check_captured_inputs("before_candidate_snapshot_write")
+                candidate_model_report["persisted_prediction_count"] = (
+                    store.save_candidate_model_report(candidate_model_report)
+                )
+            else:
+                candidate_model_report["persisted_prediction_count"] = 0
+        except Exception as exc:
+            candidate_model_error = (
+                f"candidate model selhal: {type(exc).__name__}: {exc}"
+            )
+            candidate_model_report = {
+                "status": "FAILED",
+                "reason": "CANDIDATE_MODEL_RUNTIME_ERROR",
+                "analysis_only": True,
+                "ranking_modified": False,
+                "predictions": [],
+            }
+        try:
+            evaluation_as_of = datetime.now(timezone.utc)
+            candidate_evaluation_report = evaluate_candidate_walk_forward_strict(
+                store.read_prediction_snapshots(),
+                as_of=evaluation_as_of,
+                label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
+            )
+            from market_checker_app.services.layer_ablation_service import evaluate_layer_ablation
+            candidate_evaluation_report["layer_ablation"] = evaluate_layer_ablation(
+                store.read_prediction_snapshots(), strict_price_provenance=True,
+                as_of=evaluation_as_of,
+                label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
+            )
+            candidate_evaluation_report["persisted"] = (
+                store.save_candidate_model_evaluation(candidate_evaluation_report)
+            )
+        except Exception as exc:
+            candidate_evaluation_error = (
+                f"walk-forward evaluace selhala: {type(exc).__name__}: {exc}"
+            )
+            candidate_evaluation_report.update(status="FAILED", reason="EVALUATION_RUNTIME_ERROR")
+    label_resolution: dict[str, object] = {
+        "status": "DISABLED",
+        "pending_before": 0,
+        "resolved": 0,
+        "unavailable": 0,
+        "deferred": 0,
+        "source_failures": 0,
+    }
+    label_resolution_error: str | None = None
+    if resolve_labels and snapshot_error is None and run_id is not None:
+        try:
+            label_resolution = {
+                "status": "SUCCESS",
+                **PredictionLabelService().resolve_pending_snapshots(
+                    store=store,
+                    price_loader=lambda symbol: pipeline.yahoo_client.fetch_ohlc_only(
+                        symbol,
+                        period="1y",
+                        interval="1d",
+                    ),
+                    as_of=datetime.now(timezone.utc),
+                ),
+            }
+            if (
+                int(label_resolution.get("source_failures") or 0) > 0
+                or int(label_resolution.get("deferred") or 0) > 0
+            ):
+                label_resolution["status"] = "PARTIAL"
+        except Exception as exc:
+            label_resolution_error = (
+                f"label resolver selhal: {type(exc).__name__}: {exc}"
+            )
+            label_resolution = {
+                "status": "FAILED",
+                "pending_before": 0,
+                "resolved": 0,
+                "unavailable": 0,
+                "deferred": 0,
+                "source_failures": 0,
+            }
+    summary_warnings = list(result.get("warnings", []))
+    if prospective_adapter is not None:
+        try:
+            prospective_audit["label_attachment"] = prospective_adapter.attach_explicit_labels()
+            prospective_audit["history"] = prospective_adapter.read_history_report()
+        except Exception:
+            prospective_audit["label_attachment"] = {"status": "PARTIAL",
+                "reason": "PROSPECTIVE_ATTACHMENT_RUNTIME_ERROR", "attached_count": 0}
+    for error in (macro_error, counterparty_health_error, candidate_evaluation_error):
+        if error:
+            summary_warnings.append(error)
+    if label_resolution_error:
+        summary_warnings.append(label_resolution_error)
+    if candidate_model_error:
+        summary_warnings.append(candidate_model_error)
+    elif int(label_resolution.get("source_failures") or 0) > 0:
+        summary_warnings.append(
+            "Label resolver narazil na nedostupný zdroj; dotčené snapshoty zůstaly PENDING."
+        )
+    ticker_results = _signal_detail_records(result)
+    raw_traceability = result.get("ticker_traceability")
+    ticker_traceability = (
+        raw_traceability
+        if isinstance(raw_traceability, list)
+        else build_ticker_traceability(tickers, result.get("signals"))
+    )
+    traceability_summary = summarize_ticker_traceability(ticker_traceability)
+    universe_coverage = _universe_coverage(tickers, ticker_results)
+    universe_coverage.update(traceability_summary)
+    summary: dict[str, object] = {
+        "schema_version": 2,
+        "market_scope": "US_EQUITY_687",
+        "agent_scope": "REQUESTED_SUBSET_OF_US_EQUITY_687",
+        "finished_at": datetime.now(timezone.utc).isoformat(),
+        "run_id": result.get("run_id"),
+        "ticker_count": len(tickers),
+        "requested_tickers": list(tickers),
+        "universe_coverage": universe_coverage,
+        "ticker_traceability_schema_version": 1,
+        "ticker_traceability_summary": traceability_summary,
+        "ticker_traceability": _json_safe(ticker_traceability),
+        "source_degradation": _json_safe(
+            result.get("source_degradation") or {}
+        ),
+        "analysis_only": True,
+        "automated_trading": {
+            "enabled": False,
+            "permanently_disabled": True,
+            "execution_path": "removed",
+        },
+        "point_in_time_snapshot_count": saved_snapshot_count,
+        "point_in_time_snapshot_status": (
+            "SUCCESS" if snapshot_error is None else "FAILED"
+        ),
+        "candidate_model_shadow": _json_safe(candidate_model_report),
+        "candidate_model_error": candidate_model_error,
+        "candidate_model_walk_forward": _json_safe(candidate_evaluation_report),
+        "candidate_model_walk_forward_error": candidate_evaluation_error,
+        "counterparty_health": _json_safe(counterparty_health_report),
+        "counterparty_health_error": counterparty_health_error,
+        "open_position_audit": _json_safe(open_position_audit_report),
+        "open_position_audit_error": open_position_audit_error,
+        "macro_sector_regime": _json_safe(macro_report),
+        "macro_sector_regime_error": macro_error,
+        "prediction_label_resolution": label_resolution,
+        "prediction_label_resolution_error": label_resolution_error,
+        "agent_status": result.get("agent_status"),
+        "quality_gate_decision": result.get("quality_gate_decision"),
+        "decision_count": result.get("decision_count"),
+        "decision_suppressed_count": result.get("decision_suppressed_count"),
+        "decision_applied_count": result.get("decision_applied_count"),
+        "activation_state": result.get("activation_state"),
+        "evaluation_sample_count": result.get("evaluation_sample_count"),
+        "evaluation_distinct_weeks": result.get("evaluation_distinct_weeks"),
+        "evaluation_baseline_accuracy_pct": result.get(
+            "evaluation_baseline_accuracy_pct"
+        ),
+        "evaluation_candidate_accuracy_pct": result.get(
+            "evaluation_candidate_accuracy_pct"
+        ),
+        "evaluation_lift_pct_points": result.get("evaluation_lift_pct_points"),
+        "evaluation_lift_lower_bound_pct_points": result.get(
+            "evaluation_lift_lower_bound_pct_points"
+        ),
+        "evaluation_positive_week_ratio": result.get(
+            "evaluation_positive_week_ratio"
+        ),
+        "evaluation_gate_passed": result.get("evaluation_gate_passed"),
+        "evaluation_gate_results": result.get("evaluation_gate_results"),
+        "evaluation_consecutive_passes": result.get(
+            "evaluation_consecutive_passes"
+        ),
+        "evaluation_required_consecutive_passes": result.get(
+            "evaluation_required_consecutive_passes"
+        ),
+        "accuracy_improvement_proven": readiness[
+            "accuracy_improvement_proven"
+        ],
+        "analysis_validation_ready": readiness["analysis_validation_ready"],
+        "readiness": readiness,
+        "source_health": _source_health_summary(result, config),
+        "quality_gate_issues": _quality_gate_issues(result),
+        "auto_discovered_short_reports": result.get(
+            "auto_discovered_short_reports"
+        ),
+        "auto_discovered_regulatory_events": result.get(
+            "auto_discovered_regulatory_events"
+        ),
+        "warning_count": len(summary_warnings),
+        "error_count": len(result.get("errors", [])),
+        "warnings": summary_warnings,
+        "errors": list(result.get("errors", [])),
+        "detail_schema_version": 1,
+        "ticker_results": ticker_results,
+        "decision_results": _decision_detail_records(result),
+    }
+    failures: list[str] = []
+    if prospective_audit is not None:
+        summary["prospective_forecast_history"] = _json_safe(prospective_audit)
+    degradations: list[str] = [error for error in (
+        macro_error, counterparty_health_error, candidate_model_error,
+        candidate_evaluation_error, label_resolution_error,
+    ) if error]
+    if prospective_audit is not None and any(
+        stage.get("status") in {"WAIT", "PARTIAL"}
+        for stage in (prospective_audit.get("registration", {}), prospective_audit.get("label_attachment", {}))
+    ):
+        degradations.append("Prospektivní historie čeká na uloženou predikci nebo přesné lokální zdrojové/label důkazy; podrobnosti jsou v prospective_forecast_history.")
+    if summary_warnings:
+        degradations.append("Běh obsahuje upozornění na kvalitu nebo dostupnost dat; podrobnosti jsou ve warnings.")
+    if result.get("agent_status") == "PARTIAL":
+        degradations.append(
+            "agentní pipeline skončila stavem PARTIAL; některé volitelné zdroje jsou neúplné"
+        )
+    if result.get("run_id") is None:
+        failures.append("běh se neuložil do SQLite")
+    if snapshot_error is not None:
+        failures.append(snapshot_error)
+    elif saved_snapshot_count != len(tickers):
+        failures.append(
+            f"point-in-time snapshoty: {saved_snapshot_count}/{len(tickers)}"
+        )
+    report = result.get("agent_report")
+    executions = getattr(report, "executions", [])
+    hard_agent_failures = [
+        f"{execution.agent_name}:{execution.status.value}"
+        for execution in executions
+        if execution.status.value in {"FAILED", "BLOCKED"}
+    ]
+    if result.get("agent_status") == "FAILED" or hard_agent_failures:
+        failures.append(
+            "agentní běh obsahuje tvrdé selhání"
+            + (
+                ": " + ", ".join(hard_agent_failures)
+                if hard_agent_failures
+                else ""
+            )
+        )
+    if config.fundamental_ingestion.enabled:
+        if result.get("fundamental_ingestion_status") not in {
+            "SUCCESS",
+            "PARTIAL",
+        }:
+            failures.append("SEC ingest není provozuschopný")
+        if int(result.get("fundamental_document_count") or 0) == 0:
+            failures.append("SEC ingest neuložil žádný filing")
+        if int(result.get("fundamental_fact_count") or 0) == 0:
+            failures.append("SEC ingest neuložil žádný XBRL fakt")
+    if (
+        config.fundamental_ingestion.enabled
+        and (
+            config.supply_chain.auto_discover_from_sec_filings
+            or config.commodity_energy.auto_discover_from_sec_filings
+        )
+    ):
+        filing_text_documents = int(
+            result.get("fundamental_filing_text_document_count") or 0
+        )
+        filing_text_failures = int(
+            result.get("fundamental_filing_text_failure_count") or 0
+        )
+        if filing_text_documents == 0:
+            degradations.append(
+                "nebyl bezpečně načten žádný text výročního filingu; "
+                "dodavatelská a materiálová discovery vrstva nemá textový vstup"
+            )
+        if filing_text_failures > 0:
+            degradations.append(
+                f"nepodařilo se načíst {filing_text_failures} textů výročních filingů; "
+                "dotčené tickerové enrichmenty zůstávají neúplné"
+            )
+    if config.short_reports.enabled and int(
+        result.get("short_report_document_count") or 0
+    ) == 0:
+        degradations.append("short-report canary nebyl načten")
+    if config.supply_chain.enabled and result.get("supply_chain_status") != "SUCCESS":
+        degradations.append(
+            f"SupplyChainAgent skončil {result.get('supply_chain_status')}; "
+            "základní predikce zůstává beze změny"
+        )
+    if (
+        config.commodity_energy.enabled
+        and result.get("commodity_energy_status") != "SUCCESS"
+    ):
+        degradations.append(
+            f"CommodityEnergyAgent skončil {result.get('commodity_energy_status')}; "
+            "základní predikce zůstává beze změny"
+        )
+    if result.get("agent_report") is not None and result.get("quality_gate_decision") != "PASS":
+        failures.append(
+            f"QualityGate skončil {result.get('quality_gate_decision')}"
+        )
+    if int(result.get("decision_applied_count") or 0) != 0:
+        failures.append(
+            "analytická vrstva se pokusila přepsat hlavní predikci; "
+            "automatické obchodování je v projektu odstraněné"
+        )
+    if config.decision_agent.enabled and int(result.get("decision_count") or 0) != len(
+        tickers
+    ):
+        failures.append("DecisionAgent nevytvořil právě jedno rozhodnutí pro každý ticker")
+    if result.get("errors"):
+        failures.append("pipeline ohlásila produkční chyby")
+    summary["pipeline_degradations"] = list(dict.fromkeys(degradations))
+    summary["pipeline_status"] = (
+        "FAILED"
+        if failures
+        else ("PARTIAL" if degradations else "SUCCESS")
+    )
+    summary["evaluation_status"] = (
+        "PASS" if summary.get("evaluation_gate_passed") else "PENDING"
+    )
+    summary["pipeline_failures"] = list(failures)
+    summary["point_in_time_snapshot_error"] = snapshot_error
+    _atomic_json(config.output_dir / "weekly_shadow_latest.json", summary)
+    if run_id is not None:
+        store.update_run_counts(int(run_id), len(summary_warnings), len(summary["errors"]) + len(failures))
+
+    if failures and strict:
+        raise RuntimeError("; ".join(failures))
+    return summary
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Bezobslužný týdenní Stage 4 shadow běh s auditními kontrolami."
+    )
+    parser.add_argument("--tickers", nargs="*", default=[])
+    parser.add_argument(
+        "--ticker-file",
+        type=Path,
+        help=(
+            "Verzovaný ticker universe; použije se, pokud nejsou zadány "
+            "--tickers. Bez něj runner obnoví tickery ze SQLite historie."
+        ),
+    )
+    parser.add_argument(
+        "--ticker-limit",
+        type=int,
+        help="Volitelný pilotní limit zachovávající pořadí ticker souboru.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("outputs"),
+    )
+    parser.add_argument(
+        "--db-path",
+        type=Path,
+        default=Path("outputs/market_checker_history.db"),
+    )
+    parser.add_argument("--runtime-config", type=Path)
+    parser.add_argument("--rss-source", action="append", dest="rss_sources")
+    parser.add_argument(
+        "--rss",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+    )
+    parser.add_argument(
+        "--mt5",
+        action=argparse.BooleanOptionalAction,
+        default=platform.system() == "Windows",
+    )
+    parser.add_argument(
+        "--yahoo-metadata",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+    )
+    parser.add_argument(
+        "--resolve-labels",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help=(
+            "Volitelně uzavře zralé point-in-time snapshoty z pozdějších "
+            "cen; bez tohoto přepínače se další Yahoo dávka nespouští."
+        ),
+    )
+    parser.add_argument(
+        "--register-prospective-history", action=argparse.BooleanOptionalAction, default=None,
+        help="Explicitně zachová již uložené předpovědi; vyžaduje lokální audit root a přesný source manifest. Bez sběru zdrojů.",
+    )
+    parser.add_argument("--prospective-audit-archive-root", type=Path,
+        help="Lokální root s prospective_source_manifest.json a výslovně uvedenými source/label archivy.")
+    parser.add_argument("--captured-market-manifest", type=Path,
+        help="Výslovný manifest původních OHLCV archivů; vypne síťové zdroje a cenové/metadata cache.")
+    parser.add_argument("--captured-market-archive-root", type=Path,
+        help="Kořen původních cenových archivů uvedených v manifestu.")
+    parser.add_argument("--captured-market-readiness-only", action="store_true",
+        help="Pouze ověří explicitní cenové archivy a benchmarky, bez DB, sítě nebo předpovědí.")
+    return parser
+
+
+def main() -> None:
+    args = _parser().parse_args()
+    captured_mode = args.captured_market_manifest is not None or args.captured_market_archive_root is not None
+    if captured_mode or args.captured_market_readiness_only:
+        if args.captured_market_manifest is None or args.captured_market_archive_root is None:
+            raise SystemExit("Archivní režim vyžaduje manifest i kořen archivů.")
+        if args.resolve_labels:
+            raise SystemExit("Archivní vstupy běhu nejsou potvrzenou metodikou pozdějších cenových labelů.")
+        if not args.tickers and args.ticker_file is None:
+            raise SystemExit("Archivní režim vyžaduje výslovné tickery nebo ticker soubor.")
+        try:
+            from market_checker_app.services.captured_market_data_provider import CapturedMarketDataProvider
+            selected = _tickers(args.tickers, None, ticker_file=args.ticker_file, ticker_limit=args.ticker_limit)
+            selected, outside = restrict_to_universe(selected, load_canonical_tickers())
+            if outside or not selected:
+                raise ValueError("INVALID_CAPTURED_MARKET_TICKER_SCOPE")
+            readiness = CapturedMarketDataProvider(manifest_path=args.captured_market_manifest,
+                archive_root=args.captured_market_archive_root).readiness(selected, include_benchmarks=True)
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            raise SystemExit("WAIT_DATA: nelze ověřit explicitní cenové vstupy.") from exc
+        if args.captured_market_readiness_only:
+            print(json.dumps(readiness, ensure_ascii=False, indent=2, sort_keys=True))
+            return
+        if readiness["status"] != "READY":
+            raise SystemExit("WAIT_DATA: použij --captured-market-readiness-only pro přehled chybějících vstupů.")
+    runtime_service = AgentRuntimeService(args.runtime_config)
+    settings, warning = runtime_service.load()
+    if warning:
+        raise SystemExit(warning)
+    if captured_mode:
+        settings = replace(settings, sec_fundamentals_enabled=False, european_filings_enabled=False,
+            short_reports_enabled=False, supply_chain_enabled=False,
+            commodity_energy_enabled=False, regulatory_contract_enabled=False)
+    try:
+        from market_checker_app.services.counterparty_health_service import (
+            parse_counterparty_health_sources,
+        )
+
+        counterparty_health_sources, counterparty_health_errors = parse_counterparty_health_sources(
+            settings.counterparty_health_sources_text
+        )
+        if counterparty_health_errors:
+            raise RuntimeConfigurationError("\n".join(counterparty_health_errors))
+        from market_checker_app.services.macro_regime_service import parse_macro_observations
+        macro_observations, macro_errors = parse_macro_observations(settings.macro_observations_text)
+        if macro_errors:
+            raise RuntimeConfigurationError("\n".join(macro_errors))
+        config = build_runtime_config(
+            settings,
+            output_dir=args.output_dir,
+            sqlite_path=args.db_path,
+            sec_user_agent=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
+        )
+        if captured_mode:
+            config = replace(config, captured_market_manifest=args.captured_market_manifest,
+                captured_market_archive_root=args.captured_market_archive_root)
+        store = SQLiteStore(config.sqlite_path)
+        store.ensure_schema()
+        # The primary pilot is selected from the requested watchlist only.
+        # Auxiliary source manifests must never displace pilot tickers.
+        tickers = _tickers(
+            args.tickers,
+            store,
+            ticker_file=args.ticker_file,
+            ticker_limit=args.ticker_limit,
+        )
+        tickers, outside_us_universe = restrict_to_universe(
+            tickers, load_canonical_tickers()
+        )
+        if outside_us_universe:
+            raise WatchlistError(
+                "Týdenní US-687 běh odmítl tickery mimo produkční universe: "
+                + ", ".join(outside_us_universe)
+            )
+        summary = run_weekly_shadow(
+            config=config,
+            tickers=tickers,
+            rss_sources=args.rss_sources or list(DEFAULT_RSS_SOURCES),
+            rss_enabled=args.rss,
+            mt5_enabled=args.mt5,
+            yahoo_metadata_enabled=args.yahoo_metadata,
+            resolve_labels=args.resolve_labels,
+            counterparty_health_sources=counterparty_health_sources,
+            macro_observations=macro_observations,
+            prospective_history_enabled=args.register_prospective_history,
+            prospective_audit_archive_root=args.prospective_audit_archive_root,
+        )
+    except (
+        RuntimeConfigurationError,
+        RuntimeError,
+        WatchlistError,
+        OSError,
+    ) as exc:
+        raise SystemExit(f"[SHADOW CHYBA] {exc}") from exc
+    print(json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True))
+
+
+if __name__ == "__main__":
+    main()

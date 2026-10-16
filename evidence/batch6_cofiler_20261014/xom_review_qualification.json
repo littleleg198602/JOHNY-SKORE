@@ -1,0 +1,610 @@
+{
+  "actual_same_context_pairs": [
+    {
+      "anchor_date": "2026-06-30",
+      "context_ref": "c-1",
+      "issuer_cik": "0000034088",
+      "issuer_name": "Exxon Mobil Corporation"
+    },
+    {
+      "anchor_date": "2026-06-30",
+      "context_ref": "c-2",
+      "issuer_cik": "0002115436",
+      "issuer_name": "ExxonMobil Holdings Corporation"
+    }
+  ],
+  "current_from_issuer_names": [
+    {
+      "anchor_date": "2026-06-30",
+      "context_ref": "c-1",
+      "issuer_cik": "0000034088",
+      "issuer_name": "Exxon Mobil Corporation"
+    }
+  ],
+  "current_review": {
+    "as_of": "2026-10-14T00:01:12.900845+00:00",
+    "canonical_universe_size": 687,
+    "corporate_action_bridge_reviews": [
+      {
+        "automatic_alias_allowed": false,
+        "blockers": [
+          "TO_CIK_CUSIP_CLASS_BINDING_MISSING",
+          "CONFLICTING_TO_CLASS_SOURCE",
+          "DATED_OLD_NEW_CUSIP_ACTION_BRIDGE_MISSING"
+        ],
+        "bridge_sha256": "3a84f22caaee4082d0ab9f236b1182631d2a51f025a5152b3b4fccac03148a93",
+        "candidate_target_tuple": {
+          "class_description": "COM SHS",
+          "cusip": "30233Q108",
+          "issuer_cik": "0002115436",
+          "issuer_name": "EXXONMOBIL HOLDINGS CORP",
+          "ticker": "XOM"
+        },
+        "effective_on": "2026-07-01",
+        "evidence_known_at": "2026-10-14T00:01:12.900845+00:00",
+        "identity_transition_approved": false,
+        "independent_primary_urls": [
+          "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm",
+          "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm",
+          "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm",
+          "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/primary_doc.xml"
+        ],
+        "interval_extension_allowed": false,
+        "preserved_prior_identity": {
+          "class_description": "COM",
+          "cusip": "30231G102",
+          "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+          "effective_from": "2026-04-01",
+          "effective_to": "2026-06-30",
+          "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/xslSCHEDULE_13G_X02/primary_doc.xml",
+          "issuer_cik": "0000034088",
+          "issuer_name": "EXXON MOBIL CORP",
+          "known_at": "2026-10-02T20:39:10.301926+00:00",
+          "ticker": "XOM",
+          "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json"
+        },
+        "prior_identity_sha256": "4710e0c5192b6811d65bb70748bcf3426ac5e8e5072101bb22f4337c9e7d242b",
+        "production_registry_changed": false,
+        "proofs": {
+          "action": {
+            "effective_on": "2026-07-01",
+            "excerpt": "On July 1, 2026, Exxon Mobil Corporation, a New Jersey corporation and the predecessor registrant (“ ExxonMobil ”), completed its previously announced redomiciliation reorganization (the “ Redomiciliation Merger ”) pursuant to the Agreement and Plan of Merger, dated as of April 8, 2026 (the “ Merger Agreement ”), by and among ExxonMobil, ExxonMobil Holdings Corporation, a Texas corporation, and Ensign LLC, a Texas limited liability company. This Current Report on Form 8-K is being filed for the purpose of establishing ExxonMobil Holdings Corporation as the successor registrant of ExxonMobil’s common stock pursuant to Rule 12g-3(a) under the Securities Exchange Act of 1934, as amended (the “ Exchange Act ”) and to disclose certain related matters. The Redomiciliation Merger became effective on July 1, 2026 in accordance with the terms of the Merger Agreement (the “ Effective Time ”). The foregoing description of the Merger Agreement is not complete and is qualified in its entirety by reference to the Merger Agreement, a copy of which was filed as Annex A to the proxy statement included in ExxonMobil’s definitive proxy statement on Schedule 14A filed with the Commission on April 8, 2026. Item 1.01 Entry Into a Material Definitive Agreement. Upon the consummation of the Redomiciliation Merger and pursuant to the terms of the indenture, dated as of March 20, 2014, between ExxonMobil and Deutsche Bank Trust Company Americas, as trustee (the “ Trustee ”), as amended and supplemented from time to time (the “ Indenture ”), ExxonMobil Holdings Corporation, ExxonMobil and the Trustee entered into a second supplemental indenture (the “ Second Supplemental Indenture ”) pursuant to which ExxonMobil Holdings Corporation fully and unconditionally guaranteed, on a senior unsecured basis, all of ExxonMobil’s payment and performance obligations under the Indenture and the notes issued thereunder (collectively, the “ Notes ”). ExxonMobil remains the primary obligor under the Indenture and the Notes, and the Notes continue to be the senior unsecured obligations of ExxonMobil. The foregoing description is not complete and is qualified in its entirety by reference to the Second Supplemental Indenture, a copy of which is filed as Exhibit 4(i) hereto. Item 2.01 Completion of Acquisition or Disposition of Assets. The information set forth in the Explanatory Note and the last paragraph of Item 5.02 of this Current Report on Form 8-K is incorporated by reference into this Item 2.01. At the Effective Time, each share of common stock, without par value, of ExxonMobil (“ ExxonMobil Common Stock ”) issued and outstanding immediately prior to the Effective Time (other than treasury shares, which were cancelled) was automatically exchanged for one share of common stock, par value $0.001 per share, of ExxonMobil Holdings Corporation (“ ExxonMobil Holdings Corporation Common Stock ”), and, as a result, the former shareholders of ExxonMobil automatically became shareholders of ExxonMobil Holdings Corporation, holding the same number and percentage of shares of ExxonMobil Holdings Corporation Common Stock as they held of ExxonMobil Common Stock immediately prior to the Redomiciliation Merger. ExxonMobil Holdings Corporation replaced ExxonMobil as the publicly held corporation traded on the New York Stock Exchange (the “ NYSE ”). It is currently expected that, on July 2, 2026, shares of ExxonMobil Holdings Corporation Common Stock will commence trading under the current ExxonMobil ticker symbol “XOM” on the NYSE.",
+            "kind": "corporate_action_filing",
+            "observed_at": "2026-10-13T08:46:17.427994+00:00",
+            "published_at": "2026-07-01T16:36:49+00:00",
+            "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7",
+            "snapshot_id": "937a5b356c96fb9bf779995b92550e35ce7414db3c1332cc964b08f621481352",
+            "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm"
+          },
+          "cusip_effective_bridge": null,
+          "from": {
+            "action_class_terms": {
+              "par_term": "NO_PAR",
+              "share_class": "EQUITY:UNCLASSIFIED"
+            },
+            "independent_issuer_names": [
+              {
+                "anchor_date": "2026-06-30",
+                "context_ref": "c-1",
+                "issuer_cik": "0000034088",
+                "issuer_name": "Exxon Mobil Corporation"
+              }
+            ],
+            "instrument": {
+              "class_title": "COMMON STOCK",
+              "cusip": "30231G102",
+              "event_date": "2026-06-30",
+              "issuer_cik": "0000034088",
+              "issuer_name": "EXXON MOBIL CORP",
+              "kind": "schedule13",
+              "observed_at": "2026-10-13T23:59:36.312798+00:00",
+              "published_at": "2026-08-07T13:32:39+00:00",
+              "sha256": "9b771628d6514fb132d86a22dc30dc7545bbed3c8184afbcc3c06fb1319cbb0d",
+              "snapshot_id": "98aa465c6b508c2a78f2794f5f0d8dc15ae80a9dfbc2eaba924c4470a4501f41",
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/primary_doc.xml"
+            },
+            "other_class_conflicts": [],
+            "ticker_class": {
+              "anchor_date": "2026-06-30",
+              "class_terms": {
+                "par_term": "NO_PAR",
+                "share_class": "EQUITY:UNCLASSIFIED"
+              },
+              "class_title": "Common Stock, without par value",
+              "context_ref": "c-3",
+              "issuer_cik": "0000034088",
+              "kind": "ticker_filing",
+              "observed_at": "2026-10-13T23:59:43.702340+00:00",
+              "published_at": "2026-08-03T18:55:38+00:00",
+              "sha256": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874",
+              "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+              "ticker": "XOM",
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm"
+            }
+          },
+          "to": {
+            "action_class_terms": {
+              "par_term": "USD:0.001",
+              "share_class": "EQUITY:UNCLASSIFIED"
+            },
+            "independent_issuer_names": [
+              {
+                "anchor_date": "2026-07-31",
+                "context_ref": "c-1",
+                "issuer_cik": "0002115436",
+                "issuer_name": "ExxonMobil Holdings Corporation"
+              }
+            ],
+            "instrument": null,
+            "other_class_conflicts": [
+              {
+                "anchor_date": "2026-07-07",
+                "class_title": "Common Stock, without par value",
+                "context_ref": "c-2",
+                "issuer_cik": "0002115436",
+                "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+                "ticker": "XOM"
+              }
+            ],
+            "ticker_class": {
+              "anchor_date": "2026-07-31",
+              "class_terms": {
+                "par_term": "USD:0.001",
+                "share_class": "EQUITY:UNCLASSIFIED"
+              },
+              "class_title": "Common Stock, par value $0.001 per share",
+              "context_ref": "c-2",
+              "issuer_cik": "0002115436",
+              "kind": "ticker_filing",
+              "observed_at": "2026-10-14T00:01:12.900845+00:00",
+              "published_at": "2026-07-31T10:31:39+00:00",
+              "sha256": "5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464",
+              "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+              "ticker": "XOM",
+              "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm"
+            }
+          }
+        },
+        "schema_version": 1,
+        "scoring_allowed": false,
+        "status": "PRIMARY_BRIDGE_PARTIAL",
+        "ticker": "XOM"
+      }
+    ],
+    "new_verified_identities": 0,
+    "production_registry_changed": false,
+    "quarter": "2026q3",
+    "records": [
+      {
+        "automatic_symbol_alias_allowed": false,
+        "blockers": [
+          "NO_EXACT_DATED_ACTIVE_CIK_CUSIP_CLASS_PROOF",
+          "DELETED_INSTRUMENT_CUSIP",
+          "DELETED_BASELINE_CUSIP",
+          "CATALOG_CIK_CHANGED_REQUIRES_PRIMARY_TRANSITION",
+          "EXPLICIT_DATED_BINDING_AND_TRANSITION_REVIEW_NOT_EXPORTED"
+        ],
+        "candidate_instruments": [
+          {
+            "class_description": "COM SHS",
+            "cusip": "30233Q108",
+            "flags": "*A*         E",
+            "issuer_cik_candidate": "0002115436",
+            "issuer_name": "EXXONMOBIL HOLDINGS CORP",
+            "line_number": 9206,
+            "match_basis": "EXACT_NAME_CANDIDATE",
+            "name_similarity": 1.0
+          }
+        ],
+        "candidates_truncated": false,
+        "catalog_proves_historical_validity": false,
+        "dated_structured_instrument_claims": [
+          {
+            "class_title": "COMMON STOCK",
+            "cusip": "30231G102",
+            "event_date": "2026-06-30",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "issuer_name": "EXXON MOBIL CORP",
+            "proves_continuous_quarter_validity": false,
+            "selected_list_row": {
+              "class_description": "COM",
+              "cusip": "30231G102",
+              "flags": "*D*         E",
+              "issuer_name": "EXXON MOBIL CORP",
+              "line_number": 9200
+            },
+            "selected_list_status": "DELETED_IN_SELECTED_LIST",
+            "snapshot_id": "98aa465c6b508c2a78f2794f5f0d8dc15ae80a9dfbc2eaba924c4470a4501f41",
+            "source_observed_at": "2026-10-13T23:59:36.312798+00:00",
+            "source_published_at": "2026-08-07T13:32:39+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/primary_doc.xml"
+          }
+        ],
+        "evidence_counts": {
+          "historical_versions": 1,
+          "other_catalog_symbols": 0,
+          "other_filing_contexts": 12,
+          "same_ticker_filing_contexts": 4,
+          "structured_instrument_claims": 1
+        },
+        "evidence_truncated": false,
+        "historical_versions": [
+          {
+            "covers_selected_quarter": false,
+            "identity": {
+              "class_description": "COM",
+              "cusip": "30231G102",
+              "cusip_evidence_url": "https://www.sec.gov/files/investment/13flist2026q2-txt.txt",
+              "effective_from": "2026-04-01",
+              "effective_to": "2026-06-30",
+              "instrument_evidence_url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/xslSCHEDULE_13G_X02/primary_doc.xml",
+              "issuer_cik": "0000034088",
+              "issuer_name": "EXXON MOBIL CORP",
+              "known_at": "2026-10-02T20:39:10.301926+00:00",
+              "ticker": "XOM",
+              "ticker_evidence_url": "https://www.sec.gov/files/company_tickers.json"
+            },
+            "identity_sha256": "4710e0c5192b6811d65bb70748bcf3426ac5e8e5072101bb22f4337c9e7d242b",
+            "past_interval_or_knowledge_changed": false,
+            "selected_list_row": {
+              "class_description": "COM",
+              "cusip": "30231G102",
+              "flags": "*D*         E",
+              "issuer_name": "EXXON MOBIL CORP",
+              "line_number": 9200
+            },
+            "selected_list_status": "DELETED_IN_SELECTED_LIST"
+          }
+        ],
+        "identity_status": "REVIEW_ONLY",
+        "new_identity_approved": false,
+        "observed_current_catalog_matches": [
+          {
+            "issuer_cik": "0002115436",
+            "issuer_name": "ExxonMobil Holdings Corp",
+            "ticker": "XOM"
+          }
+        ],
+        "preparation_status": "NEEDS_REVIEW",
+        "primary_statements": [],
+        "same_cik_other_catalog_symbols": [],
+        "same_cik_other_dated_filing_contexts": [
+          {
+            "anchor_date": "2026-06-30",
+            "class_title": "0.524% Notes due 2028",
+            "context_ref": "c-4",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+            "source_observed_at": "2026-10-13T23:59:43.702340+00:00",
+            "source_published_at": "2026-08-03T18:55:38+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm",
+            "ticker": "XOM28"
+          },
+          {
+            "anchor_date": "2026-06-30",
+            "class_title": "0.835% Notes due 2032",
+            "context_ref": "c-5",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+            "source_observed_at": "2026-10-13T23:59:43.702340+00:00",
+            "source_published_at": "2026-08-03T18:55:38+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm",
+            "ticker": "XOM32"
+          },
+          {
+            "anchor_date": "2026-06-30",
+            "class_title": "1.408% Notes due 2039",
+            "context_ref": "c-6",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+            "source_observed_at": "2026-10-13T23:59:43.702340+00:00",
+            "source_published_at": "2026-08-03T18:55:38+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm",
+            "ticker": "XOM39A"
+          },
+          {
+            "anchor_date": "2026-07-01",
+            "class_title": "0.524% Notes due 2028",
+            "context_ref": "duration_2026-07-01_to_2026-07-01_us-gaap-StatementClassOfStockAxis_xom-ZeroPointFiveTwoFourPercentNotesDue2028Member",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "snapshot_id": "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9",
+            "source_observed_at": "2026-10-13T23:59:40.184756+00:00",
+            "source_published_at": "2026-07-01T16:34:56+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000119312526291986/d70995d8k.htm",
+            "ticker": "XOM28"
+          },
+          {
+            "anchor_date": "2026-07-01",
+            "class_title": "0.835% Notes due 2032",
+            "context_ref": "duration_2026-07-01_to_2026-07-01_us-gaap-StatementClassOfStockAxis_xom-ZeroPointFiveTwoFourPercentNotesDue2032Member",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "snapshot_id": "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9",
+            "source_observed_at": "2026-10-13T23:59:40.184756+00:00",
+            "source_published_at": "2026-07-01T16:34:56+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000119312526291986/d70995d8k.htm",
+            "ticker": "XOM32"
+          },
+          {
+            "anchor_date": "2026-07-01",
+            "class_title": "1.408% Notes due 2039",
+            "context_ref": "duration_2026-07-01_to_2026-07-01_us-gaap-StatementClassOfStockAxis_xom-OnePointFourZeroEightPercentNotesDue2039Member",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "snapshot_id": "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9",
+            "source_observed_at": "2026-10-13T23:59:40.184756+00:00",
+            "source_published_at": "2026-07-01T16:34:56+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000119312526291986/d70995d8k.htm",
+            "ticker": "XOM39A"
+          },
+          {
+            "anchor_date": "2026-07-31",
+            "class_title": "0.524% Notes due 2028",
+            "context_ref": "c-3",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0002115436",
+            "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+            "source_observed_at": "2026-10-14T00:01:12.900845+00:00",
+            "source_published_at": "2026-07-31T10:31:39+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm",
+            "ticker": "XOM/28"
+          },
+          {
+            "anchor_date": "2026-07-31",
+            "class_title": "0.835% Notes due 2032",
+            "context_ref": "c-4",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0002115436",
+            "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+            "source_observed_at": "2026-10-14T00:01:12.900845+00:00",
+            "source_published_at": "2026-07-31T10:31:39+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm",
+            "ticker": "XOM/32"
+          },
+          {
+            "anchor_date": "2026-07-31",
+            "class_title": "1.408% Notes due 2039",
+            "context_ref": "c-5",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0002115436",
+            "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+            "source_observed_at": "2026-10-14T00:01:12.900845+00:00",
+            "source_published_at": "2026-07-31T10:31:39+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm",
+            "ticker": "XOM/39A"
+          },
+          {
+            "anchor_date": "2026-07-07",
+            "class_title": "0.524% Notes due 2028",
+            "context_ref": "c-3",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0002115436",
+            "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+            "source_observed_at": "2026-10-13T08:51:15.890354+00:00",
+            "source_published_at": "2026-07-07T20:19:57+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+            "ticker": "XOM/28"
+          },
+          {
+            "anchor_date": "2026-07-07",
+            "class_title": "0.835% Notes due 2032",
+            "context_ref": "c-4",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0002115436",
+            "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+            "source_observed_at": "2026-10-13T08:51:15.890354+00:00",
+            "source_published_at": "2026-07-07T20:19:57+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+            "ticker": "XOM/32"
+          },
+          {
+            "anchor_date": "2026-07-07",
+            "class_title": "1.408% Notes due 2039",
+            "context_ref": "c-5",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0002115436",
+            "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+            "source_observed_at": "2026-10-13T08:51:15.890354+00:00",
+            "source_published_at": "2026-07-07T20:19:57+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+            "ticker": "XOM/39A"
+          }
+        ],
+        "same_ticker_dated_filing_contexts": [
+          {
+            "anchor_date": "2026-06-30",
+            "class_title": "Common Stock, without par value",
+            "context_ref": "c-3",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+            "source_observed_at": "2026-10-13T23:59:43.702340+00:00",
+            "source_published_at": "2026-08-03T18:55:38+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm",
+            "ticker": "XOM"
+          },
+          {
+            "anchor_date": "2026-07-01",
+            "class_title": "Common Stock, without par value",
+            "context_ref": "duration_2026-07-01_to_2026-07-01_us-gaap-StatementClassOfStockAxis_us-gaap-CommonStockMember",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0000034088",
+            "snapshot_id": "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9",
+            "source_observed_at": "2026-10-13T23:59:40.184756+00:00",
+            "source_published_at": "2026-07-01T16:34:56+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/34088/000119312526291986/d70995d8k.htm",
+            "ticker": "XOM"
+          },
+          {
+            "anchor_date": "2026-07-31",
+            "class_title": "Common Stock, par value $0.001 per share",
+            "context_ref": "c-2",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0002115436",
+            "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+            "source_observed_at": "2026-10-14T00:01:12.900845+00:00",
+            "source_published_at": "2026-07-31T10:31:39+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm",
+            "ticker": "XOM"
+          },
+          {
+            "anchor_date": "2026-07-07",
+            "class_title": "Common Stock, without par value",
+            "context_ref": "c-2",
+            "interval_extension_allowed": false,
+            "issuer_cik": "0002115436",
+            "snapshot_id": "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e",
+            "source_observed_at": "2026-10-13T08:51:15.890354+00:00",
+            "source_published_at": "2026-07-07T20:19:57+00:00",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm",
+            "ticker": "XOM"
+          }
+        ],
+        "scoring_allowed": false,
+        "ticker": "XOM"
+      }
+    ],
+    "review_sha256": "ce030ee8c49b008f34342f7a86558361f75540748e05c698faf3c883b14f1cc9",
+    "schema_version": 1,
+    "score_changed": false,
+    "selected_tickers": [
+      "XOM"
+    ],
+    "source_fingerprint": "f72e43032511b0c5ddd72ca480a5754d0089019cf3ee76fee590d33c42411df1",
+    "sources": {
+      "38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a": {
+        "kind": "ticker_catalog",
+        "observed_at": "2026-10-12T14:49:01.942947+00:00",
+        "published_at": null,
+        "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+        "url": "https://www.sec.gov/files/company_tickers.json"
+      },
+      "5c69040a91767cac0147afb09c7f534a9f2377209ff0efccf59d408146c41300": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T00:01:12.900845+00:00",
+        "published_at": "2026-07-31T10:31:39+00:00",
+        "sha256": "5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464",
+        "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm"
+      },
+      "60b24f4a2af40dac12097e171c03fcc62b083bbbf66125a2f68c154085f71fca": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-13T23:59:47.065053+00:00",
+        "published_at": "2026-07-01T16:36:49+00:00",
+        "sha256": "cc9b8b1211b4c0ef9d0b4c17465a68e530a246f6993b39d597dca391ec697232",
+        "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex4vi.htm"
+      },
+      "937a5b356c96fb9bf779995b92550e35ce7414db3c1332cc964b08f621481352": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-13T08:46:17.427994+00:00",
+        "published_at": "2026-07-01T16:36:49+00:00",
+        "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7",
+        "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm"
+      },
+      "98aa465c6b508c2a78f2794f5f0d8dc15ae80a9dfbc2eaba924c4470a4501f41": {
+        "kind": "schedule13",
+        "observed_at": "2026-10-13T23:59:36.312798+00:00",
+        "published_at": "2026-08-07T13:32:39+00:00",
+        "sha256": "9b771628d6514fb132d86a22dc30dc7545bbed3c8184afbcc3c06fb1319cbb0d",
+        "url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/primary_doc.xml"
+      },
+      "9edb948dcc88a72fa981cf2babf5764ff1b9a6abade0346fc6e05ea04f7b9f9e": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-13T23:59:40.184756+00:00",
+        "published_at": "2026-07-01T16:34:56+00:00",
+        "sha256": "4a0cd04bfa177992012a7a1054be1e020cf9c2f5cb7d1405a76ebfab8de9eead",
+        "url": "https://www.sec.gov/Archives/edgar/data/34088/000119312526291986/d70995d8k.htm"
+      },
+      "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa": {
+        "kind": "ticker_filing",
+        "observed_at": "2026-10-13T23:59:43.702340+00:00",
+        "published_at": "2026-08-03T18:55:38+00:00",
+        "sha256": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874",
+        "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm"
+      },
+      "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9": {
+        "kind": "ticker_filing",
+        "observed_at": "2026-10-13T23:59:40.184756+00:00",
+        "published_at": "2026-07-01T16:34:56+00:00",
+        "sha256": "4a0cd04bfa177992012a7a1054be1e020cf9c2f5cb7d1405a76ebfab8de9eead",
+        "url": "https://www.sec.gov/Archives/edgar/data/34088/000119312526291986/d70995d8k.htm"
+      },
+      "b64718300320a03d73de00ddcfbaf0de454c2f5f7b3b63984b62121e441b303e": {
+        "kind": "ticker_filing",
+        "observed_at": "2026-10-13T08:51:15.890354+00:00",
+        "published_at": "2026-07-07T20:19:57+00:00",
+        "sha256": "d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6",
+        "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000003/xom-20260707.htm"
+      },
+      "ba37e3bbf7700acaeb26ea4d504b6680bdbb4c2a766c8d791a51aed70ebcb1ef": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-13T23:59:43.702340+00:00",
+        "published_at": "2026-08-03T18:55:38+00:00",
+        "sha256": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874",
+        "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm"
+      },
+      "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4": {
+        "kind": "ticker_filing",
+        "observed_at": "2026-10-14T00:01:12.900845+00:00",
+        "published_at": "2026-07-31T10:31:39+00:00",
+        "sha256": "5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464",
+        "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm"
+      },
+      "fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c": {
+        "kind": "13f_list",
+        "observed_at": "2026-10-12T14:49:07.942392+00:00",
+        "published_at": null,
+        "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+        "url": "https://www.sec.gov/files/investment/13flist2026q3.txt"
+      }
+    },
+    "specialist_done_changed": false,
+    "status": "READ_ONLY_INSTRUMENT_TRANSITION_REVIEW"
+  },
+  "expected_change": "Assert immutable historical bytes separately; compare current names to their independent explicit DEI CIK/date pairs",
+  "historical_from_issuer_names": [
+    {
+      "anchor_date": "2026-06-30",
+      "context_ref": "c-2",
+      "issuer_cik": "0000034088",
+      "issuer_name": "ExxonMobil Holdings Corporation"
+    },
+    {
+      "anchor_date": "2026-06-30",
+      "context_ref": "c-1",
+      "issuer_cik": "0000034088",
+      "issuer_name": "Exxon Mobil Corporation"
+    }
+  ],
+  "historical_report": {
+    "not_current_acceptance": true,
+    "path": "evidence/batch5_identity_20261014/review.json",
+    "review_sha256": "36a20ab120430d412b16b7144af7be8d2d57f50a9910eea042f4211661e22e81",
+    "sha256": "babc76e2b6ed7d20b7e35ad1853cb896328a220c13765834326768f624952edc"
+  },
+  "new_http_requests": 0,
+  "obsolete_assertion": "tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged",
+  "qualification_sha256": "e7cae936c4f3b5e88ee3cc027e610faafa5ae5ac0c6e800619ada02990214bd0",
+  "registry_changed": false,
+  "same_context_date_is_not_corporate_action_effective_date": true,
+  "schema_version": 1,
+  "score_changed": false,
+  "source": {
+    "kind": "ticker_filing",
+    "observed_at": "2026-10-13T23:59:43.702340+00:00",
+    "published_at": "2026-08-03T18:55:38+00:00",
+    "sha256": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874",
+    "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+    "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm"
+  },
+  "status": "HISTORICAL_XOM_PARENT_JOIN_SUPERSEDED_BY_EXPLICIT_CIK",
+  "unchanged_blockers": [
+    "TO_CIK_CUSIP_CLASS_BINDING_MISSING",
+    "CONFLICTING_TO_CLASS_SOURCE",
+    "DATED_OLD_NEW_CUSIP_ACTION_BRIDGE_MISSING"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "concurrent_producer_guard": {
+    "result": "REJECTED_BEFORE_REPRODUCTION",
+    "reason": "Owner changed the current symbol producer while the old SHA-pinned diagnostic was being prepared",
+    "expected_old_sha256": "8a24a55fdc647c9692d8ded0d255797f502584365831e20b134c980717d45dd7",
+    "old_findings_assigned_to_new_hash": false,
+    "resolution": "Replay the owner-retained pre_clause_guard producer/fixture with exact SHA pin, then independently check the owner's final current hash",
+    "new_http_or_database_activity": false,
+    "production_fix_duplicated_by_peer": false
+  }
+}

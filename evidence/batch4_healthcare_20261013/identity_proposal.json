@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "record_count": 2,
+  "reviewed_at": "2026-10-13T08:59:59.321338+00:00",
+  "records": [
+    {
+      "record_id": "lly-trial-nct03987919-2022-02-14-pinned-sponsor",
+      "source": "clinicaltrials",
+      "kind": "clinical_trial_sponsor",
+      "ticker": "LLY",
+      "issuer_cik": "0000059478",
+      "entity_name": "Eli Lilly and Company",
+      "product_or_provider": "Tirzepatide",
+      "relationship": "LEAD_SPONSOR",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "nct_id": "NCT03987919",
+        "role": "LEAD_SPONSOR",
+        "intervention_name": "Tirzepatide",
+        "record_version_date": "2022-02-14",
+        "relationship_snapshot_sha256": "492b7f7511243e624c204b31ea7f30f3f93c4c3ca87f95d7cafa8b68efd1684e"
+      },
+      "effective_from": "2022-02-14",
+      "effective_to": "2022-02-15",
+      "known_at": "2026-10-13T08:59:59.321338+00:00",
+      "evidence": [
+        {
+          "url": "https://clinicaltrials.gov/api/v2/studies/NCT03987919",
+          "locator": "protocolSection: exact nctId, leadSponsor.name, Tirzepatide intervention, first-post/update/submit publisher dates; relationship snapshot digest",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-13T08:54:54.067977+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947822000068/lly-20211231.htm",
+          "locator": "Annual report cover: exact registrant name, 0000059478, Common Stock (no par value) LLY; bounded source-year identity only",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-13T08:56:10.108272+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+          "locator": "Current annual-report cover: exact issuer, CIK and common-stock ticker; product-development table Tirzepatide (Mounjaro, Zepbound)",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-13T08:56:21.079895+00:00"
+        }
+      ],
+      "issuer_wide_scope": false,
+      "trial_sponsor_identity_is_product_ownership": false,
+      "historical_legal_continuity_proven": false
+    },
+    {
+      "record_id": "lly-trial-nct04847557-2025-08-20-pinned-sponsor",
+      "source": "clinicaltrials",
+      "kind": "clinical_trial_sponsor",
+      "ticker": "LLY",
+      "issuer_cik": "0000059478",
+      "entity_name": "Eli Lilly and Company",
+      "product_or_provider": "Tirzepatide",
+      "relationship": "LEAD_SPONSOR",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "nct_id": "NCT04847557",
+        "role": "LEAD_SPONSOR",
+        "intervention_name": "Tirzepatide",
+        "record_version_date": "2025-08-20",
+        "relationship_snapshot_sha256": "b04dfb88c8bcbe47e5ef300ccd75672064b1f187e68729897bc00faa65b20809"
+      },
+      "effective_from": "2025-08-20",
+      "effective_to": "2025-08-21",
+      "known_at": "2026-10-13T08:59:59.321338+00:00",
+      "evidence": [
+        {
+          "url": "https://clinicaltrials.gov/api/v2/studies/NCT04847557",
+          "locator": "protocolSection: exact nctId, leadSponsor.name, Tirzepatide intervention, first-post/update/submit publisher dates; relationship snapshot digest",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-13T08:55:01.441775+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947825000067/lly-20241231.htm",
+          "locator": "Annual report cover: exact registrant name, 0000059478, Common Stock (no par value) LLY; bounded source-year identity only",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-13T08:56:15.994072+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm",
+          "locator": "Current annual-report cover: exact issuer, CIK and common-stock ticker; product-development table Tirzepatide (Mounjaro, Zepbound)",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-13T08:56:21.079895+00:00"
+        }
+      ],
+      "issuer_wide_scope": false,
+      "trial_sponsor_identity_is_product_ownership": false,
+      "historical_legal_continuity_proven": false
+    }
+  ],
+  "review_status": "PROPOSED_FOR_SINGLE_REGISTRY_OWNER",
+  "production_registry_modified": false,
+  "source_evidence_verified_locally": true,
+  "limitations": [
+    "Publisher posting days are not our first observation or immutable historical version IDs.",
+    "The source-year SEC identities and exact sponsor self-description establish no continuous legal-ownership or product-ownership history.",
+    "Two exact studies do not measure issuer-wide study coverage or certify complete negative issuer searches.",
+    "Existing date-only trial manifest records retain their existing semantics; new proposals pin relationship snapshots."
+  ]
+}

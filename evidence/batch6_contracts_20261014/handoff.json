@@ -1,0 +1,101 @@
+{
+  "acceptance": {
+    "historical_availability_reconstructed": false,
+    "historical_oos_verified": false,
+    "issuer_coverage_complete": false,
+    "live_verified": false,
+    "modification_history_complete": false,
+    "new_identity_adopted": false,
+    "pagination_snapshot_guaranteed": false,
+    "publisher_revision_time_verified": false,
+    "publisher_signed_source_authenticity_verified": false,
+    "registries_changed": false,
+    "score_changed": false,
+    "specialist_done": false,
+    "trading_or_activation_allowed": false,
+    "windows_end_to_end_verified": false
+  },
+  "actual_recovered_targets": 0,
+  "actual_written_findings": 0,
+  "api": {
+    "automatic_report_persistence": false,
+    "finding_source_content_hash_compatible_with_live_collector": true,
+    "first_ingestion_basis": "physical datetime.now(timezone.utc), independent from caller as_of",
+    "fixture_or_archive_replay_manifests_accepted": false,
+    "hash_map_keys": "str(manifest_path)",
+    "idempotent_existing_findings_include_preserved_retrieved_heartbeat": true,
+    "limits": {
+      "awards": 2000,
+      "body_bytes_per_page": 4000000,
+      "identity_entries": 1000,
+      "manifest_bytes": 64000,
+      "pages": 20,
+      "row_bytes": 32000
+    },
+    "manifest_schema": "usaspending_prime_award_capture_v1",
+    "module": "market_checker_app.services.usaspending_prime_archive_recovery",
+    "name": "recover_prime_awards_from_archives",
+    "original_source_body_ever_written": false,
+    "signature": "(store: ScoutStore | None, *, manifests: Sequence[Path], expected_manifest_sha256: Mapping[str, str], subject_id: str, as_of: datetime, identities: list[dict] | None = None, maximum_pages: int = 20, maximum_awards: int = 2000, validate_only: bool = False) -> dict",
+    "statuses": [
+      "RECOVERED",
+      "UNCHANGED",
+      "VALIDATED",
+      "COMPLETE_EMPTY",
+      "REJECTED"
+    ],
+    "transaction": "all-input validation then one BEGIN IMMEDIATE, rollback on conflicting stored evidence, ClosingSQLiteConnection always closed",
+    "validation_only_needs_database": false
+  },
+  "artifacts_sha256": {
+    "evidence/batch6_contracts_20261014/README.md": "a6bcb823225174a517fe7a9e20112b6457d87b052e542b4e178aad3cbc2e472c",
+    "evidence/batch6_contracts_20261014/corpus_review.json": "f70524dbf685db76b26f55c995a33f408e7f7a32c75cf8cd4551e552acd18919",
+    "evidence/batch6_contracts_20261014/review_corpus.py": "01eb4afe36b81aeafbe704a4f3db5c53d54de7db446afca7b0c3ad40f5e53515",
+    "evidence/batch6_contracts_20261014/tests.json": "32b8398417178ff1b800c2ed75f77f165195a56759c3d792fb80cfb98f7fe9ea",
+    "evidence/batch6_contracts_20261014/tests.log": "0f323b8f36d16a91e8fad5eb8141e537b981e42d3bc10f7bec557f395428b3e2",
+    "market_checker_app/services/usaspending_prime_archive_recovery.py": "fc06959c17b61dca44a59e9a99a191a0d490094db6974cc48c127241a20a3b7c",
+    "tests/test_batch6_prime_archive_recovery.py": "03d614abddbc17ea0b405203f86cb5ebcde8915ec376523d0e5705063a7b53de"
+  },
+  "branch": "batch6/contracts-20261014",
+  "deliverable": "bounded_atomic_recovery_of_original_prime_award_archive_findings",
+  "public_base_commit": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "public_base_tree": "00ec9bc47fd52c88c9f5f3dcbdb54823dbdb2415",
+  "quota_blocker": "Original durable USAspending daily quota history is missing; no fresh source requests, resets, reconstruction or collection database creation",
+  "quota_history_reconstructed": false,
+  "recorded_at": "2026-10-14T13:43:27.104111+00:00",
+  "remaining_work": [
+    "Obtain genuinely complete original prime manifests/bodies through terminal page, with exact verified UEI/request/window/capture clocks; incomplete LMT or copied transaction rows cannot be promoted",
+    "Root may wire explicit CLI/UI validate-only/import and persist physical-clock content-addressed reports; importer does not write app/runtime/UI",
+    "Recover/import only after complete original corpus exists and current verified identities validate by original capture; actual first ingestion remains current",
+    "Preserve original durable daily request history before any fresh USAspending transaction or broader award traversal; importer never creates that history",
+    "Final integrated/Windows/source-history/OOS and full specialist acceptance remain separate"
+  ],
+  "schema_version": 1,
+  "source_corpus_review": {
+    "available_original_archive_rejections": 4,
+    "candidate_usaspending_documents": 33,
+    "examined_bytes": 8447190,
+    "examined_published_blob_paths": 506,
+    "original_complete_prime_capture_traversals": 0,
+    "path": "evidence/batch6_contracts_20261014/corpus_review.json",
+    "scope_is_current_published_base_tree": true,
+    "scratch_database_is_source_evidence": false,
+    "skipped_oversized_blobs": 0
+  },
+  "source_http_attempts": 0,
+  "task_databases_opened": 0,
+  "tests": {
+    "discovered": 60,
+    "errors": 0,
+    "executed": 60,
+    "expected_failures": 0,
+    "failures": 0,
+    "mechanism_fixtures_are_not_live_evidence": true,
+    "new_mechanism_cases": 23,
+    "path": "evidence/batch6_contracts_20261014/tests.json",
+    "real_archives_used_only_for_rejection_and_unchanged_byte_checks": true,
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  }
+}

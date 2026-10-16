@@ -1,0 +1,136 @@
+{
+  "actual_result": {
+    "actual_corpus_observed_at": "2026-10-14T17:13:14.254061+00:00",
+    "authentic_registered_forecasts": 0,
+    "eligible_real_labels": 0,
+    "forecast_snapshot_table_exists": false,
+    "preserved_price_versions_checked": 16,
+    "real_labels_attached": 0,
+    "reason": "FORECAST_TABLE_UNAVAILABLE",
+    "status": "WAIT_FORECAST_CORPUS",
+    "unknown_publisher_revision_versions": 16
+  },
+  "artifact_sha256": {
+    "evidence/batch6_evaluation_20261014/actual_corpus_audit.json": "5b830562010b8cad360ff0e12671ed3dfa99dccfa96c630fc6ae0d9fdd15dc1f",
+    "evidence/batch6_evaluation_20261014/final_artifact_recovery.json": "43a2ebb60e77c1c37fadc5e69db431179bd01465af8beb574a112117c1553348",
+    "evidence/batch6_evaluation_20261014/final_corpus_and_validation_audit.json": "4f91f4256dd1546f0d828447618059d48a971a24c42578e35821516711c806f3",
+    "evidence/batch6_evaluation_20261014/final_validation_tests.log": "5f0589618f1bde1c61a30edd3d77f21ed3cee921689d133362d7786ef2835335",
+    "evidence/batch6_evaluation_20261014/preserved_price_audit.json": "cbff2d4d9c7a4fe44e0927707cf95b7cfb5c952087b2b1a63d79c2e630174222",
+    "evidence/batch6_evaluation_20261014/prior_85test_handoff.json": "75033c9d81cbc762b00d06b1371e50b566ea673bf13e744689037d65ea9d3069",
+    "evidence/batch6_evaluation_20261014/tests.log": "a32c5e7d1fe8225c562899f2be277e412082717271d9283ebdd855e11adff427"
+  },
+  "base_sha": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "claims": {
+    "fitter_changed": false,
+    "forecasts_created": 0,
+    "historic_forecasts_backfilled": 0,
+    "old_evidence_changed": false,
+    "out_of_sample_acceptance_verified": false,
+    "price_or_label_values_changed": false,
+    "score_changed": false,
+    "sixty_second_budget_changed": false,
+    "source_http_requests": 0,
+    "specialists_accepted": 0,
+    "target_formula_changed": false,
+    "trading_enabled": false
+  },
+  "deliverable": "Append-only prospective forecast registration and exact later label attachment",
+  "final_validation_reason": "Reject rehashed inconsistency in source record IDs, exact archive filenames and advertised price capture hashes",
+  "generated_at": "2026-10-14T17:13:14.310027+00:00",
+  "initial_local_development_attempt": {
+    "acceptance_result": false,
+    "cause": "new fixture omitted ensure_schema before insert_run",
+    "corrected_in_test_fixture": true,
+    "original_tool_output_full_log_available": false,
+    "setup_errors": 50,
+    "tests": 50
+  },
+  "integration_api": {
+    "attachment": "attach_label(db_path, snapshot_id, label_observation_path=...)",
+    "class": "ProspectiveSpecialistHistory(directory, observation_clock=None)",
+    "dated_revision_rule": "each price capture needs DATED_PUBLISHER_VERSION and KNOWN_REVISION with captured source ID; UNKNOWN/absent stays excluded",
+    "default_history_directory_for_integration": "db_path.parent / prospective_specialist_history",
+    "prospective_rule": "first registration before the first forward NYSE session open for the originally pinned full window",
+    "registration": "register_stored_snapshot(db_path, snapshot_id, source_archive_paths=())",
+    "report": "read_report(as_of=..., training_before=None, maximum=1000)",
+    "source_archive_types": [
+      "SPECIALIST_SOURCE_RUN",
+      "YAHOO_PRICE_OBSERVATION"
+    ],
+    "source_pin_rule": "archive availability at or before original prediction; later imports never inherit earlier event time",
+    "target": "unchanged five-session split-adjusted excess price return excluding dividends",
+    "training_rule": "forecast registration, original prediction and label usable_at strictly before training_before"
+  },
+  "local_head_before_commit": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "owned_file_sha256": {
+    "evidence/batch6_evaluation_20261014/README.md": "10434aba53421c8d33f115139504b02100f8f8ced49df08c449a9183d5cae778",
+    "evidence/batch6_evaluation_20261014/finalize_validation.py": "300ea35854944ab28324266489950efb8c7c62e0b725973f9aeb3451af1e08b1",
+    "evidence/batch6_evaluation_20261014/reproduce.py": "0a295cd9776087e023730bd44119786b02c8c2e9558e6330d6b5fc122bded32a",
+    "market_checker_app/services/prospective_specialist_history.py": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8",
+    "tests/test_batch6_prospective_specialist_history.py": "05bafefb8a9c6f88e1bd232abdcb372cf156fb8952250124b426998026c1038f"
+  },
+  "preserved_old_evidence": {
+    "all_old_evidence_byte_identical": true,
+    "base_sha": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+    "byte_mismatches_or_missing_files": [],
+    "checked_file_sha256_manifest_digest": "2e280cdc91e6a2d7557446c21cd5a5a5037a2e761bc87a482764c6c383e4b5e6",
+    "tracked_evidence_files_checked": 678
+  },
+  "prior_qualified_tests": {
+    "applies_to_prior_owned_file_hashes": {
+      "evidence/batch6_evaluation_20261014/README.md": "3f6f66a45b6a55c2a8e9a85b776e0229487aa4f3987d59ecf3c196c00c088c3a",
+      "evidence/batch6_evaluation_20261014/reproduce.py": "0a295cd9776087e023730bd44119786b02c8c2e9558e6330d6b5fc122bded32a",
+      "market_checker_app/services/prospective_specialist_history.py": "6682f7242e82f0e8a8d76edb15f2c755cafcde951f3c7919120725170faf9272",
+      "tests/test_batch6_prospective_specialist_history.py": "e21a110461f1b32152f39e0a6db47d4d40a5a5e719c20b31985526f4d5c24efb"
+    },
+    "current_code_acceptance": false,
+    "handoff": "evidence/batch6_evaluation_20261014/prior_85test_handoff.json",
+    "handoff_sha256": "75033c9d81cbc762b00d06b1371e50b566ea673bf13e744689037d65ea9d3069",
+    "tests": {
+      "discovered": 85,
+      "elapsed_seconds": 31.299245,
+      "errors": 0,
+      "executed": 85,
+      "expected_failures": 0,
+      "failures": 0,
+      "fixture_only": true,
+      "modules": [
+        "tests.test_batch6_prospective_specialist_history",
+        "tests.test_prediction_snapshot_storage",
+        "tests.test_prediction_contract",
+        "tests.test_batch4_evaluation_label_availability"
+      ],
+      "production_schema_fixture_is_not_actual_live_acceptance": true,
+      "skips": 0,
+      "successful": true,
+      "unexpected_successes": 0,
+      "windows_current_change_verified": false
+    }
+  },
+  "qualified_test_log_reused_without_rerun": true,
+  "remaining_work": [
+    "Produce authentic future forecasts through the existing authorized runtime, persist them and register before their exact forward window starts.",
+    "Pin actual contemporaneously available source archives; missing pins cannot be retroactively added to the same registration.",
+    "Obtain genuinely dated publisher price revision and complete action provenance. Yahoo UNKNOWN captures remain excluded.",
+    "Wait for the exact target sessions and physically observe/attach their complete asset and benchmark windows.",
+    "Keep historical/OOS coverage, all-specialist acceptance and actual end-user Windows end-to-end separate from these fixture regressions."
+  ],
+  "schema_version": 1,
+  "tests": {
+    "discovered": 57,
+    "elapsed_seconds": 2.959,
+    "errors": 0,
+    "executed": 57,
+    "expected_failures": 0,
+    "failures": 0,
+    "fixture_only": true,
+    "modules": [
+      "tests.test_batch6_prospective_specialist_history"
+    ],
+    "production_schema_fixture_is_not_actual_live_acceptance": true,
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0,
+    "windows_current_change_verified": false
+  }
+}

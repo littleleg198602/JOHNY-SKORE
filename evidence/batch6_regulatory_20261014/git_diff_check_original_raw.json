@@ -1,0 +1,6 @@
+{
+  "exit_code": 2,
+  "kind": "ORIGINAL_PUBLISHER_WHITESPACE_DIAGNOSTIC",
+  "publisher_raw_bytes_modified": false,
+  "stdout_exact": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html:42: trailing whitespace.\n+\t\t\t<a href=\"/cgi-bin/browse-edgar?action=getcurrent\" class=\"nav__link\">Latest Filings</a> \nevidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html:69: trailing whitespace.\n+         <strong>Form 10-K</strong> - Annual report [Section 13 and 15(d), not S-K Item 405]: \nevidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html:76: trailing whitespace.\n+   \nevidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html:248: trailing whitespace.\n+      </table>\t\nevidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html:304: trailing whitespace.\n+      </table>\t\n"
+}

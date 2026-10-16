@@ -1,0 +1,78 @@
+{
+  "recorded_at": "2026-10-15T07:23:40.859087+00:00",
+  "read_only": true,
+  "original_database_path": "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/outputs/market_checker_history.db",
+  "prior_rows": [
+    {
+      "request_id": "1f0c5acde4f04b2185c119572af03416",
+      "row_sha256": "7667e9f51c6a0ce06831d8556c02bb0d620f719d040338e4d3ec276c52ba3a7b",
+      "source": "nhtsa",
+      "attempted_at": "2026-10-14T00:07:17.498551+00:00"
+    },
+    {
+      "request_id": "313224fde82d43d5bdd2a0a5e7e04d97",
+      "row_sha256": "5203ebc7b447a18a9560fe41ddbd8a65593f32840f26f149402b8aa0fbe92040",
+      "source": "rss",
+      "attempted_at": "2026-10-14T00:15:32.957191+00:00"
+    },
+    {
+      "request_id": "40fe6be6ad664c008d5c0cb15244c40a",
+      "row_sha256": "131e23b13eed38004593c4b2cbd6b531c548d27b3462c4709179432e82b9b703",
+      "source": "nhtsa",
+      "attempted_at": "2026-10-14T00:07:20.778307+00:00"
+    },
+    {
+      "request_id": "64028e0e8cc146158306c083930d7ac3",
+      "row_sha256": "02db4ba26c87092c0078683460165447f784894256cacfefb2bc0032f929f7c3",
+      "source": "nhtsa",
+      "attempted_at": "2026-10-14T00:07:24.911805+00:00"
+    },
+    {
+      "request_id": "7cba8786d83a4aa4bfbdd07017d458b3",
+      "row_sha256": "c7cf04e9461b76c48b6e6539734a4ab7c18ef4bc91844a230b4a9f157d8edcae",
+      "source": "rss",
+      "attempted_at": "2026-10-14T00:15:39.430071+00:00"
+    },
+    {
+      "request_id": "89c6018de1bd424089cf13297221f29e",
+      "row_sha256": "12b84931c04fc70533572a9906acd1f93d76bc4c2838be37acbfd34a4d14aec7",
+      "source": "nhtsa",
+      "attempted_at": "2026-10-14T00:07:32.261724+00:00"
+    },
+    {
+      "request_id": "9056c2cc309f40438c676a4eb2b8af87",
+      "row_sha256": "df215e54f9643a8b6d7eaa2a3f58c4c764d894ba70b52ba81a74b6baf855f427",
+      "source": "rss",
+      "attempted_at": "2026-10-14T00:15:43.687483+00:00"
+    },
+    {
+      "request_id": "ca294595e83848c18f4627eb2d416e22",
+      "row_sha256": "4ca50f086ff41694fd679df689839a9bfaec410a8c80648357d00bb56f78a442",
+      "source": "nhtsa",
+      "attempted_at": "2026-10-14T00:07:37.162257+00:00"
+    },
+    {
+      "request_id": "d15333df080449d29467d164f7101ea4",
+      "row_sha256": "46368de835fba0e4adb78a8f8a1ca7479aefbfba34221c54415b7621e1766725",
+      "source": "nhtsa",
+      "attempted_at": "2026-10-14T00:07:28.269797+00:00"
+    },
+    {
+      "request_id": "ea3280c55ae24d678b131a3752c8fbc1",
+      "row_sha256": "e687ac118583c0fe0f5dec8e6bc623a75d0d8907380e43639624ac728420a80e",
+      "source": "nhtsa",
+      "attempted_at": "2026-10-14T00:07:41.232127+00:00"
+    },
+    {
+      "request_id": "fadeafe29433480bbfe8eccee2b5f4c9",
+      "row_sha256": "2141433db5bed534a6b60a3d05620f437a21f288e05e00ad8c56f909d269da80",
+      "source": "nhtsa",
+      "attempted_at": "2026-10-14T00:07:12.620833+00:00"
+    }
+  ],
+  "row_count": 11,
+  "db_sha256_before": "a61632d364ced47d8a63bf7d802973a4518822a6bd401ff0c62249808e5a7994",
+  "db_bytes_unchanged_by_read": true,
+  "history_reconstructed": false,
+  "new_database_created": false
+}

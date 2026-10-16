@@ -13,7 +13,7 @@ from tempfile import TemporaryDirectory
 from market_checker_app.collectors.sec_edgar_client import SecEdgarClient, SecEdgarError
 from market_checker_app.services.sec13f_identity_bulk import (
     MAX_REVIEW_BYTES, MAX_UNIVERSE, SourceSnapshot, Sec13fIdentityBulk, TICKER_URL,
-    _clock, atomic_json, guard_production_write, list_url, load_snapshots, official_url, read_checkpoint, save_snapshot,
+    _clock, atomic_json, guard_production_write, list_quarter, list_url, load_snapshots, official_url, read_checkpoint, save_snapshot,
 )
 from market_checker_app.services.sec13f_scout_service import DEFAULT_SECURITIES, load_verified_securities
 from market_checker_app.utils.ticker_universe import load_canonical_tickers
@@ -76,10 +76,10 @@ def _selected_sources(snapshots: list[SourceSnapshot], *, quarter: str,
         return [indexed[key] for key in ids]
     grouped = {}
     for snapshot in snapshots:
-        if snapshot.kind == "13f_list" and snapshot.url != list_url(quarter):
+        if snapshot.kind == "13f_list" and list_quarter(snapshot.url) != quarter:
             continue
-        # One catalog across its two API variants, one copy per filing URL.
-        key = snapshot.kind if snapshot.kind == "ticker_catalog" else (snapshot.kind, snapshot.url)
+        # One catalog and one list for this quarter, one copy per filing URL.
+        key = snapshot.kind if snapshot.kind in {"ticker_catalog", "13f_list"} else (snapshot.kind, snapshot.url)
         grouped.setdefault(key, []).append(snapshot)
     return [_latest_source(group) for group in grouped.values()]
 
@@ -101,7 +101,7 @@ def run_preparation(*, workspace: Path, quarter: str, checkpoint: Path,
                                kinds=None if state else {"ticker_catalog", "13f_list"})
     if capture_global and state is None:
         missing = [(kind, url) for kind, url in (("ticker_catalog", TICKER_URL), ("13f_list", list_url(quarter)))
-                   if not any(snapshot.kind == kind and (kind == "ticker_catalog" or snapshot.url == url)
+                   if not any(snapshot.kind == kind and (kind == "ticker_catalog" or list_quarter(snapshot.url) == quarter)
                               for snapshot in snapshots)]
         if missing:
             client = _configured_client()

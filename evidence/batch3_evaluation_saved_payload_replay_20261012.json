@@ -1,0 +1,198 @@
+{
+  "claims": {
+    "actual_existing_publisher_payloads_replayed": true,
+    "actual_historical_check_history_available": false,
+    "live_relevant_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "prediction_snapshots_changed": false,
+    "production_scores_changed": false,
+    "source_specific_pipeline_capture_and_replay_verified": true,
+    "windows_runtime_verified": false
+  },
+  "contemporaneous_historical_run_capture": false,
+  "elapsed_seconds": 0.148784,
+  "evidence_type": "current_replay_of_existing_genuine_publisher_payloads",
+  "existing_negative_capture_provenance_only": {
+    "case": "fdic_negative_absent_cert",
+    "payload_sha256": "f003fcd9e48ad1b556c65966072d73fd7f349754a7e88e6e3ac8a2a63d4f745a",
+    "returned_rows": 0,
+    "scope": "absent CERT in saved report; no issuer attribution and no fabricated source check or source run",
+    "source_observed_at_in_original_report": "2026-10-01T17:45:10.722923+00:00"
+  },
+  "generated_at": "2026-10-12T15:16:54.884146+00:00",
+  "limitations": [
+    "Available local runtime databases contained no source findings/checks/runs. This evidence uses saved official-payload reports, not recovered historical ScoutStore state.",
+    "Original report clocks are provenance only. Replaying saved responses now does not establish that an immutable run archive existed on 2026-10-01.",
+    "Only two saved CERT responses and four financial-report rows were replayed. These are subsidiary bank reports, not complete issuer-group or universe coverage.",
+    "The original absent-CERT negative response remains unassigned to any ticker. No historical issuer negative check was manufactured.",
+    "Deterministic zero/partial-overwrite tests are separate unit-test evidence; these saved-payload runs preserve actual bounded collector results with current clocks.",
+    "No labels, return outcomes, new live source acceptance or performance comparison were produced."
+  ],
+  "network_requests_in_this_check": 0,
+  "new_live_provider_verification": false,
+  "replay": {
+    "archives_excluded_at_original_report_cutoff": 3,
+    "archives_replayed_at_original_report_cutoff": 0,
+    "as_of": "2026-10-12T15:16:54.834494+00:00",
+    "bounds": {
+      "archive_scan_limit_reached": false,
+      "attempt_history_limit_reached": false,
+      "capture_export_incomplete": false,
+      "check_history_limit_reached": false,
+      "directory_entry_scan_limit_reached": false,
+      "maximum_archives": 20,
+      "maximum_attempts": 20,
+      "maximum_checks": 20,
+      "maximum_directory_entries": 60,
+      "maximum_observations": 20,
+      "observation_history_limit_reached": false
+    },
+    "canonical_ticker_count": 687,
+    "check_versions": 2,
+    "no_due_attempt_state": "NOT_PERFORMED_REPORTED",
+    "observation_versions": 4,
+    "prior_original_report_cutoff": "2026-10-01T17:45:17.276552+00:00",
+    "replay_hash": "260b433190ae5a2c33ffe5627ee19af60140e5231b2f14587459349f5446936b",
+    "request_state_versions": 2,
+    "source_run_count": 3,
+    "source_ticker_cells": 687
+  },
+  "runs": [
+    {
+      "artifact": "evidence/batch3_evaluation_saved_payload_archives_20261012/fdic/specialist_source_run_23f123053bcefed961ce388049a40000b7328de88b91449e5dfd0156f80e4131_28505f7d8d3cfe89c31ba99e6729d3ca9a041a89de22b8fa76768532bf5aee8c.json",
+      "attempt_semantics": {
+        "empty_result_inferred_from_zero_new_findings": false,
+        "per_ticker_coverage_inferred": false,
+        "query_unit": "BANK_CERT",
+        "reason_status": "PARTIAL",
+        "relevant_coverage_verified": false,
+        "reported_query_units": 1,
+        "reported_requests": null,
+        "state": "PERFORMED_REPORTED"
+      },
+      "available_at": "2026-10-12T15:16:54.752896+00:00",
+      "capture_elapsed_seconds": 0.020624,
+      "database_sha256_unchanged_by_capture": true,
+      "file_sha256": "0aa004227f82e69fd261064190726d5245f6203b1e3b8570aaf76a084bad4e4c",
+      "observed_at": "2026-10-12T15:16:54.742568+00:00",
+      "serialized_bytes": 505884,
+      "snapshot_hash": "28505f7d8d3cfe89c31ba99e6729d3ca9a041a89de22b8fa76768532bf5aee8c",
+      "source_archive_hash": "4968848e53170f54f48f52889b94c365a53deaf91a43bd94b13d0247e33342d8",
+      "status": "PARTIAL",
+      "summary": {
+        "attempted_banks": 1,
+        "budget_exhausted": true,
+        "checked_banks": 1,
+        "daily_requests": 1,
+        "deferred_banks": 1,
+        "due_banks": 2,
+        "empty_banks": 0,
+        "failed_banks": 0,
+        "new_findings": 2,
+        "rejected_rows": 0,
+        "status": "PARTIAL",
+        "usable_banks": 1
+      }
+    },
+    {
+      "artifact": "evidence/batch3_evaluation_saved_payload_archives_20261012/fdic/specialist_source_run_b0c5311e40db6a12864b6afce13bb6990b0bdc0f573b2cf4abb5f415b8ae45f5_011a99d16fcb6318b0413b974fcb0c0bff3ac9b3c035dfb5d30a198410bd8cc7.json",
+      "attempt_semantics": {
+        "empty_result_inferred_from_zero_new_findings": false,
+        "per_ticker_coverage_inferred": false,
+        "query_unit": "BANK_CERT",
+        "reason_status": "OK",
+        "relevant_coverage_verified": false,
+        "reported_query_units": 1,
+        "reported_requests": null,
+        "state": "PERFORMED_REPORTED"
+      },
+      "available_at": "2026-10-12T15:16:54.784813+00:00",
+      "capture_elapsed_seconds": 0.018585,
+      "database_sha256_unchanged_by_capture": true,
+      "file_sha256": "81f297a448a327b0e9725752898d555f5095e43e3191ff283d48640ca26e35d0",
+      "observed_at": "2026-10-12T15:16:54.775917+00:00",
+      "serialized_bytes": 512157,
+      "snapshot_hash": "011a99d16fcb6318b0413b974fcb0c0bff3ac9b3c035dfb5d30a198410bd8cc7",
+      "source_archive_hash": "d5a31121081b9b4f14eac9701f528027442b816a64bc3e19587a937b64b605f9",
+      "status": "OK",
+      "summary": {
+        "attempted_banks": 1,
+        "budget_exhausted": false,
+        "checked_banks": 1,
+        "daily_requests": 2,
+        "deferred_banks": 0,
+        "due_banks": 1,
+        "empty_banks": 0,
+        "failed_banks": 0,
+        "new_findings": 2,
+        "rejected_rows": 0,
+        "status": "OK",
+        "usable_banks": 1
+      }
+    },
+    {
+      "artifact": "evidence/batch3_evaluation_saved_payload_archives_20261012/fdic/specialist_source_run_310ff5ccab7c02a22f6a13120e8db596678a116ac374dc96f9fb98db0a7dce8b_3d74384521121db80f6732a846a9b5002321b8abc0d3d1d119fe7b542d16214a.json",
+      "attempt_semantics": {
+        "empty_result_inferred_from_zero_new_findings": false,
+        "per_ticker_coverage_inferred": false,
+        "query_unit": "BANK_CERT",
+        "reason_status": "NO_DUE_WORK",
+        "relevant_coverage_verified": false,
+        "reported_query_units": 0,
+        "reported_requests": null,
+        "state": "NOT_PERFORMED_REPORTED"
+      },
+      "available_at": "2026-10-12T15:16:54.815385+00:00",
+      "capture_elapsed_seconds": 0.020086,
+      "database_sha256_unchanged_by_capture": true,
+      "file_sha256": "b88b6921da6aaa0b3513ea639bd6293643e94c2a18fe0b731793136978713f28",
+      "observed_at": "2026-10-12T15:16:54.805584+00:00",
+      "serialized_bytes": 512186,
+      "snapshot_hash": "3d74384521121db80f6732a846a9b5002321b8abc0d3d1d119fe7b542d16214a",
+      "source_archive_hash": "d13f6a27e496c53e10cefdc7b54e22be30833c28c7ee777b9a8dfb0d6cf3554e",
+      "status": "NO_DUE_WORK",
+      "summary": {
+        "attempted_banks": 0,
+        "budget_exhausted": false,
+        "checked_banks": 0,
+        "daily_requests": 2,
+        "deferred_banks": 0,
+        "due_banks": 0,
+        "empty_banks": 0,
+        "failed_banks": 0,
+        "new_findings": 0,
+        "rejected_rows": 0,
+        "status": "NO_DUE_WORK",
+        "usable_banks": 0
+      }
+    }
+  ],
+  "saved_payload_client_calls": 2,
+  "schema_version": 1,
+  "source_captures": [
+    {
+      "artifact": "evidence/fdic_cof_ewbc_live_20261001.json",
+      "artifact_sha256": "d1323c904eb76de3213097d8c4957187bc29880593b6c9186e25d6b0431e782d",
+      "case": "fdic_positive_COF",
+      "payload_sha256": "20d124b7b7870e080dd635685d95912affe3b5ed9bc248872c3deab49d988aa1",
+      "publisher_payload_report_dates": [
+        "20260630",
+        "20260331"
+      ],
+      "source_observed_at_in_original_report": "2026-10-01T17:44:56.017765+00:00",
+      "ticker": "COF"
+    },
+    {
+      "artifact": "evidence/fdic_cof_ewbc_live_20261001.json",
+      "artifact_sha256": "d1323c904eb76de3213097d8c4957187bc29880593b6c9186e25d6b0431e782d",
+      "case": "fdic_positive_EWBC",
+      "payload_sha256": "ad13f16ba3079bd4a7f969eb7b48c24f65d13dd9f5679b3eb894e64c5a03eedc",
+      "publisher_payload_report_dates": [
+        "20260630",
+        "20260331"
+      ],
+      "source_observed_at_in_original_report": "2026-10-01T17:45:04.629950+00:00",
+      "ticker": "EWBC"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "contract_version": "doj-case-entity-original-bytes-v1",
+  "known_at": "2026-10-15T04:34:03.649657+00:00",
+  "legal_registry_path": "market_checker_app/data/verified_counterparty_identities.json",
+  "legal_registry_sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e",
+  "physical_ingested_at": "2026-10-15T04:34:03.649657+00:00",
+  "prior_preservation_path": "evidence/batch7_regulatory_20261015/prior_preservation.json",
+  "prior_preservation_sha256": "61418ea8eb9b8207e1820dc700e21ba8e89271a0fd52a7a594de0e12cc3add4b",
+  "request_path": "evidence/batch7_regulatory_20261015/request.json",
+  "request_sha256": "131ba912c68bc165643173d19c562acbb63528cf30d1e5bc59eec87404d7df12",
+  "review_bytes": 6221,
+  "review_path": "evidence/batch7_regulatory_20261015/reviews/0ad4e49540160ca9a3d2e6fc9af7a1809ab0ff16f4e89d6aaff70d7cf474af52/review.json",
+  "review_sha256": "0ad4e49540160ca9a3d2e6fc9af7a1809ab0ff16f4e89d6aaff70d7cf474af52",
+  "schema_version": 1,
+  "source_code_sha256": {
+    "market_checker_app/services/doj_enforcement_scope_review.py": "891113065a849998e510695e1929caa3e76a9486fe01db28ce1ad6359dc76465",
+    "tests/test_batch7_doj_scope.py": "344a4b6c987a08903610c6c0392643c76c5a8ba7546896cce30328e6b9202a38"
+  }
+}

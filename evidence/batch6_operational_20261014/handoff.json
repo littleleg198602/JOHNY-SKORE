@@ -1,0 +1,138 @@
+{
+  "acceptance": {
+    "asset_ownership_verified": false,
+    "current_instrument_identity_verified": false,
+    "current_q3_identity_verified": false,
+    "forward_looking_inference": false,
+    "historical_availability_reconstructed": false,
+    "historical_oos_verified": false,
+    "individual_issuer_quantity_attribution_verified": false,
+    "market_price_inference": false,
+    "publisher_publication_clock_verified": false,
+    "quantity_or_revenue_share_inferred": false,
+    "specialist_done": false,
+    "windows_end_to_end_verified": false
+  },
+  "actual_source_review": {
+    "actual_candidates": 1,
+    "actual_same_source_negative_controls": 4,
+    "fiscal_report_period_end": "2025-12-31",
+    "fiscal_report_period_start": "2025-01-01",
+    "individual_issuer_quantity_attribution_verified": false,
+    "issuer_anchor_cik": "0001751788",
+    "issuer_anchor_context": "c-2",
+    "issuer_anchor_name": "Dow Inc.",
+    "literal_unit": "manufacturing sites",
+    "literal_value": "91",
+    "metric_kind": "MANUFACTURING_SITE_COUNT",
+    "metric_measurement_date_verified": false,
+    "original_capture_completed_at": "2026-10-14T13:28:22.735778+00:00",
+    "path": "evidence/batch6_operational_20261014/review.json",
+    "review_ingested_at": "2026-10-14T17:15:07.056561+00:00",
+    "review_knowledge_at": "2026-10-14T17:15:07.056561+00:00",
+    "scope": "COMBINED_REPORT_GROUP",
+    "separate_cofiler_cik": "0000029915",
+    "separate_cofiler_context": "c-1",
+    "separate_cofiler_name": "The Dow Chemical Company",
+    "source_body": {
+      "bytes": 5279652,
+      "repository_relative_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+      "sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122"
+    },
+    "source_body_copied_or_replaced": false,
+    "source_bytes_and_metadata_unchanged": true,
+    "source_metadata": {
+      "repository_relative_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.metadata.json",
+      "sha256": "22b893218915dbf851067754cbd2b1b7c3c731114bcfd3e0aab80886485586ed"
+    }
+  },
+  "api": {
+    "as_of_none_basis": "actual physical review/ingestion clock",
+    "automatic_report_persistence": false,
+    "bounds": {
+      "body_bytes": 8000000,
+      "metadata_bytes": 64000,
+      "passage_bytes": 4000,
+      "selection_bytes": 16000,
+      "xml_depth": 128,
+      "xml_elements": 100000
+    },
+    "databases_or_stores_required": false,
+    "module": "market_checker_app.services.sec_operational_metrics_review",
+    "name": "review_sec_operational_metric",
+    "passage_fields": [
+      "byte_start",
+      "byte_end",
+      "sha256"
+    ],
+    "publication_clock_basis": "UNKNOWN",
+    "selection_required_fields": [
+      "issuer_context_id",
+      "issuer_name",
+      "issuer_cik",
+      "fiscal_period_end",
+      "metric_kind",
+      "value_literal",
+      "unit_literal",
+      "scope_kind",
+      "metric_passage",
+      "scope_passage"
+    ],
+    "signature": "(body: bytes, *, capture_metadata: Mapping, expected_body_sha256: str, selection: Mapping, as_of: datetime | None = None) -> dict",
+    "source_capture_clock_separate": true,
+    "statuses": [
+      "CANDIDATE_REVIEWED",
+      "REJECTED"
+    ]
+  },
+  "artifacts_sha256": {
+    "evidence/batch6_operational_20261014/README.md": "6d3a99ca2488b7cd6319e03e894900475f7889c6fe06f5238bd33112a0b36906",
+    "evidence/batch6_operational_20261014/replay_review.py": "5862cefa570ae12618ed4df1fd671c105cc85b6eabe25454fde5b85db253f570",
+    "evidence/batch6_operational_20261014/review.json": "23ec041ea3b9ce5bf0aee72636c44dd360b101cd0c5f0d74d2012028c51ea13c",
+    "evidence/batch6_operational_20261014/selection.json": "8931427d066db663a3ceca24e0a2306ef1f0f97eedecc5d503813440e9c763fc",
+    "evidence/batch6_operational_20261014/tests.json": "589d59a6d1111442b775d33ae2e6946edf181cf14cda67b0e4983aae9d798c5a",
+    "evidence/batch6_operational_20261014/tests.log": "8f2d78b3d58c0d5d3c7b14c1ce052ade68e7042bd417a0e1b751eea75506cabc",
+    "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+    "tests/test_batch6_sec_operational_metrics.py": "aa82c5bd9a885b1088f8d2a6bc3d220bdfb76fbac1ba53b5f5bf4cd61ef5e19f"
+  },
+  "branch": "batch6/contracts-20261014",
+  "deliverable": "bounded_original_byte_literal_operational_metric_review",
+  "integration_points": [
+    "Root owns captured-review dispatcher/UI; call with as_of=None for a current physical review and retain explicit historical cutoffs as exclusions",
+    "Reuse exact regulatory repository-relative body/metadata pins; no duplicate or rewritten raw body",
+    "Persist returned report content-addressed if needed, without moving original capture/ingestion/knowledge clocks",
+    "Display 91 manufacturing sites only for the explicit combined-report group; no assignment to either registrant or current ticker instrument"
+  ],
+  "preceding_prime_recovery_commit_unchanged": "2d83a97714e67df79150debf608e2c03d70a3710",
+  "public_base_commit": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "recorded_at": "2026-10-14T17:17:40.421753+00:00",
+  "remaining_work": [
+    "Broader dated literal operating metrics and relevant denominators remain source-specific review work",
+    "Individual issuer/asset ownership and current instrument/Q3 identity require separate evidence; c-1 LegalEntityAxis does not authenticate parent attribution",
+    "Metric exact measurement date and source publication time are not reconstructed from the fiscal report period",
+    "Final integrated/Windows/source-history/OOS/full specialist acceptance remain separate"
+  ],
+  "runtime": {
+    "database_writes": 0,
+    "quota_or_budget_modified": false,
+    "registry_writes": 0,
+    "score_changed": false,
+    "shared_app_runtime_ui_edits": 0,
+    "source_http_attempts": 0,
+    "trading_or_activation_allowed": false
+  },
+  "schema_version": 1,
+  "tests": {
+    "discovered": 41,
+    "errors": 0,
+    "executed": 41,
+    "expected_failures": 0,
+    "failures": 0,
+    "fixtures_count_as_live": false,
+    "new_mechanism_cases": 21,
+    "path": "evidence/batch6_operational_20261014/tests.json",
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  }
+}

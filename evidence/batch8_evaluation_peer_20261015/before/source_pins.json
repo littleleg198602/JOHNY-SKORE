@@ -1,0 +1,20 @@
+{
+  "frozen_pipeline_bytes": 94671,
+  "frozen_pipeline_sha256": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977",
+  "no_http_or_db_access": true,
+  "no_pipeline_or_model_executed": true,
+  "observed_at": "2026-10-16T00:19:03.016013+00:00",
+  "root": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015",
+  "source_sha256": {
+    "market_checker_app/app.py": "12c3840ee56fb0dffec217134ae09f7a9bfc4877e576f3b4b51370b74163c906",
+    "market_checker_app/config.py": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370",
+    "market_checker_app/release_manifest.py": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a",
+    "market_checker_app/services/captured_identity_review_service.py": "e8752df36883b49e65c2a4824b8e2ccbfa79e3857497d84e569b57d02abf0e42",
+    "market_checker_app/services/captured_market_data_provider.py": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257",
+    "market_checker_app/services/pipeline_service.py": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977",
+    "market_checker_app/services/prospective_specialist_history.py": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8",
+    "market_checker_app/specialist_evidence_ui.py": "9a7f7be3e21774593139d076eb689000903b2afc4ab0144abb976f76888de695",
+    "market_checker_app/weekly_shadow_runner.py": "21a7f8ebaf66e80f74d2c491cfd5b0c1253ee8ce4b9ecdaef5cf22e306025c01",
+    "tests/test_batch8_coordinator_integration.py": "f0cee9e8b77ec0d2de4ec5bcd5cc028bdd211589f389452104efc827a49a0591"
+  }
+}

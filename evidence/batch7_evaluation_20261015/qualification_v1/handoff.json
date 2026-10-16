@@ -1,0 +1,151 @@
+{
+  "actual_result": {
+    "authentic_new_forecasts": 0,
+    "authentic_new_registrations": 0,
+    "eligible_real_labels": 0,
+    "prediction_rows": 0,
+    "real_new_labels": 0,
+    "reason": "FORECAST_TABLE_UNAVAILABLE",
+    "retained_database_not_initialized_or_modified_by_adapter": true,
+    "status": "WAIT_FORECAST_CORPUS"
+  },
+  "api": {
+    "class": "ProspectiveForecastRegistrationAdapter(db_path=..., audit_archive_root=..., maximum_forecasts=687)",
+    "cli": [
+      "--register-prospective-history",
+      "--prospective-audit-archive-root PATH"
+    ],
+    "config": {
+      "prospective_audit_archive_root": null,
+      "prospective_history_enabled": false
+    },
+    "default_finalizer_output_and_model_inputs_changed": false,
+    "manifest": "<audit-root>/prospective_source_manifest.json",
+    "manifest_schema": "prospective_forecast_source_manifest_v1",
+    "methods": [
+      "register_after_persistence(snapshot_ids)",
+      "attach_explicit_labels()",
+      "read_history_report()"
+    ],
+    "normal_hook": "finalize_analysis_run immediately after actual store.save_prediction_snapshots; committed subsets are reread after store exceptions",
+    "result_key": "prospective_forecast_history",
+    "result_sections": [
+      "registration",
+      "label_attachment",
+      "history"
+    ],
+    "settings_and_binding_directory": "<audit-root>/prospective_specialist_history/adapter_audits",
+    "source_selection": "bounded explicit paths only; no glob, fallback source query or automatic label load"
+  },
+  "artifact_sha256": {
+    "evidence/batch7_evaluation_20261015/development_normal_tests_2.log": "764e519bf6e4d460b01cbbd950a7396e61c6eb5f6d84a95ff1cbc0cbf6a25ea1",
+    "evidence/batch7_evaluation_20261015/development_normal_tests_3.log": "d0b3e3d7457c5f8005e6006e26dc74b3f5b2ff478daf80199990e90a4696566a",
+    "evidence/batch7_evaluation_20261015/development_tests_1.log": "cfad97620c6a36d4d471359d5630a2bf91fc9e500ee56d69e0ec12c44c86a232",
+    "evidence/batch7_evaluation_20261015/qualification_v1/actual_corpus.json": "40f4087c40ef40b1957761b72edbffc04039bfcbf300caea407f69955a30e8dc",
+    "evidence/batch7_evaluation_20261015/qualification_v1/tests.log": "37438b59a44af4a825031ef01e9514235feb3b1c16fc1d6f6abdce5d53207df1"
+  },
+  "claims": {
+    "current_windows_change_verified": false,
+    "historical_forecasts_backfilled": false,
+    "out_of_sample_acceptance_verified": false,
+    "past_source_availability_replaced_by_current_clock": false,
+    "price_or_label_values_changed": false,
+    "quota_writes": 0,
+    "score_or_fitter_changed": false,
+    "sixty_second_budget_changed": false,
+    "source_archives_rewritten": false,
+    "source_http_requests": 0,
+    "specialists_accepted": 0,
+    "trading_enabled": false
+  },
+  "deliverable": "Explicit adapter from normal persisted forecasts to prospective history, source/settings pins and later exact labels",
+  "generated_at": "2026-10-15T07:24:54.952417+00:00",
+  "local_head_before_lane_commit": "5735b9887118744ce2e4cb0297178d36ce273f97",
+  "owned_file_sha256": {
+    "evidence/batch7_evaluation_20261015/README.md": "db46af1b945fb3697e33a450d71b8c7fc8b46cdb76e5094e308bc40905643bb4",
+    "evidence/batch7_evaluation_20261015/reproduce.py": "ca586aabcefed797b1a6615c9fc2ecbd1dbb1a014f3664246606a966c201388c",
+    "market_checker_app/services/prospective_forecast_registration_adapter.py": "2735c451dbd0ac2f6454e8561c63038ef565641f8416626794236f26f2c1d8c3",
+    "market_checker_app/weekly_shadow_runner.py": "e9837b21ea5be81f4a39e9748740508c16ef4284cb4cea3bdaeb7f4faec991c2",
+    "tests/test_batch7_forecast_registration_adapter.py": "43fd3d2f62285e1420d0bd2424eaa04f2f039d9472f00ca773e3b6c849e1d56f"
+  },
+  "preserved_old_evidence": {
+    "all_old_evidence_byte_identical": true,
+    "mismatches_or_missing": [],
+    "old_evidence_files_checked": 811,
+    "public_base": "089ce4dbe03952d84daac5cfe47760b09020954b",
+    "sha256_manifest_digest": "6e2235b53fa9d6d1c563df506a779572c6d126474e04e5bdcddcc7002671e0da"
+  },
+  "prior_development_attempts": [
+    {
+      "cause": "synthetic client incorrectly rejected normal pre-persistence OHLC fetch",
+      "current_acceptance": false,
+      "executed": 22,
+      "failures": 4,
+      "path": "evidence/batch7_evaluation_20261015/development_tests_1.log"
+    },
+    {
+      "cause": "fixture missed producer utc_now; strict source availability correctly refused the mismatched clocks",
+      "current_acceptance": false,
+      "executed": 4,
+      "failures": 2,
+      "path": "evidence/batch7_evaluation_20261015/development_normal_tests_2.log"
+    },
+    {
+      "cause": "normal synthetic persistence fixtures corrected without changing source/clock gates",
+      "executed": 4,
+      "failures": 0,
+      "fixture_only": true,
+      "path": "evidence/batch7_evaluation_20261015/development_normal_tests_3.log"
+    }
+  ],
+  "public_base": "089ce4dbe03952d84daac5cfe47760b09020954b",
+  "remaining_work": [
+    "Supply an explicit manifest with authentic, contemporaneously available source archives from the normal authorized run.",
+    "Allow a genuine future normal forecast to persist and register before the first forward NYSE session opens; do not backfill expired rows.",
+    "List actual later label sidecars after they exist. Dated publisher revision and complete action provenance remain mandatory; UNKNOWN stays excluded.",
+    "Genuine prospective observations, historical/OOS coverage, all-specialist acceptance and actual Windows end-to-end are separate evidence."
+  ],
+  "root_owned_dependency_commit": "e8fc94050e5b3dfbc721f99e9b549068ba6ca160",
+  "schema_version": 1,
+  "source_files_stable_through_tests": true,
+  "tests": {
+    "clock_injection_only_in_fixtures": true,
+    "discovered": 38,
+    "elapsed_seconds": 2.332683,
+    "errors": 0,
+    "executed": 38,
+    "expected_failures": 0,
+    "failures": 0,
+    "fixture_only": true,
+    "modules": [
+      "tests.test_batch7_forecast_registration_adapter",
+      "tests.test_weekly_shadow_runner"
+    ],
+    "normal_pipeline_positive_is_synthetic_not_live_acceptance": true,
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "unchanged_model_label_history_files": {
+    "market_checker_app/prediction_contract.py": {
+      "byte_identical_to_public_base": true,
+      "sha256": "1971192030620e883414c6fc0eebbd67197f28378ed40d15fd4532266b3ca1b0"
+    },
+    "market_checker_app/services/candidate_model_evaluation_service.py": {
+      "byte_identical_to_public_base": true,
+      "sha256": "5365a2bf71051f5cece57e4f605f019ea9fe4caad10d259b4634f500665b634b"
+    },
+    "market_checker_app/services/candidate_model_service.py": {
+      "byte_identical_to_public_base": true,
+      "sha256": "ed2b8049bfe1a94b77f05ed7187a08b13d48d8c3b6b8220eff446607c4b91d5d"
+    },
+    "market_checker_app/services/prediction_label_service.py": {
+      "byte_identical_to_public_base": true,
+      "sha256": "0839eab00e4f5b28bb53983cb3d3dddbff77b005142507f31057396b4b67d190"
+    },
+    "market_checker_app/services/prospective_specialist_history.py": {
+      "byte_identical_to_public_base": true,
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    }
+  }
+}

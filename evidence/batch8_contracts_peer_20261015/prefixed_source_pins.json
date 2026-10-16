@@ -1,0 +1,52 @@
+{
+  "captured_at": "2026-10-15T18:20:59.672961+00:00",
+  "evaluation_head": "e252ec62796b0b02e733c55ebef713e0f29d4b44",
+  "http_attempts": 0,
+  "integration_head": "ed6aba8ae077634508301d2bc50f3e6441ebc277",
+  "production_db_reads_or_writes": 0,
+  "purpose": "READ_ONLY_PEER_REVIEW_ORIGINAL_CURRENT_SOURCE_BYTES",
+  "schema_version": 1,
+  "source_capture_bodies_read_or_copied": false,
+  "sources": [
+    {
+      "bytes": 94671,
+      "snapshot_path": "evidence/batch8_contracts_peer_20261015/source_snapshots/pipeline_service.py.source",
+      "snapshot_sha256": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977",
+      "source_path": "market_checker_app/services/pipeline_service.py",
+      "source_sha256": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977",
+      "worktree": "JOHNY-batch7-integration-20261015"
+    },
+    {
+      "bytes": 63638,
+      "snapshot_path": "evidence/batch8_contracts_peer_20261015/source_snapshots/weekly_shadow_runner.py.source",
+      "snapshot_sha256": "21a7f8ebaf66e80f74d2c491cfd5b0c1253ee8ce4b9ecdaef5cf22e306025c01",
+      "source_path": "market_checker_app/weekly_shadow_runner.py",
+      "source_sha256": "21a7f8ebaf66e80f74d2c491cfd5b0c1253ee8ce4b9ecdaef5cf22e306025c01",
+      "worktree": "JOHNY-batch7-integration-20261015"
+    },
+    {
+      "bytes": 23186,
+      "snapshot_path": "evidence/batch8_contracts_peer_20261015/source_snapshots/config.py.source",
+      "snapshot_sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370",
+      "source_path": "market_checker_app/config.py",
+      "source_sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370",
+      "worktree": "JOHNY-batch7-integration-20261015"
+    },
+    {
+      "bytes": 5369,
+      "snapshot_path": "evidence/batch8_contracts_peer_20261015/source_snapshots/release_manifest.py.source",
+      "snapshot_sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a",
+      "source_path": "market_checker_app/release_manifest.py",
+      "source_sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a",
+      "worktree": "JOHNY-batch7-integration-20261015"
+    },
+    {
+      "bytes": 27275,
+      "snapshot_path": "evidence/batch8_contracts_peer_20261015/source_snapshots/captured_market_data_provider.py.source",
+      "snapshot_sha256": "853e2e045ae06a170ae14fa5f678b4894cf8ede3a96a59fcba59e76e6d600fb3",
+      "source_path": "market_checker_app/services/captured_market_data_provider.py",
+      "source_sha256": "853e2e045ae06a170ae14fa5f678b4894cf8ede3a96a59fcba59e76e6d600fb3",
+      "worktree": "JOHNY-batch8-evaluation-20261015"
+    }
+  ]
+}

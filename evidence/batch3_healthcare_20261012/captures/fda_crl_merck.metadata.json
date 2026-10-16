@@ -1,0 +1,42 @@
+{
+  "request_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Merck%22&limit=100&skip=0",
+  "response_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Merck%22&limit=100&skip=0",
+  "requested_at": "2026-10-12T14:41:12.580275+00:00",
+  "observed_at": "2026-10-12T14:41:17.455529+00:00",
+  "http_status": 200,
+  "response_headers": {
+    "Date": "Mon, 12 Oct 2026 14:41:17 GMT",
+    "Content-Type": "application/json; charset=utf-8",
+    "Content-Length": "14967",
+    "Connection": "close",
+    "Vary": "Accept-Encoding",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Origin": "*",
+    "Age": "0",
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    "Content-Security-Policy": "default-src 'none'",
+    "Etag": "W/\"3a77-5/zG6ndsB8yruDoeKWZx13SWSv8\"",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "Via": "https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])",
+    "X-Api-Umbrella-Request-Id": "d1627ovsvjenu3acgnhg",
+    "X-Cache": "MISS",
+    "X-Content-Type-Options": "nosniff",
+    "X-Vcap-Request-Id": "f935504d-5262-4443-6c66-b93069cd280f",
+    "X-Xss-Protection": "1; mode=block",
+    "X-Frame-Options": "deny"
+  },
+  "byte_budget": 4000000,
+  "body_bytes": 14967,
+  "body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+  "body_path": "fda_crl_merck.body.json",
+  "error": null,
+  "acquisition_method": "urllib.request raw HTTP body",
+  "request_headers": {
+    "Accept": "application/json",
+    "User-Agent": "JohnySkorePrimaryEvidence/1.0"
+  },
+  "storage_encoding": "identity",
+  "archived_bytes": 14967,
+  "archive_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+  "body_complete_within_byte_budget": true
+}

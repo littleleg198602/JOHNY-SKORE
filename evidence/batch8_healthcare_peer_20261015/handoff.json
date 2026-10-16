@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-16T00:23:33.353828+00:00",
+  "workstream": "healthcare peer review",
+  "base_local_commit": "2b3bd0f8ce17fc955f66ba1b6285c0763adc375a",
+  "branch": "batch8/healthcare-20261015",
+  "deliverable": "Read-only independently reproduced compound subject/action false READY; final owner fix verified; original SEC account guards/source pins reviewed",
+  "files_owned": "evidence/batch8_healthcare_peer_20261015/ only",
+  "production_module_or_test_edits_by_peer": false,
+  "remote_written": false,
+  "finding": {
+    "classification": "ACTIONABLE_SOURCE_ROLE_BINDING_BUG_RESOLVED_BY_OWNER",
+    "old_module_sha256": "8a24a55fdc647c9692d8ded0d255797f502584365831e20b134c980717d45dd7",
+    "old_fixture_sha256": "bf0d455b75496238f6d9fa07c8489206bd9d2dd28c912cd051c57519ceb185e7",
+    "final_module_sha256": "2004f1891498eb7b46079e1101b5988e32a1d81cf570d5e68207651cbedfa03f",
+    "final_fixture_sha256": "dd8885c74845d1799f30c2b96a08ca67b737e9be20f925168a40b6c7fc926fd7",
+    "old_result": "PRIMARY_SCOPE_READY_FOR_EXPLICIT_REVIEW",
+    "new_result": "PRIMARY_SCOPE_PARTIAL",
+    "old_effective_on": "2026-04-01",
+    "new_effective_on": null,
+    "exact_trigger": "On 2026-04-01, Everpure, Inc. changed its logo. Different Company changed its ticker symbol from PSTG to P.",
+    "old_and_new_trigger_identical": true,
+    "valid_positive_control_unchanged": true,
+    "old_reproducer": "evidence/batch8_healthcare_peer_20261015/compound_actor_reproducer.json",
+    "owner_fix_replay": "evidence/batch8_healthcare_peer_20261015/compound_actor_after_owner_fix.json",
+    "owner_notified_directly": true,
+    "coordinator_notified_directly": true,
+    "production_fix_owner": "identity_bulk",
+    "duplicate_peer_unit_test_added": false,
+    "actual_new_verified_identity_or_Q3_or_automatic_alias_claimed": false
+  },
+  "SEC_review": {
+    "module_sha256": "9186f28a33361be11cd69bf97722c4fa982137bffa164d7a6b5cd7e5e8f14a44",
+    "source_only_XML_supported": true,
+    "dated_reporting_account_two_points_supported": true,
+    "current_header_or_complete_packet_supported": false,
+    "natural_person_identity_verified": false,
+    "instrument_identity_verified": false,
+    "approved_name_alias": false,
+    "role_or_account_continuity_verified": false,
+    "execution_or_trading_verified": false,
+    "five_synthetic_conflicts_checked": true,
+    "actual_original_capture_roster": 4,
+    "actual_available_original_bodies": 3,
+    "missing_packet_body_and_hash": null,
+    "path": "evidence/batch8_healthcare_peer_20261015/sec_account_guard_review.json"
+  },
+  "actual_symbol_review": {
+    "path": "evidence/batch8_healthcare_peer_20261015/actual_symbol_review.json",
+    "status": "PRIMARY_SCOPE_PARTIAL",
+    "original_bodies": 6,
+    "new_verified_identities": 0,
+    "current_Q3_verified_coverage": 0,
+    "publisher_size_conflict_preserved": true,
+    "current_historical_as_filed_instrument_acceptance": false
+  },
+  "source_pins": "evidence/batch8_healthcare_peer_20261015/source_pins.json",
+  "validation": "evidence/batch8_healthcare_peer_20261015/validation.json",
+  "activity": {
+    "source_HTTP": 0,
+    "DB_calls": 0,
+    "quota_modifications": 0,
+    "registry_modifications": 0,
+    "known_withheld_body_reads_or_restorations": 0,
+    "body_rewrites": 0,
+    "original_captures_copied": 0,
+    "production_module_fixes_by_peer": 0,
+    "baseline_full_suite_runs": 0,
+    "score_model_trading_changes": false,
+    "full_specialist_acceptance": false
+  },
+  "file_pins_excluding_self": [
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/README.md",
+      "sha256": "d18339c17433e655fc7d482d283597a059ba23e716bea70b9ed7242bc165f1cc",
+      "bytes": 5214
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/actual_symbol_review.json",
+      "sha256": "168983eb453844e54ddcafed96e92ff76a57ed580954329dcf965a8fca5cf5d1",
+      "bytes": 4624
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/compound_actor_after_owner_fix.json",
+      "sha256": "07405542dcd876160b711c4f5b0b747081edd8335cab7dacce543528d4d53c47",
+      "bytes": 3201
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/compound_actor_reproducer.json",
+      "sha256": "62c55efc3b1bd3d8f57360fe917478ebd7e42c909ace6a9abd52b872e3dd3b4d",
+      "bytes": 2562
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/development_diagnostics.json",
+      "sha256": "ebffee65b9280e09c3bb6cb674d05d606395964f11fd9ed080874bdee01a0573",
+      "bytes": 615
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/pin_peer_sources.py",
+      "sha256": "12bc32fa818565442413adbc53823e20c8bcc7dab9280bb7aa113debf120d80f",
+      "bytes": 5980
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/reproduce_compound_actor.py",
+      "sha256": "6c8bd6ffc73996e1ebf55e71a18ac82f8ce4610d28d57a31a6c3cd15b186c201",
+      "bytes": 7296
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/review_actual_symbol_scope.py",
+      "sha256": "64d62aa100877b3e02275b182b91d36ebbfcf44f2d3d9e132acf6827c52776d1",
+      "bytes": 2986
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/review_sec_account_guards.py",
+      "sha256": "67ec7f3e57bb80f0bf2d4e02ba0967963c08dc87a240283fb0567cdd01363ef2",
+      "bytes": 6134
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/sec_account_guard_review.json",
+      "sha256": "cb9d3e44c11d44f229ec9f05a0789a731fe747801c048c9d267034ec2a2ecb00",
+      "bytes": 5534
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/source_pins.json",
+      "sha256": "fa0f121773d2f0056c27206641bde4a0318ddb2b1fce242cecff63bf025ba703",
+      "bytes": 11399
+    },
+    {
+      "path": "evidence/batch8_healthcare_peer_20261015/validation.json",
+      "sha256": "30132e82601623b54e1f503e5c7dcea2b7eff723f85d1bad2f5c5c7da2fd1a44",
+      "bytes": 1356
+    }
+  ]
+}

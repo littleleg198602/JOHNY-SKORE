@@ -1,0 +1,297 @@
+{
+  "acceptance": {
+    "activation_allowed": false,
+    "feature_provenance_verified": false,
+    "genuine_prediction_or_label_history_provided": false,
+    "out_of_sample_evaluation_verified": false,
+    "production_score_or_formula_changed": false,
+    "publisher_authenticity_verified": false,
+    "synthetic_cases_count_as_live": false,
+    "trading_enabled": false,
+    "windows_end_to_end": false
+  },
+  "cases": {
+    "legacy_timestamp_only": {
+      "activation_allowed": false,
+      "label_availability": null,
+      "label_price_gate_applied": false,
+      "label_price_provenance_verified": false,
+      "out_of_sample_evaluation_verified": false,
+      "ranking_modified": false,
+      "report_type": "legacy_label_timestamp_diagnostic",
+      "report_version": "candidate_walk_forward_evaluation_v2",
+      "sample_count": 32,
+      "status": "EVALUATED"
+    },
+    "same_clock_training_capture_boundary": {
+      "as_of": "2026-03-16T22:00:00+00:00",
+      "audited_training_label_count": 8,
+      "latest_training_label_available_at": "2026-03-16T20:00:00+00:00",
+      "model_status": "TRAINED",
+      "prediction_snapshot_ids": [
+        "066858d4ff5fd6e4b67f323f01cd394ae8b7975bf58152127f4e7f567b3158ac",
+        "778e84cdefefa178af8571c9ecc8474dce2bade16e90623cd427e2a5dcd49a5e",
+        "3ce894b6bffa26703edca3779d30970fd8473c2620f58d85563bca4607e3a0a9",
+        "031b5d25158653957fc3cfc8685ba859a32dd2fbdd4d2e047c113071a7f63adc",
+        "ae79fa889c8a93c9dae46e5862cc5f0a9548b2b9f68c56705fd2744ebf74802e",
+        "d2e4beaad1eff81f8f815239b8652432aa60007910b1589c6ab80bfc7d408b44",
+        "4427d60bf13dfb9366a27d7d87aacb29d8630382580c9ca62d7a7f09480c58c9",
+        "d606bbe1a6da2ae804fcbd26fb45acf70ad2be1fbbaf63cec5053fb93e8698f6"
+      ],
+      "training_label_evidence": {
+        "15e30981cebc6e0c2cd5f556abd0d86eb72b0d3084e045f3933ae8a2fbd76d6d": {
+          "evidence_origin": "DETERMINISTIC_TEST_FIXTURE",
+          "observation_hash": "58cf010576535fd519da57d95c534e3ca75728c3f17d480ae1d711190555bc14",
+          "price_capture_hashes": {
+            "asset": "5735c02a53b0637fbdb1487eb44c7b3908c1c578a1fc2835d44b77e7f58a6119",
+            "benchmark": "5e04bfbf870b2865e2925a07bb968165a4123340e4605e60db6aca4f8be1f88f"
+          },
+          "usable_at": "2026-03-16T20:00:00+00:00"
+        },
+        "22a6721934e716608d2abb3ca82586a38ec0176baa0a5135c1c99dacc40afbca": {
+          "evidence_origin": "DETERMINISTIC_TEST_FIXTURE",
+          "observation_hash": "c78fe6818551bcbb2a8b9bb298762f73a07306a73140902543e307ffd4075b8f",
+          "price_capture_hashes": {
+            "asset": "6b4967550818b25f0d909e43f3bacecd846ef8ab58db71bfa0dbb5ecc7cfdaa9",
+            "benchmark": "5e04bfbf870b2865e2925a07bb968165a4123340e4605e60db6aca4f8be1f88f"
+          },
+          "usable_at": "2026-03-16T20:00:00+00:00"
+        },
+        "4509c2a671fdd0ce58b28d4c19a28b23272bce62d5f3db10b77f496cd8b55621": {
+          "evidence_origin": "DETERMINISTIC_TEST_FIXTURE",
+          "observation_hash": "ed1bf31fe69cdd7c2a6bace623dfb41b9b5ed51261ad20254f748051e1f5efd0",
+          "price_capture_hashes": {
+            "asset": "5248e4f45df72f1df256155fe0e402ffd9621373f92fb59172c695d666299ac0",
+            "benchmark": "5e04bfbf870b2865e2925a07bb968165a4123340e4605e60db6aca4f8be1f88f"
+          },
+          "usable_at": "2026-03-16T20:00:00+00:00"
+        },
+        "658296d9b075982dfa15c6417767534f1a19f2f4fe5356259112259ee2e78952": {
+          "evidence_origin": "DETERMINISTIC_TEST_FIXTURE",
+          "observation_hash": "08438065494942d832b669e6d8412e94cf6e4268ef90d8c5f072f73461b301a7",
+          "price_capture_hashes": {
+            "asset": "719c721f6e50ffd4e178fb7d5550b05f8f749fc056b8ed8580eaf07539dfc535",
+            "benchmark": "5e04bfbf870b2865e2925a07bb968165a4123340e4605e60db6aca4f8be1f88f"
+          },
+          "usable_at": "2026-03-16T20:00:00+00:00"
+        },
+        "721812fca02b0b99aaaf3873b704f4a064c75a9abedfd5a12f5ab920dabbc0dd": {
+          "evidence_origin": "DETERMINISTIC_TEST_FIXTURE",
+          "observation_hash": "4d5761bea3ed51c5366c1c014423b239e296a6b5586de2bc8d27f3495bf80eb4",
+          "price_capture_hashes": {
+            "asset": "607325662136d359a971a2fb7e01a36e6044f080ba517134fc7a17200d001356",
+            "benchmark": "5e04bfbf870b2865e2925a07bb968165a4123340e4605e60db6aca4f8be1f88f"
+          },
+          "usable_at": "2026-03-16T20:00:00+00:00"
+        },
+        "b407195714e67ab86e9cf266ab16950e94e8314a2a968775c3802a7979a2b5d2": {
+          "evidence_origin": "DETERMINISTIC_TEST_FIXTURE",
+          "observation_hash": "84c004363df40836f6aabcb32f6c3351e6ff59b0ebf0d1f5b1ea6835e7110c9c",
+          "price_capture_hashes": {
+            "asset": "ab5756cfae5c077d754b57cdaabde72883f9351f257b185c8140e5003040592e",
+            "benchmark": "5e04bfbf870b2865e2925a07bb968165a4123340e4605e60db6aca4f8be1f88f"
+          },
+          "usable_at": "2026-03-16T20:00:00+00:00"
+        },
+        "cc0c737339e27931f481adb37ad341368e8430a6990bd55b99b304f34b05011b": {
+          "evidence_origin": "DETERMINISTIC_TEST_FIXTURE",
+          "observation_hash": "0e1096fc8339d3df7b0619a3e35f44ef675b4427e7d8e301b3b181fc2f1a9320",
+          "price_capture_hashes": {
+            "asset": "24f958afa79896cb29041c28539d43a73c46fd9c82cf5f2d845f9875e6b4bc80",
+            "benchmark": "5e04bfbf870b2865e2925a07bb968165a4123340e4605e60db6aca4f8be1f88f"
+          },
+          "usable_at": "2026-03-16T20:00:00+00:00"
+        },
+        "dd6308400312b83879fdfa5bda689125dd61e6dd79c41870d2bccade0cb763d0": {
+          "evidence_origin": "DETERMINISTIC_TEST_FIXTURE",
+          "observation_hash": "0ab5815f5e497131c40addfce93c92f941ff4780b709914f62a37798f2b3df2f",
+          "price_capture_hashes": {
+            "asset": "8d00a5ddace8d45e5980ad4231ddf55b595e04ad5f5d3d9587383b5a0ad5241f",
+            "benchmark": "5e04bfbf870b2865e2925a07bb968165a4123340e4605e60db6aca4f8be1f88f"
+          },
+          "usable_at": "2026-03-16T20:00:00+00:00"
+        }
+      },
+      "training_rejection_reasons": {
+        "LABEL_NOT_STRICTLY_BEFORE_PREDICTION": 8
+      },
+      "training_sample_count": 8,
+      "training_snapshot_ids": [
+        "15e30981cebc6e0c2cd5f556abd0d86eb72b0d3084e045f3933ae8a2fbd76d6d",
+        "22a6721934e716608d2abb3ca82586a38ec0176baa0a5135c1c99dacc40afbca",
+        "4509c2a671fdd0ce58b28d4c19a28b23272bce62d5f3db10b77f496cd8b55621",
+        "658296d9b075982dfa15c6417767534f1a19f2f4fe5356259112259ee2e78952",
+        "721812fca02b0b99aaaf3873b704f4a064c75a9abedfd5a12f5ab920dabbc0dd",
+        "b407195714e67ab86e9cf266ab16950e94e8314a2a968775c3802a7979a2b5d2",
+        "cc0c737339e27931f481adb37ad341368e8430a6990bd55b99b304f34b05011b",
+        "dd6308400312b83879fdfa5bda689125dd61e6dd79c41870d2bccade0cb763d0"
+      ]
+    },
+    "strict_complete_synthetic_fixture": {
+      "activation_allowed": false,
+      "label_availability": {
+        "archive": {
+          "archive_directory_present": false,
+          "directory_scan_limit_reached": false,
+          "explicit_observation_limit_reached": false,
+          "loaded_file_bytes": 0,
+          "loaded_files": 0,
+          "maximum_observations": 10000,
+          "maximum_total_observation_bytes": 64000000,
+          "observation_limit_reached": false,
+          "rejected_file_reasons": {},
+          "rejected_files": 0,
+          "rejected_observation_reasons": {},
+          "report_version": "specialist_label_availability_v1",
+          "total_byte_limit_reached": false,
+          "validated_observation_bytes": 145440,
+          "validated_observation_count": 40
+        },
+        "eligible_evidence_origin_counts": {
+          "DETERMINISTIC_TEST_FIXTURE": 40
+        },
+        "eligible_heldout_label_count": 40,
+        "evaluation_policy": "recorded held-out label usable_at at or before evaluation cutoff",
+        "fixtures_count_as_live": false,
+        "heldout_label_reason_counts": {
+          "ELIGIBLE_RECORDED_LABEL": 40
+        },
+        "input_snapshot_count": 40,
+        "rejected_snapshot_reasons": {},
+        "training_policy": "recorded label usable_at strictly before each prediction"
+      },
+      "label_price_gate_applied": true,
+      "label_price_provenance_verified": false,
+      "out_of_sample_evaluation_verified": false,
+      "ranking_modified": false,
+      "report_type": "exploratory_recorded_price_gated_candidate_walk_forward",
+      "report_version": "candidate_walk_forward_recorded_price_gate_v1",
+      "sample_count": 32,
+      "status": "EVALUATED_EXPLORATORY"
+    },
+    "strict_without_price_evidence": {
+      "activation_allowed": false,
+      "label_availability": {
+        "archive": {
+          "archive_directory_present": false,
+          "directory_scan_limit_reached": false,
+          "explicit_observation_limit_reached": false,
+          "loaded_file_bytes": 0,
+          "loaded_files": 0,
+          "maximum_observations": 10000,
+          "maximum_total_observation_bytes": 64000000,
+          "observation_limit_reached": false,
+          "rejected_file_reasons": {},
+          "rejected_files": 0,
+          "rejected_observation_reasons": {},
+          "report_version": "specialist_label_availability_v1",
+          "total_byte_limit_reached": false,
+          "validated_observation_bytes": 0,
+          "validated_observation_count": 0
+        },
+        "eligible_evidence_origin_counts": {},
+        "eligible_heldout_label_count": 0,
+        "evaluation_policy": "recorded held-out label usable_at at or before evaluation cutoff",
+        "fixtures_count_as_live": false,
+        "heldout_label_reason_counts": {
+          "MISSING_LABEL_OBSERVATION": 40
+        },
+        "input_snapshot_count": 40,
+        "rejected_snapshot_reasons": {},
+        "training_policy": "recorded label usable_at strictly before each prediction"
+      },
+      "label_price_gate_applied": true,
+      "label_price_provenance_verified": false,
+      "out_of_sample_evaluation_verified": false,
+      "ranking_modified": false,
+      "report_type": "exploratory_recorded_price_gated_candidate_walk_forward",
+      "report_version": "candidate_walk_forward_recorded_price_gate_v1",
+      "sample_count": 0,
+      "status": "INSUFFICIENT_DATA"
+    },
+    "unknown_revision_metadata_synthetic_case": {
+      "activation_allowed": false,
+      "label_availability": {
+        "archive": {
+          "archive_directory_present": false,
+          "directory_scan_limit_reached": false,
+          "explicit_observation_limit_reached": false,
+          "loaded_file_bytes": 0,
+          "loaded_files": 0,
+          "maximum_observations": 10000,
+          "maximum_total_observation_bytes": 64000000,
+          "observation_limit_reached": false,
+          "rejected_file_reasons": {},
+          "rejected_files": 0,
+          "rejected_observation_reasons": {},
+          "report_version": "specialist_label_availability_v1",
+          "total_byte_limit_reached": false,
+          "validated_observation_bytes": 144520,
+          "validated_observation_count": 40
+        },
+        "eligible_evidence_origin_counts": {},
+        "eligible_heldout_label_count": 0,
+        "evaluation_policy": "recorded held-out label usable_at at or before evaluation cutoff",
+        "fixtures_count_as_live": false,
+        "heldout_label_reason_counts": {
+          "MISSING_PRICE_REVISION_PROVENANCE": 40
+        },
+        "input_snapshot_count": 40,
+        "rejected_snapshot_reasons": {},
+        "training_policy": "recorded label usable_at strictly before each prediction"
+      },
+      "label_price_gate_applied": true,
+      "label_price_provenance_verified": false,
+      "out_of_sample_evaluation_verified": false,
+      "ranking_modified": false,
+      "report_type": "exploratory_recorded_price_gated_candidate_walk_forward",
+      "report_version": "candidate_walk_forward_recorded_price_gate_v1",
+      "sample_count": 0,
+      "status": "INSUFFICIENT_DATA"
+    }
+  },
+  "dependencies": [
+    {
+      "path": "market_checker_app/services/candidate_model_evaluation_service.py",
+      "sha256": "5365a2bf71051f5cece57e4f605f019ea9fe4caad10d259b4634f500665b634b"
+    },
+    {
+      "path": "tests/test_batch5_candidate_price_gate.py",
+      "sha256": "1976f3c4af7e5777f7bea4ecf50e12bb47a89d98adfed23ac1b4bb398c42c9e3"
+    },
+    {
+      "path": "market_checker_app/services/candidate_model_service.py",
+      "sha256": "ed2b8049bfe1a94b77f05ed7187a08b13d48d8c3b6b8220eff446607c4b91d5d"
+    },
+    {
+      "path": "market_checker_app/services/specialist_label_availability_service.py",
+      "sha256": "4f9cd93339711b8f1a762b37b21cf65568487037509b891f9a0ccc233c34578f"
+    },
+    {
+      "path": "evidence/batch5_candidate_price_gate_20261014/tests.json",
+      "sha256": "30fd1c2901cf1a88e69f9953c000ba22cfcd0461281b7ea38d19051088fc7be4"
+    },
+    {
+      "path": "evidence/batch5_candidate_price_gate_20261014/tests.log",
+      "sha256": "f2e21dc199bfd3cd16ee59cbd2d52f9de8bd8f655d3235004e3ae0f5754d09c1"
+    },
+    {
+      "path": "evidence/batch5_candidate_price_gate_20261014/initial_test_diagnostic.json",
+      "sha256": "4ce41b15520286e114bc8b2b6dad1bca9cea2289b569cc11ed94a1937fdd0d92"
+    }
+  ],
+  "dependency_scope": "Agent-local parent4462bdd/base5c5ea; root supersedes the availability dependency with its provider adapter and must run combined checks",
+  "http_attempts": 0,
+  "implementation": "Explicit strict candidate path validates held-out recorded price labels by evaluation cutoff and re-audits training versions strictly before each prediction; unchanged fitter and formula",
+  "kind": "synthetic_mechanism_checks_only_not_genuine_prediction_or_price_history",
+  "recorded_at": "2026-10-14T05:38:29.702751+00:00",
+  "remaining_work": [
+    "Root runtime/UI adopts explicit strict path and correct retained label archive directory",
+    "Combined root tests of superseding provider/availability adapter",
+    "Genuine dated prediction snapshots and actual retained asset/benchmark label observations",
+    "Resolved publisher revision/corporate-action provenance, prospective history and relevant OOS/Windows acceptance"
+  ],
+  "runtime_api": "evaluate_candidate_walk_forward_strict(snapshots, *, as_of, label_observations=None, label_archive_directory=None, maximum_label_observations=MAX_LABEL_OBSERVATIONS, existing model/evaluation kwargs)",
+  "schema_version": 1,
+  "unchanged_formula_numerical_metrics_match_legacy_with_complete_fixture": true
+}

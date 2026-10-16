@@ -1,0 +1,36 @@
+test_actual_retained_sources_preserve_frozen_xom_version_and_correct_cofiler_scope (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_actual_retained_sources_preserve_frozen_xom_version_and_correct_cofiler_scope) ... FAIL
+
+======================================================================
+FAIL: test_actual_retained_sources_preserve_frozen_xom_version_and_correct_cofiler_scope (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_actual_retained_sources_preserve_frozen_xom_version_and_correct_cofiler_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch6-integration-20261014/tests/test_batch5_identity_symbol.py", line 274, in test_actual_retained_sources_preserve_frozen_xom_version_and_correct_cofiler_scope
+    self.assertEqual([
+AssertionError: Lists differ: [{'is[13 chars]ExxonMobil Holdings Corporation', 'issuer_cik'[185 chars]-1'}] != [{'is[13 chars]Exxon Mobil Corporation', 'anchor_date': '2026[185 chars]36'}]
+
+First differing element 0:
+{'issuer_name': 'ExxonMobil Holdings Corporation', 'issuer_cik'[61 chars]c-2'}
+{'issuer_name': 'Exxon Mobil Corporation', 'anchor_date': '2026[53 chars]088'}
+
+  [{'anchor_date': '2026-06-30',
++   'context_ref': 'c-1',
++   'issuer_cik': '0000034088',
++   'issuer_name': 'Exxon Mobil Corporation'},
++  {'anchor_date': '2026-06-30',
+    'context_ref': 'c-2',
+    'issuer_cik': '0002115436',
+-   'issuer_name': 'ExxonMobil Holdings Corporation'},
+?                                                    ^
+
++   'issuer_name': 'ExxonMobil Holdings Corporation'}]
+?                                                    ^
+
+-  {'anchor_date': '2026-06-30',
+-   'context_ref': 'c-1',
+-   'issuer_cik': '0000034088',
+-   'issuer_name': 'Exxon Mobil Corporation'}]
+
+----------------------------------------------------------------------
+Ran 1 test in 3.821s
+
+FAILED (failures=1)

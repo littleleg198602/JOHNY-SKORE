@@ -1,0 +1,38 @@
+{
+  "completed_at": "2026-10-15T04:29:43.889920+00:00",
+  "discovered": 43,
+  "errors": 0,
+  "executed": 43,
+  "expected_failures": 0,
+  "failures": 0,
+  "fixtures_count_as_live": false,
+  "historical_oos_verified": false,
+  "http_during_tests": 0,
+  "kind": "focused_original_supply_scope_and_existing_identity_separation_regressions",
+  "log": "evidence/batch7_contracts_20261015/tests.log",
+  "log_sha256": "365ec30148de9af18feeead05e9a65d1f84f35f8f3db526f6252f682b4333c41",
+  "modules": [
+    "tests.test_batch7_supply_chain_scope",
+    "tests.test_supply_chain_evidence_service",
+    "tests.test_sec_counterparty_identity"
+  ],
+  "platform": "Linux",
+  "python_version": "3.12.14",
+  "schema_version": 1,
+  "skips": 0,
+  "source_files": {
+    "evidence/batch7_contracts_20261015/capture_primary.py": "191861dc265535c5b3aba87ec6f59d232906d0d0d279baf5869b7aca64cae938",
+    "market_checker_app/services/sec_supply_chain_scope_review.py": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91",
+    "tests/test_batch7_supply_chain_scope.py": "abd6973e16d1afd5c610a8b322680cc17fd4ea485e314f238dfcacc61723b5e6"
+  },
+  "started_at": "2026-10-15T04:29:43.657360+00:00",
+  "successful": true,
+  "unchanged_dependencies": {
+    "market_checker_app/services/sec_counterparty_identity.py": "1c206541d360b59872f7d40a1f56d6f7f0ecc9d8afb1d82f1ee78a2009687755",
+    "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+    "market_checker_app/services/supply_chain_evidence_service.py": "fe306062a60585a569f991a89b99c91320b707eb94db8fbac9d7f7291b9974a8",
+    "market_checker_app/utils/ticker_universe.py": "d4fe3ed1a9bef5fff569c7f42d2627c9a4580812df2ca4344ebd97565535df46"
+  },
+  "unexpected_successes": 0,
+  "windows_end_to_end_verified": false
+}

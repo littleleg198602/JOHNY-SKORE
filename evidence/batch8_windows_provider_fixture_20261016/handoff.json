@@ -1,0 +1,124 @@
+{
+  "actual_windows_execution_performed": false,
+  "artifact_sha256": {
+    "before_repair/original_alias_failure.json": "240269735ac51ef11d330054827875885f56745ae1e7a29d8992c2afc11d2cda",
+    "before_repair/original_alias_failure.log": "d372639989079cb5589fe53373eb52b5ba34da88fb0aabd416f1316416adc573",
+    "focused_tests.log": "ef32c7a5c6ace843811b1ce5efba7ae8db2aec9afc394e4fd2d9153c4b266ac9",
+    "original/guard.py": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8",
+    "original/provider.py": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257",
+    "original/source_pins.json": "65d43d5d31b2c1d1b51dddab5146f5b6580f19768ccfb98b6feaf70a640afae1",
+    "original/test_module.py": "00fb80bf292fcd09851f74c468c1d4c47cb3293d7f9285c6e4b103553504d3fa",
+    "qualify_repair.py": "3842ee25509e88691fc8377f5547027dd9c7613f948bef2074f192ce1267e281",
+    "reproduce_original_alias.py": "ca7a8db610177fdf583edb97516bc9c0c7a8e5362687245e1c4245ca7e089da7"
+  },
+  "ast_preservation": {
+    "all_original_assertions_preserved": true,
+    "all_original_methods_retained": true,
+    "canonicalization_precedes_first_capture": true,
+    "current_test_method_count": 36,
+    "missing_original_assertions_by_method": {},
+    "new_alias_regression_methods": [
+      "test_temporary_root_alias_is_canonical_before_capture_and_parent_guard_is_exercised"
+    ],
+    "only_allowed_original_ast_changes": true,
+    "original_assertion_call_count": 70,
+    "original_class_methods_with_ast_changes": [
+      "setUp",
+      "test_explicit_paths_refuse_escape_missing_and_parent_symlink_without_discovery"
+    ],
+    "original_data_capture_manifest_helpers_ast_unchanged": {
+      "capture": true,
+      "fixture_frame": true,
+      "write_manifest": true
+    },
+    "original_symlink_test_requires_nonempty_mock_guard_hits": true,
+    "original_test_method_count": 35,
+    "removed_original_test_methods": [],
+    "unchanged_original_test_method_asts": 34
+  },
+  "base": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+  "before_repair_reproduction": {
+    "actual_db_accesses": 0,
+    "actual_windows_executed": false,
+    "current_acceptance": false,
+    "failure_log_sha256": "d372639989079cb5589fe53373eb52b5ba34da88fb0aabd416f1316416adc573",
+    "hosted_windows_failure_reference": "38861160925",
+    "method_overridden": false,
+    "observations": {
+      "alias_resolves_to_native": true,
+      "canonical_source_parent": "/tmp/tmpq_mzy6xx/selected",
+      "fixture_root": "/tmp/tmpq_mzy6xx/../tmpq_mzy6xx",
+      "fixture_source_parent": "/tmp/tmpq_mzy6xx/../tmpq_mzy6xx/selected",
+      "native_temp_root": "/tmp/tmpq_mzy6xx",
+      "original_mock_target_matches_canonical_guard": false,
+      "provider_archive_root": "/tmp/tmpq_mzy6xx",
+      "provider_guard_target": "/tmp/tmpq_mzy6xx/selected",
+      "supplied_temp_alias": "/tmp/tmpq_mzy6xx/../tmpq_mzy6xx"
+    },
+    "observed_at": "2026-10-16T07:11:51.964786+00:00",
+    "only_input_variation": "TemporaryDirectory.name is native-root/../same-root-name",
+    "original_method_ast_sha256": "c89e705add16384e0686622200cd8ef9ffcf88b228e2ec7f135d9c0ea4cafc29",
+    "original_test_sha256": "00fb80bf292fcd09851f74c468c1d4c47cb3293d7f9285c6e4b103553504d3fa",
+    "platform": "linux",
+    "production_code_modified": false,
+    "source_http_requests": 0,
+    "tests": {
+      "discovered": 1,
+      "errors": 0,
+      "executed": 1,
+      "expected_failures": 0,
+      "failures": 1,
+      "skips": 0,
+      "unexpected_successes": 0
+    }
+  },
+  "claims": {
+    "actual_db_accesses": 0,
+    "body_normalization_or_synthetic_source_adoption": false,
+    "full2036_suite_repeated": false,
+    "github_write_performed": false,
+    "hosted_windows_acceptance_claimed": false,
+    "http_requests": 0,
+    "new_forecasts_or_labels": 0,
+    "original_assertions_relaxed_or_removed": false,
+    "production_source_changes": false,
+    "quota_writes": 0,
+    "skips_or_cleanup_workarounds_added": false,
+    "source_fixture_values_or_clocks_changed": false
+  },
+  "generated_at": "2026-10-16T07:16:16.734308+00:00",
+  "hosted_windows_failure_reference": "38861160925",
+  "local_platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "production_provider_and_guard_byte_identical": {
+    "market_checker_app/services/captured_market_data_provider.py": true,
+    "market_checker_app/services/prospective_specialist_history.py": true
+  },
+  "python_version": "3.12.14",
+  "qualified_files_unchanged_during_tests": true,
+  "repair": "Resolve TemporaryDirectory root before capture/path construction; assert that the original symlink mock actually hit; add one real root/../root alias regression.",
+  "schema_version": 1,
+  "scope": "Windows temp-path fixture canonicalization only; production provider and guard unchanged",
+  "source_sha256": {
+    "evidence/batch8_windows_provider_fixture_20261016/qualify_repair.py": "3842ee25509e88691fc8377f5547027dd9c7613f948bef2074f192ce1267e281",
+    "evidence/batch8_windows_provider_fixture_20261016/reproduce_original_alias.py": "ca7a8db610177fdf583edb97516bc9c0c7a8e5362687245e1c4245ca7e089da7",
+    "market_checker_app/services/captured_market_data_provider.py": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257",
+    "market_checker_app/services/prospective_specialist_history.py": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8",
+    "tests/test_batch8_captured_market_data_provider.py": "93dc17d174ef0b18a19613acbf01d5a513e5a4b662ee970d8e1faeb2bbf8f386"
+  },
+  "tests": {
+    "alias_regression_also_executes_original_symlink_case_and_asserts_its_success": true,
+    "discovered": 36,
+    "elapsed_seconds": 2.802104,
+    "errors": 0,
+    "executed": 36,
+    "expected_failures": 0,
+    "failures": 0,
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "tracked_changed_paths": [
+    "tests/test_batch8_captured_market_data_provider.py"
+  ],
+  "tracked_ownership_respected": true
+}

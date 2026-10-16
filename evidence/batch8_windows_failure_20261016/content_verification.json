@@ -1,0 +1,49 @@
+{
+  "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+  "tree_sha": "bd99dca493a4d6eca5d6c1fb6c9017995aedf292",
+  "run_id": 38861160925,
+  "windows_job_id": 116843520437,
+  "release_gate_job_id": 116855563520,
+  "artifact_id": 12030449825,
+  "artifact_bytes": 62471,
+  "artifact_SHA256": "bafec854986b27ab5e67f358842be7bf486afb4f04dfe568f111b00e21a9c394",
+  "published_digest_matches": true,
+  "both_original_zip_members_read": true,
+  "original_members": {
+    "windows-tests.log": {
+      "bytes": 412149,
+      "SHA256": "b8532df1158a73ae0a4bad6d74303de880c842eef47a5f3fce184844e2a4bb32",
+      "CRLF_lines": 2084
+    },
+    "windows-tests.json": {
+      "bytes": 376,
+      "SHA256": "4fe3c913c1e70cf62816b84cfcbe6659034e0847921a7451903a331ed61d3a6b",
+      "CRLF_lines": 14
+    }
+  },
+  "original_windows_report": {
+    "started_at": "2026-10-16T06:27:32.936762+00:00",
+    "ended_at": "2026-10-16T07:04:57.400085+00:00",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "discovered_tests": 2036,
+    "tests_run": 2036,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": false
+  },
+  "decoded_job_log_SHA256": "27a081043cf2844177ab285727ee4041468e953ec67520b03fff86580af0f4d6",
+  "focused_checkpoint_tests": 63,
+  "focused_checkpoint_seconds": 29.937,
+  "full_test_count": 2036,
+  "elapsed_seconds": 2241.765,
+  "terminal_plain_OK": false,
+  "terminal_FAILED_failures_1_verified": true,
+  "exact_failed_method": "test_explicit_paths_refuse_escape_missing_and_parent_symlink_without_discovery",
+  "failure_is_acceptance": false,
+  "full_specialist_acceptance": 0,
+  "source_HTTP_or_database_operations": 0
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-10-12T15:16:04.719778+00:00",
+  "base_commit": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "scope": "Actual archived primary-source object relationships and offline replay only. No production registry/service/scoring changes.",
+  "tests": {
+    "command": "python -m unittest tests.test_batch3_healthcare_evidence tests.test_healthcare_identity_service tests.test_healthcare_coverage_service tests.test_fda_recall_scout_service -v",
+    "tests_run": 61,
+    "new_capture_replay_tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "observed_result": "Ran 61 tests in 2.277s; OK",
+    "network_requests": 0
+  },
+  "replay": {
+    "command": "python -m evidence.batch3_healthcare_20261012.replay --output evidence/batch3_healthcare_20261012/replay_report.json",
+    "exit_code": 0,
+    "verified_primary_http_captures": 18,
+    "proposed_event_relationships": 5,
+    "distinct_applications": 4,
+    "canonical_issuers": [
+      "PFE",
+      "MRK",
+      "ABBV"
+    ],
+    "network_requests": 0,
+    "runtime_store_provided": false
+  },
+  "parser_bug_found": false,
+  "production_registry_mutated": false,
+  "acceptance": {
+    "live_verified": false,
+    "negative_issuer_completeness_verified": false,
+    "actual_windows_end_to_end_verified": false,
+    "out_of_sample_evaluation_verified": false
+  },
+  "files_sha256": {
+    "identity_proposal.json": "045d2c45b69926baf9ca185a9cd6021f0ebda9fa5e4d2f70694c86997c7afce3",
+    "source_review.json": "3d86eafdd0428e5fa446ab159a4196a5a1c79e3d82a47c67107c61f3b7b1ad88",
+    "capture_index.json": "70baf92292e8343736ba852d8c0c3159e73b3a4622dda6bf910db6033a038fbb",
+    "replay.py": "2599879cc91ed3d9b383475fa89254422c45045197b63d16ebef0c3d9c2dd680",
+    "replay_report.json": "1db4e0a66791ffe6a2a86ce5cf06b36ff8c3c4fbf888e188dac5a618bffe5bad",
+    "README.md": "52481145c7485d132d9d8b8968a49758aa311d4bda039a0ef0b3b017b3014a3f",
+    "tests/test_batch3_healthcare_evidence.py": "a027d333ad7d9bc393e3c6c6e9787ea874b382fd233ae0052349c1a412f90183"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "exact_complete_report_reproduced": true,
+  "interpretation": "Offline replay of the frozen original producer and recorded clock; not a new historically available review or acceptance.",
+  "new_http_requests": 0,
+  "original_plan_sha256": "47e006bbcc60eb09731529691866e6c064d7bfe6c9d02481b29bc38e79bc30f0",
+  "original_report_sha256": "06dd2a3340cfc0b3c85f7f53af47521673ab79e4a1415b20e9f100606b73ef1f",
+  "original_service_sha256": "1200250579629c905c0612a7367e928e37735408ab62f05eb96e9860ebd9ad60",
+  "raw_source_bodies_changed": false,
+  "schema_version": "immutable_first_version_scope_replay_v1"
+}

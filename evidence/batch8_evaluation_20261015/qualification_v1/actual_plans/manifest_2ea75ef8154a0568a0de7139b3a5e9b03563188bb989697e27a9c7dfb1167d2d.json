@@ -1,0 +1,27 @@
+{
+  "instruments": [
+    {
+      "interval": "1d",
+      "methodology": "PROVIDER_VALUES_AS_RETURNED",
+      "provider": "yfinance",
+      "provider_symbol": "SPY",
+      "require_actions": false,
+      "source": {
+        "available_at": "2026-10-14T05:12:39.127517+00:00",
+        "capture_id": "2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d",
+        "captured_at": "2026-10-14T05:12:39.127517+00:00",
+        "file_bytes": 4082,
+        "file_sha256": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365",
+        "first_session": "2026-09-14",
+        "frame_sha256": "612105e7a9618995a4082ecb5c5de6b805eca5e67b73263b4bdbc0c36ba1ec9f",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "last_session": "2026-10-13",
+        "observed_at": "2026-10-14T05:12:39.127517+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+        "row_count": 22
+      },
+      "ticker": "SPY"
+    }
+  ],
+  "schema_version": "captured_market_data_manifest_v1"
+}

@@ -25,6 +25,8 @@ from market_checker_app.services.sec_fundamental_feature_service import SEC_FUND
 from market_checker_app.services.specialist_evaluation_service import (
     build_specialist_evaluation_report, read_archived_prediction_snapshots,
 )
+from market_checker_app.services.specialist_label_availability_service import LABEL_OBSERVATION_SCHEMA_VERSION
+from market_checker_app.prediction_contract import PRIMARY_PREDICTION_TARGET
 from market_checker_app.services.us_equity_calendar import target_us_equity_window
 from market_checker_app.specialist_evaluation import main
 from market_checker_app.storage.sqlite_store import SQLiteStore
@@ -81,10 +83,49 @@ def _history(weeks: int = 5) -> pd.DataFrame:
     return pd.DataFrame([_snapshot(index, week) for week in range(weeks) for index in range(8)])
 
 
+def _label_observation(snapshot: dict) -> dict:
+    """Explicit synthetic prices for walk-forward mechanics, never live proof."""
+    snapshot_at = datetime.fromisoformat(snapshot["as_of"])
+    base, horizon = target_us_equity_window(snapshot_at, 5)
+    sessions = [base, *horizon]
+    stamp = horizon[-1].close_at.isoformat()
+    captures = {}
+    for role, ticker in (("asset", snapshot["ticker"]), ("benchmark", snapshot["benchmark_ticker"])):
+        target = float(snapshot["target_value"]) if role == "asset" else 0.0
+        values = [100.0] * 5 + [100.0 * (1.0 + target)]
+        capture = {"ticker": ticker, "provider": "synthetic-unit-test",
+            "price_basis": PRIMARY_PREDICTION_TARGET.price_basis,
+            "price_method_version": PRIMARY_PREDICTION_TARGET.price_method_version,
+            "dividends_included": False, "observed_at": stamp, "available_at": stamp,
+            "revision_status": "CAPTURED_CURRENT_VERSION",
+            "corporate_action_status": "RECORDED_COMPLETE_WINDOW",
+            "corporate_actions_checked_from": base.session_date.isoformat(),
+            "corporate_actions_checked_through": horizon[-1].session_date.isoformat(),
+            "corporate_actions_known_at": stamp, "corporate_actions": [],
+            "session_prices": [{"session_date": session.session_date.isoformat(), "close": value,
+                "observed_at": stamp, "available_at": stamp} for session, value in zip(sessions, values)]}
+        capture["capture_hash"] = canonical_hash(capture)
+        captures[role] = capture
+    observation = {"schema_version": LABEL_OBSERVATION_SCHEMA_VERSION,
+        "snapshot_id": snapshot["snapshot_id"], "ticker": snapshot["ticker"],
+        "benchmark_ticker": snapshot["benchmark_ticker"], "target_version": snapshot["target_version"],
+        "horizon_trading_days": snapshot["horizon_trading_days"], "snapshot_as_of": snapshot["as_of"],
+        "target_value": snapshot["target_value"], "observed_at": stamp,
+        "available_at": stamp, "captured_at": stamp,
+        "evidence_origin": "DETERMINISTIC_TEST_FIXTURE", "price_captures": captures}
+    observation["observation_hash"] = canonical_hash(observation)
+    return observation
+
+
+def _observations(frame: pd.DataFrame) -> list[dict]:
+    return [_label_observation(row) for row in frame.to_dict("records")
+            if row.get("label_status") == "RESOLVED"]
+
+
 def _report(frame: pd.DataFrame, **options) -> dict:
     return build_specialist_evaluation_report(frame, as_of=CUTOFF,
         minimum_training_samples=8, minimum_evaluation_samples=8,
-        minimum_weeks=2, iterations=30, **options)
+        minimum_weeks=2, iterations=30, label_observations=_observations(frame), **options)
 
 
 class SpecialistEvaluationServiceTests(unittest.TestCase):
@@ -313,9 +354,10 @@ class SpecialistEvaluationServiceTests(unittest.TestCase):
         self.assertFalse(comparison["acceptance_proven"])
 
     def test_enough_weeks_but_too_few_samples_still_suppresses_intervals(self):
-        report = build_specialist_evaluation_report(_history(), as_of=CUTOFF,
+        history = _history()
+        report = build_specialist_evaluation_report(history, as_of=CUTOFF,
             minimum_training_samples=8, minimum_evaluation_samples=200,
-            minimum_weeks=2, iterations=30)
+            minimum_weeks=2, iterations=30, label_observations=_observations(history))
         comparison = report["comparisons"]["sec_fundamentals"]
         self.assertEqual(4, comparison["distinct_weeks"])
         self.assertEqual("INSUFFICIENT_DATA", comparison["status"])

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scope": "Development diagnostics only; not the final successful test acceptance",
+  "initial_capture_client_error": {
+    "capture_key": "trial_lilly_positive_page_2",
+    "status": "ValueError: Inconsistent clinical trial query count",
+    "cause": "The new first draft wrongly required totalCount on every page; real publisher omits it after page 1. Original successful HTTP bytes remain preserved.",
+    "resolution": "Require first-page total and validate later totals only if supplied; live traversal includes terminal empty page."
+  },
+  "initial_sec_document_budget_error": {
+    "capture_key": "sec_lly_2021_10k",
+    "initial_byte_budget": 4000000,
+    "original_oversized_body_not_persisted": true,
+    "resolution": "Complete independent 4281878-byte document captured with an explicit 8 MB SEC HTML diagnostic budget. No 4 MB ClinicalTrials client budget or test timing budget was changed."
+  },
+  "initial_new_test_result": {
+    "executed": 20,
+    "failures": 1,
+    "test": "test_zero_rows_from_an_exact_study_scope_do_not_complete_the_issuer_check",
+    "cause": "Replay fixture was pageSize 2; test collector incorrectly used default pageSize 100, which the strict replay correctly rejected.",
+    "resolution": "Configure the exact captured pageSize 2; all 98 focused tests pass on final content."
+  }
+}

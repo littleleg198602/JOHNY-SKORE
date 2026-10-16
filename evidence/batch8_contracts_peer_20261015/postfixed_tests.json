@@ -1,0 +1,86 @@
+{
+  "actual_imported_source_sha256": {
+    "market_checker_app.config": {
+      "path": "market_checker_app/config.py",
+      "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+    },
+    "market_checker_app.release_manifest": {
+      "path": "market_checker_app/release_manifest.py",
+      "sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a"
+    },
+    "market_checker_app.services.captured_market_data_provider": {
+      "path": "market_checker_app/services/captured_market_data_provider.py",
+      "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+    },
+    "market_checker_app.services.pipeline_service": {
+      "path": "market_checker_app/services/pipeline_service.py",
+      "sha256": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+    },
+    "market_checker_app.weekly_shadow_runner": {
+      "path": "market_checker_app/weekly_shadow_runner.py",
+      "sha256": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91"
+    }
+  },
+  "completed_at": "2026-10-16T00:20:32.275570+00:00",
+  "diagnostics": [
+    {
+      "actual_baseline_snapshots_persisted": 0,
+      "case": "test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write",
+      "expected_baseline_snapshots_persisted": 0,
+      "finalizer_returned": true,
+      "fixture_only": true,
+      "http_attempts": 0,
+      "production_db_writes": 0,
+      "provider_current_reasons": {
+        "MISSING_LATEST_COMPLETED_SESSION_CLOSE": 13
+      },
+      "provider_current_status": "WAIT_DATA",
+      "summary_snapshot_error": "snapshot ulo\u017een\u00ed selhalo: RuntimeConfigurationError: WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_FORECAST_PERSISTENCE",
+      "summary_snapshot_status": "FAILED"
+    },
+    {
+      "actual_baseline_snapshots_persisted": 0,
+      "case": "test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write",
+      "expected_baseline_snapshots_persisted": 0,
+      "finalizer_returned": true,
+      "fixture_only": true,
+      "http_attempts": 0,
+      "production_db_writes": 0,
+      "provider_current_reasons": {
+        "CAPTURED_MARKET_MANIFEST_CHANGED": 13
+      },
+      "provider_current_status": "WAIT_DATA",
+      "summary_snapshot_error": "snapshot ulo\u017een\u00ed selhalo: RuntimeConfigurationError: WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_FORECAST_PERSISTENCE",
+      "summary_snapshot_status": "FAILED"
+    },
+    {
+      "actual_baseline_snapshots_persisted": 1,
+      "actual_candidate_predictions_persisted": 0,
+      "baseline_hash_preserved": true,
+      "case": "test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write",
+      "expected_baseline_snapshots_persisted": 1,
+      "expected_candidate_predictions_persisted": 0,
+      "finalizer_returned": true,
+      "fixture_only": true,
+      "http_attempts": 0,
+      "production_db_writes": 0
+    }
+  ],
+  "discovered": 5,
+  "elapsed_seconds": 4.037226998999984,
+  "errors": 0,
+  "executed": 5,
+  "expected_failures": 0,
+  "failures": 0,
+  "fixture_databases_temporary_and_handles_closed": true,
+  "http_attempts": 0,
+  "phase": "postfixed",
+  "production_database_reads_or_writes": 0,
+  "schema_version": 1,
+  "skips": 0,
+  "source_pins_sha256": "0cfd1e334b0a499a87468907304c9e60f4b071c09039dfe6a8af0e8f5374a939",
+  "started_at": "2026-10-16T00:20:28.238338+00:00",
+  "successful": true,
+  "test_source_sha256": "d28806cfdf12d74eb5bf5a526e83098701619597f97de1df479e77eaabe1d28f",
+  "unexpected_successes": 0
+}

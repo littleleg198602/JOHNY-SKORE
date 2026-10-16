@@ -1,0 +1,112 @@
+test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (original_source_manifest_fixture.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads) ... 
+  test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (original_source_manifest_fixture.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads) (selected=PosixPath('/tmp/tmp4fpyxj9y/../tmp4fpyxj9y/selected_sources/yahoo_price_b9fef0a22858865acb318106f18fb33d87159244b4cabc2afa12402d8161a4f7.json')) ... FAIL
+  test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (original_source_manifest_fixture.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads) (selected=PosixPath('/tmp/tmp4fpyxj9y/../tmp4fpyxj9y/selected_sources')) ... FAIL
+test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) ... 
+  test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest.json')) ... FAIL
+  test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest.lock')) ... FAIL
+  test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest_versions')) ... FAIL
+test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) ... FAIL
+test_windows_junction_aliases_cannot_escape_source_or_version_roots (original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) ... 
+  test_windows_junction_aliases_cannot_escape_source_or_version_roots (original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) (selected=PosixPath('/tmp/tmpjazsur7w/../tmpjazsur7w/selected_sources')) ... FAIL
+  test_windows_junction_aliases_cannot_escape_source_or_version_roots (original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) (selected=PosixPath('/tmp/tmpjazsur7w/../tmpjazsur7w/prospective_source_manifest_versions')) ... FAIL
+test_windows_junction_aliases_cannot_escape_source_or_version_roots (original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) ... FAIL
+
+======================================================================
+FAIL: test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (original_source_manifest_fixture.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads) (selected=PosixPath('/tmp/tmp4fpyxj9y/../tmp4fpyxj9y/selected_sources/yahoo_price_b9fef0a22858865acb318106f18fb33d87159244b4cabc2afa12402d8161a4f7.json'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 286, in test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads
+    with self.assertRaisesRegex(ValueError,"SYMLINK"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (original_source_manifest_fixture.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads) (selected=PosixPath('/tmp/tmp4fpyxj9y/../tmp4fpyxj9y/selected_sources'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 286, in test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads
+    with self.assertRaisesRegex(ValueError,"SYMLINK"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest.json'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 296, in test_symlink_active_lock_and_version_directory_are_not_followed
+    with self.assertRaisesRegex(ValueError,"SYMLINK"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest.lock'))
+----------------------------------------------------------------------
+ValueError: ACTIVE_SOURCE_MANIFEST_COMPARE_AND_SWAP_FAILED
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 296, in test_symlink_active_lock_and_version_directory_are_not_followed
+    with self.assertRaisesRegex(ValueError,"SYMLINK"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "SYMLINK" does not match "ACTIVE_SOURCE_MANIFEST_COMPARE_AND_SWAP_FAILED"
+
+======================================================================
+FAIL: test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest_versions'))
+----------------------------------------------------------------------
+ValueError: ACTIVE_SOURCE_MANIFEST_COMPARE_AND_SWAP_FAILED
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 296, in test_symlink_active_lock_and_version_directory_are_not_followed
+    with self.assertRaisesRegex(ValueError,"SYMLINK"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "SYMLINK" does not match "ACTIVE_SOURCE_MANIFEST_COMPARE_AND_SWAP_FAILED"
+
+======================================================================
+FAIL: test_symlink_active_lock_and_version_directory_are_not_followed (original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 298, in test_symlink_active_lock_and_version_directory_are_not_followed
+    self.assertNoPublication()
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 74, in assertNoPublication
+    self.assertFalse((self.root/MANIFEST_FILENAME).exists())
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_windows_junction_aliases_cannot_escape_source_or_version_roots (original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) (selected=PosixPath('/tmp/tmpjazsur7w/../tmpjazsur7w/selected_sources'))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 305, in test_windows_junction_aliases_cannot_escape_source_or_version_roots
+    with self.assertRaisesRegex(ValueError,"SYMLINK"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_windows_junction_aliases_cannot_escape_source_or_version_roots (original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) (selected=PosixPath('/tmp/tmpjazsur7w/../tmpjazsur7w/prospective_source_manifest_versions'))
+----------------------------------------------------------------------
+ValueError: ACTIVE_SOURCE_MANIFEST_COMPARE_AND_SWAP_FAILED
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 305, in test_windows_junction_aliases_cannot_escape_source_or_version_roots
+    with self.assertRaisesRegex(ValueError,"SYMLINK"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "SYMLINK" does not match "ACTIVE_SOURCE_MANIFEST_COMPARE_AND_SWAP_FAILED"
+
+======================================================================
+FAIL: test_windows_junction_aliases_cannot_escape_source_or_version_roots (original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 307, in test_windows_junction_aliases_cannot_escape_source_or_version_roots
+    self.assertNoPublication()
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-identity_bulk-20261015/evidence/batch7_windows_manifest_fix_20261015/original_test_batch7_source_manifest.py", line 74, in assertNoPublication
+    self.assertFalse((self.root/MANIFEST_FILENAME).exists())
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.056s
+
+FAILED (failures=9)

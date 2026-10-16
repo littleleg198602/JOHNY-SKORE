@@ -93,7 +93,69 @@ def _analysis(store, *, clock=NOW, cik=CIK, initial=None):
     return indexed, governed, context
 
 
+def _record_primary(store, accession, *, observed_at=NOW, price="100.5"):
+    url = URL.replace(ACCESSION.replace("-", ""), accession.replace("-", ""))
+    filing = replace(FILING, accession_number=accession, filing_url=url)
+    payload = _xml(transactions=_transaction(price=price))
+    observation = _parse(payload, filing=filing, observed_at=observed_at)
+    return store.record_finding(
+        source="sec", subject_id="AAPL", source_object_id=accession,
+        content_hash=hashlib.sha256(payload).hexdigest(), title="Form 4 primary",
+        source_url=url, locator=f"accession:{accession}/primary:form4.xml",
+        published_at=filing.filed_at, available_at=observed_at,
+        observed_at=observed_at,
+        details={"stage": "filing_document", "form": "4", "cik": CIK,
+                 "accession": accession, "form4_observation": observation},
+    )[0]
+
+
 class Form4ObservationTests(unittest.TestCase):
+    def test_version_history_occupies_one_slot_before_watchlist_limit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            accessions = [f"0000320193-26-{123 + index:06d}" for index in range(8)]
+            for accession in accessions:
+                _record_primary(store, accession)
+            for version in range(1, 6):
+                _record_primary(store, accessions[0],
+                                observed_at=NOW + timedelta(minutes=version),
+                                price=str(200 + version))
+            indexed, governed, _ = _analysis(store, clock=NOW + timedelta(minutes=5))
+            self.assertEqual(set(accessions),
+                             {event.metadata["accession_number"] for event in governed.governance_events})
+            self.assertEqual(8, len(governed.governance_events))
+            self.assertEqual(205.0, next(event.price_per_share for event in governed.governance_events
+                                       if event.metadata["accession_number"] == accessions[0]))
+            self.assertEqual(5, indexed.metadata["superseded_form4_versions"])
+            self.assertEqual(13, len(store.findings_for_snapshot(
+                f"test-form4:{(NOW + timedelta(minutes=5)).isoformat()}")))
+            historical = _analysis(store)[1].governance_events
+            self.assertEqual(8, len(historical))
+            self.assertTrue(all(event.price_per_share == 100.5 for event in historical))
+
+    def test_simultaneous_versions_at_limit_boundary_still_fail_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            for index in range(8):
+                _record_primary(store, f"0000320193-26-{123 + index:06d}",
+                                observed_at=NOW + timedelta(minutes=int(index > 0)))
+            _record_primary(store, ACCESSION, price="200")
+            with self.assertRaisesRegex(ValueError, "Ambiguous simultaneous Form 4"):
+                _analysis(store, clock=NOW + timedelta(minutes=1))
+
+    def test_later_unambiguous_version_resolves_older_ambiguous_history(self):
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            _record_primary(store, ACCESSION)
+            _record_primary(store, ACCESSION, price="200")
+            later = NOW + timedelta(minutes=1)
+            _record_primary(store, ACCESSION, observed_at=later, price="300")
+            indexed, governed, _ = _analysis(store, clock=later)
+            self.assertEqual([300.0], [event.price_per_share for event in governed.governance_events])
+            self.assertEqual(2, indexed.metadata["superseded_form4_versions"])
+            with self.assertRaisesRegex(ValueError, "Ambiguous simultaneous Form 4"):
+                _analysis(store)
+
     def test_captured_sec_documents_preserve_sale_plan_and_non_trade_codes(self):
         evidence = Path(__file__).resolve().parents[1] / "evidence"
         for label, accession, filed, owner, code, count, plan in (

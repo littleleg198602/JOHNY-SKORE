@@ -1,0 +1,11 @@
+test_actual_cadillac_escalade_iql_2026_original (__main__.ActualCaptureReplayTests.test_actual_cadillac_escalade_iql_2026_original) ... ok
+test_actual_chevrolet_brightdrop_400_is_partial (__main__.ActualCaptureReplayTests.test_actual_chevrolet_brightdrop_400_is_partial) ... ok
+test_actual_chevrolet_suburban_hd_400_is_partial (__main__.ActualCaptureReplayTests.test_actual_chevrolet_suburban_hd_400_is_partial) ... ok
+test_actual_ford_mustang_gtd_2026_original (__main__.ActualCaptureReplayTests.test_actual_ford_mustang_gtd_2026_original) ... ok
+test_one_shared_reservation_per_actual_request_and_unchanged_history (__main__.ActualCaptureReplayTests.test_one_shared_reservation_per_actual_request_and_unchanged_history) ... ok
+test_physical_known_at_cutoff_excludes_all_four_new_reviews (__main__.ActualCaptureReplayTests.test_physical_known_at_cutoff_excludes_all_four_new_reviews) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.011s
+
+OK

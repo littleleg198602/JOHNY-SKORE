@@ -1,0 +1,21 @@
+{
+  "capture_key": "trial_summit_complete_record",
+  "request_url": "https://clinicaltrials.gov/api/v2/studies/NCT04847557",
+  "response_url": "https://clinicaltrials.gov/api/v2/studies/NCT04847557",
+  "requested_at": "2026-10-13T08:54:54.072852+00:00",
+  "observed_at": "2026-10-13T08:55:01.441775+00:00",
+  "http_status": 200,
+  "response_headers": {
+    "date": "Tue, 13 Oct 2026 08:55:01 GMT",
+    "content-type": "application/json",
+    "etag": "\"0/0.34.1/mv0qip6w\""
+  },
+  "body_path": "trial_summit_complete_record.body.json",
+  "storage_encoding": "identity",
+  "body_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+  "body_bytes": 125361,
+  "archive_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+  "archived_bytes": 125361,
+  "byte_budget": 4000000,
+  "body_complete_within_byte_budget": true
+}

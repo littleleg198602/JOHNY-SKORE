@@ -1,0 +1,15 @@
+{
+  "commit": "2ca2d7e77ccd411c633763331acf8aef03ed1d9a",
+  "pins": {
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "archived_as": "original/sec_person_kind_review.py",
+      "bytes": 20125,
+      "sha256": "fc1057e9026a1fb281fe40963e42644fd3231a4aa591008c1a958c8489bb2c5c"
+    },
+    "tests/test_batch7_person_kind.py": {
+      "archived_as": "original/test_batch7_person_kind.py",
+      "bytes": 24107,
+      "sha256": "9c452a225912babd85eee02d0c0ecc4af5a1fdc58edc79dc42a568d0e6726163"
+    }
+  }
+}

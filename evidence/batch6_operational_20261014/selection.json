@@ -1,0 +1,36 @@
+{
+  "individual_issuer_quantity_attribution_requested": false,
+  "kind": "original_sec_operational_count_selection",
+  "new_source_http_attempts": 0,
+  "schema_version": 1,
+  "selection": {
+    "fiscal_period_end": "2025-12-31",
+    "issuer_cik": "0001751788",
+    "issuer_context_id": "c-2",
+    "issuer_name": "Dow Inc.",
+    "metric_kind": "MANUFACTURING_SITE_COUNT",
+    "metric_passage": {
+      "byte_end": 1001882,
+      "byte_start": 1001798,
+      "sha256": "4ca862ccb0b37c5596d359e3cd4ec6aee6918ca6ef546f020ed7e359ef7ba9c2"
+    },
+    "scope_kind": "COMBINED_REPORT_GROUP",
+    "scope_passage": {
+      "byte_end": 732509,
+      "byte_start": 731632,
+      "sha256": "ce530f0cf3b9e18ced1d331a000b9fb60386fdc22128b5ad73edc4313477d38e"
+    },
+    "unit_literal": "manufacturing sites",
+    "value_literal": "91"
+  },
+  "source_body": {
+    "bytes": 5279652,
+    "repository_relative_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+    "sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122"
+  },
+  "source_body_copied": false,
+  "source_metadata": {
+    "repository_relative_path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.metadata.json",
+    "sha256": "22b893218915dbf851067754cbd2b1b7c3c731114bcfd3e0aab80886485586ed"
+  }
+}

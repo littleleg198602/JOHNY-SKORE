@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-16T00:23:33.353828+00:00",
+  "kind": "BOUNDED_READ_ONLY_PEER_DIAGNOSTICS",
+  "checks": {
+    "old_exact_producer_false_ready_reproduced": true,
+    "owner_final_fix_rejects_identical_compound_trigger": true,
+    "valid_synthetic_control_still_ready": true,
+    "actual_six_source_symbol_replay_remains_partial_0_adopt_0_Q3": true,
+    "actual_SEC_account_facts_do_not_become_natural_person_or_instrument_identity": true,
+    "five_synthetic_SEC_scope_conflicts_rejected_or_unavailable": true,
+    "past_SEC_knowledge_cutoff_unavailable": true,
+    "nine_available_original_bodies_pinned": true,
+    "missing_packet_body_hash_and_size_remain_null": true,
+    "reviewer_and_fixture_hashes_match_exact_producers": true,
+    "four_peer_scripts_parse": true,
+    "all_preexisting_tracked_files_unchanged": true,
+    "28_prior_original_registry_universe_pins_unchanged": true
+  },
+  "diagnostic_commands_completed": 5,
+  "diagnostic_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "peer_unit_tests_run": 0,
+  "owner_reports_focused_tests": 38,
+  "owner_suite_rerun_by_peer": false,
+  "full_baseline_suite_repeated": false,
+  "live_source_requests": 0,
+  "DB_calls": 0,
+  "registry_adoptions": 0,
+  "synthetic_cases_are_LIVE_evidence": false,
+  "historical_or_Windows_or_OOS_acceptance_claimed": false
+}

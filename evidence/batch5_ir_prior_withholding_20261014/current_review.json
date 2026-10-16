@@ -1,0 +1,360 @@
+{
+  "actual_http_requests": 5,
+  "actual_partial_control": {
+    "capture_path": "primary/ir_authority.html",
+    "control_semantics": "The historical HTTP200 IR portal control body is now entirely withheld. Current replay rejects missing required bodies before parsing; it cannot reproduce the original page-content control or prove a negative issuer search.",
+    "review": {
+      "captures": {
+        "authority": {
+          "body_available": false,
+          "capture_origin": "PINNED_CAPTURE_REPLAY",
+          "capture_retention": "WITHHELD_SENSITIVE_BODY",
+          "content_type": "text/html; charset=utf-8",
+          "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+          "http_status": 200,
+          "last_modified": null,
+          "observed_at": "2026-10-13T13:11:18.872702+00:00",
+          "requested_url": "https://www.microsoft.com/en-us/investor/default",
+          "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+          "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+          "size_bytes": 286802,
+          "unavailability_observed_at": "2026-10-14T10:18:09.468425+00:00"
+        },
+        "feed": {
+          "capture_origin": "PINNED_CAPTURE_REPLAY",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "http_date": "Tue, 13 Oct 2026 13:11:29 GMT",
+          "http_status": 200,
+          "last_modified": "Mon, 12 Oct 2026 18:01:00 GMT",
+          "observed_at": "2026-10-13T13:11:29.327804+00:00",
+          "requested_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+          "size_bytes": 126731
+        },
+        "primary": {
+          "body_available": false,
+          "capture_origin": "PINNED_CAPTURE_REPLAY",
+          "capture_retention": "WITHHELD_SENSITIVE_BODY",
+          "content_type": "text/html; charset=utf-8",
+          "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+          "http_status": 200,
+          "last_modified": null,
+          "observed_at": "2026-10-13T13:11:18.872702+00:00",
+          "requested_url": "https://www.microsoft.com/en-us/investor/default",
+          "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+          "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+          "size_bytes": 286802,
+          "unavailability_observed_at": "2026-10-14T10:18:09.468425+00:00"
+        }
+      },
+      "claim_truth_independently_verified": false,
+      "feed_scope": {
+        "all_publisher_history_complete": false,
+        "entries_examined": 0,
+        "max_entries": 30
+      },
+      "issuer_as_named_mentions": [],
+      "issuer_attribution_allowed": false,
+      "issuer_identity_status": "TICKER_HINT_ONLY",
+      "issuer_identity_verified": false,
+      "lead": {
+        "feed_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+        "observed_at": "2026-10-13T13:11:29.327804+00:00",
+        "original_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+        "published_at": "2026-09-15T22:06:42+00:00",
+        "title": "Microsoft announces quarterly dividend increase"
+      },
+      "missing_required_captures": [
+        {
+          "reason": "WITHHELD_SENSITIVE_BODY",
+          "role": "primary"
+        },
+        {
+          "reason": "WITHHELD_SENSITIVE_BODY",
+          "role": "authority"
+        }
+      ],
+      "network_requests_performed": 0,
+      "publication_clocks": {
+        "exact_first_dissemination_verified": false,
+        "http_dates_are_not_publication_clocks": true,
+        "primary_raw": [],
+        "rss_raw": []
+      },
+      "publisher_hosts_policy": [
+        "news.microsoft.com",
+        "www.microsoft.com"
+      ],
+      "publisher_ir_link": {
+        "authority_cites_exact_requested_alias": false,
+        "authority_cites_requested_or_resolved_page": false,
+        "authority_url": "https://www.microsoft.com/en-us/investor/default",
+        "primary_cites_ir_portal": []
+      },
+      "quota_or_lease_modified": false,
+      "quoted_claim": {
+        "claim_truth_independently_verified": false,
+        "locator": null,
+        "quote": "",
+        "quote_matches_primary_article": false,
+        "source_sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+        "source_url": "https://www.microsoft.com/en-us/investor/default"
+      },
+      "reasons": [
+        "PRIMARY_CAPTURE_WITHHELD_SENSITIVE_BODY",
+        "AUTHORITY_CAPTURE_WITHHELD_SENSITIVE_BODY"
+      ],
+      "requested_ticker": "MSFT",
+      "review_version": "ir-primary-captured-source-v1",
+      "reviewed_at": "2026-10-14T10:18:09.468425+00:00",
+      "scoring_applied": false,
+      "source_available_at": "2026-10-14T10:18:09.468425+00:00",
+      "source_verification_status": "PARTIAL",
+      "source_verified": false,
+      "verification_mode": "READ_ONLY_CAPTURE_REVIEW"
+    }
+  },
+  "completion_verified": false,
+  "current_partial_source_only_cases": [
+    {
+      "capture_path": "primary/announcement.html",
+      "review": {
+        "captures": {
+          "authority": {
+            "body_available": false,
+            "capture_origin": "PINNED_CAPTURE_REPLAY",
+            "capture_retention": "WITHHELD_SENSITIVE_BODY",
+            "content_type": "text/html; charset=utf-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+            "http_status": 200,
+            "last_modified": null,
+            "observed_at": "2026-10-13T13:11:18.872702+00:00",
+            "requested_url": "https://www.microsoft.com/en-us/investor/default",
+            "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+            "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+            "size_bytes": 286802,
+            "unavailability_observed_at": "2026-10-14T10:18:09.468425+00:00"
+          },
+          "feed": {
+            "capture_origin": "PINNED_CAPTURE_REPLAY",
+            "content_type": "application/rss+xml; charset=UTF-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:29 GMT",
+            "http_status": 200,
+            "last_modified": "Mon, 12 Oct 2026 18:01:00 GMT",
+            "observed_at": "2026-10-13T13:11:29.327804+00:00",
+            "requested_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+            "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+            "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+            "size_bytes": 126731
+          },
+          "primary": {
+            "capture_origin": "PINNED_CAPTURE_REPLAY",
+            "content_type": "text/html; charset=UTF-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:41 GMT",
+            "http_status": 200,
+            "last_modified": "Wed, 07 Oct 2026 13:17:44 GMT",
+            "observed_at": "2026-10-13T13:11:41.261743+00:00",
+            "requested_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+            "resolved_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+            "sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+            "size_bytes": 136764
+          }
+        },
+        "claim_truth_independently_verified": false,
+        "feed_scope": {
+          "all_publisher_history_complete": false,
+          "entries_examined": 0,
+          "max_entries": 30
+        },
+        "issuer_as_named_mentions": [],
+        "issuer_attribution_allowed": false,
+        "issuer_identity_status": "TICKER_HINT_ONLY",
+        "issuer_identity_verified": false,
+        "lead": {
+          "feed_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "observed_at": "2026-10-13T13:11:29.327804+00:00",
+          "original_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+          "published_at": "2026-10-07T20:17:43+00:00",
+          "title": "Microsoft announces quarterly earnings release date"
+        },
+        "missing_required_captures": [
+          {
+            "reason": "WITHHELD_SENSITIVE_BODY",
+            "role": "authority"
+          }
+        ],
+        "network_requests_performed": 0,
+        "publication_clocks": {
+          "exact_first_dissemination_verified": false,
+          "http_dates_are_not_publication_clocks": true,
+          "primary_raw": [],
+          "rss_raw": []
+        },
+        "publisher_hosts_policy": [
+          "news.microsoft.com",
+          "www.microsoft.com"
+        ],
+        "publisher_ir_link": {
+          "authority_cites_exact_requested_alias": false,
+          "authority_cites_requested_or_resolved_page": false,
+          "authority_url": "https://www.microsoft.com/en-us/investor/default",
+          "primary_cites_ir_portal": []
+        },
+        "quota_or_lease_modified": false,
+        "quoted_claim": {
+          "claim_truth_independently_verified": false,
+          "locator": null,
+          "quote": "",
+          "quote_matches_primary_article": false,
+          "source_sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+          "source_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/"
+        },
+        "reasons": [
+          "AUTHORITY_CAPTURE_WITHHELD_SENSITIVE_BODY"
+        ],
+        "requested_ticker": "MSFT",
+        "review_version": "ir-primary-captured-source-v1",
+        "reviewed_at": "2026-10-14T10:18:09.468425+00:00",
+        "scoring_applied": false,
+        "source_available_at": "2026-10-14T10:18:09.468425+00:00",
+        "source_verification_status": "PARTIAL",
+        "source_verified": false,
+        "verification_mode": "READ_ONLY_CAPTURE_REVIEW"
+      }
+    },
+    {
+      "capture_path": "primary/ir_linked_announcement.html",
+      "review": {
+        "captures": {
+          "authority": {
+            "body_available": false,
+            "capture_origin": "PINNED_CAPTURE_REPLAY",
+            "capture_retention": "WITHHELD_SENSITIVE_BODY",
+            "content_type": "text/html; charset=utf-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+            "http_status": 200,
+            "last_modified": null,
+            "observed_at": "2026-10-13T13:11:18.872702+00:00",
+            "requested_url": "https://www.microsoft.com/en-us/investor/default",
+            "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+            "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+            "size_bytes": 286802,
+            "unavailability_observed_at": "2026-10-14T10:18:09.468425+00:00"
+          },
+          "feed": {
+            "capture_origin": "PINNED_CAPTURE_REPLAY",
+            "content_type": "application/rss+xml; charset=UTF-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:29 GMT",
+            "http_status": 200,
+            "last_modified": "Mon, 12 Oct 2026 18:01:00 GMT",
+            "observed_at": "2026-10-13T13:11:29.327804+00:00",
+            "requested_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+            "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+            "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+            "size_bytes": 126731
+          },
+          "primary": {
+            "capture_origin": "PINNED_CAPTURE_REPLAY",
+            "content_type": "text/html; charset=UTF-8",
+            "http_date": "Tue, 13 Oct 2026 13:16:41 GMT",
+            "http_status": 200,
+            "last_modified": "Tue, 15 Sep 2026 15:06:44 GMT",
+            "observed_at": "2026-10-13T13:16:41.328571+00:00",
+            "requested_url": "https://aka.ms/AA13ep0o",
+            "resolved_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+            "sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+            "size_bytes": 138075
+          }
+        },
+        "claim_truth_independently_verified": false,
+        "feed_scope": {
+          "all_publisher_history_complete": false,
+          "entries_examined": 0,
+          "max_entries": 30
+        },
+        "issuer_as_named_mentions": [],
+        "issuer_attribution_allowed": false,
+        "issuer_identity_status": "TICKER_HINT_ONLY",
+        "issuer_identity_verified": false,
+        "lead": {
+          "feed_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "observed_at": "2026-10-13T13:11:29.327804+00:00",
+          "original_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+          "published_at": "2026-09-15T22:06:42+00:00",
+          "title": "Microsoft announces quarterly dividend increase"
+        },
+        "missing_required_captures": [
+          {
+            "reason": "WITHHELD_SENSITIVE_BODY",
+            "role": "authority"
+          }
+        ],
+        "network_requests_performed": 0,
+        "publication_clocks": {
+          "exact_first_dissemination_verified": false,
+          "http_dates_are_not_publication_clocks": true,
+          "primary_raw": [],
+          "rss_raw": []
+        },
+        "publisher_hosts_policy": [
+          "news.microsoft.com",
+          "www.microsoft.com"
+        ],
+        "publisher_ir_link": {
+          "authority_cites_exact_requested_alias": false,
+          "authority_cites_requested_or_resolved_page": false,
+          "authority_url": "https://www.microsoft.com/en-us/investor/default",
+          "primary_cites_ir_portal": []
+        },
+        "quota_or_lease_modified": false,
+        "quoted_claim": {
+          "claim_truth_independently_verified": false,
+          "locator": null,
+          "quote": "",
+          "quote_matches_primary_article": false,
+          "source_sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+          "source_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/"
+        },
+        "reasons": [
+          "AUTHORITY_CAPTURE_WITHHELD_SENSITIVE_BODY"
+        ],
+        "requested_ticker": "MSFT",
+        "review_version": "ir-primary-captured-source-v1",
+        "reviewed_at": "2026-10-14T10:18:09.468425+00:00",
+        "scoring_applied": false,
+        "source_available_at": "2026-10-14T10:18:09.468425+00:00",
+        "source_verification_status": "PARTIAL",
+        "source_verified": false,
+        "verification_mode": "READ_ONLY_CAPTURE_REVIEW"
+      }
+    }
+  ],
+  "current_report_available_at": "2026-10-14T10:18:09.468425+00:00",
+  "historical_positive_reports_are_current_acceptance": false,
+  "http_requests_in_current_replay": 0,
+  "issuer_attribution_allowed": false,
+  "issuer_identity_verified": false,
+  "limits": [
+    "The old source_review.json remains immutable historical source-version evidence; its two positives are not current acceptance",
+    "A required portal body is entirely withheld; original hash/clocks are metadata and cannot replace content verification",
+    "SOURCE_VERIFIED concerns captured publisher content, not claim truth or issuer attribution",
+    "database RSS findings remain UNVERIFIED; original leads persist unchanged",
+    "reported publication clocks do not prove exact first dissemination; capture clocks remain October",
+    "earnings release date is a prospective announcement, not already released financial results",
+    "publisher ticker/brand mentions do not establish an independent dated legal identity",
+    "one-off bounded captures do not consume/reset app provider quotas or prove runtime LIVE integration",
+    "today's archived replay is not historical/OOS availability or Windows end-to-end evidence"
+  ],
+  "network_or_quota_in_runtime_verifier": false,
+  "next_task": "An IR portal whose entire original body can pass the disclosure gate, plus independently dated issuer/instrument evidence.",
+  "positive_source_only_cases": [],
+  "raw_http_200_captures": 4,
+  "readable_original_captures": 3,
+  "result": "PRIMARY_IR_REQUIRED_BODY_WITHHELD",
+  "rss_feed_capture_scope": "first 30 entries, actual feed contains 10; no all-publisher coverage claim",
+  "schema_version": 2,
+  "scoring_applied": false,
+  "windows_end_to_end_verified": false,
+  "withheld_required_captures": 1
+}

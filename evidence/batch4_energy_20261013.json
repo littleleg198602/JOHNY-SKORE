@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "kind": "HISTORICAL_SEC_OPERATIONAL_COMMODITY_EXPOSURE_PROVENANCE",
+  "baseline_commit": "df2f9c64111e458c9f1cb92e93b420359eaecc14",
+  "recorded_at": "2026-10-13T13:18:07.363447+00:00",
+  "code_changes": [
+    "Bounded first-person crude-oil/natural-gas operational outputs require exact SEC accession; prospective/negated/other-entity language is excluded.",
+    "Input-cost/company relation must be within180 characters of the resource; macro-only and distant risk/list context cannot create company exposure. Resource terms after an output verb are not input terms.",
+    "CommodityEnergyAgent validates unchanged SEC issuer path, ticker context, matching captured content/filing metadata, and locally rejects conflicts without losing other completed observations.",
+    "Matching exact primary SEC acceptance clock can refine date-only filingDate; precise clock conflicts, naive/future acceptance and wrong CIK/accession/report period/reference are rejected.",
+    "Filing/statement/source-observation/exposure-knowledge clocks and historical CIK/accession propagate through exposures/reference documents; current legal/instrument attribution remains unset.",
+    "Legacy generic SEC Archives scout questions preserve unverified candidate semantics and cannot create a new precise-accession output or acceptance proof."
+  ],
+  "actual_capture_summary": {
+    "index_path": "evidence/batch4_energy_20261013/capture_index.json",
+    "requests_budget": 3,
+    "actual_requests": 3,
+    "http200": 3,
+    "max_response_bytes_each": 8000000,
+    "raw_response_bytes_total": 5774332
+  },
+  "primary_filing": {
+    "cik": "0000034088",
+    "historical_ticker": "XOM",
+    "accession": "0000034088-26-000045",
+    "form": "10-K",
+    "report_period_end": "2025-12-31",
+    "filing_date": "2026-02-18",
+    "accepted_at": "2026-02-18T21:06:52Z",
+    "acceptance_index_eastern": "2026-02-18 16:06:52 America/New_York",
+    "clock_crosscheck": "Independent raw filing-index HTML and old-CIK submissions JSON agree.",
+    "known_in_application_from": "Actual2026-10-13 capture/replay only; not backdated to SEC filing date.",
+    "source_urls": [
+      "https://www.sec.gov/Archives/edgar/data/34088/000003408826000045/xom-20251231.htm",
+      "https://www.sec.gov/Archives/edgar/data/34088/000003408826000045/0000034088-26-000045-index.htm",
+      "https://data.sec.gov/submissions/CIK0000034088.json"
+    ]
+  },
+  "operational_replay": {
+    "path": "evidence/batch4_energy_20261013/replay.json",
+    "driver_path": "evidence/batch4_energy_20261013/replay_captures.py",
+    "network_requests": 0,
+    "production_short_report_extractor": true,
+    "production_discovery_service": true,
+    "production_commodity_agent": true,
+    "exact_operational_output_facts": 2,
+    "resource_names": [
+      "Crude oil",
+      "Natural gas"
+    ],
+    "input_facts_from_macro_or_remote_risk_context": 0,
+    "prices_attached": false,
+    "scoring_applied": false,
+    "current_q3_instrument_adopted": false,
+    "asset_ownership_inferred": false
+  },
+  "validation": {
+    "command": "python -m unittest tests.test_batch4_energy_filing_provenance tests.test_filing_exposure_discovery_service tests.test_company_network_stage3 tests.test_resource_margin_scenario_service tests.test_sec_document_scout tests.test_runtime_integration.RuntimeIntegrationTests.test_pipeline_runs_stage3_network_agents_without_rescoring tests.test_runtime_integration.RuntimeIntegrationTests.test_pipeline_persists_stage2_sec_ingestion_without_rescoring -v",
+    "tests_discovered": 44,
+    "tests_executed": 44,
+    "new_regressions": 10,
+    "errors": 0,
+    "failures": 0,
+    "skips": 0,
+    "test_log_path": "evidence/batch4_energy_20261013/tests.log",
+    "test_log_sha256": "f9e9350e4b10d435d0ca99f1f4323b23adefbe52bb25a0491886696a6db02055",
+    "py_compile": "PASS",
+    "diff_check": "PASS",
+    "environment": "Local Linux; offline captured/synthetic checks. No Windows end-user acceptance."
+  },
+  "canonical_universe": {
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "count": 687,
+    "sha256_unchanged": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+  },
+  "production_registry_modified": false,
+  "integration_points": [
+    "CommodityEnergyAgent indexes exact prefetched filing DocumentRecords from context.state.agent_results when present. Existing SEC producer wiring supplies those documents without app/pipeline changes.",
+    "Exact acceptance metadata is optional on matched SEC DocumentRecord (acceptanceDateTime/accepted_at plus exact primary source URL); absence remains explicitly unverified, never fabricated.",
+    "ResourceMarginScenarioService already refuses its cost formula for COMMODITY_OUTPUT; no scoring/scenario formula changed."
+  ],
+  "limits": [
+    "Only historical issuer CIK34088; current XOM successor/Q3 instrument resolution remains separate and unresolved here.",
+    "Two quoted operating disclosures are not issuer-wide legal asset ownership, quantity or revenue-share verification.",
+    "Macro series prices are not company-exposure evidence and are not joined.",
+    "Today's observation does not create earlier point-in-time source history; source availability at earlier cutoffs remains false.",
+    "No relevant full coverage denominator, historical OOS proof, Windows end-user run or DONE promotion.",
+    "Existing manual what-if input scenarios remain observational; no forecast/scoring/trading changes."
+  ]
+}

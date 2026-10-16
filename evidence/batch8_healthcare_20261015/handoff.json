@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-15T18:18:41.479000+00:00",
+  "workstream": "healthcare",
+  "deliverable": "Pure original structured FDA application-to-product/applicant archive adapter with earlier independent exact issuer snapshot guard",
+  "base_commit": "e252ec62796b0b02e733c55ebef713e0f29d4b44",
+  "base_tree": "16823e616e074f04ea15db52c8a40f97db6446ff",
+  "branch": "batch8/healthcare-20261015",
+  "local_commit_only": true,
+  "remote_written": false,
+  "integration_api": {
+    "module": "market_checker_app.services.fda_structured_product_archive",
+    "function": "review_fda_structured_product_archive(*, selection: FdaStructuredProductSelection, structured_capture: FdaProductArchiveCapture | None, issuer_capture: FdaProductArchiveCapture | None, reviewed_at: aware datetime) -> dict",
+    "selection_fields": {
+      "application_type": "exact NDA/BLA",
+      "application_number": "six numeric characters preserving zeros",
+      "sponsor_name": "exact structured applicant/sponsor name",
+      "issuer_ticker": "canonical selected ticker",
+      "issuer_cik": "ten numeric characters",
+      "product_number": "optional three numeric characters; required for candidate",
+      "dosage_form": "optional exact structured form; required for candidate",
+      "active_ingredients": "JSON list of [name,strength] pairs frozen to tuples; all exact pairs required for candidate",
+      "source_version": "optional canonical meta.last_updated YYYY-MM-DD; required for candidate"
+    },
+    "capture_fields": [
+      "metadata: Mapping",
+      "body: original response bytes | None"
+    ],
+    "capture_required_metadata": [
+      "capture_form=ORIGINAL_HTTP_RESPONSE OR acquisition_method=urllib.request raw HTTP body",
+      "integer http_status=200",
+      "body_complete_within_byte_budget=true",
+      "body_sha256",
+      "body_bytes",
+      "byte_budget<=4000000",
+      "request_url=response_url",
+      "aware requested_at",
+      "aware observed_at",
+      "optional aware known_at>=observed_at"
+    ],
+    "structured_query": "https://api.fda.gov/drug/drugsfda.json?search=application_number:\"{NDA|BLA}{6digits}\"&limit=1..100&skip=0, properly URL encoded",
+    "issuer_source": "https://data.sec.gov/submissions/CIK{10digits}.json; exact CIK/ticker/name, same UTC day, original known_at strictly before FDA requested_at",
+    "caps": {
+      "body_bytes": 4000000,
+      "metadata_bytes": 64000,
+      "JSON_container_depth": 64,
+      "query_limit": 100,
+      "products_per_application": 1000,
+      "ingredients_per_product": 50,
+      "text_characters": 500
+    },
+    "output_fields": [
+      "status",
+      "data_status",
+      "reasons",
+      "structured_rows",
+      "source_version",
+      "source_captures",
+      "applicant_product_candidate",
+      "exact_applicant_issuer_bridge_supported",
+      "ingested_at",
+      "known_at"
+    ],
+    "candidate_scope": "APPLICATION_SPONSOR_APPLICANT OBSERVED_SNAPSHOT only; owner/parent/attribution/adoption/historical prediction false",
+    "side_effects": "No HTTP, filesystem/database/registry/quota access or mutation"
+  },
+  "actual_runtime_plan": {
+    "path": "evidence/batch8_healthcare_20261015/retained_pfe_review_plan.json",
+    "sha256": "2988491204633cbede17295308f6cc7469e891df6bfeb1c471f58c8639c70ab0",
+    "kind": "FDA_STRUCTURED_PRODUCT",
+    "request": {
+      "selection": {
+        "application_type": "BLA",
+        "application_number": "761081",
+        "sponsor_name": "Pfizer Inc.",
+        "issuer_ticker": "PFE",
+        "issuer_cik": "0000078003",
+        "product_number": null,
+        "dosage_form": null,
+        "active_ingredients": [],
+        "source_version": null
+      }
+    },
+    "capture_keys": [
+      "structured",
+      "issuer"
+    ],
+    "structured_body_available": false,
+    "structured_body_ref": null,
+    "as_of_omitted_for_physical_runtime_clock": true
+  },
+  "actual_diagnostic_plan": {
+    "path": "evidence/batch8_healthcare_20261015/retained_crl_diagnostic_plan.json",
+    "sha256": "64dd13e83b1bd3d11d7a9092f0a272dd0fce1bb2812709831aa493e4ff6f3a77",
+    "expected_reason": "RETAINED_SOURCE_IS_NOT_STRUCTURED_DRUGSFDA_DATASET",
+    "original_crl_url_and_bytes_not_relabelled": true
+  },
+  "actual_result": {
+    "status": "PARTIAL",
+    "data_status": "WAIT_DATA",
+    "original_captures_checked": 9,
+    "original_crl_bodies": 3,
+    "original_crl_events": 5,
+    "distinct_applications": 4,
+    "structured_originals": 0,
+    "structured_products": 0,
+    "candidate_records": 0,
+    "registry_adoptions": 0,
+    "verified_instruments_added": 0,
+    "measured_current_structured_coverage": {
+      "covered_issuers": 0,
+      "selected_issuers": 3,
+      "canonical_universe": 687,
+      "canonical_universe_scan_claimed": false
+    },
+    "report_path": "evidence/batch8_healthcare_20261015/source_review.json",
+    "sha256": "0b499c50f3aee870533c67462a86ab4440bd43ae3c69ca09a8cd39437143a9a5",
+    "actual_ingested_at": "2026-10-15T18:14:36.697645+00:00",
+    "live_acceptance": false,
+    "full_specialist_acceptance": "0/21"
+  },
+  "validation": {
+    "tests_run": 35,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 0.141,
+    "path": "evidence/batch8_healthcare_20261015/validation.json",
+    "log_sha256": "b5519b3b30402e6318cdb3bb0c35fece4b373f7e2b6ae1b04ec5ffd547571a3e",
+    "positive_cases_synthetic_only": true,
+    "full_baseline_repeated": false
+  },
+  "source_activity": {
+    "new_source_data_capture_requests": 0,
+    "FDA_CMS_Clinical_collector_requests": 0,
+    "new_source_captures": 0,
+    "quota_database_opened": false,
+    "original_history_reconstructed_or_reset": false,
+    "known_withheld_bodies_read_or_restored": 0,
+    "whole_original_bodies_rewritten": false,
+    "format_documentation_lookup_only": true,
+    "format_references": [
+      "https://open.fda.gov/apis/drug/drugsfda/",
+      "https://open.fda.gov/apis/drug/drugsfda/searchable-fields/",
+      "https://open.fda.gov/fields/drugsfda_reference.pdf"
+    ],
+    "format_examples_are_source_evidence": false
+  },
+  "blockers": [
+    "Original FDA DrugsFDA structured application/product rows are absent; CRL text is a different dataset",
+    "No exact product number, dosage form or full active ingredient/strength selection may be inferred from CRL mentions",
+    "Issuer periodic filings and Exhibit21 are not direct same-day earlier SEC submissions sponsor-name snapshots",
+    "Original durable collector history is unproven; no new FDA/CMS/Clinical request or reconstructed quota store",
+    "Applicant/sponsor role never establishes legal product owner, parent, IP or historical interval"
+  ],
+  "registries_and_canonical_unchanged": true,
+  "score_model_trading_changes": false,
+  "windows_or_OOS_claim": false,
+  "owned_file_pins_excluding_self": [
+    {
+      "path": "market_checker_app/services/fda_structured_product_archive.py",
+      "sha256": "0ffea68ef94f9af481bb4763e09cb43548996c951ca3cc1c1eee04f4588518ec",
+      "bytes": 21970
+    },
+    {
+      "path": "tests/test_batch8_fda_structured_products.py",
+      "sha256": "91757273e4745d28834c10bcbb76beeaeea21080544cb29fe122ac8679b156ec",
+      "bytes": 27359
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/README.md",
+      "sha256": "a516473aca391956a069115a085cb73bd336556c0f287848183a713417a05a6d",
+      "bytes": 6024
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/development_diagnostics.json",
+      "sha256": "21dbd338eba62e4b8d5ac01cce9f8565b652e71453f33528c67743125d1e1b5c",
+      "bytes": 1161
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/focused_tests.log",
+      "sha256": "b5519b3b30402e6318cdb3bb0c35fece4b373f7e2b6ae1b04ec5ffd547571a3e",
+      "bytes": 7525
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/identity_proposal.json",
+      "sha256": "56f14686f04de858da0bad3216235db2efe569f2a89d5339a3e74ac37e87271e",
+      "bytes": 457
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/initial_failed_tests.log",
+      "sha256": "7e91860d700020a6f8950177dc9ee79d678b0258d2a513d1026fd59f4475cf3b",
+      "bytes": 8058
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/replay_originals.py",
+      "sha256": "02208504ff870896cff866d9a72523c346ddbf4b4998b217e511f1cbef9de4e4",
+      "bytes": 11786
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/retained_crl_diagnostic_plan.json",
+      "sha256": "64dd13e83b1bd3d11d7a9092f0a272dd0fce1bb2812709831aa493e4ff6f3a77",
+      "bytes": 5124
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/retained_pfe_review_plan.json",
+      "sha256": "2988491204633cbede17295308f6cc7469e891df6bfeb1c471f58c8639c70ab0",
+      "bytes": 3126
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/source_review.json",
+      "sha256": "0b499c50f3aee870533c67462a86ab4440bd43ae3c69ca09a8cd39437143a9a5",
+      "bytes": 21806
+    },
+    {
+      "path": "evidence/batch8_healthcare_20261015/validation.json",
+      "sha256": "06a179f48542ee5eb51bc91e42c1d64d68374f0d6999289212a9399a3f0376b3",
+      "bytes": 7809
+    }
+  ]
+}

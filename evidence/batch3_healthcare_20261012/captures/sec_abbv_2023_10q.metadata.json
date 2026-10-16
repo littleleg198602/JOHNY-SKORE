@@ -1,0 +1,43 @@
+{
+  "acquisition_method": "urllib.request raw HTTP body",
+  "request_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115223000023/abbv-20230331.htm",
+  "response_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115223000023/abbv-20230331.htm",
+  "requested_at": "2026-10-12T14:45:27.063531+00:00",
+  "observed_at": "2026-10-12T14:45:37.566667+00:00",
+  "http_status": 200,
+  "request_headers": {
+    "Accept": "text/html",
+    "User-Agent": "JohnySkorePrimaryEvidence/1.0"
+  },
+  "response_headers": {
+    "Content-Type": "text/html",
+    "X-Frame-Options": "SAMEORIGIN",
+    "x-amz-id-2": "8KJfs6PLbHjBEJgklvQRyYfv/2vFLjbE/tCIC0rXZ/LcloVH+8tSmZf2NdFwIOPkUmNITbhB0Pc=",
+    "x-amz-request-id": "68MM6GP98QPSHMZZ",
+    "x-amz-replication-status": "COMPLETED",
+    "Last-Modified": "Fri, 05 May 2023 16:58:42 GMT",
+    "x-amz-server-side-encryption": "AES256",
+    "x-amz-meta-mode": "33188",
+    "x-amz-version-id": "6gFCLeGIdHjawboXTVdJwSfSRUBgttbh",
+    "X-Content-Type-Options": "nosniff",
+    "X-XSS-Protection": "1; mode=block",
+    "X-Akamai-Transformed": "0 - 0 -",
+    "Vary": "Accept-Encoding",
+    "Date": "Mon, 12 Oct 2026 14:45:37 GMT",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Strict-Transport-Security": "max-age=31536000 ; includeSubDomains ; preload"
+  },
+  "byte_budget": 4000000,
+  "body_bytes": 2087608,
+  "body_sha256": "b3c31869e3a7cd57650e96b7df35f8e19c582daa3d500672c0d93392613d4ce2",
+  "body_complete_within_byte_budget": true,
+  "error": null,
+  "body_path": "sec_abbv_2023_10q.body.html.gz",
+  "storage_encoding": "gzip",
+  "archived_bytes": 149679,
+  "archive_sha256": "c4b1d29a2d3d3de4cb012069532b489f9957ec430a0f0adb27ce0455aac2396f",
+  "response_headers_omitted": [
+    "Set-Cookie"
+  ]
+}

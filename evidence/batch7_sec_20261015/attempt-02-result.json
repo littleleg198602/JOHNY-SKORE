@@ -1,0 +1,21 @@
+{
+  "application_daily_quota_claim": false,
+  "content_type": "text/html",
+  "daily_history_reset_or_reconstructed": false,
+  "http_date": "Wed, 14 Oct 2026 23:27:25 GMT",
+  "http_status": 200,
+  "last_modified": "Tue, 21 Oct 2025 20:16:54 GMT",
+  "maximum_original_body_bytes": 4000000,
+  "observed_at": "2026-10-14T23:27:25.325473+00:00",
+  "original_retained_sec_lease_used": true,
+  "path": "primary/msft_2025_proxy.htm",
+  "pre_request_cap_justification": null,
+  "redirects_or_retries_allowed": false,
+  "reserved_at": "2026-10-14T23:27:20.327804+00:00",
+  "retention": "ORIGINAL_BYTES",
+  "sequence": 2,
+  "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+  "size_bytes": 2430522,
+  "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm",
+  "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+}

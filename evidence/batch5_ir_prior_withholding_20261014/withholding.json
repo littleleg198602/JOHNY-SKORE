@@ -1,0 +1,64 @@
+{
+  "audit_completed_at": "2026-10-14T10:18:09.468425+00:00",
+  "gate": "_has_sensitive_body / ir-primary-shared-ledger-v1",
+  "historical_positive_reports_are_current_acceptance": false,
+  "history_rewritten": false,
+  "http_requests": 0,
+  "immutable_historical_documents": {
+    "evidence/batch4_ir_20261013/captures.json": {
+      "sha256": "071dc504e379da3375ef0ef47430f6dd46cc169e0068dd3ffeef8fd7ed86a8c2",
+      "size_bytes": 4189
+    },
+    "evidence/batch4_ir_20261013/handoff.json": {
+      "sha256": "eed2ce85170cc43bfe44652a0f2fb81686509dec9cf5506d4f06007fd277c9b3",
+      "size_bytes": 4480
+    },
+    "evidence/batch4_ir_20261013/source_review.json": {
+      "sha256": "9cad341d5f63339f3f5e2509a50e989238cabb58bb43a83861b2f75beff586a7",
+      "size_bytes": 19573
+    }
+  },
+  "issuer_attribution_allowed": false,
+  "safe_originals": {
+    "evidence/batch4_ir_20261013/primary/announcement.html": {
+      "sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+      "size_bytes": 136764
+    },
+    "evidence/batch4_ir_20261013/primary/ir_linked_announcement.html": {
+      "sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+      "size_bytes": 138075
+    },
+    "evidence/batch4_ir_20261013/primary/press_releases_feed.xml": {
+      "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+      "size_bytes": 126731
+    }
+  },
+  "schema_version": 1,
+  "scoring_applied": false,
+  "source_verified_current_cases": 0,
+  "whole_body_gate_positive": true,
+  "withdrawals": [
+    {
+      "current_public_body_present": false,
+      "entire_original_body_private_preservation_verified": true,
+      "original_capture_metadata": {
+        "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+        "content_type": "text/html; charset=utf-8",
+        "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+        "http_status": 200,
+        "last_modified": null,
+        "observed_at": "2026-10-13T13:11:18.872702+00:00",
+        "path": "primary/ir_authority.html",
+        "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+        "retrieval_started_at": "2026-10-13T13:11:05.661170+00:00",
+        "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+        "size_bytes": 286802,
+        "url": "https://www.microsoft.com/en-us/investor/default"
+      },
+      "reason": "ASSIGNED_ACCESS_VALUE_PATTERN",
+      "repository_path": "evidence/batch4_ir_20261013/primary/ir_authority.html",
+      "retention": "WITHHELD_SENSITIVE_BODY",
+      "sanitized_encoded_compressed_or_replacement_body_created": false
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "scope": "Earlier development diagnostic, not final validation",
+  "initial_compatibility_run": {
+    "tests_run": 79,
+    "failures": 1,
+    "test": "test_exact_study_positive_replay_never_completes_broad_source_check_or_scores",
+    "cause": "The first HTTP provenance draft assigned new retrieval clocks to an older BytesIO archive replay, making identical trial content appear new.",
+    "resolution": "Actual HTTP provenance is emitted for explicit HTTP200 responses; archived replays retain their original clock contract, and observational heartbeat clocks are excluded from the finding content digest. Original bytes/hashes and event gates remain unchanged."
+  },
+  "final_current_code_validation": {
+    "tests_run": 131,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "later_rule_refinement": "Prospective issuer evidence must be observed before the clinical object, not inferred backward from a later same-day issuer response."
+}

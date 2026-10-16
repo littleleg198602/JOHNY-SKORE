@@ -1,0 +1,30 @@
+{
+  "api_collector_requests": 0,
+  "maximum_original_body_bytes": 4000000,
+  "maximum_requests": 4,
+  "precommitted_at": "2026-10-14T23:29:59.231013+00:00",
+  "redirects_allowed": false,
+  "requests": [
+    {
+      "capture_id": "doj_apple_complaint",
+      "format": "pdf",
+      "url": "https://www.justice.gov/d9/2024-03/420763.pdf"
+    },
+    {
+      "capture_id": "doj_apple_release",
+      "format": "html",
+      "url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-apple-monopolizing-smartphone-markets"
+    },
+    {
+      "capture_id": "sec_apple_2023_10k",
+      "format": "html",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm"
+    },
+    {
+      "capture_id": "sec_apple_2023_index",
+      "format": "html",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/0000320193-23-000106-index.html"
+    }
+  ],
+  "schema_version": 1
+}

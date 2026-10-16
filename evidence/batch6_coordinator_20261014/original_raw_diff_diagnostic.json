@@ -1,0 +1,10 @@
+{
+  "command": "git diff --cached --check",
+  "exit_code": 2,
+  "original_raw_warning_counts": {
+    "evidence/batch6_baseline_ci_20261014/windows-tests.json": 14,
+    "evidence/batch6_baseline_ci_20261014/windows-tests.log": 1382
+  },
+  "raw_bytes_modified_to_suppress_warning": false,
+  "code_check_separate": true
+}

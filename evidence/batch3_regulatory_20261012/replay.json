@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "kind": "ARCHIVED_REAL_NHTSA_RESPONSE_REPLAY",
+  "origin": "offline replay of the exact primary-response archives and their captured HTTP statuses; no network requests in this run",
+  "started_at": "2026-10-12T15:12:30.947307+00:00",
+  "ended_at": "2026-10-12T15:12:30.972324+00:00",
+  "replay_processing_clock": "2026-10-12T15:08:33.934642+00:00",
+  "as_of_clocks_are_processing_controls_not_historical_evaluation": true,
+  "proposal_path": "evidence/batch3_regulatory_20261012/proposal.json",
+  "models_path": "evidence/batch3_regulatory_20261012/models.proposed.json",
+  "models_sha256": "0d5c30284bf9724a9d4f0eaffd89380f1256a34750ba3898843385db2ade2661",
+  "live_source_observations": [
+    {
+      "capture_id": "nhtsa_recalls_cadillac_ct4_2026",
+      "observed_at": "2026-10-12T14:43:41.081464+00:00",
+      "archive_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "http_status": 400
+    },
+    {
+      "capture_id": "nhtsa_recalls_chevrolet_silverado1500_2026",
+      "observed_at": "2026-10-12T14:41:58.783439+00:00",
+      "archive_sha256": "e940aa7759c07b14a53080dd7b968b10915daa738bbbdf483edbeec3fc7c16a4",
+      "http_status": 200
+    },
+    {
+      "capture_id": "nhtsa_recalls_ford_f150_2026",
+      "observed_at": "2026-10-12T14:41:59.312765+00:00",
+      "archive_sha256": "50926b6cbaf7eb3a4637d40e7b6527afa9b5c016ad0b27555132c1f9feab3235",
+      "http_status": 200
+    },
+    {
+      "capture_id": "nhtsa_recalls_ford_f650sd_2026",
+      "observed_at": "2026-10-12T14:43:41.153699+00:00",
+      "archive_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "http_status": 400
+    }
+  ],
+  "pre_knowledge": {
+    "status": "WAIT_IDENTITY",
+    "checked_models": 0,
+    "new_findings": 0
+  },
+  "positive": {
+    "status": "OK",
+    "checked_models": 2,
+    "new_findings": 8,
+    "failed_models": 0,
+    "rejected_rows": 0
+  },
+  "positive_scoped_checks": [
+    {
+      "source": "nhtsa",
+      "subject_id": "F",
+      "identity_key": "FORD:F-150:2026:2026-10-12T15:08:33.934642+00:00",
+      "checked_at": "2026-10-12T15:08:33.934642+00:00",
+      "candidate_count": 5,
+      "truncated": 0
+    },
+    {
+      "source": "nhtsa",
+      "subject_id": "GM",
+      "identity_key": "CHEVROLET:SILVERADO 1500:2026:2026-10-12T15:08:33.934642+00:00",
+      "checked_at": "2026-10-12T15:08:33.934642+00:00",
+      "candidate_count": 3,
+      "truncated": 0
+    }
+  ],
+  "findings": [
+    {
+      "subject_id": "F",
+      "source_object_id": "FORD:F-150:2026:26V104000",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=F-150&modelYear=2026",
+      "published_at": "2026-10-12T15:08:33.934642+00:00",
+      "available_at": "2026-10-12T15:08:33.934642+00:00",
+      "first_observed_at": "2026-10-12T15:08:33.934642+00:00",
+      "details": {
+        "campaign": "26V104000",
+        "component": "ELECTRICAL SYSTEM: INTEGRATED TRAILER BRAKE CONTROL",
+        "issuer_financial_impact_verified": false,
+        "make": "FORD",
+        "manufacturer": "Ford Motor Company",
+        "model": "F-150",
+        "model_year": 2026,
+        "park_it": false,
+        "park_outside": false,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+        "product_relationship_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "report_date_is_publication_time": false,
+        "report_received_date": "2026-02-20",
+        "scoring_applied": false,
+        "stage": "nhtsa_model_year_recall",
+        "summary": "Ford Motor Company (Ford) is recalling certain 2021-2026 F-150, 2022-2026 F-250 SD, F-350 SD, F-450 SD, F-550 SD, Maverick, 2024-2026 Ranger, 2023-2026 F-600 SD, 2022-2027 Lincoln Navigator, Expedition, and 2026 E-Transit vehicles. When towing a trailer, the integrated trailer module (ITRM) may lose communication with the vehicle, possibly causing a loss of brake and turn signal lights, or a loss of brake function. As such, these vehicles fail to comply with the requirements of Federal Motor Vehicle Safety Standard number 108, \" Lamps, Reflective Devices, and Associated Equipment.\""
+      }
+    },
+    {
+      "subject_id": "F",
+      "source_object_id": "FORD:F-150:2026:26V550000",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=F-150&modelYear=2026",
+      "published_at": "2026-10-12T15:08:33.934642+00:00",
+      "available_at": "2026-10-12T15:08:33.934642+00:00",
+      "first_observed_at": "2026-10-12T15:08:33.934642+00:00",
+      "details": {
+        "campaign": "26V550000",
+        "component": "STRUCTURE:BODY",
+        "issuer_financial_impact_verified": false,
+        "make": "FORD",
+        "manufacturer": "Ford Motor Company",
+        "model": "F-150",
+        "model_year": 2026,
+        "park_it": false,
+        "park_outside": false,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+        "product_relationship_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "report_date_is_publication_time": false,
+        "report_received_date": "2026-08-25",
+        "scoring_applied": false,
+        "stage": "nhtsa_model_year_recall",
+        "summary": "Ford Motor Company (Ford) is recalling certain 2026 Maverick, F-150, and Bronco Sport vehicles. Certain vehicle joints may be improperly tightened. This can lead to detached parts, unsecured cargo, degraded crash protection, electrical system failure, or a loss of vehicle stability."
+      }
+    },
+    {
+      "subject_id": "F",
+      "source_object_id": "FORD:F-150:2026:26V576000",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=F-150&modelYear=2026",
+      "published_at": "2026-10-12T15:08:33.934642+00:00",
+      "available_at": "2026-10-12T15:08:33.934642+00:00",
+      "first_observed_at": "2026-10-12T15:08:33.934642+00:00",
+      "details": {
+        "campaign": "26V576000",
+        "component": "POWER TRAIN:DRIVELINE:DIFFERENTIAL UNIT",
+        "issuer_financial_impact_verified": false,
+        "make": "FORD",
+        "manufacturer": "Ford Motor Company",
+        "model": "F-150",
+        "model_year": 2026,
+        "park_it": false,
+        "park_outside": false,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+        "product_relationship_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "report_date_is_publication_time": false,
+        "report_received_date": "2026-09-09",
+        "scoring_applied": false,
+        "stage": "nhtsa_model_year_recall",
+        "summary": "Ford Motor Company (Ford) is recalling certain 2026 F-150 vehicles. Incorrect rear axle tail bearings may have been installed, which can result in rear wheel lock-up or driveshaft separation."
+      }
+    },
+    {
+      "subject_id": "F",
+      "source_object_id": "FORD:F-150:2026:26V577000",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=F-150&modelYear=2026",
+      "published_at": "2026-10-12T15:08:33.934642+00:00",
+      "available_at": "2026-10-12T15:08:33.934642+00:00",
+      "first_observed_at": "2026-10-12T15:08:33.934642+00:00",
+      "details": {
+        "campaign": "26V577000",
+        "component": "SUSPENSION:REAR",
+        "issuer_financial_impact_verified": false,
+        "make": "FORD",
+        "manufacturer": "Ford Motor Company",
+        "model": "F-150",
+        "model_year": 2026,
+        "park_it": false,
+        "park_outside": false,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+        "product_relationship_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "report_date_is_publication_time": false,
+        "report_received_date": "2026-09-09",
+        "scoring_applied": false,
+        "stage": "nhtsa_model_year_recall",
+        "summary": "Ford Motor Company (Ford) is recalling certain 2026 F-150 vehicles.The stabilizer rod fasteners may not have been tightened properly during manufacturing, which can allow the rod to shift out of position."
+      }
+    },
+    {
+      "subject_id": "F",
+      "source_object_id": "FORD:F-150:2026:26V578000",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=F-150&modelYear=2026",
+      "published_at": "2026-10-12T15:08:33.934642+00:00",
+      "available_at": "2026-10-12T15:08:33.934642+00:00",
+      "first_observed_at": "2026-10-12T15:08:33.934642+00:00",
+      "details": {
+        "campaign": "26V578000",
+        "component": "FUEL SYSTEM, GASOLINE:STORAGE:TANK ASSEMBLY:MOUNTING",
+        "issuer_financial_impact_verified": false,
+        "make": "FORD",
+        "manufacturer": "Ford Motor Company",
+        "model": "F-150",
+        "model_year": 2026,
+        "park_it": false,
+        "park_outside": false,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+        "product_relationship_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "report_date_is_publication_time": false,
+        "report_received_date": "2026-09-09",
+        "scoring_applied": false,
+        "stage": "nhtsa_model_year_recall",
+        "summary": "Ford Motor Company (Ford) is recalling certain 2023-2027 F-150 vehicles. The fuel tank may be improperly secured and leak fuel, or detach from the vehicle while driving."
+      }
+    },
+    {
+      "subject_id": "GM",
+      "source_object_id": "CHEVROLET:SILVERADO 1500:2026:25V815000",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=SILVERADO+1500&modelYear=2026",
+      "published_at": "2026-10-12T15:08:33.934642+00:00",
+      "available_at": "2026-10-12T15:08:33.934642+00:00",
+      "first_observed_at": "2026-10-12T15:08:33.934642+00:00",
+      "details": {
+        "campaign": "25V815000",
+        "component": "EQUIPMENT:OTHER:OWNERS/SERVICE/OTHER MANUAL",
+        "issuer_financial_impact_verified": false,
+        "make": "CHEVROLET",
+        "manufacturer": "General Motors, LLC",
+        "model": "SILVERADO 1500",
+        "model_year": 2026,
+        "park_it": false,
+        "park_outside": false,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/1467858/000119312526344698/d145571d8k.htm",
+        "product_relationship_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "report_date_is_publication_time": false,
+        "report_received_date": "2025-11-25",
+        "scoring_applied": false,
+        "stage": "nhtsa_model_year_recall",
+        "summary": "General Motors, LLC (GM) is recalling certain 2026 Chevrolet Silverado 1500, 2500, and 3500 vehicles. These vehicles may not have received an owner's manual during production.  As such, these vehicles fail to comply with the requirements of Federal Motor Vehicle Safety Standard number 225, \u201cChild Restraint Anchorage Systems.\u201d"
+      }
+    },
+    {
+      "subject_id": "GM",
+      "source_object_id": "CHEVROLET:SILVERADO 1500:2026:26V114000",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=SILVERADO+1500&modelYear=2026",
+      "published_at": "2026-10-12T15:08:33.934642+00:00",
+      "available_at": "2026-10-12T15:08:33.934642+00:00",
+      "first_observed_at": "2026-10-12T15:08:33.934642+00:00",
+      "details": {
+        "campaign": "26V114000",
+        "component": "EQUIPMENT:OTHER:OWNERS/SERVICE/OTHER MANUAL",
+        "issuer_financial_impact_verified": false,
+        "make": "CHEVROLET",
+        "manufacturer": "General Motors, LLC",
+        "model": "SILVERADO 1500",
+        "model_year": 2026,
+        "park_it": false,
+        "park_outside": false,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/1467858/000119312526344698/d145571d8k.htm",
+        "product_relationship_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "report_date_is_publication_time": false,
+        "report_received_date": "2026-02-26",
+        "scoring_applied": false,
+        "stage": "nhtsa_model_year_recall",
+        "summary": "General Motors has decided that certain 2027 Chevrolet Bolt EV, 2025-2026 Cadillac OPTIQ, Chevrolet Colorado, Equinox EV, GMC Canyon, 2026 Buick Enclave, Envision, Cadillac CT5, Escalade, Escalade ESV, Escalade IQ, Escalade IQL, LYRIQ, VISTIQ, Chevrolet Blazer EV, Corvette Convertible, Corvette Coupe, Corvette Convertible E-Ray, Equinox, Silverado 1500, 2500, 3500, Silverado EV, Suburban 1500, Tahoe, Traverse, GMC Acadia, Hummer EV Pickup, Hummer EV SUV, Sierra 1500, 2500, 3500, Sierra EV, Terrain, Yukon, and Yukon XL vehicles. The radio may not have been set to the correct status to download the electronic owner's manual during production. As such, these vehicles fail to comply with the requirements of Federal Motor Vehicle Safety Standard number 208, \u201cOccupant  Protection.\u201d"
+      }
+    },
+    {
+      "subject_id": "GM",
+      "source_object_id": "CHEVROLET:SILVERADO 1500:2026:26V289000",
+      "source_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=SILVERADO+1500&modelYear=2026",
+      "published_at": "2026-10-12T15:08:33.934642+00:00",
+      "available_at": "2026-10-12T15:08:33.934642+00:00",
+      "first_observed_at": "2026-10-12T15:08:33.934642+00:00",
+      "details": {
+        "campaign": "26V289000",
+        "component": "POWER TRAIN:TRANSFER CASE (4-WHEEL DRIVE)",
+        "issuer_financial_impact_verified": false,
+        "make": "CHEVROLET",
+        "manufacturer": "General Motors, LLC",
+        "model": "SILVERADO 1500",
+        "model_year": 2026,
+        "park_it": true,
+        "park_outside": false,
+        "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/1467858/000119312526344698/d145571d8k.htm",
+        "product_relationship_known_at": "2026-10-12T15:08:33.934642+00:00",
+        "report_date_is_publication_time": false,
+        "report_received_date": "2026-05-07",
+        "scoring_applied": false,
+        "stage": "nhtsa_model_year_recall",
+        "summary": "General Motors, LLC (GM) is recalling certain 2026 Cadillac Escalade and Escalade ESV, Chevrolet Silverado 1500, Suburban, and Tahoe, and GMC Sierra 1500, Yukon, and Yukon XL vehicles with four-wheel (4WD) or all-wheel drive (AWD), and certain 2015-2020 Suburban, Escalade, Escalade ESV, Yukon, Yukon XL, and Tahoe vehicles. A component missing from the drivetrain transfer case may cause the front and/or rear wheels to lock up without warning to the driver."
+      }
+    }
+  ],
+  "restart_within_refresh_window": {
+    "status": "OK",
+    "checked_models": 0,
+    "new_findings": 0,
+    "failed_models": 0,
+    "rejected_rows": 0
+  },
+  "restart_monthly_refresh": {
+    "status": "OK",
+    "checked_models": 2,
+    "new_findings": 0,
+    "failed_models": 0,
+    "rejected_rows": 0
+  },
+  "partial_http400_probes": [
+    {
+      "capture_id": "nhtsa_recalls_ford_f650sd_2026",
+      "request_envelope_only_not_proposed_product": true,
+      "summary": {
+        "status": "PARTIAL",
+        "checked_models": 0,
+        "new_findings": 0,
+        "failed_models": 1,
+        "rejected_rows": 0
+      },
+      "findings_count": 0,
+      "complete_checks_count": 0
+    },
+    {
+      "capture_id": "nhtsa_recalls_cadillac_ct4_2026",
+      "request_envelope_only_not_proposed_product": true,
+      "summary": {
+        "status": "PARTIAL",
+        "checked_models": 0,
+        "new_findings": 0,
+        "failed_models": 1,
+        "rejected_rows": 0
+      },
+      "findings_count": 0,
+      "complete_checks_count": 0
+    }
+  ],
+  "bounded_one_model_budget": {
+    "status": "PARTIAL",
+    "checked_models": 1,
+    "new_findings": 5,
+    "failed_models": 0,
+    "rejected_rows": 0
+  },
+  "accepted_complete_negative_live": false,
+  "production_registry_modified": false,
+  "windows_run": false,
+  "historical_evaluation_completed": false,
+  "scoring_applied": false,
+  "automatic_trading_enabled": false
+}

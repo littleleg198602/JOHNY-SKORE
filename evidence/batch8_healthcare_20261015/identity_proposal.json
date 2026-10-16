@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "proposal_status": "WITHHELD_WAIT_DATA",
+  "records": [],
+  "record_count": 0,
+  "reason": "No original DrugsFDA structured application/product rows in selected actual retained corpus; CRL text and parent ownership headings are not structured product/applicant evidence",
+  "registry_adopted": false,
+  "legal_owner_verified": false,
+  "historical_ownership_inferred": false,
+  "synthetic_test_cases_are_source_evidence": false
+}

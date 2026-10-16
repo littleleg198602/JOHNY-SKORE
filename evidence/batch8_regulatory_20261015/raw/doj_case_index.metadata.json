@@ -1,0 +1,22 @@
+{
+  "archive_path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+  "automatic_redirects": false,
+  "capture_id": "doj_case_index",
+  "content_encoding": "identity",
+  "content_type": "text/html; charset=UTF-8",
+  "final_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+  "http_status": 200,
+  "maximum_bytes": 4000000,
+  "observed_at": "2026-10-15T18:10:37.550969+00:00",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+  "public_raw_available": true,
+  "raw_response_bytes": 107793,
+  "raw_response_sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+  "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+  "reserved_at": "2026-10-15T18:10:30.131061+00:00",
+  "sequence": 4,
+  "started_at": "2026-10-15T18:10:30.131061+00:00",
+  "status": "ORIGINAL_BYTES_CAPTURED",
+  "timeout_seconds": 25
+}

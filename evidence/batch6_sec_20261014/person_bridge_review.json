@@ -1,0 +1,1027 @@
+{
+  "acceptance_timezone_reconciled_or_inferred": false,
+  "actual_new_primary_http_requests": 3,
+  "discovery_pointer_only": {
+    "accession": "0001582737-14-000015",
+    "current_profile_is_historical_person_identity": false,
+    "profile_acceptance_datetime_raw": "2014-02-07T23:09:16.000Z",
+    "profile_filing_day_raw": "2014-02-07"
+  },
+  "event_date_review": {
+    "bridge_version": "sec-form4-independent-owner-account-bridge-v1",
+    "historical_disclosure_capture_is_historical_knowledge": false,
+    "independent_dated_disclosure_count": 1,
+    "independent_evidence": [
+      {
+        "capture": {
+          "known_at": "2026-10-13T08:46:47.328762+00:00",
+          "observed_at": "2026-10-13T08:46:47.328762+00:00",
+          "purpose": "OWNER_PROFILE",
+          "record_id": "actual-nadella-profile-oct13",
+          "retention": "ORIGINAL_BYTES",
+          "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+          "size_bytes": 17733,
+          "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+        },
+        "former_names_are_approved_aliases": false,
+        "historical_effective_date_proven": false,
+        "identity_locators": [
+          "JSON:/cik",
+          "JSON:/name",
+          "JSON:/entityType"
+        ],
+        "legal_person_name_verified": false,
+        "natural_person_kind_proven": false,
+        "owners": [
+          {
+            "cik": "0001513142",
+            "name": "Nadella Satya"
+          }
+        ],
+        "published_at": null,
+        "publisher_entity_type": "other",
+        "scope_mode": "OBSERVED_SNAPSHOT",
+        "snapshot_day": "2026-10-13",
+        "source_kind": "SEC_ACCOUNT_ENTITY_TYPE_NOT_NATURAL_PERSON_PROOF"
+      },
+      {
+        "acceptance_datetime_unqualified_raw": "20140207180916",
+        "acceptance_timezone_inferred": false,
+        "accession": "0001582737-14-000015",
+        "capture": {
+          "known_at": "2026-10-14T13:32:31.072692+00:00",
+          "observed_at": "2026-10-14T13:32:31.072692+00:00",
+          "purpose": "DATED_OWNERSHIP_PACKET",
+          "record_id": "actual-nadella-form3-2014",
+          "retention": "ORIGINAL_BYTES",
+          "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+          "size_bytes": 5836,
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+        },
+        "clock_conflicts": [],
+        "date_scope_extended_to_later_events": false,
+        "filing_day": "2014-02-07",
+        "form": "3",
+        "identity_locators": [
+          "SEC-HEADER/REPORTING-OWNER/COMPANY-DATA",
+          "ownershipDocument/reportingOwner/reportingOwnerId"
+        ],
+        "issuer_as_filed": {
+          "cik": "0000789019",
+          "name": "MICROSOFT CORP"
+        },
+        "legal_person_name_verified": false,
+        "natural_person_kind_proven": false,
+        "owners": [
+          {
+            "cik": "0001513142",
+            "name": "Nadella Satya"
+          }
+        ],
+        "published_at": null,
+        "report_day": "2014-02-04",
+        "scope_mode": "DATED_DISCLOSURE_POINT",
+        "signature_names_are_approved_aliases": false,
+        "signatures": [
+          {
+            "signature_date_raw": "2014-02-07",
+            "signature_name_raw": "Keith R. Dolliver, Attorney-in-Fact for Satya Nadella"
+          }
+        ],
+        "source_kind": "REPORTING_OWNER_ACCOUNT_KIND_UNRESOLVED"
+      }
+    ],
+    "instrument_identity_from_person_allowed": false,
+    "issuer_identity_from_reporting_owner_allowed": false,
+    "knowledge_at": "2026-10-14T13:32:31.072692+00:00",
+    "limits": [
+      "This bridge corroborates exact SEC account CIK/name from independent original sources, not a natural person's legal identity",
+      "A current SEC profile is one observed snapshot and cannot establish an older event-date identity",
+      "A dated disclosure anchors its own reported date; no interval is extended between it and a later snapshot",
+      "Attorneys, role text, individual/group filing scope and signer spellings do not supply entity kind or approved aliases",
+      "All members and directory variants of one accession are one disclosure, not independent evidence"
+    ],
+    "network_requests_performed": 0,
+    "person_verified_row_count": 0,
+    "quota_or_lease_modified": false,
+    "registry_modified": false,
+    "role_or_signature_aliases_approved": false,
+    "row_reviews": [
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED",
+          "NO_DATED_BRIDGE_FOR_REQUESTED_EVENT"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:1",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED",
+          "NO_DATED_BRIDGE_FOR_REQUESTED_EVENT"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:2",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED",
+          "NO_DATED_BRIDGE_FOR_REQUESTED_EVENT"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:3",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED",
+          "NO_DATED_BRIDGE_FOR_REQUESTED_EVENT"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:4",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED",
+          "NO_DATED_BRIDGE_FOR_REQUESTED_EVENT"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:5",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED",
+          "NO_DATED_BRIDGE_FOR_REQUESTED_EVENT"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:6",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED",
+          "NO_DATED_BRIDGE_FOR_REQUESTED_EVENT"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:7",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": false,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED",
+          "NO_DATED_BRIDGE_FOR_REQUESTED_EVENT"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:8",
+        "status": "WITHHELD"
+      }
+    ],
+    "scope_mode": "EVENT_DATE",
+    "scoring_applied": false,
+    "source_capture": {
+      "known_at": "2026-10-13T08:46:41.691791+00:00",
+      "observed_at": "2026-10-13T08:46:41.691791+00:00",
+      "purpose": "FORM4_SOURCE",
+      "record_id": "actual-msft-form4-2026",
+      "retention": "ORIGINAL_BYTES",
+      "sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+      "size_bytes": 20046,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/form4.xml"
+    },
+    "source_only_account_corroborated_rows": 8,
+    "source_owner_count": 1,
+    "source_row_count": 8,
+    "status": "PARTIAL",
+    "trading_allowed": false,
+    "unavailable_evidence": []
+  },
+  "full_specialist_acceptance": false,
+  "historical_machine_availability_or_oos_proven": false,
+  "instrument_verified_rows": 0,
+  "limits": [
+    "Only one exact reporting-owner CIK and eight source rows, not wider relevant-universe coverage",
+    "2014 Form3 header/XML independently corroborates the SEC account/name but does not explicitly establish natural-person legal identity",
+    "The current entityType=other profile and attorney signature do not establish natural-person kind or approved legal-name alias",
+    "2014 report day and Oct13 profile snapshot cannot be extended to the Sep1 2026 event day",
+    "Capture clocks are actual October knowledge; a dated older filing is not historical machine availability",
+    "Three one-off primary research requests honor retained SEC lease/cooldown/cadence but do not reconstruct a daily quota ledger"
+  ],
+  "new_disclosure_count": 1,
+  "observed_account_snapshot_review": {
+    "bridge_version": "sec-form4-independent-owner-account-bridge-v1",
+    "historical_disclosure_capture_is_historical_knowledge": false,
+    "independent_dated_disclosure_count": 1,
+    "independent_evidence": [
+      {
+        "capture": {
+          "known_at": "2026-10-13T08:46:47.328762+00:00",
+          "observed_at": "2026-10-13T08:46:47.328762+00:00",
+          "purpose": "OWNER_PROFILE",
+          "record_id": "actual-nadella-profile-oct13",
+          "retention": "ORIGINAL_BYTES",
+          "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+          "size_bytes": 17733,
+          "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+        },
+        "former_names_are_approved_aliases": false,
+        "historical_effective_date_proven": false,
+        "identity_locators": [
+          "JSON:/cik",
+          "JSON:/name",
+          "JSON:/entityType"
+        ],
+        "legal_person_name_verified": false,
+        "natural_person_kind_proven": false,
+        "owners": [
+          {
+            "cik": "0001513142",
+            "name": "Nadella Satya"
+          }
+        ],
+        "published_at": null,
+        "publisher_entity_type": "other",
+        "scope_mode": "OBSERVED_SNAPSHOT",
+        "snapshot_day": "2026-10-13",
+        "source_kind": "SEC_ACCOUNT_ENTITY_TYPE_NOT_NATURAL_PERSON_PROOF"
+      },
+      {
+        "acceptance_datetime_unqualified_raw": "20140207180916",
+        "acceptance_timezone_inferred": false,
+        "accession": "0001582737-14-000015",
+        "capture": {
+          "known_at": "2026-10-14T13:32:31.072692+00:00",
+          "observed_at": "2026-10-14T13:32:31.072692+00:00",
+          "purpose": "DATED_OWNERSHIP_PACKET",
+          "record_id": "actual-nadella-form3-2014",
+          "retention": "ORIGINAL_BYTES",
+          "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+          "size_bytes": 5836,
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+        },
+        "clock_conflicts": [],
+        "date_scope_extended_to_later_events": false,
+        "filing_day": "2014-02-07",
+        "form": "3",
+        "identity_locators": [
+          "SEC-HEADER/REPORTING-OWNER/COMPANY-DATA",
+          "ownershipDocument/reportingOwner/reportingOwnerId"
+        ],
+        "issuer_as_filed": {
+          "cik": "0000789019",
+          "name": "MICROSOFT CORP"
+        },
+        "legal_person_name_verified": false,
+        "natural_person_kind_proven": false,
+        "owners": [
+          {
+            "cik": "0001513142",
+            "name": "Nadella Satya"
+          }
+        ],
+        "published_at": null,
+        "report_day": "2014-02-04",
+        "scope_mode": "DATED_DISCLOSURE_POINT",
+        "signature_names_are_approved_aliases": false,
+        "signatures": [
+          {
+            "signature_date_raw": "2014-02-07",
+            "signature_name_raw": "Keith R. Dolliver, Attorney-in-Fact for Satya Nadella"
+          }
+        ],
+        "source_kind": "REPORTING_OWNER_ACCOUNT_KIND_UNRESOLVED"
+      }
+    ],
+    "instrument_identity_from_person_allowed": false,
+    "issuer_identity_from_reporting_owner_allowed": false,
+    "knowledge_at": "2026-10-14T13:32:31.072692+00:00",
+    "limits": [
+      "This bridge corroborates exact SEC account CIK/name from independent original sources, not a natural person's legal identity",
+      "A current SEC profile is one observed snapshot and cannot establish an older event-date identity",
+      "A dated disclosure anchors its own reported date; no interval is extended between it and a later snapshot",
+      "Attorneys, role text, individual/group filing scope and signer spellings do not supply entity kind or approved aliases",
+      "All members and directory variants of one accession are one disclosure, not independent evidence"
+    ],
+    "network_requests_performed": 0,
+    "person_verified_row_count": 0,
+    "quota_or_lease_modified": false,
+    "registry_modified": false,
+    "role_or_signature_aliases_approved": false,
+    "row_reviews": [
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:1",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:2",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:3",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:4",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:5",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:6",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:7",
+        "status": "WITHHELD"
+      },
+      {
+        "as_filed_owner_cik": "0001513142",
+        "as_filed_owner_name": "Nadella Satya",
+        "conflicting_capture_ids": [],
+        "event_day": "2026-09-01",
+        "exact_source_account_matches": [
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-profile-oct13",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "OBSERVED_SNAPSHOT",
+            "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2026-10-13",
+            "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+          },
+          {
+            "clock_conflicts": [],
+            "legal_person_name_verified": false,
+            "natural_person_kind_proven": false,
+            "owner_cik": "0001513142",
+            "record_id": "actual-nadella-form3-2014",
+            "requested_event_day_matches": false,
+            "requested_scope_matches": true,
+            "scope_mode": "DATED_DISCLOSURE_POINT",
+            "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+            "source_filer_name": "Nadella Satya",
+            "source_scope_day": "2014-02-04",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+          }
+        ],
+        "independent_account_source_corroborated": true,
+        "instrument_identity_independently_verified": false,
+        "issuer_attribution_allowed": false,
+        "person_identity_independently_verified": false,
+        "reasons": [
+          "NATURAL_PERSON_KIND_AND_LEGAL_NAME_UNRESOLVED"
+        ],
+        "role_text_is_person_kind_or_identity_proof": false,
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:8",
+        "status": "WITHHELD"
+      }
+    ],
+    "scope_mode": "OBSERVED_SNAPSHOT",
+    "scoring_applied": false,
+    "source_capture": {
+      "known_at": "2026-10-13T08:46:41.691791+00:00",
+      "observed_at": "2026-10-13T08:46:41.691791+00:00",
+      "purpose": "FORM4_SOURCE",
+      "record_id": "actual-msft-form4-2026",
+      "retention": "ORIGINAL_BYTES",
+      "sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+      "size_bytes": 20046,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/form4.xml"
+    },
+    "source_only_account_corroborated_rows": 8,
+    "source_owner_count": 1,
+    "source_row_count": 8,
+    "status": "PARTIAL",
+    "trading_allowed": false,
+    "unavailable_evidence": []
+  },
+  "original_http200_bodies": 3,
+  "person_verified_rows": 0,
+  "production_registries_modified": false,
+  "quota_managed_application_live_claim": false,
+  "research_sources": [
+    {
+      "relevance": "CIKs identify both corporations and individuals; name order may differ. This does not approve an alias or prove account kind.",
+      "url": "https://www.sec.gov/search-filings/cik-lookup"
+    },
+    {
+      "relevance": "A Form3 may include LLC/LP reporting owners. Individual/group filing scope is not natural-person identity evidence.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1305473/000089914026000482/xslF345X06/form3.xml"
+    }
+  ],
+  "result": "INDEPENDENT_DATED_SEC_ACCOUNT_NAME_CORROBORATION_PERSON_WITHHELD",
+  "review_knowledge_at": "2026-10-14T13:32:31.072692+00:00",
+  "same_accession_documents_not_independent_sources": true,
+  "schema_version": 1,
+  "scoring_applied": false,
+  "source_rows_preserved": 8,
+  "windows_end_to_end_verified": false
+}

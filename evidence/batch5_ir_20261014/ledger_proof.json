@@ -1,0 +1,32 @@
+{
+  "active_rss_leases_after_run": 0,
+  "actual_existing_shared_db": true,
+  "after_rss_request_count": 3,
+  "cooldowns_after_run": [],
+  "prior_october_13_requests_not_reconstructed": true,
+  "prior_rss_request_count": 0,
+  "prospective_registration": true,
+  "requests": [
+    {
+      "attempted_at": "2026-10-14T00:15:32.957191+00:00",
+      "identity_key": "7599f8e1c2a52e92b172cd08e2f1688c94732d130afd7a4214e54acff3d854f0",
+      "outcome": "RETURNED",
+      "source": "rss",
+      "subject_id": "MSFT"
+    },
+    {
+      "attempted_at": "2026-10-14T00:15:39.430071+00:00",
+      "identity_key": "7599f8e1c2a52e92b172cd08e2f1688c94732d130afd7a4214e54acff3d854f0",
+      "outcome": "FAILED",
+      "source": "rss",
+      "subject_id": "MSFT"
+    },
+    {
+      "attempted_at": "2026-10-14T00:15:43.687483+00:00",
+      "identity_key": "7599f8e1c2a52e92b172cd08e2f1688c94732d130afd7a4214e54acff3d854f0",
+      "outcome": "RETURNED",
+      "source": "rss",
+      "subject_id": "MSFT"
+    }
+  ]
+}

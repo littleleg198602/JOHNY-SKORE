@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-13T13:03:54.260440+00:00",
+  "lane": "sec",
+  "baseline": "22bcb749873b9bfd89e8f6d52e5bb7909a186789",
+  "output": "READ_ONLY_EXACT_FORM4_IDENTITY_REVIEW",
+  "integration": "SecScoutService._process_document stores details.form4_identity_review beside unchanged form4_observation",
+  "file_sha256": {
+    "market_checker_app/services/sec_scout_service.py": "82b5d1568e3a1617b6f03099c6963a2f4c2dfbcc0b8581779d5f6b155fbaf410",
+    "market_checker_app/services/sec_form4_identity_review.py": "2dbe85c8180bc5b38e9454ed1bab61ef8cc4ee97a7f5228cc0106c1d994d352f",
+    "tests/test_batch4_sec_identity_review.py": "2034dbe35f0dc4234423d44c288b35d06aff514d6eda5c2a3aa6699fa67837f6",
+    "evidence/batch4_sec_20261013/README.md": "365933f0de8c66e5381edf4454f5093612d00c23d640a00e9588fd9c791b2063",
+    "evidence/batch4_sec_20261013/build_review.py": "a6083bd9820ddebf881f7330a5bc91df65cbd460a98e2be31d0d0da435469f9f",
+    "evidence/batch4_sec_20261013/capture_primary.py": "a8d28ee16df69be6297f07a0e90359dbc62d0384717027c4bd9bc80dad13bba9",
+    "evidence/batch4_sec_20261013/captures.json": "58d5d9a33424cca5a7ac492a43fffca882fbaa7d4bb09ca6f2640ece45cabc0b",
+    "evidence/batch4_sec_20261013/identity_review.json": "b1fd3547c479119e1d1ec55cb8169ab7e7ce362c341b4faf5dd08d6f06fe665f",
+    "evidence/batch4_sec_20261013/primary/msft_2026_R1.htm": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+    "evidence/batch4_sec_20261013/primary/msft_form4.xml": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+    "evidence/batch4_sec_20261013/primary/msft_form4_index.html": "d77ed536ebefe89db8e31f3f6ee752e8693a610d2c05c6daf8aed139ef3664cd",
+    "evidence/batch4_sec_20261013/primary/msft_submissions.json": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c",
+    "evidence/batch4_sec_20261013/primary/nadella_submissions.json": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+    "evidence/batch4_sec_20261013/tests.json": "8b604282692699ae4a9ae2ef08489d00981839b5604c006e77002661e63fd0c5",
+    "evidence/batch4_sec_20261013/tests.log": "994d34caea333ec06a84b45f47542e0b40fc080926b31d98e8eb93b6fad01b94",
+    "evidence/batch4_sec_20261013/tests_primary_missing_dependencies.json": "d34e3aaa368f735cfe4fe1846dba320899cd437895c122553475c63e17f1d8ec",
+    "evidence/batch4_sec_20261013/tests_primary_missing_dependencies.log": "3965403b5bb5d95d544bd20478f9c6d99003dc4446b927b79626e12be3ade2f0"
+  },
+  "tests": {
+    "schema_version": 1,
+    "command": "python -m unittest tests.test_batch4_sec_identity_review tests.test_sec_form4_observation tests.test_sec_scout_service tests.test_sec_document_scout tests.test_governance_event_agent tests.test_sec_schedule13_extraction tests.test_runtime_integration -v",
+    "started_at": "2026-10-13T13:03:15.515246+00:00",
+    "completed_at": "2026-10-13T13:03:19.885252+00:00",
+    "host": "Linux",
+    "python_version": "3.12.14",
+    "tests_run": 95,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "elapsed_seconds": 4.37,
+    "log": "evidence/batch4_sec_20261013/tests.log",
+    "log_sha256": "994d34caea333ec06a84b45f47542e0b40fc080926b31d98e8eb93b6fad01b94",
+    "preceding_environment_setup_failure": "evidence/batch4_sec_20261013/tests_primary_missing_dependencies.json",
+    "windows_end_to_end_verified": false,
+    "scoring_applied": false,
+    "completion_verified": false,
+    "source_sha256": {
+      "market_checker_app/services/sec_scout_service.py": "82b5d1568e3a1617b6f03099c6963a2f4c2dfbcc0b8581779d5f6b155fbaf410",
+      "market_checker_app/services/sec_form4_identity_review.py": "2dbe85c8180bc5b38e9454ed1bab61ef8cc4ee97a7f5228cc0106c1d994d352f",
+      "tests/test_batch4_sec_identity_review.py": "2034dbe35f0dc4234423d44c288b35d06aff514d6eda5c2a3aa6699fa67837f6"
+    }
+  },
+  "live_http_captures": 5,
+  "actual_accessions_examined": [
+    "0000789019-26-000161"
+  ],
+  "as_filed_transaction_rows": 8,
+  "new_verified_person_or_instrument_identities": 0,
+  "production_registry_writes": 0,
+  "scoring_applied": false,
+  "completion_verified": false,
+  "windows_end_to_end_verified": false,
+  "limits": [
+    "one actual issuer/accession is not relevant coverage",
+    "current profile does not establish historical legal-person identity",
+    "instrument title and exact identifier gaps remain withheld",
+    "candidate intervals are declared, not verified",
+    "no OOS labels/evaluation or execution claims"
+  ],
+  "syntax_compile_passed": true,
+  "diff_check": {
+    "source_and_nonraw_evidence": "PASSED",
+    "raw_publisher_bytes": "PRESERVED_UNMODIFIED",
+    "raw_diff_whitespace_warnings": [
+      {
+        "path": "evidence/batch4_sec_20261013/primary/msft_form4_index.html",
+        "lines": [
+          42,
+          69,
+          76,
+          126
+        ],
+        "reason": "publisher trailing whitespace; raw hash evidence must not be stripped"
+      }
+    ]
+  }
+}

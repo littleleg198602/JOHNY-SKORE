@@ -1,0 +1,37 @@
+{
+  "allowed_purposes": [
+    "DISCOVERY_OWNER_PROFILE",
+    "CURRENT_OWNERSHIP_PACKET",
+    "CURRENT_PRIMARY_XML",
+    "CURRENT_FILING_INDEX",
+    "PREPLANNED_INDEX_VARIANT",
+    "BOUNDED_ALTERNATE_PACKET"
+  ],
+  "allowed_sources": [
+    "https://data.sec.gov/submissions/CIK0001513142.json",
+    "https://www.sec.gov/Archives/edgar/data/789019/<accession>/<original filename>"
+  ],
+  "expected_issuer_cik": "0000789019",
+  "expected_owner_cik": "0001513142",
+  "expected_source_account_name": "Nadella Satya",
+  "maximum_transports": 6,
+  "mode": "ONE_OFF_BOUNDED_PRIMARY_SEC_RESEARCH_NOT_COLLECTOR_LIVE_ACCEPTANCE",
+  "no_quota_db_created_copied_reset_or_reconstructed": true,
+  "no_registry_score_trading_historical_alias_or_person_instrument_identity_promotion": true,
+  "partial_transport_policy": "No incomplete body exports or full-body hash claim; reservation remains consumed",
+  "per_transport_absolute_timeout_seconds": 25,
+  "per_transport_maximum_body_bytes": 4000000,
+  "proposed_steps": [
+    "One current owner-profile discovery",
+    "One separate recent2026 original Form4 SGML packet",
+    "Its original untransformed XML",
+    "Its canonical original index",
+    "Unused only if a preplanned index suffix variant is needed after404; no provider-block retries",
+    "Unused bounded alternative only if exact issuer/owner scope conflicts"
+  ],
+  "redirects_or_retries_allowed": false,
+  "schema_version": 1,
+  "selection_rule": "Newest recent 2026 Form4 for the exact owner account, excluding already-reviewed accession0000789019-26-000161 when another eligible recent accession exists; issuer is validated from original packet/XML/index, not the profile name",
+  "whole_sensitive_or_encoded_body_policy": "WITHHOLD_ENTIRE_BODY_METADATA_HASH_URL_CLOCK_ONLY_NO_REPLACEMENT",
+  "written_at": "2026-10-15T13:41:33.049843+00:00"
+}

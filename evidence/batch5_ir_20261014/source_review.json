@@ -1,0 +1,151 @@
+{
+  "actual_capture_available_at": "2026-10-14T00:15:47.562423+00:00",
+  "actual_http_requests": 3,
+  "all_publisher_history_complete": false,
+  "captured_only_offline_control": {
+    "additional_http_requests": 0,
+    "review": {
+      "captures": {
+        "authority": {
+          "capture_origin": "PINNED_CAPTURE_REPLAY",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "http_date": "Wed, 14 Oct 2026 00:15:39 GMT",
+          "http_status": 200,
+          "last_modified": "Tue, 13 Oct 2026 18:06:33 GMT",
+          "observed_at": "2026-10-14T00:15:39.351708+00:00",
+          "requested_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+          "size_bytes": 126731
+        },
+        "feed": {
+          "capture_origin": "PINNED_CAPTURE_REPLAY",
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "http_date": "Wed, 14 Oct 2026 00:15:39 GMT",
+          "http_status": 200,
+          "last_modified": "Tue, 13 Oct 2026 18:06:33 GMT",
+          "observed_at": "2026-10-14T00:15:39.351708+00:00",
+          "requested_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+          "size_bytes": 126731
+        },
+        "primary": {
+          "capture_origin": "PINNED_CAPTURE_REPLAY",
+          "content_type": "text/html; charset=UTF-8",
+          "http_date": "Wed, 14 Oct 2026 00:15:47 GMT",
+          "http_status": 200,
+          "last_modified": "Wed, 07 Oct 2026 13:17:44 GMT",
+          "observed_at": "2026-10-14T00:15:47.547412+00:00",
+          "requested_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+          "resolved_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+          "sha256": "e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c",
+          "size_bytes": 136764
+        }
+      },
+      "claim_truth_independently_verified": false,
+      "feed_scope": {
+        "all_publisher_history_complete": false,
+        "entries_examined": 10,
+        "max_entries": 30
+      },
+      "issuer_as_named_mentions": [
+        {
+          "locator": "article/paragraph:2",
+          "quote": "Microsoft (Nasdaq \u201cMSFT\u201d @microsoft) creates platforms and tools powered by AI to deliver innovative solutions that meet the evolving needs of our customers. The technology company is committed to making AI available broadly and doing so responsibly, with a mission to empower every person and every organization on the planet to achieve more."
+        }
+      ],
+      "issuer_attribution_allowed": false,
+      "issuer_identity_status": "PUBLISHER_MENTION_ONLY",
+      "issuer_identity_verified": false,
+      "lead": {
+        "feed_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+        "observed_at": "2026-10-14T00:15:47.562423+00:00",
+        "original_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+        "published_at": "2026-10-07T20:17:43+00:00",
+        "title": "Microsoft announces quarterly earnings release date"
+      },
+      "network_requests_performed": 0,
+      "publication_clocks": {
+        "exact_first_dissemination_verified": false,
+        "http_dates_are_not_publication_clocks": true,
+        "primary_raw": [
+          "2026-10-07T20:17:43+00:00"
+        ],
+        "rss_raw": [
+          "Wed, 07 Oct 2026 20:17:43 +0000"
+        ]
+      },
+      "publisher_hosts_policy": [
+        "news.microsoft.com",
+        "www.microsoft.com"
+      ],
+      "publisher_ir_link": {
+        "authority_cites_exact_requested_alias": false,
+        "authority_cites_requested_or_resolved_page": false,
+        "authority_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+        "primary_cites_ir_portal": []
+      },
+      "quota_or_lease_modified": false,
+      "quoted_claim": {
+        "claim_truth_independently_verified": false,
+        "locator": "article/paragraph:1",
+        "quote": "REDMOND, Wash. \u2014 Oct. 7, 2026 \u2014 Microsoft Corp. will publish fiscal year 2027 first-quarter financial results after the close of the market on Wednesday, Oct. 28, 2026, on the Microsoft Investor Relations website at https://www.microsoft.com/en-us/Investor/. A live webcast of the earnings conference call will be made available at 2:30 p.m. Pacific Time.",
+        "quote_matches_primary_article": true,
+        "source_sha256": "e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c",
+        "source_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/"
+      },
+      "reasons": [
+        "AUTHORITY_CONTENT_TYPE_NOT_HTML",
+        "IR_PORTAL_LINK_SCOPE_UNRESOLVED"
+      ],
+      "requested_ticker": "MSFT",
+      "review_version": "ir-primary-captured-source-v1",
+      "reviewed_at": "2026-10-14T00:15:47.562423+00:00",
+      "scoring_applied": false,
+      "source_available_at": "2026-10-14T00:15:47.562423+00:00",
+      "source_verification_status": "PARTIAL",
+      "source_verified": false,
+      "verification_mode": "READ_ONLY_CAPTURE_REVIEW"
+    },
+    "runtime_source_verification_claim": false,
+    "semantics": "Fetched RSS feed cannot stand in for the withheld IR portal. This is a scoped required-document rejection, not a completed negative issuer/news search."
+  },
+  "full_specialist_acceptance": false,
+  "historical_knowledge_or_oos_proven": false,
+  "http_200_responses": 3,
+  "http_last_modified_is_not_publication": "Wed, 07 Oct 2026 13:17:44 GMT",
+  "issuer_attribution_allowed": false,
+  "issuer_identity_verified": false,
+  "limits": [
+    "Assigned access-value detection prevents IR portal content verification; its entire body is withheld",
+    "RSS/page exact title, original URL, quotation, and publisher publication clocks do not establish an independently dated issuer/instrument identity",
+    "Primary HTML publication time and HTTP Last-Modified are kept as distinct source clocks",
+    "SOURCE_VERIFIED is demonstrated only by explicitly synthetic transport tests in this batch",
+    "The prospective Oct14 shared RSS ledger does not reconstruct the earlier Oct13 one-off requests"
+  ],
+  "prior_capture_quota_reconstructed": false,
+  "publication_clocks": {
+    "exact_first_dissemination_verified": false,
+    "http_dates_are_not_publication_clocks": true,
+    "primary_raw": [
+      "2026-10-07T20:17:43+00:00"
+    ],
+    "rss_raw": [
+      "Wed, 07 Oct 2026 20:17:43 +0000"
+    ]
+  },
+  "quota_request_outcomes": [
+    "RETURNED",
+    "FAILED",
+    "RETURNED"
+  ],
+  "runtime_status": "PARTIAL",
+  "safe_original_bodies": 2,
+  "schema_version": 1,
+  "scoring_applied": false,
+  "source_verified_live_cases": 0,
+  "windows_end_to_end_verified": false,
+  "withheld_authority_sha256": "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+  "withheld_entire_bodies": 1
+}

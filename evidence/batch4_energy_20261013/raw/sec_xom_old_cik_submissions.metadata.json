@@ -1,0 +1,21 @@
+{
+  "capture_id": "sec_xom_old_cik_submissions",
+  "requested_url": "https://data.sec.gov/submissions/CIK0000034088.json",
+  "started_at": "2026-10-13T08:55:19.059517+00:00",
+  "method": "GET",
+  "timeout_seconds": 20,
+  "max_response_bytes": 8000000,
+  "access": "public_without_credentials",
+  "http_status": 200,
+  "final_url": "https://data.sec.gov/submissions/CIK0000034088.json",
+  "content_type": "application/json",
+  "source_date_header": "Tue, 13 Oct 2026 08:55:23 GMT",
+  "observed_at": "2026-10-13T08:55:23.206617+00:00",
+  "outcome": "HTTP_SUCCESS",
+  "archive_path": "evidence/batch4_energy_20261013/raw/sec_xom_old_cik_submissions.json",
+  "archive_encoding": "identity",
+  "archive_sha256": "c86c3d1c16e5ac086be3ac2f5eaedbb3c2891ac3127a10d2566b0049cbde82df",
+  "archive_bytes": 162387,
+  "raw_response_sha256": "c86c3d1c16e5ac086be3ac2f5eaedbb3c2891ac3127a10d2566b0049cbde82df",
+  "raw_response_bytes": 162387
+}

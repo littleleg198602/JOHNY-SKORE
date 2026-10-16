@@ -1,0 +1,82 @@
+{
+  "audited_unchanged_production_file_sha256": {
+    "market_checker_app/services/yahoo_price_provenance_service.py": "7e3d192bbfb154b81bf2862eb2d152c0824500d020916f6580dbc655b999a17d",
+    "market_checker_app/storage/sqlite_connection.py": "29236f30613e449624203cc33b92bee7a00cff3fd9890612a9dcd35e0ae263ab",
+    "market_checker_app/storage/yahoo_ohlc_cache_store.py": "25a5efd79eb12fd96ad2e38128e872cd17aa611a9caed329b760fd10d2d66aed"
+  },
+  "claims": {
+    "fresh_http_requests": 0,
+    "price_data_changed": false,
+    "score_changed": false,
+    "sixty_second_budget_changed": false,
+    "specialist_acceptance_verified": false,
+    "target_formula_changed": false,
+    "windows_current_fix_verified": false
+  },
+  "correction": {
+    "corrupt_cache_hash_and_unknown_provenance_assertions_preserved": true,
+    "explicit_fixture_connection_blocks": 3,
+    "ignore_cleanup_gc_sleep_or_retry_used": false,
+    "lifetime_context": "contextlib.closing finally close",
+    "linux_visible_regressions": [
+      "retained connection rejects SELECT 1 after commit",
+      "retained connection rejects SELECT 1 after exception with rollback verified",
+      "all connections created by the two actual failing fixtures are retained and probed",
+      "negative control detects unclosed native transaction context on Linux"
+    ],
+    "production_code_changed": false,
+    "production_connection_factory": "ClosingSQLiteConnection already closes in finally",
+    "transaction_context": "native sqlite3.Connection commit/rollback"
+  },
+  "generated_at": "2026-10-14T11:14:10.176318+00:00",
+  "limitations": [
+    "Focused Linux regressions establish deterministic close behavior; this is not a successful new hosted Windows run.",
+    "The old hash-pinned batch5_prices_20261014/reproduce.py is preserved as its original version; its standard SQLite diagnostic context remains an old-version limitation.",
+    "The coordinator handles the separate SEC/IR cleanup fixtures and preserves the full original failing Windows artifacts."
+  ],
+  "local_base_sha": "ed3e56c3dcd1c016e17f2a51faa023761eaba017",
+  "owned_file_sha256": {
+    "evidence/batch5_price_sqlite_close_20261014.py": "e272859119866cc60a85e6d69d69c504e61bc78eee2562b809d9a56b59f6dc7b",
+    "tests/test_batch5_price_provenance.py": "01542369e02ca1adac64e3a5dbe5f8a76b70fcd54109a16e3752acc2a5460bf8"
+  },
+  "preserved_old_handoff_sha256": {
+    "evidence/batch5_prices_20261014/handoff.json": "e3e951c8905d48205ede5d65e11038e31a3316646a241c66d4c97888f329163a",
+    "evidence/batch5_prices_20261014/live_probe.json": "9ffb4ffd22dd3a49af6125924155fe434eef6e9a147d2e5e4880fba98f2b2bee",
+    "evidence/batch5_prices_20261014/reproduce.py": "bac5812e443fa0e6a03e2f5e4caae57cc2282089e6f2f79dc0fd96a455ff3cad",
+    "evidence/batch5_prices_20261014/tests.log": "6579b4befe90e30f6d8578b1e19477f4eed48936265f2ca41fe7e51cfe046a25"
+  },
+  "schema_version": 1,
+  "tests": {
+    "discovered": 54,
+    "elapsed_seconds": 1.237456,
+    "errors": 0,
+    "executed": 54,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch5_price_sqlite_close_20261014.log",
+    "log_sha256": "76c20d5875552029f4443b43864c388273a626d6aed503d0196f736d626d3199",
+    "modules": [
+      "tests.test_batch5_price_provenance",
+      "tests.test_yahoo_ohlc_cache_store",
+      "tests.test_prediction_label_service",
+      "tests.test_batch4_evaluation_label_persistence"
+    ],
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "trigger": {
+    "error": "TemporaryDirectory cleanup WinError 32 history.db",
+    "failed_tests": [
+      "test_changed_cache_bytes_without_matching_capture_are_corrupt_and_not_overwritten",
+      "test_legacy_cache_without_capture_remains_usable_and_unproven"
+    ],
+    "full_tests_executed": 1371,
+    "original_windows_artifact_preserved_by_coordinator": true,
+    "prices_lane_cleanup_errors": 2,
+    "prior_windows_run_successful": false,
+    "published_head": "e550b334",
+    "reported_cleanup_errors": 12,
+    "windows_run_id": "38551067090"
+  }
+}

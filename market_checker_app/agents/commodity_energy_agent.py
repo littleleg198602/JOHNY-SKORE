@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 from market_checker_app.agents.base import BaseAgent
 from market_checker_app.agents.contracts import (
     AgentContext,
@@ -67,18 +69,35 @@ class CommodityEnergyAgent(BaseAgent):
             for source in self.config.sources
             if normalize_ticker(source.ticker) in watchlist
         ]
-        candidates: list[tuple[object, object | None, tuple[str, ...], str, str]] = [
+        candidates: list[tuple[object, object | None, tuple[str, ...], str, str, dict | None]] = [
             (
                 source,
                 None,
                 (str(source.resource_name),),
                 "manual",
                 "explicit_public_source_reference",
+                None,
             )
             for source in matching_sources
         ]
         auto_discovered_count = 0
         scanned_sec_filings = 0
+        rejected_filings = 0
+        discovery_warnings: list[str] = []
+        filing_documents = {}
+        ambiguous_documents = set()
+        prior_results = context.state.get("agent_results")
+        if isinstance(prior_results, dict):
+            for prior in prior_results.values():
+                if not isinstance(prior, AgentResult):
+                    continue
+                for document in prior.documents:
+                    if document.source_type != "regulatory_filing":
+                        continue
+                    key = (document.ticker, document.url, document.content_hash)
+                    if key in filing_documents and filing_documents[key] != document:
+                        ambiguous_documents.add(key)
+                    filing_documents[key] = document
         if self.config.auto_discover_from_sec_filings:
             filing_texts = context.state.get("sec_filing_texts_by_ticker")
             if isinstance(filing_texts, dict):
@@ -89,13 +108,26 @@ class CommodityEnergyAgent(BaseAgent):
                         continue
                     for fetched in fetched_items:
                         scanned_sec_filings += 1
-                        findings = discovery.discover(
-                            fetched,
-                            max_supply_chain=0,
-                            max_commodity_energy=(
-                                self.config.max_auto_discovered_exposures_per_filing
-                            ),
-                        )
+                        try:
+                            if normalize_ticker(fetched.source.ticker) != ticker:
+                                raise ValueError("SEC podání má jiný ticker než výzkumný kontext")
+                            key = (fetched.source.ticker, fetched.final_url, fetched.content_hash)
+                            if key in ambiguous_documents:
+                                raise ValueError("konfliktní metadata stejného SEC podání")
+                            findings = discovery.discover(
+                                fetched,
+                                max_supply_chain=0,
+                                max_commodity_energy=(
+                                    self.config.max_auto_discovered_exposures_per_filing
+                                ),
+                                as_of=context.started_at,
+                                filing_document=filing_documents.get(key),
+                                require_commodity_issuer_path=True,
+                            )
+                        except (AttributeError, TypeError, ValueError) as exc:
+                            rejected_filings += 1
+                            discovery_warnings.append(f"CommodityEnergyAgent {ticker}: {exc}.")
+                            continue
                         for finding in findings.commodity_energy:
                             candidates.append(
                                 (
@@ -104,17 +136,20 @@ class CommodityEnergyAgent(BaseAgent):
                                     (finding.support_term, finding.evidence_quote),
                                     "sec_filing",
                                     finding.reason,
+                                    finding.provenance,
                                 )
                             )
                             auto_discovered_count += 1
         if not candidates:
             if scanned_sec_filings:
                 return AgentResult(
-                    status=AgentStatus.SUCCESS,
+                    status=AgentStatus.UNAVAILABLE if rejected_filings else AgentStatus.SUCCESS,
+                    warnings=discovery_warnings,
                     metadata={
                         "configured_sources": len(self.config.sources),
                         "matching_sources": 0,
                         "scanned_sec_filings": scanned_sec_filings,
+                        "rejected_filings": rejected_filings,
                         "auto_discovered_exposures": 0,
                         "exposures": 0,
                         "price_series_attached": False,
@@ -142,7 +177,7 @@ class CommodityEnergyAgent(BaseAgent):
         documents = {}
         exposures: list[ResourceExposure] = []
         evidence: list[AgentEvidence] = []
-        warnings: list[str] = []
+        warnings: list[str] = discovery_warnings
         rejected_sources = 0
         seen_records: set[str] = set()
 
@@ -152,6 +187,7 @@ class CommodityEnergyAgent(BaseAgent):
             support_terms,
             discovery_method,
             discovery_reason,
+            filing_provenance,
         ) in candidates:
             ticker = normalize_ticker(source.ticker)
             try:
@@ -199,7 +235,26 @@ class CommodityEnergyAgent(BaseAgent):
                     ),
                     support_terms=support_terms,
                     discovery_method=discovery_method,
+                    source_authority="SEC" if filing_provenance else None,
+                    canonical_event_key=(f"sec-filing:{filing_provenance['filing_cik']}:"
+                                         f"{filing_provenance['filing_accession_number']}"
+                                         if filing_provenance and filing_provenance["filing_accession_number"]
+                                         else None),
                 )
+                if filing_provenance:
+                    filing_provenance = dict(filing_provenance)
+                    source_known = filing_provenance.get("known_at")
+                    known = max(observed_at, source.published_at,
+                                datetime.fromisoformat(source_known) if source_known else observed_at)
+                    filing_provenance.update(
+                        source_known_at=source_known, relationship_observed_at=observed_at.isoformat(),
+                        known_at=known.isoformat(), available_at_cutoff=known <= context.started_at,
+                    )
+                    document.metadata["filing_exposure_provenance"] = {
+                        key: value for key, value in filing_provenance.items() if key != "operational_relation"}
+                    period = filing_provenance.get("reporting_period_end")
+                    if period:
+                        document.reporting_period_end = datetime.fromisoformat(period).replace(tzinfo=timezone.utc)
                 support_detected = bool(
                     document.metadata.get("source_content_support_detected")
                 )
@@ -235,6 +290,7 @@ class CommodityEnergyAgent(BaseAgent):
                         "source_content_support_detected": support_detected,
                         "discovery_method": discovery_method,
                         "scoring_applied": False,
+                        "filing_exposure_provenance": filing_provenance,
                     },
                 )
                 scenario = build_resource_margin_scenario(
@@ -320,7 +376,7 @@ class CommodityEnergyAgent(BaseAgent):
             by_ticker.setdefault(exposure.ticker, []).append(exposure)
         if not exposures:
             status = AgentStatus.UNAVAILABLE
-        elif rejected_sources:
+        elif rejected_sources or rejected_filings:
             status = AgentStatus.PARTIAL
         else:
             status = AgentStatus.SUCCESS
@@ -337,6 +393,7 @@ class CommodityEnergyAgent(BaseAgent):
                 "auto_discovered_exposures": auto_discovered_count,
                 "exposures": len(exposures),
                 "rejected_sources": rejected_sources,
+                "rejected_filings": rejected_filings,
                 "price_series_attached": False,
                 "scoring_applied": False,
             },

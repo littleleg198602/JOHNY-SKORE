@@ -1,0 +1,377 @@
+{
+  "as_of": "2026-10-14T23:29:18.942027+00:00",
+  "captures": {
+    "source_0": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 799583,
+        "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+        "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+      },
+      "metadata": {
+        "kind": "ticker_catalog",
+        "observed_at": "2026-10-12T14:49:01.942947+00:00",
+        "published_at": null,
+        "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+        "snapshot_id": "38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a",
+        "url": "https://www.sec.gov/files/company_tickers.json"
+      }
+    },
+    "source_1": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 2088909,
+        "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+        "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+      },
+      "metadata": {
+        "kind": "13f_list",
+        "observed_at": "2026-10-12T14:49:07.942392+00:00",
+        "published_at": null,
+        "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+        "snapshot_id": "fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c",
+        "url": "https://www.sec.gov/files/investment/13flist2026q3.txt"
+      }
+    },
+    "source_10": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 42169,
+        "path": "evidence/batch7_identity_20261015/captures/a36c868755cc26ca7d34b73096b33d2b9be99f819cf5f2077c803f433920b50e.bin",
+        "sha256": "a36c868755cc26ca7d34b73096b33d2b9be99f819cf5f2077c803f433920b50e"
+      },
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T23:26:00.636289+00:00",
+        "published_at": "2026-04-13T10:53:34+00:00",
+        "sha256": "a36c868755cc26ca7d34b73096b33d2b9be99f819cf5f2077c803f433920b50e",
+        "snapshot_id": "af4b8462a5c321358885019df0f6630183a8d0b2988bdde920f279af7bcfc302",
+        "url": "https://www.sec.gov/Archives/edgar/data/1206264/000114036126014337/ef20070363_8k.htm"
+      }
+    },
+    "source_11": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 1974270,
+        "path": "evidence/batch7_identity_20261015/captures/16a2b25183657231c1adc23cca179fed1982a0ade3b5e44afb33461972e13ba9.bin",
+        "sha256": "16a2b25183657231c1adc23cca179fed1982a0ade3b5e44afb33461972e13ba9"
+      },
+      "metadata": {
+        "kind": "ticker_filing",
+        "observed_at": "2026-10-14T23:25:33.068935+00:00",
+        "published_at": "2026-08-07T11:02:59+00:00",
+        "sha256": "16a2b25183657231c1adc23cca179fed1982a0ade3b5e44afb33461972e13ba9",
+        "snapshot_id": "9530f15404932575577e9d3919cf0111ffcaa8d03122a7a9530d107db588a3cb",
+        "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000113/sgi-20260630.htm"
+      }
+    },
+    "source_12": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 16626,
+        "path": "evidence/batch7_identity_20261015/captures/275f5e5adef469c3297ee9621dd793baee6422f46232d18e782c97f2524689ee.bin",
+        "sha256": "275f5e5adef469c3297ee9621dd793baee6422f46232d18e782c97f2524689ee"
+      },
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T23:29:18.942027+00:00",
+        "published_at": "2026-08-26T16:41:36+00:00",
+        "sha256": "275f5e5adef469c3297ee9621dd793baee6422f46232d18e782c97f2524689ee",
+        "snapshot_id": "16158eed5acbc94c290ee1354c609fefdad6749d3f5aa83e6dcadcb29d125f8a",
+        "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/exhibit991-somnigroupcompl.htm"
+      }
+    },
+    "source_13": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 71626,
+        "path": "evidence/batch7_identity_20261015/captures/74bfc5720c373748d848f6338899b3dee0fa57e7b2ed5bbd8b01a015718bb55d.bin",
+        "sha256": "74bfc5720c373748d848f6338899b3dee0fa57e7b2ed5bbd8b01a015718bb55d"
+      },
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T23:27:07.607727+00:00",
+        "published_at": "2026-04-13T11:23:41+00:00",
+        "sha256": "74bfc5720c373748d848f6338899b3dee0fa57e7b2ed5bbd8b01a015718bb55d",
+        "snapshot_id": "9f049a3973e601b72a4e8de117657474bfb630e47f692ac9b86db3bb5e1eaa02",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526151966/d38467d8k.htm"
+      }
+    },
+    "source_14": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 597563,
+        "path": "evidence/batch7_identity_20261015/captures/4198f7f8bfc9ca05edf840129b9486d819f2c5e45180a9fb2bcb31a6a4c9d2db.bin",
+        "sha256": "4198f7f8bfc9ca05edf840129b9486d819f2c5e45180a9fb2bcb31a6a4c9d2db"
+      },
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T23:28:23.714712+00:00",
+        "published_at": "2026-04-13T11:23:41+00:00",
+        "sha256": "4198f7f8bfc9ca05edf840129b9486d819f2c5e45180a9fb2bcb31a6a4c9d2db",
+        "snapshot_id": "7d1a1d6bd8b732993ee948c8f86786b0cdc0992a98ad7f76451f1f6b93ba8595",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526151966/d38467dex21.htm"
+      }
+    },
+    "source_15": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 5636,
+        "path": "evidence/batch7_identity_20261015/captures/e7ad05d9bd5d711f81072600f8448505752dc9cce1009adc61fc5a974961306c.bin",
+        "sha256": "e7ad05d9bd5d711f81072600f8448505752dc9cce1009adc61fc5a974961306c"
+      },
+      "metadata": {
+        "kind": "schedule13",
+        "observed_at": "2026-10-14T23:25:47.067656+00:00",
+        "published_at": "2026-07-31T15:24:47+00:00",
+        "sha256": "e7ad05d9bd5d711f81072600f8448505752dc9cce1009adc61fc5a974961306c",
+        "snapshot_id": "6e504170e858bc1277bca52be24a2fec1d6d554d5e84e2cfcf9a4b64b7555e66",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000210012126000938/primary_doc.xml"
+      }
+    },
+    "source_2": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 41778,
+        "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+        "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4"
+      },
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-13T08:46:22.597523+00:00",
+        "published_at": "2026-08-26T17:27:01+00:00",
+        "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+        "snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+      }
+    },
+    "source_3": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 6847,
+        "path": "evidence/batch4_identity_20261013/captures/2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd.bin",
+        "sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd"
+      },
+      "metadata": {
+        "kind": "schedule13",
+        "observed_at": "2026-10-13T08:51:23.811758+00:00",
+        "published_at": "2026-09-08T13:58:16+00:00",
+        "sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd",
+        "snapshot_id": "476898cd65424f7eac0fe086583143430a05de08d27a9abedcc13e8d1c0f09e4",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002283/primary_doc.xml"
+      }
+    },
+    "source_4": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 6887,
+        "path": "evidence/batch6_identity_20261014/captures/a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698.bin",
+        "sha256": "a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698"
+      },
+      "metadata": {
+        "kind": "schedule13",
+        "observed_at": "2026-10-14T13:28:47.857082+00:00",
+        "published_at": "2026-08-07T15:21:42+00:00",
+        "sha256": "a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698",
+        "snapshot_id": "37b29d608b742e524df00431dce4b8f8b82ed32a2635caa9ac80067624966cc2",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002256/primary_doc.xml"
+      }
+    },
+    "source_5": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 1980178,
+        "path": "evidence/batch6_identity_20261014/captures/494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d.bin",
+        "sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d"
+      },
+      "metadata": {
+        "kind": "ticker_filing",
+        "observed_at": "2026-10-14T13:28:58.863010+00:00",
+        "published_at": "2026-08-06T15:22:27+00:00",
+        "sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d",
+        "snapshot_id": "88b98e8105feaefc2c0956d6b47d38a03334c9da87efb62811eadad36cf07878",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000005849226000430/leg-20260630.htm"
+      }
+    },
+    "source_6": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 38236,
+        "path": "evidence/batch6_identity_20261014/captures/869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146.bin",
+        "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146"
+      },
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-14T13:29:09.343160+00:00",
+        "published_at": "2026-08-26T16:41:36+00:00",
+        "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146",
+        "snapshot_id": "4c5609917086990b6a00cff4bd48025797c10da7606121a9ada09c33741c1985",
+        "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/sgi-20260826.htm"
+      }
+    },
+    "source_7": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 38236,
+        "path": "evidence/batch6_identity_20261014/captures/869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146.bin",
+        "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146"
+      },
+      "metadata": {
+        "kind": "ticker_filing",
+        "observed_at": "2026-10-14T13:29:09.343160+00:00",
+        "published_at": "2026-08-26T16:41:36+00:00",
+        "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146",
+        "snapshot_id": "1b8e4c1245c8fe580a26ae2218409c7cbf87d1a13a2a25e9b8ba5643c4687fae",
+        "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/sgi-20260826.htm"
+      }
+    },
+    "source_8": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 6904,
+        "path": "evidence/batch6_identity_20261014/captures/bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2.bin",
+        "sha256": "bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2"
+      },
+      "metadata": {
+        "kind": "schedule13",
+        "observed_at": "2026-10-14T13:29:18.124083+00:00",
+        "published_at": "2026-08-06T14:41:06+00:00",
+        "sha256": "bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2",
+        "snapshot_id": "3c7c0d418281f60a1da9336292b257a62dd17988203110834b08c6d8e6e201c4",
+        "url": "https://www.sec.gov/Archives/edgar/data/1206264/000031506626002146/primary_doc.xml"
+      }
+    },
+    "source_9": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 1060,
+        "path": "evidence/batch6_identity_20261014/captures/54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d.bin",
+        "sha256": "54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d"
+      },
+      "metadata": {
+        "kind": "form25_nse",
+        "observed_at": "2026-10-14T13:27:50.009633+00:00",
+        "published_at": "2026-08-27T13:23:44+00:00",
+        "sha256": "54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d",
+        "snapshot_id": "03d0a7e908cbccc4ed6f4911097c95f48f457ed6284d265acc9c47555b5e9e23",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000087666126000712/primary_doc.xml"
+      }
+    }
+  },
+  "kind": "SEC_CONTROL_INSTRUMENT",
+  "request": {
+    "quarter": "2026q3",
+    "review_request": {
+      "control_disclosures": [
+        {
+          "child_name_text": "Leggett & Platt, Incorporated",
+          "child_reference_text": "the Company",
+          "effective_date_text": "August 26, 2026",
+          "effective_on": "2026-08-26",
+          "excerpt": "On August 26, 2026 (the “ Closing Date ”), Sparrow Unity Corporation, a Missouri corporation (“ Merger Sub ”) and wholly owned indirect subsidiary of Somnigroup International Inc., a Delaware corporation (“ Parent ”), merged with and into Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), with the Company continuing as the surviving corporation (the “ Merger ” and the time of consummation thereof, the “ Effective Time ”) pursuant to the previously announced Agreement and Plan of Merger, dated as of April 13, 2026 (the “ Merger Agreement ”), by and among the Company, Parent and Merger Sub. As a result of the Merger, the Company became a wholly owned indirect subsidiary of the Parent (the “Surviving Corporation”).",
+          "parent_name_text": "Somnigroup International Inc.",
+          "parent_reference_text": "the Parent",
+          "relation": "INDIRECT",
+          "relation_excerpt": "the Company became a wholly owned indirect subsidiary of the Parent",
+          "scope": "COMPLETED",
+          "source_snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+          "subject_role": "SURVIVING_ISSUER"
+        },
+        {
+          "child_name_text": "Leggett & Platt, Incorporated",
+          "child_reference_text": "Leggett & Platt",
+          "effective_date_text": "August 26, 2026",
+          "effective_on": "2026-08-26",
+          "excerpt": "On August 26, 2026, Somnigroup International Inc., a Delaware corporation (the \"Company\") and Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned subsidiary of the Company (\"Merger Sub\"), consummated the previously announced acquisition of Leggett & Platt, Incorporated, a Missouri corporation (\"Leggett & Platt\"), pursuant to the Agreement and Plan of Merger dated as of April 13, 2026 (the \"Merger Agreement\"), by and among the Company, Merger Sub and Leggett & Platt. Under the Merger Agreement, Merger Sub merged with and into Leggett & Platt (the \"Merger\") with Leggett & Platt surviving and becoming a direct, wholly owned subsidiary of the Company (the \"Surviving Corporation\"). At the effective time of the Merger (\"Effective Time\"), each share of Leggett & Platt common stock, par value $0.01 per share, (the \"Leggett & Platt common stock\") issued and outstanding immediately prior to the Effective Time (other than shares of Leggett & Platt common stock held, directly or indirectly, by Leggett & Platt (as treasury shares or otherwise), any Leggett & Platt subsidiary, or by the Company or any Company subsidiary, in each case, immediately prior to the Effective Time, were automatically cancelled, and other than dissenting shares) was automatically converted into the right to receive 0.1455 shares (the \"Exchange Ratio\") of the Company's common stock, par value $0.01 per share, (\"Somnigroup common stock\"), with cash paid in lieu of any fractional shares, if applicable (the \"Merger Consideration\").",
+          "parent_name_text": "Somnigroup International Inc.",
+          "parent_reference_text": "the Company",
+          "relation": "DIRECT",
+          "relation_excerpt": "Leggett & Platt surviving and becoming a direct, wholly owned subsidiary of the Company",
+          "scope": "COMPLETED",
+          "source_snapshot_id": "4c5609917086990b6a00cff4bd48025797c10da7606121a9ada09c33741c1985",
+          "subject_role": "SURVIVING_ISSUER"
+        },
+        {
+          "child_name_text": "Leggett & Platt, Incorporated",
+          "child_reference_text": "the Company",
+          "effective_date_text": null,
+          "effective_on": null,
+          "excerpt": "On April 13, 2026, Somnigroup International Inc., a Delaware corporation (“ Parent ”), and Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), entered into an Agreement and Plan of Merger (the “ Merger Agreement ”), by and among Parent, Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned subsidiary of Parent (“ Merger Sub ” and together with Parent, the “ Parent Parties ”), and the Company, pursuant to which, subject to the terms and conditions of the Merger Agreement, Merger Sub will merge with and into the Company (the “ Merger ”), with the Company surviving the Merger as a direct, wholly owned subsidiary of Parent.",
+          "parent_name_text": "Somnigroup International Inc.",
+          "parent_reference_text": "Parent",
+          "relation": "DIRECT",
+          "relation_excerpt": "the Company surviving the Merger as a direct, wholly owned subsidiary of Parent",
+          "scope": "PLANNED",
+          "source_snapshot_id": "9f049a3973e601b72a4e8de117657474bfb630e47f692ac9b86db3bb5e1eaa02",
+          "subject_role": "SURVIVING_ISSUER"
+        },
+        {
+          "child_name_text": "Leggett & Platt, Incorporated",
+          "child_reference_text": "the Company",
+          "effective_date_text": null,
+          "effective_on": null,
+          "excerpt": "AGREEMENT AND PLAN OF MERGER, dated as of April 13, 2026 (this “ Agreement ”), is by and among Somnigroup International Inc., a Delaware corporation (“ Parent ”), Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned Subsidiary of Parent (“ Merger Sub ” and together with Parent, the “ Parent Parties ”), and Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”). All capitalized terms used in this Agreement shall have the meanings assigned to such terms in Section 9.4 or as otherwise defined elsewhere in this Agreement unless the context clearly indicates otherwise. RECITALS A. The parties intend that, on the terms and subject to the conditions set forth in this Agreement, Merger Sub be merged with and into the Company (the “ Merger ”), with the Company continuing as the surviving corporation in the Merger (the “ Surviving Corporation ”) and as a direct, wholly owned Subsidiary of Parent in accordance with the applicable provisions of the General and Business Corporation Law of Missouri, as amended (the “ GBCLM ”);",
+          "parent_name_text": "Somnigroup International Inc.",
+          "parent_reference_text": "Parent",
+          "relation": "DIRECT",
+          "relation_excerpt": "the Company continuing as the surviving corporation in the Merger (the “ Surviving Corporation ”) and as a direct, wholly owned Subsidiary of Parent",
+          "scope": "PLANNED",
+          "source_snapshot_id": "7d1a1d6bd8b732993ee948c8f86786b0cdc0992a98ad7f76451f1f6b93ba8595",
+          "subject_role": "SURVIVING_ISSUER"
+        }
+      ],
+      "instrument_disclosures": [
+        {
+          "anchor_on": "2026-06-30",
+          "instrument_snapshot_id": "6e504170e858bc1277bca52be24a2fec1d6d554d5e84e2cfcf9a4b64b7555e66",
+          "role": "from",
+          "ticker_snapshot_id": "88b98e8105feaefc2c0956d6b47d38a03334c9da87efb62811eadad36cf07878"
+        },
+        {
+          "anchor_on": "2026-06-30",
+          "instrument_snapshot_id": "3c7c0d418281f60a1da9336292b257a62dd17988203110834b08c6d8e6e201c4",
+          "role": "to",
+          "ticker_snapshot_id": "9530f15404932575577e9d3919cf0111ffcaa8d03122a7a9530d107db588a3cb"
+        }
+      ],
+      "stock_merger": {
+        "action_excerpt": "On August 26, 2026 (the “ Closing Date ”), Sparrow Unity Corporation, a Missouri corporation (“ Merger Sub ”) and wholly owned indirect subsidiary of Somnigroup International Inc., a Delaware corporation (“ Parent ”), merged with and into Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), with the Company continuing as the surviving corporation (the “ Merger ” and the time of consummation thereof, the “ Effective Time ”) pursuant to the previously announced Agreement and Plan of Merger, dated as of April 13, 2026 (the “ Merger Agreement ”), by and among the Company, Parent and Merger Sub. As a result of the Merger, the Company became a wholly owned indirect subsidiary of the Parent (the “Surviving Corporation”).",
+        "action_snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+        "bridge_kind": "STOCK_MERGER_EXCHANGE",
+        "completion_excerpt": "On August 26, 2026, Somnigroup International Inc., a Delaware corporation (the \"Company\") and Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned subsidiary of the Company (\"Merger Sub\"), consummated the previously announced acquisition of Leggett & Platt, Incorporated, a Missouri corporation (\"Leggett & Platt\"), pursuant to the Agreement and Plan of Merger dated as of April 13, 2026 (the \"Merger Agreement\"), by and among the Company, Merger Sub and Leggett & Platt. Under the Merger Agreement, Merger Sub merged with and into Leggett & Platt (the \"Merger\") with Leggett & Platt surviving and becoming a direct, wholly owned subsidiary of the Company (the \"Surviving Corporation\"). At the effective time of the Merger (\"Effective Time\"), each share of Leggett & Platt common stock, par value $0.01 per share, (the \"Leggett & Platt common stock\") issued and outstanding immediately prior to the Effective Time (other than shares of Leggett & Platt common stock held, directly or indirectly, by Leggett & Platt (as treasury shares or otherwise), any Leggett & Platt subsidiary, or by the Company or any Company subsidiary, in each case, immediately prior to the Effective Time, were automatically cancelled, and other than dissenting shares) was automatically converted into the right to receive 0.1455 shares (the \"Exchange Ratio\") of the Company's common stock, par value $0.01 per share, (\"Somnigroup common stock\"), with cash paid in lieu of any fractional shares, if applicable (the \"Merger Consideration\").",
+        "completion_snapshot_id": "4c5609917086990b6a00cff4bd48025797c10da7606121a9ada09c33741c1985",
+        "cusip_bridge_snapshot_id": null,
+        "effective_date_text": "August 26, 2026",
+        "effective_on": "2026-08-26",
+        "exchange_excerpt": "At the Effective Time, each share of Company common stock, par value $0.01 per share (“ Company common stock ”), issued and outstanding immediately prior to the Effective Time (other than shares of Company common stock held, directly or indirectly, by the Company (as treasury shares or otherwise), any Company subsidiary, or Parent or any Parent subsidiary, in each case, immediately prior to the Effective Time, which were automatically cancelled, and other than dissenting shares) was automatically converted into the right to receive 0.1455 shares (the “ Exchange Ratio ”) of Parent’s common stock, par value $0.01 per share (“ Parent common stock ”), with cash paid in lieu of any fractional shares, if applicable (the “ Merger Consideration ”).",
+        "exchange_ratio": "0.1455",
+        "fractional_cash_only": true,
+        "from_action_name_text": "Leggett & Platt, Incorporated",
+        "from_class_title": "common stock, par value $0.01 per share",
+        "from_identity": {
+          "class_description": "COM",
+          "cusip": "524660107",
+          "issuer_cik": "0000058492",
+          "issuer_name": "LEGGETT & PLATT INC",
+          "ticker": "LEG"
+        },
+        "from_instrument_snapshot_id": "37b29d608b742e524df00431dce4b8f8b82ed32a2635caa9ac80067624966cc2",
+        "from_ticker_snapshot_id": "88b98e8105feaefc2c0956d6b47d38a03334c9da87efb62811eadad36cf07878",
+        "ticker": "LEG",
+        "to_action_name_text": "Somnigroup International Inc.",
+        "to_class_title": "common stock, par value $0.01 per share",
+        "to_identity": {
+          "class_description": "COM",
+          "cusip": "88023U101",
+          "issuer_cik": "0001206264",
+          "issuer_name": "SOMNIGROUP INTERNATIONAL INC",
+          "ticker": "SGI"
+        },
+        "to_instrument_snapshot_id": "3c7c0d418281f60a1da9336292b257a62dd17988203110834b08c6d8e6e201c4",
+        "to_ticker_snapshot_id": "1b8e4c1245c8fe580a26ae2218409c7cbf87d1a13a2a25e9b8ba5643c4687fae",
+        "withdrawal_snapshot_id": "03d0a7e908cbccc4ed6f4911097c95f48f457ed6284d265acc9c47555b5e9e23"
+      }
+    }
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

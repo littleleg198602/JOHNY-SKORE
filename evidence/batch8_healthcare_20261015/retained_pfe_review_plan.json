@@ -1,0 +1,80 @@
+{
+  "schema_version": "captured_identity_review_plan_v1",
+  "kind": "FDA_STRUCTURED_PRODUCT",
+  "request": {
+    "selection": {
+      "application_type": "BLA",
+      "application_number": "761081",
+      "sponsor_name": "Pfizer Inc.",
+      "issuer_ticker": "PFE",
+      "issuer_cik": "0000078003",
+      "product_number": null,
+      "dosage_form": null,
+      "active_ingredients": [],
+      "source_version": null
+    }
+  },
+  "captures": {
+    "structured": {
+      "metadata": {
+        "capture_form": "UNAVAILABLE_ORIGINAL_STRUCTURED_SOURCE",
+        "retention": "MISSING_BODY",
+        "status": "WAIT_DATA",
+        "raw_publication_permitted": false,
+        "reason": "No retained original DrugsFDA structured application/product response in reviewed corpus"
+      },
+      "body_available": false,
+      "body_ref": null
+    },
+    "issuer": {
+      "metadata": {
+        "acquisition_method": "urllib.request raw HTTP body",
+        "request_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+        "response_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+        "requested_at": "2026-10-12T14:44:14.903431+00:00",
+        "observed_at": "2026-10-12T14:44:19.890070+00:00",
+        "http_status": 200,
+        "request_headers": {
+          "Accept": "text/html",
+          "User-Agent": "JohnySkorePrimaryEvidence/1.0"
+        },
+        "response_headers": {
+          "Content-Type": "text/html",
+          "X-Frame-Options": "SAMEORIGIN",
+          "x-amz-id-2": "sLcOc+MvPUL3oafDTq5N/732XdJXp8TClyJAKP1JL2sENnx64M+BzjA5u+ayXQNhEdkmTlt7ntQ=",
+          "x-amz-request-id": "W6WYY3F4QQYT9STG",
+          "x-amz-replication-status": "COMPLETED",
+          "Last-Modified": "Thu, 22 Feb 2018 20:46:44 GMT",
+          "x-amz-meta-mode": "33188",
+          "x-amz-version-id": "NH4_sZhfw3COjIjT.dbpSPoqS3tKsUHI",
+          "X-Content-Type-Options": "nosniff",
+          "X-XSS-Protection": "1; mode=block",
+          "X-Akamai-Transformed": "0 - 0 -",
+          "Vary": "Accept-Encoding",
+          "Date": "Mon, 12 Oct 2026 14:44:19 GMT",
+          "Transfer-Encoding": "chunked",
+          "Connection": "close",
+          "Strict-Transport-Security": "max-age=31536000 ; includeSubDomains ; preload"
+        },
+        "byte_budget": 4000000,
+        "body_bytes": 816055,
+        "body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+        "body_complete_within_byte_budget": true,
+        "error": null,
+        "body_path": "sec_pfe_2017_10k.body.html.gz",
+        "storage_encoding": "gzip",
+        "archived_bytes": 93812,
+        "archive_sha256": "a88263dff67918610305607fde11f5188b2146c4941be9401889ff81c2f75da2",
+        "response_headers_omitted": [
+          "Set-Cookie"
+        ]
+      },
+      "body_available": true,
+      "body_ref": {
+        "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+        "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+        "bytes": 816055
+      }
+    }
+  }
+}

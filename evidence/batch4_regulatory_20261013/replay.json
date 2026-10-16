@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "kind": "BOUNDED_CAPTURE_OFFLINE_PRODUCTION_REPLAY",
+  "replayed_at": "2026-10-13T08:50:24.763352+00:00",
+  "network_requests": 0,
+  "production_registry_modified": false,
+  "adopted_identity_records": 0,
+  "test_local_query_envelopes_only": true,
+  "complete_negative_live": {
+    "status": "NOT_ESTABLISHED",
+    "http200_empty_captures": 0
+  },
+  "rows": [
+    {
+      "capture_id": "nhtsa_recalls_cadillac_ct4_2026",
+      "capture_observed_at": "2026-10-13T08:44:29.661347+00:00",
+      "archive_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "original_http_status": 400,
+      "query": {
+        "make": "CADILLAC",
+        "model": "CT4",
+        "model_year": 2026
+      },
+      "result": {
+        "status": "PARTIAL",
+        "checked_models": 0,
+        "new_findings": 0,
+        "failed_models": 1,
+        "rejected_rows": 0
+      },
+      "persisted_checks": [],
+      "persisted_findings": [],
+      "issuer_relationship_adopted": false,
+      "historical_available_time_reconstructed": false,
+      "scoring_applied": false
+    },
+    {
+      "capture_id": "nhtsa_recalls_ford_f650sd_2026",
+      "capture_observed_at": "2026-10-13T08:44:36.794796+00:00",
+      "archive_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "original_http_status": 400,
+      "query": {
+        "make": "FORD",
+        "model": "F-650 SD",
+        "model_year": 2026
+      },
+      "result": {
+        "status": "PARTIAL",
+        "checked_models": 0,
+        "new_findings": 0,
+        "failed_models": 1,
+        "rejected_rows": 0
+      },
+      "persisted_checks": [],
+      "persisted_findings": [],
+      "issuer_relationship_adopted": false,
+      "historical_available_time_reconstructed": false,
+      "scoring_applied": false
+    },
+    {
+      "capture_id": "nhtsa_recalls_chevrolet_trailblazer_2026",
+      "capture_observed_at": "2026-10-13T08:44:41.291399+00:00",
+      "archive_sha256": "1267fd097da23cc7f62f59c997d8aade05af5f3cebd4aff485cc5b72875fa28f",
+      "original_http_status": 200,
+      "query": {
+        "make": "CHEVROLET",
+        "model": "TRAILBLAZER",
+        "model_year": 2026
+      },
+      "result": {
+        "status": "OK",
+        "checked_models": 1,
+        "new_findings": 1,
+        "failed_models": 0,
+        "rejected_rows": 0
+      },
+      "persisted_checks": [
+        {
+          "candidate_count": 1,
+          "truncated": 0,
+          "checked_at": "2026-10-13T08:50:24.763352+00:00"
+        }
+      ],
+      "persisted_findings": [
+        {
+          "source_object_id": "CHEVROLET:TRAILBLAZER:2026:26V539000",
+          "available_at": "2026-10-13T08:50:24.763352+00:00",
+          "first_observed_at": "2026-10-13T08:50:24.763352+00:00"
+        }
+      ],
+      "issuer_relationship_adopted": false,
+      "historical_available_time_reconstructed": false,
+      "scoring_applied": false
+    },
+    {
+      "capture_id": "nhtsa_recalls_ford_mustang_2026",
+      "capture_observed_at": "2026-10-13T08:44:46.407288+00:00",
+      "archive_sha256": "3a6a113716d8bded08245ae9eadcb974f5a55bae9fba3826e67ebb5c0c1a11b2",
+      "original_http_status": 200,
+      "query": {
+        "make": "FORD",
+        "model": "MUSTANG",
+        "model_year": 2026
+      },
+      "result": {
+        "status": "OK",
+        "checked_models": 1,
+        "new_findings": 5,
+        "failed_models": 0,
+        "rejected_rows": 0
+      },
+      "persisted_checks": [
+        {
+          "candidate_count": 5,
+          "truncated": 0,
+          "checked_at": "2026-10-13T08:50:24.763352+00:00"
+        }
+      ],
+      "persisted_findings": [
+        {
+          "source_object_id": "FORD:MUSTANG:2026:25V828000",
+          "available_at": "2026-10-13T08:50:24.763352+00:00",
+          "first_observed_at": "2026-10-13T08:50:24.763352+00:00"
+        },
+        {
+          "source_object_id": "FORD:MUSTANG:2026:26V205000",
+          "available_at": "2026-10-13T08:50:24.763352+00:00",
+          "first_observed_at": "2026-10-13T08:50:24.763352+00:00"
+        },
+        {
+          "source_object_id": "FORD:MUSTANG:2026:26V418000",
+          "available_at": "2026-10-13T08:50:24.763352+00:00",
+          "first_observed_at": "2026-10-13T08:50:24.763352+00:00"
+        },
+        {
+          "source_object_id": "FORD:MUSTANG:2026:26V547000",
+          "available_at": "2026-10-13T08:50:24.763352+00:00",
+          "first_observed_at": "2026-10-13T08:50:24.763352+00:00"
+        },
+        {
+          "source_object_id": "FORD:MUSTANG:2026:26V548000",
+          "available_at": "2026-10-13T08:50:24.763352+00:00",
+          "first_observed_at": "2026-10-13T08:50:24.763352+00:00"
+        }
+      ],
+      "issuer_relationship_adopted": false,
+      "historical_available_time_reconstructed": false,
+      "scoring_applied": false
+    }
+  ]
+}

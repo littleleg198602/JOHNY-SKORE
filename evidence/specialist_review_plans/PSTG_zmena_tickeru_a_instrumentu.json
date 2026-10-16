@@ -1,0 +1,306 @@
+{
+  "captures": {
+    "annual": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 2070825,
+        "path": "evidence/batch8_identity_20261015/captures/77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+        "sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 2,
+        "body_path": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+        "bytes": 2070825,
+        "elapsed_seconds": 8.126321923999967,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-15T13:38:21.852971+00:00",
+        "raw_sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7",
+        "redirects_allowed": false,
+        "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": null,
+          "Content-Type": "text/html",
+          "Date": "Thu, 15 Oct 2026 13:38:21 GMT",
+          "Last-Modified": "Wed, 25 Mar 2026 10:01:27 GMT"
+        },
+        "started_at": "2026-10-15T13:38:13.941013+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "instrument": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 5569,
+        "path": "evidence/batch8_identity_20261015/captures/ce00fb0af167462c4f046c464d9079fdb4d1dea22c18a78d951444dda7dfd3ac.bin",
+        "sha256": "ce00fb0af167462c4f046c464d9079fdb4d1dea22c18a78d951444dda7dfd3ac"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 6,
+        "body_path": "ce00fb0af167462c4f046c464d9079fdb4d1dea22c18a78d951444dda7dfd3ac.bin",
+        "bytes": 5569,
+        "elapsed_seconds": 12.039557786999467,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000210012126000241/primary_doc.xml",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-15T13:40:58.490517+00:00",
+        "raw_sha256": "ce00fb0af167462c4f046c464d9079fdb4d1dea22c18a78d951444dda7dfd3ac",
+        "redirects_allowed": false,
+        "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000210012126000241/primary_doc.xml",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "5569",
+          "Content-Type": "text/xml",
+          "Date": "Thu, 15 Oct 2026 13:40:58 GMT",
+          "Last-Modified": "Wed, 29 Apr 2026 16:43:10 GMT"
+        },
+        "started_at": "2026-10-15T13:40:46.451996+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "proxy": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 1302669,
+        "path": "evidence/batch8_identity_20261015/captures/f881b4d82e6c32ea4bbd796a541e2fe8301891d84de0d58937ced34363682dbd.bin",
+        "sha256": "f881b4d82e6c32ea4bbd796a541e2fe8301891d84de0d58937ced34363682dbd"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 3,
+        "body_path": "f881b4d82e6c32ea4bbd796a541e2fe8301891d84de0d58937ced34363682dbd.bin",
+        "bytes": 1302669,
+        "elapsed_seconds": 8.669535586000165,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000041/pstg-20260430.htm",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-15T13:38:30.601999+00:00",
+        "raw_sha256": "f881b4d82e6c32ea4bbd796a541e2fe8301891d84de0d58937ced34363682dbd",
+        "redirects_allowed": false,
+        "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000041/pstg-20260430.htm",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": null,
+          "Content-Type": "text/html",
+          "Date": "Thu, 15 Oct 2026 13:38:30 GMT",
+          "Last-Modified": "Fri, 01 May 2026 20:12:02 GMT"
+        },
+        "started_at": "2026-10-15T13:38:22.067992+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "release": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 319645,
+        "path": "evidence/batch8_identity_20261015/captures/438cf69186f809498713e335e3a3a1e249832951810e8184e1d34c61daffac8d.bin",
+        "sha256": "438cf69186f809498713e335e3a3a1e249832951810e8184e1d34c61daffac8d"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 5,
+        "body_path": "438cf69186f809498713e335e3a3a1e249832951810e8184e1d34c61daffac8d.bin",
+        "bytes": 319645,
+        "elapsed_seconds": 10.745770286000152,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/pstg-ex991q1fy2027xpressre.htm",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-15T13:40:46.415302+00:00",
+        "raw_sha256": "438cf69186f809498713e335e3a3a1e249832951810e8184e1d34c61daffac8d",
+        "redirects_allowed": false,
+        "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/pstg-ex991q1fy2027xpressre.htm",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": null,
+          "Content-Type": "text/html",
+          "Date": "Thu, 15 Oct 2026 13:40:46 GMT",
+          "Last-Modified": "Wed, 27 May 2026 20:07:43 GMT"
+        },
+        "started_at": "2026-10-15T13:40:35.705575+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "release_index": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 9952,
+        "path": "evidence/batch8_identity_20261015/captures/52dec5624a00189da32f116a4ecc75ee58c249758d96ac0a3bba6c3d4007a63e.bin",
+        "sha256": "52dec5624a00189da32f116a4ecc75ee58c249758d96ac0a3bba6c3d4007a63e"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 4,
+        "body_path": "52dec5624a00189da32f116a4ecc75ee58c249758d96ac0a3bba6c3d4007a63e.bin",
+        "bytes": 9952,
+        "elapsed_seconds": 9.819206764999763,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/0001474432-26-000046-index.html",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-15T13:39:21.560974+00:00",
+        "raw_sha256": "52dec5624a00189da32f116a4ecc75ee58c249758d96ac0a3bba6c3d4007a63e",
+        "redirects_allowed": false,
+        "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/0001474432-26-000046-index.html",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "9952",
+          "Content-Type": "text/html",
+          "Date": "Thu, 15 Oct 2026 13:39:21 GMT",
+          "Last-Modified": "Wed, 27 May 2026 20:06:45 GMT"
+        },
+        "started_at": "2026-10-15T13:39:11.745607+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "submissions": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 157807,
+        "path": "evidence/batch8_identity_20261015/captures/6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98.bin",
+        "sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 1,
+        "body_path": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98.bin",
+        "bytes": 157807,
+        "elapsed_seconds": 10.59255397600009,
+        "final_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-15T13:37:06.455150+00:00",
+        "raw_sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98",
+        "redirects_allowed": false,
+        "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+        "requested_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": null,
+          "Content-Type": "application/json",
+          "Date": "Thu, 15 Oct 2026 13:37:06 GMT",
+          "Last-Modified": null
+        },
+        "started_at": "2026-10-15T13:36:55.877000+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    }
+  },
+  "kind": "SEC_SYMBOL_ACTION_SCOPE",
+  "request": {
+    "action_claims": [
+      {
+        "asserted_phase": "EFFECTIVE",
+        "date_role": "UNKNOWN",
+        "date_text": null,
+        "day": null,
+        "event_kind": "SYMBOL_CHANGE",
+        "issuer_context_ref": "c-1",
+        "issuer_name_text": "Everpure, Inc.",
+        "issuer_reference_text": "Everpure",
+        "issuer_source_key": "annual",
+        "selection": {
+          "byte_end": 10924,
+          "byte_start": 9866,
+          "locator": "div:35",
+          "sha256": "394fe9804f9ea571949cfc2f41c9d9cbd6ac1d83df47c05fd51fd88228febca4",
+          "text": "• Formally transitioned the corporate brand from Pure Storage to Everpure and updated its ticker symbol (NYSE: P), reflecting the company's expansion from a storage provider to a leader in the future of data management."
+        },
+        "source_key": "release"
+      }
+    ],
+    "cover_claims": [
+      {
+        "context_ref": "c-1",
+        "issuer_name": "Everpure, Inc.",
+        "role": "FROM",
+        "source_key": "annual"
+      },
+      {
+        "context_ref": "c-1",
+        "issuer_name": "Everpure, Inc.",
+        "role": "NAME_ONLY",
+        "source_key": "proxy"
+      }
+    ],
+    "filings": [
+      {
+        "form": "10-K",
+        "proof_key": "submissions",
+        "proof_kind": "SUBMISSIONS",
+        "source_key": "annual"
+      },
+      {
+        "form": "DEF 14A",
+        "proof_key": "submissions",
+        "proof_kind": "SUBMISSIONS",
+        "source_key": "proxy"
+      },
+      {
+        "form": "SCHEDULE 13G",
+        "proof_key": "submissions",
+        "proof_kind": "SUBMISSIONS",
+        "source_key": "instrument"
+      },
+      {
+        "form": "EX-99.1",
+        "proof_key": "release_index",
+        "proof_kind": "INDEX",
+        "source_key": "release"
+      }
+    ],
+    "instrument_claims": [
+      {
+        "cover_context_ref": "c-1",
+        "cover_source_key": "annual",
+        "role": "FROM",
+        "source_key": "instrument"
+      }
+    ],
+    "scope": {
+      "class_title": "Class A Common Stock, par value $0.0001 per share",
+      "cusip": "74624M102",
+      "from_symbol": "PSTG",
+      "issuer_cik": "0001474432",
+      "to_symbol": "P"
+    }
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

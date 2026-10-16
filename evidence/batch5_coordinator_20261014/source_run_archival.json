@@ -1,0 +1,41 @@
+{
+  "created_at": "2026-10-14T05:21:15.088216+00:00",
+  "historical_availability_reconstructed": false,
+  "immediate_at_original_completion": false,
+  "issuer_attribution_verified": false,
+  "kind": "LATER_LOCAL_ARCHIVAL_OF_COMPLETED_SOURCE_REPORTS",
+  "local_archive_is_new_live_capture": false,
+  "make_model_scope_is_issuer_identity": false,
+  "new_http_requests": 0,
+  "oos_verified": false,
+  "original_source_reports_changed": false,
+  "publisher_revision_verified": false,
+  "records": [
+    {
+      "export_path": "evidence/batch5_coordinator_20261014/source_runs/rss/specialist_source_run_9947758362370d6e8dac1763eb956ae3ddab0555844a507a213e26d95aadfd27_47ed52005d8796380d2472d593f0d74ea72c63da085ca0b7d23f78da124bd151.json",
+      "export_sha256": "77ef55a0048982719185f7eba804089c0d7ae0471b7625138972835d7338f0ec",
+      "local_archival_finished_at": "2026-10-14T05:21:15.069144+00:00",
+      "local_archival_started_at": "2026-10-14T05:21:15.046917+00:00",
+      "original_attempted_requests": 3,
+      "original_report_path": "evidence/batch5_ir_20261014/runtime_report.json",
+      "original_report_sha256": "5c5692743e61e8ad63c69d54f2f40cd181db313c366fa818ac3cf8b2baf68b7a",
+      "original_source_completed_at": "2026-10-14T00:15:47.562423+00:00",
+      "source": "rss",
+      "status": "PARTIAL"
+    },
+    {
+      "export_path": "evidence/batch5_coordinator_20261014/source_runs/nhtsa/specialist_source_run_54ac0955a56f3df062c30fc4500644f7f85cc482e04cc6bdfa51d98ae40a55f7_dfc15c3cc9d5bd57d86d894e3285485923ac2dafbf78c6f56001e74da79b6c2d.json",
+      "export_sha256": "c6856efc60984d121e3eda969bcce3f942f710e1a6135ec33301552be9c443e6",
+      "local_archival_finished_at": "2026-10-14T05:21:15.087803+00:00",
+      "local_archival_started_at": "2026-10-14T05:21:15.069723+00:00",
+      "original_attempted_requests": 8,
+      "original_report_path": "evidence/batch5_regulatory_20261014/live_run.json",
+      "original_report_sha256": "5fa28a0a9fc468e546e414e933dc68676e8199ad6bc93a080252485090d10844",
+      "original_source_completed_at": "2026-10-14T00:07:44.522500+00:00",
+      "source": "nhtsa",
+      "status": "PARTIAL"
+    }
+  ],
+  "source_run_hook_immediate_for_future_invocations": true,
+  "specialists_accepted": 0
+}

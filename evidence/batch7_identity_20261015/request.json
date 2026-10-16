@@ -1,0 +1,111 @@
+{
+  "control_disclosures": [
+    {
+      "child_name_text": "Leggett & Platt, Incorporated",
+      "child_reference_text": "the Company",
+      "effective_date_text": "August 26, 2026",
+      "effective_on": "2026-08-26",
+      "excerpt": "On August 26, 2026 (the “ Closing Date ”), Sparrow Unity Corporation, a Missouri corporation (“ Merger Sub ”) and wholly owned indirect subsidiary of Somnigroup International Inc., a Delaware corporation (“ Parent ”), merged with and into Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), with the Company continuing as the surviving corporation (the “ Merger ” and the time of consummation thereof, the “ Effective Time ”) pursuant to the previously announced Agreement and Plan of Merger, dated as of April 13, 2026 (the “ Merger Agreement ”), by and among the Company, Parent and Merger Sub. As a result of the Merger, the Company became a wholly owned indirect subsidiary of the Parent (the “Surviving Corporation”).",
+      "parent_name_text": "Somnigroup International Inc.",
+      "parent_reference_text": "the Parent",
+      "relation": "INDIRECT",
+      "relation_excerpt": "the Company became a wholly owned indirect subsidiary of the Parent",
+      "scope": "COMPLETED",
+      "source_snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+      "subject_role": "SURVIVING_ISSUER"
+    },
+    {
+      "child_name_text": "Leggett & Platt, Incorporated",
+      "child_reference_text": "Leggett & Platt",
+      "effective_date_text": "August 26, 2026",
+      "effective_on": "2026-08-26",
+      "excerpt": "On August 26, 2026, Somnigroup International Inc., a Delaware corporation (the \"Company\") and Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned subsidiary of the Company (\"Merger Sub\"), consummated the previously announced acquisition of Leggett & Platt, Incorporated, a Missouri corporation (\"Leggett & Platt\"), pursuant to the Agreement and Plan of Merger dated as of April 13, 2026 (the \"Merger Agreement\"), by and among the Company, Merger Sub and Leggett & Platt. Under the Merger Agreement, Merger Sub merged with and into Leggett & Platt (the \"Merger\") with Leggett & Platt surviving and becoming a direct, wholly owned subsidiary of the Company (the \"Surviving Corporation\"). At the effective time of the Merger (\"Effective Time\"), each share of Leggett & Platt common stock, par value $0.01 per share, (the \"Leggett & Platt common stock\") issued and outstanding immediately prior to the Effective Time (other than shares of Leggett & Platt common stock held, directly or indirectly, by Leggett & Platt (as treasury shares or otherwise), any Leggett & Platt subsidiary, or by the Company or any Company subsidiary, in each case, immediately prior to the Effective Time, were automatically cancelled, and other than dissenting shares) was automatically converted into the right to receive 0.1455 shares (the \"Exchange Ratio\") of the Company's common stock, par value $0.01 per share, (\"Somnigroup common stock\"), with cash paid in lieu of any fractional shares, if applicable (the \"Merger Consideration\").",
+      "parent_name_text": "Somnigroup International Inc.",
+      "parent_reference_text": "the Company",
+      "relation": "DIRECT",
+      "relation_excerpt": "Leggett & Platt surviving and becoming a direct, wholly owned subsidiary of the Company",
+      "scope": "COMPLETED",
+      "source_snapshot_id": "4c5609917086990b6a00cff4bd48025797c10da7606121a9ada09c33741c1985",
+      "subject_role": "SURVIVING_ISSUER"
+    },
+    {
+      "child_name_text": "Leggett & Platt, Incorporated",
+      "child_reference_text": "the Company",
+      "effective_date_text": null,
+      "effective_on": null,
+      "excerpt": "On April 13, 2026, Somnigroup International Inc., a Delaware corporation (“ Parent ”), and Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), entered into an Agreement and Plan of Merger (the “ Merger Agreement ”), by and among Parent, Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned subsidiary of Parent (“ Merger Sub ” and together with Parent, the “ Parent Parties ”), and the Company, pursuant to which, subject to the terms and conditions of the Merger Agreement, Merger Sub will merge with and into the Company (the “ Merger ”), with the Company surviving the Merger as a direct, wholly owned subsidiary of Parent.",
+      "parent_name_text": "Somnigroup International Inc.",
+      "parent_reference_text": "Parent",
+      "relation": "DIRECT",
+      "relation_excerpt": "the Company surviving the Merger as a direct, wholly owned subsidiary of Parent",
+      "scope": "PLANNED",
+      "source_snapshot_id": "9f049a3973e601b72a4e8de117657474bfb630e47f692ac9b86db3bb5e1eaa02",
+      "subject_role": "SURVIVING_ISSUER"
+    },
+    {
+      "child_name_text": "Leggett & Platt, Incorporated",
+      "child_reference_text": "the Company",
+      "effective_date_text": null,
+      "effective_on": null,
+      "excerpt": "AGREEMENT AND PLAN OF MERGER, dated as of April 13, 2026 (this “ Agreement ”), is by and among Somnigroup International Inc., a Delaware corporation (“ Parent ”), Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned Subsidiary of Parent (“ Merger Sub ” and together with Parent, the “ Parent Parties ”), and Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”). All capitalized terms used in this Agreement shall have the meanings assigned to such terms in Section 9.4 or as otherwise defined elsewhere in this Agreement unless the context clearly indicates otherwise. RECITALS A. The parties intend that, on the terms and subject to the conditions set forth in this Agreement, Merger Sub be merged with and into the Company (the “ Merger ”), with the Company continuing as the surviving corporation in the Merger (the “ Surviving Corporation ”) and as a direct, wholly owned Subsidiary of Parent in accordance with the applicable provisions of the General and Business Corporation Law of Missouri, as amended (the “ GBCLM ”);",
+      "parent_name_text": "Somnigroup International Inc.",
+      "parent_reference_text": "Parent",
+      "relation": "DIRECT",
+      "relation_excerpt": "the Company continuing as the surviving corporation in the Merger (the “ Surviving Corporation ”) and as a direct, wholly owned Subsidiary of Parent",
+      "scope": "PLANNED",
+      "source_snapshot_id": "7d1a1d6bd8b732993ee948c8f86786b0cdc0992a98ad7f76451f1f6b93ba8595",
+      "subject_role": "SURVIVING_ISSUER"
+    }
+  ],
+  "instrument_disclosures": [
+    {
+      "anchor_on": "2026-06-30",
+      "instrument_snapshot_id": "6e504170e858bc1277bca52be24a2fec1d6d554d5e84e2cfcf9a4b64b7555e66",
+      "role": "from",
+      "ticker_snapshot_id": "88b98e8105feaefc2c0956d6b47d38a03334c9da87efb62811eadad36cf07878"
+    },
+    {
+      "anchor_on": "2026-06-30",
+      "instrument_snapshot_id": "3c7c0d418281f60a1da9336292b257a62dd17988203110834b08c6d8e6e201c4",
+      "role": "to",
+      "ticker_snapshot_id": "9530f15404932575577e9d3919cf0111ffcaa8d03122a7a9530d107db588a3cb"
+    }
+  ],
+  "stock_merger": {
+    "action_excerpt": "On August 26, 2026 (the “ Closing Date ”), Sparrow Unity Corporation, a Missouri corporation (“ Merger Sub ”) and wholly owned indirect subsidiary of Somnigroup International Inc., a Delaware corporation (“ Parent ”), merged with and into Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), with the Company continuing as the surviving corporation (the “ Merger ” and the time of consummation thereof, the “ Effective Time ”) pursuant to the previously announced Agreement and Plan of Merger, dated as of April 13, 2026 (the “ Merger Agreement ”), by and among the Company, Parent and Merger Sub. As a result of the Merger, the Company became a wholly owned indirect subsidiary of the Parent (the “Surviving Corporation”).",
+    "action_snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+    "bridge_kind": "STOCK_MERGER_EXCHANGE",
+    "completion_excerpt": "On August 26, 2026, Somnigroup International Inc., a Delaware corporation (the \"Company\") and Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned subsidiary of the Company (\"Merger Sub\"), consummated the previously announced acquisition of Leggett & Platt, Incorporated, a Missouri corporation (\"Leggett & Platt\"), pursuant to the Agreement and Plan of Merger dated as of April 13, 2026 (the \"Merger Agreement\"), by and among the Company, Merger Sub and Leggett & Platt. Under the Merger Agreement, Merger Sub merged with and into Leggett & Platt (the \"Merger\") with Leggett & Platt surviving and becoming a direct, wholly owned subsidiary of the Company (the \"Surviving Corporation\"). At the effective time of the Merger (\"Effective Time\"), each share of Leggett & Platt common stock, par value $0.01 per share, (the \"Leggett & Platt common stock\") issued and outstanding immediately prior to the Effective Time (other than shares of Leggett & Platt common stock held, directly or indirectly, by Leggett & Platt (as treasury shares or otherwise), any Leggett & Platt subsidiary, or by the Company or any Company subsidiary, in each case, immediately prior to the Effective Time, were automatically cancelled, and other than dissenting shares) was automatically converted into the right to receive 0.1455 shares (the \"Exchange Ratio\") of the Company's common stock, par value $0.01 per share, (\"Somnigroup common stock\"), with cash paid in lieu of any fractional shares, if applicable (the \"Merger Consideration\").",
+    "completion_snapshot_id": "4c5609917086990b6a00cff4bd48025797c10da7606121a9ada09c33741c1985",
+    "cusip_bridge_snapshot_id": null,
+    "effective_date_text": "August 26, 2026",
+    "effective_on": "2026-08-26",
+    "exchange_excerpt": "At the Effective Time, each share of Company common stock, par value $0.01 per share (“ Company common stock ”), issued and outstanding immediately prior to the Effective Time (other than shares of Company common stock held, directly or indirectly, by the Company (as treasury shares or otherwise), any Company subsidiary, or Parent or any Parent subsidiary, in each case, immediately prior to the Effective Time, which were automatically cancelled, and other than dissenting shares) was automatically converted into the right to receive 0.1455 shares (the “ Exchange Ratio ”) of Parent’s common stock, par value $0.01 per share (“ Parent common stock ”), with cash paid in lieu of any fractional shares, if applicable (the “ Merger Consideration ”).",
+    "exchange_ratio": "0.1455",
+    "fractional_cash_only": true,
+    "from_action_name_text": "Leggett & Platt, Incorporated",
+    "from_class_title": "common stock, par value $0.01 per share",
+    "from_identity": {
+      "class_description": "COM",
+      "cusip": "524660107",
+      "issuer_cik": "0000058492",
+      "issuer_name": "LEGGETT & PLATT INC",
+      "ticker": "LEG"
+    },
+    "from_instrument_snapshot_id": "37b29d608b742e524df00431dce4b8f8b82ed32a2635caa9ac80067624966cc2",
+    "from_ticker_snapshot_id": "88b98e8105feaefc2c0956d6b47d38a03334c9da87efb62811eadad36cf07878",
+    "ticker": "LEG",
+    "to_action_name_text": "Somnigroup International Inc.",
+    "to_class_title": "common stock, par value $0.01 per share",
+    "to_identity": {
+      "class_description": "COM",
+      "cusip": "88023U101",
+      "issuer_cik": "0001206264",
+      "issuer_name": "SOMNIGROUP INTERNATIONAL INC",
+      "ticker": "SGI"
+    },
+    "to_instrument_snapshot_id": "3c7c0d418281f60a1da9336292b257a62dd17988203110834b08c6d8e6e201c4",
+    "to_ticker_snapshot_id": "1b8e4c1245c8fe580a26ae2218409c7cbf87d1a13a2a25e9b8ba5643c4687fae",
+    "withdrawal_snapshot_id": "03d0a7e908cbccc4ed6f4911097c95f48f457ed6284d265acc9c47555b5e9e23"
+  }
+}

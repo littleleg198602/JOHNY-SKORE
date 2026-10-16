@@ -1,0 +1,51 @@
+{
+  "head_sha": "bfedb764da3a189df1d9f8eb799cf834867f8083",
+  "tree_sha": "e368e91e634cbc86b09c65381ae8a262db254898",
+  "run_id": 38701933085,
+  "windows_job_id": 116311952169,
+  "artifact_id": 11958427081,
+  "zip_sha256": "15ee9f60f464fcf0cd609345c37557b35c6dc50f21b03d65268b230f78df942f",
+  "zip_bytes": 56555,
+  "published_digest_matches_actual_zip": true,
+  "original_members_read_and_preserved": true,
+  "files": {
+    "windows-tests.log": {
+      "sha256": "52e676279b9bb6e7d4d4bbe44cf4af20348bef7ea89ddd90798073cd49fd0cff",
+      "bytes": 377120,
+      "crlf_lines": 1956
+    },
+    "windows-tests.json": {
+      "sha256": "c06f60199ca50649176bacbe2cbba891b5d2b59112093ddf625c49ead3fa3b70",
+      "bytes": 376,
+      "crlf_lines": 14
+    }
+  },
+  "windows_report": {
+    "started_at": "2026-10-15T07:56:29.323650+00:00",
+    "ended_at": "2026-10-15T08:30:05.761335+00:00",
+    "platform": "Windows-2025Server-10.0.26100-SP0",
+    "python_version": "3.12.10",
+    "discovered_tests": 1833,
+    "tests_run": 1833,
+    "failures": 9,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": false
+  },
+  "exact_failure_terminal_summary_verified": true,
+  "failure_headers": [
+    "test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (test_batch7_source_manifest.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads) (selected=WindowsPath('C:/Users/RUNNER~1/AppData/Local/Temp/tmp114wmrfn/selected_sources/yahoo_price_b9fef0a22858865acb318106f18fb33d87159244b4cabc2afa12402d8161a4f7.json'))\r",
+    "test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (test_batch7_source_manifest.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads) (selected=WindowsPath('C:/Users/RUNNER~1/AppData/Local/Temp/tmp114wmrfn/selected_sources'))\r",
+    "test_symlink_active_lock_and_version_directory_are_not_followed (test_batch7_source_manifest.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=WindowsPath('C:/Users/RUNNER~1/AppData/Local/Temp/tmp7uap476_/prospective_source_manifest.json'))\r",
+    "test_symlink_active_lock_and_version_directory_are_not_followed (test_batch7_source_manifest.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=WindowsPath('C:/Users/RUNNER~1/AppData/Local/Temp/tmp7uap476_/prospective_source_manifest.lock'))\r",
+    "test_symlink_active_lock_and_version_directory_are_not_followed (test_batch7_source_manifest.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed) (selected=WindowsPath('C:/Users/RUNNER~1/AppData/Local/Temp/tmp7uap476_/prospective_source_manifest_versions'))\r",
+    "test_symlink_active_lock_and_version_directory_are_not_followed (test_batch7_source_manifest.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed)\r",
+    "test_windows_junction_aliases_cannot_escape_source_or_version_roots (test_batch7_source_manifest.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) (selected=WindowsPath('C:/Users/RUNNER~1/AppData/Local/Temp/tmpt_1nyggx/selected_sources'))\r",
+    "test_windows_junction_aliases_cannot_escape_source_or_version_roots (test_batch7_source_manifest.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots) (selected=WindowsPath('C:/Users/RUNNER~1/AppData/Local/Temp/tmpt_1nyggx/prospective_source_manifest_versions'))\r",
+    "test_windows_junction_aliases_cannot_escape_source_or_version_roots (test_batch7_source_manifest.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots)\r"
+  ],
+  "failed_version_is_acceptance": false,
+  "all_21_complete": false
+}

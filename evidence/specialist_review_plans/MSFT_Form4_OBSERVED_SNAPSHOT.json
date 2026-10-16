@@ -1,0 +1,263 @@
+{
+  "captures": {
+    "packet": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 5836,
+        "path": "evidence/batch6_sec_20261014/primary/nadella_2014_form3.txt",
+        "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053"
+      },
+      "metadata": {
+        "known_at": null,
+        "observed_at": "2026-10-14T13:32:31.072692+00:00",
+        "purpose": "DATED_OWNERSHIP_PACKET",
+        "record_id": "actual-nadella-form3-2014",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+        "size_bytes": 5836,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+      }
+    },
+    "profile": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 17733,
+        "path": "evidence/batch4_sec_20261013/primary/nadella_submissions.json",
+        "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d"
+      },
+      "metadata": {
+        "known_at": null,
+        "observed_at": "2026-10-13T08:46:47.328762+00:00",
+        "purpose": "OWNER_PROFILE",
+        "record_id": "actual-nadella-profile-oct13",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+        "size_bytes": 17733,
+        "source_url": "https://data.sec.gov/submissions/CIK0001513142.json"
+      }
+    },
+    "source": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 20046,
+        "path": "evidence/batch4_sec_20261013/primary/msft_form4.xml",
+        "sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a"
+      },
+      "metadata": {
+        "known_at": null,
+        "observed_at": "2026-10-13T08:46:41.691791+00:00",
+        "purpose": "FORM4_SOURCE",
+        "record_id": "actual-msft-form4-2026",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+        "size_bytes": 20046,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/form4.xml"
+      }
+    }
+  },
+  "kind": "FORM4_PERSON",
+  "request": {
+    "observation": {
+      "accession_number": "0000789019-26-000161",
+      "execution_venue_verified": false,
+      "footnotes": {
+        "F1": "This transaction was executed in multiple trades at prices ranging from $497.69 to $498.67. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+        "F2": "This transaction was executed in multiple trades at prices ranging from $498.79 to $499.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+        "F3": "This transaction was executed in multiple trades at prices ranging from $499.79 to $500.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+        "F4": "This transaction was executed in multiple trades at prices ranging from $500.79 to $501.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+        "F5": "This transaction was executed in multiple trades at prices ranging from $501.79 to $502.77. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+        "F6": "This transaction was executed in multiple trades at prices ranging from $502.79 to $503.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+        "F7": "This transaction was executed in multiple trades at prices ranging from $503.79 to $504.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+        "F8": "This transaction was executed in multiple trades at prices ranging from $504.82 to $505.76. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+      },
+      "form": "4",
+      "instrument_identity_verified": false,
+      "is_amendment": false,
+      "issuer_cik": "0000789019",
+      "issuer_identity_checked_against_index": true,
+      "issuer_name": "MICROSOFT CORP",
+      "issuer_trading_symbol": "MSFT",
+      "non_transaction_holdings": 5,
+      "observed_at": "2026-10-13T08:46:41.691791+00:00",
+      "original_submission_date": null,
+      "ownership_change_interpreted": false,
+      "parser_version": "sec-form4-observation-v1",
+      "period_of_report": "2026-09-01",
+      "remarks": "The sale reported on this Form 4 were made pursuant to a Rule 10b5-1 trading plan adopted on March 8, 2026.",
+      "reporting_owner_identity_verified": false,
+      "reporting_owners": [
+        {
+          "cik": "0001513142",
+          "identity_independently_verified": false,
+          "identity_status": "AS_FILED_CIK",
+          "is_director": true,
+          "is_officer": true,
+          "is_other": false,
+          "is_ten_percent_owner": false,
+          "name": "Nadella Satya",
+          "officer_title": "Chief Executive Officer"
+        }
+      ],
+      "rule_10b5_1_checkbox": true,
+      "rule_10b5_1_scope": "DOCUMENT_CHECKBOX_NOT_PER_TRANSACTION",
+      "scoring_applied": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/form4.xml",
+      "transactions": [
+        {
+          "acquired_disposed": "D",
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F1"
+          ],
+          "instrument_identity_verified": false,
+          "nature_of_ownership": null,
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "ownership_nature": "D",
+          "price_per_share": 498.2396,
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:1",
+          "security_title": "Common Stock",
+          "shares": 1040.0,
+          "shares_owned_after": 572247.534,
+          "transaction_code": "S",
+          "transaction_date": "2026-09-01"
+        },
+        {
+          "acquired_disposed": "D",
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F2"
+          ],
+          "instrument_identity_verified": false,
+          "nature_of_ownership": null,
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "ownership_nature": "D",
+          "price_per_share": 499.4452,
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:2",
+          "security_title": "Common Stock",
+          "shares": 5080.0,
+          "shares_owned_after": 567167.534,
+          "transaction_code": "S",
+          "transaction_date": "2026-09-01"
+        },
+        {
+          "acquired_disposed": "D",
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F3"
+          ],
+          "instrument_identity_verified": false,
+          "nature_of_ownership": null,
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "ownership_nature": "D",
+          "price_per_share": 500.4678,
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:3",
+          "security_title": "Common Stock",
+          "shares": 24723.0,
+          "shares_owned_after": 542444.534,
+          "transaction_code": "S",
+          "transaction_date": "2026-09-01"
+        },
+        {
+          "acquired_disposed": "D",
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F4"
+          ],
+          "instrument_identity_verified": false,
+          "nature_of_ownership": null,
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "ownership_nature": "D",
+          "price_per_share": 501.1233,
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:4",
+          "security_title": "Common Stock",
+          "shares": 32901.0,
+          "shares_owned_after": 509543.534,
+          "transaction_code": "S",
+          "transaction_date": "2026-09-01"
+        },
+        {
+          "acquired_disposed": "D",
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F5"
+          ],
+          "instrument_identity_verified": false,
+          "nature_of_ownership": null,
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "ownership_nature": "D",
+          "price_per_share": 502.2909,
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:5",
+          "security_title": "Common Stock",
+          "shares": 4520.0,
+          "shares_owned_after": 505023.534,
+          "transaction_code": "S",
+          "transaction_date": "2026-09-01"
+        },
+        {
+          "acquired_disposed": "D",
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F6"
+          ],
+          "instrument_identity_verified": false,
+          "nature_of_ownership": null,
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "ownership_nature": "D",
+          "price_per_share": 503.4372,
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:6",
+          "security_title": "Common Stock",
+          "shares": 7067.0,
+          "shares_owned_after": 497956.534,
+          "transaction_code": "S",
+          "transaction_date": "2026-09-01"
+        },
+        {
+          "acquired_disposed": "D",
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F7"
+          ],
+          "instrument_identity_verified": false,
+          "nature_of_ownership": null,
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "ownership_nature": "D",
+          "price_per_share": 504.1124,
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:7",
+          "security_title": "Common Stock",
+          "shares": 9834.0,
+          "shares_owned_after": 488122.534,
+          "transaction_code": "S",
+          "transaction_date": "2026-09-01"
+        },
+        {
+          "acquired_disposed": "D",
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F8"
+          ],
+          "instrument_identity_verified": false,
+          "nature_of_ownership": null,
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "ownership_nature": "D",
+          "price_per_share": 505.1997,
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:8",
+          "security_title": "Common Stock",
+          "shares": 1360.0,
+          "shares_owned_after": 486762.534,
+          "transaction_code": "S",
+          "transaction_date": "2026-09-01"
+        }
+      ]
+    },
+    "scope_mode": "OBSERVED_SNAPSHOT"
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

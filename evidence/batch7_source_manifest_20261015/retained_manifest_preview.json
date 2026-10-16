@@ -1,0 +1,22 @@
+{
+  "forecast_sources": [
+    {
+      "benchmark_ticker": "SPY",
+      "source_archive_paths": [
+        "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+        "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json"
+      ],
+      "ticker": "AAPL"
+    },
+    {
+      "benchmark_ticker": "SPY",
+      "source_archive_paths": [
+        "evidence/batch5_coordinator_20261014/source_runs/rss/specialist_source_run_9947758362370d6e8dac1763eb956ae3ddab0555844a507a213e26d95aadfd27_47ed52005d8796380d2472d593f0d74ea72c63da085ca0b7d23f78da124bd151.json",
+        "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json"
+      ],
+      "ticker": "MSFT"
+    }
+  ],
+  "label_observations": [],
+  "schema_version": "prospective_forecast_source_manifest_v1"
+}

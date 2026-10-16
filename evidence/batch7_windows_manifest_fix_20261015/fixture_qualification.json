@@ -1,0 +1,77 @@
+{
+  "current_test_sha256": "dc0b8d8d808f3eea1184e5e96f709c7c9a228578418029feb291a0a1db716a63",
+  "focused": {
+    "elapsed_seconds": 0.9914825699999028,
+    "ended_at": "2026-10-15T12:27:49.800408+00:00",
+    "errors": 0,
+    "executed_methods": 33,
+    "expected_failures": 0,
+    "failures": 0,
+    "log": "focused_tests.log",
+    "skips": 0,
+    "started_at": "2026-10-15T12:27:48.808924+00:00",
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "forced_alias_pairs": [
+    {
+      "canonical": "/tmp/tmp30s9zwom",
+      "distinct_spelling": true,
+      "same_resolved_directory": true,
+      "temporary_name": "/tmp/tmp30s9zwom/../tmp30s9zwom"
+    },
+    {
+      "canonical": "/tmp/tmpdbo5sjpk",
+      "distinct_spelling": true,
+      "same_resolved_directory": true,
+      "temporary_name": "/tmp/tmpdbo5sjpk/../tmpdbo5sjpk"
+    },
+    {
+      "canonical": "/tmp/tmpyf19ek6x",
+      "distinct_spelling": true,
+      "same_resolved_directory": true,
+      "temporary_name": "/tmp/tmpyf19ek6x/../tmpyf19ek6x"
+    },
+    {
+      "canonical": "/tmp/tmpzgo5055f",
+      "distinct_spelling": true,
+      "same_resolved_directory": true,
+      "temporary_name": "/tmp/tmpzgo5055f/../tmpzgo5055f"
+    },
+    {
+      "canonical": "/tmp/tmpzjaev2s5",
+      "distinct_spelling": true,
+      "same_resolved_directory": true,
+      "temporary_name": "/tmp/tmpzjaev2s5/../tmpzjaev2s5"
+    }
+  ],
+  "forced_distinct_temporary_root_alias": {
+    "elapsed_seconds": 0.10437297999999373,
+    "ended_at": "2026-10-15T12:27:49.904835+00:00",
+    "errors": 0,
+    "executed_methods": 5,
+    "expected_failures": 0,
+    "failures": 0,
+    "log": "after_fix_alias_reproduction.log",
+    "skips": 0,
+    "started_at": "2026-10-15T12:27:49.800468+00:00",
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "native_8dot3_available": "NOT_OBSERVED_ON_THIS_POSIX_HOST",
+  "native_windows_executed": false,
+  "new_test_methods": [
+    "test_actual_directory_reparse_is_rejected_for_sources_and_publication",
+    "test_canonical_reparse_targets_work_after_posix_and_windows_root_alias_resolution"
+  ],
+  "original_assertion_calls_preserved": 106,
+  "original_test_methods_preserved": 31,
+  "original_test_sha256": "617e30e88b89c62c70888d9c1ae004b31eec5b11b2668713fd6de492bf159cbe",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "production_service_changed": false,
+  "production_service_sha256": "62eb0605953f5622f48dbb7246d64f9ab7fc5ad04745aa006510ea0a586fb005",
+  "python_version": "3.12.14",
+  "schema_version": "source_manifest_fixture_fix_qualification_v1",
+  "source_http_requests": 0,
+  "synthetic_fixtures_are_acceptance": false
+}

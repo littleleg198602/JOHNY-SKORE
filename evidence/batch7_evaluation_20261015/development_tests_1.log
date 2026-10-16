@@ -1,0 +1,95 @@
+test_a_future_sidecar_cannot_be_attached_at_an_earlier_label_clock (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_a_future_sidecar_cannot_be_attached_at_an_earlier_label_clock) ... ok
+test_binding_failure_preserves_the_registered_forecast_and_restart_finishes_it (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_binding_failure_preserves_the_registered_forecast_and_restart_finishes_it) ... ok
+test_bounded_batch_is_partial_with_a_lower_bound_count (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_bounded_batch_is_partial_with_a_lower_bound_count) ... ok
+test_changed_safe_manifest_has_a_separate_audit_without_rewriting_the_forecast (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_changed_safe_manifest_has_a_separate_audit_without_rewriting_the_forecast) ... ok
+test_cli_audit_is_explicitly_opt_in (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_cli_audit_is_explicitly_opt_in) ... ok
+test_forecast_and_source_clocks_are_not_repaired_by_using_as_of (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_forecast_and_source_clocks_are_not_repaired_by_using_as_of) ... ok
+test_foreign_price_archive_cannot_be_assigned_to_another_forecast (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_foreign_price_archive_cannot_be_assigned_to_another_forecast) ... ok
+test_later_exact_label_attachment_is_explicit_and_uses_the_later_clock (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_later_exact_label_attachment_is_explicit_and_uses_the_later_clock) ... ok
+test_manifest_cannot_escape_the_configured_root (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_manifest_cannot_escape_the_configured_root) ... ok
+test_missing_root_manifest_or_source_is_a_wait_without_an_implicit_collection (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_missing_root_manifest_or_source_is_a_wait_without_an_implicit_collection) ... ok
+test_missing_stored_prediction_is_never_created (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_missing_stored_prediction_is_never_created) ... ok
+test_multiple_label_versions_are_not_silently_selected (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_multiple_label_versions_are_not_silently_selected) ... ok
+test_naive_clock_is_a_truthful_wait (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_naive_clock_is_a_truthful_wait) ... ok
+test_only_explicit_paths_are_used_and_no_glob_or_network_is_attempted (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_only_explicit_paths_are_used_and_no_glob_or_network_is_attempted) ... ok
+test_restart_is_idempotent_and_preserves_original_physical_registration (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_restart_is_idempotent_and_preserves_original_physical_registration) ... ok
+test_settings_and_exact_manifest_bytes_are_pinned_outside_the_forecast (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_settings_and_exact_manifest_bytes_are_pinned_outside_the_forecast) ... ok
+test_unknown_publisher_revision_is_not_upgraded_by_the_adapter (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_unknown_publisher_revision_is_not_upgraded_by_the_adapter) ... ok
+test_unsafe_whole_manifest_is_withheld_before_any_archive_is_published (tests.test_batch7_forecast_registration_adapter.Batch7ForecastRegistrationAdapterTests.test_unsafe_whole_manifest_is_withheld_before_any_archive_is_published) ... ok
+test_default_normal_output_has_no_audit_io_or_added_summary_field (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_default_normal_output_has_no_audit_io_or_added_summary_field) ... FAIL
+test_missing_audit_configuration_is_reported_without_failing_normal_persistence (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_missing_audit_configuration_is_reported_without_failing_normal_persistence) ... FAIL
+test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable) ... FAIL
+test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes) ... FAIL
+
+======================================================================
+FAIL: test_default_normal_output_has_no_audit_io_or_added_summary_field (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_default_normal_output_has_no_audit_io_or_added_summary_field)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 287, in test_default_normal_output_has_no_audit_io_or_added_summary_field
+    result = self.normal_run()
+             ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 265, in normal_run
+    result = self.pipeline.run(list(tickers), [], self.store, rss_enabled=False,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/market_checker_app/services/pipeline_service.py", line 906, in run
+    ohlc, ohlc_warning = fetch_ohlc(ticker)
+                         ^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 247, in fetch_ohlc_only
+    raise AssertionError("Adapter must never request labels or prices implicitly")
+AssertionError: Adapter must never request labels or prices implicitly
+
+======================================================================
+FAIL: test_missing_audit_configuration_is_reported_without_failing_normal_persistence (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_missing_audit_configuration_is_reported_without_failing_normal_persistence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 345, in test_missing_audit_configuration_is_reported_without_failing_normal_persistence
+    result = self.normal_run()
+             ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 265, in normal_run
+    result = self.pipeline.run(list(tickers), [], self.store, rss_enabled=False,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/market_checker_app/services/pipeline_service.py", line 906, in run
+    ohlc, ohlc_warning = fetch_ohlc(ticker)
+                         ^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 247, in fetch_ohlc_only
+    raise AssertionError("Adapter must never request labels or prices implicitly")
+AssertionError: Adapter must never request labels or prices implicitly
+
+======================================================================
+FAIL: test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 295, in test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable
+    result = self.normal_run()
+             ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 265, in normal_run
+    result = self.pipeline.run(list(tickers), [], self.store, rss_enabled=False,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/market_checker_app/services/pipeline_service.py", line 906, in run
+    ohlc, ohlc_warning = fetch_ohlc(ticker)
+                         ^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 247, in fetch_ohlc_only
+    raise AssertionError("Adapter must never request labels or prices implicitly")
+AssertionError: Adapter must never request labels or prices implicitly
+
+======================================================================
+FAIL: test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 327, in test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes
+    result = self.normal_run(tickers)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 265, in normal_run
+    result = self.pipeline.run(list(tickers), [], self.store, rss_enabled=False,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/market_checker_app/services/pipeline_service.py", line 906, in run
+    ohlc, ohlc_warning = fetch_ohlc(ticker)
+                         ^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 247, in fetch_ohlc_only
+    raise AssertionError("Adapter must never request labels or prices implicitly")
+AssertionError: Adapter must never request labels or prices implicitly
+
+----------------------------------------------------------------------
+Ran 22 tests in 2.309s
+
+FAILED (failures=4)

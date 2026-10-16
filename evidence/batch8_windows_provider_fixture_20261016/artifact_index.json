@@ -1,0 +1,64 @@
+{
+  "base": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+  "created_at": "2026-10-16T07:17:09.217528+00:00",
+  "files": {
+    "evidence/batch8_windows_provider_fixture_20261016/README.md": {
+      "bytes": 2434,
+      "sha256": "ce9f5c243306e53f9b3b37de5388dfeed65318a813ee4dc461fcb8f4e1b42b5f"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/before_repair/original_alias_failure.json": {
+      "bytes": 1384,
+      "sha256": "240269735ac51ef11d330054827875885f56745ae1e7a29d8992c2afc11d2cda"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/before_repair/original_alias_failure.log": {
+      "bytes": 2109,
+      "sha256": "d372639989079cb5589fe53373eb52b5ba34da88fb0aabd416f1316416adc573"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/focused_tests.log": {
+      "bytes": 8515,
+      "sha256": "ef32c7a5c6ace843811b1ce5efba7ae8db2aec9afc394e4fd2d9153c4b266ac9"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/handoff.json": {
+      "bytes": 5943,
+      "sha256": "7c42673a36eed3695e0b4e06b125743b1500a54390353beb59ab1ade4bf928a1"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/original/guard.py": {
+      "bytes": 41430,
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/original/provider.py": {
+      "bytes": 27951,
+      "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/original/source_pins.json": {
+      "bytes": 1120,
+      "sha256": "65d43d5d31b2c1d1b51dddab5146f5b6580f19768ccfb98b6feaf70a640afae1"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/original/test_module.py": {
+      "bytes": 25727,
+      "sha256": "00fb80bf292fcd09851f74c468c1d4c47cb3293d7f9285c6e4b103553504d3fa"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/qualify_repair.py": {
+      "bytes": 8691,
+      "sha256": "3842ee25509e88691fc8377f5547027dd9c7613f948bef2074f192ce1267e281"
+    },
+    "evidence/batch8_windows_provider_fixture_20261016/reproduce_original_alias.py": {
+      "bytes": 4292,
+      "sha256": "ca7a8db610177fdf583edb97516bc9c0c7a8e5362687245e1c4245ca7e089da7"
+    },
+    "market_checker_app/services/captured_market_data_provider.py": {
+      "bytes": 27951,
+      "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+    },
+    "market_checker_app/services/prospective_specialist_history.py": {
+      "bytes": 41430,
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    },
+    "tests/test_batch8_captured_market_data_provider.py": {
+      "bytes": 27559,
+      "sha256": "93dc17d174ef0b18a19613acbf01d5a513e5a4b662ee970d8e1faeb2bbf8f386"
+    }
+  },
+  "schema_version": 1,
+  "self_excluded": true
+}

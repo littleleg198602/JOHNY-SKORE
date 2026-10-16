@@ -1,0 +1,160 @@
+{
+  "base_code_sha": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "bounds": {
+    "all_truncation_or_rejection_explicit": true,
+    "default_maximum_attempts": 2000,
+    "default_maximum_checks": 2000,
+    "default_maximum_observations": 2000,
+    "default_maximum_shared_observations": 20,
+    "default_observations_per_source_ticker": 20,
+    "default_replay_maximum_archives": 200,
+    "maximum_details_or_checkpoint_bytes": 131072,
+    "maximum_file_bytes": 32000000,
+    "replay_directory_entries_at_most": 600
+  },
+  "claims": {
+    "contemporaneous_historical_source_run_archives_recovered": false,
+    "future_incremental_source_history_preservation_implemented": true,
+    "genuine_existing_publisher_payloads_replayed": true,
+    "live_relevant_coverage_verified": false,
+    "out_of_sample_evaluation_verified": false,
+    "prediction_snapshots_changed": false,
+    "production_scores_changed": false,
+    "real_prior_overwritten_negative_checks_recovered": false,
+    "source_publisher_publication_times_independently_verified": false,
+    "specialist_acceptance_changed": false,
+    "windows_runtime_verified": false,
+    "zero_partial_overwrite_and_concurrent_capture_behavior_tested": true
+  },
+  "environment": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python": "3.12.14"
+  },
+  "evidence_type": "focused_deterministic_tests_plus_current_replay_of_existing_publisher_payloads",
+  "existing_database_scan": [
+    {
+      "runtime_copy": "JOHNY-SKORE",
+      "source_row_counts": {
+        "scout_fdic_requests": 0,
+        "scout_findings": 0,
+        "scout_source_runs": 0,
+        "scout_specialist_checks": 0
+      },
+      "sqlite_bytes": 221184
+    },
+    {
+      "runtime_copy": "JOHNY-SKORE-specialists-20261011",
+      "source_row_counts": {
+        "scout_fdic_requests": 0,
+        "scout_findings": 0,
+        "scout_public_requests": 0,
+        "scout_source_runs": 0,
+        "scout_specialist_checks": 0
+      },
+      "sqlite_bytes": 233472
+    },
+    {
+      "runtime_copy": "JOHNY-parallel-integration",
+      "source_row_counts": {
+        "scout_fdic_requests": 0,
+        "scout_findings": 0,
+        "scout_public_requests": 0,
+        "scout_source_runs": 0,
+        "scout_specialist_checks": 0
+      },
+      "sqlite_bytes": 233472
+    },
+    {
+      "runtime_copy": "JOHNY-parallel-sec",
+      "source_row_counts": {},
+      "sqlite_bytes": 32768
+    },
+    {
+      "runtime_copy": "JOHNY-run-20261011T1209",
+      "source_row_counts": {
+        "scout_fdic_requests": 0,
+        "scout_findings": 0,
+        "scout_public_requests": 0,
+        "scout_source_runs": 0,
+        "scout_specialist_checks": 0
+      },
+      "sqlite_bytes": 233472
+    }
+  ],
+  "generated_at": "2026-10-12T15:21:15.600359+00:00",
+  "hook": {
+    "atomic_publication_and_concurrent_retry_preservation": true,
+    "auxiliary_recipient_discovery_not_credited_to_contract_source": true,
+    "caller_reports_capture_failures": true,
+    "default_directory": "store.db_path.parent / specialist_source_runs / source",
+    "exact_recorded_source_run_required": true,
+    "function": "capture_specialist_source_run",
+    "immutable_identity_index_and_content_addressed_json": true,
+    "integration_keywords": [
+      "summary",
+      "started_at",
+      "provider_as_of"
+    ],
+    "module": "market_checker_app.services.specialist_incremental_archive_service",
+    "one_consistent_query_only_sqlite_snapshot": true,
+    "physical_capture_availability_used_for_replay": true,
+    "required_keywords": [
+      "source",
+      "observed_at"
+    ],
+    "return": "Path",
+    "source_scope": "one approved source and exact canonical 687 tickers"
+  },
+  "limitations": [
+    "Local runtime database copies have no genuine source rows. Saved Oct 1 FDIC reports are the available historical publisher evidence; their replay is performed with current clocks.",
+    "No source/check run on Oct 1 was reconstructed from the saved reports. All new run archives are excluded when replaying at that original cutoff.",
+    "Zero/partial check overwrite preservation is demonstrated with explicitly deterministic fixtures, separate from the genuine captured-payload replay.",
+    "The absent-CERT negative case is preserved as original-report provenance only and is not attributed to any issuer or fabricated as a historical source check.",
+    "A logical provider clock can precede physical call start. Clock-window association remains unverified; stale checks do not make NO_DUE_WORK/BUSY/WAIT_QUOTA performed queries.",
+    "Future hook wiring can preserve successfully captured bounded state. Missing captures, prior overwritten mutable state, unreported attempts, rejected rows and crash-before-record cases remain unknown.",
+    "Shared FRED/EIA and aggregate SEC13F state is kept distinct from issuer checks. None establishes company coverage, historical labels, OOS lift or scoring activation.",
+    "The implementation and captured-payload replay were verified on this Linux host. User Windows runtime acceptance is outstanding."
+  ],
+  "owned_file_sha256": {
+    "evidence/batch3_evaluation_captured_payload_replay_20261012.py": "4569f8ceb2b5fdcce5833360466f743e5fa70ad4e96c4000334a1d05abad6df0",
+    "market_checker_app/services/specialist_incremental_archive_service.py": "1a57968eddd4c16df12b408da086745eec130a301bff41dc105fd117821425b2",
+    "market_checker_app/services/specialist_source_archive_service.py": "e223ecc93672f4f9527d1d4b7b29673d9394ea09a173a6c553f8adca2b4931bd",
+    "tests/test_specialist_incremental_archive_service.py": "c2c0f437792e8a71fb59dc984f436578cd43214bc204ec4969e9a58a7e5b9aed"
+  },
+  "saved_publisher_payload_replay": {
+    "archived_source_runs": 3,
+    "archives_eligible_at_original_report_cutoff": 0,
+    "artifact": "evidence/batch3_evaluation_saved_payload_replay_20261012.json",
+    "artifact_sha256": "d2b14e0f5424dd58160d51794998bc80890403b7e5018310e9dbe6b4d30d668e",
+    "database_unchanged_by_archive_capture": true,
+    "new_live_provider_verification": false,
+    "new_network_requests": 0,
+    "original_report": "evidence/fdic_cof_ewbc_live_20261001.json",
+    "preserved_check_versions": 2,
+    "preserved_observation_versions": 4,
+    "preserved_request_state_versions": 2,
+    "replay_hash": "260b433190ae5a2c33ffe5627ee19af60140e5231b2f14587459349f5446936b",
+    "selected_tickers": [
+      "COF",
+      "EWBC"
+    ],
+    "source": "fdic",
+    "source_run_statuses": [
+      "PARTIAL",
+      "OK",
+      "NO_DUE_WORK"
+    ]
+  },
+  "schema_version": 1,
+  "targeted_tests": {
+    "command": "python -m unittest discover -s tests -p 'test_specialist_*archive_service.py' -v",
+    "errors": 0,
+    "existing_archive_regressions": 23,
+    "failures": 0,
+    "new_incremental_tests": 20,
+    "observed_elapsed_seconds": 4.768,
+    "result": "PASS",
+    "skipped": 0,
+    "tests_run": 43
+  }
+}

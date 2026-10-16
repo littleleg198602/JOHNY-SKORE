@@ -1,0 +1,175 @@
+{
+  "clock_links": [
+    {
+      "accession": "0000093751-26-000461",
+      "observed_at": "2026-10-13T23:59:36.312798+00:00",
+      "publication_at": "2026-08-07T13:32:39.000Z",
+      "source": "Exact SEC submissions acceptanceDateTime; no clock interpolation",
+      "url": "https://www.sec.gov/Archives/edgar/data/34088/000009375126000461/primary_doc.xml"
+    },
+    {
+      "accession": "0000034088-26-000093",
+      "observed_at": "2026-10-13T23:59:43.702340+00:00",
+      "publication_at": "2026-08-03T18:55:38.000Z",
+      "source": "Exact SEC submissions acceptanceDateTime; no clock interpolation",
+      "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm"
+    },
+    {
+      "accession": "0001193125-26-291986",
+      "observed_at": "2026-10-13T23:59:40.184756+00:00",
+      "publication_at": "2026-07-01T16:34:56.000Z",
+      "source": "Exact SEC submissions acceptanceDateTime; no clock interpolation",
+      "url": "https://www.sec.gov/Archives/edgar/data/34088/000119312526291986/d70995d8k.htm"
+    },
+    {
+      "accession": "0002115436-26-000006",
+      "observed_at": "2026-10-14T00:01:12.900845+00:00",
+      "publication_at": "2026-07-31T10:31:39.000Z",
+      "source": "Exact SEC submissions acceptanceDateTime; no clock interpolation",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm"
+    },
+    {
+      "accession": "0001193125-26-291990",
+      "observed_at": "2026-10-13T23:59:47.065053+00:00",
+      "publication_at": "2026-07-01T16:36:49.000Z",
+      "source": "Exact SEC submissions acceptanceDateTime; no clock interpolation",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex4vi.htm"
+    }
+  ],
+  "network_requested_during_replay": false,
+  "new_primary_requests": 6,
+  "new_public_raw": 6,
+  "parse_results": [
+    {
+      "facts": [
+        {
+          "anchor_date": "2026-06-30",
+          "class_title": "Common Stock, without par value",
+          "context_ref": "c-3",
+          "issuer_cik": "0000034088",
+          "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+          "ticker": "XOM"
+        },
+        {
+          "anchor_date": "2026-06-30",
+          "class_title": "0.524% Notes due 2028",
+          "context_ref": "c-4",
+          "issuer_cik": "0000034088",
+          "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+          "ticker": "XOM28"
+        },
+        {
+          "anchor_date": "2026-06-30",
+          "class_title": "0.835% Notes due 2032",
+          "context_ref": "c-5",
+          "issuer_cik": "0000034088",
+          "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+          "ticker": "XOM32"
+        },
+        {
+          "anchor_date": "2026-06-30",
+          "class_title": "1.408% Notes due 2039",
+          "context_ref": "c-6",
+          "issuer_cik": "0000034088",
+          "snapshot_id": "a0ebc584603ff86aec33e379c5be2b0787a97b4301efee291f77b5866d272ffa",
+          "ticker": "XOM39A"
+        }
+      ],
+      "ticker_proof": "PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408826000093/xom-20260630.htm"
+    },
+    {
+      "facts": [
+        {
+          "anchor_date": "2026-07-01",
+          "class_title": "Common Stock, without par value",
+          "context_ref": "duration_2026-07-01_to_2026-07-01_us-gaap-StatementClassOfStockAxis_us-gaap-CommonStockMember",
+          "issuer_cik": "0000034088",
+          "snapshot_id": "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9",
+          "ticker": "XOM"
+        },
+        {
+          "anchor_date": "2026-07-01",
+          "class_title": "0.524% Notes due 2028",
+          "context_ref": "duration_2026-07-01_to_2026-07-01_us-gaap-StatementClassOfStockAxis_xom-ZeroPointFiveTwoFourPercentNotesDue2028Member",
+          "issuer_cik": "0000034088",
+          "snapshot_id": "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9",
+          "ticker": "XOM28"
+        },
+        {
+          "anchor_date": "2026-07-01",
+          "class_title": "0.835% Notes due 2032",
+          "context_ref": "duration_2026-07-01_to_2026-07-01_us-gaap-StatementClassOfStockAxis_xom-ZeroPointFiveTwoFourPercentNotesDue2032Member",
+          "issuer_cik": "0000034088",
+          "snapshot_id": "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9",
+          "ticker": "XOM32"
+        },
+        {
+          "anchor_date": "2026-07-01",
+          "class_title": "1.408% Notes due 2039",
+          "context_ref": "duration_2026-07-01_to_2026-07-01_us-gaap-StatementClassOfStockAxis_xom-OnePointFourZeroEightPercentNotesDue2039Member",
+          "issuer_cik": "0000034088",
+          "snapshot_id": "a8b0181c18c8c8d5313d08f86f3649b39bf77b7dccec8247b5a98573217f8fe9",
+          "ticker": "XOM39A"
+        }
+      ],
+      "ticker_proof": "PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/34088/000119312526291986/d70995d8k.htm"
+    },
+    {
+      "facts": [
+        {
+          "anchor_date": "2026-07-31",
+          "class_title": "Common Stock, par value $0.001 per share",
+          "context_ref": "c-2",
+          "issuer_cik": "0002115436",
+          "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+          "ticker": "XOM"
+        },
+        {
+          "anchor_date": "2026-07-31",
+          "class_title": "0.524% Notes due 2028",
+          "context_ref": "c-3",
+          "issuer_cik": "0002115436",
+          "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+          "ticker": "XOM/28"
+        },
+        {
+          "anchor_date": "2026-07-31",
+          "class_title": "0.835% Notes due 2032",
+          "context_ref": "c-4",
+          "issuer_cik": "0002115436",
+          "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+          "ticker": "XOM/32"
+        },
+        {
+          "anchor_date": "2026-07-31",
+          "class_title": "1.408% Notes due 2039",
+          "context_ref": "c-5",
+          "issuer_cik": "0002115436",
+          "snapshot_id": "e8703dce8070211706a7d7e175129ad9dc6f98930931445e85fe722a0e5843c4",
+          "ticker": "XOM/39A"
+        }
+      ],
+      "ticker_proof": "PARSED",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000211543626000006/xom-20260731.htm"
+    },
+    {
+      "reason": "Incomplete filing or missing SEC DEI namespace",
+      "ticker_proof": "UNSUPPORTED",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex4vi.htm"
+    }
+  ],
+  "production_registry_changed": false,
+  "registry_sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+  "supplementary_class_exhibit": {
+    "kind": "corporate_action_filing",
+    "observed_at": "2026-10-13T23:59:47.065053+00:00",
+    "published_at": "2026-07-01T16:36:49+00:00",
+    "scope": "Independent current issuer capital-stock description; no dated CUSIP bridge",
+    "sha256": "cc9b8b1211b4c0ef9d0b4c17465a68e530a246f6993b39d597dca391ec697232",
+    "snapshot_id": "60b24f4a2af40dac12097e171c03fcc62b083bbbf66125a2f68c154085f71fca",
+    "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex4vi.htm",
+    "visible_text_sha256": "eba4284ffe3d5176db869b94c9692bd51e4e85cacef06a2e1a1077dbb5fc14f5"
+  }
+}

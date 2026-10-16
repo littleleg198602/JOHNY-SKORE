@@ -1,0 +1,34 @@
+test_a_dimensional_child_without_explicit_cik_cannot_fall_back_to_parent (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_a_dimensional_child_without_explicit_cik_cannot_fall_back_to_parent) ... ok
+test_actual_dow_bytes_correct_the_original_join_and_preserve_unknown_publication_timezone (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_actual_dow_bytes_correct_the_original_join_and_preserve_unknown_publication_timezone) ... ok
+test_ambiguous_duplicate_name_context_is_rejected_without_choosing_a_matching_name (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_ambiguous_duplicate_name_context_is_rejected_without_choosing_a_matching_name) ... ok
+test_an_undeclared_context_and_legacy_archive_cik_mismatch_cannot_bind_names (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_an_undeclared_context_and_legacy_archive_cik_mismatch_cannot_bind_names) ... ok
+test_contradictory_same_cik_date_names_do_not_assign_a_child_to_the_parent (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_contradictory_same_cik_date_names_do_not_assign_a_child_to_the_parent) ... ok
+test_explicit_child_cik_overrides_parent_context_only_with_legal_entity_scope (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_explicit_child_cik_overrides_parent_context_only_with_legal_entity_scope) ... ok
+test_explicit_cik_disagreement_without_a_legal_entity_dimension_is_rejected (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_explicit_cik_disagreement_without_a_legal_entity_dimension_is_rejected) ... ok
+test_explicit_same_context_child_identifier_is_supported_without_parent_inference (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_explicit_same_context_child_identifier_is_supported_without_parent_inference) ... ok
+test_identity_namespace_rebinding_and_nested_member_values_fail_closed (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_identity_namespace_rebinding_and_nested_member_values_fail_closed) ... ok
+test_malformed_duplicate_and_zero_explicit_ciks_never_trigger_context_fallback (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_malformed_duplicate_and_zero_explicit_ciks_never_trigger_context_fallback) ... ok
+test_missing_mixed_reversed_invalid_and_future_dates_are_not_identity_anchors (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_missing_mixed_reversed_invalid_and_future_dates_are_not_identity_anchors) ... ok
+test_nilled_continued_transformed_and_excluded_identity_facts_fail_closed (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_nilled_continued_transformed_and_excluded_identity_facts_fail_closed) ... ok
+test_original_withheld_metadata_is_rejected_before_any_body_read (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_original_withheld_metadata_is_rejected_before_any_body_read) ... ok
+test_single_registrant_without_explicit_dei_cik_preserves_legacy_contract (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_single_registrant_without_explicit_dei_cik_preserves_legacy_contract) ... ok
+test_two_unbound_names_are_not_a_single_registrant_fallback (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_two_unbound_names_are_not_a_single_registrant_fallback) ... ok
+test_typed_multiple_foreign_empty_and_undefined_dimensions_do_not_bind_a_child (tests.test_batch6_cofiler_identity.CoFilerIssuerIdentityTests.test_typed_multiple_foreign_empty_and_undefined_dimensions_do_not_bind_a_child) ... ok
+test_complete_independent_fixture_is_reviewable_but_never_exports_or_extends_identity (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_complete_independent_fixture_is_reviewable_but_never_exports_or_extends_identity) ... ok
+test_nil_issuer_name_cannot_complete_the_independent_name_binding (tests.test_batch5_identity_bridge.CorporateActionBridgeTests.test_nil_issuer_name_cannot_complete_the_independent_name_binding) ... ok
+test_duplicate_same_context_issuer_names_cannot_be_selected_by_matching_one (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_duplicate_same_context_issuer_names_cannot_be_selected_by_matching_one) ... ok
+test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged) ... FAIL
+
+======================================================================
+FAIL: test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged (tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch6-identity_bulk-20261014/tests/test_batch5_identity_symbol.py", line 265, in test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged
+    self.assertEqual(original, old_inputs()[2])
+AssertionError: {'as_of': '2026-10-14T00:01:12.900845+00:00[24214 chars]IEW'} != {'schema_version': 1, 'status': 'READ_ONLY_[24083 chars]cc9'}
+Diff is 92397 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 20 tests in 3.850s
+
+FAILED (failures=1)

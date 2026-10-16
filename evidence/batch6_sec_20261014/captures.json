@@ -1,0 +1,56 @@
+{
+  "captures": [
+    {
+      "content_type": "text/plain",
+      "http_date": "Wed, 14 Oct 2026 13:32:31 GMT",
+      "http_status": 200,
+      "last_modified": "Fri, 29 Sep 2017 02:55:56 GMT",
+      "observed_at": "2026-10-14T13:32:31.072692+00:00",
+      "path": "primary/nadella_2014_form3.txt",
+      "requested_at": "2026-10-14T13:32:18.236468+00:00",
+      "retention": "ORIGINAL_BYTES",
+      "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+      "size_bytes": 5836,
+      "url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+    },
+    {
+      "content_type": "text/xml",
+      "http_date": "Wed, 14 Oct 2026 13:32:43 GMT",
+      "http_status": 200,
+      "last_modified": "Fri, 29 Sep 2017 02:55:56 GMT",
+      "observed_at": "2026-10-14T13:32:43.238879+00:00",
+      "path": "primary/nadella_2014_form3.xml",
+      "requested_at": "2026-10-14T13:32:31.076033+00:00",
+      "retention": "ORIGINAL_BYTES",
+      "sha256": "5c118f5e7a6f68bbb5d46d0eea956d8cbabb2c3ff935af12cfa5d31aafccce74",
+      "size_bytes": 2956,
+      "url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/edgar.xml"
+    },
+    {
+      "content_type": "text/html; charset=UTF-8",
+      "http_date": "Wed, 14 Oct 2026 13:32:51 GMT",
+      "http_status": 200,
+      "last_modified": "Fri, 07 Feb 2014 23:09:16 GMT",
+      "observed_at": "2026-10-14T13:32:51.449807+00:00",
+      "path": "primary/nadella_2014_form3_index.html",
+      "requested_at": "2026-10-14T13:32:43.241635+00:00",
+      "retention": "ORIGINAL_BYTES",
+      "sha256": "2bf75c1d69b113408d1da2d863504f1d6f18ce28f6f9d425ac2609c58e434026",
+      "size_bytes": 8323,
+      "url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015-index.html"
+    }
+  ],
+  "completed_at": "2026-10-14T13:32:51.451697+00:00",
+  "daily_quota_history_reset_or_reconstructed": false,
+  "http_requests_retry_or_redirect": 0,
+  "lease_acquired": true,
+  "lease_released": true,
+  "maximum_requests": 3,
+  "mode": "ONE_OFF_PRIMARY_RESEARCH_NOT_QUOTA_MANAGED_COLLECTOR_LIVE",
+  "request_count": 3,
+  "request_user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)",
+  "requested_accession": "0001582737-14-000015",
+  "schema_version": 1,
+  "started_at": "2026-10-14T13:32:18.231103+00:00",
+  "status": "CAPTURED_SOURCE_ONLY"
+}

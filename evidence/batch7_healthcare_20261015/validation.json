@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-15T04:29:17.113652+00:00",
+  "finished_at": "2026-10-15T04:29:19.033906+00:00",
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_batch7_healthcare_product_scope",
+    "-v"
+  ],
+  "exit_code": 0,
+  "tests_run": 34,
+  "seconds": 1.761,
+  "complete_terminal_summary": "Ran 34 tests in 1.761s\n\nOK",
+  "complete_terminal_OK": true,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "log_path": "evidence/batch7_healthcare_20261015/focused_tests.log",
+  "log_sha256": "f545a08e173187292568ecad01b46c509ed7e677f99942654063efed93544447",
+  "positive_contract_cases_are_synthetic": true,
+  "actual_source_http_requests_in_tests": 0,
+  "full_suite_run": false,
+  "live_ownership_verified": false,
+  "out_of_sample_verified": false,
+  "actual_user_windows_verified": false
+}

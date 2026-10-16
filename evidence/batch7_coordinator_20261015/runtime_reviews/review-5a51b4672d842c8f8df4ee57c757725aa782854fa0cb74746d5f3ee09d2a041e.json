@@ -1,0 +1,112 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "SEC_IR_DISCLOSURE_AUTHORITY",
+  "plan_sha256": "d51eaebb394dd447ba2f8c42ef96d7467c9e2b5326053c891155c9c90fea3708",
+  "recorded_at": "2026-10-15T07:34:00.024000+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-15T07:33:59.173851+00:00",
+  "review": {
+    "captures": [
+      {
+        "known_at": "2026-10-12T14:48:19.742085+00:00",
+        "observed_at": "2026-10-12T14:48:19.742085+00:00",
+        "record_id": "actual-retained-nvda-2026-source",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+        "size_bytes": 1967927,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+      },
+      {
+        "known_at": "2026-10-12T14:45:59.730315+00:00",
+        "observed_at": "2026-10-12T14:45:59.730315+00:00",
+        "record_id": "actual-retained-nvda-2026-index",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "ba36b0aa8f66dd5e5a4de1b0ecc67335df014b0149a0350c9806cf9bdd366075",
+        "size_bytes": 13551,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.htm"
+      }
+    ],
+    "feed_activation_allowed": false,
+    "filing": {
+      "acceptance_datetime_unqualified_raw": "2026-02-25 16:42:19",
+      "acceptance_timezone_inferred": false,
+      "accession_key": "000104581026000021",
+      "captured_primary_bytes": 1967927,
+      "document_type": "10-K",
+      "exact_historical_as_filed_version_verified": false,
+      "filing_day": "2026-02-25",
+      "index_declared_primary_bytes": 1967816,
+      "issuer_cik": "0001045810",
+      "primary_filename": "nvda-20260125.htm",
+      "publisher_size_conflict": true,
+      "report_period_end": "2026-01-25"
+    },
+    "historical_machine_availability_inferred": false,
+    "historical_website_validity_verified": false,
+    "hostname_is_issuer_identity": false,
+    "independent_primary_disclosure_count": 1,
+    "index_and_body_same_disclosure": true,
+    "issuer_attribution_allowed": false,
+    "issuer_continuity_verified": false,
+    "issuer_disclosed_ir_website_fact_supported": true,
+    "issuer_disclosed_website_fact": {
+      "cik_fact_ids": [
+        "f-32"
+      ],
+      "context_entity_identifier": "0001045810",
+      "context_id": "c-1",
+      "disclosed_hostname": "investor.nvidia.com",
+      "document_period_end": "2026-01-25",
+      "document_type": "10-K",
+      "fact_scope": "AS_SERVED_DATED_ISSUER_DISCLOSURE_NOT_CURRENT_PUBLISHER_AUTHORITY",
+      "form_fact_ids": [
+        "f-1"
+      ],
+      "ir_url_literal": "http://investor.nvidia.com",
+      "issuer_cik": "0001045810",
+      "issuer_name": "NVIDIA CORP",
+      "name_fact_ids": [
+        "f-7"
+      ],
+      "paragraph": {
+        "byte_end": 565469,
+        "byte_start": 564899,
+        "literal_visible_passage": "A discussion regarding our financial condition and results of operations for fiscal year 2026 compared to fiscal year 2025 is presented below. A discussion regarding our financial condition and results of operations for fiscal year 2025 compared to fiscal year 2024 can be found under Item 7 in our Annual Report on Form 10-K for the fiscal year ended January 26, 2025, filed with the SEC on February 26, 2025, which is available free of charge on the SEC’s website at http://www.sec.gov and at our investor relations website, http://investor.nvidia.com.",
+        "original_byte_sha256": "66c2b5e57edbedaa6ff0ec59eb92e833cdc53c73aadf145be7de62a247babea6"
+      },
+      "paragraph_locator": "div:818",
+      "period_fact_ids": [
+        "f-4"
+      ],
+      "uri_scheme_rewritten": false,
+      "url_original_span": {
+        "byte_end": 565468,
+        "byte_start": 565442,
+        "sha256": "d59ad9f8a01e4cb53282cb3e82dccd3353d3ac30f1ea408bd17b4f556b3f4796"
+      },
+      "whole_original_sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5"
+    },
+    "knowledge_at": "2026-10-15T07:33:59.173851+00:00",
+    "live_verified": false,
+    "network_requests_performed": 0,
+    "publisher_authority_verified": false,
+    "quota_or_lease_modified": false,
+    "reasons": [
+      "CURRENT_PUBLISHER_PAGE_AND_DOMAIN_AUTHORITY_UNVERIFIED",
+      "NO_ISSUER_OR_WEBSITE_CONTINUITY_INTERVAL",
+      "NO_FEED_ACTIVATION_SOURCE_ALIAS_OR_HISTORICAL_AVAILABILITY_FROM_DISCLOSURE",
+      "INDEX_PRIMARY_SIZE_DIFFERS_FROM_SERVED_ORIGINAL"
+    ],
+    "registry_modified": false,
+    "review_version": "sec-original-ir-website-disclosure-v1",
+    "scoring_applied": false,
+    "source_alias_approved": false,
+    "source_inputs_available_at": "2026-10-12T14:48:19.742085+00:00",
+    "status": "PARTIAL",
+    "trading_allowed": false
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

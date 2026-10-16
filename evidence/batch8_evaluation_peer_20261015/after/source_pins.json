@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-10-16T00:23:46.895290+00:00",
+  "source_sha256": {
+    "market_checker_app/app.py": "124b2897503e94ce4ce2e13743aa6e80d1999909a45a28f06548afdb098bcb79",
+    "market_checker_app/config.py": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370",
+    "market_checker_app/release_manifest.py": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a",
+    "market_checker_app/services/captured_identity_review_service.py": "e8752df36883b49e65c2a4824b8e2ccbfa79e3857497d84e569b57d02abf0e42",
+    "market_checker_app/services/captured_market_data_provider.py": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257",
+    "market_checker_app/services/pipeline_service.py": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98",
+    "market_checker_app/services/prospective_specialist_history.py": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8",
+    "market_checker_app/specialist_evidence_ui.py": "9a7f7be3e21774593139d076eb689000903b2afc4ab0144abb976f76888de695",
+    "market_checker_app/weekly_shadow_runner.py": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91",
+    "tests/test_batch8_coordinator_integration.py": "5248c007b229b09437d3687f37fb4e16bdba2498a476ac532c5629b320ce6684"
+  }
+}

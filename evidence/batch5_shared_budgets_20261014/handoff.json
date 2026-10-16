@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-14T00:03:26.852138+00:00",
+  "base_public_head": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "output": "ADDITIVE_SHARED_NHTSA_IR_BUDGETS",
+  "new_limits": {
+    "nhtsa": {
+      "subjects": 4,
+      "requests": 8
+    },
+    "rss": {
+      "subjects": 3,
+      "requests": 6
+    }
+  },
+  "existing_six_limits_changed": false,
+  "existing_reservations_reset": false,
+  "private_quota_table_created": false,
+  "every_http_hop_reserved_before_io": true,
+  "new_source_live_not_before_utc": "2026-10-14T00:00:00Z",
+  "existing_task_store": "outputs/market_checker_history.db",
+  "actual_existing_schema_read": true,
+  "actual_existing_request_rows_before_live": 0,
+  "previous_temporary_capture_quota_history_recovered": false,
+  "clinical_live_blocked_without_retained_quota_history": true,
+  "tests": {
+    "count": 15,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "command": "python -m unittest tests.test_batch5_public_budgets tests.test_public_source_budget -v",
+    "log": "evidence/batch5_shared_budgets_20261014/tests.log",
+    "log_sha256": "f2f6f92231a76bdd077a71f1c9f3b55d3cbab23f18e342fb65b073e1e73fa467"
+  },
+  "file_sha256": {
+    "market_checker_app/storage/scout_store.py": "db5c5235302432f0bcd6f5be5f9dfdc26c10c776e3fb2b3fa814e47d3d681543",
+    "market_checker_app/services/public_source_budget.py": "4459bf520c5d38b1a93a5a49fd6a6941a27cf479dfcd0b40bab6d587fb1e868f",
+    "tests/test_batch5_public_budgets.py": "5f7e14b607868255b01969d1e77ef1f49f7e9fe818b84b94cf5a049a94a30d60"
+  },
+  "claims": {
+    "specialist_acceptance_count": 0,
+    "code_live_promoted": false,
+    "scoring_changed": false,
+    "trading_enabled": false,
+    "publisher_entitlements_inferred": false
+  }
+}

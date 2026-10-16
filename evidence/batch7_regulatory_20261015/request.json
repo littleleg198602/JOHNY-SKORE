@@ -1,0 +1,50 @@
+{
+  "case_entity_name": "Apple Inc.",
+  "case_entity_role": "DEFENDANT",
+  "court": "IN THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF NEW JERSEY",
+  "court_capture_id": "doj_apple_complaint",
+  "docket": "2:24-cv-04055",
+  "document_kind": "COMPLAINT",
+  "filed_on": "2024-03-21",
+  "issuer_anchor_date": "2023-09-30",
+  "issuer_capture_id": "sec_apple_2023_10k",
+  "issuer_cik": "0000320193",
+  "issuer_legal_name": "Apple Inc.",
+  "issuer_publication_capture_id": "sec_apple_2023_index",
+  "issuer_published_on": "2023-11-03",
+  "issuer_ticker": "AAPL",
+  "release_capture_id": "doj_apple_release",
+  "release_published_on": "2024-03-21",
+  "selected_passages": [
+    {
+      "capture_id": "doj_apple_complaint",
+      "excerpt": "Case 2:24-cv-04055 Document 1 Filed 03/21/24 Page 1 of 88 PageID: 1",
+      "page": 1,
+      "purpose": "CAPTION"
+    },
+    {
+      "capture_id": "doj_apple_complaint",
+      "excerpt": "APPLE INC. One Apple Park Way Cupertino, CA 95014 Defendant.",
+      "page": 3,
+      "purpose": "CASE_ENTITY"
+    },
+    {
+      "capture_id": "doj_apple_complaint",
+      "excerpt": "Defendant. COMPLAINT",
+      "page": 3,
+      "purpose": "DOCUMENT_STAGE"
+    },
+    {
+      "capture_id": "doj_apple_release",
+      "excerpt": "Thursday, March 21, 2024",
+      "page": 1,
+      "purpose": "SOURCE_PUBLICATION"
+    },
+    {
+      "capture_id": "doj_apple_release",
+      "excerpt": "Apple Inc. is a publicly traded company incorporated in California and headquartered in Cupertino, California.",
+      "page": 1,
+      "purpose": "LEGAL_ENTITY"
+    }
+  ]
+}

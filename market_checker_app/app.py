@@ -68,6 +68,7 @@ from market_checker_app.services.specialist_identity_config import configured_re
 from market_checker_app.services.specialist_source_archive_service import (
     build_specialist_source_archive, export_specialist_source_archive,
 )
+from market_checker_app.specialist_evidence_ui import render_specialist_evidence_actions
 from market_checker_app.scout_background_worker import start_sec_background_scan
 from market_checker_app.services.stage3_manifest_service import (
     parse_commodity_energy_sources,
@@ -1604,6 +1605,22 @@ with st.sidebar:
     compare_prev = st.checkbox("Porovnat s předchozím během", value=True)
     save_history = st.checkbox("Ukládat historii do SQLite", value=True)
     sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
+    captured_market_enabled = st.checkbox("Použít vybrané původní cenové archivy", value=False,
+        help="Ceny se v tomto režimu nestahují. Akcie a benchmarky vyžadují úplné a aktuální původní OHLCV řady.")
+    captured_market_manifest_value = st.text_input("Manifest cenových archivů", value="",
+        disabled=not captured_market_enabled)
+    captured_market_root_value = st.text_input("Složka původních cenových archivů", value="",
+        disabled=not captured_market_enabled)
+    prospective_history_enabled = st.checkbox(
+        "Zachovávat nové předpovědi pro historické ověření", value=False,
+        disabled=not save_history,
+        help="Zachová již uloženou předpověď před první navazující seancí a její původní doklady.",
+    )
+    prospective_audit_archive_value = st.text_input(
+        "Složka vybraných důkazů předpovědí", value="",
+        disabled=not (save_history and prospective_history_enabled),
+        help="Předem určené původní zdrojové archivy a pozdější doložené výsledky. Chybějící historie se nedoplňuje zpětně.",
+    )
     max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
     use_rss = st.checkbox("Použít RSS zprávy", value=True)
     identity_records_text = st.text_area(
@@ -1813,7 +1830,7 @@ with st.sidebar:
     save_agent_settings = st.button("Uložit nastavení agentů")
     st.caption(f"Agentní nastavení: `{agent_runtime_service.path}`")
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
-    load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
+    load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5 or captured_market_enabled)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
     yahoo_batch_size = st.number_input(
         "Yahoo tickerů v jedné automatické dávce",
@@ -1832,7 +1849,7 @@ with st.sidebar:
         value=750,
         step=250,
     )
-    refresh_yahoo = st.button("Doplnit Yahoo cache")
+    refresh_yahoo = st.button("Doplnit Yahoo cache", disabled=captured_market_enabled)
     run_analysis = st.button("Spustit analýzu", type="primary")
 
 sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
@@ -1889,6 +1906,11 @@ config = AppConfig(
     compare_previous_run=compare_prev,
     save_history=save_history,
     sqlite_path=sqlite_path,
+    captured_market_manifest=(Path(captured_market_manifest_value.strip()) if captured_market_enabled else None),
+    captured_market_archive_root=(Path(captured_market_root_value.strip()) if captured_market_enabled else None),
+    prospective_history_enabled=bool(save_history and prospective_history_enabled),
+    prospective_audit_archive_root=(Path(prospective_audit_archive_value.strip())
+        if save_history and prospective_history_enabled and prospective_audit_archive_value.strip() else None),
     max_rss_items_per_source=int(max_rss),
     entity_registry=EntityRegistryConfig(identity_records=identity_records),
     fundamental_ingestion=FundamentalIngestionConfig(
@@ -2036,7 +2058,7 @@ if run_analysis or save_agent_settings:
         st.warning(f"Agentní nastavení se nepodařilo uložit: {exc}")
 
 store = SQLiteStore(config.sqlite_path)
-yahoo_cache = YahooCacheStore(config.sqlite_path)
+yahoo_cache = None if captured_market_enabled else YahooCacheStore(config.sqlite_path)
 
 if sqlite_info:
     st.warning(sqlite_info)
@@ -2093,7 +2115,7 @@ if not use_rss and (
         "běh vypnuté; použijí se pouze ruční manifesty."
     )
 
-if load_watchlist:
+if load_watchlist and not captured_market_enabled:
     loaded_watchlist, mt5_error = MT5Client().load_watchlist()
     if mt5_error:
         st.error(mt5_error)
@@ -2251,6 +2273,7 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
                 archived_snapshots = read_archived_prediction_snapshots(config.sqlite_path)
                 history_report = build_specialist_evaluation_report(
                     archived_snapshots, as_of=datetime.now(timezone.utc),
+                    label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
                 )
             st.session_state["specialist_history_report"] = {
                 "db_path": str(config.sqlite_path.resolve()), "report": history_report,
@@ -2268,6 +2291,13 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
             f"ověřených snapshotů {history_input['integrity_verified_rows']}, "
             f"známých vyřešených výsledků {history_input['resolved_labels_known_at_cutoff']}."
         )
+        label_audit = history_report.get("label_availability", {})
+        if label_audit:
+            st.caption(
+                f"Výsledků s doloženou dostupností cen: {label_audit.get('eligible_recorded_label_count', 0)}. "
+                "Výsledek vstoupí do historického srovnání až od skutečného získání cen; "
+                "samotné datum uzavření burzy jejich dostupnost nedokládá."
+            )
         if history_report["status"] == "INSUFFICIENT_DATA":
             st.info("Archiv zatím neposkytuje dostatek odpovídající historie pro srovnání. "
                     f"Důvod: {history_report['reason']}.")
@@ -2292,6 +2322,9 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
             data=json.dumps(history_report, ensure_ascii=False, indent=2, allow_nan=False),
             file_name="specialist_historical_evaluation.json", mime="application/json",
         )
+
+    render_specialist_evidence_actions(st, source_root=PROJECT_ROOT,
+        db_path=config.sqlite_path, output_dir=config.output_dir)
 
 with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     research_profiles = load_research_profiles()
@@ -2338,6 +2371,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     source_labels = {
         "sec": "SEC podání", "fred": "FRED makro", "eia": "EIA komodity",
         "usaspending": "USAspending zakázky", "recipient_discovery": "USAspending příjemci",
+        "usaspending_transactions": "USAspending transakce jedné zakázky",
         "fda": "FDA svolání a dopisy CRL", "finra": "FINRA short interest",
         "fdic": "FDIC banky", "sec13f": "SEC 13F instituce",
         "nhtsa": "NHTSA modelová svolání",
@@ -2356,6 +2390,7 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
                                if key in run), "") if run else "",
          "Nové nálezy / kandidáti": run.get("new_findings", run.get("new_candidates", "")) if run else "",
          "Použitelné banky": run.get("usable_banks", "") if run else "",
+         "Transakční řádky": run.get("accepted_rows", "") if run else "",
          "Odmítnuté řádky": run.get("rejected_rows", "") if run else "",
          "Vyčerpán rozpočet": run.get("budget_exhausted", "") if run else "",
          "Denní požadavky / limit": (
@@ -2371,6 +2406,10 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
          "Úplné kontroly zakázek / příjemců": run.get("coverage_complete_uei", run.get("coverage_complete_names", "")) if run else "",
          "Částečné kontroly zakázek / příjemců": run.get("coverage_partial_uei", run.get("coverage_partial_names", "")) if run else "",
          "Důvod přerušení": run.get("stop_reason", "") if run else "",
+         "Historie běhu": ({"SAVED": "Uložena", "ERROR": "Chyba uložení",
+                            "NOT_SUPPORTED": "Bez archivace"}.get(run.get("source_archive_status"), "")
+                           if run else ""),
+         "Chyba historie": run.get("source_archive_error", "") if run else "",
          "Chyba": run.get("error", "") if run else ""}
         for source, label in source_labels.items()
         for run in [last_runs.get(source)]
@@ -2378,7 +2417,8 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     st.caption("Denní plánovač opakuje omezené dávky; WAIT_ACCESS vyžaduje přístup ke zdroji, "
                "WAIT_IDENTITY doložený vztah. WAIT_QUOTA počká na obnovení denního rozpočtu; "
                "BUSY znamená, že zdroj právě zpracovává jiný běh. Požadavky se počítají i při chybě "
-               "a po restartu. Prázdný nález není důkazem, že firma události nemá.")
+               "a po restartu. Historie se uchovává po dokončení zdroje; chyba uložení je uvedena zvlášť. "
+               "Prázdný nález není důkazem, že firma události nemá.")
     coverage_time = datetime.now(timezone.utc)
     try:
         healthcare_identities = HealthcareIdentityRegistry.load(Path(
@@ -2427,16 +2467,93 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         st.dataframe(pd.DataFrame(scout_rows), hide_index=True)
     else:
         st.info("Zatím není uložené žádné nalezené podání pro tento výběr.")
-    contract_rows = scout_store.latest_findings(
-        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="usaspending",
+    verified_contracts = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="usaspending", stage="prime_contract",
     )
-    verified_contracts = [row for row in contract_rows if row["stage"] == "prime_contract"]
-    candidate_recipients = [row for row in contract_rows if row["stage"] == "recipient_candidate"]
+    verified_contracts = [row for row in verified_contracts if row["verification_status"] == "SOURCE_VERIFIED"]
+    candidate_recipients = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="usaspending", stage="recipient_candidate",
+    )
     if verified_contracts:
         st.write("**USAspending – zakázky přes doložené UEI; částka a výdaje nejsou tržby**")
         st.dataframe(pd.DataFrame(verified_contracts), hide_index=True)
         st.caption("Rozdíly závazků a výdajů porovnávají uložené kumulativní hodnoty stejné zakázky. "
                    "Samy nepotvrzují novou zakázku, jednotlivou transakci ani úplnou historii změn.")
+        target = st.selectbox(
+            "Zakázka pro historii transakcí", options=range(len(verified_contracts)),
+            format_func=lambda index: f"{verified_contracts[index]['subject_id']}: {verified_contracts[index]['title']}",
+        )
+        if st.button("Načíst transakce vybrané zakázky"):
+            from market_checker_app.scout_runner import run_award_transactions
+            selected = verified_contracts[target]
+            with st.spinner("Načítám omezenou historii jedné zakázky…"):
+                collected = run_award_transactions(
+                    db_path=config.sqlite_path, subject_id=str(selected["subject_id"]),
+                    award_finding_id=str(selected["finding_id"]),
+                )
+            st.info(f"Stav: {collected['status']}; použitelných transakcí: {collected.get('accepted_rows', 0)}; "
+                    f"nových uložených řádků: {collected.get('new_findings', 0)}; "
+                    f"nových zdrojových pozorování: {collected.get('new_source_observations', 0)}; "
+                    f"konfliktů času revize: {collected.get('modified_clock_conflicts', 0)}.")
+        selected = verified_contracts[target]
+        if selected.get("generated_internal_id"):
+            from market_checker_app.storage.award_transaction_store import AwardTransactionStore
+            transaction_audit = AwardTransactionStore(scout_store).observations_for_award(
+                subject_id=str(selected["subject_id"]), generated_award_id=str(selected["generated_internal_id"]),
+                as_of=datetime.now(timezone.utc), limit=100,
+            )
+            if transaction_audit["observations"]:
+                st.write("**Zachycené verze transakcí vybrané zakázky**")
+                st.dataframe(pd.DataFrame([
+                    {"Transakce": row["source_object_id"], "Hash řádku": row["source_row_sha256"],
+                     "Zachyceno u zdroje": row["response_completed_at"], "Dostupné": row["available_at"],
+                     "Poprvé uloženo": row["first_ingested_at"],
+                     "Čas revize": row["audit"]["modified_clock_audit"]["status"]}
+                    for row in transaction_audit["observations"]
+                ]), hide_index=True)
+                st.caption("Přehled ukazuje skutečné uložené verze a čas jejich získání. "
+                           "Pořadí zachycení samo nedokládá pořadí revizí vydavatele.")
+                if transaction_audit["truncated"]:
+                    st.caption("Zobrazeno prvních 100 pozorování vybrané zakázky.")
+                capture_times = {
+                    row["audit"]["capture_manifest"]: row["response_completed_at"]
+                    for row in transaction_audit["observations"]
+                    if row["audit"].get("capture_manifest")
+                }
+                capture_names = sorted(capture_times, key=lambda name: (capture_times[name], name))
+                st.caption("Porovnání zachycených průchodů ověří původní odpovědi i všechny vybrané stránky. "
+                           "Nepřítomnost v pozdější odpovědi sama nepotvrzuje smazání ani čas opravy vydavatele.")
+                baseline_names = st.multiselect(
+                    "Stránky dřívějšího průchodu", options=capture_names, max_selections=5,
+                    format_func=lambda name: f"{capture_times[name]} · {name}", key="award_audit_baseline",
+                )
+                current_names = st.multiselect(
+                    "Stránky pozdějšího průchodu", options=capture_names, max_selections=5,
+                    format_func=lambda name: f"{capture_times[name]} · {name}", key="award_audit_current",
+                )
+                if st.button("Porovnat zachycené průchody", disabled=not baseline_names or not current_names):
+                    from market_checker_app.scout_runner import run_award_capture_audit
+                    comparison = run_award_capture_audit(
+                        db_path=config.sqlite_path, subject_id=str(selected["subject_id"]),
+                        award_finding_id=str(selected["finding_id"]), baseline_manifest_names=baseline_names,
+                        current_manifest_names=current_names,
+                    )
+                    st.info(f"Stav: {comparison['status']}; uložení auditu: {comparison['audit_archive_status']}.")
+                    if comparison.get("counts"):
+                        st.dataframe(pd.DataFrame([comparison["counts"]]), hide_index=True)
+                    if comparison.get("events"):
+                        st.dataframe(pd.DataFrame(comparison["events"]), hide_index=True)
+                    if comparison.get("events_truncated"):
+                        st.caption("Audit uvádí jen omezený počet změn; úplnost událostí není doložená.")
+    transaction_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30,
+        source="usaspending", stage="award_transaction",
+    )
+    if transaction_rows:
+        st.write("**USAspending – transakce jednotlivých zakázek**")
+        st.dataframe(pd.DataFrame(transaction_rows), hide_index=True)
+        st.caption("Datum akce pochází ze zdroje; dostupnost odpovídá zachycení odpovědi. "
+                   "Závazek není tržba. Tyto řádky nedokládají všechny historické revize ani pokrytí celé firmy.")
     if candidate_recipients:
         st.write("**USAspending – možní příjemci podle názvu; vztah k emitentovi neověřen**")
         st.dataframe(pd.DataFrame(candidate_recipients), hide_index=True)
@@ -2475,6 +2592,22 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
     if nhtsa_rows:
         st.write("**NHTSA – kampaně doloženého modelu/roku; finanční dopad na emitenta není ověřen**")
         st.dataframe(pd.DataFrame(nhtsa_rows), hide_index=True)
+    if st.button("Zobrazit uložené kontroly modelů NHTSA"):
+        from market_checker_app.services.nhtsa_negative_review_service import read_nhtsa_scope_reviews
+        scoped = read_nhtsa_scope_reviews(scout_store, as_of=datetime.now(timezone.utc), limit=8)
+        st.info(f"Stav archivu: {scoped['status']}; doložené živé negativní kontroly modelu/roku: "
+                f"{scoped['live_complete_negative_model_years']}.")
+        if scoped["reviews"]:
+            st.dataframe(pd.DataFrame([
+                {"Značka": row["scope"]["make"], "Model": row["scope"]["model"],
+                 "Rok": row["scope"]["model_year"], "Stav": row["status"],
+                 "HTTP": row.get("http_status"), "Dostupné": row["known_at"],
+                 "Úplná negativní kontrola": row["complete_negative"],
+                 "Živý negativní případ": row["live_complete_negative_verified"]}
+                for row in scoped["reviews"]
+            ]), hide_index=True)
+        st.caption("Kontrola se týká přesného modelu a roku. Prázdná HTTP400 odpověď zůstává částečná; "
+                   "tyto záznamy nedokládají úplnou kontrolu emitenta ani finanční dopad.")
     for source, label in (("cms", "CMS vlastnictví nemocnic"),
                           ("clinicaltrials", "ClinicalTrials studie"),
                           ("ofac", "OFAC SDN"),
@@ -2486,6 +2619,9 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         if healthcare_rows:
             st.write(f"**{label} — kandidáti podle přesného jména**")
             st.caption("Samotné jméno nepotvrzuje právní vazbu k akcii ani finanční dopad.")
+            if source == "clinicaltrials":
+                st.caption("Dnešní snapshot sponzora se posuzuje zvlášť od historického data studie. "
+                           "Vazba sponzora sama nepotvrzuje vlastnictví léčiva; porovnávací léčiva a placebo mají vlastní role.")
             if source == "ofac":
                 st.caption("SDN hlavní a alternativní jména; pohled přes vlastnictví a slabé aliasy nejsou ověřené. "
                            "Prázdný výsledek není potvrzení bez sankcí.")
@@ -2513,11 +2649,45 @@ with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
         st.write("**FRED makrodata – společný kontext, ne údaj jednotlivé firmy**")
         st.dataframe(pd.DataFrame(macro_rows), hide_index=True)
     rss_candidates = scout_store.latest_findings(
-        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="rss",
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="rss", stage="search_candidate",
     )
     if rss_candidates:
         st.write("**Neověřené stopy z RSS — ověřit emitenta a primární zdroj**")
         st.dataframe(pd.DataFrame(rss_candidates), hide_index=True)
+        ir_target = st.selectbox(
+            "Stopa pro kontrolu primárního zdroje", options=range(len(rss_candidates)),
+            format_func=lambda index: f"{rss_candidates[index]['subject_id']}: {rss_candidates[index]['title']}",
+        )
+        ir_candidate = rss_candidates[ir_target]
+        with st.form("primary_ir_source_review"):
+            ir_feed_url = st.text_input("RSS kanál primárního vydavatele")
+            ir_authority_url = st.text_input("Stránka vydavatele odkazující na tento RSS kanál")
+            ir_publisher_hosts = st.text_input("Domény primárního vydavatele (oddělené čárkou)")
+            ir_submitted = st.form_submit_button("Načíst a zkontrolovat primární zdroj")
+        st.caption("Kontrola čerpá společnou denní kvótu a zachová původní odpovědi. "
+                   "Ověření zdroje samo nepotvrzuje vazbu na emitenta ani nepřidává body.")
+        if ir_submitted:
+            hosts = tuple(host.strip() for host in ir_publisher_hosts.split(",") if host.strip())
+            if not ir_feed_url or not ir_authority_url or not hosts:
+                st.info("Zadejte RSS kanál, odkazující stránku a domény jeho vydavatele.")
+            else:
+                from market_checker_app.scout_runner import run_primary_ir
+                with st.spinner("Kontroluji primární RSS a odkazovaný článek…"):
+                    reviewed = run_primary_ir(
+                        db_path=config.sqlite_path, ticker=str(ir_candidate["subject_id"]),
+                        candidate_id=str(ir_candidate["finding_id"]), feed_url=ir_feed_url,
+                        authority_url=ir_authority_url, publisher_hosts=hosts,
+                    )
+                st.info(f"Stav zdroje: {reviewed['status']}; archiv: {reviewed['source_archive_status']}; "
+                        f"počet požadavků: {reviewed.get('attempted_requests', 0)}.")
+    ir_source_reviews = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30,
+        source="rss", stage="ir_primary_source_review",
+    )
+    if ir_source_reviews:
+        st.write("**Kontroly primárních IR zdrojů**")
+        st.caption("Kontrola potvrzuje přesný zdroj článku. Vazba na emitenta a dopad na skóre vyžadují vlastní důkazy.")
+        st.dataframe(pd.DataFrame(ir_source_reviews), hide_index=True)
     scout_leads = scout_store.open_leads(watchlist, as_of=datetime.now(timezone.utc))
     if scout_leads:
         st.write("**Otevřené otázky k nalezeným zdrojům**")
@@ -2546,9 +2716,14 @@ def _render_yahoo_coverage(coverage: YahooCacheCoverage) -> None:
 
 yahoo_coverage_placeholder = st.empty()
 with yahoo_coverage_placeholder.container():
-    _render_yahoo_coverage(yahoo_cache.coverage(watchlist))
+    if captured_market_enabled:
+        from market_checker_app.specialist_evidence_ui import render_captured_market_readiness
+        render_captured_market_readiness(st, manifest_path=config.captured_market_manifest,
+            archive_root=config.captured_market_archive_root, tickers=watchlist)
+    else:
+        _render_yahoo_coverage(yahoo_cache.coverage(watchlist))
 
-if refresh_yahoo:
+if refresh_yahoo and not captured_market_enabled:
     if not watchlist:
         st.error("Nejdřív načtěte nebo zadejte watchlist.")
     else:
@@ -2606,7 +2781,7 @@ if refresh_yahoo:
                 f"({refresh_result.partial} částečných dat)."
             )
 
-if len(watchlist) > config.large_universe_threshold:
+if len(watchlist) > config.large_universe_threshold and not captured_market_enabled:
     if use_mt5:
         st.info(
             f"Velký universe režim: analyzuji všech {len(watchlist)} tickerů. "
@@ -2738,6 +2913,15 @@ if st.session_state.last_result:
             st.write("Stav běhu:", summary.get("pipeline_status"))
             if summary.get("reason"):
                 st.info(summary["reason"])
+            prospective = summary.get("prospective_forecast_history")
+            if isinstance(prospective, dict):
+                registration = prospective.get("registration", {})
+                history = prospective.get("history", {})
+                st.write("Zachování nových předpovědí:", registration.get("status", "WAIT"))
+                st.caption(f"Nově zachovaných předpovědí: {registration.get('registered_count', 0)}; "
+                           f"opakovaně ověřených: {registration.get('registration_replay_count', 0)}; "
+                           f"způsobilých skutečných výsledků: {history.get('eligible_real_label_count', 0)}.")
+                st.json(prospective, expanded=False)
             for key, title in (
                 ("macro_sector_regime", "Makro a sektorový režim"),
                 ("counterparty_health", "Veřejné podklady protistran"),

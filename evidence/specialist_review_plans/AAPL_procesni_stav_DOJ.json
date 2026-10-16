@@ -1,0 +1,243 @@
+{
+  "captures": {
+    "court_public_order": {
+      "body_available": false,
+      "body_ref": null,
+      "metadata": {
+        "archive_path": null,
+        "automatic_redirects": false,
+        "capture_id": "court_public_order",
+        "error_type": "URLError",
+        "maximum_bytes": 4000000,
+        "observed_at": "2026-10-15T13:43:59.288997+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+        "public_raw_available": false,
+        "raw_response_bytes": null,
+        "raw_response_sha256": null,
+        "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+        "reserved_at": "2026-10-15T13:43:57.029246+00:00",
+        "sequence": 3,
+        "started_at": "2026-10-15T13:43:57.029246+00:00",
+        "status": "TRANSPORT_OR_CAPTURE_ERROR",
+        "timeout_seconds": 25
+      }
+    },
+    "doj_case_index": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 107793,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+        "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+      },
+      "metadata": {
+        "archive_path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+        "automatic_redirects": false,
+        "capture_id": "doj_case_index",
+        "content_encoding": "identity",
+        "content_type": "text/html; charset=UTF-8",
+        "final_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+        "http_status": 200,
+        "maximum_bytes": 4000000,
+        "observed_at": "2026-10-15T18:10:37.550969+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+        "public_raw_available": true,
+        "raw_response_bytes": 107793,
+        "raw_response_sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+        "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+        "reserved_at": "2026-10-15T18:10:30.131061+00:00",
+        "sequence": 4,
+        "started_at": "2026-10-15T18:10:30.131061+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "doj_opposition_pdf": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 577500,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+        "sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3"
+      },
+      "metadata": {
+        "archive_path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+        "automatic_redirects": false,
+        "capture_id": "doj_opposition_pdf",
+        "content_encoding": "identity",
+        "content_type": "application/pdf",
+        "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+        "http_status": 200,
+        "maximum_bytes": 4000000,
+        "observed_at": "2026-10-15T18:12:02.727684+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "pdf_decoded_characters": 101852,
+        "pdf_pages_inspected": 62,
+        "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+        "public_raw_available": true,
+        "raw_response_bytes": 577500,
+        "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+        "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+        "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+        "sequence": 5,
+        "started_at": "2026-10-15T18:11:55.083970+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "govinfo_case_opinion": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 1344697,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      },
+      "metadata": {
+        "archive_path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "automatic_redirects": false,
+        "capture_id": "govinfo_case_opinion",
+        "content_encoding": "identity",
+        "content_type": "application/pdf",
+        "final_url": "https://www.govinfo.gov/content/pkg/USCOURTS-njd-2_24-cv-04055/pdf/USCOURTS-njd-2_24-cv-04055-0.pdf",
+        "http_status": 200,
+        "maximum_bytes": 4000000,
+        "observed_at": "2026-10-15T13:40:16.524451+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "pdf_decoded_characters": 71581,
+        "pdf_pages_inspected": 33,
+        "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+        "public_raw_available": true,
+        "raw_response_bytes": 1344697,
+        "raw_response_sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa",
+        "requested_url": "https://www.govinfo.gov/content/pkg/USCOURTS-njd-2_24-cv-04055/pdf/USCOURTS-njd-2_24-cv-04055-0.pdf",
+        "reserved_at": "2026-10-15T13:39:58.828252+00:00",
+        "sequence": 2,
+        "started_at": "2026-10-15T13:39:58.828252+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "njd_case_page": {
+      "body_available": false,
+      "body_ref": null,
+      "metadata": {
+        "archive_path": null,
+        "automatic_redirects": false,
+        "capture_id": "njd_case_page",
+        "content_encoding": "identity",
+        "content_type": "text/html; charset=utf-8",
+        "final_url": "https://www.njd.uscourts.gov/united-states-v-apple-inc-24-4055",
+        "http_status": 200,
+        "maximum_bytes": 4000000,
+        "observed_at": "2026-10-15T13:39:58.766720+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+        "public_raw_available": false,
+        "raw_response_bytes": 28995,
+        "raw_response_sha256": "27f03d6bb63f0590a82369556419c4eb8f5fb9ab3b3da44a9c8695d18d7b7532",
+        "requested_url": "https://www.njd.uscourts.gov/united-states-v-apple-inc-24-4055",
+        "reserved_at": "2026-10-15T13:39:49.012741+00:00",
+        "sequence": 1,
+        "started_at": "2026-10-15T13:39:49.012741+00:00",
+        "status": "WITHHELD_SOURCE_CONTAINS_ACCESS_VALUE",
+        "timeout_seconds": 25
+      }
+    }
+  },
+  "kind": "DOJ_CASE_POSTURE",
+  "request": {
+    "case_entity_name": "Apple Inc.",
+    "case_entity_role": "DEFENDANT",
+    "court": "UNITED STATES DISTRICT COURT DISTRICT OF NEW JERSEY",
+    "docket": "2:24-cv-04055",
+    "events": [
+      {
+        "caption_entity_name": "APPLE, INC.",
+        "caption_plaintiff_name": "UNITED STATES",
+        "capture_id": "doj_opposition_pdf",
+        "document_kind": "PARTY_OPPOSITION",
+        "document_number": "106",
+        "event_id": "opposition_filed_20240912",
+        "filed_on": "2024-09-12",
+        "posture": "OPPOSITION_FILED",
+        "selected_passages": [
+          {
+            "excerpt": "IN THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF NEW JERSEY",
+            "page": 1,
+            "purpose": "COURT_CAPTION"
+          },
+          {
+            "excerpt": "UNITED STATES, et al.,",
+            "page": 1,
+            "purpose": "PLAINTIFF"
+          },
+          {
+            "excerpt": "APPLE, INC.",
+            "page": 1,
+            "purpose": "CASE_ENTITY"
+          },
+          {
+            "excerpt": "BRIEF IN OPPOSITION TO DEFENDANT\u2019S MOTION TO DISMISS",
+            "page": 1,
+            "purpose": "DOCUMENT_TYPE"
+          }
+        ]
+      },
+      {
+        "caption_entity_name": "APPLE, INC.",
+        "capture_id": "govinfo_case_opinion",
+        "document_dated_on": "2025-06-30",
+        "document_kind": "COURT_OPINION",
+        "document_number": "283",
+        "event_id": "court_opinion_20250630",
+        "filed_on": "2025-06-30",
+        "judge_name": "NEALS",
+        "motion_document_number": "86",
+        "posture": "MOTION_TO_DISMISS_DENIED",
+        "selected_passages": [
+          {
+            "excerpt": "UNITED STATES DISTRICT COURT DISTRICT OF NEW JERSEY",
+            "page": 1,
+            "purpose": "COURT_CAPTION"
+          },
+          {
+            "excerpt": "UNITED STATES OF AMERICA, ef at,",
+            "page": 1,
+            "purpose": "PLAINTIFF"
+          },
+          {
+            "excerpt": "APPLE, INC.,",
+            "page": 1,
+            "purpose": "CASE_ENTITY"
+          },
+          {
+            "excerpt": "OPINION",
+            "page": 1,
+            "purpose": "DOCUMENT_TYPE"
+          },
+          {
+            "excerpt": "For the reasons set forth below, Apple's motion to dismiss (ECF No. 86) is DENIED.",
+            "page": 1,
+            "purpose": "PROCEDURAL_ACTION"
+          },
+          {
+            "excerpt": "NEALS, District Judge;",
+            "page": 1,
+            "purpose": "JUDGE"
+          },
+          {
+            "excerpt": "6/30/2025",
+            "page": 33,
+            "purpose": "DOCUMENT_DATE"
+          }
+        ]
+      }
+    ],
+    "issuer_cik": "0000320193",
+    "issuer_legal_name": "Apple Inc.",
+    "issuer_ticker": "AAPL",
+    "originating_complaint_filed_on": "2024-03-21",
+    "plaintiff_name": "UNITED STATES OF AMERICA"
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

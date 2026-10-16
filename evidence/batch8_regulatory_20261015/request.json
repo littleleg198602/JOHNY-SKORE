@@ -1,0 +1,94 @@
+{
+  "case_entity_name": "Apple Inc.",
+  "case_entity_role": "DEFENDANT",
+  "court": "UNITED STATES DISTRICT COURT DISTRICT OF NEW JERSEY",
+  "docket": "2:24-cv-04055",
+  "events": [
+    {
+      "caption_entity_name": "APPLE, INC.",
+      "caption_plaintiff_name": "UNITED STATES",
+      "capture_id": "doj_opposition_pdf",
+      "document_kind": "PARTY_OPPOSITION",
+      "document_number": "106",
+      "event_id": "opposition_filed_20240912",
+      "filed_on": "2024-09-12",
+      "posture": "OPPOSITION_FILED",
+      "selected_passages": [
+        {
+          "excerpt": "IN THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF NEW JERSEY",
+          "page": 1,
+          "purpose": "COURT_CAPTION"
+        },
+        {
+          "excerpt": "UNITED STATES, et al.,",
+          "page": 1,
+          "purpose": "PLAINTIFF"
+        },
+        {
+          "excerpt": "APPLE, INC.",
+          "page": 1,
+          "purpose": "CASE_ENTITY"
+        },
+        {
+          "excerpt": "BRIEF IN OPPOSITION TO DEFENDANT\u2019S MOTION TO DISMISS",
+          "page": 1,
+          "purpose": "DOCUMENT_TYPE"
+        }
+      ]
+    },
+    {
+      "caption_entity_name": "APPLE, INC.",
+      "capture_id": "govinfo_case_opinion",
+      "document_dated_on": "2025-06-30",
+      "document_kind": "COURT_OPINION",
+      "document_number": "283",
+      "event_id": "court_opinion_20250630",
+      "filed_on": "2025-06-30",
+      "judge_name": "NEALS",
+      "motion_document_number": "86",
+      "posture": "MOTION_TO_DISMISS_DENIED",
+      "selected_passages": [
+        {
+          "excerpt": "UNITED STATES DISTRICT COURT DISTRICT OF NEW JERSEY",
+          "page": 1,
+          "purpose": "COURT_CAPTION"
+        },
+        {
+          "excerpt": "UNITED STATES OF AMERICA, ef at,",
+          "page": 1,
+          "purpose": "PLAINTIFF"
+        },
+        {
+          "excerpt": "APPLE, INC.,",
+          "page": 1,
+          "purpose": "CASE_ENTITY"
+        },
+        {
+          "excerpt": "OPINION",
+          "page": 1,
+          "purpose": "DOCUMENT_TYPE"
+        },
+        {
+          "excerpt": "For the reasons set forth below, Apple's motion to dismiss (ECF No. 86) is DENIED.",
+          "page": 1,
+          "purpose": "PROCEDURAL_ACTION"
+        },
+        {
+          "excerpt": "NEALS, District Judge;",
+          "page": 1,
+          "purpose": "JUDGE"
+        },
+        {
+          "excerpt": "6/30/2025",
+          "page": 33,
+          "purpose": "DOCUMENT_DATE"
+        }
+      ]
+    }
+  ],
+  "issuer_cik": "0000320193",
+  "issuer_legal_name": "Apple Inc.",
+  "issuer_ticker": "AAPL",
+  "originating_complaint_filed_on": "2024-03-21",
+  "plaintiff_name": "UNITED STATES OF AMERICA"
+}

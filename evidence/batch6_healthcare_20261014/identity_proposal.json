@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "ingested_at": "2026-10-14T13:40:29.027104+00:00",
+  "record_count": 0,
+  "records": [],
+  "review_status": "WITHHELD_ORIGINAL_CMS_CCN_AND_EXACT_DATED_OWNER_BRIDGE_MISSING",
+  "production_registry_modified": false,
+  "positive_unit_fixture_is_live_evidence": false
+}

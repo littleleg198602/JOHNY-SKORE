@@ -30,6 +30,7 @@ class ScoutIndexAgent(BaseAgent):
     def run(self, context: AgentContext) -> AgentResult:
         rows = self.store.findings_for_watchlist(
             list(context.watchlist), as_of=context.started_at,
+            form4_parser_version=FORM4_PARSER_VERSION,
         )
         parsed_rows = [(row, json.loads(str(row["details_json"]))) for row in rows]
         primary_documents = {
@@ -122,6 +123,7 @@ class ScoutIndexAgent(BaseAgent):
                           "report_date": details.get("report_date"),
                           "beneficial_ownership": details.get("beneficial_ownership"),
                           "form4_observation": form4,
+                          "form4_identity_review": details.get("form4_identity_review") if form4 else None,
                           "evidence_quote": details.get("quote") if exposure else None,
                           "document_sha256": details.get("document_sha256"),
                           "item_locators": item_locators},

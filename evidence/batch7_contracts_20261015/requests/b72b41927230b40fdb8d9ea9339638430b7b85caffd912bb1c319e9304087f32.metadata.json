@@ -1,0 +1,27 @@
+{
+  "archive_path": "evidence/batch7_contracts_20261015/raw/body-8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58.response",
+  "automatic_redirects": false,
+  "complete_response": true,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/R1.htm",
+  "http_status": 200,
+  "max_attempts": 4,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-14T23:28:17.499529+00:00",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "public_raw_available": true,
+  "quota_scope": "EXPLICIT_BATCH7_SEC_RESEARCH_ONLY",
+  "raw_response_bytes": 67428,
+  "raw_response_sha256": "8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/R1.htm",
+  "response_headers": {
+    "Content-Encoding": null,
+    "Content-Length": null,
+    "Content-Type": "text/html",
+    "Date": "Wed, 14 Oct 2026 23:28:17 GMT",
+    "Last-Modified": "Thu, 16 Apr 2026 10:06:35 GMT"
+  },
+  "started_at": "2026-10-14T23:28:13.458464+00:00",
+  "status": "CAPTURED",
+  "usaspending_requests": 0
+}

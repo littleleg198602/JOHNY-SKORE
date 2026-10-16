@@ -1,0 +1,16 @@
+test_capture_path_escape_and_missing_file_are_rejected_before_body_read (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_capture_path_escape_and_missing_file_are_rejected_before_body_read) ... ok
+test_clinical_ui_keeps_snapshot_clock_and_does_not_invent_legacy_attribution_flags (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_clinical_ui_keeps_snapshot_clock_and_does_not_invent_legacy_attribution_flags) ... ok
+test_ir_archive_failure_keeps_completed_source_result_without_exception_values (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_ir_archive_failure_keeps_completed_source_result_without_exception_values) ... ok
+test_ir_completed_action_archives_all_canonical_slots_and_keeps_source_only_status (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_ir_completed_action_archives_all_canonical_slots_and_keeps_source_only_status) ... ok
+test_selected_award_offline_comparison_retains_inputs_and_records_new_audit (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_selected_award_offline_comparison_retains_inputs_and_records_new_audit) ... ok
+test_award_comparison_uses_selected_retained_pages_without_collecting_again (tests.test_batch5_source_actions_ui.Batch5SourceActionsUITests.test_award_comparison_uses_selected_retained_pages_without_collecting_again) ... 2026-10-14 05:29:14.687 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead (tests.test_batch5_source_actions_ui.Batch5SourceActionsUITests.test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead) ... 2026-10-14 05:29:16.312 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_nhtsa_archive_button_reads_bounded_review_without_live_collection (tests.test_batch5_source_actions_ui.Batch5SourceActionsUITests.test_nhtsa_archive_button_reads_bounded_review_without_live_collection) ... 2026-10-14 05:29:17.331 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.716s
+
+OK

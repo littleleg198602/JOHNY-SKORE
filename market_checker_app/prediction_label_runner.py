@@ -234,6 +234,8 @@ def resolve_prediction_labels(
         "unavailable": 0,
         "deferred": 0,
         "source_failures": 0,
+        "archive_written": 0,
+        "archive_failures": 0,
         "cache_fresh": 0,
         "cache_stale": 0,
         "cache_incomplete": 0,
@@ -301,7 +303,7 @@ def resolve_prediction_labels(
             as_of=clock,
             limit=None,
         )
-        for key in ("resolved", "unavailable", "deferred", "source_failures"):
+        for key in ("resolved", "unavailable", "deferred", "source_failures", "archive_written", "archive_failures"):
             aggregate[key] += int(resolution.get(key) or 0)
 
         still_pending = _pending_ids(store, ids)
@@ -341,6 +343,7 @@ def resolve_prediction_labels(
     }
     if (
         aggregate["source_failures"]
+        or aggregate["archive_failures"]
         or aggregate["download_failures"]
         or aggregate["range_incomplete_after_refresh"]
         or aggregate["deferred"]

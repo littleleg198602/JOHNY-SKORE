@@ -1,0 +1,401 @@
+{
+  "as_of": "2026-10-14T13:29:18.124083+00:00",
+  "canonical_universe_size": 687,
+  "corporate_action_bridge_reviews": [
+    {
+      "absent_catalog_is_delisting_proof": false,
+      "actual_delisting_effective_on": null,
+      "as_of": "2026-10-14T13:29:18.124083+00:00",
+      "automatic_alias_allowed": false,
+      "blockers": [
+        "DIRECT_INDIRECT_CONTROL_RELATION_CONFLICT",
+        "FROM_DATED_TUPLE_ANCHORS_DO_NOT_ALIGN",
+        "TO_DATED_TUPLE_ANCHORS_DO_NOT_ALIGN",
+        "TO_INDEPENDENT_PRIMARY_DOCUMENTS_MISSING",
+        "DATED_OLD_NEW_CUSIP_ACTION_BRIDGE_MISSING"
+      ],
+      "bridge_kind": "STOCK_MERGER_EXCHANGE",
+      "bridge_sha256": "e74820931dabef2510cfb92f9d9a2aa953ecb58c8cc031caa96e092c35f80c81",
+      "candidate_target_tuple": {
+        "class_description": "COM",
+        "cusip": "88023U101",
+        "issuer_cik": "0001206264",
+        "issuer_name": "SOMNIGROUP INTERNATIONAL INC",
+        "ticker": "SGI"
+      },
+      "canonical_universe_changed": false,
+      "deleted_list_is_delisting_proof": false,
+      "delisting_effective_date_status": "UNKNOWN",
+      "evidence_known_at": "2026-10-14T13:29:18.124083+00:00",
+      "exchange_ratio": "0.1455",
+      "fractional_cash_only": true,
+      "from_identity_proposal": {
+        "class_description": "COM",
+        "cusip": "524660107",
+        "issuer_cik": "0000058492",
+        "issuer_name": "LEGGETT & PLATT INC",
+        "ticker": "LEG"
+      },
+      "historical_knowledge_reconstructed": false,
+      "identity_transition_approved": false,
+      "independent_primary_urls": [
+        "https://www.sec.gov/Archives/edgar/data/1206264/000031506626002146/primary_doc.xml",
+        "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/sgi-20260826.htm",
+        "https://www.sec.gov/Archives/edgar/data/58492/000005849226000430/leg-20260630.htm",
+        "https://www.sec.gov/Archives/edgar/data/58492/000031506626002256/primary_doc.xml",
+        "https://www.sec.gov/Archives/edgar/data/58492/000087666126000712/primary_doc.xml",
+        "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+      ],
+      "interval_extension_allowed": false,
+      "merger_effective_on": "2026-08-26",
+      "preserved_prior_identities": [],
+      "production_registry_changed": false,
+      "proofs": {
+        "action": {
+          "excerpt": "On August 26, 2026 (the “ Closing Date ”), Sparrow Unity Corporation, a Missouri corporation (“ Merger Sub ”) and wholly owned indirect subsidiary of Somnigroup International Inc., a Delaware corporation (“ Parent ”), merged with and into Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), with the Company continuing as the surviving corporation (the “ Merger ” and the time of consummation thereof, the “ Effective Time ”) pursuant to the previously announced Agreement and Plan of Merger, dated as of April 13, 2026 (the “ Merger Agreement ”), by and among the Company, Parent and Merger Sub. As a result of the Merger, the Company became a wholly owned indirect subsidiary of the Parent (the “Surviving Corporation”).",
+          "kind": "corporate_action_filing",
+          "observed_at": "2026-10-13T08:46:22.597523+00:00",
+          "published_at": "2026-08-26T17:27:01+00:00",
+          "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+          "snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+          "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+        },
+        "completion": {
+          "excerpt": "On August 26, 2026, Somnigroup International Inc., a Delaware corporation (the \"Company\") and Sparrow Unity Corporation, a Missouri corporation and a direct, wholly owned subsidiary of the Company (\"Merger Sub\"), consummated the previously announced acquisition of Leggett & Platt, Incorporated, a Missouri corporation (\"Leggett & Platt\"), pursuant to the Agreement and Plan of Merger dated as of April 13, 2026 (the \"Merger Agreement\"), by and among the Company, Merger Sub and Leggett & Platt. Under the Merger Agreement, Merger Sub merged with and into Leggett & Platt (the \"Merger\") with Leggett & Platt surviving and becoming a direct, wholly owned subsidiary of the Company (the \"Surviving Corporation\"). At the effective time of the Merger (\"Effective Time\"), each share of Leggett & Platt common stock, par value $0.01 per share, (the \"Leggett & Platt common stock\") issued and outstanding immediately prior to the Effective Time (other than shares of Leggett & Platt common stock held, directly or indirectly, by Leggett & Platt (as treasury shares or otherwise), any Leggett & Platt subsidiary, or by the Company or any Company subsidiary, in each case, immediately prior to the Effective Time, were automatically cancelled, and other than dissenting shares) was automatically converted into the right to receive 0.1455 shares (the \"Exchange Ratio\") of the Company's common stock, par value $0.01 per share, (\"Somnigroup common stock\"), with cash paid in lieu of any fractional shares, if applicable (the \"Merger Consideration\").",
+          "kind": "corporate_action_filing",
+          "observed_at": "2026-10-14T13:29:09.343160+00:00",
+          "published_at": "2026-08-26T16:41:36+00:00",
+          "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146",
+          "snapshot_id": "4c5609917086990b6a00cff4bd48025797c10da7606121a9ada09c33741c1985",
+          "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/sgi-20260826.htm"
+        },
+        "dated_cusip_action_bridge": null,
+        "exchange_consideration": {
+          "excerpt": "At the Effective Time, each share of Company common stock, par value $0.01 per share (“ Company common stock ”), issued and outstanding immediately prior to the Effective Time (other than shares of Company common stock held, directly or indirectly, by the Company (as treasury shares or otherwise), any Company subsidiary, or Parent or any Parent subsidiary, in each case, immediately prior to the Effective Time, which were automatically cancelled, and other than dissenting shares) was automatically converted into the right to receive 0.1455 shares (the “ Exchange Ratio ”) of Parent’s common stock, par value $0.01 per share (“ Parent common stock ”), with cash paid in lieu of any fractional shares, if applicable (the “ Merger Consideration ”).",
+          "exchange_ratio": "0.1455",
+          "kind": "corporate_action_filing",
+          "observed_at": "2026-10-13T08:46:22.597523+00:00",
+          "published_at": "2026-08-26T17:27:01+00:00",
+          "scope": "Eligible common shares; cancellations/dissenters and awards remain separate",
+          "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+          "snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+          "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+        },
+        "from": {
+          "anchor_alignment": "DIFFERENT_DATED_ANCHORS",
+          "class_terms": {
+            "par_term": "USD:0.01",
+            "share_class": "EQUITY:UNCLASSIFIED"
+          },
+          "competing_sources": [
+            {
+              "class_title": "COMMON STOCK",
+              "cusip": "524660107",
+              "event_date": "2026-08-31",
+              "issuer_cik": "0000058492",
+              "issuer_name": "LEGGETT & PLATT INC",
+              "scope": "POST_CONVERSION_OLD_INSTRUMENT_ANCHOR",
+              "snapshot_id": "476898cd65424f7eac0fe086583143430a05de08d27a9abedcc13e8d1c0f09e4"
+            }
+          ],
+          "independent_issuer_names": [
+            {
+              "anchor_date": "2026-06-30",
+              "context_ref": "c-1",
+              "issuer_cik": "0000058492",
+              "issuer_name": "LEGGETT & PLATT, INC"
+            }
+          ],
+          "instrument": {
+            "class_title": "COMMON STOCK",
+            "cusip": "524660107",
+            "event_date": "2026-07-31",
+            "issuer_cik": "0000058492",
+            "issuer_name": "LEGGETT & PLATT INC",
+            "kind": "schedule13",
+            "observed_at": "2026-10-14T13:28:47.857082+00:00",
+            "published_at": "2026-08-07T15:21:42+00:00",
+            "sha256": "a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698",
+            "snapshot_id": "37b29d608b742e524df00431dce4b8f8b82ed32a2635caa9ac80067624966cc2",
+            "url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002256/primary_doc.xml"
+          },
+          "ticker_class": {
+            "anchor_date": "2026-06-30",
+            "class_title": "Common Stock, $.01 par value",
+            "context_ref": "c-1",
+            "issuer_cik": "0000058492",
+            "kind": "ticker_filing",
+            "observed_at": "2026-10-14T13:28:58.863010+00:00",
+            "published_at": "2026-08-06T15:22:27+00:00",
+            "sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d",
+            "snapshot_id": "88b98e8105feaefc2c0956d6b47d38a03334c9da87efb62811eadad36cf07878",
+            "ticker": "LEG",
+            "url": "https://www.sec.gov/Archives/edgar/data/58492/000005849226000430/leg-20260630.htm"
+          }
+        },
+        "observed_target_catalog": [
+          {
+            "issuer_cik": "0001206264",
+            "issuer_name": "SOMNIGROUP INTERNATIONAL INC.",
+            "ticker": "SGI"
+          }
+        ],
+        "selected_old_list_row": {
+          "class_description": "COM",
+          "cusip": "524660107",
+          "flags": "*D*         E",
+          "issuer_name": "LEGGETT & PLATT INC",
+          "line_number": 15683
+        },
+        "selected_target_list_row": {
+          "class_description": "COM",
+          "cusip": "88023U101",
+          "flags": "E",
+          "issuer_name": "SOMNIGROUP INTERNATIONAL INC",
+          "line_number": 22388
+        },
+        "to": {
+          "anchor_alignment": "DIFFERENT_DATED_ANCHORS",
+          "class_terms": {
+            "par_term": "USD:0.01",
+            "share_class": "EQUITY:UNCLASSIFIED"
+          },
+          "competing_sources": [],
+          "independent_issuer_names": [
+            {
+              "anchor_date": "2026-08-25",
+              "context_ref": "c-1",
+              "issuer_cik": "0001206264",
+              "issuer_name": "SOMNIGROUP INTERNATIONAL INC."
+            }
+          ],
+          "instrument": {
+            "class_title": "COMMON STOCK",
+            "cusip": "88023U101",
+            "event_date": "2026-06-30",
+            "issuer_cik": "0001206264",
+            "issuer_name": "SOMNIGROUP INTERNATIONAL INC",
+            "kind": "schedule13",
+            "observed_at": "2026-10-14T13:29:18.124083+00:00",
+            "published_at": "2026-08-06T14:41:06+00:00",
+            "sha256": "bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2",
+            "snapshot_id": "3c7c0d418281f60a1da9336292b257a62dd17988203110834b08c6d8e6e201c4",
+            "url": "https://www.sec.gov/Archives/edgar/data/1206264/000031506626002146/primary_doc.xml"
+          },
+          "ticker_class": {
+            "anchor_date": "2026-08-25",
+            "class_title": "Common Stock, $0.01 par value",
+            "context_ref": "c-1",
+            "issuer_cik": "0001206264",
+            "kind": "ticker_filing",
+            "observed_at": "2026-10-14T13:29:09.343160+00:00",
+            "published_at": "2026-08-26T16:41:36+00:00",
+            "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146",
+            "snapshot_id": "1b8e4c1245c8fe580a26ae2218409c7cbf87d1a13a2a25e9b8ba5643c4687fae",
+            "ticker": "SGI",
+            "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/sgi-20260826.htm"
+          }
+        },
+        "withdrawal_notification": {
+          "actual_delisting_effective_on": null,
+          "class_title": "Common Stock",
+          "exchange_cik": "0000876661",
+          "exchange_name": "NEW YORK STOCK EXCHANGE LLC",
+          "issuer_cik": "0000058492",
+          "issuer_name": "LEGGETT & PLATT INC",
+          "kind": "form25_nse",
+          "observed_at": "2026-10-14T13:27:50.009633+00:00",
+          "published_at": "2026-08-27T13:23:44+00:00",
+          "rule_provision": "17 CFR 240.12d2-2(a)(3)",
+          "sha256": "54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d",
+          "signature_date": "2026-08-27",
+          "snapshot_id": "03d0a7e908cbccc4ed6f4911097c95f48f457ed6284d265acc9c47555b5e9e23",
+          "source_scope": "FILED_WITHDRAWAL_NOTIFICATION_ONLY",
+          "url": "https://www.sec.gov/Archives/edgar/data/58492/000087666126000712/primary_doc.xml"
+        }
+      },
+      "proposed_effective_on": "2026-08-26",
+      "quarter": "2026q3",
+      "schema_version": 1,
+      "scoring_allowed": false,
+      "status": "PRIMARY_BRIDGE_PARTIAL",
+      "ticker": "LEG",
+      "tuple_status": "UNVERIFIED_PRIMARY_CANDIDATES"
+    }
+  ],
+  "new_verified_identities": 0,
+  "production_registry_changed": false,
+  "quarter": "2026q3",
+  "records": [
+    {
+      "automatic_symbol_alias_allowed": false,
+      "blockers": [
+        "UNRESOLVED_CURRENT_TICKER_CIK",
+        "NO_EXACT_DATED_ACTIVE_CIK_CUSIP_CLASS_PROOF",
+        "DELETED_INSTRUMENT_CUSIP",
+        "NO_SAME_CONTEXT_TICKER_CIK_CLASS_IN_SELECTED_QUARTER",
+        "EXPLICIT_DATED_BINDING_AND_TRANSITION_REVIEW_NOT_EXPORTED"
+      ],
+      "candidate_instruments": [],
+      "candidates_truncated": false,
+      "catalog_proves_historical_validity": false,
+      "dated_structured_instrument_claims": [
+        {
+          "class_title": "COMMON STOCK",
+          "cusip": "524660107",
+          "event_date": "2026-08-31",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0000058492",
+          "issuer_name": "LEGGETT & PLATT INC",
+          "proves_continuous_quarter_validity": false,
+          "selected_list_row": {
+            "class_description": "COM",
+            "cusip": "524660107",
+            "flags": "*D*         E",
+            "issuer_name": "LEGGETT & PLATT INC",
+            "line_number": 15683
+          },
+          "selected_list_status": "DELETED_IN_SELECTED_LIST",
+          "snapshot_id": "476898cd65424f7eac0fe086583143430a05de08d27a9abedcc13e8d1c0f09e4",
+          "source_observed_at": "2026-10-13T08:51:23.811758+00:00",
+          "source_published_at": "2026-09-08T13:58:16+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002283/primary_doc.xml"
+        },
+        {
+          "class_title": "COMMON STOCK",
+          "cusip": "524660107",
+          "event_date": "2026-07-31",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0000058492",
+          "issuer_name": "LEGGETT & PLATT INC",
+          "proves_continuous_quarter_validity": false,
+          "selected_list_row": {
+            "class_description": "COM",
+            "cusip": "524660107",
+            "flags": "*D*         E",
+            "issuer_name": "LEGGETT & PLATT INC",
+            "line_number": 15683
+          },
+          "selected_list_status": "DELETED_IN_SELECTED_LIST",
+          "snapshot_id": "37b29d608b742e524df00431dce4b8f8b82ed32a2635caa9ac80067624966cc2",
+          "source_observed_at": "2026-10-14T13:28:47.857082+00:00",
+          "source_published_at": "2026-08-07T15:21:42+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002256/primary_doc.xml"
+        }
+      ],
+      "evidence_counts": {
+        "historical_versions": 0,
+        "other_catalog_symbols": 0,
+        "other_filing_contexts": 0,
+        "same_ticker_filing_contexts": 1,
+        "structured_instrument_claims": 2
+      },
+      "evidence_truncated": false,
+      "historical_versions": [],
+      "identity_status": "REVIEW_ONLY",
+      "new_identity_approved": false,
+      "observed_current_catalog_matches": [],
+      "preparation_status": "WAIT_TICKER_CIK",
+      "primary_statements": [],
+      "same_cik_other_catalog_symbols": [],
+      "same_cik_other_dated_filing_contexts": [],
+      "same_ticker_dated_filing_contexts": [
+        {
+          "anchor_date": "2026-06-30",
+          "class_title": "Common Stock, $.01 par value",
+          "context_ref": "c-1",
+          "interval_extension_allowed": false,
+          "issuer_cik": "0000058492",
+          "snapshot_id": "88b98e8105feaefc2c0956d6b47d38a03334c9da87efb62811eadad36cf07878",
+          "source_observed_at": "2026-10-14T13:28:58.863010+00:00",
+          "source_published_at": "2026-08-06T15:22:27+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/58492/000005849226000430/leg-20260630.htm",
+          "ticker": "LEG"
+        }
+      ],
+      "scoring_allowed": false,
+      "ticker": "LEG"
+    }
+  ],
+  "review_sha256": "e9965dafde27ef780309e2aa30acb00077ac465165ae21907ea3f14dbd59102b",
+  "schema_version": 1,
+  "score_changed": false,
+  "selected_tickers": [
+    "LEG"
+  ],
+  "source_fingerprint": "5111dd875a85f54788ab39e599d710f0be0f2f99dc1dc78ab1834e1dfb7f5bba",
+  "sources": {
+    "03d0a7e908cbccc4ed6f4911097c95f48f457ed6284d265acc9c47555b5e9e23": {
+      "kind": "form25_nse",
+      "observed_at": "2026-10-14T13:27:50.009633+00:00",
+      "published_at": "2026-08-27T13:23:44+00:00",
+      "sha256": "54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000087666126000712/primary_doc.xml"
+    },
+    "1b8e4c1245c8fe580a26ae2218409c7cbf87d1a13a2a25e9b8ba5643c4687fae": {
+      "kind": "ticker_filing",
+      "observed_at": "2026-10-14T13:29:09.343160+00:00",
+      "published_at": "2026-08-26T16:41:36+00:00",
+      "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146",
+      "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/sgi-20260826.htm"
+    },
+    "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-13T08:46:22.597523+00:00",
+      "published_at": "2026-08-26T17:27:01+00:00",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+    },
+    "37b29d608b742e524df00431dce4b8f8b82ed32a2635caa9ac80067624966cc2": {
+      "kind": "schedule13",
+      "observed_at": "2026-10-14T13:28:47.857082+00:00",
+      "published_at": "2026-08-07T15:21:42+00:00",
+      "sha256": "a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002256/primary_doc.xml"
+    },
+    "38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a": {
+      "kind": "ticker_catalog",
+      "observed_at": "2026-10-12T14:49:01.942947+00:00",
+      "published_at": null,
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+      "url": "https://www.sec.gov/files/company_tickers.json"
+    },
+    "3c7c0d418281f60a1da9336292b257a62dd17988203110834b08c6d8e6e201c4": {
+      "kind": "schedule13",
+      "observed_at": "2026-10-14T13:29:18.124083+00:00",
+      "published_at": "2026-08-06T14:41:06+00:00",
+      "sha256": "bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2",
+      "url": "https://www.sec.gov/Archives/edgar/data/1206264/000031506626002146/primary_doc.xml"
+    },
+    "476898cd65424f7eac0fe086583143430a05de08d27a9abedcc13e8d1c0f09e4": {
+      "kind": "schedule13",
+      "observed_at": "2026-10-13T08:51:23.811758+00:00",
+      "published_at": "2026-09-08T13:58:16+00:00",
+      "sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002283/primary_doc.xml"
+    },
+    "4c5609917086990b6a00cff4bd48025797c10da7606121a9ada09c33741c1985": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-14T13:29:09.343160+00:00",
+      "published_at": "2026-08-26T16:41:36+00:00",
+      "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146",
+      "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/sgi-20260826.htm"
+    },
+    "88b98e8105feaefc2c0956d6b47d38a03334c9da87efb62811eadad36cf07878": {
+      "kind": "ticker_filing",
+      "observed_at": "2026-10-14T13:28:58.863010+00:00",
+      "published_at": "2026-08-06T15:22:27+00:00",
+      "sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000005849226000430/leg-20260630.htm"
+    },
+    "fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c": {
+      "kind": "13f_list",
+      "observed_at": "2026-10-12T14:49:07.942392+00:00",
+      "published_at": null,
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+      "url": "https://www.sec.gov/files/investment/13flist2026q3.txt"
+    }
+  },
+  "specialist_done_changed": false,
+  "status": "READ_ONLY_INSTRUMENT_TRANSITION_REVIEW"
+}

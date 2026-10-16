@@ -1,0 +1,1103 @@
+{
+  "actual_forecasts_created": 0,
+  "actual_labels_created": 0,
+  "db_accesses": 0,
+  "evidence_origin": "ACTUAL_RETAINED_CAPTURE_READINESS_ONLY",
+  "observed_at": "2026-10-15T18:21:57.802803+00:00",
+  "publisher_revision_upgrades": 0,
+  "rows": [
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.646382+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-13",
+      "original_captured_at": "2026-10-14T05:14:45.164583+00:00",
+      "original_frame_rows": 22,
+      "original_observed_at": "2026-10-14T05:14:45.164583+00:00",
+      "plan_path": "actual_plans/manifest_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json",
+      "plan_sha256": "4dad298a79fcada9c83d4577b1286deb2c4e0a3cfca2b48465aa2a4b6c5b2107",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.622467+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "4dad298a79fcada9c83d4577b1286deb2c4e0a3cfca2b48465aa2a4b6c5b2107",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "SYNTHESIZED_SOURCE_COLUMNS_REFUSED",
+            "status": "WAIT_DATA",
+            "ticker": "AAPL"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "PROVIDER_RETURNED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json",
+      "source_sha256_after": "17fa37032d4b3a11db559f5ac2e2d13103fb30f269f4944bc3b8e49f5ac0d673",
+      "source_sha256_before": "17fa37032d4b3a11db559f5ac2e2d13103fb30f269f4944bc3b8e49f5ac0d673",
+      "ticker": "AAPL"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.677673+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-13",
+      "original_captured_at": "2026-10-14T05:18:59.974992+00:00",
+      "original_frame_rows": 22,
+      "original_observed_at": "2026-10-14T05:18:59.974992+00:00",
+      "plan_path": "actual_plans/manifest_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+      "plan_sha256": "83035b32d599e353a211e489e8722fc8bbd66817c1eeafb0f8d69214d71cc874",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.675164+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "83035b32d599e353a211e489e8722fc8bbd66817c1eeafb0f8d69214d71cc874",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "SYNTHESIZED_SOURCE_COLUMNS_REFUSED",
+            "status": "WAIT_DATA",
+            "ticker": "SPY"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "PROVIDER_RETURNED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+      "source_sha256_after": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3",
+      "source_sha256_before": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3",
+      "ticker": "SPY"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.687973+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-12",
+      "original_captured_at": "2026-10-14T05:16:26.797872+00:00",
+      "original_frame_rows": 21,
+      "original_observed_at": "2026-10-14T05:16:26.793978+00:00",
+      "plan_path": "actual_plans/manifest_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json",
+      "plan_sha256": "5fbfa29bf6ee60b3c98e4f3e3ba83429f49c3d80b8b08b606e348a337bda6010",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.684747+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "5fbfa29bf6ee60b3c98e4f3e3ba83429f49c3d80b8b08b606e348a337bda6010",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "UNSUPPORTED_CAPTURE_METHOD",
+            "status": "WAIT_DATA",
+            "ticker": "SPY"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "CACHE_MERGED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json",
+      "source_sha256_after": "ceb51a5a54ac108fe25f45cb3723262b4ddb1b4e15e35cc67a9d9bcd0df70b23",
+      "source_sha256_before": "ceb51a5a54ac108fe25f45cb3723262b4ddb1b4e15e35cc67a9d9bcd0df70b23",
+      "ticker": "SPY"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.697047+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-13",
+      "original_captured_at": "2026-10-14T05:16:26.777899+00:00",
+      "original_frame_rows": 22,
+      "original_observed_at": "2026-10-14T05:16:26.777899+00:00",
+      "plan_path": "actual_plans/manifest_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+      "plan_sha256": "474b20f7f70b37ade77d981e86a63e517ebd931a21cb882910dc3656a1882c76",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.694263+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "474b20f7f70b37ade77d981e86a63e517ebd931a21cb882910dc3656a1882c76",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "SYNTHESIZED_SOURCE_COLUMNS_REFUSED",
+            "status": "WAIT_DATA",
+            "ticker": "AAPL"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "PROVIDER_RETURNED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+      "source_sha256_after": "8b208427d5803dd8167fa60efb7b001bd578e67cf7562f0f756afe2a2d62df96",
+      "source_sha256_before": "8b208427d5803dd8167fa60efb7b001bd578e67cf7562f0f756afe2a2d62df96",
+      "ticker": "AAPL"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.705558+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-13",
+      "original_captured_at": "2026-10-14T05:12:39.127517+00:00",
+      "original_frame_rows": 22,
+      "original_observed_at": "2026-10-14T05:12:39.127517+00:00",
+      "plan_path": "actual_plans/manifest_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+      "plan_sha256": "4bd5334db25539f0551977c60907e97a6d0f395f91c22b988613500d9519fecd",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.703313+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "4bd5334db25539f0551977c60907e97a6d0f395f91c22b988613500d9519fecd",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "SYNTHESIZED_SOURCE_COLUMNS_REFUSED",
+            "status": "WAIT_DATA",
+            "ticker": "SPY"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "PROVIDER_RETURNED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+      "source_sha256_after": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365",
+      "source_sha256_before": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365",
+      "ticker": "SPY"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.713933+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-13",
+      "original_captured_at": "2026-10-14T05:18:59.957858+00:00",
+      "original_frame_rows": 22,
+      "original_observed_at": "2026-10-14T05:18:59.957858+00:00",
+      "plan_path": "actual_plans/manifest_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+      "plan_sha256": "799e9b59783406541e6a922c0d8fb79eef3d7bcd31e89b4467a3b84c743ff2f3",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.711743+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "799e9b59783406541e6a922c0d8fb79eef3d7bcd31e89b4467a3b84c743ff2f3",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "SYNTHESIZED_SOURCE_COLUMNS_REFUSED",
+            "status": "WAIT_DATA",
+            "ticker": "AAPL"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "PROVIDER_RETURNED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+      "source_sha256_after": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f",
+      "source_sha256_before": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f",
+      "ticker": "AAPL"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.722058+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-12",
+      "original_captured_at": "2026-10-14T05:14:45.169421+00:00",
+      "original_frame_rows": 21,
+      "original_observed_at": "2026-10-14T05:14:45.164583+00:00",
+      "plan_path": "actual_plans/manifest_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json",
+      "plan_sha256": "134ec5245bb6f564901fe5071b28a18986465ec5617a936eef027443e93d048e",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.719845+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "134ec5245bb6f564901fe5071b28a18986465ec5617a936eef027443e93d048e",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "UNSUPPORTED_CAPTURE_METHOD",
+            "status": "WAIT_DATA",
+            "ticker": "AAPL"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "CACHE_MERGED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json",
+      "source_sha256_after": "3c40cd641da45f93b9c043dfffe882cf718afcd11983d4133fc1d607571de74a",
+      "source_sha256_before": "3c40cd641da45f93b9c043dfffe882cf718afcd11983d4133fc1d607571de74a",
+      "ticker": "AAPL"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.731965+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-12",
+      "original_captured_at": "2026-10-14T05:18:59.964007+00:00",
+      "original_frame_rows": 21,
+      "original_observed_at": "2026-10-14T05:18:59.957858+00:00",
+      "plan_path": "actual_plans/manifest_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+      "plan_sha256": "adb1e28f9680d83a9a798ed5bb5f40816699367e19ebc1403a3065254c38c74d",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.728772+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "adb1e28f9680d83a9a798ed5bb5f40816699367e19ebc1403a3065254c38c74d",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "UNSUPPORTED_CAPTURE_METHOD",
+            "status": "WAIT_DATA",
+            "ticker": "AAPL"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "CACHE_MERGED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+      "source_sha256_after": "46f14b3f4c90cb1e1af9f7040f20838ee998ce5ab3ff8fea341a30e8ce3a6ee0",
+      "source_sha256_before": "46f14b3f4c90cb1e1af9f7040f20838ee998ce5ab3ff8fea341a30e8ce3a6ee0",
+      "ticker": "AAPL"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.740483+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-13",
+      "original_captured_at": "2026-10-14T05:14:45.181352+00:00",
+      "original_frame_rows": 22,
+      "original_observed_at": "2026-10-14T05:14:45.181352+00:00",
+      "plan_path": "actual_plans/manifest_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json",
+      "plan_sha256": "ebc479e70056b5c796c08b31386dc278ed9af4d1fbc9fba89fd982e7952be978",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.738262+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "ebc479e70056b5c796c08b31386dc278ed9af4d1fbc9fba89fd982e7952be978",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "SYNTHESIZED_SOURCE_COLUMNS_REFUSED",
+            "status": "WAIT_DATA",
+            "ticker": "SPY"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "PROVIDER_RETURNED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json",
+      "source_sha256_after": "06dae1963277a7a6679ce43cd5c30163936ffbea70c19ac19e623aa79fe91c59",
+      "source_sha256_before": "06dae1963277a7a6679ce43cd5c30163936ffbea70c19ac19e623aa79fe91c59",
+      "ticker": "SPY"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.749122+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-12",
+      "original_captured_at": "2026-10-14T05:12:39.131380+00:00",
+      "original_frame_rows": 21,
+      "original_observed_at": "2026-10-14T05:12:39.127517+00:00",
+      "plan_path": "actual_plans/manifest_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+      "plan_sha256": "c80457b5f9bcd3be12dc7de0274c51ac8fdd84543b869e1f046369ad1adcbc97",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.746705+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "c80457b5f9bcd3be12dc7de0274c51ac8fdd84543b869e1f046369ad1adcbc97",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "UNSUPPORTED_CAPTURE_METHOD",
+            "status": "WAIT_DATA",
+            "ticker": "SPY"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "CACHE_MERGED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+      "source_sha256_after": "4ad3a6f0dd9bcb2a0414cacda679913af205188f8680c9f93e9ed4974d75131a",
+      "source_sha256_before": "4ad3a6f0dd9bcb2a0414cacda679913af205188f8680c9f93e9ed4974d75131a",
+      "ticker": "SPY"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.757600+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-12",
+      "original_captured_at": "2026-10-14T05:16:26.782369+00:00",
+      "original_frame_rows": 21,
+      "original_observed_at": "2026-10-14T05:16:26.777899+00:00",
+      "plan_path": "actual_plans/manifest_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json",
+      "plan_sha256": "ff4d02cd7d1684f4dee86b6b0f505376b011f66e1c64c5517da2379542bfb4bd",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.755315+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "ff4d02cd7d1684f4dee86b6b0f505376b011f66e1c64c5517da2379542bfb4bd",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "UNSUPPORTED_CAPTURE_METHOD",
+            "status": "WAIT_DATA",
+            "ticker": "AAPL"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "CACHE_MERGED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json",
+      "source_sha256_after": "d1e463919e61a19bcbc034e800f546df0107974b801a8a73d72741f1c0cb9b15",
+      "source_sha256_before": "d1e463919e61a19bcbc034e800f546df0107974b801a8a73d72741f1c0cb9b15",
+      "ticker": "AAPL"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.766058+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-13",
+      "original_captured_at": "2026-10-14T05:16:26.793978+00:00",
+      "original_frame_rows": 22,
+      "original_observed_at": "2026-10-14T05:16:26.793978+00:00",
+      "plan_path": "actual_plans/manifest_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json",
+      "plan_sha256": "1207b8b1e9a65d0d4affa3a09e75a435fdefbfee704e0127d13bcd98d152d589",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.763838+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "1207b8b1e9a65d0d4affa3a09e75a435fdefbfee704e0127d13bcd98d152d589",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "SYNTHESIZED_SOURCE_COLUMNS_REFUSED",
+            "status": "WAIT_DATA",
+            "ticker": "SPY"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "PROVIDER_RETURNED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json",
+      "source_sha256_after": "5e7b4a296cd39dcbb1dc623c6a546031b64f4dbcbee3f9e4a8c0ac4e4fa255b6",
+      "source_sha256_before": "5e7b4a296cd39dcbb1dc623c6a546031b64f4dbcbee3f9e4a8c0ac4e4fa255b6",
+      "ticker": "SPY"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.775473+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-13",
+      "original_captured_at": "2026-10-14T05:12:39.109258+00:00",
+      "original_frame_rows": 22,
+      "original_observed_at": "2026-10-14T05:12:39.109258+00:00",
+      "plan_path": "actual_plans/manifest_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+      "plan_sha256": "3257da26409fa03cc0f26460e3df7396a4783cf764dfc353e461a9e9ee65ccce",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.772837+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "3257da26409fa03cc0f26460e3df7396a4783cf764dfc353e461a9e9ee65ccce",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "SYNTHESIZED_SOURCE_COLUMNS_REFUSED",
+            "status": "WAIT_DATA",
+            "ticker": "AAPL"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "PROVIDER_RETURNED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+      "source_sha256_after": "6d5ecdc369acc28f8454ab96c34985bfc01d12be78c5b512ae543d0290e53328",
+      "source_sha256_before": "6d5ecdc369acc28f8454ab96c34985bfc01d12be78c5b512ae543d0290e53328",
+      "ticker": "AAPL"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.784542+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-12",
+      "original_captured_at": "2026-10-14T05:14:45.185289+00:00",
+      "original_frame_rows": 21,
+      "original_observed_at": "2026-10-14T05:14:45.181352+00:00",
+      "plan_path": "actual_plans/manifest_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json",
+      "plan_sha256": "a725c3eac869560beb6e180cb313b99da186d857d069f62d2b16297a77e42c8b",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.782175+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "a725c3eac869560beb6e180cb313b99da186d857d069f62d2b16297a77e42c8b",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "UNSUPPORTED_CAPTURE_METHOD",
+            "status": "WAIT_DATA",
+            "ticker": "SPY"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "CACHE_MERGED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json",
+      "source_sha256_after": "88c4df08605994ffd17f06f1cb86c4bacf32c56d9a904da433ae4bd326447c2c",
+      "source_sha256_before": "88c4df08605994ffd17f06f1cb86c4bacf32c56d9a904da433ae4bd326447c2c",
+      "ticker": "SPY"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.792642+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-12",
+      "original_captured_at": "2026-10-14T05:12:39.114466+00:00",
+      "original_frame_rows": 21,
+      "original_observed_at": "2026-10-14T05:12:39.109258+00:00",
+      "plan_path": "actual_plans/manifest_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+      "plan_sha256": "5af1e1878fc07cf16e5292c9c0a99f13c7210a721f055aa51f4d09d048134cf9",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.790468+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "5af1e1878fc07cf16e5292c9c0a99f13c7210a721f055aa51f4d09d048134cf9",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "UNSUPPORTED_CAPTURE_METHOD",
+            "status": "WAIT_DATA",
+            "ticker": "AAPL"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "CACHE_MERGED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+      "source_sha256_after": "a12934db619882f10e89fae61b9cb85921df407fda0cf657b0584768300f2a2c",
+      "source_sha256_before": "a12934db619882f10e89fae61b9cb85921df407fda0cf657b0584768300f2a2c",
+      "ticker": "AAPL"
+    },
+    {
+      "independent_current_quality": {
+        "as_of": "2026-10-15T18:21:57.801409+00:00",
+        "completed_rows": 21,
+        "history_usable": false,
+        "missing_lookbacks": [
+          6,
+          10,
+          20,
+          22,
+          26,
+          50,
+          66,
+          100,
+          200,
+          252
+        ],
+        "price_usable": false
+      },
+      "last_original_frame_session": "2026-10-12",
+      "original_captured_at": "2026-10-14T05:18:59.979447+00:00",
+      "original_frame_rows": 21,
+      "original_observed_at": "2026-10-14T05:18:59.974992+00:00",
+      "plan_path": "actual_plans/manifest_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+      "plan_sha256": "7b70fc7815a0f4a0ed0dfbfa4df3766cc8794c78ce64c0c9b5858b0b71af6a2e",
+      "publisher_revision_timing_status": "UNKNOWN",
+      "readiness": {
+        "activation_allowed": false,
+        "analysis_only": true,
+        "as_of": "2026-10-15T18:21:57.799124+00:00",
+        "db_writes": 0,
+        "fitter_changed": false,
+        "fixture_only": false,
+        "forecasts_created": 0,
+        "historical_acceptance_verified": false,
+        "labels_created": 0,
+        "latest_completed_session": "2026-10-14",
+        "manifest_sha256": "7b70fc7815a0f4a0ed0dfbfa4df3766cc8794c78ce64c0c9b5858b0b71af6a2e",
+        "metadata_status": "MISSING",
+        "missing_count": 1,
+        "persistent_cache_used": false,
+        "prospective_audit_implicitly_enabled": false,
+        "reason": "",
+        "reason_counts": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "report_version": "captured_market_data_readiness_v1",
+        "requested_count": 1,
+        "rows": [
+          {
+            "reason": "UNSUPPORTED_CAPTURE_METHOD",
+            "status": "WAIT_DATA",
+            "ticker": "SPY"
+          }
+        ],
+        "scores_changed": false,
+        "source_discovery_performed": false,
+        "source_http_requests": 0,
+        "status": "WAIT_DATA",
+        "strict_pit_eligible": false,
+        "usable_count": 0
+      },
+      "source_kind": "CACHE_MERGED_FRAME",
+      "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+      "source_sha256_after": "cc34609984e6123980319b684d70f460e1a3e186788fc61ef7d332415082f2ba",
+      "source_sha256_before": "cc34609984e6123980319b684d70f460e1a3e186788fc61ef7d332415082f2ba",
+      "ticker": "SPY"
+    }
+  ],
+  "selected_versions": 16,
+  "source_http_requests": 0,
+  "usable_versions": 0,
+  "wait_versions": 16,
+  "withheld_bodies_opened_or_recovered": 0
+}

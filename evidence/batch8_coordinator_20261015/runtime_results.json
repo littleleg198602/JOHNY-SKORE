@@ -1,0 +1,68 @@
+[
+  {
+    "plan": "evidence/specialist_review_plans/PSTG_zmena_tickeru_a_instrumentu.json",
+    "kind": "SEC_SYMBOL_ACTION_SCOPE",
+    "archive_filename": "review-9bf65b491bcf9d5592bdaca8d2f941623ea7bb3b551031837833837fda1e445b.json",
+    "archive_sha256": "9bf65b491bcf9d5592bdaca8d2f941623ea7bb3b551031837833837fda1e445b",
+    "recorded_at": "2026-10-16T00:25:09.621014+00:00",
+    "status": "PRIMARY_SCOPE_PARTIAL",
+    "decision": null,
+    "source_http_requests": 0,
+    "registry_adoptions": 0
+  },
+  {
+    "plan": "evidence/specialist_review_plans/PFE_strukturovany_produkt_FDA.json",
+    "kind": "FDA_STRUCTURED_PRODUCT",
+    "archive_filename": "review-61f5f3ab82ee5ea797dea8ab7b7fb68fcb8fa3cc5f7c407dd5cb802d7548a549.json",
+    "archive_sha256": "61f5f3ab82ee5ea797dea8ab7b7fb68fcb8fa3cc5f7c407dd5cb802d7548a549",
+    "recorded_at": "2026-10-16T00:25:09.785683+00:00",
+    "status": "PARTIAL",
+    "decision": null,
+    "source_http_requests": 0,
+    "registry_adoptions": 0
+  },
+  {
+    "plan": "evidence/specialist_review_plans/PFE_CRL_jiny_dataset.json",
+    "kind": "FDA_STRUCTURED_PRODUCT",
+    "archive_filename": "review-12232290b4c683150fe6d4739d1857e12074be34b4bc806dbc60eb861e80b868.json",
+    "archive_sha256": "12232290b4c683150fe6d4739d1857e12074be34b4bc806dbc60eb861e80b868",
+    "recorded_at": "2026-10-16T00:25:09.951588+00:00",
+    "status": "PARTIAL",
+    "decision": null,
+    "source_http_requests": 0,
+    "registry_adoptions": 0
+  },
+  {
+    "plan": "evidence/specialist_review_plans/AAPL_procesni_stav_DOJ.json",
+    "kind": "DOJ_CASE_POSTURE",
+    "archive_filename": "review-762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f.json",
+    "archive_sha256": "762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f",
+    "recorded_at": "2026-10-16T00:25:10.652121+00:00",
+    "status": "PARTIAL",
+    "decision": null,
+    "source_http_requests": 0,
+    "registry_adoptions": 0
+  },
+  {
+    "plan": "evidence/specialist_review_plans/NVDA_nakupni_zavazky.json",
+    "kind": "SEC_PURCHASE_OBLIGATION_SCOPE",
+    "archive_filename": "review-22ef2a05f492cf8f93f152b4cf4327dd417281c48b31b25ba2d9a6766fdf81bf.json",
+    "archive_sha256": "22ef2a05f492cf8f93f152b4cf4327dd417281c48b31b25ba2d9a6766fdf81bf",
+    "recorded_at": "2026-10-16T00:25:11.335443+00:00",
+    "status": "CANDIDATE_REVIEWED",
+    "decision": null,
+    "source_http_requests": 0,
+    "registry_adoptions": 0
+  },
+  {
+    "plan": "evidence/specialist_review_plans/MSFT_soucasny_ucet_a_instrument.json",
+    "kind": "SEC_OWNER_INSTRUMENT_SCOPE",
+    "archive_filename": "review-d8f035f77c9fc6df66d4533a868831fd6ba57f549d6120d027f3c4591654b4ce.json",
+    "archive_sha256": "d8f035f77c9fc6df66d4533a868831fd6ba57f549d6120d027f3c4591654b4ce",
+    "recorded_at": "2026-10-16T00:25:11.349593+00:00",
+    "status": "PARTIAL",
+    "decision": null,
+    "source_http_requests": 0,
+    "registry_adoptions": 0
+  }
+]

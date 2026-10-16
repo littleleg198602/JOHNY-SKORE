@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-16T00:19:56.057053+00:00",
+  "input_classification": "SYNTHETIC_CONTRACT_MUTATION",
+  "live_primary_acceptance": false,
+  "full_specialist_acceptance": false,
+  "reviewed_producer_sha256": "2004f1891498eb7b46079e1101b5988e32a1d81cf570d5e68207651cbedfa03f",
+  "reviewed_fixture_sha256": "dd8885c74845d1799f30c2b96a08ca67b737e9be20f925168a40b6c7fc926fd7",
+  "reviewed_producer_path": "market_checker_app/services/sec_symbol_action_scope_review.py",
+  "reviewed_fixture_path": "tests/test_batch8_symbol_action_scope.py",
+  "original_bug_producer_sha256": "8a24a55fdc647c9692d8ded0d255797f502584365831e20b134c980717d45dd7",
+  "same_as_original_bug_producer": false,
+  "synthetic_review_clock": "2026-10-15T12:00:00+00:00",
+  "synthetic_control_status": "PRIMARY_SCOPE_READY_FOR_EXPLICIT_REVIEW",
+  "synthetic_control_blockers": [],
+  "trigger_passage": "On 2026-04-01, Everpure, Inc. changed its logo. Different Company changed its ticker symbol from PSTG to P.",
+  "continuity_passage": "On 2026-04-01, Everpure, Inc. changed its logo. Different Company changed its ticker symbol from PSTG to P. CUSIP 74624M102 remained unchanged for its Class A Common Stock, par value $0.0001 per share.",
+  "mutation": "Replace first source p0 and second source p0 with trigger; first source p1 with continuity passage; recompute entire body hashes and whole-paragraph selections with producer fixture helpers",
+  "expected": "Issuer logo action cannot supply issuer/date for a different company's ticker action",
+  "false_ready_trigger_present": false,
+  "actual_status": "PRIMARY_SCOPE_PARTIAL",
+  "actual_effective_on": null,
+  "actual_blockers": [
+    "DATED_EXACT_CLASS_CUSIP_ACTION_CONTINUITY_MISSING",
+    "DATE_NOT_EXPLICITLY_BOUND_TO_EFFECTIVE_ACTION",
+    "DIRECTED_EXACT_OLD_NEW_ACTION_BINDING_MISSING",
+    "EXACT_CLASS_CUSIP_CONTINUITY_STATEMENT_MISSING",
+    "EXACT_SYMBOL_EFFECTIVE_DAY_UNKNOWN",
+    "TWO_INDEPENDENT_EFFECTIVE_SYMBOL_DISCLOSURES_MISSING"
+  ],
+  "action_results": [
+    {
+      "source_key": "first",
+      "event_kind": "SYMBOL_CHANGE",
+      "effective_action_supported": false,
+      "effective_on": null,
+      "blockers": [
+        "DIRECTED_EXACT_OLD_NEW_ACTION_BINDING_MISSING",
+        "DATE_NOT_EXPLICITLY_BOUND_TO_EFFECTIVE_ACTION"
+      ]
+    },
+    {
+      "source_key": "second",
+      "event_kind": "SYMBOL_CHANGE",
+      "effective_action_supported": false,
+      "effective_on": null,
+      "blockers": [
+        "DIRECTED_EXACT_OLD_NEW_ACTION_BINDING_MISSING",
+        "DATE_NOT_EXPLICITLY_BOUND_TO_EFFECTIVE_ACTION"
+      ]
+    },
+    {
+      "source_key": "first",
+      "event_kind": "CUSIP_CONTINUITY",
+      "effective_action_supported": false,
+      "effective_on": null,
+      "blockers": [
+        "DIRECTED_EXACT_OLD_NEW_ACTION_BINDING_MISSING",
+        "EXACT_CLASS_CUSIP_CONTINUITY_STATEMENT_MISSING",
+        "DATE_NOT_EXPLICITLY_BOUND_TO_EFFECTIVE_ACTION"
+      ]
+    }
+  ],
+  "new_verified_identities": 0,
+  "current_q3_verified_coverage": 0,
+  "automatic_alias_allowed": false,
+  "production_registry_changed": false,
+  "source_http_requests": 0,
+  "database_calls": 0,
+  "owner_files_written": false
+}

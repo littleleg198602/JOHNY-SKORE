@@ -1,0 +1,31 @@
+{
+  "actual_source_cause": "Both saved HTTP200 responses have null October 13 Close; strict normalization keeps 21 usable sessions.",
+  "current_reproducer_reports_latest_window_gap": true,
+  "exit_code": 1,
+  "label_calendar_gate_relaxed": false,
+  "original_assumption_failure": "Expected newest exact six-session window ending 2026-10-13 to be complete; common price windows were None.",
+  "original_capture_artifacts": [
+    {
+      "captured_at": "2026-10-14T05:12:39.109258+00:00",
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+      "sha256": "6d5ecdc369acc28f8454ab96c34985bfc01d12be78c5b512ae543d0290e53328"
+    },
+    {
+      "captured_at": "2026-10-14T05:12:39.114466+00:00",
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+      "sha256": "a12934db619882f10e89fae61b9cb85921df407fda0cf657b0584768300f2a2c"
+    },
+    {
+      "captured_at": "2026-10-14T05:12:39.127517+00:00",
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+      "sha256": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365"
+    },
+    {
+      "captured_at": "2026-10-14T05:12:39.131380+00:00",
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+      "sha256": "4ad3a6f0dd9bcb2a0414cacda679913af205188f8680c9f93e9ed4974d75131a"
+    }
+  ],
+  "phase": "initial_offline_replay_of_actual_saved_bodies",
+  "raw_body_modified": false
+}

@@ -1,0 +1,40 @@
+test_a_correct_name_and_cik_cannot_bridge_different_instrument_event_days (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_a_correct_name_and_cik_cannot_bridge_different_instrument_event_days) ... ok
+test_a_month_cannot_be_expanded_into_an_exact_day (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_a_month_cannot_be_expanded_into_an_exact_day) ... ok
+test_access_bearing_whole_body_is_rejected_instead_of_projected (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_access_bearing_whole_body_is_rejected_instead_of_projected) ... ok
+test_actual_six_primary_responses_keep_missing_day_class_and_118_byte_conflict (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_actual_six_primary_responses_keep_missing_day_class_and_118_byte_conflict) ... ok
+test_announcement_day_remains_separate_from_the_effective_day (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_announcement_day_remains_separate_from_the_effective_day) ... ok
+test_brand_name_and_continued_trading_do_not_prove_a_legal_or_symbol_action (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_brand_name_and_continued_trading_do_not_prove_a_legal_or_symbol_action) ... ok
+test_capture_and_request_bounds_are_enforced_without_discovery (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_capture_and_request_bounds_are_enforced_without_discovery) ... ok
+test_capture_bytes_transform_flags_redirects_and_wrong_scopes_are_refused (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_capture_bytes_transform_flags_redirects_and_wrong_scopes_are_refused) ... ok
+test_competing_effective_days_are_preserved_without_picking_the_latest (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_competing_effective_days_are_preserved_without_picking_the_latest) ... ok
+test_context_name_is_not_moved_to_another_issuer_or_inferred_as_a_legal_effective_day (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_context_name_is_not_moved_to_another_issuer_or_inferred_as_a_legal_effective_day) ... ok
+test_cover_bracket_and_equal_cusips_cannot_supply_a_missing_action_day (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_cover_bracket_and_equal_cusips_cannot_supply_a_missing_action_day) ... ok
+test_default_review_knowledge_is_physical_and_explicit_past_cannot_backdate_it (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_default_review_knowledge_is_physical_and_explicit_past_cannot_backdate_it) ... ok
+test_different_cusip_is_preserved_as_a_structured_conflict (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_different_cusip_is_preserved_as_a_structured_conflict) ... ok
+test_different_day_and_unrelated_meeting_date_cannot_be_borrowed (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_different_day_and_unrelated_meeting_date_cannot_be_borrowed) ... FAIL
+test_equal_old_and_new_cusips_still_need_a_dated_cusip_action_statement (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_equal_old_and_new_cusips_still_need_a_dated_cusip_action_statement) ... ok
+test_exact_independent_scopes_are_reviewable_without_any_adoption_or_side_effect (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_exact_independent_scopes_are_reviewable_without_any_adoption_or_side_effect) ... ok
+test_future_source_or_reversed_knowledge_clocks_fail_before_parsing (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_future_source_or_reversed_knowledge_clocks_fail_before_parsing) ... ok
+test_generic_class_or_a_different_par_value_cannot_supply_the_exact_instrument (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_generic_class_or_a_different_par_value_cannot_supply_the_exact_instrument) ... ok
+test_hidden_ancestor_and_cropped_future_qualifier_cannot_supply_action_proof (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_hidden_ancestor_and_cropped_future_qualifier_cannot_supply_action_proof) ... ok
+test_legal_name_action_is_not_a_symbol_change (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_legal_name_action_is_not_a_symbol_change) ... ok
+test_planned_action_never_becomes_completed_when_its_day_passes (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_planned_action_never_becomes_completed_when_its_day_passes) ... ok
+test_reported_completion_cannot_follow_its_disclosure (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_reported_completion_cannot_follow_its_disclosure) ... ok
+test_reverse_symbols_and_symbol_prefixes_are_not_the_requested_direction (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_reverse_symbols_and_symbol_prefixes_are_not_the_requested_direction) ... ok
+test_submissions_row_path_form_and_publication_clock_are_exact (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_submissions_row_path_form_and_publication_clock_are_exact) ... ok
+test_two_claims_from_one_accession_are_one_independent_disclosure (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_two_claims_from_one_accession_are_one_independent_disclosure) ... ok
+test_whole_hash_text_and_locator_must_all_match_the_original_paragraph (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_whole_hash_text_and_locator_must_all_match_the_original_paragraph) ... ok
+test_withheld_body_stays_unavailable_and_any_restored_substitute_is_refused (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_withheld_body_stays_unavailable_and_any_restored_substitute_is_refused) ... ok
+
+======================================================================
+FAIL: test_different_day_and_unrelated_meeting_date_cannot_be_borrowed (tests.test_batch8_symbol_action_scope.SymbolActionScopeTests.test_different_day_and_unrelated_meeting_date_cannot_be_borrowed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_batch8_symbol_action_scope.py", line 168, in test_different_day_and_unrelated_meeting_date_cannot_be_borrowed
+    self.assertIn("DATE_NOT_EXPLICITLY_BOUND_TO_EFFECTIVE_ACTION",self.review()["blockers"])
+AssertionError: 'DATE_NOT_EXPLICITLY_BOUND_TO_EFFECTIVE_ACTION' not found in ['DATED_EXACT_CLASS_CUSIP_ACTION_CONTINUITY_MISSING', 'EXACT_EVENT_DATE_ABSENT_FROM_PASSAGE', 'EXACT_SYMBOL_EFFECTIVE_DAY_UNKNOWN', 'TWO_INDEPENDENT_EFFECTIVE_SYMBOL_DISCLOSURES_MISSING']
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.981s
+
+FAILED (failures=1)

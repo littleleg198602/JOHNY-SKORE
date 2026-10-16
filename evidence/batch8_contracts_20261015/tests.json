@@ -1,0 +1,50 @@
+{
+  "completed_at": "2026-10-15T18:14:55.366735+00:00",
+  "development_checks": [
+    {
+      "new_cases": 21,
+      "qualification": "initial implementation before namespace/index regressions",
+      "successful": true
+    },
+    {
+      "failures": 1,
+      "new_cases": 25,
+      "qualification": "new table-scope regression initially pinned the wrapper instead of the inner div; fixture pin corrected, guard unchanged"
+    }
+  ],
+  "discovered": 95,
+  "elapsed_seconds": 3.2396710110000413,
+  "errors": 0,
+  "executed": 95,
+  "expected_failures": 0,
+  "failures": 0,
+  "fixtures_count_as_live": false,
+  "historical_oos_verified": false,
+  "modules": [
+    "tests.test_batch8_purchase_obligation_scope",
+    "tests.test_batch7_supply_chain_scope",
+    "tests.test_batch6_sec_operational_metrics",
+    "tests.test_batch7_sec_ir_authority"
+  ],
+  "new_module_cases": 27,
+  "production_database_writes": 0,
+  "schema_version": 1,
+  "scope": "OFFLINE_CHANGED_LANE_AND_DIRECT_REVIEW_DEPENDENCIES",
+  "skips": 0,
+  "source_http_attempts": 0,
+  "source_sha256": {
+    "market_checker_app/services/sec_ir_disclosure_authority_review.py": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7",
+    "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+    "market_checker_app/services/sec_person_kind_review.py": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe",
+    "market_checker_app/services/sec_purchase_obligation_scope_review.py": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb",
+    "market_checker_app/services/sec_supply_chain_scope_review.py": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91",
+    "tests/test_batch6_sec_operational_metrics.py": "aa82c5bd9a885b1088f8d2a6bc3d220bdfb76fbac1ba53b5f5bf4cd61ef5e19f",
+    "tests/test_batch7_sec_ir_authority.py": "92085b24efe3f7eefc70d6c3aae447669a1cc1ac3a6524bfdccc09fd088feea2",
+    "tests/test_batch7_supply_chain_scope.py": "abd6973e16d1afd5c610a8b322680cc17fd4ea485e314f238dfcacc61723b5e6",
+    "tests/test_batch8_purchase_obligation_scope.py": "93830c961552f28c2250dbd1512187781b355f7b448d5e81dfde875e62f297eb"
+  },
+  "started_at": "2026-10-15T18:14:51.986675+00:00",
+  "successful": true,
+  "unexpected_successes": 0,
+  "windows_end_to_end_verified": false
+}

@@ -18,7 +18,7 @@ from market_checker_app.services.public_source_budget import (
     PublicBudgetExhausted, PublicSourceBudget, bounded_public_source,
 )
 from market_checker_app.services.healthcare_identity_service import (
-    HealthcareIdentityRegistry, exact_query_names,
+    HealthcareIdentityRegistry, clinical_trial_version, exact_query_names,
 )
 
 
@@ -27,7 +27,15 @@ CMS_URL = f"https://data.cms.gov/data-api/v1/dataset/{CMS_DATASET}/data"
 TRIALS_URL = "https://clinicaltrials.gov/api/v2/studies"
 
 
+class _ObservedJson(dict):
+    """JSON content with original-byte provenance kept outside the payload."""
+    def __init__(self, payload: dict, provenance: dict):
+        super().__init__(payload)
+        self.provenance = provenance
+
+
 def _json(url: str, expected_host: str):
+    requested = datetime.now(timezone.utc)
     with urlopen(Request(url, headers={"Accept": "application/json",
                                       "User-Agent": "JohnySkoreScout/1.0"}), timeout=20) as response:
         if urlsplit(response.geturl()).hostname != expected_host:
@@ -35,7 +43,16 @@ def _json(url: str, expected_host: str):
         body = response.read(4_000_001)
         if len(body) > 4_000_000:
             raise ValueError("Healthcare response exceeds byte budget")
-        return json.loads(body)
+        observed = datetime.now(timezone.utc)
+        payload = json.loads(body)
+        if (expected_host == "clinicaltrials.gov" and isinstance(payload, dict)
+                and getattr(response, "status", None) == 200):
+            return _ObservedJson(payload, {"source_url": response.geturl(),
+                                           "requested_at": requested.isoformat(),
+                                           "observed_at": observed.isoformat(),
+                                           "body_sha256": hashlib.sha256(body).hexdigest(),
+                                           "body_bytes": len(body), "clock_basis": "ACTUAL_HTTP_RETRIEVAL"})
+        return payload
 
 
 class NameClient(Protocol):
@@ -63,16 +80,28 @@ class CmsHospitalOwnerClient:
 class ClinicalTrialsClient:
     source, source_url = "clinicaltrials", TRIALS_URL
 
+    def __init__(self, *, study_ids: tuple[str, ...] = ()):
+        if (not isinstance(study_ids, tuple) or len(study_ids) > 20
+                or any(not isinstance(value, str) or not re.fullmatch(r"NCT\d{8}", value)
+                       for value in study_ids)
+                or len(set(study_ids)) != len(study_ids)):
+            raise ValueError("Clinical trial study scope must be exact and bounded")
+        self.study_ids = study_ids
+        self.last_page_provenance: dict | None = None
+
     def page(self, name: str, *, size: int, cursor: str | None = None):
         if not 1 <= size <= 100 or not isinstance(name, str) or not name.strip():
             raise ValueError("Invalid clinical trial query")
         if cursor is not None and (not isinstance(cursor, str) or not cursor or len(cursor) > 4000):
             raise ValueError("Invalid clinical trial cursor")
-        query = {"query.spons": name, "pageSize": size, "format": "json",
-                 "fields": "NCTId,BriefTitle,OverallStatus,LeadSponsorName,CollaboratorName,InterventionName,Phase,StudyFirstPostDate,LastUpdatePostDate,PrimaryCompletionDate,HasResults"}
+        query = {"query.spons": name, "pageSize": size, "format": "json", "countTotal": "true",
+                 "fields": "NCTId,BriefTitle,OverallStatus,LeadSponsorName,CollaboratorName,InterventionName,Phase,StudyFirstPostDate,LastUpdatePostDate,LastUpdateSubmitDate,PrimaryCompletionDate,HasResults"}
+        if self.study_ids:
+            query["filter.ids"] = ",".join(self.study_ids)
         if cursor:
             query["pageToken"] = cursor
         payload = _json(f"{TRIALS_URL}?{urlencode(query)}", "clinicaltrials.gov")
+        self.last_page_provenance = deepcopy(getattr(payload, "provenance", None))
         if not isinstance(payload, dict):
             raise ValueError("Malformed clinical trial response")
         rows, token = payload.get("studies"), payload.get("nextPageToken")
@@ -80,7 +109,31 @@ class ClinicalTrialsClient:
             raise ValueError("Malformed clinical trial page")
         if token is not None and (not isinstance(token, str) or not token or len(token) > 4000):
             raise ValueError("Malformed clinical trial cursor")
+        total = payload.get("totalCount")
+        # The live publisher includes totalCount only on the first page, and
+        # may supply another token for a full final page before an empty page.
+        if ((cursor is None or total is not None)
+                and (not isinstance(total, int) or isinstance(total, bool) or total < len(rows)
+                     or (cursor is None and token is None and total != len(rows)))):
+            raise ValueError("Inconsistent clinical trial query count")
+        if self.study_ids and any(clinical_trial_version(row)["nct_id"]
+                                  not in self.study_ids for row in rows):
+            raise ValueError("Clinical trial response left the exact study scope")
         return rows, token
+
+    def study(self, nct_id: str) -> dict:
+        """Read one full exact object; the caller must reserve its source quota.
+
+        ``last_page_provenance`` carries the actual original-body hash/clock.
+        This is a captured current response, never a historical version lookup.
+        """
+        if not isinstance(nct_id, str) or not re.fullmatch(r"NCT\d{8}", nct_id):
+            raise ValueError("Clinical snapshot lookup requires one exact NCT ID")
+        payload = _json(f"{TRIALS_URL}/{nct_id}", "clinicaltrials.gov")
+        self.last_page_provenance = deepcopy(getattr(payload, "provenance", None))
+        if not isinstance(payload, dict) or clinical_trial_version(payload)["nct_id"] != nct_id:
+            raise ValueError("Clinical snapshot response left the exact NCT scope")
+        return payload
 
 
 def _candidate(source: str, row: dict, name: str, clock: datetime) -> tuple[str, dict] | None:
@@ -136,12 +189,12 @@ def _candidate(source: str, row: dict, name: str, clock: datetime) -> tuple[str,
         roles.append("COLLABORATOR")
     if not roles or not isinstance(status.get("overallStatus"), str):
         return None
-    posted_struct = status.get("lastUpdatePostDateStruct", {})
-    posted = posted_struct.get("date") if isinstance(posted_struct, dict) else None
     try:
-        if not isinstance(posted, str) or date.fromisoformat(posted) > clock.date():
+        version = clinical_trial_version(row)
+        posted = version["record_version_date"]
+        if date.fromisoformat(posted) > clock.date():
             return None
-    except ValueError:
+    except (ValueError, TypeError):
         return None
     details = {"stage": "clinical_trial_sponsor_name_candidate", "nct_id": nct,
                "title": str(identification.get("briefTitle", ""))[:1000],
@@ -149,14 +202,13 @@ def _candidate(source: str, row: dict, name: str, clock: datetime) -> tuple[str,
                "matched_entity_name": name,
                "overall_status": status["overallStatus"], "last_update_posted": posted,
                "has_results": row.get("hasResults"),
-               "posted_date_is_first_observation": False}
+               "posted_date_is_first_observation": False,
+               "publisher_record_version": version,
+               "relationship_snapshot_sha256": version["relationship_snapshot_sha256"]}
     design = protocol.get("designModule", {})
     if isinstance(design, dict) and isinstance(design.get("phases"), list):
         details["phases"] = design["phases"]
-    interventions = protocol.get("armsInterventionsModule", {})
-    values = interventions.get("interventions", []) if isinstance(interventions, dict) else []
-    details["intervention_names"] = [item["name"] for item in values
-                                    if isinstance(item, dict) and isinstance(item.get("name"), str)] if isinstance(values, list) else []
+    details["intervention_names"] = version["intervention_names"]
     return nct, details
 
 
@@ -177,25 +229,73 @@ def _identity_details(registry: HealthcareIdentityRegistry, source: str, detail:
         result["ownership_attribution_time_basis"] = "OBSERVED_SNAPSHOT"
         result["historical_association_attribution_allowed"] = False
         return result
+    snapshot = detail.get("source_observation")
+    observed_mode = detail.get("trial_attribution_time_basis") == "OBSERVED_SNAPSHOT"
+    snapshot_clock = None
+    if observed_mode:
+        try:
+            if not isinstance(snapshot, dict) or snapshot.get("clock_basis") not in {
+                    "ACTUAL_HTTP_RETRIEVAL", "ARCHIVED_ORIGINAL_HTTP_RETRIEVAL"}:
+                raise ValueError("No exact source observation")
+            if (snapshot.get("raw_publication_permitted") is False
+                    or str(snapshot.get("status", "")).startswith("WITHHELD")):
+                raise ValueError("Source bytes are withheld")
+            snapshot_clock = datetime.fromisoformat(snapshot["observed_at"])
+            requested = datetime.fromisoformat(snapshot["requested_at"])
+            if (snapshot.get("source_url") != f"{TRIALS_URL}/{detail['nct_id']}"
+                    or requested.tzinfo is None or requested.utcoffset() is None
+                    or snapshot_clock.tzinfo is None or snapshot_clock.utcoffset() is None
+                    or not requested <= snapshot_clock <= clock):
+                raise ValueError("Unavailable source observation")
+        except (ValueError, TypeError, KeyError):
+            return {"identity_status": "NAME_ONLY", "issuer_attribution_allowed": False,
+                    "identity_resolution": "MISSING_SNAPSHOT_OBSERVATION", "identity_evidence": None,
+                    "missing_evidence": "exact captured source body, observation clock and prospective issuer bridge",
+                    "trial_attribution_time_basis": "OBSERVED_SNAPSHOT",
+                    "historical_trial_sponsor_attribution_allowed": False,
+                    "trial_sponsor_identity_is_product_ownership": False}
     resolutions = [registry.resolve(
-        kind="clinical_trial_sponsor", identifiers=dict(
+        kind="clinical_trial_sponsor_snapshot" if observed_mode else "clinical_trial_sponsor", identifiers=dict(
             nct_id=detail["nct_id"], role=role, intervention_name=intervention,
-            record_version_date=detail["last_update_posted"]),
-        event_date=date.fromisoformat(detail["last_update_posted"]), **common)
+            record_version_date=detail["last_update_posted"],
+            relationship_snapshot_sha256=detail["relationship_snapshot_sha256"],
+            **({"source_body_sha256": snapshot.get("body_sha256"),
+                "source_observed_at": snapshot_clock.astimezone(timezone.utc).isoformat()} if observed_mode else {})),
+        event_date=snapshot_clock.astimezone(timezone.utc).date() if observed_mode else date.fromisoformat(detail["last_update_posted"]),
+        observed_at=snapshot_clock, **common)
         for role in dict.fromkeys(detail["matched_roles"])
         for intervention in dict.fromkeys(detail["intervention_names"])]
     allowed = [r for r in resolutions if r["issuer_attribution_allowed"]]
     if len(allowed) == 1 and not any(r["identity_resolution"] == "AMBIGUOUS_OBJECT" for r in resolutions):
-        return allowed[0]
+        result = allowed[0]
+        identifiers = result["identity_evidence"]["identifiers"]
+        result.update(
+            attributed_intervention_names=[identifiers["intervention_name"]],
+            unattributed_intervention_names=[name for name in detail["intervention_names"]
+                                             if name != identifiers["intervention_name"]],
+            relationship_snapshot_pinned="relationship_snapshot_sha256" in identifiers,
+            trial_sponsor_identity_is_product_ownership=False)
+        return result
     if len(resolutions) == 1:
-        return resolutions[0]
+        return dict(resolutions[0], **({"trial_attribution_time_basis": "OBSERVED_SNAPSHOT",
+                                      "historical_trial_sponsor_attribution_allowed": False,
+                                      "trial_sponsor_identity_is_product_ownership": False} if observed_mode else {}))
     return {"identity_status": "NAME_ONLY", "issuer_attribution_allowed": False,
             "identity_resolution": "AMBIGUOUS_OBJECT" if allowed else "UNMAPPED_OBJECT",
-            "identity_evidence": None, "missing_evidence": "dated trial, intervention, sponsor role and issuer relationship"}
+            "identity_evidence": None, "missing_evidence": "dated trial, intervention, sponsor role and issuer relationship",
+            **({"trial_attribution_time_basis": "OBSERVED_SNAPSHOT",
+                "historical_trial_sponsor_attribution_allowed": False,
+                "trial_sponsor_identity_is_product_ownership": False} if observed_mode else {})}
 
 
 def _finding_digest(detail: dict) -> str:
     content = deepcopy(detail)
+    provenance = content.get("source_observation")
+    if isinstance(provenance, dict):
+        # Identical unlinked content is a heartbeat, not another trial event.
+        # Exact identity-record capture clocks remain part of its own evidence.
+        for key in ("requested_at", "observed_at", "clock_basis"):
+            provenance.pop(key, None)
     evidence = content.get("identity_evidence")
     if isinstance(evidence, dict) and evidence.get("time_basis") == "OBSERVED_SNAPSHOT":
         # A later observation of unchanged CMS content is a replay, not a new
@@ -255,7 +355,9 @@ class HealthcareNameScoutService:
             candidates = []
             query_names = exact_query_names(name, self.identities.query_names(
                 source, issuer["subject_id"], issuer["cik"], as_of=clock))
-            incomplete = len(query_names) > 5
+            # A completed exact-study lookup must never complete the broader
+            # issuer-name source check, including a zero-row lookup.
+            incomplete = len(query_names) > 5 or bool(getattr(self.client, "study_ids", ()))
             try:
                 for query_name in query_names[:5]:
                     cursor = None
@@ -270,6 +372,8 @@ class HealthcareNameScoutService:
                         rows, next_cursor = _budget.call(
                             issuer["subject_id"], f"{issuer['cik']}:{name}",
                             lambda: self.client.page(query_name, size=self.page_size, cursor=cursor))
+                        provenance = deepcopy(getattr(self.client, "last_page_provenance", None)) if source == "clinicaltrials" else None
+                        candidate_clock = _budget.now() if provenance else clock
                         if not isinstance(rows, list) or len(rows) > self.page_size:
                             raise ValueError("Malformed healthcare page")
                         for row in rows:
@@ -280,11 +384,14 @@ class HealthcareNameScoutService:
                                 incomplete = True
                                 continue
                             seen_rows.add(digest)
-                            candidate = _candidate(source, row, query_name, clock)
+                            candidate = _candidate(source, row, query_name, candidate_clock)
                             if candidate is None:
                                 rejected += 1
                                 incomplete = True
                             else:
+                                if provenance:
+                                    candidate[1].update(source_observation=provenance,
+                                                        trial_attribution_time_basis="OBSERVED_SNAPSHOT")
                                 candidates.append(candidate)
                         if next_cursor is None:
                             break
@@ -310,14 +417,17 @@ class HealthcareNameScoutService:
                 continue
             for object_id, detail in candidates:
                 detail.update(query_issuer_name=name, issuer_cik=issuer["cik"],
-                              scoring_applied=False, issuer_financial_impact_verified=False)
-                detail.update(_identity_details(self.identities, source, detail, issuer, clock))
+                              scoring_applied=False, issuer_financial_impact_verified=False,
+                              restricted_study_ids=list(getattr(self.client, "study_ids", ())),
+                              source_query_is_issuer_wide=False)
+                finding_clock = _budget.now() if detail.get("source_observation") else clock
+                detail.update(_identity_details(self.identities, source, detail, issuer, finding_clock))
                 identity_linked += int(detail["issuer_attribution_allowed"])
                 digest = _finding_digest(detail)
                 _, fresh = self.store.record_finding(
                     source=source, subject_id=issuer["subject_id"], source_object_id=object_id,
                     content_hash=digest, title=f"{source}: {object_id}", source_url=self.client.source_url,
-                    locator=object_id, published_at=clock, available_at=clock, observed_at=clock,
+                    locator=object_id, published_at=finding_clock, available_at=finding_clock, observed_at=finding_clock,
                     details=detail, verification_status="UNVERIFIED")
                 created += int(fresh)
             self.store.record_specialist_check(source, subject_id=issuer["subject_id"],
@@ -331,4 +441,6 @@ class HealthcareNameScoutService:
                 "failed_issuers": failed, "truncated_issuers": truncated_issuers,
                 "rejected_rows": rejected, "budget_exhausted": budget_exhausted,
                 "identity_linked_candidates": identity_linked,
-                "query_scope": "documented exact names; not issuer-wide healthcare coverage"}
+                "query_scope": "documented exact names; not issuer-wide healthcare coverage",
+                "restricted_study_ids": list(getattr(self.client, "study_ids", ())),
+                "exact_study_lookup_completes_source_scope": False}

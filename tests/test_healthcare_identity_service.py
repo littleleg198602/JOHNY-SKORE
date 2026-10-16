@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 import unittest
 
 from market_checker_app.services.healthcare_identity_service import (
-    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry, application_values,
+    HealthcareIdentityRegistry, application_values,
     normalize_application, resolve_fda_crl, resolve_fda_recall,
 )
 from market_checker_app.services.fda_recall_scout_service import FdaRecallScoutService
@@ -17,9 +17,10 @@ from market_checker_app.services.healthcare_scout_service import (
 from market_checker_app.storage.scout_store import ScoutStore
 
 
-RECORDS = json.loads(DEFAULT_HEALTHCARE_IDENTITIES.read_text())["records"]
-NOW = max(datetime.fromisoformat(row["known_at"]) for row in RECORDS) + timedelta(seconds=1)
 FIXTURES = Path(__file__).parent / "fixtures" / "healthcare"
+# Semantic cases retain the reviewed five-row baseline and its original clock.
+RECORDS = json.loads((FIXTURES / "reviewed_seed_identities_20261011.json").read_text())["records"]
+NOW = max(datetime.fromisoformat(row["known_at"]) for row in RECORDS) + timedelta(seconds=1)
 
 
 def fixture(name):

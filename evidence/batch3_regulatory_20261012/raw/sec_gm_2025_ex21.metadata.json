@@ -1,0 +1,24 @@
+{
+  "capture_id": "sec_gm_2025_ex21",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/ex-21x12312025.htm",
+  "started_at": "2026-10-12T14:42:25.462913+00:00",
+  "method": "GET",
+  "timeout_seconds": 20,
+  "max_response_bytes": 12000000,
+  "http_status": 200,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1467858/000146785826000013/ex-21x12312025.htm",
+  "response_headers": {
+    "Date": "Mon, 12 Oct 2026 14:42:29 GMT",
+    "Content-Type": "text/html",
+    "Last-Modified": "Tue, 27 Jan 2026 21:08:53 GMT"
+  },
+  "outcome": "CAPTURED",
+  "observed_at": "2026-10-12T14:42:29.460143+00:00",
+  "archive_path": "evidence/batch3_regulatory_20261012/raw/sec_gm_2025_ex21.html.gz",
+  "archive_sha256": "90da504f2ed87c8f93f6c39321c1c4e584d67c41096d26cd1b1edc05bd146042",
+  "archive_bytes": 4137,
+  "raw_response_sha256": "76f2d45ee319a5471b7904206ac869003318ff534252e8373fe2ffd33ee1a43c",
+  "raw_response_bytes": 92038,
+  "archive_encoding": "gzip; mtime=0",
+  "raw_response_encoding": "server response bytes"
+}
