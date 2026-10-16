@@ -57,7 +57,7 @@ class CapturedMarketDataProviderTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
-        self.root = Path(self.temporary.name)
+        self.root = Path(self.temporary.name).resolve()
         self.path, self.record = capture(self.root)
         self.entry = build_captured_market_data_entry(archive_root=self.root,
             source_archive_path=self.path.relative_to(self.root).as_posix())
@@ -308,8 +308,47 @@ class CapturedMarketDataProviderTests(unittest.TestCase):
                 frame,warning=self.provider(entries=[row]).fetch_ohlc_only("AAPL")
                 self.assertIsNone(frame);self.assertTrue(warning.startswith("WAIT_DATA:"))
         write_manifest(self.root,[self.entry])
-        with patch.object(Path,"is_symlink",lambda path:path==self.path.parent or original(path)):
+        guard_hits=[]
+        def symlink(path):
+            if path==self.path.parent:
+                guard_hits.append(path)
+                return True
+            return original(path)
+        with patch.object(Path,"is_symlink",symlink):
             self.check_missing("HISTORY_SYMLINK_REFUSED")
+        self.assertTrue(guard_hits,"The canonical source parent must reach the symlink guard")
+
+    def test_temporary_root_alias_is_canonical_before_capture_and_parent_guard_is_exercised(self):
+        from types import SimpleNamespace
+        native_directory=tempfile.TemporaryDirectory
+        native_capture=capture
+        roots=[]
+        aliases=[]
+        def aliased_directory(*args,**kwargs):
+            temporary=native_directory(*args,**kwargs)
+            physical=Path(temporary.name)
+            alias=physical/'..'/physical.name
+            aliases.append((physical,alias))
+            return SimpleNamespace(name=str(alias),cleanup=temporary.cleanup)
+        def canonical_capture(root,*args,**kwargs):
+            roots.append(root)
+            self.assertEqual(root.resolve(),root)
+            self.assertNotIn('..',root.parts)
+            return native_capture(root,*args,**kwargs)
+        case=CapturedMarketDataProviderTests(
+            'test_explicit_paths_refuse_escape_missing_and_parent_symlink_without_discovery')
+        result=unittest.TestResult()
+        with patch.object(tempfile,'TemporaryDirectory',side_effect=aliased_directory), \
+             patch(__name__+'.capture',side_effect=canonical_capture):
+            case.run(result)
+        self.assertEqual(1,len(aliases))
+        physical,alias=aliases[0]
+        self.assertNotEqual(physical,alias)
+        self.assertEqual(physical.resolve(),alias.resolve())
+        self.assertEqual([physical.resolve()],roots)
+        self.assertEqual(1,result.testsRun)
+        self.assertFalse(result.skipped)
+        self.assertTrue(result.wasSuccessful(),str(result.failures)+str(result.errors))
 
     def test_unsafe_whole_bodies_are_withheld_without_projection_or_error_echo(self):
         sentinel="synthetic-fixture-private-value"

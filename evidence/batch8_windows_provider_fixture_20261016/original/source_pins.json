@@ -1,0 +1,24 @@
+{
+  "base": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+  "hosted_windows_failure_reference": "38861160925",
+  "hosted_windows_proof_created_by_this_lane": false,
+  "observed_at": "2026-10-16T07:10:55.662050+00:00",
+  "source_files": {
+    "market_checker_app/services/captured_market_data_provider.py": {
+      "bytes": 27951,
+      "preserved_as": "evidence/batch8_windows_provider_fixture_20261016/original/provider.py",
+      "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+    },
+    "market_checker_app/services/prospective_specialist_history.py": {
+      "bytes": 41430,
+      "preserved_as": "evidence/batch8_windows_provider_fixture_20261016/original/guard.py",
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    },
+    "tests/test_batch8_captured_market_data_provider.py": {
+      "bytes": 25727,
+      "preserved_as": "evidence/batch8_windows_provider_fixture_20261016/original/test_module.py",
+      "sha256": "00fb80bf292fcd09851f74c468c1d4c47cb3293d7f9285c6e4b103553504d3fa"
+    }
+  },
+  "tree": "bd99dca493a4d6eca5d6c1fb6c9017995aedf292"
+}

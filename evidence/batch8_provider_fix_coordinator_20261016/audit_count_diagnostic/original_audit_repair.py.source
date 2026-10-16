@@ -1,0 +1,114 @@
+"""Verify unchanged public bytes and the exact narrow fixture repair, offline."""
+import ast
+from collections import Counter
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+
+ROOT = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
+PUBLIC = "df6648b4cd4d856629eed5cd5db1321e53da3bed"
+CODE = "d82aa27c1875b920605d69c13092bd8f4d55ba98"
+LANE = ROOT / "evidence/batch8_windows_provider_fixture_20261016"
+FAILURE = ROOT / "evidence/batch8_windows_failure_20261016"
+
+
+def pin(path):
+    body = path.read_bytes()
+    return {"bytes": len(body), "sha256": hashlib.sha256(body).hexdigest()}
+
+
+def assertion_calls(method):
+    return Counter(ast.dump(node, include_attributes=False) for node in ast.walk(method)
+                   if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+                   and node.func.attr.startswith("assert"))
+
+
+def methods(path):
+    tree = ast.parse(path.read_bytes())
+    cls = next(node for node in tree.body if isinstance(node, ast.ClassDef)
+               and node.name == "CapturedMarketDataProviderTests")
+    return {node.name: node for node in cls.body
+            if isinstance(node, ast.FunctionDef) and node.name.startswith("test_")}
+
+
+def main():
+    old = json.loads((HERE / "baseline_manifest.json").read_text())["older_evidence"]
+    production = json.loads((HERE / "all_production_baseline.json").read_text())["production_files"]
+    for entries in (old, production):
+        for name, expected in entries.items():
+            assert pin(ROOT / name) == expected, name
+    handoff_path = LANE / "handoff.json"
+    handoff = json.loads(handoff_path.read_text())
+    checked = []
+    for name, expected in handoff["artifact_sha256"].items():
+        path = LANE / name
+        assert pin(path)["sha256"] == expected, name
+        checked.append(str(path.relative_to(ROOT)))
+    for name, expected in handoff["source_sha256"].items():
+        assert pin(ROOT / name)["sha256"] == expected, name
+        checked.append(name)
+    original = LANE / "original/test_module.py"
+    current = ROOT / "tests/test_batch8_captured_market_data_provider.py"
+    prior_methods, current_methods = methods(original), methods(current)
+    assert len(prior_methods) == 35 and len(current_methods) == 36
+    assert prior_methods.keys() <= current_methods.keys()
+    for name, node in prior_methods.items():
+        assert not assertion_calls(node) - assertion_calls(current_methods[name]), name
+    assertions = sum(sum(assertion_calls(node).values()) for node in prior_methods.values())
+    assert assertions == 70
+    original_blob = subprocess.check_output(["git", "show", f"{PUBLIC}:tests/test_batch8_captured_market_data_provider.py"], cwd=ROOT)
+    assert original.read_bytes() == original_blob
+    tested_blob = subprocess.check_output(["git", "show", f"{CODE}:tests/test_batch8_captured_market_data_provider.py"], cwd=ROOT)
+    assert current.read_bytes() == tested_blob
+    changed = subprocess.check_output(["git", "diff", "--name-only", PUBLIC, "--", "market_checker_app", "tests"], cwd=ROOT).decode().splitlines()
+    assert changed == ["tests/test_batch8_captured_market_data_provider.py"], changed
+
+    failure = json.loads((FAILURE / "content_verification.json").read_text())
+    for name, expected in failure["original_members"].items():
+        actual = pin(FAILURE / name)
+        assert actual == {"bytes": expected["bytes"], "sha256": expected["SHA256"]}
+    archive = pin(FAILURE / "artifact_12030449825.zip")
+    assert archive == {"bytes": 62471, "sha256": "bafec854986b27ab5e67f358842be7bf486afb4f04dfe568f111b00e21a9c394"}
+    original_failure = json.loads((LANE / "before_repair/original_alias_failure.json").read_text())
+    assert original_failure["tests"]["failures"] == 1 and original_failure["tests"]["executed"] == 1
+    assert handoff["tests"]["executed"] == handoff["tests"]["discovered"] == 36
+    assert all(handoff["tests"][key] == 0 for key in ("failures", "errors", "skips", "expected_failures", "unexpected_successes"))
+    full_path = ROOT / "evidence/batch8_linux_provider_fix_20261016.json"
+    full = json.loads(full_path.read_text())
+    assert full["discovered_tests"] == full["tests_run"] == 2037 and full["successful"] is True
+    assert all(full[key] == 0 for key in ("failures", "errors", "skipped", "expected_failures", "unexpected_successes"))
+    console_path = ROOT / "evidence/batch8_linux_provider_fix_console_20261016.log"
+    console = console_path.read_text()
+    assert console.rstrip().endswith("\nOK") and "Ran 2037 tests in " in console
+    proof = {
+        "recorded_at": datetime.now(timezone.utc).isoformat(), "public_base": PUBLIC,
+        "tested_code_snapshot": CODE, "only_changed_code_path": changed[0],
+        "current_test": pin(current), "whole_original_test": pin(original),
+        "all_211_production_files_unchanged": len(production) == 211,
+        "production_files": len(production), "production_bytes": sum(v["bytes"] for v in production.values()),
+        "old_evidence_files": len(old), "old_evidence_bytes": sum(v["bytes"] for v in old.values()),
+        "old_evidence_mismatches": [], "original_methods_retained": 35,
+        "original_assertions_preserved": assertions, "new_total_provider_methods": 36,
+        "handoff_file_pins_checked": len(checked), "handoff": pin(handoff_path),
+        "original_artifact_and_members_rehashed": True, "original_failure": failure,
+        "original_POSIX_alias_reproduction_is_Windows_execution": False,
+        "local_fullsuite": full, "original_full_console": pin(console_path),
+        "local_plain_OK": True, "hosted_repair_qualification": "PENDING_NEW_PUBLIC_HEAD_CI",
+        "original_Windows_alias_bytes_logged": False,
+        "source_http_or_production_database_operations": 0,
+        "full_specialist_acceptance": 0, "model_fitter_score_or_687_60s_budget_changed": False,
+        "earlier_producer_evidence_rewritten": False,
+    }
+    out = HERE / "content_audit.json"
+    assert not out.exists(), "Never overwrite an earlier qualification."
+    out.write_text(json.dumps(proof, indent=2) + "\n")
+    print(json.dumps({"status": "PASS", "output": pin(out), "old_evidence_files": len(old),
+                      "production_files": len(production), "assertions": assertions,
+                      "local_executed": full["tests_run"]}))
+
+
+if __name__ == "__main__":
+    main()

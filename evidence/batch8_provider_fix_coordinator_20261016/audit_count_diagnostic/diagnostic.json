@@ -1,0 +1,12 @@
+{
+  "kind": "AUDIT_IMPLEMENTATION_COUNT_SCOPE_DIAGNOSTIC",
+  "original_script_SHA256": "ba0392efebbebbc1607286c8ee166ebf246471e0b2c0af29bd207444b8cd550a",
+  "first_observed_error": "AssertionError at assert assertions == 70",
+  "direct_test_method_assertion_calls": 67,
+  "unchanged_helper_assertion_calls": 3,
+  "total_original_class_assertion_calls": 70,
+  "functional_test_code_changed": false,
+  "fullsuite_repeated": false,
+  "correction": "Verify all class helper assertions as well as all35original test methods; do not relax the total70 claim.",
+  "full_console_proof_claimed": false
+}

@@ -1,5 +1,30 @@
 # Průběh implementace pátracích agentů
 
+## Oprava Windows provider fixture osmé dávky — 16. 10. 2026
+
+Skutečný run `38861160925` na public HEAD `df6648b4` skončil failure:
+Linux2036 plain OK, UI/687 success, Windows63checkpoint +2036discovered=executed,
+1failure/0errors/skips/expected/unexpected a release gate failure. Původní ZIP,
+oba CRLF members, decoded logs a obsahové ověření zůstávají v
+`evidence/batch8_windows_failure_20261016/`; neúspěch není akceptace.
+
+Oprava pouze canonicalizuje temp root fixture před capture a vyžaduje skutečný
+zásah symlink mocku. Nezměněná původní metoda reprodukovala stejné selhání přes
+reálný POSIX `root/../root`; přesné původní Windows temp alias bytes nebyly v logu.
+Všech35 původních methods a70 assertions včetně3helperových zůstává; nová alias
+regrese a36/36 focused prošly. Všech211 produkčních souborů/3,424,926bytes a1296
+starších evidencefiles/65,374,320bytes je byte-identical, žádné source HTTP,
+production DB/quota/registry/model/score/trading změny nebo budget relaxation.
+
+Nová místní combined sada: **2037 discovered=executed, plain OK, 243.440s**,
+0failures/errors/skips/expected/unexpected. Code snapshot `d82aa27c`.
+Neměnný pre-hosted-CI důkaz: `evidence/batch8_windows_provider_fix_20261016.json`;
+JSON/úplný console/separate runner jsou `evidence/batch8_linux_provider_fix*`.
+Nový opravný public HEAD vyžaduje vlastní hosted Linux/UI/687/Windows a release
+gate; následný ověřený obsah patří do PR/actual artifact, nepřepisuje pre-CI proof.
+Fullacceptance zůstává0/21. Osmá source/offline dávka níže se neopakuje;
+aktuální konkrétní fronta po osmé dávce zůstává na začátku tohoto plánu.
+
 ## Osmá navazující dávka — 16. 10. 2026
 
 Šest skutečných izolovaných vývojových větví a čtyři konkrétní peer followupy

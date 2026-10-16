@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-16T07:23:48.271943+00:00",
+  "phase": "IMMUTABLE_PRE_HOSTED_REPAIR_CI",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "PR": 162,
+  "public_base_head": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+  "public_base_tree": "bd99dca493a4d6eca5d6c1fb6c9017995aedf292",
+  "main": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "tested_code_snapshot": "d82aa27c1875b920605d69c13092bd8f4d55ba98",
+  "actual_worker": {
+    "name": "evaluation",
+    "isolated_worktree": true,
+    "branch": "repair/batch8-provider-windows-20261016",
+    "commit": "059aa945d75ef7925525fc5c839c7f7139551d82",
+    "output": "Only provider test fixture and its new qualification evidence",
+    "handoff": {
+      "path": "evidence/batch8_windows_provider_fixture_20261016/handoff.json",
+      "bytes": 5943,
+      "sha256": "7c42673a36eed3695e0b4e06b125743b1500a54390353beb59ab1ade4bf928a1"
+    }
+  },
+  "repair": {
+    "canonicalize_temp_root_before_capture": true,
+    "mock_guard_hit_asserted": true,
+    "lexical_alias_regression_added": true,
+    "original_methods_preserved": 35,
+    "original_assertion_calls_preserved_including_three_helpers": 70,
+    "new_provider_test_methods": 36,
+    "production_source_or_guard_changes": false,
+    "only_changed_test_path": "tests/test_batch8_captured_market_data_provider.py",
+    "current_test": {
+      "path": "tests/test_batch8_captured_market_data_provider.py",
+      "bytes": 27559,
+      "sha256": "93dc17d174ef0b18a19613acbf01d5a513e5a4b662ee970d8e1faeb2bbf8f386"
+    },
+    "original_exact_test": {
+      "path": "evidence/batch8_windows_provider_fixture_20261016/original/test_module.py",
+      "bytes": 25727,
+      "sha256": "00fb80bf292fcd09851f74c468c1d4c47cb3293d7f9285c6e4b103553504d3fa"
+    }
+  },
+  "original_windows_failure": {
+    "proof": {
+      "path": "evidence/batch8_windows_failure_20261016/content_verification.json",
+      "bytes": 1739,
+      "sha256": "e5affd7ec4d856712135383a9af0f0afbbac79f61c8853890c59c276e758c1cc"
+    },
+    "ZIP": {
+      "path": "evidence/batch8_windows_failure_20261016/artifact_12030449825.zip",
+      "bytes": 62471,
+      "sha256": "bafec854986b27ab5e67f358842be7bf486afb4f04dfe568f111b00e21a9c394"
+    },
+    "failed_tests": 1,
+    "full_discovered_executed": 2036,
+    "run": 38861160925,
+    "job": 116843520437,
+    "releasegate": 116855563520,
+    "acceptance": false,
+    "members": [
+      {
+        "path": "evidence/batch8_windows_failure_20261016/windows-tests.json",
+        "bytes": 376,
+        "sha256": "4fe3c913c1e70cf62816b84cfcbe6659034e0847921a7451903a331ed61d3a6b"
+      },
+      {
+        "path": "evidence/batch8_windows_failure_20261016/windows-tests.log",
+        "bytes": 412149,
+        "sha256": "b8532df1158a73ae0a4bad6d74303de880c842eef47a5f3fce184844e2a4bb32"
+      }
+    ]
+  },
+  "original_diagnostics": {
+    "unchanged_method_POSIX_alias_reproduction": {
+      "path": "evidence/batch8_windows_provider_fixture_20261016/before_repair/original_alias_failure.json",
+      "bytes": 1384,
+      "sha256": "240269735ac51ef11d330054827875885f56745ae1e7a29d8992c2afc11d2cda"
+    },
+    "original_test_method_overridden": false,
+    "reproduction_failures": 1,
+    "reproduction_is_Windows_execution": false,
+    "exact_native_Windows_alias_bytes_logged": false,
+    "coordinator_audit_counter_diagnostic": {
+      "path": "evidence/batch8_provider_fix_coordinator_20261016/audit_count_diagnostic/diagnostic.json",
+      "bytes": 594,
+      "sha256": "01d7f6ae78260cf361982ff54e81e1ca65c48779c0299046f15f7570d9c7746e"
+    },
+    "audit_counter_correction": "67 direct test assertions plus3 unchanged helper assertions =70; original failed checker source preserved; no functional test change or fullsuite rerun."
+  },
+  "new_local_fullsuite": {
+    "started_at": "2026-10-16T07:17:49.872360+00:00",
+    "ended_at": "2026-10-16T07:21:54.431709+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 2037,
+    "tests_run": 2037,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "plain_OK": true,
+    "elapsed_seconds": 243.44,
+    "JSON": {
+      "path": "evidence/batch8_linux_provider_fix_20261016.json",
+      "bytes": 363,
+      "sha256": "dea33bc44acde86a31d1b4789da339633c2e97b3a94073e1776f42e9fd8538b5"
+    },
+    "original_console": {
+      "path": "evidence/batch8_linux_provider_fix_console_20261016.log",
+      "bytes": 410060,
+      "sha256": "0b778aafdab7b9c5e241b8460f50c190e716294f06f311d8810c30c73fc93ad4"
+    },
+    "separate_runner_log": {
+      "path": "evidence/batch8_linux_provider_fix_runner_20261016.log",
+      "bytes": 407378,
+      "sha256": "82bb7c3dda40fb8c3a2c049bbe1659d6966331091e4f4d0f5a8ed719517999fb"
+    }
+  },
+  "content_audit": {
+    "path": "evidence/batch8_provider_fix_coordinator_20261016/content_audit.json",
+    "bytes": 3847,
+    "sha256": "1090f3d8e3a8ff77d2c2f0cbe7f1b7f128368cfd5fa9336c154d8a6785379572"
+  },
+  "all_production_files_unchanged": {
+    "files": 211,
+    "bytes": 3424926,
+    "mismatches": []
+  },
+  "all_older_evidence_files_unchanged": {
+    "files": 1296,
+    "bytes": 65374320,
+    "mismatches": []
+  },
+  "source_http_requests": 0,
+  "production_database_or_quota_operations": 0,
+  "registry_model_fitter_score_trading_or_687_60s_budget_changes": false,
+  "whole_withheld_bodies_restored_substituted_or_encoded": false,
+  "hosted_new_repair_HEAD_qualification": "PENDING_PUBLICATION_AND_OWN_CI; subsequent qualification belongs in PR/actual artifact, never overwrite this pre-CI proof.",
+  "specialist_acceptance": {
+    "canonical": 687,
+    "historical_Q2_instrument": 150,
+    "current_Q3": 0,
+    "healthcare": 10,
+    "NHTSA": 3,
+    "legal": 5,
+    "verified_adoptions": 0,
+    "fully_accepted": 0,
+    "total": 21,
+    "actual_user_Windows_e2e_or_OOS_claim": false
+  },
+  "publication": "Exact tested safe tree with expected public parent df6648; no force push/private ancestry/merge; stop on a new gate rejection without bypass."
+}

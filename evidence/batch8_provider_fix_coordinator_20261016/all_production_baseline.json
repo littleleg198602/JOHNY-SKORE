@@ -1,0 +1,849 @@
+{
+  "public_base": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+  "production_files": {
+    "market_checker_app/README.md": {
+      "bytes": 35278,
+      "sha256": "1d0c6678225024c01d4d7139a8db3b8c97209c7e74df625ecc053f9412b98d49"
+    },
+    "market_checker_app/STREAMLIT_RUNTIME_CHECKLIST.md": {
+      "bytes": 2294,
+      "sha256": "1755e2ff3a0b2b07fbc0c93e350b9a297d78d1306ee51268a416e3d5e8143b83"
+    },
+    "market_checker_app/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "market_checker_app/agents/__init__.py": {
+      "bytes": 3426,
+      "sha256": "bf82a5d460d476a07b9ea1b0889f3b3c60948759ea480e96ace550e37e81c5fc"
+    },
+    "market_checker_app/agents/base.py": {
+      "bytes": 434,
+      "sha256": "756a6cebeef656661110d0738a77ced48a1d02e95ff0c3463f32bb2fd6c0d279"
+    },
+    "market_checker_app/agents/claim_verification_agent.py": {
+      "bytes": 15955,
+      "sha256": "9f1ee32632768e93ca9b8541464d37274e9236bc3cc6211e7a7169974673d2d8"
+    },
+    "market_checker_app/agents/commodity_energy_agent.py": {
+      "bytes": 18124,
+      "sha256": "e5a3d964e6946eccdbc977bcb4a5b2812abe93abb0bff3df8020c03cfa67b2c0"
+    },
+    "market_checker_app/agents/contracts.py": {
+      "bytes": 35144,
+      "sha256": "79de9ade3a6cc79699f6e925ef3611b829ff753116ee0d659ff3dcd23064b018"
+    },
+    "market_checker_app/agents/decision_agent.py": {
+      "bytes": 23563,
+      "sha256": "0a71fa74ecd675550d84c6d63daf20eae3b3be5e7571a04d0aa14e8b3a337003"
+    },
+    "market_checker_app/agents/entity_registry_agent.py": {
+      "bytes": 20722,
+      "sha256": "918d7332e5f9babd8a2a87d8ada5497f31083ef2dc1f8be8d465ccd1a5736c8a"
+    },
+    "market_checker_app/agents/european_filings_agent.py": {
+      "bytes": 14574,
+      "sha256": "439c6903fb4080b6589ae0b29fa8865eb0adae9e35ab0cf34bba8ca396cb832a"
+    },
+    "market_checker_app/agents/evaluation_agent.py": {
+      "bytes": 22245,
+      "sha256": "d30879edad8fbcf7fbc0a3f12f06f8e86e3da5efe01a3398f180c8259ced5537"
+    },
+    "market_checker_app/agents/financial_forensics_agent.py": {
+      "bytes": 25595,
+      "sha256": "f5fb502575567ac15bf8df4c6f1947c3f59c1c417ec9007fb9e43acb2060caf9"
+    },
+    "market_checker_app/agents/governance_event_agent.py": {
+      "bytes": 38303,
+      "sha256": "7284bac87c6e079ef56fa141a29b8473585a55e678c44b57b124c1e341b49054"
+    },
+    "market_checker_app/agents/network_intelligence_common.py": {
+      "bytes": 4237,
+      "sha256": "70b33eafd1571fd7b4c098a8c0c44b183f26bbb1d181e8d92518022b6db76ad7"
+    },
+    "market_checker_app/agents/orchestrator.py": {
+      "bytes": 6853,
+      "sha256": "f0060594d263d93ec3c93286cc7054bed6ea982f86fc3ff96947f965120c9f41"
+    },
+    "market_checker_app/agents/prediction_v21_adapter.py": {
+      "bytes": 6087,
+      "sha256": "9750a7f8bce4ffae9fd753bba1a5c57bde165f7c61f62aa8e91e1767cad1775d"
+    },
+    "market_checker_app/agents/quality_gate_agent.py": {
+      "bytes": 87900,
+      "sha256": "3fadcfbd6b5099ffd913fa77a597626bdd5b87bbd9e10e9aabbbba6d1df47cff"
+    },
+    "market_checker_app/agents/regulatory_contract_agent.py": {
+      "bytes": 14328,
+      "sha256": "3f48c061c3907ba50b7a1f960425c4fe92693423daec17afa5cb55869b49f47d"
+    },
+    "market_checker_app/agents/scout_index_agent.py": {
+      "bytes": 10463,
+      "sha256": "e82087e6d1ffc5c5705c31fb6ce205c38cb560bd54f66422ab212a7ab5806013"
+    },
+    "market_checker_app/agents/sec_fundamentals_agent.py": {
+      "bytes": 21111,
+      "sha256": "cd9475050e72ffe76ca18e92521ec2f6b8e80d93a44b346e352f6212bbce0605"
+    },
+    "market_checker_app/agents/short_report_agent.py": {
+      "bytes": 13773,
+      "sha256": "089f454fa1b1fccbc25eff31ff6cc2e7d8b8a35369b7098795f20d3640f3a79a"
+    },
+    "market_checker_app/agents/source_policy.py": {
+      "bytes": 6492,
+      "sha256": "6e2da443923f46b28c26fb4d0efaf295533e470e55bb9f78670417c8b44bb2c9"
+    },
+    "market_checker_app/agents/source_resolution_agent.py": {
+      "bytes": 4185,
+      "sha256": "73c46a233fd45ee62bfff65e901f59ba3db82d943b2314cec6dc4cb08a2eecb9"
+    },
+    "market_checker_app/agents/supply_chain_agent.py": {
+      "bytes": 16099,
+      "sha256": "9ca1dd2639c038b64a3c65a2e46a26d0942dd27bcad4300f2356fd75c59f8b75"
+    },
+    "market_checker_app/analysis/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "market_checker_app/analysis/behavioral_analysis.py": {
+      "bytes": 3107,
+      "sha256": "825d8a40d5bae921bb22d925b2eb24ebf67b34b73764882c6a58f07b9910d148"
+    },
+    "market_checker_app/analysis/confidence.py": {
+      "bytes": 806,
+      "sha256": "9401c8b9c2e8378eba9f637b7fe072fbe3b82066620f42c2c28cbbdc1dc82f44"
+    },
+    "market_checker_app/analysis/explanations.py": {
+      "bytes": 1144,
+      "sha256": "2347d9022e49dfd1e3a97cc97480ffbfb751052d9354eb583d7f27fae4fd0028"
+    },
+    "market_checker_app/analysis/indicators.py": {
+      "bytes": 1238,
+      "sha256": "039cf498085e4702b2fcca5e8f366550e8d91d6cfe5306b0d111286f24931e4b"
+    },
+    "market_checker_app/analysis/news_analysis.py": {
+      "bytes": 9753,
+      "sha256": "a7306c0386ac42991ff9b4f74666a7a798341259d9c8898aed67ee6ad1d80dcf"
+    },
+    "market_checker_app/analysis/performance.py": {
+      "bytes": 593,
+      "sha256": "7c26a04c611fac079d9e65c1615a738f60c98b3b0e42052e8ea3de0a7ae4de9c"
+    },
+    "market_checker_app/analysis/regime_detection.py": {
+      "bytes": 659,
+      "sha256": "c0706854e38d0c468cb2d099cc0209e53357b3b81c8315241c7762797f07109e"
+    },
+    "market_checker_app/analysis/risk_analysis.py": {
+      "bytes": 1985,
+      "sha256": "1775ab7dde5590036c641bf31409f3275dab18d1a081145365ed6ec00e04c301"
+    },
+    "market_checker_app/analysis/scoring.py": {
+      "bytes": 22670,
+      "sha256": "e220ecbcdc1795b9ae1e4e3362e21077aec29eb6536d397dae1381b9624d9bfc"
+    },
+    "market_checker_app/analysis/tech_analysis.py": {
+      "bytes": 8132,
+      "sha256": "a0dd70cf61430f7b9744e77fe6fcc80b9cebd49d330f23560fc1dbd8d1baf622"
+    },
+    "market_checker_app/analysis/trend_analysis.py": {
+      "bytes": 410,
+      "sha256": "8e79b5d4197f557aa62e61cbefc3f582c14ab2909ecf7a49f92110a8117b7066"
+    },
+    "market_checker_app/analysis/yahoo_analysis.py": {
+      "bytes": 4221,
+      "sha256": "98dc522e290db08c8b6c596773026f0bebad87baef089e9e6c4c9763d0dd88c5"
+    },
+    "market_checker_app/app.py": {
+      "bytes": 156198,
+      "sha256": "124b2897503e94ce4ce2e13743aa6e80d1999909a45a28f06548afdb098bcb79"
+    },
+    "market_checker_app/autonomous_runtime.json": {
+      "bytes": 6285,
+      "sha256": "6d87eead3b84c023e967bd81c1a8d3d673340e5acc116c37c944d388575c090e"
+    },
+    "market_checker_app/collectors/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "market_checker_app/collectors/european_filing_client.py": {
+      "bytes": 4027,
+      "sha256": "15e90eb9d273e14f167b90a3d1494589b64875a68f3e9d0cf6b008bb7358f5d6"
+    },
+    "market_checker_app/collectors/european_filing_feed_client.py": {
+      "bytes": 7767,
+      "sha256": "b849c5424074e1be397ebea30735d1aef1a87b89049e50bf3495a2fe8738277e"
+    },
+    "market_checker_app/collectors/gleif_client.py": {
+      "bytes": 8655,
+      "sha256": "e3997232b20b47c6af0f94edb7a105e2db044f917b1c75262c50aef867e6c013"
+    },
+    "market_checker_app/collectors/marketcap_loader.py": {
+      "bytes": 724,
+      "sha256": "446373273dbc19ea1009dd49df6f03a7c00f62e6a16f972bd686d22002ca43f5"
+    },
+    "market_checker_app/collectors/mt5_client.py": {
+      "bytes": 7440,
+      "sha256": "f72f0de797237adc80cdf1aed7c483ca21673e29dd1dbf31cba8c2b110db1b1f"
+    },
+    "market_checker_app/collectors/rss_client.py": {
+      "bytes": 11226,
+      "sha256": "6ded6d609149227ba7a106353fed7965ddc46082ae6722ad2ea21c705bf49ff3"
+    },
+    "market_checker_app/collectors/sec_edgar_client.py": {
+      "bytes": 37175,
+      "sha256": "ecb08482e3daead2df73674321ea935677dbe607334d61a7ad664fc16060b5b7"
+    },
+    "market_checker_app/collectors/short_report_client.py": {
+      "bytes": 11350,
+      "sha256": "c1e93471e4b2bb9d12ebf5af982e37509974e9915d9ac4707d53f54144c877ab"
+    },
+    "market_checker_app/collectors/source_diagnostics.py": {
+      "bytes": 2406,
+      "sha256": "76fab767f37388b5534bef86bbb5b2d486121ca0ed7eae0e0d656054305eeb16"
+    },
+    "market_checker_app/collectors/yahoo_client.py": {
+      "bytes": 18858,
+      "sha256": "6548f20926f10361dec484a873deb5ab79b3fca2e1b930540b632e58033c1350"
+    },
+    "market_checker_app/config.py": {
+      "bytes": 23186,
+      "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+    },
+    "market_checker_app/constraints.txt": {
+      "bytes": 142,
+      "sha256": "ffe84bd0bb6cb28d250cddbb6945f39eca9b1391b9feab204a6dadd1a35ab9c1"
+    },
+    "market_checker_app/data/company_identity_pilot.txt": {
+      "bytes": 1931,
+      "sha256": "bf3037b983e2101d999adbdab55b1c8a2baaa0ef9a14ea85a28b25a5000f064d"
+    },
+    "market_checker_app/data/european_authority_registry.json": {
+      "bytes": 2282,
+      "sha256": "7c779c2b316f059c1d88cba0a1f95de014036751ba074012d1b9f21ab91f1c6e"
+    },
+    "market_checker_app/data/market_checker_687_tickers.csv": {
+      "bytes": 5846,
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    "market_checker_app/data/research_profiles.json": {
+      "bytes": 22529,
+      "sha256": "8ea5a42704fd17b67035f8bece41135e6800335aa7c053b1a92b0912a6990276"
+    },
+    "market_checker_app/data/specialist_status.json": {
+      "bytes": 38324,
+      "sha256": "9faaa2a6fee77af068337c13eb95884d066b6a9d95ce00cdfc168defeb0124ef"
+    },
+    "market_checker_app/data/verified_13f_securities.json": {
+      "bytes": 87325,
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+    },
+    "market_checker_app/data/verified_counterparty_identities.json": {
+      "bytes": 26803,
+      "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e"
+    },
+    "market_checker_app/data/verified_fdic_banks.json": {
+      "bytes": 20034,
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707"
+    },
+    "market_checker_app/data/verified_healthcare_identities.json": {
+      "bytes": 14656,
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    "market_checker_app/data/verified_nhtsa_models.json": {
+      "bytes": 912,
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e"
+    },
+    "market_checker_app/data/verified_usaspending_uei.json": {
+      "bytes": 1159,
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56"
+    },
+    "market_checker_app/deterministic_test_runner.py": {
+      "bytes": 2535,
+      "sha256": "ed0350be7a1a4fc354734548712429448809404c677f5efd9ef3d355b9f48c06"
+    },
+    "market_checker_app/exporters/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "market_checker_app/exporters/dashboard_builder.py": {
+      "bytes": 1924,
+      "sha256": "9530b8ab28bcb90a71b1d4786ba02b0c1f32175667281ea2c9a8a42353ce1632"
+    },
+    "market_checker_app/exporters/delta_builder.py": {
+      "bytes": 513,
+      "sha256": "0984a953322dfbc2f328b08403af6aef2b3c1cc3f1bfcd7d78977f2395ba9024"
+    },
+    "market_checker_app/exporters/excel_exporter.py": {
+      "bytes": 6811,
+      "sha256": "3b34d8f2876151b527186d8a7a162e64d59b0f6ecc7a438b219b18399a3d45e3"
+    },
+    "market_checker_app/full_universe_acceptance.py": {
+      "bytes": 1832,
+      "sha256": "16d5cd781295d89938195ed861d7d6a80d9a47bb4ba9ca3ffcff063962171380"
+    },
+    "market_checker_app/healthcare_coverage.py": {
+      "bytes": 6294,
+      "sha256": "448ab0317e87139f531ef61ab1faa805c22281e81ed7f95a2bc97a06cc067ce6"
+    },
+    "market_checker_app/identity_pilot_smoke.py": {
+      "bytes": 4378,
+      "sha256": "b2df4cd00176020a811108b0703fb04988742f531d7da428f4827e5b8ebeb61b"
+    },
+    "market_checker_app/install_scout_task.ps1": {
+      "bytes": 2505,
+      "sha256": "4917b60fa22aa042577346a9e47084f5eb279d95f68730ea133c52b7bcf4534f"
+    },
+    "market_checker_app/install_weekly_shadow_task.ps1": {
+      "bytes": 2254,
+      "sha256": "59a6118a9b69daac3d21d8545403ea4602c7d9a75cf7a7748fdea5295ab22028"
+    },
+    "market_checker_app/ir_primary_runner.py": {
+      "bytes": 1668,
+      "sha256": "38a2d2841040e8df3be3985980fab7699237a4c3194dffabf747682833aa2f39"
+    },
+    "market_checker_app/live_source_smoke.py": {
+      "bytes": 34833,
+      "sha256": "7145faa77da70c54f592189e98e1da6601f52cb42aaa9608c2b948bdcd0a0028"
+    },
+    "market_checker_app/models.py": {
+      "bytes": 6364,
+      "sha256": "dc80162ca13b745a4a45fd1b250ffdc2a077a25fcc7f864c1200f433526b33d9"
+    },
+    "market_checker_app/prediction_contract.py": {
+      "bytes": 11677,
+      "sha256": "1971192030620e883414c6fc0eebbd67197f28378ed40d15fd4532266b3ca1b0"
+    },
+    "market_checker_app/prediction_label_runner.py": {
+      "bytes": 13851,
+      "sha256": "b0f1df35cab859423b505b63e2216cb4ee04b136a4b65bc0ea6a8f9fa4f53454"
+    },
+    "market_checker_app/production_watchlist.txt": {
+      "bytes": 3106,
+      "sha256": "66c6ea880f8c238cf8d0186e1a272fe3842037a634e8d5026f2c1aed4e45bb00"
+    },
+    "market_checker_app/release_manifest.py": {
+      "bytes": 5369,
+      "sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a"
+    },
+    "market_checker_app/requirements.txt": {
+      "bytes": 197,
+      "sha256": "d6f3e24263eaa30e06edd20b5e9fb3133485c61f2fea67952e261962f625e0a1"
+    },
+    "market_checker_app/runtime_smoke_test.py": {
+      "bytes": 8486,
+      "sha256": "219a4d0972ab92ce4d5d78999c4d9a68bd0498ac52b3ff0d7984b5c674646b73"
+    },
+    "market_checker_app/scout_background_worker.py": {
+      "bytes": 6270,
+      "sha256": "93d47b2bf9b42cd3ec59741d562e35ba46d85253c562640642b51e3958ba3fbd"
+    },
+    "market_checker_app/scout_runner.py": {
+      "bytes": 22065,
+      "sha256": "6e9390ac39cfc97a8f74106e11496500e6ad32db9977697f8b0095b77fbe5708"
+    },
+    "market_checker_app/sec13f_identity_bulk.py": {
+      "bytes": 13530,
+      "sha256": "1e870a31b97647f61e161537b7d65d46528aa79a0e53f34a54a13259ae881ca4"
+    },
+    "market_checker_app/services/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "market_checker_app/services/agent_feature_service.py": {
+      "bytes": 9370,
+      "sha256": "c9be9991b1d68bd12b7a92f317efefa04f48f2359c8790f90eebe4848fe0f4b6"
+    },
+    "market_checker_app/services/agent_runtime_service.py": {
+      "bytes": 6777,
+      "sha256": "a73774b089d992240446962cba97e98bee87ee8aec2f56aea6d7e9b52e3ebbd5"
+    },
+    "market_checker_app/services/award_modification_service.py": {
+      "bytes": 12242,
+      "sha256": "878014232b3a34464b94d5deb3a7264a4bc3b6a6512d4829930d0620f962aca5"
+    },
+    "market_checker_app/services/award_transaction_history_service.py": {
+      "bytes": 39539,
+      "sha256": "b4122ad9e85b72c0dd5e4264b6b3e094e537ece32995c0bd14812c2e5341601a"
+    },
+    "market_checker_app/services/candidate_model_evaluation_service.py": {
+      "bytes": 29471,
+      "sha256": "5365a2bf71051f5cece57e4f605f019ea9fe4caad10d259b4634f500665b634b"
+    },
+    "market_checker_app/services/candidate_model_service.py": {
+      "bytes": 18199,
+      "sha256": "ed2b8049bfe1a94b77f05ed7187a08b13d48d8c3b6b8220eff446607c4b91d5d"
+    },
+    "market_checker_app/services/captured_identity_review_service.py": {
+      "bytes": 21065,
+      "sha256": "e8752df36883b49e65c2a4824b8e2ccbfa79e3857497d84e569b57d02abf0e42"
+    },
+    "market_checker_app/services/captured_market_data_provider.py": {
+      "bytes": 27951,
+      "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+    },
+    "market_checker_app/services/cms_provider_ownership_review.py": {
+      "bytes": 19142,
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    "market_checker_app/services/company_intelligence_manifest_service.py": {
+      "bytes": 11379,
+      "sha256": "cf55010376ba9706498845f156a688d86c665a96b071fd04f67c0a84f2775f6f"
+    },
+    "market_checker_app/services/comparison_service.py": {
+      "bytes": 2553,
+      "sha256": "50bfeaadaef2b5f18e1eeb2ccdba8bd3e247e36527abe5edf38fe27e34912601"
+    },
+    "market_checker_app/services/counterparty_health_service.py": {
+      "bytes": 13285,
+      "sha256": "998fe021b3c5b1d26c2d5561fd098bcafe23cbd61677fd5c20462758eaede227"
+    },
+    "market_checker_app/services/doj_case_posture_review.py": {
+      "bytes": 20974,
+      "sha256": "1b431d4cc0ccbb07085c3c985435e6edbaec61881df02da01cfe4dd3447c39d5"
+    },
+    "market_checker_app/services/doj_enforcement_scope_review.py": {
+      "bytes": 27761,
+      "sha256": "891113065a849998e510695e1929caa3e76a9486fe01db28ce1ad6359dc76465"
+    },
+    "market_checker_app/services/doj_scout_service.py": {
+      "bytes": 12154,
+      "sha256": "db1875937b1f817080f2c1316754650cd22a97cf3eab54d7c81d4a6d56d7185f"
+    },
+    "market_checker_app/services/eia_scout_service.py": {
+      "bytes": 8606,
+      "sha256": "b445d6ff82f0f580ec3b1f0723957e700932ae48df50b62d2286d9449f6f4354"
+    },
+    "market_checker_app/services/epa_echo_scout_service.py": {
+      "bytes": 14181,
+      "sha256": "f8b2b6d410ac46d8f5afd78a1555043df75e6901f098075a90aa54b7b7d01167"
+    },
+    "market_checker_app/services/epa_frs_ownership_review.py": {
+      "bytes": 18056,
+      "sha256": "281406a6c48c88aad916b6a59e0123f6abbff4c69ff7f3d5ebc43239bdd4427a"
+    },
+    "market_checker_app/services/evaluation_service.py": {
+      "bytes": 33409,
+      "sha256": "91b51d352198fa887436f72726a170f30c97dddc1eae889c6154e49a1203132a"
+    },
+    "market_checker_app/services/fda_recall_scout_service.py": {
+      "bytes": 18703,
+      "sha256": "354789c14d3dd54c5a359957aa536a76a7a9dbe6eb6ba136e765fd6adf8df304"
+    },
+    "market_checker_app/services/fda_structured_product_archive.py": {
+      "bytes": 21970,
+      "sha256": "0ffea68ef94f9af481bb4763e09cb43548996c951ca3cc1c1eee04f4588518ec"
+    },
+    "market_checker_app/services/fdic_bank_scout_service.py": {
+      "bytes": 24700,
+      "sha256": "cb9ead903ff0671e9f23218ad397e2278d071e1205add0fcf073a97bf1af9ea0"
+    },
+    "market_checker_app/services/filing_exposure_discovery_service.py": {
+      "bytes": 27479,
+      "sha256": "1f3907a22f5dd6f9898bde7f265fc39e66615982b9930734bf64875aafdd9911"
+    },
+    "market_checker_app/services/finra_short_interest_scout_service.py": {
+      "bytes": 7646,
+      "sha256": "32a1e9f21cbf701afdc585affe0db4fd4bf86ced91a3e063bc42408a08ac61d7"
+    },
+    "market_checker_app/services/fred_scout_service.py": {
+      "bytes": 2838,
+      "sha256": "5b4b2db140e7e32de543ad83a24ee5b3fde2c5b8618fc13fde8218dbdd9100a7"
+    },
+    "market_checker_app/services/full_universe_acceptance_service.py": {
+      "bytes": 3119,
+      "sha256": "97a4abb64729ae4989db5ef2a4cddbffb1186b7bb422cc0c406931a6554ea0dd"
+    },
+    "market_checker_app/services/healthcare_coverage_service.py": {
+      "bytes": 24783,
+      "sha256": "ec40cb5f8a917b5287f8fb19347c99e7630456e389ca73ad0da35038d671f277"
+    },
+    "market_checker_app/services/healthcare_identity_service.py": {
+      "bytes": 36547,
+      "sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923"
+    },
+    "market_checker_app/services/healthcare_product_scope_review.py": {
+      "bytes": 26045,
+      "sha256": "9ea457d42db486988923142322baeccf2b3dc70751ae12ffe6939d7338decd69"
+    },
+    "market_checker_app/services/healthcare_scout_service.py": {
+      "bytes": 26388,
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    },
+    "market_checker_app/services/history_service.py": {
+      "bytes": 2679,
+      "sha256": "09604fb2ed968ed8ee8a65ad28af80af1482541efffdd1e09693e2eb21a5ce5c"
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "bytes": 24571,
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    "market_checker_app/services/ir_primary_verification_service.py": {
+      "bytes": 21532,
+      "sha256": "ab4d8f157ac0d351082db6e8c3226d16716a1ce3a1078a7a40df193d1c8524d9"
+    },
+    "market_checker_app/services/layer_ablation_service.py": {
+      "bytes": 5591,
+      "sha256": "7fdb7bc1bf2b64f17641eb4bb74199dcb183f16d0cd989cede016b0f83f32d0c"
+    },
+    "market_checker_app/services/macro_regime_service.py": {
+      "bytes": 9797,
+      "sha256": "557a95f38809b4274cc0fa6270031cbae431c160855cb95d1e1f03e594a48933"
+    },
+    "market_checker_app/services/market_factor_service.py": {
+      "bytes": 21210,
+      "sha256": "fd873ce7bd3dad5f60acad4a29223b7f8a690d5022eecbb7c41286266babc2aa"
+    },
+    "market_checker_app/services/news_scout_service.py": {
+      "bytes": 7557,
+      "sha256": "19c15746feafc1dc17fe0ecdfcc02322cefcb7989f8a10a21644b3fb0bda916c"
+    },
+    "market_checker_app/services/nhtsa_negative_review_service.py": {
+      "bytes": 21999,
+      "sha256": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6"
+    },
+    "market_checker_app/services/nhtsa_recall_scout_service.py": {
+      "bytes": 14427,
+      "sha256": "c029146642ac47b6ce2873b08c02c59d83a9efbdebeef0b649b05e510c5a3bb0"
+    },
+    "market_checker_app/services/ofac_scout_service.py": {
+      "bytes": 17978,
+      "sha256": "ce6cf9199eb643eef60e6cd09a972b25f5448ac88a0d9018349c9af6bbc85520"
+    },
+    "market_checker_app/services/ohlc_quality.py": {
+      "bytes": 6698,
+      "sha256": "6180b8468fc3548cf10726c504cdcbae28b41b0d59d057b5f75a720bab7022dc"
+    },
+    "market_checker_app/services/open_position_audit_service.py": {
+      "bytes": 5642,
+      "sha256": "2b31795986e337f28322670fc81e5ea1114177af923f79f57c26311da62127ad"
+    },
+    "market_checker_app/services/pipeline_service.py": {
+      "bytes": 95344,
+      "sha256": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+    },
+    "market_checker_app/services/portfolio_backtest_service.py": {
+      "bytes": 6982,
+      "sha256": "b0be52a4d0a17b053649fca49cf548e579280a410e8ed49617a01a88d0fabc17"
+    },
+    "market_checker_app/services/prediction_label_service.py": {
+      "bytes": 15967,
+      "sha256": "0839eab00e4f5b28bb53983cb3d3dddbff77b005142507f31057396b4b67d190"
+    },
+    "market_checker_app/services/price_methodology.py": {
+      "bytes": 3827,
+      "sha256": "eb052c18498ae635685de714f18468617ea0f7d3a60c26cb309407d82657f674"
+    },
+    "market_checker_app/services/progress_service.py": {
+      "bytes": 5901,
+      "sha256": "fa4a47799b45871c19ef87f0d06865e56c17f74b997c2cd9915ac97a9564687a"
+    },
+    "market_checker_app/services/prospective_forecast_registration_adapter.py": {
+      "bytes": 20290,
+      "sha256": "2735c451dbd0ac2f6454e8561c63038ef565641f8416626794236f26f2c1d8c3"
+    },
+    "market_checker_app/services/prospective_source_manifest_service.py": {
+      "bytes": 19469,
+      "sha256": "62eb0605953f5622f48dbb7246d64f9ab7fc5ad04745aa006510ea0a586fb005"
+    },
+    "market_checker_app/services/prospective_specialist_history.py": {
+      "bytes": 41430,
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    },
+    "market_checker_app/services/public_source_budget.py": {
+      "bytes": 8046,
+      "sha256": "4459bf520c5d38b1a93a5a49fd6a6941a27cf479dfcd0b40bab6d587fb1e868f"
+    },
+    "market_checker_app/services/ranking_service.py": {
+      "bytes": 4786,
+      "sha256": "d72546b6a8f9234f4dc127b25d1f2024f00373694ab5f9d3114878838b23f467"
+    },
+    "market_checker_app/services/regulatory_identity_service.py": {
+      "bytes": 12190,
+      "sha256": "0664ae1de39c67b7ad7f51cb93d5be8c840641ef9cdf5ad19dafc6d5b82b6eab"
+    },
+    "market_checker_app/services/research_profile_service.py": {
+      "bytes": 6228,
+      "sha256": "4a4317d11824aced7218c1b123cecbab85f10e49dff381a5d151ac89c890d8b3"
+    },
+    "market_checker_app/services/resource_margin_scenario_service.py": {
+      "bytes": 6322,
+      "sha256": "9015f53d8595359dd076ab00760ac1fec07afa5b718af166773d026138dd6985"
+    },
+    "market_checker_app/services/sec13f_identity_bulk.py": {
+      "bytes": 53750,
+      "sha256": "d579300dac475688aaf45464df0bfd0226b4f62470ba9cd03fa0f297211d01ba"
+    },
+    "market_checker_app/services/sec13f_scout_service.py": {
+      "bytes": 18575,
+      "sha256": "9b54396271a03ebdefc9a2f4249e3853624a09336a957656fd1d9fc9d0453391"
+    },
+    "market_checker_app/services/sec13f_transition_review.py": {
+      "bytes": 13115,
+      "sha256": "91d8e06d614b7031984ba6b81a14ed44df9691111170f3bc60ee96e283ace546"
+    },
+    "market_checker_app/services/sec_control_instrument_review.py": {
+      "bytes": 19231,
+      "sha256": "d5a0b988e04ec4f682c461baac92f34c404fe8d6a5ac0332500c4f02dfbb83a1"
+    },
+    "market_checker_app/services/sec_corporate_action_bridge.py": {
+      "bytes": 55323,
+      "sha256": "337e73165538d9eb407c46bb13d961820c0f101849bb353687be16068f81827b"
+    },
+    "market_checker_app/services/sec_counterparty_identity.py": {
+      "bytes": 16391,
+      "sha256": "1c206541d360b59872f7d40a1f56d6f7f0ecc9d8afb1d82f1ee78a2009687755"
+    },
+    "market_checker_app/services/sec_document_extraction.py": {
+      "bytes": 9970,
+      "sha256": "b3862e60776fbffb842f790938b913f19a5c1a37fba35ef0813fb56d28be9baf"
+    },
+    "market_checker_app/services/sec_form4_identity_review.py": {
+      "bytes": 18907,
+      "sha256": "2dbe85c8180bc5b38e9454ed1bab61ef8cc4ee97a7f5228cc0106c1d994d352f"
+    },
+    "market_checker_app/services/sec_form4_person_bridge.py": {
+      "bytes": 22929,
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    "market_checker_app/services/sec_form4_service.py": {
+      "bytes": 14080,
+      "sha256": "24705f5eb55594a515b0fc26bb0bc0f323ecd3be70e20aaa7e47c3eb06dd69f9"
+    },
+    "market_checker_app/services/sec_fundamental_feature_service.py": {
+      "bytes": 22447,
+      "sha256": "493406c67a94d96bf0949387234f5c1339a28da4ac38f9af7d158468a8ac3e96"
+    },
+    "market_checker_app/services/sec_ir_disclosure_authority_review.py": {
+      "bytes": 15890,
+      "sha256": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7"
+    },
+    "market_checker_app/services/sec_operational_metrics_review.py": {
+      "bytes": 22925,
+      "sha256": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672"
+    },
+    "market_checker_app/services/sec_owner_instrument_scope_review.py": {
+      "bytes": 24453,
+      "sha256": "9186f28a33361be11cd69bf97722c4fa982137bffa164d7a6b5cd7e5e8f14a44"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20535,
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    "market_checker_app/services/sec_purchase_obligation_scope_review.py": {
+      "bytes": 25736,
+      "sha256": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb"
+    },
+    "market_checker_app/services/sec_scout_service.py": {
+      "bytes": 21194,
+      "sha256": "82b5d1568e3a1617b6f03099c6963a2f4c2dfbcc0b8581779d5f6b155fbaf410"
+    },
+    "market_checker_app/services/sec_supply_chain_scope_review.py": {
+      "bytes": 21380,
+      "sha256": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91"
+    },
+    "market_checker_app/services/sec_symbol_action_scope_review.py": {
+      "bytes": 36059,
+      "sha256": "2004f1891498eb7b46079e1101b5988e32a1d81cf570d5e68207651cbedfa03f"
+    },
+    "market_checker_app/services/short_report_manifest_service.py": {
+      "bytes": 2196,
+      "sha256": "ffc0c20bf5d3e05c40720cd7fca1be749e19c349720ecbd0b6c40e9db0854904"
+    },
+    "market_checker_app/services/source_degradation_service.py": {
+      "bytes": 12498,
+      "sha256": "bbcf7ef1b916f9b56dbd4765e6528418a1a1fdc187e708774ae17bd8821b91cb"
+    },
+    "market_checker_app/services/source_discovery_service.py": {
+      "bytes": 9347,
+      "sha256": "991c61a0da849700be889f66a5a11d4f14a21160bc9717ef4a7aeea958032519"
+    },
+    "market_checker_app/services/specialist_acceptance_service.py": {
+      "bytes": 14656,
+      "sha256": "83fd0c9911db686796bb7bd5241b6cb9cd9cf0598f7c0fc8b500cb6af2e7b13a"
+    },
+    "market_checker_app/services/specialist_evaluation_service.py": {
+      "bytes": 33536,
+      "sha256": "c627b7d3e85cda8ddaf91daeee0ef743a2d57903f78c407d0f02f4bfd693a1b4"
+    },
+    "market_checker_app/services/specialist_identity_config.py": {
+      "bytes": 1681,
+      "sha256": "37f9d434fc0c49b49f007f5a7db74de2e8e687b8dd6d2b59f61622c9c91793f7"
+    },
+    "market_checker_app/services/specialist_incremental_archive_service.py": {
+      "bytes": 37247,
+      "sha256": "c0705ff5c1edf62cfd1f32783c246dd62dfe82de3025181f2e8fcc5e68975d6c"
+    },
+    "market_checker_app/services/specialist_label_availability_service.py": {
+      "bytes": 31558,
+      "sha256": "c7960dbaf1195981283b4a7ccbb41496139b3680d53b2e0b00fac184ad35791b"
+    },
+    "market_checker_app/services/specialist_source_archive_service.py": {
+      "bytes": 26335,
+      "sha256": "e223ecc93672f4f9527d1d4b7b29673d9394ea09a173a6c553f8adca2b4931bd"
+    },
+    "market_checker_app/services/specialist_status_service.py": {
+      "bytes": 1953,
+      "sha256": "5b0e4f17b0a2ef6aaeadf8680a0907410ada38c74c0a980fdf5041ea4b1c980c"
+    },
+    "market_checker_app/services/stage3_manifest_service.py": {
+      "bytes": 14504,
+      "sha256": "c379cbba48fbf2f85620c6e103ace6438cb1fcdd964587131400b099f6a09255"
+    },
+    "market_checker_app/services/stage4_evaluation_service.py": {
+      "bytes": 8537,
+      "sha256": "5f515517bd9d6854bd4ffd1463410fe572709ddb90c846049c9a9c9db44d278c"
+    },
+    "market_checker_app/services/supply_chain_evidence_service.py": {
+      "bytes": 5943,
+      "sha256": "fe306062a60585a569f991a89b99c91320b707eb94db8fbac9d7f7291b9974a8"
+    },
+    "market_checker_app/services/ticker_traceability_service.py": {
+      "bytes": 4872,
+      "sha256": "63d1e31cc958dafc5cb4400cdf52e0faf13e6b3c7aca0bb4cce86dc443cc4189"
+    },
+    "market_checker_app/services/us_equity_calendar.py": {
+      "bytes": 3108,
+      "sha256": "3a9dcc42fe9f9d9c8031fa2dc3183da96afd083fefa1ea17aa29e9cb4b900cdc"
+    },
+    "market_checker_app/services/us_equity_calendar_service.py": {
+      "bytes": 3172,
+      "sha256": "8a4f84fb604c87a859b5bfa479732997ca7f95dd74eedb7d327b3257f649537e"
+    },
+    "market_checker_app/services/usaspending_prime_archive_recovery.py": {
+      "bytes": 24531,
+      "sha256": "fc06959c17b61dca44a59e9a99a191a0d490094db6974cc48c127241a20a3b7c"
+    },
+    "market_checker_app/services/usaspending_recipient_discovery.py": {
+      "bytes": 12715,
+      "sha256": "b6fcb5d657d62cf069e8c0c2580e5b2d5e45846c53d27d23a211215a5c5bd877"
+    },
+    "market_checker_app/services/usaspending_request_budget.py": {
+      "bytes": 8115,
+      "sha256": "38ef97fb6072e6d9e1e87b9cd9cc3b31345b0380a40fa8e2bd9db91d338ea4e0"
+    },
+    "market_checker_app/services/usaspending_scout_service.py": {
+      "bytes": 20281,
+      "sha256": "6a0061a467ccdf1a36d7fe44bd54ee0854eed8498e89a368819b74fc3944900a"
+    },
+    "market_checker_app/services/usaspending_transaction_scout_service.py": {
+      "bytes": 16793,
+      "sha256": "94d8dd6d9a6d88fffbef16fc4bc8b84191e1492d5a49ce907364975eb17b8f42"
+    },
+    "market_checker_app/services/visualization_service.py": {
+      "bytes": 28194,
+      "sha256": "caa41e1a46a909722676e53108db0722b5fd56ae334e900def28139545d349f9"
+    },
+    "market_checker_app/services/watchlist_service.py": {
+      "bytes": 4602,
+      "sha256": "7dde1df152e044c272e030614a6694736d57063da3196c0bc84c39609cd179ba"
+    },
+    "market_checker_app/services/yahoo_corporate_action_history.py": {
+      "bytes": 8636,
+      "sha256": "251e47a2368a1a971bdc1360998805cf158b339e5c7a49041d339e7eaad89de8"
+    },
+    "market_checker_app/services/yahoo_enrichment_service.py": {
+      "bytes": 7228,
+      "sha256": "8b0f44e768e9c82e3a6d3a0663c4d85fdb6fb9b23a0b21ee9897d36755b6638f"
+    },
+    "market_checker_app/services/yahoo_price_provenance_service.py": {
+      "bytes": 14534,
+      "sha256": "7e3d192bbfb154b81bf2862eb2d152c0824500d020916f6580dbc655b999a17d"
+    },
+    "market_checker_app/specialist_evaluation.py": {
+      "bytes": 3502,
+      "sha256": "e6c71c4ffcad6c37531dcdf755dee2fab71e027cad3feff8e005340aaa840e0a"
+    },
+    "market_checker_app/specialist_evidence_runner.py": {
+      "bytes": 8738,
+      "sha256": "fbddc8d03a325fd063a7fa4437cffe7359dfcdba334ba95b3acf6f03f087481c"
+    },
+    "market_checker_app/specialist_evidence_ui.py": {
+      "bytes": 15822,
+      "sha256": "9a7f7be3e21774593139d076eb689000903b2afc4ab0144abb976f76888de695"
+    },
+    "market_checker_app/specialist_live_smoke.py": {
+      "bytes": 20270,
+      "sha256": "87083aeb6c59832a29dda459c9c4f12959c938650648c1acab89c2ec6ef15af5"
+    },
+    "market_checker_app/storage/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "market_checker_app/storage/award_transaction_store.py": {
+      "bytes": 9176,
+      "sha256": "9cb24c9704ffc439818022d79c7f09bf2d9be8829960a793a6cf5ae4b39840d2"
+    },
+    "market_checker_app/storage/prediction_label_queue_store.py": {
+      "bytes": 12069,
+      "sha256": "268a43de0265c94e2c2555373e9b9798f8642115594301cde2660ebc596ec6a5"
+    },
+    "market_checker_app/storage/scout_store.py": {
+      "bytes": 89406,
+      "sha256": "9fba2e0a3bae056be66cbdb9f2073954ac0e6f219df7df6924696d29e86f06f8"
+    },
+    "market_checker_app/storage/sqlite_connection.py": {
+      "bytes": 520,
+      "sha256": "29236f30613e449624203cc33b92bee7a00cff3fd9890612a9dcd35e0ae263ab"
+    },
+    "market_checker_app/storage/sqlite_store.py": {
+      "bytes": 181351,
+      "sha256": "84a8a60e986e23ab09231a19037c14137d87afb5768e6fea61b6c121470dac08"
+    },
+    "market_checker_app/storage/usaspending_checkpoint_store.py": {
+      "bytes": 7443,
+      "sha256": "fe992b053346bfd4aeaeeb65f1914803a1d9e079a60524fe6fea90cdf3b186af"
+    },
+    "market_checker_app/storage/yahoo_cache_store.py": {
+      "bytes": 17465,
+      "sha256": "4013d3194d4a60b2459cfba775054765fbb333c331d1631c72529fda6213e39d"
+    },
+    "market_checker_app/storage/yahoo_ohlc_cache_store.py": {
+      "bytes": 22752,
+      "sha256": "25a5efd79eb12fd96ad2e38128e872cd17aa611a9caed329b760fd10d2d66aed"
+    },
+    "market_checker_app/utils/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "market_checker_app/utils/charts.py": {
+      "bytes": 3597,
+      "sha256": "2a0c3af9cd7b9eee8457bf56785bf5a9348609f885f96fc561e8434b0784e784"
+    },
+    "market_checker_app/utils/dates.py": {
+      "bytes": 238,
+      "sha256": "559237318f05377f5e799f98b160af8d4b6d8923c31ed544c1b5ca349be01cfd"
+    },
+    "market_checker_app/utils/entity_identifiers.py": {
+      "bytes": 2427,
+      "sha256": "cdc5b8bffd43eebc958b1773077a2f9478dff51217fc42b3c308b1d4d3682b95"
+    },
+    "market_checker_app/utils/news_events.py": {
+      "bytes": 2045,
+      "sha256": "08effcb83b4527cd07b8cd7827758a2bbc491892719fd506a78794d25e3a2eb6"
+    },
+    "market_checker_app/utils/progress.py": {
+      "bytes": 232,
+      "sha256": "663cb2206046a75902697cc7a7c9d7f60d3731ff35e46aea5b832e44ab5dfc85"
+    },
+    "market_checker_app/utils/source_validation.py": {
+      "bytes": 1201,
+      "sha256": "f8a89819c327e03e968bf28f525417e91444c1e160cf4820e5e1191c6d127271"
+    },
+    "market_checker_app/utils/symbols.py": {
+      "bytes": 814,
+      "sha256": "5c68062c50cdf1ea18f56c2bd3002be4c601845cd84c31ed0b4588341c209eeb"
+    },
+    "market_checker_app/utils/text.py": {
+      "bytes": 276,
+      "sha256": "3499018ad8233d68f52de1a2d7977f638366983842a98dd0423e87d0763be181"
+    },
+    "market_checker_app/utils/ticker_universe.py": {
+      "bytes": 3411,
+      "sha256": "d4fe3ed1a9bef5fff569c7f42d2627c9a4580812df2ca4344ebd97565535df46"
+    },
+    "market_checker_app/weekly_shadow_runner.py": {
+      "bytes": 64109,
+      "sha256": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91"
+    }
+  }
+}
