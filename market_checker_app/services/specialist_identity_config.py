@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from functools import lru_cache
 from pathlib import Path
 from typing import Mapping
 
@@ -9,6 +10,13 @@ from market_checker_app.services.sec_counterparty_identity import (
     DEFAULT_COUNTERPARTY_IDENTITIES, DatedCounterpartyIdentityRegistry,
 )
 from market_checker_app.services.regulatory_identity_service import RegulatoryIdentityRegistry
+
+DEFAULT_SUBSIDIARY_IDENTITIES = Path(__file__).resolve().parents[1] / 'data/verified_subsidiary_identities.json'
+
+
+@lru_cache(maxsize=4)
+def _combined_registries(base, supplement):
+    return DatedCounterpartyIdentityRegistry([*base.records(), *supplement.records()])
 
 
 def configured_counterparty_identities(
@@ -20,7 +28,11 @@ def configured_counterparty_identities(
     if not configured and not path.exists():
         return DatedCounterpartyIdentityRegistry([]), "UNCONFIGURED"
     try:
-        return DatedCounterpartyIdentityRegistry.load(path), "LOADED"
+        registry = DatedCounterpartyIdentityRegistry.load(path)
+        if not configured:
+            supplement = DatedCounterpartyIdentityRegistry.load(DEFAULT_SUBSIDIARY_IDENTITIES)
+            registry = _combined_registries(registry, supplement)
+        return registry, "LOADED"
     except (OSError, ValueError, TypeError, KeyError):
         return DatedCounterpartyIdentityRegistry([]), "INVALID_IDENTITY_MANIFEST"
 

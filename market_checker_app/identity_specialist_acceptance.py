@@ -25,6 +25,21 @@ from market_checker_app.services.healthcare_coverage_service import SOURCE_PROFI
 from market_checker_app.storage.sqlite_store import SQLiteStore
 from market_checker_app.services.sec13f_identity_bulk import atomic_json,guard_production_write
 from market_checker_app.utils.ticker_universe import load_canonical_tickers
+from market_checker_app.services.specialist_identity_config import configured_counterparty_identities
+from market_checker_app.services.specialist_status_service import load_specialist_status
+from market_checker_app.services.specialist_acceptance_service import audit_specialist_evidence
+
+
+def completion_requirements():
+    # Evaluate the six existing completion requirements without promoting the
+    # inventory. Prepared jobs, successful fixtures and file names are not proof.
+    identity = next(r for r in load_specialist_status()['specialists'] if r['id'] == 'identity')
+    candidate = dict(identity, code='DONE', live='VERIFIED')
+    audit = audit_specialist_evidence([candidate])
+    checks = audit['completion_claims'][0]['checks']
+    return {'checks': checks,
+            'unverified_requirements': [k for k, v in checks.items() if not v['assertion_verified']],
+            'all_required_evidence_verified': audit['all_completion_claims_verified']}
 
 
 def build_report(*,as_of,database,holdout_path=DEFAULT_HOLDOUT):
@@ -34,7 +49,9 @@ def build_report(*,as_of,database,holdout_path=DEFAULT_HOLDOUT):
     result=agent.run(AgentContext(run_id,tuple(tickers),when))
     included=[e for e in result.entities if e.ticker in scope['included']]
     verified=[e for e in included if e.cik and e.metadata.get('instrument_identity_verified')]
-    registry=DatedCounterpartyIdentityRegistry.load();records=registry.records()
+    registry, registry_status = configured_counterparty_identities()
+    if registry_status != 'LOADED':raise ValueError('Invalid configured identity registry')
+    records=registry.records()
     known=[r for r in records if clock(r['known_at'])<=when]
     legal={r['issuer_cik'] for r in known if r['relationship_role']=='DIRECT_ISSUER'
            and r['effective_from']<=when.date().isoformat()
@@ -59,6 +76,9 @@ def build_report(*,as_of,database,holdout_path=DEFAULT_HOLDOUT):
     history=json.loads(history_path.read_text(encoding='utf-8'));old_xom=[r for r in history if r['ticker']=='XOM']
     current_xom=next(e for e in included if e.ticker=='XOM')
     verified_windows=platform.system()=='Windows' and len(persisted)==len(tickers)
+    requirements = completion_requirements()
+    covered = len(verified) == len(included) == 685
+    complete = covered and requirements['all_required_evidence_verified']
     return {'schema_version':1,'specialist':'identity','generated_at':generated.isoformat(),'as_of':when.isoformat(),
         'scope':'Archived issuer/class layer and explicitly documented legal-person/product relationships',
         'platform':platform.platform(),'system':platform.system(),'commit':os.getenv('GITHUB_SHA'),
@@ -74,12 +94,13 @@ def build_report(*,as_of,database,holdout_path=DEFAULT_HOLDOUT):
             'current_cik':current_xom.cik,'historical_file_sha256':hashlib.sha256(history_path.read_bytes()).hexdigest(),
             'separate_issuers_preserved':bool(old_xom) and all(r['issuer_cik']!=current_xom.cik for r in old_xom)},
         'identity_holdout':heldout,'scoring_changed':False,
+        'completion_requirements': requirements,
         'acceptance':{'included_issuer_class_layer_verified':len(verified)==len(included)==685,
             'archived_identity_persistence_verified':len(persisted)==len(versions)==len(tickers),
             'bounded_identity_holdout_verified':heldout['bounded_identity_holdout_verified'],
             'actual_windows_archived_identity_end_to_end_verified':verified_windows,
             'complete_subsidiary_brand_product_catalog_verified':False,
-            'complete_specialist_verified':False}}
+            'complete_specialist_verified':complete}}
 
 
 def main():
@@ -98,7 +119,7 @@ def main():
     passed=all(checks[k] for k in ['included_issuer_class_layer_verified','archived_identity_persistence_verified','bounded_identity_holdout_verified'])
     print(json.dumps({'status':'PASS' if passed else 'FAIL','platform':report['system'],
         'verified_classes':report['verified_registered_classes'],'excluded':list(report['excluded_tickers']),
-        'complete_specialist_verified':False,'output':str(args.output)}))
+        'complete_specialist_verified':checks['complete_specialist_verified'],'output':str(args.output)}))
     raise SystemExit(0 if passed else 1)
 
 

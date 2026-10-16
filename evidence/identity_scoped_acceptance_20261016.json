@@ -7,9 +7,82 @@
     "complete_subsidiary_brand_product_catalog_verified": false,
     "included_issuer_class_layer_verified": true
   },
-  "as_of": "2026-10-16T07:21:16.100501+00:00",
+  "as_of": "2026-10-16T07:39:02.982707+00:00",
   "canonical_tickers": 687,
   "commit": null,
+  "completion_requirements": {
+    "all_required_evidence_verified": false,
+    "checks": {
+      "coverage_evidence": {
+        "assertion": "measured_applicable_coverage_verified",
+        "assertion_verified": false,
+        "content_verified": false,
+        "issues": [
+          "INVALID_REFERENCE",
+          "ASSERTION_NOT_VERIFIED"
+        ],
+        "reference": null
+      },
+      "historical_evaluation_evidence": {
+        "assertion": "out_of_sample_evaluation_verified",
+        "assertion_verified": false,
+        "content_verified": false,
+        "issues": [
+          "INVALID_REFERENCE",
+          "ASSERTION_NOT_VERIFIED"
+        ],
+        "reference": null
+      },
+      "identity_evidence": {
+        "assertion": "dated_issuer_instrument_product_identity_verified",
+        "assertion_verified": false,
+        "content_verified": false,
+        "issues": [
+          "INVALID_REFERENCE",
+          "ASSERTION_NOT_VERIFIED"
+        ],
+        "reference": null
+      },
+      "negative_live_evidence": {
+        "assertion": "negative_live_case_verified",
+        "assertion_verified": false,
+        "content_verified": false,
+        "issues": [
+          "INVALID_REFERENCE",
+          "ASSERTION_NOT_VERIFIED"
+        ],
+        "reference": null
+      },
+      "positive_live_evidence": {
+        "assertion": "positive_live_case_verified",
+        "assertion_verified": false,
+        "content_verified": false,
+        "issues": [
+          "INVALID_REFERENCE",
+          "ASSERTION_NOT_VERIFIED"
+        ],
+        "reference": null
+      },
+      "windows_run_evidence": {
+        "assertion": "actual_windows_end_to_end_verified",
+        "assertion_verified": false,
+        "content_verified": false,
+        "issues": [
+          "INVALID_REFERENCE",
+          "ASSERTION_NOT_VERIFIED"
+        ],
+        "reference": null
+      }
+    },
+    "unverified_requirements": [
+      "identity_evidence",
+      "positive_live_evidence",
+      "negative_live_evidence",
+      "windows_run_evidence",
+      "coverage_evidence",
+      "historical_evaluation_evidence"
+    ]
+  },
   "excluded_tickers": {
     "LEG": {
       "known_at": "2026-10-15T07:39:27+00:00",
@@ -22,7 +95,7 @@
       "ticker": "OZK"
     }
   },
-  "generated_at": "2026-10-16T07:21:16.100514+00:00",
+  "generated_at": "2026-10-16T07:39:02.982719+00:00",
   "historical_xom": {
     "current_cik": "0002115436",
     "historical_file_sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
@@ -397,7 +470,7 @@
     }
   },
   "persistence": {
-    "database": "outputs/identity-final-reviewed-20261016.db",
+    "database": "outputs/identity-subsidiary-replay-20261016.db",
     "entities": 687,
     "versions": 687
   },
@@ -410,7 +483,7 @@
   "scope_sha256": "1dd6f9f15faf091c049a98add2bcfb381e3b91832a873e7d264bc38efa5e8b06",
   "scoring_changed": false,
   "specialist": "identity",
-  "subsidiary_observations": 2,
+  "subsidiary_observations": 9,
   "system": "Linux",
   "unresolved_included_tickers": [],
   "verified_registered_classes": 685

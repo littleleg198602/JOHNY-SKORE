@@ -1,0 +1,49 @@
+name: Identity specialist acceptance
+
+on:
+  push:
+    branches: [codex/identity-specialist-1-20261016]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  identity-windows:
+    name: Specialist 1 on Windows
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            market_checker_app/requirements.txt
+            market_checker_app/constraints.txt
+      - name: Install pinned dependencies
+        run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
+      - name: Compile identity runtime and tests
+        run: python -m compileall -q market_checker_app tests
+      - name: Verify dated identity, evidence and persistence contracts
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force outputs | Out-Null
+          python -X utf8 -m unittest tests.test_identity_scope tests.test_primary_listing_service tests.test_primary_listing_registry tests.test_primary_listing_capture tests.test_reviewed_identity_runtime tests.test_entity_identity_stage51 tests.test_legal_entity_evidence tests.test_primary_identity_registry tests.test_counterparty_primary_registry tests.test_counterparty_registry_cache tests.test_subsidiary_source_replay tests.test_identity_holdout_acceptance tests.test_sec13f_identity_transitions -v *> outputs/identity-windows-tests.log
+          $identityTestExit = $LASTEXITCODE
+          Get-Content outputs/identity-windows-tests.log
+          exit $identityTestExit
+      - name: Replay canonical identity scope through Windows SQLite
+        run: python -X utf8 -m market_checker_app.identity_specialist_acceptance --archived-cutoff --output outputs/identity-windows-replay.json --database outputs/identity-windows-replay.db
+      - name: Replay additional retained subsidiary sources
+        run: python -X utf8 -c "from market_checker_app.services.subsidiary_source_replay import replay_subsidiary_sources; rows = replay_subsidiary_sources(); assert len(rows) == 7; print('Verified seven separate legal children from primary bytes')"
+      - name: Preserve identity evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: identity-specialist-windows
+          path: |
+            outputs/identity-windows-tests.log
+            outputs/identity-windows-replay.json
+          if-no-files-found: error

@@ -118,3 +118,33 @@ of the entire progress history without weakening snapshot isolation.
 The separate current-cutoff acceptance replay also passed with 685 verified
 registered classes and 687 persisted canonical identities. Neither Linux result
 is evidence of an executed Windows job or complete relationship portfolios.
+
+## Additional subsidiary sources, October 16
+
+The frozen 683-issuer registry and its ten-document holdout are unchanged. A
+separate default supplement adds seven independently identified legal children:
+American Airlines (AAL), United Airlines (UAL), Consumers Energy (CMS),
+Southern California Gas (SRE), CCO Holdings LLC and CCO Holdings Capital Corp
+(CHTR), and Commonwealth Edison (EXC). Combined coverage is nine dated
+subsidiary observations. Each observation applies only to the single date
+explicitly quoted by its Exhibit 21, not uninterrupted or current ownership.
+
+`evidence/subsidiary_sources_20261016.json` retains compressed publisher bytes
+for the child filings, parent filing indexes and linked exhibits. The replay
+validates checksums, own CIK/name contexts, the exact accession/index link and
+document type, literal heading/row/date and knowledge cutoffs. Fuzzy matches,
+joint-registrant headings and a prefix shared by different legal persons do
+not qualify. A corrupt default supplement invalidates the configured registry;
+it cannot silently degrade to the smaller baseline. A custom registry file
+continues to select only that explicitly configured registry.
+
+To reproduce the reviewed supplement from primary bytes:
+
+```sh
+python -c "from market_checker_app.services.subsidiary_source_replay import replay_subsidiary_sources; print(len(replay_subsidiary_sources()))"
+```
+
+The acceptance replay now evaluates the inventory's six existing completion
+evidence requirements and lists unverified references. Successful bounded
+Linux replay remains distinct from complete-specialist acceptance. Wider
+relationships, product scope and Windows execution are still not certified.

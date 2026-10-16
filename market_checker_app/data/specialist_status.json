@@ -10,7 +10,7 @@
       "research": "01-04, 14",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "User excludes OZK and LEG from specialist completion scope from October 15; canonical history is retained. Required issuer/class layer is 685/685, with 683 independently sourced legal issuers and two dated subsidiary observations in the default registry. Ten additional primary documents are held out after freezing the registry: five correct identifications, five date-scope abstentions, no wrong CIK/financial attribution or preknowledge leakage. Retained 519 healthcare object identities are measured separately; broader subsidiary/brand/product portfolios are not certified complete. Remaining: observed Windows end-to-end run (prepared in CI; GitHub API access currently denied) and wider relevant relationship coverage. No score activation or complete-specialist claim.",
+      "next": "User excludes OZK and LEG from specialist completion scope from October 15; canonical history is retained. Required issuer/class layer is 685/685, with 683 independently sourced legal issuers and nine dated subsidiary observations in the default registry. Ten additional primary documents are held out after freezing the registry: five correct identifications, five date-scope abstentions, no wrong CIK/financial attribution or preknowledge leakage. Retained 519 healthcare object identities are measured separately; broader subsidiary/brand/product portfolios are not certified complete. Remaining: observed Windows end-to-end run (dedicated CI prepared; GitHub API denied but Actions web page is accessible) and wider relevant relationship coverage. No score activation or complete-specialist claim.",
       "development_lane": "identity_bulk",
       "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json",
@@ -25,7 +25,8 @@
       "required_ticker_count": 685,
       "scoped_acceptance_evidence": "evidence/identity_scoped_acceptance_20261016.json",
       "holdout_source_evidence": "evidence/identity_holdout_sources_20261015.json",
-      "scoped_test_evidence": "evidence/identity_scoped_tests_20261016.json"
+      "scoped_test_evidence": "evidence/identity_scoped_tests_20261016.json",
+      "subsidiary_primary_evidence": "evidence/subsidiary_sources_20261016.json"
     },
     {
       "id": "sec",

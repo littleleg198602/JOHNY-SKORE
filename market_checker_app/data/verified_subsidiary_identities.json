@@ -1,0 +1,537 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "record_id": "sec-child-0000004515",
+      "disclosed_name": "AMERICAN AIRLINES, INC.",
+      "legal_name": "AMERICAN AIRLINES, INC.",
+      "relationship_role": "SUBSIDIARY_OF_ISSUER",
+      "entity_identifier": {
+        "scheme": "CIK",
+        "authority": "SEC",
+        "value": "0000004515"
+      },
+      "issuer_ticker": "AAL",
+      "issuer_cik": "0000006201",
+      "issuer_legal_name": "AMERICAN AIRLINES GROUP INC.",
+      "effective_from": "2025-12-31",
+      "effective_to": "2026-01-01",
+      "known_at": "2026-10-16T07:38:43.819307+00:00",
+      "evidence": [
+        {
+          "purpose": "ENTITY_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/4515/000000620126000051/aal-20260723.htm",
+          "locator": "Inline XBRL own registrant name/CIK; context c-2",
+          "publisher": "SEC EDGAR",
+          "quote": "AMERICAN AIRLINES, INC. CIK 0000004515",
+          "published_at": "2026-07-23T11:00:28+00:00",
+          "observed_at": "2026-10-16T07:32:52.768702+00:00",
+          "sha256": "75e816b3cb5a1b9d931d6fcde7091ee0f4baf4a5924894e5eefc9e6d4588110c",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "AMERICAN AIRLINES, INC.",
+            "cik": "0000004515",
+            "context_ref": "c-2"
+          }
+        },
+        {
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/6201/000000620126000051/aal-20260723.htm",
+          "locator": "Inline XBRL dei:EntityRegistrantName and own xbrli:identifier; context c-1; exact class context c-3",
+          "publisher": "SEC EDGAR",
+          "quote": "AMERICAN AIRLINES GROUP INC. CIK 0000006201 Trading Symbol AAL",
+          "published_at": "2026-07-23T11:00:28+00:00",
+          "observed_at": "2026-10-14T13:34:34.922584+00:00",
+          "sha256": "93a26a3d4f073abd3e4b34829dba544ab5ecca41a5db80d94b1c8b1b443adcd1",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "AMERICAN AIRLINES GROUP INC.",
+            "cik": "0000006201",
+            "context_ref": "c-1"
+          }
+        },
+        {
+          "purpose": "ENTITY_TO_ISSUER",
+          "url": "https://www.sec.gov/Archives/edgar/data/6201/000000620126000014/ex211q42510k.htm",
+          "locator": "Reviewed Exhibit 21 heading, date and exact subsidiary row",
+          "publisher": "SEC EDGAR",
+          "quote": "EX-21.1 7 ex211q42510k.htm EX-21.1 Document Exhibit 21.1 American Airlines Group Inc. Subsidiaries of the Registrant As of December 31, 2025 Subsidiary companies of American Airlines Group Inc. are listed below. With respect to the companies named, all voting securities are owned directly or indirectly by the Registrant, except where otherwise indicated. Name of Subsidiary State or Sovereign Power of Incorporation Subsidiaries included in the Registrant’s consolidated financial statements AAG Private Placement-1 Parent LLC Delaware AAG Private Placement-1 LLC Delaware  [...] December 31, 2025 [...] American Airlines, Inc. Delaware",
+          "published_at": "2026-02-18T21:46:12+00:00",
+          "observed_at": "2026-10-16T07:32:54.133740+00:00",
+          "sha256": "e4fea85a575258b1d547479ee169be25c141a874c376f13b9077b1e359617401",
+          "representation": "SEC_EXHIBIT_21_ROW",
+          "exhibit_row": {
+            "parent_legal_name": "AMERICAN AIRLINES GROUP INC.",
+            "parent_cik": "0000006201",
+            "child_legal_name": "AMERICAN AIRLINES, INC.",
+            "relationship_scope": "SUBSIDIARY",
+            "document_type": "EX-21.1",
+            "row_text": "American Airlines, Inc. Delaware"
+          }
+        }
+      ],
+      "scope": "AS_REPORTED_ONLY; no uninterrupted ownership or parent financial attribution",
+      "required_evidence_purposes": [
+        "ENTITY_IDENTITY",
+        "ENTITY_TO_ISSUER",
+        "ISSUER_IDENTITY"
+      ]
+    },
+    {
+      "record_id": "sec-child-0000319687",
+      "disclosed_name": "UNITED AIRLINES, INC",
+      "legal_name": "UNITED AIRLINES, INC",
+      "relationship_role": "SUBSIDIARY_OF_ISSUER",
+      "entity_identifier": {
+        "scheme": "CIK",
+        "authority": "SEC",
+        "value": "0000319687"
+      },
+      "issuer_ticker": "UAL",
+      "issuer_cik": "0000100517",
+      "issuer_legal_name": "UNITED AIRLINES HOLDINGS, INC.",
+      "effective_from": "2026-02-12",
+      "effective_to": "2026-02-13",
+      "known_at": "2026-10-16T07:38:43.819307+00:00",
+      "evidence": [
+        {
+          "purpose": "ENTITY_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/319687/000010051726000135/ual-20260715.htm",
+          "locator": "Inline XBRL own registrant name/CIK; context c-2",
+          "publisher": "SEC EDGAR",
+          "quote": "UNITED AIRLINES, INC CIK 0000319687",
+          "published_at": "2026-07-15T20:00:02+00:00",
+          "observed_at": "2026-10-16T07:33:00.406243+00:00",
+          "sha256": "f1b3e17a8f91e0bd62c724516d5875223abe8b98c90c855d781e138a7dbb5c5a",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "UNITED AIRLINES, INC",
+            "cik": "0000319687",
+            "context_ref": "c-2"
+          }
+        },
+        {
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/100517/000010051726000135/ual-20260715.htm",
+          "locator": "Inline XBRL dei:EntityRegistrantName and own xbrli:identifier; context c-1; exact class context c-3",
+          "publisher": "SEC EDGAR",
+          "quote": "UNITED AIRLINES HOLDINGS, INC. CIK 0000100517 Trading Symbol UAL",
+          "published_at": "2026-07-15T20:00:02+00:00",
+          "observed_at": "2026-10-14T13:32:22.990224+00:00",
+          "sha256": "14928e3d66b1f741543c9c38f8dfb521cc4a838d48d7468a316fa54c0b6bd605",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "UNITED AIRLINES HOLDINGS, INC.",
+            "cik": "0000100517",
+            "context_ref": "c-1"
+          }
+        },
+        {
+          "purpose": "ENTITY_TO_ISSUER",
+          "url": "https://www.sec.gov/Archives/edgar/data/100517/000010051726000023/ual_12312510kex21.htm",
+          "locator": "Reviewed Exhibit 21 heading, date and exact subsidiary row",
+          "publisher": "SEC EDGAR",
+          "quote": "EX-21 9 ual_12312510kex21.htm EX-21 Document Exhibit 21 Uni ted Airlines Holdings, Inc. and United Airlines, Inc. Subsidiaries (as of February 12, 2026) Entity Jurisdiction of Incorporation United Airlines Holdings, Inc. Delaware Wholly-owned subsidiaries * :  [...] February 12, 2026 [...] United Airlines, Inc. Delaware",
+          "published_at": "2026-02-12T21:45:39+00:00",
+          "observed_at": "2026-10-16T07:33:01.586071+00:00",
+          "sha256": "cc871a87deb4280ce0480e81fb45d17da3db6e346443f975b64819a273ce18de",
+          "representation": "SEC_EXHIBIT_21_ROW",
+          "exhibit_row": {
+            "parent_legal_name": "UNITED AIRLINES HOLDINGS, INC.",
+            "parent_cik": "0000100517",
+            "child_legal_name": "UNITED AIRLINES, INC",
+            "relationship_scope": "SUBSIDIARY",
+            "document_type": "EX-21",
+            "row_text": "United Airlines, Inc. Delaware"
+          }
+        }
+      ],
+      "scope": "AS_REPORTED_ONLY; no uninterrupted ownership or parent financial attribution",
+      "required_evidence_purposes": [
+        "ENTITY_IDENTITY",
+        "ENTITY_TO_ISSUER",
+        "ISSUER_IDENTITY"
+      ]
+    },
+    {
+      "record_id": "sec-child-0000201533",
+      "disclosed_name": "CONSUMERS ENERGY COMPANY",
+      "legal_name": "CONSUMERS ENERGY COMPANY",
+      "relationship_role": "SUBSIDIARY_OF_ISSUER",
+      "entity_identifier": {
+        "scheme": "CIK",
+        "authority": "SEC",
+        "value": "0000201533"
+      },
+      "issuer_ticker": "CMS",
+      "issuer_cik": "0000811156",
+      "issuer_legal_name": "CMS ENERGY CORPORATION",
+      "effective_from": "2025-12-31",
+      "effective_to": "2026-01-01",
+      "known_at": "2026-10-16T07:38:43.819307+00:00",
+      "evidence": [
+        {
+          "purpose": "ENTITY_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/201533/000110465926087288/tm2621427d1_8k.htm",
+          "locator": "Inline XBRL own registrant name/CIK; context From2026-07-282026-07-28_custom_ConsumersEnergyCompanyMember",
+          "publisher": "SEC EDGAR",
+          "quote": "CONSUMERS ENERGY COMPANY CIK 0000201533",
+          "published_at": "2026-07-28T10:38:12+00:00",
+          "observed_at": "2026-10-16T07:33:06.789808+00:00",
+          "sha256": "dc6f46a1e24c6e7245a5a99b0d419fbb85119c5a15cc24c31d541c04899c661d",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "CONSUMERS ENERGY COMPANY",
+            "cik": "0000201533",
+            "context_ref": "From2026-07-282026-07-28_custom_ConsumersEnergyCompanyMember"
+          }
+        },
+        {
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/811156/000110465926087288/tm2621427d1_8k.htm",
+          "locator": "Inline XBRL dei:EntityRegistrantName and own xbrli:identifier; context AsOf2026-07-28; exact class context From2026-07-282026-07-28_us-gaap_CommonStockMember",
+          "publisher": "SEC EDGAR",
+          "quote": "CMS ENERGY CORPORATION CIK 0000811156 Trading Symbol CMS",
+          "published_at": "2026-07-28T10:38:12+00:00",
+          "observed_at": "2026-10-14T13:33:13.282992+00:00",
+          "sha256": "330d338bb16053ddb8d9cadc1dbbcf8d1f63b2452292553cce86ec2f8f273e50",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "CMS ENERGY CORPORATION",
+            "cik": "0000811156",
+            "context_ref": "AsOf2026-07-28"
+          }
+        },
+        {
+          "purpose": "ENTITY_TO_ISSUER",
+          "url": "https://www.sec.gov/Archives/edgar/data/811156/000081115626000004/cms10k20251231_ex21-1.htm",
+          "locator": "Reviewed Exhibit 21 heading, date and exact subsidiary row",
+          "publisher": "SEC EDGAR",
+          "quote": "EX-21.1 7 cms10k20251231_ex21-1.htm EXHIBIT 21.1 - SUBSIDIARIES (CMS ENERGY AND CONSUMERS) Document Exhibit 21.1 For the purpose of this filing, information is organized under the headings of CMS Energy Corporation (Tier 1), CMS Capital, L.L.C. (Tier 2), NorthStar Clean Energy Company, formerly known as CMS Enterprises Company (Tier 2), CMS Treasury Services, LLC (Tier 2), and Consumers Energy Company (Tier 2). As set forth in detail below, CMS Energy Corporation is the parent company of CMS Capital, L.L.C., NorthStar Clean Energy Company, CMS Treasury Services, LLC, and Consumers Energy Company. All ownership interests are 100 percent unless indicated parenthetically to the contrary and are accurate as of December 31, 2025.  [...] December 31, 2025 [...] 02 Consumers Energy Company Michigan",
+          "published_at": "2026-02-10T16:30:40+00:00",
+          "observed_at": "2026-10-16T07:33:08.003279+00:00",
+          "sha256": "725212d4030f77b1cc1ef26d7eef05bd8dfff1660e1f89ef5bbd31235d65a6ca",
+          "representation": "SEC_EXHIBIT_21_ROW",
+          "exhibit_row": {
+            "parent_legal_name": "CMS ENERGY CORPORATION",
+            "parent_cik": "0000811156",
+            "child_legal_name": "CONSUMERS ENERGY COMPANY",
+            "relationship_scope": "SUBSIDIARY",
+            "document_type": "EX-21.1",
+            "row_text": "02 Consumers Energy Company Michigan"
+          }
+        }
+      ],
+      "scope": "AS_REPORTED_ONLY; no uninterrupted ownership or parent financial attribution",
+      "required_evidence_purposes": [
+        "ENTITY_IDENTITY",
+        "ENTITY_TO_ISSUER",
+        "ISSUER_IDENTITY"
+      ]
+    },
+    {
+      "record_id": "sec-child-0000092108",
+      "disclosed_name": "SOUTHERN CALIFORNIA GAS COMPANY",
+      "legal_name": "SOUTHERN CALIFORNIA GAS COMPANY",
+      "relationship_role": "SUBSIDIARY_OF_ISSUER",
+      "entity_identifier": {
+        "scheme": "CIK",
+        "authority": "SEC",
+        "value": "0000092108"
+      },
+      "issuer_ticker": "SRE",
+      "issuer_cik": "0001032208",
+      "issuer_legal_name": "Sempra",
+      "effective_from": "2025-12-31",
+      "effective_to": "2026-01-01",
+      "known_at": "2026-10-16T07:38:43.819307+00:00",
+      "evidence": [
+        {
+          "purpose": "ENTITY_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/92108/000119312526361126/d417152d8k.htm",
+          "locator": "Inline XBRL own registrant name/CIK; context P08_21_2026To08_21_2026",
+          "publisher": "SEC EDGAR",
+          "quote": "SOUTHERN CALIFORNIA GAS COMPANY CIK 0000092108",
+          "published_at": "2026-08-21T20:17:01+00:00",
+          "observed_at": "2026-10-16T07:33:10.103382+00:00",
+          "sha256": "dd83468d899dd289868dd61fa826f4f9ed2f7f41b5e9b8ff84a241ba56306988",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "SOUTHERN CALIFORNIA GAS COMPANY",
+            "cik": "0000092108",
+            "context_ref": "P08_21_2026To08_21_2026"
+          }
+        },
+        {
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220826000043/sempra-20260806.htm",
+          "locator": "Inline XBRL dei:EntityRegistrantName and own xbrli:identifier; context c-1; exact class context c-4",
+          "publisher": "SEC EDGAR",
+          "quote": "Sempra CIK 0001032208 Trading Symbol SRE",
+          "published_at": "2026-08-06T14:50:58+00:00",
+          "observed_at": "2026-10-14T13:47:37.260030+00:00",
+          "sha256": "30303255dece26d25322441d7b1618b0d3a5801692a621ad7a043f54234b07ff",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "Sempra",
+            "cik": "0001032208",
+            "context_ref": "c-1"
+          }
+        },
+        {
+          "purpose": "ENTITY_TO_ISSUER",
+          "url": "https://www.sec.gov/Archives/edgar/data/1032208/000103220826000010/sempra-123125xex211.htm",
+          "locator": "Reviewed Exhibit 21 heading, date and exact subsidiary row",
+          "publisher": "SEC EDGAR",
+          "quote": "EX-21.1 8 sempra-123125xex211.htm EX-21.1 Document Exhibit 21.1 Sempra Schedule of Certain Subsidiaries at December 31, 2025 Subsidiary State of Incorporation or Other Jurisdiction San Diego Gas & Electric Company California Sempra Infrastructure Partners, LP Delaware Sempra Texas Intermediate Holding Company LLC Delaware  [...] December 31, 2025 [...] Southern California Gas Company California",
+          "published_at": "2026-02-26T22:11:32+00:00",
+          "observed_at": "2026-10-16T07:33:11.330677+00:00",
+          "sha256": "fc661ed2b59c3308ac4f0d10434a0e8860b3dbf3e3d0a7ace018573463c79e4e",
+          "representation": "SEC_EXHIBIT_21_ROW",
+          "exhibit_row": {
+            "parent_legal_name": "Sempra",
+            "parent_cik": "0001032208",
+            "child_legal_name": "SOUTHERN CALIFORNIA GAS COMPANY",
+            "relationship_scope": "SUBSIDIARY",
+            "document_type": "EX-21.1",
+            "row_text": "Southern California Gas Company California"
+          }
+        }
+      ],
+      "scope": "AS_REPORTED_ONLY; no uninterrupted ownership or parent financial attribution",
+      "required_evidence_purposes": [
+        "ENTITY_IDENTITY",
+        "ENTITY_TO_ISSUER",
+        "ISSUER_IDENTITY"
+      ]
+    },
+    {
+      "record_id": "sec-child-0001271833",
+      "disclosed_name": "CCO Holdings, LLC",
+      "legal_name": "CCO Holdings, LLC",
+      "relationship_role": "SUBSIDIARY_OF_ISSUER",
+      "entity_identifier": {
+        "scheme": "CIK",
+        "authority": "SEC",
+        "value": "0001271833"
+      },
+      "issuer_ticker": "CHTR",
+      "issuer_cik": "0001091667",
+      "issuer_legal_name": "Charter Communications, Inc.",
+      "effective_from": "2025-12-31",
+      "effective_to": "2026-01-01",
+      "known_at": "2026-10-16T07:38:43.819307+00:00",
+      "evidence": [
+        {
+          "purpose": "ENTITY_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/1271833/000114036126039336/ef20083641_8k.htm",
+          "locator": "Inline XBRL own registrant name/CIK; context c20261006to20261006_LegalEntityAxis_CCOHOLDINGSLLCMember",
+          "publisher": "SEC EDGAR",
+          "quote": "CCO Holdings, LLC CIK 0001271833",
+          "published_at": "2026-10-13T14:02:10+00:00",
+          "observed_at": "2026-10-16T07:33:15.233745+00:00",
+          "sha256": "be3b333ffb15e74128f86064261a9ec415f499a0acd90d4023f61bb76dd5486b",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "CCO Holdings, LLC",
+            "cik": "0001271833",
+            "context_ref": "c20261006to20261006_LegalEntityAxis_CCOHOLDINGSLLCMember"
+          }
+        },
+        {
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/1091667/000114036126039336/ef20083641_8k.htm",
+          "locator": "Inline XBRL dei:EntityRegistrantName and own xbrli:identifier; context c20261006to20261006; exact class context c20261006to20261006_StatementClassOfStockAxis_CommonStockMember",
+          "publisher": "SEC EDGAR",
+          "quote": "Charter Communications, Inc. CIK 0001091667 Trading Symbol CHTR",
+          "published_at": "2026-10-13T14:02:10+00:00",
+          "observed_at": "2026-10-14T13:33:22.112127+00:00",
+          "sha256": "d4ea28695c916688d5ed03f3840512f96f02197c7ec3d1d84b18d332cd8360ff",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "Charter Communications, Inc.",
+            "cik": "0001091667",
+            "context_ref": "c20261006to20261006"
+          }
+        },
+        {
+          "purpose": "ENTITY_TO_ISSUER",
+          "url": "https://www.sec.gov/Archives/edgar/data/1091667/000109166726000017/chtr123125exh-211.htm",
+          "locator": "Reviewed Exhibit 21 heading, date and exact subsidiary row",
+          "publisher": "SEC EDGAR",
+          "quote": "EX-21.1 2 chtr123125exh-211.htm EX-21.1 Document EXHIBIT 21.1 Subsidiaries of Charter Communications, Inc. Entity Jurisdiction and Type December 31, 2025  [...] December 31, 2025 [...] CCO Holdings, LLC Delaware limited liability company",
+          "published_at": "2026-01-30T17:01:50+00:00",
+          "observed_at": "2026-10-16T07:33:16.219141+00:00",
+          "sha256": "b5220a84e2fcc2e88c044976f67be3ef10ac1380814769945610a335093d084d",
+          "representation": "SEC_EXHIBIT_21_ROW",
+          "exhibit_row": {
+            "parent_legal_name": "Charter Communications, Inc.",
+            "parent_cik": "0001091667",
+            "child_legal_name": "CCO Holdings, LLC",
+            "relationship_scope": "SUBSIDIARY",
+            "document_type": "EX-21.1",
+            "row_text": "CCO Holdings, LLC Delaware limited liability company"
+          }
+        }
+      ],
+      "scope": "AS_REPORTED_ONLY; no uninterrupted ownership or parent financial attribution",
+      "required_evidence_purposes": [
+        "ENTITY_IDENTITY",
+        "ENTITY_TO_ISSUER",
+        "ISSUER_IDENTITY"
+      ]
+    },
+    {
+      "record_id": "sec-child-0001271834",
+      "disclosed_name": "CCO Holdings Capital Corp.",
+      "legal_name": "CCO Holdings Capital Corp.",
+      "relationship_role": "SUBSIDIARY_OF_ISSUER",
+      "entity_identifier": {
+        "scheme": "CIK",
+        "authority": "SEC",
+        "value": "0001271834"
+      },
+      "issuer_ticker": "CHTR",
+      "issuer_cik": "0001091667",
+      "issuer_legal_name": "Charter Communications, Inc.",
+      "effective_from": "2025-12-31",
+      "effective_to": "2026-01-01",
+      "known_at": "2026-10-16T07:38:43.819307+00:00",
+      "evidence": [
+        {
+          "purpose": "ENTITY_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/1271834/000114036126039336/ef20083641_8k.htm",
+          "locator": "Inline XBRL own registrant name/CIK; context c20261006to20261006_LegalEntityAxis_CCOHOLDINGSCAPITALCORPMember",
+          "publisher": "SEC EDGAR",
+          "quote": "CCO Holdings Capital Corp. CIK 0001271834",
+          "published_at": "2026-10-13T14:02:10+00:00",
+          "observed_at": "2026-10-16T07:33:16.633563+00:00",
+          "sha256": "be3b333ffb15e74128f86064261a9ec415f499a0acd90d4023f61bb76dd5486b",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "CCO Holdings Capital Corp.",
+            "cik": "0001271834",
+            "context_ref": "c20261006to20261006_LegalEntityAxis_CCOHOLDINGSCAPITALCORPMember"
+          }
+        },
+        {
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/1091667/000114036126039336/ef20083641_8k.htm",
+          "locator": "Inline XBRL dei:EntityRegistrantName and own xbrli:identifier; context c20261006to20261006; exact class context c20261006to20261006_StatementClassOfStockAxis_CommonStockMember",
+          "publisher": "SEC EDGAR",
+          "quote": "Charter Communications, Inc. CIK 0001091667 Trading Symbol CHTR",
+          "published_at": "2026-10-13T14:02:10+00:00",
+          "observed_at": "2026-10-14T13:33:22.112127+00:00",
+          "sha256": "d4ea28695c916688d5ed03f3840512f96f02197c7ec3d1d84b18d332cd8360ff",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "Charter Communications, Inc.",
+            "cik": "0001091667",
+            "context_ref": "c20261006to20261006"
+          }
+        },
+        {
+          "purpose": "ENTITY_TO_ISSUER",
+          "url": "https://www.sec.gov/Archives/edgar/data/1091667/000109166726000017/chtr123125exh-211.htm",
+          "locator": "Reviewed Exhibit 21 heading, date and exact subsidiary row",
+          "publisher": "SEC EDGAR",
+          "quote": "EX-21.1 2 chtr123125exh-211.htm EX-21.1 Document EXHIBIT 21.1 Subsidiaries of Charter Communications, Inc. Entity Jurisdiction and Type December 31, 2025  [...] December 31, 2025 [...] CCO Holdings Capital Corp. Delaware corporation",
+          "published_at": "2026-01-30T17:01:50+00:00",
+          "observed_at": "2026-10-16T07:33:16.219141+00:00",
+          "sha256": "b5220a84e2fcc2e88c044976f67be3ef10ac1380814769945610a335093d084d",
+          "representation": "SEC_EXHIBIT_21_ROW",
+          "exhibit_row": {
+            "parent_legal_name": "Charter Communications, Inc.",
+            "parent_cik": "0001091667",
+            "child_legal_name": "CCO Holdings Capital Corp.",
+            "relationship_scope": "SUBSIDIARY",
+            "document_type": "EX-21.1",
+            "row_text": "CCO Holdings Capital Corp. Delaware corporation"
+          }
+        }
+      ],
+      "scope": "AS_REPORTED_ONLY; no uninterrupted ownership or parent financial attribution",
+      "required_evidence_purposes": [
+        "ENTITY_IDENTITY",
+        "ENTITY_TO_ISSUER",
+        "ISSUER_IDENTITY"
+      ]
+    },
+    {
+      "record_id": "sec-child-0000022606",
+      "disclosed_name": "COMMONWEALTH EDISON COMPANY",
+      "legal_name": "COMMONWEALTH EDISON COMPANY",
+      "relationship_role": "SUBSIDIARY_OF_ISSUER",
+      "entity_identifier": {
+        "scheme": "CIK",
+        "authority": "SEC",
+        "value": "0000022606"
+      },
+      "issuer_ticker": "EXC",
+      "issuer_cik": "0001109357",
+      "issuer_legal_name": "EXELON CORPORATION",
+      "effective_from": "2025-12-31",
+      "effective_to": "2026-01-01",
+      "known_at": "2026-10-16T07:38:43.819307+00:00",
+      "evidence": [
+        {
+          "purpose": "ENTITY_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/22606/000110935726000084/exc-20260825.htm",
+          "locator": "Inline XBRL own registrant name/CIK; context c-1",
+          "publisher": "SEC EDGAR",
+          "quote": "COMMONWEALTH EDISON COMPANY CIK 0000022606",
+          "published_at": "2026-08-26T00:38:30+00:00",
+          "observed_at": "2026-10-16T07:33:17.065253+00:00",
+          "sha256": "bb46cb22956a407b19c080cd41a7e95fda9b09a965e71f1c304135e9ed75e1fe",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "COMMONWEALTH EDISON COMPANY",
+            "cik": "0000022606",
+            "context_ref": "c-1"
+          }
+        },
+        {
+          "purpose": "ISSUER_IDENTITY",
+          "url": "https://www.sec.gov/Archives/edgar/data/1109357/000110935726000084/exc-20260825.htm",
+          "locator": "Inline XBRL dei:EntityRegistrantName and own xbrli:identifier; context c-2; exact class context c-2",
+          "publisher": "SEC EDGAR",
+          "quote": "EXELON CORPORATION CIK 0001109357 Trading Symbol EXC",
+          "published_at": "2026-08-26T00:38:30+00:00",
+          "observed_at": "2026-10-14T13:32:07.983502+00:00",
+          "sha256": "650f45674bbae9e0257bbaf739d173977f2bed014a500a70696d49527cda81a5",
+          "representation": "VALIDATED_INLINE_XBRL_FACTS",
+          "fact_projection": {
+            "legal_name": "EXELON CORPORATION",
+            "cik": "0001109357",
+            "context_ref": "c-2"
+          }
+        },
+        {
+          "purpose": "ENTITY_TO_ISSUER",
+          "url": "https://www.sec.gov/Archives/edgar/data/1109357/000110935726000018/exc-20251231x10kxexh211.htm",
+          "locator": "Reviewed Exhibit 21 heading, date and exact subsidiary row",
+          "publisher": "SEC EDGAR",
+          "quote": "EX-21.1 8 exc-20251231x10kxexh211.htm SUBSIDIARIES - EXELON CORPORATION Document Exhibit 21.1 Exelon Corporation (50% and Greater) 12/31/2025 Subsidiary Jurisdiction AMP Funding, L.L.C. Delaware Atlantic City Electric Company New Jersey Atlantic City Electric Transition Funding LLC Delaware Atlantic Generation, Inc. New Jersey Atlantic Southern Properties, Inc. New Jersey ATNP Finance Company Delaware Baltimore Gas and Electric Company Maryland Clean Jobs for Pennsylvania, LLC Delaware ComEd Financing III Delaware  [...] 12/31/2025 [...] Commonwealth Edison Company Illinois",
+          "published_at": "2026-02-13T01:04:26+00:00",
+          "observed_at": "2026-10-16T07:33:18.353696+00:00",
+          "sha256": "0a156acf95171029bbb051389fac2b70990c572852d2a4f0ef4cc34703fce5cb",
+          "representation": "SEC_EXHIBIT_21_ROW",
+          "exhibit_row": {
+            "parent_legal_name": "EXELON CORPORATION",
+            "parent_cik": "0001109357",
+            "child_legal_name": "COMMONWEALTH EDISON COMPANY",
+            "relationship_scope": "SUBSIDIARY",
+            "document_type": "EX-21.1",
+            "row_text": "Commonwealth Edison Company Illinois"
+          }
+        }
+      ],
+      "scope": "AS_REPORTED_ONLY; no uninterrupted ownership or parent financial attribution",
+      "required_evidence_purposes": [
+        "ENTITY_IDENTITY",
+        "ENTITY_TO_ISSUER",
+        "ISSUER_IDENTITY"
+      ]
+    }
+  ]
+}
