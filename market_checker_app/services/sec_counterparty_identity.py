@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from datetime import date, datetime, timezone
+from functools import lru_cache
 import hashlib
 import json
 from pathlib import Path
@@ -12,6 +13,7 @@ from urllib.parse import unquote, urlsplit
 
 from market_checker_app.collectors.sec_edgar_client import SecCompany
 from market_checker_app.utils.source_validation import public_https_reference
+from market_checker_app.utils.symbols import normalize_yahoo_symbol
 
 
 COUNTERPARTY_IDENTITY_VERSION = "dated-counterparty-v1"
@@ -137,6 +139,14 @@ def _validate_record(raw: object) -> dict[str, object]:
         raise ValueError("Counterparty identity effective interval must increase")
     known = _aware(row.get("known_at"))
     row["known_at"] = known.isoformat()
+    issuer_symbol=row.get('issuer_trading_symbol',row.get('issuer_ticker'))
+    if public and issuer_symbol!=row['issuer_ticker']:
+        expected=normalize_yahoo_symbol(row['issuer_ticker'])
+        if issuer_symbol!=expected:
+            from market_checker_app.services.reviewed_identity_service import ReviewedIdentityRegistry
+            decision=ReviewedIdentityRegistry.load().decision(row['issuer_ticker'],as_of=known)
+            if not decision or decision['cik']!=row['issuer_cik'] or decision['current_symbol']!=issuer_symbol:
+                raise ValueError('Unreviewed canonical-to-current issuer symbol')
     evidence = row.get("evidence")
     if not isinstance(evidence, list) or not 1 <= len(evidence) <= 10:
         raise ValueError("Counterparty identity requires bounded independent evidence")
@@ -159,6 +169,16 @@ def _validate_record(raw: object) -> dict[str, object]:
         if purpose == "ENTITY_IDENTITY":
             if _name_key(row["legal_name"]) not in quote or identity["value"].casefold() not in quote:
                 raise ValueError("Entity evidence must document its legal name and identifier")
+            projection=item.get('fact_projection')
+            if item.get('representation')=='VALIDATED_INLINE_XBRL_FACTS' and not isinstance(projection,dict):
+                raise ValueError('Missing legal entity fact projection')
+            if projection is not None:
+                if (not isinstance(projection,dict) or item.get('representation')!='VALIDATED_INLINE_XBRL_FACTS'
+                        or projection.get('legal_name')!=row['legal_name']
+                        or projection.get('cik')!=identity['value']
+                        or not projection.get('context_ref')
+                        or not re.fullmatch('[0-9a-f]{64}',item.get('sha256',''))):
+                    raise ValueError('Invalid legal entity fact projection')
             if parsed.hostname not in _ENTITY_AUTHORITIES[identity["scheme"]][identity["authority"]]:
                 raise ValueError("Entity evidence must cite its primary legal register")
             if identity["scheme"] == "CIK" and (parsed.hostname != "www.sec.gov"
@@ -182,11 +202,12 @@ def _validate_record(raw: object) -> dict[str, object]:
                 f"/Archives/edgar/data/{int(row['issuer_cik'])}/"
             ):
                 raise ValueError("Issuer relationship evidence must cite that issuer's SEC archive")
-            if _name_key(row["issuer_legal_name"]) not in quote:
+            table_projection=(purpose=='ENTITY_TO_ISSUER' and item.get('representation')=='SEC_EXHIBIT_21_ROW')
+            if not table_projection and _name_key(row["issuer_legal_name"]) not in quote:
                 raise ValueError("Issuer evidence must document its exact legal name")
             if purpose == "ISSUER_IDENTITY" and not re.search(
                 rf"(?:ticker|trading symbols?|symbol|common stock|ordinary shares)"
-                rf"[\s:=\"'()]*{re.escape(row['issuer_ticker'].casefold())}(?![a-z0-9])", quote
+                rf"[\s:=\"'()]*{re.escape(issuer_symbol.casefold())}(?![a-z0-9])", quote
             ):
                 raise ValueError("Issuer evidence must document its exact ticker")
             if purpose == "ENTITY_TO_ISSUER":
@@ -194,6 +215,21 @@ def _validate_record(raw: object) -> dict[str, object]:
                 affirmative = (re.search(
                     rf"{child}\s+(?:is|was)\s+(?:a|an)\s+(?:(?:wholly[ -]owned|direct|indirect|consolidated)\s+)*subsidiary of\s+{parent}", quote
                 ) or re.search(rf"subsidiaries of\s+{parent}.{{0,500}}{child}", quote))
+                if item.get('representation')=='SEC_EXHIBIT_21_ROW':
+                    # Reviewed projection of the exhibit's actual heading and
+                    # one literal row, never a manufactured ownership sentence.
+                    projection=item.get('exhibit_row',{})
+                    if not isinstance(projection,dict):raise ValueError('Invalid subsidiary exhibit row')
+                    affirmative=(projection.get('parent_legal_name')==row['issuer_legal_name']
+                        and projection.get('parent_cik')==row['issuer_cik']
+                        and projection.get('child_legal_name')==row['legal_name']
+                        and projection.get('relationship_scope')=='SUBSIDIARY'
+                        and re.fullmatch(r'EX-21(?:\.[A-Za-z0-9]+)?',projection.get('document_type',''))
+                        and _name_key(row['legal_name']) in quote
+                        and re.search(r'\bsubsidiar(?:y|ies)\b',quote)
+                        and not re.search(r'\bjoint ventures?\b',quote)
+                        and re.fullmatch('[0-9a-f]{64}',item.get('sha256',''))
+                        and projection.get('row_text') and _name_key(projection['row_text']) in quote)
                 if (not affirmative or re.search(r"\b(?:not|no longer|former|divested)\b", quote)):
                     raise ValueError("Subsidiary relationship requires an explicit documented link")
         purposes.add(purpose)
@@ -229,12 +265,26 @@ class DatedCounterpartyIdentityRegistry:
     @classmethod
     def load(cls, path: Path = DEFAULT_COUNTERPARTY_IDENTITIES) -> "DatedCounterpartyIdentityRegistry":
         path = Path(path)
-        if path.stat().st_size > _MAX_FILE_BYTES:
+        with path.open('rb') as stream:
+            body=stream.read(_MAX_FILE_BYTES+1)
+        if len(body) > _MAX_FILE_BYTES:
             raise ValueError("Counterparty identity manifest exceeds the byte limit")
-        raw = json.loads(path.read_text(encoding="utf-8"))
+        raw = json.loads(body)
         if not isinstance(raw, dict) or type(raw.get("schema_version")) is not int or raw["schema_version"] != 1:
             raise ValueError("Unsupported counterparty identity manifest")
-        return cls(raw.get("records"))
+        # Validation compiles many issuer-specific evidence expressions. Reuse
+        # only an identical byte snapshot, never an mtime or a path alone.
+        # Reviewed provider aliases also depend on the independent issuer
+        # catalog, so re-evaluate their validation context before cache lookup.
+        context=[]
+        for row in raw.get('records',[]) if isinstance(raw.get('records'),list) else []:
+            if not isinstance(row,dict):continue
+            ticker=row.get('issuer_ticker');symbol=row.get('issuer_trading_symbol',ticker)
+            if isinstance(ticker,str) and isinstance(symbol,str) and symbol!=normalize_yahoo_symbol(ticker):
+                from market_checker_app.services.reviewed_identity_service import ReviewedIdentityRegistry
+                decision=ReviewedIdentityRegistry.load().decision(ticker,as_of=_aware(row.get('known_at')))
+                context.append((ticker,symbol,json.dumps(decision,sort_keys=True)))
+        return _validated_registry_snapshot(cls,body,tuple(context))
 
     def fingerprint(self, *, as_of: datetime) -> str:
         clock = _aware(as_of)
@@ -242,6 +292,10 @@ class DatedCounterpartyIdentityRegistry:
                          key=lambda row: row["record_id"])
         payload = {"resolver_version": COUNTERPARTY_IDENTITY_VERSION, "records": records}
         return hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+
+    def records(self) -> tuple[dict, ...]:
+        """Detached dated records; presence is not continuous group ownership."""
+        return deepcopy(self._records)
 
     def resolve(self, *, disclosed_name: str, published_at: datetime,
                 as_of: datetime, exposure_source_url: str) -> dict[str, object]:
@@ -287,3 +341,10 @@ class DatedCounterpartyIdentityRegistry:
 
 __all__ = ["COUNTERPARTY_IDENTITY_VERSION", "DEFAULT_COUNTERPARTY_IDENTITIES",
            "DatedCounterpartyIdentityRegistry", "exact_catalog_cik"]
+
+
+@lru_cache(maxsize=4)
+def _validated_registry_snapshot(registry_type,body: bytes, validation_context: tuple) -> DatedCounterpartyIdentityRegistry:
+    # Consumers receive detached records/results through the public methods;
+    # the validated internal snapshot remains read-only between analyses.
+    return registry_type(json.loads(body).get('records'))

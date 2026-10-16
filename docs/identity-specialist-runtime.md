@@ -1,5 +1,51 @@
 # Identity specialist: current registered classes
 
+## User scope update, October 15
+
+OZK and LEG are explicitly excluded from specialist 1 completion coverage from
+the recorded user decision time. The canonical CSV and prior identity versions
+remain intact. Current required issuer/class coverage is 685/685; excluded
+instruments cannot pass the quality gate. Historical runs before the decision
+retain their original scope.
+
+The default counterparty registry now contains 683 distinct issuer legal
+identities (two issuers have multiple watchlist share classes) and two dated
+subsidiary observations. Each legal name is bound to its own CIK by validated
+inline-XBRL contexts, including explicit CIK/name pairs in joint registrant
+reports. Exhibit 21 rows have separate primary citations. The subsidiary rows
+describe the December 31, 2025 snapshot only; they do not assert uninterrupted
+ownership or transfer parent financials to the subsidiary. Default direct
+issuer records expire at their declared effective end. Refreshing requires a
+new primary review, and historical records remain dated.
+
+Evidence labelled `VALIDATED_INLINE_XBRL_FACTS` is a named-field projection of
+the original facts, rather than a verbatim sentence invented for the filing.
+`SEC_EXHIBIT_21_ROW` retains the literal heading and selected row. Combined
+subsidiary/joint-venture headings are not sufficient to identify a subsidiary.
+
+Ten additional SEC documents were captured after freezing that registry.
+Their original compressed bytes, hashes and publication/capture times are in
+`evidence/identity_holdout_sources_20261015.json`. The unchanged resolver
+correctly identifies five cases and abstains on five outside the curated date
+scope. It makes zero wrong CIK or financial attributions and grants no issuer
+attribution before registry knowledge. This bounded identity check does not
+establish predictive return performance or complete historical coverage.
+
+Run the same retained-evidence replay on Linux or Windows:
+
+```sh
+python -m market_checker_app.identity_specialist_acceptance --archived-cutoff --output outputs/identity-replay.json --database outputs/identity-replay.db
+```
+
+Use a fresh database path for every run. Omit `--archived-cutoff` for current
+coverage, where stale captures remain unresolved. The report measures issuer
+and class coverage separately from the 519 documented healthcare objects and
+from gaps in subsidiary/product portfolios. It does not mark the complete
+specialist accepted. The Windows CI job now executes this replay and preserves
+its result, but a prepared job is not an observed successful Windows run.
+
+## Baseline before the scope update (October 14)
+
 The default entity registry now resolves exact issuer CIKs from a retained SEC
 catalog and exact registered classes from primary cover contexts. The canonical
 687 keys stay unchanged. In the October 14 capture, 685 have verified registered
@@ -52,14 +98,23 @@ accession and both have the same publication time. Their hashes are separate.
 The implemented issuer/class layer does not complete the wider subsidiary,
 brand and product identity requirements. The inventory therefore remains
 PARTIAL until those relevant identities, actual Windows end-to-end execution
-and historical acceptance are evidenced. The current live class gap is OZK;
-access to the official Nasdaq symbol directory requires the pending environment
-network setting for `www.nasdaqtrader.com` to be saved and published.
-The collector and strict OZK parser are ready. After that setting is active,
-run `python -m market_checker_app.nasdaq_listing_capture`. It retains original
-directory bytes and requires the exact Bank OZK common-stock row, a unique
-symbol and the independently corroborating fresh SEC CIK. Preferred, test,
-ETF, future, stale and ambiguous rows grant no common-equity credit. Successful
-captures are read by the default entity registry as an exchange observation;
-they are never relabeled as SEC covers. Parser tests use controlled data and do
-not establish that the currently blocked live request succeeded.
+and historical acceptance are evidenced. OZK is now waived by the explicit
+user scope, so Nasdaq access is no longer a completion prerequisite.
+The remaining Windows run is prepared in CI. Git transport works, but the
+GitHub API request needed to manage/check the run is currently denied with
+`Forbidden`. A draft adds only `api.github.com` to the existing custom egress
+rules; saving the draft does not apply or publish that network change.
+
+## Local regression verification, October 16
+
+The complete Linux deterministic suite passed 969 tests with zero failures,
+errors or skips; the durable report is
+`evidence/identity_scoped_tests_20261016.json`. This includes the unchanged
+60-second pipeline limit for the complete 687-ticker cached-data contract.
+Progress updates now copy flat display rows directly and fully detach nested
+rows, callback state and caller input. This removes repeated recursive copying
+of the entire progress history without weakening snapshot isolation.
+
+The separate current-cutoff acceptance replay also passed with 685 verified
+registered classes and 687 persisted canonical identities. Neither Linux result
+is evidence of an executed Windows job or complete relationship portfolios.

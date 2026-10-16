@@ -1770,6 +1770,8 @@ class QualityGateAgent(BaseAgent):
             )
             if entity is not None and entity.metadata.get('instrument_status') == 'INACTIVE':
                 rejects.append(_issue('inactive_instrument', 'Primární zdroj potvrzuje ukončený instrument.'))
+            if entity is not None and entity.metadata.get('identity_scope_status') == 'EXCLUDED_BY_USER':
+                rejects.append(_issue('excluded_identity_scope', 'Instrument byl uživatelem vynechán z ověřovaného rozsahu.'))
             legal_entity_id = (
                 entity.legal_entity_id if hasattr(entity, "legal_entity_id") else None
             )

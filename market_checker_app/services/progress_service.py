@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import deque
 from copy import deepcopy
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from datetime import datetime
 from typing import Callable
 
@@ -25,11 +25,26 @@ class ProgressService:
         self._symbol_end_progress = max(self._symbol_start_progress, min(1.0, symbol_end_progress))
 
     def snapshot(self) -> AnalysisProgressState:
-        self._state.recent_logs = [asdict(event) for event in self._events]
         # Callbacks and Streamlit session state must receive an immutable-in-
         # practice point-in-time view. Returning the live object made all
-        # previously collected progress samples change together.
-        return deepcopy(self._state)
+        # previously collected progress samples change together. Completed UI
+        # rows normally contain only immutable scalar values: copy their dicts
+        # directly instead of recursively traversing every scalar on every emit.
+        # Arbitrary nested rows still receive the full isolation guarantee.
+        return replace(
+            self._state,
+            recent_logs=[asdict(event) for event in self._events],
+            warnings=list(self._state.warnings),
+            fallbacks=list(self._state.fallbacks),
+            errors=list(self._state.errors),
+            completed_rows=[self._copy_row(row) for row in self._state.completed_rows],
+        )
+
+    @staticmethod
+    def _copy_row(row: dict[str, object]) -> dict[str, object]:
+        if all(type(value) in (str, int, float, bool, type(None)) for value in row.values()):
+            return row.copy()
+        return deepcopy(row)
 
     def _emit(self) -> None:
         if self._on_update:
@@ -73,7 +88,7 @@ class ProgressService:
         self._emit()
 
     def add_completed_row(self, row: dict[str, object]) -> None:
-        self._state.completed_rows.append(row)
+        self._state.completed_rows.append(self._copy_row(row))
         self._state.processed_symbols += 1
         self._state.ticker_progress = 1.0
         if self._state.total_symbols > 0:

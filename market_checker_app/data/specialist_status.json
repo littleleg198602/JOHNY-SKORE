@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-14",
+  "as_of": "2026-10-16",
   "scope": "687 US watchlist tickers; sector sources apply only to relevant companies",
   "completion_rule": "DONE requires implemented collection, dated issuer/instrument/product identity, positive and negative live evidence, Windows end-to-end run, measured applicable coverage and historical evaluation before any score change.",
   "specialists": [
@@ -10,14 +10,22 @@
       "research": "01-04, 14",
       "code": "PARTIAL",
       "live": "PENDING",
-      "next": "Default application runtime now resolves all 687 issuer slots and 685 exact primary registered-class observations; LEG is inactive and OZK remains issuer-only. Dated reviewed XOM succession preserves prior issuer history, LEG retains its own identity separately from parent SGI, and PSTG resolves to observed current symbol P without inventing a historical alias interval. Source hashes, separate reporting/knowledge dates, stale/future/ambiguity guards and immutable history are enforced. Remaining: official OZK class evidence (Nasdaq egress draft pending publication), relevant broader subsidiary/brand/product identities, actual Windows end-to-end and historical acceptance. No score activation or specialist DONE claim.",
+      "next": "User excludes OZK and LEG from specialist completion scope from October 15; canonical history is retained. Required issuer/class layer is 685/685, with 683 independently sourced legal issuers and two dated subsidiary observations in the default registry. Ten additional primary documents are held out after freezing the registry: five correct identifications, five date-scope abstentions, no wrong CIK/financial attribution or preknowledge leakage. Retained 519 healthcare object identities are measured separately; broader subsidiary/brand/product portfolios are not certified complete. Remaining: observed Windows end-to-end run (prepared in CI; GitHub API access currently denied) and wider relevant relationship coverage. No score activation or complete-specialist claim.",
       "development_lane": "identity_bulk",
       "parallel_implementation_evidence": "evidence/parallel_identity_20261011.json",
       "parallel_second_batch_evidence": "evidence/parallel2_identity_20261011.json",
       "official_cache_audit_evidence": "evidence/identity_specialist_audit_20261014.json",
-      "last_audited_at": "2026-10-14T17:03:29.177947+00:00",
+      "last_audited_at": "2026-10-16T07:29:29.224540+00:00",
       "runtime_primary_evidence": "evidence/identity_runtime_primary_20261014.json",
-      "runtime_test_evidence": "evidence/identity_runtime_tests_20261014.json"
+      "runtime_test_evidence": "evidence/identity_runtime_tests_20261014.json",
+      "excluded_tickers": [
+        "OZK",
+        "LEG"
+      ],
+      "required_ticker_count": 685,
+      "scoped_acceptance_evidence": "evidence/identity_scoped_acceptance_20261016.json",
+      "holdout_source_evidence": "evidence/identity_holdout_sources_20261015.json",
+      "scoped_test_evidence": "evidence/identity_scoped_tests_20261016.json"
     },
     {
       "id": "sec",

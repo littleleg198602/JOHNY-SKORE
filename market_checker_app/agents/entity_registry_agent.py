@@ -32,6 +32,8 @@ from market_checker_app.services.reviewed_identity_service import (
 from market_checker_app.services.issuer_catalog_service import IssuerCatalog
 from market_checker_app.services.primary_listing_service import PrimaryListingRegistry
 from market_checker_app.services.nasdaq_listing_service import NasdaqListingRegistry
+from market_checker_app.services.identity_scope_service import IdentityScope
+from market_checker_app.services.specialist_identity_config import configured_counterparty_identities
 
 
 def _optional_text(value: object, *, uppercase: bool = False) -> str | None:
@@ -435,6 +437,15 @@ class EntityRegistryAgent(BaseAgent):
         warnings: list[str] = []
         reviewed = self._reviewed_registry or ReviewedIdentityRegistry.load()
         catalog = IssuerCatalog.load(as_of=context.started_at)
+        scope = IdentityScope.load()
+        counterparty_registry, counterparty_status = configured_counterparty_identities()
+        legal_records={};subsidiary_records={}
+        for record in counterparty_registry.records():
+            if clock(record['known_at'])>clock(context.started_at):continue
+            if record['relationship_role']=='DIRECT_ISSUER':
+                legal_records.setdefault(record['issuer_cik'],[]).append(record)
+            elif record['relationship_role']=='SUBSIDIARY_OF_ISSUER':
+                subsidiary_records.setdefault(record['issuer_cik'],[]).append(record)
         listings = self._listing_registry or PrimaryListingRegistry.load()
         exchange = NasdaqListingRegistry.load_optional()
         dated_entities = []
@@ -500,6 +511,25 @@ class EntityRegistryAgent(BaseAgent):
                             'class_context_ref':proof['context_ref'],
                             'class_context_source':proof.get('context_source'),
                             'known_at':max(clock(entity.metadata.get('known_at',proof['known_at'])),clock(proof['known_at'])).isoformat()})
+            exclusion=scope.exclusion(entity.ticker,as_of=context.started_at)
+            if exclusion:
+                entity=replace(entity,metadata={**entity.metadata,
+                    'identity_scope_status':'EXCLUDED_BY_USER','identity_scope_exclusion':exclusion})
+            if entity.cik:
+                own=[r for r in legal_records.get(entity.cik,[])
+                     if r['effective_from']<=clock(context.started_at).date().isoformat()
+                     and (not r.get('effective_to') or clock(context.started_at).date().isoformat()<r['effective_to'])]
+                documented=[{'record_id':r['record_id'],'legal_name':r['legal_name'],
+                    'entity_identifier':r['entity_identifier'],'as_reported_from':r['effective_from'],
+                    'as_reported_to':r['effective_to'],'known_at':r['known_at'],
+                    'source_url':next(e['url'] for e in r['evidence'] if e['purpose']=='ENTITY_TO_ISSUER'),
+                    'scope':'AS_REPORTED_ONLY','financial_attribution_allowed':False}
+                    for r in subsidiary_records.get(entity.cik,[])]
+                if own or documented:
+                    entity=replace(entity,metadata={**entity.metadata,
+                        'legal_identity_record_ids':[r['record_id'] for r in own],
+                        'documented_subsidiaries':documented,
+                        'subsidiary_financial_attribution_allowed':False})
             dated_entities.append(entity)
         entities = dated_entities
         primary_attempted = 0
@@ -509,6 +539,7 @@ class EntityRegistryAgent(BaseAgent):
             enriched: list[EntityRecord] = []
             for entity in entities:
                 if (entity.metadata.get('instrument_status') == 'INACTIVE'
+                        or entity.metadata.get('identity_scope_status') == 'EXCLUDED_BY_USER'
                         or entity.metadata.get('identity_resolution') == 'QUARANTINED'
                         or (not entity.lei and not entity.isin)):
                     enriched.append(entity)
@@ -567,14 +598,17 @@ class EntityRegistryAgent(BaseAgent):
             1
             for entity in entities
             if entity.legal_entity_id and entity.instrument_id
+            and entity.metadata.get('identity_scope_status') != 'EXCLUDED_BY_USER'
             and entity.metadata.get('identity_resolution') not in {'QUARANTINED', 'INACTIVE', 'ISSUER_ONLY'}
         )
         unresolved_tickers = sorted(
             entity.ticker
             for entity in entities
-            if not (entity.legal_entity_id and entity.instrument_id)
-            or entity.metadata.get('identity_resolution') in {'QUARANTINED', 'INACTIVE', 'ISSUER_ONLY'}
+            if entity.metadata.get('identity_scope_status') != 'EXCLUDED_BY_USER'
+            and (not (entity.legal_entity_id and entity.instrument_id)
+                or entity.metadata.get('identity_resolution') in {'QUARANTINED', 'INACTIVE', 'ISSUER_ONLY'})
         )
+        excluded_tickers=[e.ticker for e in entities if e.metadata.get('identity_scope_status')=='EXCLUDED_BY_USER']
         return AgentResult(
             status=(
                 AgentStatus.PARTIAL
@@ -587,7 +621,11 @@ class EntityRegistryAgent(BaseAgent):
             metadata={
                 "unique_entities": len(entities),
                 "resolved_identities": resolved,
-                "unresolved_identities": len(entities) - resolved,
+                "unresolved_identities": len(unresolved_tickers),
+                "excluded_identities": len(excluded_tickers),
+                "identity_scope_included": len(entities)-len(excluded_tickers),
+                "counterparty_registry_status": counterparty_status,
+                "known_subsidiary_observations": sum(len(v) for v in subsidiary_records.values()),
                 "primary_registry_attempted": primary_attempted,
                 "primary_registry_resolved": primary_resolved,
                 "primary_registry_lookup_failures": lookup_failures,
@@ -599,6 +637,7 @@ class EntityRegistryAgent(BaseAgent):
                 "entities_by_legal_entity_id": by_legal_entity,
                 "identity_conflicts": conflicts,
                 "unresolved_identity_tickers": unresolved_tickers,
+                "excluded_identity_tickers": excluded_tickers,
                 "quarantined_identity_tickers": sorted(
                     {item.ticker for item in conflicts}
                 ),

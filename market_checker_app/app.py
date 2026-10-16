@@ -57,6 +57,7 @@ from market_checker_app.services.pipeline_service import PipelineService
 from market_checker_app.services.ranking_service import RankingService
 from market_checker_app.services.research_profile_service import load_research_profiles
 from market_checker_app.services.specialist_status_service import load_specialist_status
+from market_checker_app.services.identity_scope_service import IdentityScope
 from market_checker_app.services.specialist_acceptance_service import build_specialist_acceptance_report
 from market_checker_app.services.specialist_evaluation_service import (
     build_specialist_evaluation_report, read_archived_prediction_snapshots,
@@ -2192,6 +2193,10 @@ with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
         for row in specialist_inventory["specialists"]
     ]), hide_index=True)
     st.caption(specialist_inventory["completion_rule"])
+    identity_scope=IdentityScope.load().report(watchlist,as_of=datetime.now(timezone.utc))
+    st.caption("Specialista 1: požadované položky " + str(identity_scope['included_count'])
+        + "; vynechané uživatelem: " + (", ".join(identity_scope['excluded']) or "žádné")
+        + ". Vynechané položky zůstávají v historii.")
     diagnostic = build_specialist_acceptance_report(scout_store)
     diagnostic_name = "specialist_acceptance_" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + ".json"
     st.download_button("Stáhnout provozní přehled specialistů",

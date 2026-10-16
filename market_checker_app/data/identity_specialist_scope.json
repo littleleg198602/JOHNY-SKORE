@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "specialist": "identity",
+  "canonical_universe_unchanged": true,
+  "exclusions": [
+    {"ticker": "OZK", "known_at": "2026-10-15T07:39:27+00:00", "reason": "User explicitly waived this instrument from specialist 1 coverage."},
+    {"ticker": "LEG", "known_at": "2026-10-15T07:39:27+00:00", "reason": "User explicitly waived the inactive merger instrument from specialist 1 coverage."}
+  ]
+}
