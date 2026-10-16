@@ -20,10 +20,14 @@ MAX_CAPTURES = 16
 _HASH = re.compile(r"[a-f0-9]{64}")
 _KINDS = {"CMS_PROVIDER_OWNER", "EPA_FRS_OWNER", "FORM4_PERSON", "STOCK_MERGER_EXCHANGE", "SEC_OPERATIONAL_METRIC",
           "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
-          "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY"}
+          "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY",
+          "SEC_SYMBOL_ACTION_SCOPE", "FDA_STRUCTURED_PRODUCT", "DOJ_CASE_POSTURE",
+          "SEC_PURCHASE_OBLIGATION_SCOPE", "SEC_OWNER_INSTRUMENT_SCOPE"}
 _BODY_BUDGETS = {kind: 4_000_000 for kind in (
     "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
-    "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY")}
+    "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY",
+    "SEC_SYMBOL_ACTION_SCOPE", "FDA_STRUCTURED_PRODUCT", "DOJ_CASE_POSTURE",
+    "SEC_PURCHASE_OBLIGATION_SCOPE", "SEC_OWNER_INSTRUMENT_SCOPE")}
 
 
 def _time(value: object) -> datetime:
@@ -131,6 +135,53 @@ def _load_captures(plan: dict, source_root: Path, cutoff: datetime) -> dict[str,
 
 def _dispatch(plan: dict, captures: dict, source_root: Path, clock: datetime, cutoff: datetime) -> dict:
     request, kind = plan["request"], plan["kind"]
+    if kind == "SEC_SYMBOL_ACTION_SCOPE":
+        from market_checker_app.services.sec_symbol_action_scope_review import review_symbol_action_scope
+        return review_symbol_action_scope(request, captures,
+            as_of=cutoff if "as_of" in plan else None)
+    if kind == "SEC_OWNER_INSTRUMENT_SCOPE":
+        from market_checker_app.services.sec_owner_instrument_scope_review import (
+            OwnerInstrumentCapture, review_sec_owner_instrument_scope,
+        )
+        selected = {}
+        for key, (metadata, body) in captures.items():
+            fields = dict(metadata)
+            for field in ("observed_at", "known_at"):
+                if fields.get(field) is not None:
+                    fields[field] = _time(fields[field])
+            selected[key] = OwnerInstrumentCapture(body=body, **fields)
+        return review_sec_owner_instrument_scope(prior_account_capture=selected["prior_account"],
+            packet_capture=selected["packet"], xml_capture=selected["xml"], index_capture=selected["index"],
+            selection=request["selection"], knowledge_at=cutoff if "as_of" in plan else None)
+    if kind == "FDA_STRUCTURED_PRODUCT":
+        if "as_of" in plan and cutoff < clock:
+            raise ValueError("A new FDA product interpretation cannot be backdated")
+        from market_checker_app.services.fda_structured_product_archive import (
+            FdaStructuredProductSelection, FdaProductArchiveCapture,
+            review_fda_structured_product_archive,
+        )
+        selection = dict(request["selection"])
+        selection["active_ingredients"] = tuple(tuple(pair) for pair in selection.get("active_ingredients", ()))
+        def product_source(key: str):
+            return FdaProductArchiveCapture(*captures[key]) if key in captures else None
+        return review_fda_structured_product_archive(
+            selection=FdaStructuredProductSelection(**selection),
+            structured_capture=product_source("structured"),
+            issuer_capture=product_source("issuer"), reviewed_at=clock)
+    if kind == "DOJ_CASE_POSTURE":
+        from market_checker_app.services.doj_case_posture_review import review_doj_case_posture
+        from market_checker_app.services.sec_counterparty_identity import DatedCounterpartyIdentityRegistry
+        return review_doj_case_posture(request,
+            {key: {"metadata": metadata, "body": body} for key, (metadata, body) in captures.items()},
+            as_of=cutoff if "as_of" in plan else None, ingested_at=clock,
+            legal_records=DatedCounterpartyIdentityRegistry.load()._records)
+    if kind == "SEC_PURCHASE_OBLIGATION_SCOPE":
+        from market_checker_app.services.sec_purchase_obligation_scope_review import review_sec_purchase_obligation_scope
+        issuer_metadata, issuer_body = captures["issuer"]
+        index_metadata, index_body = captures["index"]
+        return review_sec_purchase_obligation_scope(issuer_body, issuer_capture=issuer_metadata,
+            index_body=index_body, index_capture=index_metadata, selection=request["selection"],
+            as_of=cutoff if "as_of" in plan else None)
     if kind == "HEALTHCARE_PRODUCT_SCOPE":
         from market_checker_app.services.healthcare_product_scope_review import (
             FdaProductApplicationScope, CapturedHealthcareSource, SecOwnershipSelection,

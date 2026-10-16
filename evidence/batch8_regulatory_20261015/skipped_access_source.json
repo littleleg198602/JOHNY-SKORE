@@ -1,0 +1,12 @@
+{
+  "access_values_or_access_query_recorded": false,
+  "archive_path": null,
+  "document_url": "https://www.njd.uscourts.gov/sites/njd/files/24-4055AppleZoomInstructions.pdf",
+  "new_http_attempts": 0,
+  "public_raw_available": false,
+  "raw_response_bytes": null,
+  "raw_response_sha256": null,
+  "source_used_for_case_posture_or_acceptance": false,
+  "status": "SKIPPED_KNOWN_ACCESS_VALUE_SOURCE",
+  "structural_reason_only": "Meeting access instructions and access-bearing link query"
+}

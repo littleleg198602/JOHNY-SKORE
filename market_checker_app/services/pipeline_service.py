@@ -94,9 +94,22 @@ class PipelineService:
         self.config = config
         self.mt5_client = MT5Client()
         self.rss_client = RSSClient(max_items_per_source=config.max_rss_items_per_source)
-        self.yahoo_client = YahooClient()
-        self.yahoo_cache = YahooCacheStore(config.sqlite_path)
-        self.yahoo_ohlc_cache = YahooOhlcCacheStore(config.sqlite_path)
+        manifest = config.captured_market_manifest
+        archive_root = config.captured_market_archive_root
+        if (manifest is None) != (archive_root is None):
+            raise ValueError("Captured market inputs require both manifest and archive root")
+        self.captured_market_mode = manifest is not None
+        if self.captured_market_mode:
+            from market_checker_app.services.captured_market_data_provider import CapturedMarketDataProvider
+            self.yahoo_client = CapturedMarketDataProvider(manifest_path=manifest, archive_root=archive_root)
+            # These stores initialize schemas and can override an explicit
+            # selection with unrelated newer data. This mode never opens them.
+            self.yahoo_cache = None
+            self.yahoo_ohlc_cache = None
+        else:
+            self.yahoo_client = YahooClient()
+            self.yahoo_cache = YahooCacheStore(config.sqlite_path)
+            self.yahoo_ohlc_cache = YahooOhlcCacheStore(config.sqlite_path)
         self.gleif_client = None
         self.sec_client = None
         self.european_filing_client = None
@@ -245,7 +258,7 @@ class PipelineService:
                 )
 
         orchestrator = OrchestratorAgent(shadow_mode=self.config.agent_shadow_mode)
-        if self.config.entity_registry.enable_gleif and self.gleif_client is None:
+        if self.config.entity_registry.enable_gleif and not self.captured_market_mode and self.gleif_client is None:
             self.gleif_client = GleifClient(
                 timeout_seconds=(
                     self.config.entity_registry.request_timeout_seconds
@@ -256,7 +269,7 @@ class PipelineService:
                 self.config.entity_registry.identity_records,
                 primary_registry_client=(
                     self.gleif_client
-                    if self.config.entity_registry.enable_gleif
+                    if self.config.entity_registry.enable_gleif and not self.captured_market_mode
                     else None
                 ),
             )
@@ -266,7 +279,7 @@ class PipelineService:
         )
         if has_scout_findings:
             orchestrator.register(ScoutIndexAgent(self.config.sqlite_path))
-        if self.config.fundamental_ingestion.enabled:
+        if self.config.fundamental_ingestion.enabled and not self.captured_market_mode:
             orchestrator.register(
                 SecFundamentalsAgent(
                     self.config.fundamental_ingestion,
@@ -277,7 +290,7 @@ class PipelineService:
                 orchestrator.register(
                     FinancialForensicsAgent(self.config.financial_forensics)
                 )
-        if self.config.european_filings.enabled:
+        if self.config.european_filings.enabled and not self.captured_market_mode:
             orchestrator.register(
                 EuropeanFilingsAgent(
                     self.config.european_filings,
@@ -286,16 +299,16 @@ class PipelineService:
                 )
             )
         if self.config.governance_events.enabled and (
-            self.config.fundamental_ingestion.enabled
-            or self.config.european_filings.enabled
+            (self.config.fundamental_ingestion.enabled and not self.captured_market_mode)
+            or (self.config.european_filings.enabled and not self.captured_market_mode)
             or has_scout_findings
         ):
             governance_dependencies = ["entity_registry"]
             if has_scout_findings:
                 governance_dependencies.append("scout_index")
-            if self.config.fundamental_ingestion.enabled:
+            if self.config.fundamental_ingestion.enabled and not self.captured_market_mode:
                 governance_dependencies.append("f2_sec")
-            if self.config.european_filings.enabled:
+            if self.config.european_filings.enabled and not self.captured_market_mode:
                 governance_dependencies.append("european_filings")
             orchestrator.register(
                 GovernanceEventAgent(
@@ -303,7 +316,7 @@ class PipelineService:
                     dependencies=tuple(governance_dependencies),
                 )
             )
-        if short_report_config.enabled:
+        if short_report_config.enabled and not self.captured_market_mode:
             orchestrator.register(
                 ShortReportAgent(
                     short_report_config,
@@ -318,7 +331,7 @@ class PipelineService:
                 orchestrator.register(
                     ClaimVerificationAgent(self.config.claim_verification)
                 )
-        if self.config.supply_chain.enabled:
+        if self.config.supply_chain.enabled and not self.captured_market_mode:
             orchestrator.register(
                 SupplyChainAgent(
                     self.config.supply_chain,
@@ -333,7 +346,7 @@ class PipelineService:
                     ),
                 )
             )
-        if self.config.commodity_energy.enabled:
+        if self.config.commodity_energy.enabled and not self.captured_market_mode:
             orchestrator.register(
                 CommodityEnergyAgent(
                     self.config.commodity_energy,
@@ -348,7 +361,7 @@ class PipelineService:
                     ),
                 )
             )
-        if regulatory_contract_config.enabled:
+        if regulatory_contract_config.enabled and not self.captured_market_mode:
             orchestrator.register(
                 RegulatoryContractAgent(
                     regulatory_contract_config,
@@ -481,6 +494,8 @@ class PipelineService:
         quality = assess_daily_ohlc(ohlc, as_of=evaluated_at)
         close = quality.close
         if close is not None:
+            if tech_source == "captured_market_data":
+                return close, "captured_market_data_close"
             if tech_source == "mt5":
                 return close, "mt5_close"
             if tech_source.startswith("yfinance"):
@@ -521,16 +536,26 @@ class PipelineService:
                 f"{self.config.max_tickers_per_run}. Zmenšete seznam nebo vědomě zvyšte limit v nastavení."
             )
 
+        captured_readiness = None
+        if self.captured_market_mode:
+            captured_readiness = self.yahoo_client.readiness(watchlist, include_benchmarks=True)
+            if captured_readiness["status"] != "READY":
+                raise RuntimeError("WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness")
+
         rss_enabled = not yahoo_only_mode if rss_enabled is None else rss_enabled
         mt5_enabled = not yahoo_only_mode if mt5_enabled is None else mt5_enabled
         total = len(watchlist)
         large_universe_mode = total > self.config.large_universe_threshold
-        use_yahoo_cache = large_universe_mode
+        use_yahoo_cache = large_universe_mode and not self.captured_market_mode
         if yahoo_metadata_enabled is None:
             yahoo_metadata_enabled = not large_universe_mode
+        if self.captured_market_mode:
+            rss_enabled = mt5_enabled = False
         started_at = utc_now()
         warnings: list[str] = []
         errors: list[str] = []
+        if self.captured_market_mode:
+            warnings.append("Archivní cenový režim: síťové zdroje a persistentní cenové/metadata cache jsou vypnuté; metadata a publisher revision zůstávají nedoložené.")
         progress = ProgressService(
             total_symbols=len(watchlist),
             max_logs=30,
@@ -645,7 +670,7 @@ class PipelineService:
         bulk_yahoo_ohlc_cache_state: dict[str, str] = {}
         bulk_yahoo_ohlc_retry_deferred: dict[str, str] = {}
         bulk_yahoo_ohlc_retry_metadata: dict[str, dict[str, object]] = {}
-        if large_universe_mode:
+        if large_universe_mode and not self.captured_market_mode:
             for ticker in bulk_yahoo_requested_tickers:
                 cache_lookup = self.yahoo_ohlc_cache.get(ticker)
                 if (cache_lookup.state == "fresh" and cache_lookup.frame is not None
@@ -703,6 +728,10 @@ class PipelineService:
                 progress_callback=_on_yahoo_ohlc_progress,
             )
             for ticker, frame in fetched_ohlc.items():
+                if self.captured_market_mode:
+                    bulk_yahoo_ohlc_by_ticker[ticker] = frame
+                    bulk_yahoo_ohlc_cache_state[ticker] = "captured_original"
+                    continue
                 try:
                     self.yahoo_ohlc_cache.upsert_success(ticker, frame)
                 except (TypeError, ValueError) as exc:
@@ -713,6 +742,9 @@ class PipelineService:
                     bulk_yahoo_ohlc_by_ticker[ticker] = frame
                     bulk_yahoo_ohlc_cache_state[ticker] = "fresh_download"
             for ticker, warning in list(bulk_yahoo_ohlc_warnings.items()):
+                if self.captured_market_mode:
+                    bulk_yahoo_ohlc_failure_metadata[ticker] = {"outcome_status": "WAIT_DATA"}
+                    continue
                 self.yahoo_ohlc_cache.note_failure(ticker, warning)
                 stale = self.yahoo_ohlc_cache.get(ticker)
                 bulk_yahoo_ohlc_failure_metadata[ticker] = {
@@ -756,6 +788,9 @@ class PipelineService:
         if watchlist:
             benchmark_misses: list[str] = []
             for benchmark in benchmark_tickers:
+                if self.captured_market_mode:
+                    benchmark_misses.append(benchmark)
+                    continue
                 cached_benchmark = self.yahoo_ohlc_cache.get(benchmark)
                 if (cached_benchmark.state == "fresh" and cached_benchmark.frame is not None
                     and assess_daily_ohlc(cached_benchmark.frame, as_of=started_at).price_usable):
@@ -774,17 +809,22 @@ class PipelineService:
                         fetch_benchmark_batch(benchmark_misses)
                     )
                     for benchmark, frame in fetched_benchmarks.items():
-                        self.yahoo_ohlc_cache.upsert_success(benchmark, frame)
+                        if not self.captured_market_mode:
+                            self.yahoo_ohlc_cache.upsert_success(benchmark, frame)
                         benchmark_ohlc_by_ticker[benchmark] = frame
-                        benchmark_ohlc_source[benchmark] = "yahoo_ohlc_download"
+                        benchmark_ohlc_source[benchmark] = (
+                            "captured_market_data" if self.captured_market_mode else "yahoo_ohlc_download")
                     for benchmark, warning in benchmark_warnings.items():
-                        self.yahoo_ohlc_cache.note_failure(benchmark, warning)
+                        if not self.captured_market_mode:
+                            self.yahoo_ohlc_cache.note_failure(benchmark, warning)
                 else:
                     benchmark_warnings = {
                         benchmark: "Yahoo benchmark source is unavailable in this runtime."
                         for benchmark in benchmark_misses
                     }
                 if benchmark_warnings:
+                    if self.captured_market_mode:
+                        raise RuntimeError("WAIT_DATA:CAPTURED_BENCHMARK_INPUT_CHANGED_DURING_RUN")
                     warnings.append(
                         "Market-factor benchmark OHLC není čerstvě dostupné pro "
                         f"{len(benchmark_warnings)} z {len(benchmark_misses)} benchmarků; "
@@ -804,7 +844,7 @@ class PipelineService:
         bulk_yahoo_ohlc_failure_count = len(bulk_yahoo_ohlc_warnings)
         bulk_yahoo_ohlc_cache_coverage = self.yahoo_ohlc_cache.coverage(
             bulk_yahoo_requested_tickers
-        ) if large_universe_mode else {}
+        ) if large_universe_mode and not self.captured_market_mode else {}
         dated_current_price_count = 0
         undated_current_quote_count = 0
         ohlc_quality_issue_count = 0
@@ -818,7 +858,12 @@ class PipelineService:
             yahoo_data_fetched_at: str | None = None
             yahoo_ticker = YahooClient.normalize_yahoo_symbol(ticker)
 
-            if use_yahoo_cache:
+            if self.captured_market_mode:
+                snapshot, yahoo_warning = self.yahoo_client.fetch_metadata(ticker)
+                perf = PerformanceSnapshot(ticker, None, None, None, None)
+                yahoo_data_status = "captured_metadata_missing"
+                yresult = self._neutral_yahoo_result(ticker, yahoo_warning)
+            elif use_yahoo_cache:
                 cache_lookup = self.yahoo_cache.get(ticker)
                 cache_record = cache_lookup.record
                 if cache_lookup.usable and cache_record is not None and cache_record.data:
@@ -958,6 +1003,10 @@ class PipelineService:
                     progress.log("FALLBACK", tech_source_warning, ticker)
 
             raw_ohlc = ohlc if isinstance(ohlc, pd.DataFrame) else pd.DataFrame()
+            if self.captured_market_mode:
+                if raw_ohlc.empty:
+                    raise RuntimeError("WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_DURING_RUN")
+                tech_source_used = "captured_market_data"
             ohlc_quality = assess_daily_ohlc(raw_ohlc, as_of=started_at)
             if ohlc_quality.warnings:
                 ohlc_quality_issue_count += 1
@@ -1217,6 +1266,19 @@ class PipelineService:
                             }
                         ),
                         "run_started_at": started_at.isoformat(),
+                        **({"evidence_origin": "DETERMINISTIC_TEST_FIXTURE", "fixture_only": True}
+                            if self.captured_market_mode and (
+                                captured_readiness.get("fixture_only") is True
+                                or raw_ohlc.attrs.get("captured_market_data_provenance", {}).get("fixture_only") is True
+                                or benchmark_ohlc_by_ticker[benchmark_ticker].attrs.get(
+                                    "captured_market_data_provenance", {}).get("fixture_only") is True)
+                            else {}),
+                        **({"captured_market_inputs": {
+                            "asset": dict(raw_ohlc.attrs.get("captured_market_data_provenance", {})),
+                            "benchmark": dict(benchmark_ohlc_by_ticker[benchmark_ticker].attrs.get(
+                                "captured_market_data_provenance", {})),
+                            "strict_pit_eligible": False,
+                        }} if self.captured_market_mode else {}),
                     },
                     "benchmark_ticker": benchmark_ticker,
                     "benchmark_selection": benchmark_selection,
@@ -1662,6 +1724,12 @@ class PipelineService:
         sources_df = pd.DataFrame({"source": expanded_rss_sources})
         articles_df = pd.DataFrame([asdict(article) for article in articles])
         warnings = list(dict.fromkeys(warnings))
+        captured_final = None
+        if self.captured_market_mode:
+            captured_final = self.yahoo_client.revalidate_for_persistence(
+                watchlist, expected_readiness=captured_readiness)
+            if captured_final["status"] != "READY":
+                raise RuntimeError("WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_PERSISTENCE")
         finished_at = utc_now()
 
         metadata = RunMetadata(started_at, finished_at, len(watchlist), len(signals_df), len(warnings), len(errors), "")
@@ -1714,6 +1782,11 @@ class PipelineService:
             "warnings": warnings,
             "errors": errors,
             "run_id": run_id,
+            **({"captured_market_data": {"selection": self.yahoo_client.selection_provenance(),
+                "preflight": captured_readiness, "pre_persistence": captured_final,
+                "fixture_only": captured_readiness.get("fixture_only") is True,
+                "network_sources_enabled": False, "strict_pit_eligible": False}}
+                if self.captured_market_mode else {}),
             "agent_status": agent_report.status.value if agent_report else None,
             "quality_gate_decision": quality_gate_decision,
             "entity_registry_status": entity_registry_status,

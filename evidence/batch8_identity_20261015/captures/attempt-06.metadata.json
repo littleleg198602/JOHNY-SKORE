@@ -1,0 +1,29 @@
+{
+  "access_values_exported": false,
+  "app_quota_managed_live_claimed": false,
+  "attempt": 6,
+  "body_path": "ce00fb0af167462c4f046c464d9079fdb4d1dea22c18a78d951444dda7dfd3ac.bin",
+  "bytes": 5569,
+  "elapsed_seconds": 12.039557786999467,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000210012126000241/primary_doc.xml",
+  "historical_request_ledger_reconstructed": false,
+  "http_status": 200,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-15T13:40:58.490517+00:00",
+  "raw_sha256": "ce00fb0af167462c4f046c464d9079fdb4d1dea22c18a78d951444dda7dfd3ac",
+  "redirects_allowed": false,
+  "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000210012126000241/primary_doc.xml",
+  "research_only": true,
+  "response_headers": {
+    "Content-Encoding": null,
+    "Content-Length": "5569",
+    "Content-Type": "text/xml",
+    "Date": "Thu, 15 Oct 2026 13:40:58 GMT",
+    "Last-Modified": "Wed, 29 Apr 2026 16:43:10 GMT"
+  },
+  "started_at": "2026-10-15T13:40:46.451996+00:00",
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+  "timeout_seconds": 25
+}

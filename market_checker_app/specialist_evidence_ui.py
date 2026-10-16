@@ -22,6 +22,11 @@ _LABELS = {
     "SEC_SUPPLY_CHAIN_SCOPE": "Doložený dodavatelský vztah",
     "SEC_PERSON_KIND": "Datovaný údaj o fyzické osobě v SEC",
     "SEC_IR_DISCLOSURE_AUTHORITY": "Web investorů uvedený v podání SEC",
+    "SEC_SYMBOL_ACTION_SCOPE": "Datovaná změna tickeru a instrumentu",
+    "FDA_STRUCTURED_PRODUCT": "Strukturovaný produkt v žádosti FDA",
+    "DOJ_CASE_POSTURE": "Pozdější procesní stav soudního případu",
+    "SEC_PURCHASE_OBLIGATION_SCOPE": "Rozsah nákupních závazků podle SEC",
+    "SEC_OWNER_INSTRUMENT_SCOPE": "Účet vlastníka a instrument v novém podání",
 }
 
 
@@ -48,6 +53,18 @@ def _display(st, result: dict, *, name: str) -> None:
     st.json(result, expanded=False)
     st.download_button("Stáhnout tuto kontrolu", data=json.dumps(result, ensure_ascii=False,
         indent=2, allow_nan=False), file_name=name, mime="application/json", key=name)
+
+
+def render_captured_market_readiness(st, *, manifest_path: Path, archive_root: Path,
+                                     tickers: list[str]) -> None:
+    st.info("Ceny se načtou jen z vybraných archivů. Síťové zdroje, MT5 a cenové/metadata cache jsou pro tento běh vypnuté.")
+    if st.button("Ověřit připravenost vybraných cenových archivů"):
+        from market_checker_app.services.captured_market_data_provider import CapturedMarketDataProvider
+        report = CapturedMarketDataProvider(manifest_path=manifest_path,
+            archive_root=archive_root).readiness(tickers, include_benchmarks=True)
+        if report["status"] != "READY":
+            st.warning("Chybí úplné aktuální cenové vstupy. Běh zůstává zastavený před uložením předpovědí.")
+        st.json(report, expanded=False)
 
 
 def render_prospective_source_selection(st, *, output_dir: Path) -> None:

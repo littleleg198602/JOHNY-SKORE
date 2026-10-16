@@ -1,5 +1,35 @@
 # Pátrací specialisté: jediný seznam stavu
 
+## Osmá navazující dávka — 16. 10. 2026
+
+Šest skutečných izolovaných vývojových větví a čtyři konkrétní peer followupy
+jsou spojené v runtime/CLI/UI. Finální místní sada: **2036 discovered=executed,
+plain OK, 223.039s**, všechny failure/error/skip/expected/unexpected počty0.
+Code snapshot `cc769523`; 21 source/test SHA a původní JSON/console/runner
+jsou v `evidence/batch8_integration_20261016.json` (neměnný pre-hosted-CI důkaz).
+Baseline `e252ec62` má obsahově ověřené hosted1835 a všech5checks;
+nový public HEAD vyžaduje vlastní CI, Linux log i skutečný Windows ZIP/JSON/log.
+
+Nově: PSTG/P symbol/action/instrument review, přesný structured FDA adapter,
+DOJ procedural posture, NVDA group purchase commitments, novější SEC owner
+account/instrument scope a explicitní výchozí vypnutá cesta čtení cen z původních
+archivů. Jejich omezení a aktuální konkrétní fronta jsou na začátku
+`PARALLEL_SPECIALIST_WORK.md`. Šest původních případů skutečně prošlo novým
+runtime s fyzickými hodinami, immutable archivy a0HTTP/0adoptions.
+
+Patnáct bounded research pokusů:13HTTP200,2transport failures,12 veřejných
+původních odpovědí/5,930,515bytes a1 celé withheld NJD body. Dvě PDF/95stran
+obsahově ověřené. Žádné nové collectorAPI/DB zápisy/obnovování kvóty.
+Audit ověřil214 handoff pins,1058 starších evidencefiles/54,552,617bytes a7
+chráněných produkčních vstupů beze změny. Všechna4 whole withheld bodies
+zůstávají absent; žádné náhradní body nebo private-ancestry push.
+
+Canonical687, historicalQ2 instrument150/currentQ3=0, healthcare10/NHTSA3/legal5,
+verifiedadopt0 a fullacceptance0/21. Skutečné předpovědi/registrace/labels0;
+16 starších cenových verzí WAIT, UNKNOWN revision zůstává excluded. Fitter,
+skóre a původní687/60s budget neměnné. Hosted unit Windows není userWindows/OOS
+akceptace. Žádný merge ani oznámení dokončení před úplnou akceptací všech21.
+
 ## Oprava Windows fixture sedmé dávky — 15. 10. 2026
 
 Skutečný hosted run `38701933085` na public HEAD `bfedb764` měl Linux1833

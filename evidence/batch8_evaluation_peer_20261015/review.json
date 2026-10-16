@@ -1,0 +1,86 @@
+{
+  "after": {
+    "discovered": 9,
+    "errors": 0,
+    "executed": 9,
+    "expected_failures": 0,
+    "failed_methods": [],
+    "failures": 0,
+    "skips": 0,
+    "source_sha256": {
+      "app.py": "124b2897503e94ce4ce2e13743aa6e80d1999909a45a28f06548afdb098bcb79",
+      "pipeline_service.py": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+    },
+    "unexpected_successes": 0
+  },
+  "artifact_sha256": {
+    "after/app.py": "124b2897503e94ce4ce2e13743aa6e80d1999909a45a28f06548afdb098bcb79",
+    "after/pipeline_service.py": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98",
+    "after/source_pins.json": "29dc236336e54e69363be9471a01cfe2092bf3ae8b4a52694455fecf77e8bfe6",
+    "after_tests.log": "565504b05ede0a1f15f5ebdf242fc1bf0c8ac49ab9424e92fe1536ef6b29c9d1",
+    "before/app.py": "12c3840ee56fb0dffec217134ae09f7a9bfc4877e576f3b4b51370b74163c906",
+    "before/pipeline_service.py": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977",
+    "before/source_pins.json": "eb0c7bac2c3cd8dad96734b278343793b628a2aa1106b85879a9e723a6c521ce",
+    "before_tests.log": "a98eff103ca63a9a7d9649af7866258af02b10c3751984235a5c0cd45fd5eb71",
+    "reproduce_peer.py": "9796f50e61536035b07b3256af7d7f1122c73624a136c6e5a3c3dfcf319db62e"
+  },
+  "before": {
+    "discovered": 9,
+    "errors": 0,
+    "executed": 9,
+    "expected_failures": 0,
+    "failed_methods": [
+      "test_asset_fixture_marker_reaches_top_level_snapshot_provenance",
+      "test_benchmark_fixture_marker_reaches_top_level_snapshot_provenance",
+      "test_provider_fixture_clock_marker_reaches_top_level_snapshot_provenance",
+      "test_ui_mt5_watchlist_button_is_disabled_in_captured_mode",
+      "test_ui_mt5_watchlist_execution_guard_refuses_captured_mode"
+    ],
+    "failures": 5,
+    "skips": 0,
+    "source_sha256": {
+      "app.py": "12c3840ee56fb0dffec217134ae09f7a9bfc4877e576f3b4b51370b74163c906",
+      "pipeline_service.py": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977"
+    },
+    "unexpected_successes": 0
+  },
+  "before_app_recovery": "Exact old app bytes reconstructed by reversing only the two known MT5 guard edits; whole-file SHA256 equals the previously observed before/source_pins.json pin.",
+  "findings": [
+    {
+      "after": "Provider-clock, asset and benchmark markers each propagate top-level evidence_origin and fixture_only; original nested pins retained",
+      "before": "Confirmed by three isolated provenance-expression failures",
+      "code": "NESTED_FIXTURE_MARKER_NOT_PROPAGATED"
+    },
+    {
+      "after": "Captured mode disables the button and refuses its execution guard",
+      "before": "Button and execution guard each failed offline-mode assertion",
+      "code": "MT5_WATCHLIST_UI_NOT_GATED"
+    }
+  ],
+  "generated_at": "2026-10-16T00:23:47.772934+00:00",
+  "limits": [
+    "Only isolated provenance expressions, UI guards and initializer/registration paths are executed. No full pipeline, agent run or model evaluation occurs.",
+    "The orchestration run and Scout store are spies. This is not live acceptance or proof that the normal local history/Scout audit path has no writes.",
+    "MT5Client construction is inert; native import/initialize is only inside its read methods. No native method is called here.",
+    "Independent explicit SEC/scout acquisition buttons are outside the captured normal-run boundary; no implicit collector call was found.",
+    "Finalizer persistence timing is reviewed separately by contracts; this review does not duplicate that lane."
+  ],
+  "positive_invariants": [
+    "Stage1 registration with remote modules configured on and retained Scout findings on/off constructs no GLEIF/remote source-producing agent.",
+    "Captured provider construction bypasses online client and metadata/OHLC cache initializers.",
+    "Default captured configuration does not enable prospective registration.",
+    "Asset/benchmark source hashes and UNKNOWN revision flags remain nested in point-in-time provenance."
+  ],
+  "read_only": {
+    "actual_db_accesses": 0,
+    "forecasts_created": 0,
+    "full_baseline_repeated": false,
+    "http_requests": 0,
+    "labels_created": 0,
+    "model_or_fitter_invocations": 0,
+    "previous_qualification_overwritten": false,
+    "root_source_edits": 0
+  },
+  "schema_version": 1,
+  "scope": "Read-only source/AST/initializer-boundary peer review; no model or forecast run"
+}

@@ -1,0 +1,14 @@
+test_asset_fixture_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_asset_fixture_marker_reaches_top_level_snapshot_provenance) ... ok
+test_benchmark_fixture_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_benchmark_fixture_marker_reaches_top_level_snapshot_provenance) ... ok
+test_captured_config_selection_does_not_implicitly_enable_prospective_audit (__main__.BoundaryChecks.test_captured_config_selection_does_not_implicitly_enable_prospective_audit) ... ok
+test_captured_constructor_bypasses_online_and_both_cache_initializers (__main__.BoundaryChecks.test_captured_constructor_bypasses_online_and_both_cache_initializers) ... ok
+test_original_nested_source_pins_and_unknown_revision_are_preserved (__main__.BoundaryChecks.test_original_nested_source_pins_and_unknown_revision_are_preserved) ... ok
+test_provider_fixture_clock_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_provider_fixture_clock_marker_reaches_top_level_snapshot_provenance) ... ok
+test_stage1_registration_never_initializes_remote_agents_or_gleif (__main__.BoundaryChecks.test_stage1_registration_never_initializes_remote_agents_or_gleif) ... ok
+test_ui_mt5_watchlist_button_is_disabled_in_captured_mode (__main__.BoundaryChecks.test_ui_mt5_watchlist_button_is_disabled_in_captured_mode) ... ok
+test_ui_mt5_watchlist_execution_guard_refuses_captured_mode (__main__.BoundaryChecks.test_ui_mt5_watchlist_execution_guard_refuses_captured_mode) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.140s
+
+OK

@@ -1,0 +1,52 @@
+{
+  "observed_at": "2026-10-16T00:22:21.292764+00:00",
+  "mode": "ro",
+  "file_sha256_before": "0a6c669c3b5977dc5e884e313715b7c49dc9d033eef1f7d2af121aa2223b0963",
+  "file_sha256_after": "0a6c669c3b5977dc5e884e313715b7c49dc9d033eef1f7d2af121aa2223b0963",
+  "file_bytes": 290816,
+  "request_row_sha256": [
+    "eab02f02f6f8ff555e2063e320e46332d6265ce6431d4fd7c6183e11c15513e3",
+    "7ece6e0c36f30ab71a85100e86a8783e7bb8ba9e90b40272e1dd2ca194fd7b03",
+    "07a506c2d7cdc84f7b0778f2ff6d512299a4e5a109cf360388d259d2f42588a5",
+    "35ec9ba67472276ed3cc252a4cca3325ca847c625e32db8b2674a546b27477c7",
+    "1f0b23432c05433906bb0e2a245127af0ef03128723192fa93135d3d0e7953ac",
+    "e572e380947251cb8515e256c50a331ba3123430af26ff0391217b1c88b6008f",
+    "f6a594f258a5a13c35ea1f8f0ca0c3442aeddbeef3164965cfe90fb2027638db",
+    "41e7af90aca167b1b127c54d885de62c77a79a7fedbb46906f7dce974b440985",
+    "ac77197c0ee048d63687475679e0dc185f7da9f746430b0a8f581638d10198ca",
+    "322db10bf96e9bfb568be31882962d1273bf381852fb7f0a3e529caa9de3e256",
+    "13e37ef85f216fa8f4aa23cb31ba5087a9561e7a7c9f6fd8bc62ab8564f60b84",
+    "a676f9f6d2dc54cf6ef85415286760407f8ad22d2c27ffddc75cca6b9a58d7b0",
+    "9abc1243b2095ac1c74f13400b1d6df43ffa587415286a85e19d18048c59cc4d",
+    "a4a32c68cd3699a3d7d4ef0d2eaddca8127942cb2b12a31f3d44b24162dd2097",
+    "85861812e4ca224b7759d06777a0a0d2da8fd75fe78783e8fbd7a8e6dd9ac5dd"
+  ],
+  "request_count": 15,
+  "usage_by_original_utc_day": [
+    {
+      "utc_day": "2026-10-14",
+      "source": "nhtsa",
+      "requests": 8,
+      "distinct_subjects": 3
+    },
+    {
+      "utc_day": "2026-10-14",
+      "source": "rss",
+      "requests": 3,
+      "distinct_subjects": 1
+    },
+    {
+      "utc_day": "2026-10-15",
+      "source": "nhtsa",
+      "requests": 4,
+      "distinct_subjects": 3
+    }
+  ],
+  "lease_count": 0,
+  "prediction_snapshots_table_present": false,
+  "actual_prediction_rows": null,
+  "requests_performed": 0,
+  "database_writes": 0,
+  "copy_reset_or_reconstruction": false,
+  "tokens_exported": false
+}

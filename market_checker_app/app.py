@@ -1605,6 +1605,12 @@ with st.sidebar:
     compare_prev = st.checkbox("Porovnat s předchozím během", value=True)
     save_history = st.checkbox("Ukládat historii do SQLite", value=True)
     sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
+    captured_market_enabled = st.checkbox("Použít vybrané původní cenové archivy", value=False,
+        help="Ceny se v tomto režimu nestahují. Akcie a benchmarky vyžadují úplné a aktuální původní OHLCV řady.")
+    captured_market_manifest_value = st.text_input("Manifest cenových archivů", value="",
+        disabled=not captured_market_enabled)
+    captured_market_root_value = st.text_input("Složka původních cenových archivů", value="",
+        disabled=not captured_market_enabled)
     prospective_history_enabled = st.checkbox(
         "Zachovávat nové předpovědi pro historické ověření", value=False,
         disabled=not save_history,
@@ -1824,7 +1830,7 @@ with st.sidebar:
     save_agent_settings = st.button("Uložit nastavení agentů")
     st.caption(f"Agentní nastavení: `{agent_runtime_service.path}`")
     use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
-    load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
+    load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5 or captured_market_enabled)
     st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
     yahoo_batch_size = st.number_input(
         "Yahoo tickerů v jedné automatické dávce",
@@ -1843,7 +1849,7 @@ with st.sidebar:
         value=750,
         step=250,
     )
-    refresh_yahoo = st.button("Doplnit Yahoo cache")
+    refresh_yahoo = st.button("Doplnit Yahoo cache", disabled=captured_market_enabled)
     run_analysis = st.button("Spustit analýzu", type="primary")
 
 sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
@@ -1900,6 +1906,8 @@ config = AppConfig(
     compare_previous_run=compare_prev,
     save_history=save_history,
     sqlite_path=sqlite_path,
+    captured_market_manifest=(Path(captured_market_manifest_value.strip()) if captured_market_enabled else None),
+    captured_market_archive_root=(Path(captured_market_root_value.strip()) if captured_market_enabled else None),
     prospective_history_enabled=bool(save_history and prospective_history_enabled),
     prospective_audit_archive_root=(Path(prospective_audit_archive_value.strip())
         if save_history and prospective_history_enabled and prospective_audit_archive_value.strip() else None),
@@ -2050,7 +2058,7 @@ if run_analysis or save_agent_settings:
         st.warning(f"Agentní nastavení se nepodařilo uložit: {exc}")
 
 store = SQLiteStore(config.sqlite_path)
-yahoo_cache = YahooCacheStore(config.sqlite_path)
+yahoo_cache = None if captured_market_enabled else YahooCacheStore(config.sqlite_path)
 
 if sqlite_info:
     st.warning(sqlite_info)
@@ -2107,7 +2115,7 @@ if not use_rss and (
         "běh vypnuté; použijí se pouze ruční manifesty."
     )
 
-if load_watchlist:
+if load_watchlist and not captured_market_enabled:
     loaded_watchlist, mt5_error = MT5Client().load_watchlist()
     if mt5_error:
         st.error(mt5_error)
@@ -2708,9 +2716,14 @@ def _render_yahoo_coverage(coverage: YahooCacheCoverage) -> None:
 
 yahoo_coverage_placeholder = st.empty()
 with yahoo_coverage_placeholder.container():
-    _render_yahoo_coverage(yahoo_cache.coverage(watchlist))
+    if captured_market_enabled:
+        from market_checker_app.specialist_evidence_ui import render_captured_market_readiness
+        render_captured_market_readiness(st, manifest_path=config.captured_market_manifest,
+            archive_root=config.captured_market_archive_root, tickers=watchlist)
+    else:
+        _render_yahoo_coverage(yahoo_cache.coverage(watchlist))
 
-if refresh_yahoo:
+if refresh_yahoo and not captured_market_enabled:
     if not watchlist:
         st.error("Nejdřív načtěte nebo zadejte watchlist.")
     else:
@@ -2768,7 +2781,7 @@ if refresh_yahoo:
                 f"({refresh_result.partial} částečných dat)."
             )
 
-if len(watchlist) > config.large_universe_threshold:
+if len(watchlist) > config.large_universe_threshold and not captured_market_enabled:
     if use_mt5:
         st.info(
             f"Velký universe režim: analyzuji všech {len(watchlist)} tickerů. "

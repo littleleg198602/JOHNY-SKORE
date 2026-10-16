@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "initial_replay_failure": {
+    "exception": "KeyError: body_sha256",
+    "cause": "New replay helper treated retained_sec_pfe_2017_10k.metadata.json rearchive provenance wrapper as the original capture metadata",
+    "fix": "Read and verify the original batch3 capture metadata with the existing lossless archive helper; original source bytes and assertions unchanged",
+    "source_request_retried": false,
+    "acceptance_claimed": false
+  },
+  "initial_focused_test_run": {
+    "tests_run": 33,
+    "failures": 1,
+    "errors": 0,
+    "failed_case": "test_original_json_duplicates_nonfinite_and_nested_invalid_are_rejected",
+    "cause": "Python 3.12 decoder accepted a 2000-container nested list; adapter rejected only the outer non-object rather than applying an explicit nesting bound",
+    "fix": "Added a deterministic 64-container original JSON nesting preflight, respecting quoted brackets and escapes; retained duplicate/nonfinite/schema rejection guards",
+    "original_complete_log": "evidence/batch8_healthcare_20261015/initial_failed_tests.log",
+    "source_bytes_changed": false,
+    "assertions_relaxed": false
+  }
+}

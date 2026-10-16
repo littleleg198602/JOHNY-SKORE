@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-16T00:19:22.064721+00:00",
+  "input_classification": "SYNTHETIC_CONTRACT_MUTATION",
+  "live_primary_acceptance": false,
+  "full_specialist_acceptance": false,
+  "reviewed_producer_sha256": "8a24a55fdc647c9692d8ded0d255797f502584365831e20b134c980717d45dd7",
+  "reviewed_fixture_sha256": "bf0d455b75496238f6d9fa07c8489206bd9d2dd28c912cd051c57519ceb185e7",
+  "reviewed_producer_path": "evidence/batch8_identity_20261015/producer_versions/pre_clause_guard_service.py",
+  "reviewed_fixture_path": "evidence/batch8_identity_20261015/producer_versions/pre_clause_guard_tests.py",
+  "original_bug_producer_sha256": "8a24a55fdc647c9692d8ded0d255797f502584365831e20b134c980717d45dd7",
+  "same_as_original_bug_producer": true,
+  "synthetic_review_clock": "2026-10-15T12:00:00+00:00",
+  "synthetic_control_status": "PRIMARY_SCOPE_READY_FOR_EXPLICIT_REVIEW",
+  "synthetic_control_blockers": [],
+  "trigger_passage": "On 2026-04-01, Everpure, Inc. changed its logo. Different Company changed its ticker symbol from PSTG to P.",
+  "continuity_passage": "On 2026-04-01, Everpure, Inc. changed its logo. Different Company changed its ticker symbol from PSTG to P. CUSIP 74624M102 remained unchanged for its Class A Common Stock, par value $0.0001 per share.",
+  "mutation": "Replace first source p0 and second source p0 with trigger; first source p1 with continuity passage; recompute entire body hashes and whole-paragraph selections with producer fixture helpers",
+  "expected": "Issuer logo action cannot supply issuer/date for a different company's ticker action",
+  "false_ready_trigger_present": true,
+  "actual_status": "PRIMARY_SCOPE_READY_FOR_EXPLICIT_REVIEW",
+  "actual_effective_on": "2026-04-01",
+  "actual_blockers": [],
+  "action_results": [
+    {
+      "source_key": "first",
+      "event_kind": "SYMBOL_CHANGE",
+      "effective_action_supported": true,
+      "effective_on": "2026-04-01",
+      "blockers": []
+    },
+    {
+      "source_key": "second",
+      "event_kind": "SYMBOL_CHANGE",
+      "effective_action_supported": true,
+      "effective_on": "2026-04-01",
+      "blockers": []
+    },
+    {
+      "source_key": "first",
+      "event_kind": "CUSIP_CONTINUITY",
+      "effective_action_supported": true,
+      "effective_on": "2026-04-01",
+      "blockers": []
+    }
+  ],
+  "new_verified_identities": 0,
+  "current_q3_verified_coverage": 0,
+  "automatic_alias_allowed": false,
+  "production_registry_changed": false,
+  "source_http_requests": 0,
+  "database_calls": 0,
+  "owner_files_written": false
+}

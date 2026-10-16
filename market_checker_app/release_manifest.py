@@ -66,6 +66,11 @@ def config_hash(config: object | None) -> str | None:
         payload = dict(payload)
         payload.pop("prospective_history_enabled", None)
         payload.pop("prospective_audit_archive_root", None)
+        # Preserve existing model fingerprints when the new input mode is off.
+        # An active captured provider remains part of the configuration hash.
+        if payload.get("captured_market_manifest") is None and payload.get("captured_market_archive_root") is None:
+            payload.pop("captured_market_manifest", None)
+            payload.pop("captured_market_archive_root", None)
     return canonical_hash(payload)
 
 

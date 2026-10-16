@@ -1,0 +1,78 @@
+test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write) ... ERROR
+test_initial_wait_data_stops_before_weekly_store_initialization (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_initial_wait_data_stops_before_weekly_store_initialization) ... ERROR
+test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write) ... ERROR
+test_normal_captured_run_keeps_missing_metadata_and_exact_source_pins_without_live_cache (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_normal_captured_run_keeps_missing_metadata_and_exact_source_pins_without_live_cache) ... ERROR
+test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write) ... ERROR
+
+======================================================================
+ERROR: test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 138, in test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write
+    self._baseline_write_boundary(lambda:setattr(self,'clock',AFTER_CLOSE))
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 115, in _baseline_write_boundary
+    result = self.normal_fixture_run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 76, in normal_fixture_run
+    result = self.pipeline.run(['AAPL'], [], self.store, rss_enabled=True, mt5_enabled=True,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/services/pipeline_service.py", line 543, in run
+    raise RuntimeError("WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness")
+RuntimeError: WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness
+
+======================================================================
+ERROR: test_initial_wait_data_stops_before_weekly_store_initialization (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_initial_wait_data_stops_before_weekly_store_initialization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 95, in test_initial_wait_data_stops_before_weekly_store_initialization
+    run_weekly_shadow(config=self.config, tickers=['AAPL'], rss_sources=[])
+TypeError: run_weekly_shadow() missing 3 required keyword-only arguments: 'rss_enabled', 'mt5_enabled', and 'yahoo_metadata_enabled'
+
+======================================================================
+ERROR: test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 135, in test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write
+    self._baseline_write_boundary(lambda:self.manifest_path.write_bytes(self.manifest_path.read_bytes()+b' \n'))
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 115, in _baseline_write_boundary
+    result = self.normal_fixture_run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 76, in normal_fixture_run
+    result = self.pipeline.run(['AAPL'], [], self.store, rss_enabled=True, mt5_enabled=True,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/services/pipeline_service.py", line 543, in run
+    raise RuntimeError("WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness")
+RuntimeError: WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness
+
+======================================================================
+ERROR: test_normal_captured_run_keeps_missing_metadata_and_exact_source_pins_without_live_cache (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_normal_captured_run_keeps_missing_metadata_and_exact_source_pins_without_live_cache)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 99, in test_normal_captured_run_keeps_missing_metadata_and_exact_source_pins_without_live_cache
+    result = self.normal_fixture_run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 76, in normal_fixture_run
+    result = self.pipeline.run(['AAPL'], [], self.store, rss_enabled=True, mt5_enabled=True,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/services/pipeline_service.py", line 543, in run
+    raise RuntimeError("WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness")
+RuntimeError: WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness
+
+======================================================================
+ERROR: test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 141, in test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write
+    result = self.normal_fixture_run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch8_captured_runtime_peer.py", line 76, in normal_fixture_run
+    result = self.pipeline.run(['AAPL'], [], self.store, rss_enabled=True, mt5_enabled=True,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/services/pipeline_service.py", line 543, in run
+    raise RuntimeError("WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness")
+RuntimeError: WAIT_DATA:CAPTURED_MARKET_INPUTS_INCOMPLETE; inspect captured market readiness
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.432s
+
+FAILED (errors=5)

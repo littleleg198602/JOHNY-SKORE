@@ -1,0 +1,70 @@
+{
+  "index_body": {
+    "repository_relative_path": "evidence/batch3_sec_20261012/primary/nvda_2026_index.html",
+    "sha256": "ba36b0aa8f66dd5e5a4de1b0ecc67335df014b0149a0350c9806cf9bdd366075"
+  },
+  "index_capture": {
+    "json_pointer": "/captures/7",
+    "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+    "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+  },
+  "issuer_body": {
+    "repository_relative_path": "evidence/batch3_sec_20261012/primary/nvda_2026_10k.htm",
+    "sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5"
+  },
+  "issuer_capture": {
+    "repository_relative_path": "evidence/batch7_contracts_20261015/issuer_capture.json",
+    "sha256": "9acd3f9df73f8e71ec3edd2714e9c0e0f03c0fbb305657e8aa0d1df3a1fae574"
+  },
+  "kind": "SEC_PURCHASE_OBLIGATION_SCOPE",
+  "new_source_http_attempts": 0,
+  "new_usaspending_requests": 0,
+  "original_primary_capture": {
+    "json_pointer": "/captures/10",
+    "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+    "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+  },
+  "schema_version": 1,
+  "selection": {
+    "claim_role": "AGGREGATE_PURCHASE_COMMITMENT",
+    "fiscal_period_end": "2026-01-25",
+    "group_heading": {
+      "byte_end": 1455242,
+      "byte_start": 1455051,
+      "sha256": "b1a53ce3a9770ace8bb8d2b5754eb49d6dbba739fa91af17e1eb7630866b9aa8"
+    },
+    "group_name_literal": "NVIDIA Corporation and Subsidiaries",
+    "issuer_cik": "0001045810",
+    "issuer_context_id": "c-1",
+    "issuer_name": "NVIDIA CORP",
+    "issuer_ticker": "NVDA",
+    "notes_heading": {
+      "byte_end": 1455444,
+      "byte_start": 1455242,
+      "sha256": "8ea1633994162c1894379593dba4f7ebdbb2dca231e8b333e1a0f46b41a664f4"
+    },
+    "paragraph": {
+      "byte_end": 1489351,
+      "byte_start": 1488427,
+      "sha256": "713d5786f300fcd3db68abc5bb8d5d10515abeff778abc82a90a577fb213ba67"
+    },
+    "quantity": {
+      "as_of_date": "2026-01-25",
+      "context_id": "c-177",
+      "currency": "USD",
+      "fact_id": "f-894",
+      "payment_horizon_fiscal_year": 2027,
+      "payment_qualifier_literal": "substantially all",
+      "unit_id": "usd",
+      "unit_literal": "billion",
+      "value_literal": "95.2"
+    },
+    "section_heading": {
+      "byte_end": 1488134,
+      "byte_start": 1487762,
+      "sha256": "a2e17eb582df6303cd0d6ede1d637b9457e3991024a3475c6363458bd0859292"
+    },
+    "statement_scope": "CONSOLIDATED_GROUP"
+  },
+  "source_bodies_copied": 0
+}

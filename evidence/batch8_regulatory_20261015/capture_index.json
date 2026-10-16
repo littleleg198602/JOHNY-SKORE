@@ -1,0 +1,141 @@
+{
+  "attempts": [
+    {
+      "capture_id": "njd_case_page",
+      "http_status": 200,
+      "metadata": {
+        "bytes": 925,
+        "path": "evidence/batch8_regulatory_20261015/raw/njd_case_page.metadata.json",
+        "sha256": "45d0913c792d99c853e38d9809cdfd4c77534b5545ce6ec48f24aad10b73ba99"
+      },
+      "observed_at": "2026-10-15T13:39:58.766720+00:00",
+      "public_raw_available": false,
+      "raw_body": null,
+      "raw_response_bytes": 28995,
+      "raw_response_sha256": "27f03d6bb63f0590a82369556419c4eb8f5fb9ab3b3da44a9c8695d18d7b7532",
+      "reservation": {
+        "bytes": 361,
+        "path": "evidence/batch8_regulatory_20261015/reservations/01_njd_case_page.json",
+        "sha256": "498969028341b6456964e93eb4ea654ac28df1fa44b09ceee22b46df0c83636f"
+      },
+      "sequence": 1,
+      "status": "WITHHELD_SOURCE_CONTAINS_ACCESS_VALUE"
+    },
+    {
+      "capture_id": "govinfo_case_opinion",
+      "http_status": 200,
+      "metadata": {
+        "bytes": 1110,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.metadata.json",
+        "sha256": "587834c51273118d10ec773fa6e2529e010304a31e12ed11d48f9276a7e45ab2"
+      },
+      "observed_at": "2026-10-15T13:40:16.524451+00:00",
+      "public_raw_available": true,
+      "raw_body": {
+        "bytes": 1344697,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      },
+      "raw_response_bytes": 1344697,
+      "raw_response_sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa",
+      "reservation": {
+        "bytes": 405,
+        "path": "evidence/batch8_regulatory_20261015/reservations/02_govinfo_case_opinion.json",
+        "sha256": "e9c14006a9b194f9b73e8ed11a32ee68863c8a8cb206083f4d2ab73469b3375a"
+      },
+      "sequence": 2,
+      "status": "ORIGINAL_BYTES_CAPTURED"
+    },
+    {
+      "capture_id": "court_public_order",
+      "http_status": null,
+      "metadata": {
+        "bytes": 707,
+        "path": "evidence/batch8_regulatory_20261015/raw/court_public_order.metadata.json",
+        "sha256": "4a5d4ab16fb0beb7271ecaea11387cfc94922ad050edf5531685405e9c450c4b"
+      },
+      "observed_at": "2026-10-15T13:43:59.288997+00:00",
+      "public_raw_available": false,
+      "raw_body": null,
+      "raw_response_bytes": null,
+      "raw_response_sha256": null,
+      "reservation": {
+        "bytes": 372,
+        "path": "evidence/batch8_regulatory_20261015/reservations/03_court_public_order.json",
+        "sha256": "b61bc264612ce737055c1883329f249b08307c16949ca5241f9948c402f59eba"
+      },
+      "sequence": 3,
+      "status": "TRANSPORT_OR_CAPTURE_ERROR"
+    },
+    {
+      "capture_id": "doj_case_index",
+      "http_status": 200,
+      "metadata": {
+        "bytes": 981,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+        "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6"
+      },
+      "observed_at": "2026-10-15T18:10:37.550969+00:00",
+      "public_raw_available": true,
+      "raw_body": {
+        "bytes": 107793,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+        "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+      },
+      "raw_response_bytes": 107793,
+      "raw_response_sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+      "reservation": {
+        "bytes": 368,
+        "path": "evidence/batch8_regulatory_20261015/reservations/04_doj_case_index.json",
+        "sha256": "2b91a3fec1e3fab43c0e8137ec3ae30786d64e07ba1957645a75246f6661d8f3"
+      },
+      "sequence": 4,
+      "status": "ORIGINAL_BYTES_CAPTURED"
+    },
+    {
+      "capture_id": "doj_opposition_pdf",
+      "http_status": 200,
+      "metadata": {
+        "bytes": 996,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.metadata.json",
+        "sha256": "966c49069fffda0b0b318173de7afa197240dc2d00b2b875640046014da66c72"
+      },
+      "observed_at": "2026-10-15T18:12:02.727684+00:00",
+      "public_raw_available": true,
+      "raw_body": {
+        "bytes": 577500,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+        "sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3"
+      },
+      "raw_response_bytes": 577500,
+      "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+      "reservation": {
+        "bytes": 348,
+        "path": "evidence/batch8_regulatory_20261015/reservations/05_doj_opposition_pdf.json",
+        "sha256": "18440d80481c449ed7778f19c61351e3ee365d4d61a5d973242c00d017b3686e"
+      },
+      "sequence": 5,
+      "status": "ORIGINAL_BYTES_CAPTURED"
+    }
+  ],
+  "automatic_redirects": false,
+  "collector_api_requests": 0,
+  "frozen_at": "2026-10-16T00:20:05.217371+00:00",
+  "further_http_needed": false,
+  "maximum_original_body_bytes": 4000000,
+  "maximum_transport_attempts": 6,
+  "public_original_bodies": 3,
+  "public_original_bytes": 2029990,
+  "quota_database_actions": 0,
+  "research_plan": {
+    "bytes": 1198,
+    "path": "evidence/batch8_regulatory_20261015/research_plan.json",
+    "sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b"
+  },
+  "reserved_transport_attempts": 5,
+  "schema_version": 1,
+  "timeout_seconds": 25,
+  "transport_failures_without_response": 1,
+  "unused_attempts": 1,
+  "whole_withheld_responses": 1
+}

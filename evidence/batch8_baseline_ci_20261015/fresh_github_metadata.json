@@ -1,0 +1,51 @@
+{
+  "refreshed_at": "2026-10-15 18:13:31 UTC",
+  "run": {
+    "id": 38735825433,
+    "head_sha": "e252ec62796b0b02e733c55ebef713e0f29d4b44",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38735825433"
+  },
+  "jobs": [
+    {
+      "id": 116424750232,
+      "name": "687 ticker scale and progress agent",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 116424750671,
+      "name": "Windows contracts, persistence and UI",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 116424750716,
+      "name": "Contract, source and persistence agent",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 116424751058,
+      "name": "Streamlit UI agent",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 116437826312,
+      "name": "Deterministic release gate",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 11975101220,
+      "size_in_bytes": 55256,
+      "digest": "sha256:0bb85048b56ae74e6e443b7d2f7c3b38f2636e0b6b0426cae0038ae2b108dbdf",
+      "expired": false
+    }
+  ],
+  "scope": "Baseline only; not batch8 qualification."
+}

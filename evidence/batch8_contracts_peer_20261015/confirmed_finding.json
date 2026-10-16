@@ -1,0 +1,77 @@
+{
+  "earlier_setup_errors_are_not_the_bug_proof": true,
+  "finding": "CAPTURED_INPUT_REVALIDATION_MISSING_AT_ACTUAL_BASELINE_AND_CANDIDATE_WRITE_BOUNDARIES",
+  "fixtures_are_acceptance_evidence": false,
+  "http_attempts": 0,
+  "impact": [
+    {
+      "actual_baseline_snapshots_persisted": 1,
+      "case": "test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write",
+      "expected_baseline_snapshots_persisted": 0,
+      "finalizer_returned": true,
+      "fixture_only": true,
+      "http_attempts": 0,
+      "production_db_writes": 0,
+      "provider_current_reasons": {
+        "MISSING_LATEST_COMPLETED_SESSION_CLOSE": 13
+      },
+      "provider_current_status": "WAIT_DATA",
+      "summary_snapshot_error": null,
+      "summary_snapshot_status": "SUCCESS"
+    },
+    {
+      "actual_baseline_snapshots_persisted": 1,
+      "case": "test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write",
+      "expected_baseline_snapshots_persisted": 0,
+      "finalizer_returned": true,
+      "fixture_only": true,
+      "http_attempts": 0,
+      "production_db_writes": 0,
+      "provider_current_reasons": {
+        "CAPTURED_MARKET_MANIFEST_CHANGED": 13
+      },
+      "provider_current_status": "WAIT_DATA",
+      "summary_snapshot_error": null,
+      "summary_snapshot_status": "SUCCESS"
+    },
+    {
+      "actual_baseline_snapshots_persisted": 1,
+      "actual_candidate_predictions_persisted": 1,
+      "baseline_hash_preserved": true,
+      "case": "test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write",
+      "expected_baseline_snapshots_persisted": 1,
+      "expected_candidate_predictions_persisted": 0,
+      "finalizer_returned": true,
+      "fixture_only": true,
+      "http_attempts": 0,
+      "production_db_writes": 0
+    }
+  ],
+  "original_log_path": "evidence/batch8_contracts_peer_20261015/prefixed_confirmed_tests.log",
+  "original_log_sha256": "251ab9d7d2e30e96f1abdace462d2a4f71cb6668849b904af7e3ec937763d00f",
+  "original_result": {
+    "errors": 0,
+    "executed": 5,
+    "failures": 3,
+    "positive_invariants_passed": 2,
+    "skips": 0
+  },
+  "original_result_path": "evidence/batch8_contracts_peer_20261015/prefixed_confirmed_tests.json",
+  "original_result_sha256": "2bd2db07ab96e5c89dc45765b2724e96a8aa08b9626258a5f7832f5155905c03",
+  "owner_fix_required": [
+    "Revalidate the exact earlier source bindings and current session immediately before store.save_prediction_snapshots",
+    "Revalidate again after candidate preparation and immediately before store.save_candidate_model_report",
+    "Keep a baseline already durably committed before a later failure; report that saved subset truthfully"
+  ],
+  "positive_invariants": [
+    "An initial WAIT_DATA run stops before weekly SQLiteStore creation",
+    "Normal captured pipeline retains missing metadata, original source pins, UNKNOWN publisher timing, strict_PIT=false and no live provider or persistent cache constructors"
+  ],
+  "production_database_reads_or_writes": 0,
+  "recorded_at": "2026-10-16T00:19:51.336220+00:00",
+  "schema_version": 1,
+  "source_pins_path": "evidence/batch8_contracts_peer_20261015/current_source_pins.json",
+  "source_pins_sha256": "1b2b3c1d503fa73425bfab2ad9684fc71043e25a3652f282f99cd00a9acabeb0",
+  "test_file_sha256": "d28806cfdf12d74eb5bf5a526e83098701619597f97de1df479e77eaabe1d28f",
+  "test_snapshot_path": "evidence/batch8_contracts_peer_20261015/source_snapshots/test_batch8_captured_runtime_peer.prefixed_confirmed.source"
+}

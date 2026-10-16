@@ -1,0 +1,13 @@
+{
+  "absolute_deadline_enforcement": "POSIX_SETITIMER",
+  "absolute_timeout_seconds": 25,
+  "application_collector_or_quota_db_used": false,
+  "maximum_original_body_bytes": 4000000,
+  "purpose": "DISCOVERY_OWNER_PROFILE",
+  "redirects_or_retries_allowed": false,
+  "research_plan_sha256": "d9735d505a911ffcfd5e0f5a29ad06f185b1b667d97601c3e94b9cf6150e02e0",
+  "reserved_at": "2026-10-15T13:41:33.137766+00:00",
+  "sequence": 1,
+  "url": "https://data.sec.gov/submissions/CIK0001513142.json",
+  "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+}

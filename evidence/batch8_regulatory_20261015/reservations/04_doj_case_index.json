@@ -1,0 +1,10 @@
+{
+  "automatic_redirects": false,
+  "capture_id": "doj_case_index",
+  "maximum_bytes": 4000000,
+  "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+  "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+  "reserved_at": "2026-10-15T18:10:30.131061+00:00",
+  "sequence": 4,
+  "timeout_seconds": 25
+}

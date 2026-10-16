@@ -1,0 +1,244 @@
+{
+  "all_staged_blobs_equal_local_bytes": true,
+  "database_actions": 0,
+  "files": [
+    {
+      "bytes": 6081,
+      "path": "evidence/batch8_regulatory_20261015/README.md",
+      "sha256": "1314f3bdec99076761323c76ae333d5ba5ca267a49929dec935041c589ae1ba2",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 5532,
+      "path": "evidence/batch8_regulatory_20261015/capture_index.json",
+      "sha256": "8cea359ac82ae63861b889187ba7776747e1791de074dfbe72f3fb7c5e7d05b4",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 6069,
+      "path": "evidence/batch8_regulatory_20261015/capture_primary.py",
+      "sha256": "d6b31d888e830b4d16eacd7181981aea798a15012b9b358ab00be60dd6404912",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 9477,
+      "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+      "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 14177,
+      "path": "evidence/batch8_regulatory_20261015/finalize_evidence.py",
+      "sha256": "f49ae150c0412c62d666ded75abb91cc7710c26527b1740ff4969ae90d2ca433",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 7104,
+      "path": "evidence/batch8_regulatory_20261015/handoff.json",
+      "sha256": "5e89830244346ff59e17aa031b7ac90d26ca99184cb452aef6f1f8696d443659",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 281543,
+      "path": "evidence/batch8_regulatory_20261015/prior_byte_preservation.json",
+      "sha256": "8940c77201243cdf72989ce6b3e703484d8a07c62c505d0663df7f709858b65a",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 1183,
+      "path": "evidence/batch8_regulatory_20261015/public_body_audit.json",
+      "sha256": "9d51ca2e70a5e5d3caf1f7e6fef9d505b1be69095dda922eadb7f8a9b0adad67",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 707,
+      "path": "evidence/batch8_regulatory_20261015/raw/court_public_order.metadata.json",
+      "sha256": "4a5d4ab16fb0beb7271ecaea11387cfc94922ad050edf5531685405e9c450c4b",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 107793,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+      "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 981,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+      "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 996,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.metadata.json",
+      "sha256": "966c49069fffda0b0b318173de7afa197240dc2d00b2b875640046014da66c72",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 577500,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+      "sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 1110,
+      "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.metadata.json",
+      "sha256": "587834c51273118d10ec773fa6e2529e010304a31e12ed11d48f9276a7e45ab2",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 1344697,
+      "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+      "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 925,
+      "path": "evidence/batch8_regulatory_20261015/raw/njd_case_page.metadata.json",
+      "sha256": "45d0913c792d99c853e38d9809cdfd4c77534b5545ce6ec48f24aad10b73ba99",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 9036,
+      "path": "evidence/batch8_regulatory_20261015/replay.json",
+      "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 2692,
+      "path": "evidence/batch8_regulatory_20261015/request.json",
+      "sha256": "330e0d36abeac5fc660cbc84649b6fe55d669ecad631ec2be1cfdea8a062f6dc",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 1198,
+      "path": "evidence/batch8_regulatory_20261015/research_plan.json",
+      "sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 361,
+      "path": "evidence/batch8_regulatory_20261015/reservations/01_njd_case_page.json",
+      "sha256": "498969028341b6456964e93eb4ea654ac28df1fa44b09ceee22b46df0c83636f",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 405,
+      "path": "evidence/batch8_regulatory_20261015/reservations/02_govinfo_case_opinion.json",
+      "sha256": "e9c14006a9b194f9b73e8ed11a32ee68863c8a8cb206083f4d2ab73469b3375a",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 372,
+      "path": "evidence/batch8_regulatory_20261015/reservations/03_court_public_order.json",
+      "sha256": "b61bc264612ce737055c1883329f249b08307c16949ca5241f9948c402f59eba",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 368,
+      "path": "evidence/batch8_regulatory_20261015/reservations/04_doj_case_index.json",
+      "sha256": "2b91a3fec1e3fab43c0e8137ec3ae30786d64e07ba1957645a75246f6661d8f3",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 348,
+      "path": "evidence/batch8_regulatory_20261015/reservations/05_doj_opposition_pdf.json",
+      "sha256": "18440d80481c449ed7778f19c61351e3ee365d4d61a5d973242c00d017b3686e",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 1873,
+      "path": "evidence/batch8_regulatory_20261015/review_record.json",
+      "sha256": "e9d0f8a1184396fdb5a31bdb635611a454e4f76b39dfc6e34dc9778985822c16",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 9036,
+      "path": "evidence/batch8_regulatory_20261015/reviews/f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804/review.json",
+      "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 490,
+      "path": "evidence/batch8_regulatory_20261015/skipped_access_source.json",
+      "sha256": "b7349689a1100e5c8946be8392c18e7334b53d6cb5283a817d738087e198cc46",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 17259,
+      "path": "evidence/batch8_regulatory_20261015/source_versions/pre_synthetic_fixture_reset_tests.py",
+      "sha256": "e18142c1babf4ae727ed00d7bba46f517c96cc9962659b22253d31a118e8227a",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 20974,
+      "path": "evidence/batch8_regulatory_20261015/source_versions/pre_synthetic_pdf_fixture_service.py",
+      "sha256": "1b431d4cc0ccbb07085c3c985435e6edbaec61881df02da01cfe4dd3447c39d5",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 16850,
+      "path": "evidence/batch8_regulatory_20261015/source_versions/pre_synthetic_pdf_fixture_tests.py",
+      "sha256": "9ccd5876294a6942e99f973bbb4f13c9c8a9e89d8df2046d9cb8cc0b7e22267c",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 908,
+      "path": "evidence/batch8_regulatory_20261015/tests_final.json",
+      "sha256": "567b38fd9ea8329d29af9904897bc2c2cd1818f8aa857b8ae2b4861f50db54f5",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 4176,
+      "path": "evidence/batch8_regulatory_20261015/tests_final.log",
+      "sha256": "9b5cebf096b9158a2a59e1676b80c040ef1cc1f47b87b5a4e11e2b2fe32966c2",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 730,
+      "path": "evidence/batch8_regulatory_20261015/tests_initial.json",
+      "sha256": "ed96e381670db2fdb6df195200c22a5cfd94f628135b0dece6ed92e5475d7437",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 3944,
+      "path": "evidence/batch8_regulatory_20261015/tests_initial.log",
+      "sha256": "c7f3621c50c0ad6b34a34d5327f08dd28a54f14a4e8d5d1391cd849b2efe00f4",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 943,
+      "path": "evidence/batch8_regulatory_20261015/tests_qualified.json",
+      "sha256": "2a261c333587b7d115b28eec143af9f82e3811c0f31ccac076f3e607b347c0ac",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 3214,
+      "path": "evidence/batch8_regulatory_20261015/tests_qualified.log",
+      "sha256": "f2eecb66e6c869089bb8e43c51ddc1e300cab7ac0a832baf289dea581caf25eb",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 20974,
+      "path": "market_checker_app/services/doj_case_posture_review.py",
+      "sha256": "1b431d4cc0ccbb07085c3c985435e6edbaec61881df02da01cfe4dd3447c39d5",
+      "staged_bytes_equal_local": true
+    },
+    {
+      "bytes": 17264,
+      "path": "tests/test_batch8_doj_case_posture.py",
+      "sha256": "3b7ad1aac1106b9f17809e3157fb2a8ed48b3a4639a6fa4081d30c944e940289",
+      "staged_bytes_equal_local": true
+    }
+  ],
+  "inclusive_whitespace_check_exit_code": 2,
+  "new_http_requests": 0,
+  "preserved_original_whitespace_warning_counts_by_path": {
+    "evidence/batch8_regulatory_20261015/raw/doj_case_index.html": 979
+  },
+  "production_or_publisher_byte_assertions_relaxed": false,
+  "staged_owned_files_before_this_record": 38,
+  "strict_code_test_mutable_metadata_whitespace_check_exit_code": 0,
+  "verified_at": "2026-10-16T00:21:34.030451+00:00",
+  "whitespace_changes_to_original_bodies_or_frozen_logs": false
+}

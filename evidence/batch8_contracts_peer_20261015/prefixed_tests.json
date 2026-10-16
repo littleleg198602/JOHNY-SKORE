@@ -1,0 +1,43 @@
+{
+  "actual_imported_source_sha256": {
+    "market_checker_app.config": {
+      "path": "market_checker_app/config.py",
+      "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+    },
+    "market_checker_app.release_manifest": {
+      "path": "market_checker_app/release_manifest.py",
+      "sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a"
+    },
+    "market_checker_app.services.captured_market_data_provider": {
+      "path": "market_checker_app/services/captured_market_data_provider.py",
+      "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+    },
+    "market_checker_app.services.pipeline_service": {
+      "path": "market_checker_app/services/pipeline_service.py",
+      "sha256": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977"
+    },
+    "market_checker_app.weekly_shadow_runner": {
+      "path": "market_checker_app/weekly_shadow_runner.py",
+      "sha256": "21a7f8ebaf66e80f74d2c491cfd5b0c1253ee8ce4b9ecdaef5cf22e306025c01"
+    }
+  },
+  "completed_at": "2026-10-16T00:17:55.250514+00:00",
+  "diagnostics": [],
+  "discovered": 5,
+  "elapsed_seconds": 0.4327032539999891,
+  "errors": 5,
+  "executed": 5,
+  "expected_failures": 0,
+  "failures": 0,
+  "fixture_databases_temporary_and_handles_closed": true,
+  "http_attempts": 0,
+  "phase": "prefixed",
+  "production_database_reads_or_writes": 0,
+  "schema_version": 1,
+  "skips": 0,
+  "source_pins_sha256": "1b2b3c1d503fa73425bfab2ad9684fc71043e25a3652f282f99cd00a9acabeb0",
+  "started_at": "2026-10-16T00:17:54.817808+00:00",
+  "successful": false,
+  "test_source_sha256": "2238202eaa8894fc3672fd12746aeedc1d82fae101fed3726e3c282f20724077",
+  "unexpected_successes": 0
+}

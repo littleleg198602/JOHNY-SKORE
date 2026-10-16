@@ -1,0 +1,475 @@
+"""Explicit archived daily market inputs, without HTTP, discovery or DB access.
+
+Only original raw provider OHLCV is a supported normal input. A content hash
+does not establish instrument authenticity, a dated publisher revision or PIT
+acceptance. Every read preserves the source clocks and checks the current NYSE
+session; importing an old capture cannot refresh it. This provider never enables
+prospective auditing and never supplies an online fallback.
+"""
+from __future__ import annotations
+
+from collections import Counter
+from collections.abc import Callable, Iterable
+from copy import deepcopy
+from datetime import datetime
+import hashlib
+from itertools import islice
+import json
+import math
+from pathlib import Path, PurePosixPath
+import re
+
+import pandas as pd
+
+from market_checker_app.models import PerformanceSnapshot, YahooSnapshot
+from market_checker_app.services.ohlc_quality import DEFAULT_MIN_HISTORY_ROWS, assess_daily_ohlc
+from market_checker_app.services.prospective_specialist_history import _hash, _no_symlink, _read_json, _time, physical_clock
+from market_checker_app.services.us_equity_calendar_service import _nyse_calendar, last_completed_session, sessions_between
+from market_checker_app.services.yahoo_price_provenance_service import MAX_CAPTURE_BYTES, MAX_FRAME_ROWS, load_observation
+from market_checker_app.utils.symbols import normalize_yahoo_symbol
+from market_checker_app.utils.ticker_universe import load_canonical_ticker_records
+
+
+MANIFEST_SCHEMA_VERSION = "captured_market_data_manifest_v1"
+REPORT_VERSION = "captured_market_data_readiness_v1"
+PROVENANCE_ATTR = "captured_market_data_provenance"
+BENCHMARK_TICKERS = ("SPY", "XLB", "XLC", "XLE", "XLF", "XLI", "XLK", "XLP", "XLRE", "XLU", "XLV", "XLY")
+MAX_INSTRUMENTS = 687 + len(BENCHMARK_TICKERS)
+MAX_MANIFEST_BYTES = 2_000_000
+MAX_SELECTED_BYTES = 64_000_000
+RAW_METHOD = "PROVIDER_VALUES_AS_RETURNED"
+_SOURCE_NAME = re.compile(r"yahoo_price_([a-f0-9]{64})\.json")
+_CODE = re.compile(r"[A-Z][A-Z0-9_]{1,100}")
+_COLUMNS = {"Open", "High", "Low", "Close", "Adj Close", "Volume", "Stock Splits", "Dividends", "Capital Gains"}
+_OHLCV = {"Open", "High", "Low", "Close", "Volume"}
+_SOURCE_FIELDS = {"path", "file_sha256", "file_bytes", "capture_id", "frame_sha256", "kind",
+                  "observed_at", "captured_at", "available_at", "first_session", "last_session", "row_count"}
+_ENTRY_FIELDS = {"ticker", "provider_symbol", "provider", "interval", "methodology", "require_actions", "source"}
+_INPUT_ERRORS = (ValueError, OSError, KeyError, TypeError, OverflowError, AttributeError)
+
+
+def _reason(error: Exception) -> str:
+    text = str(error) if isinstance(error, ValueError) else ""
+    return text if _CODE.fullmatch(text) else "INVALID_CAPTURED_MARKET_DATA"
+
+
+def _root(value: Path) -> Path:
+    path = Path(value)
+    _no_symlink(path)
+    if not path.is_dir():
+        raise ValueError("CAPTURED_ARCHIVE_ROOT_UNAVAILABLE")
+    return path.resolve()
+
+
+def _source_path(root: Path, value: object) -> Path:
+    if not isinstance(value, str) or not re.fullmatch(r"[A-Za-z0-9_./-]{1,512}", value):
+        raise ValueError("INVALID_EXPLICIT_MARKET_ARCHIVE_PATH")
+    relative = PurePosixPath(value)
+    if relative.is_absolute() or any(part in {"", ".", ".."} for part in value.split("/")):
+        raise ValueError("MARKET_ARCHIVE_OUTSIDE_ROOT")
+    if _SOURCE_NAME.fullmatch(relative.name) is None:
+        raise ValueError("UNSUPPORTED_MARKET_ARCHIVE_FILENAME")
+    path = root.joinpath(*relative.parts)
+    _no_symlink(path)
+    if not path.resolve().is_relative_to(root) or not path.is_file():
+        raise ValueError("EXPLICIT_MARKET_ARCHIVE_UNAVAILABLE")
+    return path
+
+
+def _identity_map() -> dict[str, str]:
+    return {**{row["ticker"]: row["yahoo_ticker"] for row in load_canonical_ticker_records()},
+            **{ticker: ticker for ticker in BENCHMARK_TICKERS}}
+
+
+def _frame_body(record: dict) -> dict:
+    # The whole outer body was gated before parsing its embedded exact frame.
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("DUPLICATE_CAPTURED_FRAME_JSON_KEY")
+            result[key] = value
+        return result
+    def finite_constant(_):
+        raise ValueError("NONFINITE_OR_MISSING_MARKET_VALUE")
+    body = json.loads(record["frame_json"], object_pairs_hook=unique_object, parse_constant=finite_constant)
+    if (not isinstance(body, dict) or set(body) != {"columns", "index", "data"}
+            or not isinstance(body["columns"], list) or not isinstance(body["index"], list)
+            or not isinstance(body["data"], list) or not 1 <= len(body["index"]) <= MAX_FRAME_ROWS
+            or len(body["data"]) != len(body["index"])):
+        raise ValueError("INVALID_CAPTURED_FRAME_SHAPE")
+    return body
+
+
+def build_captured_market_data_entry(*, archive_root: Path, source_archive_path: str,
+                                     require_actions: bool = False) -> dict:
+    """Pin ONE explicit existing safe archive; this is no readiness approval.
+
+    The function reads no sibling files and writes nothing. Unsupported cache
+    kinds can be described honestly and will remain WAIT_DATA in the provider.
+    It never replaces a physical clock with the current import time.
+    """
+    if type(require_actions) is not bool:
+        raise ValueError("INVALID_ACTION_INPUT_REQUIREMENT")
+    root = _root(archive_root)
+    path = _source_path(root, source_archive_path)
+    record, raw = _read_json(path, MAX_CAPTURE_BYTES)
+    checked = load_observation(path)
+    if checked != record:
+        raise ValueError("MARKET_ARCHIVE_CHANGED_DURING_READ")
+    body = _frame_body(record)
+    dates = [pd.Timestamp(value).date().isoformat() for value in body["index"]]
+    return {"ticker": record["ticker"], "provider_symbol": record["provider_symbol"],
+        "provider": record["provider"], "interval": record["interval"],
+        "methodology": record.get("methodology", record.get("methodology_version")),
+        "require_actions": require_actions, "source": {"path": source_archive_path,
+            "file_sha256": hashlib.sha256(raw).hexdigest(), "file_bytes": len(raw),
+            "capture_id": record["capture_id"], "frame_sha256": record["frame_sha256"],
+            "kind": record["kind"], "observed_at": record["observed_at"],
+            "captured_at": record["captured_at"], "available_at": record["captured_at"],
+            "first_session": dates[0], "last_session": dates[-1], "row_count": len(dates)}}
+
+
+def _validate_manifest(record: dict) -> dict[str, dict]:
+    if set(record) != {"schema_version", "instruments"} or record.get("schema_version") != MANIFEST_SCHEMA_VERSION:
+        raise ValueError("UNSUPPORTED_CAPTURED_MARKET_MANIFEST")
+    rows = record["instruments"]
+    if not isinstance(rows, list) or not 1 <= len(rows) <= MAX_INSTRUMENTS:
+        raise ValueError("CAPTURED_MARKET_MANIFEST_ENTRY_LIMIT")
+    identities = _identity_map()
+    entries, symbols, selected_bytes = {}, set(), 0
+    for row in rows:
+        if not isinstance(row, dict) or set(row) != _ENTRY_FIELDS:
+            raise ValueError("INVALID_CAPTURED_MARKET_MANIFEST_ENTRY")
+        ticker = row["ticker"]
+        if not isinstance(ticker, str) or ticker not in identities or row["provider_symbol"] != identities[ticker]:
+            raise ValueError("FOREIGN_OR_AMBIGUOUS_MARKET_INSTRUMENT")
+        if ticker in entries or row["provider_symbol"] in symbols:
+            raise ValueError("AMBIGUOUS_CAPTURED_MARKET_INSTRUMENT")
+        if type(row["require_actions"]) is not bool or not all(isinstance(row[key], str) for key in ("provider", "interval", "methodology")):
+            raise ValueError("INVALID_CAPTURED_MARKET_MANIFEST_ENTRY")
+        pin = row["source"]
+        if not isinstance(pin, dict) or set(pin) != _SOURCE_FIELDS:
+            raise ValueError("INVALID_CAPTURED_MARKET_SOURCE_PIN")
+        for field in ("file_sha256", "capture_id", "frame_sha256"):
+            _hash(pin[field])
+        if (type(pin["file_bytes"]) is not int or not 1 <= pin["file_bytes"] <= MAX_CAPTURE_BYTES
+                or type(pin["row_count"]) is not int or not 1 <= pin["row_count"] <= MAX_FRAME_ROWS):
+            raise ValueError("CAPTURED_MARKET_SOURCE_BYTE_OR_ROW_LIMIT")
+        selected_bytes += pin["file_bytes"]
+        if selected_bytes > MAX_SELECTED_BYTES:
+            raise ValueError("CAPTURED_MARKET_TOTAL_BYTE_LIMIT")
+        entries[ticker] = deepcopy(row)
+        symbols.add(row["provider_symbol"])
+    return entries
+
+
+def _original_frame(record: dict, pin: dict, *, cutoff: datetime, require_actions: bool) -> pd.DataFrame:
+    body = _frame_body(record)
+    columns = body["columns"]
+    if (any(not isinstance(column, str) or column not in _COLUMNS for column in columns)
+            or len(set(columns)) != len(columns) or not _OHLCV <= set(columns)):
+        raise ValueError("MISSING_OR_UNSUPPORTED_ORIGINAL_OHLCV")
+    if require_actions and not {"Stock Splits", "Dividends"} <= set(columns):
+        raise ValueError("MISSING_ORIGINAL_CORPORATE_ACTION_INPUTS")
+    for row in body["data"]:
+        if not isinstance(row, list) or len(row) != len(columns):
+            raise ValueError("INVALID_CAPTURED_FRAME_SHAPE")
+        if any(type(value) not in (int, float) or not math.isfinite(value) for value in row):
+            raise ValueError("NONFINITE_OR_MISSING_MARKET_VALUE")
+        values = dict(zip(columns, row))
+        if (any(values[key] <= 0 for key in ("Open", "High", "Low", "Close"))
+                or values["Volume"] < 0 or "Adj Close" in values and values["Adj Close"] <= 0
+                or any(values.get(key, 0) < 0 for key in ("Stock Splits", "Dividends", "Capital Gains"))
+                or values["High"] < max(values["Open"], values["Close"], values["Low"])
+                or values["Low"] > min(values["Open"], values["Close"], values["High"])):
+            raise ValueError("INVALID_OR_INCONSISTENT_ORIGINAL_OHLCV")
+    if any(not isinstance(value, str) for value in body["index"]):
+        raise ValueError("INVALID_DAILY_SESSION_LABEL")
+    timestamps = pd.DatetimeIndex(pd.to_datetime(body["index"], utc=True, errors="raise"))
+    if timestamps.hasnans or timestamps.has_duplicates or not timestamps.is_monotonic_increasing:
+        raise ValueError("DUPLICATE_OR_SHIFTED_CAPTURED_SESSIONS")
+    labels = tuple(timestamps.normalize())
+    if len(set(labels)) != len(labels) or labels[0].year < 1900 or labels[-1].year > cutoff.year:
+        raise ValueError("DUPLICATE_OR_SHIFTED_CAPTURED_SESSIONS")
+    expected = sessions_between(labels[0], labels[-1])
+    if labels != expected:
+        raise ValueError("MISSING_OR_SHIFTED_CAPTURED_SESSIONS")
+    schedule = _nyse_calendar().schedule(start_date=labels[0].date(), end_date=labels[-1].date())
+    encodings = set()
+    for stamp, (_, session) in zip(timestamps, schedule.iterrows()):
+        if stamp == stamp.normalize():
+            encodings.add("UTC_SESSION_LABEL")
+        elif stamp.tz_convert("America/New_York").time().isoformat() == "00:00:00":
+            encodings.add("NEW_YORK_MIDNIGHT")
+        elif stamp == session.market_open:
+            encodings.add("NYSE_OPEN")
+        else:
+            raise ValueError("SHIFTED_DAILY_SESSION_TIMESTAMP")
+    if len(encodings) != 1:
+        raise ValueError("AMBIGUOUS_DAILY_SESSION_ENCODING")
+    if (pin["first_session"] != labels[0].date().isoformat() or pin["last_session"] != labels[-1].date().isoformat()
+            or pin["row_count"] != len(labels) or record.get("row_count") != len(labels)):
+        raise ValueError("CAPTURED_MARKET_SESSION_PIN_MISMATCH")
+    if _time(record["observed_at"]) < _time(schedule.iloc[-1].market_close.to_pydatetime()):
+        raise ValueError("CAPTURED_SESSION_NOT_YET_COMPLETE_WHEN_OBSERVED")
+    return pd.DataFrame(deepcopy(body["data"]), columns=columns, index=timestamps)
+
+
+class CapturedMarketDataProvider:
+    """Yahoo-shaped local provider; selection and every missing result are explicit.
+
+    ``observation_clock`` is fixture-only. Normal callers supply no as_of or
+    historical clock. This object never initializes a DB or writes captures.
+    """
+
+    offline = True
+    allows_persistent_cache = False
+    source_http_requests = 0
+
+    def __init__(self, *, manifest_path: Path, archive_root: Path,
+                 observation_clock: Callable[[], datetime] | None = None):
+        self.manifest_path = Path(manifest_path)
+        self.archive_root = Path(archive_root)
+        self._fixture_mode = observation_clock is not None
+        self._raw_clock = observation_clock or physical_clock
+        self._high_water = None
+        self._entries = {}
+        self.manifest_sha256 = None
+        self._initial_error = None
+        try:
+            self._physical_now()
+            self.archive_root = _root(self.archive_root)
+            _no_symlink(self.manifest_path)
+            manifest, raw = _read_json(self.manifest_path, MAX_MANIFEST_BYTES)
+            self._entries = _validate_manifest(manifest)
+            self.manifest_sha256 = hashlib.sha256(raw).hexdigest()
+            self._physical_now()
+        except _INPUT_ERRORS as error:
+            self._initial_error = _reason(error)
+
+    def _physical_now(self) -> datetime:
+        now = _time(self._raw_clock())
+        if self._high_water is not None and now < self._high_water:
+            raise ValueError("CAPTURED_MARKET_PHYSICAL_CLOCK_ROLLBACK")
+        self._high_water = now
+        return now
+
+    def _load(self, entry: dict, cutoff: datetime) -> tuple[pd.DataFrame, dict]:
+        pin = entry["source"]
+        path = _source_path(self.archive_root, pin["path"])
+        if path.stat().st_size != pin["file_bytes"]:
+            raise ValueError("CAPTURED_MARKET_FILE_PIN_MISMATCH")
+        record, raw = _read_json(path, min(MAX_CAPTURE_BYTES, pin["file_bytes"]))
+        if len(raw) != pin["file_bytes"] or hashlib.sha256(raw).hexdigest() != pin["file_sha256"]:
+            raise ValueError("CAPTURED_MARKET_FILE_PIN_MISMATCH")
+        checked = load_observation(path)
+        if checked != record:
+            raise ValueError("MARKET_ARCHIVE_CHANGED_DURING_READ")
+        origin = record.get("evidence_origin", record.get("source_evidence_origin"))
+        marked_fixture = origin == "DETERMINISTIC_TEST_FIXTURE" or record.get("fixture_only") is True
+        if marked_fixture and not self._fixture_mode:
+            raise ValueError("SYNTHETIC_CAPTURE_NOT_PRODUCTION_INPUT")
+        if not marked_fixture and origin not in {"YFINANCE_RETURNED_FRAME", "CAPTURED_YAHOO_CHART_REPLAY"}:
+            raise ValueError("UNVERIFIED_CAPTURE_ORIGIN")
+        if (entry["provider"] != "yfinance" or entry["interval"] != "1d" or entry["methodology"] != RAW_METHOD
+                or record.get("kind") != "PROVIDER_RETURNED_FRAME" or record.get("methodology") != RAW_METHOD
+                or record.get("auto_adjust_requested") is not False or record.get("actions_requested") is not True):
+            raise ValueError("UNSUPPORTED_CAPTURE_METHOD")
+        if record.get("synthesized_columns") != []:
+            raise ValueError("SYNTHESIZED_SOURCE_COLUMNS_REFUSED")
+        if any(record.get(key) != entry[key] for key in ("ticker", "provider", "provider_symbol", "interval")):
+            raise ValueError("FOREIGN_OR_AMBIGUOUS_MARKET_INSTRUMENT")
+        if normalize_yahoo_symbol(entry["ticker"]) != record["provider_symbol"]:
+            raise ValueError("FOREIGN_OR_AMBIGUOUS_MARKET_INSTRUMENT")
+        if any(record.get(key) != pin[key] for key in ("capture_id", "frame_sha256", "kind", "observed_at", "captured_at")):
+            raise ValueError("CAPTURED_MARKET_SOURCE_PIN_MISMATCH")
+        if pin["available_at"] != record["captured_at"]:
+            raise ValueError("CAPTURED_MARKET_AVAILABILITY_PIN_MISMATCH")
+        if not _time(record["started_at"]) <= _time(record["observed_at"]) <= _time(record["captured_at"]) <= cutoff:
+            raise ValueError("FUTURE_OR_INVALID_CAPTURED_KNOWLEDGE_CLOCK")
+        frame = _original_frame(record, pin, cutoff=cutoff, require_actions=entry["require_actions"])
+        provenance = {"manifest_sha256": self.manifest_sha256, "source": deepcopy(pin),
+            "ticker": entry["ticker"], "provider_symbol": entry["provider_symbol"],
+            "provider": entry["provider"], "interval": entry["interval"], "methodology": entry["methodology"],
+            "publisher_revision_timing_status": record["publisher_revision_timing_status"],
+            "publisher_revision_at": record["publisher_revision_at"],
+            "evidence_origin": origin, "fixture_only": self._fixture_mode or marked_fixture,
+            "strict_pit_eligible": False,
+            "publisher_authenticity_verified": False, "historical_acceptance_verified": False,
+            "source_clocks_rebased": False}
+        return frame, provenance
+
+    def _request(self, tickers: Iterable[str], *, period: str = "1y", interval: str = "1d",
+                 progress_callback=None) -> tuple[dict[str, pd.DataFrame], dict]:
+        selected = list(islice(iter(tickers), MAX_INSTRUMENTS + 1))
+        report = {"report_version": REPORT_VERSION, "status": "WAIT_DATA", "reason": "",
+            "requested_count": len(selected), "usable_count": 0, "missing_count": 0,
+            "manifest_sha256": self.manifest_sha256, "as_of": None, "latest_completed_session": None,
+            "rows": [], "reason_counts": {}, "source_http_requests": 0, "db_writes": 0,
+            "source_discovery_performed": False, "persistent_cache_used": False,
+            "forecasts_created": 0, "labels_created": 0, "analysis_only": True,
+            "scores_changed": False, "fitter_changed": False, "activation_allowed": False,
+            "strict_pit_eligible": False, "historical_acceptance_verified": False,
+            "prospective_audit_implicitly_enabled": False, "metadata_status": "MISSING",
+            "fixture_only": self._fixture_mode}
+        frames, loaded = {}, {}
+        try:
+            clock = self._physical_now()
+            if self._initial_error:
+                raise ValueError(self._initial_error)
+            if not selected or len(selected) > MAX_INSTRUMENTS:
+                raise ValueError("CAPTURED_REQUEST_COUNT_LIMIT_OR_EMPTY")
+            identities = _identity_map()
+            if any(not isinstance(ticker, str) or ticker not in identities for ticker in selected):
+                raise ValueError("FOREIGN_OR_AMBIGUOUS_MARKET_INSTRUMENT")
+            selected = list(dict.fromkeys(selected))
+            report["requested_count"] = len(selected)
+            if period != "1y" or interval != "1d":
+                raise ValueError("UNSUPPORTED_CAPTURED_MARKET_REQUEST")
+            _, raw = _read_json(self.manifest_path, MAX_MANIFEST_BYTES)
+            if hashlib.sha256(raw).hexdigest() != self.manifest_sha256:
+                raise ValueError("CAPTURED_MARKET_MANIFEST_CHANGED")
+            for index, ticker in enumerate(selected):
+                row = {"ticker": ticker, "status": "WAIT_DATA", "reason": ""}
+                report["rows"].append(row)
+                try:
+                    if ticker not in self._entries:
+                        raise ValueError("MISSING_EXPLICIT_MARKET_INSTRUMENT")
+                    frame, provenance = self._load(self._entries[ticker], clock)
+                    loaded[ticker] = frame, provenance
+                except _INPUT_ERRORS as error:
+                    row["reason"] = _reason(error)
+                if callable(progress_callback):
+                    progress_callback(index + 1, len(selected), ticker)
+            completed_at = self._physical_now()
+            latest = last_completed_session(completed_at)
+            report.update(as_of=completed_at.isoformat(), latest_completed_session=latest.date().isoformat() if latest is not None else None)
+            for row in report["rows"]:
+                ticker = row["ticker"]
+                if ticker not in loaded:
+                    continue
+                frame, provenance = loaded[ticker]
+                quality = assess_daily_ohlc(frame, as_of=completed_at)
+                reasons = []
+                if latest is None or frame.index[-1].normalize() != latest:
+                    reasons.append("MISSING_LATEST_COMPLETED_SESSION_CLOSE")
+                if len(frame) < DEFAULT_MIN_HISTORY_ROWS or not quality.history_usable:
+                    reasons.append("INSUFFICIENT_CONTIGUOUS_66_SESSION_HISTORY")
+                if latest is None or any(stamp.normalize() > latest for stamp in frame.index):
+                    reasons.append("UNCOMPLETED_OR_FUTURE_CAPTURED_SESSION")
+                row.update(observation_count=quality.observation_count, source=deepcopy(provenance["source"]),
+                    available_lookbacks=list(quality.available_lookbacks), missing_lookbacks=list(quality.missing_lookbacks),
+                    publisher_revision_timing_status=provenance["publisher_revision_timing_status"])
+                if reasons:
+                    row.update(reason=reasons[0], reasons=reasons)
+                    continue
+                provenance["physical_read_at"] = completed_at.isoformat()
+                frame.attrs[PROVENANCE_ATTR] = deepcopy(provenance)
+                frames[ticker] = frame.copy(deep=True)
+                row.update(status="READY", provenance=deepcopy(provenance))
+            report["usable_count"] = len(frames)
+            report["missing_count"] = len(selected) - len(frames)
+            report["reason_counts"] = dict(sorted(Counter(row["reason"] for row in report["rows"] if row["reason"]).items()))
+            report["status"] = "READY" if not report["missing_count"] else "WAIT_DATA"
+        except _INPUT_ERRORS as error:
+            frames.clear()
+            report.update(reason=_reason(error), usable_count=0, missing_count=len(selected))
+            for row in report["rows"]:
+                row.update(status="WAIT_DATA", reason=report["reason"])
+            report["reason_counts"] = {report["reason"]: max(1, len(selected))}
+        return frames, report
+
+    def readiness(self, tickers: Iterable[str], *, include_benchmarks: bool = True) -> dict:
+        selected = list(islice(iter(tickers), MAX_INSTRUMENTS + 1))
+        if type(include_benchmarks) is not bool:
+            raise ValueError("INVALID_BENCHMARK_READINESS_SELECTION")
+        if selected and include_benchmarks and len(selected) <= 687:
+            selected.extend(ticker for ticker in BENCHMARK_TICKERS if ticker not in selected)
+        return self._request(selected)[1]
+
+    def selection_provenance(self) -> dict:
+        """Pinned configuration only; no capture readiness or acceptance claim."""
+        return {"mode": "EXPLICIT_CAPTURED_MARKET_DATA", "manifest_path": str(self.manifest_path),
+            "archive_root": str(self.archive_root), "manifest_sha256": self.manifest_sha256,
+            "selection_reason": self._initial_error, "offline": True, "persistent_cache_allowed": False,
+            "fixture_only": self._fixture_mode,
+            "readiness_verified": False, "strict_pit_eligible": False,
+            "prospective_audit_implicitly_enabled": False}
+
+    def provenance_for(self, ticker: str) -> dict:
+        """Revalidate the same pinned source; never choose a replacement version.
+
+        The returned source pin is exactly the pin in the consumed frame attrs
+        and readiness rows. Physical read time can advance; source availability
+        and manifest/source hashes cannot. Missing/tampered/stale data return no
+        usable provenance. The caller must still bind this to its used frame.
+        """
+        frames, report = self._request([ticker])
+        return {"status": report["status"], "reason": report["reason"] or next(
+                (row["reason"] for row in report["rows"] if row["reason"]), ""),
+            "manifest_sha256": self.manifest_sha256, "as_of": report["as_of"],
+            "provenance": deepcopy(frames[ticker].attrs[PROVENANCE_ATTR]) if ticker in frames else None}
+
+    def revalidate_for_persistence(self, tickers: Iterable[str], *, expected_readiness: dict | None = None) -> dict:
+        """Fresh all-input check, optionally bound to an earlier READY preflight.
+
+        No source selection is refreshed. A caller can compare these stable
+        row.source pins itself, or pass its original preflight for exact binding.
+        No prediction or persistence occurs in this method.
+        """
+        report = self.readiness(tickers, include_benchmarks=True)
+        report["phase"] = "PRE_PERSISTENCE"
+        if expected_readiness is not None:
+            try:
+                previous = {row["ticker"]: row["source"] for row in expected_readiness["rows"]}
+                current = {row["ticker"]: row["source"] for row in report["rows"]}
+                matches = (expected_readiness["status"] == "READY"
+                    and expected_readiness["manifest_sha256"] == report["manifest_sha256"]
+                    and previous == current)
+            except (KeyError, TypeError):
+                matches = False
+            if not matches:
+                report.update(status="WAIT_DATA", reason="CAPTURED_INPUT_BINDING_CHANGED_BEFORE_PERSISTENCE",
+                    usable_count=0, missing_count=report["requested_count"])
+                for row in report["rows"]:
+                    if row["status"] == "READY":
+                        row.update(status="WAIT_DATA", reason=report["reason"])
+                        row.pop("provenance", None)
+                report["reason_counts"][report["reason"]] = max(1, report["requested_count"])
+        return report
+
+    def fetch_ohlc_only(self, ticker: str, period: str = "1y", interval: str = "1d"):
+        frames, report = self._request([ticker], period=period, interval=interval)
+        return (frames[ticker], None) if ticker in frames else (None, "WAIT_DATA:" + (report["reason"] or report["rows"][0]["reason"]))
+
+    def fetch_ohlc(self, ticker: str, period: str = "1y", interval: str = "1d"):
+        return self.fetch_ohlc_only(ticker, period, interval)
+
+    def fetch_ohlc_batch(self, tickers: list[str], period: str = "1y", interval: str = "1d", *,
+                       batch_size: int = 50, retry_missing_symbols: bool = True,
+                       missing_symbol_retry_limit: int = 5, progress_callback=None):
+        # Compatibility arguments cannot enable retries or an online fallback.
+        frames, report = self._request(tickers, period=period, interval=interval, progress_callback=progress_callback)
+        warnings = {row["ticker"]: "WAIT_DATA:" + row["reason"] for row in report["rows"] if row["status"] != "READY"}
+        if report["reason"] and not report["rows"]:
+            warnings = {ticker: "WAIT_DATA:" + report["reason"] for ticker in dict.fromkeys(islice(iter(tickers), MAX_INSTRUMENTS)) if isinstance(ticker, str) and ticker in _identity_map()}
+        return frames, warnings
+
+    def fetch_metadata(self, ticker: str):
+        # OHLC is never projected into fabricated analyst/fundamental metadata.
+        symbol = _identity_map().get(ticker, "") if isinstance(ticker, str) else ""
+        return YahooSnapshot(symbol, {}, "missing"), "WAIT_DATA:CAPTURED_METADATA_NOT_SUPPLIED"
+
+    def fetch_snapshots(self, ticker: str):
+        frame, warning = self.fetch_ohlc_only(ticker)
+        def change(days):
+            if frame is None or len(frame) <= days:
+                return None
+            return (float(frame["Close"].iloc[-1]) / float(frame["Close"].iloc[-(days + 1)]) - 1) * 100
+        metadata, metadata_warning = self.fetch_metadata(ticker)
+        return metadata, PerformanceSnapshot(metadata.ticker, change(7), change(14), change(21), change(63)), warning or metadata_warning
+
+
+__all__ = ["CapturedMarketDataProvider", "build_captured_market_data_entry", "MANIFEST_SCHEMA_VERSION",
+           "REPORT_VERSION", "PROVENANCE_ATTR", "BENCHMARK_TICKERS"]

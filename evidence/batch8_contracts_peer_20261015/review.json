@@ -1,0 +1,194 @@
+{
+  "finding_id": "CAPTURED_INPUT_REVALIDATION_AT_ACTUAL_FORECAST_WRITES",
+  "historical_setup_errors_preserved": {
+    "errors": 5,
+    "is_bug_reproduction": false,
+    "reason": "Unit fixture initially omitted explicit provider fixture-clock injection and required weekly arguments; test fixture corrected without production edits",
+    "result_path": "evidence/batch8_contracts_peer_20261015/prefixed_tests.json"
+  },
+  "original_failure": {
+    "actual_imported_source_sha256": {
+      "market_checker_app.config": {
+        "path": "market_checker_app/config.py",
+        "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+      },
+      "market_checker_app.release_manifest": {
+        "path": "market_checker_app/release_manifest.py",
+        "sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a"
+      },
+      "market_checker_app.services.captured_market_data_provider": {
+        "path": "market_checker_app/services/captured_market_data_provider.py",
+        "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+      },
+      "market_checker_app.services.pipeline_service": {
+        "path": "market_checker_app/services/pipeline_service.py",
+        "sha256": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977"
+      },
+      "market_checker_app.weekly_shadow_runner": {
+        "path": "market_checker_app/weekly_shadow_runner.py",
+        "sha256": "21a7f8ebaf66e80f74d2c491cfd5b0c1253ee8ce4b9ecdaef5cf22e306025c01"
+      }
+    },
+    "diagnostics": [
+      {
+        "actual_baseline_snapshots_persisted": 1,
+        "case": "test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write",
+        "expected_baseline_snapshots_persisted": 0,
+        "finalizer_returned": true,
+        "fixture_only": true,
+        "http_attempts": 0,
+        "production_db_writes": 0,
+        "provider_current_reasons": {
+          "MISSING_LATEST_COMPLETED_SESSION_CLOSE": 13
+        },
+        "provider_current_status": "WAIT_DATA",
+        "summary_snapshot_error": null,
+        "summary_snapshot_status": "SUCCESS"
+      },
+      {
+        "actual_baseline_snapshots_persisted": 1,
+        "case": "test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write",
+        "expected_baseline_snapshots_persisted": 0,
+        "finalizer_returned": true,
+        "fixture_only": true,
+        "http_attempts": 0,
+        "production_db_writes": 0,
+        "provider_current_reasons": {
+          "CAPTURED_MARKET_MANIFEST_CHANGED": 13
+        },
+        "provider_current_status": "WAIT_DATA",
+        "summary_snapshot_error": null,
+        "summary_snapshot_status": "SUCCESS"
+      },
+      {
+        "actual_baseline_snapshots_persisted": 1,
+        "actual_candidate_predictions_persisted": 1,
+        "baseline_hash_preserved": true,
+        "case": "test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write",
+        "expected_baseline_snapshots_persisted": 1,
+        "expected_candidate_predictions_persisted": 0,
+        "finalizer_returned": true,
+        "fixture_only": true,
+        "http_attempts": 0,
+        "production_db_writes": 0
+      }
+    ],
+    "elapsed_seconds": 3.8479165530000046,
+    "errors": 0,
+    "executed": 5,
+    "failures": 3,
+    "log_path": "evidence/batch8_contracts_peer_20261015/prefixed_confirmed_tests.log",
+    "result_path": "evidence/batch8_contracts_peer_20261015/prefixed_confirmed_tests.json",
+    "skips": 0
+  },
+  "owner_fix": {
+    "actual_imported_source_sha256": {
+      "market_checker_app.config": {
+        "path": "market_checker_app/config.py",
+        "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+      },
+      "market_checker_app.release_manifest": {
+        "path": "market_checker_app/release_manifest.py",
+        "sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a"
+      },
+      "market_checker_app.services.captured_market_data_provider": {
+        "path": "market_checker_app/services/captured_market_data_provider.py",
+        "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+      },
+      "market_checker_app.services.pipeline_service": {
+        "path": "market_checker_app/services/pipeline_service.py",
+        "sha256": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+      },
+      "market_checker_app.weekly_shadow_runner": {
+        "path": "market_checker_app/weekly_shadow_runner.py",
+        "sha256": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91"
+      }
+    },
+    "baseline_guard_phase": "before_baseline_snapshot_write",
+    "candidate_guard_phase": "before_candidate_snapshot_write",
+    "code_owner": "root",
+    "entry_binding_required": true,
+    "peer_edited_core_files": false
+  },
+  "postfix_verification": {
+    "diagnostics": [
+      {
+        "actual_baseline_snapshots_persisted": 0,
+        "case": "test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write",
+        "expected_baseline_snapshots_persisted": 0,
+        "finalizer_returned": true,
+        "fixture_only": true,
+        "http_attempts": 0,
+        "production_db_writes": 0,
+        "provider_current_reasons": {
+          "MISSING_LATEST_COMPLETED_SESSION_CLOSE": 13
+        },
+        "provider_current_status": "WAIT_DATA",
+        "summary_snapshot_error": "snapshot ulo\u017een\u00ed selhalo: RuntimeConfigurationError: WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_FORECAST_PERSISTENCE",
+        "summary_snapshot_status": "FAILED"
+      },
+      {
+        "actual_baseline_snapshots_persisted": 0,
+        "case": "test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write",
+        "expected_baseline_snapshots_persisted": 0,
+        "finalizer_returned": true,
+        "fixture_only": true,
+        "http_attempts": 0,
+        "production_db_writes": 0,
+        "provider_current_reasons": {
+          "CAPTURED_MARKET_MANIFEST_CHANGED": 13
+        },
+        "provider_current_status": "WAIT_DATA",
+        "summary_snapshot_error": "snapshot ulo\u017een\u00ed selhalo: RuntimeConfigurationError: WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_FORECAST_PERSISTENCE",
+        "summary_snapshot_status": "FAILED"
+      },
+      {
+        "actual_baseline_snapshots_persisted": 1,
+        "actual_candidate_predictions_persisted": 0,
+        "baseline_hash_preserved": true,
+        "case": "test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write",
+        "expected_baseline_snapshots_persisted": 1,
+        "expected_candidate_predictions_persisted": 0,
+        "finalizer_returned": true,
+        "fixture_only": true,
+        "http_attempts": 0,
+        "production_db_writes": 0
+      }
+    ],
+    "discovered": 5,
+    "elapsed_seconds": 4.037226998999984,
+    "errors": 0,
+    "executed": 5,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch8_contracts_peer_20261015/postfixed_tests.log",
+    "result_path": "evidence/batch8_contracts_peer_20261015/postfixed_tests.json",
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "recorded_at": "2026-10-16T00:21:59.902731+00:00",
+  "review_type": "INDEPENDENT_READ_ONLY_RUNTIME_PROVIDER_PERSISTENCE_BOUNDARY",
+  "schema_version": 1,
+  "scope_limits": {
+    "full_suite_repeated": false,
+    "genuine_market_captures_or_predictions_created": false,
+    "hosted_windows_qualification_proved": false,
+    "live_or_historical_acceptance_proved": false,
+    "model_score_or_trading_changes": false,
+    "production_database_reads_or_writes": 0,
+    "quota_or_registry_changes": 0,
+    "source_http_requests": 0,
+    "synthetic_mechanism_data_only": true
+  },
+  "status": "OWNER_FIX_VERIFIED_FOR_THE_FIVE_PINNED_REGRESSIONS",
+  "test_path": "tests/test_batch8_captured_runtime_peer.py",
+  "unchanged_test_source_sha256": "d28806cfdf12d74eb5bf5a526e83098701619597f97de1df479e77eaabe1d28f",
+  "verified_invariants": [
+    "Initial WAIT_DATA stops before weekly SQLiteStore initialization",
+    "Captured normal path does not initialize YahooClient, YahooCacheStore or YahooOhlcCacheStore",
+    "Provider metadata remains missing, and exact asset/benchmark source pins/UNKNOWN publisher revision/strict_PIT=false are preserved",
+    "Source mutation or a completed new session after entry validation cannot acquire a baseline snapshot",
+    "Changed input during candidate preparation rejects the candidate while preserving the already committed baseline and its hash",
+    "Inactive captured configuration leaves legacy config hashing unchanged; active captured paths enter configuration identity, while exact file/manifest pins remain separate forecast provenance"
+  ]
+}

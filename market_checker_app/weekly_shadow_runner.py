@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 from datetime import datetime, timezone
 import json
 import math
@@ -790,11 +791,21 @@ def run_weekly_shadow(
             "Chybí tickery: zadejte --tickers nebo nejprve vytvořte historii v SQLite."
         )
 
+    pipeline = None
+    if config.captured_market_manifest is not None or config.captured_market_archive_root is not None:
+        pipeline = PipelineService(config)
+        if resolve_labels:
+            raise RuntimeConfigurationError("Archivní vstupy běhu nejsou potvrzenou metodikou pozdějších cenových labelů.")
+        readiness = pipeline.yahoo_client.readiness(tickers, include_benchmarks=True)
+        if readiness["status"] != "READY":
+            raise RuntimeConfigurationError("WAIT_DATA: vybrané původní cenové archivy nejsou úplné a aktuální.")
+
     config.ensure_output_dir()
     store = SQLiteStore(config.sqlite_path)
     store.ensure_schema()
     print(f"[INFO] Začínám zpracování {len(tickers)} tickerů; průběh se bude zobrazovat níže.", flush=True)
-    pipeline = PipelineService(config)
+    if pipeline is None:
+        pipeline = PipelineService(config)
     result = pipeline.run(
         tickers,
         rss_sources,
@@ -829,6 +840,22 @@ def finalize_analysis_run(
     Label loading remains opt-in. All other steps consume only this run and
     local history. Failures are retained in the exported report in both paths.
     """
+    def check_captured_inputs(phase: str) -> None:
+        if config.captured_market_manifest is None:
+            return
+        captured = result.get("captured_market_data")
+        if not isinstance(captured, dict) or not isinstance(captured.get("preflight"), dict):
+            raise RuntimeConfigurationError("WAIT_DATA:CAPTURED_RUN_BINDING_MISSING")
+        checked = pipeline.yahoo_client.revalidate_for_persistence(tickers,
+            expected_readiness=captured["preflight"])
+        captured[phase] = checked
+        if checked["status"] != "READY":
+            raise RuntimeConfigurationError("WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_FORECAST_PERSISTENCE")
+
+    if config.captured_market_manifest is not None:
+        if resolve_labels:
+            raise RuntimeConfigurationError("Captured run inputs cannot resolve target labels.")
+        check_captured_inputs("finalizer_entry")
     macro_error: str | None = None
     try:
         from market_checker_app.services.macro_regime_service import build_macro_regime_report
@@ -878,7 +905,10 @@ def finalize_analysis_run(
             build_open_position_audit,
         )
 
-        positions, position_read_error = MT5Client().load_open_positions()
+        if config.captured_market_manifest is not None:
+            positions, position_read_error = [], "Archivní cenový režim: MT5 připojení je vypnuté."
+        else:
+            positions, position_read_error = MT5Client().load_open_positions()
         metadata = result.get("metadata")
         audit_observed_at = getattr(metadata, "finished_at", datetime.now(timezone.utc))
         signals = result.get("signals")
@@ -1019,6 +1049,7 @@ def finalize_analysis_run(
             )
         if snapshot_error is None:
             try:
+                check_captured_inputs("before_baseline_snapshot_write")
                 snapshot_persistence_attempted = True
                 saved_snapshot_count = store.save_prediction_snapshots(
                     snapshot_records
@@ -1054,6 +1085,7 @@ def finalize_analysis_run(
                 as_of=model_as_of,
             )
             if candidate_model_report.get("artifact") is not None:
+                check_captured_inputs("before_candidate_snapshot_write")
                 candidate_model_report["persisted_prediction_count"] = (
                     store.save_candidate_model_report(candidate_model_report)
                 )
@@ -1434,15 +1466,48 @@ def _parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--prospective-audit-archive-root", type=Path,
         help="Lokální root s prospective_source_manifest.json a výslovně uvedenými source/label archivy.")
+    parser.add_argument("--captured-market-manifest", type=Path,
+        help="Výslovný manifest původních OHLCV archivů; vypne síťové zdroje a cenové/metadata cache.")
+    parser.add_argument("--captured-market-archive-root", type=Path,
+        help="Kořen původních cenových archivů uvedených v manifestu.")
+    parser.add_argument("--captured-market-readiness-only", action="store_true",
+        help="Pouze ověří explicitní cenové archivy a benchmarky, bez DB, sítě nebo předpovědí.")
     return parser
 
 
 def main() -> None:
     args = _parser().parse_args()
+    captured_mode = args.captured_market_manifest is not None or args.captured_market_archive_root is not None
+    if captured_mode or args.captured_market_readiness_only:
+        if args.captured_market_manifest is None or args.captured_market_archive_root is None:
+            raise SystemExit("Archivní režim vyžaduje manifest i kořen archivů.")
+        if args.resolve_labels:
+            raise SystemExit("Archivní vstupy běhu nejsou potvrzenou metodikou pozdějších cenových labelů.")
+        if not args.tickers and args.ticker_file is None:
+            raise SystemExit("Archivní režim vyžaduje výslovné tickery nebo ticker soubor.")
+        try:
+            from market_checker_app.services.captured_market_data_provider import CapturedMarketDataProvider
+            selected = _tickers(args.tickers, None, ticker_file=args.ticker_file, ticker_limit=args.ticker_limit)
+            selected, outside = restrict_to_universe(selected, load_canonical_tickers())
+            if outside or not selected:
+                raise ValueError("INVALID_CAPTURED_MARKET_TICKER_SCOPE")
+            readiness = CapturedMarketDataProvider(manifest_path=args.captured_market_manifest,
+                archive_root=args.captured_market_archive_root).readiness(selected, include_benchmarks=True)
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            raise SystemExit("WAIT_DATA: nelze ověřit explicitní cenové vstupy.") from exc
+        if args.captured_market_readiness_only:
+            print(json.dumps(readiness, ensure_ascii=False, indent=2, sort_keys=True))
+            return
+        if readiness["status"] != "READY":
+            raise SystemExit("WAIT_DATA: použij --captured-market-readiness-only pro přehled chybějících vstupů.")
     runtime_service = AgentRuntimeService(args.runtime_config)
     settings, warning = runtime_service.load()
     if warning:
         raise SystemExit(warning)
+    if captured_mode:
+        settings = replace(settings, sec_fundamentals_enabled=False, european_filings_enabled=False,
+            short_reports_enabled=False, supply_chain_enabled=False,
+            commodity_energy_enabled=False, regulatory_contract_enabled=False)
     try:
         from market_checker_app.services.counterparty_health_service import (
             parse_counterparty_health_sources,
@@ -1463,6 +1528,9 @@ def main() -> None:
             sqlite_path=args.db_path,
             sec_user_agent=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
         )
+        if captured_mode:
+            config = replace(config, captured_market_manifest=args.captured_market_manifest,
+                captured_market_archive_root=args.captured_market_archive_root)
         store = SQLiteStore(config.sqlite_path)
         store.ensure_schema()
         # The primary pilot is selected from the requested watchlist only.

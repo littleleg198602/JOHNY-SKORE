@@ -1,0 +1,24 @@
+{
+  "code_test_sha256": {
+    "market_checker_app/services/doj_case_posture_review.py": "1b431d4cc0ccbb07085c3c985435e6edbaec61881df02da01cfe4dd3447c39d5",
+    "tests/test_batch8_doj_case_posture.py": "3b7ad1aac1106b9f17809e3157fb2a8ed48b3a4639a6fa4081d30c944e940289"
+  },
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_batch8_doj_case_posture",
+    "-v"
+  ],
+  "elapsed_seconds": 11.625019724000026,
+  "exit_code": 0,
+  "finished_at": "2026-10-15T18:23:00.218723+00:00",
+  "log_sha256": "f2eecb66e6c869089bb8e43c51ddc1e300cab7ac0a832baf289dea581caf25eb",
+  "production_or_publisher_hash_assertions_relaxed": false,
+  "source_http_or_quota_db_actions": 0,
+  "started_at": "2026-10-15T18:22:48.593708+00:00",
+  "superseded_diagnostics": [
+    "tests_initial.json (synthetic PDF exact apostrophe pin)",
+    "tests_final.json (synthetic fixture reset index)"
+  ]
+}

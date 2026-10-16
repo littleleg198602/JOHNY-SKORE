@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-15T18:18:41.477255+00:00",
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_batch8_fda_structured_products",
+    "-v"
+  ],
+  "exit_code": 0,
+  "tests_run": 35,
+  "seconds": 0.141,
+  "complete_terminal_summary": "Ran 35 tests in 0.141s\n\nOK",
+  "complete_terminal_OK": true,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "log_path": "evidence/batch8_healthcare_20261015/focused_tests.log",
+  "log_sha256": "b5519b3b30402e6318cdb3bb0c35fece4b373f7e2b6ae1b04ec5ffd547571a3e",
+  "initial_failure_log_path": "evidence/batch8_healthcare_20261015/initial_failed_tests.log",
+  "initial_failure_log_sha256": "7e91860d700020a6f8950177dc9ee79d678b0258d2a513d1026fd59f4475cf3b",
+  "positive_contract_cases_are_synthetic": true,
+  "actual_source_http_requests_in_tests": 0,
+  "full1835_baseline_suite_repeated": false,
+  "windows_execution": false,
+  "out_of_sample_evaluation": false,
+  "original_and_registry_pins_unchanged_against_base": [
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_abbvie_exact_phrase.body.json",
+      "sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "bytes": 55713,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_abbvie_exact_phrase.metadata.json",
+      "sha256": "fd7b4b01e8f1d5b6076a9b1875c894a5e772d2c1f7fb1e57cf0d9b151f67c4a9",
+      "bytes": 1834,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_merck_exact_phrase.body.json",
+      "sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+      "bytes": 14967,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_merck_exact_phrase.metadata.json",
+      "sha256": "f71743d6449f7b363a5aef88875c17319833a8c3e35b34f6fafbedb144bc722a",
+      "bytes": 1853,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_pfizer_exact_phrase.body.json",
+      "sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+      "bytes": 23740,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/fda_crl_pfizer_exact_phrase.metadata.json",
+      "sha256": "51eb05fb27f3c1b71b8d4dd76bdc131a0625301f54fc44717ab5c1627cd88482",
+      "bytes": 1834,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2023_10q.body.html.gz",
+      "sha256": "c4b1d29a2d3d3de4cb012069532b489f9957ec430a0f0adb27ce0455aac2396f",
+      "bytes": 149679,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2023_10q.metadata.json",
+      "sha256": "1743977af52bf8f4e74b5c8894c80d4c9896f2e6f15e88b5b21898dd897da9ec",
+      "bytes": 1770,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2024_10q.body.html.gz",
+      "sha256": "50b604f9d16190ebe74c51e39d5ec9948bc7649c7202005860e453972250ef81",
+      "bytes": 108582,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2024_10q.metadata.json",
+      "sha256": "268ce29386c4015338e561e8954fe2e73a122c850841b0e43ab7120c88a9fada",
+      "bytes": 1770,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2026_10q.body.html.gz",
+      "sha256": "3e9384eb36b5cdd8cbc6b6867038e0fb1fbd57c07b4eaeb8e6c12c4f35339973",
+      "bytes": 78120,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2026_10q.metadata.json",
+      "sha256": "c42014ed0d2203da94320552509353cc0e1a0512b6d6502dac7e17999392a0ca",
+      "bytes": 1789,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_mrk_2012_10k.body.html.gz",
+      "sha256": "b4ec39a0b342b16c512f93758e3b936163af31024d2432fb9342d4cf3268c729",
+      "bytes": 249140,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_mrk_2012_10k.metadata.json",
+      "sha256": "9e3ccd3f96058375da1b9f2ce912638bb3f22bd2855da5a802d31dfae783112b",
+      "bytes": 1735,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_10k.body.html.gz",
+      "sha256": "a88263dff67918610305607fde11f5188b2146c4941be9401889ff81c2f75da2",
+      "bytes": 93812,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_10k.metadata.json",
+      "sha256": "2558b1032ba9387fdae598242a8d0cfd040fb3ae32f68b211d476a24a8fefc44",
+      "bytes": 1733,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.metadata.json",
+      "sha256": "d7accdb8db67601e6a465d6abd25bd9fabdd8db159124bd17bd5585c00927a00",
+      "bytes": 2266,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+      "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+      "bytes": 816055,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.body.html",
+      "sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f",
+      "bytes": 258262,
+      "matches_public_base": true
+    },
+    {
+      "path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.metadata.json",
+      "sha256": "c1cda3061aa26dc3fda655485ca5fb194e4bcb8894b0b41e1a9ec3cc85934caa",
+      "bytes": 1230,
+      "matches_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/european_authority_registry.json",
+      "sha256": "7c779c2b316f059c1d88cba0a1f95de014036751ba074012d1b9f21ab91f1c6e",
+      "bytes": 2282,
+      "matches_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+      "bytes": 5846,
+      "matches_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+      "bytes": 87325,
+      "matches_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_counterparty_identities.json",
+      "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e",
+      "bytes": 26803,
+      "matches_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_fdic_banks.json",
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+      "bytes": 20034,
+      "matches_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+      "bytes": 14656,
+      "matches_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e",
+      "bytes": 912,
+      "matches_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_usaspending_uei.json",
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56",
+      "bytes": 1159,
+      "matches_public_base": true
+    }
+  ]
+}

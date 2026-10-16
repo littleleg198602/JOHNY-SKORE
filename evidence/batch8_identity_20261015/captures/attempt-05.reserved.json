@@ -1,0 +1,15 @@
+{
+  "access_values_exported": false,
+  "app_quota_managed_live_claimed": false,
+  "attempt": 5,
+  "historical_request_ledger_reconstructed": false,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "redirects_allowed": false,
+  "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/pstg-ex991q1fy2027xpressre.htm",
+  "research_only": true,
+  "started_at": "2026-10-15T13:40:35.705575+00:00",
+  "status": "REQUEST_RESERVED",
+  "timeout_seconds": 25
+}

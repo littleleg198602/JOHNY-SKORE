@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-16T00:33:58.232304+00:00",
+  "qualification_phase": "IMMUTABLE_PRE_HOSTED_CI",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "pull_request": 162,
+  "public_base_head": "e252ec62796b0b02e733c55ebef713e0f29d4b44",
+  "public_base_tree": "16823e616e074f04ea15db52c8a40f97db6446ff",
+  "main_restored": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "tested_code_snapshot": "cc769523e088e7781226b47622934cfe208ee6a7",
+  "combined_code_hashes": {
+    "market_checker_app/app.py": {
+      "bytes": 156198,
+      "sha256": "124b2897503e94ce4ce2e13743aa6e80d1999909a45a28f06548afdb098bcb79"
+    },
+    "market_checker_app/config.py": {
+      "bytes": 23186,
+      "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+    },
+    "market_checker_app/release_manifest.py": {
+      "bytes": 5369,
+      "sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a"
+    },
+    "market_checker_app/services/captured_identity_review_service.py": {
+      "bytes": 21065,
+      "sha256": "e8752df36883b49e65c2a4824b8e2ccbfa79e3857497d84e569b57d02abf0e42"
+    },
+    "market_checker_app/services/captured_market_data_provider.py": {
+      "bytes": 27951,
+      "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+    },
+    "market_checker_app/services/doj_case_posture_review.py": {
+      "bytes": 20974,
+      "sha256": "1b431d4cc0ccbb07085c3c985435e6edbaec61881df02da01cfe4dd3447c39d5"
+    },
+    "market_checker_app/services/fda_structured_product_archive.py": {
+      "bytes": 21970,
+      "sha256": "0ffea68ef94f9af481bb4763e09cb43548996c951ca3cc1c1eee04f4588518ec"
+    },
+    "market_checker_app/services/pipeline_service.py": {
+      "bytes": 95344,
+      "sha256": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+    },
+    "market_checker_app/services/sec_owner_instrument_scope_review.py": {
+      "bytes": 24453,
+      "sha256": "9186f28a33361be11cd69bf97722c4fa982137bffa164d7a6b5cd7e5e8f14a44"
+    },
+    "market_checker_app/services/sec_purchase_obligation_scope_review.py": {
+      "bytes": 25736,
+      "sha256": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb"
+    },
+    "market_checker_app/services/sec_symbol_action_scope_review.py": {
+      "bytes": 36059,
+      "sha256": "2004f1891498eb7b46079e1101b5988e32a1d81cf570d5e68207651cbedfa03f"
+    },
+    "market_checker_app/specialist_evidence_ui.py": {
+      "bytes": 15822,
+      "sha256": "9a7f7be3e21774593139d076eb689000903b2afc4ab0144abb976f76888de695"
+    },
+    "market_checker_app/weekly_shadow_runner.py": {
+      "bytes": 64109,
+      "sha256": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91"
+    },
+    "tests/test_batch8_captured_market_data_provider.py": {
+      "bytes": 25727,
+      "sha256": "00fb80bf292fcd09851f74c468c1d4c47cb3293d7f9285c6e4b103553504d3fa"
+    },
+    "tests/test_batch8_captured_runtime_peer.py": {
+      "bytes": 11028,
+      "sha256": "d28806cfdf12d74eb5bf5a526e83098701619597f97de1df479e77eaabe1d28f"
+    },
+    "tests/test_batch8_coordinator_integration.py": {
+      "bytes": 17024,
+      "sha256": "1285553c27f1d1db116a650beae3f38df1cda37b87cb92b4ce4de72e13c66572"
+    },
+    "tests/test_batch8_doj_case_posture.py": {
+      "bytes": 17264,
+      "sha256": "3b7ad1aac1106b9f17809e3157fb2a8ed48b3a4639a6fa4081d30c944e940289"
+    },
+    "tests/test_batch8_fda_structured_products.py": {
+      "bytes": 27359,
+      "sha256": "91757273e4745d28834c10bcbb76beeaeea21080544cb29fe122ac8679b156ec"
+    },
+    "tests/test_batch8_owner_instrument_scope.py": {
+      "bytes": 25298,
+      "sha256": "5513510c4f6d2b22da6f724387eb85809bea463ad0d8d62ef763ab4e3042fe42"
+    },
+    "tests/test_batch8_purchase_obligation_scope.py": {
+      "bytes": 22429,
+      "sha256": "93830c961552f28c2250dbd1512187781b355f7b448d5e81dfde875e62f297eb"
+    },
+    "tests/test_batch8_symbol_action_scope.py": {
+      "bytes": 30693,
+      "sha256": "dd8885c74845d1799f30c2b96a08ca67b737e9be20f925168a40b6c7fc926fd7"
+    }
+  },
+  "workers": {
+    "identity_bulk": {
+      "local_commit": "7bb0c3c873e95120d90d23df93ccae0e06a5bbdd",
+      "branch": "batch8/identity_bulk-20261015",
+      "isolated_worktree": true,
+      "handoff": {
+        "path": "evidence/batch8_identity_20261015/handoff.json",
+        "bytes": 19344,
+        "sha256": "431e518bc7ec033063eb09ddd3aafabcf9a274294bb019131d20b6fd0a529764"
+      },
+      "public_writes_by_worker": false
+    },
+    "healthcare": {
+      "local_commit": "2b3bd0f8ce17fc955f66ba1b6285c0763adc375a",
+      "branch": "batch8/healthcare-20261015",
+      "isolated_worktree": true,
+      "handoff": {
+        "path": "evidence/batch8_healthcare_20261015/handoff.json",
+        "bytes": 9127,
+        "sha256": "5edd5ff5f245f2d0ed89b3283f54771fbf1b3243c48f8d20170e2f4a9d4aded1"
+      },
+      "public_writes_by_worker": false
+    },
+    "regulatory": {
+      "local_commit": "83ae3ba71d254d12a319cf183a54005e32fc3252",
+      "branch": "batch8/regulatory-20261015",
+      "isolated_worktree": true,
+      "handoff": {
+        "path": "evidence/batch8_regulatory_20261015/handoff.json",
+        "bytes": 7104,
+        "sha256": "5e89830244346ff59e17aa031b7ac90d26ca99184cb452aef6f1f8696d443659"
+      },
+      "public_writes_by_worker": false
+    },
+    "contracts": {
+      "local_commit": "429837a442d627c7c045c65449ab61122ed88459",
+      "branch": "batch8/contracts-20261015",
+      "isolated_worktree": true,
+      "handoff": {
+        "path": "evidence/batch8_contracts_20261015/handoff.json",
+        "bytes": 10380,
+        "sha256": "ca9bd47a4cd1095f5c6c34a8154f4c3a47d8a9ebe1ef1df4c920f4aaf4f66c5d"
+      },
+      "public_writes_by_worker": false
+    },
+    "sec": {
+      "local_commit": "eb6980a55e0d7e1adf63362f58b80a5a41a3c2df",
+      "branch": "batch8/sec-20261015",
+      "isolated_worktree": true,
+      "handoff": {
+        "path": "evidence/batch8_sec_20261015/handoff.json",
+        "bytes": 8507,
+        "sha256": "361bb954d1c2a73f7fee74fff9c6ed8c22aa1559b78335b6beb0e7bd7381cc4d"
+      },
+      "public_writes_by_worker": false
+    },
+    "evaluation": {
+      "local_commit": "a99b83827f7adfe533d7fcf08618d934bc85443d",
+      "branch": "batch8/evaluation-20261015",
+      "isolated_worktree": true,
+      "handoff": {
+        "path": "evidence/batch8_evaluation_20261015/qualification_v1/handoff.json",
+        "bytes": 8919,
+        "sha256": "c5ef0a7570eb1d53349bf2681df37771ea5fcfd29e41c369d30c5fa1aeecc8f2"
+      },
+      "public_writes_by_worker": false
+    }
+  },
+  "concrete_followups": {
+    "contracts_actual_write_boundary": {
+      "local_commit": "8dced3621243a53c4450265412130b3118c9db68",
+      "handoff": {
+        "path": "evidence/batch8_contracts_peer_20261015/handoff.json",
+        "bytes": 5928,
+        "sha256": "e4f9b448f226bc331768533f9a331edebbeaa2c6cedec8838dc9efd3838c4dcb"
+      }
+    },
+    "healthcare_subject_action_and_SEC_peer": {
+      "local_commit": "2b630760380b8f97929a3049e019680cd17cb5c5",
+      "handoff": {
+        "path": "evidence/batch8_healthcare_peer_20261015/handoff.json",
+        "bytes": 5950,
+        "sha256": "5f65668f024b2c88ffa5dedda17eebe55e2299457eed1bb69b0f6983c3918f8a"
+      }
+    },
+    "evaluation_fixture_provenance_and_UI_peer": {
+      "local_commit": "b45c5de61324ab4126d2c7be4e760c3def73ba9e",
+      "handoff": {
+        "path": "evidence/batch8_evaluation_peer_20261015/handoff.json",
+        "bytes": 2750,
+        "sha256": "7ceeb58f0066015a990b3dc7df6adeaf08a038ec59e8f008ac8e8854c4e5408a"
+      }
+    },
+    "regulatory_public_originals_peer": {
+      "local_commit": "4bff71567d0eeef6081a480e397cdedeec92866f",
+      "handoff": {
+        "path": "evidence/batch8_regulatory_peer_20261016/final_integrated_snapshot.json",
+        "bytes": 36107,
+        "sha256": "b3e76691b31548874c4933876d926a23872e1a6aa220504209487077a2582419"
+      }
+    }
+  },
+  "coordinator": "Only coordinator integrates shared runtime/CLI/UI/docs and publishes exact safe tree; worker completion is not analytical specialist acceptance.",
+  "local_fullsuite": {
+    "started_at": "2026-10-16T00:27:10.404666+00:00",
+    "ended_at": "2026-10-16T00:30:54.291302+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 2036,
+    "tests_run": 2036,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "plain_OK": true,
+    "elapsed_seconds": 223.039,
+    "JSON": {
+      "path": "evidence/batch8_linux_20261016.json",
+      "bytes": 363,
+      "sha256": "ce01e9fc37bc76f6cc9c044802cbdc89e6471c9378e3ac1784e13710f0edaeb4"
+    },
+    "original_console": {
+      "path": "evidence/batch8_linux_console_20261016.log",
+      "bytes": 409809,
+      "sha256": "7195cc63e72802304abedb00a25f71e73ccd978dcd32f4fbd3491bf0085a58d7"
+    },
+    "separate_runner_log": {
+      "path": "evidence/batch8_linux_runner_20261016.log",
+      "bytes": 407127,
+      "sha256": "659f68da5de972e2bc8dbbc0756bc5ecef80e1d97b56e63c7cbb8629fbdca6bb"
+    }
+  },
+  "baseline_hosted_qualification": {
+    "path": "evidence/batch8_baseline_ci_20261015/hosted_qualification.json",
+    "bytes": 7253,
+    "sha256": "6b2d11ea94eb79e53be981af54e5b69e7efac33e43be32ee28afb4a473ca207e"
+  },
+  "new_public_head_hosted_qualification": "PENDING_PUBLICATION_AND_EXACT_HEAD_CI; baseline1835 does not qualify batch8",
+  "content_audit": {
+    "path": "evidence/batch8_coordinator_20261015/content_audit.json",
+    "bytes": 96129,
+    "sha256": "4a0095f066d9f6089521f6d93aa1fd5eeb9342900b177e589363457a1aec663f"
+  },
+  "prior_bytes_unchanged": {
+    "prior_evidence": {
+      "files": 1058,
+      "bytes": 54552617,
+      "mismatches": []
+    },
+    "protected_production_inputs": {
+      "files": 7,
+      "bytes": 156735,
+      "mismatches": []
+    }
+  },
+  "public_originals_audit": {
+    "path": "evidence/batch8_regulatory_peer_20261016/final_integrated_snapshot.json",
+    "bytes": 36107,
+    "sha256": "b3e76691b31548874c4933876d926a23872e1a6aa220504209487077a2582419"
+  },
+  "source_activity": {
+    "bounded_primary_research_transport_attempts": 15,
+    "HTTP200_responses": 13,
+    "transport_failures_no_response": 2,
+    "public_whole_originals": 12,
+    "public_original_bytes": 5930515,
+    "new_whole_withheld": 1,
+    "PDF_pages_inspected": 95,
+    "fresh_application_collector_API_requests": 0,
+    "old_source_replay_is_new_HTTP": false,
+    "quota_DB_created_reset_copied_reconstructed": false,
+    "retained_actual_quota_read_only_audit": {
+      "path": "evidence/batch8_coordinator_20261015/retained_quota_audit.json",
+      "bytes": 2025,
+      "sha256": "6a120d7d76caf34117917e2ceae3543a615f657d768808fdb084c0806a5d2059"
+    }
+  },
+  "actual_current_runtime_outputs": {
+    "index": {
+      "path": "evidence/batch8_coordinator_20261015/runtime_results.json",
+      "bytes": 2924,
+      "sha256": "63acfc2a0650553d584f28537ac49af9c8769c272322f848c0ac3924b2a56f8e"
+    },
+    "plan_pins": {
+      "path": "evidence/batch8_coordinator_20261015/runtime_plans.json",
+      "bytes": 1607,
+      "sha256": "d4627d1e772ec3051b1f22ff9e516bdff876a7a9a02c030c10f6b0322ee01840"
+    },
+    "six_completed_source_reviews": 6,
+    "new_HTTP": 0,
+    "registry_adoptions": 0,
+    "archives": [
+      {
+        "path": "evidence/batch8_coordinator_20261015/runtime/review-12232290b4c683150fe6d4739d1857e12074be34b4bc806dbc60eb861e80b868.json",
+        "bytes": 2515,
+        "sha256": "12232290b4c683150fe6d4739d1857e12074be34b4bc806dbc60eb861e80b868"
+      },
+      {
+        "path": "evidence/batch8_coordinator_20261015/runtime/review-22ef2a05f492cf8f93f152b4cf4327dd417281c48b31b25ba2d9a6766fdf81bf.json",
+        "bytes": 10156,
+        "sha256": "22ef2a05f492cf8f93f152b4cf4327dd417281c48b31b25ba2d9a6766fdf81bf"
+      },
+      {
+        "path": "evidence/batch8_coordinator_20261015/runtime/review-61f5f3ab82ee5ea797dea8ab7b7fb68fcb8fa3cc5f7c407dd5cb802d7548a549.json",
+        "bytes": 2036,
+        "sha256": "61f5f3ab82ee5ea797dea8ab7b7fb68fcb8fa3cc5f7c407dd5cb802d7548a549"
+      },
+      {
+        "path": "evidence/batch8_coordinator_20261015/runtime/review-762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f.json",
+        "bytes": 9984,
+        "sha256": "762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f"
+      },
+      {
+        "path": "evidence/batch8_coordinator_20261015/runtime/review-9bf65b491bcf9d5592bdaca8d2f941623ea7bb3b551031837833837fda1e445b.json",
+        "bytes": 10390,
+        "sha256": "9bf65b491bcf9d5592bdaca8d2f941623ea7bb3b551031837833837fda1e445b"
+      },
+      {
+        "path": "evidence/batch8_coordinator_20261015/runtime/review-d8f035f77c9fc6df66d4533a868831fd6ba57f549d6120d027f3c4591654b4ce.json",
+        "bytes": 10158,
+        "sha256": "d8f035f77c9fc6df66d4533a868831fd6ba57f549d6120d027f3c4591654b4ce"
+      }
+    ]
+  },
+  "source_scope": {
+    "symbol": "PSTG/P/Everpure source facts only; final exact-day unknown, twelve blockers, index319527 vs served319645 (118 bytes), ClassA/CUSIP/action continuity missing; source-sentence actor fix prevents cross-company joins.",
+    "FDA": "Two actual PFE scopes correctly WAIT: whole structured body unavailable, or retained CRL is wrong dataset; five CRL events/four applications remain distinct from structured product rows0/ownership0.",
+    "DOJ": "Apple2:24-cv-04055: Doc106 party opposition2024-09-12 and court opinion Doc2832025-06-30 denyingECF86 are two procedural events; separate original Order0/current docket0/final disposition0/case-date identity0.",
+    "purchase_obligation": "NVDA original XBRL c-177/f-894: USD95.2b manufacturing/supply/capacity group commitment category asof2026-01-25, substantially all throughFY2027, qualified agreements; no actual spend, supplier allocation/share/denominator or continuity.",
+    "SEC_owner": "One new2026Form4 accession0000789019-26-000157, XML sevenCommonStock rows (two transactions/five holdings) supports reporting-account/role facts at a point, not natural-person identity, approved alias, packet/header or instrument continuity; packet transport failed with unknown whole hash/size.",
+    "captured_market": "New explicit default-OFF production offline path bypasses Yahoo/cache/remote initialization and all12 benchmark fetches. Exact initial selection is revalidated before each persistence boundary; saved baseline subset survives later candidate failure. Fixture provenance is top-level and nested; fixture inputs rejected with production clock. Sixteen actual older versions allWAIT, zero genuine forecasts/registrations/labels. Strict PIT eligibility false; publisher UNKNOWN never upgraded."
+  },
+  "preserved_diagnostics": {
+    "root_initial_and_post_peer_logs": "evidence/batch8_coordinator_20261015/",
+    "root_13_method_error": "combined_integration_tests.log: one fixture dictionary iteration error; original test preserved in source_versions/before_integration_plan_shape_fix.py. Final fullsuite2036 qualifies the corrected .values() assertion and explicit118-byte conflict.",
+    "contracts_peer": "Initial five setup errors and confirmed three failures are separate originals; five unchanged regression methods pass after immediate write-boundary guards.",
+    "evaluation_peer": "Nine executed/five failed before fixture-provenance/UI guards; nine executed/allpassed after; original source versions and logs retained.",
+    "identity_peer": "Original falseREADY compound actor case becomes PARTIAL without exact day; valid positive synthetic fixture remains positive. All own producer versions retained.",
+    "audit_implementation": "First root audit refused a public-base config pin because current integrated config differed; final audit separately verifies exact public-base bytes and never labels them current."
+  },
+  "acceptance": {
+    "canonical_tickers": 687,
+    "historical_Q2_instruments": 150,
+    "current_Q3_instruments": 0,
+    "healthcare_bindings": 10,
+    "NHTSA_bindings": 3,
+    "legal_bindings": 5,
+    "verified_adoptions": 0,
+    "specialists_fully_accepted": 0,
+    "specialists_total": 21,
+    "real_saved_forecasts": 0,
+    "real_registrations": 0,
+    "real_labels": 0,
+    "score_fitter_or_original_687_60s_budget_changed": false,
+    "auto_trading_enabled": false,
+    "Windows_user_e2e_or_OOS_verified": false,
+    "PR_merge_authorized": false
+  },
+  "whole_withheld_original_sha256": [
+    "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+    "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+    "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+    "27f03d6bb63f0590a82369556419c4eb8f5fb9ab3b3da44a9c8695d18d7b7532"
+  ],
+  "publication": "Exact tested safe tree only, expected current public parent, no private ancestry/force push/merge; stop on any new gate rejection without substitute/bypass.",
+  "next_concrete_work": {
+    "identity_bulk": "Independently dated LEG direct/indirect control and action/CUSIP/class; XOM newCUSIP/July7 and PSTG exact effective day plus independent dated ClassA/symbol/CUSIP bridge. No aliases or Q2 validity extension.",
+    "healthcare": "Whole original structured DrugsFDA product rows/version and exact strictly earlier issuer bridge; CMS CCN/PAC/provider name, clinical object scope and authentic durable collector history. No ownership from applicant or CRL names.",
+    "regulatory": "Genuine complete HTTP200 NHTSA negative within legitimate retained quota; original FRS/program/dated ownership and actual complete DOJ separate Order/current docket/case-date legal identity. No final merits inference from opinion.",
+    "contracts": "Whole original prime pages, earlier UEI identity and durable quota; wider awards/revision timing and supplier-specific quantities/denominators/continuity. Group commitment category is not supplier spend/share.",
+    "sec": "Whole original current packet/header and independent dated natural-person/account, legal name, CUSIP/class and valid role intervals; safe current publisher IR authority. No approved aliases from signatures.",
+    "evaluation": "Genuine original raw OHLCV/actions with 66 completed consecutive NYSE sessions for each selected asset and all12 benchmarks; explicit manifest and actual saved forecast before exact first forward open, later labels and actual publisher revision. Broader relevant coverage/user Windows/OOS; UNKNOWN stays excluded."
+  }
+}

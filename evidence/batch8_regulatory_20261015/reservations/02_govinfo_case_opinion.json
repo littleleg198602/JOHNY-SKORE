@@ -1,0 +1,10 @@
+{
+  "automatic_redirects": false,
+  "capture_id": "govinfo_case_opinion",
+  "maximum_bytes": 4000000,
+  "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+  "requested_url": "https://www.govinfo.gov/content/pkg/USCOURTS-njd-2_24-cv-04055/pdf/USCOURTS-njd-2_24-cv-04055-0.pdf",
+  "reserved_at": "2026-10-15T13:39:58.828252+00:00",
+  "sequence": 2,
+  "timeout_seconds": 25
+}

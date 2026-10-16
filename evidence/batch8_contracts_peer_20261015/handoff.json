@@ -1,0 +1,77 @@
+{
+  "artifacts_sha256": {
+    "evidence/batch8_contracts_peer_20261015/README.md": "ce94c0380b3e2e85569924fca6fbd5110974b80d9099417bf1f280cf6d0bcfaa",
+    "evidence/batch8_contracts_peer_20261015/confirmed_finding.json": "44379081bf2e5c9bcbebafc198bd8eceba0136c76b9fc5ec166d7a5ca8d61b22",
+    "evidence/batch8_contracts_peer_20261015/current_source_pins.json": "1b2b3c1d503fa73425bfab2ad9684fc71043e25a3652f282f99cd00a9acabeb0",
+    "evidence/batch8_contracts_peer_20261015/postfixed_source_pins.json": "0cfd1e334b0a499a87468907304c9e60f4b071c09039dfe6a8af0e8f5374a939",
+    "evidence/batch8_contracts_peer_20261015/postfixed_tests.json": "7cb8e5bd5a16af534fcca4c981272b6d28e7e2907abfbda3d8f625102f1404b8",
+    "evidence/batch8_contracts_peer_20261015/postfixed_tests.log": "28f07274ad84ce7c2ea40fbb2dc6e167b0381ab6742c105c5367f16b7eb136bc",
+    "evidence/batch8_contracts_peer_20261015/prefixed_confirmed_tests.json": "2bd2db07ab96e5c89dc45765b2724e96a8aa08b9626258a5f7832f5155905c03",
+    "evidence/batch8_contracts_peer_20261015/prefixed_confirmed_tests.log": "251ab9d7d2e30e96f1abdace462d2a4f71cb6668849b904af7e3ec937763d00f",
+    "evidence/batch8_contracts_peer_20261015/prefixed_source_pins.json": "1e6fef19c306bb66a2960b2da835e93162bbae5a242be16f6878602e08cb26e9",
+    "evidence/batch8_contracts_peer_20261015/prefixed_tests.json": "7841813d9a2fb1d2dc5e9b7a2856446100ac2b3d2d08b45a1557834f9e7af3b4",
+    "evidence/batch8_contracts_peer_20261015/prefixed_tests.log": "aa4d41343a4892430f747a6473fc4677c362d624c8347217cc3ca6ab2d185519",
+    "evidence/batch8_contracts_peer_20261015/review.json": "28fe33d3dd0540a5812f3490b620ec4f61ca769be1ef24b3b735cc86209d5d0e",
+    "evidence/batch8_contracts_peer_20261015/run_review.py": "55848ba305d64c17e30c291e3d12de6e3877e10e4468683b0fe834692c1a6d4d",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/captured_market_data_provider.py.current_root.source": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/captured_market_data_provider.py.source": "853e2e045ae06a170ae14fa5f678b4894cf8ede3a96a59fcba59e76e6d600fb3",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/config.py.source": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/pipeline_service.py.postfixed.source": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/pipeline_service.py.source": "0c925e6a34ff9fccf142b73ef592c0cbc1d24ab1020c138e7995ede2a1b74977",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/release_manifest.py.source": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/test_batch8_captured_runtime_peer.prefixed_confirmed.source": "d28806cfdf12d74eb5bf5a526e83098701619597f97de1df479e77eaabe1d28f",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/weekly_shadow_runner.py.postfixed.source": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91",
+    "evidence/batch8_contracts_peer_20261015/source_snapshots/weekly_shadow_runner.py.source": "21a7f8ebaf66e80f74d2c491cfd5b0c1253ee8ce4b9ecdaef5cf22e306025c01",
+    "tests/test_batch8_captured_runtime_peer.py": "d28806cfdf12d74eb5bf5a526e83098701619597f97de1df479e77eaabe1d28f"
+  },
+  "baseline_fullsuite_repeated": false,
+  "branch": "batch8/contracts-20261015",
+  "core_edits_by_peer": false,
+  "deliverable": "peer_regression_for_captured_runtime_actual_persistence_boundaries",
+  "finding": "Entry-only source/time validation let stale/mutated captured inputs acquire baseline or candidate records",
+  "fixture_databases_temporary_handles_closed": true,
+  "http_attempts": 0,
+  "integration_points": [
+    "Cherry-pick only new peer test/evidence paths after the root-owned runtime guards",
+    "Keep original confirmed failure and source snapshots immutable; later changed code needs its own qualification",
+    "The peer runner can target the root worktree without writing to it; no tests should load diagnostics as actual forecasts"
+  ],
+  "live_done_oos_or_windows_acceptance": false,
+  "old_source_bodies_copied_modified_or_refetched": false,
+  "owner_fix_verified": true,
+  "post_fix_errors": 0,
+  "post_fix_executed": 5,
+  "post_fix_expected_failures": 0,
+  "post_fix_failures": 0,
+  "post_fix_skips": 0,
+  "post_fix_unexpected_successes": 0,
+  "postfix_source_sha256": {
+    "market_checker_app.config": {
+      "path": "market_checker_app/config.py",
+      "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+    },
+    "market_checker_app.release_manifest": {
+      "path": "market_checker_app/release_manifest.py",
+      "sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a"
+    },
+    "market_checker_app.services.captured_market_data_provider": {
+      "path": "market_checker_app/services/captured_market_data_provider.py",
+      "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+    },
+    "market_checker_app.services.pipeline_service": {
+      "path": "market_checker_app/services/pipeline_service.py",
+      "sha256": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+    },
+    "market_checker_app.weekly_shadow_runner": {
+      "path": "market_checker_app/weekly_shadow_runner.py",
+      "sha256": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91"
+    }
+  },
+  "pre_fix_actual_failures": 3,
+  "production_database_reads_or_writes": 0,
+  "recorded_at": "2026-10-16T00:21:59.903298+00:00",
+  "review_path": "evidence/batch8_contracts_peer_20261015/review.json",
+  "schema_version": 1,
+  "score_model_fitter_trading_or_registry_changes": false,
+  "unchanged_test_sha256": "d28806cfdf12d74eb5bf5a526e83098701619597f97de1df479e77eaabe1d28f"
+}

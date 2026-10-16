@@ -1,5 +1,89 @@
 # Souběžné dokončování specialistů
 
+## Osmá navazující dávka — 16. 10. 2026
+
+Šest skutečných izolovaných vývojových větví a čtyři konkrétní peer followupy
+jsou spojené v runtime/CLI/UI. Finální místní sada: **2036 discovered=executed,
+plain OK, 223.039s**, všechny failure/error/skip/expected/unexpected počty0.
+Code snapshot `cc769523`; 21 source/test SHA a původní JSON/console/runner
+jsou v `evidence/batch8_integration_20261016.json` (neměnný pre-hosted-CI důkaz).
+Baseline `e252ec62` má obsahově ověřené hosted1835 a všech5checks;
+nový public HEAD vyžaduje vlastní CI, Linux log i skutečný Windows ZIP/JSON/log.
+
+Nově: PSTG/P symbol/action/instrument review, přesný structured FDA adapter,
+DOJ procedural posture, NVDA group purchase commitments, novější SEC owner
+account/instrument scope a explicitní výchozí vypnutá cesta čtení cen z původních
+archivů. Jejich omezení a aktuální konkrétní fronta jsou na začátku
+`PARALLEL_SPECIALIST_WORK.md`. Šest původních případů skutečně prošlo novým
+runtime s fyzickými hodinami, immutable archivy a0HTTP/0adoptions.
+
+Patnáct bounded research pokusů:13HTTP200,2transport failures,12 veřejných
+původních odpovědí/5,930,515bytes a1 celé withheld NJD body. Dvě PDF/95stran
+obsahově ověřené. Žádné nové collectorAPI/DB zápisy/obnovování kvóty.
+Audit ověřil214 handoff pins,1058 starších evidencefiles/54,552,617bytes a7
+chráněných produkčních vstupů beze změny. Všechna4 whole withheld bodies
+zůstávají absent; žádné náhradní body nebo private-ancestry push.
+
+Canonical687, historicalQ2 instrument150/currentQ3=0, healthcare10/NHTSA3/legal5,
+verifiedadopt0 a fullacceptance0/21. Skutečné předpovědi/registrace/labels0;
+16 starších cenových verzí WAIT, UNKNOWN revision zůstává excluded. Fitter,
+skóre a původní687/60s budget neměnné. Hosted unit Windows není userWindows/OOS
+akceptace. Žádný merge ani oznámení dokončení před úplnou akceptací všech21.
+
+### Aktuální konkrétní fronta po osmé dávce
+
+- identity_bulk: independent dated LEG direct/indirect control/action/CUSIP/class,
+  XOM newCUSIP/July7 a PSTG exact-day + nezávislá dated ClassA/symbol/CUSIP vazba.
+- healthcare: whole original structured DrugsFDA product/version + strictly earlier
+  exact issuer; CMS CCN/PAC/name, clinical objekty a původní durable collector historie.
+- regulatory: genuine complete HTTP200 NHTSA negative jen z legitimního původního
+  budgetu; FRS/program/dated ownership; DOJ separate original Order/current docket,
+  case-date identity/disposition. Opinion ani party opposition nejsou konečný výsledek.
+- contracts: whole original prime pages/earlier UEI/durable quota/broader awards;
+  supplier-specific množství, denominátory a kontinuita. NVDA95.2b je group category,
+  nikoli supplier spend/share nebo total všech kategorií.
+- sec: complete original current packet/header, independent dated natural-person/account,
+  instrument/legal identity a intervaly role; safe current publisher IR authority.
+- evaluation: genuine original raw OHLCV/actions pro asset + všech12 benchmarks,
+  nejméně66 dokončených po sobě jdoucích NYSE seancí; explicit manifest, skutečně
+  uložený forecast před exact first-forward open, pozdější labels/publisher revision,
+  širší relevantní coverage/userWindows/OOS. Bez backdate/slide/UNKNOWN upgrade.
+
+### Konkrétní výsledek a omezení osmé dávky
+
+PSTG/P source facts zachovávají118-byte index/served conflict, neznámý exact day
+ a chybějící ClassA/CUSIP/action continuity. Peer odhalil chybný join dvou různých
+subjectů v odstavci; nová clause vazba odmítá cizí actor/ticker/date. Původní
+false READY případ i všechny starší producer verze jsou uložené.
+
+FDA missing whole structured body a retained CRL wrong-dataset jsou dvě samostatná
+WAIT_DATA rozhodnutí, product rows0/ownership0. DOJ Apple2:24-cv-04055 má Doc106
+party opposition2024-09-12 a Doc283 court opinion2025-06-30 denyingECF86; actual
+separate Order0, current docket/disposition a case-date legal identity nedoložené.
+NVDA Note12 XBRL c-177/f-894 podporuje95.2bUSD consolidated group manufacturing/
+supply/capacity commitments k2026-01-25, substantially all throughFY2027 a podmínky
+cancellable/reschedulable/adjustable. Neprokazuje supplier-specific objem či podíl.
+SEC Form4 accession0000789019-26-000157 zachycuje Nadella/MSFT account facts,
+2transactions+5holdings; původní packet transport selhal bez wholehash/size.
+Neprokazuje natural-person/alias/CUSIP validity nebo account continuity.
+
+Nová production cesta pro explicitní original market manifest je defaultOFF:
+před DB/cache/remote inicializací ověří všechny asset/benchmark scope, úplné raw
+OHLCV/actions a aktuálních66 seancí. Bez Yahoo/cache fallback nebo implicitního
+prospective audit zapnutí. Výběr i fyzická čerstvost se znovu ověří těsně před
+každým zápisem; pokud později selže candidate, skutečný baseline subset zůstává.
+Fixture původ je v top-level i nested provenance; production clock syntetické
+vstupy odmítá. UI market readiness je výslovné, MT5/cache refresh blokované pro
+ tento režim. Default modelconfig_hash je původní; explicitní captured režim má
+odlišný input fingerprint. Všech16 skutečných starších verzí WAIT, žádný genuine
+normal forecast/registration/label nebyl vyroben. UNKNOWN revision se neupgraduje.
+
+Tři peer opravy mají původní failing logs/source snapshots a stejné reproduktory:
+subject/action join, skutečná write-boundary freshness a fixture/MT5 provenance.
+Rootův13-method test měl jednu chybu iterace dict fixture; původní test/log zůstává,
+finální full2036 kvalifikuje správnou iteraci a přísnější118-byte assertion.
+Vývojoví agenti nejsou21 analytických specialistů; jejich dokončení není DONE.
+
 ## Oprava Windows fixture sedmé dávky — 15. 10. 2026
 
 Skutečný hosted run `38701933085` na public HEAD `bfedb764` měl Linux1833
