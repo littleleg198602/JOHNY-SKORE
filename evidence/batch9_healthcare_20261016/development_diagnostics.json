@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "initial_static_parser_review": {
+    "preserved_result": "initial_review_before_container_recovery.json",
+    "DrugsFDA_rows": 1,
+    "Purple_Book_rows": 0,
+    "reason": "Actual Purple Book page has an unclosed outer product-details div; initial parser required that container to have an explicit closing tag",
+    "resolution": "Recover only individually explicit closed fields and product rows within the same closed section; record outer-container defect and retain PARTIAL/no candidate",
+    "response_bytes_repaired_or_rewritten": false,
+    "hash_or_cap_assertions_relaxed": false,
+    "requests_repeated": false
+  },
+  "pre_resumption_review": {
+    "preserved_result": "review_before_resumption.json",
+    "current_acceptance": false,
+    "later_actual_physical_review": "source_review.json"
+  },
+  "focused_tests": {
+    "initial_cases": 25,
+    "initial_result": "OK",
+    "initial_log": "initial_25_focused_tests.log",
+    "new_guards": ["Declared transformed whole body rejected before parser", "WITHHELD_ENCODED_BODY cannot supply restored bytes"],
+    "final_cases": 27,
+    "final_result": "OK",
+    "baseline2037_repeated": false
+  }
+}

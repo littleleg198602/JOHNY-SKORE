@@ -1,0 +1,13 @@
+{
+  "automatic_redirects": false,
+  "max_attempts": 6,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "public_raw_available": false,
+  "quota_scope": "EXPLICIT_BATCH9_SEC_RESEARCH_ONLY",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/0000004127-25-000085-index.htm",
+  "started_at": "2026-10-16T12:17:48.090642+00:00",
+  "status": "RESERVED",
+  "usaspending_requests": 0
+}

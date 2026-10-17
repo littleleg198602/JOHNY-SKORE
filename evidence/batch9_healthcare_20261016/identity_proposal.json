@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "proposal_status": "WITHHELD_SOURCE_ROLE_AND_LEGAL_BRIDGE_GAPS",
+  "records": [],
+  "record_count": 0,
+  "actual_original_application_scope": "BLA761081",
+  "DrugsFDA_company_identity_matches_earlier_SEC": true,
+  "DrugsFDA_company_is_explicit_applicant": false,
+  "DrugsFDA_product_number_available": false,
+  "Purple_Book_applicant_matches_SEC_registrant": false,
+  "Purple_Book_original_outer_container_closed": false,
+  "applicant_sponsor_legal_owner_parent_roles_merged": false,
+  "datasets_or_product_rows_merged": false,
+  "registry_adopted": false,
+  "synthetic_test_cases_are_source_evidence": false
+}

@@ -1,5 +1,79 @@
 # Souběžné dokončování specialistů
 
+## Devátá dávka: původní zdroje a kontrola před zápisem — 17. 10. 2026
+
+**Místní combined qualification této deváté verze:** 2231 discovered=executed, plain OK, 334.883s, všechny failure/error/skip/expected/unexpected počty0. Code snapshot `e24e4c9d5c3878fd4c395b571e3b1cf8b3cd1185`; všech194 nových exact methods má původní ok blok. JSON, úplný console, separate runner, source/test SHA a obsahový audit jsou v `evidence/batch9_integration_20261017.json` (neměnný pre-hosted-CI důkaz). Nový publikovaný HEAD potřebuje vlastní obsahově ověřený hosted běh; baseline b81 tuto verzi nekvalifikuje.
+
+Šest skutečných izolovaných vývojových větví dodalo konkrétní implementace.
+Po přerušení limitem využití koordinátor dokončil jejich zachované handoffy,
+lokální commity a zapojení do CLI/UI; dokončení pracovníků se nepředstírá.
+Převzaté current source/test SHA a původní neúspěchy jsou zachované ve
+`evidence/batch9_*/handoff.json`. Osm skutečných přehrání původních podkladů
+má immutable fyzické časy a 0 HTTP/DB/adopcí v
+`evidence/batch9_coordinator_20261016/runtime/`.
+
+Nové podklady: dva datované P/ClassA/symbol snapshots bez CUSIP kontinuity;
+DrugsFDA company PFIZER INC a samostatné Purple Book applicant/product rows
+bez právního Ireland→PFE vlastnictví; přesný NHTSA pozitivní dotaz bez úplného
+negativního případu; Apple67/69/66 % konsolidovaných tržeb SWKS; celý aktuální
+MSFT Form4 packet/header přesně svázaný s XML, bez ověření fyzické osoby nebo
+CUSIP/class. Celkem13 nových úplných HTTP200 odpovědí/2,027,627bytes;
+12 research originals a1 prokázaný NHTSA response, nikoli13 nových collectorů.
+
+**NHTSA live pokračování odmítla automatická kontrola** s důvodem, že trusted
+instructions zakazují aktuální collectorAPI operaci a agent assignment
+oprávnění nerozšiřuje. Žádný retry/alternate transport/bypass. Původní DB má
+2 charged CHEVROLET reservations:1 RETURNED/HTTP200/7500XD/2 campaigns,
+1 RUNNING/5500XG bez response/review. Neznámý výsledek není HTTP chyba ani
+negativní důkaz.15 starých request a12 review rows zůstává beze změny;
+žádný refund, reset ani změna expired lease. Aktuální mode=ro audit připíná
+SHA6d6a7450… v `retained_quota_audit.json`.
+
+Explicitní cenový acquisition zůstává výchozí vypnutý; má13 bounded scopes,
+trvalý jednorázový claim plánu, přesné původní quote arrays a žádný fallback.
+Skutečný první AAPL pokus skončil URLError bez response; dalších12 zastaveno.
+0 usable inputs/forecasts/registrations/labels. UNKNOWN revision zůstává
+PIT/OOS excluded. Provider znovu ověřuje původní raw parent při čtení i před
+zápisem. Nezávislý followup potvrdil6 pozdních callback selhání v7 metodách;
+oprava znovu ověřuje zdroj po callbacku těsně před save_run. Nezměněných7/7
+poté prošlo; původní bytes/logy a synthetic-only důkaz jsou zachované v
+`evidence/batch9_market_parent_peer_20261017/`. Nejde o skutečné forecasty.
+
+Původní b81 baseline je obsahově ověřený run38867202786, všech5checks success,
+Linux2037 plainOK a skutečný Windows ZIP12033093458/2037all0/plainOK. Originály
+jsou v `evidence/batch9_baseline_ci_20261016/`; kvalifikují pouze b81.
+Nový combined snapshot potřebuje vlastní local/hosted qualification v
+`evidence/batch9_integration_20261017.json` a PR/actual artifact. Staré
+pre-CI důkazy se nepřepisují, status-only veřejný HEAD se nevytváří.
+
+Všech1329 starších veřejných evidencefiles/68,218,322bytes a7 chráněných
+produkčních vstupů je shodných. Všechna4 whole withheld bodies zůstávají
+absent, žádný substitute ani private ancestry push. Canonical687, Q2instrument150,
+currentQ3=0, healthcare10/NHTSA3/legal5, verifiedadopt0/fullacceptance0/21.
+Code/live stavy všech21, fitter/skóre/default modelconfig a687/60s budget
+zůstávají stejné. Hosted unit Windows není userWindows/history/OOS akceptace.
+Žádný merge nebo dokončovací oznámení před úplnou akceptací všech21.
+
+### Aktuální konkrétní fronta po deváté dávce
+
+- identity_bulk: nezávislá datovaná ClassA/CUSIP/symbol/action kontinuita;
+  LEG direct/indirect control, XOM newCUSIP/July7. Žádné rozšíření Q2 do Q3.
+- healthcare: právní vazba Ireland applicant→PFE a datované product roles;
+  původní CMS CCN/PAC/name, širší clinical scope a skutečná durable historie.
+- regulatory: NHTSA zůstává approval-blocked, pouze offline práce bez retry;
+  původní FRS/program/dated ownership, DOJ separate Order/current docket/identity.
+- contracts: whole original prime pages/earlier UEI/durable quota/broader awards;
+  právní kontinuita zákazníka a skutečné supplier denominátory. SWKS net revenue
+  není Apple spend, NVDA group commitment není supplier share.
+- sec: nezávislá datovaná natural-person/account/instrument/legal identity,
+  intervaly rolí a safe current publisher IR authority. Celý packet sám nestačí.
+- evaluation: další konkrétní implementace bez opakování selhaných source calls;
+  skutečné66-session provider originals pro asset+12benchmarks, fyzicky včasná
+  uložená předpověď pro aktuálně přepočtené okno, pozdější labels, revision,
+  širší operational coverage, userWindows a OOS. Žádný backdate/slide/fakeforecast.
+
+<!-- Starší oddíly níže jsou zachované kvalifikace vlastních historických verzí. -->
+
 ## Oprava Windows provider fixture osmé dávky — 16. 10. 2026
 
 Skutečný run `38861160925` na public HEAD `df6648b4` skončil failure:

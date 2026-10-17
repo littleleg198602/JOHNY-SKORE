@@ -1,0 +1,29 @@
+{
+  "access_values_exported": false,
+  "app_quota_managed_live_claimed": false,
+  "attempt": 1,
+  "body_path": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4.bin",
+  "bytes": 1361,
+  "elapsed_seconds": 3.880788635999977,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex41-formofclassacommonsto.htm",
+  "historical_request_ledger_reconstructed": false,
+  "http_status": 200,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-16T12:17:55.577156+00:00",
+  "raw_sha256": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4",
+  "redirects_allowed": false,
+  "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex41-formofclassacommonsto.htm",
+  "research_only": true,
+  "response_headers": {
+    "Content-Encoding": null,
+    "Content-Length": "1361",
+    "Content-Type": "text/html",
+    "Date": "Fri, 16 Oct 2026 12:17:55 GMT",
+    "Last-Modified": "Wed, 25 Mar 2026 10:01:27 GMT"
+  },
+  "started_at": "2026-10-16T12:17:51.696596+00:00",
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+  "timeout_seconds": 25
+}

@@ -1,0 +1,986 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-17T21:44:52.554222+00:00",
+  "qualification_phase": "IMMUTABLE_PRE_HOSTED_CI",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "pull_request": 162,
+  "public_base_head": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "public_base_tree": "12beb8240778ef6dd02e87bfdb52b6586fc3dd3f",
+  "main_restored": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "tested_code_snapshot": "e24e4c9d5c3878fd4c395b571e3b1cf8b3cd1185",
+  "combined_source_test_pins": {
+    "market_checker_app/app.py": {
+      "bytes": 156198,
+      "sha256": "124b2897503e94ce4ce2e13743aa6e80d1999909a45a28f06548afdb098bcb79"
+    },
+    "market_checker_app/config.py": {
+      "bytes": 23186,
+      "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+    },
+    "market_checker_app/data/specialist_status.json": {
+      "bytes": 39868,
+      "sha256": "6798c451bddf70a8d0633cf10856c9359b78c00d27cede808c658c8b997e3ad8"
+    },
+    "market_checker_app/market_input_runner.py": {
+      "bytes": 1611,
+      "sha256": "292c6b55e2febdee3e6d9cf46bb1eb6814372b7e8f1713fea0f8cddc505acd14"
+    },
+    "market_checker_app/release_manifest.py": {
+      "bytes": 5369,
+      "sha256": "54dac098fc8a84f4237237dd30aa515327778e373b821c6bf233df2a3ffc930a"
+    },
+    "market_checker_app/services/captured_identity_review_service.py": {
+      "bytes": 23429,
+      "sha256": "b237384007eb2e47a662ae92e3c5c69d1c25af09697febe26d469c82de6fd691"
+    },
+    "market_checker_app/services/captured_market_data_provider.py": {
+      "bytes": 28473,
+      "sha256": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e"
+    },
+    "market_checker_app/services/captured_market_input_acquisition.py": {
+      "bytes": 28151,
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    },
+    "market_checker_app/services/fda_application_product_review.py": {
+      "bytes": 26005,
+      "sha256": "653cdb89254c23e82aeda92451bbbf830228857f0d161e666c2567e4e683ccd1"
+    },
+    "market_checker_app/services/nhtsa_negative_scope_review.py": {
+      "bytes": 13793,
+      "sha256": "919bf4ac9539c1065b3bf9e9474bbf8435fc637b82458cfd7df392c41cc0021c"
+    },
+    "market_checker_app/services/pipeline_service.py": {
+      "bytes": 95858,
+      "sha256": "a2b9cd058ea04f3ae139b74307885b06f69d4d43c4d78c6169195da2dfa75c13"
+    },
+    "market_checker_app/services/sec_complete_packet_review.py": {
+      "bytes": 22306,
+      "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+    },
+    "market_checker_app/services/sec_instrument_class_scope_review.py": {
+      "bytes": 28217,
+      "sha256": "7a009fdc6729dd4932039e8190c4f041f1680ca4f7885e4f54d536b931818689"
+    },
+    "market_checker_app/services/sec_supplier_concentration_review.py": {
+      "bytes": 22789,
+      "sha256": "c7673d7f99a48040708a4e829e8dc4a8e410ad4275d3902bec35580ba0992718"
+    },
+    "market_checker_app/specialist_evidence_ui.py": {
+      "bytes": 20114,
+      "sha256": "a92394599ecd69e4e8ed5b1d62bcc9ec80a4f17602c2f8813c6c20a413b3c78c"
+    },
+    "tests/test_batch9_complete_packet.py": {
+      "bytes": 27730,
+      "sha256": "439cf28a3d79cac53ca1ba41e50565ea3df96f82635c8142c5e5a6cc43c59cc4"
+    },
+    "tests/test_batch9_coordinator_integration.py": {
+      "bytes": 10696,
+      "sha256": "6399fd1b44f5f31cd3dda4e2ddb4288c4c34e4f2b09d59800b19c017af284018"
+    },
+    "tests/test_batch9_fda_application_product.py": {
+      "bytes": 19605,
+      "sha256": "51fc8a895c85f877e0e67e8aac3d3421cf4fa5ea84023a7d516e206615fc6c94"
+    },
+    "tests/test_batch9_instrument_class_scope.py": {
+      "bytes": 18554,
+      "sha256": "03564e3bd6bd536c9b76e91fceb8cf53a9834823870d8363d81b66d2b510d59c"
+    },
+    "tests/test_batch9_market_input_acquisition.py": {
+      "bytes": 29620,
+      "sha256": "6fc91806710f1f4f773381a94f109a0e1a1a820481ee24941406ee4117c269fd"
+    },
+    "tests/test_batch9_market_parent_peer.py": {
+      "bytes": 11982,
+      "sha256": "f924a9c190688b4ff24aa74cac84cf0efc555c098c886b95389ecdd222e58831"
+    },
+    "tests/test_batch9_nhtsa_negative_scope.py": {
+      "bytes": 13995,
+      "sha256": "6c260b3bb1aa1c9e04e0074a1b560e7e401c79a199ff472a89b65cd0b6599af8"
+    },
+    "tests/test_batch9_supplier_concentration.py": {
+      "bytes": 25481,
+      "sha256": "3144832b906dfa0271c9dabe568be962a75b3392837e85e76976d0f369af0cba"
+    }
+  },
+  "workers": [
+    {
+      "lane": "contracts",
+      "handoff": {
+        "path": "evidence/batch9_contracts_20261016/handoff.json",
+        "bytes": 4468,
+        "sha256": "8b2dc825e2c55f99272c9a1e33dc470e89c3340a2dc6d7afbb08a3702709f306"
+      },
+      "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+      "source_test_pins": {
+        "market_checker_app/services/sec_supplier_concentration_review.py": {
+          "bytes": 22789,
+          "sha256": "c7673d7f99a48040708a4e829e8dc4a8e410ad4275d3902bec35580ba0992718"
+        },
+        "tests/test_batch9_supplier_concentration.py": {
+          "bytes": 25481,
+          "sha256": "3144832b906dfa0271c9dabe568be962a75b3392837e85e76976d0f369af0cba"
+        }
+      },
+      "focused_qualification": {
+        "discovered": 27,
+        "errors": 0,
+        "executed": 27,
+        "expected_failures": 0,
+        "failures": 0,
+        "log_path": "evidence/batch9_contracts_20261016/coordinator_focused_tests.log",
+        "log_pin": {
+          "bytes": 6188,
+          "sha256": "6fdca51defe8e0758bf225f727f45c4386b7ad448a8ef7ee36cfb2b0ca86f3b5"
+        },
+        "plain_OK": true,
+        "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+        "skips": 0,
+        "unexpected_successes": 0
+      },
+      "public_writes_by_worker": false
+    },
+    {
+      "lane": "evaluation",
+      "handoff": {
+        "path": "evidence/batch9_evaluation_20261016/handoff.json",
+        "bytes": 4798,
+        "sha256": "f8f4d31713ca5301c0badf20db40b4e9bcb49e5193852989a4118cad1b4882a4"
+      },
+      "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+      "source_test_pins": {
+        "market_checker_app/services/captured_market_input_acquisition.py": {
+          "bytes": 28151,
+          "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+        },
+        "tests/test_batch9_market_input_acquisition.py": {
+          "bytes": 29620,
+          "sha256": "6fc91806710f1f4f773381a94f109a0e1a1a820481ee24941406ee4117c269fd"
+        }
+      },
+      "focused_qualification": {
+        "discovered": 38,
+        "errors": 0,
+        "executed": 38,
+        "expected_failures": 0,
+        "failures": 0,
+        "log_path": "evidence/batch9_evaluation_20261016/qualification_v2/tests.log",
+        "log_pin": {
+          "bytes": 8511,
+          "sha256": "6410fbbabea3e1d29abbe795cb765288e0aefbd9da9b3287711d04285d8754ca"
+        },
+        "plain_OK": true,
+        "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+        "skips": 0,
+        "unexpected_successes": 0
+      },
+      "public_writes_by_worker": false
+    },
+    {
+      "lane": "healthcare",
+      "handoff": {
+        "path": "evidence/batch9_healthcare_20261016/handoff.json",
+        "bytes": 6184,
+        "sha256": "8b709fb01cf27490e2dabd59d2abf0bf1494ff7f7bd7f0a241e0ec74a8ec2805"
+      },
+      "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+      "source_test_pins": {
+        "market_checker_app/services/fda_application_product_review.py": {
+          "bytes": 26005,
+          "sha256": "653cdb89254c23e82aeda92451bbbf830228857f0d161e666c2567e4e683ccd1"
+        },
+        "tests/test_batch9_fda_application_product.py": {
+          "bytes": 19605,
+          "sha256": "51fc8a895c85f877e0e67e8aac3d3421cf4fa5ea84023a7d516e206615fc6c94"
+        }
+      },
+      "focused_qualification": {
+        "discovered": 27,
+        "errors": 0,
+        "executed": 27,
+        "expected_failures": 0,
+        "failures": 0,
+        "log_path": "evidence/batch9_healthcare_20261016/focused_tests.log",
+        "log_pin": {
+          "bytes": 6128,
+          "sha256": "c33b991e724d37a786cea7d49910ea86cdf66cee9af8d080ba59aa6b0be80646"
+        },
+        "plain_OK": true,
+        "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+        "skips": 0,
+        "unexpected_successes": 0
+      },
+      "public_writes_by_worker": false
+    },
+    {
+      "lane": "identity_bulk",
+      "handoff": {
+        "path": "evidence/batch9_identity_20261016/handoff.json",
+        "bytes": 8242,
+        "sha256": "a0737b0a985a78ecc00ebce9e2c70ff479850147bbb3505c67f5e55889adf2d4"
+      },
+      "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+      "source_test_pins": {
+        "market_checker_app/services/sec_instrument_class_scope_review.py": {
+          "bytes": 28217,
+          "sha256": "7a009fdc6729dd4932039e8190c4f041f1680ca4f7885e4f54d536b931818689"
+        },
+        "tests/test_batch9_instrument_class_scope.py": {
+          "bytes": 18554,
+          "sha256": "03564e3bd6bd536c9b76e91fceb8cf53a9834823870d8363d81b66d2b510d59c"
+        }
+      },
+      "focused_qualification": {
+        "discovered": 19,
+        "errors": 0,
+        "executed": 19,
+        "expected_failures": 0,
+        "failures": 0,
+        "log_path": "evidence/batch9_identity_20261016/initial_focused_tests.log",
+        "log_pin": {
+          "bytes": 4047,
+          "sha256": "05e7d779fdbe82a38c20c7681e29c0bb68b614e98a95e3cf2d3d33521bdfd91b"
+        },
+        "plain_OK": true,
+        "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+        "skips": 0,
+        "unexpected_successes": 0
+      },
+      "public_writes_by_worker": false
+    },
+    {
+      "lane": "regulatory",
+      "handoff": {
+        "path": "evidence/batch9_regulatory_20261016/handoff.json",
+        "bytes": 9029,
+        "sha256": "0813f8ae1006727bbc7f702242e19cbbff3b0beb7c25605e2703888bcea30727"
+      },
+      "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+      "source_test_pins": {
+        "market_checker_app/services/nhtsa_negative_scope_review.py": {
+          "bytes": 13793,
+          "sha256": "919bf4ac9539c1065b3bf9e9474bbf8435fc637b82458cfd7df392c41cc0021c"
+        },
+        "tests/test_batch9_nhtsa_negative_scope.py": {
+          "bytes": 13995,
+          "sha256": "6c260b3bb1aa1c9e04e0074a1b560e7e401c79a199ff472a89b65cd0b6599af8"
+        }
+      },
+      "focused_qualification": {
+        "discovered": 18,
+        "errors": 0,
+        "executed": 18,
+        "expected_failures": 0,
+        "failures": 0,
+        "log_path": "evidence/batch9_regulatory_20261016/focused_initial.log",
+        "log_pin": {
+          "bytes": 3823,
+          "sha256": "7917c536ee3ec0ca9f75c8af1842fcad38b5112827a62bc8c686a085548bf87d"
+        },
+        "plain_OK": true,
+        "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+        "skips": 0,
+        "unexpected_successes": 0
+      },
+      "public_writes_by_worker": false
+    },
+    {
+      "lane": "sec",
+      "handoff": {
+        "path": "evidence/batch9_sec_20261016/handoff.json",
+        "bytes": 5537,
+        "sha256": "34c97458bb97f9e7dfdf48ec538ab13b2e19508a3cbb8f0f05d2e735cacbb2db"
+      },
+      "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+      "source_test_pins": {
+        "market_checker_app/services/sec_complete_packet_review.py": {
+          "bytes": 22306,
+          "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+        },
+        "tests/test_batch9_complete_packet.py": {
+          "bytes": 27730,
+          "sha256": "439cf28a3d79cac53ca1ba41e50565ea3df96f82635c8142c5e5a6cc43c59cc4"
+        }
+      },
+      "focused_qualification": {
+        "discovered": 48,
+        "errors": 0,
+        "executed": 48,
+        "expected_failures": 0,
+        "failures": 0,
+        "log_path": "evidence/batch9_sec_20261016/coordinator_focused_header_fix.log",
+        "log_pin": {
+          "bytes": 9607,
+          "sha256": "671c236fbbb0bc54256d03c72c3bba035fe85a290ef143b33a5a78b5a65634bd"
+        },
+        "plain_OK": true,
+        "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+        "skips": 0,
+        "unexpected_successes": 0
+      },
+      "public_writes_by_worker": false
+    }
+  ],
+  "actual_isolated_development_commits": [
+    {
+      "lane": "identity_bulk",
+      "commit": "46b4ed75d58712ba3ecab207b1f475bf75aef90f",
+      "focused_tests": 19
+    },
+    {
+      "lane": "healthcare",
+      "commit": "abddae8c999024b7efc9f13617e286f262abccc1",
+      "focused_tests": 27
+    },
+    {
+      "lane": "regulatory",
+      "commit": "f0a1612544de09210c508af7ee65503e402c96e5",
+      "focused_tests": 18
+    },
+    {
+      "lane": "contracts",
+      "commit": "95a56c6e1626ea2f133773adb5fcea64776ad0e7",
+      "focused_tests": 27
+    },
+    {
+      "lane": "sec",
+      "commit": "5b949a97bb8936a84123fd387582d04241338939",
+      "focused_tests": 48
+    },
+    {
+      "lane": "evaluation",
+      "commit": "119a33114dba67fdafa784e793e0d929f48cbad0",
+      "focused_tests": 38
+    }
+  ],
+  "development_interruption_qualification": "Six actual development agents began isolated tasks. Coordinator finished preserved handoffs/commits after usage interruption; no worker completion invented.",
+  "additional_independent_peer_followup": {
+    "worker_commit": "e3063ce9d59a68086aac304a0647ff7e80a5e839",
+    "root_cherry_pick": "7f96472",
+    "root_production_fix": "00b912f7dafab841b5fe6ac0f368d7d8d09ad8be",
+    "handoff": {
+      "path": "evidence/batch9_market_parent_peer_20261017/handoff.json",
+      "bytes": 6358,
+      "sha256": "267787d92aa44a9524a93a98dccf663ad439230dcd579010df17da65e13c4d2d"
+    },
+    "before": {
+      "actual_database_initializations": 0,
+      "actual_source_http_requests": 0,
+      "discovered": 7,
+      "elapsed_seconds": 30.043591,
+      "errors": 0,
+      "executed": 7,
+      "expected_failures": 0,
+      "failures": 6,
+      "fixture_only": true,
+      "genuine_forecasts": 0,
+      "labels": 0,
+      "log_sha256": "e798d31e526fc70978c44547c794c08e83687f214868f893e81fe0ae7adcb205",
+      "observations": [
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": false,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 1,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": false,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 1,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": false,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 1,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": false,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 1,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": false,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 1,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": false,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 1,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "none",
+          "raised_WAIT_DATA": false,
+          "scenario": "positive_control",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 1,
+          "ticker": "AAPL"
+        }
+      ],
+      "observed_at": "2026-10-17T21:34:06.702120+00:00",
+      "skips": 0,
+      "source_sha256": {
+        "market_checker_app/services/captured_market_data_provider.py": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e",
+        "market_checker_app/services/captured_market_input_acquisition.py": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a",
+        "market_checker_app/services/pipeline_service.py": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98",
+        "market_checker_app/services/progress_service.py": "fa4a47799b45871c19ef87f0d06865e56c17f74b997c2cd9915ac97a9564687a",
+        "tests/test_batch9_market_parent_peer.py": "f924a9c190688b4ff24aa74cac84cf0efc555c098c886b95389ecdd222e58831"
+      },
+      "source_unchanged_during_tests": true,
+      "successful": false,
+      "unexpected_successes": 0
+    },
+    "after": {
+      "actual_database_initializations": 0,
+      "actual_source_http_requests": 0,
+      "discovered": 7,
+      "elapsed_seconds": 29.106824,
+      "errors": 0,
+      "executed": 7,
+      "expected_failures": 0,
+      "failures": 0,
+      "fixture_only": true,
+      "genuine_forecasts": 0,
+      "labels": 0,
+      "log_sha256": "df1d05819fe01245b866677c438c772effe69cc3a96dc4aabd64681ea9f84e3c",
+      "observations": [
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "after_completed_row",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "missing",
+          "raised_WAIT_DATA": true,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "save_progress_callback",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "symlink",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "AAPL"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "tamper",
+          "raised_WAIT_DATA": true,
+          "scenario": "preflight",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 0,
+          "ticker": "XLY"
+        },
+        {
+          "actual_database_initializations": 0,
+          "fixture_only": true,
+          "genuine_forecasts": 0,
+          "mode": "none",
+          "raised_WAIT_DATA": false,
+          "scenario": "positive_control",
+          "source_http_requests": 0,
+          "synthetic_in_memory_save_calls": 1,
+          "ticker": "AAPL"
+        }
+      ],
+      "observed_at": "2026-10-17T21:36:43.492963+00:00",
+      "skips": 0,
+      "source_sha256": {
+        "market_checker_app/services/captured_market_data_provider.py": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e",
+        "market_checker_app/services/captured_market_input_acquisition.py": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a",
+        "market_checker_app/services/pipeline_service.py": "a2b9cd058ea04f3ae139b74307885b06f69d4d43c4d78c6169195da2dfa75c13",
+        "market_checker_app/services/progress_service.py": "fa4a47799b45871c19ef87f0d06865e56c17f74b997c2cd9915ac97a9564687a",
+        "tests/test_batch9_market_parent_peer.py": "f924a9c190688b4ff24aa74cac84cf0efc555c098c886b95389ecdd222e58831"
+      },
+      "source_unchanged_during_tests": true,
+      "successful": true,
+      "unexpected_successes": 0
+    },
+    "unchanged_seven_method_regression": true,
+    "synthetic_in_memory_store_is_not_real_forecast_or_DB": true
+  },
+  "local_full_suite": {
+    "started_at": "2026-10-17T21:39:02.134301+00:00",
+    "ended_at": "2026-10-17T21:44:38.025220+00:00",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 2231,
+    "tests_run": 2231,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "plain_OK": true,
+    "plain_footer_elapsed_seconds": 334.883,
+    "result": {
+      "path": "evidence/batch9_linux_20261017.json",
+      "bytes": 363,
+      "sha256": "3ad2c3a346b8c0e54e151f1e1e96dcba0bea7389e2b35635b25193cc182ac838"
+    },
+    "complete_console": {
+      "path": "evidence/batch9_linux_console_20261017.log",
+      "bytes": 447646,
+      "sha256": "d38515725ab121f9f7a9c577107036bd41ac6c04b435183f2561c44dc36e5b14"
+    },
+    "separate_runner_log": {
+      "path": "evidence/batch9_linux_runner_20261017.log",
+      "bytes": 450454,
+      "sha256": "30a48e83e27937f64adfa6b49837ad7aa20a6f044a5de3821d50a201883d91f4"
+    },
+    "batch9_exact_methods": {
+      "path": "evidence/batch9_linux_methods_20261017.json",
+      "bytes": 66064,
+      "sha256": "b5164030526dccc1528af945cd4036c56f81337fa592b9f5caaeab1721c8709a"
+    },
+    "new_exact_methods_executed_ok": 194,
+    "all_prior_2037_test_methods_and_assertions_preserved": true
+  },
+  "content_audit": {
+    "path": "evidence/batch9_coordinator_20261016/content_audit.json",
+    "bytes": 9586,
+    "sha256": "80c365df052b7f3663ffe97f8827e3597140ebafd4f4b4fcc07ca8637a3a9d95"
+  },
+  "audit_producer": {
+    "path": "evidence/batch9_coordinator_20261016/verify_content.py",
+    "bytes": 13261,
+    "sha256": "99e7fb7eb97c6923aa1f6ae8354e067fd3e70d9ffbbf82938e0435886a041db2"
+  },
+  "retained_quota_read_only_audit": {
+    "path": "evidence/batch9_coordinator_20261016/retained_quota_audit.json",
+    "bytes": 539,
+    "sha256": "e51d10fa3bdcfa2a87baaa83e49429490e8947709cc269b88020a8fd60666c2a"
+  },
+  "actual_runtime_dispatch": {
+    "path": "evidence/batch9_coordinator_20261016/initial_runtime_dispatch.json",
+    "bytes": 10920,
+    "sha256": "75b6f60bb00324dc3db1531744c20de1ed2d8b60949b642537b374caed6a40c5"
+  },
+  "actual_source_accounting": {
+    "research_original_HTTP200": 12,
+    "proven_NHTSA_HTTP200": 1,
+    "charged_NHTSA_reservations": 2,
+    "second_NHTSA_response": "UNKNOWN_NO_REVIEW_OR_BODY",
+    "NHTSA_live_continuation": "AUTOMATIC_REVIEW_REJECTED_NO_RETRY_OR_BYPASS",
+    "AAPL_transport_failures_without_response": 1,
+    "remaining_market_requests_stopped": 12,
+    "new_CMS_Clinical_FDA_USAspending_collector_actions": 0
+  },
+  "thirteen_original_HTTP200_bodies_count": 13,
+  "thirteen_original_HTTP200_body_bytes": 2027627,
+  "old_evidence_unchanged": {
+    "files": 1329,
+    "bytes": 68218322
+  },
+  "protected_inputs_unchanged": {
+    "files": 7,
+    "bytes": 156735
+  },
+  "handoff_evidence_pins_verified": 135,
+  "additional_peer_pins_verified": 14,
+  "historical_producer_qualification": {
+    "identity_exchange_namespace_failure_preserved": true,
+    "SEC_initial_zero_executed_setup_error_and_48_method_one_failure_preserved": true,
+    "SEC_current_v2_gold_artifact_is_separate_from_historical_v1": true,
+    "actual_market_failed_attempt_producer_v1_preserved": "c836a8d4318b98f512a7b0fb6b10bd0eaf66fcea9deac5ec817e45902fc0e7a4",
+    "current_market_acquisition_source": {
+      "path": "market_checker_app/services/captured_market_input_acquisition.py",
+      "bytes": 28151,
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    },
+    "peer_six_original_late_callback_failures_and_whole_sources_preserved": true,
+    "initial_filesystem_inventory_included_28_ignored_cache_files_not_public_evidence": true
+  },
+  "baseline_hosted_CI": {
+    "head_sha": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+    "run_id": 38867202786,
+    "five_required_checks_success": true,
+    "actual_original_zip_and_members_verified": true,
+    "windows_tests": 2037,
+    "batch8_exact_methods_executed_ok": 202,
+    "plain_ok": true,
+    "all_21_complete": false,
+    "user_windows_end_to_end_verified": false,
+    "genuine_oos_verified": false,
+    "qualifies_only_this_baseline_head": true
+  },
+  "current_candidate_hosted_CI": "NOT_YET_RUN_PRE_HOSTED_PROOF_ONLY",
+  "later_hosted_qualification_location": "PR162 and original actual artifact; never rewrite this pre-CI proof",
+  "default_modelconfig_hash": "e8e0a4b5e010122a7d7fa2f8d41eb9174e25a6a1a57e206cb315b1a552d0d5f2",
+  "default_modelconfig_hash_basis": "AppConfig/release_manifest source bytes unchanged from exact b81; new active captured inputs have their own input fingerprint",
+  "score_fitter_default_model_configuration_changed": false,
+  "original_687_60second_budget_changed": false,
+  "automatic_trading_allowed": false,
+  "registry_adoptions": 0,
+  "canonical_tickers": 687,
+  "historical_Q2_instrument_coverage": 150,
+  "current_Q3_instrument_coverage": 0,
+  "healthcare_identities": 10,
+  "NHTSA_model_identities": 3,
+  "legal_identities": 5,
+  "all_21_code_live_statuses_unchanged": true,
+  "code_statuses": {
+    "PARTIAL": 17,
+    "PILOT": 2,
+    "NOT_STARTED": 2
+  },
+  "live_statuses": {
+    "PENDING": 17,
+    "WAIT_ACCESS": 4
+  },
+  "genuine_forecasts_registrations_labels": 0,
+  "genuine_complete_HTTP200_NHTSA_negatives": 0,
+  "full_specialist_acceptance": 0,
+  "user_windows_end_to_end_verified": false,
+  "historical_OOS_verified": false,
+  "whole_withheld_bodies_absent": [
+    "27f03d6bb63f0590a82369556419c4eb8f5fb9ab3b3da44a9c8695d18d7b7532",
+    "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+    "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+    "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1"
+  ],
+  "public_parent_only_safe_tree_publication_required": true,
+  "merge_authorized": false,
+  "remaining_queue": "PARALLEL_SPECIALIST_WORK.md: current specific queue after batch9"
+}

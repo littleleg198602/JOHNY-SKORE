@@ -1,0 +1,1020 @@
+{
+  "head": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "artifact_id": 12033093458,
+  "all_202_exact_module_class_method_blocks_executed_ok": true,
+  "verified_count": 202,
+  "executed_methods": [
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_complete_original_66_session_frame_is_returned_without_value_or_clock_reconstruction"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_marked_synthetic_capture_is_not_a_production_default_clock_input"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_all_twelve_benchmark_reads_fail_locally_without_fallback"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_complete_asset_and_twelve_benchmark_selection_can_pass_readiness_as_fixtures_only"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_under_66_rows_are_not_padded"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_older_latest_close_is_not_refreshed_by_importing_today"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_missing_internal_session_is_not_shifted_to_another_row"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_duplicate_sessions_and_intraday_shifted_daily_labels_are_refused"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_whole_nyse_open_and_new_york_midnight_encodings_are_accepted_without_shifting_dates"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_future_unfinished_session_is_not_silently_dropped_into_a_different_archive"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_current_unfinished_close_cannot_have_been_observed_before_it_completed"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_a_read_crossing_the_next_session_close_rechecks_freshness_at_completion"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_physical_clock_rollback_cannot_publish_ready_frames"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_naive_physical_clock_is_not_reinterpreted_as_utc"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_all_original_ohlcv_columns_are_required_and_never_invented_from_close"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_nonfinite_missing_negative_and_inconsistent_values_fail_closed"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_actions_are_only_accepted_when_original_and_explicit_requirements_are_met"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_adjusted_cache_and_unknown_method_are_never_reconstructed_to_raw"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_whole_manifest_and_file_pins_detect_tamper_without_overwriting_the_input"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_manifest_switch_mid_run_cannot_select_a_new_valid_capture"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_pre_persistence_comparison_refuses_a_different_valid_provider_selection"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_foreign_or_ambiguous_instrument_and_duplicate_selected_versions_are_refused"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_resealed_foreign_source_cannot_be_used_for_the_selected_instrument"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_source_pin_clocks_cannot_replace_original_capture_availability"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_future_capture_clock_stays_missing_and_unknown_revision_is_never_upgraded"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_explicit_paths_refuse_escape_missing_and_parent_symlink_without_discovery"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_temporary_root_alias_is_canonical_before_capture_and_parent_guard_is_exercised"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_unsafe_whole_bodies_are_withheld_without_projection_or_error_echo"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_duplicate_outer_and_embedded_json_keys_are_not_silently_projected"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_unselected_unsafe_file_is_not_discovered_or_opened"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_malformed_second_archive_clock_is_row_local_and_does_not_erase_first_usable_input"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_exact_frame_and_session_pins_cannot_be_replaced_by_declared_metadata"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_byte_row_and_request_limits_stop_before_any_unselected_source_read"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_unsupported_interval_or_period_and_empty_selection_do_not_enable_download"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_metadata_is_explicitly_missing_and_performance_uses_only_the_existing_formula"
+    },
+    {
+      "module": "test_batch8_captured_market_data_provider",
+      "class": "CapturedMarketDataProviderTests",
+      "method": "test_repeated_reads_are_independent_and_original_files_are_byte_identical"
+    },
+    {
+      "module": "test_batch8_captured_runtime_peer",
+      "class": "CapturedRuntimePeerTests",
+      "method": "test_initial_wait_data_stops_before_weekly_store_initialization"
+    },
+    {
+      "module": "test_batch8_captured_runtime_peer",
+      "class": "CapturedRuntimePeerTests",
+      "method": "test_normal_captured_run_keeps_missing_metadata_and_exact_source_pins_without_live_cache"
+    },
+    {
+      "module": "test_batch8_captured_runtime_peer",
+      "class": "CapturedRuntimePeerTests",
+      "method": "test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write"
+    },
+    {
+      "module": "test_batch8_captured_runtime_peer",
+      "class": "CapturedRuntimePeerTests",
+      "method": "test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write"
+    },
+    {
+      "module": "test_batch8_captured_runtime_peer",
+      "class": "CapturedRuntimePeerTests",
+      "method": "test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "CapturedRuntimeIntegrationTests",
+      "method": "test_default_model_fingerprint_is_preserved_and_explicit_input_selection_is_distinct"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "CapturedRuntimeIntegrationTests",
+      "method": "test_incomplete_benchmark_scope_stops_before_any_cache_database_or_remote_operation"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "CapturedRuntimeIntegrationTests",
+      "method": "test_normal_single_and_bulk_pipeline_use_exact_sources_without_network_or_cache"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "CapturedRuntimeIntegrationTests",
+      "method": "test_mid_run_manifest_change_cannot_save_run_or_silently_use_another_source"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "CapturedRuntimeIntegrationTests",
+      "method": "test_weekly_wait_data_preflight_does_not_initialize_history_or_output"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "CapturedRuntimeIntegrationTests",
+      "method": "test_cli_readiness_is_local_and_never_loads_runtime_or_initializes_history"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "Batch8ReviewBudgetTests",
+      "method": "test_all_new_review_kinds_refuse_oversized_whole_body_before_file_io"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "Batch8ReviewBudgetTests",
+      "method": "test_actual_consolidated_commitments_survive_runtime_without_supplier_allocation"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "ActualNewScopeDispatchTests",
+      "method": "test_actual_symbol_scope_keeps_missing_effective_day_and_118_byte_conflict"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "ActualNewScopeDispatchTests",
+      "method": "test_actual_fda_missing_structured_original_and_crl_wrong_dataset_both_stay_wait_data"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "ActualNewScopeDispatchTests",
+      "method": "test_actual_opinion_and_opposition_do_not_become_a_court_order_or_merits_finding"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "ActualNewScopeDispatchTests",
+      "method": "test_actual_owner_xml_preserves_all_rows_without_inventing_missing_packet_or_person_identity"
+    },
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "CapturedReadinessUITests",
+      "method": "test_readiness_requires_explicit_button_and_never_registers_or_downloads"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_actual_later_opposition_and_judicial_opinion_are_distinct_events"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_original_hashes_and_unavailable_source_bodies_are_exact"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_opinion_mentioning_accompanying_order_is_not_that_order"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_party_opposition_cannot_become_a_court_decision"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_wrong_docket_court_document_or_filing_day_is_rejected"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_caption_variants_never_become_issuer_alias_or_earlier_identity"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_exact_plaintiff_and_motion_number_cannot_be_prefixes"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_wrong_page_or_action_word_never_inherits_the_real_denial"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_none_cutoff_uses_actual_now_and_explicit_past_never_decodes"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_future_observation_and_known_clock_fail_closed"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_hash_size_status_redirect_and_encoded_substitute_guards"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_whole_withheld_body_cannot_be_restored_by_passing_bytes"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_actual_order_contract_is_procedural_and_proposed_order_is_not_issued"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_doj_html_report_remains_a_report_without_original_court_order"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_missing_decoder_and_oversize_original_are_partial"
+    },
+    {
+      "module": "test_batch8_doj_case_posture",
+      "class": "Batch8DojCasePostureTests",
+      "method": "test_request_guards_and_no_adoption_liability_current_docket_or_score"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_synthetic_positive_is_only_exact_application_applicant_snapshot"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_application_type_namespace_cannot_be_substituted"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_leading_zero_and_product_number_types_are_preserved"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_every_product_keeps_its_form_and_entire_combination_strengths"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_product_form_strength_sponsor_are_exact_not_fuzzy"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_no_text_brand_or_manufacturer_annotation_can_replace_structured_products"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_missing_selection_imports_source_facts_without_guessing_product"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_missing_issuer_does_not_erase_complete_structured_source_roles"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_missing_structured_capture_and_metadata_only_body_are_wait_data_before_parser"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_body_withheld_descriptor_does_not_parse_or_substitute"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_hash_length_budget_and_projected_capture_are_rejected"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_original_whole_body_over_four_mb_never_parses"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_unsafe_original_and_escaped_decoded_bodies_are_wholly_withheld"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_unsafe_or_unbounded_metadata_has_no_exported_pin"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_original_json_duplicates_nonfinite_and_nested_invalid_are_rejected"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_nested_string_punctuation_does_not_create_structure_or_change_source_version_id"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_publisher_total_and_bounds_cannot_be_boolean_negative_or_inconsistent"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_duplicate_application_product_and_ingredient_are_ambiguous"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_malformed_or_unbounded_product_and_ingredient_rows"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_version_must_be_exact_canonical_and_not_after_original_observation"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_incomplete_traversal_keeps_exact_source_fact_but_not_candidate"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_complete_empty_and_http_errors_never_certify_negative_product_or_issuer"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_wrong_query_redirect_scope_duplicate_and_credential_keys_have_no_candidate"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_wrong_dataset_is_rejected_before_json_or_text_extraction"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_wrong_sec_name_cik_ticker_does_not_establish_applicant_bridge"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_annual_cover_or_subsidiary_title_is_not_direct_current_issuer_bridge"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_late_same_day_or_prior_day_bridge_cannot_backdate_applicant_role"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_late_during_request_response_interval_is_not_earlier_knowledge"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_future_naive_and_inverted_original_clocks_are_rejected"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_clock_offsets_preserve_actual_utc_instant"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_snapshot_ids_are_stable_and_outputs_detached_without_changing_ingestion_time"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_invalid_exact_selection_is_not_silently_normalized"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_actual_five_retained_crl_events_are_not_structured_product_objects"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_actual_capture_plan_uses_unchanged_raw_pins_and_missing_structured_body"
+    },
+    {
+      "module": "test_batch8_fda_structured_products",
+      "class": "StructuredFdaProductsTests",
+      "method": "test_adapter_has_no_network_file_database_registry_or_quota_side_effects"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_actual_whole_originals_and_full_review_replay_are_hash_pinned"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_actual_current_account_role_signature_and_all_seven_rows_are_source_only"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_original_failed_packet_has_no_invented_complete_hash_bytes_or_header"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_distinct_disclosure_and_unqualified_index_clocks_do_not_create_continuity"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_synthetic_complete_original_packet_confirms_fields_without_legal_or_instrument_adoption"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_raw_name_order_case_cik_issuer_accession_and_title_drift_are_rejected"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_original_prior_header_name_case_drift_is_not_approved_after_rehash"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_current_header_xml_name_conflict_and_unqualified_clock_conflict_are_distinct"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_current_packet_must_contain_the_exact_separately_pinned_raw_xml"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_missing_role_title_signature_or_security_title_is_partial_without_fabrication"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_role_and_attorney_signature_expectations_cannot_be_relabelled"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_footnote_text_and_missing_reference_remain_explicit"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_index_basename_accession_must_equal_original_directory"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_future_index_filing_day_cannot_become_earlier_by_later_known_clock"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_future_transaction_signature_and_report_day_are_rejected"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_index_company_role_or_exact_owner_name_cannot_be_swapped_or_inferred"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_joint_or_duplicated_accounts_do_not_allocate_rows_to_a_selected_person"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_explicit_past_asof_does_not_backdate_a_new_review_even_when_inputs_were_available"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_default_none_means_current_physical_ingestion_and_future_explicit_is_unavailable"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_future_input_knowledge_is_withheld_before_original_parsing"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_physical_clock_rollback_during_review_never_returns_an_acceptance"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_sensitive_xml_or_prior_body_is_wholly_withheld_before_any_parser"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_withheld_packet_is_metadata_only_without_restoring_or_losing_independent_xml_facts"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_unknown_incomplete_packet_cannot_claim_a_full_hash_or_substitute_bytes"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_whole_hash_size_url_bounds_clock_and_xml_entities_are_strict"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_bounded_selection_and_duplicate_tables_are_not_relaxed"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_service_has_no_network_database_registry_or_input_mutation"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "OwnerInstrumentScopeTests",
+      "method": "test_actual_central_plan_retains_missing_body_without_a_fake_path_or_hash"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "ReservedResearchTransportTests",
+      "method": "test_reservation_is_durable_before_transport_and_no_redirect_is_followed"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "ReservedResearchTransportTests",
+      "method": "test_six_reserved_failed_or_interrupted_attempts_cannot_be_reset_or_refunded"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "ReservedResearchTransportTests",
+      "method": "test_transient_failure_consumes_attempt_without_full_body_hash_or_prefix_export"
+    },
+    {
+      "module": "test_batch8_owner_instrument_scope",
+      "class": "ReservedResearchTransportTests",
+      "method": "test_sensitive_whole_body_is_hash_metadata_only_and_oversized_body_is_not_read"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_aggregate_numeric_fact_currency_category_and_group_are_exact"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_agreement_and_payment_qualifiers_are_preserved_not_an_exact_schedule"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_other_paragraph_supplier_names_never_join_an_anonymous_total"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_changed_value_unit_currency_horizon_and_qualifier_are_rejected"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_fact_scale_currency_and_sign_are_not_reinterpreted"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_fact_context_is_same_issuer_and_instant_with_category_not_supplier_dimension"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_nested_namespace_overrides_cannot_relabel_currency_or_category"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_literal_amount_asof_must_match_context_date"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_full_original_qualifiers_cannot_be_omitted_by_cutting_the_span"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_cancellation_is_conditional_and_cannot_be_relabelled_universal"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_hidden_ancestor_or_hidden_numeric_body_is_rejected"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_a_table_cell_paragraph_cannot_discard_its_column_scope"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_external_footnote_or_more_than_one_numeric_fact_is_not_silently_dropped"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_wrong_pin_hash_and_partial_plaintext_selection_fail_closed"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_exact_dei_pair_and_consolidated_scope_cannot_be_changed"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_a_cofiler_cannot_be_silently_combined_into_the_single_issuer_anchor"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_duplicate_numeric_id_outside_the_visible_paragraph_is_ambiguous"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_index_primary_accession_form_filer_and_report_day_are_bound"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_hidden_index_primary_row_or_filer_does_not_support_a_visible_proof"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_index_declared_served_size_conflict_is_retained_without_fixing_bytes"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_source_clocks_remain_old_and_new_knowledge_is_actual_ingestion"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_source_capture_and_known_clocks_cannot_be_reversed_or_future"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_physical_clock_rollback_during_review_is_rejected"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_withheld_and_access_bearing_whole_bodies_are_never_replaced"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_original_hash_bytes_bounds_redirect_and_dtd_checks"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_replay_is_pure_and_has_no_http_database_or_output_writes"
+    },
+    {
+      "module": "test_batch8_purchase_obligation_scope",
+      "class": "PurchaseObligationScopeTests",
+      "method": "test_actual_retained_nvda_original_replays_exact_fact_without_supplier_join"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_exact_independent_scopes_are_reviewable_without_any_adoption_or_side_effect"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_planned_action_never_becomes_completed_when_its_day_passes"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_announcement_day_remains_separate_from_the_effective_day"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_legal_name_action_is_not_a_symbol_change"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_brand_name_and_continued_trading_do_not_prove_a_legal_or_symbol_action"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_cover_bracket_and_equal_cusips_cannot_supply_a_missing_action_day"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_a_month_cannot_be_expanded_into_an_exact_day"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_different_day_and_unrelated_meeting_date_cannot_be_borrowed"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_an_on_date_prefix_for_another_event_is_not_the_symbol_action_date"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_reverse_symbols_and_symbol_prefixes_are_not_the_requested_direction"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_reported_completion_cannot_follow_its_disclosure"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_competing_effective_days_are_preserved_without_picking_the_latest"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_two_claims_from_one_accession_are_one_independent_disclosure"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_generic_class_or_a_different_par_value_cannot_supply_the_exact_instrument"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_a_correct_name_and_cik_cannot_bridge_different_instrument_event_days"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_different_cusip_is_preserved_as_a_structured_conflict"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_context_name_is_not_moved_to_another_issuer_or_inferred_as_a_legal_effective_day"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_equal_old_and_new_cusips_still_need_a_dated_cusip_action_statement"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_a_counterparty_action_cannot_be_assigned_to_the_filing_issuer"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_peer_logo_and_counterparty_symbol_sentences_cannot_produce_ready"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_same_issuer_logo_date_is_not_borrowed_by_a_later_symbol_sentence"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_a_logo_completion_cannot_change_an_announced_symbol_clause_to_effective"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_cusip_and_class_are_not_borrowed_across_another_subject"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_a_brand_short_name_needs_its_local_legal_name_definition"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_the_scope_cannot_be_weakened_to_a_generic_or_unpriced_class"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_different_legal_names_need_the_exact_directed_issuer_name_action"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_instrument_from_and_to_days_cannot_be_swapped_around_the_action"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_future_source_or_reversed_knowledge_clocks_fail_before_parsing"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_default_review_knowledge_is_physical_and_explicit_past_cannot_backdate_it"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_withheld_body_stays_unavailable_and_any_restored_substitute_is_refused"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_access_bearing_whole_body_is_rejected_instead_of_projected"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_whole_hash_text_and_locator_must_all_match_the_original_paragraph"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_hidden_ancestor_cannot_supply_action_proof"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_a_cropped_future_qualifier_is_not_the_whole_original_paragraph"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_capture_bytes_transform_flags_redirects_and_wrong_scopes_are_refused"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_submissions_row_path_form_and_publication_clock_are_exact"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_capture_and_request_bounds_are_enforced_without_discovery"
+    },
+    {
+      "module": "test_batch8_symbol_action_scope",
+      "class": "SymbolActionScopeTests",
+      "method": "test_actual_six_primary_responses_keep_missing_day_class_and_118_byte_conflict"
+    }
+  ],
+  "original_log_sha256": "cdd6f6f534fffaaa0e7c20ebfb3e621ecf02d3a173453b5392aa391758676432",
+  "all_21_complete": false
+}

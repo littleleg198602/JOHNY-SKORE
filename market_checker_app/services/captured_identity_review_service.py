@@ -22,12 +22,16 @@ _KINDS = {"CMS_PROVIDER_OWNER", "EPA_FRS_OWNER", "FORM4_PERSON", "STOCK_MERGER_E
           "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
           "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY",
           "SEC_SYMBOL_ACTION_SCOPE", "FDA_STRUCTURED_PRODUCT", "DOJ_CASE_POSTURE",
-          "SEC_PURCHASE_OBLIGATION_SCOPE", "SEC_OWNER_INSTRUMENT_SCOPE"}
+          "SEC_PURCHASE_OBLIGATION_SCOPE", "SEC_OWNER_INSTRUMENT_SCOPE",
+          "SEC_INSTRUMENT_CLASS_SCOPE", "FDA_APPLICATION_PRODUCT", "NHTSA_NEGATIVE_SCOPE",
+          "SEC_SUPPLIER_CONCENTRATION", "SEC_COMPLETE_PACKET"}
 _BODY_BUDGETS = {kind: 4_000_000 for kind in (
     "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
     "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY",
     "SEC_SYMBOL_ACTION_SCOPE", "FDA_STRUCTURED_PRODUCT", "DOJ_CASE_POSTURE",
-    "SEC_PURCHASE_OBLIGATION_SCOPE", "SEC_OWNER_INSTRUMENT_SCOPE")}
+    "SEC_PURCHASE_OBLIGATION_SCOPE", "SEC_OWNER_INSTRUMENT_SCOPE",
+    "SEC_INSTRUMENT_CLASS_SCOPE", "FDA_APPLICATION_PRODUCT", "NHTSA_NEGATIVE_SCOPE",
+    "SEC_SUPPLIER_CONCENTRATION", "SEC_COMPLETE_PACKET")}
 
 
 def _time(value: object) -> datetime:
@@ -135,6 +139,38 @@ def _load_captures(plan: dict, source_root: Path, cutoff: datetime) -> dict[str,
 
 def _dispatch(plan: dict, captures: dict, source_root: Path, clock: datetime, cutoff: datetime) -> dict:
     request, kind = plan["request"], plan["kind"]
+    if kind == "SEC_INSTRUMENT_CLASS_SCOPE":
+        from market_checker_app.services.sec_instrument_class_scope_review import review_sec_instrument_class_scope
+        return review_sec_instrument_class_scope(request, captures,
+            as_of=cutoff if "as_of" in plan else None)
+    if kind == "FDA_APPLICATION_PRODUCT":
+        if "as_of" in plan and cutoff < clock:
+            raise ValueError("A new FDA application interpretation cannot be backdated")
+        from market_checker_app.services.fda_application_product_review import review_fda_application_product
+        return review_fda_application_product(request, captures, reviewed_at=clock)
+    if kind == "NHTSA_NEGATIVE_SCOPE":
+        if "as_of" in plan and cutoff < clock:
+            raise ValueError("A new NHTSA interpretation cannot be backdated")
+        from market_checker_app.services.nhtsa_negative_scope_review import review_nhtsa_negative_scope
+        return review_nhtsa_negative_scope(request, captures, reviewed_at=clock)
+    if kind == "SEC_SUPPLIER_CONCENTRATION":
+        from market_checker_app.services.sec_supplier_concentration_review import review_sec_supplier_concentration
+        return review_sec_supplier_concentration(request, captures,
+            as_of=cutoff if "as_of" in plan else None)
+    if kind == "SEC_COMPLETE_PACKET":
+        from market_checker_app.services.sec_complete_packet_review import (
+            CompletePacketCapture, review_sec_complete_packet,
+        )
+        selected = {}
+        for key, (metadata, body) in captures.items():
+            fields = dict(metadata)
+            for field in ("observed_at", "known_at"):
+                if fields.get(field) is not None:
+                    fields[field] = _time(fields[field])
+            selected[key] = CompletePacketCapture(body=body, **fields)
+        return review_sec_complete_packet(packet_capture=selected["packet"],
+            xml_capture=selected["xml"], index_capture=selected["index"],
+            selection=request["selection"], knowledge_at=cutoff if "as_of" in plan else None)
     if kind == "SEC_SYMBOL_ACTION_SCOPE":
         from market_checker_app.services.sec_symbol_action_scope_review import review_symbol_action_scope
         return review_symbol_action_scope(request, captures,

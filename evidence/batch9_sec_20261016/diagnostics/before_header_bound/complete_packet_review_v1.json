@@ -1,0 +1,254 @@
+{
+  "actual_new_primary_research_transports": 1,
+  "application_collector_live_or_shared_quota_history_claim": false,
+  "explicit_new_packet_diagnostics": 1,
+  "full_specialist_acceptance": false,
+  "historical_oos_or_windows_claim": false,
+  "maximum_current_packet_diagnostic_attempts": 1,
+  "new_request_receipt": {
+    "absolute_deadline_enforcement": "POSIX_SETITIMER",
+    "absolute_timeout_seconds": 25,
+    "application_collector_or_quota_db_used": false,
+    "complete_original_body_received": true,
+    "content_type": "text/plain",
+    "elapsed_seconds": 4.0020602550000035,
+    "http_date": "Fri, 16 Oct 2026 12:18:22 GMT",
+    "http_status": 200,
+    "last_modified": "Tue, 01 Sep 2026 22:08:45 GMT",
+    "maximum_original_body_bytes": 4000000,
+    "observed_at": "2026-10-16T12:18:22.843333+00:00",
+    "path": "primary/nadella_2026_form4_complete_packet.txt",
+    "purpose": "EXPLICIT_NEW_CURRENT_PACKET_DIAGNOSTIC",
+    "redirects_or_retries_allowed": false,
+    "research_plan_sha256": "7eafe06bf356a3fc1238ff0f452fe709deaaedd1efc7d252be3442452fc8313d",
+    "reserved_at": "2026-10-16T12:18:18.845488+00:00",
+    "retention": "ORIGINAL_BYTES",
+    "sequence": 1,
+    "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+    "size_bytes": 9665,
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt",
+    "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+  },
+  "prior_failed_capture_is_rewritten": false,
+  "prior_failed_receipt_preserved": {
+    "absolute_deadline_enforcement": "POSIX_SETITIMER",
+    "absolute_timeout_seconds": 25,
+    "application_collector_or_quota_db_used": false,
+    "complete_original_body_received": false,
+    "elapsed_seconds": 3.893053220999718,
+    "failure_type": "URLError",
+    "http_status": null,
+    "maximum_original_body_bytes": 4000000,
+    "observed_at": "2026-10-15T13:42:42.324660+00:00",
+    "purpose": "CURRENT_OWNERSHIP_PACKET",
+    "received_prefix_bytes": 0,
+    "received_prefix_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "redirects_or_retries_allowed": false,
+    "research_plan_sha256": "d9735d505a911ffcfd5e0f5a29ad06f185b1b667d97601c3e94b9cf6150e02e0",
+    "reserved_at": "2026-10-15T13:42:38.431442+00:00",
+    "retention": "NOT_CAPTURED_COMPLETE_BODY",
+    "sequence": 2,
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt",
+    "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+  },
+  "result": "COMPLETE_ORIGINAL_PACKET_HEADER_XML_COMPONENT_CORROBORATED_LEGAL_IDENTITY_UNVERIFIED",
+  "reused_prior_xml_index_new_http_count": 0,
+  "review": {
+    "account_continuity_verified": false,
+    "approved_name_alias": false,
+    "captures": {
+      "index": {
+        "known_at": "2026-10-15T18:12:45.475714+00:00",
+        "observed_at": "2026-10-15T18:12:45.475714+00:00",
+        "record_id": "retained-current-nadella-index-20261015",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "828b5f5463be1a9d06e25ad0a19a5fa288e2ac756173e96835302bee16246a31",
+        "size_bytes": 8111,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157-index.html"
+      },
+      "packet": {
+        "known_at": "2026-10-16T12:18:22.843333+00:00",
+        "observed_at": "2026-10-16T12:18:22.843333+00:00",
+        "record_id": "actual-whole-current-nadella-packet-20261016",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+        "size_bytes": 9665,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt"
+      },
+      "xml": {
+        "known_at": "2026-10-15T18:11:45.505396+00:00",
+        "observed_at": "2026-10-15T18:11:45.505396+00:00",
+        "record_id": "retained-current-nadella-xml-20261015",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "c71fd4237b551e70fd8054cfd54b9d101e63d689d0a26b10bb8bd123a0a4c810",
+        "size_bytes": 8214,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/form4.xml"
+      }
+    },
+    "complete_original_packet": {
+      "documents": [
+        {
+          "description_raw": "STATEMENT OF CHANGES IN BENEFICIAL OWNERSHIP OF SECURITIES",
+          "document_span": {
+            "byte_end": 9649,
+            "byte_start": 1272
+          },
+          "document_type": "4",
+          "filename": "form4.xml",
+          "ownership_xml_span": {
+            "byte_end": 9622,
+            "byte_start": 1408,
+            "bytes": 8214,
+            "sha256": "c71fd4237b551e70fd8054cfd54b9d101e63d689d0a26b10bb8bd123a0a4c810"
+          },
+          "sequence_raw": "1",
+          "text_envelope": "ORIGINAL_XML_WRAPPER",
+          "text_span": {
+            "byte_end": 9629,
+            "byte_start": 1402,
+            "bytes": 8227,
+            "sha256": "85f717eafbb52909da4a3e0bcb899cd620c86a60177e3053adf55e5c503e0560"
+          }
+        }
+      ],
+      "header": {
+        "acceptance_datetime_unqualified_display": "2026-09-01 18:08:27",
+        "acceptance_datetime_unqualified_raw": "20260901180827",
+        "acceptance_timezone_inferred": false,
+        "accession": "0000789019-26-000157",
+        "account_roles": [
+          {
+            "cik": "0001513142",
+            "name": "Nadella Satya",
+            "role": "REPORTING-OWNER"
+          },
+          {
+            "cik": "0000789019",
+            "name": "MICROSOFT CORP",
+            "role": "ISSUER"
+          }
+        ],
+        "change_day": "2026-09-01",
+        "clock_conflicts": [],
+        "filed_day": "2026-09-01",
+        "period_day": "2026-08-31",
+        "public_document_count": 1,
+        "submission_type": "4"
+      },
+      "packet_bytes": 9665,
+      "packet_sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+      "parser_version": "sec-complete-original-sgml-packet-v1",
+      "whole_original_consumed": true
+    },
+    "cusip_class_validity_verified": false,
+    "execution_verified": false,
+    "gaps": [
+      "NATURAL_PERSON_LEGAL_ACCOUNT_BINDING_UNVERIFIED",
+      "NO_APPROVED_NAME_ORDER_SIGNATURE_OR_POA_ALIAS",
+      "DATED_CUSIP_CLASS_VALIDITY_UNVERIFIED",
+      "ACCOUNT_AND_ROLE_CONTINUITY_UNPROVEN",
+      "NO_EXECUTION_TRADING_OR_HISTORICAL_OOS_ACCEPTANCE"
+    ],
+    "historical_machine_availability_inferred": false,
+    "holding_row_count": 5,
+    "index_scope": {
+      "acceptance_datetime_unqualified_raw": "2026-09-01 18:08:27",
+      "acceptance_timezone_inferred": false,
+      "accession": "0000789019-26-000157",
+      "captured_xml_bytes": 8214,
+      "clock_conflicts": [],
+      "exact_historical_as_filed_version_verified": false,
+      "filing_day": "2026-09-01",
+      "form": "4",
+      "index_company_contexts": [
+        {
+          "cik": "0000789019",
+          "literal_company_context": "MICROSOFT CORP (Issuer) CIK: 0000789019 (see all company filings)",
+          "name": "MICROSOFT CORP",
+          "role": "Issuer"
+        },
+        {
+          "cik": "0001513142",
+          "literal_company_context": "Nadella Satya (Reporting) CIK: 0001513142 (see all company filings)",
+          "name": "Nadella Satya",
+          "role": "Reporting"
+        }
+      ],
+      "index_declared_packet_bytes": 9665,
+      "index_declared_xml_bytes": 8214,
+      "original_xml_filename": "form4.xml",
+      "period_day": "2026-08-31",
+      "source_publication_instant_verified": false,
+      "xml_size_conflict": false
+    },
+    "instrument_identity_verified": false,
+    "issuer_as_filed": {
+      "cik": "0000789019",
+      "name": "MICROSOFT CORP"
+    },
+    "issuer_attribution_allowed": false,
+    "natural_person_identity_verified": false,
+    "network_requests_performed": 0,
+    "one_accession_documents_are_one_disclosure": true,
+    "original_complete_packet_supported": true,
+    "original_header_scope_supported": true,
+    "original_primary_xml_exact_binding_supported": true,
+    "person_cik_binding_verified": false,
+    "primary_document_binding": {
+      "document_type": "4",
+      "exact_original_bytes_equal": true,
+      "extracted_excerpt_is_not_a_whole_packet_substitute": true,
+      "filename": "form4.xml",
+      "index_public_document_count": 1,
+      "index_sequence_raw": "1",
+      "packet_xml_original_sha256": "c71fd4237b551e70fd8054cfd54b9d101e63d689d0a26b10bb8bd123a0a4c810",
+      "retained_raw_xml_sha256": "c71fd4237b551e70fd8054cfd54b9d101e63d689d0a26b10bb8bd123a0a4c810",
+      "sequence_raw": "1"
+    },
+    "quota_or_lease_modified": false,
+    "registry_modified": false,
+    "reporting_accounts_as_filed": [
+      {
+        "cik": "0001513142",
+        "name": "Nadella Satya"
+      }
+    ],
+    "requested_knowledge_at": null,
+    "review_available_at": "2026-10-17T21:27:53.625850+00:00",
+    "review_ingested_at": "2026-10-17T21:27:53.613896+00:00",
+    "review_version": "sec-complete-original-sgml-packet-v1",
+    "role_continuity_verified": false,
+    "roles_as_filed": [
+      {
+        "isDirector": "1",
+        "isOfficer": "1",
+        "isOther": "0",
+        "isTenPercentOwner": "0",
+        "officerTitle": "Chief Executive Officer"
+      }
+    ],
+    "scoring_applied": false,
+    "security_titles_as_filed": [
+      "Common Stock"
+    ],
+    "signature_or_poa_is_approved_person_alias": false,
+    "signatures_as_filed": [
+      {
+        "date": "2026-09-01",
+        "name": "Julia Stark, Attorney-in-Fact for Satya Nadella"
+      }
+    ],
+    "source_inputs_available_at": "2026-10-16T12:18:22.843333+00:00",
+    "standalone_xml_index_scope_supported": true,
+    "status": "PARTIAL",
+    "trading_allowed": false,
+    "transaction_row_count": 2
+  },
+  "schema_version": 1,
+  "source_service_pin": {
+    "bytes": 22287,
+    "sha256": "71a13535d640f12c1f7da000e4fbee964767c3a2a87ea6950757d19c4e345480"
+  },
+  "successful_complete_http200_originals": 1,
+  "underlying_form4_disclosures": 1
+}

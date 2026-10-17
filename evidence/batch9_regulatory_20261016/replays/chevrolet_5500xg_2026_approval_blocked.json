@@ -1,0 +1,54 @@
+{
+  "catalog_scope_supported": false,
+  "complete_current_recall_history_verified": false,
+  "complete_negative": false,
+  "contract_version": "nhtsa-exact-model-negative-completeness-v1",
+  "current_vehicle_production_verified": false,
+  "database_actions": 0,
+  "historical_availability_reconstructed": false,
+  "http_requests": 0,
+  "issuer_attribution_verified": false,
+  "issuer_wide_absence_verified": false,
+  "known_at": "2026-10-16T17:17:10.906232+00:00",
+  "live_complete_negative_verified": false,
+  "manufacturer_ownership_inferred": false,
+  "missing_evidence": [
+    "MISSING_OR_WHOLE_WITHHELD_ORIGINAL"
+  ],
+  "physical_report_created_at": "2026-10-16T17:17:10.906232+00:00",
+  "prediction_input": false,
+  "publisher_completeness_audit": null,
+  "reason": "MISSING_OR_WHOLE_WITHHELD_ORIGINAL",
+  "registry_adoption_allowed": false,
+  "review_kind": "NHTSA_NEGATIVE_SCOPE",
+  "reviewed_at": "2026-10-16T17:17:10.906232+00:00",
+  "schema_version": 1,
+  "scope": {
+    "make": "CHEVROLET",
+    "model": "5500XG",
+    "model_year": 2026
+  },
+  "scope_completeness": "EXACT_DOCUMENTED_MODEL_YEAR_QUERY_SNAPSHOT_ONLY",
+  "scoring_applied": false,
+  "source_complete_negative": false,
+  "source_reviews": [
+    {
+      "automatic_redirects_disabled_verified": false,
+      "capture_id": "catalog_chevrolet_2026",
+      "http_status": 200,
+      "original_byte_pin_verified": true,
+      "raw_response_bytes": 2436,
+      "raw_response_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+      "reason": "ORIGINAL_BYTES_PINNED",
+      "source_known_at": "2026-10-13T08:44:25.024795+00:00",
+      "source_observed_at": "2026-10-13T08:44:25.024795+00:00"
+    },
+    {
+      "capture_id": "recall_chevrolet_5500xg_2026_blocked",
+      "original_byte_pin_verified": false,
+      "reason": "MISSING_OR_WHOLE_WITHHELD_ORIGINAL",
+      "source_observed_at": null
+    }
+  ],
+  "status": "PARTIAL"
+}

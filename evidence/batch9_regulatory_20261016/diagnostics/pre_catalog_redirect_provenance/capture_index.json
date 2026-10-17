@@ -1,0 +1,122 @@
+{
+  "additional_http_or_database_actions_by_builder": 0,
+  "approval_blocked_response": {
+    "body_available": false,
+    "body_ref": null,
+    "metadata": {
+      "archive_path": null,
+      "automatic_redirects": false,
+      "capture_id": "recall_chevrolet_5500xg_2026_blocked",
+      "final_url": null,
+      "http_status": null,
+      "known_at": "2026-10-16T12:22:34.506262+00:00",
+      "observed_at": null,
+      "public_raw_available": false,
+      "raw_response_bytes": null,
+      "raw_response_sha256": null,
+      "recorded_request_id": "05cd501eeecc4171a024d52a41fbf369",
+      "recorded_request_row_sha256": "8e963351983355168c1d5b6e6476bd109f50c4f4c60bd310775c48d8fefe0fed",
+      "request_reserved_at": "2026-10-16T12:20:30.592741+00:00",
+      "requested_url": null,
+      "source_metadata": {
+        "bytes": 10889,
+        "path": "evidence/batch9_regulatory_20261016/retained_ledger_after_approval_block.json",
+        "sha256": "4e042e7694184091da69439847c61071e945ffd58f2081fdd8cbea242b09df78"
+      },
+      "source_response_observed": false,
+      "started_at": null,
+      "status": "APPROVAL_BLOCKED_RESPONSE_UNAVAILABLE",
+      "unavailable_reason": "Automatic approval rejected the live operation; no source response or transport outcome is established"
+    }
+  },
+  "approval_interrupted_rows_without_source_response": 1,
+  "frozen_at": "2026-10-16T12:26:12.715677+00:00",
+  "new_actual_response": {
+    "body_available": true,
+    "body_ref": {
+      "bytes": 2250,
+      "path": "evidence/batch9_regulatory_20261016/captures/1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84/response.json",
+      "sha256": "b9a6e0e9b00e7a39d82903dd66da75c243620c6e8e1194ab9a8fd7273835943a"
+    },
+    "metadata": {
+      "archive_encoding": "raw",
+      "automatic_redirects": false,
+      "capture_id": "recall_chevrolet_7500xd_2026",
+      "content_type": "application/json;charset=UTF-8",
+      "final_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=7500XD&modelYear=2026",
+      "http_status": 200,
+      "known_at": "2026-10-16T12:20:30.580928+00:00",
+      "metadata_role": "Derived original-byte descriptor; source classification is unchanged",
+      "observed_at": "2026-10-16T12:20:30.580900+00:00",
+      "public_raw_available": true,
+      "raw_response_bytes": 2250,
+      "raw_response_sha256": "b9a6e0e9b00e7a39d82903dd66da75c243620c6e8e1194ab9a8fd7273835943a",
+      "recorded_capture_origin": "LIVE_PUBLIC_HTTP",
+      "recorded_review_id": "1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84",
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=7500XD&modelYear=2026",
+      "source_metadata": {
+        "bytes": 2137,
+        "path": "evidence/batch9_regulatory_20261016/captures/1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84/review.json",
+        "sha256": "1ebe3aa60557a05c4c8ee0376fd2937a2cbc17dc564aca87d1489ef6914ac647"
+      },
+      "started_at": "2026-10-16T12:20:26.849956+00:00",
+      "status": "ORIGINAL_BYTES_CAPTURED"
+    }
+  },
+  "new_charged_ledger_rows": 2,
+  "new_complete_negatives": 0,
+  "new_original_source_bytes": 2250,
+  "new_original_source_responses": 1,
+  "new_successful_http200_responses": 1,
+  "old_raw_or_metadata_files_rewritten": false,
+  "planned_but_not_attempted_scopes": [
+    {
+      "http_status": null,
+      "make": "FORD",
+      "model": "F-650",
+      "model_year": 2026,
+      "request_id": null,
+      "status": "NOT_ATTEMPTED_AFTER_APPROVAL_BLOCK"
+    },
+    {
+      "http_status": null,
+      "make": "FORD",
+      "model": "F-750",
+      "model_year": 2026,
+      "request_id": null,
+      "status": "NOT_ATTEMPTED_AFTER_APPROVAL_BLOCK"
+    }
+  ],
+  "retained_http400_response_used_offline": {
+    "body_available": true,
+    "body_ref": {
+      "bytes": 66,
+      "path": "evidence/batch7_nhtsa_20261015/captures/e4a069681adf2511dd1403cada087166cff9c62c564ded6f1dd4551c1ed1ae01/response.json",
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    "metadata": {
+      "archive_encoding": "raw",
+      "automatic_redirects": false,
+      "capture_id": "recall_chevrolet_brightdrop_2026",
+      "content_type": "application/json;charset=UTF-8",
+      "final_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=BrightDrop&modelYear=2026",
+      "http_status": 400,
+      "known_at": "2026-10-15T07:29:24.127056+00:00",
+      "metadata_role": "Derived original-byte descriptor; source classification is unchanged",
+      "observed_at": "2026-10-15T07:29:24.127026+00:00",
+      "public_raw_available": true,
+      "raw_response_bytes": 66,
+      "raw_response_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "recorded_capture_origin": "LIVE_PUBLIC_HTTP",
+      "recorded_review_id": "e4a069681adf2511dd1403cada087166cff9c62c564ded6f1dd4551c1ed1ae01",
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=BrightDrop&modelYear=2026",
+      "source_metadata": {
+        "bytes": 2139,
+        "path": "evidence/batch7_nhtsa_20261015/captures/e4a069681adf2511dd1403cada087166cff9c62c564ded6f1dd4551c1ed1ae01/review.json",
+        "sha256": "2b5f609e2abb64bba98b9f5f6fd48d4b60adc5c7feaa227d3efb0caec0c41319"
+      },
+      "started_at": "2026-10-15T07:29:16.838796+00:00",
+      "status": "ORIGINAL_BYTES_CAPTURED"
+    }
+  }
+}

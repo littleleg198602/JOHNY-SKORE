@@ -1,0 +1,97 @@
+{
+  "development_lane": "contracts",
+  "evidence_file_pins": {
+    "evidence/batch9_contracts_20261016/actual_review.json": {
+      "bytes": 19315,
+      "sha256": "d7bbb1f08c6fc3b9e5d477f0fc6933fbdc00882289bac03f517bd71e33ab3bb7"
+    },
+    "evidence/batch9_contracts_20261016/actual_review_plan.json": {
+      "bytes": 8171,
+      "sha256": "1d98de948e7e3fffaafa564bcfe995f2ddf112c5f83afa362bf39ca0ffd29aa1"
+    },
+    "evidence/batch9_contracts_20261016/capture_primary.py": {
+      "bytes": 5843,
+      "sha256": "6cdf372b1dc80fb2616f9a69e0469aece23dc53a225ddb1e5c4eba95ab61540c"
+    },
+    "evidence/batch9_contracts_20261016/coordinator_focused_tests.log": {
+      "bytes": 6188,
+      "sha256": "6fdca51defe8e0758bf225f727f45c4386b7ad448a8ef7ee36cfb2b0ca86f3b5"
+    },
+    "evidence/batch9_contracts_20261016/raw/body-2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade.response": {
+      "bytes": 1708710,
+      "sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response": {
+      "bytes": 13487,
+      "sha256": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755"
+    },
+    "evidence/batch9_contracts_20261016/replay_original.py": {
+      "bytes": 2181,
+      "sha256": "27490bd53471e4479148b9fd3ec98efbd9e86eb422ea1847f5a6db0864c35c98"
+    },
+    "evidence/batch9_contracts_20261016/requests/5fbd0d01bca2441aba3c2676878b1bf90ec5dd3acbbdb0319e76b6c157ab3743.metadata.json": {
+      "bytes": 1123,
+      "sha256": "b8d1bf49b2d4ef3775a1fb88caf92499f101070f65855ee3ef2b552efa9a2b16"
+    },
+    "evidence/batch9_contracts_20261016/requests/5fbd0d01bca2441aba3c2676878b1bf90ec5dd3acbbdb0319e76b6c157ab3743.reserved.json": {
+      "bytes": 437,
+      "sha256": "157e5e832418aa76bfd16458e40230cc687e9369a2648da545cc34f13cba53ea"
+    },
+    "evidence/batch9_contracts_20261016/requests/c6fc9bdf002fbb5f4c016671f74c54e6fedaa0cebec74854bd9f12d8e369dd9f.metadata.json": {
+      "bytes": 1150,
+      "sha256": "50de62e7bc8ed60418a061ab1b375bbb326518312b0750076fbc1b982d324a74"
+    },
+    "evidence/batch9_contracts_20261016/requests/c6fc9bdf002fbb5f4c016671f74c54e6fedaa0cebec74854bd9f12d8e369dd9f.reserved.json": {
+      "bytes": 450,
+      "sha256": "5abb986c980d21ecf83719934d725a2808d35b27eeb1ec4a96d59ce60274a87e"
+    },
+    "evidence/batch9_contracts_20261016/selection.json": {
+      "bytes": 5479,
+      "sha256": "dbd7c11e2cda3aa2d05cb5814e5fa7c40990979f8bdefe433318527ce40b2b93"
+    }
+  },
+  "finalization_new_source_http_requests": 0,
+  "finalized_at": "2026-10-17T21:29:35.241036+00:00",
+  "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+  "focused_qualification": {
+    "discovered": 27,
+    "errors": 0,
+    "executed": 27,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch9_contracts_20261016/coordinator_focused_tests.log",
+    "log_pin": {
+      "bytes": 6188,
+      "sha256": "6fdca51defe8e0758bf225f727f45c4386b7ad448a8ef7ee36cfb2b0ca86f3b5"
+    },
+    "plain_OK": true,
+    "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": 0,
+  "historical_OOS_verified": false,
+  "module": {
+    "market_checker_app/services/sec_supplier_concentration_review.py": {
+      "bytes": 22789,
+      "sha256": "c7673d7f99a48040708a4e829e8dc4a8e410ad4275d3902bec35580ba0992718"
+    }
+  },
+  "new_primary_research_attempts": 2,
+  "public_base": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "registry_adoptions": 0,
+  "review_plan_paths": [
+    "evidence/batch9_contracts_20261016/actual_review_plan.json"
+  ],
+  "schema_version": "batch9_preserved_worker_handoff_v1",
+  "score_or_fitter_changed": false,
+  "source_attempt_accounting_note": "Apple67/69/66 percent of SWKS consolidated net revenue through multiple channels. Anonymous XBRL CompanyMember is not renamed; legal identity continuity and direct purchase/share attribution unproved.",
+  "test": {
+    "tests/test_batch9_supplier_concentration.py": {
+      "bytes": 25481,
+      "sha256": "3144832b906dfa0271c9dabe568be962a75b3392837e85e76976d0f369af0cba"
+    }
+  },
+  "trading_allowed": false,
+  "user_windows_end_to_end_verified": false
+}

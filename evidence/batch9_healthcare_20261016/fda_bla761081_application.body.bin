@@ -1,0 +1,1070 @@
+
+
+ 
+
+
+    
+
+
+
+   
+
+    
+
+
+
+
+	
+
+<!DOCTYPE html>
+<html lang="en" style="" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=EDGE, chrome=1" />	
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="dc.title"content="Drugs@FDA: FDA-Approved Drugs" />
+  <meta name="dc.type" content="" />
+  <meta name="dc.description" content="" />
+  <meta name="dc.language" content="" />
+  <meta name="posted" content="" />
+  <meta name="Keywords" content="" />
+  <meta name="Description" content="" />
+  <meta name="google-site-verification" content="wxQkNTrqmvYnwVcNzA2mspBp7EDErzIhAzyX-YvvRWI" /> 
+  <meta name="ROBOTS" content="noindex, nofollow" />
+   	
+  
+  
+  	
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-title" content="FDA">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+   
+	  <title>Drugs@FDA: FDA-Approved Drugs</title>
+	 
+   
+	<link rel="stylesheet" media="all" href="/scripts/includes/fdagov/css/css_accessdata_stylesheet.css" type="text/css">
+    <link rel="stylesheet" media="all" href="/scripts/includes/fdagov/css/css_bootstrap_stylesheet.css" type="text/css">
+	<link rel="stylesheet" media="all" href="/scripts/includes/fdagov/css/css_responsive_stylesheet.css" type="text/css">
+	
+	
+	
+		<style type="text/css">.container { max-width: 1500px !important;}
+		@media screen and (min-width: 992px) {
+.main-content {
+    max-width: 1500px !important;
+}
+}</style>
+	
+	  
+
+	
+		<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject1']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.googletagmanager.com/gtag/js?id=G-B0V4T2XCW7','gtag');
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}	
+		gtag('js', new Date());
+		gtag('config', 'G-B0V4T2XCW7');</script>
+		
+
+	<script src="/scripts/includes/fdagov/js/js_jquery.js"></script>
+	<script src="/scripts/includes/fdagov/js/js_bootstrap.js"></script>
+	<script src="/scripts/includes/fdagov/js/js_accessdata.js"></script>
+
+</head>
+<body>
+	
+		  <!-- DAP Code -->
+		<script language="javascript" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=HHS&subagency=FDA&sdor=fda.gov&dclink=true"></script>
+			
+
+
+  <div id="quicklinks" class="sr-only">
+	<ul>
+	  <li><a href="#main-content" class="sr-only sr-only-focusable" tabindex="1">Skip to main content</a></li>
+	  <li><a href="#search-form" class="sr-only sr-only-focusable" tabindex="1">Skip to FDA Search</a></li>
+	  <li><a href="#footer-heading" class="sr-only sr-only-focusable" tabindex="1">Skip to footer links</a></li>
+	</ul>   
+  </div>    
+     
+  <div class="main-container container-fluid">     
+  <div class="row">
+	
+	<header class="lcds-header container-fluid" role="header">
+		
+			<div class="row us-masthead"> 
+
+				<div class="usa-banner col-xs-12">
+
+					<img class="usa-banner__us-flag" src="/scripts/includes/fdagov/images/US_Flag.png" alt="U.S. flag">
+
+					<span>An official website of the United States government</span>
+
+					<a id="USMenuButton" class="collapsed" data-toggle="collapse" data-target="#USABannerMenu" aria-expanded="false" aria-controls="USABannerMenu">Here's how you know <span class="toggle-indicator"> </span></a>
+          			<div class="col-xs-12 collapse usa-banner__menu" id="USABannerMenu" aria-labelledby="USMenuButton">
+
+
+						<div id="gov-banner" class="row usa-banner-content usa-grid usa-accordion-content" aria-hidden="true">
+							      <div class="col-xs-12 col-sm-6 col-md-3">
+							        <img class="usa-banner-icon usa-media_block-img" src="/scripts/includes/fdagov/images/icon-dot-gov.svg" alt="Dot gov" style="width:3em;">
+									<div class="usa-media_block-body">
+								      <p><strong>The .gov means it's official.</strong><br>Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure you're on a federal government site.</p>
+								    </div>
+							      </div>
+							      <div class="col-xs-12 col-sm-6 col-md-3">
+							        <img class="usa-banner-icon usa-media_block-img" src="/scripts/includes/fdagov/images/icon-https.svg" alt="SSL" style="width:3em;">
+							        <div class="usa-media_block-body">
+								         <p><strong>The site is secure.</strong><br> The <strong>https://</strong> ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely.</p>
+							        </div>
+							      </div>
+						</div>
+					</div>
+
+				</div>
+			</div> 
+			<div class="row fda-masthead">
+							<div class="col-xs-4 col-md-8"> 
+					<a href="https://www.fda.gov" title="FDA Homepage">
+						<h1 class="fda-masthead__fda-logo">U.S. Food and Drug Administration</h1>
+					</a>
+       	</div>
+				
+        <div class="col-xs-8 col-md-4">
+          <ul class='fda-masthead__item-list'>
+            <li><a title="" id="btn-search" class="btn btn-default btn-sm fda-masthead__btn-search">
+              <span class="fa fa-search" aria-hidden="true">&nbsp;</span>
+              <span class="fda-masthead__btn-label">Search</span>
+            </a></li>
+            <li><a id="menu-btn" class="btn btn-default btn-sm fda-masthead__btn-menu collapsed" href="#primary-nav" data-toggle="collapse" aria-expanded="true">
+              <span class="fa fa-bars" aria-hidden="true">&nbsp;</span>
+              <span class='fda-masthead__btn-label'>Menu</span>
+            </a></li>
+          </ul>
+				</div>
+							
+						<form class="fda-masthead__search sr-only" role="search" action="https://www.fda.gov/search" method="GET" name="searchForm" id="search-form" accept-charset="UTF-8" >
+							
+							<div class="search-popover" id="search-popover">
+								<div class="input-group pull-right" id="search-group">
+									<label class="sr-only" for="search-query">Search FDA</label>
+									
+									<input accesskey="4" class="form-control search-input" id="search-query" name="s" aria-autocomplete="list" aria-haspopup="true" title="Enter the terms you wish to search for." placeholder="Search FDA"  type="text" /> 
+									
+									<span class="input-group-btn" id="input-group-btn">
+										
+										<button type="button" class="btn btn-danger search-btn" id="search-btn" title="Search"><span class="fa fa-search" aria-hidden="true"><span class="sr-only">Submit search</span></span></button>
+
+									</span>
+
+								</div>
+							</div>					
+						</form>					
+
+			</div> 
+		<nav id="primary-nav" class="lcds-primary-nav row collapse">					
+					<div class="col-md-5 col-lg-4">
+						<section class="lcds-primary-nav__group lcds-primary-nav__group--bordered">
+							<h2 class="lcds-primary-nav__group-heading">Featured</h2>
+							<ul class="lcds-primary-nav__list lcds-primary-nav__list--featured">
+								<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/about-fda/contact-fda">Contact FDA</a></li>
+								<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents">FDA Guidance Documents</a></li>
+								<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts">Recalls, Market Withdrawals and Safety Alerts</a></li>
+								<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/news-events/newsroom/press-announcements">Press Announcements</a></li>
+								<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters">Warning Letters</a></li>
+								<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/advisory-committees">Advisory Committees</a></li>
+								<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/about-fda/en-espanol">En Espa&ntilde;ol</a></li>
+							</ul>
+						</section>
+					</div>
+
+					<div class="col-md-7 col-lg-8">
+							  <section class="lcds-primary-nav__group lcds-primary-nav__group--bordered">
+								<h2 class="lcds-primary-nav__group-heading">Products</h2>
+								<ul class="lcds-primary-nav__list">
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/food">Food</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/drugs">Drugs</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/medical-devices">Medical Devices</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/radiation-emitting-products">Radiation-Emitting Products</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/vaccines-blood-biologics">Vaccines, Blood, and Biologics</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/animal-veterinary">Animal and Veterinary</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/cosmetics">Cosmetics</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/tobacco-products">Tobacco Products</a></li>
+								</ul>
+							  </section>
+							  <section class="lcds-primary-nav__group lcds-primary-nav__group--bordered">
+								<h2 class="lcds-primary-nav__group-heading">Topics</h2>
+								<ul class="lcds-primary-nav__list">
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/about-fda">About FDA</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/combination-products">Combination Products</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/regulatory-information">Regulatory Information</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/safety">Safety</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/emergency-preparedness-and-response">Emergency Preparedness</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/international-programs">International Programs</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/news-events">News and Events</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/training-and-continuing-education">Training and Continuing Education</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations">Inspections and Compliance</a></li>
+												<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/science-research">Science and Research</a></li>
+								</ul>
+							  </section>
+							  <section class="lcds-primary-nav__group lcds-primary-nav__group--bordered">
+								<h2 class="lcds-primary-nav__group-heading">Information For</h2>
+								<ul class="lcds-primary-nav__list">
+									<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/consumers">Consumers</a></li>
+									<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/patients">Patients</a></li>
+									<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/industry">Industry</a></li>
+									<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/health-professionals">Health Professionals</a></li>
+									<li class="lcds-primary-nav__list-item"><a href="https://www.fda.gov/federal-state-local-tribal-and-territorial-officials">Federal, State and Local Officials</a></li>
+								</ul>
+							  </section>
+					</div>
+	    </nav>
+    </header>
+
+
+	<section id="block-entityviewcontent-15" class="clearfix">
+		<ol class="lcds-breadcrumb">
+			
+            <li ><a id="main" href="https://www.fda.gov/">Home</a></li>
+	        <li class="secondLast"><a href="https://www.fda.gov/Drugs/InformationOnDrugs/default.htm" title="Drug Databases">Drug Databases</a></li>
+          	<li class="last"><a href="/scripts/cder/daf/index.cfm" title="Drugs at FDA">Drugs@FDA</a></li>
+          	
+	      
+		</ol>
+	</section>                          
+  
+  
+<main>
+    <article id="main-content" class="article main-content container-fluid" role="article">
+        <header class="row content-header" role="heading">
+            <section id="block-entityviewcontent-14" class="clearfix"> 
+                <div class="col-sm-12 col-md-8 col-md-offset-2 pageTitleDiv">
+                <h1 class="content-title text-center">Drugs@FDA: FDA-Approved Drugs</h1>
+                    
+                        <div class="lcds-toolbar lcds-toolbar--social">
+                            <ul class="lcds-share lcds-share--default">
+                                	  
+                                    <li class="lcds-share__item">
+                                    <a class="lcds-share__btn lcds-share--default__btn-facebook js-share" id="fb-share" target="_blank"><span class="fa icon-facebook" aria-hidden="true"></span>Share</a>
+                                    </li>
+                                    <li class="lcds-share__item">
+                                    <a target="_blank" class="lcds-share__btn lcds-share--default__btn-twitter js-share" id="twitter-share"><span class="fa icon-twitter" aria-hidden="true"></span>Tweet</a>
+                                    </li>
+                                    <li class="lcds-share__item hidden-xs">
+                                    <a class="lcds-share__btn lcds-share--default__btn-linkedin js-share" id="linkedin-share" target="_blank"><span class="fa icon-linkedin" aria-hidden="true"></span>Linkedin</a>
+                                    </li>
+                                	
+                                
+                                    <li class="lcds-share__item">
+                                    <a class="lcds-share__btn lcds-share--default__btn-mail" id="btn-mail-share"><span class="fa icon-envelope" aria-hidden="true"></span>Email</a>
+                                    </li>
+                                
+                                	  
+                                    <li class=" lcds-share__item hidden-xs">
+                                    <a href="javascript:window.print();" title="Print this page" class="lcds-share__btn lcds-share--default__btn-print"><span class="fa icon-print" aria-hidden="true"></span>Print</a>
+                                    </li>
+                                	
+                            </ul>
+                        </div>
+                    
+                </div>
+            </section>
+        </header>
+    <div class="container" role="main">
+
+
+   <style>                     
+        .panel.with-nav-tabs .nav-tabs {
+            border-bottom: none;
+        }                              
+    </style>
+
+
+<link type="text/css" rel="stylesheet" href="#application.IncludesPath#css/style.css" />
+
+
+<!-- ==== Modernizr for feature detection and Respond for responsive features in IE8 ==== -->
+
+
+
+
+
+
+
+
+
+
+
+	
+
+<p><strong>
+
+
+     
+
+	<a href="index.cfm" class="headerlinktext" title="Home">Home</a> | 
+	 
+		<a href="#" onclick="history.go(-1);return false;" title="Previous Page">Previous Page</a> 
+	
+
+
+    
+		
+</strong></p>
+
+
+	
+
+
+
+
+    
+
+    
+
+    
+
+
+
+
+    
+
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+
+
+
+    
+
+
+    
+
+    
+
+
+
+
+
+
+
+
+ 
+
+     
+	
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	<input type="hidden" value="0" name="rptName" > 
+  
+ 
+  
+  
+
+
+
+
+
+     
+     
+     
+     
+     
+     
+     
+    
+       
+      
+                    
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    
+     
+
+    
+      
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/plug-ins/1.10.15/sorting/natural.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/plug-ins/1.10.11/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/1.10.11/features/searchHighlight/dataTables.searchHighlight.css" />
+
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.print.min.js"></script> 
+
+<script>
+$(document).ready(function() {
+$('#exampleProd').DataTable( {
+	responsive: true,    
+    dom: 'Bfrtip',
+    "bPaginate": false,
+    buttons: ['csv', 'excel', 'print'],
+	"bFilter": false
+	});   
+});
+</script>
+
+<script>
+$(document).ready(function() { 
+$('#exampleApplOrig').DataTable( {
+	columnDefs: [
+    	{targets: [0], type: 'natural'},
+		{targets: [7], visible: false, searchable: false}
+	],
+	"order": [[ 0, 'desc' ],
+	],
+	responsive: true,    
+    dom: 'Bfrtip',
+    "bPaginate": false,
+    buttons: [ 'csv', 'excel', 'print'],
+    "bFilter": false,
+	});   
+});
+</script>
+
+<script>
+$(document).ready(function (){
+$('#exampleApplSuppl').DataTable( {
+	columnDefs: [ 
+		{targets: [0,1], type: 'natural'},
+		{targets: [5], visible: false, searchable: false}
+	],
+	"order": [[ 0, 'desc' ],
+	],
+	responsive: true,    
+    dom: 'Bfrtip',
+    "bPaginate": false,
+    buttons: ['csv', 'excel', 'print'],
+    "bFilter": false 
+	});   
+});
+</script>
+
+<script>
+$(document).ready(function() {
+$('#exampleLabels').DataTable( {
+	responsive: true,    
+	dom: 'Bfrtip',
+    "bPaginate": false,  
+    buttons: ['csv', 'excel', 'print'],
+	"bFilter": false,
+	"order": [[ 0, 'desc' ],
+	],
+    "columnDefs": [ 
+		{ "targets": [5],
+        "visible": false,
+        "searchable": false}]
+	});   
+});
+</script>
+
+
+
+    
+      <style>
+.panel-body .dt-responsive {
+	font-size: 1m;
+	font-weight: bold;
+}
+.prodBoldText {
+	font-weight: bold;
+	font-size: .9em;    
+}
+.tableBoldText, thead {
+	font-weight: bold;
+	font-size: 1.12em;    
+}   
+.UnBoldText {
+	font-weight: normal;
+	font-size: 1.12em; 
+}
+.appl-details-top {
+	color: #1D2D76
+}
+</style>
+
+
+
+
+
+<div class="panel-group" id="accordion">
+
+
+   <span style="font-size:1.1em"><span class="prodBoldText"><strong>Biologic License Application (BLA)</strong>:</span> <span class="appl-details-top">761081</span>
+    <br />
+    <span class="prodBoldText">Company:</span> <span class="appl-details-top">PFIZER INC                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </span></span>
+  
+
+
+
+
+<div class="share-btns">
+<div class="row">
+<div class="col-md-10"></div>
+<div class="col-md-2">
+		
+<ul class="share-list share-list-default">
+    <li>
+    
+    	  
+    
+     
+    <a class="share-btn mail-share" id="btn-mail-share" title="Email" href="mailto:?Subject=Drugs@FDA: FDA Approved Drug Products&body=http://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process%26varApplNo=761081"><span aria-hidden="true" class="icon-envelope"></span>Email</a>
+    
+    </li>
+</ul>
+
+</div>
+</div>
+</div>
+   
+
+
+<div class="row">
+<div class="col-md-12">  
+    
+</div>
+</div>         
+    
+<div style="height: 10px"></div>
+
+ 
+
+<div class="panel panel-info">
+<div class="panel-heading">
+    <h4 class="panel-title">
+    <a class="toggle collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseProduct" title="Click to expand Products on BLA 761081">
+      Products on BLA 761081
+    </a>
+   </h4>
+</div>
+
+<div id="collapseProduct" class="panel-collapse">
+<div class="panel-body">
+<div class="table-responsive">
+<table class="table table-bordered" id="exampleProd" cellspacing="0" summary="FDA Approved Drug Products" border="0" width="100%">
+<thead>
+    <tr style="color:#fff;background:#09373f">
+    <th scope="col" title="Sort by Drug Name">Drug Name</th>
+    <th scope="col" title="Sort by Active Ingredients">Active Ingredients</th>
+    <th scope="col" title="Sort by Strength">Strength</th>
+    <th scope="col" title="Sort by Dosage Form/Route">Dosage Form/Route</th>
+    <th scope="col" title="Sort by Marketing Status">Marketing Status</th>
+    <th scope="col" title="TE Code">TE Code</th>
+    <th scope="col">RLD</th>
+    <th scope="col" title="Reference Standard">RS</th>
+</tr>
+</thead>
+<tbody>
+
+<tr class="prodBoldText">
+    <td>TRAZIMERA</td>
+    <td>TRASTUZUMAB-QYYP</td>
+    <td>420MG</td>
+    <td>INJECTABLE;INJECTION</td>
+    <td>Prescription</td>
+    <td>
+
+            
+           
+
+        None
+             
+    
+        
+</td>
+    <td>
+        
+            No
+            
+        
+            
+    </td>
+    <td>
+        
+            No
+         
+        
+    </td>
+</tr>
+
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+ 
+ 
+
+
+
+<div class="panel panel-info">
+<div class="panel-heading">
+<h4 class="panel-title">
+	<a class="toggle collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseApproval" 
+    title="Click to expand Approval Date(s) and History, Letters, Labels, Reviews for BLA   761081">Approval Date(s) and History, Letters, Labels, Reviews for BLA   761081</a>
+</h4>
+</div>
+
+<div id="collapseApproval" class="panel-collapse collapse">
+<div class="panel-body">                   
+<div class="table-responsive">
+
+	<h5>Original Approvals or Tentative Approvals</h5>
+                             
+<table class="table table-bordered" id="exampleApplOrig" cellspacing="0" summary="Original Approvals or Tentative Approvals" border="0" width="100%">
+<thead>
+<tr style="color:#fff;background:#09373f">
+    <th scope="col" title="Sort by Date">Action Date</th>
+    <th scope="col" title="Sort by Submission">Submission</th>
+    <th scope="col">Action Type</th>
+    <th scope="col">Submission Classification</th>
+    <th scope="col">Review Priority; Orphan Status </th>
+	<th scope="col">Letters, Reviews, Labels, Patient Package Insert</th>
+    <th scope="col">Notes</th>
+    
+	<th scope="col">Url</th>
+	
+</tr>
+</thead>
+<tbody>
+
+<tr>
+	<td>03/11/2019</td>
+    <td>ORIG-1</td>
+    <td>
+    Approval 
+	</td>
+    <td>     
+    
+	</td>
+	<td>
+	
+                                                                                                       
+N/A</td>
+	<td>
+    
+
+<span style="white-space: nowrap;">
+     
+        
+        	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf" target="_blank" title="Links to Label">Label (PDF)</a>
+        <br />
+     
+        
+        	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf" target="_blank" title="Links to Letter">Letter (PDF)</a>
+        <br />
+     
+        
+        	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000TOC.html" target="_blank" title="Links to Review">Review</a>
+        <br />
+     
+	</span>
+	</td>
+    <td>
+
+
+	
+
+
+  
+</td>
+
+<td>
+	 
+        https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf 
+        https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf 
+        https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000TOC.html
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+
+
+<h5>Supplements</h5>
+                               
+<table class="table table-bordered" id="exampleApplSuppl" cellspacing="0" summary="Supplements" border="0" width="100%">
+<thead>
+<tr style="color:#fff;background:#09373f">
+	<th scope="col" title="Sort by Drug Name">Action Date</th>
+	<th scope="col">Submission</th>
+	<th scope="col">Supplement Categories or Approval Type</th>
+	<th scope="col">Letters, Reviews, Labels, Patient Package Insert </th>
+	<th scope="col">Note</th>
+	
+	<th scope="col">Url</th>
+	
+</tr>
+</thead>
+<tbody>
+
+<tr>
+	<td>08/21/2025</td>
+	<td>SUPPL-17</td>
+	<td>
+		Supplement
+        
+	</td>
+	<td>
+	
+                                         
+	
+	
+	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf" title="Links to Label" target="_blank">Label (PDF)</a>
+	
+	<br />
+	
+	
+	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/761081Orig1s017ltr.pdf" title="Links to Letter" target="_blank">Letter (PDF)</a>
+	
+	<br />
+	
+	</td>
+	<td>
+		
+		
+        
+		
+		
+			
+		
+	</td>
+	
+	<td>
+	
+	
+		https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf
+	
+	
+		https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/761081Orig1s017ltr.pdf
+	
+	</td>
+	
+</tr>
+
+<tr>
+	<td>05/07/2020</td>
+	<td>SUPPL-6</td>
+	<td>
+		Supplement
+        
+	</td>
+	<td>
+	
+                                         
+	
+	
+	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2020/761081Orig1s006ltr.pdf" title="Links to Letter" target="_blank">Letter (PDF)</a>
+	
+	<br />
+	
+	</td>
+	<td>
+		
+		
+        
+		
+		
+			<p>Label is not available on this site.</p>
+		
+	</td>
+	
+	<td>
+	
+	
+		https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2020/761081Orig1s006ltr.pdf
+	
+	</td>
+	
+</tr>
+
+<tr>
+	<td>01/24/2020</td>
+	<td>SUPPL-2</td>
+	<td>
+		Supplement
+        
+	</td>
+	<td>
+	
+                                         
+	
+	
+	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2020/761081Orig1s002ltr.pdf" title="Links to Letter" target="_blank">Letter (PDF)</a>
+	
+	<br />
+	
+	</td>
+	<td>
+		
+		
+        
+		
+		
+			<p>Label is not available on this site.</p>
+		
+	</td>
+	
+	<td>
+	
+	
+		https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2020/761081Orig1s002ltr.pdf
+	
+	</td>
+	
+</tr>
+
+</tbody>
+</table>
+                           
+</div>
+</div>
+</div>
+</div>
+  
+        
+
+ 
+<div class="panel panel-info">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a class="toggle collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseLables" title="Click to expand Other OTC Drugs with the Same Active Ingredient, Strength and Dosage Form/Route">Labels for BLA   761081</a>
+</h4>
+</div>
+
+<div id="collapseLables" class="panel-collapse collapse">
+<div class="panel-body">
+<div class="table-responsive">
+        
+<table class="table table-bordered" id="exampleLabels" cellpadding="0" summary="Labels for the selected Application" border="0" width="100%">
+<thead>	
+<tr style="color:#fff;background:#09373f">
+	<th title="Sort by Drug Name" scope="col">Action Date</th>
+	<th title="Sort by Drug Name" scope="col">Submission</th>
+	<th title="Sort by Submission Classification or Approval Type" scope="col">Supplement Categories or Approval Type</th>
+	<th title="Sort by Drug Name" scope="col">Letters, Reviews, Labels,<br>Patient Package Insert</th>
+	<th title="Sort by Letters, Reviews, Labels, Patient Package Insert" scope="col">Note</th>	
+	  
+    <th scope="col">Url</th>
+	
+    </tr>
+</thead>                     
+<tbody> 
+
+<tr class="UnBoldText">
+	<td valign="top">08/21/2025</td>
+	<td valign="top">SUPPL-17</td>
+	<td valign="top">
+	
+		Labeling-Package Insert
+		
+	
+	</td>
+    <td valign="top">
+    	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf" title="Links to http://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf" target="_blank">Label (PDF)</a>
+	</td>
+	<td valign="top">
+		
+        	
+		
+		
+	</td>
+      
+	<td>
+		https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf
+	</td>
+    
+</tr>
+
+<tr class="UnBoldText">
+	<td valign="top">03/11/2019</td>
+	<td valign="top">ORIG-1</td>
+	<td valign="top">
+	Approval
+	
+	</td>
+    <td valign="top">
+    	<a href="https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf" title="Links to http://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf" target="_blank">Label (PDF)</a>
+	</td>
+	<td valign="top">
+		
+        	
+		
+		
+	</td>
+      
+	<td>
+		https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf
+	</td>
+    
+</tr>
+ 
+</tbody>   
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+        
+
+   
+
+</div> 
+    
+      
+
+    
+      
+
+
+
+
+	
+  	<div class="row lcds-footer__disclaimer">
+    		
+    </div>
+    </article>
+</main>
+
+  </div></div></div>
+
+ 
+    <footer class="lcds-footer container-fluid">
+   
+    <div class="row lcds-footer__primary">
+    <h2 id="footer-heading" class="sr-only">Footer Links</h2>
+    <nav class="text-center">
+      <div class="col-sm-4">
+        <ul class="nav">
+          <li><a href="https://www.fda.gov/about-fda/about-website/fdagov-archive">FDA Archive</a></li>
+          <li><a href="https://www.fda.gov/about-fda">About FDA</a></li>
+          <li><a href="https://www.fda.gov/about-fda/about-website/internet-accessibility">Accessibility</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <ul class="nav">
+          <li><a href="https://www.fda.gov/about-fda/white-oak-campus-information/public-meetings-fda-white-oak-campus">Visitor Information</a> </li>
+          <li><a href="https://www.fda.gov/about-fda/about-website/website-policies">Website Policies / Privacy</a></li>
+          <li><a href="https://www.fda.gov/about-fda/jobs-and-training-fda/no-fear-act">No FEAR Act</a></li>
+          <li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" target="_blank">Vulnerability Disclosure Policy</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <ul class="nav">
+          <li><a href="https://www.fda.gov/regulatory-information/freedom-information" title="Freedom of Information Act">FOIA</a></li>
+          <li><a href="https://www.hhs.gov/" title="Health and Human Services" target="_blank">HHS.gov</a></li>
+          <li><a href="https://www.usa.gov/" target="_blank">USA.gov</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+    <div class="row lcds-footer__secondary">
+    <div class=" col-sm-12 col-md-4 lcds-footer__social-links">
+      <a href="https://www.fda.gov/about-fda/contact-fda" class="btn btn-default btn-md">Contact FDA</a>
+
+      <a href="https://www.facebook.com/FDA" title="Follow FDA on Facebook" class="no-disclaimer"> 
+        <span class="fa fa-facebook fa-2x" aria-hidden="true">
+          <span class="sr-only">Follow FDA on Facebook</span> 
+        </span>
+      </a>
+      <a href="https://www.twitter.com/US_FDA" title="Follow FDA on Twitter" class="no-disclaimer"> 
+          <span class="fa fa-twitter fa-2x" aria-hidden="true">
+             <span class="sr-only">Follow FDA on Twitter</span> 
+          </span> 
+      </a>
+      <a href="https://www.youtube.com/user/USFoodandDrugAdmin" title="View FDA videos on YouTube" class="no-disclaimer">
+        <span class="fa fa-youtube fa-2x" aria-hidden="true"> 
+          <span class="sr-only">View FDA videos on YouTube</span>
+        </span>
+      </a>
+      <a href="https://www.fda.gov/about-fda/contact-fda/subscribe-podcasts-and-news-feeds" title="Subscribe to FDA RSS feeds">
+        <span class="fa fa-rss fa-2x" aria-hidden="true">
+          <span class="sr-only">Subscribe to FDA RSS feeds</span>
+        </span>
+      </a>
+    </div>
+    <a href="https://www.fda.gov/" title="FDA Homepage">
+        <div class="hidden-xs hidden-sm col-md-4 text-center lcds-footer__logo">
+        <span class="sr-only">FDA Homepage</span>
+        </div>
+    </a>
+
+    <div class="col-sm-12 col-md-4 text-center lcds-footer__contact-number">
+      <span class="fa fa-phone" aria-hidden="true"> </span> 
+     <span class="sr-only">Contact Number</span>
+      1-888-INFO-FDA (1-888-463-6332)
+    </div>
+  </div>
+   
+    </footer>
+
+    <a id="pageTop" class="btn btn-primary btn-top"><span class="sr-only">Back to </span>Top</a>
+
+<script type="text/javascript"  src="/Jn6razKq8/oA0XDc/S2TsQKu/UDQ-A/wu9LDzpbGGtJQpEuYa/dDswFj8m/OD1Edk/IlADk"></script></body>
+</html>
+
+
+
+
+	
+	
+
+
+

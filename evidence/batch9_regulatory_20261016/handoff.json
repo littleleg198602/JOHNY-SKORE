@@ -1,0 +1,187 @@
+{
+  "development_lane": "regulatory",
+  "evidence_file_pins": {
+    "evidence/batch9_regulatory_20261016/actual_review_plan.json": {
+      "bytes": 4344,
+      "sha256": "f7f85926b58e2545bde0a81e00f7f3ebc8689cc4587161e6bc5f0e5188d1f979"
+    },
+    "evidence/batch9_regulatory_20261016/approval_block_stop.json": {
+      "bytes": 575,
+      "sha256": "c6a5c0c30aa56eb4517a82e9af92722ecb38f40f8e35cdd1a9434ec7ff222064"
+    },
+    "evidence/batch9_regulatory_20261016/automatic_review_block.json": {
+      "bytes": 1562,
+      "sha256": "c2be139f4f4f0b3d4f9fcb80176887b11b39d173e1c486bd4e7db58957493bcb"
+    },
+    "evidence/batch9_regulatory_20261016/build_captured_plans.py": {
+      "bytes": 7255,
+      "sha256": "3770b603e411c011b230c0949c0022cae7f926035e1511107990075594e52500"
+    },
+    "evidence/batch9_regulatory_20261016/capture_index.json": {
+      "bytes": 5456,
+      "sha256": "8b6edaefd55bd5a9e6039e9363aac69f695acba06dd709ce43e5535892f251b2"
+    },
+    "evidence/batch9_regulatory_20261016/captures/1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84/response.json": {
+      "bytes": 2250,
+      "sha256": "b9a6e0e9b00e7a39d82903dd66da75c243620c6e8e1194ab9a8fd7273835943a"
+    },
+    "evidence/batch9_regulatory_20261016/captures/1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84/review.json": {
+      "bytes": 2137,
+      "sha256": "1ebe3aa60557a05c4c8ee0376fd2937a2cbc17dc564aca87d1489ef6914ac647"
+    },
+    "evidence/batch9_regulatory_20261016/diagnostics/pre_catalog_redirect_provenance/actual_review_plan.json": {
+      "bytes": 4287,
+      "sha256": "b75722f5c9ae33dc902ec270753a55bb2d15a182e3b0313da75aa0e3a5ed0b10"
+    },
+    "evidence/batch9_regulatory_20261016/diagnostics/pre_catalog_redirect_provenance/capture_index.json": {
+      "bytes": 5456,
+      "sha256": "d806ef6cdc36badc720e5a5fd533844877cfd72fd11d269743fd1a7bb83dc823"
+    },
+    "evidence/batch9_regulatory_20261016/diagnostics/pre_catalog_redirect_provenance/diagnostic.json": {
+      "bytes": 510,
+      "sha256": "50e0576126ce99255487cc3bbef66d4ec1e6a73899ca80f9fd16e31567b4370f"
+    },
+    "evidence/batch9_regulatory_20261016/diagnostics/pre_catalog_redirect_provenance/plans/chevrolet_5500xg_2026_approval_blocked.json": {
+      "bytes": 3840,
+      "sha256": "e6b82e19d2e0184840d78f3f91bff78104ec790a21c51dbcd080325ef243c9ab"
+    },
+    "evidence/batch9_regulatory_20261016/diagnostics/pre_catalog_redirect_provenance/plans/chevrolet_7500xd_2026.json": {
+      "bytes": 4287,
+      "sha256": "b75722f5c9ae33dc902ec270753a55bb2d15a182e3b0313da75aa0e3a5ed0b10"
+    },
+    "evidence/batch9_regulatory_20261016/diagnostics/pre_catalog_redirect_provenance/plans/chevrolet_brightdrop_2026_http400.json": {
+      "bytes": 4297,
+      "sha256": "4696623fc7a774df39f84e7a76ff33998a1299c20865c485f17f7df40a586b92"
+    },
+    "evidence/batch9_regulatory_20261016/finalize_offline.py": {
+      "bytes": 12437,
+      "sha256": "493d3f49c38fae63813fa2822266d094a9fd4db966cf3493f1f503c2035dbdbd"
+    },
+    "evidence/batch9_regulatory_20261016/focused_initial.json": {
+      "bytes": 952,
+      "sha256": "cccc89cb8e673d13c43b76b965cda5cc59ce32c2b39dbd5f7b2f76cfbee81bf3"
+    },
+    "evidence/batch9_regulatory_20261016/focused_initial.log": {
+      "bytes": 3823,
+      "sha256": "7917c536ee3ec0ca9f75c8af1842fcad38b5112827a62bc8c686a085548bf87d"
+    },
+    "evidence/batch9_regulatory_20261016/initial_read_only_diagnostic.json": {
+      "bytes": 500,
+      "sha256": "35e3b82cf89e7a5df6426d2311866078d61bc96df2a2d050996674a29949ff99"
+    },
+    "evidence/batch9_regulatory_20261016/plans/chevrolet_5500xg_2026_approval_blocked.json": {
+      "bytes": 3897,
+      "sha256": "d500cb433be45986c1ea17d599fd9ac54df06f52822d4f5479bb03986f5e313e"
+    },
+    "evidence/batch9_regulatory_20261016/plans/chevrolet_7500xd_2026.json": {
+      "bytes": 4344,
+      "sha256": "f7f85926b58e2545bde0a81e00f7f3ebc8689cc4587161e6bc5f0e5188d1f979"
+    },
+    "evidence/batch9_regulatory_20261016/plans/chevrolet_brightdrop_2026_http400.json": {
+      "bytes": 4354,
+      "sha256": "f4651c5fdd3e05c61b232bda60e9c32e319cc4321b4e4470fd82f3622d0c8637"
+    },
+    "evidence/batch9_regulatory_20261016/precommitted_plan.json": {
+      "bytes": 6730,
+      "sha256": "6e996d1ecddb236fb4710c11d1fea0197b0034e95e7db1d06901bbd7640f13d1"
+    },
+    "evidence/batch9_regulatory_20261016/replays/chevrolet_5500xg_2026_approval_blocked.json": {
+      "bytes": 1924,
+      "sha256": "3428cc5b710ed75469a1195d25771aa24925b407d5ba28db490b2e31ccb72928"
+    },
+    "evidence/batch9_regulatory_20261016/replays/chevrolet_7500xd_2026.json": {
+      "bytes": 3046,
+      "sha256": "4428b9f80417dcd9e55ab17943c94e8668af979c251355dd25bc7f48f3969e1d"
+    },
+    "evidence/batch9_regulatory_20261016/replays/chevrolet_brightdrop_2026_http400.json": {
+      "bytes": 3094,
+      "sha256": "600012dfad167243e659f9cb0d2c7c40660d5c54000c50d4902a86d1749a8aea"
+    },
+    "evidence/batch9_regulatory_20261016/retained_ledger_after_approval_block.json": {
+      "bytes": 10889,
+      "sha256": "4e042e7694184091da69439847c61071e945ffd58f2081fdd8cbea242b09df78"
+    },
+    "evidence/batch9_regulatory_20261016/retained_ledger_before.json": {
+      "bytes": 9528,
+      "sha256": "b71b342a8dafbd38ad376e4d92206e10849978ba4aaf9fc6a0265a0c4e3dd79d"
+    },
+    "evidence/batch9_regulatory_20261016/retained_ledger_final_readonly.json": {
+      "bytes": 10953,
+      "sha256": "23562e9b424ae83aa3b2ea6157316eec848b2b881120fb5006425ea3729742fa"
+    },
+    "evidence/batch9_regulatory_20261016/reviews/3428cc5b710ed75469a1195d25771aa24925b407d5ba28db490b2e31ccb72928/review.json": {
+      "bytes": 1924,
+      "sha256": "3428cc5b710ed75469a1195d25771aa24925b407d5ba28db490b2e31ccb72928"
+    },
+    "evidence/batch9_regulatory_20261016/reviews/4428b9f80417dcd9e55ab17943c94e8668af979c251355dd25bc7f48f3969e1d/review.json": {
+      "bytes": 3046,
+      "sha256": "4428b9f80417dcd9e55ab17943c94e8668af979c251355dd25bc7f48f3969e1d"
+    },
+    "evidence/batch9_regulatory_20261016/reviews/600012dfad167243e659f9cb0d2c7c40660d5c54000c50d4902a86d1749a8aea/review.json": {
+      "bytes": 3094,
+      "sha256": "600012dfad167243e659f9cb0d2c7c40660d5c54000c50d4902a86d1749a8aea"
+    },
+    "evidence/batch9_regulatory_20261016/run_focused_tests.py": {
+      "bytes": 2162,
+      "sha256": "0755fed333695f1b09c09de60f9ca18705e5fa35fb6a5f6671fb7ba2e29061fd"
+    },
+    "evidence/batch9_regulatory_20261016/run_live_once.py": {
+      "bytes": 11102,
+      "sha256": "2ba9e2fb9681a757ea4ccce2917aa9fb85e867e476898a7840119b8b90fe5341"
+    },
+    "evidence/batch9_regulatory_20261016/run_started.json": {
+      "bytes": 310,
+      "sha256": "a845226e8041393c5040b41559ce672fd86e5630d2a5658cf0b250102f3007fc"
+    },
+    "evidence/batch9_regulatory_20261016/source_versions/pre_approval_block_run_live_once.py": {
+      "bytes": 10924,
+      "sha256": "74f78d350716179cb2b93ac602737530540edc041e49c666a0205c00287ac3c3"
+    }
+  },
+  "finalization_new_source_http_requests": 0,
+  "finalized_at": "2026-10-17T21:29:35.195733+00:00",
+  "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+  "focused_qualification": {
+    "discovered": 18,
+    "errors": 0,
+    "executed": 18,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch9_regulatory_20261016/focused_initial.log",
+    "log_pin": {
+      "bytes": 3823,
+      "sha256": "7917c536ee3ec0ca9f75c8af1842fcad38b5112827a62bc8c686a085548bf87d"
+    },
+    "plain_OK": true,
+    "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": 0,
+  "historical_OOS_verified": false,
+  "module": {
+    "market_checker_app/services/nhtsa_negative_scope_review.py": {
+      "bytes": 13793,
+      "sha256": "919bf4ac9539c1065b3bf9e9474bbf8435fc637b82458cfd7df392c41cc0021c"
+    }
+  },
+  "new_primary_research_attempts": null,
+  "public_base": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "registry_adoptions": 0,
+  "review_plan_paths": [
+    "evidence/batch9_regulatory_20261016/plans/chevrolet_7500xd_2026.json",
+    "evidence/batch9_regulatory_20261016/plans/chevrolet_brightdrop_2026_http400.json",
+    "evidence/batch9_regulatory_20261016/plans/chevrolet_5500xg_2026_approval_blocked.json"
+  ],
+  "schema_version": "batch9_preserved_worker_handoff_v1",
+  "score_or_fitter_changed": false,
+  "source_attempt_accounting_note": "Approval-blocked live continuation. Two charged reservations, one proven HTTP200 positive/two campaigns, second RUNNING unknown response. No new complete HTTP200 negative or quota reset/refund.",
+  "test": {
+    "tests/test_batch9_nhtsa_negative_scope.py": {
+      "bytes": 13995,
+      "sha256": "6c260b3bb1aa1c9e04e0074a1b560e7e401c79a199ff472a89b65cd0b6599af8"
+    }
+  },
+  "trading_allowed": false,
+  "user_windows_end_to_end_verified": false
+}

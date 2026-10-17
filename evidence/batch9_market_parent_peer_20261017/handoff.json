@@ -1,0 +1,189 @@
+{
+  "actual_database_initializations": 0,
+  "actual_source_http_requests": 0,
+  "artifact_pins": {
+    "README.md": {
+      "bytes": 3480,
+      "sha256": "25978734b9d647d0c1f9ef5f56cc95c9b1d4457925282b6e84fc5bb547e09d75"
+    },
+    "after_fix_v2/tests.json": {
+      "bytes": 7065,
+      "sha256": "db40ef639255fcce83c80bcc75479c2f6070e3adbf31b3e66accf232b4acdff9"
+    },
+    "after_fix_v2/tests.log": {
+      "bytes": 1637,
+      "sha256": "df1d05819fe01245b866677c438c772effe69cc3a96dc4aabd64681ea9f84e3c"
+    },
+    "before_fix_v1/tests.json": {
+      "bytes": 7072,
+      "sha256": "9709e7969b957f4a6941359073acb021097110c32ece8e394f6f4e544abbb5ce"
+    },
+    "before_fix_v1/tests.log": {
+      "bytes": 10648,
+      "sha256": "e798d31e526fc70978c44547c794c08e83687f214868f893e81fe0ae7adcb205"
+    },
+    "finalize_handoff.py": {
+      "bytes": 3809,
+      "sha256": "06ad1b7530a12dfb7697fb980fdc64222aa70943e8b30f95eb27f57a2b72bc31"
+    },
+    "original/captured_market_data_provider.py": {
+      "bytes": 28473,
+      "sha256": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e"
+    },
+    "original/captured_market_input_acquisition.py": {
+      "bytes": 28151,
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    },
+    "original/peer_tests_original.py": {
+      "bytes": 11982,
+      "sha256": "f924a9c190688b4ff24aa74cac84cf0efc555c098c886b95389ecdd222e58831"
+    },
+    "original/pipeline_service.py": {
+      "bytes": 95344,
+      "sha256": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+    },
+    "original/progress_service.py": {
+      "bytes": 5901,
+      "sha256": "fa4a47799b45871c19ef87f0d06865e56c17f74b997c2cd9915ac97a9564687a"
+    },
+    "original/source_pins.json": {
+      "bytes": 1338,
+      "sha256": "4f8ee7ab44001befbb78a64257464ec39edd558df1235769a971f818a2368073"
+    },
+    "original/test_source_pin.json": {
+      "bytes": 304,
+      "sha256": "97465e2aaf4aa8aad76401cdd083d622832102dfee4bb49fa17bb3c21e47749d"
+    },
+    "run_peer.py": {
+      "bytes": 2142,
+      "sha256": "8028b478e4126487a0549cab8600c20a62c45840e7f2003de493df7bb52c2d49"
+    }
+  },
+  "coordinator_fix_commit": "00b912f7dafab841b5fe6ac0f368d7d8d09ad8be",
+  "coordinator_owned_production_changes": [
+    "market_checker_app/services/pipeline_service.py"
+  ],
+  "fixture_only": true,
+  "focused_tests": {
+    "discovered": 7,
+    "elapsed_seconds": 29.106824,
+    "errors": 0,
+    "executed": 7,
+    "expected_failures": 0,
+    "failures": 0,
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "full_baseline_repeated": false,
+  "full_specialist_acceptance": false,
+  "genuine_forecasts": 0,
+  "github_writes": 0,
+  "hosted_windows_acceptance_claimed": false,
+  "independent_test_bytes_unchanged_from_failed_reproduction": true,
+  "labels": 0,
+  "late_mutation_cases": [
+    {
+      "actual_database_initializations": 0,
+      "fixture_only": true,
+      "genuine_forecasts": 0,
+      "mode": "tamper",
+      "raised_WAIT_DATA": true,
+      "scenario": "save_progress_callback",
+      "source_http_requests": 0,
+      "synthetic_in_memory_save_calls": 0,
+      "ticker": "AAPL"
+    },
+    {
+      "actual_database_initializations": 0,
+      "fixture_only": true,
+      "genuine_forecasts": 0,
+      "mode": "missing",
+      "raised_WAIT_DATA": true,
+      "scenario": "save_progress_callback",
+      "source_http_requests": 0,
+      "synthetic_in_memory_save_calls": 0,
+      "ticker": "AAPL"
+    },
+    {
+      "actual_database_initializations": 0,
+      "fixture_only": true,
+      "genuine_forecasts": 0,
+      "mode": "symlink",
+      "raised_WAIT_DATA": true,
+      "scenario": "save_progress_callback",
+      "source_http_requests": 0,
+      "synthetic_in_memory_save_calls": 0,
+      "ticker": "AAPL"
+    },
+    {
+      "actual_database_initializations": 0,
+      "fixture_only": true,
+      "genuine_forecasts": 0,
+      "mode": "tamper",
+      "raised_WAIT_DATA": true,
+      "scenario": "save_progress_callback",
+      "source_http_requests": 0,
+      "synthetic_in_memory_save_calls": 0,
+      "ticker": "XLY"
+    },
+    {
+      "actual_database_initializations": 0,
+      "fixture_only": true,
+      "genuine_forecasts": 0,
+      "mode": "missing",
+      "raised_WAIT_DATA": true,
+      "scenario": "save_progress_callback",
+      "source_http_requests": 0,
+      "synthetic_in_memory_save_calls": 0,
+      "ticker": "XLY"
+    },
+    {
+      "actual_database_initializations": 0,
+      "fixture_only": true,
+      "genuine_forecasts": 0,
+      "mode": "symlink",
+      "raised_WAIT_DATA": true,
+      "scenario": "save_progress_callback",
+      "source_http_requests": 0,
+      "synthetic_in_memory_save_calls": 0,
+      "ticker": "XLY"
+    }
+  ],
+  "original_base": "ea3ee97440a1a6c565420bb9c8567cb51cdf247b",
+  "original_failed_qualification": "before_fix_v1/tests.json",
+  "owned_paths": [
+    "tests/test_batch9_market_parent_peer.py",
+    "evidence/batch9_market_parent_peer_20261017/"
+  ],
+  "prior38_acquisition_tests_repeated": false,
+  "publisher_revision_timing_status": "UNKNOWN",
+  "qualified_dependency_head": "ab8453666e356e6c7c7f17e37bed35fac4ea84a4",
+  "qualified_source_files": {
+    "market_checker_app/services/captured_market_data_provider.py": {
+      "bytes": 28473,
+      "sha256": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e"
+    },
+    "market_checker_app/services/captured_market_input_acquisition.py": {
+      "bytes": 28151,
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    },
+    "market_checker_app/services/pipeline_service.py": {
+      "bytes": 95858,
+      "sha256": "a2b9cd058ea04f3ae139b74307885b06f69d4d43c4d78c6169195da2dfa75c13"
+    },
+    "market_checker_app/services/progress_service.py": {
+      "bytes": 5901,
+      "sha256": "fa4a47799b45871c19ef87f0d06865e56c17f74b997c2cd9915ac97a9564687a"
+    },
+    "tests/test_batch9_market_parent_peer.py": {
+      "bytes": 11982,
+      "sha256": "f924a9c190688b4ff24aa74cac84cf0efc555c098c886b95389ecdd222e58831"
+    }
+  },
+  "recorded_at": "2026-10-17T21:37:11.428128+00:00",
+  "repaired_qualification": "after_fix_v2/tests.json",
+  "schema_version": "batch9_market_parent_peer_handoff_v1",
+  "score_or_fitter_or_budget_changes": false,
+  "shared_production_files_edited_by_this_lane": false,
+  "strict_pit_eligible": false
+}

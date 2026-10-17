@@ -27,6 +27,11 @@ _LABELS = {
     "DOJ_CASE_POSTURE": "Pozdější procesní stav soudního případu",
     "SEC_PURCHASE_OBLIGATION_SCOPE": "Rozsah nákupních závazků podle SEC",
     "SEC_OWNER_INSTRUMENT_SCOPE": "Účet vlastníka a instrument v novém podání",
+    "SEC_INSTRUMENT_CLASS_SCOPE": "Třída akcií a datovaný identifikátor v SEC",
+    "FDA_APPLICATION_PRODUCT": "Původní produkt v konkrétní žádosti FDA",
+    "NHTSA_NEGATIVE_SCOPE": "Úplnost konkrétního dotazu NHTSA",
+    "SEC_SUPPLIER_CONCENTRATION": "Podíl konkrétního zákazníka v tržbách dodavatele",
+    "SEC_COMPLETE_PACKET": "Úplný SEC dokument a jeho hlavička",
 }
 
 
@@ -65,6 +70,43 @@ def render_captured_market_readiness(st, *, manifest_path: Path, archive_root: P
         if report["status"] != "READY":
             st.warning("Chybí úplné aktuální cenové vstupy. Běh zůstává zastavený před uložením předpovědí.")
         st.json(report, expanded=False)
+
+
+def render_market_input_acquisition(st, *, output_dir: Path) -> None:
+    st.write("**Původní cenové vstupy pro ověřovací běh**")
+    st.caption("Dávka obsahuje AAPL a12 tržních a odvětvových benchmarků. Nejdřív zobraz plán; "
+               "stažení spustíš samostatným tlačítkem. Výsledný manifest lze použít ve výběru cenových archivů.")
+    from market_checker_app.services.captured_market_input_acquisition import CapturedMarketInputAcquisition
+    root = Path(output_dir) / "market_inputs"
+    context = str(root.resolve())
+    enabled = st.checkbox("Povolit toto omezené stažení z Yahoo Finance", value=False,
+        key="market_input_acquisition_enabled")
+    if st.button("Připravit plán cenových vstupů"):
+        try:
+            plan = CapturedMarketInputAcquisition(archive_root=root).plan()
+            st.session_state["market_input_acquisition_plan"] = {"context": context, "plan": plan}
+        except (ValueError, OSError, KeyError, TypeError):
+            st.session_state.pop("market_input_acquisition_plan", None)
+            st.error("Pro aktuální dokončené seance nelze připravit cenový plán.")
+    prepared = st.session_state.get("market_input_acquisition_plan")
+    if prepared and prepared["context"] == context:
+        st.json(prepared["plan"], expanded=False)
+        execute = st.button("Stáhnout tuto dávku cenových vstupů", disabled=not enabled)
+        if execute and enabled:
+            # A click consumes this displayed selection even when the source fails.
+            st.session_state.pop("market_input_acquisition_plan", None)
+            try:
+                result = CapturedMarketInputAcquisition(archive_root=root, enabled=True).acquire(
+                    prepared["plan"], execute=True)
+                st.session_state["market_input_acquisition_result"] = {"context": context, "report": result}
+            except (ValueError, OSError, KeyError, TypeError):
+                st.session_state.pop("market_input_acquisition_result", None)
+                st.error("Dávku nelze provést. Původní pokusy zůstávají v archivu; nové stažení vyžaduje nový plán.")
+    saved = st.session_state.get("market_input_acquisition_result")
+    if saved and saved["context"] == context:
+        if saved["report"]["status"] != "READY":
+            st.warning("Vstupy nejsou úplné. Předpovědi čekají na připravený manifest.")
+        _display(st, saved["report"], name="market_input_acquisition.json")
 
 
 def render_prospective_source_selection(st, *, output_dir: Path) -> None:
@@ -130,6 +172,7 @@ def render_prospective_source_selection(st, *, output_dir: Path) -> None:
 
 
 def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, output_dir: Path) -> None:
+    render_market_input_acquisition(st, output_dir=output_dir)
     st.write("**Kontrola uložených primárních dokladů**")
     st.caption("Kontrola porovná přesné uložené doklady a čas jejich získání. Výsledek ukáže "
                "doloženou vazbu i chybějící důkazy; přijetí identity vyžaduje samostatné posouzení.")
@@ -155,6 +198,23 @@ def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, 
         candidate = leaf.get("candidate") or {}
         claim = leaf.get("claim") or {}
         person = leaf.get("dated_person_fact") or {}
+        if leaf.get("application_facts"):
+            application = leaf["application_facts"]
+            st.caption(application["source_label"] + ": " + application["source_party_name"] +
+                       "; produktové řádky v tomto zdroji: " + str(len(leaf.get("product_rows", []))) + ".")
+        if leaf.get("registered_source_anchor_count"):
+            st.caption("Datované záznamy symbolu a třídy: " + str(leaf["registered_source_anchor_count"]) +
+                       ". Spojení s CUSIP čeká na doložení.")
+        if claim.get("claim_role") == "CUSTOMER_REVENUE_CONCENTRATION":
+            values = ", ".join(str(row["fiscal_year"]) + ": " + row["value_literal"] + "%"
+                               for row in claim["quantities"])
+            st.caption("Podíl zákazníka v konsolidovaných tržbách dodavatele: " + values + ".")
+        if leaf.get("original_complete_packet_supported"):
+            st.caption("Úplný původní packet souhlasí s XML: transakce " + str(leaf["transaction_row_count"]) +
+                       ", pozice " + str(leaf["holding_row_count"]) + ".")
+        if leaf.get("status") == "POSITIVE_EXACT_MODEL_YEAR":
+            st.caption("Původní dotaz pro konkrétní model a rok zachytil " +
+                       str(leaf["matched_rows"]) + " svolávací záznamy.")
         if claim.get("relationship_statement_supported"):
             st.caption("Dodavatelský doklad: " + claim["counterparty_name"] +
                        "; vstup: " + claim["product_or_input"] + ".")

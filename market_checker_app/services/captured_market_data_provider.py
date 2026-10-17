@@ -288,6 +288,12 @@ class CapturedMarketDataProvider:
             raise ValueError("CAPTURED_MARKET_AVAILABILITY_PIN_MISMATCH")
         if not _time(record["started_at"]) <= _time(record["observed_at"]) <= _time(record["captured_at"]) <= cutoff:
             raise ValueError("FUTURE_OR_INVALID_CAPTURED_KNOWLEDGE_CLOCK")
+        parent_proof = None
+        if "raw_http_parent" in record:
+            # A parsed chart remains bound to its whole original response at
+            # every read, including the pre-persistence revalidation boundary.
+            from market_checker_app.services.captured_market_input_acquisition import verify_original_chart_parent
+            parent_proof = verify_original_chart_parent(record, self.archive_root)
         frame = _original_frame(record, pin, cutoff=cutoff, require_actions=entry["require_actions"])
         provenance = {"manifest_sha256": self.manifest_sha256, "source": deepcopy(pin),
             "ticker": entry["ticker"], "provider_symbol": entry["provider_symbol"],
@@ -298,6 +304,8 @@ class CapturedMarketDataProvider:
             "strict_pit_eligible": False,
             "publisher_authenticity_verified": False, "historical_acceptance_verified": False,
             "source_clocks_rebased": False}
+        if parent_proof is not None:
+            provenance["original_chart_parent"] = parent_proof
         return frame, provenance
 
     def _request(self, tickers: Iterable[str], *, period: str = "1y", interval: str = "1d",

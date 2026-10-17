@@ -1,0 +1,102 @@
+{
+  "acquisition_id": "129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f",
+  "archive_directory": "acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f",
+  "completed_at": "2026-10-16T12:21:17.286831+00:00",
+  "db_writes": 0,
+  "fixture_only": false,
+  "forecasts_created": 0,
+  "labels_created": 0,
+  "manifest_path": null,
+  "plan_id": "c97b594692d96460e1e727cd6b9feaed90216208225a1095830a2aae970ad88e",
+  "prospective_audit_implicitly_enabled": false,
+  "raw_captures": 0,
+  "rows": [
+    {
+      "attempted_at": "2026-10-16T12:21:17.279521+00:00",
+      "completed_at": "2026-10-16T12:21:17.284833+00:00",
+      "error_type": "URLError",
+      "reason": "TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "AAPL"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "SPY"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLB?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLB"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLC?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLC"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLE?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLE"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLF?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLF"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLI?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLI"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLK?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLK"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLP?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLP"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLRE?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLRE"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLU?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLU"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLV?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLV"
+    },
+    {
+      "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+      "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/XLY?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+      "status": "WAIT_DATA",
+      "ticker": "XLY"
+    }
+  ],
+  "source_http_requests": 1,
+  "started_at": "2026-10-16T12:21:17.274124+00:00",
+  "status": "WAIT_DATA",
+  "strict_pit_eligible": false,
+  "usable_count": 0,
+  "version": "captured_yahoo_chart_acquisition_v1"
+}

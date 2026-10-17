@@ -1,0 +1,211 @@
+{
+  "cooldowns": [],
+  "database_created_copied_reconstructed_or_reset": false,
+  "database_sha256_at_snapshot": "0a6c669c3b5977dc5e884e313715b7c49dc9d033eef1f7d2af121aa2223b0963",
+  "leases_without_tokens": [],
+  "mode": "SQLITE_READ_ONLY_QUERY_ONLY",
+  "original_database_path": "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/outputs/market_checker_history.db",
+  "recorded_at": "2026-10-16T12:20:07.682312+00:00",
+  "requests": [
+    {
+      "attempted_at": "2026-10-14T00:07:17.498551+00:00",
+      "full_row_sha256": "7667e9f51c6a0ce06831d8556c02bb0d620f719d040338e4d3ec276c52ba3a7b",
+      "identity_key": "af40c846550635ef588370f8d1e3bd6cc2e362720f4933f8315a5e929cee8037",
+      "outcome": "FAILED",
+      "request_id": "1f0c5acde4f04b2185c119572af03416",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CADILLAC"
+    },
+    {
+      "attempted_at": "2026-10-14T00:15:32.957191+00:00",
+      "full_row_sha256": "5203ebc7b447a18a9560fe41ddbd8a65593f32840f26f149402b8aa0fbe92040",
+      "identity_key": "7599f8e1c2a52e92b172cd08e2f1688c94732d130afd7a4214e54acff3d854f0",
+      "outcome": "RETURNED",
+      "request_id": "313224fde82d43d5bdd2a0a5e7e04d97",
+      "source": "rss",
+      "subject_id": "MSFT"
+    },
+    {
+      "attempted_at": "2026-10-14T00:07:20.778307+00:00",
+      "full_row_sha256": "131e23b13eed38004593c4b2cbd6b531c548d27b3462c4709179432e82b9b703",
+      "identity_key": "e99408dd24431f851c9626b5f25bea5d89f7de11b06357f7ed8003edb82fb01c",
+      "outcome": "RETURNED",
+      "request_id": "40fe6be6ad664c008d5c0cb15244c40a",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CADILLAC"
+    },
+    {
+      "attempted_at": "2026-10-15T07:29:10.641103+00:00",
+      "full_row_sha256": "ad680f1f62f15053747d77889a66607ccb0a69085e139923899f81894d40df67",
+      "identity_key": "aabc1a7e26cc5bb218b30c643da0f85ff075be276281b6612155a203f31aa82d",
+      "outcome": "RETURNED",
+      "request_id": "5ff3f283030f4770abab28acdd4efc41",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CADILLAC"
+    },
+    {
+      "attempted_at": "2026-10-14T00:07:24.911805+00:00",
+      "full_row_sha256": "02db4ba26c87092c0078683460165447f784894256cacfefb2bc0032f929f7c3",
+      "identity_key": "fded29a5dff380119c46cf90b0765e90bce0c967e3acf6c15a82299e2cc34e6b",
+      "outcome": "RETURNED",
+      "request_id": "64028e0e8cc146158306c083930d7ac3",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CADILLAC"
+    },
+    {
+      "attempted_at": "2026-10-14T00:15:39.430071+00:00",
+      "full_row_sha256": "c7cf04e9461b76c48b6e6539734a4ab7c18ef4bc91844a230b4a9f157d8edcae",
+      "identity_key": "7599f8e1c2a52e92b172cd08e2f1688c94732d130afd7a4214e54acff3d854f0",
+      "outcome": "FAILED",
+      "request_id": "7cba8786d83a4aa4bfbdd07017d458b3",
+      "source": "rss",
+      "subject_id": "MSFT"
+    },
+    {
+      "attempted_at": "2026-10-14T00:07:32.261724+00:00",
+      "full_row_sha256": "12b84931c04fc70533572a9906acd1f93d76bc4c2838be37acbfd34a4d14aec7",
+      "identity_key": "0c5e54965adbdba54e68e3947a264e88cb73329c005861026d53ddc18aa76a06",
+      "outcome": "FAILED",
+      "request_id": "89c6018de1bd424089cf13297221f29e",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CHEVROLET"
+    },
+    {
+      "attempted_at": "2026-10-14T00:15:43.687483+00:00",
+      "full_row_sha256": "df215e54f9643a8b6d7eaa2a3f58c4c764d894ba70b52ba81a74b6baf855f427",
+      "identity_key": "7599f8e1c2a52e92b172cd08e2f1688c94732d130afd7a4214e54acff3d854f0",
+      "outcome": "RETURNED",
+      "request_id": "9056c2cc309f40438c676a4eb2b8af87",
+      "source": "rss",
+      "subject_id": "MSFT"
+    },
+    {
+      "attempted_at": "2026-10-15T07:29:16.838241+00:00",
+      "full_row_sha256": "2d005c61959d47afbb5b20a75df27f0a119e5e0c1b49e5b0a6e9c441b0f14c64",
+      "identity_key": "496558c0f06b8d5a2e2f44f0ae276e3710edae809b5b7a9f6470246bcabc4fda",
+      "outcome": "FAILED",
+      "request_id": "c5b9e589f512409097b63279934b9bdb",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CHEVROLET"
+    },
+    {
+      "attempted_at": "2026-10-14T00:07:37.162257+00:00",
+      "full_row_sha256": "4ca50f086ff41694fd679df689839a9bfaec410a8c80648357d00bb56f78a442",
+      "identity_key": "91c3bde9098a0da6fb931fb8ec9a62058e65f9a89b9d046cdd2af8a916aa9540",
+      "outcome": "FAILED",
+      "request_id": "ca294595e83848c18f4627eb2d416e22",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CHEVROLET"
+    },
+    {
+      "attempted_at": "2026-10-14T00:07:28.269797+00:00",
+      "full_row_sha256": "46368de835fba0e4adb78a8f8a1ca7479aefbfba34221c54415b7621e1766725",
+      "identity_key": "02e3c7bc19fb836942c160feff91c2d4e20d6c02bace9d7c1cacaf26614b9764",
+      "outcome": "FAILED",
+      "request_id": "d15333df080449d29467d164f7101ea4",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CADILLAC"
+    },
+    {
+      "attempted_at": "2026-10-15T07:29:24.128543+00:00",
+      "full_row_sha256": "89bbd1ef73360781ddf426bc92730fb337ceb071507a198cdc2005d1244052f9",
+      "identity_key": "bcb664116e0e44c20264f3224558de4db6003044e561e265faa4367b9d0732ad",
+      "outcome": "FAILED",
+      "request_id": "d39133feab1846ab89cbf3a76f783ec2",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CHEVROLET"
+    },
+    {
+      "attempted_at": "2026-10-14T00:07:41.232127+00:00",
+      "full_row_sha256": "e687ac118583c0fe0f5dec8e6bc623a75d0d8907380e43639624ac728420a80e",
+      "identity_key": "11a9c42a18659c954d0c2e115a8cacd4cf928b3a3d233fe5f3f16346ac510f7c",
+      "outcome": "RETURNED",
+      "request_id": "ea3280c55ae24d678b131a3752c8fbc1",
+      "source": "nhtsa",
+      "subject_id": "MAKE:FORD"
+    },
+    {
+      "attempted_at": "2026-10-14T00:07:12.620833+00:00",
+      "full_row_sha256": "2141433db5bed534a6b60a3d05620f437a21f288e05e00ad8c56f909d269da80",
+      "identity_key": "138fbaa85f2aba174bc4f5e4cca1c156a326cac4aae6473ffdd175c6c822ae13",
+      "outcome": "RETURNED",
+      "request_id": "fadeafe29433480bbfe8eccee2b5f4c9",
+      "source": "nhtsa",
+      "subject_id": "MAKE:CADILLAC"
+    },
+    {
+      "attempted_at": "2026-10-15T07:29:30.322070+00:00",
+      "full_row_sha256": "1b373587f77486bbf9240fdd40d8f0fa4de158aad4097c1075966efa081f576a",
+      "identity_key": "ea6b9beb4488acdd47b4f0b1ca909e594d236f3db332fb96693c8c8d35e3af9b",
+      "outcome": "RETURNED",
+      "request_id": "fc02cb83eec0436a915f7bfcae08d711",
+      "source": "nhtsa",
+      "subject_id": "MAKE:FORD"
+    }
+  ],
+  "reviews": [
+    {
+      "full_row_sha256": "c02f635949254e7c8e6f34c5b3a510b98987c69d0d1b2331293e86abd1596e56",
+      "known_at": "2026-10-14T00:07:32.260457+00:00",
+      "review_id": "14e3f07d4f3937979509b08949b3e1f03734b02cb5a701b66486f22cb1cf33c6"
+    },
+    {
+      "full_row_sha256": "5709c4522b545b227cc3a1345537f1337a777aeeef4399766bf8e7560aaeed77",
+      "known_at": "2026-10-15T07:29:37.218354+00:00",
+      "review_id": "20fd199863a38b7e951decd94c63f534d5a5000f05f5393bf26ce944ab9e29a3"
+    },
+    {
+      "full_row_sha256": "fb1b27d1e34d096cd3f50aa92778a1f6df892667d3d5db442b754e073f54639f",
+      "known_at": "2026-10-14T00:07:41.230531+00:00",
+      "review_id": "35681237a45ea4457bf64f02fe651b8747423196ae5da86847997a3a59f2e634"
+    },
+    {
+      "full_row_sha256": "31363254bed0b71c8f040cc6f6135042591d47f582a3b72d15a86caee046c004",
+      "known_at": "2026-10-15T07:29:30.318642+00:00",
+      "review_id": "3cfae34fc1580519616f2c9e58a96a8088adfbbdd32c3a0c6177af18dbb36512"
+    },
+    {
+      "full_row_sha256": "14c663109ae62d66366cf1ab094f3b25b6b41b509cb5ae6dbdf7d8125fab92e4",
+      "known_at": "2026-10-15T07:29:16.835011+00:00",
+      "review_id": "61039ae01d397b29ec93205647acaf31dc051192018d38b7d9d69aba47023a0a"
+    },
+    {
+      "full_row_sha256": "515f360354b0f4fe63fdf551621e12708b24cbd1269d1333adb1fb17a4a5eb20",
+      "known_at": "2026-10-14T00:07:37.160987+00:00",
+      "review_id": "621a23a9a3cf6aa384859a838c1152de987d29ee1a7b140dc8b5e6ae0e256af9"
+    },
+    {
+      "full_row_sha256": "f0788c89382fcd13f9276f3b551f57e4db435180b3ac37815c578a875f3f8d7c",
+      "known_at": "2026-10-14T00:07:24.910116+00:00",
+      "review_id": "9c354b67af1c20d11f8785f2e67fc3f33e43dc16ff4b9423fe66c30fe5a60556"
+    },
+    {
+      "full_row_sha256": "7b458716bbc1edf9849104f490ce546231bc5d137530ced9505df07f54894577",
+      "known_at": "2026-10-14T00:07:17.496075+00:00",
+      "review_id": "a8c710a3370273ba69ddf470d3efdc733d6c779138a170f87bb24610e9396125"
+    },
+    {
+      "full_row_sha256": "b2808a51a7c5e4747a34c04d751821a519e358748cd99b6befecd3b0b25da8c6",
+      "known_at": "2026-10-14T00:07:20.776482+00:00",
+      "review_id": "d60fbcc42242787e0d43e4a4eacd697addadea96b6712e5385efba52860333d9"
+    },
+    {
+      "full_row_sha256": "d60a33fcd5dbcf3632d87c04a58f7695034e19f04357dd0ef6cbfaab1ddf2984",
+      "known_at": "2026-10-14T00:07:28.268078+00:00",
+      "review_id": "e11f42e084184ed99d6f9058cfbf1059107189ae84d1c774eee6d4ccfbee4a08"
+    },
+    {
+      "full_row_sha256": "0979b298e04e04be2e130787373b4b4ef0c52510f02ceeab65219d17e0fef9a8",
+      "known_at": "2026-10-15T07:29:24.127056+00:00",
+      "review_id": "e4a069681adf2511dd1403cada087166cff9c62c564ded6f1dd4551c1ed1ae01"
+    },
+    {
+      "full_row_sha256": "4fa91d4d197821b41a3a758da3ef7f87097f938c784824c106df1a6c3c810b3c",
+      "known_at": "2026-10-14T00:07:44.520142+00:00",
+      "review_id": "f4bccdacc73fbfd6becc232317e9377f5687aeea95a67ae8d869af7de16913bc"
+    }
+  ],
+  "schema_sha256": "6f988d57123511a6d1b6ca45bbc52bb484c0f1b6783daf986cdb92ecb7abc7b8",
+  "today_nhtsa_make_subjects": 0,
+  "today_nhtsa_requests": 0
+}

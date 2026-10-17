@@ -1,0 +1,94 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "NHTSA_NEGATIVE_SCOPE",
+  "plan_sha256": "f7f85926b58e2545bde0a81e00f7f3ebc8689cc4587161e6bc5f0e5188d1f979",
+  "recorded_at": "2026-10-17T21:30:33.453927+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-17T21:30:33.445003+00:00",
+  "review": {
+    "catalog_scope": {
+      "catalog_evidence": {
+        "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+        "make_id": 467,
+        "model_id": 25609,
+        "observed_at": "2026-10-13T08:44:25.024795+00:00",
+        "publisher_rows": 29,
+        "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+        "sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+        "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json"
+      },
+      "known_at": "2026-10-13T08:44:25.024795+00:00",
+      "make": "CHEVROLET",
+      "model": "7500XD",
+      "model_year": 2026
+    },
+    "catalog_scope_supported": true,
+    "complete_current_recall_history_verified": false,
+    "complete_negative": false,
+    "contract_version": "nhtsa-exact-model-negative-completeness-v1",
+    "current_vehicle_production_verified": false,
+    "database_actions": 0,
+    "historical_availability_reconstructed": false,
+    "http_requests": 0,
+    "http_status": 200,
+    "issuer_attribution_verified": false,
+    "issuer_wide_absence_verified": false,
+    "known_at": "2026-10-17T21:30:33.452957+00:00",
+    "live_complete_negative_verified": false,
+    "manufacturer_ownership_inferred": false,
+    "matched_rows": 2,
+    "missing_evidence": [],
+    "physical_report_created_at": "2026-10-17T21:30:33.452957+00:00",
+    "prediction_input": false,
+    "publisher_completeness_audit": {
+      "complete_publisher_envelope": true,
+      "publisher_count": 2,
+      "reason_codes": [],
+      "returned_rows": 2
+    },
+    "publisher_count": 2,
+    "reason": "EXACT_MODEL_YEAR_CAMPAIGNS",
+    "registry_adoption_allowed": false,
+    "rejected_rows": 0,
+    "review_kind": "NHTSA_NEGATIVE_SCOPE",
+    "reviewed_at": "2026-10-17T21:30:33.445003+00:00",
+    "schema_version": 1,
+    "scope": {
+      "make": "CHEVROLET",
+      "model": "7500XD",
+      "model_year": 2026
+    },
+    "scope_completeness": "EXACT_DOCUMENTED_MODEL_YEAR_QUERY_SNAPSHOT_ONLY",
+    "scoring_applied": false,
+    "source_complete_negative": false,
+    "source_reviews": [
+      {
+        "automatic_redirects_disabled_verified": false,
+        "capture_id": "catalog_chevrolet_2026",
+        "http_status": 200,
+        "original_byte_pin_verified": true,
+        "raw_response_bytes": 2436,
+        "raw_response_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+        "reason": "ORIGINAL_BYTES_PINNED",
+        "source_known_at": "2026-10-13T08:44:25.024795+00:00",
+        "source_observed_at": "2026-10-13T08:44:25.024795+00:00"
+      },
+      {
+        "automatic_redirects_disabled_verified": true,
+        "capture_id": "recall_chevrolet_7500xd_2026",
+        "http_status": 200,
+        "original_byte_pin_verified": true,
+        "raw_response_bytes": 2250,
+        "raw_response_sha256": "b9a6e0e9b00e7a39d82903dd66da75c243620c6e8e1194ab9a8fd7273835943a",
+        "reason": "ORIGINAL_BYTES_PINNED",
+        "source_known_at": "2026-10-16T12:20:30.580928+00:00",
+        "source_observed_at": "2026-10-16T12:20:30.580900+00:00"
+      }
+    ],
+    "status": "POSITIVE_EXACT_MODEL_YEAR"
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

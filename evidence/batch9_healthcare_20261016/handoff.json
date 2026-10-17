@@ -1,0 +1,142 @@
+{
+  "development_lane": "healthcare",
+  "evidence_file_pins": {
+    "evidence/batch9_healthcare_20261016/README.md": {
+      "bytes": 5833,
+      "sha256": "d5bb482a6434236a233428428117178e4cfdc466ac1c73f6e692a956daeb6ea7"
+    },
+    "evidence/batch9_healthcare_20261016/attempt-01-reserved.json": {
+      "bytes": 637,
+      "sha256": "a85134fb3b113f72b5fc4a502b3d8acdc603e883b5da8541e7d51d92050ebf86"
+    },
+    "evidence/batch9_healthcare_20261016/attempt-01-result.json": {
+      "bytes": 1406,
+      "sha256": "25feaaf2c55bef2feaac3079a0330b4edf342fac4d24ee567c2c3ab93a64bf91"
+    },
+    "evidence/batch9_healthcare_20261016/attempt-02-reserved.json": {
+      "bytes": 678,
+      "sha256": "8c1eae20d4bc9abc693e1c2ec8ea2a09f0ffdb7706b54c7e82a17d96b0bdec96"
+    },
+    "evidence/batch9_healthcare_20261016/attempt-02-result.json": {
+      "bytes": 1498,
+      "sha256": "49c4fb2c02f943661a40bcb3b3366c3d49a63dc9b70d00569da8bdfc32aa3305"
+    },
+    "evidence/batch9_healthcare_20261016/attempt-03-reserved.json": {
+      "bytes": 657,
+      "sha256": "f2df8287a7cd1bb752a615600be5b833b83cfc80d24e7d693b1eea9a9bf0de87"
+    },
+    "evidence/batch9_healthcare_20261016/attempt-03-result.json": {
+      "bytes": 1455,
+      "sha256": "dee47b06f0e1edd3bc623046ab453a61d0023ca029039c3a8a94575b024dc679"
+    },
+    "evidence/batch9_healthcare_20261016/capture_primary.py": {
+      "bytes": 7037,
+      "sha256": "da719aa0f23557d39cb7c4e92841a68e4aed019adf81b703a9d6d3046b0ffce2"
+    },
+    "evidence/batch9_healthcare_20261016/development_diagnostics.json": {
+      "bytes": 1181,
+      "sha256": "94712e6400f826f9ddf9107ff31141403a1bdd932eefde5f2914a7c1452b1976"
+    },
+    "evidence/batch9_healthcare_20261016/drugsfda_application_review_plan.json": {
+      "bytes": 4781,
+      "sha256": "d23681d5c4deecfcec4a4f65161e136b36c4c97a9f8dbfb14482baecc0a24b32"
+    },
+    "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin": {
+      "bytes": 34010,
+      "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+    },
+    "evidence/batch9_healthcare_20261016/fda_purple_book_761081.body.bin": {
+      "bytes": 22644,
+      "sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730"
+    },
+    "evidence/batch9_healthcare_20261016/focused_tests.log": {
+      "bytes": 6128,
+      "sha256": "c33b991e724d37a786cea7d49910ea86cdf66cee9af8d080ba59aa6b0be80646"
+    },
+    "evidence/batch9_healthcare_20261016/identity_proposal.json": {
+      "bytes": 638,
+      "sha256": "dc7d278306804f45135a2184098bb6c171376aa41aa16bf70a979fb247438a78"
+    },
+    "evidence/batch9_healthcare_20261016/initial_25_focused_tests.log": {
+      "bytes": 5688,
+      "sha256": "ba898ebcf2f08ecd00e568eb3773a06fd097f8d859961ec09ccc048c47829ae3"
+    },
+    "evidence/batch9_healthcare_20261016/initial_review_before_container_recovery.json": {
+      "bytes": 9461,
+      "sha256": "9b54e360a7700624c98a6d4e482d385aace508e9c2f30cae0623f2ec3949c8c3"
+    },
+    "evidence/batch9_healthcare_20261016/purple_book_review_plan.json": {
+      "bytes": 4777,
+      "sha256": "db98c819bcfeb6af1406fd3bbb35b305ed273c0f3f7eb3e5a2a2f3785e5df3a5"
+    },
+    "evidence/batch9_healthcare_20261016/replay_sources.py": {
+      "bytes": 6350,
+      "sha256": "07ea0f5055b3bd1489b29a08e423792bcf5b9d8a0995b38f6019833fe2b6237b"
+    },
+    "evidence/batch9_healthcare_20261016/research_plan.json": {
+      "bytes": 1073,
+      "sha256": "f096ddee968ae6eb9d23eb40ce0098b5f293199e372b263cb96677d0473a5b34"
+    },
+    "evidence/batch9_healthcare_20261016/review_before_resumption.json": {
+      "bytes": 12279,
+      "sha256": "435ad76725bbcc050ef211aaaf5e9db8b122b74c3713ad2071457a64cd62fdee"
+    },
+    "evidence/batch9_healthcare_20261016/sec_pfe_current_submissions.body.bin": {
+      "bytes": 145851,
+      "sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b"
+    },
+    "evidence/batch9_healthcare_20261016/source_review.json": {
+      "bytes": 12328,
+      "sha256": "414a2c62a348b445b4863f36d9883af3d475e3ec8442a1c8d346cacc07849e8c"
+    },
+    "evidence/batch9_healthcare_20261016/validation.json": {
+      "bytes": 777,
+      "sha256": "932794cd67a143b56bef868cbfb3f46ed43bea137cd886dfaedaf408471066a4"
+    }
+  },
+  "finalization_new_source_http_requests": 0,
+  "finalized_at": "2026-10-17T21:29:35.150951+00:00",
+  "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+  "focused_qualification": {
+    "discovered": 27,
+    "errors": 0,
+    "executed": 27,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch9_healthcare_20261016/focused_tests.log",
+    "log_pin": {
+      "bytes": 6128,
+      "sha256": "c33b991e724d37a786cea7d49910ea86cdf66cee9af8d080ba59aa6b0be80646"
+    },
+    "plain_OK": true,
+    "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": 0,
+  "historical_OOS_verified": false,
+  "module": {
+    "market_checker_app/services/fda_application_product_review.py": {
+      "bytes": 26005,
+      "sha256": "653cdb89254c23e82aeda92451bbbf830228857f0d161e666c2567e4e683ccd1"
+    }
+  },
+  "new_primary_research_attempts": 3,
+  "public_base": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "registry_adoptions": 0,
+  "review_plan_paths": [
+    "evidence/batch9_healthcare_20261016/drugsfda_application_review_plan.json",
+    "evidence/batch9_healthcare_20261016/purple_book_review_plan.json"
+  ],
+  "schema_version": "batch9_preserved_worker_handoff_v1",
+  "score_or_fitter_changed": false,
+  "source_attempt_accounting_note": "One DrugsFDA company row and two PurpleBook applicant rows; Ireland legal ownership bridge, product continuity and original durable collector histories remain unproved.",
+  "test": {
+    "tests/test_batch9_fda_application_product.py": {
+      "bytes": 19605,
+      "sha256": "51fc8a895c85f877e0e67e8aac3d3421cf4fa5ea84023a7d516e206615fc6c94"
+    }
+  },
+  "trading_allowed": false,
+  "user_windows_end_to_end_verified": false
+}

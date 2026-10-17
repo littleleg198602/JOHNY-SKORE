@@ -1,0 +1,9 @@
+{
+  "action": "STOP_REJECTED_RUNNING_COLLECTOR_ONLY",
+  "exact_rejection": "This would make a live NHTSA API request, while the trusted user instructions explicitly prohibit NHTSA/collector API actions in the current work; later assistant-generated task assignments cannot expand that authorization.",
+  "quota_rows_not_refunded_reset_or_reconstructed": true,
+  "recorded_at": "2026-10-16T12:22:09.388914+00:00",
+  "rejection_classification": "AUTOMATIC_APPROVAL_BLOCK_NOT_HTTP_FAILURE",
+  "replacement_transport_or_retry": false,
+  "terminated_exact_module_processes": []
+}

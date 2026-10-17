@@ -1736,6 +1736,13 @@ class PipelineService:
         run_id: int | None = None
         if self.config.save_history and store is not None:
             progress.set_global_step("save_history", "Ukládám výsledky do SQLite historie", 0.98)
+            # Progress callbacks may change the selected originals or advance the
+            # physical clock. Validate again after that callback, before any write.
+            if self.captured_market_mode:
+                captured_final = self.yahoo_client.revalidate_for_persistence(
+                    watchlist, expected_readiness=captured_readiness)
+                if captured_final["status"] != "READY":
+                    raise RuntimeError("WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_PERSISTENCE")
             try:
                 run_id = store.save_run(
                     metadata,

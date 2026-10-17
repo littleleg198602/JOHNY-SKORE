@@ -1,0 +1,612 @@
+
+
+ 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Purple Book Search</title>
+
+  <!-- Bootstrap & FontAwesome -->
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" defer>
+  <link rel="stylesheet" type="text/css" href="assets/css/all.min.css" defer>
+
+
+  <!-- Custom CSS -->
+  <link href="assets/css/datatables.css" rel="stylesheet" />
+  <link href="assets/css/styles.css" rel="stylesheet" />
+ 
+  
+  <script type="text/javascript" language="javascript" src="assets/js/bootstrap/bootstrap.bundle.min.js" ></script>
+  <script src="assets/js/main.js"></script>
+
+  		<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject1']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.googletagmanager.com/gtag/js?id=G-B0V4T2XCW7','gtag');
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}	
+		gtag('js', new Date());
+		gtag('config', 'G-B0V4T2XCW7');</script>
+
+
+      
+		<script language="javascript" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=HHS&subagency=FDA&sdor=fda.gov&dclink=true"></script>
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+    <!-- header-->
+    <header>
+      <div class="header">
+        <div class="container">
+          <a href="https://www.fda.gov/" class="header-link">
+            <div class="logo">
+              <img src="assets/img/logo.png" alt="FDA Logo" />
+              <div class="title">
+                <h1>U.S. FOOD & DRUG</h1>
+                <span>ADMINISTRATION</span>
+              </div>
+            </div>
+          </a>
+
+          <div class="header-actions">
+
+            <button class="glossary-btn" id="openGlossary">
+              <i class="fa fa-book"></i> Purple Book Glossary
+            </button>
+
+              <button class="search-btn"><i class="fa fa-search"></i>Search  </button>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="collapseMenu"><i class="fa fa-bars"></i></button>
+          </div>
+  </header>
+
+          <!--menu panel -->
+          <nav class="menu-panel" id="menuPanel">
+            <div class="menu-container">
+              <div class="menu-grid">
+                <div class="menu-left">
+                  <div class="top-line left-line"></div>
+                  <h4>Featured</h4>
+                  <ul>
+                    <li><a href="https://www.fda.gov/about-fda/contact-fda">Contact FDA</a></li>
+                    <li><a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents">FDA Guidance
+                        Documents</a></li>
+                    <li><a href="https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts">Recalls, Market
+                        Withdrawals & Safety Alerts</a></li>
+                    <li><a href="https://www.fda.gov/news-events/fda-newsroom/press-announcements">Press
+                        Announcements</a>
+                    </li>
+                    <li><a
+                        href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters">Warning
+                        Letters</a></li>
+                    <li><a href="https://www.fda.gov/advisory-committees">Advisory Committees</a></li>
+                    <li><a href="https://www.fda.gov/espanol">En Espanol</a></li>
+                  </ul>
+                </div>
+
+                <div class="menu-right">
+                  <div class="top-line right-line"></div>
+
+                  <section class="menu-section">
+                    <h4>Products</h4>
+                    <ul class="products-grid">
+                      <li><a href="https://www.fda.gov/food">Food</a></li>
+                      <li><a href="https://www.fda.gov/drugs">Drugs</a></li>
+                      <li><a href="https://www.fda.gov/medical-devices">Medical Devices</a></li>
+                      <li><a href="https://www.fda.gov/radiation-emitting-products">Radiation-Emitting Products</a></li>
+                      <li><a href="https://www.fda.gov/vaccines-blood-biologics">Vaccines, Blood, and Biologics</a></li>
+                      <li><a href="https://www.fda.gov/animal-veterinary">Animal and Veterinary</a></li>
+                      <li><a href="https://www.fda.gov/cosmetics">Cosmetics</a></li>
+                      <li><a href="https://www.fda.gov/tobacco-products">Tobacco Products</a></li>
+                    </ul>
+                  </section>
+
+                  <section class="menu-section">
+                    <h4>Topics</h4>
+                    <ul class="topics-grid">
+                      <li><a href="https://www.fda.gov/about-fda">About FDA</a></li>
+                      <li><a href="https://www.fda.gov/combination-products">Combination Products</a></li>
+                      <li><a href="https://www.fda.gov/regulatory-information">Regulatory Information</a></li>
+                      <li><a href="https://www.fda.gov/safety">Safety</a></li>
+                      <li><a href="https://www.fda.gov/emergency-preparedness-and-response">Emergency Preparedness</a>
+                      </li>
+                      <li><a href="https://www.fda.gov/international-programs">International Programs</a></li>
+                      <li><a href="https://www.fda.gov/news-events">News and Events</a></li>
+                      <li><a href="https://www.fda.gov/training-and-continuing-education">Training and Continuing
+                          Education</a></li>
+                      <li><a
+                          href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations">Inspections
+                          and Compliance</a></li>
+                      <li><a href="https://www.fda.gov/science-research">Science and Research</a></li>
+                    </ul>
+                  </section>
+
+                  <section class="menu-section">
+                    <h4>Information For</h4>
+                    <ul class="info-grid">
+                      <li><a href="https://www.fda.gov/consumers">Consumers</a></li>
+                      <li><a href="https://www.fda.gov/patients">Patients</a></li>
+                      <li><a href="https://www.fda.gov/industry">Industry</a></li>
+                      <li><a href="https://www.fda.gov/health-professionals">Health Professionals</a></li>
+                      <li><a href="https://www.fda.gov/federal-state-local-officials">Federal, State and Local
+                          Officials</a>
+                      </li>
+                    </ul>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </nav>
+  
+
+
+  <nav aria-label="breadcrumb" class="pb-breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="index.cfm">Purple Book Homepage</a></li>
+   
+   
+      
+    
+
+     
+    </ol>
+  </div>
+</nav>
+
+    <!-- banner -->
+    <section class="banner-container">
+      <img src="assets/img/purpleBookbanner.jpeg" alt="Purple Book Banner" class="banner-img" />
+      <div class="banner-text">
+        <h1>Purple Book<br />Database of Licensed Biological Products</h1>
+      </div>
+    </section>
+
+
+
+    <!-- content wrapper -->
+    <main class="content-wrapper container-fluid">
+
+      <!-- Sidebar -->
+    <div id="sidebar" aria-label="Secondary navigation">
+    <ul class="usa-sidenav">
+    <li class="usa-sidenav__item"><a class="nav-link" href="index.cfm" title="Purple Book Homepage">Purple Book Homepage</a></li>
+    <li class="usa-sidenav__item"><a class="nav-link" href="index.cfm?event=about" title="About Purple Book">About Purple Book</a></li>
+    <li class="usa-sidenav__item"><a class="nav-link" href="index.cfm?event=userguide" title="User Guide">User Guide</a></li>
+    <li class="usa-sidenav__item"><a class="nav-link" href="index.cfm?event=faqs" title="FAQs">FAQs</a></li>
+    <li class="usa-sidenav__item"><a class="nav-link" href="index.cfm?event=patentlist" title="Patent List">Patent List</a></li>
+    <li class="usa-sidenav__item"><a class="nav-link" href="index.cfm?event=downloads" title="Download Purple Book Data">Download Purple Book Data</a></li>
+  </ul>
+</div>
+
+    
+
+
+     
+
+    	
+        
+
+         
+
+        
+        
+        
+		
+		
+		
+
+        
+		   
+		   
+		   
+		   
+
+            
+			
+		
+
+		
+         <!--main content -->
+    <section class="main-content">
+      <div class="product-header align-items-center ">
+        <h2><strong>Product Details for: <span id="productTitle"> Trazimera</span></strong></h2>
+        <a href="javascript:history.back()" class="btn btn-outline-primary return-btn" id="top_search">
+          <i class="fa fa-arrow-left me-1"></i> RETURN TO SEARCH RESULTS
+        </a>
+      </div>
+
+      <div class="product-label mt-2"> 
+      
+         
+               <a href="https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081" target="_blank" class="product-label-link"> <i class="fa fa-sticky-note fa-w-14"></i> PRODUCT LABEL</a>
+
+    
+        
+      
+
+
+      
+      <span class="product-label-note">Grayed out Product Label links indicate that there is no product label available for the product.</span>
+      </div>
+
+<div class ="product-grid">
+  
+        <div class="grid-row grid-header">
+            <div>Product Number</div>
+            <div>Dosage Form</div>
+            <div>Route of Administration</div>
+            <div>Strength</div>
+            <div>Product Presentation</div>
+            <div>License Type</div>
+            <div>Proprietary Name</div>
+            <div>Marketing Status</div>
+        </div>
+
+       
+          <div class="grid-row">
+            <div>001</div>
+            <div>For Injection</div>
+            <div>Intravenous</div>
+            <div>420MG</div>
+            <div>Multi-Dose Vial</div>
+            <div>351(k) Biosimilar</div>
+            <div>Trazimera</div>
+            <div>Rx</div>
+          </div>
+        
+          <div class="grid-row">
+            <div>002</div>
+            <div>For Injection</div>
+            <div>Intravenous</div>
+            <div>150MG</div>
+            <div>Multi-Dose Vial</div>
+            <div>351(k) Biosimilar</div>
+            <div>Trazimera</div>
+            <div>Rx</div>
+          </div>
+        
+
+</div>
+
+      <div class="product-details mt-4">
+         
+
+        <div class="row mb-3 mt-5">
+
+          <div class="col-md-3">
+            <strong>Proper Name</strong><br>trastuzumab-qyyp
+          </div>
+        
+        
+          <div class="col-md-4">
+            <strong>Reference Product Proper Name</strong><br>trastuzumab
+          </div>
+         
+          <div class="col-md-5">
+            <strong>Reference Product Properietary Name</strong><br>Herceptin
+          </div> 
+             
+          
+           </div>
+           
+
+          
+           <div class="row mb-3 mt-5">
+          <div class="col-md-3">
+            <strong>BLA Number</strong><br>761081
+          </div>
+          <div class="col-md-4">
+            <strong>Applicant</strong><br>Pfizer Ireland Pharmaceuticals Unlimited Company
+          </div>
+          <div class="col-md-5">
+            <strong>Original Approval Date</strong><br>March 11, 2019  
+          </div>
+          </div>
+           
+
+        <div class="row mb-3 mt-5">
+          <div class="col-md-3">
+             <strong>Date of First Licensure</strong><br>
+          </div>
+
+ 
+
+        
+
+        
+       </div>
+
+        <div class="modal fade" id="patentInfoModal" tabindex="-1" aria-labelledby="patentInfoModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-sm rounded-3">
+              <div class="modal-header">
+                <h5 class="modal-title fw-semibold" id="patentInfoModalLabel">
+                What patent information does the Purple Book include?
+                </h5>
+
+                <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+
+                <div class="modal-body">
+                FDA publishes only the patent information that has been provided to FDA by reference product sponsors for certain licensed biological products.
+                </div>
+            </div>
+          </div>
+        </div>
+
+  
+      <div class="text-center mt-4">
+        <a href="javascript:history.back()" class="btn btn-outline-primary return-btn" >
+          <i class="fa fa-arrow-left me-1"></i> RETURN TO SEARCH RESULTS
+        </a>
+      </div>
+    </section>
+  </main>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+  const title = document.getElementById("productTitle");
+  if(!title) return;
+
+  const names = [...new Set(
+    [...document.querySelectorAll(".grid-row:not(.grid-header) div:nth-child(7)")]
+    .map(e1 => e1.textContent.trim())
+    .filter(Boolean)
+  )];
+  title.textContent = names.join(", ");
+})
+</script>
+        
+    
+
+    
+
+    <!--scripts -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/glossary.js"></script>
+
+
+
+  <button id="glossary-toggle" class="glossary-toggle">
+  <i class="fa-solid fa-book"></i> Glossary
+</button>
+
+</div>
+
+
+
+
+
+  <!-- footer -->
+    <footer class="footer">
+
+
+      <div class="footer-top">
+        <div class="footer-inner">
+          <div class="footer-columns">
+            <div class="footer-left">
+              <a href="https://www.fda.gov/about-fda/about-website/fdagov-archive">FDA Archive</a>
+              <a href="https://www.fda.gov/about-fda">About FDA</a>
+              <a href="https://www.fda.gov/about-fda/about-website/internet-accessibility">Accessibility</a>
+            </div>
+
+            <div class="footer-center">
+              <a href="https://www.fda.gov/about-fda/white-oak-campus-information/public-meetings-fda-white-oak-campus">Visitor
+                Information</a>
+              <a href="https://www.fda.gov/about-fda/about-website/website-policies">Website Policies / Privacy</a>
+              <a href="https://www.fda.gov/about-fda/jobs-and-training-fda/no-fear-act">No FEAR Act</a>
+              <a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html/" target="_blank">Vulnerability
+                Disclosure Policy</a>
+            </div>
+
+            <div class="footer-right">
+              <a href="https://www.fda.gov/regulatory-information/freedom-information">FOIA</a>
+              <a href="https://www.hhs.gov/" target="_blank">HHS.gov</a>
+              <a href="https://www.usa.gov/" target="_blank">USA.gov</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-inner">
+          <div class="footer-left">
+            <a href="https://www.fda.gov/about-fda/contact-fda" class="contact-btn">Contact FDA</a>
+            <a href="https://www.facebook.com/FDA"  aria-label="facebook link"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.twitter.com/US_FDA"  aria-label="twitter link"><i class="fa-brands fa-twitter" ></i></a>
+            <a href="https://www.youtube.com/user/USFoodandDrugAdmin"  aria-label="youtube link"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.fda.gov/about-fda/contact-fda/subscribe-podcasts-and-news-feeds"  aria-label="podcasts and news feeds link"><i
+                class="fa-solid fa-rss"></i></a>
+          </div>
+          <div class="footer-center">
+            <a href="https://www.fda.gov/"><img src="assets/img/logo.png" alt="FDA Logo" /></a>
+          </div>
+          <div class="footer-right">
+            <i class="fa-solid fa-phone"></i>
+            <span>1-888-INFO-FDA (1-888-463-6332)</span>
+          </div>
+        </div>
+      </div>
+
+    </footer>
+  </div>
+
+  
+  <!--scripts -->
+  <script src="assets/js/main.js" defer></script>
+
+  <button id="glossary-toggle" class="glossary-toggle">
+  <i class="fa-solid fa-book"></i> Glossary
+</button>
+
+<script type="text/javascript"  src="/bLwyyMCPx-p7/mFNENH/xlRTWL/OJ9ftkbwQVmt2L/CyJwZQ/QjE8K/2QhBHo"></script></body>
+
+</html> 
+
+
+<div id="glossary-backdrop"></div>
+<div id="glossary-panel" class="glossary-panel" aria-label="Glossary">
+
+    <div class="glossary-wrapper">
+        <div class="col">
+            <h2 class="glossary-header">Glossary</h2>
+            <button class="close-btn">&times;</button>
+
+            <input name="purpleBookSearch" class="glossary-search" aria-label="purple Book Search" type="text" placeholder="Search for a term..."
+                value="">
+        </div>
+        <p style="margin-top:10px;">
+            <br>
+            <em>Example: "Biosimilar"</em>
+        </p>
+    </div>
+
+    <div class="glossary-group glossary-terms-wrapper">
+        <h2 class="glossary-description-header">3</h2>
+        <hr>
+
+        <div class="glossary-list">
+            <div class="term" data-term="351(a)">351(a)</div>
+            <div class="term" data-term="351(k) Biosimilar">351(k) Biosimilar</div>
+            <div class="term" data-term="351(k) Interchangeable">351(k) Interchangeable</div>
+        </div>
+
+        <h2 class="glossary-description-header">A</h2>
+        <hr>
+
+        <div class="glossary-list">
+            <div class="term" data-term="Applicant (sponsor)">Applicant (sponsor)</div>
+            <div class="term" data-term="Approval Date">Approval Date</div>
+        </div>
+
+        <h2 class="glossary-description-header">B</h2>
+        <hr>
+
+        <div class="glossary-list">
+            <div class="term" data-term="Biological Product">Biological Product</div>
+            <div class="term" data-term="Biosimilar">Biosimilar</div>
+            <div class="term" data-term="BLA">BLA</div>
+            <div class="term" data-term="BLA Number">BLA Number</div>
+        </div>
+
+
+
+        <h2 class="glossary-description-header">C</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Center">Center</div>
+            <div class="term" data-term="Core Name">Core Name</div>
+        </div>
+
+        <h2 class="glossary-description-header">D</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Date of First Licensure">Date of First Licensure</div>
+            <div class="term" data-term="Disc.">Disc.</div>
+            <div class="term" data-term="Disc.*">Disc.*</div>
+            <div class="term" data-term="Dosage Form">Dosage Form</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">E</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Exclusivity Expiration Date">Exclusivity Expiration Date</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">F</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="First Interchangeable Exclusivity Expiration Date">First Interchangeable
+                Exclusivity Expiration Date</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">I</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Interchangeable">Interchangeable</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">L</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="License Number">License Number</div>
+            <div class="term" data-term="License Type">License Type</div>
+            <div class="term" data-term="Licensure">Licensure</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">O</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Orphan Exclusivity Expiration Date">Orphan Exclusivity Expiration Date</div>
+            <div class="term" data-term="OTC (Over-the-Counter)">OTC (Over-the-Counter)</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">P</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Patent List Provided">Patent List Provided</div>
+            <div class="term" data-term="Product Number">Product Number</div>
+            <div class="term" data-term="Proper Name">Proper Name</div>
+            <div class="term" data-term="Proprietary Name">Proprietary Name</div>
+            <div class="term" data-term="Purple Book">Purple Book</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">R</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Reference Product">Reference Product</div>
+            <div class="term" data-term="Reference Product Exclusivity Expiration Date">Reference Product Exclusivity
+                Expiration Date</div>
+            <div class="term" data-term="Route of Administration">Route of Administration</div>
+            <div class="term" data-term="Rx">Rx</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">M</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Marketing Status">Marketing Status</div>
+        </div>
+
+
+        <h2 class="glossary-description-header">S</h2>
+        <hr>
+        <div class="glossary-list">
+            <div class="term" data-term="Strength">Strength</div>
+            <div class="term" data-term="Submission Type">Submission Type</div>
+            <div class="term" data-term="Supplement Number">Supplement Number</div>
+        </div>
+
+    </div>
+
+    <div id="glossary-detail" class="glossary-detail">
+        <h2 id="term-title" aria-label="term title"></h2>
+        <p id="term-description"></p>
+        <button id="back-btn" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> BACK
+        </button>
+    </div>
+</div>
+
+
+
+
+ 
+
+

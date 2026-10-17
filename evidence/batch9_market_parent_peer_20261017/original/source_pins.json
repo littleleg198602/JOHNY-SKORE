@@ -1,0 +1,29 @@
+{
+  "base": "ea3ee97440a1a6c565420bb9c8567cb51cdf247b",
+  "db_writes": 0,
+  "fixture_only_reproduction": true,
+  "http_requests": 0,
+  "observed_at": "2026-10-17T21:32:04.885848+00:00",
+  "source_files": {
+    "market_checker_app/services/captured_market_data_provider.py": {
+      "bytes": 28473,
+      "preserved_as": "evidence/batch9_market_parent_peer_20261017/original/captured_market_data_provider.py",
+      "sha256": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e"
+    },
+    "market_checker_app/services/captured_market_input_acquisition.py": {
+      "bytes": 28151,
+      "preserved_as": "evidence/batch9_market_parent_peer_20261017/original/captured_market_input_acquisition.py",
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    },
+    "market_checker_app/services/pipeline_service.py": {
+      "bytes": 95344,
+      "preserved_as": "evidence/batch9_market_parent_peer_20261017/original/pipeline_service.py",
+      "sha256": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+    },
+    "market_checker_app/services/progress_service.py": {
+      "bytes": 5901,
+      "preserved_as": "evidence/batch9_market_parent_peer_20261017/original/progress_service.py",
+      "sha256": "fa4a47799b45871c19ef87f0d06865e56c17f74b997c2cd9915ac97a9564687a"
+    }
+  }
+}

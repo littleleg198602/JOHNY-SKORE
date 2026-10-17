@@ -1,0 +1,16 @@
+test_actual_apple_share_remains_swks_net_revenue_with_generic_xbrl_member (tests.test_batch9_coordinator_integration.ActualOriginalScopeTests.test_actual_apple_share_remains_swks_net_revenue_with_generic_xbrl_member) ... ok
+test_actual_complete_packet_binds_xml_but_does_not_promote_person_or_instrument (tests.test_batch9_coordinator_integration.ActualOriginalScopeTests.test_actual_complete_packet_binds_xml_but_does_not_promote_person_or_instrument) ... ok
+test_actual_fda_company_and_applicant_rows_stay_separate (tests.test_batch9_coordinator_integration.ActualOriginalScopeTests.test_actual_fda_company_and_applicant_rows_stay_separate) ... ok
+test_actual_nhtsa_positive_http400_and_unknown_response_never_become_negative (tests.test_batch9_coordinator_integration.ActualOriginalScopeTests.test_actual_nhtsa_positive_http400_and_unknown_response_never_become_negative) ... ok
+test_actual_registered_class_and_symbol_keep_unproved_cusip_bridge (tests.test_batch9_coordinator_integration.ActualOriginalScopeTests.test_actual_registered_class_and_symbol_keep_unproved_cusip_bridge) ... ok
+test_new_review_kinds_keep_original_four_megabyte_cap_before_body_io (tests.test_batch9_coordinator_integration.ActualOriginalScopeTests.test_new_review_kinds_keep_original_four_megabyte_cap_before_body_io) ... ok
+test_cli_execution_passes_exact_selected_plan_and_explicit_opt_in (tests.test_batch9_coordinator_integration.MarketInputActionTests.test_cli_execution_passes_exact_selected_plan_and_explicit_opt_in) ... ok
+test_default_cli_prepares_only_bounded_plan_without_http_database_or_archive (tests.test_batch9_coordinator_integration.MarketInputActionTests.test_default_cli_prepares_only_bounded_plan_without_http_database_or_archive) ... ok
+test_execute_requires_existing_explicit_plan_before_collector_construction (tests.test_batch9_coordinator_integration.MarketInputActionTests.test_execute_requires_existing_explicit_plan_before_collector_construction) ... ok
+test_ui_preview_never_executes_and_execution_consumes_the_displayed_plan (tests.test_batch9_coordinator_integration.MarketInputActionTests.test_ui_preview_never_executes_and_execution_consumes_the_displayed_plan) ... 2026-10-17 16:31:31.474 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.812s
+
+OK

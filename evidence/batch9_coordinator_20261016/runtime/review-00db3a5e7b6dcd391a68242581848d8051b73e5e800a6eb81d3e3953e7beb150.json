@@ -1,0 +1,96 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "NHTSA_NEGATIVE_SCOPE",
+  "plan_sha256": "f4651c5fdd3e05c61b232bda60e9c32e319cc4321b4e4470fd82f3622d0c8637",
+  "recorded_at": "2026-10-17T21:30:33.466127+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-17T21:30:33.463127+00:00",
+  "review": {
+    "catalog_scope": {
+      "catalog_evidence": {
+        "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+        "make_id": 467,
+        "model_id": 34740,
+        "observed_at": "2026-10-13T08:44:25.024795+00:00",
+        "publisher_rows": 29,
+        "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+        "sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+        "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json"
+      },
+      "known_at": "2026-10-13T08:44:25.024795+00:00",
+      "make": "CHEVROLET",
+      "model": "BrightDrop",
+      "model_year": 2026
+    },
+    "catalog_scope_supported": true,
+    "complete_current_recall_history_verified": false,
+    "complete_negative": false,
+    "contract_version": "nhtsa-exact-model-negative-completeness-v1",
+    "current_vehicle_production_verified": false,
+    "database_actions": 0,
+    "historical_availability_reconstructed": false,
+    "http_requests": 0,
+    "http_status": 400,
+    "issuer_attribution_verified": false,
+    "issuer_wide_absence_verified": false,
+    "known_at": "2026-10-17T21:30:33.465569+00:00",
+    "live_complete_negative_verified": false,
+    "manufacturer_ownership_inferred": false,
+    "matched_rows": 0,
+    "missing_evidence": [
+      "SUCCESSFUL_HTTP200_RESPONSE_REQUIRED"
+    ],
+    "physical_report_created_at": "2026-10-17T21:30:33.465569+00:00",
+    "prediction_input": false,
+    "publisher_completeness_audit": {
+      "complete_publisher_envelope": true,
+      "publisher_count": 0,
+      "reason_codes": [],
+      "returned_rows": 0
+    },
+    "publisher_count": null,
+    "reason": "HTTP_400_IS_NOT_COMPLETE_NEGATIVE",
+    "registry_adoption_allowed": false,
+    "rejected_rows": 0,
+    "review_kind": "NHTSA_NEGATIVE_SCOPE",
+    "reviewed_at": "2026-10-17T21:30:33.463127+00:00",
+    "schema_version": 1,
+    "scope": {
+      "make": "CHEVROLET",
+      "model": "BrightDrop",
+      "model_year": 2026
+    },
+    "scope_completeness": "EXACT_DOCUMENTED_MODEL_YEAR_QUERY_SNAPSHOT_ONLY",
+    "scoring_applied": false,
+    "source_complete_negative": false,
+    "source_reviews": [
+      {
+        "automatic_redirects_disabled_verified": false,
+        "capture_id": "catalog_chevrolet_2026",
+        "http_status": 200,
+        "original_byte_pin_verified": true,
+        "raw_response_bytes": 2436,
+        "raw_response_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+        "reason": "ORIGINAL_BYTES_PINNED",
+        "source_known_at": "2026-10-13T08:44:25.024795+00:00",
+        "source_observed_at": "2026-10-13T08:44:25.024795+00:00"
+      },
+      {
+        "automatic_redirects_disabled_verified": true,
+        "capture_id": "recall_chevrolet_brightdrop_2026",
+        "http_status": 400,
+        "original_byte_pin_verified": true,
+        "raw_response_bytes": 66,
+        "raw_response_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+        "reason": "ORIGINAL_BYTES_PINNED",
+        "source_known_at": "2026-10-15T07:29:24.127056+00:00",
+        "source_observed_at": "2026-10-15T07:29:24.127026+00:00"
+      }
+    ],
+    "status": "PARTIAL"
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

@@ -1,0 +1,90 @@
+{
+  "captures": {
+    "catalog_chevrolet_2026": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 2436,
+        "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+        "sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d"
+      },
+      "metadata": {
+        "access": "public_without_credentials",
+        "archive_bytes": 2436,
+        "archive_encoding": "raw",
+        "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+        "archive_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+        "automatic_redirects": null,
+        "capture_id": "catalog_chevrolet_2026",
+        "content_type": "application/json",
+        "final_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json",
+        "http_status": 200,
+        "known_at": "2026-10-13T08:44:25.024795+00:00",
+        "legacy_catalog_redirect_policy_recorded": false,
+        "max_response_bytes": 4000000,
+        "metadata_role": "Derived original-byte pin descriptor; original metadata remains unchanged",
+        "method": "GET",
+        "observed_at": "2026-10-13T08:44:25.024795+00:00",
+        "outcome": "HTTP_SUCCESS",
+        "payload_Count": 29,
+        "payload_Message": "Results returned successfully",
+        "payload_SearchCriteria": "Make:CHEVROLET | ModelYear:2026",
+        "public_raw_available": true,
+        "raw_response_bytes": 2436,
+        "raw_response_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+        "requested_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json",
+        "result_rows": 29,
+        "results_field": "Results",
+        "source_date_header": "Tue, 13 Oct 2026 08:44:24 GMT",
+        "source_metadata": {
+          "bytes": 1187,
+          "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.metadata.json",
+          "sha256": "d4888713cfe2d7c2bb73c62bbdee221bbf6e073a020509aa50fedc479e077e74"
+        },
+        "started_at": "2026-10-13T08:44:21.135252+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 20
+      }
+    },
+    "recall_chevrolet_7500xd_2026": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 2250,
+        "path": "evidence/batch9_regulatory_20261016/captures/1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84/response.json",
+        "sha256": "b9a6e0e9b00e7a39d82903dd66da75c243620c6e8e1194ab9a8fd7273835943a"
+      },
+      "metadata": {
+        "archive_encoding": "raw",
+        "automatic_redirects": false,
+        "capture_id": "recall_chevrolet_7500xd_2026",
+        "content_type": "application/json;charset=UTF-8",
+        "final_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=7500XD&modelYear=2026",
+        "http_status": 200,
+        "known_at": "2026-10-16T12:20:30.580928+00:00",
+        "metadata_role": "Derived original-byte descriptor; source classification is unchanged",
+        "observed_at": "2026-10-16T12:20:30.580900+00:00",
+        "public_raw_available": true,
+        "raw_response_bytes": 2250,
+        "raw_response_sha256": "b9a6e0e9b00e7a39d82903dd66da75c243620c6e8e1194ab9a8fd7273835943a",
+        "recorded_capture_origin": "LIVE_PUBLIC_HTTP",
+        "recorded_review_id": "1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84",
+        "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=7500XD&modelYear=2026",
+        "source_metadata": {
+          "bytes": 2137,
+          "path": "evidence/batch9_regulatory_20261016/captures/1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84/review.json",
+          "sha256": "1ebe3aa60557a05c4c8ee0376fd2937a2cbc17dc564aca87d1489ef6914ac647"
+        },
+        "started_at": "2026-10-16T12:20:26.849956+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      }
+    }
+  },
+  "kind": "NHTSA_NEGATIVE_SCOPE",
+  "request": {
+    "catalog_capture_id": "catalog_chevrolet_2026",
+    "make": "CHEVROLET",
+    "model": "7500XD",
+    "model_year": 2026,
+    "recall_capture_id": "recall_chevrolet_7500xd_2026"
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

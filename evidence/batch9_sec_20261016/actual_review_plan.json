@@ -1,0 +1,69 @@
+{
+  "captures": {
+    "index": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 8111,
+        "path": "evidence/batch8_sec_20261015/primary/nadella_2026_form4_index.html",
+        "sha256": "828b5f5463be1a9d06e25ad0a19a5fa288e2ac756173e96835302bee16246a31"
+      },
+      "metadata": {
+        "known_at": "2026-10-15T18:12:45.475714+00:00",
+        "observed_at": "2026-10-15T18:12:45.475714+00:00",
+        "record_id": "retained-current-nadella-index-20261015",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "828b5f5463be1a9d06e25ad0a19a5fa288e2ac756173e96835302bee16246a31",
+        "size_bytes": 8111,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157-index.html"
+      }
+    },
+    "packet": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 9665,
+        "path": "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+      },
+      "metadata": {
+        "known_at": "2026-10-16T12:18:22.843333+00:00",
+        "observed_at": "2026-10-16T12:18:22.843333+00:00",
+        "record_id": "actual-whole-current-nadella-packet-20261016",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+        "size_bytes": 9665,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt"
+      }
+    },
+    "xml": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 8214,
+        "path": "evidence/batch8_sec_20261015/primary/nadella_2026_form4.xml",
+        "sha256": "c71fd4237b551e70fd8054cfd54b9d101e63d689d0a26b10bb8bd123a0a4c810"
+      },
+      "metadata": {
+        "known_at": "2026-10-15T18:11:45.505396+00:00",
+        "observed_at": "2026-10-15T18:11:45.505396+00:00",
+        "record_id": "retained-current-nadella-xml-20261015",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "c71fd4237b551e70fd8054cfd54b9d101e63d689d0a26b10bb8bd123a0a4c810",
+        "size_bytes": 8214,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/form4.xml"
+      }
+    }
+  },
+  "kind": "SEC_COMPLETE_PACKET",
+  "request": {
+    "selection": {
+      "accession": "0000789019-26-000157",
+      "form": "4",
+      "issuer_cik": "0000789019",
+      "issuer_name": "MICROSOFT CORP",
+      "owner_cik": "0001513142",
+      "owner_name": "Nadella Satya",
+      "period_day": "2026-08-31",
+      "primary_filename": "form4.xml"
+    }
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

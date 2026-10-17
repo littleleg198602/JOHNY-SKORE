@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-16T17:14:40.243339+00:00",
+  "finished_at": "2026-10-16T17:14:40.894025+00:00",
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_batch9_fda_application_product",
+    "-v"
+  ],
+  "exit_code": 0,
+  "tests_run": 27,
+  "seconds": 0.329,
+  "complete_terminal_OK": true,
+  "log_path": "evidence/batch9_healthcare_20261016/focused_tests.log",
+  "log_sha256": "c33b991e724d37a786cea7d49910ea86cdf66cee9af8d080ba59aa6b0be80646",
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "positive_contract_cases_synthetic_only": true,
+  "source_HTTP_requests": 0,
+  "full_baseline_suite_repeated": false,
+  "Windows_OOS_or_live_acceptance_claimed": false
+}

@@ -1,0 +1,12 @@
+{
+  "database_sha256": "0a6c669c3b5977dc5e884e313715b7c49dc9d033eef1f7d2af121aa2223b0963",
+  "diagnostic": "Initial read-only row enumeration used nonexistent id column; corrected to the actual request_id schema before any writes or network",
+  "observed_at": "2026-10-16T12:16:59.397944+00:00",
+  "read_only_open_succeeded": true,
+  "sqlite_error": "no such column: id",
+  "table_counts": {
+    "scout_nhtsa_scope_reviews": 12,
+    "scout_public_requests": 15
+  },
+  "write_or_network_actions": 0
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "capture_form": "ORIGINAL_HTTP_RESPONSE",
+  "sequence": 1,
+  "capture_key": "sec_pfe_current_submissions",
+  "request_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+  "reserved_at": "2026-10-16T12:18:18.345374+00:00",
+  "research_plan_sha256": "f096ddee968ae6eb9d23eb40ce0098b5f293199e372b263cb96677d0473a5b34",
+  "reserved_before_transport": true,
+  "research_attempt_cap": 6,
+  "byte_budget": 4000000,
+  "timeout_seconds": 25,
+  "redirects_allowed": false,
+  "retries_allowed": false,
+  "research_only": true,
+  "collector_API_or_quota_DB_used": false,
+  "new_accounts_or_credentials": false
+}

@@ -1,0 +1,21 @@
+{
+  "allowed_exact_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt",
+  "allowed_purposes": [
+    "EXPLICIT_NEW_CURRENT_PACKET_DIAGNOSTIC"
+  ],
+  "application_collector_quota_db_or_history_reconstruction": false,
+  "incomplete_body_policy": "No prefix export or complete-body hash claim; reservation stays consumed",
+  "maximum_current_packet_diagnostic_attempts": 1,
+  "maximum_transports": 4,
+  "no_more_than_one_packet_get_even_after_failure": true,
+  "old_failed_transport_receipt": "evidence/batch8_sec_20261015/attempt-02-result.json",
+  "old_failed_transport_sha256": "a5e3dce538938e342451f3e4288db9bec754cac334688c52c86301fb5ec6090b",
+  "per_transport_absolute_timeout_seconds": 25,
+  "per_transport_maximum_body_bytes": 4000000,
+  "reason": "New independently reserved diagnostic after the preserved October15 URLError; not a retry or rewrite of that historical attempt",
+  "redirects_or_retries_allowed": false,
+  "retained_xml_and_index_are_reused_original_bytes_not_new_http": true,
+  "schema_version": 1,
+  "sensitive_or_encoded_whole_body_policy": "WITHHOLD_ENTIRE_BODY_METADATA_ONLY_NEVER_REPLACE_CLEAN_ENCODE_OR_WRAP",
+  "written_at": "2026-10-16T12:18:18.667596+00:00"
+}

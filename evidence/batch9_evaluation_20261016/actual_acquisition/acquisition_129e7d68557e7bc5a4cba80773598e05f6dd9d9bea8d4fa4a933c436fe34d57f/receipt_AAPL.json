@@ -1,0 +1,9 @@
+{
+  "attempted_at": "2026-10-16T12:21:17.279521+00:00",
+  "completed_at": "2026-10-16T12:21:17.284833+00:00",
+  "error_type": "URLError",
+  "reason": "TRANSPORT_FAILURE",
+  "request_url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false",
+  "status": "WAIT_DATA",
+  "ticker": "AAPL"
+}

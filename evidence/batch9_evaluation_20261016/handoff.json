@@ -1,0 +1,103 @@
+{
+  "development_lane": "evaluation",
+  "evidence_file_pins": {
+    "evidence/batch9_evaluation_20261016/README.md": {
+      "bytes": 4824,
+      "sha256": "19c488302afbabfdbdec3e0f38a12c0d1b6a383c336e33422dbd6f28038ce576"
+    },
+    "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/acquisition_report.json": {
+      "bytes": 5178,
+      "sha256": "47dd6e79f66b6278ed45529a31ec7c3e31c490decacdbc44d596b3467d256afe"
+    },
+    "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/plan.json": {
+      "bytes": 5290,
+      "sha256": "a2473790034572fdcf956181fd20a26ac606ea5fb95abb68d1ad971c305ed6e6"
+    },
+    "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/receipt_AAPL.json": {
+      "bytes": 424,
+      "sha256": "74737e8ed6fc36225218f8a2a0d98c6cadb2cc7ed6bcb938d13a10b7e5add203"
+    },
+    "evidence/batch9_evaluation_20261016/actual_acquisition/plan_claims/claim_c97b594692d96460e1e727cd6b9feaed90216208225a1095830a2aae970ad88e.json": {
+      "bytes": 617,
+      "sha256": "8b7a31244648d227f12fab141aec8c81f69976abfaf552dc1b99b4650a397f16"
+    },
+    "evidence/batch9_evaluation_20261016/actual_acquisition_producer_v1.py": {
+      "bytes": 19824,
+      "sha256": "c836a8d4318b98f512a7b0fb6b10bd0eaf66fcea9deac5ec817e45902fc0e7a4"
+    },
+    "evidence/batch9_evaluation_20261016/actual_attempt_summary.json": {
+      "bytes": 8170,
+      "sha256": "ffa0166c2dd095927785bf4fbe88723daeb04519e85700be9d8d498847da56a9"
+    },
+    "evidence/batch9_evaluation_20261016/protect_recorded_attempt.py": {
+      "bytes": 2389,
+      "sha256": "f8212e354f1269be7fbcc6e1f3d40a8e871939e2d9c956b5b74b64a005036053"
+    },
+    "evidence/batch9_evaluation_20261016/qualification_v1/tests.json": {
+      "bytes": 788,
+      "sha256": "7c253c8c67c8f4f6a549da9948f52cf301b974265d2a691a5456d07a6e9296bd"
+    },
+    "evidence/batch9_evaluation_20261016/qualification_v1/tests.log": {
+      "bytes": 8267,
+      "sha256": "e769c78001cc618cfb47feca54cfb401fd98a1a4b6e576b2bcb8dc0bc073ae00"
+    },
+    "evidence/batch9_evaluation_20261016/qualification_v2/tests.json": {
+      "bytes": 788,
+      "sha256": "1814ef4eee772994e1e95b3c920e69ed4de9d32439ab20ee96055bd704aa7661"
+    },
+    "evidence/batch9_evaluation_20261016/qualification_v2/tests.log": {
+      "bytes": 8511,
+      "sha256": "6410fbbabea3e1d29abbe795cb765288e0aefbd9da9b3287711d04285d8754ca"
+    },
+    "evidence/batch9_evaluation_20261016/run_actual_acquisition.py": {
+      "bytes": 1960,
+      "sha256": "a2a74609db8afecf49df8fe2ad5c12d389646b5e70651799d704354b179d9865"
+    },
+    "evidence/batch9_evaluation_20261016/run_focused.py": {
+      "bytes": 1879,
+      "sha256": "aec724f264b67a84b876485c3b96d2029a6f1ffd2854b2823bab29381458f23c"
+    }
+  },
+  "finalization_new_source_http_requests": 0,
+  "finalized_at": "2026-10-17T21:29:35.350554+00:00",
+  "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+  "focused_qualification": {
+    "discovered": 38,
+    "errors": 0,
+    "executed": 38,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch9_evaluation_20261016/qualification_v2/tests.log",
+    "log_pin": {
+      "bytes": 8511,
+      "sha256": "6410fbbabea3e1d29abbe795cb765288e0aefbd9da9b3287711d04285d8754ca"
+    },
+    "plain_OK": true,
+    "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": 0,
+  "historical_OOS_verified": false,
+  "module": {
+    "market_checker_app/services/captured_market_input_acquisition.py": {
+      "bytes": 28151,
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    }
+  },
+  "new_primary_research_attempts": 1,
+  "public_base": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "registry_adoptions": 0,
+  "review_plan_paths": [],
+  "schema_version": "batch9_preserved_worker_handoff_v1",
+  "score_or_fitter_changed": false,
+  "source_attempt_accounting_note": "One actual AAPL URLError without response; remaining12 not attempted;0usable genuine inputs/forecasts/labels. Explicit acquisition plan claims/raw-parent validation and numeric roundtrip only; UNKNOWN revision stays excluded.",
+  "test": {
+    "tests/test_batch9_market_input_acquisition.py": {
+      "bytes": 29620,
+      "sha256": "6fc91806710f1f4f773381a94f109a0e1a1a820481ee24941406ee4117c269fd"
+    }
+  },
+  "trading_allowed": false,
+  "user_windows_end_to_end_verified": false
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-16T12:18:18.345062+00:00",
+  "maximum_research_transports": 6,
+  "maximum_original_body_bytes": 4000000,
+  "timeout_seconds": 25,
+  "redirects_allowed": false,
+  "retries_allowed": false,
+  "source_scope": "One PFE BLA761081 application/product object and earlier direct SEC issuer snapshot; FDA static pages only",
+  "FDA_CMS_Clinical_API_collectors_allowed": false,
+  "collector_quota_database_created_or_reconstructed": false,
+  "original_durable_collector_history_claimed": false,
+  "predeclared_urls": {
+    "1": "https://data.sec.gov/submissions/CIK0000078003.json",
+    "2": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+    "3": "https://purplebooksearch.fda.gov/index.cfm?blaNo=761081&event=productdetails",
+    "4": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000TOC.cfm",
+    "5": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000ChemR.pdf"
+  },
+  "unused_sixth_slot_is_not_permission_to_raise_the_cap": true
+}

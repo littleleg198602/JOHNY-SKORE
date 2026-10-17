@@ -1,0 +1,23 @@
+{
+  "actual_db_accesses": 0,
+  "discovered": 38,
+  "elapsed_seconds": 3.617085,
+  "errors": 0,
+  "executed": 38,
+  "expected_failures": 0,
+  "failures": 0,
+  "fixture_only": true,
+  "forecasts_created": 0,
+  "labels_created": 0,
+  "log_sha256": "6410fbbabea3e1d29abbe795cb765288e0aefbd9da9b3287711d04285d8754ca",
+  "observed_at": "2026-10-16T17:14:22.244966+00:00",
+  "skips": 0,
+  "source_http_requests": 0,
+  "source_sha256": {
+    "market_checker_app/services/captured_market_input_acquisition.py": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a",
+    "tests/test_batch9_market_input_acquisition.py": "6fc91806710f1f4f773381a94f109a0e1a1a820481ee24941406ee4117c269fd"
+  },
+  "source_unchanged_during_tests": true,
+  "successful": true,
+  "unexpected_successes": 0
+}

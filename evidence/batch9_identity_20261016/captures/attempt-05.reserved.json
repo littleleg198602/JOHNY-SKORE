@@ -1,0 +1,15 @@
+{
+  "access_values_exported": false,
+  "app_quota_managed_live_claimed": false,
+  "attempt": 5,
+  "historical_request_ledger_reconstructed": false,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "redirects_allowed": false,
+  "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/pstg-20260527.htm",
+  "research_only": true,
+  "started_at": "2026-10-16T12:18:09.539611+00:00",
+  "status": "REQUEST_RESERVED",
+  "timeout_seconds": 25
+}

@@ -1,0 +1,121 @@
+{
+  "schema_version": "captured_identity_review_plan_v1",
+  "kind": "FDA_APPLICATION_PRODUCT",
+  "request": {
+    "scope": {
+      "application_type": "BLA",
+      "application_number": "761081",
+      "issuer_cik": "0000078003",
+      "issuer_ticker": "PFE"
+    },
+    "source_kind": "DRUGSFDA_APPLICATION_PAGE",
+    "source_key": "page",
+    "issuer_key": "issuer",
+    "source_version_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+    "product_selection": {
+      "source_row_index": 0,
+      "product_number": null,
+      "proprietary_name": "TRAZIMERA",
+      "proper_name": "TRASTUZUMAB-QYYP",
+      "strength": "420MG",
+      "dosage_form": null,
+      "route": null,
+      "dosage_form_route_text": "INJECTABLE;INJECTION",
+      "source_party_name": "PFIZER INC"
+    }
+  },
+  "captures": {
+    "page": {
+      "metadata": {
+        "schema_version": 1,
+        "capture_form": "ORIGINAL_HTTP_RESPONSE",
+        "sequence": 2,
+        "capture_key": "fda_bla761081_application",
+        "request_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "reserved_at": "2026-10-16T12:18:43.626050+00:00",
+        "research_plan_sha256": "f096ddee968ae6eb9d23eb40ce0098b5f293199e372b263cb96677d0473a5b34",
+        "reserved_before_transport": true,
+        "research_attempt_cap": 6,
+        "byte_budget": 4000000,
+        "timeout_seconds": 25,
+        "redirects_allowed": false,
+        "retries_allowed": false,
+        "research_only": true,
+        "collector_API_or_quota_DB_used": false,
+        "new_accounts_or_credentials": false,
+        "requested_at": "2026-10-16T12:18:43.627226+00:00",
+        "http_status": 200,
+        "response_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "body_complete_within_byte_budget": true,
+        "raw_publication_permitted": true,
+        "body_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+        "body_bytes": 34010,
+        "body_path": "fda_bla761081_application.body.bin",
+        "response_headers": {
+          "Date": "Fri, 16 Oct 2026 12:18:47 GMT",
+          "Content-Type": "text/html;charset=UTF-8",
+          "Content-Length": "34010",
+          "Last-Modified": null,
+          "ETag": null,
+          "Content-Encoding": null
+        },
+        "retention": "ORIGINAL_BYTES",
+        "status": "HTTP_200_COMPLETE",
+        "observed_at": "2026-10-16T12:18:47.144073+00:00",
+        "elapsed_seconds": 3.5168497120000097
+      },
+      "body_available": true,
+      "body_ref": {
+        "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+        "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+        "bytes": 34010
+      }
+    },
+    "issuer": {
+      "metadata": {
+        "schema_version": 1,
+        "capture_form": "ORIGINAL_HTTP_RESPONSE",
+        "sequence": 1,
+        "capture_key": "sec_pfe_current_submissions",
+        "request_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+        "reserved_at": "2026-10-16T12:18:18.345374+00:00",
+        "research_plan_sha256": "f096ddee968ae6eb9d23eb40ce0098b5f293199e372b263cb96677d0473a5b34",
+        "reserved_before_transport": true,
+        "research_attempt_cap": 6,
+        "byte_budget": 4000000,
+        "timeout_seconds": 25,
+        "redirects_allowed": false,
+        "retries_allowed": false,
+        "research_only": true,
+        "collector_API_or_quota_DB_used": false,
+        "new_accounts_or_credentials": false,
+        "requested_at": "2026-10-16T12:18:18.345479+00:00",
+        "http_status": 200,
+        "response_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+        "body_complete_within_byte_budget": true,
+        "raw_publication_permitted": true,
+        "body_sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+        "body_bytes": 145851,
+        "body_path": "sec_pfe_current_submissions.body.bin",
+        "response_headers": {
+          "Date": "Fri, 16 Oct 2026 12:18:23 GMT",
+          "Content-Type": "application/json",
+          "Content-Length": null,
+          "Last-Modified": null,
+          "ETag": null,
+          "Content-Encoding": null
+        },
+        "retention": "ORIGINAL_BYTES",
+        "status": "HTTP_200_COMPLETE",
+        "observed_at": "2026-10-16T12:18:23.142227+00:00",
+        "elapsed_seconds": 4.796761704999994
+      },
+      "body_available": true,
+      "body_ref": {
+        "path": "evidence/batch9_healthcare_20261016/sec_pfe_current_submissions.body.bin",
+        "sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+        "bytes": 145851
+      }
+    }
+  }
+}
