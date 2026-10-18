@@ -1,0 +1,235 @@
+{
+  "UI_errors": [],
+  "UI_exceptions": [],
+  "rendered_captions": [
+    "Dávka obsahuje AAPL a12 tržních a odvětvových benchmarků. Nejdřív zobraz plán; stažení spustíš samostatným tlačítkem. Výsledný manifest lze použít ve výběru cenových archivů.",
+    "Zachytí systém, dostupné cenové archivy a uloženou historii bez spuštění analýzy. Záznam připravenosti nenahrazuje dokončený ověřovací běh.",
+    "Kontrola porovná přesné uložené doklady a čas jejich získání. Výsledek ukáže doloženou vazbu i chybějící důkazy; přijetí identity vyžaduje samostatné posouzení.",
+    "Poslední uložená kontrola: 2026-10-18T14:22:21.373390+00:00",
+    "Původní vzor certifikátu uvádí Class A a CUSIP 74624M102. Datum vydání je prázdné; návaznost na změnu tickeru čeká na doložení.",
+    "Obnovení vyžaduje původní úplné stránky jednoho doloženého rozsahu dotazu. Chybějící stránka nebo samotný souhrn neprokazuje úplnost zakázek.",
+    "Vyber existující cenové a zdrojové archivy pro jednu akcii a její benchmark. Nejdřív ověř výběr; uloženou verzi lze výslovně použít při příštím ukládání předpovědí. Starší verze výběru zůstanou zachované.",
+    "Registrace zachová již uloženou předpověď před otevřením první navazující burzovní seance. Pozdější výsledek musí odpovídat jejím přesným seancím a doloženým cenám. Dodatečná registrace minulou dostupnost nevytvoří."
+  ],
+  "report": {
+    "archive_filename": "review-691e35915d286f3453562fd60120fb4f9263d622409abcaff3d0c2b10dc332a1.json",
+    "archive_sha256": "691e35915d286f3453562fd60120fb4f9263d622409abcaff3d0c2b10dc332a1",
+    "archive_status": "SAVED",
+    "full_specialist_acceptance": false,
+    "issuer_attribution_allowed": false,
+    "kind": "SEC_CERTIFICATE_INSTRUMENT",
+    "plan_sha256": "dbdb723350283bdb7e1c50f1de97d89db4c23dde21fcf09455d9d028594924bb",
+    "recorded_at": "2026-10-18T14:22:21.373390+00:00",
+    "registry_adoptions": 0,
+    "requested_as_of": "2026-10-18T14:22:21.053213+00:00",
+    "review": {
+      "as_of": "2026-10-18T14:22:21.203875+00:00",
+      "automated_pixel_text_authentication": false,
+      "automatic_alias_allowed": false,
+      "blockers": [
+        "AS_FILED_IMAGE_VERSION_UNVERIFIED",
+        "CERTIFICATE_DATED_FIELD_BLANK",
+        "INDEX_ACCEPTANCE_CALENDAR_DAY_DIFFERS_FROM_FILING_DAY",
+        "INDEX_DECLARED_SERVED_BYTE_CONFLICT",
+        "OTHER_REFERENCED_CERTIFICATE_IMAGE_NOT_CAPTURED",
+        "PSTG_TO_P_CLASS_CUSIP_CONTINUITY_UNPROVEN",
+        "PSTG_TO_P_EXACT_EFFECTIVE_DAY_UNPROVEN",
+        "SPECIMEN_IS_NOT_AN_ISSUED_INSTRUMENT_VALIDITY_INTERVAL",
+        "SYMBOL_NOT_STATED_IN_CERTIFICATE_FIELD_SCOPE"
+      ],
+      "capture_pins": {
+        "image": {
+          "body_available": true,
+          "bytes": 917915,
+          "capture_status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+          "http_status": 200,
+          "known_at": "2026-10-18T04:25:43.865560+00:00",
+          "metadata_sha256": "2985c6c1bf4400bacf38bcbc40a4d76d72fff124a391bcaee4a0bf327d14e847",
+          "observed_at": "2026-10-18T04:25:43.865560+00:00",
+          "sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45",
+          "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_0.jpg"
+        },
+        "index": {
+          "body_available": true,
+          "bytes": 14111,
+          "capture_status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+          "http_status": 200,
+          "known_at": "2026-10-16T12:18:00.481662+00:00",
+          "metadata_sha256": "b3221746ec95006a0a45e0592a22b1e841f75edef803b22b61188c3a8e99fbbe",
+          "observed_at": "2026-10-16T12:18:00.481662+00:00",
+          "sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f",
+          "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/0001474432-26-000027-index.html"
+        },
+        "wrapper": {
+          "body_available": true,
+          "bytes": 1361,
+          "capture_status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+          "http_status": 200,
+          "known_at": "2026-10-16T12:17:55.577156+00:00",
+          "metadata_sha256": "27a886a03c9df55523da40af75702efbaf3223e2bbf60466e3ce2f02443bcced",
+          "observed_at": "2026-10-16T12:17:55.577156+00:00",
+          "sha256": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex41-formofclassacommonsto.htm"
+        }
+      },
+      "certificate_number": null,
+      "countersignature_or_registration_validity_verified": false,
+      "current_q3_verified_instrument_coverage": 0,
+      "effective_on": null,
+      "facsimile_signature_authenticates_person": false,
+      "historical_machine_availability_inferred": false,
+      "image_dimensions": [
+        1978,
+        1318
+      ],
+      "image_format": "JPEG",
+      "interval_extension_allowed": false,
+      "issued_instrument_validity_verified": false,
+      "issued_share_count": null,
+      "knowledge_at": "2026-10-18T14:22:21.373318+00:00",
+      "literal_observations": {
+        "class_and_par": {
+          "automated_pixel_text_authentication": false,
+          "bounds": [
+            540,
+            775,
+            1440,
+            803
+          ],
+          "field": "class_and_par",
+          "literal": "FULLY PAID AND NONASSESSABLE SHARES OF CLASS A COMMON STOCK, $0.0001 PAR VALUE PER SHARE, OF",
+          "measured_at": "2026-10-18T04:29:39.896536+00:00",
+          "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+        },
+        "corporate_seal": {
+          "automated_pixel_text_authentication": false,
+          "bounds": [
+            900,
+            973,
+            1085,
+            1160
+          ],
+          "field": "corporate_seal",
+          "literal": "EVERPURE, INC. CORPORATE SEAL OCTOBER 2, 2009 DELAWARE",
+          "measured_at": "2026-10-18T04:29:39.896536+00:00",
+          "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+        },
+        "cusip": {
+          "automated_pixel_text_authentication": false,
+          "bounds": [
+            1390,
+            322,
+            1660,
+            354
+          ],
+          "field": "cusip",
+          "literal": "CUSIP 74624M 10 2",
+          "measured_at": "2026-10-18T04:29:39.896536+00:00",
+          "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+        },
+        "dated_field": {
+          "automated_pixel_text_authentication": false,
+          "bounds": [
+            220,
+            950,
+            860,
+            995
+          ],
+          "field": "dated_field",
+          "literal": "Dated:",
+          "measured_at": "2026-10-18T04:29:39.896536+00:00",
+          "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+        },
+        "issuer_name": {
+          "automated_pixel_text_authentication": false,
+          "bounds": [
+            890,
+            805,
+            1090,
+            837
+          ],
+          "field": "issuer_name",
+          "literal": "EVERPURE, INC.",
+          "measured_at": "2026-10-18T04:29:39.896536+00:00",
+          "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+        },
+        "specimen_mark": {
+          "automated_pixel_text_authentication": false,
+          "bounds": [
+            545,
+            485,
+            1465,
+            710
+          ],
+          "field": "specimen_mark",
+          "literal": "SPECIMEN",
+          "measured_at": "2026-10-18T04:29:39.896536+00:00",
+          "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+        }
+      },
+      "literal_specimen_class_cusip_scope_observed": true,
+      "measurement_is_derived_annotation": true,
+      "measurement_recorded_at": "2026-10-18T04:29:39.896536+00:00",
+      "measurement_sha256": "62f0d19a739af8bf85444a9a708772d9e9fe7b7cc7b5f0ad499af9d4e6b49c4f",
+      "missing_literal_fields": [],
+      "network_requests_performed": 0,
+      "new_verified_identities": 0,
+      "observed_class_terms": {
+        "par_term": "USD:0.0001",
+        "share_class": "EQUITY:A"
+      },
+      "observed_cusip": "74624M102",
+      "production_registry_changed": false,
+      "publication_scope": {
+        "acceptance_timezone_inferred": false,
+        "acceptance_unqualified_raw": "2026-03-24 18:36:40",
+        "accession": "000147443226000027",
+        "as_filed_body_version_verified": false,
+        "blockers": [
+          "INDEX_DECLARED_SERVED_BYTE_CONFLICT"
+        ],
+        "corporate_seal_is_action_effective_day": false,
+        "filing_on": "2026-03-25",
+        "form": "EX-4.1",
+        "image_publication_timestamp_verified": false,
+        "index_declared_bytes": 1252,
+        "publication_at": null,
+        "publisher_size_conflict": true,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex41-formofclassacommonsto.htm"
+      },
+      "registered_holder": null,
+      "registry_adoptions": 0,
+      "review_recorded_at": "2026-10-18T14:22:21.373318+00:00",
+      "review_sha256": "e9a548a0eaa3388175c24121addf6119157c1c46836c9bc754a9bf50a1013737",
+      "review_started_at": "2026-10-18T14:22:21.203875+00:00",
+      "schema_version": "sec-certificate-instrument-review-v1",
+      "scope": {
+        "class_title": "Class A Common Stock, $0.0001 par value per share",
+        "cusip": "74624M102",
+        "issuer_cik": "0001474432",
+        "issuer_name": "Everpure, Inc.",
+        "new_symbol": "P",
+        "old_symbol": "PSTG"
+      },
+      "score_changed": false,
+      "source_as_of": "2026-10-18T14:22:21.203875+00:00",
+      "source_knowledge_at": "2026-10-18T04:25:43.865560+00:00",
+      "status": "CERTIFICATE_SPECIMEN_SCOPE_PARTIAL",
+      "symbol_cusip_continuity_verified": false,
+      "trading_allowed": false,
+      "wrapper_image_references": [
+        {
+          "literal_reference": "image_0.jpg",
+          "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_0.jpg"
+        },
+        {
+          "literal_reference": "image_1.jpg",
+          "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_1.jpg"
+        }
+      ]
+    },
+    "schema_version": "captured_identity_review_v1",
+    "scoring_applied": false,
+    "source_http_requests": 0
+  }
+}

@@ -1,0 +1,13 @@
+# Caption-review completion clocks
+
+The captured-only `review_doj_case_caption(request, captures, *, reviewed_at=None)` API and `DOJ_CASE_CAPTION` request shape are unchanged. `review_started_at` records physical UTC before parsing. `reviewed_at` remains the source-read cutoff, also named `source_read_cutoff`; that cutoff is explicitly not output availability. A caller-supplied future cutoff now raises `ValueError` before decoding instead of silently being clamped.
+
+`known_at` and `review_completed_at` now record physical UTC after the complete PDF parse, page-local bindings, derived facts and clock-bound scan. Every returned report, including missing-source and missing-selector PARTIAL reports, passes the same completion guard. Physical clock rollback and completion before a supported source or nested review clock reject the report. Explicit past cutoffs never backdate the newly produced report.
+
+`before/` preserves the exact bca producer, its own 21-method test source, old actual report and request plan. The two focused pre-fix regressions fail against that frozen producer: its availability stamp precedes a delayed decoder's completion, and its future cutoff is silently accepted. The current producer passes 31 methods: ten clock regressions and the 21 owned caption methods. One expectation in that owned historical test version changed to require strict future-cutoff rejection; PDF byte/hash, field-span and identity assertions remain intact. No baseline or hosted suite was repeated.
+
+The actual replay reads the same retained Doc106 and Doc283 originals and exact source plan. All 95 page stamps, three caption blocks and 686 field-evidence records are identical to the previous report after excluding only clock/contract fields. The new immutable report has physical completion availability; old evidence remains byte-identical and keeps its historical producer version. Original October15 source capture clocks and September2024/June2025 filing dates remain distinct.
+
+Case-source identity remains separate from financial issuer identity. There is no legal-continuity adoption, separate original Order, current docket/disposition, merits finding or final judgment. The overall review remains PARTIAL. This lane performed no HTTP, collector, database, quota or registry operations and did not retry the blocked NHTSA operation. Four whole withheld bodies remain absent. Synthetic clock tests are contract checks, not source acceptance or performance benchmarks.
+
+Reproducers write exclusive new output files: `python -m evidence.batch10_caption_clock_fix_20261018.run_focused before|after` and `python -m evidence.batch10_caption_clock_fix_20261018.finalize_evidence`. Existing results must not be overwritten.

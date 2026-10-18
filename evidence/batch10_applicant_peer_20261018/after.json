@@ -1,0 +1,22 @@
+{
+  "candidate_dependency_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015",
+  "elapsed_seconds": 0.5620524109999678,
+  "errors": 0,
+  "executed": 7,
+  "expected_failures": 0,
+  "failed_methods": [],
+  "failures": 0,
+  "finished_at": "2026-10-18T09:01:52.579454+00:00",
+  "log_sha256": "44f1ebf95123d16c4b61d8aadc1a7b5c77183ee97993265fa60ffbb3c3efd82c",
+  "new_HTTP_DB_or_candidate_writes": 0,
+  "only_new_peer_suite_executed": true,
+  "peer_test_sha256": "76c8376da28f1a2a55a5aabf3eed88ad9dfd1ce281b9f588154e39f70e337a5f",
+  "producer_sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+  "selected_producer": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/market_checker_app/collectors/fda_legal_applicant_bridge_review.py",
+  "skips": 0,
+  "started_at": "2026-10-18T09:01:52.017399+00:00",
+  "successful": true,
+  "synthetic_cases_are_not_acceptance": true,
+  "top_level_ownership_promotion_not_claimed": true,
+  "unexpected_successes": 0
+}

@@ -1,0 +1,13 @@
+{
+  "scope": "VERIFIER_ASSUMPTION_REPRODUCTION_NOT_UNITTEST_FAILURE",
+  "started_at": "2026-10-18T14:11:06.023373+00:00",
+  "ended_at": "2026-10-18T14:11:06.782817+00:00",
+  "returncode": 1,
+  "frozen_source_sha256": "794e69e5873475c827938f01610d5de185a28e11dc4341b0d20adfd66403ceaa",
+  "stderr_sha256": "8c12602d335a040a63a1390819894dc5cbc20ccbb6cb3968ae732d95aafc0ec9",
+  "cause": "Nine existing .bat physical checkout files follow explicit eol=crlf; baseline Git blobs use LF. No production/test/evidence bytes were changed.",
+  "production_code_changed": false,
+  "full_suite_run": false,
+  "SQL_opened": false,
+  "network_requests": 0
+}

@@ -1,0 +1,14 @@
+test_docket_parenthetical_value_is_inside_its_same_clause_evidence_span (tests.test_doj_case_caption_review.DojCaseCaptionReviewTests.test_docket_parenthetical_value_is_inside_its_same_clause_evidence_span) ... FAIL
+
+======================================================================
+FAIL: test_docket_parenthetical_value_is_inside_its_same_clause_evidence_span (tests.test_doj_case_caption_review.DojCaseCaptionReviewTests.test_docket_parenthetical_value_is_inside_its_same_clause_evidence_span)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/tests/test_doj_case_caption_review.py", line 133, in test_docket_parenthetical_value_is_inside_its_same_clause_evidence_span
+    self.assertIn(value["parenthetical_literal"], field["source_literal"])
+AssertionError: '(JXN-LDW)' not found in '2-24-cv-04055'
+
+----------------------------------------------------------------------
+Ran 1 test in 3.459s
+
+FAILED (failures=1)

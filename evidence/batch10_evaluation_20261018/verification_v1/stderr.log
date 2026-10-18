@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch10_evaluation_20261018/verify_saved_evidence.py", line 87, in <module>
+    "baseline_preservation": inspect_baseline(), "SQL_opened": False, "network_requests": 0,
+                             ^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch10_evaluation_20261018/verify_saved_evidence.py", line 79, in inspect_baseline
+    assert not mismatches, mismatches
+           ^^^^^^^^^^^^^^
+AssertionError: ['Nainstalovat_Patraci_Agenty.bat', 'Nainstalovat_Tydenni_Shadow.bat', 'Pripravit_SEC_Registry.bat', 'Spustit_Market_Checker.bat', 'Spustit_Patraci_Agenty.bat', 'Spustit_Tydenni_Shadow.bat', 'Vyhodnotit_Predikce.bat', 'Vyhodnotit_Specialisty.bat', 'Zkontrolovat_Zdravotnicke_Identity.bat']

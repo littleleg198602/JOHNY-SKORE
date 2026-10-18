@@ -1,0 +1,37 @@
+{
+  "scope": "UNCHANGED_INDEPENDENT_SYNTHETIC_PEER_REGRESSION",
+  "started_at": "2026-10-18T09:05:18.509853+00:00",
+  "ended_at": "2026-10-18T09:05:18.584534+00:00",
+  "elapsed_seconds": 0.07468255699996007,
+  "discovered_tests": 7,
+  "tests_run": 7,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true,
+  "producer_before": {
+    "bytes": 25057,
+    "sha256": "28551e0660ee677db9a4aee4513b204b6ebc6ca5e03688007a9119280490b566"
+  },
+  "producer_after": {
+    "bytes": 25057,
+    "sha256": "28551e0660ee677db9a4aee4513b204b6ebc6ca5e03688007a9119280490b566"
+  },
+  "unchanged_test": {
+    "bytes": 6005,
+    "sha256": "458709bb2da3f8f0b730b55a3a75424f90e40b8b5b6d081457491be3006da972"
+  },
+  "runner": {
+    "bytes": 2480,
+    "sha256": "268569944a0907d9057272b5fa0bb6d1757c0af65f9d7f5bb81e9cf3e6dc9f63"
+  },
+  "log": {
+    "bytes": 1608,
+    "sha256": "7dc6177b46aee4c25eb04f69e1e63b27dba2a95c152172ec04602af67cbe49d5"
+  },
+  "network_requests": 0,
+  "actual_production_database_writes": 0,
+  "real_windows_acceptance": false
+}

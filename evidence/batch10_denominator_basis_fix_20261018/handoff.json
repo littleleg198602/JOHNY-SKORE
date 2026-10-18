@@ -1,0 +1,169 @@
+{
+  "actual_physical_ingested_at": "2026-10-18T09:00:32.650472+00:00",
+  "actual_review_path": "evidence/batch10_denominator_basis_fix_20261018/current_actual_review.json",
+  "api": "market_checker_app.collectors.sec_supplier_revenue_denominator_review.review_sec_supplier_revenue_denominator(request, captures, *, as_of=None)",
+  "branch": "batch10/contracts-denominator-fix-20261018",
+  "collector_requests": 0,
+  "counterparty_identity_or_legal_continuity_verified": false,
+  "current_concentration_join_status": "WITHHELD_DENOMINATOR_BASIS_UNVERIFIED",
+  "current_focused_qualification": {
+    "baseline_full_suite_repeated": false,
+    "changed_denominator_methods": 28,
+    "completed_at": "2026-10-18T09:00:21.332990+00:00",
+    "discovered": 58,
+    "elapsed_seconds": 1.7372902959999692,
+    "errors": 0,
+    "executed": 58,
+    "expected_failures": 0,
+    "failures": 0,
+    "independent_peer_sha256": "5767ad8c86fc42753de7cce90c7af39b1aa5b80bcb8d047b1129b12775cc8f1d",
+    "modules": [
+      "tests.test_sec_supplier_revenue_denominator_review",
+      "tests.test_batch9_supplier_concentration"
+    ],
+    "producer_source_and_test_sha256": {
+      "market_checker_app/collectors/sec_supplier_revenue_denominator_review.py": "703614dfb36aae3a4bbcf88d97c45a7f4d23bf240391f7213c7eca247490b547",
+      "market_checker_app/services/sec_ir_disclosure_authority_review.py": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7",
+      "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+      "market_checker_app/services/sec_person_kind_review.py": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe",
+      "market_checker_app/services/sec_purchase_obligation_scope_review.py": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb",
+      "market_checker_app/services/sec_supplier_concentration_review.py": "c7673d7f99a48040708a4e829e8dc4a8e410ad4275d3902bec35580ba0992718",
+      "market_checker_app/services/sec_supply_chain_scope_review.py": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91",
+      "tests/test_batch9_supplier_concentration.py": "3144832b906dfa0271c9dabe568be962a75b3392837e85e76976d0f369af0cba",
+      "tests/test_sec_supplier_revenue_denominator_review.py": "ecf573c7818202811544557ce474ae926db8abb40bd13f3098287c911fbe51ba"
+    },
+    "production_db_or_quota_operations": 0,
+    "registry_adoptions": 0,
+    "schema_version": 1,
+    "scope": "OFFLINE_CURRENT_DENOMINATOR_WITH_UNCHANGED_INDEPENDENT_PEER_AND_DIRECT_DEPENDENCY",
+    "skips": 0,
+    "source_http_requests": 0,
+    "started_at": "2026-10-18T09:00:19.521437+00:00",
+    "successful": true,
+    "synthetic_fixtures_count_as_live": false,
+    "unchanged_independent_peer_methods": 3,
+    "unexpected_successes": 0,
+    "user_windows_or_historical_oos_verified": false
+  },
+  "current_q3_or_user_windows_acceptance_verified": false,
+  "customer_percentage_multiplied_by_total": false,
+  "customer_purchases_direct_share_or_physical_quantity_verified": false,
+  "denominator_basis_identity_verified": false,
+  "english_scan_used_as_positive_basis_evidence": false,
+  "full_specialist_acceptance": "0/21",
+  "historical_availability_or_oos_verified": false,
+  "independent_identity_peer_current_proof_references": {
+    "evidence/batch10_denominator_peer_20261018/after_peer_tests.json": {
+      "bytes": 883,
+      "sha256": "7a77ff697b29d6c694cc6abbe330c6fe8d3ed4d5c6a1572284d1c5958a5c5f3c"
+    },
+    "evidence/batch10_denominator_peer_20261018/after_peer_tests.log": {
+      "bytes": 784,
+      "sha256": "52834a98ed0007fa3e32159a7054a76e2bbbd63df72dab52e55ab339267e4aff"
+    },
+    "evidence/batch10_denominator_peer_20261018/current_after_diagnostic.json": {
+      "bytes": 111519,
+      "sha256": "7aaab7eddce2c3f0a2e5e1ed0e67de37b47d234edf2ddbd792c8afcf086e5d68"
+    }
+  },
+  "integration_note": "Root must present exact supplier total source facts alongside basis UNKNOWN/WITHHELD; retain the same byte-pinned input plan and default physical cutoff, never infer a customer amount.",
+  "known_withheld_bodies_accessed_restored_or_substituted": false,
+  "old_evidence_byte_identical": true,
+  "old_reports_qualify_only_their_original_producer": true,
+  "parent_commit": "ebe86793eb417041d6c23c28823d5a30d8389786",
+  "positive_basis_join_ever_emitted_by_this_version": false,
+  "producer_sha256": "703614dfb36aae3a4bbcf88d97c45a7f4d23bf240391f7213c7eca247490b547",
+  "production_db_or_quota_operations": 0,
+  "proof_pins": {
+    "evidence/batch10_denominator_basis_fix_20261018/README.md": {
+      "bytes": 3296,
+      "sha256": "068f3bf0e99f03c933eb16eb3da7327a39e01297e17f6b45edb5cdfb2a6b46a8"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/before_owner_test.py": {
+      "bytes": 20520,
+      "sha256": "aa7f80b710be015d5f580509472bfd14f6de6e96a3efc8f3d734335406cbe621"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/before_peer_diagnostic.json": {
+      "bytes": 107926,
+      "sha256": "0f2450e0c7972ee121668de28d5c3a0558a48d95958d6bbd4ac441ebcc6543bc"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/before_peer_diagnostic_pin.json": {
+      "bytes": 296,
+      "sha256": "7e8d5ec4cfeff1253fbf1c921a9196356b0c4cb3469c0359a72fa4c241ebc5bf"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/before_peer_test.py": {
+      "bytes": 4362,
+      "sha256": "5767ad8c86fc42753de7cce90c7af39b1aa5b80bcb8d047b1129b12775cc8f1d"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/before_peer_tests.json": {
+      "bytes": 813,
+      "sha256": "be1f33df9407126ed9ffec4a867d48cc62ee1714b953f5975439361507425369"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/before_peer_tests.log": {
+      "bytes": 5063,
+      "sha256": "8d53e8bba3e7584aeb33aa3179c581bf23f225ed2225f9db9a695105d4dd835e"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/before_pins.json": {
+      "bytes": 1908,
+      "sha256": "8f982c4c64d04fefe54b88b885f4ebe971bb305cae778e625cf0fb5ea57622df"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/before_producer.py": {
+      "bytes": 23532,
+      "sha256": "280f13da28042d536ee7e306c041963d15ba337a5cffb32cddf142f7088b419f"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/current_actual_review.json": {
+      "bytes": 16907,
+      "sha256": "2d6c25dbbcb0beab81cf059168c461770a71e6feb07a28e29f3961654626ef0a"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/current_audit.json": {
+      "bytes": 2676,
+      "sha256": "ffdc89153b103174e9572ca803ccce6fc03562503a25a2b4797d7200758b1f2b"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/current_tests.json": {
+      "bytes": 2233,
+      "sha256": "1b17868198a374bed5427ca9b6595417a549b2cc1a3463422aad63b98f0a0884"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/current_tests.log": {
+      "bytes": 13738,
+      "sha256": "db596272ede318430d42348aa2b41893d7b8b15947772fbf13ca70254d461ba8"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/qualify_current.py": {
+      "bytes": 3468,
+      "sha256": "d6e2bd9b0511a16d9865beff3e2949255f469250fdc401c991e5fe03ee5959f1"
+    },
+    "evidence/batch10_denominator_basis_fix_20261018/replay_current.py": {
+      "bytes": 676,
+      "sha256": "d106ff8747308e27f75a1edc6628e3f49fc39d351e337621307a652da05567b3"
+    },
+    "market_checker_app/collectors/sec_supplier_revenue_denominator_review.py": {
+      "bytes": 24171,
+      "sha256": "703614dfb36aae3a4bbcf88d97c45a7f4d23bf240391f7213c7eca247490b547"
+    },
+    "tests/test_sec_supplier_revenue_denominator_review.py": {
+      "bytes": 22627,
+      "sha256": "ecf573c7818202811544557ce474ae926db8abb40bd13f3098287c911fbe51ba"
+    }
+  },
+  "recorded_at": "2026-10-18T09:01:56.621924+00:00",
+  "registry_adoptions": 0,
+  "remaining_work": [
+    "Direct explicit source evidence of an identical recognition/subsidiary/revision/concentration denominator basis before positive association",
+    "Independent prior as-filed comparative versions and dated customer/legal/instrument continuity",
+    "Broader prime-award/UEI/durable source history and relevant canonical687 coverage"
+  ],
+  "retained_plan_path": "evidence/batch10_contracts_20261018/actual_review_plan.json",
+  "retained_plan_sha256": "90acd9dc3754155b9055077f5742fe55df06e859a8020be5a25b1a8919170cc6",
+  "runtime_kind": "SEC_SUPPLIER_REVENUE_DENOMINATOR",
+  "schema_version": "supplier_denominator_basis_fix_handoff_v1",
+  "score_model_fitter_budgets_trading_changed": false,
+  "source_bodies_modified_or_copied": false,
+  "source_http_requests": 0,
+  "source_inputs_known_at": "2026-10-16T12:18:16.379894+00:00",
+  "source_values_units_periods_and_109_byte_index_conflict_preserved": true,
+  "statuses": [
+    "CANDIDATE_REVIEWED",
+    "REJECTED"
+  ],
+  "supported_scope": "same original issuer and exact annual duration/financial-statement total facts only",
+  "test_sha256": "ecf573c7818202811544557ce474ae926db8abb40bd13f3098287c911fbe51ba"
+}

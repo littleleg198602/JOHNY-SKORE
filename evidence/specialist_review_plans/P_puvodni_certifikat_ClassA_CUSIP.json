@@ -1,0 +1,203 @@
+{
+  "captures": {
+    "image": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 917915,
+        "path": "evidence/batch10_identity_20261018/captures/c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45.jpg",
+        "sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 1,
+        "body_path": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45.jpg",
+        "bytes": 917915,
+        "elapsed_seconds": 4.682175267000048,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_0.jpg",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-18T04:25:43.865560+00:00",
+        "raw_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45",
+        "redirects_allowed": false,
+        "request_plan_sha256": "efa75037439e5d4934ff07260be8150488ea534cf05775ac6af010c7efaca2b9",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_0.jpg",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "917915",
+          "Content-Type": "image/jpeg",
+          "Date": "Sun, 18 Oct 2026 04:25:43 GMT",
+          "Last-Modified": "Wed, 25 Mar 2026 10:01:27 GMT"
+        },
+        "started_at": "2026-10-18T04:25:39.327460+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "index": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 14111,
+        "path": "evidence/batch9_identity_20261016/captures/7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f.bin",
+        "sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 2,
+        "body_path": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f.bin",
+        "bytes": 14111,
+        "elapsed_seconds": 4.905246268000042,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/0001474432-26-000027-index.html",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-16T12:18:00.481662+00:00",
+        "raw_sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f",
+        "redirects_allowed": false,
+        "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/0001474432-26-000027-index.html",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "14111",
+          "Content-Type": "text/html; charset=utf-8",
+          "Date": "Fri, 16 Oct 2026 12:18:00 GMT",
+          "Last-Modified": "Tue, 24 Mar 2026 22:36:40 GMT"
+        },
+        "started_at": "2026-10-16T12:17:55.578145+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "wrapper": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 1361,
+        "path": "evidence/batch9_identity_20261016/captures/b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4.bin",
+        "sha256": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 1,
+        "body_path": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4.bin",
+        "bytes": 1361,
+        "elapsed_seconds": 3.880788635999977,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex41-formofclassacommonsto.htm",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-16T12:17:55.577156+00:00",
+        "raw_sha256": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4",
+        "redirects_allowed": false,
+        "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex41-formofclassacommonsto.htm",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "1361",
+          "Content-Type": "text/html",
+          "Date": "Fri, 16 Oct 2026 12:17:55 GMT",
+          "Last-Modified": "Wed, 25 Mar 2026 10:01:27 GMT"
+        },
+        "started_at": "2026-10-16T12:17:51.696596+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    }
+  },
+  "kind": "SEC_CERTIFICATE_INSTRUMENT",
+  "request": {
+    "image_key": "image",
+    "image_reference": "image_0.jpg",
+    "index_key": "index",
+    "measurement": {
+      "fields": [
+        {
+          "bounds": [
+            890,
+            805,
+            1090,
+            837
+          ],
+          "field": "issuer_name",
+          "literal": "EVERPURE, INC."
+        },
+        {
+          "bounds": [
+            540,
+            775,
+            1440,
+            803
+          ],
+          "field": "class_and_par",
+          "literal": "FULLY PAID AND NONASSESSABLE SHARES OF CLASS A COMMON STOCK, $0.0001 PAR VALUE PER SHARE, OF"
+        },
+        {
+          "bounds": [
+            1390,
+            322,
+            1660,
+            354
+          ],
+          "field": "cusip",
+          "literal": "CUSIP 74624M 10 2"
+        },
+        {
+          "bounds": [
+            545,
+            485,
+            1465,
+            710
+          ],
+          "field": "specimen_mark",
+          "literal": "SPECIMEN"
+        },
+        {
+          "bounds": [
+            220,
+            950,
+            860,
+            995
+          ],
+          "field": "dated_field",
+          "literal": "Dated:"
+        },
+        {
+          "bounds": [
+            900,
+            973,
+            1085,
+            1160
+          ],
+          "field": "corporate_seal",
+          "literal": "EVERPURE, INC. CORPORATE SEAL OCTOBER 2, 2009 DELAWARE"
+        }
+      ],
+      "image_dimensions": [
+        1978,
+        1318
+      ],
+      "measured_at": "2026-10-18T04:29:39.896536+00:00",
+      "method": "VISUAL_TRANSCRIPTION_FROM_ORIGINAL",
+      "schema_version": "sec_certificate_visual_measurement_v1",
+      "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+    },
+    "scope": {
+      "class_title": "Class A Common Stock, $0.0001 par value per share",
+      "cusip": "74624M102",
+      "issuer_cik": "0001474432",
+      "issuer_name": "Everpure, Inc.",
+      "new_symbol": "P",
+      "old_symbol": "PSTG"
+    },
+    "wrapper_key": "wrapper"
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

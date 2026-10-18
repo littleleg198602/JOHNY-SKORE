@@ -1,0 +1,7 @@
+{
+  "test_cases_executed": 0,
+  "source_setup_error": "Sibling worktree peer file disappeared before copy; attempted runner import failed ModuleNotFoundError before any suite ran.",
+  "recovered_from_existing_local_commit": "046bda9",
+  "unchanged_test_sha256": "76c8376da28f1a2a55a5aabf3eed88ad9dfd1ce281b9f588154e39f70e337a5f",
+  "new_source_requests": 0
+}

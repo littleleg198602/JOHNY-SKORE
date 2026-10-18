@@ -1,0 +1,79 @@
+{
+  "actual_proxy_sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+  "actual_proxy_source": "evidence/batch7_sec_20261015/primary/msft_2025_proxy.htm",
+  "actual_retained_proxy_wrong_person_or_clock_error_claimed": false,
+  "before_qualification": {
+    "discovered": 3,
+    "errors": 0,
+    "executed": 3,
+    "expected_failures": 0,
+    "failures": 3,
+    "skips": 0,
+    "successful": false,
+    "unexpected_successes": 0
+  },
+  "branch": "batch10/role-claim-peer-20261018",
+  "candidate_edit_owner": "sec",
+  "candidate_sha256_before": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84",
+  "collector_requests": 0,
+  "existing_candidate_invariants_observed": [
+    "YEAR stays YEAR without an appointment day",
+    "present is source-filing-relative, not capture/Form4-relative when the visible source date is valid",
+    "account packet does not activate independent natural-person binding, name alias or legal role continuity",
+    "all scoring, registry, trading and identity-adoption flags remain false"
+  ],
+  "findings": [
+    "INTRATABLE_OTHER_NAMED_SUBJECT_STILL_DONATES_ROLE_CLAIMS",
+    "HIDDEN_INDEX_FILING_DAY_CAN_ANCHOR_PRESENT",
+    "COMPLETION_AFTER_EXPLICIT_CUTOFF_RETURNS_SOURCE_SUPPORTED_CLAIMS"
+  ],
+  "parent_commit": "ebe86793eb417041d6c23c28823d5a30d8389786",
+  "peer_modified_candidate": false,
+  "peer_test_sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be",
+  "pins": {
+    "evidence/batch10_role_claim_peer_20261018/README.md": {
+      "bytes": 2946,
+      "sha256": "d92a6009b4b83997b53038443f2a9ab595a17d39bacb777514932ecae7e0d8e1"
+    },
+    "evidence/batch10_role_claim_peer_20261018/before_diagnostic.json": {
+      "bytes": 3117,
+      "sha256": "8a5553aafcea0b20d296334be8362fd47e0bde1b9e094ff095bb1e7ba44edd0e"
+    },
+    "evidence/batch10_role_claim_peer_20261018/before_tests.log": {
+      "bytes": 3842,
+      "sha256": "b6eeb9f536c012df482c12599769995bfb177ecbb3ded7e69de14b9434bf0e8d"
+    },
+    "evidence/batch10_role_claim_peer_20261018/pre_review_build_review.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "evidence/batch10_role_claim_peer_20261018/pre_review_candidate.py": {
+      "bytes": 26101,
+      "sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84"
+    },
+    "evidence/batch10_role_claim_peer_20261018/pre_review_owner_test.py": {
+      "bytes": 28368,
+      "sha256": "43fdca820a30fff616d68b7b04e89e27967fde2b55eec71c82f817e206672a7e"
+    },
+    "evidence/batch10_role_claim_peer_20261018/pre_review_pin.json": {
+      "bytes": 1052,
+      "sha256": "84c96fb736793ca595c299d3e90633a74a29d5955e0cc3be6a147d878eb88861"
+    },
+    "evidence/batch10_role_claim_peer_20261018/run_peer.py": {
+      "bytes": 3374,
+      "sha256": "994bb9769cb72f274ca09a7cdb45686ad3b3d4ae1b196c2a5e86c59302bcbc38"
+    },
+    "tests/test_batch10_role_claim_peer.py": {
+      "bytes": 3321,
+      "sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be"
+    }
+  },
+  "production_db_or_quota_operations": 0,
+  "recorded_at": "2026-10-18T08:57:48.011060+00:00",
+  "registry_adoptions": 0,
+  "root_integrates_after_owner_fix_and_unchanged_peer_replay": true,
+  "schema_version": "independent_role_claim_peer_handoff_v1",
+  "source_http_requests": 0,
+  "synthetic_mechanisms_count_as_live": false,
+  "whole_withheld_bodies_accessed_restored_or_substituted": false
+}

@@ -1,0 +1,10 @@
+{
+  "healthcare_owner_local_commit": "1e28f6d2a8a431b252dbe106304c02cdfbf4cae5",
+  "new_HTTP_DB_or_GitHub_actions": 0,
+  "owner_git_blob_matches_independently_qualified_after_source": true,
+  "peer_modified_owner_commit_or_source": false,
+  "producer_path": "market_checker_app/collectors/fda_legal_applicant_bridge_review.py",
+  "producer_sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+  "recorded_at": "2026-10-18T09:03:51.083541+00:00",
+  "requires_owner_integration_before_peer_tests": true
+}

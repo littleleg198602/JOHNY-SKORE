@@ -1,0 +1,39 @@
+{
+  "baseline_full_suite_repeated": false,
+  "changed_denominator_methods": 28,
+  "completed_at": "2026-10-18T09:00:21.332990+00:00",
+  "discovered": 58,
+  "elapsed_seconds": 1.7372902959999692,
+  "errors": 0,
+  "executed": 58,
+  "expected_failures": 0,
+  "failures": 0,
+  "independent_peer_sha256": "5767ad8c86fc42753de7cce90c7af39b1aa5b80bcb8d047b1129b12775cc8f1d",
+  "modules": [
+    "tests.test_sec_supplier_revenue_denominator_review",
+    "tests.test_batch9_supplier_concentration"
+  ],
+  "producer_source_and_test_sha256": {
+    "market_checker_app/collectors/sec_supplier_revenue_denominator_review.py": "703614dfb36aae3a4bbcf88d97c45a7f4d23bf240391f7213c7eca247490b547",
+    "market_checker_app/services/sec_ir_disclosure_authority_review.py": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7",
+    "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+    "market_checker_app/services/sec_person_kind_review.py": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe",
+    "market_checker_app/services/sec_purchase_obligation_scope_review.py": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb",
+    "market_checker_app/services/sec_supplier_concentration_review.py": "c7673d7f99a48040708a4e829e8dc4a8e410ad4275d3902bec35580ba0992718",
+    "market_checker_app/services/sec_supply_chain_scope_review.py": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91",
+    "tests/test_batch9_supplier_concentration.py": "3144832b906dfa0271c9dabe568be962a75b3392837e85e76976d0f369af0cba",
+    "tests/test_sec_supplier_revenue_denominator_review.py": "ecf573c7818202811544557ce474ae926db8abb40bd13f3098287c911fbe51ba"
+  },
+  "production_db_or_quota_operations": 0,
+  "registry_adoptions": 0,
+  "schema_version": 1,
+  "scope": "OFFLINE_CURRENT_DENOMINATOR_WITH_UNCHANGED_INDEPENDENT_PEER_AND_DIRECT_DEPENDENCY",
+  "skips": 0,
+  "source_http_requests": 0,
+  "started_at": "2026-10-18T09:00:19.521437+00:00",
+  "successful": true,
+  "synthetic_fixtures_count_as_live": false,
+  "unchanged_independent_peer_methods": 3,
+  "unexpected_successes": 0,
+  "user_windows_or_historical_oos_verified": false
+}

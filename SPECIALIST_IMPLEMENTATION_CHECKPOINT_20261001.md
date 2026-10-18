@@ -1,5 +1,87 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+## Desátá dávka: původní rozsah a čas dokončení — 18. 10. 2026
+
+Šest skutečných izolovaných vývojových větví a čtyři nezávislé peer kontroly jsou
+spojené do explicitních CLI/UI akcí. Místní combined sada: **2476 discovered=executed,
+plain OK, 357.374s**, všechny failure/error/skip/expected/unexpected počty0.
+Testovaný code snapshot `4a081a857b5fe282f410fdee958b6918a9bfad4c`; všech 245 nových exact module/class/method
+má původní ok blok v úplném logu. Neměnný pre-hosted-CI důkaz je
+`evidence/batch10_integration_20261018.json`; původní JSON/console/runner a přesné
+method blocks jsou `evidence/batch10_linux*_20261018.*`. Nový veřejný HEAD musí
+mít vlastní hosted Linux/UI/687/Windows ZIP+originalJSON/log/digest a release gate;
+pozdější výsledek patří do PR a skutečného artefaktu, nikoli přepisem tohoto důkazu.
+
+- Původní specimen certifikátu: Class A, $0.0001 a CUSIP74624M102 přes explicitní
+  vizuální anotaci. Dated/holder/shares/number jsou prázdné; vzor není vydaný
+  instrument ani datovaná změna tickeru. Devět blockerů, žádný alias/Q3 adoption.
+- Původní roster2017: kratší Pfizer Ireland Pharmaceuticals/Ireland,468 řádků
+  v11 continuation tabulkách; přesný současný Unlimited Company applicant chybí.
+  Cizí sekce nesmí dodat subsidiary-point fakt. Product001/002 a neuzavřený
+  Purple Book kontejner zůstávají samostatné PARTIAL zdroje.
+- DOJ dvě původní PDF:95 page stamps,3 document/page-local captions,686 field
+  evidence records. Literal party variants nejsou aliasy; separate Order,
+  financial issuer identity, aktuální docket/disposition a merits nejsou ověřené.
+- SWKS skutečné net revenue4,086.9/4,178.0/4,772.4 USDmillion FY2025/24/23.
+  Source entity/period/unit fakta zůstávají, exact denominator basis je WITHHELD;
+  regex bez nalezené výhrady nikdy neprokazuje kompatibilitu. Žádné Appleamount,
+  purchases, direct-channel share nebo starší as-filed srovnatelnost.
+- Nezávislý proxy životopis:7 named role claims/8 career assertions s YEAR
+  precision; present platí vůči2025-10-21. Donor-person row, skrytý filing date
+  a completion za explicitním cutoff se odmítají. Account/alias/continuity false.
+- Výchozí vypnutý readiness recorder uloží fyzické hodiny, kód a dostupné podklady.
+  Skutečný Linux CLI/UI je UNSUPPORTED_PLATFORM/WAIT. Původní journal zabránil SQL
+  otevření; table/count metadata jsou null/UNOBSERVED, nikoli prokázané nuly.
+  Journal ani DB se nepřehrává, nekopíruje, nezakládá ani nemění. Readiness není
+  same-process userWindows end-to-end důkaz a acceptance zůstává vždy false.
+
+Čtyři skutečné peer reprodukce před opravami jsou zachované: denominator3 failure
+entries ve3 methods, role3/3 failures, applicant4/7 failures a readiness6/7 failures.
+Stejné assertions po opravách prošly. Tři další completion-clock opravy drží
+novou znalost až na fyzickém konci po všech supporting facts; source-read cutoff
+je samostatný. Původní producer/test/report bytes a dřívější kvalifikace se nemění.
+Root původní9-method focus měl1 UI failure a2 fixture-contract errors; whole source,
+log a diagnostic jsou v coordinator/integration_v1. Opravený10-method focus a celá
+combined sada prošly; nepoužívají se nuly nebo názvy cest jako náhrada obsahu.
+
+Nový source HTTP je přesně1: původní917915B SEC JPEG, SHA
+`c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45`.
+Ostatní větve0 source/collector HTTP; retained replays nejsou nové odpovědi.
+NHTSA live zůstává approval-blocked, původní market failed plan consumed;
+žádný retry/alternate transport/refund/lease rewrite/new quotaDB.
+Deset skutečných source CLI/UI akcí a dva readiness captures mají0 HTTP/SQL/adopcí.
+Všech1578 starších veřejných evidencefiles/78,105,622bytes,188 původních testfiles/
+2,440,692bytes a7 chráněných registrů/universe vstupů je byte-identical. Historické
+source piny jsou výslovně oddělené od současných producerů. Všechna4 withheld
+whole bodies zůstávají absent, žádný substitute ani private ancestry push.
+
+Obsahově ověřený32 baseline/run39093644927 má2231plainOK na Linuxu i Windows a
+všech5checks success; původní ZIP/JSON/log jsou v `evidence/batch10_baseline_ci_20261018/`.
+Tato kvalifikace patří pouze32. Canonical687/Q2instrument150/currentQ3=0,
+healthcare10/NHTSA3/legal5/verifiedadopt0/**fullacceptance0/21**. Všech21 code/live
+stavů, default modelconfig/fitter/skóre a687/60s budget zůstává beze změny.
+Žádný merge ani oznámení úplného dokončení před skutečnou akceptací všech21.
+
+### Aktuální konkrétní fronta po desáté dávce
+
+- identity_bulk: nezávislý datovaný ClassA/CUSIP/symbol/action bridge, LEG
+  direct/indirect control, XOM July7/newCUSIP. Specimen nerozšiřuje Q2 do Q3.
+- healthcare: přesná Ireland applicant/legal/product ownership kontinuita;
+  původní CMS CCN/PAC/name, širší clinical object scope a durable source historie.
+- regulatory: pouze offline bez NHTSA retry; FRS/program/dated ownership,
+  separate original DOJ Order/current docket/financial identity/disposition.
+- contracts: whole prime pages/earlier UEI/durable quota/wider awards/revisions;
+  independent denominator basis, dated customer continuity a physical quantities.
+- sec: independently dated person/account/legal-role/instrument identity,
+  safe original current publisher IR authority. Literal YEAR claims nestačí.
+- evaluation: genuine66-session market originals a publisher revision,
+  skutečná uložená předpověď před nově přepočteným first-forward open, pozdější
+  labels, same-process native userWindows run, broader coverage/history/OOS.
+  Žádný fakeforecast/backdate/slide/activation nebo opakování consumed planu.
+
+<!-- Starší oddíly jsou nezměněné kvalifikace vlastních verzí. -->
+
+
 ## Windows CI: neúplný běh a bounded časový prostor — 18. 10. 2026
 
 Public b0e866de/run39072646508 skončil cancelled; Windows117513252470 cancelled,

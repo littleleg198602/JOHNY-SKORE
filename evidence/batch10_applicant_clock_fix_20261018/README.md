@@ -1,0 +1,9 @@
+# Completion availability of the legal applicant review
+
+The original actual report recorded outer knowledge at `2026-10-18T09:01:04.795650Z`, before either supporting child review existed. The unchanged original report, producer and tests are preserved here, and every prior batch10 evidence file remains byte-identical to commit `1e28f6d`.
+
+The pure API now records `review_started_at` separately. Its single completion guard gives `reviewed_at`, `review_completed_at`, `known_at` and `ingested_at` the actual physical end time, after the roster interpretation and both child reviews. The end must follow the start and every child review/knowledge/ingestion time. Rollback or a child timestamp beyond the physical end raises an error; it is never repaired by clamping or backdating. Both the normal path and the missing-source early return use this guard. The caller's source-read cutoff keeps its independent meaning.
+
+`test_results.json` pins the qualified source, full 34-test focused log and unchanged seven-method regulatory peer log. Added clock cases use explicit synthetic sequential clocks, including slow children, missing sources, parse rejection, future child times and rollback. These are contract tests, not live collection evidence. An initial peer-file setup error ran no tests; the exact unchanged source was recovered from existing local commit `046bda9` and remains pinned.
+
+`actual_review.json` is a new offline interpretation of the same five original body pins at current physical time. `clock_audit.json` retains the old counterexample and verifies the new completion ordering. The compatible retained plan and all old source bytes are unchanged. Roster facts remain 468 rows/11 tables, no exact Unlimited Company match, and `PARTIAL`; no issuer/owner/control adoption occurs. No HTTP, database, quota, registry, score, model, budget or trading change was made. Full specialist acceptance remains 0/21.

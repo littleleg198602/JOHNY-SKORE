@@ -1,0 +1,46 @@
+{
+  "HTTP_DB_actions": 0,
+  "candidate_modified_by_peer": false,
+  "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015",
+  "expected_owner_fix_sha256_verified": true,
+  "files": [
+    {
+      "bytes": 21923,
+      "candidate_path": "market_checker_app/collectors/fda_legal_applicant_bridge_review.py",
+      "sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/fda_legal_applicant_bridge_review.py"
+    },
+    {
+      "bytes": 19166,
+      "candidate_path": "tests/test_fda_legal_applicant_bridge_review.py",
+      "sha256": "3b44c879ec60865ea75f0c77485be6c0c2e7bea7c13ca9a7a4b6fed947b9f286",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/test_fda_legal_applicant_bridge_review.py"
+    },
+    {
+      "bytes": 6401,
+      "candidate_path": "evidence/batch10_healthcare_20261018/replay_sources.py",
+      "sha256": "dfdade7905734a7dac9dbafbb3d087ca5e5c7d741e975e5f760282d0db26a2b1",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/replay_sources.py"
+    },
+    {
+      "bytes": 12166,
+      "candidate_path": "evidence/batch10_healthcare_20261018/retained_review_plan.json",
+      "sha256": "558c2d22d267d3d33f4e3ec0d6ab7890f5a5182e9c5ae83ad5ead05fe90b47b2",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/retained_review_plan.json"
+    },
+    {
+      "bytes": 17326,
+      "candidate_path": "evidence/batch10_healthcare_20261018/source_review.json",
+      "sha256": "aaf9f1d02ff9a8be571a21c7597600c9effa22c2c9012fd2f70f30a01230d812",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/source_review.json"
+    },
+    {
+      "bytes": 6091,
+      "candidate_path": "evidence/batch10_healthcare_20261018/focused_tests.log",
+      "sha256": "417c88664594f4eecb28c32e9361f61a65e7fe2901d9c0541b3003b273c08559",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/focused_tests.log"
+    }
+  ],
+  "peer_test_sha256_unchanged": "76c8376da28f1a2a55a5aabf3eed88ad9dfd1ce281b9f588154e39f70e337a5f",
+  "recorded_at": "2026-10-18T09:01:51.448573+00:00"
+}

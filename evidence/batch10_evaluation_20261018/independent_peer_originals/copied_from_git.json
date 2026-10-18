@@ -1,0 +1,66 @@
+{
+  "commit": "02e3e6f773b8906893afe301d79e5e815c9cda26",
+  "copies_are_byte_identical_git_blobs": true,
+  "files": {
+    "evidence/batch10_readiness_peer_20261018/README.md": {
+      "copied_as": "README.md",
+      "bytes": 2508,
+      "sha256": "598d1775b405729dd0c312a0b286d72d8ce628a10623b683e1f58c107709e59f"
+    },
+    "evidence/batch10_readiness_peer_20261018/after_fix_01.json": {
+      "copied_as": "after_fix_01.json",
+      "bytes": 1135,
+      "sha256": "a8ae081b01276f30639b44864263a7ce31bcaf737e72dae9572edcc64151e9ed"
+    },
+    "evidence/batch10_readiness_peer_20261018/after_fix_01.log": {
+      "copied_as": "after_fix_01.log",
+      "bytes": 1594,
+      "sha256": "074aef6fcfa3136882d28c3bbd598f0cce53f1a245ece95fa7df9c99d98d52c1"
+    },
+    "evidence/batch10_readiness_peer_20261018/before_fix_01.json": {
+      "copied_as": "before_fix_01.json",
+      "bytes": 1136,
+      "sha256": "007dfbc5c9ce6157d611500dffebf12045b0943256c4e1101663095518482ee9"
+    },
+    "evidence/batch10_readiness_peer_20261018/before_fix_01.log": {
+      "copied_as": "before_fix_01.log",
+      "bytes": 7786,
+      "sha256": "a0828182642d5395dc98282bddf67785df4f637cf427ca93e509fe78d1c006cf"
+    },
+    "evidence/batch10_readiness_peer_20261018/candidate_after.py": {
+      "copied_as": "candidate_after.py",
+      "bytes": 24341,
+      "sha256": "0a2354b9a2154237fe2a239cc6d216080e348b56ebb2d647045fd437428ecc15"
+    },
+    "evidence/batch10_readiness_peer_20261018/candidate_before.json": {
+      "copied_as": "candidate_before.json",
+      "bytes": 413,
+      "sha256": "ba6d9bb19b2cd03dca1f2b434be7a0aa0796899ea8ab602f1dd7a226cd229850"
+    },
+    "evidence/batch10_readiness_peer_20261018/candidate_before.py": {
+      "copied_as": "candidate_before.py",
+      "bytes": 22140,
+      "sha256": "a11ab873d2fdaa88bed98f7ad65beb717dd386fd5aa5001c191ecf04f2551f17"
+    },
+    "evidence/batch10_readiness_peer_20261018/handoff_after.json": {
+      "copied_as": "handoff_after.json",
+      "bytes": 3144,
+      "sha256": "fdc11c57658989ba328a018e551c4562a5b634c9a2dc34cc7c4114f1940c59ff"
+    },
+    "evidence/batch10_readiness_peer_20261018/handoff_before.json": {
+      "copied_as": "handoff_before.json",
+      "bytes": 3762,
+      "sha256": "276219ec34895e9db204bcd1691095b4905c5447f130b73f567faefa642b56fd"
+    },
+    "evidence/batch10_readiness_peer_20261018/run_peer.py": {
+      "copied_as": "run_peer.py",
+      "bytes": 3002,
+      "sha256": "90c03cd373d7a9064b2d2ec33b7853bcfe42ae4efd81e6726c70e6542b203247"
+    },
+    "tests/test_batch10_readiness_peer.py": {
+      "copied_as": "test_batch10_readiness_peer.py",
+      "bytes": 6005,
+      "sha256": "458709bb2da3f8f0b730b55a3a75424f90e40b8b5b6d081457491be3006da972"
+    }
+  }
+}

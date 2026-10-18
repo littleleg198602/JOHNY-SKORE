@@ -1,0 +1,2431 @@
+{
+  "candidate_source_edited": false,
+  "db_writes": 0,
+  "executed_at": "2026-10-18T08:58:03.176236+00:00",
+  "mode": "frozen",
+  "new_source_requests": 0,
+  "producer_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/evidence/batch10_denominator_peer_20261018/producer_versions/candidate_service.py",
+  "producer_sha256": "280f13da28042d536ee7e306c041963d15ba337a5cffb32cddf142f7088b419f",
+  "registry_adoptions": 0,
+  "results": [
+    {
+      "case": "unchanged_policy_control",
+      "qualification": "",
+      "request": {
+        "concentration_request": {
+          "selection": {
+            "aggregation_qualifier_literal": "in the aggregate",
+            "alias_passage": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "channel_qualifier_literal": "through sales to multiple distributors, contract manufacturers, and direct sales for multiple applications including smartphones, tablets, desktop, and notebook computers, watches and other devices",
+            "claim_role": "CUSTOMER_REVENUE_CONCENTRATION",
+            "concentration_passage": {
+              "byte_end": 4721,
+              "byte_start": 3916,
+              "sha256": "c2affe1b53540ede29f1c7ddd1205629a88ea9abc8ec9dc4ccf2c7bb012a1c42"
+            },
+            "counterparty_kind": "NAMED",
+            "counterparty_label": "Apple",
+            "counterparty_legal_name_literal": "Apple Inc.",
+            "denominator_literal": "the Company’s net revenue",
+            "fiscal_calendar_passage": {
+              "byte_end": 3863,
+              "byte_start": 3537,
+              "sha256": "7b3ac452fbc4418aebd9096b4ffcfe2065037ee1374d4d4255a2e7b790a2c515"
+            },
+            "fiscal_period_end": "2025-10-03",
+            "issuer_cik": "0000004127",
+            "issuer_context_id": "c-1",
+            "issuer_name": "Skyworks Solutions, Inc.",
+            "issuer_ticker": "SWKS",
+            "periods": [
+              {
+                "context_id": "c-229",
+                "fact_id": "f-977",
+                "fiscal_year": 2025,
+                "period_end": "2025-10-03",
+                "period_start": "2024-09-28",
+                "value_literal": "67"
+              },
+              {
+                "context_id": "c-230",
+                "fact_id": "f-978",
+                "fiscal_year": 2024,
+                "period_end": "2024-09-27",
+                "period_start": "2023-09-30",
+                "value_literal": "69"
+              },
+              {
+                "context_id": "c-231",
+                "fact_id": "f-979",
+                "fiscal_year": 2023,
+                "period_end": "2023-09-29",
+                "period_start": "2022-10-01",
+                "value_literal": "66"
+              }
+            ],
+            "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+            "scope_passage": {
+              "byte_end": 3537,
+              "byte_start": 3372,
+              "sha256": "98c1342571389c2f6291d999e69c05025f4d2fc1cee035d5d699335e1b714aee"
+            },
+            "section_heading": {
+              "byte_end": 3916,
+              "byte_start": 3863,
+              "sha256": "99f6bf593e27ee18b8754dfc9c0b156f69a55df387b7f7500d6470e717005faa"
+            }
+          }
+        },
+        "selection": {
+          "basis_passage": {
+            "byte_end": 6593,
+            "byte_start": 6289,
+            "sha256": "300367f979fbe0021df477d694915e8947e543db1df81326a7ea2ead34362985"
+          },
+          "column_header_row": {
+            "byte_end": 5616,
+            "byte_start": 5520,
+            "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+          },
+          "measure": "NET_REVENUE",
+          "period_header_row": {
+            "byte_end": 5520,
+            "byte_start": 5463,
+            "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+          },
+          "periods": [
+            {
+              "column": 1,
+              "context_id": "c-1",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "value_literal": "4,086.9"
+            },
+            {
+              "column": 2,
+              "context_id": "c-7",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "value_literal": "4,178.0"
+            },
+            {
+              "column": 3,
+              "context_id": "c-8",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_row": {
+            "byte_end": 6281,
+            "byte_start": 5616,
+            "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+          },
+          "statement_heading": {
+            "byte_end": 5406,
+            "byte_start": 5358,
+            "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+          },
+          "statement_issuer_heading": {
+            "byte_end": 5358,
+            "byte_start": 5323,
+            "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+          },
+          "statement_table": {
+            "byte_end": 6289,
+            "byte_start": 5456,
+            "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+          },
+          "unit_heading": {
+            "byte_end": 5456,
+            "byte_start": 5406,
+            "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+          }
+        }
+      },
+      "result": {
+        "activation_allowed": false,
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "claim": {
+          "broader_award_uei_or_durable_history_verified": false,
+          "candidate_id": "supplier-net-revenue:7543167c0b7ea46c45840391a14801cbc4b6740eeec0c9f21c0e79547b33484e",
+          "comparative_version_scope": "COMPARATIVES_AS_REPORTED_IN_THIS_CURRENT_FILING",
+          "concentration_candidate_id": "supplier-concentration:7c20728990ee95eb88304846fd7e178196129625d47c2d671bbd390914c85283",
+          "concentration_join_status": "SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED",
+          "concentration_selection_sha256": "08dc023f39ed736991fc6d068935ef26dfe378405fa5624c3cfce87960ab83c4",
+          "customer_percentage_times_amount_performed": false,
+          "definition_change_terms_in_selected_policy": [],
+          "definition_comparability_across_prior_filings": "UNKNOWN_NOT_RECONSTRUCTED",
+          "definition_policy_literal": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection.",
+          "denominator_owner": {
+            "absolute_amount": null,
+            "counterparty_own_revenue": false,
+            "literal": "the Company’s net revenue",
+            "measure": "REPORTING_GROUP_NET_REVENUE",
+            "owner_cik": "0000004127",
+            "owner_name": "Skyworks Solutions, Inc."
+          },
+          "evidence": {
+            "basis_passage": {
+              "byte_end": 6593,
+              "byte_start": 6289,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection.",
+              "sha256": "300367f979fbe0021df477d694915e8947e543db1df81326a7ea2ead34362985"
+            },
+            "column_header_row": {
+              "byte_end": 5616,
+              "byte_start": 5520,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "October 3, 2025",
+                "September 27, 2024",
+                "September 29, 2023"
+              ],
+              "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+            },
+            "period_header_row": {
+              "byte_end": 5520,
+              "byte_start": 5463,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended"
+              ],
+              "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+            },
+            "revenue_row": {
+              "byte_end": 6281,
+              "byte_start": 5616,
+              "fact_ids": [
+                "den-25",
+                "den-24",
+                "den-23"
+              ],
+              "literal_cells": [
+                "Net revenue",
+                "4,086.9",
+                "4,178.0",
+                "4,772.4"
+              ],
+              "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+            },
+            "statement_heading": {
+              "byte_end": 5406,
+              "byte_start": 5358,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "CONSOLIDATED STATEMENTS OF OPERATIONS",
+              "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+            },
+            "statement_issuer_heading": {
+              "byte_end": 5358,
+              "byte_start": 5323,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "SKYWORKS SOLUTIONS, INC.",
+              "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+            },
+            "statement_table": {
+              "byte_end": 6289,
+              "byte_start": 5456,
+              "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+            },
+            "unit_heading": {
+              "byte_end": 5456,
+              "byte_start": 5406,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "(In millions, except per share amounts)",
+              "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+            }
+          },
+          "filing": {
+            "acceptance_datetime_unqualified_raw": "2025-11-07 16:08:12",
+            "acceptance_timezone_inferred": false,
+            "accession_key": "000000412725000085",
+            "captured_primary_bytes": 6607,
+            "document_type": "10-K",
+            "exact_historical_as_filed_version_verified": false,
+            "filing_day": "2025-11-07",
+            "index_declared_primary_bytes": 4617,
+            "issuer_cik": "0000004127",
+            "primary_filename": "swks-20251003.htm",
+            "publisher_size_conflict": true,
+            "report_period_end": "2025-10-03"
+          },
+          "filing_index_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 649,
+            "body_sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "638287d1b37f7c87ba32c78d816a3e69f0f1cb3d2919708bc7e519d7a3a4a32e",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/0000004127-25-000085-index.htm"
+          },
+          "generic_customer_member_renamed": false,
+          "issuer_anchor": {
+            "canonical_ticker_hint": "SWKS",
+            "cik": "0000004127",
+            "cik_fact_ids": [
+              null
+            ],
+            "context_id": "c-1",
+            "current_instrument_identity_verified": false,
+            "document_type": "10-K",
+            "fiscal_period_end": "2025-10-03",
+            "fiscal_period_start": "2024-09-28",
+            "fiscal_year_focus": "2025",
+            "name_fact_ids": [
+              null
+            ],
+            "period_fact_ids": [
+              null
+            ],
+            "reported_dei_name": "Skyworks Solutions, Inc.",
+            "year_fact_ids": [
+              null
+            ]
+          },
+          "measure": "NET_REVENUE",
+          "missing_facts": [
+            "PRIOR_AS_FILED_COMPARATIVE_VERSIONS_AND_RESTATEMENT_HISTORY_UNVERIFIED",
+            "APPLE_PURCHASES_DIRECT_CHANNEL_SHARE_AND_PHYSICAL_QUANTITY_NOT_REPORTED_BY_THIS_DENOMINATOR",
+            "CUSTOMER_LEGAL_CONTINUITY_AND_CURRENT_INSTRUMENT_Q3_UNVERIFIED",
+            "BROADER_AWARD_UEI_AND_ORIGINAL_DURABLE_QUOTA_HISTORY_UNAVAILABLE",
+            "PUBLISHER_PUBLICATION_INSTANT_UNKNOWN",
+            "RELEVANT_687_COVERAGE_AND_HISTORICAL_OOS_UNVERIFIED",
+            "INDEX_SERVED_ORIGINAL_SIZE_CONFLICT_PRESERVED"
+          ],
+          "primary_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_path": null,
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 6607,
+            "body_sha256": "95147daace930dede774a4e0328a33182d8f55f0ded1eba228e978042b39f19b",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_capture_metadata_sha256": "9a79f3abba958c4887dc47220640b79ee7846c4314ae124cec92786292f6c61b",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "9a79f3abba958c4887dc47220640b79ee7846c4314ae124cec92786292f6c61b",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003.htm"
+          },
+          "quantities": [
+            {
+              "cell_evidence": {
+                "byte_end": 5852,
+                "byte_start": 5640,
+                "sha256": "aa84ef3c1dc2c1b0ba4c6f5e3a0a4b81345ab0f408b6909d4720995e3bcf320e"
+              },
+              "column": 1,
+              "comparative_in_current_filing": false,
+              "concentration_context_id": "c-229",
+              "concentration_fact_id": "f-977",
+              "context_dimensions": [],
+              "context_id": "c-1",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4086900000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,086.9"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6064,
+                "byte_start": 5852,
+                "sha256": "afa0715ae1346da9b3100ccd883f5a7babf448d1bce3f5e1f4534e240c3d8fca"
+              },
+              "column": 2,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-230",
+              "concentration_fact_id": "f-978",
+              "context_dimensions": [],
+              "context_id": "c-7",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4178000000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,178.0"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6276,
+                "byte_start": 6064,
+                "sha256": "192ae69fe71e84ece3fe878d8eb2b1f81eac5d920b451764bbd719c33bee464c"
+              },
+              "column": 3,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-231",
+              "concentration_fact_id": "f-979",
+              "context_dimensions": [],
+              "context_id": "c-8",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4772400000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "registry_identity_adopted": false,
+          "reported_customer": {
+            "alias_evidence": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Our key customers include Amazon, Apple Inc. (“Apple”), and Delta Corp. Our competitors include Delta Rival.",
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "kind": "NAMED",
+            "reported_label": "Apple",
+            "reported_legal_name": "Apple Inc.",
+            "source_disclosed_alias_supported": true
+          },
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_concept_scope": "CUSTOMER_CONTRACT_REVENUE_EXCLUDING_ASSESSED_TAX_NET_OF_ESTIMATED_RESERVES",
+          "source_format": "CONSOLIDATED_STATEMENT_THREE_ANNUAL_DURATION_FACTS",
+          "source_inputs_known_at": "2026-10-16T12:00:00+00:00"
+        },
+        "collector_requests": 0,
+        "counterparty_identity_continuity_verified": false,
+        "counterparty_purchases_verified": false,
+        "current_instrument_or_q3_verified": false,
+        "customer_amount_calculated": false,
+        "db_writes": 0,
+        "direct_purchase_share_verified": false,
+        "fitter_modified": false,
+        "historical_as_filed_comparison_verified": false,
+        "historical_availability_reconstructed": false,
+        "ingested_at": "2026-10-19T12:00:00+00:00",
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "model_modified": false,
+        "out_of_sample_verified": false,
+        "physical_quantity_denominator_verified": false,
+        "read_only": true,
+        "reason": "",
+        "registry_adoptions": 0,
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "sec-supplier-revenue-denominator-v1",
+        "scoring_applied": false,
+        "source_http_requests": 0,
+        "status": "CANDIDATE_REVIEWED",
+        "trading_allowed": false,
+        "usaspending_requests": 0
+      },
+      "synthetic_source_pins": {
+        "index": {
+          "bytes": 649,
+          "sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef"
+        },
+        "issuer": {
+          "bytes": 6607,
+          "sha256": "95147daace930dede774a4e0328a33182d8f55f0ded1eba228e978042b39f19b"
+        }
+      }
+    },
+    {
+      "case": "explicit_subsidiary_scope_difference",
+      "qualification": " The 2024 and 2023 net revenue totals in these statements exclude subsidiary sales that remain included in the customer concentration percentages.",
+      "request": {
+        "concentration_request": {
+          "selection": {
+            "aggregation_qualifier_literal": "in the aggregate",
+            "alias_passage": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "channel_qualifier_literal": "through sales to multiple distributors, contract manufacturers, and direct sales for multiple applications including smartphones, tablets, desktop, and notebook computers, watches and other devices",
+            "claim_role": "CUSTOMER_REVENUE_CONCENTRATION",
+            "concentration_passage": {
+              "byte_end": 4721,
+              "byte_start": 3916,
+              "sha256": "c2affe1b53540ede29f1c7ddd1205629a88ea9abc8ec9dc4ccf2c7bb012a1c42"
+            },
+            "counterparty_kind": "NAMED",
+            "counterparty_label": "Apple",
+            "counterparty_legal_name_literal": "Apple Inc.",
+            "denominator_literal": "the Company’s net revenue",
+            "fiscal_calendar_passage": {
+              "byte_end": 3863,
+              "byte_start": 3537,
+              "sha256": "7b3ac452fbc4418aebd9096b4ffcfe2065037ee1374d4d4255a2e7b790a2c515"
+            },
+            "fiscal_period_end": "2025-10-03",
+            "issuer_cik": "0000004127",
+            "issuer_context_id": "c-1",
+            "issuer_name": "Skyworks Solutions, Inc.",
+            "issuer_ticker": "SWKS",
+            "periods": [
+              {
+                "context_id": "c-229",
+                "fact_id": "f-977",
+                "fiscal_year": 2025,
+                "period_end": "2025-10-03",
+                "period_start": "2024-09-28",
+                "value_literal": "67"
+              },
+              {
+                "context_id": "c-230",
+                "fact_id": "f-978",
+                "fiscal_year": 2024,
+                "period_end": "2024-09-27",
+                "period_start": "2023-09-30",
+                "value_literal": "69"
+              },
+              {
+                "context_id": "c-231",
+                "fact_id": "f-979",
+                "fiscal_year": 2023,
+                "period_end": "2023-09-29",
+                "period_start": "2022-10-01",
+                "value_literal": "66"
+              }
+            ],
+            "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+            "scope_passage": {
+              "byte_end": 3537,
+              "byte_start": 3372,
+              "sha256": "98c1342571389c2f6291d999e69c05025f4d2fc1cee035d5d699335e1b714aee"
+            },
+            "section_heading": {
+              "byte_end": 3916,
+              "byte_start": 3863,
+              "sha256": "99f6bf593e27ee18b8754dfc9c0b156f69a55df387b7f7500d6470e717005faa"
+            }
+          }
+        },
+        "selection": {
+          "basis_passage": {
+            "byte_end": 6739,
+            "byte_start": 6289,
+            "sha256": "bf37f38254dd0a7933cf39d06b48d91492c15b66ea27592521f5a179d0b92538"
+          },
+          "column_header_row": {
+            "byte_end": 5616,
+            "byte_start": 5520,
+            "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+          },
+          "measure": "NET_REVENUE",
+          "period_header_row": {
+            "byte_end": 5520,
+            "byte_start": 5463,
+            "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+          },
+          "periods": [
+            {
+              "column": 1,
+              "context_id": "c-1",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "value_literal": "4,086.9"
+            },
+            {
+              "column": 2,
+              "context_id": "c-7",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "value_literal": "4,178.0"
+            },
+            {
+              "column": 3,
+              "context_id": "c-8",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_row": {
+            "byte_end": 6281,
+            "byte_start": 5616,
+            "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+          },
+          "statement_heading": {
+            "byte_end": 5406,
+            "byte_start": 5358,
+            "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+          },
+          "statement_issuer_heading": {
+            "byte_end": 5358,
+            "byte_start": 5323,
+            "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+          },
+          "statement_table": {
+            "byte_end": 6289,
+            "byte_start": 5456,
+            "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+          },
+          "unit_heading": {
+            "byte_end": 5456,
+            "byte_start": 5406,
+            "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+          }
+        }
+      },
+      "result": {
+        "activation_allowed": false,
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "claim": {
+          "broader_award_uei_or_durable_history_verified": false,
+          "candidate_id": "supplier-net-revenue:ef6858c1feb2fad99c35cab99472d3d0dbb20e196645ed3626f8c1cd3ce30f6d",
+          "comparative_version_scope": "COMPARATIVES_AS_REPORTED_IN_THIS_CURRENT_FILING",
+          "concentration_candidate_id": "supplier-concentration:743db4ed06df67c74eea66a475df3c7490f98b64136adb7992473ebefc7625f2",
+          "concentration_join_status": "SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED",
+          "concentration_selection_sha256": "08dc023f39ed736991fc6d068935ef26dfe378405fa5624c3cfce87960ab83c4",
+          "customer_percentage_times_amount_performed": false,
+          "definition_change_terms_in_selected_policy": [],
+          "definition_comparability_across_prior_filings": "UNKNOWN_NOT_RECONSTRUCTED",
+          "definition_policy_literal": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection. The 2024 and 2023 net revenue totals in these statements exclude subsidiary sales that remain included in the customer concentration percentages.",
+          "denominator_owner": {
+            "absolute_amount": null,
+            "counterparty_own_revenue": false,
+            "literal": "the Company’s net revenue",
+            "measure": "REPORTING_GROUP_NET_REVENUE",
+            "owner_cik": "0000004127",
+            "owner_name": "Skyworks Solutions, Inc."
+          },
+          "evidence": {
+            "basis_passage": {
+              "byte_end": 6739,
+              "byte_start": 6289,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection. The 2024 and 2023 net revenue totals in these statements exclude subsidiary sales that remain included in the customer concentration percentages.",
+              "sha256": "bf37f38254dd0a7933cf39d06b48d91492c15b66ea27592521f5a179d0b92538"
+            },
+            "column_header_row": {
+              "byte_end": 5616,
+              "byte_start": 5520,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "October 3, 2025",
+                "September 27, 2024",
+                "September 29, 2023"
+              ],
+              "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+            },
+            "period_header_row": {
+              "byte_end": 5520,
+              "byte_start": 5463,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended"
+              ],
+              "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+            },
+            "revenue_row": {
+              "byte_end": 6281,
+              "byte_start": 5616,
+              "fact_ids": [
+                "den-25",
+                "den-24",
+                "den-23"
+              ],
+              "literal_cells": [
+                "Net revenue",
+                "4,086.9",
+                "4,178.0",
+                "4,772.4"
+              ],
+              "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+            },
+            "statement_heading": {
+              "byte_end": 5406,
+              "byte_start": 5358,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "CONSOLIDATED STATEMENTS OF OPERATIONS",
+              "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+            },
+            "statement_issuer_heading": {
+              "byte_end": 5358,
+              "byte_start": 5323,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "SKYWORKS SOLUTIONS, INC.",
+              "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+            },
+            "statement_table": {
+              "byte_end": 6289,
+              "byte_start": 5456,
+              "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+            },
+            "unit_heading": {
+              "byte_end": 5456,
+              "byte_start": 5406,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "(In millions, except per share amounts)",
+              "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+            }
+          },
+          "filing": {
+            "acceptance_datetime_unqualified_raw": "2025-11-07 16:08:12",
+            "acceptance_timezone_inferred": false,
+            "accession_key": "000000412725000085",
+            "captured_primary_bytes": 6753,
+            "document_type": "10-K",
+            "exact_historical_as_filed_version_verified": false,
+            "filing_day": "2025-11-07",
+            "index_declared_primary_bytes": 4617,
+            "issuer_cik": "0000004127",
+            "primary_filename": "swks-20251003.htm",
+            "publisher_size_conflict": true,
+            "report_period_end": "2025-10-03"
+          },
+          "filing_index_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 649,
+            "body_sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "638287d1b37f7c87ba32c78d816a3e69f0f1cb3d2919708bc7e519d7a3a4a32e",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/0000004127-25-000085-index.htm"
+          },
+          "generic_customer_member_renamed": false,
+          "issuer_anchor": {
+            "canonical_ticker_hint": "SWKS",
+            "cik": "0000004127",
+            "cik_fact_ids": [
+              null
+            ],
+            "context_id": "c-1",
+            "current_instrument_identity_verified": false,
+            "document_type": "10-K",
+            "fiscal_period_end": "2025-10-03",
+            "fiscal_period_start": "2024-09-28",
+            "fiscal_year_focus": "2025",
+            "name_fact_ids": [
+              null
+            ],
+            "period_fact_ids": [
+              null
+            ],
+            "reported_dei_name": "Skyworks Solutions, Inc.",
+            "year_fact_ids": [
+              null
+            ]
+          },
+          "measure": "NET_REVENUE",
+          "missing_facts": [
+            "PRIOR_AS_FILED_COMPARATIVE_VERSIONS_AND_RESTATEMENT_HISTORY_UNVERIFIED",
+            "APPLE_PURCHASES_DIRECT_CHANNEL_SHARE_AND_PHYSICAL_QUANTITY_NOT_REPORTED_BY_THIS_DENOMINATOR",
+            "CUSTOMER_LEGAL_CONTINUITY_AND_CURRENT_INSTRUMENT_Q3_UNVERIFIED",
+            "BROADER_AWARD_UEI_AND_ORIGINAL_DURABLE_QUOTA_HISTORY_UNAVAILABLE",
+            "PUBLISHER_PUBLICATION_INSTANT_UNKNOWN",
+            "RELEVANT_687_COVERAGE_AND_HISTORICAL_OOS_UNVERIFIED",
+            "INDEX_SERVED_ORIGINAL_SIZE_CONFLICT_PRESERVED"
+          ],
+          "primary_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_path": null,
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 6753,
+            "body_sha256": "c23e786355574bb6f1fbabbcb605b05d96ed9fd97b8ca663630589218b8531ef",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_capture_metadata_sha256": "d35b6c2d732724f8b73a373b1dd258bc7b6f2bbc082ee4d8c0c948223fb3a120",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "d35b6c2d732724f8b73a373b1dd258bc7b6f2bbc082ee4d8c0c948223fb3a120",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003.htm"
+          },
+          "quantities": [
+            {
+              "cell_evidence": {
+                "byte_end": 5852,
+                "byte_start": 5640,
+                "sha256": "aa84ef3c1dc2c1b0ba4c6f5e3a0a4b81345ab0f408b6909d4720995e3bcf320e"
+              },
+              "column": 1,
+              "comparative_in_current_filing": false,
+              "concentration_context_id": "c-229",
+              "concentration_fact_id": "f-977",
+              "context_dimensions": [],
+              "context_id": "c-1",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4086900000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,086.9"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6064,
+                "byte_start": 5852,
+                "sha256": "afa0715ae1346da9b3100ccd883f5a7babf448d1bce3f5e1f4534e240c3d8fca"
+              },
+              "column": 2,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-230",
+              "concentration_fact_id": "f-978",
+              "context_dimensions": [],
+              "context_id": "c-7",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4178000000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,178.0"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6276,
+                "byte_start": 6064,
+                "sha256": "192ae69fe71e84ece3fe878d8eb2b1f81eac5d920b451764bbd719c33bee464c"
+              },
+              "column": 3,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-231",
+              "concentration_fact_id": "f-979",
+              "context_dimensions": [],
+              "context_id": "c-8",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4772400000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "registry_identity_adopted": false,
+          "reported_customer": {
+            "alias_evidence": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Our key customers include Amazon, Apple Inc. (“Apple”), and Delta Corp. Our competitors include Delta Rival.",
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "kind": "NAMED",
+            "reported_label": "Apple",
+            "reported_legal_name": "Apple Inc.",
+            "source_disclosed_alias_supported": true
+          },
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_concept_scope": "CUSTOMER_CONTRACT_REVENUE_EXCLUDING_ASSESSED_TAX_NET_OF_ESTIMATED_RESERVES",
+          "source_format": "CONSOLIDATED_STATEMENT_THREE_ANNUAL_DURATION_FACTS",
+          "source_inputs_known_at": "2026-10-16T12:00:00+00:00"
+        },
+        "collector_requests": 0,
+        "counterparty_identity_continuity_verified": false,
+        "counterparty_purchases_verified": false,
+        "current_instrument_or_q3_verified": false,
+        "customer_amount_calculated": false,
+        "db_writes": 0,
+        "direct_purchase_share_verified": false,
+        "fitter_modified": false,
+        "historical_as_filed_comparison_verified": false,
+        "historical_availability_reconstructed": false,
+        "ingested_at": "2026-10-19T12:00:00+00:00",
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "model_modified": false,
+        "out_of_sample_verified": false,
+        "physical_quantity_denominator_verified": false,
+        "read_only": true,
+        "reason": "",
+        "registry_adoptions": 0,
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "sec-supplier-revenue-denominator-v1",
+        "scoring_applied": false,
+        "source_http_requests": 0,
+        "status": "CANDIDATE_REVIEWED",
+        "trading_allowed": false,
+        "usaspending_requests": 0
+      },
+      "synthetic_source_pins": {
+        "index": {
+          "bytes": 649,
+          "sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef"
+        },
+        "issuer": {
+          "bytes": 6753,
+          "sha256": "c23e786355574bb6f1fbabbcb605b05d96ed9fd97b8ca663630589218b8531ef"
+        }
+      }
+    },
+    {
+      "case": "postposed_definition_revision",
+      "qualification": " The definition of revenue was revised for fiscal 2024 and fiscal 2023.",
+      "request": {
+        "concentration_request": {
+          "selection": {
+            "aggregation_qualifier_literal": "in the aggregate",
+            "alias_passage": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "channel_qualifier_literal": "through sales to multiple distributors, contract manufacturers, and direct sales for multiple applications including smartphones, tablets, desktop, and notebook computers, watches and other devices",
+            "claim_role": "CUSTOMER_REVENUE_CONCENTRATION",
+            "concentration_passage": {
+              "byte_end": 4721,
+              "byte_start": 3916,
+              "sha256": "c2affe1b53540ede29f1c7ddd1205629a88ea9abc8ec9dc4ccf2c7bb012a1c42"
+            },
+            "counterparty_kind": "NAMED",
+            "counterparty_label": "Apple",
+            "counterparty_legal_name_literal": "Apple Inc.",
+            "denominator_literal": "the Company’s net revenue",
+            "fiscal_calendar_passage": {
+              "byte_end": 3863,
+              "byte_start": 3537,
+              "sha256": "7b3ac452fbc4418aebd9096b4ffcfe2065037ee1374d4d4255a2e7b790a2c515"
+            },
+            "fiscal_period_end": "2025-10-03",
+            "issuer_cik": "0000004127",
+            "issuer_context_id": "c-1",
+            "issuer_name": "Skyworks Solutions, Inc.",
+            "issuer_ticker": "SWKS",
+            "periods": [
+              {
+                "context_id": "c-229",
+                "fact_id": "f-977",
+                "fiscal_year": 2025,
+                "period_end": "2025-10-03",
+                "period_start": "2024-09-28",
+                "value_literal": "67"
+              },
+              {
+                "context_id": "c-230",
+                "fact_id": "f-978",
+                "fiscal_year": 2024,
+                "period_end": "2024-09-27",
+                "period_start": "2023-09-30",
+                "value_literal": "69"
+              },
+              {
+                "context_id": "c-231",
+                "fact_id": "f-979",
+                "fiscal_year": 2023,
+                "period_end": "2023-09-29",
+                "period_start": "2022-10-01",
+                "value_literal": "66"
+              }
+            ],
+            "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+            "scope_passage": {
+              "byte_end": 3537,
+              "byte_start": 3372,
+              "sha256": "98c1342571389c2f6291d999e69c05025f4d2fc1cee035d5d699335e1b714aee"
+            },
+            "section_heading": {
+              "byte_end": 3916,
+              "byte_start": 3863,
+              "sha256": "99f6bf593e27ee18b8754dfc9c0b156f69a55df387b7f7500d6470e717005faa"
+            }
+          }
+        },
+        "selection": {
+          "basis_passage": {
+            "byte_end": 6664,
+            "byte_start": 6289,
+            "sha256": "9f190f54d2842ec0d0c36fc394daf3590eb4180fd110958f8ef94f6f08488409"
+          },
+          "column_header_row": {
+            "byte_end": 5616,
+            "byte_start": 5520,
+            "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+          },
+          "measure": "NET_REVENUE",
+          "period_header_row": {
+            "byte_end": 5520,
+            "byte_start": 5463,
+            "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+          },
+          "periods": [
+            {
+              "column": 1,
+              "context_id": "c-1",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "value_literal": "4,086.9"
+            },
+            {
+              "column": 2,
+              "context_id": "c-7",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "value_literal": "4,178.0"
+            },
+            {
+              "column": 3,
+              "context_id": "c-8",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_row": {
+            "byte_end": 6281,
+            "byte_start": 5616,
+            "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+          },
+          "statement_heading": {
+            "byte_end": 5406,
+            "byte_start": 5358,
+            "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+          },
+          "statement_issuer_heading": {
+            "byte_end": 5358,
+            "byte_start": 5323,
+            "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+          },
+          "statement_table": {
+            "byte_end": 6289,
+            "byte_start": 5456,
+            "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+          },
+          "unit_heading": {
+            "byte_end": 5456,
+            "byte_start": 5406,
+            "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+          }
+        }
+      },
+      "result": {
+        "activation_allowed": false,
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "claim": {
+          "broader_award_uei_or_durable_history_verified": false,
+          "candidate_id": "supplier-net-revenue:b6e5b3e71b6fc677edd2014f58efae862eaaabb3b47213d079b3a57b08eb9398",
+          "comparative_version_scope": "COMPARATIVES_AS_REPORTED_IN_THIS_CURRENT_FILING",
+          "concentration_candidate_id": "supplier-concentration:01c0dc4af4e6662960f7a16a5f006ad30ca53aae503e914ad2fd013e48b19c59",
+          "concentration_join_status": "SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED",
+          "concentration_selection_sha256": "08dc023f39ed736991fc6d068935ef26dfe378405fa5624c3cfce87960ab83c4",
+          "customer_percentage_times_amount_performed": false,
+          "definition_change_terms_in_selected_policy": [],
+          "definition_comparability_across_prior_filings": "UNKNOWN_NOT_RECONSTRUCTED",
+          "definition_policy_literal": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection. The definition of revenue was revised for fiscal 2024 and fiscal 2023.",
+          "denominator_owner": {
+            "absolute_amount": null,
+            "counterparty_own_revenue": false,
+            "literal": "the Company’s net revenue",
+            "measure": "REPORTING_GROUP_NET_REVENUE",
+            "owner_cik": "0000004127",
+            "owner_name": "Skyworks Solutions, Inc."
+          },
+          "evidence": {
+            "basis_passage": {
+              "byte_end": 6664,
+              "byte_start": 6289,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection. The definition of revenue was revised for fiscal 2024 and fiscal 2023.",
+              "sha256": "9f190f54d2842ec0d0c36fc394daf3590eb4180fd110958f8ef94f6f08488409"
+            },
+            "column_header_row": {
+              "byte_end": 5616,
+              "byte_start": 5520,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "October 3, 2025",
+                "September 27, 2024",
+                "September 29, 2023"
+              ],
+              "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+            },
+            "period_header_row": {
+              "byte_end": 5520,
+              "byte_start": 5463,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended"
+              ],
+              "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+            },
+            "revenue_row": {
+              "byte_end": 6281,
+              "byte_start": 5616,
+              "fact_ids": [
+                "den-25",
+                "den-24",
+                "den-23"
+              ],
+              "literal_cells": [
+                "Net revenue",
+                "4,086.9",
+                "4,178.0",
+                "4,772.4"
+              ],
+              "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+            },
+            "statement_heading": {
+              "byte_end": 5406,
+              "byte_start": 5358,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "CONSOLIDATED STATEMENTS OF OPERATIONS",
+              "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+            },
+            "statement_issuer_heading": {
+              "byte_end": 5358,
+              "byte_start": 5323,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "SKYWORKS SOLUTIONS, INC.",
+              "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+            },
+            "statement_table": {
+              "byte_end": 6289,
+              "byte_start": 5456,
+              "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+            },
+            "unit_heading": {
+              "byte_end": 5456,
+              "byte_start": 5406,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "(In millions, except per share amounts)",
+              "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+            }
+          },
+          "filing": {
+            "acceptance_datetime_unqualified_raw": "2025-11-07 16:08:12",
+            "acceptance_timezone_inferred": false,
+            "accession_key": "000000412725000085",
+            "captured_primary_bytes": 6678,
+            "document_type": "10-K",
+            "exact_historical_as_filed_version_verified": false,
+            "filing_day": "2025-11-07",
+            "index_declared_primary_bytes": 4617,
+            "issuer_cik": "0000004127",
+            "primary_filename": "swks-20251003.htm",
+            "publisher_size_conflict": true,
+            "report_period_end": "2025-10-03"
+          },
+          "filing_index_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 649,
+            "body_sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "638287d1b37f7c87ba32c78d816a3e69f0f1cb3d2919708bc7e519d7a3a4a32e",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/0000004127-25-000085-index.htm"
+          },
+          "generic_customer_member_renamed": false,
+          "issuer_anchor": {
+            "canonical_ticker_hint": "SWKS",
+            "cik": "0000004127",
+            "cik_fact_ids": [
+              null
+            ],
+            "context_id": "c-1",
+            "current_instrument_identity_verified": false,
+            "document_type": "10-K",
+            "fiscal_period_end": "2025-10-03",
+            "fiscal_period_start": "2024-09-28",
+            "fiscal_year_focus": "2025",
+            "name_fact_ids": [
+              null
+            ],
+            "period_fact_ids": [
+              null
+            ],
+            "reported_dei_name": "Skyworks Solutions, Inc.",
+            "year_fact_ids": [
+              null
+            ]
+          },
+          "measure": "NET_REVENUE",
+          "missing_facts": [
+            "PRIOR_AS_FILED_COMPARATIVE_VERSIONS_AND_RESTATEMENT_HISTORY_UNVERIFIED",
+            "APPLE_PURCHASES_DIRECT_CHANNEL_SHARE_AND_PHYSICAL_QUANTITY_NOT_REPORTED_BY_THIS_DENOMINATOR",
+            "CUSTOMER_LEGAL_CONTINUITY_AND_CURRENT_INSTRUMENT_Q3_UNVERIFIED",
+            "BROADER_AWARD_UEI_AND_ORIGINAL_DURABLE_QUOTA_HISTORY_UNAVAILABLE",
+            "PUBLISHER_PUBLICATION_INSTANT_UNKNOWN",
+            "RELEVANT_687_COVERAGE_AND_HISTORICAL_OOS_UNVERIFIED",
+            "INDEX_SERVED_ORIGINAL_SIZE_CONFLICT_PRESERVED"
+          ],
+          "primary_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_path": null,
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 6678,
+            "body_sha256": "3b5789062b149cc8636071a3356fd9ddcf14d5d1d35f9b26a8f70dcae0b1dbe0",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_capture_metadata_sha256": "16e7da5e9540c1edbf7a26c66b3c4790dc56589c853920d0df57843bb644dd4f",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "16e7da5e9540c1edbf7a26c66b3c4790dc56589c853920d0df57843bb644dd4f",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003.htm"
+          },
+          "quantities": [
+            {
+              "cell_evidence": {
+                "byte_end": 5852,
+                "byte_start": 5640,
+                "sha256": "aa84ef3c1dc2c1b0ba4c6f5e3a0a4b81345ab0f408b6909d4720995e3bcf320e"
+              },
+              "column": 1,
+              "comparative_in_current_filing": false,
+              "concentration_context_id": "c-229",
+              "concentration_fact_id": "f-977",
+              "context_dimensions": [],
+              "context_id": "c-1",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4086900000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,086.9"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6064,
+                "byte_start": 5852,
+                "sha256": "afa0715ae1346da9b3100ccd883f5a7babf448d1bce3f5e1f4534e240c3d8fca"
+              },
+              "column": 2,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-230",
+              "concentration_fact_id": "f-978",
+              "context_dimensions": [],
+              "context_id": "c-7",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4178000000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,178.0"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6276,
+                "byte_start": 6064,
+                "sha256": "192ae69fe71e84ece3fe878d8eb2b1f81eac5d920b451764bbd719c33bee464c"
+              },
+              "column": 3,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-231",
+              "concentration_fact_id": "f-979",
+              "context_dimensions": [],
+              "context_id": "c-8",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4772400000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "registry_identity_adopted": false,
+          "reported_customer": {
+            "alias_evidence": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Our key customers include Amazon, Apple Inc. (“Apple”), and Delta Corp. Our competitors include Delta Rival.",
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "kind": "NAMED",
+            "reported_label": "Apple",
+            "reported_legal_name": "Apple Inc.",
+            "source_disclosed_alias_supported": true
+          },
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_concept_scope": "CUSTOMER_CONTRACT_REVENUE_EXCLUDING_ASSESSED_TAX_NET_OF_ESTIMATED_RESERVES",
+          "source_format": "CONSOLIDATED_STATEMENT_THREE_ANNUAL_DURATION_FACTS",
+          "source_inputs_known_at": "2026-10-16T12:00:00+00:00"
+        },
+        "collector_requests": 0,
+        "counterparty_identity_continuity_verified": false,
+        "counterparty_purchases_verified": false,
+        "current_instrument_or_q3_verified": false,
+        "customer_amount_calculated": false,
+        "db_writes": 0,
+        "direct_purchase_share_verified": false,
+        "fitter_modified": false,
+        "historical_as_filed_comparison_verified": false,
+        "historical_availability_reconstructed": false,
+        "ingested_at": "2026-10-19T12:00:00+00:00",
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "model_modified": false,
+        "out_of_sample_verified": false,
+        "physical_quantity_denominator_verified": false,
+        "read_only": true,
+        "reason": "",
+        "registry_adoptions": 0,
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "sec-supplier-revenue-denominator-v1",
+        "scoring_applied": false,
+        "source_http_requests": 0,
+        "status": "CANDIDATE_REVIEWED",
+        "trading_allowed": false,
+        "usaspending_requests": 0
+      },
+      "synthetic_source_pins": {
+        "index": {
+          "bytes": 649,
+          "sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef"
+        },
+        "issuer": {
+          "bytes": 6678,
+          "sha256": "3b5789062b149cc8636071a3356fd9ddcf14d5d1d35f9b26a8f70dcae0b1dbe0"
+        }
+      }
+    },
+    {
+      "case": "adjusted_prior_year_presentation",
+      "qualification": " Prior-year net revenue amounts were adjusted to conform to the current-year presentation.",
+      "request": {
+        "concentration_request": {
+          "selection": {
+            "aggregation_qualifier_literal": "in the aggregate",
+            "alias_passage": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "channel_qualifier_literal": "through sales to multiple distributors, contract manufacturers, and direct sales for multiple applications including smartphones, tablets, desktop, and notebook computers, watches and other devices",
+            "claim_role": "CUSTOMER_REVENUE_CONCENTRATION",
+            "concentration_passage": {
+              "byte_end": 4721,
+              "byte_start": 3916,
+              "sha256": "c2affe1b53540ede29f1c7ddd1205629a88ea9abc8ec9dc4ccf2c7bb012a1c42"
+            },
+            "counterparty_kind": "NAMED",
+            "counterparty_label": "Apple",
+            "counterparty_legal_name_literal": "Apple Inc.",
+            "denominator_literal": "the Company’s net revenue",
+            "fiscal_calendar_passage": {
+              "byte_end": 3863,
+              "byte_start": 3537,
+              "sha256": "7b3ac452fbc4418aebd9096b4ffcfe2065037ee1374d4d4255a2e7b790a2c515"
+            },
+            "fiscal_period_end": "2025-10-03",
+            "issuer_cik": "0000004127",
+            "issuer_context_id": "c-1",
+            "issuer_name": "Skyworks Solutions, Inc.",
+            "issuer_ticker": "SWKS",
+            "periods": [
+              {
+                "context_id": "c-229",
+                "fact_id": "f-977",
+                "fiscal_year": 2025,
+                "period_end": "2025-10-03",
+                "period_start": "2024-09-28",
+                "value_literal": "67"
+              },
+              {
+                "context_id": "c-230",
+                "fact_id": "f-978",
+                "fiscal_year": 2024,
+                "period_end": "2024-09-27",
+                "period_start": "2023-09-30",
+                "value_literal": "69"
+              },
+              {
+                "context_id": "c-231",
+                "fact_id": "f-979",
+                "fiscal_year": 2023,
+                "period_end": "2023-09-29",
+                "period_start": "2022-10-01",
+                "value_literal": "66"
+              }
+            ],
+            "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+            "scope_passage": {
+              "byte_end": 3537,
+              "byte_start": 3372,
+              "sha256": "98c1342571389c2f6291d999e69c05025f4d2fc1cee035d5d699335e1b714aee"
+            },
+            "section_heading": {
+              "byte_end": 3916,
+              "byte_start": 3863,
+              "sha256": "99f6bf593e27ee18b8754dfc9c0b156f69a55df387b7f7500d6470e717005faa"
+            }
+          }
+        },
+        "selection": {
+          "basis_passage": {
+            "byte_end": 6683,
+            "byte_start": 6289,
+            "sha256": "c7e97d1cf58aa3d23bb7207560329e028e14a3108cb370d59c8249da6e261a2e"
+          },
+          "column_header_row": {
+            "byte_end": 5616,
+            "byte_start": 5520,
+            "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+          },
+          "measure": "NET_REVENUE",
+          "period_header_row": {
+            "byte_end": 5520,
+            "byte_start": 5463,
+            "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+          },
+          "periods": [
+            {
+              "column": 1,
+              "context_id": "c-1",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "value_literal": "4,086.9"
+            },
+            {
+              "column": 2,
+              "context_id": "c-7",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "value_literal": "4,178.0"
+            },
+            {
+              "column": 3,
+              "context_id": "c-8",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_row": {
+            "byte_end": 6281,
+            "byte_start": 5616,
+            "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+          },
+          "statement_heading": {
+            "byte_end": 5406,
+            "byte_start": 5358,
+            "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+          },
+          "statement_issuer_heading": {
+            "byte_end": 5358,
+            "byte_start": 5323,
+            "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+          },
+          "statement_table": {
+            "byte_end": 6289,
+            "byte_start": 5456,
+            "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+          },
+          "unit_heading": {
+            "byte_end": 5456,
+            "byte_start": 5406,
+            "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+          }
+        }
+      },
+      "result": {
+        "activation_allowed": false,
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "claim": {
+          "broader_award_uei_or_durable_history_verified": false,
+          "candidate_id": "supplier-net-revenue:85bb7bc8444db4aa929336ad641a48cd39420158a7bfede0b7e2a405d9f96b1f",
+          "comparative_version_scope": "COMPARATIVES_AS_REPORTED_IN_THIS_CURRENT_FILING",
+          "concentration_candidate_id": "supplier-concentration:d7c2a8222f07ad0dfe32805388b503a3b022a399d2f32ad57c93899520bf684c",
+          "concentration_join_status": "SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED",
+          "concentration_selection_sha256": "08dc023f39ed736991fc6d068935ef26dfe378405fa5624c3cfce87960ab83c4",
+          "customer_percentage_times_amount_performed": false,
+          "definition_change_terms_in_selected_policy": [],
+          "definition_comparability_across_prior_filings": "UNKNOWN_NOT_RECONSTRUCTED",
+          "definition_policy_literal": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection. Prior-year net revenue amounts were adjusted to conform to the current-year presentation.",
+          "denominator_owner": {
+            "absolute_amount": null,
+            "counterparty_own_revenue": false,
+            "literal": "the Company’s net revenue",
+            "measure": "REPORTING_GROUP_NET_REVENUE",
+            "owner_cik": "0000004127",
+            "owner_name": "Skyworks Solutions, Inc."
+          },
+          "evidence": {
+            "basis_passage": {
+              "byte_end": 6683,
+              "byte_start": 6289,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection. Prior-year net revenue amounts were adjusted to conform to the current-year presentation.",
+              "sha256": "c7e97d1cf58aa3d23bb7207560329e028e14a3108cb370d59c8249da6e261a2e"
+            },
+            "column_header_row": {
+              "byte_end": 5616,
+              "byte_start": 5520,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "October 3, 2025",
+                "September 27, 2024",
+                "September 29, 2023"
+              ],
+              "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+            },
+            "period_header_row": {
+              "byte_end": 5520,
+              "byte_start": 5463,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended"
+              ],
+              "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+            },
+            "revenue_row": {
+              "byte_end": 6281,
+              "byte_start": 5616,
+              "fact_ids": [
+                "den-25",
+                "den-24",
+                "den-23"
+              ],
+              "literal_cells": [
+                "Net revenue",
+                "4,086.9",
+                "4,178.0",
+                "4,772.4"
+              ],
+              "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+            },
+            "statement_heading": {
+              "byte_end": 5406,
+              "byte_start": 5358,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "CONSOLIDATED STATEMENTS OF OPERATIONS",
+              "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+            },
+            "statement_issuer_heading": {
+              "byte_end": 5358,
+              "byte_start": 5323,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "SKYWORKS SOLUTIONS, INC.",
+              "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+            },
+            "statement_table": {
+              "byte_end": 6289,
+              "byte_start": 5456,
+              "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+            },
+            "unit_heading": {
+              "byte_end": 5456,
+              "byte_start": 5406,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "(In millions, except per share amounts)",
+              "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+            }
+          },
+          "filing": {
+            "acceptance_datetime_unqualified_raw": "2025-11-07 16:08:12",
+            "acceptance_timezone_inferred": false,
+            "accession_key": "000000412725000085",
+            "captured_primary_bytes": 6697,
+            "document_type": "10-K",
+            "exact_historical_as_filed_version_verified": false,
+            "filing_day": "2025-11-07",
+            "index_declared_primary_bytes": 4617,
+            "issuer_cik": "0000004127",
+            "primary_filename": "swks-20251003.htm",
+            "publisher_size_conflict": true,
+            "report_period_end": "2025-10-03"
+          },
+          "filing_index_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 649,
+            "body_sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "638287d1b37f7c87ba32c78d816a3e69f0f1cb3d2919708bc7e519d7a3a4a32e",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/0000004127-25-000085-index.htm"
+          },
+          "generic_customer_member_renamed": false,
+          "issuer_anchor": {
+            "canonical_ticker_hint": "SWKS",
+            "cik": "0000004127",
+            "cik_fact_ids": [
+              null
+            ],
+            "context_id": "c-1",
+            "current_instrument_identity_verified": false,
+            "document_type": "10-K",
+            "fiscal_period_end": "2025-10-03",
+            "fiscal_period_start": "2024-09-28",
+            "fiscal_year_focus": "2025",
+            "name_fact_ids": [
+              null
+            ],
+            "period_fact_ids": [
+              null
+            ],
+            "reported_dei_name": "Skyworks Solutions, Inc.",
+            "year_fact_ids": [
+              null
+            ]
+          },
+          "measure": "NET_REVENUE",
+          "missing_facts": [
+            "PRIOR_AS_FILED_COMPARATIVE_VERSIONS_AND_RESTATEMENT_HISTORY_UNVERIFIED",
+            "APPLE_PURCHASES_DIRECT_CHANNEL_SHARE_AND_PHYSICAL_QUANTITY_NOT_REPORTED_BY_THIS_DENOMINATOR",
+            "CUSTOMER_LEGAL_CONTINUITY_AND_CURRENT_INSTRUMENT_Q3_UNVERIFIED",
+            "BROADER_AWARD_UEI_AND_ORIGINAL_DURABLE_QUOTA_HISTORY_UNAVAILABLE",
+            "PUBLISHER_PUBLICATION_INSTANT_UNKNOWN",
+            "RELEVANT_687_COVERAGE_AND_HISTORICAL_OOS_UNVERIFIED",
+            "INDEX_SERVED_ORIGINAL_SIZE_CONFLICT_PRESERVED"
+          ],
+          "primary_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_path": null,
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 6697,
+            "body_sha256": "318e21dfd6133bbac55eda36457284c213155fa6895a063653525d9a40e675d6",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_capture_metadata_sha256": "8ff7eb0da80661adf4971625c1fa2d486dea706611cd62faa7da6a158f526de9",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "8ff7eb0da80661adf4971625c1fa2d486dea706611cd62faa7da6a158f526de9",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003.htm"
+          },
+          "quantities": [
+            {
+              "cell_evidence": {
+                "byte_end": 5852,
+                "byte_start": 5640,
+                "sha256": "aa84ef3c1dc2c1b0ba4c6f5e3a0a4b81345ab0f408b6909d4720995e3bcf320e"
+              },
+              "column": 1,
+              "comparative_in_current_filing": false,
+              "concentration_context_id": "c-229",
+              "concentration_fact_id": "f-977",
+              "context_dimensions": [],
+              "context_id": "c-1",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4086900000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,086.9"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6064,
+                "byte_start": 5852,
+                "sha256": "afa0715ae1346da9b3100ccd883f5a7babf448d1bce3f5e1f4534e240c3d8fca"
+              },
+              "column": 2,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-230",
+              "concentration_fact_id": "f-978",
+              "context_dimensions": [],
+              "context_id": "c-7",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4178000000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,178.0"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6276,
+                "byte_start": 6064,
+                "sha256": "192ae69fe71e84ece3fe878d8eb2b1f81eac5d920b451764bbd719c33bee464c"
+              },
+              "column": 3,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-231",
+              "concentration_fact_id": "f-979",
+              "context_dimensions": [],
+              "context_id": "c-8",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4772400000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "registry_identity_adopted": false,
+          "reported_customer": {
+            "alias_evidence": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Our key customers include Amazon, Apple Inc. (“Apple”), and Delta Corp. Our competitors include Delta Rival.",
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "kind": "NAMED",
+            "reported_label": "Apple",
+            "reported_legal_name": "Apple Inc.",
+            "source_disclosed_alias_supported": true
+          },
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_concept_scope": "CUSTOMER_CONTRACT_REVENUE_EXCLUDING_ASSESSED_TAX_NET_OF_ESTIMATED_RESERVES",
+          "source_format": "CONSOLIDATED_STATEMENT_THREE_ANNUAL_DURATION_FACTS",
+          "source_inputs_known_at": "2026-10-16T12:00:00+00:00"
+        },
+        "collector_requests": 0,
+        "counterparty_identity_continuity_verified": false,
+        "counterparty_purchases_verified": false,
+        "current_instrument_or_q3_verified": false,
+        "customer_amount_calculated": false,
+        "db_writes": 0,
+        "direct_purchase_share_verified": false,
+        "fitter_modified": false,
+        "historical_as_filed_comparison_verified": false,
+        "historical_availability_reconstructed": false,
+        "ingested_at": "2026-10-19T12:00:00+00:00",
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "model_modified": false,
+        "out_of_sample_verified": false,
+        "physical_quantity_denominator_verified": false,
+        "read_only": true,
+        "reason": "",
+        "registry_adoptions": 0,
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "sec-supplier-revenue-denominator-v1",
+        "scoring_applied": false,
+        "source_http_requests": 0,
+        "status": "CANDIDATE_REVIEWED",
+        "trading_allowed": false,
+        "usaspending_requests": 0
+      },
+      "synthetic_source_pins": {
+        "index": {
+          "bytes": 649,
+          "sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef"
+        },
+        "issuer": {
+          "bytes": 6697,
+          "sha256": "318e21dfd6133bbac55eda36457284c213155fa6895a063653525d9a40e675d6"
+        }
+      }
+    },
+    {
+      "case": "rounding_only_control",
+      "qualification": " Customer concentration percentages are rounded to the nearest whole percentage point.",
+      "request": {
+        "concentration_request": {
+          "selection": {
+            "aggregation_qualifier_literal": "in the aggregate",
+            "alias_passage": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "channel_qualifier_literal": "through sales to multiple distributors, contract manufacturers, and direct sales for multiple applications including smartphones, tablets, desktop, and notebook computers, watches and other devices",
+            "claim_role": "CUSTOMER_REVENUE_CONCENTRATION",
+            "concentration_passage": {
+              "byte_end": 4721,
+              "byte_start": 3916,
+              "sha256": "c2affe1b53540ede29f1c7ddd1205629a88ea9abc8ec9dc4ccf2c7bb012a1c42"
+            },
+            "counterparty_kind": "NAMED",
+            "counterparty_label": "Apple",
+            "counterparty_legal_name_literal": "Apple Inc.",
+            "denominator_literal": "the Company’s net revenue",
+            "fiscal_calendar_passage": {
+              "byte_end": 3863,
+              "byte_start": 3537,
+              "sha256": "7b3ac452fbc4418aebd9096b4ffcfe2065037ee1374d4d4255a2e7b790a2c515"
+            },
+            "fiscal_period_end": "2025-10-03",
+            "issuer_cik": "0000004127",
+            "issuer_context_id": "c-1",
+            "issuer_name": "Skyworks Solutions, Inc.",
+            "issuer_ticker": "SWKS",
+            "periods": [
+              {
+                "context_id": "c-229",
+                "fact_id": "f-977",
+                "fiscal_year": 2025,
+                "period_end": "2025-10-03",
+                "period_start": "2024-09-28",
+                "value_literal": "67"
+              },
+              {
+                "context_id": "c-230",
+                "fact_id": "f-978",
+                "fiscal_year": 2024,
+                "period_end": "2024-09-27",
+                "period_start": "2023-09-30",
+                "value_literal": "69"
+              },
+              {
+                "context_id": "c-231",
+                "fact_id": "f-979",
+                "fiscal_year": 2023,
+                "period_end": "2023-09-29",
+                "period_start": "2022-10-01",
+                "value_literal": "66"
+              }
+            ],
+            "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+            "scope_passage": {
+              "byte_end": 3537,
+              "byte_start": 3372,
+              "sha256": "98c1342571389c2f6291d999e69c05025f4d2fc1cee035d5d699335e1b714aee"
+            },
+            "section_heading": {
+              "byte_end": 3916,
+              "byte_start": 3863,
+              "sha256": "99f6bf593e27ee18b8754dfc9c0b156f69a55df387b7f7500d6470e717005faa"
+            }
+          }
+        },
+        "selection": {
+          "basis_passage": {
+            "byte_end": 6679,
+            "byte_start": 6289,
+            "sha256": "81b269fe2d3bc274a6201667b18931368207b256a2059e12ff532d3f4c0a7dc9"
+          },
+          "column_header_row": {
+            "byte_end": 5616,
+            "byte_start": 5520,
+            "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+          },
+          "measure": "NET_REVENUE",
+          "period_header_row": {
+            "byte_end": 5520,
+            "byte_start": 5463,
+            "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+          },
+          "periods": [
+            {
+              "column": 1,
+              "context_id": "c-1",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "value_literal": "4,086.9"
+            },
+            {
+              "column": 2,
+              "context_id": "c-7",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "value_literal": "4,178.0"
+            },
+            {
+              "column": 3,
+              "context_id": "c-8",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_row": {
+            "byte_end": 6281,
+            "byte_start": 5616,
+            "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+          },
+          "statement_heading": {
+            "byte_end": 5406,
+            "byte_start": 5358,
+            "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+          },
+          "statement_issuer_heading": {
+            "byte_end": 5358,
+            "byte_start": 5323,
+            "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+          },
+          "statement_table": {
+            "byte_end": 6289,
+            "byte_start": 5456,
+            "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+          },
+          "unit_heading": {
+            "byte_end": 5456,
+            "byte_start": 5406,
+            "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+          }
+        }
+      },
+      "result": {
+        "activation_allowed": false,
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "claim": {
+          "broader_award_uei_or_durable_history_verified": false,
+          "candidate_id": "supplier-net-revenue:a761dca5e9b2caaf347f5cbe66ccefe5f58bab1be1deaad053bec638a24c465a",
+          "comparative_version_scope": "COMPARATIVES_AS_REPORTED_IN_THIS_CURRENT_FILING",
+          "concentration_candidate_id": "supplier-concentration:c6cb7b3e65372e1127336e4f745e85ada463bac713f70ec9740471d056eeb821",
+          "concentration_join_status": "SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED",
+          "concentration_selection_sha256": "08dc023f39ed736991fc6d068935ef26dfe378405fa5624c3cfce87960ab83c4",
+          "customer_percentage_times_amount_performed": false,
+          "definition_change_terms_in_selected_policy": [],
+          "definition_comparability_across_prior_filings": "UNKNOWN_NOT_RECONSTRUCTED",
+          "definition_policy_literal": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection. Customer concentration percentages are rounded to the nearest whole percentage point.",
+          "denominator_owner": {
+            "absolute_amount": null,
+            "counterparty_own_revenue": false,
+            "literal": "the Company’s net revenue",
+            "measure": "REPORTING_GROUP_NET_REVENUE",
+            "owner_cik": "0000004127",
+            "owner_name": "Skyworks Solutions, Inc."
+          },
+          "evidence": {
+            "basis_passage": {
+              "byte_end": 6679,
+              "byte_start": 6289,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board’s Accounting Standards Codification (“ASC”) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves require estimates for returns and price protection. Customer concentration percentages are rounded to the nearest whole percentage point.",
+              "sha256": "81b269fe2d3bc274a6201667b18931368207b256a2059e12ff532d3f4c0a7dc9"
+            },
+            "column_header_row": {
+              "byte_end": 5616,
+              "byte_start": 5520,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "October 3, 2025",
+                "September 27, 2024",
+                "September 29, 2023"
+              ],
+              "sha256": "6057a760698dda953b890437c55584b4ffba0acf9d067a6f559409f0ea50c600"
+            },
+            "period_header_row": {
+              "byte_end": 5520,
+              "byte_start": 5463,
+              "fact_ids": [],
+              "literal_cells": [
+                "",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended",
+                "Fiscal Years Ended"
+              ],
+              "sha256": "a6b06f034be222cb6a5d9b12abffd6e7ad800709c9f18e7b7745cd5f181c3cd7"
+            },
+            "revenue_row": {
+              "byte_end": 6281,
+              "byte_start": 5616,
+              "fact_ids": [
+                "den-25",
+                "den-24",
+                "den-23"
+              ],
+              "literal_cells": [
+                "Net revenue",
+                "4,086.9",
+                "4,178.0",
+                "4,772.4"
+              ],
+              "sha256": "f5532dbd3e0485039249494b7ae41755cb94b098bfcc0e2a2f96963925afb547"
+            },
+            "statement_heading": {
+              "byte_end": 5406,
+              "byte_start": 5358,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "CONSOLIDATED STATEMENTS OF OPERATIONS",
+              "sha256": "73cfb200aafc022f5bb5ca7a3aeb4f7f49c20e917d8f0b92a4422da68fcebfe8"
+            },
+            "statement_issuer_heading": {
+              "byte_end": 5358,
+              "byte_start": 5323,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "SKYWORKS SOLUTIONS, INC.",
+              "sha256": "e7ce2628b62297701689e8859c180416e0a5c4256a871900ecbd168256b68071"
+            },
+            "statement_table": {
+              "byte_end": 6289,
+              "byte_start": 5456,
+              "sha256": "ba4c0c51b8e952e39e619e3e21b009623e0cc753db6ccc3da1605eaaab6a857d"
+            },
+            "unit_heading": {
+              "byte_end": 5456,
+              "byte_start": 5406,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "(In millions, except per share amounts)",
+              "sha256": "6108dce69eba5cbbcb864e7e9d8a1de724b4f0db3ef60d3d4ea92b828235e6cc"
+            }
+          },
+          "filing": {
+            "acceptance_datetime_unqualified_raw": "2025-11-07 16:08:12",
+            "acceptance_timezone_inferred": false,
+            "accession_key": "000000412725000085",
+            "captured_primary_bytes": 6693,
+            "document_type": "10-K",
+            "exact_historical_as_filed_version_verified": false,
+            "filing_day": "2025-11-07",
+            "index_declared_primary_bytes": 4617,
+            "issuer_cik": "0000004127",
+            "primary_filename": "swks-20251003.htm",
+            "publisher_size_conflict": true,
+            "report_period_end": "2025-10-03"
+          },
+          "filing_index_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 649,
+            "body_sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "638287d1b37f7c87ba32c78d816a3e69f0f1cb3d2919708bc7e519d7a3a4a32e",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/0000004127-25-000085-index.htm"
+          },
+          "generic_customer_member_renamed": false,
+          "issuer_anchor": {
+            "canonical_ticker_hint": "SWKS",
+            "cik": "0000004127",
+            "cik_fact_ids": [
+              null
+            ],
+            "context_id": "c-1",
+            "current_instrument_identity_verified": false,
+            "document_type": "10-K",
+            "fiscal_period_end": "2025-10-03",
+            "fiscal_period_start": "2024-09-28",
+            "fiscal_year_focus": "2025",
+            "name_fact_ids": [
+              null
+            ],
+            "period_fact_ids": [
+              null
+            ],
+            "reported_dei_name": "Skyworks Solutions, Inc.",
+            "year_fact_ids": [
+              null
+            ]
+          },
+          "measure": "NET_REVENUE",
+          "missing_facts": [
+            "PRIOR_AS_FILED_COMPARATIVE_VERSIONS_AND_RESTATEMENT_HISTORY_UNVERIFIED",
+            "APPLE_PURCHASES_DIRECT_CHANNEL_SHARE_AND_PHYSICAL_QUANTITY_NOT_REPORTED_BY_THIS_DENOMINATOR",
+            "CUSTOMER_LEGAL_CONTINUITY_AND_CURRENT_INSTRUMENT_Q3_UNVERIFIED",
+            "BROADER_AWARD_UEI_AND_ORIGINAL_DURABLE_QUOTA_HISTORY_UNAVAILABLE",
+            "PUBLISHER_PUBLICATION_INSTANT_UNKNOWN",
+            "RELEVANT_687_COVERAGE_AND_HISTORICAL_OOS_UNVERIFIED",
+            "INDEX_SERVED_ORIGINAL_SIZE_CONFLICT_PRESERVED"
+          ],
+          "primary_source": {
+            "accession_number": "0000004127-25-000085",
+            "archive_path": null,
+            "archive_routing_cik": "0000004127",
+            "body_bytes": 6693,
+            "body_sha256": "1a22c4789bde743ba6e2d2379c33eeb1067cdbbffae6e9ae4e41d3610d869d7e",
+            "capture_completed_utc": "2026-10-16T12:00:00+00:00",
+            "original_capture_metadata_sha256": "3a83b3e764e2581061bb23904225d9378dd365c70bb415dcabcbe2973032da32",
+            "original_source_known_at": "2026-10-16T12:00:00+00:00",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-16T12:00:00+00:00",
+            "source_capture_started_at": "2026-10-16T11:59:59+00:00",
+            "source_metadata_sha256": "3a83b3e764e2581061bb23904225d9378dd365c70bb415dcabcbe2973032da32",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003.htm"
+          },
+          "quantities": [
+            {
+              "cell_evidence": {
+                "byte_end": 5852,
+                "byte_start": 5640,
+                "sha256": "aa84ef3c1dc2c1b0ba4c6f5e3a0a4b81345ab0f408b6909d4720995e3bcf320e"
+              },
+              "column": 1,
+              "comparative_in_current_filing": false,
+              "concentration_context_id": "c-229",
+              "concentration_fact_id": "f-977",
+              "context_dimensions": [],
+              "context_id": "c-1",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-25",
+              "fiscal_year": 2025,
+              "period_end": "2025-10-03",
+              "period_start": "2024-09-28",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4086900000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,086.9"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6064,
+                "byte_start": 5852,
+                "sha256": "afa0715ae1346da9b3100ccd883f5a7babf448d1bce3f5e1f4534e240c3d8fca"
+              },
+              "column": 2,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-230",
+              "concentration_fact_id": "f-978",
+              "context_dimensions": [],
+              "context_id": "c-7",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-24",
+              "fiscal_year": 2024,
+              "period_end": "2024-09-27",
+              "period_start": "2023-09-30",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4178000000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,178.0"
+            },
+            {
+              "cell_evidence": {
+                "byte_end": 6276,
+                "byte_start": 6064,
+                "sha256": "192ae69fe71e84ece3fe878d8eb2b1f81eac5d920b451764bbd719c33bee464c"
+              },
+              "column": 3,
+              "comparative_in_current_filing": true,
+              "concentration_context_id": "c-231",
+              "concentration_fact_id": "f-979",
+              "context_dimensions": [],
+              "context_id": "c-8",
+              "currency": "USD",
+              "customer_amount": null,
+              "customer_amount_calculated": false,
+              "decimals": -5,
+              "display_unit": "millions",
+              "fact_id": "den-23",
+              "fiscal_year": 2023,
+              "period_end": "2023-09-29",
+              "period_start": "2022-10-01",
+              "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+              "same_original_period_and_denominator_basis_supported": true,
+              "scale": 6,
+              "scaled_total_net_revenue_usd": "4772400000",
+              "source_fact_name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+              "source_format": "ixt:num-dot-decimal",
+              "source_sign": null,
+              "source_unit_id": "usd",
+              "source_unit_measure": "iso4217:USD",
+              "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+              "value_literal": "4,772.4"
+            }
+          ],
+          "registry_identity_adopted": false,
+          "reported_customer": {
+            "alias_evidence": {
+              "byte_end": 3372,
+              "byte_start": 3249,
+              "fact_ids": [],
+              "format": "WHOLE_ORIGINAL_PARAGRAPH",
+              "literal_visible_passage": "Our key customers include Amazon, Apple Inc. (“Apple”), and Delta Corp. Our competitors include Delta Rival.",
+              "sha256": "c6682a5fe185399bfc89bb28050ed8f2144715279aad123e1b6d3b9b2a608c45"
+            },
+            "kind": "NAMED",
+            "reported_label": "Apple",
+            "reported_legal_name": "Apple Inc.",
+            "source_disclosed_alias_supported": true
+          },
+          "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+          "revenue_concept_scope": "CUSTOMER_CONTRACT_REVENUE_EXCLUDING_ASSESSED_TAX_NET_OF_ESTIMATED_RESERVES",
+          "source_format": "CONSOLIDATED_STATEMENT_THREE_ANNUAL_DURATION_FACTS",
+          "source_inputs_known_at": "2026-10-16T12:00:00+00:00"
+        },
+        "collector_requests": 0,
+        "counterparty_identity_continuity_verified": false,
+        "counterparty_purchases_verified": false,
+        "current_instrument_or_q3_verified": false,
+        "customer_amount_calculated": false,
+        "db_writes": 0,
+        "direct_purchase_share_verified": false,
+        "fitter_modified": false,
+        "historical_as_filed_comparison_verified": false,
+        "historical_availability_reconstructed": false,
+        "ingested_at": "2026-10-19T12:00:00+00:00",
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "model_modified": false,
+        "out_of_sample_verified": false,
+        "physical_quantity_denominator_verified": false,
+        "read_only": true,
+        "reason": "",
+        "registry_adoptions": 0,
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "sec-supplier-revenue-denominator-v1",
+        "scoring_applied": false,
+        "source_http_requests": 0,
+        "status": "CANDIDATE_REVIEWED",
+        "trading_allowed": false,
+        "usaspending_requests": 0
+      },
+      "synthetic_source_pins": {
+        "index": {
+          "bytes": 649,
+          "sha256": "a84f4173f86b02ff063d8ed984c98df7a7472f21462cf11db5bc62c3db0058ef"
+        },
+        "issuer": {
+          "bytes": 6693,
+          "sha256": "1a22c4789bde743ba6e2d2379c33eeb1067cdbbffae6e9ae4e41d3610d869d7e"
+        }
+      }
+    }
+  ],
+  "schema_version": "independent_denominator_basis_peer_v1",
+  "synthetic_clock_is_not_a_physical_source_observation": true,
+  "synthetic_fixture_only": true,
+  "synthetic_injected_review_clock": "2026-10-19T12:00:00+00:00"
+}

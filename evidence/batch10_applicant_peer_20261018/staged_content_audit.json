@@ -1,0 +1,162 @@
+{
+  "all_staged_bytes_equal_local": true,
+  "git_diff_check_exit_code": 0,
+  "manifest_refreshed_after_README_duplicate_line_correction": true,
+  "new_HTTP_DB_or_candidate_writes": 0,
+  "only_owned_peer_files": true,
+  "qualified_candidate_sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+  "qualified_peer_test_sha256": "76c8376da28f1a2a55a5aabf3eed88ad9dfd1ce281b9f588154e39f70e337a5f",
+  "qualified_source_test_logs_and_probes_unchanged": true,
+  "staged_files_before_this_record": [
+    {
+      "bytes": 2915,
+      "path": "evidence/batch10_applicant_peer_20261018/README.md",
+      "sha256": "cd387bf5859c04ed229e14a79f8332e78f879cecf33d7a8bac0c2a1de25ae011",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 1012,
+      "path": "evidence/batch10_applicant_peer_20261018/after.json",
+      "sha256": "281fb3fbceadcd64a3e50bbbd506085bd5f665c230b21d7c2d8aff5c7361c898",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 1586,
+      "path": "evidence/batch10_applicant_peer_20261018/after.log",
+      "sha256": "44f1ebf95123d16c4b61d8aadc1a7b5c77183ee97993265fa60ffbb3c3efd82c",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 1887,
+      "path": "evidence/batch10_applicant_peer_20261018/before.json",
+      "sha256": "970399233e92c9108243357f42820a7d42f875b86818db70847162f38e5980af",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 4341,
+      "path": "evidence/batch10_applicant_peer_20261018/before.log",
+      "sha256": "44a62be5624420a16a87c553ee15862c87bfd7dc8391a98dd214d4dd53a39dce",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 2312,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_after_snapshot.json",
+      "sha256": "b7254dcdd032f8398287f93f0be85cea27c64f839be430aaff65626802985fbe",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 21923,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/fda_legal_applicant_bridge_review.py",
+      "sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 6091,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/focused_tests.log",
+      "sha256": "417c88664594f4eecb28c32e9361f61a65e7fe2901d9c0541b3003b273c08559",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 6401,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/replay_sources.py",
+      "sha256": "dfdade7905734a7dac9dbafbb3d087ca5e5c7d741e975e5f760282d0db26a2b1",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 12166,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/retained_review_plan.json",
+      "sha256": "558c2d22d267d3d33f4e3ec0d6ab7890f5a5182e9c5ae83ad5ead05fe90b47b2",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 17326,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/source_review.json",
+      "sha256": "aaf9f1d02ff9a8be571a21c7597600c9effa22c2c9012fd2f70f30a01230d812",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 19166,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_after_table_guard/test_fda_legal_applicant_bridge_review.py",
+      "sha256": "3b44c879ec60865ea75f0c77485be6c0c2e7bea7c13ca9a7a4b6fed947b9f286",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 20305,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/fda_legal_applicant_bridge_review.py",
+      "sha256": "bf9f1afb16c29c0c0272229e5567ed5448e19db0d4fe4684908dd419af3b59a0",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 5659,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/focused_tests.log",
+      "sha256": "1960d18d0fe1db2e4ebc4126a290db5e6631d68cbd96693f3474b6b51e363740",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 6401,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/replay_sources.py",
+      "sha256": "dfdade7905734a7dac9dbafbb3d087ca5e5c7d741e975e5f760282d0db26a2b1",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 12166,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/retained_review_plan.json",
+      "sha256": "558c2d22d267d3d33f4e3ec0d6ab7890f5a5182e9c5ae83ad5ead05fe90b47b2",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 17253,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/source_review.json",
+      "sha256": "1a820f99d89cc187da2043e03b263c06ff9edf6bc4eb14a4f996479e9bfd2b15",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 17287,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/test_fda_legal_applicant_bridge_review.py",
+      "sha256": "57f31059e0931b48707282f5eb7a1a9d943ca73f9ef984a64dc5390ee8e4d6c1",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 2297,
+      "path": "evidence/batch10_applicant_peer_20261018/candidate_snapshot.json",
+      "sha256": "d1677489e623e42205b87fe504494055bfca1138ca5bc285fe9870178753c7b7",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 1524,
+      "path": "evidence/batch10_applicant_peer_20261018/foreign_table_probe_before.json",
+      "sha256": "b0cdf1263cf2b21f8d1d28a5dd4dc73aee77174a9f42b99fea660ff25bfc8d3d",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 5458,
+      "path": "evidence/batch10_applicant_peer_20261018/handoff.json",
+      "sha256": "2a276003a09f948e68bc211bc4362a8baa43bf62652c61bc13e34b4a8713de0b",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 527,
+      "path": "evidence/batch10_applicant_peer_20261018/integration_dependency.json",
+      "sha256": "a4b7f534a878ff7660d890c95ee5c0871e42689cfec3b4790d87f5da7f9f09b0",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 3225,
+      "path": "evidence/batch10_applicant_peer_20261018/run_peer.py",
+      "sha256": "f2a38331218120d7f60e1b5ea922c4abf75e71c18d5ff649dd9c8dbdbe042526",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 629,
+      "path": "evidence/batch10_applicant_peer_20261018/synthetic_foreign_table_fixture.html",
+      "sha256": "24db1b1cdd9630f07e4f4626247010f1d02b2b35b79fa8b94d6502e4cc854373",
+      "staged_equals_local": true
+    },
+    {
+      "bytes": 9023,
+      "path": "tests/test_batch10_applicant_peer.py",
+      "sha256": "76c8376da28f1a2a55a5aabf3eed88ad9dfd1ce281b9f588154e39f70e337a5f",
+      "staged_equals_local": true
+    }
+  ]
+}

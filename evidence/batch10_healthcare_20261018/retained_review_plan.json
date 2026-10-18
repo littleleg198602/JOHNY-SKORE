@@ -1,0 +1,295 @@
+{
+  "schema_version": "captured_identity_review_plan_v1",
+  "kind": "FDA_LEGAL_APPLICANT_BRIDGE",
+  "request": {
+    "scope": {
+      "issuer_cik": "0000078003",
+      "issuer_ticker": "PFE",
+      "issuer_name": "PFIZER INC.",
+      "application_type": "BLA",
+      "application_number": "761081",
+      "applicant_name": "Pfizer Ireland Pharmaceuticals Unlimited Company"
+    },
+    "filing_key": "filing",
+    "exhibit_key": "exhibit",
+    "roster_as_of": "2017-12-31",
+    "selected_rows": [
+      {
+        "table_index": 5,
+        "row_index": 6,
+        "entity_name": "Pfizer Ireland Pharmaceuticals",
+        "jurisdiction": "Ireland"
+      }
+    ],
+    "application_request": {
+      "scope": {
+        "application_type": "BLA",
+        "application_number": "761081",
+        "issuer_cik": "0000078003",
+        "issuer_ticker": "PFE"
+      },
+      "source_kind": "PURPLE_BOOK_PRODUCT_DETAIL",
+      "source_key": "application",
+      "issuer_key": "issuer",
+      "source_version_sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+      "product_selection": {
+        "source_row_index": 0,
+        "product_number": "001",
+        "proprietary_name": "Trazimera",
+        "proper_name": "trastuzumab-qyyp",
+        "strength": "420MG",
+        "dosage_form": "For Injection",
+        "route": "Intravenous",
+        "dosage_form_route_text": null,
+        "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company"
+      }
+    },
+    "company_request": {
+      "scope": {
+        "application_type": "BLA",
+        "application_number": "761081",
+        "issuer_cik": "0000078003",
+        "issuer_ticker": "PFE"
+      },
+      "source_kind": "DRUGSFDA_APPLICATION_PAGE",
+      "source_key": "company",
+      "issuer_key": "issuer",
+      "source_version_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+      "product_selection": {
+        "source_row_index": 0,
+        "product_number": null,
+        "proprietary_name": "TRAZIMERA",
+        "proper_name": "TRASTUZUMAB-QYYP",
+        "strength": "420MG",
+        "dosage_form": null,
+        "route": null,
+        "dosage_form_route_text": "INJECTABLE;INJECTION",
+        "source_party_name": "PFIZER INC"
+      }
+    }
+  },
+  "captures": {
+    "filing": {
+      "metadata": {
+        "acquisition_method": "urllib.request raw HTTP body",
+        "request_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+        "response_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+        "requested_at": "2026-10-12T14:44:14.903431+00:00",
+        "observed_at": "2026-10-12T14:44:19.890070+00:00",
+        "http_status": 200,
+        "request_headers": {
+          "Accept": "text/html",
+          "User-Agent": "JohnySkorePrimaryEvidence/1.0"
+        },
+        "response_headers": {
+          "Content-Type": "text/html",
+          "X-Frame-Options": "SAMEORIGIN",
+          "x-amz-id-2": "sLcOc+MvPUL3oafDTq5N/732XdJXp8TClyJAKP1JL2sENnx64M+BzjA5u+ayXQNhEdkmTlt7ntQ=",
+          "x-amz-request-id": "W6WYY3F4QQYT9STG",
+          "x-amz-replication-status": "COMPLETED",
+          "Last-Modified": "Thu, 22 Feb 2018 20:46:44 GMT",
+          "x-amz-meta-mode": "33188",
+          "x-amz-version-id": "NH4_sZhfw3COjIjT.dbpSPoqS3tKsUHI",
+          "X-Content-Type-Options": "nosniff",
+          "X-XSS-Protection": "1; mode=block",
+          "X-Akamai-Transformed": "0 - 0 -",
+          "Vary": "Accept-Encoding",
+          "Date": "Mon, 12 Oct 2026 14:44:19 GMT",
+          "Transfer-Encoding": "chunked",
+          "Connection": "close",
+          "Strict-Transport-Security": "max-age=31536000 ; includeSubDomains ; preload"
+        },
+        "byte_budget": 4000000,
+        "body_bytes": 816055,
+        "body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+        "body_complete_within_byte_budget": true,
+        "error": null,
+        "body_path": "sec_pfe_2017_10k.body.html.gz",
+        "storage_encoding": "gzip",
+        "archived_bytes": 93812,
+        "archive_sha256": "a88263dff67918610305607fde11f5188b2146c4941be9401889ff81c2f75da2",
+        "response_headers_omitted": [
+          "Set-Cookie"
+        ]
+      },
+      "body_available": true,
+      "body_ref": {
+        "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+        "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+        "bytes": 816055
+      }
+    },
+    "exhibit": {
+      "metadata": {
+        "schema_version": 1,
+        "capture_form": "ORIGINAL_HTTP_RESPONSE",
+        "acquisition_method": "urllib.request raw HTTP body",
+        "request_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+        "response_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+        "requested_at": "2026-10-14T23:30:31.825538+00:00",
+        "status": "HTTP_200_COMPLETE",
+        "reserved_at": "2026-10-14T23:30:31.825538+00:00",
+        "reserved_before_transport": true,
+        "research_attempt_number": 1,
+        "authorized_sec_research_attempt_cap": 4,
+        "byte_budget": 4000000,
+        "raw_publication_permitted": true,
+        "body_path": "sec_pfe_2017_ex21.body.html",
+        "healthcare_collector_request": false,
+        "new_or_reconstructed_quota_database": false,
+        "discovered_from": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_10k.metadata.json",
+        "http_status": 200,
+        "observed_at": "2026-10-14T23:30:38.781155+00:00",
+        "body_bytes": 258262,
+        "body_sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f",
+        "body_complete_within_byte_budget": true,
+        "http_date": "Wed, 14 Oct 2026 23:30:38 GMT",
+        "last_modified": "Thu, 22 Feb 2018 20:46:46 GMT"
+      },
+      "body_available": true,
+      "body_ref": {
+        "path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.body.html",
+        "sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f",
+        "bytes": 258262
+      }
+    },
+    "application": {
+      "metadata": {
+        "schema_version": 1,
+        "capture_form": "ORIGINAL_HTTP_RESPONSE",
+        "sequence": 3,
+        "capture_key": "fda_purple_book_761081",
+        "request_url": "https://purplebooksearch.fda.gov/index.cfm?blaNo=761081&event=productdetails",
+        "reserved_at": "2026-10-16T12:19:52.202444+00:00",
+        "research_plan_sha256": "f096ddee968ae6eb9d23eb40ce0098b5f293199e372b263cb96677d0473a5b34",
+        "reserved_before_transport": true,
+        "research_attempt_cap": 6,
+        "byte_budget": 4000000,
+        "timeout_seconds": 25,
+        "redirects_allowed": false,
+        "retries_allowed": false,
+        "research_only": true,
+        "collector_API_or_quota_DB_used": false,
+        "new_accounts_or_credentials": false,
+        "requested_at": "2026-10-16T12:19:52.202648+00:00",
+        "http_status": 200,
+        "response_url": "https://purplebooksearch.fda.gov/index.cfm?blaNo=761081&event=productdetails",
+        "body_complete_within_byte_budget": true,
+        "raw_publication_permitted": true,
+        "body_sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+        "body_bytes": 22644,
+        "body_path": "fda_purple_book_761081.body.bin",
+        "response_headers": {
+          "Date": "Fri, 16 Oct 2026 12:19:55 GMT",
+          "Content-Type": "text/html;charset=UTF-8",
+          "Content-Length": "22644",
+          "Last-Modified": null,
+          "ETag": null,
+          "Content-Encoding": null
+        },
+        "retention": "ORIGINAL_BYTES",
+        "status": "HTTP_200_COMPLETE",
+        "observed_at": "2026-10-16T12:19:55.747533+00:00",
+        "elapsed_seconds": 3.544894892000002
+      },
+      "body_available": true,
+      "body_ref": {
+        "path": "evidence/batch9_healthcare_20261016/fda_purple_book_761081.body.bin",
+        "sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+        "bytes": 22644
+      }
+    },
+    "company": {
+      "metadata": {
+        "schema_version": 1,
+        "capture_form": "ORIGINAL_HTTP_RESPONSE",
+        "sequence": 2,
+        "capture_key": "fda_bla761081_application",
+        "request_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "reserved_at": "2026-10-16T12:18:43.626050+00:00",
+        "research_plan_sha256": "f096ddee968ae6eb9d23eb40ce0098b5f293199e372b263cb96677d0473a5b34",
+        "reserved_before_transport": true,
+        "research_attempt_cap": 6,
+        "byte_budget": 4000000,
+        "timeout_seconds": 25,
+        "redirects_allowed": false,
+        "retries_allowed": false,
+        "research_only": true,
+        "collector_API_or_quota_DB_used": false,
+        "new_accounts_or_credentials": false,
+        "requested_at": "2026-10-16T12:18:43.627226+00:00",
+        "http_status": 200,
+        "response_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "body_complete_within_byte_budget": true,
+        "raw_publication_permitted": true,
+        "body_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+        "body_bytes": 34010,
+        "body_path": "fda_bla761081_application.body.bin",
+        "response_headers": {
+          "Date": "Fri, 16 Oct 2026 12:18:47 GMT",
+          "Content-Type": "text/html;charset=UTF-8",
+          "Content-Length": "34010",
+          "Last-Modified": null,
+          "ETag": null,
+          "Content-Encoding": null
+        },
+        "retention": "ORIGINAL_BYTES",
+        "status": "HTTP_200_COMPLETE",
+        "observed_at": "2026-10-16T12:18:47.144073+00:00",
+        "elapsed_seconds": 3.5168497120000097
+      },
+      "body_available": true,
+      "body_ref": {
+        "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+        "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+        "bytes": 34010
+      }
+    },
+    "issuer": {
+      "metadata": {
+        "schema_version": 1,
+        "capture_form": "ORIGINAL_HTTP_RESPONSE",
+        "sequence": 1,
+        "capture_key": "sec_pfe_current_submissions",
+        "request_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+        "reserved_at": "2026-10-16T12:18:18.345374+00:00",
+        "research_plan_sha256": "f096ddee968ae6eb9d23eb40ce0098b5f293199e372b263cb96677d0473a5b34",
+        "reserved_before_transport": true,
+        "research_attempt_cap": 6,
+        "byte_budget": 4000000,
+        "timeout_seconds": 25,
+        "redirects_allowed": false,
+        "retries_allowed": false,
+        "research_only": true,
+        "collector_API_or_quota_DB_used": false,
+        "new_accounts_or_credentials": false,
+        "requested_at": "2026-10-16T12:18:18.345479+00:00",
+        "http_status": 200,
+        "response_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+        "body_complete_within_byte_budget": true,
+        "raw_publication_permitted": true,
+        "body_sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+        "body_bytes": 145851,
+        "body_path": "sec_pfe_current_submissions.body.bin",
+        "response_headers": {
+          "Date": "Fri, 16 Oct 2026 12:18:23 GMT",
+          "Content-Type": "application/json",
+          "Content-Length": null,
+          "Last-Modified": null,
+          "ETag": null,
+          "Content-Encoding": null
+        },
+        "retention": "ORIGINAL_BYTES",
+        "status": "HTTP_200_COMPLETE",
+        "observed_at": "2026-10-16T12:18:23.142227+00:00",
+        "elapsed_seconds": 4.796761704999994
+      },
+      "body_available": true,
+      "body_ref": {
+        "path": "evidence/batch9_healthcare_20261016/sec_pfe_current_submissions.body.bin",
+        "sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+        "bytes": 145851
+      }
+    }
+  }
+}

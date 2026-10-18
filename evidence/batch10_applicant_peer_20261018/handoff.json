@@ -1,0 +1,127 @@
+{
+  "actual_retained_cases": {
+    "before_after_plan_byte_identical": true,
+    "exact_Unlimited_Company_matches": 0,
+    "new_attribution_or_adoption": false,
+    "original_body_pins": [
+      {
+        "bytes": 816055,
+        "candidate_relative_path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+        "capture_id": "filing",
+        "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c"
+      },
+      {
+        "bytes": 258262,
+        "candidate_relative_path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.body.html",
+        "capture_id": "exhibit",
+        "sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f"
+      },
+      {
+        "bytes": 22644,
+        "candidate_relative_path": "evidence/batch9_healthcare_20261016/fda_purple_book_761081.body.bin",
+        "capture_id": "application",
+        "sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730"
+      },
+      {
+        "bytes": 34010,
+        "candidate_relative_path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+        "capture_id": "company",
+        "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+      },
+      {
+        "bytes": 145851,
+        "candidate_relative_path": "evidence/batch9_healthcare_20261016/sec_pfe_current_submissions.body.bin",
+        "capture_id": "issuer",
+        "sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b"
+      }
+    ],
+    "roster_rows": 468,
+    "roster_tables": 11,
+    "status": "PARTIAL",
+    "unclosed_purple_book_container_preserved": true
+  },
+  "affected_independent_peer_methods": 4,
+  "after_full_log": {
+    "bytes": 1586,
+    "path": "evidence/batch10_applicant_peer_20261018/after.log",
+    "sha256": "44f1ebf95123d16c4b61d8aadc1a7b5c77183ee97993265fa60ffbb3c3efd82c"
+  },
+  "after_producer_sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+  "after_result": {
+    "bytes": 1012,
+    "path": "evidence/batch10_applicant_peer_20261018/after.json",
+    "sha256": "281fb3fbceadcd64a3e50bbbd506085bd5f665c230b21d7c2d8aff5c7361c898"
+  },
+  "after_snapshot": {
+    "bytes": 2312,
+    "path": "evidence/batch10_applicant_peer_20261018/candidate_after_snapshot.json",
+    "sha256": "b7254dcdd032f8398287f93f0be85cea27c64f839be430aaff65626802985fbe"
+  },
+  "before_full_log": {
+    "bytes": 4341,
+    "path": "evidence/batch10_applicant_peer_20261018/before.log",
+    "sha256": "44a62be5624420a16a87c553ee15862c87bfd7dc8391a98dd214d4dd53a39dce"
+  },
+  "before_producer_sha256": "bf9f1afb16c29c0c0272229e5567ed5448e19db0d4fe4684908dd419af3b59a0",
+  "before_result": {
+    "bytes": 1887,
+    "path": "evidence/batch10_applicant_peer_20261018/before.json",
+    "sha256": "970399233e92c9108243357f42820a7d42f875b86818db70847162f38e5980af"
+  },
+  "before_snapshot": {
+    "bytes": 2297,
+    "path": "evidence/batch10_applicant_peer_20261018/candidate_snapshot.json",
+    "sha256": "d1677489e623e42205b87fe504494055bfca1138ca5bc285fe9870178753c7b7"
+  },
+  "branch": "batch10/applicant-peer-20261018",
+  "candidate_edited_by_peer": false,
+  "candidate_source_path": "market_checker_app/collectors/fda_legal_applicant_bridge_review.py",
+  "completed_at": "2026-10-18T09:03:21.112045+00:00",
+  "confirmed_findings": 1,
+  "exact_initial_probe": {
+    "bytes": 1524,
+    "path": "evidence/batch10_applicant_peer_20261018/foreign_table_probe_before.json",
+    "sha256": "b0cdf1263cf2b21f8d1d28a5dd4dc73aee77174a9f42b99fea660ff25bfc8d3d"
+  },
+  "new_HTTP_DB_quota_or_registry_actions": 0,
+  "owner_fixed_candidate": true,
+  "parent_owns_integration_and_publication": true,
+  "peer_test": {
+    "bytes": 9023,
+    "path": "tests/test_batch10_applicant_peer.py",
+    "sha256": "76c8376da28f1a2a55a5aabf3eed88ad9dfd1ce281b9f588154e39f70e337a5f"
+  },
+  "peer_test_bytes_unchanged_before_after": true,
+  "post_fix_counts": {
+    "errors": 0,
+    "executed": 7,
+    "expected_failures": 0,
+    "failures": 0,
+    "passed": 7,
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "pre_fix_counts": {
+    "errors": 0,
+    "executed": 7,
+    "failures": 4
+  },
+  "push_or_merge_performed": false,
+  "required_integrated_candidate_producer_sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+  "schema_version": 1,
+  "scope": "Independent exact roster-table/name/country/date-to-product peer",
+  "semantic_scope": "Foreign table row inherited a dated subsidiary classification; top-level ownership, product owner and attribution flags stayed false",
+  "source_qualification_limits": [
+    "Only seven new independent peer methods were executed here; owner27-method qualification is preserved in its own frozen log.",
+    "Synthetic foreign-table inputs do not prove an actual publisher defect or ownership relationship.",
+    "The five actual retained originals keep their prior bytes, clocks and incomplete-container limits.",
+    "No complete legal ownership chain, current control, product assignment, OOS/Windows or specialist completion was established."
+  ],
+  "status": "CONFIRMED_POINT_SCOPE_GAP_FIXED_BY_OWNER",
+  "synthetic_initial_fixture": {
+    "bytes": 629,
+    "path": "evidence/batch10_applicant_peer_20261018/synthetic_foreign_table_fixture.html",
+    "sha256": "24db1b1cdd9630f07e4f4626247010f1d02b2b35b79fa8b94d6502e4cc854373"
+  },
+  "withheld_originals_read_restored_or_substituted": false
+}

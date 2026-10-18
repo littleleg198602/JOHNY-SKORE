@@ -1,0 +1,84 @@
+{
+  "acceptance_promotion_found": false,
+  "actual_production_database_mutations": 0,
+  "after_candidate_pin": {
+    "bytes": 24341,
+    "sha256": "0a2354b9a2154237fe2a239cc6d216080e348b56ebb2d647045fd437428ecc15"
+  },
+  "after_result": {
+    "actual_production_database_mutations": 0,
+    "candidate_after": {
+      "bytes": 24341,
+      "sha256": "0a2354b9a2154237fe2a239cc6d216080e348b56ebb2d647045fd437428ecc15"
+    },
+    "candidate_before": {
+      "bytes": 24341,
+      "sha256": "0a2354b9a2154237fe2a239cc6d216080e348b56ebb2d647045fd437428ecc15"
+    },
+    "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015",
+    "completed_at": "2026-10-18T09:00:33.659765+00:00",
+    "discovered": 7,
+    "elapsed_seconds": 0.07474487799993312,
+    "errors": 0,
+    "executed": 7,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_sha256": "074aef6fcfa3136882d28c3bbd598f0cce53f1a245ece95fa7df9c99d98d52c1",
+    "real_windows_acceptance_claim": false,
+    "runner_pin": {
+      "bytes": 3002,
+      "sha256": "90c03cd373d7a9064b2d2ec33b7853bcfe42ae4efd81e6726c70e6542b203247"
+    },
+    "skips": 0,
+    "source_http_requests": 0,
+    "started_at": "2026-10-18T09:00:33.585020+00:00",
+    "successful": true,
+    "synthetic_fixture_only": true,
+    "test_pin": {
+      "bytes": 6005,
+      "sha256": "458709bb2da3f8f0b730b55a3a75424f90e40b8b5b6d081457491be3006da972"
+    },
+    "unexpected_successes": 0
+  },
+  "before_candidate_pin": {
+    "bytes": 22140,
+    "sha256": "a11ab873d2fdaa88bed98f7ad65beb717dd386fd5aa5001c191ecf04f2551f17"
+  },
+  "before_result": {
+    "discovered": 7,
+    "errors": 0,
+    "executed": 7,
+    "failures": 6,
+    "log_sha256": "a0828182642d5395dc98282bddf67785df4f637cf427ca93e509fe78d1c006cf"
+  },
+  "candidate_edited_by_peer": false,
+  "corrected_candidate_scope": "Seven independent synthetic late-publication cases/control only, not Windows or OOS acceptance",
+  "created_at": "2026-10-18T09:00:47.806062+00:00",
+  "owned_file_pins": {
+    "evidence/batch10_readiness_peer_20261018/after_fix_01.json": {
+      "bytes": 1135,
+      "sha256": "a8ae081b01276f30639b44864263a7ce31bcaf737e72dae9572edcc64151e9ed"
+    },
+    "evidence/batch10_readiness_peer_20261018/after_fix_01.log": {
+      "bytes": 1594,
+      "sha256": "074aef6fcfa3136882d28c3bbd598f0cce53f1a245ece95fa7df9c99d98d52c1"
+    },
+    "evidence/batch10_readiness_peer_20261018/candidate_after.py": {
+      "bytes": 24341,
+      "sha256": "0a2354b9a2154237fe2a239cc6d216080e348b56ebb2d647045fd437428ecc15"
+    },
+    "evidence/batch10_readiness_peer_20261018/run_peer.py": {
+      "bytes": 3002,
+      "sha256": "90c03cd373d7a9064b2d2ec33b7853bcfe42ae4efd81e6726c70e6542b203247"
+    },
+    "tests/test_batch10_readiness_peer.py": {
+      "bytes": 6005,
+      "sha256": "458709bb2da3f8f0b730b55a3a75424f90e40b8b5b6d081457491be3006da972"
+    }
+  },
+  "owner_fix": "Evaluation owner added post-fsync whole input/source/existence/journal and physical-clock revalidation before exclusive publication",
+  "peer_test_source_unchanged": true,
+  "runner_unchanged": true,
+  "schema_version": 1,
+  "source_http_requests": 0
+}

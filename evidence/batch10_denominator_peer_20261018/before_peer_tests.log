@@ -1,0 +1,40 @@
+test_explicit_difference_in_subsidiary_scope_cannot_prove_denominator_basis (independent_denominator_peer_tests.DenominatorBasisPeerTests.test_explicit_difference_in_subsidiary_scope_cannot_prove_denominator_basis) ... FAIL
+test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis (independent_denominator_peer_tests.DenominatorBasisPeerTests.test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis) ... 
+  test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis (independent_denominator_peer_tests.DenominatorBasisPeerTests.test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis) (qualification=' The definition of revenue was revised for fiscal 2024 and fiscal 2023.') ... FAIL
+  test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis (independent_denominator_peer_tests.DenominatorBasisPeerTests.test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis) (qualification=' Prior-year net revenue amounts were adjusted to conform to the current-year presentation.') ... FAIL
+test_rounding_qualification_never_produces_customer_amount_or_historical_identity (independent_denominator_peer_tests.DenominatorBasisPeerTests.test_rounding_qualification_never_produces_customer_amount_or_historical_identity) ... ok
+
+======================================================================
+FAIL: test_explicit_difference_in_subsidiary_scope_cannot_prove_denominator_basis (independent_denominator_peer_tests.DenominatorBasisPeerTests.test_explicit_difference_in_subsidiary_scope_cannot_prove_denominator_basis)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_batch10_denominator_peer.py", line 47, in test_explicit_difference_in_subsidiary_scope_cannot_prove_denominator_basis
+    self.assert_basis_not_proven(report)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_batch10_denominator_peer.py", line 39, in assert_basis_not_proven
+    self.assertNotEqual("SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED", report["claim"]["concentration_join_status"],
+AssertionError: 'SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED' == 'SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED' : A source qualification contradicts or changes the denominator basis.
+
+======================================================================
+FAIL: test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis (independent_denominator_peer_tests.DenominatorBasisPeerTests.test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis) (qualification=' The definition of revenue was revised for fiscal 2024 and fiscal 2023.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_batch10_denominator_peer.py", line 52, in test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis
+    self.assert_basis_not_proven(self.review_policy(qualification))
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_batch10_denominator_peer.py", line 39, in assert_basis_not_proven
+    self.assertNotEqual("SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED", report["claim"]["concentration_join_status"],
+AssertionError: 'SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED' == 'SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED' : A source qualification contradicts or changes the denominator basis.
+
+======================================================================
+FAIL: test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis (independent_denominator_peer_tests.DenominatorBasisPeerTests.test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis) (qualification=' Prior-year net revenue amounts were adjusted to conform to the current-year presentation.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_batch10_denominator_peer.py", line 52, in test_postposed_definition_revision_and_adjusted_comparatives_do_not_prove_basis
+    self.assert_basis_not_proven(self.review_policy(qualification))
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_batch10_denominator_peer.py", line 39, in assert_basis_not_proven
+    self.assertNotEqual("SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED", report["claim"]["concentration_join_status"],
+AssertionError: 'SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED' == 'SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED' : A source qualification contradicts or changes the denominator basis.
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.045s
+
+FAILED (failures=3)

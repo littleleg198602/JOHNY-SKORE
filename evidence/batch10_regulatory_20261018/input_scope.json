@@ -1,0 +1,12 @@
+{
+  "capture_clock_rewritten": false,
+  "database_connections_or_writes": 0,
+  "expected_whole_pdf_pages": 95,
+  "financial_issuer_identity_or_registry_adoption_requested": false,
+  "new_http_requests": 0,
+  "publisher_bytes_copied_or_modified": false,
+  "source_plan_path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+  "source_plan_sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667",
+  "whole_original_documents": 2,
+  "written_at": "2026-10-18T04:31:39.678170+00:00"
+}

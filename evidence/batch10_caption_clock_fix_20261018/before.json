@@ -1,0 +1,24 @@
+{
+  "HTTP_DB_quota_or_registry_actions": 0,
+  "elapsed_seconds": 0.018499865999956455,
+  "errors": 0,
+  "executed": 2,
+  "existing_new_owned_future_cutoff_expectation_changed_for_strict_rejection": true,
+  "expected_failures": 0,
+  "failures": 2,
+  "finished_at": "2026-10-18T14:15:02.769700+00:00",
+  "log_sha256": "a564c6fb7713e78d2ce4e9101a47cd37f751a234de58a7c82b5a8f6d28e8e1b9",
+  "mode": "before",
+  "old_bca_test_version_preserved": true,
+  "producer_test_sha256": {
+    "evidence/batch10_caption_clock_fix_20261018/before/caption_review.py": "163966b86b7354ccdcad05af14a1cef2575723312957c1fcc7f5a729b247a8fc",
+    "tests/test_batch10_caption_clock_fix.py": "2198b798de9f76e813413122d1d91cec601377216e1591307413831f7580c6f6",
+    "tests/test_doj_case_caption_review.py": "1eca23cde40bb9580f5ebb9eacb03ea756a63fecf9d3226a904500c7ccb47f1e"
+  },
+  "skips": 0,
+  "source_body_hash_assertions_relaxed": false,
+  "started_at": "2026-10-18T14:15:02.751194+00:00",
+  "successful": false,
+  "synthetic_clock_callbacks_are_not_source_acceptance_or_performance_benchmarks": true,
+  "unexpected_successes": 0
+}

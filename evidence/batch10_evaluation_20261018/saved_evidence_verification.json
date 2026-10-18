@@ -1,0 +1,68 @@
+{
+  "verified_at": "2026-10-18T14:11:30.652576+00:00",
+  "saved_evidence": {
+    "final_source": {
+      "bytes": 25057,
+      "sha256": "28551e0660ee677db9a4aee4513b204b6ebc6ca5e03688007a9119280490b566"
+    },
+    "final_test": {
+      "bytes": 36872,
+      "sha256": "572050d1f141f2266593f381b90c17315e4c2946e25fdd14e258e1064e1ad956"
+    },
+    "actual_receipt": {
+      "bytes": 7966,
+      "sha256": "bf1691aae45c9004d13a492b036f98bac102db1ff3047865d75db5e1516e8b59"
+    },
+    "original_actual_receipt": {
+      "bytes": 7828,
+      "sha256": "13edc710e67e82a566a678f8782a0f90f31014b1d47aa9d4494752a26d29b03d"
+    },
+    "focused_tests": 41,
+    "unchanged_peer_tests": 7,
+    "genuine_forecasts_created": 0,
+    "native_windows_acceptance": false
+  },
+  "baseline_preservation": {
+    "baseline": "32adb8edd6aa6ccc1748d2cfbc228f7db3a16fd4",
+    "all_prior_tracked_files_equal_exact_expected_checkout_bytes": true,
+    "production_test_and_evidence_files_match_raw_git_blobs": true,
+    "exact_git_filtered_crlf_checkout_files": [
+      "Nainstalovat_Patraci_Agenty.bat",
+      "Nainstalovat_Tydenni_Shadow.bat",
+      "Pripravit_SEC_Registry.bat",
+      "Spustit_Market_Checker.bat",
+      "Spustit_Patraci_Agenty.bat",
+      "Spustit_Tydenni_Shadow.bat",
+      "Vyhodnotit_Predikce.bat",
+      "Vyhodnotit_Specialisty.bat",
+      "Zkontrolovat_Zdravotnicke_Identity.bat"
+    ],
+    "files_normalized_or_rewritten": 0,
+    "groups": {
+      "production": {
+        "files": 218,
+        "bytes": 3577034,
+        "exact_physical_file_pin_manifest_sha256": "26221a32fcb694dcbd04cec0731a2746f91670e23ccd6388079c3ad49f74796f"
+      },
+      "tests": {
+        "files": 188,
+        "bytes": 2440692,
+        "exact_physical_file_pin_manifest_sha256": "70b69e554e47182534e030a4745bd6dd57aaf27816770fd7b5536cb88b0da06f"
+      },
+      "evidence": {
+        "files": 1578,
+        "bytes": 78105622,
+        "exact_physical_file_pin_manifest_sha256": "2a32a28f3a6ad55c6867650d2567ec3977a2481bd76231d8985a121fad087be2"
+      },
+      "other": {
+        "files": 36,
+        "bytes": 724756,
+        "exact_physical_file_pin_manifest_sha256": "d5429141827c24e74473d93557378a3005b774d739be8d84363d7269a09e92e0"
+      }
+    }
+  },
+  "SQL_opened": false,
+  "network_requests": 0,
+  "full_suite_rerun": false,
+  "scope": "OFFLINE_LANE_EVIDENCE_VERIFICATION"
+}

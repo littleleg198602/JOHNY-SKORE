@@ -1,0 +1,23 @@
+{
+  "code_test_sha256": {
+    "market_checker_app/collectors/doj_case_caption_review.py": "163966b86b7354ccdcad05af14a1cef2575723312957c1fcc7f5a729b247a8fc",
+    "tests/test_doj_case_caption_review.py": "e4309847b0b6540710d31e39d64eb413c5b78f55ec2dbb426a93fcb7a63b3c8c"
+  },
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_doj_case_caption_review",
+    "-v"
+  ],
+  "database_connections_or_writes": 0,
+  "elapsed_seconds": 12.002954205999913,
+  "exit_code": 0,
+  "finished_at": "2026-10-18T04:32:41.391793+00:00",
+  "log_sha256": "a0a7013d91720bc97c3fcf8f7dab7d9cacb53a4ccbfaf5f27f8b353730902e69",
+  "new_http_requests": 0,
+  "only_new_focused_suite": true,
+  "source_or_hash_assertions_relaxed": false,
+  "started_at": "2026-10-18T04:32:29.388833+00:00",
+  "synthetic_pdfs_are_contract_tests_not_acceptance_originals": true
+}

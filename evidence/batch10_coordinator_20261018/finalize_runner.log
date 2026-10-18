@@ -1,0 +1,2 @@
+{"status": "CONTENT_VERIFIED", "output_bytes": 63813, "output_sha256": "32c59cbef2b2672bce6121b0ce11121e4d32fcea570fbc534cf30ce20205362d", "verified_file_pins": 206, "historical_producer_pins": 8, "old_evidence_files": 1578, "original_test_files": 188}
+{"full_tests": 2476, "new_exact_methods": 245, "seconds": "357.374", "pre_CI_proof": {"path": "evidence/batch10_integration_20261018.json", "bytes": 20096, "sha256": "3b36e6ea114d82663aeb2026a50e0786de3c4ae6927a68b103bc63cdd0bb8548"}, "source_test_files": 22}

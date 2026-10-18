@@ -1,0 +1,113 @@
+{
+  "actual_generic_career_assertions": 1,
+  "actual_named_person_disclosure_count": 1,
+  "actual_source_role_assertions": 7,
+  "after_artifact_pins": {
+    "evidence/batch10_role_claim_peer_20261018/after_README.md": {
+      "bytes": 1870,
+      "sha256": "7be6dc0a891e91bfcab8a2be55e7aa1ce506bf6c02eebc242269baf5d9f70920"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_actual_review.json": {
+      "bytes": 16300,
+      "sha256": "87bceedb852aa94ba7bb6d2667f15e58baba882b8e746ee3a28e1b836988e364"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_candidate.py": {
+      "bytes": 31534,
+      "sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_diagnostic.json": {
+      "bytes": 1691,
+      "sha256": "3b93819756eca179e6145e0d8e5ca1079d978ce7a31fa58238f2c2fada779de3"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_source_pin.json": {
+      "bytes": 392,
+      "sha256": "44ad1a0c38cd76ea921a3610ea032e14de5e1b4203d3e177168216644d67d8e9"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_tests.log": {
+      "bytes": 726,
+      "sha256": "45458b0b395cbd13ac2176db66c48bad3efb98444474257ac68562c74a3586c2"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_verify_actual.py": {
+      "bytes": 4443,
+      "sha256": "252e483dc4e5a6e2244a89a9b1b649dc6084662685c3dd4ea35263b6bdec1bb2"
+    }
+  },
+  "before_3FAIL_originals_byte_identical": true,
+  "before_artifact_pins": {
+    "evidence/batch10_role_claim_peer_20261018/README.md": {
+      "bytes": 2946,
+      "sha256": "d92a6009b4b83997b53038443f2a9ab595a17d39bacb777514932ecae7e0d8e1"
+    },
+    "evidence/batch10_role_claim_peer_20261018/before_diagnostic.json": {
+      "bytes": 3117,
+      "sha256": "8a5553aafcea0b20d296334be8362fd47e0bde1b9e094ff095bb1e7ba44edd0e"
+    },
+    "evidence/batch10_role_claim_peer_20261018/before_tests.log": {
+      "bytes": 3842,
+      "sha256": "b6eeb9f536c012df482c12599769995bfb177ecbb3ded7e69de14b9434bf0e8d"
+    },
+    "evidence/batch10_role_claim_peer_20261018/handoff_before.json": {
+      "bytes": 3483,
+      "sha256": "a60cea2b4bc1e7029e0f0126e566948844d5854e370bcdb9e20ad78374bb4236"
+    },
+    "evidence/batch10_role_claim_peer_20261018/pre_review_build_review.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "evidence/batch10_role_claim_peer_20261018/pre_review_candidate.py": {
+      "bytes": 26101,
+      "sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84"
+    },
+    "evidence/batch10_role_claim_peer_20261018/pre_review_owner_test.py": {
+      "bytes": 28368,
+      "sha256": "43fdca820a30fff616d68b7b04e89e27967fde2b55eec71c82f817e206672a7e"
+    },
+    "evidence/batch10_role_claim_peer_20261018/pre_review_pin.json": {
+      "bytes": 1052,
+      "sha256": "84c96fb736793ca595c299d3e90633a74a29d5955e0cc3be6a147d878eb88861"
+    },
+    "evidence/batch10_role_claim_peer_20261018/run_peer.py": {
+      "bytes": 3374,
+      "sha256": "994bb9769cb72f274ca09a7cdb45686ad3b3d4ae1b196c2a5e86c59302bcbc38"
+    },
+    "tests/test_batch10_role_claim_peer.py": {
+      "bytes": 3321,
+      "sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be"
+    }
+  },
+  "before_peer_commit": "cdcae54b3b1b599d19f76e54088482e6ce9d0b55",
+  "branch": "batch10/role-claim-peer-20261018",
+  "capture_or_form4_continuity_inferred": false,
+  "db_or_quota_operations": 0,
+  "errors": 0,
+  "executed": 3,
+  "expected_failures": 0,
+  "failures": 0,
+  "full_specialist_acceptance": "0/21",
+  "index_served_primary_110_byte_conflict_preserved": true,
+  "integration_order": "Owner SEC role-claim correction first; before-peer commit then this additive after-peer commit. Do not treat frozen before source as current runtime.",
+  "known_withheld_bodies_accessed_restored_or_substituted": false,
+  "natural_person_CIK_binding_alias_role_interval_or_instrument_identity_promoted": false,
+  "owner_head_at_actual_verification": "941624455dc7cc0463aad89e2fb94e4fc1534d93",
+  "owner_source_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/market_checker_app/collectors/sec_person_role_claim_review.py",
+  "owner_source_status_at_actual_verification": "M market_checker_app/collectors/sec_person_role_claim_review.py",
+  "peer_cases": 3,
+  "present_anchor_filing_day": "2025-10-21",
+  "publication_timezone": "UNKNOWN",
+  "qualified_source_bytes": 31534,
+  "qualified_source_sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3",
+  "recorded_at": "2026-10-18T14:12:33.395513+00:00",
+  "registry_adoptions": 0,
+  "schema_version": "independent_role_claim_peer_after_handoff_v1",
+  "scoring_trading_or_activation_changed": false,
+  "shared_source_modified_by_peer": false,
+  "skips": 0,
+  "source_hash_unchanged_during_after_tests_and_actual_replay": true,
+  "source_http_requests": 0,
+  "source_qualification_is_the_exact_SHA_not_an_uncommitted_owner_HEAD_claim": true,
+  "successful": true,
+  "unchanged_peer_test_sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be",
+  "unexpected_successes": 0,
+  "user_windows_or_historical_oos_acceptance_claimed": false,
+  "year_precision_retained": true
+}

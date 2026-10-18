@@ -1,0 +1,27 @@
+{
+  "candidate_dependency_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015",
+  "elapsed_seconds": 0.6356423839999934,
+  "errors": 0,
+  "executed": 7,
+  "expected_failures": 0,
+  "failed_methods": [
+    "test_caller_selected_foreign_row_cannot_authorize_roster_relationship (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_caller_selected_foreign_row_cannot_authorize_roster_relationship)",
+    "test_foreign_counterparty_table_is_not_a_dated_subsidiary_point (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_foreign_counterparty_table_is_not_a_dated_subsidiary_point)",
+    "test_short_roster_name_and_same_country_do_not_borrow_unlimited_counterparty_name (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_short_roster_name_and_same_country_do_not_borrow_unlimited_counterparty_name)",
+    "test_unrelated_table_cannot_borrow_previous_table_column_header (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_unrelated_table_cannot_borrow_previous_table_column_header)"
+  ],
+  "failures": 4,
+  "finished_at": "2026-10-18T09:00:54.308729+00:00",
+  "log_sha256": "44a62be5624420a16a87c553ee15862c87bfd7dc8391a98dd214d4dd53a39dce",
+  "new_HTTP_DB_or_candidate_writes": 0,
+  "only_new_peer_suite_executed": true,
+  "peer_test_sha256": "76c8376da28f1a2a55a5aabf3eed88ad9dfd1ce281b9f588154e39f70e337a5f",
+  "producer_sha256": "bf9f1afb16c29c0c0272229e5567ed5448e19db0d4fe4684908dd419af3b59a0",
+  "selected_producer": "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/fda_legal_applicant_bridge_review.py",
+  "skips": 0,
+  "started_at": "2026-10-18T09:00:53.673077+00:00",
+  "successful": false,
+  "synthetic_cases_are_not_acceptance": true,
+  "top_level_ownership_promotion_not_claimed": true,
+  "unexpected_successes": 0
+}

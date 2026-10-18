@@ -1,0 +1,25 @@
+{
+  "actual_original_viewed": true,
+  "automated_pixel_text_authentication": false,
+  "blank_fields_are_unknown_not_zero": true,
+  "blank_specimen_fields": [
+    "Dated",
+    "NUMBER",
+    "SHARES",
+    "record holder"
+  ],
+  "certificate_reverse_image_requested": false,
+  "facsimile_signature_identity_inferred": false,
+  "image_transformed": false,
+  "literal_validity_condition": "This certificate is not valid until countersigned by the Transfer Agent and registered by the Registrar.",
+  "network_requests_performed": 0,
+  "observations_are_derived_annotation": true,
+  "observed_at": "2026-10-18T04:29:39.896536+00:00",
+  "ocr_correction_is_not_a_changed_primary_body": true,
+  "schema_version": "sec_certificate_visual_observation_notes_v1",
+  "seal_date_is_not_action_effective_day": true,
+  "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45",
+  "uncertain_ocr_cusip_preserved_verbatim_in_original_tsv": "?74be4M",
+  "validity_condition_does_not_verify_this_specimen_was_issued": true,
+  "visually_transcribed_cusip": "74624M 10 2"
+}

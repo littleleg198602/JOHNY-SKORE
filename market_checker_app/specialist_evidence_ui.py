@@ -2,12 +2,14 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from itertools import islice
 from pathlib import Path
 
 from market_checker_app.services.captured_identity_review_service import read_review_plan
 from market_checker_app.specialist_evidence_runner import (
     run_captured_identity_review, run_prime_archive_recovery, run_prospective_history_action,
+    run_user_windows_readiness_capture,
 )
 
 _LABELS = {
@@ -32,6 +34,11 @@ _LABELS = {
     "NHTSA_NEGATIVE_SCOPE": "Úplnost konkrétního dotazu NHTSA",
     "SEC_SUPPLIER_CONCENTRATION": "Podíl konkrétního zákazníka v tržbách dodavatele",
     "SEC_COMPLETE_PACKET": "Úplný SEC dokument a jeho hlavička",
+    "SEC_CERTIFICATE_INSTRUMENT": "Třída a CUSIP na původním certifikátu",
+    "FDA_LEGAL_APPLICANT_BRIDGE": "Žadatel FDA a datovaný seznam dceřiných firem",
+    "DOJ_CASE_CAPTION": "Strany a data v původním soudním dokumentu",
+    "SEC_SUPPLIER_REVENUE_DENOMINATOR": "Skutečné konsolidované tržby dodavatele",
+    "SEC_PERSON_ROLE_CLAIM": "Role a časové údaje v původním životopisu SEC",
 }
 
 
@@ -171,8 +178,39 @@ def render_prospective_source_selection(st, *, output_dir: Path) -> None:
         _display(st, result, name="prospective_source_selection.json")
 
 
+def render_user_windows_readiness(st, *, db_path: Path, output_dir: Path) -> None:
+    st.write("**Záznam připravenosti uživatelského Windows**")
+    st.caption("Zachytí systém, dostupné cenové archivy a uloženou historii bez spuštění analýzy. "
+               "Záznam připravenosti nenahrazuje dokončený ověřovací běh.")
+    context = str(db_path.resolve()) + "|" + str(output_dir.resolve())
+    enabled = st.checkbox("Povolit uložení tohoto záznamu připravenosti", value=False)
+    with st.form("user_windows_readiness_capture"):
+        subjects = st.text_input("Tickery pro záznam připravenosti", value="",
+                                 help="Přesné tickery oddělené mezerou, například AAPL MSFT.")
+        manifest = st.text_input("Manifest cenových archivů pro záznam (volitelné)", value="")
+        archive_root = st.text_input("Kořen cenových archivů pro záznam (volitelné)", value="")
+        submitted = st.form_submit_button("Uložit záznam připravenosti", disabled=not enabled)
+    if submitted and enabled:
+        try:
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+            report = run_user_windows_readiness_capture(enabled=True,
+                output_path=output_dir / "user_windows_readiness" / (stamp + ".json"),
+                tickers=subjects.split(), db_path=db_path,
+                market_manifest_path=Path(manifest.strip()) if manifest.strip() else None,
+                market_archive_root=Path(archive_root.strip()) if archive_root.strip() else None)
+            st.session_state["saved_user_windows_readiness_capture"] = {"context": context, "report": report}
+        except (ValueError, OSError, KeyError, TypeError):
+            st.session_state.pop("saved_user_windows_readiness_capture", None)
+            st.error("Záznam nelze uložit. Ověř vybrané tickery, cesty a původní podklady.")
+    cached = st.session_state.get("saved_user_windows_readiness_capture")
+    if cached and cached["context"] == context:
+        st.info("Uložený záznam popisuje připravenost tohoto prostředí. Úplný uživatelský běh zůstává k doložení.")
+        _display(st, cached["report"], name="user_windows_readiness_capture.json")
+
+
 def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, output_dir: Path) -> None:
     render_market_input_acquisition(st, output_dir=output_dir)
+    render_user_windows_readiness(st, db_path=db_path, output_dir=output_dir)
     st.write("**Kontrola uložených primárních dokladů**")
     st.caption("Kontrola porovná přesné uložené doklady a čas jejich získání. Výsledek ukáže "
                "doloženou vazbu i chybějící důkazy; přijetí identity vyžaduje samostatné posouzení.")
@@ -198,6 +236,25 @@ def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, 
         candidate = leaf.get("candidate") or {}
         claim = leaf.get("claim") or {}
         person = leaf.get("dated_person_fact") or {}
+        if leaf.get("literal_specimen_class_cusip_scope_observed"):
+            st.caption("Původní vzor certifikátu uvádí Class A a CUSIP " + leaf["observed_cusip"] +
+                       ". Datum vydání je prázdné; návaznost na změnu tickeru čeká na doložení.")
+        if leaf.get("selected_roster_facts"):
+            point = leaf["selected_roster_facts"][0]
+            st.caption("Seznam dceřiných firem k " + point["roster_as_of"] + " uvádí „" +
+                       point["legal_entity_name_as_displayed"] + "“. Přesná vazba na současného žadatele FDA čeká na doložení.")
+        if leaf.get("review_kind") == "DOJ_CASE_CAPTION":
+            st.caption("Původní soudní dokumenty: " + str(leaf["supported_case_documents"]) +
+                       "; samostatně doložená záhlaví se stranami: " + str(leaf["supported_caption_blocks"]) +
+                       ". Současný výsledek řízení čeká na doložení.")
+        if claim.get("measure") == "NET_REVENUE" and claim.get("quantities"):
+            values = ", ".join(str(row["fiscal_year"]) + ": " + row["value_literal"] + " mil. USD"
+                               for row in claim["quantities"])
+            st.caption("Konsolidované tržby dodavatele podle tohoto podání: " + values +
+                       ". Samy neurčují částku nákupů zákazníka.")
+        if leaf.get("source_role_claims_supported"):
+            st.caption("Životopis dokládá " + str(leaf["role_claim_count"]) +
+                       " údajů o rolích. Roky nejsou přesnými dny nástupu; výraz „present“ platí vůči datu tohoto podání.")
         if leaf.get("application_facts"):
             application = leaf["application_facts"]
             st.caption(application["source_label"] + ": " + application["source_party_name"] +

@@ -1,0 +1,96 @@
+{
+  "HTTP_collector_DB_quota_or_registry_actions": 0,
+  "actual_plan": {
+    "bytes": 3597,
+    "path": "evidence/batch10_caption_clock_fix_20261018/actual_review_plan.json",
+    "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+  },
+  "all_non_clock_derived_content_exactly_equals_old_report": true,
+  "all_supported_source_clocks_not_after_output": true,
+  "call_returned_at": "2026-10-18T14:18:53.184445+00:00",
+  "call_started_at": "2026-10-18T14:18:51.843089+00:00",
+  "captured_pdf_pages": 95,
+  "document_local_caption_blocks": 3,
+  "excluded_clock_contract_fields_for_comparison": [
+    "completion_clock_verified",
+    "contract_version",
+    "known_at",
+    "review_completed_at",
+    "review_started_at",
+    "reviewed_at",
+    "source_read_cutoff",
+    "source_read_cutoff_is_output_availability"
+  ],
+  "field_evidence_records": 686,
+  "old_report_unchanged": {
+    "bytes": 470353,
+    "path": "evidence/batch10_regulatory_20261018/actual_review.json",
+    "sha256": "8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b"
+  },
+  "original_plan": {
+    "bytes": 3597,
+    "path": "evidence/batch10_regulatory_20261018/actual_review_plan.json",
+    "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+  },
+  "original_source_pins": [
+    {
+      "capture_id": "doj_opposition_pdf",
+      "original": {
+        "bytes": 577500,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+        "sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3"
+      },
+      "original_metadata": {
+        "bytes": 996,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.metadata.json",
+        "sha256": "966c49069fffda0b0b318173de7afa197240dc2d00b2b875640046014da66c72"
+      },
+      "source_observed_at": "2026-10-15T18:12:02.727684+00:00"
+    },
+    {
+      "capture_id": "govinfo_case_opinion",
+      "original": {
+        "bytes": 1344697,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      },
+      "original_metadata": {
+        "bytes": 1110,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.metadata.json",
+        "sha256": "587834c51273118d10ec773fa6e2529e010304a31e12ed11d48f9276a7e45ab2"
+      },
+      "source_observed_at": "2026-10-15T13:40:16.524451+00:00"
+    }
+  ],
+  "physical_completion_known_at": "2026-10-18T14:18:53.184365+00:00",
+  "producer_contract_version": "doj-document-local-caption-identity-v2-completion-clock",
+  "producer_runtime": {
+    "pypdf": "6.16.1",
+    "python": "3.12.14"
+  },
+  "qualified_code_test_sha256": {
+    "market_checker_app/collectors/doj_case_caption_review.py": "8b1d24eec14a29a79fe9187f653be8a48df014c882c9a3626109c4fda6c58945",
+    "tests/test_batch10_caption_clock_fix.py": "2198b798de9f76e813413122d1d91cec601377216e1591307413831f7580c6f6",
+    "tests/test_doj_case_caption_review.py": "1eca23cde40bb9580f5ebb9eacb03ea756a63fecf9d3226a904500c7ccb47f1e"
+  },
+  "qualified_result": {
+    "bytes": 1084,
+    "path": "evidence/batch10_caption_clock_fix_20261018/after.json",
+    "sha256": "b818a92b159664cdca10af85bcd22054a9cf6da19676c666e148fa41b73bba19"
+  },
+  "report": {
+    "bytes": 470641,
+    "path": "evidence/batch10_caption_clock_fix_20261018/reviews/5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9/review.json",
+    "sha256": "5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9"
+  },
+  "review_kind": "DOJ_CASE_CAPTION",
+  "review_started_at": "2026-10-18T14:18:51.843448+00:00",
+  "same_exact_plan_bytes": true,
+  "source_dates_backdated_to_output_knowledge": false,
+  "source_gate_dependency": {
+    "bytes": 27761,
+    "path": "market_checker_app/services/doj_enforcement_scope_review.py",
+    "sha256": "891113065a849998e510695e1929caa3e76a9486fe01db28ce1ad6359dc76465"
+  },
+  "source_read_cutoff": "2026-10-18T14:18:51.843448+00:00"
+}

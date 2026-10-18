@@ -1,0 +1,8 @@
+test_different_named_subject_inside_adjacent_career_table_cannot_donate_roles (independent_role_peer.RoleClaimPeerTests.test_different_named_subject_inside_adjacent_career_table_cannot_donate_roles) ... ok
+test_hidden_index_filing_day_cannot_anchor_source_relative_present (independent_role_peer.RoleClaimPeerTests.test_hidden_index_filing_day_cannot_anchor_source_relative_present) ... ok
+test_interpretation_completed_after_explicit_cutoff_cannot_publish_role_claims_at_that_cutoff (independent_role_peer.RoleClaimPeerTests.test_interpretation_completed_after_explicit_cutoff_cannot_publish_role_claims_at_that_cutoff) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.012s
+
+OK

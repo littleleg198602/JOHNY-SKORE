@@ -1,0 +1,13 @@
+{
+  "errors": 0,
+  "executed": 1,
+  "expected_pre_fix_failure_reproduced": true,
+  "failures": 1,
+  "log_sha256": "928b73c038bc0ccd73ef9c6e80aa3a898b23269d5b28516ceecb8f84e96d17d0",
+  "method": "test_docket_parenthetical_value_is_inside_its_same_clause_evidence_span",
+  "new_http_or_database_actions": 0,
+  "recorded_at": "2026-10-18T04:32:54.079372+00:00",
+  "regression_test_source_sha256": "e4309847b0b6540710d31e39d64eb413c5b78f55ec2dbb426a93fcb7a63b3c8c",
+  "scope": "Evidence-span coverage of actual original caption parenthetical; not source-byte or outcome reclassification",
+  "source_sha256": "8dee0fd14d4d3797724429d625875e7cf63acdf7ca2861e51c41706c0437ea6a"
+}

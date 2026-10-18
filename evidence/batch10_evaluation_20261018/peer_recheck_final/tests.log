@@ -1,0 +1,12 @@
+test_peer_absent_database_created_after_temp_fsync_is_not_published_as_absent (unchanged_readiness_peer.ReadinessPublicationPeerTests.test_peer_absent_database_created_after_temp_fsync_is_not_published_as_absent) ... ok
+test_peer_control_absent_runs_and_injected_hosted_windows_remain_nonacceptance (unchanged_readiness_peer.ReadinessPublicationPeerTests.test_peer_control_absent_runs_and_injected_hosted_windows_remain_nonacceptance) ... ok
+test_peer_late_database_journal_after_temp_fsync_refuses_quiescent_receipt (unchanged_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_database_journal_after_temp_fsync_refuses_quiescent_receipt) ... ok
+test_peer_late_database_main_file_change_after_temp_fsync_refuses_publication (unchanged_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_database_main_file_change_after_temp_fsync_refuses_publication) ... ok
+test_peer_late_monotonic_clock_rollback_after_temp_fsync_refuses_publication (unchanged_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_monotonic_clock_rollback_after_temp_fsync_refuses_publication) ... ok
+test_peer_late_wall_clock_rollback_after_temp_fsync_refuses_publication (unchanged_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_wall_clock_rollback_after_temp_fsync_refuses_publication) ... ok
+test_peer_late_whole_source_change_after_temp_fsync_refuses_publication (unchanged_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_whole_source_change_after_temp_fsync_refuses_publication) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.074s
+
+OK

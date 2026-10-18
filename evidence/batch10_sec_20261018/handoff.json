@@ -1,0 +1,205 @@
+{
+  "actual_source_scope": {
+    "account_accession": "0000789019-26-000157",
+    "account_cik": "0001513142",
+    "account_cik_is_natural_person_binding": false,
+    "account_name_literal": "Nadella Satya",
+    "biography_accession": "0001193125-25-245150",
+    "biography_person_name_literal": "Satya Nadella",
+    "company_experience_range_assertions": 1,
+    "comparison_account_disclosures": 1,
+    "generic_career_range_assertions": 1,
+    "inline_dei_header_and_original_index_validated": true,
+    "literal_temporal_precision": "YEAR; source-relative present anchored only to 2025-10-21",
+    "named_biography_disclosures": 1,
+    "named_role_claims": 7,
+    "new_http_requests": 0,
+    "new_physical_review_available_at": "2026-10-18T04:33:22.735514+00:00",
+    "new_source_api_calls": 0,
+    "original_proxy_sgml_header_available": false,
+    "proxy_index_served_primary_size_difference_bytes": 110,
+    "publication_timezones": "UNKNOWN; raw source acceptance displays retained without UTC reconstruction",
+    "retained_whole_originals": 3,
+    "underlying_distinct_disclosures": 2
+  },
+  "api": {
+    "capture": "PersonRoleClaimCapture",
+    "capture_keys": [
+      "primary",
+      "index",
+      "account_packet"
+    ],
+    "default_knowledge_at": "None uses actual physical interpretation; explicit past returns nonaccepting PARTIAL",
+    "function": "review_sec_person_role_claims",
+    "keyword_arguments": [
+      "primary_capture",
+      "index_capture",
+      "account_packet_capture",
+      "selection",
+      "knowledge_at"
+    ],
+    "kind": "SEC_PERSON_ROLE_CLAIM",
+    "module": "market_checker_app.collectors.sec_person_role_claim_review",
+    "plan_path": "evidence/batch10_sec_20261018/actual_review_plan.json",
+    "request_keys": [
+      "selection"
+    ]
+  },
+  "base_commit": "32adb8edd6aa6ccc1748d2cfbc228f7db3a16fd4",
+  "created_at": "2026-10-18T08:54:42.014081+00:00",
+  "dependency_source_pins": {
+    "evidence/batch10_sec_20261018/build_review.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "evidence/batch10_sec_20261018/run_focused_tests.py": {
+      "bytes": 3098,
+      "sha256": "09cdea3bd54f4e32129c167b2ca2110fe0fad0e00dfae6e20e5f4e045267115f"
+    },
+    "market_checker_app/collectors/sec_person_role_claim_review.py": {
+      "bytes": 26101,
+      "sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84"
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "bytes": 24571,
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    "market_checker_app/services/sec_complete_packet_review.py": {
+      "bytes": 22306,
+      "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+    },
+    "market_checker_app/services/sec_form4_person_bridge.py": {
+      "bytes": 22929,
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    "market_checker_app/services/sec_owner_instrument_scope_review.py": {
+      "bytes": 24453,
+      "sha256": "9186f28a33361be11cd69bf97722c4fa982137bffa164d7a6b5cd7e5e8f14a44"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20535,
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    "tests/test_sec_person_role_claim_review.py": {
+      "bytes": 28368,
+      "sha256": "43fdca820a30fff616d68b7b04e89e27967fde2b55eec71c82f817e206672a7e"
+    }
+  },
+  "development_lane": "sec",
+  "focused_qualification": {
+    "completed_at": "2026-10-18T04:33:37.161935+00:00",
+    "discovered": 44,
+    "elapsed_seconds": 11.650158029000067,
+    "errors": 0,
+    "executed": 44,
+    "expected_failures": 0,
+    "failures": 0,
+    "full_suite_or_windows_oos_claim": false,
+    "json_path": "evidence/batch10_sec_20261018/focused_01.json",
+    "live_http_requests": 0,
+    "log_path": "evidence/batch10_sec_20261018/focused_01.log",
+    "log_sha256": "f03b4e8a26e4e3285232d5391f9449fb8f664f568328977613d1920a52c88e58",
+    "skips": 0,
+    "started_at": "2026-10-18T04:33:25.511777+00:00",
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": false,
+  "limitations": [
+    "The two source disclosures do not prove a biography-person/Form4-account CIK binding or approved name-order alias",
+    "Year assertions are not exact appointment/cessation days or independently established legal intervals",
+    "Present in the 2025 proxy does not establish continuity through 2026 capture or the later Form4",
+    "The 110-byte index/served-original discrepancy prevents exact historical as-filed-version verification",
+    "The proxy financial reporting period is not the biography legal-role interval",
+    "No original proxy SGML header is available; its whole HTML DEI context and original index are the bounded source proof",
+    "Only this DEF14A adjacent-table, year-range layout is implemented; no general source coverage claim",
+    "No CUSIP/class validity, historical machine availability, OOS or user Windows acceptance"
+  ],
+  "new_verified_adoptions": 0,
+  "next_work": [
+    "Independent dated legal natural-person/account-CIK and approved alias evidence",
+    "Primary exact appointment/cessation and legal role continuity evidence",
+    "Dated issuer/instrument/class identity and relevant historical coverage with physically timely evaluations"
+  ],
+  "no_changes": {
+    "canonical_687_and_test_budgets_unchanged": true,
+    "db_quota_lease_untouched": true,
+    "git_push_or_github_write_performed": false,
+    "known_withheld_bodies_not_restored_or_replaced": true,
+    "new_source_collection": true,
+    "no_merge": true,
+    "old_tracked_source_evidence_and_failures_unchanged": true,
+    "registry_and_model_scoring_untouched": true
+  },
+  "output": "SOURCE_BOUND_NAMED_PERSON_LITERAL_ROLE_CLAIM_REVIEW",
+  "owned_file_pins": {
+    "evidence/batch10_sec_20261018/README.md": {
+      "bytes": 5513,
+      "sha256": "fcf4c30cf087787c3add2d2297b15838fae53c82acb6fb4706442c09fb39e494"
+    },
+    "evidence/batch10_sec_20261018/actual_review_plan.json": {
+      "bytes": 3530,
+      "sha256": "d95711ffba4d6e8c01d9022921f4dbbb6038ce1849fcd585e6db87f469c204c2"
+    },
+    "evidence/batch10_sec_20261018/build_review.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "evidence/batch10_sec_20261018/focused_01.json": {
+      "bytes": 2130,
+      "sha256": "06b20ed47918d4a99bc01f98634f73fc528e68bdefdb23166f98de1ab19f2edf"
+    },
+    "evidence/batch10_sec_20261018/focused_01.log": {
+      "bytes": 9676,
+      "sha256": "f03b4e8a26e4e3285232d5391f9449fb8f664f568328977613d1920a52c88e58"
+    },
+    "evidence/batch10_sec_20261018/person_role_claim_review_v1.json": {
+      "bytes": 19056,
+      "sha256": "8904732a28bf595a89988d84759c592868acc1ce9b640c8fbf343d56d4385fa1"
+    },
+    "evidence/batch10_sec_20261018/run_focused_tests.py": {
+      "bytes": 3098,
+      "sha256": "09cdea3bd54f4e32129c167b2ca2110fe0fad0e00dfae6e20e5f4e045267115f"
+    },
+    "market_checker_app/collectors/sec_person_role_claim_review.py": {
+      "bytes": 26101,
+      "sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84"
+    },
+    "tests/test_sec_person_role_claim_review.py": {
+      "bytes": 28368,
+      "sha256": "43fdca820a30fff616d68b7b04e89e27967fde2b55eec71c82f817e206672a7e"
+    }
+  },
+  "result": "PARTIAL",
+  "retained_source_and_failure_pins": {
+    "evidence/batch7_sec_20261015/attempt-01-result.json": {
+      "bytes": 958,
+      "sha256": "ce9b62b878bf35c9fa2d82fd91108cb7ee13f575d7581645ddd6aa27f99544f9"
+    },
+    "evidence/batch7_sec_20261015/attempt-02-result.json": {
+      "bytes": 940,
+      "sha256": "f9d6eb87bd85a69b87a69c686718c4abf8aa7039d02df3a8e7f2149fd68b4af7"
+    },
+    "evidence/batch7_sec_20261015/primary/msft_2025_proxy.htm": {
+      "bytes": 2430522,
+      "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac"
+    },
+    "evidence/batch7_sec_20261015/primary/msft_2025_proxy_index.html": {
+      "bytes": 33931,
+      "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a"
+    },
+    "evidence/batch8_sec_20261015/attempt-02-result.json": {
+      "bytes": 1020,
+      "sha256": "a5e3dce538938e342451f3e4288db9bec754cac334688c52c86301fb5ec6090b"
+    },
+    "evidence/batch9_sec_20261016/attempt-01-result.json": {
+      "bytes": 1159,
+      "sha256": "018390e3b5f7145eb97933ae76308540ea926c6d59f3e171e8661b6c28b83363"
+    },
+    "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt": {
+      "bytes": 9665,
+      "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+    }
+  },
+  "schema_version": 1
+}

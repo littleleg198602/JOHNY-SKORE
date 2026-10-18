@@ -1,0 +1,80 @@
+test_completion_clock_records_new_knowledge_after_the_start_source_cutoff (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_completion_clock_records_new_knowledge_after_the_start_source_cutoff) ... FAIL
+test_completion_clock_is_sampled_after_slow_image_and_derived_class_parsing (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_completion_clock_is_sampled_after_slow_image_and_derived_class_parsing) ... FAIL
+test_physical_completion_rollback_cannot_backdate_the_new_interpretation (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_physical_completion_rollback_cannot_backdate_the_new_interpretation) ... FAIL
+test_explicit_source_cutoff_cannot_include_an_interpretation_completed_later (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_explicit_source_cutoff_cannot_include_an_interpretation_completed_later) ... FAIL
+test_equal_start_and_completion_are_valid_with_an_explicit_aware_cutoff (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_equal_start_and_completion_are_valid_with_an_explicit_aware_cutoff) ... FAIL
+test_unavailable_image_partial_review_also_records_its_completion (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_unavailable_image_partial_review_also_records_its_completion) ... FAIL
+test_physical_completion_clock_requires_an_explicit_timezone (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_physical_completion_clock_requires_an_explicit_timezone) ... FAIL
+
+======================================================================
+FAIL: test_completion_clock_records_new_knowledge_after_the_start_source_cutoff (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_completion_clock_records_new_knowledge_after_the_start_source_cutoff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_sec_certificate_instrument_review.py", line 168, in test_completion_clock_records_new_knowledge_after_the_start_source_cutoff
+    self.assertEqual(2, clock.call_count)
+AssertionError: 2 != 1
+
+======================================================================
+FAIL: test_completion_clock_is_sampled_after_slow_image_and_derived_class_parsing (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_completion_clock_is_sampled_after_slow_image_and_derived_class_parsing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_sec_certificate_instrument_review.py", line 200, in test_completion_clock_is_sampled_after_slow_image_and_derived_class_parsing
+    self.assertEqual(["clock", "decode", "class", "clock"], [event for event, _ in events])
+AssertionError: Lists differ: ['clock', 'decode', 'class', 'clock'] != ['clock', 'decode', 'class']
+
+First list contains 1 additional elements.
+First extra element 3:
+'clock'
+
+- ['clock', 'decode', 'class', 'clock']
+?                            ---------
+
++ ['clock', 'decode', 'class']
+
+======================================================================
+FAIL: test_physical_completion_rollback_cannot_backdate_the_new_interpretation (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_physical_completion_rollback_cannot_backdate_the_new_interpretation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_sec_certificate_instrument_review.py", line 208, in test_physical_completion_rollback_cannot_backdate_the_new_interpretation
+    with self.assertRaisesRegex(ValueError, "clock moved backwards"): self.review()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_explicit_source_cutoff_cannot_include_an_interpretation_completed_later (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_explicit_source_cutoff_cannot_include_an_interpretation_completed_later)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_sec_certificate_instrument_review.py", line 212, in test_explicit_source_cutoff_cannot_include_an_interpretation_completed_later
+    with self.assertRaisesRegex(ValueError, "completed after the explicit cutoff"): self.review(as_of=NOW)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_equal_start_and_completion_are_valid_with_an_explicit_aware_cutoff (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_equal_start_and_completion_are_valid_with_an_explicit_aware_cutoff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_sec_certificate_instrument_review.py", line 217, in test_equal_start_and_completion_are_valid_with_an_explicit_aware_cutoff
+    self.assertEqual(2, clock.call_count)
+AssertionError: 2 != 1
+
+======================================================================
+FAIL: test_unavailable_image_partial_review_also_records_its_completion (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_unavailable_image_partial_review_also_records_its_completion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_sec_certificate_instrument_review.py", line 229, in test_unavailable_image_partial_review_also_records_its_completion
+    self.assertIn("review_started_at", report)
+AssertionError: 'review_started_at' not found in {'schema_version': 'sec-certificate-instrument-review-v1', 'status': 'CERTIFICATE_SPECIMEN_SCOPE_PARTIAL', 'scope': {'issuer_cik': '0001474432', 'issuer_name': 'Everpure, Inc.', 'class_title': 'Class A Common Stock, $0.0001 par value per share', 'cusip': '74624M102', 'old_symbol': 'PSTG', 'new_symbol': 'P'}, 'review_recorded_at': '2026-10-18T12:00:00+00:00', 'knowledge_at': '2026-10-18T12:00:00+00:00', 'as_of': '2026-10-18T12:00:00+00:00', 'source_knowledge_at': '2026-10-18T11:00:00+00:00', 'measurement_recorded_at': None, 'measurement_sha256': None, 'measurement_is_derived_annotation': True, 'automated_pixel_text_authentication': False, 'literal_specimen_class_cusip_scope_observed': False, 'literal_observations': {}, 'missing_literal_fields': ['class_and_par', 'cusip', 'dated_field', 'issuer_name', 'specimen_mark'], 'observed_cusip': None, 'observed_class_terms': None, 'image_dimensions': None, 'image_format': None, 'wrapper_image_references': [{'literal_reference': 'image_0.jpg', 'url': 'https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_0.jpg'}, {'literal_reference': 'image_1.jpg', 'url': 'https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_1.jpg'}], 'publication_scope': {'source_url': 'https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/certificate.htm', 'accession': '000147443226000027', 'form': 'EX-4.1', 'filing_on': '2026-03-25', 'publication_at': None, 'acceptance_unqualified_raw': '2026-03-24 18:36:40', 'publisher_size_conflict': False, 'as_filed_body_version_verified': False, 'blockers': [], 'index_declared_bytes': 72, 'acceptance_timezone_inferred': False, 'image_publication_timestamp_verified': False, 'corporate_seal_is_action_effective_day': False}, 'effective_on': None, 'issued_instrument_validity_verified': False, 'symbol_cusip_continuity_verified': False, 'certificate_number': None, 'issued_share_count': None, 'registered_holder': None, 'facsimile_signature_authenticates_person': False, 'countersignature_or_registration_validity_verified': False, 'blockers': ['AS_FILED_IMAGE_VERSION_UNVERIFIED', 'INDEX_ACCEPTANCE_CALENDAR_DAY_DIFFERS_FROM_FILING_DAY', 'ORIGINAL_CERTIFICATE_IMAGE_UNAVAILABLE', 'OTHER_REFERENCED_CERTIFICATE_IMAGE_NOT_CAPTURED', 'PSTG_TO_P_CLASS_CUSIP_CONTINUITY_UNPROVEN', 'PSTG_TO_P_EXACT_EFFECTIVE_DAY_UNPROVEN', 'REQUIRED_LITERAL_SPECIMEN_FIELDS_UNOBSERVED', 'SPECIMEN_IS_NOT_AN_ISSUED_INSTRUMENT_VALIDITY_INTERVAL', 'SYMBOL_NOT_STATED_IN_CERTIFICATE_FIELD_SCOPE'], 'new_verified_identities': 0, 'current_q3_verified_instrument_coverage': 0, 'registry_adoptions': 0, 'production_registry_changed': False, 'automatic_alias_allowed': False, 'interval_extension_allowed': False, 'historical_machine_availability_inferred': False, 'score_changed': False, 'trading_allowed': False, 'network_requests_performed': 0, 'capture_pins': {'wrapper': {'url': 'https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/certificate.htm', 'sha256': '8e401e69db7b04a8f32b5c7eeed903b701eaebf2a1ad177f2d90323fc64d2eaa', 'bytes': 72, 'metadata_sha256': '7add8ef2bb8659260ea2f360c73c983abcf317fae0c52cd7aa165f5e4d0808d5', 'observed_at': '2026-10-18T11:00:00+00:00', 'known_at': '2026-10-18T11:00:00+00:00', 'body_available': True, 'capture_status': 'PUBLIC_ORIGINAL_BYTES_CAPTURED', 'http_status': 200}, 'index': {'url': 'https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/0001474432-26-000027-index.html', 'sha256': '1f273e53d190e43949c86e7d5a8edea5c7fe0ea7e4b40a5578fea72455f7d70c', 'bytes': 512, 'metadata_sha256': 'b2fa5b3d1d4d159f6e9b35367af0491c93bb4f7649d571d8651ed5011170b387', 'observed_at': '2026-10-18T11:00:00+00:00', 'known_at': '2026-10-18T11:00:00+00:00', 'body_available': True, 'capture_status': 'PUBLIC_ORIGINAL_BYTES_CAPTURED', 'http_status': 200}, 'image': {'url': 'https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_0.jpg', 'sha256': '16e7d2d3909b7f0110cac8bd5c38ce3fcea0d81519fc3c0778e029a5823c45d7', 'bytes': 10080, 'metadata_sha256': '23d38608f7d17c17dae545e13ecb8f71d404129ead7e939f600036dbb1934f3d', 'observed_at': '2026-10-18T11:00:00+00:00', 'known_at': '2026-10-18T11:00:00+00:00', 'body_available': False, 'capture_status': 'WITHHELD_SENSITIVE_BODY', 'http_status': 200}}, 'review_sha256': '18fe3da1fe836eb8157180c05c6944dc949d24ed79a7c60aceb6aaa17b7b6d00'}
+
+======================================================================
+FAIL: test_physical_completion_clock_requires_an_explicit_timezone (tests.test_sec_certificate_instrument_review.CertificateInstrumentReviewTests.test_physical_completion_clock_requires_an_explicit_timezone)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_sec_certificate_instrument_review.py", line 237, in test_physical_completion_clock_requires_an_explicit_timezone
+    with self.assertRaisesRegex(ValueError, "requires a timezone"): self.review()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.127s
+
+FAILED (failures=7)

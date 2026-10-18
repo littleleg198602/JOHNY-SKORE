@@ -1,0 +1,21 @@
+{
+  "db_writes": 0,
+  "discovered": 3,
+  "errors": 0,
+  "executed": 3,
+  "expected_failures": 0,
+  "failures": 0,
+  "finished_at": "2026-10-18T09:00:29.934662+00:00",
+  "log_sha256": "52834a98ed0007fa3e32159a7054a76e2bbbd63df72dab52e55ab339267e4aff",
+  "network_requests": 0,
+  "peer_test_sha256": "5767ad8c86fc42753de7cce90c7af39b1aa5b80bcb8d047b1129b12775cc8f1d",
+  "producer_sha256": "703614dfb36aae3a4bbcf88d97c45a7f4d23bf240391f7213c7eca247490b547",
+  "schema_version": "independent_peer_test_execution_v1",
+  "scope": "Unchanged new peer tests against owner conservative basis correction only. Before source/tests/logs preserved; not live/history/OOS acceptance.",
+  "skips": 0,
+  "source_bytes_unchanged_during_run": true,
+  "started_at": "2026-10-18T09:00:29.899693+00:00",
+  "successful": true,
+  "synthetic_fixture_is_live_acceptance": false,
+  "unexpected_successes": 0
+}

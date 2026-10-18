@@ -1,0 +1,12 @@
+test_actual_unclosed_product_object_and_forged_selected_suffix_stay_withheld (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_actual_unclosed_product_object_and_forged_selected_suffix_stay_withheld) ... ok
+test_caller_selected_foreign_row_cannot_authorize_roster_relationship (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_caller_selected_foreign_row_cannot_authorize_roster_relationship) ... ok
+test_foreign_counterparty_table_is_not_a_dated_subsidiary_point (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_foreign_counterparty_table_is_not_a_dated_subsidiary_point) ... ok
+test_legitimate_exact_point_with_2019_product_is_still_not_ownership_interval (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_legitimate_exact_point_with_2019_product_is_still_not_ownership_interval) ... ok
+test_short_roster_name_and_same_country_do_not_borrow_unlimited_counterparty_name (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_short_roster_name_and_same_country_do_not_borrow_unlimited_counterparty_name) ... ok
+test_unrelated_table_cannot_borrow_previous_table_column_header (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_unrelated_table_cannot_borrow_previous_table_column_header) ... ok
+test_valid_but_borrowed_issuer_CIK_cannot_reroute_original_legal_facts (batch10_independent_applicant_peer.ApplicantScopePeerTests.test_valid_but_borrowed_issuer_CIK_cannot_reroute_original_legal_facts) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.562s
+
+OK

@@ -1,0 +1,46 @@
+{
+  "coordinator_baseline_recorded_at": "2026-10-18T04:31:44.400003+00:00",
+  "workers_already_running_when_recorded": true,
+  "public_base": "32adb8edd6aa6ccc1748d2cfbc228f7db3a16fd4",
+  "base_required_CI_content_verified": true,
+  "base_run_id": 39093644927,
+  "worker_count": 6,
+  "actual_isolated_workers": [
+    "identity_bulk",
+    "healthcare",
+    "regulatory",
+    "contracts",
+    "sec",
+    "evaluation"
+  ],
+  "worker_branches": {
+    "identity_bulk": "batch10/identity_bulk-20261018",
+    "healthcare": "batch10/healthcare-20261018",
+    "regulatory": "batch10/regulatory-20261018",
+    "contracts": "batch10/contracts-20261018",
+    "sec": "batch10/sec-20261018",
+    "evaluation": "batch10/evaluation-20261018"
+  },
+  "root_branch": "batch10/integration-20261018",
+  "registry_proposals_single_owner": "identity_bulk",
+  "shared_runtime_docs_status_owner": "root",
+  "actual_retained_quota_DB_SHA256": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af",
+  "NHTSA_live_continuation": "APPROVAL_BLOCKED_NO_RETRY",
+  "market_failed_plan": "CONSUMED_NO_RETRY",
+  "source_HTTP_so_far": [
+    {
+      "lane": "identity_bulk",
+      "kind": "new_exact_SEC_certificate_image",
+      "status": 200,
+      "bytes": 917915,
+      "sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45",
+      "observed_at": "2026-10-18T04:25:43.865560Z",
+      "root_independently_viewed_original": true,
+      "annotation_is_not_pixel_authentication": true
+    }
+  ],
+  "healthcare_new_HTTP": 0,
+  "other_lanes_source_HTTP": 0,
+  "full_specialist_acceptance": "0/21",
+  "forecasts_registrations_labels_added": 0
+}

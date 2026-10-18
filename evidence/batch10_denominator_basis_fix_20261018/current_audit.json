@@ -1,0 +1,64 @@
+{
+  "added_owner_methods": [
+    "test_matching_contexts_and_a_policy_without_change_words_do_not_prove_basis_identity",
+    "test_unrecognized_basis_qualification_is_kept_whole_without_reenabling_a_join"
+  ],
+  "all_original_evidence_byte_identical": true,
+  "current_join_status": "WITHHELD_DENOMINATOR_BASIS_UNVERIFIED",
+  "current_owner_methods": 28,
+  "db_operations": 0,
+  "original_evidence_commit": "ebe86793eb417041d6c23c28823d5a30d8389786",
+  "original_evidence_pins": {
+    "evidence/batch10_contracts_20261018/README.md": {
+      "bytes": 4196,
+      "sha256": "8b5b4fed5151b89d3be8b6c9df06a0f20fe4426f7ead722301feed901f112c39"
+    },
+    "evidence/batch10_contracts_20261018/actual_review.json": {
+      "bytes": 16252,
+      "sha256": "5244a96ba2ad59b898c10bbc9b4900ebc4979146732e554f29648dc4689d3d4f"
+    },
+    "evidence/batch10_contracts_20261018/actual_review_plan.json": {
+      "bytes": 10757,
+      "sha256": "90acd9dc3754155b9055077f5742fe55df06e859a8020be5a25b1a8919170cc6"
+    },
+    "evidence/batch10_contracts_20261018/build_plan.py": {
+      "bytes": 1128,
+      "sha256": "47afdac4f63d17f9ac9dea6fb6c9faa69d9c824d13d1ed41740e96d55f5d49fd"
+    },
+    "evidence/batch10_contracts_20261018/handoff.json": {
+      "bytes": 14758,
+      "sha256": "93e5809b169a455397094547e0b4dce8365ec4cdcfb4c36c310afbfbc392e408"
+    },
+    "evidence/batch10_contracts_20261018/handoff.sha256": {
+      "bytes": 79,
+      "sha256": "2d8c3c3fdc41da5df73078ae7e08970cf2cb27d80c61bf86f10cb1f6540ad3b9"
+    },
+    "evidence/batch10_contracts_20261018/qualify.py": {
+      "bytes": 2995,
+      "sha256": "f2d1e17fa2fcc44eb2e3743d720754bbdcebad056c846e06fe1a84eaa4cb09d7"
+    },
+    "evidence/batch10_contracts_20261018/replay_retained.py": {
+      "bytes": 2126,
+      "sha256": "f822f09625d066c991f27ac86db9741b35d23ecd7edffab9e065d163cac5d953"
+    },
+    "evidence/batch10_contracts_20261018/selection.json": {
+      "bytes": 8170,
+      "sha256": "80079a1e4055d07a4f543e16af66bc74bdfdfd67c1d887dd2d7eb77c92157504"
+    },
+    "evidence/batch10_contracts_20261018/tests.json": {
+      "bytes": 2294,
+      "sha256": "ccac1b3bf06d96f50ddce6dcf06f067475765ffe06334e05bdf95d0c231396b2"
+    },
+    "evidence/batch10_contracts_20261018/tests.log": {
+      "bytes": 12530,
+      "sha256": "badad81b6d8062c0c58a563508e373b0d015b94a2dd82bd88597bc56ca644813"
+    }
+  },
+  "original_owner_methods": 26,
+  "original_owner_methods_removed": [],
+  "producer_and_test_qualification_sha_current": true,
+  "recorded_at": "2026-10-18T09:01:56.620970+00:00",
+  "schema_version": 1,
+  "source_http_requests": 0,
+  "source_total_amounts_contexts_periods_units_and_cell_pins_unchanged": true
+}

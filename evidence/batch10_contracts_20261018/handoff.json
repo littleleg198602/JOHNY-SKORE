@@ -1,0 +1,294 @@
+{
+  "acceptance": {
+    "broader_award_uei_durable_history_verified": false,
+    "current_instrument_or_q3_identity_verified": false,
+    "customer_percentage_multiplied_by_total": false,
+    "customer_purchases_or_direct_purchase_share_verified": false,
+    "full_specialist_acceptance": "0/21",
+    "generic_CompanyMember_renamed": false,
+    "historical_as_filed_comparative_version_or_restatement_history_verified": false,
+    "historical_availability_reconstructed": false,
+    "historical_oos_verified": false,
+    "new_user_windows_qualification": false,
+    "physical_quantity_denominator_verified": false,
+    "registry_adoptions": 0,
+    "score_model_fitter_or_budgets_changed": false,
+    "trading_or_activation_allowed": false
+  },
+  "actual_review": {
+    "accession_number": "0000004127-25-000085",
+    "canonical_ticker_hint": "SWKS",
+    "comparative_version_scope": "COMPARATIVES_AS_REPORTED_IN_THIS_CURRENT_FILING",
+    "concentration_join_status": "SAME_ORIGINAL_SCOPE_PERIOD_AND_BASIS_SUPPORTED",
+    "definition_comparability_across_prior_filings": "UNKNOWN_NOT_RECONSTRUCTED",
+    "definition_policy_literal": "Revenue Recognition. We recognize revenue in accordance with the Financial Accounting Standards Board\u2019s (\u201cFASB\u201d) Accounting Standards Codification (\u201cASC\u201d) 606 Revenue from Contracts with Customers net of estimated reserves. Our revenue reserves contain uncertainties because they require management to make assumptions and to apply judgment to estimate the value of future credits to customers for product returns, price protection, price adjustments, and stock rotation for products sold to certain electronic component distributors. We base these estimates on the expected value method considering all reasonably available information, including our historical experience and current expectations, and are reflected in the transaction price when sales are recorded. Changes in actual demand or market conditions could adversely or beneficially impact our reserve calculations.",
+    "disclosed_denominators": [
+      {
+        "concentration_context_id": "c-229",
+        "concentration_fact_id": "f-977",
+        "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "context_dimensions": [],
+        "context_id": "c-1",
+        "currency": "USD",
+        "decimals": -5,
+        "display_unit": "millions",
+        "fact_id": "f-61",
+        "fiscal_year": 2025,
+        "period_end": "2025-10-03",
+        "period_start": "2024-09-28",
+        "same_original_scope_period_and_basis_supported": true,
+        "scale": 6,
+        "source_literal": "4,086.9",
+        "source_sign": null,
+        "total_net_revenue_usd_from_source_scale_only": "4086900000",
+        "zero_based_table_column": 4
+      },
+      {
+        "concentration_context_id": "c-230",
+        "concentration_fact_id": "f-978",
+        "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "context_dimensions": [],
+        "context_id": "c-7",
+        "currency": "USD",
+        "decimals": -5,
+        "display_unit": "millions",
+        "fact_id": "f-62",
+        "fiscal_year": 2024,
+        "period_end": "2024-09-27",
+        "period_start": "2023-09-30",
+        "same_original_scope_period_and_basis_supported": true,
+        "scale": 6,
+        "source_literal": "4,178.0",
+        "source_sign": null,
+        "total_net_revenue_usd_from_source_scale_only": "4178000000",
+        "zero_based_table_column": 10
+      },
+      {
+        "concentration_context_id": "c-231",
+        "concentration_fact_id": "f-979",
+        "concept": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "context_dimensions": [],
+        "context_id": "c-8",
+        "currency": "USD",
+        "decimals": -5,
+        "display_unit": "millions",
+        "fact_id": "f-63",
+        "fiscal_year": 2023,
+        "period_end": "2023-09-29",
+        "period_start": "2022-10-01",
+        "same_original_scope_period_and_basis_supported": true,
+        "scale": 6,
+        "source_literal": "4,772.4",
+        "source_sign": null,
+        "total_net_revenue_usd_from_source_scale_only": "4772400000",
+        "zero_based_table_column": 16
+      }
+    ],
+    "exact_historical_as_filed_version_verified": false,
+    "index_declared_primary_bytes": 1708601,
+    "issuer_cik": "0000004127",
+    "measure": "NET_REVENUE",
+    "measurement": {
+      "broader_relevant_issuer_coverage_measured": false,
+      "canonical_universe": 687,
+      "counterparty_legal_continuity_verified": 0,
+      "customer_amount_estimates": 0,
+      "disclosed_annual_totals": 3,
+      "full_specialist_acceptance": 0,
+      "independent_primary_annual_filings": 1,
+      "new_customer_percentage_extractions": 0,
+      "registry_adoptions": 0,
+      "selected_issuer_hints": 1
+    },
+    "path": "evidence/batch10_contracts_20261018/actual_review.json",
+    "physical_ingested_at": "2026-10-18T04:32:23.085688+00:00",
+    "physical_knowledge_at": "2026-10-18T04:32:23.085688+00:00",
+    "preserved_size_conflict_bytes": 109,
+    "prior_Apple_API_index_acceptance_clock_conflict_resolved": false,
+    "publisher_publication_at": null,
+    "publisher_size_conflict": true,
+    "reported_issuer_name": "Skyworks Solutions, Inc.",
+    "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+    "retained_original_primary_bytes": 1708710,
+    "source_body_sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade",
+    "source_inputs_known_at": "2026-10-16T12:18:16.379894+00:00",
+    "status": "CANDIDATE_REVIEWED"
+  },
+  "api": {
+    "body_bytes_cap": 4000000,
+    "captures": "issuer/index, plus optional independent counterparty passed unchanged to existing concentration reviewer",
+    "default_cutoff": "actual physical ingestion now; explicit past cutoff rejects",
+    "module": "market_checker_app.collectors.sec_supplier_revenue_denominator_review",
+    "name": "review_sec_supplier_revenue_denominator",
+    "persistence_performed": false,
+    "request_bytes_cap": 48000,
+    "request_keys": [
+      "selection",
+      "concentration_request"
+    ],
+    "runtime_kind": "SEC_SUPPLIER_REVENUE_DENOMINATOR",
+    "selected_table_bytes_cap": 128000,
+    "signature": "(request: Mapping, captures: Mapping, *, as_of: datetime | None = None) -> dict",
+    "statuses": [
+      "CANDIDATE_REVIEWED",
+      "REJECTED"
+    ]
+  },
+  "branch": "batch10/contracts-20261018",
+  "deliverable": "EXACT_ORIGINAL_CONSOLIDATED_SUPPLIER_NET_REVENUE_DENOMINATOR",
+  "development_lane": "contracts",
+  "evidence_and_producer_pins": {
+    "evidence/batch10_contracts_20261018/README.md": {
+      "bytes": 4196,
+      "sha256": "8b5b4fed5151b89d3be8b6c9df06a0f20fe4426f7ead722301feed901f112c39"
+    },
+    "evidence/batch10_contracts_20261018/actual_review.json": {
+      "bytes": 16252,
+      "sha256": "5244a96ba2ad59b898c10bbc9b4900ebc4979146732e554f29648dc4689d3d4f"
+    },
+    "evidence/batch10_contracts_20261018/actual_review_plan.json": {
+      "bytes": 10757,
+      "sha256": "90acd9dc3754155b9055077f5742fe55df06e859a8020be5a25b1a8919170cc6"
+    },
+    "evidence/batch10_contracts_20261018/build_plan.py": {
+      "bytes": 1128,
+      "sha256": "47afdac4f63d17f9ac9dea6fb6c9faa69d9c824d13d1ed41740e96d55f5d49fd"
+    },
+    "evidence/batch10_contracts_20261018/qualify.py": {
+      "bytes": 2995,
+      "sha256": "f2d1e17fa2fcc44eb2e3743d720754bbdcebad056c846e06fe1a84eaa4cb09d7"
+    },
+    "evidence/batch10_contracts_20261018/replay_retained.py": {
+      "bytes": 2126,
+      "sha256": "f822f09625d066c991f27ac86db9741b35d23ecd7edffab9e065d163cac5d953"
+    },
+    "evidence/batch10_contracts_20261018/selection.json": {
+      "bytes": 8170,
+      "sha256": "80079a1e4055d07a4f543e16af66bc74bdfdfd67c1d887dd2d7eb77c92157504"
+    },
+    "evidence/batch10_contracts_20261018/tests.json": {
+      "bytes": 2294,
+      "sha256": "ccac1b3bf06d96f50ddce6dcf06f067475765ffe06334e05bdf95d0c231396b2"
+    },
+    "evidence/batch10_contracts_20261018/tests.log": {
+      "bytes": 12530,
+      "sha256": "badad81b6d8062c0c58a563508e373b0d015b94a2dd82bd88597bc56ca644813"
+    },
+    "market_checker_app/collectors/sec_supplier_revenue_denominator_review.py": {
+      "bytes": 23532,
+      "sha256": "280f13da28042d536ee7e306c041963d15ba337a5cffb32cddf142f7088b419f"
+    },
+    "tests/test_sec_supplier_revenue_denominator_review.py": {
+      "bytes": 20520,
+      "sha256": "aa7f80b710be015d5f580509472bfd14f6de6e96a3efc8f3d734335406cbe621"
+    }
+  },
+  "focused_qualification": {
+    "completed_at": "2026-10-18T04:32:09.412737+00:00",
+    "development_checks": [
+      {
+        "new_cases": 24,
+        "scope": "initial focused mechanisms and real retained replay before two additional numeric-bound/duplicate-ID regressions; not final qualification",
+        "successful": true
+      }
+    ],
+    "discovered": 53,
+    "elapsed_seconds": 2.6423926089998986,
+    "errors": 0,
+    "executed": 53,
+    "expected_failures": 0,
+    "failures": 0,
+    "full_original_log_path": "evidence/batch10_contracts_20261018/tests.log",
+    "historical_oos_verified": false,
+    "modules": [
+      "tests.test_sec_supplier_revenue_denominator_review",
+      "tests.test_batch9_supplier_concentration"
+    ],
+    "new_hosted_windows_qualification": false,
+    "new_module_cases": 26,
+    "production_database_writes": 0,
+    "report_path": "evidence/batch10_contracts_20261018/tests.json",
+    "schema_version": 1,
+    "scope": "NEW_DENOMINATOR_CONSUMER_AND_DIRECT_CONCENTRATION_DEPENDENCY",
+    "skips": 0,
+    "source_http_requests": 0,
+    "source_sha256": {
+      "market_checker_app/collectors/sec_supplier_revenue_denominator_review.py": "280f13da28042d536ee7e306c041963d15ba337a5cffb32cddf142f7088b419f",
+      "market_checker_app/services/sec_ir_disclosure_authority_review.py": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7",
+      "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+      "market_checker_app/services/sec_person_kind_review.py": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe",
+      "market_checker_app/services/sec_purchase_obligation_scope_review.py": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb",
+      "market_checker_app/services/sec_supplier_concentration_review.py": "c7673d7f99a48040708a4e829e8dc4a8e410ad4275d3902bec35580ba0992718",
+      "market_checker_app/services/sec_supply_chain_scope_review.py": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91",
+      "tests/test_batch9_supplier_concentration.py": "3144832b906dfa0271c9dabe568be962a75b3392837e85e76976d0f369af0cba",
+      "tests/test_sec_supplier_revenue_denominator_review.py": "aa7f80b710be015d5f580509472bfd14f6de6e96a3efc8f3d734335406cbe621"
+    },
+    "started_at": "2026-10-18T04:32:06.658014+00:00",
+    "successful": true,
+    "synthetic_mechanism_fixtures_count_as_live": false,
+    "unexpected_successes": 0,
+    "whole_baseline2231_repeated": false
+  },
+  "integration": {
+    "display": "Supplier consolidated total net revenue and exact periods; preserves all-channel concentration association, never Apple purchases or an estimated customer amount",
+    "explicit_old_as_of_override": false,
+    "review_plan_path": "evidence/batch10_contracts_20261018/actual_review_plan.json",
+    "root_must_register_kind_and_four_megabyte_body_cap": true,
+    "root_owns_dispatcher_UI_CLI_config_and_publication": true,
+    "selection_path": "evidence/batch10_contracts_20261018/selection.json",
+    "standard_plan_captures_verified_byte_identical_to_actual_replay": true
+  },
+  "public_base_commit": "32adb8edd6aa6ccc1748d2cfbc228f7db3a16fd4",
+  "public_base_tree": "256af88cf9074e128a0305c79aa814fba29ec980",
+  "recorded_at": "2026-10-18T04:34:14.919471+00:00",
+  "remaining_work": [
+    "Independent prior as-filed annual versions and changed/restated definition reconciliation; current-filing comparatives do not prove historical availability",
+    "Actual counterparty purchases/direct channel/physical quantity denominators and independent dated legal/instrument continuity",
+    "Complete original prime-award pages, earlier verified UEI identities and original durable shared quota/history before any new USAspending collector traversal",
+    "Wider relevant canonical687 scope, genuine prospective labels, independent historical/OOS and user Windows acceptance"
+  ],
+  "schema_version": "batch10_supplier_revenue_denominator_handoff_v1",
+  "source_operations": {
+    "collector_requests": 0,
+    "known_withheld_bodies_accessed_restored_or_substituted": false,
+    "new_http_requests": 0,
+    "nhtsa_requests": 0,
+    "old_original_bytes_modified": false,
+    "private_scratch_bodies_read": false,
+    "production_database_reads_or_writes": 0,
+    "quota_store_created_copied_reset_or_reconstructed": false,
+    "source_bodies_copied": 0,
+    "usaspending_requests": 0
+  },
+  "source_references": {
+    "counterparty_body": {
+      "repository_relative_path": "evidence/batch3_sec_20261012/primary/aapl_2025_R1.htm",
+      "sha256": "6083668bba54cdcffd9c7ee90f612506346f4aeabc9586b20c4fd095455bd8e8"
+    },
+    "counterparty_capture": {
+      "json_pointer": "/captures/6",
+      "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+      "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+    },
+    "index_body": {
+      "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+      "sha256": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755"
+    },
+    "index_capture": {
+      "repository_relative_path": "evidence/batch9_contracts_20261016/requests/c6fc9bdf002fbb5f4c016671f74c54e6fedaa0cebec74854bd9f12d8e369dd9f.metadata.json",
+      "sha256": "50de62e7bc8ed60418a061ab1b375bbb326518312b0750076fbc1b982d324a74"
+    },
+    "issuer_body": {
+      "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade.response",
+      "sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "issuer_capture": {
+      "repository_relative_path": "evidence/batch9_contracts_20261016/requests/5fbd0d01bca2441aba3c2676878b1bf90ec5dd3acbbdb0319e76b6c157ab3743.metadata.json",
+      "sha256": "b8d1bf49b2d4ef3775a1fb88caf92499f101070f65855ee3ef2b552efa9a2b16"
+    },
+    "original_concentration_packet": {
+      "repository_relative_path": "evidence/batch9_contracts_20261016/selection.json",
+      "sha256": "dbd7c11e2cda3aa2d05cb5814e5fa7c40990979f8bdefe433318527ce40b2b93"
+    }
+  }
+}

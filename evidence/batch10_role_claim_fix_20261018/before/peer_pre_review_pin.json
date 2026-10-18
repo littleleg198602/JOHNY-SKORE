@@ -1,0 +1,25 @@
+{
+  "candidate_original_modified": false,
+  "candidate_worktree": "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015",
+  "db_operations": 0,
+  "files": {
+    "evidence/batch10_sec_20261018/build_review.py": {
+      "bytes": 6224,
+      "frozen_path": "evidence/batch10_role_claim_peer_20261018/pre_review_build_review.py",
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "market_checker_app/collectors/sec_person_role_claim_review.py": {
+      "bytes": 26101,
+      "frozen_path": "evidence/batch10_role_claim_peer_20261018/pre_review_candidate.py",
+      "sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84"
+    },
+    "tests/test_sec_person_role_claim_review.py": {
+      "bytes": 28368,
+      "frozen_path": "evidence/batch10_role_claim_peer_20261018/pre_review_owner_test.py",
+      "sha256": "43fdca820a30fff616d68b7b04e89e27967fde2b55eec71c82f817e206672a7e"
+    }
+  },
+  "frozen_at": "2026-10-18T08:54:47.764622+00:00",
+  "schema_version": 1,
+  "source_requests": 0
+}

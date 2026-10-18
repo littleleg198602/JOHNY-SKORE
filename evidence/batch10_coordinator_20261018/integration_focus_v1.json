@@ -1,0 +1,30 @@
+{
+  "started_at": "2026-10-18T14:14:06.210183+00:00",
+  "ended_at": "2026-10-18T14:14:11.282528+00:00",
+  "elapsed_seconds": 5.0723435290000225,
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "selected": [
+    "tests.test_batch10_coordinator_integration"
+  ],
+  "exact_test_ids": [
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_new_kind_body_limit_and_future_knowledge_reject_before_any_body_io",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_2017_roster_does_not_supply_current_exact_fda_applicant_ownership",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_biography_year_precision_never_becomes_role_interval_or_account_alias",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_case_captions_remain_document_local_without_issuer_or_disposition_bridge",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_certificate_literal_fact_keeps_blank_date_and_specimen_limits",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_revenue_totals_preserve_source_scale_without_customer_amount",
+    "tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_default_cli_does_not_read_inputs_or_create_a_receipt",
+    "tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_explicit_cli_publishes_readiness_only_and_rejects_overwriting_its_receipt",
+    "tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_ui_default_render_never_captures_and_explicit_submit_selects_exact_inputs_once"
+  ],
+  "discovered": 9,
+  "executed": 9,
+  "failures": 1,
+  "errors": 2,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": false,
+  "full_log_sha256": "64da632c1d99ef4b42fdf9517312097c8f04432b9d86e5d9c04833764088f852"
+}

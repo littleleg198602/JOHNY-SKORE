@@ -1,0 +1,218 @@
+{
+  "counterparty_body": {
+    "repository_relative_path": "evidence/batch3_sec_20261012/primary/aapl_2025_R1.htm",
+    "sha256": "6083668bba54cdcffd9c7ee90f612506346f4aeabc9586b20c4fd095455bd8e8"
+  },
+  "counterparty_capture": {
+    "json_pointer": "/captures/6",
+    "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+    "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+  },
+  "index_body": {
+    "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+    "sha256": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755"
+  },
+  "index_capture": {
+    "repository_relative_path": "evidence/batch9_contracts_20261016/requests/c6fc9bdf002fbb5f4c016671f74c54e6fedaa0cebec74854bd9f12d8e369dd9f.metadata.json",
+    "sha256": "50de62e7bc8ed60418a061ab1b375bbb326518312b0750076fbc1b982d324a74"
+  },
+  "issuer_body": {
+    "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade.response",
+    "sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+  },
+  "issuer_capture": {
+    "repository_relative_path": "evidence/batch9_contracts_20261016/requests/5fbd0d01bca2441aba3c2676878b1bf90ec5dd3acbbdb0319e76b6c157ab3743.metadata.json",
+    "sha256": "b8d1bf49b2d4ef3775a1fb88caf92499f101070f65855ee3ef2b552efa9a2b16"
+  },
+  "kind": "SEC_SUPPLIER_REVENUE_DENOMINATOR",
+  "new_source_http_requests": 0,
+  "original_bodies_copied": 0,
+  "original_concentration_packet": {
+    "repository_relative_path": "evidence/batch9_contracts_20261016/selection.json",
+    "sha256": "dbd7c11e2cda3aa2d05cb5814e5fa7c40990979f8bdefe433318527ce40b2b93"
+  },
+  "request": {
+    "concentration_request": {
+      "counterparty_selection": {
+        "cik": "0000320193",
+        "field_pins": {
+          "cik": {
+            "byte_end": 13602,
+            "byte_start": 13243,
+            "sha256": "24e2a2a8a8de124fe822bc07b81f7f422eab013325dc335b8bde459b8eec8639"
+          },
+          "document_type": {
+            "byte_end": 1771,
+            "byte_start": 1438,
+            "sha256": "2b85499c9ebd2d4df214399b9d9033bb0d47280e457212bec1d7047860614c6d"
+          },
+          "fiscal_year": {
+            "byte_end": 12882,
+            "byte_start": 12525,
+            "sha256": "d0659d143a7f38d89e10ef30aeef3043d8184a779713ee4262ece04330ee1790"
+          },
+          "header_period": {
+            "byte_end": 1052,
+            "byte_start": 907,
+            "sha256": "395ab22128cd8223f2fc975f9789bb334297177c62398002a6313ac9f219bc12"
+          },
+          "legal_name": {
+            "byte_end": 3915,
+            "byte_start": 3559,
+            "sha256": "72a56d70ae9de0d81d51cc3aabcc0117ac1d03fab6758f82fabdb1f8a2e38290"
+          },
+          "period_end": {
+            "byte_end": 2850,
+            "byte_start": 2487,
+            "sha256": "91de7fada40ea9191dc58131bbad165d1e6053c6cd7a1748e32f2a4d68bae1b7"
+          }
+        },
+        "legal_name": "Apple Inc.",
+        "mode": "SEC_R1_TABLE",
+        "report_period_end": "2025-09-27",
+        "table_index": 0,
+        "value_column": 1
+      },
+      "selection": {
+        "aggregation_qualifier_literal": "in the aggregate",
+        "alias_passage": {
+          "byte_end": 187912,
+          "byte_start": 187180,
+          "sha256": "a78c2ae114b2023fbc0053f059d9db8028bf0a4abf8ab21971e368c03635b9ff"
+        },
+        "channel_qualifier_literal": "through sales to multiple distributors, contract manufacturers, and direct sales for multiple applications including smartphones, tablets, desktop, and notebook computers, watches and other devices",
+        "claim_role": "CUSTOMER_REVENUE_CONCENTRATION",
+        "concentration_passage": {
+          "byte_end": 1501219,
+          "byte_start": 1500263,
+          "sha256": "25ecd2593c8f20b29f825d3d1cce1082feed49247fc838851fe1ad885c7f349d"
+        },
+        "counterparty_kind": "NAMED",
+        "counterparty_label": "Apple",
+        "counterparty_legal_name_literal": "Apple Inc.",
+        "denominator_literal": "the Company\u2019s net revenue",
+        "fiscal_calendar_passage": {
+          "byte_end": 983531,
+          "byte_start": 983016,
+          "sha256": "46639bfc6df83c22a7273b5aa7887399a9b21bc50ce1a438b12cf3aff7ea22b3"
+        },
+        "fiscal_period_end": "2025-10-03",
+        "issuer_cik": "0000004127",
+        "issuer_context_id": "c-1",
+        "issuer_name": "Skyworks Solutions, Inc.",
+        "issuer_ticker": "SWKS",
+        "periods": [
+          {
+            "context_id": "c-229",
+            "fact_id": "f-977",
+            "fiscal_year": 2025,
+            "period_end": "2025-10-03",
+            "period_start": "2024-09-28",
+            "value_literal": "67"
+          },
+          {
+            "context_id": "c-230",
+            "fact_id": "f-978",
+            "fiscal_year": 2024,
+            "period_end": "2024-09-27",
+            "period_start": "2023-09-30",
+            "value_literal": "69"
+          },
+          {
+            "context_id": "c-231",
+            "fact_id": "f-979",
+            "fiscal_year": 2023,
+            "period_end": "2023-09-29",
+            "period_start": "2022-10-01",
+            "value_literal": "66"
+          }
+        ],
+        "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+        "scope_passage": {
+          "byte_end": 982671,
+          "byte_start": 982307,
+          "sha256": "741ab46c7df33ce745e1c95cc2815b040c7978460a0f5bf7a9732bc5a6edc3f8"
+        },
+        "section_heading": {
+          "byte_end": 1457444,
+          "byte_start": 1457128,
+          "sha256": "3db18f19e0876746ad5b3180429c54589c14c8db2665df4ef2b9dbb55b31ec23"
+        }
+      }
+    },
+    "selection": {
+      "basis_passage": {
+        "byte_end": 667950,
+        "byte_start": 666235,
+        "sha256": "a173aae0ada052b7401528055d00239e63b6e8fcd506203239618628ef07729f"
+      },
+      "column_header_row": {
+        "byte_end": 712814,
+        "byte_start": 711883,
+        "sha256": "46bad503a4b9c2751b0cd34b1552215520f1f5f9e740d75637868d129e573b3f"
+      },
+      "measure": "NET_REVENUE",
+      "period_header_row": {
+        "byte_end": 711883,
+        "byte_start": 711613,
+        "sha256": "9d984764b036b6c5d90f3d43f61eb201f98049ecae8b7bbfc739af5f2583d149"
+      },
+      "periods": [
+        {
+          "column": 4,
+          "context_id": "c-1",
+          "fact_id": "f-61",
+          "fiscal_year": 2025,
+          "period_end": "2025-10-03",
+          "period_start": "2024-09-28",
+          "value_literal": "4,086.9"
+        },
+        {
+          "column": 10,
+          "context_id": "c-7",
+          "fact_id": "f-62",
+          "fiscal_year": 2024,
+          "period_end": "2024-09-27",
+          "period_start": "2023-09-30",
+          "value_literal": "4,178.0"
+        },
+        {
+          "column": 16,
+          "context_id": "c-8",
+          "fact_id": "f-63",
+          "fiscal_year": 2023,
+          "period_end": "2023-09-29",
+          "period_start": "2022-10-01",
+          "value_literal": "4,772.4"
+        }
+      ],
+      "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+      "revenue_row": {
+        "byte_end": 715676,
+        "byte_start": 712814,
+        "sha256": "66cfa44628d6d4731abbfcdacdb27bf95d3081445f37490aee590a9913aa8696"
+      },
+      "statement_heading": {
+        "byte_end": 710834,
+        "byte_start": 710641,
+        "sha256": "87c86a59f0d4db716f41b8e8e8e0a46e9c14db415a06c7ffa8b26f8f26a79d24"
+      },
+      "statement_issuer_heading": {
+        "byte_end": 710641,
+        "byte_start": 710461,
+        "sha256": "0551f12f71be3dc7d544186fab1a00fc9d9050015d9b464c2c97cff68dc710b4"
+      },
+      "statement_table": {
+        "byte_end": 752479,
+        "byte_start": 711035,
+        "sha256": "50647f1a278fad164a43f45ecf5296be976478875ba3608d2ee2520f47507afa"
+      },
+      "unit_heading": {
+        "byte_end": 711030,
+        "byte_start": 710834,
+        "sha256": "4e6add40e9d1ee763a5d7b02d1d15cb791ed3785ea77426a2d68ccba633a4c24"
+      }
+    }
+  },
+  "schema_version": 1
+}

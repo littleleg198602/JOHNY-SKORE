@@ -1,0 +1,8 @@
+{
+  "candidate_bytes": 31534,
+  "candidate_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/market_checker_app/collectors/sec_person_role_claim_review.py",
+  "candidate_sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3",
+  "frozen_at": "2026-10-18T14:11:11.263351+00:00",
+  "owner_confirmed_source_frozen": true,
+  "peer_modified_candidate": false
+}

@@ -24,14 +24,18 @@ _KINDS = {"CMS_PROVIDER_OWNER", "EPA_FRS_OWNER", "FORM4_PERSON", "STOCK_MERGER_E
           "SEC_SYMBOL_ACTION_SCOPE", "FDA_STRUCTURED_PRODUCT", "DOJ_CASE_POSTURE",
           "SEC_PURCHASE_OBLIGATION_SCOPE", "SEC_OWNER_INSTRUMENT_SCOPE",
           "SEC_INSTRUMENT_CLASS_SCOPE", "FDA_APPLICATION_PRODUCT", "NHTSA_NEGATIVE_SCOPE",
-          "SEC_SUPPLIER_CONCENTRATION", "SEC_COMPLETE_PACKET"}
+          "SEC_SUPPLIER_CONCENTRATION", "SEC_COMPLETE_PACKET",
+          "SEC_CERTIFICATE_INSTRUMENT", "FDA_LEGAL_APPLICANT_BRIDGE", "DOJ_CASE_CAPTION",
+          "SEC_SUPPLIER_REVENUE_DENOMINATOR", "SEC_PERSON_ROLE_CLAIM"}
 _BODY_BUDGETS = {kind: 4_000_000 for kind in (
     "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
     "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY",
     "SEC_SYMBOL_ACTION_SCOPE", "FDA_STRUCTURED_PRODUCT", "DOJ_CASE_POSTURE",
     "SEC_PURCHASE_OBLIGATION_SCOPE", "SEC_OWNER_INSTRUMENT_SCOPE",
     "SEC_INSTRUMENT_CLASS_SCOPE", "FDA_APPLICATION_PRODUCT", "NHTSA_NEGATIVE_SCOPE",
-    "SEC_SUPPLIER_CONCENTRATION", "SEC_COMPLETE_PACKET")}
+    "SEC_SUPPLIER_CONCENTRATION", "SEC_COMPLETE_PACKET",
+    "SEC_CERTIFICATE_INSTRUMENT", "FDA_LEGAL_APPLICANT_BRIDGE", "DOJ_CASE_CAPTION",
+    "SEC_SUPPLIER_REVENUE_DENOMINATOR", "SEC_PERSON_ROLE_CLAIM")}
 
 
 def _time(value: object) -> datetime:
@@ -139,6 +143,38 @@ def _load_captures(plan: dict, source_root: Path, cutoff: datetime) -> dict[str,
 
 def _dispatch(plan: dict, captures: dict, source_root: Path, clock: datetime, cutoff: datetime) -> dict:
     request, kind = plan["request"], plan["kind"]
+    if kind == "SEC_CERTIFICATE_INSTRUMENT":
+        from market_checker_app.collectors.sec_certificate_instrument_review import review_sec_certificate_instrument
+        return review_sec_certificate_instrument(request, captures,
+            as_of=cutoff if "as_of" in plan else None)
+    if kind == "FDA_LEGAL_APPLICANT_BRIDGE":
+        if "as_of" in plan and cutoff < clock:
+            raise ValueError("A new applicant bridge interpretation cannot be backdated")
+        from market_checker_app.collectors.fda_legal_applicant_bridge_review import review_fda_legal_applicant_bridge
+        return review_fda_legal_applicant_bridge(request, captures, reviewed_at=clock)
+    if kind == "DOJ_CASE_CAPTION":
+        if "as_of" in plan and cutoff < clock:
+            raise ValueError("A new case caption interpretation cannot be backdated")
+        from market_checker_app.collectors.doj_case_caption_review import review_doj_case_caption
+        return review_doj_case_caption(request, captures, reviewed_at=clock)
+    if kind == "SEC_SUPPLIER_REVENUE_DENOMINATOR":
+        from market_checker_app.collectors.sec_supplier_revenue_denominator_review import review_sec_supplier_revenue_denominator
+        return review_sec_supplier_revenue_denominator(request, captures,
+            as_of=cutoff if "as_of" in plan else None)
+    if kind == "SEC_PERSON_ROLE_CLAIM":
+        from market_checker_app.collectors.sec_person_role_claim_review import (
+            PersonRoleClaimCapture, review_sec_person_role_claims,
+        )
+        selected = {}
+        for key, (metadata, body) in captures.items():
+            fields = dict(metadata)
+            for field in ("observed_at", "known_at"):
+                if fields.get(field) is not None:
+                    fields[field] = _time(fields[field])
+            selected[key] = PersonRoleClaimCapture(body=body, **fields)
+        return review_sec_person_role_claims(primary_capture=selected["primary"],
+            index_capture=selected["index"], account_packet_capture=selected["account_packet"],
+            selection=request["selection"], knowledge_at=cutoff if "as_of" in plan else None)
     if kind == "SEC_INSTRUMENT_CLASS_SCOPE":
         from market_checker_app.services.sec_instrument_class_scope_review import review_sec_instrument_class_scope
         return review_sec_instrument_class_scope(request, captures,

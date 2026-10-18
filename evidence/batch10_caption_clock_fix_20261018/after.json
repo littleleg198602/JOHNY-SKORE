@@ -1,0 +1,24 @@
+{
+  "HTTP_DB_quota_or_registry_actions": 0,
+  "elapsed_seconds": 9.416186122,
+  "errors": 0,
+  "executed": 31,
+  "existing_new_owned_future_cutoff_expectation_changed_for_strict_rejection": true,
+  "expected_failures": 0,
+  "failures": 0,
+  "finished_at": "2026-10-18T14:15:12.825016+00:00",
+  "log_sha256": "2bcbc25d2dff1de070da647c94e7202c467c1967d878ddf49ce389266899a5a5",
+  "mode": "after",
+  "old_bca_test_version_preserved": true,
+  "producer_test_sha256": {
+    "market_checker_app/collectors/doj_case_caption_review.py": "8b1d24eec14a29a79fe9187f653be8a48df014c882c9a3626109c4fda6c58945",
+    "tests/test_batch10_caption_clock_fix.py": "2198b798de9f76e813413122d1d91cec601377216e1591307413831f7580c6f6",
+    "tests/test_doj_case_caption_review.py": "1eca23cde40bb9580f5ebb9eacb03ea756a63fecf9d3226a904500c7ccb47f1e"
+  },
+  "skips": 0,
+  "source_body_hash_assertions_relaxed": false,
+  "started_at": "2026-10-18T14:15:03.408823+00:00",
+  "successful": true,
+  "synthetic_clock_callbacks_are_not_source_acceptance_or_performance_benchmarks": true,
+  "unexpected_successes": 0
+}

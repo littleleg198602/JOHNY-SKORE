@@ -1,0 +1,65 @@
+{
+  "recorded_at": "2026-10-18T09:02:20.123000+00:00",
+  "initial_original_replay": {
+    "path": "evidence/batch10_healthcare_20261018/initial_source_review_before_duplicate_scope.json",
+    "sha256": "784b1ab22c5d6fe0094e5b6b84caed4fdbcbb6ab47cc2be68cd119e948b0b074",
+    "bytes": 15896
+  },
+  "pre_resumption_original_replay": {
+    "path": "evidence/batch10_healthcare_20261018/source_review_before_resumption.json",
+    "sha256": "f309f357439f33bde02d99e3a42d94afb74173f54f8a1ae3222afe398810609e",
+    "bytes": 17253
+  },
+  "initial_result": "Whole-roster duplicate rejection withheld row facts because Pfizer Limited repeats; no acceptance was granted.",
+  "current_semantics": "Preserve all duplicate names; only selected/exact applicant ambiguity blocks that entity. Unrelated duplicates do not erase a unique literal source row.",
+  "earlier_unfrozen_producer_bytes_not_reconstructed": true,
+  "peer_table_scope_gap": {
+    "synthetic_not_LIVE": true,
+    "before_producer": {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_producer.py.txt",
+      "sha256": "bf9f1afb16c29c0c0272229e5567ed5448e19db0d4fe4684908dd419af3b59a0",
+      "bytes": 20305
+    },
+    "before_tests": {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_tests.py.txt",
+      "sha256": "57f31059e0931b48707282f5eb7a1a9d943ca73f9ef984a64dc5390ee8e4d6c1",
+      "bytes": 17287
+    },
+    "before_25_test_log": {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_focused_tests.log",
+      "sha256": "1960d18d0fe1db2e4ebc4126a290db5e6631d68cbd96693f3474b6b51e363740",
+      "bytes": 5659
+    },
+    "before_actual_review": {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_source_review.json",
+      "sha256": "1a820f99d89cc187da2043e03b263c06ff9edf6bc4eb14a4f996479e9bfd2b15",
+      "bytes": 17253
+    },
+    "trigger": "A later independently headed/captioned non-subsidiary table with Company/jurisdiction columns inherited the global roster heading/date.",
+    "before_impact": "Unsupported LISTED_SUBSIDIARY_OF_REPORTING_ISSUER_GROUP point fact; control/product/attribution remained false.",
+    "fixed_guard": "One complete roster-only document body; no unrecognized visible independent section or table caption; actual contiguous 11-table roster preserved.",
+    "new_focused_regressions": [
+      "foreign_same_schema_table_cannot_inherit_roster_relationship",
+      "contiguous_roster_table_continuation_preserves_unique_point_fact"
+    ]
+  },
+  "current_qualified_producer": {
+    "path": "market_checker_app/collectors/fda_legal_applicant_bridge_review.py",
+    "sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+    "bytes": 21923
+  },
+  "current_qualified_tests": {
+    "path": "tests/test_fda_legal_applicant_bridge_review.py",
+    "sha256": "3b44c879ec60865ea75f0c77485be6c0c2e7bea7c13ca9a7a4b6fed947b9f286",
+    "bytes": 19166
+  },
+  "new_transport_failures_created": 0,
+  "old_HTTP403_index_failure_preserved": {
+    "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_index.metadata.json",
+    "metadata_sha256": "e7bd1817fa78ea4b78a6075eee8072023504c2179eaa2bcaf8d16511b5b612e9",
+    "http_status": 403,
+    "request_url": "https://www.sec.gov/Archives/edgar/data/78003/0000078003-18-000027-index.htm",
+    "body_sha256": "7f61f3fa9fc62a06fd27af979c530f78afccc12c6648e737da0dfd69d7b4726f",
+    "failure_used_as_primary_index_proof": false
+  }
+}

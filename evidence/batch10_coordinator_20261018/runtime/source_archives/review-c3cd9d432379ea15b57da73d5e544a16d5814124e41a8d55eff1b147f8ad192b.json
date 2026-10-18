@@ -1,0 +1,379 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "SEC_PERSON_ROLE_CLAIM",
+  "plan_sha256": "d95711ffba4d6e8c01d9022921f4dbbb6038ce1849fcd585e6db87f469c204c2",
+  "recorded_at": "2026-10-18T14:22:20.136492+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-18T14:22:19.243237+00:00",
+  "review": {
+    "approved_name_alias": false,
+    "captures": {
+      "account_packet": {
+        "known_at": "2026-10-16T12:18:22.843333+00:00",
+        "observed_at": "2026-10-16T12:18:22.843333+00:00",
+        "record_id": "retained-role-source-account_packet",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+        "size_bytes": 9665,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt"
+      },
+      "index": {
+        "known_at": "2026-10-14T23:26:39.546292+00:00",
+        "observed_at": "2026-10-14T23:26:39.546292+00:00",
+        "record_id": "retained-role-source-index",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a",
+        "size_bytes": 33931,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/0001193125-25-245150-index.html"
+      },
+      "primary": {
+        "known_at": "2026-10-14T23:27:25.325473+00:00",
+        "observed_at": "2026-10-14T23:27:25.325473+00:00",
+        "record_id": "retained-role-source-primary",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+        "size_bytes": 2430522,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm"
+      }
+    },
+    "career_assertion_count": 8,
+    "career_table_scope": {
+      "first_visible_data_byte_start": 459334,
+      "locator": "table:164",
+      "original_context_byte_end": 462648,
+      "original_context_byte_start": 458253,
+      "original_context_sha256": "44906c3c67b18d98f53d5a965ba5312c4f093774174cb2418a526dd7181fd11d"
+    },
+    "comparison_account_facts": {
+      "acceptance_datetime_unqualified_raw": "20260901180827",
+      "accession": "0000789019-26-000157",
+      "filing_day": "2026-09-01",
+      "form": "4",
+      "issuer": {
+        "cik": "0000789019",
+        "name": "MICROSOFT CORP"
+      },
+      "natural_person_cik_binding_verified": false,
+      "original_packet_sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+      "period_day": "2026-08-31",
+      "publication_timezone": "UNKNOWN",
+      "reporting_account": {
+        "cik": "0001513142",
+        "name": "Nadella Satya"
+      },
+      "role_as_filed": {
+        "isDirector": "1",
+        "isOfficer": "1",
+        "isOther": "0",
+        "isTenPercentOwner": "0",
+        "officerTitle": "Chief Executive Officer"
+      },
+      "source_capture_at": "2026-10-16T12:18:22.843333+00:00"
+    },
+    "continuous_role_verified": false,
+    "cusip_class_validity_verified": false,
+    "dated_role_source_clock_consistent": true,
+    "gaps": [
+      "PUBLISHER_INDEX_SERVED_BODY_SIZE_CONFLICT_PRESERVED",
+      "YEAR_PRECISION_IS_NOT_AN_EXACT_APPOINTMENT_OR_CESSATION_DAY",
+      "PRESENT_IS_SOURCE_RELATIVE_NOT_CONTINUITY_THROUGH_CAPTURE_OR_FORM4",
+      "NAMED_BIOGRAPHY_TO_REPORTING_ACCOUNT_CIK_UNVERIFIED",
+      "PERSON_AND_ISSUER_NAME_ALIASES_UNAPPROVED",
+      "LEGAL_ROLE_CONTINUITY_AND_CUSIP_CLASS_IDENTITY_UNVERIFIED",
+      "NO_HISTORICAL_MACHINE_AVAILABILITY_OR_OOS_ACCEPTANCE"
+    ],
+    "historical_machine_availability_inferred": false,
+    "instrument_identity_verified": false,
+    "issuer_attribution_allowed": false,
+    "issuer_career_clause": {
+      "first_visible_data_byte_start": 459334,
+      "locator": "table:164/row:2/cell:5",
+      "original_context_byte_end": 461232,
+      "original_context_byte_start": 459171,
+      "original_context_sha256": "624f79138718cf81b4803874b19724083c0f98a71f4e84cf2eec377ad9d911ce",
+      "original_table_byte_start": 458253,
+      "quote": "Experience: Microsoft Corporation (1992-present) • Chairman and Chief Executive Officer (2021-present) • Chief Executive Officer and Director (2014-2021) • Executive Vice President, Cloud and Enterprise (2013-2014) • President, Server and Tools (2011-2013) • Senior Vice President, Online Services Division (2009-2011) • Senior Vice President, Search, Portal, and Advertising (2008-2009) • Various positions of increasing authority (1992-2008)",
+      "quote_sha256": "920b9c283a923bb814e57e38f075317a99d92ea514c25b6c68abe7951647b853",
+      "table_number": 164,
+      "table_parent": 6155
+    },
+    "issuer_experience_assertion": {
+      "employment_or_legal_continuity_verified": false,
+      "end_assertion": {
+        "anchor_filing_day": "2025-10-21",
+        "continues_through_capture_or_current_form4": false,
+        "exact_end_day": null,
+        "literal": "present",
+        "precision": "SOURCE_RELATIVE_PRESENT"
+      },
+      "issuer_name_literal": "Microsoft Corporation",
+      "source_clause": "Experience: Microsoft Corporation (1992-present)",
+      "start_assertion": {
+        "exact_day": null,
+        "literal": "1992",
+        "precision": "YEAR",
+        "year": 1992
+      }
+    },
+    "legal_role_interval_verified": false,
+    "named_person_clause": {
+      "first_visible_data_byte_start": 456556,
+      "locator": "table:163",
+      "original_context_byte_end": 458252,
+      "original_context_byte_start": 455748,
+      "original_context_sha256": "132487efd0e794ed00457704c29384b4a529cca53beb3e157483986b6913f1dd",
+      "original_table_byte_start": 455748,
+      "quote": "Satya Nadella Age: 58 | Director Since: 2014 | Birthplace: India",
+      "quote_sha256": "bde3c6e3e444d19dd23b1be664a5e2afc7e453ca5315331952fd74d83ac470c3",
+      "table_number": 163,
+      "table_parent": 6155
+    },
+    "natural_person_account_binding_verified": false,
+    "network_requests_performed": 0,
+    "quota_or_lease_modified": false,
+    "registry_modified": false,
+    "requested_knowledge_at": null,
+    "review_available_at": "2026-10-18T14:22:20.136035+00:00",
+    "review_ingested_at": "2026-10-18T14:22:19.487956+00:00",
+    "review_version": "sec-named-person-literal-role-claims-v2",
+    "role_claim_count": 7,
+    "role_claims": [
+      {
+        "continuous_role_verified": false,
+        "end_assertion": null,
+        "exact_appointment_or_cessation_day_verified": false,
+        "issuer_name_literal": "Microsoft Corporation",
+        "kind": "DIRECTOR_SINCE_ASSERTION",
+        "legal_interval_verified": false,
+        "person_name_literal": "Satya Nadella",
+        "source_assertion_only": true,
+        "source_clause": "Director Since: 2014",
+        "start_assertion": {
+          "exact_day": null,
+          "literal": "2014",
+          "precision": "YEAR",
+          "year": 2014
+        },
+        "title_literal": "Director"
+      },
+      {
+        "continuous_role_verified": false,
+        "end_assertion": {
+          "anchor_filing_day": "2025-10-21",
+          "continues_through_capture_or_current_form4": false,
+          "exact_end_day": null,
+          "literal": "present",
+          "precision": "SOURCE_RELATIVE_PRESENT"
+        },
+        "exact_appointment_or_cessation_day_verified": false,
+        "issuer_name_literal": "Microsoft Corporation",
+        "kind": "COMBINED_ROLE_RANGE_ASSERTION",
+        "legal_interval_verified": false,
+        "person_name_literal": "Satya Nadella",
+        "source_assertion_only": true,
+        "source_clause": "Chairman and Chief Executive Officer (2021-present)",
+        "start_assertion": {
+          "exact_day": null,
+          "literal": "2021",
+          "precision": "YEAR",
+          "year": 2021
+        },
+        "title_literal": "Chairman and Chief Executive Officer"
+      },
+      {
+        "continuous_role_verified": false,
+        "end_assertion": {
+          "exact_day": null,
+          "literal": "2021",
+          "precision": "YEAR",
+          "year": 2021
+        },
+        "exact_appointment_or_cessation_day_verified": false,
+        "issuer_name_literal": "Microsoft Corporation",
+        "kind": "COMBINED_ROLE_RANGE_ASSERTION",
+        "legal_interval_verified": false,
+        "person_name_literal": "Satya Nadella",
+        "source_assertion_only": true,
+        "source_clause": "Chief Executive Officer and Director (2014-2021)",
+        "start_assertion": {
+          "exact_day": null,
+          "literal": "2014",
+          "precision": "YEAR",
+          "year": 2014
+        },
+        "title_literal": "Chief Executive Officer and Director"
+      },
+      {
+        "continuous_role_verified": false,
+        "end_assertion": {
+          "exact_day": null,
+          "literal": "2014",
+          "precision": "YEAR",
+          "year": 2014
+        },
+        "exact_appointment_or_cessation_day_verified": false,
+        "issuer_name_literal": "Microsoft Corporation",
+        "kind": "COMBINED_ROLE_RANGE_ASSERTION",
+        "legal_interval_verified": false,
+        "person_name_literal": "Satya Nadella",
+        "source_assertion_only": true,
+        "source_clause": "Executive Vice President, Cloud and Enterprise (2013-2014)",
+        "start_assertion": {
+          "exact_day": null,
+          "literal": "2013",
+          "precision": "YEAR",
+          "year": 2013
+        },
+        "title_literal": "Executive Vice President, Cloud and Enterprise"
+      },
+      {
+        "continuous_role_verified": false,
+        "end_assertion": {
+          "exact_day": null,
+          "literal": "2013",
+          "precision": "YEAR",
+          "year": 2013
+        },
+        "exact_appointment_or_cessation_day_verified": false,
+        "issuer_name_literal": "Microsoft Corporation",
+        "kind": "COMBINED_ROLE_RANGE_ASSERTION",
+        "legal_interval_verified": false,
+        "person_name_literal": "Satya Nadella",
+        "source_assertion_only": true,
+        "source_clause": "President, Server and Tools (2011-2013)",
+        "start_assertion": {
+          "exact_day": null,
+          "literal": "2011",
+          "precision": "YEAR",
+          "year": 2011
+        },
+        "title_literal": "President, Server and Tools"
+      },
+      {
+        "continuous_role_verified": false,
+        "end_assertion": {
+          "exact_day": null,
+          "literal": "2011",
+          "precision": "YEAR",
+          "year": 2011
+        },
+        "exact_appointment_or_cessation_day_verified": false,
+        "issuer_name_literal": "Microsoft Corporation",
+        "kind": "COMBINED_ROLE_RANGE_ASSERTION",
+        "legal_interval_verified": false,
+        "person_name_literal": "Satya Nadella",
+        "source_assertion_only": true,
+        "source_clause": "Senior Vice President, Online Services Division (2009-2011)",
+        "start_assertion": {
+          "exact_day": null,
+          "literal": "2009",
+          "precision": "YEAR",
+          "year": 2009
+        },
+        "title_literal": "Senior Vice President, Online Services Division"
+      },
+      {
+        "continuous_role_verified": false,
+        "end_assertion": {
+          "exact_day": null,
+          "literal": "2009",
+          "precision": "YEAR",
+          "year": 2009
+        },
+        "exact_appointment_or_cessation_day_verified": false,
+        "issuer_name_literal": "Microsoft Corporation",
+        "kind": "COMBINED_ROLE_RANGE_ASSERTION",
+        "legal_interval_verified": false,
+        "person_name_literal": "Satya Nadella",
+        "source_assertion_only": true,
+        "source_clause": "Senior Vice President, Search, Portal, and Advertising (2008-2009)",
+        "start_assertion": {
+          "exact_day": null,
+          "literal": "2008",
+          "precision": "YEAR",
+          "year": 2008
+        },
+        "title_literal": "Senior Vice President, Search, Portal, and Advertising"
+      },
+      {
+        "continuous_role_verified": false,
+        "end_assertion": {
+          "exact_day": null,
+          "literal": "2008",
+          "precision": "YEAR",
+          "year": 2008
+        },
+        "exact_appointment_or_cessation_day_verified": false,
+        "issuer_name_literal": "Microsoft Corporation",
+        "kind": "GENERIC_CAREER_POSITION_RANGE_ASSERTION",
+        "legal_interval_verified": false,
+        "person_name_literal": "Satya Nadella",
+        "source_assertion_only": true,
+        "source_clause": "Various positions of increasing authority (1992-2008)",
+        "start_assertion": {
+          "exact_day": null,
+          "literal": "1992",
+          "precision": "YEAR",
+          "year": 1992
+        },
+        "title_literal": "Various positions of increasing authority"
+      }
+    ],
+    "scoring_applied": false,
+    "source_comparison": {
+      "account_packet_document_count_is_independent_disclosure_count": false,
+      "approved_person_or_issuer_name_alias": false,
+      "bio_person_name_equals_raw_account_name": false,
+      "distinct_accessions": true,
+      "distinct_disclosures_are_independent_legal_identity_proof": false,
+      "independent_natural_person_account_binding": false,
+      "issuer_cik_scope_equal": true,
+      "issuer_raw_names_equal": false,
+      "literal_officer_title_component_agreement": true,
+      "matching_bio_claim_indices": [
+        1,
+        2
+      ],
+      "named_person_disclosure_count": 1,
+      "role_title_component_agreement_is_identity_or_continuity_proof": false,
+      "underlying_disclosure_count": 2
+    },
+    "source_document": {
+      "acceptance_datetime_unqualified_raw": "2025-10-21 16:16:13",
+      "acceptance_timezone_inferred": false,
+      "accession": "0001193125-25-245150",
+      "accession_key": "000119312525245150",
+      "captured_primary_bytes": 2430522,
+      "clock_conflicts": [],
+      "exact_as_filed_body_version_verified": false,
+      "filing_day": "2025-10-21",
+      "form": "DEF 14A",
+      "index_declared_primary_bytes": 2430412,
+      "issuer_cik": "0000789019",
+      "original_biography_sgml_header_available": false,
+      "original_inline_dei_header_validated": true,
+      "primary_filename": "d908201ddef14a.htm",
+      "publication_timezone": "UNKNOWN",
+      "publisher_size_conflict": true,
+      "source_sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm"
+    },
+    "source_inputs_available_at": "2026-10-16T12:18:22.843333+00:00",
+    "source_issuer_scope": {
+      "dei_context_ref": "P07_01_2024To06_30_2025",
+      "form": "DEF 14A",
+      "issuer_cik": "0000789019",
+      "issuer_name_literal": "Microsoft Corporation",
+      "report_period_end_day": "2025-06-30",
+      "report_period_is_biography_role_interval": false,
+      "report_period_start_day": "2024-07-01"
+    },
+    "source_role_claims_supported": true,
+    "status": "PARTIAL",
+    "trading_allowed": false
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

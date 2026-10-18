@@ -1,0 +1,98 @@
+{
+  "acceptance_promotion_found": false,
+  "actual_production_database_mutations": 0,
+  "all_new_tests_unchanged_for_owner_repair": true,
+  "before_qualification": {
+    "actual_production_database_mutations": 0,
+    "candidate_after": {
+      "bytes": 22140,
+      "sha256": "a11ab873d2fdaa88bed98f7ad65beb717dd386fd5aa5001c191ecf04f2551f17"
+    },
+    "candidate_before": {
+      "bytes": 22140,
+      "sha256": "a11ab873d2fdaa88bed98f7ad65beb717dd386fd5aa5001c191ecf04f2551f17"
+    },
+    "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015",
+    "completed_at": "2026-10-18T08:58:39.057479+00:00",
+    "discovered": 7,
+    "elapsed_seconds": 0.06358370500004185,
+    "errors": 0,
+    "executed": 7,
+    "expected_failures": 0,
+    "failures": 6,
+    "log_sha256": "a0828182642d5395dc98282bddf67785df4f637cf427ca93e509fe78d1c006cf",
+    "real_windows_acceptance_claim": false,
+    "runner_pin": {
+      "bytes": 3002,
+      "sha256": "90c03cd373d7a9064b2d2ec33b7853bcfe42ae4efd81e6726c70e6542b203247"
+    },
+    "skips": 0,
+    "source_http_requests": 0,
+    "started_at": "2026-10-18T08:58:38.993895+00:00",
+    "successful": false,
+    "synthetic_fixture_only": true,
+    "test_pin": {
+      "bytes": 6005,
+      "sha256": "458709bb2da3f8f0b730b55a3a75424f90e40b8b5b6d081457491be3006da972"
+    },
+    "unexpected_successes": 0
+  },
+  "candidate_after_diagnostic": {
+    "bytes": 22140,
+    "sha256": "a11ab873d2fdaa88bed98f7ad65beb717dd386fd5aa5001c191ecf04f2551f17"
+  },
+  "candidate_before": {
+    "bytes": 22140,
+    "sha256": "a11ab873d2fdaa88bed98f7ad65beb717dd386fd5aa5001c191ecf04f2551f17"
+  },
+  "candidate_edited_by_peer": false,
+  "cases": [
+    "producer whole-byte drift",
+    "existing DB main-file commit",
+    "new WAL sidecar",
+    "absent DB appears",
+    "wall clock rollback",
+    "monotonic clock rollback"
+  ],
+  "corrected_candidate_qualification": "PENDING_OWNER_FIX",
+  "created_at": "2026-10-18T08:59:39.279143+00:00",
+  "material_finding": "Final source/input/clock revalidation occurs before temporary receipt write/fsync; six late fixture mutations still publish",
+  "owned_file_pins": {
+    "evidence/batch10_readiness_peer_20261018/README.md": {
+      "bytes": 2508,
+      "sha256": "598d1775b405729dd0c312a0b286d72d8ce628a10623b683e1f58c107709e59f"
+    },
+    "evidence/batch10_readiness_peer_20261018/before_fix_01.json": {
+      "bytes": 1136,
+      "sha256": "007dfbc5c9ce6157d611500dffebf12045b0943256c4e1101663095518482ee9"
+    },
+    "evidence/batch10_readiness_peer_20261018/before_fix_01.log": {
+      "bytes": 7786,
+      "sha256": "a0828182642d5395dc98282bddf67785df4f637cf427ca93e509fe78d1c006cf"
+    },
+    "evidence/batch10_readiness_peer_20261018/candidate_before.json": {
+      "bytes": 413,
+      "sha256": "ba6d9bb19b2cd03dca1f2b434be7a0aa0796899ea8ab602f1dd7a226cd229850"
+    },
+    "evidence/batch10_readiness_peer_20261018/candidate_before.py": {
+      "bytes": 22140,
+      "sha256": "a11ab873d2fdaa88bed98f7ad65beb717dd386fd5aa5001c191ecf04f2551f17"
+    },
+    "evidence/batch10_readiness_peer_20261018/run_peer.py": {
+      "bytes": 3002,
+      "sha256": "90c03cd373d7a9064b2d2ec33b7853bcfe42ae4efd81e6726c70e6542b203247"
+    },
+    "tests/test_batch10_readiness_peer.py": {
+      "bytes": 6005,
+      "sha256": "458709bb2da3f8f0b730b55a3a75424f90e40b8b5b6d081457491be3006da972"
+    }
+  },
+  "owner_notified": "/root/evaluation",
+  "peer_scope": "READINESS_FINAL_PUBLICATION_PROVENANCE",
+  "positive_control": "Injected hosted Windows and absent DB/runs remain fixture-only with all acceptance flags false",
+  "quota_or_collector_operations": 0,
+  "real_windows_or_OOS_claim": false,
+  "schema_version": 1,
+  "source_http_requests": 0,
+  "synthetic_fixture_only": true
+}

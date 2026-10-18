@@ -1,0 +1,47 @@
+{
+  "recorded_at": "2026-10-18T14:13:52.615279+00:00",
+  "before_outer_known_at": "2026-10-18T09:01:04.795650+00:00",
+  "before_child_availability": {
+    "applicant_source": {
+      "known_at": "2026-10-18T09:01:04.796045+00:00",
+      "ingested_at": "2026-10-18T09:01:04.796045+00:00",
+      "reviewed_at": "2026-10-18T09:01:04.796045+00:00"
+    },
+    "company_source": {
+      "known_at": "2026-10-18T09:01:04.829392+00:00",
+      "ingested_at": "2026-10-18T09:01:04.829392+00:00",
+      "reviewed_at": "2026-10-18T09:01:04.829392+00:00"
+    }
+  },
+  "before_child_seconds_after_outer_known_at": {
+    "applicant_source": {
+      "known_at": 0.000395,
+      "ingested_at": 0.000395,
+      "reviewed_at": 0.000395
+    },
+    "company_source": {
+      "known_at": 0.033742,
+      "ingested_at": 0.033742,
+      "reviewed_at": 0.033742
+    }
+  },
+  "before_counterexample_remains_historical_failure": true,
+  "after_started_at": "2026-10-18T14:13:52.298063+00:00",
+  "after_completed_at": "2026-10-18T14:13:52.615189+00:00",
+  "after_known_at": "2026-10-18T14:13:52.615189+00:00",
+  "after_child_availability": {
+    "applicant_source": {
+      "known_at": "2026-10-18T14:13:52.298557+00:00",
+      "ingested_at": "2026-10-18T14:13:52.298557+00:00",
+      "reviewed_at": "2026-10-18T14:13:52.298557+00:00"
+    },
+    "company_source": {
+      "known_at": "2026-10-18T14:13:52.331550+00:00",
+      "ingested_at": "2026-10-18T14:13:52.331550+00:00",
+      "reviewed_at": "2026-10-18T14:13:52.331550+00:00"
+    }
+  },
+  "after_source_read_cutoff": "2026-10-18T14:13:52.065973+00:00",
+  "completion_is_not_clamped_to_a_future_child": true,
+  "actual_semantics_and_original_body_pins_unchanged": true
+}

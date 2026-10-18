@@ -102,9 +102,26 @@ def run_prospective_history_action(*, action: str, history_directory: Path,
         label_observation_path=retained_file(source_root, label_observation_name))
 
 
+def run_user_windows_readiness_capture(*, enabled: bool = False, output_path: Path,
+                                       tickers: list[str], db_path: Path | None = None,
+                                       market_manifest_path: Path | None = None,
+                                       market_archive_root: Path | None = None) -> dict:
+    from market_checker_app.services.user_windows_readiness_capture import UserWindowsReadinessCapture
+    return UserWindowsReadinessCapture(enabled=enabled).capture(output_path=output_path,
+        tickers=tickers, db_path=db_path, market_manifest_path=market_manifest_path,
+        market_archive_root=market_archive_root)
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Kontrola původních uložených důkazů bez nového stahování.")
     commands = parser.add_subparsers(dest="action", required=True)
+    readiness = commands.add_parser("windows-readiness", help="Uložit připravenost prostředí bez spuštění analýzy")
+    readiness.add_argument("--enable", action="store_true", help="Výslovně povolit jeden záznam připravenosti")
+    readiness.add_argument("--output", type=Path, required=True)
+    readiness.add_argument("--tickers", nargs="+", required=True, help="Přesné tickery z kanonického seznamu")
+    readiness.add_argument("--db-path", type=Path)
+    readiness.add_argument("--market-manifest", type=Path)
+    readiness.add_argument("--market-archive-root", type=Path)
     for kind in ("review", "prime"):
         command = commands.add_parser(kind)
         command.add_argument("--source-root", type=Path, required=True)
@@ -128,7 +145,11 @@ def main(argv: list[str] | None = None) -> None:
             command.add_argument("--maximum", type=int, default=200)
     args = parser.parse_args(argv)
     try:
-        if args.action == "review":
+        if args.action == "windows-readiness":
+            result = run_user_windows_readiness_capture(enabled=args.enable, output_path=args.output,
+                tickers=args.tickers, db_path=args.db_path, market_manifest_path=args.market_manifest,
+                market_archive_root=args.market_archive_root)
+        elif args.action == "review":
             result = run_captured_identity_review(source_root=args.source_root,
                 plan_name=args.plan, archive_root=args.archive_root)
         elif args.action == "prime":
