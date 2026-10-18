@@ -1,0 +1,196 @@
+{
+  "schema": "batch9_windows_ci_repair_integration_v1",
+  "verified_at": "2026-10-17T22:52:14.706017+00:00",
+  "public_base": "b0e866de120c8d6366b93c8fef26916f0db4aa0e",
+  "implementation_snapshot": "438ef0c7093f372c296d2568f2322648815e78ce",
+  "isolated_worker_commit": "63e60a35a1f0c9a5cd450d70aa68e0af08f74f45",
+  "worker_handoff": {
+    "bytes": 3435,
+    "sha256": "4cb278bf15b57ab77b029e633b0d51b01a5ea3fe2622ed08bdcb425cd7543ebf"
+  },
+  "baseline_pin_file": {
+    "bytes": 477688,
+    "sha256": "bcfaa2f86f0ed159f658822d0edf60eae9d6c69c559465296f2161eab86ca2f6"
+  },
+  "unchanged_groups": {
+    "evidence": {
+      "files": 1535,
+      "bytes": 74512826,
+      "byte_identical": true
+    },
+    "production": {
+      "files": 218,
+      "bytes": 3577034,
+      "byte_identical": true
+    },
+    "tests": {
+      "files": 188,
+      "bytes": 2440692,
+      "byte_identical": true
+    }
+  },
+  "sole_yaml_semantic_change": {
+    "path": [
+      "jobs",
+      "windows-agent",
+      "timeout-minutes"
+    ],
+    "before": 40,
+    "after": 60
+  },
+  "workflow": {
+    "bytes": 4573,
+    "sha256": "49126bef29f9f5034077ffe6b5aa0f043c69b8feb6182969093f99424f4ecc38"
+  },
+  "all_commands_steps_platform_python_upload_release_gate_unchanged": true,
+  "canonical_687_and_60_second_test_budget_unchanged": true,
+  "default_modelconfig_hash_unchanged": "e8e0a4b5e010122a7d7fa2f8d41eb9174e25a6a1a57e206cb315b1a552d0d5f2",
+  "original_pre_CI_proof_immutable": {
+    "bytes": 36802,
+    "sha256": "58e47c8b93328b3e12e571d1ca83ad3a9396c92c441f058e37058a5a36c93899"
+  },
+  "original_cancelled_artifact_verification": {
+    "original_zip_and_member_verified": true,
+    "Windows_cancelled_not_acceptance": true,
+    "actual_completed_ok_blocks": 1944,
+    "actual_started_headings": 1945,
+    "original_Windows_report_absent": true,
+    "new_batch9_methods_ok": 194,
+    "other_completed_Linux_UI_scale_logs_verified": true,
+    "full_specialist_acceptance": 0
+  },
+  "timeout_cause_is_inference_from_40_minute_configuration_and_elapsed_time": true,
+  "explicit_GitHub_timeout_annotation_observed": false,
+  "retained_DB_hash_read_only_no_SQL_open": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af",
+  "local_full_suites_repeated": 0,
+  "reason_no_local_full_rerun": "All 218 production and 188 test files are byte-identical; this change only raises the hosted Windows job time cap. Existing 2231 local source qualification is immutable. The new public HEAD still requires its own hosted required checks.",
+  "specialist_source_collector_requests": 0,
+  "genuine_forecasts_registrations_labels_added": 0,
+  "quota_registry_scoring_fitter_trading_mutations": 0,
+  "new_head_hosted_qualification": "PENDING",
+  "full_specialist_acceptance": "0/21",
+  "production_source_test_and_original_evidence_bytes_unchanged": true,
+  "new_evidence_pins": {
+    "evidence/batch9_windows_timeout_fix_20261018/README.md": {
+      "bytes": 2707,
+      "sha256": "68ce6d70680db7ba10fdc14819a9fb2b34ec9b026fe5e3a15e7064a8b03fac8d"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/handoff.json": {
+      "bytes": 3435,
+      "sha256": "4cb278bf15b57ab77b029e633b0d51b01a5ea3fe2622ed08bdcb425cd7543ebf"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/original_market-checker-test-agents.yml": {
+      "bytes": 4508,
+      "sha256": "3c7ade5d634f09a105f9493ddc3022f73c1ecd8623d26c53b21f16451800805f"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/qualification.json": {
+      "bytes": 5998,
+      "sha256": "3f9b4c9e05427103e3160650126ece7ca129491662f596b7f95817461c28438a"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/qualification_attempt_v1/error.log": {
+      "bytes": 981,
+      "sha256": "62254b2109ba5ba1530d419d86dbeb825e9ccc400d11c6e2734d7f6b031078d8"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/qualification_attempt_v1/qualify_workflow.py": {
+      "bytes": 12293,
+      "sha256": "fe05f81bd963727ea942ba07d3c2154354de2c5c138e692104c178c13586d5d1"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/qualification_attempt_v1/result.json": {
+      "bytes": 405,
+      "sha256": "b4cab0a1aaa5189f4b8ed5097537ada65cda9f092bf4c3f3d00560ad723f4623"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/qualification_attempt_v2/error.log": {
+      "bytes": 702,
+      "sha256": "43ef27305be249014944aeb7e411a921b7d11f2cdde18c9a93e6691692f4db49"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/qualification_attempt_v2/qualify_workflow.py": {
+      "bytes": 12297,
+      "sha256": "c4d3d59b67c2900dea866473f2af5d6f10a01c246a9cb6e7d21e88c92c7c6714"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/qualification_attempt_v2/result.json": {
+      "bytes": 440,
+      "sha256": "6d3672c039f56871a6044755795d007432ff58d94f3d3fea98ee0215c7276855"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/qualify_workflow.py": {
+      "bytes": 13831,
+      "sha256": "a260205b05a63d4828cf3af3b60582304d5e0a1778c91da06187e2f56e488ec9"
+    },
+    "evidence/batch9_windows_timeout_fix_20261018/source_files_sha256.json": {
+      "bytes": 1200025,
+      "sha256": "d93af9d8208e539be3728801c7a3b9a6a3334d8ee4524a5dab3c6762522342cd"
+    },
+    "evidence/batch9_windows_cancelled_20261017/README.md": {
+      "bytes": 2012,
+      "sha256": "a06f49475698b9f6c94446824435d6ecd0214b38ca49a789fee58b233ce34d82"
+    },
+    "evidence/batch9_windows_cancelled_20261017/artifact_12117165429.zip": {
+      "bytes": 58491,
+      "sha256": "7f0a915a75c3fa3a128e030a6923f535d7cea4e9a6817caba1de63a1a563edf9"
+    },
+    "evidence/batch9_windows_cancelled_20261017/content_verification.json": {
+      "bytes": 41806,
+      "sha256": "ec634a31825a2fbab44375da551828a387eaa9d36bd02cd3e2c7fe31a7fcb1cc"
+    },
+    "evidence/batch9_windows_cancelled_20261017/github_run_jobs_artifacts.json": {
+      "bytes": 24296,
+      "sha256": "f43ac501d5e7b7a14a61fbbaf5b2e970ba10cc936b96dc304c8f9daf495bf709"
+    },
+    "evidence/batch9_windows_cancelled_20261017/hosted_windows_job_decoded.log": {
+      "bytes": 511607,
+      "sha256": "d1b28e62d8d5c21fd5e87a173e69d8a58522194db1720dc4f047fa0391d230b5"
+    },
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252298_decoded.log": {
+      "bytes": 61944,
+      "sha256": "632a7f1a7591459918b9101586ebad8429a941f32ccab7ca0e2dc6f72443d7c1"
+    },
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252298_verification.json": {
+      "bytes": 431,
+      "sha256": "b7e8cbcf31ec5211afc1483cb67049ba512bf052e457c993b084b194ff8e5963"
+    },
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252423_decoded.log": {
+      "bytes": 72463,
+      "sha256": "816666350c1d2238044e1c5d8805f77ec53693958e4923321c0e268647af8889"
+    },
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252423_verification.json": {
+      "bytes": 431,
+      "sha256": "bcd9309fea757fab51099082da08be6c0107611eb6626828c7bb01ae6f3f1a7e"
+    },
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252465_batch9_methods.json": {
+      "bytes": 58548,
+      "sha256": "1ca0ee3b067ed2f820f78e3300724dd900bc0522a5db01ef38c8de23274a3071"
+    },
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252465_decoded.log": {
+      "bytes": 554670,
+      "sha256": "0b02bb20b7e14e67af7373cb5487b891df9fddf0f6cc963d7ef2d0fa73c3c812"
+    },
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252465_verification.json": {
+      "bytes": 436,
+      "sha256": "35a82efa6f79a66a48689dc7cd3c4e8540606f8e22f55b9a0ea4d7b20dc28cdb"
+    },
+    "evidence/batch9_windows_cancelled_20261017/verification_diagnostics/original_verifier_v1.py": {
+      "bytes": 3645,
+      "sha256": "0637f8bf9dd0743e471891ade4572583f8ae9bb3868409167de4f2ab597a9382"
+    },
+    "evidence/batch9_windows_cancelled_20261017/verification_diagnostics/qualification.json": {
+      "bytes": 450,
+      "sha256": "fbc372e081ecaf20200322af39d9d9cd89170320819516a53bd4f268c581ddf7"
+    },
+    "evidence/batch9_windows_cancelled_20261017/verification_diagnostics/reproduced_v1_artifact_expectation.log": {
+      "bytes": 229,
+      "sha256": "f1bf1fc0523fa52f245dad013eeaaedeefd349fc7d441b0918246d0e6ce28d6a"
+    },
+    "evidence/batch9_windows_cancelled_20261017/verification_record.json": {
+      "bytes": 941,
+      "sha256": "ab47b13b2400ac482321409a452c6777549ee92ee4faef44c5865edd4f44bd77"
+    },
+    "evidence/batch9_windows_cancelled_20261017/verify_originals.py": {
+      "bytes": 3787,
+      "sha256": "38adb758136ea1bbac001a2d3bfd6fb9135ff70e6d33e76b656419078dd11024"
+    },
+    "evidence/batch9_windows_cancelled_20261017/windows-tests.log": {
+      "bytes": 394171,
+      "sha256": "6463c4d1bb84c6d4bb763f47d1e58923301216445c82dd12877bbbf4755ec7a7"
+    }
+  }
+}
+

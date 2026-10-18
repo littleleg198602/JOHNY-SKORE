@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/finalize_batch9_cancellation_offline.py", line 19, in <module>
+    assert 'KeyboardInterrupt' in log
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

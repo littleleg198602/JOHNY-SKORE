@@ -1,0 +1,169 @@
+{
+  "GitHub_writes": 0,
+  "actual_DB_accesses": 0,
+  "actual_HTTP_requests": 0,
+  "all_other_jobs_and_triggers_and_permissions_unchanged": true,
+  "always_upload_behavior_unchanged": true,
+  "canonical687_60second_test_budget_unchanged": true,
+  "change": {
+    "Windows_job_timeout_minutes_after": 60,
+    "Windows_job_timeout_minutes_before": 40,
+    "path": ".github/workflows/market-checker-test-agents.yml"
+  },
+  "complete_Windows_or_specialist_acceptance_claimed": false,
+  "declared_bat_CRLF_checkout_exceptions": {
+    "Nainstalovat_Patraci_Agenty.bat": {
+      "eol": "crlf",
+      "text": "set"
+    },
+    "Nainstalovat_Tydenni_Shadow.bat": {
+      "eol": "crlf",
+      "text": "set"
+    },
+    "Pripravit_SEC_Registry.bat": {
+      "eol": "crlf",
+      "text": "set"
+    },
+    "Spustit_Market_Checker.bat": {
+      "eol": "crlf",
+      "text": "set"
+    },
+    "Spustit_Patraci_Agenty.bat": {
+      "eol": "crlf",
+      "text": "set"
+    },
+    "Spustit_Tydenni_Shadow.bat": {
+      "eol": "crlf",
+      "text": "set"
+    },
+    "Vyhodnotit_Predikce.bat": {
+      "eol": "crlf",
+      "text": "set"
+    },
+    "Vyhodnotit_Specialisty.bat": {
+      "eol": "crlf",
+      "text": "set"
+    },
+    "Zkontrolovat_Zdravotnicke_Identity.bat": {
+      "eol": "crlf",
+      "text": "set"
+    }
+  },
+  "material_limits": [
+    "Only workflow YAML/static source preservation was qualified; no new-head hosted Windows run was executed by this lane.",
+    "The cancelled original run has no complete result JSON or footer and remains non-acceptance evidence.",
+    "The timeout cause is inferred from elapsed duration; the available log contains no explicit timeout annotation."
+  ],
+  "new_head_Windows_verification_required": true,
+  "new_windows_result_JSON_created": false,
+  "no_source_or_archive_bytes_normalized_or_modified": true,
+  "only_Windows_timeout_semantics_changed": true,
+  "original_ci": {
+    "KeyboardInterrupt_line": "2026-10-17T22:30:57.3069936Z KeyboardInterrupt",
+    "cancellation_annotation_line": "2026-10-17T22:30:57.7660765Z ##[error]The operation was canceled.",
+    "complete_original_ok_blocks": 1944,
+    "explicit_timeout_annotations_in_available_hosted_log": [],
+    "full_suite_complete": false,
+    "head_sha": "b0e866de120c8d6366b93c8fef26916f0db4aa0e",
+    "hosted_log_first_timestamp": "2026-10-17T21:50:58.0740972Z",
+    "hosted_log_last_timestamp": "2026-10-17T22:31:01.8841856Z",
+    "incomplete_test_heading": [
+      "test_687_tickers_rotate_with_daily_limit_and_offline_catchup (test_sec_scout_service.SecScoutServiceTests.test_687_tickers_rotate_with_daily_limit_and_offline_catchup)"
+    ],
+    "new_batch9_methods_original_ok": 194,
+    "original_result_JSON_absent": true,
+    "plain_OK_footer_absent": true,
+    "release_gate_conclusion": "failure",
+    "release_gate_id": 117521376998,
+    "run_created_at": "2026-10-17T21:50:54Z",
+    "run_id": 39072646508,
+    "run_started_at": "2026-10-17T21:50:54Z",
+    "run_updated_at": "2026-10-17T22:31:08Z",
+    "seconds_from_first_hosted_timestamp_to_cancellation": 2399.691979,
+    "source_artifact_pins": {
+      "artifact_12117165429.zip": {
+        "bytes": 58491,
+        "sha256": "7f0a915a75c3fa3a128e030a6923f535d7cea4e9a6817caba1de63a1a563edf9"
+      },
+      "content_verification.json": {
+        "bytes": 41806,
+        "sha256": "ec634a31825a2fbab44375da551828a387eaa9d36bd02cd3e2c7fe31a7fcb1cc"
+      },
+      "github_run_jobs_artifacts.json": {
+        "bytes": 24296,
+        "sha256": "f43ac501d5e7b7a14a61fbbaf5b2e970ba10cc936b96dc304c8f9daf495bf709"
+      },
+      "hosted_windows_job_decoded.log": {
+        "bytes": 511607,
+        "sha256": "d1b28e62d8d5c21fd5e87a173e69d8a58522194db1720dc4f047fa0391d230b5"
+      },
+      "windows-tests.log": {
+        "bytes": 394171,
+        "sha256": "6463c4d1bb84c6d4bb763f47d1e58923301216445c82dd12877bbbf4755ec7a7"
+      }
+    },
+    "source_paths_relative_to_repository": "evidence/batch9_windows_cancelled_20261017/",
+    "started_method_headings": 1945,
+    "timeout_cause_status": "DURATION_BASED_INFERENCE_WITHOUT_EXPLICIT_TIMEOUT_ANNOTATION",
+    "windows_conclusion": "cancelled",
+    "windows_job_id": 117513252470,
+    "zero_final_failure_error_counts_claimed": false
+  },
+  "production_test_source_or_data_or_score_or_fitter_or_config_changed": false,
+  "public_base": "b0e866de120c8d6366b93c8fef26916f0db4aa0e",
+  "qualification_only": true,
+  "qualification_script": {
+    "bytes": 13831,
+    "sha256": "a260205b05a63d4828cf3af3b60582304d5e0a1778c91da06187e2f56e488ec9"
+  },
+  "quota_writes": 0,
+  "raw_byte_identical_tracked_files": 1967,
+  "recorded_at": "2026-10-17T22:49:49.489706+00:00",
+  "release_gate_semantics_unchanged": true,
+  "schema_version": "batch9_windows_timeout_only_qualification_v1",
+  "semantic_differences": [
+    {
+      "after": 60,
+      "before": 40,
+      "path": [
+        "jobs",
+        "windows-agent",
+        "timeout-minutes"
+      ]
+    }
+  ],
+  "source_category_bytes": {
+    "other_tracked_sources": 75228222,
+    "production": 3577034,
+    "tests": 2440692
+  },
+  "source_category_counts": {
+    "other_tracked_sources": 1571,
+    "production": 218,
+    "tests": 188
+  },
+  "source_hash_manifest": {
+    "bytes": 1200025,
+    "path": "source_files_sha256.json",
+    "sha256": "d93af9d8208e539be3728801c7a3b9a6a3334d8ee4524a5dab3c6762522342cd"
+  },
+  "tests_filtered_or_skipped": false,
+  "tracked_files_hashed": 1977,
+  "unchanged2231_local_suite_repeated": false,
+  "unchanged_tracked_Git_contents": 1976,
+  "windows_steps_platform_Python_compile_checkpoint_full_suite_unchanged": true,
+  "workflow_after": {
+    "bytes": 4573,
+    "sha256": "49126bef29f9f5034077ffe6b5aa0f043c69b8feb6182969093f99424f4ecc38"
+  },
+  "workflow_before": {
+    "bytes": 4508,
+    "sha256": "3c7ade5d634f09a105f9493ddc3022f73c1ecd8623d26c53b21f16451800805f"
+  },
+  "yaml_parser": {
+    "duplicate_keys_refused": true,
+    "event_key_on_preserved": true,
+    "library": "PyYAML",
+    "version": "6.0.3"
+  }
+}

@@ -69,11 +69,12 @@ jobs:
   windows-agent:
     name: Windows contracts, persistence and UI
     runs-on: windows-latest
-    # The verified 902-test Windows suite took 29.8 minutes (run38258101028),
-    # before setup and the focused checkpoint step. This batch adds real
-    # archive replay and filesystem regressions; retain bounded headroom for
-    # those checks and artifact upload. Cancellation still fails the gate.
-    timeout-minutes: 40
+    # Run39072646508 was cancelled about 40 minutes after the first hosted
+    # log timestamp, mid-suite without a final JSON/footer. A timeout is
+    # inferred from duration; that log has no explicit timeout annotation.
+    # Allow bounded setup/checkpoint/full-suite/upload headroom. All test
+    # budgets and the gate that rejects cancellation remain unchanged.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

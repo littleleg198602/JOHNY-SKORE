@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch9_windows_timeout_fix_20261018/qualify_workflow.py", line 187, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch9_windows_timeout_fix_20261018/qualify_workflow.py", line 107, in main
+    if changed!=[WORKFLOW]:raise ValueError('Unexpected changes to tracked source/test/evidence bytes')
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unexpected changes to tracked source/test/evidence bytes

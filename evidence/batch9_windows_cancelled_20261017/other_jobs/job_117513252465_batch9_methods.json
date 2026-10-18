@@ -1,0 +1,1177 @@
+{
+  "head_sha": "b0e866de120c8d6366b93c8fef26916f0db4aa0e",
+  "run_id": 39072646508,
+  "job_id": 117513252465,
+  "decoded_log_bytes": 554670,
+  "decoded_log_sha256": "0b02bb20b7e14e67af7373cb5487b891df9fddf0f6cc963d7ef2d0fa73c3c812",
+  "batch9_new_exact_methods_executed_original_ok": 194,
+  "methods": [
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_genuine_current_whole_body_pins_and_deterministic_review_replay",
+      "original_ok_block_sha256": "4d1b6eaf32d08cead0afdfd8e9d70983a296b8c86ee0e2d7007dba73d348363d"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_real_complete_packet_closes_only_packet_header_component",
+      "original_ok_block_sha256": "b529176a6c34d88c7c2dfb44a6eadda50087bdfc62b340d30404a1b6a2f1eacc"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_real_exact_document_span_binds_original_xml_without_serialization",
+      "original_ok_block_sha256": "e1b89d8ea3b3384ef584792ee4da18419c833d54a51f1e197f2ed14d3be5aa04"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_real_header_roles_ciks_and_raw_acceptance_have_no_inferred_timezone",
+      "original_ok_block_sha256": "b2433dab14727531eeb8cc25ae82133bfe8d85a77383818d6650ee3a58094481"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_real_primary_capture_clocks_do_not_rewrite_old_incomplete_transport",
+      "original_ok_block_sha256": "49849fedce450f3a4a21798c7610a34f1ac769875601e109c7870a17db2348ee"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_no_person_alias_cusip_continuity_execution_or_acceptance_promotion",
+      "original_ok_block_sha256": "85270c590c917d0de28df3a91ab43670f8222b44fce3bda5b385e75cabc84d19"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_actual_root_relative_plan_contains_only_exact_whole_body_references",
+      "original_ok_block_sha256": "bf207364300b81d66be7b70e709aee9c7612056ce7f810e22c7c111cd9480570"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_truncated_envelope_header_text_document_or_footer_is_rejected",
+      "original_ok_block_sha256": "114116dea3a645f6f4235db7dfaafca3bfbe97fcde45ddd735097c5bedd8cb59"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_trailing_non_whitespace_or_prefix_excerpt_is_not_a_complete_packet",
+      "original_ok_block_sha256": "9f1bbcefd526ff553e48c376b5b4fcaa5f94ed9c45d35b84e15c5a485bdc34e3"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_accidental_or_claimed_other_accession_cannot_bind_header",
+      "original_ok_block_sha256": "c12573c92a3afd3eac8331f1f9565ea5957d4d438cece8828b06907ca4cc5e28"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_header_required_fields_cannot_be_duplicated_or_hidden_in_role_scope",
+      "original_ok_block_sha256": "9fe7f3b1293166f20c473b515bca14c875803c1d3fd77a82cfabd6a590bb5c79"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_header_role_name_or_cik_drift_does_not_inherit_xml_account",
+      "original_ok_block_sha256": "e6cf6e40f3deda3f8558a75b5e0bcfab62213913de09370829cb134e094ffc91"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_duplicate_issuer_or_reporting_owner_header_roles_are_rejected",
+      "original_ok_block_sha256": "17b700a4a5ddeeb6e5fa3913ec702a9a89621d9d621d06fe42e231efa39b28ee"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_header_reporting_form_type_cannot_disagree_with_submission",
+      "original_ok_block_sha256": "abd1d82f552e989e1d896c824a4060757ec05d92f8c02a89dcd4f234820f2bca"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_header_count_cannot_silently_drop_or_invent_document_blocks",
+      "original_ok_block_sha256": "78e90ac74a442de21a4776ac4b223ff37f40d7fcc2bbe40dc76a99388c2ecd62"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_document_identity_requires_canonical_metadata_order_and_unique_fields",
+      "original_ok_block_sha256": "850dcd93282e77e473e4b4334e3ef048794a7f8328aa3215a36e744900cf597b"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_matching_xml_under_another_document_type_or_filename_is_not_primary_binding",
+      "original_ok_block_sha256": "4a68ff518d8377d34e791d3e9aa8336ee1967c06f15c9704812ae874db64bea4"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_nested_or_unmatched_controls_in_text_cannot_be_skipped",
+      "original_ok_block_sha256": "9ff61de2190e6b0c7b076fea4890163453114f5681d1b789530a78d5e65c427a"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_duplicate_or_noncanonical_xml_wrappers_are_rejected",
+      "original_ok_block_sha256": "db0ea4cc1b6d733f02b507e5d2595c01e7fcb834c520590988bffd1c1d0aee05"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_rehashed_semantically_equal_xml_still_fails_exact_original_binding",
+      "original_ok_block_sha256": "10827dd321c4af51028532bba0b8a656775ffad9f1c6ddb70ddf71422a8cf9d6"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_line_ending_conversion_cannot_pass_original_byte_binding",
+      "original_ok_block_sha256": "de11cde94f1d05ac38dba4d3712047d92e09e075c7d80f742eab3a0b6c1d0f98"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_synthetic_multiple_documents_are_consumed_with_opaque_poa_not_identity",
+      "original_ok_block_sha256": "9526137a2a8081d9203e94261c275b4d02521da524d4d37b30e3a4fc2cbdff06"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_duplicate_document_filenames_and_sequence_reset_are_rejected",
+      "original_ok_block_sha256": "ed7605d4d2b72ccc59287fcf23f0d88e31dbeac7b6e8f81ad3d4f973925e5289"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_index_primary_sequence_count_size_and_exact_filename_guards",
+      "original_ok_block_sha256": "29cffdb21eca40f50ee2a12f41c503ef56d1a42dbc2f4c49c9e8cae0c0e79380"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_index_primary_sequence_drift_is_rejected_even_after_rehash",
+      "original_ok_block_sha256": "93ba2cc3e93ebf0aabc5cf5c89808f2cb4c1bed651cafeb2319e0bb58788afad"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_index_url_basename_folder_and_selected_primary_filename_must_match",
+      "original_ok_block_sha256": "a693fee6779b47a4d9282cfdb9b5373bc561350bc72e48ee4975da0833d8209f"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_header_index_unqualified_clock_conflict_remains_explicit",
+      "original_ok_block_sha256": "ac204ac76c08ac17b4a6f431d024a5194116932b73a840de77e1fbfdc8c17192"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_acceptance_day_conflict_is_not_a_timezone_reconstruction",
+      "original_ok_block_sha256": "1dd72e9091b150a324b9aa82243d236eaff97e3bcebe833b09e8baf72e8d22c4"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_original_source_observation_upper_bounds_header_change_day",
+      "original_ok_block_sha256": "98dde3cc953489a95093bc5475daa082bc24d04450875f8ed0b792bc3003b75e"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_invalid_calendar_or_missing_unqualified_acceptance_is_rejected",
+      "original_ok_block_sha256": "7fccc4069f6bdffbe56627e93506d310b5772f96a13884764637c09a3da798e0"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_requested_old_cutoff_does_not_backdate_a_new_review",
+      "original_ok_block_sha256": "c402d22e812483230e41ebf7ac2bdaed46f7064a290f143da139cfdc2382f0ea"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_default_none_uses_current_physical_ingestion_and_original_input_clocks",
+      "original_ok_block_sha256": "ee6aec955e6ef9ec85f81d41f7da6a302e24a29d7582c378ada37e0be058e221"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_future_cutoff_and_physical_clock_rollback_are_rejected",
+      "original_ok_block_sha256": "1ec8a813a7db7745f90c446e6923f75cb990345ebfe19783d5897dc949fc8499"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_future_input_availability_cannot_supply_current_facts",
+      "original_ok_block_sha256": "2cbdadca9365141a1f4b18386fbab8472414bccbb80ad9010f1d842f3639f2b9"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_missing_whole_packet_has_no_excerpt_or_invented_hash_substitute",
+      "original_ok_block_sha256": "efd9e1e3df89619fb75e46f2bd7ed657d4d1e3981dac4728396364b27a74c48f"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_withheld_packet_metadata_is_partial_before_opening_or_parsing_body",
+      "original_ok_block_sha256": "2357d01dabc7d58d1d7214d5544e15c6a32c5e1fcb542f0d40f3f318413b75e9"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_new_synthetic_access_bearing_whole_packet_is_withheld_not_cleaned",
+      "original_ok_block_sha256": "baef3a25a249695e474e16852e16f62a95c7c100680b73f9a3583a9c2c5d21d7"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_missing_or_withheld_xml_or_index_is_partial_without_parsing",
+      "original_ok_block_sha256": "d9168d5f3cd5a9707494e22a2a3461b1cd6949559a77f201e26f6596e3c7be1f"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_empty_cleaned_or_rehashed_excerpt_is_not_original_packet",
+      "original_ok_block_sha256": "7113e8842397f1a46491581eb7415d4b4d5351bf73bb077d4492e99d351bad99"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_hash_size_duplicate_record_ids_and_noncanonical_source_urls_rejected",
+      "original_ok_block_sha256": "1a2145ea0dfe3a76b29ee79e0c8408ce1629a6f3132a24e30581ec911f441c1e"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_selection_exact_name_order_fields_and_iso_days_cannot_be_relabelled",
+      "original_ok_block_sha256": "d6c9b5e013eab25bb2ba45e7614131209c432806070889f3b57b6a194108bc4a"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_bounds_reject_unbounded_packet_header_line_and_document_count",
+      "original_ok_block_sha256": "2e9c317312852d5046c03addf2187c6a42241291733883a930f3e815725b0d23"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_dtd_entities_wrong_xml_root_or_encoded_xml_cannot_bind",
+      "original_ok_block_sha256": "56922800983dd849ba59d5d50395ba15fbd3efebb314d7762fbed8ef9da12b34"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_missing_or_future_signature_and_transaction_dates_cannot_be_invented",
+      "original_ok_block_sha256": "8f872d300cb957ab7498ade2fdb349475c0e76f699e178d506c3cd30399cefc5"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_research_helper_never_retries_the_consumed_actual_diagnostic",
+      "original_ok_block_sha256": "12b838afa3e23b265630eace091b3f8e710fa195a7a4406481b3c2f73c7295c9"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_research_helper_allows_only_exact_preplanned_url_and_no_redirect",
+      "original_ok_block_sha256": "d597414511f08a4998b11a96b1952e48399878f81d2300a87926aa07e45a54ea"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_offline_report_performs_no_network_database_or_file_writes",
+      "original_ok_block_sha256": "2dd143bd0b9c64f05c17947200e792de017a5046a8a3eae5111bdda9a9c0d1ae"
+    },
+    {
+      "module": "test_batch9_complete_packet",
+      "class": "CompletePacketTests",
+      "method": "test_research_artifact_writer_refuses_overwriting_an_existing_receipt",
+      "original_ok_block_sha256": "09ec7192067d4dfa15bdf954d0355e8fdf0ac297b937f9df78769ddc76b588e6"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "ActualOriginalScopeTests",
+      "method": "test_actual_registered_class_and_symbol_keep_unproved_cusip_bridge",
+      "original_ok_block_sha256": "cdc733840e1e74d27cb7286351354ed6300fecc7d7b084d4e18d014ec9945bf7"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "ActualOriginalScopeTests",
+      "method": "test_actual_fda_company_and_applicant_rows_stay_separate",
+      "original_ok_block_sha256": "cafaad24c54e69594fe121e01dc3f8458b4e7b2d0d2e754468a11e32627d27af"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "ActualOriginalScopeTests",
+      "method": "test_actual_nhtsa_positive_http400_and_unknown_response_never_become_negative",
+      "original_ok_block_sha256": "131a56f26c82b2d79f53a210d6675d81318eca6082187d60a151276e56b7cb58"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "ActualOriginalScopeTests",
+      "method": "test_actual_apple_share_remains_swks_net_revenue_with_generic_xbrl_member",
+      "original_ok_block_sha256": "cf343c28872fd3f535351ab110cb5de46fecbdce95351edd3f0cc1c98578829f"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "ActualOriginalScopeTests",
+      "method": "test_actual_complete_packet_binds_xml_but_does_not_promote_person_or_instrument",
+      "original_ok_block_sha256": "f1e3c887987765f11a444ae294fdc15af7b1b7e4bdc851d8fff75736ec260d4b"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "ActualOriginalScopeTests",
+      "method": "test_new_review_kinds_keep_original_four_megabyte_cap_before_body_io",
+      "original_ok_block_sha256": "737415dcf217fdee40bb65251ba5cff5d00fbe80cf4f552b9491e9175f5f94bd"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "MarketInputActionTests",
+      "method": "test_default_cli_prepares_only_bounded_plan_without_http_database_or_archive",
+      "original_ok_block_sha256": "4537aca868d391f952e6cfad2f95fc32f0ca8be9ce337bb8a1e076d627b6efb6"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "MarketInputActionTests",
+      "method": "test_execute_requires_existing_explicit_plan_before_collector_construction",
+      "original_ok_block_sha256": "be4dc86fe22122ef4a3ac11ed037109f063ebcf2384a2150fcd4d632b07525dc"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "MarketInputActionTests",
+      "method": "test_cli_execution_passes_exact_selected_plan_and_explicit_opt_in",
+      "original_ok_block_sha256": "0d8cffbdd0d24c875e2ca617f6a32a363b9fbc38fe3068abb7fc292b8a109937"
+    },
+    {
+      "module": "test_batch9_coordinator_integration",
+      "class": "MarketInputActionTests",
+      "method": "test_ui_preview_never_executes_and_execution_consumes_the_displayed_plan",
+      "original_ok_block_sha256": "4d8854d208a5e1359cd5fab51c10a4a6b7f669821d5b1a653a5d13a8dc7d8eb9"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_synthetic_exact_applicant_product_snapshot_does_not_prove_owner_or_history",
+      "original_ok_block_sha256": "4b91196b01df2086a583791816c4f54cbd919d3227517dc00e42a79350300fd5"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_company_label_is_not_applicant_and_row_ordinal_never_becomes_product_number",
+      "original_ok_block_sha256": "ba0dbbab981d3d229eb9cb42eaa2f343c9d9e9ef7e78a9c7157d3a723b9cfe7c"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_actual_two_static_pages_keep_different_roles_products_and_unrepaired_source_defect",
+      "original_ok_block_sha256": "449ea428d54e2daa32b0e22efadef0ed131eab2d1ffe3a66c8ac255198d44844"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_exact_original_hash_length_cap_and_transformation_flags_precede_html_parser",
+      "original_ok_block_sha256": "9946985fb68fa80538a61dbe03ab537e8a6d76b95f1405d7280614cff36cfbe7"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_missing_metadata_only_and_withheld_originals_stay_unavailable_before_parser",
+      "original_ok_block_sha256": "dcb663bb68cc5760240fa3fb97b473a8fe1b0b1b4288eb2a5d5ec3eeb5d1a49b"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_transformed_body_declaration_cannot_keep_original_source_role",
+      "original_ok_block_sha256": "8393a0e7b76bc3c886239a604bb94926397cd4e9565988d5f10496a29bf022fb"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_whole_encoded_withheld_retention_cannot_restore_unflagged_original_bytes",
+      "original_ok_block_sha256": "f39df6bdade7d82623aee066788e3c5af0790c7eec874bf390637e1f1be52b4c"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_unsafe_whole_body_and_metadata_are_not_sanitized_or_projected",
+      "original_ok_block_sha256": "90564d6c401defb25cf04554bc5827cf267426d77446473f646d8bbf972f1cfd"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_source_query_duplicates_api_key_wrong_dataset_and_redirects_rejected",
+      "original_ok_block_sha256": "9bcfdc076656cf574fd7e936ebb07b6d898bf1f1dd95079d3b00be978cde4d51"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_NDA_cannot_take_BLA_page_or_same_numeric_application",
+      "original_ok_block_sha256": "7771ad24950c2825a9b6c4bb96f2183aa60bfedbbef3ceb38b0ccc03fb519ed6"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_exact_source_version_and_product_tuple_cannot_be_inferred_from_nearby_row",
+      "original_ok_block_sha256": "dafe2fd398c533b6a7e66ae27628bf2e74d5bd80433753a1487c60ed71c8f318"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_no_selection_or_missing_issuer_preserves_source_facts_without_candidate",
+      "original_ok_block_sha256": "43e17a53ca8dcffef6383fe16df70c1a93d41ac134a0df1c16ad9d3a271d10d8"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_duplicate_grid_product_number_and_field_labels_are_ambiguous",
+      "original_ok_block_sha256": "8d675a1326c6c2ae8584fd546f8b61035e88416a2b2f93dcada0d6fbbcc0f907"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_hidden_wrong_schema_and_nested_cells_do_not_supply_product_role",
+      "original_ok_block_sha256": "6a3c044896454e398a98cd9f9fea14aacd5a0169ba0c9efaa5b03129175a5d30"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_text_mentions_and_glossary_applicant_do_not_replace_structured_fields",
+      "original_ok_block_sha256": "a5c257344957b44a31f19f3998b8642e510979e68db5877dfb7800d0991c9e5b"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_unclosed_outer_container_recovers_only_explicit_rows_and_withholds_candidate",
+      "original_ok_block_sha256": "d834367ef068be6562f48988968ae4cc7f2e7eb6d168f8ee7534e524a75629ff"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_wrong_issuer_name_CIK_ticker_and_aliases_cannot_bridge",
+      "original_ok_block_sha256": "940c879c7a55a23196f90fac8e0508ca4d6728b21b92f776a7ab1a84b5970dfd"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_late_equal_and_previous_day_issuer_cannot_be_retrospective_bridge",
+      "original_ok_block_sha256": "ba2a0ebc85055613e574f6e77a1739a0f741f37f2bc8a71366b46e23b466ac2e"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_future_inverted_and_naive_source_clocks_are_unavailable",
+      "original_ok_block_sha256": "6bb27dbf60b014bca56089389adf9f933360dfb480cd8e0effe3699051130b45"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_source_read_cutoff_can_precede_invocation_without_backdating_new_review",
+      "original_ok_block_sha256": "ecc57788eec7697085d59861f0085236fc70f71daceaad4db7d2ca4d6a5e5093"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_original_approval_is_not_current_applicant_since_and_future_date_is_a_conflict",
+      "original_ok_block_sha256": "a2ad7f58cc8328a92ee8e35b8dbd92f6da21859f273fa9c233e610b316b6d5c5"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_duplicate_json_or_encoded_unsafe_issuer_is_not_an_independent_bridge",
+      "original_ok_block_sha256": "9db15eb5e8dbf96ef954d0ff3b24de3f49b4674eb1da74dc7cd202e8433fb341"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_HTTP_errors_empty_rows_and_missing_cells_never_become_negative_coverage",
+      "original_ok_block_sha256": "4e39845f30bdc6c27acc567911ce112b121d656755274ec59aad905141924b43"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_complexity_duplicate_attributes_and_original_over_cap_rejected",
+      "original_ok_block_sha256": "82bd53ac326063d4fd100826b142b237e5b2d891ded5587926fb6966bfef78f9"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_actual_plan_exact_byte_pins_are_replayable_without_source_rewrites",
+      "original_ok_block_sha256": "3539982360f41daa547da7bf42b0d18162f2bd8a660fe94c013d5dd500f5f700"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_repeated_review_is_detached_and_has_no_HTTP_DB_file_or_registry_side_effect",
+      "original_ok_block_sha256": "6f93458b4f5d67ab34b06e5853f5a1c03e8cb8c886eca83e5501680a329191b6"
+    },
+    {
+      "module": "test_batch9_fda_application_product",
+      "class": "ApplicationProductTests",
+      "method": "test_invalid_request_bounds_identifiers_and_extra_capture_are_not_guessed",
+      "original_ok_block_sha256": "f896aa7f16409f7cf566de871cf02f5f4fbe2adf794fa4fa16e74cd6a9eaac69"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_exact_independent_registered_and_schedule_facts_do_not_adopt_an_instrument",
+      "original_ok_block_sha256": "cc8b23287b7b5a7aba9a45900c6eed92f2ff8c95c60df36fe818a606b22ad9ee"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_same_row_cusip_is_extracted_but_not_borrowed_from_adjacent_text",
+      "original_ok_block_sha256": "d9498ae9413e424377256c1f2cdd456228d0f8355c40634d4dadc295f6808405"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_a_different_same_row_cusip_is_a_preserved_conflict",
+      "original_ok_block_sha256": "00a7cbb3b4b3167e98e3e30b2b6fee9db10e4707ee39ab809dab9de613a5eba7"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_generic_schedule_class_is_not_upgraded_by_a_later_registered_cover",
+      "original_ok_block_sha256": "ca5825188816fdd06229861e9bb27be7c5384a942af29d6fd91ded4bcb472a5e"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_exact_schedule_class_fact_and_same_day_symbol_bridge_are_separate",
+      "original_ok_block_sha256": "ffe7660d153c560aca85a35f749e3a9fd10b04048cda632c3b1eec8692871440"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_registered_cells_cannot_mix_inline_contexts",
+      "original_ok_block_sha256": "d460559c952d1772c8754808de46bb96a9b562d73cd7686ec84111e6c9c73c85"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_class_par_and_name_cannot_be_inferred_from_the_cik",
+      "original_ok_block_sha256": "b76050444f8e2dae40444f1e90ebe83a9325e1cadc45087eb2c5b27abdcf3897"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_missing_section_or_whole_row_hash_cannot_be_replaced_by_a_text_quote",
+      "original_ok_block_sha256": "1919b229694663f68f59c13ee7a36526c28fbb13ebd6390c7536b4fbf1655682"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_hidden_registered_table_is_not_a_source_fact",
+      "original_ok_block_sha256": "dab913517c73d768973a702a4535ad71b867838d634288cea0ff844d5ce0923b"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_registered_header_and_data_columns_must_have_the_same_physical_span",
+      "original_ok_block_sha256": "f8940151e6dd44c2d22f6ca03de96656e544146fc66c996f00f8a4d2fcf1624c"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_exchange_transform_is_exactly_namespace_bound_and_not_a_class_transform",
+      "original_ok_block_sha256": "8b02fa717d671f3fb5dd7a8fd1fa4a85c5c85d6db62142149fc6526ef7bd76c8"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_reporting_filer_route_is_not_reassigned_to_the_subject_cik",
+      "original_ok_block_sha256": "fdbb0c3f0bac0d87d649db1b03391bfdf355befe59d31391b22f619562918073"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_wrong_index_subject_role_or_foreign_raw_link_is_refused",
+      "original_ok_block_sha256": "e6182dcf13bf622b8a1b1e0a9bc26ef07a8b40ef07369c8a9341626c26d854af"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_duplicate_foreign_schedule_fields_and_future_event_days_are_refused",
+      "original_ok_block_sha256": "5bc504a13c3c122d356df4913ac456ea7f8b8c622c145396da9af8a035c7e777"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_reversed_future_and_explicit_past_review_clocks_are_refused",
+      "original_ok_block_sha256": "4f275c062bbf3ff9c8951a24442b215056185e9140418a00194113f555b2d06e"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_withheld_whole_body_is_not_restored_or_substituted",
+      "original_ok_block_sha256": "9b04d6e999eade7d6cd6e3babdf49ddb5e2b762cc4ca766e884f9003c72b0001"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_any_access_bearing_whole_source_is_refused_before_projection",
+      "original_ok_block_sha256": "37c469c724d7fe875964bfecc85f6643b5fe8e091e2970ee3aed2c96b9bf2402"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_original_byte_and_capture_bounds_are_enforced",
+      "original_ok_block_sha256": "fb433c9da0b120aea94735942ac8c5c1da929c1be7d7d43c78460b982bba1aaf"
+    },
+    {
+      "module": "test_batch9_instrument_class_scope",
+      "class": "InstrumentClassScopeTests",
+      "method": "test_real_originals_add_two_registered_class_anchors_without_fabricating_cusip_or_images",
+      "original_ok_block_sha256": "c43c4511696a209f12864fc5dccbf2a04a7f889458b78c81bcc5c4a5ccd0b451"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_default_off_and_explicit_execute_are_both_required_without_files",
+      "original_ok_block_sha256": "5190190f1ab9e566510f9e9f025b31d8c8fa97ef87d5b6524e634fbe1ca16a03"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_enable_and_execute_require_actual_booleans",
+      "original_ok_block_sha256": "414f288a6c5f8e422738140249fcbdb3f60d4e6639175d686e8ada9509ad4ba1"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_plan_predeclares_exact_thirteen_urls_and_bounds_without_io",
+      "original_ok_block_sha256": "b38ff43a45b3fb2687a9495e6abc84f932d672dc3fc5947aacf5b1bf67b9c82f"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_scope_is_exact_bounded_and_does_not_consume_an_unbounded_iterator",
+      "original_ok_block_sha256": "a970a96b99795c8bb357fe41612c4ea9137f000b47540174d0fe33108dcccf92"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_changed_plan_is_rejected_before_claim_or_network",
+      "original_ok_block_sha256": "6737b4c30b4c3a6cbdfe0c1459eccea7d650ff599db1dd4791c584d3ad90de0d"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_a_resealed_arbitrary_endpoint_is_not_a_valid_plan",
+      "original_ok_block_sha256": "62b180c37196560c0028219bf5c411994fe9bf9a004bd23e7c670bea272630c3"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_plan_cannot_slide_to_a_new_completed_close_or_be_from_the_future",
+      "original_ok_block_sha256": "8db89900841b81e4fb6bdf9587db7d535d0dab99542309169fbab79ac79a688b"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_naive_and_rolled_back_physical_clocks_fail_closed",
+      "original_ok_block_sha256": "d1b2281dcd0eb1c4ed9d50bf0c5dcd614810fec9a5fb4d68fca6a08496fb8715"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_full_thirteen_fixture_capture_is_ready_but_not_live_or_pit_evidence",
+      "original_ok_block_sha256": "31827567da54681b4e85c9ec3e627a3212ac784fd7c6ac87c0f5d7791180206c"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_parser_preserves_exact_ohlcv_and_timestamps_without_adjusting",
+      "original_ok_block_sha256": "593b711e208eb73f0d27a92fd76ab7e4d3716e678e54522449cfc7cb292248a2"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_absent_action_fields_are_explicit_and_never_zero_filled",
+      "original_ok_block_sha256": "c14cc438227a063aa0de11b237edeef0363bde31c1942c8a69e192ad7aa740b3"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_frame_serialization_preserves_subdecimal_prices_and_large_integer_volume",
+      "original_ok_block_sha256": "1f539f8df291901fe871bb9494b34faec5fd39358ff8aebab7ee4215ecfdfc70"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_sparse_action_event_map_is_preserved_as_returned_without_dense_values",
+      "original_ok_block_sha256": "4ca93f6fcaca36c3eef19857f1aa5ec45fda572377fc890ac0ee84648d0aacbc"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_foreign_or_ambiguous_instrument_metadata_is_rejected",
+      "original_ok_block_sha256": "6cbbf7744d4d1e1e01dd07d6fc895d4c2fbbf371f71c07b373600daddaf46171"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_missing_ohlcv_is_never_reconstructed_from_close_or_adjusted_close",
+      "original_ok_block_sha256": "227d8bb5cfe95c67df208b04d81836edc9d3eb6b37b10d4d1652b81778ddbd97"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_nonfinite_null_nonnumeric_negative_and_short_arrays_are_rejected",
+      "original_ok_block_sha256": "4cb428cc2f7346be2c76113cb7337eb0d62dc8d283256bf6341edb3710f3c434"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_duplicate_shifted_and_missing_sessions_are_rejected_without_padding",
+      "original_ok_block_sha256": "42acc4464a15a3b835fc978df0f567241632d2e6dde786fbc62a74742b9f9475"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_older_window_and_future_session_knowledge_are_not_refreshed",
+      "original_ok_block_sha256": "1da262bcc67130e73b56b375fef657a1915df963be7d2dacb6417878352dac91"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_duplicate_keys_nonfinite_constants_and_inconsistent_prices_are_rejected",
+      "original_ok_block_sha256": "a1a271088ff00da034a421de4fd5e8755f0af2f091d544ed3489024f536b5612"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_unknown_or_unbounded_action_maps_are_not_adopted",
+      "original_ok_block_sha256": "e73a1d14754774c4f7c5eaeeb2775986a24efc66a8ae95f5139e163d32ad75e2"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_redirect_response_never_traverses_and_retains_only_original_safe_error",
+      "original_ok_block_sha256": "7427669659bdf8f2777060b2f8740d6c2e4ccdfcc5a1252c7a022cb214ee874a"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_http_failure_body_is_original_failed_evidence_not_an_empty_success",
+      "original_ok_block_sha256": "6e4e5ee3484c810bee4a14559d66186169e128dcb2bcea5c13ce41e0d237e070"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_unsafe_whole_bodies_are_withheld_without_substitute_or_error_echo",
+      "original_ok_block_sha256": "4d5296f43e08e47ba43e1d10b8a3ced47d37c85063866ad964883cccc1fb4b28"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_oversized_or_encoded_whole_response_is_not_archived_as_a_safe_prefix",
+      "original_ok_block_sha256": "d339f192c4d3a45fc2a75d5aaa8ca9d24080057aba7f2dd523f197a6b3fbc744"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_transport_failure_stops_remaining_same_host_requests_without_retry",
+      "original_ok_block_sha256": "236f7fe204b0983a178ed854b3dc7caa70e3e7b4844f4bd94e50f39f5e69681f"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_partial_capture_preserves_prior_and_later_successful_counts",
+      "original_ok_block_sha256": "6aeb1ae3f274ee7ad48b474d608518296a5efb3a54e18ede20f3500b78403a5a"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_same_plan_replay_never_spends_the_request_budget_again",
+      "original_ok_block_sha256": "6de2d30923ea47d078f879efedc446799cda0963da4f3b3ac91efeb0e4b234b2"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_interrupted_claim_cannot_be_retried_by_a_new_instance",
+      "original_ok_block_sha256": "b266f5efb31e46434c8a504db8a2acbeeaf9ee9caef7ac3a50598e406e143b5a"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_atomic_claim_also_blocks_a_concurrent_same_plan_execution",
+      "original_ok_block_sha256": "21ab5eae16f2bf2531eb529d98e1248e51317f234914a0c7d8850cd303db5a64"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_raw_parent_tamper_or_missing_bytes_fail_read_only_replay",
+      "original_ok_block_sha256": "86e438ff01bc22c23dd2e487802598fc37f61ceacb445ddcb0bc730c1b83f07e"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_raw_parent_path_escape_and_symlink_guard_are_rejected",
+      "original_ok_block_sha256": "69616e4903a69b5c6a5f396abad8581e63540af3e9a8f805bd7c527010da55cb"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_resealed_frame_cannot_disagree_with_original_raw_quote_arrays",
+      "original_ok_block_sha256": "fa45563e215fe93d817d26d00daf7117cd540c86cc3f0e0bb7af8d07803188df"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_resealed_source_hash_or_url_cannot_change_original_parent_binding",
+      "original_ok_block_sha256": "867573ce701deb693d11005409c0e5c07ee2e829b9f38ea058646bb6e42a731e"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_parent_future_or_rolled_back_knowledge_clocks_cannot_be_rebased",
+      "original_ok_block_sha256": "adb892f5fd27785cc96d0712553eb0548e25a45084672d88c32f9cae3eafdee8"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_parent_parser_and_observation_method_are_pinned_and_not_replaced",
+      "original_ok_block_sha256": "426d1e6edff2745384b1914a2887015c99818de21e18c6e9bdfbb84c372eafe1"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_parent_verification_only_reads_exact_pins_without_discovery_or_writes",
+      "original_ok_block_sha256": "608412a79e8f88b9881a45591ba634303edc6e047f7d5e3e4dc1f0741210f7cf"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_native_transport_makes_one_exact_bounded_request_and_closes_response",
+      "original_ok_block_sha256": "d71b764f3e13ba5fec00bc0706ef3a09df8dfe1442775daa754759c272459133"
+    },
+    {
+      "module": "test_batch9_market_input_acquisition",
+      "class": "CapturedMarketInputAcquisitionTests",
+      "method": "test_native_http_error_retains_original_error_bytes_without_retry",
+      "original_ok_block_sha256": "eff01078a39cd266ffe0a157dd886250d103ca1d0c7c790b28f20cd036a136cf"
+    },
+    {
+      "module": "test_batch9_market_parent_peer",
+      "class": "MarketParentPipelinePeerTests",
+      "method": "test_valid_marked_parents_reach_actual_pipeline_save_boundary_only_in_memory",
+      "original_ok_block_sha256": "429742ffb8f520b01203e17542e0f610bff38c19851d1a08ad68beb900440417"
+    },
+    {
+      "module": "test_batch9_market_parent_peer",
+      "class": "MarketParentPipelinePeerTests",
+      "method": "test_actual_provider_rereads_original_parent_after_successful_frame_read",
+      "original_ok_block_sha256": "64f8ac137a3f62805f10b5b7effb62ffcb1b927c8e16fbd2ea6b07941d0ebb99"
+    },
+    {
+      "module": "test_batch9_market_parent_peer",
+      "class": "MarketParentPipelinePeerTests",
+      "method": "test_raw_body_tamper_blocks_asset_or_unused_benchmark_at_preflight",
+      "original_ok_block_sha256": "c49a59133e479274c7915545f4b1c85bec74a522ba410c1eb176259c8ca8ac8d"
+    },
+    {
+      "module": "test_batch9_market_parent_peer",
+      "class": "MarketParentPipelinePeerTests",
+      "method": "test_missing_raw_body_blocks_asset_or_unused_benchmark_at_preflight",
+      "original_ok_block_sha256": "4c2154ca3c51366dd91ccb7c578a87a36e393fc082d272fa438c922cfd7ab784"
+    },
+    {
+      "module": "test_batch9_market_parent_peer",
+      "class": "MarketParentPipelinePeerTests",
+      "method": "test_raw_body_symlink_blocks_asset_or_unused_benchmark_and_hits_guard",
+      "original_ok_block_sha256": "5bdb2d269a63860055e454106300bebe19fa50b13451efea0b865ab001e77c46"
+    },
+    {
+      "module": "test_batch9_market_parent_peer",
+      "class": "MarketParentPipelinePeerTests",
+      "method": "test_parent_changed_after_input_consumption_blocks_final_persistence",
+      "original_ok_block_sha256": "a4ff77d8ee36709e5867555487b896ec2ec1dd8bc57bb34b56ce8bd46db4ca7e"
+    },
+    {
+      "module": "test_batch9_market_parent_peer",
+      "class": "MarketParentPipelinePeerTests",
+      "method": "test_parent_changed_in_save_history_callback_cannot_cross_persistence_boundary",
+      "original_ok_block_sha256": "21060414366babb7bd26a9f25a0d337bea4d3010c7b171e0a8e687e0d3df67c0"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_actual_new_7500xd_response_is_two_positive_campaigns_not_a_negative",
+      "original_ok_block_sha256": "1178b35202d50a19184a7ffa43514421a06543bef8fdcd9161ca6836439fa54c"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_actual_retained_http400_success_shaped_empty_remains_partial",
+      "original_ok_block_sha256": "6b80b24ae2b62a87d35ebfcdd5b3fab198afbef2c0d5dd5734954b2bf225960b"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_approval_block_is_missing_response_not_a_fabricated_http_failure",
+      "original_ok_block_sha256": "afd757e513985472eac294503d522bef4a6c0fc24fb69a236b3fd1d0d3b12c34"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_synthetic_http200_full_empty_contract_is_model_year_only_and_replay_only",
+      "original_ok_block_sha256": "4f5f857d069f76e1a09631df04f5bd82f055980e0898487281c2951a9a4b472d"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_partial_continuation_and_pagination_metadata_prevent_empty_acceptance",
+      "original_ok_block_sha256": "945232c312b9a71bc7c59fc62f4c4cc6832b787549ffa309b23653b51f507906"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_contradictory_totals_even_boolean_zero_are_not_complete",
+      "original_ok_block_sha256": "6f5ac5b2fa0a1a6249b134a4b3fcb8833048fc71795872f38c100f27a511e1fe"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_contradictory_filter_echo_and_unknown_metadata_fail_closed",
+      "original_ok_block_sha256": "533b5bb3deb5b08e53787b0344b8024863d3dd3343d9f7521a72fb2c4f695249"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_count_type_duplicate_keys_and_error_envelopes_are_rejected",
+      "original_ok_block_sha256": "a86d5ff174cca259e327df8a165773084903dc9eed18bc71b5429e8759ca8fff"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_catalog_exact_model_query_and_identity_cannot_be_substituted",
+      "original_ok_block_sha256": "a524a58c4ac13d8534a6c62a29c2840b61513a799282ae4d20fc0aceed020a2e"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_recall_query_changes_redirects_and_encoded_substitutes_are_rejected",
+      "original_ok_block_sha256": "92136695ce8c2fc48f704eb24a3c5ae370b50dc683f2c392ab09b4a66d60125f"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_original_hash_length_and_actual_body_are_pinned",
+      "original_ok_block_sha256": "2fdcab814c3c532797b1aeb3cef5198618fd94d3865a172950e9b6cb74676655"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_legacy_catalog_unknown_redirect_policy_is_not_invented",
+      "original_ok_block_sha256": "c7188fc5cca261d51f3e4af07ee8de23f31501be1722d924f10316e0dfc83774"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_capture_and_known_clocks_obey_cutoff_and_actual_physical_time",
+      "original_ok_block_sha256": "d66f573439453dd88ab19e1a69c7df66903c9e716e55e1aeb1c91d6288a49b26"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_whole_withheld_original_cannot_be_restored_with_other_bytes",
+      "original_ok_block_sha256": "d0639c658d3db19ba40a69e47c7c1cf26538e6a34c32152b5939846d26ce838e"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_http302_307_400_429_or_500_never_becomes_success_empty",
+      "original_ok_block_sha256": "b131660d152991212a76e96bb0ce76d60c3dab0a525a158698ff71e7b53a238c"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_positive_rows_must_match_exact_model_and_source_date",
+      "original_ok_block_sha256": "856bc13c9097ab47cfe958eec365f8362ded11a7d6e7c11a1e32dd6ec9951749"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_tuple_packets_and_inputs_are_immutable_without_io",
+      "original_ok_block_sha256": "66979966b989355f2c92cb9b452b21946ea7b80caf0dff0c7757dd97ae362ffe"
+    },
+    {
+      "module": "test_batch9_nhtsa_negative_scope",
+      "class": "Batch9NhtsaNegativeScopeTests",
+      "method": "test_request_count_selectors_and_clocks_are_bounded",
+      "original_ok_block_sha256": "0f9749b4f47cd0889235d9730db98adb260c430c1a6e451e8191fb8046d0813f"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_exact_named_percentages_keep_denominator_period_channels_and_generic_dimensions",
+      "original_ok_block_sha256": "b028a71fc6a2aa53bc1309a9133817d4d948d518bf81c80604fa20f483496250"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_independent_exact_legal_snapshot_is_separate_from_each_full_period_continuity",
+      "original_ok_block_sha256": "cbd8106b1cf868bee60da1c99b614cacd3b73f2a241235d815cb3152e9417f7e"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_anonymous_percentages_are_useful_without_any_named_attribution",
+      "original_ok_block_sha256": "d744a8e4f314d16a655d5c3b3539d49571a82fa7be782d960f4e512f61a769f9"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_anonymous_customer_cannot_be_renamed_nvda_or_adopt_an_independent_legal_identity",
+      "original_ok_block_sha256": "207dce172ff3fba907322750601b5df14adb85892b96e8f2ed713920b143a786"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_other_paragraph_name_does_not_attach_to_an_anonymous_numeric_sentence",
+      "original_ok_block_sha256": "57cce395f076b650f2703c63022951340ff7d4d4679bedb06a13e648fa482236"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_legal_name_alias_must_be_literal_customer_scope_not_competitor_or_fuzzy_name",
+      "original_ok_block_sha256": "377a8a41eadf1d0d934fecc134700617bc62066e48e5697e2e3bd4f421af14be"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_fraction_scale_unit_values_and_concept_are_not_interchangeable",
+      "original_ok_block_sha256": "2afc1dfab06482d46ae22d96b43bfa5d59bc6512aed2ec728edcfdefffca0e78"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_receivable_denominator_cannot_be_relabelled_as_net_revenue",
+      "original_ok_block_sha256": "99255420ff2a353f749669fea3727a0956fd820378e3a5d407f9c901924432cc"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_generic_customer_member_is_never_substituted_by_a_named_company",
+      "original_ok_block_sha256": "90f8c9e9ebd22890c2923060f614eceffda128444dedc70c91ace2dbc31f4fc6"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_percentages_periods_or_contexts_cannot_be_swapped_between_years",
+      "original_ok_block_sha256": "d27b88a27381c917fe791d0202b55cd80d05fb7405cb74f4bcac0a04a51e7a35"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_source_fiscal_calendar_dates_and_53_week_period_are_preserved",
+      "original_ok_block_sha256": "ec74f480ef6e4bcc3d5f4a814da857e5cbd731962bddceeff4b3d7d5ca399306"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_clause_qualifiers_and_respectively_order_cannot_be_trimmed_or_extended",
+      "original_ok_block_sha256": "02a38b845665a31a0e0fdc58c3dd4ff244689de497cc8d9d706fdd910a68a9c9"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_whole_visible_paragraph_and_original_hash_offsets_are_mandatory",
+      "original_ok_block_sha256": "041297cce30f9efa64a393308a89f6205815c2d0f05792988329476f285755c2"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_source_issuer_cik_name_and_consolidated_scope_are_not_legal_entity_allocations",
+      "original_ok_block_sha256": "d0db49847a9624cbf13ffe0b2e5a752b166e06b18f4ae1dff857d872ab8590b7"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_external_footnotes_and_a_table_cell_scope_cannot_be_silently_dropped",
+      "original_ok_block_sha256": "742dad3c6e1665f7eabeb151ddfff859c70cbe08d32f71670b7cb08fe26b5b43"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_namespace_override_or_duplicate_facts_cannot_change_unit_or_customer_scope",
+      "original_ok_block_sha256": "acaed6054d6109d850bb7618e28c3b25634bd02d5dfcec2e27e44cb942de37e8"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_exact_index_scope_filer_report_dates_and_visibility_are_required",
+      "original_ok_block_sha256": "b33b03dc03e4b0dc4fc2d11696325839b32fd521f3f2fa4312c1080a3b65b75b"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_served_index_size_conflict_stays_visible_without_replacing_body",
+      "original_ok_block_sha256": "f553136ca8c297954dc8efb13be3d7a8a98d4aa0e8de14391accdd1244314bbf"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_old_legal_snapshot_cannot_supply_period_continuity_and_bad_metadata_is_not_retained_as_identity",
+      "original_ok_block_sha256": "a762349bb2f8283fb46736a405adc978b81bb07c73d7a4e8064ab4524b866639"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_wrong_legal_name_column_or_same_source_cannot_supply_independent_identity",
+      "original_ok_block_sha256": "0e7276a28031b6f78a7c182ea97266a4a892f00a3518d0c4d7fd0e984b7d0389"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_missing_or_withheld_whole_issuer_fails_without_any_substitute",
+      "original_ok_block_sha256": "4532eced6df31ada045e9215c8b2ee02928b80903c682658eec6e3b1950a9ae4"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_unsafe_whole_inputs_never_echo_or_project_access_values",
+      "original_ok_block_sha256": "70aa2dca9ca3e87848532e7f514769a7738135a792b6b1f4e60c23cbb748bef2"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_source_capture_and_current_ingestion_clocks_are_separate_and_past_cutoff_rejects",
+      "original_ok_block_sha256": "23527c1adf8ed54fb51f972d4c5de0d71a574a48d644a81d121f22bdeca34b56"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_future_source_clock_or_wrong_whole_body_hash_fails_closed",
+      "original_ok_block_sha256": "5e337e3fecddd2609f2c95d0149370b43261306a32ead5c639e5e800f1bc8b39"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_no_amount_purchase_share_registry_model_or_trading_claim_is_activated",
+      "original_ok_block_sha256": "bf6411aab7ad48deab38184f07a90b7295cae03c4e0dd78b856e6e5bdda8cdd0"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_pure_replay_has_no_http_database_or_file_writes",
+      "original_ok_block_sha256": "18bb70e06fdd8f1cbce974a4556bb80afc2f1787b3ced0cb4aeba9eac713fd52"
+    },
+    {
+      "module": "test_batch9_supplier_concentration",
+      "class": "SupplierConcentrationTests",
+      "method": "test_actual_complete_primary_and_retained_legal_source_replay_exact_original_pins",
+      "original_ok_block_sha256": "617661a6cfaa2ae9821885c30089c0b9997901c49016cb24fc6ed7fe01499a2b"
+    }
+  ],
+  "strict_test_boundary_blocks_used": true,
+  "original_log_rewritten": false,
+  "unit_or_contract_evidence_is_not_full_specialist_acceptance": true
+}

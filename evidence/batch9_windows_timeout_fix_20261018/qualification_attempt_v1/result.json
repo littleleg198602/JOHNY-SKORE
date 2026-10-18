@@ -1,0 +1,8 @@
+{
+  "HTTP_requests": 0,
+  "error_log_sha256": "62254b2109ba5ba1530d419d86dbeb825e9ccc400d11c6e2734d7f6b031078d8",
+  "exit_code": 1,
+  "reason": "Qualification script accessed name on the intentionally unnamed checkout/setup steps; no workflow semantic failure or runtime test execution",
+  "script_sha256": "fe05f81bd963727ea942ba07d3c2154354de2c5c138e692104c178c13586d5d1",
+  "test_suites_executed": 0
+}

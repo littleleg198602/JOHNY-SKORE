@@ -1,5 +1,40 @@
 # Pátrací specialisté: jediný seznam stavu
 
+## Windows CI: neúplný běh a bounded časový prostor — 18. 10. 2026
+
+Public b0e866de/run39072646508 skončil cancelled; Windows117513252470 cancelled,
+release gate117521376998 failure. Skutečný ZIP12117165429/58491bytes odpovídá
+published digestu. Obsahuje pouze původní windows-tests.log394171bytes:
+1945 zahájených metod,1944 původních ok bloků, všech194 nových batch9 metod ok,
+poslední sec_scout687 test zůstal rozpracovaný. Žádný původní výsledkový JSON
+ani plainOK footer neexistuje. Konečné failure/error/skip počty jsou UNKNOWN;
+nejde o úplnou Windows akceptaci. Originály a offline content verifier jsou v
+`evidence/batch9_windows_cancelled_20261017/`.
+
+Hostovaná konzole obsahuje KeyboardInterrupt; artifact log končí před tímto
+tracebackem. Chybné očekávání prvního verifieru, jeho celé bytes a offline
+reprodukce jsou zvlášť zachované. ZIP/log nebyl změněn, další HTTP se neprovádělo.
+Původní sibling Linux2231plainOK435.234s, UI8plainOK15.472s a687scale5plainOK22.108s
+jsou zachované jako b0e důkazy; nenahrazují úplný Windows výsledek.
+
+Jeden skutečný izolovaný evaluation followup dodal pouze CI headroom40→60min.
+Worker commit63e60a35 je převzatý; sémantický YAML a byte audit je v
+`evidence/batch9_windows_timeout_fix_20261018/`. Koordinátorův původní
+b0e inventář a nezávislá integrační kvalifikace jsou v
+`evidence/batch9_windows_ci_coordinator_20261018/`.
+Změna zachovává všechny metody/assertions, vlastní limity testů včetně687/60s,
+platformu/Python, compile/checkpoint/full-suite příkazy, always-upload i release gate.
+Čas ukončení odpovídá původní40min hranici; timeout cause je úsudek z časů a limitu,
+nikoli domyšlená GitHub anotace. Produkční kód, testy, registry, DB, kvóty,
+source/modelconfig/fitter/skóre zůstávají stejné. Žádný nový source request.
+
+Stejné source/test bytes zůstávají kvalifikované původní místní2231 sadou;
+nezměněná místní sada se znovu nespouští. Nový opravný veřejný HEAD musí mít
+vlastní hosted Linux/UI/687/úplný Windows ZIP+originalJSON/log/digest a release gate.
+Staré pre-CI proofy zůstávají neměnné. Fullacceptance0/21, bez merge a oznámení
+úplného dokončení. Konkrétní fronta po deváté dávce níže zůstává platná.
+
+
 ## Devátá dávka: původní zdroje a kontrola před zápisem — 17. 10. 2026
 
 **Místní combined qualification této deváté verze:** 2231 discovered=executed, plain OK, 334.883s, všechny failure/error/skip/expected/unexpected počty0. Code snapshot `e24e4c9d5c3878fd4c395b571e3b1cf8b3cd1185`; všech194 nových exact methods má původní ok blok. JSON, úplný console, separate runner, source/test SHA a obsahový audit jsou v `evidence/batch9_integration_20261017.json` (neměnný pre-hosted-CI důkaz). Nový publikovaný HEAD potřebuje vlastní obsahově ověřený hosted běh; baseline b81 tuto verzi nekvalifikuje.
