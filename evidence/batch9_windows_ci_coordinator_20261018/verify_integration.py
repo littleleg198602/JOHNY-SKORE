@@ -12,6 +12,13 @@ ROOT = Path(__file__).resolve().parents[2]
 BASE = "b0e866de120c8d6366b93c8fef26916f0db4aa0e"
 WORKFLOW = ".github/workflows/market-checker-test-agents.yml"
 WORKER_COMMIT = "63e60a35a1f0c9a5cd450d70aa68e0af08f74f45"
+PUBLISHED_INTEGRATION = "151a4296202eaa4302f85df6966a84d620d56baf"
+PUBLISHED_TREE = "37a24549193d86e7237eacb370c03114978e2117"
+PEER_PROOF_FILES = (
+    "README.md", "original_verify_integration.py", "original_published_qualification.json",
+    "original_failure.stderr", "original_failure.stdout", "original_failure_diagnostic.json",
+    "verify_peer.py", "repaired_qualification.json", "peer_qualification.json", "handoff.json",
+)
 FORBIDDEN_WHOLE_BODIES = {
     "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
     "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
@@ -80,8 +87,12 @@ def main():
     assert quota_hash == "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af"
 
     existing_changes = set(git("diff", "--name-only", BASE).decode().splitlines())
-    allowed = {WORKFLOW, "PARALLEL_SPECIALIST_WORK.md", "SCOUT_PROGRESS.md", "SPECIALIST_COMPLETION.md", "SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261001.md"}
-    assert all(p in allowed or p.startswith("evidence/batch9_windows_timeout_fix_20261018/") for p in existing_changes)
+    # The final published tree also contains coordinator and cancelled-run
+    # evidence. Bound those names to that exact tree, not an open-ended prefix.
+    assert git("rev-parse", PUBLISHED_INTEGRATION + "^{tree}").decode().strip() == PUBLISHED_TREE
+    allowed = set(git("diff", "--name-only", BASE, PUBLISHED_INTEGRATION).decode().splitlines())
+    allowed.update("evidence/batch9_windows_ci_proof_peer_20261018/" + name for name in PEER_PROOF_FILES)
+    assert not existing_changes - allowed, sorted(existing_changes - allowed)
     new_pins = {}
     for directory in [worker, original_verifier.parent]:
         for path in sorted(directory.rglob("*")):
@@ -95,6 +106,9 @@ def main():
         "verified_at": datetime.now(timezone.utc).isoformat(),
         "public_base": BASE,
         "implementation_snapshot": git("rev-parse", "HEAD").decode().strip(),
+        "published_integration_allowlist_snapshot": PUBLISHED_INTEGRATION,
+        "published_integration_allowlist_tree": PUBLISHED_TREE,
+        "verifier": pin(Path(__file__)),
         "isolated_worker_commit": WORKER_COMMIT,
         "worker_handoff": pin(worker / "handoff.json"),
         "baseline_pin_file": pin(baseline_path),
