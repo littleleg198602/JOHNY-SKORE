@@ -1,0 +1,168 @@
+{
+  "scope": "CI_ONLY_LINUX_JOB_TIMEOUT_HEADROOM",
+  "created_at": "2026-10-20T08:31:19.762053+00:00",
+  "base_commit": "b24a59563d8284daf8d38df20568fc76d4f03b60",
+  "base_tree": "9e03573df7cfd65c2f878bc2ad65348851cc238e",
+  "base_only_parent": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "owned_paths": [
+    ".github/workflows/market-checker-test-agents.yml",
+    "evidence/batch11_linux_timeout_fix_20261020/"
+  ],
+  "workflow_original": {
+    "bytes": 4573,
+    "sha256": "49126bef29f9f5034077ffe6b5aa0f043c69b8feb6182969093f99424f4ecc38"
+  },
+  "workflow_revised": {
+    "bytes": 4878,
+    "sha256": "c8d1f21085815a92923b6312f55e1bc4da176195cfb04c5b42f551678d08ebf4"
+  },
+  "only_semantic_change": [
+    {
+      "path": [
+        "jobs",
+        "contract-agent",
+        "timeout-minutes"
+      ],
+      "before": 10,
+      "after": 20
+    }
+  ],
+  "parsed_equality_outside_one_key": true,
+  "raw_bytes_changed_only_comment_and_authorized_timeout": true,
+  "incident_context": {
+    "source": "COORDINATOR_VERIFIED_JOB_CONTEXT_SUPPLIED_IN_TASK_NOT_NEW_WORKER_HTTP",
+    "run_id": 39391828283,
+    "Linux_job_id": 118524938257,
+    "started_at": "2026-10-20T08:13:19Z",
+    "completed_at": "2026-10-20T08:23:35Z",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "elapsed_seconds": 616,
+    "old_job_timeout_seconds": 600,
+    "observed_test_headings": 2576,
+    "complete_footer_present": false,
+    "complete_result_JSON_present": false,
+    "decoded_log_message": "The operation was canceled.",
+    "explicit_timeout_annotation": "NOT_OBSERVED_BY_COORDINATOR",
+    "timeout_cause": "INFERENCE_FROM_DURATION_NEAR_CONFIGURED_LIMIT_NOT_PROVEN_ANNOTATION",
+    "complete_current_Linux_acceptance": false,
+    "original_log_archive_owner": "coordinator",
+    "worker_original_log_hash": null,
+    "Windows_job_id": 118524938510,
+    "Windows_state_at_assignment": "running",
+    "Windows_job_actions_by_worker": 0,
+    "coordinator_original_capture_directory": "evidence/batch11_linux_cancelled_20261020/",
+    "coordinator_decoded_log_pin": {
+      "bytes": 641826,
+      "sha256": "118ff7acae6dff100f0450a73b643490062d9e35aa410640400a7bc0cdbbfc87"
+    },
+    "coordinator_strict_original_OK_blocks": 2572,
+    "coordinator_new_methods_original_OK": 205,
+    "coordinator_new_methods_total": 212,
+    "coordinator_new_method_headings_absent": 7,
+    "complete_final_failure_error_skip_counts": "UNKNOWN_NO_FULL_FOOTER_OR_JSON",
+    "partial_log_metrics_are_not_final_outcome_counts": true
+  },
+  "already_qualified_local_baseline": {
+    "source": "COORDINATOR_SUPPLIED_RESULT_NOT_RERUN_HERE",
+    "local_commit_prefix": "40eb1e0",
+    "tree_identical_to_public_base": true,
+    "tests_run": 2688,
+    "all_non_success_qualifiers": 0,
+    "plain_OK": true,
+    "elapsed_seconds": 446.92,
+    "does_not_qualify_new_workflow_HEAD": true
+  },
+  "qualification": {
+    "path": "qualification.json",
+    "pin": {
+      "bytes": 4086,
+      "sha256": "1a2d0aaa54c773e1685707773c33de395cfe5c4914df4c89b0b0b86a7c9b549e"
+    },
+    "verification_passed": true,
+    "PyYAML_version": "6.0.3",
+    "unchanged_baseline_groups": {
+      "production": {
+        "files": 230,
+        "bytes": 3886199,
+        "exact_physical_file_pin_manifest_sha256": "8ee04ee6fa1c0896dab3a282fa3f63bcb57eb04c33facf22421412a55a87a2ab"
+      },
+      "tests": {
+        "files": 209,
+        "bytes": 2819442,
+        "exact_physical_file_pin_manifest_sha256": "d5adcf73a9b23071f725fd8e8bc32bcccb506de18b48bcd7e1f45e4ae9bdea71"
+      },
+      "evidence": {
+        "files": 2210,
+        "bytes": 100582868,
+        "exact_physical_file_pin_manifest_sha256": "2f7578ab97d92d7cca4cf158a0f040a482bbeb2bcdadb9b1f7153ff28715a4b5"
+      },
+      "other": {
+        "files": 35,
+        "bytes": 770747,
+        "exact_physical_file_pin_manifest_sha256": "3526d67da0633ab3c73d5278c997c84fabc65fb4fdc1e6de8ec94eae3999fa18"
+      }
+    },
+    "all_jobs_except_one_timeout_unchanged": true,
+    "Windows_timeout": 60,
+    "full_suites_rerun": 0,
+    "new_head_hosted_CI_acceptance": false,
+    "verification_is_worker_lane_scoped": true
+  },
+  "preserved_contracts": {
+    "platforms": true,
+    "Python": true,
+    "install_commands": true,
+    "compile_commands": true,
+    "SEC_checkpoint": true,
+    "complete_test_suite_commands": true,
+    "test_filtering_and_assertions": true,
+    "canonical687_and60second_budget": true,
+    "Windows_always_upload": true,
+    "release_gate": true,
+    "all_prior_source_test_evidence_bytes": true
+  },
+  "invariants": {
+    "source_or_test_changes": 0,
+    "shared_MD_status_changes": 0,
+    "production_DB_access_or_changes": 0,
+    "SQL_opened": false,
+    "source_HTTP_requests": 0,
+    "NHTSA_or_market_attempts": 0,
+    "quota_DB_changes": 0,
+    "model_config_registry_score_fitter_changes": 0,
+    "Windows_job_actions": 0,
+    "full_suites_rerun": 0,
+    "GitHub_writes_push_merge_force": 0,
+    "no_applicable_local_AGENTS_found": true
+  },
+  "limits": [
+    "Cancellation near10min supports a timeout inference; no explicit timeout annotation was observed",
+    "No full current hosted Linux result or final JSON exists for the cancelled attempt",
+    "No already-running or prior CI qualifies the new repair HEAD",
+    "Coordinator owns original cancelled logs, root integration/publication and new exact-head hosted CI",
+    "Production DB was neither read nor opened; this lane makes no fresh private-DB hash claim"
+  ],
+  "evidence_file_pins": {
+    "README.md": {
+      "bytes": 4010,
+      "sha256": "f03c273f03c7702f1381ad6f4be657ac52c03a40c9eed40ab3cb248194ae1471"
+    },
+    "original_workflow.yml": {
+      "bytes": 4573,
+      "sha256": "49126bef29f9f5034077ffe6b5aa0f043c69b8feb6182969093f99424f4ecc38"
+    },
+    "qualification.json": {
+      "bytes": 4086,
+      "sha256": "1a2d0aaa54c773e1685707773c33de395cfe5c4914df4c89b0b0b86a7c9b549e"
+    },
+    "revised_workflow.yml": {
+      "bytes": 4878,
+      "sha256": "c8d1f21085815a92923b6312f55e1bc4da176195cfb04c5b42f551678d08ebf4"
+    },
+    "verify_workflow_change.py": {
+      "bytes": 8343,
+      "sha256": "ede68218a9d965cc201377a36bc81c1562b43fa981d2a58f59b774a3d91683c1"
+    }
+  }
+}

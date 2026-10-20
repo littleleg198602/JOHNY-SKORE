@@ -1,0 +1,1307 @@
+{
+  "recorded_at": "2026-10-20T08:27:50.072275+00:00",
+  "head_sha": "b24a59563d8284daf8d38df20568fc76d4f03b60",
+  "run_id": 39391828283,
+  "job_id": 118524938257,
+  "status": "completed",
+  "conclusion": "cancelled",
+  "decoded_UTF8_bytes": 641826,
+  "sha256": "118ff7acae6dff100f0450a73b643490062d9e35aa410640400a7bc0cdbbfc87",
+  "original_decoded_log_rewritten": false,
+  "started_headings_observed": 2576,
+  "original_ok_blocks_observed": 2572,
+  "new_exact_methods_original_ok_observed": 205,
+  "new_exact_methods_not_observed_in_partial_log": 7,
+  "new_methods_with_original_ok": [
+    {
+      "module": "test_batch11_coordinator_integration",
+      "class": "Batch11SourceActionTests",
+      "method": "test_applicant_chronology_keeps_original_roster_date_and_missing_endpoints",
+      "original_ok_block_sha256": "f98e3824da6d2af83111f0d0c38f0a28e39644f93e34c62bc644b382b207a9f2"
+    },
+    {
+      "module": "test_batch11_coordinator_integration",
+      "class": "Batch11SourceActionTests",
+      "method": "test_each_new_kind_refuses_future_or_oversized_capture_before_body_io",
+      "original_ok_block_sha256": "976137c9d9a290d67b70cf318131e6f2eca9962b036871e76f487ea2c9802bbe"
+    },
+    {
+      "module": "test_batch11_coordinator_integration",
+      "class": "Batch11SourceActionTests",
+      "method": "test_embedded_prime_tail_cannot_replace_whole_original_page_chain",
+      "original_ok_block_sha256": "8c2621f1525814d7aef17611002c4b40ba0e0dcbe85b4a4ac41da0504db517d5"
+    },
+    {
+      "module": "test_batch11_coordinator_integration",
+      "class": "Batch11SourceActionTests",
+      "method": "test_missing_original_frs_body_cannot_become_genuine_program_fact",
+      "original_ok_block_sha256": "c7b5ef87ba62511f2a15cb59b71141fbce53d21a2b7b9129e5039df57c76af5d"
+    },
+    {
+      "module": "test_batch11_coordinator_integration",
+      "class": "Batch11SourceActionTests",
+      "method": "test_old_proxy_present_does_not_supply_role_for_later_form4_transaction",
+      "original_ok_block_sha256": "2a736972ce25d36040bb9debbe07443b88bbf1af3be6131d9216cce107567724"
+    },
+    {
+      "module": "test_batch11_coordinator_integration",
+      "class": "Batch11SourceActionTests",
+      "method": "test_original_instrument_point_does_not_extend_missing_dated_class_bridge",
+      "original_ok_block_sha256": "5a609a08e886a3175cabb042b639e2295da94515a4039d52ea6193281da90a24"
+    },
+    {
+      "module": "test_batch11_coordinator_integration",
+      "class": "ExplicitWindowsAnalysisActionTests",
+      "method": "test_cli_default_does_not_initialize_database_pipeline_or_output",
+      "original_ok_block_sha256": "d196f6f749d3e0973d609c39e7ebf98c4b369420027f8fd058eadf9f6c812097"
+    },
+    {
+      "module": "test_batch11_coordinator_integration",
+      "class": "ExplicitWindowsAnalysisActionTests",
+      "method": "test_ui_default_and_explicit_run_are_separate_with_exact_selected_scope",
+      "original_ok_block_sha256": "d8a01b2098f2bc345953d0faaea6a0b202bf9f7b4722800f3eabbe80333d2b73"
+    },
+    {
+      "module": "test_batch11_prime_scope_peer",
+      "class": "PrimeScopeIndependentPeerTests",
+      "method": "test_cross_page_snapshot_labels_never_upgrade_query_history_or_absence",
+      "original_ok_block_sha256": "2d75e8c4ac31d37fa2653a73ec063eafb4139a71a15a6a16e7c6e05910a73f16"
+    },
+    {
+      "module": "test_batch11_prime_scope_peer",
+      "class": "PrimeScopeIndependentPeerTests",
+      "method": "test_each_page_cursor_binds_its_own_last_row_not_the_previous_page",
+      "original_ok_block_sha256": "50b7bc1491886f3aef599de5e2404f9643ac04a300ddde01dc11bbc4707ec7a4"
+    },
+    {
+      "module": "test_batch11_prime_scope_peer",
+      "class": "PrimeScopeIndependentPeerTests",
+      "method": "test_hash_valid_whole_response_from_page2_cannot_inherit_page1_manifest_identity",
+      "original_ok_block_sha256": "059d5328ff55ff61d015db32079be540a28117f264231768336db45ce0eff5de"
+    },
+    {
+      "module": "test_batch11_prime_scope_peer",
+      "class": "PrimeScopeIndependentPeerTests",
+      "method": "test_valid_two_page_whole_manifest_response_lineage_is_only_a_traversal_control",
+      "original_ok_block_sha256": "0d7c706ac17b445ebe611e31579bd62b02ce4c4e6ab98d132fc0f19f29df55a1"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_boolean_returned_run_id_cannot_alias_actual_integer_store_id",
+      "original_ok_block_sha256": "1c85aeb2516654eee9dd56e2eaf5580fddf4ca9ba9d3ecc0c16938e8a7b29a21"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_float_returned_run_id_cannot_alias_actual_integer_store_id",
+      "original_ok_block_sha256": "507db4d0b12e651684ad883fd3f4ee1389481d291ff991ef25ce2edda65a0f2b"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_fsync_late_extra_DB_run_is_reported_without_claiming_same_process_store_commit",
+      "original_ok_block_sha256": "23f7f70d49ce80a0b4ad03e0f319c746c3a09e59bcafe363c8f75d811cf69965"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_fsync_late_source_drift_keeps_initial_pins_and_withholds_qualification",
+      "original_ok_block_sha256": "4ee7b25c462dc2e44629079d42ce95efd000c51f39607fcafa5c38cfd39cc4fc"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_fsync_late_wall_rollback_cannot_publish_verified_clock_integrity",
+      "original_ok_block_sha256": "5bf4fccd7273f7eba80af8f04fa2c678e96e0a71004a2ae2e40fa2921b872167"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_mismatched_integer_returned_run_id_preserves_actual_saved_rows",
+      "original_ok_block_sha256": "8e950abb19f37d9e0919f607cf231c375076f69be5cc42c876f5f2d535f3e497"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_post_save_callback_failure_keeps_true_partial_subset_and_store_id",
+      "original_ok_block_sha256": "7694b5deafa7f652864d8190b2dc86f2981e308b469175a74e1fddd776896dde"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_resealed_loaded_native_claim_is_never_reexecution_proof",
+      "original_ok_block_sha256": "e819f8b55b2c120ef784aed3b1b6de5590209e75613a6face6b267fed52fa00f"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored",
+      "original_ok_block_sha256": "52fadf4c80ab8f73eb985885723ff0d0bc81c79e7da5aefa367d2fb7f9f923e4"
+    },
+    {
+      "module": "test_batch11_windows_analysis_peer",
+      "class": "WindowsAnalysisPeerTests",
+      "method": "test_valid_actual_temp_save_control_is_bound_but_still_fixture_only",
+      "original_ok_block_sha256": "9231a641c9349a06721abb36824d9a0b6bdfbe17bd07fb79ae05cd8dba9fd542"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_access_field_cue_withholds_whole_synthetic_document_without_export",
+      "original_ok_block_sha256": "3ae4e80b3311b0d8a9c51a35c2cc91ab2f2b86a60d49e4f9518183e5971bfcb2"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_actual_completion_follows_delayed_parsing_and_all_supported_source_clocks",
+      "original_ok_block_sha256": "de34698b3955d97437579b045597ce2693e47dfa7a81de43f060dc01eefb94e2"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_actual_dow_summary_stays_missing_original_with_unknown_programs_and_dates",
+      "original_ok_block_sha256": "73d34c596b196d8cbfb3e00eab0d20e433c655cda5a266dd84b4a0cbcff8e0b4"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_another_program_interest_pointer_cannot_borrow_the_selected_program",
+      "original_ok_block_sha256": "0f2ff51c4bcc0f0331c77b2a17ebe8b7f16a8c34e4af69756b56e3586e7c808a"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_clock_rollback_is_rejected_on_normal_and_missing_original_paths",
+      "original_ok_block_sha256": "f7de434389c82360ae8d19e2eba8627c56715e924b24271a82b5f50c43f98c48"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_contained_interest_with_contradictory_local_identity_is_not_rebound",
+      "original_ok_block_sha256": "25242c7c34a08ce436cd0182cb9d034bd68983e306d24158c8ff5e24bebce8b2"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_date_order_and_even_parseable_future_literals_do_not_prove_operating_interval",
+      "original_ok_block_sha256": "046fdff762870f8bb31b3bb3d8abcbeb019a1aa08c2c4ce2d2d55ecb9ee09945"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_duplicate_facility_or_registry_alias_is_ambiguous",
+      "original_ok_block_sha256": "c4eec85b00db64aec6e8504b8381b4db6858f7a8933bfdcc9806a8143bea493c"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_duplicate_json_keys_constants_trailing_text_and_structure_bounds_fail_closed",
+      "original_ok_block_sha256": "81297e7bbe161c37557aba0b94bf0521aea508231378b7735358d83ecc1b4ac6"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_duplicate_program_key_blocks_program_inventory_and_all_interest_selections",
+      "original_ok_block_sha256": "9b0b5c133b8854e082fbf57ed036c2f193bcba727aa0e42fa7a7a7b0ed48a84c"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_exact_program_and_interest_source_literals_never_prove_ownership_or_permission",
+      "original_ok_block_sha256": "cf8ee9ef839fb3aa12da8c3f19188f572a27474b423dfcc1c5d0082dd0e7bda4"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_explicit_request_bounds_aliases_and_financial_identity_selectors_are_rejected",
+      "original_ok_block_sha256": "16ad98683c1444e4a23cf89b63f99740ac2658842bb25d781cc3886e37dd5533"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_failed_or_error_envelope_never_supports_positive_or_absence_claims",
+      "original_ok_block_sha256": "3091732cb49df21ab96a1ba6ab085446c1427ecb954b6f240b7ffc51357b4255"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_field_evidence_resolves_to_its_exact_object_and_whole_original_hash",
+      "original_ok_block_sha256": "dd252b0306b41e1f1b9921c09a38701f4afb7dc98c57aaf292b304e42c62ecff"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_future_cutoff_or_future_source_is_not_silently_clamped_or_decoded",
+      "original_ok_block_sha256": "0d99609024cb46ff959f9d9a089e0346ce93034fd9b72fdfe4025eaa418d971d"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_inputs_and_independent_callback_results_are_not_mutated",
+      "original_ok_block_sha256": "d97b68a56040fdaaa9970e60c4a7f688f709d3a17b37b7f8d501676f95512b06"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_interest_child_collection_must_be_a_bounded_source_array",
+      "original_ok_block_sha256": "5f24a2493c2ac75a0ef2fb2e4f9d62e700488eef1ce55f60f55c47e536180ef0"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_interest_dates_are_never_borrowed_from_parent_or_sibling_record",
+      "original_ok_block_sha256": "0d3dda5bf197a03735103d3e4d100fa6f76f1f92a79148eaddd4aa89f0aeea3e"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_json_escaped_access_field_cue_is_whole_withheld_after_decode",
+      "original_ok_block_sha256": "ecba879ea99861abd3d9798cb253fe809c6142c678fd7c889b50d57cde05154c"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_mismatched_acronym_or_system_id_blocks_interest_fields",
+      "original_ok_block_sha256": "ea6a3e29677020903cc72cb77475af8fbe84b1d59fc237d0f414c42df60ac557"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_missing_and_whole_withheld_records_never_inspect_supplied_body",
+      "original_ok_block_sha256": "7776323590d61ad2186a01b00bb04609c2887948424e78b9ec73ca862af37d9f"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_missing_facility_local_programs_never_uses_global_donor_collection",
+      "original_ok_block_sha256": "a78eb6a9a5a77b4e7d8adc6313da645004964201772f9dbdc36541c7c1ff1d7a"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_missing_invalid_and_unrecognized_dates_remain_exact_field_level_partial",
+      "original_ok_block_sha256": "a643545ee33158d29ab37a8e4336f00446047afae3f69a626a1d37bccb1c1477"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_nested_review_clock_after_physical_end_rejects_the_output",
+      "original_ok_block_sha256": "c062b2fff30d56677fb2f5f382bce5d2b20eef5d66de136ce04971b13fe8438a"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_other_facility_program_pointer_is_rejected_before_body_decode",
+      "original_ok_block_sha256": "f87d3814e7061dea2f5167e8f9517b469df20d0c7c3635df6bf5a93cd8fc78fd"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_past_source_read_cutoff_does_not_backdate_output_availability",
+      "original_ok_block_sha256": "4a3cc7e9ef9ad3f72de9adea77d7ee3f71101f57d64c99c5bac8fb913cd9bd42"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_program_name_is_literal_and_missing_name_never_inherits_facility_or_parent",
+      "original_ok_block_sha256": "a826fa2fe36434ff029b183e6cf2fdddd483eb4a0b3c3cee5956749cbc8fe675"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_same_named_other_facility_row_does_not_supply_programs",
+      "original_ok_block_sha256": "37be1ca464586d502bac5688be70bd1ab493dedfbbe0c547eace1c4df22d69d8"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_summary_bytes_cannot_replace_the_recorded_unknown_original",
+      "original_ok_block_sha256": "2c7e642fd9ee9012caa5fcff71bf61e914faefc379a45806828d7134915916fb"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_transport_hash_length_redirect_and_encoding_guards_precede_json_decode",
+      "original_ok_block_sha256": "e816e822427b7d59455533824f90dfa11c0ef22dd134bcc5de4ffaa70473f978"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_truncated_or_empty_queries_never_prove_complete_negative",
+      "original_ok_block_sha256": "b1dfdbe1777031f5c3b35b264dcb9049119eda553806619ad4aa07d612032996"
+    },
+    {
+      "module": "test_epa_frs_program_scope_review",
+      "class": "EpaFrsProgramScopeReviewTests",
+      "method": "test_unselected_capture_never_becomes_a_program_or_date_donor",
+      "original_ok_block_sha256": "985ec5a6927c52f71aff3d029761f1a69112bdd58fd50264954ec41acfba67d1"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_actual_Ireland_old_name_and_current_applicant_are_not_an_alias",
+      "original_ok_block_sha256": "3fd46fcc4444b52d0b9e2a9da207916a4a87763be2dde8f95bbc960d7e0114d9"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_actual_PurpleBook_two_products_incomplete_container_and_company_role_remain",
+      "original_ok_block_sha256": "64717371db7054326fd1dd23f1edb1f2b3d57909528188622210019b8826d3f0"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_all_four_withheld_hashes_are_rejected_before_any_child_parser",
+      "original_ok_block_sha256": "25cc51a0a4999a096338020d8872e5a74f70140f9e24fae608128dbbd03c9cf1"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_borrowed_or_unlocated_universe_declaration_does_not_prove_absence",
+      "original_ok_block_sha256": "c62a2c67f5c4bdc075640289c61c9a35a384fe7a96924e2a0b93232f5392e72a"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_completion_after_all_child_facts_and_source_cutoff_is_not_output_availability",
+      "original_ok_block_sha256": "5bada41328b603c6c9dabd43068761d5a11ede0557fb325d5ad5076b9180290f"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_distinct_Company_and_Applicant_roles_are_never_comparable_versions",
+      "original_ok_block_sha256": "3ca4b9756d7fff39e009f3896c6b0a0d7b1825bfc45ab4538c53ce2ca6ed8c71"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_duplicate_exact_legal_rows_do_not_establish_unique_presence",
+      "original_ok_block_sha256": "3140ea6d7341520859ba75891f9a9df79b54562541d26b466ba48506b9cfc765"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_endpoint_request_and_capture_bounds_duplicates_and_types",
+      "original_ok_block_sha256": "7dc25746baebcd30d5585f9b004277f9357e6917173e0c1d95bb409c0ced36c9"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_explicit_omission_conflict_overrides_complete_quote",
+      "original_ok_block_sha256": "3b7051989b5d98f8afd662010ed1e43c65b7f4d1b89487f40a67a44cdb585b09"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_foreign_section_cannot_be_imported_as_a_roster_point",
+      "original_ok_block_sha256": "5679973c4c3db2912bf76d4aa9551c04a5ab4463d0a919fc0493e900e5940840"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_incomplete_roster_literal_row_is_retained_but_universe_state_unknown",
+      "original_ok_block_sha256": "4e505f6bd7ccd6781da2b3ff1da70d7af2a960e3ceed54b83f97726011597968"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_issuer_key_application_or_point_day_mismatch_is_not_rerouted",
+      "original_ok_block_sha256": "83eef4fbe902282dc7b744662d92e979d351d2cfdf72fa82d8c3a5044574ff75"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_missing_application_endpoint_is_not_filled_from_prior_product",
+      "original_ok_block_sha256": "dc1a7fdc59a50d781771e915af6068f3c785d4017ed94e60b5cb0aecbd410c97"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_missing_endpoint_date_is_query_only_and_never_carries_prior_presence",
+      "original_ok_block_sha256": "e3a60c66625f4a8ec4a0b1fdf99fce0bc405b0c7b84f2e6f21c64792649bfcbd"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_no_HTTP_SQL_files_registry_mutation_and_results_detached",
+      "original_ok_block_sha256": "35de7cdba6710dbd72a08a2ff7984c2ba5c86414fb11be316f9b84dc9bd5a7f2"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_no_omission_word_is_not_proof_of_complete_universe",
+      "original_ok_block_sha256": "f28886b1c435f096251409a691c5384529ec6d67491bc3f4c6011161a6c971e4"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_positive_universe_quote_cannot_override_unrecognized_qualification",
+      "original_ok_block_sha256": "5c15823bc28aa79c352f6e8e5ac30c6824c6141acb757e18fc18366fa1c91ce4"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_reobserved_application_body_is_not_a_new_version_or_extra_scope",
+      "original_ok_block_sha256": "76ab0cb4176e2f8a6084b4c5217c020d0a9effcac8004cc596ef1c202ba73267"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_rollback_future_child_naive_or_future_cutoff_are_rejected",
+      "original_ok_block_sha256": "ccb8b4e5db660f320f180669589a544a1628237afe9420cd3989ea000b5cdbfd"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_same_capture_clock_different_product_versions_remains_explicit_conflict",
+      "original_ok_block_sha256": "2f76a400f4ce8fad4e0d86f15eab6a391523eaa0a7d7e27824a446e88d540da3"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_same_day_conflicting_versions_are_not_a_dated_ownership_change",
+      "original_ok_block_sha256": "7b36e48cf013fd7828722470229d9885bf7935a47dd41a2cfdcaeefc1c30a8ca"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_same_positive_endpoints_never_prove_intervening_continuity",
+      "original_ok_block_sha256": "faa9bb89aba1a293b24d9707d96fe23865d9a7b5b006ec9303e7f6ccf4a44656"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_same_role_application_versions_compare_literal_rows_not_product_absence",
+      "original_ok_block_sha256": "07c0df9dcf2d5b4ccab15e3db820c13487496f32b274a55789c83d3bf623030b"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_same_source_repeated_under_two_ids_is_not_an_independent_endpoint",
+      "original_ok_block_sha256": "16eb4c9a0e85f94e097485fc2360cbb20e813a36976f92d94fb843b96187a5dc"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_spelling_country_and_jurisdiction_variants_are_separate_entities",
+      "original_ok_block_sha256": "ae5ad265d2d3338f251dd746530b87e4dcbc637afe176f07576e9337039419bb"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_synthetic_complete_points_report_presence_absence_without_interval",
+      "original_ok_block_sha256": "0a764e349f55cae221df4c65245eb1c9d02f019098c0a44fc5cd5eb18908f07e"
+    },
+    {
+      "module": "test_fda_applicant_chronology_review",
+      "class": "ApplicantChronologyTests",
+      "method": "test_whole_hash_tamper_metadata_only_and_future_clock_never_prove_absence",
+      "original_ok_block_sha256": "657cd66f533e9f6b67394f0765ae8da4d68c65e03516f6a99aea64fe19c0ad3b"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_completion_is_sampled_after_original_row_and_derived_point_review",
+      "original_ok_block_sha256": "eda57701ae3c1d49e9d7c5828384fbd2a2ab56e02a04a8ae27ff86a7de182685"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_cover_name_symbol_or_class_cannot_be_relabelled_to_match_the_proposal",
+      "original_ok_block_sha256": "6d1c4a79bf603c498ca46e4717a69933e9faa0f8fbb9ed4ee6b5a175aa067a16"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_cover_without_qualified_publication_timestamp_stays_partial",
+      "original_ok_block_sha256": "b0e5bb59d2acb95ecc29021ee11dbbd91fb96a1f2c6beb85c940ecf7b5c60f7d"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_exact_original_filedby_and_subject_roles_remain_separate",
+      "original_ok_block_sha256": "4e3c9ce577adf7f854cb1c03f34e87918d6f8df562693c1d0ac66302e95c1d23"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_future_deadline_does_not_allow_future_source_selection",
+      "original_ok_block_sha256": "805917ec7ff3a5d5dd5567b94e072ca3da3c6ffd24342f8fddc1316b24e7edf8"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_generic_or_missing_par_schedule_class_is_not_filled_by_the_cover",
+      "original_ok_block_sha256": "260a4a0135cab77a469f5a465d9295a579c79a81f79bf98d70144eb86353b577"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_index_size_and_unqualified_clock_conflicts_are_preserved_without_join",
+      "original_ok_block_sha256": "23171eb4dbeb2af44a27d87d238152f56e2e0ea0cf2d90cac4561dfcc98fb2c9"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_missing_and_withheld_whole_source_never_gets_a_substitute",
+      "original_ok_block_sha256": "ffbd7c7d7c321277212e983b541cc2352c664ec6739cabd03b59471c489045ff"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_missing_schedule_event_or_invalid_cusip_is_not_filled_from_requested_anchor",
+      "original_ok_block_sha256": "7f813ae48abc94690f9101f2b0c7d4bb9a9537dd00ed9df9f9c49995e792a243"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_new_interpretation_clocks_record_end_and_reject_rollback_and_cutoff_overrun",
+      "original_ok_block_sha256": "1a72dbbe12101182965714eff3b7539c0f7cee1010ebcc1b9358626e4c5b04f3"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_original_p_case_preserves_march_schedule_and_august_cover_conflict",
+      "original_ok_block_sha256": "8d624ca60687304b473c0a88ccebc1d4a66b13b98c48622b71e978576434a3c5"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_requested_day_cannot_be_replaced_by_a_quarter_or_nearby_source_day",
+      "original_ok_block_sha256": "3301a3ca10c8aeba6a34f4403e12d394b753776c029b933ea541d56a73c61e92"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_same_accession_cannot_supply_two_independent_dated_disclosures",
+      "original_ok_block_sha256": "b63d5d0bf52fcb60c5f28387d5c38c60fe9c3ca7e327f0d6eef4f26b13012eb1"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_schedule13d_and_single_plural_cusip_do_not_need_a_merger_role",
+      "original_ok_block_sha256": "a14e51c673d5a883aa066ed986cf5e192d2b0c0b11f875b525c6ac93f99ba59c"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_schedule_class_or_par_and_cusip_disagreements_remain_literal_conflicts",
+      "original_ok_block_sha256": "a7ab59d5e8ef2ef3018e69ded541fa3723945ea8cad74f9d400c1d4098bb6e19"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_specimen_extra_capture_and_weakened_identity_scope_are_not_point_evidence",
+      "original_ok_block_sha256": "e31aaa36ec6f8c76e6a306978a74ed4f11be1dd3eaf6880478fef412aff768a1"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_subject_archive_route_is_not_an_alias_for_the_indexed_reporting_filer_route",
+      "original_ok_block_sha256": "d47a70a92e4885c1d17145fc66b1c5ffc335200af37166ff0e048ea2c155177e"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_synthetic_exact_point_is_a_read_only_source_assertion_not_action_or_identity_adoption",
+      "original_ok_block_sha256": "e674b41352a5fedc9b7b13bece6639cc2f7f33141a2080b619c1fb6fd5c08c85"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_unknown_requested_anchor_remains_unknown",
+      "original_ok_block_sha256": "9df58ca04b2afe8417ef334983cdc12ee0bf751d3376d6ffe1e41d12466b2ad7"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_unsafe_whole_body_or_request_is_rejected_before_projection",
+      "original_ok_block_sha256": "8b40bb4a0c407ce411dad7b263b0579538dce6ccfaae2c286627ab586b2dbe3a"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_whole_byte_and_local_registered_row_pins_are_enforced",
+      "original_ok_block_sha256": "64d1655b85855b073d2961bf6e853ae421953b72526be9df8bc29d1cde18cae5"
+    },
+    {
+      "module": "test_sec_dated_instrument_point_review",
+      "class": "DatedInstrumentPointTests",
+      "method": "test_wrong_cover_archive_cik_cannot_be_repaired_by_source_or_catalog_hints",
+      "original_ok_block_sha256": "f133efcd757549c1d0515c4d59e26088f29336320b0a19247ca49ea5083f59db"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_absent_derivative_or_third_row_is_not_a_fabricated_dated_transaction",
+      "original_ok_block_sha256": "96b895203e6a572bb29ca1c1a38bbe292f5724a97377c8dc376d048661e3b083"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_actual_2026_transaction_is_outside_2025_proxy_present_scope",
+      "original_ok_block_sha256": "ab425689590c6f60df34f321fa1cce76dd62c7997d95196c4793cafafb42ac20"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_actual_account_role_is_as_filed_not_natural_person_or_transaction_role_identity",
+      "original_ok_block_sha256": "91488f56b046bed32b255de973e747dde209da06107556a0fa0826dbcb39609d"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_actual_generic_career_label_cannot_be_selected_as_a_named_role",
+      "original_ok_block_sha256": "c1b0b24d318c8ea0ec4d0b8715c515b5edf4fd08a46dd5904480ca060c65955d"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_actual_index_conflict_and_unqualified_publication_clocks_remain_explicit",
+      "original_ok_block_sha256": "e12ef1ab2b3cc98962a7588eb87630de2aa62a57ca16b855a1a8c2682cb63f86"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_actual_one_selected_assertion_does_not_repeat_or_multiply_seven_bio_roles",
+      "original_ok_block_sha256": "53204a4c174e3ac07d03c4d2c50585c66c7c314432afb6199f36989d2e27077d"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_actual_plan_has_only_safe_whole_references_and_exact_temporal_selection",
+      "original_ok_block_sha256": "edb9d73c7dd6ae73c01996b1cda22ab1a24c38e8d2034928c128d10f23e3dc36"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_actual_three_whole_originals_and_full_temporal_replay_are_hash_pinned",
+      "original_ok_block_sha256": "abd2d181ab846d941ff31449c92707f156768e91a4263d8d6f6a1c95c5c496d3"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_actual_xml_row_and_date_quote_bind_to_exact_original_packet_bytes",
+      "original_ok_block_sha256": "641a2018c35991b9b8a64b48b846971ee225096ad68bec194c759497e7e55402"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_comments_with_fake_transaction_markup_are_not_rows_or_date_evidence",
+      "original_ok_block_sha256": "7d33693b45f385410a492e5faaa76e9cbc3a16e9e214d6fe5fbb6ab2070e6f62"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_completion_after_explicit_cutoff_clears_all_interpreted_transaction_and_role_facts",
+      "original_ok_block_sha256": "8a751063d650acd55355f03dc2498761b06a09e65853667dc0ef92e15b0cc8cd"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_date_before_report_period_is_a_source_conflict_not_an_alternative_event_clock",
+      "original_ok_block_sha256": "aa33c46c951402cdbb0d3abd888333a45637397870175fae266abe71c7abd32e"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_day_after_stated_end_year_has_no_automatic_role_extension",
+      "original_ok_block_sha256": "041e2b95e3bd5a9cafd6d7cf0ef920a90b983c161dd61c99b18708da782842cd"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_day_before_start_year_is_excluded_without_asserting_legal_nonemployment",
+      "original_ok_block_sha256": "7f3fd43ca358aa057fdf6f508f5930a1a26801f0a212422babc5889abcef9572"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_default_current_interpretation_has_physical_completion_and_nested_source_known_within_it",
+      "original_ok_block_sha256": "96937594f3551d4828bb6caf9bff204071ac8833ad2640dabf191909b338aee6"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_financial_reporting_period_is_not_used_to_exclude_older_retrospective_role_assertions",
+      "original_ok_block_sha256": "e70c0156e13d7aa1fbce99d798eccb7ce336d540dc60e81d25c9852a5a289261"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_first_and_last_days_of_end_year_keep_unknown_cessation_and_inclusivity",
+      "original_ok_block_sha256": "4cd768572e2b6737cd069ca1951bd3dd8582f93451340c3a093fb93c27292adb"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_future_cutoff_inputs_parent_rollback_and_child_clock_scope_are_rejected",
+      "original_ok_block_sha256": "39b0c5600106aab1d2864f6198fe8caa725f1bd8d9187396d8147c30febce2fb"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_hash_size_duplicate_ids_and_source_account_drift_cannot_supply_temporal_evidence",
+      "original_ok_block_sha256": "416c172d6b90997c8a628fb7a7f09ddcda003c7bb6f46fd5cf8db0cb30adefcb"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_holding_generic_career_component_alias_and_unbounded_selectors_are_rejected",
+      "original_ok_block_sha256": "ecae67e00af662a7928be480965ae27d914d0d019dfaa1ba3b547295d1aa8a02"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_interior_of_stated_year_range_is_only_coarse_compatibility",
+      "original_ok_block_sha256": "bbd0a97187a9b49bcb938ac2d0fc99268d503e8991ad077505a867402622869d"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_invalid_or_after_filing_original_date_retains_conflict_without_temporal_support",
+      "original_ok_block_sha256": "461c6402ea82859151bdbf7cb9262f7656f5bb9570af6dccdf125ff83c23856d"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_last_day_of_start_year_does_not_gain_exact_appointment_or_inclusivity",
+      "original_ok_block_sha256": "06c6240c50e7312920ec98fb5a9e5b26ded6dbb6e4a4556c371eac1d6a445a2c"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_missing_original_date_does_not_fall_back_to_report_period_or_request_day",
+      "original_ok_block_sha256": "5f73cf0b8d5f1529c58507a490f3b75fb1d209084c5d125f45449c940e2ae04b"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_missing_withheld_or_access_bearing_whole_body_is_partial_before_child_or_xml_parsing",
+      "original_ok_block_sha256": "0bed635c46aee45a9f1dce1432f4ba78a796e5434475af6aa7c1a765c2b7658b"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_new_temporal_interpretation_cannot_be_backdated_to_capture_or_event_day",
+      "original_ok_block_sha256": "cb7d5d4bb2d84f239790e762411ce78a87812e425f5a660bb57dffdfdcae75d9"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_next_day_after_present_anchor_is_excluded_even_with_matching_as_filed_officer",
+      "original_ok_block_sha256": "f0fb5a05f0eb86ba25b8fab0252a9e5408a0704d42732cb0f8d07adcef8269be"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_original_transaction_count_is_bounded_even_if_caller_selects_only_first_row",
+      "original_ok_block_sha256": "bc447e3817518cbdbf66debf0c006dd92400bf4ee5fa7a33ee590d436f46180f"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_prefilled_report_or_verified_flag_cannot_replace_whole_original_captures",
+      "original_ok_block_sha256": "17f5fa4640128017cafb19f850b25f476ee40ae1a75f463c30c85d3b9293728e"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_present_anchor_day_is_only_a_source_disclosure_point_not_a_cessation_date",
+      "original_ok_block_sha256": "48091652e79ec99e36d0ba9e42d9958cec36e666f3f83a918522b849c3cd0e98"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_pure_temporal_review_performs_no_network_database_or_file_io",
+      "original_ok_block_sha256": "888588fb5db742c60b665c11f44f4b585f31fedd7635bd0ef025a191a9da318c"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_qualified_date_is_not_promoted_without_footnote_review",
+      "original_ok_block_sha256": "29fcc80117625363d626d056eee5b2c39a67554c3d22bbfc8e2a4ec00b775cb7"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_requested_day_must_match_original_transaction_and_not_the_period_or_caller_hint",
+      "original_ok_block_sha256": "d7f957b60177aea830e9f69b20cfa1551a46150c497af3c5df9fff0b3b1fe2be"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_role_support_from_conflicting_proxy_source_clock_is_withheld",
+      "original_ok_block_sha256": "a4f8cea21495acbc1e3ae60338220afedb211a5a28270b0fa2f36fa402143059"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_since_start_year_remains_a_day_uncertainty_not_january_first_appointment",
+      "original_ok_block_sha256": "a7888c4aceef42c461760ca97c937fe9e17667b15cf138dd0f71ba6a68e2fcc9"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_temporal_compatibility_never_promotes_legal_identity_interval_or_acceptance",
+      "original_ok_block_sha256": "12d03a367fe8ca954ab7446f69952bf9201fe4cd94645bbddf26ed46a76ad0a8"
+    },
+    {
+      "module": "test_sec_person_role_temporal_review",
+      "class": "SecPersonRoleTemporalTests",
+      "method": "test_two_same_day_transactions_have_distinct_original_row_identity",
+      "original_ok_block_sha256": "9f6812958d049f4fcde150c41a7b3c09f8ca515703a50ae27947854477e0c72b"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_body_and_manifest_each_require_their_own_whole_byte_pin",
+      "original_ok_block_sha256": "1d2ed13df135fa2f49e1838eb12196f8f8b7b3bb30704b6e064b88f2c9ae7fcf"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_changed_or_duplicate_award_across_offset_pages_blocks_chain",
+      "original_ok_block_sha256": "55359958b1e44c33aa8f398a02a0be7b54eb4557d357bd1c432bd24bfe790121"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_clock_rollback_has_no_backdated_knowledge_and_past_or_future_cutoff_does_not_parse",
+      "original_ok_block_sha256": "b169d2a1b31dc6a49596a5db13141a666c3f51a930796b5a9d71669ddcb45d95"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_complete_synthetic_page_chain_is_only_a_mechanism_control",
+      "original_ok_block_sha256": "3c71b2e295ee72065232f166bfa757684c6d957e28809910bb70c436cc370425"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_completion_after_explicit_cutoff_clears_every_positive_source_observation",
+      "original_ok_block_sha256": "659473f3c5f75d514304637b19ae0f8a66335d5ecd47f6fafcfaa709c91fb0db"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_duplicate_json_key_does_not_select_a_convenient_last_value",
+      "original_ok_block_sha256": "f376d1b36c4d7ef987ce91ec8cd1178d46f03ccd4be8bc429930af8abd9ae5ef"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_extra_snapshot_label_is_not_a_publisher_semantics_proof",
+      "original_ok_block_sha256": "67866a813f1028eb19835a1ef370997d3fe29fed5e3c1c1d05799a798c182e98"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_fixture_and_live_record_origins_cannot_be_mixed_into_original_chain",
+      "original_ok_block_sha256": "3341041ca703cf20fefd8bc705a1120611e933169bcbb26a32c6c51718e1bdee"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_future_retained_artifact_ingestion_or_availability_cannot_hide_behind_old_source_capture",
+      "original_ok_block_sha256": "b700a443619911579ce23e7a68998e185ec10780b970483d9c106d91205f95c8"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_hash_valid_response_cannot_inherit_a_different_manifest_length_or_wire_encoding",
+      "original_ok_block_sha256": "9107e2ad03726729a671c45c5c47027d3d1f7ba73a61f0fca7b7364d44b60fe6"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_http400_empty_is_an_error_not_a_negative",
+      "original_ok_block_sha256": "21bcf8760b7d5e3790343e98a96f0963363ac2cacf61a98fd126b663f5aa39cc"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_invalid_next_previous_and_non_boolean_hasnext_are_rejected",
+      "original_ok_block_sha256": "289ea108e57e71e414d081395c6e2c010563e901039f479e31849a7265b790a1"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_last_modified_clock_is_preserved_but_never_proves_revision_or_publication",
+      "original_ok_block_sha256": "94e8be9b51da5afebba075f12b58ec64b93a2b6f1467bccd0c484e3f45befa01"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_later_retained_artifact_availability_is_distinct_from_original_response_clock",
+      "original_ok_block_sha256": "e0932d011828d54d1936398712153ac3b32856e50023952cc59f642aab6b5b73"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_live_shaped_terminal_control_stays_distinct_from_snapshot_query_completeness",
+      "original_ok_block_sha256": "f7eb3946b051f0d6ac606bb6ba057020d01cb7cd198054f7b47a85885df0fb08"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_missing_manifest_preserves_exact_expected_hash_and_never_promotes_response_only",
+      "original_ok_block_sha256": "d918686d0ae952ffca57621e762591f42601fbd6bc9c61e25c8e81a03921745f"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_missing_next_page_has_exact_expected_request_but_no_invented_body_pin",
+      "original_ok_block_sha256": "44884c4696b9e16e6df83e5036374dc1de530f935ad9935b591959648d5eeb6c"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_missing_total_is_wait_even_with_an_original_terminal_page",
+      "original_ok_block_sha256": "7702b83c9c23e7e0743ca21419995d6acad853919176a28c5daa1c9636e9c70a"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_named_recipient_and_source_award_ids_must_match_not_only_search_text",
+      "original_ok_block_sha256": "6cf2123259af0df6ac30e5caed011ba2ea86cf4d6587268d5308ba314726ca63"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_no_file_network_sql_quota_registry_or_input_mutation_occurs",
+      "original_ok_block_sha256": "05c44bb126e6cf9341cbf30a93c825c228ec34fd7bdfa4803f6aac64db2d947d"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_original_last_record_cursor_cannot_refer_to_a_different_row",
+      "original_ok_block_sha256": "aa17897d0683ce9083a4e9ba469cce626c1cd2978cb0f90fe64dda8c5f244a5e"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_original_total_changes_or_disagrees_with_unique_enumerated_awards",
+      "original_ok_block_sha256": "19d2cdb92da3a331911e35fdcef675879606b2256be5e4277d94dffdc4337881"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_outer_retained_known_clock_cannot_precede_its_observation",
+      "original_ok_block_sha256": "1ea4617f53f135974b495bfe128b8a61e974d18739087c97f13fc7f1e50fc127"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_overlapping_future_or_reversed_capture_and_knowledge_clocks_fail_closed",
+      "original_ok_block_sha256": "24b4708a6efea5d4a556e59bcb59dde2db4cd4479b48c58956c9ae955a1bbb8b"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_page_budget_and_unselected_capture_cannot_expand_explicit_scope",
+      "original_ok_block_sha256": "68f1fa2e34ae62055a0869f9abc070775e3d1f71352e8ace90dd0c2e73d6d746"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_pages_after_terminal_response_cannot_extend_a_different_collection",
+      "original_ok_block_sha256": "a93941cf44697aac77789e76db3db60be662096d2e5d5e3b17be4062c90ab553"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_partial_tail_requires_whole_prior_pages_not_only_terminal_flag",
+      "original_ok_block_sha256": "bab80d8f890c82f7b4b8ee6d653c138d4a58c26649714675c097c74807dc8e1b"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_retained_actual_lmt_report_remains_unknown_original_scope_and_waits_for_exact_pins",
+      "original_ok_block_sha256": "7d9fba1dc67591242d8c25cd99ec242c503aa633022d3ba45f2773227962fc5a"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_same_query_fields_filters_limit_sort_and_page_are_required_on_every_original",
+      "original_ok_block_sha256": "663c9bfd683472748df07fa17ea23c688761f936584162f1f753f5f744853aef"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_terminal_empty_fixture_cannot_supply_a_genuine_negative_or_selected_award_absence",
+      "original_ok_block_sha256": "1da37b052893b2b2483ede8da9fb78eef95e01d51b45a617da459b3a089cbe76"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_transaction_store_replay_and_non_original_modes_cannot_be_prime_pages",
+      "original_ok_block_sha256": "863a3fb7b6011459f7a204d7d4147b72dc9eb8f34455b5aadeff25c8b4f35312"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_unrecognized_scope_flags_cannot_request_completeness_or_earlier_identity",
+      "original_ok_block_sha256": "b89829bb229427a8e04e8531883e006f0d051c74b1d58dada3b61bb9dd926f88"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_unsafe_whole_input_is_rejected_without_echo_or_sanitized_projection",
+      "original_ok_block_sha256": "4f656cc86a897115cc33ce06825afaa4ce0663bf476521beba03089c66e2c824"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_whole_body_and_manifest_bytes_have_independent_caps_before_decode",
+      "original_ok_block_sha256": "c6aca8efdf25a8309b9ac7d29d6c35b4bdfbd690cb1f01c5716f1b2533a132f0"
+    },
+    {
+      "module": "test_usaspending_prime_scope_review",
+      "class": "PrimeScopeTests",
+      "method": "test_withheld_whole_body_is_not_restored_or_substituted",
+      "original_ok_block_sha256": "2d6203c5bdd2ec1ada81f78ee3284142f730e90676c9cfafa32727ffc804324a"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_canonical_temp_alias_and_symlink_guard_require_a_real_exact_target_hit",
+      "original_ok_block_sha256": "32aaf5ddc76932b12e9bec34354f4b484739ceb905687511379bf3e615839f62"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_changed_saved_values_are_reported_exactly_and_fail_original_save_payload_binding",
+      "original_ok_block_sha256": "29560b933522ba541af226ace788782ae9973dc8350dd119f648abd945a7ac4a"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_completion_after_new_nyse_close_refuses_stale_inputs_without_moving_capture_clocks",
+      "original_ok_block_sha256": "a55eb7c4aa0074cb5a5503179f146dacc05c7c5ca527a7e7e22930fcdfd32003"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_constructor_and_run_network_fallback_attempts_are_blocked_without_exporting_values",
+      "original_ok_block_sha256": "3bf9ea778e997ebafd4f90afbb0d2c42f5ae7a19c59758d2ebae33e716250d73"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_default_disabled_reads_and_writes_nothing",
+      "original_ok_block_sha256": "33129a8899f7b210c40bcf2b8649f1a6912c036acbd4a4ec959c686f666b854f"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_enable_scope_and_unbounded_iterator_are_strict_before_inputs",
+      "original_ok_block_sha256": "84cd045ef640bfe7f3bc7412ede43fedab350c5b3c0e77f035c8abbc7e5a2326"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_existing_journal_is_pinned_and_blocks_sql_open_without_replay_or_removal",
+      "original_ok_block_sha256": "c19d4bff53287e7bc1b49600a33d5e335afb44d293cdaade6013cfc2d56bc053"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_existing_output_or_input_collision_is_refused_without_any_overwrite",
+      "original_ok_block_sha256": "73e93cbabfa16124b8238ea0c0f6e62dc39e30f7c5e18f8620dc94bd706afedd"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_explicit_hosted_windows_and_linux_gates_refuse_before_source_or_sql_reads",
+      "original_ok_block_sha256": "e0609017ee93ccea34ddcaed9b897eddb6aee2caade06ddf16372572241dbe08"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_failure_after_actual_temp_commit_retains_run_id_values_and_count",
+      "original_ok_block_sha256": "93fdf3a30f9aaa5317d59c9becbf6ed1b71f4b78cb1fbbc3a09253504e049bfb"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_fixture_execution_uses_real_provider_and_exact_sqlite_persistence_with_unchanged_model_defaults",
+      "original_ok_block_sha256": "d2721d8974381db874eee81d8891b0c8b950533912f521bedd16343b9905698c"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_injected_runtime_or_clock_needs_explicit_fixture_pipeline_and_never_claims_native",
+      "original_ok_block_sha256": "5b94c1487c473f770958666a89bdf5a130988b127b6f2157e895cf2aa46c95e3"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_late_database_change_is_reobserved_with_true_committed_count_and_values",
+      "original_ok_block_sha256": "314824b665ea2169b51cd0a45d066e9331b5e1af67a1c0fe20a58080d940c6f4"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_late_journal_never_replays_and_retains_confirmed_store_id_with_unknown_current_counts",
+      "original_ok_block_sha256": "36bcd6060e9cdaf756555b81cf941f7a86fb12737b28887d68d3936006a6f17d"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_late_manifest_tamper_after_receipt_fsync_preserves_saved_subset_unqualified",
+      "original_ok_block_sha256": "c0dc3d54182242733b975dadec489717bf7da8a2a538ffeffb9a12dc6b7b447a"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_late_monotonic_rollback_retains_saved_count_with_explicit_clock_failure",
+      "original_ok_block_sha256": "936d807a264fa72fa5ba83e803ef904196ddccfe1e67fc97ed1a7aae4b63dfbb"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_late_output_collision_preserves_winner_and_returns_actual_saved_subset",
+      "original_ok_block_sha256": "f26b4b8a7792219e695d6671f7455f5f1b9892a3c52b773600a36679cec6d8e3"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_late_wall_and_monotonic_rollback_cannot_publish_verified_run",
+      "original_ok_block_sha256": "886a23dabcabee72584de366dba3fe6da97e7cab542b637e2b4d6b456d02076b"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_late_whole_code_change_is_not_published_as_a_qualified_saved_run",
+      "original_ok_block_sha256": "d7749c7f0f5b5ace9fafae315892c30b55a62eedc56e1f13a5e423d156cf7cd4"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_late_whole_raw_parent_tamper_after_fsync_is_replayed_before_publication",
+      "original_ok_block_sha256": "4ce02e44d47ae58b8004ea157fa087fb8674732db2895ef3794e5e7a0530032d"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_loader_checks_hash_but_never_promotes_resealed_stored_claims_to_execution_proof",
+      "original_ok_block_sha256": "c9c397d900b8cd3442d0420a06bd7c52e93f4b0d10beca1564dc8ffd4637d708"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_loader_refuses_tampering_duplicate_keys_and_inventory_acceptance_claims",
+      "original_ok_block_sha256": "911c2b8d015fe5a5393fdaab93ba2a171592b578fd6367ce8edd3ee272abaa61"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_manifest_and_database_hardlinks_refuse_before_any_pipeline_execution",
+      "original_ok_block_sha256": "cc24f7abb1acf1d9e01955a9e0705ee10cd97adcb73a226abe0ed9bf27a0bfc2"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_missing_any_benchmark_stops_before_pipeline_and_db_initialization",
+      "original_ok_block_sha256": "4589e3c5994d19320ea7e9498773eeb3e1ee2489b17a35114bd000406a37374f"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_native_missing_inputs_are_os_neutral_and_never_initialize_pipeline_or_database",
+      "original_ok_block_sha256": "0c11b07bc5a7792824012edb96bd6a792b305bfaf52f0872c1e7a6aa641b8035"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_partial_selected_run_retains_exact_saved_subset_and_fails_completion",
+      "original_ok_block_sha256": "682f457cfa8cc4a780df4aecc94fc0be73b33b8f4fb1fba6438e50ea1222cae6"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_physical_rollback_before_save_blocks_writes_and_marks_clock_failure",
+      "original_ok_block_sha256": "f391e9f035eb4d892e5e5feb94dbeb44535e659e97422be0109337fca9a384a8"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_progress_callback_source_change_is_refused_before_main_save",
+      "original_ok_block_sha256": "a5b82704bcb5792120d282d6593c0b52cb46c38ab6a107edbec4e15956831af4"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_reader_connections_are_ro_closed_and_cannot_mutate_persisted_bytes",
+      "original_ok_block_sha256": "70fa2c2051458a3aa58848b9d258e884967df4b499acbb882305453bb258dcff"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_restarting_append_run_never_adopts_old_run_as_the_new_same_process_run",
+      "original_ok_block_sha256": "f66137f178543c228b66164d46e6ef3667ef91eb0c2d5909ca07fcc6d56c3c5f"
+    }
+  ],
+  "new_methods_not_observed": [
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_returned_boolean_float_and_foreign_signal_ids_do_not_bind_to_saved_integer_id",
+      "original_ok_block_sha256": "9978eaf7b0279fb593bf527d7b0b4ff4a910e300d048c5a430119e942141fee7"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_returned_result_values_modified_after_save_are_not_qualified",
+      "original_ok_block_sha256": "1f8fe0dfda500f48a9f6b12393cf5aa8418e21f6aa45b9c8cac09553c6542672"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_rss_and_mt5_clients_are_unusable_even_if_pipeline_ignores_false_flags",
+      "original_ok_block_sha256": "9d9c78d1b24209d33d11c477ff0286ce826a2124a405041ce5ed099df83d8a60"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_runtime_export_contains_fixed_ci_booleans_only_and_no_environment_values",
+      "original_ok_block_sha256": "5c0111d5969f3e5ef3f70a822081a6d7d49a0aec675e65fc08e6a7971bc00e23"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_saved_run_times_cannot_be_backdated_even_when_values_match",
+      "original_ok_block_sha256": "ef91ebca61997cfb538f925936e0b08191e56d98738bef9caa54c57c7a2c1aae"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_scope_change_before_main_save_does_not_persist_a_foreign_ticker",
+      "original_ok_block_sha256": "39d353a92ded799e368613b5c440bd08f6bb3b053108d9bf48b5dcfabc3906da"
+    },
+    {
+      "module": "test_user_windows_analysis_capture",
+      "class": "WindowsAnalysisCaptureTests",
+      "method": "test_secret_bearing_saved_result_is_wholly_withheld_without_sanitized_subset_export",
+      "original_ok_block_sha256": "d3e1cf4925a120e020df165bb562fe8afc299b6ca557ac1aad7d08d0b27cdfd2"
+    }
+  ],
+  "full_plain_OK_footer_present": false,
+  "final_full_test_counts": {
+    "executed": null,
+    "failures": null,
+    "errors": null,
+    "skipped": null,
+    "expected_failures": null,
+    "unexpected_successes": null
+  },
+  "final_counts_status": "UNKNOWN_INCOMPLETE_CANCELLED_LOG",
+  "reported_job_elapsed_seconds": 616.0,
+  "configured_Linux_timeout_minutes": 10,
+  "timeout_cause": "INFERENCE_FROM_LIMIT_AND_DURATION; no explicit timeout annotation in retained decoded log",
+  "actual_error_line": "The operation was canceled.",
+  "Windows_job_remains_independently_running": true,
+  "full_specialist_acceptance": "0/21"
+}

@@ -13,7 +13,11 @@ jobs:
   contract-agent:
     name: Contract, source and persistence agent
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # Run39391828283 Linux was cancelled after about 10 minutes, mid-suite
+    # without a final JSON/footer. A timeout is inferred from that boundary;
+    # no explicit timeout annotation was observed. Allow bounded setup and
+    # full-suite headroom while retaining every test budget and release gate.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

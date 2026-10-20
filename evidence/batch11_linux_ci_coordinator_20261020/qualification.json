@@ -1,0 +1,94 @@
+{
+  "physical_recorded_at": "2026-10-20T08:34:29.598383+00:00",
+  "public_base": "b24a59563d8284daf8d38df20568fc76d4f03b60",
+  "actual_worker_commit": "cce0faafb82e398189db61169827c1fc9e184bfd",
+  "root_pick": "2395c81",
+  "allowed_changed_paths": [
+    ".github/workflows/market-checker-test-agents.yml",
+    "evidence/batch11_linux_cancelled_20261020/README.md",
+    "evidence/batch11_linux_cancelled_20261020/content_verification.json",
+    "evidence/batch11_linux_cancelled_20261020/decoded.log",
+    "evidence/batch11_linux_cancelled_20261020/job.json",
+    "evidence/batch11_linux_cancelled_20261020/offline_verifier_stdout.json",
+    "evidence/batch11_linux_cancelled_20261020/verify_original.py",
+    "evidence/batch11_linux_ci_coordinator_20261020/qualification.json",
+    "evidence/batch11_linux_ci_coordinator_20261020/verify_integration.py",
+    "evidence/batch11_linux_timeout_fix_20261020/README.md",
+    "evidence/batch11_linux_timeout_fix_20261020/handoff.json",
+    "evidence/batch11_linux_timeout_fix_20261020/original_workflow.yml",
+    "evidence/batch11_linux_timeout_fix_20261020/qualification.json",
+    "evidence/batch11_linux_timeout_fix_20261020/revised_workflow.yml",
+    "evidence/batch11_linux_timeout_fix_20261020/verify_workflow_change.py"
+  ],
+  "baseline_groups": {
+    "production": {
+      "files": 230,
+      "all_original_Git_blobs_unchanged": true
+    },
+    "tests": {
+      "files": 209,
+      "all_original_Git_blobs_unchanged": true
+    },
+    "evidence": {
+      "files": 2210,
+      "all_original_Git_blobs_unchanged": true
+    }
+  },
+  "pre_hosted_full_code_proof": {
+    "path": "evidence/batch11_integration_20261019.json",
+    "bytes": 11086,
+    "sha256": "bfc5ef160081e924d03d1f4d6005fbf32da4fd454cbc3af9f82722035a517699"
+  },
+  "current_source_test_pins_unchanged": 19,
+  "only_YAML_semantic_change": {
+    "path": "jobs.contract-agent.timeout-minutes",
+    "before": 10,
+    "after": 20
+  },
+  "workflow": {
+    "bytes": 4878,
+    "sha256": "c8d1f21085815a92923b6312f55e1bc4da176195cfb04c5b42f551678d08ebf4"
+  },
+  "worker_handoff": {
+    "bytes": 6186,
+    "sha256": "728bdc37ed3c1e997775bd871c497f2cb8d1bb4e82f6b0553e1ca5a2294a2a8e"
+  },
+  "worker_qualification": {
+    "bytes": 4086,
+    "sha256": "1a2d0aaa54c773e1685707773c33de395cfe5c4914df4c89b0b0b86a7c9b549e"
+  },
+  "cancelled_originals": {
+    "evidence/batch11_linux_cancelled_20261020/README.md": {
+      "bytes": 439,
+      "sha256": "163564ed44d3d40287d1ebec373e650629a128523bfa09b620d810fb83a9fc38"
+    },
+    "evidence/batch11_linux_cancelled_20261020/content_verification.json": {
+      "bytes": 65790,
+      "sha256": "264b1891d372e07479d5590145a83a46e1c99265b8001101abfb401fe86c464b"
+    },
+    "evidence/batch11_linux_cancelled_20261020/decoded.log": {
+      "bytes": 641826,
+      "sha256": "118ff7acae6dff100f0450a73b643490062d9e35aa410640400a7bc0cdbbfc87"
+    },
+    "evidence/batch11_linux_cancelled_20261020/job.json": {
+      "bytes": 3115,
+      "sha256": "4edab18126594fae245168dbbcd9c0ad342d7ebfb992a2cd550249c57547b219"
+    },
+    "evidence/batch11_linux_cancelled_20261020/offline_verifier_stdout.json": {
+      "bytes": 306,
+      "sha256": "5ab812e9a75f5550150a5a808669208ba4f48058b206b6eb58c9d987fc655ba7"
+    },
+    "evidence/batch11_linux_cancelled_20261020/verify_original.py": {
+      "bytes": 2737,
+      "sha256": "92e1a48ee0921a660a731cb039f3202f2daab463597e9639569a0259621058fc"
+    }
+  },
+  "Windows_timeout_unchanged": 60,
+  "commands_platforms_tests_upload_release_gate_unchanged": true,
+  "local_full_suites_repeated": 0,
+  "production_test_status_MD_registry_model_score_fitter_changes": 0,
+  "source_HTTP_SQL_quota_or_retained_database_actions": 0,
+  "old_Windows_job_cancelled_or_restarted": false,
+  "new_exact_head_hosted_CI": "PENDING_AFTER_PUBLICATION",
+  "full_specialist_acceptance": "0/21"
+}
