@@ -1,0 +1,9 @@
+test_cross_page_snapshot_labels_never_upgrade_query_history_or_absence (tests.test_batch11_prime_scope_peer.PrimeScopeIndependentPeerTests.test_cross_page_snapshot_labels_never_upgrade_query_history_or_absence) ... ok
+test_each_page_cursor_binds_its_own_last_row_not_the_previous_page (tests.test_batch11_prime_scope_peer.PrimeScopeIndependentPeerTests.test_each_page_cursor_binds_its_own_last_row_not_the_previous_page) ... ok
+test_hash_valid_whole_response_from_page2_cannot_inherit_page1_manifest_identity (tests.test_batch11_prime_scope_peer.PrimeScopeIndependentPeerTests.test_hash_valid_whole_response_from_page2_cannot_inherit_page1_manifest_identity) ... ok
+test_valid_two_page_whole_manifest_response_lineage_is_only_a_traversal_control (tests.test_batch11_prime_scope_peer.PrimeScopeIndependentPeerTests.test_valid_two_page_whole_manifest_response_lineage_is_only_a_traversal_control) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.010s
+
+OK

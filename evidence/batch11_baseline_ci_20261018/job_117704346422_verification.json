@@ -1,0 +1,16 @@
+{
+  "head": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "run_id": 39137308800,
+  "job_id": 117704346422,
+  "decoded_utf8_sha256": "8ed08256b25712a8c29fa8d2d6e41a956be63c4f91328dc488e98766b872d702",
+  "bytes": 61949,
+  "test_summaries": [
+    {
+      "tests": 5,
+      "elapsed_seconds": 18.685
+    }
+  ],
+  "plain_ok": true,
+  "failure_terminal_summary_found": false,
+  "exact_original_artifact_verification_is_separate": true
+}

@@ -1,0 +1,60 @@
+{
+  "HTTP_collector_search_DB_quota_actions": 0,
+  "actual_plan": {
+    "bytes": 1012,
+    "path": "evidence/batch11_regulatory_20261018/actual_review_plan.json",
+    "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+  },
+  "all_non_clock_actual_content_unchanged": true,
+  "all_preexisting_tracked_files_unchanged_in_Git_diff": true,
+  "comparison_excluded_clock_contract_fields": [
+    "contract_version",
+    "known_at",
+    "review_completed_at",
+    "review_started_at",
+    "reviewed_at",
+    "source_read_cutoff"
+  ],
+  "original_plan_metadata_and_clocks_unchanged": true,
+  "physical_call_returned_at": "2026-10-18T19:33:40.201499+00:00",
+  "physical_call_started_at": "2026-10-18T19:33:40.201049+00:00",
+  "physical_completion_known_at": "2026-10-18T19:33:40.201484+00:00",
+  "prior_actual_v1_report": {
+    "bytes": 2070,
+    "path": "evidence/batch11_regulatory_20261018/actual_review.json",
+    "sha256": "cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8"
+  },
+  "referenced_prior_files_exact_base_git_blobs": [
+    {
+      "bytes": 1574,
+      "path": "evidence/epa_echo_live_20261002.json",
+      "sha256": "8b6a2c94eccee5b32d2cc4796c7cd103e0b72baec44f969498dc30dcf5a07341"
+    },
+    {
+      "bytes": 2332,
+      "path": "evidence/batch6_regulatory_20261014/capture_plan.json",
+      "sha256": "c8021278abc4a4aa3d4e0f354d1c8c2012128d79f37c9e577ba2ec0a5331edcf"
+    },
+    {
+      "bytes": 446,
+      "path": "evidence/batch6_regulatory_20261014/proposal.json",
+      "sha256": "5957d57998edd221db17f639a7a598709f2205652a7467755c475e2448576be9"
+    },
+    {
+      "bytes": 11900,
+      "path": "evidence/batch6_regulatory_20261014/handoff.json",
+      "sha256": "9c4c4669dfb8b7d51f5a16760c8d919e83022eba51317ae6ce3c4cba191ac2f0"
+    }
+  ],
+  "report": {
+    "bytes": 2091,
+    "path": "evidence/batch11_regulatory_20261018/interest_array_guard/reviews/cc96fcbbdc3d7566e2da280bb46082682472f4ecd9a5151a6147c200b8f9e682/review.json",
+    "sha256": "cc96fcbbdc3d7566e2da280bb46082682472f4ecd9a5151a6147c200b8f9e682"
+  },
+  "review_started_at": "2026-10-18T19:33:40.201434+00:00",
+  "source_read_cutoff": "2026-10-18T19:33:40.201434+00:00",
+  "source_test_sha256": {
+    "market_checker_app/services/epa_frs_program_scope_review.py": "51cf67bcea3ab581b4f3d447e51ac8b8d2c84798104901b4f7679428c2f9de36",
+    "tests/test_epa_frs_program_scope_review.py": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+  }
+}

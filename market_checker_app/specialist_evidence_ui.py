@@ -9,7 +9,7 @@ from pathlib import Path
 from market_checker_app.services.captured_identity_review_service import read_review_plan
 from market_checker_app.specialist_evidence_runner import (
     run_captured_identity_review, run_prime_archive_recovery, run_prospective_history_action,
-    run_user_windows_readiness_capture,
+    run_user_windows_readiness_capture, run_user_windows_analysis_capture,
 )
 
 _LABELS = {
@@ -39,6 +39,11 @@ _LABELS = {
     "DOJ_CASE_CAPTION": "Strany a data v původním soudním dokumentu",
     "SEC_SUPPLIER_REVENUE_DENOMINATOR": "Skutečné konsolidované tržby dodavatele",
     "SEC_PERSON_ROLE_CLAIM": "Role a časové údaje v původním životopisu SEC",
+    "SEC_DATED_INSTRUMENT_POINT": "Instrument a ticker ke konkrétnímu dni",
+    "FDA_APPLICANT_CHRONOLOGY": "Datované záznamy žadatele a dceřiných firem",
+    "EPA_FRS_PROGRAM_SCOPE": "Provozovna a konkrétní program EPA",
+    "USASPENDING_PRIME_SCOPE": "Úplnost původních stránek zakázek",
+    "SEC_PERSON_ROLE_TEMPORAL": "Platnost údaje o roli k datu transakce",
 }
 
 
@@ -208,9 +213,41 @@ def render_user_windows_readiness(st, *, db_path: Path, output_dir: Path) -> Non
         _display(st, cached["report"], name="user_windows_readiness_capture.json")
 
 
+def render_user_windows_analysis(st, *, db_path: Path, output_dir: Path) -> None:
+    st.write("**Zaznamenaný běh analýzy na uživatelském Windows**")
+    st.caption("Spustí jednu analýzu z vybraných původních cenových archivů a uloží její výsledky do této databáze. "
+               "Síťové zdroje a obchodování se nespouštějí. Chybějící podklady nebo jiné prostředí běh zastaví.")
+    context = str(db_path.resolve()) + "|" + str(output_dir.resolve())
+    enabled = st.checkbox("Povolit tento běh analýzy a uložení výsledků", value=False,
+                          key="enable_user_windows_analysis_capture")
+    with st.form("user_windows_analysis_capture"):
+        subjects = st.text_input("Tickery pro tento běh Windows", value="",
+                                 help="Přesné tickery oddělené mezerou, například AAPL MSFT.")
+        manifest = st.text_input("Manifest původních cen pro tento běh", value="")
+        archive_root = st.text_input("Kořen původních cen pro tento běh", value="")
+        submitted = st.form_submit_button("Spustit a zaznamenat tento běh Windows", disabled=not enabled)
+    if submitted and enabled:
+        try:
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+            report = run_user_windows_analysis_capture(enabled=True,
+                output_path=output_dir / "user_windows_analysis" / (stamp + ".json"),
+                tickers=subjects.split(), db_path=db_path,
+                market_manifest_path=Path(manifest.strip()),
+                market_archive_root=Path(archive_root.strip()))
+            st.session_state["saved_user_windows_analysis_capture"] = {"context": context, "report": report}
+        except (ValueError, OSError, KeyError, TypeError):
+            st.session_state.pop("saved_user_windows_analysis_capture", None)
+            st.error("Běh nelze zaznamenat. Ověř prostředí Windows, tickery, databázi a původní cenové archivy.")
+    cached = st.session_state.get("saved_user_windows_analysis_capture")
+    if cached and cached["context"] == context:
+        st.info("Záznam popisuje výsledek tohoto pokusu. Úplné ověření specialistů vyžaduje také doložené zdroje a historii.")
+        _display(st, cached["report"], name="user_windows_analysis_capture.json")
+
+
 def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, output_dir: Path) -> None:
     render_market_input_acquisition(st, output_dir=output_dir)
     render_user_windows_readiness(st, db_path=db_path, output_dir=output_dir)
+    render_user_windows_analysis(st, db_path=db_path, output_dir=output_dir)
     st.write("**Kontrola uložených primárních dokladů**")
     st.caption("Kontrola porovná přesné uložené doklady a čas jejich získání. Výsledek ukáže "
                "doloženou vazbu i chybějící důkazy; přijetí identity vyžaduje samostatné posouzení.")
@@ -233,9 +270,20 @@ def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, 
     if cached and cached["context"] == context:
         st.caption("Poslední uložená kontrola: " + cached["report"]["recorded_at"])
         leaf = cached["report"]["review"]
+        review_kind = cached["report"]["kind"]
         candidate = leaf.get("candidate") or {}
         claim = leaf.get("claim") or {}
         person = leaf.get("dated_person_fact") or {}
+        if review_kind == "SEC_DATED_INSTRUMENT_POINT":
+            st.caption("Porovnání instrumentu a tickeru platí jen pro vybraný den. Mezery mezi datovanými doklady zůstávají neověřené.")
+        if review_kind == "FDA_APPLICANT_CHRONOLOGY":
+            st.caption("Jednotlivé záznamy mají vlastní datum a přesný právní název. Samy neprokazují nepřetržité vlastnictví produktu.")
+        if review_kind == "EPA_FRS_PROGRAM_SCOPE":
+            st.caption("Registrace provozovny v konkrétním programu sama nedokládá jejího vlastníka ani provozovatele.")
+        if review_kind == "USASPENDING_PRIME_SCOPE":
+            st.caption("Úplnost se posuzuje jen pro přesný rozsah dotazu. Chybějící původní stránka neprokazuje nepřítomnost zakázky.")
+        if review_kind == "SEC_PERSON_ROLE_TEMPORAL":
+            st.caption("Datum transakce se porovnává s datovaným údajem o roli. Rok nástupu ani starší výraz „present“ neprokazují roli v pozdějším období.")
         if leaf.get("literal_specimen_class_cusip_scope_observed"):
             st.caption("Původní vzor certifikátu uvádí Class A a CUSIP " + leaf["observed_cusip"] +
                        ". Datum vydání je prázdné; návaznost na změnu tickeru čeká na doložení.")

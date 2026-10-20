@@ -1,0 +1,7 @@
+{
+  "selected_method_slots": 2,
+  "unittest_loader_error_objects_run": 2,
+  "functional_selected_methods_executed": 0,
+  "cause": "Generic primary-runtime Python lacks project feedparser dependency; no code/fixture/test change. Use the existing project test interpreter.",
+  "original_json_and_log_preserved": true
+}

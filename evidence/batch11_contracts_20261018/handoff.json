@@ -1,0 +1,234 @@
+{
+  "actual_case": {
+    "broader_issuer_coverage_measured": false,
+    "current_report_is_genuine_negative": false,
+    "embedded_case_observed_at": "2026-10-01T11:02:40.046467+00:00",
+    "legacy_is_original_http_response": false,
+    "legacy_payload_pointer": "/cases/usaspending_positive_contract_uei/payload",
+    "legacy_reported_has_next": true,
+    "legacy_reported_rows": 100,
+    "legacy_source_ref": {
+      "bytes": 71683,
+      "path": "evidence/usaspending_live_20261001.json",
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+    },
+    "missing_original_evidence": [
+      {
+        "expected_sha256": null,
+        "hash_pin_known": false,
+        "kind": "WHOLE_ORIGINAL_REQUEST",
+        "reason": "EXACT_FILTER_WINDOW_SORT_AND_REQUEST_LINEAGE_NOT_RETAINED"
+      },
+      {
+        "capture": "prime_page_1_manifest",
+        "expected_request_sha256": null,
+        "expected_sha256": null,
+        "hash_pin_known": false,
+        "kind": "MANIFEST",
+        "page": 1,
+        "reason": "WHOLE_ORIGINAL_PRIME_ARTIFACT_UNAVAILABLE"
+      },
+      {
+        "capture": "prime_page_1_body",
+        "expected_request_sha256": null,
+        "expected_sha256": null,
+        "hash_pin_known": false,
+        "kind": "BODY",
+        "page": 1,
+        "reason": "WHOLE_ORIGINAL_PRIME_ARTIFACT_UNAVAILABLE"
+      },
+      {
+        "capture": "prime_page_2_manifest",
+        "expected_request_sha256": null,
+        "expected_sha256": null,
+        "hash_pin_known": false,
+        "kind": "MANIFEST",
+        "page": 2,
+        "reason": "WHOLE_ORIGINAL_PRIME_ARTIFACT_UNAVAILABLE"
+      },
+      {
+        "capture": "prime_page_2_body",
+        "expected_request_sha256": null,
+        "expected_sha256": null,
+        "hash_pin_known": false,
+        "kind": "BODY",
+        "page": 2,
+        "reason": "WHOLE_ORIGINAL_PRIME_ARTIFACT_UNAVAILABLE"
+      }
+    ],
+    "new_verified_targets": 0,
+    "original_prime_award_count": null,
+    "original_prime_pages_verified": 0,
+    "physical_knowledge_at": "2026-10-18T19:33:44.012024+00:00",
+    "query_scope": null,
+    "reason": "ORIGINAL_PRIME_SCOPE_EVIDENCE_INCOMPLETE",
+    "recipient_name_scope_literal": "SIKORSKY AIRCRAFT CORPORATION",
+    "recipient_uei_scope_literal": "UTJWTSLMFNG4",
+    "selected_award_presence": [
+      {
+        "absence_verified": false,
+        "generated_internal_id": "CONT_AWD_SPE4A626F209X_9700_SPE4A122G0005_9700",
+        "observation": "UNKNOWN_NO_ORIGINAL_PRIME_PAGES"
+      }
+    ],
+    "status": "WAIT"
+  },
+  "actual_plan_path": "evidence/batch11_contracts_20261018/actual_review_plan.json",
+  "api": {
+    "award_bound": 500,
+    "body_bytes_cap": 4000000,
+    "file_http_sql_quota_registry_operations": 0,
+    "manifest_bytes_cap": 64000,
+    "module": "market_checker_app.services.usaspending_prime_scope_review",
+    "name": "review_usaspending_prime_scope",
+    "page_bound": 5,
+    "query_None_meaning": "Whole original request/filter/window lineage is unavailable; never reconstruct from an embedded report",
+    "query_complete_can_be_true_in_this_version": false,
+    "request_bytes_cap": 48000,
+    "runtime_kind": "USASPENDING_PRIME_SCOPE",
+    "signature": "(request: Mapping, captures: Mapping, *, as_of: datetime | None = None) -> dict",
+    "statuses": [
+      "WAIT",
+      "REJECTED",
+      "SYNTHETIC_COMPLETE_CONTROL",
+      "TRAVERSAL_REVIEWED"
+    ],
+    "terminal_chain_is_not_snapshot_revision_history_or_genuine_negative": true,
+    "total_input_bytes_cap": 16000000
+  },
+  "blockers": [
+    "Whole original prime request/filter/window and page1 request/response capture manifest and raw body are not retained",
+    "Whole terminal continuation page2+ is not retained; the parsed100-row page hasNext=true",
+    "Publisher pinned snapshot/total/revision semantics are not documented by retained originals; a terminal page is insufficient",
+    "Original durable USAspending quota/history remains unavailable per authorized task context; no SQL inspection, collection, reset or reconstruction performed",
+    "Earlier UEI/legal issuer relationship, broader awards/revisions/canonical687 scope and historical/Windows/OOS acceptance remain unverified"
+  ],
+  "branch": "batch11/contracts-20261018",
+  "canonical_universe": 687,
+  "collector_requests": 0,
+  "current_actual_report_path": "evidence/batch11_contracts_20261018/actual_current_review.json",
+  "current_focused_qualification": {
+    "completed_at": "2026-10-18T19:33:44.006644+00:00",
+    "db_operations": 0,
+    "discovered": 35,
+    "elapsed_seconds": 0.09934722599996348,
+    "errors": 0,
+    "executed": 35,
+    "expected_failures": 0,
+    "failures": 0,
+    "full_baseline_repeated": false,
+    "historical_oos_or_user_windows_acceptance_claimed": false,
+    "module": "tests.test_usaspending_prime_scope_review",
+    "previous34_case_proof_preserved": true,
+    "quota_operations": 0,
+    "registry_adoptions": 0,
+    "schema_version": 1,
+    "scope": "FINAL_OFFLINE_REVIEW_WITH_ADDED_LAST_RECORD_CURSOR_CONSISTENCY",
+    "skips": 0,
+    "source_and_test_sha256": {
+      "market_checker_app/services/usaspending_prime_archive_recovery.py": "fc06959c17b61dca44a59e9a99a191a0d490094db6974cc48c127241a20a3b7c",
+      "market_checker_app/services/usaspending_prime_scope_review.py": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f",
+      "market_checker_app/services/usaspending_request_budget.py": "38ef97fb6072e6d9e1e87b9cd9cc3b31345b0380a40fa8e2bd9db91d338ea4e0",
+      "market_checker_app/services/usaspending_scout_service.py": "6a0061a467ccdf1a36d7fe44bd54ee0854eed8498e89a368819b74fc3944900a",
+      "tests/test_usaspending_prime_scope_review.py": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d"
+    },
+    "source_http_requests": 0,
+    "started_at": "2026-10-18T19:33:43.907291+00:00",
+    "successful": true,
+    "synthetic_controls_count_as_live": false,
+    "unexpected_successes": 0
+  },
+  "current_producer_sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f",
+  "current_test_sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d",
+  "db_sql_or_copy_operations": 0,
+  "earlier_UEI_fullhistory_issuer_coverage_absence_firstlast_revision_or_revenue_inferred": false,
+  "full_current_console": "evidence/batch11_contracts_20261018/tests_current.log",
+  "full_specialist_acceptance": "0/21",
+  "historical_availability_or_OOS_or_userWindows_acceptance_claimed": false,
+  "integration": {
+    "display_fields": [
+      "status",
+      "reason",
+      "query_scope",
+      "reported_unique_awards",
+      "legacy_observations",
+      "missing_evidence",
+      "observed_page_chain_complete",
+      "synthetic_page_chain_complete",
+      "query_complete",
+      "knowledge_at"
+    ],
+    "pass_as_of_None_without_explicit_cutoff": true,
+    "plan_capture_inputs_verified_against_retained_whole_report": true,
+    "register_kind_with_four_megabyte_body_budget": true,
+    "root_owns_shared_dispatcher_UI_CLI_status_and_publication": true,
+    "unknown_source_query_count_and_hash_pins_are_null_not_zero_or_guesses": true
+  },
+  "known_withheld_bodies_accessed_restored_or_substituted": false,
+  "model_fitter_score_budget_or_trading_changed": false,
+  "other_existing_tests_or_producers_changed": false,
+  "pins": {
+    "evidence/batch11_contracts_20261018/README.md": {
+      "bytes": 4612,
+      "sha256": "91e1e052361145aea34924c92c4f4a883aa31db28f35de135b2c78fd13631167"
+    },
+    "evidence/batch11_contracts_20261018/actual_current_review.json": {
+      "bytes": 4064,
+      "sha256": "f361ca64506f40153361304d09eb25f7cda6ca3c53fa2865b3eeb366526636d4"
+    },
+    "evidence/batch11_contracts_20261018/actual_review.json": {
+      "bytes": 4064,
+      "sha256": "af192e97e72f4080b83ab6eeaa4dd2ca7b82d63f6b53427d564deb6e9d9a4267"
+    },
+    "evidence/batch11_contracts_20261018/actual_review_plan.json": {
+      "bytes": 1485,
+      "sha256": "d26620ff908e11b048ab8c7d42c60822c30c752ff78d9245c6ae2547d898f04e"
+    },
+    "evidence/batch11_contracts_20261018/qualify.py": {
+      "bytes": 2477,
+      "sha256": "9a7a526e4cada48e3f7862d2bf1a52da90f6d93b74cd15586df62f49cb1831e6"
+    },
+    "evidence/batch11_contracts_20261018/qualify_current.py": {
+      "bytes": 2257,
+      "sha256": "dabf8b2668739b1011e263c4c50aa0ee1fc69d9797c8656f4d85e103ca2ec16f"
+    },
+    "evidence/batch11_contracts_20261018/replay_retained.py": {
+      "bytes": 1454,
+      "sha256": "c763300bab164f11e2adc279338bf6acd416afbea2324d823416cb62062b370a"
+    },
+    "evidence/batch11_contracts_20261018/tests.json": {
+      "bytes": 1656,
+      "sha256": "b3b7d326221c3d68fc30a62fafb3e9926d73dc0b4a31f366d8a1a943e0356b6d"
+    },
+    "evidence/batch11_contracts_20261018/tests.log": {
+      "bytes": 7335,
+      "sha256": "c4bb7716bad2894697eb057d951016e2dfe7677936d9df5983a42412033f46f6"
+    },
+    "evidence/batch11_contracts_20261018/tests_current.json": {
+      "bytes": 1454,
+      "sha256": "c65d678fb76ceced80716caeecf34b318161627dce03bbd366f7f6afb836ed03"
+    },
+    "evidence/batch11_contracts_20261018/tests_current.log": {
+      "bytes": 7532,
+      "sha256": "d313cb8b9fb2c660b59471db332f551d130eb532adb6f6679b666a257944a2d7"
+    },
+    "market_checker_app/services/usaspending_prime_scope_review.py": {
+      "bytes": 22525,
+      "sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f"
+    },
+    "tests/test_usaspending_prime_scope_review.py": {
+      "bytes": 21525,
+      "sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d"
+    }
+  },
+  "prior34_case_proof_and_prior_actual_report_preserved": true,
+  "public_base_commit": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "public_base_tree": "a50b9fc6b315b7aae33e052a1b8e31680880566b",
+  "quota_operations": 0,
+  "quota_store_created_reset_copied_or_reconstructed": false,
+  "recorded_at": "2026-10-18T19:34:49.774479+00:00",
+  "registry_adoptions": 0,
+  "schema_version": "batch11_usaspending_prime_scope_handoff_v1",
+  "source_bodies_copied_or_changed": false,
+  "source_http_requests": 0
+}

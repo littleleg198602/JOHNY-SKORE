@@ -1,0 +1,77 @@
+"""Run only the independent fixture peer class against an explicitly pinned root."""
+from datetime import datetime, timezone
+import hashlib
+import importlib
+import importlib.machinery
+import importlib.util
+import io
+import json
+from pathlib import Path
+import sys
+import time
+import unittest
+
+ROOT = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def main():
+    if len(sys.argv) != 3 or not sys.argv[1].isalnum():
+        raise SystemExit("Choose new result label and explicit candidate repository")
+    label, candidate = sys.argv[1], Path(sys.argv[2]).resolve()
+    sys.path.insert(0, str(candidate))
+    # Keep the actual temp-input/persistence harness byte-identical across the
+    # owner's fix; newly added owner tests cannot silently change peer stimuli.
+    helper_path = HERE / "before_owner_tests.py.txt"
+    helper_sha = sha(helper_path)
+    if helper_sha != "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66":
+        raise ValueError("Frozen fixture helper source changed")
+    package = importlib.import_module("tests")
+    helper_name = "tests.test_user_windows_analysis_capture"
+    helper_spec = importlib.util.spec_from_loader(helper_name, importlib.machinery.SourceFileLoader(helper_name, str(helper_path)))
+    helper = importlib.util.module_from_spec(helper_spec)
+    sys.modules[helper_name] = helper
+    setattr(package, "test_user_windows_analysis_capture", helper)
+    helper_spec.loader.exec_module(helper)
+    test_path = ROOT / "tests/test_batch11_windows_analysis_peer.py"
+    spec = importlib.util.spec_from_file_location("batch11_independent_windows_analysis_peer", test_path)
+    cases = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cases)
+    producer = Path(cases.target.__file__).resolve()
+    assert producer == candidate / "market_checker_app/services/user_windows_analysis_capture.py"
+    source_pin, test_pin = sha(producer), sha(test_path)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(cases.WindowsAnalysisPeerTests)
+    record = {"started_at": datetime.now(timezone.utc).isoformat(), "candidate_root": str(candidate),
+        "producer_sha256": source_pin, "peer_test_sha256": test_pin, "frozen_fixture_helper_sha256": helper_sha,
+        "discovered": suite.countTestCases(),
+        "synthetic_injected_pipeline_only": True, "genuine_native_Windows_execution": False,
+        "original_retained_DB_opened": False, "new_HTTP_source_collector_quota_registry_actions": 0,
+        "full_specialist_acceptance": False, "full_suite_rerun": False}
+    start = time.perf_counter()
+    stream = io.StringIO()
+    result = unittest.TextTestRunner(stream=stream, verbosity=2).run(suite)
+    raw = stream.getvalue().encode()
+    with (HERE / (label + ".log")).open("xb") as output:
+        output.write(raw)
+    assert source_pin == sha(producer) and test_pin == sha(test_path)
+    record.update(completed_at=datetime.now(timezone.utc).isoformat(), elapsed_seconds=time.perf_counter() - start,
+        executed=result.testsRun, failures=len(result.failures), errors=len(result.errors), skips=len(result.skipped),
+        expected_failures=len(result.expectedFailures), unexpected_successes=len(result.unexpectedSuccesses),
+        successful=result.wasSuccessful(), plain_OK=raw.rstrip().endswith(b"\nOK"),
+        failed_methods=[str(case) for case, _ in result.failures], error_methods=[str(case) for case, _ in result.errors],
+        log_sha256=hashlib.sha256(raw).hexdigest())
+    with (HERE / (label + ".json")).open("x") as output:
+        json.dump(record, output, indent=2)
+        output.write("\n")
+    print(json.dumps(record))
+    if not result.wasSuccessful():
+        print(raw.decode())
+    return 0 if result.wasSuccessful() else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,34 @@
+{
+  "actual_source_record": {
+    "archive_path": null,
+    "capture_id": "epa_dow_20261002_summary_only",
+    "observed_at": "2026-10-02T11:52:53+00:00",
+    "origin": "LEGACY_SUMMARY_ONLY",
+    "original_source_body_recovered": false,
+    "public_raw_available": false,
+    "raw_response_bytes": null,
+    "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+    "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info",
+    "summary_path": "evidence/epa_echo_live_20261002.json"
+  },
+  "base_commit": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "capture_plan": {
+    "bytes": 2332,
+    "path": "evidence/batch6_regulatory_20261014/capture_plan.json",
+    "sha256": "c8021278abc4a4aa3d4e0f354d1c8c2012128d79f37c9e577ba2ec0a5331edcf"
+  },
+  "historical_summary": {
+    "bytes": 1574,
+    "path": "evidence/epa_echo_live_20261002.json",
+    "sha256": "8b6a2c94eccee5b32d2cc4796c7cd103e0b72baec44f969498dc30dcf5a07341"
+  },
+  "independent_publisher_program_interest_field_semantics_available": false,
+  "live_source_scope_requested": false,
+  "new_HTTP_or_collector_or_search_or_DB_actions": 0,
+  "program_acronyms_ids_interests_or_dates_from_missing_body_known": false,
+  "recorded_at": "2026-10-18T19:30:41.904680+00:00",
+  "source_schema_support": "narrow existing Results/Message/QueryRows/Facilities/ProgramFacilities contract only",
+  "summary_is_original_response": false,
+  "synthetic_field_names_document_publisher_schema": false,
+  "whole_original_body_retained": false
+}

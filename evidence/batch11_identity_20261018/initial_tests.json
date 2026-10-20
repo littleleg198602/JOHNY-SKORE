@@ -1,0 +1,21 @@
+{
+  "db_reads_or_writes": 0,
+  "discovered": 22,
+  "errors": 0,
+  "executed": 22,
+  "expected_failures": 0,
+  "failures": 0,
+  "finished_at": "2026-10-18T19:30:06.303098+00:00",
+  "log_sha256": "d40f3ad83699c439c3ff473634ab8a42e1b6c2bcebd09abbb96cb8ea55250aee",
+  "new_source_requests": 0,
+  "plain_OK": true,
+  "schema_version": "dated_point_focused_qualification_v1",
+  "skips": 0,
+  "source_sha256": {
+    "market_checker_app/services/sec_dated_instrument_point_review.py": "89359e1045695409a0681666ca2a118e6e69c1c0bf0bb32f906b32f2c73a06f0",
+    "tests/test_sec_dated_instrument_point_review.py": "479b772a64d1bccc4ff2652648c4ae40e31aeaa4c6751cc6f19a2680c664bcaa"
+  },
+  "started_at": "2026-10-18T19:30:06.026417+00:00",
+  "synthetic_positives_are_acceptance": false,
+  "unexpected_successes": 0
+}

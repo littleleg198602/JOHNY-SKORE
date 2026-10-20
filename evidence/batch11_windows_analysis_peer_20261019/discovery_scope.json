@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-10-19T00:48:40.271181+00:00",
+  "original_peer_full_sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d",
+  "current_peer_full_sha256": "e9c0f36012e52163e0bea5fab637c9871e3b30963d6d1e3c01be59cfc8400c9f",
+  "standard_module_discovered_test_count": 10,
+  "correction": "Import owner fixture module rather than exposing its TestCase as a global alias. This prevents duplicate owner discovery.",
+  "ten_test_method_source_bodies_byte_identical": true,
+  "test_method_source_sha256": {
+    "test_valid_actual_temp_save_control_is_bound_but_still_fixture_only": "129cc9bcc694c76cd4b50b337e775f75949e4edd0604bd51c18945957cd0f90b",
+    "test_boolean_returned_run_id_cannot_alias_actual_integer_store_id": "f3db33035fc117da5205b884f98c8f2b66e227d6202b72e133e298b042174617",
+    "test_float_returned_run_id_cannot_alias_actual_integer_store_id": "d4849bd586a2da19bebc7c869dc6d12298a9f602fba6291ca8f1b0743fec5fec",
+    "test_mismatched_integer_returned_run_id_preserves_actual_saved_rows": "1c0a7da998f975fa83f702a03c8c22feecc40d8f51f60674e7040d2ba16a35db",
+    "test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored": "1c612344e12ea6ab1dc8e312aef2ecdb6951ba093163a917360aee2e123f86e4",
+    "test_post_save_callback_failure_keeps_true_partial_subset_and_store_id": "24132573c2c9787563f235c2e2d377f825e378ebdb18047bfae6422b2460813d",
+    "test_fsync_late_extra_DB_run_is_reported_without_claiming_same_process_store_commit": "bfc69723f8ae24d9c53996008c199507fc6dab9c575c0929105eb9c5bf58f27e",
+    "test_fsync_late_source_drift_keeps_initial_pins_and_withholds_qualification": "58aaf123fae4ada4f6504ba3fe35b858036aa5f5dba31e5519e4686902212359",
+    "test_fsync_late_wall_rollback_cannot_publish_verified_clock_integrity": "aab2e5c5f6d4aeb7d31ad76e6df9a3a0ba3f0c8609b168a4543c9406994cc33a",
+    "test_resealed_loaded_native_claim_is_never_reexecution_proof": "12d205ba4ab2d57320b467402d8b0c08e9a11b7931b41a3ad7782f3d986686d8"
+  },
+  "nine_fixture_helper_source_bodies_byte_identical": true,
+  "fixture_helper_source_sha256": {
+    "fixture_runtime": "4df70c05ffc485b163155d81b27592476430e899532bd6e096f59225e443b071",
+    "fixture_signals": "dbe4a075513486f6c8ba00ce3246565a02f44af6dfd2c7264a3af3ed83b3124f",
+    "setUp": "b9d0d480195b71ccc49814200a7459ef218c9d11be7c012ea3cf37e7e617064c",
+    "pipeline_factory": "5c6f9a2c7043133b4f15fd32052aa31574fb2b637a83244709fcdd14fd81bf70",
+    "recorder": "b36bef65ec304b414799c49d167fc14d7c5706476657e526a39b5dafd5ca8165",
+    "capture": "06d5eb460d327fa913931cdb14094ce72c251f84dc7bdd67e4771f219e3cad17",
+    "market_fixture": "2620e6f3019e2adf4bd9d8c8dc0663b53eac3ea5fbc65eb597773528466e7ee6",
+    "assert_nonacceptance": "dd9eafb5aa782ad44b30309545227f43b9bcafca0fc243b37119d7c281638967",
+    "late": "69c731fe2ed1f4793754da32f9c18438db9fcbfd8429d649de2c9c554fa1d15a"
+  },
+  "owner37_or_full_suite_executed": false
+}

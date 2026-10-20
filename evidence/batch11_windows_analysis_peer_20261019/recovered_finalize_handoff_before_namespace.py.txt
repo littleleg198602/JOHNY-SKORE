@@ -1,0 +1,88 @@
+"""Pin before/after peer evidence after the exact finalized owner base exists."""
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parents[2]
+HERE = Path(__file__).resolve().parent
+PEER = "tests/test_batch11_windows_analysis_peer.py"
+PRODUCER = "market_checker_app/services/user_windows_analysis_capture.py"
+FIXTURE_SHA = "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66"
+PEER_SHA = "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d"
+
+
+def pin(path):
+    raw = (ROOT / path).read_bytes()
+    return {"path": str(path), "sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw)}
+
+
+def main():
+    if len(sys.argv) != 2 or re.fullmatch(r"[a-f0-9]{40}", sys.argv[1]) is None:
+        raise SystemExit("Exact finalized evaluation commit required")
+    base = sys.argv[1]
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, check=True, stdout=subprocess.PIPE, text=True).stdout.strip()
+    if head != base:
+        raise ValueError("Peer must be based directly on finalized owner commit")
+    subprocess.run(["git", "diff", "--quiet", base, "--"], cwd=ROOT, check=True)
+    before = json.loads((HERE / "before.json").read_bytes())
+    after = json.loads((HERE / "after.json").read_bytes())
+    if (before["discovered"] != 10 or before["executed"] != 10 or before["failures"] != 4 or before["errors"] != 0
+            or after["discovered"] != 10 or after["executed"] != 10 or not after["plain_OK"] or not after["successful"]
+            or any(after[key] for key in ("failures", "errors", "skips", "expected_failures", "unexpected_successes"))
+            or before["peer_test_sha256"] != PEER_SHA or after["peer_test_sha256"] != PEER_SHA
+            or pin(PEER)["sha256"] != PEER_SHA or after["frozen_fixture_helper_sha256"] != FIXTURE_SHA
+            or pin(str((HERE / "before_owner_tests.py.txt").relative_to(ROOT)))["sha256"] != FIXTURE_SHA):
+        raise ValueError("Identical focused peer methods/fixture helper and real before/after outcomes required")
+    for label, result in (("before", before), ("after", after)):
+        if pin(str((HERE / (label + ".log")).relative_to(ROOT)))["sha256"] != result["log_sha256"]:
+            raise ValueError("Original peer log changed")
+    if pin(PRODUCER)["sha256"] != after["producer_sha256"]:
+        raise ValueError("Current producer differs from after qualification")
+    raw_base = subprocess.run(["git", "show", base + ":" + PRODUCER], cwd=ROOT, check=True, stdout=subprocess.PIPE).stdout
+    if hashlib.sha256(raw_base).hexdigest() != after["producer_sha256"]:
+        raise ValueError("Qualified producer is not exact finalized owner bytes")
+    protected = []
+    for name in ("verified_healthcare_identities.json", "verified_13f_securities.json", "verified_nhtsa_models.json",
+                 "verified_counterparty_identities.json", "verified_fdic_banks.json", "verified_usaspending_uei.json",
+                 "european_authority_registry.json", "market_checker_687_tickers.csv"):
+        path = "market_checker_app/data/" + name
+        raw = subprocess.run(["git", "show", base + ":" + path], cwd=ROOT, check=True, stdout=subprocess.PIPE).stdout
+        current = pin(path)
+        if hashlib.sha256(raw).hexdigest() != current["sha256"]:
+            raise ValueError("Protected input changed")
+        protected.append({**current, "byte_identical_to_owner_base": True})
+    artifacts = [pin(path.relative_to(ROOT).as_posix()) for path in sorted(HERE.iterdir()) if path.is_file() and path.name != "handoff.json"]
+    handoff = {"schema_version": "batch11_independent_windows_analysis_peer_v1", "recorded_at": datetime.now(timezone.utc).isoformat(),
+        "exact_owner_base_commit": base, "branch": "batch11/windows-analysis-peer-20261019",
+        "peer_test": pin(PEER), "current_owner_producer": pin(PRODUCER),
+        "before_owner_producer": pin(str((HERE / "before_producer.py.txt").relative_to(ROOT))),
+        "frozen_fixture_helper": pin(str((HERE / "before_owner_tests.py.txt").relative_to(ROOT))),
+        "before": before, "after": after,
+        "reproduced_gap": {"before_failure_entries": 4, "before_failed_methods": 3,
+            "returned_run_id_cases": ["True equals actual integer1", "float1.0 equals actual integer1"],
+            "returned_signal_claim_cases": ["run_id987654 ignored", "row id987654 ignored"],
+            "effect": "Missing result/persisted-identifier binding rejection while true temporary saved rows were observed separately.",
+            "not_observed": "No genuine native Windows qualification or full21 promotion was executed."},
+        "valid_and_failure_controls": ["Real temporary provider/SQLiteStore save with exact persisted ID/value binding",
+            "Wrong integer returned ID preserves actual committed rows", "Post-save callback failure preserves true saved subset",
+            "Post-fsync extra database run is not a store-confirmed commit", "Post-fsync source drift stays unqualified",
+            "Post-fsync physical rollback keeps clock integrity false", "Resealed JSON is never runtime re-execution proof"],
+        "scope": {"only_peer_test_and_new_evidence_files_changed": True, "existing_owner_tests_modified": False,
+            "original_retained_DB_opened_or_modified": False, "temporary_fixture_DB_used": True,
+            "canonical_temp_roots": True, "real_pipeline_model_or_forecast_executed": False,
+            "genuine_native_Windows_execution": False, "new_HTTP_source_collector_quota_registry_actions": 0,
+            "score_model_budget_trading_or_remote_writes": 0, "full_specialist_acceptance": False},
+        "protected_inputs": protected, "artifacts": artifacts}
+    with (HERE / "handoff.json").open("x", encoding="utf-8") as output:
+        json.dump(handoff, output, ensure_ascii=False, indent=2)
+        output.write("\n")
+    print(json.dumps({"handoff": pin(str((HERE / "handoff.json").relative_to(ROOT))), "base": base,
+        "before": {"methods": 10, "failure_entries": 4, "errors": 0}, "after": {"methods": 10, "failures": 0, "errors": 0}}))
+
+
+if __name__ == "__main__":
+    main()

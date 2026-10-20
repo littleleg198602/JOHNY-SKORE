@@ -1,0 +1,11 @@
+{
+  "scope": "All standard file-pin declarations in active and historical handoff JSONs; no substituted bytes counted",
+  "unresolved": [
+    {
+      "declared_in": "evidence/batch11_windows_analysis_peer_20261019/pre_discovery_guard_handoff.json",
+      "path": "evidence/batch11_windows_analysis_peer_20261019/finalize_handoff.py",
+      "bytes": 6210,
+      "sha256": "fea50ee44e382da4dd81e473fc3d5bea303ba8afeeb289986a29525bc2fe5dcd"
+    }
+  ]
+}

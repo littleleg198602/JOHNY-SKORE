@@ -1,0 +1,14 @@
+{
+  "scope": "Pre-peer audit producer; narrower handoff*.json selection before adding *handoff*.json historical documentation copies",
+  "producer": {
+    "path": "evidence/batch11_coordinator_20261018/audit_pre_peer_producer.py",
+    "bytes": 6954,
+    "sha256": "58e9216d5ed2ed9a0b5f30f3773c32af81fe59c2b759c7863c904f3fc7ec1332"
+  },
+  "original_result": {
+    "path": "evidence/batch11_coordinator_20261018/content_audit_pre_peer.json",
+    "bytes": 50436,
+    "sha256": "873b7f1ac1463912e26b17bbd8e309a012fe2ae9184bb57bac3ea6570ed23e28"
+  },
+  "historical_document_recovery_not_preexisting_base_file": true
+}

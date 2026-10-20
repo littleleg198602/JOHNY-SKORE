@@ -1,0 +1,60 @@
+{
+  "HTTP_collector_search_DB_quota_or_registry_actions": 0,
+  "actual_plan": {
+    "bytes": 1012,
+    "path": "evidence/batch11_regulatory_20261018/actual_review_plan.json",
+    "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+  },
+  "all_preexisting_tracked_files_unchanged_in_Git_diff": true,
+  "four_whole_withheld_body_paths_absent": [
+    "evidence/batch4_regulatory_20261013/raw/nhtsa_api_docs.html",
+    "evidence/batch4_ir_20261013/primary/ir_authority.html",
+    "evidence/batch5_ir_20261014/primary/ir_authority.html",
+    "evidence/batch8_regulatory_20261015/raw/njd_case_page.html"
+  ],
+  "no_substitute_body_or_program_facts_created": true,
+  "original_body_length_unknown": true,
+  "original_metadata_body_hash_preserved": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+  "original_metadata_capture_clock_preserved": "2026-10-02T11:52:53+00:00",
+  "physical_call_returned_at": "2026-10-18T19:30:41.971852+00:00",
+  "physical_call_started_at": "2026-10-18T19:30:41.971402+00:00",
+  "physical_completion_known_at": "2026-10-18T19:30:41.971838+00:00",
+  "physical_review_started_at": "2026-10-18T19:30:41.971790+00:00",
+  "referenced_prior_files_exact_base_blobs": [
+    {
+      "bytes": 2332,
+      "path": "evidence/batch6_regulatory_20261014/capture_plan.json",
+      "sha256": "c8021278abc4a4aa3d4e0f354d1c8c2012128d79f37c9e577ba2ec0a5331edcf"
+    },
+    {
+      "bytes": 1574,
+      "path": "evidence/epa_echo_live_20261002.json",
+      "sha256": "8b6a2c94eccee5b32d2cc4796c7cd103e0b72baec44f969498dc30dcf5a07341"
+    },
+    {
+      "bytes": 446,
+      "path": "evidence/batch6_regulatory_20261014/proposal.json",
+      "sha256": "5957d57998edd221db17f639a7a598709f2205652a7467755c475e2448576be9"
+    },
+    {
+      "bytes": 11900,
+      "path": "evidence/batch6_regulatory_20261014/handoff.json",
+      "sha256": "9c4c4669dfb8b7d51f5a16760c8d919e83022eba51317ae6ce3c4cba191ac2f0"
+    }
+  ],
+  "report": {
+    "bytes": 2070,
+    "path": "evidence/batch11_regulatory_20261018/reviews/cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8/review.json",
+    "sha256": "cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8"
+  },
+  "source_availability": {
+    "bytes": 1550,
+    "path": "evidence/batch11_regulatory_20261018/source_availability.json",
+    "sha256": "3584c7037a5cac25bdcb925dc0cac0cd738ae24a93e01bbb4675ed8a753cebf0"
+  },
+  "source_read_cutoff": "2026-10-18T19:30:41.971790+00:00",
+  "source_test_sha256": {
+    "market_checker_app/services/epa_frs_program_scope_review.py": "d32d7e3473a05b312cdf0f3dfee0caa5526c164de270c3e13f0fb5351ab6600b",
+    "tests/test_epa_frs_program_scope_review.py": "103381ded3f1449923b94d18046d07e787c3c9dc5b8bccdc505834ac6f5e57cc"
+  }
+}

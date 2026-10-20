@@ -1,0 +1,16 @@
+{
+  "confirmed_historical_gap": "pre_universe_context_handoff.json former README:2839B/f1a8e06c\u2026 not retained at current README path",
+  "frozen_verifier": {
+    "bytes": 30570,
+    "path": "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v2.py",
+    "sha256": "fe43caf001b9dccb54cc2395c24bc8722bf63092c0a31c57c8b658e1ccbdf497"
+  },
+  "kind": "PEER_PIN_RESOLUTION_DIAGNOSTIC",
+  "observed_dry_run_findings": 7,
+  "other_dry_run_items": "five declarations resolve to explicit historical report/diagnostic/replay/validation copies; one is raw-body hash vs separate gzip archive semantics",
+  "producer_source_or_retained_inputs_changed": false,
+  "record_is_diagnostic_summary_not_original_console_bytes": true,
+  "recorded_at": "2026-10-19T00:49:08.115898+00:00",
+  "reported_to_parent_before_source_or_evidence_changes": true,
+  "tests_HTTP_DB_actions": 0
+}

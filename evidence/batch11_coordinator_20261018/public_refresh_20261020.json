@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-10-20T07:51:18.384337+00:00",
+  "public_PR_head": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "PR_open": true,
+  "PR_merged": false,
+  "actual_main": "ebb63a4b666908ce176e92ea7dffd6e74808caa9",
+  "previous_main": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "main_new_commits": [
+    "845d99ce60e276a506b3f911cf3d0ddbfdd8d7fb",
+    "ebb63a4b666908ce176e92ea7dffd6e74808caa9"
+  ],
+  "only_main_changed_paths": [
+    "tests/dji_holder.3mf",
+    "tests/dji_holder.zip"
+  ],
+  "PR_mergeable": true,
+  "merge_authorized": false,
+  "no_main_files_overwritten_or_copied": true
+}

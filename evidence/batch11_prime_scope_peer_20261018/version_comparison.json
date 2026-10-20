@@ -1,0 +1,1020 @@
+{
+  "active35_was_never_reverted": true,
+  "current35_source_sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f",
+  "cursor_guard_was_independently_qualified_before_peer_execution": true,
+  "db_operations": 0,
+  "executed_at": "2026-10-19T00:37:05.254451+00:00",
+  "historical34_is_the_owner_preserved_exact_hash_reconstruction": true,
+  "historical34_source_sha256": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1",
+  "input_source_pins": {
+    "historical_cross_page_cursor_case": {
+      "body_1": {
+        "bytes": 569,
+        "sha256": "fcb4e90d1df6022ec19be542a0e952b83a835d3e62a59b652fbb1c6dea017418"
+      },
+      "body_2": {
+        "bytes": 569,
+        "sha256": "aadcc3fad5c5aa5a3845a6c26259b17df361be21404140774aa2b00823525be2"
+      },
+      "manifest_1": {
+        "bytes": 1113,
+        "sha256": "faa5ab2bf37cfce6647200292a866dc9aad6c731fb00cb14d5bbd973dc4ad642"
+      },
+      "manifest_2": {
+        "bytes": 1113,
+        "sha256": "a9336ff0d3107be475e3c61332fe47f160fd95abefade0df00bb0aebff40ec50"
+      }
+    },
+    "same_hash_consistent_wrong_page_body_splice": {
+      "body_1": {
+        "bytes": 569,
+        "sha256": "2fe73e17e432e615218e3ec2375efe794b7107f9cb5c4607722e20deeb2ba501"
+      },
+      "body_2": {
+        "bytes": 569,
+        "sha256": "2fe73e17e432e615218e3ec2375efe794b7107f9cb5c4607722e20deeb2ba501"
+      },
+      "manifest_1": {
+        "bytes": 1113,
+        "sha256": "5084b2c1bfdb3c5db2606697b4b85b1b83d29574e0e621fb8395bd43f1fedabc"
+      },
+      "manifest_2": {
+        "bytes": 1113,
+        "sha256": "7b577301a8d9217e5a3f364598a2855bf3780368b79843dd649ab0e4d6ff71a2"
+      }
+    },
+    "valid_two_page_control": {
+      "body_1": {
+        "bytes": 569,
+        "sha256": "fcb4e90d1df6022ec19be542a0e952b83a835d3e62a59b652fbb1c6dea017418"
+      },
+      "body_2": {
+        "bytes": 569,
+        "sha256": "2fe73e17e432e615218e3ec2375efe794b7107f9cb5c4607722e20deeb2ba501"
+      },
+      "manifest_1": {
+        "bytes": 1113,
+        "sha256": "faa5ab2bf37cfce6647200292a866dc9aad6c731fb00cb14d5bbd973dc4ad642"
+      },
+      "manifest_2": {
+        "bytes": 1113,
+        "sha256": "7b577301a8d9217e5a3f364598a2855bf3780368b79843dd649ab0e4d6ff71a2"
+      }
+    }
+  },
+  "new_source_requests": 0,
+  "owner_commit": "cc23d43adc44839a16d33464a7d8bc56a3700e8d",
+  "owner_current35_qualification_at": "2026-10-18T19:33:44.006644+00:00",
+  "peer_did_not_cause_owner_cursor_fix": true,
+  "results": {
+    "committed_current35": {
+      "historical_cross_page_cursor_case": {
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "award_observations": [],
+        "collector_requests": 0,
+        "db_operations": 0,
+        "earlier_uei_relationship_inferred": false,
+        "first_or_last_revision_verified": false,
+        "genuine_negative_verified": false,
+        "historical_availability_reconstructed": false,
+        "issuer_coverage_complete": false,
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "legacy_observations": [],
+        "missing_evidence": [],
+        "observed_page_chain_complete": false,
+        "pages": [],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_revision_semantics_verified": false,
+        "query_complete": false,
+        "query_scope": {
+          "fields": [
+            "Award ID",
+            "Recipient Name",
+            "Recipient UEI",
+            "generated_internal_id",
+            "Start Date",
+            "Award Amount",
+            "Total Outlays",
+            "Last Modified Date",
+            "Awarding Agency",
+            "Contract Award Type"
+          ],
+          "filters": {
+            "award_type_codes": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "recipient_search_text": [
+              "ABCDEFGHIJKL"
+            ],
+            "time_period": [
+              {
+                "end_date": "2026-10-01",
+                "start_date": "2026-01-01"
+              }
+            ]
+          },
+          "limit": 2,
+          "order": "desc",
+          "sort": "Last Modified Date"
+        },
+        "quota_operations": 0,
+        "reason": "PRIME_LAST_RECORD_CURSOR_CONFLICT",
+        "recipient_legal_identity_verified": false,
+        "recipient_scope": {
+          "recipient_name": "SYNTHETIC RECIPIENT",
+          "uei": "ABCDEFGHIJKL"
+        },
+        "registry_adoptions": 0,
+        "reported_totals_stable": false,
+        "revenue_or_cumulative_difference_inferred": false,
+        "review_available_at": "2026-10-19T12:00:00+00:00",
+        "review_ingested_at": "2026-10-19T12:00:00+00:00",
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "usaspending-original-prime-scope-v1",
+        "scoring_applied": false,
+        "selected_award_absence_verified": false,
+        "selected_award_ids": [
+          "CONT_AWD_TEST1_9700_PARENT_9700"
+        ],
+        "source_http_requests": 0,
+        "source_manifest_is_publisher_signed": false,
+        "source_read_cutoff": "2026-10-19T12:00:00+00:00",
+        "source_revision_history_complete": false,
+        "source_sort_order_verified": false,
+        "status": "REJECTED",
+        "synthetic_page_chain_complete": false,
+        "total_count_semantics_verified": false,
+        "trading_allowed": false
+      },
+      "same_hash_consistent_wrong_page_body_splice": {
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "award_observations": [],
+        "collector_requests": 0,
+        "db_operations": 0,
+        "earlier_uei_relationship_inferred": false,
+        "first_or_last_revision_verified": false,
+        "genuine_negative_verified": false,
+        "historical_availability_reconstructed": false,
+        "issuer_coverage_complete": false,
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "legacy_observations": [],
+        "missing_evidence": [],
+        "observed_page_chain_complete": false,
+        "pages": [],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_revision_semantics_verified": false,
+        "query_complete": false,
+        "query_scope": {
+          "fields": [
+            "Award ID",
+            "Recipient Name",
+            "Recipient UEI",
+            "generated_internal_id",
+            "Start Date",
+            "Award Amount",
+            "Total Outlays",
+            "Last Modified Date",
+            "Awarding Agency",
+            "Contract Award Type"
+          ],
+          "filters": {
+            "award_type_codes": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "recipient_search_text": [
+              "ABCDEFGHIJKL"
+            ],
+            "time_period": [
+              {
+                "end_date": "2026-10-01",
+                "start_date": "2026-01-01"
+              }
+            ]
+          },
+          "limit": 2,
+          "order": "desc",
+          "sort": "Last Modified Date"
+        },
+        "quota_operations": 0,
+        "reason": "INVALID_PRIME_RESPONSE_PAGINATION",
+        "recipient_legal_identity_verified": false,
+        "recipient_scope": {
+          "recipient_name": "SYNTHETIC RECIPIENT",
+          "uei": "ABCDEFGHIJKL"
+        },
+        "registry_adoptions": 0,
+        "reported_totals_stable": false,
+        "revenue_or_cumulative_difference_inferred": false,
+        "review_available_at": "2026-10-19T12:00:00+00:00",
+        "review_ingested_at": "2026-10-19T12:00:00+00:00",
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "usaspending-original-prime-scope-v1",
+        "scoring_applied": false,
+        "selected_award_absence_verified": false,
+        "selected_award_ids": [
+          "CONT_AWD_TEST1_9700_PARENT_9700"
+        ],
+        "source_http_requests": 0,
+        "source_manifest_is_publisher_signed": false,
+        "source_read_cutoff": "2026-10-19T12:00:00+00:00",
+        "source_revision_history_complete": false,
+        "source_sort_order_verified": false,
+        "status": "REJECTED",
+        "synthetic_page_chain_complete": false,
+        "total_count_semantics_verified": false,
+        "trading_allowed": false
+      },
+      "valid_two_page_control": {
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "award_observations": [
+          {
+            "award_id": "PEER1",
+            "generated_internal_id": "CONT_AWD_PEER1_9700_PARENT_9700",
+            "modified_clock": {
+              "publisher_revision_time_verified": false,
+              "raw": "2026-09-30 12:03:00",
+              "status": "TIMEZONE_UNKNOWN",
+              "utc": null
+            },
+            "publisher_revision_order_verified": false,
+            "recipient_uei": "ABCDEFGHIJKL",
+            "row_index": 0,
+            "source_page": 1,
+            "source_row_sha256": "ebb43291d44915c2c72d926e5c65f97fc6dd4c52fc5be5d098f2dec0828057b1"
+          },
+          {
+            "award_id": "PEER2",
+            "generated_internal_id": "CONT_AWD_PEER2_9700_PARENT_9700",
+            "modified_clock": {
+              "publisher_revision_time_verified": false,
+              "raw": "2026-09-30 12:03:00",
+              "status": "TIMEZONE_UNKNOWN",
+              "utc": null
+            },
+            "publisher_revision_order_verified": false,
+            "recipient_uei": "ABCDEFGHIJKL",
+            "row_index": 0,
+            "source_page": 2,
+            "source_row_sha256": "4d93ade1ca343b51307eb0063d3cd717874cd9988462b78b012ed8aa7cebe289"
+          }
+        ],
+        "collector_requests": 0,
+        "db_operations": 0,
+        "earlier_uei_relationship_inferred": false,
+        "first_or_last_revision_verified": false,
+        "genuine_negative_verified": false,
+        "historical_availability_reconstructed": false,
+        "issuer_coverage_complete": false,
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "legacy_observations": [],
+        "missing_evidence": [],
+        "observed_page_chain_complete": true,
+        "pages": [
+          {
+            "body_bytes": 569,
+            "body_capture": "body_1",
+            "body_sha256": "fcb4e90d1df6022ec19be542a0e952b83a835d3e62a59b652fbb1c6dea017418",
+            "capture_origin": "LIVE",
+            "has_next": true,
+            "manifest_capture": "manifest_1",
+            "manifest_sha256": "faa5ab2bf37cfce6647200292a866dc9aad6c731fb00cb14d5bbd973dc4ad642",
+            "original_response_known_at": "2026-10-01T12:00:01+00:00",
+            "page": 1,
+            "reported_rows": 1,
+            "reported_total": 2,
+            "request": {
+              "fields": [
+                "Award ID",
+                "Recipient Name",
+                "Recipient UEI",
+                "generated_internal_id",
+                "Start Date",
+                "Award Amount",
+                "Total Outlays",
+                "Last Modified Date",
+                "Awarding Agency",
+                "Contract Award Type"
+              ],
+              "filters": {
+                "award_type_codes": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "recipient_search_text": [
+                  "ABCDEFGHIJKL"
+                ],
+                "time_period": [
+                  {
+                    "end_date": "2026-10-01",
+                    "start_date": "2026-01-01"
+                  }
+                ]
+              },
+              "limit": 2,
+              "order": "desc",
+              "page": 1,
+              "sort": "Last Modified Date"
+            },
+            "request_sha256": "d9dbbecd2694b54d1c8bfa037a8e46390263a55359cbdae493c3b712aa6d77d1",
+            "request_started_at": "2026-10-01T12:00:00+00:00",
+            "response_completed_at": "2026-10-01T12:00:01+00:00",
+            "retained_artifact_known_at": null,
+            "source_known_at": "2026-10-01T12:00:01+00:00"
+          },
+          {
+            "body_bytes": 569,
+            "body_capture": "body_2",
+            "body_sha256": "2fe73e17e432e615218e3ec2375efe794b7107f9cb5c4607722e20deeb2ba501",
+            "capture_origin": "LIVE",
+            "has_next": false,
+            "manifest_capture": "manifest_2",
+            "manifest_sha256": "7b577301a8d9217e5a3f364598a2855bf3780368b79843dd649ab0e4d6ff71a2",
+            "original_response_known_at": "2026-10-01T12:00:04+00:00",
+            "page": 2,
+            "reported_rows": 1,
+            "reported_total": 2,
+            "request": {
+              "fields": [
+                "Award ID",
+                "Recipient Name",
+                "Recipient UEI",
+                "generated_internal_id",
+                "Start Date",
+                "Award Amount",
+                "Total Outlays",
+                "Last Modified Date",
+                "Awarding Agency",
+                "Contract Award Type"
+              ],
+              "filters": {
+                "award_type_codes": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "recipient_search_text": [
+                  "ABCDEFGHIJKL"
+                ],
+                "time_period": [
+                  {
+                    "end_date": "2026-10-01",
+                    "start_date": "2026-01-01"
+                  }
+                ]
+              },
+              "limit": 2,
+              "order": "desc",
+              "page": 2,
+              "sort": "Last Modified Date"
+            },
+            "request_sha256": "5045b9622372fd53d20973e96ee95ac6335314a3645aba157e63fd4343cffd73",
+            "request_started_at": "2026-10-01T12:00:03+00:00",
+            "response_completed_at": "2026-10-01T12:00:04+00:00",
+            "retained_artifact_known_at": null,
+            "source_known_at": "2026-10-01T12:00:04+00:00"
+          }
+        ],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_revision_semantics_verified": false,
+        "query_complete": false,
+        "query_completeness_blockers": [
+          "NO_PUBLISHER_PINNED_SNAPSHOT_OR_TOTAL_REVISION_SEMANTICS",
+          "OFFSET_TERMINAL_PAGE_IS_NOT_FULL_HISTORY_OR_GENUINE_NEGATIVE_EVIDENCE"
+        ],
+        "query_scope": {
+          "fields": [
+            "Award ID",
+            "Recipient Name",
+            "Recipient UEI",
+            "generated_internal_id",
+            "Start Date",
+            "Award Amount",
+            "Total Outlays",
+            "Last Modified Date",
+            "Awarding Agency",
+            "Contract Award Type"
+          ],
+          "filters": {
+            "award_type_codes": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "recipient_search_text": [
+              "ABCDEFGHIJKL"
+            ],
+            "time_period": [
+              {
+                "end_date": "2026-10-01",
+                "start_date": "2026-01-01"
+              }
+            ]
+          },
+          "limit": 2,
+          "order": "desc",
+          "sort": "Last Modified Date"
+        },
+        "quota_operations": 0,
+        "reason": "",
+        "recipient_legal_identity_verified": false,
+        "recipient_scope": {
+          "recipient_name": "SYNTHETIC RECIPIENT",
+          "uei": "ABCDEFGHIJKL"
+        },
+        "registry_adoptions": 0,
+        "reported_totals_stable": true,
+        "reported_unique_awards": 2,
+        "revenue_or_cumulative_difference_inferred": false,
+        "review_available_at": "2026-10-19T12:00:00+00:00",
+        "review_ingested_at": "2026-10-19T12:00:00+00:00",
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "usaspending-original-prime-scope-v1",
+        "scoring_applied": false,
+        "selected_award_absence_verified": false,
+        "selected_award_ids": [
+          "CONT_AWD_TEST1_9700_PARENT_9700"
+        ],
+        "selected_award_presence": [
+          {
+            "absence_verified": false,
+            "generated_internal_id": "CONT_AWD_TEST1_9700_PARENT_9700",
+            "observation": "NOT_OBSERVED_IN_AVAILABLE_PAGES"
+          }
+        ],
+        "source_http_requests": 0,
+        "source_inputs_known_at": "2026-10-01T12:00:04+00:00",
+        "source_manifest_is_publisher_signed": false,
+        "source_origin": "ORIGINAL_CAPTURE_RECORDS",
+        "source_read_cutoff": "2026-10-19T12:00:00+00:00",
+        "source_revision_history_complete": false,
+        "source_sort_order_verified": false,
+        "status": "TRAVERSAL_REVIEWED",
+        "synthetic_page_chain_complete": false,
+        "total_count_semantics_verified": false,
+        "trading_allowed": false
+      }
+    },
+    "inactive_historical34": {
+      "historical_cross_page_cursor_case": {
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "award_observations": [
+          {
+            "award_id": "PEER1",
+            "generated_internal_id": "CONT_AWD_PEER1_9700_PARENT_9700",
+            "modified_clock": {
+              "publisher_revision_time_verified": false,
+              "raw": "2026-09-30 12:03:00",
+              "status": "TIMEZONE_UNKNOWN",
+              "utc": null
+            },
+            "publisher_revision_order_verified": false,
+            "recipient_uei": "ABCDEFGHIJKL",
+            "row_index": 0,
+            "source_page": 1,
+            "source_row_sha256": "ebb43291d44915c2c72d926e5c65f97fc6dd4c52fc5be5d098f2dec0828057b1"
+          },
+          {
+            "award_id": "PEER2",
+            "generated_internal_id": "CONT_AWD_PEER2_9700_PARENT_9700",
+            "modified_clock": {
+              "publisher_revision_time_verified": false,
+              "raw": "2026-09-30 12:03:00",
+              "status": "TIMEZONE_UNKNOWN",
+              "utc": null
+            },
+            "publisher_revision_order_verified": false,
+            "recipient_uei": "ABCDEFGHIJKL",
+            "row_index": 0,
+            "source_page": 2,
+            "source_row_sha256": "4d93ade1ca343b51307eb0063d3cd717874cd9988462b78b012ed8aa7cebe289"
+          }
+        ],
+        "collector_requests": 0,
+        "db_operations": 0,
+        "earlier_uei_relationship_inferred": false,
+        "first_or_last_revision_verified": false,
+        "genuine_negative_verified": false,
+        "historical_availability_reconstructed": false,
+        "issuer_coverage_complete": false,
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "legacy_observations": [],
+        "missing_evidence": [],
+        "observed_page_chain_complete": true,
+        "pages": [
+          {
+            "body_bytes": 569,
+            "body_capture": "body_1",
+            "body_sha256": "fcb4e90d1df6022ec19be542a0e952b83a835d3e62a59b652fbb1c6dea017418",
+            "capture_origin": "LIVE",
+            "has_next": true,
+            "manifest_capture": "manifest_1",
+            "manifest_sha256": "faa5ab2bf37cfce6647200292a866dc9aad6c731fb00cb14d5bbd973dc4ad642",
+            "original_response_known_at": "2026-10-01T12:00:01+00:00",
+            "page": 1,
+            "reported_rows": 1,
+            "reported_total": 2,
+            "request": {
+              "fields": [
+                "Award ID",
+                "Recipient Name",
+                "Recipient UEI",
+                "generated_internal_id",
+                "Start Date",
+                "Award Amount",
+                "Total Outlays",
+                "Last Modified Date",
+                "Awarding Agency",
+                "Contract Award Type"
+              ],
+              "filters": {
+                "award_type_codes": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "recipient_search_text": [
+                  "ABCDEFGHIJKL"
+                ],
+                "time_period": [
+                  {
+                    "end_date": "2026-10-01",
+                    "start_date": "2026-01-01"
+                  }
+                ]
+              },
+              "limit": 2,
+              "order": "desc",
+              "page": 1,
+              "sort": "Last Modified Date"
+            },
+            "request_sha256": "d9dbbecd2694b54d1c8bfa037a8e46390263a55359cbdae493c3b712aa6d77d1",
+            "request_started_at": "2026-10-01T12:00:00+00:00",
+            "response_completed_at": "2026-10-01T12:00:01+00:00",
+            "retained_artifact_known_at": null,
+            "source_known_at": "2026-10-01T12:00:01+00:00"
+          },
+          {
+            "body_bytes": 569,
+            "body_capture": "body_2",
+            "body_sha256": "aadcc3fad5c5aa5a3845a6c26259b17df361be21404140774aa2b00823525be2",
+            "capture_origin": "LIVE",
+            "has_next": false,
+            "manifest_capture": "manifest_2",
+            "manifest_sha256": "a9336ff0d3107be475e3c61332fe47f160fd95abefade0df00bb0aebff40ec50",
+            "original_response_known_at": "2026-10-01T12:00:04+00:00",
+            "page": 2,
+            "reported_rows": 1,
+            "reported_total": 2,
+            "request": {
+              "fields": [
+                "Award ID",
+                "Recipient Name",
+                "Recipient UEI",
+                "generated_internal_id",
+                "Start Date",
+                "Award Amount",
+                "Total Outlays",
+                "Last Modified Date",
+                "Awarding Agency",
+                "Contract Award Type"
+              ],
+              "filters": {
+                "award_type_codes": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "recipient_search_text": [
+                  "ABCDEFGHIJKL"
+                ],
+                "time_period": [
+                  {
+                    "end_date": "2026-10-01",
+                    "start_date": "2026-01-01"
+                  }
+                ]
+              },
+              "limit": 2,
+              "order": "desc",
+              "page": 2,
+              "sort": "Last Modified Date"
+            },
+            "request_sha256": "5045b9622372fd53d20973e96ee95ac6335314a3645aba157e63fd4343cffd73",
+            "request_started_at": "2026-10-01T12:00:03+00:00",
+            "response_completed_at": "2026-10-01T12:00:04+00:00",
+            "retained_artifact_known_at": null,
+            "source_known_at": "2026-10-01T12:00:04+00:00"
+          }
+        ],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_revision_semantics_verified": false,
+        "query_complete": false,
+        "query_completeness_blockers": [
+          "NO_PUBLISHER_PINNED_SNAPSHOT_OR_TOTAL_REVISION_SEMANTICS",
+          "OFFSET_TERMINAL_PAGE_IS_NOT_FULL_HISTORY_OR_GENUINE_NEGATIVE_EVIDENCE"
+        ],
+        "query_scope": {
+          "fields": [
+            "Award ID",
+            "Recipient Name",
+            "Recipient UEI",
+            "generated_internal_id",
+            "Start Date",
+            "Award Amount",
+            "Total Outlays",
+            "Last Modified Date",
+            "Awarding Agency",
+            "Contract Award Type"
+          ],
+          "filters": {
+            "award_type_codes": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "recipient_search_text": [
+              "ABCDEFGHIJKL"
+            ],
+            "time_period": [
+              {
+                "end_date": "2026-10-01",
+                "start_date": "2026-01-01"
+              }
+            ]
+          },
+          "limit": 2,
+          "order": "desc",
+          "sort": "Last Modified Date"
+        },
+        "quota_operations": 0,
+        "reason": "",
+        "recipient_legal_identity_verified": false,
+        "recipient_scope": {
+          "recipient_name": "SYNTHETIC RECIPIENT",
+          "uei": "ABCDEFGHIJKL"
+        },
+        "registry_adoptions": 0,
+        "reported_totals_stable": true,
+        "reported_unique_awards": 2,
+        "revenue_or_cumulative_difference_inferred": false,
+        "review_available_at": "2026-10-19T12:00:00+00:00",
+        "review_ingested_at": "2026-10-19T12:00:00+00:00",
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "usaspending-original-prime-scope-v1",
+        "scoring_applied": false,
+        "selected_award_absence_verified": false,
+        "selected_award_ids": [
+          "CONT_AWD_TEST1_9700_PARENT_9700"
+        ],
+        "selected_award_presence": [
+          {
+            "absence_verified": false,
+            "generated_internal_id": "CONT_AWD_TEST1_9700_PARENT_9700",
+            "observation": "NOT_OBSERVED_IN_AVAILABLE_PAGES"
+          }
+        ],
+        "source_http_requests": 0,
+        "source_inputs_known_at": "2026-10-01T12:00:04+00:00",
+        "source_manifest_is_publisher_signed": false,
+        "source_origin": "ORIGINAL_CAPTURE_RECORDS",
+        "source_read_cutoff": "2026-10-19T12:00:00+00:00",
+        "source_revision_history_complete": false,
+        "source_sort_order_verified": false,
+        "status": "TRAVERSAL_REVIEWED",
+        "synthetic_page_chain_complete": false,
+        "total_count_semantics_verified": false,
+        "trading_allowed": false
+      },
+      "same_hash_consistent_wrong_page_body_splice": {
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "award_observations": [],
+        "collector_requests": 0,
+        "db_operations": 0,
+        "earlier_uei_relationship_inferred": false,
+        "first_or_last_revision_verified": false,
+        "genuine_negative_verified": false,
+        "historical_availability_reconstructed": false,
+        "issuer_coverage_complete": false,
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "legacy_observations": [],
+        "missing_evidence": [],
+        "observed_page_chain_complete": false,
+        "pages": [],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_revision_semantics_verified": false,
+        "query_complete": false,
+        "query_scope": {
+          "fields": [
+            "Award ID",
+            "Recipient Name",
+            "Recipient UEI",
+            "generated_internal_id",
+            "Start Date",
+            "Award Amount",
+            "Total Outlays",
+            "Last Modified Date",
+            "Awarding Agency",
+            "Contract Award Type"
+          ],
+          "filters": {
+            "award_type_codes": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "recipient_search_text": [
+              "ABCDEFGHIJKL"
+            ],
+            "time_period": [
+              {
+                "end_date": "2026-10-01",
+                "start_date": "2026-01-01"
+              }
+            ]
+          },
+          "limit": 2,
+          "order": "desc",
+          "sort": "Last Modified Date"
+        },
+        "quota_operations": 0,
+        "reason": "INVALID_PRIME_RESPONSE_PAGINATION",
+        "recipient_legal_identity_verified": false,
+        "recipient_scope": {
+          "recipient_name": "SYNTHETIC RECIPIENT",
+          "uei": "ABCDEFGHIJKL"
+        },
+        "registry_adoptions": 0,
+        "reported_totals_stable": false,
+        "revenue_or_cumulative_difference_inferred": false,
+        "review_available_at": "2026-10-19T12:00:00+00:00",
+        "review_ingested_at": "2026-10-19T12:00:00+00:00",
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "usaspending-original-prime-scope-v1",
+        "scoring_applied": false,
+        "selected_award_absence_verified": false,
+        "selected_award_ids": [
+          "CONT_AWD_TEST1_9700_PARENT_9700"
+        ],
+        "source_http_requests": 0,
+        "source_manifest_is_publisher_signed": false,
+        "source_read_cutoff": "2026-10-19T12:00:00+00:00",
+        "source_revision_history_complete": false,
+        "source_sort_order_verified": false,
+        "status": "REJECTED",
+        "synthetic_page_chain_complete": false,
+        "total_count_semantics_verified": false,
+        "trading_allowed": false
+      },
+      "valid_two_page_control": {
+        "as_of": "2026-10-19T12:00:00+00:00",
+        "award_observations": [
+          {
+            "award_id": "PEER1",
+            "generated_internal_id": "CONT_AWD_PEER1_9700_PARENT_9700",
+            "modified_clock": {
+              "publisher_revision_time_verified": false,
+              "raw": "2026-09-30 12:03:00",
+              "status": "TIMEZONE_UNKNOWN",
+              "utc": null
+            },
+            "publisher_revision_order_verified": false,
+            "recipient_uei": "ABCDEFGHIJKL",
+            "row_index": 0,
+            "source_page": 1,
+            "source_row_sha256": "ebb43291d44915c2c72d926e5c65f97fc6dd4c52fc5be5d098f2dec0828057b1"
+          },
+          {
+            "award_id": "PEER2",
+            "generated_internal_id": "CONT_AWD_PEER2_9700_PARENT_9700",
+            "modified_clock": {
+              "publisher_revision_time_verified": false,
+              "raw": "2026-09-30 12:03:00",
+              "status": "TIMEZONE_UNKNOWN",
+              "utc": null
+            },
+            "publisher_revision_order_verified": false,
+            "recipient_uei": "ABCDEFGHIJKL",
+            "row_index": 0,
+            "source_page": 2,
+            "source_row_sha256": "4d93ade1ca343b51307eb0063d3cd717874cd9988462b78b012ed8aa7cebe289"
+          }
+        ],
+        "collector_requests": 0,
+        "db_operations": 0,
+        "earlier_uei_relationship_inferred": false,
+        "first_or_last_revision_verified": false,
+        "genuine_negative_verified": false,
+        "historical_availability_reconstructed": false,
+        "issuer_coverage_complete": false,
+        "knowledge_at": "2026-10-19T12:00:00+00:00",
+        "legacy_observations": [],
+        "missing_evidence": [],
+        "observed_page_chain_complete": true,
+        "pages": [
+          {
+            "body_bytes": 569,
+            "body_capture": "body_1",
+            "body_sha256": "fcb4e90d1df6022ec19be542a0e952b83a835d3e62a59b652fbb1c6dea017418",
+            "capture_origin": "LIVE",
+            "has_next": true,
+            "manifest_capture": "manifest_1",
+            "manifest_sha256": "faa5ab2bf37cfce6647200292a866dc9aad6c731fb00cb14d5bbd973dc4ad642",
+            "original_response_known_at": "2026-10-01T12:00:01+00:00",
+            "page": 1,
+            "reported_rows": 1,
+            "reported_total": 2,
+            "request": {
+              "fields": [
+                "Award ID",
+                "Recipient Name",
+                "Recipient UEI",
+                "generated_internal_id",
+                "Start Date",
+                "Award Amount",
+                "Total Outlays",
+                "Last Modified Date",
+                "Awarding Agency",
+                "Contract Award Type"
+              ],
+              "filters": {
+                "award_type_codes": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "recipient_search_text": [
+                  "ABCDEFGHIJKL"
+                ],
+                "time_period": [
+                  {
+                    "end_date": "2026-10-01",
+                    "start_date": "2026-01-01"
+                  }
+                ]
+              },
+              "limit": 2,
+              "order": "desc",
+              "page": 1,
+              "sort": "Last Modified Date"
+            },
+            "request_sha256": "d9dbbecd2694b54d1c8bfa037a8e46390263a55359cbdae493c3b712aa6d77d1",
+            "request_started_at": "2026-10-01T12:00:00+00:00",
+            "response_completed_at": "2026-10-01T12:00:01+00:00",
+            "retained_artifact_known_at": null,
+            "source_known_at": "2026-10-01T12:00:01+00:00"
+          },
+          {
+            "body_bytes": 569,
+            "body_capture": "body_2",
+            "body_sha256": "2fe73e17e432e615218e3ec2375efe794b7107f9cb5c4607722e20deeb2ba501",
+            "capture_origin": "LIVE",
+            "has_next": false,
+            "manifest_capture": "manifest_2",
+            "manifest_sha256": "7b577301a8d9217e5a3f364598a2855bf3780368b79843dd649ab0e4d6ff71a2",
+            "original_response_known_at": "2026-10-01T12:00:04+00:00",
+            "page": 2,
+            "reported_rows": 1,
+            "reported_total": 2,
+            "request": {
+              "fields": [
+                "Award ID",
+                "Recipient Name",
+                "Recipient UEI",
+                "generated_internal_id",
+                "Start Date",
+                "Award Amount",
+                "Total Outlays",
+                "Last Modified Date",
+                "Awarding Agency",
+                "Contract Award Type"
+              ],
+              "filters": {
+                "award_type_codes": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "recipient_search_text": [
+                  "ABCDEFGHIJKL"
+                ],
+                "time_period": [
+                  {
+                    "end_date": "2026-10-01",
+                    "start_date": "2026-01-01"
+                  }
+                ]
+              },
+              "limit": 2,
+              "order": "desc",
+              "page": 2,
+              "sort": "Last Modified Date"
+            },
+            "request_sha256": "5045b9622372fd53d20973e96ee95ac6335314a3645aba157e63fd4343cffd73",
+            "request_started_at": "2026-10-01T12:00:03+00:00",
+            "response_completed_at": "2026-10-01T12:00:04+00:00",
+            "retained_artifact_known_at": null,
+            "source_known_at": "2026-10-01T12:00:04+00:00"
+          }
+        ],
+        "pagination_snapshot_guaranteed": false,
+        "publisher_revision_semantics_verified": false,
+        "query_complete": false,
+        "query_completeness_blockers": [
+          "NO_PUBLISHER_PINNED_SNAPSHOT_OR_TOTAL_REVISION_SEMANTICS",
+          "OFFSET_TERMINAL_PAGE_IS_NOT_FULL_HISTORY_OR_GENUINE_NEGATIVE_EVIDENCE"
+        ],
+        "query_scope": {
+          "fields": [
+            "Award ID",
+            "Recipient Name",
+            "Recipient UEI",
+            "generated_internal_id",
+            "Start Date",
+            "Award Amount",
+            "Total Outlays",
+            "Last Modified Date",
+            "Awarding Agency",
+            "Contract Award Type"
+          ],
+          "filters": {
+            "award_type_codes": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ],
+            "recipient_search_text": [
+              "ABCDEFGHIJKL"
+            ],
+            "time_period": [
+              {
+                "end_date": "2026-10-01",
+                "start_date": "2026-01-01"
+              }
+            ]
+          },
+          "limit": 2,
+          "order": "desc",
+          "sort": "Last Modified Date"
+        },
+        "quota_operations": 0,
+        "reason": "",
+        "recipient_legal_identity_verified": false,
+        "recipient_scope": {
+          "recipient_name": "SYNTHETIC RECIPIENT",
+          "uei": "ABCDEFGHIJKL"
+        },
+        "registry_adoptions": 0,
+        "reported_totals_stable": true,
+        "reported_unique_awards": 2,
+        "revenue_or_cumulative_difference_inferred": false,
+        "review_available_at": "2026-10-19T12:00:00+00:00",
+        "review_ingested_at": "2026-10-19T12:00:00+00:00",
+        "review_started_at": "2026-10-19T12:00:00+00:00",
+        "schema_version": "usaspending-original-prime-scope-v1",
+        "scoring_applied": false,
+        "selected_award_absence_verified": false,
+        "selected_award_ids": [
+          "CONT_AWD_TEST1_9700_PARENT_9700"
+        ],
+        "selected_award_presence": [
+          {
+            "absence_verified": false,
+            "generated_internal_id": "CONT_AWD_TEST1_9700_PARENT_9700",
+            "observation": "NOT_OBSERVED_IN_AVAILABLE_PAGES"
+          }
+        ],
+        "source_http_requests": 0,
+        "source_inputs_known_at": "2026-10-01T12:00:04+00:00",
+        "source_manifest_is_publisher_signed": false,
+        "source_origin": "ORIGINAL_CAPTURE_RECORDS",
+        "source_read_cutoff": "2026-10-19T12:00:00+00:00",
+        "source_revision_history_complete": false,
+        "source_sort_order_verified": false,
+        "status": "TRAVERSAL_REVIEWED",
+        "synthetic_page_chain_complete": false,
+        "total_count_semantics_verified": false,
+        "trading_allowed": false
+      }
+    }
+  },
+  "schema_version": "prime_scope_independent_version_comparison_v1",
+  "synthetic_fixtures_are_source_acceptance": false,
+  "synthetic_injected_review_clock": "2026-10-19T12:00:00+00:00"
+}

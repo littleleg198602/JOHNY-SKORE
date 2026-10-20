@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-10-18T19:32:33.350510+00:00",
+  "initial_23_case_pass": {
+    "path": "evidence/batch11_healthcare_20261018/initial.json",
+    "sha256": "0d7033bf06ebaeb783305bdaffacb6049e18e85bea2f44b2b57c89dc7066d8b9",
+    "bytes": 725
+  },
+  "application_diff_fixture_failures": {
+    "path": "evidence/batch11_healthcare_20261018/final.json",
+    "sha256": "bac81cafb7613608e321e739f81141b85528d11e13061e867011aa8254ba6689",
+    "bytes": 1190
+  },
+  "failure_trigger": "The exact synthetic fixture contains 420MG; a trigger looking for 420 MG changed no bytes. The second test therefore reobserved an identical version.",
+  "correction": "Use the exact existing fixture literal 420MG -> 421MG and assert raw version inequality. No production/parser or original source data were relaxed.",
+  "failed_tests_bytes": {
+    "path": "evidence/batch11_healthcare_20261018/application_comparison_fixture_failure_tests.py.txt",
+    "sha256": "50c293b527180b4d19816bed4f97444cb399b02d0b7fed2900ef7afa953455be",
+    "bytes": 20715
+  },
+  "qualified_26_case_pass": {
+    "path": "evidence/batch11_healthcare_20261018/qualified.json",
+    "sha256": "56c80309657f6fcde3521559e8021223ec20b272e221f475c8312804892e6f7d",
+    "bytes": 723
+  },
+  "synthetic_contract_cases_not_LIVE": true
+}

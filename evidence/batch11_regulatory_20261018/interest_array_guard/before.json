@@ -1,0 +1,14 @@
+{
+  "HTTP_DB_quota_actions": 0,
+  "current_new_regression_sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2",
+  "errors": 0,
+  "executed": 1,
+  "failure_entries": 2,
+  "finished_at": "2026-10-18T19:32:04.615215+00:00",
+  "frozen_producer": "evidence/batch11_regulatory_20261018/source_versions/qualified_review.py",
+  "frozen_producer_sha256": "d32d7e3473a05b312cdf0f3dfee0caa5526c164de270c3e13f0fb5351ab6600b",
+  "interpretation": "old-version source-shape diagnostics; not current acceptance",
+  "log_sha256": "fd2b281ff2820d0feb4d813c424940b9540ddc3eb90c391a7a958e7559a389fb",
+  "skips": 0,
+  "started_at": "2026-10-18T19:32:04.608445+00:00"
+}

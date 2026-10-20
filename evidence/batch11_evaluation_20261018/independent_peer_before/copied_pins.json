@@ -1,0 +1,35 @@
+{
+  "scope": "BYTE_IDENTICAL_INDEPENDENT_PEER_BEFORE_REPRODUCTION",
+  "source_owner": "healthcare",
+  "files": {
+    "before_producer.py.txt": {
+      "bytes": 35117,
+      "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880"
+    },
+    "before_owner_tests.py.txt": {
+      "bytes": 31799,
+      "sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66"
+    },
+    "before_peer_tests.py.txt": {
+      "bytes": 8465,
+      "sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d"
+    },
+    "before_runner.py.txt": {
+      "bytes": 2954,
+      "sha256": "42acf879c4e1beb9ff47b4496e1ca3bff003dc453f6a6ea9318c5e0dca8cfb4e"
+    },
+    "before_snapshot.json": {
+      "bytes": 433,
+      "sha256": "f074bae07d636c6c4096137c151afdd3d8d04d845e877bb5c902a480e59f1bd7"
+    },
+    "before.json": {
+      "bytes": 1881,
+      "sha256": "7c960fadf935a6b17998fba49229314abdc509b55961b796fba847022987e755"
+    },
+    "before.log": {
+      "bytes": 6769,
+      "sha256": "8c095ce523f60e95f9e33f3eada41976c8137821c3716169c338c602ffee0b45"
+    }
+  },
+  "after_fix_independent_peer_run_pending_final_owner_commit": true
+}

@@ -1,0 +1,37 @@
+{
+  "HTTP_DB_source_calls": 0,
+  "executed_at": "2026-10-19T00:33:36.101887+00:00",
+  "full_staged_check": {
+    "command": [
+      "git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "stderr": "",
+    "stdout": "evidence/batch11_regulatory_20261018/interest_array_guard/before.log:1: trailing whitespace.\n+test_interest_child_collection_must_be_a_bounded_source_array (tests.test_epa_frs_program_scope_review.EpaFrsProgramScopeReviewTests.test_interest_child_collection_must_be_a_bounded_source_array) ... \n"
+  },
+  "interpretation": "one actual unittest subtest diagnostic trailing space is preserved; source/test/metadata pass unchanged",
+  "nonlog_staged_check": {
+    "command": [
+      "git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(exclude)evidence/batch11_regulatory_20261018/interest_array_guard/before.log"
+    ],
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  "original_failure_log": {
+    "bytes": 2201,
+    "path": "evidence/batch11_regulatory_20261018/interest_array_guard/before.log",
+    "sha256": "fd2b281ff2820d0feb4d813c424940b9540ddc3eb90c391a7a958e7559a389fb"
+  },
+  "original_log_normalized_trimmed_or_modified": false,
+  "successful_suite_repeated": false
+}

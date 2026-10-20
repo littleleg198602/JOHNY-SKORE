@@ -1,0 +1,321 @@
+{
+  "DB_quota_lease_mutations": 0,
+  "actual_new_http_requests": 0,
+  "comparison_account_disclosures": 1,
+  "full_specialist_acceptance": false,
+  "limits": [
+    "Literal YEAR bounds are calendar precision envelopes, not effective appointment or cessation dates",
+    "Proxy present is anchored only to 2025-10-21 and cannot extend to the 2026-08-31 transaction",
+    "The exact original XML transaction date is a declaration, not trade execution or natural-person identity",
+    "The Form4 reporting-owner role is as-filed scope, not continuous legal role at the transaction day",
+    "Named person/account-CIK/approved alias and independent exact role interval evidence are absent",
+    "The 110-byte publisher index/served-proxy conflict and UNKNOWN publication timezones remain",
+    "A newly ingested interpretation is available at physical completion, never at an older source/event day"
+  ],
+  "named_person_disclosures": 1,
+  "new_source_or_api_collection": false,
+  "new_verified_adoptions": 0,
+  "original_capture_receipts": {
+    "account_packet": {
+      "absolute_deadline_enforcement": "POSIX_SETITIMER",
+      "absolute_timeout_seconds": 25,
+      "application_collector_or_quota_db_used": false,
+      "complete_original_body_received": true,
+      "content_type": "text/plain",
+      "elapsed_seconds": 4.0020602550000035,
+      "http_date": "Fri, 16 Oct 2026 12:18:22 GMT",
+      "http_status": 200,
+      "last_modified": "Tue, 01 Sep 2026 22:08:45 GMT",
+      "maximum_original_body_bytes": 4000000,
+      "observed_at": "2026-10-16T12:18:22.843333+00:00",
+      "path": "primary/nadella_2026_form4_complete_packet.txt",
+      "purpose": "EXPLICIT_NEW_CURRENT_PACKET_DIAGNOSTIC",
+      "redirects_or_retries_allowed": false,
+      "research_plan_sha256": "7eafe06bf356a3fc1238ff0f452fe709deaaedd1efc7d252be3442452fc8313d",
+      "reserved_at": "2026-10-16T12:18:18.845488+00:00",
+      "retention": "ORIGINAL_BYTES",
+      "sequence": 1,
+      "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+      "size_bytes": 9665,
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt",
+      "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+    },
+    "index": {
+      "application_daily_quota_claim": false,
+      "content_type": "text/html",
+      "daily_history_reset_or_reconstructed": false,
+      "http_date": "Wed, 14 Oct 2026 23:26:39 GMT",
+      "http_status": 200,
+      "last_modified": "Tue, 21 Oct 2025 20:16:13 GMT",
+      "maximum_original_body_bytes": 4000000,
+      "observed_at": "2026-10-14T23:26:39.546292+00:00",
+      "original_retained_sec_lease_used": true,
+      "path": "primary/msft_2025_proxy_index.html",
+      "pre_request_cap_justification": null,
+      "redirects_or_retries_allowed": false,
+      "reserved_at": "2026-10-14T23:26:33.040431+00:00",
+      "retention": "ORIGINAL_BYTES",
+      "sequence": 1,
+      "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a",
+      "size_bytes": 33931,
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/0001193125-25-245150-index.html",
+      "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+    },
+    "primary": {
+      "application_daily_quota_claim": false,
+      "content_type": "text/html",
+      "daily_history_reset_or_reconstructed": false,
+      "http_date": "Wed, 14 Oct 2026 23:27:25 GMT",
+      "http_status": 200,
+      "last_modified": "Tue, 21 Oct 2025 20:16:54 GMT",
+      "maximum_original_body_bytes": 4000000,
+      "observed_at": "2026-10-14T23:27:25.325473+00:00",
+      "original_retained_sec_lease_used": true,
+      "path": "primary/msft_2025_proxy.htm",
+      "pre_request_cap_justification": null,
+      "redirects_or_retries_allowed": false,
+      "reserved_at": "2026-10-14T23:27:20.327804+00:00",
+      "retention": "ORIGINAL_BYTES",
+      "sequence": 2,
+      "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+      "size_bytes": 2430522,
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm",
+      "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+    }
+  },
+  "producer_pin": {
+    "bytes": 4207,
+    "sha256": "e66988b2e47666286b6fc73edf6447b258da7baf675c3d7204babc6b6e4f67ee"
+  },
+  "result": "CURRENT_TRANSACTION_AFTER_PROXY_ANCHOR_ROLE_AT_DAY_UNVERIFIED",
+  "retained_whole_originals": 3,
+  "review": {
+    "approved_name_alias": false,
+    "as_filed_account_role_is_transaction_day_role_proof": false,
+    "captures": {
+      "account_packet": {
+        "known_at": "2026-10-16T12:18:22.843333+00:00",
+        "observed_at": "2026-10-16T12:18:22.843333+00:00",
+        "record_id": "retained-role-source-account_packet",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+        "size_bytes": 9665,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt"
+      },
+      "index": {
+        "known_at": "2026-10-14T23:26:39.546292+00:00",
+        "observed_at": "2026-10-14T23:26:39.546292+00:00",
+        "record_id": "retained-role-source-index",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a",
+        "size_bytes": 33931,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/0001193125-25-245150-index.html"
+      },
+      "primary": {
+        "known_at": "2026-10-14T23:27:25.325473+00:00",
+        "observed_at": "2026-10-14T23:27:25.325473+00:00",
+        "record_id": "retained-role-source-primary",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+        "size_bytes": 2430522,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm"
+      }
+    },
+    "continuous_role_verified": false,
+    "cusip_class_validity_verified": false,
+    "exact_role_interval_verified": false,
+    "execution_verified": false,
+    "full_specialist_acceptance": false,
+    "gaps": [
+      "REQUESTED_DAY_AFTER_PROXY_ASSERTION_ANCHOR_NO_CONTINUITY",
+      "PUBLISHER_INDEX_SERVED_BODY_SIZE_CONFLICT_PRESERVED",
+      "INDEPENDENT_EXACT_PERSON_ACCOUNT_IDENTITY_NOT_SUPPLIED",
+      "INDEPENDENT_EXACT_ROLE_INTERVAL_NOT_SUPPLIED",
+      "ACCOUNT_ROLE_IS_AS_FILED_NOT_ROLE_AT_TRANSACTION_PROOF",
+      "YEAR_ENDPOINTS_AND_ROLE_CONTINUITY_UNVERIFIED",
+      "SOURCE_CAPTURE_DOES_NOT_ESTABLISH_HISTORICAL_AVAILABILITY",
+      "DECLARED_TRANSACTION_DATE_IS_NOT_EXECUTION_PROOF"
+    ],
+    "historical_machine_availability_inferred": false,
+    "instrument_identity_verified": false,
+    "issuer_attribution_allowed": false,
+    "known_at": "2026-10-18T19:33:35.091973+00:00",
+    "natural_person_account_binding_verified": false,
+    "network_requests_performed": 0,
+    "original_transaction_row_counts": {
+      "derivativeTransaction": 0,
+      "nonDerivativeTransaction": 2
+    },
+    "proxy_financial_period_used_as_role_validity_interval": false,
+    "quota_or_lease_modified": false,
+    "registry_modified": false,
+    "requested_knowledge_at": null,
+    "requested_transaction_binding_supported": true,
+    "review_available_at": "2026-10-18T19:33:35.091973+00:00",
+    "review_ingested_at": "2026-10-18T19:33:33.712249+00:00",
+    "review_version": "sec-whole-source-role-transaction-temporal-v1",
+    "role_assertion_provenance": {
+      "career_context_sha256": "624f79138718cf81b4803874b19724083c0f98a71f4e84cf2eec377ad9d911ce",
+      "career_locator": "table:164/row:2/cell:5",
+      "career_original_byte_end": 461232,
+      "career_original_byte_start": 459171,
+      "person_clause": {
+        "first_visible_data_byte_start": 456556,
+        "locator": "table:163",
+        "original_context_byte_end": 458252,
+        "original_context_byte_start": 455748,
+        "original_context_sha256": "132487efd0e794ed00457704c29384b4a529cca53beb3e157483986b6913f1dd",
+        "original_table_byte_start": 455748,
+        "quote": "Satya Nadella Age: 58 | Director Since: 2014 | Birthplace: India",
+        "quote_sha256": "bde3c6e3e444d19dd23b1be664a5e2afc7e453ca5315331952fd74d83ac470c3",
+        "table_number": 163,
+        "table_parent": 6155
+      }
+    },
+    "role_at_transaction_day_status": "UNVERIFIED",
+    "scoring_applied": false,
+    "selected_role_temporal_assertion": {
+      "assertion_kind": "COMBINED_ROLE_RANGE_ASSERTION",
+      "bounds_are_precision_envelopes_not_effective_role_dates": true,
+      "continuous_legal_interval_established": false,
+      "exact_role_at_day_established": false,
+      "exclusion_reasons": [
+        "REQUESTED_DAY_AFTER_PROXY_ASSERTION_ANCHOR_NO_CONTINUITY"
+      ],
+      "literal_source_clause": "Chairman and Chief Executive Officer (2021-present)",
+      "literal_title": "Chairman and Chief Executive Officer",
+      "precision_uncertainties": [],
+      "present_or_since_does_not_extend_through_capture_or_current_form4": true,
+      "source_assertion_temporally_compatible": false,
+      "source_extent_upper_day": "2025-10-21",
+      "source_extent_upper_is_cessation_date": false,
+      "source_temporal_fit": "OUTSIDE_SOURCE_ASSERTION_SCOPE",
+      "start_day_bounds": {
+        "earliest_start_day_in_stated_year": "2021-01-01",
+        "exact_appointment_day": null,
+        "latest_start_day_in_stated_year": "2021-12-31",
+        "legal_appointment_verified": false,
+        "precision": "YEAR"
+      },
+      "stated_end_day_bounds": null
+    },
+    "source_account": {
+      "acceptance_datetime_unqualified_raw": "20260901180827",
+      "accession": "0000789019-26-000157",
+      "filing_day": "2026-09-01",
+      "form": "4",
+      "issuer": {
+        "cik": "0000789019",
+        "name": "MICROSOFT CORP"
+      },
+      "natural_person_cik_binding_verified": false,
+      "original_packet_sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+      "period_day": "2026-08-31",
+      "publication_timezone": "UNKNOWN",
+      "reporting_account": {
+        "cik": "0001513142",
+        "name": "Nadella Satya"
+      },
+      "role_as_filed": {
+        "isDirector": "1",
+        "isOfficer": "1",
+        "isOther": "0",
+        "isTenPercentOwner": "0",
+        "officerTitle": "Chief Executive Officer"
+      },
+      "source_capture_at": "2026-10-16T12:18:22.843333+00:00"
+    },
+    "source_comparison": {
+      "account_packet_document_count_is_independent_disclosure_count": false,
+      "approved_person_or_issuer_name_alias": false,
+      "bio_person_name_equals_raw_account_name": false,
+      "distinct_accessions": true,
+      "distinct_disclosures_are_independent_legal_identity_proof": false,
+      "independent_natural_person_account_binding": false,
+      "issuer_cik_scope_equal": true,
+      "issuer_raw_names_equal": false,
+      "literal_officer_title_component_agreement": true,
+      "matching_bio_claim_indices": [
+        1,
+        2
+      ],
+      "named_person_disclosure_count": 1,
+      "role_title_component_agreement_is_identity_or_continuity_proof": false,
+      "underlying_disclosure_count": 2
+    },
+    "source_document": {
+      "acceptance_datetime_unqualified_raw": "2025-10-21 16:16:13",
+      "acceptance_timezone_inferred": false,
+      "accession": "0001193125-25-245150",
+      "accession_key": "000119312525245150",
+      "captured_primary_bytes": 2430522,
+      "clock_conflicts": [],
+      "exact_as_filed_body_version_verified": false,
+      "filing_day": "2025-10-21",
+      "form": "DEF 14A",
+      "index_declared_primary_bytes": 2430412,
+      "issuer_cik": "0000789019",
+      "original_biography_sgml_header_available": false,
+      "original_inline_dei_header_validated": true,
+      "primary_filename": "d908201ddef14a.htm",
+      "publication_timezone": "UNKNOWN",
+      "publisher_size_conflict": true,
+      "source_sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm"
+    },
+    "source_inputs_available_at": "2026-10-16T12:18:22.843333+00:00",
+    "source_issuer_scope": {
+      "dei_context_ref": "P07_01_2024To06_30_2025",
+      "form": "DEF 14A",
+      "issuer_cik": "0000789019",
+      "issuer_name_literal": "Microsoft Corporation",
+      "report_period_end_day": "2025-06-30",
+      "report_period_is_biography_role_interval": false,
+      "report_period_start_day": "2024-07-01"
+    },
+    "source_role_review": {
+      "caller_report_accepted": false,
+      "rebuilt_from_whole_originals": true,
+      "review_available_at": "2026-10-18T19:33:35.087926+00:00",
+      "review_ingested_at": "2026-10-18T19:33:34.077863+00:00",
+      "review_report_sha256": "274dfbac9100d7092d4e62d94f895e35aaf57a90ec3e60731f5eed181a4bc92b",
+      "review_version": "sec-named-person-literal-role-claims-v2"
+    },
+    "source_temporal_assessment_supported": true,
+    "status": "PARTIAL",
+    "trading_allowed": false,
+    "transaction": {
+      "date_is_execution_or_person_identity_proof": false,
+      "date_literal": "2026-08-31",
+      "date_precision": "DAY",
+      "date_qualification_footnote_ids": [],
+      "filing_day": "2026-09-01",
+      "kind": "nonDerivativeTransaction",
+      "ordinal": 1,
+      "original_date_element_quote": "<transactionDate>\n                <value>2026-08-31</value>\n            </transactionDate>",
+      "original_date_element_sha256": "524f6b4c7487db6c50468d7adfab2f8356062ec122b0e1679aa422d249f2ddaa",
+      "original_packet_row_byte_end": 4281,
+      "original_packet_row_byte_start": 2882,
+      "original_packet_xml_byte_end": 9622,
+      "original_packet_xml_byte_start": 1408,
+      "original_row_sha256": "9aac2a24af5bffdd4cc4641175d10aecec28d4c702aea39b5552d2df15823118",
+      "original_xml_bytes": 8214,
+      "original_xml_sha256": "c71fd4237b551e70fd8054cfd54b9d101e63d689d0a26b10bb8bd123a0a4c810",
+      "report_period_day": "2026-08-31",
+      "requested_day_matches_original_xml": true,
+      "requested_transaction_day": "2026-08-31",
+      "security_title_as_filed": "Common Stock",
+      "transaction_code_as_filed": "A"
+    }
+  },
+  "schema_version": 1,
+  "source_role_dependency_pin": {
+    "bytes": 31534,
+    "sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3"
+  },
+  "source_service_pin": {
+    "bytes": 19540,
+    "sha256": "fef7c09794b3f09346c0189200c4704d7dc1cfd84e65ca313c39a319c52535ef"
+  },
+  "windows_or_historical_OOS_claim": false
+}

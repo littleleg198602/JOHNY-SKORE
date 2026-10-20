@@ -1,0 +1,13 @@
+{
+  "historical_bytes_not_assumed_or_credited_while_absent": true,
+  "original_failed_audit_logs_preserved": [
+    "audit_expanded_v3_runner.log",
+    "audit_expanded_v4_runner.log"
+  ],
+  "README_recovery_origin": "354ce903b1e94e5e5a5f141a13b3294feb222345",
+  "helper_recovery_origin": "53623afa06e7765267e254f0e567cea410cb30de",
+  "method": "Exact inverse recorded patch, authenticated only after independent full size and SHA match. Additive files; original bytes unchanged. Helpers not executed.",
+  "root_source_test_code_changed": false,
+  "recovered_helper_executed": false,
+  "full_suite_code_remains": "14f9c88b2deb183bc54b466b8b506406ce992409"
+}

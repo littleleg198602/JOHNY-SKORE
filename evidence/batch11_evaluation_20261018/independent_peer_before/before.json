@@ -1,0 +1,31 @@
+{
+  "started_at": "2026-10-19T00:37:07.185612+00:00",
+  "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015",
+  "producer_sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880",
+  "peer_test_sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d",
+  "discovered": 10,
+  "synthetic_injected_pipeline_only": true,
+  "genuine_native_Windows_execution": false,
+  "original_retained_DB_opened": false,
+  "new_HTTP_source_collector_quota_registry_actions": 0,
+  "full_specialist_acceptance": false,
+  "full_suite_rerun": false,
+  "completed_at": "2026-10-19T00:37:28.923055+00:00",
+  "elapsed_seconds": 21.737436113,
+  "executed": 10,
+  "failures": 4,
+  "errors": 0,
+  "skips": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": false,
+  "plain_OK": false,
+  "failed_methods": [
+    "test_boolean_returned_run_id_cannot_alias_actual_integer_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_boolean_returned_run_id_cannot_alias_actual_integer_store_id)",
+    "test_float_returned_run_id_cannot_alias_actual_integer_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_float_returned_run_id_cannot_alias_actual_integer_store_id)",
+    "test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) (column='run_id')",
+    "test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) (column='id')"
+  ],
+  "error_methods": [],
+  "log_sha256": "8c095ce523f60e95f9e33f3eada41976c8137821c3716169c338c602ffee0b45"
+}

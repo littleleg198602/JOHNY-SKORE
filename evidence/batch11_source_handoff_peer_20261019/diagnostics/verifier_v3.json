@@ -1,0 +1,18 @@
+{
+  "HTTP_DB_suite_actions": 0,
+  "incorrect_aggregate_is_not_current_audit_acceptance": true,
+  "input_or_producer_changes": 0,
+  "kind": "PEER_VERIFIER_FINDING_COUNTER_DIAGNOSTIC",
+  "reason": "One declaration was correctly labelled MISSING_PRESERVED_HISTORICAL_ARTIFACT but the aggregate finding filter only counted the older MISSING_OR_FORBIDDEN prefix. The final verifier must count it.",
+  "recorded_at": "2026-10-19T00:49:41.236253+00:00",
+  "source": {
+    "bytes": 32252,
+    "path": "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v3.py",
+    "sha256": "a494080ca16d1c2628bac136fc653135e1d86b0d392994a1812045f695e17e31"
+  },
+  "superseded_snapshot": {
+    "bytes": 323164,
+    "path": "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v3_snapshot.json",
+    "sha256": "358a746140f3635e97f5ea45a78e645a227173e7a1919a21adf0ddd817519d7f"
+  }
+}

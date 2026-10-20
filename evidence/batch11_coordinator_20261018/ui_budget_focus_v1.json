@@ -1,0 +1,17 @@
+{
+  "selected_methods": [
+    "test_batch11_coordinator_integration.Batch11SourceActionTests.test_each_new_kind_refuses_future_or_oversized_capture_before_body_io",
+    "test_batch11_coordinator_integration.ExplicitWindowsAnalysisActionTests.test_ui_default_and_explicit_run_are_separate_with_exact_selected_scope"
+  ],
+  "discovered": 2,
+  "executed": 2,
+  "failures": 0,
+  "errors": 2,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "elapsed_seconds": 0.00270927099995788,
+  "successful": false,
+  "console_sha256": "af2b272d398de0ff979e8ee3c3ef260c0f44d105f9b601aeab710860206b7383",
+  "scope": "two focused current shared frontend/budget methods; not combined source qualification"
+}

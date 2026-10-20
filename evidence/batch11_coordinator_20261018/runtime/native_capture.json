@@ -1,0 +1,51 @@
+{
+  "SQL_opened": false,
+  "actions": [
+    {
+      "interface": "CLI",
+      "pipeline_invoked": false,
+      "receipt_pin": {
+        "bytes": 49595,
+        "sha256": "a14db2e86bf443b998cb969e01db27c63034bf088f0164735508b8dbcb2c51d6"
+      },
+      "status": "UNSUPPORTED_PLATFORM"
+    },
+    {
+      "interface": "STREAMLIT_UI",
+      "pipeline_invoked": false,
+      "receipt_pin": {
+        "bytes": 49595,
+        "sha256": "c38233f5cb01d23983063bec3e21d12582723f96e7bec921e3850c87172fa671"
+      },
+      "status": "UNSUPPORTED_PLATFORM"
+    }
+  ],
+  "counters": {
+    "SQL_attempts": 0,
+    "network_attempts": 0
+  },
+  "database_counts_status": "UNOBSERVED",
+  "database_table_and_forecast_counts": null,
+  "ended_at": "2026-10-19T00:45:31.562472+00:00",
+  "full_specialist_acceptance": "0/21",
+  "genuine_forecasts_registrations_labels_created": 0,
+  "historical_OOS_verified": false,
+  "journal_replayed_or_removed": false,
+  "phase": "native",
+  "retained_database_before_after": {
+    "": {
+      "bytes": 294912,
+      "sha256": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af"
+    },
+    "-journal": {
+      "bytes": 8720,
+      "sha256": "193c4c631c14924bad4d42edeaa320120125c6b674efc55da4cb015534573bb3"
+    },
+    "-shm": null,
+    "-wal": null
+  },
+  "schema_version": "batch11_actual_runtime_capture_v1",
+  "source_adoptions": 0,
+  "started_at": "2026-10-19T00:45:30.664258+00:00",
+  "user_windows_end_to_end_verified": false
+}

@@ -112,6 +112,16 @@ def run_user_windows_readiness_capture(*, enabled: bool = False, output_path: Pa
         market_archive_root=market_archive_root)
 
 
+def run_user_windows_analysis_capture(*, enabled: bool = False, output_path: Path,
+                                      tickers: list[str], db_path: Path,
+                                      market_manifest_path: Path,
+                                      market_archive_root: Path) -> dict:
+    from market_checker_app.services.user_windows_analysis_capture import UserWindowsAnalysisCapture
+    return UserWindowsAnalysisCapture(enabled=enabled).capture(output_path=output_path,
+        tickers=tickers, db_path=db_path, market_manifest_path=market_manifest_path,
+        market_archive_root=market_archive_root)
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Kontrola původních uložených důkazů bez nového stahování.")
     commands = parser.add_subparsers(dest="action", required=True)
@@ -122,6 +132,13 @@ def main(argv: list[str] | None = None) -> None:
     readiness.add_argument("--db-path", type=Path)
     readiness.add_argument("--market-manifest", type=Path)
     readiness.add_argument("--market-archive-root", type=Path)
+    analysis = commands.add_parser("windows-analysis", help="Spustit a zaznamenat jednu analýzu na uživatelském Windows")
+    analysis.add_argument("--enable", action="store_true", help="Výslovně povolit tento lokální běh")
+    analysis.add_argument("--output", type=Path, required=True)
+    analysis.add_argument("--tickers", nargs="+", required=True, help="Přesné tickery z kanonického seznamu")
+    analysis.add_argument("--db-path", type=Path, required=True)
+    analysis.add_argument("--market-manifest", type=Path, required=True)
+    analysis.add_argument("--market-archive-root", type=Path, required=True)
     for kind in ("review", "prime"):
         command = commands.add_parser(kind)
         command.add_argument("--source-root", type=Path, required=True)
@@ -145,7 +162,11 @@ def main(argv: list[str] | None = None) -> None:
             command.add_argument("--maximum", type=int, default=200)
     args = parser.parse_args(argv)
     try:
-        if args.action == "windows-readiness":
+        if args.action == "windows-analysis":
+            result = run_user_windows_analysis_capture(enabled=args.enable, output_path=args.output,
+                tickers=args.tickers, db_path=args.db_path, market_manifest_path=args.market_manifest,
+                market_archive_root=args.market_archive_root)
+        elif args.action == "windows-readiness":
             result = run_user_windows_readiness_capture(enabled=args.enable, output_path=args.output,
                 tickers=args.tickers, db_path=args.db_path, market_manifest_path=args.market_manifest,
                 market_archive_root=args.market_archive_root)

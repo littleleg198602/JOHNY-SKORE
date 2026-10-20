@@ -1,0 +1,143 @@
+{
+  "SQL_opened": false,
+  "actions": [
+    {
+      "interface": "CLI",
+      "kind": "SEC_DATED_INSTRUMENT_POINT",
+      "output": {
+        "bytes": 8724,
+        "path": "evidence/batch11_coordinator_20261018/runtime/P_instrument_ke_konkretnimu_dni_CLI.json",
+        "sha256": "b819df650006daa91a59372c4186ac2e345d1f9607e1da2cd7b6b08f5e9e64f5"
+      },
+      "plan": "P_instrument_ke_konkretnimu_dni.json",
+      "recorded_at": "2026-10-19T00:40:28.525818+00:00"
+    },
+    {
+      "interface": "CLI",
+      "kind": "FDA_APPLICANT_CHRONOLOGY",
+      "output": {
+        "bytes": 37653,
+        "path": "evidence/batch11_coordinator_20261018/runtime/PFE_datovane_zaznamy_applicant_CLI.json",
+        "sha256": "45a339bf7dbb90ffb8b1360a12c7e2c0aeb611fce5c8bf90d67bb0f8af727c43"
+      },
+      "plan": "PFE_datovane_zaznamy_applicant.json",
+      "recorded_at": "2026-10-19T00:40:29.348836+00:00"
+    },
+    {
+      "interface": "CLI",
+      "kind": "EPA_FRS_PROGRAM_SCOPE",
+      "output": {
+        "bytes": 2877,
+        "path": "evidence/batch11_coordinator_20261018/runtime/DOW_program_a_provozovna_EPA_CLI.json",
+        "sha256": "4d9f6112de21a1be987dfc8930048ba4b5fc958650057d1665ee1a45aceed716"
+      },
+      "plan": "DOW_program_a_provozovna_EPA.json",
+      "recorded_at": "2026-10-19T00:40:29.360712+00:00"
+    },
+    {
+      "interface": "CLI",
+      "kind": "USASPENDING_PRIME_SCOPE",
+      "output": {
+        "bytes": 4982,
+        "path": "evidence/batch11_coordinator_20261018/runtime/LMT_uplnost_puvodnich_stranek_zakazek_CLI.json",
+        "sha256": "a409eda179db281ecf39903fd7b709fa9663c8d002226e1939984ba5e919a7b9"
+      },
+      "plan": "LMT_uplnost_puvodnich_stranek_zakazek.json",
+      "recorded_at": "2026-10-19T00:40:29.383172+00:00"
+    },
+    {
+      "interface": "CLI",
+      "kind": "SEC_PERSON_ROLE_TEMPORAL",
+      "output": {
+        "bytes": 10515,
+        "path": "evidence/batch11_coordinator_20261018/runtime/MSFT_role_k_datu_transakce_CLI.json",
+        "sha256": "2ebc979fb63d8e38d11bb6c6d67f62d59c2bd94798f12f3afe4ed2c7b8807299"
+      },
+      "plan": "MSFT_role_k_datu_transakce.json",
+      "recorded_at": "2026-10-19T00:40:30.825352+00:00"
+    },
+    {
+      "interface": "STREAMLIT_UI",
+      "kind": "SEC_DATED_INSTRUMENT_POINT",
+      "output": {
+        "bytes": 10879,
+        "path": "evidence/batch11_coordinator_20261018/runtime/P_instrument_ke_konkretnimu_dni_UI.json",
+        "sha256": "314b5415465c9d64afea170227927487765ebd7d0568d3786186c5b552fcfdca"
+      },
+      "plan": "P_instrument_ke_konkretnimu_dni.json",
+      "recorded_at": "2026-10-19T00:40:31.883096+00:00"
+    },
+    {
+      "interface": "STREAMLIT_UI",
+      "kind": "FDA_APPLICANT_CHRONOLOGY",
+      "output": {
+        "bytes": 41048,
+        "path": "evidence/batch11_coordinator_20261018/runtime/PFE_datovane_zaznamy_applicant_UI.json",
+        "sha256": "b60f8e0ac662e6d49b5257a27f6ba213ae8fdd1d6641a17afdd49f3e3b5dbd52"
+      },
+      "plan": "PFE_datovane_zaznamy_applicant.json",
+      "recorded_at": "2026-10-19T00:40:33.006445+00:00"
+    },
+    {
+      "interface": "STREAMLIT_UI",
+      "kind": "EPA_FRS_PROGRAM_SCOPE",
+      "output": {
+        "bytes": 4735,
+        "path": "evidence/batch11_coordinator_20261018/runtime/DOW_program_a_provozovna_EPA_UI.json",
+        "sha256": "89aec3c21e1d478db5b0b7242626778e13b73e1216600da98c9db6307e2ba83a"
+      },
+      "plan": "DOW_program_a_provozovna_EPA.json",
+      "recorded_at": "2026-10-19T00:40:33.295325+00:00"
+    },
+    {
+      "interface": "STREAMLIT_UI",
+      "kind": "USASPENDING_PRIME_SCOPE",
+      "output": {
+        "bytes": 6991,
+        "path": "evidence/batch11_coordinator_20261018/runtime/LMT_uplnost_puvodnich_stranek_zakazek_UI.json",
+        "sha256": "12f3b8ec898261f5e18a3ef9552ab36f292cb82bcecff02f982af276b63f77e3"
+      },
+      "plan": "LMT_uplnost_puvodnich_stranek_zakazek.json",
+      "recorded_at": "2026-10-19T00:40:33.454138+00:00"
+    },
+    {
+      "interface": "STREAMLIT_UI",
+      "kind": "SEC_PERSON_ROLE_TEMPORAL",
+      "output": {
+        "bytes": 12749,
+        "path": "evidence/batch11_coordinator_20261018/runtime/MSFT_role_k_datu_transakce_UI.json",
+        "sha256": "e37425032bea776fcef82ff593700660477038fe069379ba54f8e06af0317de2"
+      },
+      "plan": "MSFT_role_k_datu_transakce.json",
+      "recorded_at": "2026-10-19T00:40:34.939286+00:00"
+    }
+  ],
+  "counters": {
+    "SQL_attempts": 0,
+    "network_attempts": 0
+  },
+  "database_counts_status": "UNOBSERVED",
+  "database_table_and_forecast_counts": null,
+  "ended_at": "2026-10-19T00:40:34.949614+00:00",
+  "full_specialist_acceptance": "0/21",
+  "genuine_forecasts_registrations_labels_created": 0,
+  "historical_OOS_verified": false,
+  "journal_replayed_or_removed": false,
+  "phase": "source",
+  "retained_database_before_after": {
+    "": {
+      "bytes": 294912,
+      "sha256": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af"
+    },
+    "-journal": {
+      "bytes": 8720,
+      "sha256": "193c4c631c14924bad4d42edeaa320120125c6b674efc55da4cb015534573bb3"
+    },
+    "-shm": null,
+    "-wal": null
+  },
+  "schema_version": "batch11_actual_runtime_capture_v1",
+  "source_adoptions": 0,
+  "started_at": "2026-10-19T00:40:28.417609+00:00",
+  "user_windows_end_to_end_verified": false
+}

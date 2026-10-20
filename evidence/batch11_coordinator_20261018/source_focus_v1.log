@@ -1,0 +1,11 @@
+test_applicant_chronology_keeps_original_roster_date_and_missing_endpoints (tests.test_batch11_coordinator_integration.Batch11SourceActionTests.test_applicant_chronology_keeps_original_roster_date_and_missing_endpoints) ... ok
+test_each_new_kind_refuses_future_or_oversized_capture_before_body_io (tests.test_batch11_coordinator_integration.Batch11SourceActionTests.test_each_new_kind_refuses_future_or_oversized_capture_before_body_io) ... ok
+test_embedded_prime_tail_cannot_replace_whole_original_page_chain (tests.test_batch11_coordinator_integration.Batch11SourceActionTests.test_embedded_prime_tail_cannot_replace_whole_original_page_chain) ... ok
+test_missing_original_frs_body_cannot_become_genuine_program_fact (tests.test_batch11_coordinator_integration.Batch11SourceActionTests.test_missing_original_frs_body_cannot_become_genuine_program_fact) ... ok
+test_old_proxy_present_does_not_supply_role_for_later_form4_transaction (tests.test_batch11_coordinator_integration.Batch11SourceActionTests.test_old_proxy_present_does_not_supply_role_for_later_form4_transaction) ... ok
+test_original_instrument_point_does_not_extend_missing_dated_class_bridge (tests.test_batch11_coordinator_integration.Batch11SourceActionTests.test_original_instrument_point_does_not_extend_missing_dated_class_bridge) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.323s
+
+OK

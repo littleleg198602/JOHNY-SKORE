@@ -1,0 +1,12 @@
+{
+  "before_producer.py.txt": {
+    "candidate_path": "market_checker_app/services/user_windows_analysis_capture.py",
+    "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880",
+    "bytes": 35117
+  },
+  "before_owner_tests.py.txt": {
+    "candidate_path": "tests/test_user_windows_analysis_capture.py",
+    "sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66",
+    "bytes": 31799
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "tested_code_snapshot": "14f9c88b2deb183bc54b466b8b506406ce992409",
+  "current_source_test_pins_match_full_suite": 19,
+  "full_original_outcomes": {
+    "started_at": "2026-10-20T07:51:18.429677+00:00",
+    "ended_at": "2026-10-20T07:58:46.613678+00:00",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 2688,
+    "tests_run": 2688,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "plain_OK": true,
+    "seconds_from_original_footer": 446.92,
+    "JSON": {
+      "path": "evidence/batch11_linux_20261020.json",
+      "bytes": 363,
+      "sha256": "f5b9fe86725dddc737563c837b0a2d9c47b0979d32efbf6638008ca82b6a631b"
+    },
+    "console": {
+      "path": "evidence/batch11_linux_console_20261020.log",
+      "bytes": 550358,
+      "sha256": "61028220f6aa1dfe4127ea234b5ff988627550c979d28d0d4f0b61bc066e45fc"
+    },
+    "runner": {
+      "path": "evidence/batch11_linux_runner_20261020.log",
+      "bytes": 547298,
+      "sha256": "ed434a6aa3cf88ddca41ed8dc85724514c077b2e3d604b196222dc29fa3f783e"
+    }
+  },
+  "preCI_proof_sha256": "bfc5ef160081e924d03d1f4d6005fbf32da4fd454cbc3af9f82722035a517699",
+  "old_incomplete_full_originals_unchanged": true,
+  "evidence_only_recovery_origin": "53623afa06e7765267e254f0e567cea410cb30de",
+  "no_source_test_edits_or_successful_full_repeats_after_qualification": true,
+  "later_hosted_qualification": "PR162 and actual new-head artifact; preCI proof immutable"
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": "batch11_source_handoff_peer_coordinator_completion_v1",
+  "snapshot_commit": "970861da7309048a71e54c102ac482e1d24b07f8",
+  "completion_owner": "COORDINATOR_AFTER_REAL_AGENT_USAGE_LIMIT",
+  "agent_independent_inspection_and_saved_verifier_preserved": true,
+  "agent_final_completion_claimed": false,
+  "content_verification": {
+    "path": "evidence/batch11_source_handoff_peer_20261019/content_verification.json",
+    "bytes": 325349,
+    "sha256": "39d7abd45144a2b91309f53ce7b8284860169e45b0c9f537b16dfb07fffaf8c1"
+  },
+  "checks": 62,
+  "findings": 0,
+  "hash_declaration_status_counts": {
+    "NO_IDENTIFIABLE_LOCAL_WHOLE_FILE_OR_RETAINED_DERIVATION": 21,
+    "VERIFIED_DERIVED_VALUE": 17,
+    "VERIFIED_HASH_RESOLVED_IN_DECLARED_SCOPE": 121,
+    "VERIFIED_LOCAL_FILE": 329,
+    "VERIFIED_ORIGINAL_RESPONSE_AND_SEPARATE_ARCHIVE": 1,
+    "VERIFIED_PRESERVED_HISTORICAL_COPY_CURRENT_PATH_DIFFERS": 17,
+    "VERIFIED_SHA_EXACT_RECOVERED_HISTORICAL_DOCUMENT_NOT_BASE_FILE": 1
+  },
+  "historical_missing_at_snapshot_recovered_by_exact_SHA_later": {
+    "independently_size_and_SHA_authenticated_at_audit_time": true,
+    "is_current_producer_qualification": false,
+    "pin": {
+      "bytes": 2839,
+      "path": "evidence/batch11_source_handoff_peer_20261019/recovered_batch11_readme_before_universe_context.md",
+      "sha256": "f1a8e06c1d05aafa0ad4ece9097c46a8a18a20adc46e1a9ab6ecdc0aae9ddfef"
+    },
+    "present_at_original_snapshot": false,
+    "provenance": {
+      "exact_target_sha256_and_size_verified": true,
+      "method": "Exact inverse of the previously recorded README paragraph patch; independently accepted only after full size and SHA match. No prefix truncation, current/historical originals unchanged.",
+      "recovered_artifact": "evidence/batch11_windows_analysis_peer_20261019/recovered_batch11_readme_before_universe_context.md",
+      "recovered_bytes": 2839,
+      "recovered_sha256": "f1a8e06c1d05aafa0ad4ece9097c46a8a18a20adc46e1a9ab6ecdc0aae9ddfef",
+      "source_bytes": 2954,
+      "source_git_commit": "5a529b940899942e958a732bc12eaef06143e7ac",
+      "source_path": "evidence/batch11_healthcare_20261018/README.md",
+      "source_sha256": "8f129f9cd7ed0d3cf9e5aab2a7e4e20ecf8cef04b7410e9be7fba4fef36e2d52"
+    }
+  },
+  "source_HTTP_SQL_originalDB_and_test_replays": 0,
+  "full_specialist_acceptance": false,
+  "file_pins": {
+    "evidence/batch11_source_handoff_peer_20261019/__pycache__/audit_source_handoffs.cpython-312.pyc": {
+      "bytes": 46939,
+      "sha256": "a2cc567a74334a9e3e57d8e2c9d431a61e2ac217ae082c169befd832f28b1560"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/audit_source_handoffs.py": {
+      "bytes": 33506,
+      "sha256": "63e341b49c0e02b6269a8f08c245d8e7cd54f62550b573d68ed74580a2622651"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/content_verification.json": {
+      "bytes": 325349,
+      "sha256": "39d7abd45144a2b91309f53ce7b8284860169e45b0c9f537b16dfb07fffaf8c1"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/coordinator_completion/audit_stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/coordinator_completion/audit_stdout.json": {
+      "bytes": 546,
+      "sha256": "640a3ff18d892d941568a426e5f051616d1c48349aebc4a5558f4457f7768b89"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/coordinator_completion/completion_record.json": {
+      "bytes": 785,
+      "sha256": "249e7f8b2e53d3415249ff71c570a622fbdb3e1aaff4b6f1efaea7ad571d0dc1"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/coordinator_completion/verifier_before_completion.py": {
+      "bytes": 32240,
+      "sha256": "ee0cc30c7381e6a1e34512e9db9a530e31eebf1cc10a495a5cec865f6419a527"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v1.json": {
+      "bytes": 798,
+      "sha256": "f0a896306dea8e38e8895d5da5c9a89620e0c3861b5f3339ac21050aa98ce5c7"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v1.py": {
+      "bytes": 30383,
+      "sha256": "68273f89d30324f5a72f10ab42f1fbb72262f6001c1087773decaba9aaf3782a"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v2.json": {
+      "bytes": 882,
+      "sha256": "c08b474a64df627ceda956a5394cc2b57e1ad10b0c8055f2f3dc9f008f209d12"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v2.py": {
+      "bytes": 30570,
+      "sha256": "fe43caf001b9dccb54cc2395c24bc8722bf63092c0a31c57c8b658e1ccbdf497"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v3.json": {
+      "bytes": 889,
+      "sha256": "c220e2ee46b62ebe545503c350f91fd9226f77e1ece8b96d3c09e512ca6f881e"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v3.py": {
+      "bytes": 32252,
+      "sha256": "a494080ca16d1c2628bac136fc653135e1d86b0d392994a1812045f695e17e31"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v3_snapshot.json": {
+      "bytes": 323164,
+      "sha256": "358a746140f3635e97f5ea45a78e645a227173e7a1919a21adf0ddd817519d7f"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/historical_readme_recovery.json": {
+      "bytes": 742,
+      "sha256": "b40308cf0fe19e838b994cb2047f2ff1fe022d1d293268f6a704e81aaeea4fbe"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/recovered_batch11_readme_before_universe_context.md": {
+      "bytes": 2839,
+      "sha256": "f1a8e06c1d05aafa0ad4ece9097c46a8a18a20adc46e1a9ab6ecdc0aae9ddfef"
+    },
+    "evidence/batch11_source_handoff_peer_20261019/snapshot_970861da.json": {
+      "bytes": 323771,
+      "sha256": "75de81204d0b05e9455a67adf8ae28179536aee57dffd71d58fb0f1a9bd75d7c"
+    }
+  }
+}

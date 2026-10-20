@@ -1,0 +1,41 @@
+test_batch11_coordinator_integration (unittest.loader._FailedTest.test_batch11_coordinator_integration) ... ERROR
+test_batch11_coordinator_integration (unittest.loader._FailedTest.test_batch11_coordinator_integration) ... ERROR
+
+======================================================================
+ERROR: test_batch11_coordinator_integration (unittest.loader._FailedTest.test_batch11_coordinator_integration)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_batch11_coordinator_integration
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_batch11_coordinator_integration.py", line 12, in <module>
+    from market_checker_app.services import captured_identity_review_service as reviews
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/services/captured_identity_review_service.py", line 12, in <module>
+    from market_checker_app.services.ir_primary_scout_service import _has_sensitive_body
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/services/ir_primary_scout_service.py", line 22, in <module>
+    import feedparser
+ModuleNotFoundError: No module named 'feedparser'
+
+
+======================================================================
+ERROR: test_batch11_coordinator_integration (unittest.loader._FailedTest.test_batch11_coordinator_integration)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_batch11_coordinator_integration
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_batch11_coordinator_integration.py", line 12, in <module>
+    from market_checker_app.services import captured_identity_review_service as reviews
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/services/captured_identity_review_service.py", line 12, in <module>
+    from market_checker_app.services.ir_primary_scout_service import _has_sensitive_body
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/services/ir_primary_scout_service.py", line 22, in <module>
+    import feedparser
+ModuleNotFoundError: No module named 'feedparser'
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (errors=2)

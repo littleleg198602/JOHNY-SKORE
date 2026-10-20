@@ -1,0 +1,38 @@
+{
+  "started_at": "2026-10-19T00:45:43.162751+00:00",
+  "ended_at": "2026-10-19T00:45:44.097148+00:00",
+  "selected": [
+    "tests.test_batch11_coordinator_integration.ExplicitWindowsAnalysisActionTests.test_cli_default_does_not_initialize_database_pipeline_or_output"
+  ],
+  "discovered": 1,
+  "executed": 1,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true,
+  "elapsed_seconds": 0.9344023460000699,
+  "console_sha256": "4c603fc2eec69279d6f207d53e5102f0194fdd9e12b5f6e79869c168a920b30f",
+  "source_pins": {
+    "market_checker_app/services/captured_identity_review_service.py": {
+      "bytes": 28441,
+      "sha256": "262b6159cbb8cbd36e0573ab3743dc51105d70240a9cfd5b1d5e896cf353acec"
+    },
+    "market_checker_app/specialist_evidence_runner.py": {
+      "bytes": 11875,
+      "sha256": "942c2ff88dd3040f1f9f30634a013609b0aff35f9dbf538c0159efc492bb3c81"
+    },
+    "market_checker_app/specialist_evidence_ui.py": {
+      "bytes": 28468,
+      "sha256": "082e659017abd15e99c191a5173179bd72311f04f5aa7be4d31f857d1ae48ed2"
+    },
+    "tests/test_batch11_coordinator_integration.py": {
+      "bytes": 8899,
+      "sha256": "819d16b404db462a9270726d6e106ae5bf37b0e4b6f1b21173fe66698faad507"
+    }
+  },
+  "source_http_requests": 0,
+  "db_sql_operations": 0,
+  "full_specialist_acceptance": false
+}

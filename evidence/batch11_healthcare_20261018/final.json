@@ -1,0 +1,26 @@
+{
+  "started_at": "2026-10-18T19:30:30.381122+00:00",
+  "discovered": 26,
+  "source_sha256": {
+    "producer": "86a979d434290b69e43576ca9dd8636527f272a56890b61b501439bd33a99466",
+    "tests": "50c293b527180b4d19816bed4f97444cb399b02d0b7fed2900ef7afa953455be"
+  },
+  "synthetic_positives_are_not_LIVE": true,
+  "full_suite_rerun": false,
+  "completed_at": "2026-10-18T19:30:34.836203+00:00",
+  "elapsed_seconds": 4.455067420999967,
+  "executed": 26,
+  "failures": 2,
+  "errors": 0,
+  "skips": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": false,
+  "plain_OK": false,
+  "log_sha256": "7893a570ef2d1f064173a71d16aa5cfd65adf768b0a8f054e17aba51cb15fe1c",
+  "failed_methods": [
+    "test_same_capture_clock_different_product_versions_remains_explicit_conflict (tests.test_fda_applicant_chronology_review.ApplicantChronologyTests.test_same_capture_clock_different_product_versions_remains_explicit_conflict)",
+    "test_same_role_application_versions_compare_literal_rows_not_product_absence (tests.test_fda_applicant_chronology_review.ApplicantChronologyTests.test_same_role_application_versions_compare_literal_rows_not_product_absence)"
+  ],
+  "error_methods": []
+}

@@ -1,0 +1,11 @@
+{
+  "method": "Exact inverse of the previously recorded README paragraph patch; independently accepted only after full size and SHA match. No prefix truncation, current/historical originals unchanged.",
+  "source_git_commit": "5a529b940899942e958a732bc12eaef06143e7ac",
+  "source_path": "evidence/batch11_healthcare_20261018/README.md",
+  "source_bytes": 2954,
+  "source_sha256": "8f129f9cd7ed0d3cf9e5aab2a7e4e20ecf8cef04b7410e9be7fba4fef36e2d52",
+  "recovered_bytes": 2839,
+  "recovered_sha256": "f1a8e06c1d05aafa0ad4ece9097c46a8a18a20adc46e1a9ab6ecdc0aae9ddfef",
+  "exact_target_sha256_and_size_verified": true,
+  "recovered_artifact": "evidence/batch11_windows_analysis_peer_20261019/recovered_batch11_readme_before_universe_context.md"
+}

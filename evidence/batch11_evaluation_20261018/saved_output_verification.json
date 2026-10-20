@@ -1,0 +1,53 @@
+{
+  "verified_at": "2026-10-19T00:43:10.099364+00:00",
+  "base": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "source": {
+    "bytes": 37862,
+    "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+  },
+  "test": {
+    "bytes": 36156,
+    "sha256": "89069e400360316265dcc1b64128d752a52c1bdb73f406bbade47f1c2188b201"
+  },
+  "qualification_tests": 37,
+  "all_other_qualifiers": 0,
+  "actual_refusal": {
+    "bytes": 48517,
+    "sha256": "ee90438b2bba1ca84c0106db6ed90666823f15abab95e31b7d582b0f4f991919"
+  },
+  "all_prior_production_test_evidence_bytes_match_raw_blobs": true,
+  "whole_filtered_CRLF_launchers": [
+    "Nainstalovat_Patraci_Agenty.bat",
+    "Nainstalovat_Tydenni_Shadow.bat",
+    "Pripravit_SEC_Registry.bat",
+    "Spustit_Market_Checker.bat",
+    "Spustit_Patraci_Agenty.bat",
+    "Spustit_Tydenni_Shadow.bat",
+    "Vyhodnotit_Predikce.bat",
+    "Vyhodnotit_Specialisty.bat",
+    "Zkontrolovat_Zdravotnicke_Identity.bat"
+  ],
+  "unchanged_baseline_groups": {
+    "production": {
+      "files": 224,
+      "bytes": 3734168
+    },
+    "tests": {
+      "files": 200,
+      "bytes": 2646428
+    },
+    "evidence": {
+      "files": 1941,
+      "bytes": 90972950
+    },
+    "other": {
+      "files": 36,
+      "bytes": 748580
+    }
+  },
+  "source_HTTP_requests": 0,
+  "SQL_opened": false,
+  "original_retained_DB_access": false,
+  "actual_native_pipeline_executions": 0,
+  "full_suite_rerun": false
+}

@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch11_coordinator_20261018/audit_content.py", line 95, in <module>
+    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);main(parser.parse_args().output)
+                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch11_coordinator_20261018/audit_content.py", line 66, in main
+    for path in handoffs:walk(json.loads(path.read_text()),path.relative_to(ROOT).as_posix())
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch11_coordinator_20261018/audit_content.py", line 64, in walk
+    walk(item,origin)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch11_coordinator_20261018/audit_content.py", line 56, in walk
+    for item in value:walk(item,origin)
+                      ^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch11_coordinator_20261018/audit_content.py", line 60, in walk
+    if name.startswith(('evidence/','market_checker_app/','tests/')) or (ROOT/Path(origin).parent/name).is_file():check(name,value,origin)
+                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch11_coordinator_20261018/audit_content.py", line 53, in check
+    raise AssertionError((origin,name,'PIN_BYTES_MISSING_OR_CHANGED'))
+AssertionError: ('evidence/batch11_windows_analysis_peer_20261019/pre_discovery_guard_handoff.json', 'evidence/batch11_windows_analysis_peer_20261019/README.md', 'PIN_BYTES_MISSING_OR_CHANGED')

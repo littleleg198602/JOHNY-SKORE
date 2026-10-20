@@ -1,0 +1,7 @@
+{
+  "new_source_requests": 0,
+  "plan_sha256": "700b4af88df2f059c968eb421f547635f776ed2c7ba66a75988f509cced0f480",
+  "producer_sha256": "89359e1045695409a0681666ca2a118e6e69c1c0bf0bb32f906b32f2c73a06f0",
+  "report_sha256": "b71de91f4dc83937e352010249bb089f494e980a7020fa798073fb93b15e7462",
+  "schema_version": "dated_point_first_actual_producer_pin_v1"
+}

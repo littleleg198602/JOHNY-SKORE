@@ -1,0 +1,89 @@
+{
+  "qualified_head_only": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "run_id": 39137308800,
+  "files": [
+    {
+      "path": "job_117704346422_decoded.log",
+      "sha256": "8ed08256b25712a8c29fa8d2d6e41a956be63c4f91328dc488e98766b872d702",
+      "bytes": 61949
+    },
+    {
+      "path": "job_117704346422_verification.json",
+      "sha256": "34b6626ba4352fd3f01d71fd92d8e7c24c94efb45785143263830773c8585a66",
+      "bytes": 431
+    },
+    {
+      "path": "job_117704346599_decoded.log",
+      "sha256": "21489a45d0ad9c0ffa01958915eed7504a7037dc56eb2321657694fe5c7bade4",
+      "bytes": 72463
+    },
+    {
+      "path": "job_117704346599_verification.json",
+      "sha256": "0cb99e12e175596ef63300ad0f92be482e54e5a732a405cb14f639035ffe912a",
+      "bytes": 431
+    },
+    {
+      "path": "job_117704346611_decoded.log",
+      "sha256": "78e7ba10cc9b870cddc31ca99ecced858f7c79e0d05e68db911fe28bb0ba61a1",
+      "bytes": 615709
+    },
+    {
+      "path": "job_117704346611_verification.json",
+      "sha256": "61c1fe8a579651fe4dc1c47cbd4ac68a042c27afdc81bdabf9db145eaaba581b",
+      "bytes": 436
+    },
+    {
+      "path": "job_117704346611_batch10_methods.json",
+      "sha256": "f3dd13d0e8d9f632dd99d7c31a1ee530d9593615b4db90b65bbaf9bf73e21edc",
+      "bytes": 75861
+    },
+    {
+      "path": "job_117704346747_decoded.log",
+      "sha256": "7bc2263d53007244bb9cc4b77790c7c28cb8dd2dac3c60b3163568f2fba08656",
+      "bytes": 634676
+    },
+    {
+      "path": "job_117704346747_verification.json",
+      "sha256": "f2f0220a0fcf9f27380981ef17f6a8c83cdf4c0a338ac8fcfbb00cf53384130f",
+      "bytes": 501
+    },
+    {
+      "path": "job_117704346747_batch10_methods.json",
+      "sha256": "5e33ee479e9d4d7c3bbeb3b509b48765aa5d63721ec47a85272fa4a5bad0d3dd",
+      "bytes": 75861
+    },
+    {
+      "path": "windows/artifact_12140789098.zip",
+      "sha256": "3a37a2f09828273a0efc6db9fd693b9e375c511b73e80d5499fa6a6d5b9cf936",
+      "bytes": 75136
+    },
+    {
+      "path": "windows/windows-tests.json",
+      "sha256": "25ca5ce44ec2afa327b3ab66cb3aec09cf5903994b91b549c5e76e075b61b774",
+      "bytes": 375
+    },
+    {
+      "path": "windows/windows-tests.log",
+      "sha256": "7a4060147e034ae23c3a4f32a9a9e56d83f357644225a56592f2a957c2112a43",
+      "bytes": 503917
+    },
+    {
+      "path": "windows/content_verification.json",
+      "sha256": "5059da5560c49a8335206a4a274f0367adfb544de908825228c827a56f9a4ece",
+      "bytes": 3859
+    },
+    {
+      "path": "windows/windows_original_245_methods.json",
+      "sha256": "88d496fcb0fa7bbe43cdfa71f6ec74590be909f61afd6a5aabd16e65b53a62f6",
+      "bytes": 75861
+    },
+    {
+      "path": "native_post_ci_verification.json",
+      "sha256": "aaf3e4c009c702b62405d3e7bc05617282c35bd25a39aa0c8b1edfdf2ac231ca",
+      "bytes": 800
+    }
+  ],
+  "original_copies_byte_identical": true,
+  "full_specialist_acceptance_count": 0,
+  "unit_windows_is_not_user_windows_end_to_end": true
+}
