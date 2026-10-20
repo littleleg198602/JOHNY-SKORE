@@ -1,0 +1,92 @@
+{
+  "as_of": null,
+  "captures": {
+    "13f_list": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 2088909,
+        "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+        "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+      },
+      "metadata": {
+        "kind": "13f_list",
+        "observed_at": "2026-10-12T14:49:07.942392+00:00",
+        "published_at": null,
+        "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+        "snapshot_id": "fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c",
+        "url": "https://www.sec.gov/files/investment/13flist2026q3.txt"
+      }
+    },
+    "charter": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 14256,
+        "path": "evidence/sourcefront_20261020/primary/leg_final_articles.htm",
+        "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba"
+      },
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-20T14:29:11.360266+00:00",
+        "published_at": "2026-08-26T17:27:01+00:00",
+        "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba",
+        "snapshot_id": "24effa6154110b53b5746eb74a1692c3334316ef9075730c25514cf7f86fdcf4",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm"
+      }
+    },
+    "parent_filing": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 41778,
+        "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+        "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4"
+      },
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-13T08:46:22.597523+00:00",
+        "published_at": "2026-08-26T17:27:01+00:00",
+        "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+        "snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+      }
+    },
+    "ticker_catalog": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 799583,
+        "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+        "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+      },
+      "metadata": {
+        "kind": "ticker_catalog",
+        "observed_at": "2026-10-12T14:49:01.942947+00:00",
+        "published_at": null,
+        "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+        "snapshot_id": "38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a",
+        "url": "https://www.sec.gov/files/company_tickers.json"
+      }
+    }
+  },
+  "kind": "SEC_CHARTER_CLASS",
+  "request": {
+    "claim": {
+      "authorized_class_excerpt": "ARTICLE IV. The total number of shares of stock which the Corporation shall have authority to issue is 10,000 shares of common stock, par value $0.001 per share (the “ Common Stock ”). Each holder of Common Stock shall be entitled to one vote for each share held. There are no preferences, qualifications, limitations, restrictions and special or relative rights, including convertible rights, if any, in respect to the shares.",
+      "authorized_shares": "10000",
+      "bridge_kind": "CHARTER_AUTHORIZED_CLASS",
+      "charter_snapshot_id": "24effa6154110b53b5746eb74a1692c3334316ef9075730c25514cf7f86fdcf4",
+      "class_role": "SURVIVING_AUTHORIZED_CLASS",
+      "class_title": "common stock, par value $0.001 per share",
+      "effective_excerpt": null,
+      "effective_on": null,
+      "execution_excerpt": "IN WITNESS WHEREOF, the Corporation has caused this Amended and Restated Articles of Incorporation to be fully executed and acknowledged by its duly authorized officers this 26 th day of August, 2026.",
+      "execution_on": "2026-08-26",
+      "issuer_cik": "0000058492",
+      "issuer_excerpt": "ARTICLE I. The name of the corporation (the “ Corporation ”) is: Leggett & Platt, Incorporated",
+      "issuer_name_text": "Leggett & Platt, Incorporated",
+      "parent_filing_snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+      "parent_role_excerpt": "On August 26, 2026 (the “ Closing Date ”), Sparrow Unity Corporation, a Missouri corporation (“ Merger Sub ”) and wholly owned indirect subsidiary of Somnigroup International Inc., a Delaware corporation (“ Parent ”), merged with and into Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), with the Company continuing as the surviving corporation (the “ Merger ” and the time of consummation thereof, the “ Effective Time ”) pursuant to the previously announced Agreement and Plan of Merger, dated as of April 13, 2026 (the “ Merger Agreement ”), by and among the Company, Parent and Merger Sub. As a result of the Merger, the Company became a wholly owned indirect subsidiary of the Parent (the “Surviving Corporation”). Capitalized terms used herein but not otherwise defined have the respective meanings set forth in the Merger Agreement.",
+      "ticker": "LEG"
+    },
+    "quarter": "2026q3"
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

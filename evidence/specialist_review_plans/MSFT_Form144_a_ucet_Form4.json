@@ -1,0 +1,55 @@
+{
+  "captures": {
+    "account_packet": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 9665,
+        "path": "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+      },
+      "metadata": {
+        "known_at": "2026-10-16T12:18:22.843333+00:00",
+        "observed_at": "2026-10-16T12:18:22.843333+00:00",
+        "purpose": "DATED_OWNERSHIP_PACKET",
+        "record_id": "sourcefront-sec-account_packet",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+        "size_bytes": 9665,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt"
+      }
+    },
+    "notice": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 4770,
+        "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.txt",
+        "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e"
+      },
+      "metadata": {
+        "known_at": "2026-10-20T14:29:20.394430+00:00",
+        "observed_at": "2026-10-20T14:29:20.394430+00:00",
+        "purpose": "FORM144_NOTICE_PACKET",
+        "record_id": "sourcefront-sec-notice",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e",
+        "size_bytes": 4770,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/0001950047-26-008927.txt"
+      }
+    }
+  },
+  "kind": "SEC_FORM144_ACCOUNT_NOTICE",
+  "request": {
+    "selection": {
+      "account_accession": "0000789019-26-000157",
+      "account_primary_filename": "form4.xml",
+      "issuer_cik": "0000789019",
+      "issuer_header_name": "MICROSOFT CORP",
+      "notice_accession": "0001950047-26-008927",
+      "notice_primary_filename": "primary_doc.xml",
+      "owner_cik": "0001513142",
+      "owner_header_name": "Nadella Satya",
+      "transaction_day": "2026-08-31"
+    }
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

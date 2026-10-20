@@ -1,0 +1,16 @@
+{
+  "key": "doj_first_amended_complaint",
+  "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+  "started_at": "2026-10-20T14:33:12.162977+00:00",
+  "status": "REQUEST_RESERVED",
+  "method": "GET",
+  "request_plan_sha256": "b97af52ca9f96cf9111921aa4ae3704c57d48c32cca9ac60e177c70ce8de3563",
+  "research_only": true,
+  "collector_api_used": false,
+  "app_quota_managed_live_claimed": false,
+  "quota_database_created_or_modified": false,
+  "retry": false,
+  "redirect": false,
+  "max_response_bytes": 4000000,
+  "timeout_seconds": 25
+}

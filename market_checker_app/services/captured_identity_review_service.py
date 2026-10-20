@@ -28,7 +28,8 @@ _KINDS = {"CMS_PROVIDER_OWNER", "EPA_FRS_OWNER", "FORM4_PERSON", "STOCK_MERGER_E
           "SEC_CERTIFICATE_INSTRUMENT", "FDA_LEGAL_APPLICANT_BRIDGE", "DOJ_CASE_CAPTION",
           "SEC_SUPPLIER_REVENUE_DENOMINATOR", "SEC_PERSON_ROLE_CLAIM",
           "SEC_DATED_INSTRUMENT_POINT", "FDA_APPLICANT_CHRONOLOGY", "EPA_FRS_PROGRAM_SCOPE",
-          "USASPENDING_PRIME_SCOPE", "SEC_PERSON_ROLE_TEMPORAL"}
+          "USASPENDING_PRIME_SCOPE", "SEC_PERSON_ROLE_TEMPORAL",
+          "SEC_CHARTER_CLASS", "SEC_FORM144_ACCOUNT_NOTICE"}
 _BODY_BUDGETS = {kind: 4_000_000 for kind in (
     "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
     "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY",
@@ -39,7 +40,8 @@ _BODY_BUDGETS = {kind: 4_000_000 for kind in (
     "SEC_CERTIFICATE_INSTRUMENT", "FDA_LEGAL_APPLICANT_BRIDGE", "DOJ_CASE_CAPTION",
     "SEC_SUPPLIER_REVENUE_DENOMINATOR", "SEC_PERSON_ROLE_CLAIM",
     "SEC_DATED_INSTRUMENT_POINT", "FDA_APPLICANT_CHRONOLOGY", "EPA_FRS_PROGRAM_SCOPE",
-    "USASPENDING_PRIME_SCOPE", "SEC_PERSON_ROLE_TEMPORAL")}
+    "USASPENDING_PRIME_SCOPE", "SEC_PERSON_ROLE_TEMPORAL",
+    "SEC_CHARTER_CLASS", "SEC_FORM144_ACCOUNT_NOTICE")}
 
 
 def _time(value: object) -> datetime:
@@ -147,6 +149,25 @@ def _load_captures(plan: dict, source_root: Path, cutoff: datetime) -> dict[str,
 
 def _dispatch(plan: dict, captures: dict, source_root: Path, clock: datetime, cutoff: datetime) -> dict:
     request, kind = plan["request"], plan["kind"]
+    if kind == "SEC_CHARTER_CLASS":
+        from market_checker_app.services.sec_corporate_action_bridge import review_charter_class_disclosure
+        service = _bulk_service(plan, captures, cutoff)
+        return review_charter_class_disclosure(service, request["claim"],
+            as_of=cutoff if "as_of" in plan else None)
+    if kind == "SEC_FORM144_ACCOUNT_NOTICE":
+        from market_checker_app.services.sec_form4_person_bridge import (
+            SECPersonCapture, review_form144_account_notice,
+        )
+        selected = {}
+        for key, (metadata, body) in captures.items():
+            fields = dict(metadata)
+            for field in ("observed_at", "known_at"):
+                if fields.get(field) is not None:
+                    fields[field] = _time(fields[field])
+            selected[key] = SECPersonCapture(body=body, **fields)
+        return review_form144_account_notice(notice_capture=selected["notice"],
+            account_packet_capture=selected["account_packet"], selection=request["selection"],
+            knowledge_at=cutoff if "as_of" in plan else None)
     if kind == "SEC_DATED_INSTRUMENT_POINT":
         from market_checker_app.services.sec_dated_instrument_point_review import review_sec_dated_instrument_point
         return review_sec_dated_instrument_point(request, captures,

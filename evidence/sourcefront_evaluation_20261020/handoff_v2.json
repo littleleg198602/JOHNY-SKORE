@@ -1,0 +1,94 @@
+{
+  "GitHub_writes_or_push": 0,
+  "actions": {
+    "SQL_or_DB_file_operations": 0,
+    "collector_calls": 0,
+    "market_retries_or_new_plans": 0,
+    "new_HTTP_or_search_requests": 0,
+    "new_forecasts_registrations_labels": 0,
+    "registry_model_fitter_score_trading_changes": false,
+    "retained_DB_or_journal_touched": false,
+    "tests_CI_or_readiness_reruns": 0,
+    "withheld_body_paths_opened_or_recovered": 0
+  },
+  "all_seven_handoff_files_available_at_final_audit": true,
+  "base_common_originals_commit": "39e5958b20b66338ad2029e99908609834d67db3",
+  "evaluation_market_history_prerequisites": "Initial outside evaluation.json remains84186B/SHA256d6b8b88bca7c2b206cbfaa22f22b62986055bd5364be70ebb234428faf8e374b. Four new nonmarket originals do not fill missing66-session13symbol market data, dated publisher revisions, genuine forecasts/labels, nativeuserWindows or strictOOS.",
+  "facts": {
+    "CMS_after_allowed_reported": [
+      false,
+      false
+    ],
+    "CMS_whole_HTTP_original_available": false,
+    "DOJ_pages": 91,
+    "Form144_CCC": {
+      "access_value_exported": false,
+      "access_value_present_in_this_field": false,
+      "ccc_field_count": 1,
+      "ccc_field_original_byte_offset": 1698,
+      "ccc_value_bytes": 8,
+      "classification": "REPEATED_X_PLACEHOLDER",
+      "exact_packet_bytes": 4770,
+      "exact_packet_sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e",
+      "original_bytes_modified_or_sanitized": false
+    },
+    "HTTP200_originals_preserved": 4,
+    "SEC_notice_status": "PARTIAL",
+    "SEC_same_transaction_supported": false
+  },
+  "material_limits": [
+    "Research originals only; not app collector/live, dated machine historical availability, adoption, native userWindows, OOS or full21 acceptance.",
+    "Charter authorized capital is a separate role from premerger exchanged/traded class, CUSIP continuity and direct/indirect control.",
+    "Form144 is a proposed-sale notice, not proof of an executed sale or natural-person/account/legal-role continuity.",
+    "Amended Complaint is a party pleading, not separate Order, complete current docket, adjudicated merits, financial CIK or issuer continuity.",
+    "Four nonmarket originals cannot supply missing66-session market data, dated publisher price revisions, genuine forecasts/labels or nativeWindows runtime."
+  ],
+  "next_useful_integration": "Root may integrate already assigned narrow role-specific charter/Form144/case-pleading/deposit-asset outputs and the fail-closed legacy-CMS denial fix; no new source collection or identity/PIT/native/OOS acceptance follows. This worker owns audit evidence only.",
+  "no_claim_all_six_lanes_or_specialists_accepted": true,
+  "other_repo_files_or_originals_changed": false,
+  "owned_paths": [
+    "evidence/sourcefront_evaluation_20261020/**"
+  ],
+  "preserved_v1": {
+    "auditor": {
+      "bytes": 16457,
+      "path": "evidence/sourcefront_evaluation_20261020/audit_producer_v1.py",
+      "sha256": "7fc5b1a61e7e12bdeef7fbdffea113b25a2ebede7f8ae5f7eb875416d4bc9b3a"
+    },
+    "handoff": {
+      "bytes": 6774,
+      "path": "evidence/sourcefront_evaluation_20261020/handoff.json",
+      "sha256": "e3bff9fedbf385107daca58c5f7461600b8c9a80c2cca589fa2223795c1bc8da"
+    },
+    "historical_auditor_logical_path": "evidence/sourcefront_evaluation_20261020/audit_originals.py",
+    "result": {
+      "bytes": 24693,
+      "path": "evidence/sourcefront_evaluation_20261020/audit_result_v1.json",
+      "sha256": "086b7ec9d85e8696be85282ebfd874c15aa0a25a7395b124e1d7fa51f6e5cdce"
+    }
+  },
+  "qualification": {
+    "DOJ_original_bytes": 3404671,
+    "SEC_original_bytes": 44892,
+    "auditor": {
+      "bytes": 18204,
+      "path": "evidence/sourcefront_evaluation_20261020/audit_originals.py",
+      "sha256": "5c12585ad505b34c53a6388dcacc3cd858307a25d03060596bcb11be74d5d384"
+    },
+    "command": "PYTHONDONTWRITEBYTECODE=1 /workspace/scratch/334b3a149083/johny-tests-20261011/bin/python evidence/sourcefront_evaluation_20261020/audit_originals.py --lane-handoffs-root /workspace/scratch/334b3a149083/sourcefront_20261020 --output evidence/sourcefront_evaluation_20261020/audit_result_v2.json",
+    "exit_code": 0,
+    "kind": "ACTUAL_OFFLINE_CONTENT_AUDIT_NOT_UNITTEST_OR_CI",
+    "original_count": 4,
+    "result": {
+      "bytes": 27453,
+      "path": "evidence/sourcefront_evaluation_20261020/audit_result_v2.json",
+      "sha256": "bb89cbeca6b08b06f2990808ec2ea40730644c4d91c21841daa6f6e6c4fab1d3"
+    },
+    "total_original_bytes": 3449563
+  },
+  "recorded_at": "2026-10-20T20:19:50.785479+00:00",
+  "reproduction_limits": "A fresh explicit output path is required. Original/plan/metadata/reservation/discovery checks use committed public inputs. Optional lane handoffs are separately hash-pinned and available/missing facts are reported. No external handoff implementation/tests are executed.",
+  "revision_reason": "Independently bind the newly available SEC handoff to this exact4770B common original/metadata/reservation and record the healthcare projected-CMS limitation/denial fix; other-lane test/source claims remain reported, not reexecuted.",
+  "schema_version": "sourcefront_evaluation_original_peer_handoff_v2",
+  "seven_files_are_six_lanes_with_two_identity_files": true
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "scope": "OFFLINE_REGRESSIONS_ONLY_NOT_LIVE_ACCEPTANCE",
+  "started_at": "2026-10-20T14:36:01.267282+00:00",
+  "completed_at": "2026-10-20T14:36:01.280939+00:00",
+  "discovered": 9,
+  "executed": 9,
+  "failure_entries": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true,
+  "test_sha256": "e18e021ef039ccfbf1ec82934f8f18a26097429f559e82e06c495f83d8f4879c",
+  "test_bytes": 8036,
+  "unchanged_before_after_test_bytes": true,
+  "log_sha256": "6ea5aefa1ac94cfb891dabbbe5e657981a020617273977e1a3130f609751bd9a",
+  "producer_sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192",
+  "HTTP_or_SQL_allowed": false,
+  "prior_existing_suites_repeated": false
+}

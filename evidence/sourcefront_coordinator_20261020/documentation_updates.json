@@ -1,0 +1,34 @@
+{
+  "recorded_at": "2026-10-20T20:36:34.530212+00:00",
+  "updates": [
+    {
+      "path": "SCOUT_PROGRESS.md",
+      "before_sha256": "96144992643113e7a4835d6cc11396d8f7b092335af7589f1624fb0033b57185",
+      "after_sha256": "45e2ab027754feedb82b5c721c06c54cdf8c54c3ba49fc09e2cf9c3716af6c27",
+      "inserted_bytes": 5147,
+      "original_header_and_all_remaining_bytes_preserved": true
+    },
+    {
+      "path": "SPECIALIST_COMPLETION.md",
+      "before_sha256": "e38bd240c27c22b16aecdd08eb17b51e8ac8477513639f4867a7d9ee2b93bbbe",
+      "after_sha256": "aedb25e4f972b28214e8939ccbcc3af869e09c1a24f7c31251060c6366a16958",
+      "inserted_bytes": 5147,
+      "original_header_and_all_remaining_bytes_preserved": true
+    },
+    {
+      "path": "SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261001.md",
+      "before_sha256": "2714ae8420465d44be03ac5055471078bbd097135d2788e0e2e15d84fbde75a6",
+      "after_sha256": "456f324f70afb8d5df32a287f057c4513ac43174e4cb8c391636f025c1165515",
+      "inserted_bytes": 5147,
+      "original_header_and_all_remaining_bytes_preserved": true
+    },
+    {
+      "path": "PARALLEL_SPECIALIST_WORK.md",
+      "before_sha256": "4314dcc54408b2f66a8c92a45055e8a130a91caa5ea884fe9d0d1d07ce7c7a6f",
+      "after_sha256": "4e65704f5ab4c566f63050db86b8461312f9f67481e50052852d5f4425fa9917",
+      "inserted_bytes": 5147,
+      "original_header_and_all_remaining_bytes_preserved": true
+    }
+  ],
+  "recovery": "Exact before Git blobs compared against already written documents; prefixes were not written a second time."
+}

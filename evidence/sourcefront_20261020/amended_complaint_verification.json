@@ -1,0 +1,13 @@
+{
+  "verified_at": "2026-10-20T14:34:47.738280+00:00",
+  "body_path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+  "bytes": 3404671,
+  "sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+  "original_page_count": 91,
+  "metadata_path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+  "one_exact_new_primary_HTTP200": true,
+  "app_collector": false,
+  "SQL_operations": 0,
+  "retries": 0,
+  "source_scope": "Original party pleading; not the separate Order, current complete docket, issuer CIK, adjudicated merits or continuous legal identity."
+}

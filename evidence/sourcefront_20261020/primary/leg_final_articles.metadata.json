@@ -1,0 +1,32 @@
+{
+  "key": "leg_final_articles",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm",
+  "method": "GET",
+  "started_at": "2026-10-20T14:29:05.370795+00:00",
+  "request_plan_sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0",
+  "max_response_bytes": 2000000,
+  "timeout_seconds": 25,
+  "research_only": true,
+  "collector_api_used": false,
+  "app_quota_managed_live_claimed": false,
+  "retry": false,
+  "redirect": false,
+  "quota_database_created_or_modified": false,
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+  "http_status": 200,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm",
+  "response_headers": {
+    "Date": "Tue, 20 Oct 2026 14:29:11 GMT",
+    "Last-Modified": "Wed, 26 Aug 2026 17:27:29 GMT",
+    "Content-Type": "text/html",
+    "Content-Length": "14256",
+    "Content-Encoding": null
+  },
+  "observed_at": "2026-10-20T14:29:11.360266+00:00",
+  "bytes": 14256,
+  "raw_sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba",
+  "body_path": "leg_final_articles.htm",
+  "body_transformed": false,
+  "public_raw_available": true,
+  "elapsed_seconds": 5.991555701000038
+}

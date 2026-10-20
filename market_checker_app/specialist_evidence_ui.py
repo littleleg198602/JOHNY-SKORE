@@ -44,6 +44,8 @@ _LABELS = {
     "EPA_FRS_PROGRAM_SCOPE": "Provozovna a konkrétní program EPA",
     "USASPENDING_PRIME_SCOPE": "Úplnost původních stránek zakázek",
     "SEC_PERSON_ROLE_TEMPORAL": "Platnost údaje o roli k datu transakce",
+    "SEC_CHARTER_CLASS": "Povolené třídy akcií v zakladatelské listině",
+    "SEC_FORM144_ACCOUNT_NOTICE": "Oznámení Form 144 a účet z Form 4",
 }
 
 
@@ -284,6 +286,10 @@ def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, 
             st.caption("Úplnost se posuzuje jen pro přesný rozsah dotazu. Chybějící původní stránka neprokazuje nepřítomnost zakázky.")
         if review_kind == "SEC_PERSON_ROLE_TEMPORAL":
             st.caption("Datum transakce se porovnává s datovaným údajem o roli. Rok nástupu ani starší výraz „present“ neprokazují roli v pozdějším období.")
+        if review_kind == "SEC_CHARTER_CLASS":
+            st.caption("Zakladatelská listina popisuje povolené třídy a kapitál konkrétní právní společnosti. Datum podpisu a účinnosti se posuzují samostatně; návaznost burzovního instrumentu vyžaduje další doklady.")
+        if review_kind == "SEC_FORM144_ACCOUNT_NOTICE":
+            st.caption("Form 144 oznamuje zamýšlený prodej. Shoda účtu nebo dne nabytí s Form 4 sama neprokazuje stejnou transakci; porovnávají se také množství a přesné názvy tříd.")
         if leaf.get("literal_specimen_class_cusip_scope_observed"):
             st.caption("Původní vzor certifikátu uvádí Class A a CUSIP " + leaf["observed_cusip"] +
                        ". Datum vydání je prázdné; návaznost na změnu tickeru čeká na doložení.")

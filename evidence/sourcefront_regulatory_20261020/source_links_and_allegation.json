@@ -1,0 +1,113 @@
+{
+  "case_date_financial_issuer_binding_verified": false,
+  "current_docket_verified": false,
+  "database_operations": 0,
+  "known_at": "2026-10-20T20:20:01.166716+00:00",
+  "lane_http_requests": 0,
+  "merits_or_disposition_verified": false,
+  "metadata_adapter": {
+    "adapted_plan_metadata": {
+      "archive_encoding": "raw",
+      "archive_path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+      "automatic_redirects": false,
+      "capture_id": "doj_first_amended_complaint",
+      "content_encoding": null,
+      "content_type": "application/pdf",
+      "final_url": "https://www.justice.gov/atr/media/1358786/dl",
+      "http_status": 200,
+      "metadata_adapter": "root-primary-research-capture-to-doj-original-v1",
+      "observed_at": "2026-10-20T14:33:17.921783+00:00",
+      "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+      "original_capture_metadata_ref": {
+        "bytes": 1214,
+        "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+        "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+      },
+      "public_raw_available": true,
+      "raw_response_bytes": 3404671,
+      "raw_response_sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+      "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+      "started_at": "2026-10-20T14:33:12.162977+00:00",
+      "status": "ORIGINAL_BYTES_CAPTURED"
+    },
+    "field_mapping": {
+      "automatic_redirects": "redirect",
+      "capture_id": "key",
+      "content_encoding": "response_headers.Content-Encoding",
+      "content_type": "response_headers.Content-Type",
+      "origin": "Root's primary research GET receipt; not an app collector request.",
+      "raw_response_bytes": "bytes",
+      "raw_response_sha256": "raw_sha256",
+      "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED maps to ORIGINAL_BYTES_CAPTURED"
+    },
+    "original_metadata_unmodified": true
+  },
+  "original_body": {
+    "bytes": 3404671,
+    "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+    "sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6"
+  },
+  "original_metadata": {
+    "bytes": 1214,
+    "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+    "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+  },
+  "paragraph19": {
+    "capture_id": "doj_first_amended_complaint",
+    "document_filed_on": "2024-06-11",
+    "figures_adjudicated": false,
+    "issuer_cik_identity_verified": false,
+    "literal": "19. Apple is a global technology company with headquarters in Cupertino, California. \nApple is one of the world's most valuable public companies with a market capitalization over \n$2.5 trillion. In fiscal year 2023, Apple generated annual net revenues of $383 billion and net \nincome of $97 billion. Apple's net income exceeds any other company in the Fortune 500 and \nthe gross domestic products of more than 100 countries. ",
+    "normalized_literal": "19. Apple is a global technology company with headquarters in Cupertino, California. Apple is one of the world's most valuable public companies with a market capitalization over $2.5 trillion. In fiscal year 2023, Apple generated annual net revenues of $383 billion and net income of $97 billion. Apple's net income exceeds any other company in the Fortune 500 and the gross domestic products of more than 100 countries.",
+    "page": 17,
+    "page_text_character_span": [
+      102,
+      527
+    ],
+    "page_text_sha256": "b71df77f7778c9e2cfa1f090f58e66efd9499cfa69cc785418e64536e52ceeb5",
+    "scope": "PARTY_PLEADING_ALLEGATION_ONLY"
+  },
+  "parent_research_receipt": {
+    "bytes": 637,
+    "path": "evidence/sourcefront_20261020/amended_complaint_verification.json",
+    "sha256": "bc025a4d0cc2d033365a09378e3d3cedcc0118a9af73f1e0ac3c0f29afc7a3bd"
+  },
+  "parent_research_transports_for_this_new_original": 1,
+  "prior_opinion_crossreference": {
+    "locator": "Retained Doc283 page2 cites (Am. Compl. paragraph19); original Doc51 paragraph19 is now supplied.",
+    "original_snapshot_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/regulatory.json",
+    "original_snapshot_unchanged": true,
+    "review_snapshot": {
+      "bytes": 20610,
+      "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+      "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+    },
+    "source_inference_limit": "The opinion's pleading attribution does not independently adjudicate the description or financial figures."
+  },
+  "retained_index_reference": {
+    "anchor_original_text": "<a class=\"downloadable-file\" href=\"/atr/media/1358786/dl\" hreflang=\"en\">\n               First Amended Complaint \n          </a>",
+    "anchor_raw_byte_span": [
+      89848,
+      89975
+    ],
+    "anchor_raw_sha256": "76f72287896c5e6ce4f89b1ca3322e00426629a9440f09d19f7178cb067e55c1",
+    "href": "/atr/media/1358786/dl",
+    "is_current_complete_docket": false,
+    "label": "First Amended Complaint",
+    "listed_date_timezone": "UNKNOWN",
+    "listed_documentary_date": "2024-06-11",
+    "original_body": {
+      "bytes": 107793,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+      "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+    }
+  },
+  "review_started_at": "2026-10-20T20:20:00.971226+00:00",
+  "schema_version": "sourcefront-doj-pleading-source-links-v1",
+  "separate_order_present": false,
+  "source_plan": {
+    "bytes": 1203,
+    "path": "evidence/sourcefront_20261020/amended_complaint_plan.json",
+    "sha256": "b97af52ca9f96cf9111921aa4ae3704c57d48c32cca9ac60e177c70ce8de3563"
+  }
+}

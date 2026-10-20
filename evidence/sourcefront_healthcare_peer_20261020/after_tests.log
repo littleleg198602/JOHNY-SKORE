@@ -1,0 +1,11 @@
+test_actual_current_runtime_cannot_override_strict_original_byte_withhold (cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_actual_current_runtime_cannot_override_strict_original_byte_withhold) ... ok
+test_exact_recorded_day_without_original_binding_is_also_insufficient (cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_exact_recorded_day_without_original_binding_is_also_insufficient) ... ok
+test_explicit_wrong_enrollment_and_wrong_issuer_controls_remain_denied (cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_explicit_wrong_enrollment_and_wrong_issuer_controls_remain_denied) ... ok
+test_other_object_capture_ccn_and_provider_pac_cannot_ride_legacy_identifiers (cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_other_object_capture_ccn_and_provider_pac_cannot_ride_legacy_identifiers) ... ok
+test_query_leads_and_exact_source_objects_survive_withholding (cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_query_leads_and_exact_source_objects_survive_withholding) ... ok
+test_unrelated_exact_dated_fda_control_remains_available (cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_unrelated_exact_dated_fda_control_remains_available) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.011s
+
+OK

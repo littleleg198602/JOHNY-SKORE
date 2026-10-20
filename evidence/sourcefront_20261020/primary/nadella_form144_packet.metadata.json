@@ -1,0 +1,32 @@
+{
+  "key": "nadella_form144_packet",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/0001950047-26-008927.txt",
+  "method": "GET",
+  "started_at": "2026-10-20T14:29:15.829072+00:00",
+  "request_plan_sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0",
+  "max_response_bytes": 2000000,
+  "timeout_seconds": 25,
+  "research_only": true,
+  "collector_api_used": false,
+  "app_quota_managed_live_claimed": false,
+  "retry": false,
+  "redirect": false,
+  "quota_database_created_or_modified": false,
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+  "http_status": 200,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/0001950047-26-008927.txt",
+  "response_headers": {
+    "Date": "Tue, 20 Oct 2026 14:29:20 GMT",
+    "Last-Modified": "Tue, 01 Sep 2026 20:37:09 GMT",
+    "Content-Type": "text/plain",
+    "Content-Length": "4770",
+    "Content-Encoding": null
+  },
+  "observed_at": "2026-10-20T14:29:20.394430+00:00",
+  "bytes": 4770,
+  "raw_sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e",
+  "body_path": "nadella_form144_packet.txt",
+  "body_transformed": false,
+  "public_raw_available": true,
+  "elapsed_seconds": 4.56588373000011
+}

@@ -1,0 +1,83 @@
+{
+  "collector_calls": 0,
+  "completed_at": "2026-10-20T20:11:04.675380+00:00",
+  "database_operations": 0,
+  "elapsed_seconds": 0.013624687999936214,
+  "error_test_ids": [],
+  "errors": 0,
+  "expected_failures": 0,
+  "failure_test_ids": [
+    "cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_actual_current_runtime_cannot_override_strict_original_byte_withhold (enrollment='O20021115000002')",
+    "cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_actual_current_runtime_cannot_override_strict_original_byte_withhold (enrollment='O20030204000016')",
+    "cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_exact_recorded_day_without_original_binding_is_also_insufficient (enrollment='O20021115000002')",
+    "cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_exact_recorded_day_without_original_binding_is_also_insufficient (enrollment='O20030204000016')",
+    "cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_other_object_capture_ccn_and_provider_pac_cannot_ride_legacy_identifiers (enrollment='O20021115000002', other_enrollment='O20030204000016')",
+    "cms_snapshot_attribution_peer.CmsSnapshotAttributionPeerTests.test_other_object_capture_ccn_and_provider_pac_cannot_ride_legacy_identifiers (enrollment='O20030204000016', other_enrollment='O20021115000002')"
+  ],
+  "failures": 6,
+  "full_console": {
+    "bytes": 17563,
+    "path": "evidence/sourcefront_healthcare_peer_20261020/before_tests.log",
+    "sha256": "f2ea1130d413001f9031a78929e41a74cb197e6bf3c8a045ac75e3c4dbe7c99b"
+  },
+  "http_requests": 0,
+  "peer_test": {
+    "bytes": 8381,
+    "path": "tests/test_cms_snapshot_attribution_peer.py",
+    "sha256": "bef8f5403e33c721ae0b125a5eed45f736a87cd6c28b1f102f939dcd5c3470ba"
+  },
+  "phase": "before",
+  "plain_ok": false,
+  "prior_suite_repeated": false,
+  "producer_and_registry_after": {
+    "market_checker_app/data/verified_healthcare_identities.json": {
+      "bytes": 14656,
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    "market_checker_app/services/cms_provider_ownership_review.py": {
+      "bytes": 19142,
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    "market_checker_app/services/healthcare_identity_service.py": {
+      "bytes": 36547,
+      "sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923"
+    },
+    "market_checker_app/services/healthcare_scout_service.py": {
+      "bytes": 26388,
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    }
+  },
+  "producer_and_registry_before": {
+    "market_checker_app/data/verified_healthcare_identities.json": {
+      "bytes": 14656,
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    "market_checker_app/services/cms_provider_ownership_review.py": {
+      "bytes": 19142,
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    "market_checker_app/services/healthcare_identity_service.py": {
+      "bytes": 36547,
+      "sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923"
+    },
+    "market_checker_app/services/healthcare_scout_service.py": {
+      "bytes": 26388,
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    }
+  },
+  "production_or_registry_edits": false,
+  "runtime_diagnostic": {
+    "bytes": 17295,
+    "path": "evidence/sourcefront_healthcare_peer_20261020/before_runtime.json",
+    "sha256": "7a24c5c728cd62d30a7b90f4ea8fc0c7029aa7b465d41af01e4046d984bf7dda"
+  },
+  "schema_version": 1,
+  "skips": 0,
+  "source_and_assertion_bytes_unchanged": true,
+  "source_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "source_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015",
+  "started_at": "2026-10-20T20:11:04.661751+00:00",
+  "tests_discovered": 6,
+  "tests_executed": 6,
+  "unexpected_successes": 0
+}

@@ -1,0 +1,193 @@
+{
+  "after": {
+    "console": {
+      "bytes": 1348,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/after_tests.log",
+      "sha256": "00e610b7939b7280cfa916631c81004920d1fd215fff4bbc59e8079b9e2ff34f"
+    },
+    "diagnostic": {
+      "bytes": 11925,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/after_runtime.json",
+      "sha256": "4bcb5ff32d73cb07fd1661f01ce72b6d1194b3bba2390e47428b08b242a5a2e8"
+    },
+    "elapsed_seconds": 0.011118845000055444,
+    "errors": 0,
+    "expected_failures": 0,
+    "failures": 0,
+    "plain_ok": true,
+    "report": {
+      "bytes": 2872,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/after_tests.json",
+      "sha256": "c05c9842150317d950a50bf080fa75033d01396c4e1ac3544e145e75734ba2c1"
+    },
+    "skips": 0,
+    "tests_discovered": 6,
+    "tests_executed": 6,
+    "unexpected_successes": 0,
+    "whole_identity_producer": {
+      "bytes": 37869,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/after/market_checker_app/services/healthcare_identity_service.py",
+      "sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "bytes": 37869,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/after/market_checker_app/services/healthcare_identity_service.py",
+      "sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192"
+    },
+    {
+      "bytes": 11925,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/after_runtime.json",
+      "sha256": "4bcb5ff32d73cb07fd1661f01ce72b6d1194b3bba2390e47428b08b242a5a2e8"
+    },
+    {
+      "bytes": 2872,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/after_tests.json",
+      "sha256": "c05c9842150317d950a50bf080fa75033d01396c4e1ac3544e145e75734ba2c1"
+    },
+    {
+      "bytes": 1348,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/after_tests.log",
+      "sha256": "00e610b7939b7280cfa916631c81004920d1fd215fff4bbc59e8079b9e2ff34f"
+    },
+    {
+      "bytes": 14656,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before/market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    {
+      "bytes": 19142,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before/market_checker_app/services/cms_provider_ownership_review.py",
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    {
+      "bytes": 36547,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before/market_checker_app/services/healthcare_identity_service.py",
+      "sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923"
+    },
+    {
+      "bytes": 26388,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before/market_checker_app/services/healthcare_scout_service.py",
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    },
+    {
+      "bytes": 815,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before/tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+      "sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2"
+    },
+    {
+      "bytes": 8381,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before/tests/test_cms_snapshot_attribution_peer.py",
+      "sha256": "bef8f5403e33c721ae0b125a5eed45f736a87cd6c28b1f102f939dcd5c3470ba"
+    },
+    {
+      "bytes": 2306,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before_manifest.json",
+      "sha256": "b0b6e18dcd76b8012c29cf00129149104c208483a2881e4ddb011695495524ae"
+    },
+    {
+      "bytes": 17295,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before_runtime.json",
+      "sha256": "7a24c5c728cd62d30a7b90f4ea8fc0c7029aa7b465d41af01e4046d984bf7dda"
+    },
+    {
+      "bytes": 3994,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before_tests.json",
+      "sha256": "7b098e46d8ef7cdf1f1c130f52637bd714d8a885190f9d7fbf3d2c3a4ed10dfe"
+    },
+    {
+      "bytes": 17563,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before_tests.log",
+      "sha256": "f2ea1130d413001f9031a78929e41a74cb197e6bf3c8a045ac75e3c4dbe7c99b"
+    },
+    {
+      "bytes": 6067,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/run_peer.py",
+      "sha256": "72a6c64afcf53306874f27f1e77168cddcba84d49d5b4dc677eb0ce440e9ce96"
+    }
+  ],
+  "assertions_unchanged_between_before_and_after": true,
+  "base_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "before": {
+    "console": {
+      "bytes": 17563,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before_tests.log",
+      "sha256": "f2ea1130d413001f9031a78929e41a74cb197e6bf3c8a045ac75e3c4dbe7c99b"
+    },
+    "diagnostic": {
+      "bytes": 17295,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before_runtime.json",
+      "sha256": "7a24c5c728cd62d30a7b90f4ea8fc0c7029aa7b465d41af01e4046d984bf7dda"
+    },
+    "elapsed_seconds": 0.013624687999936214,
+    "errors": 0,
+    "failing_methods": 3,
+    "failure_entries": 6,
+    "report": {
+      "bytes": 3994,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before_tests.json",
+      "sha256": "7b098e46d8ef7cdf1f1c130f52637bd714d8a885190f9d7fbf3d2c3a4ed10dfe"
+    },
+    "skips": 0,
+    "tests_discovered": 6,
+    "tests_executed": 6,
+    "whole_byte_freeze": {
+      "bytes": 2306,
+      "path": "evidence/sourcefront_healthcare_peer_20261020/before_manifest.json",
+      "sha256": "b0b6e18dcd76b8012c29cf00129149104c208483a2881e4ddb011695495524ae"
+    }
+  },
+  "branch": "sourcefront/healthcare-peer-20261020",
+  "deliverable": "Independent unchanged-assertion peer regression for CMS projected-snapshot runtime attribution",
+  "integration_note": "Integrate owner fix before this new peer test. Peer branch keeps public96 production bytes untouched; qualification imports the exact separate owner commit. This test does not add a positive CMS identity schema or recover source history.",
+  "observed_before_failure": {
+    "identity_status": "DATED_IDENTITY_VERIFIED",
+    "issuer_attribution_allowed": true,
+    "scope": "Both retained CMS rows at current 2026-10-20 and same legacy UTC day; foreign object metadata likewise ignored"
+  },
+  "peer_test": {
+    "bytes": 8381,
+    "path": "tests/test_cms_snapshot_attribution_peer.py",
+    "sha256": "bef8f5403e33c721ae0b125a5eed45f736a87cd6c28b1f102f939dcd5c3470ba"
+  },
+  "recorded_at": "2026-10-20T20:15:29.119940+00:00",
+  "remaining_gaps": [
+    "Complete original CMS owner/provider responses with CCN/PAC/object/hash/observation pins",
+    "Independent same-cohort issuer/legal-owner bridge; genuine complete positive and negative cases",
+    "Original durable source quota/history before any new CMS collection"
+  ],
+  "required_owner_fix_commit": "d0fca0a2623919b908d6a6469a0e7b86d1e709f7",
+  "required_owner_fix_identity_sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192",
+  "restrictions": {
+    "collector_calls": 0,
+    "full_specialist_acceptance": "0/21",
+    "http_requests": 0,
+    "network_and_sqlite_connections_guarded_in_all_six_methods": true,
+    "new_verified_adoptions": 0,
+    "old_test_edits": false,
+    "production_edits": false,
+    "registry_edits": false,
+    "score_model_trading_changes": false,
+    "sql_or_database_open_replay_copy_reset": 0,
+    "unchanged_prior_suites_repeated": false,
+    "withheld_source_bodies_read_restored_or_substituted": false
+  },
+  "schema_version": 1,
+  "source_qualification": {
+    "mechanism_cutoffs_are_acceptance_or_live_evidence": false,
+    "original_http_response_available": false,
+    "registry_unchanged_sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+    "retained_projection_path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+    "retained_projection_sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+    "retained_rows": 2,
+    "wrong_object_metadata_is_adversarial_control_not_source_capture": true
+  },
+  "verified_behavior": [
+    "Both retained real HCA projected rows cannot override strict original-byte WITHHOLD through legacy runtime identity resolution",
+    "The legacy observation UTC date alone is insufficient without original body, exact CCN/provider PAC and source-object observation binding",
+    "Foreign-enrollment provenance and adversarial CCN/PAC fields cannot ride matching legacy identifiers into attribution",
+    "The two exact source leads and source association/ownership fields remain queryable and unmodified",
+    "Explicitly wrong enrollment and issuer controls remain denied; unrelated exact dated FDA control remains available"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "assertion_semantics": "No supplied case-date legal registry match, no CIK/continuity/attribution.",
+  "change": "Correct only the new fixture expected enum to existing UNMAPPED_NAME; production unchanged; prior 9-run/1-failure log preserved.",
+  "failure": "New test expected invented NO_VERIFIED_MATCH instead of actual existing UNMAPPED_NAME for empty supplied records.",
+  "historical_test_path": "tests/test_sourcefront_doj_first_amended.py",
+  "historical_test_sha256": "65414a326fa4fa3ba49c8d8b75a1a8c218ce5aa2674d63af7b77ed5f0cec45e7",
+  "old_tests_changed": false,
+  "preserved_copy": "evidence/sourcefront_regulatory_20261020/pre_resolution_literal_test.py"
+}

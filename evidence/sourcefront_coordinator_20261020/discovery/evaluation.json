@@ -1,0 +1,1793 @@
+{
+  "actionable_decision": {
+    "currently_authorized_source_or_history_progress_step": null,
+    "currently_available_eligible_genuine_input": false,
+    "entrypoints_executed_here": false,
+    "existing_entrypoints_ready_when_prerequisites_are_supplied": [
+      "CapturedMarketDataProvider(manifest_path, archive_root): explicit readiness/assets+12benchmarks and repeated exact-parent revalidation",
+      "weekly_shadow_runner captured-market flags, distinct --register-prospective-history plus --prospective-audit-archive-root for genuine saved snapshots",
+      "specialist_evidence_runner windows-analysis --enable with explicit output/tickers/db-path/market-manifest/market-archive-root on actual userWindows",
+      "ProspectiveSpecialistHistory.attach_label after exact target and strict publisher-version gates"
+    ],
+    "irreducible_external_prerequisite_order": [
+      {
+        "authorization_limit": "Consumed acquisition cannot be retried/replanned or bypassed through alternate transport/quotaDB; this assessment authorizes no new source requests, accounts, purchases or license changes.",
+        "deliverable": "Safe unmodified originalOHLCV/provider evidence for AAPL+all12benchmarks, >=66 consecutive complete dailyNYSEsessions ending physical runtime latest completedclose; exact instrument/provider/timeframe, true aware capture/known clocks and immutable whole-byte hashes.",
+        "for": "Normal analysis input",
+        "order": 1
+      },
+      {
+        "authorization_limit": "No source discovery, implicit collection, body reconstruction, adjusted-to-raw/OHLC synthesis, padding or annotation upgrade.",
+        "deliverable": "Explicit bounded captured_market_data_manifest_v1 referencing genuine originals and raw_http_parent where applicable; separate exact prospective source manifest when collecting genuine future forecasts. UNKNOWN revision may describe normal input but remains strictPIT-excluded.",
+        "for": "Honest normal provenance",
+        "order": 2
+      },
+      {
+        "authorization_limit": "Linux/CI/platform mocks or loaded receipts cannot provide it. A selected native run is not full21 acceptance.",
+        "deliverable": "Actual native non-hosted userWindows process running existing explicit windows-analysis recorder with genuine ready inputs and safe outputDB; original same-process code/input/run/signal/DB/physicalclock receipt.",
+        "for": "Native userWindows observation",
+        "order": 3
+      },
+      {
+        "authorization_limit": "A passed deadline is irreversible; no backdating, historical forecast implantation or shifted target.",
+        "deliverable": "Authentic normal weekly-shadow saved PENDING snapshot, actual source/training knowledge pins, explicit post-save registration before freshly computed exact first-forwardNYSEopen.",
+        "for": "Genuine prospective prediction history",
+        "order": 4
+      },
+      {
+        "authorization_limit": "Elapsed time and old current-version Yahoo captures do not create missing prior knowledge; no score/fitter/model/trading changes.",
+        "deliverable": "After exact five-session horizon, genuine dated asset/benchmark price revisions plus full action-window knowledge and later immutable labels; accumulate sufficient strict matched held-out periods.",
+        "for": "Strict labels and historical/OOS evidence",
+        "order": 5
+      }
+    ],
+    "new_external_source_requests_authorized_here": false,
+    "new_generic_code_required_for_existing_available_input": false,
+    "reason": "No overlooked authentic ready corpus was found in public market originals, source preparations or native receipts. Current protected DB facts remain unavailable by explicit boundary. More replays/readiness/recorders, annotations or fixture forecasts add no missing source/history acceptance."
+  },
+  "all_explicit_safe_content_pins": [
+    {
+      "bytes": 1413,
+      "path": "evidence/batch5_prices_20261014/live_probe.json",
+      "sha256": "9ffb4ffd22dd3a49af6125924155fe434eef6e9a147d2e5e4880fba98f2b2bee"
+    },
+    {
+      "bytes": 3491,
+      "path": "evidence/batch5_prices_20261014/raw/ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182.json",
+      "sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182"
+    },
+    {
+      "bytes": 3573,
+      "path": "evidence/batch5_prices_20261014/raw/e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66.json",
+      "sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66"
+    },
+    {
+      "bytes": 13661,
+      "path": "evidence/batch6_evaluation_20261014/preserved_price_audit.json",
+      "sha256": "cbff2d4d9c7a4fe44e0927707cf95b7cfb5c952087b2b1a63d79c2e630174222"
+    },
+    {
+      "bytes": 4183,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json",
+      "sha256": "17fa37032d4b3a11db559f5ac2e2d13103fb30f269f4944bc3b8e49f5ac0d673"
+    },
+    {
+      "bytes": 4082,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+      "sha256": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3"
+    },
+    {
+      "bytes": 4020,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json",
+      "sha256": "ceb51a5a54ac108fe25f45cb3723262b4ddb1b4e15e35cc67a9d9bcd0df70b23"
+    },
+    {
+      "bytes": 4183,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+      "sha256": "8b208427d5803dd8167fa60efb7b001bd578e67cf7562f0f756afe2a2d62df96"
+    },
+    {
+      "bytes": 4082,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+      "sha256": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365"
+    },
+    {
+      "bytes": 4183,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+      "sha256": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f"
+    },
+    {
+      "bytes": 4011,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json",
+      "sha256": "3c40cd641da45f93b9c043dfffe882cf718afcd11983d4133fc1d607571de74a"
+    },
+    {
+      "bytes": 4011,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+      "sha256": "46f14b3f4c90cb1e1af9f7040f20838ee998ce5ab3ff8fea341a30e8ce3a6ee0"
+    },
+    {
+      "bytes": 4082,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json",
+      "sha256": "06dae1963277a7a6679ce43cd5c30163936ffbea70c19ac19e623aa79fe91c59"
+    },
+    {
+      "bytes": 4020,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+      "sha256": "4ad3a6f0dd9bcb2a0414cacda679913af205188f8680c9f93e9ed4974d75131a"
+    },
+    {
+      "bytes": 4011,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json",
+      "sha256": "d1e463919e61a19bcbc034e800f546df0107974b801a8a73d72741f1c0cb9b15"
+    },
+    {
+      "bytes": 4082,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json",
+      "sha256": "5e7b4a296cd39dcbb1dc623c6a546031b64f4dbcbee3f9e4a8c0ac4e4fa255b6"
+    },
+    {
+      "bytes": 4183,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+      "sha256": "6d5ecdc369acc28f8454ab96c34985bfc01d12be78c5b512ae543d0290e53328"
+    },
+    {
+      "bytes": 4020,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json",
+      "sha256": "88c4df08605994ffd17f06f1cb86c4bacf32c56d9a904da433ae4bd326447c2c"
+    },
+    {
+      "bytes": 4011,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+      "sha256": "a12934db619882f10e89fae61b9cb85921df407fda0cf657b0584768300f2a2c"
+    },
+    {
+      "bytes": 4020,
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+      "sha256": "cc34609984e6123980319b684d70f460e1a3e186788fc61ef7d332415082f2ba"
+    },
+    {
+      "bytes": 40569,
+      "path": "evidence/batch8_evaluation_20261015/qualification_v1/actual_readiness.json",
+      "sha256": "e7df1bc2223bf240b69c00969bf2755e1b7dfe01adac95e17cea0b2fd8ba9818"
+    },
+    {
+      "bytes": 5290,
+      "path": "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/plan.json",
+      "sha256": "a2473790034572fdcf956181fd20a26ac606ea5fb95abb68d1ad971c305ed6e6"
+    },
+    {
+      "bytes": 5178,
+      "path": "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/acquisition_report.json",
+      "sha256": "47dd6e79f66b6278ed45529a31ec7c3e31c490decacdbc44d596b3467d256afe"
+    },
+    {
+      "bytes": 424,
+      "path": "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/receipt_AAPL.json",
+      "sha256": "74737e8ed6fc36225218f8a2a0d98c6cadb2cc7ed6bcb938d13a10b7e5add203"
+    },
+    {
+      "bytes": 617,
+      "path": "evidence/batch9_evaluation_20261016/actual_acquisition/plan_claims/claim_c97b594692d96460e1e727cd6b9feaed90216208225a1095830a2aae970ad88e.json",
+      "sha256": "8b7a31244648d227f12fab141aec8c81f69976abfaf552dc1b99b4650a397f16"
+    },
+    {
+      "bytes": 8170,
+      "path": "evidence/batch9_evaluation_20261016/actual_attempt_summary.json",
+      "sha256": "ffa0166c2dd095927785bf4fbe88723daeb04519e85700be9d8d498847da56a9"
+    },
+    {
+      "bytes": 2546,
+      "path": "evidence/batch6_evaluation_20261014/actual_corpus_audit.json",
+      "sha256": "5b830562010b8cad360ff0e12671ed3dfa99dccfa96c630fc6ae0d9fdd15dc1f"
+    },
+    {
+      "bytes": 4483,
+      "path": "evidence/batch6_evaluation_20261014/final_corpus_and_validation_audit.json",
+      "sha256": "4f91f4256dd1546f0d828447618059d48a971a24c42578e35821516711c806f3"
+    },
+    {
+      "bytes": 3635,
+      "path": "evidence/batch7_evaluation_20261015/qualification_v1/actual_corpus.json",
+      "sha256": "40f4087c40ef40b1957761b72edbffc04039bfcbf300caea407f69955a30e8dc"
+    },
+    {
+      "bytes": 6513,
+      "path": "evidence/batch7_source_manifest_20261015/retained_preparation.json",
+      "sha256": "dbdafd4b4abe2ce7d55f6d90ecd75f21472ddda41bf407e04d0d3f0d397f3cc0"
+    },
+    {
+      "bytes": 6513,
+      "path": "evidence/batch7_source_manifest_20261015/retained_preparation_current.json",
+      "sha256": "24dbb25f9dda7027134c1fe9ab2106c7474c66c4a5849d1e7f4201292b67458c"
+    },
+    {
+      "bytes": 5690,
+      "path": "evidence/batch10_coordinator_20261018/runtime/native_CLI.stdout.json",
+      "sha256": "23b0596b4e551b819917e9b251c140e0ec379e89214da6e3746e8adfe0266e15"
+    },
+    {
+      "bytes": 6435,
+      "path": "evidence/batch10_coordinator_20261018/runtime/native_CLI_readiness_receipt.json",
+      "sha256": "7272e6f516db9ed36a23a183bd6ced667b5324a3e8f2a5c44369c103ba9dd34c"
+    },
+    {
+      "bytes": 7687,
+      "path": "evidence/batch10_coordinator_20261018/runtime/native_UI_readiness.json",
+      "sha256": "77d75a4417818230120978c2ac84dbd99a4559ee7e0e62eeba03f6c7f635fe5f"
+    },
+    {
+      "bytes": 6435,
+      "path": "evidence/batch10_coordinator_20261018/runtime/user_windows_readiness/20261018T142226248510Z.json",
+      "sha256": "3a8bc17cd76a48c76d6c282f0fc0d930d07f27d70ac9b22180ad33b09d054658"
+    },
+    {
+      "bytes": 7828,
+      "path": "evidence/batch10_evaluation_20261018/actual_linux_readiness.json",
+      "sha256": "13edc710e67e82a566a678f8782a0f90f31014b1d47aa9d4494752a26d29b03d"
+    },
+    {
+      "bytes": 7966,
+      "path": "evidence/batch10_evaluation_20261018/actual_linux_v2/actual_linux_readiness.json",
+      "sha256": "bf1691aae45c9004d13a492b036f98bac102db1ff3047865d75db5e1516e8b59"
+    },
+    {
+      "bytes": 49595,
+      "path": "evidence/batch11_coordinator_20261018/runtime/actual_linux_CLI_analysis_refusal.json",
+      "sha256": "a14db2e86bf443b998cb969e01db27c63034bf088f0164735508b8dbcb2c51d6"
+    },
+    {
+      "bytes": 52525,
+      "path": "evidence/batch11_coordinator_20261018/runtime/native_CLI.json",
+      "sha256": "17e8bf8686045a24adb4a834bd1934e4a7c378c3b529d9a80a957a657fe49cb1"
+    },
+    {
+      "bytes": 55070,
+      "path": "evidence/batch11_coordinator_20261018/runtime/native_UI.json",
+      "sha256": "f0f78b6c84d65c08c989b761daaaec48c2fd4c98f354934ddbeaaee6589204cd"
+    },
+    {
+      "bytes": 49595,
+      "path": "evidence/batch11_coordinator_20261018/runtime/user_windows_analysis/20261019T004531442731Z.json",
+      "sha256": "c38233f5cb01d23983063bec3e21d12582723f96e7bec921e3850c87172fa671"
+    },
+    {
+      "bytes": 48517,
+      "path": "evidence/batch11_evaluation_20261018/actual_linux_refusal.json",
+      "sha256": "ee90438b2bba1ca84c0106db6ed90666823f15abab95e31b7d582b0f4f991919"
+    },
+    {
+      "bytes": 28473,
+      "path": "market_checker_app/services/captured_market_data_provider.py",
+      "sha256": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e"
+    },
+    {
+      "bytes": 28151,
+      "path": "market_checker_app/services/captured_market_input_acquisition.py",
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    },
+    {
+      "bytes": 14534,
+      "path": "market_checker_app/services/yahoo_price_provenance_service.py",
+      "sha256": "7e3d192bbfb154b81bf2862eb2d152c0824500d020916f6580dbc655b999a17d"
+    },
+    {
+      "bytes": 3827,
+      "path": "market_checker_app/services/price_methodology.py",
+      "sha256": "eb052c18498ae635685de714f18468617ea0f7d3a60c26cb309407d82657f674"
+    },
+    {
+      "bytes": 6698,
+      "path": "market_checker_app/services/ohlc_quality.py",
+      "sha256": "6180b8468fc3548cf10726c504cdcbae28b41b0d59d057b5f75a720bab7022dc"
+    },
+    {
+      "bytes": 3172,
+      "path": "market_checker_app/services/us_equity_calendar_service.py",
+      "sha256": "8a4f84fb604c87a859b5bfa479732997ca7f95dd74eedb7d327b3257f649537e"
+    },
+    {
+      "bytes": 41430,
+      "path": "market_checker_app/services/prospective_specialist_history.py",
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    },
+    {
+      "bytes": 20290,
+      "path": "market_checker_app/services/prospective_forecast_registration_adapter.py",
+      "sha256": "2735c451dbd0ac2f6454e8561c63038ef565641f8416626794236f26f2c1d8c3"
+    },
+    {
+      "bytes": 19469,
+      "path": "market_checker_app/services/prospective_source_manifest_service.py",
+      "sha256": "62eb0605953f5622f48dbb7246d64f9ab7fc5ad04745aa006510ea0a586fb005"
+    },
+    {
+      "bytes": 15967,
+      "path": "market_checker_app/services/prediction_label_service.py",
+      "sha256": "0839eab00e4f5b28bb53983cb3d3dddbff77b005142507f31057396b4b67d190"
+    },
+    {
+      "bytes": 31558,
+      "path": "market_checker_app/services/specialist_label_availability_service.py",
+      "sha256": "c7960dbaf1195981283b4a7ccbb41496139b3680d53b2e0b00fac184ad35791b"
+    },
+    {
+      "bytes": 33536,
+      "path": "market_checker_app/services/specialist_evaluation_service.py",
+      "sha256": "c627b7d3e85cda8ddaf91daeee0ef743a2d57903f78c407d0f02f4bfd693a1b4"
+    },
+    {
+      "bytes": 25057,
+      "path": "market_checker_app/services/user_windows_readiness_capture.py",
+      "sha256": "28551e0660ee677db9a4aee4513b204b6ebc6ca5e03688007a9119280490b566"
+    },
+    {
+      "bytes": 37862,
+      "path": "market_checker_app/services/user_windows_analysis_capture.py",
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    {
+      "bytes": 64109,
+      "path": "market_checker_app/weekly_shadow_runner.py",
+      "sha256": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91"
+    },
+    {
+      "bytes": 11875,
+      "path": "market_checker_app/specialist_evidence_runner.py",
+      "sha256": "942c2ff88dd3040f1f9f30634a013609b0aff35f9dbf538c0159efc492bb3c81"
+    },
+    {
+      "bytes": 11677,
+      "path": "market_checker_app/prediction_contract.py",
+      "sha256": "1971192030620e883414c6fc0eebbd67197f28378ed40d15fd4532266b3ca1b0"
+    },
+    {
+      "bytes": 23186,
+      "path": "market_checker_app/config.py",
+      "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+    },
+    {
+      "bytes": 5846,
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    {
+      "bytes": 44462,
+      "path": "market_checker_app/data/specialist_status.json",
+      "sha256": "17da5bc988a1929b8e7f3c46ebcaf5a66608a74e17cdde1123c9c4fd37143b79"
+    },
+    {
+      "bytes": 72598,
+      "path": "PARALLEL_SPECIALIST_WORK.md",
+      "sha256": "4314dcc54408b2f66a8c92a45055e8a130a91caa5ea884fe9d0d1d07ce7c7a6f"
+    },
+    {
+      "bytes": 201521,
+      "path": "SCOUT_PROGRESS.md",
+      "sha256": "96144992643113e7a4835d6cc11396d8f7b092335af7589f1624fb0033b57185"
+    }
+  ],
+  "assessed_at": "2026-10-20T14:36:56.042815+00:00",
+  "boundary": {
+    "DB_initialization_or_mutation": 0,
+    "Git_mutations": 0,
+    "HTTP_requests": 0,
+    "SQL_opens": 0,
+    "collectors_or_source_attempts": 0,
+    "forecasts_created": 0,
+    "labels_created": 0,
+    "native_platform_spoofs": 0,
+    "new_plans_or_quota_databases": 0,
+    "only_output_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/evaluation.json",
+    "protected_DB_file_reads_stats_or_hashes": 0,
+    "readiness_or_recorder_runs": 0,
+    "registrations_created": 0,
+    "tests_or_CI_reruns": 0,
+    "withheld_bodies_inspected_recovered_or_substituted": 0
+  },
+  "consumed_acquisition": {
+    "acquisition_id": "129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f",
+    "authorization": "CONSUMED_NO_RETRY_NO_NEW_PLAN_OR_ALTERNATE_TRANSPORT_OR_QUOTA_DB",
+    "claim_created_after_attempt": true,
+    "durable_claim_recorded_at": "2026-10-16T17:16:10.799148+00:00",
+    "market_manifest_path": null,
+    "meaning": "One13-symbol bounded plan spent one AAPL URLError/no-response attempt then stopped; twelve symbols were not attempted. This is not13 responses or13 HTTP failures. No missing response can be fabricated or replaced by test transport.",
+    "original_source_HTTP_attempt_count": 1,
+    "original_started_at": "2026-10-16T12:21:17.274124+00:00",
+    "pins": [
+      {
+        "bytes": 5290,
+        "path": "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/plan.json",
+        "sha256": "a2473790034572fdcf956181fd20a26ac606ea5fb95abb68d1ad971c305ed6e6"
+      },
+      {
+        "bytes": 5178,
+        "path": "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/acquisition_report.json",
+        "sha256": "47dd6e79f66b6278ed45529a31ec7c3e31c490decacdbc44d596b3467d256afe"
+      },
+      {
+        "bytes": 424,
+        "path": "evidence/batch9_evaluation_20261016/actual_acquisition/acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/receipt_AAPL.json",
+        "sha256": "74737e8ed6fc36225218f8a2a0d98c6cadb2cc7ed6bcb938d13a10b7e5add203"
+      },
+      {
+        "bytes": 617,
+        "path": "evidence/batch9_evaluation_20261016/actual_acquisition/plan_claims/claim_c97b594692d96460e1e727cd6b9feaed90216208225a1095830a2aae970ad88e.json",
+        "sha256": "8b7a31244648d227f12fab141aec8c81f69976abfaf552dc1b99b4650a397f16"
+      },
+      {
+        "bytes": 8170,
+        "path": "evidence/batch9_evaluation_20261016/actual_attempt_summary.json",
+        "sha256": "ffa0166c2dd095927785bf4fbe88723daeb04519e85700be9d8d498847da56a9"
+      }
+    ],
+    "plan_id": "c97b594692d96460e1e727cd6b9feaed90216208225a1095830a2aae970ad88e",
+    "raw_captures": 0,
+    "recovery_HTTP_requests": 0,
+    "responses_received": 0,
+    "rows": [
+      {
+        "http_status": null,
+        "reason": "TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "AAPL"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "SPY"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLB"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLC"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLE"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLF"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLI"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLK"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLP"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLRE"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLU"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLV"
+      },
+      {
+        "http_status": null,
+        "reason": "NOT_ATTEMPTED_AFTER_TRANSPORT_FAILURE",
+        "status": "WAIT_DATA",
+        "ticker": "XLY"
+      }
+    ],
+    "status": "WAIT_DATA",
+    "usable_count": 0
+  },
+  "current_inventory_metadata": {
+    "DONE_and_VERIFIED_count": 0,
+    "acceptance_recomputed_here": false,
+    "as_of": "2026-10-19",
+    "code_counts": {
+      "NOT_STARTED": 2,
+      "PARTIAL": 17,
+      "PILOT": 2
+    },
+    "live_counts": {
+      "PENDING": 17,
+      "WAIT_ACCESS": 4
+    },
+    "pin": {
+      "bytes": 44462,
+      "path": "market_checker_app/data/specialist_status.json",
+      "sha256": "17da5bc988a1929b8e7f3c46ebcaf5a66608a74e17cdde1123c9c4fd37143b79"
+    },
+    "specialist_count": 21
+  },
+  "current_production_and_front_pins": [
+    {
+      "bytes": 28473,
+      "path": "market_checker_app/services/captured_market_data_provider.py",
+      "sha256": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e"
+    },
+    {
+      "bytes": 28151,
+      "path": "market_checker_app/services/captured_market_input_acquisition.py",
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    },
+    {
+      "bytes": 14534,
+      "path": "market_checker_app/services/yahoo_price_provenance_service.py",
+      "sha256": "7e3d192bbfb154b81bf2862eb2d152c0824500d020916f6580dbc655b999a17d"
+    },
+    {
+      "bytes": 3827,
+      "path": "market_checker_app/services/price_methodology.py",
+      "sha256": "eb052c18498ae635685de714f18468617ea0f7d3a60c26cb309407d82657f674"
+    },
+    {
+      "bytes": 6698,
+      "path": "market_checker_app/services/ohlc_quality.py",
+      "sha256": "6180b8468fc3548cf10726c504cdcbae28b41b0d59d057b5f75a720bab7022dc"
+    },
+    {
+      "bytes": 3172,
+      "path": "market_checker_app/services/us_equity_calendar_service.py",
+      "sha256": "8a4f84fb604c87a859b5bfa479732997ca7f95dd74eedb7d327b3257f649537e"
+    },
+    {
+      "bytes": 41430,
+      "path": "market_checker_app/services/prospective_specialist_history.py",
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    },
+    {
+      "bytes": 20290,
+      "path": "market_checker_app/services/prospective_forecast_registration_adapter.py",
+      "sha256": "2735c451dbd0ac2f6454e8561c63038ef565641f8416626794236f26f2c1d8c3"
+    },
+    {
+      "bytes": 19469,
+      "path": "market_checker_app/services/prospective_source_manifest_service.py",
+      "sha256": "62eb0605953f5622f48dbb7246d64f9ab7fc5ad04745aa006510ea0a586fb005"
+    },
+    {
+      "bytes": 15967,
+      "path": "market_checker_app/services/prediction_label_service.py",
+      "sha256": "0839eab00e4f5b28bb53983cb3d3dddbff77b005142507f31057396b4b67d190"
+    },
+    {
+      "bytes": 31558,
+      "path": "market_checker_app/services/specialist_label_availability_service.py",
+      "sha256": "c7960dbaf1195981283b4a7ccbb41496139b3680d53b2e0b00fac184ad35791b"
+    },
+    {
+      "bytes": 33536,
+      "path": "market_checker_app/services/specialist_evaluation_service.py",
+      "sha256": "c627b7d3e85cda8ddaf91daeee0ef743a2d57903f78c407d0f02f4bfd693a1b4"
+    },
+    {
+      "bytes": 25057,
+      "path": "market_checker_app/services/user_windows_readiness_capture.py",
+      "sha256": "28551e0660ee677db9a4aee4513b204b6ebc6ca5e03688007a9119280490b566"
+    },
+    {
+      "bytes": 37862,
+      "path": "market_checker_app/services/user_windows_analysis_capture.py",
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    {
+      "bytes": 64109,
+      "path": "market_checker_app/weekly_shadow_runner.py",
+      "sha256": "4834de3d3f36a0aab11559f999a4345ee8e622f45fe31bd0a48db17568146e91"
+    },
+    {
+      "bytes": 11875,
+      "path": "market_checker_app/specialist_evidence_runner.py",
+      "sha256": "942c2ff88dd3040f1f9f30634a013609b0aff35f9dbf538c0159efc492bb3c81"
+    },
+    {
+      "bytes": 11677,
+      "path": "market_checker_app/prediction_contract.py",
+      "sha256": "1971192030620e883414c6fc0eebbd67197f28378ed40d15fd4532266b3ca1b0"
+    },
+    {
+      "bytes": 23186,
+      "path": "market_checker_app/config.py",
+      "sha256": "19d58e72418c69e34d3ef70c268cc539ed96c404de6c4377fedbf4824617b370"
+    },
+    {
+      "bytes": 5846,
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    {
+      "bytes": 44462,
+      "path": "market_checker_app/data/specialist_status.json",
+      "sha256": "17da5bc988a1929b8e7f3c46ebcaf5a66608a74e17cdde1123c9c4fd37143b79"
+    },
+    {
+      "bytes": 72598,
+      "path": "PARALLEL_SPECIALIST_WORK.md",
+      "sha256": "4314dcc54408b2f66a8c92a45055e8a130a91caa5ea884fe9d0d1d07ce7c7a6f"
+    },
+    {
+      "bytes": 201521,
+      "path": "SCOUT_PROGRESS.md",
+      "sha256": "96144992643113e7a4835d6cc11396d8f7b092335af7589f1624fb0033b57185"
+    }
+  ],
+  "finding": "No currently authorized market, genuine prospective history, native user-Windows or strict OOS step can advance from available originals. Existing production integration already covers explicit imports, preflight, persistence, registration and receipts. Missing genuine data and dated knowledge cannot be replaced by another service, fixture run, replay or status commit.",
+  "forecast_history": {
+    "catalog_scope": "Exact public tree filenames, not private DB facts",
+    "committed_active_prospective_source_manifests": [],
+    "committed_content_addressed_forecast_or_label_paths": [],
+    "committed_prediction_label_observation_paths": [],
+    "current_DB_or_journal_access": "NEVER_OPENED_STATTED_HASHED_COPIED_REPLAYED_RESET",
+    "current_retained_DB_counts": {
+      "genuine_forecasts": null,
+      "genuine_labels": null,
+      "genuine_registrations": null,
+      "observation_status": "UNOBSERVED",
+      "prediction_snapshots": null,
+      "runs": null,
+      "signal_history": null
+    },
+    "existing_preparations": [
+      {
+        "active_manifest_sha256": null,
+        "bound_snapshot_ids": [
+          null,
+          null
+        ],
+        "bytes": 6513,
+        "feature_source_coverage_verified": false,
+        "is_forecast_or_current_market_history": false,
+        "label_pins": [],
+        "manifest_sha256": "e45df361919206e1c7930efefb6c6838180433663c209915e92c1e245c352130",
+        "path": "evidence/batch7_source_manifest_20261015/retained_preparation.json",
+        "prepared_at": "2026-10-15T07:32:45.184932+00:00",
+        "sha256": "dbdafd4b4abe2ce7d55f6d90ecd75f21472ddda41bf407e04d0d3f0d397f3cc0",
+        "tickers": [
+          "AAPL",
+          "MSFT"
+        ]
+      },
+      {
+        "active_manifest_sha256": null,
+        "bound_snapshot_ids": [
+          null,
+          null
+        ],
+        "bytes": 6513,
+        "feature_source_coverage_verified": false,
+        "is_forecast_or_current_market_history": false,
+        "label_pins": [],
+        "manifest_sha256": "e45df361919206e1c7930efefb6c6838180433663c209915e92c1e245c352130",
+        "path": "evidence/batch7_source_manifest_20261015/retained_preparation_current.json",
+        "prepared_at": "2026-10-15T07:36:11.426012+00:00",
+        "sha256": "24dbb25f9dda7027134c1fe9ab2106c7474c66c4a5849d1e7f4201292b67458c",
+        "tickers": [
+          "AAPL",
+          "MSFT"
+        ]
+      }
+    ],
+    "legacy_limit": "Oct14/15 table absence is a dated observation only. It does not establish present-day table absence or zero rows. Journal-blocked and current corpus counts stay null/UNOBSERVED.",
+    "legacy_read_only_observations": [
+      {
+        "bytes": 2546,
+        "current_DB_facts_established": false,
+        "observed_at": "2026-10-14T16:24:35.920801+00:00",
+        "path": "evidence/batch6_evaluation_20261014/actual_corpus_audit.json",
+        "prediction_rows_then": 0,
+        "prediction_table_exists_then": false,
+        "reason_then": "FORECAST_TABLE_UNAVAILABLE",
+        "sha256": "5b830562010b8cad360ff0e12671ed3dfa99dccfa96c630fc6ae0d9fdd15dc1f",
+        "status_then": "WAIT_FORECAST_CORPUS"
+      },
+      {
+        "bytes": 4483,
+        "current_DB_facts_established": false,
+        "observed_at": "2026-10-14T17:09:18.642995+00:00",
+        "path": "evidence/batch6_evaluation_20261014/final_corpus_and_validation_audit.json",
+        "prediction_rows_then": 0,
+        "prediction_table_exists_then": false,
+        "reason_then": "FORECAST_TABLE_UNAVAILABLE",
+        "sha256": "4f91f4256dd1546f0d828447618059d48a971a24c42578e35821516711c806f3",
+        "status_then": "WAIT_FORECAST_CORPUS"
+      },
+      {
+        "bytes": 3635,
+        "current_DB_facts_established": false,
+        "observed_at": "2026-10-15T07:24:54.860635+00:00",
+        "path": "evidence/batch7_evaluation_20261015/qualification_v1/actual_corpus.json",
+        "prediction_rows_then": 0,
+        "prediction_table_exists_then": false,
+        "reason_then": "FORECAST_TABLE_UNAVAILABLE",
+        "sha256": "40f4087c40ef40b1957761b72edbffc04039bfcbf300caea407f69955a30e8dc",
+        "status_then": "WAIT_FORECAST_CORPUS"
+      }
+    ],
+    "old_journal_refusal_receipt_pin": {
+      "bytes": 7966,
+      "path": "evidence/batch10_evaluation_20261018/actual_linux_v2/actual_linux_readiness.json",
+      "sha256": "bf1691aae45c9004d13a492b036f98bac102db1ff3047865d75db5e1516e8b59"
+    },
+    "old_journal_refusal_status": "WAIT_ACTIVE_DATABASE_JOURNAL",
+    "old_metadata_is_fresh_DB_inspection": false,
+    "old_table_metadata": {
+      "prediction_snapshots": {
+        "observation_status": "UNOBSERVED",
+        "present": null,
+        "sampled_rows": null
+      },
+      "runs": {
+        "observation_status": "UNOBSERVED",
+        "present": null,
+        "sampled_rows": null
+      },
+      "signal_history": {
+        "observation_status": "UNOBSERVED",
+        "present": null,
+        "sampled_rows": null
+      }
+    },
+    "protected_DB_path": "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/outputs/market_checker_history.db",
+    "registration_requirement": "An authentic already-produced persisted PENDING snapshot with exact immutable feature/source pins known by prediction; actual registration>=prediction and<exact first-forwardNYSEopen. No historical capture, run/signal, readiness receipt or retrospectively produced row can substitute."
+  },
+  "input_contract": {
+    "actions_requested": true,
+    "additional_original_columns_if_actions_required": [
+      "Stock Splits",
+      "Dividends"
+    ],
+    "auto_adjust_requested": false,
+    "capture_origin": "YFINANCE_RETURNED_FRAME or exact CAPTURED_YAHOO_CHART_REPLAY with whole original parent revalidated; marked fixtures rejected in production",
+    "instrument_exact_fields": [
+      "ticker",
+      "provider_symbol",
+      "provider",
+      "interval",
+      "methodology",
+      "require_actions",
+      "source"
+    ],
+    "interval": "1d",
+    "kind": "PROVIDER_RETURNED_FRAME",
+    "manifest_exact_keys": [
+      "schema_version",
+      "instruments"
+    ],
+    "manifest_schema": "captured_market_data_manifest_v1",
+    "max_manifest_bytes": 2000000,
+    "max_selected_bytes": 64000000,
+    "methodology": "PROVIDER_VALUES_AS_RETURNED",
+    "original_columns": [
+      "Open",
+      "High",
+      "Low",
+      "Close",
+      "Volume"
+    ],
+    "provider": "yfinance",
+    "source_exact_fields": [
+      "path",
+      "file_sha256",
+      "file_bytes",
+      "capture_id",
+      "frame_sha256",
+      "kind",
+      "observed_at",
+      "captured_at",
+      "available_at",
+      "first_session",
+      "last_session",
+      "row_count"
+    ]
+  },
+  "lane_status": "BLOCKED_EXTERNAL_GENUINE_INPUT_AND_RUNTIME_PREREQUISITES",
+  "limits": [
+    "No new source coverage, forecasts, labels, nativeWindows execution or OOS acceptance.",
+    "All prior originals/evidence/failures remain byte-identical; no repo files changed.",
+    "No command is authorized or executed by listing its prerequisites.",
+    "Overall automation blockage is for coordinator to determine across all six source lanes."
+  ],
+  "market_originals": {
+    "live_probe_pin": {
+      "bytes": 1413,
+      "path": "evidence/batch5_prices_20261014/live_probe.json",
+      "sha256": "9ffb4ffd22dd3a49af6125924155fe434eef6e9a147d2e5e4880fba98f2b2bee"
+    },
+    "missing_benchmark_originals": [
+      "XLB",
+      "XLC",
+      "XLE",
+      "XLF",
+      "XLI",
+      "XLK",
+      "XLP",
+      "XLRE",
+      "XLU",
+      "XLV",
+      "XLY"
+    ],
+    "missing_event_interpretation": "AAPL has no events object; SPY has a dividends object. Neither absence nor one event category establishes complete corporate-action window or dated publisher revision.",
+    "original_HTTP_body_count": 2,
+    "original_symbols": [
+      "AAPL",
+      "SPY"
+    ],
+    "originals": [
+      {
+        "bytes": 3491,
+        "complete_OHLCV_rows": 21,
+        "currency_as_returned": "USD",
+        "current_full_run_usable": false,
+        "dated_publisher_revision_established": false,
+        "event_categories": [],
+        "events_field_present": false,
+        "exchange_as_returned": "NMS",
+        "first_original_session_UTC": "2026-09-14T13:30:00+00:00",
+        "instrument_type_as_returned": "EQUITY",
+        "last_complete_session_UTC": "2026-10-12T13:30:00+00:00",
+        "last_original_session_UTC": "2026-10-13T13:30:00+00:00",
+        "minimum_66_complete_sessions_met": false,
+        "nulls_per_quote_array": {
+          "close": 1,
+          "high": 0,
+          "low": 0,
+          "open": 0,
+          "volume": 0
+        },
+        "path": "evidence/batch5_prices_20261014/raw/ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182.json",
+        "revision_named_original_meta_fields": [],
+        "sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182",
+        "ticker_as_returned": "AAPL",
+        "timestamp_rows": 22
+      },
+      {
+        "bytes": 3573,
+        "complete_OHLCV_rows": 21,
+        "currency_as_returned": "USD",
+        "current_full_run_usable": false,
+        "dated_publisher_revision_established": false,
+        "event_categories": [
+          "dividends"
+        ],
+        "events_field_present": true,
+        "exchange_as_returned": "PCX",
+        "first_original_session_UTC": "2026-09-14T13:30:00+00:00",
+        "instrument_type_as_returned": "ETF",
+        "last_complete_session_UTC": "2026-10-12T13:30:00+00:00",
+        "last_original_session_UTC": "2026-10-13T13:30:00+00:00",
+        "minimum_66_complete_sessions_met": false,
+        "nulls_per_quote_array": {
+          "close": 1,
+          "high": 0,
+          "low": 0,
+          "open": 0,
+          "volume": 0
+        },
+        "path": "evidence/batch5_prices_20261014/raw/e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66.json",
+        "revision_named_original_meta_fields": [],
+        "sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66",
+        "ticker_as_returned": "SPY",
+        "timestamp_rows": 22
+      }
+    ],
+    "reason": "Both original bodies have22 timestamps but only21 complete OHLCV rows ending2026-10-12; Oct13 Close=null. They cannot meet66 sessions or current latest completed close. OnlySPY of12 required benchmarks is present. This is direct static original-content inspection, not a readiness rerun.",
+    "required_normal_run_scope": [
+      "AAPL",
+      "SPY",
+      "XLB",
+      "XLC",
+      "XLE",
+      "XLF",
+      "XLI",
+      "XLK",
+      "XLP",
+      "XLRE",
+      "XLU",
+      "XLV",
+      "XLY"
+    ],
+    "usable_full_scope_current_market_manifests": 0
+  },
+  "native_user_Windows": {
+    "analysis_run_signals_are_prediction_snapshots": false,
+    "existing_typed_receipts": [
+      {
+        "bytes": 6435,
+        "clocks": {
+          "elapsed_ns": 18875462,
+          "injected_clock_or_runtime_probe": false,
+          "monotonic_ended_ns": 1043818847045,
+          "monotonic_started_ns": 1043799971583,
+          "observed_at": "2026-10-18T14:22:26.055259+00:00",
+          "started_at": "2026-10-18T14:22:26.036381+00:00"
+        },
+        "evidence_origin": "PHYSICAL_PROCESS_READINESS_CAPTURE",
+        "fixture_only": false,
+        "historical_OOS_verified": false,
+        "native_windows_selected_analysis_verified": null,
+        "os_system": "Linux",
+        "path": "evidence/batch10_coordinator_20261018/runtime/native_CLI_readiness_receipt.json",
+        "pipeline_invoked": null,
+        "schema_version": "user_windows_readiness_capture_v1",
+        "scope": "READINESS_CAPTURE",
+        "sha256": "7272e6f516db9ed36a23a183bd6ced667b5324a3e8f2a5c44369c103ba9dd34c",
+        "status": "UNSUPPORTED_PLATFORM",
+        "user_windows_end_to_end_verified": false
+      },
+      {
+        "bytes": 6435,
+        "clocks": {
+          "elapsed_ns": 23147478,
+          "injected_clock_or_runtime_probe": false,
+          "monotonic_ended_ns": 1044043885102,
+          "monotonic_started_ns": 1044020737624,
+          "observed_at": "2026-10-18T14:22:26.280298+00:00",
+          "started_at": "2026-10-18T14:22:26.257150+00:00"
+        },
+        "evidence_origin": "PHYSICAL_PROCESS_READINESS_CAPTURE",
+        "fixture_only": false,
+        "historical_OOS_verified": false,
+        "native_windows_selected_analysis_verified": null,
+        "os_system": "Linux",
+        "path": "evidence/batch10_coordinator_20261018/runtime/user_windows_readiness/20261018T142226248510Z.json",
+        "pipeline_invoked": null,
+        "schema_version": "user_windows_readiness_capture_v1",
+        "scope": "READINESS_CAPTURE",
+        "sha256": "3a8bc17cd76a48c76d6c282f0fc0d930d07f27d70ac9b22180ad33b09d054658",
+        "status": "UNSUPPORTED_PLATFORM",
+        "user_windows_end_to_end_verified": false
+      },
+      {
+        "bytes": 7828,
+        "clocks": {
+          "elapsed_ns": 18064356,
+          "injected_clock_or_runtime_probe": false,
+          "monotonic_ended_ns": 864728576590,
+          "monotonic_started_ns": 864710512234,
+          "observed_at": "2026-10-18T09:03:44.623257+00:00",
+          "started_at": "2026-10-18T09:03:44.605192+00:00"
+        },
+        "evidence_origin": "PHYSICAL_PROCESS_READINESS_CAPTURE",
+        "fixture_only": false,
+        "historical_OOS_verified": false,
+        "native_windows_selected_analysis_verified": null,
+        "os_system": "Linux",
+        "path": "evidence/batch10_evaluation_20261018/actual_linux_readiness.json",
+        "pipeline_invoked": null,
+        "schema_version": "user_windows_readiness_capture_v1",
+        "scope": "READINESS_CAPTURE",
+        "sha256": "13edc710e67e82a566a678f8782a0f90f31014b1d47aa9d4494752a26d29b03d",
+        "status": "UNSUPPORTED_PLATFORM",
+        "user_windows_end_to_end_verified": false
+      },
+      {
+        "bytes": 7966,
+        "clocks": {
+          "elapsed_ns": 16437288,
+          "injected_clock_or_runtime_probe": false,
+          "monotonic_ended_ns": 259319143285,
+          "monotonic_started_ns": 259302705997,
+          "observed_at": "2026-10-18T14:09:21.555558+00:00",
+          "started_at": "2026-10-18T14:09:21.539118+00:00"
+        },
+        "evidence_origin": "PHYSICAL_PROCESS_READINESS_CAPTURE",
+        "fixture_only": false,
+        "historical_OOS_verified": false,
+        "native_windows_selected_analysis_verified": null,
+        "os_system": "Linux",
+        "path": "evidence/batch10_evaluation_20261018/actual_linux_v2/actual_linux_readiness.json",
+        "pipeline_invoked": null,
+        "schema_version": "user_windows_readiness_capture_v1",
+        "scope": "READINESS_CAPTURE",
+        "sha256": "bf1691aae45c9004d13a492b036f98bac102db1ff3047865d75db5e1516e8b59",
+        "status": "UNSUPPORTED_PLATFORM",
+        "user_windows_end_to_end_verified": false
+      },
+      {
+        "bytes": 49595,
+        "clocks": {
+          "capture_completed": {
+            "monotonic_ns": 988475319400,
+            "observed_at": "2026-10-19T00:45:31.134805+00:00"
+          },
+          "elapsed_ns": 37802274,
+          "integrity_verified": true,
+          "latest_observed": {
+            "monotonic_ns": 988475319400,
+            "observed_at": "2026-10-19T00:45:31.134805+00:00"
+          },
+          "started": {
+            "monotonic_ns": 988437517126,
+            "observed_at": "2026-10-19T00:45:31.097004+00:00"
+          }
+        },
+        "evidence_origin": "SAME_PROCESS_NATIVE_OBSERVATION",
+        "fixture_only": false,
+        "historical_OOS_verified": false,
+        "native_windows_selected_analysis_verified": false,
+        "os_system": "Linux",
+        "path": "evidence/batch11_coordinator_20261018/runtime/actual_linux_CLI_analysis_refusal.json",
+        "pipeline_invoked": false,
+        "schema_version": "user_windows_analysis_capture_v1",
+        "scope": "SAME_PROCESS_SELECTED_ANALYSIS_RUN",
+        "sha256": "a14db2e86bf443b998cb969e01db27c63034bf088f0164735508b8dbcb2c51d6",
+        "status": "UNSUPPORTED_PLATFORM",
+        "user_windows_end_to_end_verified": false
+      },
+      {
+        "bytes": 49595,
+        "clocks": {
+          "capture_completed": {
+            "monotonic_ns": 988818660752,
+            "observed_at": "2026-10-19T00:45:31.478148+00:00"
+          },
+          "elapsed_ns": 33561694,
+          "integrity_verified": true,
+          "latest_observed": {
+            "monotonic_ns": 988818660752,
+            "observed_at": "2026-10-19T00:45:31.478148+00:00"
+          },
+          "started": {
+            "monotonic_ns": 988785099058,
+            "observed_at": "2026-10-19T00:45:31.444586+00:00"
+          }
+        },
+        "evidence_origin": "SAME_PROCESS_NATIVE_OBSERVATION",
+        "fixture_only": false,
+        "historical_OOS_verified": false,
+        "native_windows_selected_analysis_verified": false,
+        "os_system": "Linux",
+        "path": "evidence/batch11_coordinator_20261018/runtime/user_windows_analysis/20261019T004531442731Z.json",
+        "pipeline_invoked": false,
+        "schema_version": "user_windows_analysis_capture_v1",
+        "scope": "SAME_PROCESS_SELECTED_ANALYSIS_RUN",
+        "sha256": "c38233f5cb01d23983063bec3e21d12582723f96e7bec921e3850c87172fa671",
+        "status": "UNSUPPORTED_PLATFORM",
+        "user_windows_end_to_end_verified": false
+      },
+      {
+        "bytes": 48517,
+        "clocks": {
+          "capture_completed": {
+            "monotonic_ns": 762534365870,
+            "observed_at": "2026-10-19T00:41:45.193851+00:00"
+          },
+          "elapsed_ns": 61404728,
+          "integrity_verified": true,
+          "latest_observed": {
+            "monotonic_ns": 762534365870,
+            "observed_at": "2026-10-19T00:41:45.193851+00:00"
+          },
+          "started": {
+            "monotonic_ns": 762472961142,
+            "observed_at": "2026-10-19T00:41:45.132447+00:00"
+          }
+        },
+        "evidence_origin": "SAME_PROCESS_NATIVE_OBSERVATION",
+        "fixture_only": false,
+        "historical_OOS_verified": false,
+        "native_windows_selected_analysis_verified": false,
+        "os_system": "Linux",
+        "path": "evidence/batch11_evaluation_20261018/actual_linux_refusal.json",
+        "pipeline_invoked": false,
+        "schema_version": "user_windows_analysis_capture_v1",
+        "scope": "SAME_PROCESS_SELECTED_ANALYSIS_RUN",
+        "sha256": "ee90438b2bba1ca84c0106db6ed90666823f15abab95e31b7d582b0f4f991919",
+        "status": "UNSUPPORTED_PLATFORM",
+        "user_windows_end_to_end_verified": false
+      }
+    ],
+    "genuine_native_user_Windows_run_found": false,
+    "hosted_Windows_unit_CI_is_native_user_run": false,
+    "loaded_JSON_is_execution_proof": false,
+    "required_external_runtime": "Actual native non-hosted user Windows, exact reviewed code and genuine full-scope captured data, explicit bounded canonical scope, safe user-authorized quiescent output DB. Protected retained journalDB must not be used.",
+    "semantic_limit": "UserWindowsAnalysisCapture observes one PipelineService run and exact stored run/signals in that process. Normal weekly-shadow forecast persistence plus separate opt-in registration is a distinct path. Neither proves full21/PIT/OOS acceptance."
+  },
+  "physical_assessment_runtime": {
+    "is_source_or_run_acceptance": false,
+    "native_Windows_available_here": false,
+    "os": "Linux",
+    "python": "3.12.14",
+    "sys_platform": "linux"
+  },
+  "previous_actual_readiness_not_rerun": {
+    "current_service_execution": false,
+    "observed_at": "2026-10-15T18:21:57.802803+00:00",
+    "pin": {
+      "bytes": 40569,
+      "path": "evidence/batch8_evaluation_20261015/qualification_v1/actual_readiness.json",
+      "sha256": "e7df1bc2223bf240b69c00969bf2755e1b7dfe01adac95e17cea0b2fd8ba9818"
+    },
+    "prior_report_is_current_acceptance": false,
+    "rows": [
+      {
+        "completed_rows_then": 21,
+        "original_rows": 22,
+        "provider_reason_counts_then": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "PROVIDER_RETURNED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json",
+        "source_sha256": "17fa37032d4b3a11db559f5ac2e2d13103fb30f269f4944bc3b8e49f5ac0d673",
+        "ticker": "AAPL"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 22,
+        "provider_reason_counts_then": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "PROVIDER_RETURNED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+        "source_sha256": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3",
+        "ticker": "SPY"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 21,
+        "provider_reason_counts_then": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "CACHE_MERGED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json",
+        "source_sha256": "ceb51a5a54ac108fe25f45cb3723262b4ddb1b4e15e35cc67a9d9bcd0df70b23",
+        "ticker": "SPY"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 22,
+        "provider_reason_counts_then": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "PROVIDER_RETURNED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+        "source_sha256": "8b208427d5803dd8167fa60efb7b001bd578e67cf7562f0f756afe2a2d62df96",
+        "ticker": "AAPL"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 22,
+        "provider_reason_counts_then": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "PROVIDER_RETURNED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+        "source_sha256": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365",
+        "ticker": "SPY"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 22,
+        "provider_reason_counts_then": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "PROVIDER_RETURNED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+        "source_sha256": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f",
+        "ticker": "AAPL"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 21,
+        "provider_reason_counts_then": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "CACHE_MERGED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json",
+        "source_sha256": "3c40cd641da45f93b9c043dfffe882cf718afcd11983d4133fc1d607571de74a",
+        "ticker": "AAPL"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 21,
+        "provider_reason_counts_then": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "CACHE_MERGED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+        "source_sha256": "46f14b3f4c90cb1e1af9f7040f20838ee998ce5ab3ff8fea341a30e8ce3a6ee0",
+        "ticker": "AAPL"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 22,
+        "provider_reason_counts_then": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "PROVIDER_RETURNED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json",
+        "source_sha256": "06dae1963277a7a6679ce43cd5c30163936ffbea70c19ac19e623aa79fe91c59",
+        "ticker": "SPY"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 21,
+        "provider_reason_counts_then": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "CACHE_MERGED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+        "source_sha256": "4ad3a6f0dd9bcb2a0414cacda679913af205188f8680c9f93e9ed4974d75131a",
+        "ticker": "SPY"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 21,
+        "provider_reason_counts_then": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "CACHE_MERGED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json",
+        "source_sha256": "d1e463919e61a19bcbc034e800f546df0107974b801a8a73d72741f1c0cb9b15",
+        "ticker": "AAPL"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 22,
+        "provider_reason_counts_then": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "PROVIDER_RETURNED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json",
+        "source_sha256": "5e7b4a296cd39dcbb1dc623c6a546031b64f4dbcbee3f9e4a8c0ac4e4fa255b6",
+        "ticker": "SPY"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 22,
+        "provider_reason_counts_then": {
+          "SYNTHESIZED_SOURCE_COLUMNS_REFUSED": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "PROVIDER_RETURNED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+        "source_sha256": "6d5ecdc369acc28f8454ab96c34985bfc01d12be78c5b512ae543d0290e53328",
+        "ticker": "AAPL"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 21,
+        "provider_reason_counts_then": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "CACHE_MERGED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json",
+        "source_sha256": "88c4df08605994ffd17f06f1cb86c4bacf32c56d9a904da433ae4bd326447c2c",
+        "ticker": "SPY"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 21,
+        "provider_reason_counts_then": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "CACHE_MERGED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+        "source_sha256": "a12934db619882f10e89fae61b9cb85921df407fda0cf657b0584768300f2a2c",
+        "ticker": "AAPL"
+      },
+      {
+        "completed_rows_then": 21,
+        "original_rows": 21,
+        "provider_reason_counts_then": {
+          "UNSUPPORTED_CAPTURE_METHOD": 1
+        },
+        "provider_status_then": "WAIT_DATA",
+        "source_kind": "CACHE_MERGED_FRAME",
+        "source_path": "evidence/batch5_prices_20261014/observations/yahoo_price_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+        "source_sha256": "cc34609984e6123980319b684d70f460e1a3e186788fc61ef7d332415082f2ba",
+        "ticker": "SPY"
+      }
+    ],
+    "selected_versions": 16,
+    "usable_versions": 0,
+    "wait_versions": 16
+  },
+  "price_observation_versions": {
+    "all_previous_content_pins_match": true,
+    "count": 16,
+    "dated_publisher_revisions": 0,
+    "kinds": {
+      "CACHE_MERGED_FRAME": 8,
+      "PROVIDER_RETURNED_FRAME": 8
+    },
+    "limit": "Sixteen physical import/cache versions of these two originals are not sixteen independent publisher histories. Current import or TTL does not backdate source availability.",
+    "records": [
+      {
+        "bytes": 4183,
+        "capture_id": "0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f",
+        "captured_at": "2026-10-14T05:14:45.164583+00:00",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "frame_sha256": "9be244ca60e3fcfb03bc89056588e944d21e5d292b2bab86709e0ac68544dbbf",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": "PROVIDER_VALUES_AS_RETURNED",
+        "methodology_version": null,
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:14:45.164583+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 22,
+        "sha256": "17fa37032d4b3a11db559f5ac2e2d13103fb30f269f4944bc3b8e49f5ac0d673",
+        "source_capture_id": null,
+        "source_evidence_origin": null,
+        "ticker": "AAPL",
+        "upstream_response_sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182"
+      },
+      {
+        "bytes": 4082,
+        "capture_id": "00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572",
+        "captured_at": "2026-10-14T05:18:59.974992+00:00",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "frame_sha256": "612105e7a9618995a4082ecb5c5de6b805eca5e67b73263b4bdbc0c36ba1ec9f",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": "PROVIDER_VALUES_AS_RETURNED",
+        "methodology_version": null,
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:18:59.974992+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 22,
+        "sha256": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3",
+        "source_capture_id": null,
+        "source_evidence_origin": null,
+        "ticker": "SPY",
+        "upstream_response_sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66"
+      },
+      {
+        "bytes": 4020,
+        "capture_id": "0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a",
+        "captured_at": "2026-10-14T05:16:26.797872+00:00",
+        "evidence_origin": null,
+        "frame_sha256": "70d155da8aa710f195d13463e38cb7d4500f0dd655331dc9f9f7172d31703905",
+        "kind": "CACHE_MERGED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": null,
+        "methodology_version": "split_adjusted_price_v1",
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:16:26.793978+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 21,
+        "sha256": "ceb51a5a54ac108fe25f45cb3723262b4ddb1b4e15e35cc67a9d9bcd0df70b23",
+        "source_capture_id": "ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb",
+        "source_evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "ticker": "SPY",
+        "upstream_response_sha256": null
+      },
+      {
+        "bytes": 4183,
+        "capture_id": "0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39",
+        "captured_at": "2026-10-14T05:16:26.777899+00:00",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "frame_sha256": "9be244ca60e3fcfb03bc89056588e944d21e5d292b2bab86709e0ac68544dbbf",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": "PROVIDER_VALUES_AS_RETURNED",
+        "methodology_version": null,
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:16:26.777899+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 22,
+        "sha256": "8b208427d5803dd8167fa60efb7b001bd578e67cf7562f0f756afe2a2d62df96",
+        "source_capture_id": null,
+        "source_evidence_origin": null,
+        "ticker": "AAPL",
+        "upstream_response_sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182"
+      },
+      {
+        "bytes": 4082,
+        "capture_id": "2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d",
+        "captured_at": "2026-10-14T05:12:39.127517+00:00",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "frame_sha256": "612105e7a9618995a4082ecb5c5de6b805eca5e67b73263b4bdbc0c36ba1ec9f",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": "PROVIDER_VALUES_AS_RETURNED",
+        "methodology_version": null,
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:12:39.127517+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 22,
+        "sha256": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365",
+        "source_capture_id": null,
+        "source_evidence_origin": null,
+        "ticker": "SPY",
+        "upstream_response_sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66"
+      },
+      {
+        "bytes": 4183,
+        "capture_id": "338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3",
+        "captured_at": "2026-10-14T05:18:59.957858+00:00",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "frame_sha256": "9be244ca60e3fcfb03bc89056588e944d21e5d292b2bab86709e0ac68544dbbf",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": "PROVIDER_VALUES_AS_RETURNED",
+        "methodology_version": null,
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:18:59.957858+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 22,
+        "sha256": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f",
+        "source_capture_id": null,
+        "source_evidence_origin": null,
+        "ticker": "AAPL",
+        "upstream_response_sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182"
+      },
+      {
+        "bytes": 4011,
+        "capture_id": "3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142",
+        "captured_at": "2026-10-14T05:14:45.169421+00:00",
+        "evidence_origin": null,
+        "frame_sha256": "52a6487e1af0e8e3e95dca8f93038239b9f8c5ca9d2abb386f965bd672682951",
+        "kind": "CACHE_MERGED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": null,
+        "methodology_version": "split_adjusted_price_v1",
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:14:45.164583+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 21,
+        "sha256": "3c40cd641da45f93b9c043dfffe882cf718afcd11983d4133fc1d607571de74a",
+        "source_capture_id": "0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f",
+        "source_evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "ticker": "AAPL",
+        "upstream_response_sha256": null
+      },
+      {
+        "bytes": 4011,
+        "capture_id": "3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666",
+        "captured_at": "2026-10-14T05:18:59.964007+00:00",
+        "evidence_origin": null,
+        "frame_sha256": "52a6487e1af0e8e3e95dca8f93038239b9f8c5ca9d2abb386f965bd672682951",
+        "kind": "CACHE_MERGED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": null,
+        "methodology_version": "split_adjusted_price_v1",
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:18:59.957858+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 21,
+        "sha256": "46f14b3f4c90cb1e1af9f7040f20838ee998ce5ab3ff8fea341a30e8ce3a6ee0",
+        "source_capture_id": "338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3",
+        "source_evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "ticker": "AAPL",
+        "upstream_response_sha256": null
+      },
+      {
+        "bytes": 4082,
+        "capture_id": "789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859",
+        "captured_at": "2026-10-14T05:14:45.181352+00:00",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "frame_sha256": "612105e7a9618995a4082ecb5c5de6b805eca5e67b73263b4bdbc0c36ba1ec9f",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": "PROVIDER_VALUES_AS_RETURNED",
+        "methodology_version": null,
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:14:45.181352+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 22,
+        "sha256": "06dae1963277a7a6679ce43cd5c30163936ffbea70c19ac19e623aa79fe91c59",
+        "source_capture_id": null,
+        "source_evidence_origin": null,
+        "ticker": "SPY",
+        "upstream_response_sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66"
+      },
+      {
+        "bytes": 4020,
+        "capture_id": "8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc",
+        "captured_at": "2026-10-14T05:12:39.131380+00:00",
+        "evidence_origin": null,
+        "frame_sha256": "70d155da8aa710f195d13463e38cb7d4500f0dd655331dc9f9f7172d31703905",
+        "kind": "CACHE_MERGED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": null,
+        "methodology_version": "split_adjusted_price_v1",
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:12:39.127517+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 21,
+        "sha256": "4ad3a6f0dd9bcb2a0414cacda679913af205188f8680c9f93e9ed4974d75131a",
+        "source_capture_id": "2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d",
+        "source_evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "ticker": "SPY",
+        "upstream_response_sha256": null
+      },
+      {
+        "bytes": 4011,
+        "capture_id": "a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22",
+        "captured_at": "2026-10-14T05:16:26.782369+00:00",
+        "evidence_origin": null,
+        "frame_sha256": "52a6487e1af0e8e3e95dca8f93038239b9f8c5ca9d2abb386f965bd672682951",
+        "kind": "CACHE_MERGED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": null,
+        "methodology_version": "split_adjusted_price_v1",
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:16:26.777899+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 21,
+        "sha256": "d1e463919e61a19bcbc034e800f546df0107974b801a8a73d72741f1c0cb9b15",
+        "source_capture_id": "0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39",
+        "source_evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "ticker": "AAPL",
+        "upstream_response_sha256": null
+      },
+      {
+        "bytes": 4082,
+        "capture_id": "ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb",
+        "captured_at": "2026-10-14T05:16:26.793978+00:00",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "frame_sha256": "612105e7a9618995a4082ecb5c5de6b805eca5e67b73263b4bdbc0c36ba1ec9f",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": "PROVIDER_VALUES_AS_RETURNED",
+        "methodology_version": null,
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:16:26.793978+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 22,
+        "sha256": "5e7b4a296cd39dcbb1dc623c6a546031b64f4dbcbee3f9e4a8c0ac4e4fa255b6",
+        "source_capture_id": null,
+        "source_evidence_origin": null,
+        "ticker": "SPY",
+        "upstream_response_sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66"
+      },
+      {
+        "bytes": 4183,
+        "capture_id": "c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861",
+        "captured_at": "2026-10-14T05:12:39.109258+00:00",
+        "evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "frame_sha256": "9be244ca60e3fcfb03bc89056588e944d21e5d292b2bab86709e0ac68544dbbf",
+        "kind": "PROVIDER_RETURNED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": "PROVIDER_VALUES_AS_RETURNED",
+        "methodology_version": null,
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:12:39.109258+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 22,
+        "sha256": "6d5ecdc369acc28f8454ab96c34985bfc01d12be78c5b512ae543d0290e53328",
+        "source_capture_id": null,
+        "source_evidence_origin": null,
+        "ticker": "AAPL",
+        "upstream_response_sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182"
+      },
+      {
+        "bytes": 4020,
+        "capture_id": "e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa",
+        "captured_at": "2026-10-14T05:14:45.185289+00:00",
+        "evidence_origin": null,
+        "frame_sha256": "70d155da8aa710f195d13463e38cb7d4500f0dd655331dc9f9f7172d31703905",
+        "kind": "CACHE_MERGED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": null,
+        "methodology_version": "split_adjusted_price_v1",
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:14:45.181352+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 21,
+        "sha256": "88c4df08605994ffd17f06f1cb86c4bacf32c56d9a904da433ae4bd326447c2c",
+        "source_capture_id": "789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859",
+        "source_evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "ticker": "SPY",
+        "upstream_response_sha256": null
+      },
+      {
+        "bytes": 4011,
+        "capture_id": "ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893",
+        "captured_at": "2026-10-14T05:12:39.114466+00:00",
+        "evidence_origin": null,
+        "frame_sha256": "52a6487e1af0e8e3e95dca8f93038239b9f8c5ca9d2abb386f965bd672682951",
+        "kind": "CACHE_MERGED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": null,
+        "methodology_version": "split_adjusted_price_v1",
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:12:39.109258+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 21,
+        "sha256": "a12934db619882f10e89fae61b9cb85921df407fda0cf657b0584768300f2a2c",
+        "source_capture_id": "c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861",
+        "source_evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "ticker": "AAPL",
+        "upstream_response_sha256": null
+      },
+      {
+        "bytes": 4020,
+        "capture_id": "f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3",
+        "captured_at": "2026-10-14T05:18:59.979447+00:00",
+        "evidence_origin": null,
+        "frame_sha256": "70d155da8aa710f195d13463e38cb7d4500f0dd655331dc9f9f7172d31703905",
+        "kind": "CACHE_MERGED_FRAME",
+        "matches_prior_pin": true,
+        "methodology": null,
+        "methodology_version": "split_adjusted_price_v1",
+        "new_independent_source_response": false,
+        "observed_at": "2026-10-14T05:18:59.974992+00:00",
+        "path": "evidence/batch5_prices_20261014/observations/yahoo_price_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+        "publisher_revision_at": null,
+        "publisher_revision_timing_status": "UNKNOWN",
+        "row_count": 21,
+        "sha256": "cc34609984e6123980319b684d70f460e1a3e186788fc61ef7d332415082f2ba",
+        "source_capture_id": "00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572",
+        "source_evidence_origin": "CAPTURED_YAHOO_CHART_REPLAY",
+        "ticker": "SPY",
+        "upstream_response_sha256": null
+      }
+    ],
+    "unique_frame_hashes": 4
+  },
+  "public_catalog_checks": {
+    "forecast_file_pattern": "(forecast|label)_[a-f0-9]{64}.json",
+    "limit": "Exact publictree and explicitly listed committed reports only; no private raw scratch search or protected runtimeDB inspection.",
+    "market_content_patterns": [
+      "yahoo_price_observation_v1",
+      "captured_market_data_manifest_v1",
+      "CAPTURED_YAHOO_CHART_REPLAY",
+      "\"chart\""
+    ],
+    "market_matching_paths": [
+      "evidence/batch5_prices_20261014/observations/yahoo_price_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+      "evidence/batch5_prices_20261014/observations/yahoo_price_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+      "evidence/batch5_prices_20261014/raw/ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182.json",
+      "evidence/batch5_prices_20261014/raw/e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66.json",
+      "evidence/batch7_source_manifest_20261015/retained_preparation.json",
+      "evidence/batch7_source_manifest_20261015/retained_preparation_current.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/actual_plans/manifest_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+      "evidence/batch8_evaluation_20261015/qualification_v1/handoff.json"
+    ],
+    "native_or_OOS_true_patterns": [
+      "\"native_windows_selected_analysis_verified\": true",
+      "\"user_windows_end_to_end_verified\": true",
+      "\"out_of_sample_evaluation_verified\": true",
+      "\"historical_OOS_verified\": true"
+    ],
+    "prediction_label_file_pattern": "prediction_label_[a-f0-9]{64}.json",
+    "withheld_digest_named_paths": []
+  },
+  "repository": {
+    "branch": "sourcefront/evaluation-20261020",
+    "head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+    "path_catalog_bytes": 175114,
+    "path_catalog_sha256": "8a39d62352a3afb6f9e3f98a58a621b048518fad45e60983fa0f4e472f548046",
+    "tracked_path_count": 2699,
+    "tree": "f71b05cc10ebd9e2f01f87a6e30802264d0245e4",
+    "worktree_clean_before_and_after": true
+  },
+  "schema_version": "sourcefront_evaluation_availability_assessment_v1",
+  "scope": "STATIC_PUBLIC_CONTENT_AND_EXPLICIT_EXISTING_ARTIFACTS_ONLY",
+  "strict_PIT_OOS": {
+    "additional_external_history": [
+      "Authentic future normal forecasts and later exact-window labels, or independently authentic contemporaneous historical forecasts/sources with verifiable knowledge clocks",
+      "Dated issuer/instrument identity and complete original feature/source coverage; no current registry join into an earlier prediction",
+      "Relevant historical universe membership, delistings and corporate actions; current canonical687 alone is not a survivor-free historical universe",
+      "Sufficient matched held-out history, class/feature variation and independent source-specific validation; fixture/report counts cannot substitute"
+    ],
+    "eligible_public_genuine_forecast_label_attachments_found": false,
+    "existing_evaluation_defaults": {
+      "diagnostic_is_acceptance": false,
+      "minimum_distinct_weeks": 12,
+      "minimum_matched_evaluation_samples": 200,
+      "minimum_training_samples": 200,
+      "sufficient_diagnostic_status": "EVALUATED_EXPLORATORY",
+      "training_rule": "prediction_at and actual label_usable_at strictly<each prediction cutoff; nonoverlapping matched periods"
+    },
+    "genuine_dated_publisher_revision_available": false,
+    "horizon_trading_days": 5,
+    "label_prerequisites": [
+      "Original matching asset/benchmark provider payload/capture pins and true later per-session observation/availability clocks",
+      "DATED_PUBLISHER_VERSION plus KNOWN_REVISION with true revision_known_at and source version/payload ID; local content revision/marketTime/HTTPDate/importclock are insufficient",
+      "RECORDED_COMPLETE_WINDOW action provenance from anchor through target, real split/dividend/symbol-change/merger effective/known clocks and values",
+      "Immutable original forecast/source/target and later attachment/usable clock; no history backfill masquerading as prospective"
+    ],
+    "literal_search_is_execution_proof": false,
+    "required_label_window": "Original anchor plus all five exact forwardNYSEsessions for both actual asset and benchmark; no missing-session sliding.",
+    "score_or_model_activation_authorized": false,
+    "target_name": "5d_excess_return_vs_benchmark",
+    "target_version": "excess_return_5d_nyse_split_price_v4",
+    "true_native_or_OOS_claim_paths": []
+  }
+}

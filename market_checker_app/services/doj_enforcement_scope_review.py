@@ -17,7 +17,7 @@ import re
 from types import SimpleNamespace
 from urllib.parse import parse_qsl, urljoin, urlsplit
 
-CONTRACT_VERSION = "doj-case-entity-original-bytes-v1"
+CONTRACT_VERSION = "doj-case-entity-original-bytes-v2"
 MAX_CAPTURES = 4
 MAX_CAPTURE_BYTES = 4_000_000
 MAX_PDF_PAGES = 120
@@ -31,6 +31,10 @@ _KINDS = {
     "FINAL_JUDGMENT": "COURT_DISPOSITION_DOCUMENT_REQUIRES_OUTCOME_REVIEW",
 }
 _PURPOSES = {"CAPTION", "CASE_ENTITY", "DOCUMENT_STAGE", "SOURCE_PUBLICATION", "LEGAL_ENTITY"}
+_DOCKET_LITERAL = r"(?P<docket>\d{1,2}:\d{2}-[a-z]{2}-\d{4,7})(?P<suffix>(?:-[A-Z0-9]{1,12}){0,4})"
+_STAMP = re.compile(
+    rf"\bCase\s+(?P<full>{_DOCKET_LITERAL})\s+Document\s+(?P<document>\d+)"
+    r"\s+Filed\s+(?P<filed>\d{2}/\d{2}/\d{2})\s+Page\s+(?P<page>\d+)\s+of\s+(?P<count>\d+)\b", re.I)
 _SENSITIVE = re.compile(
     rb'["\'](?:azure_map_key|azureMapsKey|subscriptionKey|api[_-]?key|accessToken|'
     rb'client_secret|password)["\']\s*[:=]|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|'
@@ -254,6 +258,12 @@ def _request(raw):
         raise ValueError("DOJ review requires exact supported case/issuer selectors")
     _day(request["filed_on"])
     _day(request["issuer_anchor_date"])
+    if "docket_full_literal" in raw:
+        literal = _text(raw["docket_full_literal"], 120)
+        full = re.fullmatch(_DOCKET_LITERAL, literal)
+        if full is None or full["docket"] != request["docket"]:
+            raise ValueError("DOJ full docket selector must preserve the exact supported base")
+        request["docket_full_literal"] = literal
     for key in ("issuer_publication_capture_id", "issuer_published_on", "release_capture_id", "release_published_on"):
         if key in raw:
             request[key] = _text(raw[key])
@@ -270,6 +280,27 @@ def _request(raw):
         request["selected_passages"].append({"purpose": item["purpose"], "page": item["page"],
             "capture_id": _text(item.get("capture_id"), 80), "excerpt": _text(item.get("excerpt"), 2000)})
     return request
+
+
+def _document_stamp(text, page):
+    # Read the document's printed header, not a quoted case elsewhere in its
+    # body. Retain every suffix as observed; a base match is not a suffix alias.
+    matches = list(_STAMP.finditer(text[:800]))
+    if len(matches) != 1:
+        return None
+    stamp = matches[0]
+    try:
+        filed = datetime.strptime(stamp["filed"], "%m/%d/%y").date().isoformat()
+        if int(stamp["page"]) != page or not page <= int(stamp["count"]) <= MAX_PDF_PAGES:
+            return None
+    except ValueError:
+        return None
+    return {"literal": stamp[0], "docket": stamp["docket"],
+            "docket_full_literal": stamp["full"], "docket_suffix_literal": stamp["suffix"] or None,
+            "document_number": stamp["document"], "filed_on": filed,
+            "page": page, "page_count": int(stamp["count"]),
+            "page_text_sha256": hashlib.sha256(text.encode()).hexdigest(),
+            "page_text_stamp_span": list(stamp.span())}
 
 
 def _registry(request, records, cutoff, url):
@@ -322,6 +353,8 @@ def review_doj_enforcement_scope(request, captures, *, as_of, ingested_at, legal
         "report_available_at_cutoff": ingested <= cutoff, "captures": [], "passage_reviews": [],
         "case_document_scope_supported": False, "exact_case_entity_supported": False,
         "document_stage_supported": False, "recorded_case_stage": "UNKNOWN",
+        "court_stamp_observations": [], "selected_document_stamps_consistent": False,
+        "document_title_literal": None,
         "independent_earlier_legal_identity_supported": False, "issuer_identity_fact": None,
         "release_publication_supported": False, "release_legal_description_supported": False,
         "adjudication_verified": False, "issuer_attribution_verified": False,
@@ -370,11 +403,14 @@ def review_doj_enforcement_scope(request, captures, *, as_of, ingested_at, legal
     court_info, court_body = originals.get(court_id, ({}, None))
     court_pages = pages.get(court_id, {})
     early = " ".join(court_pages.get(page, "") for page in range(1, 4))
-    stamp = re.search(r"\bCase\s+(\d{1,2}:\d{2}-[a-z]{2}-\d{4,7})\s+Document\s+(\d+)\s+Filed\s+(\d{2}/\d{2}/\d{2})\s+Page\s+1\s+of\s+(\d+)\b", court_pages.get(1, ""), re.I)
-    try:
-        stamped_day = datetime.strptime(stamp[3], "%m/%d/%y").date() if stamp else None
-    except ValueError:
-        stamped_day = None
+    stamps = {page: _document_stamp(text, page) for page, text in court_pages.items()}
+    stamp = stamps.get(1)
+    report["court_stamp_observations"] = [dict(observation, capture_id=court_id)
+        for page, observation in sorted(stamps.items()) if observation is not None]
+    same_fields = ("docket_full_literal", "document_number", "filed_on", "page_count")
+    consistent = bool(stamp and all(observation and all(observation[key] == stamp[key]
+        for key in same_fields) for observation in stamps.values()))
+    report["selected_document_stamps_consistent"] = consistent
     caption = [p for p in matched.get("CAPTION", []) if p["capture_id"] == court_id and p["page"] <= 3]
     court_match = re.sub(r"\s", "", request["court"]).casefold() in re.sub(r"\s", "", early).casefold()
     try:
@@ -382,11 +418,13 @@ def review_doj_enforcement_scope(request, captures, *, as_of, ingested_at, legal
         court_primary = True
     except (ValueError, TypeError):
         court_primary = False
-    scoped = bool(court_primary and caption and stamp and court_match
-                  and stamp[1] == request["docket"]
-                  and stamped_day == _day(request["filed_on"])
+    scoped = bool(court_primary and caption and stamp and consistent and court_match
+                  and stamp["docket"] == request["docket"]
+                  and ("docket_full_literal" not in request
+                       or stamp["docket_full_literal"] == request["docket_full_literal"])
+                  and stamp["filed_on"] == request["filed_on"]
                   and _day(request["filed_on"]) <= _clock(court_info["observed_at"]).date()
-                  and (court_info.get("pdf_page_count") is None or int(stamp[4]) == court_info["pdf_page_count"]))
+                  and (court_info.get("pdf_page_count") is None or stamp["page_count"] == court_info["pdf_page_count"]))
     report["case_document_scope_supported"] = scoped
     entity_pins = [p for p in matched.get("CASE_ENTITY", []) if p["capture_id"] == court_id and p["page"] <= 3]
     role = request["case_entity_role"].lower()
@@ -397,14 +435,19 @@ def review_doj_enforcement_scope(request, captures, *, as_of, ingested_at, legal
     report["exact_case_entity_supported"] = bool(scoped and entity)
     # Classify the caption title following the party role, never words in a
     # complaint's relief section, press headline or metadata document label.
-    titles = re.findall(rf"\b{role}\.?\s+(AMENDED COMPLAINT|COMPLAINT|PROPOSED FINAL JUDGMENT|FINAL JUDGMENT)\b", early, re.I)
+    titles = re.findall(rf"\b{role}\.?\s+(FIRST AMENDED COMPLAINT|AMENDED COMPLAINT|COMPLAINT|PROPOSED FINAL JUDGMENT|FINAL JUDGMENT)\b", early, re.I)
     desired = request["document_kind"].replace("_", " ")
     stage_pins = [p for p in matched.get("DOCUMENT_STAGE", []) if p["capture_id"] == court_id and p["page"] <= 3]
-    stage = bool(report["exact_case_entity_supported"] and stage_pins and len(titles) == 1 and titles[0].upper() == desired)
+    if len(titles) == 1:
+        report["document_title_literal"] = titles[0]
+    title_kind = " ".join(titles[0].split()).upper() if len(titles) == 1 else None
+    if title_kind == "FIRST AMENDED COMPLAINT":
+        title_kind = "AMENDED COMPLAINT"
+    stage = bool(report["exact_case_entity_supported"] and stage_pins and title_kind == desired)
     report["document_stage_supported"] = stage
     if stage:
         report["recorded_case_stage"] = _KINDS[request["document_kind"]]
-        report["court_document_number"] = stamp[2]
+        report["court_document_number"] = stamp["document_number"]
         report["documentary_filed_on"] = request["filed_on"]
     # The independent SEC index supplies a documentary publication day only;
     # its unzoned Accepted display and renderer size are not a raw-byte pin.

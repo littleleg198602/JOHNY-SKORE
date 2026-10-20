@@ -1,0 +1,12 @@
+{
+  "operation": "Initial uncommitted coordinator method-discovery metadata script",
+  "command_runtime": "generic python, not the project's interpreter",
+  "actual_exit_code": 1,
+  "observed_count": 36,
+  "expected_new_methods": 79,
+  "observed_per_module_counts": [1, 15, 1, 9, 1, 9],
+  "diagnostic": "The metadata script asserted on an incorrect selection after loading modules in the wrong environment. No test methods were executed by that discovery script. Use the project interpreter and refuse any unittest loader errors.",
+  "full_suite_launched_by_that_command": false,
+  "source_or_test_implementation_changed_to_hide_error": false,
+  "record_kind": "Coordinator transcription of tool exit/selection diagnostic; not an original test log"
+}

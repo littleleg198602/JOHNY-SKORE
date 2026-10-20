@@ -1,0 +1,66 @@
+{
+  "copied_at": "2026-10-20T20:18:16.852434+00:00",
+  "copies": [
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/setup.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/setup.json",
+      "bytes": 3428,
+      "sha256": "3c7ecb487624e40c17b7b52874ea88fcba4f4c9dc6af058367ad1e9d4294ee5b"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/public_restore.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/public_restore.json",
+      "bytes": 1946,
+      "sha256": "220805ebea87ee1a5a088310732d05dc1efd6c78ce07252e176e75b911c7ed5c"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/coordinator_access.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/coordinator_access.json",
+      "bytes": 2098,
+      "sha256": "45b1580ee75f26a0faeff31c755276099894b89b5ffb20832104093f6c7489d8"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/identity_bulk.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/identity_bulk.json",
+      "bytes": 345214,
+      "sha256": "7f1bbe5c0c41eb40adef5d2043273ecb9bc89818b4a030bd1a4c0b2cda92cf99"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/identity_bulk_charters.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/identity_bulk_charters.json",
+      "bytes": 16873,
+      "sha256": "67827e57f2b17fd186213ed582d5929419ef664a8d141b180c1ab71238ddf0c5"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/healthcare.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/healthcare.json",
+      "bytes": 85154,
+      "sha256": "14b3dffcf5d773a66bfa5128481d51384914a10e344fc081ec4904ce346c0cfa"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/contracts.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/contracts.json",
+      "bytes": 42233,
+      "sha256": "a99a6eef01baaafe39d1c9252cb9c62ece462d6fbe032d1ce374f50c8d12605f"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/regulatory.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+      "bytes": 20610,
+      "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/evaluation.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/evaluation.json",
+      "bytes": 84186,
+      "sha256": "d6b8b88bca7c2b206cbfaa22f22b62986055bd5364be70ebb234428faf8e374b"
+    },
+    {
+      "original_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/sec.json",
+      "committed_copy": "evidence/sourcefront_coordinator_20261020/discovery/sec.json",
+      "bytes": 8392,
+      "sha256": "57f5cb6d2651ebb554b4f1943e4b2b227aaba2ebcad685e90742951217d518c2"
+    }
+  ],
+  "no_original_source_or_clock_rewritten": true
+}

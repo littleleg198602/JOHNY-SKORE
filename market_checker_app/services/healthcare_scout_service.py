@@ -290,6 +290,16 @@ def _identity_details(registry: HealthcareIdentityRegistry, source: str, detail:
 
 def _finding_digest(detail: dict) -> str:
     content = deepcopy(detail)
+    if (content.get("ownership_attribution_time_basis") == "OBSERVED_SNAPSHOT"
+            and content.get("issuer_attribution_allowed") is False
+            and content.get("observed_snapshot_original_binding_verified") is False
+            and content.get("retained_relationship_record_id")
+            and content.get("identity_resolution") in {
+                "CMS_SNAPSHOT_DATE_MISMATCH", "CMS_SNAPSHOT_ORIGINAL_BINDING_MISSING"}):
+        # Both reasons describe the same unbound legacy CMS source lead. A
+        # passing observation day changes the diagnostic, not its content.
+        # Preserve the actual reason in the finding; normalize only its hash.
+        content["identity_resolution"] = "CMS_SNAPSHOT_ORIGINAL_BINDING_MISSING"
     provenance = content.get("source_observation")
     if isinstance(provenance, dict):
         # Identical unlinked content is a heartbeat, not another trial event.

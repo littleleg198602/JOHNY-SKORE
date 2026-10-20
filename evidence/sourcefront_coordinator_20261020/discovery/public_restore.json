@@ -1,0 +1,52 @@
+{
+  "head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "main": "ebb63a4b666908ce176e92ea7dffd6e74808caa9",
+  "files": [
+    {
+      "path": "SCOUT_PROGRESS.md",
+      "remote_blob_sha": "0b9336dbcca9c16af54fc2ff34aa4257bda4e054",
+      "bytes": 201521,
+      "sha256": "96144992643113e7a4835d6cc11396d8f7b092335af7589f1624fb0033b57185",
+      "content_read_from_GitHub": true,
+      "local_equal_remote": true
+    },
+    {
+      "path": "SPECIALIST_COMPLETION.md",
+      "remote_blob_sha": "65d40eb27677ad6af4886833f1bdce0f9692ce7c",
+      "bytes": 105764,
+      "sha256": "e38bd240c27c22b16aecdd08eb17b51e8ac8477513639f4867a7d9ee2b93bbbe",
+      "content_read_from_GitHub": true,
+      "local_equal_remote": true
+    },
+    {
+      "path": "SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261001.md",
+      "remote_blob_sha": "66f8b111fccb59900f0344410bff84058327b911",
+      "bytes": 130552,
+      "sha256": "2714ae8420465d44be03ac5055471078bbd097135d2788e0e2e15d84fbde75a6",
+      "content_read_from_GitHub": true,
+      "local_equal_remote": true
+    },
+    {
+      "path": "PARALLEL_SPECIALIST_WORK.md",
+      "remote_blob_sha": "5a7227932f16be40a7902bfec13f455237e5c08e",
+      "bytes": 72598,
+      "sha256": "4314dcc54408b2f66a8c92a45055e8a130a91caa5ea884fe9d0d1d07ce7c7a6f",
+      "content_read_from_GitHub": true,
+      "local_equal_remote": true
+    },
+    {
+      "path": "market_checker_app/data/specialist_status.json",
+      "remote_blob_sha": "1dd55d5c0d8cb3aaca5e71a2454cc071b5a9c425",
+      "bytes": 44462,
+      "sha256": "17da5bc988a1929b8e7f3c46ebcaf5a66608a74e17cdde1123c9c4fd37143b79",
+      "content_read_from_GitHub": true,
+      "local_equal_remote": true
+    }
+  ],
+  "observed_at": "2026-10-20T14:26:52.180919+00:00",
+  "public_tree": "f71b05cc10ebd9e2f01f87a6e30802264d0245e4",
+  "local_head": "df199e350164adb95fb8fc94ed4b762765ce4bb0",
+  "local_clean": true,
+  "ci_repeated": false,
+  "source_attempts_repeated": false
+}

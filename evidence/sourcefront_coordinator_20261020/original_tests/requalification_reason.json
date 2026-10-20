@@ -1,0 +1,9 @@
+{
+  "frozen_at": "2026-10-20T20:11:47.220801+00:00",
+  "public_source_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "source_path": "tests/test_healthcare_identity_service.py",
+  "bytes": 23023,
+  "sha256": "2174507f1784d6ba7bf9abbe51888853c297231b9be9d87f6b11d9e6b9f45b70",
+  "preserved_copy": "evidence/sourcefront_coordinator_20261020/original_tests/test_healthcare_identity_service_before_cms_binding.py.txt",
+  "reason": "Three original test contracts allowed CMS projected-row snapshot attribution without original owner/provider body, observation and CCN/PAC binding. New owner and independent peer regressions preserve the actual unsafe before behavior; update only those obsolete expectations while retaining finding/query/dedup and other-source controls."
+}

@@ -1,0 +1,175 @@
+{
+  "probe_kind": "LOOKUP_ONLY_ARCHIVED_PROJECTION_NOT_A_CURRENT_CMS_RESPONSE",
+  "performed_at": "2026-10-20T14:29:57.893258+00:00",
+  "sql_connections": 0,
+  "network_requests": 0,
+  "production_changes": false,
+  "pins": [
+    {
+      "path": "market_checker_app/services/healthcare_identity_service.py",
+      "sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923",
+      "bytes": 36547
+    },
+    {
+      "path": "market_checker_app/services/healthcare_scout_service.py",
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078",
+      "bytes": 26388
+    },
+    {
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+      "bytes": 14656
+    },
+    {
+      "path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+      "sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+      "bytes": 815
+    }
+  ],
+  "cases": [
+    {
+      "archived_projected_row": {
+        "ENROLLMENT ID": "O20021115000002",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "HTI MEMORIAL HOSPITAL CORPORATION",
+        "ASSOCIATION DATE - OWNER": "2007-06-28",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      "candidate_object_id": "O20021115000002:1052593506:35:2007-06-28",
+      "candidate_details": {
+        "ENROLLMENT ID": "O20021115000002",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "ORGANIZATION NAME": "HTI MEMORIAL HOSPITAL CORPORATION",
+        "ASSOCIATION DATE - OWNER": "2007-06-28",
+        "ROLE CODE - OWNER": "35",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100",
+        "stage": "cms_hospital_owner_name_candidate",
+        "dataset_id": "029c119f-f79c-49be-9100-344d31d10344",
+        "association_date_is_publication_time": false,
+        "matched_entity_name": "HCA HEALTHCARE INC"
+      },
+      "current_lookup_result": {
+        "identity_status": "DATED_IDENTITY_VERIFIED",
+        "issuer_attribution_allowed": true,
+        "identity_resolution": "EXACT_DATED_OBJECT",
+        "identity_evidence": {
+          "record_id": "hca-cms-o20021115000002-2026-10-11",
+          "source": "cms",
+          "kind": "cms_provider_owner",
+          "ticker": "HCA",
+          "issuer_cik": "0000860730",
+          "entity_name": "HCA HEALTHCARE INC",
+          "product_or_provider": "HTI MEMORIAL HOSPITAL CORPORATION",
+          "relationship": "INDIRECT_OWNER",
+          "time_basis": "OBSERVED_SNAPSHOT",
+          "identifiers": {
+            "enrollment_id": "O20021115000002",
+            "owner_associate_id": "1052593506",
+            "provider_name": "HTI MEMORIAL HOSPITAL CORPORATION",
+            "association_date": "2007-06-28",
+            "owner_role_code": "35"
+          },
+          "effective_from": "2026-10-11",
+          "effective_to": null,
+          "known_at": "2026-10-11T10:17:04.506747+00:00",
+          "evidence": [
+            {
+              "url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+              "locator": "ENROLLMENT ID:O20021115000002/ASSOCIATE ID - OWNER:1052593506/ROLE CODE - OWNER:35",
+              "purpose": "OBJECT_RELATIONSHIP",
+              "observed_at": "2026-10-11T10:17:04.506747+00:00"
+            },
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312526044769/hca-20251231.htm",
+              "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+              "purpose": "ISSUER_IDENTITY",
+              "observed_at": "2026-10-11T10:17:04.506747+00:00"
+            }
+          ],
+          "matched_event_date": "2026-10-20"
+        },
+        "missing_evidence": null,
+        "ownership_attribution_time_basis": "OBSERVED_SNAPSHOT",
+        "historical_association_attribution_allowed": false
+      }
+    },
+    {
+      "archived_projected_row": {
+        "ENROLLMENT ID": "O20030204000016",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "HCA HEALTHONE LLC",
+        "ASSOCIATION DATE - OWNER": "2011-08-05",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      "candidate_object_id": "O20030204000016:1052593506:35:2011-08-05",
+      "candidate_details": {
+        "ENROLLMENT ID": "O20030204000016",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "ORGANIZATION NAME": "HCA HEALTHONE LLC",
+        "ASSOCIATION DATE - OWNER": "2011-08-05",
+        "ROLE CODE - OWNER": "35",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100",
+        "stage": "cms_hospital_owner_name_candidate",
+        "dataset_id": "029c119f-f79c-49be-9100-344d31d10344",
+        "association_date_is_publication_time": false,
+        "matched_entity_name": "HCA HEALTHCARE INC"
+      },
+      "current_lookup_result": {
+        "identity_status": "DATED_IDENTITY_VERIFIED",
+        "issuer_attribution_allowed": true,
+        "identity_resolution": "EXACT_DATED_OBJECT",
+        "identity_evidence": {
+          "record_id": "hca-cms-o20030204000016-2026-10-11",
+          "source": "cms",
+          "kind": "cms_provider_owner",
+          "ticker": "HCA",
+          "issuer_cik": "0000860730",
+          "entity_name": "HCA HEALTHCARE INC",
+          "product_or_provider": "HCA HEALTHONE LLC",
+          "relationship": "INDIRECT_OWNER",
+          "time_basis": "OBSERVED_SNAPSHOT",
+          "identifiers": {
+            "enrollment_id": "O20030204000016",
+            "owner_associate_id": "1052593506",
+            "provider_name": "HCA HEALTHONE LLC",
+            "association_date": "2011-08-05",
+            "owner_role_code": "35"
+          },
+          "effective_from": "2026-10-11",
+          "effective_to": null,
+          "known_at": "2026-10-11T10:17:04.506747+00:00",
+          "evidence": [
+            {
+              "url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+              "locator": "ENROLLMENT ID:O20030204000016/ASSOCIATE ID - OWNER:1052593506/ROLE CODE - OWNER:35",
+              "purpose": "OBJECT_RELATIONSHIP",
+              "observed_at": "2026-10-11T10:17:04.506747+00:00"
+            },
+            {
+              "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312526044769/hca-20251231.htm",
+              "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+              "purpose": "ISSUER_IDENTITY",
+              "observed_at": "2026-10-11T10:17:04.506747+00:00"
+            }
+          ],
+          "matched_event_date": "2026-10-20"
+        },
+        "missing_evidence": null,
+        "ownership_attribution_time_basis": "OBSERVED_SNAPSHOT",
+        "historical_association_attribution_allowed": false
+      }
+    }
+  ]
+}

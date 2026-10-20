@@ -1,0 +1,596 @@
+{
+  "DOJ_original_pdf": {
+    "extracted_text_not_published": true,
+    "pages": 91,
+    "whole_raw_and_extracted_text_gate_passed": true
+  },
+  "actions": {
+    "SQL_or_DB_file_operations": 0,
+    "collector_calls": 0,
+    "market_retries_or_new_plans": 0,
+    "new_HTTP_or_search_requests": 0,
+    "new_forecasts_registrations_labels": 0,
+    "registry_model_fitter_score_trading_changes": false,
+    "retained_DB_or_journal_touched": false,
+    "tests_CI_or_readiness_reruns": 0,
+    "withheld_body_paths_opened_or_recovered": 0
+  },
+  "audited_at": "2026-10-20T20:19:13.153324+00:00",
+  "common_originals_commit": "39e5958b20b66338ad2029e99908609834d67db3",
+  "discovery_pins": [
+    {
+      "key": "leg_final_articles",
+      "literal_href": "d152590dex31.htm",
+      "original_anchor_end_exclusive": 36738,
+      "original_anchor_sha256": "69e6bc4937a987675ebdf877aeffa8a993ac9cefe4d2e25140b9950e18f86318",
+      "original_anchor_start": 36618,
+      "resolved_exact_request_matches": true,
+      "source": {
+        "bytes": 41778,
+        "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+        "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4"
+      },
+      "source_metadata": {
+        "bytes": 862,
+        "path": "evidence/batch4_identity_20261013/captures/0727cd2189a797d82f066ded90209aca3f94a15d7480061b0b1c916da146b5a6.json",
+        "sha256": "d437f03664109656e1777eb864dba482d76fd3dbcb8ea35ade38a40605ac98f9"
+      },
+      "source_observed_at": "2026-10-13T08:46:22.597523+00:00"
+    },
+    {
+      "key": "xom_successor_formation",
+      "literal_href": "d71068dex3i.htm",
+      "original_anchor_end_exclusive": 33180,
+      "original_anchor_sha256": "e52033e5c25ebc5b433e0c4cae5c4c4946b222e2e049f5ece31cf7eba4e057e4",
+      "original_anchor_start": 33069,
+      "resolved_exact_request_matches": true,
+      "source": {
+        "bytes": 38038,
+        "path": "evidence/batch4_identity_20261013/captures/21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7.bin",
+        "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7"
+      },
+      "source_metadata": {
+        "bytes": 870,
+        "path": "evidence/batch4_identity_20261013/captures/8efa2c0f68db6520ddaf11e5d3f8dee0c3abfa0b14c3f3f79230e2d93b549021.json",
+        "sha256": "c710953293ac9e881d0ac8a610b27f0a3250ab097c7b933f2f202553840e160c"
+      },
+      "source_observed_at": "2026-10-13T08:46:17.427994+00:00"
+    },
+    {
+      "accession_row": {
+        "acceptanceDateTime": "2026-09-01T20:36:48.000Z",
+        "accessionNumber": "0001950047-26-008927",
+        "filingDate": "2026-09-01",
+        "form": "144",
+        "primaryDocument": "xsl144X01/primary_doc.xml"
+      },
+      "capture_index": {
+        "bytes": 3981,
+        "path": "evidence/batch4_sec_20261013/captures.json",
+        "sha256": "58d5d9a33424cca5a7ac492a43fffca882fbaa7d4bb09ca6f2640ece45cabc0b"
+      },
+      "key": "nadella_form144_packet",
+      "limit": "Accession/account/issuer context; not independent executed-sale, natural-person ownership or legal-role continuity.",
+      "row_index": 2,
+      "source": {
+        "bytes": 17733,
+        "path": "evidence/batch4_sec_20261013/primary/nadella_submissions.json",
+        "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d"
+      },
+      "source_cik": "0001513142",
+      "source_observed_at": "2026-10-13T08:46:47.328762+00:00"
+    },
+    {
+      "accession_row": {
+        "acceptanceDateTime": "2026-09-01T20:36:48.000Z",
+        "accessionNumber": "0001950047-26-008927",
+        "filingDate": "2026-09-01",
+        "form": "144",
+        "primaryDocument": "xsl144X01/primary_doc.xml"
+      },
+      "capture_index": {
+        "bytes": 3981,
+        "path": "evidence/batch4_sec_20261013/captures.json",
+        "sha256": "58d5d9a33424cca5a7ac492a43fffca882fbaa7d4bb09ca6f2640ece45cabc0b"
+      },
+      "key": "nadella_form144_packet",
+      "limit": "Accession/account/issuer context; not independent executed-sale, natural-person ownership or legal-role continuity.",
+      "row_index": 42,
+      "source": {
+        "bytes": 185250,
+        "path": "evidence/batch4_sec_20261013/primary/msft_submissions.json",
+        "sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c"
+      },
+      "source_cik": "0000789019",
+      "source_observed_at": "2026-10-13T08:46:54.793221+00:00"
+    },
+    {
+      "exact_request_matches": true,
+      "is_separate_Order_or_current_docket": false,
+      "key": "doj_first_amended_complaint",
+      "label": "First Amended Complaint",
+      "literal_href": "/atr/media/1358786/dl",
+      "original_anchor_end_exclusive": 89975,
+      "original_anchor_sha256": "76f72287896c5e6ce4f89b1ca3322e00426629a9440f09d19f7178cb067e55c1",
+      "original_anchor_start": 89848,
+      "source": {
+        "bytes": 107793,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+        "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+      }
+    }
+  ],
+  "explicit_safe_input_pins": [
+    {
+      "bytes": 1919,
+      "path": "evidence/sourcefront_20261020/request_plan.json",
+      "sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0"
+    },
+    {
+      "bytes": 1203,
+      "path": "evidence/sourcefront_20261020/amended_complaint_plan.json",
+      "sha256": "b97af52ca9f96cf9111921aa4ae3704c57d48c32cca9ac60e177c70ce8de3563"
+    },
+    {
+      "bytes": 24571,
+      "path": "market_checker_app/services/ir_primary_scout_service.py",
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    {
+      "bytes": 1231,
+      "path": "evidence/sourcefront_20261020/primary/leg_final_articles.metadata.json",
+      "sha256": "6f5af96f1e3de1d6f81b4f302b366d9b4d3dec38562e437041b86a468126c792"
+    },
+    {
+      "bytes": 577,
+      "path": "evidence/sourcefront_20261020/primary/leg_final_articles.reserved.json",
+      "sha256": "2692a3fbbfe3f4715ed3005c665dfbf8717ac0a7fbeb8e28c2ef90ac97d6d416"
+    },
+    {
+      "bytes": 14256,
+      "path": "evidence/sourcefront_20261020/primary/leg_final_articles.htm",
+      "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba"
+    },
+    {
+      "bytes": 1243,
+      "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.metadata.json",
+      "sha256": "7e0b4e06ccf8c3cbfc2220d4277ef4579b42be4b4e15575c321ada29915b5646"
+    },
+    {
+      "bytes": 583,
+      "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.reserved.json",
+      "sha256": "a94f946783fa6071954cb88fd98e5886b947a82ab1220eaab991a570ab6bcbbf"
+    },
+    {
+      "bytes": 25866,
+      "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.htm",
+      "sha256": "ef4d1a0c0c71bc3ea536ca3ee333c91db561e99c57448d851225e8b3dcf920ac"
+    },
+    {
+      "bytes": 1255,
+      "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.metadata.json",
+      "sha256": "26539e1b09d7a06874b876cb61da127a0ae9818956b392047236cc847c1bded7"
+    },
+    {
+      "bytes": 590,
+      "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.reserved.json",
+      "sha256": "973edea40c6684c2bcbb76c5a5e4cd7a6486759b9c001b74aafb2453641d13e8"
+    },
+    {
+      "bytes": 4770,
+      "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.txt",
+      "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e"
+    },
+    {
+      "bytes": 1214,
+      "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+      "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+    },
+    {
+      "bytes": 549,
+      "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.reserved.json",
+      "sha256": "3ab9a7e75c246925b5e65e6d4c1fc57957c280419234b4446cbf22d024edc720"
+    },
+    {
+      "bytes": 3404671,
+      "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+      "sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6"
+    },
+    {
+      "bytes": 1616,
+      "path": "evidence/sourcefront_20261020/original_verification.json",
+      "sha256": "c046cbe3fa8eaac00e137c9b0b24ecb3714db2540dea1c8579162308285b34c3"
+    },
+    {
+      "bytes": 637,
+      "path": "evidence/sourcefront_20261020/amended_complaint_verification.json",
+      "sha256": "bc025a4d0cc2d033365a09378e3d3cedcc0118a9af73f1e0ac3c0f29afc7a3bd"
+    },
+    {
+      "bytes": 862,
+      "path": "evidence/batch4_identity_20261013/captures/0727cd2189a797d82f066ded90209aca3f94a15d7480061b0b1c916da146b5a6.json",
+      "sha256": "d437f03664109656e1777eb864dba482d76fd3dbcb8ea35ade38a40605ac98f9"
+    },
+    {
+      "bytes": 41778,
+      "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4"
+    },
+    {
+      "bytes": 870,
+      "path": "evidence/batch4_identity_20261013/captures/8efa2c0f68db6520ddaf11e5d3f8dee0c3abfa0b14c3f3f79230e2d93b549021.json",
+      "sha256": "c710953293ac9e881d0ac8a610b27f0a3250ab097c7b933f2f202553840e160c"
+    },
+    {
+      "bytes": 38038,
+      "path": "evidence/batch4_identity_20261013/captures/21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7.bin",
+      "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7"
+    },
+    {
+      "bytes": 3981,
+      "path": "evidence/batch4_sec_20261013/captures.json",
+      "sha256": "58d5d9a33424cca5a7ac492a43fffca882fbaa7d4bb09ca6f2640ece45cabc0b"
+    },
+    {
+      "bytes": 17733,
+      "path": "evidence/batch4_sec_20261013/primary/nadella_submissions.json",
+      "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d"
+    },
+    {
+      "bytes": 185250,
+      "path": "evidence/batch4_sec_20261013/primary/msft_submissions.json",
+      "sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c"
+    },
+    {
+      "bytes": 107793,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+      "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+    }
+  ],
+  "form144_CCC": {
+    "access_value_exported": false,
+    "access_value_present_in_this_field": false,
+    "ccc_field_count": 1,
+    "ccc_field_original_byte_offset": 1698,
+    "ccc_value_bytes": 8,
+    "classification": "REPEATED_X_PLACEHOLDER",
+    "exact_packet_bytes": 4770,
+    "exact_packet_sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e",
+    "original_bytes_modified_or_sanitized": false
+  },
+  "lane_handoffs": [
+    {
+      "available_at_audit": true,
+      "bytes": 345214,
+      "candidate_urls": [
+        "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm",
+        "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex3i.htm"
+      ],
+      "name": "identity_bulk.json",
+      "proposals_now_have_preserved_originals": true,
+      "reviewed": true,
+      "schema_version": "identity_source_feasibility_v1",
+      "sha256": "7f1bbe5c0c41eb40adef5d2043273ecb9bc89818b4a030bd1a4c0b2cda92cf99",
+      "source_availability_created_by_review": false
+    },
+    {
+      "available_at_audit": true,
+      "bytes": 16873,
+      "name": "identity_bulk_charters.json",
+      "new_verified_adoptions": 0,
+      "reviewed": true,
+      "schema_version": "identity_charter_source_feasibility_v1",
+      "sha256": "67827e57f2b17fd186213ed582d5929419ef664a8d141b180c1ab71238ddf0c5",
+      "source_availability_created_by_review": false,
+      "supported_role_specific_facts": [
+        {
+          "authorized_common_shares": 10000,
+          "changed_role_limit": "Pre-merger exchanged class in completion8-K is common$0.01; surviving authorized class is common$0.001. These distinct roles cannot be merged into old-CUSIP continuity.",
+          "class_role": "SURVIVING_CORPORATION_AUTHORIZED_CAPITAL",
+          "common_par_value_usd": "0.001",
+          "direct_indirect_control": null,
+          "effective_day_parent_disclosure": "Closing8-K says articles amended/restated at effective time; same accession supplies that event relation, not independent control corroboration.",
+          "execution_date": "2026-08-26",
+          "explicit_charter_effective_day": null,
+          "instrument_cusip": null,
+          "issuer_name_literal": "Leggett & Platt, Incorporated",
+          "named_current_shareholder": null,
+          "source_key": "leg_final_articles"
+        },
+        {
+          "authorized_common_shares": 9000000000,
+          "authorized_preferred_shares": 200000000,
+          "class_role": "SUCCESSOR_CORPORATION_AUTHORIZED_CAPITAL",
+          "common_par_value_usd": "0.001",
+          "current_shareholder_identity": null,
+          "execution_date": "2026-07-01",
+          "explicit_charter_effective_day": "2026-07-01",
+          "historic_shareholders_section": "FIFTH expressly for historic record, StandardOilNewJersey1882 origins. It is not a current ownership list.",
+          "instrument_cusip": null,
+          "issuer_name_literal": "EXXONMOBIL HOLDINGS CORPORATION",
+          "july7_cover_reconciled": false,
+          "preferred_par_value_usd": "0.001",
+          "source_key": "xom_successor_formation"
+        }
+      ],
+      "unchanged_missing_claims": [
+        "LEG conflicting direct versus indirect completed surviving-control statements",
+        "LEG dated old/new CUSIP/class action continuity",
+        "XOM exact successorCIK2115436/CUSIP binding",
+        "XOM explicit reconciliation of July7 no-par successor cover versus $0.001 charter/action"
+      ]
+    },
+    {
+      "available_at_audit": true,
+      "bytes": 42233,
+      "name": "contracts.json",
+      "narrow_integration_proposal": {
+        "code_changed": false,
+        "existing_finished_guard_repeated_or_relaxed": false,
+        "no_existing_parser_bug_established": "Existing strict obligation/operating-site contracts intentionally do not accept this separate financial-asset scope. No guard/test/status commit is appropriate for sourcefront alone.",
+        "required_changes_if_later_authorized": [
+          "Explicit asset-balance claim role; accept exact c-193/c-194 instant/category contexts",
+          "Preserve overlapping f895/f896 and similar nested facts as one balance, never sum duplicate tags",
+          "Require whole Note11 paragraph plus USD/scale/precision and cancellation qualifiers",
+          "No foundry name/Apple allocation, physical quantity, basis-positive or historical continuity promotion"
+        ],
+        "source_ready_delta": "A separately typed capacity-reservation deposit/prepayment financial-asset selection could consume Note11 with exact instant/category context and nested-equivalent iXBRL facts; keep it distinct from purchase obligations, cash spend, revenue or physical quantity."
+      },
+      "result": "NEW_RETAINED_CAPACITY_RESERVATION_ASSET_AND_SALES_CHANNEL_FACTS_SOURCE_PINNED_NO_RUNTIME_CHANGE",
+      "reviewed": true,
+      "schema_version": "sourcefront_contracts_retained_primary_v1",
+      "sha256": "a99a6eef01baaafe39d1c9252cb9c62ece462d6fbe032d1ce374f50c8d12605f",
+      "source_availability_created_by_review": false
+    },
+    {
+      "available_at_audit": true,
+      "bytes": 20610,
+      "discovered_url": "https://www.justice.gov/atr/media/1358786/dl",
+      "name": "regulatory.json",
+      "original_proposal_was_not_itself_a_capture": true,
+      "proposal_transport_now_preserved": true,
+      "reviewed": true,
+      "schema_version": "sourcefront_regulatory_primary_feasibility_v1",
+      "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53",
+      "source_availability_created_by_review": false,
+      "status": "CONCRETE_UNATTEMPTED_PARTY_FILING_LINK_FOUND_ORDER_AND_CURRENT_DOCKET_STILL_BLOCKED"
+    },
+    {
+      "available_at_audit": true,
+      "bytes": 84186,
+      "lane_status": "BLOCKED_EXTERNAL_GENUINE_INPUT_AND_RUNTIME_PREREQUISITES",
+      "market_or_forecast_inputs_supplied_by_four_new_nonmarket_originals": false,
+      "name": "evaluation.json",
+      "reviewed": true,
+      "schema_version": "sourcefront_evaluation_availability_assessment_v1",
+      "sha256": "d6b8b88bca7c2b206cbfaa22f22b62986055bd5364be70ebb234428faf8e374b",
+      "source_availability_created_by_review": false
+    },
+    {
+      "account_notice_review_reported_result": {
+        "acquisition_day_overlap": true,
+        "review_available_at": "2026-10-20T20:16:09.338288+00:00",
+        "review_ingested_at": "2026-10-20T20:16:09.327405+00:00",
+        "same_transaction_supported": false,
+        "source_account_corroborated": true,
+        "source_issuer_cik_corroborated": true,
+        "status": "PARTIAL"
+      },
+      "available_at_audit": true,
+      "bytes": 8392,
+      "common_Form144_original_receipt_and_reservation_match": true,
+      "missing_bridges": [
+        "Independent dated natural-person/legal-name-to-account binding",
+        "Exact instrument/class/CUSIP validity on transaction day",
+        "Legal role interval covering Aug31 independently of reported-account labels",
+        "Exact transaction identity: notice86525/Common differs from Form4 178622 or70465.844/Common Stock"
+      ],
+      "name": "sec.json",
+      "no_continuity_identity_adoption_or_execution": true,
+      "reported_implementation_or_tests_reexecuted_here": false,
+      "reported_implementation_source_pin": {
+        "bytes": 47825,
+        "path": "market_checker_app/services/sec_form4_person_bridge.py",
+        "sha256": "6e315f4b4c967b6f4c51486b33b855c4c48519f3b595c931b0b0f4a09e3584a0"
+      },
+      "reviewed": true,
+      "schema_version": "sourcefront_sec_discovery_v1",
+      "sha256": "57f5cb6d2651ebb554b4f1943e4b2b227aaba2ebcad685e90742951217d518c2",
+      "source_availability_created_by_review": false
+    },
+    {
+      "available_at_audit": true,
+      "bytes": 85154,
+      "decision": "NO_NEW_LIVE_IDENTITY_LINK; FIX_CONFIRMED_UNBOUND_CMS_RUNTIME_ATTRIBUTION; SOURCE_ACQUISITION_WAITS_FOR_GENUINE_HISTORY_AND_MISSING_ORIGINALS",
+      "name": "healthcare.json",
+      "new_primary_url_proposals": [],
+      "original_CMS_HTTP_body_available": false,
+      "reported_acceptance": {
+        "CMS_positive_or_full_negative_live_acceptance": false,
+        "OOS_verified": false,
+        "canonical_tickers": 687,
+        "complete_specialists": "0/21",
+        "current_clinical_issuer_coverage_verified": false,
+        "historical_ownership_continuity_verified": false,
+        "new_adoptions": 0,
+        "production_healthcare_records": 10,
+        "score_or_trading_changes": false,
+        "user_Windows_acceptance_proved_here": false
+      },
+      "reported_implementation_or_tests_reexecuted_here": false,
+      "reported_runtime_defect": {
+        "after_allowed": [
+          false,
+          false
+        ],
+        "before_allowed": [
+          true,
+          true
+        ],
+        "fix": "Legacy CMS records stay query leads and retained inventory; resolve denies their issuer attribution for both different-day reuse and same-day unbound originals. CMS resolver version invalidates earlier cached checks. No new positive/adoption contract was fabricated.",
+        "id": "CMS_LEGACY_PROJECTED_OWNER_SNAPSHOT_CURRENT_ATTRIBUTION",
+        "new_producer_sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192",
+        "original_producer_sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923"
+      },
+      "reviewed": true,
+      "schema_version": "healthcare_source_frontier_review_v1",
+      "sha256": "14b3dffcf5d773a66bfa5128481d51384914a10e344fc081ec4904ce346c0cfa",
+      "source_availability_created_by_review": false
+    }
+  ],
+  "no_body_copy_or_substitute_created": true,
+  "originals": [
+    {
+      "HTTP_status_in_original_metadata": 200,
+      "app_collector_live_or_historical_availability_claimed": false,
+      "body": {
+        "bytes": 14256,
+        "path": "evidence/sourcefront_20261020/primary/leg_final_articles.htm",
+        "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba"
+      },
+      "complete_original_hash_bytes_verified": true,
+      "key": "leg_final_articles",
+      "metadata": {
+        "bytes": 1231,
+        "path": "evidence/sourcefront_20261020/primary/leg_final_articles.metadata.json",
+        "sha256": "6f5af96f1e3de1d6f81b4f302b366d9b4d3dec38562e437041b86a468126c792"
+      },
+      "observed_at": "2026-10-20T14:29:11.360266+00:00",
+      "request_plan": {
+        "bytes": 1919,
+        "path": "evidence/sourcefront_20261020/request_plan.json",
+        "sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0"
+      },
+      "requested_url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm",
+      "research_only": true,
+      "reservation": {
+        "bytes": 577,
+        "path": "evidence/sourcefront_20261020/primary/leg_final_articles.reserved.json",
+        "sha256": "2692a3fbbfe3f4715ed3005c665dfbf8717ac0a7fbeb8e28c2ef90ac97d6d416"
+      },
+      "reservation_plan_and_capture_fields_match": true,
+      "started_at": "2026-10-20T14:29:05.370795+00:00",
+      "whole_body_gate_passed": true
+    },
+    {
+      "HTTP_status_in_original_metadata": 200,
+      "app_collector_live_or_historical_availability_claimed": false,
+      "body": {
+        "bytes": 25866,
+        "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.htm",
+        "sha256": "ef4d1a0c0c71bc3ea536ca3ee333c91db561e99c57448d851225e8b3dcf920ac"
+      },
+      "complete_original_hash_bytes_verified": true,
+      "key": "xom_successor_formation",
+      "metadata": {
+        "bytes": 1243,
+        "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.metadata.json",
+        "sha256": "7e0b4e06ccf8c3cbfc2220d4277ef4579b42be4b4e15575c321ada29915b5646"
+      },
+      "observed_at": "2026-10-20T14:29:15.824236+00:00",
+      "request_plan": {
+        "bytes": 1919,
+        "path": "evidence/sourcefront_20261020/request_plan.json",
+        "sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0"
+      },
+      "requested_url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex3i.htm",
+      "research_only": true,
+      "reservation": {
+        "bytes": 583,
+        "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.reserved.json",
+        "sha256": "a94f946783fa6071954cb88fd98e5886b947a82ab1220eaab991a570ab6bcbbf"
+      },
+      "reservation_plan_and_capture_fields_match": true,
+      "started_at": "2026-10-20T14:29:11.362695+00:00",
+      "whole_body_gate_passed": true
+    },
+    {
+      "HTTP_status_in_original_metadata": 200,
+      "app_collector_live_or_historical_availability_claimed": false,
+      "body": {
+        "bytes": 4770,
+        "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.txt",
+        "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e"
+      },
+      "complete_original_hash_bytes_verified": true,
+      "key": "nadella_form144_packet",
+      "metadata": {
+        "bytes": 1255,
+        "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.metadata.json",
+        "sha256": "26539e1b09d7a06874b876cb61da127a0ae9818956b392047236cc847c1bded7"
+      },
+      "observed_at": "2026-10-20T14:29:20.394430+00:00",
+      "request_plan": {
+        "bytes": 1919,
+        "path": "evidence/sourcefront_20261020/request_plan.json",
+        "sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0"
+      },
+      "requested_url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/0001950047-26-008927.txt",
+      "research_only": true,
+      "reservation": {
+        "bytes": 590,
+        "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.reserved.json",
+        "sha256": "973edea40c6684c2bcbb76c5a5e4cd7a6486759b9c001b74aafb2453641d13e8"
+      },
+      "reservation_plan_and_capture_fields_match": true,
+      "started_at": "2026-10-20T14:29:15.829072+00:00",
+      "whole_body_gate_passed": true
+    },
+    {
+      "HTTP_status_in_original_metadata": 200,
+      "app_collector_live_or_historical_availability_claimed": false,
+      "body": {
+        "bytes": 3404671,
+        "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+        "sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6"
+      },
+      "complete_original_hash_bytes_verified": true,
+      "key": "doj_first_amended_complaint",
+      "metadata": {
+        "bytes": 1214,
+        "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+        "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+      },
+      "observed_at": "2026-10-20T14:33:17.921783+00:00",
+      "request_plan": {
+        "bytes": 1203,
+        "path": "evidence/sourcefront_20261020/amended_complaint_plan.json",
+        "sha256": "b97af52ca9f96cf9111921aa4ae3704c57d48c32cca9ac60e177c70ce8de3563"
+      },
+      "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+      "research_only": true,
+      "reservation": {
+        "bytes": 549,
+        "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.reserved.json",
+        "sha256": "3ab9a7e75c246925b5e65e6d4c1fc57957c280419234b4446cbf22d024edc720"
+      },
+      "reservation_plan_and_capture_fields_match": true,
+      "started_at": "2026-10-20T14:33:12.162977+00:00",
+      "whole_body_gate_passed": true
+    }
+  ],
+  "prior_public_JSON_exact_target_URL_hits": [],
+  "prior_search_limit": "Available public baseline evidence JSON only; does not reconstruct unavailable transport history.",
+  "public_base": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "schema_version": "sourcefront_four_originals_independent_audit_v1",
+  "scope_limits": [
+    "Research originals only; not app collector/live, dated machine historical availability, adoption, native userWindows, OOS or full21 acceptance.",
+    "Charter authorized capital is a separate role from premerger exchanged/traded class, CUSIP continuity and direct/indirect control.",
+    "Form144 is a proposed-sale notice, not proof of an executed sale or natural-person/account/legal-role continuity.",
+    "Amended Complaint is a party pleading, not separate Order, complete current docket, adjudicated merits, financial CIK or issuer continuity.",
+    "Four nonmarket originals cannot supply missing66-session market data, dated publisher price revisions, genuine forecasts/labels or nativeWindows runtime."
+  ],
+  "status": "FOUR_ORIGINAL_CONTENT_AND_CHAIN_BINDINGS_VERIFIED",
+  "totals": {
+    "DOJ_original_bytes": 3404671,
+    "SEC_original_bytes": 44892,
+    "distinct_research_HTTP200_records": 4,
+    "total_original_bytes": 3449563
+  },
+  "withheld_paths_absent_from_Git_catalog_only": [
+    "evidence/batch4_regulatory_20261013/raw/nhtsa_api_docs.html",
+    "evidence/batch4_ir_20261013/primary/ir_authority.html",
+    "evidence/batch5_ir_20261014/primary/ir_authority.html",
+    "evidence/batch8_regulatory_20261015/raw/njd_case_page.html"
+  ]
+}

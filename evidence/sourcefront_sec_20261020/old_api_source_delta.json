@@ -1,0 +1,10 @@
+{
+  "changes_scope": "SECPersonCapture adds the new purpose; old bridge evidence guard keeps the earlier two valid evidence purposes; no earlier valid branch/output edited",
+  "old_apis_or_old_suites_rerun": false,
+  "old_existing_tests_modified": false,
+  "old_top_level_definitions_removed": [],
+  "old_top_level_definitions_with_changes": [
+    "SECPersonCapture",
+    "review_form4_person_bridge"
+  ]
+}

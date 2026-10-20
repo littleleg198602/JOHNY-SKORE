@@ -1,0 +1,40 @@
+{
+  "actual_http_requests": 0,
+  "completed_at": "2026-10-20T20:16:25.985055+00:00",
+  "db_calls": 0,
+  "discovered": 15,
+  "errors": 0,
+  "executed": 15,
+  "expected_failures": 0,
+  "failures": 0,
+  "full_log_sha256": "913248334c1bb61986143c91e44a772d7cb9fbbee53428909c69c695395635a8",
+  "python": "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+  "schema_version": "focused_charter_qualification_v1",
+  "skips": 0,
+  "source_calls": 0,
+  "source_test_pins": {
+    "evidence/sourcefront_identity_20261020/LEG_pravni_kapital_po_fuzi.json": {
+      "bytes": 5514,
+      "sha256": "eaefb9f57a24f5529598afd5276b4259a905999e1d6289cd5e3a60609f1dd039"
+    },
+    "evidence/sourcefront_identity_20261020/XOM_pravni_kapital_nastupce.json": {
+      "bytes": 5451,
+      "sha256": "d10cb48202471c98cbe24bda007e05a14d1d0750d15bcbeb2b88d82d30a9a4d0"
+    },
+    "evidence/sourcefront_identity_20261020/replay_charter_reviews.py": {
+      "bytes": 2636,
+      "sha256": "1fad989fa7b2bc3e6ebd2e6e6984e35c5efcff37db96a34e98eec720b7f2e928"
+    },
+    "market_checker_app/services/sec_corporate_action_bridge.py": {
+      "bytes": 67349,
+      "sha256": "9eaae634689f587ecf71f4d72840b21cb50df458750092ec3e35c0d287a374d4"
+    },
+    "tests/test_sourcefront_charter_disclosure.py": {
+      "bytes": 11887,
+      "sha256": "6144dd231715b0a256d27e7afef55ea8487a12ceb5f622cde96400db1030c5b9"
+    }
+  },
+  "started_at": "2026-10-20T20:16:20.796132+00:00",
+  "successful": true,
+  "unexpected_successes": 0
+}

@@ -6,12 +6,12 @@ effective dates; a newer source cannot silently discard an older conflict.
 """
 from copy import deepcopy
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from decimal import Decimal
 import hashlib
 import json
 import re
-from urllib.parse import urlsplit
+from urllib.parse import urljoin, urlsplit
 from xml.etree import ElementTree
 
 from market_checker_app.services.sec13f_identity_bulk import (
@@ -204,7 +204,7 @@ def class_terms(title):
 
 
 def action_text(snapshot):
-    """Support exact EX-4.(VI) envelope metadata without relaxing visible HTML."""
+    """Support original Roman/numeric exhibit envelopes, retaining visible HTML."""
     try:
         return _action_text(snapshot)
     except ValueError:
@@ -212,7 +212,7 @@ def action_text(snapshot):
             raise
         payload = snapshot.payload.decode("utf-8-sig")
         envelope = re.fullmatch(
-            r"\s*<DOCUMENT>\s*<TYPE>EX-[0-9]+\.\([IVXivx]+\)\s*<SEQUENCE>[0-9]+\s*"
+            r"\s*<DOCUMENT>\s*<TYPE>EX-(?:[0-9]+\.\([IVXivx]+\)|3\.[1-9][0-9]*)\s*<SEQUENCE>[0-9]+\s*"
             r"<FILENAME>([A-Za-z0-9_.-]+)\s*(?:<DESCRIPTION>[^\r\n<]*\r?\n)?"
             r"<TEXT>\s*(<HTML(?:\s[^>]*)?>.*</HTML>)\s*</TEXT>\s*</DOCUMENT>\s*",
             payload, re.I | re.S,
@@ -248,6 +248,8 @@ def _quote(snapshot, excerpt):
 
 
 def review_corporate_action_bridge(service, claim):
+    if isinstance(claim, dict) and claim.get("bridge_kind") == "CHARTER_AUTHORIZED_CLASS":
+        return review_charter_class_disclosure(service, claim)
     if isinstance(claim, dict) and claim.get("bridge_kind") == "SAME_CIK_SYMBOL_RENAME":
         return review_symbol_rename_bridge(service, claim)
     if isinstance(claim, dict) and claim.get("bridge_kind") == "STOCK_MERGER_EXCHANGE":
@@ -373,6 +375,191 @@ def review_corporate_action_bridge(service, claim):
               "identity_transition_approved": False, "interval_extension_allowed": False,
               "automatic_alias_allowed": False, "production_registry_changed": False, "scoring_allowed": False}
     report["bridge_sha256"] = hashlib.sha256(json.dumps(report, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    return report
+
+
+class _CharterLinks(_ActionPassageParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+
+    def handle_starttag(self, tag, attrs):
+        super().handle_starttag(tag, attrs)
+        if tag == "a" and self.stack and not self.stack[-1][1]:
+            references = [value for key, value in attrs if key == "href"]
+            if len(references) == 1 and isinstance(references[0], str):
+                self.links.append(references[0])
+
+
+def _charter_original(snapshot):
+    text = action_text(snapshot)  # Validates the whole original/envelope first.
+    payload = snapshot.payload.decode("utf-8-sig")
+    if payload.lstrip().upper().startswith("<DOCUMENT>"):
+        payload = re.search(r"(<HTML(?:\s[^>]*)?>.*</HTML>)", payload, re.I | re.S)[1]
+    parser = _CharterLinks()
+    parser.feed(payload)
+    parser.close()
+    return text, parser.links
+
+
+def _charter_clock():
+    return datetime.now(timezone.utc)
+
+
+def _charter_date(day, excerpt, text, *, execution=False):
+    if day is None and excerpt is None:
+        return None, False
+    if (not isinstance(day, str) or date.fromisoformat(day).isoformat() != day
+            or not isinstance(excerpt, str) or not 20 <= len(excerpt) <= 1200):
+        raise ValueError("Charter date requires an exact ISO day and original clause")
+    day_value = date.fromisoformat(day)
+    excerpt = " ".join(excerpt.split())
+    if excerpt not in text:
+        return None, False
+    # Execution and legal effectiveness are distinct source predicates. In
+    # particular a signature day never supplies an omitted effective day.
+    if execution:
+        predicate = re.search(r"\bIN WITNESS WHEREOF\b.*\b(?:signed|executed)\b", excerpt, re.I)
+    else:
+        predicate = re.fullmatch(r"\(?As Amended Effective\s+(.+?)\)?", excerpt, re.I)
+    if not predicate:
+        return None, False
+    fragments = re.findall(r"[A-Z][a-z]+\s+[0-9]{1,2},\s+[0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2}", excerpt)
+    ordinal = re.search(r"([0-9]{1,2})\s*(?:st|nd|rd|th)?\s+day of\s+([A-Z][a-z]+),\s+([0-9]{4})", excerpt)
+    if ordinal:
+        fragments.append(f"{ordinal[2]} {ordinal[1]}, {ordinal[3]}")
+    matched = bool(len(fragments) == 1 and _dated_action_text(fragments[0], day_value))
+    return day if matched else None, matched
+
+
+def _charter_parent_role(name, role, passage):
+    if role == "SUCCESSOR_AUTHORIZED_CLASS":
+        return re.search(re.escape(name) + r"\s+as the successor registrant\b", passage, re.I) is not None
+    definition = re.search(
+        re.escape(name) + r",?\s+(?:a\s+[^()]{1,100}\s+)?\(\s*the\s+[\"“] Company [\"”]\s*\)", passage, re.I)
+    return bool(definition and re.search(r"\bthe Company continuing as the surviving corporation\b", passage, re.I))
+
+
+def review_charter_class_disclosure(service, claim, *, as_of=None):
+    """Expose an original charter's authorized common class, never an instrument.
+
+    Two pinned corporate_action_filing snapshots are required: the original
+    charter and its parent filing with a visible literal exhibit link. The
+    requested transaction role must be named in an exact parent passage. This
+    review neither modifies nor replaces any existing bridge/conflict report.
+    service.as_of selects sources; optional as_of bounds availability of this
+    newly computed interpretation, whose knowledge clock is physical completion.
+    """
+    started = _clock(_charter_clock())
+    cutoff = started if as_of is None else _clock(as_of)
+    required = {"bridge_kind", "ticker", "issuer_cik", "issuer_name_text", "class_role",
+                "charter_snapshot_id", "parent_filing_snapshot_id", "parent_role_excerpt", "issuer_excerpt",
+                "authorized_class_excerpt", "class_title", "authorized_shares", "effective_on",
+                "effective_excerpt", "execution_on", "execution_excerpt"}
+    if (not isinstance(claim, dict) or set(claim) != required
+            or claim["bridge_kind"] != "CHARTER_AUTHORIZED_CLASS"
+            or claim["ticker"] not in service.universe_set
+            or claim["class_role"] not in {"SURVIVING_AUTHORIZED_CLASS", "SUCCESSOR_AUTHORIZED_CLASS"}
+            or not isinstance(claim["issuer_cik"], str) or not re.fullmatch(r"[0-9]{10}", claim["issuer_cik"])
+            or not int(claim["issuer_cik"])
+            or not isinstance(claim["authorized_shares"], str)
+            or not re.fullmatch(r"[1-9][0-9]{0,14}", claim["authorized_shares"])):
+        raise ValueError("Charter review requires its explicit bounded authorized-class schema")
+    charter = _snapshot(service, claim["charter_snapshot_id"], "corporate_action_filing")
+    parent = _snapshot(service, claim["parent_filing_snapshot_id"], "corporate_action_filing")
+    if charter is None or parent is None or charter.url == parent.url:
+        raise ValueError("Charter and distinct parent original are required")
+    for source in (charter, parent):
+        official_url(source.kind, source.url)
+        if source.observed_at > min(started, cutoff, service.as_of):
+            raise ValueError("Charter evidence was not physically available at source selection")
+    archive = lambda source: tuple(urlsplit(source.url).path.split("/")[4:6])
+    if (archive(charter) != archive(parent) or archive(charter)[0].zfill(10) != claim["issuer_cik"]):
+        raise ValueError("Charter and referring original must bind the same exact archive issuer/accession")
+    charter_text, _ = _charter_original(charter)
+    parent_text, links = _charter_original(parent)
+    for key, limit in (("issuer_name_text", 300), ("issuer_excerpt", 800),
+                       ("parent_role_excerpt", 4000), ("authorized_class_excerpt", 2000), ("class_title", 300)):
+        if not isinstance(claim[key], str) or not 1 <= len(claim[key]) <= limit:
+            raise ValueError("Charter proof requires bounded original text fields")
+    issuer, declaration, role_quote, authorization = (
+        " ".join(claim[key].split()) for key in
+        ("issuer_name_text", "issuer_excerpt", "parent_role_excerpt", "authorized_class_excerpt"))
+    blockers = []
+    linked = any(urljoin(parent.url, reference) == charter.url for reference in links)
+    if not linked:
+        blockers.append("ORIGINAL_PARENT_EXHIBIT_LINK_MISSING")
+    declaration_pattern = (r"(?:ARTICLE I\.|FIRST\.) The name of the corporation"
+                           r"(?: \(the [\"“] Corporation [\"”]\))? is: " + re.escape(issuer))
+    named = declaration in charter_text and re.fullmatch(declaration_pattern, declaration, re.I) is not None
+    if not named:
+        blockers.append("EXACT_CHARTER_CORPORATION_NAME_UNPROVEN")
+    role_supported = role_quote in parent_text and _charter_parent_role(issuer, claim["class_role"], role_quote)
+    if not role_supported:
+        blockers.append("EXACT_PARENT_TRANSACTION_ROLE_UNPROVEN")
+    section = (authorization in charter_text and re.fullmatch(
+        r"(?:ARTICLE IV\.|FOURTH\.) The (?:total|aggregate) number of shares (?:of stock )?"
+        r"which the corporation shall have authority to issue is .+", authorization, re.I) is not None)
+    matches = list(re.finditer(
+        r"(?<![0-9,])([1-9][0-9,]*)\)? shares of (common stock, par value \$[0-9.]+ per share)",
+        authorization, re.I))
+    terms = class_terms(claim["class_title"])
+    class_supported = bool(section and len(matches) == 1 and terms is not None
+                           and terms["par_term"] != "UNSPECIFIED"
+                           and class_terms(matches[0][2]) == terms
+                           and " ".join(claim["class_title"].split()) == matches[0][2]
+                           and int(matches[0][1].replace(",", "")) == int(claim["authorized_shares"]))
+    if not class_supported:
+        blockers.append("EXACT_AUTHORIZED_COMMON_CLASS_OR_QUANTITY_UNPROVEN")
+    effective, effective_supported = _charter_date(claim["effective_on"], claim["effective_excerpt"], charter_text)
+    execution, execution_supported = _charter_date(claim["execution_on"], claim["execution_excerpt"], charter_text, execution=True)
+    if not effective_supported:
+        blockers.append("DIRECT_CHARTER_EFFECTIVE_DAY_UNKNOWN_OR_UNPROVEN")
+    if not execution_supported:
+        blockers.append("CHARTER_EXECUTION_DAY_UNKNOWN_OR_UNPROVEN")
+    for label, day in (("EFFECTIVE", effective), ("EXECUTION", execution)):
+        if day and date.fromisoformat(day) > min(charter.published_at.date(), service.as_of.date(), started.date()):
+            blockers.append(f"CHARTER_{label}_DAY_CLOCK_CONFLICT")
+            if label == "EFFECTIVE":
+                effective, effective_supported = None, False
+            else:
+                execution, execution_supported = None, False
+    finished = _clock(_charter_clock())
+    evidence_known = max(source.observed_at for source in (charter, parent))
+    if finished < started or finished < evidence_known:
+        raise ValueError("Physical charter review clock moved backwards")
+    within_cutoff = as_of is None or finished <= cutoff
+    if not within_cutoff:
+        blockers.append("DERIVED_REVIEW_COMPLETION_AFTER_REQUESTED_CUTOFF")
+    supported = bool(linked and named and role_supported and class_supported and within_cutoff)
+    report = {"schema_version": 1, "review_kind": "SEC_CHARTER_AUTHORIZED_CLASS",
+              "ticker": claim["ticker"], "issuer_cik_scope": claim["issuer_cik"], "issuer_name_text": issuer,
+              "class_role": claim["class_role"], "source_as_of": service.as_of.isoformat(),
+              "requested_review_as_of": cutoff.isoformat() if as_of is not None else None,
+              "review_started_at": started.isoformat(), "review_recorded_at": finished.isoformat(),
+              "evidence_known_at": evidence_known.isoformat(), "knowledge_at": finished.isoformat(),
+              "status": "PRIMARY_CHARTER_CLASS_PARTIAL" if blockers else "PRIMARY_CHARTER_CLASS_SCOPED",
+              "authorized_class_supported": supported,
+              "authorized_class_title": claim["class_title"] if supported else None,
+              "authorized_class_terms": terms if supported else None,
+              "authorized_common_shares": int(claim["authorized_shares"]) if supported else None,
+              "charter_effective_on": effective if effective_supported and within_cutoff else None,
+              "charter_execution_on": execution if execution_supported and within_cutoff else None,
+              "effective_day_inferred_from_execution": False,
+              "charter": {**charter.metadata(), "snapshot_id": charter.snapshot_id},
+              "parent_filing": {**parent.metadata(), "snapshot_id": parent.snapshot_id},
+              "original_exhibit_link_matched": linked, "same_accession_is_independent_action_proof": False,
+              "issuer_excerpt": declaration, "parent_role_excerpt": role_quote,
+              "authorized_class_excerpt": authorization, "effective_excerpt": claim["effective_excerpt"],
+              "execution_excerpt": claim["execution_excerpt"], "blockers": blockers,
+              "remaining_bridge_gaps": ["INDEPENDENT_DATED_INSTRUMENT_CUSIP_BINDING_UNPROVEN",
+                                        "CONTROL_OR_CONFLICT_RECONCILIATION_UNPROVEN"],
+              "cusip_supported": False, "control_supported": False, "instrument_continuity_supported": False,
+              "issued_or_outstanding_shares_proven": False, "historic_shareholders_are_current_owners": False,
+              "identity_transition_approved": False, "interval_extension_allowed": False,
+              "automatic_alias_allowed": False, "production_registry_changed": False,
+              "current_quarter_verified_coverage": 0, "new_verified_identities": 0, "scoring_allowed": False}
+    report["review_sha256"] = hashlib.sha256(json.dumps(report, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     return report
 
 

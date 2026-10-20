@@ -1,0 +1,24 @@
+[
+  {
+    "accession": "0001193125-26-366694",
+    "attachment_publication_basis": "Original attachment shares the exact linked parent accession; publication clock is that SEC submissions acceptance, not charter execution/effectiveness or HTTP Last-Modified.",
+    "parent_acceptanceDateTime": "2026-08-26T17:27:01.000Z",
+    "recent_index": 107,
+    "same_accession_independent_action_or_control_proof": false,
+    "submissions_body_path": "evidence/batch4_identity_20261013/captures/fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98.bin",
+    "submissions_body_sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98",
+    "submissions_metadata_path": "evidence/batch4_identity_20261013/captures/4c272eeb028484145b93a691fdc329021dd1d2d3d3a6133991dcff6bb7baa9ff.json",
+    "ticker": "LEG"
+  },
+  {
+    "accession": "0001193125-26-291990",
+    "attachment_publication_basis": "Original attachment shares the exact linked parent accession; publication clock is that SEC submissions acceptance, not charter execution/effectiveness or HTTP Last-Modified.",
+    "parent_acceptanceDateTime": "2026-07-01T16:36:49.000Z",
+    "recent_index": 33,
+    "same_accession_independent_action_or_control_proof": false,
+    "submissions_body_path": "evidence/batch4_identity_20261013/captures/1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56.bin",
+    "submissions_body_sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56",
+    "submissions_metadata_path": "evidence/batch4_identity_20261013/captures/6184e86d63ee20e590a23859d25a9fa36503d36de0a23c67c4c766c07cbcb03c.json",
+    "ticker": "XOM"
+  }
+]

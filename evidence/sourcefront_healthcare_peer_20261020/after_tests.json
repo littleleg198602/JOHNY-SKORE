@@ -1,0 +1,76 @@
+{
+  "collector_calls": 0,
+  "completed_at": "2026-10-20T20:14:35.887158+00:00",
+  "database_operations": 0,
+  "elapsed_seconds": 0.011118845000055444,
+  "error_test_ids": [],
+  "errors": 0,
+  "expected_failures": 0,
+  "failure_test_ids": [],
+  "failures": 0,
+  "full_console": {
+    "bytes": 1348,
+    "path": "evidence/sourcefront_healthcare_peer_20261020/after_tests.log",
+    "sha256": "00e610b7939b7280cfa916631c81004920d1fd215fff4bbc59e8079b9e2ff34f"
+  },
+  "http_requests": 0,
+  "peer_test": {
+    "bytes": 8381,
+    "path": "tests/test_cms_snapshot_attribution_peer.py",
+    "sha256": "bef8f5403e33c721ae0b125a5eed45f736a87cd6c28b1f102f939dcd5c3470ba"
+  },
+  "phase": "after",
+  "plain_ok": true,
+  "prior_suite_repeated": false,
+  "producer_and_registry_after": {
+    "market_checker_app/data/verified_healthcare_identities.json": {
+      "bytes": 14656,
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    "market_checker_app/services/cms_provider_ownership_review.py": {
+      "bytes": 19142,
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    "market_checker_app/services/healthcare_identity_service.py": {
+      "bytes": 37869,
+      "sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192"
+    },
+    "market_checker_app/services/healthcare_scout_service.py": {
+      "bytes": 26388,
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    }
+  },
+  "producer_and_registry_before": {
+    "market_checker_app/data/verified_healthcare_identities.json": {
+      "bytes": 14656,
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    "market_checker_app/services/cms_provider_ownership_review.py": {
+      "bytes": 19142,
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    "market_checker_app/services/healthcare_identity_service.py": {
+      "bytes": 37869,
+      "sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192"
+    },
+    "market_checker_app/services/healthcare_scout_service.py": {
+      "bytes": 26388,
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    }
+  },
+  "production_or_registry_edits": false,
+  "runtime_diagnostic": {
+    "bytes": 11925,
+    "path": "evidence/sourcefront_healthcare_peer_20261020/after_runtime.json",
+    "sha256": "4bcb5ff32d73cb07fd1661f01ce72b6d1194b3bba2390e47428b08b242a5a2e8"
+  },
+  "schema_version": 1,
+  "skips": 0,
+  "source_and_assertion_bytes_unchanged": true,
+  "source_commit": "d0fca0a2623919b908d6a6469a0e7b86d1e709f7",
+  "source_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015",
+  "started_at": "2026-10-20T20:14:35.876035+00:00",
+  "tests_discovered": 6,
+  "tests_executed": 6,
+  "unexpected_successes": 0
+}

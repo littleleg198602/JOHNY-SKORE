@@ -1,0 +1,552 @@
+{
+  "actual_cases": {
+    "LEG": {
+      "authorized_class_supported": true,
+      "authorized_class_terms": {
+        "par_term": "USD:0.001",
+        "share_class": "EQUITY:UNCLASSIFIED"
+      },
+      "authorized_common_shares": 10000,
+      "blockers": [
+        "DIRECT_CHARTER_EFFECTIVE_DAY_UNKNOWN_OR_UNPROVEN"
+      ],
+      "charter_effective_on": null,
+      "charter_execution_on": "2026-08-26",
+      "evidence_known_at": "2026-10-20T14:29:11.360266+00:00",
+      "knowledge_at": "2026-10-20T20:17:29.647215+00:00",
+      "plan": {
+        "bytes": 5514,
+        "path": "evidence/sourcefront_identity_20261020/LEG_pravni_kapital_po_fuzi.json",
+        "sha256": "eaefb9f57a24f5529598afd5276b4259a905999e1d6289cd5e3a60609f1dd039"
+      },
+      "remaining_bridge_gaps": [
+        "INDEPENDENT_DATED_INSTRUMENT_CUSIP_BINDING_UNPROVEN",
+        "CONTROL_OR_CONFLICT_RECONCILIATION_UNPROVEN"
+      ],
+      "report": {
+        "bytes": 4458,
+        "path": "evidence/sourcefront_identity_20261020/LEG_actual_charter_review_final.json",
+        "sha256": "b35e40691ec98ac6906826b2e95c56dbc7a5e4ccfe74246d1b12f061c3d64609"
+      },
+      "review_recorded_at": "2026-10-20T20:17:29.647215+00:00",
+      "review_started_at": "2026-10-20T20:17:29.634699+00:00",
+      "status": "PRIMARY_CHARTER_CLASS_PARTIAL"
+    },
+    "XOM": {
+      "authorized_class_supported": true,
+      "authorized_class_terms": {
+        "par_term": "USD:0.001",
+        "share_class": "EQUITY:UNCLASSIFIED"
+      },
+      "authorized_common_shares": 9000000000,
+      "blockers": [],
+      "charter_effective_on": "2026-07-01",
+      "charter_execution_on": "2026-07-01",
+      "evidence_known_at": "2026-10-20T14:29:15.824236+00:00",
+      "knowledge_at": "2026-10-20T20:17:29.911840+00:00",
+      "plan": {
+        "bytes": 5451,
+        "path": "evidence/sourcefront_identity_20261020/XOM_pravni_kapital_nastupce.json",
+        "sha256": "d10cb48202471c98cbe24bda007e05a14d1d0750d15bcbeb2b88d82d30a9a4d0"
+      },
+      "remaining_bridge_gaps": [
+        "INDEPENDENT_DATED_INSTRUMENT_CUSIP_BINDING_UNPROVEN",
+        "CONTROL_OR_CONFLICT_RECONCILIATION_UNPROVEN"
+      ],
+      "report": {
+        "bytes": 4331,
+        "path": "evidence/sourcefront_identity_20261020/XOM_actual_charter_review_final.json",
+        "sha256": "2bd39f92ce689e03de909ef3b754b75b8c39b1670103b509b06a2f38de57e596"
+      },
+      "review_recorded_at": "2026-10-20T20:17:29.911840+00:00",
+      "review_started_at": "2026-10-20T20:17:29.900432+00:00",
+      "status": "PRIMARY_CHARTER_CLASS_SCOPED"
+    }
+  },
+  "artifact_inventory": [
+    {
+      "bytes": 4458,
+      "path": "evidence/sourcefront_identity_20261020/LEG_actual_charter_review.json",
+      "sha256": "80446b3372d7a768bed502794b1cd652b9dd02c756cc57510dabedb9a0fa17e3"
+    },
+    {
+      "bytes": 4458,
+      "path": "evidence/sourcefront_identity_20261020/LEG_actual_charter_review_final.json",
+      "sha256": "b35e40691ec98ac6906826b2e95c56dbc7a5e4ccfe74246d1b12f061c3d64609"
+    },
+    {
+      "bytes": 5514,
+      "path": "evidence/sourcefront_identity_20261020/LEG_pravni_kapital_po_fuzi.json",
+      "sha256": "eaefb9f57a24f5529598afd5276b4259a905999e1d6289cd5e3a60609f1dd039"
+    },
+    {
+      "bytes": 2754,
+      "path": "evidence/sourcefront_identity_20261020/README.md",
+      "sha256": "3bb8c3effcd9e266c024dc1a2529899e69c6c8c8d1cacdfea78fe6256964da56"
+    },
+    {
+      "bytes": 4331,
+      "path": "evidence/sourcefront_identity_20261020/XOM_actual_charter_review.json",
+      "sha256": "a605da4065ef061ebe1aed1ae4a528f86fe2120b56e9d7925bb2a4b8c78de16a"
+    },
+    {
+      "bytes": 4331,
+      "path": "evidence/sourcefront_identity_20261020/XOM_actual_charter_review_final.json",
+      "sha256": "2bd39f92ce689e03de909ef3b754b75b8c39b1670103b509b06a2f38de57e596"
+    },
+    {
+      "bytes": 5451,
+      "path": "evidence/sourcefront_identity_20261020/XOM_pravni_kapital_nastupce.json",
+      "sha256": "d10cb48202471c98cbe24bda007e05a14d1d0750d15bcbeb2b88d82d30a9a4d0"
+    },
+    {
+      "bytes": 7302,
+      "path": "evidence/sourcefront_identity_20261020/build_charter_plans.py",
+      "sha256": "6a25a987568dc416ec3f9f47086f0db590fa0e4d013d3f77a2c0ecd0272db2e7"
+    },
+    {
+      "bytes": 16873,
+      "path": "evidence/sourcefront_identity_20261020/charter_source_feasibility.json",
+      "sha256": "67827e57f2b17fd186213ed582d5929419ef664a8d141b180c1ab71238ddf0c5"
+    },
+    {
+      "bytes": 4638,
+      "path": "evidence/sourcefront_identity_20261020/literal_title_after.json",
+      "sha256": "98aadf88008c8790e32fd909a09d5050e65d92b31bece9af0d1c4667ebf9d9fd"
+    },
+    {
+      "bytes": 7249,
+      "path": "evidence/sourcefront_identity_20261020/literal_title_before.json",
+      "sha256": "b1eebd3979bb13cd7820d092bc22ad40ae192ef95f843b65c1f9de508f9f4221"
+    },
+    {
+      "bytes": 265,
+      "path": "evidence/sourcefront_identity_20261020/producer_versions/bounded_case_loader/preservation.json",
+      "sha256": "bf01efedb8e53d2aba7eaf9b0dcc6428064dd2bda9269462cc14f4d4211fc53c"
+    },
+    {
+      "bytes": 2550,
+      "path": "evidence/sourcefront_identity_20261020/producer_versions/bounded_case_loader/replay_charter_reviews.py",
+      "sha256": "a018cfd0b2f16486ea1fa0fcc060ed489feb2180de905501d7ce11c93cb159ac"
+    },
+    {
+      "bytes": 5531,
+      "path": "evidence/sourcefront_identity_20261020/producer_versions/plans_with_null_as_of/LEG_pravni_kapital_po_fuzi.json",
+      "sha256": "846b7634eb254265c84398a8703e074e1508a3a61fbb04a98ef425acc4a1d478"
+    },
+    {
+      "bytes": 5468,
+      "path": "evidence/sourcefront_identity_20261020/producer_versions/plans_with_null_as_of/XOM_pravni_kapital_nastupce.json",
+      "sha256": "06f4c2bc1c264dc070da6c0f253be289ed925e171ebf7904c1ee924e5f21f84b"
+    },
+    {
+      "bytes": 7317,
+      "path": "evidence/sourcefront_identity_20261020/producer_versions/plans_with_null_as_of/build_charter_plans.py",
+      "sha256": "a1f782de6ebf0e157735d1308f4d1856fb294670b5b1609288156ee6004e7c44"
+    },
+    {
+      "bytes": 545,
+      "path": "evidence/sourcefront_identity_20261020/producer_versions/plans_with_null_as_of/preservation.json",
+      "sha256": "3ee1277c007f6b15ba4881e72d0b0eff2726746c78d85a4282d43d6f0bb99c66"
+    },
+    {
+      "bytes": 5514,
+      "path": "evidence/sourcefront_identity_20261020/qualification_final/LEG_pravni_kapital_po_fuzi.json",
+      "sha256": "eaefb9f57a24f5529598afd5276b4259a905999e1d6289cd5e3a60609f1dd039"
+    },
+    {
+      "bytes": 5451,
+      "path": "evidence/sourcefront_identity_20261020/qualification_final/XOM_pravni_kapital_nastupce.json",
+      "sha256": "d10cb48202471c98cbe24bda007e05a14d1d0750d15bcbeb2b88d82d30a9a4d0"
+    },
+    {
+      "bytes": 3285,
+      "path": "evidence/sourcefront_identity_20261020/qualification_final/focused.log",
+      "sha256": "913248334c1bb61986143c91e44a772d7cb9fbbee53428909c69c695395635a8"
+    },
+    {
+      "bytes": 2636,
+      "path": "evidence/sourcefront_identity_20261020/qualification_final/replay_charter_reviews.py",
+      "sha256": "1fad989fa7b2bc3e6ebd2e6e6984e35c5efcff37db96a34e98eec720b7f2e928"
+    },
+    {
+      "bytes": 1503,
+      "path": "evidence/sourcefront_identity_20261020/qualification_final/result.json",
+      "sha256": "2e26dfa1c5ead67b15ed76c141cef7d0b3e34dccfd8a991c69e9a797f071476f"
+    },
+    {
+      "bytes": 67349,
+      "path": "evidence/sourcefront_identity_20261020/qualification_final/sec_corporate_action_bridge.py",
+      "sha256": "9eaae634689f587ecf71f4d72840b21cb50df458750092ec3e35c0d287a374d4"
+    },
+    {
+      "bytes": 11887,
+      "path": "evidence/sourcefront_identity_20261020/qualification_final/test_sourcefront_charter_disclosure.py",
+      "sha256": "6144dd231715b0a256d27e7afef55ea8487a12ceb5f622cde96400db1030c5b9"
+    },
+    {
+      "bytes": 87998,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v1/focused.log",
+      "sha256": "4840334cd9676958670007f3df6706d518bc7e533c6d79a71257ec4f821872d0"
+    },
+    {
+      "bytes": 936,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v1/result.json",
+      "sha256": "2240395b187547acd8a2ba866460db55c50ffbe88ced55dc3591ba905a2226af"
+    },
+    {
+      "bytes": 67262,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v1/sec_corporate_action_bridge.py",
+      "sha256": "c2f79273f550028314046d608392f75cd005028c570896a713c684554e8c2ab2"
+    },
+    {
+      "bytes": 11097,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v1/test_sourcefront_charter_disclosure.py",
+      "sha256": "e86c5179f43c96a955bb9036068a2edfd615df4b609711d4fae5e721ef6c2c57"
+    },
+    {
+      "bytes": 3285,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v2/focused.log",
+      "sha256": "9eb897f98db3e2611e306b7e40afe4ca5a40dcb4f8c9e50090703b19d55ff29e"
+    },
+    {
+      "bytes": 935,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v2/result.json",
+      "sha256": "2821885b9abea1283d08de8adb984be37a54c256e294afd1a0271cacebd07744"
+    },
+    {
+      "bytes": 67262,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v2/sec_corporate_action_bridge.py",
+      "sha256": "c2f79273f550028314046d608392f75cd005028c570896a713c684554e8c2ab2"
+    },
+    {
+      "bytes": 11781,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v2/test_sourcefront_charter_disclosure.py",
+      "sha256": "419ce0245c07c063a343e1dd67a26146b3160cda353f00c9ea44071ede00361f"
+    },
+    {
+      "bytes": 3285,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v3/focused.log",
+      "sha256": "fdfa9461ba78961bbad03ae87f35983b509ffa380fc81880ed7b14d55730ebe7"
+    },
+    {
+      "bytes": 935,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v3/result.json",
+      "sha256": "30c0609011ecb6f6e933f5beb88ebb53efddeae2a74737c688f81b139d826f7f"
+    },
+    {
+      "bytes": 67349,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v3/sec_corporate_action_bridge.py",
+      "sha256": "9eaae634689f587ecf71f4d72840b21cb50df458750092ec3e35c0d287a374d4"
+    },
+    {
+      "bytes": 11887,
+      "path": "evidence/sourcefront_identity_20261020/qualification_v3/test_sourcefront_charter_disclosure.py",
+      "sha256": "6144dd231715b0a256d27e7afef55ea8487a12ceb5f622cde96400db1030c5b9"
+    },
+    {
+      "bytes": 2521,
+      "path": "evidence/sourcefront_identity_20261020/qualify_charters.py",
+      "sha256": "25d5bd01748f3657f84805c674cd62873e93e39e63a09ba272e4474735c8708f"
+    },
+    {
+      "bytes": 2636,
+      "path": "evidence/sourcefront_identity_20261020/replay_charter_reviews.py",
+      "sha256": "1fad989fa7b2bc3e6ebd2e6e6984e35c5efcff37db96a34e98eec720b7f2e928"
+    },
+    {
+      "bytes": 345214,
+      "path": "evidence/sourcefront_identity_20261020/source_feasibility_initial.json",
+      "sha256": "7f1bbe5c0c41eb40adef5d2043273ecb9bc89818b4a030bd1a4c0b2cda92cf99"
+    },
+    {
+      "bytes": 1656,
+      "path": "evidence/sourcefront_identity_20261020/source_lineage.json",
+      "sha256": "454b204d3478797ecf892a31cd712a3b55d74d91e71a171d5205ac5723870453"
+    }
+  ],
+  "base_commit": "f2aa76ec859df5a8f047e9f520f0d38ab1504891",
+  "branch": "sourcefront/identity_bulk-20261020",
+  "diagnostic_history": [
+    {
+      "finding": "14 methods executed,1 fixture assertion failure,0errors. Uppercase href mutation missed lowercase original and failed non-noop assertion before reviewer invocation. Exact producer/test/full log preserved.",
+      "summary": {
+        "bytes": 936,
+        "path": "evidence/sourcefront_identity_20261020/qualification_v1/result.json",
+        "sha256": "2240395b187547acd8a2ba866460db55c50ffbe88ced55dc3591ba905a2226af"
+      },
+      "version": "qualification_v1"
+    },
+    {
+      "finding": "Corrected exact lowercase fixture and explicit cutoff-plan compatibility regression:15/15 all0. Subsequent source-title diagnostic is preserved separately.",
+      "summary": {
+        "bytes": 935,
+        "path": "evidence/sourcefront_identity_20261020/qualification_v2/result.json",
+        "sha256": "2821885b9abea1283d08de8adb984be37a54c256e294afd1a0271cacebd07744"
+      },
+      "version": "qualification_v2"
+    },
+    {
+      "finding": "Synthetic request borrowed normalized common-shares title absent from unchanged original common-stock authorization; pre-fix reviewer echoed the proposed title. Current code requires exact literal class text. Actual originals and all adoption flags unchanged.",
+      "summary": {
+        "bytes": 7249,
+        "path": "evidence/sourcefront_identity_20261020/literal_title_before.json",
+        "sha256": "b1eebd3979bb13cd7820d092bc22ad40ae192ef95f843b65c1f9de508f9f4221"
+      },
+      "version": "literal_title_before.json"
+    },
+    {
+      "finding": "Exact-title correction and adversarial subcase15/15 all0; isolated loader subsequently restored canonical687 before final qualification.",
+      "summary": {
+        "bytes": 935,
+        "path": "evidence/sourcefront_identity_20261020/qualification_v3/result.json",
+        "sha256": "30c0609011ecb6f6e933f5beb88ebb53efddeae2a74737c688f81b139d826f7f"
+      },
+      "version": "qualification_v3"
+    },
+    {
+      "finding": "Current exact producer/test,canonical687 replay loader and final actual plan pins:15/15 all0. These are focused tests, not Windows/CI/full-specialist acceptance.",
+      "summary": {
+        "bytes": 1503,
+        "path": "evidence/sourcefront_identity_20261020/qualification_final/result.json",
+        "sha256": "2e26dfa1c5ead67b15ed76c141cef7d0b3e34dccfd8a991c69e9a797f071476f"
+      },
+      "version": "qualification_final"
+    }
+  ],
+  "focused_validation": {
+    "actual_http_requests": 0,
+    "completed_at": "2026-10-20T20:16:25.985055+00:00",
+    "db_calls": 0,
+    "discovered": 15,
+    "errors": 0,
+    "executed": 15,
+    "expected_failures": 0,
+    "failures": 0,
+    "full_log_sha256": "913248334c1bb61986143c91e44a772d7cb9fbbee53428909c69c695395635a8",
+    "python": "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "schema_version": "focused_charter_qualification_v1",
+    "skips": 0,
+    "source_calls": 0,
+    "source_test_pins": {
+      "evidence/sourcefront_identity_20261020/LEG_pravni_kapital_po_fuzi.json": {
+        "bytes": 5514,
+        "sha256": "eaefb9f57a24f5529598afd5276b4259a905999e1d6289cd5e3a60609f1dd039"
+      },
+      "evidence/sourcefront_identity_20261020/XOM_pravni_kapital_nastupce.json": {
+        "bytes": 5451,
+        "sha256": "d10cb48202471c98cbe24bda007e05a14d1d0750d15bcbeb2b88d82d30a9a4d0"
+      },
+      "evidence/sourcefront_identity_20261020/replay_charter_reviews.py": {
+        "bytes": 2636,
+        "sha256": "1fad989fa7b2bc3e6ebd2e6e6984e35c5efcff37db96a34e98eec720b7f2e928"
+      },
+      "market_checker_app/services/sec_corporate_action_bridge.py": {
+        "bytes": 67349,
+        "sha256": "9eaae634689f587ecf71f4d72840b21cb50df458750092ec3e35c0d287a374d4"
+      },
+      "tests/test_sourcefront_charter_disclosure.py": {
+        "bytes": 11887,
+        "sha256": "6144dd231715b0a256d27e7afef55ea8487a12ceb5f622cde96400db1030c5b9"
+      }
+    },
+    "started_at": "2026-10-20T20:16:20.796132+00:00",
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "integration_api": {
+    "call": "review_charter_class_disclosure(service, claim, *, as_of=None)",
+    "captured_review_kind": "SEC_CHARTER_CLASS",
+    "captures": "Four explicit original SourceSnapshots (catalog,list,parent original,charter), normal metadata/body_ref pins. All bodies<=4MB. Charter and parent must share exact archive CIK/accession and original visible exhibit link.",
+    "claim_schema": "Exact fields in the two pinned actual plans; parent_role_excerpt and charter source excerpts are mandatory.",
+    "current_plans_omit_optional_as_of": true,
+    "existing_dispatch": "review_corporate_action_bridge(service, claim) when bridge_kind=CHARTER_AUTHORIZED_CLASS",
+    "module": "market_checker_app.services.sec_corporate_action_bridge",
+    "request_keys": [
+      "quarter",
+      "claim"
+    ],
+    "root_owns": [
+      "dispatcher",
+      "CLI",
+      "UI",
+      "configuration",
+      "production registries",
+      "plan integration",
+      "GitHub publication"
+    ],
+    "source_vs_interpretation_clocks": "service.as_of selects only already physically captured source snapshots. Optional as_of bounds new derived interpretation; completion beyond that cutoff withholds support. Default interpretation knowledge is physical end, not start/publication/charter date."
+  },
+  "lane": "identity_bulk",
+  "limits": {
+    "canonical_tickers": 687,
+    "collector_api_calls": 0,
+    "current_Q3_instrument_coverage": 0,
+    "four_withheld_bodies_read_or_restored": false,
+    "full_specialist_acceptance": "0/21",
+    "lane_http_requests": 0,
+    "lane_search_requests": 0,
+    "lawful_parent_authorized_new_requests": 2,
+    "model_score_budget_or_trading_changed": false,
+    "new_verified_adoptions": 0,
+    "preserved_Q2_instruments": 150,
+    "production_registry_changed": false,
+    "quota_resets_or_new_db": 0,
+    "source_bytes_modified": false,
+    "source_history_reconstructed": false,
+    "sql_or_db_calls": 0,
+    "windows_or_new_public_head_ci_claimed": false
+  },
+  "output": "Original charter-authorized class facts, separated from exchanged/registered instruments and completed control assertions.",
+  "preserved_history": {
+    "after_new_charters_feasibility": {
+      "bytes": 16873,
+      "path": "evidence/sourcefront_identity_20261020/charter_source_feasibility.json",
+      "sha256": "67827e57f2b17fd186213ed582d5929419ef664a8d141b180c1ab71238ddf0c5"
+    },
+    "authored_plan_and_loader_versions": "producer_versions contains exact prior null-as_of plans/generator and bounded two-ticker loader; final loader uses unchanged canonical687.",
+    "final_actual_reports": [
+      "LEG_actual_charter_review_final.json",
+      "XOM_actual_charter_review_final.json"
+    ],
+    "initial_actual_reports_are_historical": [
+      "LEG_actual_charter_review.json",
+      "XOM_actual_charter_review.json"
+    ],
+    "initial_feasibility": {
+      "bytes": 345214,
+      "path": "evidence/sourcefront_identity_20261020/source_feasibility_initial.json",
+      "sha256": "7f1bbe5c0c41eb40adef5d2043273ecb9bc89818b4a030bd1a4c0b2cda92cf99"
+    },
+    "old_leg_direct_indirect_conflict_resolved": false,
+    "old_reports_rewritten_or_rerun": false,
+    "old_xom_blockers_preserved": [
+      "TO_CIK_CUSIP_CLASS_BINDING_MISSING",
+      "CONFLICTING_TO_CLASS_SOURCE",
+      "DATED_OLD_NEW_CUSIP_ACTION_BRIDGE_MISSING"
+    ],
+    "original_old_reports": [
+      {
+        "bytes": 29251,
+        "path": "evidence/batch5_identity_20261014/review.json",
+        "sha256": "babc76e2b6ed7d20b7e35ad1853cb896328a220c13765834326768f624952edc"
+      },
+      {
+        "bytes": 21284,
+        "path": "evidence/batch6_identity_20261014/review.json",
+        "sha256": "7bfa00eb95e8232a2a08fb406fd6a03d56073e138e1c2a0581ecc88c1c86df70"
+      },
+      {
+        "bytes": 30214,
+        "path": "evidence/batch7_identity_20261015/review.json",
+        "sha256": "18f4ae9c24b6f00a985e4e2d494f99631362570020d62d22e65dee2bbc0f146b"
+      }
+    ]
+  },
+  "producer_and_test_pins": [
+    {
+      "bytes": 67349,
+      "path": "market_checker_app/services/sec_corporate_action_bridge.py",
+      "sha256": "9eaae634689f587ecf71f4d72840b21cb50df458750092ec3e35c0d287a374d4"
+    },
+    {
+      "bytes": 11887,
+      "path": "tests/test_sourcefront_charter_disclosure.py",
+      "sha256": "6144dd231715b0a256d27e7afef55ea8487a12ceb5f622cde96400db1030c5b9"
+    }
+  ],
+  "public_start_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "publication_provenance": {
+    "bytes": 1656,
+    "path": "evidence/sourcefront_identity_20261020/source_lineage.json",
+    "sha256": "454b204d3478797ecf892a31cd712a3b55d74d91e71a171d5205ac5723870453"
+  },
+  "recorded_at": "2026-10-20T20:18:31.478942+00:00",
+  "remaining_next_work": [
+    "LEG final direct/indirect ownership chain or dated corrective disclosure remains missing; charter names no shareholder or intermediary.",
+    "LEG direct old/new CUSIP and class action continuity remains missing; surviving private authorized class cannot extend old public CUSIP.",
+    "XOM successorCIK2115436 exact independent instrument/CUSIP anchor and effective old/new CUSIP bridge remain missing.",
+    "XOM charter supports successor$0.001 common capital effectiveJuly1 but provides no explicit July7 no-par cover reconciliation."
+  ],
+  "schema_version": "identity_charter_handoff_v1",
+  "whole_original_inputs": [
+    {
+      "bytes": 2088909,
+      "metadata": {
+        "kind": "13f_list",
+        "observed_at": "2026-10-12T14:49:07.942392+00:00",
+        "published_at": null,
+        "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+        "snapshot_id": "fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c",
+        "url": "https://www.sec.gov/files/investment/13flist2026q3.txt"
+      },
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+    },
+    {
+      "bytes": 14256,
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-20T14:29:11.360266+00:00",
+        "published_at": "2026-08-26T17:27:01+00:00",
+        "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba",
+        "snapshot_id": "24effa6154110b53b5746eb74a1692c3334316ef9075730c25514cf7f86fdcf4",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm"
+      },
+      "path": "evidence/sourcefront_20261020/primary/leg_final_articles.htm",
+      "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba"
+    },
+    {
+      "bytes": 41778,
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-13T08:46:22.597523+00:00",
+        "published_at": "2026-08-26T17:27:01+00:00",
+        "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+        "snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+        "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+      },
+      "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4"
+    },
+    {
+      "bytes": 799583,
+      "metadata": {
+        "kind": "ticker_catalog",
+        "observed_at": "2026-10-12T14:49:01.942947+00:00",
+        "published_at": null,
+        "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+        "snapshot_id": "38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a",
+        "url": "https://www.sec.gov/files/company_tickers.json"
+      },
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+    },
+    {
+      "bytes": 25866,
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-20T14:29:15.824236+00:00",
+        "published_at": "2026-07-01T16:36:49+00:00",
+        "sha256": "ef4d1a0c0c71bc3ea536ca3ee333c91db561e99c57448d851225e8b3dcf920ac",
+        "snapshot_id": "9d3b4f66f004a381a58f69bc54238706702fef09a420e71facbe3339c04533b8",
+        "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex3i.htm"
+      },
+      "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.htm",
+      "sha256": "ef4d1a0c0c71bc3ea536ca3ee333c91db561e99c57448d851225e8b3dcf920ac"
+    },
+    {
+      "bytes": 38038,
+      "metadata": {
+        "kind": "corporate_action_filing",
+        "observed_at": "2026-10-13T08:46:17.427994+00:00",
+        "published_at": "2026-07-01T16:36:49+00:00",
+        "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7",
+        "snapshot_id": "937a5b356c96fb9bf779995b92550e35ce7414db3c1332cc964b08f621481352",
+        "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm"
+      },
+      "path": "evidence/batch4_identity_20261013/captures/21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7.bin",
+      "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7"
+    }
+  ]
+}

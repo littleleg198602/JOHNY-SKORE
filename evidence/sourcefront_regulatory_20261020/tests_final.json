@@ -1,0 +1,29 @@
+{
+  "HTTP": 0,
+  "database_operations": 0,
+  "elapsed_seconds": 8.143428363999874,
+  "errors": 0,
+  "expected_failures": 0,
+  "failures": 0,
+  "known_at": "2026-10-20T20:17:46.425646+00:00",
+  "pins_at_execution": {
+    "evidence/sourcefront_regulatory_20261020/replay_first_amended.py": {
+      "bytes": 8488,
+      "sha256": "136b246cdb454c5905fbd7193430e12ac8e95448dd9ff00bdc8544c078563b6d"
+    },
+    "market_checker_app/services/doj_enforcement_scope_review.py": {
+      "bytes": 30225,
+      "sha256": "242d8eb6c6b554c95222a7cb218003c9590163a10b6e84b4498218056e0db174"
+    },
+    "tests/test_sourcefront_doj_first_amended.py": {
+      "bytes": 10456,
+      "sha256": "63890e97a358d088fb90747fa256854cadc15328e42938fa5ba298e53ac6531c"
+    }
+  },
+  "scope": "Only the nine new sourcefront methods; synthetic decoder controls are not acceptance evidence.",
+  "skipped": 0,
+  "started_at": "2026-10-20T20:17:38.282220+00:00",
+  "successful": true,
+  "tests_run": 9,
+  "unexpected_successes": 0
+}

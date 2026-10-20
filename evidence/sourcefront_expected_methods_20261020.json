@@ -1,0 +1,443 @@
+{
+  "prepared_at": "2026-10-20T20:23:59.045626+00:00",
+  "status": "EXPECTED_SELECTION_ONLY",
+  "baseline_methods": 2688,
+  "new_exact_method_count": 79,
+  "expected_full_test_count": 2767,
+  "methods": [
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_actual_current_runtime_cannot_override_strict_original_byte_withhold"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_exact_recorded_day_without_original_binding_is_also_insufficient"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_explicit_wrong_enrollment_and_wrong_issuer_controls_remain_denied"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_other_object_capture_ccn_and_provider_pac_cannot_ride_legacy_identifiers"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_query_leads_and_exact_source_objects_survive_withholding"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_unrelated_exact_dated_fda_control_remains_available"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_actual_leg_surviving_authorized_class_does_not_extend_exchanged_old_instrument"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_actual_plans_select_current_physical_review_without_a_null_explicit_cutoff"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_actual_xom_successor_common_not_preferred_or_total_authority"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_another_accession_is_not_the_exact_referring_attachment"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_clock_rollback_or_source_not_yet_available_cannot_be_backdated"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_exchanged_par_preferred_quantity_and_aggregate_quantity_cannot_be_borrowed"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_execution_clause_does_not_supply_missing_charter_effective_day"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_existing_bridge_entry_dispatches_same_narrow_charter_review"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_explicit_cutoff_crossed_during_review_withholds_new_support"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_historic_shareholders_and_wrong_execution_day_stay_unproved"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_literal_original_link_cannot_be_supplied_from_hidden_or_changed_href"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_named_charter_and_exact_archive_cik_cannot_be_borrowed"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_original_exhibit_envelope_filename_must_match_requested_charter"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_requested_corporate_role_requires_exact_parent_named_role"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_slow_review_knowledge_is_completion_not_start_or_old_source_date"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_cli_exposes_the_new_form144_review_without_collection"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_form144_account_corroboration_retains_actual_transaction_mismatches"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_successor_charter_keeps_its_own_class_and_explicit_effective_day"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_surviving_private_charter_is_not_the_exchanged_legacy_instrument"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_ui_can_select_and_archive_the_new_form144_notice"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_actual_first_amended_title_is_neither_original_complaint_nor_judgment"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_actual_whole_91_page_original_exact_stamp_title_and_paragraph19"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_base_only_compatibility_retains_observed_suffix_without_financial_binding"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_changed_original_pin_is_rejected_before_decoder"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_changed_synthetic_title_with_matching_selected_passage_still_rejects_stage"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_full_literal_suffix_and_date_mismatch_do_not_inherit_actual_case"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_full_selector_cannot_change_or_invent_its_base"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_missing_or_quoted_header_does_not_support_selected_paragraph"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_selected_page_cannot_borrow_first_page_case_document_date_or_count"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_aug31_overlap_does_not_hide_quantity_and_literal_title_conflicts"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_discovery_tokens_come_from_whole_profile_arrays"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_new_notice_corrobates_exact_account_and_issuer_not_natural_person"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_original_leaf_quotes_and_xml_span_are_byte_exact"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_placeholder_is_only_classified_never_exported"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_plan_has_pinned_whole_bytes_and_preserved_physical_capture_clocks"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_proposed_sale_notice_and_plan_dates_are_distinct_from_execution"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_raw_acceptance_clocks_have_unknown_zone_and_distinct_capture_knowledge"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_two_whole_originals_are_exact_and_separate_disclosures"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_approx_sale_future_literal_is_prospective_not_execution_or_capture_fact"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_bounded_review_is_read_only_without_network_sql_quota_or_input_mutation"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_capture_hash_mismatch_is_rejected_before_semantic_review"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_duplicate_xml_scalar_and_foreign_namespace_are_rejected"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_entity_declaration_is_rejected_before_xml_expansion"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_exact_quantity_and_title_agreement_still_does_not_prove_transaction_or_alias"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_explicit_cutoff_before_physical_completion_removes_interpreted_facts"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_extra_trailing_data_and_duplicate_document_are_rejected"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_future_cutoff_or_clock_rollback_is_rejected"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_header_name_order_change_is_not_approved_by_changing_selection"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_header_xml_filer_or_issuer_cik_conflict_rejects_rehashed_notice"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_input_knowledge_after_physical_start_is_not_visible"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_internal_notice_clock_conflict_withholds_account_comparison_support"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_missing_original_has_metadata_only_and_no_excerpt_substitution"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_missing_requested_transaction_day_does_not_use_period_or_nearest_row"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_named_seller_organization_is_not_promoted_to_natural_person"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_old_cutoff_cannot_backdate_new_capture_interpretation"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_rehashed_form4_owner_conflict_cannot_be_hidden_by_original_notice"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_rehashed_header_document_name_and_count_drift_are_rejected"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_rehashed_xml_excerpt_is_not_a_whole_filing_packet"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_same_accession_or_duplicate_capture_identity_cannot_count_as_two_sources"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_selection_extra_keys_invalid_precision_and_new_purpose_in_old_api_are_rejected"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_source_date_beyond_original_capture_is_rejected_even_when_rehashed"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_synthetic_general_sensitive_assignment_withholds_whole_original"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_synthetic_nonplaceholder_ccc_withholds_whole_body_without_replacement_or_value_export"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_wrong_url_basename_accession_and_directory_are_rejected"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_actual_archived_projected_rows_are_source_only_on_current_day"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_coverage_projection_uses_same_denial_without_opening_a_database"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_existing_fda_and_clinical_event_contracts_are_unchanged"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_original_record_day_does_not_replace_missing_original_body_provider_binding"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_source_only_registry_inventory_and_names_are_preserved_but_old_cache_version_changes"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_synthetic_caller_supplied_hash_ccn_and_pac_cannot_upgrade_legacy_record"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_synthetic_current_metadata_and_same_day_observed_argument_are_not_original_proof"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_synthetic_finite_one_day_interval_is_not_original_ccn_pac_or_body_proof"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_wrong_object_issuer_and_old_association_remain_denied"
+    }
+  ],
+  "files": [
+    {
+      "path": "tests/test_cms_snapshot_attribution_peer.py",
+      "bytes": 8381,
+      "sha256": "bef8f5403e33c721ae0b125a5eed45f736a87cd6c28b1f102f939dcd5c3470ba",
+      "expected_methods": 6
+    },
+    {
+      "path": "tests/test_sourcefront_charter_disclosure.py",
+      "bytes": 11887,
+      "sha256": "6144dd231715b0a256d27e7afef55ea8487a12ceb5f622cde96400db1030c5b9",
+      "expected_methods": 15
+    },
+    {
+      "path": "tests/test_sourcefront_coordinator_integration.py",
+      "bytes": 6069,
+      "sha256": "29cbc7d37235298e5217abad70a568034c0d066be2ef139bf0381d980f2ec9ed",
+      "expected_methods": 5
+    },
+    {
+      "path": "tests/test_sourcefront_doj_first_amended.py",
+      "bytes": 10456,
+      "sha256": "63890e97a358d088fb90747fa256854cadc15328e42938fa5ba298e53ac6531c",
+      "expected_methods": 9
+    },
+    {
+      "path": "tests/test_sourcefront_form144_account_notice.py",
+      "bytes": 20611,
+      "sha256": "8a3cb2da5599e0b748f01b12c771fd33b805f8e351a7f754b69cdc45c36b278a",
+      "expected_methods": 35
+    },
+    {
+      "path": "tests/test_sourcefront_healthcare_cms_20261020.py",
+      "bytes": 8036,
+      "sha256": "e18e021ef039ccfbf1ec82934f8f18a26097429f559e82e06c495f83d8f4879c",
+      "expected_methods": 9
+    }
+  ],
+  "functional_tests_executed_by_this_script": 0
+}

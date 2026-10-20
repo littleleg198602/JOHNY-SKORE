@@ -39,6 +39,8 @@ CLINICAL_TRIAL_KINDS = {"clinical_trial_sponsor", "clinical_trial_sponsor_snapsh
 
 
 def healthcare_resolver_version(source: str) -> str:
+    if source == "cms":
+        return "healthcare-cms-original-snapshot-required-v2"
     return "healthcare-trial-observed-snapshot-v3" if source == "clinicaltrials" else "healthcare-object-v1"
 
 
@@ -536,6 +538,22 @@ class HealthcareIdentityRegistry:
         row = active[0]
         if (row["ticker"], row["issuer_cik"]) != (ticker, cik):
             return dict(denied, identity_resolution="WRONG_ISSUER")
+        if kind == "cms_provider_owner":
+            # This legacy kind retains projected owner/enrollment fields, not
+            # the original CMS body, exact provider PAC/CCN join and captured
+            # observation. An open-ended manifest interval cannot turn that
+            # source lead into a verified snapshot on another day; the same
+            # date alone cannot supply the missing original-object binding.
+            # Keep the record available for queries and independent review.
+            different_day = event_date != date.fromisoformat(row["effective_from"])
+            return dict(denied,
+                        identity_resolution=("CMS_SNAPSHOT_DATE_MISMATCH" if different_day
+                                             else "CMS_SNAPSHOT_ORIGINAL_BINDING_MISSING"),
+                        missing_evidence="original CMS owner/provider bodies, CCN/PAC join and exact observed snapshot issuer bridge",
+                        retained_relationship_record_id=row["record_id"],
+                        ownership_attribution_time_basis="OBSERVED_SNAPSHOT",
+                        historical_association_attribution_allowed=False,
+                        observed_snapshot_original_binding_verified=False)
         details = deepcopy(row)
         if kind == "clinical_trial_sponsor_snapshot":
             details["matched_observed_at"] = observed.isoformat()

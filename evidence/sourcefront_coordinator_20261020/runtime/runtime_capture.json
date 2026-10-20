@@ -1,0 +1,102 @@
+{
+  "started_at": "2026-10-20T20:24:58.863868+00:00",
+  "finished_at": "2026-10-20T20:25:05.045020+00:00",
+  "physical_clocks": true,
+  "code_head": "f544c3ff32fc466593f67d5b348bff36f3efcbf7",
+  "actions": [
+    {
+      "action": "CLI",
+      "plan": "evidence/specialist_review_plans/LEG_pravni_kapital_po_fuzi.json",
+      "started_at": "2026-10-20T20:24:58.864420+00:00",
+      "finished_at": "2026-10-20T20:24:59.330704+00:00",
+      "archive": "evidence/sourcefront_coordinator_20261020/runtime/cli/LEG_pravni_kapital_po_fuzi/review-89f76563d6854720725a0428dbbd0e289c9d5fe1379dd17f534844598045a41d.json",
+      "archive_sha256": "89f76563d6854720725a0428dbbd0e289c9d5fe1379dd17f534844598045a41d",
+      "kind": "SEC_CHARTER_CLASS",
+      "status": "PRIMARY_CHARTER_CLASS_PARTIAL",
+      "stdout_sha256": "0f2662fd1e9e678b87dc33c0ccc6055c1a326e0484c0e79f8edec39627b56860"
+    },
+    {
+      "action": "UI",
+      "plan": "evidence/specialist_review_plans/LEG_pravni_kapital_po_fuzi.json",
+      "started_at": "2026-10-20T20:24:59.330897+00:00",
+      "finished_at": "2026-10-20T20:25:00.771047+00:00",
+      "archive": "evidence/sourcefront_coordinator_20261020/runtime/ui/LEG_pravni_kapital_po_fuzi/captured_identity_reviews/review-ff27d842fc4007d6a3ddfd3df8399b50c3daf5f407d84d01d3d2abd3732f198a.json",
+      "archive_sha256": "ff27d842fc4007d6a3ddfd3df8399b50c3daf5f407d84d01d3d2abd3732f198a",
+      "kind": "SEC_CHARTER_CLASS",
+      "status": "PRIMARY_CHARTER_CLASS_PARTIAL",
+      "UI_exceptions": 0
+    },
+    {
+      "action": "CLI",
+      "plan": "evidence/specialist_review_plans/XOM_pravni_kapital_nastupce.json",
+      "started_at": "2026-10-20T20:25:00.771146+00:00",
+      "finished_at": "2026-10-20T20:25:01.309871+00:00",
+      "archive": "evidence/sourcefront_coordinator_20261020/runtime/cli/XOM_pravni_kapital_nastupce/review-3bb9ea04da81324287c1429f45baecca074373af01359d1ba218dc69463c8298.json",
+      "archive_sha256": "3bb9ea04da81324287c1429f45baecca074373af01359d1ba218dc69463c8298",
+      "kind": "SEC_CHARTER_CLASS",
+      "status": "PRIMARY_CHARTER_CLASS_SCOPED",
+      "stdout_sha256": "1c0fe32c13e86df96550da5d7c8b5b6df47d28f982263023f383f34ec1b33822"
+    },
+    {
+      "action": "UI",
+      "plan": "evidence/specialist_review_plans/XOM_pravni_kapital_nastupce.json",
+      "started_at": "2026-10-20T20:25:01.309981+00:00",
+      "finished_at": "2026-10-20T20:25:02.169275+00:00",
+      "archive": "evidence/sourcefront_coordinator_20261020/runtime/ui/XOM_pravni_kapital_nastupce/captured_identity_reviews/review-8536db6e872cb06acdc4026095f23c921f283f768c328083e6f48c4c70d34e6e.json",
+      "archive_sha256": "8536db6e872cb06acdc4026095f23c921f283f768c328083e6f48c4c70d34e6e",
+      "kind": "SEC_CHARTER_CLASS",
+      "status": "PRIMARY_CHARTER_CLASS_SCOPED",
+      "UI_exceptions": 0
+    },
+    {
+      "action": "CLI",
+      "plan": "evidence/specialist_review_plans/MSFT_Form144_a_ucet_Form4.json",
+      "started_at": "2026-10-20T20:25:02.169381+00:00",
+      "finished_at": "2026-10-20T20:25:02.195268+00:00",
+      "archive": "evidence/sourcefront_coordinator_20261020/runtime/cli/MSFT_Form144_a_ucet_Form4/review-19a80f31373712ce1738268b94ae4e594dd720d798bd73d94e4863dde2a3c325.json",
+      "archive_sha256": "19a80f31373712ce1738268b94ae4e594dd720d798bd73d94e4863dde2a3c325",
+      "kind": "SEC_FORM144_ACCOUNT_NOTICE",
+      "status": "PARTIAL",
+      "stdout_sha256": "8227c1b01a4a2175690a6681c8f375887f5f31f7f7070269fd0ecd83fcef6d9a"
+    },
+    {
+      "action": "UI",
+      "plan": "evidence/specialist_review_plans/MSFT_Form144_a_ucet_Form4.json",
+      "started_at": "2026-10-20T20:25:02.195374+00:00",
+      "finished_at": "2026-10-20T20:25:02.588056+00:00",
+      "archive": "evidence/sourcefront_coordinator_20261020/runtime/ui/MSFT_Form144_a_ucet_Form4/captured_identity_reviews/review-6c3ae72208895c307c9d0833ac217b0995cdcdfc2ea88167a1f4457be1a1368d.json",
+      "archive_sha256": "6c3ae72208895c307c9d0833ac217b0995cdcdfc2ea88167a1f4457be1a1368d",
+      "kind": "SEC_FORM144_ACCOUNT_NOTICE",
+      "status": "PARTIAL",
+      "UI_exceptions": 0
+    },
+    {
+      "action": "CLI",
+      "plan": "evidence/specialist_review_plans/AAPL_puvodni_doplnene_podani.json",
+      "started_at": "2026-10-20T20:25:02.588206+00:00",
+      "finished_at": "2026-10-20T20:25:03.628523+00:00",
+      "archive": "evidence/sourcefront_coordinator_20261020/runtime/cli/AAPL_puvodni_doplnene_podani/review-4b25823846eeea7d7c932101de50a2a470f8785dc7106640836d529b8fcd0756.json",
+      "archive_sha256": "4b25823846eeea7d7c932101de50a2a470f8785dc7106640836d529b8fcd0756",
+      "kind": "DOJ_ENFORCEMENT_SCOPE",
+      "status": "PARTIAL",
+      "stdout_sha256": "cc515785ab64cc3c942a8c555a11e96a615802e597117ac5ae4a808c8e5ca624"
+    },
+    {
+      "action": "UI",
+      "plan": "evidence/specialist_review_plans/AAPL_puvodni_doplnene_podani.json",
+      "started_at": "2026-10-20T20:25:03.628629+00:00",
+      "finished_at": "2026-10-20T20:25:05.044926+00:00",
+      "archive": "evidence/sourcefront_coordinator_20261020/runtime/ui/AAPL_puvodni_doplnene_podani/captured_identity_reviews/review-432135a84da2f07fff0b9ed885c0c33bc94028abeeee21c0c4d7b066100a799f.json",
+      "archive_sha256": "432135a84da2f07fff0b9ed885c0c33bc94028abeeee21c0c4d7b066100a799f",
+      "kind": "DOJ_ENFORCEMENT_SCOPE",
+      "status": "PARTIAL",
+      "UI_exceptions": 0
+    }
+  ],
+  "HTTP_attempts": 0,
+  "SQL_operations": 0,
+  "registry_adoptions": 0,
+  "model_or_forecast_runs": 0,
+  "native_user_Windows_run": false,
+  "full_specialist_acceptance": "0/21"
+}

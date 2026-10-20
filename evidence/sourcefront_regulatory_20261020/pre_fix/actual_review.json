@@ -1,0 +1,227 @@
+{
+  "adoptions": 0,
+  "case_entity_financial_issuer_binding_verified": false,
+  "child_review_returned_at": "2026-10-20T20:14:22.392978+00:00",
+  "collector_requests": 0,
+  "current_complete_docket_verified": false,
+  "database_operations": 0,
+  "derived_output_available_at_source_read_cutoff": false,
+  "documentary_date_is_machine_availability": false,
+  "documentary_filed_on": "2024-06-11",
+  "field_evidence": [
+    {
+      "capture_id": "doj_first_amended_complaint",
+      "evidence_scope": "PARTY_PLEADING_ALLEGATION_NOT_ADJUDICATED_FACT",
+      "excerpt": "Case 2:24-cv-04055-JXN-LDW Document 51 Filed 06/11/24 Page 1 of 91",
+      "matched_exact_whitespace_normalized": true,
+      "normalized_excerpt_span": [
+        2,
+        68
+      ],
+      "page": 1,
+      "page_text_characters": 1262,
+      "page_text_sha256": "972103802af49289804b253ff5bfee44a35095d3929e406a755dd045c37d4350",
+      "purpose": "CAPTION"
+    },
+    {
+      "capture_id": "doj_first_amended_complaint",
+      "evidence_scope": "PARTY_PLEADING_ALLEGATION_NOT_ADJUDICATED_FACT",
+      "excerpt": "APPLE INC. One Apple Park Way Cupertino, CA 95014 Defendant.",
+      "matched_exact_whitespace_normalized": true,
+      "normalized_excerpt_span": [
+        274,
+        334
+      ],
+      "page": 3,
+      "page_text_characters": 1171,
+      "page_text_sha256": "2bc0582c465990f748e5b3a153916885c449cd6b4db65759f8fc1591a9847c77",
+      "purpose": "CASE_ENTITY"
+    },
+    {
+      "capture_id": "doj_first_amended_complaint",
+      "evidence_scope": "PARTY_PLEADING_ALLEGATION_NOT_ADJUDICATED_FACT",
+      "excerpt": "Defendant. FIRST AMENDED COMPLAINT",
+      "matched_exact_whitespace_normalized": true,
+      "normalized_excerpt_span": [
+        324,
+        358
+      ],
+      "page": 3,
+      "page_text_characters": 1171,
+      "page_text_sha256": "2bc0582c465990f748e5b3a153916885c449cd6b4db65759f8fc1591a9847c77",
+      "purpose": "DOCUMENT_STAGE"
+    },
+    {
+      "capture_id": "doj_first_amended_complaint",
+      "evidence_scope": "PARTY_PLEADING_ALLEGATION_NOT_ADJUDICATED_FACT",
+      "excerpt": "19. Apple is a global technology company with headquarters in Cupertino, California.",
+      "matched_exact_whitespace_normalized": true,
+      "normalized_excerpt_span": [
+        100,
+        184
+      ],
+      "page": 17,
+      "page_text_characters": 2018,
+      "page_text_sha256": "b71df77f7778c9e2cfa1f090f58e66efd9499cfa69cc785418e64536e52ceeb5",
+      "purpose": "LEGAL_ENTITY"
+    }
+  ],
+  "full_specialist_acceptance": false,
+  "http_requests_by_this_lane": 0,
+  "issuer_fields_are_unverified_request_context": true,
+  "known_at": "2026-10-20T20:14:22.468220+00:00",
+  "legal_continuity_verified": false,
+  "limitations": [
+    "The original is a party pleading, including paragraph19; these are allegations.",
+    "The current child API records caller ingested_at. This enclosing evidence stamps physical completion separately.",
+    "Only the new complaint original is supplied; no earlier issuer original or legal registry rows are supplied.",
+    "The source date and the unzoned retained DOJ index label do not establish historical machine availability.",
+    "No separate signed Order, current complete docket, case-date CIK identity or continuity is established."
+  ],
+  "merits_or_disposition_verified": false,
+  "original_body_pin": {
+    "bytes": 3404671,
+    "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+    "sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6"
+  },
+  "original_metadata_pin": {
+    "bytes": 1214,
+    "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+    "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+  },
+  "original_pdf_page_count": 91,
+  "original_source_observed_at": "2026-10-20T14:33:17.921783+00:00",
+  "plan_pin": {
+    "bytes": 3095,
+    "path": "evidence/sourcefront_regulatory_20261020/AAPL_puvodni_doplnene_podani.json",
+    "sha256": "d2c8bc5fa85166af767f230ab1da86348d813989aa98005c20399f8d8de95fb4"
+  },
+  "producer_pin": {
+    "bytes": 27761,
+    "path": "market_checker_app/services/doj_enforcement_scope_review.py",
+    "sha256": "891113065a849998e510695e1929caa3e76a9486fe01db28ce1ad6359dc76465"
+  },
+  "replay_script_pin": {
+    "bytes": 8488,
+    "path": "evidence/sourcefront_regulatory_20261020/replay_first_amended.py",
+    "sha256": "136b246cdb454c5905fbd7193430e12ac8e95448dd9ff00bdc8544c078563b6d"
+  },
+  "review": {
+    "adjudication_verified": false,
+    "as_of": "2026-10-20T20:14:21.728887+00:00",
+    "captures": [
+      {
+        "actual_primary_capture": true,
+        "body_bytes": 3404671,
+        "body_sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+        "capture_id": "doj_first_amended_complaint",
+        "content_type": "application/pdf",
+        "observed_at": "2026-10-20T14:33:17.921783+00:00",
+        "original_body_pin_verified": true,
+        "pdf_page_count": 91,
+        "review_reason": "ORIGINAL_PIN_AND_SELECTED_CONTENT_REVIEWED",
+        "source_url": "https://www.justice.gov/atr/media/1358786/dl",
+        "started_at": "2026-10-20T14:33:12.162977+00:00"
+      }
+    ],
+    "case_document_scope_supported": false,
+    "case_entity_same_literal_as_issuer": true,
+    "company_wide_liability_verified": false,
+    "complete_issuer_enforcement_coverage": false,
+    "contract_version": "doj-case-entity-original-bytes-v1",
+    "current_case_status_verified": false,
+    "document_stage_supported": false,
+    "exact_case_entity_supported": false,
+    "historical_availability_reconstructed": false,
+    "http_requests": 0,
+    "independent_earlier_legal_identity_supported": false,
+    "ingested_at": "2026-10-20T20:14:21.728887+00:00",
+    "issuer_attribution_verified": false,
+    "issuer_conviction_verified": false,
+    "issuer_fine_verified": false,
+    "issuer_identity_fact": null,
+    "known_at": "2026-10-20T20:14:21.728887+00:00",
+    "live_acceptance_verified": false,
+    "missing_evidence": [
+      "MISSING_EXACT_COURT_DOCKET_FILING_DAY",
+      "MISSING_EXACT_CASE_ENTITY_ROLE",
+      "UNSUPPORTED_DOCUMENT_STAGE_OR_HEADER",
+      "MISSING_INDEPENDENT_EARLIER_DATED_SEC_LEGAL_ENTITY",
+      "MISSING_CASE_DATE_REGISTERED_IDENTITY",
+      "MISSING_IDENTITY_KNOWN_BEFORE_CASE_DAY",
+      "MISSING_INDEPENDENT_LEGAL_CONTINUITY"
+    ],
+    "parent_liability_verified": false,
+    "passage_reviews": [
+      {
+        "capture_id": "doj_first_amended_complaint",
+        "page": 1,
+        "purpose": "CAPTION",
+        "supported": true
+      },
+      {
+        "capture_id": "doj_first_amended_complaint",
+        "page": 3,
+        "purpose": "CASE_ENTITY",
+        "supported": true
+      },
+      {
+        "capture_id": "doj_first_amended_complaint",
+        "page": 3,
+        "purpose": "DOCUMENT_STAGE",
+        "supported": true
+      },
+      {
+        "capture_id": "doj_first_amended_complaint",
+        "page": 17,
+        "purpose": "LEGAL_ENTITY",
+        "supported": true
+      }
+    ],
+    "prediction_input": false,
+    "publication_time_verified": false,
+    "recorded_case_stage": "UNKNOWN",
+    "registry_adoption_allowed": false,
+    "registry_identity": {
+      "case_date_supported": false,
+      "known_before_case_day": false,
+      "legal_continuity_supported": false,
+      "record_id": null,
+      "registry_fingerprint_sha256": "c52921f2f49ab9b66de5fe22bc9a2c3e02b100072f0c48924a7d6ee8ff27b94e",
+      "resolution": "UNMAPPED_NAME"
+    },
+    "release_legal_description_supported": false,
+    "release_publication_supported": false,
+    "report_available_at_cutoff": true,
+    "review_fingerprint_sha256": "8e2a366400508e4b9631a8a7678e7d2193aae1f8e9ad7d4b388224696701b4e6",
+    "review_kind": "DOJ_ENFORCEMENT_SCOPE",
+    "schema_version": 1,
+    "scope": {
+      "case_entity_name": "APPLE INC.",
+      "case_entity_role": "DEFENDANT",
+      "court": "IN THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF NEW JERSEY",
+      "court_capture_id": "doj_first_amended_complaint",
+      "docket": "2:24-cv-04055",
+      "document_kind": "AMENDED_COMPLAINT",
+      "filed_on": "2024-06-11",
+      "issuer_anchor_date": "2023-09-30",
+      "issuer_capture_id": "unprovided_earlier_issuer_original",
+      "issuer_cik": "0000320193",
+      "issuer_legal_name": "Apple Inc.",
+      "issuer_ticker": "AAPL"
+    },
+    "scoring_applied": false,
+    "selected_passages_all_supported": true,
+    "status": "PARTIAL"
+  },
+  "review_started_at": "2026-10-20T20:14:21.728887+00:00",
+  "reviewed_selected_pages": [
+    1,
+    2,
+    3,
+    17
+  ],
+  "schema_version": "sourcefront-doj-first-amended-original-review-v1",
+  "separate_original_order_present": false,
+  "source_read_cutoff": "2026-10-20T20:14:21.728887+00:00"
+}

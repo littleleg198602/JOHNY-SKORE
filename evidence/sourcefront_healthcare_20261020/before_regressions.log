@@ -1,0 +1,93 @@
+test_actual_archived_projected_rows_are_source_only_on_current_day (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_actual_archived_projected_rows_are_source_only_on_current_day) ... 
+  test_actual_archived_projected_rows_are_source_only_on_current_day (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_actual_archived_projected_rows_are_source_only_on_current_day) (enrollment='O20021115000002') ... FAIL
+  test_actual_archived_projected_rows_are_source_only_on_current_day (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_actual_archived_projected_rows_are_source_only_on_current_day) (enrollment='O20030204000016') ... FAIL
+test_coverage_projection_uses_same_denial_without_opening_a_database (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_coverage_projection_uses_same_denial_without_opening_a_database) ... FAIL
+test_existing_fda_and_clinical_event_contracts_are_unchanged (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_existing_fda_and_clinical_event_contracts_are_unchanged) ... ok
+test_original_record_day_does_not_replace_missing_original_body_provider_binding (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_original_record_day_does_not_replace_missing_original_body_provider_binding) ... 
+  test_original_record_day_does_not_replace_missing_original_body_provider_binding (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_original_record_day_does_not_replace_missing_original_body_provider_binding) (record='hca-cms-o20021115000002-2026-10-11') ... FAIL
+  test_original_record_day_does_not_replace_missing_original_body_provider_binding (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_original_record_day_does_not_replace_missing_original_body_provider_binding) (record='hca-cms-o20030204000016-2026-10-11') ... FAIL
+test_source_only_registry_inventory_and_names_are_preserved_but_old_cache_version_changes (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_source_only_registry_inventory_and_names_are_preserved_but_old_cache_version_changes) ... FAIL
+test_synthetic_caller_supplied_hash_ccn_and_pac_cannot_upgrade_legacy_record (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_synthetic_caller_supplied_hash_ccn_and_pac_cannot_upgrade_legacy_record) ... FAIL
+test_synthetic_current_metadata_and_same_day_observed_argument_are_not_original_proof (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_synthetic_current_metadata_and_same_day_observed_argument_are_not_original_proof) ... FAIL
+test_synthetic_finite_one_day_interval_is_not_original_ccn_pac_or_body_proof (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_synthetic_finite_one_day_interval_is_not_original_ccn_pac_or_body_proof) ... FAIL
+test_wrong_object_issuer_and_old_association_remain_denied (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_wrong_object_issuer_and_old_association_remain_denied) ... ok
+
+======================================================================
+FAIL: test_actual_archived_projected_rows_are_source_only_on_current_day (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_actual_archived_projected_rows_are_source_only_on_current_day) (enrollment='O20021115000002')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 55, in test_actual_archived_projected_rows_are_source_only_on_current_day
+    self.assertFalse(result["issuer_attribution_allowed"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_actual_archived_projected_rows_are_source_only_on_current_day (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_actual_archived_projected_rows_are_source_only_on_current_day) (enrollment='O20030204000016')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 55, in test_actual_archived_projected_rows_are_source_only_on_current_day
+    self.assertFalse(result["issuer_attribution_allowed"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_coverage_projection_uses_same_denial_without_opening_a_database (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_coverage_projection_uses_same_denial_without_opening_a_database)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 111, in test_coverage_projection_uses_same_denial_without_opening_a_database
+    self.assertEqual({"CMS_SNAPSHOT_DATE_MISMATCH"}, {row["status"] for row in states})
+AssertionError: Items in the first set but not the second:
+'CMS_SNAPSHOT_DATE_MISMATCH'
+Items in the second set but not the first:
+'EXACT_DATED_OBJECT'
+
+======================================================================
+FAIL: test_original_record_day_does_not_replace_missing_original_body_provider_binding (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_original_record_day_does_not_replace_missing_original_body_provider_binding) (record='hca-cms-o20021115000002-2026-10-11')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 65, in test_original_record_day_does_not_replace_missing_original_body_provider_binding
+    self.assertFalse(result["issuer_attribution_allowed"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_original_record_day_does_not_replace_missing_original_body_provider_binding (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_original_record_day_does_not_replace_missing_original_body_provider_binding) (record='hca-cms-o20030204000016-2026-10-11')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 65, in test_original_record_day_does_not_replace_missing_original_body_provider_binding
+    self.assertFalse(result["issuer_attribution_allowed"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_source_only_registry_inventory_and_names_are_preserved_but_old_cache_version_changes (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_source_only_registry_inventory_and_names_are_preserved_but_old_cache_version_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 119, in test_source_only_registry_inventory_and_names_are_preserved_but_old_cache_version_changes
+    self.assertNotEqual(before["cms_fingerprint_at_probe"], self.registry.fingerprint(
+AssertionError: 'b81b7880c2536c524a81989ba9631389d01fe35b564cbcbc4a4664aa95306820' == 'b81b7880c2536c524a81989ba9631389d01fe35b564cbcbc4a4664aa95306820'
+
+======================================================================
+FAIL: test_synthetic_caller_supplied_hash_ccn_and_pac_cannot_upgrade_legacy_record (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_synthetic_caller_supplied_hash_ccn_and_pac_cannot_upgrade_legacy_record)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 97, in test_synthetic_caller_supplied_hash_ccn_and_pac_cannot_upgrade_legacy_record
+    self.assertFalse(result["issuer_attribution_allowed"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_synthetic_current_metadata_and_same_day_observed_argument_are_not_original_proof (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_synthetic_current_metadata_and_same_day_observed_argument_are_not_original_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 86, in test_synthetic_current_metadata_and_same_day_observed_argument_are_not_original_proof
+    self.assertFalse(result["issuer_attribution_allowed"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_synthetic_finite_one_day_interval_is_not_original_ccn_pac_or_body_proof (tests.test_sourcefront_healthcare_cms_20261020.CmsArchivedProjectionAttributionTests.test_synthetic_finite_one_day_interval_is_not_original_ccn_pac_or_body_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_sourcefront_healthcare_cms_20261020.py", line 76, in test_synthetic_finite_one_day_interval_is_not_original_ccn_pac_or_body_proof
+    self.assertFalse(result["issuer_attribution_allowed"])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.019s
+
+FAILED (failures=9)
