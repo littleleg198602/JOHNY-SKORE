@@ -1,0 +1,511 @@
+{
+  "schema_version": "healthcare_sourcefront21_primary_document_plan_v1",
+  "baseline_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "branch": "sourcefront21/healthcare-20261021",
+  "work_plan_pin": {
+    "path": "PARALLEL_SPECIALIST_WORK.md",
+    "bytes": 77745,
+    "sha256": "4e65704f5ab4c566f63050db86b8461312f9f67481e50052852d5f4425fa9917"
+  },
+  "plan_started_at": "2026-10-21T02:09:20.426162+00:00",
+  "decision": "THREE_LITERAL_UNATTEMPTED_IN_TRACKED_HISTORY_STATIC_FDA_DOCUMENT_ROUTES_READY_FOR_ROOT_AUDIT; NO_REQUEST_AUTHORIZATION",
+  "selected_candidate_count": 3,
+  "candidates": [
+    {
+      "candidate_id": "FDA_ORIGINAL_APPROVAL_LETTER",
+      "decision": "ELIGIBLE_NEW_STATIC_PRIMARY_ROUTE_FOR_ROOT_AUDIT_ONLY",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+      "literal_retained_parent": {
+        "whole_original": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "bytes": 34010,
+          "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+        },
+        "capture_metadata": {
+          "path": "evidence/batch9_healthcare_20261016/attempt-02-result.json",
+          "bytes": 1498,
+          "sha256": "49c4fb2c02f943661a40bcb3b3366c3d49a63dc9b70d00569da8bdfc32aa3305"
+        },
+        "request_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "response_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "requested_at": "2026-10-16T12:18:43.627226+00:00",
+        "observed_at": "2026-10-16T12:18:47.144073+00:00",
+        "http_status": 200,
+        "body_complete_within_predeclared_budget": true,
+        "source_version": "EXACT_RETAINED_HTTP_BODY_SHA256; NO_IMMUTABLE_PUBLISHER_VERSION_CLAIM",
+        "literal_href": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 24833,
+          "byte_end_exclusive": 24914,
+          "bytes": 81,
+          "sha256": "7d6d4b901b719509e7c02b28d249f0467edcfca6a9e33945dfd3f434491dde8c",
+          "literal_bytes_utf8": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf"
+        },
+        "whole_anchor": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 24824,
+          "byte_end_exclusive": 24972,
+          "bytes": 148,
+          "sha256": "70ae23c1eebe9752ea85abd6b8e979a74508dcec9436ac928fc0bca30abdeff3",
+          "literal_bytes_utf8": "<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf\" target=\"_blank\" title=\"Links to Letter\">Letter (PDF)</a>"
+        },
+        "complete_enclosing_action_row": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 24349,
+          "byte_end_exclusive": 25499,
+          "bytes": 1150,
+          "sha256": "22ab36e473059da61417cca014f76d8e3291e87fc796eb2e1cbd91eaff655ad4",
+          "literal_bytes_utf8": "<tr>\n\t<td>03/11/2019</td>\n    <td>ORIG-1</td>\n    <td>\n    Approval \n\t</td>\n    <td>     \n    \n\t</td>\n\t<td>\n\t\n                                                                                                       \nN/A</td>\n\t<td>\n    \n\n<span style=\"white-space: nowrap;\">\n     \n        \n        \t<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf\" target=\"_blank\" title=\"Links to Label\">Label (PDF)</a>\n        <br />\n     \n        \n        \t<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf\" target=\"_blank\" title=\"Links to Letter\">Letter (PDF)</a>\n        <br />\n     \n        \n        \t<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000TOC.html\" target=\"_blank\" title=\"Links to Review\">Review</a>\n        <br />\n     \n\t</span>\n\t</td>\n    <td>\n\n\n\t\n\n\n  \n</td>\n\n<td>\n\t \n        https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf \n        https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf \n        https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000TOC.html\n</td>\n\n</tr>"
+        },
+        "anchor_text": "Letter (PDF)",
+        "same_exact_href_occurrences_in_parent": 1
+      },
+      "requested_scope": {
+        "issuer_ticker": "PFE",
+        "issuer_cik": "0000078003",
+        "expected_exact_legal_applicant": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+        "jurisdiction_sought": "Ireland ONLY IF EXPLICITLY STATED; manufacturing address does not establish incorporation jurisdiction",
+        "application_type": "BLA",
+        "application_number": "761081",
+        "product_name": "TRAZIMERA",
+        "active_ingredient": "TRASTUZUMAB-QYYP",
+        "retained_purple_book_products": [
+          {
+            "product_number": "001",
+            "strength": "420MG"
+          },
+          {
+            "product_number": "002",
+            "strength": "150MG"
+          }
+        ],
+        "parent_action_day": "2019-03-11",
+        "parent_submission": "ORIG-1",
+        "document_kind": "FDA_ORIGINAL_BLA_APPROVAL_LETTER",
+        "facts_sought": [
+          "Exact signed FDA letter date and application BLA761081/ORIG-1.",
+          "Exact legal applicant/addressee and any explicit license-holder statement; compare literally with Pfizer Ireland Pharmaceuticals Unlimited Company and PFIZER INC without aliases.",
+          "Any exact legal country/jurisdiction/address statement, retaining address as address if incorporation jurisdiction is not stated.",
+          "Any explicitly named product or licence object; an approval letter is not an issuer-group ownership assignment."
+        ],
+        "interpretation_limit": "A different, shortened or PFIZER INC addressee does not establish the Unlimited Company bridge. Approval day is an action date, never ownership-since."
+      },
+      "prior_exact_url_audit": {
+        "tracked_base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+        "all_tracked_json_and_request_history_inventory": "evidence/sourcefront21_healthcare_20261021/tracked_history_audit.json",
+        "exact_literal_and_decoded_json_url_hits": [],
+        "prior_request_or_reservation_records_found": 0,
+        "prior_original_body_metadata_found": 0,
+        "history_status": "NO_EXACT_URL_ATTEMPT_IN_THE_EXHAUSTIVELY_AUDITED_TRACKED_RECORDS",
+        "untracked_external_history_recovery_claimed": false,
+        "not_a_recovered_collector_quota_ledger": true
+      },
+      "not_presumed": {
+        "child_original_body_available": false,
+        "child_document_complete_within_cap": false,
+        "exact_legal_name_present": false,
+        "parent_or_continuous_ownership_proved": false,
+        "historical_knowledge_at_parent_action_day": false,
+        "two_product_rows_or_container_repaired": false
+      },
+      "root_capture_preconditions": {
+        "root_must_reconcile_any_other_original_research_history_then_reserve_once_before_GET": true,
+        "network_authorization_granted_by_this_plan": false,
+        "method": "ONE_BOUNDED_STATIC_PRIMARY_DOCUMENT_GET",
+        "maximum_body_bytes": 4000000,
+        "maximum_attempts_for_this_url": 1,
+        "retries": 0,
+        "redirects": 0,
+        "fallback_or_alternate_url": false,
+        "collector_API_requests": 0,
+        "new_or_reconstructed_quota_database": false,
+        "actual_UTC_request_observation_ingestion_and_completion_clocks_required": true,
+        "preserve_complete_original_bytes_status_URL_and_hash": true,
+        "unsafe_whole_body_must_be_withheld_not_sanitized_wrapped_or_substituted": true,
+        "over_cap_or_non200_does_not_authorize_retry_or_raising_cap": true
+      }
+    },
+    {
+      "candidate_id": "FDA_ORIGINAL_LABEL",
+      "decision": "ELIGIBLE_NEW_STATIC_PRIMARY_ROUTE_FOR_ROOT_AUDIT_ONLY",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf",
+      "literal_retained_parent": {
+        "whole_original": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "bytes": 34010,
+          "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+        },
+        "capture_metadata": {
+          "path": "evidence/batch9_healthcare_20261016/attempt-02-result.json",
+          "bytes": 1498,
+          "sha256": "49c4fb2c02f943661a40bcb3b3366c3d49a63dc9b70d00569da8bdfc32aa3305"
+        },
+        "request_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "response_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "requested_at": "2026-10-16T12:18:43.627226+00:00",
+        "observed_at": "2026-10-16T12:18:47.144073+00:00",
+        "http_status": 200,
+        "body_complete_within_predeclared_budget": true,
+        "source_version": "EXACT_RETAINED_HTTP_BODY_SHA256; NO_IMMUTABLE_PUBLISHER_VERSION_CLAIM",
+        "literal_href": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 24653,
+          "byte_end_exclusive": 24728,
+          "bytes": 75,
+          "sha256": "138549720fa1423e1278312f4eb5a915be9ab429ec5e6fdfbde2b4f24ee0ea5e",
+          "literal_bytes_utf8": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf"
+        },
+        "whole_anchor": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 24644,
+          "byte_end_exclusive": 24784,
+          "bytes": 140,
+          "sha256": "c210f516f4d8134297b62f6a6d7f59a528ce62162b7df57d5d8c6de880fc6b08",
+          "literal_bytes_utf8": "<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf\" target=\"_blank\" title=\"Links to Label\">Label (PDF)</a>"
+        },
+        "complete_enclosing_action_row": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 24349,
+          "byte_end_exclusive": 25499,
+          "bytes": 1150,
+          "sha256": "22ab36e473059da61417cca014f76d8e3291e87fc796eb2e1cbd91eaff655ad4",
+          "literal_bytes_utf8": "<tr>\n\t<td>03/11/2019</td>\n    <td>ORIG-1</td>\n    <td>\n    Approval \n\t</td>\n    <td>     \n    \n\t</td>\n\t<td>\n\t\n                                                                                                       \nN/A</td>\n\t<td>\n    \n\n<span style=\"white-space: nowrap;\">\n     \n        \n        \t<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf\" target=\"_blank\" title=\"Links to Label\">Label (PDF)</a>\n        <br />\n     \n        \n        \t<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf\" target=\"_blank\" title=\"Links to Letter\">Letter (PDF)</a>\n        <br />\n     \n        \n        \t<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000TOC.html\" target=\"_blank\" title=\"Links to Review\">Review</a>\n        <br />\n     \n\t</span>\n\t</td>\n    <td>\n\n\n\t\n\n\n  \n</td>\n\n<td>\n\t \n        https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf \n        https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf \n        https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000TOC.html\n</td>\n\n</tr>"
+        },
+        "anchor_text": "Label (PDF)",
+        "same_exact_href_occurrences_in_parent": 2
+      },
+      "requested_scope": {
+        "issuer_ticker": "PFE",
+        "issuer_cik": "0000078003",
+        "expected_exact_legal_applicant": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+        "jurisdiction_sought": "Ireland ONLY IF EXPLICITLY STATED; manufacturing address does not establish incorporation jurisdiction",
+        "application_type": "BLA",
+        "application_number": "761081",
+        "product_name": "TRAZIMERA",
+        "active_ingredient": "TRASTUZUMAB-QYYP",
+        "retained_purple_book_products": [
+          {
+            "product_number": "001",
+            "strength": "420MG"
+          },
+          {
+            "product_number": "002",
+            "strength": "150MG"
+          }
+        ],
+        "parent_action_day": "2019-03-11",
+        "parent_submission": "ORIG-1",
+        "document_kind": "FDA_ORIGINAL_PRODUCT_LABEL",
+        "facts_sought": [
+          "Exact TRAZIMERA/trastuzumab-qyyp product, dosage form/route and published vial strengths.",
+          "Verbatim manufacturer, applicant, licence-holder, distributor and marketer role statements, preserving each distinct legal entity.",
+          "Exact country/address and printed label revision/approval metadata.",
+          "Any explicit dated relationship of Pfizer Ireland Pharmaceuticals Unlimited Company to this product; record a missing or different legal name honestly."
+        ],
+        "interpretation_limit": "A manufacturer/distributor statement is a product role, not direct or ultimate parent ownership. Product001/002 are not inferred from label ordering."
+      },
+      "prior_exact_url_audit": {
+        "tracked_base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+        "all_tracked_json_and_request_history_inventory": "evidence/sourcefront21_healthcare_20261021/tracked_history_audit.json",
+        "exact_literal_and_decoded_json_url_hits": [],
+        "prior_request_or_reservation_records_found": 0,
+        "prior_original_body_metadata_found": 0,
+        "history_status": "NO_EXACT_URL_ATTEMPT_IN_THE_EXHAUSTIVELY_AUDITED_TRACKED_RECORDS",
+        "untracked_external_history_recovery_claimed": false,
+        "not_a_recovered_collector_quota_ledger": true
+      },
+      "not_presumed": {
+        "child_original_body_available": false,
+        "child_document_complete_within_cap": false,
+        "exact_legal_name_present": false,
+        "parent_or_continuous_ownership_proved": false,
+        "historical_knowledge_at_parent_action_day": false,
+        "two_product_rows_or_container_repaired": false
+      },
+      "root_capture_preconditions": {
+        "root_must_reconcile_any_other_original_research_history_then_reserve_once_before_GET": true,
+        "network_authorization_granted_by_this_plan": false,
+        "method": "ONE_BOUNDED_STATIC_PRIMARY_DOCUMENT_GET",
+        "maximum_body_bytes": 4000000,
+        "maximum_attempts_for_this_url": 1,
+        "retries": 0,
+        "redirects": 0,
+        "fallback_or_alternate_url": false,
+        "collector_API_requests": 0,
+        "new_or_reconstructed_quota_database": false,
+        "actual_UTC_request_observation_ingestion_and_completion_clocks_required": true,
+        "preserve_complete_original_bytes_status_URL_and_hash": true,
+        "unsafe_whole_body_must_be_withheld_not_sanitized_wrapped_or_substituted": true,
+        "over_cap_or_non200_does_not_authorize_retry_or_raising_cap": true
+      }
+    },
+    {
+      "candidate_id": "FDA_SUPPLEMENT_17_LABEL",
+      "decision": "ELIGIBLE_NEW_STATIC_PRIMARY_ROUTE_FOR_ROOT_AUDIT_ONLY",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+      "literal_retained_parent": {
+        "whole_original": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "bytes": 34010,
+          "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+        },
+        "capture_metadata": {
+          "path": "evidence/batch9_healthcare_20261016/attempt-02-result.json",
+          "bytes": 1498,
+          "sha256": "49c4fb2c02f943661a40bcb3b3366c3d49a63dc9b70d00569da8bdfc32aa3305"
+        },
+        "request_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "response_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+        "requested_at": "2026-10-16T12:18:43.627226+00:00",
+        "observed_at": "2026-10-16T12:18:47.144073+00:00",
+        "http_status": 200,
+        "body_complete_within_predeclared_budget": true,
+        "source_version": "EXACT_RETAINED_HTTP_BODY_SHA256; NO_IMMUTABLE_PUBLISHER_VERSION_CLAIM",
+        "literal_href": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 26198,
+          "byte_end_exclusive": 26273,
+          "bytes": 75,
+          "sha256": "b88d2a86f6899be8ed34aa0105b054a6520e81954f76844ec90a3bc8c145dd68",
+          "literal_bytes_utf8": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf"
+        },
+        "whole_anchor": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 26189,
+          "byte_end_exclusive": 26329,
+          "bytes": 140,
+          "sha256": "8ae514d72391430dd9424c68b6815cc26c3d09d8ca6b7b94a1ccb2e60acf2248",
+          "literal_bytes_utf8": "<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf\" title=\"Links to Label\" target=\"_blank\">Label (PDF)</a>"
+        },
+        "complete_enclosing_action_row": {
+          "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+          "byte_start": 26054,
+          "byte_end_exclusive": 26754,
+          "bytes": 700,
+          "sha256": "7e380bc55b3c03fbfa59ba19e80349e1fc531aa904ea2a6c3421c4e7848687e6",
+          "literal_bytes_utf8": "<tr>\n\t<td>08/21/2025</td>\n\t<td>SUPPL-17</td>\n\t<td>\n\t\tSupplement\n        \n\t</td>\n\t<td>\n\t\n                                         \n\t\n\t\n\t<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf\" title=\"Links to Label\" target=\"_blank\">Label (PDF)</a>\n\t\n\t<br />\n\t\n\t\n\t<a href=\"https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/761081Orig1s017ltr.pdf\" title=\"Links to Letter\" target=\"_blank\">Letter (PDF)</a>\n\t\n\t<br />\n\t\n\t</td>\n\t<td>\n\t\t\n\t\t\n        \n\t\t\n\t\t\n\t\t\t\n\t\t\n\t</td>\n\t\n\t<td>\n\t\n\t\n\t\thttps://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf\n\t\n\t\n\t\thttps://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/761081Orig1s017ltr.pdf\n\t\n\t</td>\n\t\n</tr>"
+        },
+        "anchor_text": "Label (PDF)",
+        "same_exact_href_occurrences_in_parent": 2
+      },
+      "requested_scope": {
+        "issuer_ticker": "PFE",
+        "issuer_cik": "0000078003",
+        "expected_exact_legal_applicant": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+        "jurisdiction_sought": "Ireland ONLY IF EXPLICITLY STATED; manufacturing address does not establish incorporation jurisdiction",
+        "application_type": "BLA",
+        "application_number": "761081",
+        "product_name": "TRAZIMERA",
+        "active_ingredient": "TRASTUZUMAB-QYYP",
+        "retained_purple_book_products": [
+          {
+            "product_number": "001",
+            "strength": "420MG"
+          },
+          {
+            "product_number": "002",
+            "strength": "150MG"
+          }
+        ],
+        "parent_action_day": "2025-08-21",
+        "parent_submission": "SUPPL-17",
+        "document_kind": "FDA_SUPPLEMENT_17_PRODUCT_LABEL",
+        "facts_sought": [
+          "Exact product and presented strengths/form/route at the source document revision.",
+          "Exact legal manufacturing, licence/applicant, distribution or marketing entity names and stated role/country.",
+          "Exact printed revision and supplement/action context for comparison with the original label point.",
+          "Whether an exact Unlimited Company legal/product-role statement is present, without extending it to any intervening or later date."
+        ],
+        "interpretation_limit": "This is a separate 2025 document point, not current2026 ownership, a continuous legal relationship or a direct-parent bridge."
+      },
+      "prior_exact_url_audit": {
+        "tracked_base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+        "all_tracked_json_and_request_history_inventory": "evidence/sourcefront21_healthcare_20261021/tracked_history_audit.json",
+        "exact_literal_and_decoded_json_url_hits": [],
+        "prior_request_or_reservation_records_found": 0,
+        "prior_original_body_metadata_found": 0,
+        "history_status": "NO_EXACT_URL_ATTEMPT_IN_THE_EXHAUSTIVELY_AUDITED_TRACKED_RECORDS",
+        "untracked_external_history_recovery_claimed": false,
+        "not_a_recovered_collector_quota_ledger": true
+      },
+      "not_presumed": {
+        "child_original_body_available": false,
+        "child_document_complete_within_cap": false,
+        "exact_legal_name_present": false,
+        "parent_or_continuous_ownership_proved": false,
+        "historical_knowledge_at_parent_action_day": false,
+        "two_product_rows_or_container_repaired": false
+      },
+      "root_capture_preconditions": {
+        "root_must_reconcile_any_other_original_research_history_then_reserve_once_before_GET": true,
+        "network_authorization_granted_by_this_plan": false,
+        "method": "ONE_BOUNDED_STATIC_PRIMARY_DOCUMENT_GET",
+        "maximum_body_bytes": 4000000,
+        "maximum_attempts_for_this_url": 1,
+        "retries": 0,
+        "redirects": 0,
+        "fallback_or_alternate_url": false,
+        "collector_API_requests": 0,
+        "new_or_reconstructed_quota_database": false,
+        "actual_UTC_request_observation_ingestion_and_completion_clocks_required": true,
+        "preserve_complete_original_bytes_status_URL_and_hash": true,
+        "unsafe_whole_body_must_be_withheld_not_sanitized_wrapped_or_substituted": true,
+        "over_cap_or_non200_does_not_authorize_retry_or_raising_cap": true
+      }
+    }
+  ],
+  "tracked_original_request_history_audit": {
+    "artifact": {
+      "path": "evidence/sourcefront21_healthcare_20261021/tracked_history_audit.json",
+      "bytes": 412849,
+      "sha256": "da964b6df8e7c25ab56d9e677e04d6a6d72e82e9f3a30acab115b6c70cc6cfdb"
+    },
+    "tracked_json_file_count": 1485,
+    "additional_request_history_text_count": 109,
+    "total_files_examined": 1594,
+    "total_bytes_examined": 29854502,
+    "parse_errors": 0,
+    "selected_exact_url_hits": {
+      "FDA_ORIGINAL_APPROVAL_LETTER": 0,
+      "FDA_ORIGINAL_LABEL": 0,
+      "FDA_SUPPLEMENT_17_LABEL": 0
+    },
+    "scope_limit": "Tracked original records at exact baseline only. No protected journal DB or private scratch was accessed. Root must audit any additional original history before reservation; unknown history never licenses a retry."
+  },
+  "retained_exact_name_reference": {
+    "whole_original": {
+      "path": "evidence/batch9_healthcare_20261016/fda_purple_book_761081.body.bin",
+      "bytes": 22644,
+      "sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730"
+    },
+    "metadata": {
+      "path": "evidence/batch9_healthcare_20261016/attempt-03-result.json",
+      "bytes": 1455,
+      "sha256": "dee47b06f0e1edd3bc623046ab453a61d0023ca029039c3a8a94575b024dc679"
+    },
+    "literal_applicant_name": {
+      "path": "evidence/batch9_healthcare_20261016/fda_purple_book_761081.body.bin",
+      "byte_start": 11620,
+      "byte_end_exclusive": 11668,
+      "bytes": 48,
+      "sha256": "1b286f9bd6bb8b3195ef0da100ec0178455c6e8d2862e77bbc4cb026f04c63b5",
+      "literal_bytes_utf8": "Pfizer Ireland Pharmaceuticals Unlimited Company"
+    },
+    "current_existing_review": {
+      "path": "evidence/batch9_healthcare_20261016/source_review.json",
+      "bytes": 12328,
+      "sha256": "414a2c62a348b445b4863f36d9883af3d475e3ec8442a1c8d346cacc07849e8c"
+    },
+    "outer_container_status": "INCOMPLETE_OUTER_CONTAINER_PARTIAL; ORIGINAL_UNCHANGED",
+    "company_applicant_manufacturer_parent_are_separate_roles": true,
+    "two_PurpleBook_products_not_merged_into_DrugsFDA_row": true
+  },
+  "excluded_completed_or_invalid_routes": [
+    {
+      "route": "2017 SEC Exhibit21",
+      "url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+      "parent": {
+        "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+        "bytes": 816055,
+        "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c"
+      },
+      "literal_anchor": {
+        "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+        "byte_start": 746756,
+        "byte_end_exclusive": 746923,
+        "bytes": 167,
+        "sha256": "8ffea92e88be79f7cfaa05f667062cfd22cef5feccda58d01907aac77b738544",
+        "literal_bytes_utf8": "<a style=\"text-decoration:underline;color:#0000FF;-sec-extract:exhibit;\" href=\"pfe-exhibit21x12312017.htm\"><font style=\"font-family:Arial;font-size:9pt;\">21</font></a>"
+      },
+      "existing_capture_metadata": {
+        "path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.metadata.json",
+        "bytes": 1230,
+        "sha256": "c1cda3061aa26dc3fda655485ca5fb194e4bcb8894b0b41e1a9ec3cc85934caa"
+      },
+      "original_body": {
+        "path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.body.html",
+        "bytes": 258262,
+        "sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f"
+      },
+      "status": "REJECT_ALREADY_ATTEMPTED_AND_CAPTURED",
+      "missing_identity": "The retained roster lists Pfizer Ireland Pharmaceuticals/Ireland, not the exact Unlimited Company. An incomplete subsidiary universe cannot prove absence or ownership continuity."
+    },
+    {
+      "route": "SEC2016 dex21 filename",
+      "parent": {
+        "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+        "bytes": 816055,
+        "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c"
+      },
+      "literal_anchor": {
+        "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+        "byte_start": 654073,
+        "byte_end_exclusive": 654294,
+        "bytes": 221,
+        "sha256": "7e71994b826be77cbaac4a86203dee5621d3304f33386b944e5969cc6143a575",
+        "literal_bytes_utf8": "<a style=\"text-decoration:underline;color:#0000FF;-sec-extract:exhibit;\" href=\"http://www.sec.gov/Archives/edgar/data/78003/000119312516686937/d57934dex21.htm\"><font style=\"font-family:Arial;font-size:9pt;\">2.1</font></a>"
+      },
+      "status": "REJECT_LABEL_2_1_NOT_EXHIBIT21_AND_NO_HTTPS_LITERAL_ALTERATION"
+    },
+    {
+      "route": "2017 SEC filing index",
+      "url": "https://www.sec.gov/Archives/edgar/data/78003/0000078003-18-000027-index.htm",
+      "status": "REJECT_PREVIOUS_ATTEMPT_403_NO_RETRY",
+      "exact_url_history_hit_count": 15,
+      "original_attempt_metadata": {
+        "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_index.metadata.json",
+        "metadata_sha256": "e7bd1817fa78ea4b78a6075eee8072023504c2179eaa2bcaf8d16511b5b612e9",
+        "metadata_bytes": 1271,
+        "request_url_field_used_verbatim": true,
+        "http_status": 403,
+        "no_constructed_index_URL_used": true
+      },
+      "requested_at": "2026-10-12T14:47:32.868369+00:00",
+      "observed_at": "2026-10-12T14:47:37.479465+00:00"
+    },
+    {
+      "route": "Predeclared TOC.cfm",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000TOC.cfm",
+      "status": "REJECT_NOT_LITERAL_PARENT_HREF; ORIGINAL_LINK_IS_TOC.html",
+      "history_note": "Listed in old research plan and capture script only; unused plan entry does not prove a source request and does not validate a constructed URL."
+    },
+    {
+      "route": "Predeclared ChemR.pdf",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000ChemR.pdf",
+      "status": "REJECT_NO_LITERAL_LINK_IN_THE_RETAINED_PARENT"
+    }
+  ],
+  "blocked_collector_routes": {
+    "CMS_CCN_PAC_provider_owner": "BLOCKED: no original whole owner/enrollment response, exact six-digit CCN/providerPAC join or original durable CMS request history. Known endpoint or projected name is not a new safe static document link.",
+    "FDA_API_or_collector": "BLOCKED: original durable FDA collector history unproved; selected documents are separate static primary PDFs, not collector/API calls or alternate access to a missing collector dataset.",
+    "ClinicalTrials": "BLOCKED: temporary original reservation ledger unrecovered; no fresh collector/API/source replay or new quotaDB. Two retained complete NCT objects do not supply broader issuer scope.",
+    "original_history_or_current_journal_database_inspected": false
+  },
+  "interpretation_limits": {
+    "document_candidates_have_not_been_downloaded_or_verified": true,
+    "new_capture_knowledge_time_must_be_actual_future_capture_time": true,
+    "filename_and_action_dates_are_not_capture_availability": true,
+    "approval_date_is_not_ownership_since": true,
+    "short_2017_name_is_not_UnlimitedCompany_alias": true,
+    "absence_from_incomplete_roster_universe": "UNKNOWN",
+    "manufacturing_or_distributor_role_does_not_prove_parent_ownership": true,
+    "current2026_or_historical_continuity_not_inferred": true,
+    "no_automatic_registry_adoption_or_21acceptance": true
+  },
+  "operations": {
+    "network_search_HTTP_connector_browser_collector_SQL": 0,
+    "protected_DB_open_hash_copy_replay_reset": 0,
+    "quota_store_create_copy_reset_reconstruction": 0,
+    "code_test_registry_status_config_MD_changes": 0,
+    "withheld_bodies_read_recovered_or_substituted": 0,
+    "prior_passed_suites_or_CMS_fix_repeated": false,
+    "remote_write": false
+  },
+  "canonical_tickers": 687,
+  "production_healthcare_records_unchanged": 10,
+  "new_verified_links": 0,
+  "full_specialist_acceptance": "0/21",
+  "known_at": "2026-10-21T02:10:14.717675+00:00",
+  "ingested_at": "2026-10-21T02:10:14.717675+00:00",
+  "plan_completed_at": "2026-10-21T02:10:14.717675+00:00"
+}

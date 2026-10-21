@@ -29,7 +29,7 @@ _KINDS = {"CMS_PROVIDER_OWNER", "EPA_FRS_OWNER", "FORM4_PERSON", "STOCK_MERGER_E
           "SEC_SUPPLIER_REVENUE_DENOMINATOR", "SEC_PERSON_ROLE_CLAIM",
           "SEC_DATED_INSTRUMENT_POINT", "FDA_APPLICANT_CHRONOLOGY", "EPA_FRS_PROGRAM_SCOPE",
           "USASPENDING_PRIME_SCOPE", "SEC_PERSON_ROLE_TEMPORAL",
-          "SEC_CHARTER_CLASS", "SEC_FORM144_ACCOUNT_NOTICE"}
+          "SEC_CHARTER_CLASS", "SEC_FORM144_ACCOUNT_NOTICE", "WAFER_CAPACITY_DEPOSITS"}
 _BODY_BUDGETS = {kind: 4_000_000 for kind in (
     "SEC_CONTROL_INSTRUMENT", "HEALTHCARE_PRODUCT_SCOPE", "DOJ_ENFORCEMENT_SCOPE",
     "SEC_SUPPLY_CHAIN_SCOPE", "SEC_PERSON_KIND", "SEC_IR_DISCLOSURE_AUTHORITY",
@@ -41,7 +41,7 @@ _BODY_BUDGETS = {kind: 4_000_000 for kind in (
     "SEC_SUPPLIER_REVENUE_DENOMINATOR", "SEC_PERSON_ROLE_CLAIM",
     "SEC_DATED_INSTRUMENT_POINT", "FDA_APPLICANT_CHRONOLOGY", "EPA_FRS_PROGRAM_SCOPE",
     "USASPENDING_PRIME_SCOPE", "SEC_PERSON_ROLE_TEMPORAL",
-    "SEC_CHARTER_CLASS", "SEC_FORM144_ACCOUNT_NOTICE")}
+    "SEC_CHARTER_CLASS", "SEC_FORM144_ACCOUNT_NOTICE", "WAFER_CAPACITY_DEPOSITS")}
 
 
 def _time(value: object) -> datetime:
@@ -149,6 +149,10 @@ def _load_captures(plan: dict, source_root: Path, cutoff: datetime) -> dict[str,
 
 def _dispatch(plan: dict, captures: dict, source_root: Path, clock: datetime, cutoff: datetime) -> dict:
     request, kind = plan["request"], plan["kind"]
+    if kind == "WAFER_CAPACITY_DEPOSITS":
+        from market_checker_app.services.wafer_capacity_deposit_review import review_wafer_capacity_deposits
+        return review_wafer_capacity_deposits(request, captures,
+            as_of=cutoff if "as_of" in plan else None)
     if kind == "SEC_CHARTER_CLASS":
         from market_checker_app.services.sec_corporate_action_bridge import review_charter_class_disclosure
         service = _bulk_service(plan, captures, cutoff)

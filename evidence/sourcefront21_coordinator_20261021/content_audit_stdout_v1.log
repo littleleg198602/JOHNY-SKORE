@@ -1,0 +1,1 @@
+{"groups": {"production": {"files": 230, "unchanged_files": 228, "unchanged_bytes": 3870745}, "tests": {"files": 215, "unchanged_files": 215, "unchanged_bytes": 2885372}, "evidence": {"files": 2425, "unchanged_files": 2425, "unchanged_bytes": 108737194}}, "source_test_pins": 6, "originals": 5, "runtime_actions": 2, "protected_inputs": 7}

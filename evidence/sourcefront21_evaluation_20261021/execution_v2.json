@@ -1,0 +1,37 @@
+{
+  "HTTP_SQL_or_project_run_actions": 0,
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/sourcefront21_evaluation_20261021/audit_candidate_plans.py",
+    "--identity-plan",
+    "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/evidence/sourcefront21_identity_20261021/source_plan.json",
+    "--healthcare-plan",
+    "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/source_plan.json",
+    "--regulatory-plan",
+    "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/evidence/sourcefront21_regulatory_20261021/source_plan.json",
+    "--sec-plan",
+    "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/evidence/sourcefront21_sec_20261021/source_plan.json",
+    "--selection-plan",
+    "/workspace/scratch/334b3a149083/sourcefront21_20261021/selected_candidates.json",
+    "--output",
+    "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/sourcefront21_evaluation_20261021/candidate_plan_audit.json"
+  ],
+  "completed_at": "2026-10-21T02:20:53.905807+00:00",
+  "elapsed_seconds": 7.1882536040000105,
+  "exit_code": 0,
+  "producer": {
+    "bytes": 24936,
+    "sha256": "4e0fbe37193cc68ab1ad1d0d1b911ade91f41dee03bbb8b32a152edd6017a673"
+  },
+  "revision_reason": "Compare canonical resource keys before lexical prefilter, including case/percent-path and HTTP-HTTPS aliases; preserve first whole producer/result/log. Coordinator selection supplies explicit25s healthcare time bound.",
+  "scope": "ACTUAL_READ_ONLY_CANDIDATE_CONTENT_AUDIT_NOT_UNITTEST_OR_CI",
+  "started_at": "2026-10-21T02:20:46.717553+00:00",
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stdout": {
+    "bytes": 176,
+    "sha256": "1bbaad056861226dbdda2df5bb81de52a0205976274146376a26b5c40572a839"
+  }
+}

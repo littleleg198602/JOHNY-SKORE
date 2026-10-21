@@ -1,0 +1,285 @@
+{
+  "prepared_at": "2026-10-21T07:19:31.189027+00:00",
+  "status": "EXPECTED_SELECTION_ONLY",
+  "baseline_methods": 2767,
+  "new_exact_method_count": 51,
+  "expected_full_test_count": 2818,
+  "methods": [
+    {
+      "module": "test_sourcefront21_coordinator_integration",
+      "class": "Sourcefront21CoordinatorTests",
+      "method": "test_cli_archives_actual_deposit_review_without_collection_or_adoption"
+    },
+    {
+      "module": "test_sourcefront21_coordinator_integration",
+      "class": "Sourcefront21CoordinatorTests",
+      "method": "test_ui_selects_real_plan_and_preserves_original_review_archive"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_actual_whole_original_control_has_six_components_not_twelve_added_balances"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_category_context_wrong_entity_cannot_inherit_dei_issuer"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_context_instant_cannot_be_replaced_with_another_day"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_current_and_noncurrent_cannot_be_swapped_even_when_sum_is_unchanged"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_explicit_future_requested_clock_cannot_publish_a_future_as_of_claim"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_future_index_acceptance_display_cannot_be_a_qualified_capture_from_2026"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_future_input_known_at_cannot_be_accepted_under_current_physical_clock"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_index_wrong_basename_is_not_tolerated_as_known_109_byte_body_conflict"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_old_cutoff_and_validation_finishing_after_cutoff_do_not_return_claims"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_outer_nested_fact_precision_cannot_inherit_inner_precision"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_outer_nested_fact_wrong_unit_cannot_inherit_inner_usd"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_wrong_commitments_textblock_context_cannot_inherit_selected_numeric_contexts"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_actual_whole_retained_filing_preserves_all_six_facts_and_109_byte_conflict"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_asset_context_other_issuer_does_not_inherit_cover_identity"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_cancelability_and_full_paragraph_qualifiers_cannot_be_trimmed"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_changed_body_or_whole_source_splice_fails_original_hash"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_completion_clock_and_cutoff_are_rechecked_after_validation"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_cover_or_comparative_date_cannot_be_moved"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_current_and_noncurrent_annotations_cannot_be_swapped"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_duplicate_original_identifier_is_ambiguous"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_extra_dimension_cannot_hide_a_different_scope"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_false_purchase_physical_or_named_allocation_interpretation_is_rejected"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_four_megabyte_whole_body_bound_precedes_xml_parser"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_future_reversed_or_pre_capture_knowledge_clocks_are_rejected"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_hidden_or_table_passage_cannot_supply_the_visible_asset_claim"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_inputs_outputs_and_replay_are_detached"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_literal_total_must_equal_current_plus_noncurrent"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_missing_complete_manifest_or_withheld_body_never_enters_parser"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_missing_or_extra_capture_scope_is_not_silently_ignored"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_money_precision_context_and_arithmetic_preserve_financial_asset_scope"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_narrative_and_instant_context_dates_must_agree"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_no_named_foundry_volume_purchase_obligation_apple_or_continuity_inference"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_nonfinite_negative_or_numeric_nonliteral_is_not_a_balance"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_old_explicit_cutoff_cannot_relabel_new_ingestion_as_history"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_parallel_repeated_values_are_not_equivalent_nested_tags"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_recomputed_manifest_cannot_hide_wrong_numeric_body_literal"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_reused_or_omitted_nested_annotation_cannot_create_an_extra_balance"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_scale_sign_precision_transform_and_nil_cannot_change_meaning"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_six_balances_are_not_twelve_nested_annotations"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_usd_currency_cannot_be_replaced_by_eur_or_share_ratio"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_wafer_category_is_not_other_asset_or_named_supplier"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_wrong_archive_routing_or_index_accession_is_rejected"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_wrong_dei_issuer_or_context_cannot_be_selected"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_wrong_textblock_context_or_disclosure_concept_cannot_be_stitched"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_acceptance_after_original_capture_is_rejected_even_before_current_review_day"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_accepted_and_filing_calendar_days_need_not_be_equal"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_future2099_index_acceptance_is_not_legitimized_by_rehashing_whole_metadata"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_future_requested_cutoff_is_rejected_before_original_source_validation"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_neighboring_capture_calendar_day_does_not_invent_a_publisher_timezone"
+    }
+  ],
+  "files": [
+    {
+      "path": "tests/test_sourcefront21_coordinator_integration.py",
+      "bytes": 3980,
+      "sha256": "cd9edc422c72138cc6a87589f89e809d1fcd3022ebf95d32e610aa420721fe47",
+      "expected_methods": 2
+    },
+    {
+      "path": "tests/test_wafer_capacity_deposit_peer.py",
+      "bytes": 12512,
+      "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0",
+      "expected_methods": 12
+    },
+    {
+      "path": "tests/test_wafer_capacity_deposit_review.py",
+      "bytes": 24666,
+      "sha256": "320a97f550c09d52037a361c61e446bf4e7589176f882cec71f0e080b9e883fc",
+      "expected_methods": 37
+    }
+  ],
+  "functional_tests_executed_by_this_script": 0
+}

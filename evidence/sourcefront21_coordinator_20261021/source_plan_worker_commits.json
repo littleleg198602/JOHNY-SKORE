@@ -1,0 +1,64 @@
+{
+  "public_base": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "workers": [
+    {
+      "role": "identity_bulk",
+      "worker_commit": "26eb46460e77b53d9f6c31257395c7af4e5a6bd6",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_identity_20261021/source_plan.json"
+      ],
+      "output_role": "actual_source_plan_only_not_analytical_specialist_acceptance",
+      "coordinator_pick": "602e4f82fb38c15fe0ef94f4b1d19904d5c5a6d3"
+    },
+    {
+      "role": "healthcare",
+      "worker_commit": "2648849505a4bfacf0eab941df7b07ca0afe8dfd",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_healthcare_20261021/source_plan.json",
+        "evidence/sourcefront21_healthcare_20261021/tracked_history_audit.json",
+        "evidence/sourcefront21_healthcare_20261021/validation.json"
+      ],
+      "output_role": "actual_source_plan_only_not_analytical_specialist_acceptance",
+      "coordinator_pick": "5e3aa9594efe0feb1472ce7b61cdfcbe86971be6"
+    },
+    {
+      "role": "sec",
+      "worker_commit": "6239403a6e39fee8997b93d81962b260e9886d96",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_sec_20261021/source_plan.json"
+      ],
+      "output_role": "actual_source_plan_only_not_analytical_specialist_acceptance",
+      "coordinator_pick": "a8cde9413dea2302a0911e9344491967a6705103"
+    },
+    {
+      "role": "regulatory",
+      "worker_commit": "03bf1debe9c0bc3b09736f38c679ca9f09669606",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_regulatory_20261021/audit_source_plan.py",
+        "evidence/sourcefront21_regulatory_20261021/doc51_link_audit.json",
+        "evidence/sourcefront21_regulatory_20261021/doj_index_link_audit.json",
+        "evidence/sourcefront21_regulatory_20261021/finalize_plan.py",
+        "evidence/sourcefront21_regulatory_20261021/initial_source_plan_before_parent_pin.json",
+        "evidence/sourcefront21_regulatory_20261021/source_plan.json",
+        "evidence/sourcefront21_regulatory_20261021/tracked_history_inventory.json",
+        "evidence/sourcefront21_regulatory_20261021/tracked_url_history.json"
+      ],
+      "output_role": "actual_source_plan_only_not_analytical_specialist_acceptance",
+      "coordinator_pick": "300615e32f62433f5923c34a4af432d30ddfc83f"
+    }
+  ],
+  "all_source_plan_HTTP_SQL": 0,
+  "full_specialist_acceptance": "0/21"
+}

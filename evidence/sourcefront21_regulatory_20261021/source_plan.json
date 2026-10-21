@@ -1,0 +1,245 @@
+{
+  "Doc51_filed_on": "2024-06-11",
+  "Doc51_scope": "ALLEGATIONS_ONLY",
+  "HTTP_search_browser_connector_collector_actions": 0,
+  "NHTSA_live": "APPROVAL_BLOCKED_NO_RETRY_ALTERNATE_TRANSPORT_BYPASS_OR_STATE_REWRITE",
+  "SQL_database_or_quota_actions": 0,
+  "adoptions": 0,
+  "base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "base_tree": "138a1169556f1fdd102c68cd95fda429b3e6c17b",
+  "bounds_for_any_separately_approved_future_exact_primary_request": {
+    "coordinator_only_after_peer_audit_and_prior_reservation": true,
+    "maximum_candidates": 3,
+    "maximum_original_bytes": 4000000,
+    "maximum_transport_per_reserved_candidate": 1,
+    "redirects": false,
+    "retries": false,
+    "timeout_seconds": 25,
+    "whole_sensitive_body_withheld_metadata_only": true
+  },
+  "candidate_limit": 3,
+  "candidates": [],
+  "case_name_is_financial_CIK_or_legal_continuity": false,
+  "eligible_candidate_count": 0,
+  "four_whole_withheld_paths_absent_and_unopened": [
+    "evidence/batch4_regulatory_20261013/raw/nhtsa_api_docs.html",
+    "evidence/batch4_ir_20261013/primary/ir_authority.html",
+    "evidence/batch5_ir_20261014/primary/ir_authority.html",
+    "evidence/batch8_regulatory_20261015/raw/njd_case_page.html"
+  ],
+  "full_specialist_acceptance": false,
+  "history_inventory": {
+    "bytes": 544888,
+    "path": "evidence/sourcefront21_regulatory_20261021/tracked_history_inventory.json",
+    "sha256": "facba5afbf4749ba8bdbfcd4a8df786526b7a81d41d2d8bab122e35235c4e2d2"
+  },
+  "initial_audit_plan": {
+    "bytes": 10202,
+    "path": "evidence/sourcefront21_regulatory_20261021/initial_source_plan_before_parent_pin.json",
+    "sha256": "fd064539d34a6dccd2dc2895ab7ab08d76fc541b83d955fe7253d2f2ea4e1ab0"
+  },
+  "initial_audit_verifier": {
+    "bytes": 20539,
+    "path": "evidence/sourcefront21_regulatory_20261021/audit_source_plan.py",
+    "sha256": "3606ef70e066de637d77ec350ee67192ca40c20cf242d0dfe3c2b92fc07f018a"
+  },
+  "known_at": "2026-10-21T02:14:20.303733+00:00",
+  "new_source_progress": {
+    "completed_Doc51_case_review_and_test_suites_repeated": false,
+    "does_not_establish_any_publisher_wide_absence": true,
+    "external_URI_annotations": 0,
+    "literal_HTTP_links_in_91_decoded_pages": 0,
+    "newly_available_whole_Doc51_link_audit": {
+      "bytes": 24894,
+      "path": "evidence/sourcefront21_regulatory_20261021/doc51_link_audit.json",
+      "sha256": "9f74f538a4d882913f688c1cac1a6aa915cd27726a764ad3fcfb4e9a8566e144"
+    },
+    "original_source_observed_at": "2026-10-20T14:33:17.921783+00:00",
+    "whole_original": {
+      "bytes": 3404671,
+      "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+      "sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6"
+    }
+  },
+  "next_action": "No HTTP is authorized by this blocked plan. A separately authorized discovery must first supply an unattempted exact official literal link, source-local scope and admissible original request history. Do not retry the failed locator, refresh an already attempted index, guess document numbers, use withheld pages or replace the FRS summary with fabricated bytes.",
+  "production_shared_registry_config_status_or_existing_evidence_changes": false,
+  "protected_journal_database_opened_hashed_copied_replayed_or_reset": false,
+  "provenance_revision": {
+    "change": "Add explicit whole Doc283 parent/metadata and paired dated letter anchor. Same BLOCKED scope, no source review/test repeat or request.",
+    "initial_audit_and_history_files_preserved_exactly": true,
+    "started_at": "2026-10-21T02:14:20.301885+00:00"
+  },
+  "recorded_attempt_history": {
+    "bytes": 82786,
+    "path": "evidence/sourcefront21_regulatory_20261021/tracked_url_history.json",
+    "sha256": "47a7d5b4a8a3c7009aade95c0cd8d5e13a263f3879ad1486c54943a7e6abf2f3"
+  },
+  "review_started_at": "2026-10-21T02:12:28.910053+00:00",
+  "route_assessments": [
+    {
+      "exact_Order_link": null,
+      "exact_Order_link_byte_offset": null,
+      "original_opinion_clause": {
+        "evidence": {
+          "character_end": 1364,
+          "character_start": 1235,
+          "exact_text": "For the reasons set forth above, Apple s motion to dismiss (ECF No. 86) is DENIED. An\nappropriate Order accompanies this Opinion.",
+          "literal_utf8_sha256": "7abd71df9b2cab34074dfbc84e00d08fafeaf223365adf96df56bdc00f2f4b6d",
+          "page": 33,
+          "page_text_utf8_sha256": "bee622ea2ca2ff007416bfb36a365b22d78caf1856c2f0eb55139a157c67d44c",
+          "whole_original_sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+        },
+        "kind": "OPINION_REFERENCES_SEPARATE_ORDER",
+        "meaning": "The original court opinion denies ECF86 and says an appropriate Order accompanies it. The reference is not the separate original Order; no document number or retrieval link is supplied by this passage.",
+        "merits_or_final_judgment_verified": false,
+        "separate_order_verified": false
+      },
+      "original_opinion_metadata": {
+        "bytes": 1110,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.metadata.json",
+        "sha256": "587834c51273118d10ec773fa6e2529e010304a31e12ed11d48f9276a7e45ab2"
+      },
+      "original_opinion_observed_at": "2026-10-15T13:40:16.524451+00:00",
+      "original_opinion_parent": {
+        "bytes": 1344697,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      },
+      "original_opinion_reinterpreted_by_this_followup": false,
+      "prior_attempt_metadata": {
+        "bytes": 707,
+        "path": "evidence/batch8_regulatory_20261015/raw/court_public_order.metadata.json",
+        "sha256": "4a5d4ab16fb0beb7271ecaea11387cfc94922ad050edf5531685405e9c450c4b"
+      },
+      "prior_attempted_locator": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+      "prior_result": {
+        "error_type": "URLError",
+        "http_status": null,
+        "observed_at": "2026-10-15T13:43:59.288997+00:00",
+        "original_body_bytes": null,
+        "original_body_sha256": null,
+        "status": "TRANSPORT_OR_CAPTURE_ERROR"
+      },
+      "reason": "The retained opinion says a separate Order accompanies it but supplies no retrieval URI or Order document number. The previously attempted failed locator is not a new eligible route; changing its number would be invented.",
+      "retained_crossreference_proof": {
+        "bytes": 20610,
+        "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+        "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+      },
+      "scope": "SEPARATE_ORIGINAL_ORDER",
+      "status": "BLOCKED_NO_NEW_LITERAL_LINK"
+    },
+    {
+      "exact_current_docket_or_disposition_link": null,
+      "exact_link_byte_offset": null,
+      "link_audit": {
+        "bytes": 7964,
+        "path": "evidence/sourcefront21_regulatory_20261021/doj_index_link_audit.json",
+        "sha256": "227513783bd5f23dd21d6c4310813a6990d3e612a65a00f5067e6ca99ebb2c78"
+      },
+      "out_of_scope_reason": "The paired dated publisher paragraph lists May30,2024 pre-motion correspondence. Its label/date do not support obtaining the separate June2025 Order or a current docket/disposition; it is not proposed for a request.",
+      "paired_publisher_dated_letter_anchor": {
+        "absolute_url": "https://www.justice.gov/atr/media/1358781/dl?inline",
+        "anchor_raw_byte_span": [
+          86155,
+          86402
+        ],
+        "anchor_raw_sha256": "1c636663f4f07a382334878985b882ccf685d4ea03b7b98f35198a527107eb4e",
+        "exact_anchor_html": "<a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"19329b51-aea4-40d2-b799-6981dffcacf9\" href=\"/atr/media/1358781/dl?inline\" title=\"423135.pdf\">Letter in Response to Apple's Letter Requesting a Pre-Motion Conference</a>",
+        "exact_href": "/atr/media/1358781/dl?inline",
+        "href_raw_byte_span": [
+          86278,
+          86306
+        ],
+        "label": "Letter in Response to Apple's Letter Requesting a Pre-Motion Conference",
+        "publisher_paragraph": {
+          "exact_html": "<p><a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"19329b51-aea4-40d2-b799-6981dffcacf9\" href=\"/atr/media/1358781/dl?inline\" title=\"423135.pdf\">Letter in Response to Apple's Letter Requesting a Pre-Motion Conference</a> (May 30, 2024)&nbsp;</p>",
+          "raw_byte_span": [
+            86152,
+            86427
+          ],
+          "raw_sha256": "6824a8203f929ed429d2ff265a2a20234aad4ecc2fa421e5a8b11ebe3c88979a"
+        }
+      },
+      "parent_metadata": {
+        "bytes": 981,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+        "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6"
+      },
+      "parent_primary": {
+        "bytes": 107793,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+        "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+      },
+      "parent_source_observed_at": "2026-10-15T18:10:37.550969+00:00",
+      "reason": "The retained index links only opposition, First Amended Complaint, pre-motion letter and original complaint. Doc51 has no decoded HTTP link or external URI annotation. The index itself is already attempted and is not a current complete court docket.",
+      "scope": "CURRENT_COMPLETE_DOCKET_OR_DISPOSITION",
+      "status": "BLOCKED_NO_NEW_LITERAL_LINK",
+      "unattempted_out_of_scope_link": {
+        "absolute_url": "https://www.justice.gov/atr/media/1358781/dl",
+        "anchor_raw_byte_span": [
+          90210,
+          90389
+        ],
+        "anchor_raw_sha256": "9a8379761991b820b252b77c554b4120ed43a308e2c25b767a806a80a0d03653",
+        "exact_anchor_html": "<a class=\"downloadable-file\" href=\"/atr/media/1358781/dl\" hreflang=\"en\">\n               Letter in Response to Apple&#039;s Letter Requesting a Pre-Motion Conference\n          </a>",
+        "exact_href": "/atr/media/1358781/dl",
+        "href_raw_byte_span": [
+          90245,
+          90266
+        ],
+        "label": "Letter in Response to Apple's Letter Requesting a Pre-Motion Conference"
+      }
+    },
+    {
+      "current_program_count": null,
+      "current_query_count": null,
+      "derived_summary": {
+        "bytes": 1574,
+        "path": "evidence/epa_echo_live_20261002.json",
+        "sha256": "8b6a2c94eccee5b32d2cc4796c7cd103e0b72baec44f969498dc30dcf5a07341"
+      },
+      "exact_original_request_parameters": null,
+      "exact_primary_link_byte_offset": null,
+      "exact_primary_parent_FRS_link": null,
+      "facility_name_from_historical_summary_only": "DOW INC",
+      "facility_registry_id_from_historical_summary_only": "110019986586",
+      "historical_original_body_available": false,
+      "historical_original_bytes": null,
+      "historical_original_claimed_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+      "original_durable_history": "UNOBSERVED",
+      "program_identity_or_dates_verified": false,
+      "reason": "A derived summary's generic endpoint/documentation strings are not a whole primary-parent facility/program link. Original bytes, exact request scope and original history are missing; no replacement body or zero count is invented.",
+      "retained_availability_proof": {
+        "bytes": 1550,
+        "path": "evidence/batch11_regulatory_20261018/source_availability.json",
+        "sha256": "3584c7037a5cac25bdcb925dc0cac0cd738ae24a93e01bbb4675ed8a753cebf0"
+      },
+      "scope": "WHOLE_ORIGINAL_FRS_FACILITY_PROGRAM_BODY",
+      "status": "BLOCKED_SUMMARY_ONLY_AND_UNKNOWN_ORIGINAL_HISTORY",
+      "summary_endpoint_literal": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info",
+      "summary_endpoint_raw_byte_span": [
+        182,
+        248
+      ],
+      "summary_is_primary_original": false
+    }
+  ],
+  "schema_version": "sourcefront21-regulatory-literal-link-source-plan-v1",
+  "scope_sought": [
+    "Separate original Order in Apple case2:24-cv-04055",
+    "Current complete docket/disposition for the same exact case",
+    "Whole original EPA FRS facility/program evidence for exact historical DOW facility110019986586"
+  ],
+  "separate_Order_current_docket_merits_disposition_issuer_identity_verified": false,
+  "source_clock_is_historical_machine_availability": false,
+  "source_requests_allowed_by_this_plan": 0,
+  "source_requests_performed": 0,
+  "source_requests_reserved": 0,
+  "status": "BLOCKED",
+  "verifier": {
+    "bytes": 3562,
+    "path": "evidence/sourcefront21_regulatory_20261021/finalize_plan.py",
+    "sha256": "7c00f06fc0118d775e257b7b67dad9a839ed2a8700233415c89e4b0612b6baa2"
+  }
+}

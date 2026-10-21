@@ -1,0 +1,17 @@
+{
+  "physical_started_at": "2026-10-21T02:08:54.302Z",
+  "public_base": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "workers_actually_running": 6,
+  "roles": {
+    "identity_bulk": "One new exact retained-link primary SEC source plan",
+    "healthcare": "One new static primary FDA/legal source plan; collectors blocked",
+    "regulatory": "One separate original Order/current-docket/whole-FRS source plan or exact blocker",
+    "sec": "One new exact original SEC executive certification source plan",
+    "contracts": "New offline WAFER_CAPACITY_DEPOSITS API and focused tests for retained SWKS Note11",
+    "evaluation": "Independent new candidate source-plan literal-link/history audit"
+  },
+  "HTTP_search_collector_SQL": 0,
+  "shared_registry_owner": "root",
+  "protected_DB_touched": false,
+  "previous_complete_outputs_not_repeated": true
+}

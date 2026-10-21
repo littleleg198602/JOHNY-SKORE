@@ -1,0 +1,457 @@
+{
+  "total_count": 5,
+  "jobs": [
+    {
+      "id": 118878043754,
+      "run_id": 39495108326,
+      "workflow_name": "Market Checker test agents",
+      "head_branch": "continuation/specialists-batch3-20261012",
+      "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39495108326",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORWpE1M8AAAAbra7-ag",
+      "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/118878043754",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/39495108326/job/118878043754",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-20T20:48:23Z",
+      "started_at": "2026-10-20T20:48:25Z",
+      "completed_at": "2026-10-20T21:40:04Z",
+      "name": "Windows contracts, persistence and UI",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-20T20:48:26Z",
+          "completed_at": "2026-10-20T20:48:27Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-20T20:48:27Z",
+          "completed_at": "2026-10-20T20:48:40Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-20T20:48:40Z",
+          "completed_at": "2026-10-20T20:48:49Z"
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-20T20:48:49Z",
+          "completed_at": "2026-10-20T20:49:31Z"
+        },
+        {
+          "name": "Compile every Python module",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-20T20:49:31Z",
+          "completed_at": "2026-10-20T20:49:33Z"
+        },
+        {
+          "name": "Verify SEC checkpoint and process resume regressions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-20T20:49:33Z",
+          "completed_at": "2026-10-20T20:50:11Z"
+        },
+        {
+          "name": "Run deterministic Windows suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-20T20:50:11Z",
+          "completed_at": "2026-10-20T21:39:58Z"
+        },
+        {
+          "name": "Preserve Windows verification log",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-20T21:39:58Z",
+          "completed_at": "2026-10-20T21:39:59Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-20T21:39:59Z",
+          "completed_at": "2026-10-20T21:40:00Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-20T21:40:00Z",
+          "completed_at": "2026-10-20T21:40:02Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-20T21:40:02Z",
+          "completed_at": "2026-10-20T21:40:02Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/118878043754",
+      "labels": [
+        "windows-latest"
+      ],
+      "runner_id": 1000003171,
+      "runner_name": "GitHub Actions 1000003171",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 118878044287,
+      "run_id": 39495108326,
+      "workflow_name": "Market Checker test agents",
+      "head_branch": "continuation/specialists-batch3-20261012",
+      "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39495108326",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORWpE1M8AAAAbra8Afw",
+      "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/118878044287",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/39495108326/job/118878044287",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-20T20:48:23Z",
+      "started_at": "2026-10-20T20:48:25Z",
+      "completed_at": "2026-10-20T20:49:13Z",
+      "name": "Streamlit UI agent",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-20T20:48:25Z",
+          "completed_at": "2026-10-20T20:48:26Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-20T20:48:26Z",
+          "completed_at": "2026-10-20T20:48:31Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-20T20:48:31Z",
+          "completed_at": "2026-10-20T20:48:33Z"
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-20T20:48:33Z",
+          "completed_at": "2026-10-20T20:48:56Z"
+        },
+        {
+          "name": "Verify the application and Yahoo controls render",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-20T20:48:56Z",
+          "completed_at": "2026-10-20T20:49:11Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-20T20:49:11Z",
+          "completed_at": "2026-10-20T20:49:11Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-20T20:49:11Z",
+          "completed_at": "2026-10-20T20:49:11Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-20T20:49:11Z",
+          "completed_at": "2026-10-20T20:49:11Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/118878044287",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000003172,
+      "runner_name": "GitHub Actions 1000003172",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 118878044354,
+      "run_id": 39495108326,
+      "workflow_name": "Market Checker test agents",
+      "head_branch": "continuation/specialists-batch3-20261012",
+      "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39495108326",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORWpE1M8AAAAbra8Awg",
+      "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/118878044354",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/39495108326/job/118878044354",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-20T20:48:23Z",
+      "started_at": "2026-10-20T20:48:25Z",
+      "completed_at": "2026-10-20T20:59:34Z",
+      "name": "Contract, source and persistence agent",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-20T20:48:25Z",
+          "completed_at": "2026-10-20T20:48:26Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-20T20:48:26Z",
+          "completed_at": "2026-10-20T20:48:37Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-20T20:48:37Z",
+          "completed_at": "2026-10-20T20:48:39Z"
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-20T20:48:39Z",
+          "completed_at": "2026-10-20T20:48:58Z"
+        },
+        {
+          "name": "Compile every Python module",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-20T20:48:58Z",
+          "completed_at": "2026-10-20T20:48:59Z"
+        },
+        {
+          "name": "Run deterministic test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-20T20:48:59Z",
+          "completed_at": "2026-10-20T20:59:32Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-20T20:59:32Z",
+          "completed_at": "2026-10-20T20:59:32Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-20T20:59:32Z",
+          "completed_at": "2026-10-20T20:59:32Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-20T20:59:32Z",
+          "completed_at": "2026-10-20T20:59:32Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/118878044354",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000003173,
+      "runner_name": "GitHub Actions 1000003173",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 118878044413,
+      "run_id": 39495108326,
+      "workflow_name": "Market Checker test agents",
+      "head_branch": "continuation/specialists-batch3-20261012",
+      "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39495108326",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORWpE1M8AAAAbra8A_Q",
+      "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/118878044413",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/39495108326/job/118878044413",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-20T20:48:23Z",
+      "started_at": "2026-10-20T20:48:25Z",
+      "completed_at": "2026-10-20T20:49:22Z",
+      "name": "687 ticker scale and progress agent",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-20T20:48:26Z",
+          "completed_at": "2026-10-20T20:48:27Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-20T20:48:27Z",
+          "completed_at": "2026-10-20T20:48:33Z"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-20T20:48:33Z",
+          "completed_at": "2026-10-20T20:48:38Z"
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-20T20:48:38Z",
+          "completed_at": "2026-10-20T20:48:56Z"
+        },
+        {
+          "name": "Verify exact 687-ticker contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-20T20:48:56Z",
+          "completed_at": "2026-10-20T20:49:20Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-20T20:49:20Z",
+          "completed_at": "2026-10-20T20:49:20Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-20T20:49:20Z",
+          "completed_at": "2026-10-20T20:49:20Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-20T20:49:20Z",
+          "completed_at": "2026-10-20T20:49:20Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/118878044413",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000003174,
+      "runner_name": "GitHub Actions 1000003174",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 118902225156,
+      "run_id": 39495108326,
+      "workflow_name": "Market Checker test agents",
+      "head_branch": "continuation/specialists-batch3-20261012",
+      "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39495108326",
+      "run_attempt": 1,
+      "node_id": "CR_kwDORWpE1M8AAAAbrx_5BA",
+      "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/118902225156",
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/39495108326/job/118902225156",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-20T21:40:04Z",
+      "started_at": "2026-10-20T21:40:06Z",
+      "completed_at": "2026-10-20T21:40:09Z",
+      "name": "Deterministic release gate",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-20T21:40:07Z",
+          "completed_at": "2026-10-20T21:40:07Z"
+        },
+        {
+          "name": "Require every test agent to pass",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-20T21:40:07Z",
+          "completed_at": "2026-10-20T21:40:07Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-20T21:40:08Z",
+          "completed_at": "2026-10-20T21:40:08Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/118902225156",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000003176,
+      "runner_name": "GitHub Actions 1000003176",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

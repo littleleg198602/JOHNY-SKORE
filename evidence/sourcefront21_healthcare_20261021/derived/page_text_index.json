@@ -1,0 +1,1019 @@
+{
+  "schema_version": "two_actual_fda_pdf_page_index_v1",
+  "review_started_at": "2026-10-21T07:22:07.790510+00:00",
+  "documents": [
+    {
+      "key": "approval_2019",
+      "source_absolute_path": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "source_repo_path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "whole_pdf_bytes": 137546,
+      "whole_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+      "capture_metadata_absolute_path": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.metadata.json",
+      "capture_metadata_bytes": 1636,
+      "capture_metadata_sha256": "1d370f99d070958eee1f81b64f7c6563b09182a3d897dd6f65d41a74598db03a",
+      "source_requested_at": "2026-10-21T07:12:26.381422+00:00",
+      "source_observed_at": "2026-10-21T07:12:30.116950+00:00",
+      "source_capture_known_at": "2026-10-21T07:12:30.175333+00:00",
+      "source_publication_time": null,
+      "derived_text_filename": "approval_2019.layout.txt",
+      "derived_text_bytes": 19840,
+      "derived_text_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+      "extraction_command": [
+        "pdftotext",
+        "-layout",
+        "-enc",
+        "UTF-8",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt"
+      ],
+      "reused_already_extracted_exact_text": true,
+      "extraction_stderr_this_invocation": null,
+      "pdfinfo_stdout": "Title:           Approval Package\nSubject:         Review\nAuthor:          FDA\nCreationDate:    Fri May 17 09:18:52 2019 EDT\nModDate:         Fri May 17 09:57:21 2019 EDT\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          yes\nUserProperties:  no\nSuspects:        no\nForm:            AcroForm\nJavaScript:      no\nPages:           10\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       137546 bytes\nOptimized:       no\nPDF version:     1.7\n",
+      "pdfinfo_stderr": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "page_count": 10,
+      "pages": [
+        {
+          "physical_page": 1,
+          "derived_byte_start": 0,
+          "derived_byte_end_exclusive": 856,
+          "global_line_start": 1,
+          "global_line_end": 24,
+          "page_line_count": 23,
+          "page_text_bytes": 856,
+          "page_text_sha256": "334d757750df9ec787a643902ca615d8240d9ab3d67014f241d924b565861f7c",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 1,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 2,
+          "derived_byte_start": 857,
+          "derived_byte_end_exclusive": 1802,
+          "global_line_start": 24,
+          "global_line_end": 50,
+          "page_line_count": 26,
+          "page_text_bytes": 945,
+          "page_text_sha256": "6f0d05a421470b2028a03110fab44c27305604eb4110589e34b51c2ce5ba0f7e",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 3,
+          "derived_byte_start": 1803,
+          "derived_byte_end_exclusive": 1932,
+          "global_line_start": 50,
+          "global_line_end": 60,
+          "page_line_count": 10,
+          "page_text_bytes": 129,
+          "page_text_sha256": "be4fd0d4fbfb7ee2922abdd8f7735d913a5c9ffee13e1102ee5d25109f78ec07",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 4,
+          "derived_byte_start": 1933,
+          "derived_byte_end_exclusive": 4115,
+          "global_line_start": 60,
+          "global_line_end": 107,
+          "page_line_count": 47,
+          "page_text_bytes": 2182,
+          "page_text_sha256": "2d4b647b4c71b065c79f5bace6bf69636b53cce4b42edb00dbefa57359a5a0d4",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 1,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 1,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 5,
+          "derived_byte_start": 4116,
+          "derived_byte_end_exclusive": 7675,
+          "global_line_start": 107,
+          "global_line_end": 164,
+          "page_line_count": 57,
+          "page_text_bytes": 3559,
+          "page_text_sha256": "7a584c0e105c048275dc51463eb5d3dfcf84f6954280ea595f3c54ce1f334925",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 6,
+          "derived_byte_start": 7676,
+          "derived_byte_end_exclusive": 11145,
+          "global_line_start": 164,
+          "global_line_end": 219,
+          "page_line_count": 55,
+          "page_text_bytes": 3469,
+          "page_text_sha256": "f8d6ecac4bb3db10321b79877012b379f7a7ccf6ffebc69f008a16ec2a72c2fb",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 7,
+          "derived_byte_start": 11146,
+          "derived_byte_end_exclusive": 14547,
+          "global_line_start": 219,
+          "global_line_end": 274,
+          "page_line_count": 55,
+          "page_text_bytes": 3401,
+          "page_text_sha256": "6956a690e28387eba8e36acfd1524fae9fef79a3bd2bf7dcee662c7591d90376",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 8,
+          "derived_byte_start": 14548,
+          "derived_byte_end_exclusive": 17284,
+          "global_line_start": 274,
+          "global_line_end": 323,
+          "page_line_count": 49,
+          "page_text_bytes": 2736,
+          "page_text_sha256": "088fbfb2e17e6aa99a193c961c22f9f217382b8371dbf57d0e3eabf8128e4a05",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 9,
+          "derived_byte_start": 17285,
+          "derived_byte_end_exclusive": 19121,
+          "global_line_start": 323,
+          "global_line_end": 362,
+          "page_line_count": 39,
+          "page_text_bytes": 1836,
+          "page_text_sha256": "19a99b82cfc3e5b8fa519611691c7136b3dcecd3d8ade02f83f41481f1ab1fde",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 10,
+          "derived_byte_start": 19122,
+          "derived_byte_end_exclusive": 19839,
+          "global_line_start": 362,
+          "global_line_end": 379,
+          "page_line_count": 17,
+          "page_text_bytes": 717,
+          "page_text_sha256": "2d8c847c49375827c9b2aa29a0af45458dbdce760d5b99fc2e58df087b6c5a49",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        }
+      ],
+      "whole_text_search_counts": {
+        "exact_unlimited_applicant": 0,
+        "any_unlimited": 0,
+        "short_name": 2,
+        "issuer_cik": 0,
+        "ownership_words": 0,
+        "license_2060": 1,
+        "manufacturer_role": 0,
+        "distributor_role": 0
+      },
+      "text_coordinates_are_derived_not_original_PDF_byte_offsets": true,
+      "whole_text_search_is_not_full_pixel_or_universe_absence_proof": true,
+      "all_source_bytes_rechecked_unchanged_after_extraction": true
+    },
+    {
+      "key": "label_2025",
+      "source_absolute_path": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "source_repo_path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "whole_pdf_bytes": 2495404,
+      "whole_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+      "capture_metadata_absolute_path": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.metadata.json",
+      "capture_metadata_bytes": 1619,
+      "capture_metadata_sha256": "75179cbd2b8c00d0201c51b12d7b05b9796c0c7556c1cdb9df590dbff20954c4",
+      "source_requested_at": "2026-10-21T07:12:30.176417+00:00",
+      "source_observed_at": "2026-10-21T07:12:34.528887+00:00",
+      "source_capture_known_at": "2026-10-21T07:12:34.908342+00:00",
+      "source_publication_time": null,
+      "derived_text_filename": "label_2025.layout.txt",
+      "derived_text_bytes": 142311,
+      "derived_text_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+      "extraction_command": [
+        "pdftotext",
+        "-layout",
+        "-enc",
+        "UTF-8",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt"
+      ],
+      "reused_already_extracted_exact_text": true,
+      "extraction_stderr_this_invocation": null,
+      "pdfinfo_stdout": "Title:           label\nSubject:         Trazimera (trastuzumab-qyyp) for injection\nKeywords:        Trazimera (trastuzumab-qyyp) for injection\nAuthor:          fda/cder\nCreator:         Acrobat PDFMaker 25 for Word\nProducer:        Adobe Acrobat (32-bit) 25 Paper Capture Plug-in\nCreationDate:    Mon Aug 25 13:16:54 2025 EDT\nModDate:         Mon Aug 25 13:23:36 2025 EDT\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          yes\nUserProperties:  no\nSuspects:        no\nForm:            AcroForm\nJavaScript:      no\nPages:           36\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       2495404 bytes\nOptimized:       no\nPDF version:     1.6\n",
+      "pdfinfo_stderr": "",
+      "page_count": 36,
+      "pages": [
+        {
+          "physical_page": 1,
+          "derived_byte_start": 0,
+          "derived_byte_end_exclusive": 10040,
+          "global_line_start": 1,
+          "global_line_end": 82,
+          "page_line_count": 81,
+          "page_text_bytes": 10040,
+          "page_text_sha256": "651599e75d26509e82b25b514025ec2e017990d73f6e75e3d462d350d5dbbaa0",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 2,
+          "derived_byte_start": 10041,
+          "derived_byte_end_exclusive": 10455,
+          "global_line_start": 82,
+          "global_line_end": 94,
+          "page_line_count": 12,
+          "page_text_bytes": 414,
+          "page_text_sha256": "eb8958a4e2d8d5f69f00b3ed005126c0c3b687e22aabdb021341f85fb51bd6b3",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 3,
+          "derived_byte_start": 10456,
+          "derived_byte_end_exclusive": 13599,
+          "global_line_start": 94,
+          "global_line_end": 147,
+          "page_line_count": 53,
+          "page_text_bytes": 3143,
+          "page_text_sha256": "b8ed5ded5924afb1c54ab7f656653e1b18dcfeb45653fb4765b5daeef5b0973b",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 4,
+          "derived_byte_start": 13600,
+          "derived_byte_end_exclusive": 16484,
+          "global_line_start": 147,
+          "global_line_end": 199,
+          "page_line_count": 52,
+          "page_text_bytes": 2884,
+          "page_text_sha256": "9d8b61dda210b32725165a35ba570ec1a7fdcf1cfbe29abcac4ece2873d9cdcb",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 5,
+          "derived_byte_start": 16485,
+          "derived_byte_end_exclusive": 19458,
+          "global_line_start": 199,
+          "global_line_end": 251,
+          "page_line_count": 52,
+          "page_text_bytes": 2973,
+          "page_text_sha256": "8ec26f188be90105c817cc8d33fff87f4b4991c0c8ad9719a6bff54965292cfe",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 6,
+          "derived_byte_start": 19459,
+          "derived_byte_end_exclusive": 22775,
+          "global_line_start": 251,
+          "global_line_end": 303,
+          "page_line_count": 52,
+          "page_text_bytes": 3316,
+          "page_text_sha256": "d4da85903a38842871548742d61be8990512f9bda24cdf4e059bfb51e6452bea",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 7,
+          "derived_byte_start": 22776,
+          "derived_byte_end_exclusive": 26065,
+          "global_line_start": 303,
+          "global_line_end": 355,
+          "page_line_count": 52,
+          "page_text_bytes": 3289,
+          "page_text_sha256": "99563d44535ea5fbcc7facaecc000cf20fc1b17e44fb250bfbb9a00481c25832",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 8,
+          "derived_byte_start": 26066,
+          "derived_byte_end_exclusive": 29731,
+          "global_line_start": 355,
+          "global_line_end": 407,
+          "page_line_count": 52,
+          "page_text_bytes": 3665,
+          "page_text_sha256": "5895e3d2363a0671fad6639cb281c878315cc304f8ad27e81e7b6d4834bf6b50",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 9,
+          "derived_byte_start": 29732,
+          "derived_byte_end_exclusive": 32996,
+          "global_line_start": 407,
+          "global_line_end": 475,
+          "page_line_count": 68,
+          "page_text_bytes": 3264,
+          "page_text_sha256": "2b81e39c332cf458f82ec7d889963e4303bd9264ac173c21c54410c169ad688e",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 10,
+          "derived_byte_start": 32997,
+          "derived_byte_end_exclusive": 36923,
+          "global_line_start": 475,
+          "global_line_end": 528,
+          "page_line_count": 53,
+          "page_text_bytes": 3926,
+          "page_text_sha256": "160ce9b58054b1735dfa14f8f00bd846623f65a5fd1a3746ae61cc658c2ec690",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 11,
+          "derived_byte_start": 36924,
+          "derived_byte_end_exclusive": 40636,
+          "global_line_start": 528,
+          "global_line_end": 582,
+          "page_line_count": 54,
+          "page_text_bytes": 3712,
+          "page_text_sha256": "800275c8fb2b8e66d8a0a869e82888cf5351fdc98fe4e16de271bcd5a45f2224",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 12,
+          "derived_byte_start": 40637,
+          "derived_byte_end_exclusive": 45852,
+          "global_line_start": 582,
+          "global_line_end": 644,
+          "page_line_count": 62,
+          "page_text_bytes": 5215,
+          "page_text_sha256": "9f999e2792e3d695ab23307511e90db9aac876caa1b31d99f091a67b0e031e18",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 13,
+          "derived_byte_start": 45853,
+          "derived_byte_end_exclusive": 50258,
+          "global_line_start": 644,
+          "global_line_end": 700,
+          "page_line_count": 56,
+          "page_text_bytes": 4405,
+          "page_text_sha256": "2ae67a3c9fda140e03c2039eafb94a5599ac1d8b6680bff64fe9646e9b18c779",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 14,
+          "derived_byte_start": 50259,
+          "derived_byte_end_exclusive": 55991,
+          "global_line_start": 700,
+          "global_line_end": 763,
+          "page_line_count": 63,
+          "page_text_bytes": 5732,
+          "page_text_sha256": "de998e2143098e2da6dc4733e763f1a7fd30cf774af95655a57d221d0dfd5909",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 15,
+          "derived_byte_start": 55992,
+          "derived_byte_end_exclusive": 60678,
+          "global_line_start": 763,
+          "global_line_end": 822,
+          "page_line_count": 59,
+          "page_text_bytes": 4686,
+          "page_text_sha256": "b4a03e1bbf7563137d5db431052af07ded3300830e087382d1868465db98c93b",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 16,
+          "derived_byte_start": 60679,
+          "derived_byte_end_exclusive": 63926,
+          "global_line_start": 822,
+          "global_line_end": 868,
+          "page_line_count": 46,
+          "page_text_bytes": 3247,
+          "page_text_sha256": "c7f204d94ba5da81f3f17d541fbc892f79c2d0ec33ffc0dd692cdcc97b2cdffb",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 17,
+          "derived_byte_start": 63927,
+          "derived_byte_end_exclusive": 67876,
+          "global_line_start": 868,
+          "global_line_end": 952,
+          "page_line_count": 84,
+          "page_text_bytes": 3949,
+          "page_text_sha256": "f2271a8a756c21eb61b99fefb0ed0709131bb77c7ceec89a98dc7e0568a7ece2",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 18,
+          "derived_byte_start": 67877,
+          "derived_byte_end_exclusive": 72306,
+          "global_line_start": 952,
+          "global_line_end": 1031,
+          "page_line_count": 79,
+          "page_text_bytes": 4429,
+          "page_text_sha256": "ac6c8bb948d4312e4229f504741d523894bdb0146b1d810a269eb63d10df1f54",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 19,
+          "derived_byte_start": 72307,
+          "derived_byte_end_exclusive": 76292,
+          "global_line_start": 1031,
+          "global_line_end": 1086,
+          "page_line_count": 55,
+          "page_text_bytes": 3985,
+          "page_text_sha256": "07bbcac11ba7ce6cab6e7de55278c83231cfa424ae22e2f1d9328409671a3fee",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 20,
+          "derived_byte_start": 76293,
+          "derived_byte_end_exclusive": 79971,
+          "global_line_start": 1086,
+          "global_line_end": 1139,
+          "page_line_count": 53,
+          "page_text_bytes": 3678,
+          "page_text_sha256": "2797a68172487b87cca5b295edfab3506f87f107270199f680cda886f36f4283",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 21,
+          "derived_byte_start": 79972,
+          "derived_byte_end_exclusive": 83210,
+          "global_line_start": 1139,
+          "global_line_end": 1194,
+          "page_line_count": 55,
+          "page_text_bytes": 3238,
+          "page_text_sha256": "d85580d1692124eaaa9ce6d072f8ad590680799796abfda97cf0c0e2d9e9ead4",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 22,
+          "derived_byte_start": 83211,
+          "derived_byte_end_exclusive": 86638,
+          "global_line_start": 1194,
+          "global_line_end": 1249,
+          "page_line_count": 55,
+          "page_text_bytes": 3427,
+          "page_text_sha256": "f2949a0b14eeae56eb6242ef10aaff56dcfe01906671aaa7779c8b17d2fee35e",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 23,
+          "derived_byte_start": 86639,
+          "derived_byte_end_exclusive": 90294,
+          "global_line_start": 1249,
+          "global_line_end": 1304,
+          "page_line_count": 55,
+          "page_text_bytes": 3655,
+          "page_text_sha256": "4d9a2cf9d978aa7aa59108c9877206fbaa7ffdc1c296388bf4ab1c966742ea6a",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 24,
+          "derived_byte_start": 90295,
+          "derived_byte_end_exclusive": 94450,
+          "global_line_start": 1304,
+          "global_line_end": 1367,
+          "page_line_count": 63,
+          "page_text_bytes": 4155,
+          "page_text_sha256": "cbfe0962d7cd5ab772abf98ee9f03ab5173a339e464849b7d7095a6da43638ab",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 25,
+          "derived_byte_start": 94451,
+          "derived_byte_end_exclusive": 97876,
+          "global_line_start": 1367,
+          "global_line_end": 1422,
+          "page_line_count": 55,
+          "page_text_bytes": 3425,
+          "page_text_sha256": "f600e296dbadca96a3013609630ae29a286f3565f54188fff2ed26aee6205815",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 26,
+          "derived_byte_start": 97877,
+          "derived_byte_end_exclusive": 102330,
+          "global_line_start": 1422,
+          "global_line_end": 1477,
+          "page_line_count": 55,
+          "page_text_bytes": 4453,
+          "page_text_sha256": "7acba794cbfc63e9dd5d5103b35888782e19ad2ba18a76893ad27e986d1b9c20",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 27,
+          "derived_byte_start": 102331,
+          "derived_byte_end_exclusive": 107065,
+          "global_line_start": 1477,
+          "global_line_end": 1532,
+          "page_line_count": 55,
+          "page_text_bytes": 4734,
+          "page_text_sha256": "a928140edb39d5ead92f11bb7626833cad3168324ab3a808187cb8851e85ea99",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 28,
+          "derived_byte_start": 107066,
+          "derived_byte_end_exclusive": 111498,
+          "global_line_start": 1532,
+          "global_line_end": 1604,
+          "page_line_count": 72,
+          "page_text_bytes": 4432,
+          "page_text_sha256": "8e34b88608e0bd3c3c0c122b8b2fde8c4002c98abad98d19c90b45d03b793ce6",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 29,
+          "derived_byte_start": 111499,
+          "derived_byte_end_exclusive": 116303,
+          "global_line_start": 1604,
+          "global_line_end": 1692,
+          "page_line_count": 88,
+          "page_text_bytes": 4804,
+          "page_text_sha256": "9a1c3b65cdd279219989cb874deb4024f5638adc9052918aa6ff9c6a8d8dc19b",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 30,
+          "derived_byte_start": 116304,
+          "derived_byte_end_exclusive": 121761,
+          "global_line_start": 1692,
+          "global_line_end": 1774,
+          "page_line_count": 82,
+          "page_text_bytes": 5457,
+          "page_text_sha256": "d14b716f2a4fa5579f01fe0c0034f4c1a6ad9bfa143afcce2147dadd9cf4e4e8",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 31,
+          "derived_byte_start": 121762,
+          "derived_byte_end_exclusive": 124524,
+          "global_line_start": 1774,
+          "global_line_end": 1810,
+          "page_line_count": 36,
+          "page_text_bytes": 2762,
+          "page_text_sha256": "7ef9934fe47e685532b19e6419dea4ac66ba824541b9d2294b4f71981b3aac4e",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 32,
+          "derived_byte_start": 124525,
+          "derived_byte_end_exclusive": 129282,
+          "global_line_start": 1810,
+          "global_line_end": 1874,
+          "page_line_count": 64,
+          "page_text_bytes": 4757,
+          "page_text_sha256": "2ac0cf51f2fdbf494e58a7b504232d8b7adaab480e4ced40e5dc7e76572914be",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 33,
+          "derived_byte_start": 129283,
+          "derived_byte_end_exclusive": 132987,
+          "global_line_start": 1874,
+          "global_line_end": 1922,
+          "page_line_count": 48,
+          "page_text_bytes": 3704,
+          "page_text_sha256": "90bbcca0e78c4e409fb642f128bcab51beb1147db232d84eefc57a1e1c2dd24e",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 34,
+          "derived_byte_start": 132988,
+          "derived_byte_end_exclusive": 136817,
+          "global_line_start": 1922,
+          "global_line_end": 1991,
+          "page_line_count": 69,
+          "page_text_bytes": 3829,
+          "page_text_sha256": "fa97dda0d96368ab9c143eec7df682f3932b452df3bc0d18cee7751e07d0b5e0",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 35,
+          "derived_byte_start": 136818,
+          "derived_byte_end_exclusive": 140719,
+          "global_line_start": 1991,
+          "global_line_end": 2050,
+          "page_line_count": 59,
+          "page_text_bytes": 3901,
+          "page_text_sha256": "fe3570ba5b7966875130d312f17e0d88fda7238beae5183e146707a78ac44e70",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 0,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 0,
+            "manufacturer_role": 0,
+            "distributor_role": 0
+          }
+        },
+        {
+          "physical_page": 36,
+          "derived_byte_start": 140720,
+          "derived_byte_end_exclusive": 142310,
+          "global_line_start": 2050,
+          "global_line_end": 2093,
+          "page_line_count": 43,
+          "page_text_bytes": 1590,
+          "page_text_sha256": "3ee1df3adbc72415416333fbf00f8bd8bf7b58c6dac4361553ba7dc9023e5e97",
+          "complete_page_text_identity_search_counts": {
+            "exact_unlimited_applicant": 0,
+            "any_unlimited": 0,
+            "short_name": 1,
+            "issuer_cik": 0,
+            "ownership_words": 0,
+            "license_2060": 1,
+            "manufacturer_role": 1,
+            "distributor_role": 1
+          }
+        }
+      ],
+      "whole_text_search_counts": {
+        "exact_unlimited_applicant": 0,
+        "any_unlimited": 0,
+        "short_name": 1,
+        "issuer_cik": 0,
+        "ownership_words": 0,
+        "license_2060": 1,
+        "manufacturer_role": 1,
+        "distributor_role": 1
+      },
+      "text_coordinates_are_derived_not_original_PDF_byte_offsets": true,
+      "whole_text_search_is_not_full_pixel_or_universe_absence_proof": true,
+      "all_source_bytes_rechecked_unchanged_after_extraction": true
+    }
+  ],
+  "network_HTTP_collector_SQL_operations": 0,
+  "known_at": "2026-10-21T07:22:07.875801+00:00",
+  "ingested_at": "2026-10-21T07:22:07.875801+00:00"
+}

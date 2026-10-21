@@ -1,0 +1,90 @@
+{
+  "physical_verified_at": "2026-10-21T01:57:41.903720+00:00",
+  "FETCH_HEAD_mtime_UTC": "2026-10-21T01:57:12.479585+00:00",
+  "FETCH_HEAD": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4\t\tbranch 'continuation/specialists-batch3-20261012' of https://github.com/littleleg198602/JOHNY-SKORE\n",
+  "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "tree": "138a1169556f1fdd102c68cd95fda429b3e6c17b",
+  "only_public_parent": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "local_commit": "8befa7ba9ca8fb5038e095c9482fb2d23393fdcd",
+  "local_tree": "138a1169556f1fdd102c68cd95fda429b3e6c17b",
+  "working_tree_clean": true,
+  "current_source_test_pins": [
+    {
+      "path": "market_checker_app/services/captured_identity_review_service.py",
+      "bytes": 29653,
+      "sha256": "27dfe349d64e518839fe58a2ac859edc1f9ee9f0c67f8acbc025934583720d03"
+    },
+    {
+      "path": "market_checker_app/services/doj_enforcement_scope_review.py",
+      "bytes": 30225,
+      "sha256": "242d8eb6c6b554c95222a7cb218003c9590163a10b6e84b4498218056e0db174"
+    },
+    {
+      "path": "market_checker_app/services/healthcare_identity_service.py",
+      "bytes": 37869,
+      "sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192"
+    },
+    {
+      "path": "market_checker_app/services/healthcare_scout_service.py",
+      "bytes": 27135,
+      "sha256": "43fb3ba05b47dc7f1d11d548a065fa063334923ad534eeffa49c911e11551778"
+    },
+    {
+      "path": "market_checker_app/services/sec_corporate_action_bridge.py",
+      "bytes": 67349,
+      "sha256": "9eaae634689f587ecf71f4d72840b21cb50df458750092ec3e35c0d287a374d4"
+    },
+    {
+      "path": "market_checker_app/services/sec_form4_person_bridge.py",
+      "bytes": 47825,
+      "sha256": "6e315f4b4c967b6f4c51486b33b855c4c48519f3b595c931b0b0f4a09e3584a0"
+    },
+    {
+      "path": "market_checker_app/specialist_evidence_ui.py",
+      "bytes": 29163,
+      "sha256": "5502761548db2c8436a35f6ff45072539f1afe82e9e5776706c130dfc9a76669"
+    },
+    {
+      "path": "tests/test_healthcare_identity_service.py",
+      "bytes": 23513,
+      "sha256": "88e6bcc2e2f31ca99e1de4102fd32915b50dc52d8a455e5f9b5b4f948407c56a"
+    },
+    {
+      "path": "tests/test_cms_snapshot_attribution_peer.py",
+      "bytes": 8381,
+      "sha256": "bef8f5403e33c721ae0b125a5eed45f736a87cd6c28b1f102f939dcd5c3470ba"
+    },
+    {
+      "path": "tests/test_sourcefront_charter_disclosure.py",
+      "bytes": 11887,
+      "sha256": "6144dd231715b0a256d27e7afef55ea8487a12ceb5f622cde96400db1030c5b9"
+    },
+    {
+      "path": "tests/test_sourcefront_coordinator_integration.py",
+      "bytes": 6069,
+      "sha256": "29cbc7d37235298e5217abad70a568034c0d066be2ef139bf0381d980f2ec9ed"
+    },
+    {
+      "path": "tests/test_sourcefront_doj_first_amended.py",
+      "bytes": 10456,
+      "sha256": "63890e97a358d088fb90747fa256854cadc15328e42938fa5ba298e53ac6531c"
+    },
+    {
+      "path": "tests/test_sourcefront_form144_account_notice.py",
+      "bytes": 20611,
+      "sha256": "8a3cb2da5599e0b748f01b12c771fd33b805f8e351a7f754b69cdc45c36b278a"
+    },
+    {
+      "path": "tests/test_sourcefront_healthcare_cms_20261020.py",
+      "bytes": 8036,
+      "sha256": "e18e021ef039ccfbf1ec82934f8f18a26097429f559e82e06c495f83d8f4879c"
+    }
+  ],
+  "pre_CI_original_pin": {
+    "bytes": 8855,
+    "sha256": "2884599f651a668391de6aa2dcdcb575ab581df90c4ca6ad24a646114442b9cb"
+  },
+  "force_push": false,
+  "private_ancestry_published": false,
+  "merge": false
+}

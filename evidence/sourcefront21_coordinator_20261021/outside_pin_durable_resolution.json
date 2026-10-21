@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-10-21T07:24:54.409991+00:00",
+  "copies": [
+    {
+      "historical_original_path": "/workspace/scratch/334b3a149083/sourcefront21_20261021/selected_candidates.json",
+      "durable_exact_copy": {
+        "path": "evidence/sourcefront21_coordinator_20261021/selected_candidates.json",
+        "bytes": 5814,
+        "sha256": "60c86f690de7a7bc8be143455317d21b37053548a1eae771b3565c2bbaea87d4"
+      },
+      "copy_is_byte_exact": true,
+      "historical_declarations_not_rewritten": true
+    },
+    {
+      "historical_original_path": "/workspace/scratch/334b3a149083/sourcefront21_20261021/public9d_inventory.json",
+      "durable_exact_copy": {
+        "path": "evidence/sourcefront21_coordinator_20261021/public9d_inventory.json",
+        "bytes": 787544,
+        "sha256": "1780e2990ed03da7f6fc15f169028d773752e46657a19e8671c41d8443e2e1d8"
+      },
+      "copy_is_byte_exact": true,
+      "historical_declarations_not_rewritten": true
+    }
+  ],
+  "helper_or_audit_replayed": false
+}

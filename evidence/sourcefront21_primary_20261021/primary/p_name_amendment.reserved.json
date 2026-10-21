@@ -1,0 +1,16 @@
+{
+  "key": "p_name_amendment",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+  "method": "GET",
+  "started_at": "2026-10-21T07:12:17.349815+00:00",
+  "request_plan_sha256": "f73ed0625350ef8a1c51eb20cbec9a484f483c7f9071f3bbe3bf1e7eed06dbf0",
+  "max_response_bytes": 1000000,
+  "timeout_seconds": 25,
+  "research_only": true,
+  "collector_api_used": false,
+  "retry": false,
+  "redirect": false,
+  "fallback": false,
+  "quota_database_created_or_modified": false,
+  "status": "REQUEST_RESERVED"
+}

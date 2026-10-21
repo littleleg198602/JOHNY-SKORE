@@ -1,0 +1,261 @@
+{
+  "recorded_at": "2026-10-21T07:29:34.919157+00:00",
+  "public_base": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "workers": [
+    {
+      "role": "identity_bulk",
+      "worker_commit": "26eb46460e77b53d9f6c31257395c7af4e5a6bd6",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_identity_20261021/source_plan.json"
+      ],
+      "output_role": "actual_source_plan_only_not_analytical_specialist_acceptance",
+      "coordinator_pick": "602e4f82fb38c15fe0ef94f4b1d19904d5c5a6d3"
+    },
+    {
+      "role": "healthcare",
+      "worker_commit": "2648849505a4bfacf0eab941df7b07ca0afe8dfd",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_healthcare_20261021/source_plan.json",
+        "evidence/sourcefront21_healthcare_20261021/tracked_history_audit.json",
+        "evidence/sourcefront21_healthcare_20261021/validation.json"
+      ],
+      "output_role": "actual_source_plan_only_not_analytical_specialist_acceptance",
+      "coordinator_pick": "5e3aa9594efe0feb1472ce7b61cdfcbe86971be6"
+    },
+    {
+      "role": "sec",
+      "worker_commit": "6239403a6e39fee8997b93d81962b260e9886d96",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_sec_20261021/source_plan.json"
+      ],
+      "output_role": "actual_source_plan_only_not_analytical_specialist_acceptance",
+      "coordinator_pick": "a8cde9413dea2302a0911e9344491967a6705103"
+    },
+    {
+      "role": "regulatory",
+      "worker_commit": "03bf1debe9c0bc3b09736f38c679ca9f09669606",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_regulatory_20261021/audit_source_plan.py",
+        "evidence/sourcefront21_regulatory_20261021/doc51_link_audit.json",
+        "evidence/sourcefront21_regulatory_20261021/doj_index_link_audit.json",
+        "evidence/sourcefront21_regulatory_20261021/finalize_plan.py",
+        "evidence/sourcefront21_regulatory_20261021/initial_source_plan_before_parent_pin.json",
+        "evidence/sourcefront21_regulatory_20261021/source_plan.json",
+        "evidence/sourcefront21_regulatory_20261021/tracked_history_inventory.json",
+        "evidence/sourcefront21_regulatory_20261021/tracked_url_history.json"
+      ],
+      "output_role": "actual_source_plan_only_not_analytical_specialist_acceptance",
+      "coordinator_pick": "300615e32f62433f5923c34a4af432d30ddfc83f"
+    },
+    {
+      "role": "contracts",
+      "worker_commit": "202303498cb68098247f2cb648e08cd99812d164",
+      "coordinator_pick": "c2db607e23f5d158e36765d7772f78da68cf22c7",
+      "output_role": "new_offline_wafer_capacity_deposit_asset_review",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_contracts_20261021/README.md",
+        "evidence/sourcefront21_contracts_20261021/SWKS_zalohy_na_vyrobni_kapacitu.json",
+        "evidence/sourcefront21_contracts_20261021/handoff.json",
+        "evidence/sourcefront21_contracts_20261021/qualify.py",
+        "evidence/sourcefront21_contracts_20261021/replay_retained.py",
+        "evidence/sourcefront21_contracts_20261021/v1/SWKS_zalohy_na_vyrobni_kapacitu.json",
+        "evidence/sourcefront21_contracts_20261021/v1/actual_retained_review.json",
+        "evidence/sourcefront21_contracts_20261021/v1/before_pins.json",
+        "evidence/sourcefront21_contracts_20261021/v1/replay_retained.py",
+        "evidence/sourcefront21_contracts_20261021/v1/test_wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_contracts_20261021/v1/tests.json",
+        "evidence/sourcefront21_contracts_20261021/v1/tests.log",
+        "evidence/sourcefront21_contracts_20261021/v1/wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_contracts_20261021/v2/actual_retained_review.json",
+        "evidence/sourcefront21_contracts_20261021/v2/before_pins.json",
+        "evidence/sourcefront21_contracts_20261021/v2/test_wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_contracts_20261021/v2/tests.json",
+        "evidence/sourcefront21_contracts_20261021/v2/tests.log",
+        "evidence/sourcefront21_contracts_20261021/v2/wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_contracts_20261021/v3/actual_retained_review.json",
+        "evidence/sourcefront21_contracts_20261021/v3/before_pins.json",
+        "evidence/sourcefront21_contracts_20261021/v3/test_wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_contracts_20261021/v3/tests.json",
+        "evidence/sourcefront21_contracts_20261021/v3/tests.log",
+        "evidence/sourcefront21_contracts_20261021/v3/wafer_capacity_deposit_review.py",
+        "market_checker_app/services/wafer_capacity_deposit_review.py",
+        "tests/test_wafer_capacity_deposit_review.py"
+      ]
+    },
+    {
+      "role": "evaluation",
+      "worker_commit": "259584e54ba428a0dc78b235e89a2739c591bb5b",
+      "coordinator_pick": "7ea2ea903f5a00c7cbb4cc68ab0fd1a5108ea1be",
+      "output_role": "actual_independent_candidate_plan_audit_not_acquisition_authorization",
+      "worker_parents": [
+        "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+      ],
+      "paths": [
+        "evidence/sourcefront21_evaluation_20261021/audit_candidate_plans.py",
+        "evidence/sourcefront21_evaluation_20261021/audit_v1.stderr.log",
+        "evidence/sourcefront21_evaluation_20261021/audit_v1.stdout.log",
+        "evidence/sourcefront21_evaluation_20261021/audit_v2.stderr.log",
+        "evidence/sourcefront21_evaluation_20261021/audit_v2.stdout.log",
+        "evidence/sourcefront21_evaluation_20261021/auditor_v1.py",
+        "evidence/sourcefront21_evaluation_20261021/candidate_plan_audit.json",
+        "evidence/sourcefront21_evaluation_20261021/candidate_plan_audit_v1.json",
+        "evidence/sourcefront21_evaluation_20261021/execution_v1.json",
+        "evidence/sourcefront21_evaluation_20261021/execution_v2.json",
+        "evidence/sourcefront21_evaluation_20261021/handoff.json"
+      ]
+    },
+    {
+      "role": "contracts_temporal_fix",
+      "worker_commit": "13252e42f75c83e7cf04fb92cfade50d315308d2",
+      "coordinator_pick": "432518b4fe8f1eef6adacd62b2b68b065eeac58a",
+      "output_role": "narrow_fix_for_two_actual_freed_peer_findings",
+      "worker_parents": [
+        "202303498cb68098247f2cb648e08cd99812d164"
+      ],
+      "paths": [
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/README.md",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/SWKS_zalohy_na_vyrobni_kapacitu.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/captured_plan.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/case_diagnostics.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/handoff.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/producer_pin.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/test_wafer_capacity_deposit_peer.py",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/tests.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/tests.log",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/test_wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before/wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/before_manifest.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/handoff.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/qualify_new_temporal.py",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/actual_retained_review.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/new_tests.json",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/new_tests.log",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/test_wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/wafer_capacity_deposit_review.py",
+        "market_checker_app/services/wafer_capacity_deposit_review.py",
+        "tests/test_wafer_capacity_deposit_review.py"
+      ]
+    },
+    {
+      "role": "sec_freed_peer_before",
+      "worker_commit": "390d713e8ab056759eec0dfa0128039b34a12340",
+      "coordinator_pick": "cb4957dde583893c20b95b0c60d776e21db16c19",
+      "output_role": "twelve_independent_methods_two_actual_failures_originals_preserved",
+      "worker_parents": [
+        "202303498cb68098247f2cb648e08cd99812d164"
+      ],
+      "paths": [
+        "evidence/sourcefront21_wafer_peer_20261021/README.md",
+        "evidence/sourcefront21_wafer_peer_20261021/before/actual_control_report.json",
+        "evidence/sourcefront21_wafer_peer_20261021/before/captured_plan.json",
+        "evidence/sourcefront21_wafer_peer_20261021/before/case_diagnostics.json",
+        "evidence/sourcefront21_wafer_peer_20261021/before/handoff.json",
+        "evidence/sourcefront21_wafer_peer_20261021/before/producer_pin.json",
+        "evidence/sourcefront21_wafer_peer_20261021/before/test_wafer_capacity_deposit_peer.py",
+        "evidence/sourcefront21_wafer_peer_20261021/before/tests.json",
+        "evidence/sourcefront21_wafer_peer_20261021/before/tests.log",
+        "evidence/sourcefront21_wafer_peer_20261021/before/wafer_capacity_deposit_review.py",
+        "evidence/sourcefront21_wafer_peer_20261021/run_peer.py",
+        "tests/test_wafer_capacity_deposit_peer.py"
+      ]
+    },
+    {
+      "role": "sec_freed_peer_after",
+      "worker_commit": "eb12830abea65591e3aa7c24c46d3abd6cc1f5aa",
+      "coordinator_pick": "0ef1fac2319adf81454362dc3b14eb275681ddab",
+      "worker_parents": [
+        "390d713e8ab056759eec0dfa0128039b34a12340"
+      ],
+      "paths": [
+        "evidence/sourcefront21_wafer_peer_20261021/after/README.md",
+        "evidence/sourcefront21_wafer_peer_20261021/after/actual_control_report.json",
+        "evidence/sourcefront21_wafer_peer_20261021/after/case_diagnostics.json",
+        "evidence/sourcefront21_wafer_peer_20261021/after/handoff.json",
+        "evidence/sourcefront21_wafer_peer_20261021/after/test_wafer_capacity_deposit_peer.py",
+        "evidence/sourcefront21_wafer_peer_20261021/after/tests.json",
+        "evidence/sourcefront21_wafer_peer_20261021/after/tests.log",
+        "evidence/sourcefront21_wafer_peer_20261021/after/wafer_capacity_deposit_review.py"
+      ],
+      "output_role": "same_twelve_peer_methods_after_narrow_owner_fix_all_zero"
+    },
+    {
+      "role": "identity_offline_primary_content",
+      "worker_commit": "cdb17d3898a61f3d095f1c81a47e5c6162bc4509",
+      "coordinator_pick": "6e9c0e73503ede0f0c8109afb1a89b4abe2b0e6f",
+      "worker_parents": [
+        "26eb46460e77b53d9f6c31257395c7af4e5a6bd6"
+      ],
+      "paths": [
+        "evidence/sourcefront21_identity_20261021/extract_primary.py",
+        "evidence/sourcefront21_identity_20261021/primary_review.json"
+      ],
+      "output_role": "two_new_whole_SEC_originals_source_local_point_review"
+    },
+    {
+      "role": "healthcare_offline_primary_content",
+      "worker_commit": "49a24b927efdf776245a6d63d937a213cec20eb1",
+      "coordinator_pick": "8668682e4d7bbcda64dfa48a4550e7bb01d77714",
+      "worker_parents": [
+        "2648849505a4bfacf0eab941df7b07ca0afe8dfd"
+      ],
+      "paths": [
+        "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p01.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p04.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p05.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p09.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p10.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p01.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p07.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p35.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p36.png",
+        "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+        "evidence/sourcefront21_healthcare_20261021/derived/page_text_index.json",
+        "evidence/sourcefront21_healthcare_20261021/derived/render_capture.json",
+        "evidence/sourcefront21_healthcare_20261021/extract_primary_pdf.py",
+        "evidence/sourcefront21_healthcare_20261021/primary_review.json"
+      ],
+      "output_role": "two_new_whole_FDA_PDFs_role_product_page_review"
+    },
+    {
+      "role": "evaluation_offline_capture_audit",
+      "worker_commit": "59ebf0122eace06015d4203a793d10a43b8a7e86",
+      "coordinator_pick": "42fd3edca6887519a1b969878983039f8fb1ed9a",
+      "worker_parents": [
+        "259584e54ba428a0dc78b235e89a2739c591bb5b"
+      ],
+      "paths": [
+        "evidence/sourcefront21_evaluation_20261021/audit_primary_captures.py",
+        "evidence/sourcefront21_evaluation_20261021/capture_audit.json"
+      ],
+      "output_role": "independent_five_capture_audit_and_MSFT_dated_certification_point"
+    }
+  ],
+  "primary_research_by_root_only": {
+    "commit": "8313e09da8db533a2c75c2da279b10458db4643c",
+    "HTTP_attempts": 5,
+    "whole_HTTP200_originals": 5,
+    "bytes": 2683149,
+    "retry_redirect_fallback": 0
+  },
+  "developer_agents_are_not_analytical_specialists": true,
+  "six_actual_initial_followups": true,
+  "subsequent_primary_content_and_peer_commits_pending": false,
+  "all_21_code_live_unchanged": true,
+  "full_specialist_acceptance": "0/21"
+}

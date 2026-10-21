@@ -1,0 +1,490 @@
+{
+  "actions": {
+    "HTTP_search_connector_browser_or_collector_calls": 0,
+    "SQL_DB_or_quota_operations": 0,
+    "forecast_label_or_trading_actions": 0,
+    "prior_suites_CI_readiness_or_four_original_audit_reruns": 0,
+    "protected_journal_DB_touched": false,
+    "shared_code_tests_registries_status_or_config_changes": 0,
+    "source_body_copies_or_substitutes": 0,
+    "source_plan_or_parent_mutations": 0
+  },
+  "actual_consumed_route_controls": [
+    {
+      "URL": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt",
+      "matching_prior_record_count": 53,
+      "status": "CONSUMED_DO_NOT_RETRY"
+    },
+    {
+      "URL": "https://www.microsoft.com/en-us/investor/default",
+      "matching_prior_record_count": 22,
+      "status": "CONSUMED_DO_NOT_RETRY"
+    },
+    {
+      "URL": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+      "matching_prior_record_count": 59,
+      "status": "CONSUMED_DO_NOT_RETRY"
+    },
+    {
+      "URL": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+      "matching_prior_record_count": 10,
+      "status": "CONSUMED_DO_NOT_RETRY"
+    }
+  ],
+  "actual_qualification": {
+    "actual_completed_at": "2026-10-21T02:20:53.905807+00:00",
+    "actual_started_at": "2026-10-21T02:20:46.717553+00:00",
+    "elapsed_seconds": 7.1882536040000105,
+    "exit_code": 0,
+    "full_command_in": "evidence/sourcefront21_evaluation_20261021/execution_v2.json",
+    "kind": "READ_ONLY_ACTUAL_CONTENT_AUDIT_NOT_UNITTEST_OR_CI",
+    "stderr": {
+      "bytes": 0,
+      "path": "evidence/sourcefront21_evaluation_20261021/audit_v2.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdlib_only_no_project_imports": true,
+    "stdout": {
+      "bytes": 176,
+      "path": "evidence/sourcefront21_evaluation_20261021/audit_v2.stdout.log",
+      "sha256": "1bbaad056861226dbdda2df5bb81de52a0205976274146376a26b5c40572a839"
+    }
+  },
+  "app_collector_histories_recovered": false,
+  "base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "base_tree": "138a1169556f1fdd102c68cd95fda429b3e6c17b",
+  "collection_authorized_by_audit": false,
+  "eligible_only_for_root_separate_reservation": [
+    {
+      "bounds": {
+        "maximum_attempts": 1,
+        "maximum_response_bytes": 1000000,
+        "timeout_seconds": 25
+      },
+      "candidate_id": "P_NAME_AMENDMENT",
+      "exact_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+      "parent_link_and_metadata_pins": [
+        {
+          "anchor_span": {
+            "byte_end_exclusive": 24868,
+            "byte_start": 24599,
+            "bytes": 269,
+            "sha256": "0087ccf83c0dcc02b1cfe97a2778d9db326e9c7452e227b2c951604afbdc636d"
+          },
+          "href": "certificateofamendment.htm",
+          "href_span": {
+            "byte_end_exclusive": 24782,
+            "byte_start": 24756,
+            "bytes": 26,
+            "sha256": "0e226d930592deaff711abc52b863ada1305501c985ce03c0cbc10185faf51ce"
+          },
+          "metadata": {
+            "bytes": 872,
+            "path": "evidence/batch4_identity_20261013/captures/9e94ff7b56c0c2754f484da2574802cadae985d4a04a34880b12291404dd909d.json",
+            "sha256": "b6ea263cd075395a484525f03500b48f36622592d0677f0a162ff094b7ca65bc"
+          },
+          "parent": {
+            "bytes": 31810,
+            "path": "evidence/batch4_identity_20261013/captures/50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786.bin",
+            "sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786"
+          },
+          "parent_source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/pstg-20260223.htm",
+          "resolved_literal_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+          "whole_parent_original_and_spans_verified": true
+        },
+        {
+          "anchor_span": {
+            "byte_end_exclusive": 1956865,
+            "byte_start": 1956527,
+            "bytes": 338,
+            "sha256": "2a9dd4bac06de25d5b2a7330ce6ac5cd9232e241ac98e12d677c67b62ff24958"
+          },
+          "href": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+          "href_span": {
+            "byte_end_exclusive": 1956777,
+            "byte_start": 1956684,
+            "bytes": 93,
+            "sha256": "eb5257679634a3dfc03ab33a4a52a39c5192211f7a330222c4d1e9ded23b00c5"
+          },
+          "metadata": {
+            "bytes": 1197,
+            "path": "evidence/batch8_identity_20261015/captures/attempt-02.metadata.json",
+            "sha256": "9702d477dd5e2dcf3cb59aba9f12e1ce7daf8d2e19e32533d0dd57efed95b0b2"
+          },
+          "parent": {
+            "bytes": 2070825,
+            "path": "evidence/batch8_identity_20261015/captures/77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+            "sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7"
+          },
+          "parent_source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
+          "resolved_literal_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+          "whole_parent_original_and_spans_verified": true
+        }
+      ],
+      "prior_tracked_request_or_reservation_matches": []
+    },
+    {
+      "bounds": {
+        "maximum_attempts": 1,
+        "maximum_response_bytes": 1000000,
+        "timeout_seconds": 25
+      },
+      "candidate_id": "P_REGISTERED_SECURITIES_DESCRIPTION",
+      "exact_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+      "parent_link_and_metadata_pins": [
+        {
+          "anchor_span": {
+            "byte_end_exclusive": 1966861,
+            "byte_start": 1966623,
+            "bytes": 238,
+            "sha256": "15e67304aeb8f77065d1a7de36e9f27172fdb14fb202bf8a6186d891e698b40c"
+          },
+          "href": "ex43-descriptionofregistra.htm",
+          "href_span": {
+            "byte_end_exclusive": 1966810,
+            "byte_start": 1966780,
+            "bytes": 30,
+            "sha256": "637f82d0796806f894bb57b845af04dd59451a8f9d740a5a61857a58995f5d35"
+          },
+          "metadata": {
+            "bytes": 1197,
+            "path": "evidence/batch8_identity_20261015/captures/attempt-02.metadata.json",
+            "sha256": "9702d477dd5e2dcf3cb59aba9f12e1ce7daf8d2e19e32533d0dd57efed95b0b2"
+          },
+          "parent": {
+            "bytes": 2070825,
+            "path": "evidence/batch8_identity_20261015/captures/77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+            "sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7"
+          },
+          "parent_source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
+          "resolved_literal_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+          "whole_parent_original_and_spans_verified": true
+        },
+        {
+          "anchor_span": {
+            "byte_end_exclusive": 6024,
+            "byte_start": 5901,
+            "bytes": 123,
+            "sha256": "1dfdca87a13445e9385bc9eeaff898ecdbff81626067208b19d4721bf322fa23"
+          },
+          "href": "/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+          "href_span": {
+            "byte_end_exclusive": 5988,
+            "byte_start": 5910,
+            "bytes": 78,
+            "sha256": "77bdcde96780c50b4c8437333df69e73fb6a59f4111dfc10f33e76444b1effc5"
+          },
+          "metadata": {
+            "bytes": 1241,
+            "path": "evidence/batch9_identity_20261016/captures/attempt-02.metadata.json",
+            "sha256": "3c03a9adb2c3363541b354d914a825dd7d31fc30d19dbbceadddf3409325a42a"
+          },
+          "parent": {
+            "bytes": 14111,
+            "path": "evidence/batch9_identity_20261016/captures/7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f.bin",
+            "sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f"
+          },
+          "parent_source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/0001474432-26-000027-index.html",
+          "resolved_literal_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+          "whole_parent_original_and_spans_verified": true
+        }
+      ],
+      "prior_tracked_request_or_reservation_matches": []
+    },
+    {
+      "bounds": {
+        "maximum_attempts": 1,
+        "maximum_response_bytes": 4000000,
+        "timeout_bound_source": "FROZEN_COORDINATOR_SELECTION_PROPOSAL",
+        "timeout_seconds": 25
+      },
+      "candidate_id": "FDA_ORIGINAL_APPROVAL_LETTER",
+      "exact_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+      "parent_link_and_metadata_pins": [
+        {
+          "anchor_span": {
+            "byte_end_exclusive": 24972,
+            "byte_start": 24824,
+            "bytes": 148,
+            "sha256": "70ae23c1eebe9752ea85abd6b8e979a74508dcec9436ac928fc0bca30abdeff3"
+          },
+          "enclosing_row_span": {
+            "byte_end_exclusive": 25499,
+            "byte_start": 24349,
+            "bytes": 1150,
+            "sha256": "22ab36e473059da61417cca014f76d8e3291e87fc796eb2e1cbd91eaff655ad4"
+          },
+          "href": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+          "href_span": {
+            "byte_end_exclusive": 24914,
+            "byte_start": 24833,
+            "bytes": 81,
+            "sha256": "7d6d4b901b719509e7c02b28d249f0467edcfca6a9e33945dfd3f434491dde8c"
+          },
+          "metadata": {
+            "bytes": 1498,
+            "path": "evidence/batch9_healthcare_20261016/attempt-02-result.json",
+            "sha256": "49c4fb2c02f943661a40bcb3b3366c3d49a63dc9b70d00569da8bdfc32aa3305"
+          },
+          "parent": {
+            "bytes": 34010,
+            "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+            "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+          },
+          "parent_source_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+          "resolved_literal_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+          "whole_parent_original_and_spans_verified": true
+        }
+      ],
+      "prior_tracked_request_or_reservation_matches": []
+    },
+    {
+      "bounds": {
+        "maximum_attempts": 1,
+        "maximum_response_bytes": 4000000,
+        "timeout_bound_source": "FROZEN_COORDINATOR_SELECTION_PROPOSAL",
+        "timeout_seconds": 25
+      },
+      "candidate_id": "FDA_SUPPLEMENT_17_LABEL",
+      "exact_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+      "parent_link_and_metadata_pins": [
+        {
+          "anchor_span": {
+            "byte_end_exclusive": 26329,
+            "byte_start": 26189,
+            "bytes": 140,
+            "sha256": "8ae514d72391430dd9424c68b6815cc26c3d09d8ca6b7b94a1ccb2e60acf2248"
+          },
+          "enclosing_row_span": {
+            "byte_end_exclusive": 26754,
+            "byte_start": 26054,
+            "bytes": 700,
+            "sha256": "7e380bc55b3c03fbfa59ba19e80349e1fc531aa904ea2a6c3421c4e7848687e6"
+          },
+          "href": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+          "href_span": {
+            "byte_end_exclusive": 26273,
+            "byte_start": 26198,
+            "bytes": 75,
+            "sha256": "b88d2a86f6899be8ed34aa0105b054a6520e81954f76844ec90a3bc8c145dd68"
+          },
+          "metadata": {
+            "bytes": 1498,
+            "path": "evidence/batch9_healthcare_20261016/attempt-02-result.json",
+            "sha256": "49c4fb2c02f943661a40bcb3b3366c3d49a63dc9b70d00569da8bdfc32aa3305"
+          },
+          "parent": {
+            "bytes": 34010,
+            "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+            "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+          },
+          "parent_source_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+          "resolved_literal_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+          "whole_parent_original_and_spans_verified": true
+        }
+      ],
+      "prior_tracked_request_or_reservation_matches": []
+    },
+    {
+      "bounds": {
+        "maximum_attempts": 1,
+        "maximum_response_bytes": 256000,
+        "timeout_seconds": 25
+      },
+      "candidate_id": "MSFT_2026_EX31_1",
+      "exact_URL": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+      "parent_link_and_metadata_pins": [
+        {
+          "anchor_span": {
+            "byte_end_exclusive": 7231,
+            "byte_start": 7139,
+            "bytes": 92,
+            "sha256": "6e802fd18e9a07c2d6a49096018419ca289c671ffbb5bea1976625311cfea304"
+          },
+          "enclosing_row_span": {
+            "byte_end_exclusive": 7331,
+            "byte_start": 7030,
+            "bytes": 301,
+            "sha256": "3f2f6b100e42f71ae17c9dbe02655aadb6cca7d18f41454534185ca22ad9c7f2"
+          },
+          "href": "/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+          "href_span": {
+            "byte_end_exclusive": 7210,
+            "byte_start": 7148,
+            "bytes": 62,
+            "sha256": "6c82780dd03991b032087a13685f1c95b13f5ed89d40318154a0975de2d8e7ba"
+          },
+          "metadata": {
+            "bytes": 10764,
+            "path": "evidence/batch3_sec_20261012/captures.json",
+            "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+          },
+          "parent": {
+            "bytes": 11876,
+            "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+            "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+          },
+          "parent_source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm",
+          "resolved_literal_URL": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+          "whole_parent_original_and_spans_verified": true
+        }
+      ],
+      "prior_tracked_request_or_reservation_matches": []
+    }
+  ],
+  "final_auditor": {
+    "bytes": 24936,
+    "path": "evidence/sourcefront21_evaluation_20261021/audit_candidate_plans.py",
+    "sha256": "4e0fbe37193cc68ab1ad1d0d1b911ade91f41dee03bbb8b32a152edd6017a673"
+  },
+  "final_execution": {
+    "bytes": 1984,
+    "path": "evidence/sourcefront21_evaluation_20261021/execution_v2.json",
+    "sha256": "c7565bd1fa0d541c2e66de7f1d6d6d95939528a32437b73c920ce9bb99d03cd0"
+  },
+  "final_report": {
+    "bytes": 278915,
+    "path": "evidence/sourcefront21_evaluation_20261021/candidate_plan_audit.json",
+    "sha256": "fecc40c808f8abdc9ce25d81de3c5f56330d70b0591edf753396de900654af83"
+  },
+  "final_status": "FIVE_SELECTED_LITERAL_RESEARCH_CANDIDATES_VERIFIED_NOT_AUTHORIZED",
+  "frozen_peer_commits": {
+    "healthcare": "2648849505a4bfacf0eab941df7b07ca0afe8dfd",
+    "identity": "26eb46460e77b53d9f6c31257395c7af4e5a6bd6",
+    "regulatory": "03bf1debe9c0bc3b09736f38c679ca9f09669606",
+    "sec": "6239403a6e39fee8997b93d81962b260e9886d96"
+  },
+  "frozen_root_selection_proposal": {
+    "bytes": 5814,
+    "is_collection_authorization": false,
+    "is_consumed_attempt_history": false,
+    "path": "/workspace/scratch/334b3a149083/sourcefront21_20261021/selected_candidates.json",
+    "sha256": "60c86f690de7a7bc8be143455317d21b37053548a1eae771b3565c2bbaea87d4",
+    "status": "ROOT_LITERAL_PINS_VERIFIED_PENDING_INDEPENDENT_AUDIT_NO_REQUEST_AUTHORIZED"
+  },
+  "frozen_source_plan_pins": {
+    "healthcare": {
+      "bytes": 30271,
+      "path": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/source_plan.json",
+      "sha256": "d89f491a62e5e045f9cf30845bd8944526b3062defa141e1f2ceead49bdb64ba"
+    },
+    "identity": {
+      "bytes": 26398,
+      "path": "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/evidence/sourcefront21_identity_20261021/source_plan.json",
+      "sha256": "31decb1072f57ba81b8b38b30403066ffb691dd892d079f551c3a6ec76d3ab62"
+    },
+    "regulatory": {
+      "bytes": 12919,
+      "path": "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/evidence/sourcefront21_regulatory_20261021/source_plan.json",
+      "sha256": "463b5b059fa52f80632ff0f0dd7e9362bdda77bf8b72ee8ffc3a47ab056be385"
+    },
+    "sec": {
+      "bytes": 28235,
+      "path": "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/evidence/sourcefront21_sec_20261021/source_plan.json",
+      "sha256": "26463062446bd6c2173fccf11388d5aacfe4bc41ca5946bcf6d27884c39714cc"
+    }
+  },
+  "local_parent_is_unchanged_public_base": true,
+  "material_limits": [
+    "Research eligibility is not network authorization, app collector/live acceptance or a safe-complete body guarantee.",
+    "Natural-person/account/alias/role interval, control/ownership, CUSIP/action/symbol validity, nativeWindows, historical/OOS and full21 acceptance remain unproved.",
+    "A same-accession exhibit is a distinct document, not an independent disclosure.2015 charter,2019 label, EX32.1 and large ix10K are not fallback requests.",
+    "True request/observation/completion clocks and whole-body safety/byte limits must be enforced by any separately authorized coordinator capture; no historical availability is backdated."
+  ],
+  "natural_person_alias_role_control_ownership_PIT_OOS_or_full21_proven": false,
+  "next_coordinator_step": "If still authorized and after reconciling any separately held research-attempt history, commit an exact bounded request plan and write each exclusive per-source reservation before its sole GET. Enforce the declared individual and aggregate caps, physical completion clocks and whole-body safety. An unsuccessful, over-cap, redirected or unsafe response supplies no retry/fallback allowance.",
+  "not_selected_or_blocked": [
+    {
+      "candidate_id": "P_HISTORICAL_CLASS_A_CHARTER",
+      "exact_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000156459015011439/pstg-ex31_561.htm",
+      "reasons": [
+        "UNSELECTED_NO_FALLBACK_AUTHORIZATION"
+      ]
+    },
+    {
+      "candidate_id": "FDA_ORIGINAL_LABEL",
+      "exact_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2019/761081s000lbl.pdf",
+      "reasons": [
+        "UNSELECTED_NO_FALLBACK_AUTHORIZATION"
+      ]
+    },
+    {
+      "candidate_id": "MSFT_2026_EX32_1",
+      "exact_URL": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex32_1.htm",
+      "reasons": [
+        "UNSELECTED_NO_FALLBACK_AUTHORIZATION"
+      ]
+    },
+    {
+      "candidate_id": "MSFT_2026_PRIMARY_10K",
+      "exact_URL": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+      "reasons": [
+        "RAW_URL_DERIVED_FROM_IX_ARGUMENT_NOT_A_DIRECT_LITERAL_LINK",
+        "LARGE_BODY_REQUIRES_SEPARATE_STRICT_CAP_PLAN",
+        "UNSELECTED_NO_FALLBACK_AUTHORIZATION"
+      ]
+    }
+  ],
+  "owned_files_only": "evidence/sourcefront21_evaluation_20261021/**",
+  "permanent_blocks": [
+    "NHTSA approval block: no retry, alternate route/transport or state/quota reconstruction.",
+    "FDA/CMS/Clinical/USAspending app collectors remain blocked while original durable histories are missing. Separately reserved static FDA primary research does not recover or bypass those histories.",
+    "Consumed market13-symbol plan remains consumed: no replay/new plan/transport/quotaDB or synthetic forecasts.",
+    "Four whole access-bearing bodies remain absent and unopened; no reconstructed, sanitized, encoded, compressed or wrapped substitute."
+  ],
+  "preserved_initial_version": {
+    "current_v2_audit_already_passed_no_resume_rerun": true,
+    "execution": {
+      "bytes": 1741,
+      "path": "evidence/sourcefront21_evaluation_20261021/execution_v1.json",
+      "sha256": "e14f596c0161ae1996317b2edef31cc76f21f0f4aafca26c918988bc94c7c540"
+    },
+    "historical_logical_report_path": "evidence/sourcefront21_evaluation_20261021/candidate_plan_audit.json",
+    "producer": {
+      "bytes": 24753,
+      "path": "evidence/sourcefront21_evaluation_20261021/auditor_v1.py",
+      "sha256": "e86e3f84eaa75cb3d48b4779338d4ec77162b1cbd12daf685ec2db0994b07b7a"
+    },
+    "reason_for_v2": "Canonical resource matching precedes lexical prefilter; case/percent-path and HTTP-HTTPS aliases cannot evade comparison.25s healthcare bound is explicitly from the separately frozen coordinator proposal.",
+    "report": {
+      "bytes": 272149,
+      "path": "evidence/sourcefront21_evaluation_20261021/candidate_plan_audit_v1.json",
+      "sha256": "9c5e0b4dc85f1a5c22bc8b9d26bc99d2b9a93d8dcfad02b9ac5d6460c28985be"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "evidence/sourcefront21_evaluation_20261021/audit_v1.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 176,
+      "path": "evidence/sourcefront21_evaluation_20261021/audit_v1.stdout.log",
+      "sha256": "1bbaad056861226dbdda2df5bb81de52a0205976274146376a26b5c40572a839"
+    }
+  },
+  "recorded_at": "2026-10-21T07:05:00.640415+00:00",
+  "regulatory": "BLOCKED_ZERO_ELIGIBLE_NO_SEPARATE_ORDER_CURRENT_DOCKET_OR_IN_SCOPE_NEW_LINK",
+  "remote_push_or_merge": false,
+  "report_is_global_never_attempted_proof": false,
+  "schema_version": "sourcefront21_evaluation_candidate_audit_handoff_v1",
+  "selection_bounds": {
+    "fallbacks": 0,
+    "maximum_GET_attempts": 5,
+    "maximum_seconds_per_candidate": 25,
+    "maximum_total_response_bytes": 10256000,
+    "redirects": 0,
+    "retries": 0,
+    "root_separate_pre_request_reservations_required": true
+  },
+  "shared_source_registry_status_config_model_fitter_score_budget_or_trading_changes": false,
+  "tracked_history": {
+    "JSON_bytes": 28223043,
+    "JSON_files": 1485,
+    "JSON_parse_or_duplicate_key_errors": 0,
+    "manifest_definition": "SHA256 compact sorted-key UTF8 JSON array sorted by path, rows{path,bytes,sha256}",
+    "manifest_sha256": "b31120f2f72a6f6012febe981b17a69f7fcd1edfb2aa75fdb9d5970889e6b51d",
+    "record_matches_are_distinct_HTTP_transports": false,
+    "scope": "Every tracked JSON at exact public base plus git-grep all tracked nonbinary text for exact URL/leaf; original body references are distinguished from request/reservation receipts.",
+    "unrecorded_external_or_app_collector_history_recovered": false
+  }
+}

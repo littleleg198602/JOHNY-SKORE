@@ -1,0 +1,91 @@
+{
+  "verified_at": "2026-10-21T07:13:42.911278+00:00",
+  "originals": [
+    {
+      "key": "p_name_amendment",
+      "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+      "bytes": 9238,
+      "sha256": "d2e7e86faf3fe1fd2b7701629dc0325a600ebd0d9f1305e0c2f38bb99a33847e",
+      "observed_at": "2026-10-21T07:12:23.234430+00:00",
+      "known_at": "2026-10-21T07:12:23.237728+00:00"
+    },
+    {
+      "key": "p_securities_description",
+      "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+      "bytes": 28199,
+      "sha256": "a87ab222a1958a5df3368b9cfb2c538cd3d63f14eb18e3d9b7102b38d8e1714e",
+      "observed_at": "2026-10-21T07:12:26.373254+00:00",
+      "known_at": "2026-10-21T07:12:26.380338+00:00"
+    },
+    {
+      "key": "fda_trazimera_approval_2019",
+      "requested_url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+      "bytes": 137546,
+      "sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+      "observed_at": "2026-10-21T07:12:30.116950+00:00",
+      "known_at": "2026-10-21T07:12:30.175333+00:00"
+    },
+    {
+      "key": "fda_trazimera_label_2025",
+      "requested_url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+      "bytes": 2495404,
+      "sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+      "observed_at": "2026-10-21T07:12:34.528887+00:00",
+      "known_at": "2026-10-21T07:12:34.908342+00:00"
+    },
+    {
+      "key": "msft_ex31_1",
+      "requested_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+      "bytes": 12762,
+      "sha256": "5001124e4c5e57d8aafd6fbbe98845acd11397dd5ddcc853857c6377a452872a",
+      "observed_at": "2026-10-21T07:12:38.485054+00:00",
+      "known_at": "2026-10-21T07:12:38.488717+00:00"
+    }
+  ],
+  "total_originals": 5,
+  "total_original_bytes": 2683149,
+  "copies": [
+    {
+      "path": "primary_capture_launch.json",
+      "bytes": 570,
+      "sha256": "bc6eb84fca0386bde6ea5c19ad2ebd7a4ae1910cb9f66f70036246548e251844"
+    },
+    {
+      "path": "primary_capture_process.json",
+      "bytes": 68,
+      "sha256": "bc559c433cdbf9dd08ac186949879ce8ea6a1797520b52c9b8450fb27f97a554"
+    },
+    {
+      "path": "primary_capture_exit.json",
+      "bytes": 75,
+      "sha256": "9e7b22820810b6c7e77e785585fd36d193eaad2459e35d76e484432c915d35c6"
+    },
+    {
+      "path": "primary_capture_stdout.log",
+      "bytes": 1229,
+      "sha256": "2eacd15d42dd0785cc15125090a01ce4fc4a59a89190ecf1150a02c8e2b51f1d"
+    },
+    {
+      "path": "primary_capture_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "supervise_primary.py",
+      "bytes": 2138,
+      "sha256": "70d67b1e0e9541b0ed9aeb2f46336f3120581d84e1eb5a50041e982b1f3aa463"
+    }
+  ],
+  "root_whole_byte_verification": true,
+  "research_HTTP_attempts": 5,
+  "research_HTTP200_whole_originals": 5,
+  "retries": 0,
+  "redirects": 0,
+  "fallbacks": 0,
+  "collector_API_calls": 0,
+  "SQL_operations": 0,
+  "quota_DB_actions": 0,
+  "registry_adoptions": 0,
+  "content_scope_review_pending": true,
+  "full_specialist_acceptance": "0/21"
+}

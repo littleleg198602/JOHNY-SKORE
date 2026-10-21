@@ -1,0 +1,441 @@
+{
+  "acceptance_limits": {
+    "acquisition_authorized_by_this_plan": false,
+    "canonical_tickers_preserved": 687,
+    "current_Q3_verified": 0,
+    "full_specialist_acceptance": "0/21",
+    "historical_Q2_instruments_preserved": 150,
+    "new_bridge_proved": false,
+    "new_source_availability_reconstructed": false,
+    "new_verified_instruments": 0
+  },
+  "actual_work_counts": {
+    "code_or_tests_changed": 0,
+    "collector_api": 0,
+    "connector_or_browser": 0,
+    "http": 0,
+    "network_search": 0,
+    "protected_journal_opens_hashes_or_copies": 0,
+    "registry_adoptions": 0,
+    "source_bytes_changed": 0,
+    "sql_or_db": 0,
+    "tests_rerun": 0
+  },
+  "base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "base_tree": "138a1169556f1fdd102c68cd95fda429b3e6c17b",
+  "branch": "sourcefront21/identity_bulk-20261021",
+  "candidates": [
+    {
+      "candidate_id": "P_NAME_AMENDMENT",
+      "exact_missing_fact_to_inspect": "Exact original name-amendment text and any express filed-versus-effective day for Pure Storage, Inc. to Everpure, Inc.; any explicit limitation that only the legal name changed. Inspect class/CUSIP/action only if the actual body states them.",
+      "expected_accession_directory": "000147443226000011",
+      "expected_archive_issuer_cik": "0001474432",
+      "expected_filename": "certificateofamendment.htm",
+      "expected_source_route": {
+        "expected_form": "EX-3.1 attachment to the retained February23 2026 8-K; incorporated as EX3.2 by later 10-K",
+        "retained_incorporation_row": "3.2 Certificate of Amendment to the Amended and Restated Certificate of Incorporation. 8-K 001-37570 3.1 2/23/2026"
+      },
+      "limitations_before_acquisition": [
+        "The retained February23 8-K explicitly says ClassA will continue under PSTG. A legal-name amendment is not the PSTG-to-P effective trading day.",
+        "No unseen CUSIP, exact ClassA/par clause or continuity is presumed. An execution/filing day is not legal effectiveness unless the body expressly says so.",
+        "Same-accession parent and attachment do not count as independent action disclosures."
+      ],
+      "literal_references": [
+        {
+          "href_byte_end_exclusive": 24782,
+          "href_byte_start": 24756,
+          "href_bytes_sha256": "0e226d930592deaff711abc52b863ada1305501c985ce03c0cbc10185faf51ce",
+          "literal_href": "certificateofamendment.htm",
+          "normalized_anchor_text": "ertificate of Amendment to the Amended and Restated Certificate of Incorporation",
+          "offset_basis": "Original body bytes; no DOM offsets or transformed replacement.",
+          "original_anchor_end_exclusive": 24868,
+          "original_anchor_sha256": "0087ccf83c0dcc02b1cfe97a2778d9db326e9c7452e227b2c951604afbdc636d",
+          "original_anchor_start": 24599,
+          "original_anchor_utf8": "<a style=\"-sec-extract:exhibit;color:#0000ff;font-family:'Arial',sans-serif;font-size:10pt;font-weight:400;line-height:100%;text-decoration:underline\" href=\"certificateofamendment.htm\">ertificate of Amendment to the Amended and Restated Certificate of Incorporation</a>",
+          "parent_bytes": 31810,
+          "parent_key": "name_action_8k",
+          "parent_path": "evidence/batch4_identity_20261013/captures/50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786.bin",
+          "parent_sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786",
+          "resolved_exact_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm"
+        },
+        {
+          "href_byte_end_exclusive": 1956777,
+          "href_byte_start": 1956684,
+          "href_bytes_sha256": "eb5257679634a3dfc03ab33a4a52a39c5192211f7a330222c4d1e9ded23b00c5",
+          "literal_href": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+          "normalized_anchor_text": "Certificate of Amendment to the Amended and Restated Certificate of Incorporation.",
+          "offset_basis": "Original body bytes; no DOM offsets or transformed replacement.",
+          "original_anchor_end_exclusive": 1956865,
+          "original_anchor_sha256": "2a9dd4bac06de25d5b2a7330ce6ac5cd9232e241ac98e12d677c67b62ff24958",
+          "original_anchor_start": 1956527,
+          "original_anchor_utf8": "<a style=\"-sec-extract:exhibit;color:#0000ff;font-family:'Arial',sans-serif;font-size:10pt;font-weight:400;line-height:100%;text-decoration:underline\" href=\"https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm\">Certificate of Amendment to the Amended and Restated Certificate of Incorporation.</a>",
+          "parent_bytes": 2070825,
+          "parent_key": "current_10k",
+          "parent_path": "evidence/batch8_identity_20261015/captures/77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+          "parent_sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7",
+          "resolved_exact_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm"
+        }
+      ],
+      "method": "GET",
+      "new_source_body_bytes": null,
+      "new_source_body_sha256": null,
+      "new_source_body_status": "NOT_REQUESTED_OR_OBSERVED",
+      "new_source_physical_capture_clock": null,
+      "new_source_publication_time": null,
+      "prior_history_audit": {
+        "audit_base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+        "candidate_eligible_for_peer_review": true,
+        "prior_attempt_found": false,
+        "tracked_json_files_scanned": 1485,
+        "tracked_json_occurrences": [],
+        "tracked_text_files_scanned": 1250,
+        "tracked_text_occurrences": [],
+        "unknown_matching_attempt_record": false,
+        "url_and_basename_both_checked": true
+      },
+      "priority": 1,
+      "request_bounds": {
+        "fallback_or_alternate_url_allowed": false,
+        "maximum_response_bytes": 1000000,
+        "maximum_transport_attempts": 1,
+        "redirects_allowed": false,
+        "retry_allowed": false,
+        "timeout_seconds": 25
+      },
+      "status": "UNATTEMPTED_IN_TRACKED_HISTORY_PENDING_PEER_AND_ROOT_REVIEW",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm"
+    },
+    {
+      "candidate_id": "P_REGISTERED_SECURITIES_DESCRIPTION",
+      "exact_missing_fact_to_inspect": "Original registered-securities description: exact issuer/security class and par, ClassA versus other classes, and any explicitly stated CUSIP, symbol/listing or dated legal reference. Determine whether it supplies a direct dated instrument fact beyond the undated specimen.",
+      "expected_accession_directory": "000147443226000027",
+      "expected_archive_issuer_cik": "0001474432",
+      "expected_filename": "ex43-descriptionofregistra.htm",
+      "expected_source_route": {
+        "expected_form": "EX-4.3, Description of Registrant’s Securities, retained10-K accession000147443226000027",
+        "index_declared_bytes": 28084,
+        "index_declared_bytes_are_new_served_bytes": false,
+        "retained_index_row": "3 EX-4.3 ex43-descriptionofregistra.htm EX-4.3 28084"
+      },
+      "limitations_before_acquisition": [
+        "The description may contain rights/authorized capital only and no CUSIP or exact instrument validity day. Missing facts must remain missing.",
+        "A class title cannot upgrade an undated specimen or a generic COMMON STOCK Schedule13 to a same-day ClassA/CUSIP/symbol bridge.",
+        "The retained parent10-K/index date and declared/served byte conflicts remain preserved; this new attachment cannot silently correct them.",
+        "The parent10-K and EX4.3 are one filing; they are not two independent dated sources."
+      ],
+      "literal_references": [
+        {
+          "href_byte_end_exclusive": 1966810,
+          "href_byte_start": 1966780,
+          "href_bytes_sha256": "637f82d0796806f894bb57b845af04dd59451a8f9d740a5a61857a58995f5d35",
+          "literal_href": "ex43-descriptionofregistra.htm",
+          "normalized_anchor_text": "Description of Registrant’s Securities.",
+          "offset_basis": "Original body bytes; no DOM offsets or transformed replacement.",
+          "original_anchor_end_exclusive": 1966861,
+          "original_anchor_sha256": "15e67304aeb8f77065d1a7de36e9f27172fdb14fb202bf8a6186d891e698b40c",
+          "original_anchor_start": 1966623,
+          "original_anchor_utf8": "<a style=\"-sec-extract:exhibit;color:#0000ff;font-family:'Arial',sans-serif;font-size:10pt;font-weight:400;line-height:100%;text-decoration:underline\" href=\"ex43-descriptionofregistra.htm\">Description of Registrant&#8217;s Securities.</a>",
+          "parent_bytes": 2070825,
+          "parent_key": "current_10k",
+          "parent_path": "evidence/batch8_identity_20261015/captures/77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+          "parent_sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7",
+          "resolved_exact_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm"
+        },
+        {
+          "href_byte_end_exclusive": 5988,
+          "href_byte_start": 5910,
+          "href_bytes_sha256": "77bdcde96780c50b4c8437333df69e73fb6a59f4111dfc10f33e76444b1effc5",
+          "literal_href": "/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+          "normalized_anchor_text": "ex43-descriptionofregistra.htm",
+          "offset_basis": "Original body bytes; no DOM offsets or transformed replacement.",
+          "original_anchor_end_exclusive": 6024,
+          "original_anchor_sha256": "1dfdca87a13445e9385bc9eeaff898ecdbff81626067208b19d4721bf322fa23",
+          "original_anchor_start": 5901,
+          "original_anchor_utf8": "<a href=\"/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm\">ex43-descriptionofregistra.htm</a>",
+          "parent_bytes": 14111,
+          "parent_key": "current_10k_index",
+          "parent_path": "evidence/batch9_identity_20261016/captures/7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f.bin",
+          "parent_sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f",
+          "resolved_exact_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm"
+        }
+      ],
+      "method": "GET",
+      "new_source_body_bytes": null,
+      "new_source_body_sha256": null,
+      "new_source_body_status": "NOT_REQUESTED_OR_OBSERVED",
+      "new_source_physical_capture_clock": null,
+      "new_source_publication_time": null,
+      "prior_history_audit": {
+        "audit_base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+        "candidate_eligible_for_peer_review": true,
+        "prior_attempt_found": false,
+        "tracked_json_files_scanned": 1485,
+        "tracked_json_occurrences": [],
+        "tracked_text_files_scanned": 1250,
+        "tracked_text_occurrences": [],
+        "unknown_matching_attempt_record": false,
+        "url_and_basename_both_checked": true
+      },
+      "priority": 2,
+      "request_bounds": {
+        "fallback_or_alternate_url_allowed": false,
+        "maximum_response_bytes": 1000000,
+        "maximum_transport_attempts": 1,
+        "redirects_allowed": false,
+        "retry_allowed": false,
+        "timeout_seconds": 25
+      },
+      "status": "UNATTEMPTED_IN_TRACKED_HISTORY_PENDING_PEER_AND_ROOT_REVIEW",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm"
+    },
+    {
+      "candidate_id": "P_HISTORICAL_CLASS_A_CHARTER",
+      "exact_missing_fact_to_inspect": "Exact historical charter articles defining ClassA and any par/class rights and stated legal dates. Read with the actual name-amendment source only if it explicitly preserves the other articles; do not infer preservation, instrument identity, CUSIP or a current validity interval.",
+      "expected_accession_directory": "000156459015011439",
+      "expected_archive_issuer_cik": "0001474432",
+      "expected_filename": "pstg-ex31_561.htm",
+      "expected_source_route": {
+        "expected_form": "Historical amended/restated certificate of incorporation, EX3.1 incorporated from10-Q",
+        "historical_reference_date": "2015-12-11",
+        "reference_date_is_new_publication_or_capture_time": false,
+        "retained_incorporation_row": "3.1 Amended and Restated Certificate of Incorporation. 10-Q 001-37570 3.1 12/11/2015"
+      },
+      "limitations_before_acquisition": [
+        "The referenced charter is historical2015, not independent proof that a given ClassA/CUSIP/symbol was valid on a2026 anchor.",
+        "No original2015 body, execution day, effective day or named current issuer is presumed before capture.",
+        "The numeric accession prefix is not used as a subject CIK or natural-person identity. The archive issuer route is1474432 and remains distinct from any filer interpretation.",
+        "This is a separate legal-source component, never an automatic fallback request after either2026 attachment fails."
+      ],
+      "literal_references": [
+        {
+          "href_byte_end_exclusive": 1954442,
+          "href_byte_start": 1954358,
+          "href_bytes_sha256": "2704b36822834573799110b0e534b8d706a21ede3f6342b853af122737c5ec7e",
+          "literal_href": "https://www.sec.gov/Archives/edgar/data/1474432/000156459015011439/pstg-ex31_561.htm",
+          "normalized_anchor_text": "Amended and Restated Certificate of Incorporation.",
+          "offset_basis": "Original body bytes; no DOM offsets or transformed replacement.",
+          "original_anchor_end_exclusive": 1954498,
+          "original_anchor_sha256": "3aa860b3ef3639fa41567044c6190cf18126ecc2e65a7289a09d2e101a606767",
+          "original_anchor_start": 1954201,
+          "original_anchor_utf8": "<a style=\"-sec-extract:exhibit;color:#0000ff;font-family:'Arial',sans-serif;font-size:10pt;font-weight:400;line-height:100%;text-decoration:underline\" href=\"https://www.sec.gov/Archives/edgar/data/1474432/000156459015011439/pstg-ex31_561.htm\">Amended and Restated Certificate of Incorporation.</a>",
+          "parent_bytes": 2070825,
+          "parent_key": "current_10k",
+          "parent_path": "evidence/batch8_identity_20261015/captures/77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+          "parent_sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7",
+          "resolved_exact_url": "https://www.sec.gov/Archives/edgar/data/1474432/000156459015011439/pstg-ex31_561.htm"
+        }
+      ],
+      "method": "GET",
+      "new_source_body_bytes": null,
+      "new_source_body_sha256": null,
+      "new_source_body_status": "NOT_REQUESTED_OR_OBSERVED",
+      "new_source_physical_capture_clock": null,
+      "new_source_publication_time": null,
+      "prior_history_audit": {
+        "audit_base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+        "candidate_eligible_for_peer_review": true,
+        "prior_attempt_found": false,
+        "tracked_json_files_scanned": 1485,
+        "tracked_json_occurrences": [],
+        "tracked_text_files_scanned": 1250,
+        "tracked_text_occurrences": [],
+        "unknown_matching_attempt_record": false,
+        "url_and_basename_both_checked": true
+      },
+      "priority": 3,
+      "request_bounds": {
+        "fallback_or_alternate_url_allowed": false,
+        "maximum_response_bytes": 1000000,
+        "maximum_transport_attempts": 1,
+        "redirects_allowed": false,
+        "retry_allowed": false,
+        "timeout_seconds": 25
+      },
+      "status": "UNATTEMPTED_IN_TRACKED_HISTORY_PENDING_PEER_AND_ROOT_REVIEW",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000156459015011439/pstg-ex31_561.htm"
+    }
+  ],
+  "created_at": "2026-10-21T02:09:54.849828+00:00",
+  "global_request_bounds": {
+    "failure_or_over_cap_policy": "Stop that exact candidate without retry/redirect/fallback. Retain actual result/clock/partial-status metadata; do not manufacture missing source bytes.",
+    "fallbacks_or_alternate_endpoints": 0,
+    "lane_permitted_to_perform_http": false,
+    "maximum_candidates": 3,
+    "maximum_response_bytes_per_candidate": 1000000,
+    "maximum_total_response_bytes_if_all_three_are_separately_approved": 3000000,
+    "maximum_total_transport_attempts": 3,
+    "redirects": 0,
+    "required_before_any_transport": "Independent evaluation peer review and root approval of exact URL, then root-owned immutable per-request reservation before its single GET. This file is not an HTTP reservation.",
+    "retries": 0,
+    "sensitive_whole_body_policy": "Entire access-bearing response remains withheld with metadata/hash/size/clocks; no sanitization, wrapping, encoding or substitute body.",
+    "timeout_seconds_per_candidate": 25
+  },
+  "history_audit": {
+    "attempt_classification": "No prior request, reservation, response, completed source plan or unknown matching record in the complete tracked audit universe. Any later root-known attempt cancels candidate eligibility before transport.",
+    "comparison_with_completed_discovery_and_source_plans": [
+      {
+        "bytes": 345214,
+        "new_candidate_basename_matches": [],
+        "path": "evidence/sourcefront_identity_20261020/source_feasibility_initial.json",
+        "sha256": "7f1bbe5c0c41eb40adef5d2043273ecb9bc89818b4a030bd1a4c0b2cda92cf99"
+      },
+      {
+        "bytes": 16873,
+        "new_candidate_basename_matches": [],
+        "path": "evidence/sourcefront_identity_20261020/charter_source_feasibility.json",
+        "sha256": "67827e57f2b17fd186213ed582d5929419ef664a8d141b180c1ab71238ddf0c5"
+      },
+      {
+        "bytes": 1919,
+        "new_candidate_basename_matches": [],
+        "path": "evidence/sourcefront_20261020/request_plan.json",
+        "sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0"
+      },
+      {
+        "bytes": 1218,
+        "new_candidate_basename_matches": [],
+        "path": "evidence/batch8_identity_20261015/request_plan.json",
+        "sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f"
+      },
+      {
+        "bytes": 2232,
+        "new_candidate_basename_matches": [],
+        "path": "evidence/batch9_identity_20261016/request_plan.json",
+        "sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6"
+      },
+      {
+        "bytes": 1232,
+        "new_candidate_basename_matches": [],
+        "path": "evidence/batch10_identity_20261018/request_plan.json",
+        "sha256": "efa75037439e5d4934ff07260be8150488ea534cf05775ac6af010c7efaca2b9"
+      }
+    ],
+    "exact_url_and_unique_filename_occurrences_for_selected_candidates": 0,
+    "inventory_hash_algorithm": "SHA256 of UTF8 canonical JSON array sorted by git ls-tree path, each{path,bytes,sha256}; json sort_keys=True,separators=(comma,colon).",
+    "json_parse_errors": [],
+    "scope": "All tracked JSON files at exact restored public base, plus tracked py/md/log/txt/yml/yaml source and attempt text. Only these named text formats were opened; no DB/journal/private scratch was accessed.",
+    "tracked_json_bytes": 28223043,
+    "tracked_json_files": 1485,
+    "tracked_json_inventory_sha256": "b31120f2f72a6f6012febe981b17a69f7fcd1edfb2aa75fdb9d5970889e6b51d",
+    "tracked_text_files": 1250,
+    "tracked_text_inventory_sha256": "cbdbb93b0cd1055d76013caeb41b1067e0d33d96bc5e31cf2bd97a0692741732"
+  },
+  "other_fronts_and_rejected_directions": [
+    {
+      "finding": "The completed SOURCEFRONT20 final charter contains zero literal hyperlinks and no named shareholder/control chain. It is already consumed; do not refetch. A closing8-K bylaws link is not selected merely because it is new: its label provides no particular basis to expect a final intervening owner or directness reconciliation.",
+      "front": "LEG directness",
+      "retained_new_charter_key": "leg_final_charter"
+    },
+    {
+      "finding": "The completed SOURCEFRONT20 formation contains zero literal hyperlinks. It is already consumed; its legal$0.001 common authority does not reconcile July7 or prove successorCUSIP. Old closing-filing bylaws/debt-indenture labels supply no grounded claim of a common-stock CUSIP correction.",
+      "front": "XOM July7/newCUSIP",
+      "retained_new_charter_key": "xom_successor_charter"
+    },
+    {
+      "finding": "Do not refetch the retained stock-certificate wrapper/image0, the subject-route Schedule13,10-K/8-K bodies,indexes or old pressrelease. The canonical filer-route XML linked by the retained Schedule index is not selected as new class/CUSIP evidence: it is the same accession/document already analyzed and does not ground an expectation of a missing ClassA/par clause. image1 and other incidental media are not selected.",
+      "front": "P already consumed routes/media"
+    }
+  ],
+  "plan_id": "SOURCEFRONT21_IDENTITY_P_LEGAL_INSTRUMENT_COMPONENTS",
+  "retained_parents": {
+    "current_10k": {
+      "body": {
+        "bytes": 2070825,
+        "path": "evidence/batch8_identity_20261015/captures/77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+        "sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7"
+      },
+      "capture_completed_at": "2026-10-15T13:38:21.852971+00:00",
+      "capture_started_at": "2026-10-15T13:38:13.941013+00:00",
+      "http_status": 200,
+      "metadata": {
+        "bytes": 1197,
+        "path": "evidence/batch8_identity_20261015/captures/attempt-02.metadata.json",
+        "sha256": "9702d477dd5e2dcf3cb59aba9f12e1ce7daf8d2e19e32533d0dd57efed95b0b2"
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
+      "whole_original_verified": true
+    },
+    "current_10k_index": {
+      "body": {
+        "bytes": 14111,
+        "path": "evidence/batch9_identity_20261016/captures/7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f.bin",
+        "sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f"
+      },
+      "capture_completed_at": "2026-10-16T12:18:00.481662+00:00",
+      "capture_started_at": "2026-10-16T12:17:55.578145+00:00",
+      "http_status": 200,
+      "metadata": {
+        "bytes": 1241,
+        "path": "evidence/batch9_identity_20261016/captures/attempt-02.metadata.json",
+        "sha256": "3c03a9adb2c3363541b354d914a825dd7d31fc30d19dbbceadddf3409325a42a"
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/0001474432-26-000027-index.html",
+      "whole_original_verified": true
+    },
+    "leg_final_charter": {
+      "body": {
+        "bytes": 14256,
+        "path": "evidence/sourcefront_20261020/primary/leg_final_articles.htm",
+        "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba"
+      },
+      "capture_completed_at": "2026-10-20T14:29:11.360266+00:00",
+      "capture_started_at": "2026-10-20T14:29:05.370795+00:00",
+      "http_status": 200,
+      "literal_hyperlink_count": 0,
+      "metadata": {
+        "bytes": 1231,
+        "path": "evidence/sourcefront_20261020/primary/leg_final_articles.metadata.json",
+        "sha256": "6f5af96f1e3de1d6f81b4f302b366d9b4d3dec38562e437041b86a468126c792"
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm",
+      "whole_original_verified": true
+    },
+    "name_action_8k": {
+      "body": {
+        "bytes": 31810,
+        "path": "evidence/batch4_identity_20261013/captures/50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786.bin",
+        "sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786"
+      },
+      "capture_completed_at": "2026-10-13T08:51:43.692956+00:00",
+      "capture_started_at": "2026-10-13T08:51:32.791729+00:00",
+      "http_status": 200,
+      "metadata": {
+        "bytes": 872,
+        "path": "evidence/batch4_identity_20261013/captures/9e94ff7b56c0c2754f484da2574802cadae985d4a04a34880b12291404dd909d.json",
+        "sha256": "b6ea263cd075395a484525f03500b48f36622592d0677f0a162ff094b7ca65bc"
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/pstg-20260223.htm",
+      "whole_original_verified": true
+    },
+    "xom_successor_charter": {
+      "body": {
+        "bytes": 25866,
+        "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.htm",
+        "sha256": "ef4d1a0c0c71bc3ea536ca3ee333c91db561e99c57448d851225e8b3dcf920ac"
+      },
+      "capture_completed_at": "2026-10-20T14:29:15.824236+00:00",
+      "capture_started_at": "2026-10-20T14:29:11.362695+00:00",
+      "http_status": 200,
+      "literal_hyperlink_count": 0,
+      "metadata": {
+        "bytes": 1243,
+        "path": "evidence/sourcefront_20261020/primary/xom_successor_formation.metadata.json",
+        "sha256": "7e0b4e06ccf8c3cbfc2220d4277ef4579b42be4b4e15575c321ada29915b5646"
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex3i.htm",
+      "whole_original_verified": true
+    }
+  },
+  "schema_version": "bounded_primary_source_plan_v1",
+  "scope": "Three explicit new legal/instrument-source components grounded in retained original links; no review wrapper, verified identity or source response is produced.",
+  "selected_front": "P/PSTG/Everpure independent dated ClassA/CUSIP/symbol/action bridge",
+  "source_gaps_preserved": [
+    "No unseen candidate body is declared to contain a CUSIP, exact ClassA/par clause or effective symbol-change day.",
+    "The February23 retained8-K says the legal name changed while ClassA continued under PSTG; it does not say the PSTG-to-P ticker action took effect that day.",
+    "The historical2015 charter cannot extend its validity to a2026 point or Q3 without direct independent proof.",
+    "An undated SPECIMEN certificate remains undated; no issue/transfer validity is inferred.",
+    "Existing raw-index route, publication and declared/served byte conflicts stay preserved.",
+    "Two documents in the same filing do not supply two independent dated sources."
+  ],
+  "status": "READY_FOR_INDEPENDENT_PEER_AUDIT_NO_ACQUISITION"
+}

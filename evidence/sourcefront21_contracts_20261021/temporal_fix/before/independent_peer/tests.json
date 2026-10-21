@@ -1,0 +1,45 @@
+{
+  "completed_at": "2026-10-21T07:10:16.405488+00:00",
+  "discovered": 12,
+  "duration_seconds": 4.75340418799999,
+  "errors": 0,
+  "executed": 12,
+  "expected_failures": 0,
+  "failures": 2,
+  "fixture_scope": "Unchanged real retained control plus synthetic rehashed in-memory negatives; never new LIVE responses",
+  "full_original_log": {
+    "bytes": 5930,
+    "path": "evidence/sourcefront21_wafer_peer_20261021/before/tests.log",
+    "sha256": "bd3c3016fa7ac700bbf5628fc6cba8c72529acc99b3c90f0cabd097de701d37e"
+  },
+  "http_sql_collector_calls": 0,
+  "owner_commit": "202303498cb68098247f2cb648e08cd99812d164",
+  "phase": "before",
+  "producer_after": {
+    "bytes": 25503,
+    "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+    "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+  },
+  "producer_and_test_unchanged": true,
+  "producer_before": {
+    "bytes": 25503,
+    "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+    "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+  },
+  "schema_version": "independent_wafer_capacity_deposit_peer_v1",
+  "skips": 0,
+  "source_capture_acceptance_or_full21": false,
+  "started_at": "2026-10-21T07:10:11.652084+00:00",
+  "successful": false,
+  "test_after": {
+    "bytes": 12512,
+    "path": "tests/test_wafer_capacity_deposit_peer.py",
+    "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+  },
+  "test_before": {
+    "bytes": 12512,
+    "path": "tests/test_wafer_capacity_deposit_peer.py",
+    "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+  },
+  "unexpected_successes": 0
+}

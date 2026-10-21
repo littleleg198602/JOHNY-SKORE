@@ -1,0 +1,211 @@
+{
+  "physical_verified_at": "2026-10-21T01:57:41.904434+00:00",
+  "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "tree": "138a1169556f1fdd102c68cd95fda429b3e6c17b",
+  "run_id": 39495108326,
+  "run_URL": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/39495108326",
+  "all_5_required_checks_success": true,
+  "jobs": [
+    {
+      "id": 118878043754,
+      "name": "Windows contracts, persistence and UI",
+      "conclusion": "success"
+    },
+    {
+      "id": 118878044287,
+      "name": "Streamlit UI agent",
+      "conclusion": "success"
+    },
+    {
+      "id": 118878044354,
+      "name": "Contract, source and persistence agent",
+      "conclusion": "success"
+    },
+    {
+      "id": 118878044413,
+      "name": "687 ticker scale and progress agent",
+      "conclusion": "success"
+    },
+    {
+      "id": 118902225156,
+      "name": "Deterministic release gate",
+      "conclusion": "success"
+    }
+  ],
+  "Linux": {
+    "physical_verified_at": "2026-10-20T21:00:54.537112+00:00",
+    "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+    "run_id": 39495108326,
+    "job_id": 118878044354,
+    "decoded_UTF8_bytes": 687689,
+    "decoded_UTF8_sha256": "bac5c25bd5472ea1e199e285697dbe1fc58642c9a2616e170c09aeb6acc6a0f7",
+    "plain_OK": true,
+    "tests": 2767,
+    "seconds": 629.268,
+    "all_2767_original_OK_statuses_observed": true,
+    "new_exact_methods_original_OK": 79,
+    "new_method_verifier_uses_strict_terminal_test_boundaries": true,
+    "four_older_method_blocks_have_buffered_stdout_after_original_ok": true,
+    "ancillary_diagnostic_preserved": "ancillary_all_old_blocks_diagnostic.json",
+    "original_file_rewritten": false,
+    "unit_tests_rerun": false
+  },
+  "UI": {
+    "physical_verified_at": "2026-10-20T20:51:03.000455+00:00",
+    "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+    "run_id": 39495108326,
+    "job_id": 118878044287,
+    "decoded_UTF8_bytes": 75064,
+    "decoded_UTF8_sha256": "6d6849abfd8fc8e98dc5feed95fd2f412e164c3615c7e0e0efc611ee0e6cc9ab",
+    "plain_OK": true,
+    "tests": 8,
+    "seconds": 14.366,
+    "strict_original_OK_blocks": [
+      {
+        "heading": "test_analysis_button_persists_and_displays_shared_reports (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_analysis_button_persists_and_displays_shared_reports) ... ",
+        "original_ok_block_sha256": "63769f0f994148e42ff318e47ca621d0a54d9584c281fb678af467b756f449fd"
+      },
+      {
+        "heading": "test_app_starts_and_exposes_yahoo_workflow (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_app_starts_and_exposes_yahoo_workflow) ... ",
+        "original_ok_block_sha256": "4134e33755bfaff3cd2f15ccb4c8c3a890fde8f943650695841cabb8aeb761cb"
+      },
+      {
+        "heading": "test_invalid_optional_manifest_is_quarantined_without_blocking_analysis (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_invalid_optional_manifest_is_quarantined_without_blocking_analysis) ... ",
+        "original_ok_block_sha256": "33060a2ac8e8e6f7efc07a66a5d1e5e597fdef4cc14753931afe934e5e7fbd83"
+      },
+      {
+        "heading": "test_prospective_history_report_is_explicit_and_has_no_manufactured_forecasts (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_prospective_history_report_is_explicit_and_has_no_manufactured_forecasts) ... ",
+        "original_ok_block_sha256": "269cca1b7f84c0cd869dadef91f2eb73556161600fefa4e5f6c5670e409c4a51"
+      },
+      {
+        "heading": "test_retained_identity_review_is_explicit_and_keeps_actual_hca_withheld (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_retained_identity_review_is_explicit_and_keeps_actual_hca_withheld) ... ",
+        "original_ok_block_sha256": "c00dfd69dc9db2bfc469d45f756c72183469bd85d8b125ae47ade8c15e610b62"
+      },
+      {
+        "heading": "test_source_archive_export_is_explicit_immutable_and_not_acceptance (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_source_archive_export_is_explicit_immutable_and_not_acceptance) ... ",
+        "original_ok_block_sha256": "f56fda5a1cabfa6e5e7547b531b1d98bd79d80807f7cb03e13db316f6f2454d4"
+      },
+      {
+        "heading": "test_specialist_history_is_explicit_and_empty_archive_stays_insufficient (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_specialist_history_is_explicit_and_empty_archive_stays_insufficient) ... ",
+        "original_ok_block_sha256": "f21d4174964731c47664425c6d083b6aef097d6e8672120e20622d09a7037a31"
+      },
+      {
+        "heading": "test_transaction_button_targets_only_selected_verified_award (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_transaction_button_targets_only_selected_verified_award) ... ",
+        "original_ok_block_sha256": "e82060be378f5a07dc1815d6d2ce22a44722f4be8f4f6c2370a62d43065f8ab0"
+      }
+    ],
+    "file_rewritten": false
+  },
+  "scale687": {
+    "physical_verified_at": "2026-10-20T20:51:03.002522+00:00",
+    "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+    "run_id": 39495108326,
+    "job_id": 118878044413,
+    "decoded_UTF8_bytes": 64063,
+    "decoded_UTF8_sha256": "1c343e651c041c64a6cbb618b00e154a4495cd14a75e92852fc4b7da5f61d21b",
+    "plain_OK": true,
+    "tests": 5,
+    "seconds": 21.9,
+    "strict_original_OK_blocks": [
+      {
+        "heading": "test_exactly_687_unique_tickers_complete_with_cached_yahoo (test_687_ticker_contract.FullUniverseContractTests.test_exactly_687_unique_tickers_complete_with_cached_yahoo) ... ",
+        "original_ok_block_sha256": "e7843a8c859b52979ab9da1f78e1d5f902fed53bbe88213e84ea2209f91f0ba3"
+      },
+      {
+        "heading": "test_market_checker_export_is_the_687_ticker_source (test_canonical_ticker_universe.CanonicalTickerUniverseTests.test_market_checker_export_is_the_687_ticker_source) ... ",
+        "original_ok_block_sha256": "58e6b8b662955254e3137442374860577981ebe96554eae407837ecbac14d4c6"
+      },
+      {
+        "heading": "test_ticker_loader_preserves_excel_order (test_canonical_ticker_universe.CanonicalTickerUniverseTests.test_ticker_loader_preserves_excel_order) ... ",
+        "original_ok_block_sha256": "75a4796e29bfd7eeeaa7a22d4f919c549a9007c9babdcfcae95d098b53eda137"
+      },
+      {
+        "heading": "test_every_requested_ticker_has_unambiguous_outcome (test_ticker_traceability.TickerTraceabilityTests.test_every_requested_ticker_has_unambiguous_outcome) ... ",
+        "original_ok_block_sha256": "9a755107e38810f245c0263da42b9fca00c7711d7d99173a39b7790e000b5ab5"
+      },
+      {
+        "heading": "test_sqlite_persists_the_same_complete_accounting_as_the_run (test_ticker_traceability.TickerTraceabilityTests.test_sqlite_persists_the_same_complete_accounting_as_the_run) ... ",
+        "original_ok_block_sha256": "732b49bdd3cbc4f74fd6d80e1a11286930cbdd5b0f79b8976bf5837cd3b7c254"
+      }
+    ],
+    "file_rewritten": false
+  },
+  "Windows_original_artifact": {
+    "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+    "run_id": 39495108326,
+    "all_five_checks_success": true,
+    "artifact_id": 12302140552,
+    "zip": {
+      "bytes": 83896,
+      "sha256": "be0fbde0322571c93fd44a0826a2e5cb6ef4c2da805cb1b9af14b71a65b91816"
+    },
+    "published_digest_matches": true,
+    "members": {
+      "windows-tests.log": {
+        "bytes": 567319,
+        "sha256": "cc5ff07d8fc7eb139c9a3a63cb6766bea8e1fbd002042c162da50e92cd07c6ba",
+        "CRLF_pairs": 2772,
+        "original_bytes_unchanged": true
+      },
+      "windows-tests.json": {
+        "bytes": 375,
+        "sha256": "a8dca25dfcc8f0e289c503e468d90a4edc200a4c3c81f94dc44487aa5f8afd9b",
+        "CRLF_pairs": 14,
+        "original_bytes_unchanged": true
+      }
+    },
+    "actual_original_result": {
+      "started_at": "2026-10-20T20:50:12.040946+00:00",
+      "ended_at": "2026-10-20T21:39:58.012801+00:00",
+      "platform": "Windows-2025Server-10.0.26100-SP0",
+      "python_version": "3.12.10",
+      "discovered_tests": 2767,
+      "tests_run": 2767,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "successful": true
+    },
+    "plain_OK": true,
+    "seconds_from_original_footer": 2983.84,
+    "new_exact_methods_original_ok": 79,
+    "original_log_rewritten": false,
+    "hosted_unit_Windows_is_user_end_to_end": false,
+    "full_specialist_acceptance": "0/21"
+  },
+  "Windows_hosted_log": {
+    "physical_verified_at": "2026-10-21T01:57:07.569804+00:00",
+    "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+    "run_id": 39495108326,
+    "job_id": 118878043754,
+    "decoded_UTF8_bytes": 709277,
+    "decoded_UTF8_sha256": "bc20d579339d2294f300ffc8788df7beb645059f535e3fdd4af6ca1522275673",
+    "plain_OK_footers": [
+      {
+        "tests": 63,
+        "seconds": 37.127
+      },
+      {
+        "tests": 2767,
+        "seconds": 2983.84
+      }
+    ],
+    "79_new_exact_methods_strict_original_OK": true,
+    "actual_original_artifact_result": "windows/originals/content_verification.json",
+    "original_log_rewritten": false
+  },
+  "release_gate": {
+    "job_id": 118902225156,
+    "all_four_original_env_results_success": true,
+    "decoded_bytes": 2506,
+    "decoded_sha256": "469e3e9f7f5679da56f3595a03235617247baa66c37f347f098353bf6e6b4ee0"
+  },
+  "GitHub_artifact_downloads": 1,
+  "original_artifact_members_modified": false,
+  "source_HTTP_or_tests_repeated": false,
+  "pre_CI_proof_unchanged": true,
+  "full_user_Windows_end_to_end": false,
+  "full_specialist_acceptance": "0/21"
+}

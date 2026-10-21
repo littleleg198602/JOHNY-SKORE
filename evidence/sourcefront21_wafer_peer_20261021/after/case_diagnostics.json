@@ -1,0 +1,207 @@
+[
+  {
+    "as_of": "2026-10-21T07:18:52.027929+00:00",
+    "filing": {
+      "acceptance_calendar_validation": {
+        "acceptance_instant_verified": false,
+        "accepted_equals_filing_day_required": false,
+        "bound_source_capture_utc": "2026-10-16T12:17:53.625727+00:00",
+        "future_display_bound_hours": 24,
+        "raw_display": "2025-11-07 16:08:12",
+        "timezone": "UNKNOWN",
+        "timezone_inferred": false,
+        "validation_scope": "NECESSARY_CONSERVATIVE_CALENDAR_BOUND_ONLY"
+      },
+      "acceptance_datetime_unqualified_raw": "2025-11-07 16:08:12",
+      "acceptance_timezone_inferred": false,
+      "accession_key": "000000412725000085",
+      "captured_primary_bytes": 1708710,
+      "document_type": "10-K",
+      "exact_historical_as_filed_version_verified": false,
+      "filing_day": "2025-11-07",
+      "index_declared_primary_bytes": 1708601,
+      "issuer_cik": "0000004127",
+      "primary_filename": "swks-20251003.htm",
+      "publisher_size_conflict": true,
+      "report_period_end": "2025-10-03"
+    },
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "knowledge_at": "2026-10-21T07:18:52.027929+00:00",
+    "method": "test_actual_whole_original_control_has_six_components_not_twelve_added_balances",
+    "reason": "",
+    "request_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "status": "CANDIDATE_REVIEWED",
+    "synthetic_input_mutation": false
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "eec5105ad50ea6bcb08a1cd6d68fef72713dedc9ef092f7cd45be20def7cfd4c"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_category_context_wrong_entity_cannot_inherit_dei_issuer",
+    "reason": "ASSET_CONTEXT_ENTITY_OR_CATEGORY_SCOPE_MISMATCH",
+    "request_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "status": "REJECTED",
+    "synthetic_input_mutation": true
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "3d14c0245513cec0236a30589be8c777391059b3b16255befc9436a13d5920c9"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_context_instant_cannot_be_replaced_with_another_day",
+    "reason": "ASSET_INSTANT_DIFFERS_FROM_EXACT_FILING_COMPARATIVE_DATE",
+    "request_sha256": "8caeb176a7c0af7af1ebc88d963607079d49d4596ac500d373621dd087293c8e",
+    "status": "REJECTED",
+    "synthetic_input_mutation": true
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_current_and_noncurrent_cannot_be_swapped_even_when_sum_is_unchanged",
+    "reason": "ASSET_FACT_CONCEPT_CONTEXT_VALUE_OR_PRECISION_MISMATCH",
+    "request_sha256": "1b780648345f9e129fbcebe1a756f126d89fca68ba12ce91ed706080efadc61d",
+    "status": "REJECTED",
+    "synthetic_input_mutation": false
+  },
+  {
+    "as_of": "2026-10-22T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_explicit_future_requested_clock_cannot_publish_a_future_as_of_claim",
+    "reason": "FUTURE_REVIEW_CUTOFF_NOT_ALLOWED",
+    "request_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "status": "REJECTED",
+    "synthetic_input_mutation": false
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "add29ceaaf13497b6c7d75221c06b59c2b2aafc445d39caaa2fdd305855bf9c2",
+      "issuer": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_future_index_acceptance_display_cannot_be_a_qualified_capture_from_2026",
+    "reason": "INDEX_ACCEPTANCE_DISPLAY_IMPOSSIBLY_AFTER_ORIGINAL_CAPTURE",
+    "request_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "status": "REJECTED",
+    "synthetic_input_mutation": true
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_future_input_known_at_cannot_be_accepted_under_current_physical_clock",
+    "reason": "REVERSED_OR_FUTURE_SOURCE_KNOWLEDGE_CLOCK",
+    "request_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "status": "REJECTED",
+    "synthetic_input_mutation": false
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_index_wrong_basename_is_not_tolerated_as_known_109_byte_body_conflict",
+    "reason": "INDEX_PRIMARY_ACCESSION_FORM_OR_DATE_CONFLICT",
+    "request_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "status": "REJECTED",
+    "synthetic_input_mutation": false
+  },
+  {
+    "as_of": "2026-10-21T07:59:59+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_old_cutoff_and_validation_finishing_after_cutoff_do_not_return_claims",
+    "reason": "AFTER_PHYSICAL_KNOWLEDGE_CUTOFF",
+    "request_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "status": "REJECTED",
+    "synthetic_input_mutation": false
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_old_cutoff_and_validation_finishing_after_cutoff_do_not_return_claims",
+    "reason": "AFTER_PHYSICAL_KNOWLEDGE_CUTOFF",
+    "request_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "status": "REJECTED",
+    "synthetic_input_mutation": false
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "fce1dfcc9ea59356741e43596d4f3f1685053a457bbb0817a6b5307e01e04071"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_outer_nested_fact_precision_cannot_inherit_inner_precision",
+    "reason": "ASSET_FACT_CONCEPT_CONTEXT_VALUE_OR_PRECISION_MISMATCH",
+    "request_sha256": "f821090cd0a90f64f95d112b8272ee0f88d9ec3990f9c1cdcd4212698fcae2d6",
+    "status": "REJECTED",
+    "synthetic_input_mutation": true
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "e2b52e4bed3c03e503b96b1a12e6c42e659dd3a39e54eb4a4d2e848b2d3af4e9"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_outer_nested_fact_wrong_unit_cannot_inherit_inner_usd",
+    "reason": "SIMPLE_USD_CURRENCY_UNIT_REQUIRED",
+    "request_sha256": "380ec08c2d9c00ba007909565fd512e123099158cc9bcd2c361eb975aeaf6f57",
+    "status": "REJECTED",
+    "synthetic_input_mutation": true
+  },
+  {
+    "as_of": "2026-10-21T08:00:00+00:00",
+    "filing": null,
+    "input_whole_body_sha256": {
+      "index": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "issuer": "5b999e25ab5542ee32fad0b6ff3623ddae6c5e072f164a61d0b9949de5d06e51"
+    },
+    "knowledge_at": "2026-10-21T08:00:00+00:00",
+    "method": "test_wrong_commitments_textblock_context_cannot_inherit_selected_numeric_contexts",
+    "reason": "ASSET_FACTS_MUST_SHARE_THE_EXACT_ISSUER_COMMITMENTS_DISCLOSURE",
+    "request_sha256": "8e1901d223d10fbd1bc4c90b6e15c05661e69ed22deffba4fde6ba226a50aa2e",
+    "status": "REJECTED",
+    "synthetic_input_mutation": true
+  }
+]

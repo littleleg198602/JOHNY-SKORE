@@ -1,0 +1,861 @@
+{
+  "schema_version": "actual_fda_primary_product_role_review_v1",
+  "review_started_at": "2026-10-21T07:27:29.632054+00:00",
+  "original_source_commit": "8313e09da8db533a2c75c2da279b10458db4643c",
+  "frozen_local_source_plan_commit": "2648849505a4bfacf0eab941df7b07ca0afe8dfd",
+  "frozen_source_plan": {
+    "path": "evidence/sourcefront21_healthcare_20261021/source_plan.json",
+    "bytes": 30271,
+    "sha256": "d89f491a62e5e045f9cf30845bd8944526b3062defa141e1f2ceead49bdb64ba"
+  },
+  "frozen_request_history_audit": {
+    "path": "evidence/sourcefront21_healthcare_20261021/tracked_history_audit.json",
+    "bytes": 412849,
+    "sha256": "da964b6df8e7c25ab56d9e677e04d6a6d72e82e9f3a30acab115b6c70cc6cfdb"
+  },
+  "decision": "SUPPORTED_SOURCE_DOCUMENT_ROLE_AND_PRODUCT_POINTS; EXACT_UNLIMITED_APPLICANT_ISSUER_OWNERSHIP_BRIDGE_WITHHELD",
+  "original_documents": [
+    {
+      "document_key": "approval_2019",
+      "source_repo_path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "source_absolute_readonly_path": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "whole_original_bytes": 137546,
+      "whole_original_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+      "capture_metadata_repo_path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.metadata.json",
+      "capture_metadata_bytes": 1636,
+      "capture_metadata_sha256": "1d370f99d070958eee1f81b64f7c6563b09182a3d897dd6f65d41a74598db03a",
+      "requested_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+      "final_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+      "HTTP_status": 200,
+      "requested_at": "2026-10-21T07:12:26.381422+00:00",
+      "observed_at": "2026-10-21T07:12:30.116950+00:00",
+      "capture_known_at": "2026-10-21T07:12:30.175333+00:00",
+      "HTTP_Last_Modified": "Fri, 17 May 2019 13:57:21 GMT",
+      "publisher_availability_time": null,
+      "body_original_untransformed_public_and_sensitive_gate_passed": true,
+      "derived_text": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+        "bytes": 19840,
+        "sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66"
+      },
+      "page_count": 10,
+      "all_pages_have_nonempty_extracted_text": true,
+      "whole_text_identity_search_counts": {
+        "exact_unlimited_applicant": 0,
+        "any_unlimited": 0,
+        "short_name": 2,
+        "issuer_cik": 0,
+        "ownership_words": 0,
+        "license_2060": 1,
+        "manufacturer_role": 0,
+        "distributor_role": 0
+      },
+      "pdfinfo_metadata_as_printed": "Title:           Approval Package\nSubject:         Review\nAuthor:          FDA\nCreationDate:    Fri May 17 09:18:52 2019 EDT\nModDate:         Fri May 17 09:57:21 2019 EDT\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          yes\nUserProperties:  no\nSuspects:        no\nForm:            AcroForm\nJavaScript:      no\nPages:           10\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       137546 bytes\nOptimized:       no\nPDF version:     1.7\n",
+      "pdfinfo_warning": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "facts": [
+        {
+          "fact": "application_scope",
+          "value": "BLA761081/ORIG-1; package identifier761081Orig1s000",
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 1,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 6,
+            "derived_global_line_end": 6,
+            "derived_page_line_start": 6,
+            "derived_page_line_end": 6,
+            "derived_byte_start": 171,
+            "derived_byte_end_exclusive": 186,
+            "derived_passage_sha256": "b5c923911a123fa23bfc328cc3956c05af6410a0f4dbf1581ec5ae90673ddc04",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          }
+        },
+        {
+          "fact": "cover_sponsor_exact_name",
+          "value": "Pfizer Ireland Pharmaceuticals",
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 1,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 13,
+            "derived_global_line_end": 13,
+            "derived_page_line_start": 13,
+            "derived_page_line_end": 13,
+            "derived_byte_start": 307,
+            "derived_byte_end_exclusive": 357,
+            "derived_passage_sha256": "00e647c49365ace0a2ec175816a7ef0d60321fa7c8c63057b0a1aa1033725f02",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "not_the_exact_unlimited_company_name": true
+        },
+        {
+          "fact": "approval_cover_action_day",
+          "value": "2019-03-11",
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 1,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 15,
+            "derived_global_line_end": 15,
+            "derived_page_line_start": 15,
+            "derived_page_line_end": 15,
+            "derived_byte_start": 359,
+            "derived_byte_end_exclusive": 393,
+            "derived_passage_sha256": "056fba6c2ed71e2946d4961be472d706fd6b1bfbc0815816fe757111a699c276",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "not_ownership_since_or_capture_time": true
+        },
+        {
+          "fact": "original_product_presentation",
+          "value": {
+            "brand": "Trazimera",
+            "proper_name": "trastuzumab-qyyp",
+            "strength": "420mg/vial",
+            "form": "for injection",
+            "container": "multi-dose vial"
+          },
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 4,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 79,
+            "derived_global_line_end": 81,
+            "derived_page_line_start": 20,
+            "derived_page_line_end": 22,
+            "derived_byte_start": 2585,
+            "derived_byte_end_exclusive": 2858,
+            "derived_passage_sha256": "415cf6b5ab1eaac4a3a45ef78906ba544d621541c1b1a807c3dc1a5b71b85e14",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          }
+        },
+        {
+          "fact": "letter_addressee_exact_name",
+          "value": "Pfizer Ireland Pharmaceuticals",
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 4,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 71,
+            "derived_global_line_end": 71,
+            "derived_page_line_start": 12,
+            "derived_page_line_end": 12,
+            "derived_byte_start": 2377,
+            "derived_byte_end_exclusive": 2407,
+            "derived_passage_sha256": "247e881127c1f85a3df2263b4d78c4982755d1054ee5382a0e1295ed65627b38",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          }
+        },
+        {
+          "fact": "letter_addressee_mailing_address",
+          "value": {
+            "attention": "Scott C. Anderson, MS",
+            "street": "10646 Science Center Drive",
+            "city_state_postcode": "San Diego, CA92121"
+          },
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 4,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 72,
+            "derived_global_line_end": 74,
+            "derived_page_line_start": 13,
+            "derived_page_line_end": 15,
+            "derived_byte_start": 2423,
+            "derived_byte_end_exclusive": 2532,
+            "derived_passage_sha256": "5202300ab906584dd4cd4dccc0cd036a585681416302c0cfe7f55e305fe1cf85",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "incorporation_jurisdiction_not_established": true
+        },
+        {
+          "fact": "regulatory_licensing_authorization",
+          "value": {
+            "approved_BLA": "761081",
+            "product": "Trazimera/trastuzumab-qyyp",
+            "US_license_number": "2060",
+            "addressee_name": "Pfizer Ireland Pharmaceuticals"
+          },
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 4,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 88,
+            "derived_global_line_end": 90,
+            "derived_page_line_start": 29,
+            "derived_page_line_end": 31,
+            "derived_byte_start": 3078,
+            "derived_byte_end_exclusive": 3373,
+            "derived_passage_sha256": "fb8233b2ed5e91e931a35de453ce556ea21f94e3dce3dd89911dfd32b5ac48be",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "regulatory_licence_not_corporate_ownership": true
+        },
+        {
+          "fact": "explicit_final_product_manufacturing_site",
+          "value": {
+            "legal_name_as_printed": "Pfizer Manufacturing Belgium NV",
+            "place": "Puurs, Belgium",
+            "FEI": "1000654629",
+            "roles": [
+              "manufacture",
+              "fill",
+              "label",
+              "package"
+            ],
+            "objects": [
+              "final formulated drug product",
+              "Bacteriostatic Water for Injection"
+            ]
+          },
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 5,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 132,
+            "derived_global_line_end": 134,
+            "derived_page_line_start": 26,
+            "derived_page_line_end": 28,
+            "derived_byte_start": 5462,
+            "derived_byte_end_exclusive": 5731,
+            "derived_passage_sha256": "7f323386926e30b68925e3c1ae63dfcee86bd2f28a839be92ac182806e0f4b1a",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "site_place_not_incorporation_jurisdiction": true,
+          "parent_or_group_relationship_not_proved": true
+        },
+        {
+          "fact": "letter_signer_and_capacity",
+          "value": {
+            "name_as_printed": "Laleh Amiri-Kordestani, MD",
+            "capacity": "Supervisory Associate Director; Division of Oncology Products1; FDA/CDER"
+          },
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 9,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 347,
+            "derived_global_line_end": 351,
+            "derived_page_line_start": 25,
+            "derived_page_line_end": 29,
+            "derived_byte_start": 18526,
+            "derived_byte_end_exclusive": 18938,
+            "derived_passage_sha256": "7b7775bfcc29011b1f58f3b998129f6a6c0392b1f426307adca8f3ccf896c189",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          }
+        },
+        {
+          "fact": "electronic_signature_manifestation",
+          "value": {
+            "printed_signer": "LALEH AMIRI KORDESTANI",
+            "printed_datetime": "03/11/2019 03:12:32 PM",
+            "timezone": "NOT_STATED"
+          },
+          "evidence": {
+            "document_key": "approval_2019",
+            "original_pdf_sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7",
+            "physical_page": 10,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+            "derived_text_whole_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+            "derived_global_line_start": 372,
+            "derived_global_line_end": 373,
+            "derived_page_line_start": 11,
+            "derived_page_line_end": 12,
+            "derived_byte_start": 19757,
+            "derived_byte_end_exclusive": 19812,
+            "derived_passage_sha256": "3117e4ab011d56b0a3969f55dd0584a17a73d0bddfff1bfe024d6c7b7193a703",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "cryptographic_signature_validation_performed": false
+        }
+      ],
+      "short_quotes": [
+        "Pfizer Ireland Pharmaceuticals",
+        "U.S. License No. 2060",
+        "Pfizer Manufacturing Belgium NV, Puurs, Belgium",
+        "03/11/2019 03:12:32 PM"
+      ],
+      "short_quote_word_count": 16
+    },
+    {
+      "document_key": "label_2025",
+      "source_repo_path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "source_absolute_readonly_path": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "whole_original_bytes": 2495404,
+      "whole_original_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+      "capture_metadata_repo_path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.metadata.json",
+      "capture_metadata_bytes": 1619,
+      "capture_metadata_sha256": "75179cbd2b8c00d0201c51b12d7b05b9796c0c7556c1cdb9df590dbff20954c4",
+      "requested_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+      "final_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+      "HTTP_status": 200,
+      "requested_at": "2026-10-21T07:12:30.176417+00:00",
+      "observed_at": "2026-10-21T07:12:34.528887+00:00",
+      "capture_known_at": "2026-10-21T07:12:34.908342+00:00",
+      "HTTP_Last_Modified": "Mon, 25 Aug 2025 17:23:36 GMT",
+      "publisher_availability_time": null,
+      "body_original_untransformed_public_and_sensitive_gate_passed": true,
+      "derived_text": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+        "bytes": 142311,
+        "sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059"
+      },
+      "page_count": 36,
+      "all_pages_have_nonempty_extracted_text": true,
+      "whole_text_identity_search_counts": {
+        "exact_unlimited_applicant": 0,
+        "any_unlimited": 0,
+        "short_name": 1,
+        "issuer_cik": 0,
+        "ownership_words": 0,
+        "license_2060": 1,
+        "manufacturer_role": 1,
+        "distributor_role": 1
+      },
+      "pdfinfo_metadata_as_printed": "Title:           label\nSubject:         Trazimera (trastuzumab-qyyp) for injection\nKeywords:        Trazimera (trastuzumab-qyyp) for injection\nAuthor:          fda/cder\nCreator:         Acrobat PDFMaker 25 for Word\nProducer:        Adobe Acrobat (32-bit) 25 Paper Capture Plug-in\nCreationDate:    Mon Aug 25 13:16:54 2025 EDT\nModDate:         Mon Aug 25 13:23:36 2025 EDT\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          yes\nUserProperties:  no\nSuspects:        no\nForm:            AcroForm\nJavaScript:      no\nPages:           36\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       2495404 bytes\nOptimized:       no\nPDF version:     1.6\n",
+      "pdfinfo_warning": "",
+      "facts": [
+        {
+          "fact": "product_name_and_route",
+          "value": {
+            "brand": "TRAZIMERA",
+            "proper_name": "trastuzumab-qyyp",
+            "form": "for injection",
+            "route": "intravenous use"
+          },
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 1,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 3,
+            "derived_global_line_end": 6,
+            "derived_page_line_start": 3,
+            "derived_page_line_end": 6,
+            "derived_byte_start": 312,
+            "derived_byte_end_exclusive": 804,
+            "derived_passage_sha256": "abcbe12909c4fa9a47c047185a089c5c4069a7d7072ac45bfef1f1b22ec32913",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          }
+        },
+        {
+          "fact": "initial_US_approval_year",
+          "value": "2019",
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 1,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 7,
+            "derived_global_line_end": 7,
+            "derived_page_line_start": 7,
+            "derived_page_line_end": 7,
+            "derived_byte_start": 879,
+            "derived_byte_end_exclusive": 906,
+            "derived_passage_sha256": "fa02820b63a170574579b927f9de78f9568f6d969c206b524afcc776360dc14f",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "not_exact_company_ownership_day": true
+        },
+        {
+          "fact": "printed_label_revision",
+          "value": "8/2025",
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 1,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 54,
+            "derived_global_line_end": 54,
+            "derived_page_line_start": 54,
+            "derived_page_line_end": 54,
+            "derived_byte_start": 7443,
+            "derived_byte_end_exclusive": 7458,
+            "derived_passage_sha256": "7b9f41eacf58e249e6f4cfbbccd414ab68094ecb67c54770a7f7335a61119e76",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "precision": "MONTH",
+          "not_capture_or_ownership_since_time": true
+        },
+        {
+          "fact": "dosage_forms_and_strengths",
+          "value": [
+            {
+              "strength": "150mg",
+              "form": "white lyophilized powder for injection",
+              "container": "single-dose vial"
+            },
+            {
+              "strength": "420mg",
+              "form": "white lyophilized powder for injection",
+              "container": "multiple-dose vial"
+            }
+          ],
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 7,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 340,
+            "derived_global_line_end": 343,
+            "derived_page_line_start": 38,
+            "derived_page_line_end": 41,
+            "derived_byte_start": 25702,
+            "derived_byte_end_exclusive": 25936,
+            "derived_passage_sha256": "10b2189a8458a41998d525dfe3b7a7faa81049f4f9d267d7715663363c5c730a",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "clinical_dose_recommendations_not_made": true
+        },
+        {
+          "fact": "420mg_package_NDC",
+          "value": {
+            "strength": "420mg/vial",
+            "container": "multiple-dose vial",
+            "NDC_as_printed": "0069-0305-01"
+          },
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 35,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 2021,
+            "derived_global_line_end": 2026,
+            "derived_page_line_start": 31,
+            "derived_page_line_end": 36,
+            "derived_byte_start": 139372,
+            "derived_byte_end_exclusive": 139744,
+            "derived_passage_sha256": "d64ba26c082aaafbf5b831f994deb5b9cf0995ea0ae180acae4c7754a921a2e6",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "FDA_product_number_not_inferred_from_NDC": true
+        },
+        {
+          "fact": "150mg_package_NDC",
+          "value": {
+            "strength": "150mg/vial",
+            "container": "single-dose vial",
+            "NDC_as_printed": "0069-0308-01"
+          },
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 35,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 2028,
+            "derived_global_line_end": 2032,
+            "derived_page_line_start": 38,
+            "derived_page_line_end": 42,
+            "derived_byte_start": 139752,
+            "derived_byte_end_exclusive": 139997,
+            "derived_passage_sha256": "b19eecd0cd5cdc1cddb0f4def74eeea5d2facaf59e817383b6a319bdd73d6da6",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "FDA_product_number_not_inferred_from_NDC": true
+        },
+        {
+          "fact": "manufacturer_and_regulatory_license",
+          "value": {
+            "role": "MANUFACTURED_BY",
+            "exact_name": "Pfizer Ireland Pharmaceuticals",
+            "place_as_printed": "Cork, Ireland",
+            "US_license_number": "2060"
+          },
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 36,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 2069,
+            "derived_global_line_end": 2072,
+            "derived_page_line_start": 20,
+            "derived_page_line_end": 23,
+            "derived_byte_start": 141958,
+            "derived_byte_end_exclusive": 142057,
+            "derived_passage_sha256": "aac62ad64984d5e80dea850d2895151c699e51c22620f39c725a20cb5140d251",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "not_the_exact_unlimited_company_name": true,
+          "manufacturing_place_not_incorporation_jurisdiction": true
+        },
+        {
+          "fact": "distributor_and_explicit_division_statement",
+          "value": {
+            "role": "DISTRIBUTED_BY",
+            "exact_name": "Pfizer Labs",
+            "explicit_division_of": "Pfizer Inc.",
+            "place_as_printed": "New York, NY10001"
+          },
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 36,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 2079,
+            "derived_global_line_end": 2082,
+            "derived_page_line_start": 30,
+            "derived_page_line_end": 33,
+            "derived_byte_start": 142109,
+            "derived_byte_end_exclusive": 142196,
+            "derived_passage_sha256": "0187b960043fba5dd92b8c1c122d07114dd2012a6bef7edb9d25df4ce2ee34f2",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          },
+          "division_statement_does_not_make_manufacturer_a_subsidiary": true,
+          "SEC_issuer_CIK_not_printed": true
+        },
+        {
+          "fact": "publisher_label_code",
+          "value": "LAB-0995-4.2",
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 36,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 2084,
+            "derived_global_line_end": 2084,
+            "derived_page_line_start": 35,
+            "derived_page_line_end": 35,
+            "derived_byte_start": 142204,
+            "derived_byte_end_exclusive": 142216,
+            "derived_passage_sha256": "7aec0634c3814537297682f2d069eea668d7226c2c251d4041cc69458ef20432",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          }
+        },
+        {
+          "fact": "FDA_reference_id",
+          "value": "5647212",
+          "evidence": {
+            "document_key": "label_2025",
+            "original_pdf_sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2",
+            "physical_page": 36,
+            "derived_text_path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+            "derived_text_whole_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+            "derived_global_line_start": 2092,
+            "derived_global_line_end": 2092,
+            "derived_page_line_start": 43,
+            "derived_page_line_end": 43,
+            "derived_byte_start": 142288,
+            "derived_byte_end_exclusive": 142309,
+            "derived_passage_sha256": "a016c97194804a8597fb7b30ae08b8c9f2bf274b320ed9613d4a00f24dfd59c0",
+            "coordinates_are_derived_text_not_original_pdf_byte_offsets": true
+          }
+        }
+      ],
+      "short_quotes": [
+        "Manufactured by: Pfizer Ireland Pharmaceuticals",
+        "Distributed by Pfizer Labs Division of Pfizer Inc.",
+        "Revised: 8/2025",
+        "US License No. 2060"
+      ],
+      "short_quote_word_count": 19
+    }
+  ],
+  "actual_relevant_page_render_inspection": [
+    {
+      "source_filename": "fda_trazimera_approval_2019.pdf",
+      "physical_page": 1,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p01.png",
+        "bytes": 131971,
+        "sha256": "e74a9730772d948eb97d0ef7321c7fa6b39921fabaf30c0745a7344fce9db664"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:50.255536+00:00",
+      "render_completed_at": "2026-10-21T07:17:50.745137+00:00",
+      "renderer_warning": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    },
+    {
+      "source_filename": "fda_trazimera_approval_2019.pdf",
+      "physical_page": 4,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p04.png",
+        "bytes": 186606,
+        "sha256": "3faec93a40f1e740be9361a066b3742eef6a10a19c5aa5ec7c0a4ab6b28d54d4"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:50.745341+00:00",
+      "render_completed_at": "2026-10-21T07:17:50.986652+00:00",
+      "renderer_warning": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    },
+    {
+      "source_filename": "fda_trazimera_approval_2019.pdf",
+      "physical_page": 5,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p05.png",
+        "bytes": 243168,
+        "sha256": "dc7a1fe12defcaaf772aa7d84b76458c1e1c0e1c273a368d9082a623080cd522"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:50.986927+00:00",
+      "render_completed_at": "2026-10-21T07:17:51.268894+00:00",
+      "renderer_warning": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    },
+    {
+      "source_filename": "fda_trazimera_approval_2019.pdf",
+      "physical_page": 9,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p09.png",
+        "bytes": 124019,
+        "sha256": "54b6792bd4b77ac86bd49918624af790bdd7a355f5fa352596ef338bdac19bc2"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:51.269217+00:00",
+      "render_completed_at": "2026-10-21T07:17:51.449876+00:00",
+      "renderer_warning": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    },
+    {
+      "source_filename": "fda_trazimera_approval_2019.pdf",
+      "physical_page": 10,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p10.png",
+        "bytes": 40545,
+        "sha256": "c0557051de56e63a9037d7dc06c0f79ce0805911fb087d3c8ba2221fd0de46c0"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:51.450050+00:00",
+      "render_completed_at": "2026-10-21T07:17:51.552153+00:00",
+      "renderer_warning": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    },
+    {
+      "source_filename": "fda_trazimera_label_2025.pdf",
+      "physical_page": 1,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p01.png",
+        "bytes": 478553,
+        "sha256": "efa3d4c73c4ae6c86bcb24efe9d2cb50cdb637f6051dc3e4321936eeda66bc47"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:51.552274+00:00",
+      "render_completed_at": "2026-10-21T07:17:52.013989+00:00",
+      "renderer_warning": "",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    },
+    {
+      "source_filename": "fda_trazimera_label_2025.pdf",
+      "physical_page": 7,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p07.png",
+        "bytes": 315419,
+        "sha256": "7acab14224036fa8424b63e97b9da6c6ac3f6935a84f56453d2b6c3cb6607599"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:52.014398+00:00",
+      "render_completed_at": "2026-10-21T07:17:52.400148+00:00",
+      "renderer_warning": "",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    },
+    {
+      "source_filename": "fda_trazimera_label_2025.pdf",
+      "physical_page": 35,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p35.png",
+        "bytes": 250168,
+        "sha256": "b45bdb997469fccdcc9499913eecbe380eb5ef6d43ec371178cf3e96568f2aaf"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:52.400422+00:00",
+      "render_completed_at": "2026-10-21T07:17:52.725360+00:00",
+      "renderer_warning": "",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    },
+    {
+      "source_filename": "fda_trazimera_label_2025.pdf",
+      "physical_page": 36,
+      "derived_PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p36.png",
+        "bytes": 165827,
+        "sha256": "068a52de52d9623285a06b9015133e69806825d72e3d587df79ada31f4c86810"
+      },
+      "rendered_with": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+      "render_started_at": "2026-10-21T07:17:52.725597+00:00",
+      "render_completed_at": "2026-10-21T07:17:52.942568+00:00",
+      "renderer_warning": "",
+      "actual_image_inspected": true,
+      "inspection": "Relevant identity, role, presentation and date fields visibly agree with the derived text. Original redactions and source rendering typography were not repaired.",
+      "is_original_HTTP_body": false,
+      "is_digital_signature_or_historical_availability_authentication": false
+    }
+  ],
+  "whole_text_scope": {
+    "physical_pages_indexed_and_identity_terms_checked": 46,
+    "approval_pages": 10,
+    "label_pages": 36,
+    "all_source_text_extracted_and_complete_page_inventory_checked": true,
+    "all_PDF_pages_visually_reviewed": false,
+    "actual_relevant_pages_visually_reviewed": 9,
+    "text_search_absence_scope": "These exact whole decoded document texts only, with nine relevant original-page renderings checked. Text extraction can omit image-only typography; this is neither a legal-universe negative nor proof that the entity does not exist.",
+    "unlimited_name_and_issuer_CIK_not_found_in_whole_decoded_text": true,
+    "source_corporate_universe_complete": false
+  },
+  "new_supported_scope": {
+    "2019": [
+      "BLA761081/ORIG-1 approval action on2019-03-11; exact short sponsor/addressee name and U.S.licence2060.",
+      "420mg/vial multi-dose product; explicitly named Belgium final manufacturing/packing site and FEI, with other original locations redacted."
+    ],
+    "2025": [
+      "Label revision8/2025, 150mg single-dose and420mg multiple-dose presentations with separately printed package NDCs.",
+      "Manufacturer short name/Cork/Ireland/U.S.licence2060 and a separate distributor Pfizer Labs/Division ofPfizer Inc. statement."
+    ],
+    "same_regulatory_license_number_in_both_documents": "2060",
+    "same_license_does_not_prove_continuous_legal_entity_or_parent_control": true
+  },
+  "clock_and_version_limits": [
+    "2019 approval/signed stamp is an FDA action date; its PDF file creation and HTTP Last-Modified are May2019 metadata, not proof of historical ingestion or ownership-since.",
+    "2025 label revision is month precision. The retained parent page action2025-08-21 and PDF metadata/Last-Modified2025-08-25 remain separate; exact document availability onAug21 is not established.",
+    "Actual original observations and source knowledge are2026-10-21T07:12:30.116950/07:12:30.175333UTC and07:12:34.528887/07:12:34.908342UTC. New review knowledge is stamped at actual completion below.",
+    "Document points and a matching licence number do not establish an uninterrupted2019-2025 interval, present2026 legal ownership or historical issuer knowledge."
+  ],
+  "limitations_and_withheld": [
+    "Pfizer Ireland Pharmaceuticals is not silently converted to Pfizer Ireland Pharmaceuticals Unlimited Company. The two new originals do not close the exact PurpleBook legal-name bridge.",
+    "Manufacturing and mailing addresses do not establish incorporation jurisdiction. Pfizer Manufacturing Belgium NV is not made a parent/subsidiary through a brand or name match.",
+    "Pfizer Labs is expressly described as a division ofPfizer Inc.; that distributor statement does not make the separate manufacturer a subsidiary and does not provide SEC CIK/ticker proof.",
+    "2019 approval package is10physical pages, including cover/content/separator and signature manifestation. The electronic signature representation was not cryptographically validated.",
+    "Poppler reports a malformed optional-content-group-list warning on the2019 PDF. Extraction and selected rendering completed; the warning and original bytes/redactions are preserved without repair.",
+    "2025 PDF contains150mg/420mg presentations and package NDCs, but does not by itself bind these to PurpleBook product numbers001/002. The old incomplete PurpleBook outer container remains PARTIAL and unchanged.",
+    "No complete company/product universe, current broad positive/negative collector coverage, original durable FDA/CMS/Clinical quota history, historic ownership chain, Windows end-to-end or OOS acceptance is established."
+  ],
+  "derived_artifacts": [
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/extract_primary_pdf.py",
+      "bytes": 7725,
+      "sha256": "fa0ab509945e7af70f7a163b674f8a4cfb8cf68b17219512cc4217893e42e2cc"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/page_text_index.json",
+      "bytes": 39050,
+      "sha256": "6e97c77f25d7be0780d4654cfb41124da54f75943262cce02aac6fd09d98251d"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/render_capture.json",
+      "bytes": 11306,
+      "sha256": "5a426ea6760dae388e79a25418e11b9a3aa6a633f8ad96337a374e389345fbe1"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p01.png",
+      "bytes": 131971,
+      "sha256": "e74a9730772d948eb97d0ef7321c7fa6b39921fabaf30c0745a7344fce9db664"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p04.png",
+      "bytes": 186606,
+      "sha256": "3faec93a40f1e740be9361a066b3742eef6a10a19c5aa5ec7c0a4ab6b28d54d4"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p05.png",
+      "bytes": 243168,
+      "sha256": "dc7a1fe12defcaaf772aa7d84b76458c1e1c0e1c273a368d9082a623080cd522"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p09.png",
+      "bytes": 124019,
+      "sha256": "54b6792bd4b77ac86bd49918624af790bdd7a355f5fa352596ef338bdac19bc2"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p10.png",
+      "bytes": 40545,
+      "sha256": "c0557051de56e63a9037d7dc06c0f79ce0805911fb087d3c8ba2221fd0de46c0"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p01.png",
+      "bytes": 478553,
+      "sha256": "efa3d4c73c4ae6c86bcb24efe9d2cb50cdb637f6051dc3e4321936eeda66bc47"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p07.png",
+      "bytes": 315419,
+      "sha256": "7acab14224036fa8424b63e97b9da6c6ac3f6935a84f56453d2b6c3cb6607599"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p35.png",
+      "bytes": 250168,
+      "sha256": "b45bdb997469fccdcc9499913eecbe380eb5ef6d43ec371178cf3e96568f2aaf"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p36.png",
+      "bytes": 165827,
+      "sha256": "068a52de52d9623285a06b9015133e69806825d72e3d587df79ada31f4c86810"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/approval_2019.layout.txt",
+      "bytes": 19840,
+      "sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66"
+    },
+    {
+      "path": "evidence/sourcefront21_healthcare_20261021/derived/label_2025.layout.txt",
+      "bytes": 142311,
+      "sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059"
+    }
+  ],
+  "operations": {
+    "healthcare_review_new_HTTP_search_connector_browser_collector_SQL_requests": 0,
+    "protected_database_or_journal_open_hash_copy_replay_reset": 0,
+    "original_or_withheld_body_rewrite_substitution": 0,
+    "registry_code_tests_status_config_or_model_changes": 0,
+    "test_suites_repeated": 0,
+    "remote_writes": 0
+  },
+  "new_verified_registry_adoptions": 0,
+  "canonical_tickers_unchanged": 687,
+  "production_healthcare_record_count_unchanged": 10,
+  "full_specialist_acceptance": "0/21",
+  "clinical_recommendations_or_score_trading_changes": false,
+  "known_at": "2026-10-21T07:27:29.652281+00:00",
+  "ingested_at": "2026-10-21T07:27:29.652281+00:00",
+  "review_completed_at": "2026-10-21T07:27:29.652281+00:00"
+}

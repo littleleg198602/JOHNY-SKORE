@@ -1,0 +1,137 @@
+{
+  "created_at": "2026-10-21T02:17:20.764242+00:00",
+  "base_public_head": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "status": "ROOT_SELECTED_BOUNDED_RESEARCH_PLAN_NOT_COLLECTOR",
+  "max_http_transports": 5,
+  "aggregate_max_response_bytes": 10256000,
+  "retry": false,
+  "redirect": false,
+  "fallback": false,
+  "urls": [
+    {
+      "key": "p_name_amendment",
+      "candidate_id": "P_NAME_AMENDMENT",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+      "max_response_bytes": 1000000,
+      "timeout_seconds": 25,
+      "maximum_attempts": 1,
+      "suffix": ".htm",
+      "source_plan": {
+        "path": "evidence/sourcefront21_identity_20261021/source_plan.json",
+        "bytes": 26398,
+        "sha256": "31decb1072f57ba81b8b38b30403066ffb691dd892d079f551c3a6ec76d3ab62"
+      },
+      "original_literal_parent": {
+        "path": "evidence/batch8_identity_20261015/captures/77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7.bin",
+        "bytes": 2070825,
+        "sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7"
+      },
+      "href_byte_start": 1956684,
+      "href_byte_end_exclusive": 1956777,
+      "literal_href": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+      "href_sha256": "eb5257679634a3dfc03ab33a4a52a39c5192211f7a330222c4d1e9ded23b00c5"
+    },
+    {
+      "key": "p_securities_description",
+      "candidate_id": "P_REGISTERED_SECURITIES_DESCRIPTION",
+      "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+      "max_response_bytes": 1000000,
+      "timeout_seconds": 25,
+      "maximum_attempts": 1,
+      "suffix": ".htm",
+      "source_plan": {
+        "path": "evidence/sourcefront21_identity_20261021/source_plan.json",
+        "bytes": 26398,
+        "sha256": "31decb1072f57ba81b8b38b30403066ffb691dd892d079f551c3a6ec76d3ab62"
+      },
+      "original_literal_parent": {
+        "path": "evidence/batch9_identity_20261016/captures/7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f.bin",
+        "bytes": 14111,
+        "sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f"
+      },
+      "href_byte_start": 5910,
+      "href_byte_end_exclusive": 5988,
+      "literal_href": "/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+      "href_sha256": "77bdcde96780c50b4c8437333df69e73fb6a59f4111dfc10f33e76444b1effc5"
+    },
+    {
+      "key": "fda_trazimera_approval_2019",
+      "candidate_id": "FDA_ORIGINAL_APPROVAL_LETTER",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+      "max_response_bytes": 4000000,
+      "timeout_seconds": 25,
+      "maximum_attempts": 1,
+      "suffix": ".pdf",
+      "source_plan": {
+        "path": "evidence/sourcefront21_healthcare_20261021/source_plan.json",
+        "bytes": 30271,
+        "sha256": "d89f491a62e5e045f9cf30845bd8944526b3062defa141e1f2ceead49bdb64ba"
+      },
+      "original_literal_parent": {
+        "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+        "bytes": 34010,
+        "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+      },
+      "href_byte_start": 24833,
+      "href_byte_end_exclusive": 24914,
+      "literal_href": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+      "href_sha256": "7d6d4b901b719509e7c02b28d249f0467edcfca6a9e33945dfd3f434491dde8c"
+    },
+    {
+      "key": "fda_trazimera_label_2025",
+      "candidate_id": "FDA_SUPPLEMENT_17_LABEL",
+      "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+      "max_response_bytes": 4000000,
+      "timeout_seconds": 25,
+      "maximum_attempts": 1,
+      "suffix": ".pdf",
+      "source_plan": {
+        "path": "evidence/sourcefront21_healthcare_20261021/source_plan.json",
+        "bytes": 30271,
+        "sha256": "d89f491a62e5e045f9cf30845bd8944526b3062defa141e1f2ceead49bdb64ba"
+      },
+      "original_literal_parent": {
+        "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+        "bytes": 34010,
+        "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+      },
+      "href_byte_start": 26198,
+      "href_byte_end_exclusive": 26273,
+      "literal_href": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+      "href_sha256": "b88d2a86f6899be8ed34aa0105b054a6520e81954f76844ec90a3bc8c145dd68"
+    },
+    {
+      "key": "msft_ex31_1",
+      "candidate_id": "MSFT_2026_EX31_1",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+      "max_response_bytes": 256000,
+      "timeout_seconds": 25,
+      "maximum_attempts": 1,
+      "suffix": ".htm",
+      "source_plan": {
+        "path": "evidence/sourcefront21_sec_20261021/source_plan.json",
+        "bytes": 28235,
+        "sha256": "26463062446bd6c2173fccf11388d5aacfe4bc41ca5946bcf6d27884c39714cc"
+      },
+      "original_literal_parent": {
+        "bytes": 11876,
+        "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+        "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+      },
+      "href_byte_start": 7148,
+      "href_byte_end_exclusive": 7210,
+      "literal_href": "/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+      "href_sha256": "6c82780dd03991b032087a13685f1c95b13f5ed89d40318154a0975de2d8e7ba"
+    }
+  ],
+  "root_selected_at": "2026-10-21T07:06:50.795597+00:00",
+  "independent_candidate_audit": {
+    "path": "evidence/sourcefront21_evaluation_20261021/candidate_plan_audit.json",
+    "bytes": 278915,
+    "sha256": "fecc40c808f8abdc9ce25d81de3c5f56330d70b0591edf753396de900654af83",
+    "worker_commit": "259584e54ba428a0dc78b235e89a2739c591bb5b"
+  },
+  "maximum_PDF_decode_seconds_after_transport": 15,
+  "sourcefront21_collector_API_SQL_quotaDB_actions": 0,
+  "source_publish_or_registry_adoption_authorized": false
+}

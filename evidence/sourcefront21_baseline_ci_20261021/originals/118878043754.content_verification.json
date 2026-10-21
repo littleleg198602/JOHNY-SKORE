@@ -1,0 +1,21 @@
+{
+  "physical_verified_at": "2026-10-21T01:57:07.569804+00:00",
+  "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "run_id": 39495108326,
+  "job_id": 118878043754,
+  "decoded_UTF8_bytes": 709277,
+  "decoded_UTF8_sha256": "bc20d579339d2294f300ffc8788df7beb645059f535e3fdd4af6ca1522275673",
+  "plain_OK_footers": [
+    {
+      "tests": 63,
+      "seconds": 37.127
+    },
+    {
+      "tests": 2767,
+      "seconds": 2983.84
+    }
+  ],
+  "79_new_exact_methods_strict_original_OK": true,
+  "actual_original_artifact_result": "windows/originals/content_verification.json",
+  "original_log_rewritten": false
+}

@@ -46,6 +46,7 @@ _LABELS = {
     "SEC_PERSON_ROLE_TEMPORAL": "Platnost údaje o roli k datu transakce",
     "SEC_CHARTER_CLASS": "Povolené třídy akcií v zakladatelské listině",
     "SEC_FORM144_ACCOUNT_NOTICE": "Oznámení Form 144 a účet z Form 4",
+    "WAFER_CAPACITY_DEPOSITS": "Zálohy na výrobní kapacitu dodavatele",
 }
 
 
@@ -290,6 +291,8 @@ def render_specialist_evidence_actions(st, *, source_root: Path, db_path: Path, 
             st.caption("Zakladatelská listina popisuje povolené třídy a kapitál konkrétní právní společnosti. Datum podpisu a účinnosti se posuzují samostatně; návaznost burzovního instrumentu vyžaduje další doklady.")
         if review_kind == "SEC_FORM144_ACCOUNT_NOTICE":
             st.caption("Form 144 oznamuje zamýšlený prodej. Shoda účtu nebo dne nabytí s Form 4 sama neprokazuje stejnou transakci; porovnávají se také množství a přesné názvy tříd.")
+        if review_kind == "WAFER_CAPACITY_DEPOSITS":
+            st.caption("Přehled zachovává původní data a jednotky vratných záloh a předplateb na výrobní kapacitu. Odběry, fyzické objemy a vztah ke konkrétnímu dodavateli vyžadují samostatné doklady.")
         if leaf.get("literal_specimen_class_cusip_scope_observed"):
             st.caption("Původní vzor certifikátu uvádí Class A a CUSIP " + leaf["observed_cusip"] +
                        ". Datum vydání je prázdné; návaznost na změnu tickeru čeká na doložení.")

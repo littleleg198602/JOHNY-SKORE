@@ -1,0 +1,16 @@
+{
+  "started_at": "2026-10-21T07:12:17.270232+00:00",
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-u",
+    "-c",
+    "import runpy;runpy.run_path('evidence/sourcefront21_primary_20261021/capture_primary.py',run_name='__main__')"
+  ],
+  "plan_sha256": "f73ed0625350ef8a1c51eb20cbec9a484f483c7f9071f3bbe3bf1e7eed06dbf0",
+  "helper_sha256": "ba639420e910ea51385cc03fdfb7bb9ffe764e1323a17236775150af3c9dde46",
+  "http_attempts_before": 0,
+  "maximum_transports": 5,
+  "retry": false,
+  "redirect": false,
+  "fallback": false
+}

@@ -1,0 +1,16 @@
+{
+  "recorded_at": "2026-10-21T07:21:57.006301+00:00",
+  "immutable_runtime_receipt": {
+    "path": "evidence/sourcefront21_coordinator_20261021/runtime/runtime_capture.json",
+    "bytes": 2313,
+    "sha256": "bb0b983f13b58ced2598dc1a9cc20feaca3cd0f1a6b7612d843d523d65622827"
+  },
+  "source_pins_are_actual_captured_bytes": true,
+  "shared_sources_were_not_yet_committed_at_action_time": true,
+  "runtime_code_HEAD_is_observed_Git_HEAD_only": true,
+  "native_full_code_tree_identity_verified": false,
+  "native_user_Windows_end_to_end": false,
+  "pipeline_runs": 0,
+  "HTTP_SQL_registry_adoptions": 0,
+  "source_bytes_will_be_requalified_in_combined_suite": true
+}
