@@ -1,0 +1,28 @@
+{
+  "schema_version": "one_distinct_DOJ_primary_research_v1",
+  "prepared_at": "2026-10-20T14:33:11.542788+00:00",
+  "url": "https://www.justice.gov/atr/media/1358786/dl",
+  "max_http_transports": 1,
+  "max_response_bytes": 4000000,
+  "timeout_seconds": 25,
+  "retry": false,
+  "redirect": false,
+  "discovery": {
+    "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+    "bytes": 107793,
+    "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+    "anchor_byte_start": 89848,
+    "anchor_byte_end": 89975,
+    "anchor_sha256": "76f72287896c5e6ce4f89b1ca3322e00426629a9440f09d19f7178cb067e55c1",
+    "document_label": "First Amended Complaint"
+  },
+  "distinct_purpose": "Confirm the actual amended pleading referenced by retained opinion paragraph19; no separate Order/current docket/CIK/merits/continuity claim.",
+  "prior_tracked_JSON_audit": {
+    "files_examined": 1361,
+    "media1358786_occurrences": []
+  },
+  "collector_api_used": false,
+  "app_quota_managed_live_claimed": false,
+  "quota_database_created_or_reconstructed": false,
+  "body_policy": "Whole original only if safe and complete; otherwise metadata/hash/clocks only, no substitute"
+}

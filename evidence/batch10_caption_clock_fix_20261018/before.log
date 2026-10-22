@@ -1,0 +1,24 @@
+test_known_at_follows_a_real_delayed_decoder_callback (tests.test_batch10_caption_clock_fix.CaptionCompletionClockTests.test_known_at_follows_a_real_delayed_decoder_callback) ... FAIL
+test_future_source_read_cutoff_is_rejected_before_decoder (tests.test_batch10_caption_clock_fix.CaptionCompletionClockTests.test_future_source_read_cutoff_is_rejected_before_decoder) ... FAIL
+
+======================================================================
+FAIL: test_known_at_follows_a_real_delayed_decoder_callback (tests.test_batch10_caption_clock_fix.CaptionCompletionClockTests.test_known_at_follows_a_real_delayed_decoder_callback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/tests/test_batch10_caption_clock_fix.py", line 47, in test_known_at_follows_a_real_delayed_decoder_callback
+    self.assertGreaterEqual(known, completed[0])
+AssertionError: datetime.datetime(2026, 10, 18, 14, 15, 2, 754158, tzinfo=datetime.timezone.utc) not greater than or equal to datetime.datetime(2026, 10, 18, 14, 15, 2, 765636, tzinfo=datetime.timezone.utc)
+
+======================================================================
+FAIL: test_future_source_read_cutoff_is_rejected_before_decoder (tests.test_batch10_caption_clock_fix.CaptionCompletionClockTests.test_future_source_read_cutoff_is_rejected_before_decoder)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/tests/test_batch10_caption_clock_fix.py", line 56, in test_future_source_read_cutoff_is_rejected_before_decoder
+    with self.assertRaises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.018s
+
+FAILED (failures=2)

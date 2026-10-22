@@ -1,0 +1,21 @@
+{
+  "base_commit": "39e5958b20b66338ad2029e99908609834d67db3",
+  "base_tree": "58e02af8f75aae571003b36322f043af91a67d64",
+  "checked_at": "2026-10-20T20:20:01.172591+00:00",
+  "historical_source_preimage_matches_base_git_blob": true,
+  "initial_outside_git_snapshot_unchanged": true,
+  "old_tracked_evidence_changed": [],
+  "old_tracked_tests_changed": [],
+  "quota_database_opened_or_hashed": false,
+  "tracked_changes": [
+    "market_checker_app/services/doj_enforcement_scope_review.py"
+  ],
+  "whole_original_body_matches_base_git_blob": true,
+  "whole_original_metadata_matches_base_git_blob": true,
+  "withheld_paths_absent_without_opening": [
+    "evidence/batch4_regulatory_20261013/raw/nhtsa_api_docs.html",
+    "evidence/batch4_ir_20261013/primary/ir_authority.html",
+    "evidence/batch5_ir_20261014/primary/ir_authority.html",
+    "evidence/batch8_regulatory_20261015/raw/njd_case_page.html"
+  ]
+}

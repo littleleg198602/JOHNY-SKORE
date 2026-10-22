@@ -1,0 +1,141 @@
+{
+  "HTTP_search_collector_DB_quota_registry_actions": 0,
+  "actual_plan_and_report_are_missing_original_PARTIAL": true,
+  "all_preexisting_tracked_paths_unchanged": true,
+  "base_commit": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "checked_at": "2026-10-19T00:33:36.194581+00:00",
+  "file_count": 25,
+  "files": [
+    {
+      "bytes": 3946,
+      "path": "evidence/batch11_regulatory_20261018/README.md",
+      "sha256": "b092e22057870c6ecd0c546c8b808ba2376ebab43c9f455b1a43cd8813202a8b"
+    },
+    {
+      "bytes": 2070,
+      "path": "evidence/batch11_regulatory_20261018/actual_review.json",
+      "sha256": "cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8"
+    },
+    {
+      "bytes": 1012,
+      "path": "evidence/batch11_regulatory_20261018/actual_review_plan.json",
+      "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+    },
+    {
+      "bytes": 1395,
+      "path": "evidence/batch11_regulatory_20261018/focused.json",
+      "sha256": "7efe637d598eb6d0ffa2e1e2c171efe487ddcda0bdf757c68234bede28f23339"
+    },
+    {
+      "bytes": 6952,
+      "path": "evidence/batch11_regulatory_20261018/focused.log",
+      "sha256": "2022fcc48a5bf79953f3e4884ef7cf22fc91ffbd94a0c83df69614c9d7d56d76"
+    },
+    {
+      "bytes": 6185,
+      "path": "evidence/batch11_regulatory_20261018/handoff.json",
+      "sha256": "d9d0c5852005cec4e02f40d0760c16d504c95be66017958b5ab8058f1b324244"
+    },
+    {
+      "bytes": 2091,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/actual_review.json",
+      "sha256": "cc96fcbbdc3d7566e2da280bb46082682472f4ecd9a5151a6147c200b8f9e682"
+    },
+    {
+      "bytes": 672,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/before.json",
+      "sha256": "c74e0e6b91bb5f5b06e81033757c5774e247ccf63bd5ff5e9cdb75f64b70d5d2"
+    },
+    {
+      "bytes": 2201,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/before.log",
+      "sha256": "fd2b281ff2820d0feb4d813c424940b9540ddc3eb90c391a7a958e7559a389fb"
+    },
+    {
+      "bytes": 1839,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/focused.json",
+      "sha256": "f90e3912fab5e00e4a879cbfd7ae5a6c4c7ecd2847d6867d7c1d0997c528fcd5"
+    },
+    {
+      "bytes": 7155,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/focused.log",
+      "sha256": "01589f2d72013646f69aa2328d59b3934907a94aee457a14f21864f87d75a538"
+    },
+    {
+      "bytes": 8339,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "sha256": "5f3a52de23f024143e1b5ccb82abfabac0a0899e9947a30060e03d961419e7b2"
+    },
+    {
+      "bytes": 2477,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/review_record.json",
+      "sha256": "ba1f543b0edc08ec97d3eb8ed3681de285ffeede95cb7a533cb5a4a48bb6756f"
+    },
+    {
+      "bytes": 2091,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/reviews/cc96fcbbdc3d7566e2da280bb46082682472f4ecd9a5151a6147c200b8f9e682/review.json",
+      "sha256": "cc96fcbbdc3d7566e2da280bb46082682472f4ecd9a5151a6147c200b8f9e682"
+    },
+    {
+      "bytes": 24412,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/source_versions/qualified_review.py",
+      "sha256": "51cf67bcea3ab581b4f3d447e51ac8b8d2c84798104901b4f7679428c2f9de36"
+    },
+    {
+      "bytes": 27073,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/source_versions/qualified_tests.py",
+      "sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+    },
+    {
+      "bytes": 9234,
+      "path": "evidence/batch11_regulatory_20261018/qualify_guard.py",
+      "sha256": "1c535a8da3b07a9c5aa6c68908a3a92b182c2aed35ab1baa77755e338251eaf4"
+    },
+    {
+      "bytes": 12862,
+      "path": "evidence/batch11_regulatory_20261018/qualify_review.py",
+      "sha256": "30a54ff83acd24c7002817c8e7b7018a4d00e84e452c6e1975b38f2472437d53"
+    },
+    {
+      "bytes": 2767,
+      "path": "evidence/batch11_regulatory_20261018/review_record.json",
+      "sha256": "2eab449058750e3c690402c4457734edb01d0110d0619609857875c4b46397f7"
+    },
+    {
+      "bytes": 2070,
+      "path": "evidence/batch11_regulatory_20261018/reviews/cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8/review.json",
+      "sha256": "cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8"
+    },
+    {
+      "bytes": 1550,
+      "path": "evidence/batch11_regulatory_20261018/source_availability.json",
+      "sha256": "3584c7037a5cac25bdcb925dc0cac0cd738ae24a93e01bbb4675ed8a753cebf0"
+    },
+    {
+      "bytes": 23901,
+      "path": "evidence/batch11_regulatory_20261018/source_versions/qualified_review.py",
+      "sha256": "d32d7e3473a05b312cdf0f3dfee0caa5526c164de270c3e13f0fb5351ab6600b"
+    },
+    {
+      "bytes": 26253,
+      "path": "evidence/batch11_regulatory_20261018/source_versions/qualified_tests.py",
+      "sha256": "103381ded3f1449923b94d18046d07e787c3c9dc5b8bccdc505834ac6f5e57cc"
+    },
+    {
+      "bytes": 24412,
+      "path": "market_checker_app/services/epa_frs_program_scope_review.py",
+      "sha256": "51cf67bcea3ab581b4f3d447e51ac8b8d2c84798104901b4f7679428c2f9de36"
+    },
+    {
+      "bytes": 27073,
+      "path": "tests/test_epa_frs_program_scope_review.py",
+      "sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+    }
+  ],
+  "git_diff_check_full_exit": 2,
+  "git_diff_check_nonlog_exit": 0,
+  "preserved_original_diagnostic_whitespace_warnings": 1,
+  "qualified_current_producer_and_test_pins_match": true,
+  "scope": "all staged owned files before adding this audit and diagnostic records",
+  "staged_bytes_equal_local": true
+}

@@ -1,0 +1,46 @@
+{
+  "HTTP_DB_or_candidate_file_writes": 0,
+  "candidate_head": "32adb8edd6aa6ccc1748d2cfbc228f7db3a16fd4",
+  "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015",
+  "files": [
+    {
+      "bytes": 20305,
+      "candidate_path": "market_checker_app/collectors/fda_legal_applicant_bridge_review.py",
+      "sha256": "bf9f1afb16c29c0c0272229e5567ed5448e19db0d4fe4684908dd419af3b59a0",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/fda_legal_applicant_bridge_review.py"
+    },
+    {
+      "bytes": 17287,
+      "candidate_path": "tests/test_fda_legal_applicant_bridge_review.py",
+      "sha256": "57f31059e0931b48707282f5eb7a1a9d943ca73f9ef984a64dc5390ee8e4d6c1",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/test_fda_legal_applicant_bridge_review.py"
+    },
+    {
+      "bytes": 6401,
+      "candidate_path": "evidence/batch10_healthcare_20261018/replay_sources.py",
+      "sha256": "dfdade7905734a7dac9dbafbb3d087ca5e5c7d741e975e5f760282d0db26a2b1",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/replay_sources.py"
+    },
+    {
+      "bytes": 12166,
+      "candidate_path": "evidence/batch10_healthcare_20261018/retained_review_plan.json",
+      "sha256": "558c2d22d267d3d33f4e3ec0d6ab7890f5a5182e9c5ae83ad5ead05fe90b47b2",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/retained_review_plan.json"
+    },
+    {
+      "bytes": 17253,
+      "candidate_path": "evidence/batch10_healthcare_20261018/source_review.json",
+      "sha256": "1a820f99d89cc187da2043e03b263c06ff9edf6bc4eb14a4f996479e9bfd2b15",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/source_review.json"
+    },
+    {
+      "bytes": 5659,
+      "candidate_path": "evidence/batch10_healthcare_20261018/focused_tests.log",
+      "sha256": "1960d18d0fe1db2e4ebc4126a290db5e6631d68cbd96693f3474b6b51e363740",
+      "snapshot_path": "evidence/batch10_applicant_peer_20261018/candidate_before_diagnostics/focused_tests.log"
+    }
+  ],
+  "known_withheld_bodies_read": false,
+  "recorded_at": "2026-10-18T08:56:50.496794+00:00",
+  "snapshot_before_peer_diagnostics": true
+}

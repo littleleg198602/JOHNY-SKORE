@@ -1,0 +1,197 @@
+{
+  "acceptance": {
+    "actual_spend_volume_revenue_verified": false,
+    "continuous_legal_identity_verified": false,
+    "current_instrument_or_Q3_identity_verified": false,
+    "historical_availability_reconstructed": false,
+    "historical_oos_verified": false,
+    "individual_issuer_quantity_attribution_allowed": false,
+    "model_or_fitter_modified": false,
+    "publisher_publication_clock_verified": false,
+    "registry_adoption": 0,
+    "scoring_applied": false,
+    "specialist_done": false,
+    "supplier_attribution_allowed": false,
+    "trading_or_activation_allowed": false
+  },
+  "actual_review": {
+    "accession_number": "0001045810-26-000021",
+    "agreement_qualifiers": [
+      "in certain instances, these agreements are cancellable, able to be rescheduled, or adjustable for our business needs prior to placing firm orders",
+      "Changes to these agreements may result in additional costs."
+    ],
+    "canonical_universe_size": 687,
+    "captured_primary_bytes": 1967927,
+    "currency": "USD",
+    "decimals": "-8",
+    "distinct_commitment_category_balances": 1,
+    "distinct_issuer_hints": 1,
+    "distinct_primary_filings": 1,
+    "exact_historical_as_filed_version_verified": false,
+    "fiscal_period_end": "2026-01-25",
+    "group_denominator": {
+      "all_group_commitment_categories_total_verified": false,
+      "category_literal": "Manufacturing, supply, and capacity commitments",
+      "group_literal": "NVIDIA Corporation and Subsidiaries",
+      "kind": "REPORTED_COMMITMENT_CATEGORY_TOTAL",
+      "ratio_denominator": null,
+      "supplier_allocation_denominator": null
+    },
+    "group_name_literal": "NVIDIA Corporation and Subsidiaries",
+    "index_declared_primary_bytes": 1967816,
+    "ingested_at": "2026-10-15T18:15:08.554317+00:00",
+    "issuer_cik": "0001045810",
+    "issuer_context": "c-1",
+    "issuer_hint": "NVDA",
+    "knowledge_at": "2026-10-15T18:15:08.554317+00:00",
+    "path": "evidence/batch8_contracts_20261015/review.json",
+    "payment_horizon_fiscal_year": 2027,
+    "payment_qualifier": "substantially all",
+    "prior_api_index_acceptance_conflict_resolved": false,
+    "publisher_publication_at": null,
+    "publisher_size_conflict": true,
+    "quantity_context": "c-177",
+    "quantity_fact_id": "f-894",
+    "relevant_coverage_measured": false,
+    "reported_dei_name": "NVIDIA CORP",
+    "scale": 9,
+    "scaled_currency_amount": "95200000000",
+    "size_conflict_bytes": 111,
+    "source_inputs_known_at": "2026-10-12T14:48:19.742085+00:00",
+    "statement_scope": "CONSOLIDATED_GROUP",
+    "status": "CANDIDATE_REVIEWED",
+    "supplier_revenues_verified": 0,
+    "supplier_shares_verified": 0,
+    "supplier_specific_quantities_verified": 0,
+    "unit_literal": "billion",
+    "unit_measure": "iso4217:USD",
+    "value_literal": "95.2",
+    "xbrl_category_dimension": {
+      "axis": "us-gaap:OtherCommitmentsAxis",
+      "axis_namespace": "http://fasb.org/us-gaap/2025",
+      "member": "nvda:ManufacturingProductionAndLongTermSupplyAndCapacityAgreementCommitmentsMember",
+      "member_namespace": "http://www.nvidia.com/20260125",
+      "scope_kind": "COMMITMENT_CATEGORY_NOT_COUNTERPARTY"
+    }
+  },
+  "api": {
+    "automatic_report_persistence": false,
+    "body_bytes_cap": 4000000,
+    "capture_slots": [
+      "issuer",
+      "index"
+    ],
+    "default_cutoff": "physical review ingestion now",
+    "explicit_past_cutoff": "REJECTED/AFTER_PHYSICAL_KNOWLEDGE_CUTOFF",
+    "module": "market_checker_app.services.sec_purchase_obligation_scope_review",
+    "name": "review_sec_purchase_obligation_scope",
+    "runtime_kind": "SEC_PURCHASE_OBLIGATION_SCOPE",
+    "selection_bytes_cap": 32000,
+    "signature": "(issuer_body: bytes, *, issuer_capture: Mapping, index_body: bytes, index_capture: Mapping, selection: Mapping, as_of: datetime | None = None) -> dict",
+    "statuses": [
+      "CANDIDATE_REVIEWED",
+      "REJECTED"
+    ],
+    "unsupported_scope": "supplier allocation, standalone legal-entity amount, actual spend, volume, revenue, external footnotes or table-column reinterpretation",
+    "whole_block_bytes_cap": 8000
+  },
+  "artifacts_sha256": {
+    "evidence/batch8_contracts_20261015/README.md": "4dcda96493ae926bc9eb27279956c71aba603aa4be6b7841be3cb7a457545143",
+    "evidence/batch8_contracts_20261015/qualify.py": "2330bc3943f7e7de7e20beb0d047a0a69bca4011d6701d2a27643d906d3d2e5a",
+    "evidence/batch8_contracts_20261015/replay_review.py": "7b5565ff533ff147d7dd8cd5c3be3fc993942e8e1b5f69a81938cb6662eeb2b8",
+    "evidence/batch8_contracts_20261015/review.json": "af45680f0346b20071ae288f4f14fffb38a793f7e9418c50f394861cb5fa7606",
+    "evidence/batch8_contracts_20261015/review_plan.json": "1f0fd783ca5ee8234a8eb041e8414be12a376dca11cf99c5d9f007bf68a8a1cd",
+    "evidence/batch8_contracts_20261015/selection.json": "23d9e106e6c58af77f89173da57689c7c0351f7f10390728adc745033504c38e",
+    "evidence/batch8_contracts_20261015/tests.json": "772cbea3d6b790e2731023a6353673b02ccef408effa035a80c985102c518433",
+    "evidence/batch8_contracts_20261015/tests.log": "b01884eb3084f7368d07d0edeb7642cecdb07bef6190fde00519c347e0a32708",
+    "market_checker_app/services/sec_purchase_obligation_scope_review.py": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb",
+    "tests/test_batch8_purchase_obligation_scope.py": "93830c961552f28c2250dbd1512187781b355f7b448d5e81dfde875e62f297eb"
+  },
+  "branch": "batch8/contracts-20261015",
+  "deliverable": "original_sec_aggregate_purchase_commitment_quantity_scope",
+  "integration_points": {
+    "central_UI_plan_publication_owner": "root",
+    "display": "Consolidated commitment-category balance, exact as-of/currency/scale and conditional payment/agreement qualifiers; supplier allocation and continuity remain unknown",
+    "new_service_writes_runtime_or_registries": false,
+    "plan_path": "evidence/batch8_contracts_20261015/review_plan.json",
+    "root_must_add_dispatcher_kind_and_body_cap": true,
+    "root_must_pass_as_of_None_without_explicit_cutoff": true,
+    "selection_packet": "evidence/batch8_contracts_20261015/selection.json"
+  },
+  "public_base_commit": "e252ec62796b0b02e733c55ebef713e0f29d4b44",
+  "public_base_tree": "16823e616e074f04ea15db52c8a40f97db6446ff",
+  "recorded_at": "2026-10-15T18:16:27.105512+00:00",
+  "remaining_work": [
+    "Source-specific supplier amounts and denominator in the same dated commitment disclosure, plus independent dated legal identity/continuity",
+    "Exact cancellation/final-order and payment-date/amount schedule beyond the literal conditional/substantially-all wording",
+    "Reconciliation of the retained served-body size and prior API/index acceptance clock conflicts without changing originals",
+    "Wider relevant issuer/source history, genuine prospective labels and independent historical/Windows/OOS acceptance",
+    "Original durable USAspending quota/history and complete original prime pages remain prerequisites for further authorized collection"
+  ],
+  "schema_version": 1,
+  "source_references": {
+    "index_body": {
+      "repository_relative_path": "evidence/batch3_sec_20261012/primary/nvda_2026_index.html",
+      "sha256": "ba36b0aa8f66dd5e5a4de1b0ecc67335df014b0149a0350c9806cf9bdd366075"
+    },
+    "index_capture": {
+      "json_pointer": "/captures/7",
+      "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+      "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+    },
+    "issuer_body": {
+      "repository_relative_path": "evidence/batch3_sec_20261012/primary/nvda_2026_10k.htm",
+      "sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5"
+    },
+    "issuer_capture": {
+      "repository_relative_path": "evidence/batch7_contracts_20261015/issuer_capture.json",
+      "sha256": "9acd3f9df73f8e71ec3edd2714e9c0e0f03c0fbb305657e8aa0d1df3a1fae574"
+    },
+    "original_primary_capture": {
+      "json_pointer": "/captures/10",
+      "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+      "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+    },
+    "preserved_prior_clock_conflict": {
+      "repository_relative_path": "evidence/batch3_sec_20261012/verification.json",
+      "sha256": "881b14bd3cfc0e0398a15c1d08a8061fad624b0c9d2b90b8df19695279504c8b"
+    }
+  },
+  "source_transport": {
+    "collector_requests": 0,
+    "known_withheld_bodies_read_restored_or_substituted": false,
+    "new_http_requests": 0,
+    "original_raw_bytes_modified": false,
+    "production_database_reads_or_writes": 0,
+    "quota_store_created_copied_reset_or_reconstructed": false,
+    "source_bodies_copied": 0,
+    "usaspending_requests": 0
+  },
+  "tests": {
+    "baseline1835_repeated": false,
+    "discovered": 95,
+    "elapsed_seconds": 3.2396710110000413,
+    "errors": 0,
+    "executed": 95,
+    "expected_failures": 0,
+    "failures": 0,
+    "log": "evidence/batch8_contracts_20261015/tests.log",
+    "new_hosted_or_Windows_qualification_performed": false,
+    "new_module_cases": 27,
+    "path": "evidence/batch8_contracts_20261015/tests.json",
+    "skips": 0,
+    "source_sha256": {
+      "market_checker_app/services/sec_ir_disclosure_authority_review.py": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7",
+      "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+      "market_checker_app/services/sec_person_kind_review.py": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe",
+      "market_checker_app/services/sec_purchase_obligation_scope_review.py": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb",
+      "market_checker_app/services/sec_supply_chain_scope_review.py": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91",
+      "tests/test_batch6_sec_operational_metrics.py": "aa82c5bd9a885b1088f8d2a6bc3d220bdfb76fbac1ba53b5f5bf4cd61ef5e19f",
+      "tests/test_batch7_sec_ir_authority.py": "92085b24efe3f7eefc70d6c3aae447669a1cc1ac3a6524bfdccc09fd088feea2",
+      "tests/test_batch7_supply_chain_scope.py": "abd6973e16d1afd5c610a8b322680cc17fd4ea485e314f238dfcacc61723b5e6",
+      "tests/test_batch8_purchase_obligation_scope.py": "93830c961552f28c2250dbd1512187781b355f7b448d5e81dfde875e62f297eb"
+    },
+    "successful": true,
+    "unexpected_successes": 0
+  }
+}

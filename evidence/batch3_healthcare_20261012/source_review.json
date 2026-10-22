@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-12T14:52:33.382658+00:00",
+  "review_type": "human-readable source-field review performed by healthcare evidence agent",
+  "source_reviews": [
+    {
+      "capture_key": "sec_pfe_2017_10k",
+      "capture_metadata_path": "captures/sec_pfe_2017_10k.metadata.json",
+      "original_body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+      "publisher": "SEC",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+      "observed_at": "2026-10-12T14:44:19.890070+00:00",
+      "issuer_name": "Pfizer Inc.",
+      "issuer_cik": "0000078003",
+      "ticker": "PFE",
+      "period_of_report": "2017-12-31",
+      "cik_evidence_basis": "official EDGAR archive path",
+      "purpose": "Independent issuer identity only; direct legal addressee match does not infer an ownership chain.",
+      "normalization": "Python HTMLParser handle_data; decoded UTF-8; concatenate nodes with spaces; collapse whitespace. Includes inline facts.",
+      "excerpts": [
+        {
+          "anchor": "PFIZER INC.",
+          "normalized_text_start": 341,
+          "normalized_text_end": 871,
+          "text": "TIES EXCHANGE ACT OF 1934 For the transition period from to Commission file number 1-3619 PFIZER INC. (Exact name of registrant as specified in its charter) Delaware 13-5315170 (State or other jurisdiction of incorporation or organization) (I.R.S. Employer Identification Number) 235 East 42nd Street New York, New York 10017 (Address of principal executive offices) (Zip Code) (212) 733-2323 (Registrant\u2019s telephone number, including area code) Securities registered pursuant to Section 12(b) of the Act: Title of each class Name"
+        },
+        {
+          "anchor": "under the symbol \u201cPFE\u201d",
+          "normalized_text_start": 195836,
+          "normalized_text_end": 196366,
+          "text": "al market for our common stock is the NYSE. Our common stock currently trades on the NYSE under the symbol \u201cPFE\u201d. As of February 20, 2018 , there were 158,190 holders of record of our common stock. Additional information required by this item is incorporated by reference from the Quarterly Consolidated Financial Data (Unaudited) and Peer Group Performance Graph sections in our 2017 Financial Report. The following table provides certain information with respect to our purchases of shares of the Company\u2019s common stock during t"
+        }
+      ]
+    },
+    {
+      "capture_key": "sec_mrk_2012_10k",
+      "capture_metadata_path": "captures/sec_mrk_2012_10k.metadata.json",
+      "original_body_sha256": "302aecedb462fad97f4b9b5296095bac645937c382eeea514dcec848e8a8af2a",
+      "publisher": "SEC",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/310158/000119312513084618/d438975d10k.htm",
+      "observed_at": "2026-10-12T14:45:27.010273+00:00",
+      "issuer_name": "Merck & Co., Inc.",
+      "issuer_cik": "0000310158",
+      "ticker": "MRK",
+      "period_of_report": "2012-12-31",
+      "cik_evidence_basis": "official EDGAR archive path",
+      "purpose": "Independent issuer identity only; direct legal addressee match does not infer an ownership chain.",
+      "normalization": "Python HTMLParser handle_data; decoded UTF-8; concatenate nodes with spaces; collapse whitespace. Includes inline facts.",
+      "excerpts": [
+        {
+          "anchor": "Merck & Co., Inc.",
+          "normalized_text_start": 425,
+          "normalized_text_end": 955,
+          "text": "urities Exchange Act of 1934 For the transition period from to Commission File No. 1-6571 Merck & Co., Inc. One Merck Drive Whitehouse Station, N. J. 08889-0100 (908) 423-1000 Incorporated in New Jersey I.R.S. Employer Identification No. 22-1918501 Securities Registered pursuant to Section 12(b) of the Act: Title of Each Class Name of Each Exchange on which Registered Common Stock ($0.50 par value) New York Stock Exchange Number of shares of Common Stock ($0.50 par value) outstanding as of January 31, 2013: 3,022,367,538. Ag"
+        },
+        {
+          "anchor": "under the symbol MRK",
+          "normalized_text_start": 157180,
+          "normalized_text_end": 157710,
+          "text": "market for trading of the Company\u2019s Common Stock is the New York Stock Exchange (\u201cNYSE\u201d) under the symbol MRK. The Common Stock market price information set forth in the table below is based on historical NYSE market prices. The following table also sets forth, for the calendar periods indicated, the dividend per share information. Cash Dividends Paid per Common Share Year 4th Q 3rd Q 2nd Q 1st Q 2012 $ 1.68 $ 0.42 $ 0.42 $ 0.42 $ 0.42 2011 $ 1.52 $ 0.38 $ 0.38 $ 0.38 $ 0.38 Common Stock Market Prices 2012 4th Q 3rd Q 2nd Q "
+        }
+      ]
+    },
+    {
+      "capture_key": "sec_mrk_2013_10q",
+      "capture_metadata_path": "captures/sec_mrk_2013_10q.metadata.json",
+      "original_body_sha256": "936e8e31fe639f6263c2ec271d7cc5a964122645c4839fbdd8f87af51f3c6ef4",
+      "publisher": "SEC",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/310158/000031015813000004/mrk0630201310q.htm",
+      "observed_at": "2026-10-12T14:45:22.018672+00:00",
+      "issuer_name": "Merck & Co., Inc.",
+      "issuer_cik": "0000310158",
+      "ticker": "MRK",
+      "period_of_report": "2013-06-30",
+      "cik_evidence_basis": "official EDGAR archive path",
+      "purpose": "Independent issuer identity only; direct legal addressee match does not infer an ownership chain.",
+      "normalization": "Python HTMLParser handle_data; decoded UTF-8; concatenate nodes with spaces; collapse whitespace. Includes inline facts.",
+      "excerpts": [
+        {
+          "anchor": "Merck & Co., Inc.",
+          "normalized_text_start": 357,
+          "normalized_text_end": 887,
+          "text": "GE ACT OF 1934 For the transition period from ______ to ______ Commission File No. 1-6571 Merck & Co., Inc. One Merck Drive Whitehouse Station, N.J. 08889-0100 (908) 423-1000 Incorporated in New Jersey I.R.S. Employer Identification No. 22-1918501 The number of shares of common stock outstanding as of the close of business on July 31, 2013: 2,926,375,532 Indicate by check mark whether the registrant: (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during the preced"
+        },
+        {
+          "anchor": "In July 2013, the Company announced that it had received",
+          "normalized_text_start": 192863,
+          "normalized_text_end": 193393,
+          "text": "tary generic name for MK-3475 is under review by the United States Adopted Names Council. In July 2013, the Company announced that it had received a Complete Response Letter (\u201cCRL\u201d) from the FDA regarding the NDA for suvorexant, Merck\u2019s investigational medicine for the treatment of insomnia. In the CRL, the FDA advised Merck that: (1) the efficacy of suvorexant has been established at doses of 10 mg to 40 mg in elderly and non-elderly adult patients; (2) 10 mg should be the starting dose for most patients, and must be availa"
+        }
+      ]
+    },
+    {
+      "capture_key": "sec_abbv_2023_10q",
+      "capture_metadata_path": "captures/sec_abbv_2023_10q.metadata.json",
+      "original_body_sha256": "b3c31869e3a7cd57650e96b7df35f8e19c582daa3d500672c0d93392613d4ce2",
+      "publisher": "SEC",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115223000023/abbv-20230331.htm",
+      "observed_at": "2026-10-12T14:45:37.566667+00:00",
+      "issuer_name": "AbbVie Inc.",
+      "issuer_cik": "0001551152",
+      "ticker": "ABBV",
+      "period_of_report": "2023-03-31",
+      "cik_evidence_basis": "official EDGAR archive path and explicit inline CIK fact",
+      "purpose": "Independent issuer identity only; direct legal addressee match does not infer an ownership chain.",
+      "normalization": "Python HTMLParser handle_data; decoded UTF-8; concatenate nodes with spaces; collapse whitespace. Includes inline facts.",
+      "excerpts": [
+        {
+          "anchor": "0001551152",
+          "normalized_text_start": 0,
+          "normalized_text_end": 454,
+          "text": "abbv-20230331 0001551152 false December 31 2023 Q1 http://fasb.org/us-gaap/2022#CostOfGoodsAndServicesSold http://fasb.org/us-gaap/2022#CostOfGoodsAndServicesSold http://fasb.org/us-gaap/2022#InterestIncomeExpenseNonoperatingNet http://fasb.org/us-gaap/2022#InterestIncomeExpenseNonoperatingNet http://fasb.org/us-gaap/2022#ForeignCurrencyTransactionGainLossBeforeTax http://fasb.org/us-gaap/2022#ForeignCurrencyTransactionGainLossBeforeTax http://fasb.o"
+        },
+        {
+          "anchor": "AbbVie Inc.",
+          "normalized_text_start": 43653,
+          "normalized_text_end": 44183,
+          "text": " EXCHANGE ACT OF 1934 For the transition period from to Commission File Number: 001-35565 AbbVie Inc. (Exact name of registrant as specified in its charter) Delaware 32-0375147 (State or other jurisdiction of incorporation or organization) (I.R.S. employer identification number) 1 North Waukegan Road North Chicago , Illinois 60064-6400 Telephone: ( 847 ) 932-7900 Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during th"
+        },
+        {
+          "anchor": "Common Stock, par value $0.01 per share ABBV",
+          "normalized_text_start": 45594,
+          "normalized_text_end": 46124,
+          "text": " the Act: Title of each class Trading Symbol(s) Name of each exchange on which registered Common Stock, par value $0.01 per share ABBV New York Stock Exchange Chicago Stock Exchange 1.500% Senior Notes due 2023 ABBV23B New York Stock Exchange 1.375% Senior Notes due 2024 ABBV24 New York Stock Exchange 1.250% Senior Notes due 2024 ABBV24B New York Stock Exchange 0.750% Senior Notes due 2027 ABBV27 New York Stock Exchange 2.125% Senior Notes due 2028 ABBV28 New York Stock Exchange 2.625% Senior Notes due 2028 ABBV28B New York "
+        },
+        {
+          "anchor": "In March 2023, AbbVie announced that the FDA issued",
+          "normalized_text_start": 116948,
+          "normalized_text_end": 117478,
+          "text": " approved indications for Imbruvica in the U.S. are not affected. Neuroscience ABBV-951 \u2022 In March 2023, AbbVie announced that the FDA issued a Complete Response Letter (CRL) for the New Drug Application (NDA) for ABBV-951 (foscarbidopa/foslevodopa) for the treatment of motor fluctuations in adults with advanced Parkinson\u2019s disease. In its letter, the FDA requested additional information about the device (pump) as part of the NDA review. The CRL did not request that AbbVie conduct additional efficacy and safety trials relate"
+        }
+      ]
+    },
+    {
+      "capture_key": "sec_abbv_2024_10q",
+      "capture_metadata_path": "captures/sec_abbv_2024_10q.metadata.json",
+      "original_body_sha256": "83eeeb5145aeda19f4bca707285c1eeaa515365c5e15089dc6b59d630be7f034",
+      "publisher": "SEC",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115224000031/abbv-20240630.htm",
+      "observed_at": "2026-10-12T14:45:42.513628+00:00",
+      "issuer_name": "AbbVie Inc.",
+      "issuer_cik": "0001551152",
+      "ticker": "ABBV",
+      "period_of_report": "2024-06-30",
+      "cik_evidence_basis": "official EDGAR archive path and explicit inline CIK fact",
+      "purpose": "Independent issuer identity only; direct legal addressee match does not infer an ownership chain.",
+      "normalization": "Python HTMLParser handle_data; decoded UTF-8; concatenate nodes with spaces; collapse whitespace. Includes inline facts.",
+      "excerpts": [
+        {
+          "anchor": "0001551152",
+          "normalized_text_start": 0,
+          "normalized_text_end": 454,
+          "text": "abbv-20240630 0001551152 false December 31 2024 Q2 http://fasb.org/us-gaap/2024#CostOfGoodsAndServicesSold http://fasb.org/us-gaap/2024#CostOfGoodsAndServicesSold http://fasb.org/us-gaap/2024#InterestIncomeExpenseNonoperatingNet http://fasb.org/us-gaap/2024#InterestIncomeExpenseNonoperatingNet http://fasb.org/us-gaap/2024#ForeignCurrencyTransactionGainLossBeforeTax http://fasb.org/us-gaap/2024#ForeignCurrencyTransactionGainLossBeforeTax http://fasb.o"
+        },
+        {
+          "anchor": "AbbVie Inc.",
+          "normalized_text_start": 65771,
+          "normalized_text_end": 66301,
+          "text": " EXCHANGE ACT OF 1934 For the transition period from to Commission File Number: 001-35565 AbbVie Inc. (Exact name of registrant as specified in its charter) Delaware 32-0375147 (State or other jurisdiction of incorporation or organization) (I.R.S. employer identification number) 1 North Waukegan Road North Chicago , Illinois 60064-6400 Telephone: ( 847 ) 932-7900 Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during th"
+        },
+        {
+          "anchor": "Common Stock, par value $0.01 per share ABBV",
+          "normalized_text_start": 67712,
+          "normalized_text_end": 68242,
+          "text": " the Act: Title of each class Trading Symbol(s) Name of each exchange on which registered Common Stock, par value $0.01 per share ABBV New York Stock Exchange Chicago Stock Exchange 0.750% Senior Notes due 2027 ABBV27 New York Stock Exchange 2.125% Senior Notes due 2028 ABBV28 New York Stock Exchange 2.625% Senior Notes due 2028 ABBV28B New York Stock Exchange 2.125% Senior Notes due 2029 ABBV29 New York Stock Exchange 1.250% Senior Notes due 2031 ABBV31 New York Stock Exchange As of July 29, 2024, AbbVie Inc. had 1,766,343,"
+        },
+        {
+          "anchor": "In June 2024, AbbVie announced it received",
+          "normalized_text_start": 162923,
+          "normalized_text_end": 163453,
+          "text": "ble combinations of Parkinson's medicinal products have not given satisfactory results. \u2022 In June 2024, AbbVie announced it received a Complete Response Letter (CRL) from the FDA for the New Drug Application (NDA) for ABBV-951 for the treatment of motor fluctuations in adults with advanced Parkinson's disease. In its letter, the FDA cited observations that were identified during inspection of a third-party manufacturer listed in the NDA. The CRL did not identify any issues related to the safety, efficacy or labeling of ABBV-"
+        }
+      ]
+    },
+    {
+      "capture_key": "sec_abbv_2026_10q",
+      "capture_metadata_path": "captures/sec_abbv_2026_10q.metadata.json",
+      "original_body_sha256": "f5ec43b10ca9ed88305f13c2e747a7f59da11c6883e9da47d4aab4efe1325967",
+      "publisher": "SEC",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000017/abbv-20260331.htm",
+      "observed_at": "2026-10-12T14:45:49.217865+00:00",
+      "issuer_name": "AbbVie Inc.",
+      "issuer_cik": "0001551152",
+      "ticker": "ABBV",
+      "period_of_report": "2026-03-31",
+      "cik_evidence_basis": "official EDGAR archive path and explicit inline CIK fact",
+      "purpose": "Independent issuer identity only; direct legal addressee match does not infer an ownership chain.",
+      "normalization": "Python HTMLParser handle_data; decoded UTF-8; concatenate nodes with spaces; collapse whitespace. Includes inline facts.",
+      "excerpts": [
+        {
+          "anchor": "0001551152",
+          "normalized_text_start": 0,
+          "normalized_text_end": 454,
+          "text": "abbv-20260331 0001551152 false December 31 2026 Q1 http://fasb.org/us-gaap/2025#CostOfGoodsAndServicesSold http://fasb.org/us-gaap/2025#CostOfGoodsAndServicesSold http://fasb.org/us-gaap/2025#InterestIncomeExpenseNonoperatingNet http://fasb.org/us-gaap/2025#InterestIncomeExpenseNonoperatingNet http://fasb.org/us-gaap/2025#OtherNonoperatingIncomeExpense http://fasb.org/us-gaap/2025#OtherNonoperatingIncomeExpense http://fasb.org/us-gaap/2025#InterestIn"
+        },
+        {
+          "anchor": "AbbVie Inc.",
+          "normalized_text_start": 38274,
+          "normalized_text_end": 38804,
+          "text": " EXCHANGE ACT OF 1934 For the transition period from to Commission File Number: 001-35565 AbbVie Inc. (Exact name of registrant as specified in its charter) Delaware 32-0375147 (State or other jurisdiction of incorporation or organization) (I.R.S. employer identification number) 1 North Waukegan Road North Chicago , Illinois 60064-6400 Telephone: ( 847 ) 932-7900 Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during th"
+        },
+        {
+          "anchor": "Common Stock, par value $0.01 per share ABBV",
+          "normalized_text_start": 40215,
+          "normalized_text_end": 40745,
+          "text": " the Act: Title of each class Trading Symbol(s) Name of each exchange on which registered Common Stock, par value $0.01 per share ABBV New York Stock Exchange NYSE Texas 0.750% Senior Notes due 2027 ABBV27 New York Stock Exchange 2.125% Senior Notes due 2028 ABBV28 New York Stock Exchange 2.625% Senior Notes due 2028 ABBV28B New York Stock Exchange 2.125% Senior Notes due 2029 ABBV29 New York Stock Exchange 1.250% Senior Notes due 2031 ABBV31 New York Stock Exchange As of April 28, 2026, AbbVie Inc. had 1,766,792,821 shares "
+        }
+      ]
+    }
+  ],
+  "record_reviews": [
+    {
+      "record_id": "pfe-crl-bla761081-2018-04-20",
+      "review_status": "REVIEWED_PROPOSAL",
+      "reviewed_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_pfizer_exact_phrase",
+      "primary_body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+      "source_record_json_pointer": "/results/0",
+      "sec_capture_keys": [
+        "sec_pfe_2017_10k"
+      ],
+      "entity_link_basis": "FDA letter directly addresses the same legal issuer as its event-era SEC registrant. No brand, subsidiary or parent inference.",
+      "time_scope_basis": "Exclusive one-day interval is an event-only attribution bound, not the beginning/end of actual application ownership. Letter date is not first public release or first observation.",
+      "independent_issuer_match": {
+        "legal_name": "Pfizer Inc.",
+        "ticker": "PFE",
+        "cik": "0000078003"
+      },
+      "product_excerpt": {
+        "anchor": "Trazimera",
+        "normalized_text_start": 377,
+        "normalized_text_end": 967,
+        "text": "ceived June 22, 2017, submitted under section 351(k) of the Public Health Service Act for Trazimera (PF-05280014). We also acknowledge receipt of your amendments dated March 26, 2018, April 10, 2018, and April 17, 2018, which were not reviewed for this action. You may incorporate applicable sections of the amendments by specific reference as part of your response to the deficiencies cited in this letter. We have completed our review of this application and have determined that we cannot approve this application in its present form. We have described our reasons for this action below "
+      },
+      "signature_date": "04/20/2018",
+      "excluded_inferences": [
+        "no later application holder",
+        "no brand-code alias beyond the FDA letter text",
+        "no issuer-wide product inventory",
+        "no score or financial-impact direction"
+      ]
+    },
+    {
+      "record_id": "mrk-crl-nda204569-2013-06-28",
+      "review_status": "REVIEWED_PROPOSAL",
+      "reviewed_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_merck_exact_phrase",
+      "primary_body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+      "source_record_json_pointer": "/results/0",
+      "sec_capture_keys": [
+        "sec_mrk_2012_10k",
+        "sec_mrk_2013_10q"
+      ],
+      "entity_link_basis": "FDA letter directly addresses the same legal issuer as its event-era SEC registrant. No brand, subsidiary or parent inference.",
+      "time_scope_basis": "Exclusive one-day interval is an event-only attribution bound, not the beginning/end of actual application ownership. Letter date is not first public release or first observation.",
+      "independent_issuer_match": {
+        "legal_name": "Merck & Co., Inc.",
+        "ticker": "MRK",
+        "cik": "0000310158"
+      },
+      "product_excerpt": {
+        "anchor": "Suvorexant (MK-4305)",
+        "normalized_text_start": 397,
+        "normalized_text_end": 987,
+        "text": " 30, 2012, submitted under section 505(b) of the Federal Food, Drug, and Cosmetic Act for Suvorexant (MK-4305) 15, 20, 30 and 40 mg oral Tablets. We acknowledge receipt of your amendments dated: September 21, 2012, October 4, 2012, November 2, and 20, 2012, December 7, 12, 17, 20 and 21, 2012, January 17, 2013, February 5 and 28, 2013, March 11, 27, and 29, 2013, April 9, 11, 12, 19, 23, and 29, 2013, May 22 and 31, 2013, and June 5, 2013. We have completed our review of this application, as amended, and have determined that we cannot approve this application in its present form. We "
+      },
+      "signature_date": "06/28/2013",
+      "excluded_inferences": [
+        "no later application holder",
+        "no brand-code alias beyond the FDA letter text",
+        "no issuer-wide product inventory",
+        "no score or financial-impact direction"
+      ]
+    },
+    {
+      "record_id": "abbv-crl-nda216962-2023-03-17",
+      "review_status": "REVIEWED_PROPOSAL",
+      "reviewed_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_abbvie_exact_phrase",
+      "primary_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "source_record_json_pointer": "/results/0",
+      "sec_capture_keys": [
+        "sec_abbv_2023_10q"
+      ],
+      "entity_link_basis": "FDA letter directly addresses the same legal issuer as its event-era SEC registrant. No brand, subsidiary or parent inference.",
+      "time_scope_basis": "Exclusive one-day interval is an event-only attribution bound, not the beginning/end of actual application ownership. Letter date is not first public release or first observation.",
+      "independent_issuer_match": {
+        "legal_name": "AbbVie Inc.",
+        "ticker": "ABBV",
+        "cik": "0001551152"
+      },
+      "product_excerpt": {
+        "anchor": "Vyalev (foscarbidopa and foslevodopa)",
+        "normalized_text_start": 306,
+        "normalized_text_end": 896,
+        "text": ", submitted pursuant to section 505(b)(2) of the Federal Food, Drug, and Cosmetic Act for Vyalev (foscarbidopa and foslevodopa) Solution for Infusion. We have completed our review of this application, as amended, and have determined that we cannot approve this application in its present form. We have described our reasons for this action below and, where possible, our recommendations to address these issues. CENTER FOR DEVICES AND RADIOLOGICAL HEALTH 1. You have provided patient and healthcare provider Instructions for Use for the Foscarbidopa and Foslevodopa Delivery System (i.e., V"
+      },
+      "signature_date": "03/17/2023",
+      "excluded_inferences": [
+        "no later application holder",
+        "no brand-code alias beyond the FDA letter text",
+        "no issuer-wide product inventory",
+        "no score or financial-impact direction"
+      ]
+    },
+    {
+      "record_id": "abbv-crl-nda216962-2024-06-18",
+      "review_status": "REVIEWED_PROPOSAL",
+      "reviewed_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_abbvie_exact_phrase",
+      "primary_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "source_record_json_pointer": "/results/1",
+      "sec_capture_keys": [
+        "sec_abbv_2024_10q"
+      ],
+      "entity_link_basis": "FDA letter directly addresses the same legal issuer as its event-era SEC registrant. No brand, subsidiary or parent inference.",
+      "time_scope_basis": "Exclusive one-day interval is an event-only attribution bound, not the beginning/end of actual application ownership. Letter date is not first public release or first observation.",
+      "independent_issuer_match": {
+        "legal_name": "AbbVie Inc.",
+        "ticker": "ABBV",
+        "cik": "0001551152"
+      },
+      "product_excerpt": {
+        "anchor": "Vyalev (foscarbidopa and foslevodopa)",
+        "normalized_text_start": 308,
+        "normalized_text_end": 898,
+        "text": ", submitted pursuant to section 505(b)(2) of the Federal Food, Drug, and Cosmetic Act for Vyalev (foscarbidopa and foslevodopa) injection for subcutaneous use. We acknowledge receipt of your amendment dated December 19, 2023, which constituted a complete response to our March 17, 2023, action letter. We have completed our review of this application, as amended, and have determined that we cannot approve this application in its present form. We have described our reasons for this action below and, where possible, our recommendations to address these issues. FACILITY INSPECTIONS Follow"
+      },
+      "signature_date": "06/18/2024",
+      "excluded_inferences": [
+        "no later application holder",
+        "no brand-code alias beyond the FDA letter text",
+        "no issuer-wide product inventory",
+        "no score or financial-impact direction"
+      ]
+    },
+    {
+      "record_id": "abbv-crl-bla761459-2026-04-22",
+      "review_status": "REVIEWED_PROPOSAL",
+      "reviewed_at": "2026-10-12T14:52:33.382658+00:00",
+      "primary_capture_key": "fda_crl_abbvie_exact_phrase",
+      "primary_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "source_record_json_pointer": "/results/2",
+      "sec_capture_keys": [
+        "sec_abbv_2026_10q"
+      ],
+      "entity_link_basis": "FDA letter directly addresses the same legal issuer as its event-era SEC registrant. No brand, subsidiary or parent inference.",
+      "time_scope_basis": "Exclusive one-day interval is an event-only attribution bound, not the beginning/end of actual application ownership. Letter date is not first public release or first observation.",
+      "independent_issuer_match": {
+        "legal_name": "AbbVie Inc.",
+        "ticker": "ABBV",
+        "cik": "0001551152"
+      },
+      "product_excerpt": {
+        "anchor": "AGN-151586",
+        "normalized_text_start": 243,
+        "normalized_text_end": 833,
+        "text": "tion (BLA) dated and received April 22, 2025, and your amendments, submitted under an for AGN-151586 for injection. We also acknowledge receipt of your amendment dated April 17, 2026, which was not reviewed for this action. You may incorporate applicable sections of the amendment by specific reference as part of your response to the deficiencies cited in this letter. We have completed our review of this application, as amended, and have determined that we cannot approve this application in its present form. We have described our reasons for this action below and, where possible, our "
+      },
+      "signature_date": "04/22/2026",
+      "excluded_inferences": [
+        "no later application holder",
+        "no brand-code alias beyond the FDA letter text",
+        "no issuer-wide product inventory",
+        "no score or financial-impact direction"
+      ]
+    }
+  ],
+  "withheld_records": [
+    {
+      "capture_key": "fda_crl_pfizer",
+      "source_record_json_pointer": "/results/0",
+      "company_name": "Pfizer Ireland Pharmaceuticals",
+      "application_number": "BLA761184",
+      "letter_date": "2022-01-21",
+      "reason": "The FDA c/o Pfizer Inc. address does not establish dated legal ownership. No dated SEC ownership chain was established, so this object is not proposed."
+    }
+  ],
+  "blocks": [
+    {
+      "capture_key": "sec_pfe_2017_index",
+      "status": 403,
+      "reason": "Later optional filing-index request was blocked. It was not retried; no facts from its error body support any relationship."
+    }
+  ]
+}

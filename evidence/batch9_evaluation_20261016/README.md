@@ -1,0 +1,24 @@
+`CapturedMarketInputAcquisition` is an explicit production collector for AAPL and the twelve existing benchmark symbols. Construction defaults to `enabled=False`; `plan()` performs no HTTP or writes. Collection requires both an enabled instance and `acquire(plan, execute=True)`. Invalid, changed, future or stale plans fail before source I/O. Each plan declares at most thirteen exact Yahoo daily-chart GET URLs, a 2,000,000-byte complete-body cap per response, sixty-six exact completed NYSE sessions, no retries, no redirects and no fallback.
+
+The one real attempt began on 2026-10-16 at 12:21:17 UTC. The AAPL transport raised `URLError` without an HTTP status or response body. The collector stopped the remaining twelve same-host requests. The preserved outcome is **WAIT_DATA: one attempted request, zero bodies, zero usable instruments, zero forecasts and zero labels**. The exception class alone does not establish its underlying DNS, TLS or network-policy cause. No retry or further source HTTP was performed. `actual_attempt_summary.json` and the original plan, receipt and report retain this failure.
+
+`actual_acquisition_producer_v1.py` preserves the exact producer that made that attempt. The durable plan-claim and exact numeric-serialization improvements came afterward; the original producer and failed artifacts were not rewritten. A separately dated post-attempt claim now protects that same plan from any future retry. It explicitly says `claim_created_after_attempt=true`; it does not claim to have existed before the original attempt.
+
+The current API is:
+
+```python
+service = CapturedMarketInputAcquisition(archive_root=archive_root, enabled=False)
+plan = service.plan()  # exact reviewed scope, URLs, physical session window and plan_id
+# A separate explicit execution of that exact plan requires enabled=True and execute=True.
+report = enabled_service.acquire(plan, execute=True)
+```
+
+This example describes the API; it does not authorize or perform another collection. The preserved actual plan must not be retried. `report` exposes `WAIT_DATA`, `PARTIAL` or `READY`, `source_http_requests`, `raw_captures`, `usable_count`, per-symbol reasons, and an optional `manifest_path` relative to `archive_root`. A complete report replay retains its original clocks and outcome, sets current `source_http_requests=0`, and exposes `original_source_http_requests`; it is not a fresh readiness approval. A durable exclusive claim blocks repeated or concurrent execution even if the first process was interrupted. Interrupted claimed plans cannot resume implicitly.
+
+Safe complete original HTTP bodies are retained unchanged as raw parents. The parser maps original daily OHLCV arrays directly, preserves original session timestamps and optional adjusted-close values, and never creates raw OHLC from adjusted close. Sparse action event maps are preserved separately as returned; absent actions remain explicitly missing and are not zero filled. The split-format frame archive declares that it is a derived serialization rather than the original HTTP body. Round-trip JSON numbers preserve tiny prices and integer volume without fixed-decimal rounding or mixed-array float coercion.
+
+`verify_original_chart_parent(record, archive_root)` reads one explicit raw parent, refuses path escape and symlinks, verifies original complete bytes/hash, exact source URL/window/instrument and physical clocks, and requires an exact parser/frame replay. It writes nothing and performs no HTTP. The normal captured provider must call it for observations containing `raw_http_parent`, and must still enforce its fixture and current-freshness gates before use and persistence. Importing the helper locally avoids the modules' import cycle.
+
+All injected clocks and transports are fixture-only and mark observations `DETERMINISTIC_TEST_FIXTURE`. Focused final qualification executed **38/38 synthetic tests** in 3.617085 seconds with zero failures, errors, skips, expected failures or unexpected successes. Tests cover completed/interrupted/concurrent plan claims, exact original frame/action values, original-parent tamper and clock rejection, whole-body withholding, partial results, strict request bounds and native transport lifetimes. The preceding 37-test qualification is retained as its earlier version. These tests do not provide genuine price coverage or live forecast acceptance.
+
+Publisher revision timing remains `UNKNOWN`, and strict PIT/OOS eligibility remains false. The current completion time is after the October 16 opening; no earlier forecast is manufactured or backdated. No production database, shared provider/config/pipeline/CLI/UI, model, fitter, score, trading, registry, source license or previous evidence file was changed in this lane. No GitHub write or repeated full baseline suite was performed.

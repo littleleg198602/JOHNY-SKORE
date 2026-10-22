@@ -1,0 +1,19 @@
+{
+  "command": "python -m unittest tests.test_sec_certificate_instrument_review -v (equivalent standard unittest runner)",
+  "discovered": 22,
+  "errors": 0,
+  "executed": 22,
+  "expected_failures": 0,
+  "failures": 0,
+  "finished_at": "2026-10-18T04:32:16.940695+00:00",
+  "log_sha256": "0580a5083bb06bacf5c47b28d96dca47b392fb9cb20973df48caea77455f3d37",
+  "network_requests_performed": 0,
+  "plain_OK": true,
+  "producer_sha256": "cce4981473be8e070e28314021dc4d4c8a43791386315de92fc23332dd41cf1c",
+  "schema_version": "focused_certificate_review_qualification_v1",
+  "skips": 0,
+  "started_at": "2026-10-18T04:32:14.725483+00:00",
+  "synthetic_regressions_are_not_acceptance": true,
+  "test_sha256": "2176183dc1f6f59b689cff6f2d138d7a5429ce35f787023fb46d58b19728cceb",
+  "unexpected_successes": 0
+}

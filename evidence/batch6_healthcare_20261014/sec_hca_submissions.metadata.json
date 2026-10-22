@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "capture_form": "ORIGINAL_HTTP_RESPONSE",
+  "requested_url": "https://data.sec.gov/submissions/CIK0000860730.json",
+  "response_url": "https://data.sec.gov/submissions/CIK0000860730.json",
+  "requested_at": "2026-10-14T13:34:53.967668+00:00",
+  "research_request_allowance": 4,
+  "attempts_in_this_capture": 1,
+  "request_purpose": "BOUNDED_INDEPENDENT_SEC_PRIMARY_ISSUER_RESEARCH",
+  "cms_or_clinical_request": false,
+  "new_quota_store_created": false,
+  "http_status": 200,
+  "body_bytes": 161899,
+  "body_sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87",
+  "observed_at": "2026-10-14T13:35:04.920566+00:00",
+  "complete_response_body": true,
+  "http_date": "Wed, 14 Oct 2026 13:35:04 GMT",
+  "last_modified": null,
+  "content_type": "application/json",
+  "raw_publication_permitted": true,
+  "status": "HTTP_200_COMPLETE",
+  "body_path": "sec_hca_submissions.body.json"
+}

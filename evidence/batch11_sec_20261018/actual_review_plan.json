@@ -1,0 +1,83 @@
+{
+  "captures": {
+    "account_packet": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 9665,
+        "path": "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+      },
+      "metadata": {
+        "known_at": "2026-10-16T12:18:22.843333+00:00",
+        "observed_at": "2026-10-16T12:18:22.843333+00:00",
+        "record_id": "retained-role-source-account_packet",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8",
+        "size_bytes": 9665,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt"
+      }
+    },
+    "index": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 33931,
+        "path": "evidence/batch7_sec_20261015/primary/msft_2025_proxy_index.html",
+        "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a"
+      },
+      "metadata": {
+        "known_at": "2026-10-14T23:26:39.546292+00:00",
+        "observed_at": "2026-10-14T23:26:39.546292+00:00",
+        "record_id": "retained-role-source-index",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a",
+        "size_bytes": 33931,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/0001193125-25-245150-index.html"
+      }
+    },
+    "primary": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 2430522,
+        "path": "evidence/batch7_sec_20261015/primary/msft_2025_proxy.htm",
+        "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac"
+      },
+      "metadata": {
+        "known_at": "2026-10-14T23:27:25.325473+00:00",
+        "observed_at": "2026-10-14T23:27:25.325473+00:00",
+        "record_id": "retained-role-source-primary",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+        "size_bytes": 2430522,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm"
+      }
+    }
+  },
+  "kind": "SEC_PERSON_ROLE_TEMPORAL",
+  "request": {
+    "selection": {
+      "account_descriptor": {
+        "accession": "0000789019-26-000157",
+        "form": "4",
+        "issuer_cik": "0000789019",
+        "issuer_name": "MICROSOFT CORP",
+        "officer_title": "Chief Executive Officer",
+        "owner_cik": "0001513142",
+        "owner_name": "Nadella Satya"
+      },
+      "issuer_cik": "0000789019",
+      "issuer_name": "Microsoft Corporation",
+      "person_context_locator": "table:163",
+      "person_context_quote": "Satya Nadella Age: 58 | Director Since: 2014 | Birthplace: India",
+      "person_name": "Satya Nadella",
+      "role_context_locator": "table:164/row:2/cell:5",
+      "role_context_quote": "Experience: Microsoft Corporation (1992-present) \u2022 Chairman and Chief Executive Officer (2021-present) \u2022 Chief Executive Officer and Director (2014-2021) \u2022 Executive Vice President, Cloud and Enterprise (2013-2014) \u2022 President, Server and Tools (2011-2013) \u2022 Senior Vice President, Online Services Division (2009-2011) \u2022 Senior Vice President, Search, Portal, and Advertising (2008-2009) \u2022 Various positions of increasing authority (1992-2008)"
+    },
+    "temporal_request": {
+      "requested_transaction_day": "2026-08-31",
+      "role_title_literal": "Chairman and Chief Executive Officer",
+      "transaction_kind": "nonDerivativeTransaction",
+      "transaction_ordinal": 1
+    }
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

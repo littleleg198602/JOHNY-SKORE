@@ -1,0 +1,731 @@
+{
+  "retrieved_at": "2026-10-16T07:11:00.761Z",
+  "run": {
+    "id": 38861160925,
+    "name": "Market Checker test agents",
+    "node_id": "WFR_kwLORWpE1M8AAAAJDE5B3Q",
+    "head_branch": "continuation/specialists-batch3-20261012",
+    "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+    "path": ".github/workflows/market-checker-test-agents.yml",
+    "display_title": "Review exact captured specialist identities and preserve prospective evidence history",
+    "run_number": 453,
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "failure",
+    "workflow_id": 331036067,
+    "check_suite_id": 105313752917,
+    "check_suite_node_id": "CS_kwDORWpE1M8AAAAYhTBXVQ",
+    "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925",
+    "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38861160925",
+    "pull_requests": [
+      {
+        "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/pulls/162",
+        "id": 4831689157,
+        "number": 162,
+        "head": {
+          "ref": "continuation/specialists-batch3-20261012",
+          "sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+          "repo": {
+            "id": 1164592340,
+            "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE",
+            "name": "JOHNY-SKORE"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+          "repo": {
+            "id": 1164592340,
+            "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE",
+            "name": "JOHNY-SKORE"
+          }
+        }
+      }
+    ],
+    "created_at": "2026-10-16T06:25:55Z",
+    "updated_at": "2026-10-16T07:05:08Z",
+    "actor": {
+      "login": "littleleg198602",
+      "id": 233839279,
+      "node_id": "U_kgDODfAarw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233839279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/littleleg198602",
+      "html_url": "https://github.com/littleleg198602",
+      "followers_url": "https://api.github.com/users/littleleg198602/followers",
+      "following_url": "https://api.github.com/users/littleleg198602/following{/other_user}",
+      "gists_url": "https://api.github.com/users/littleleg198602/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/littleleg198602/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/littleleg198602/subscriptions",
+      "organizations_url": "https://api.github.com/users/littleleg198602/orgs",
+      "repos_url": "https://api.github.com/users/littleleg198602/repos",
+      "events_url": "https://api.github.com/users/littleleg198602/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/littleleg198602/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "run_attempt": 1,
+    "referenced_workflows": [],
+    "run_started_at": "2026-10-16T06:25:55Z",
+    "triggering_actor": {
+      "login": "littleleg198602",
+      "id": 233839279,
+      "node_id": "U_kgDODfAarw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233839279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/littleleg198602",
+      "html_url": "https://github.com/littleleg198602",
+      "followers_url": "https://api.github.com/users/littleleg198602/followers",
+      "following_url": "https://api.github.com/users/littleleg198602/following{/other_user}",
+      "gists_url": "https://api.github.com/users/littleleg198602/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/littleleg198602/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/littleleg198602/subscriptions",
+      "organizations_url": "https://api.github.com/users/littleleg198602/orgs",
+      "repos_url": "https://api.github.com/users/littleleg198602/repos",
+      "events_url": "https://api.github.com/users/littleleg198602/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/littleleg198602/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "jobs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/jobs",
+    "logs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/logs",
+    "check_suite_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-suites/105313752917",
+    "artifacts_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/artifacts",
+    "cancel_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/cancel",
+    "rerun_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/rerun",
+    "previous_attempt_url": null,
+    "workflow_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/workflows/331036067",
+    "head_commit": {
+      "id": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+      "tree_id": "bd99dca493a4d6eca5d6c1fb6c9017995aedf292",
+      "message": "Integrate batch8 original-source scopes and explicit captured-market runtime\n\nSix isolated development outputs and four peer followups; 2036 deterministic tests pass locally. Preserve original source bytes and earlier failures, dated scope limits, default model hash and original 687/60s budget. Full specialist acceptance remains 0/21; no merge or trading activation.",
+      "timestamp": "2026-10-16T06:25:42Z",
+      "author": {
+        "name": "littleleg198602",
+        "email": "honza.nozicka@gmail.com"
+      },
+      "committer": {
+        "name": "littleleg198602",
+        "email": "honza.nozicka@gmail.com"
+      }
+    },
+    "repository": {
+      "id": 1164592340,
+      "node_id": "R_kgDORWpE1A",
+      "name": "JOHNY-SKORE",
+      "full_name": "littleleg198602/JOHNY-SKORE",
+      "private": false,
+      "owner": {
+        "login": "littleleg198602",
+        "id": 233839279,
+        "node_id": "U_kgDODfAarw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/233839279?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/littleleg198602",
+        "html_url": "https://github.com/littleleg198602",
+        "followers_url": "https://api.github.com/users/littleleg198602/followers",
+        "following_url": "https://api.github.com/users/littleleg198602/following{/other_user}",
+        "gists_url": "https://api.github.com/users/littleleg198602/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/littleleg198602/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/littleleg198602/subscriptions",
+        "organizations_url": "https://api.github.com/users/littleleg198602/orgs",
+        "repos_url": "https://api.github.com/users/littleleg198602/repos",
+        "events_url": "https://api.github.com/users/littleleg198602/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/littleleg198602/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE",
+      "forks_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/forks",
+      "keys_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/teams",
+      "hooks_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/hooks",
+      "issue_events_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/events",
+      "assignees_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/tags",
+      "blobs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/languages",
+      "stargazers_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/stargazers",
+      "contributors_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/contributors",
+      "subscribers_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/subscribers",
+      "subscription_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/subscription",
+      "commits_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/merges",
+      "archive_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/downloads",
+      "issues_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/labels{/name}",
+      "releases_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/deployments"
+    },
+    "head_repository": {
+      "id": 1164592340,
+      "node_id": "R_kgDORWpE1A",
+      "name": "JOHNY-SKORE",
+      "full_name": "littleleg198602/JOHNY-SKORE",
+      "private": false,
+      "owner": {
+        "login": "littleleg198602",
+        "id": 233839279,
+        "node_id": "U_kgDODfAarw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/233839279?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/littleleg198602",
+        "html_url": "https://github.com/littleleg198602",
+        "followers_url": "https://api.github.com/users/littleleg198602/followers",
+        "following_url": "https://api.github.com/users/littleleg198602/following{/other_user}",
+        "gists_url": "https://api.github.com/users/littleleg198602/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/littleleg198602/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/littleleg198602/subscriptions",
+        "organizations_url": "https://api.github.com/users/littleleg198602/orgs",
+        "repos_url": "https://api.github.com/users/littleleg198602/repos",
+        "events_url": "https://api.github.com/users/littleleg198602/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/littleleg198602/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE",
+      "forks_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/forks",
+      "keys_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/teams",
+      "hooks_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/hooks",
+      "issue_events_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/events",
+      "assignees_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/tags",
+      "blobs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/languages",
+      "stargazers_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/stargazers",
+      "contributors_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/contributors",
+      "subscribers_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/subscribers",
+      "subscription_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/subscription",
+      "commits_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/merges",
+      "archive_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/downloads",
+      "issues_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/labels{/name}",
+      "releases_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/deployments"
+    }
+  },
+  "jobs": {
+    "total_count": 5,
+    "jobs": [
+      {
+        "id": 116843520162,
+        "run_id": 38861160925,
+        "workflow_name": "Market Checker test agents",
+        "head_branch": "continuation/specialists-batch3-20261012",
+        "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925",
+        "run_attempt": 1,
+        "node_id": "CR_kwDORWpE1M8AAAAbNGqgog",
+        "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+        "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/116843520162",
+        "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/job/116843520162",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-16T06:25:56Z",
+        "started_at": "2026-10-16T06:25:57Z",
+        "completed_at": "2026-10-16T06:26:53Z",
+        "name": "687 ticker scale and progress agent",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-16T06:25:58Z",
+            "completed_at": "2026-10-16T06:25:59Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-16T06:25:59Z",
+            "completed_at": "2026-10-16T06:26:02Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-16T06:26:02Z",
+            "completed_at": "2026-10-16T06:26:04Z"
+          },
+          {
+            "name": "Install project dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-16T06:26:04Z",
+            "completed_at": "2026-10-16T06:26:23Z"
+          },
+          {
+            "name": "Verify exact 687-ticker contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-16T06:26:23Z",
+            "completed_at": "2026-10-16T06:26:51Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-16T06:26:51Z",
+            "completed_at": "2026-10-16T06:26:51Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-16T06:26:51Z",
+            "completed_at": "2026-10-16T06:26:51Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-16T06:26:51Z",
+            "completed_at": "2026-10-16T06:26:51Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/116843520162",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000003082,
+        "runner_name": "GitHub Actions 1000003082",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 116843520437,
+        "run_id": 38861160925,
+        "workflow_name": "Market Checker test agents",
+        "head_branch": "continuation/specialists-batch3-20261012",
+        "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925",
+        "run_attempt": 1,
+        "node_id": "CR_kwDORWpE1M8AAAAbNGqhtQ",
+        "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+        "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/116843520437",
+        "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/job/116843520437",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-10-16T06:25:56Z",
+        "started_at": "2026-10-16T06:26:00Z",
+        "completed_at": "2026-10-16T07:05:02Z",
+        "name": "Windows contracts, persistence and UI",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-16T06:26:00Z",
+            "completed_at": "2026-10-16T06:26:02Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-16T06:26:02Z",
+            "completed_at": "2026-10-16T06:26:11Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-16T06:26:11Z",
+            "completed_at": "2026-10-16T06:26:17Z"
+          },
+          {
+            "name": "Install project dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-16T06:26:17Z",
+            "completed_at": "2026-10-16T06:26:59Z"
+          },
+          {
+            "name": "Compile every Python module",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-16T06:26:59Z",
+            "completed_at": "2026-10-16T06:27:01Z"
+          },
+          {
+            "name": "Verify SEC checkpoint and process resume regressions",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-16T06:27:01Z",
+            "completed_at": "2026-10-16T06:27:32Z"
+          },
+          {
+            "name": "Run deterministic Windows suite",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 7,
+            "started_at": "2026-10-16T06:27:32Z",
+            "completed_at": "2026-10-16T07:04:58Z"
+          },
+          {
+            "name": "Preserve Windows verification log",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-16T07:04:58Z",
+            "completed_at": "2026-10-16T07:04:58Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 15,
+            "started_at": "2026-10-16T07:04:58Z",
+            "completed_at": "2026-10-16T07:04:58Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-10-16T07:04:58Z",
+            "completed_at": "2026-10-16T07:05:01Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-10-16T07:05:01Z",
+            "completed_at": "2026-10-16T07:05:01Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/116843520437",
+        "labels": [
+          "windows-latest"
+        ],
+        "runner_id": 1000003083,
+        "runner_name": "GitHub Actions 1000003083",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 116843520514,
+        "run_id": 38861160925,
+        "workflow_name": "Market Checker test agents",
+        "head_branch": "continuation/specialists-batch3-20261012",
+        "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925",
+        "run_attempt": 1,
+        "node_id": "CR_kwDORWpE1M8AAAAbNGqiAg",
+        "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+        "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/116843520514",
+        "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/job/116843520514",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-16T06:25:56Z",
+        "started_at": "2026-10-16T06:25:58Z",
+        "completed_at": "2026-10-16T06:30:03Z",
+        "name": "Contract, source and persistence agent",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-16T06:25:59Z",
+            "completed_at": "2026-10-16T06:25:59Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-16T06:25:59Z",
+            "completed_at": "2026-10-16T06:26:04Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-16T06:26:04Z",
+            "completed_at": "2026-10-16T06:26:07Z"
+          },
+          {
+            "name": "Install project dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-16T06:26:07Z",
+            "completed_at": "2026-10-16T06:26:17Z"
+          },
+          {
+            "name": "Compile every Python module",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-16T06:26:17Z",
+            "completed_at": "2026-10-16T06:26:18Z"
+          },
+          {
+            "name": "Run deterministic test suite",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-16T06:26:18Z",
+            "completed_at": "2026-10-16T06:30:00Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-16T06:30:00Z",
+            "completed_at": "2026-10-16T06:30:00Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-16T06:30:00Z",
+            "completed_at": "2026-10-16T06:30:00Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-16T06:30:00Z",
+            "completed_at": "2026-10-16T06:30:00Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/116843520514",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000003085,
+        "runner_name": "GitHub Actions 1000003085",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 116843520638,
+        "run_id": 38861160925,
+        "workflow_name": "Market Checker test agents",
+        "head_branch": "continuation/specialists-batch3-20261012",
+        "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925",
+        "run_attempt": 1,
+        "node_id": "CR_kwDORWpE1M8AAAAbNGqifg",
+        "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+        "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/116843520638",
+        "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/job/116843520638",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-10-16T06:25:56Z",
+        "started_at": "2026-10-16T06:25:58Z",
+        "completed_at": "2026-10-16T06:26:43Z",
+        "name": "Streamlit UI agent",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-16T06:25:59Z",
+            "completed_at": "2026-10-16T06:25:59Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-16T06:25:59Z",
+            "completed_at": "2026-10-16T06:26:03Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-16T06:26:03Z",
+            "completed_at": "2026-10-16T06:26:05Z"
+          },
+          {
+            "name": "Install project dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-16T06:26:05Z",
+            "completed_at": "2026-10-16T06:26:28Z"
+          },
+          {
+            "name": "Verify the application and Yahoo controls render",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-16T06:26:28Z",
+            "completed_at": "2026-10-16T06:26:41Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-16T06:26:41Z",
+            "completed_at": "2026-10-16T06:26:41Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-16T06:26:41Z",
+            "completed_at": "2026-10-16T06:26:41Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-16T06:26:41Z",
+            "completed_at": "2026-10-16T06:26:41Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/116843520638",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000003084,
+        "runner_name": "GitHub Actions 1000003084",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 116855563520,
+        "run_id": 38861160925,
+        "workflow_name": "Market Checker test agents",
+        "head_branch": "continuation/specialists-batch3-20261012",
+        "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/38861160925",
+        "run_attempt": 1,
+        "node_id": "CR_kwDORWpE1M8AAAAbNSJlAA",
+        "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+        "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/116855563520",
+        "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/38861160925/job/116855563520",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-10-16T07:05:02Z",
+        "started_at": "2026-10-16T07:05:04Z",
+        "completed_at": "2026-10-16T07:05:07Z",
+        "name": "Deterministic release gate",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-16T07:05:05Z",
+            "completed_at": "2026-10-16T07:05:05Z"
+          },
+          {
+            "name": "Require every test agent to pass",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 2,
+            "started_at": "2026-10-16T07:05:05Z",
+            "completed_at": "2026-10-16T07:05:05Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-16T07:05:05Z",
+            "completed_at": "2026-10-16T07:05:05Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/116855563520",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000003086,
+        "runner_name": "GitHub Actions 1000003086",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  },
+  "artifacts": {
+    "artifacts": [
+      {
+        "id": 12030449825,
+        "name": "windows-deterministic-tests",
+        "size_in_bytes": 62471,
+        "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/artifacts/12030449825",
+        "archive_download_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/artifacts/12030449825/zip",
+        "expired": false,
+        "created_at": "2026-10-16T07:04:58Z",
+        "expires_at": "2027-01-14T06:25:55Z",
+        "updated_at": "2026-10-16T07:04:58Z",
+        "digest": "sha256:bafec854986b27ab5e67f358842be7bf486afb4f04dfe568f111b00e21a9c394",
+        "workflow_run": {
+          "id": 38861160925,
+          "repository_id": 1164592340,
+          "head_repository_id": 1164592340,
+          "head_branch": "continuation/specialists-batch3-20261012",
+          "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed"
+        }
+      }
+    ]
+  }
+}

@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from io import StringIO
 import sqlite3
+import json
 
 from market_checker_app.storage.sqlite_connection import ClosingSQLiteConnection
 from pathlib import Path
@@ -18,11 +19,20 @@ from market_checker_app.services.price_methodology import (
     YAHOO_PROVIDER,
     normalize_split_adjusted_price_frame,
 )
+from market_checker_app.services.yahoo_price_provenance_service import (
+    PROVENANCE_ATTR, capture_cache_frame, digest, label_provenance, load_observation,
+    persist_observation, physical_clock, provider_observation, utc_clock, frame_json as capture_frame_json,
+    PROVIDER_ATTR,
+)
 
 
 _EMPTY_FRAME_JSON = '{"columns":[],"index":[],"data":[]}'
 _LEGACY_ADJUSTMENT = "raw_unadjusted_legacy"
 _LEGACY_METHOD_VERSION = "legacy_raw_close_v1"
+
+
+class _PriceContentMismatch(ValueError):
+    pass
 
 
 @dataclass(frozen=True)
@@ -82,6 +92,7 @@ class YahooOhlcCacheStore:
         adjustment: str = _LEGACY_ADJUSTMENT,
         methodology_version: str = _LEGACY_METHOD_VERSION,
         now_provider=None,
+        observation_clock=None,
     ) -> None:
         self.db_path = Path(db_path)
         self.success_ttl = success_ttl
@@ -93,6 +104,8 @@ class YahooOhlcCacheStore:
             str(methodology_version).strip() or _LEGACY_METHOD_VERSION
         )
         self._now_provider = now_provider or (lambda: datetime.now(timezone.utc))
+        self._observation_clock = observation_clock or physical_clock
+        self.price_observation_directory = self.db_path.parent / "yahoo_price_observations"
         self.ensure_schema()
 
     def _connect(self) -> sqlite3.Connection:
@@ -161,6 +174,7 @@ class YahooOhlcCacheStore:
                 )
                 """
             )
+            self._ensure_column(conn, "yahoo_ohlc_cache_v2", "capture_provenance_json", "TEXT NOT NULL DEFAULT '{}'")
             # Preserve legacy data under an explicitly incompatible identity.
             conn.execute(
                 """
@@ -300,12 +314,50 @@ class YahooOhlcCacheStore:
             self._identity(ticker),
         ).fetchone()
 
-    def _decode_frame(self, row: sqlite3.Row) -> pd.DataFrame | None:
+    def _capture(self, row: sqlite3.Row) -> dict | None:
+        pointer = json.loads(row["capture_provenance_json"] or "{}")
+        if not isinstance(pointer, dict):
+            raise ValueError("Invalid cached price observation pointer")
+        identifier = pointer.get("capture_id")
+        if not identifier:
+            return None
+        if not isinstance(identifier, str) or len(identifier) != 64 or any(letter not in "0123456789abcdef" for letter in identifier):
+            raise ValueError("Invalid cached price observation identifier")
+        record = load_observation(self.price_observation_directory / f"yahoo_price_{identifier}.json")
+        if (record["frame_sha256"] != digest(row["frame_json"])
+                or (record["ticker"], record["provider"], record["interval"], record["adjustment"], record["methodology_version"])
+                != (row["ticker"], row["provider"], row["interval"], row["adjustment"], row["methodology_version"])):
+            raise _PriceContentMismatch("Price observation does not match current cache content/identity")
+        source_id = record.get("source_capture_id")
+        if source_id is not None:
+            if not isinstance(source_id, str) or len(source_id) != 64 or any(letter not in "0123456789abcdef" for letter in source_id):
+                raise ValueError("Invalid provider observation identifier")
+            source = load_observation(self.price_observation_directory / f"yahoo_price_{source_id}.json")
+            if (source.get("kind") != "PROVIDER_RETURNED_FRAME" or source.get("ticker") != row["ticker"]
+                    or source.get("frame_sha256") != record.get("source_frame_sha256")):
+                raise ValueError("Provider observation does not match cache provenance")
+        return record
+
+    def _decode_frame(self, row: sqlite3.Row, *, required_sessions=None) -> pd.DataFrame | None:
         if row["frame_json"] == _EMPTY_FRAME_JSON:
             return None
-        return self._validate(
+        frame = self._validate(
             pd.read_json(StringIO(row["frame_json"]), orient="split")
         )
+        try:
+            record = self._capture(row)
+            if record is not None:
+                frame.attrs[PROVENANCE_ATTR] = label_provenance(record,
+                    cache_read_at=utc_clock(self._observation_clock()), required_sessions=required_sessions)
+            else:
+                frame.attrs["yahoo_price_provenance_gap"] = "LEGACY_UNCAPTURED"
+        except _PriceContentMismatch:
+            raise
+        except (OSError, ValueError, KeyError, TypeError):
+            # Loss of provenance does not erase otherwise valid cached prices
+            # on a short refresh. Those rows remain excluded from PIT analysis.
+            frame.attrs["yahoo_price_provenance_gap"] = "MISSING_OR_INVALID_CAPTURE"
+        return frame
 
     def upsert_success(
         self,
@@ -314,28 +366,49 @@ class YahooOhlcCacheStore:
         *,
         fetched_at: datetime | None = None,
     ) -> pd.DataFrame:
+        record_prices = (self.provider == YAHOO_PROVIDER and self.interval == YAHOO_INTERVAL
+            and self.adjustment == YAHOO_ADJUSTMENT and self.methodology_version == PRICE_METHOD_VERSION) or (isinstance(frame, pd.DataFrame) and PROVIDER_ATTR in frame.attrs)
+        if record_prices:
+            capture_frame_json(frame)
+        source = provider_observation(frame, self._ticker(ticker)) if record_prices else None
         checked = self._normalise_for_methodology(frame)
         fetched = self._utc(fetched_at or self._now())
         with self._connect() as conn:
             existing = self._row(conn, ticker)
+            prior_json = None
+            prior_capture_id = None
             if existing is not None:
                 try:
                     previous = self._decode_frame(existing)
-                except (TypeError, ValueError, KeyError):
+                except _PriceContentMismatch:
+                    raise
+                except (OSError, TypeError, ValueError, KeyError):
                     previous = None
                 if previous is not None:
+                    prior_json = existing["frame_json"]
+                    prior_capture_id = previous.attrs.get(PROVENANCE_ATTR, {}).get("price_observation_id")
                     checked = pd.concat([previous, checked], axis=0)
                     checked = checked[~checked.index.duplicated(keep="last")]
                     checked = checked.sort_index(kind="stable")
             encoded = checked.to_json(orient="split", date_format="iso")
+            capture = None
+            if record_prices:
+                capture = capture_cache_frame(self._ticker(ticker), checked, encoded=encoded,
+                    provider=self.provider, interval=self.interval, adjustment=self.adjustment,
+                    methodology_version=self.methodology_version,
+                    captured_at=utc_clock(self._observation_clock()), logical_fetched_at=fetched,
+                    prior_json=prior_json, source=source, prior_capture_id=prior_capture_id)
+                if source is not None:
+                    persist_observation(source, self.price_observation_directory)
+                persist_observation(capture, self.price_observation_directory)
             conn.execute(
                 """
                 INSERT INTO yahoo_ohlc_cache_v2(
                     ticker, provider, interval, adjustment, methodology_version,
                     frame_json, fetched_at, expires_at, last_error, retry_after,
-                    attempt_count, updated_at
+                    attempt_count, updated_at, capture_provenance_json
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, 0, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, 0, ?, ?)
                 ON CONFLICT(
                     ticker, provider, interval, adjustment, methodology_version
                 ) DO UPDATE SET
@@ -345,7 +418,8 @@ class YahooOhlcCacheStore:
                     last_error=NULL,
                     retry_after=NULL,
                     attempt_count=0,
-                    updated_at=excluded.updated_at
+                    updated_at=excluded.updated_at,
+                    capture_provenance_json=excluded.capture_provenance_json
                 """,
                 (
                     *self._identity(ticker),
@@ -353,8 +427,15 @@ class YahooOhlcCacheStore:
                     self._iso(fetched),
                     self._iso(fetched + self.success_ttl),
                     self._iso(self._now()),
+                    json.dumps({"capture_id": capture["capture_id"]}, sort_keys=True) if capture else "{}",
                 ),
             )
+        if capture is not None:
+            checked.attrs[PROVENANCE_ATTR] = label_provenance(capture,
+                cache_read_at=utc_clock(self._observation_clock()))
+        else:
+            checked.attrs.pop(PROVENANCE_ATTR, None)
+            checked.attrs["yahoo_price_provenance_gap"] = "LEGACY_UNCAPTURED"
         return checked
 
     def note_failure(
@@ -437,11 +518,11 @@ class YahooOhlcCacheStore:
                 missing_sessions=required,
             )
         try:
-            frame = self._decode_frame(row)
+            frame = self._decode_frame(row, required_sessions=required)
             expires = self._parse(row["expires_at"])
             if frame is None or fetched is None or expires is None:
                 raise ValueError("missing cache payload or timestamps")
-        except (TypeError, ValueError, KeyError):
+        except (OSError, TypeError, ValueError, KeyError):
             return YahooOhlcCacheLookup(
                 "corrupt",
                 None,

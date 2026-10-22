@@ -1,0 +1,148 @@
+{
+  "actual_prediction_history": {
+    "all_specialists_reported": 21,
+    "default_database_exists": false,
+    "historical_price_database_evaluated": false,
+    "missing_actual_history_status": "INSUFFICIENT_DATA"
+  },
+  "base_sha": "22bcb749873b9bfd89e8f6d52e5bb7909a186789",
+  "claims": {
+    "legacy_snapshot_or_label_values_rewritten": false,
+    "old_source_archives_modified": false,
+    "out_of_sample_acceptance_verified": false,
+    "production_scoring_changed": false,
+    "source_history_backdated": false,
+    "specialist_acceptance_verified": false,
+    "strict_actual_label_availability_gate_implemented": true,
+    "windows_runtime_verified": false
+  },
+  "environment": {
+    "pandas": "2.3.3",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python": "3.12.14"
+  },
+  "evidence_type": "point_in_time_label_guardrail_tests_and_existing_source_archive_content_audit",
+  "explicitly_synthetic_controls": {
+    "delayed_capture_at": "2026-03-16T22:00:00+00:00",
+    "financial_performance_claimed": false,
+    "first_walk_forward_fold": {
+      "as_of": "2026-03-16T22:00:00+00:00",
+      "augmented_artifact_id": "a420d03444665964c95753f1804d736d5bc1011793f939a7b5424838683ae39b",
+      "baseline_artifact_id": "e2d8a4513416f31fc03fe6fc6ed1d50bb93733cf15ae61cccab5754c049f62c9",
+      "latest_training_label_at": "2026-03-16T20:00:00+00:00",
+      "prediction_snapshot_ids": [
+        "031b5d25158653957fc3cfc8685ba859a32dd2fbdd4d2e047c113071a7f63adc",
+        "066858d4ff5fd6e4b67f323f01cd394ae8b7975bf58152127f4e7f567b3158ac",
+        "3ce894b6bffa26703edca3779d30970fd8473c2620f58d85563bca4607e3a0a9",
+        "4427d60bf13dfb9366a27d7d87aacb29d8630382580c9ca62d7a7f09480c58c9",
+        "778e84cdefefa178af8571c9ecc8474dce2bade16e90623cd427e2a5dcd49a5e",
+        "ae79fa889c8a93c9dae46e5862cc5f0a9548b2b9f68c56705fd2744ebf74802e",
+        "d2e4beaad1eff81f8f815239b8652432aa60007910b1589c6ab80bfc7d408b44",
+        "d606bbe1a6da2ae804fcbd26fb45acf70ad2be1fbbaf63cec5053fb93e8698f6"
+      ],
+      "training_sample_count": 8,
+      "training_snapshot_ids": [
+        "15e30981cebc6e0c2cd5f556abd0d86eb72b0d3084e045f3933ae8a2fbd76d6d",
+        "22a6721934e716608d2abb3ca82586a38ec0176baa0a5135c1c99dacc40afbca",
+        "4509c2a671fdd0ce58b28d4c19a28b23272bce62d5f3db10b77f496cd8b55621",
+        "658296d9b075982dfa15c6417767534f1a19f2f4fe5356259112259ee2e78952",
+        "721812fca02b0b99aaaf3873b704f4a064c75a9abedfd5a12f5ab920dabbc0dd",
+        "b407195714e67ab86e9cf266ab16950e94e8314a2a968775c3802a7979a2b5d2",
+        "cc0c737339e27931f481adb37ad341368e8430a6990bd55b99b304f34b05011b",
+        "dd6308400312b83879fdfa5bda689125dd61e6dd79c41870d2bccade0cb763d0"
+      ]
+    },
+    "labels_eligible_with_explicit_synthetic_captures": 32,
+    "labels_eligible_without_price_captures": 0,
+    "legacy_timestamp_valid_count": 32,
+    "missing_capture_reasons": {
+      "MISSING_LABEL_OBSERVATION": 32
+    },
+    "price_capture_origin": "DETERMINISTIC_TEST_FIXTURE",
+    "real_historical_data": false,
+    "second_fold_training_sample_count": 24,
+    "snapshot_count": 32
+  },
+  "generated_at": "2026-10-13T08:59:23.086259+00:00",
+  "genuine_existing_source_archive_audit": {
+    "files": [
+      {
+        "available_at": "2026-10-12T15:16:54.752896+00:00",
+        "content_hash_verified": true,
+        "eligible_at_original_oct1_cutoff": false,
+        "evidence_origin": "CAPTURED_PUBLISHER_PAYLOAD_REPLAY",
+        "file_sha256": "0aa004227f82e69fd261064190726d5245f6203b1e3b8570aaf76a084bad4e4c",
+        "observed_at": "2026-10-12T15:16:54.742568+00:00",
+        "path": "evidence/batch3_evaluation_saved_payload_archives_20261012/fdic/specialist_source_run_23f123053bcefed961ce388049a40000b7328de88b91449e5dfd0156f80e4131_28505f7d8d3cfe89c31ba99e6729d3ca9a041a89de22b8fa76768532bf5aee8c.json",
+        "price_label_capture_present": false,
+        "source": "fdic"
+      },
+      {
+        "available_at": "2026-10-12T15:16:54.815385+00:00",
+        "content_hash_verified": true,
+        "eligible_at_original_oct1_cutoff": false,
+        "evidence_origin": "CAPTURED_PUBLISHER_PAYLOAD_REPLAY",
+        "file_sha256": "b88b6921da6aaa0b3513ea639bd6293643e94c2a18fe0b731793136978713f28",
+        "observed_at": "2026-10-12T15:16:54.805584+00:00",
+        "path": "evidence/batch3_evaluation_saved_payload_archives_20261012/fdic/specialist_source_run_310ff5ccab7c02a22f6a13120e8db596678a116ac374dc96f9fb98db0a7dce8b_3d74384521121db80f6732a846a9b5002321b8abc0d3d1d119fe7b542d16214a.json",
+        "price_label_capture_present": false,
+        "source": "fdic"
+      },
+      {
+        "available_at": "2026-10-12T15:16:54.784813+00:00",
+        "content_hash_verified": true,
+        "eligible_at_original_oct1_cutoff": false,
+        "evidence_origin": "CAPTURED_PUBLISHER_PAYLOAD_REPLAY",
+        "file_sha256": "81f297a448a327b0e9725752898d555f5095e43e3191ff283d48640ca26e35d0",
+        "observed_at": "2026-10-12T15:16:54.775917+00:00",
+        "path": "evidence/batch3_evaluation_saved_payload_archives_20261012/fdic/specialist_source_run_b0c5311e40db6a12864b6afce13bb6990b0bdc0f573b2cf4abb5f415b8ae45f5_011a99d16fcb6318b0413b974fcb0c0bff3ac9b3c035dfb5d30a198410bd8cc7.json",
+        "price_label_capture_present": false,
+        "source": "fdic"
+      }
+    ],
+    "historical_oct1_archives_eligible": 0,
+    "network_requests": 0,
+    "new_source_captures": 0,
+    "price_label_captures": 0,
+    "source_archive_count": 3
+  },
+  "limitations": [
+    "No genuine historical forward-price captures or prediction database were available in this checkout; no price labels or OOS performance evidence were invented.",
+    "The three genuine FDIC archives are current replays of saved publisher payloads, are source-only evidence and remain ineligible at their original October 1 cutoff.",
+    "Content hashes and recorded complete corporate-action windows establish internal consistency, not publisher authenticity or an independently complete corporate-action history.",
+    "Legacy labels with endpoint-only timestamps are still visible but cannot train specialist PIT comparisons without matching price observations.",
+    "A future label resolver must persist actual observed/captured prices and supplied loader provenance. Unknown revision/action provenance remains insufficient data."
+  ],
+  "owned_file_sha256": {
+    "evidence/batch4_evaluation_label_audit_20261013.py": "566145090ac8542e036910b6085d19c585519e2cb87a3e178e1362ea7a366d12",
+    "market_checker_app/services/specialist_evaluation_service.py": "c627b7d3e85cda8ddaf91daeee0ef743a2d57903f78c407d0f02f4bfd693a1b4",
+    "market_checker_app/services/specialist_label_availability_service.py": "b19dcd16304e71327d556e40cf6ff3b29dfb4fa489e584d28622182b4e2bd9d1",
+    "tests/test_batch4_evaluation_label_availability.py": "9ee0a528c3fbca3f2a3afca8473bdd54f5e2817acbc576aedb8999af87687596",
+    "tests/test_specialist_evaluation_service.py": "04a4da768dfe7203f88aff97c602f02c46f5ada39b8cf1e8ced4fb3dd652b65e"
+  },
+  "schema_version": 1,
+  "tests": {
+    "discovered": 112,
+    "elapsed_seconds": 22.224556,
+    "errors": 0,
+    "executed": 112,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch4_evaluation_label_audit_20261013.log",
+    "log_sha256": "fd7e21788cdff83256645751e826893c2effd5279fcc6041a36d41414bfb0fcc",
+    "modules": [
+      "tests.test_batch4_evaluation_label_availability",
+      "tests.test_specialist_evaluation_service",
+      "tests.test_prediction_contract",
+      "tests.test_prediction_snapshot_storage",
+      "tests.test_prediction_label_service",
+      "tests.test_specialist_source_archive_service",
+      "tests.test_specialist_incremental_archive_service",
+      "tests.test_candidate_model_service",
+      "tests.test_candidate_model_evaluation_service"
+    ],
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  }
+}

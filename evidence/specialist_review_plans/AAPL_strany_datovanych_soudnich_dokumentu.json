@@ -1,0 +1,88 @@
+{
+  "captures": {
+    "doj_opposition_pdf": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 577500,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+        "sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3"
+      },
+      "metadata": {
+        "archive_path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+        "automatic_redirects": false,
+        "capture_id": "doj_opposition_pdf",
+        "content_encoding": "identity",
+        "content_type": "application/pdf",
+        "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+        "http_status": 200,
+        "maximum_bytes": 4000000,
+        "observed_at": "2026-10-15T18:12:02.727684+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "pdf_decoded_characters": 101852,
+        "pdf_pages_inspected": 62,
+        "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+        "public_raw_available": true,
+        "raw_response_bytes": 577500,
+        "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+        "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+        "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+        "sequence": 5,
+        "started_at": "2026-10-15T18:11:55.083970+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "govinfo_case_opinion": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 1344697,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      },
+      "metadata": {
+        "archive_path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "automatic_redirects": false,
+        "capture_id": "govinfo_case_opinion",
+        "content_encoding": "identity",
+        "content_type": "application/pdf",
+        "final_url": "https://www.govinfo.gov/content/pkg/USCOURTS-njd-2_24-cv-04055/pdf/USCOURTS-njd-2_24-cv-04055-0.pdf",
+        "http_status": 200,
+        "maximum_bytes": 4000000,
+        "observed_at": "2026-10-15T13:40:16.524451+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "pdf_decoded_characters": 71581,
+        "pdf_pages_inspected": 33,
+        "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+        "public_raw_available": true,
+        "raw_response_bytes": 1344697,
+        "raw_response_sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa",
+        "requested_url": "https://www.govinfo.gov/content/pkg/USCOURTS-njd-2_24-cv-04055/pdf/USCOURTS-njd-2_24-cv-04055-0.pdf",
+        "reserved_at": "2026-10-15T13:39:58.828252+00:00",
+        "sequence": 2,
+        "started_at": "2026-10-15T13:39:58.828252+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    }
+  },
+  "kind": "DOJ_CASE_CAPTION",
+  "request": {
+    "case_docket": "2:24-cv-04055",
+    "court": "UNITED STATES DISTRICT COURT DISTRICT OF NEW JERSEY",
+    "documents": [
+      {
+        "capture_id": "doj_opposition_pdf",
+        "document_kind": "PARTY_OPPOSITION",
+        "document_number": "106",
+        "filed_on": "2024-09-12"
+      },
+      {
+        "capture_id": "govinfo_case_opinion",
+        "document_kind": "COURT_OPINION",
+        "document_number": "283",
+        "filed_on": "2025-06-30"
+      }
+    ]
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

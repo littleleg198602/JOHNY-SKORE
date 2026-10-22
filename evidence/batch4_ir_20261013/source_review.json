@@ -1,0 +1,377 @@
+{
+  "schema_version": 1,
+  "result": "PRIMARY_PUBLISHER_SOURCE_ONLY_REVIEW",
+  "actual_http_requests": 5,
+  "raw_http_200_captures": 4,
+  "positive_source_only_cases": [
+    {
+      "capture_path": "primary/announcement.html",
+      "review": {
+        "review_version": "ir-primary-captured-source-v1",
+        "verification_mode": "READ_ONLY_CAPTURE_REVIEW",
+        "reviewed_at": "2026-10-13T13:16:41.328571+00:00",
+        "requested_ticker": "MSFT",
+        "source_verification_status": "SOURCE_VERIFIED",
+        "source_verified": true,
+        "reasons": [],
+        "lead": {
+          "original_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+          "feed_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "title": "Microsoft announces quarterly earnings release date",
+          "published_at": "2026-10-07T20:17:43+00:00",
+          "observed_at": "2026-10-13T13:11:29.327804+00:00"
+        },
+        "captures": {
+          "feed": {
+            "requested_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+            "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+            "observed_at": "2026-10-13T13:11:29.327804+00:00",
+            "http_status": 200,
+            "content_type": "application/rss+xml; charset=UTF-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:29 GMT",
+            "last_modified": "Mon, 12 Oct 2026 18:01:00 GMT",
+            "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+            "size_bytes": 126731,
+            "capture_origin": "PINNED_CAPTURE_REPLAY"
+          },
+          "primary": {
+            "requested_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+            "resolved_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+            "observed_at": "2026-10-13T13:11:41.261743+00:00",
+            "http_status": 200,
+            "content_type": "text/html; charset=UTF-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:41 GMT",
+            "last_modified": "Wed, 07 Oct 2026 13:17:44 GMT",
+            "sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+            "size_bytes": 136764,
+            "capture_origin": "PINNED_CAPTURE_REPLAY"
+          },
+          "authority": {
+            "requested_url": "https://www.microsoft.com/en-us/investor/default",
+            "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+            "observed_at": "2026-10-13T13:11:18.872702+00:00",
+            "http_status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+            "last_modified": null,
+            "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+            "size_bytes": 286802,
+            "capture_origin": "PINNED_CAPTURE_REPLAY"
+          }
+        },
+        "publisher_hosts_policy": [
+          "news.microsoft.com",
+          "www.microsoft.com"
+        ],
+        "publication_clocks": {
+          "rss_raw": [
+            "Wed, 07 Oct 2026 20:17:43 +0000"
+          ],
+          "primary_raw": [
+            "2026-10-07T20:17:43+00:00"
+          ],
+          "http_dates_are_not_publication_clocks": true,
+          "exact_first_dissemination_verified": false
+        },
+        "source_available_at": "2026-10-13T13:11:41.261743+00:00",
+        "quoted_claim": {
+          "quote": "REDMOND, Wash. \u2014 Oct. 7, 2026 \u2014 Microsoft Corp. will publish fiscal year 2027 first-quarter financial results after the close of the market on Wednesday, Oct. 28, 2026, on the Microsoft Investor Relations website at https://www.microsoft.com/en-us/Investor/. A live webcast of the earnings conference call will be made available at 2:30 p.m. Pacific Time.",
+          "locator": "article/paragraph:1",
+          "source_url": "https://news.microsoft.com/source/2026/10/07/microsoft-announces-quarterly-earnings-release-date-69/",
+          "source_sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+          "quote_matches_primary_article": true,
+          "claim_truth_independently_verified": false
+        },
+        "publisher_ir_link": {
+          "authority_url": "https://www.microsoft.com/en-us/investor/default",
+          "authority_cites_requested_or_resolved_page": false,
+          "authority_cites_exact_requested_alias": false,
+          "primary_cites_ir_portal": [
+            "https://www.microsoft.com/en-us/Investor/",
+            "https://www.microsoft.com/investor/default.aspx"
+          ]
+        },
+        "issuer_as_named_mentions": [
+          {
+            "locator": "article/paragraph:2",
+            "quote": "Microsoft (Nasdaq \u201cMSFT\u201d @microsoft) creates platforms and tools powered by AI to deliver innovative solutions that meet the evolving needs of our customers. The technology company is committed to making AI available broadly and doing so responsibly, with a mission to empower every person and every organization on the planet to achieve more."
+          }
+        ],
+        "issuer_identity_status": "PUBLISHER_MENTION_ONLY",
+        "issuer_identity_verified": false,
+        "issuer_attribution_allowed": false,
+        "claim_truth_independently_verified": false,
+        "scoring_applied": false,
+        "feed_scope": {
+          "entries_examined": 10,
+          "max_entries": 30,
+          "all_publisher_history_complete": false
+        },
+        "network_requests_performed": 0,
+        "quota_or_lease_modified": false
+      }
+    },
+    {
+      "capture_path": "primary/ir_linked_announcement.html",
+      "review": {
+        "review_version": "ir-primary-captured-source-v1",
+        "verification_mode": "READ_ONLY_CAPTURE_REVIEW",
+        "reviewed_at": "2026-10-13T13:16:41.328571+00:00",
+        "requested_ticker": "MSFT",
+        "source_verification_status": "SOURCE_VERIFIED",
+        "source_verified": true,
+        "reasons": [],
+        "lead": {
+          "original_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+          "feed_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "title": "Microsoft announces quarterly dividend increase",
+          "published_at": "2026-09-15T22:06:42+00:00",
+          "observed_at": "2026-10-13T13:11:29.327804+00:00"
+        },
+        "captures": {
+          "feed": {
+            "requested_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+            "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+            "observed_at": "2026-10-13T13:11:29.327804+00:00",
+            "http_status": 200,
+            "content_type": "application/rss+xml; charset=UTF-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:29 GMT",
+            "last_modified": "Mon, 12 Oct 2026 18:01:00 GMT",
+            "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+            "size_bytes": 126731,
+            "capture_origin": "PINNED_CAPTURE_REPLAY"
+          },
+          "primary": {
+            "requested_url": "https://aka.ms/AA13ep0o",
+            "resolved_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+            "observed_at": "2026-10-13T13:16:41.328571+00:00",
+            "http_status": 200,
+            "content_type": "text/html; charset=UTF-8",
+            "http_date": "Tue, 13 Oct 2026 13:16:41 GMT",
+            "last_modified": "Tue, 15 Sep 2026 15:06:44 GMT",
+            "sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+            "size_bytes": 138075,
+            "capture_origin": "PINNED_CAPTURE_REPLAY"
+          },
+          "authority": {
+            "requested_url": "https://www.microsoft.com/en-us/investor/default",
+            "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+            "observed_at": "2026-10-13T13:11:18.872702+00:00",
+            "http_status": 200,
+            "content_type": "text/html; charset=utf-8",
+            "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+            "last_modified": null,
+            "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+            "size_bytes": 286802,
+            "capture_origin": "PINNED_CAPTURE_REPLAY"
+          }
+        },
+        "publisher_hosts_policy": [
+          "news.microsoft.com",
+          "www.microsoft.com"
+        ],
+        "publication_clocks": {
+          "rss_raw": [
+            "Tue, 15 Sep 2026 22:06:42 +0000"
+          ],
+          "primary_raw": [
+            "2026-09-15T22:06:42+00:00"
+          ],
+          "http_dates_are_not_publication_clocks": true,
+          "exact_first_dissemination_verified": false
+        },
+        "source_available_at": "2026-10-13T13:16:41.328571+00:00",
+        "quoted_claim": {
+          "quote": "REDMOND, Wash. \u2014 Sept. 15, 2026 \u2014 Microsoft Corp. on Tuesday announced that its board of directors declared a quarterly dividend of $0.98 per share, reflecting a 7 cent or 8% increase over the previous quarter\u2019s dividend. The dividend is payable Dec. 10, 2026, to shareholders of record on Nov. 19, 2026. The ex-dividend date will be Nov. 19, 2026.",
+          "locator": "article/paragraph:1",
+          "source_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+          "source_sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+          "quote_matches_primary_article": true,
+          "claim_truth_independently_verified": false
+        },
+        "publisher_ir_link": {
+          "authority_url": "https://www.microsoft.com/en-us/investor/default",
+          "authority_cites_requested_or_resolved_page": true,
+          "authority_cites_exact_requested_alias": true,
+          "primary_cites_ir_portal": [
+            "https://www.microsoft.com/investor/default.aspx"
+          ]
+        },
+        "issuer_as_named_mentions": [
+          {
+            "locator": "article/paragraph:5",
+            "quote": "Microsoft (Nasdaq \u201cMSFT\u201d @microsoft) creates platforms and tools powered by AI to deliver innovative solutions that meet the evolving needs of our customers. The technology company is committed to making AI available broadly and doing so responsibly, with a mission to empower every person and every organization on the planet to achieve more."
+          }
+        ],
+        "issuer_identity_status": "PUBLISHER_MENTION_ONLY",
+        "issuer_identity_verified": false,
+        "issuer_attribution_allowed": false,
+        "claim_truth_independently_verified": false,
+        "scoring_applied": false,
+        "feed_scope": {
+          "entries_examined": 10,
+          "max_entries": 30,
+          "all_publisher_history_complete": false
+        },
+        "network_requests_performed": 0,
+        "quota_or_lease_modified": false
+      }
+    }
+  ],
+  "actual_partial_control": {
+    "control_semantics": "Actual HTTP200 IR homepage is not the RSS lead's original announcement. This is a page-binding/non-article control, not a completed negative issuer search.",
+    "capture_path": "primary/ir_authority.html",
+    "review": {
+      "review_version": "ir-primary-captured-source-v1",
+      "verification_mode": "READ_ONLY_CAPTURE_REVIEW",
+      "reviewed_at": "2026-10-13T13:16:41.328571+00:00",
+      "requested_ticker": "MSFT",
+      "source_verification_status": "PARTIAL",
+      "source_verified": false,
+      "reasons": [
+        "RSS_ORIGINAL_PRIMARY_URL_MISMATCH",
+        "PRIMARY_ARTICLE_HEADLINE_MISMATCH_OR_MISSING",
+        "PRIMARY_CANONICAL_URL_MISMATCH_OR_MISSING",
+        "PRIMARY_PUBLICATION_TIME_UNRESOLVED",
+        "PRIMARY_ARTICLE_BODY_UNAVAILABLE",
+        "CLAIM_QUOTE_ABSENT_FROM_PRIMARY_ARTICLE"
+      ],
+      "lead": {
+        "original_url": "https://news.microsoft.com/source/2026/09/15/microsoft-announces-quarterly-dividend-increase-7/",
+        "feed_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+        "title": "Microsoft announces quarterly dividend increase",
+        "published_at": "2026-09-15T22:06:42+00:00",
+        "observed_at": "2026-10-13T13:11:29.327804+00:00"
+      },
+      "captures": {
+        "feed": {
+          "requested_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "resolved_url": "https://news.microsoft.com/source/tag/press-releases/feed/",
+          "observed_at": "2026-10-13T13:11:29.327804+00:00",
+          "http_status": 200,
+          "content_type": "application/rss+xml; charset=UTF-8",
+          "http_date": "Tue, 13 Oct 2026 13:11:29 GMT",
+          "last_modified": "Mon, 12 Oct 2026 18:01:00 GMT",
+          "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+          "size_bytes": 126731,
+          "capture_origin": "PINNED_CAPTURE_REPLAY"
+        },
+        "primary": {
+          "requested_url": "https://www.microsoft.com/en-us/investor/default",
+          "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+          "observed_at": "2026-10-13T13:11:18.872702+00:00",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+          "last_modified": null,
+          "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+          "size_bytes": 286802,
+          "capture_origin": "PINNED_CAPTURE_REPLAY"
+        },
+        "authority": {
+          "requested_url": "https://www.microsoft.com/en-us/investor/default",
+          "resolved_url": "https://www.microsoft.com/en-us/investor/default",
+          "observed_at": "2026-10-13T13:11:18.872702+00:00",
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "http_date": "Tue, 13 Oct 2026 13:11:18 GMT",
+          "last_modified": null,
+          "sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+          "size_bytes": 286802,
+          "capture_origin": "PINNED_CAPTURE_REPLAY"
+        }
+      },
+      "publisher_hosts_policy": [
+        "news.microsoft.com",
+        "www.microsoft.com"
+      ],
+      "publication_clocks": {
+        "rss_raw": [
+          "Tue, 15 Sep 2026 22:06:42 +0000"
+        ],
+        "primary_raw": [],
+        "http_dates_are_not_publication_clocks": true,
+        "exact_first_dissemination_verified": false
+      },
+      "source_available_at": "2026-10-13T13:11:29.327804+00:00",
+      "quoted_claim": {
+        "quote": "",
+        "locator": null,
+        "source_url": "https://www.microsoft.com/en-us/investor/default",
+        "source_sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+        "quote_matches_primary_article": false,
+        "claim_truth_independently_verified": false
+      },
+      "publisher_ir_link": {
+        "authority_url": "https://www.microsoft.com/en-us/investor/default",
+        "authority_cites_requested_or_resolved_page": true,
+        "authority_cites_exact_requested_alias": true,
+        "primary_cites_ir_portal": [
+          "https://www.microsoft.com/en-us/investor/default#mainContent",
+          "https://www.microsoft.com/en-us/investor/default",
+          "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast",
+          "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/metrics",
+          "https://www.microsoft.com/en-us/Investor/corporate-governance/overview",
+          "https://www.microsoft.com/en-us/Investor/corporate-governance/framework",
+          "https://www.microsoft.com/en-us/Investor/corporate-governance/board-of-directors",
+          "https://www.microsoft.com/en-us/Investor/corporate-governance/policies",
+          "https://www.microsoft.com/en-us/Investor/annual-reports",
+          "https://www.microsoft.com/en-us/Investor/sec-filings",
+          "https://www.microsoft.com/en-us/investor/investor-information",
+          "https://www.microsoft.com/en-us/investor/annual-meeting",
+          "https://www.microsoft.com/en-us/Investor/dividends-and-stock-history",
+          "https://www.microsoft.com/en-us/Investor/investment-history",
+          "https://www.microsoft.com/en-us/Investor/acquisition-history",
+          "https://www.microsoft.com/en-us/investor/faq",
+          "https://www.microsoft.com/en-us/investor/events/default",
+          "https://www.microsoft.com/en-us/investor/events/events-recent",
+          "https://www.microsoft.com/en-us/investor/events/events-upcoming",
+          "https://www.microsoft.com/en-us/Investor/contact-information",
+          "https://www.microsoft.com/en-us/investor/default#1dcd4cde-d2f2-4ffb-850a-0be4bac80e1e",
+          "https://www.microsoft.com/en-us/investor/events/get-notification",
+          "https://www.microsoft.com/investor/reports/ar25/index.html",
+          "https://www.microsoft.com/investor/reports/ar25/index.html",
+          "https://www.microsoft.com/investor/reports/ar25/download-center/index.html",
+          "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+          "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+          "https://www.microsoft.com/en-us/investor/faq#areaheading-uid4141",
+          "https://www.microsoft.com/en-us/investor/stock-lookup",
+          "https://www.microsoft.com/en-us/investor/faq",
+          "https://www.microsoft.com/en-us/investor/events/get-notification",
+          "https://www.microsoft.com/investor/default.aspx",
+          "https://www.microsoft.com/en-us/investor/default"
+        ]
+      },
+      "issuer_as_named_mentions": [],
+      "issuer_identity_status": "TICKER_HINT_ONLY",
+      "issuer_identity_verified": false,
+      "issuer_attribution_allowed": false,
+      "claim_truth_independently_verified": false,
+      "scoring_applied": false,
+      "feed_scope": {
+        "entries_examined": 10,
+        "max_entries": 30,
+        "all_publisher_history_complete": false
+      },
+      "network_requests_performed": 0,
+      "quota_or_lease_modified": false
+    }
+  },
+  "rss_feed_capture_scope": "first 30 entries, actual feed contains 10; no all-publisher coverage claim",
+  "issuer_identity_verified": false,
+  "issuer_attribution_allowed": false,
+  "scoring_applied": false,
+  "completion_verified": false,
+  "windows_end_to_end_verified": false,
+  "network_or_quota_in_runtime_verifier": false,
+  "next_task": "Quota-managed leased LIVE primary traversal and independent dated legal-issuer/instrument evidence before issuer-scoped acceptance.",
+  "limits": [
+    "SOURCE_VERIFIED concerns captured publisher content, not claim truth or issuer attribution",
+    "database RSS findings remain UNVERIFIED; original leads persist unchanged",
+    "reported publication clocks do not prove exact first dissemination; capture clocks remain October",
+    "earnings release date is a prospective announcement, not already released financial results",
+    "publisher ticker/brand mentions do not establish an independent dated legal identity",
+    "one-off bounded captures do not consume/reset app provider quotas or prove runtime LIVE integration",
+    "today's archived replay is not historical/OOS availability or Windows end-to-end evidence"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "completed_at": "2026-10-18T04:33:37.161935+00:00",
+  "discovered": 44,
+  "elapsed_seconds": 11.650158029000067,
+  "errors": 0,
+  "executed": 44,
+  "expected_failures": 0,
+  "failures": 0,
+  "live_http_requests_in_tests": 0,
+  "log_sha256": "f03b4e8a26e4e3285232d5391f9449fb8f664f568328977613d1920a52c88e58",
+  "modules": [
+    "tests.test_sec_person_role_claim_review"
+  ],
+  "skips": 0,
+  "source_pins": {
+    "evidence/batch10_sec_20261018/build_review.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "evidence/batch10_sec_20261018/run_focused_tests.py": {
+      "bytes": 3098,
+      "sha256": "09cdea3bd54f4e32129c167b2ca2110fe0fad0e00dfae6e20e5f4e045267115f"
+    },
+    "market_checker_app/collectors/sec_person_role_claim_review.py": {
+      "bytes": 26101,
+      "sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84"
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "bytes": 24571,
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    "market_checker_app/services/sec_complete_packet_review.py": {
+      "bytes": 22306,
+      "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+    },
+    "market_checker_app/services/sec_form4_person_bridge.py": {
+      "bytes": 22929,
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    "market_checker_app/services/sec_owner_instrument_scope_review.py": {
+      "bytes": 24453,
+      "sha256": "9186f28a33361be11cd69bf97722c4fa982137bffa164d7a6b5cd7e5e8f14a44"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20535,
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    "tests/test_sec_person_role_claim_review.py": {
+      "bytes": 28368,
+      "sha256": "43fdca820a30fff616d68b7b04e89e27967fde2b55eec71c82f817e206672a7e"
+    }
+  },
+  "started_at": "2026-10-18T04:33:25.511777+00:00",
+  "successful": true,
+  "unexpected_successes": 0,
+  "windows_or_oos_claim": false
+}

@@ -1,0 +1,69 @@
+{
+  "scope": "Same synthetic request mismatch as retained before diagnostic, against unchanged actual whole original.",
+  "producer_sha256": "9eaae634689f587ecf71f4d72840b21cb50df458750092ec3e35c0d287a374d4",
+  "observed_report": {
+    "schema_version": 1,
+    "review_kind": "SEC_CHARTER_AUTHORIZED_CLASS",
+    "ticker": "XOM",
+    "issuer_cik_scope": "0002115436",
+    "issuer_name_text": "EXXONMOBIL HOLDINGS CORPORATION",
+    "class_role": "SUCCESSOR_AUTHORIZED_CLASS",
+    "source_as_of": "2026-10-20T20:17:29.922056+00:00",
+    "requested_review_as_of": null,
+    "review_started_at": "2026-10-20T20:17:30.136471+00:00",
+    "review_recorded_at": "2026-10-20T20:17:30.147361+00:00",
+    "evidence_known_at": "2026-10-20T14:29:15.824236+00:00",
+    "knowledge_at": "2026-10-20T20:17:30.147361+00:00",
+    "status": "PRIMARY_CHARTER_CLASS_PARTIAL",
+    "authorized_class_supported": false,
+    "authorized_class_title": null,
+    "authorized_class_terms": null,
+    "authorized_common_shares": null,
+    "charter_effective_on": "2026-07-01",
+    "charter_execution_on": "2026-07-01",
+    "effective_day_inferred_from_execution": false,
+    "charter": {
+      "kind": "corporate_action_filing",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex3i.htm",
+      "sha256": "ef4d1a0c0c71bc3ea536ca3ee333c91db561e99c57448d851225e8b3dcf920ac",
+      "observed_at": "2026-10-20T14:29:15.824236+00:00",
+      "published_at": "2026-07-01T16:36:49+00:00",
+      "snapshot_id": "9d3b4f66f004a381a58f69bc54238706702fef09a420e71facbe3339c04533b8"
+    },
+    "parent_filing": {
+      "kind": "corporate_action_filing",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm",
+      "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7",
+      "observed_at": "2026-10-13T08:46:17.427994+00:00",
+      "published_at": "2026-07-01T16:36:49+00:00",
+      "snapshot_id": "937a5b356c96fb9bf779995b92550e35ce7414db3c1332cc964b08f621481352"
+    },
+    "original_exhibit_link_matched": true,
+    "same_accession_is_independent_action_proof": false,
+    "issuer_excerpt": "FIRST. The name of the corporation is: EXXONMOBIL HOLDINGS CORPORATION",
+    "parent_role_excerpt": "On July 1, 2026, Exxon Mobil Corporation, a New Jersey corporation and the predecessor registrant (“ ExxonMobil ”), completed its previously announced redomiciliation reorganization (the “ Redomiciliation Merger ”) pursuant to the Agreement and Plan of Merger, dated as of April 8, 2026 (the “ Merger Agreement ”), by and among ExxonMobil, ExxonMobil Holdings Corporation, a Texas corporation, and Ensign LLC, a Texas limited liability company. This Current Report on Form 8-K is being filed for the purpose of establishing ExxonMobil Holdings Corporation as the successor registrant of ExxonMobil’s common stock pursuant to Rule 12g-3(a) under the Securities Exchange Act of 1934, as amended (the “ Exchange Act ”) and to disclose certain related matters. The Redomiciliation Merger became effective on July 1, 2026 in accordance with the terms of the Merger Agreement (the “ Effective Time ”).",
+    "authorized_class_excerpt": "FOURTH. The aggregate number of shares which the corporation shall have authority to issue is nine billion two hundred million (9,200,000,000) shares, divided into two hundred million (200,000,000) shares of preferred stock, par value $0.001 per share, and nine billion (9,000,000,000) shares of common stock, par value $0.001 per share.",
+    "effective_excerpt": "(As Amended Effective July 1, 2026)",
+    "execution_excerpt": "IN WITNESS WHEREOF, ExxonMobil Holdings Corporation, has caused this Amended and Restated Certificate of Formation to be signed by its duly authorized officer on July 1, 2026. By:",
+    "blockers": [
+      "EXACT_AUTHORIZED_COMMON_CLASS_OR_QUANTITY_UNPROVEN"
+    ],
+    "remaining_bridge_gaps": [
+      "INDEPENDENT_DATED_INSTRUMENT_CUSIP_BINDING_UNPROVEN",
+      "CONTROL_OR_CONFLICT_RECONCILIATION_UNPROVEN"
+    ],
+    "cusip_supported": false,
+    "control_supported": false,
+    "instrument_continuity_supported": false,
+    "issued_or_outstanding_shares_proven": false,
+    "historic_shareholders_are_current_owners": false,
+    "identity_transition_approved": false,
+    "interval_extension_allowed": false,
+    "automatic_alias_allowed": false,
+    "production_registry_changed": false,
+    "current_quarter_verified_coverage": 0,
+    "new_verified_identities": 0,
+    "scoring_allowed": false,
+    "review_sha256": "f276475e1c3d6d386811d4e877841cf0788e62bc95ea7e9a0e1bdfbf231bd56d"
+  }
+}

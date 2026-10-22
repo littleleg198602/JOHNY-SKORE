@@ -1,0 +1,85 @@
+{
+  "all_source_bodies_complete_original": true,
+  "counterparty_body": {
+    "repository_relative_path": "evidence/batch7_contracts_20261015/raw/body-8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58.response",
+    "sha256": "8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58"
+  },
+  "counterparty_capture": {
+    "repository_relative_path": "evidence/batch7_contracts_20261015/requests/b72b41927230b40fdb8d9ea9339638430b7b85caffd912bb1c319e9304087f32.metadata.json",
+    "sha256": "12ae194d5adaa9c26f5abf3a07f5d60157070f3c3689bd2c329611679e6aa552"
+  },
+  "counterparty_selection": {
+    "cik": "0001046179",
+    "field_pins": {
+      "cik": {
+        "byte_end": 10091,
+        "byte_start": 9818,
+        "sha256": "3aa810c613a9aab52d9e52d6af7126ab8899dbf0751f9b894196daf660003059"
+      },
+      "document_type": {
+        "byte_end": 1416,
+        "byte_start": 1169,
+        "sha256": "90c7cb818fadee14100a5bce227fae137e2ddbcaa11a61822dd90ea18ca29ed9"
+      },
+      "fiscal_year": {
+        "byte_end": 10363,
+        "byte_start": 10092,
+        "sha256": "64533ea7dba116826a680bd0392c8cc59a95050e5e7948ba9b30333dbcc6420a"
+      },
+      "header_period": {
+        "byte_end": 865,
+        "byte_start": 791,
+        "sha256": "4c4fe951cf0d0d0e43383263c222c8ba2a2cfcc6d7d8be2e86cc649b88dc29e0"
+      },
+      "legal_name": {
+        "byte_end": 3645,
+        "byte_start": 3335,
+        "sha256": "46e9b48b593c1a0484af8d9db45dd5baef27b0395d80488727793e2263dd311a"
+      },
+      "period_end": {
+        "byte_end": 2521,
+        "byte_start": 2244,
+        "sha256": "ef18d54577c29a19fff42a649b2b9a53b3510101484d74d3c5258ee31aedef47"
+      }
+    },
+    "legal_name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "mode": "SEC_R1_TABLE",
+    "report_period_end": "2025-12-31",
+    "table_index": 0,
+    "value_column": 1
+  },
+  "issuer_body": {
+    "repository_relative_path": "evidence/batch3_sec_20261012/primary/nvda_2026_10k.htm",
+    "sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5"
+  },
+  "issuer_capture": {
+    "repository_relative_path": "evidence/batch7_contracts_20261015/issuer_capture.json",
+    "sha256": "9acd3f9df73f8e71ec3edd2714e9c0e0f03c0fbb305657e8aa0d1df3a1fae574"
+  },
+  "kind": "SEC_SUPPLY_CHAIN_SCOPE",
+  "new_source_http_attempts": 3,
+  "original_issuer_capture_manifest": {
+    "json_pointer": "/captures/10",
+    "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+    "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+  },
+  "quantity_selected": null,
+  "schema_version": 1,
+  "selection": {
+    "claim_passage": {
+      "byte_end": 243668,
+      "byte_start": 243494,
+      "sha256": "13a4750ac1264fdc31b6a3569e9a0c1672d0bffb798ff11539b8c289d6665b48"
+    },
+    "claim_role": "FOUNDRY_SUPPLIER",
+    "counterparty_alias": "TSMC",
+    "counterparty_name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "fiscal_period_end": "2026-01-25",
+    "issuer_cik": "0001045810",
+    "issuer_context_id": "c-1",
+    "issuer_name": "NVIDIA CORP",
+    "issuer_ticker": "NVDA",
+    "product_or_input": "semiconductor wafers"
+  },
+  "usaspending_requests": 0
+}

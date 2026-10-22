@@ -1,0 +1,101 @@
+{
+  "all_old_evidence": {
+    "all_old_evidence_byte_identical": true,
+    "base_sha": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+    "byte_mismatches_or_missing_files": [],
+    "checked_file_sha256_manifest_digest": "2e280cdc91e6a2d7557446c21cd5a5a5037a2e761bc87a482764c6c383e4b5e6",
+    "tracked_evidence_files_checked": 678
+  },
+  "corpus": {
+    "authentic_registrations_created_by_this_run": 0,
+    "database_exists": true,
+    "database_filename": "market_checker_history.db",
+    "evidence_origin": "ACTUAL_READ_ONLY_RETAINED_RUNTIME_DATABASE",
+    "forecasts_created": 0,
+    "historical_backfill_performed": false,
+    "observed_at": "2026-10-14T17:13:14.254061+00:00",
+    "prediction_snapshot_table_exists": false,
+    "prospective_eligible_forecasts_in_supplied_corpus": 0,
+    "prospective_history_report": {
+      "activation_allowed": false,
+      "analysis_only": true,
+      "as_of": "2026-10-14T17:13:14.254061+00:00",
+      "bounds": {
+        "directory_scan_limit_reached": false,
+        "forecast_limit_reached": false,
+        "label_directory_scan_limit_reached": false,
+        "label_limit_reached": false,
+        "loaded_record_bytes": 0,
+        "maximum_forecasts": 687,
+        "maximum_total_record_bytes": 64000000,
+        "total_byte_limit_reached": false
+      },
+      "eligible_fixture_label_count": 0,
+      "eligible_real_label_count": 0,
+      "eligible_snapshots": [],
+      "feature_source_coverage_verified": false,
+      "historical_acceptance_verified": false,
+      "history_directory_present": false,
+      "label_attachment_count": 0,
+      "limitations": [
+        "Only already stored forecasts recorded before the first forward session opens are prospective for the exact full window.",
+        "Physical registration and attachment clocks never substitute an earlier event/session/storage clock.",
+        "A source ID and content hash pin supplied evidence; they do not prove complete feature coverage or authentic publisher revision metadata.",
+        "Missing exact sessions, corporate-action histories or dated publisher revisions exclude labels. A later session cannot replace the missing target.",
+        "Current canonical 687 tickers are not a historical survivor-free universe. Fixture rows never become real acceptance.",
+        "This is read-only analysis history, without model fitting, performance claims, score activation or trading."
+      ],
+      "out_of_sample_evaluation_verified": false,
+      "publisher_authenticity_verified": false,
+      "reason_counts": {},
+      "registered_forecast_count": 0,
+      "registrations_known_at_cutoff": 0,
+      "rejected_record_reasons": {},
+      "report_version": "prospective_specialist_history_v1",
+      "rows": [],
+      "scores_changed": false,
+      "status": "WAIT_PROSPECTIVE_HISTORY",
+      "training_before": null
+    },
+    "real_labels_attached_by_this_run": 0,
+    "reason": "FORECAST_TABLE_UNAVAILABLE",
+    "snapshot_rows": 0,
+    "status": "WAIT_FORECAST_CORPUS"
+  },
+  "earlier_development_green_summary": {
+    "current_code_acceptance": false,
+    "discovered": 50,
+    "elapsed_seconds": 3.505,
+    "errors": 0,
+    "exact_prior_source_hash_available": false,
+    "executed": 50,
+    "failures": 0,
+    "full_scratch_log_survived": false,
+    "successful": true,
+    "summary_from_observed_tool_output": true
+  },
+  "final_artifact_write_retry": {
+    "preserved_prior_file_sha256": "75033c9d81cbc762b00d06b1371e50b566ea673bf13e744689037d65ea9d3069",
+    "previous_error": "FileExistsError: identical prior handoff remained at original path after rename",
+    "service_and_test_files_unchanged_since_completed_log": true,
+    "test_log_sha256": "5f0589618f1bde1c61a30edd3d77f21ed3cee921689d133362d7786ef2835335"
+  },
+  "final_change_reason": "Reject rehashed inconsistency in source record IDs, exact archive filenames and advertised price capture hashes",
+  "interrupted_final_launch": {
+    "equivalent_primary_python_with_existing_venv_packages_used_for_prior_85test_run": true,
+    "error": "prepared johny-tests-20261011/bin/python missing",
+    "exit_code": 127,
+    "original_prepared_interpreter_restored_for_final_validation": true,
+    "package_install_or_update_performed": false,
+    "source_work_repeated": false,
+    "tests_executed": 0
+  },
+  "observed_at": "2026-10-14T17:13:14.254061+00:00",
+  "prior_code_hashes": {
+    "evidence/batch6_evaluation_20261014/README.md": "3f6f66a45b6a55c2a8e9a85b776e0229487aa4f3987d59ecf3c196c00c088c3a",
+    "evidence/batch6_evaluation_20261014/reproduce.py": "0a295cd9776087e023730bd44119786b02c8c2e9558e6330d6b5fc122bded32a",
+    "market_checker_app/services/prospective_specialist_history.py": "6682f7242e82f0e8a8d76edb15f2c755cafcde951f3c7919120725170faf9272",
+    "tests/test_batch6_prospective_specialist_history.py": "e21a110461f1b32152f39e0a6db47d4d40a5a5e719c20b31985526f4d5c24efb"
+  },
+  "qualified_test_log_reused_without_rerun": true
+}

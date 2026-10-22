@@ -1,0 +1,39 @@
+{
+  "db_operations": 0,
+  "files": [
+    {
+      "bytes": 23532,
+      "frozen_path": "evidence/batch10_denominator_basis_fix_20261018/before_producer.py",
+      "original_path": "market_checker_app/collectors/sec_supplier_revenue_denominator_review.py",
+      "sha256": "280f13da28042d536ee7e306c041963d15ba337a5cffb32cddf142f7088b419f"
+    },
+    {
+      "bytes": 20520,
+      "frozen_path": "evidence/batch10_denominator_basis_fix_20261018/before_owner_test.py",
+      "original_path": "tests/test_sec_supplier_revenue_denominator_review.py",
+      "sha256": "aa7f80b710be015d5f580509472bfd14f6de6e96a3efc8f3d734335406cbe621"
+    },
+    {
+      "bytes": 4362,
+      "frozen_path": "evidence/batch10_denominator_basis_fix_20261018/before_peer_test.py",
+      "original_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/tests/test_batch10_denominator_peer.py",
+      "sha256": "5767ad8c86fc42753de7cce90c7af39b1aa5b80bcb8d047b1129b12775cc8f1d"
+    },
+    {
+      "bytes": 5063,
+      "frozen_path": "evidence/batch10_denominator_basis_fix_20261018/before_peer_tests.log",
+      "original_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/evidence/batch10_denominator_peer_20261018/before_peer_tests.log",
+      "sha256": "8d53e8bba3e7584aeb33aa3179c581bf23f225ed2225f9db9a695105d4dd835e"
+    },
+    {
+      "bytes": 813,
+      "frozen_path": "evidence/batch10_denominator_basis_fix_20261018/before_peer_tests.json",
+      "original_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/evidence/batch10_denominator_peer_20261018/before_peer_tests.json",
+      "sha256": "be1f33df9407126ed9ffec4a867d48cc62ee1714b953f5975439361507425369"
+    }
+  ],
+  "original_evidence_modified": false,
+  "recorded_at": "2026-10-18T08:58:57.492283+00:00",
+  "source_commit": "ebe86793eb417041d6c23c28823d5a30d8389786",
+  "source_http_requests": 0
+}

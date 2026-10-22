@@ -1,0 +1,580 @@
+{
+  "activity": {
+    "application_code_or_tests_executed": 0,
+    "code_registry_status_config_model_score_or_trading_changes": false,
+    "full_specialist_acceptance": "0/21",
+    "http_search_connector_browser_calls": 0,
+    "new_source_responses": 0,
+    "request_reservations": 0,
+    "sql_or_protected_db_reads_copies_hashes_or_replays": 0
+  },
+  "baseline_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "candidates": [
+    {
+      "advance_limit": "A signature-dated2026 role point does not prove a natural-person/account alias or cover Aug31 continuously. If there are no explicit dated identity/interval assertions, the requested Aug31 bridge remains BLOCKED and no adoption is permitted.",
+      "bounds": {
+        "absolute_deadline_seconds": 25,
+        "coordinator_must_write_new_reservation_before_get": true,
+        "followup_requests": 0,
+        "index_declared_bytes": 12647,
+        "maximum_attempts": 1,
+        "maximum_response_bytes": 256000,
+        "original_body_only": true,
+        "redirects": false,
+        "retries": false,
+        "timeout_seconds": 25,
+        "whole_access_bearing_body_withheld_without_substitute": true
+      },
+      "decision": "PREFERRED_NEW_UNCONSUMED_LITERAL_PRIMARY_LINK",
+      "exact_fact_sought": "Inspect the complete original for an explicitly named certifier, signature date, exact issuer/report scope and executive-role title or explicit tenure boundaries. The index labels EX-31.1 only; Satya Nadella, the signer, any title, date and interval are UNKNOWN until the body is captured.",
+      "id": "MSFT_2026_EX31_1",
+      "literal_parent_reference": {
+        "document_row": {
+          "byte_end": 7331,
+          "byte_start": 7030,
+          "bytes": 301,
+          "original_quote": "<tr>\n            <td scope=\"row\">7</td>\n            <td scope=\"row\">EX-31.1</td>\n            <td scope=\"row\"><a href=\"/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm\">msft-ex31_1.htm</a></td>\n            <td scope=\"row\">EX-31.1</td>\n            <td scope=\"row\">12647</td>\n         </tr>",
+          "sha256": "3f2f6b100e42f71ae17c9dbe02655aadb6cca7d18f41454534185ca22ad9c7f2"
+        },
+        "href_literal": "/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+        "href_original_span": {
+          "byte_end": 7210,
+          "byte_start": 7148,
+          "bytes": 62,
+          "original_quote": "/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+          "sha256": "6c82780dd03991b032087a13685f1c95b13f5ed89d40318154a0975de2d8e7ba"
+        },
+        "link_anchor": {
+          "byte_end": 7231,
+          "byte_start": 7139,
+          "bytes": 92,
+          "original_quote": "<a href=\"/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm\">msft-ex31_1.htm</a>",
+          "sha256": "6e802fd18e9a07c2d6a49096018419ca289c671ffbb5bea1976625311cfea304"
+        },
+        "parent_capture_observed_at": "2026-10-12T14:45:14.756921+00:00",
+        "parent_capture_receipt": {
+          "bytes": 10764,
+          "path": "evidence/batch3_sec_20261012/captures.json",
+          "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+        },
+        "parent_source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm",
+        "parent_whole_original": {
+          "bytes": 11876,
+          "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+          "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+        },
+        "receipt_pointer": "/captures/0",
+        "resolved_literal_href": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+        "row_columns": {
+          "declared_bytes": "12647",
+          "description": "EX-31.1",
+          "document": "msft-ex31_1.htm",
+          "sequence": "7",
+          "type": "EX-31.1"
+        }
+      },
+      "prior_history": {
+        "all_tracked_text_leaf_matches": [
+          {
+            "bytes": 11876,
+            "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+            "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+          }
+        ],
+        "exhaustive_tracked_json_references": [],
+        "global_unrecorded_history_claimed": false,
+        "reserved_attempt_or_response_receipts": [],
+        "retained_history_status": "NO_PRIOR_TRACKED_REQUEST_OR_CONSUMED_RESERVATION"
+      },
+      "source_route": {
+        "accession": "0001193125-26-323660",
+        "document_filename": "msft-ex31_1.htm",
+        "document_sequence": "7",
+        "document_type": "EX-31.1",
+        "issuer_cik": "0000789019",
+        "owner_account_cik_is_not_inferred_from_accession_prefix": true
+      },
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+      "why_novel": "This2026 issuer accession differs from the2025 biography and both September Form4/Form144 accessions; no target leaf or exact URL occurs in retained request metadata. A genuinely stated2026 certification point would add an independent source fact, while an interval must be explicit rather than inferred."
+    },
+    {
+      "bounds_if_separately_selected_before_any_request": {
+        "maximum_attempts": 1,
+        "maximum_response_bytes": 128000,
+        "not_authorized_by_this_plan": true,
+        "redirects": false,
+        "retries": false,
+        "timeout_seconds": 25
+      },
+      "decision": "UNSELECTED_SAME_ACCESSION_ALTERNATIVE_NOT_FALLBACK",
+      "exact_fact_sought": "Alternative explicit named certifier/executive title/signature day and statutory certification scope, all body facts UNKNOWN. This shares one accession with EX31.1 and cannot count as a second independent disclosure.",
+      "id": "MSFT_2026_EX32_1",
+      "literal_parent_reference": {
+        "document_row": {
+          "byte_end": 7968,
+          "byte_start": 7668,
+          "bytes": 300,
+          "original_quote": "<tr>\n            <td scope=\"row\">9</td>\n            <td scope=\"row\">EX-32.1</td>\n            <td scope=\"row\"><a href=\"/Archives/edgar/data/789019/000119312526323660/msft-ex32_1.htm\">msft-ex32_1.htm</a></td>\n            <td scope=\"row\">EX-32.1</td>\n            <td scope=\"row\">9029</td>\n         </tr>",
+          "sha256": "aa9f41a3a04ccccc0490a24255bc97024609f7e0c87fac12b7981e0fb16dfcc7"
+        },
+        "href_literal": "/Archives/edgar/data/789019/000119312526323660/msft-ex32_1.htm",
+        "href_original_span": {
+          "byte_end": 7848,
+          "byte_start": 7786,
+          "bytes": 62,
+          "original_quote": "/Archives/edgar/data/789019/000119312526323660/msft-ex32_1.htm",
+          "sha256": "94a688805e461200a6b3f7b44d441ffe799bb72f0e2bc18ead058120b8ef8bc0"
+        },
+        "link_anchor": {
+          "byte_end": 7869,
+          "byte_start": 7777,
+          "bytes": 92,
+          "original_quote": "<a href=\"/Archives/edgar/data/789019/000119312526323660/msft-ex32_1.htm\">msft-ex32_1.htm</a>",
+          "sha256": "b4a45717768bb8da557e0649ea4008183d40fdccc535c84d62beb6d2857c45be"
+        },
+        "parent_capture_observed_at": "2026-10-12T14:45:14.756921+00:00",
+        "parent_capture_receipt": {
+          "bytes": 10764,
+          "path": "evidence/batch3_sec_20261012/captures.json",
+          "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+        },
+        "parent_source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm",
+        "parent_whole_original": {
+          "bytes": 11876,
+          "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+          "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+        },
+        "receipt_pointer": "/captures/0",
+        "resolved_literal_href": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex32_1.htm",
+        "row_columns": {
+          "declared_bytes": "9029",
+          "description": "EX-32.1",
+          "document": "msft-ex32_1.htm",
+          "sequence": "9",
+          "type": "EX-32.1"
+        }
+      },
+      "prior_history": {
+        "all_tracked_text_leaf_matches": [
+          {
+            "bytes": 11876,
+            "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+            "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+          }
+        ],
+        "exhaustive_tracked_json_references": [],
+        "reserved_attempt_or_response_receipts": [],
+        "retained_history_status": "NO_PRIOR_TRACKED_REQUEST_OR_CONSUMED_RESERVATION"
+      },
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex32_1.htm"
+    },
+    {
+      "bounds_if_new_explicit_cap_plan_approved": {
+        "index_declared_bytes": 8585501,
+        "maximum_attempts": 1,
+        "maximum_response_bytes": 10000000,
+        "not_authorized_by_this_plan": true,
+        "reason": "Declared primary exceeds ordinary4MB cap; do not silently truncate or request only an excerpt",
+        "redirects": false,
+        "requires_explicit_larger_cap_approval_before_reservation": true,
+        "retries": false,
+        "timeout_seconds": 25
+      },
+      "decision": "UNSELECTED_LARGE_BODY_AND_IX_WRAPPER_LINK_REQUIRES_SEPARATE_PLAN_REVIEW",
+      "exact_fact_sought": "Potential exact issuer-bound investor-relations URL disclosure or explicit executive tenure assertions. Unread body content is UNKNOWN; a disclosed URL would not establish current publisher/domain authority or authorize any previously withheld IR resource.",
+      "id": "MSFT_2026_PRIMARY_10K",
+      "literal_parent_reference": {
+        "document_row": {
+          "byte_end": 5426,
+          "byte_start": 5065,
+          "bytes": 361,
+          "original_quote": "<tr>\n            <td scope=\"row\">1</td>\n            <td scope=\"row\">10-K</td>\n            <td scope=\"row\"><a href=\"/ix?doc=/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm\">msft-20260630.htm</a> &nbsp;&nbsp;<span style=\"color: green\">iXBRL</span></td>\n            <td scope=\"row\">10-K</td>\n            <td scope=\"row\">8585501</td>\n         </tr>",
+          "sha256": "12891253246db25b4e096d588111f4b1674d3c67134cb839a13a26a9bdc21a8f"
+        },
+        "href_literal": "/ix?doc=/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+        "href_original_span": {
+          "byte_end": 5252,
+          "byte_start": 5180,
+          "bytes": 72,
+          "original_quote": "/ix?doc=/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+          "sha256": "161f1a6e948afb1f1e222af3bbabf21ed824daccc6cb0d6d51f0a59cdfd1cdda"
+        },
+        "link_anchor": {
+          "byte_end": 5275,
+          "byte_start": 5171,
+          "bytes": 104,
+          "original_quote": "<a href=\"/ix?doc=/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm\">msft-20260630.htm</a>",
+          "sha256": "c4609e8cc87b19f6a08c1c0e794a6e90d01c0fff30e7790d1d0458a51b315733"
+        },
+        "parent_capture_observed_at": "2026-10-12T14:45:14.756921+00:00",
+        "parent_capture_receipt": {
+          "bytes": 10764,
+          "path": "evidence/batch3_sec_20261012/captures.json",
+          "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+        },
+        "parent_source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm",
+        "parent_whole_original": {
+          "bytes": 11876,
+          "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+          "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+        },
+        "receipt_pointer": "/captures/0",
+        "resolved_literal_href": "https://www.sec.gov/ix?doc=/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+        "row_columns": {
+          "declared_bytes": "8585501",
+          "description": "10-K",
+          "document": "msft-20260630.htm \u00a0\u00a0iXBRL",
+          "sequence": "1",
+          "type": "10-K"
+        }
+      },
+      "prior_history": {
+        "all_tracked_text_leaf_matches": [
+          {
+            "bytes": 11876,
+            "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+            "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+          },
+          {
+            "bytes": 185250,
+            "path": "evidence/batch3_sec_20261012/primary/msft_submissions.json",
+            "sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c"
+          },
+          {
+            "bytes": 185250,
+            "path": "evidence/batch4_sec_20261013/primary/msft_submissions.json",
+            "sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c"
+          },
+          {
+            "bytes": 8392,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/sec.json",
+            "sha256": "57f5cb6d2651ebb554b4f1943e4b2b227aaba2ebcad685e90742951217d518c2"
+          },
+          {
+            "bytes": 7992,
+            "path": "evidence/sourcefront_sec_20261020/build_review.py",
+            "sha256": "8b0182ab86716118e94ea18a383c7a993c5619e0edff35715a918af6bb8eb100"
+          },
+          {
+            "bytes": 6670,
+            "path": "evidence/sourcefront_sec_20261020/source_discovery.json",
+            "sha256": "825b0488c4cfb2a4ed9895b6a38bc460a78ec7348d26c8d09898ca99328f5b08"
+          }
+        ],
+        "exhaustive_tracked_json_references": [
+          {
+            "exact_requested_url_string": false,
+            "json_pointer": "/filings/recent/primaryDocument/48",
+            "path": "evidence/batch3_sec_20261012/primary/msft_submissions.json",
+            "value": "msft-20260630.htm"
+          },
+          {
+            "exact_requested_url_string": false,
+            "json_pointer": "/filings/recent/primaryDocument/48",
+            "path": "evidence/batch4_sec_20261013/primary/msft_submissions.json",
+            "value": "msft-20260630.htm"
+          },
+          {
+            "exact_requested_url_string": true,
+            "json_pointer": "/safe_unattempted_alternative/url",
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/sec.json",
+            "value": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
+          },
+          {
+            "exact_requested_url_string": true,
+            "json_pointer": "/safe_unattempted_alternative/url",
+            "path": "evidence/sourcefront_sec_20261020/source_discovery.json",
+            "value": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
+          }
+        ],
+        "reserved_attempt_or_response_receipts": [],
+        "retained_history_status": "NO_PRIOR_TRACKED_REQUEST; TWO_PRIOR_DISCOVERY_URL_REFERENCES_EXPLICITLY_NOT_REQUESTED"
+      },
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+      "url_derivation": "Exact raw document route is the literal doc= value inside the original /ix?doc= href; the canonical raw-body URL is derived from that argument, not a separately literal direct href. Do not GET the ix viewer or fall back after failure."
+    }
+  ],
+  "created_at": "2026-10-21T02:10:07.774684+00:00",
+  "current_whole_source_comparison": {
+    "assessment": "Same source account/issuer and acquisition day are corroborated by the current two filings, but86525/Common differs from178622 and70465.844/Common Stock. Neither source establishes natural-person legal alias, continuous2026 role, instrument class/CUSIP validity, or execution; the2025 proxy has no account CIK bridge or perpetual present interval.",
+    "form144": {
+      "facts": {
+        "acquired_day_literal": "08/31/2026",
+        "acquired_quantity_literal": "86525",
+        "acquired_security_title_literal": "Common",
+        "ccc_classification": "PUBLISHED_8X_PLACEHOLDER_ONLY_VALUE_NOT_EXPORTED",
+        "issuer_cik": "0000789019",
+        "issuer_xml_name": "MICROSOFT CORPORATION",
+        "notice_day_literal": "09/01/2026",
+        "proposed_sale_day_literal": "09/01/2026",
+        "relationships_as_filed": [
+          "Director",
+          "Officer"
+        ],
+        "seller_as_filed": "SATYA NADELLA"
+      },
+      "original_safe_field_spans": {
+        "acquiredDate": [
+          {
+            "byte_end": 3858,
+            "byte_start": 3819,
+            "bytes": 39,
+            "original_quote": "<acquiredDate>08/31/2026</acquiredDate>",
+            "sha256": "bc63b664e58210b511522dba94fd41ec4d1a34d28c7a33d9cb8eff9280ff63d2"
+          }
+        ],
+        "amountOfSecuritiesAcquired": [
+          {
+            "byte_end": 4166,
+            "byte_start": 4104,
+            "bytes": 62,
+            "original_quote": "<amountOfSecuritiesAcquired>86525</amountOfSecuritiesAcquired>",
+            "sha256": "2125ac3ec2bf06e4df3ba537014d0a1285564264226091463127d13e4a700fca"
+          }
+        ],
+        "approxSaleDate": [
+          {
+            "byte_end": 3612,
+            "byte_start": 3569,
+            "bytes": 43,
+            "original_quote": "<approxSaleDate>09/01/2026</approxSaleDate>",
+            "sha256": "fb39002b33e81316e38af05b6dcd95d2dd74615aa7412d6d72525e8b07d77c4a"
+          }
+        ],
+        "nameOfPersonForWhoseAccountTheSecuritiesAreToBeSold": [
+          {
+            "byte_end": 2526,
+            "byte_start": 2405,
+            "bytes": 121,
+            "original_quote": "<nameOfPersonForWhoseAccountTheSecuritiesAreToBeSold>SATYA NADELLA </nameOfPersonForWhoseAccountTheSecuritiesAreToBeSold>",
+            "sha256": "0b28dc965d0ca2b45e3729b3e6e846ab6dd1361071c7a9e6ae54281e869dc25f"
+          }
+        ],
+        "noticeDate": [
+          {
+            "byte_end": 4482,
+            "byte_start": 4447,
+            "bytes": 35,
+            "original_quote": "<noticeDate>09/01/2026</noticeDate>",
+            "sha256": "7c6c83c6b018077a9a0e8669e4016bccc311844f17d663f303008b3dfd8eeef3"
+          }
+        ]
+      },
+      "whole_original": {
+        "bytes": 4770,
+        "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.txt",
+        "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e"
+      }
+    },
+    "form4": {
+      "acceptance_datetime_unqualified_raw": "20260901180827",
+      "acceptance_timezone": "UNKNOWN",
+      "facts": {
+        "issuer_cik": "0000789019",
+        "issuer_name": "MICROSOFT CORP",
+        "officer_title_as_filed": "Chief Executive Officer",
+        "owner_cik": "0001513142",
+        "owner_name": "Nadella Satya",
+        "transaction_rows": [
+          {
+            "code": "A",
+            "day": "2026-08-31",
+            "quantity": "178622",
+            "title": "Common Stock"
+          },
+          {
+            "code": "F",
+            "day": "2026-08-31",
+            "quantity": "70465.844",
+            "title": "Common Stock"
+          }
+        ]
+      },
+      "original_owner_field_spans": {
+        "officerTitle": [
+          {
+            "byte_end": 2755,
+            "byte_start": 2703,
+            "bytes": 52,
+            "original_quote": "<officerTitle>Chief Executive Officer</officerTitle>",
+            "sha256": "1962f0cfdddfd58dc28bbcae7432a3bf10e93fca663c1290c04d3d0248ed09df"
+          }
+        ],
+        "rptOwnerCik": [
+          {
+            "byte_end": 1915,
+            "byte_start": 1878,
+            "bytes": 37,
+            "original_quote": "<rptOwnerCik>0001513142</rptOwnerCik>",
+            "sha256": "ca90058a4364a1deb20b37fffe967617ee48ddb67a6375834b448c17ab456433"
+          }
+        ],
+        "rptOwnerName": [
+          {
+            "byte_end": 1970,
+            "byte_start": 1928,
+            "bytes": 42,
+            "original_quote": "<rptOwnerName>Nadella Satya</rptOwnerName>",
+            "sha256": "57d1b7dd88e6e1e41fe10359c62e948885d44ac6a202ac0581003f2834e9aecd"
+          }
+        ]
+      },
+      "whole_original": {
+        "bytes": 9665,
+        "path": "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt",
+        "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+      }
+    },
+    "proxy": {
+      "exact_contexts": {
+        "issuer_career_clause": {
+          "byte_end": 461232,
+          "byte_start": 459171,
+          "bytes": 2061,
+          "literal_visible_quote_from_prior_exact_context": "Experience: Microsoft Corporation (1992-present) \u2022 Chairman and Chief Executive Officer (2021-present) \u2022 Chief Executive Officer and Director (2014-2021) \u2022 Executive Vice President, Cloud and Enterprise (2013-2014) \u2022 President, Server and Tools (2011-2013) \u2022 Senior Vice President, Online Services Division (2009-2011) \u2022 Senior Vice President, Search, Portal, and Advertising (2008-2009) \u2022 Various positions of increasing authority (1992-2008)",
+          "prior_exact_context_report": {
+            "bytes": 20278,
+            "path": "evidence/batch10_role_claim_fix_20261018/person_role_claim_review_v2.json",
+            "sha256": "2be2f4f3d10290808b00d5bf33c6b0587905264744284916073f1d9f69830063"
+          },
+          "sha256": "624f79138718cf81b4803874b19724083c0f98a71f4e84cf2eec377ad9d911ce"
+        },
+        "named_person_clause": {
+          "byte_end": 458252,
+          "byte_start": 455748,
+          "bytes": 2504,
+          "literal_visible_quote_from_prior_exact_context": "Satya Nadella Age: 58 | Director Since: 2014 | Birthplace: India",
+          "prior_exact_context_report": {
+            "bytes": 20278,
+            "path": "evidence/batch10_role_claim_fix_20261018/person_role_claim_review_v2.json",
+            "sha256": "2be2f4f3d10290808b00d5bf33c6b0587905264744284916073f1d9f69830063"
+          },
+          "sha256": "132487efd0e794ed00457704c29384b4a529cca53beb3e157483986b6913f1dd"
+        }
+      },
+      "filing_anchor_day": "2025-10-21",
+      "index_body_size_conflict_bytes": 110,
+      "index_declared_primary_bytes": 2430412,
+      "present_ends_at_declared_proxy_anchor_only": true,
+      "served_primary_bytes": 2430522,
+      "whole_original": {
+        "bytes": 2430522,
+        "path": "evidence/batch7_sec_20261015/primary/msft_2025_proxy.htm",
+        "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac"
+      },
+      "year_precision_since_is_not_exact_start_day": true
+    }
+  },
+  "exhaustive_history_audit": {
+    "decoding": "JSON string values are traversed recursively, HTML-unescaped and percent-decoded once for candidate-leaf checks; all exact URL matches and filename references are retained above",
+    "duplicate_json_keys": [],
+    "git_ls_files_nul_inventory_sha256": "81ee8432dfb1656d09d3ad385dc49169402449e7215d7405319126d201f1fedb",
+    "history_known_within_tracked_metadata_scope": true,
+    "json_parse_errors": [],
+    "manifest_definition": "Sorted tracked paths with suffix .json/.jsonl/.ndjson; array of {path,bytes,sha256}, serialized json.dumps(sort_keys=True,separators=(comma,colon)), UTF8",
+    "original_parent_request_receipt": {
+      "file": {
+        "bytes": 10764,
+        "path": "evidence/batch3_sec_20261012/captures.json",
+        "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+      },
+      "pointer": "/captures/0",
+      "target": "parent index only; not any new exhibit body"
+    },
+    "scope": "Every tracked JSON/JSONL/NDJSON at the pinned public commit, plus git grep leaf matches across all tracked files; no application import, DB read or reconstructed ledger",
+    "scope_limit": "No global never-fetched claim. Untracked/private external history and protected DB were not inspected. Coordinator must reject a newly discovered consumed receipt or unknown conflicting history before any request.",
+    "text_search": "git grep -l -F <exact candidate leaf> -- .; all matches pinned above, not treated as completed requests merely because they mention a URL",
+    "tracked_file_count": 2906,
+    "tracked_json_file_count": 1485,
+    "tracked_json_pin_manifest_sha256": "b31120f2f72a6f6012febe981b17a69f7fcd1edfb2aa75fdb9d5970889e6b51d",
+    "tracked_json_total_bytes": 28223043
+  },
+  "explicit_exclusions": {
+    "already_consumed_form144": {
+      "bytes": 1255,
+      "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.metadata.json",
+      "sha256": "26539e1b09d7a06874b876cb61da127a0ae9818956b392047236cc847c1bded7"
+    },
+    "already_consumed_form4": {
+      "bytes": 1159,
+      "path": "evidence/batch9_sec_20261016/attempt-01-result.json",
+      "sha256": "018390e3b5f7145eb97933ae76308540ea926c6d59f3e171e8661b6c28b83363"
+    },
+    "known_withheld_source_bodies": {
+      "hashes": [
+        "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+        "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+        "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+        "27f03d6bb63f0590a82369556419c4eb8f5fb9ab3b3da44a9c8695d18d7b7532"
+      ],
+      "read_recovered_or_substituted": false
+    },
+    "no_ir_homepage_reload_alternate_transport_or_sanitized_wrapper": true,
+    "no_submissions_refresh_or_parent_index_refetch": true
+  },
+  "requested_bridge_status": "BLOCKED_PENDING_INDEPENDENT_DATED_PERSON_ACCOUNT_ROLE_INTERVAL_AND_INSTRUMENT_EVIDENCE",
+  "retained_parent_scope": {
+    "accepted_timezone": "UNKNOWN",
+    "accession": "0001193125-26-323660",
+    "capture_not_historical_machine_availability": true,
+    "clocks": {
+      "Accepted": {
+        "literal": "2026-07-29 16:08:01",
+        "source_span": {
+          "byte_end": 3757,
+          "byte_start": 3668,
+          "bytes": 89,
+          "original_quote": "<div class=\"infoHead\">Accepted</div>\n         <div class=\"info\">2026-07-29 16:08:01</div>",
+          "sha256": "2f1d0a1c851c319715f7cbd2a169a211d39bc52955074f82525bd6f9f7c31ca3"
+        }
+      },
+      "Filing Date": {
+        "literal": "2026-07-29",
+        "source_span": {
+          "byte_end": 3658,
+          "byte_start": 3575,
+          "bytes": 83,
+          "original_quote": "<div class=\"infoHead\">Filing Date</div>\n         <div class=\"info\">2026-07-29</div>",
+          "sha256": "a6ab0fc879a8d821b3cd199024706a3ee1d28e90b1388eb9cfc199d8d7f275c0"
+        }
+      },
+      "Period of Report": {
+        "literal": "2026-06-30",
+        "source_span": {
+          "byte_end": 3985,
+          "byte_start": 3897,
+          "bytes": 88,
+          "original_quote": "<div class=\"infoHead\">Period of Report</div>\n         <div class=\"info\">2026-06-30</div>",
+          "sha256": "facd2c2f395fea9c31ea0c9b9d681db0e2405fc5c172b89954a212ec2e79666b"
+        }
+      }
+    },
+    "issuer_cik": "0000789019",
+    "issuer_label_context": {
+      "byte_end": 11172,
+      "byte_start": 10956,
+      "bytes": 216,
+      "original_quote": "<span class=\"companyName\">MICROSOFT CORP (Filer)\n <acronym title=\"Central Index Key\">CIK</acronym>: <a href=\"/cgi-bin/browse-edgar?CIK=0000789019&amp;action=getcompany\">0000789019 (see all company filings)</a></span>",
+      "sha256": "a27dba803643e7238f13999ab9c92f50eb9d8bc943f0f63585567df801a62db5"
+    },
+    "issuer_name_literal": "MICROSOFT CORP",
+    "owner_account_from_separate_form4_only": "0001513142",
+    "owner_cik_present_in_parent_scope": false,
+    "parent_form": "10-K",
+    "parent_role_literal": "Filer",
+    "whole_original": {
+      "bytes": 11876,
+      "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+      "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+    }
+  },
+  "schema_version": "sourcefront21_sec_primary_source_plan_v1",
+  "selection": {
+    "alternatives_are_not_retry_or_fallback_authorization": true,
+    "maximum_authorized_by_this_worker": 0,
+    "no_worker_request_or_reservation_performed": true,
+    "preferred_candidate_id": "MSFT_2026_EX31_1",
+    "proposed_coordinator_attempt_count": 1
+  },
+  "status": "READY_FOR_COORDINATOR_AUDIT_SINGLE_NEW_DOCUMENT_ONLY"
+}

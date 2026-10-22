@@ -1,0 +1,41 @@
+{
+  "HTTP_search_collector_DB_quota_actions": 0,
+  "discovered": 32,
+  "elapsed_seconds": 0.0576185610000266,
+  "errors": 0,
+  "executed": 32,
+  "expected_failures": 0,
+  "failures": 0,
+  "finished_at": "2026-10-18T19:33:40.200627+00:00",
+  "log_sha256": "01589f2d72013646f69aa2328d59b3934907a94aee457a14f21864f87d75a538",
+  "old_31_method_qualification_is_preserved_historical_version": true,
+  "python": "3.12.14",
+  "rerun_reason": "producer gained actual direct-array type and 100-row guard after the earlier qualification",
+  "skips": 0,
+  "source_gate_dependency": {
+    "bytes": 18056,
+    "path": "market_checker_app/services/epa_frs_ownership_review.py",
+    "sha256": "281406a6c48c88aad916b6a59e0123f6abbff4c69ff7f3d5ebc43239bdd4427a"
+  },
+  "source_test_sha256": {
+    "market_checker_app/services/epa_frs_program_scope_review.py": "51cf67bcea3ab581b4f3d447e51ac8b8d2c84798104901b4f7679428c2f9de36",
+    "tests/test_epa_frs_program_scope_review.py": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+  },
+  "source_versions": {
+    "market_checker_app/services/epa_frs_program_scope_review.py": {
+      "bytes": 24412,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/source_versions/qualified_review.py",
+      "sha256": "51cf67bcea3ab581b4f3d447e51ac8b8d2c84798104901b4f7679428c2f9de36"
+    },
+    "tests/test_epa_frs_program_scope_review.py": {
+      "bytes": 27073,
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/source_versions/qualified_tests.py",
+      "sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+    }
+  },
+  "started_at": "2026-10-18T19:33:40.143002+00:00",
+  "successful": true,
+  "synthetic_controls_are_not_source_acceptance": true,
+  "unchanged_new_regression_passed_after_fix": true,
+  "unexpected_successes": 0
+}

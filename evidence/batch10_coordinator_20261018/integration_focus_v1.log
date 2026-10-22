@@ -1,0 +1,47 @@
+test_new_kind_body_limit_and_future_knowledge_reject_before_any_body_io (tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_new_kind_body_limit_and_future_knowledge_reject_before_any_body_io) ... ok
+test_original_2017_roster_does_not_supply_current_exact_fda_applicant_ownership (tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_2017_roster_does_not_supply_current_exact_fda_applicant_ownership) ... ok
+test_original_biography_year_precision_never_becomes_role_interval_or_account_alias (tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_biography_year_precision_never_becomes_role_interval_or_account_alias) ... ok
+test_original_case_captions_remain_document_local_without_issuer_or_disposition_bridge (tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_case_captions_remain_document_local_without_issuer_or_disposition_bridge) ... ok
+test_original_certificate_literal_fact_keeps_blank_date_and_specimen_limits (tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_certificate_literal_fact_keeps_blank_date_and_specimen_limits) ... ok
+test_original_revenue_totals_preserve_source_scale_without_customer_amount (tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_revenue_totals_preserve_source_scale_without_customer_amount) ... ERROR
+test_default_cli_does_not_read_inputs_or_create_a_receipt (tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_default_cli_does_not_read_inputs_or_create_a_receipt) ... ok
+test_explicit_cli_publishes_readiness_only_and_rejects_overwriting_its_receipt (tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_explicit_cli_publishes_readiness_only_and_rejects_overwriting_its_receipt) ... ERROR
+test_ui_default_render_never_captures_and_explicit_submit_selects_exact_inputs_once (tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_ui_default_render_never_captures_and_explicit_submit_selects_exact_inputs_once) ... FAIL
+
+======================================================================
+ERROR: test_original_revenue_totals_preserve_source_scale_without_customer_amount (tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_revenue_totals_preserve_source_scale_without_customer_amount)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_batch10_coordinator_integration.py", line 87, in test_original_revenue_totals_preserve_source_scale_without_customer_amount
+    [row["total_net_revenue_usd_from_source_scale_only"] for row in leaf["claim"]["quantities"]])
+     ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'total_net_revenue_usd_from_source_scale_only'
+
+======================================================================
+ERROR: test_explicit_cli_publishes_readiness_only_and_rejects_overwriting_its_receipt (tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_explicit_cli_publishes_readiness_only_and_rejects_overwriting_its_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_batch10_coordinator_integration.py", line 145, in test_explicit_cli_publishes_readiness_only_and_rejects_overwriting_its_receipt
+    main(argv)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/specialist_evidence_runner.py", line 169, in main
+    raise SystemExit(1) from None
+SystemExit: 1
+
+======================================================================
+FAIL: test_ui_default_render_never_captures_and_explicit_submit_selects_exact_inputs_once (tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_ui_default_render_never_captures_and_explicit_submit_selects_exact_inputs_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_batch10_coordinator_integration.py", line 180, in test_ui_default_render_never_captures_and_explicit_submit_selects_exact_inputs_once
+    self.assertEqual([], list(app.exception))
+AssertionError: Lists differ: [] != [Exception(message='`st.session_state.user[1568 chars]('])]
+
+Second list contains 1 additional elements.
+First extra element 0:
+Exception(message='`st.session_state.user_windows_readiness_capture` cannot be modified after the widget with key `user_windows_readiness_capture` is instantiated.', is_markdown=True, stack_trace=['File "/tmp/tmpbmnvblww/e87f0c645697bc7b31126de8656972dd", line 4, in <module>\n    render_user_windows_readiness(st,db_path=Path(\'/tmp/tmpv5b6tltm/existing.db\'),output_dir=Path(\'/tmp/tmpv5b6tltm\'))', 'File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/market_checker_app/specialist_evidence_ui.py", line 201, in render_user_windows_readiness\n    st.session_state["user_windows_readiness_capture"] = {"context": context, "report": report}\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', 'File "/workspace/scratch/334b3a149083/johny-tests-20261011/lib/python3.12/site-packages/streamlit/runtime/metrics_util.py", line 596, in wrapped_func\n    result = non_optional_func(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', 'File "/workspace/scratch/334b3a149083/johny-tests-20261011/lib/python3.12/site-packages/streamlit/runtime/state/session_state_proxy.py", line 114, in __setitem__\n    get_session_state()[key] = value\n    ~~~~~~~~~~~~~~~~~~~^^^^^', 'File "/workspace/scratch/334b3a149083/johny-tests-20261011/lib/python3.12/site-packages/streamlit/runtime/state/safe_session_state.py", line 109, in __setitem__\n    self._state[key] = value\n    ~~~~~~~~~~~^^^^^', 'File "/workspace/scratch/334b3a149083/johny-tests-20261011/lib/python3.12/site-packages/streamlit/runtime/state/session_state.py", line 800, in __setitem__\n    raise StreamlitAPIException('])
+
+Diff is 1623 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 9 tests in 5.016s
+
+FAILED (failures=1, errors=2)

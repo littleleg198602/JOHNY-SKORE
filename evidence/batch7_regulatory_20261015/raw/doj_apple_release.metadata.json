@@ -1,0 +1,18 @@
+{
+  "archive_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_release.html",
+  "automatic_redirects": false,
+  "capture_id": "doj_apple_release",
+  "content_type": "text/html; charset=UTF-8",
+  "final_url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-apple-monopolizing-smartphone-markets",
+  "http_status": 200,
+  "max_original_bytes": 4000000,
+  "observed_at": "2026-10-14T23:30:10.897034+00:00",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "public_raw_available": true,
+  "raw_response_bytes": 85447,
+  "raw_response_sha256": "e7d3e7fdf4d0f87f8a40fbc74e907b85a6f5d1b5656d97059941461b085783da",
+  "reason": "",
+  "requested_url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-apple-monopolizing-smartphone-markets",
+  "started_at": "2026-10-14T23:30:07.133459+00:00",
+  "status": "ORIGINAL_BYTES_CAPTURED"
+}

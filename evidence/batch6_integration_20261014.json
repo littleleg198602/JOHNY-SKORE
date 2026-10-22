@@ -1,0 +1,389 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-14T17:49:49.317680+00:00",
+  "public_base": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "main_base": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "pr_number": 162,
+  "pr_branch": "continuation/specialists-batch3-20261012",
+  "tested_local_code_snapshot": "10d00bab204cadb058bb58a4cb4eda0dae2b7645",
+  "qualification": "LOCAL_NEW_CODE_PASSED_HOSTED_NEW_HEAD_PENDING",
+  "development_workers": [
+    {
+      "lane": "identity_bulk",
+      "output": "LEG stock merger",
+      "local_commit": "e869fb60b12fcc850e5d2a51e73a3fa3b726377d",
+      "handoff": {
+        "path": "evidence/batch6_identity_20261014/handoff.json",
+        "sha256": "a5a4cdf4066979fc2dc9b3127d996316099b2167c371f515166ccc45e2bd1f4e",
+        "bytes": 19672
+      }
+    },
+    {
+      "lane": "healthcare",
+      "output": "Exact original CMS owner/provider review",
+      "local_commit": "68cb9f8865638461bdf0719799779cf4028b539a",
+      "handoff": {
+        "path": "evidence/batch6_healthcare_20261014/handoff.json",
+        "sha256": "16f3128e162d72a477d6876a2c2ff9fd7beb595208d9c90f93978c897e45a839",
+        "bytes": 9722
+      }
+    },
+    {
+      "lane": "regulatory",
+      "output": "Original EPA FRS legal/ownership review",
+      "local_commit": "32c50aceee67d40b1e1468f084b88badee978206",
+      "handoff": {
+        "path": "evidence/batch6_regulatory_20261014/handoff.json",
+        "sha256": "9c4c4669dfb8b7d51f5a16760c8d919e83022eba51317ae6ce3c4cba191ac2f0",
+        "bytes": 11900
+      }
+    },
+    {
+      "lane": "contracts",
+      "output": "Complete original prime archive recovery",
+      "local_commit": "2d83a97714e67df79150debf608e2c03d70a3710",
+      "handoff": {
+        "path": "evidence/batch6_contracts_20261014/handoff.json",
+        "sha256": "baf6164b0a6a188a5d46761dcf14f5ebc29f6e9df968f21fc45ae4f893b86469",
+        "bytes": 5273
+      }
+    },
+    {
+      "lane": "sec",
+      "output": "Independent dated owner account bridge",
+      "local_commit": "b5adb15853ad7940dc16b29e963df8166134c531",
+      "handoff": {
+        "path": "evidence/batch6_sec_20261014/handoff.json",
+        "sha256": "d2553a1a488faaf7f58761c5c2aaa84eca650761eb72b8d7ee65ed49cfcc23aa",
+        "bytes": 5690
+      }
+    },
+    {
+      "lane": "evaluation",
+      "output": "Prospective stored forecasts and exact labels",
+      "local_commit": "3d77b2f469c6f550443613a189683afadb2d8482",
+      "handoff": {
+        "path": "evidence/batch6_evaluation_20261014/handoff.json",
+        "sha256": "95a8c15efb9be5f9c5a534484c1b02632cfb04a1752f944d745721d3693e3455",
+        "bytes": 7405
+      }
+    }
+  ],
+  "concrete_followups": [
+    {
+      "lane": "contracts",
+      "output": "91 site combined-report metric scope",
+      "local_commit": "4e4e5f93d42029ef4a1ed2435477312eb0082af5",
+      "handoff": {
+        "path": "evidence/batch6_operational_20261014/handoff.json",
+        "sha256": "86b9d791f6f7d2da2599435ebe264580636d5c4f633dc84f649011e8c3884186",
+        "bytes": 6253
+      }
+    },
+    {
+      "lane": "identity_bulk",
+      "output": "Correct explicit same-context DEI CIK for DOW/XOM co-filers",
+      "local_commit": "f6ef6e235260691130da02ecf5d297ad1a8be31e",
+      "handoff": {
+        "path": "evidence/batch6_cofiler_20261014/handoff.json",
+        "sha256": "b8d75e4c6feba6584546f880a61863d51637755470ce4b422230f42927ae3be0",
+        "bytes": 10896
+      }
+    }
+  ],
+  "local_validation": {
+    "report": {
+      "started_at": "2026-10-14T17:44:08.951373+00:00",
+      "ended_at": "2026-10-14T17:46:54.263745+00:00",
+      "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+      "python_version": "3.12.14",
+      "discovered_tests": 1603,
+      "tests_run": 1603,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "successful": true
+    },
+    "json": {
+      "path": "evidence/batch6_linux_20261014.json",
+      "sha256": "748f4abee4ebd8a01f46bec1c6ada0400301e48d7186f5109898fb29bb5008e8",
+      "bytes": 363
+    },
+    "full_console": {
+      "path": "evidence/batch6_linux_console_20261014.log",
+      "sha256": "6dd952f81c58ac89cca8c0832676b7b24264288ac351edf7fd8949ce7422a68f",
+      "bytes": 319025
+    },
+    "runner_log": {
+      "path": "evidence/batch6_linux_runner_20261014.log",
+      "sha256": "aa1681f678b355909ced1119c82ed7fcde53bdd66033d9098681a8ac1a016833",
+      "bytes": 317389
+    },
+    "plain_ok": true,
+    "elapsed_seconds": 164.44,
+    "original_687_60_second_budget_changed": false,
+    "compiler_passed": true
+  },
+  "content_audit": {
+    "path": "evidence/batch6_coordinator_20261014/content_audit.json",
+    "sha256": "24eb1ac1b965df71ab7d29a63d98a4e57794490dd017e45f6c574266c0472810",
+    "bytes": 12597
+  },
+  "current_source_test_versions": [
+    {
+      "bytes": 153329,
+      "path": "market_checker_app/app.py",
+      "sha256": "7a394cc91ea93d2eb459ee84f3e4b770d42c022f4702722f6c21a381022252c9"
+    },
+    {
+      "bytes": 13043,
+      "path": "market_checker_app/services/captured_identity_review_service.py",
+      "sha256": "c048f2232d2624ee1528db9a6377445f6e2a0fd2b6218920efad01d841b09685"
+    },
+    {
+      "bytes": 19142,
+      "path": "market_checker_app/services/cms_provider_ownership_review.py",
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    {
+      "bytes": 18056,
+      "path": "market_checker_app/services/epa_frs_ownership_review.py",
+      "sha256": "281406a6c48c88aad916b6a59e0123f6abbff4c69ff7f3d5ebc43239bdd4427a"
+    },
+    {
+      "bytes": 41430,
+      "path": "market_checker_app/services/prospective_specialist_history.py",
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    },
+    {
+      "bytes": 55323,
+      "path": "market_checker_app/services/sec_corporate_action_bridge.py",
+      "sha256": "337e73165538d9eb407c46bb13d961820c0f101849bb353687be16068f81827b"
+    },
+    {
+      "bytes": 22929,
+      "path": "market_checker_app/services/sec_form4_person_bridge.py",
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    {
+      "bytes": 22925,
+      "path": "market_checker_app/services/sec_operational_metrics_review.py",
+      "sha256": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672"
+    },
+    {
+      "bytes": 24531,
+      "path": "market_checker_app/services/usaspending_prime_archive_recovery.py",
+      "sha256": "fc06959c17b61dca44a59e9a99a191a0d490094db6974cc48c127241a20a3b7c"
+    },
+    {
+      "bytes": 8738,
+      "path": "market_checker_app/specialist_evidence_runner.py",
+      "sha256": "fbddc8d03a325fd063a7fa4437cffe7359dfcdba334ba95b3acf6f03f087481c"
+    },
+    {
+      "bytes": 8187,
+      "path": "market_checker_app/specialist_evidence_ui.py",
+      "sha256": "5e92022aa4e7aba275ed26489442fb3aa4a878f6c4a4d182c02deb9a592e65c5"
+    },
+    {
+      "bytes": 19995,
+      "path": "tests/test_batch5_identity_symbol.py",
+      "sha256": "a5a4b1dd94a59004108c91487748bd182347c8f0e4decb199286586dbe4ff943"
+    },
+    {
+      "bytes": 26824,
+      "path": "tests/test_batch6_cms_provider_ownership.py",
+      "sha256": "25e7bfe8d3c3207d891617e4de5ecebce2c0dd047cf99f193d6ac22346d0a711"
+    },
+    {
+      "bytes": 13649,
+      "path": "tests/test_batch6_cofiler_identity.py",
+      "sha256": "2bb1b977a64ab902942db54ca4db2505168a4948783ed9ed2c2d989a4c516427"
+    },
+    {
+      "bytes": 14452,
+      "path": "tests/test_batch6_epa_frs_ownership.py",
+      "sha256": "c32c76423d3cf2e469cdab27bd2f3a4e4645c78dac9cea9f44d42c1164e592a7"
+    },
+    {
+      "bytes": 13802,
+      "path": "tests/test_batch6_evidence_actions.py",
+      "sha256": "34740f211957873cc92194b687efad0baadd5a101c0609c0449d3d486b3380e2"
+    },
+    {
+      "bytes": 16470,
+      "path": "tests/test_batch6_form4_person_bridge.py",
+      "sha256": "9365304b6ef0c756d2e3e0cfee81508bba611edada69c5d429af5d9935da9bff"
+    },
+    {
+      "bytes": 20197,
+      "path": "tests/test_batch6_leg_action_bridge.py",
+      "sha256": "5bc55310cfcdcd7119590b8b7d1780a920d6849033e61684c7fb9f5f6ebd0477"
+    },
+    {
+      "bytes": 22709,
+      "path": "tests/test_batch6_prime_archive_recovery.py",
+      "sha256": "03d614abddbc17ea0b405203f86cb5ebcde8915ec376523d0e5705063a7b53de"
+    },
+    {
+      "bytes": 45066,
+      "path": "tests/test_batch6_prospective_specialist_history.py",
+      "sha256": "05bafefb8a9c6f88e1bd232abdcb372cf156fb8952250124b426998026c1038f"
+    },
+    {
+      "bytes": 18005,
+      "path": "tests/test_batch6_sec_operational_metrics.py",
+      "sha256": "aa82c5bd9a885b1088f8d2a6bc3d220bdfb76fbac1ba53b5f5bf4cd61ef5e19f"
+    },
+    {
+      "bytes": 18252,
+      "path": "tests/test_streamlit_ui_smoke.py",
+      "sha256": "c7f2cc309f21f5d979a09a23f1394e5d1c617dfbfc8ca8bccab85f66902f767b"
+    }
+  ],
+  "runtime_plans": [
+    {
+      "path": "evidence/specialist_review_plans/DOW_EPA_provozovna.json",
+      "sha256": "002b8d1c7d37cca762c4fe6c27f46a6ec27f56dfaa301276dd9cfc405dbd3dcc",
+      "bytes": 3897
+    },
+    {
+      "path": "evidence/specialist_review_plans/DOW_provozni_rozsah_skupiny.json",
+      "sha256": "3de6e7efaa9a84dfdb6a9a9ca11a2416c6c7b42503b30050ca20c5f8b6700e75",
+      "bytes": 2061
+    },
+    {
+      "path": "evidence/specialist_review_plans/HCA_nemocnice_1.json",
+      "sha256": "faef1058a3e32efcd83d150d6fcd3ebc81edc1146a56aad4d56d843255093c85",
+      "bytes": 2276
+    },
+    {
+      "path": "evidence/specialist_review_plans/HCA_nemocnice_2.json",
+      "sha256": "324e2fe7532bb664235483dac107d6ce59643529048bfcc3b4aa47b70fcc6854",
+      "bytes": 2276
+    },
+    {
+      "path": "evidence/specialist_review_plans/LEG_vymena_instrumentu.json",
+      "sha256": "338002c986e82b60da012a4aada1ecdaf39dd78c6b430e23e86c4bec48c3316d",
+      "bytes": 12699
+    },
+    {
+      "path": "evidence/specialist_review_plans/MSFT_Form4_EVENT_DATE.json",
+      "sha256": "d81a85e9d57e9169c1eb95499d58d6511a5c4a1c988c30637e30bd4c8945b929",
+      "bytes": 12501
+    },
+    {
+      "path": "evidence/specialist_review_plans/MSFT_Form4_OBSERVED_SNAPSHOT.json",
+      "sha256": "ac7c686717e2ce26b6f0f03e65ea3069877caf2dfcf28022153c772d3857e2f0",
+      "bytes": 12508
+    }
+  ],
+  "runtime": {
+    "explicit_cli": "market_checker_app/specialist_evidence_runner.py",
+    "explicit_ui": "market_checker_app/specialist_evidence_ui.py",
+    "implicit_source_collection": false,
+    "http_requests": 0,
+    "registry_adoptions": 0,
+    "immutable_actual_clock_archives": true,
+    "prime_import_requires_explicit_selection": true,
+    "invalid_prime_sources_rejected_before_store_initialization": true,
+    "missing_database_created_by_history_action": false,
+    "actual_epa": {
+      "path": "evidence/batch6_coordinator_20261014/dow_runtime_result.json",
+      "sha256": "6dec27b92d37c479053f165b01c6050085a3b8a524a1269862125e245d3afc0b",
+      "bytes": 4400
+    },
+    "actual_combined_report_metric": {
+      "path": "evidence/batch6_coordinator_20261014/operational_runtime_result.json",
+      "sha256": "c883f78b07208e761fc20b6224577c60ec6031ccd66d5aa1365a17811a0602d2",
+      "bytes": 5129
+    },
+    "actual_zero_history": {
+      "path": "evidence/batch6_coordinator_20261014/actual_prospective_history_report.json",
+      "sha256": "464298850a99d7b0ee82e433423639787be8425ecfdff0d5ce964589b6249130",
+      "bytes": 1755
+    }
+  },
+  "source_scope": {
+    "new_bounded_one_off_primary_sec_research_http200": 12,
+    "new_nhtsa_epa_cms_clinical_usaspending_rss_api_operations": 0,
+    "one_accession_multiple_documents_are_independent_disclosures": false,
+    "raw_original_bodies_copied_or_replaced": false,
+    "source_run_claims_managed_application_live": false,
+    "current_quota_history": {
+      "path": "evidence/batch6_coordinator_20261014/retained_quota_audit.json",
+      "sha256": "788375660ad86090b3379f9c2f7109ca0a3fb51ed7f625d10387a93e031e333e",
+      "bytes": 948
+    },
+    "quota_reconstructed_or_reset": false
+  },
+  "historical_versions": {
+    "leg_producer_preserved": {
+      "path": "evidence/batch6_coordinator_20261014/source_versions/version_manifest.json",
+      "sha256": "210ef23c3de891dd4d74023576bf8e597c8c54af57435d359deb4e7d6d3fb7f0",
+      "bytes": 482
+    },
+    "old_xom_frozen_report_unchanged": {
+      "path": "evidence/batch5_identity_20261014/review.json",
+      "sha256": "babc76e2b6ed7d20b7e35ad1853cb896328a220c13765834326768f624952edc",
+      "bytes": 29251
+    },
+    "old_xom_wrong_parent_name_pair_is_current_acceptance": false,
+    "xom_current_full_equality_enforced_after_exact_one_pair_correction": true,
+    "prior_cbc_windows_1377_is_new_head_proof": false,
+    "baseline_windows_content": {
+      "path": "evidence/batch6_baseline_ci_20261014/content_verification.json",
+      "sha256": "ef1346a4369ee4e1c576c96c3d78608e30cd5cbab7c49dd01ddceaa5a8321618",
+      "bytes": 2901
+    },
+    "initial_root_test_failures_and_partial_qualifications_preserved": {
+      "path": "evidence/batch6_coordinator_20261014/root_focus_versions.json",
+      "sha256": "691738244fd8bd63942eb3883be5c6aa9c506b84c69b0b89b3f41097147a91e1",
+      "bytes": 1196
+    },
+    "root_xom_wrong_order_focus_preserved": {
+      "path": "evidence/batch6_coordinator_20261014/xom_version_focus.log",
+      "sha256": "11573d450f8f7bf38932a869d56305e25e02d1bd4f50d82afccd89516850246e",
+      "bytes": 1958
+    },
+    "prior_content_audit_own_version": {
+      "path": "evidence/batch6_coordinator_20261014/content_audit_pre_xom_order.json",
+      "sha256": "68378fb79f7c022b7173c52cbcdc1a53ef364de32ab6cdfb1e9daec2d7193275",
+      "bytes": 12597
+    }
+  },
+  "acceptance": {
+    "inventory_count": 21,
+    "complete_count": 0,
+    "verified_adoptions": 0,
+    "canonical_tickers": 687,
+    "historical_q2_instruments": 150,
+    "current_q3_coverage": 0,
+    "healthcare_registry": 10,
+    "nhtsa_registry": 3,
+    "legal_registry": 5,
+    "authentic_forecast_registrations": 0,
+    "genuine_eligible_labels": 0,
+    "existing_price_versions_unknown_publisher_revision": 16,
+    "user_windows_end_to_end": false,
+    "historical_oos": false,
+    "score_or_fitter_changes": false,
+    "automatic_trading": false
+  },
+  "hosted_new_head_ci": {
+    "status": "PENDING_PUBLICATION",
+    "required_checks_verified": false,
+    "windows_content_verified": false,
+    "later_verified_qualification_will_be_in_pr_and_actual_artifact": true
+  },
+  "next_concrete_queue": "PARALLEL_SPECIALIST_WORK.md: sixth-batch front queue",
+  "merge": false,
+  "force_push": false,
+  "whole_withheld_sources_absent": [
+    "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+    "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+    "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1"
+  ]
+}

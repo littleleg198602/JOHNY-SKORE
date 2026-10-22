@@ -1,0 +1,53 @@
+{
+  "started_at": "2026-10-21T07:20:33.940045+00:00",
+  "finished_at": "2026-10-21T07:20:36.088760+00:00",
+  "physical_clocks": true,
+  "code_head": "cb4957dde583893c20b95b0c60d776e21db16c19",
+  "actions": [
+    {
+      "action": "CLI",
+      "plan": "evidence/specialist_review_plans/SWKS_zalohy_na_vyrobni_kapacitu.json",
+      "started_at": "2026-10-21T07:20:33.940783+00:00",
+      "finished_at": "2026-10-21T07:20:34.589459+00:00",
+      "archive": "evidence/sourcefront21_coordinator_20261021/runtime/cli/SWKS_zalohy_na_vyrobni_kapacitu/review-50bee0973e32851f87100e47a67c024ed39a9aa906874d6bf0e77fe34033e614.json",
+      "archive_sha256": "50bee0973e32851f87100e47a67c024ed39a9aa906874d6bf0e77fe34033e614",
+      "kind": "WAFER_CAPACITY_DEPOSITS",
+      "status": "CANDIDATE_REVIEWED",
+      "stdout_sha256": "619ff5557f29bbf632542840d4ee58a6415079054a0bb9c5ee584b9a1061e383"
+    },
+    {
+      "action": "UI",
+      "plan": "evidence/specialist_review_plans/SWKS_zalohy_na_vyrobni_kapacitu.json",
+      "started_at": "2026-10-21T07:20:34.589600+00:00",
+      "finished_at": "2026-10-21T07:20:36.088606+00:00",
+      "archive": "evidence/sourcefront21_coordinator_20261021/runtime/ui/SWKS_zalohy_na_vyrobni_kapacitu/captured_identity_reviews/review-9099efe81122505f3f4605af0bbeb3d9293aca1139a0244539db8e9c80598fc0.json",
+      "archive_sha256": "9099efe81122505f3f4605af0bbeb3d9293aca1139a0244539db8e9c80598fc0",
+      "kind": "WAFER_CAPACITY_DEPOSITS",
+      "status": "CANDIDATE_REVIEWED",
+      "UI_exceptions": 0
+    }
+  ],
+  "HTTP_attempts": 0,
+  "SQL_operations": 0,
+  "registry_adoptions": 0,
+  "model_or_forecast_runs": 0,
+  "native_user_Windows_run": false,
+  "full_specialist_acceptance": "0/21",
+  "source_pins": [
+    {
+      "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+      "bytes": 27094,
+      "sha256": "7f5a0241182650d573ca5dce936fcc09f84fe77a59b206340693c916a34c6189"
+    },
+    {
+      "path": "market_checker_app/services/captured_identity_review_service.py",
+      "bytes": 29978,
+      "sha256": "d3861750926aba765b5866e647cb7e2f3a2c47c5e92d8ce912b7ba04ef709f8e"
+    },
+    {
+      "path": "market_checker_app/specialist_evidence_ui.py",
+      "bytes": 29511,
+      "sha256": "cf51ca2f0d92002e68e4c73d24c8f17096aeea9a8520ea31153367a04a77275e"
+    }
+  ]
+}

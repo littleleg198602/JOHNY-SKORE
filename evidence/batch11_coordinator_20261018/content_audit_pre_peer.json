@@ -1,0 +1,1165 @@
+{
+  "HEAD": "59f10512a36de771d0da844855e2fce015f5deae",
+  "all_21_code_live_unchanged": true,
+  "approved_existing_changes": [
+    {
+      "after": {
+        "bytes": 44462,
+        "sha256": "17da5bc988a1929b8e7f3c46ebcaf5a66608a74e17cdde1123c9c4fd37143b79"
+      },
+      "before": {
+        "bytes": 42187,
+        "sha256": "347ace63102645cd3fe8543f84321c7af90eb216757545af32c925420f9af099"
+      },
+      "path": "market_checker_app/data/specialist_status.json"
+    },
+    {
+      "after": {
+        "bytes": 28441,
+        "sha256": "262b6159cbb8cbd36e0573ab3743dc51105d70240a9cfd5b1d5e896cf353acec"
+      },
+      "before": {
+        "bytes": 25881,
+        "sha256": "7ce7d74099f0fb444b58b317bf67e875d6fcaa66c57593a94f138c59af7b545e"
+      },
+      "path": "market_checker_app/services/captured_identity_review_service.py"
+    },
+    {
+      "after": {
+        "bytes": 11875,
+        "sha256": "942c2ff88dd3040f1f9f30634a013609b0aff35f9dbf538c0159efc492bb3c81"
+      },
+      "before": {
+        "bytes": 10316,
+        "sha256": "ac699ac33b6ddf26983e77570c38df03dabfa70ceba573b6e66b81a39d44df0b"
+      },
+      "path": "market_checker_app/specialist_evidence_runner.py"
+    },
+    {
+      "after": {
+        "bytes": 28468,
+        "sha256": "082e659017abd15e99c191a5173179bd72311f04f5aa7be4d31f857d1ae48ed2"
+      },
+      "before": {
+        "bytes": 24581,
+        "sha256": "f93f8a6dc1f3b14d0f75b47eb9d439fe9d66d58e5d1c11772ae865de7e5754da"
+      },
+      "path": "market_checker_app/specialist_evidence_ui.py"
+    }
+  ],
+  "audited_handoffs": [
+    "evidence/batch11_contracts_20261018/handoff.json",
+    "evidence/batch11_contracts_20261018/handoff_final.json",
+    "evidence/batch11_evaluation_20261018/handoff.json",
+    "evidence/batch11_healthcare_20261018/handoff.json",
+    "evidence/batch11_identity_20261018/handoff.json",
+    "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+    "evidence/batch11_regulatory_20261018/handoff.json",
+    "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+    "evidence/batch11_sec_20261018/handoff.json"
+  ],
+  "baseline_groups": {
+    "evidence": {
+      "files": 1941,
+      "git_blob_bytes": 90972950,
+      "unchanged_files": 1941
+    },
+    "production": {
+      "files": 224,
+      "git_blob_bytes": 3734168,
+      "unchanged_files": 220
+    },
+    "tests": {
+      "files": 200,
+      "git_blob_bytes": 2646428,
+      "unchanged_files": 200
+    }
+  },
+  "current_or_immutable_handoff_pins": [
+    {
+      "bytes": 71683,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/usaspending_live_20261001.json",
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+    },
+    {
+      "bytes": 4612,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/README.md",
+      "sha256": "91e1e052361145aea34924c92c4f4a883aa31db28f35de135b2c78fd13631167"
+    },
+    {
+      "bytes": 4064,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/actual_current_review.json",
+      "sha256": "f361ca64506f40153361304d09eb25f7cda6ca3c53fa2865b3eeb366526636d4"
+    },
+    {
+      "bytes": 4064,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/actual_review.json",
+      "sha256": "af192e97e72f4080b83ab6eeaa4dd2ca7b82d63f6b53427d564deb6e9d9a4267"
+    },
+    {
+      "bytes": 1485,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/actual_review_plan.json",
+      "sha256": "d26620ff908e11b048ab8c7d42c60822c30c752ff78d9245c6ae2547d898f04e"
+    },
+    {
+      "bytes": 2477,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/qualify.py",
+      "sha256": "9a7a526e4cada48e3f7862d2bf1a52da90f6d93b74cd15586df62f49cb1831e6"
+    },
+    {
+      "bytes": 2257,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/qualify_current.py",
+      "sha256": "dabf8b2668739b1011e263c4c50aa0ee1fc69d9797c8656f4d85e103ca2ec16f"
+    },
+    {
+      "bytes": 1454,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/replay_retained.py",
+      "sha256": "c763300bab164f11e2adc279338bf6acd416afbea2324d823416cb62062b370a"
+    },
+    {
+      "bytes": 1656,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/tests.json",
+      "sha256": "b3b7d326221c3d68fc30a62fafb3e9926d73dc0b4a31f366d8a1a943e0356b6d"
+    },
+    {
+      "bytes": 7335,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/tests.log",
+      "sha256": "c4bb7716bad2894697eb057d951016e2dfe7677936d9df5983a42412033f46f6"
+    },
+    {
+      "bytes": 1454,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/tests_current.json",
+      "sha256": "c65d678fb76ceced80716caeecf34b318161627dce03bbd366f7f6afb836ed03"
+    },
+    {
+      "bytes": 7532,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/tests_current.log",
+      "sha256": "d313cb8b9fb2c660b59471db332f551d130eb532adb6f6679b666a257944a2d7"
+    },
+    {
+      "bytes": 22525,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "market_checker_app/services/usaspending_prime_scope_review.py",
+      "sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f"
+    },
+    {
+      "bytes": 21525,
+      "handoff": "evidence/batch11_contracts_20261018/handoff.json",
+      "path": "tests/test_usaspending_prime_scope_review.py",
+      "sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d"
+    },
+    {
+      "bytes": 1422,
+      "handoff": "evidence/batch11_contracts_20261018/handoff_final.json",
+      "path": "evidence/batch11_contracts_20261018/producer_chronology.json",
+      "sha256": "4871fd99ac4f4d4044433adaa4e2912d57222d8c2aa439e8270e5267467eb92c"
+    },
+    {
+      "bytes": 21008,
+      "handoff": "evidence/batch11_contracts_20261018/handoff_final.json",
+      "path": "evidence/batch11_contracts_20261018/producer_versions/34_method_pre_cursor/test_usaspending_prime_scope_review.py",
+      "sha256": "8b08272bb2bd3e8aee33f2a1e2a3a4efbd90372f0ca6cd90799cc31170784eac"
+    },
+    {
+      "bytes": 22143,
+      "handoff": "evidence/batch11_contracts_20261018/handoff_final.json",
+      "path": "evidence/batch11_contracts_20261018/producer_versions/34_method_pre_cursor/usaspending_prime_scope_review.py",
+      "sha256": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1"
+    },
+    {
+      "bytes": 10097,
+      "handoff": "evidence/batch11_contracts_20261018/handoff_final.json",
+      "path": "evidence/batch11_contracts_20261018/handoff.json",
+      "sha256": "ebaeaffb114b2007a46d5650b7a61ae0c39e4b953d2b20787ed43f26e6843464"
+    },
+    {
+      "bytes": 1881,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/independent_peer_before/before.json",
+      "sha256": "7c960fadf935a6b17998fba49229314abdc509b55961b796fba847022987e755"
+    },
+    {
+      "bytes": 6769,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/independent_peer_before/before.log",
+      "sha256": "8c095ce523f60e95f9e33f3eada41976c8137821c3716169c338c602ffee0b45"
+    },
+    {
+      "bytes": 31799,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/independent_peer_before/before_owner_tests.py.txt",
+      "sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66"
+    },
+    {
+      "bytes": 8465,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/independent_peer_before/before_peer_tests.py.txt",
+      "sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d"
+    },
+    {
+      "bytes": 35117,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/independent_peer_before/before_producer.py.txt",
+      "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880"
+    },
+    {
+      "bytes": 2954,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/independent_peer_before/before_runner.py.txt",
+      "sha256": "42acf879c4e1beb9ff47b4496e1ca3bff003dc453f6a6ea9318c5e0dca8cfb4e"
+    },
+    {
+      "bytes": 433,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/independent_peer_before/before_snapshot.json",
+      "sha256": "f074bae07d636c6c4096137c151afdd3d8d04d845e877bb5c902a480e59f1bd7"
+    },
+    {
+      "bytes": 1167,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/independent_peer_before/copied_pins.json",
+      "sha256": "32dbe1e02ea91ae3db973d161334f6b9b1d6b81278ef9f4cf8bbbfa76fa15561"
+    },
+    {
+      "bytes": 31799,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v1/test_user_windows_analysis_capture.py",
+      "sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66"
+    },
+    {
+      "bytes": 735,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v1/tests.json",
+      "sha256": "e20aa72f9f42660295b2a38983fd80459f960e42096ab3d693f67eca2c7ebed7"
+    },
+    {
+      "bytes": 7512,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v1/tests.log",
+      "sha256": "b3ad9769a9ee618c0fd26102936417f94fe25a932331abee529f15b901cee9ba"
+    },
+    {
+      "bytes": 35117,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v1/user_windows_analysis_capture.py",
+      "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880"
+    },
+    {
+      "bytes": 34955,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v2_collision_reproduction/test_user_windows_analysis_capture.py",
+      "sha256": "af4e578309219c5ac18b736a099a3adb9c3e249e32e9cba6320aa2bfc5593f39"
+    },
+    {
+      "bytes": 650,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v2_collision_reproduction/tests.json",
+      "sha256": "7a82d76f26536dab0567e27a4cda761f5179c3b3f9b14ea6d40b92b7758baa7f"
+    },
+    {
+      "bytes": 1274,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v2_collision_reproduction/tests.log",
+      "sha256": "7843fe00b2771613a3d87f5536f711d38436bf0b6c2034e85089b07a69b9363d"
+    },
+    {
+      "bytes": 35117,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v2_collision_reproduction/user_windows_analysis_capture.py",
+      "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880"
+    },
+    {
+      "bytes": 36156,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v3/test_user_windows_analysis_capture.py",
+      "sha256": "89069e400360316265dcc1b64128d752a52c1bdb73f406bbade47f1c2188b201"
+    },
+    {
+      "bytes": 1337,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v3/tests.json",
+      "sha256": "1a048383ff4742904501e3ddda5aeac37a7ece0a053bc680eaef487091f0cf0d"
+    },
+    {
+      "bytes": 8412,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v3/tests.log",
+      "sha256": "89628c7fc148e2f4c687c9afd0cf1ebe271c3ce3f9dafe57373052350438bc92"
+    },
+    {
+      "bytes": 37862,
+      "handoff": "evidence/batch11_evaluation_20261018/handoff.json",
+      "path": "evidence/batch11_evaluation_20261018/qualification_v3/user_windows_analysis_capture.py",
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    {
+      "bytes": 22950,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/services/fda_applicant_chronology_review.py",
+      "sha256": "2b806d4c5b48e620470384a237e15197b843e1d26e4e48c5e72f1c1f7d6bbbe5"
+    },
+    {
+      "bytes": 21355,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "tests/test_fda_applicant_chronology_review.py",
+      "sha256": "71e91e5c7a610c2dcc1b6b15eab7b97371196f2cd6482ac4e959cc5f44103b64"
+    },
+    {
+      "bytes": 15584,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/retained_review_plan.json",
+      "sha256": "9556fd5e3d0b7c1a67b6459393af01e38ccc053d0136b9a34bbcc19c55261d46"
+    },
+    {
+      "bytes": 46622,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/source_review.json",
+      "sha256": "d20164e386b7b0ecc5d982c0dbdc27b63dc4a981c609c7b77fffd7473e7987c1"
+    },
+    {
+      "bytes": 816055,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+      "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c"
+    },
+    {
+      "bytes": 258262,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.body.html",
+      "sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f"
+    },
+    {
+      "bytes": 22644,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch9_healthcare_20261016/fda_purple_book_761081.body.bin",
+      "sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730"
+    },
+    {
+      "bytes": 34010,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+      "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872"
+    },
+    {
+      "bytes": 145851,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch9_healthcare_20261016/sec_pfe_current_submissions.body.bin",
+      "sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b"
+    },
+    {
+      "bytes": 14656,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    {
+      "bytes": 87325,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+    },
+    {
+      "bytes": 912,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e"
+    },
+    {
+      "bytes": 20034,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/data/verified_fdic_banks.json",
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707"
+    },
+    {
+      "bytes": 26803,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/data/verified_counterparty_identities.json",
+      "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e"
+    },
+    {
+      "bytes": 1159,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/data/verified_usaspending_uei.json",
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56"
+    },
+    {
+      "bytes": 2282,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/data/european_authority_registry.json",
+      "sha256": "7c779c2b316f059c1d88cba0a1f95de014036751ba074012d1b9f21ab91f1c6e"
+    },
+    {
+      "bytes": 5846,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    {
+      "bytes": 2954,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/README.md",
+      "sha256": "8f129f9cd7ed0d3cf9e5aab2a7e4e20ecf8cef04b7410e9be7fba4fef36e2d52"
+    },
+    {
+      "bytes": 20715,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/application_comparison_fixture_failure_tests.py.txt",
+      "sha256": "50c293b527180b4d19816bed4f97444cb399b02d0b7fed2900ef7afa953455be"
+    },
+    {
+      "bytes": 1653,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/development_diagnostics.json",
+      "sha256": "d531816aa8983e848433f421a87d93660fd0c957345df043e480b2a8a1ed57dd"
+    },
+    {
+      "bytes": 1190,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/final.json",
+      "sha256": "bac81cafb7613608e321e739f81141b85528d11e13061e867011aa8254ba6689"
+    },
+    {
+      "bytes": 8959,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/final.log",
+      "sha256": "7893a570ef2d1f064173a71d16aa5cfd65adf768b0a8f054e17aba51cb15fe1c"
+    },
+    {
+      "bytes": 725,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/initial.json",
+      "sha256": "0d7033bf06ebaeb783305bdaffacb6049e18e85bea2f44b2b57c89dc7066d8b9"
+    },
+    {
+      "bytes": 4994,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/initial.log",
+      "sha256": "86685ff3c5dd6816c8fe8b3b03ba45b4ac24b532e97d8db2928dd77cb063fb7c"
+    },
+    {
+      "bytes": 19309,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/initial_producer_before_application_comparison.py.txt",
+      "sha256": "7b5169c47c1ddd4e45b5bc3a4d5b47f22bb0335388316320725608d112fada2f"
+    },
+    {
+      "bytes": 18034,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/initial_tests_before_application_comparison.py.txt",
+      "sha256": "7a7d1970fe9b368d48d23eb2a0979c9d5885084e36a6e548cee7274ef0b8f117"
+    },
+    {
+      "bytes": 1285,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/pre_universe_context_development_diagnostics.json",
+      "sha256": "ed6fca74048c28f1b20eaf2e8d71e98a5a958d97a8c53b622c007d7498b54389"
+    },
+    {
+      "bytes": 11216,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/pre_universe_context_handoff.json",
+      "sha256": "8223778c41d8823a4ee2f0619c6ace0a8ad6c2daa77f5b8bc666559bfc3b6371"
+    },
+    {
+      "bytes": 22276,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/pre_universe_context_producer.py.txt",
+      "sha256": "86a979d434290b69e43576ca9dd8636527f272a56890b61b501439bd33a99466"
+    },
+    {
+      "bytes": 10427,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/pre_universe_context_replay.py.txt",
+      "sha256": "1f2e98da2118a8ef0dc9570d59c0f97f31d37a3cf8fde900e2ec917351a7485c"
+    },
+    {
+      "bytes": 46622,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/pre_universe_context_source_review.json",
+      "sha256": "737919fdf3f65fc5722b4143b455fdfd98c26b116ff4ef6f4b5ab3b0273eb0e7"
+    },
+    {
+      "bytes": 20751,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/pre_universe_context_tests.py.txt",
+      "sha256": "13d616146e686c145f7c5e9a4fd5fbd55ee443fe7302e64304f0e0edea884ee2"
+    },
+    {
+      "bytes": 7827,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/pre_universe_context_validation.json",
+      "sha256": "b839f3e6876e4df6f831f61fb1eef68e3d822cc1eb6355ca359ac57db87420cd"
+    },
+    {
+      "bytes": 723,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/qualified.json",
+      "sha256": "56c80309657f6fcde3521559e8021223ec20b272e221f475c8312804892e6f7d"
+    },
+    {
+      "bytes": 5677,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/qualified.log",
+      "sha256": "ee2111c33b80f13c4e32d4b9f324e84b710dde37f4f6db49e45adbac3202633b"
+    },
+    {
+      "bytes": 725,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/qualified2.json",
+      "sha256": "89c58040701b363db5d3027c9169071ae129199cdef4877905b73bdedddb6a96"
+    },
+    {
+      "bytes": 5898,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/qualified2.log",
+      "sha256": "2bf04abac9aa571f15bb51f0ea6cb89f5ad3c9b1774d785852a57bbc0c942293"
+    },
+    {
+      "bytes": 10911,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/replay_sources.py",
+      "sha256": "ef6595e883082415f7f06e3b1ad9e4c42e24f8a65acdc9579fad147fdd16c8db"
+    },
+    {
+      "bytes": 15584,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/retained_review_plan.json",
+      "sha256": "9556fd5e3d0b7c1a67b6459393af01e38ccc053d0136b9a34bbcc19c55261d46"
+    },
+    {
+      "bytes": 2390,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/run_focus.py",
+      "sha256": "33a40ebe528710d45da1c3acd446639c7516190410e5770a4e118323cef846a4"
+    },
+    {
+      "bytes": 46622,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/source_review.json",
+      "sha256": "d20164e386b7b0ecc5d982c0dbdc27b63dc4a981c609c7b77fffd7473e7987c1"
+    },
+    {
+      "bytes": 7829,
+      "handoff": "evidence/batch11_healthcare_20261018/handoff.json",
+      "path": "evidence/batch11_healthcare_20261018/validation.json",
+      "sha256": "bafccc0a5c8409522548f5299b768033620e23662dff06ed64f528094b331ed0"
+    },
+    {
+      "bytes": 3871,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/README.md",
+      "sha256": "869134eba16731507c1f8b410e30ee58b6f45087bb96a8158841b5d0eff669d1"
+    },
+    {
+      "bytes": 7657,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/actual_review.json",
+      "sha256": "b71de91f4dc83937e352010249bb089f494e980a7020fa798073fb93b15e7462"
+    },
+    {
+      "bytes": 8527,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/captured_review_plan.json",
+      "sha256": "700b4af88df2f059c968eb421f547635f776ed2c7ba66a75988f509cced0f480"
+    },
+    {
+      "bytes": 356,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/first_actual_producer_pin.json",
+      "sha256": "9256e813b6bad43cb2b9d9fe9c95b943930c2c7ea0e64a20c07c0fd376c462cd"
+    },
+    {
+      "bytes": 801,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/initial_tests.json",
+      "sha256": "2138540d9b6f8ecf3078e456747ccc1c3ac65588268b294e70493eab183f2ab5"
+    },
+    {
+      "bytes": 4965,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/initial_tests.log",
+      "sha256": "d40f3ad83699c439c3ff473634ab8a42e1b6c2bcebd09abbb96cb8ea55250aee"
+    },
+    {
+      "bytes": 14461,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/producer_versions/first_actual_point_service.py",
+      "sha256": "89359e1045695409a0681666ca2a118e6e69c1c0bf0bb32f906b32f2c73a06f0"
+    },
+    {
+      "bytes": 2279,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/qualify.py",
+      "sha256": "d14396d5dea8aab22cf590521713421657195c306a41c458fb9f3b8520f5a080"
+    },
+    {
+      "bytes": 4141,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "evidence/batch11_identity_20261018/replay_point.py",
+      "sha256": "245cabbed8dcbaeaef97bd2a4a672bc9d6897449cb405f38ec87277165a13486"
+    },
+    {
+      "bytes": 14461,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_dated_instrument_point_review.py",
+      "sha256": "89359e1045695409a0681666ca2a118e6e69c1c0bf0bb32f906b32f2c73a06f0"
+    },
+    {
+      "bytes": 24571,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "market_checker_app/services/ir_primary_scout_service.py",
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    {
+      "bytes": 53750,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "market_checker_app/services/sec13f_identity_bulk.py",
+      "sha256": "d579300dac475688aaf45464df0bfd0226b4f62470ba9cd03fa0f297211d01ba"
+    },
+    {
+      "bytes": 19231,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_control_instrument_review.py",
+      "sha256": "d5a0b988e04ec4f682c461baac92f34c404fe8d6a5ac0332500c4f02dfbb83a1"
+    },
+    {
+      "bytes": 55323,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_corporate_action_bridge.py",
+      "sha256": "337e73165538d9eb407c46bb13d961820c0f101849bb353687be16068f81827b"
+    },
+    {
+      "bytes": 28217,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_instrument_class_scope_review.py",
+      "sha256": "7a009fdc6729dd4932039e8190c4f041f1680ca4f7885e4f54d536b931818689"
+    },
+    {
+      "bytes": 20535,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_person_kind_review.py",
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    {
+      "bytes": 36059,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_symbol_action_scope_review.py",
+      "sha256": "2004f1891498eb7b46079e1101b5988e32a1d81cf570d5e68207651cbedfa03f"
+    },
+    {
+      "bytes": 18554,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "tests/test_batch9_instrument_class_scope.py",
+      "sha256": "03564e3bd6bd536c9b76e91fceb8cf53a9834823870d8363d81b66d2b510d59c"
+    },
+    {
+      "bytes": 18396,
+      "handoff": "evidence/batch11_identity_20261018/handoff.json",
+      "path": "tests/test_sec_dated_instrument_point_review.py",
+      "sha256": "479b772a64d1bccc4ff2652648c4ae40e31aeaa4c6751cc6f19a2680c664bcaa"
+    },
+    {
+      "bytes": 3729,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/README.md",
+      "sha256": "d03a8c53627507dfabea29da22236be67307b18fab3ef2cb9d5aba2faf1a2896"
+    },
+    {
+      "bytes": 1803,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/candidate_snapshot.json",
+      "sha256": "9754298441b2cada40d298f0b90824f93329a2c6db75921d75303646af7316c6"
+    },
+    {
+      "bytes": 881,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/peer_tests.json",
+      "sha256": "b13ca42566c589d76a43e3b373fcb1c19c4ffcec9f9c91ec55cee47f207ed255"
+    },
+    {
+      "bytes": 1000,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/peer_tests.log",
+      "sha256": "60772ce33330d9864d74e1344fc67682d5acdb13fd5edc1f25472aea275b124a"
+    },
+    {
+      "bytes": 22525,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/producer_versions/current35_service.py",
+      "sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f"
+    },
+    {
+      "bytes": 21525,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/producer_versions/current35_tests.py",
+      "sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d"
+    },
+    {
+      "bytes": 22143,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/producer_versions/historical34_service.py",
+      "sha256": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1"
+    },
+    {
+      "bytes": 21008,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/producer_versions/historical34_tests.py",
+      "sha256": "8b08272bb2bd3e8aee33f2a1e2a3a4efbd90372f0ca6cd90799cc31170784eac"
+    },
+    {
+      "bytes": 4482,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/reproduce_versions.py",
+      "sha256": "ddfe3fe4493ad0c25227ca42138660016547fb004c4eee7d0c2408c7c4358ae9"
+    },
+    {
+      "bytes": 825,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/retained_case_content_verification.json",
+      "sha256": "bd5758232ae6498161942d55e058392805a2012ccad3c29bf18e9a83dadbf6a0"
+    },
+    {
+      "bytes": 36731,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_prime_scope_peer_20261018/version_comparison.json",
+      "sha256": "9004f32aa23e3e07ff3692189410d1658769c8be043e44a8dae3dbb8479a1b03"
+    },
+    {
+      "bytes": 4064,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/actual_current_review.json",
+      "sha256": "f361ca64506f40153361304d09eb25f7cda6ca3c53fa2865b3eeb366526636d4"
+    },
+    {
+      "bytes": 1422,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/producer_chronology.json",
+      "sha256": "4871fd99ac4f4d4044433adaa4e2912d57222d8c2aa439e8270e5267467eb92c"
+    },
+    {
+      "bytes": 1656,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/tests.json",
+      "sha256": "b3b7d326221c3d68fc30a62fafb3e9926d73dc0b4a31f366d8a1a943e0356b6d"
+    },
+    {
+      "bytes": 1454,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "evidence/batch11_contracts_20261018/tests_current.json",
+      "sha256": "c65d678fb76ceced80716caeecf34b318161627dce03bbd366f7f6afb836ed03"
+    },
+    {
+      "bytes": 24531,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "market_checker_app/services/usaspending_prime_archive_recovery.py",
+      "sha256": "fc06959c17b61dca44a59e9a99a191a0d490094db6974cc48c127241a20a3b7c"
+    },
+    {
+      "bytes": 22525,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "market_checker_app/services/usaspending_prime_scope_review.py",
+      "sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f"
+    },
+    {
+      "bytes": 21525,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "tests/test_usaspending_prime_scope_review.py",
+      "sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d"
+    },
+    {
+      "bytes": 5521,
+      "handoff": "evidence/batch11_prime_scope_peer_20261018/handoff.json",
+      "path": "tests/test_batch11_prime_scope_peer.py",
+      "sha256": "e7660fad19809d37a5759eb5b91c3f7705f49a4ac80541be1864c739c968e636"
+    },
+    {
+      "bytes": 1012,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/actual_review_plan.json",
+      "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+    },
+    {
+      "bytes": 2070,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/reviews/cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8/review.json",
+      "sha256": "cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8"
+    },
+    {
+      "bytes": 6952,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/focused.log",
+      "sha256": "2022fcc48a5bf79953f3e4884ef7cf22fc91ffbd94a0c83df69614c9d7d56d76"
+    },
+    {
+      "bytes": 23901,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/source_versions/qualified_review.py",
+      "sha256": "d32d7e3473a05b312cdf0f3dfee0caa5526c164de270c3e13f0fb5351ab6600b"
+    },
+    {
+      "bytes": 26253,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/source_versions/qualified_tests.py",
+      "sha256": "103381ded3f1449923b94d18046d07e787c3c9dc5b8bccdc505834ac6f5e57cc"
+    },
+    {
+      "bytes": 1395,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/focused.json",
+      "sha256": "7efe637d598eb6d0ffa2e1e2c171efe487ddcda0bdf757c68234bede28f23339"
+    },
+    {
+      "bytes": 2767,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/review_record.json",
+      "sha256": "2eab449058750e3c690402c4457734edb01d0110d0619609857875c4b46397f7"
+    },
+    {
+      "bytes": 1550,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/source_availability.json",
+      "sha256": "3584c7037a5cac25bdcb925dc0cac0cd738ae24a93e01bbb4675ed8a753cebf0"
+    },
+    {
+      "bytes": 1012,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/actual_review_plan.json",
+      "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+    },
+    {
+      "bytes": 2091,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/reviews/cc96fcbbdc3d7566e2da280bb46082682472f4ecd9a5151a6147c200b8f9e682/review.json",
+      "sha256": "cc96fcbbdc3d7566e2da280bb46082682472f4ecd9a5151a6147c200b8f9e682"
+    },
+    {
+      "bytes": 7155,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/focused.log",
+      "sha256": "01589f2d72013646f69aa2328d59b3934907a94aee457a14f21864f87d75a538"
+    },
+    {
+      "bytes": 2201,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/before.log",
+      "sha256": "fd2b281ff2820d0feb4d813c424940b9540ddc3eb90c391a7a958e7559a389fb"
+    },
+    {
+      "bytes": 672,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/before.json",
+      "sha256": "c74e0e6b91bb5f5b06e81033757c5774e247ccf63bd5ff5e9cdb75f64b70d5d2"
+    },
+    {
+      "bytes": 6185,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/handoff.json",
+      "sha256": "d9d0c5852005cec4e02f40d0760c16d504c95be66017958b5ab8058f1b324244"
+    },
+    {
+      "bytes": 1395,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/focused.json",
+      "sha256": "7efe637d598eb6d0ffa2e1e2c171efe487ddcda0bdf757c68234bede28f23339"
+    },
+    {
+      "bytes": 24412,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "market_checker_app/services/epa_frs_program_scope_review.py",
+      "sha256": "51cf67bcea3ab581b4f3d447e51ac8b8d2c84798104901b4f7679428c2f9de36"
+    },
+    {
+      "bytes": 24412,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/source_versions/qualified_review.py",
+      "sha256": "51cf67bcea3ab581b4f3d447e51ac8b8d2c84798104901b4f7679428c2f9de36"
+    },
+    {
+      "bytes": 27073,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "tests/test_epa_frs_program_scope_review.py",
+      "sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+    },
+    {
+      "bytes": 27073,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/source_versions/qualified_tests.py",
+      "sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+    },
+    {
+      "bytes": 1839,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/focused.json",
+      "sha256": "f90e3912fab5e00e4a879cbfd7ae5a6c4c7ecd2847d6867d7c1d0997c528fcd5"
+    },
+    {
+      "bytes": 2477,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/interest_array_guard/review_record.json",
+      "sha256": "ba1f543b0edc08ec97d3eb8ed3681de285ffeede95cb7a533cb5a4a48bb6756f"
+    },
+    {
+      "bytes": 1550,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "evidence/batch11_regulatory_20261018/source_availability.json",
+      "sha256": "3584c7037a5cac25bdcb925dc0cac0cd738ae24a93e01bbb4675ed8a753cebf0"
+    },
+    {
+      "bytes": 18056,
+      "handoff": "evidence/batch11_regulatory_20261018/interest_array_guard/handoff.json",
+      "path": "market_checker_app/services/epa_frs_ownership_review.py",
+      "sha256": "281406a6c48c88aad916b6a59e0123f6abbff4c69ff7f3d5ebc43239bdd4427a"
+    },
+    {
+      "bytes": 5793,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/README.md",
+      "sha256": "0907185a1381116ef67fcf08f2be5f01e594e4b5742e308bdfb886662e46e732"
+    },
+    {
+      "bytes": 3768,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/actual_review_plan.json",
+      "sha256": "7c327371bc8c218900d88d2cf539b64164f140844ac064fbb3b440dbd54735bc"
+    },
+    {
+      "bytes": 4207,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/build_review.py",
+      "sha256": "e66988b2e47666286b6fc73edf6447b258da7baf675c3d7204babc6b6e4f67ee"
+    },
+    {
+      "bytes": 2662,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/focused_01.json",
+      "sha256": "550c36c6eb309fa9c42327fb03dbbb70208f8b0ccea5a59c73656f5352ef64cf"
+    },
+    {
+      "bytes": 8731,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/focused_01.log",
+      "sha256": "62bf7bd1cbbfd9a88edfcef1d6599a1d380b2b8020785025c0417a2030a329d1"
+    },
+    {
+      "bytes": 14827,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/person_role_temporal_review_v1.json",
+      "sha256": "f7a438e5f25b33c927806c0077b5cc81910488309ddb0716a25e6f48a08202dd"
+    },
+    {
+      "bytes": 3199,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/run_focused_tests.py",
+      "sha256": "ae6e30791bd9f33e3861a4958bf2dcc7de8822b65e021911bd71eb21862b4dea"
+    },
+    {
+      "bytes": 19540,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_person_role_temporal_review.py",
+      "sha256": "fef7c09794b3f09346c0189200c4704d7dc1cfd84e65ca313c39a319c52535ef"
+    },
+    {
+      "bytes": 25596,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "tests/test_sec_person_role_temporal_review.py",
+      "sha256": "3c43f1ee20e9b8066bf38a60fb0e592d2ba577cfa98f9290e4ec33cc6507d0f6"
+    },
+    {
+      "bytes": 6224,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch10_sec_20261018/build_review.py",
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    {
+      "bytes": 4207,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/build_review.py",
+      "sha256": "e66988b2e47666286b6fc73edf6447b258da7baf675c3d7204babc6b6e4f67ee"
+    },
+    {
+      "bytes": 3199,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch11_sec_20261018/run_focused_tests.py",
+      "sha256": "ae6e30791bd9f33e3861a4958bf2dcc7de8822b65e021911bd71eb21862b4dea"
+    },
+    {
+      "bytes": 31534,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "market_checker_app/collectors/sec_person_role_claim_review.py",
+      "sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3"
+    },
+    {
+      "bytes": 24571,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "market_checker_app/services/ir_primary_scout_service.py",
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    {
+      "bytes": 22306,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_complete_packet_review.py",
+      "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+    },
+    {
+      "bytes": 22929,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_form4_person_bridge.py",
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    {
+      "bytes": 24453,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_owner_instrument_scope_review.py",
+      "sha256": "9186f28a33361be11cd69bf97722c4fa982137bffa164d7a6b5cd7e5e8f14a44"
+    },
+    {
+      "bytes": 20535,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_person_kind_review.py",
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    {
+      "bytes": 19540,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "market_checker_app/services/sec_person_role_temporal_review.py",
+      "sha256": "fef7c09794b3f09346c0189200c4704d7dc1cfd84e65ca313c39a319c52535ef"
+    },
+    {
+      "bytes": 33688,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "tests/test_sec_person_role_claim_review.py",
+      "sha256": "37fd59837ae4de53f7b64af38f13ab55a28a690ee1b1adfd7ba85ffc8f14004a"
+    },
+    {
+      "bytes": 25596,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "tests/test_sec_person_role_temporal_review.py",
+      "sha256": "3c43f1ee20e9b8066bf38a60fb0e592d2ba577cfa98f9290e4ec33cc6507d0f6"
+    },
+    {
+      "bytes": 958,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch7_sec_20261015/attempt-01-result.json",
+      "sha256": "ce9b62b878bf35c9fa2d82fd91108cb7ee13f575d7581645ddd6aa27f99544f9"
+    },
+    {
+      "bytes": 940,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch7_sec_20261015/attempt-02-result.json",
+      "sha256": "f9d6eb87bd85a69b87a69c686718c4abf8aa7039d02df3a8e7f2149fd68b4af7"
+    },
+    {
+      "bytes": 2430522,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch7_sec_20261015/primary/msft_2025_proxy.htm",
+      "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac"
+    },
+    {
+      "bytes": 33931,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch7_sec_20261015/primary/msft_2025_proxy_index.html",
+      "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a"
+    },
+    {
+      "bytes": 1020,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch8_sec_20261015/attempt-02-result.json",
+      "sha256": "a5e3dce538938e342451f3e4288db9bec754cac334688c52c86301fb5ec6090b"
+    },
+    {
+      "bytes": 1159,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch9_sec_20261016/attempt-01-result.json",
+      "sha256": "018390e3b5f7145eb97933ae76308540ea926c6d59f3e171e8661b6c28b83363"
+    },
+    {
+      "bytes": 9665,
+      "handoff": "evidence/batch11_sec_20261018/handoff.json",
+      "path": "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt",
+      "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+    }
+  ],
+  "default_modelconfig_hash": "e8e0a4b5e010122a7d7fa2f8d41eb9174e25a6a1a57e206cb315b1a552d0d5f2",
+  "full_specialist_acceptance": "0/21",
+  "genuine_forecasts_registrations_labels_created": 0,
+  "historical_OOS_verified": false,
+  "original_checkout_CRLF_exceptions": [],
+  "physical_recorded_at": "2026-10-19T00:46:06.354236+00:00",
+  "preserved_historical_producer_pins": [
+    {
+      "bytes": 23901,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "original_producer": "market_checker_app/services/epa_frs_program_scope_review.py",
+      "scope": "HISTORICAL_VERSION_ONLY",
+      "sha256": "d32d7e3473a05b312cdf0f3dfee0caa5526c164de270c3e13f0fb5351ab6600b",
+      "whole_copies": [
+        "evidence/batch11_regulatory_20261018/source_versions/qualified_review.py"
+      ]
+    },
+    {
+      "bytes": 26253,
+      "handoff": "evidence/batch11_regulatory_20261018/handoff.json",
+      "original_producer": "tests/test_epa_frs_program_scope_review.py",
+      "scope": "HISTORICAL_VERSION_ONLY",
+      "sha256": "103381ded3f1449923b94d18046d07e787c3c9dc5b8bccdc505834ac6f5e57cc",
+      "whole_copies": [
+        "evidence/batch11_regulatory_20261018/source_versions/qualified_tests.py"
+      ]
+    }
+  ],
+  "protected_inputs": {
+    "all_byte_identical": true,
+    "files": 7
+  },
+  "public_base": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "registry_adoptions": 0,
+  "retained_database": {
+    "SQL_opened": false,
+    "bytes": 294912,
+    "counts_status": "UNOBSERVED",
+    "sha256": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af",
+    "table_and_forecast_counts": null
+  },
+  "runtime": {
+    "native": {
+      "actions": 2,
+      "counters": {
+        "SQL_attempts": 0,
+        "network_attempts": 0
+      },
+      "pin": {
+        "bytes": 1467,
+        "sha256": "58e720bcdad0a7f4c273c6527524739832432d02e1bc478af329465ccc7d0282"
+      }
+    },
+    "source": {
+      "actions": 10,
+      "counters": {
+        "SQL_attempts": 0,
+        "network_attempts": 0
+      },
+      "pin": {
+        "bytes": 5303,
+        "sha256": "e298aef255ccf4f92b6bb8fa6db4117c62c4901bb346eb4aa1d11d0cc626a1e7"
+      }
+    }
+  },
+  "schema_version": "batch11_content_audit_v1",
+  "source_HTTP_search_collector_calls": 0,
+  "synthetic_fixture_DB_runs_are_genuine_forecasts": false,
+  "user_windows_end_to_end_verified": false,
+  "whole_withheld_bodies_present": 0,
+  "workflow_or_687_60s_budget_changed": false
+}

@@ -1,0 +1,200 @@
+{
+  "captures": {
+    "cover": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 30359,
+        "path": "evidence/batch9_identity_20261016/captures/426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141.bin",
+        "sha256": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 6,
+        "body_path": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141.bin",
+        "bytes": 30359,
+        "elapsed_seconds": 3.529844221000019,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000084/pstg-20260826.htm",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-16T12:18:16.901780+00:00",
+        "raw_sha256": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141",
+        "redirects_allowed": false,
+        "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000084/pstg-20260826.htm",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "30359",
+          "Content-Type": "text/html",
+          "Date": "Fri, 16 Oct 2026 12:18:16 GMT",
+          "Last-Modified": "Wed, 26 Aug 2026 20:07:11 GMT"
+        },
+        "started_at": "2026-10-16T12:18:13.376475+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "schedule": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 5427,
+        "path": "evidence/batch9_identity_20261016/captures/f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4.bin",
+        "sha256": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 3,
+        "body_path": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4.bin",
+        "bytes": 5427,
+        "elapsed_seconds": 3.380314331999955,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/primary_doc.xml",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-16T12:18:03.864128+00:00",
+        "raw_sha256": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4",
+        "redirects_allowed": false,
+        "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/primary_doc.xml",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "5427",
+          "Content-Type": "text/xml",
+          "Date": "Fri, 16 Oct 2026 12:18:03 GMT",
+          "Last-Modified": "Thu, 26 Mar 2026 22:20:17 GMT"
+        },
+        "started_at": "2026-10-16T12:18:00.484434+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "schedule_index": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 8235,
+        "path": "evidence/batch9_identity_20261016/captures/619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea.bin",
+        "sha256": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 4,
+        "body_path": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea.bin",
+        "bytes": 8235,
+        "elapsed_seconds": 5.673173554000016,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/0000102909-26-001203-index.html",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-16T12:18:09.537295+00:00",
+        "raw_sha256": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea",
+        "redirects_allowed": false,
+        "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/0000102909-26-001203-index.html",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "8235",
+          "Content-Type": "text/html; charset=UTF-8",
+          "Date": "Fri, 16 Oct 2026 12:18:09 GMT",
+          "Last-Modified": "Thu, 26 Mar 2026 22:19:54 GMT"
+        },
+        "started_at": "2026-10-16T12:18:03.865237+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "submissions": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 157807,
+        "path": "evidence/batch8_identity_20261015/captures/6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98.bin",
+        "sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98"
+      },
+      "metadata": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 1,
+        "body_path": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98.bin",
+        "bytes": 157807,
+        "elapsed_seconds": 10.59255397600009,
+        "final_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-15T13:37:06.455150+00:00",
+        "raw_sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98",
+        "redirects_allowed": false,
+        "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+        "requested_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": null,
+          "Content-Type": "application/json",
+          "Date": "Thu, 15 Oct 2026 13:37:06 GMT",
+          "Last-Modified": null
+        },
+        "started_at": "2026-10-15T13:36:55.877000+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    }
+  },
+  "kind": "SEC_DATED_INSTRUMENT_POINT",
+  "request": {
+    "anchor_on": "2026-08-26",
+    "cover": {
+      "form": "8-K",
+      "proof_key": "submissions",
+      "proof_kind": "SUBMISSIONS",
+      "registered_claim": {
+        "context_ref": "c-1",
+        "header_pin": {
+          "byte_end": 16048,
+          "byte_start": 15142,
+          "sha256": "1d811a1e465118a25dfd95d2161837c5d7dfdd5db690db52bbc9314e7771fd07"
+        },
+        "header_row": 2,
+        "issuer_name": "Everpure, Inc.",
+        "registration_section": {
+          "byte_end": 17491,
+          "byte_start": 14420,
+          "locator": "div:30",
+          "sha256": "ca3b74ac1211cb61e7efe6817e4321c9aeb86b97422a787a21ac9a3a78677c47",
+          "text": "Securities registered pursuant to Section 12(b) of the Act: Title of each class Trading symbol(s) Name of each exchange on which registered Class A Common Stock, $0.0001 par value per share P New York Stock Exchange LLC ________________________________________"
+        },
+        "security_pin": {
+          "byte_end": 17318,
+          "byte_start": 16048,
+          "sha256": "4dc760ab85be238ec1657813a76d6718f7dc1c0bc6498d517f5f054dd203ff65"
+        },
+        "security_row": 3,
+        "source_key": "cover",
+        "table_number": 6
+      },
+      "source_key": "cover"
+    },
+    "identity": {
+      "class_title": "Class A Common Stock, $0.0001 par value per share",
+      "cusip": "74624M102",
+      "issuer_cik": "0001474432",
+      "issuer_name": "Everpure, Inc.",
+      "ticker": "P"
+    },
+    "instrument": {
+      "form": "SCHEDULE 13G/A",
+      "index_key": "schedule_index",
+      "source_key": "schedule"
+    }
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

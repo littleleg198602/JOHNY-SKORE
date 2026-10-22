@@ -1,0 +1,181 @@
+{
+  "development_lane": "identity_bulk",
+  "evidence_file_pins": {
+    "evidence/batch9_identity_20261016/README.md": {
+      "bytes": 3774,
+      "sha256": "87319ed134215746edebef97159a2ee45ab1a9da8a91b6a46658aefaaeb1335a"
+    },
+    "evidence/batch9_identity_20261016/actual_review.json": {
+      "bytes": 11730,
+      "sha256": "675f1366052ee47d7f8c2a3dc5e016386d8b43cb8b2df9cf842f2e784d19f169"
+    },
+    "evidence/batch9_identity_20261016/capture_primary.py": {
+      "bytes": 4947,
+      "sha256": "426324c24a45d4c9e2d19f4d9a0b80cefa285d7faa735b141fd49c99bc6b6538"
+    },
+    "evidence/batch9_identity_20261016/capture_verification.json": {
+      "bytes": 13183,
+      "sha256": "9bbd7e667c8867bfb5a4eba70f26c3d04e5b427a3738c699ab9807d67765f1a2"
+    },
+    "evidence/batch9_identity_20261016/captured_review_plan.json": {
+      "bytes": 15295,
+      "sha256": "c93748dab1ccc5fbf116242b27cdf7f47ee2a7d15776af1e73c589b8499b0a46"
+    },
+    "evidence/batch9_identity_20261016/captures/426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141.bin": {
+      "bytes": 30359,
+      "sha256": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141"
+    },
+    "evidence/batch9_identity_20261016/captures/619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea.bin": {
+      "bytes": 8235,
+      "sha256": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea"
+    },
+    "evidence/batch9_identity_20261016/captures/7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f.bin": {
+      "bytes": 14111,
+      "sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-01.metadata.json": {
+      "bytes": 1222,
+      "sha256": "3e58a731cdbad79565447ea889a5ceea83100fdc1a4ad7a10b842f365f495d5e"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-01.reserved.json": {
+      "bytes": 569,
+      "sha256": "fd50c1a4f0ed5079abe663bec036278456401b4dba05217c9e3952fd80150442"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-02.metadata.json": {
+      "bytes": 1241,
+      "sha256": "3c03a9adb2c3363541b354d914a825dd7d31fc30d19dbbceadddf3409325a42a"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-02.reserved.json": {
+      "bytes": 570,
+      "sha256": "8c4d07c8070fe6d11fd7de8cc3c9ef1fa507c8cfdae9b03dca66a3a5008253f7"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-03.metadata.json": {
+      "bytes": 1191,
+      "sha256": "5a10ceda28f0e50b6f4bb80289a476176595d924826c24ba66a1ce82bbc69b5c"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-03.reserved.json": {
+      "bytes": 554,
+      "sha256": "bddcdeb9c66807e10ad106d3a004818b1ee31024202eb6df0ad528785fb3f2ba"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-04.metadata.json": {
+      "bytes": 1239,
+      "sha256": "528a7952fd9ad6c51714576279009f5b184ebb2899339a3786991d774b4902da"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-04.reserved.json": {
+      "bytes": 570,
+      "sha256": "80d6f8f78b70d78c46708e24a060709c65d1b4b38c90c9c75e5116bff625cc35"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-05.metadata.json": {
+      "bytes": 1199,
+      "sha256": "39f2546b3ad92a97eb2312ecb26c92d29f766130c7ba513d88c616ebfd3f7930"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-05.reserved.json": {
+      "bytes": 556,
+      "sha256": "97263f04a0e946887f8b5ae0b7ce1e7fe5b72e41d468fbdd71bb3dd08af93119"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-06.metadata.json": {
+      "bytes": 1198,
+      "sha256": "511d499130685b80993e7b826e44a9722e086c5466c889420c04862716405baa"
+    },
+    "evidence/batch9_identity_20261016/captures/attempt-06.reserved.json": {
+      "bytes": 556,
+      "sha256": "f8cd98010a9fd2c7850b654b4f9aad484fae96902c596f73210bfa51c5b3598c"
+    },
+    "evidence/batch9_identity_20261016/captures/b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4.bin": {
+      "bytes": 1361,
+      "sha256": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4"
+    },
+    "evidence/batch9_identity_20261016/captures/b6c9eb795f251c9c44af1714db9d64f37a17b07487823a187bb93604d7b71f1f.bin": {
+      "bytes": 31517,
+      "sha256": "b6c9eb795f251c9c44af1714db9d64f37a17b07487823a187bb93604d7b71f1f"
+    },
+    "evidence/batch9_identity_20261016/captures/f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4.bin": {
+      "bytes": 5427,
+      "sha256": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4"
+    },
+    "evidence/batch9_identity_20261016/exchange_format_replay.log": {
+      "bytes": 567,
+      "sha256": "9a13bd8d2a8860cd58a96accd9a243fe091a2cb65afbeeb6c637d35bcd688cb5"
+    },
+    "evidence/batch9_identity_20261016/final_actual_review.json": {
+      "bytes": 11882,
+      "sha256": "46669d58032bf2fd66bed0f345373f73339ec5ca84458f10607b1d0a4e9d0f67"
+    },
+    "evidence/batch9_identity_20261016/finalize_review.py": {
+      "bytes": 6859,
+      "sha256": "3a7aa8893c100dbbbd3bf9ad95f76f694fab2c74d20f568907736dedf7b7b03c"
+    },
+    "evidence/batch9_identity_20261016/initial_focused_tests.log": {
+      "bytes": 4047,
+      "sha256": "05e7d779fdbe82a38c20c7681e29c0bb68b614e98a95e3cf2d3d33521bdfd91b"
+    },
+    "evidence/batch9_identity_20261016/initial_replay.log": {
+      "bytes": 2137,
+      "sha256": "291e1427c1d0fb95d8ec8d3db0198175960bc73a9eb25b3d020edbff9288c819"
+    },
+    "evidence/batch9_identity_20261016/producer_versions/first_actual_instrument_scope_service.py": {
+      "bytes": 26328,
+      "sha256": "5057d383088c5abd1ed268c1d329900571a363784ed861b6696c0d64c3e0b4f9"
+    },
+    "evidence/batch9_identity_20261016/producer_versions/initial_instrument_scope_service.py": {
+      "bytes": 25667,
+      "sha256": "5ec2f99c537e516e5f60908cfcfcf7093fccc5f8bf8625d04f8e58050efa46da"
+    },
+    "evidence/batch9_identity_20261016/replay_instrument_scope.py": {
+      "bytes": 3619,
+      "sha256": "3d947d17f5d4333071eaa5b5198292da8ddd025b348b87fa35cf1243ecb8e759"
+    },
+    "evidence/batch9_identity_20261016/request_plan.json": {
+      "bytes": 2232,
+      "sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6"
+    },
+    "evidence/batch9_identity_20261016/version_verification.json": {
+      "bytes": 1124,
+      "sha256": "ba0082a4942addbd0211a682028ab7736a426f7442fffb51a5c25c90f9990413"
+    }
+  },
+  "finalization_new_source_http_requests": 0,
+  "finalized_at": "2026-10-17T21:29:35.129664+00:00",
+  "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+  "focused_qualification": {
+    "discovered": 19,
+    "errors": 0,
+    "executed": 19,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch9_identity_20261016/initial_focused_tests.log",
+    "log_pin": {
+      "bytes": 4047,
+      "sha256": "05e7d779fdbe82a38c20c7681e29c0bb68b614e98a95e3cf2d3d33521bdfd91b"
+    },
+    "plain_OK": true,
+    "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": 0,
+  "historical_OOS_verified": false,
+  "module": {
+    "market_checker_app/services/sec_instrument_class_scope_review.py": {
+      "bytes": 28217,
+      "sha256": "7a009fdc6729dd4932039e8190c4f041f1680ca4f7885e4f54d536b931818689"
+    }
+  },
+  "new_primary_research_attempts": 6,
+  "public_base": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "registry_adoptions": 0,
+  "review_plan_paths": [
+    "evidence/batch9_identity_20261016/captured_review_plan.json"
+  ],
+  "schema_version": "batch9_preserved_worker_handoff_v1",
+  "score_or_fitter_changed": false,
+  "source_attempt_accounting_note": "Two dated registered P/ClassA/par snapshots; exact ClassA/CUSIP/action continuity and currentQ3 coverage remain unproved.",
+  "test": {
+    "tests/test_batch9_instrument_class_scope.py": {
+      "bytes": 18554,
+      "sha256": "03564e3bd6bd536c9b76e91fceb8cf53a9834823870d8363d81b66d2b510d59c"
+    }
+  },
+  "trading_allowed": false,
+  "user_windows_end_to_end_verified": false
+}

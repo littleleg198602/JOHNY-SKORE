@@ -1,0 +1,20 @@
+{
+  "id": 12302140552,
+  "node_id": "MDg6QXJ0aWZhY3QxMjMwMjE0MDU1Mg==",
+  "name": "windows-deterministic-tests",
+  "size_in_bytes": 83896,
+  "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/artifacts/12302140552",
+  "archive_download_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/artifacts/12302140552/zip",
+  "expired": false,
+  "digest": "sha256:be0fbde0322571c93fd44a0826a2e5cb6ef4c2da805cb1b9af14b71a65b91816",
+  "created_at": "2026-10-20T21:39:59Z",
+  "updated_at": "2026-10-20T21:39:59Z",
+  "expires_at": "2027-01-18T20:48:22Z",
+  "workflow_run": {
+    "id": 39495108326,
+    "repository_id": 1164592340,
+    "head_repository_id": 1164592340,
+    "head_branch": "continuation/specialists-batch3-20261012",
+    "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4"
+  }
+}

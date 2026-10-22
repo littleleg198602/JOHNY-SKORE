@@ -1,0 +1,32 @@
+test_default_normal_output_has_no_audit_io_or_added_summary_field (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_default_normal_output_has_no_audit_io_or_added_summary_field) ... ok
+test_missing_audit_configuration_is_reported_without_failing_normal_persistence (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_missing_audit_configuration_is_reported_without_failing_normal_persistence) ... ok
+test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable) ... FAIL
+test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes) ... FAIL
+
+======================================================================
+FAIL: test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 322, in test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable
+    self.assertEqual(1, audit["registration"]["registered_count"])
+AssertionError: 1 != 0
+
+======================================================================
+FAIL: test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-evaluation-20261015/tests/test_batch7_forecast_registration_adapter.py", line 344, in test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes
+    self.assertEqual(("PARTIAL", 1), (registration["status"], registration["registered_count"]))
+AssertionError: Tuples differ: ('PARTIAL', 1) != ('WAIT', 0)
+
+First differing element 0:
+'PARTIAL'
+'WAIT'
+
+- ('PARTIAL', 1)
++ ('WAIT', 0)
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.551s
+
+FAILED (failures=2)

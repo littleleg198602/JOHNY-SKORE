@@ -1,0 +1,259 @@
+{
+  "schema_version": "batch11_combined_pre_hosted_qualification_v1",
+  "physical_recorded_at": "2026-10-20T07:59:09.568334+00:00",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "pull_request": 162,
+  "public_base_head": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "public_base_tree": "a50b9fc6b315b7aae33e052a1b8e31680880566b",
+  "main_restored": "ebb63a4b666908ce176e92ea7dffd6e74808caa9",
+  "actual_main_refresh": {
+    "path": "evidence/batch11_coordinator_20261018/public_refresh_20261020.json",
+    "bytes": 600,
+    "sha256": "77c64f39ce9038de326f32543cd0c3e2f5f03c9372022bc660d6ebbe515beaed"
+  },
+  "tested_code_snapshot": "14f9c88b2deb183bc54b466b8b506406ce992409",
+  "combined_source_test_pins": {
+    "market_checker_app/data/specialist_status.json": {
+      "path": "market_checker_app/data/specialist_status.json",
+      "bytes": 44462,
+      "sha256": "17da5bc988a1929b8e7f3c46ebcaf5a66608a74e17cdde1123c9c4fd37143b79"
+    },
+    "market_checker_app/services/captured_identity_review_service.py": {
+      "path": "market_checker_app/services/captured_identity_review_service.py",
+      "bytes": 28441,
+      "sha256": "262b6159cbb8cbd36e0573ab3743dc51105d70240a9cfd5b1d5e896cf353acec"
+    },
+    "market_checker_app/services/epa_frs_program_scope_review.py": {
+      "path": "market_checker_app/services/epa_frs_program_scope_review.py",
+      "bytes": 24412,
+      "sha256": "51cf67bcea3ab581b4f3d447e51ac8b8d2c84798104901b4f7679428c2f9de36"
+    },
+    "market_checker_app/services/fda_applicant_chronology_review.py": {
+      "path": "market_checker_app/services/fda_applicant_chronology_review.py",
+      "bytes": 22950,
+      "sha256": "2b806d4c5b48e620470384a237e15197b843e1d26e4e48c5e72f1c1f7d6bbbe5"
+    },
+    "market_checker_app/services/sec_dated_instrument_point_review.py": {
+      "path": "market_checker_app/services/sec_dated_instrument_point_review.py",
+      "bytes": 14461,
+      "sha256": "89359e1045695409a0681666ca2a118e6e69c1c0bf0bb32f906b32f2c73a06f0"
+    },
+    "market_checker_app/services/sec_person_role_temporal_review.py": {
+      "path": "market_checker_app/services/sec_person_role_temporal_review.py",
+      "bytes": 19540,
+      "sha256": "fef7c09794b3f09346c0189200c4704d7dc1cfd84e65ca313c39a319c52535ef"
+    },
+    "market_checker_app/services/usaspending_prime_scope_review.py": {
+      "path": "market_checker_app/services/usaspending_prime_scope_review.py",
+      "bytes": 22525,
+      "sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f"
+    },
+    "market_checker_app/services/user_windows_analysis_capture.py": {
+      "path": "market_checker_app/services/user_windows_analysis_capture.py",
+      "bytes": 37862,
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    "market_checker_app/specialist_evidence_runner.py": {
+      "path": "market_checker_app/specialist_evidence_runner.py",
+      "bytes": 11875,
+      "sha256": "942c2ff88dd3040f1f9f30634a013609b0aff35f9dbf538c0159efc492bb3c81"
+    },
+    "market_checker_app/specialist_evidence_ui.py": {
+      "path": "market_checker_app/specialist_evidence_ui.py",
+      "bytes": 28468,
+      "sha256": "082e659017abd15e99c191a5173179bd72311f04f5aa7be4d31f857d1ae48ed2"
+    },
+    "tests/test_batch11_coordinator_integration.py": {
+      "path": "tests/test_batch11_coordinator_integration.py",
+      "bytes": 8899,
+      "sha256": "819d16b404db462a9270726d6e106ae5bf37b0e4b6f1b21173fe66698faad507"
+    },
+    "tests/test_batch11_prime_scope_peer.py": {
+      "path": "tests/test_batch11_prime_scope_peer.py",
+      "bytes": 5521,
+      "sha256": "e7660fad19809d37a5759eb5b91c3f7705f49a4ac80541be1864c739c968e636"
+    },
+    "tests/test_batch11_windows_analysis_peer.py": {
+      "path": "tests/test_batch11_windows_analysis_peer.py",
+      "bytes": 8493,
+      "sha256": "e9c0f36012e52163e0bea5fab637c9871e3b30963d6d1e3c01be59cfc8400c9f"
+    },
+    "tests/test_epa_frs_program_scope_review.py": {
+      "path": "tests/test_epa_frs_program_scope_review.py",
+      "bytes": 27073,
+      "sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+    },
+    "tests/test_fda_applicant_chronology_review.py": {
+      "path": "tests/test_fda_applicant_chronology_review.py",
+      "bytes": 21355,
+      "sha256": "71e91e5c7a610c2dcc1b6b15eab7b97371196f2cd6482ac4e959cc5f44103b64"
+    },
+    "tests/test_sec_dated_instrument_point_review.py": {
+      "path": "tests/test_sec_dated_instrument_point_review.py",
+      "bytes": 18396,
+      "sha256": "479b772a64d1bccc4ff2652648c4ae40e31aeaa4c6751cc6f19a2680c664bcaa"
+    },
+    "tests/test_sec_person_role_temporal_review.py": {
+      "path": "tests/test_sec_person_role_temporal_review.py",
+      "bytes": 25596,
+      "sha256": "3c43f1ee20e9b8066bf38a60fb0e592d2ba577cfa98f9290e4ec33cc6507d0f6"
+    },
+    "tests/test_usaspending_prime_scope_review.py": {
+      "path": "tests/test_usaspending_prime_scope_review.py",
+      "bytes": 21525,
+      "sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d"
+    },
+    "tests/test_user_windows_analysis_capture.py": {
+      "path": "tests/test_user_windows_analysis_capture.py",
+      "bytes": 36156,
+      "sha256": "89069e400360316265dcc1b64128d752a52c1bdb73f406bbade47f1c2188b201"
+    }
+  },
+  "actual_isolated_development_commits": {
+    "identity_bulk": "7438744d353f8583b51c67bd3d85e9cd13230905",
+    "healthcare": "5a529b940899942e958a732bc12eaef06143e7ac",
+    "regulatory": "01fa091b6a274eb7e1a63c98453d5121602b370f",
+    "contracts": "cc23d43adc44839a16d33464a7d8bc56a3700e8d",
+    "sec": "a3bc814a5b07f5268a6fc16743968dcfe3e0fba4",
+    "evaluation": "d452440dea035f5fb1d3f1d12ac2d0603f356f73"
+  },
+  "actual_independent_peer_commits": {
+    "prime_page_scope": "26730e296b4e91e5cd7ad8a64d6c4a71ff4d2691",
+    "windows_analysis_persistence": "49a8ee403f459709e9c8856aebf664eb8187286a"
+  },
+  "real_usage_interruption_preserved": true,
+  "saved_completed_qualifications_not_repeated_on_resumption": true,
+  "original_failures_and_historical_producers_preserved": true,
+  "incomplete_prior_local_full": {
+    "path": "evidence/batch11_interrupted_local_20261020/interruption.json",
+    "bytes": 1597,
+    "sha256": "28a9996022fedd79582fc06b455a8cfed5f74cc44afaab69e4c8c401514517d0"
+  },
+  "source_handoff_audit_completed_by_coordinator_after_real_agent_limit": true,
+  "source_handoff_audit": {
+    "path": "evidence/batch11_source_handoff_peer_20261019/content_verification.json",
+    "bytes": 325349,
+    "sha256": "39d7abd45144a2b91309f53ce7b8284860169e45b0c9f537b16dfb07fffaf8c1"
+  },
+  "historical_document_recovery": {
+    "path": "evidence/batch11_coordinator_20261018/historical_pin_resolution.json",
+    "bytes": 656,
+    "sha256": "e5f1b56763494d3cca63b447ff381e7ba5ae3e2b99f4255197d675b1cf78d892"
+  },
+  "local_full_suite": {
+    "started_at": "2026-10-20T07:51:18.429677+00:00",
+    "ended_at": "2026-10-20T07:58:46.613678+00:00",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 2688,
+    "tests_run": 2688,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "plain_OK": true,
+    "seconds_from_original_footer": 446.92,
+    "JSON": {
+      "path": "evidence/batch11_linux_20261020.json",
+      "bytes": 363,
+      "sha256": "f5b9fe86725dddc737563c837b0a2d9c47b0979d32efbf6638008ca82b6a631b"
+    },
+    "console": {
+      "path": "evidence/batch11_linux_console_20261020.log",
+      "bytes": 550358,
+      "sha256": "61028220f6aa1dfe4127ea234b5ff988627550c979d28d0d4f0b61bc066e45fc"
+    },
+    "runner": {
+      "path": "evidence/batch11_linux_runner_20261020.log",
+      "bytes": 547298,
+      "sha256": "ed434a6aa3cf88ddca41ed8dc85724514c077b2e3d604b196222dc29fa3f783e"
+    }
+  },
+  "new_exact_methods": {
+    "path": "evidence/batch11_linux_methods_20261020.json",
+    "bytes": 64962,
+    "sha256": "bb793e563f51d53fda681686aea45c7ac3b467319231400d3c221d66ed2304ed"
+  },
+  "content_audit": {
+    "path": "evidence/batch11_coordinator_20261018/content_audit_final.json",
+    "bytes": 85222,
+    "sha256": "4db4167d64600d933f1cf9166802415f65d266bcd8092e84677fbc53d814337f"
+  },
+  "actual_runtime_dispatch": {
+    "evidence/batch11_coordinator_20261018/runtime/source_capture.json": {
+      "path": "evidence/batch11_coordinator_20261018/runtime/source_capture.json",
+      "bytes": 5303,
+      "sha256": "e298aef255ccf4f92b6bb8fa6db4117c62c4901bb346eb4aa1d11d0cc626a1e7"
+    },
+    "evidence/batch11_coordinator_20261018/runtime/native_capture.json": {
+      "path": "evidence/batch11_coordinator_20261018/runtime/native_capture.json",
+      "bytes": 1467,
+      "sha256": "58e720bcdad0a7f4c273c6527524739832432d02e1bc478af329465ccc7d0282"
+    }
+  },
+  "new_source_HTTP_search_collector_calls": 0,
+  "retained_database": {
+    "SQL_opened": false,
+    "bytes": 294912,
+    "counts_status": "UNOBSERVED",
+    "sha256": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af",
+    "table_and_forecast_counts": null
+  },
+  "original_public_baseline": {
+    "evidence": {
+      "files": 1941,
+      "git_blob_bytes": 90972950,
+      "unchanged_files": 1941
+    },
+    "production": {
+      "files": 224,
+      "git_blob_bytes": 3734168,
+      "unchanged_files": 220
+    },
+    "tests": {
+      "files": 200,
+      "git_blob_bytes": 2646428,
+      "unchanged_files": 200
+    }
+  },
+  "protected_inputs": {
+    "all_byte_identical": true,
+    "files": 7
+  },
+  "current_handoff_pins": 268,
+  "historical_producer_pins": 14,
+  "baseline_hosted_CI": {
+    "qualified_head_only": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+    "run_id": 39137308800,
+    "required_checks": "ALL_FIVE_SUCCESS_CONTENT_VERIFIED",
+    "full_test_count": 2476,
+    "actual_windows_artifact_id": 12140789098,
+    "originals": "evidence/batch11_baseline_ci_20261018/"
+  },
+  "candidate_hosted_CI": "UNVERIFIED_NOT_YET_PUBLISHED",
+  "later_hosted_qualification_location": "PR162 plus actual exact-new-head GitHub artifact; do not rewrite this pre-CI proof",
+  "default_modelconfig_hash": "e8e0a4b5e010122a7d7fa2f8d41eb9174e25a6a1a57e206cb315b1a552d0d5f2",
+  "default_model_fitter_score_or_687_60s_budget_changed": false,
+  "automatic_trading_allowed": false,
+  "canonical_tickers": 687,
+  "historical_Q2_instrument_coverage": 150,
+  "current_Q3_instrument_coverage": 0,
+  "healthcare_identities": 10,
+  "NHTSA_model_identities": 3,
+  "legal_identities": 5,
+  "registry_adoptions": 0,
+  "all_21_code_live_statuses_unchanged": true,
+  "genuine_forecasts_registrations_labels_created": 0,
+  "current_database_table_forecast_counts": null,
+  "counts_status": "UNOBSERVED_ORIGINAL_JOURNAL_UNTOUCHED",
+  "NHTSA_live_approval_blocked": true,
+  "prior_failed_market_plan_consumed_no_retry": true,
+  "whole_withheld_bodies_absent": 4,
+  "full_specialist_acceptance": "0/21",
+  "user_windows_end_to_end_verified": false,
+  "historical_OOS_verified": false,
+  "public_parent_only_exact_safe_tree_required": true,
+  "merge_authorized": false
+}

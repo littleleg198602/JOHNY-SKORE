@@ -217,6 +217,17 @@ class DatedCounterpartyIdentityTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "timezone"):
             resolve(DatedCounterpartyIdentityRegistry([identity_record()]), as_of=datetime(2025, 11, 1))
 
+    def test_sec_cover_parenthetical_plural_ticker_label_keeps_exact_symbol_requirement(self):
+        row = identity_record()
+        row["evidence"][1]["quote"] = "Acme Components Inc. Trading Symbol(s) ACME."
+        self.assertEqual("IDENTIFIED", resolve(DatedCounterpartyIdentityRegistry([row]))["counterparty_identity_status"])
+        for quote in ("Acme Components Inc. Trading Symbol(s) ACMEX.",
+                      "Acme Components Inc. Trading Symbol(s) WRONG. ACME.",
+                      "Acme Components Inc. Trading Symbol(x) ACME."):
+            with self.subTest(quote=quote), self.assertRaisesRegex(ValueError, "exact ticker"):
+                row["evidence"][1]["quote"] = quote
+                DatedCounterpartyIdentityRegistry([row])
+
     def test_load_is_bounded_and_duplicate_record_ids_are_rejected(self):
         with self.assertRaisesRegex(ValueError, "Duplicate"):
             DatedCounterpartyIdentityRegistry([identity_record(), identity_record()])

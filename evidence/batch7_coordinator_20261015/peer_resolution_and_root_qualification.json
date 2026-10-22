@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-10-15T07:39:47.920034+00:00",
+  "peer_fix_commit": "2f06a137f97af79664e8a26292f96910a20be122",
+  "pending_record_preserved": "peer_review_findings.json",
+  "current_handoff": "evidence/batch7_source_manifest_20261015/handoff.json",
+  "final_helper_cases": 31,
+  "all_failure_error_skip_expected_unexpected": 0,
+  "current_root_focus_log": "root_focus_final.log",
+  "root_focus_cases": 32,
+  "root_focus_plain_ok": true,
+  "specialist_states_unchanged": true,
+  "full_specialist_acceptance": false
+}

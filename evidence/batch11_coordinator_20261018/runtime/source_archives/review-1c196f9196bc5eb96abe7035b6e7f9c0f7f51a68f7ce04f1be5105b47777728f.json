@@ -1,0 +1,205 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "SEC_DATED_INSTRUMENT_POINT",
+  "plan_sha256": "700b4af88df2f059c968eb421f547635f776ed2c7ba66a75988f509cced0f480",
+  "recorded_at": "2026-10-19T00:40:28.525818+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-19T00:40:28.420050+00:00",
+  "review": {
+    "acceptance_blockers": [
+      "CORPORATE_ACTION_EFFECTIVE_DAY_NOT_PROVEN_BY_POINT_JOIN",
+      "ISSUED_INSTRUMENT_VALIDITY_INTERVAL_UNPROVEN",
+      "CONTINUITY_BETWEEN_POINTS_UNPROVEN",
+      "HISTORICAL_AVAILABILITY_AND_OOS_UNPROVEN"
+    ],
+    "action_effective_on": null,
+    "as_of": "2026-10-19T00:40:28.525682+00:00",
+    "automatic_alias_allowed": false,
+    "blockers": [
+      "CAPTURED_SUBJECT_ROUTE_DIFFERS_FROM_INDEX_FILER_ROUTE",
+      "SCHEDULE_CLASS_OR_PAR_CONFLICT",
+      "SCHEDULE_EVENT_DAY_DIFFERS_FROM_REQUESTED_ANCHOR",
+      "SCHEDULE_EXACT_PAR_TERM_UNKNOWN",
+      "SCHEDULE_EXACT_SHARE_CLASS_UNKNOWN"
+    ],
+    "capture_pins": {
+      "cover": {
+        "body_available": true,
+        "bytes": 30359,
+        "known_at": "2026-10-16T12:18:16.901780+00:00",
+        "metadata_sha256": "503c7c5a054e215f5d6cccf56a30303dc3271e0691f41055d4d305f993016d35",
+        "observed_at": "2026-10-16T12:18:16.901780+00:00",
+        "sha256": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141",
+        "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000084/pstg-20260826.htm"
+      },
+      "schedule": {
+        "body_available": true,
+        "bytes": 5427,
+        "known_at": "2026-10-16T12:18:03.864128+00:00",
+        "metadata_sha256": "60adc37f20c7aadce9e9bf1f103ba2b90c011330b14a55557328c66160dfc567",
+        "observed_at": "2026-10-16T12:18:03.864128+00:00",
+        "sha256": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4",
+        "url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/primary_doc.xml"
+      },
+      "schedule_index": {
+        "body_available": true,
+        "bytes": 8235,
+        "known_at": "2026-10-16T12:18:09.537295+00:00",
+        "metadata_sha256": "88ac6b444ceb143e2e12fba2c1ba262924417fb13b7c046fab9d3a55e02803e4",
+        "observed_at": "2026-10-16T12:18:09.537295+00:00",
+        "sha256": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea",
+        "url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/0000102909-26-001203-index.html"
+      },
+      "submissions": {
+        "body_available": true,
+        "bytes": 157807,
+        "known_at": "2026-10-15T13:37:06.455150+00:00",
+        "metadata_sha256": "e197b2d57551d2da368d37794e4c8da156afef4033fd8a73f8eff14d0c5f51ff",
+        "observed_at": "2026-10-15T13:37:06.455150+00:00",
+        "sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98",
+        "url": "https://data.sec.gov/submissions/CIK0001474432.json"
+      }
+    },
+    "continuity_verified": false,
+    "cover_publication_proof": {
+      "acceptance_unqualified_raw": null,
+      "accession": "000147443226000084",
+      "as_filed_body_version_verified": false,
+      "blockers": [],
+      "filing_on": "2026-08-26",
+      "form": "8-K",
+      "publication_at": "2026-08-27T00:06:26+00:00",
+      "publisher_size_conflict": null,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000084/pstg-20260826.htm",
+      "submissions_primary_document": "pstg-20260826.htm",
+      "submissions_row_index": 36
+    },
+    "cover_security_fact": {
+      "blockers": [],
+      "class_title": "Class A Common Stock, $0.0001 par value per share",
+      "context_anchor_on": "2026-08-26",
+      "context_anchor_proves_legal_name_effective_day": false,
+      "context_ref": "c-1",
+      "exchange_inline_format": "ixt-sec:exchnameen",
+      "exchange_name": "New York Stock Exchange LLC",
+      "header_pin": {
+        "byte_end": 16048,
+        "byte_start": 15142,
+        "sha256": "1d811a1e465118a25dfd95d2161837c5d7dfdd5db690db52bbc9314e7771fd07"
+      },
+      "issued_instrument_validity_verified": false,
+      "issuer_cik": "0001474432",
+      "issuer_name": "Everpure, Inc.",
+      "registered_class_symbol_fact_supported": true,
+      "registration_section": {
+        "byte_end": 17491,
+        "byte_start": 14420,
+        "locator": "div:30",
+        "sha256": "ca3b74ac1211cb61e7efe6817e4321c9aeb86b97422a787a21ac9a3a78677c47",
+        "text": "Securities registered pursuant to Section 12(b) of the Act: Title of each class Trading symbol(s) Name of each exchange on which registered Class A Common Stock, $0.0001 par value per share P New York Stock Exchange LLC ________________________________________"
+      },
+      "same_row_cusip": null,
+      "security_pin": {
+        "byte_end": 17318,
+        "byte_start": 16048,
+        "sha256": "4dc760ab85be238ec1657813a76d6718f7dc1c0bc6498d517f5f054dd203ff65"
+      },
+      "source_key": "cover",
+      "symbol": "P"
+    },
+    "current_q3_verified_instrument_coverage": 0,
+    "historical_availability_inferred": false,
+    "interval_extension_allowed": false,
+    "issued_validity_verified": false,
+    "knowledge_at": "2026-10-19T00:40:28.525682+00:00",
+    "network_requests_performed": 0,
+    "new_verified_identities": 0,
+    "original_cover_contexts": [
+      {
+        "anchor_date": "2026-08-26",
+        "class_title": "Class A Common Stock, $0.0001 par value per share",
+        "context_ref": "c-1",
+        "issuer_cik": "0001474432",
+        "snapshot_id": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141",
+        "ticker": "P"
+      }
+    ],
+    "original_cover_issuer_names": [
+      {
+        "anchor_date": "2026-08-26",
+        "context_ref": "c-1",
+        "issuer_cik": "0001474432",
+        "issuer_name": "Everpure, Inc."
+      }
+    ],
+    "point": null,
+    "point_scope": "ONE_SOURCE_ASSERTED_DAY_ONLY",
+    "point_supported": false,
+    "production_registry_changed": false,
+    "registry_adoptions": 0,
+    "requested_anchor_on": "2026-08-26",
+    "requested_identity": {
+      "class_title": "Class A Common Stock, $0.0001 par value per share",
+      "cusip": "74624M102",
+      "issuer_cik": "0001474432",
+      "issuer_name": "Everpure, Inc.",
+      "ticker": "P"
+    },
+    "review_recorded_at": "2026-10-19T00:40:28.525682+00:00",
+    "review_sha256": "eaa9e6df120055e0f1f408a547e8db10f8e77d50f9cefff8726b2307b858b52d",
+    "review_started_at": "2026-10-19T00:40:28.463412+00:00",
+    "schedule_index_subject": {
+      "cik": "0001474432",
+      "literal_context": "Everpure, Inc. (Subject) CIK: 0001474432 (see all company filings)",
+      "name": "Everpure, Inc.",
+      "role": "Subject"
+    },
+    "schedule_instrument_fact": {
+      "class_title": "Common Stock",
+      "cusip": "74624M102",
+      "event_on": "2026-03-13",
+      "issuer_cik": "0001474432",
+      "issuer_name": "Everpure Inc"
+    },
+    "schedule_publication_proof": {
+      "acceptance_timezone_inferred": false,
+      "acceptance_unqualified_raw": "2026-03-26 18:19:54",
+      "accession": "000010290926001203",
+      "as_filed_body_version_verified": false,
+      "blockers": [
+        "CAPTURED_SUBJECT_ROUTE_DIFFERS_FROM_INDEX_FILER_ROUTE"
+      ],
+      "filing_on": "2026-03-26",
+      "form": "SCHEDULE 13G/A",
+      "index_companies": [
+        {
+          "cik": "0000102909",
+          "literal_context": "VANGUARD GROUP INC (Filed by) CIK: 0000102909 (see all company filings)",
+          "name": "VANGUARD GROUP INC",
+          "role": "Filed by"
+        },
+        {
+          "cik": "0001474432",
+          "literal_context": "Everpure, Inc. (Subject) CIK: 0001474432 (see all company filings)",
+          "name": "Everpure, Inc.",
+          "role": "Subject"
+        }
+      ],
+      "index_declared_bytes": 5427,
+      "index_raw_xml_url": "https://www.sec.gov/Archives/edgar/data/102909/000010290926001203/primary_doc.xml",
+      "publication_at": null,
+      "publisher_size_conflict": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/primary_doc.xml"
+    },
+    "schema_version": "sec-dated-instrument-point-review-v1",
+    "scoring_allowed": false,
+    "source_as_of": "2026-10-19T00:40:28.463412+00:00",
+    "source_knowledge_at": "2026-10-16T12:18:16.901780+00:00",
+    "status": "DATED_INSTRUMENT_POINT_PARTIAL",
+    "trading_allowed": false
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

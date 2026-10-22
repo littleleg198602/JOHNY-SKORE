@@ -1,0 +1,1699 @@
+{
+  "schema_version": "healthcare_source_frontier_review_v1",
+  "review_started_at": "2026-10-20T20:12:12.039375+00:00",
+  "baseline_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "branch": "sourcefront/healthcare-20261020",
+  "interpretation": "READ_ONLY_ORIGINAL_SOURCE_REVIEW_WITH_NEWLY_AUTHORIZED_NARROW_RUNTIME_FIX",
+  "actions": {
+    "HTTP_requests": 0,
+    "web_searches": 0,
+    "collector_operations": 0,
+    "SQL_attempts": 0,
+    "durable_or_quota_database_opened_copied_reset_reconstructed": false,
+    "production_registry_modified": false,
+    "old_evidence_modified": false,
+    "withheld_bodies_read_recovered_substituted": false,
+    "passed_existing_or_full_suites_repeated": false
+  },
+  "cms": {
+    "original_cms_http_body_available": false,
+    "new_verifiable_ccn_pac_issuer_links": 0,
+    "two_retained_scopes": [
+      {
+        "enrollment_id": "O20021115000002",
+        "retained_form": "PROJECTED_PUBLISHER_FIELDS_NOT_ORIGINAL_HTTP",
+        "projected_row": {
+          "path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+          "json_pointer": "/0",
+          "byte_start": 4,
+          "byte_end_exclusive": 414,
+          "span_sha256": "58ff240594fbb1f601e6a1b474f08f7a8c3e0dbb571f87e138a187bbfc1f76b8",
+          "value": {
+            "ENROLLMENT ID": "O20021115000002",
+            "ASSOCIATE ID - OWNER": "1052593506",
+            "TYPE - OWNER": "O",
+            "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+            "ORGANIZATION NAME": "HTI MEMORIAL HOSPITAL CORPORATION",
+            "ASSOCIATION DATE - OWNER": "2007-06-28",
+            "ROLE CODE - OWNER": "35",
+            "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+            "PERCENTAGE OWNERSHIP": "100"
+          }
+        },
+        "registry_facts": [
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/3/record_id",
+            "byte_start": 4164,
+            "byte_end_exclusive": 4200,
+            "span_sha256": "d644e69281ae371fba857324c40d03b2f7aa0ab6be66dfff381c36431cb7ef9a",
+            "value": "hca-cms-o20021115000002-2026-10-11"
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/3/identifiers",
+            "byte_start": 4529,
+            "byte_end_exclusive": 4762,
+            "span_sha256": "a79a59aa8f888925ea84da146a7ec0cb8f1204dec77cf721eede5190677ed586",
+            "value": {
+              "enrollment_id": "O20021115000002",
+              "owner_associate_id": "1052593506",
+              "provider_name": "HTI MEMORIAL HOSPITAL CORPORATION",
+              "association_date": "2007-06-28",
+              "owner_role_code": "35"
+            }
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/3/time_basis",
+            "byte_start": 4487,
+            "byte_end_exclusive": 4506,
+            "span_sha256": "593aa0ba682b13ce07a655c180d76e634cfb5c95116debf2e3eda91041f2f72b",
+            "value": "OBSERVED_SNAPSHOT"
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/3/effective_from",
+            "byte_start": 4788,
+            "byte_end_exclusive": 4800,
+            "span_sha256": "bf253a0ae8de03aa5d8511050196f1032ff74d2010f83e689b41c1bad94fea67",
+            "value": "2026-10-11"
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/3/effective_to",
+            "byte_start": 4824,
+            "byte_end_exclusive": 4828,
+            "span_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "value": null
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/3/known_at",
+            "byte_start": 4848,
+            "byte_end_exclusive": 4882,
+            "span_sha256": "2dd8f9a369c4a76fb31470ee8a12d6f12dc2a07851b5d7f82cd0eb9aadf2c9c0",
+            "value": "2026-10-11T10:17:04.506747+00:00"
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/3/evidence",
+            "byte_start": 4902,
+            "byte_end_exclusive": 5549,
+            "span_sha256": "6ac5fcd4ac7851ac9c5981e39d04a0f9c35436443a5b8b43b85d01ba4f33a291",
+            "value": [
+              {
+                "url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+                "locator": "ENROLLMENT ID:O20021115000002/ASSOCIATE ID - OWNER:1052593506/ROLE CODE - OWNER:35",
+                "purpose": "OBJECT_RELATIONSHIP",
+                "observed_at": "2026-10-11T10:17:04.506747+00:00"
+              },
+              {
+                "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312526044769/hca-20251231.htm",
+                "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+                "purpose": "ISSUER_IDENTITY",
+                "observed_at": "2026-10-11T10:17:04.506747+00:00"
+              }
+            ]
+          }
+        ],
+        "provider_ccn": null,
+        "provider_pac_id": null,
+        "owner_pac_id": "1052593506",
+        "owner_role_code": "35",
+        "owner_role_semantics": "5% OR GREATER INDIRECT OWNERSHIP INTEREST; NOT DIRECT OR ULTIMATE PARENT PROOF",
+        "source_association_day": "2007-06-28",
+        "association_day_is_publication_or_knowledge_day": false
+      },
+      {
+        "enrollment_id": "O20030204000016",
+        "retained_form": "PROJECTED_PUBLISHER_FIELDS_NOT_ORIGINAL_HTTP",
+        "projected_row": {
+          "path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+          "json_pointer": "/1",
+          "byte_start": 418,
+          "byte_end_exclusive": 812,
+          "span_sha256": "016813b49e597e25559b759618567025338e83abea650ac49943cc3d7cb01b10",
+          "value": {
+            "ENROLLMENT ID": "O20030204000016",
+            "ASSOCIATE ID - OWNER": "1052593506",
+            "TYPE - OWNER": "O",
+            "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+            "ORGANIZATION NAME": "HCA HEALTHONE LLC",
+            "ASSOCIATION DATE - OWNER": "2011-08-05",
+            "ROLE CODE - OWNER": "35",
+            "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+            "PERCENTAGE OWNERSHIP": "100"
+          }
+        },
+        "registry_facts": [
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/4/record_id",
+            "byte_start": 5582,
+            "byte_end_exclusive": 5618,
+            "span_sha256": "b352443562234eb3ab618f2373fd4dfaaa35e2bd289524d4e07500b696e34016",
+            "value": "hca-cms-o20030204000016-2026-10-11"
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/4/identifiers",
+            "byte_start": 5931,
+            "byte_end_exclusive": 6148,
+            "span_sha256": "0531b94bc570d6584001d2cbff8a35a1737958822d13e1f2ee85b6230877137c",
+            "value": {
+              "enrollment_id": "O20030204000016",
+              "owner_associate_id": "1052593506",
+              "provider_name": "HCA HEALTHONE LLC",
+              "association_date": "2011-08-05",
+              "owner_role_code": "35"
+            }
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/4/time_basis",
+            "byte_start": 5889,
+            "byte_end_exclusive": 5908,
+            "span_sha256": "593aa0ba682b13ce07a655c180d76e634cfb5c95116debf2e3eda91041f2f72b",
+            "value": "OBSERVED_SNAPSHOT"
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/4/effective_from",
+            "byte_start": 6174,
+            "byte_end_exclusive": 6186,
+            "span_sha256": "bf253a0ae8de03aa5d8511050196f1032ff74d2010f83e689b41c1bad94fea67",
+            "value": "2026-10-11"
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/4/effective_to",
+            "byte_start": 6210,
+            "byte_end_exclusive": 6214,
+            "span_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "value": null
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/4/known_at",
+            "byte_start": 6234,
+            "byte_end_exclusive": 6268,
+            "span_sha256": "2dd8f9a369c4a76fb31470ee8a12d6f12dc2a07851b5d7f82cd0eb9aadf2c9c0",
+            "value": "2026-10-11T10:17:04.506747+00:00"
+          },
+          {
+            "path": "market_checker_app/data/verified_healthcare_identities.json",
+            "json_pointer": "/records/4/evidence",
+            "byte_start": 6288,
+            "byte_end_exclusive": 6935,
+            "span_sha256": "9e4db9501f7ac80cc35654ddf8a1a76d9d1b6d1404ccaa56634cf82811d7b27a",
+            "value": [
+              {
+                "url": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+                "locator": "ENROLLMENT ID:O20030204000016/ASSOCIATE ID - OWNER:1052593506/ROLE CODE - OWNER:35",
+                "purpose": "OBJECT_RELATIONSHIP",
+                "observed_at": "2026-10-11T10:17:04.506747+00:00"
+              },
+              {
+                "url": "https://www.sec.gov/Archives/edgar/data/860730/000119312526044769/hca-20251231.htm",
+                "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+                "purpose": "ISSUER_IDENTITY",
+                "observed_at": "2026-10-11T10:17:04.506747+00:00"
+              }
+            ]
+          }
+        ],
+        "provider_ccn": null,
+        "provider_pac_id": null,
+        "owner_pac_id": "1052593506",
+        "owner_role_code": "35",
+        "owner_role_semantics": "5% OR GREATER INDIRECT OWNERSHIP INTEREST; NOT DIRECT OR ULTIMATE PARENT PROOF",
+        "source_association_day": "2011-08-05",
+        "association_day_is_publication_or_knowledge_day": false
+      }
+    ],
+    "projection_provenance_facts": [
+      {
+        "path": "evidence/parallel_healthcare_20261011.json",
+        "json_pointer": "/saved_primary_evidence/fixture_form",
+        "byte_start": 3098,
+        "byte_end_exclusive": 3192,
+        "span_sha256": "937bd7d4cda2e6a68565e4ff49458ed80f19a37fa16027bd19bf381f6e4b3a05",
+        "value": "Projected publisher fields rather than complete primary HTTP responses or SEC filing copies."
+      },
+      {
+        "path": "evidence/parallel_healthcare_20261011.json",
+        "json_pointer": "/saved_primary_evidence/capture_known_at",
+        "byte_start": 3028,
+        "byte_end_exclusive": 3076,
+        "span_sha256": "540685869ffcb775edc1c9b0f19beb654628d13bdf5608e5d75c98face84ff9d",
+        "value": [
+          "2026-10-11T10:17:04.506747+00:00"
+        ]
+      }
+    ],
+    "existing_strict_reviewer_result_facts": [
+      {
+        "path": "evidence/batch6_healthcare_20261014/source_review.json",
+        "json_pointer": "/cases/0/review/reasons",
+        "byte_start": 3088,
+        "byte_end_exclusive": 3196,
+        "span_sha256": "04a0df9db5068fe26ec6c2a18b4e71d51f11b28c2947d347a30f7541615bc50b",
+        "value": [
+          "OWNERS_PROJECTED_OR_NONORIGINAL_BYTES",
+          "PROVIDER_ORIGINAL_CAPTURE_MISSING"
+        ]
+      },
+      {
+        "path": "evidence/batch6_healthcare_20261014/source_review.json",
+        "json_pointer": "/cases/1/review/reasons",
+        "byte_start": 6204,
+        "byte_end_exclusive": 6312,
+        "span_sha256": "04a0df9db5068fe26ec6c2a18b4e71d51f11b28c2947d347a30f7541615bc50b",
+        "value": [
+          "OWNERS_PROJECTED_OR_NONORIGINAL_BYTES",
+          "PROVIDER_ORIGINAL_CAPTURE_MISSING"
+        ]
+      }
+    ],
+    "original_owner_and_enrollment_query_required": {
+      "owner_endpoint": "https://data.cms.gov/data-api/v1/dataset/029c119f-f79c-49be-9100-344d31d10344/data",
+      "provider_endpoint": "https://data.cms.gov/data-api/v1/dataset/f6f6505c-e8b0-4d57-b258-e2b94133aaf2/data",
+      "same_exact_enrollment_id": true,
+      "query_parameters": {
+        "filter[ENROLLMENT ID]": "exact selected enrollment",
+        "offset": "0",
+        "size": "1..100; result length must be strictly below requested size"
+      },
+      "original_unprojected_owner_row_must_retain": [
+        "ENROLLMENT ID",
+        "ASSOCIATE ID",
+        "ORGANIZATION NAME",
+        "ASSOCIATE ID - OWNER",
+        "TYPE - OWNER",
+        "ORGANIZATION NAME - OWNER",
+        "ROLE CODE - OWNER",
+        "ROLE TEXT - OWNER",
+        "PERCENTAGE OWNERSHIP",
+        "ASSOCIATION DATE - OWNER"
+      ],
+      "provider_row_must_retain": [
+        "ENROLLMENT ID",
+        "ASSOCIATE ID",
+        "ORGANIZATION NAME",
+        "CCN",
+        "PROVIDER TYPE CODE"
+      ],
+      "missing_now": [
+        "WHOLE_ORIGINAL_CMS_OWNER_RESPONSE_WITH_EXACT_QUERY_AND_OBSERVATION",
+        "WHOLE_ORIGINAL_HOSPITAL_ENROLLMENT_RESPONSE",
+        "SIX_DIGIT_CCN_AND_PROVIDER_PAC",
+        "PUBLISHER_DATASET_VERSION_AND_PUBLICATION_CLOCK",
+        "EXACT_EARLIER_LEGAL_OWNER_TO_ISSUER_BRIDGE",
+        "ORIGINAL_DURABLE_SOURCE_REQUEST_HISTORY"
+      ]
+    },
+    "existing_safe_artifact_can_supply_missing_ccn_or_provider_pac": false
+  },
+  "clinical": {
+    "whole_exact_study_originals": [
+      {
+        "nct_id": "NCT03987919",
+        "capture_key": "trial_surpass2_complete_record",
+        "scope": "EXACT_UNPROJECTED_COMPLETE_STUDY_RESPONSE_AS_OBSERVED_2026_10_13",
+        "metadata_path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+        "body_path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+        "metadata_clock_facts": [
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+            "json_pointer": "/request_url",
+            "byte_start": 70,
+            "byte_end_exclusive": 125,
+            "span_sha256": "660e5a905e82489411a84773d678bc4fe8c8f7a56645a1607d3d726d9de61465",
+            "value": "https://clinicaltrials.gov/api/v2/studies/NCT03987919"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+            "json_pointer": "/response_url",
+            "byte_start": 145,
+            "byte_end_exclusive": 200,
+            "span_sha256": "660e5a905e82489411a84773d678bc4fe8c8f7a56645a1607d3d726d9de61465",
+            "value": "https://clinicaltrials.gov/api/v2/studies/NCT03987919"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+            "json_pointer": "/requested_at",
+            "byte_start": 220,
+            "byte_end_exclusive": 254,
+            "span_sha256": "1df6917a8d57a884456ae8009ec09ab74dc2b82db29b867105783229740f58af",
+            "value": "2026-10-13T08:54:46.888560+00:00"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+            "json_pointer": "/observed_at",
+            "byte_start": 273,
+            "byte_end_exclusive": 307,
+            "span_sha256": "3b13443aaca76cd64b90091effe2c5ae9a9bd1adaaacd67ca181c3a5ca0eb660",
+            "value": "2026-10-13T08:54:54.067977+00:00"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+            "json_pointer": "/response_headers",
+            "byte_start": 353,
+            "byte_end_exclusive": 479,
+            "span_sha256": "5c8f6cfea5b882537b1bc24e1cdb03c72bfd74cf8e698992d87ff8c25b14bc40",
+            "value": {
+              "date": "Tue, 13 Oct 2026 08:54:53 GMT",
+              "content-type": "application/json",
+              "etag": "\"0/0.34.1/mv0qip6w\""
+            }
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+            "json_pointer": "/body_sha256",
+            "byte_start": 591,
+            "byte_end_exclusive": 657,
+            "span_sha256": "74062ee35bf147dc9964f1ad399978b7513a79fda8748b3a8b105721f37be1e3",
+            "value": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+            "json_pointer": "/body_bytes",
+            "byte_start": 675,
+            "byte_end_exclusive": 681,
+            "span_sha256": "a901c849561c4af83a9e85a2ee109b943901ea93de4c8c0fccfc290b50f05da4",
+            "value": 120326
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+            "json_pointer": "/body_complete_within_byte_budget",
+            "byte_start": 863,
+            "byte_end_exclusive": 867,
+            "span_sha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+            "value": true
+          }
+        ],
+        "object_facts": [
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/identificationModule/nctId",
+            "byte_start": 52,
+            "byte_end_exclusive": 65,
+            "span_sha256": "9d7a188c0202eda54bb95dd231b121d7e7506cf9def5079bfc92f7a3785de5d0",
+            "value": "NCT03987919"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/identificationModule/organization/fullName",
+            "byte_start": 341,
+            "byte_end_exclusive": 364,
+            "span_sha256": "19b614f0867a1bce010ee8b51f70505d7a3eddb285aef393a85174ba2a189c93",
+            "value": "Eli Lilly and Company"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/sponsorCollaboratorsModule/leadSponsor/name",
+            "byte_start": 1540,
+            "byte_end_exclusive": 1563,
+            "span_sha256": "19b614f0867a1bce010ee8b51f70505d7a3eddb285aef393a85174ba2a189c93",
+            "value": "Eli Lilly and Company"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/statusModule/lastUpdatePostDateStruct/date",
+            "byte_start": 1419,
+            "byte_end_exclusive": 1431,
+            "span_sha256": "3cba709b5517c0ff7968cb0e17766c088be2d332e452131d9c79d2d830f89fc3",
+            "value": "2022-02-14"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/statusModule/lastUpdateSubmitDate",
+            "byte_start": 1371,
+            "byte_end_exclusive": 1383,
+            "span_sha256": "846c809f21a7244ef0a7b4399c1ed70bc7f6831b9febeeea4595fc9cdf056ac6",
+            "value": "2022-01-21"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/0/label",
+            "byte_start": 2458,
+            "byte_end_exclusive": 2476,
+            "span_sha256": "0738b67a2de1b48ecfb13902d8bc8c80f7f3e6bf705faa08f0b707d01e085ea7",
+            "value": "5 mg Tirzepatide"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/0/type",
+            "byte_start": 2484,
+            "byte_end_exclusive": 2498,
+            "span_sha256": "a53f452b20fa6d4d8f51287516be5d743e4c58af46bd74173e22d8a7cbc06d15",
+            "value": "EXPERIMENTAL"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/0/interventionNames",
+            "byte_start": 2611,
+            "byte_end_exclusive": 2632,
+            "span_sha256": "42eca9178bfaabbc664822cd7143cf0a515c46ac4159cd74810918c89029fb43",
+            "value": [
+              "Drug: Tirzepatide"
+            ]
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/1/label",
+            "byte_start": 2643,
+            "byte_end_exclusive": 2662,
+            "span_sha256": "8b499181219d760c6fb0504d236bd0feb82acccb5e80f03c92393af09eb55b23",
+            "value": "10 mg Tirzepatide"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/1/type",
+            "byte_start": 2670,
+            "byte_end_exclusive": 2684,
+            "span_sha256": "a53f452b20fa6d4d8f51287516be5d743e4c58af46bd74173e22d8a7cbc06d15",
+            "value": "EXPERIMENTAL"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/1/interventionNames",
+            "byte_start": 2768,
+            "byte_end_exclusive": 2789,
+            "span_sha256": "42eca9178bfaabbc664822cd7143cf0a515c46ac4159cd74810918c89029fb43",
+            "value": [
+              "Drug: Tirzepatide"
+            ]
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/2/label",
+            "byte_start": 2800,
+            "byte_end_exclusive": 2819,
+            "span_sha256": "58a68ed6379367ae47bad9fcfc9c5e15fb45f9a5603f74ce13ed6a8fe47d444e",
+            "value": "15 mg Tirzepatide"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/2/type",
+            "byte_start": 2827,
+            "byte_end_exclusive": 2841,
+            "span_sha256": "a53f452b20fa6d4d8f51287516be5d743e4c58af46bd74173e22d8a7cbc06d15",
+            "value": "EXPERIMENTAL"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/2/interventionNames",
+            "byte_start": 2925,
+            "byte_end_exclusive": 2946,
+            "span_sha256": "42eca9178bfaabbc664822cd7143cf0a515c46ac4159cd74810918c89029fb43",
+            "value": [
+              "Drug: Tirzepatide"
+            ]
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/3/label",
+            "byte_start": 2957,
+            "byte_end_exclusive": 2975,
+            "span_sha256": "1d7b66d78f116aa0c85d2b015d4219f6268e6ce222323b4d5fa6e774a2f945ac",
+            "value": "1 mg Semaglutide"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/3/type",
+            "byte_start": 2983,
+            "byte_end_exclusive": 3002,
+            "span_sha256": "d611e4ff48fb8635bb9caa58c6baf1789983e077176cec4b8d835f485fae0f37",
+            "value": "ACTIVE_COMPARATOR"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/3/interventionNames",
+            "byte_start": 3085,
+            "byte_end_exclusive": 3106,
+            "span_sha256": "3da712d5c914435b4940e08bfdc20f11fe03119e02a9809457ff92650bb84dd8",
+            "value": [
+              "Drug: Semaglutide"
+            ]
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/0/type",
+            "byte_start": 3134,
+            "byte_end_exclusive": 3140,
+            "span_sha256": "df56b7daac97c8c8b5b16180eabf9cea943eafcc4e5f765b909e62724a4536cf",
+            "value": "DRUG"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/0/name",
+            "byte_start": 3148,
+            "byte_end_exclusive": 3161,
+            "span_sha256": "e2de552d086a501030242ceadc7810de48beeffc88b0aead6425b6790262fd07",
+            "value": "Tirzepatide"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/0/armGroupLabels",
+            "byte_start": 3211,
+            "byte_end_exclusive": 3271,
+            "span_sha256": "f25b8eb08ae7e942753901f86e4a556497bb245d82b8e97860551a9828453c71",
+            "value": [
+              "10 mg Tirzepatide",
+              "15 mg Tirzepatide",
+              "5 mg Tirzepatide"
+            ]
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/1/type",
+            "byte_start": 3308,
+            "byte_end_exclusive": 3314,
+            "span_sha256": "df56b7daac97c8c8b5b16180eabf9cea943eafcc4e5f765b909e62724a4536cf",
+            "value": "DRUG"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/1/name",
+            "byte_start": 3322,
+            "byte_end_exclusive": 3335,
+            "span_sha256": "bf49b8b0cd9782bc7a3ae92ae9ff20168a5b7fe186c4d8515ee2ad50c8ac2b34",
+            "value": "Semaglutide"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/1/armGroupLabels",
+            "byte_start": 3385,
+            "byte_end_exclusive": 3405,
+            "span_sha256": "594740832e9b8bd5ee9916fbbbe8244d5c5a663268fc8dd49a4bb703cc3bbfab",
+            "value": [
+              "1 mg Semaglutide"
+            ]
+          }
+        ],
+        "selected_intervention": "Tirzepatide",
+        "unattributed_interventions": [
+          "Semaglutide"
+        ],
+        "publisher_posting_day_is_observation_or_ownership_since": false,
+        "sponsor_is_product_legal_owner": false,
+        "issuer_bridge_verified": false,
+        "current_2026_10_20_page_observed": false,
+        "broader_issuer_universe_coverage_verified": false,
+        "retained_links": [
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+            "json_pointer": "/protocolSection/referencesModule/seeAlsoLinks/0/url",
+            "byte_start": 35141,
+            "byte_end_exclusive": 35212,
+            "span_sha256": "bbc0f74aa3559419c4ad42bf46a857d975cc3f661c09495efeecd9f6d10f7e47",
+            "value": "https://trials.lillytrialguide.com/en-US/trial/4c6UpSKPWegDblIILD6NMM"
+          }
+        ],
+        "retained_document_descriptors": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+          "json_pointer": "/documentSection/largeDocumentModule/largeDocs",
+          "byte_start": 118878,
+          "byte_end_exclusive": 119266,
+          "span_sha256": "ac006100bddbc6e92f90977845c3f941dd8093ee23248e4f113c1ea1a6ce3589",
+          "value": [
+            {
+              "typeAbbrev": "Prot",
+              "hasProtocol": true,
+              "hasSap": false,
+              "hasIcf": false,
+              "label": "Study Protocol",
+              "date": "2020-06-26",
+              "uploadDate": "2021-10-13T08:02",
+              "filename": "Prot_000.pdf",
+              "size": 9500250
+            },
+            {
+              "typeAbbrev": "SAP",
+              "hasProtocol": false,
+              "hasSap": true,
+              "hasIcf": false,
+              "label": "Statistical Analysis Plan",
+              "date": "2021-02-18",
+              "uploadDate": "2021-10-13T08:06",
+              "filename": "SAP_001.pdf",
+              "size": 6091179
+            }
+          ]
+        },
+        "decision": "SOURCE_OBJECT_FACTS_ONLY_WITHHOLD_ISSUER_ATTRIBUTION"
+      },
+      {
+        "nct_id": "NCT04847557",
+        "capture_key": "trial_summit_complete_record",
+        "scope": "EXACT_UNPROJECTED_COMPLETE_STUDY_RESPONSE_AS_OBSERVED_2026_10_13",
+        "metadata_path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+        "body_path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+        "metadata_clock_facts": [
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+            "json_pointer": "/request_url",
+            "byte_start": 68,
+            "byte_end_exclusive": 123,
+            "span_sha256": "e5eeb043813d1b05b3599c8d4928eded831012e1280727033dfd7d0d8a6308a9",
+            "value": "https://clinicaltrials.gov/api/v2/studies/NCT04847557"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+            "json_pointer": "/response_url",
+            "byte_start": 143,
+            "byte_end_exclusive": 198,
+            "span_sha256": "e5eeb043813d1b05b3599c8d4928eded831012e1280727033dfd7d0d8a6308a9",
+            "value": "https://clinicaltrials.gov/api/v2/studies/NCT04847557"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+            "json_pointer": "/requested_at",
+            "byte_start": 218,
+            "byte_end_exclusive": 252,
+            "span_sha256": "ca931d25b009bfd30ac72a08745d8d4c38aa5562711f7da19834c39bf76c91cc",
+            "value": "2026-10-13T08:54:54.072852+00:00"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+            "json_pointer": "/observed_at",
+            "byte_start": 271,
+            "byte_end_exclusive": 305,
+            "span_sha256": "f3ac7afc17ff2b1592efbe99efc9dde2104cb7465ff091edbd98566e57f2f47f",
+            "value": "2026-10-13T08:55:01.441775+00:00"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+            "json_pointer": "/response_headers",
+            "byte_start": 351,
+            "byte_end_exclusive": 477,
+            "span_sha256": "d0eb8afa340d601e2fc13e497d4856e2e3920413aa2033b11475683f2dc37474",
+            "value": {
+              "date": "Tue, 13 Oct 2026 08:55:01 GMT",
+              "content-type": "application/json",
+              "etag": "\"0/0.34.1/mv0qip6w\""
+            }
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+            "json_pointer": "/body_sha256",
+            "byte_start": 587,
+            "byte_end_exclusive": 653,
+            "span_sha256": "4917269e168914d607f129c0f125cb5fa202fabb221e34c85d575370889e4a59",
+            "value": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+            "json_pointer": "/body_bytes",
+            "byte_start": 671,
+            "byte_end_exclusive": 677,
+            "span_sha256": "ca425823c14659c0ed8ad5a30b9b29a56bba4850770f3e1df047db9e64970a08",
+            "value": 125361
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+            "json_pointer": "/body_complete_within_byte_budget",
+            "byte_start": 859,
+            "byte_end_exclusive": 863,
+            "span_sha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+            "value": true
+          }
+        ],
+        "object_facts": [
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/identificationModule/nctId",
+            "byte_start": 52,
+            "byte_end_exclusive": 65,
+            "span_sha256": "b1c504d5460f897e316b02a8ff09a931a146942d5e6cf9186ecbccb230a6b4de",
+            "value": "NCT04847557"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/identificationModule/organization/fullName",
+            "byte_start": 215,
+            "byte_end_exclusive": 238,
+            "span_sha256": "19b614f0867a1bce010ee8b51f70505d7a3eddb285aef393a85174ba2a189c93",
+            "value": "Eli Lilly and Company"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/sponsorCollaboratorsModule/leadSponsor/name",
+            "byte_start": 1430,
+            "byte_end_exclusive": 1453,
+            "span_sha256": "19b614f0867a1bce010ee8b51f70505d7a3eddb285aef393a85174ba2a189c93",
+            "value": "Eli Lilly and Company"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/statusModule/lastUpdatePostDateStruct/date",
+            "byte_start": 1309,
+            "byte_end_exclusive": 1321,
+            "span_sha256": "79ead97e8c8d6848be7979e811db7903893a9d40372ad4be6188defc0b386130",
+            "value": "2025-08-20"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/statusModule/lastUpdateSubmitDate",
+            "byte_start": 1261,
+            "byte_end_exclusive": 1273,
+            "span_sha256": "1044786b05a2b8ddb50c5741181a351ba3f0e01b87d8e5a04be68d3304076be5",
+            "value": "2025-08-15"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/0/label",
+            "byte_start": 2556,
+            "byte_end_exclusive": 2569,
+            "span_sha256": "e2de552d086a501030242ceadc7810de48beeffc88b0aead6425b6790262fd07",
+            "value": "Tirzepatide"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/0/type",
+            "byte_start": 2577,
+            "byte_end_exclusive": 2591,
+            "span_sha256": "a53f452b20fa6d4d8f51287516be5d743e4c58af46bd74173e22d8a7cbc06d15",
+            "value": "EXPERIMENTAL"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/0/interventionNames",
+            "byte_start": 2898,
+            "byte_end_exclusive": 2919,
+            "span_sha256": "42eca9178bfaabbc664822cd7143cf0a515c46ac4159cd74810918c89029fb43",
+            "value": [
+              "Drug: Tirzepatide"
+            ]
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/1/label",
+            "byte_start": 2930,
+            "byte_end_exclusive": 2939,
+            "span_sha256": "197a29676bd57a7eb693084921ffdbadc4afc0c3841be86eb8d81fbd7c47e3dc",
+            "value": "Placebo"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/1/type",
+            "byte_start": 2947,
+            "byte_end_exclusive": 2967,
+            "span_sha256": "39f3490798255caf37d3314b2a86247d8679f9713d63866ff07e605df46ea90e",
+            "value": "PLACEBO_COMPARATOR"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/armGroups/1/interventionNames",
+            "byte_start": 3054,
+            "byte_end_exclusive": 3072,
+            "span_sha256": "312462e5dd5db8cc6831201b45b4150f6a218d1cd029e215985ed8e3803b55c0",
+            "value": [
+              "Other: Placebo"
+            ]
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/0/type",
+            "byte_start": 3100,
+            "byte_end_exclusive": 3106,
+            "span_sha256": "df56b7daac97c8c8b5b16180eabf9cea943eafcc4e5f765b909e62724a4536cf",
+            "value": "DRUG"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/0/name",
+            "byte_start": 3114,
+            "byte_end_exclusive": 3127,
+            "span_sha256": "e2de552d086a501030242ceadc7810de48beeffc88b0aead6425b6790262fd07",
+            "value": "Tirzepatide"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/0/armGroupLabels",
+            "byte_start": 3177,
+            "byte_end_exclusive": 3192,
+            "span_sha256": "b8acb9d82d80a2cd3edca10bba7dccca97c34a4985f100b8815f674c1b6a2072",
+            "value": [
+              "Tirzepatide"
+            ]
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/1/type",
+            "byte_start": 3229,
+            "byte_end_exclusive": 3236,
+            "span_sha256": "77dcad9b37ccf49e655a14640bd0ed0805123a82180fb82b1f32c7000bff7712",
+            "value": "OTHER"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/1/name",
+            "byte_start": 3244,
+            "byte_end_exclusive": 3253,
+            "span_sha256": "197a29676bd57a7eb693084921ffdbadc4afc0c3841be86eb8d81fbd7c47e3dc",
+            "value": "Placebo"
+          },
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/armsInterventionsModule/interventions/1/armGroupLabels",
+            "byte_start": 3303,
+            "byte_end_exclusive": 3314,
+            "span_sha256": "94a9b1ead9166572fc3c85d77e5cd47ef638a6b889001f4ca60bda3bf4f6b5f8",
+            "value": [
+              "Placebo"
+            ]
+          }
+        ],
+        "selected_intervention": "Tirzepatide",
+        "unattributed_interventions": [
+          "Placebo"
+        ],
+        "publisher_posting_day_is_observation_or_ownership_since": false,
+        "sponsor_is_product_legal_owner": false,
+        "issuer_bridge_verified": false,
+        "current_2026_10_20_page_observed": false,
+        "broader_issuer_universe_coverage_verified": false,
+        "retained_links": [
+          {
+            "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+            "json_pointer": "/protocolSection/referencesModule/seeAlsoLinks/0/url",
+            "byte_start": 38817,
+            "byte_end_exclusive": 38888,
+            "span_sha256": "8f5aa6744846f5b936dc4d8e3756fbe5990c8c8219554dfea15e44d95fab9e08",
+            "value": "https://trials.lillytrialguide.com/en-US/trial/4deAJHqkMfFYm9JjtgeqTl"
+          }
+        ],
+        "retained_document_descriptors": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+          "json_pointer": "/documentSection/largeDocumentModule/largeDocs",
+          "byte_start": 123798,
+          "byte_end_exclusive": 124185,
+          "span_sha256": "d5ea8e4fafac33bce332c52c9edbc7dbf7d93cf61039f2c2a6aa9499a38fcffa",
+          "value": [
+            {
+              "typeAbbrev": "Prot",
+              "hasProtocol": true,
+              "hasSap": false,
+              "hasIcf": false,
+              "label": "Study Protocol",
+              "date": "2024-02-14",
+              "uploadDate": "2025-06-11T09:05",
+              "filename": "Prot_000.pdf",
+              "size": 1282694
+            },
+            {
+              "typeAbbrev": "SAP",
+              "hasProtocol": false,
+              "hasSap": true,
+              "hasIcf": false,
+              "label": "Statistical Analysis Plan",
+              "date": "2024-06-26",
+              "uploadDate": "2025-06-11T09:06",
+              "filename": "SAP_001.pdf",
+              "size": 934610
+            }
+          ]
+        },
+        "decision": "SOURCE_OBJECT_FACTS_ONLY_WITHHOLD_ISSUER_ATTRIBUTION"
+      }
+    ],
+    "scoped_search_traversal_and_negative": [
+      {
+        "capture_key": "trial_lilly_positive_page_1",
+        "metadata_path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_1.metadata.json",
+        "body_path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_1.body.json",
+        "request_url_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_1.metadata.json",
+          "json_pointer": "/request_url",
+          "byte_start": 67,
+          "byte_end_exclusive": 428,
+          "span_sha256": "b6ffc2e8c91263247fe4e9026d851c9eb262cdeac59100f2838b2b0a3582dd0a",
+          "value": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557"
+        },
+        "response_url_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_1.metadata.json",
+          "json_pointer": "/response_url",
+          "byte_start": 448,
+          "byte_end_exclusive": 809,
+          "span_sha256": "b6ffc2e8c91263247fe4e9026d851c9eb262cdeac59100f2838b2b0a3582dd0a",
+          "value": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557"
+        },
+        "observed_at_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_1.metadata.json",
+          "json_pointer": "/observed_at",
+          "byte_start": 882,
+          "byte_end_exclusive": 916,
+          "span_sha256": "26469fffd79a068b6144ca7e11e6252bf13c62b35222c46ab4e5a48e4fb4b95a",
+          "value": "2026-10-13T08:51:32.634862+00:00"
+        },
+        "whole_response_complete": true,
+        "publisher_selected_fields": "NCTId,BriefTitle,OverallStatus,LeadSponsorName,CollaboratorName,InterventionName,Phase,StudyFirstPostDate,LastUpdatePostDate,LastUpdateSubmitDate,PrimaryCompletionDate,HasResults",
+        "exact_nct_filter": "NCT03987919,NCT04847557",
+        "query_sponsor": "Eli Lilly and Company",
+        "returned_studies": 1,
+        "total_count_if_returned": 2,
+        "has_next_page": true,
+        "is_issuer_wide_negative_or_positive_acceptance": false
+      },
+      {
+        "capture_key": "trial_lilly_positive_page_2",
+        "metadata_path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_2.metadata.json",
+        "body_path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_2.body.json",
+        "request_url_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_2.metadata.json",
+          "json_pointer": "/request_url",
+          "byte_start": 67,
+          "byte_end_exclusive": 478,
+          "span_sha256": "0ba4ea2c4d8b2918c72276391b85756c5ebd53bc8a25cefdcef1f62f9b4d2ec6",
+          "value": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxoZvWj3Pg"
+        },
+        "response_url_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_2.metadata.json",
+          "json_pointer": "/response_url",
+          "byte_start": 498,
+          "byte_end_exclusive": 909,
+          "span_sha256": "0ba4ea2c4d8b2918c72276391b85756c5ebd53bc8a25cefdcef1f62f9b4d2ec6",
+          "value": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxoZvWj3Pg"
+        },
+        "observed_at_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_2.metadata.json",
+          "json_pointer": "/observed_at",
+          "byte_start": 982,
+          "byte_end_exclusive": 1016,
+          "span_sha256": "dff780848d8995c7f591b5ba83a286984a2568a032a90334a898ea2d7f76e5ce",
+          "value": "2026-10-13T08:51:39.615973+00:00"
+        },
+        "whole_response_complete": true,
+        "publisher_selected_fields": "NCTId,BriefTitle,OverallStatus,LeadSponsorName,CollaboratorName,InterventionName,Phase,StudyFirstPostDate,LastUpdatePostDate,LastUpdateSubmitDate,PrimaryCompletionDate,HasResults",
+        "exact_nct_filter": "NCT03987919,NCT04847557",
+        "query_sponsor": "Eli Lilly and Company",
+        "returned_studies": 1,
+        "total_count_if_returned": null,
+        "has_next_page": true,
+        "is_issuer_wide_negative_or_positive_acceptance": false
+      },
+      {
+        "capture_key": "trial_lilly_positive_page_3",
+        "metadata_path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_3.metadata.json",
+        "body_path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_3.body.json",
+        "request_url_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_3.metadata.json",
+          "json_pointer": "/request_url",
+          "byte_start": 67,
+          "byte_end_exclusive": 479,
+          "span_sha256": "d7333eac74ba3f836dc354ec6b70b4fd961a88162a2e47d05890b139c52d5246",
+          "value": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxuY_ml3_cW"
+        },
+        "response_url_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_3.metadata.json",
+          "json_pointer": "/response_url",
+          "byte_start": 499,
+          "byte_end_exclusive": 911,
+          "span_sha256": "d7333eac74ba3f836dc354ec6b70b4fd961a88162a2e47d05890b139c52d5246",
+          "value": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxuY_ml3_cW"
+        },
+        "observed_at_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_3.metadata.json",
+          "json_pointer": "/observed_at",
+          "byte_start": 984,
+          "byte_end_exclusive": 1018,
+          "span_sha256": "888c7694de1b3349208afa0434d4291e2a3c8030973b5eaa8d60330153a61215",
+          "value": "2026-10-13T08:54:40.073131+00:00"
+        },
+        "whole_response_complete": true,
+        "publisher_selected_fields": "NCTId,BriefTitle,OverallStatus,LeadSponsorName,CollaboratorName,InterventionName,Phase,StudyFirstPostDate,LastUpdatePostDate,LastUpdateSubmitDate,PrimaryCompletionDate,HasResults",
+        "exact_nct_filter": "NCT03987919,NCT04847557",
+        "query_sponsor": "Eli Lilly and Company",
+        "returned_studies": 0,
+        "total_count_if_returned": null,
+        "has_next_page": false,
+        "is_issuer_wide_negative_or_positive_acceptance": false
+      },
+      {
+        "capture_key": "trial_pfizer_exact_study_negative",
+        "metadata_path": "evidence/batch4_healthcare_20261013/captures/trial_pfizer_exact_study_negative.metadata.json",
+        "body_path": "evidence/batch4_healthcare_20261013/captures/trial_pfizer_exact_study_negative.body.json",
+        "request_url_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_pfizer_exact_study_negative.metadata.json",
+          "json_pointer": "/request_url",
+          "byte_start": 73,
+          "byte_end_exclusive": 419,
+          "span_sha256": "c15132af6e82c0482a0f7a35bf857d3d7b366120ddaf2ac28f3ca64c78a102a5",
+          "value": "https://clinicaltrials.gov/api/v2/studies?query.spons=Pfizer&pageSize=2&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557"
+        },
+        "response_url_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_pfizer_exact_study_negative.metadata.json",
+          "json_pointer": "/response_url",
+          "byte_start": 439,
+          "byte_end_exclusive": 785,
+          "span_sha256": "c15132af6e82c0482a0f7a35bf857d3d7b366120ddaf2ac28f3ca64c78a102a5",
+          "value": "https://clinicaltrials.gov/api/v2/studies?query.spons=Pfizer&pageSize=2&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557"
+        },
+        "observed_at_fact": {
+          "path": "evidence/batch4_healthcare_20261013/captures/trial_pfizer_exact_study_negative.metadata.json",
+          "json_pointer": "/observed_at",
+          "byte_start": 858,
+          "byte_end_exclusive": 892,
+          "span_sha256": "2106bd12868aec697abb8481a7488a3122126aa4d9df3968a39977f1b4937a90",
+          "value": "2026-10-13T08:54:46.875310+00:00"
+        },
+        "whole_response_complete": true,
+        "publisher_selected_fields": "NCTId,BriefTitle,OverallStatus,LeadSponsorName,CollaboratorName,InterventionName,Phase,StudyFirstPostDate,LastUpdatePostDate,LastUpdateSubmitDate,PrimaryCompletionDate,HasResults",
+        "exact_nct_filter": "NCT03987919,NCT04847557",
+        "query_sponsor": "Pfizer",
+        "returned_studies": 0,
+        "total_count_if_returned": 0,
+        "has_next_page": false,
+        "is_issuer_wide_negative_or_positive_acceptance": false
+      }
+    ],
+    "independent_issuer_body": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.body.json",
+    "new_verified_issuer_or_product_links": 0,
+    "new_live_capture": false,
+    "broader_object_scope_available_without_new_requests": false,
+    "existing_builder_already_handles_complete_objects": true,
+    "next_scope": "Once original durable history and an independent earlier exact issuer bridge are available, capture a genuinely prospective unprojected exact NCT object; scope sponsor role, source bytes/version/clock and selected experimental arms separately. A broader complete issuer query needs its own bounded traversal and denominator. The Pfizer zero response is only a negative for the same two Lilly NCT IDs, not a negative Pfizer universe.",
+    "historical_EVENT_DATE_requires_own_earlier_bridge": true,
+    "previous_withheld_reason_facts": [
+      {
+        "path": "evidence/batch5_healthcare_20261014/source_review.json",
+        "json_pointer": "/candidates/0/reasons",
+        "byte_start": 4615,
+        "byte_end_exclusive": 4783,
+        "span_sha256": "1643e293eb216dac1b71710d60919e09ef4b77d75deacd1a39911f496e53591a",
+        "value": [
+          "EXACT_SPONSOR_ISSUER_NAME_BRIDGE_MISSING",
+          "ISSUER_EVIDENCE_NOT_AVAILABLE_AT_SOURCE_OBSERVATION",
+          "NO_CURRENT_OBSERVED_CLINICAL_PAGE"
+        ]
+      },
+      {
+        "path": "evidence/batch5_healthcare_20261014/source_review.json",
+        "json_pointer": "/candidates/1/reasons",
+        "byte_start": 6240,
+        "byte_end_exclusive": 6408,
+        "span_sha256": "1643e293eb216dac1b71710d60919e09ef4b77d75deacd1a39911f496e53591a",
+        "value": [
+          "EXACT_SPONSOR_ISSUER_NAME_BRIDGE_MISSING",
+          "ISSUER_EVIDENCE_NOT_AVAILABLE_AT_SOURCE_OBSERVATION",
+          "NO_CURRENT_OBSERVED_CLINICAL_PAGE"
+        ]
+      }
+    ]
+  },
+  "independent_issuer_originals": [
+    {
+      "ticker": "HCA",
+      "metadata_path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.metadata.json",
+      "body_path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.body.json",
+      "exact_identity_facts": [
+        {
+          "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.body.json",
+          "json_pointer": "/cik",
+          "byte_start": 7,
+          "byte_end_exclusive": 19,
+          "span_sha256": "b9a2e610f35c96276381b07a3d1ad59e0b05e44befd933f6908c8337e7bbbe0d",
+          "value": "0000860730"
+        },
+        {
+          "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.body.json",
+          "json_pointer": "/name",
+          "byte_start": 263,
+          "byte_end_exclusive": 285,
+          "span_sha256": "cd4d2e3684577f8e26fc4c767f1494ddb4b00f4a0717aac2536a87f3e8e631d1",
+          "value": "HCA Healthcare, Inc."
+        },
+        {
+          "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.body.json",
+          "json_pointer": "/tickers",
+          "byte_start": 296,
+          "byte_end_exclusive": 303,
+          "span_sha256": "0faa907c4d548ef78b274b3d6a29ec4db29ecc91f242dad601946164a550476e",
+          "value": [
+            "HCA"
+          ]
+        }
+      ],
+      "capture_clock_facts": [
+        {
+          "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.metadata.json",
+          "json_pointer": "/requested_url",
+          "byte_start": 88,
+          "byte_end_exclusive": 141,
+          "span_sha256": "0745977b02e1fad4a1ddd6d3aca7a7619978b600ff9f673e705f3c781e6cf391",
+          "value": "https://data.sec.gov/submissions/CIK0000860730.json"
+        },
+        {
+          "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.metadata.json",
+          "json_pointer": "/response_url",
+          "byte_start": 161,
+          "byte_end_exclusive": 214,
+          "span_sha256": "0745977b02e1fad4a1ddd6d3aca7a7619978b600ff9f673e705f3c781e6cf391",
+          "value": "https://data.sec.gov/submissions/CIK0000860730.json"
+        },
+        {
+          "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.metadata.json",
+          "json_pointer": "/requested_at",
+          "byte_start": 234,
+          "byte_end_exclusive": 268,
+          "span_sha256": "56209272bab0382d5dbde3cff09ba017a67d7fd83350c218b8ba6426a1a78258",
+          "value": "2026-10-14T13:34:53.967668+00:00"
+        },
+        {
+          "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.metadata.json",
+          "json_pointer": "/observed_at",
+          "byte_start": 630,
+          "byte_end_exclusive": 664,
+          "span_sha256": "979fbd9954517988feb4663f5fc3b5740449cc93cbaf24509a984903acedb29a",
+          "value": "2026-10-14T13:35:04.920566+00:00"
+        }
+      ],
+      "unresolved_object_name": "HCA HEALTHCARE INC",
+      "name_bridge_exact": false,
+      "earlier_than_legacy_projected_cms_observation": false
+    },
+    {
+      "ticker": "LLY",
+      "metadata_path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.metadata.json",
+      "body_path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.body.json",
+      "exact_identity_facts": [
+        {
+          "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.body.json",
+          "json_pointer": "/cik",
+          "byte_start": 7,
+          "byte_end_exclusive": 19,
+          "span_sha256": "d16202b70fe9b349f95498d1ae8afccb09792be7db5fd8c89a7c3888f0197006",
+          "value": "0000059478"
+        },
+        {
+          "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.body.json",
+          "json_pointer": "/name",
+          "byte_start": 217,
+          "byte_end_exclusive": 233,
+          "span_sha256": "84a275c7bda916aff2195e814d403312fddde68bace517b7c630ba0a00d156fe",
+          "value": "ELI LILLY & Co"
+        },
+        {
+          "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.body.json",
+          "json_pointer": "/tickers",
+          "byte_start": 244,
+          "byte_end_exclusive": 251,
+          "span_sha256": "31674c0ba260425680b2394b463afc774079ee26524c3acb5b48c78b5e42ded8",
+          "value": [
+            "LLY"
+          ]
+        }
+      ],
+      "capture_clock_facts": [
+        {
+          "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.metadata.json",
+          "json_pointer": "/request_url",
+          "byte_start": 59,
+          "byte_end_exclusive": 112,
+          "span_sha256": "02aa6e72d9e6a2039121b651f90c5a1c93322aa70aa560f7b085d27f3352bc7b",
+          "value": "https://data.sec.gov/submissions/CIK0000059478.json"
+        },
+        {
+          "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.metadata.json",
+          "json_pointer": "/response_url",
+          "byte_start": 132,
+          "byte_end_exclusive": 185,
+          "span_sha256": "02aa6e72d9e6a2039121b651f90c5a1c93322aa70aa560f7b085d27f3352bc7b",
+          "value": "https://data.sec.gov/submissions/CIK0000059478.json"
+        },
+        {
+          "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.metadata.json",
+          "json_pointer": "/requested_at",
+          "byte_start": 205,
+          "byte_end_exclusive": 239,
+          "span_sha256": "476f8eeb1ed6acde0d145b1a9a5209bdf4263b07f7477dfd3fd9baa50a254dfe",
+          "value": "2026-10-13T08:58:56.860498+00:00"
+        },
+        {
+          "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.metadata.json",
+          "json_pointer": "/observed_at",
+          "byte_start": 258,
+          "byte_end_exclusive": 292,
+          "span_sha256": "f357ee1b1428534c5ae86dca103c8bf09eccf618dbf43530c68f6035327dc7d4",
+          "value": "2026-10-13T08:59:03.680613+00:00"
+        }
+      ],
+      "unresolved_object_name": "Eli Lilly and Company",
+      "name_bridge_exact": false,
+      "earlier_than_either_complete_clinical_observation": false
+    }
+  ],
+  "durable_history": {
+    "current_state": "WAIT_QUOTA_HISTORY",
+    "current_database_tables_and_request_counts": null,
+    "current_counts_observation_status": "UNOBSERVED; ORIGINAL_JOURNALED_DATABASE_NOT_OPENED",
+    "temporary_original_driver_proof": {
+      "path": "evidence/batch4_healthcare_20261013/capture_sources.py",
+      "byte_start": 5921,
+      "byte_end_exclusive": 7792,
+      "start_line": 125,
+      "end_line": 157,
+      "span_sha256": "5624f48d03f5457d9588b6ef0d570b75751680e3ab234da609d0f5eb6f25a258",
+      "text": "    with TemporaryDirectory() as temporary:\n        store = ScoutStore(Path(temporary) / \"bounded_capture.db\")\n        budget = PublicSourceBudget(store, \"clinicaltrials\", as_of=datetime.now(timezone.utc),\n                                    max_run_seconds=180)\n        if not budget.acquire():\n            raise ValueError(\"ClinicalTrials provider lease unavailable\")\n        try:\n            with patch(\"market_checker_app.services.healthcare_scout_service.urlopen\", transport):\n                cursor = None\n                for page in range(1, 5):\n                    current_key = f\"trial_lilly_positive_page_{page}\"\n                    rows, next_token = budget.call(\n                        \"LLY\", \"0000059478:Eli Lilly and Company\",\n                        lambda: client.page(\"Eli Lilly and Company\", size=1, cursor=cursor))\n                    queries.append({\"capture_key\": current_key, \"returned_count\": len(rows),\n                                    \"has_next_page\": next_token is not None})\n                    if next_token is None:\n                        break\n                    cursor = next_token\n                else:\n                    raise ValueError(\"Exact-study traversal exceeded its page budget\")\n                current_key = \"trial_pfizer_exact_study_negative\"\n                rows, next_token = budget.call(\n                    \"LLY\", \"0000059478:exact-study negative sponsor control\",\n                    lambda: client.page(\"Pfizer\", size=2, cursor=None))\n                queries.append({\"capture_key\": current_key, \"returned_count\": len(rows),\n                                \"has_next_page\": next_token is not None})\n            usage = budget.annotate({\"status\": \"OK\", \"checked_issuers\": 0,\n                                     \"queries\": queries, \"issuer_wide_check_written\": False})\n        finally:\n            budget.release()\n\n"
+    },
+    "unbudgeted_direct_followup_capture_loop_proof": {
+      "path": "evidence/batch4_healthcare_20261013/capture_sources.py",
+      "byte_start": 7792,
+      "byte_end_exclusive": 8630,
+      "start_line": 157,
+      "end_line": 168,
+      "span_sha256": "a43c0f7746bf16a759a6232e2634e154e57fcae420e992f16cc62b578866e064",
+      "text": "    urls = {\n        \"trial_surpass2_complete_record\": \"https://clinicaltrials.gov/api/v2/studies/NCT03987919\",\n        \"trial_summit_complete_record\": \"https://clinicaltrials.gov/api/v2/studies/NCT04847557\",\n        \"sec_lly_2021_10k\": \"https://www.sec.gov/Archives/edgar/data/59478/000005947822000068/lly-20211231.htm\",\n        \"sec_lly_2024_10k\": \"https://www.sec.gov/Archives/edgar/data/59478/000005947825000067/lly-20241231.htm\",\n        \"sec_lly_2025_10k\": \"https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm\",\n        \"sec_lly_submissions\": \"https://data.sec.gov/submissions/CIK0000059478.json\",\n    }\n    for key, url in urls.items():\n        capture(key, Request(url, headers={\"Accept\": \"application/json,text/html\",\n                                          \"User-Agent\": \"JohnySkoreScout/1.0\"}))\n"
+    },
+    "retained_gap_facts": [
+      {
+        "path": "evidence/batch5_healthcare_20261014/source_review.json",
+        "json_pointer": "/source_history_status",
+        "byte_start": 370,
+        "byte_end_exclusive": 390,
+        "span_sha256": "4bac330893a38e8f76563d63da00268126cd2c9ea4590f0821158ab1755f6511",
+        "value": "WAIT_QUOTA_HISTORY"
+      },
+      {
+        "path": "evidence/batch5_healthcare_20261014/source_review.json",
+        "json_pointer": "/source_history_gap",
+        "byte_start": 452,
+        "byte_end_exclusive": 624,
+        "span_sha256": "a5c0de81fb0601f0ab59189e9e994b38b4952901e5e7669ec876bb411f6e6f65",
+        "value": "The old ClinicalTrials capture driver used a temporary reservation store; its ledger was not recovered. An empty current table does not recover those historical attempts."
+      }
+    ],
+    "historical_audit_facts": [
+      {
+        "path": "evidence/batch6_coordinator_20261014/retained_quota_audit.json",
+        "json_pointer": "/read_at",
+        "byte_start": 38,
+        "byte_end_exclusive": 72,
+        "span_sha256": "092d7af02b1a672237e2754e4d101a005b64c591b723ffa53b733ac479cb6f5f",
+        "value": "2026-10-14T17:33:07.396822+00:00"
+      },
+      {
+        "path": "evidence/batch6_coordinator_20261014/retained_quota_audit.json",
+        "json_pointer": "/original_request_history",
+        "byte_start": 231,
+        "byte_end_exclusive": 679,
+        "span_sha256": "294cbdb03072175aff9d539d27741b74dabc5d075385f92b15678142fde1bfa0",
+        "value": [
+          {
+            "source": "nhtsa",
+            "day": "2026-10-14",
+            "requests": 8,
+            "subjects": 3,
+            "first_attempt": "2026-10-14T00:07:12.620833+00:00",
+            "last_attempt": "2026-10-14T00:07:41.232127+00:00"
+          },
+          {
+            "source": "rss",
+            "day": "2026-10-14",
+            "requests": 3,
+            "subjects": 1,
+            "first_attempt": "2026-10-14T00:15:32.957191+00:00",
+            "last_attempt": "2026-10-14T00:15:43.687483+00:00"
+          }
+        ]
+      },
+      {
+        "path": "evidence/batch6_coordinator_20261014/retained_quota_audit.json",
+        "json_pointer": "/cms_epa_clinical_usaspending_current_day_history_proven",
+        "byte_start": 903,
+        "byte_end_exclusive": 908,
+        "span_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "value": false
+      },
+      {
+        "path": "evidence/batch9_coordinator_20261016/retained_quota_audit.json",
+        "json_pointer": "/audited_at",
+        "byte_start": 18,
+        "byte_end_exclusive": 52,
+        "span_sha256": "cc4063c8101d90d3e4dbc739583c430d0113eb45083dc05eab9f6719546402da",
+        "value": "2026-10-17T21:31:44.022304+00:00"
+      },
+      {
+        "path": "evidence/batch9_coordinator_20261016/retained_quota_audit.json",
+        "json_pointer": "/tables_selected_counts",
+        "byte_start": 289,
+        "byte_end_exclusive": 356,
+        "span_sha256": "b0700a5755095ab31fb59ff6f2fab8f2f78da60ee9f526106bed4f8c2a0634a7",
+        "value": {
+          "scout_fdic_requests": 0,
+          "scout_public_requests": 17
+        }
+      },
+      {
+        "path": "evidence/batch9_coordinator_20261016/retained_quota_audit.json",
+        "json_pointer": "/original_pending_unknown_reservation_preserved",
+        "byte_start": 532,
+        "byte_end_exclusive": 536,
+        "span_sha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+        "value": true
+      }
+    ],
+    "later_no_sql_runtime_facts": [
+      {
+        "path": "evidence/batch11_coordinator_20261018/runtime/source_capture.json",
+        "json_pointer": "/SQL_opened",
+        "byte_start": 18,
+        "byte_end_exclusive": 23,
+        "span_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "value": false
+      },
+      {
+        "path": "evidence/batch11_coordinator_20261018/runtime/source_capture.json",
+        "json_pointer": "/database_counts_status",
+        "byte_start": 4491,
+        "byte_end_exclusive": 4503,
+        "span_sha256": "a2173a6619deb4ef8f330adc636874a48bf517b38aeb2ebe3910db6f688fe548",
+        "value": "UNOBSERVED"
+      },
+      {
+        "path": "evidence/batch11_coordinator_20261018/runtime/source_capture.json",
+        "json_pointer": "/database_table_and_forecast_counts",
+        "byte_start": 4545,
+        "byte_end_exclusive": 4549,
+        "span_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+        "value": null
+      },
+      {
+        "path": "evidence/batch11_coordinator_20261018/runtime/source_capture.json",
+        "json_pointer": "/journal_replayed_or_removed",
+        "byte_start": 4765,
+        "byte_end_exclusive": 4770,
+        "span_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+        "value": false
+      }
+    ],
+    "historical_saved_audit_is_not_current_ledger_proof": true,
+    "empty_or_new_store_is_not_recovery": true
+  },
+  "concrete_runtime_defect": {
+    "id": "CMS_LEGACY_PROJECTED_OWNER_SNAPSHOT_CURRENT_ATTRIBUTION",
+    "original_producer_sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923",
+    "original_probe_path": "evidence/sourcefront_healthcare_20261020/before_probe.stdout.json",
+    "before_allowed": [
+      true,
+      true
+    ],
+    "before_matched_event_days": [
+      "2026-10-20",
+      "2026-10-20"
+    ],
+    "root_cause": "The legacy cms_provider_owner kind contains only five projected identifiers with an open-ended effective interval. Current _identity_details supplies the current event day and resolve treated that interval as a verified dated object, without whole source bytes, CCN/provider PAC or exact captured observation.",
+    "fix": "Legacy CMS records stay query leads and retained inventory; resolve denies their issuer attribution for both different-day reuse and same-day unbound originals. CMS resolver version invalidates earlier cached checks. No new positive/adoption contract was fabricated.",
+    "new_producer_sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192",
+    "after_probe_path": "evidence/sourcefront_healthcare_20261020/after_probe.stdout.json",
+    "after_allowed": [
+      false,
+      false
+    ],
+    "source_facts_preserved": true,
+    "API_changed": false,
+    "new_regressions_before": {
+      "schema_version": 1,
+      "scope": "OFFLINE_REGRESSIONS_ONLY_NOT_LIVE_ACCEPTANCE",
+      "started_at": "2026-10-20T14:35:19.114756+00:00",
+      "completed_at": "2026-10-20T14:35:19.134056+00:00",
+      "discovered": 9,
+      "executed": 9,
+      "failure_entries": 9,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "successful": false,
+      "test_sha256": "e18e021ef039ccfbf1ec82934f8f18a26097429f559e82e06c495f83d8f4879c",
+      "test_bytes": 8036,
+      "log_sha256": "cace277b8adb5128751308bb6db305f3a41c5d9ef0d8d5641d0dbfbc9925ef63",
+      "producer_sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923",
+      "HTTP_or_SQL_allowed": false,
+      "prior_existing_suites_repeated": false
+    },
+    "new_regressions_after": {
+      "schema_version": 1,
+      "scope": "OFFLINE_REGRESSIONS_ONLY_NOT_LIVE_ACCEPTANCE",
+      "started_at": "2026-10-20T14:36:01.267282+00:00",
+      "completed_at": "2026-10-20T14:36:01.280939+00:00",
+      "discovered": 9,
+      "executed": 9,
+      "failure_entries": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "successful": true,
+      "test_sha256": "e18e021ef039ccfbf1ec82934f8f18a26097429f559e82e06c495f83d8f4879c",
+      "test_bytes": 8036,
+      "unchanged_before_after_test_bytes": true,
+      "log_sha256": "6ea5aefa1ac94cfb891dabbbe5e657981a020617273977e1a3130f609751bd9a",
+      "producer_sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192",
+      "HTTP_or_SQL_allowed": false,
+      "prior_existing_suites_repeated": false
+    },
+    "before_failure_note": "9 failure entries across 7 failing methods out of 9 methods; the other 2 controls passed. Failure entries include subtests.",
+    "legacy_assertions_needing_root_owned_update": [
+      "tests.test_healthcare_identity_service.HealthcareIdentityTests.test_all_seed_links_resolve_only_their_documented_object_and_role",
+      "tests.test_healthcare_identity_service.HealthcareIdentityTests.test_cms_current_snapshot_does_not_backdate_chain_to_old_association",
+      "tests.test_healthcare_identity_service.HealthcareIdentityTests.test_collector_uses_documented_cms_name_retains_unmapped_provider_and_deduplicates"
+    ],
+    "old_tests_edited_or_reexecuted": false
+  },
+  "new_primary_url_proposals": [],
+  "url_frontier_notes": {
+    "cms_schema_discovery_already_attempted_originals_not_archived": {
+      "path": "evidence/batch6_healthcare_20261014/source_discovery.json",
+      "json_pointer": "/sources",
+      "byte_start": 485,
+      "byte_end_exclusive": 2030,
+      "span_sha256": "c7281ecd5f4b57cd3cbb2e0c26277d6c1f3fd36914026347249da5f02524b035",
+      "value": [
+        {
+          "url": "https://data.cms.gov/sites/default/files/2026-02/Hospital_Data_Guidance.pdf",
+          "publisher": "CMS",
+          "document_front_revision": "Version 1.4 / February 2025; URL month is not historical availability",
+          "original_bytes_archived": false,
+          "role_in_contract": "Schema only: Enrollments supplies CCN and provider PAC; ownership joins by enrollment. Role codes 34/35 distinguish direct/indirect interests. Association date is a provider-reported relationship date; files describe current enrollment, not full historical records."
+        },
+        {
+          "url": "https://catalog.data.gov/dataset/hospital-enrollments-2025-12-01",
+          "publisher": "HHS/OEDA federal CMS catalog",
+          "original_bytes_archived": false,
+          "role_in_contract": "Identifies the Hospital Enrollments series API UUID f6f6505c-e8b0-4d57-b258-e2b94133aaf2. This catalog is neither a captured hospital/CCN mapping nor a current ownership snapshot."
+        },
+        {
+          "url": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospital-enrollments",
+          "publisher": "CMS",
+          "original_bytes_archived": false,
+          "role_in_contract": "Official dataset landing page; web extractor returned no data rows."
+        },
+        {
+          "url": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/hospital-all-owners",
+          "publisher": "CMS",
+          "original_bytes_archived": false,
+          "role_in_contract": "Official dataset landing page; web extractor returned no data rows."
+        }
+      ]
+    },
+    "retained_clinical_see_also_links_are_not_independent_dated_issuer_authority": true,
+    "clinical_protocol_urls_not_invented_from_filenames": true,
+    "original_surpass_document_sizes_exceed_4MB": [
+      "Prot_000.pdf 9500250 bytes",
+      "SAP_001.pdf 6091179 bytes"
+    ],
+    "bypassing_missing_clinical_quota_via_other_data_channel_authorized": false
+  },
+  "decision": "NO_NEW_LIVE_IDENTITY_LINK; FIX_CONFIRMED_UNBOUND_CMS_RUNTIME_ATTRIBUTION; SOURCE_ACQUISITION_WAITS_FOR_GENUINE_HISTORY_AND_MISSING_ORIGINALS",
+  "acceptance": {
+    "canonical_tickers": 687,
+    "production_healthcare_records": 10,
+    "new_adoptions": 0,
+    "complete_specialists": "0/21",
+    "CMS_positive_or_full_negative_live_acceptance": false,
+    "current_clinical_issuer_coverage_verified": false,
+    "historical_ownership_continuity_verified": false,
+    "OOS_verified": false,
+    "user_Windows_acceptance_proved_here": false,
+    "score_or_trading_changes": false
+  },
+  "source_files": [
+    {
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+      "bytes": 14656
+    },
+    {
+      "path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+      "sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+      "bytes": 815
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+      "sha256": "497d115493627745ae93f16376ac3219e3221c21aa8f39bcb86ebf42d87f13bf",
+      "bytes": 870
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+      "sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "bytes": 120326
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+      "sha256": "fe79f01f91fdf5dceb0ba3a3a9601d239a0812b9ebf26d0e1baf4ebd8cd61291",
+      "bytes": 866
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+      "sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "bytes": 125361
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_1.metadata.json",
+      "sha256": "5bb947ea4f853499014991bfa4456ea733449ee4c608a6ff4ec60ec3170b3b36",
+      "bytes": 1470
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_1.body.json",
+      "sha256": "2f6d3f7629361a279f356c9eea6a381cd46c3afa5bdc45fb3e21c9cd7169ed14",
+      "bytes": 765
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_2.metadata.json",
+      "sha256": "670b4f25081dc5ffac527b578a7f032c2a1c83c1435bb8118064ddd0a2727e0a",
+      "bytes": 1570
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_2.body.json",
+      "sha256": "9c428b317773c64f560a0bb5adcec8ee9d4117e8c1cfc98a382a9a4ddeb6257d",
+      "bytes": 748
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_3.metadata.json",
+      "sha256": "49d77bcb3309ee13944641ef17ef2c79389b6931277d68d93cecf13114b2abaa",
+      "bytes": 1570
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_3.body.json",
+      "sha256": "e5660ca1fb1bc482c0112c159084af7c325461ac1624b4de41dd67edef2981b9",
+      "bytes": 16
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_pfizer_exact_study_negative.metadata.json",
+      "sha256": "02a250df93928ee931a7fd1b635ac8667d3cadd3fa58b4c7c46ec64fff2aa049",
+      "bytes": 1450
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_pfizer_exact_study_negative.body.json",
+      "sha256": "b54968c05ff881a1ef7ce604b6a340248f8e2aee8637bef06da0f5693f520df8",
+      "bytes": 31
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.metadata.json",
+      "sha256": "cce6df2bfe5ee021a98b25a5a6b0037b34a94e9cd1a29f0234d8719728fec0c7",
+      "bytes": 807
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.body.json",
+      "sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "bytes": 158719
+    },
+    {
+      "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.metadata.json",
+      "sha256": "d126bcc298d0b42282815ed24d86487144619fc7f803217c910378a839b66826",
+      "bytes": 930
+    },
+    {
+      "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.body.json",
+      "sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87",
+      "bytes": 161899
+    },
+    {
+      "path": "evidence/sourcefront_healthcare_20261020/before_probe.stdout.json",
+      "sha256": "17bd021378bde415179643e4d1c813c2fc594350d3343f9b7c10c1fa4cf4cb72",
+      "bytes": 6706
+    },
+    {
+      "path": "evidence/sourcefront_healthcare_20261020/after_probe.stdout.json",
+      "sha256": "3fe3e500d0c279ca658c3078076ff8644448d77269121cb27e51a541fb74e322",
+      "bytes": 4166
+    },
+    {
+      "path": "evidence/sourcefront_healthcare_20261020/before_regressions.json",
+      "sha256": "f0bb4c4b814ed61b2fb3d74fa8b193f42ae3723ecd61fe074b80e1b467e054ea",
+      "bytes": 715
+    },
+    {
+      "path": "evidence/sourcefront_healthcare_20261020/after_regressions.json",
+      "sha256": "167851c829ed47d6bc0ec82749649ffe261aec0990103e37dd062d9062b11fc6",
+      "bytes": 759
+    },
+    {
+      "path": "market_checker_app/services/cms_provider_ownership_review.py",
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed",
+      "bytes": 19142
+    },
+    {
+      "path": "market_checker_app/services/healthcare_identity_service.py",
+      "sha256": "e56330143e716bbc3d86ee02ab3322a484e3f05af5e9133cb4385fc9b1b73192",
+      "bytes": 37869
+    },
+    {
+      "path": "market_checker_app/services/healthcare_scout_service.py",
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078",
+      "bytes": 26388
+    },
+    {
+      "path": "tests/test_sourcefront_healthcare_cms_20261020.py",
+      "sha256": "e18e021ef039ccfbf1ec82934f8f18a26097429f559e82e06c495f83d8f4879c",
+      "bytes": 8036
+    },
+    {
+      "path": "evidence/parallel_healthcare_20261011.json",
+      "sha256": "1d929c677044c89b44c5228d59d15e9239c83754a4236f6c7c1e1334cc9926c2",
+      "bytes": 12237
+    },
+    {
+      "path": "evidence/batch6_healthcare_20261014/source_review.json",
+      "sha256": "0bf05565719d6194d12f2ec1f3cc89d28b791598f2dfaae5351662cbc54db48a",
+      "bytes": 9229
+    },
+    {
+      "path": "evidence/batch5_healthcare_20261014/source_review.json",
+      "sha256": "346e5aa7bf28e2f2594c3c0bb99b8d5d2c326b0f3c9fd36b91230a615fee24ba",
+      "bytes": 7543
+    },
+    {
+      "path": "evidence/batch4_healthcare_20261013/capture_sources.py",
+      "sha256": "37d4d0596dac43a116c5839829ea6e7f8c70e7336fcdaeccab6e872532d1ab38",
+      "bytes": 8955
+    },
+    {
+      "path": "evidence/batch6_coordinator_20261014/retained_quota_audit.json",
+      "sha256": "788375660ad86090b3379f9c2f7109ca0a3fb51ed7f625d10387a93e031e333e",
+      "bytes": 948
+    },
+    {
+      "path": "evidence/batch9_coordinator_20261016/retained_quota_audit.json",
+      "sha256": "e51d10fa3bdcfa2a87baaa83e49429490e8947709cc269b88020a8fd60666c2a",
+      "bytes": 539
+    },
+    {
+      "path": "evidence/batch11_coordinator_20261018/runtime/source_capture.json",
+      "sha256": "e298aef255ccf4f92b6bb8fa6db4117c62c4901bb346eb4aa1d11d0cc626a1e7",
+      "bytes": 5303
+    },
+    {
+      "path": "evidence/batch6_healthcare_20261014/source_discovery.json",
+      "sha256": "5f09b29a017be28127eb38f37d2d5a5eb4998b56820bac4b24f1c495081853eb",
+      "bytes": 2277
+    }
+  ],
+  "known_at": "2026-10-20T20:12:12.142907+00:00",
+  "ingested_at": "2026-10-20T20:12:12.142907+00:00",
+  "review_completed_at": "2026-10-20T20:12:12.142907+00:00"
+}

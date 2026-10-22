@@ -1,0 +1,19 @@
+{
+  "schema_version": "bounded_primary_symbol_action_research_v1",
+  "assigned_issuer_cik": "0001474432",
+  "goal": "Find independently dated exact-day PSTG to P symbol action, keeping issuer name, class, CUSIP and event status separate",
+  "max_http_transports": 6,
+  "timeout_seconds": 25,
+  "max_response_bytes": 4000000,
+  "max_total_response_bytes": 24000000,
+  "redirects_allowed": false,
+  "reserve_each_attempt_before_transport": true,
+  "first_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+  "remaining_selection": "Only exact primary SEC archive URLs under issuer1474432 selected from the first submissions response or an actually captured exact filing index; prefer new action8K/index/exhibit and independently dated instrument disclosures. Stop after six transports including failures and redirect responses.",
+  "unsafe_response": "Withhold the whole original body. Retain only safe status/hash/length/physical clocks. Never write a sanitized, encoded or wrapped substitute.",
+  "collector_api_used": false,
+  "app_quota_managed_live_claimed": false,
+  "historical_request_ledger_reconstructed": false,
+  "prior_withheld_bodies_read_or_restored": false,
+  "registry_adoptions_default": 0
+}

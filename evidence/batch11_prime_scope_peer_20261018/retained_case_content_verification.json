@@ -1,0 +1,20 @@
+{
+  "db_operations": 0,
+  "embedded_report_is_original_http_body": false,
+  "genuine_negative_verified": false,
+  "legacy_report_cannot_supply_missing_pages": true,
+  "missing_evidence_count": 5,
+  "new_source_bodies_copied": 0,
+  "observed_page_chain_complete": false,
+  "owner_report_bytes": 4064,
+  "owner_report_path": "evidence/batch11_contracts_20261018/actual_current_review.json",
+  "owner_report_sha256": "f361ca64506f40153361304d09eb25f7cda6ca3c53fa2865b3eeb366526636d4",
+  "query_complete": false,
+  "query_scope": null,
+  "reported_unique_awards": null,
+  "review_type": "READ_ONLY_SERIALIZED_OWNER_REPORT_CONTENT_CHECK_NOT_A_NEW_SOURCE_REPLAY",
+  "schema_version": "prime_peer_serialized_owner_case_verification_v1",
+  "source_calls": 0,
+  "status": "WAIT",
+  "verified_at": "2026-10-19T00:38:20.063136+00:00"
+}

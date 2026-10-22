@@ -1,0 +1,79 @@
+{
+  "captures": {
+    "doj_first_amended_complaint": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 3404671,
+        "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+        "sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6"
+      },
+      "metadata": {
+        "archive_encoding": "raw",
+        "archive_path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+        "automatic_redirects": false,
+        "capture_id": "doj_first_amended_complaint",
+        "content_encoding": null,
+        "content_type": "application/pdf",
+        "final_url": "https://www.justice.gov/atr/media/1358786/dl",
+        "http_status": 200,
+        "metadata_adapter": "root-primary-research-capture-to-doj-original-v1",
+        "observed_at": "2026-10-20T14:33:17.921783+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "original_capture_metadata_ref": {
+          "bytes": 1214,
+          "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+          "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+        },
+        "public_raw_available": true,
+        "raw_response_bytes": 3404671,
+        "raw_response_sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+        "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+        "started_at": "2026-10-20T14:33:12.162977+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      }
+    }
+  },
+  "kind": "DOJ_ENFORCEMENT_SCOPE",
+  "request": {
+    "case_entity_name": "APPLE INC.",
+    "case_entity_role": "DEFENDANT",
+    "court": "IN THE UNITED STATES DISTRICT COURT FOR THE DISTRICT OF NEW JERSEY",
+    "court_capture_id": "doj_first_amended_complaint",
+    "docket": "2:24-cv-04055",
+    "docket_full_literal": "2:24-cv-04055-JXN-LDW",
+    "document_kind": "AMENDED_COMPLAINT",
+    "filed_on": "2024-06-11",
+    "issuer_anchor_date": "2023-09-30",
+    "issuer_capture_id": "unprovided_earlier_issuer_original",
+    "issuer_cik": "0000320193",
+    "issuer_legal_name": "Apple Inc.",
+    "issuer_ticker": "AAPL",
+    "selected_passages": [
+      {
+        "capture_id": "doj_first_amended_complaint",
+        "excerpt": "Case 2:24-cv-04055-JXN-LDW Document 51 Filed 06/11/24 Page 1 of 91",
+        "page": 1,
+        "purpose": "CAPTION"
+      },
+      {
+        "capture_id": "doj_first_amended_complaint",
+        "excerpt": "APPLE INC. One Apple Park Way Cupertino, CA 95014 Defendant.",
+        "page": 3,
+        "purpose": "CASE_ENTITY"
+      },
+      {
+        "capture_id": "doj_first_amended_complaint",
+        "excerpt": "Defendant. FIRST AMENDED COMPLAINT",
+        "page": 3,
+        "purpose": "DOCUMENT_STAGE"
+      },
+      {
+        "capture_id": "doj_first_amended_complaint",
+        "excerpt": "19. Apple is a global technology company with headquarters in Cupertino, California.",
+        "page": 17,
+        "purpose": "LEGAL_ENTITY"
+      }
+    ]
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

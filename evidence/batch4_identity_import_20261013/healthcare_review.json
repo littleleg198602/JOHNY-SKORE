@@ -1,0 +1,359 @@
+{
+  "adopted_records": 0,
+  "comparators_attributed": false,
+  "historical_legal_continuity_claimed": false,
+  "issuer_wide_coverage_claimed": false,
+  "network_requested": false,
+  "old_lly_trial_seed": {
+    "effective_from": "2021-10-20",
+    "effective_to": "2021-10-21",
+    "entity_name": "Eli Lilly and Company",
+    "evidence": [
+      {
+        "locator": "protocolSection: NCT ID, leadSponsor, Tirzepatide intervention and lastUpdatePostDate",
+        "observed_at": "2026-10-11T10:17:04.506747+00:00",
+        "purpose": "OBJECT_RELATIONSHIP",
+        "url": "https://clinicaltrials.gov/api/v2/studies/NCT03954834"
+      },
+      {
+        "locator": "cover: registrant name, SEC CIK and common-stock symbol",
+        "observed_at": "2026-10-11T10:17:04.506747+00:00",
+        "purpose": "ISSUER_IDENTITY",
+        "url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"
+      }
+    ],
+    "identifiers": {
+      "intervention_name": "Tirzepatide",
+      "nct_id": "NCT03954834",
+      "record_version_date": "2021-10-20",
+      "role": "LEAD_SPONSOR"
+    },
+    "issuer_cik": "0000059478",
+    "kind": "clinical_trial_sponsor",
+    "known_at": "2026-10-11T10:17:04.506747+00:00",
+    "product_or_provider": "Tirzepatide",
+    "record_id": "lly-trial-nct03954834-version-2021-10-20",
+    "relationship": "LEAD_SPONSOR",
+    "source": "clinicaltrials",
+    "ticker": "LLY",
+    "time_basis": "EVENT_DATE"
+  },
+  "old_seed_rewritten": false,
+  "owner_review_recorded_at": "2026-10-13T13:16:52.384445+00:00",
+  "preserved_production_records": 10,
+  "production_registry_changed": false,
+  "production_sha256_after": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+  "production_sha256_before": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+  "proposal_review_clock": "2026-10-13T08:59:59.321338+00:00",
+  "proposal_sha256": "56a66e925af1931de67fca4ad7594751637b1d7d569a669a2bf1fbbd13188816",
+  "proposed_records": 2,
+  "records": [
+    {
+      "adopted": false,
+      "decision": "WITHHOLD",
+      "exact_event_day_issuer_facts": [],
+      "future_work": "Define a separate observed-snapshot sponsor attribution contract without historical EVENT_DATE semantics",
+      "historical_sponsor_to_cik_bridge_proven": false,
+      "issuer_evidence": [
+        {
+          "archive_sha256": "b79cd606e6ae3de2d08943aef57f54a5d30d60aeea05b338f9b088d5b095b6f6",
+          "body_sha256": "aaafe8d91ce31af80d5379fcc948ed0722587c1de0b2c7be84d8ef02f8abab40",
+          "capture_key": "sec_lly_2021_10k",
+          "facts": [
+            {
+              "anchor_date": "2021-12-31",
+              "context_ref": "i22de8effd1e0473ea9e6b2ebf9fa4dfd_D20210101-20211231",
+              "issuer_cik": "0000059478",
+              "name": "dei:entityregistrantname",
+              "value": "ELI LILLY AND COMPANY"
+            },
+            {
+              "anchor_date": "2021-12-31",
+              "context_ref": "ib999762467224e169f22d930370a98cc_D20210101-20211231",
+              "issuer_cik": "0000059478",
+              "name": "dei:security12btitle",
+              "value": "Common Stock (no par value)"
+            },
+            {
+              "anchor_date": "2021-12-31",
+              "context_ref": "ib999762467224e169f22d930370a98cc_D20210101-20211231",
+              "issuer_cik": "0000059478",
+              "name": "dei:tradingsymbol",
+              "value": "LLY"
+            }
+          ],
+          "legal_interval_inferred": false,
+          "observed_at": "2026-10-13T08:56:10.108272+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947822000068/lly-20211231.htm"
+        },
+        {
+          "archive_sha256": "917d5dd3933da60ee10ff2ee60a5d089b517b4b703abd3d7f343437d77c08f4f",
+          "body_sha256": "a0a7655d5f8b3779682d41b0c3c4aee561e76fdc7aace87ceb6937a4fece15fe",
+          "capture_key": "sec_lly_2024_10k",
+          "facts": [
+            {
+              "anchor_date": "2024-12-31",
+              "context_ref": "c-1",
+              "issuer_cik": "0000059478",
+              "name": "dei:entityregistrantname",
+              "value": "ELI LILLY AND COMPANY"
+            },
+            {
+              "anchor_date": "2024-12-31",
+              "context_ref": "c-2",
+              "issuer_cik": "0000059478",
+              "name": "dei:security12btitle",
+              "value": "Common Stock (no par value)"
+            },
+            {
+              "anchor_date": "2024-12-31",
+              "context_ref": "c-2",
+              "issuer_cik": "0000059478",
+              "name": "dei:tradingsymbol",
+              "value": "LLY"
+            }
+          ],
+          "legal_interval_inferred": false,
+          "observed_at": "2026-10-13T08:56:15.994072+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947825000067/lly-20241231.htm"
+        },
+        {
+          "archive_sha256": "4ca25e33621811cd53ce8c542024363299247f7d28553e1c76f78bdb59ff2cdc",
+          "body_sha256": "8e1b3b844d73abca3f9fbcda5a0da20b23dcb6a5c30eac34610d1309e2dbd50e",
+          "capture_key": "sec_lly_2025_10k",
+          "facts": [
+            {
+              "anchor_date": "2025-12-31",
+              "context_ref": "c-1",
+              "issuer_cik": "0000059478",
+              "name": "dei:entityregistrantname",
+              "value": "ELI LILLY AND COMPANY"
+            },
+            {
+              "anchor_date": "2025-12-31",
+              "context_ref": "c-2",
+              "issuer_cik": "0000059478",
+              "name": "dei:security12btitle",
+              "value": "Common Stock (no par value)"
+            },
+            {
+              "anchor_date": "2025-12-31",
+              "context_ref": "c-2",
+              "issuer_cik": "0000059478",
+              "name": "dei:tradingsymbol",
+              "value": "LLY"
+            }
+          ],
+          "legal_interval_inferred": false,
+          "observed_at": "2026-10-13T08:56:21.079895+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"
+        }
+      ],
+      "known_at": "2026-10-13T08:59:59.321338+00:00",
+      "nct_id": "NCT03987919",
+      "publisher_posting_day_is_immutable_historical_version": false,
+      "reasons": [
+        "NO_DATED_SPONSOR_CIK_BRIDGE_FOR_EFFECTIVE_DAY",
+        "OBSERVED_RELATIONSHIP_PIN_IS_NOT_AN_IMMUTABLE_HISTORICAL_VERSION"
+      ],
+      "record_id": "lly-trial-nct03987919-2022-02-14-pinned-sponsor",
+      "requested_effective_interval": [
+        "2022-02-14",
+        "2022-02-15"
+      ],
+      "requested_time_basis": "EVENT_DATE",
+      "schema_valid_proposal_resolution": "EXACT_DATED_OBJECT",
+      "source_body_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "source_observed_at": "2026-10-13T08:54:54.067977+00:00",
+      "source_snapshot": {
+        "organization": {
+          "class": "INDUSTRY",
+          "fullName": "Eli Lilly and Company"
+        },
+        "scope": "Displayed current response sponsorship only; no historical CIK bridge",
+        "selected_intervention": "Tirzepatide",
+        "unattributed_interventions": [
+          "Semaglutide"
+        ],
+        "version": {
+          "collaborators": [],
+          "intervention_names": [
+            "Semaglutide",
+            "Tirzepatide"
+          ],
+          "last_update_submitted": "2022-01-21",
+          "lead_sponsor": "Eli Lilly and Company",
+          "nct_id": "NCT03987919",
+          "publisher_clock_precision": "DAY",
+          "publisher_clocks_are_first_observation": false,
+          "publisher_version_id_available": false,
+          "record_version_date": "2022-02-14",
+          "record_version_type": "ACTUAL",
+          "relationship_snapshot_sha256": "492b7f7511243e624c204b31ea7f30f3f93c4c3ca87f95d7cafa8b68efd1684e",
+          "study_first_posted": "2019-06-17",
+          "study_first_posted_type": "ACTUAL"
+        }
+      },
+      "source_url": "https://clinicaltrials.gov/api/v2/studies/NCT03987919",
+      "unchanged_production_resolution": "UNMAPPED_OBJECT"
+    },
+    {
+      "adopted": false,
+      "decision": "WITHHOLD",
+      "exact_event_day_issuer_facts": [],
+      "future_work": "Define a separate observed-snapshot sponsor attribution contract without historical EVENT_DATE semantics",
+      "historical_sponsor_to_cik_bridge_proven": false,
+      "issuer_evidence": [
+        {
+          "archive_sha256": "b79cd606e6ae3de2d08943aef57f54a5d30d60aeea05b338f9b088d5b095b6f6",
+          "body_sha256": "aaafe8d91ce31af80d5379fcc948ed0722587c1de0b2c7be84d8ef02f8abab40",
+          "capture_key": "sec_lly_2021_10k",
+          "facts": [
+            {
+              "anchor_date": "2021-12-31",
+              "context_ref": "i22de8effd1e0473ea9e6b2ebf9fa4dfd_D20210101-20211231",
+              "issuer_cik": "0000059478",
+              "name": "dei:entityregistrantname",
+              "value": "ELI LILLY AND COMPANY"
+            },
+            {
+              "anchor_date": "2021-12-31",
+              "context_ref": "ib999762467224e169f22d930370a98cc_D20210101-20211231",
+              "issuer_cik": "0000059478",
+              "name": "dei:security12btitle",
+              "value": "Common Stock (no par value)"
+            },
+            {
+              "anchor_date": "2021-12-31",
+              "context_ref": "ib999762467224e169f22d930370a98cc_D20210101-20211231",
+              "issuer_cik": "0000059478",
+              "name": "dei:tradingsymbol",
+              "value": "LLY"
+            }
+          ],
+          "legal_interval_inferred": false,
+          "observed_at": "2026-10-13T08:56:10.108272+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947822000068/lly-20211231.htm"
+        },
+        {
+          "archive_sha256": "917d5dd3933da60ee10ff2ee60a5d089b517b4b703abd3d7f343437d77c08f4f",
+          "body_sha256": "a0a7655d5f8b3779682d41b0c3c4aee561e76fdc7aace87ceb6937a4fece15fe",
+          "capture_key": "sec_lly_2024_10k",
+          "facts": [
+            {
+              "anchor_date": "2024-12-31",
+              "context_ref": "c-1",
+              "issuer_cik": "0000059478",
+              "name": "dei:entityregistrantname",
+              "value": "ELI LILLY AND COMPANY"
+            },
+            {
+              "anchor_date": "2024-12-31",
+              "context_ref": "c-2",
+              "issuer_cik": "0000059478",
+              "name": "dei:security12btitle",
+              "value": "Common Stock (no par value)"
+            },
+            {
+              "anchor_date": "2024-12-31",
+              "context_ref": "c-2",
+              "issuer_cik": "0000059478",
+              "name": "dei:tradingsymbol",
+              "value": "LLY"
+            }
+          ],
+          "legal_interval_inferred": false,
+          "observed_at": "2026-10-13T08:56:15.994072+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947825000067/lly-20241231.htm"
+        },
+        {
+          "archive_sha256": "4ca25e33621811cd53ce8c542024363299247f7d28553e1c76f78bdb59ff2cdc",
+          "body_sha256": "8e1b3b844d73abca3f9fbcda5a0da20b23dcb6a5c30eac34610d1309e2dbd50e",
+          "capture_key": "sec_lly_2025_10k",
+          "facts": [
+            {
+              "anchor_date": "2025-12-31",
+              "context_ref": "c-1",
+              "issuer_cik": "0000059478",
+              "name": "dei:entityregistrantname",
+              "value": "ELI LILLY AND COMPANY"
+            },
+            {
+              "anchor_date": "2025-12-31",
+              "context_ref": "c-2",
+              "issuer_cik": "0000059478",
+              "name": "dei:security12btitle",
+              "value": "Common Stock (no par value)"
+            },
+            {
+              "anchor_date": "2025-12-31",
+              "context_ref": "c-2",
+              "issuer_cik": "0000059478",
+              "name": "dei:tradingsymbol",
+              "value": "LLY"
+            }
+          ],
+          "legal_interval_inferred": false,
+          "observed_at": "2026-10-13T08:56:21.079895+00:00",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"
+        }
+      ],
+      "known_at": "2026-10-13T08:59:59.321338+00:00",
+      "nct_id": "NCT04847557",
+      "publisher_posting_day_is_immutable_historical_version": false,
+      "reasons": [
+        "NO_DATED_SPONSOR_CIK_BRIDGE_FOR_EFFECTIVE_DAY",
+        "OBSERVED_RELATIONSHIP_PIN_IS_NOT_AN_IMMUTABLE_HISTORICAL_VERSION"
+      ],
+      "record_id": "lly-trial-nct04847557-2025-08-20-pinned-sponsor",
+      "requested_effective_interval": [
+        "2025-08-20",
+        "2025-08-21"
+      ],
+      "requested_time_basis": "EVENT_DATE",
+      "schema_valid_proposal_resolution": "EXACT_DATED_OBJECT",
+      "source_body_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "source_observed_at": "2026-10-13T08:55:01.441775+00:00",
+      "source_snapshot": {
+        "organization": {
+          "class": "INDUSTRY",
+          "fullName": "Eli Lilly and Company"
+        },
+        "scope": "Displayed current response sponsorship only; no historical CIK bridge",
+        "selected_intervention": "Tirzepatide",
+        "unattributed_interventions": [
+          "Placebo"
+        ],
+        "version": {
+          "collaborators": [],
+          "intervention_names": [
+            "Placebo",
+            "Tirzepatide"
+          ],
+          "last_update_submitted": "2025-08-15",
+          "lead_sponsor": "Eli Lilly and Company",
+          "nct_id": "NCT04847557",
+          "publisher_clock_precision": "DAY",
+          "publisher_clocks_are_first_observation": false,
+          "publisher_version_id_available": false,
+          "record_version_date": "2025-08-20",
+          "record_version_type": "ACTUAL",
+          "relationship_snapshot_sha256": "b04dfb88c8bcbe47e5ef300ccd75672064b1f187e68729897bc00faa65b20809",
+          "study_first_posted": "2021-04-19",
+          "study_first_posted_type": "ACTUAL"
+        }
+      },
+      "source_url": "https://clinicaltrials.gov/api/v2/studies/NCT04847557",
+      "unchanged_production_resolution": "UNMAPPED_OBJECT"
+    }
+  ],
+  "schema_version": 1,
+  "score_changed": false,
+  "source_dependency_commits": [
+    "edaba8cef597102d6f9e54d6b013abd45ab85676",
+    "d1811851a8d78ef8a2a3fcaf80cdf6325e0de381"
+  ],
+  "specialist_done_changed": false,
+  "status": "WITHHELD_TEMPORAL_ISSUER_SPONSOR_BINDING",
+  "withheld_records": 2
+}

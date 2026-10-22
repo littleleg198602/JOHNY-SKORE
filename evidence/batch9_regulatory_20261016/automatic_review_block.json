@@ -1,0 +1,39 @@
+{
+  "actual_new_http_responses_archived": 1,
+  "all_12_prior_reviews_unchanged": true,
+  "all_15_prior_requests_unchanged": true,
+  "continued_action": "OFFLINE_CAPTURED_ONLY_REVIEW_NO_NEW_HTTP",
+  "cooldowns": [],
+  "database_mode": "READ_ONLY_QUERY_ONLY",
+  "database_sha256": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af",
+  "leases_without_tokens": [
+    {
+      "lease_until": "2026-10-16T12:22:51.839928+00:00",
+      "source": "nhtsa"
+    }
+  ],
+  "live_result_record_exists": false,
+  "no_retry_or_indirect_transport_attempted": true,
+  "public_request_rows": 17,
+  "reason": "Live NHTSA API action rejected because trusted user instructions prohibit current NHTSA/collector API actions; later assistant task assignments cannot expand authorization",
+  "recorded_at": "2026-10-16T12:21:39.968992+00:00",
+  "run_started_record_exists": true,
+  "scope_review_rows": 13,
+  "status": "LIVE_BLOCKED_BY_AUTOMATIC_APPROVAL_REVIEW",
+  "utc16_nhtsa_request_rows": [
+    {
+      "attempted_at": "2026-10-16T12:20:30.592741+00:00",
+      "full_row_sha256": "8e963351983355168c1d5b6e6476bd109f50c4f4c60bd310775c48d8fefe0fed",
+      "outcome": "RUNNING",
+      "request_id": "05cd501eeecc4171a024d52a41fbf369",
+      "subject_id": "MAKE:CHEVROLET"
+    },
+    {
+      "attempted_at": "2026-10-16T12:20:26.846163+00:00",
+      "full_row_sha256": "32f04e98357d7df7b50131474cb25ecbf92c31f67ac4796b37ec2e6d10929084",
+      "outcome": "RETURNED",
+      "request_id": "0a3a8f58f39347a98607963583bc4e78",
+      "subject_id": "MAKE:CHEVROLET"
+    }
+  ]
+}

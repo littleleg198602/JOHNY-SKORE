@@ -1,0 +1,33 @@
+{
+  "key": "doj_first_amended_complaint",
+  "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+  "started_at": "2026-10-20T14:33:12.162977+00:00",
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+  "method": "GET",
+  "request_plan_sha256": "b97af52ca9f96cf9111921aa4ae3704c57d48c32cca9ac60e177c70ce8de3563",
+  "research_only": true,
+  "collector_api_used": false,
+  "app_quota_managed_live_claimed": false,
+  "quota_database_created_or_modified": false,
+  "retry": false,
+  "redirect": false,
+  "max_response_bytes": 4000000,
+  "timeout_seconds": 25,
+  "http_status": 200,
+  "final_url": "https://www.justice.gov/atr/media/1358786/dl",
+  "response_headers": {
+    "Date": "Tue, 20 Oct 2026 14:33:17 GMT",
+    "Last-Modified": "Fri, 28 Jun 2024 22:32:09 GMT",
+    "Content-Type": "application/pdf",
+    "Content-Length": "3404671",
+    "Content-Encoding": null
+  },
+  "observed_at": "2026-10-20T14:33:17.921783+00:00",
+  "bytes": 3404671,
+  "raw_sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+  "body_path": "doj_first_amended_complaint.pdf",
+  "body_transformed": false,
+  "public_raw_available": true,
+  "original_page_count": 91,
+  "elapsed_seconds": 7.746213786999988
+}

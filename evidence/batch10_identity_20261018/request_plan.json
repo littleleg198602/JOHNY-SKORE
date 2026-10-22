@@ -1,0 +1,23 @@
+{
+  "collector_api_used": false,
+  "fallback_allowed": false,
+  "goal": "Observe exact linked original certificate image fields without inferring a date, issued validity or symbol/CUSIP continuity from an undated specimen.",
+  "index_metadata_path": "evidence/batch9_identity_20261016/captures/attempt-02.metadata.json",
+  "known_withheld_bodies_read_or_restored": false,
+  "max_bytes": 4000000,
+  "max_transports": 1,
+  "other_image_requested": false,
+  "planned_at": "2026-10-18T04:25:36.333092+00:00",
+  "quota_database_created_or_reset": false,
+  "redirects_allowed": false,
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_0.jpg",
+  "reserve_before_transport": true,
+  "retry_allowed": false,
+  "schema_version": "bounded_sec_certificate_image_research_v1",
+  "selected_literal_wrapper_reference": "image_0.jpg",
+  "timeout_seconds": 25,
+  "wrapper_bytes": 1361,
+  "wrapper_metadata_path": "evidence/batch9_identity_20261016/captures/attempt-01.metadata.json",
+  "wrapper_path": "evidence/batch9_identity_20261016/captures/b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4.bin",
+  "wrapper_sha256": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4"
+}

@@ -1,0 +1,10 @@
+test_acceptance_after_original_capture_is_rejected_even_before_current_review_day (wafer_temporal_tests.WaferCapacityDepositTemporalReviewTests.test_acceptance_after_original_capture_is_rejected_even_before_current_review_day) ... ok
+test_accepted_and_filing_calendar_days_need_not_be_equal (wafer_temporal_tests.WaferCapacityDepositTemporalReviewTests.test_accepted_and_filing_calendar_days_need_not_be_equal) ... ok
+test_future2099_index_acceptance_is_not_legitimized_by_rehashing_whole_metadata (wafer_temporal_tests.WaferCapacityDepositTemporalReviewTests.test_future2099_index_acceptance_is_not_legitimized_by_rehashing_whole_metadata) ... ok
+test_future_requested_cutoff_is_rejected_before_original_source_validation (wafer_temporal_tests.WaferCapacityDepositTemporalReviewTests.test_future_requested_cutoff_is_rejected_before_original_source_validation) ... ok
+test_neighboring_capture_calendar_day_does_not_invent_a_publisher_timezone (wafer_temporal_tests.WaferCapacityDepositTemporalReviewTests.test_neighboring_capture_calendar_day_does_not_invent_a_publisher_timezone) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.035s
+
+OK

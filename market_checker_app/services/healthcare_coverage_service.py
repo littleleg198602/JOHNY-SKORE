@@ -17,7 +17,7 @@ import re
 import sqlite3
 
 from market_checker_app.services.healthcare_identity_service import (
-    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry,
+    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry, healthcare_resolver_version,
 )
 from market_checker_app.services.healthcare_scout_service import CMS_URL, TRIALS_URL
 from market_checker_app.services.research_profile_service import (
@@ -189,7 +189,9 @@ def _object_states(rows: list[dict], registry: HealthcareIdentityRegistry | None
         end = date.fromisoformat(row["effective_to"]) if row.get("effective_to") else None
         interval = "FUTURE" if start > clock.date() else "EXPIRED" if end and end <= clock.date() else "CURRENT"
         key = {"fda_crl": "letter_date", "clinical_trial_sponsor": "record_version_date"}.get(row["kind"])
-        event = (clock.date() if row["time_basis"] == "OBSERVED_SNAPSHOT"
+        trial_snapshot = row["kind"] == "clinical_trial_sponsor_snapshot"
+        captured = _aware(row["identifiers"]["source_observed_at"]) if trial_snapshot else None
+        event = (captured.date() if trial_snapshot else clock.date() if row["time_basis"] == "OBSERVED_SNAPSHOT"
                  else date.fromisoformat(row["identifiers"][key]) if key else start)
         if row["ticker"] not in universe:
             status = "OUTSIDE_CANONICAL_UNIVERSE"
@@ -205,13 +207,17 @@ def _object_states(rows: list[dict], registry: HealthcareIdentityRegistry | None
             status = registry.resolve(source=row["source"], kind=row["kind"], ticker=row["ticker"],
                                       cik=row["issuer_cik"], entity_name=row["entity_name"],
                                       identifiers=row["identifiers"], event_date=event,
-                                      as_of=clock)["identity_resolution"]
+                                      as_of=clock, observed_at=captured)["identity_resolution"]
         output.append({"record_id": row["record_id"], "source": row["source"], "ticker": row["ticker"],
                        "issuer_cik": row["issuer_cik"], "kind": row["kind"], "status": status,
                        "known_at": row["known_at"], "coverage_date": event.isoformat(),
                        "time_basis": row["time_basis"], "effective_from": row["effective_from"],
                        "effective_to": row.get("effective_to"), "interval_status_now": interval,
-                       "historical_event_only": row["time_basis"] == "EVENT_DATE" and interval == "EXPIRED"})
+                       "historical_event_only": row["time_basis"] == "EVENT_DATE" and interval == "EXPIRED",
+                       "observed_trial_snapshot": trial_snapshot,
+                       "source_observed_at": captured.isoformat() if captured else None,
+                       "current_observed_trial_snapshot": trial_snapshot and interval == "CURRENT",
+                       "historical_publisher_day_attribution_allowed": False if trial_snapshot else None})
     return output
 
 
@@ -253,10 +259,12 @@ def _source_observations(source: str, snapshot: dict, clock: datetime, cutoff: d
             name_only.add(row["subject_id"])
         elif detail.get("identity_status") == "DATED_IDENTITY_VERIFIED" and detail.get("issuer_attribution_allowed") is True:
             counts["stored_dated_attribution_claims"] += 1
+        elif detail.get("identity_status") == "OBSERVED_SNAPSHOT_IDENTITY_VERIFIED" and detail.get("issuer_attribution_allowed") is True:
+            counts["stored_observed_snapshot_claims"] += 1
         else:
             counts["unclassified_findings"] += 1
     count_fields = ("malformed_checks", "future_checks", "future_findings", "malformed_findings",
-                    "available_findings", "name_only_candidates", "stored_dated_attribution_claims",
+                    "available_findings", "name_only_candidates", "stored_dated_attribution_claims", "stored_observed_snapshot_claims",
                     "unclassified_findings")
     return checks, {key: counts[key] for key in count_fields}, name_only
 
@@ -298,7 +306,7 @@ def build_healthcare_coverage_report(store: ScoutStore | None = None, *,
         for ticker in applicable:
             issuer = issuers[ticker]["identity"]
             documented = [row for row in own_objects if row["ticker"] == ticker
-                          and row["status"] == "EXACT_DATED_OBJECT"]
+                          and row["status"] in {"EXACT_DATED_OBJECT", "EXACT_OBSERVED_SNAPSHOT"}]
             matching = [row for row in documented if issuer and row["issuer_cik"] == issuer["cik"]]
             queried = checks.get(ticker, {})
             current_check = None
@@ -351,16 +359,22 @@ def build_healthcare_coverage_report(store: ScoutStore | None = None, *,
             "issuer_wide_complete_checks": 0, "negative_issuer_completeness_verified": False,
             "live_verified": False, "historical_evaluation_verified": False,
             "scope": {"check_scope_version": SPECIALIST_CHECK_SCOPES[source],
-                      "identity_resolver_version": "healthcare-object-v1", "taxonomy_schema_version": taxonomy.version,
+                      "identity_resolver_version": healthcare_resolver_version(source), "taxonomy_schema_version": taxonomy.version,
                       "refresh_days": refresh_days, "endpoints": SOURCE_ENDPOINTS[source],
                       "query_scope": "at most five exact SEC/documented names; bounded publisher pagination",
                       "object_scope": "specific recorded product/application, trial intervention/role/version or provider/owner role",
                       "cms_time_basis": "OBSERVED_SNAPSHOT" if source == "cms" else None,
+                      "clinical_trial_time_bases": ["EVENT_DATE", "OBSERVED_SNAPSHOT"] if source == "clinicaltrials" else [],
+                      "clinical_snapshot_is_historical_publisher_version": False,
                       "issuer_wide_scope": False},
             "identity_versions": versions, "subject_details": details,
             "object_status_counts": dict(Counter(row["status"] for row in own_objects)),
             "expired_interval_records": sum(row["interval_status_now"] == "EXPIRED" for row in own_objects),
             "historical_event_only_records": sum(row["historical_event_only"] for row in own_objects),
+            "documented_observed_trial_snapshots": sum(row["observed_trial_snapshot"]
+                                                       and row["status"] == "EXACT_OBSERVED_SNAPSHOT" for row in own_objects),
+            "current_observed_trial_snapshots": sum(row["current_observed_trial_snapshot"]
+                                                    and row["status"] == "EXACT_OBSERVED_SNAPSHOT" for row in own_objects),
             "malformed_records": sum(row["source"] == source for row in malformed),
             "observations": observations,
         }
@@ -377,5 +391,6 @@ def build_healthcare_coverage_report(store: ScoutStore | None = None, *,
                             "The current FDA collector queries all active canonical issuers; the smaller FDA profile denominator is a research candidate cohort.",
                             "CVM, MAUDE, CMS reimbursement/plans, complete subsidiary chains and other-sector product exposure are outside these collector scopes.",
                             "Archived event-specific FDA/trial links can be valid for their event despite expiration today; CMS cannot backdate its observed snapshot.",
+                            "Clinical observed snapshots bind only their exact captured object and independent issuer cohort; they never establish the publisher's historical event-day sponsor identity.",
                             "Stored name checks and attribution claims do not prove live, negative, financial-impact or investment-direction acceptance.",
                             "Current runtime identity/check rows are mutable and cannot reconstruct an immutable historical snapshot."]}

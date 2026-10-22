@@ -1,0 +1,21 @@
+setUpClass (tests.test_batch9_complete_packet.CompletePacketTests) ... ERROR
+
+======================================================================
+ERROR: setUpClass (tests.test_batch9_complete_packet.CompletePacketTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch9_complete_packet.py", line 34, in setUpClass
+    cls.golden = json.loads((EVIDENCE / "complete_packet_review_v1.json").read_bytes())
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/evidence/batch9_sec_20261016/complete_packet_review_v1.json'
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.001s
+
+FAILED (errors=1)

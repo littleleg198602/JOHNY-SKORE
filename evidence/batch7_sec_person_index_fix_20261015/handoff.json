@@ -1,0 +1,82 @@
+{
+  "actual_golden_person_review_and_plan_unchanged": true,
+  "created_at": "2026-10-15T04:41:14.735543+00:00",
+  "final_discovered": 59,
+  "final_executed": 59,
+  "final_failure_error_skip_expected_unexpected_counts": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "full_specialist_acceptance": false,
+  "historical_validity_verified": false,
+  "initial_fix_qualification_error_preserved": "evidence/batch7_sec_person_index_fix_20261015/focused_01.json",
+  "new_http_requests": 0,
+  "old_person_evidence_and_registries_byte_identical": true,
+  "original_capture_bytes_changed": false,
+  "pending_ir_reviewer_included_in_commit": false,
+  "person_cik_or_instrument_promoted": false,
+  "prior_commit": "2ca2d7e77ccd411c633763331acf8aef03ed1d9a",
+  "prior_invariant_violations_reproduced": 2,
+  "purpose": "Exact index basename and original observation-day upper bounds; same actual replay, no identity promotion",
+  "qualification_report": "evidence/batch7_sec_person_index_fix_20261015/focused_02.json",
+  "schema_version": 1,
+  "scoring_applied": false,
+  "source_and_artifact_pins": {
+    "evidence/batch7_sec_person_index_fix_20261015/README.md": {
+      "bytes": 2328,
+      "sha256": "ce3d33874d499457c6140bb0e530f3bba981be87c8ac16cb17def8d7dda83d5e"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/focused_01.json": {
+      "bytes": 2129,
+      "sha256": "24ad36b7823504b1da164c7a896ebcfcd4deb9c0ff6bebad6fff6cb20a5ef7f5"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/focused_01.log": {
+      "bytes": 14364,
+      "sha256": "16e6128d36b280bb02a69c03b1b39d36e439cd11d1098bc49f5b110b0947d5f5"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/focused_02.json": {
+      "bytes": 2129,
+      "sha256": "507a14d026cd7bbf6b0708cd44e849dcfb433ae0c73d4dbbe0d6d3580d65d447"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/focused_02.log": {
+      "bytes": 12661,
+      "sha256": "5396bd8d7bb4d2f89e52640ec79ab1ede09c7fe6970402639d853cfc4acfe40e"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/original/sec_person_kind_review.py": {
+      "bytes": 20125,
+      "sha256": "fc1057e9026a1fb281fe40963e42644fd3231a4aa591008c1a958c8489bb2c5c"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/original/test_batch7_person_kind.py": {
+      "bytes": 24107,
+      "sha256": "9c452a225912babd85eee02d0c0ecc4af5a1fdc58edc79dc42a568d0e6726163"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/original_source_pins.json": {
+      "bytes": 523,
+      "sha256": "99a9d93edbbc878546d8f381e793d4d36c43abe5839bff9b2fb897a4eb9fde84"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/prior_failed_invariants.json": {
+      "bytes": 1143,
+      "sha256": "2e34f091852ce5279a7fd39dfb4925c3ad00b6d159b99a066b8e74d51738a26a"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/reproduce_prior.py": {
+      "bytes": 3919,
+      "sha256": "2368c032926787d9422108c2b6d511d9b2a1d26a7d1be77cc26633bc9071a59b"
+    },
+    "evidence/batch7_sec_person_index_fix_20261015/run_focused_tests.py": {
+      "bytes": 3105,
+      "sha256": "686f2017f895f8dd132109ff661490bab2c648d9b9a564c492a5168ab201fea8"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20535,
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    "tests/test_batch7_person_kind.py": {
+      "bytes": 25465,
+      "sha256": "67350478daad1db4b90e8f63d0f92aa79140fe34830b3a852c0d2aead30834bf"
+    }
+  },
+  "source_and_test_prior_versions_preserved": true
+}

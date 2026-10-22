@@ -1,0 +1,21 @@
+{
+  "capture_key": "trial_lilly_positive_page_3",
+  "request_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxuY_ml3_cW",
+  "response_url": "https://clinicaltrials.gov/api/v2/studies?query.spons=Eli+Lilly+and+Company&pageSize=1&format=json&countTotal=true&fields=NCTId%2CBriefTitle%2COverallStatus%2CLeadSponsorName%2CCollaboratorName%2CInterventionName%2CPhase%2CStudyFirstPostDate%2CLastUpdatePostDate%2CLastUpdateSubmitDate%2CPrimaryCompletionDate%2CHasResults&filter.ids=NCT03987919%2CNCT04847557&pageToken=ZVNj7o2Elu8o3lpzDMiio-numpOQJJxuY_ml3_cW",
+  "requested_at": "2026-10-13T08:54:33.659598+00:00",
+  "observed_at": "2026-10-13T08:54:40.073131+00:00",
+  "http_status": 200,
+  "response_headers": {
+    "date": "Tue, 13 Oct 2026 08:54:40 GMT",
+    "content-type": "application/json",
+    "etag": "\"0/0.34.1/mv0qip6w\""
+  },
+  "body_path": "trial_lilly_positive_page_3.body.json",
+  "storage_encoding": "identity",
+  "body_sha256": "e5660ca1fb1bc482c0112c159084af7c325461ac1624b4de41dd67edef2981b9",
+  "body_bytes": 16,
+  "archive_sha256": "e5660ca1fb1bc482c0112c159084af7c325461ac1624b4de41dd67edef2981b9",
+  "archived_bytes": 16,
+  "byte_budget": 4000000,
+  "body_complete_within_byte_budget": true
+}

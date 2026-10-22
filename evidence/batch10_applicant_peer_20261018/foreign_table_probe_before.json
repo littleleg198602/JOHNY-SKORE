@@ -1,0 +1,33 @@
+{
+  "candidate_sha256": "bf9f1afb16c29c0c0272229e5567ed5448e19db0d4fe4684908dd419af3b59a0",
+  "current_applicant_issuer_control_verified": false,
+  "direct_legal_parent_verified": false,
+  "exact_applicant_name_match_supported": true,
+  "explicit_foreign_heading": "Independent license counterparties; not subsidiaries",
+  "incorrect_foreign_table_roster_rows": [
+    {
+      "continuous_or_current_control_verified": false,
+      "country_or_ISO_code_inferred": false,
+      "direct_legal_parent_as_stated": null,
+      "directness_as_stated": null,
+      "issuer_group_name_as_displayed": "SYNTHETIC PARENT INC.",
+      "jurisdiction_as_displayed": "Ireland",
+      "jurisdiction_column_label": "Where Incorporated or Organized",
+      "legal_entity_name_ambiguous_in_roster": false,
+      "legal_entity_name_as_displayed": "Synthetic Applicant Ireland Unlimited Company",
+      "product_application_or_IP_owner_verified": false,
+      "relationship": "LISTED_SUBSIDIARY_OF_REPORTING_ISSUER_GROUP",
+      "roster_as_of": "2017-12-31",
+      "roster_date_is_ownership_start": false,
+      "row_index": 1,
+      "table_index": 1
+    }
+  ],
+  "new_http_or_database_actions": 0,
+  "physical_recorded_at": "2026-10-18T08:58:31.465458+00:00",
+  "product_owner_verified": false,
+  "selected_rows": [],
+  "semantic_limit": "This reproduces a false point-roster subsidiary classification. Top-level ownership/control/product promotion flags remain false.",
+  "status": "PARTIAL",
+  "synthetic_contract_only_not_acceptance": true
+}

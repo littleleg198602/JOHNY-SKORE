@@ -1,0 +1,10 @@
+{
+  "automatic_redirects": false,
+  "capture_id": "njd_case_page",
+  "maximum_bytes": 4000000,
+  "plan_sha256": "e2c5307466c7945621669d24ad3008411a7034c26bf4224ba43adef44894b94b",
+  "requested_url": "https://www.njd.uscourts.gov/united-states-v-apple-inc-24-4055",
+  "reserved_at": "2026-10-15T13:39:49.012741+00:00",
+  "sequence": 1,
+  "timeout_seconds": 25
+}

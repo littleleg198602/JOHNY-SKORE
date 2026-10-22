@@ -1,0 +1,558 @@
+{
+  "run": {
+    "id": 39137308800,
+    "name": "Market Checker test agents",
+    "node_id": "WFR_kwLORWpE1M8AAAAJHMPwgA",
+    "head_branch": "continuation/specialists-batch3-20261012",
+    "head_sha": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+    "path": ".github/workflows/market-checker-test-agents.yml",
+    "display_title": "Review exact captured specialist identities and preserve prospective evidence history",
+    "run_number": 458,
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "success",
+    "workflow_id": 331036067,
+    "check_suite_id": 106057466125,
+    "check_suite_node_id": "CS_kwDORWpE1M8AAAAYsYSBDQ",
+    "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39137308800",
+    "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/39137308800",
+    "pull_requests": [
+      {
+        "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/pulls/162",
+        "id": 4831689157,
+        "number": 162,
+        "head": {
+          "ref": "continuation/specialists-batch3-20261012",
+          "sha": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+          "repo": {
+            "id": 1164592340,
+            "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE",
+            "name": "JOHNY-SKORE"
+          }
+        },
+        "base": {
+          "ref": "main",
+          "sha": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+          "repo": {
+            "id": 1164592340,
+            "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE",
+            "name": "JOHNY-SKORE"
+          }
+        }
+      }
+    ],
+    "created_at": "2026-10-18T14:43:57Z",
+    "updated_at": "2026-10-18T15:30:36Z",
+    "actor": {
+      "login": "littleleg198602",
+      "id": 233839279,
+      "node_id": "U_kgDODfAarw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233839279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/littleleg198602",
+      "html_url": "https://github.com/littleleg198602",
+      "followers_url": "https://api.github.com/users/littleleg198602/followers",
+      "following_url": "https://api.github.com/users/littleleg198602/following{/other_user}",
+      "gists_url": "https://api.github.com/users/littleleg198602/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/littleleg198602/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/littleleg198602/subscriptions",
+      "organizations_url": "https://api.github.com/users/littleleg198602/orgs",
+      "repos_url": "https://api.github.com/users/littleleg198602/repos",
+      "events_url": "https://api.github.com/users/littleleg198602/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/littleleg198602/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "run_attempt": 1,
+    "referenced_workflows": [],
+    "run_started_at": "2026-10-18T14:43:57Z",
+    "triggering_actor": {
+      "login": "littleleg198602",
+      "id": 233839279,
+      "node_id": "U_kgDODfAarw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/233839279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/littleleg198602",
+      "html_url": "https://github.com/littleleg198602",
+      "followers_url": "https://api.github.com/users/littleleg198602/followers",
+      "following_url": "https://api.github.com/users/littleleg198602/following{/other_user}",
+      "gists_url": "https://api.github.com/users/littleleg198602/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/littleleg198602/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/littleleg198602/subscriptions",
+      "organizations_url": "https://api.github.com/users/littleleg198602/orgs",
+      "repos_url": "https://api.github.com/users/littleleg198602/repos",
+      "events_url": "https://api.github.com/users/littleleg198602/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/littleleg198602/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "jobs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39137308800/jobs",
+    "logs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39137308800/logs",
+    "check_suite_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-suites/106057466125",
+    "artifacts_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39137308800/artifacts",
+    "cancel_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39137308800/cancel",
+    "rerun_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39137308800/rerun",
+    "previous_attempt_url": null,
+    "workflow_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/workflows/331036067",
+    "head_commit": {
+      "id": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+      "tree_id": "a50b9fc6b315b7aae33e052a1b8e31680880566b",
+      "message": "Bind specialist source facts to exact scope and completion clocks\n\nIntegrate five original-source reviews and default-off local readiness receipts. Preserve independent peer failures and qualify the combined 2476-test snapshot. All21 full specialist acceptances remain unverified.",
+      "timestamp": "2026-10-18T14:43:51Z",
+      "author": {
+        "name": "littleleg198602",
+        "email": "honza.nozicka@gmail.com"
+      },
+      "committer": {
+        "name": "littleleg198602",
+        "email": "honza.nozicka@gmail.com"
+      }
+    },
+    "repository": {
+      "id": 1164592340,
+      "node_id": "R_kgDORWpE1A",
+      "name": "JOHNY-SKORE",
+      "full_name": "littleleg198602/JOHNY-SKORE",
+      "private": false,
+      "owner": {
+        "login": "littleleg198602",
+        "id": 233839279,
+        "node_id": "U_kgDODfAarw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/233839279?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/littleleg198602",
+        "html_url": "https://github.com/littleleg198602",
+        "followers_url": "https://api.github.com/users/littleleg198602/followers",
+        "following_url": "https://api.github.com/users/littleleg198602/following{/other_user}",
+        "gists_url": "https://api.github.com/users/littleleg198602/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/littleleg198602/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/littleleg198602/subscriptions",
+        "organizations_url": "https://api.github.com/users/littleleg198602/orgs",
+        "repos_url": "https://api.github.com/users/littleleg198602/repos",
+        "events_url": "https://api.github.com/users/littleleg198602/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/littleleg198602/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE",
+      "forks_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/forks",
+      "keys_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/teams",
+      "hooks_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/hooks",
+      "issue_events_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/events",
+      "assignees_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/tags",
+      "blobs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/languages",
+      "stargazers_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/stargazers",
+      "contributors_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/contributors",
+      "subscribers_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/subscribers",
+      "subscription_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/subscription",
+      "commits_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/merges",
+      "archive_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/downloads",
+      "issues_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/labels{/name}",
+      "releases_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/deployments"
+    },
+    "head_repository": {
+      "id": 1164592340,
+      "node_id": "R_kgDORWpE1A",
+      "name": "JOHNY-SKORE",
+      "full_name": "littleleg198602/JOHNY-SKORE",
+      "private": false,
+      "owner": {
+        "login": "littleleg198602",
+        "id": 233839279,
+        "node_id": "U_kgDODfAarw",
+        "avatar_url": "https://avatars.githubusercontent.com/u/233839279?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/littleleg198602",
+        "html_url": "https://github.com/littleleg198602",
+        "followers_url": "https://api.github.com/users/littleleg198602/followers",
+        "following_url": "https://api.github.com/users/littleleg198602/following{/other_user}",
+        "gists_url": "https://api.github.com/users/littleleg198602/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/littleleg198602/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/littleleg198602/subscriptions",
+        "organizations_url": "https://api.github.com/users/littleleg198602/orgs",
+        "repos_url": "https://api.github.com/users/littleleg198602/repos",
+        "events_url": "https://api.github.com/users/littleleg198602/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/littleleg198602/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/littleleg198602/JOHNY-SKORE",
+      "description": null,
+      "fork": false,
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE",
+      "forks_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/forks",
+      "keys_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/teams",
+      "hooks_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/hooks",
+      "issue_events_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/events",
+      "assignees_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/tags",
+      "blobs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/languages",
+      "stargazers_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/stargazers",
+      "contributors_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/contributors",
+      "subscribers_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/subscribers",
+      "subscription_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/subscription",
+      "commits_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/merges",
+      "archive_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/downloads",
+      "issues_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/labels{/name}",
+      "releases_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/deployments"
+    }
+  },
+  "jobs": [
+    {
+      "id": 117704346422,
+      "name": "687 ticker scale and progress agent",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 39137308800,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Verify exact 687-ticker contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        }
+      ]
+    },
+    {
+      "id": 117704346599,
+      "name": "Streamlit UI agent",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 39137308800,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Verify the application and Yahoo controls render",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        }
+      ]
+    },
+    {
+      "id": 117704346611,
+      "name": "Contract, source and persistence agent",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 39137308800,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Compile every Python module",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Run deterministic test suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        }
+      ]
+    },
+    {
+      "id": 117704346747,
+      "name": "Windows contracts, persistence and UI",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 39137308800,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install project dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Compile every Python module",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Verify SEC checkpoint and process resume regressions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Run deterministic Windows suite",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Preserve Windows verification log",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        }
+      ]
+    },
+    {
+      "id": 117714618726,
+      "name": "Deterministic release gate",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 39137308800,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Require every test agent to pass",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12140789098,
+      "name": "windows-deterministic-tests",
+      "size_in_bytes": 75136,
+      "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/artifacts/12140789098",
+      "archive_download_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/artifacts/12140789098/zip",
+      "expired": false,
+      "created_at": "2026-10-18T15:30:27Z",
+      "expires_at": "2027-01-16T14:43:57Z",
+      "updated_at": "2026-10-18T15:30:27Z",
+      "digest": "sha256:3a37a2f09828273a0efc6db9fd693b9e375c511b73e80d5499fa6a6d5b9cf936",
+      "workflow_run": {
+        "id": 39137308800,
+        "repository_id": 1164592340,
+        "head_repository_id": 1164592340,
+        "head_branch": "continuation/specialists-batch3-20261012",
+        "head_sha": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846"
+      }
+    }
+  ],
+  "qualified_head_only": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846"
+}

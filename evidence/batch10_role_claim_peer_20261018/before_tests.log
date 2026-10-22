@@ -1,0 +1,38 @@
+test_different_named_subject_inside_adjacent_career_table_cannot_donate_roles (independent_role_peer.RoleClaimPeerTests.test_different_named_subject_inside_adjacent_career_table_cannot_donate_roles) ... FAIL
+test_hidden_index_filing_day_cannot_anchor_source_relative_present (independent_role_peer.RoleClaimPeerTests.test_hidden_index_filing_day_cannot_anchor_source_relative_present) ... FAIL
+test_interpretation_completed_after_explicit_cutoff_cannot_publish_role_claims_at_that_cutoff (independent_role_peer.RoleClaimPeerTests.test_interpretation_completed_after_explicit_cutoff_cannot_publish_role_claims_at_that_cutoff) ... FAIL
+
+======================================================================
+FAIL: test_different_named_subject_inside_adjacent_career_table_cannot_donate_roles (independent_role_peer.RoleClaimPeerTests.test_different_named_subject_inside_adjacent_career_table_cannot_donate_roles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch10_role_claim_peer.py", line 57, in test_different_named_subject_inside_adjacent_career_table_cannot_donate_roles
+    self.assertSourceClaimsWithheld('OTHER_PERSON_INSIDE_CAREER_TABLE')
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch10_role_claim_peer.py", line 53, in assertSourceClaimsWithheld
+    self.assertFalse(report.get('source_role_claims_supported',False),
+AssertionError: True is not false : OTHER_PERSON_INSIDE_CAREER_TABLE: unsupported subject/date/cutoff cannot produce source-supported person role claims
+
+======================================================================
+FAIL: test_hidden_index_filing_day_cannot_anchor_source_relative_present (independent_role_peer.RoleClaimPeerTests.test_hidden_index_filing_day_cannot_anchor_source_relative_present)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch10_role_claim_peer.py", line 60, in test_hidden_index_filing_day_cannot_anchor_source_relative_present
+    self.assertSourceClaimsWithheld('HIDDEN_INDEX_FILING_DAY')
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch10_role_claim_peer.py", line 53, in assertSourceClaimsWithheld
+    self.assertFalse(report.get('source_role_claims_supported',False),
+AssertionError: True is not false : HIDDEN_INDEX_FILING_DAY: unsupported subject/date/cutoff cannot produce source-supported person role claims
+
+======================================================================
+FAIL: test_interpretation_completed_after_explicit_cutoff_cannot_publish_role_claims_at_that_cutoff (independent_role_peer.RoleClaimPeerTests.test_interpretation_completed_after_explicit_cutoff_cannot_publish_role_claims_at_that_cutoff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch10_role_claim_peer.py", line 63, in test_interpretation_completed_after_explicit_cutoff_cannot_publish_role_claims_at_that_cutoff
+    self.assertSourceClaimsWithheld('COMPLETION_AFTER_EXPLICIT_CUTOFF')
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_batch10_role_claim_peer.py", line 53, in assertSourceClaimsWithheld
+    self.assertFalse(report.get('source_role_claims_supported',False),
+AssertionError: True is not false : COMPLETION_AFTER_EXPLICIT_CUTOFF: unsupported subject/date/cutoff cannot produce source-supported person role claims
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.016s
+
+FAILED (failures=3)

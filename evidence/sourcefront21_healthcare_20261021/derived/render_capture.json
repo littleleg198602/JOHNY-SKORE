@@ -1,0 +1,261 @@
+{
+  "schema_version": "derived_actual_pdf_page_renders_v1",
+  "renderer_version": "pdftoppm version 26.05.0\nCopyright 2005-2026 The Poppler Developers - http://poppler.freedesktop.org\nCopyright 1996-2011, 2022 Glyph & Cog, LLC",
+  "rendered_pages": [
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "physical_page": 1,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "1",
+        "-l",
+        "1",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p01"
+      ],
+      "started_at": "2026-10-21T07:17:50.255536+00:00",
+      "completed_at": "2026-10-21T07:17:50.745137+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p01.png",
+        "bytes": 131971,
+        "sha256": "e74a9730772d948eb97d0ef7321c7fa6b39921fabaf30c0745a7344fce9db664"
+      },
+      "render_is_derived_not_original_HTTP": true
+    },
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "physical_page": 4,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "4",
+        "-l",
+        "4",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p04"
+      ],
+      "started_at": "2026-10-21T07:17:50.745341+00:00",
+      "completed_at": "2026-10-21T07:17:50.986652+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p04.png",
+        "bytes": 186606,
+        "sha256": "3faec93a40f1e740be9361a066b3742eef6a10a19c5aa5ec7c0a4ab6b28d54d4"
+      },
+      "render_is_derived_not_original_HTTP": true
+    },
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "physical_page": 5,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "5",
+        "-l",
+        "5",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p05"
+      ],
+      "started_at": "2026-10-21T07:17:50.986927+00:00",
+      "completed_at": "2026-10-21T07:17:51.268894+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p05.png",
+        "bytes": 243168,
+        "sha256": "dc7a1fe12defcaaf772aa7d84b76458c1e1c0e1c273a368d9082a623080cd522"
+      },
+      "render_is_derived_not_original_HTTP": true
+    },
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "physical_page": 9,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "9",
+        "-l",
+        "9",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p09"
+      ],
+      "started_at": "2026-10-21T07:17:51.269217+00:00",
+      "completed_at": "2026-10-21T07:17:51.449876+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p09.png",
+        "bytes": 124019,
+        "sha256": "54b6792bd4b77ac86bd49918624af790bdd7a355f5fa352596ef338bdac19bc2"
+      },
+      "render_is_derived_not_original_HTTP": true
+    },
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "physical_page": 10,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "10",
+        "-l",
+        "10",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p10"
+      ],
+      "started_at": "2026-10-21T07:17:51.450050+00:00",
+      "completed_at": "2026-10-21T07:17:51.552153+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "Syntax Error: Expected the optional content group list, but wasn't able to find it, or it isn't an Array\n",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_approval_2019-p10.png",
+        "bytes": 40545,
+        "sha256": "c0557051de56e63a9037d7dc06c0f79ce0805911fb087d3c8ba2221fd0de46c0"
+      },
+      "render_is_derived_not_original_HTTP": true
+    },
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "physical_page": 1,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "1",
+        "-l",
+        "1",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p01"
+      ],
+      "started_at": "2026-10-21T07:17:51.552274+00:00",
+      "completed_at": "2026-10-21T07:17:52.013989+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p01.png",
+        "bytes": 478553,
+        "sha256": "efa3d4c73c4ae6c86bcb24efe9d2cb50cdb637f6051dc3e4321936eeda66bc47"
+      },
+      "render_is_derived_not_original_HTTP": true
+    },
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "physical_page": 7,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "7",
+        "-l",
+        "7",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p07"
+      ],
+      "started_at": "2026-10-21T07:17:52.014398+00:00",
+      "completed_at": "2026-10-21T07:17:52.400148+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p07.png",
+        "bytes": 315419,
+        "sha256": "7acab14224036fa8424b63e97b9da6c6ac3f6935a84f56453d2b6c3cb6607599"
+      },
+      "render_is_derived_not_original_HTTP": true
+    },
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "physical_page": 35,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "35",
+        "-l",
+        "35",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p35"
+      ],
+      "started_at": "2026-10-21T07:17:52.400422+00:00",
+      "completed_at": "2026-10-21T07:17:52.725360+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p35.png",
+        "bytes": 250168,
+        "sha256": "b45bdb997469fccdcc9499913eecbe380eb5ef6d43ec371178cf3e96568f2aaf"
+      },
+      "render_is_derived_not_original_HTTP": true
+    },
+    {
+      "source_pdf": "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "physical_page": 36,
+      "command": [
+        "pdftoppm",
+        "-f",
+        "36",
+        "-l",
+        "36",
+        "-r",
+        "120",
+        "-png",
+        "-singlefile",
+        "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+        "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p36"
+      ],
+      "started_at": "2026-10-21T07:17:52.725597+00:00",
+      "completed_at": "2026-10-21T07:17:52.942568+00:00",
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "PNG": {
+        "path": "evidence/sourcefront21_healthcare_20261021/derived/fda_trazimera_label_2025-p36.png",
+        "bytes": 165827,
+        "sha256": "068a52de52d9623285a06b9015133e69806825d72e3d587df79ada31f4c86810"
+      },
+      "render_is_derived_not_original_HTTP": true
+    }
+  ],
+  "network_HTTP_SQL_operations": 0,
+  "source_PDF_modified": false,
+  "known_at": "2026-10-21T07:17:52.954359+00:00"
+}

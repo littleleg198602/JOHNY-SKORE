@@ -1,0 +1,29 @@
+{
+  "captures": {
+    "epa_dow_20261002_summary_only": {
+      "body_available": false,
+      "body_ref": null,
+      "metadata": {
+        "archive_path": null,
+        "capture_id": "epa_dow_20261002_summary_only",
+        "observed_at": "2026-10-02T11:52:53+00:00",
+        "origin": "LEGACY_SUMMARY_ONLY",
+        "original_source_body_recovered": false,
+        "public_raw_available": false,
+        "raw_response_bytes": null,
+        "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+        "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info",
+        "summary_path": "evidence/epa_echo_live_20261002.json"
+      }
+    }
+  },
+  "kind": "EPA_FRS_PROGRAM_SCOPE",
+  "request": {
+    "capture_id": "epa_dow_20261002_summary_only",
+    "facility_name": "DOW INC",
+    "facility_pointer": "/Results/Facilities/0",
+    "frs_registry_id": "110019986586",
+    "programs": []
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

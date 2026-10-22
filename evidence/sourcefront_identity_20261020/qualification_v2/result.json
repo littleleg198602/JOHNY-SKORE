@@ -1,0 +1,28 @@
+{
+  "actual_http_requests": 0,
+  "completed_at": "2026-10-20T20:13:32.108134+00:00",
+  "db_calls": 0,
+  "discovered": 15,
+  "errors": 0,
+  "executed": 15,
+  "expected_failures": 0,
+  "failures": 0,
+  "full_log_sha256": "9eb897f98db3e2611e306b7e40afe4ca5a40dcb4f8c9e50090703b19d55ff29e",
+  "python": "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+  "schema_version": "focused_charter_qualification_v1",
+  "skips": 0,
+  "source_calls": 0,
+  "source_test_pins": {
+    "market_checker_app/services/sec_corporate_action_bridge.py": {
+      "bytes": 67262,
+      "sha256": "c2f79273f550028314046d608392f75cd005028c570896a713c684554e8c2ab2"
+    },
+    "tests/test_sourcefront_charter_disclosure.py": {
+      "bytes": 11781,
+      "sha256": "419ce0245c07c063a343e1dd67a26146b3160cda353f00c9ea44071ede00361f"
+    }
+  },
+  "started_at": "2026-10-20T20:13:26.577029+00:00",
+  "successful": true,
+  "unexpected_successes": 0
+}

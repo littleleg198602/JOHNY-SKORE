@@ -1,0 +1,2 @@
+2026-10-19 08:45:31.176 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+{"phase": "native", "actions": 2, "counters": {"network_attempts": 0, "SQL_attempts": 0}, "output": {"path": "evidence/batch11_coordinator_20261018/runtime/native_capture.json", "bytes": 1467, "sha256": "58e720bcdad0a7f4c273c6527524739832432d02e1bc478af329465ccc7d0282"}}

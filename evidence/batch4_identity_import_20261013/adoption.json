@@ -1,0 +1,76 @@
+{
+  "adopted": 0,
+  "decision_basis": [
+    "Both actual current source records exactly pin displayed Lilly sponsorship of Tirzepatide; Semaglutide/Placebo remain unattributed",
+    "The same-body SEC name/CIK/common-stock/ticker DEI contexts anchor 2021-12-31, 2024-12-31 and 2025-12-31, outside the proposed event days 2022-02-14 and 2025-08-20",
+    "An observed relationship digest does not establish an immutable historical sponsor-to-CIK version on either proposed day",
+    "Current registry schema would return EXACT_DATED_OBJECT for those proposed EVENT_DATE records; owner withholding prevents the stronger historical assertion"
+  ],
+  "historical_legal_continuity_claimed": false,
+  "inventory": [
+    {
+      "bytes": 2136,
+      "path": "evidence/batch4_identity_import_20261013/focused_tests.log",
+      "sha256": "c2e5b168b5776627139235a627f4cb259c0bdea183db0fbc70f0ff3e65316650"
+    },
+    {
+      "bytes": 14557,
+      "path": "evidence/batch4_identity_import_20261013/healthcare_review.json",
+      "sha256": "a5f47d64dda2f0e7bc7725cfe1c5a32dcc58f6c490328770547f90eac3b70845"
+    },
+    {
+      "bytes": 11191,
+      "path": "evidence/batch4_identity_import_20261013/review_healthcare.py",
+      "sha256": "9018247ac7aae4aaf7b9dbf3cf8b8a48e501fcebd38cd9402d5c104cfa0626a0"
+    },
+    {
+      "bytes": 5692,
+      "path": "tests/test_batch4_healthcare_identity_review.py",
+      "sha256": "e108b75d4bb088507c355ea36e0e7dcdc280bee217e4a210e87947fe324c1219"
+    }
+  ],
+  "issuer_wide_coverage_claimed": false,
+  "next_available_work": "Define a separate observed-snapshot sponsor attribution contract with prospective issuer evidence; retain EVENT_DATE source-claim and historical issuer attribution as distinct assertions",
+  "old_lly_trial_seed_rewritten": false,
+  "owner_review_recorded_at": "2026-10-13T13:16:52.384445+00:00",
+  "production_records_preserved": 10,
+  "production_registry_changed": false,
+  "proposal_sha256": "56a66e925af1931de67fca4ad7594751637b1d7d569a669a2bf1fbbd13188816",
+  "proposed": 2,
+  "recorded_at": "2026-10-13T13:19:06.020143+00:00",
+  "registry_sha256_after": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+  "registry_sha256_before": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+  "schema_version": 1,
+  "score_changed": false,
+  "source_review": "evidence/batch4_identity_import_20261013/healthcare_review.json",
+  "specialist_done_changed": false,
+  "status": "WITHHOLD_TWO_HISTORICAL_EVENT_DATE_PROPOSALS",
+  "verification": {
+    "compile": {
+      "exit_code": 0
+    },
+    "offline_replay": {
+      "network_requested": false,
+      "same_content": true
+    },
+    "targeted_tests": {
+      "command": [
+        "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_batch4_healthcare_identity_review",
+        "tests.test_healthcare_production_identity_manifest",
+        "-v"
+      ],
+      "duration_seconds": 0.534,
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "log_path": "evidence/batch4_identity_import_20261013/focused_tests.log",
+      "log_sha256": "c2e5b168b5776627139235a627f4cb259c0bdea183db0fbc70f0ff3e65316650",
+      "skipped": 0,
+      "tests_run": 9
+    }
+  },
+  "withheld": 2
+}

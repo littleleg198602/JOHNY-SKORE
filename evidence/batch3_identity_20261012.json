@@ -1,0 +1,322 @@
+{
+  "base_commit": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "branch": "batch3/identity-20261012",
+  "candidate_preparation": {
+    "all_candidates_scoring_allowed": false,
+    "canonical_csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "canonical_ticker_order_preserved": true,
+    "checkpoint_path": "evidence/batch3_identity_bulk_20261012/candidates.json",
+    "checkpoint_sha256": "36646cc353086450088566c61f9e0e2ccc4465d9026109760c9bdcb0add018f3",
+    "completed_tickers": 687,
+    "displayed_candidate_instruments": 841,
+    "match_basis_counts": {
+      "EXACT_NAME_CANDIDATE": 421,
+      "NAME_SUGGESTION": 420
+    },
+    "new_verified_identities": 0,
+    "status": "COMPLETE_REVIEW_QUEUE",
+    "status_counts": {
+      "NEEDS_REVIEW": 663,
+      "WAIT_INSTRUMENT_EVIDENCE": 22,
+      "WAIT_TICKER_CIK": 2
+    },
+    "tickers_with_truncated_candidates": 6,
+    "total_tickers": 687
+  },
+  "concrete_source_format_fixes": [
+    "Official Q3 TXT endpoint has no legacy -txt suffix; cache selection groups official variants by actual quarter",
+    "Repeated same-class CALL/PUT synthetic ETF identifiers retain every original source line; equity or mixed-class duplicates still fail closed"
+  ],
+  "configured_edgar_contact_present": false,
+  "configured_edgar_guard_unchanged": true,
+  "evidence_type": "actual_complete_official_public_source_capture_and_687_preparation",
+  "first_full_list_parse_before_fix": {
+    "error": "Missing labels or duplicate CUSIP in SEC list",
+    "error_type": "ValueError",
+    "first_repeated_identifier": "00162Q905",
+    "source_line_numbers": [
+      2654,
+      2668
+    ],
+    "status": "FAILED_AT_FIRST_REPEATED_SYNTHETIC_OPTION_CUSIP"
+  },
+  "inventory": [
+    {
+      "bytes": 838688,
+      "path": "evidence/batch3_identity_bulk_20261012/candidates.json",
+      "sha256": "36646cc353086450088566c61f9e0e2ccc4465d9026109760c9bdcb0add018f3"
+    },
+    {
+      "bytes": 39,
+      "path": "evidence/batch3_identity_bulk_20261012/offline_replay.log",
+      "sha256": "eec68615b273dafba5cba6ab78ea2ab53e638c170fb7ed7d52b918bc6c53ca04"
+    },
+    {
+      "bytes": 2536,
+      "path": "evidence/batch3_identity_bulk_20261012/public_capture.json",
+      "sha256": "b29cf95ffe9b1995c3a488d4360aaabcaccc67197f3668f18a5f054a724aa6dc"
+    },
+    {
+      "bytes": 227320,
+      "path": "evidence/batch3_identity_bulk_20261012/registry_review.json",
+      "sha256": "7a61591a19371b7556492fb0fd7380e7391f1feac82cf4e456c933bea0aef76a"
+    },
+    {
+      "bytes": 247,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a.json",
+      "sha256": "98995b942e0a4564f78a4ba8ad12aa5ee8444eea8b07fc2f9aac4b77b104fec7"
+    },
+    {
+      "bytes": 799583,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+    },
+    {
+      "bytes": 2088909,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+    },
+    {
+      "bytes": 249,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c.json",
+      "sha256": "0e4c7eddeb5bb88152b2798f3bd9421ecee08b4992478adf75e95103f17b430e"
+    },
+    {
+      "bytes": 16515,
+      "path": "evidence/batch3_identity_bulk_20261012/targeted_tests.log",
+      "sha256": "807b8d3c5a1d03dbfc94c5e06ee3348182222acf502e49d563d5d3362269bebe"
+    },
+    {
+      "bytes": 4198,
+      "path": "evidence/batch3_identity_sources_20261012/capture_public_globals.py",
+      "sha256": "c2ab13d4bd490c465e7bcd210a22958babc5d2714b20c5a4d4c8f8d948f0d860"
+    },
+    {
+      "bytes": 24091,
+      "path": "evidence/batch3_identity_sources_20261012/catalog_excerpt.tool.json",
+      "sha256": "b40e6870846b46b8f731eb6b29211a18e0381eb31d09e5e518ce87b11e088cae"
+    },
+    {
+      "bytes": 9688,
+      "path": "evidence/batch3_identity_sources_20261012/guidance.tool.json",
+      "sha256": "7180c5a7212ec05ac0613d90355cb106eb65efdea4d19be7737ee9944d7c1ae3"
+    },
+    {
+      "bytes": 9798,
+      "path": "evidence/batch3_identity_sources_20261012/q3_pdf_metadata.tool.json",
+      "sha256": "d49ae83f57f44ff8067a469a66123e343e8c1d866c2c6ae227347272f5e68fd4"
+    },
+    {
+      "bytes": 29317,
+      "path": "evidence/batch3_identity_sources_20261012/q3_txt_excerpt.tool.json",
+      "sha256": "b84bb20b2ed1ae376ae633544600affd3afd6038a860bb3ab3ff049389445cb0"
+    },
+    {
+      "bytes": 14039,
+      "path": "evidence/batch3_identity_sources_20261012/verify_and_record.py",
+      "sha256": "8497a7062a5d41f0fb6566bd5c05b80c01f4c8b22dfd9d2467b01dd3bd4fbc0d"
+    }
+  ],
+  "limits": [
+    "Both complete raw public global inputs are archived; earlier tool-text discovery files are separately labeled normalized excerpts",
+    "An exact or similar issuer-name join is a candidate, never a verified ticker/CIK/CUSIP/class or historical identity",
+    "No structured instrument filing, same-context ticker/class filing or continuous quarter validity was newly reviewed in this batch",
+    "All 150 stored identities have Q2 intervals; none cover Q3. Current CIK/list checks do not renew those intervals",
+    "XOM current CIK and deleted old CUSIP require independent dated primary action evidence; no transition is inferred or imported",
+    "Six candidate lists are truncated at the existing bounded output limit; waiting statuses are workflow gaps, not no-exposure conclusions",
+    "Unknown publication times remain null. HTTP Last-Modified and the guidance update label are not used as publication times",
+    "No full-suite, hosted/user Windows, holdings run, specialist completion, historical OOS or score/trading change is claimed"
+  ],
+  "production_registry_review": {
+    "catalog_comparison_counts": {
+      "CATALOG_CIK_DIFFERS": 1,
+      "CIK_MATCH_ONLY": 149
+    },
+    "identity_transitions_approved": 0,
+    "list_comparison_counts": {
+      "DELETED_IN_Q3_LIST": 1,
+      "EXACT_ROW_LABEL_MATCH_ONLY": 144,
+      "ROW_LABEL_DIFFERS_REQUIRES_REVIEW": 5
+    },
+    "new_verified_identities": 0,
+    "production_registry_changed": false,
+    "registry_sha256_after": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "registry_sha256_before": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "review_path": "evidence/batch3_identity_bulk_20261012/registry_review.json",
+    "review_sha256": "7a61591a19371b7556492fb0fd7380e7391f1feac82cf4e456c933bea0aef76a",
+    "score_changed": false,
+    "selected_q3_covered_records": 0,
+    "specialist_status_changed": false,
+    "stored_historical_q2_records": 150,
+    "stored_unique_tickers": 150,
+    "unmapped_canonical_historical_tickers": 537,
+    "xom_current_catalog_cik": [
+      {
+        "issuer_cik": "0002115436",
+        "issuer_name": "ExxonMobil Holdings Corp",
+        "ticker": "XOM"
+      }
+    ],
+    "xom_old_cusip_q3_status": "DELETED_IN_Q3_LIST"
+  },
+  "public_files_capture": {
+    "attempts": [
+      {
+        "bytes": 799583,
+        "final_url": "https://www.sec.gov/files/company_tickers.json",
+        "http_status": 200,
+        "observed_at": "2026-10-12T14:49:01.942455+00:00",
+        "requested_url": "https://www.sec.gov/files/company_tickers.json",
+        "response_headers": {
+          "Content-Length": null,
+          "Content-Type": "application/json",
+          "Date": "Mon, 12 Oct 2026 14:49:01 GMT",
+          "Last-Modified": "Fri, 09 Oct 2026 20:52:47 GMT"
+        },
+        "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+        "started_at": "2026-10-12T14:48:55.518873+00:00"
+      },
+      {
+        "bytes": 2088909,
+        "final_url": "https://www.sec.gov/files/investment/13flist2026q3.txt",
+        "http_status": 200,
+        "observed_at": "2026-10-12T14:49:07.941128+00:00",
+        "requested_url": "https://www.sec.gov/files/investment/13flist2026q3.txt",
+        "response_headers": {
+          "Content-Length": null,
+          "Content-Type": "text/plain",
+          "Date": "Mon, 12 Oct 2026 14:49:07 GMT",
+          "Last-Modified": "Thu, 08 Oct 2026 13:39:40 GMT"
+        },
+        "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+        "started_at": "2026-10-12T14:49:01.949136+00:00"
+      }
+    ],
+    "completed_at": "2026-10-12T14:49:07.954547+00:00",
+    "configured_edgar_guard_unchanged": true,
+    "last_modified_is_publication_time": false,
+    "max_request_attempts": 1,
+    "max_source_bytes": 4000000,
+    "publisher_publication_time_known": false,
+    "schema_version": 1,
+    "sources": [
+      {
+        "kind": "ticker_catalog",
+        "observed_at": "2026-10-12T14:49:01.942947+00:00",
+        "published_at": null,
+        "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+        "snapshot_id": "38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a",
+        "url": "https://www.sec.gov/files/company_tickers.json"
+      },
+      {
+        "kind": "13f_list",
+        "observed_at": "2026-10-12T14:49:07.942392+00:00",
+        "published_at": null,
+        "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179",
+        "snapshot_id": "fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c",
+        "url": "https://www.sec.gov/files/investment/13flist2026q3.txt"
+      }
+    ],
+    "status": "COMPLETE_TWO_PUBLIC_GLOBAL_INPUTS",
+    "transport": "ordinary bounded urllib HTTPS with official SEC redirect policy",
+    "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public repository: littleleg198602/JOHNY-SKORE)"
+  },
+  "raw_source_counts": {
+    "active_supported_equity_rows": 5256,
+    "catalog_entries": 10445,
+    "extra_repeated_option_rows_preserved": 2070,
+    "list_rows": 25789,
+    "normalized_catalog_keys": 10445,
+    "option_rows": 12266,
+    "repeated_option_identifier_groups": 1074,
+    "unique_list_cusips": 23719
+  },
+  "recorded_at": "2026-10-12T15:09:54.626717+00:00",
+  "runtime": {
+    "platform": "Linux",
+    "python": "3.12.14"
+  },
+  "schema_version": 1,
+  "time_separation": {
+    "date_claim_source": "evidence/batch3_identity_sources_20261012/q3_pdf_metadata.tool.json",
+    "guidance_last_reviewed_or_updated_label": "2026-10-06",
+    "last_modified_is_publication_time": false,
+    "list_declared_current_as_of": "2026-09-30",
+    "preparation_as_of": "2026-10-12T14:51:02.489237+00:00",
+    "publication_at": null,
+    "selected_quarter": "2026q3",
+    "selected_quarter_end": "2026-09-30",
+    "selected_quarter_start": "2026-07-01",
+    "source_known_at_basis": "Actual UTC capture completion; publisher publication times are not available"
+  },
+  "verification": {
+    "compile": {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "market_checker_app/sec13f_identity_bulk.py",
+        "market_checker_app/services/sec13f_identity_bulk.py",
+        "tests/test_sec13f_identity_bulk.py"
+      ],
+      "duration_seconds": 0.036,
+      "exit_code": 0,
+      "log_path": null,
+      "log_sha256": null,
+      "output_tail": ""
+    },
+    "diff_check": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "duration_seconds": 0.005,
+      "exit_code": 0,
+      "log_path": null,
+      "log_sha256": null,
+      "output_tail": ""
+    },
+    "offline_replay": {
+      "checkpoint_sha256_after": "36646cc353086450088566c61f9e0e2ccc4465d9026109760c9bdcb0add018f3",
+      "checkpoint_sha256_before": "36646cc353086450088566c61f9e0e2ccc4465d9026109760c9bdcb0add018f3",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "market_checker_app.sec13f_identity_bulk",
+        "prepare",
+        "--workspace",
+        "evidence/batch3_identity_bulk_20261012",
+        "--quarter",
+        "2026q3"
+      ],
+      "duration_seconds": 1.711,
+      "exit_code": 0,
+      "live_network_requested": false,
+      "log_path": "evidence/batch3_identity_bulk_20261012/offline_replay.log",
+      "log_sha256": "eec68615b273dafba5cba6ab78ea2ab53e638c170fb7ed7d52b918bc6c53ca04",
+      "output_tail": "SEC identity candidates: 687/687 saved\n",
+      "same_bytes": true
+    },
+    "targeted_tests": {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_sec13f_identity_bulk",
+        "tests.test_sec13f_identity_transitions",
+        "-v"
+      ],
+      "duration_seconds": 6.283,
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "log_path": "evidence/batch3_identity_bulk_20261012/targeted_tests.log",
+      "log_sha256": "807b8d3c5a1d03dbfc94c5e06ee3348182222acf502e49d563d5d3362269bebe",
+      "output_tail": "tityTransitionTests.test_primary_source_cannot_be_replaced_by_binding_note_or_schedule13) ... ok\ntest_same_identity_renewal_uses_new_evidence_without_rewriting_the_past (tests.test_sec13f_identity_transitions.Sec13fIdentityTransitionTests.test_same_identity_renewal_uses_new_evidence_without_rewriting_the_past) ... ok\ntest_share_class_change_is_separate_despite_same_cik_and_cusip (tests.test_sec13f_identity_transitions.Sec13fIdentityTransitionTests.test_share_class_change_is_separate_despite_same_cik_and_cusip) ... ok\ntest_transition_action_must_be_observed_before_review (tests.test_sec13f_identity_transitions.Sec13fIdentityTransitionTests.test_transition_action_must_be_observed_before_review) ... ok\ntest_unrelated_or_duplicate_transition_claim_is_rejected (tests.test_sec13f_identity_transitions.Sec13fIdentityTransitionTests.test_unrelated_or_duplicate_transition_claim_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 85 tests in 6.157s\n\nOK\n",
+      "skipped": 0,
+      "tests_run": 85
+    }
+  }
+}

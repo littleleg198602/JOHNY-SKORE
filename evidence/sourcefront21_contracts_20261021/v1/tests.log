@@ -1,0 +1,49 @@
+test_actual_whole_retained_filing_preserves_all_six_facts_and_109_byte_conflict (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_actual_whole_retained_filing_preserves_all_six_facts_and_109_byte_conflict) ... FAIL
+test_asset_context_other_issuer_does_not_inherit_cover_identity (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_asset_context_other_issuer_does_not_inherit_cover_identity) ... ok
+test_cancelability_and_full_paragraph_qualifiers_cannot_be_trimmed (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_cancelability_and_full_paragraph_qualifiers_cannot_be_trimmed) ... ok
+test_changed_body_or_whole_source_splice_fails_original_hash (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_changed_body_or_whole_source_splice_fails_original_hash) ... ok
+test_completion_clock_and_cutoff_are_rechecked_after_validation (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_completion_clock_and_cutoff_are_rechecked_after_validation) ... ok
+test_cover_or_comparative_date_cannot_be_moved (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_cover_or_comparative_date_cannot_be_moved) ... ok
+test_current_and_noncurrent_annotations_cannot_be_swapped (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_current_and_noncurrent_annotations_cannot_be_swapped) ... ok
+test_duplicate_original_identifier_is_ambiguous (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_duplicate_original_identifier_is_ambiguous) ... ok
+test_extra_dimension_cannot_hide_a_different_scope (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_extra_dimension_cannot_hide_a_different_scope) ... ok
+test_false_purchase_physical_or_named_allocation_interpretation_is_rejected (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_false_purchase_physical_or_named_allocation_interpretation_is_rejected) ... ok
+test_four_megabyte_whole_body_bound_precedes_xml_parser (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_four_megabyte_whole_body_bound_precedes_xml_parser) ... ok
+test_future_reversed_or_pre_capture_knowledge_clocks_are_rejected (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_future_reversed_or_pre_capture_knowledge_clocks_are_rejected) ... ok
+test_hidden_or_table_passage_cannot_supply_the_visible_asset_claim (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_hidden_or_table_passage_cannot_supply_the_visible_asset_claim) ... ok
+test_inputs_outputs_and_replay_are_detached (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_inputs_outputs_and_replay_are_detached) ... ok
+test_literal_total_must_equal_current_plus_noncurrent (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_literal_total_must_equal_current_plus_noncurrent) ... ok
+test_missing_complete_manifest_or_withheld_body_never_enters_parser (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_missing_complete_manifest_or_withheld_body_never_enters_parser) ... ok
+test_missing_or_extra_capture_scope_is_not_silently_ignored (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_missing_or_extra_capture_scope_is_not_silently_ignored) ... ok
+test_money_precision_context_and_arithmetic_preserve_financial_asset_scope (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_money_precision_context_and_arithmetic_preserve_financial_asset_scope) ... ok
+test_narrative_and_instant_context_dates_must_agree (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_narrative_and_instant_context_dates_must_agree) ... ok
+test_no_named_foundry_volume_purchase_obligation_apple_or_continuity_inference (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_no_named_foundry_volume_purchase_obligation_apple_or_continuity_inference) ... ok
+test_nonfinite_negative_or_numeric_nonliteral_is_not_a_balance (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_nonfinite_negative_or_numeric_nonliteral_is_not_a_balance) ... ok
+test_old_explicit_cutoff_cannot_relabel_new_ingestion_as_history (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_old_explicit_cutoff_cannot_relabel_new_ingestion_as_history) ... ok
+test_parallel_repeated_values_are_not_equivalent_nested_tags (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_parallel_repeated_values_are_not_equivalent_nested_tags) ... ok
+test_recomputed_manifest_cannot_hide_wrong_numeric_body_literal (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_recomputed_manifest_cannot_hide_wrong_numeric_body_literal) ... ok
+test_reused_or_omitted_nested_annotation_cannot_create_an_extra_balance (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_reused_or_omitted_nested_annotation_cannot_create_an_extra_balance) ... ok
+test_scale_sign_precision_transform_and_nil_cannot_change_meaning (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_scale_sign_precision_transform_and_nil_cannot_change_meaning) ... ok
+test_six_balances_are_not_twelve_nested_annotations (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_six_balances_are_not_twelve_nested_annotations) ... ok
+test_usd_currency_cannot_be_replaced_by_eur_or_share_ratio (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_usd_currency_cannot_be_replaced_by_eur_or_share_ratio) ... ok
+test_wafer_category_is_not_other_asset_or_named_supplier (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_wafer_category_is_not_other_asset_or_named_supplier) ... ok
+test_wrong_archive_routing_or_index_accession_is_rejected (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_wrong_archive_routing_or_index_accession_is_rejected) ... ok
+test_wrong_dei_issuer_or_context_cannot_be_selected (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_wrong_dei_issuer_or_context_cannot_be_selected) ... ok
+test_wrong_textblock_context_or_disclosure_concept_cannot_be_stitched (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_wrong_textblock_context_or_disclosure_concept_cannot_be_stitched) ... ok
+
+======================================================================
+FAIL: test_actual_whole_retained_filing_preserves_all_six_facts_and_109_byte_conflict (wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_actual_whole_retained_filing_preserves_all_six_facts_and_109_byte_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015/tests/test_wafer_capacity_deposit_review.py", line 156, in test_actual_whole_retained_filing_preserves_all_six_facts_and_109_byte_conflict
+    report = self.review(inputs); self.assertEqual("CANDIDATE_REVIEWED", report["status"], report)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'CANDIDATE_REVIEWED' != 'REJECTED'
+- CANDIDATE_REVIEWED
++ REJECTED
+ : {'schema_version': 'wafer-capacity-deposit-original-review-v1', 'review_kind': 'WAFER_CAPACITY_DEPOSITS', 'status': 'REJECTED', 'reason': 'EXACT_COMPANY_CONSOLIDATED_NOTE_AND_QUALIFIERS_REQUIRED', 'claim': None, 'review_started_at': '2026-10-21T12:00:00+00:00', 'ingested_at': '2026-10-21T12:00:00+00:00', 'knowledge_at': '2026-10-21T12:00:00+00:00', 'as_of': '2026-10-21T12:00:00+00:00', 'source_http_requests': 0, 'collector_requests': 0, 'usaspending_requests': 0, 'db_writes': 0, 'registry_adoptions': 0, 'read_only': True, 'scoring_applied': False, 'model_modified': False, 'fitter_modified': False, 'trading_allowed': False, 'activation_allowed': False, 'named_foundry_attribution_allowed': False, 'physical_capacity_verified': False, 'physical_volume_verified': False, 'purchases_verified': False, 'outstanding_obligation_amount_verified': False, 'actual_spend_verified': False, 'revenue_amount_verified': False, 'apple_allocation_allowed': False, 'direct_purchase_share_verified': False, 'supplier_identity_continuity_verified': False, 'issuer_identity_adopted': False, 'current_instrument_or_q3_verified': False, 'historical_as_filed_comparison_verified': False, 'historical_availability_reconstructed': False, 'out_of_sample_verified': False, 'source_manifest_is_publisher_signed': False, 'source_identity_continuity_verified': False}
+
+----------------------------------------------------------------------
+Ran 32 tests in 0.740s
+
+FAILED (failures=1)

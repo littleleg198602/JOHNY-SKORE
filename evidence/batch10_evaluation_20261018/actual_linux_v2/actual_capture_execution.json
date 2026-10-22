@@ -1,0 +1,58 @@
+{
+  "scope": "ACTUAL_NATIVE_LINUX_READINESS_ONLY",
+  "started_at": "2026-10-18T14:09:21.533870+00:00",
+  "ended_at": "2026-10-18T14:09:21.567275+00:00",
+  "producer": {
+    "exists": true,
+    "bytes": 25057,
+    "sha256": "28551e0660ee677db9a4aee4513b204b6ebc6ca5e03688007a9119280490b566"
+  },
+  "producer_after": {
+    "exists": true,
+    "bytes": 25057,
+    "sha256": "28551e0660ee677db9a4aee4513b204b6ebc6ca5e03688007a9119280490b566"
+  },
+  "script": {
+    "exists": true,
+    "bytes": 5954,
+    "sha256": "c7faa3adb7f6f56a5b9b2508ade850c40d6d962d7bfdbc1d06dd73610350f5dc"
+  },
+  "receipt": {
+    "exists": true,
+    "bytes": 7966,
+    "sha256": "bf1691aae45c9004d13a492b036f98bac102db1ff3047865d75db5e1516e8b59"
+  },
+  "receipt_status": "UNSUPPORTED_PLATFORM",
+  "readiness_status": "WAIT",
+  "retained_database_before": {
+    "exists": true,
+    "bytes": 294912,
+    "sha256": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af"
+  },
+  "retained_database_after": {
+    "exists": true,
+    "bytes": 294912,
+    "sha256": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af"
+  },
+  "retained_database_bytes_unchanged": true,
+  "read_only_connection_calls": [],
+  "read_only_connections_closed": true,
+  "manifest_absent": true,
+  "actual_runtime_and_physical_clocks": true,
+  "runtime_clock_or_platform_injection": false,
+  "network_entrypoints_guarded": true,
+  "source_HTTP_requests": 0,
+  "production_database_writes": 0,
+  "actual_forecasts_created": 0,
+  "registrations_created": 0,
+  "labels_created": 0,
+  "user_windows_end_to_end_verified": false,
+  "limitations": [
+    "Linux is not the user's native Windows machine",
+    "Readiness capture executes no normal production run",
+    "No captured usable market manifest exists at the failed acquisition's explicit output path",
+    "A reader platform cannot prove the operating system or authenticity of old stored rows",
+    "The candidate producer is pinned by physical bytes; its new untracked module is not in the baseline Git tree",
+    "UNKNOWN publisher revision timing remains excluded from strict PIT/OOS"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "kind": "ticker_catalog",
+  "observed_at": "2026-10-12T14:49:01.942947+00:00",
+  "published_at": null,
+  "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e",
+  "url": "https://www.sec.gov/files/company_tickers.json"
+}

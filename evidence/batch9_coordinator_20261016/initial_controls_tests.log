@@ -1,0 +1,10 @@
+test_cli_execution_passes_exact_selected_plan_and_explicit_opt_in (tests.test_batch9_coordinator_integration.MarketInputActionTests.test_cli_execution_passes_exact_selected_plan_and_explicit_opt_in) ... ok
+test_default_cli_prepares_only_bounded_plan_without_http_database_or_archive (tests.test_batch9_coordinator_integration.MarketInputActionTests.test_default_cli_prepares_only_bounded_plan_without_http_database_or_archive) ... ok
+test_execute_requires_existing_explicit_plan_before_collector_construction (tests.test_batch9_coordinator_integration.MarketInputActionTests.test_execute_requires_existing_explicit_plan_before_collector_construction) ... ok
+test_ui_preview_never_executes_and_execution_consumes_the_displayed_plan (tests.test_batch9_coordinator_integration.MarketInputActionTests.test_ui_preview_never_executes_and_execution_consumes_the_displayed_plan) ... 2026-10-17 16:29:47.528 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.430s
+
+OK

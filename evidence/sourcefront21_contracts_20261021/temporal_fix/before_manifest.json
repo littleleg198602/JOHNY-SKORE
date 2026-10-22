@@ -1,0 +1,69 @@
+{
+  "before_owner_commit": "202303498cb68098247f2cb648e08cd99812d164",
+  "before_peer_commit": "390d713e8ab056759eec0dfa0128039b34a12340",
+  "files": [
+    {
+      "bytes": 25503,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/wafer_capacity_deposit_review.py",
+      "repository_path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+      "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+    },
+    {
+      "bytes": 21725,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/test_wafer_capacity_deposit_review.py",
+      "repository_path": "tests/test_wafer_capacity_deposit_review.py",
+      "sha256": "76a05359cb34df30640875d0545ea41c9f047ad81fbd4438a3fd399e9987c8c4"
+    },
+    {
+      "bytes": 6022,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/SWKS_zalohy_na_vyrobni_kapacitu.json",
+      "repository_path": "evidence/sourcefront21_contracts_20261021/SWKS_zalohy_na_vyrobni_kapacitu.json",
+      "sha256": "2c715af3716fd2294d35b68682b5fa8544fdedd143f311450665ed93a08f74cb"
+    },
+    {
+      "bytes": 12512,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/test_wafer_capacity_deposit_peer.py",
+      "independent_peer_path": "evidence/sourcefront21_wafer_peer_20261021/before/test_wafer_capacity_deposit_peer.py",
+      "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+    },
+    {
+      "bytes": 5930,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/tests.log",
+      "independent_peer_path": "evidence/sourcefront21_wafer_peer_20261021/before/tests.log",
+      "sha256": "bd3c3016fa7ac700bbf5628fc6cba8c72529acc99b3c90f0cabd097de701d37e"
+    },
+    {
+      "bytes": 1681,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/tests.json",
+      "independent_peer_path": "evidence/sourcefront21_wafer_peer_20261021/before/tests.json",
+      "sha256": "905a163f5c5fa5ee4b85db8b3072913b2d7f7e9dd609fc64a383f56cde6a85fe"
+    },
+    {
+      "bytes": 436,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/producer_pin.json",
+      "independent_peer_path": "evidence/sourcefront21_wafer_peer_20261021/before/producer_pin.json",
+      "sha256": "0679b3f298cb517409af8359abef034d78f702a04a2c3d146fc2fea225d69b1b"
+    },
+    {
+      "bytes": 9715,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/case_diagnostics.json",
+      "independent_peer_path": "evidence/sourcefront21_wafer_peer_20261021/before/case_diagnostics.json",
+      "sha256": "f27aee5625128ad2a5a5a4fc85f459211b94ea176a7f8079e08873b758091db1"
+    },
+    {
+      "bytes": 6022,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/captured_plan.json",
+      "independent_peer_path": "evidence/sourcefront21_wafer_peer_20261021/before/captured_plan.json",
+      "sha256": "2c715af3716fd2294d35b68682b5fa8544fdedd143f311450665ed93a08f74cb"
+    },
+    {
+      "bytes": 5930,
+      "frozen_path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/handoff.json",
+      "independent_peer_path": "evidence/sourcefront21_wafer_peer_20261021/before/handoff.json",
+      "sha256": "6a4cab92a9debe5b5d7abc2695819047c9d87e1f47856d7c04be5d5761b275e8"
+    }
+  ],
+  "recorded_at": "2026-10-21T07:14:00.780545+00:00",
+  "source_http_requests": 0,
+  "sql_database_operations": 0
+}

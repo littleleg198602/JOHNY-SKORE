@@ -1,0 +1,66 @@
+{
+  "derived_pdf_text_exported": false,
+  "public_source_bodies": [
+    {
+      "body_bytes": 1096132,
+      "capture_id": "doj_apple_complaint",
+      "metadata_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_complaint.metadata.json",
+      "metadata_sha256": "cb96f174874c58851f815458e93c1f5fcda6556fffacb7abd3aaf6a7ea5c860e",
+      "pdf_decoded_characters": 165438,
+      "pdf_decoder_version": "6.16.1",
+      "pdf_pages_sensitive_scanned": 88,
+      "raw_and_html_unescaped_sensitive_cues": 0,
+      "raw_body_unmodified": true,
+      "sha256": "8179346e0243ba8e5650821b7f88eccf96284332a7ffa413756cafefc1cfbe1b",
+      "source_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_complaint.pdf",
+      "source_scope_review_pages": [
+        1,
+        2,
+        3
+      ],
+      "whole_original_body_publication": "NO_ACCESS_VALUE_CUE_FOUND"
+    },
+    {
+      "body_bytes": 85447,
+      "capture_id": "doj_apple_release",
+      "metadata_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_release.metadata.json",
+      "metadata_sha256": "241528380c8158fc2e21870280a5b5fdc24ea4009f30354d36b5dedd378ef8f9",
+      "raw_and_html_unescaped_sensitive_cues": 0,
+      "raw_body_unmodified": true,
+      "sha256": "e7d3e7fdf4d0f87f8a40fbc74e907b85a6f5d1b5656d97059941461b085783da",
+      "source_path": "evidence/batch7_regulatory_20261015/raw/doj_apple_release.html",
+      "whole_original_body_publication": "NO_ACCESS_VALUE_CUE_FOUND"
+    },
+    {
+      "body_bytes": 1559034,
+      "capture_id": "sec_apple_2023_10k",
+      "metadata_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.metadata.json",
+      "metadata_sha256": "492ae033c7e76510da6e502a4f7fe6c75100db04fe2e337082ca8e454de96059",
+      "raw_and_html_unescaped_sensitive_cues": 0,
+      "raw_body_unmodified": true,
+      "sha256": "d76de55ead22cb553096b3495f55c8e0f6cd94f36242d9c87737b55952816724",
+      "source_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.html",
+      "whole_original_body_publication": "NO_ACCESS_VALUE_CUE_FOUND"
+    },
+    {
+      "body_bytes": 12838,
+      "capture_id": "sec_apple_2023_index",
+      "metadata_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_index.metadata.json",
+      "metadata_sha256": "2e2853e85079008fe72cee64a8975041e037f7ca6a9382c6d290cb2a219c3f8f",
+      "raw_and_html_unescaped_sensitive_cues": 0,
+      "raw_body_unmodified": true,
+      "sha256": "ce2b5125c09b615c9bc47ac81aebd2b2a396004f7da7c5fc4b75ab4878edf433",
+      "source_path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_index.html",
+      "whole_original_body_publication": "NO_ACCESS_VALUE_CUE_FOUND"
+    }
+  ],
+  "recorded_at": "2026-10-15T04:34:03.539897+00:00",
+  "sanitized_encoded_or_compressed_substitute_written": false,
+  "scope": "Four new whole original primary responses only; no replacement of prior withheld bodies.",
+  "security_limit": "No pattern scan proves absence of every possible access value; all whole-body publication rejections must still be honored.",
+  "whole_withheld_paths_absent": [
+    "evidence/batch4_regulatory_20261013/raw/nhtsa_api_docs.html",
+    "evidence/batch4_ir_20261013/primary/ir_authority.html",
+    "evidence/batch5_ir_20261014/primary/ir_authority.html"
+  ]
+}

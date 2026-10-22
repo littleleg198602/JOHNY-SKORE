@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-10-21T07:39:55.483138+00:00",
+  "documents": {
+    "SCOUT_PROGRESS.md": {
+      "original_header_and_all_remaining_bytes_preserved": true,
+      "after_sha256": "6cc677ad714641c8ca89485d02a09751bf167e114aa92f8f0328887eeef7cfdc"
+    },
+    "SPECIALIST_COMPLETION.md": {
+      "original_header_and_all_remaining_bytes_preserved": true,
+      "after_sha256": "04b0768899587c8f002e1fe40788be44029ca827cc458801a0fa23d86dde6866"
+    },
+    "SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261001.md": {
+      "original_header_and_all_remaining_bytes_preserved": true,
+      "after_sha256": "793570f0d359dea8f006b89a19c89c416dda79f35dd565491b52473c5a5a5c5d"
+    },
+    "PARALLEL_SPECIALIST_WORK.md": {
+      "original_header_and_all_remaining_bytes_preserved": true,
+      "after_sha256": "91dc923ad3e9d1112fabcb5068ea95b9051386108e084faf33ec4ade15b71d7f"
+    }
+  }
+}

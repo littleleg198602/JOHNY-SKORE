@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 import unittest
 
 from market_checker_app.services.healthcare_identity_service import (
-    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry, application_values,
+    HealthcareIdentityRegistry, application_values,
     normalize_application, resolve_fda_crl, resolve_fda_recall,
 )
 from market_checker_app.services.fda_recall_scout_service import FdaRecallScoutService
@@ -17,9 +17,10 @@ from market_checker_app.services.healthcare_scout_service import (
 from market_checker_app.storage.scout_store import ScoutStore
 
 
-RECORDS = json.loads(DEFAULT_HEALTHCARE_IDENTITIES.read_text())["records"]
-NOW = max(datetime.fromisoformat(row["known_at"]) for row in RECORDS) + timedelta(seconds=1)
 FIXTURES = Path(__file__).parent / "fixtures" / "healthcare"
+# Semantic cases retain the reviewed five-row baseline and its original clock.
+RECORDS = json.loads((FIXTURES / "reviewed_seed_identities_20261011.json").read_text())["records"]
+NOW = max(datetime.fromisoformat(row["known_at"]) for row in RECORDS) + timedelta(seconds=1)
 
 
 def fixture(name):
@@ -69,9 +70,14 @@ class HealthcareIdentityTests(unittest.TestCase):
         for record in RECORDS:
             with self.subTest(record=record["record_id"]):
                 result = self.resolve(record)
-                self.assertTrue(result["issuer_attribution_allowed"])
-                self.assertEqual(record["known_at"], result["identity_evidence"]["known_at"])
-                self.assertEqual(record["identifiers"], result["identity_evidence"]["identifiers"])
+                if record["kind"] == "cms_provider_owner":
+                    self.assertFalse(result["issuer_attribution_allowed"])
+                    self.assertEqual("CMS_SNAPSHOT_ORIGINAL_BINDING_MISSING", result["identity_resolution"])
+                    self.assertEqual(record["record_id"], result["retained_relationship_record_id"])
+                else:
+                    self.assertTrue(result["issuer_attribution_allowed"])
+                    self.assertEqual(record["known_at"], result["identity_evidence"]["known_at"])
+                    self.assertEqual(record["identifiers"], result["identity_evidence"]["identifiers"])
                 self.assertFalse(self.resolve(record, cik="0000000001")["issuer_attribution_allowed"])
                 for key in record["identifiers"]:
                     changed = dict(record["identifiers"], **{key: "different"})
@@ -278,7 +284,8 @@ class HealthcareIdentityTests(unittest.TestCase):
         record = next(r for r in RECORDS if r["source"] == "cms")
         self.assertFalse(self.resolve(record, event_date=date.fromisoformat(
             record["identifiers"]["association_date"]))["issuer_attribution_allowed"])
-        self.assertTrue(self.resolve(record)["issuer_attribution_allowed"])
+        self.assertFalse(self.resolve(record)["issuer_attribution_allowed"])
+        self.assertEqual("CMS_SNAPSHOT_ORIGINAL_BINDING_MISSING", self.resolve(record)["identity_resolution"])
 
     def test_collector_replays_real_crl_arrays_with_identity_provenance_and_no_score(self):
         with TemporaryDirectory() as directory:
@@ -311,12 +318,12 @@ class HealthcareIdentityTests(unittest.TestCase):
             client = CapturedHealthcare("cms", rows+[unknown], partial=True)
             service = HealthcareNameScoutService(store, client=client, identities=self.registry, max_pages=1)
             result = service.run(as_of=NOW, universe={"HCA"})
-            self.assertEqual(("PARTIAL", 3, 2), (result["status"], result["new_findings"], result["identity_linked_candidates"]))
+            self.assertEqual(("PARTIAL", 3, 0), (result["status"], result["new_findings"], result["identity_linked_candidates"]))
             self.assertIn("HCA HEALTHCARE INC", client.calls)
             self.assertEqual(0, service.run(as_of=NOW+timedelta(days=1))["new_findings"])
             with store._connect() as conn:
                 details = [json.loads(r[0]) for r in conn.execute("SELECT details_json FROM scout_findings")]
-            self.assertEqual(2, sum(d["issuer_attribution_allowed"] for d in details))
+            self.assertEqual(0, sum(d["issuer_attribution_allowed"] for d in details))
             self.assertTrue(all(not d["historical_association_attribution_allowed"] for d in details))
             self.assertTrue(all(not d["scoring_applied"] for d in details))
             self.assertEqual("NAME_ONLY", next(d for d in details if d["ENROLLMENT ID"] == unknown["ENROLLMENT ID"])["identity_status"])

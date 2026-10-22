@@ -1,0 +1,151 @@
+{
+  "actual_control_report": {
+    "bytes": 25382,
+    "path": "evidence/sourcefront21_wafer_peer_20261021/before/actual_control_report.json",
+    "sha256": "632fb31f15228cec659db8473879bf47bf62073d829d687b5706eff08db7922b"
+  },
+  "actual_control_summary": {
+    "apple_allocation_allowed": false,
+    "knowledge_at": "2026-10-21T07:10:12.191674+00:00",
+    "known_served_index_size_conflict": 109,
+    "named_foundry_attribution_allowed": false,
+    "nested_annotation_count": 12,
+    "physical_volume_verified": false,
+    "purchases_verified": false,
+    "unique_components": 6
+  },
+  "all_current_owned_artifact_pins": [
+    {
+      "bytes": 3039,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/README.md",
+      "sha256": "15bb8d345bd96db63499ec9eb40cb921d8ce3483e463f5f5f889fdf5e20834aa"
+    },
+    {
+      "bytes": 25382,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/before/actual_control_report.json",
+      "sha256": "632fb31f15228cec659db8473879bf47bf62073d829d687b5706eff08db7922b"
+    },
+    {
+      "bytes": 6022,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/before/captured_plan.json",
+      "sha256": "2c715af3716fd2294d35b68682b5fa8544fdedd143f311450665ed93a08f74cb"
+    },
+    {
+      "bytes": 9715,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/before/case_diagnostics.json",
+      "sha256": "f27aee5625128ad2a5a5a4fc85f459211b94ea176a7f8079e08873b758091db1"
+    },
+    {
+      "bytes": 436,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/before/producer_pin.json",
+      "sha256": "0679b3f298cb517409af8359abef034d78f702a04a2c3d146fc2fea225d69b1b"
+    },
+    {
+      "bytes": 12512,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/before/test_wafer_capacity_deposit_peer.py",
+      "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+    },
+    {
+      "bytes": 1681,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/before/tests.json",
+      "sha256": "905a163f5c5fa5ee4b85db8b3072913b2d7f7e9dd609fc64a383f56cde6a85fe"
+    },
+    {
+      "bytes": 5930,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/before/tests.log",
+      "sha256": "bd3c3016fa7ac700bbf5628fc6cba8c72529acc99b3c90f0cabd097de701d37e"
+    },
+    {
+      "bytes": 25503,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/before/wafer_capacity_deposit_review.py",
+      "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+    },
+    {
+      "bytes": 4109,
+      "path": "evidence/sourcefront21_wafer_peer_20261021/run_peer.py",
+      "sha256": "a5f78cba825b3bfd8cf38762a7a6fcb051b071c228b67a57de476cdbdbf630dd"
+    }
+  ],
+  "before_full_log": {
+    "bytes": 5930,
+    "path": "evidence/sourcefront21_wafer_peer_20261021/before/tests.log",
+    "sha256": "bd3c3016fa7ac700bbf5628fc6cba8c72529acc99b3c90f0cabd097de701d37e"
+  },
+  "before_result": {
+    "bytes": 1681,
+    "path": "evidence/sourcefront21_wafer_peer_20261021/before/tests.json",
+    "sha256": "905a163f5c5fa5ee4b85db8b3072913b2d7f7e9dd609fc64a383f56cde6a85fe"
+  },
+  "case_diagnostics": {
+    "bytes": 9715,
+    "path": "evidence/sourcefront21_wafer_peer_20261021/before/case_diagnostics.json",
+    "sha256": "f27aee5625128ad2a5a5a4fc85f459211b94ea176a7f8079e08873b758091db1"
+  },
+  "counts": {
+    "discovered": 12,
+    "duration_seconds": 4.75340418799999,
+    "errors": 0,
+    "executed": 12,
+    "expected_failures": 0,
+    "failures": 2,
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "created_at": "2026-10-21T07:12:36.202445+00:00",
+  "findings": [
+    {
+      "expected_status": "REJECTED",
+      "method": "test_explicit_future_requested_clock_cannot_publish_a_future_as_of_claim",
+      "observed_status": "CANDIDATE_REVIEWED",
+      "physical_clock": "2026-10-21T08:00:00+00:00",
+      "requested_as_of": "2026-10-22T08:00:00+00:00",
+      "whole_bodies_unchanged": true
+    },
+    {
+      "expected_status": "REJECTED",
+      "index_whole_hash_rebound": true,
+      "method": "test_future_index_acceptance_display_cannot_be_a_qualified_capture_from_2026",
+      "observed_status": "CANDIDATE_REVIEWED",
+      "physical_clock": "2026-10-21T08:00:00+00:00",
+      "synthetic_index_sha256": "add29ceaaf13497b6c7d75221c06b59c2b2aafc445d39caaa2fdd305855bf9c2",
+      "synthetic_index_unique_replacement": {
+        "new": "2099-11-07 16:08:12",
+        "old": "2025-11-07 16:08:12"
+      }
+    }
+  ],
+  "four_withheld_bodies_read_recovered_or_substituted": false,
+  "frozen_input_plan": {
+    "bytes": 6022,
+    "path": "evidence/sourcefront21_wafer_peer_20261021/before/captured_plan.json",
+    "sha256": "2c715af3716fd2294d35b68682b5fa8544fdedd143f311450665ed93a08f74cb"
+  },
+  "frozen_original_producer": {
+    "bytes": 25503,
+    "path": "evidence/sourcefront21_wafer_peer_20261021/before/wafer_capacity_deposit_review.py",
+    "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+  },
+  "frozen_original_test": {
+    "bytes": 12512,
+    "path": "evidence/sourcefront21_wafer_peer_20261021/before/test_wafer_capacity_deposit_peer.py",
+    "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+  },
+  "http_sql_source_capture_calls": 0,
+  "owner32_or_full_suites_run": false,
+  "owner_commit": "202303498cb68098247f2cb648e08cd99812d164",
+  "producer": {
+    "bytes": 25503,
+    "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+    "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+  },
+  "producer_edited": false,
+  "protected_database_touched": false,
+  "schema_version": "independent_wafer_peer_before_handoff_v1",
+  "source_plan_branch_preserved": "6239403a6e39fee8997b93d81962b260e9886d96",
+  "test": {
+    "bytes": 12512,
+    "path": "tests/test_wafer_capacity_deposit_peer.py",
+    "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+  },
+  "unchanged_assertions_required_for_after": true
+}

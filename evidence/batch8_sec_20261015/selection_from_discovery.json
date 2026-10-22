@@ -1,0 +1,34 @@
+{
+  "account_name_exact": "Nadella Satya",
+  "current_entity_type_other_is_natural_person_evidence": false,
+  "excluded_already_reviewed_form4_accession": "0000789019-26-000161",
+  "expected_issuer_cik": "0000789019",
+  "latest_owner_form4_pointer_preserved": {
+    "acceptanceDateTime": "2026-09-02T22:04:41.000Z",
+    "accessionNumber": "0000789019-26-000161",
+    "filingDate": "2026-09-02",
+    "form": "4",
+    "primaryDocument": "xslF345X06/form4.xml",
+    "reportDate": "2026-09-01"
+  },
+  "owner_cik": "0001513142",
+  "owner_profile_observed_at": "2026-10-15T13:41:44.107399+00:00",
+  "owner_profile_original_sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+  "primary_xsl_rewritten_or_exported": false,
+  "profile_acceptance_timestamp_is_primary_publication_clock": false,
+  "requested_original_urls": {
+    "index": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157-index.html",
+    "packet": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt",
+    "xml": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/form4.xml"
+  },
+  "selected_at": "2026-10-15T13:42:38.334655+00:00",
+  "selected_filing": {
+    "acceptanceDateTime": "2026-09-01T22:08:27.000Z",
+    "accessionNumber": "0000789019-26-000157",
+    "filingDate": "2026-09-01",
+    "form": "4",
+    "primaryDocument": "xslF345X06/form4.xml",
+    "reportDate": "2026-08-31"
+  },
+  "selection_is_separate_recent_disclosure_not_latest_claim": true
+}

@@ -1,0 +1,183 @@
+{
+  "actual_current_report_path": "evidence/batch10_certificate_clock_fix_20261018/actual_review.json",
+  "actual_replay_verification": {
+    "actual_report_sha256": "f2da211272566690f08e1b58e44534c7e21a76f3195adf959438bbcf926a9854",
+    "actual_review_completed_at": "2026-10-18T14:13:03.991877+00:00",
+    "actual_review_started_at": "2026-10-18T14:13:03.840182+00:00",
+    "all_original_data_fields_and_nine_blockers_unchanged": true,
+    "all_prior_certificate_evidence_pins_unchanged": true,
+    "automated_pixel_text_authentication": false,
+    "current_q3_verified_instrument_coverage": 0,
+    "db_writes": 0,
+    "exact_original_source_plan_reused": true,
+    "existing_plan_path": "evidence/batch10_identity_20261018/captured_review_plan.json",
+    "existing_plan_sha256": "dbdb723350283bdb7e1c50f1de97d89db4c23dde21fcf09455d9d028594924bb",
+    "historical_or_oos_acceptance": false,
+    "new_source_requests": 0,
+    "prior_certificate_evidence_count": 21,
+    "registry_adoptions": 0,
+    "schema_version": "certificate_clock_real_replay_content_verification_v1",
+    "source_cutoff_at_start": "2026-10-18T14:13:03.840182+00:00",
+    "source_knowledge_at_unchanged": "2026-10-18T04:25:43.865560+00:00",
+    "verified_at": "2026-10-18T14:13:03.993730+00:00",
+    "visual_measurement_clock_unchanged": "2026-10-18T04:29:39.896536+00:00"
+  },
+  "after_focused_qualification": {
+    "db_writes": 0,
+    "discovered": 29,
+    "errors": 0,
+    "executed": 29,
+    "expected_failures": 0,
+    "failures": 0,
+    "finished_at": "2026-10-18T14:12:15.726379+00:00",
+    "log_sha256": "3568a99555ea52e5fa6bf0af3c4bcfdbf28fc39bff38c35327afa08e20881b58",
+    "new_clock_methods": 7,
+    "new_source_requests": 0,
+    "phase": "after",
+    "plain_OK": true,
+    "producer_sha256": "4da597ea0252dd0ffc17ca6bd9c565aa5f7b30f0dfd9f83d8680396aea7ad49d",
+    "schema_version": "certificate_clock_focused_qualification_v1",
+    "skips": 0,
+    "started_at": "2026-10-18T14:12:14.668346+00:00",
+    "synthetic_clock_regressions_are_acceptance": false,
+    "test_sha256": "3ed94ea05494fdc06b4ed9c7543b353a8f957e2b113b3efca796ed0b765a3f88",
+    "unchanged_old_methods": 22,
+    "unexpected_successes": 0
+  },
+  "all_data_fields_and_nine_blockers_unchanged": true,
+  "api": {
+    "completion_fields": [
+      "review_recorded_at",
+      "knowledge_at"
+    ],
+    "existing_review_plan_path": "evidence/batch10_identity_20261018/captured_review_plan.json",
+    "existing_review_plan_sha256": "dbdb723350283bdb7e1c50f1de97d89db4c23dde21fcf09455d9d028594924bb",
+    "explicit_cutoff_overrun": "ValueError; no interpreted result returned",
+    "function": "review_sec_certificate_instrument(request, captures, *, as_of=None)",
+    "inputs_unchanged": true,
+    "kind": "SEC_CERTIFICATE_INSTRUMENT",
+    "module": "market_checker_app.collectors.sec_certificate_instrument_review",
+    "start_fields": [
+      "review_started_at",
+      "as_of",
+      "source_as_of"
+    ]
+  },
+  "before_focused_execution": {
+    "db_writes": 0,
+    "discovered": 7,
+    "errors": 0,
+    "executed": 7,
+    "expected_failures": 0,
+    "failures": 7,
+    "finished_at": "2026-10-18T14:11:48.383538+00:00",
+    "log_sha256": "0dd2ecd433a5741f640f76855aba0463e6914b58a91c6501891e42f7eaf42812",
+    "new_clock_methods": 7,
+    "new_source_requests": 0,
+    "phase": "before",
+    "plain_OK": false,
+    "producer_sha256": "cce4981473be8e070e28314021dc4d4c8a43791386315de92fc23332dd41cf1c",
+    "schema_version": "certificate_clock_focused_qualification_v1",
+    "skips": 0,
+    "started_at": "2026-10-18T14:11:48.256193+00:00",
+    "synthetic_clock_regressions_are_acceptance": false,
+    "test_sha256": "3ed94ea05494fdc06b4ed9c7543b353a8f957e2b113b3efca796ed0b765a3f88",
+    "unchanged_old_methods": 22,
+    "unexpected_successes": 0
+  },
+  "branch": "batch10/certificate-clock-fix-20261018",
+  "collector_api_used": false,
+  "correction": "Select source at START, finish interpretation, observe aware END >= start/source/measurement, reject explicit cutoff overrun, then publish report with END knowledge.",
+  "current_q3_verified_instrument_coverage": 0,
+  "db_reads_or_writes": 0,
+  "development_lane": "identity_bulk",
+  "evidence_pins": {
+    "evidence/batch10_certificate_clock_fix_20261018/README.md": {
+      "bytes": 3113,
+      "sha256": "f7869e76dab84bd02108f18fe986a16ba8358fda4b906d2a6bca251d02bc2493"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/actual_replay_verification.json": {
+      "bytes": 1172,
+      "sha256": "edf3886a39613a824ae9cb5485a91b915f8e9b9d7944472f0462512c146d2382"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/actual_review.json": {
+      "bytes": 7537,
+      "sha256": "f2da211272566690f08e1b58e44534c7e21a76f3195adf959438bbcf926a9854"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/after_tests.json": {
+      "bytes": 769,
+      "sha256": "f481cc3568398a48104770132ca753d2dca7d4f8bb7e43eea0ae9702782e9997"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/after_tests.log": {
+      "bytes": 6638,
+      "sha256": "3568a99555ea52e5fa6bf0af3c4bcfdbf28fc39bff38c35327afa08e20881b58"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/before_snapshot.json": {
+      "bytes": 4942,
+      "sha256": "4d5e93336b18eee5c542e26e218ef48aa1fbdd306dc00a85aba9d811620a99d5"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/before_tests.json": {
+      "bytes": 769,
+      "sha256": "b3656066c67f424ccbd5e11d70182db52a0b7944cf5135cacb1ddbcfd52688a0"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/before_tests.log": {
+      "bytes": 11609,
+      "sha256": "0dd2ecd433a5741f640f76855aba0463e6914b58a91c6501891e42f7eaf42812"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/producer_versions/before_clock_service.py": {
+      "bytes": 18455,
+      "sha256": "cce4981473be8e070e28314021dc4d4c8a43791386315de92fc23332dd41cf1c"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/producer_versions/before_clock_tests.py": {
+      "bytes": 20483,
+      "sha256": "2176183dc1f6f59b689cff6f2d138d7a5429ce35f787023fb46d58b19728cceb"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/qualify_clock.py": {
+      "bytes": 3277,
+      "sha256": "e31d00d1c4985bcf99dfc6afac912db24212ed7d2f170c59fc859e235e8c3ad9"
+    },
+    "evidence/batch10_certificate_clock_fix_20261018/replay_current.py": {
+      "bytes": 3681,
+      "sha256": "13a53d69747907ddfcdb8b346fc90e8ff804d44af1d6ad7ae2b7de4ac41657de"
+    }
+  },
+  "full_specialist_acceptance": 0,
+  "github_mutations": false,
+  "model_score_fitter_budget_or_trading_changed": false,
+  "new_clock_method_count": 7,
+  "new_source_http_requests": 0,
+  "old_test_method_count": 22,
+  "old_test_methods_ast_identical": true,
+  "original_artifact_count": 21,
+  "original_artifacts_unchanged": true,
+  "owned_base_commit": "ab38e341130efe0187cef6a6cefa8ee24d2206dc",
+  "physical_completion": "2026-10-18T14:13:03.991877+00:00",
+  "physical_start": "2026-10-18T14:13:03.840182+00:00",
+  "problem": "Single START clock assigned to new interpretation availability after decoding and derived field construction; no completion rollback/cutoff check.",
+  "producer": {
+    "market_checker_app/collectors/sec_certificate_instrument_review.py": {
+      "bytes": 19293,
+      "sha256": "4da597ea0252dd0ffc17ca6bd9c565aa5f7b30f0dfd9f83d8680396aea7ad49d"
+    }
+  },
+  "production_registry_changed": false,
+  "public_base_commit": "32adb8edd6aa6ccc1748d2cfbc228f7db3a16fd4",
+  "recorded_at": "2026-10-18T14:14:00.030792+00:00",
+  "registry_adoptions": 0,
+  "remaining_work": [
+    "Coordinator current-head integration and CI; original older producer/report hashes remain historical.",
+    "Independent dated instrument/action continuity and all analytical acceptance evidence remain open."
+  ],
+  "remote_ocr_or_second_image_requested": false,
+  "schema_version": "certificate_completion_clock_fix_handoff_v1",
+  "source_knowledge_at": "2026-10-18T04:25:43.865560+00:00",
+  "tests": {
+    "tests/test_sec_certificate_instrument_review.py": {
+      "bytes": 24774,
+      "sha256": "3ed94ea05494fdc06b4ed9c7543b353a8f957e2b113b3efca796ed0b765a3f88"
+    }
+  },
+  "user_windows_or_historical_oos_acceptance": false,
+  "visual_measurement_at": "2026-10-18T04:29:39.896536+00:00",
+  "whole_withheld_bodies_read_restored_or_substituted": false
+}

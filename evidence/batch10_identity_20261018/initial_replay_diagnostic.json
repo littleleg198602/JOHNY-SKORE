@@ -1,0 +1,9 @@
+{
+  "finding": "The shared bare class-title parser safely rejects the whole literal certificate sentence FULLY PAID AND NONASSESSABLE SHARES OF ... , OF. New consumer needs an exact certificate-specific literal envelope, without relaxing the shared parser or changing the source/visual observation.",
+  "network_requests_performed": 0,
+  "not_live_acceptance": true,
+  "original_report_path": "evidence/batch10_identity_20261018/actual_review.json",
+  "original_report_sha256": "21c00926301dd41b5b717afaef94823fba095f47a1b21c2d31cf4dabe60334fa",
+  "producer_sha256": "3b3726aeec4bd6e8b2d52db4f1bb9ea9767965e0e864364a5e8a2684cfa2b91f",
+  "schema_version": "certificate_literal_envelope_diagnostic_v1"
+}

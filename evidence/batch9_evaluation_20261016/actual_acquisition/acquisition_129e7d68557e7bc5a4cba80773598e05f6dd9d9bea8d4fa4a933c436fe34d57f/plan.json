@@ -1,0 +1,165 @@
+{
+  "byte_budget_per_response": 2000000,
+  "expected_sessions": [
+    "2026-07-15",
+    "2026-07-16",
+    "2026-07-17",
+    "2026-07-20",
+    "2026-07-21",
+    "2026-07-22",
+    "2026-07-23",
+    "2026-07-24",
+    "2026-07-27",
+    "2026-07-28",
+    "2026-07-29",
+    "2026-07-30",
+    "2026-07-31",
+    "2026-08-03",
+    "2026-08-04",
+    "2026-08-05",
+    "2026-08-06",
+    "2026-08-07",
+    "2026-08-10",
+    "2026-08-11",
+    "2026-08-12",
+    "2026-08-13",
+    "2026-08-14",
+    "2026-08-17",
+    "2026-08-18",
+    "2026-08-19",
+    "2026-08-20",
+    "2026-08-21",
+    "2026-08-24",
+    "2026-08-25",
+    "2026-08-26",
+    "2026-08-27",
+    "2026-08-28",
+    "2026-08-31",
+    "2026-09-01",
+    "2026-09-02",
+    "2026-09-03",
+    "2026-09-04",
+    "2026-09-08",
+    "2026-09-09",
+    "2026-09-10",
+    "2026-09-11",
+    "2026-09-14",
+    "2026-09-15",
+    "2026-09-16",
+    "2026-09-17",
+    "2026-09-18",
+    "2026-09-21",
+    "2026-09-22",
+    "2026-09-23",
+    "2026-09-24",
+    "2026-09-25",
+    "2026-09-28",
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-12",
+    "2026-10-13",
+    "2026-10-14",
+    "2026-10-15"
+  ],
+  "fallback_requests": 0,
+  "fixture_only": false,
+  "latest_completed_session": "2026-10-15",
+  "maximum_total_response_bytes": 26000000,
+  "plan_id": "c97b594692d96460e1e727cd6b9feaed90216208225a1095830a2aae970ad88e",
+  "planned_at": "2026-10-16T12:21:16.959578+00:00",
+  "publisher_revision_timing_status": "UNKNOWN",
+  "redirects": 0,
+  "request_budget": 13,
+  "requests": [
+    {
+      "method": "GET",
+      "ticker": "AAPL",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "SPY",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/SPY?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLB",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLB?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLC",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLC?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLE",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLE?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLF",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLF?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLI",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLI?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLK",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLK?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLP",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLP?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLRE",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLRE?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLU",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLU?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLV",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLV?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    },
+    {
+      "method": "GET",
+      "ticker": "XLY",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/XLY?period1=1784073600&period2=1792108800&interval=1d&events=div%2Csplits%2CcapitalGains&includeAdjustedClose=true&includePrePost=false"
+    }
+  ],
+  "retries": 0,
+  "strict_pit_eligible": false,
+  "tickers": [
+    "AAPL",
+    "SPY",
+    "XLB",
+    "XLC",
+    "XLE",
+    "XLF",
+    "XLI",
+    "XLK",
+    "XLP",
+    "XLRE",
+    "XLU",
+    "XLV",
+    "XLY"
+  ],
+  "version": "captured_yahoo_chart_acquisition_v1"
+}

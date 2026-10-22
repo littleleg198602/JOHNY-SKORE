@@ -1,0 +1,57 @@
+test_boolean_returned_run_id_cannot_alias_actual_integer_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_boolean_returned_run_id_cannot_alias_actual_integer_store_id) ... FAIL
+test_float_returned_run_id_cannot_alias_actual_integer_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_float_returned_run_id_cannot_alias_actual_integer_store_id) ... FAIL
+test_fsync_late_extra_DB_run_is_reported_without_claiming_same_process_store_commit (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_fsync_late_extra_DB_run_is_reported_without_claiming_same_process_store_commit) ... ok
+test_fsync_late_source_drift_keeps_initial_pins_and_withholds_qualification (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_fsync_late_source_drift_keeps_initial_pins_and_withholds_qualification) ... ok
+test_fsync_late_wall_rollback_cannot_publish_verified_clock_integrity (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_fsync_late_wall_rollback_cannot_publish_verified_clock_integrity) ... ok
+test_mismatched_integer_returned_run_id_preserves_actual_saved_rows (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_mismatched_integer_returned_run_id_preserves_actual_saved_rows) ... ok
+test_post_save_callback_failure_keeps_true_partial_subset_and_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_post_save_callback_failure_keeps_true_partial_subset_and_store_id) ... ok
+test_resealed_loaded_native_claim_is_never_reexecution_proof (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_resealed_loaded_native_claim_is_never_reexecution_proof) ... ok
+test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) ... 
+  test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) (column='run_id') ... FAIL
+  test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) (column='id') ... FAIL
+test_valid_actual_temp_save_control_is_bound_but_still_fixture_only (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_valid_actual_temp_save_control_is_bound_but_still_fixture_only) ... ok
+
+======================================================================
+FAIL: test_boolean_returned_run_id_cannot_alias_actual_integer_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_boolean_returned_run_id_cannot_alias_actual_integer_store_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_batch11_windows_analysis_peer.py", line 56, in test_boolean_returned_run_id_cannot_alias_actual_integer_store_id
+    self.binding_rejected(record)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_batch11_windows_analysis_peer.py", line 35, in binding_rejected
+    self.assertTrue(any(reason in record["qualification_reasons"] for reason in (
+AssertionError: False is not true : ['EXACT_COMMITTED_PRODUCER_IDENTITY_UNAVAILABLE', 'SYNTHETIC_EXECUTION_IS_NOT_NATIVE_PROOF']
+
+======================================================================
+FAIL: test_float_returned_run_id_cannot_alias_actual_integer_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_float_returned_run_id_cannot_alias_actual_integer_store_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_batch11_windows_analysis_peer.py", line 63, in test_float_returned_run_id_cannot_alias_actual_integer_store_id
+    self.binding_rejected(record)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_batch11_windows_analysis_peer.py", line 35, in binding_rejected
+    self.assertTrue(any(reason in record["qualification_reasons"] for reason in (
+AssertionError: False is not true : ['EXACT_COMMITTED_PRODUCER_IDENTITY_UNAVAILABLE', 'SYNTHETIC_EXECUTION_IS_NOT_NATIVE_PROOF']
+
+======================================================================
+FAIL: test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) (column='run_id')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_batch11_windows_analysis_peer.py", line 83, in test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored
+    self.binding_rejected(record)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_batch11_windows_analysis_peer.py", line 35, in binding_rejected
+    self.assertTrue(any(reason in record["qualification_reasons"] for reason in (
+AssertionError: False is not true : ['EXACT_COMMITTED_PRODUCER_IDENTITY_UNAVAILABLE', 'SYNTHETIC_EXECUTION_IS_NOT_NATIVE_PROOF']
+
+======================================================================
+FAIL: test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) (column='id')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_batch11_windows_analysis_peer.py", line 83, in test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored
+    self.binding_rejected(record)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015/tests/test_batch11_windows_analysis_peer.py", line 35, in binding_rejected
+    self.assertTrue(any(reason in record["qualification_reasons"] for reason in (
+AssertionError: False is not true : ['EXACT_COMMITTED_PRODUCER_IDENTITY_UNAVAILABLE', 'SYNTHETIC_EXECUTION_IS_NOT_NATIVE_PROOF']
+
+----------------------------------------------------------------------
+Ran 10 tests in 21.737s
+
+FAILED (failures=4)

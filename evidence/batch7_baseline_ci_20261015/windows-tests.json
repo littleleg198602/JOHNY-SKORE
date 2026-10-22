@@ -1,0 +1,14 @@
+{
+  "started_at": "2026-10-14T18:03:52.982449+00:00",
+  "ended_at": "2026-10-14T18:30:18.140880+00:00",
+  "platform": "Windows-2025Server-10.0.26100-SP0",
+  "python_version": "3.12.10",
+  "discovered_tests": 1603,
+  "tests_run": 1603,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true
+}

@@ -1,0 +1,1257 @@
+{
+  "additional_denominator_scope_evidence": {
+    "contexts": [
+      {
+        "dimensions": [
+          {
+            "axis_literal": "us-gaap:ContractWithCustomerSalesChannelAxis",
+            "member_literal": "us-gaap:SalesChannelThroughIntermediaryMember"
+          }
+        ],
+        "entity_identifier": "0000004127",
+        "entity_scheme": "http://www.sec.gov/CIK",
+        "id": "c-213",
+        "original_span": {
+          "byte_end": 97994,
+          "byte_start": 97549,
+          "bytes": 445,
+          "sha256": "d6bd7174aa84f1effacbfffdd30520b85bd35db5caa03fa197e947412bab3aef"
+        },
+        "period": {
+          "endDate": "2025-10-03",
+          "startDate": "2024-09-28"
+        }
+      },
+      {
+        "dimensions": [
+          {
+            "axis_literal": "us-gaap:ContractWithCustomerSalesChannelAxis",
+            "member_literal": "us-gaap:SalesChannelThroughIntermediaryMember"
+          }
+        ],
+        "entity_identifier": "0000004127",
+        "entity_scheme": "http://www.sec.gov/CIK",
+        "id": "c-214",
+        "original_span": {
+          "byte_end": 98439,
+          "byte_start": 97994,
+          "bytes": 445,
+          "sha256": "b830d504d90210d1691f7ecbea92c09e09a99734892d5145124df582574affe9"
+        },
+        "period": {
+          "endDate": "2024-09-27",
+          "startDate": "2023-09-30"
+        }
+      },
+      {
+        "dimensions": [
+          {
+            "axis_literal": "us-gaap:ContractWithCustomerSalesChannelAxis",
+            "member_literal": "us-gaap:SalesChannelThroughIntermediaryMember"
+          }
+        ],
+        "entity_identifier": "0000004127",
+        "entity_scheme": "http://www.sec.gov/CIK",
+        "id": "c-215",
+        "original_span": {
+          "byte_end": 98884,
+          "byte_start": 98439,
+          "bytes": 445,
+          "sha256": "3a7bbd12e71e2f6cab163338c636ca59f2d8c465a7e4e1fa6b306de52eb37fa6"
+        },
+        "period": {
+          "endDate": "2023-09-29",
+          "startDate": "2022-10-01"
+        }
+      },
+      {
+        "dimensions": [
+          {
+            "axis_literal": "us-gaap:ContractWithCustomerSalesChannelAxis",
+            "member_literal": "us-gaap:SalesChannelDirectlyToConsumerMember"
+          }
+        ],
+        "entity_identifier": "0000004127",
+        "entity_scheme": "http://www.sec.gov/CIK",
+        "id": "c-216",
+        "original_span": {
+          "byte_end": 99328,
+          "byte_start": 98884,
+          "bytes": 444,
+          "sha256": "44ca4602412ca610e2c5941fd82c8815eb6473de92baa33f08198bb8f590e820"
+        },
+        "period": {
+          "endDate": "2025-10-03",
+          "startDate": "2024-09-28"
+        }
+      },
+      {
+        "dimensions": [
+          {
+            "axis_literal": "us-gaap:ContractWithCustomerSalesChannelAxis",
+            "member_literal": "us-gaap:SalesChannelDirectlyToConsumerMember"
+          }
+        ],
+        "entity_identifier": "0000004127",
+        "entity_scheme": "http://www.sec.gov/CIK",
+        "id": "c-217",
+        "original_span": {
+          "byte_end": 99772,
+          "byte_start": 99328,
+          "bytes": 444,
+          "sha256": "0a4cb5315cae7403b3fa0afc4866408e7845bed36b0a86af64b5979b55955992"
+        },
+        "period": {
+          "endDate": "2024-09-27",
+          "startDate": "2023-09-30"
+        }
+      },
+      {
+        "dimensions": [
+          {
+            "axis_literal": "us-gaap:ContractWithCustomerSalesChannelAxis",
+            "member_literal": "us-gaap:SalesChannelDirectlyToConsumerMember"
+          }
+        ],
+        "entity_identifier": "0000004127",
+        "entity_scheme": "http://www.sec.gov/CIK",
+        "id": "c-218",
+        "original_span": {
+          "byte_end": 100216,
+          "byte_start": 99772,
+          "bytes": 444,
+          "sha256": "cf8389abf42d554526d3be93499f36c9cd79c46fbecddf7b7a526647aedb6342"
+        },
+        "period": {
+          "endDate": "2023-09-29",
+          "startDate": "2022-10-01"
+        }
+      }
+    ],
+    "customer_percentage_multiplied_by_amount": false,
+    "definition_passage": {
+      "byte_end": 1460749,
+      "byte_start": 1460117,
+      "bytes": 632,
+      "literal_visible_passage": "The Company presents net revenue by geographic area, based upon the location of the original equipment manufacturers\u2019 (\u201cOEMs\u201d) headquarters, and by sales channel, as it believes that doing so best depicts how the nature, amount, timing, and uncertainty of revenue and cash flows are affected by economic factors. Individually insignificant OEMs are presented based upon the location of the Company\u2019s direct customer, which is typically a distributor.",
+      "sha256": "f5b92ff24ce6294a2d5cd7359df1c959a6595eed105278d8a2aaae7c823e623b"
+    },
+    "facts": [
+      {
+        "attributes": {
+          "contextRef": "c-213",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-955",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-955",
+        "literal_value": "3,525.6",
+        "original_span": {
+          "byte_end": 1480897,
+          "byte_start": 1480693,
+          "bytes": 204,
+          "sha256": "f799415982e4e99b043d2d06ca02b5e23bcf9f159ef230e05675f0b247934481"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-214",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-956",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-956",
+        "literal_value": "3,622.6",
+        "original_span": {
+          "byte_end": 1481793,
+          "byte_start": 1481589,
+          "bytes": 204,
+          "sha256": "f428de43cbe5e2c3452dc3331a9bfa993a634aba6472b8d074f2da0405e11570"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-215",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-957",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-957",
+        "literal_value": "4,235.7",
+        "original_span": {
+          "byte_end": 1482689,
+          "byte_start": 1482485,
+          "bytes": 204,
+          "sha256": "123b289d184371a21410a5b1332e332101d2a07dae9e738810aee8c00e943738"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-216",
+          "decimals": "-5",
+          "id": "f-958",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-958",
+        "literal_value": "561.3",
+        "original_span": {
+          "byte_end": 1483482,
+          "byte_start": 1483309,
+          "bytes": 173,
+          "sha256": "d969e0a5a761fa8578cd62d8a0e203d433e2b3591e148a1c62a36946ccf61c7d"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-217",
+          "decimals": "-5",
+          "id": "f-959",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-959",
+        "literal_value": "555.4",
+        "original_span": {
+          "byte_end": 1484058,
+          "byte_start": 1483885,
+          "bytes": 173,
+          "sha256": "e4cdb6dd67111f933e4042d73a98a0391bbd4c57da34ed965ba1cbb44e0b56ca"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-218",
+          "decimals": "-5",
+          "id": "f-960",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-960",
+        "literal_value": "536.7",
+        "original_span": {
+          "byte_end": 1484634,
+          "byte_start": 1484461,
+          "bytes": 173,
+          "sha256": "15ce5d9175578f925cff587cacde8cbd25982e1831df57718f2d70a591b65ddf"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-1",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-961",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-961",
+        "literal_value": "4,086.9",
+        "original_span": {
+          "byte_end": 1485751,
+          "byte_start": 1485549,
+          "bytes": 202,
+          "sha256": "8000aeea781618a5636512c8e653e75ac05379704365ec984c220a9bd874e1d3"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-7",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-962",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-962",
+        "literal_value": "4,178.0",
+        "original_span": {
+          "byte_end": 1486726,
+          "byte_start": 1486524,
+          "bytes": 202,
+          "sha256": "a49a4291e3f0fd6c3159c73c584b4dc17a735715b52618d5bf2c84c715a4e661"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-8",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-963",
+          "name": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-963",
+        "literal_value": "4,772.4",
+        "original_span": {
+          "byte_end": 1487701,
+          "byte_start": 1487499,
+          "bytes": 202,
+          "sha256": "493869543edaa8a03aee4d21ed10b0fd549026665467e9f0c22f84e776b5d981"
+        },
+        "same_value_nested_fact_ids": []
+      }
+    ],
+    "new_boundary": "This is a full-company sales-channel partition. Apple aggregate through distributors, contract manufacturers and direct sales cannot be assigned to the Direct customers row.",
+    "positive_customer_denominator_basis_join_authorized": false,
+    "rows": {
+      "Direct customers": {
+        "FY2023": "536.7",
+        "FY2024": "555.4",
+        "FY2025": "561.3",
+        "fact_ids": [
+          "f-958",
+          "f-959",
+          "f-960"
+        ],
+        "unit": "USD millions"
+      },
+      "Distributors": {
+        "FY2023": "4,235.7",
+        "FY2024": "3,622.6",
+        "FY2025": "3,525.6",
+        "fact_ids": [
+          "f-955",
+          "f-956",
+          "f-957"
+        ],
+        "unit": "USD millions"
+      },
+      "Total net revenue": {
+        "FY2023": "4,772.4",
+        "FY2024": "4,178.0",
+        "FY2025": "4,086.9",
+        "fact_ids": [
+          "f-961",
+          "f-962",
+          "f-963"
+        ],
+        "unit": "USD millions"
+      }
+    },
+    "sales_channel_heading": {
+      "byte_end": 1478157,
+      "byte_start": 1477925,
+      "bytes": 232,
+      "literal_visible_passage": "Net revenue by sales channel is as follows (in millions):",
+      "sha256": "d446b076579375e4121bfbe80dbfbe50e7e561315947a18d865742a8080634b6"
+    },
+    "source_label_and_taxonomy_member_preserved": {
+      "Direct customers": "us-gaap:SalesChannelDirectlyToConsumerMember",
+      "Distributors": "us-gaap:SalesChannelThroughIntermediaryMember"
+    },
+    "source_section": "Note14 Disaggregation of Revenue and Geographic Information",
+    "source_total_fact_contexts": [
+      "c-1",
+      "c-7",
+      "c-8"
+    ],
+    "source_total_literals_match_statement_totals": true,
+    "whole_table": {
+      "literal_cells_by_row": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "Fiscal Years Ended"
+        ],
+        [
+          "",
+          "October 3, 2025",
+          "",
+          "September 27, 2024",
+          "",
+          "September 29, 2023"
+        ],
+        [
+          "Distributors",
+          "$",
+          "3,525.6",
+          "",
+          "",
+          "$",
+          "3,622.6",
+          "",
+          "",
+          "$",
+          "4,235.7",
+          ""
+        ],
+        [
+          "Direct customers",
+          "561.3",
+          "",
+          "",
+          "555.4",
+          "",
+          "",
+          "536.7",
+          ""
+        ],
+        [
+          "Total net revenue",
+          "$",
+          "4,086.9",
+          "",
+          "",
+          "$",
+          "4,178.0",
+          "",
+          "",
+          "$",
+          "4,772.4",
+          ""
+        ]
+      ],
+      "original_span": {
+        "byte_end": 1487887,
+        "byte_start": 1478189,
+        "bytes": 9698,
+        "sha256": "414e76e5f891abac6f00c8edfd03232be824262eecde139b142a08ebc7d05fe9"
+      }
+    }
+  },
+  "branch": "sourcefront/contracts-20261020",
+  "exact_remaining_basis": {
+    "linked_original_that_is_shown_to_close_all_missing_basis": "NONE_ESTABLISHED_IN_RETAINED_FILING_OR_INDEX",
+    "requirements": [
+      "A source-level link between the customer concentration calculation and the recognition/consolidation/tax/reserve/revision basis of an exact annual denominator; matching dates/CIK/values alone does not prove it",
+      "Customer-specific channel allocation or original transaction/contract evidence before interpreting Apple aggregate concentration as direct purchases",
+      "Named supplier legal identity plus dated contract quantities/units/delivery or capacity denominators before making a physical supplier exposure claim",
+      "Prior actual as-filed versions/revision evidence before claiming historical comparability or earlier availability"
+    ],
+    "still_withheld": true,
+    "unattempted_authoritative_linked_originals": [
+      {
+        "cannot_by_itself_close": "Not a foundry contract, customer channel allocation or historical economic-basis attestation",
+        "could_help_close": "Formal taxonomy domain/member relationships for WaferPurchasesMember and concentration/channel dimensions",
+        "http_requests": 0,
+        "link_evidence": {
+          "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+          "row_span": {
+            "byte_end": 10798,
+            "byte_start": 10437,
+            "bytes": 361,
+            "sha256": "afea77e2965ee0854b4f7d8cfe0b30fd8a2b4792c9a8b76f49c98eb53b768e57"
+          }
+        },
+        "request_status": "UNATTEMPTED",
+        "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003_def.xml",
+        "would_close_current_missing_customer_basis_or_physical_supplier_quantity": false
+      },
+      {
+        "cannot_by_itself_close": "Does not establish Apple purchases, physical wafer quantity or named supplier allocation",
+        "could_help_close": "Publisher-filed calculation relationships for reported financial totals",
+        "http_requests": 0,
+        "link_evidence": {
+          "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+          "row_span": {
+            "byte_end": 10427,
+            "byte_start": 10050,
+            "bytes": 377,
+            "sha256": "7e64d2df724a80f9783b07aed925512fe9d41578cb0b1de18005a85b51905e8d"
+          }
+        },
+        "request_status": "UNATTEMPTED",
+        "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003_cal.xml",
+        "would_close_current_missing_customer_basis_or_physical_supplier_quantity": false
+      },
+      {
+        "cannot_by_itself_close": "Labels alone do not establish independent legal identity or denominator-basis continuity",
+        "could_help_close": "Issuer taxonomy labels and documentation for custom members",
+        "http_requests": 0,
+        "link_evidence": {
+          "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+          "row_span": {
+            "byte_end": 11180,
+            "byte_start": 10808,
+            "bytes": 372,
+            "sha256": "de8f424dda6dbf1562687126fec933c99927f6a92e1cd8ef86226d6d746a3584"
+          }
+        },
+        "request_status": "UNATTEMPTED",
+        "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003_lab.xml",
+        "would_close_current_missing_customer_basis_or_physical_supplier_quantity": false
+      },
+      {
+        "cannot_by_itself_close": "Does not itself name foundry contract quantities or allocate Apple concentration",
+        "could_help_close": "Issuer-filed subsidiary list for one reporting-date snapshot",
+        "http_requests": 0,
+        "link_evidence": {
+          "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+          "row_span": {
+            "byte_end": 6783,
+            "byte_start": 6484,
+            "bytes": 299,
+            "sha256": "e48eef432b704065640c9a375c8e9084c5dfc57be17e00de6369b4dc2c88bc8c"
+          }
+        },
+        "request_status": "UNATTEMPTED",
+        "url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/fy25exhibit21.htm",
+        "would_close_current_missing_customer_basis_or_physical_supplier_quantity": false
+      }
+    ]
+  },
+  "issuer_anchor": {
+    "context": {
+      "dimensions": [],
+      "entity_identifier": "0000004127",
+      "entity_scheme": "http://www.sec.gov/CIK",
+      "id": "c-1",
+      "original_span": {
+        "byte_end": 3762,
+        "byte_start": 3499,
+        "bytes": 263,
+        "sha256": "b9d68ee5d2b6b967b18f03e4c1d444b69f1c9cefae45f6f250378ec00e5250e1"
+      },
+      "period": {
+        "endDate": "2025-10-03",
+        "startDate": "2024-09-28"
+      }
+    },
+    "current_instrument_or_q3_identity_verified": false,
+    "facts": [
+      {
+        "attributes": {
+          "contextRef": "c-1",
+          "id": "f-6",
+          "name": "dei:EntityRegistrantName"
+        },
+        "id": "f-6",
+        "literal_value": "Skyworks Solutions, Inc.",
+        "original_span": {
+          "byte_end": 117796,
+          "byte_start": 117683,
+          "bytes": 113,
+          "sha256": "2a553b8b3317076b61eff304a8e1998af25e48b40057c0737fd52ba6140f67d8"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-1",
+          "id": "f-31",
+          "name": "dei:EntityCentralIndexKey"
+        },
+        "id": "f-31",
+        "literal_value": "0000004127",
+        "original_span": {
+          "byte_end": 1374,
+          "byte_start": 1273,
+          "bytes": 101,
+          "sha256": "2abc0c62c164363d27bbc93f093b3d9a3dd6b96620863df05627b01a7984be18"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-1",
+          "format": "ixt:date-monthname-day-year-en",
+          "id": "f-3",
+          "name": "dei:DocumentPeriodEndDate"
+        },
+        "id": "f-3",
+        "literal_value": "October\u00a03, 2025",
+        "original_span": {
+          "byte_end": 115937,
+          "byte_start": 115787,
+          "bytes": 150,
+          "sha256": "7fffc8bdccf5ecee64e772c16ed27a9882c586450dcbae812cb1881eb224a4c3"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-1",
+          "id": "f-33",
+          "name": "dei:DocumentFiscalYearFocus"
+        },
+        "id": "f-33",
+        "literal_value": "2025",
+        "original_span": {
+          "byte_end": 1584,
+          "byte_start": 1487,
+          "bytes": 97,
+          "sha256": "87be333ad84f8923e17a5ea491487dfd2a461216289d0912ae9a5f47e7b1927f"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-1",
+          "id": "f-1",
+          "name": "dei:DocumentType"
+        },
+        "id": "f-1",
+        "literal_value": "10-K",
+        "original_span": {
+          "byte_end": 114662,
+          "byte_start": 114577,
+          "bytes": 85,
+          "sha256": "a497a5afe03c1a2f433ac77ecadae22a7fb59c710f42c1a785a9a88565bf35e3"
+        },
+        "same_value_nested_fact_ids": []
+      }
+    ],
+    "same_context_id": "c-1"
+  },
+  "new_primary_finding": {
+    "counterparty_scope": "primarily foundries, not named in this passage",
+    "currency_unit": "USD",
+    "decimals": -5,
+    "disclosed_balances": [
+      {
+        "as_of_day": "2025-10-03",
+        "current_fact_ids": [
+          "f-897",
+          "f-898"
+        ],
+        "current_usd_millions": "7.7",
+        "noncurrent_fact_ids": [
+          "f-899",
+          "f-900"
+        ],
+        "noncurrent_usd_millions": "18.7",
+        "total_fact_ids": [
+          "f-895",
+          "f-896"
+        ],
+        "total_usd_millions": "26.4"
+      },
+      {
+        "as_of_day": "2024-09-27",
+        "current_fact_ids": [
+          "f-903",
+          "f-904"
+        ],
+        "current_usd_millions": "144.7",
+        "noncurrent_fact_ids": [
+          "f-905",
+          "f-906"
+        ],
+        "noncurrent_usd_millions": "23.1",
+        "total_fact_ids": [
+          "f-901",
+          "f-902"
+        ],
+        "total_usd_millions": "167.8"
+      }
+    ],
+    "display_unit": "millions",
+    "distinct_asof_balances": 2,
+    "distinct_asset_components_per_asof": 3,
+    "inline_facts": [
+      {
+        "attributes": {
+          "contextRef": "c-193",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-895",
+          "name": "us-gaap:PrepaidExpenseCurrentAndNoncurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-895",
+        "literal_value": "26.4",
+        "original_span": {
+          "byte_end": 1430601,
+          "byte_start": 1430257,
+          "bytes": 344,
+          "sha256": "7d77138c0878b0f765fecfbf6a976c1c22456678f1811bd0d7e641fcf326cebd"
+        },
+        "same_value_nested_fact_ids": [
+          "f-896"
+        ]
+      },
+      {
+        "attributes": {
+          "contextRef": "c-193",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-896",
+          "name": "us-gaap:DepositsAssets",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-896",
+        "literal_value": "26.4",
+        "original_span": {
+          "byte_end": 1430584,
+          "byte_start": 1430420,
+          "bytes": 164,
+          "sha256": "1987e5bf39cb5523571d316b27d8048f80d02869df67debec83ac542784ac7be"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-193",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-897",
+          "name": "us-gaap:DepositsAssetsCurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-897",
+        "literal_value": "7.7",
+        "original_span": {
+          "byte_end": 1430959,
+          "byte_start": 1430622,
+          "bytes": 337,
+          "sha256": "f7bdf0f02c889c9efa6feaea8e3bdbd7e7c7a5dbfcfbe08fc1ccb903fe43fe1e"
+        },
+        "same_value_nested_fact_ids": [
+          "f-898"
+        ]
+      },
+      {
+        "attributes": {
+          "contextRef": "c-193",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-898",
+          "name": "us-gaap:PrepaidExpenseCurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-898",
+        "literal_value": "7.7",
+        "original_span": {
+          "byte_end": 1430942,
+          "byte_start": 1430772,
+          "bytes": 170,
+          "sha256": "7ee1ebd05968a0854f2ce5e55d3bd1538ade407c746e8d8946989ae053cb8ffb"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-193",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-899",
+          "name": "us-gaap:PrepaidExpenseNoncurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-899",
+        "literal_value": "18.7",
+        "original_span": {
+          "byte_end": 1431359,
+          "byte_start": 1431015,
+          "bytes": 344,
+          "sha256": "55f52818834b31021dbadc9d5fd5f4c128330049d8d47295f094e3e54b213adb"
+        },
+        "same_value_nested_fact_ids": [
+          "f-900"
+        ]
+      },
+      {
+        "attributes": {
+          "contextRef": "c-193",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-900",
+          "name": "us-gaap:DepositsAssetsNoncurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-900",
+        "literal_value": "18.7",
+        "original_span": {
+          "byte_end": 1431342,
+          "byte_start": 1431168,
+          "bytes": 174,
+          "sha256": "559d887d42af60ea256f811e00cba2d52d3a4bd3086df4d930dcfae8514591cb"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-194",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-901",
+          "name": "us-gaap:DepositsAssets",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-901",
+        "literal_value": "167.8",
+        "original_span": {
+          "byte_end": 1431872,
+          "byte_start": 1431527,
+          "bytes": 345,
+          "sha256": "c412bb16698e00bc9dab61c8c51ea094bfe8d477a94bcf79809d6ff623c8b6ee"
+        },
+        "same_value_nested_fact_ids": [
+          "f-902"
+        ]
+      },
+      {
+        "attributes": {
+          "contextRef": "c-194",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-902",
+          "name": "us-gaap:PrepaidExpenseCurrentAndNoncurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-902",
+        "literal_value": "167.8",
+        "original_span": {
+          "byte_end": 1431855,
+          "byte_start": 1431670,
+          "bytes": 185,
+          "sha256": "9438ba06455ee38cf5227c578c8ca68fef8ca104d6fd19db27972de83f4d93a7"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-194",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-903",
+          "name": "us-gaap:DepositsAssetsCurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-903",
+        "literal_value": "144.7",
+        "original_span": {
+          "byte_end": 1432232,
+          "byte_start": 1431893,
+          "bytes": 339,
+          "sha256": "2cb7a5f7a9a43eb02818c136bafec8d5a6370c1009c1d5900b0962544dbaf132"
+        },
+        "same_value_nested_fact_ids": [
+          "f-904"
+        ]
+      },
+      {
+        "attributes": {
+          "contextRef": "c-194",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-904",
+          "name": "us-gaap:PrepaidExpenseCurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-904",
+        "literal_value": "144.7",
+        "original_span": {
+          "byte_end": 1432215,
+          "byte_start": 1432043,
+          "bytes": 172,
+          "sha256": "e376828982423d38345bc3ad91b2cdbf50c4d7e68be91ca4da9368cadfb91efe"
+        },
+        "same_value_nested_fact_ids": []
+      },
+      {
+        "attributes": {
+          "contextRef": "c-194",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-905",
+          "name": "us-gaap:PrepaidExpenseNoncurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-905",
+        "literal_value": "23.1",
+        "original_span": {
+          "byte_end": 1432632,
+          "byte_start": 1432288,
+          "bytes": 344,
+          "sha256": "dde5f064d3b834e05d49c09c7b0708b1ae9edbdd797760c373780d7d6be5a253"
+        },
+        "same_value_nested_fact_ids": [
+          "f-906"
+        ]
+      },
+      {
+        "attributes": {
+          "contextRef": "c-194",
+          "decimals": "-5",
+          "format": "ixt:num-dot-decimal",
+          "id": "f-906",
+          "name": "us-gaap:DepositsAssetsNoncurrent",
+          "scale": "6",
+          "unitRef": "usd"
+        },
+        "id": "f-906",
+        "literal_value": "23.1",
+        "original_span": {
+          "byte_end": 1432615,
+          "byte_start": 1432441,
+          "bytes": 174,
+          "sha256": "896d6be11359a62f7050185bcd325e118695e7f1edf521661161a85f0f7055d4"
+        },
+        "same_value_nested_fact_ids": []
+      }
+    ],
+    "nested_equivalent_facts_are_not_independent_balances": true,
+    "not_proved": [
+      "named foundry legal identity",
+      "physical reserved or delivered wafer quantity",
+      "actual supplier spend or revenue",
+      "remaining contractual purchase-obligation amount",
+      "Apple attribution or customer amount",
+      "continuous historical source availability"
+    ],
+    "preceding_purchase_cancellation_qualifiers": {
+      "byte_end": 1428947,
+      "byte_start": 1428061,
+      "bytes": 886,
+      "literal_visible_passage": "The Company purchases materials primarily pursuant to individual purchase orders, some of which have underlying master purchase agreements. Some of these purchase commitments are cancelable, and some are non-cancelable, depending on the terms with each individual supplier. In the event of cancellation, the Company may be required to pay costs incurred through the date of cancellation or other fees. When cancellation would result in incurring costs or other fees, the Company has historically sought to negotiate amended terms to the original agreements and orders to limit such exposure. As such, the Company believes that purchase commitments as of any particular date may not be a reliable indicator of future liabilities.",
+      "sha256": "8c5183a30c1d7a0627ad130727ee5d4ff1392ded458ef6d53df250f61937560c"
+    },
+    "role": "CAPACITY_RESERVATION_REFUNDABLE_DEPOSIT_AND_PREPAYMENT_ASSET",
+    "scale": 6,
+    "sign_attribute": null,
+    "source_contexts": [
+      {
+        "dimensions": [
+          {
+            "axis_literal": "us-gaap:RecordedUnconditionalPurchaseObligationByCategoryOfItemPurchasedAxis",
+            "member_literal": "swks:WaferPurchasesMember"
+          }
+        ],
+        "entity_identifier": "0000004127",
+        "entity_scheme": "http://www.sec.gov/CIK",
+        "id": "c-193",
+        "original_span": {
+          "byte_end": 89973,
+          "byte_start": 89561,
+          "bytes": 412,
+          "sha256": "bffa286da03728ade35591f043739ece488f5cbd3097d1808b13a77e3f7a6927"
+        },
+        "period": {
+          "instant": "2025-10-03"
+        }
+      },
+      {
+        "dimensions": [
+          {
+            "axis_literal": "us-gaap:RecordedUnconditionalPurchaseObligationByCategoryOfItemPurchasedAxis",
+            "member_literal": "swks:WaferPurchasesMember"
+          }
+        ],
+        "entity_identifier": "0000004127",
+        "entity_scheme": "http://www.sec.gov/CIK",
+        "id": "c-194",
+        "original_span": {
+          "byte_end": 90385,
+          "byte_start": 89973,
+          "bytes": 412,
+          "sha256": "e2a64a0aad2913e616ead6e60c80500ab909eb16b072357ebdb3a0552aa8d3a9"
+        },
+        "period": {
+          "instant": "2024-09-27"
+        }
+      }
+    ],
+    "source_section": "Note11 Commitments and Contingencies",
+    "what_source_now_proves": [
+      "As-reported category-scoped financial asset exposure for reserved wafer-manufacturing capacity at two explicit instant dates",
+      "Deposits/prepayments are the specified consideration; no physical capacity or wafer count is stated",
+      "Fiscal2024 is a comparative in this retained FY2025 filing; prior as-filed values/history are not established"
+    ],
+    "whole_passage": {
+      "byte_end": 1432698,
+      "byte_start": 1429003,
+      "bytes": 3695,
+      "literal_visible_passage": "The Company maintains certain minimum purchase commitments under long-term capacity reservation agreements primarily with foundries for the purchase of wafers. Under these agreements, the Company has agreed to pay a combination of refundable deposits and prepayments to the suppliers in exchange for reserved manufacturing production capacity over the term of the agreements. During fiscal 2023, the Company recorded impairment charges of $47.5 million within cost of goods sold due to reduced overall market demand related to long-term supply capacity deposits. As of October 3, 2025, deposits and prepayments under the long-term capacity reservation agreements were $26.4 million, with $7.7 million recorded within other current assets and $18.7 million recorded within other long-term assets. As of September 27, 2024, deposits and prepayments under the long-term capacity reservation agreements were $167.8 million, with $144.7 million recorded within other current assets and $23.1 million recorded within other long-term assets.",
+      "sha256": "d050acde2e30b6e5d943bdb3a746aef7d98028fe22cf4afeb15230b33483c3ef"
+    },
+    "xbrl_category_is_not_counterparty_identity": true
+  },
+  "physical_quantity_review": {
+    "bounded_missing_fact": "The selected whole Note11 purchase/capacity-reservation disclosures give monetary asset balances but no numerical wafer/capacity quantity or named-foundry allocation. No broader absence claim is made.",
+    "inline_XBRL_unit_inventory": [
+      {
+        "id": "usd",
+        "measure_literals": [
+          "iso4217:USD"
+        ],
+        "original_span": {
+          "byte_end": 3095,
+          "byte_start": 3019,
+          "bytes": 76,
+          "sha256": "85566c0471d66a6a65161f62bd35a84da937efe9bc5974ff2a452eed5669f125"
+        }
+      },
+      {
+        "id": "usdPerShare",
+        "measure_literals": [
+          "iso4217:USD",
+          "xbrli:shares"
+        ],
+        "original_span": {
+          "byte_end": 3341,
+          "byte_start": 3095,
+          "bytes": 246,
+          "sha256": "07f19f46f7eca577736e7b1777387e5dc4a02e6f60dee75238a998a94cafc0ea"
+        }
+      },
+      {
+        "id": "shares",
+        "measure_literals": [
+          "xbrli:shares"
+        ],
+        "original_span": {
+          "byte_end": 3421,
+          "byte_start": 3341,
+          "bytes": 80,
+          "sha256": "f44e220e40d30b6aa8a6899f222f6ffdf7e6259a6d30ece4f89102ae9f3af72a"
+        }
+      },
+      {
+        "id": "number",
+        "measure_literals": [
+          "xbrli:pure"
+        ],
+        "original_span": {
+          "byte_end": 3499,
+          "byte_start": 3421,
+          "bytes": 78,
+          "sha256": "a196951928312ca65485834cfbebc50d6c666486c31924783314847ee6844ff2"
+        }
+      }
+    ],
+    "only_located_square_footage_table": {
+      "literal_cells_by_row": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "Location",
+          "",
+          "Owned/Leased",
+          "",
+          "Square Footage",
+          "",
+          "Primary Function"
+        ],
+        [
+          "Singapore, Singapore",
+          "",
+          "Leased",
+          "",
+          "429,500",
+          "",
+          "Filter manufacturing"
+        ],
+        [
+          "Osaka, Japan",
+          "",
+          "Owned (1)",
+          "",
+          "383,600",
+          "",
+          "Filter manufacturing"
+        ],
+        [
+          "Mexicali, Mexico",
+          "",
+          "Owned",
+          "",
+          "380,000",
+          "",
+          "Manufacturing and office space"
+        ],
+        [
+          "Mexicali, Mexico",
+          "",
+          "Leased",
+          "",
+          "378,000",
+          "",
+          "Manufacturing and office space"
+        ],
+        [
+          "Irvine, California",
+          "",
+          "Leased",
+          "",
+          "218,000",
+          "",
+          "Design center and office space"
+        ],
+        [
+          "Woburn, Massachusetts",
+          "",
+          "Owned",
+          "",
+          "158,000",
+          "",
+          "Manufacturing and office space"
+        ],
+        [
+          "Newbury Park, California",
+          "",
+          "Owned",
+          "",
+          "111,600",
+          "",
+          "Manufacturing and office space"
+        ],
+        [
+          "Newbury Park, California",
+          "",
+          "Leased",
+          "",
+          "110,000",
+          "",
+          "Design center"
+        ],
+        [
+          "Austin, Texas",
+          "",
+          "Leased",
+          "",
+          "98,300",
+          "",
+          "Design center and office space"
+        ]
+      ],
+      "original_span": {
+        "byte_end": 502910,
+        "byte_start": 490561,
+        "bytes": 12349,
+        "sha256": "cae2ba02dce6fb2dc8e10c00262e13a8ff1576b4c41e62a3b7de7d3005d6bce2"
+      }
+    },
+    "ownership_footnote": {
+      "byte_end": 503201,
+      "byte_start": 502916,
+      "bytes": 285,
+      "literal_visible_passage": "(1) The Company owns the building and the land is leased for approximately 36 additional years expiring in 2061.",
+      "sha256": "19663882668661f9d84762a6024fa81ec138f9a1edc1750b4e93a68fdea2bd4e"
+    },
+    "why_not_supplier_capacity_denominator": "These are principal-facility floor areas, including offices/design centers. Square footage is not wafers, supplier capacity reserved, production, purchases or supplier allocation."
+  },
+  "possible_parser_delta_before_any_edit": {
+    "code_changed": false,
+    "existing_finished_guard_repeated_or_relaxed": false,
+    "no_existing_parser_bug_established": "Existing strict obligation/operating-site contracts intentionally do not accept this separate financial-asset scope. No guard/test/status commit is appropriate for sourcefront alone.",
+    "required_changes_if_later_authorized": [
+      "Explicit asset-balance claim role; accept exact c-193/c-194 instant/category contexts",
+      "Preserve overlapping f895/f896 and similar nested facts as one balance, never sum duplicate tags",
+      "Require whole Note11 paragraph plus USD/scale/precision and cancellation qualifiers",
+      "No foundry name/Apple allocation, physical quantity, basis-positive or historical continuity promotion"
+    ],
+    "source_ready_delta": "A separately typed capacity-reservation deposit/prepayment financial-asset selection could consume Note11 with exact instant/category context and nested-equivalent iXBRL facts; keep it distinct from purchase obligations, cash spend, revenue or physical quantity."
+  },
+  "public_base_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "recorded_at": "2026-10-20T14:31:36.536818+00:00",
+  "restrictions": {
+    "collector_requests": 0,
+    "full_specialist_acceptance": "0/21",
+    "http_requests": 0,
+    "new_verified_adoptions": 0,
+    "quota_state_created_or_reconstructed": false,
+    "raw_sources_modified_or_copied": false,
+    "repository_commits_created": 0,
+    "shared_runtime_registry_model_fitter_score_trading_changes": false,
+    "sql_or_database_open_replay_copy_reset_operations": 0,
+    "tests_repeated": 0,
+    "usaspending_collection_blocker": "Original durable history is unavailable per task; no new API or quota store is authorized",
+    "web_searches": 0,
+    "withheld_whole_bodies_read_restored_or_substituted": false
+  },
+  "result": "NEW_RETAINED_CAPACITY_RESERVATION_ASSET_AND_SALES_CHANNEL_FACTS_SOURCE_PINNED_NO_RUNTIME_CHANGE",
+  "retained_corpus": {
+    "acceptance_timezone_inferred": false,
+    "exact_historical_as_filed_bytes_verified": false,
+    "index": {
+      "bytes": 13487,
+      "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+      "sha256": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755"
+    },
+    "index_declared_primary_bytes": 1708601,
+    "inventory_method": "rg -l exact EntityCentralIndexKey 0000004127 inline fact in repository evidence .htm/.response plus full original XML and visible-block review; summaries are not separate primary filings",
+    "preserved_size_difference_bytes": 109,
+    "primary": {
+      "bytes": 1708710,
+      "metadata_reference": {
+        "repository_relative_path": "evidence/batch9_contracts_20261016/requests/5fbd0d01bca2441aba3c2676878b1bf90ec5dd3acbbdb0319e76b6c157ab3743.metadata.json",
+        "sha256": "b8d1bf49b2d4ef3775a1fb88caf92499f101070f65855ee3ef2b552efa9a2b16"
+      },
+      "repository_relative_path": "evidence/batch9_contracts_20261016/raw/body-2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade.response",
+      "sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade",
+      "source_capture_completed_at": "2026-10-16T12:18:16.379894+00:00",
+      "source_capture_started_at": "2026-10-16T12:18:10.348023+00:00",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003.htm"
+    },
+    "publisher_publication_instant": null,
+    "served_primary_bytes": 1708710,
+    "whole_SWKS_DEI_primary_bodies_found": 1
+  },
+  "schema_version": "sourcefront_contracts_retained_primary_v1"
+}

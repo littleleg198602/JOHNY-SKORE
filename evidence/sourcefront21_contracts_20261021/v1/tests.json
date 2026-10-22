@@ -1,0 +1,97 @@
+{
+  "actual_retained_reason": "EXACT_COMPANY_CONSOLIDATED_NOTE_AND_QUALIFIERS_REQUIRED",
+  "actual_retained_review": {
+    "bytes": 1449,
+    "path": "evidence/sourcefront21_contracts_20261021/v1/actual_retained_review.json",
+    "sha256": "10e313d7d40ac0a29bc23636f58aa8560979c7bd27f86639fcba728e61da2a40"
+  },
+  "actual_retained_status": "REJECTED",
+  "base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "collector_calls": 0,
+  "completed_at": "2026-10-21T02:15:49.739237+00:00",
+  "elapsed_seconds": 0.7404531810000208,
+  "error_test_ids": [],
+  "errors": 0,
+  "exact_bytes_unchanged_during_qualification": true,
+  "expected_failures": 0,
+  "failure_test_ids": [
+    "wafer_capacity_deposit_tests.WaferCapacityDepositReviewTests.test_actual_whole_retained_filing_preserves_all_six_facts_and_109_byte_conflict"
+  ],
+  "failures": 1,
+  "full_console": {
+    "bytes": 8557,
+    "path": "evidence/sourcefront21_contracts_20261021/v1/tests.log",
+    "sha256": "4b4a02dd7b91522ee8d00ad421011b7266c80c7b899feea6acb5502cee59bb36"
+  },
+  "model_score_trading_or_registry_changes": false,
+  "plain_ok": false,
+  "plan": {
+    "bytes": 6022,
+    "path": "evidence/sourcefront21_contracts_20261021/SWKS_zalohy_na_vyrobni_kapacitu.json",
+    "sha256": "ace53a2264fbb61ca7e9edcf626a50db85c94074b1040dc9f926fd0dac78952d"
+  },
+  "prior_unchanged_suites_repeated": false,
+  "producer_test_dependencies": {
+    "dependencies": [
+      {
+        "bytes": 15890,
+        "path": "market_checker_app/services/sec_ir_disclosure_authority_review.py",
+        "sha256": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7"
+      },
+      {
+        "bytes": 22925,
+        "path": "market_checker_app/services/sec_operational_metrics_review.py",
+        "sha256": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672"
+      },
+      {
+        "bytes": 20535,
+        "path": "market_checker_app/services/sec_person_kind_review.py",
+        "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+      },
+      {
+        "bytes": 25736,
+        "path": "market_checker_app/services/sec_purchase_obligation_scope_review.py",
+        "sha256": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb"
+      },
+      {
+        "bytes": 21380,
+        "path": "market_checker_app/services/sec_supply_chain_scope_review.py",
+        "sha256": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91"
+      }
+    ],
+    "producer": {
+      "bytes": 25503,
+      "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+      "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+    },
+    "test": {
+      "bytes": 21066,
+      "path": "tests/test_wafer_capacity_deposit_review.py",
+      "sha256": "e14738006d7e58f1cacd9decd5fe5b22f2ffeac6653524b67727631943a98749"
+    }
+  },
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "schema_version": 1,
+  "skips": 0,
+  "source_bytes_modified": false,
+  "source_http_requests": 0,
+  "sources": {
+    "index": {
+      "bytes": 13487,
+      "path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+      "sha256": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755"
+    },
+    "issuer": {
+      "bytes": 1708710,
+      "path": "evidence/batch9_contracts_20261016/raw/body-2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade.response",
+      "sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    }
+  },
+  "sql_or_database_operations": 0,
+  "started_at": "2026-10-21T02:15:48.649004+00:00",
+  "synthetic_controls_count_as_live_acceptance": false,
+  "tests_discovered": 32,
+  "tests_executed": 32,
+  "unexpected_successes": 0,
+  "version": "v1"
+}

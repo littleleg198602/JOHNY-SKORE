@@ -1,0 +1,21 @@
+{
+  "bytes": 38038,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm",
+  "http_status": 200,
+  "last_modified_is_publication_time": false,
+  "max_attempts": 1,
+  "max_bytes": 4000000,
+  "observed_at": "2026-10-13T08:46:17.427994+00:00",
+  "publisher_publication_time": null,
+  "raw_file": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7.bin",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068d8k12b.htm",
+  "response_headers": {
+    "Content-Length": "38038",
+    "Content-Type": "text/html",
+    "Date": "Tue, 13 Oct 2026 08:46:17 GMT",
+    "Last-Modified": "Wed, 01 Jul 2026 16:37:14 GMT"
+  },
+  "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7",
+  "started_at": "2026-10-13T08:46:11.143482+00:00",
+  "status": "RAW_CAPTURED"
+}

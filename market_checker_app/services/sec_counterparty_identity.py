@@ -184,8 +184,9 @@ def _validate_record(raw: object) -> dict[str, object]:
                 raise ValueError("Issuer relationship evidence must cite that issuer's SEC archive")
             if _name_key(row["issuer_legal_name"]) not in quote:
                 raise ValueError("Issuer evidence must document its exact legal name")
+            # SEC cover tables also spell the literal label "Trading Symbol(s)".
             if purpose == "ISSUER_IDENTITY" and not re.search(
-                rf"(?:ticker|trading symbols?|symbol|common stock|ordinary shares)"
+                rf"(?:ticker|trading symbol(?:s|\(s\))?|symbol|common stock|ordinary shares)"
                 rf"[\s:=\"'()]*{re.escape(row['issuer_ticker'].casefold())}(?![a-z0-9])", quote
             ):
                 raise ValueError("Issuer evidence must document its exact ticker")

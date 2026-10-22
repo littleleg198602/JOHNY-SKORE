@@ -1,0 +1,116 @@
+{
+  "HTTP_DB_quota_actions": 0,
+  "all_staged_bytes_equal_local_bytes": true,
+  "base_commit": "bca703329150bbe2478afabffec1590505429504",
+  "checked_at": "2026-10-18T14:19:42.747387+00:00",
+  "file_count": 21,
+  "files": [
+    {
+      "bytes": 2738,
+      "path": "evidence/batch10_caption_clock_fix_20261018/README.md",
+      "sha256": "393b572c200bcbbcb4675d5627478082d56223f039b7093d0add3febadb77803"
+    },
+    {
+      "bytes": 470641,
+      "path": "evidence/batch10_caption_clock_fix_20261018/actual_review.json",
+      "sha256": "5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9"
+    },
+    {
+      "bytes": 3597,
+      "path": "evidence/batch10_caption_clock_fix_20261018/actual_review_plan.json",
+      "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+    },
+    {
+      "bytes": 1084,
+      "path": "evidence/batch10_caption_clock_fix_20261018/after.json",
+      "sha256": "b818a92b159664cdca10af85bcd22054a9cf6da19676c666e148fa41b73bba19"
+    },
+    {
+      "bytes": 6297,
+      "path": "evidence/batch10_caption_clock_fix_20261018/after.log",
+      "sha256": "2bcbc25d2dff1de070da647c94e7202c467c1967d878ddf49ce389266899a5a5"
+    },
+    {
+      "bytes": 1106,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before.json",
+      "sha256": "8db9506290966db42f3902004f8d6c44a795ff120c1c8db4e482f4545386f2f4"
+    },
+    {
+      "bytes": 1956,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before.log",
+      "sha256": "a564c6fb7713e78d2ce4e9101a47cd37f751a234de58a7c82b5a8f6d28e8e1b9"
+    },
+    {
+      "bytes": 470353,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before/actual_review.json",
+      "sha256": "8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b"
+    },
+    {
+      "bytes": 3597,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before/actual_review_plan.json",
+      "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+    },
+    {
+      "bytes": 21589,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before/caption_review.py",
+      "sha256": "163966b86b7354ccdcad05af14a1cef2575723312957c1fcc7f5a729b247a8fc"
+    },
+    {
+      "bytes": 18776,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before/caption_tests.py",
+      "sha256": "e4309847b0b6540710d31e39d64eb413c5b78f55ec2dbb426a93fcb7a63b3c8c"
+    },
+    {
+      "bytes": 1395,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before_snapshot.json",
+      "sha256": "881bb862146955e4359cd3a88157d035be782a38c324c0c945e58dbf5c1cd00b"
+    },
+    {
+      "bytes": 14257,
+      "path": "evidence/batch10_caption_clock_fix_20261018/finalize_evidence.py",
+      "sha256": "6c346faf56901c228e85af54024fecb94597c1e8180481c09acd932ecdcd25e1"
+    },
+    {
+      "bytes": 5918,
+      "path": "evidence/batch10_caption_clock_fix_20261018/handoff.json",
+      "sha256": "1b345ec158ea10fdca34eb5fd9a7fd9a178d59aacfcd648baf15aa264812bb3c"
+    },
+    {
+      "bytes": 520819,
+      "path": "evidence/batch10_caption_clock_fix_20261018/prior_byte_preservation.json",
+      "sha256": "6b64102f228e437f1039ac57b903cbfaf6ab4bd517f502d2fc131ebf9fb28844"
+    },
+    {
+      "bytes": 4028,
+      "path": "evidence/batch10_caption_clock_fix_20261018/review_record.json",
+      "sha256": "153555fa5244a669718b48eefd917555c7f0c37d8ae4caac89dd1014eb8b03db"
+    },
+    {
+      "bytes": 470641,
+      "path": "evidence/batch10_caption_clock_fix_20261018/reviews/5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9/review.json",
+      "sha256": "5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9"
+    },
+    {
+      "bytes": 3459,
+      "path": "evidence/batch10_caption_clock_fix_20261018/run_focused.py",
+      "sha256": "e807d6db26f29b6b8982b0d73fb7d2258b590a9fdb4397c1cd453fc149f7ca58"
+    },
+    {
+      "bytes": 23498,
+      "path": "market_checker_app/collectors/doj_case_caption_review.py",
+      "sha256": "8b1d24eec14a29a79fe9187f653be8a48df014c882c9a3626109c4fda6c58945"
+    },
+    {
+      "bytes": 8148,
+      "path": "tests/test_batch10_caption_clock_fix.py",
+      "sha256": "2198b798de9f76e813413122d1d91cec601377216e1591307413831f7580c6f6"
+    },
+    {
+      "bytes": 19011,
+      "path": "tests/test_doj_case_caption_review.py",
+      "sha256": "1eca23cde40bb9580f5ebb9eacb03ea756a63fecf9d3226a904500c7ccb47f1e"
+    }
+  ],
+  "qualified_producer_and_tests_unchanged": true,
+  "scope": "all staged owned files before adding this audit record"
+}

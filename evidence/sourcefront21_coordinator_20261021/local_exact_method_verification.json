@@ -1,0 +1,320 @@
+{
+  "head_sha": "ec58336824562002dfacc93df5dc4a9d6f33387b",
+  "run_id": null,
+  "job_id": null,
+  "original_log_bytes": 578532,
+  "original_log_sha256": "0a2a16825acd3fe18c9a539420790bd3dfee5c619c64928ab3394c75db3adf0c",
+  "expected_full_test_count": 2818,
+  "new_exact_methods_original_ok": 51,
+  "methods": [
+    {
+      "module": "test_sourcefront21_coordinator_integration",
+      "class": "Sourcefront21CoordinatorTests",
+      "method": "test_cli_archives_actual_deposit_review_without_collection_or_adoption",
+      "original_ok_block_sha256": "0b9ee759dd8dff584d2c3592aeed928adae043c993b06f20e716c566879e4a8b"
+    },
+    {
+      "module": "test_sourcefront21_coordinator_integration",
+      "class": "Sourcefront21CoordinatorTests",
+      "method": "test_ui_selects_real_plan_and_preserves_original_review_archive",
+      "original_ok_block_sha256": "148b9679718557b9e0af74321d06fb47288f4773a17d36691c89791b178c3839"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_actual_whole_original_control_has_six_components_not_twelve_added_balances",
+      "original_ok_block_sha256": "544db65133a0f4e090149016c8f5835123e7f961403c29cf28b8919b8dfd1922"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_category_context_wrong_entity_cannot_inherit_dei_issuer",
+      "original_ok_block_sha256": "520ce41f748cdb5f8b02ea2c6d73ce06c2f4e09e915d9c942a2bc39a390b807c"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_context_instant_cannot_be_replaced_with_another_day",
+      "original_ok_block_sha256": "80efee049c2aa7f6e2767d2d31c651e17c4b2651b320a04df3b61e92f68f2f09"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_current_and_noncurrent_cannot_be_swapped_even_when_sum_is_unchanged",
+      "original_ok_block_sha256": "d684ae9e99c081e41ee369e4c2c07b2f7009014f6503325c1884659177307c77"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_explicit_future_requested_clock_cannot_publish_a_future_as_of_claim",
+      "original_ok_block_sha256": "015518001e4e7f2daaf201608204739b7201a491af456d17175f033b2e15dc3b"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_future_index_acceptance_display_cannot_be_a_qualified_capture_from_2026",
+      "original_ok_block_sha256": "c9db8cd2f0a6d7bb59b9cffe35d9b676e0530f4eaa0ff5aa0af1ccbb0ae7b389"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_future_input_known_at_cannot_be_accepted_under_current_physical_clock",
+      "original_ok_block_sha256": "369928804784337375dc338e35cfd6c3d6963e803e2298e10fbfe5b63af1c6c6"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_index_wrong_basename_is_not_tolerated_as_known_109_byte_body_conflict",
+      "original_ok_block_sha256": "77718a18fa0273ac96b591b703cb635659375733688d503565f274bd7424106e"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_old_cutoff_and_validation_finishing_after_cutoff_do_not_return_claims",
+      "original_ok_block_sha256": "5b0db3f9321efb609257de2a0333f5eb6c7557457099903fa250ef6829348d6f"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_outer_nested_fact_precision_cannot_inherit_inner_precision",
+      "original_ok_block_sha256": "7ff6b125a21f96d93ff5a14e9483edd2d61f0d4d2d94e0fbc8446312f5d2053b"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_outer_nested_fact_wrong_unit_cannot_inherit_inner_usd",
+      "original_ok_block_sha256": "79d4534d2195523ea0afe6720e41cbe9dd3c7cc8915de348c6e96e227c0a35b2"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_peer",
+      "class": "WaferCapacityDepositIndependentPeerTests",
+      "method": "test_wrong_commitments_textblock_context_cannot_inherit_selected_numeric_contexts",
+      "original_ok_block_sha256": "997723693021c1ae6711e1bd3db2a03521b6fee3ec79a2cde03f6c91f1412521"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_actual_whole_retained_filing_preserves_all_six_facts_and_109_byte_conflict",
+      "original_ok_block_sha256": "b8a00560aacb12008dec2aa45ec75e22b8a5dfe80cfda4866741a768ab70c409"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_asset_context_other_issuer_does_not_inherit_cover_identity",
+      "original_ok_block_sha256": "c206573d6bae4287133ec630b388c6bc4c3a387d97ed689efb06a72258cb557f"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_cancelability_and_full_paragraph_qualifiers_cannot_be_trimmed",
+      "original_ok_block_sha256": "ac41a30fc1f8dd2230033ff1129cdcfce2b86414d5ec93f97258a03ff66fe099"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_changed_body_or_whole_source_splice_fails_original_hash",
+      "original_ok_block_sha256": "6bdc628458dee4a33d91b164d92da795deab2c3050f5f6e18f59937f81a2ff3f"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_completion_clock_and_cutoff_are_rechecked_after_validation",
+      "original_ok_block_sha256": "02ee400b8b8e611339fc355f49037e27aac16bdc1ebb86731da6186ce38c5db3"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_cover_or_comparative_date_cannot_be_moved",
+      "original_ok_block_sha256": "2db61245874b0b9ee4c541dd9077d5098d5a409f8e4d9186ee4de3bef8368930"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_current_and_noncurrent_annotations_cannot_be_swapped",
+      "original_ok_block_sha256": "cb3172dce72c9a47f13ed3a16b9e4bd0cd01994d9a29c55d0b1c105af47cc50b"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_duplicate_original_identifier_is_ambiguous",
+      "original_ok_block_sha256": "6952765bc03fa85e78bf3748a32081a232deb20ac896acf7bd4a1e3c03a7ccea"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_extra_dimension_cannot_hide_a_different_scope",
+      "original_ok_block_sha256": "8a4fbd8635ca46fe22aeb4f36335ea2de5e309c9f7c5a6a4d6dde7338b443a8a"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_false_purchase_physical_or_named_allocation_interpretation_is_rejected",
+      "original_ok_block_sha256": "4113d5402c6697944cfb11d4fd61cc45ea7f19bdd9ec5d04676d67264605263e"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_four_megabyte_whole_body_bound_precedes_xml_parser",
+      "original_ok_block_sha256": "6ab32957ab5e847bf67d185116a463b03208c39628789b29cf54dbe6ef99062f"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_future_reversed_or_pre_capture_knowledge_clocks_are_rejected",
+      "original_ok_block_sha256": "21c4e09896fb4fe46234045853ee847ca9a802bef66dff1564cad164ac28b133"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_hidden_or_table_passage_cannot_supply_the_visible_asset_claim",
+      "original_ok_block_sha256": "973a4e8cb220de1732e6f8f663b1b73828c8340180a742fa82d0f7c79c09f7d1"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_inputs_outputs_and_replay_are_detached",
+      "original_ok_block_sha256": "3235f4a0bed4cbb87e3f4dedf5886a0afac90a729c0610788264e1395b7da3aa"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_literal_total_must_equal_current_plus_noncurrent",
+      "original_ok_block_sha256": "126acf8acbd41d00992d19fe70db2098dcb7470e4fa6160f5d793888a1c01bdb"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_missing_complete_manifest_or_withheld_body_never_enters_parser",
+      "original_ok_block_sha256": "be3f693049c569dc712b91ab599b9e0e4def2bbc740d65a99f62c41859c39663"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_missing_or_extra_capture_scope_is_not_silently_ignored",
+      "original_ok_block_sha256": "1bd04b92d9d138d7139573c3a5b4dc4bb5c33bab373a6b33ca8c7c555a65f5b3"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_money_precision_context_and_arithmetic_preserve_financial_asset_scope",
+      "original_ok_block_sha256": "d26c71bb24748d234c862abb28ef2983f9c97a0b4c682ec895501bb7cdd663fb"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_narrative_and_instant_context_dates_must_agree",
+      "original_ok_block_sha256": "841a5e27e5a55d318b91254375728a3bf7cabb5bd5285f9be7c00426c00c510d"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_no_named_foundry_volume_purchase_obligation_apple_or_continuity_inference",
+      "original_ok_block_sha256": "6f2a2125a52072c95664b7d69e10216efe7839550c0e483b5bc7520cf7253731"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_nonfinite_negative_or_numeric_nonliteral_is_not_a_balance",
+      "original_ok_block_sha256": "fc3041c71c95cf5c4990e30b9f11af884c013f4db200ca58dd8a9933bfd1480d"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_old_explicit_cutoff_cannot_relabel_new_ingestion_as_history",
+      "original_ok_block_sha256": "286ccad5d3556ec264dc5b868122d0cf150403a2906f7e0b06c0011165dd1492"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_parallel_repeated_values_are_not_equivalent_nested_tags",
+      "original_ok_block_sha256": "3101461b65730c57de27f082fabae04395fa10949e50692ea35cf6b644d04153"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_recomputed_manifest_cannot_hide_wrong_numeric_body_literal",
+      "original_ok_block_sha256": "d9ffd89021715323bfc828a7a1448ccf8d7502c93b58ac284b90e648d1f235f3"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_reused_or_omitted_nested_annotation_cannot_create_an_extra_balance",
+      "original_ok_block_sha256": "c8b13a1f45d05bf6f776a311e5b4bafd43c7966353a7de719fdfa8bfc54c9b3a"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_scale_sign_precision_transform_and_nil_cannot_change_meaning",
+      "original_ok_block_sha256": "619ec78696953774657394e306e94e288b93ae107732632a0b39b0fb1de36419"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_six_balances_are_not_twelve_nested_annotations",
+      "original_ok_block_sha256": "89cff618a53cc1b11758b0efbb9f1029e6452b6a8ab650be60f24b74bbc3ce07"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_usd_currency_cannot_be_replaced_by_eur_or_share_ratio",
+      "original_ok_block_sha256": "b8fef8a0c6438cc1e261a23cb8f02d56e7d0387186caf0284f2a9d5df26a5682"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_wafer_category_is_not_other_asset_or_named_supplier",
+      "original_ok_block_sha256": "68cc7ee875afcf1be2a8baf0ac3c6c01883cf3dc97fa8806683bafdf03fd0a9a"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_wrong_archive_routing_or_index_accession_is_rejected",
+      "original_ok_block_sha256": "ef4f74120a6e1bcdd99657da693ea8312a4e54a06c7b158f1ebb958049551553"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_wrong_dei_issuer_or_context_cannot_be_selected",
+      "original_ok_block_sha256": "b4d7c69f840486097eb08b688d006a29d942239ab4beb4ace7775751c839bc75"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositReviewTests",
+      "method": "test_wrong_textblock_context_or_disclosure_concept_cannot_be_stitched",
+      "original_ok_block_sha256": "5eb03520d18a33c50518309c86060ce5482a0309dec73cff746bc574829f9c02"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_acceptance_after_original_capture_is_rejected_even_before_current_review_day",
+      "original_ok_block_sha256": "373b862b938d68c8c9e4035b10960d58274d59d1254da716c95bcbaa57c9febe"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_accepted_and_filing_calendar_days_need_not_be_equal",
+      "original_ok_block_sha256": "b8390423aff8c9e56fa31259de973ebd536b1f7809a654348aa0292ed01f49ce"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_future2099_index_acceptance_is_not_legitimized_by_rehashing_whole_metadata",
+      "original_ok_block_sha256": "dee3e4226821207d98b9f08b85493c3d52b1249a885c1ec3d3f40ce049990d4a"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_future_requested_cutoff_is_rejected_before_original_source_validation",
+      "original_ok_block_sha256": "67a765ca4ba8324151a3a4a2c94d18774f98d2a4123fa923a36b2806ad68593e"
+    },
+    {
+      "module": "test_wafer_capacity_deposit_review",
+      "class": "WaferCapacityDepositTemporalReviewTests",
+      "method": "test_neighboring_capture_calendar_day_does_not_invent_a_publisher_timezone",
+      "original_ok_block_sha256": "abaf4b0dba74c746957a26428077c7294111920e1785d8ac0ff3182524b08025"
+    }
+  ],
+  "strict_test_boundary_blocks_used": true,
+  "original_log_rewritten": false,
+  "unit_contract_tests_are_not_full_specialist_acceptance": true
+}

@@ -1,0 +1,9 @@
+{
+  "actual_production_database_mutations": 0,
+  "bytes": 22140,
+  "candidate_edited_by_peer": false,
+  "candidate_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/market_checker_app/services/user_windows_readiness_capture.py",
+  "frozen_at": "2026-10-18T08:56:20.445074+00:00",
+  "sha256": "a11ab873d2fdaa88bed98f7ad65beb717dd386fd5aa5001c191ecf04f2551f17",
+  "source_http_requests": 0
+}

@@ -1,0 +1,27 @@
+{
+  "archive_path": "evidence/batch7_contracts_20261015/raw/body-bbd5e352ab8242e31212f1a50ceb004b50c46011854598fcbfcb97eadf0580da.response",
+  "automatic_redirects": false,
+  "complete_response": true,
+  "final_url": "https://data.sec.gov/submissions/CIK0001046179.json",
+  "http_status": 200,
+  "max_attempts": 4,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-14T23:27:22.501916+00:00",
+  "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+  "public_raw_available": true,
+  "quota_scope": "EXPLICIT_BATCH7_SEC_RESEARCH_ONLY",
+  "raw_response_bytes": 162358,
+  "raw_response_sha256": "bbd5e352ab8242e31212f1a50ceb004b50c46011854598fcbfcb97eadf0580da",
+  "requested_url": "https://data.sec.gov/submissions/CIK0001046179.json",
+  "response_headers": {
+    "Content-Encoding": null,
+    "Content-Length": null,
+    "Content-Type": "application/json",
+    "Date": "Wed, 14 Oct 2026 23:27:22 GMT",
+    "Last-Modified": null
+  },
+  "started_at": "2026-10-14T23:27:19.195489+00:00",
+  "status": "CAPTURED",
+  "usaspending_requests": 0
+}

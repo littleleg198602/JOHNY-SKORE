@@ -1,0 +1,60 @@
+test_asset_fixture_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_asset_fixture_marker_reaches_top_level_snapshot_provenance) ... FAIL
+test_benchmark_fixture_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_benchmark_fixture_marker_reaches_top_level_snapshot_provenance) ... FAIL
+test_captured_config_selection_does_not_implicitly_enable_prospective_audit (__main__.BoundaryChecks.test_captured_config_selection_does_not_implicitly_enable_prospective_audit) ... ok
+test_captured_constructor_bypasses_online_and_both_cache_initializers (__main__.BoundaryChecks.test_captured_constructor_bypasses_online_and_both_cache_initializers) ... ok
+test_original_nested_source_pins_and_unknown_revision_are_preserved (__main__.BoundaryChecks.test_original_nested_source_pins_and_unknown_revision_are_preserved) ... ok
+test_provider_fixture_clock_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_provider_fixture_clock_marker_reaches_top_level_snapshot_provenance) ... FAIL
+test_stage1_registration_never_initializes_remote_agents_or_gleif (__main__.BoundaryChecks.test_stage1_registration_never_initializes_remote_agents_or_gleif) ... ok
+test_ui_mt5_watchlist_button_is_disabled_in_captured_mode (__main__.BoundaryChecks.test_ui_mt5_watchlist_button_is_disabled_in_captured_mode) ... FAIL
+test_ui_mt5_watchlist_execution_guard_refuses_captured_mode (__main__.BoundaryChecks.test_ui_mt5_watchlist_execution_guard_refuses_captured_mode) ... FAIL
+
+======================================================================
+FAIL: test_asset_fixture_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_asset_fixture_marker_reaches_top_level_snapshot_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch8_evaluation_peer_20261015/reproduce_peer.py", line 67, in test_asset_fixture_marker_reaches_top_level_snapshot_provenance
+    self.marker(asset_fixture=True)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch8_evaluation_peer_20261015/reproduce_peer.py", line 60, in marker
+    self.assertEqual('DETERMINISTIC_TEST_FIXTURE',result.get('evidence_origin'))
+AssertionError: 'DETERMINISTIC_TEST_FIXTURE' != None
+
+======================================================================
+FAIL: test_benchmark_fixture_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_benchmark_fixture_marker_reaches_top_level_snapshot_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch8_evaluation_peer_20261015/reproduce_peer.py", line 70, in test_benchmark_fixture_marker_reaches_top_level_snapshot_provenance
+    self.marker(benchmark_fixture=True)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch8_evaluation_peer_20261015/reproduce_peer.py", line 60, in marker
+    self.assertEqual('DETERMINISTIC_TEST_FIXTURE',result.get('evidence_origin'))
+AssertionError: 'DETERMINISTIC_TEST_FIXTURE' != None
+
+======================================================================
+FAIL: test_provider_fixture_clock_marker_reaches_top_level_snapshot_provenance (__main__.BoundaryChecks.test_provider_fixture_clock_marker_reaches_top_level_snapshot_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch8_evaluation_peer_20261015/reproduce_peer.py", line 64, in test_provider_fixture_clock_marker_reaches_top_level_snapshot_provenance
+    self.marker(ready_fixture=True)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch8_evaluation_peer_20261015/reproduce_peer.py", line 60, in marker
+    self.assertEqual('DETERMINISTIC_TEST_FIXTURE',result.get('evidence_origin'))
+AssertionError: 'DETERMINISTIC_TEST_FIXTURE' != None
+
+======================================================================
+FAIL: test_ui_mt5_watchlist_button_is_disabled_in_captured_mode (__main__.BoundaryChecks.test_ui_mt5_watchlist_button_is_disabled_in_captured_mode)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch8_evaluation_peer_20261015/reproduce_peer.py", line 84, in test_ui_mt5_watchlist_button_is_disabled_in_captured_mode
+    self.assertIs(expression(disabled,{'use_mt5':True,'captured_market_enabled':True}),True)
+AssertionError: False is not True
+
+======================================================================
+FAIL: test_ui_mt5_watchlist_execution_guard_refuses_captured_mode (__main__.BoundaryChecks.test_ui_mt5_watchlist_execution_guard_refuses_captured_mode)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch8_evaluation_peer_20261015/reproduce_peer.py", line 90, in test_ui_mt5_watchlist_execution_guard_refuses_captured_mode
+    self.assertIs(expression(guard,{'load_watchlist':True,'captured_market_enabled':True}),False)
+AssertionError: True is not False
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.153s
+
+FAILED (failures=5)

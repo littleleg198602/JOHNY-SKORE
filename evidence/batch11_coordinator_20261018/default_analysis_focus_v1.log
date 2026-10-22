@@ -1,0 +1,6 @@
+test_cli_default_does_not_initialize_database_pipeline_or_output (tests.test_batch11_coordinator_integration.ExplicitWindowsAnalysisActionTests.test_cli_default_does_not_initialize_database_pipeline_or_output) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.934s
+
+OK

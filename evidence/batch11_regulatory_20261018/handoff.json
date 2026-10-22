@@ -1,0 +1,135 @@
+{
+  "actual_blockers": [
+    "The retained DOW EPA record is a historical summary only; original df9d3731 response bytes and length are unavailable.",
+    "Program acronyms, IDs, interest/date field names and semantic documentation are not established by that summary.",
+    "No independent dated facility legal-owner/operator-to-issuer relationship or continuous exposure is established.",
+    "NHTSA live remains approval-blocked; no retry, alternate transport, quota reset, new database or lease/outcome rewrite was attempted."
+  ],
+  "actual_plan": {
+    "bytes": 1012,
+    "path": "evidence/batch11_regulatory_20261018/actual_review_plan.json",
+    "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+  },
+  "actual_report": {
+    "bytes": 2070,
+    "path": "evidence/batch11_regulatory_20261018/reviews/cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8/review.json",
+    "sha256": "cd28f0c67734c1779f9f9c2ed32b3b2666a6f1872cbcb0e0a17355880e9a15a8"
+  },
+  "actual_source_counts": {
+    "DB_connections_reads_writes_hashes": 0,
+    "actual_program_or_dated_interest_facts": 0,
+    "actual_retained_missing_original_case_reviews": 1,
+    "new_HTTP_requests": 0,
+    "new_collector_requests": 0,
+    "new_searches": 0,
+    "quota_or_lease_operations": 0,
+    "registry_adoptions": 0,
+    "whole_original_EPA_bodies_available": 0
+  },
+  "api": "review_epa_frs_program_scope(request, captures, *, reviewed_at=None)",
+  "base_commit": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "branch": "batch11/regulatory-20261018",
+  "capture_forms": [
+    "capture_id -> (metadata, original_bytes_or_none)",
+    "capture_id -> {metadata, body}"
+  ],
+  "complete_qualified_log": {
+    "bytes": 6952,
+    "path": "evidence/batch11_regulatory_20261018/focused.log",
+    "sha256": "2022fcc48a5bf79953f3e4884ef7cf22fc91ffbd94a0c83df69614c9d7d56d76"
+  },
+  "completed_at": "2026-10-18T19:30:41.996808+00:00",
+  "four_whole_withheld_bodies_absent_and_never_inspected": true,
+  "frozen_qualified_source_versions": {
+    "market_checker_app/services/epa_frs_program_scope_review.py": {
+      "bytes": 23901,
+      "path": "evidence/batch11_regulatory_20261018/source_versions/qualified_review.py",
+      "sha256": "d32d7e3473a05b312cdf0f3dfee0caa5526c164de270c3e13f0fb5351ab6600b"
+    },
+    "tests/test_epa_frs_program_scope_review.py": {
+      "bytes": 26253,
+      "path": "evidence/batch11_regulatory_20261018/source_versions/qualified_tests.py",
+      "sha256": "103381ded3f1449923b94d18046d07e787c3c9dc5b8bccdc505834ac6f5e57cc"
+    }
+  },
+  "full_acceptance": "0/21",
+  "kind": "EPA_FRS_PROGRAM_SCOPE",
+  "live_or_Windows_or_OOS_or_full_specialist_acceptance": false,
+  "model_score_budget_or_trading_changes": false,
+  "module": "market_checker_app/services/epa_frs_program_scope_review.py",
+  "next_work": [
+    "Root wires the explicit captured-only kind into shared CLI/UI.",
+    "Genuine original-byte EPA facility/program and independently documented interest/date semantics remain missing.",
+    "Independent dated legal ownership and issuer continuity remain separate requirements."
+  ],
+  "novel_behavior": [
+    "Exact registry-ID/name selection, program acronym+system-ID and same-object interest/date pointers cannot borrow another facility, program, parent or sibling row.",
+    "Literal source-field evidence has its exact JSON pointer, canonical value hash and whole original-body hash; missing/null/unknown dates stay field-level partial.",
+    "Complete original byte/hash and primary transport gates precede row interpretation; duplicate/error/partial responses never become absence or ownership.",
+    "Caller-selected role/date field meanings remain unverified even for parseable literals; registration does not prove ownership, permitted operation or continuous issuer exposure.",
+    "Source-read cutoff is distinct from physical completion known_at; future cutoff, physical rollback and later supporting clocks fail closed."
+  ],
+  "old_evidence_or_tests_modified": false,
+  "original_frs_source_clocks_and_pins_unchanged": true,
+  "push_or_merge_performed": false,
+  "qualified_counts": {
+    "discovered": 31,
+    "errors": 0,
+    "executed": 31,
+    "expected_failures": 0,
+    "failures": 0,
+    "passed": 31,
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "qualified_result": {
+    "bytes": 1395,
+    "path": "evidence/batch11_regulatory_20261018/focused.json",
+    "sha256": "7efe637d598eb6d0ffa2e1e2c171efe487ddcda0bdf757c68234bede28f23339"
+  },
+  "qualified_source_test_sha256": {
+    "market_checker_app/services/epa_frs_program_scope_review.py": "d32d7e3473a05b312cdf0f3dfee0caa5526c164de270c3e13f0fb5351ab6600b",
+    "tests/test_epa_frs_program_scope_review.py": "103381ded3f1449923b94d18046d07e787c3c9dc5b8bccdc505834ac6f5e57cc"
+  },
+  "request_schema": {
+    "facility_pointer": "/Results/Facilities/N",
+    "programs": [
+      {
+        "interests": [
+          {
+            "date_fields": {
+              "end": "optional exact source field name",
+              "last_reported": "optional exact source field name",
+              "start": "optional exact source field name"
+            },
+            "interest_pointer": "same program object or its direct child-array row",
+            "role_field": "exact source field name"
+          }
+        ],
+        "program_pointer": "same facility /ProgramFacilities/N",
+        "program_system_acronym": "exact source literal",
+        "program_system_id": "exact source literal"
+      }
+    ],
+    "required": [
+      "capture_id",
+      "frs_registry_id",
+      "facility_name",
+      "facility_pointer",
+      "programs"
+    ]
+  },
+  "review_record": {
+    "bytes": 2767,
+    "path": "evidence/batch11_regulatory_20261018/review_record.json",
+    "sha256": "2eab449058750e3c690402c4457734edb01d0110d0619609857875c4b46397f7"
+  },
+  "schema_version": 1,
+  "shared_runtime_UI_docs_status_registry_and_publication_owned_by_parent": true,
+  "source_availability": {
+    "bytes": 1550,
+    "path": "evidence/batch11_regulatory_20261018/source_availability.json",
+    "sha256": "3584c7037a5cac25bdcb925dc0cac0cd738ae24a93e01bbb4675ed8a753cebf0"
+  },
+  "status": "PARTIAL"
+}

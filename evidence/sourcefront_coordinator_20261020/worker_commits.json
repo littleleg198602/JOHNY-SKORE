@@ -1,0 +1,39 @@
+{
+  "recorded_at": "2026-10-20T20:22:52.841691+00:00",
+  "actual_six_isolated_agents": true,
+  "actual_usage_interruption_resumed_saved_work": true,
+  "workers": [
+    {
+      "lane": "identity_bulk",
+      "actual_worker_commit": "d20cdc6e830c60c632f372b05bdaa8f249cb952c",
+      "root_pick": "0023445ba4d03b425f852d37cc107b6977f8f34e"
+    },
+    {
+      "lane": "healthcare",
+      "actual_worker_commit": "d0fca0a2623919b908d6a6469a0e7b86d1e709f7",
+      "root_pick": "267de08c5bd6c9a64d03edf2e1763a5f2364803a"
+    },
+    {
+      "lane": "regulatory",
+      "actual_worker_commit": "570508d64fb5025723a18238965c9a49c6351c55",
+      "root_pick": "6f4d05af4fe6b84881728d8fabfb2939af580d4e"
+    },
+    {
+      "lane": "contracts_peer",
+      "actual_worker_commit": "14fcc7f8986202aa3d32bbb64d3343daa8e63d18",
+      "root_pick": "ae56b433ac3b05745c88dc1eaf2a18d652b60205"
+    },
+    {
+      "lane": "sec",
+      "actual_worker_commit": "2fb0e325fa83a292cbad56097830cfd0a9585947",
+      "root_pick": "e3c612234d9f00a7caea7a2ad21523804d9e65e2"
+    },
+    {
+      "lane": "evaluation",
+      "actual_worker_commit": "eb6b63773f07502048e07366530b76aa83ed2934",
+      "root_pick": "b59fe0abfa69bfb4ba55ef33520540083df1c1af"
+    }
+  ],
+  "coordinator_additional_fix": "d8e116b connects shared review/UI and fixes replay hashing; actual19method1FAIL before dedup fix and19plainOK after preserved",
+  "six_workers_are_not_six_analytical_specialists": true
+}

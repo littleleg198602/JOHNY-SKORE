@@ -1,0 +1,276 @@
+{
+  "actual_dow": {
+    "before_wrong_pairs": [
+      {
+        "anchor_date": "2025-12-31",
+        "context_ref": "c-2",
+        "issuer_cik": "0001751788",
+        "issuer_name": "Dow Inc."
+      },
+      {
+        "anchor_date": "2025-12-31",
+        "context_ref": "c-1",
+        "issuer_cik": "0001751788",
+        "issuer_name": "The Dow Chemical Company"
+      }
+    ],
+    "body_copied_or_recreated": false,
+    "bulk_4mb_cap_changed": false,
+    "capture_clocks": {
+      "document_observed_at": "2026-10-14T13:28:22.735778+00:00",
+      "index_observed_at": "2026-10-14T13:28:14.745226+00:00"
+    },
+    "current_pairs": [
+      {
+        "anchor_date": "2025-12-31",
+        "context_ref": "c-2",
+        "issuer_cik": "0001751788",
+        "issuer_name": "Dow Inc."
+      },
+      {
+        "anchor_date": "2025-12-31",
+        "context_ref": "c-1",
+        "issuer_cik": "0000029915",
+        "issuer_name": "The Dow Chemical Company"
+      }
+    ],
+    "original_body_bytes": 5279652,
+    "original_body_sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+    "original_research_cap": 6000000,
+    "publisher_clock": {
+      "accepted_display": "2026-02-03 07:53:43",
+      "accepted_timezone": "UNKNOWN",
+      "filed_on": "2026-02-03",
+      "publication_clock_reconstructed": false,
+      "published_at_utc": null
+    }
+  },
+  "actual_xom": {
+    "current_old_role_names": [
+      {
+        "anchor_date": "2026-06-30",
+        "context_ref": "c-1",
+        "issuer_cik": "0000034088",
+        "issuer_name": "Exxon Mobil Corporation"
+      }
+    ],
+    "explicit_same_context_pairs": [
+      {
+        "anchor_date": "2026-06-30",
+        "context_ref": "c-1",
+        "issuer_cik": "0000034088",
+        "issuer_name": "Exxon Mobil Corporation"
+      },
+      {
+        "anchor_date": "2026-06-30",
+        "context_ref": "c-2",
+        "issuer_cik": "0002115436",
+        "issuer_name": "ExxonMobil Holdings Corporation"
+      }
+    ],
+    "historical_old_role_names": [
+      {
+        "anchor_date": "2026-06-30",
+        "context_ref": "c-2",
+        "issuer_cik": "0000034088",
+        "issuer_name": "ExxonMobil Holdings Corporation"
+      },
+      {
+        "anchor_date": "2026-06-30",
+        "context_ref": "c-1",
+        "issuer_cik": "0000034088",
+        "issuer_name": "Exxon Mobil Corporation"
+      }
+    ],
+    "historical_report": {
+      "not_current_acceptance": true,
+      "path": "evidence/batch5_identity_20261014/review.json",
+      "review_sha256": "36a20ab120430d412b16b7144af7be8d2d57f50a9910eea042f4211661e22e81",
+      "sha256": "babc76e2b6ed7d20b7e35ad1853cb896328a220c13765834326768f624952edc"
+    },
+    "known_obsolete_assertion": "tests.test_batch5_identity_symbol.SameCikSymbolBridgeTests.test_actual_retained_sources_are_partial_and_first_xom_artifacts_replay_unchanged",
+    "root_assertion_fix_commit": "ab6a1dd",
+    "root_assertion_fix_not_in_this_isolated_branch": true,
+    "root_combined_final_qualification_pending": true,
+    "still_partial": true,
+    "unchanged_three_blockers": [
+      "TO_CIK_CUSIP_CLASS_BINDING_MISSING",
+      "CONFLICTING_TO_CLASS_SOURCE",
+      "DATED_OLD_NEW_CUSIP_ACTION_BRIDGE_MISSING"
+    ]
+  },
+  "api": "issuer_names(snapshot) -> existing issuer_name/issuer_cik/anchor_date/context_ref dictionaries; explicit same-context DEI CIK prioritized, dimension/context ambiguity rejected",
+  "baseline_local_commit": "e869fb60b12fcc850e5d2a51e73a3fa3b726377d",
+  "code_sha256": {
+    "market_checker_app/services/sec_corporate_action_bridge.py": "337e73165538d9eb407c46bb13d961820c0f101849bb353687be16068f81827b",
+    "tests/test_batch6_cofiler_identity.py": "2bb1b977a64ab902942db54ca4db2505168a4948783ed9ed2c2d989a4c516427"
+  },
+  "historical_leg_producer": {
+    "current_module_sha256": "337e73165538d9eb407c46bb13d961820c0f101849bb353687be16068f81827b",
+    "handoff": {
+      "bytes": 19672,
+      "path": "evidence/batch6_identity_20261014/handoff.json",
+      "sha256": "a5a4cdf4066979fc2dc9b3127d996316099b2167c371f515166ccc45e2bd1f4e"
+    },
+    "interpretation": "The original LEG producer code hash is historical after this independently tested binder correction",
+    "module_sha256_at_leg_version": "6222a1734caf76b0f7bd5216c62665a3fc08268be991c8750352ab317508d627",
+    "old_artifacts_unchanged": true
+  },
+  "implementation": [
+    "Capture same-context EntityRegistrantName and EntityCentralIndexKey; legal-entity dimension never borrows parent identity",
+    "Validate exact context period, known publication/capture date bounds and unambiguous dimension/namespaces",
+    "Restrict context-only legacy fallback to one undimensioned registrant/archive CIK; never relocate another context CIK",
+    "Keep original code fixture and exact original body/index in a reproducible no-HTTP regression",
+    "Qualify actual XOM co-filer correction while preserving frozen older report bytes and its unchanged three blockers"
+  ],
+  "inventory": [
+    {
+      "bytes": 3317,
+      "path": "evidence/batch6_cofiler_20261014/README.md",
+      "sha256": "58a97940253d14a0a6005da507d1836035620977db4c88963a113296bb744ad8"
+    },
+    {
+      "bytes": 4525,
+      "path": "evidence/batch6_cofiler_20261014/final_cofiler_tests.log",
+      "sha256": "5bef7c6d01c678643a0aaf641a466f4dfe6d55badfaeb871c31080ae7d962015"
+    },
+    {
+      "bytes": 5455,
+      "path": "evidence/batch6_cofiler_20261014/initial_focused_tests.log",
+      "sha256": "87e48d376cb3b76b49ee874fe0fff8bd18156c63bb19031926816166ff3dfb3d"
+    },
+    {
+      "bytes": 11682,
+      "path": "evidence/batch6_cofiler_20261014/legacy_focused_tests.log",
+      "sha256": "c8bdb1d87887bdf59ba8900e5401ec77da9778d3c2a4c519f4bc3e75e5356df3"
+    },
+    {
+      "bytes": 1837,
+      "path": "evidence/batch6_cofiler_20261014/original_issuer_binder.py",
+      "sha256": "d31314babd779bd7a522c08343537e012226261fa2b334da83fb9b21ea9e0043"
+    },
+    {
+      "bytes": 3814,
+      "path": "evidence/batch6_cofiler_20261014/paired_identity_review.json",
+      "sha256": "6f50bde9b568c065df950995f263f7152c377c926781c354951981ab12de7f96"
+    },
+    {
+      "bytes": 10021,
+      "path": "evidence/batch6_cofiler_20261014/replay_pairs.py",
+      "sha256": "f3aa89708395932beceedbd29250ac285fcfbbdfccfb5e8373c7ccdf74eee007"
+    },
+    {
+      "bytes": 32576,
+      "path": "evidence/batch6_cofiler_20261014/xom_review_qualification.json",
+      "sha256": "2ad6bb6fe089dd86790b17cb7a6670e1c4e3cc40e928b9eff8bc83fd9be17b86"
+    }
+  ],
+  "lane": "identity_bulk",
+  "limits": [
+    "Context CIK/name/date facts do not establish continuous ownership, dated instrument validity or historical availability",
+    "DOW index Accepted display timezone remains UNKNOWN; no UTC publication clock is fabricated",
+    "Full original research body uses its approved 6 MB capture gate; bulk export remains at 4 MB",
+    "Frozen XOM output contains a real old wrong-parent join; root repairs the obsolete equality while enforcing immutable artifact and exact corrected scope",
+    "No FRS/legal/instrument registry adoption, source scoring, Windows/OOS or specialist DONE acceptance"
+  ],
+  "preservation": {
+    "canonical_universe": {
+      "bytes": 5846,
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    "older_batch5_xom_report_changed": false,
+    "older_leg_evidence_changed": false,
+    "production_registry_changed": false,
+    "registry": {
+      "bytes": 87325,
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+    },
+    "score_changed": false,
+    "specialist_done_changed": false,
+    "verified_identities_added": 0
+  },
+  "recorded_at": "2026-10-14T17:41:28.874857+00:00",
+  "schema_version": 1,
+  "source_inventory": [
+    {
+      "bytes": 5279652,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+      "sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122"
+    },
+    {
+      "bytes": 835,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.metadata.json",
+      "sha256": "22b893218915dbf851067754cbd2b1b7c3c731114bcfd3e0aab80886485586ed"
+    },
+    {
+      "bytes": 18034,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html",
+      "sha256": "94dfcc4f3e55b4eed10b83f2934a791aca769acc3377162567a088eeb0bb04d2"
+    },
+    {
+      "bytes": 888,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.metadata.json",
+      "sha256": "9a563c00de21b913eb795f3fcf2a22c7fd3a7ed957ecec83227753406f05d22b"
+    }
+  ],
+  "source_usage": {
+    "historical_knowledge_backdated": false,
+    "new_aliases": 0,
+    "new_body_copies": 0,
+    "new_http_requests": 0,
+    "publication_timezone_reconstructed": false,
+    "withheld_bodies_read_or_restored": false
+  },
+  "status": "COFILER_BINDER_CORRECTION_COMPLETE_ROOT_ASSERTION_QUALIFICATION_REQUIRED",
+  "verification": {
+    "code_and_metadata_diff_check_exit_code": 0,
+    "compile_exit_code": 0,
+    "dow_report_content_sha256": "3860ff4c38fa4493053dfa839e54e4508ab69d89c7c60aefab985a2a6e284488",
+    "full_staged_diff_check_exit_code": 0,
+    "full_suite_run": false,
+    "new_test_cases": 20,
+    "source_original_hashes_verified": true,
+    "test_runs": [
+      {
+        "bytes": 5455,
+        "duration_seconds": 3.85,
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 1,
+        "path": "evidence/batch6_cofiler_20261014/initial_focused_tests.log",
+        "sha256": "87e48d376cb3b76b49ee874fe0fff8bd18156c63bb19031926816166ff3dfb3d",
+        "skips": 0,
+        "tests_run": 20,
+        "version_scope": "Initial binder: obsolete root frozen-XOM equality; 19 other checks passed"
+      },
+      {
+        "bytes": 11682,
+        "duration_seconds": 6.563,
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 1,
+        "path": "evidence/batch6_cofiler_20261014/legacy_focused_tests.log",
+        "sha256": "c8bdb1d87887bdf59ba8900e5401ec77da9778d3c2a4c519f4bc3e75e5356df3",
+        "skips": 0,
+        "tests_run": 50,
+        "version_scope": "Broader legacy focus: same known obsolete equality; 49 other checks passed"
+      },
+      {
+        "bytes": 4525,
+        "duration_seconds": 3.513,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch6_cofiler_20261014/final_cofiler_tests.log",
+        "sha256": "5bef7c6d01c678643a0aaf641a466f4dfe6d55badfaeb871c31080ae7d962015",
+        "skips": 0,
+        "tests_run": 20,
+        "version_scope": "Final current co-filer source/test; all 20 new cases passed"
+      }
+    ],
+    "windows_verified": false,
+    "xom_qualification_sha256": "e7cae936c4f3b5e88ee3cc027e610faafa5ae5ac0c6e800619ada02990214bd0"
+  }
+}

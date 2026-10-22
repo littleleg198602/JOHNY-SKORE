@@ -1,0 +1,736 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "089ce4dbe03952d84daac5cfe47760b09020954b",
+  "reviewed_at": "2026-10-14T23:39:24.751942+00:00",
+  "ingested_at": "2026-10-14T23:39:24.751942+00:00",
+  "canonical_subject_count": 687,
+  "canonical_csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+  "original_prior_captures": [
+    {
+      "capture_key": "fda_crl_pfizer_exact_phrase",
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/fda_crl_pfizer_exact_phrase.metadata.json",
+      "metadata_sha256": "51eb05fb27f3c1b71b8d4dd76bdc131a0625301f54fc44717ab5c1627cd88482",
+      "archive_path": "evidence/batch3_healthcare_20261012/captures/fda_crl_pfizer_exact_phrase.body.json",
+      "archive_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+      "original_body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+      "original_body_bytes": 23740,
+      "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22&limit=100&skip=0",
+      "requested_at": "2026-10-12T14:44:19.907975+00:00",
+      "observed_at": "2026-10-12T14:44:25.208826+00:00",
+      "original_metadata_unchanged": true,
+      "archived_byte_hash_is_http_body_hash": true
+    },
+    {
+      "capture_key": "sec_pfe_2017_10k",
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_10k.metadata.json",
+      "metadata_sha256": "2558b1032ba9387fdae598242a8d0cfd040fb3ae32f68b211d476a24a8fefc44",
+      "archive_path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_10k.body.html.gz",
+      "archive_sha256": "a88263dff67918610305607fde11f5188b2146c4941be9401889ff81c2f75da2",
+      "original_body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+      "original_body_bytes": 816055,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+      "requested_at": "2026-10-12T14:44:14.903431+00:00",
+      "observed_at": "2026-10-12T14:44:19.890070+00:00",
+      "original_metadata_unchanged": true,
+      "archived_byte_hash_is_http_body_hash": false
+    },
+    {
+      "capture_key": "fda_crl_merck_exact_phrase",
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/fda_crl_merck_exact_phrase.metadata.json",
+      "metadata_sha256": "f71743d6449f7b363a5aef88875c17319833a8c3e35b34f6fafbedb144bc722a",
+      "archive_path": "evidence/batch3_healthcare_20261012/captures/fda_crl_merck_exact_phrase.body.json",
+      "archive_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+      "original_body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+      "original_body_bytes": 14967,
+      "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Merck+%26+Co.%2C+Inc.%22&limit=100&skip=0",
+      "requested_at": "2026-10-12T14:49:22.431425+00:00",
+      "observed_at": "2026-10-12T14:49:28.022976+00:00",
+      "original_metadata_unchanged": true,
+      "archived_byte_hash_is_http_body_hash": true
+    },
+    {
+      "capture_key": "sec_mrk_2012_10k",
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_mrk_2012_10k.metadata.json",
+      "metadata_sha256": "9e3ccd3f96058375da1b9f2ce912638bb3f22bd2855da5a802d31dfae783112b",
+      "archive_path": "evidence/batch3_healthcare_20261012/captures/sec_mrk_2012_10k.body.html.gz",
+      "archive_sha256": "b4ec39a0b342b16c512f93758e3b936163af31024d2432fb9342d4cf3268c729",
+      "original_body_sha256": "302aecedb462fad97f4b9b5296095bac645937c382eeea514dcec848e8a8af2a",
+      "original_body_bytes": 2682584,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/310158/000119312513084618/d438975d10k.htm",
+      "requested_at": "2026-10-12T14:45:22.045516+00:00",
+      "observed_at": "2026-10-12T14:45:27.010273+00:00",
+      "original_metadata_unchanged": true,
+      "archived_byte_hash_is_http_body_hash": false
+    },
+    {
+      "capture_key": "fda_crl_abbvie_exact_phrase",
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/fda_crl_abbvie_exact_phrase.metadata.json",
+      "metadata_sha256": "fd7b4b01e8f1d5b6076a9b1875c894a5e772d2c1f7fb1e57cf0d9b151f67c4a9",
+      "archive_path": "evidence/batch3_healthcare_20261012/captures/fda_crl_abbvie_exact_phrase.body.json",
+      "archive_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "original_body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+      "original_body_bytes": 55713,
+      "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+      "requested_at": "2026-10-12T14:49:17.511395+00:00",
+      "observed_at": "2026-10-12T14:49:22.429721+00:00",
+      "original_metadata_unchanged": true,
+      "archived_byte_hash_is_http_body_hash": true
+    },
+    {
+      "capture_key": "sec_abbv_2023_10q",
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2023_10q.metadata.json",
+      "metadata_sha256": "1743977af52bf8f4e74b5c8894c80d4c9896f2e6f15e88b5b21898dd897da9ec",
+      "archive_path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2023_10q.body.html.gz",
+      "archive_sha256": "c4b1d29a2d3d3de4cb012069532b489f9957ec430a0f0adb27ce0455aac2396f",
+      "original_body_sha256": "b3c31869e3a7cd57650e96b7df35f8e19c582daa3d500672c0d93392613d4ce2",
+      "original_body_bytes": 2087608,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115223000023/abbv-20230331.htm",
+      "requested_at": "2026-10-12T14:45:27.063531+00:00",
+      "observed_at": "2026-10-12T14:45:37.566667+00:00",
+      "original_metadata_unchanged": true,
+      "archived_byte_hash_is_http_body_hash": false
+    },
+    {
+      "capture_key": "sec_abbv_2024_10q",
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2024_10q.metadata.json",
+      "metadata_sha256": "268ce29386c4015338e561e8954fe2e73a122c850841b0e43ab7120c88a9fada",
+      "archive_path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2024_10q.body.html.gz",
+      "archive_sha256": "50b604f9d16190ebe74c51e39d5ec9948bc7649c7202005860e453972250ef81",
+      "original_body_sha256": "83eeeb5145aeda19f4bca707285c1eeaa515365c5e15089dc6b59d630be7f034",
+      "original_body_bytes": 2349173,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115224000031/abbv-20240630.htm",
+      "requested_at": "2026-10-12T14:45:37.588111+00:00",
+      "observed_at": "2026-10-12T14:45:42.513628+00:00",
+      "original_metadata_unchanged": true,
+      "archived_byte_hash_is_http_body_hash": false
+    },
+    {
+      "capture_key": "sec_abbv_2026_10q",
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2026_10q.metadata.json",
+      "metadata_sha256": "c42014ed0d2203da94320552509353cc0e1a0512b6d6502dac7e17999392a0ca",
+      "archive_path": "evidence/batch3_healthcare_20261012/captures/sec_abbv_2026_10q.body.html.gz",
+      "archive_sha256": "3e9384eb36b5cdd8cbc6b6867038e0fb1fbd57c07b4eaeb8e6c12c4f35339973",
+      "original_body_sha256": "f5ec43b10ca9ed88305f13c2e747a7f59da11c6883e9da47d4aab4efe1325967",
+      "original_body_bytes": 1464199,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000017/abbv-20260331.htm",
+      "requested_at": "2026-10-12T14:45:42.538166+00:00",
+      "observed_at": "2026-10-12T14:45:49.217865+00:00",
+      "original_metadata_unchanged": true,
+      "archived_byte_hash_is_http_body_hash": false
+    }
+  ],
+  "independent_ownership_capture_review": {
+    "capture_status": "HTTP_200_COMPLETE",
+    "http_status": 200,
+    "observed_at": "2026-10-14T23:30:38.781155+00:00",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+    "body_sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f",
+    "body_bytes": 258262,
+    "metadata_sha256": "c1cda3061aa26dc3fda655485ca5fb194e4bcb8894b0b41e1a9ec3cc85934caa",
+    "parent_ownership_point_date_as_displayed": "2017-12-31",
+    "parent_title_as_displayed": "SUBSIDIARIES OF THE COMPANY",
+    "exact_fda_addressee_subsidiary_rows": 0,
+    "product_application_assignment_available": false,
+    "original_source_http_time_is_historical_publication_time": false,
+    "table_count": 11,
+    "candidate_row_count": 493,
+    "date_is_point_observation_not_continuous_ownership_interval": true
+  },
+  "cases": [
+    {
+      "scope": {
+        "ticker": "PFE",
+        "issuer_cik": "0000078003",
+        "application_number": "BLA761081",
+        "file_name": "761081_2019_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "2018-04-20",
+        "company_name": "Pfizer Inc.",
+        "product_markers": [
+          "trastuzumab"
+        ]
+      },
+      "fda_capture_key": "fda_crl_pfizer_exact_phrase",
+      "issuer_capture_key": "sec_pfe_2017_10k",
+      "ownership_capture_key": "sec_pfe_2017_ex21",
+      "ownership_selection": null,
+      "review": {
+        "schema_version": "healthcare-product-application-legal-scope-v1",
+        "decision": "WITHHOLD",
+        "identity_status": "UNVERIFIED",
+        "reviewed_at": "2026-10-14T23:39:24.751942+00:00",
+        "ingested_at": "2026-10-14T23:39:24.751942+00:00",
+        "source_object_facts": {
+          "application_number": "BLA761081",
+          "original_application_values": [
+            "BLA 761081"
+          ],
+          "file_name": "761081_2019_Orig1s000OtherActionLtrs.pdf",
+          "letter_date": "2018-04-20",
+          "original_letter_date": "04/20/2018",
+          "company_name": "Pfizer Inc.",
+          "company_field_role": "CRL_ADDRESSEE_ONLY",
+          "approval_status_as_displayed": "Approved",
+          "approval_status_is_event_day_state": false,
+          "product_mentions": [
+            {
+              "requested_marker": "trastuzumab",
+              "literal_source_text": "trastuzumab",
+              "first_text_offset": 5421,
+              "mentions": 2,
+              "role": "LETTER_TEXT_MENTION_ONLY"
+            }
+          ],
+          "structured_product_identity_available": false,
+          "product_ownership_proven_by_letter_text": false,
+          "application_holder_role_inferred": false,
+          "publisher_last_updated": "2026-08-13",
+          "publisher_version_is_first_observation": false,
+          "original_capture_observed_at": "2026-10-12T14:44:25.208826+00:00",
+          "source_object_locator": "/results/0",
+          "source_object_sha256": "8e8bcf887a4a121c4c3864bde68623b82a5ff5288803e70c9ce8cbddf2185874",
+          "letter_text_sha256": "b2c6cc4564d05f915955076f6100851c4f2f4fc2c0f30f76908b011d5d0fb9e5",
+          "query_total": 1,
+          "returned_rows": 1,
+          "exact_query_complete": true,
+          "filename_does_not_define_event_date": true,
+          "issuer_wide_scope": false
+        },
+        "original_capture_pins": {
+          "fda": {
+            "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22&limit=100&skip=0",
+            "body_sha256": "1587749106ba091e7f2ddb73cafb56861a57550c631f198aa60dca4c154bc748",
+            "body_bytes": 23740,
+            "requested_at": "2026-10-12T14:44:19.907975+00:00",
+            "observed_at": "2026-10-12T14:44:25.208826+00:00",
+            "query_search": "company_name:\"Pfizer Inc.\"",
+            "query_limit": 100,
+            "query_skip": 0
+          },
+          "ownership": {
+            "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+            "body_sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f",
+            "body_bytes": 258262,
+            "requested_at": "2026-10-14T23:30:31.825538+00:00",
+            "observed_at": "2026-10-14T23:30:38.781155+00:00",
+            "archive_routing_cik": "0000078003",
+            "accession_digits": "000007800318000027"
+          },
+          "issuer": {
+            "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+            "body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+            "body_bytes": 816055,
+            "requested_at": "2026-10-12T14:44:14.903431+00:00",
+            "observed_at": "2026-10-12T14:44:19.890070+00:00",
+            "archive_routing_cik": "0000078003",
+            "accession_digits": "000007800318000027"
+          }
+        },
+        "ownership_facts": null,
+        "proposed_record": null,
+        "reasons": [
+          "EXACT_DATED_OWNERSHIP_SELECTION_MISSING",
+          "LEGAL_OWNER_EVIDENCE_NOT_AVAILABLE_BEFORE_ORIGINAL_FDA_OBJECT"
+        ],
+        "candidate_legal_bridge_complete": false,
+        "issuer_attribution_allowed": false,
+        "product_ownership_verified": false,
+        "application_holder_role_inferred": false,
+        "historical_ownership_attribution_allowed": false,
+        "historical_knowledge_reconstructed": false,
+        "issuer_wide_scope": false,
+        "negative_issuer_completeness_verified": false,
+        "live_acceptance_verified": false,
+        "source_http_requests": 0,
+        "quota_modified": false,
+        "registry_modified": false,
+        "score_changes": false,
+        "prediction_input": false
+      },
+      "limitations": [
+        "FDA company field is a CRL addressee, not a legal product/application assignment",
+        "Product names in letter text are scoped source mentions, not ownership or license records",
+        "Existing main10K/10Q captures identify issuers only; no dated application-owner bridge is inferred",
+        "No exact independently dated legal-owner row available before the original FDA observation"
+      ]
+    },
+    {
+      "scope": {
+        "ticker": "MRK",
+        "issuer_cik": "0000310158",
+        "application_number": "NDA204569",
+        "file_name": "CRL_NDA204569_20130628.pdf",
+        "letter_date": "2013-06-28",
+        "company_name": "Merck & Co., Inc.",
+        "product_markers": [
+          "suvorexant"
+        ]
+      },
+      "fda_capture_key": "fda_crl_merck_exact_phrase",
+      "issuer_capture_key": "sec_mrk_2012_10k",
+      "ownership_capture_key": null,
+      "ownership_selection": null,
+      "review": {
+        "schema_version": "healthcare-product-application-legal-scope-v1",
+        "decision": "WITHHOLD",
+        "identity_status": "UNVERIFIED",
+        "reviewed_at": "2026-10-14T23:39:24.751942+00:00",
+        "ingested_at": "2026-10-14T23:39:24.751942+00:00",
+        "source_object_facts": {
+          "application_number": "NDA204569",
+          "original_application_values": [
+            "NDA 204569"
+          ],
+          "file_name": "CRL_NDA204569_20130628.pdf",
+          "letter_date": "2013-06-28",
+          "original_letter_date": "06/28/2013",
+          "company_name": "Merck & Co., Inc.",
+          "company_field_role": "CRL_ADDRESSEE_ONLY",
+          "approval_status_as_displayed": "Approved",
+          "approval_status_is_event_day_state": false,
+          "product_mentions": [
+            {
+              "requested_marker": "suvorexant",
+              "literal_source_text": "Suvorexant",
+              "first_text_offset": 496,
+              "mentions": 20,
+              "role": "LETTER_TEXT_MENTION_ONLY"
+            }
+          ],
+          "structured_product_identity_available": false,
+          "product_ownership_proven_by_letter_text": false,
+          "application_holder_role_inferred": false,
+          "publisher_last_updated": "2026-08-13",
+          "publisher_version_is_first_observation": false,
+          "original_capture_observed_at": "2026-10-12T14:49:28.022976+00:00",
+          "source_object_locator": "/results/0",
+          "source_object_sha256": "0b183cbe2739d1db0a93dd9cac99a10dd279a5e27c4d674a7188342a341a2c52",
+          "letter_text_sha256": "44707c9b28a47e4a5d5a1fab113b71a9e8514d30932e35f3a60b6abd1024f776",
+          "query_total": 1,
+          "returned_rows": 1,
+          "exact_query_complete": true,
+          "filename_does_not_define_event_date": true,
+          "issuer_wide_scope": false
+        },
+        "original_capture_pins": {
+          "fda": {
+            "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Merck+%26+Co.%2C+Inc.%22&limit=100&skip=0",
+            "body_sha256": "05c7cce26394cb7bc19f8cc1c3053d34616a55fd3543e8278d9b7ed814ea707d",
+            "body_bytes": 14967,
+            "requested_at": "2026-10-12T14:49:22.431425+00:00",
+            "observed_at": "2026-10-12T14:49:28.022976+00:00",
+            "query_search": "company_name:\"Merck & Co., Inc.\"",
+            "query_limit": 100,
+            "query_skip": 0
+          },
+          "issuer": {
+            "source_url": "https://www.sec.gov/Archives/edgar/data/310158/000119312513084618/d438975d10k.htm",
+            "body_sha256": "302aecedb462fad97f4b9b5296095bac645937c382eeea514dcec848e8a8af2a",
+            "body_bytes": 2682584,
+            "requested_at": "2026-10-12T14:45:22.045516+00:00",
+            "observed_at": "2026-10-12T14:45:27.010273+00:00",
+            "archive_routing_cik": "0000310158",
+            "accession_digits": "000119312513084618"
+          }
+        },
+        "ownership_facts": null,
+        "proposed_record": null,
+        "reasons": [
+          "OWNERSHIP_ORIGINAL_CAPTURE_MISSING",
+          "EXACT_DATED_OWNERSHIP_SELECTION_MISSING"
+        ],
+        "candidate_legal_bridge_complete": false,
+        "issuer_attribution_allowed": false,
+        "product_ownership_verified": false,
+        "application_holder_role_inferred": false,
+        "historical_ownership_attribution_allowed": false,
+        "historical_knowledge_reconstructed": false,
+        "issuer_wide_scope": false,
+        "negative_issuer_completeness_verified": false,
+        "live_acceptance_verified": false,
+        "source_http_requests": 0,
+        "quota_modified": false,
+        "registry_modified": false,
+        "score_changes": false,
+        "prediction_input": false
+      },
+      "limitations": [
+        "FDA company field is a CRL addressee, not a legal product/application assignment",
+        "Product names in letter text are scoped source mentions, not ownership or license records",
+        "Existing main10K/10Q captures identify issuers only; no dated application-owner bridge is inferred",
+        "No exact independently dated legal-owner row available before the original FDA observation"
+      ]
+    },
+    {
+      "scope": {
+        "ticker": "ABBV",
+        "issuer_cik": "0001551152",
+        "application_number": "NDA216962",
+        "file_name": "216962_2025_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "2023-03-17",
+        "company_name": "AbbVie Inc.",
+        "product_markers": [
+          "foscarbidopa",
+          "foslevodopa"
+        ]
+      },
+      "fda_capture_key": "fda_crl_abbvie_exact_phrase",
+      "issuer_capture_key": "sec_abbv_2023_10q",
+      "ownership_capture_key": null,
+      "ownership_selection": null,
+      "review": {
+        "schema_version": "healthcare-product-application-legal-scope-v1",
+        "decision": "WITHHOLD",
+        "identity_status": "UNVERIFIED",
+        "reviewed_at": "2026-10-14T23:39:24.751942+00:00",
+        "ingested_at": "2026-10-14T23:39:24.751942+00:00",
+        "source_object_facts": {
+          "application_number": "NDA216962",
+          "original_application_values": [
+            "NDA 216962"
+          ],
+          "file_name": "216962_2025_Orig1s000OtherActionLtrs.pdf",
+          "letter_date": "2023-03-17",
+          "original_letter_date": "03/17/2023",
+          "company_name": "AbbVie Inc.",
+          "company_field_role": "CRL_ADDRESSEE_ONLY",
+          "approval_status_as_displayed": "Approved",
+          "approval_status_is_event_day_state": false,
+          "product_mentions": [
+            {
+              "requested_marker": "foscarbidopa",
+              "literal_source_text": "foscarbidopa",
+              "first_text_offset": 411,
+              "mentions": 2,
+              "role": "LETTER_TEXT_MENTION_ONLY"
+            },
+            {
+              "requested_marker": "foslevodopa",
+              "literal_source_text": "foslevodopa",
+              "first_text_offset": 428,
+              "mentions": 2,
+              "role": "LETTER_TEXT_MENTION_ONLY"
+            }
+          ],
+          "structured_product_identity_available": false,
+          "product_ownership_proven_by_letter_text": false,
+          "application_holder_role_inferred": false,
+          "publisher_last_updated": "2026-08-13",
+          "publisher_version_is_first_observation": false,
+          "original_capture_observed_at": "2026-10-12T14:49:22.429721+00:00",
+          "source_object_locator": "/results/0",
+          "source_object_sha256": "06f3d5c322bdbc10b825b7e7d0dbf402e25d844b874636ab690fd791411230c8",
+          "letter_text_sha256": "979b361b5b752c00d7a9f8958cf29916c0251f7e32ffd0bf717f20040956f4f5",
+          "query_total": 3,
+          "returned_rows": 3,
+          "exact_query_complete": true,
+          "filename_does_not_define_event_date": true,
+          "issuer_wide_scope": false
+        },
+        "original_capture_pins": {
+          "fda": {
+            "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+            "body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "body_bytes": 55713,
+            "requested_at": "2026-10-12T14:49:17.511395+00:00",
+            "observed_at": "2026-10-12T14:49:22.429721+00:00",
+            "query_search": "company_name:\"AbbVie Inc.\"",
+            "query_limit": 100,
+            "query_skip": 0
+          },
+          "issuer": {
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115223000023/abbv-20230331.htm",
+            "body_sha256": "b3c31869e3a7cd57650e96b7df35f8e19c582daa3d500672c0d93392613d4ce2",
+            "body_bytes": 2087608,
+            "requested_at": "2026-10-12T14:45:27.063531+00:00",
+            "observed_at": "2026-10-12T14:45:37.566667+00:00",
+            "archive_routing_cik": "0001551152",
+            "accession_digits": "000155115223000023"
+          }
+        },
+        "ownership_facts": null,
+        "proposed_record": null,
+        "reasons": [
+          "OWNERSHIP_ORIGINAL_CAPTURE_MISSING",
+          "EXACT_DATED_OWNERSHIP_SELECTION_MISSING"
+        ],
+        "candidate_legal_bridge_complete": false,
+        "issuer_attribution_allowed": false,
+        "product_ownership_verified": false,
+        "application_holder_role_inferred": false,
+        "historical_ownership_attribution_allowed": false,
+        "historical_knowledge_reconstructed": false,
+        "issuer_wide_scope": false,
+        "negative_issuer_completeness_verified": false,
+        "live_acceptance_verified": false,
+        "source_http_requests": 0,
+        "quota_modified": false,
+        "registry_modified": false,
+        "score_changes": false,
+        "prediction_input": false
+      },
+      "limitations": [
+        "FDA company field is a CRL addressee, not a legal product/application assignment",
+        "Product names in letter text are scoped source mentions, not ownership or license records",
+        "Existing main10K/10Q captures identify issuers only; no dated application-owner bridge is inferred",
+        "No exact independently dated legal-owner row available before the original FDA observation"
+      ]
+    },
+    {
+      "scope": {
+        "ticker": "ABBV",
+        "issuer_cik": "0001551152",
+        "application_number": "NDA216962",
+        "file_name": "216962_2025_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "2024-06-18",
+        "company_name": "AbbVie Inc.",
+        "product_markers": [
+          "foscarbidopa",
+          "foslevodopa"
+        ]
+      },
+      "fda_capture_key": "fda_crl_abbvie_exact_phrase",
+      "issuer_capture_key": "sec_abbv_2024_10q",
+      "ownership_capture_key": null,
+      "ownership_selection": null,
+      "review": {
+        "schema_version": "healthcare-product-application-legal-scope-v1",
+        "decision": "WITHHOLD",
+        "identity_status": "UNVERIFIED",
+        "reviewed_at": "2026-10-14T23:39:24.751942+00:00",
+        "ingested_at": "2026-10-14T23:39:24.751942+00:00",
+        "source_object_facts": {
+          "application_number": "NDA216962",
+          "original_application_values": [
+            "NDA 216962"
+          ],
+          "file_name": "216962_2025_Orig1s000OtherActionLtrs.pdf",
+          "letter_date": "2024-06-18",
+          "original_letter_date": "06/18/2024",
+          "company_name": "AbbVie Inc.",
+          "company_field_role": "CRL_ADDRESSEE_ONLY",
+          "approval_status_as_displayed": "Approved",
+          "approval_status_is_event_day_state": false,
+          "product_mentions": [
+            {
+              "requested_marker": "foscarbidopa",
+              "literal_source_text": "foscarbidopa",
+              "first_text_offset": 412,
+              "mentions": 1,
+              "role": "LETTER_TEXT_MENTION_ONLY"
+            },
+            {
+              "requested_marker": "foslevodopa",
+              "literal_source_text": "foslevodopa",
+              "first_text_offset": 429,
+              "mentions": 1,
+              "role": "LETTER_TEXT_MENTION_ONLY"
+            }
+          ],
+          "structured_product_identity_available": false,
+          "product_ownership_proven_by_letter_text": false,
+          "application_holder_role_inferred": false,
+          "publisher_last_updated": "2026-08-13",
+          "publisher_version_is_first_observation": false,
+          "original_capture_observed_at": "2026-10-12T14:49:22.429721+00:00",
+          "source_object_locator": "/results/1",
+          "source_object_sha256": "a05ed8f64a99c524e06f135fdd86225763cd87760292a23410cc4a16313f1229",
+          "letter_text_sha256": "087278839a9c70306c5e1ef50cadd99bbc3b9180c6644d32e69efdfad8a9aab1",
+          "query_total": 3,
+          "returned_rows": 3,
+          "exact_query_complete": true,
+          "filename_does_not_define_event_date": true,
+          "issuer_wide_scope": false
+        },
+        "original_capture_pins": {
+          "fda": {
+            "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+            "body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "body_bytes": 55713,
+            "requested_at": "2026-10-12T14:49:17.511395+00:00",
+            "observed_at": "2026-10-12T14:49:22.429721+00:00",
+            "query_search": "company_name:\"AbbVie Inc.\"",
+            "query_limit": 100,
+            "query_skip": 0
+          },
+          "issuer": {
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115224000031/abbv-20240630.htm",
+            "body_sha256": "83eeeb5145aeda19f4bca707285c1eeaa515365c5e15089dc6b59d630be7f034",
+            "body_bytes": 2349173,
+            "requested_at": "2026-10-12T14:45:37.588111+00:00",
+            "observed_at": "2026-10-12T14:45:42.513628+00:00",
+            "archive_routing_cik": "0001551152",
+            "accession_digits": "000155115224000031"
+          }
+        },
+        "ownership_facts": null,
+        "proposed_record": null,
+        "reasons": [
+          "OWNERSHIP_ORIGINAL_CAPTURE_MISSING",
+          "EXACT_DATED_OWNERSHIP_SELECTION_MISSING"
+        ],
+        "candidate_legal_bridge_complete": false,
+        "issuer_attribution_allowed": false,
+        "product_ownership_verified": false,
+        "application_holder_role_inferred": false,
+        "historical_ownership_attribution_allowed": false,
+        "historical_knowledge_reconstructed": false,
+        "issuer_wide_scope": false,
+        "negative_issuer_completeness_verified": false,
+        "live_acceptance_verified": false,
+        "source_http_requests": 0,
+        "quota_modified": false,
+        "registry_modified": false,
+        "score_changes": false,
+        "prediction_input": false
+      },
+      "limitations": [
+        "FDA company field is a CRL addressee, not a legal product/application assignment",
+        "Product names in letter text are scoped source mentions, not ownership or license records",
+        "Existing main10K/10Q captures identify issuers only; no dated application-owner bridge is inferred",
+        "No exact independently dated legal-owner row available before the original FDA observation"
+      ]
+    },
+    {
+      "scope": {
+        "ticker": "ABBV",
+        "issuer_cik": "0001551152",
+        "application_number": "BLA761459",
+        "file_name": "CRL_BLA761459_20260422.pdf",
+        "letter_date": "2026-04-22",
+        "company_name": "AbbVie Inc.",
+        "product_markers": []
+      },
+      "fda_capture_key": "fda_crl_abbvie_exact_phrase",
+      "issuer_capture_key": "sec_abbv_2026_10q",
+      "ownership_capture_key": null,
+      "ownership_selection": null,
+      "review": {
+        "schema_version": "healthcare-product-application-legal-scope-v1",
+        "decision": "WITHHOLD",
+        "identity_status": "UNVERIFIED",
+        "reviewed_at": "2026-10-14T23:39:24.751942+00:00",
+        "ingested_at": "2026-10-14T23:39:24.751942+00:00",
+        "source_object_facts": {
+          "application_number": "BLA761459",
+          "original_application_values": [
+            "BLA 761459"
+          ],
+          "file_name": "CRL_BLA761459_20260422.pdf",
+          "letter_date": "2026-04-22",
+          "original_letter_date": "04/22/2026",
+          "company_name": "AbbVie Inc.",
+          "company_field_role": "CRL_ADDRESSEE_ONLY",
+          "approval_status_as_displayed": "Unapproved",
+          "approval_status_is_event_day_state": false,
+          "product_mentions": [],
+          "structured_product_identity_available": false,
+          "product_ownership_proven_by_letter_text": false,
+          "application_holder_role_inferred": false,
+          "publisher_last_updated": "2026-08-13",
+          "publisher_version_is_first_observation": false,
+          "original_capture_observed_at": "2026-10-12T14:49:22.429721+00:00",
+          "source_object_locator": "/results/2",
+          "source_object_sha256": "79552d776fa55a9e94071151b5c2f1a85710d4e88d6436739f47ea582fb2097a",
+          "letter_text_sha256": "3fb8c8e52a4990a2c330a57d6f399455fe7c22973cde6182b624b5ab4f1189e5",
+          "query_total": 3,
+          "returned_rows": 3,
+          "exact_query_complete": true,
+          "filename_does_not_define_event_date": true,
+          "issuer_wide_scope": false
+        },
+        "original_capture_pins": {
+          "fda": {
+            "source_url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+            "body_sha256": "d7690dd1c2b0d20343da6748f122e11e7012986d7136d72a48007421056d2c70",
+            "body_bytes": 55713,
+            "requested_at": "2026-10-12T14:49:17.511395+00:00",
+            "observed_at": "2026-10-12T14:49:22.429721+00:00",
+            "query_search": "company_name:\"AbbVie Inc.\"",
+            "query_limit": 100,
+            "query_skip": 0
+          },
+          "issuer": {
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000017/abbv-20260331.htm",
+            "body_sha256": "f5ec43b10ca9ed88305f13c2e747a7f59da11c6883e9da47d4aab4efe1325967",
+            "body_bytes": 1464199,
+            "requested_at": "2026-10-12T14:45:42.538166+00:00",
+            "observed_at": "2026-10-12T14:45:49.217865+00:00",
+            "archive_routing_cik": "0001551152",
+            "accession_digits": "000155115226000017"
+          }
+        },
+        "ownership_facts": null,
+        "proposed_record": null,
+        "reasons": [
+          "OWNERSHIP_ORIGINAL_CAPTURE_MISSING",
+          "EXACT_DATED_OWNERSHIP_SELECTION_MISSING"
+        ],
+        "candidate_legal_bridge_complete": false,
+        "issuer_attribution_allowed": false,
+        "product_ownership_verified": false,
+        "application_holder_role_inferred": false,
+        "historical_ownership_attribution_allowed": false,
+        "historical_knowledge_reconstructed": false,
+        "issuer_wide_scope": false,
+        "negative_issuer_completeness_verified": false,
+        "live_acceptance_verified": false,
+        "source_http_requests": 0,
+        "quota_modified": false,
+        "registry_modified": false,
+        "score_changes": false,
+        "prediction_input": false
+      },
+      "limitations": [
+        "FDA company field is a CRL addressee, not a legal product/application assignment",
+        "Product names in letter text are scoped source mentions, not ownership or license records",
+        "Existing main10K/10Q captures identify issuers only; no dated application-owner bridge is inferred",
+        "No exact independently dated legal-owner row available before the original FDA observation"
+      ]
+    }
+  ],
+  "proposed_records": [],
+  "proposal_count": 0,
+  "coverage": {
+    "selected_original_fda_query_bodies": 3,
+    "selected_issuers": 3,
+    "selected_letter_events": 5,
+    "distinct_applications": 4,
+    "source_object_facts_preserved": 5,
+    "events_with_product_text_markers": 4,
+    "structured_product_identity_events": 0,
+    "verified_legal_owner_event_links": 0,
+    "product_or_license_assignments_verified": 0,
+    "issuer_group_coverage_verified": 0,
+    "current_live_fda_query_coverage_verified": 0,
+    "coverage_is_selected_archive_only": true
+  },
+  "production_healthcare_registry_sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+  "production_registry_modified": false,
+  "new_verified_identity_count": 0,
+  "bounded_sec_research_requests": 1,
+  "authorized_sec_research_attempt_cap": 4,
+  "new_fda_cms_or_clinical_collector_api_requests": 0,
+  "source_http_requests_in_replay": 0,
+  "source_history_status": "WAIT_QUOTA_HISTORY",
+  "new_or_reconstructed_quota_database": false,
+  "exact_original_byte_rearchive": {
+    "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+    "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+    "bytes": 816055,
+    "new_capture": false,
+    "original_observed_at_unchanged": true
+  },
+  "score_changes": false,
+  "product_ownership_verified": false,
+  "issuer_attribution_allowed": false,
+  "historical_prediction_knowledge_available": false,
+  "out_of_sample_verified": false,
+  "actual_user_windows_verified": false,
+  "full_specialist_acceptance": false,
+  "remaining_work": [
+    "Original durable FDA/CMS/Clinical request history before any corresponding LIVE operation",
+    "Exact independent legal/application/product ownership evidence that was available before the original object",
+    "Point-date ownership/issuer identities rather than extending annual-period subsidiary names",
+    "Actual broader product/issuer groups, complete negatives and historical source/price evaluation"
+  ]
+}

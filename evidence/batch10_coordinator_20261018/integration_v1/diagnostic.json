@@ -1,0 +1,35 @@
+{
+  "qualification": "../integration_focus_v1.json",
+  "full_log": "../integration_focus_v1.log",
+  "executed": 9,
+  "failures": 1,
+  "errors": 2,
+  "UI_defect": "Result session-state key collided with the form widget key",
+  "test_fixture_contract_errors": [
+    "Wrong denominator quantity key (correct scaled_total_net_revenue_usd/value_literal)",
+    "SPY is a benchmark but not a member of canonical687, so AAPL/SPY explicit readiness subjects correctly refused"
+  ],
+  "direct_readiness_reproducer_observed": "ValueError: INVALID_EXPLICIT_CANONICAL_READINESS_SUBJECTS",
+  "pins": {
+    "market_checker_app/specialist_evidence_ui.py": {
+      "bytes": 24563,
+      "sha256": "5c55cbb71370094f3630d1117150553fe6588d571bbd02a7a3b1d75203fbd902",
+      "frozen_copy": "evidence/batch10_coordinator_20261018/integration_v1/specialist_evidence_ui.py"
+    },
+    "market_checker_app/specialist_evidence_runner.py": {
+      "bytes": 10316,
+      "sha256": "ac699ac33b6ddf26983e77570c38df03dabfa70ceba573b6e66b81a39d44df0b",
+      "frozen_copy": "evidence/batch10_coordinator_20261018/integration_v1/specialist_evidence_runner.py"
+    },
+    "market_checker_app/services/captured_identity_review_service.py": {
+      "bytes": 25881,
+      "sha256": "7ce7d74099f0fb444b58b317bf67e875d6fcaa66c57593a94f138c59af7b545e",
+      "frozen_copy": "evidence/batch10_coordinator_20261018/integration_v1/captured_identity_review_service.py"
+    },
+    "tests/test_batch10_coordinator_integration.py": {
+      "bytes": 12411,
+      "sha256": "b429213f0ac921e7ee54f095e5b9bd49e90be012a82897034cccead02c2ac069",
+      "frozen_copy": "evidence/batch10_coordinator_20261018/integration_v1/test_batch10_coordinator_integration.py"
+    }
+  }
+}

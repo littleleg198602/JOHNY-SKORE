@@ -1,0 +1,147 @@
+{
+  "acceptance": {
+    "canonical_tickers": 687,
+    "historical_or_oos_claim": false,
+    "source_run_wrapper_archival_pending_root": true,
+    "specialist_done_claim": false,
+    "verified_issuer_additions": 0,
+    "windows_claim": false
+  },
+  "actual_live": {
+    "capture_precedes_final_offline_control_and_socket_deadline_refinement": true,
+    "completed_at": "2026-10-14T00:15:47.562423+00:00",
+    "entire_withheld_bodies": 1,
+    "existing_db_used": true,
+    "http_200": 3,
+    "issuer_verified": false,
+    "new_findings": 0,
+    "prospective_ledger_after": 3,
+    "prospective_ledger_before": 0,
+    "repeated_network_requests": 0,
+    "request_outcomes": [
+      "RETURNED",
+      "FAILED",
+      "RETURNED"
+    ],
+    "requests": 3,
+    "safe_original_bodies": 2,
+    "scoring_applied": false,
+    "source_verified_cases": 0,
+    "started_at": "2026-10-14T00:15:32.956308+00:00",
+    "status": "PARTIAL",
+    "stop_reason": "WITHHELD_SENSITIVE_BODY"
+  },
+  "baseline_public_commit": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "central_registration_prerequisite": "ab449c166a77e241e74ccd7c25cba5d328ea080d",
+  "coordinator_wrapper_prerequisite_prefix": "aa123c6",
+  "created_at": "2026-10-14T05:15:42.046185+00:00",
+  "files": {
+    "evidence/batch5_ir_20261014/README.md": {
+      "sha256": "0fddd3090b0d8f74843e4274b7fb6d37cccb57393eac4cadda7bd22be01cfb01",
+      "size_bytes": 3821
+    },
+    "evidence/batch5_ir_20261014/build_review.py": {
+      "sha256": "861cba6372a46a1916905c3dfd28d7c560d00bc3373310df09ccc0a234306a30",
+      "size_bytes": 6592
+    },
+    "evidence/batch5_ir_20261014/capture_live.py": {
+      "sha256": "8cadac8e17452113d70d821fa6824758e06feb53caf88ea9c9396c438f587742",
+      "size_bytes": 4188
+    },
+    "evidence/batch5_ir_20261014/captures/01_feed_16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a.raw": {
+      "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+      "size_bytes": 126731
+    },
+    "evidence/batch5_ir_20261014/captures/01_receipt.json": {
+      "sha256": "171b3689de7e1bb1aac709eb47a8c6e292c5b5255a84b08837342bbdacc0193c",
+      "size_bytes": 699
+    },
+    "evidence/batch5_ir_20261014/captures/02_receipt.json": {
+      "sha256": "90024f8e39624afa876e8d1308a8a40badc3d172d64952301080e4399b7235a1",
+      "size_bytes": 563
+    },
+    "evidence/batch5_ir_20261014/captures/03_primary_e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c.raw": {
+      "sha256": "e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c",
+      "size_bytes": 136764
+    },
+    "evidence/batch5_ir_20261014/captures/03_receipt.json": {
+      "sha256": "8ad7f82f582ca5a67e37a09aa85458f837d4b46c190e8473307910b5a8e9ac43",
+      "size_bytes": 737
+    },
+    "evidence/batch5_ir_20261014/ledger_proof.json": {
+      "sha256": "a717e1ac7f2c4bf37605838ccccf81642f91ffcf51d16d380d877cfa6dd867ee",
+      "size_bytes": 998
+    },
+    "evidence/batch5_ir_20261014/run_focused_tests.py": {
+      "sha256": "38d7e7bf719acd57dc109ce640db387987500be5a1ce0f7e5c480d7716f5ae35",
+      "size_bytes": 2170
+    },
+    "evidence/batch5_ir_20261014/runtime_report.json": {
+      "sha256": "5c5692743e61e8ad63c69d54f2f40cd181db313c366fa818ac3cf8b2baf68b7a",
+      "size_bytes": 3717
+    },
+    "evidence/batch5_ir_20261014/source_review.json": {
+      "sha256": "afe2052fb51b4fa6bc1cb7c3985fc21b34f97333a2143c83d99648908277d351",
+      "size_bytes": 7318
+    },
+    "evidence/batch5_ir_20261014/tests.json": {
+      "sha256": "7cf370b1ffcebfd892e6a517f099b41c04d31966c3260823547635e5b08dce3f",
+      "size_bytes": 1236
+    },
+    "evidence/batch5_ir_20261014/tests.log": {
+      "sha256": "19563d41612ee552078fc9b2382414e965e81153fbd46fd16ea2ff805c6f9fc7",
+      "size_bytes": 13351
+    },
+    "market_checker_app/ir_primary_runner.py": {
+      "sha256": "38a2d2841040e8df3be3985980fab7699237a4c3194dffabf747682833aa2f39",
+      "size_bytes": 1668
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de",
+      "size_bytes": 24571
+    },
+    "tests/test_batch5_ir_primary_scout.py": {
+      "sha256": "6dbe66ca50841d2153122beb70eaf038ee234fd50068152dc2b0faa47f8c8bcf",
+      "size_bytes": 24512
+    }
+  },
+  "lane": "sec / primary IR",
+  "remaining_gaps": [
+    "Whole withheld authority body prevents live primary-source verification; no substitute is accepted",
+    "Independent dated issuer/instrument identity and measured broader coverage remain unavailable",
+    "The scoped wrong-document replay is not a complete negative issuer/news search",
+    "The first prospective ledger registration does not reconstruct prior one-off capture requests"
+  ],
+  "runtime_api": {
+    "archive_root": "existing db.parent / ir_primary_captures",
+    "class": "IRPrimaryScoutService",
+    "cli": "python -m market_checker_app.ir_primary_runner",
+    "constructor": "(store, *, archive_root=None, client=None, max_requests=6, max_run_seconds=60, request_timeout=12, max_bytes=2000000)",
+    "coordinator_wrapper": "run_primary_ir(*, db_path, ticker, feed_url, authority_url, publisher_hosts, candidate_id=None, original_url=None, requested_as_of=None, max_requests=6)",
+    "retry_cli_exit": 2,
+    "run": "(ticker, *, feed_url, authority_url, publisher_hosts, candidate_id=None, original_url=None, requested_as_of=None)",
+    "source_verified_is_not_database_or_issuer_verification": true,
+    "status_values": [
+      "SOURCE_VERIFIED",
+      "PARTIAL",
+      "WAIT_QUOTA",
+      "LEASE_LOST",
+      "BUSY",
+      "RATE_LIMITED",
+      "ACCESS_BLOCKED"
+    ]
+  },
+  "schema_version": 1,
+  "single_output": "Shared leased/quota-managed explicit primary IR capture and source-only audit",
+  "tests": {
+    "discovered": 64,
+    "errors": 0,
+    "executed": 64,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_sha256": "19563d41612ee552078fc9b2382414e965e81153fbd46fd16ea2ff805c6f9fc7",
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  }
+}

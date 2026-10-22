@@ -1,0 +1,18 @@
+{
+  "connection_explicitly_closed": true,
+  "connection_mode": "ro",
+  "no_new_nhtsa_clinicaltrials_usaspending_rss_requests_in_this_lane": true,
+  "original_existing_database_used": true,
+  "research_lease_used_from_request_receipts": true,
+  "research_request_count_from_original_reservations": 2,
+  "retained_public_request_rows_by_source_all_retained_days": {
+    "nhtsa": 8,
+    "rss": 3
+  },
+  "schema_version": 1,
+  "sec_application_daily_quota_recovered_or_reset": false,
+  "sec_provider_cooldown_rows_after_capture": 0,
+  "sec_provider_lease_rows_after_capture": 0,
+  "survey_kind": "POST_CAPTURE_READ_ONLY_NOT_PRE_REQUEST_STATE_OR_DAILY_HISTORY",
+  "surveyed_at": "2026-10-15T04:29:42.263249+00:00"
+}

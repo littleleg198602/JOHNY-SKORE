@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "physical_copied_at": "2026-10-21T02:05:21.124960+00:00",
+  "qualified_public_head": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "qualified_run_id": 39495108326,
+  "qualified_full_count": 2767,
+  "qualified_new_exact_methods": 79,
+  "full_specialist_acceptance": "0/21",
+  "copies": [
+    {
+      "path": "originals/118878044287.decoded.log",
+      "bytes": 75064,
+      "sha256": "6d6849abfd8fc8e98dc5feed95fd2f412e164c3615c7e0e0efc611ee0e6cc9ab"
+    },
+    {
+      "path": "originals/118878044413.decoded.log",
+      "bytes": 64063,
+      "sha256": "1c343e651c041c64a6cbb618b00e154a4495cd14a75e92852fc4b7da5f61d21b"
+    },
+    {
+      "path": "originals/118878044354.decoded.log",
+      "bytes": 687689,
+      "sha256": "bac5c25bd5472ea1e199e285697dbe1fc58642c9a2616e170c09aeb6acc6a0f7"
+    },
+    {
+      "path": "originals/118878043754.decoded.log",
+      "bytes": 709277,
+      "sha256": "bc20d579339d2294f300ffc8788df7beb645059f535e3fdd4af6ca1522275673"
+    },
+    {
+      "path": "originals/118902225156.decoded.log",
+      "bytes": 2506,
+      "sha256": "469e3e9f7f5679da56f3595a03235617247baa66c37f347f098353bf6e6b4ee0"
+    },
+    {
+      "path": "originals/run.json",
+      "bytes": 15500,
+      "sha256": "08ba0e2d0d8bfd2d6298c3adf42fd89f89a12ecc5eb3a2b2180fee9a972ea00a"
+    },
+    {
+      "path": "originals/jobs.json",
+      "bytes": 16071,
+      "sha256": "c17f8592e8b3528be94e6ee108a2d99254bfc478fc5803785589c99bff1304fe"
+    },
+    {
+      "path": "originals/artifact_metadata.json",
+      "bytes": 827,
+      "sha256": "e86f70fb5b391474d9260055c4e43e65bd85bb2a1a65983cda35c934ffe99372"
+    },
+    {
+      "path": "originals/118878044354.exact_methods.json",
+      "bytes": 24968,
+      "sha256": "90e718ead022e47a5bd4a224aaa007ee9cf42de8f503c6589cc20ae26c429c74"
+    },
+    {
+      "path": "originals/118878043754.exact_methods.json",
+      "bytes": 24968,
+      "sha256": "feb3069b02192d52ec574223be0c4fb748a5f8487be19fcb6984e199f576db97"
+    },
+    {
+      "path": "originals/118878044287.content_verification.json",
+      "bytes": 2963,
+      "sha256": "eddb999c2062c8b4878e6b2ba2d5499c67a5be40c5c2b063b8a80981c9d82ef9"
+    },
+    {
+      "path": "originals/118878044413.content_verification.json",
+      "bytes": 1919,
+      "sha256": "eaa542659871ed8468964a12ac1a9a76bc09dea2469229b99b91766a7b0bf8d1"
+    },
+    {
+      "path": "originals/118878044354.content_verification.json",
+      "bytes": 735,
+      "sha256": "580ba383214226d949e043989ac3836f351fb2d73c7676960e5cf01bed023e2b"
+    },
+    {
+      "path": "originals/118878043754.content_verification.json",
+      "bytes": 612,
+      "sha256": "ad5bb1f1df191994cae0b14f6686e2e50bc18a24c60fbc3bdcedf26173ce20f7"
+    },
+    {
+      "path": "originals/qualification_bundle.json",
+      "bytes": 9409,
+      "sha256": "76184a5ba1919c5ad80c7de4be68bb5cb1c4b3c558578b820db4f10bf9bd57db"
+    },
+    {
+      "path": "originals/native_post_CI_verification.json",
+      "bytes": 3481,
+      "sha256": "c03fdff76150c7577a742969d560a9b845dac9dfdf3a3fec72c462ac1be5ebcb"
+    },
+    {
+      "path": "originals/windows/actual.zip",
+      "bytes": 83896,
+      "sha256": "be0fbde0322571c93fd44a0826a2e5cb6ef4c2da805cb1b9af14b71a65b91816"
+    },
+    {
+      "path": "originals/windows/originals/windows-tests.json",
+      "bytes": 375,
+      "sha256": "a8dca25dfcc8f0e289c503e468d90a4edc200a4c3c81f94dc44487aa5f8afd9b"
+    },
+    {
+      "path": "originals/windows/originals/windows-tests.log",
+      "bytes": 567319,
+      "sha256": "cc5ff07d8fc7eb139c9a3a63cb6766bea8e1fbd002042c162da50e92cd07c6ba"
+    },
+    {
+      "path": "originals/windows/originals/original_exact_methods.json",
+      "bytes": 24968,
+      "sha256": "e25f879606e22a72c0cee98c1ee87108175fb6b9a0981e96efd16d7a2310016f"
+    },
+    {
+      "path": "originals/windows/originals/content_verification.json",
+      "bytes": 1375,
+      "sha256": "6fa8a67050fa3beb71845ca837717909c1b089c437cd053672fbe6b29430da82"
+    }
+  ],
+  "original_copy_count": 21,
+  "copied_bytes": 2317985,
+  "all_exact_offline_copies": true,
+  "new_downloads_or_source_requests": 0,
+  "new_unit_test_runs": 0,
+  "protected_original_DB_touched": false,
+  "qualifies_sourcefront21_code": false
+}

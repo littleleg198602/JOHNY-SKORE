@@ -1,0 +1,9 @@
+{
+  "operation": "Post-full documentation metadata writer",
+  "exit_code": 1,
+  "exception": "AttributeError: type object datetime.datetime has no attribute datetime",
+  "location": "write_docs.py line104",
+  "actual_effect": "All four qualified documentation prefixes were already applied; only the final metadata write failed. No source/test/pre-CI proof or original log changed.",
+  "original_writer_sha256": "4b9d3595a3299d903f1584b9eb462853dc496e8649a9532e806a135806f230a0",
+  "record_kind": "tool diagnostic transcription; not unittest output"
+}

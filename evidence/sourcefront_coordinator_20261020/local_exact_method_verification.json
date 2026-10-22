@@ -1,0 +1,488 @@
+{
+  "head_sha": "d167080a27772ce3a7f95adf777c09f68432bf57",
+  "run_id": null,
+  "job_id": null,
+  "original_log_bytes": 567732,
+  "original_log_sha256": "d4738ac0de287baef5a823c1c5e1a79f02065dd6624a7538e4e62a0ba08c8fc3",
+  "expected_full_test_count": 2767,
+  "new_exact_methods_original_ok": 79,
+  "methods": [
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_actual_current_runtime_cannot_override_strict_original_byte_withhold",
+      "original_ok_block_sha256": "7c14ec9b1c182bd67d20b7545988efbd1cb6977cf34854e0ca71f36a32ae786e"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_exact_recorded_day_without_original_binding_is_also_insufficient",
+      "original_ok_block_sha256": "369e11d997b182b7990adbb0906b30dc771dab1ba1b1f2c745ce0988b960e766"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_explicit_wrong_enrollment_and_wrong_issuer_controls_remain_denied",
+      "original_ok_block_sha256": "61d604a40c7dc65e7f311274afa788b22701b5d091e05eb6fb7b5b7a7a29d081"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_other_object_capture_ccn_and_provider_pac_cannot_ride_legacy_identifiers",
+      "original_ok_block_sha256": "7265e16a2c58ea3ad55b1acb86c0ed866f7b1de4c2df492085a164c4a42e45c6"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_query_leads_and_exact_source_objects_survive_withholding",
+      "original_ok_block_sha256": "671590b7e07d9b6aa5fa0682085f5d874bb24f62e8bd62f8a492b675a5c951bb"
+    },
+    {
+      "module": "test_cms_snapshot_attribution_peer",
+      "class": "CmsSnapshotAttributionPeerTests",
+      "method": "test_unrelated_exact_dated_fda_control_remains_available",
+      "original_ok_block_sha256": "11088e94119198f333a7e1350014ab8b8560922542c134b962366acb0d3189e1"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_actual_leg_surviving_authorized_class_does_not_extend_exchanged_old_instrument",
+      "original_ok_block_sha256": "8992b14552afe411c543c276e6d861662c6c1a50a4aca33121da0add7816b1be"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_actual_plans_select_current_physical_review_without_a_null_explicit_cutoff",
+      "original_ok_block_sha256": "c21ae2c35e7a60eb06f651543bcd94d774262c7b35dc60f6ff3feac6bdb39ac6"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_actual_xom_successor_common_not_preferred_or_total_authority",
+      "original_ok_block_sha256": "ad5f8137b3f5a0b0e5c7f8538f97e486d7e37f6e76d404c3c4d06dacc982ac48"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_another_accession_is_not_the_exact_referring_attachment",
+      "original_ok_block_sha256": "9b62e834ee33184363449d2346f21b3b859c244dbb7c9a8e8440c81359865c69"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_clock_rollback_or_source_not_yet_available_cannot_be_backdated",
+      "original_ok_block_sha256": "d2f20a4fbc1efe92dc6c7e56a9bb44c28e28ae087a26f844019ac326a980f32b"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_exchanged_par_preferred_quantity_and_aggregate_quantity_cannot_be_borrowed",
+      "original_ok_block_sha256": "944f0a7c81e139a77b21313b58b70d6e8d1564c58fb8d0c7b773dfd13474ce02"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_execution_clause_does_not_supply_missing_charter_effective_day",
+      "original_ok_block_sha256": "232c0294dd79670f6d8146ea522b29fbaeb20a41a3853adca1b41bd8bb3ecfb2"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_existing_bridge_entry_dispatches_same_narrow_charter_review",
+      "original_ok_block_sha256": "92ad35aa988490737efbeabd13985935df3be14ac67d80c960cab58a61207820"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_explicit_cutoff_crossed_during_review_withholds_new_support",
+      "original_ok_block_sha256": "9b1b5428a77b3148b9e02645a6bccbce29d0b6511a7c3bb04bbb18dac57b0657"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_historic_shareholders_and_wrong_execution_day_stay_unproved",
+      "original_ok_block_sha256": "0d588e32dae4ab578ffd153f3daf029735a682cf8b61f9984d5d476b3398eaca"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_literal_original_link_cannot_be_supplied_from_hidden_or_changed_href",
+      "original_ok_block_sha256": "735a605916e4915c06d3a5d47f255cef0854bb6e38e1a86ad2e697e4599321c3"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_named_charter_and_exact_archive_cik_cannot_be_borrowed",
+      "original_ok_block_sha256": "6b4c10b9af117a8f415747790b0dae01bf8fd49627732243ca4b6e94a6305acd"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_original_exhibit_envelope_filename_must_match_requested_charter",
+      "original_ok_block_sha256": "9dc9f6e1cbe9dceb7769aa89b95a215e68953271d31f0506f60e8a13e6025713"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_requested_corporate_role_requires_exact_parent_named_role",
+      "original_ok_block_sha256": "f4ce17ed099ecd93e48e9815ee5be73bd3d011069571a395c6bd71f312d47aab"
+    },
+    {
+      "module": "test_sourcefront_charter_disclosure",
+      "class": "CharterDisclosureTests",
+      "method": "test_slow_review_knowledge_is_completion_not_start_or_old_source_date",
+      "original_ok_block_sha256": "7988bc71ebad40588808118b6f4796a54f5948b4ff9d3b45d5bd12f9abaa71bd"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_cli_exposes_the_new_form144_review_without_collection",
+      "original_ok_block_sha256": "b886a56c0c1c2c49101ff53ef54c81833aefc68584700e67dba49277f140b5e4"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_form144_account_corroboration_retains_actual_transaction_mismatches",
+      "original_ok_block_sha256": "60d6f31b4902b7a22a56ec99217f0be16d2beec5b3e34a30537a59ad6074446a"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_successor_charter_keeps_its_own_class_and_explicit_effective_day",
+      "original_ok_block_sha256": "9a957034dca769bd172feb4f1fe5a8fe86cdfe34a55f73a81ed5014f27b69a83"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_surviving_private_charter_is_not_the_exchanged_legacy_instrument",
+      "original_ok_block_sha256": "7f35bbd8057cb8888c6eb4ecc07642e8c26b086e81983ad33d5e8ab0ebc24ecb"
+    },
+    {
+      "module": "test_sourcefront_coordinator_integration",
+      "class": "SourcefrontCoordinatorTests",
+      "method": "test_ui_can_select_and_archive_the_new_form144_notice",
+      "original_ok_block_sha256": "f9c7651ab33c5843c68f18e53562e6c912370257125dba5e096752b9f84b369f"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_actual_first_amended_title_is_neither_original_complaint_nor_judgment",
+      "original_ok_block_sha256": "8291081452bff3c2019e212643a5a54552441ac404bd865baa4c67383398f791"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_actual_whole_91_page_original_exact_stamp_title_and_paragraph19",
+      "original_ok_block_sha256": "a9d73cd7cb8ca89429b19a446be4ec8558e33680df5da643f06a2cc9d891995b"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_base_only_compatibility_retains_observed_suffix_without_financial_binding",
+      "original_ok_block_sha256": "753aa02a08e199f28445ccf7a69c2aa78a97e510361d73cabad7274be7a6aed0"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_changed_original_pin_is_rejected_before_decoder",
+      "original_ok_block_sha256": "1f933d8b153353b1928108b27cda075cf4aefea6110c8df204b9da9b347167c5"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_changed_synthetic_title_with_matching_selected_passage_still_rejects_stage",
+      "original_ok_block_sha256": "2603b7755deb26279fd80439e32a0a9a37634ceff5315a5f6847fa4a12432c43"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_full_literal_suffix_and_date_mismatch_do_not_inherit_actual_case",
+      "original_ok_block_sha256": "45e4deb7b79a78892aa3ca751f1e343940549a157514c8d2d4fa67491585337e"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_full_selector_cannot_change_or_invent_its_base",
+      "original_ok_block_sha256": "6d6ea0497904f2576fc9ce73b03f43200477f6db76dd380436859382ca0974f3"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_missing_or_quoted_header_does_not_support_selected_paragraph",
+      "original_ok_block_sha256": "f1b7de4163e6d09d52b5aec322a047103ecbb5e51e59b502c563fae12e140882"
+    },
+    {
+      "module": "test_sourcefront_doj_first_amended",
+      "class": "FirstAmendedOriginalTests",
+      "method": "test_selected_page_cannot_borrow_first_page_case_document_date_or_count",
+      "original_ok_block_sha256": "37714b23ef9e1dfce07b4db605aebaf6071be89b1b7e53cd86f88590f0a2d043"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_aug31_overlap_does_not_hide_quantity_and_literal_title_conflicts",
+      "original_ok_block_sha256": "2b22a8a8dc4180df28edd87203851411897399b06bdfcb90a0b0acd616f67df8"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_discovery_tokens_come_from_whole_profile_arrays",
+      "original_ok_block_sha256": "20cb26b73f3fad806bfeaf00e529c58da96669028c6d3847d4c793ce6e6c6fc1"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_new_notice_corrobates_exact_account_and_issuer_not_natural_person",
+      "original_ok_block_sha256": "d1596ebedc34db89f3d07f56eda661e2d104d3ab27f129de36fff5c3786ca034"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_original_leaf_quotes_and_xml_span_are_byte_exact",
+      "original_ok_block_sha256": "6a28180bcfe2f01f388b3f2b08ceb2ba501dce4cbad84e9bf248a513b3fd86c3"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_placeholder_is_only_classified_never_exported",
+      "original_ok_block_sha256": "8b56c0fdbcd22b46a78dbd0bc7fe99eca98b56af8dad93a6f506cf0b43076edc"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_plan_has_pinned_whole_bytes_and_preserved_physical_capture_clocks",
+      "original_ok_block_sha256": "4c2f34de6ba449e27c8dab3367486f42e5b576d58d9de8be907f36d669daa1cf"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_proposed_sale_notice_and_plan_dates_are_distinct_from_execution",
+      "original_ok_block_sha256": "160b409807f7ad47836d2207f51b3ba4f81473fb45acdfd3bcba4c3935559cd5"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_raw_acceptance_clocks_have_unknown_zone_and_distinct_capture_knowledge",
+      "original_ok_block_sha256": "94a734cdd82553c32079e1b4b5960f1d8ef8f21e0b9428e417f1b09acebdb411"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_actual_two_whole_originals_are_exact_and_separate_disclosures",
+      "original_ok_block_sha256": "5d7b494cf59293b6d825dab06272101f8051c1d4b8e73c09133746926f3bbbb0"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_approx_sale_future_literal_is_prospective_not_execution_or_capture_fact",
+      "original_ok_block_sha256": "3e0bb62e183d202834d6bbce1940121ee2151cc24744f8b77f6477aa66fa8a2d"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_bounded_review_is_read_only_without_network_sql_quota_or_input_mutation",
+      "original_ok_block_sha256": "728e4149fcfad0344563c18c8c415dfa2ab708fe75e6eccdccab344926d13b2f"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_capture_hash_mismatch_is_rejected_before_semantic_review",
+      "original_ok_block_sha256": "4278428e77fd399ef9c79bda4d2ec4caaa651b7ab6bf505d4428bcb2330694b5"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_duplicate_xml_scalar_and_foreign_namespace_are_rejected",
+      "original_ok_block_sha256": "d3cb349fec29201942367a3c840c2022346ca4abc2a90e0464229a9b3a7766fc"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_entity_declaration_is_rejected_before_xml_expansion",
+      "original_ok_block_sha256": "97fc1e3af92985042999ce21612108676f49a25c0fd31c856f95d9f82a6082da"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_exact_quantity_and_title_agreement_still_does_not_prove_transaction_or_alias",
+      "original_ok_block_sha256": "f4a46fd7a23762d8a247bda0de87a515439df1aefd40b2be36cfbf0cfd405cf1"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_explicit_cutoff_before_physical_completion_removes_interpreted_facts",
+      "original_ok_block_sha256": "4ad023ac00021702490504deab67709ae65bdcfb20494f0749295c89abd4df3f"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_extra_trailing_data_and_duplicate_document_are_rejected",
+      "original_ok_block_sha256": "569091a9d1f6d52d17d0e6e4cbd6741e16f2a3436a41ceb879044af60d49dd1c"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_future_cutoff_or_clock_rollback_is_rejected",
+      "original_ok_block_sha256": "0388e87d0b5004d67b7785c480fad584f2ae3c25cde6192990ed08fd8c68ec0a"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_header_name_order_change_is_not_approved_by_changing_selection",
+      "original_ok_block_sha256": "989a21b8d50ae9852088878da41f322be6479a6161a010b61f61ce0122d826c5"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_header_xml_filer_or_issuer_cik_conflict_rejects_rehashed_notice",
+      "original_ok_block_sha256": "9cdb989a7534739e2240fb812cf26aee1786cc5a826cff4bb657d24143e8169b"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_input_knowledge_after_physical_start_is_not_visible",
+      "original_ok_block_sha256": "815d08021c5dee964576dcd760da5bde8f6c98233f2986440f8a99ef098527be"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_internal_notice_clock_conflict_withholds_account_comparison_support",
+      "original_ok_block_sha256": "ac9cdd2985462f75bec69cfe9d55eed7168fc98a6548564084f4029ffbada42a"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_missing_original_has_metadata_only_and_no_excerpt_substitution",
+      "original_ok_block_sha256": "7bda5c3f1dab720bc90b0a475311297c2d75bbd7128593ca5b7a57889d8a3c81"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_missing_requested_transaction_day_does_not_use_period_or_nearest_row",
+      "original_ok_block_sha256": "ded4b314cd28b3045b889dafa1980e19ebbe62c9c119fad8f8669d28f7fad306"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_named_seller_organization_is_not_promoted_to_natural_person",
+      "original_ok_block_sha256": "2cce1345a9c31f49bda6142ca73b7bd90dff3b6abe8fe92081f41b0a4247a089"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_old_cutoff_cannot_backdate_new_capture_interpretation",
+      "original_ok_block_sha256": "88eb6f5c07df6e10755a98d7db7e872692b2f42d831b64e98ec6051c1dd3592d"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_rehashed_form4_owner_conflict_cannot_be_hidden_by_original_notice",
+      "original_ok_block_sha256": "414455deda698c6c66c3e7005cfdc2f547b193c8736292f4ee44b67fd625ceba"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_rehashed_header_document_name_and_count_drift_are_rejected",
+      "original_ok_block_sha256": "89e5aefb7e5db9dbf1be8607aec916edbcc5ec1f1db078ae51a433d63e5b665c"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_rehashed_xml_excerpt_is_not_a_whole_filing_packet",
+      "original_ok_block_sha256": "e25de64f42e35daa8137b9c81ed07efd15f2ccc60624f112d7ce979c1bef11ef"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_same_accession_or_duplicate_capture_identity_cannot_count_as_two_sources",
+      "original_ok_block_sha256": "dd09e486929c0a0044ba015b9787519107881fae5d1b83c7dd57893f26f4ac3b"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_selection_extra_keys_invalid_precision_and_new_purpose_in_old_api_are_rejected",
+      "original_ok_block_sha256": "9dbb228d86d9f27dee463fc3ba6929d0baf7a7cff08587fba376463815eb64e6"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_source_date_beyond_original_capture_is_rejected_even_when_rehashed",
+      "original_ok_block_sha256": "38c7a4e7dcd93a1c9a73da40599865e7ac011b3710d962eb91d9c3d53117136e"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_synthetic_general_sensitive_assignment_withholds_whole_original",
+      "original_ok_block_sha256": "9d8db292bcf100b86646f49ece9bf3c36b3298e8d73857fd420659cb24372189"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_synthetic_nonplaceholder_ccc_withholds_whole_body_without_replacement_or_value_export",
+      "original_ok_block_sha256": "f928444e5cb05becddcd0a773d7d5d0b72135cb205522019fc8f9c0c9e78d894"
+    },
+    {
+      "module": "test_sourcefront_form144_account_notice",
+      "class": "SourcefrontForm144AccountNoticeTests",
+      "method": "test_wrong_url_basename_accession_and_directory_are_rejected",
+      "original_ok_block_sha256": "15db2e2e7b38adc260111144ed4097efabad8081020ff6dbfba00a4c48e59f63"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_actual_archived_projected_rows_are_source_only_on_current_day",
+      "original_ok_block_sha256": "4068bec6717e1234c62d19a6c6c0f3610044387af9ee8ee0a83d8c86519b200a"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_coverage_projection_uses_same_denial_without_opening_a_database",
+      "original_ok_block_sha256": "074e6dc753cf308885574c0201f1b57476266079cea00d80a642467f86fb3291"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_existing_fda_and_clinical_event_contracts_are_unchanged",
+      "original_ok_block_sha256": "2cdfeb879aba532466d313b5402439ea462e7ec7ae97e6bfbe4686dbdbd7adaf"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_original_record_day_does_not_replace_missing_original_body_provider_binding",
+      "original_ok_block_sha256": "6dffb716008d4d9b2d6df987dffcb0d34889f15ee48943a94bfa54392fc51a46"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_source_only_registry_inventory_and_names_are_preserved_but_old_cache_version_changes",
+      "original_ok_block_sha256": "a2cb8a34e89ca28aca1723d6c7c7b387ed8c850e749656d4c0ef6ef38bddae1a"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_synthetic_caller_supplied_hash_ccn_and_pac_cannot_upgrade_legacy_record",
+      "original_ok_block_sha256": "cf66c15a2770a0b3fa4784f09187b990d3760d8d7447ed296f9ac225209ba748"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_synthetic_current_metadata_and_same_day_observed_argument_are_not_original_proof",
+      "original_ok_block_sha256": "aeeb05e531f910d92a7f6ed5dfb3b3921c8ac5965dfcc76259fa9a75e3fe86a4"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_synthetic_finite_one_day_interval_is_not_original_ccn_pac_or_body_proof",
+      "original_ok_block_sha256": "5be2f043a87f44eebe2229832d1fd2259baa2d29b17d175bfe833786d159f29f"
+    },
+    {
+      "module": "test_sourcefront_healthcare_cms_20261020",
+      "class": "CmsArchivedProjectionAttributionTests",
+      "method": "test_wrong_object_issuer_and_old_association_remain_denied",
+      "original_ok_block_sha256": "f0351b819eb52105269a578085d502b6ce7d3c7e6703e630ca8ca935d7f02a73"
+    }
+  ],
+  "strict_test_boundary_blocks_used": true,
+  "original_log_rewritten": false,
+  "unit_contract_tests_are_not_full_specialist_acceptance": true
+}

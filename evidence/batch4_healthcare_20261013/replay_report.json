@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "replay_as_of": "2026-10-13T09:00:00.321338+00:00",
+  "network_requests": 0,
+  "verified_captures": [
+    {
+      "capture_key": "sec_lly_2021_10k",
+      "body_sha256": "aaafe8d91ce31af80d5379fcc948ed0722587c1de0b2c7be84d8ef02f8abab40",
+      "body_bytes": 4281878,
+      "observed_at": "2026-10-13T08:56:10.108272+00:00"
+    },
+    {
+      "capture_key": "sec_lly_2024_10k",
+      "body_sha256": "a0a7655d5f8b3779682d41b0c3c4aee561e76fdc7aace87ceb6937a4fece15fe",
+      "body_bytes": 3200191,
+      "observed_at": "2026-10-13T08:56:15.994072+00:00"
+    },
+    {
+      "capture_key": "sec_lly_2025_10k",
+      "body_sha256": "8e1b3b844d73abca3f9fbcda5a0da20b23dcb6a5c30eac34610d1309e2dbd50e",
+      "body_bytes": 2370079,
+      "observed_at": "2026-10-13T08:56:21.079895+00:00"
+    },
+    {
+      "capture_key": "trial_lilly_positive_page_1",
+      "body_sha256": "2f6d3f7629361a279f356c9eea6a381cd46c3afa5bdc45fb3e21c9cd7169ed14",
+      "body_bytes": 765,
+      "observed_at": "2026-10-13T08:51:32.634862+00:00"
+    },
+    {
+      "capture_key": "trial_lilly_positive_page_2",
+      "body_sha256": "9c428b317773c64f560a0bb5adcec8ee9d4117e8c1cfc98a382a9a4ddeb6257d",
+      "body_bytes": 748,
+      "observed_at": "2026-10-13T08:51:39.615973+00:00"
+    },
+    {
+      "capture_key": "trial_lilly_positive_page_3",
+      "body_sha256": "e5660ca1fb1bc482c0112c159084af7c325461ac1624b4de41dd67edef2981b9",
+      "body_bytes": 16,
+      "observed_at": "2026-10-13T08:54:40.073131+00:00"
+    },
+    {
+      "capture_key": "trial_pfizer_exact_study_negative",
+      "body_sha256": "b54968c05ff881a1ef7ce604b6a340248f8e2aee8637bef06da0f5693f520df8",
+      "body_bytes": 31,
+      "observed_at": "2026-10-13T08:54:46.875310+00:00"
+    },
+    {
+      "capture_key": "trial_summit_complete_record",
+      "body_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "body_bytes": 125361,
+      "observed_at": "2026-10-13T08:55:01.441775+00:00"
+    },
+    {
+      "capture_key": "trial_surpass2_complete_record",
+      "body_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "body_bytes": 120326,
+      "observed_at": "2026-10-13T08:54:54.067977+00:00"
+    },
+    {
+      "capture_key": "sec_lly_submissions",
+      "body_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "body_bytes": 158719,
+      "observed_at": "2026-10-13T08:59:03.680613+00:00"
+    }
+  ],
+  "bounded_positive_query": {
+    "study_ids": [
+      "NCT03987919",
+      "NCT04847557"
+    ],
+    "pages": 3,
+    "publisher_total": 2,
+    "returned_count": 2,
+    "complete": true
+  },
+  "bounded_negative_query": {
+    "study_ids": [
+      "NCT03987919",
+      "NCT04847557"
+    ],
+    "sponsor_query": "Pfizer",
+    "returned_count": 0,
+    "http_status": 200,
+    "complete": true
+  },
+  "issuer_wide_completeness": false,
+  "objects": [
+    {
+      "nct_id": "NCT04847557",
+      "publisher_record_version": {
+        "nct_id": "NCT04847557",
+        "lead_sponsor": "Eli Lilly and Company",
+        "collaborators": [],
+        "intervention_names": [
+          "Placebo",
+          "Tirzepatide"
+        ],
+        "record_version_date": "2025-08-20",
+        "record_version_type": null,
+        "study_first_posted": "2021-04-19",
+        "study_first_posted_type": null,
+        "last_update_submitted": "2025-08-15",
+        "relationship_snapshot_sha256": "b04dfb88c8bcbe47e5ef300ccd75672064b1f187e68729897bc00faa65b20809",
+        "publisher_clock_precision": "DAY",
+        "publisher_version_id_available": false,
+        "publisher_clocks_are_first_observation": false
+      },
+      "identity_resolution": "EXACT_DATED_OBJECT",
+      "attributed_intervention_names": [
+        "Tirzepatide"
+      ],
+      "unattributed_intervention_names": [
+        "Placebo"
+      ],
+      "relationship_snapshot_pinned": true,
+      "before_knowledge_resolution": "NOT_YET_KNOWN",
+      "same_day_changed_relationship_resolution": "UNMAPPED_OBJECT",
+      "current_event_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "sponsor_role_establishes_product_ownership": false
+    },
+    {
+      "nct_id": "NCT03987919",
+      "publisher_record_version": {
+        "nct_id": "NCT03987919",
+        "lead_sponsor": "Eli Lilly and Company",
+        "collaborators": [],
+        "intervention_names": [
+          "Semaglutide",
+          "Tirzepatide"
+        ],
+        "record_version_date": "2022-02-14",
+        "record_version_type": null,
+        "study_first_posted": "2019-06-17",
+        "study_first_posted_type": null,
+        "last_update_submitted": "2022-01-21",
+        "relationship_snapshot_sha256": "492b7f7511243e624c204b31ea7f30f3f93c4c3ca87f95d7cafa8b68efd1684e",
+        "publisher_clock_precision": "DAY",
+        "publisher_version_id_available": false,
+        "publisher_clocks_are_first_observation": false
+      },
+      "identity_resolution": "EXACT_DATED_OBJECT",
+      "attributed_intervention_names": [
+        "Tirzepatide"
+      ],
+      "unattributed_intervention_names": [
+        "Semaglutide"
+      ],
+      "relationship_snapshot_pinned": true,
+      "before_knowledge_resolution": "NOT_YET_KNOWN",
+      "same_day_changed_relationship_resolution": "UNMAPPED_OBJECT",
+      "current_event_resolution": "OUTSIDE_EFFECTIVE_PERIOD",
+      "sponsor_role_establishes_product_ownership": false
+    }
+  ],
+  "first_collector_run": {
+    "status": "PARTIAL",
+    "checked_issuers": 1,
+    "new_findings": 2,
+    "failed_issuers": 0,
+    "truncated_issuers": 1,
+    "rejected_rows": 0,
+    "budget_exhausted": false,
+    "identity_linked_candidates": 2,
+    "query_scope": "documented exact names; not issuer-wide healthcare coverage",
+    "restricted_study_ids": [
+      "NCT03987919",
+      "NCT04847557"
+    ],
+    "exact_study_lookup_completes_source_scope": false,
+    "daily_requests": 3,
+    "daily_issuers": 1,
+    "attempted_requests": 3,
+    "attempted_issuers": 1,
+    "daily_request_limit": 20,
+    "daily_issuer_limit": 10,
+    "quota_deferred_issuers": 0
+  },
+  "idempotent_replay": {
+    "status": "PARTIAL",
+    "checked_issuers": 1,
+    "new_findings": 0,
+    "failed_issuers": 0,
+    "truncated_issuers": 1,
+    "rejected_rows": 0,
+    "budget_exhausted": false,
+    "identity_linked_candidates": 2,
+    "query_scope": "documented exact names; not issuer-wide healthcare coverage",
+    "restricted_study_ids": [
+      "NCT03987919",
+      "NCT04847557"
+    ],
+    "exact_study_lookup_completes_source_scope": false,
+    "daily_requests": 3,
+    "daily_issuers": 1,
+    "attempted_requests": 3,
+    "attempted_issuers": 1,
+    "daily_request_limit": 20,
+    "daily_issuer_limit": 10,
+    "quota_deferred_issuers": 0
+  },
+  "broad_source_coverage": {
+    "active_identities": 1,
+    "ever_checked": 1,
+    "current_complete": 0,
+    "current_partial": 1,
+    "not_current": 0
+  },
+  "finding_count": 2,
+  "finding_statuses": [
+    "UNVERIFIED",
+    "UNVERIFIED"
+  ],
+  "findings_available_before_observation": 0,
+  "scoring_applied": false,
+  "historical_source_availability_established": false,
+  "OOS_verified": false,
+  "user_windows_run_verified": false,
+  "full_specialist_acceptance": false
+}

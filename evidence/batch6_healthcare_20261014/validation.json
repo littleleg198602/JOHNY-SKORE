@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-14T13:48:07.953439+00:00",
+  "finished_at": "2026-10-14T13:48:08.604901+00:00",
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_batch6_cms_provider_ownership",
+    "-v"
+  ],
+  "exit_code": 0,
+  "log_path": "evidence/batch6_healthcare_20261014/focused_tests.log",
+  "log_sha256": "7cdcf436b34fef4f3f06b83051fb643e264b3201fe88019ab095bec6be6bfa70",
+  "terminal_summary": "Ran 36 tests in 0.129s\n\nOK",
+  "tests_run": 36,
+  "seconds": 0.129,
+  "complete_terminal_OK": true,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "synthetic_positive_is_live_evidence": false,
+  "full_suite_run": false,
+  "actual_user_windows_verified": false,
+  "out_of_sample_verified": false
+}

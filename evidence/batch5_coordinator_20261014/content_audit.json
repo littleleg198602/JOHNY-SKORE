@@ -1,0 +1,1804 @@
+{
+  "canonical_csv_sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+  "canonical_tickers": 687,
+  "created_at": "2026-10-14T10:33:32.226604+00:00",
+  "current_content_hash_references": [
+    {
+      "path": "market_checker_app/services/candidate_model_evaluation_service.py",
+      "referenced_by": [
+        "evidence/batch5_candidate_price_gate_20261014/lane.json",
+        "evidence/batch5_candidate_price_gate_20261014/tests.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "5365a2bf71051f5cece57e4f605f019ea9fe4caad10d259b4634f500665b634b"
+    },
+    {
+      "path": "tests/test_batch5_candidate_price_gate.py",
+      "referenced_by": [
+        "evidence/batch5_candidate_price_gate_20261014/lane.json",
+        "evidence/batch5_candidate_price_gate_20261014/tests.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "1976f3c4af7e5777f7bea4ecf50e12bb47a89d98adfed23ac1b4bb398c42c9e3"
+    },
+    {
+      "path": "market_checker_app/services/candidate_model_service.py",
+      "referenced_by": [
+        "evidence/batch5_candidate_price_gate_20261014/lane.json",
+        "evidence/batch5_candidate_price_gate_20261014/tests.json"
+      ],
+      "sha256": "ed2b8049bfe1a94b77f05ed7187a08b13d48d8c3b6b8220eff446607c4b91d5d"
+    },
+    {
+      "path": "evidence/batch5_candidate_price_gate_20261014/tests.json",
+      "referenced_by": [
+        "evidence/batch5_candidate_price_gate_20261014/lane.json"
+      ],
+      "sha256": "30fd1c2901cf1a88e69f9953c000ba22cfcd0461281b7ea38d19051088fc7be4"
+    },
+    {
+      "path": "evidence/batch5_candidate_price_gate_20261014/tests.log",
+      "referenced_by": [
+        "evidence/batch5_candidate_price_gate_20261014/lane.json"
+      ],
+      "sha256": "f2e21dc199bfd3cd16ee59cbd2d52f9de8bd8f655d3235004e3ae0f5754d09c1"
+    },
+    {
+      "path": "evidence/batch5_candidate_price_gate_20261014/initial_test_diagnostic.json",
+      "referenced_by": [
+        "evidence/batch5_candidate_price_gate_20261014/lane.json"
+      ],
+      "sha256": "4ce41b15520286e114bc8b2b6dad1bca9cea2289b569cc11ed94a1937fdd0d92"
+    },
+    {
+      "path": "tests/test_batch4_evaluation_label_availability.py",
+      "referenced_by": [
+        "evidence/batch5_candidate_price_gate_20261014/tests.json"
+      ],
+      "sha256": "9ee0a528c3fbca3f2a3afca8473bdd54f5e2817acbc576aedb8999af87687596"
+    },
+    {
+      "path": "tests/test_specialist_evaluation_service.py",
+      "referenced_by": [
+        "evidence/batch5_candidate_price_gate_20261014/tests.json"
+      ],
+      "sha256": "04a4da768dfe7203f88aff97c602f02c46f5ada39b8cf1e8ced4fb3dd652b65e"
+    },
+    {
+      "path": "evidence/batch3_contracts_acceptance_20261012.json",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "37192660b569d957c60ff1656a26441d124be34b49c8605b3c05171f5189b15b"
+    },
+    {
+      "path": "evidence/batch3_contracts_live_20261012/body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "path": "evidence/batch3_contracts_live_20261012/capture-6524208d7c5a40c4b5e36637aded7d32.json",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "223dd743e49216a8a009ed4cdd409aac9b4087475ee70105940270c44b3b0899"
+    },
+    {
+      "path": "evidence/batch3_contracts_live_20261012/capture-9cfe102b3b3a421292a3e20e0b0c39b2.json",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "f3353ef9d38297ee3b630ec1cd596143fac53d14949f4b40738823b5acf67190"
+    },
+    {
+      "path": "evidence/batch3_contracts_probe_20261012.json",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "cd7a244ad89536906ad222d7d968e2a0e785ebeaf37dee9fcc186f29006c72cf"
+    },
+    {
+      "path": "evidence/batch3_contracts_probe_20261012.response",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "path": "evidence/batch4_contracts_revision_20261013.json",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "69bd2d4a1e9c8ddce195fa9bc1bff097fb9764ee994ae593799ca198af4193f5"
+    },
+    {
+      "path": "evidence/batch5_contracts_20261014/body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "path": "evidence/batch5_contracts_20261014/capture-probe-import.json",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "0fc9b80c79d9e59646b004e107456beb778a6290ede74ca671625bb4d60a8d5c"
+    },
+    {
+      "path": "evidence/usaspending_live_20261001.json",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+    },
+    {
+      "path": "evidence/batch5_contracts_20261014/tests.json",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/lane.json"
+      ],
+      "sha256": "1dc8a1fbc5c1fb539e8233c291ea45f92cfd3f833c834f728ec613404018f76d"
+    },
+    {
+      "path": "market_checker_app/services/award_transaction_history_service.py",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/tests.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "b4122ad9e85b72c0dd5e4264b6b3e094e537ece32995c0bd14812c2e5341601a"
+    },
+    {
+      "path": "market_checker_app/services/usaspending_transaction_scout_service.py",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/tests.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "94d8dd6d9a6d88fffbef16fc4bc8b84191e1492d5a49ce907364975eb17b8f42"
+    },
+    {
+      "path": "tests/test_batch5_contracts_capture_revisions.py",
+      "referenced_by": [
+        "evidence/batch5_contracts_20261014/tests.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "b8def6e2f7a7441310fbd5588be3244b59ecd6a4baadfebb6b9c773d55598839"
+    },
+    {
+      "path": "evidence/batch5_pre_redirect_linux_20261014.json",
+      "referenced_by": [
+        "evidence/batch5_coordinator_20261014/pre_redirect_qualification.json"
+      ],
+      "sha256": "94866b2b6ca4eda4bb30a4797553f9076f330e9f1957d2cf0438862cfd4b02b1"
+    },
+    {
+      "path": "evidence/batch5_pre_redirect_linux_console_20261014.log",
+      "referenced_by": [
+        "evidence/batch5_coordinator_20261014/pre_redirect_qualification.json"
+      ],
+      "sha256": "45f2e8af0c83490f4f221da51e75616b85cbefbe57c009dd8b24af6b738c0259"
+    },
+    {
+      "path": "evidence/batch5_pre_redirect_linux_runner_20261014.log",
+      "referenced_by": [
+        "evidence/batch5_coordinator_20261014/pre_redirect_qualification.json"
+      ],
+      "sha256": "88fd6809af09b064edcd243129719dbb405ac1659853426288fb3c5ae6aba31f"
+    },
+    {
+      "path": "evidence/batch4_identity_import_20261013/healthcare_review.json",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/source_review.json"
+      ],
+      "sha256": "a5f47d64dda2f0e7bc7725cfe1c5a32dcc58f6c490328770547f90eac3b70845"
+    },
+    {
+      "path": "market_checker_app/services/healthcare_identity_service.py",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923"
+    },
+    {
+      "path": "market_checker_app/services/healthcare_scout_service.py",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    },
+    {
+      "path": "market_checker_app/services/healthcare_coverage_service.py",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "ec40cb5f8a917b5287f8fb19347c99e7630456e389ca73ad0da35038d671f277"
+    },
+    {
+      "path": "tests/test_batch5_healthcare_snapshot.py",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "9f88a70a5db4414596d5a278f86450fc300efe22bb8556dc45a9b4cf5578f633"
+    },
+    {
+      "path": "evidence/batch5_healthcare_20261014/review_sources.py",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json"
+      ],
+      "sha256": "cd702ccec0bdede174512f923d426ca90cb8f3b2a2be279239a72c7d7a6207a8"
+    },
+    {
+      "path": "evidence/batch5_healthcare_20261014/README.md",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json"
+      ],
+      "sha256": "613ac8769f7c7175493a8ef48b269f2cbffde851bde4de9929d134b7845e5b8d"
+    },
+    {
+      "path": "evidence/batch5_healthcare_20261014/source_review.json",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json"
+      ],
+      "sha256": "346e5aa7bf28e2f2594c3c0bb99b8d5d2c326b0f3c9fd36b91230a615fee24ba"
+    },
+    {
+      "path": "evidence/batch5_healthcare_20261014/identity_proposal.json",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json"
+      ],
+      "sha256": "ac5fb86a9e04b196c876918d7213a312976374bdcd27671fe9ed714e11e36138"
+    },
+    {
+      "path": "evidence/batch5_healthcare_20261014/focused_tests.log",
+      "referenced_by": [
+        "evidence/batch5_healthcare_20261014/validation.json"
+      ],
+      "sha256": "b722b0ba1ca0e350ae3e4b2681bb54e06bdeca471f258d7604e9baffd111d409"
+    },
+    {
+      "path": "market_checker_app/services/sec13f_transition_review.py",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "91d8e06d614b7031984ba6b81a14ed44df9691111170f3bc60ee96e283ace546"
+    },
+    {
+      "path": "tests/test_batch5_identity_bridge.py",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "8f612718b45b35d6d7f8c55510d36a09bb20150e929055cd9281afaa6dd942ce"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/README.md",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "53301058f193393985f6f47bb7a141eb57cb0cde6fe100dc972db19531add38f"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/bridge_proposal.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "91e6d5c21000ed990921613d048a4efc1ea8f22df3b7795f1cacd51fe767bbf1"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/capture_sources.py",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "ca32130fb8a9f21e460ac1fa63c7b67f9592138dede36433b7d82dd4b3848013"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/0d4845a9ba273684dc2ac9885fe0c2719aed55b8a6f2cc5b3beacf05b71b4391.metadata.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "486caa6218c11f63c79412aeb3b0def21773db317b9f9b0e33fd192400339ce0"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/4a0cd04bfa177992012a7a1054be1e020cf9c2f5cb7d1405a76ebfab8de9eead.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "4a0cd04bfa177992012a7a1054be1e020cf9c2f5cb7d1405a76ebfab8de9eead"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/6184e86d63ee20e590a23859d25a9fa36503d36de0a23c67c4c766c07cbcb03c.metadata.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "efd6cb147beee9168c2ec908b6c2277faa67a957f476e00f63594c748695cd5e"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/833da72795829e06637298187d84fdaeb7cfc2e66663c47bd371d5ebb5f799ab.metadata.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "3aa1188e4400a1e999a750a23e43b3b26fc17b4a4574dd23ade7e1cc303b1918"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/858755ea99739510cc587e7a950ad1c3f01067d2c653c1cf317f8ee456cac6ba.metadata.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "d08d499777ed139936800b9b787fd57446b34432dbbc1868530d6631fe010f8f"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/96cc6d5525278b41907816b036f3532b841066f526807d3aa925608edc00c6be.metadata.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "f2fe6c9582033348a6e6f5d7312e5c53582460c183e2a1742a66476b23fff6a2"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/9b771628d6514fb132d86a22dc30dc7545bbed3c8184afbcc3c06fb1319cbb0d.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "9b771628d6514fb132d86a22dc30dc7545bbed3c8184afbcc3c06fb1319cbb0d"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/c6928f552a64a960729f452334851f0f2a7ce37f9b30c41303056fc2298f57ba.metadata.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "ce848ea5b9862aee14cd036cf8c75ad667a209da5ead5de6cdf7158c6cd3f004"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/captures/cc9b8b1211b4c0ef9d0b4c17465a68e530a246f6993b39d597dca391ec697232.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "cc9b8b1211b4c0ef9d0b4c17465a68e530a246f6993b39d597dca391ec697232"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/final_bridge_tests.log",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json",
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "d9b365f2d517ffa9b7a14abac2176cdbc3436ff4b98d4b577ef3641842bb669c"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/focused_tests.log",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json",
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "9672fca91ba8509dc90e6301509d8b5fa40c611ab3a2cb640f148caf1e201254"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/replay_bridge.py",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "3ebac25b0a0a38ec488519d8d216d69cc49fc0ab67f9830ffdb4ecc4e8d3c728"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/replay_diagnostics.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "990071996b1812541a76470d9a8ac06c7e5ebe9a377fb0c1f07e6117c7d2f306"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/review.json",
+      "referenced_by": [
+        "evidence/batch5_identity_20261014/handoff.json"
+      ],
+      "sha256": "babc76e2b6ed7d20b7e35ad1853cb896328a220c13765834326768f624952edc"
+    },
+    {
+      "path": "market_checker_app/services/sec_corporate_action_bridge.py",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "48b23fcb2f7fda8194b7eac52980d2be8413ea2dc6d7c66d6e608a047fcf0a30"
+    },
+    {
+      "path": "tests/test_batch5_identity_symbol.py",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "ebea0f4e66dc677d3c511b4567396b5298273fe6ce9add2efefa4854160ffb92"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/README.md",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "955d09758ce4a3f8a76593340a8f438081e83cae24ca10950e14a4c94450fdf6"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/final_symbol_clock_tests.log",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "4155d7089b8f320a9d5c0296101ddd155a7a815b73aebc140c89c5aee5590178"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/final_symbol_tests.log",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "427a21752f60aae1d12d6685725bcb7f09115a3dae2062a64dc4eacd580d26cc"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/focused_tests.log",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "e06a4c104f9369307a29d63c348ab000e6c44d1c574b96799121dd8659171394"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/initial_focused_tests.log",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "ceb8a103422658ec6dd0da587232a974d84960b4d930dbdacb42d07f1b801016"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "f4316f96e812b03a200b9aa70a8bd1acf6bcaa55719fc2204fb262276ee2552d"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/replay_symbol.py",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "837f4be45883c01bac29f7756023fbcd08a93647ba0def4abe7768428c1a32c4"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/review.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "38dbd896132431bd6a3b3b02c57b489c18f2ee0b2156dbb5c8f22d7d9088d773"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/symbol_proposal.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "f453b42d0e5f9973a659834b1e047c31b27d9cf35a2c834c68d9f6937e07288f"
+    },
+    {
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json",
+        "evidence/batch5_regulatory_20261014/handoff.json"
+      ],
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    {
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json"
+      ],
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/2be20b35d97ffdb8d52b3c6b89f0499c7debe64ddde8bc63c7c9eaaff714ee30.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "4b467ce034671c27bf82c3a4087b3750e77830b97524e2436fe61ec02b80c874"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/7218f3785433f5eb16d0fb322134a9978323833cd3557f29166d2174ad2c732d.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "d53bc7a3da2980c19172b4a559b1599e2a5282c935052fc6c04597dc46bfc1df"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/9e94ff7b56c0c2754f484da2574802cadae985d4a04a34880b12291404dd909d.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "b6ea263cd075395a484525f03500b48f36622592d0677f0a162ff094b7ca65bc"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/d0cede9f282a654d0e90dee06851d09ffeaa767e1da752c485ea37f8c8b248bf.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "a871d4880738db3bda5faec2ee1c0bff2976ba2097841192388cf015a80c0b66"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/fa92eff28a7568ebceff171ae194030eb331b402e48a5c89d57ad3de407e4573.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "5c88746e1c45b7adecef6fe8850cde7d7fac972f3befc1cfab0b6b69529bd26c"
+    },
+    {
+      "path": "evidence/batch4_identity_20261013/captures/aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149"
+    },
+    {
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "98995b942e0a4564f78a4ba8ad12aa5ee8444eea8b07fc2f9aac4b77b104fec7"
+    },
+    {
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+    },
+    {
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "0e4c7eddeb5bb88152b2798f3bd9421ecee08b4992478adf75e95103f17b430e"
+    },
+    {
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_identity_symbol_20261014/replay_diagnostics.json"
+      ],
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+    },
+    {
+      "path": "evidence/batch5_identity_20261014/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "f5865417bc7853c4ea3537af1a55847a48a4109fa51351369b7d29dd8db9bb93"
+    },
+    {
+      "path": "evidence/batch5_coordinator_20261014/pre_redirect_qualification.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "4f4d83269fa6b396afba6d53c54980fc31115c75c1f52bdb06af1e549c5d3aa5"
+    },
+    {
+      "path": "evidence/batch5_coordinator_20261014/source_run_archival.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "5d04a65c09b650664834e70972969603f11f5da118700828b7211f07d5859061"
+    },
+    {
+      "path": "evidence/batch5_coordinator_20261014/initial_award_runner_diagnostic.log",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "f9c608d653baa840f5791e7d5d1d9972a3109e2c06e7d5a21fc60665befbb3ed"
+    },
+    {
+      "path": "evidence/batch5_coordinator_20261014/initial_source_projection_diagnostic.log",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "156ca074ca129b68f4407788a844d00a45563b852a4c083fd5b75624d037d8b0"
+    },
+    {
+      "path": "evidence/batch5_coordinator_20261014/initial_clinical_fixture_diagnostic.log",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "a3c16959a275b2efc34004dc643c2b18ece2a17ebffe1062746fc3316d2dc3b5"
+    },
+    {
+      "path": "evidence/batch5_coordinator_20261014/post_security_integration_tests.log",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "b457b102301f7bb56c4cd7497287cf276be036d3aa485992a59b926530f712f7"
+    },
+    {
+      "path": "evidence/batch5_ir_prior_withholding_20261014/withholding.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "f2fdac5191493ce014f7d0c016b85d794875b8947b90f526af76c5ab78db71fc"
+    },
+    {
+      "path": "market_checker_app/app.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "dc7f04ece6e2c4ed51d41405634b77f98d8f9e50030345ba9c31cdb11bcf9038"
+    },
+    {
+      "path": "market_checker_app/ir_primary_runner.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_ir_20261014/handoff.json",
+        "evidence/batch5_ir_20261014/tests.json"
+      ],
+      "sha256": "38a2d2841040e8df3be3985980fab7699237a4c3194dffabf747682833aa2f39"
+    },
+    {
+      "path": "market_checker_app/scout_runner.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "6e9390ac39cfc97a8f74106e11496500e6ad32db9977697f8b0095b77fbe5708"
+    },
+    {
+      "path": "market_checker_app/services/ir_primary_scout_service.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_ir_20261014/handoff.json",
+        "evidence/batch5_ir_20261014/tests.json"
+      ],
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    {
+      "path": "market_checker_app/services/ir_primary_verification_service.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "ab4d8f157ac0d351082db6e8c3226d16716a1ce3a1078a7a40df193d1c8524d9"
+    },
+    {
+      "path": "market_checker_app/services/layer_ablation_service.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "7fdb7bc1bf2b64f17641eb4bb74199dcb183f16d0cd989cede016b0f83f32d0c"
+    },
+    {
+      "path": "market_checker_app/services/nhtsa_negative_review_service.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6"
+    },
+    {
+      "path": "market_checker_app/services/nhtsa_recall_scout_service.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "c029146642ac47b6ce2873b08c02c59d83a9efbdebeef0b649b05e510c5a3bb0"
+    },
+    {
+      "path": "market_checker_app/services/public_source_budget.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_shared_budgets_20261014/handoff.json"
+      ],
+      "sha256": "4459bf520c5d38b1a93a5a49fd6a6941a27cf479dfcd0b40bab6d587fb1e868f"
+    },
+    {
+      "path": "market_checker_app/services/specialist_label_availability_service.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "c7960dbaf1195981283b4a7ccbb41496139b3680d53b2e0b00fac184ad35791b"
+    },
+    {
+      "path": "market_checker_app/services/yahoo_corporate_action_history.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "251e47a2368a1a971bdc1360998805cf158b339e5c7a49041d339e7eaad89de8"
+    },
+    {
+      "path": "market_checker_app/services/yahoo_price_provenance_service.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "7e3d192bbfb154b81bf2862eb2d152c0824500d020916f6580dbc655b999a17d"
+    },
+    {
+      "path": "market_checker_app/storage/scout_store.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "9fba2e0a3bae056be66cbdb9f2073954ac0e6f219df7df6924696d29e86f06f8"
+    },
+    {
+      "path": "market_checker_app/storage/yahoo_ohlc_cache_store.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "25a5efd79eb12fd96ad2e38128e872cd17aa611a9caed329b760fd10d2d66aed"
+    },
+    {
+      "path": "market_checker_app/weekly_shadow_runner.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "e049a285f1f81df7f4da333e02d337e351dcb93ede648037f5f42459ab35d7d6"
+    },
+    {
+      "path": "tests/test_batch3_regulatory_nhtsa_evidence.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_regulatory_20261014/handoff.json"
+      ],
+      "sha256": "6e6f9b34d0276e5a53130c41e18f97c2714ff45e3c184e26a1729b3b69c4b26b"
+    },
+    {
+      "path": "tests/test_batch4_ir_primary_verification.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "7910a998b778c82f915997c0be592d304b8b2372d8421d6ffe688f6d1e5fa83e"
+    },
+    {
+      "path": "tests/test_batch4_regulatory_nhtsa_validation.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_regulatory_20261014/handoff.json"
+      ],
+      "sha256": "471f1203876fd6c9f827d9ca7320abeaab5381dae7b7f4c1caf44c8d1e390bf6"
+    },
+    {
+      "path": "tests/test_batch5_coordinator_integration.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "317eb0f564049c432d9ef4622b12d817a404ddb40b278373b469117d38587b75"
+    },
+    {
+      "path": "tests/test_batch5_ir_primary_scout.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_ir_20261014/handoff.json",
+        "evidence/batch5_ir_20261014/tests.json"
+      ],
+      "sha256": "6dbe66ca50841d2153122beb70eaf038ee234fd50068152dc2b0faa47f8c8bcf"
+    },
+    {
+      "path": "tests/test_batch5_ir_prior_withholding.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "84c57637ec5d14c9fec074023c20901229ff67bef6643af7744dfac695a66a29"
+    },
+    {
+      "path": "tests/test_batch5_layer_price_gate.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "85f9354be38cbdab5472fe38d7788b261d72d72076b6f092c44efb36c0627276"
+    },
+    {
+      "path": "tests/test_batch5_nhtsa_readonly_report.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "20aca46b0d94a5af9071038b883d1eb2ceba755c210a8cf1ae3fa9dd40dcbca7"
+    },
+    {
+      "path": "tests/test_batch5_nhtsa_redirect_guard.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "25764bd8078277ec396fc1d7b7192a025407fe3c88cfc2c870963b88e4f35694"
+    },
+    {
+      "path": "tests/test_batch5_nhtsa_scope_review.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json",
+        "evidence/batch5_regulatory_20261014/handoff.json"
+      ],
+      "sha256": "414f0701432b1e5df9e191c298cd5ce189e44b16864d0f255aebdd95fa72a8e7"
+    },
+    {
+      "path": "tests/test_batch5_price_provenance.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "d63827ce2fff5d1081d8f28c39f19030698b83d825e3e5d3216b54035f702231"
+    },
+    {
+      "path": "tests/test_batch5_public_budgets.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_regulatory_20261014/handoff.json",
+        "evidence/batch5_shared_budgets_20261014/handoff.json"
+      ],
+      "sha256": "5f7e14b607868255b01969d1e77ef1f49f7e9fe818b84b94cf5a049a94a30d60"
+    },
+    {
+      "path": "tests/test_batch5_source_actions_ui.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "be5872c081ef2ad305d50bd0a1fb4170a65b1324e76d45f8f77baaf993f81eb0"
+    },
+    {
+      "path": "tests/test_nhtsa_recall_scout_service.py",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_regulatory_20261014/handoff.json"
+      ],
+      "sha256": "60b5bed7b20b07b061415b17915a81a8c280a22b522d16e68273d61489248a7d"
+    },
+    {
+      "path": "evidence/batch5_healthcare_20261014/validation.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "879fe167086f4951b39e8c57fe85a98882ac7b116f2f3a6710a034b2d035eaff"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "935ed13068e0465bb3002e0b96d9768a35966aed24bcb1958b40e1a1d434ea4e"
+    },
+    {
+      "path": "evidence/batch5_contracts_20261014/lane.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "4350235e9102e7db86a97bc55345b3015a7a0e140bd219b1d5277dfd5104eed1"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "e268df778274bcdfd92309a8d8e2721d2dafd887caec48ced897cf7c8ddae993"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "e3e951c8905d48205ede5d65e11038e31a3316646a241c66d4c97888f329163a"
+    },
+    {
+      "path": "evidence/batch5_identity_symbol_20261014/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "c8882f66a556b6b496889cf315d698b61fd30bbd8d4fd756695d6502da1e83ad"
+    },
+    {
+      "path": "evidence/batch5_nhtsa_report_20261014/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json",
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json"
+      ],
+      "sha256": "3dacf1588f20d1d81912f1d8505272147e166869633e5c32fb70cd5636344614"
+    },
+    {
+      "path": "evidence/batch5_candidate_price_gate_20261014/lane.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "c2b857e06e2b853052112a162614e363a408650f4fb1ddffdde0f07323c88c3c"
+    },
+    {
+      "path": "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "fee3d4120812d56a8f4e4d73fe6be78393c9e199aa864db868fa801de8882a6f"
+    },
+    {
+      "path": "evidence/batch5_ir_prior_withholding_20261014/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_integration_20261014.json"
+      ],
+      "sha256": "55e8b25ec25af2eabb947d706a88b898dcdc58bc51e5382341f76c8d91647bff"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/README.md",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "0fddd3090b0d8f74843e4274b7fb6d37cccb57393eac4cadda7bd22be01cfb01"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/build_review.py",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "861cba6372a46a1916905c3dfd28d7c560d00bc3373310df09ccc0a234306a30"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/capture_live.py",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "8cadac8e17452113d70d821fa6824758e06feb53caf88ea9c9396c438f587742"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/captures/01_feed_16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a.raw",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/captures/01_receipt.json",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "171b3689de7e1bb1aac709eb47a8c6e292c5b5255a84b08837342bbdacc0193c"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/captures/02_receipt.json",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "90024f8e39624afa876e8d1308a8a40badc3d172d64952301080e4399b7235a1"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/captures/03_primary_e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c.raw",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/captures/03_receipt.json",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "8ad7f82f582ca5a67e37a09aa85458f837d4b46c190e8473307910b5a8e9ac43"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/ledger_proof.json",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "a717e1ac7f2c4bf37605838ccccf81642f91ffcf51d16d380d877cfa6dd867ee"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/run_focused_tests.py",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "38d7e7bf719acd57dc109ce640db387987500be5a1ce0f7e5c480d7716f5ae35"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/runtime_report.json",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "5c5692743e61e8ad63c69d54f2f40cd181db313c366fa818ac3cf8b2baf68b7a"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/source_review.json",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "afe2052fb51b4fa6bc1cb7c3985fc21b34f97333a2143c83d99648908277d351"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/tests.json",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "7cf370b1ffcebfd892e6a517f099b41c04d31966c3260823547635e5b08dce3f"
+    },
+    {
+      "path": "evidence/batch5_ir_20261014/tests.log",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/handoff.json"
+      ],
+      "sha256": "19563d41612ee552078fc9b2382414e965e81153fbd46fd16ea2ff805c6f9fc7"
+    },
+    {
+      "path": "market_checker_app/services/news_scout_service.py",
+      "referenced_by": [
+        "evidence/batch5_ir_20261014/tests.json"
+      ],
+      "sha256": "19c15746feafc1dc17fe0ecdfcc02322cefcb7989f8a10a21644b3fb0bda916c"
+    },
+    {
+      "path": "evidence/batch4_ir_20261013/build_review.py",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "a57d7d4195b6bdba1256c00e0be031aa067299e7da311b47844d31a9995501b6"
+    },
+    {
+      "path": "evidence/batch5_ir_prior_withholding_20261014/README.md",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "67a7865fe17888d5181768247613b8058dfab10e3ef16b97bff3a65cbee6f27a"
+    },
+    {
+      "path": "evidence/batch5_ir_prior_withholding_20261014/current_review.json",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "0e89ff78fe0757b2fdb1b4a79d4a3b72957b2ee77446c5de6c7ce90897d035fa"
+    },
+    {
+      "path": "evidence/batch5_ir_prior_withholding_20261014/tests.json",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "c30901606cfc5682ae9f921641e6c646e6ff52178ff30fe0fefceec042c1dba5"
+    },
+    {
+      "path": "evidence/batch5_ir_prior_withholding_20261014/tests.log",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json"
+      ],
+      "sha256": "3bb0a260e5383db805e8d91f3b9903ed91fa1b02c97dfb485cba1c2d132fe4fb"
+    },
+    {
+      "path": "evidence/batch4_ir_20261013/captures.json",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json",
+        "evidence/batch5_ir_prior_withholding_20261014/withholding.json"
+      ],
+      "sha256": "071dc504e379da3375ef0ef47430f6dd46cc169e0068dd3ffeef8fd7ed86a8c2"
+    },
+    {
+      "path": "evidence/batch4_ir_20261013/handoff.json",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json",
+        "evidence/batch5_ir_prior_withholding_20261014/withholding.json"
+      ],
+      "sha256": "eed2ce85170cc43bfe44652a0f2fb81686509dec9cf5506d4f06007fd277c9b3"
+    },
+    {
+      "path": "evidence/batch4_ir_20261013/source_review.json",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json",
+        "evidence/batch5_ir_prior_withholding_20261014/withholding.json"
+      ],
+      "sha256": "9cad341d5f63339f3f5e2509a50e989238cabb58bb43a83861b2f75beff586a7"
+    },
+    {
+      "path": "evidence/batch4_ir_20261013/primary/announcement.html",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json",
+        "evidence/batch5_ir_prior_withholding_20261014/withholding.json"
+      ],
+      "sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9"
+    },
+    {
+      "path": "evidence/batch4_ir_20261013/primary/ir_linked_announcement.html",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json",
+        "evidence/batch5_ir_prior_withholding_20261014/withholding.json"
+      ],
+      "sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b"
+    },
+    {
+      "path": "evidence/batch4_ir_20261013/primary/press_releases_feed.xml",
+      "referenced_by": [
+        "evidence/batch5_ir_prior_withholding_20261014/handoff.json",
+        "evidence/batch5_ir_prior_withholding_20261014/withholding.json"
+      ],
+      "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a"
+    },
+    {
+      "path": "evidence/batch5_nhtsa_report_20261014/README.md",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json"
+      ],
+      "sha256": "c1a6c3793b7897a03e78a3fe3f5d483676ff75eed92558da54e25749ffd3b736"
+    },
+    {
+      "path": "evidence/batch5_nhtsa_report_20261014/capture_existing_report.py",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "b74528ae8473d5ade6257084273fe92f0bbcb9d72c58331e728be23278ff3a44"
+    },
+    {
+      "path": "evidence/batch5_nhtsa_report_20261014/existing_report.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "3bd365183e7fbcd860518d4e47e2dcd56c7f99dd323e95e7847978bca1d259a1"
+    },
+    {
+      "path": "evidence/batch5_nhtsa_report_20261014/tests.log",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json"
+      ],
+      "sha256": "37d030b8803c456be01769c452ffba077767de7e2c70cb80df925830b38df47f"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/README.md",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "8c5f8ed7bed152fc9fcaf9dca4c48ec3a0b5c72270fdaa1fdffc61af98ee27e5"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/capture_live.py",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "5bd6a7847c912e6bd0f012cccaee2aa6c02642f093f131516c3be31651d78f1d"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/14e3f07d4f3937979509b08949b3e1f03734b02cb5a701b66486f22cb1cf33c6/response.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/14e3f07d4f3937979509b08949b3e1f03734b02cb5a701b66486f22cb1cf33c6/review.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "bda2272f4cd3e47e93baf3cd3ca5edcb67202e575fd662524a502aed2c727ad4"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/35681237a45ea4457bf64f02fe651b8747423196ae5da86847997a3a59f2e634/response.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/35681237a45ea4457bf64f02fe651b8747423196ae5da86847997a3a59f2e634/review.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "b890644ef64fbd698b79bb8bc11ad0ce8f8cdf5f186f101816c946d1b3769efb"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/621a23a9a3cf6aa384859a838c1152de987d29ee1a7b140dc8b5e6ae0e256af9/response.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/621a23a9a3cf6aa384859a838c1152de987d29ee1a7b140dc8b5e6ae0e256af9/review.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "3d6b1b2a8444985a26a1e3bc1a48f058272d791e726000de46a59a27aad7ae2e"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/9c354b67af1c20d11f8785f2e67fc3f33e43dc16ff4b9423fe66c30fe5a60556/response.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "3609b831ede0af4e59d6904d2a21cf2788e34d821a4c2f0ca25bf031615a663b"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/9c354b67af1c20d11f8785f2e67fc3f33e43dc16ff4b9423fe66c30fe5a60556/review.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "9500fbcd1867fde4ce872eb6ae1f1b467ecaee287ef73899c54d8cf3a9975918"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/a8c710a3370273ba69ddf470d3efdc733d6c779138a170f87bb24610e9396125/response.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "4db26aaacaa8c5f4c4e629ae479d6e5c2d656dd4540f9bbeb9cc00dc672ad0f0"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/a8c710a3370273ba69ddf470d3efdc733d6c779138a170f87bb24610e9396125/review.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "40cb8609f7cf8b7cdee431196680e3ad10986f3c51293415dbdf0780db3bbc9b"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/d60fbcc42242787e0d43e4a4eacd697addadea96b6712e5385efba52860333d9/response.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/d60fbcc42242787e0d43e4a4eacd697addadea96b6712e5385efba52860333d9/review.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "7a7df98d6a1420df062439f45704bbaacbc01706220357c0b3759100a7e7945f"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/e11f42e084184ed99d6f9058cfbf1059107189ae84d1c774eee6d4ccfbee4a08/response.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "e7bb49a74196b0440b670b6dd8c995b7460be89ad0bd59f3e31d820c33a2d955"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/e11f42e084184ed99d6f9058cfbf1059107189ae84d1c774eee6d4ccfbee4a08/review.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "a9fa9aeea961aad4d9329ec2ae9a848bd2d7bfb31633ea8f37de89c907d02bfe"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/f4bccdacc73fbfd6becc232317e9377f5687aeea95a67ae8d869af7de16913bc/response.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "62c226ab5f8bc0b99dd4a48121c2f356a8099850ae1a9902bbd2a469bb411623"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/captures/f4bccdacc73fbfd6becc232317e9377f5687aeea95a67ae8d869af7de16913bc/review.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "8324b8452c84bb6b54516228d3e25c97db34ecca71078d96c171487ff2254652"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/live_run.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json",
+        "evidence/batch5_regulatory_20261014/handoff.json"
+      ],
+      "sha256": "5fa28a0a9fc468e546e414e933dc68676e8199ad6bc93a080252485090d10844"
+    },
+    {
+      "path": "evidence/batch5_regulatory_20261014/tests.log",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json"
+      ],
+      "sha256": "49c1c4da8de9c39800161dcfdf1a5663a4315b2de08086cf2bb46614bed3c778"
+    },
+    {
+      "path": "evidence/batch5_nhtsa_redirect_guard_20261014/offline_probe.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json"
+      ],
+      "sha256": "2d54b99ad16dd0715d8b1ff8e0ef382bb7410bae2c308fb6343283272923693e"
+    },
+    {
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "referenced_by": [
+        "evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json",
+        "evidence/batch5_nhtsa_report_20261014/handoff.json",
+        "evidence/batch5_regulatory_20261014/handoff.json"
+      ],
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/live_probe.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "9ffb4ffd22dd3a49af6125924155fe434eef6e9a147d2e5e4880fba98f2b2bee"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0033e6addad97e140df75194388a0244b36dae8bc4af5bc6e8803e6d614dc63f.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "17fa37032d4b3a11db559f5ac2e2d13103fb30f269f4944bc3b8e49f5ac0d673"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_00dacf9bfa283dcfcf2e63d20aca14c20c8244f96d3e8a3eae356b0a79fac572.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "2b92285d3c56d36ea66df3bd6285909533265e40a9a0846de5c57f6e4669a6d3"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0481c60af18666e9b9860de90bef93fc3c37967a140c005fccc9cf462385a63a.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "ceb51a5a54ac108fe25f45cb3723262b4ddb1b4e15e35cc67a9d9bcd0df70b23"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_0be595592cbb8a7fe4379341e04dd3f293a1786b22c3d1ade860ad5648d7cf39.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "8b208427d5803dd8167fa60efb7b001bd578e67cf7562f0f756afe2a2d62df96"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_2ea75ef8154a0568a0de7139b3a5e9b03563188bb989697e27a9c7dfb1167d2d.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json",
+        "evidence/batch5_prices_20261014/initial_replay_assumption_failure.json"
+      ],
+      "sha256": "01523e6183508f8eba68633f511ba8a969af19e45882d158ce16353f9bbc6365"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_338018656289c9d517ba7b1af6ea649ec2d65f18d2ed437666546eb90d07f0b3.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "98b99cc1fd1a32d9255ba53ea228ef70835e3a349702dce2cb31f1597ad4515f"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_3ca28ea80343e3c0203eb99a404268c18f32ca41b02fecee3ca1c67be2869142.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "3c40cd641da45f93b9c043dfffe882cf718afcd11983d4133fc1d607571de74a"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_3e64161b31226e1ab5cb1784492786a65b2b60f32b534d92ea96cebd0b76d666.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "46f14b3f4c90cb1e1af9f7040f20838ee998ce5ab3ff8fea341a30e8ce3a6ee0"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_789feed9c33cc8f2433a61c83038f79907d0808c694b578f38df3e7064a5c859.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "06dae1963277a7a6679ce43cd5c30163936ffbea70c19ac19e623aa79fe91c59"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_8be10af5009d0f6910cce5438729e3ff324a4607e9266226ec67fddaf71ff3dc.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json",
+        "evidence/batch5_prices_20261014/initial_replay_assumption_failure.json"
+      ],
+      "sha256": "4ad3a6f0dd9bcb2a0414cacda679913af205188f8680c9f93e9ed4974d75131a"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_a14d7d956e01a7b2e333f27870719f7d78a12a44241cbb1125bd17485a4afe22.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "d1e463919e61a19bcbc034e800f546df0107974b801a8a73d72741f1c0cb9b15"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_ba4cd6a116f56b20ab5c04ee6cf04b93c2dbf203882dbb5e359ef245398e2fbb.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "5e7b4a296cd39dcbb1dc623c6a546031b64f4dbcbee3f9e4a8c0ac4e4fa255b6"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_c14f628d9fabb1b0908d738488db41ef07744fa2f0d331f9ca17715247056861.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json",
+        "evidence/batch5_prices_20261014/initial_replay_assumption_failure.json"
+      ],
+      "sha256": "6d5ecdc369acc28f8454ab96c34985bfc01d12be78c5b512ae543d0290e53328"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_e91e4454f7bac193c609247b0335b1a036662c2da0c62a3f78a5bfbc9cab43aa.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "88c4df08605994ffd17f06f1cb86c4bacf32c56d9a904da433ae4bd326447c2c"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_ec5eac7ffdcf115da7d8f373a545569a24738236e96170926044c253258f5893.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json",
+        "evidence/batch5_prices_20261014/initial_replay_assumption_failure.json"
+      ],
+      "sha256": "a12934db619882f10e89fae61b9cb85921df407fda0cf657b0584768300f2a2c"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/observations/yahoo_price_f53c3f5b277b4700f822dd95072fb165f13164364478f135c4fc057619b433a3.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "cc34609984e6123980319b684d70f460e1a3e186788fc61ef7d332415082f2ba"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/raw/ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/raw/e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66.json",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/tests.log",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "6579b4befe90e30f6d8578b1e19477f4eed48936265f2ca41fe7e51cfe046a25"
+    },
+    {
+      "path": "evidence/batch5_prices_20261014/reproduce.py",
+      "referenced_by": [
+        "evidence/batch5_prices_20261014/handoff.json"
+      ],
+      "sha256": "bac5812e443fa0e6a03e2f5e4caae57cc2282089e6f2f79dc0fd96a455ff3cad"
+    }
+  ],
+  "hash_assertions_relaxed": false,
+  "historical_source_version_references": [
+    {
+      "current_head_acceptance_inferred": false,
+      "current_sha256": "c7960dbaf1195981283b4a7ccbb41496139b3680d53b2e0b00fac184ad35791b",
+      "historical_local_commit": "71d5ef65dba590ddff62926cdf5a7d23729e39a6",
+      "historical_sha256": "4f9cd93339711b8f1a762b37b21cf65568487037509b891f9a0ccc233c34578f",
+      "path": "market_checker_app/services/specialist_label_availability_service.py",
+      "referenced_by": "evidence/batch5_candidate_price_gate_20261014/tests.json"
+    },
+    {
+      "current_head_acceptance_inferred": false,
+      "current_sha256": "48b23fcb2f7fda8194b7eac52980d2be8413ea2dc6d7c66d6e608a047fcf0a30",
+      "historical_local_commit": "a433e04019e346db97eabc2642474a97ab000eda",
+      "historical_sha256": "500e9053fdab1324824738ace438470faf1529197c0913e552b479d6d706bcac",
+      "path": "market_checker_app/services/sec_corporate_action_bridge.py",
+      "referenced_by": "evidence/batch5_identity_20261014/handoff.json"
+    },
+    {
+      "current_head_acceptance_inferred": false,
+      "current_sha256": "ab4d8f157ac0d351082db6e8c3226d16716a1ce3a1078a7a40df193d1c8524d9",
+      "historical_local_commit": "71d5ef65dba590ddff62926cdf5a7d23729e39a6",
+      "historical_sha256": "6c04a16f6ea163e2d799c84213aea78aa1614f1aac14caf638d0556302b26ebd",
+      "path": "market_checker_app/services/ir_primary_verification_service.py",
+      "referenced_by": "evidence/batch5_ir_20261014/tests.json"
+    },
+    {
+      "current_head_acceptance_inferred": false,
+      "current_sha256": "9fba2e0a3bae056be66cbdb9f2073954ac0e6f219df7df6924696d29e86f06f8",
+      "historical_local_commit": "bd78ce51499b6b91fb7e4064137ee36654c6a69b",
+      "historical_sha256": "db5c5235302432f0bcd6f5be5f9dfdc26c10c776e3fb2b3fa814e47d3d681543",
+      "path": "market_checker_app/storage/scout_store.py",
+      "referenced_by": "evidence/batch5_shared_budgets_20261014/handoff.json"
+    },
+    {
+      "current_head_acceptance_inferred": false,
+      "current_sha256": "c029146642ac47b6ce2873b08c02c59d83a9efbdebeef0b649b05e510c5a3bb0",
+      "historical_local_commit": "41194fc5c1b1444e1e45ce89f714296fdb84f931",
+      "historical_sha256": "b643b6cdd399853bca263d6b7b6a5081f3a52398069639f3895cfed6a2b742dd",
+      "path": "market_checker_app/services/nhtsa_recall_scout_service.py",
+      "referenced_by": "evidence/batch5_regulatory_20261014/handoff.json"
+    },
+    {
+      "current_head_acceptance_inferred": false,
+      "current_sha256": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6",
+      "historical_local_commit": "41194fc5c1b1444e1e45ce89f714296fdb84f931",
+      "historical_sha256": "62f0dce26dd55201d6c65f23403eb367f6ba29a3e77ea4b242dc0828c7b46513",
+      "path": "market_checker_app/services/nhtsa_negative_review_service.py",
+      "referenced_by": "evidence/batch5_regulatory_20261014/handoff.json"
+    }
+  ],
+  "oos_verified": false,
+  "prior_ir_whole_body_withdrawal": {
+    "historical_reports_are_current_acceptance": false,
+    "original_bytes": 286802,
+    "original_sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+    "path": "evidence/batch5_ir_prior_withholding_20261014/withholding.json",
+    "preserved_originals": [
+      {
+        "path": "evidence/batch4_ir_20261013/captures.json",
+        "sha256": "071dc504e379da3375ef0ef47430f6dd46cc169e0068dd3ffeef8fd7ed86a8c2",
+        "unchanged_from_public_base": true
+      },
+      {
+        "path": "evidence/batch4_ir_20261013/source_review.json",
+        "sha256": "9cad341d5f63339f3f5e2509a50e989238cabb58bb43a83861b2f75beff586a7",
+        "unchanged_from_public_base": true
+      },
+      {
+        "path": "evidence/batch4_ir_20261013/handoff.json",
+        "sha256": "eed2ce85170cc43bfe44652a0f2fb81686509dec9cf5506d4f06007fd277c9b3",
+        "unchanged_from_public_base": true
+      },
+      {
+        "path": "evidence/batch4_ir_20261013/primary/press_releases_feed.xml",
+        "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+        "unchanged_from_public_base": true
+      },
+      {
+        "path": "evidence/batch4_ir_20261013/primary/announcement.html",
+        "sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+        "unchanged_from_public_base": true
+      },
+      {
+        "path": "evidence/batch4_ir_20261013/primary/ir_linked_announcement.html",
+        "sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+        "unchanged_from_public_base": true
+      }
+    ],
+    "public_body_present": false,
+    "replacement_body_created": false,
+    "sha256": "f2fdac5191493ce014f7d0c016b85d794875b8947b90f526af76c5ab78db71fc"
+  },
+  "prior_rejected_nhtsa_documentation_body_present": false,
+  "public_base": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "public_raw_body_files": 19,
+  "raw_bodies": [
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 6220,
+      "path": "evidence/batch5_contracts_20261014/body-2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447.response",
+      "sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 6939,
+      "path": "evidence/batch5_identity_20261014/captures/1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56.bin",
+      "sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 48018,
+      "path": "evidence/batch5_identity_20261014/captures/4a0cd04bfa177992012a7a1054be1e020cf9c2f5cb7d1405a76ebfab8de9eead.bin",
+      "sha256": "4a0cd04bfa177992012a7a1054be1e020cf9c2f5cb7d1405a76ebfab8de9eead"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 73235,
+      "path": "evidence/batch5_identity_20261014/captures/5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464.bin",
+      "sha256": "5d5d1147a36aeea563ac6fe170a57691495651ce86d8ccbaf49b72bd12441464"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 6282,
+      "path": "evidence/batch5_identity_20261014/captures/9b771628d6514fb132d86a22dc30dc7545bbed3c8184afbcc3c06fb1319cbb0d.bin",
+      "sha256": "9b771628d6514fb132d86a22dc30dc7545bbed3c8184afbcc3c06fb1319cbb0d"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 3118947,
+      "path": "evidence/batch5_identity_20261014/captures/bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874.bin",
+      "sha256": "bf135e9119dc28da48aad7f8f71a128415e8ce55b951e299c6ac18f024555874"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 6435,
+      "path": "evidence/batch5_identity_20261014/captures/cc9b8b1211b4c0ef9d0b4c17465a68e530a246f6993b39d597dca391ec697232.bin",
+      "sha256": "cc9b8b1211b4c0ef9d0b4c17465a68e530a246f6993b39d597dca391ec697232"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 126731,
+      "path": "evidence/batch5_ir_20261014/captures/01_feed_16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a.raw",
+      "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 136764,
+      "path": "evidence/batch5_ir_20261014/captures/03_primary_e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c.raw",
+      "sha256": "e06b8309536582128b3b58dd1b18879920df7bdc358a8414e18e058fd7273a3c"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 3491,
+      "path": "evidence/batch5_prices_20261014/raw/ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182.json",
+      "sha256": "ab3b61f37f796de51975e3728f1d59611d5b9ca38398daa59c72fb0adeeaf182"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 3573,
+      "path": "evidence/batch5_prices_20261014/raw/e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66.json",
+      "sha256": "e9b1f0d2bf26f2363af80dc41a5f2d06ceac5ee3a31dc78d3abf6a10af5f7e66"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 66,
+      "path": "evidence/batch5_regulatory_20261014/captures/14e3f07d4f3937979509b08949b3e1f03734b02cb5a701b66486f22cb1cf33c6/response.json",
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 66,
+      "path": "evidence/batch5_regulatory_20261014/captures/35681237a45ea4457bf64f02fe651b8747423196ae5da86847997a3a59f2e634/response.json",
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 66,
+      "path": "evidence/batch5_regulatory_20261014/captures/621a23a9a3cf6aa384859a838c1152de987d29ee1a7b140dc8b5e6ae0e256af9/response.json",
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 4114,
+      "path": "evidence/batch5_regulatory_20261014/captures/9c354b67af1c20d11f8785f2e67fc3f33e43dc16ff4b9423fe66c30fe5a60556/response.json",
+      "sha256": "3609b831ede0af4e59d6904d2a21cf2788e34d821a4c2f0ca25bf031615a663b"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 1845,
+      "path": "evidence/batch5_regulatory_20261014/captures/a8c710a3370273ba69ddf470d3efdc733d6c779138a170f87bb24610e9396125/response.json",
+      "sha256": "4db26aaacaa8c5f4c4e629ae479d6e5c2d656dd4540f9bbeb9cc00dc672ad0f0"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 66,
+      "path": "evidence/batch5_regulatory_20261014/captures/d60fbcc42242787e0d43e4a4eacd697addadea96b6712e5385efba52860333d9/response.json",
+      "sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 5027,
+      "path": "evidence/batch5_regulatory_20261014/captures/e11f42e084184ed99d6f9058cfbf1059107189ae84d1c774eee6d4ccfbee4a08/response.json",
+      "sha256": "e7bb49a74196b0440b670b6dd8c995b7460be89ad0bd59f3e31d820c33a2d955"
+    },
+    {
+      "assigned_access_value_detected": false,
+      "bytes": 9714,
+      "path": "evidence/batch5_regulatory_20261014/captures/f4bccdacc73fbfd6becc232317e9377f5687aeea95a67ae8d869af7de16913bc/response.json",
+      "sha256": "62c226ab5f8bc0b99dd4a48121c2f356a8099850ae1a9902bbd2a469bb411623"
+    }
+  ],
+  "specialists_accepted": 0,
+  "unchanged_production_registries": [
+    {
+      "path": "market_checker_app/data/research_profiles.json",
+      "sha256": "8ea5a42704fd17b67035f8bece41135e6800335aa7c053b1a92b0912a6990276",
+      "unchanged_from_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+      "unchanged_from_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_counterparty_identities.json",
+      "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e",
+      "unchanged_from_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_fdic_banks.json",
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+      "unchanged_from_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+      "unchanged_from_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e",
+      "unchanged_from_public_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_usaspending_uei.json",
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56",
+      "unchanged_from_public_base": true
+    }
+  ],
+  "windows_verified_for_new_snapshot": false,
+  "withheld_ir_authority": {
+    "bytes": 287254,
+    "original_sha256": "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+    "public_body_present": false,
+    "retention": "WITHHELD_SENSITIVE_BODY"
+  },
+  "withheld_prior_body_references": []
+}

@@ -1,0 +1,98 @@
+{
+  "recorded_at": "2026-10-15T12:33:20.683909+00:00",
+  "pre_hosted_ci": true,
+  "expected_public_parent": "bfedb764da3a189df1d9f8eb799cf834867f8083",
+  "tested_code_snapshot": "946337f04d904a22a062827897a35e3578e93755",
+  "worker_commit": "2169cca3517344dc815ec0961bd23faa209f6cd1",
+  "scope": "Test fixture identity and stronger alias/reparse regressions only",
+  "original_failed_windows_head": "bfedb764da3a189df1d9f8eb799cf834867f8083",
+  "original_windows_failure_count": 9,
+  "original_windows_artifact": {
+    "path": "evidence/batch7_windows_failure_20261015/artifact_11958427081.zip",
+    "bytes": 56555,
+    "sha256": "15ee9f60f464fcf0cd609345c37557b35c6dc50f21b03d65268b230f78df942f"
+  },
+  "original_windows_json": {
+    "path": "evidence/batch7_windows_failure_20261015/windows-tests.json",
+    "bytes": 376,
+    "sha256": "c06f60199ca50649176bacbe2cbba891b5d2b59112093ddf625c49ead3fa3b70"
+  },
+  "original_windows_log": {
+    "path": "evidence/batch7_windows_failure_20261015/windows-tests.log",
+    "bytes": 377120,
+    "sha256": "52e676279b9bb6e7d4d4bbe44cf4af20348bef7ea89ddd90798073cd49fd0cff"
+  },
+  "preserved_original_assertion_calls_total": 106,
+  "assertion_scope_note": "103 calls in the 31 original test methods plus 3 in the unchanged assertNoPublication helper",
+  "new_test_methods": [
+    "test_actual_directory_reparse_is_rejected_for_sources_and_publication",
+    "test_canonical_reparse_targets_work_after_posix_and_windows_root_alias_resolution"
+  ],
+  "critical_regressions_executed_locally": [
+    "test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads",
+    "test_symlink_active_lock_and_version_directory_are_not_followed",
+    "test_windows_junction_aliases_cannot_escape_source_or_version_roots",
+    "test_canonical_reparse_targets_work_after_posix_and_windows_root_alias_resolution",
+    "test_actual_directory_reparse_is_rejected_for_sources_and_publication"
+  ],
+  "local_result": {
+    "started_at": "2026-10-15T12:29:29.514316+00:00",
+    "ended_at": "2026-10-15T12:33:15.701611+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 1835,
+    "tests_run": 1835,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "local_plain_console_ok": true,
+  "local_json": {
+    "path": "evidence/batch7_linux_manifest_fix_20261015.json",
+    "bytes": 363,
+    "sha256": "2c28b78af70d7a6d9dc745b4d9d891b1b5dd1d903f31c061e2bfc016a6035675"
+  },
+  "local_full_console": {
+    "path": "evidence/batch7_linux_manifest_fix_console_20261015.log",
+    "bytes": 366460,
+    "sha256": "da783bde2368aec1f34b3ab3d0ede429ad84baeccd445b4ba15ce4e7ee4dd895"
+  },
+  "separate_runner_log": {
+    "path": "evidence/batch7_linux_manifest_fix_runner_20261015.log",
+    "bytes": 364572,
+    "sha256": "ea55d39b0f4861c7d8a7df7468fcac70e37f91a1f4854cefb3304b282b249863"
+  },
+  "worker_handoff": {
+    "path": "evidence/batch7_windows_manifest_fix_20261015/handoff.json",
+    "bytes": 6379,
+    "sha256": "5389b8b35a8a29f44b3fc94b7ebbea85bb5e52a4f2b59ec4dd52a24944cb97e6"
+  },
+  "content_audit": {
+    "path": "evidence/batch7_windows_manifest_fix_coordinator_20261015/content_audit.json",
+    "bytes": 208267,
+    "sha256": "f3bead10a0ed61ab33ae3cad800986d767216a9c1eec06be47dd058b51cc94bd"
+  },
+  "repaired_test": {
+    "path": "tests/test_batch7_source_manifest.py",
+    "bytes": 30334,
+    "sha256": "dc0b8d8d808f3eea1184e5e96f709c7c9a228578418029feb291a0a1db716a63"
+  },
+  "production_helper": {
+    "path": "market_checker_app/services/prospective_source_manifest_service.py",
+    "bytes": 19469,
+    "sha256": "62eb0605953f5622f48dbb7246d64f9ab7fc5ad04745aa006510ea0a586fb005"
+  },
+  "prior_evidence_files_byte_identical": 1029,
+  "prior_evidence_bytes_byte_identical": 52119114,
+  "all_205_production_files_byte_identical": true,
+  "new_source_http_requests": 0,
+  "quota_db_reset_or_reconstruction": false,
+  "new_hosted_windows_verified": false,
+  "required_next": "Exact new-head CI with original Windows ZIP/JSON/log and all required checks",
+  "full_specialist_acceptance_count": 0,
+  "user_windows_or_genuine_oos_verified": false,
+  "score_or_trading_changed": false
+}

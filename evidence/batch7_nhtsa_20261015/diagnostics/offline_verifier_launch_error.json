@@ -1,0 +1,13 @@
+{
+  "acceptance": false,
+  "actual_tool_error_excerpt": "TypeError: 'dict' object is not callable",
+  "cause": "TestCase class attribute named run shadowed the unittest lifecycle method; rename to live_run.",
+  "command": "python -m evidence.batch7_nhtsa_20261015.verify_offline",
+  "exit_code": 1,
+  "new_http": 0,
+  "phase": "VERIFIER_LAUNCH_BEFORE_TEST_EXECUTION",
+  "recorded_at": "2026-10-15T07:33:17.723301+00:00",
+  "runtime_or_quota_behavior_changed": false,
+  "superseded_verifier_sha256": "eb27560aa690442c6780dc64efe7b3a9a9fe02156c15be64ce2fa23c7bb3d4d6",
+  "tests_executed": 0
+}

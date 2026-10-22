@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-16T17:14:41.218283+00:00",
+  "cases": [
+    {
+      "sequence": 2,
+      "request": {
+        "scope": {
+          "application_type": "BLA",
+          "application_number": "761081",
+          "issuer_cik": "0000078003",
+          "issuer_ticker": "PFE"
+        },
+        "source_kind": "DRUGSFDA_APPLICATION_PAGE",
+        "source_key": "page",
+        "issuer_key": "issuer",
+        "source_version_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+        "product_selection": {
+          "source_row_index": 0,
+          "product_number": null,
+          "proprietary_name": "TRAZIMERA",
+          "proper_name": "TRASTUZUMAB-QYYP",
+          "strength": "420MG",
+          "dosage_form": null,
+          "route": null,
+          "dosage_form_route_text": "INJECTABLE;INJECTION",
+          "source_party_name": "PFIZER INC"
+        }
+      },
+      "result": {
+        "schema_version": "fda-original-static-application-product-v1",
+        "status": "PARTIAL",
+        "data_status": "ORIGINAL_STATIC_OBJECT_FACTS",
+        "source_kind": "DRUGSFDA_APPLICATION_PAGE",
+        "source_read_cutoff": "2026-10-16T17:14:41.093724+00:00",
+        "reviewed_at": "2026-10-16T17:14:41.093724+00:00",
+        "ingested_at": "2026-10-16T17:14:41.093724+00:00",
+        "known_at": "2026-10-16T17:14:41.093724+00:00",
+        "source_captures": {
+          "page": {
+            "source_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+            "body_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+            "body_bytes": 34010,
+            "requested_at": "2026-10-16T12:18:43.627226+00:00",
+            "observed_at": "2026-10-16T12:18:47.144073+00:00",
+            "known_at": "2026-10-16T12:18:47.144073+00:00",
+            "publisher_last_modified_raw": null,
+            "publisher_etag_raw": null,
+            "first_historical_availability_proven": false
+          },
+          "issuer": {
+            "source_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+            "body_sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+            "body_bytes": 145851,
+            "requested_at": "2026-10-16T12:18:18.345479+00:00",
+            "observed_at": "2026-10-16T12:18:23.142227+00:00",
+            "known_at": "2026-10-16T12:18:23.142227+00:00",
+            "publisher_last_modified_raw": null,
+            "publisher_etag_raw": null,
+            "first_historical_availability_proven": false
+          }
+        },
+        "application_facts": {
+          "application_type": "BLA",
+          "application_number": "761081",
+          "source_party_name": "PFIZER INC",
+          "source_party_role": "COMPANY_AS_DISPLAYED",
+          "source_label": "Company",
+          "original_approval_date_as_displayed": null
+        },
+        "product_rows": [
+          {
+            "source_row_index": 0,
+            "product_number": null,
+            "proprietary_name": "TRAZIMERA",
+            "proper_name": "TRASTUZUMAB-QYYP",
+            "strength": "420MG",
+            "dosage_form": null,
+            "route": null,
+            "dosage_form_route_text": "INJECTABLE;INJECTION",
+            "source_party_name": "PFIZER INC",
+            "source_party_role": "COMPANY_AS_DISPLAYED",
+            "ingredient_strength_pairs_inferred": false,
+            "row_index_is_FDA_product_number": false,
+            "sponsor_role_proven": false,
+            "legal_owner_verified": false,
+            "corporate_parent_verified": false,
+            "marketing_status": "Prescription",
+            "source_locator": "table#exampleProd/tbody/tr:1",
+            "complete_product_number_form_route_identity": false
+          }
+        ],
+        "gaps": [
+          "COMPANY_LABEL_IS_NOT_EXPLICIT_APPLICANT_OR_SPONSOR",
+          "PRODUCT_NUMBER_AND_SEPARATE_FORM_ROUTE_NOT_PUBLISHED"
+        ],
+        "exact_named_issuer_bridge_supported": true,
+        "applicant_product_candidate": null,
+        "issuer_attribution_allowed": false,
+        "company_label_is_applicant": false,
+        "sponsor_role_proven": false,
+        "legal_owner_verified": false,
+        "corporate_parent_verified": false,
+        "approval_date_is_ownership_since": false,
+        "historical_machine_availability_inferred": false,
+        "issuer_wide_scope": false,
+        "registry_adoptions": 0,
+        "new_verified_identities": 0,
+        "current_q3_verified_coverage": 0,
+        "live_acceptance_verified": false,
+        "network_requests_performed": 0,
+        "quota_or_DB_modified": false,
+        "score_changes": false,
+        "trading_allowed": false,
+        "source_version": {
+          "body_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+          "publisher_unique_version_id": null,
+          "publisher_first_availability": null,
+          "capture_date_is_historical_publication": false
+        }
+      }
+    },
+    {
+      "sequence": 3,
+      "request": {
+        "scope": {
+          "application_type": "BLA",
+          "application_number": "761081",
+          "issuer_cik": "0000078003",
+          "issuer_ticker": "PFE"
+        },
+        "source_kind": "PURPLE_BOOK_PRODUCT_DETAIL",
+        "source_key": "page",
+        "issuer_key": "issuer",
+        "source_version_sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+        "product_selection": {
+          "source_row_index": 0,
+          "product_number": "001",
+          "proprietary_name": "Trazimera",
+          "proper_name": "trastuzumab-qyyp",
+          "strength": "420MG",
+          "dosage_form": "For Injection",
+          "route": "Intravenous",
+          "dosage_form_route_text": null,
+          "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company"
+        }
+      },
+      "result": {
+        "schema_version": "fda-original-static-application-product-v1",
+        "status": "PARTIAL",
+        "data_status": "ORIGINAL_STATIC_OBJECT_FACTS",
+        "source_kind": "PURPLE_BOOK_PRODUCT_DETAIL",
+        "source_read_cutoff": "2026-10-16T17:14:41.167395+00:00",
+        "reviewed_at": "2026-10-16T17:14:41.167395+00:00",
+        "ingested_at": "2026-10-16T17:14:41.167395+00:00",
+        "known_at": "2026-10-16T17:14:41.167395+00:00",
+        "source_captures": {
+          "page": {
+            "source_url": "https://purplebooksearch.fda.gov/index.cfm?blaNo=761081&event=productdetails",
+            "body_sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+            "body_bytes": 22644,
+            "requested_at": "2026-10-16T12:19:52.202648+00:00",
+            "observed_at": "2026-10-16T12:19:55.747533+00:00",
+            "known_at": "2026-10-16T12:19:55.747533+00:00",
+            "publisher_last_modified_raw": null,
+            "publisher_etag_raw": null,
+            "first_historical_availability_proven": false
+          },
+          "issuer": {
+            "source_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+            "body_sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+            "body_bytes": 145851,
+            "requested_at": "2026-10-16T12:18:18.345479+00:00",
+            "observed_at": "2026-10-16T12:18:23.142227+00:00",
+            "known_at": "2026-10-16T12:18:23.142227+00:00",
+            "publisher_last_modified_raw": null,
+            "publisher_etag_raw": null,
+            "first_historical_availability_proven": false
+          }
+        },
+        "application_facts": {
+          "application_type": "BLA",
+          "application_number": "761081",
+          "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+          "source_party_role": "BLA_APPLICANT",
+          "source_label": "Applicant",
+          "original_approval_date_as_displayed": "March 11, 2019",
+          "approval_date_is_applicant_since": false,
+          "original_approval_day": "2019-03-11",
+          "detail_container_explicitly_closed": false
+        },
+        "product_rows": [
+          {
+            "source_row_index": 0,
+            "product_number": "001",
+            "proprietary_name": "Trazimera",
+            "proper_name": "trastuzumab-qyyp",
+            "strength": "420MG",
+            "dosage_form": "For Injection",
+            "route": "Intravenous",
+            "dosage_form_route_text": null,
+            "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+            "source_party_role": "BLA_APPLICANT",
+            "ingredient_strength_pairs_inferred": false,
+            "row_index_is_FDA_product_number": false,
+            "sponsor_role_proven": false,
+            "legal_owner_verified": false,
+            "corporate_parent_verified": false,
+            "product_presentation": "Multi-Dose Vial",
+            "license_type": "351(k) Biosimilar",
+            "marketing_status": "Rx",
+            "source_locator": "div.product-grid/div.grid-row:1",
+            "complete_product_number_form_route_identity": true
+          },
+          {
+            "source_row_index": 1,
+            "product_number": "002",
+            "proprietary_name": "Trazimera",
+            "proper_name": "trastuzumab-qyyp",
+            "strength": "150MG",
+            "dosage_form": "For Injection",
+            "route": "Intravenous",
+            "dosage_form_route_text": null,
+            "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+            "source_party_role": "BLA_APPLICANT",
+            "ingredient_strength_pairs_inferred": false,
+            "row_index_is_FDA_product_number": false,
+            "sponsor_role_proven": false,
+            "legal_owner_verified": false,
+            "corporate_parent_verified": false,
+            "product_presentation": "Multi-Dose Vial",
+            "license_type": "351(k) Biosimilar",
+            "marketing_status": "Rx",
+            "source_locator": "div.product-grid/div.grid-row:2",
+            "complete_product_number_form_route_identity": true
+          }
+        ],
+        "gaps": [
+          "PRODUCT_DETAIL_OUTER_CONTAINER_IMPLICITLY_CLOSED_SOURCE_DEFECT",
+          "EXACT_SOURCE_PARTY_NAME_CIK_TICKER_ISSUER_BRIDGE_MISSING"
+        ],
+        "exact_named_issuer_bridge_supported": false,
+        "applicant_product_candidate": null,
+        "issuer_attribution_allowed": false,
+        "company_label_is_applicant": false,
+        "sponsor_role_proven": false,
+        "legal_owner_verified": false,
+        "corporate_parent_verified": false,
+        "approval_date_is_ownership_since": false,
+        "historical_machine_availability_inferred": false,
+        "issuer_wide_scope": false,
+        "registry_adoptions": 0,
+        "new_verified_identities": 0,
+        "current_q3_verified_coverage": 0,
+        "live_acceptance_verified": false,
+        "network_requests_performed": 0,
+        "quota_or_DB_modified": false,
+        "score_changes": false,
+        "trading_allowed": false,
+        "source_version": {
+          "body_sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+          "publisher_unique_version_id": null,
+          "publisher_first_availability": null,
+          "capture_date_is_historical_publication": false
+        }
+      }
+    }
+  ],
+  "actual_research_transports": 3,
+  "complete_original_HTTP200_bodies": 3,
+  "complete_original_bytes": 202505,
+  "original_static_FDA_pages": 2,
+  "earlier_independent_SEC_originals": 1,
+  "authorized_maximum_transports": 6,
+  "unused_transport_slots": 3,
+  "FDA_CMS_Clinical_API_collector_requests": 0,
+  "quota_database_opened_or_reset": false,
+  "whole_withheld_bodies_read_or_restored": 0,
+  "original_captures_rewritten": false,
+  "DrugsFDA_product_rows": 1,
+  "Purple_Book_product_rows": 2,
+  "datasets_merged_or_product_numbers_inferred": false,
+  "current_issuer_applicant_bridge_candidates": 0,
+  "registry_adoptions": 0,
+  "new_verified_instruments": 0,
+  "current_Q3_instrument_coverage": 0,
+  "canonical_ticker_count": 687,
+  "full_specialist_acceptance": "0/21",
+  "score_model_trading_changes": false,
+  "live_ownership_or_historical_OOS_acceptance": false,
+  "research_is_collector_live_acceptance": false
+}

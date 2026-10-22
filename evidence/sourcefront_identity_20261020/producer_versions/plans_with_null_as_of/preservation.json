@@ -1,0 +1,8 @@
+{
+  "reason": "Initial authored plans used as_of:null; root loader requires absence for current physical review. Preserve initial versions before correcting current plans. No source bytes or source clocks change.",
+  "pins": {
+    "LEG_pravni_kapital_po_fuzi.json": "846b7634eb254265c84398a8703e074e1508a3a61fbb04a98ef425acc4a1d478",
+    "XOM_pravni_kapital_nastupce.json": "06f4c2bc1c264dc070da6c0f253be289ed925e171ebf7904c1ee924e5f21f84b",
+    "build_charter_plans.py": "a1f782de6ebf0e157735d1308f4d1856fb294670b5b1609288156ee6004e7c44"
+  }
+}

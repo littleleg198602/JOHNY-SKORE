@@ -1,0 +1,418 @@
+{
+  "baseline_commit": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "code_sha256": {
+    "market_checker_app/services/sec_corporate_action_bridge.py": "6222a1734caf76b0f7bd5216c62665a3fc08268be991c8750352ab317508d627",
+    "tests/test_batch6_leg_action_bridge.py": "5bc55310cfcdcd7119590b8b7d1780a920d6849033e61684c7fb9f5f6ebd0477"
+  },
+  "implementation": [
+    "Independent exact old/recipient issuer/class/CUSIP/ticker/action proposals, always no promotion",
+    "Original Form25 XML interface and strict issuer/archive/schema/namespace/signature clocks; actual delisting day remains UNKNOWN",
+    "Exact decimal stock exchange ratio and separately bounded fractional-cash-only scope",
+    "Deleted list/absent catalog do not establish merger/delisting; completion/date/name gates prevent proposed events from becoming effective days",
+    "Par-value spelling $.01 is supported exactly; $.001 and no-par terms remain distinct",
+    "Independent dated anchors, same-document use, post-conversion old instrument anchors and direct/indirect control conflict remain visible"
+  ],
+  "integration_api": {
+    "additional_source": "Form25Snapshot(url, observed_at, payload, published_at); constant kind=form25_nse; include in service snapshots",
+    "bridge_kind": "STOCK_MERGER_EXCHANGE",
+    "direct": "review_stock_merger_bridge(service, claim)",
+    "form25_parser": "parse_form25(snapshot)",
+    "input_schema": "Exact five-field from_identity/to_identity; action_snapshot_id/action_excerpt/exchange_excerpt; effective_on/effective_date_text; exchange_ratio/fractional_cash_only; from/to action names/class titles/instrument+ticker snapshot IDs; independent completion_snapshot_id/completion_excerpt; withdrawal_snapshot_id; optional dated cusip_bridge_snapshot_id/excerpt",
+    "replay": "python -m evidence.batch6_identity_20261014.replay_review",
+    "review": "instrument_transition_review(service, tickers=[\"LEG\"], corporate_action_bridges=[claim])"
+  },
+  "inventory": [
+    {
+      "bytes": 3597,
+      "path": "evidence/batch6_identity_20261014/README.md",
+      "sha256": "5115134d2235dc99f1192d2e51601342928f5d7c902344c3472bcec3664c1d8e"
+    },
+    {
+      "bytes": 4705,
+      "path": "evidence/batch6_identity_20261014/bridge_proposal.json",
+      "sha256": "f3dbbc783e40ece17b96c40734c6204d8c3649a73162ca901483fb6e65b2d646"
+    },
+    {
+      "bytes": 4268,
+      "path": "evidence/batch6_identity_20261014/capture_primary.py",
+      "sha256": "12d46d682bff440809fc8a4c2ddd2cbe65602b483abd803bfdb5a32f8dd7acc2"
+    },
+    {
+      "bytes": 910,
+      "path": "evidence/batch6_identity_20261014/captures/46d8dce6bc7e93bf52db0d5cda06b009beb5c2e7eddf4cf5674b82283802a8c2.metadata.json",
+      "sha256": "68da94ce690994f6100a838362de7278bd51954424d49c1d0a88421c7e1375fa"
+    },
+    {
+      "bytes": 1980178,
+      "path": "evidence/batch6_identity_20261014/captures/494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d.bin",
+      "sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d"
+    },
+    {
+      "bytes": 1060,
+      "path": "evidence/batch6_identity_20261014/captures/54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d.bin",
+      "sha256": "54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d"
+    },
+    {
+      "bytes": 172225,
+      "path": "evidence/batch6_identity_20261014/captures/6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4.bin",
+      "sha256": "6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4"
+    },
+    {
+      "bytes": 833,
+      "path": "evidence/batch6_identity_20261014/captures/7aa2e82f0f38239598f9eacc7d89d99d52dbee2f102a228e8b79b375cc98a725.metadata.json",
+      "sha256": "af494e2bc9c87cf289a2c4cb2e744f7971bef1bc73a936c25fddd2c7ad063fba"
+    },
+    {
+      "bytes": 38236,
+      "path": "evidence/batch6_identity_20261014/captures/869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146.bin",
+      "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146"
+    },
+    {
+      "bytes": 6887,
+      "path": "evidence/batch6_identity_20261014/captures/a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698.bin",
+      "sha256": "a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698"
+    },
+    {
+      "bytes": 6904,
+      "path": "evidence/batch6_identity_20261014/captures/bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2.bin",
+      "sha256": "bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2"
+    },
+    {
+      "bytes": 914,
+      "path": "evidence/batch6_identity_20261014/captures/cf04d97524b7afbc114af6f86f98fa936e1bc805f97247f76443b019a880966b.metadata.json",
+      "sha256": "523d97d5fc4363f4d77b2d4bc9a2ed9bd9fda6b0b3392be51058aa406c53b29d"
+    },
+    {
+      "bytes": 910,
+      "path": "evidence/batch6_identity_20261014/captures/d947ee893858ef43fcd004c4aedc0e92bc3417429d3c2d9f9a16997c71954430.metadata.json",
+      "sha256": "ed965f63c7734f10ec5c312a75b037d6ecab59705775b5ed4b444b0690092ea7"
+    },
+    {
+      "bytes": 919,
+      "path": "evidence/batch6_identity_20261014/captures/db2cdc60146587058eab4d408ab4888114f95a9a1c9612fcc8809a34a61d277c.metadata.json",
+      "sha256": "c1bf711332c3aed2df298147101537936a6915ae22fc59925d89d320435ba99c"
+    },
+    {
+      "bytes": 914,
+      "path": "evidence/batch6_identity_20261014/captures/f6fcc224d7601464aa774f94198b73b6bc081dff8cde3b16eccbbc88082e6008.metadata.json",
+      "sha256": "6a93716a7a1dccf836ae376e8e366d059cd90a21e42f2311a54138ad6b2abe9c"
+    },
+    {
+      "bytes": 3719,
+      "path": "evidence/batch6_identity_20261014/final_leg_tests.log",
+      "sha256": "631d4aa34c6d62bf3342fc07099e1d25d942e0ae5aec319da7c78092ac0b19d1"
+    },
+    {
+      "bytes": 3719,
+      "path": "evidence/batch6_identity_20261014/final_schema_tests.log",
+      "sha256": "af0ba9e449284b321804d338f18cab8a55cb8f40066160f9bb726523a42541eb"
+    },
+    {
+      "bytes": 10003,
+      "path": "evidence/batch6_identity_20261014/focused_tests.log",
+      "sha256": "b21f53bc3577abd4315ed26f8dfb240d4d67aaba00aefb1502bc13f13ffab3a6"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/batch6_identity_20261014/full_staged_diff_check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 12525,
+      "path": "evidence/batch6_identity_20261014/initial_focused_tests.log",
+      "sha256": "3f9d35f3a25f3341b6d5ba6d939b1cf59105409ca9609d871d36771e5f27fbb0"
+    },
+    {
+      "bytes": 9797,
+      "path": "evidence/batch6_identity_20261014/replay_diagnostics.json",
+      "sha256": "97180ffaf1790306d89b20a168cc9e8c97550a7059da78cb7da7b47de3fdbb4e"
+    },
+    {
+      "bytes": 10898,
+      "path": "evidence/batch6_identity_20261014/replay_review.py",
+      "sha256": "26a94c96d3a4aa532f766792fa1bc9238df679bbdaf83f8cc23dfeffa54828f8"
+    },
+    {
+      "bytes": 21284,
+      "path": "evidence/batch6_identity_20261014/review.json",
+      "sha256": "7bfa00eb95e8232a2a08fb406fd6a03d56073e138e1c2a0581ecc88c1c86df70"
+    }
+  ],
+  "lane": "identity_bulk",
+  "limits": [
+    "Actual bridge remains PARTIAL; no dated old/new CUSIP action document and no aligned old/recipient full tuple anchors",
+    "Form25 signature/publication is a filed notification, not an actual delisting effective day or a statutory-delay calculation",
+    "Parent direct/issuer indirect relation conflict is not silently resolved",
+    "Two distinct kind snapshots from one recipient document do not become independent ticker/completion proof",
+    "Existing co-filer issuer_names issue is a separately assigned followup; this scope makes no broader co-filer claim",
+    "No continuous Q3 coverage, alias, Q2 extension, verified registry promotion, score, OOS, new Windows or specialist DONE acceptance"
+  ],
+  "preservation": {
+    "canonical_tickers": 687,
+    "canonical_universe": {
+      "bytes": 5846,
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    },
+    "new_aliases": 0,
+    "new_verified_identities": 0,
+    "older_evidence_paths_unchanged": [
+      {
+        "bytes": 14312,
+        "path": "evidence/batch4_identity_20261013.json",
+        "sha256": "2e29a89fe3459e7bb6d964faf4e68520a17a94d17de13d05f8eeeae8626b4d1b"
+      },
+      {
+        "bytes": 8622,
+        "path": "evidence/batch5_identity_20261014/handoff.json",
+        "sha256": "f5865417bc7853c4ea3537af1a55847a48a4109fa51351369b7d29dd8db9bb93"
+      },
+      {
+        "bytes": 12341,
+        "path": "evidence/batch5_identity_symbol_20261014/handoff.json",
+        "sha256": "c8882f66a556b6b496889cf315d698b61fd30bbd8d4fd756695d6502da1e83ad"
+      }
+    ],
+    "prior_LEG_registry_versions": 0,
+    "production_registry_changed": false,
+    "registry": {
+      "bytes": 87325,
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+    },
+    "registry_sha256_after": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "registry_sha256_before": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+    "score_changed": false,
+    "selected_q3_full_interval_coverage": 0,
+    "specialist_done_changed": false,
+    "stored_records": 150
+  },
+  "real_review": {
+    "actual_delisting_effective_on": null,
+    "blockers": [
+      "DIRECT_INDIRECT_CONTROL_RELATION_CONFLICT",
+      "FROM_DATED_TUPLE_ANCHORS_DO_NOT_ALIGN",
+      "TO_DATED_TUPLE_ANCHORS_DO_NOT_ALIGN",
+      "TO_INDEPENDENT_PRIMARY_DOCUMENTS_MISSING",
+      "DATED_OLD_NEW_CUSIP_ACTION_BRIDGE_MISSING"
+    ],
+    "control_relation_conflict_preserved": true,
+    "delisting_effective_date_status": "UNKNOWN",
+    "evidence_known_at": "2026-10-14T13:29:18.124083+00:00",
+    "exchange_ratio": "0.1455",
+    "fractional_cash_only": true,
+    "merger_effective_on": "2026-08-26",
+    "old_cik": "0000058492",
+    "old_cusip": "524660107",
+    "old_instrument_event": "2026-07-31",
+    "old_ticker_class_anchor": "2026-06-30",
+    "post_conversion_old_instrument_anchor_retained": true,
+    "receiving_cik": "0001206264",
+    "receiving_cusip": "88023U101",
+    "receiving_instrument_event": "2026-06-30",
+    "receiving_ticker_class_anchor": "2026-08-25",
+    "status": "PRIMARY_BRIDGE_PARTIAL",
+    "withdrawal_signature_date": "2026-08-27"
+  },
+  "recorded_at": "2026-10-14T16:24:40.330404+00:00",
+  "schema_version": 1,
+  "source_inventory": [
+    {
+      "bytes": 910,
+      "path": "evidence/batch6_identity_20261014/captures/46d8dce6bc7e93bf52db0d5cda06b009beb5c2e7eddf4cf5674b82283802a8c2.metadata.json",
+      "sha256": "68da94ce690994f6100a838362de7278bd51954424d49c1d0a88421c7e1375fa"
+    },
+    {
+      "bytes": 6887,
+      "path": "evidence/batch6_identity_20261014/captures/a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698.bin",
+      "sha256": "a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698"
+    },
+    {
+      "bytes": 833,
+      "path": "evidence/batch6_identity_20261014/captures/7aa2e82f0f38239598f9eacc7d89d99d52dbee2f102a228e8b79b375cc98a725.metadata.json",
+      "sha256": "af494e2bc9c87cf289a2c4cb2e744f7971bef1bc73a936c25fddd2c7ad063fba"
+    },
+    {
+      "bytes": 172225,
+      "path": "evidence/batch6_identity_20261014/captures/6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4.bin",
+      "sha256": "6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4"
+    },
+    {
+      "bytes": 914,
+      "path": "evidence/batch6_identity_20261014/captures/cf04d97524b7afbc114af6f86f98fa936e1bc805f97247f76443b019a880966b.metadata.json",
+      "sha256": "523d97d5fc4363f4d77b2d4bc9a2ed9bd9fda6b0b3392be51058aa406c53b29d"
+    },
+    {
+      "bytes": 6904,
+      "path": "evidence/batch6_identity_20261014/captures/bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2.bin",
+      "sha256": "bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2"
+    },
+    {
+      "bytes": 910,
+      "path": "evidence/batch6_identity_20261014/captures/d947ee893858ef43fcd004c4aedc0e92bc3417429d3c2d9f9a16997c71954430.metadata.json",
+      "sha256": "ed965f63c7734f10ec5c312a75b037d6ecab59705775b5ed4b444b0690092ea7"
+    },
+    {
+      "bytes": 1060,
+      "path": "evidence/batch6_identity_20261014/captures/54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d.bin",
+      "sha256": "54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d"
+    },
+    {
+      "bytes": 919,
+      "path": "evidence/batch6_identity_20261014/captures/db2cdc60146587058eab4d408ab4888114f95a9a1c9612fcc8809a34a61d277c.metadata.json",
+      "sha256": "c1bf711332c3aed2df298147101537936a6915ae22fc59925d89d320435ba99c"
+    },
+    {
+      "bytes": 38236,
+      "path": "evidence/batch6_identity_20261014/captures/869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146.bin",
+      "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146"
+    },
+    {
+      "bytes": 914,
+      "path": "evidence/batch6_identity_20261014/captures/f6fcc224d7601464aa774f94198b73b6bc081dff8cde3b16eccbbc88082e6008.metadata.json",
+      "sha256": "6a93716a7a1dccf836ae376e8e366d059cd90a21e42f2311a54138ad6b2abe9c"
+    },
+    {
+      "bytes": 1980178,
+      "path": "evidence/batch6_identity_20261014/captures/494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d.bin",
+      "sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d"
+    },
+    {
+      "bytes": 862,
+      "path": "evidence/batch4_identity_20261013/captures/0727cd2189a797d82f066ded90209aca3f94a15d7480061b0b1c916da146b5a6.json",
+      "sha256": "d437f03664109656e1777eb864dba482d76fd3dbcb8ea35ade38a40605ac98f9"
+    },
+    {
+      "bytes": 41778,
+      "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4"
+    },
+    {
+      "bytes": 784,
+      "path": "evidence/batch4_identity_20261013/captures/4c272eeb028484145b93a691fdc329021dd1d2d3d3a6133991dcff6bb7baa9ff.json",
+      "sha256": "980e1f59b12723f553b26c58601af61494d9fe52b73a74695857a371196ed842"
+    },
+    {
+      "bytes": 159299,
+      "path": "evidence/batch4_identity_20261013/captures/fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98.bin",
+      "sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98"
+    },
+    {
+      "bytes": 861,
+      "path": "evidence/batch4_identity_20261013/captures/b35be8b7faead91abc4e5bdf23e8d0eb895f55497e93c364858cc323cf7e6033.json",
+      "sha256": "a46e64ffe16df7d3eacd039395cd60e5b81a6bac71c7fdf466ff8c7dbfdcae3a"
+    },
+    {
+      "bytes": 6847,
+      "path": "evidence/batch4_identity_20261013/captures/2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd.bin",
+      "sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd"
+    },
+    {
+      "bytes": 247,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/38613a11424d71f23b96c45c2fda824f15812738125673449c8a2495b4e2216a.json",
+      "sha256": "98995b942e0a4564f78a4ba8ad12aa5ee8444eea8b07fc2f9aac4b77b104fec7"
+    },
+    {
+      "bytes": 799583,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e.bin",
+      "sha256": "a9595d33a34615553ee706c95458fff0bb9fec9642a9d61710f3e5dbd45ca23e"
+    },
+    {
+      "bytes": 249,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/fc8ee7c271277fe6946bce1c4647f43d17a7811cde2ead4d46e5290c85813a9c.json",
+      "sha256": "0e4c7eddeb5bb88152b2798f3bd9421ecee08b4992478adf75e95103f17b430e"
+    },
+    {
+      "bytes": 2088909,
+      "path": "evidence/batch3_identity_bulk_20261012/snapshots/bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179.bin",
+      "sha256": "bf6d2cd21d238ba21ebef7a18824e71f40b269fa5961767dc0721513de213179"
+    }
+  ],
+  "source_usage": {
+    "access_values_exported": false,
+    "app_quota_managed_live_claimed": false,
+    "attempts_per_url": 1,
+    "capture_window_utc": {
+      "first": "2026-10-14T13:27:30.125311+00:00",
+      "last": "2026-10-14T13:29:18.124083+00:00"
+    },
+    "historical_sec_request_history_reconstructed": false,
+    "network_during_replay": false,
+    "new_primary_http_requests": 6,
+    "new_primary_response_limit": 6,
+    "new_public_original_bodies": 6,
+    "redirects": 0,
+    "web_discovery_queries": 3,
+    "withheld_bodies_read_restored_or_replaced": false
+  },
+  "status": "LEG_PRIMARY_ACTION_REVIEW_COMPLETE_WITH_INSTRUMENT_GAPS",
+  "superseded_module_snapshot": {
+    "baseline_commit": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+    "baseline_sha256": "48b23fcb2f7fda8194b7eac52980d2be8413ea2dc6d7c66d6e608a047fcf0a30",
+    "current_sha256": "6222a1734caf76b0f7bd5216c62665a3fc08268be991c8750352ab317508d627",
+    "interpretation": "Older code hashes describe their own committed evidence versions; older artifacts and bodies remain immutable",
+    "path": "market_checker_app/services/sec_corporate_action_bridge.py"
+  },
+  "verification": {
+    "bridge_content_sha256": "e74820931dabef2510cfb92f9d9a2aa953ecb58c8cc031caa96e092c35f80c81",
+    "code_and_metadata_diff_check_exit_code": 0,
+    "compile_exit_code": 0,
+    "full_staged_diff_check_exit_code": 0,
+    "full_suite_run": false,
+    "new_test_cases": 17,
+    "review_content_sha256": "e9965dafde27ef780309e2aa30acb00077ac465165ae21907ea3f14dbd59102b",
+    "runtime_note": "Prepared project interpreter absent at resumption; already qualified exact final 17-case schema result retained, no repeated LIVE/tests; final hashes checked with Python 3.12.14 standard library",
+    "saved_artifact_hashes_verified": true,
+    "test_runs": [
+      {
+        "bytes": 12525,
+        "duration_seconds": 9.503,
+        "errors": 2,
+        "exit_code": 1,
+        "failures": 0,
+        "path": "evidence/batch6_identity_20261014/initial_focused_tests.log",
+        "sha256": "3f9d35f3a25f3341b6d5ba6d939b1cf59105409ca9609d871d36771e5f27fbb0",
+        "skips": 0,
+        "tests_run": 45,
+        "version_scope": "Initial diagnostic; stale fixture source references"
+      },
+      {
+        "bytes": 10003,
+        "duration_seconds": 8.977,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch6_identity_20261014/focused_tests.log",
+        "sha256": "b21f53bc3577abd4315ed26f8dfb240d4d67aaba00aefb1502bc13f13ffab3a6",
+        "skips": 0,
+        "tests_run": 47,
+        "version_scope": "Combined bridge version before final completed-action/date/schema guards"
+      },
+      {
+        "bytes": 3719,
+        "duration_seconds": 1.19,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch6_identity_20261014/final_leg_tests.log",
+        "sha256": "631d4aa34c6d62bf3342fc07099e1d25d942e0ae5aec319da7c78092ac0b19d1",
+        "skips": 0,
+        "tests_run": 17,
+        "version_scope": "Completed-action/date guard version before mixed-namespace guard"
+      },
+      {
+        "bytes": 3719,
+        "duration_seconds": 1.223,
+        "errors": 0,
+        "exit_code": 0,
+        "failures": 0,
+        "path": "evidence/batch6_identity_20261014/final_schema_tests.log",
+        "sha256": "af0ba9e449284b321804d338f18cab8a55cb8f40066160f9bb726523a42541eb",
+        "skips": 0,
+        "tests_run": 17,
+        "version_scope": "Final exact current source/test version, run before transient interruption"
+      }
+    ],
+    "windows_verified": false
+  }
+}

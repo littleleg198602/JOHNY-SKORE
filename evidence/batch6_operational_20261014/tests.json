@@ -1,0 +1,36 @@
+{
+  "completed_at": "2026-10-14T17:15:53.084926+00:00",
+  "discovered": 41,
+  "errors": 0,
+  "executed": 41,
+  "expected_failures": 0,
+  "failures": 0,
+  "fixtures_count_as_live": false,
+  "historical_oos_verified": false,
+  "kind": "focused_operational_count_and_existing_qualitative_exposure_regressions",
+  "log": "evidence/batch6_operational_20261014/tests.log",
+  "log_sha256": "8f2d78b3d58c0d5d3c7b14c1ce052ade68e7042bd417a0e1b751eea75506cabc",
+  "modules": [
+    "tests.test_batch6_sec_operational_metrics",
+    "tests.test_filing_exposure_discovery_service",
+    "tests.test_batch4_energy_filing_provenance"
+  ],
+  "platform": "Linux",
+  "python_version": "3.12.14",
+  "schema_version": 1,
+  "skips": 0,
+  "source_files": {
+    "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+    "tests/test_batch6_sec_operational_metrics.py": "aa82c5bd9a885b1088f8d2a6bc3d220bdfb76fbac1ba53b5f5bf4cd61ef5e19f"
+  },
+  "source_http_attempts": 0,
+  "started_at": "2026-10-14T17:15:47.993611+00:00",
+  "successful": true,
+  "unchanged_dependencies": {
+    "market_checker_app/services/filing_exposure_discovery_service.py": "1f3907a22f5dd6f9898bde7f265fc39e66615982b9930734bf64875aafdd9911",
+    "tests/test_batch4_energy_filing_provenance.py": "1b9e74bfe2cf046af2c731c45204c52b1ad5445ab47aba9db0a1ea8f5aa2da0c",
+    "tests/test_filing_exposure_discovery_service.py": "d47c8565eec990f4b4ed541357aaee64009f4dc79d808f5092b96e32ab90b330"
+  },
+  "unexpected_successes": 0,
+  "windows_end_to_end_verified": false
+}

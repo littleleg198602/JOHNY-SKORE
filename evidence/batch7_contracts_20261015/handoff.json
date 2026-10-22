@@ -1,0 +1,174 @@
+{
+  "acceptance": {
+    "continuous_legal_identity_verified": false,
+    "counterparty_financials_attribution_allowed": false,
+    "counterparty_identity_at_relationship_date_verified": false,
+    "current_instrument_identity_verified": false,
+    "current_q3_identity_verified": false,
+    "fitter_modified": false,
+    "historical_availability_reconstructed": false,
+    "historical_oos_verified": false,
+    "publisher_publication_clock_verified": false,
+    "quantity_or_revenue_share_inferred": false,
+    "registry_adoption": 0,
+    "scoring_applied": false,
+    "sole_source_inferred": false,
+    "specialist_done": false,
+    "trading_or_activation_allowed": false,
+    "user_windows_end_to_end_verified": false
+  },
+  "actual_review": {
+    "claim_role": "FOUNDRY_SUPPLIER",
+    "counterparty_name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "counterparty_report_period_end": "2025-12-31",
+    "counterparty_reported_cik": "0001046179",
+    "dated_counterparty_identity_verified": 0,
+    "fresh_capture_observed_times": [
+      "2026-10-14T23:28:22.786408+00:00",
+      "2026-10-14T23:27:22.501916+00:00",
+      "2026-10-14T23:28:17.499529+00:00"
+    ],
+    "independent_counterparty_filing_accessions_used": 1,
+    "independent_legal_source_snapshot_supported": true,
+    "ingested_at": "2026-10-15T04:28:51.281153+00:00",
+    "issuer_cik": "0001045810",
+    "issuer_context": "c-1",
+    "issuer_fiscal_period_end": "2026-01-25",
+    "issuer_hint": "NVDA",
+    "issuer_original_capture_observed_at": "2026-10-12T14:48:19.742085+00:00",
+    "knowledge_at": "2026-10-15T04:28:51.281153+00:00",
+    "legal_renderer_value_column": 1,
+    "path": "evidence/batch7_contracts_20261015/review.json",
+    "product_or_input": "semiconductor wafers",
+    "relevant_687_coverage_measured": false,
+    "reported_dei_name": "NVIDIA CORP",
+    "revenue_share_verified": 0,
+    "selection_packet": "evidence/batch7_contracts_20261015/selection.json",
+    "sole_source_verified": 0,
+    "source_disclosed_alias": "TSMC",
+    "supplier_specific_quantity_verified": 0,
+    "unique_primary_supplier_relationships": 1
+  },
+  "api": {
+    "automatic_report_persistence": false,
+    "default_cutoff": "actual physical review ingestion",
+    "independent_legal_mode": "SEC_R1_TABLE",
+    "legacy_original_capture_metadata_supported": true,
+    "legal_fields": [
+      "legal_name",
+      "cik",
+      "period_end",
+      "fiscal_year",
+      "document_type",
+      "header_period"
+    ],
+    "maximum_body_bytes": 4000000,
+    "module": "market_checker_app.services.sec_supply_chain_scope_review",
+    "name": "review_sec_supply_chain_scope",
+    "optional_quantity": "exact literal supplier purchase percentage, object denominator and fiscal year; no inferred shares",
+    "runtime_kind": "SEC_SUPPLY_CHAIN_SCOPE",
+    "signature": "(issuer_body: bytes, *, issuer_capture: Mapping, selection: Mapping, counterparty_body: bytes | None = None, counterparty_capture: Mapping | None = None, counterparty_selection: Mapping | None = None, as_of: datetime | None = None) -> dict",
+    "statuses": [
+      "CANDIDATE_REVIEWED",
+      "REJECTED"
+    ],
+    "table_index_basis": "top-level renderer tables; hidden top-level tables retained as empty nonselectable sentinels"
+  },
+  "artifacts_sha256": {
+    "evidence/batch7_contracts_20261015/README.md": "a96dee876fce9ca648c8b37cd8867086139cae404c3ed56434fe70c5555c7d9b",
+    "evidence/batch7_contracts_20261015/capture_primary.py": "191861dc265535c5b3aba87ec6f59d232906d0d0d279baf5869b7aca64cae938",
+    "evidence/batch7_contracts_20261015/issuer_capture.json": "9acd3f9df73f8e71ec3edd2714e9c0e0f03c0fbb305657e8aa0d1df3a1fae574",
+    "evidence/batch7_contracts_20261015/raw/body-8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58.response": "8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58",
+    "evidence/batch7_contracts_20261015/raw/body-bbd5e352ab8242e31212f1a50ceb004b50c46011854598fcbfcb97eadf0580da.response": "bbd5e352ab8242e31212f1a50ceb004b50c46011854598fcbfcb97eadf0580da",
+    "evidence/batch7_contracts_20261015/raw/body-f84b51404dd48fdd671920002b4a20b2b4f9292a2c7404ea3262148a69fc4df7.response": "f84b51404dd48fdd671920002b4a20b2b4f9292a2c7404ea3262148a69fc4df7",
+    "evidence/batch7_contracts_20261015/replay_review.py": "7d7e4d2f0bb493af603fffc12ddfa8087b70aea03f29e61bc222d174c6468ac4",
+    "evidence/batch7_contracts_20261015/requests/9866459af9b580df67ab95a1a7087571f7b298b70f4e6090bbd10e863e2cc978.metadata.json": "0c182e3990e1f8e3a21ae1106a0eba8a2e7255565ecc2ce258d3c3678cb5d9da",
+    "evidence/batch7_contracts_20261015/requests/9866459af9b580df67ab95a1a7087571f7b298b70f4e6090bbd10e863e2cc978.reserved.json": "b7516af88fccc31b6290b4b9218a53bf8b585d6036c31f2b1cb0ff2034f52c80",
+    "evidence/batch7_contracts_20261015/requests/aa452bc7d838bff4989de1d56e7cffa2ad5994328932d1a45cfd95011e9b4361.metadata.json": "6f3d8f6699ec139c46210069b9ded88c6b90d902f826a23132cadd196346447c",
+    "evidence/batch7_contracts_20261015/requests/aa452bc7d838bff4989de1d56e7cffa2ad5994328932d1a45cfd95011e9b4361.reserved.json": "2ab753f29c10293e3f1e436f1e55fbcae6f835ae48f486409c8ba40471bd30fa",
+    "evidence/batch7_contracts_20261015/requests/b72b41927230b40fdb8d9ea9339638430b7b85caffd912bb1c319e9304087f32.metadata.json": "12ae194d5adaa9c26f5abf3a07f5d60157070f3c3689bd2c329611679e6aa552",
+    "evidence/batch7_contracts_20261015/requests/b72b41927230b40fdb8d9ea9339638430b7b85caffd912bb1c319e9304087f32.reserved.json": "01cd6dbb65c6fae62ee604a6b784da53872aa95e8bad9d15912018c54477879d",
+    "evidence/batch7_contracts_20261015/review.json": "9dbceee9f1d1d9764eb6b8fefad77c8022d485903177354fe7749f6eac59aef3",
+    "evidence/batch7_contracts_20261015/selection.json": "7ea47dc1679508a4a3dc2580891b3597da5e659e5a19585983f8df0eb8f17d03",
+    "evidence/batch7_contracts_20261015/tests.json": "40e285648b584ceb30dd2f31965ff1b46ea2085abd30f3a751300e72bca5c7da",
+    "evidence/batch7_contracts_20261015/tests.log": "365ec30148de9af18feeead05e9a65d1f84f35f8f3db526f6252f682b4333c41",
+    "market_checker_app/services/sec_supply_chain_scope_review.py": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91",
+    "tests/test_batch7_supply_chain_scope.py": "abd6973e16d1afd5c610a8b322680cc17fd4ea485e314f238dfcacc61723b5e6"
+  },
+  "branch": "batch7/contracts-20261015",
+  "deliverable": "exact_primary_supplier_object_scope_with_separate_independent_legal_snapshot",
+  "integration_points": [
+    "Root can use selection.json exact original relative paths and pins to bundle a SEC_SUPPLY_CHAIN_SCOPE plan; raw issuer manifest pointer is retained",
+    "Use API keyword names exactly; omit as_of or pass None for physical ingestion, preserve an explicit old cutoff as exclusion",
+    "Display named relationship/object separately from independent legal-source snapshot, temporal legal continuity and supplier-specific quantity missingness",
+    "Persist review content-addressed if required; the service itself does not write runtime, UI, stores, registries or scores"
+  ],
+  "public_base_commit": "089ce4dbe03952d84daac5cfe47760b09020954b",
+  "recorded_at": "2026-10-15T04:31:16.598542+00:00",
+  "remaining_work": [
+    "Exact supplier relationship event day and independently dated legal continuity remain unverified",
+    "Supplier-specific purchase quantity/unit/denominator and revenue share are not supplied by this selected original passage",
+    "Broader relevant source/issuer coverage and actual historical/Windows/OOS acceptance remain missing",
+    "Original durable USAspending history remains required before further USAspending collection; prior prime recovery remains0"
+  ],
+  "schema_version": 1,
+  "source_references": {
+    "counterparty_body": {
+      "repository_relative_path": "evidence/batch7_contracts_20261015/raw/body-8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58.response",
+      "sha256": "8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58"
+    },
+    "counterparty_capture": {
+      "repository_relative_path": "evidence/batch7_contracts_20261015/requests/b72b41927230b40fdb8d9ea9339638430b7b85caffd912bb1c319e9304087f32.metadata.json",
+      "sha256": "12ae194d5adaa9c26f5abf3a07f5d60157070f3c3689bd2c329611679e6aa552"
+    },
+    "issuer_body": {
+      "repository_relative_path": "evidence/batch3_sec_20261012/primary/nvda_2026_10k.htm",
+      "sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5"
+    },
+    "issuer_capture": {
+      "repository_relative_path": "evidence/batch7_contracts_20261015/issuer_capture.json",
+      "sha256": "9acd3f9df73f8e71ec3edd2714e9c0e0f03c0fbb305657e8aa0d1df3a1fae574"
+    },
+    "original_issuer_capture_manifest": {
+      "json_pointer": "/captures/10",
+      "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+      "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+    }
+  },
+  "source_research": {
+    "automatic_redirects": false,
+    "complete_safe_original_http200_bodies": 3,
+    "fourth_attempt_unused": true,
+    "large_20f_not_requested": true,
+    "max_authorized_attempts": 4,
+    "new_cap_or_quota_reset": false,
+    "new_sec_get_attempts": 3,
+    "new_sec_response_bytes": 246147,
+    "new_source_requests_during_replay": 0,
+    "new_usaspending_requests": 0,
+    "original_raw_source_bytes_modified": false,
+    "per_request_bytes_cap": 4000000,
+    "reserve_before_transport": true,
+    "retained_nvda_refetched_or_copied": false
+  },
+  "tests": {
+    "discovered": 43,
+    "errors": 0,
+    "executed": 43,
+    "expected_failures": 0,
+    "failures": 0,
+    "fixtures_count_as_live": false,
+    "new_mechanism_cases": 19,
+    "path": "evidence/batch7_contracts_20261015/tests.json",
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "whitespace_review": {
+    "new_code_and_nonraw_artifacts_diff_check": "PASS",
+    "original_SEC_index_raw_response_has_five_trailing_whitespace_lines": true,
+    "qualification": "Full diff check reports original publisher trailing whitespace; original bytes/hash preserved, nonraw code/artifact check passes",
+    "raw_index_bytes_trimmed_or_replaced": false,
+    "raw_index_sha256": "f84b51404dd48fdd671920002b4a20b2b4f9292a2c7404ea3262148a69fc4df7"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "HTTP_or_GitHub_requests": 0,
+  "SQL_connections_or_DB_mutations": 0,
+  "artifact_pins": {
+    "README.md": {
+      "bytes": 2837,
+      "sha256": "4438113bf36e0f9dcdf078c2972feae94d03700c0ddb35bc2e2f992212548133"
+    },
+    "original_failure.stderr": {
+      "bytes": 630,
+      "sha256": "7d0f3b1488610c0b4d3de20a16117c047492a5df5501f45415f2e801f5ebd23e"
+    },
+    "original_failure.stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "original_failure_diagnostic.json": {
+      "bytes": 5412,
+      "sha256": "1c8c566c6bea63932f312931180b150d3528005e3a66c70cab316e263e049143"
+    },
+    "original_published_qualification.json": {
+      "bytes": 8791,
+      "sha256": "2b58c05d7e66936b8de8e12d4da9aa347b2e550c0992af5e79072b0171b72a1e"
+    },
+    "original_verify_integration.py": {
+      "bytes": 6630,
+      "sha256": "26263b598f4e8cc10ad1e48c22cd9153448578dafd9d3426c22ae0634895870c"
+    },
+    "peer_qualification.json": {
+      "bytes": 3222,
+      "sha256": "788ea0fdff2fa4e98b764e44c8b27dc1fbcdbba6262dac9b58dfad4cca6aba69"
+    },
+    "repaired_qualification.json": {
+      "bytes": 9088,
+      "sha256": "28144c58739c9894f89e7aa4f0a0c75f6eb07440f2b0f50e0cb04ccfc8215eee"
+    },
+    "verify_peer.py": {
+      "bytes": 8322,
+      "sha256": "62daf21d5774f8a7bd59601d12a45c5e696a4c38ee129d583ed76f7e088de683"
+    }
+  },
+  "forbidden_whole_body_hash_set_AST_unchanged": true,
+  "full_specialist_acceptance": "0/21",
+  "negative_path_checks": [
+    {
+      "file_created_or_modified": false,
+      "rejected_at_exact_allowlist": true,
+      "synthetic_diff_path": "market_checker_app/unapproved.py"
+    },
+    {
+      "file_created_or_modified": false,
+      "rejected_at_exact_allowlist": true,
+      "synthetic_diff_path": "tests/unapproved.py"
+    },
+    {
+      "file_created_or_modified": false,
+      "rejected_at_exact_allowlist": true,
+      "synthetic_diff_path": "evidence/batch9_windows_timeout_fix_20261018/unapproved.raw"
+    },
+    {
+      "file_created_or_modified": false,
+      "rejected_at_exact_allowlist": true,
+      "synthetic_diff_path": "evidence/batch9_windows_cancelled_20261017/unapproved.raw"
+    },
+    {
+      "file_created_or_modified": false,
+      "rejected_at_exact_allowlist": true,
+      "synthetic_diff_path": "evidence/batch9_windows_ci_coordinator_20261018/unapproved.json"
+    },
+    {
+      "file_created_or_modified": false,
+      "rejected_at_exact_allowlist": true,
+      "synthetic_diff_path": "evidence/batch9_windows_ci_proof_peer_20261018/unapproved.json"
+    }
+  ],
+  "new_head_CI_status": "PENDING; run39092974314 targets151 and does not qualify this later verifier correction",
+  "old_published_qualification_pin": {
+    "bytes": 8791,
+    "sha256": "2b58c05d7e66936b8de8e12d4da9aa347b2e550c0992af5e79072b0171b72a1e"
+  },
+  "original_baseline_YAML_worker_artifact_preCI_and_DB_checks_text_unchanged": true,
+  "original_verifier_pin": {
+    "bytes": 6630,
+    "sha256": "26263b598f4e8cc10ad1e48c22cd9153448578dafd9d3426c22ae0634895870c"
+  },
+  "owned_paths": [
+    "evidence/batch9_windows_ci_coordinator_20261018/verify_integration.py",
+    "evidence/batch9_windows_ci_proof_peer_20261018/"
+  ],
+  "post_commit_stdout_destination": "/workspace/scratch/334b3a149083/batch9_windows_ci_proof_peer_20261018_final.stdout.json",
+  "published_source_head": "151a4296202eaa4302f85df6966a84d620d56baf",
+  "published_source_tree": "37a24549193d86e7237eacb370c03114978e2117",
+  "recorded_at": "2026-10-18T03:24:34.731926+00:00",
+  "rejected_legitimate_final_paths": [
+    "evidence/batch9_windows_cancelled_20261017/README.md",
+    "evidence/batch9_windows_cancelled_20261017/artifact_12117165429.zip",
+    "evidence/batch9_windows_cancelled_20261017/content_verification.json",
+    "evidence/batch9_windows_cancelled_20261017/github_run_jobs_artifacts.json",
+    "evidence/batch9_windows_cancelled_20261017/hosted_windows_job_decoded.log",
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252298_decoded.log",
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252298_verification.json",
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252423_decoded.log",
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252423_verification.json",
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252465_batch9_methods.json",
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252465_decoded.log",
+    "evidence/batch9_windows_cancelled_20261017/other_jobs/job_117513252465_verification.json",
+    "evidence/batch9_windows_cancelled_20261017/verification_diagnostics/original_verifier_v1.py",
+    "evidence/batch9_windows_cancelled_20261017/verification_diagnostics/qualification.json",
+    "evidence/batch9_windows_cancelled_20261017/verification_diagnostics/reproduced_v1_artifact_expectation.log",
+    "evidence/batch9_windows_cancelled_20261017/verification_record.json",
+    "evidence/batch9_windows_cancelled_20261017/verify_originals.py",
+    "evidence/batch9_windows_cancelled_20261017/windows-tests.log",
+    "evidence/batch9_windows_ci_coordinator_20261018/public_b0e_baseline_pins.json",
+    "evidence/batch9_windows_ci_coordinator_20261018/qualification.json",
+    "evidence/batch9_windows_ci_coordinator_20261018/verify_integration.py"
+  ],
+  "repaired_verifier_passed": true,
+  "repaired_verifier_pin": {
+    "bytes": 7499,
+    "sha256": "0a3b6e338e16d3c54f5ec9bf3612575bcf2f1d4f81b66afa72ad821829102dd3"
+  },
+  "repro_exit_code": 1,
+  "retained_DB_readonly_hash": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af",
+  "runtime_or_full_unittest_suites": 0,
+  "schema": "batch9_windows_ci_proof_peer_handoff_v1",
+  "unchanged_published_scope_counts": {
+    "evidence": 1567,
+    "production": 218,
+    "tests": 188,
+    "workflow_and_four_docs": 5
+  }
+}

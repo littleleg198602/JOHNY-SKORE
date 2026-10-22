@@ -1,0 +1,12 @@
+test_actual_provider_rereads_original_parent_after_successful_frame_read (tests.test_batch9_market_parent_peer.MarketParentPipelinePeerTests.test_actual_provider_rereads_original_parent_after_successful_frame_read) ... ok
+test_missing_raw_body_blocks_asset_or_unused_benchmark_at_preflight (tests.test_batch9_market_parent_peer.MarketParentPipelinePeerTests.test_missing_raw_body_blocks_asset_or_unused_benchmark_at_preflight) ... ok
+test_parent_changed_after_input_consumption_blocks_final_persistence (tests.test_batch9_market_parent_peer.MarketParentPipelinePeerTests.test_parent_changed_after_input_consumption_blocks_final_persistence) ... ok
+test_parent_changed_in_save_history_callback_cannot_cross_persistence_boundary (tests.test_batch9_market_parent_peer.MarketParentPipelinePeerTests.test_parent_changed_in_save_history_callback_cannot_cross_persistence_boundary) ... ok
+test_raw_body_symlink_blocks_asset_or_unused_benchmark_and_hits_guard (tests.test_batch9_market_parent_peer.MarketParentPipelinePeerTests.test_raw_body_symlink_blocks_asset_or_unused_benchmark_and_hits_guard) ... ok
+test_raw_body_tamper_blocks_asset_or_unused_benchmark_at_preflight (tests.test_batch9_market_parent_peer.MarketParentPipelinePeerTests.test_raw_body_tamper_blocks_asset_or_unused_benchmark_at_preflight) ... ok
+test_valid_marked_parents_reach_actual_pipeline_save_boundary_only_in_memory (tests.test_batch9_market_parent_peer.MarketParentPipelinePeerTests.test_valid_marked_parents_reach_actual_pipeline_save_boundary_only_in_memory) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 29.107s
+
+OK

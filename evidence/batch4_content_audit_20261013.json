@@ -1,0 +1,473 @@
+{
+  "generated_at": "2026-10-13T19:16:50.020964+00:00",
+  "local_code_snapshot": "14024db8aac15b58c00411e708cc8fa7d9705ca5",
+  "current_hash_references_verified": 153,
+  "preserved_historical_diagnostic_references": [
+    {
+      "manifest": "evidence/batch4_evaluation_label_audit_20261013.json",
+      "path": "market_checker_app/services/specialist_label_availability_service.py",
+      "expected_sha256": "b19dcd16304e71327d556e40cf6ff3b29dfb4fa489e584d28622182b4e2bd9d1",
+      "matches_current_bytes": false,
+      "scope": "INITIAL_AUDIT_SUPERSEDED_BY_PERSISTENCE_FOLLOWUP",
+      "proves_current_code": false,
+      "historical_commit_bytes_verified": true,
+      "local_historical_commit": "5382459a72cb19d96fe4d2060f3e2c11b0ce6d64"
+    },
+    {
+      "manifest": "evidence/batch4_progress_scale_20261013.json",
+      "path": "market_checker_app/services/progress_service.py",
+      "expected_sha256": "5f889669c8d2881faf4d92bcd30c17d70f566c2a3b2d6bc639a107dd7f4230cc",
+      "matches_current_bytes": false,
+      "scope": "PRE_SCALAR_OPTIMIZATION_DIAGNOSTIC",
+      "proves_current_code": false,
+      "historical_commit_bytes_verified": true,
+      "local_historical_commit": "c601705daff8f9fa6cd57a461a3ff9c85f636208"
+    },
+    {
+      "manifest": "evidence/batch4_progress_scale_20261013.json",
+      "path": "tests/test_progress_snapshots.py",
+      "expected_sha256": "532e604e5a3edfe1b933cc0cc043dbd3a831db7f8bd7c86efdfc242201cbb3cf",
+      "matches_current_bytes": false,
+      "scope": "PRE_SCALAR_OPTIMIZATION_DIAGNOSTIC",
+      "proves_current_code": false,
+      "historical_commit_bytes_verified": true,
+      "local_historical_commit": "c601705daff8f9fa6cd57a461a3ff9c85f636208"
+    },
+    {
+      "manifest": "evidence/batch4_identity_20261013/pre_staging_summary.json",
+      "path": "evidence/batch4_identity_20261013/verify_and_record.py",
+      "expected_sha256": "ee04e3b5fb116e413187b9d977460ff78e98cc3c8267c4a6574a6ab365ea09f4",
+      "matches_current_bytes": false,
+      "scope": "PRE_STAGING_SCRIPT_CHANGED_BEFORE_FINAL_HANDOFF",
+      "proves_current_code": false
+    }
+  ],
+  "captures": [
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+      "http_status": 200,
+      "archive_sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+      "raw_sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+      "archive_bytes": 41778,
+      "raw_bytes": 41778,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a.bin",
+      "http_status": 200,
+      "archive_sha256": "622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a",
+      "raw_sha256": "622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a",
+      "archive_bytes": 5629,
+      "raw_bytes": 5629,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6.bin",
+      "http_status": 200,
+      "archive_sha256": "d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6",
+      "raw_sha256": "d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6",
+      "archive_bytes": 36885,
+      "raw_bytes": 36885,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98.bin",
+      "http_status": 200,
+      "archive_sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98",
+      "raw_sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98",
+      "archive_bytes": 159299,
+      "raw_bytes": 159299,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56.bin",
+      "http_status": 200,
+      "archive_sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56",
+      "raw_sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56",
+      "archive_bytes": 6939,
+      "raw_bytes": 6939,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b.bin",
+      "http_status": 200,
+      "archive_sha256": "511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b",
+      "raw_sha256": "511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b",
+      "archive_bytes": 1320999,
+      "raw_bytes": 1320999,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7.bin",
+      "http_status": 200,
+      "archive_sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7",
+      "raw_sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7",
+      "archive_bytes": 38038,
+      "raw_bytes": 38038,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786.bin",
+      "http_status": 200,
+      "archive_sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786",
+      "raw_sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786",
+      "archive_bytes": 31810,
+      "raw_bytes": 31810,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd.bin",
+      "http_status": 200,
+      "archive_sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd",
+      "raw_sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd",
+      "archive_bytes": 6847,
+      "raw_bytes": 6847,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a.bin",
+      "http_status": 200,
+      "archive_sha256": "a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a",
+      "raw_sha256": "a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a",
+      "archive_bytes": 1614197,
+      "raw_bytes": 1614197,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "identity",
+      "path": "evidence/batch4_identity_20261013/captures/aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149.bin",
+      "http_status": 200,
+      "archive_sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+      "raw_sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149",
+      "archive_bytes": 157897,
+      "raw_bytes": 157897,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_2021_10k.body.html.gz",
+      "http_status": 200,
+      "archive_sha256": "b79cd606e6ae3de2d08943aef57f54a5d30d60aeea05b338f9b088d5b095b6f6",
+      "raw_sha256": "aaafe8d91ce31af80d5379fcc948ed0722587c1de0b2c7be84d8ef02f8abab40",
+      "archive_bytes": 367360,
+      "raw_bytes": 4281878,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_2024_10k.body.html.gz",
+      "http_status": 200,
+      "archive_sha256": "917d5dd3933da60ee10ff2ee60a5d089b517b4b703abd3d7f343437d77c08f4f",
+      "raw_sha256": "a0a7655d5f8b3779682d41b0c3c4aee561e76fdc7aace87ceb6937a4fece15fe",
+      "archive_bytes": 219877,
+      "raw_bytes": 3200191,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_2025_10k.body.html.gz",
+      "http_status": 200,
+      "archive_sha256": "4ca25e33621811cd53ce8c542024363299247f7d28553e1c76f78bdb59ff2cdc",
+      "raw_sha256": "8e1b3b844d73abca3f9fbcda5a0da20b23dcb6a5c30eac34610d1309e2dbd50e",
+      "archive_bytes": 184992,
+      "raw_bytes": 2370079,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_1.body.json",
+      "http_status": 200,
+      "archive_sha256": "2f6d3f7629361a279f356c9eea6a381cd46c3afa5bdc45fb3e21c9cd7169ed14",
+      "raw_sha256": "2f6d3f7629361a279f356c9eea6a381cd46c3afa5bdc45fb3e21c9cd7169ed14",
+      "archive_bytes": 765,
+      "raw_bytes": 765,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_2.body.json",
+      "http_status": 200,
+      "archive_sha256": "9c428b317773c64f560a0bb5adcec8ee9d4117e8c1cfc98a382a9a4ddeb6257d",
+      "raw_sha256": "9c428b317773c64f560a0bb5adcec8ee9d4117e8c1cfc98a382a9a4ddeb6257d",
+      "archive_bytes": 748,
+      "raw_bytes": 748,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_lilly_positive_page_3.body.json",
+      "http_status": 200,
+      "archive_sha256": "e5660ca1fb1bc482c0112c159084af7c325461ac1624b4de41dd67edef2981b9",
+      "raw_sha256": "e5660ca1fb1bc482c0112c159084af7c325461ac1624b4de41dd67edef2981b9",
+      "archive_bytes": 16,
+      "raw_bytes": 16,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_pfizer_exact_study_negative.body.json",
+      "http_status": 200,
+      "archive_sha256": "b54968c05ff881a1ef7ce604b6a340248f8e2aee8637bef06da0f5693f520df8",
+      "raw_sha256": "b54968c05ff881a1ef7ce604b6a340248f8e2aee8637bef06da0f5693f520df8",
+      "archive_bytes": 31,
+      "raw_bytes": 31,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+      "http_status": 200,
+      "archive_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "raw_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "archive_bytes": 125361,
+      "raw_bytes": 125361,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+      "http_status": 200,
+      "archive_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "raw_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "archive_bytes": 120326,
+      "raw_bytes": 120326,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "healthcare",
+      "path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.body.json",
+      "http_status": 200,
+      "archive_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "raw_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "archive_bytes": 158719,
+      "raw_bytes": 158719,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "regulatory",
+      "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_cadillac_2026.json",
+      "http_status": 200,
+      "archive_sha256": "b9d8ff432876d22966464e2282abf868f34d1c0ee8c7efae1a73c27b8585579f",
+      "raw_sha256": "b9d8ff432876d22966464e2282abf868f34d1c0ee8c7efae1a73c27b8585579f",
+      "archive_bytes": 1057,
+      "raw_bytes": 1057,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "regulatory",
+      "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_ford_2026.json",
+      "http_status": 200,
+      "archive_sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+      "raw_sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+      "archive_bytes": 4224,
+      "raw_bytes": 4224,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "regulatory",
+      "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+      "http_status": 200,
+      "archive_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+      "raw_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+      "archive_bytes": 2436,
+      "raw_bytes": 2436,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "regulatory",
+      "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_recalls_cadillac_ct4_2026.error.bin",
+      "http_status": 400,
+      "archive_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "raw_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "archive_bytes": 66,
+      "raw_bytes": 66,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "regulatory",
+      "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_recalls_ford_f650sd_2026.error.bin",
+      "http_status": 400,
+      "archive_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "raw_sha256": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "archive_bytes": 66,
+      "raw_bytes": 66,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "regulatory",
+      "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_recalls_chevrolet_trailblazer_2026.json",
+      "http_status": 200,
+      "archive_sha256": "1267fd097da23cc7f62f59c997d8aade05af5f3cebd4aff485cc5b72875fa28f",
+      "raw_sha256": "1267fd097da23cc7f62f59c997d8aade05af5f3cebd4aff485cc5b72875fa28f",
+      "archive_bytes": 1233,
+      "raw_bytes": 1233,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "regulatory",
+      "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_recalls_ford_mustang_2026.json",
+      "http_status": 200,
+      "archive_sha256": "3a6a113716d8bded08245ae9eadcb974f5a55bae9fba3826e67ebb5c0c1a11b2",
+      "raw_sha256": "3a6a113716d8bded08245ae9eadcb974f5a55bae9fba3826e67ebb5c0c1a11b2",
+      "archive_bytes": 6013,
+      "raw_bytes": 6013,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "energy",
+      "path": "evidence/batch4_energy_20261013/raw/sec_xom_2025_10k.html.gz",
+      "http_status": 200,
+      "archive_sha256": "805a1b0856bd55991e8afd5f4a09514627e518e83bf5bf6a4d9689d66c0910f3",
+      "raw_sha256": "9bd155ea39f66f6440c586bd4dc7917b207d6627d034c3cbaaf59cd8a29be4f1",
+      "archive_bytes": 289446,
+      "raw_bytes": 5591186,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "energy",
+      "path": "evidence/batch4_energy_20261013/raw/sec_xom_2025_10k_index.html.gz",
+      "http_status": 200,
+      "archive_sha256": "db50fb41685ce5096e2000b4d5ba0317a20e5c6c20a83d1b64a961230ef3b0a6",
+      "raw_sha256": "1ae2b24db36269d5c6c3f5d849e539767a4215fb037f5ca04805b63c45264ef6",
+      "archive_bytes": 3999,
+      "raw_bytes": 20759,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "energy",
+      "path": "evidence/batch4_energy_20261013/raw/sec_xom_old_cik_submissions.json",
+      "http_status": 200,
+      "archive_sha256": "c86c3d1c16e5ac086be3ac2f5eaedbb3c2891ac3127a10d2566b0049cbde82df",
+      "raw_sha256": "c86c3d1c16e5ac086be3ac2f5eaedbb3c2891ac3127a10d2566b0049cbde82df",
+      "archive_bytes": 162387,
+      "raw_bytes": 162387,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "sec",
+      "path": "evidence/batch4_sec_20261013/primary/msft_form4_index.html",
+      "http_status": 200,
+      "archive_sha256": "d77ed536ebefe89db8e31f3f6ee752e8693a610d2c05c6daf8aed139ef3664cd",
+      "raw_sha256": "d77ed536ebefe89db8e31f3f6ee752e8693a610d2c05c6daf8aed139ef3664cd",
+      "archive_bytes": 8113,
+      "raw_bytes": 8113,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "sec",
+      "path": "evidence/batch4_sec_20261013/primary/msft_form4.xml",
+      "http_status": 200,
+      "archive_sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+      "raw_sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+      "archive_bytes": 20046,
+      "raw_bytes": 20046,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "sec",
+      "path": "evidence/batch4_sec_20261013/primary/nadella_submissions.json",
+      "http_status": 200,
+      "archive_sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+      "raw_sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+      "archive_bytes": 17733,
+      "raw_bytes": 17733,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "sec",
+      "path": "evidence/batch4_sec_20261013/primary/msft_submissions.json",
+      "http_status": 200,
+      "archive_sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c",
+      "raw_sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c",
+      "archive_bytes": 185250,
+      "raw_bytes": 185250,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "sec",
+      "path": "evidence/batch4_sec_20261013/primary/msft_2026_R1.htm",
+      "http_status": 200,
+      "archive_sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+      "raw_sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+      "archive_bytes": 84130,
+      "raw_bytes": 84130,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "ir",
+      "path": "evidence/batch4_ir_20261013/primary/ir_authority.html",
+      "http_status": 200,
+      "archive_sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+      "raw_sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+      "archive_bytes": 286802,
+      "raw_bytes": 286802,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "ir",
+      "path": "evidence/batch4_ir_20261013/primary/press_releases_feed.xml",
+      "http_status": 200,
+      "archive_sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+      "raw_sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+      "archive_bytes": 126731,
+      "raw_bytes": 126731,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "ir",
+      "path": "evidence/batch4_ir_20261013/primary/announcement.html",
+      "http_status": 200,
+      "archive_sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+      "raw_sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+      "archive_bytes": 136764,
+      "raw_bytes": 136764,
+      "raw_and_archive_hashes_verified": true
+    },
+    {
+      "lane": "ir",
+      "path": "evidence/batch4_ir_20261013/primary/ir_linked_announcement.html",
+      "http_status": 200,
+      "archive_sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+      "raw_sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+      "archive_bytes": 138075,
+      "raw_bytes": 138075,
+      "raw_and_archive_hashes_verified": true
+    }
+  ],
+  "capture_count": 40,
+  "captured_responses_before_withholding": 41,
+  "http_200_captures": 38,
+  "withheld_captures": [
+    {
+      "lane": "regulatory",
+      "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_api_docs.html",
+      "http_status": 200,
+      "archive_sha256": "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+      "raw_sha256": "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+      "archive_bytes": 147164,
+      "raw_bytes": 147164,
+      "publication_status": "WITHHELD_SOURCE_CONTAINS_ACCESS_VALUE",
+      "publicly_available": false,
+      "acceptance_claim_allowed": false,
+      "hash_verified_locally_before_withholding": true
+    }
+  ],
+  "original_base_evidence_modified": [],
+  "all_retained_public_content_checks_passed": true,
+  "full_specialist_acceptance_claimed": false,
+  "pre_publication_audit": {
+    "path": "evidence/batch4_content_audit_pre_publication_20261013.json",
+    "sha256": "cc448f787267cf0160cbbe6bfb3bf2fa0b8e7653a166791ce46670d8bad320bb",
+    "scope": "LOCAL_BEFORE_PUBLISHER_SECRET_BODY_WITHHOLDING_NOT_CURRENT_PUBLIC_AVAILABILITY"
+  }
+}

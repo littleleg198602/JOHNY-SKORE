@@ -84,12 +84,13 @@ class NhtsaRecallTests(unittest.TestCase):
             store = ScoutStore(Path(directory) / "test.db")
             fail = NhtsaRecallScoutService(store, client=FakeRecalls(fail=True), models=[MODEL])
             self.assertEqual(("PARTIAL", 1), (fail.run(as_of=NOW)["status"],
-                                               fail.run(as_of=NOW)["failed_models"]))
+                                               fail.run(as_of=NOW + timedelta(days=1))["failed_models"]))
             mismatch = FakeRecalls([{"Make": "TESLA", "Model": "MODEL 3", "ModelYear": "2026",
                                      "Manufacturer": "Another Company", "NHTSACampaignNumber": "26V123000",
                                      "ReportReceivedDate": "09/01/2026"}])
             self.assertEqual(0, NhtsaRecallScoutService(store, client=mismatch,
-                                models=[MODEL]).run(as_of=NOW)["new_findings"])
+                                models=[MODEL]).run(as_of=NOW + timedelta(days=2))["new_findings"])
+            self.assertEqual(1, len(mismatch.calls))
 
     def test_manifest_and_host_policy(self):
         with TemporaryDirectory() as directory:

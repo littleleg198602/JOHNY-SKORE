@@ -1,0 +1,22 @@
+{
+  "acquisition_mode": "ARCHIVE_REPLAY",
+  "http_attempts": 0,
+  "import_manifest": "evidence/batch5_contracts_20261014/capture-probe-import.json",
+  "import_manifest_sha256": "0fc9b80c79d9e59646b004e107456beb778a6290ede74ca671625bb4d60a8d5c",
+  "import_recorded_at": "2026-10-14T00:06:23.333743+00:00",
+  "new_live_capture": false,
+  "normalizations": [
+    "Legacy schema_version1 annotated with canonical capture schema",
+    "complete_response derived from recorded successful status and exact recorded source Content-Length",
+    "Local replay wrapper explicitly labelled ARCHIVE_REPLAY; original LIVE metadata and bytes preserved"
+  ],
+  "original_body_path": "evidence/batch3_contracts_probe_20261012.response",
+  "original_body_sha256": "2e74f5f6960faf192b7f1c7256c9b174453bf4ab63d85e935b2ff3debed75447",
+  "original_metadata_path": "evidence/batch3_contracts_probe_20261012.json",
+  "original_metadata_sha256": "cd7a244ad89536906ad222d7d968e2a0e785ebeaf37dee9fcc186f29006c72cf",
+  "schema_version": 1,
+  "source_bytes_changed": false,
+  "source_clocks_changed": false,
+  "source_request_started_at": "2026-10-12T14:42:07.123521+00:00",
+  "source_response_completed_at": "2026-10-12T14:42:14.095355+00:00"
+}

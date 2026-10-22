@@ -1,0 +1,22 @@
+{
+  "capture_id": "nhtsa_gm_25v815_part573",
+  "requested_url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25V815-5190.pdf",
+  "started_at": "2026-10-12T14:46:36.764262+00:00",
+  "method": "GET",
+  "timeout_seconds": 20,
+  "max_response_bytes": 4000000,
+  "http_status": 200,
+  "final_url": "https://static.nhtsa.gov/odi/rcl/2025/RCLRPT-25V815-5190.pdf",
+  "response_headers": {
+    "Date": "Mon, 12 Oct 2026 14:46:42 GMT",
+    "Content-Type": "application/pdf",
+    "Content-Length": "383273",
+    "ETag": "\"627ffe7037ffb93fc978a22218b39e2f\"",
+    "Last-Modified": "Wed, 14 Jan 2026 15:30:54 GMT"
+  },
+  "outcome": "CAPTURED",
+  "observed_at": "2026-10-12T14:46:42.174192+00:00",
+  "archive_path": "evidence/batch3_regulatory_20261012/raw/nhtsa_gm_25v815_part573.pdf",
+  "archive_sha256": "b043dc7227deaa11013692b5a4b44d900e268f8963880de0bb813ea4df4dabd1",
+  "archive_bytes": 383273
+}

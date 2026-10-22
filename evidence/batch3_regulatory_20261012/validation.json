@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-12T15:12:30.973240+00:00",
+  "baseline_commit": "a7aa1fec2d1241ca5a8c2c87ae62e42b9dd510e5",
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "tests.test_batch3_regulatory_nhtsa_evidence",
+    "tests.test_nhtsa_recall_scout_service",
+    "-v"
+  ],
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "python_version": "3.12.14",
+  "tests_run": 11,
+  "new_archive_backed_tests": 7,
+  "existing_service_fixture_tests": 4,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "exit_code": 0,
+  "source": "actual terminal test result captured in this session; individual execution clocks were not instrumented",
+  "reported_test_duration_seconds": 0.502,
+  "validation_kind": "offline primary archive integrity/schema/evidence chain/replay plus existing synthetic unit fixtures",
+  "claim_limits": [
+    "Not a new live service run.",
+    "Not a complete-negative live acceptance.",
+    "Not user Windows end-to-end execution.",
+    "Not historical backtesting or scoring activation."
+  ],
+  "replay_report_path": "evidence/batch3_regulatory_20261012/replay.json"
+}

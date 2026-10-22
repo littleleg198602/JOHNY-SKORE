@@ -1,0 +1,81 @@
+{
+  "scope": "ACTUAL_PHYSICAL_NATIVE_LINUX_OR_HOSTED_REFUSAL_ONLY",
+  "started_at": "2026-10-19T00:41:45.120361+00:00",
+  "ended_at": "2026-10-19T00:41:45.244233+00:00",
+  "producer": {
+    "bytes": 37862,
+    "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+  },
+  "frozen_producer": {
+    "bytes": 37862,
+    "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+  },
+  "script": {
+    "bytes": 4847,
+    "sha256": "e7e230e22a1f2c84c8f6aa31e9568c29e7b8c01d9213e0884bb57f3201c65420"
+  },
+  "receipt": {
+    "bytes": 48517,
+    "sha256": "ee90438b2bba1ca84c0106db6ed90666823f15abab95e31b7d582b0f4f991919"
+  },
+  "status": "UNSUPPORTED_PLATFORM",
+  "actual_runtime": {
+    "os_system": "Linux",
+    "os_release": "6.18.55",
+    "os_version": "#1 SMP Wed Oct 14 19:45:18 UTC 2026",
+    "machine": "x86_64",
+    "os_name": "posix",
+    "sys_platform": "linux",
+    "python_implementation": "CPython",
+    "python_version": "3.12.14",
+    "hosted_ci_indicators": {
+      "CI": false,
+      "GITHUB_ACTIONS": false,
+      "GITLAB_CI": false,
+      "TF_BUILD": false,
+      "CIRCLECI": false,
+      "BUILDKITE": false
+    },
+    "ci_detected": false
+  },
+  "actual_completion_clocks": {
+    "started": {
+      "observed_at": "2026-10-19T00:41:45.132447+00:00",
+      "monotonic_ns": 762472961142
+    },
+    "capture_completed": {
+      "observed_at": "2026-10-19T00:41:45.193851+00:00",
+      "monotonic_ns": 762534365870
+    },
+    "integrity_verified": true,
+    "latest_observed": {
+      "observed_at": "2026-10-19T00:41:45.193851+00:00",
+      "monotonic_ns": 762534365870
+    },
+    "elapsed_ns": 61404728
+  },
+  "API_clock_or_runtime_injection": false,
+  "pipeline_invoked": false,
+  "guarded_entrypoint_calls": {
+    "provider": 0,
+    "SQL_read": 0,
+    "store_init": 0,
+    "network": 0
+  },
+  "selected_DB_or_market_input_inspection": false,
+  "original_retained_DB_referenced_read_opened_copied_or_changed": false,
+  "source_HTTP_requests": 0,
+  "actual_native_pipeline_executions": 0,
+  "new_genuine_forecasts": 0,
+  "new_registrations": 0,
+  "new_labels": 0,
+  "native_windows_selected_analysis_verified": false,
+  "user_windows_end_to_end_verified": false,
+  "full_specialist_acceptance": false,
+  "limits": [
+    "This actual platform cannot provide the requested native user-Windows run",
+    "Selected market/DB facts remain unobserved; no absence or coverage is inferred",
+    "A loaded receipt verifies content integrity only, never runtime execution",
+    "Candidate physical source pins are exact; the new producer is not yet in the observed baseline Git tree"
+  ]
+}

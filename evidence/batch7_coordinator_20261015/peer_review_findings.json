@@ -1,0 +1,49 @@
+{
+  "recorded_at": "2026-10-15T07:32:55.023791+00:00",
+  "mode": "READ_ONLY_CROSS_AGENT_REVIEW",
+  "peer_edits": false,
+  "peer_http_requests": 0,
+  "peer_database_or_forecast_creation": false,
+  "findings": [
+    {
+      "reviewer": "healthcare",
+      "owner": "sec",
+      "component": "SEC person index",
+      "triggers": [
+        "Mismatched accession basename accepted in correct folder",
+        "Future2099 filing date accepted against2026 original observations"
+      ],
+      "fix_commit": "8598588d2210ec0ce907076b92c49fed10b69867",
+      "preserved_reproduction": "evidence/batch7_sec_person_index_fix_20261015/prior_failed_invariants.json"
+    },
+    {
+      "reviewer": "contracts",
+      "owner": "evaluation",
+      "component": "Forecast registration adapter",
+      "triggers": [
+        "Physical clock rollback after manifest read allowed late first registration",
+        "Malformed Yahoo source clock escaped per-row handler and replaced actual persisted subset count"
+      ],
+      "fix_commit": "3edf8a480d2eea690b595fe4a2dccb2cc7913127",
+      "current_qualification": "evidence/batch7_evaluation_20261015/qualification_v1/handoff.json"
+    },
+    {
+      "reviewer": "evaluation",
+      "owner": "identity_bulk",
+      "component": "Source manifest preparation",
+      "triggers": [
+        "Physical prepare/publish/revalidation clock rollback could activate and report publication before preparation"
+      ],
+      "status": "OWNER_FIX_IN_PROGRESS_AT_THIS_RECORDING"
+    }
+  ],
+  "additional_invariants_reviewed": [
+    "Exact source-account CIK and spelling are bound to original Form3 header/XML",
+    "Unavailable person primary returns PARTIAL before parsing",
+    "110-byte SEC original version gap stays explicit",
+    "Registration replay preserves original source pins and clocks",
+    "Label sidecar binds exact snapshot/ticker/benchmark/target/horizon/session set",
+    "Manifest uses exact raw pins, explicit source scope, compare-and-swap and separate active/version inodes"
+  ],
+  "full_specialist_acceptance": false
+}

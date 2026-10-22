@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch9_windows_timeout_fix_20261018/qualify_workflow.py", line 187, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch9_windows_timeout_fix_20261018/qualify_workflow.py", line 84, in main
+    upload=next(step for step in windows['steps'] if step['name']=='Preserve Windows verification log')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch9_windows_timeout_fix_20261018/qualify_workflow.py", line 84, in <genexpr>
+    upload=next(step for step in windows['steps'] if step['name']=='Preserve Windows verification log')
+                                                     ~~~~^^^^^^^^
+KeyError: 'name'

@@ -1,0 +1,231 @@
+{
+  "schema_version": "batch11_independent_windows_analysis_peer_v1",
+  "recorded_at": "2026-10-19T00:46:19.332040+00:00",
+  "exact_owner_base_commit": "d452440dea035f5fb1d3f1d12ac2d0603f356f73",
+  "branch": "batch11/windows-analysis-peer-20261019",
+  "peer_test": {
+    "path": "tests/test_batch11_windows_analysis_peer.py",
+    "sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d",
+    "bytes": 8465
+  },
+  "current_owner_producer": {
+    "path": "market_checker_app/services/user_windows_analysis_capture.py",
+    "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43",
+    "bytes": 37862
+  },
+  "before_owner_producer": {
+    "path": "evidence/batch11_windows_analysis_peer_20261019/before_producer.py.txt",
+    "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880",
+    "bytes": 35117
+  },
+  "frozen_fixture_helper": {
+    "path": "evidence/batch11_windows_analysis_peer_20261019/before_owner_tests.py.txt",
+    "sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66",
+    "bytes": 31799
+  },
+  "before": {
+    "started_at": "2026-10-19T00:37:07.185612+00:00",
+    "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015",
+    "producer_sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880",
+    "peer_test_sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d",
+    "discovered": 10,
+    "synthetic_injected_pipeline_only": true,
+    "genuine_native_Windows_execution": false,
+    "original_retained_DB_opened": false,
+    "new_HTTP_source_collector_quota_registry_actions": 0,
+    "full_specialist_acceptance": false,
+    "full_suite_rerun": false,
+    "completed_at": "2026-10-19T00:37:28.923055+00:00",
+    "elapsed_seconds": 21.737436113,
+    "executed": 10,
+    "failures": 4,
+    "errors": 0,
+    "skips": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": false,
+    "plain_OK": false,
+    "failed_methods": [
+      "test_boolean_returned_run_id_cannot_alias_actual_integer_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_boolean_returned_run_id_cannot_alias_actual_integer_store_id)",
+      "test_float_returned_run_id_cannot_alias_actual_integer_store_id (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_float_returned_run_id_cannot_alias_actual_integer_store_id)",
+      "test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) (column='run_id')",
+      "test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored (batch11_independent_windows_analysis_peer.WindowsAnalysisPeerTests.test_returned_signal_run_and_row_identity_claims_cannot_be_silently_ignored) (column='id')"
+    ],
+    "error_methods": [],
+    "log_sha256": "8c095ce523f60e95f9e33f3eada41976c8137821c3716169c338c602ffee0b45"
+  },
+  "after": {
+    "started_at": "2026-10-19T00:45:22.284724+00:00",
+    "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015",
+    "producer_sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43",
+    "peer_test_sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d",
+    "frozen_fixture_helper_sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66",
+    "discovered": 10,
+    "synthetic_injected_pipeline_only": true,
+    "genuine_native_Windows_execution": false,
+    "original_retained_DB_opened": false,
+    "new_HTTP_source_collector_quota_registry_actions": 0,
+    "full_specialist_acceptance": false,
+    "full_suite_rerun": false,
+    "completed_at": "2026-10-19T00:45:43.735695+00:00",
+    "elapsed_seconds": 21.45096313600004,
+    "executed": 10,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "plain_OK": true,
+    "failed_methods": [],
+    "error_methods": [],
+    "log_sha256": "5fca994849743d346649c95460a88986d88f74575b24e19273c75d79972246c3"
+  },
+  "reproduced_gap": {
+    "before_failure_entries": 4,
+    "before_failed_methods": 3,
+    "returned_run_id_cases": [
+      "True equals actual integer1",
+      "float1.0 equals actual integer1"
+    ],
+    "returned_signal_claim_cases": [
+      "run_id987654 ignored",
+      "row id987654 ignored"
+    ],
+    "effect": "Missing result/persisted-identifier binding rejection while true temporary saved rows were observed separately.",
+    "not_observed": "No genuine native Windows qualification or full21 promotion was executed."
+  },
+  "valid_and_failure_controls": [
+    "Real temporary provider/SQLiteStore save with exact persisted ID/value binding",
+    "Wrong integer returned ID preserves actual committed rows",
+    "Post-save callback failure preserves true saved subset",
+    "Post-fsync extra database run is not a store-confirmed commit",
+    "Post-fsync source drift stays unqualified",
+    "Post-fsync physical rollback keeps clock integrity false",
+    "Resealed JSON is never runtime re-execution proof"
+  ],
+  "scope": {
+    "only_peer_test_and_new_evidence_files_changed": true,
+    "existing_owner_tests_modified": false,
+    "original_retained_DB_opened_or_modified": false,
+    "temporary_fixture_DB_used": true,
+    "canonical_temp_roots": true,
+    "real_pipeline_model_or_forecast_executed": false,
+    "genuine_native_Windows_execution": false,
+    "new_HTTP_source_collector_quota_registry_actions": 0,
+    "score_model_budget_trading_or_remote_writes": 0,
+    "full_specialist_acceptance": false
+  },
+  "protected_inputs": [
+    {
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+      "bytes": 14656,
+      "byte_identical_to_owner_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+      "bytes": 87325,
+      "byte_identical_to_owner_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e",
+      "bytes": 912,
+      "byte_identical_to_owner_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_counterparty_identities.json",
+      "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e",
+      "bytes": 26803,
+      "byte_identical_to_owner_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_fdic_banks.json",
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+      "bytes": 20034,
+      "byte_identical_to_owner_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_usaspending_uei.json",
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56",
+      "bytes": 1159,
+      "byte_identical_to_owner_base": true
+    },
+    {
+      "path": "market_checker_app/data/european_authority_registry.json",
+      "sha256": "7c779c2b316f059c1d88cba0a1f95de014036751ba074012d1b9f21ab91f1c6e",
+      "bytes": 2282,
+      "byte_identical_to_owner_base": true
+    },
+    {
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+      "bytes": 5846,
+      "byte_identical_to_owner_base": true
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/README.md",
+      "sha256": "33817eb0b21cd21810658d105faa8a15271d4d648765855c505ac1b7adc7cb04",
+      "bytes": 2147
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/after.json",
+      "sha256": "898c410b513a7a6db681008754c545dba919d19aafac5f89e92d8116ebde9765",
+      "bytes": 1084
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/after.log",
+      "sha256": "5fca994849743d346649c95460a88986d88f74575b24e19273c75d79972246c3",
+      "bytes": 2268
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/before.json",
+      "sha256": "7c960fadf935a6b17998fba49229314abdc509b55961b796fba847022987e755",
+      "bytes": 1881
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/before.log",
+      "sha256": "8c095ce523f60e95f9e33f3eada41976c8137821c3716169c338c602ffee0b45",
+      "bytes": 6769
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/before_owner_tests.py.txt",
+      "sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66",
+      "bytes": 31799
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/before_peer_tests.py.txt",
+      "sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d",
+      "bytes": 8465
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/before_producer.py.txt",
+      "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880",
+      "bytes": 35117
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/before_runner.py.txt",
+      "sha256": "42acf879c4e1beb9ff47b4496e1ca3bff003dc453f6a6ea9318c5e0dca8cfb4e",
+      "bytes": 2954
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/before_snapshot.json",
+      "sha256": "f074bae07d636c6c4096137c151afdd3d8d04d845e877bb5c902a480e59f1bd7",
+      "bytes": 433
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/finalize_handoff.py",
+      "sha256": "fea50ee44e382da4dd81e473fc3d5bea303ba8afeeb289986a29525bc2fe5dcd",
+      "bytes": 6210
+    },
+    {
+      "path": "evidence/batch11_windows_analysis_peer_20261019/run_peer.py",
+      "sha256": "7d656344118776d41d25140382909000c062cf91be7f09257ed02317a8239fd3",
+      "bytes": 3896
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "actual_result": {
+    "acquisition_day_overlap": true,
+    "review_available_at": "2026-10-20T20:16:09.338288+00:00",
+    "review_ingested_at": "2026-10-20T20:16:09.327405+00:00",
+    "same_transaction_supported": false,
+    "source_account_corroborated": true,
+    "source_issuer_cik_corroborated": true,
+    "status": "PARTIAL"
+  },
+  "actual_source_capture": {
+    "bytes": 4770,
+    "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.txt",
+    "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e"
+  },
+  "all_owned_artifact_pins": [
+    {
+      "bytes": 3487,
+      "path": "evidence/sourcefront_sec_20261020/README.md",
+      "sha256": "8ecd2512d351d317b825e7eb9efa1d3a4de45a7428bc156e7fff0f3fade8acc6"
+    },
+    {
+      "bytes": 22929,
+      "path": "evidence/sourcefront_sec_20261020/before/sec_form4_person_bridge.py",
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    {
+      "bytes": 47793,
+      "path": "evidence/sourcefront_sec_20261020/before/sec_form4_person_bridge_v1.py",
+      "sha256": "7d8a1aadeb196455ee76bc74eee3c4597b706a182b632623a8f01bf9f03f213a"
+    },
+    {
+      "bytes": 20550,
+      "path": "evidence/sourcefront_sec_20261020/before/test_sourcefront_form144_account_notice_v1.py",
+      "sha256": "6a7c16c1598f78dbbbbd565f9e92e6519cf9120dfa1ed80e08af2093fc033659"
+    },
+    {
+      "bytes": 20546,
+      "path": "evidence/sourcefront_sec_20261020/before/test_sourcefront_form144_account_notice_v2.py",
+      "sha256": "c39863b7ebd236b1d619b7ef4d6184210bff1984ae454d2872a84bea5af3726c"
+    },
+    {
+      "bytes": 7992,
+      "path": "evidence/sourcefront_sec_20261020/build_review.py",
+      "sha256": "8b0182ab86716118e94ea18a383c7a993c5619e0edff35715a918af6bb8eb100"
+    },
+    {
+      "bytes": 2139,
+      "path": "evidence/sourcefront_sec_20261020/captured_review_plan.json",
+      "sha256": "877a43876ba4a9e9e8d89036aa2afdec936d4650d5580c010428bc03eead490b"
+    },
+    {
+      "bytes": 2266,
+      "path": "evidence/sourcefront_sec_20261020/focused_v1.json",
+      "sha256": "79b8485f688b67f01249aa6c78161c95c16685a634b959808905407f1ea46b8a"
+    },
+    {
+      "bytes": 8994,
+      "path": "evidence/sourcefront_sec_20261020/focused_v1.log",
+      "sha256": "878d98515c76f1cae5480be5fe7f00dfcdf6f1dd6af9584a0e9764046c50cc12"
+    },
+    {
+      "bytes": 2265,
+      "path": "evidence/sourcefront_sec_20261020/focused_v2.json",
+      "sha256": "31c3d20ce0d2356cf97745e9008c00ab9e2875f86a0df23bcdfd1aab0499e302"
+    },
+    {
+      "bytes": 7941,
+      "path": "evidence/sourcefront_sec_20261020/focused_v2.log",
+      "sha256": "8f776f126d27a683cbb29969c3acfbe4f7dfd7abc881f8c56c8c02abad7a10b7"
+    },
+    {
+      "bytes": 2265,
+      "path": "evidence/sourcefront_sec_20261020/focused_v3.json",
+      "sha256": "5f36f51d0592a115fc7c415adbb2370b29def89b5e4ae4bfeaf3c250d9de97fd"
+    },
+    {
+      "bytes": 7941,
+      "path": "evidence/sourcefront_sec_20261020/focused_v3.log",
+      "sha256": "c7d89b455dc1a54b0a05ba855dda9829a7fb11573a56e87a7b0024a2b3065e35"
+    },
+    {
+      "bytes": 9717,
+      "path": "evidence/sourcefront_sec_20261020/form144_account_notice_review_v1.json",
+      "sha256": "ef05e57e74bced8100dcac158d5a311cdc8d791e98d6ac7d485e801c71e2bf50"
+    },
+    {
+      "bytes": 9717,
+      "path": "evidence/sourcefront_sec_20261020/form144_account_notice_review_v2.json",
+      "sha256": "40017630e83f16c893445f1c9fdc4fdf81eaaf1e55df369114d0d60f7120f712"
+    },
+    {
+      "bytes": 407,
+      "path": "evidence/sourcefront_sec_20261020/old_api_source_delta.json",
+      "sha256": "f19ef09b4740291ff38164266960e3a6753bd6855f6c65c75704f543f5c0eb78"
+    },
+    {
+      "bytes": 2456,
+      "path": "evidence/sourcefront_sec_20261020/run_focused.py",
+      "sha256": "6120938b20900a555861acf9921b56fa5f84d31773d62e0f51df0b795f2918f0"
+    },
+    {
+      "bytes": 6670,
+      "path": "evidence/sourcefront_sec_20261020/source_discovery.json",
+      "sha256": "825b0488c4cfb2a4ed9895b6a38bc460a78ec7348d26c8d09898ca99328f5b08"
+    }
+  ],
+  "api": {
+    "capture_purposes": [
+      "FORM144_NOTICE_PACKET",
+      "DATED_OWNERSHIP_PACKET"
+    ],
+    "capture_type": "SECPersonCapture",
+    "function": "review_form144_account_notice",
+    "keywords": [
+      "notice_capture",
+      "account_packet_capture",
+      "selection",
+      "knowledge_at"
+    ],
+    "module": "market_checker_app.services.sec_form4_person_bridge",
+    "plan": {
+      "bytes": 2139,
+      "path": "evidence/sourcefront_sec_20261020/captured_review_plan.json",
+      "sha256": "877a43876ba4a9e9e8d89036aa2afdec936d4650d5580c010428bc03eead490b"
+    },
+    "root_kind": "SEC_FORM144_ACCOUNT_NOTICE"
+  },
+  "baseline_commit": "f2aa76e",
+  "coordinator_new_primary_http_requests": 1,
+  "counts": {
+    "discovered": 35,
+    "duration_seconds": 0.15564571000004435,
+    "errors": 0,
+    "executed": 35,
+    "expected_failures": 0,
+    "failures": 0,
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "created_at": "2026-10-20T20:17:15.078495+00:00",
+  "current_actual_report": {
+    "bytes": 9717,
+    "path": "evidence/sourcefront_sec_20261020/form144_account_notice_review_v2.json",
+    "sha256": "40017630e83f16c893445f1c9fdc4fdf81eaaf1e55df369114d0d60f7120f712"
+  },
+  "current_producer": {
+    "bytes": 47825,
+    "path": "market_checker_app/services/sec_form4_person_bridge.py",
+    "sha256": "6e315f4b4c967b6f4c51486b33b855c4c48519f3b595c931b0b0f4a09e3584a0"
+  },
+  "current_producer_qualification": {
+    "bytes": 2265,
+    "path": "evidence/sourcefront_sec_20261020/focused_v3.json",
+    "sha256": "5f36f51d0592a115fc7c415adbb2370b29def89b5e4ae4bfeaf3c250d9de97fd"
+  },
+  "current_test": {
+    "bytes": 20611,
+    "path": "tests/test_sourcefront_form144_account_notice.py",
+    "sha256": "8a3cb2da5599e0b748f01b12c771fd33b805f8e351a7f754b69cdc45c36b278a"
+  },
+  "exact_comparison": {
+    "acquired_day": "2026-08-31",
+    "form4_quantities_raw": [
+      "178622",
+      "70465.844"
+    ],
+    "form4_titles_raw": [
+      "Common Stock",
+      "Common Stock"
+    ],
+    "notice_acquired_quantity_raw": "86525",
+    "notice_title_raw": "Common"
+  },
+  "failed_first_qualification": {
+    "reason": "One explicit synthetic trigger asserted because retained seller leaf includes linebreaks; corrected literal trigger hits original leaf; no functional assertion or producer relaxation",
+    "report": {
+      "bytes": 2266,
+      "path": "evidence/sourcefront_sec_20261020/focused_v1.json",
+      "sha256": "79b8485f688b67f01249aa6c78161c95c16685a634b959808905407f1ea46b8a"
+    },
+    "test": {
+      "bytes": 20550,
+      "path": "evidence/sourcefront_sec_20261020/before/test_sourcefront_form144_account_notice_v1.py",
+      "sha256": "6a7c16c1598f78dbbbbd565f9e92e6519cf9120dfa1ed80e08af2093fc033659"
+    }
+  },
+  "full_acceptance": "0/21",
+  "limits": [
+    "Original reporting account and issuer CIK corroboration only; no independently approved natural-person/account binding",
+    "Seller name order, issuer full-name variant, role labels and signature remain separate as-filed literals, never adopted aliases",
+    "Acquisition day overlap plus different quantity/title does not prove same transaction, execution or class/CUSIP validity",
+    "Notice proposed-sale date and LIVE test flag are not execution or application collector acceptance",
+    "Unqualified acceptance clocks retain UNKNOWN timezone; physical capture/interpretation cannot backdate knowledge",
+    "No continuous legal role, account continuity, historical/OOS/native Windows or all21 acceptance evidence",
+    "Four older whole withheld bodies remain absent; no private source body inspected/recovered/cleaned/encoded/substituted"
+  ],
+  "new_independent_disclosures": 1,
+  "original_report_v1_producer": {
+    "bytes": 47793,
+    "path": "evidence/sourcefront_sec_20261020/before/sec_form4_person_bridge_v1.py",
+    "sha256": "7d8a1aadeb196455ee76bc74eee3c4597b706a182b632623a8f01bf9f03f213a"
+  },
+  "original_report_v1_qualification": {
+    "bytes": 2265,
+    "path": "evidence/sourcefront_sec_20261020/focused_v2.json",
+    "sha256": "31c3d20ce0d2356cf97745e9008c00ab9e2875f86a0df23bcdfd1aab0499e302"
+  },
+  "owned_production_paths": [
+    "market_checker_app/services/sec_form4_person_bridge.py"
+  ],
+  "owned_test_paths": [
+    "tests/test_sourcefront_form144_account_notice.py"
+  ],
+  "registry_model_score_budget_687_or_trading_changed": false,
+  "request_evidence": [
+    {
+      "bytes": 1919,
+      "path": "evidence/sourcefront_20261020/request_plan.json",
+      "sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0"
+    },
+    {
+      "bytes": 590,
+      "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.reserved.json",
+      "sha256": "973edea40c6684c2bcbb76c5a5e4cd7a6486759b9c001b74aafb2453641d13e8"
+    },
+    {
+      "bytes": 1255,
+      "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.metadata.json",
+      "sha256": "26539e1b09d7a06874b876cb61da127a0ae9818956b392047236cc847c1bded7"
+    }
+  ],
+  "research_capture_is_application_quota_managed_live": false,
+  "retained_form4_capture": {
+    "bytes": 9665,
+    "path": "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt",
+    "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+  },
+  "schema_version": "sourcefront_sec_form144_handoff_v1",
+  "worker_http_requests": 0,
+  "worker_sql_connections": 0
+}

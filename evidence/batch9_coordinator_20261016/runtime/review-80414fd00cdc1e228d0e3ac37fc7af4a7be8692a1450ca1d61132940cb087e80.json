@@ -1,0 +1,104 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "FDA_APPLICATION_PRODUCT",
+  "plan_sha256": "d23681d5c4deecfcec4a4f65161e136b36c4c97a9f8dbfb14482baecc0a24b32",
+  "recorded_at": "2026-10-17T21:30:33.375448+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-17T21:30:33.322696+00:00",
+  "review": {
+    "applicant_product_candidate": null,
+    "application_facts": {
+      "application_number": "761081",
+      "application_type": "BLA",
+      "original_approval_date_as_displayed": null,
+      "source_label": "Company",
+      "source_party_name": "PFIZER INC",
+      "source_party_role": "COMPANY_AS_DISPLAYED"
+    },
+    "approval_date_is_ownership_since": false,
+    "company_label_is_applicant": false,
+    "corporate_parent_verified": false,
+    "current_q3_verified_coverage": 0,
+    "data_status": "ORIGINAL_STATIC_OBJECT_FACTS",
+    "exact_named_issuer_bridge_supported": true,
+    "gaps": [
+      "COMPANY_LABEL_IS_NOT_EXPLICIT_APPLICANT_OR_SPONSOR",
+      "PRODUCT_NUMBER_AND_SEPARATE_FORM_ROUTE_NOT_PUBLISHED"
+    ],
+    "historical_machine_availability_inferred": false,
+    "ingested_at": "2026-10-17T21:30:33.343089+00:00",
+    "issuer_attribution_allowed": false,
+    "issuer_wide_scope": false,
+    "known_at": "2026-10-17T21:30:33.343089+00:00",
+    "legal_owner_verified": false,
+    "live_acceptance_verified": false,
+    "network_requests_performed": 0,
+    "new_verified_identities": 0,
+    "product_rows": [
+      {
+        "complete_product_number_form_route_identity": false,
+        "corporate_parent_verified": false,
+        "dosage_form": null,
+        "dosage_form_route_text": "INJECTABLE;INJECTION",
+        "ingredient_strength_pairs_inferred": false,
+        "legal_owner_verified": false,
+        "marketing_status": "Prescription",
+        "product_number": null,
+        "proper_name": "TRASTUZUMAB-QYYP",
+        "proprietary_name": "TRAZIMERA",
+        "route": null,
+        "row_index_is_FDA_product_number": false,
+        "source_locator": "table#exampleProd/tbody/tr:1",
+        "source_party_name": "PFIZER INC",
+        "source_party_role": "COMPANY_AS_DISPLAYED",
+        "source_row_index": 0,
+        "sponsor_role_proven": false,
+        "strength": "420MG"
+      }
+    ],
+    "quota_or_DB_modified": false,
+    "registry_adoptions": 0,
+    "reviewed_at": "2026-10-17T21:30:33.343089+00:00",
+    "schema_version": "fda-original-static-application-product-v1",
+    "score_changes": false,
+    "source_captures": {
+      "issuer": {
+        "body_bytes": 145851,
+        "body_sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+        "first_historical_availability_proven": false,
+        "known_at": "2026-10-16T12:18:23.142227+00:00",
+        "observed_at": "2026-10-16T12:18:23.142227+00:00",
+        "publisher_etag_raw": null,
+        "publisher_last_modified_raw": null,
+        "requested_at": "2026-10-16T12:18:18.345479+00:00",
+        "source_url": "https://data.sec.gov/submissions/CIK0000078003.json"
+      },
+      "page": {
+        "body_bytes": 34010,
+        "body_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+        "first_historical_availability_proven": false,
+        "known_at": "2026-10-16T12:18:47.144073+00:00",
+        "observed_at": "2026-10-16T12:18:47.144073+00:00",
+        "publisher_etag_raw": null,
+        "publisher_last_modified_raw": null,
+        "requested_at": "2026-10-16T12:18:43.627226+00:00",
+        "source_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081"
+      }
+    },
+    "source_kind": "DRUGSFDA_APPLICATION_PAGE",
+    "source_read_cutoff": "2026-10-17T21:30:33.322696+00:00",
+    "source_version": {
+      "body_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+      "capture_date_is_historical_publication": false,
+      "publisher_first_availability": null,
+      "publisher_unique_version_id": null
+    },
+    "sponsor_role_proven": false,
+    "status": "PARTIAL",
+    "trading_allowed": false
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

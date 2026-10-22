@@ -1,0 +1,202 @@
+{
+  "actual_new_primary_http_requests": 2,
+  "daily_quota_history_reset_or_reconstructed": false,
+  "discovery_pointer_only": {
+    "acceptance_datetime_raw": "2025-10-21T20:16:13.000Z",
+    "accession": "0001193125-25-245150",
+    "filing_day_raw": "2025-10-21",
+    "form": "DEF 14A",
+    "primary_document": "d908201ddef14a.htm",
+    "profile_clock_is_proxy_body_publication_clock": false,
+    "profile_clock_reconciled_to_unqualified_index_clock": false,
+    "profile_sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c"
+  },
+  "full_specialist_acceptance": false,
+  "historical_machine_availability_or_oos_proven": false,
+  "index_and_primary_are_same_disclosure": true,
+  "instrument_verified_rows": 0,
+  "issuer_attribution_allowed": false,
+  "limits": [
+    "One independently dated named-person bio only; no approved legal-person/account-CIK alias",
+    "Ages and director labels are quoted as served, never present age, birthday or an event validity interval",
+    "The index declares 110 fewer primary bytes; exact historical as-filed body version is not established",
+    "Index and body are one disclosure, not two independent confirmations",
+    "Actual capture knowledge is October 14, 2026; the dated filing is not historical machine availability",
+    "The source account remains exact Nadella Satya; the bio name Satya Nadella is not an approved name-order alias",
+    "One-off reserved primary research uses original retained lease/cadence without claiming an application LIVE daily-quota collector"
+  ],
+  "maximum_new_primary_requests": 4,
+  "new_person_disclosure_count": 1,
+  "original_http200_bodies": 2,
+  "person_cik_verified_rows": 0,
+  "production_registries_modified": false,
+  "quota_managed_application_live_claim": false,
+  "research_capture_receipts": [
+    {
+      "application_daily_quota_claim": false,
+      "content_type": "text/html",
+      "daily_history_reset_or_reconstructed": false,
+      "http_date": "Wed, 14 Oct 2026 23:26:39 GMT",
+      "http_status": 200,
+      "last_modified": "Tue, 21 Oct 2025 20:16:13 GMT",
+      "maximum_original_body_bytes": 4000000,
+      "observed_at": "2026-10-14T23:26:39.546292+00:00",
+      "original_retained_sec_lease_used": true,
+      "path": "primary/msft_2025_proxy_index.html",
+      "pre_request_cap_justification": null,
+      "redirects_or_retries_allowed": false,
+      "reserved_at": "2026-10-14T23:26:33.040431+00:00",
+      "retention": "ORIGINAL_BYTES",
+      "sequence": 1,
+      "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a",
+      "size_bytes": 33931,
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/0001193125-25-245150-index.html",
+      "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+    },
+    {
+      "application_daily_quota_claim": false,
+      "content_type": "text/html",
+      "daily_history_reset_or_reconstructed": false,
+      "http_date": "Wed, 14 Oct 2026 23:27:25 GMT",
+      "http_status": 200,
+      "last_modified": "Tue, 21 Oct 2025 20:16:54 GMT",
+      "maximum_original_body_bytes": 4000000,
+      "observed_at": "2026-10-14T23:27:25.325473+00:00",
+      "original_retained_sec_lease_used": true,
+      "path": "primary/msft_2025_proxy.htm",
+      "pre_request_cap_justification": null,
+      "redirects_or_retries_allowed": false,
+      "reserved_at": "2026-10-14T23:27:20.327804+00:00",
+      "retention": "ORIGINAL_BYTES",
+      "sequence": 2,
+      "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+      "size_bytes": 2430522,
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm",
+      "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+    }
+  ],
+  "result": "DATED_NAMED_PERSON_BIO_ACCOUNT_CIK_BRIDGE_WITHHELD",
+  "review": {
+    "account_name_exactly_matches_person_name": false,
+    "approved_alias": false,
+    "captures": [
+      {
+        "known_at": "2026-10-14T23:27:25.325473+00:00",
+        "observed_at": "2026-10-14T23:27:25.325473+00:00",
+        "record_id": "actual-msft-proxy-2025-2",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+        "size_bytes": 2430522,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm"
+      },
+      {
+        "known_at": "2026-10-14T23:26:39.546292+00:00",
+        "observed_at": "2026-10-14T23:26:39.546292+00:00",
+        "record_id": "actual-msft-proxy-2025-1",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a",
+        "size_bytes": 33931,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/0001193125-25-245150-index.html"
+      },
+      {
+        "known_at": "2026-10-14T13:32:31.072692+00:00",
+        "observed_at": "2026-10-14T13:32:31.072692+00:00",
+        "record_id": "actual-nadella-form3-account-2014",
+        "retention": "ORIGINAL_BYTES",
+        "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+        "size_bytes": 5836,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt"
+      }
+    ],
+    "dated_person_fact": {
+      "age_as_published": 58,
+      "age_quote": "Age: 58",
+      "birthplace_quote": "Birthplace: India",
+      "captured_publication_timestamp_verified": false,
+      "context_locator": "table:163",
+      "context_quote": "Satya Nadella Age: 58 | Director Since: 2014 | Birthplace: India",
+      "fact_kind": "NAMED_PERSON_BIO_WITH_EXPLICIT_AGE_AND_BIRTHPLACE",
+      "fact_scope": "AS_SERVED_DATED_DISCLOSURE_ANNOTATION_NOT_HISTORICAL_PERSON_VALIDITY",
+      "legal_person_identity_or_birthday_inferred": false,
+      "name_as_published": "Satya Nadella",
+      "primary_original_sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac",
+      "source_document_filing_day": "2025-10-21"
+    },
+    "historical_event_validity_proven": false,
+    "independent_disclosure_count": 1,
+    "instrument_identity_verified": false,
+    "knowledge_at": "2026-10-14T23:27:25.325473+00:00",
+    "limits": [
+      "An independently dated named age/birthplace bio supports a natural-person fact, not the account CIK's legal identity",
+      "Account-name order, POA/signature text and entityType cannot approve an alias or bind the CIK to this person",
+      "A disclosure-point fact does not create a validity interval for earlier or later events",
+      "Whole current original bytes and index metadata do not prove the exact historical as-filed byte version",
+      "Index and primary document are one disclosure; capture time is machine knowledge time"
+    ],
+    "natural_person_fact_supported": true,
+    "network_requests_performed": 0,
+    "person_identity_verified": false,
+    "quota_or_lease_modified": false,
+    "reasons": [
+      "ACCOUNT_CIK_TO_NAMED_PERSON_BRIDGE_UNPROVEN",
+      "NO_HISTORICAL_EVENT_VALIDITY_FROM_DISCLOSURE_POINT",
+      "INDEX_DECLARED_PRIMARY_SIZE_DIFFERS_FROM_SERVED_ORIGINAL"
+    ],
+    "registry_modified": false,
+    "requested_events": [
+      {
+        "account_person_identity_at_event_verified": false,
+        "event_day": "2014-02-04",
+        "matches_disclosure_point_day": false
+      },
+      {
+        "account_person_identity_at_event_verified": false,
+        "event_day": "2025-10-21",
+        "matches_disclosure_point_day": true
+      },
+      {
+        "account_person_identity_at_event_verified": false,
+        "event_day": "2026-09-01",
+        "matches_disclosure_point_day": false
+      }
+    ],
+    "review_version": "sec-dated-person-kind-review-v1",
+    "scoring_applied": false,
+    "source_account_descriptor": {
+      "issuer_as_filed": {
+        "cik": "0000789019",
+        "name": "MICROSOFT CORP"
+      },
+      "legal_person_identity_from_account_verified": false,
+      "owner_cik": "0001513142",
+      "owner_name": "Nadella Satya",
+      "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+      "source_clock_conflicts": [],
+      "source_report_day": "2014-02-04",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt",
+      "validated_against_original_account_packet": true
+    },
+    "source_account_to_person_cik_verified": false,
+    "source_document": {
+      "acceptance_datetime_unqualified_raw": "2025-10-21 16:16:13",
+      "acceptance_timezone_inferred": false,
+      "accession_key": "000119312525245150",
+      "captured_primary_bytes": 2430522,
+      "exact_as_filed_body_version_verified": false,
+      "filing_day": "2025-10-21",
+      "form": "DEF 14A",
+      "index_declared_primary_bytes": 2430412,
+      "issuer_cik": "0000789019",
+      "primary_filename": "d908201ddef14a.htm",
+      "publisher_size_conflict": true
+    },
+    "source_fact_available_at": "2026-10-14T23:27:25.325473+00:00",
+    "status": "PARTIAL",
+    "trading_allowed": false
+  },
+  "review_knowledge_at": "2026-10-14T23:27:25.325473+00:00",
+  "schema_version": 1,
+  "scoring_applied": false,
+  "source_rows_preserved": 8,
+  "windows_end_to_end_verified": false
+}

@@ -1,0 +1,9 @@
+test_default_normal_output_has_no_audit_io_or_added_summary_field (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_default_normal_output_has_no_audit_io_or_added_summary_field) ... ok
+test_missing_audit_configuration_is_reported_without_failing_normal_persistence (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_missing_audit_configuration_is_reported_without_failing_normal_persistence) ... ok
+test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_normal_save_precedes_registration_and_keeps_actual_model_output_immutable) ... ok
+test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes (tests.test_batch7_forecast_registration_adapter.Batch7NormalForecastPersistenceIntegrationTests.test_partial_native_persistence_preserves_the_completed_forecast_and_restart_completes) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.961s
+
+OK

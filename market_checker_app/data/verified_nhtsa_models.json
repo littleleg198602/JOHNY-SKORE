@@ -7,5 +7,23 @@
     "model_year": 2026,
     "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm",
     "known_at": "2026-09-30T20:27:48+00:00"
+  },
+  {
+    "ticker": "F",
+    "manufacturer": "Ford Motor Company",
+    "make": "FORD",
+    "model": "F-150",
+    "model_year": 2026,
+    "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/37996/000003799626000015/f-20251231.htm",
+    "known_at": "2026-10-12T15:08:33.934642+00:00"
+  },
+  {
+    "ticker": "GM",
+    "manufacturer": "General Motors, LLC",
+    "make": "CHEVROLET",
+    "model": "SILVERADO 1500",
+    "model_year": 2026,
+    "product_evidence_url": "https://www.sec.gov/Archives/edgar/data/1467858/000119312526344698/d145571d8k.htm",
+    "known_at": "2026-10-12T15:08:33.934642+00:00"
   }
 ]

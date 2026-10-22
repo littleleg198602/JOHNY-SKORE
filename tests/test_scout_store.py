@@ -15,6 +15,31 @@ from market_checker_app.utils.ticker_universe import load_canonical_ticker_recor
 
 
 class ScoutStoreTests(unittest.TestCase):
+    def test_awards_remain_visible_when_transaction_rows_fill_the_recent_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            store = ScoutStore(Path(directory) / "scout.db")
+            clock = datetime(2026, 10, 12, tzinfo=timezone.utc)
+            for index, stage in enumerate(("prime_contract", "award_transaction", "award_transaction", "award_transaction")):
+                observed = clock + timedelta(minutes=index)
+                store.record_finding(
+                    source="usaspending", subject_id="LMT", source_object_id=f"test-{index}",
+                    content_hash=f"test-content-{index}", title=f"test-{index}",
+                    source_url="https://api.usaspending.gov/api/v2/transactions/", locator="test",
+                    published_at=observed, available_at=observed, observed_at=observed,
+                    details={"stage": stage, "reported_transaction_obligation_usd": -300000,
+                             "publisher_publication_time_verified": False, "revenue_inferred": False},
+                )
+            later = clock + timedelta(hours=1)
+            awards = store.latest_findings(["LMT"], as_of=later, source="usaspending", limit=2,
+                                          stage="prime_contract")
+            self.assertEqual(["test-0"], [row["title"] for row in awards])
+            transactions = store.latest_findings(["LMT"], as_of=later, source="usaspending", limit=2,
+                                                 stage="award_transaction")
+            self.assertEqual(2, len(transactions))
+            self.assertTrue(all(row["reported_transaction_obligation_usd"] == -300000 for row in transactions))
+            self.assertTrue(all(row["publisher_publication_time_verified"] is False for row in transactions))
+            self.assertTrue(all(row["revenue_inferred"] is False for row in transactions))
+
     def test_daily_specialist_budgets_cover_687_before_refresh(self) -> None:
         tickers = [row["ticker"] for row in load_canonical_ticker_records()]
         self.assertEqual(687, len(tickers))
@@ -97,6 +122,34 @@ class ScoutStoreTests(unittest.TestCase):
             rows = ScoutStore(path).latest_source_runs()
             self.assertEqual("WAIT_ACCESS", rows["sec"]["status"])
             self.assertNotIn("fred", rows)
+            self.assertEqual("SAVED", rows["sec"]["source_archive_status"])
+            from market_checker_app.services.specialist_incremental_archive_service import (
+                load_specialist_source_run_archive,
+            )
+            archive = load_specialist_source_run_archive(
+                path.parent / "specialist_source_runs" / "sec" / rows["sec"]["source_archive_filename"])
+            self.assertEqual(rows["sec"]["observed_at"], archive["observed_at"])
+            self.assertEqual("NOT_PERFORMED_REPORTED", archive["attempt_semantics"]["state"])
+            self.assertIsNone(archive["provider_as_of"])
+            self.assertLessEqual(archive["started_at"], archive["observed_at"])
+
+    def test_archive_failure_keeps_completed_provider_and_sanitized_receipt(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "scout.db"
+            with ExitStack() as stack:
+                stack.enter_context(patch.dict("os.environ", {
+                    "JOHNY_SKORE_FRED_API_KEY": "dummy", "JOHNY_SKORE_SEC_USER_AGENT": ""}))
+                stack.enter_context(patch("market_checker_app.scout_runner.FredScoutService.run",
+                                          side_effect=KeyboardInterrupt))
+                stack.enter_context(patch("market_checker_app.scout_runner.capture_specialist_source_run",
+                                          side_effect=OSError("synthetic-secret must not enter diagnostics")))
+                with self.assertRaises(KeyboardInterrupt):
+                    run_scout(db_path=path, limit=0)
+            saved = ScoutStore(path).latest_source_runs()["sec"]
+            self.assertEqual("WAIT_ACCESS", saved["status"])
+            self.assertEqual("ERROR", saved["source_archive_status"])
+            self.assertEqual("OSError", saved["source_archive_error"])
+            self.assertNotIn("synthetic-secret", str(saved))
 
     def test_source_run_status_survives_restart_and_latest_wins(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -127,6 +180,7 @@ class ScoutStoreTests(unittest.TestCase):
                     "FdaRecallScoutService", "FdicBankScoutService", "NhtsaRecallScoutService",
                     "HealthcareNameScoutService",
                     "OfacSdnScoutService",
+                    "OfacConsolidatedScoutService", "EpaEchoScoutService",
                     "DojPressReleaseScoutService",
                 ):
                     stack.enter_context(patch(f"market_checker_app.scout_runner.{service}.run",

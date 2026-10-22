@@ -1,0 +1,21 @@
+{
+  "command": [
+    "tesseract",
+    "<exact retained original image>",
+    "stdout",
+    "--psm",
+    "11",
+    "tsv"
+  ],
+  "exit_code": 0,
+  "image_transformed": false,
+  "network_requests_performed": 0,
+  "observed_at": "2026-10-18T04:27:37.684344+00:00",
+  "ocr_is_not_a_primary_source": true,
+  "schema_version": "offline_original_image_ocr_execution_v1",
+  "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45",
+  "started_at": "2026-10-18T04:27:36.349204+00:00",
+  "stderr_sha256": "0199cdfba70c94531fad70da87cfda0213b5dcc17e012333b645b25ed83f88dd",
+  "stdout_sha256": "d334ad79ce5155d27f8c4b5134c58a38e1949762fb568e889c24e3d45ac99fdd",
+  "tool_version": "tesseract 5.3.4"
+}

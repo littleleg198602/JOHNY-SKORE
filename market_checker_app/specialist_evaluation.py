@@ -20,6 +20,8 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--db-path", type=Path, default=DEFAULT_DB_PATH)
     parser.add_argument("--output-path", type=Path, default=Path("outputs/specialist_evaluation_latest.json"))
     parser.add_argument("--as-of", help="Čas s časovým pásmem ISO-8601; umožňuje reprodukovat historický cutoff.")
+    parser.add_argument("--label-archive-directory", type=Path,
+                        help="Archiv doložených cen pro vyhodnocení; výchozí je prediction_label_observations vedle databáze.")
     parser.add_argument("--minimum-training-samples", type=int, default=200)
     parser.add_argument("--minimum-evaluation-samples", type=int, default=200)
     parser.add_argument("--minimum-weeks", type=int, default=12)
@@ -36,6 +38,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         clock = datetime.fromisoformat(args.as_of.replace("Z", "+00:00")) if args.as_of else datetime.now(timezone.utc)
         snapshots = read_archived_prediction_snapshots(args.db_path)
         report = build_specialist_evaluation_report(snapshots, as_of=clock,
+            label_archive_directory=(args.label_archive_directory or args.db_path.parent / "prediction_label_observations"),
             minimum_training_samples=args.minimum_training_samples,
             minimum_evaluation_samples=args.minimum_evaluation_samples,
             minimum_weeks=args.minimum_weeks, iterations=args.iterations)

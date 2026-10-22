@@ -1,0 +1,53 @@
+{
+  "launched_at": "2026-10-21T07:30:47.905320+00:00",
+  "pid": 13,
+  "tested_code_snapshot": "ec58336824562002dfacc93df5dc4a9d6f33387b",
+  "source_test_pins": [
+    {
+      "path": "market_checker_app/services/captured_identity_review_service.py",
+      "bytes": 29978,
+      "sha256": "d3861750926aba765b5866e647cb7e2f3a2c47c5e92d8ce912b7ba04ef709f8e"
+    },
+    {
+      "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+      "bytes": 27094,
+      "sha256": "7f5a0241182650d573ca5dce936fcc09f84fe77a59b206340693c916a34c6189"
+    },
+    {
+      "path": "market_checker_app/specialist_evidence_ui.py",
+      "bytes": 29511,
+      "sha256": "cf51ca2f0d92002e68e4c73d24c8f17096aeea9a8520ea31153367a04a77275e"
+    },
+    {
+      "path": "tests/test_sourcefront21_coordinator_integration.py",
+      "bytes": 3980,
+      "sha256": "cd9edc422c72138cc6a87589f89e809d1fcd3022ebf95d32e610aa420721fe47"
+    },
+    {
+      "path": "tests/test_wafer_capacity_deposit_peer.py",
+      "bytes": 12512,
+      "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+    },
+    {
+      "path": "tests/test_wafer_capacity_deposit_review.py",
+      "bytes": 24666,
+      "sha256": "320a97f550c09d52037a361c61e446bf4e7589176f882cec71f0e080b9e883fc"
+    }
+  ],
+  "expected_full_test_count": 2818,
+  "expected_new_methods": 51,
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-X",
+    "utf8",
+    "-m",
+    "market_checker_app.deterministic_test_runner",
+    "--log-path",
+    "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_linux_runner_20261021.log",
+    "--result-path",
+    "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/sourcefront21_linux_20261021.json"
+  ],
+  "console_path": "evidence/sourcefront21_linux_console_20261021.log",
+  "final_outcome": "PENDING",
+  "duplicate_launch_permitted": false
+}

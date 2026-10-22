@@ -1,0 +1,26 @@
+{
+  "access_values_exported": false,
+  "app_quota_managed_live_claimed": false,
+  "attempts": 1,
+  "body_path": "a36c868755cc26ca7d34b73096b33d2b9be99f819cf5f2077c803f433920b50e.bin",
+  "bytes": 42169,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/1206264/000114036126014337/ef20070363_8k.htm",
+  "historical_request_ledger_reconstructed": false,
+  "http_status": 200,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-14T23:26:00.636289+00:00",
+  "raw_sha256": "a36c868755cc26ca7d34b73096b33d2b9be99f819cf5f2077c803f433920b50e",
+  "redirects_allowed": false,
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1206264/000114036126014337/ef20070363_8k.htm",
+  "research_only": true,
+  "response_headers": {
+    "Content-Encoding": null,
+    "Content-Length": "42169",
+    "Content-Type": "text/html",
+    "Date": "Wed, 14 Oct 2026 23:26:00 GMT",
+    "Last-Modified": "Mon, 13 Apr 2026 10:54:07 GMT"
+  },
+  "started_at": "2026-10-14T23:25:56.543256+00:00",
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED"
+}

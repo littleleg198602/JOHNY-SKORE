@@ -1,0 +1,121 @@
+name: Market Checker test agents
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract-agent:
+    name: Contract, source and persistence agent
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            market_checker_app/requirements.txt
+            market_checker_app/constraints.txt
+      - name: Install project dependencies
+        run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
+      - name: Compile every Python module
+        run: python -m compileall -q market_checker_app tests
+      - name: Run deterministic test suite
+        run: python -X utf8 -m market_checker_app.deterministic_test_runner
+
+  scale-agent:
+    name: 687 ticker scale and progress agent
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            market_checker_app/requirements.txt
+            market_checker_app/constraints.txt
+      - name: Install project dependencies
+        run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
+      - name: Verify exact 687-ticker contracts
+        run: python -m unittest discover -s tests -p 'test_*ticker*.py' -v
+
+  ui-agent:
+    name: Streamlit UI agent
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            market_checker_app/requirements.txt
+            market_checker_app/constraints.txt
+      - name: Install project dependencies
+        run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
+      - name: Verify the application and Yahoo controls render
+        run: python -m unittest discover -s tests -p 'test_streamlit_ui_smoke.py' -v
+
+  windows-agent:
+    name: Windows contracts, persistence and UI
+    runs-on: windows-latest
+    # Run39072646508 was cancelled about 40 minutes after the first hosted
+    # log timestamp, mid-suite without a final JSON/footer. A timeout is
+    # inferred from duration; that log has no explicit timeout annotation.
+    # Allow bounded setup/checkpoint/full-suite/upload headroom. All test
+    # budgets and the gate that rejects cancellation remain unchanged.
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            market_checker_app/requirements.txt
+            market_checker_app/constraints.txt
+      - name: Install project dependencies
+        run: python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
+      - name: Compile every Python module
+        run: python -m compileall -q market_checker_app tests
+      - name: Verify SEC checkpoint and process resume regressions
+        run: python -X utf8 -m unittest discover -s tests -p 'test_sec13f_identity_bulk.py' -v
+      - name: Run deterministic Windows suite
+        run: python -X utf8 -m market_checker_app.deterministic_test_runner --log-path windows-tests.log --result-path windows-tests.json
+      - name: Preserve Windows verification log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-deterministic-tests
+          path: |
+            windows-tests.log
+            windows-tests.json
+          if-no-files-found: error
+
+  release-agent:
+    name: Deterministic release gate
+    if: always()
+    needs: [contract-agent, scale-agent, ui-agent, windows-agent]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every test agent to pass
+        env:
+          CONTRACT_RESULT: ${{ needs.contract-agent.result }}
+          SCALE_RESULT: ${{ needs.scale-agent.result }}
+          UI_RESULT: ${{ needs.ui-agent.result }}
+          WINDOWS_RESULT: ${{ needs.windows-agent.result }}
+        run: |
+          test "$CONTRACT_RESULT" = "success"
+          test "$SCALE_RESULT" = "success"
+          test "$UI_RESULT" = "success"
+          test "$WINDOWS_RESULT" = "success"

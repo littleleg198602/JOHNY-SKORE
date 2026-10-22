@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-14T05:24:41.459460+00:00",
+  "baseline_commit": "5c5ea0ba6d5101dc67cfc3a7ad4c333f8ad39d40",
+  "contract": "EXACT_CAPTURED_CLINICAL_EXPERIMENTAL_ARM_SPONSOR_WITH_DIRECT_SAME_DAY_ISSUER_SNAPSHOT",
+  "source_requests": 0,
+  "clinical_live_requests": 0,
+  "live_current_capture_obtained": false,
+  "source_history_status": "WAIT_QUOTA_HISTORY",
+  "new_quota_store_created": false,
+  "source_history_gap": "The old ClinicalTrials capture driver used a temporary reservation store; its ledger was not recovered. An empty current table does not recover those historical attempts.",
+  "public_raw_captures_reused": [
+    {
+      "capture_key": "trial_surpass2_complete_record",
+      "body_path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.body.json",
+      "body_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "body_bytes": 120326,
+      "metadata_path": "evidence/batch4_healthcare_20261013/captures/trial_surpass2_complete_record.metadata.json",
+      "metadata_sha256": "497d115493627745ae93f16376ac3219e3221c21aa8f39bcb86ebf42d87f13bf",
+      "source_url": "https://clinicaltrials.gov/api/v2/studies/NCT03987919",
+      "requested_at": "2026-10-13T08:54:46.888560+00:00",
+      "observed_at": "2026-10-13T08:54:54.067977+00:00",
+      "http_status": 200
+    },
+    {
+      "capture_key": "trial_summit_complete_record",
+      "body_path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.body.json",
+      "body_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "body_bytes": 125361,
+      "metadata_path": "evidence/batch4_healthcare_20261013/captures/trial_summit_complete_record.metadata.json",
+      "metadata_sha256": "fe79f01f91fdf5dceb0ba3a3a9601d239a0812b9ebf26d0e1baf4ebd8cd61291",
+      "source_url": "https://clinicaltrials.gov/api/v2/studies/NCT04847557",
+      "requested_at": "2026-10-13T08:54:54.072852+00:00",
+      "observed_at": "2026-10-13T08:55:01.441775+00:00",
+      "http_status": 200
+    },
+    {
+      "capture_key": "sec_lly_submissions",
+      "body_path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.body.json",
+      "body_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "body_bytes": 158719,
+      "metadata_path": "evidence/batch4_healthcare_20261013/captures/sec_lly_submissions.metadata.json",
+      "metadata_sha256": "cce6df2bfe5ee021a98b25a5a6b0037b34a94e9cd1a29f0234d8719728fec0c7",
+      "source_url": "https://data.sec.gov/submissions/CIK0000059478.json",
+      "requested_at": "2026-10-13T08:58:56.860498+00:00",
+      "observed_at": "2026-10-13T08:59:03.680613+00:00",
+      "http_status": 200
+    }
+  ],
+  "candidates": [
+    {
+      "nct_id": "NCT03987919",
+      "source_capture_key": "trial_surpass2_complete_record",
+      "candidate_kind": "clinical_trial_sponsor_snapshot",
+      "candidate_time_basis": "OBSERVED_SNAPSHOT",
+      "source_body_sha256": "9b9f82253370bb5e678b2bab3f5ebcefd87cf86a7b8ac5f256a5c0fb92cb4434",
+      "source_observed_at": "2026-10-13T08:54:54.067977+00:00",
+      "publisher_posting_day": "2022-02-14",
+      "publisher_posting_day_is_snapshot_or_knowledge_day": false,
+      "exact_source_sponsor_name": "Eli Lilly and Company",
+      "independent_issuer_snapshot_name": "ELI LILLY & Co",
+      "issuer_cik": "0000059478",
+      "issuer_tickers": [
+        "LLY"
+      ],
+      "issuer_body_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "issuer_observed_at": "2026-10-13T08:59:03.680613+00:00",
+      "known_at": "2026-10-14T05:24:41.459460+00:00",
+      "selected_intervention": "Tirzepatide",
+      "unattributed_interventions": [
+        "Semaglutide"
+      ],
+      "captured_arm_roles": [
+        {
+          "label": "5 mg Tirzepatide",
+          "type": "EXPERIMENTAL",
+          "intervention_names": [
+            "Drug: Tirzepatide"
+          ]
+        },
+        {
+          "label": "10 mg Tirzepatide",
+          "type": "EXPERIMENTAL",
+          "intervention_names": [
+            "Drug: Tirzepatide"
+          ]
+        },
+        {
+          "label": "15 mg Tirzepatide",
+          "type": "EXPERIMENTAL",
+          "intervention_names": [
+            "Drug: Tirzepatide"
+          ]
+        },
+        {
+          "label": "1 mg Semaglutide",
+          "type": "ACTIVE_COMPARATOR",
+          "intervention_names": [
+            "Drug: Semaglutide"
+          ]
+        }
+      ],
+      "decision": "WITHHOLD",
+      "adopted": false,
+      "reasons": [
+        "EXACT_SPONSOR_ISSUER_NAME_BRIDGE_MISSING",
+        "ISSUER_EVIDENCE_NOT_AVAILABLE_AT_SOURCE_OBSERVATION",
+        "NO_CURRENT_OBSERVED_CLINICAL_PAGE"
+      ]
+    },
+    {
+      "nct_id": "NCT04847557",
+      "source_capture_key": "trial_summit_complete_record",
+      "candidate_kind": "clinical_trial_sponsor_snapshot",
+      "candidate_time_basis": "OBSERVED_SNAPSHOT",
+      "source_body_sha256": "865a8668203cefb2c8123c4d0616b65c0d21c61968238455259c930b67646573",
+      "source_observed_at": "2026-10-13T08:55:01.441775+00:00",
+      "publisher_posting_day": "2025-08-20",
+      "publisher_posting_day_is_snapshot_or_knowledge_day": false,
+      "exact_source_sponsor_name": "Eli Lilly and Company",
+      "independent_issuer_snapshot_name": "ELI LILLY & Co",
+      "issuer_cik": "0000059478",
+      "issuer_tickers": [
+        "LLY"
+      ],
+      "issuer_body_sha256": "348fa9f3bf553504dea9240b0c949231b847757e0032e0f80a01665420161d6d",
+      "issuer_observed_at": "2026-10-13T08:59:03.680613+00:00",
+      "known_at": "2026-10-14T05:24:41.459460+00:00",
+      "selected_intervention": "Tirzepatide",
+      "unattributed_interventions": [
+        "Placebo"
+      ],
+      "captured_arm_roles": [
+        {
+          "label": "Tirzepatide",
+          "type": "EXPERIMENTAL",
+          "intervention_names": [
+            "Drug: Tirzepatide"
+          ]
+        },
+        {
+          "label": "Placebo",
+          "type": "PLACEBO_COMPARATOR",
+          "intervention_names": [
+            "Other: Placebo"
+          ]
+        }
+      ],
+      "decision": "WITHHOLD",
+      "adopted": false,
+      "reasons": [
+        "EXACT_SPONSOR_ISSUER_NAME_BRIDGE_MISSING",
+        "ISSUER_EVIDENCE_NOT_AVAILABLE_AT_SOURCE_OBSERVATION",
+        "NO_CURRENT_OBSERVED_CLINICAL_PAGE"
+      ]
+    }
+  ],
+  "proposed_records": [],
+  "proposal_count": 0,
+  "historical_event_proposals": {
+    "path": "evidence/batch4_identity_import_20261013/healthcare_review.json",
+    "sha256": "a5f47d64dda2f0e7bc7725cfe1c5a32dcc58f6c490328770547f90eac3b70845",
+    "withheld_count": 2,
+    "owner_review_recorded_at": "2026-10-13T13:16:52.384445+00:00",
+    "rewritten": false
+  },
+  "production_registry_sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+  "production_registry_modified": false,
+  "issuer_alias_normalized": false,
+  "historical_ownership_inferred": false,
+  "comparators_attributed": false,
+  "full_specialist_acceptance": false,
+  "OOS_verified": false,
+  "actual_user_windows_verified": false,
+  "remaining_gaps": [
+    "Independent exact-name current issuer bridge, not an & Co normalization or old DEI-period extension",
+    "Recoverable durable clinical reservation history before another LIVE operation",
+    "Actual current-day clinical object capture when its durable quota permits",
+    "Broader product/sponsor/CMS exposure denominators and point-in-time source/price histories"
+  ]
+}

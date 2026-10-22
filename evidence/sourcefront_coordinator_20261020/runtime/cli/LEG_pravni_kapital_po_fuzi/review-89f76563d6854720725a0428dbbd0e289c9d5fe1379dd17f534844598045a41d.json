@@ -1,0 +1,80 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "SEC_CHARTER_CLASS",
+  "plan_sha256": "eaefb9f57a24f5529598afd5276b4259a905999e1d6289cd5e3a60609f1dd039",
+  "recorded_at": "2026-10-20T20:24:59.327626+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-20T20:24:58.865680+00:00",
+  "review": {
+    "authorized_class_excerpt": "ARTICLE IV. The total number of shares of stock which the Corporation shall have authority to issue is 10,000 shares of common stock, par value $0.001 per share (the “ Common Stock ”). Each holder of Common Stock shall be entitled to one vote for each share held. There are no preferences, qualifications, limitations, restrictions and special or relative rights, including convertible rights, if any, in respect to the shares.",
+    "authorized_class_supported": true,
+    "authorized_class_terms": {
+      "par_term": "USD:0.001",
+      "share_class": "EQUITY:UNCLASSIFIED"
+    },
+    "authorized_class_title": "common stock, par value $0.001 per share",
+    "authorized_common_shares": 10000,
+    "automatic_alias_allowed": false,
+    "blockers": [
+      "DIRECT_CHARTER_EFFECTIVE_DAY_UNKNOWN_OR_UNPROVEN"
+    ],
+    "charter": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-20T14:29:11.360266+00:00",
+      "published_at": "2026-08-26T17:27:01+00:00",
+      "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba",
+      "snapshot_id": "24effa6154110b53b5746eb74a1692c3334316ef9075730c25514cf7f86fdcf4",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm"
+    },
+    "charter_effective_on": null,
+    "charter_execution_on": "2026-08-26",
+    "class_role": "SURVIVING_AUTHORIZED_CLASS",
+    "control_supported": false,
+    "current_quarter_verified_coverage": 0,
+    "cusip_supported": false,
+    "effective_day_inferred_from_execution": false,
+    "effective_excerpt": null,
+    "evidence_known_at": "2026-10-20T14:29:11.360266+00:00",
+    "execution_excerpt": "IN WITNESS WHEREOF, the Corporation has caused this Amended and Restated Articles of Incorporation to be fully executed and acknowledged by its duly authorized officers this 26 th day of August, 2026.",
+    "historic_shareholders_are_current_owners": false,
+    "identity_transition_approved": false,
+    "instrument_continuity_supported": false,
+    "interval_extension_allowed": false,
+    "issued_or_outstanding_shares_proven": false,
+    "issuer_cik_scope": "0000058492",
+    "issuer_excerpt": "ARTICLE I. The name of the corporation (the “ Corporation ”) is: Leggett & Platt, Incorporated",
+    "issuer_name_text": "Leggett & Platt, Incorporated",
+    "knowledge_at": "2026-10-20T20:24:59.323266+00:00",
+    "new_verified_identities": 0,
+    "original_exhibit_link_matched": true,
+    "parent_filing": {
+      "kind": "corporate_action_filing",
+      "observed_at": "2026-10-13T08:46:22.597523+00:00",
+      "published_at": "2026-08-26T17:27:01+00:00",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4",
+      "snapshot_id": "2ed4b35c52e5266ff1035a379a4253f87e51017e00644d86c2408c305ab2477e",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590d8k.htm"
+    },
+    "parent_role_excerpt": "On August 26, 2026 (the “ Closing Date ”), Sparrow Unity Corporation, a Missouri corporation (“ Merger Sub ”) and wholly owned indirect subsidiary of Somnigroup International Inc., a Delaware corporation (“ Parent ”), merged with and into Leggett & Platt, Incorporated, a Missouri corporation (the “ Company ”), with the Company continuing as the surviving corporation (the “ Merger ” and the time of consummation thereof, the “ Effective Time ”) pursuant to the previously announced Agreement and Plan of Merger, dated as of April 13, 2026 (the “ Merger Agreement ”), by and among the Company, Parent and Merger Sub. As a result of the Merger, the Company became a wholly owned indirect subsidiary of the Parent (the “Surviving Corporation”). Capitalized terms used herein but not otherwise defined have the respective meanings set forth in the Merger Agreement.",
+    "production_registry_changed": false,
+    "remaining_bridge_gaps": [
+      "INDEPENDENT_DATED_INSTRUMENT_CUSIP_BINDING_UNPROVEN",
+      "CONTROL_OR_CONFLICT_RECONCILIATION_UNPROVEN"
+    ],
+    "requested_review_as_of": null,
+    "review_kind": "SEC_CHARTER_AUTHORIZED_CLASS",
+    "review_recorded_at": "2026-10-20T20:24:59.323266+00:00",
+    "review_sha256": "2a0bd7fd979a5acbe4afdac829723f5a5f133a5a871bc29081cc20d89d6f3e9f",
+    "review_started_at": "2026-10-20T20:24:59.310644+00:00",
+    "same_accession_is_independent_action_proof": false,
+    "schema_version": 1,
+    "scoring_allowed": false,
+    "source_as_of": "2026-10-20T20:24:58.865680+00:00",
+    "status": "PRIMARY_CHARTER_CLASS_PARTIAL",
+    "ticker": "LEG"
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

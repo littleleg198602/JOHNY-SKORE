@@ -1,0 +1,96 @@
+{
+  "GitHub_writes": 0,
+  "artifact_pins": {
+    "README.md": {
+      "bytes": 2707,
+      "sha256": "68ce6d70680db7ba10fdc14819a9fb2b34ec9b026fe5e3a15e7064a8b03fac8d"
+    },
+    "original_market-checker-test-agents.yml": {
+      "bytes": 4508,
+      "sha256": "3c7ade5d634f09a105f9493ddc3022f73c1ecd8623d26c53b21f16451800805f"
+    },
+    "qualification.json": {
+      "bytes": 5998,
+      "sha256": "3f9b4c9e05427103e3160650126ece7ca129491662f596b7f95817461c28438a"
+    },
+    "qualification_attempt_v1/error.log": {
+      "bytes": 981,
+      "sha256": "62254b2109ba5ba1530d419d86dbeb825e9ccc400d11c6e2734d7f6b031078d8"
+    },
+    "qualification_attempt_v1/qualify_workflow.py": {
+      "bytes": 12293,
+      "sha256": "fe05f81bd963727ea942ba07d3c2154354de2c5c138e692104c178c13586d5d1"
+    },
+    "qualification_attempt_v1/result.json": {
+      "bytes": 405,
+      "sha256": "b4cab0a1aaa5189f4b8ed5097537ada65cda9f092bf4c3f3d00560ad723f4623"
+    },
+    "qualification_attempt_v2/error.log": {
+      "bytes": 702,
+      "sha256": "43ef27305be249014944aeb7e411a921b7d11f2cdde18c9a93e6691692f4db49"
+    },
+    "qualification_attempt_v2/qualify_workflow.py": {
+      "bytes": 12297,
+      "sha256": "c4d3d59b67c2900dea866473f2af5d6f10a01c246a9cb6e7d21e88c92c7c6714"
+    },
+    "qualification_attempt_v2/result.json": {
+      "bytes": 440,
+      "sha256": "6d3672c039f56871a6044755795d007432ff58d94f3d3fea98ee0215c7276855"
+    },
+    "qualify_workflow.py": {
+      "bytes": 13831,
+      "sha256": "a260205b05a63d4828cf3af3b60582304d5e0a1778c91da06187e2f56e488ec9"
+    },
+    "source_files_sha256.json": {
+      "bytes": 1200025,
+      "sha256": "d93af9d8208e539be3728801c7a3b9a6a3334d8ee4524a5dab3c6762522342cd"
+    }
+  },
+  "canonical687_60second_budget_unchanged": true,
+  "complete_Windows_acceptance_claimed": false,
+  "database_accesses": 0,
+  "material_limits": [
+    "Only workflow YAML/static source preservation was qualified; no new-head hosted Windows run was executed by this lane.",
+    "The cancelled original run has no complete result JSON or footer and remains non-acceptance evidence.",
+    "The timeout cause is inferred from elapsed duration; the available log contains no explicit timeout annotation."
+  ],
+  "new_head_Windows_verification_required": true,
+  "no_source_or_archive_normalization": true,
+  "original_cancelled_run": 39072646508,
+  "owned_paths": [
+    ".github/workflows/market-checker-test-agents.yml",
+    "evidence/batch9_windows_timeout_fix_20261018/"
+  ],
+  "production_and_test_files_byte_identical": true,
+  "production_files": 218,
+  "public_base": "b0e866de120c8d6366b93c8fef26916f0db4aa0e",
+  "qualification_pin": {
+    "bytes": 5998,
+    "sha256": "3f9b4c9e05427103e3160650126ece7ca129491662f596b7f95817461c28438a"
+  },
+  "recorded_at": "2026-10-17T22:51:00.197925+00:00",
+  "schema_version": "batch9_windows_timeout_handoff_v1",
+  "semantic_differences": [
+    {
+      "after": 60,
+      "before": 40,
+      "path": [
+        "jobs",
+        "windows-agent",
+        "timeout-minutes"
+      ]
+    }
+  ],
+  "source_HTTP_requests": 0,
+  "test_files": 188,
+  "test_suites_executed": 0,
+  "workflow_change": {
+    "Windows_job_timeout_minutes_after": 60,
+    "Windows_job_timeout_minutes_before": 40,
+    "path": ".github/workflows/market-checker-test-agents.yml"
+  },
+  "workflow_pin": {
+    "bytes": 4573,
+    "sha256": "49126bef29f9f5034077ffe6b5aa0f043c69b8feb6182969093f99424f4ecc38"
+  }
+}

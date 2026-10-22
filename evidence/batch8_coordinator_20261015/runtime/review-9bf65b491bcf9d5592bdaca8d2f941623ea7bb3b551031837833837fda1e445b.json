@@ -1,0 +1,251 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "SEC_SYMBOL_ACTION_SCOPE",
+  "plan_sha256": "a9dfd1fc66d1467824b717c0e369aaa69eda343e84f2b2efca13faba8bc0146a",
+  "recorded_at": "2026-10-16T00:25:09.621014+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-16T00:25:08.269539+00:00",
+  "review": {
+    "action_claims": [
+      {
+        "accession": "000147443226000046",
+        "action_clause": null,
+        "announced_on": null,
+        "asserted_phase": "EFFECTIVE",
+        "blockers": [
+          "ACTION_SUBJECT_LOCAL_REFERENCE_UNPROVEN",
+          "DIRECTED_EXACT_OLD_NEW_ACTION_BINDING_MISSING",
+          "EXACT_EVENT_DAY_UNKNOWN"
+        ],
+        "date_role": "UNKNOWN",
+        "effective_action_supported": false,
+        "effective_on": null,
+        "event_kind": "SYMBOL_CHANGE",
+        "from_name": null,
+        "literal_phase": "EFFECTIVE",
+        "planned_effective_on": null,
+        "reported_day": null,
+        "source_key": "release",
+        "to_name": null,
+        "whole_original_passage": {
+          "byte_end": 10924,
+          "byte_start": 9866,
+          "locator": "div:35",
+          "sha256": "394fe9804f9ea571949cfc2f41c9d9cbd6ac1d83df47c05fd51fd88228febca4",
+          "text": "• Formally transitioned the corporate brand from Pure Storage to Everpure and updated its ticker symbol (NYSE: P), reflecting the company's expansion from a storage provider to a leader in the future of data management."
+        }
+      }
+    ],
+    "as_of": "2026-10-16T00:25:08.704633+00:00",
+    "automatic_alias_allowed": false,
+    "blockers": [
+      "ACTION_SUBJECT_LOCAL_REFERENCE_UNPROVEN",
+      "DATED_EXACT_CLASS_CUSIP_ACTION_CONTINUITY_MISSING",
+      "DIRECTED_EXACT_OLD_NEW_ACTION_BINDING_MISSING",
+      "EXACT_EVENT_DAY_UNKNOWN",
+      "EXACT_INSTRUMENT_CLASS_OR_PAR_TERM_MISSING",
+      "EXACT_SYMBOL_EFFECTIVE_DAY_UNKNOWN",
+      "FROM_EXACT_DATED_INSTRUMENT_SYMBOL_TUPLE_MISSING",
+      "INDEX_DECLARED_SERVED_BYTE_CONFLICT",
+      "RAW_XML_RENDERER_PATH_DIFFERS_NO_ORIGINAL_INDEX",
+      "SAME_DAY_NAME_CLASS_SYMBOL_CUSIP_BRIDGE_MISSING",
+      "TO_EXACT_DATED_INSTRUMENT_SYMBOL_TUPLE_MISSING",
+      "TWO_INDEPENDENT_EFFECTIVE_SYMBOL_DISCLOSURES_MISSING"
+    ],
+    "capture_pins": {
+      "annual": {
+        "body_available": true,
+        "bytes": 2070825,
+        "known_at": "2026-10-15T13:38:21.852971+00:00",
+        "metadata_sha256": "715799b6f24a02a5f0fccfa36d370b09468c68ea3929542d220a5dc1d38e766d",
+        "observed_at": "2026-10-15T13:38:21.852971+00:00",
+        "sha256": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7",
+        "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm"
+      },
+      "instrument": {
+        "body_available": true,
+        "bytes": 5569,
+        "known_at": "2026-10-15T13:40:58.490517+00:00",
+        "metadata_sha256": "7352c2c23a59e8f4ca98bfff0b4421ee101a71eac858064e7fb0fa67c691d052",
+        "observed_at": "2026-10-15T13:40:58.490517+00:00",
+        "sha256": "ce00fb0af167462c4f046c464d9079fdb4d1dea22c18a78d951444dda7dfd3ac",
+        "url": "https://www.sec.gov/Archives/edgar/data/1474432/000210012126000241/primary_doc.xml"
+      },
+      "proxy": {
+        "body_available": true,
+        "bytes": 1302669,
+        "known_at": "2026-10-15T13:38:30.601999+00:00",
+        "metadata_sha256": "c10e29ed170b8ea6a27491f9a86616c144300f052d690cfc511d72f1e0381a54",
+        "observed_at": "2026-10-15T13:38:30.601999+00:00",
+        "sha256": "f881b4d82e6c32ea4bbd796a541e2fe8301891d84de0d58937ced34363682dbd",
+        "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000041/pstg-20260430.htm"
+      },
+      "release": {
+        "body_available": true,
+        "bytes": 319645,
+        "known_at": "2026-10-15T13:40:46.415302+00:00",
+        "metadata_sha256": "37bf50e1f938a3ddebf901490fde56c1a80dbcb35245437b0a4825391a61b73b",
+        "observed_at": "2026-10-15T13:40:46.415302+00:00",
+        "sha256": "438cf69186f809498713e335e3a3a1e249832951810e8184e1d34c61daffac8d",
+        "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/pstg-ex991q1fy2027xpressre.htm"
+      },
+      "release_index": {
+        "body_available": true,
+        "bytes": 9952,
+        "known_at": "2026-10-15T13:39:21.560974+00:00",
+        "metadata_sha256": "bbbcf19a3c74ca2b5e199278433562320c39ef867dd79bdb279c7503361a02fa",
+        "observed_at": "2026-10-15T13:39:21.560974+00:00",
+        "sha256": "52dec5624a00189da32f116a4ecc75ee58c249758d96ac0a3bba6c3d4007a63e",
+        "url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/0001474432-26-000046-index.html"
+      },
+      "submissions": {
+        "body_available": true,
+        "bytes": 157807,
+        "known_at": "2026-10-15T13:37:06.455150+00:00",
+        "metadata_sha256": "e197b2d57551d2da368d37794e4c8da156afef4033fd8a73f8eff14d0c5f51ff",
+        "observed_at": "2026-10-15T13:37:06.455150+00:00",
+        "sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98",
+        "url": "https://data.sec.gov/submissions/CIK0001474432.json"
+      }
+    },
+    "current_q3_verified_coverage": 0,
+    "dated_cover_tuples": [
+      {
+        "anchor_date": "2026-02-01",
+        "blockers": [],
+        "class_title": "Class A Common Stock, par value $0.0001 per share",
+        "context_anchor_proves_legal_name_effective_day": false,
+        "context_ref": "c-1",
+        "issuer_cik": "0001474432",
+        "issuer_name": "Everpure, Inc.",
+        "role": "FROM",
+        "snapshot_id": "77e80327160de76f960cc12efb090b2a125fe1e7d4ea4ba973108a7be779a2f7",
+        "source_key": "annual",
+        "supported": true,
+        "ticker": "PSTG"
+      }
+    ],
+    "dated_issuer_name_snapshots": [
+      {
+        "blockers": [],
+        "context_anchor_proves_legal_name_effective_day": false,
+        "context_ref": "c-1",
+        "name_facts": [
+          {
+            "anchor_date": "2026-02-01",
+            "context_ref": "c-1",
+            "issuer_cik": "0001474432",
+            "issuer_name": "Everpure, Inc."
+          }
+        ],
+        "source_key": "proxy",
+        "supplies_instrument_symbol_identity": false,
+        "supported": true
+      }
+    ],
+    "effective_on": null,
+    "filings": {
+      "annual": {
+        "acceptance_unqualified_raw": null,
+        "accession": "000147443226000027",
+        "as_filed_body_version_verified": false,
+        "blockers": [],
+        "filing_on": "2026-03-25",
+        "form": "10-K",
+        "publication_at": "2026-03-25T02:36:40+00:00",
+        "publisher_size_conflict": null,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
+        "submissions_primary_document": "pstg-20260201.htm",
+        "submissions_row_index": 123
+      },
+      "instrument": {
+        "acceptance_unqualified_raw": null,
+        "accession": "000210012126000241",
+        "as_filed_body_version_verified": false,
+        "blockers": [
+          "RAW_XML_RENDERER_PATH_DIFFERS_NO_ORIGINAL_INDEX"
+        ],
+        "filing_on": "2026-04-29",
+        "form": "SCHEDULE 13G",
+        "publication_at": "2026-04-29T20:42:50+00:00",
+        "publisher_size_conflict": null,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000210012126000241/primary_doc.xml",
+        "submissions_primary_document": "xslSCHEDULE_13G_X02/primary_doc.xml",
+        "submissions_row_index": 109
+      },
+      "proxy": {
+        "acceptance_unqualified_raw": null,
+        "accession": "000147443226000041",
+        "as_filed_body_version_verified": false,
+        "blockers": [],
+        "filing_on": "2026-05-01",
+        "form": "DEF 14A",
+        "publication_at": "2026-05-02T00:11:04+00:00",
+        "publisher_size_conflict": null,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000041/pstg-20260430.htm",
+        "submissions_primary_document": "pstg-20260430.htm",
+        "submissions_row_index": 107
+      },
+      "release": {
+        "acceptance_unqualified_raw": "2026-05-27 16:06:45",
+        "accession": "000147443226000046",
+        "as_filed_body_version_verified": false,
+        "blockers": [
+          "INDEX_DECLARED_SERVED_BYTE_CONFLICT"
+        ],
+        "filing_on": "2026-05-27",
+        "form": "EX-99.1",
+        "index_declared_bytes": 319527,
+        "publication_at": null,
+        "publisher_size_conflict": true,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/pstg-ex991q1fy2027xpressre.htm"
+      }
+    },
+    "historical_as_filed_versions_verified": false,
+    "historical_machine_availability_inferred": false,
+    "independent_effective_disclosures": 0,
+    "instrument_claims": [
+      {
+        "blockers": [
+          "EXACT_INSTRUMENT_CLASS_OR_PAR_TERM_MISSING",
+          "SAME_DAY_NAME_CLASS_SYMBOL_CUSIP_BRIDGE_MISSING"
+        ],
+        "class_title": "Common Stock",
+        "cusip": "74624M102",
+        "event_date": "2026-03-31",
+        "issuer_cik": "0001474432",
+        "issuer_name": "Everpure Inc",
+        "role": "FROM",
+        "snapshot_id": "ce00fb0af167462c4f046c464d9079fdb4d1dea22c18a78d951444dda7dfd3ac",
+        "source_key": "instrument",
+        "supported": false
+      }
+    ],
+    "interval_extension_allowed": false,
+    "knowledge_at": "2026-10-16T00:25:08.704633+00:00",
+    "network_requests_performed": 0,
+    "new_verified_identities": 0,
+    "planned_effective_symbol_days": [],
+    "production_registry_changed": false,
+    "quota_or_lease_modified": false,
+    "review_recorded_at": "2026-10-16T00:25:08.704633+00:00",
+    "review_sha256": "8f1d9fa18b5e2e1bb662d749062750c648c7f81267c08d9e6318546c8fec7310",
+    "schema_version": "sec-symbol-action-original-scope-v1",
+    "scope": {
+      "class_title": "Class A Common Stock, par value $0.0001 per share",
+      "cusip": "74624M102",
+      "from_symbol": "PSTG",
+      "issuer_cik": "0001474432",
+      "to_symbol": "P"
+    },
+    "scoring_allowed": false,
+    "source_knowledge_at": "2026-10-15T13:40:58.490517+00:00",
+    "status": "PRIMARY_SCOPE_PARTIAL",
+    "supported_effective_symbol_days": [],
+    "trading_allowed": false
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

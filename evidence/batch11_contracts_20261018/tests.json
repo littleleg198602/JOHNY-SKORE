@@ -1,0 +1,37 @@
+{
+  "completed_at": "2026-10-18T19:31:19.202136+00:00",
+  "db_operations": 0,
+  "development_checks": [
+    {
+      "initial_new_methods": 29,
+      "qualification": "initial mechanisms before added retained-clock and byte/page-bound controls; final hashes qualify the current run only",
+      "successful": true
+    }
+  ],
+  "discovered": 34,
+  "elapsed_seconds": 0.09093848199995591,
+  "errors": 0,
+  "executed": 34,
+  "expected_failures": 0,
+  "failures": 0,
+  "full_baseline_repeated": false,
+  "historical_oos_or_user_windows_acceptance_claimed": false,
+  "module": "tests.test_usaspending_prime_scope_review",
+  "quota_operations": 0,
+  "registry_adoptions": 0,
+  "schema_version": 1,
+  "scope": "NEW_READ_ONLY_IN_MEMORY_REVIEW_AND_RETAINED_INCOMPLETE_REPORT",
+  "skips": 0,
+  "source_and_test_sha256": {
+    "market_checker_app/services/usaspending_prime_archive_recovery.py": "fc06959c17b61dca44a59e9a99a191a0d490094db6974cc48c127241a20a3b7c",
+    "market_checker_app/services/usaspending_prime_scope_review.py": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1",
+    "market_checker_app/services/usaspending_request_budget.py": "38ef97fb6072e6d9e1e87b9cd9cc3b31345b0380a40fa8e2bd9db91d338ea4e0",
+    "market_checker_app/services/usaspending_scout_service.py": "6a0061a467ccdf1a36d7fe44bd54ee0854eed8498e89a368819b74fc3944900a",
+    "tests/test_usaspending_prime_scope_review.py": "8b08272bb2bd3e8aee33f2a1e2a3a4efbd90372f0ca6cd90799cc31170784eac"
+  },
+  "source_http_requests": 0,
+  "started_at": "2026-10-18T19:31:19.111191+00:00",
+  "successful": true,
+  "synthetic_controls_count_as_live": false,
+  "unexpected_successes": 0
+}

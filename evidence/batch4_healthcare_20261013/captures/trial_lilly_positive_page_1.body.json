@@ -1,0 +1,3 @@
+{"totalCount":2,"studies":[
+{"protocolSection":{"identificationModule":{"nctId":"NCT04847557","briefTitle":"A Study of Tirzepatide (LY3298176) in Participants With Heart Failure With Preserved Ejection Fraction (HFpEF) and Obesity: The SUMMIT Trial"},"statusModule":{"overallStatus":"COMPLETED","primaryCompletionDateStruct":{"date":"2024-07-02"},"studyFirstPostDateStruct":{"date":"2021-04-19"},"lastUpdateSubmitDate":"2025-08-15","lastUpdatePostDateStruct":{"date":"2025-08-20"}},"sponsorCollaboratorsModule":{"leadSponsor":{"name":"Eli Lilly and Company"}},"designModule":{"phases":["PHASE3"]},"armsInterventionsModule":{"interventions":[{"name":"Tirzepatide"},{"name":"Placebo"}]}},"hasResults":true}
+],"nextPageToken":"ZVNj7o2Elu8o3lpzDMiio-numpOQJJxoZvWj3Pg"}

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch10_coordinator_20261018/audit_content.py", line 124, in <module>
+    main()
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch10_coordinator_20261018/audit_content.py", line 89, in main
+    walk(json.loads(path.read_text()), path.relative_to(ROOT).as_posix())
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch10_coordinator_20261018/audit_content.py", line 87, in walk
+    walk(item, handoff)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/evidence/batch10_coordinator_20261018/audit_content.py", line 86, in walk
+    raise AssertionError((handoff, key, "EVIDENCE_PIN_CHANGED_OR_MISSING"))
+AssertionError: ('evidence/batch10_baseline_ci_20261018/handoff.json', 'windows_originals/artifact_12124438357.zip', 'EVIDENCE_PIN_CHANGED_OR_MISSING')

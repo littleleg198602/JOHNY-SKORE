@@ -1,0 +1,54 @@
+{
+  "observed_at": "2026-10-20T14:25:54.690195+00:00",
+  "environment_presence_only": {
+    "JOHNY_SKORE_EIA_API_KEY": false,
+    "JOHNY_SKORE_FINRA_CLIENT_ID": false,
+    "JOHNY_SKORE_FINRA_CLIENT_SECRET": false
+  },
+  "not_checked": "user computer, external secret stores and licensed account entitlements; no credential discovery attempted",
+  "registry_fields": [
+    {
+      "id": "short_interest",
+      "code": "PARTIAL",
+      "live": "WAIT_ACCESS",
+      "next": "FINRA credentials, live schema and publication timing, dated symbol/instrument mapping; borrow requires licensed pilot."
+    },
+    {
+      "id": "commodities",
+      "code": "PARTIAL",
+      "live": "WAIT_ACCESS",
+      "next": "SEC auto discovery separates explicit company inputs/outputs from macro context and propagates historical filing/knowledge provenance; actual XOM2025 source replay has2 outputs, with currentQ3 identity unset. EIA public shared series still require credentials and documented company exposure; no new EIA live or price scoring acceptance."
+    },
+    {
+      "id": "consensus_options",
+      "code": "NOT_STARTED",
+      "live": "WAIT_ACCESS",
+      "next": "Select licensed providers, verify entitlements and run measured pilots before integration."
+    },
+    {
+      "id": "alternative",
+      "code": "NOT_STARTED",
+      "live": "WAIT_ACCESS",
+      "next": "Targeted licensed pilot and measured incremental value, with source terms and historical availability."
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "market_checker_app/scout_runner.py",
+      "bytes": 22065,
+      "sha256": "6e9390ac39cfc97a8f74106e11496500e6ad32db9977697f8b0095b77fbe5708"
+    },
+    {
+      "path": "market_checker_app/services/specialist_acceptance_service.py",
+      "bytes": 14656,
+      "sha256": "83fd0c9911db686796bb7bd5241b6cb9cd9cf0598f7c0fc8b500cb6af2e7b13a"
+    },
+    {
+      "path": "market_checker_app/data/specialist_status.json",
+      "bytes": 44462,
+      "sha256": "17da5bc988a1929b8e7f3c46ebcaf5a66608a74e17cdde1123c9c4fd37143b79"
+    }
+  ],
+  "http_requests": 0,
+  "sql_operations": 0
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-10-20T20:13:42.798747+00:00",
+  "source_pins_verified": 34,
+  "original_byte_spans_verified": 123,
+  "whole_pre_edit_copies_verified": 8,
+  "new_test_before_after_byte_identical": true,
+  "external_report_byte_identical": true,
+  "before_failing_methods": [
+    "test_actual_archived_projected_rows_are_source_only_on_current_day",
+    "test_coverage_projection_uses_same_denial_without_opening_a_database",
+    "test_original_record_day_does_not_replace_missing_original_body_provider_binding",
+    "test_source_only_registry_inventory_and_names_are_preserved_but_old_cache_version_changes",
+    "test_synthetic_caller_supplied_hash_ccn_and_pac_cannot_upgrade_legacy_record",
+    "test_synthetic_current_metadata_and_same_day_observed_argument_are_not_original_proof",
+    "test_synthetic_finite_one_day_interval_is_not_original_ccn_pac_or_body_proof"
+  ],
+  "before_failure_entries": 9,
+  "before_discovered_and_executed": 9,
+  "after_discovered_and_executed": 9,
+  "SQL_HTTP_or_new_test_execution_for_this_static_validation": false,
+  "prior_successful_suites_repeated": false
+}

@@ -1,0 +1,72 @@
+test_peer_absent_database_created_after_temp_fsync_is_not_published_as_absent (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_absent_database_created_after_temp_fsync_is_not_published_as_absent) ... FAIL
+test_peer_control_absent_runs_and_injected_hosted_windows_remain_nonacceptance (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_control_absent_runs_and_injected_hosted_windows_remain_nonacceptance) ... ok
+test_peer_late_database_journal_after_temp_fsync_refuses_quiescent_receipt (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_database_journal_after_temp_fsync_refuses_quiescent_receipt) ... FAIL
+test_peer_late_database_main_file_change_after_temp_fsync_refuses_publication (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_database_main_file_change_after_temp_fsync_refuses_publication) ... FAIL
+test_peer_late_monotonic_clock_rollback_after_temp_fsync_refuses_publication (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_monotonic_clock_rollback_after_temp_fsync_refuses_publication) ... FAIL
+test_peer_late_wall_clock_rollback_after_temp_fsync_refuses_publication (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_wall_clock_rollback_after_temp_fsync_refuses_publication) ... FAIL
+test_peer_late_whole_source_change_after_temp_fsync_refuses_publication (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_whole_source_change_after_temp_fsync_refuses_publication) ... FAIL
+
+======================================================================
+FAIL: test_peer_absent_database_created_after_temp_fsync_is_not_published_as_absent (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_absent_database_created_after_temp_fsync_is_not_published_as_absent)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 91, in test_peer_absent_database_created_after_temp_fsync_is_not_published_as_absent
+    self.assert_refused_after_late_mutation(self.fixture_database)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 67, in assert_refused_after_late_mutation
+    self.assertIsNotNone(error,"Late fixture drift was published after the last source/clock validation")
+AssertionError: unexpectedly None : Late fixture drift was published after the last source/clock validation
+
+======================================================================
+FAIL: test_peer_late_database_journal_after_temp_fsync_refuses_quiescent_receipt (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_database_journal_after_temp_fsync_refuses_quiescent_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 87, in test_peer_late_database_journal_after_temp_fsync_refuses_quiescent_receipt
+    self.assert_refused_after_late_mutation(lambda:Path(str(self.database)+"-wal").write_bytes(b"SYNTHETIC_SIDECAR_NOT_REAL_SOURCE"))
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 67, in assert_refused_after_late_mutation
+    self.assertIsNotNone(error,"Late fixture drift was published after the last source/clock validation")
+AssertionError: unexpectedly None : Late fixture drift was published after the last source/clock validation
+
+======================================================================
+FAIL: test_peer_late_database_main_file_change_after_temp_fsync_refuses_publication (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_database_main_file_change_after_temp_fsync_refuses_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 83, in test_peer_late_database_main_file_change_after_temp_fsync_refuses_publication
+    self.assert_refused_after_late_mutation(mutate)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 67, in assert_refused_after_late_mutation
+    self.assertIsNotNone(error,"Late fixture drift was published after the last source/clock validation")
+AssertionError: unexpectedly None : Late fixture drift was published after the last source/clock validation
+
+======================================================================
+FAIL: test_peer_late_monotonic_clock_rollback_after_temp_fsync_refuses_publication (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_monotonic_clock_rollback_after_temp_fsync_refuses_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 101, in test_peer_late_monotonic_clock_rollback_after_temp_fsync_refuses_publication
+    self.assert_refused_after_late_mutation(rollback)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 67, in assert_refused_after_late_mutation
+    self.assertIsNotNone(error,"Late fixture drift was published after the last source/clock validation")
+AssertionError: unexpectedly None : Late fixture drift was published after the last source/clock validation
+
+======================================================================
+FAIL: test_peer_late_wall_clock_rollback_after_temp_fsync_refuses_publication (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_wall_clock_rollback_after_temp_fsync_refuses_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 96, in test_peer_late_wall_clock_rollback_after_temp_fsync_refuses_publication
+    self.assert_refused_after_late_mutation(rollback)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 67, in assert_refused_after_late_mutation
+    self.assertIsNotNone(error,"Late fixture drift was published after the last source/clock validation")
+AssertionError: unexpectedly None : Late fixture drift was published after the last source/clock validation
+
+======================================================================
+FAIL: test_peer_late_whole_source_change_after_temp_fsync_refuses_publication (batch10_readiness_peer.ReadinessPublicationPeerTests.test_peer_late_whole_source_change_after_temp_fsync_refuses_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 74, in test_peer_late_whole_source_change_after_temp_fsync_refuses_publication
+    self.assert_refused_after_late_mutation(lambda:self.source.write_bytes(b"SYNTHETIC_PRODUCER_VERSION_TWO\n"))
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/tests/test_batch10_readiness_peer.py", line 67, in assert_refused_after_late_mutation
+    self.assertIsNotNone(error,"Late fixture drift was published after the last source/clock validation")
+AssertionError: unexpectedly None : Late fixture drift was published after the last source/clock validation
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.063s
+
+FAILED (failures=6)

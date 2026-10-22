@@ -1,0 +1,16 @@
+{
+  "code_sha256": "597615d61c4992b8099f17c184d854ddaea04dad61d6abeaedb16c312e07caa2",
+  "diagnostic": "UNQUALIFIED_BEFORE_MONOTONIC_CLOCK_GUARD",
+  "earlier_behavior": "Mocked mutation path could return ACTIVATED with published_at earlier than prepared_at.",
+  "historical_acceptance_claimed": false,
+  "peer_reproduction_files_written": 0,
+  "peer_reproduction_mutations_mocked": true,
+  "peer_review": "Root/evaluation read-only review: an observed publish clock can regress between first publish check, revalidation prepare and final post-replace timestamp.",
+  "reproduced_clock_sequence_utc": [
+    "2026-10-15T10:00:00+00:00",
+    "2026-10-15T12:00:00+00:00",
+    "2026-10-15T11:00:00+00:00",
+    "2026-10-15T09:00:00+00:00"
+  ],
+  "source_http_requests": 0
+}

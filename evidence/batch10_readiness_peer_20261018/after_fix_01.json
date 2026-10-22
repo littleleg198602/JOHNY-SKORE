@@ -1,0 +1,35 @@
+{
+  "actual_production_database_mutations": 0,
+  "candidate_after": {
+    "bytes": 24341,
+    "sha256": "0a2354b9a2154237fe2a239cc6d216080e348b56ebb2d647045fd437428ecc15"
+  },
+  "candidate_before": {
+    "bytes": 24341,
+    "sha256": "0a2354b9a2154237fe2a239cc6d216080e348b56ebb2d647045fd437428ecc15"
+  },
+  "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015",
+  "completed_at": "2026-10-18T09:00:33.659765+00:00",
+  "discovered": 7,
+  "elapsed_seconds": 0.07474487799993312,
+  "errors": 0,
+  "executed": 7,
+  "expected_failures": 0,
+  "failures": 0,
+  "log_sha256": "074aef6fcfa3136882d28c3bbd598f0cce53f1a245ece95fa7df9c99d98d52c1",
+  "real_windows_acceptance_claim": false,
+  "runner_pin": {
+    "bytes": 3002,
+    "sha256": "90c03cd373d7a9064b2d2ec33b7853bcfe42ae4efd81e6726c70e6542b203247"
+  },
+  "skips": 0,
+  "source_http_requests": 0,
+  "started_at": "2026-10-18T09:00:33.585020+00:00",
+  "successful": true,
+  "synthetic_fixture_only": true,
+  "test_pin": {
+    "bytes": 6005,
+    "sha256": "458709bb2da3f8f0b730b55a3a75424f90e40b8b5b6d081457491be3006da972"
+  },
+  "unexpected_successes": 0
+}

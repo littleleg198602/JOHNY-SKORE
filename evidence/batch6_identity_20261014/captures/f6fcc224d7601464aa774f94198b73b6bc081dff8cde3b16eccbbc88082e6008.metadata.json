@@ -1,0 +1,23 @@
+{
+  "access_values_exported": false,
+  "attempts": 1,
+  "body_path": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d.bin",
+  "bytes": 1980178,
+  "final_url": "https://www.sec.gov/Archives/edgar/data/58492/000005849226000430/leg-20260630.htm",
+  "http_status": 200,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-14T13:28:58.863010+00:00",
+  "raw_sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d",
+  "redirects_allowed": false,
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/58492/000005849226000430/leg-20260630.htm",
+  "response_headers": {
+    "Content-Encoding": null,
+    "Content-Length": null,
+    "Content-Type": "text/html",
+    "Date": "Wed, 14 Oct 2026 13:28:58 GMT",
+    "Last-Modified": "Thu, 06 Aug 2026 15:22:58 GMT"
+  },
+  "started_at": "2026-10-14T13:28:47.858594+00:00",
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED"
+}

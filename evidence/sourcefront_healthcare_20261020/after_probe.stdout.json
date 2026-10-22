@@ -1,0 +1,91 @@
+{
+  "probe_kind": "LOOKUP_ONLY_ARCHIVED_PROJECTION_NOT_A_CURRENT_CMS_RESPONSE",
+  "review_started_at": "2026-10-20T14:37:21.395228+00:00",
+  "lookup_as_of": "2026-10-20T14:33:45.465679+00:00",
+  "comparison_input_unchanged": true,
+  "SQL_attempts": 0,
+  "network_attempts": 0,
+  "production_registry_changed": false,
+  "cases": [
+    {
+      "archived_projected_row": {
+        "ENROLLMENT ID": "O20021115000002",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "HTI MEMORIAL HOSPITAL CORPORATION",
+        "ASSOCIATION DATE - OWNER": "2007-06-28",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      "candidate_object_id": "O20021115000002:1052593506:35:2007-06-28",
+      "candidate_details": {
+        "ENROLLMENT ID": "O20021115000002",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "ORGANIZATION NAME": "HTI MEMORIAL HOSPITAL CORPORATION",
+        "ASSOCIATION DATE - OWNER": "2007-06-28",
+        "ROLE CODE - OWNER": "35",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100",
+        "stage": "cms_hospital_owner_name_candidate",
+        "dataset_id": "029c119f-f79c-49be-9100-344d31d10344",
+        "association_date_is_publication_time": false,
+        "matched_entity_name": "HCA HEALTHCARE INC"
+      },
+      "current_lookup_result": {
+        "identity_status": "NAME_ONLY",
+        "issuer_attribution_allowed": false,
+        "identity_evidence": null,
+        "missing_evidence": "original CMS owner/provider bodies, CCN/PAC join and exact observed snapshot issuer bridge",
+        "identity_resolution": "CMS_SNAPSHOT_DATE_MISMATCH",
+        "retained_relationship_record_id": "hca-cms-o20021115000002-2026-10-11",
+        "ownership_attribution_time_basis": "OBSERVED_SNAPSHOT",
+        "historical_association_attribution_allowed": false,
+        "observed_snapshot_original_binding_verified": false
+      }
+    },
+    {
+      "archived_projected_row": {
+        "ENROLLMENT ID": "O20030204000016",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "TYPE - OWNER": "O",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ORGANIZATION NAME": "HCA HEALTHONE LLC",
+        "ASSOCIATION DATE - OWNER": "2011-08-05",
+        "ROLE CODE - OWNER": "35",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100"
+      },
+      "candidate_object_id": "O20030204000016:1052593506:35:2011-08-05",
+      "candidate_details": {
+        "ENROLLMENT ID": "O20030204000016",
+        "ASSOCIATE ID - OWNER": "1052593506",
+        "ORGANIZATION NAME": "HCA HEALTHONE LLC",
+        "ASSOCIATION DATE - OWNER": "2011-08-05",
+        "ROLE CODE - OWNER": "35",
+        "ORGANIZATION NAME - OWNER": "HCA HEALTHCARE INC",
+        "ROLE TEXT - OWNER": "5% OR GREATER INDIRECT OWNERSHIP INTEREST",
+        "PERCENTAGE OWNERSHIP": "100",
+        "stage": "cms_hospital_owner_name_candidate",
+        "dataset_id": "029c119f-f79c-49be-9100-344d31d10344",
+        "association_date_is_publication_time": false,
+        "matched_entity_name": "HCA HEALTHCARE INC"
+      },
+      "current_lookup_result": {
+        "identity_status": "NAME_ONLY",
+        "issuer_attribution_allowed": false,
+        "identity_evidence": null,
+        "missing_evidence": "original CMS owner/provider bodies, CCN/PAC join and exact observed snapshot issuer bridge",
+        "identity_resolution": "CMS_SNAPSHOT_DATE_MISMATCH",
+        "retained_relationship_record_id": "hca-cms-o20030204000016-2026-10-11",
+        "ownership_attribution_time_basis": "OBSERVED_SNAPSHOT",
+        "historical_association_attribution_allowed": false,
+        "observed_snapshot_original_binding_verified": false
+      }
+    }
+  ],
+  "cms_fingerprint_at_probe": "da1ed67386fa3a5aef6604fd9cda4dcaba5443434ab21cf902f82e4585e8571a",
+  "recorded_at": "2026-10-20T14:37:21.425598+00:00"
+}

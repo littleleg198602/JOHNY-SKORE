@@ -1,0 +1,120 @@
+{
+  "as_of": "2026-10-18T19:33:44.012024+00:00",
+  "award_observations": [],
+  "collector_requests": 0,
+  "db_operations": 0,
+  "earlier_uei_relationship_inferred": false,
+  "first_or_last_revision_verified": false,
+  "genuine_negative_verified": false,
+  "historical_availability_reconstructed": false,
+  "issuer_coverage_complete": false,
+  "knowledge_at": "2026-10-18T19:33:44.012024+00:00",
+  "legacy_observations": [
+    {
+      "available": true,
+      "capture": "legacy_lmt_report",
+      "embedded_case_observed_at": "2026-10-01T11:02:40.046467+00:00",
+      "json_pointer": "/cases/usaspending_positive_contract_uei/payload",
+      "may_supply_missing_prime_pages": false,
+      "original_http_body": false,
+      "publisher_revision_semantics_verified": false,
+      "reported_has_next": true,
+      "reported_page": 1,
+      "reported_rows": 100,
+      "whole_original_request_present": false,
+      "whole_report_sha256": "57c1c8dfd8d33491765f2993eb99a3b1957ba91b93f0bb491c137123e1694cef"
+    }
+  ],
+  "missing_evidence": [
+    {
+      "expected_sha256": null,
+      "hash_pin_known": false,
+      "kind": "WHOLE_ORIGINAL_REQUEST",
+      "reason": "EXACT_FILTER_WINDOW_SORT_AND_REQUEST_LINEAGE_NOT_RETAINED"
+    },
+    {
+      "capture": "prime_page_1_manifest",
+      "expected_request_sha256": null,
+      "expected_sha256": null,
+      "hash_pin_known": false,
+      "kind": "MANIFEST",
+      "page": 1,
+      "reason": "WHOLE_ORIGINAL_PRIME_ARTIFACT_UNAVAILABLE"
+    },
+    {
+      "capture": "prime_page_1_body",
+      "expected_request_sha256": null,
+      "expected_sha256": null,
+      "hash_pin_known": false,
+      "kind": "BODY",
+      "page": 1,
+      "reason": "WHOLE_ORIGINAL_PRIME_ARTIFACT_UNAVAILABLE"
+    },
+    {
+      "capture": "prime_page_2_manifest",
+      "expected_request_sha256": null,
+      "expected_sha256": null,
+      "hash_pin_known": false,
+      "kind": "MANIFEST",
+      "page": 2,
+      "reason": "WHOLE_ORIGINAL_PRIME_ARTIFACT_UNAVAILABLE"
+    },
+    {
+      "capture": "prime_page_2_body",
+      "expected_request_sha256": null,
+      "expected_sha256": null,
+      "hash_pin_known": false,
+      "kind": "BODY",
+      "page": 2,
+      "reason": "WHOLE_ORIGINAL_PRIME_ARTIFACT_UNAVAILABLE"
+    }
+  ],
+  "observed_page_chain_complete": false,
+  "pages": [],
+  "pagination_snapshot_guaranteed": false,
+  "publisher_revision_semantics_verified": false,
+  "query_complete": false,
+  "query_completeness_blockers": [
+    "NO_PUBLISHER_PINNED_SNAPSHOT_OR_TOTAL_REVISION_SEMANTICS",
+    "OFFSET_TERMINAL_PAGE_IS_NOT_FULL_HISTORY_OR_GENUINE_NEGATIVE_EVIDENCE"
+  ],
+  "query_scope": null,
+  "quota_operations": 0,
+  "reason": "ORIGINAL_PRIME_SCOPE_EVIDENCE_INCOMPLETE",
+  "recipient_legal_identity_verified": false,
+  "recipient_scope": {
+    "recipient_name": "SIKORSKY AIRCRAFT CORPORATION",
+    "uei": "UTJWTSLMFNG4"
+  },
+  "registry_adoptions": 0,
+  "reported_totals_stable": false,
+  "reported_unique_awards": null,
+  "revenue_or_cumulative_difference_inferred": false,
+  "review_available_at": "2026-10-18T19:33:44.012024+00:00",
+  "review_ingested_at": "2026-10-18T19:33:44.012024+00:00",
+  "review_started_at": "2026-10-18T19:33:44.007605+00:00",
+  "schema_version": "usaspending-original-prime-scope-v1",
+  "scoring_applied": false,
+  "selected_award_absence_verified": false,
+  "selected_award_ids": [
+    "CONT_AWD_SPE4A626F209X_9700_SPE4A122G0005_9700"
+  ],
+  "selected_award_presence": [
+    {
+      "absence_verified": false,
+      "generated_internal_id": "CONT_AWD_SPE4A626F209X_9700_SPE4A122G0005_9700",
+      "observation": "UNKNOWN_NO_ORIGINAL_PRIME_PAGES"
+    }
+  ],
+  "source_http_requests": 0,
+  "source_inputs_known_at": null,
+  "source_manifest_is_publisher_signed": false,
+  "source_origin": "NO_ORIGINAL_PRIME_PAGES",
+  "source_read_cutoff": "2026-10-18T19:33:44.007605+00:00",
+  "source_revision_history_complete": false,
+  "source_sort_order_verified": false,
+  "status": "WAIT",
+  "synthetic_page_chain_complete": false,
+  "total_count_semantics_verified": false,
+  "trading_allowed": false
+}

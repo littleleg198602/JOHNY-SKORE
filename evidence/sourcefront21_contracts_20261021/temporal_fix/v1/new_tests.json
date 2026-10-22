@@ -1,0 +1,59 @@
+{
+  "actual_reason": "",
+  "actual_retained_review": {
+    "bytes": 25833,
+    "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/actual_retained_review.json",
+    "sha256": "b8f04764de79b25d14dde4bb26ce9840cfb0f3ad912d8ccf550a519f0481a3a9"
+  },
+  "actual_status": "CANDIDATE_REVIEWED",
+  "collector_calls": 0,
+  "completed_at": "2026-10-21T07:16:17.894913+00:00",
+  "elapsed_seconds": 0.03479812399996263,
+  "errors": 0,
+  "expected_failures": 0,
+  "failures": 0,
+  "full_console": {
+    "bytes": 1186,
+    "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/new_tests.log",
+    "sha256": "0ca52f292fc1d5a03dc9c3efd941b52760ffdc9688b5791dd6eb3628fbcd1860"
+  },
+  "original32_methods_rerun": 0,
+  "original32_test_bodies_ast_unchanged": true,
+  "plain_ok": true,
+  "producer_test_after": {
+    "producer": {
+      "bytes": 27094,
+      "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+      "sha256": "7f5a0241182650d573ca5dce936fcc09f84fe77a59b206340693c916a34c6189"
+    },
+    "test": {
+      "bytes": 24666,
+      "path": "tests/test_wafer_capacity_deposit_review.py",
+      "sha256": "320a97f550c09d52037a361c61e446bf4e7589176f882cec71f0e080b9e883fc"
+    }
+  },
+  "producer_test_before": {
+    "producer": {
+      "bytes": 27094,
+      "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+      "sha256": "7f5a0241182650d573ca5dce936fcc09f84fe77a59b206340693c916a34c6189"
+    },
+    "test": {
+      "bytes": 24666,
+      "path": "tests/test_wafer_capacity_deposit_review.py",
+      "sha256": "320a97f550c09d52037a361c61e446bf4e7589176f882cec71f0e080b9e883fc"
+    }
+  },
+  "qualified_bytes_unchanged": true,
+  "registry_or_raw_source_edits": false,
+  "schema_version": 1,
+  "skips": 0,
+  "source_http_requests": 0,
+  "sql_database_operations": 0,
+  "started_at": "2026-10-21T07:16:17.423799+00:00",
+  "synthetic_controls_are_live_evidence": false,
+  "tests_discovered": 5,
+  "tests_executed": 5,
+  "unexpected_successes": 0,
+  "version": "v1"
+}

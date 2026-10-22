@@ -1,0 +1,32 @@
+{
+  "HTTP_DB_or_legacy_evidence_writes": 0,
+  "base_commit": "bca703329150bbe2478afabffec1590505429504",
+  "files": [
+    {
+      "bytes": 21589,
+      "original_path": "market_checker_app/collectors/doj_case_caption_review.py",
+      "sha256": "163966b86b7354ccdcad05af14a1cef2575723312957c1fcc7f5a729b247a8fc",
+      "snapshot_path": "evidence/batch10_caption_clock_fix_20261018/before/caption_review.py"
+    },
+    {
+      "bytes": 18776,
+      "original_path": "tests/test_doj_case_caption_review.py",
+      "sha256": "e4309847b0b6540710d31e39d64eb413c5b78f55ec2dbb426a93fcb7a63b3c8c",
+      "snapshot_path": "evidence/batch10_caption_clock_fix_20261018/before/caption_tests.py"
+    },
+    {
+      "bytes": 470353,
+      "original_path": "evidence/batch10_regulatory_20261018/actual_review.json",
+      "sha256": "8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b",
+      "snapshot_path": "evidence/batch10_caption_clock_fix_20261018/before/actual_review.json"
+    },
+    {
+      "bytes": 3597,
+      "original_path": "evidence/batch10_regulatory_20261018/actual_review_plan.json",
+      "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad",
+      "snapshot_path": "evidence/batch10_caption_clock_fix_20261018/before/actual_review_plan.json"
+    }
+  ],
+  "recorded_at": "2026-10-18T14:10:09.444044+00:00",
+  "snapshot_before_clock_diagnostics": true
+}

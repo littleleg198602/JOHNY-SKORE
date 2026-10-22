@@ -1,0 +1,29 @@
+test_cli_exposes_the_new_form144_review_without_collection (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_cli_exposes_the_new_form144_review_without_collection) ... ok
+test_form144_account_corroboration_retains_actual_transaction_mismatches (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_form144_account_corroboration_retains_actual_transaction_mismatches) ... ok
+test_successor_charter_keeps_its_own_class_and_explicit_effective_day (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_successor_charter_keeps_its_own_class_and_explicit_effective_day) ... ERROR
+test_surviving_private_charter_is_not_the_exchanged_legacy_instrument (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_surviving_private_charter_is_not_the_exchanged_legacy_instrument) ... ERROR
+test_ui_can_select_and_archive_the_new_form144_notice (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_ui_can_select_and_archive_the_new_form144_notice) ... 2026-10-20 22:19:28.898 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+======================================================================
+ERROR: test_successor_charter_keeps_its_own_class_and_explicit_effective_day (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_successor_charter_keeps_its_own_class_and_explicit_effective_day)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_sourcefront_coordinator_integration.py", line 54, in test_successor_charter_keeps_its_own_class_and_explicit_effective_day
+    self.assertFalse(leaf["continuity_supported"])
+                     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'continuity_supported'
+
+======================================================================
+ERROR: test_surviving_private_charter_is_not_the_exchanged_legacy_instrument (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_surviving_private_charter_is_not_the_exchanged_legacy_instrument)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_sourcefront_coordinator_integration.py", line 43, in test_surviving_private_charter_is_not_the_exchanged_legacy_instrument
+    self.assertFalse(leaf["continuity_supported"])
+                     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'continuity_supported'
+
+----------------------------------------------------------------------
+Ran 5 tests in 2.085s
+
+FAILED (errors=2)

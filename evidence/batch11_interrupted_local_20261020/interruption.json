@@ -1,0 +1,33 @@
+{
+  "schema_version": "batch11_interrupted_local_full_v1",
+  "observed_at": "2026-10-20T07:51:18.381642+00:00",
+  "tested_code_snapshot": "14f9c88b2deb183bc54b466b8b506406ce992409",
+  "discovered_preflight": 2688,
+  "started_headings": 2390,
+  "original_completed_ok_blocks": 2389,
+  "last_started_method": "test_specialist_incremental_archive_service.SpecialistIncrementalArchiveTests.test_shared_macro_and_dataset13f_evidence_never_credit_issuer_coverage",
+  "result_JSON_exists": false,
+  "plain_OK_footer_exists": false,
+  "matching_runner_process_ids": [],
+  "process_termination_cause": "UNKNOWN_NO_TERMINATION_TRACE_IN_ORIGINAL_LOG",
+  "final_tests_run": null,
+  "final_failures": null,
+  "final_errors": null,
+  "final_skips": null,
+  "final_expected_failures": null,
+  "final_unexpected_successes": null,
+  "qualified_success": false,
+  "original_files_unchanged": {
+    "evidence/batch11_linux_console_20261019.log": {
+      "whole_copy": "evidence/batch11_interrupted_local_20261020/batch11_linux_console_20261019.log",
+      "bytes": 489064,
+      "sha256": "5f7009bb2ad0880fea2c90981582779d05c7f27c54cfef1f5d953cbe1e4610f3"
+    },
+    "evidence/batch11_linux_runner_20261019.log": {
+      "whole_copy": "evidence/batch11_interrupted_local_20261020/batch11_linux_runner_20261019.log",
+      "bytes": 487012,
+      "sha256": "3f95b8dfe874b8883800d4254427f1eb99a71447a45185a134dfd0be6f4e8ec7"
+    }
+  },
+  "next_action": "A new complete qualification on unchanged production/test bytes, distinct20261020 log/result paths; original partial run is not rewritten or counted as complete."
+}

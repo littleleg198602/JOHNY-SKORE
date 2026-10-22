@@ -1,0 +1,519 @@
+{
+  "MSFT_EX31_1": {
+    "account_person_alias_or_transaction_bridge": false,
+    "actual_served_bytes": 12762,
+    "body": {
+      "bytes": 12762,
+      "path": "evidence/sourcefront21_primary_20261021/primary/msft_ex31_1.htm",
+      "sha256": "5001124e4c5e57d8aafd6fbbe98845acd11397dd5ddcc853857c6377a452872a"
+    },
+    "continuous_2026_role_or_role_at_2026_08_31_proven": false,
+    "cryptographic_signature_or_natural_person_authenticated": false,
+    "date_precision": "DAY",
+    "difference_cause_or_historical_as_filed_body_established": false,
+    "historical_machine_availability_at_signature_day_proven": false,
+    "index": {
+      "bytes": 11876,
+      "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+      "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+    },
+    "index_declared_bytes": 12647,
+    "index_original_row_span": {
+      "byte_end_exclusive": 7331,
+      "byte_start": 7030,
+      "bytes": 301,
+      "sha256": "3f2f6b100e42f71ae17c9dbe02655aadb6cca7d18f41454534185ca22ad9c7f2"
+    },
+    "original_literal_spans": {
+      "Chief Executive Officer": [
+        {
+          "byte_end_exclusive": 11667,
+          "byte_start": 11644,
+          "sha256": "60f3b525481fa0e69f27f2f6f0f7ce4ca2eb62c963b4e977f52204d288be3a8c"
+        }
+      ],
+      "I, Satya Nadella, certify that:": [
+        {
+          "byte_end_exclusive": 1681,
+          "byte_start": 1650,
+          "sha256": "4e06fb6c28dadd29a27f91d8af536f5aa135538fafa1a0ef6b27606b9ee27a1f"
+        }
+      ],
+      "July 29, 2026": [
+        {
+          "byte_end_exclusive": 11946,
+          "byte_start": 11933,
+          "sha256": "91c8aee75396020f341028684fe52441fa8b1131c77a319e1abc0272f448a5db"
+        }
+      ],
+      "Microsoft Corporation": [
+        {
+          "byte_end_exclusive": 2126,
+          "byte_start": 2105,
+          "sha256": "5951da04edaa9198b1b04e40711c13d3e4173b3cb29f1066d882f2be5b0c5187"
+        }
+      ],
+      "Satya Nadella": [
+        {
+          "byte_end_exclusive": 1666,
+          "byte_start": 1653,
+          "sha256": "5606444dc05c1b989620702b743505251cd2ef1776553bba7179b8960bf294e3"
+        },
+        {
+          "byte_end_exclusive": 11210,
+          "byte_start": 11197,
+          "sha256": "5606444dc05c1b989620702b743505251cd2ef1776553bba7179b8960bf294e3"
+        }
+      ]
+    },
+    "response_normalized_trimmed_or_reconstructed": false,
+    "scope": "FORM10K_CERTIFICATION_ROLE_POINT_ONLY",
+    "script_executed": false,
+    "script_length_equals_numeric_size_difference": true,
+    "served_minus_index_bytes": 115,
+    "served_script_element_pins_without_opaque_resource_path_export": [
+      {
+        "byte_end_exclusive": 12726,
+        "byte_start": 12611,
+        "bytes": 115,
+        "sha256": "66eed38e6ee26fe01f0b25a1506ae68cf4dbab6aecd60d557f7b702c3db27944"
+      }
+    ],
+    "source_stated_issuer": "Microsoft Corporation",
+    "source_stated_role": "Chief Executive Officer",
+    "source_stated_signature_day": "2026-07-29",
+    "source_stated_signer": "Satya Nadella",
+    "visible_text_sha256": "f0b5271541109a5542b5404d296e227c50bf1ca3c6fe998b438e94b3f44f5bf4",
+    "whole_visible_text_read": true
+  },
+  "actions_by_this_audit": {
+    "SQL_DB_or_quota_operations": 0,
+    "candidate_auditor_or_prior_four_original_audit_replayed": false,
+    "forecasts_registrations_labels_registry_model_score_or_trading_changes": 0,
+    "new_HTTP_search_connector_browser_collector_calls": 0,
+    "protected_journal_DB_touched": false,
+    "root_source_or_evidence_mutations": 0,
+    "source_body_copies_or_sanitized_replacements_created": 0,
+    "test_CI_or_application_runs": 0,
+    "withheld_bodies_opened_recovered_or_substituted": 0
+  },
+  "actual_request_plan_pin": {
+    "bytes": 6150,
+    "path": "evidence/sourcefront21_primary_20261021/request_plan.json",
+    "sha256": "f73ed0625350ef8a1c51eb20cbec9a484f483c7f9071f3bbe3bf1e7eed06dbf0"
+  },
+  "all_root_input_pins": [
+    {
+      "bytes": 278915,
+      "path": "evidence/sourcefront21_evaluation_20261021/candidate_plan_audit.json",
+      "sha256": "fecc40c808f8abdc9ce25d81de3c5f56330d70b0591edf753396de900654af83"
+    },
+    {
+      "bytes": 6150,
+      "path": "evidence/sourcefront21_primary_20261021/request_plan.json",
+      "sha256": "f73ed0625350ef8a1c51eb20cbec9a484f483c7f9071f3bbe3bf1e7eed06dbf0"
+    },
+    {
+      "bytes": 570,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_launch.json",
+      "sha256": "bc6eb84fca0386bde6ea5c19ad2ebd7a4ae1910cb9f66f70036246548e251844"
+    },
+    {
+      "bytes": 75,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_exit.json",
+      "sha256": "9e7b22820810b6c7e77e785585fd36d193eaad2459e35d76e484432c915d35c6"
+    },
+    {
+      "bytes": 68,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_process.json",
+      "sha256": "bc559c433cdbf9dd08ac186949879ce8ea6a1797520b52c9b8450fb27f97a554"
+    },
+    {
+      "bytes": 6538,
+      "path": "evidence/sourcefront21_primary_20261021/capture_primary.py",
+      "sha256": "ba639420e910ea51385cc03fdfb7bb9ffe764e1323a17236775150af3c9dde46"
+    },
+    {
+      "bytes": 2138,
+      "path": "evidence/sourcefront21_primary_20261021/supervise_primary.py",
+      "sha256": "70d67b1e0e9541b0ed9aeb2f46336f3120581d84e1eb5a50041e982b1f3aa463"
+    },
+    {
+      "bytes": 1229,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_stdout.log",
+      "sha256": "2eacd15d42dd0785cc15125090a01ce4fc4a59a89190ecf1150a02c8e2b51f1d"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1442,
+      "path": "evidence/sourcefront21_primary_20261021/primary/p_name_amendment.metadata.json",
+      "sha256": "00b6d326ae372af6ddfd5a0a3ef46e37d70ffb61363b3cdfc2bd0521ad5e7ab3"
+    },
+    {
+      "bytes": 565,
+      "path": "evidence/sourcefront21_primary_20261021/primary/p_name_amendment.reserved.json",
+      "sha256": "4e322649295d0f9e9f241c689f327089d9280cd8de94da9857828c387e23a567"
+    },
+    {
+      "bytes": 9238,
+      "path": "evidence/sourcefront21_primary_20261021/primary/p_name_amendment.htm",
+      "sha256": "d2e7e86faf3fe1fd2b7701629dc0325a600ebd0d9f1305e0c2f38bb99a33847e"
+    },
+    {
+      "bytes": 1470,
+      "path": "evidence/sourcefront21_primary_20261021/primary/p_securities_description.metadata.json",
+      "sha256": "1866c08a3e2dcbd381cc4c10b14defb7104a61e8454af5583fb21ab5c289aad3"
+    },
+    {
+      "bytes": 577,
+      "path": "evidence/sourcefront21_primary_20261021/primary/p_securities_description.reserved.json",
+      "sha256": "bd6aa7e1b8aee20d11f8ea77a7b16efd62faf3652de666f985fabcbcb221e58f"
+    },
+    {
+      "bytes": 28199,
+      "path": "evidence/sourcefront21_primary_20261021/primary/p_securities_description.htm",
+      "sha256": "a87ab222a1958a5df3368b9cfb2c538cd3d63f14eb18e3d9b7102b38d8e1714e"
+    },
+    {
+      "bytes": 1636,
+      "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.metadata.json",
+      "sha256": "1d370f99d070958eee1f81b64f7c6563b09182a3d897dd6f65d41a74598db03a"
+    },
+    {
+      "bytes": 564,
+      "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.reserved.json",
+      "sha256": "d49ec947948b273cea7d44eddb2131ddeb1f15e08b3ee07ab2913dfe7b04b785"
+    },
+    {
+      "bytes": 137546,
+      "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7"
+    },
+    {
+      "bytes": 1619,
+      "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.metadata.json",
+      "sha256": "75179cbd2b8c00d0201c51b12d7b05b9796c0c7556c1cdb9df590dbff20954c4"
+    },
+    {
+      "bytes": 555,
+      "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.reserved.json",
+      "sha256": "03a44133fe01d7e964f2a8e19a14ea504ef20e903ba5212fea21a1437dba48ea"
+    },
+    {
+      "bytes": 2495404,
+      "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2"
+    },
+    {
+      "bytes": 1411,
+      "path": "evidence/sourcefront21_primary_20261021/primary/msft_ex31_1.metadata.json",
+      "sha256": "53dd3953df3156d30e9c37b4861b2ed96b2264a234ee5be418aa6ca35d2d922b"
+    },
+    {
+      "bytes": 547,
+      "path": "evidence/sourcefront21_primary_20261021/primary/msft_ex31_1.reserved.json",
+      "sha256": "c0797040528efcafd5180b180c32877bc0beed4dcbeb574eb461c8f68158c785"
+    },
+    {
+      "bytes": 12762,
+      "path": "evidence/sourcefront21_primary_20261021/primary/msft_ex31_1.htm",
+      "sha256": "5001124e4c5e57d8aafd6fbbe98845acd11397dd5ddcc853857c6377a452872a"
+    },
+    {
+      "bytes": 11876,
+      "path": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+      "sha256": "3a55aba0e2413ca2632e2e47c5348f02781ede20810f4a413ea06a29e0a697b6"
+    },
+    {
+      "bytes": 3351,
+      "path": "evidence/sourcefront21_primary_20261021/capture_verification.json",
+      "sha256": "ad44161fd2c08b1e77c77216916d1886e836064dc511cf2e19a1e4f9a6fb1a61"
+    }
+  ],
+  "auditor_producer": {
+    "bytes": 19670,
+    "path": "evidence/sourcefront21_evaluation_20261021/audit_primary_captures.py",
+    "sha256": "35c1991d65ac8b387161be76fbf3da1ff2301de14206201ee4666b68dd6b8ad0"
+  },
+  "capture_process": {
+    "exit": {
+      "bytes": 75,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_exit.json",
+      "sha256": "9e7b22820810b6c7e77e785585fd36d193eaad2459e35d76e484432c915d35c6"
+    },
+    "exit_code": 0,
+    "helper": {
+      "bytes": 6538,
+      "path": "evidence/sourcefront21_primary_20261021/capture_primary.py",
+      "sha256": "ba639420e910ea51385cc03fdfb7bb9ffe764e1323a17236775150af3c9dde46"
+    },
+    "helper_or_supervisor_executed_by_this_audit": false,
+    "launch": {
+      "bytes": 570,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_launch.json",
+      "sha256": "bc6eb84fca0386bde6ea5c19ad2ebd7a4ae1910cb9f66f70036246548e251844"
+    },
+    "process": {
+      "bytes": 68,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_process.json",
+      "sha256": "bc559c433cdbf9dd08ac186949879ce8ea6a1797520b52c9b8450fb27f97a554"
+    },
+    "stderr": {
+      "bytes": 0,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 1229,
+      "path": "evidence/sourcefront21_primary_20261021/primary_capture_stdout.log",
+      "sha256": "2eacd15d42dd0785cc15125090a01ce4fc4a59a89190ecf1150a02c8e2b51f1d"
+    },
+    "supervisor": {
+      "bytes": 2138,
+      "path": "evidence/sourcefront21_primary_20261021/supervise_primary.py",
+      "sha256": "70d67b1e0e9541b0ed9aeb2f46336f3120581d84e1eb5a50041e982b1f3aa463"
+    }
+  },
+  "capture_source_commit": "8313e09da8db533a2c75c2da279b10458db4643c",
+  "completed_at": "2026-10-21T07:22:46.534031+00:00",
+  "elapsed_monotonic_ns": 400142538,
+  "frozen_prior_audit_pin": {
+    "bytes": 278915,
+    "path": "evidence/sourcefront21_evaluation_20261021/candidate_plan_audit.json",
+    "sha256": "fecc40c808f8abdc9ce25d81de3c5f56330d70b0591edf753396de900654af83"
+  },
+  "frozen_proposal_pin": {
+    "bytes": 5814,
+    "path": "/workspace/scratch/334b3a149083/sourcefront21_20261021/selected_candidates.json",
+    "sha256": "60c86f690de7a7bc8be143455317d21b37053548a1eae771b3565c2bbaea87d4"
+  },
+  "limits": [
+    "Five new research original response bodies, not app collector/API or recovered durable history, native userWindows, historical/OOS or full21 acceptance.",
+    "Whole bytes remain exactly as physically served; source dates, HTTPDate and Last-Modified never backdate machine knowledge or establish historical as-filed byte identity.",
+    "The EX31.1 named signer/CEO/July29 point does not prove natural-person/account/alias identity, tenure, Aug31 role, a transaction or sale execution.",
+    "The115-byte script element is observed in this whole response. Equal size difference does not prove cause, publisher version or a valid historical reconstruction.",
+    "Local PDF text hashes match the capture metadata; decoded text is not pixel/publisher authentication and no decoded body substitute is published.",
+    "All request plans are consumed; no failed, unsafe, over-cap or later request gains retry, alternate endpoint or fallback authorization."
+  ],
+  "originals": [
+    {
+      "HTTP_status": 200,
+      "body": {
+        "bytes": 9238,
+        "path": "evidence/sourcefront21_primary_20261021/primary/p_name_amendment.htm",
+        "sha256": "d2e7e86faf3fe1fd2b7701629dc0325a600ebd0d9f1305e0c2f38bb99a33847e"
+      },
+      "body_whole_hash_and_bytes_match": true,
+      "candidate_id": "P_NAME_AMENDMENT",
+      "key": "p_name_amendment",
+      "metadata": {
+        "bytes": 1442,
+        "path": "evidence/sourcefront21_primary_20261021/primary/p_name_amendment.metadata.json",
+        "sha256": "00b6d326ae372af6ddfd5a0a3ef46e37d70ffb61363b3cdfc2bd0521ad5e7ab3"
+      },
+      "physical_known_at": "2026-10-21T07:12:23.237728+00:00",
+      "physical_observed_at": "2026-10-21T07:12:23.234430+00:00",
+      "physical_started_at": "2026-10-21T07:12:17.349815+00:00",
+      "request_bound_bytes": 1000000,
+      "requested_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000011/certificateofamendment.htm",
+      "research_only": true,
+      "reservation": {
+        "bytes": 565,
+        "path": "evidence/sourcefront21_primary_20261021/primary/p_name_amendment.reserved.json",
+        "sha256": "4e322649295d0f9e9f241c689f327089d9280cd8de94da9857828c387e23a567"
+      },
+      "reservation_plan_and_metadata_match": true,
+      "retry_redirect_fallback": false,
+      "safe_preserved_headers": {
+        "Content-Encoding": null,
+        "Content-Length": "9238",
+        "Content-Type": "text/html",
+        "Date": "Wed, 21 Oct 2026 07:12:23 GMT",
+        "Last-Modified": "Mon, 23 Feb 2026 21:23:28 GMT"
+      },
+      "source_publication_time": null,
+      "transport_elapsed_seconds": 5.883220071999972
+    },
+    {
+      "HTTP_status": 200,
+      "body": {
+        "bytes": 28199,
+        "path": "evidence/sourcefront21_primary_20261021/primary/p_securities_description.htm",
+        "sha256": "a87ab222a1958a5df3368b9cfb2c538cd3d63f14eb18e3d9b7102b38d8e1714e"
+      },
+      "body_whole_hash_and_bytes_match": true,
+      "candidate_id": "P_REGISTERED_SECURITIES_DESCRIPTION",
+      "key": "p_securities_description",
+      "metadata": {
+        "bytes": 1470,
+        "path": "evidence/sourcefront21_primary_20261021/primary/p_securities_description.metadata.json",
+        "sha256": "1866c08a3e2dcbd381cc4c10b14defb7104a61e8454af5583fb21ab5c289aad3"
+      },
+      "physical_known_at": "2026-10-21T07:12:26.380338+00:00",
+      "physical_observed_at": "2026-10-21T07:12:26.373254+00:00",
+      "physical_started_at": "2026-10-21T07:12:23.238774+00:00",
+      "request_bound_bytes": 1000000,
+      "requested_URL": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex43-descriptionofregistra.htm",
+      "research_only": true,
+      "reservation": {
+        "bytes": 577,
+        "path": "evidence/sourcefront21_primary_20261021/primary/p_securities_description.reserved.json",
+        "sha256": "bd6aa7e1b8aee20d11f8ea77a7b16efd62faf3652de666f985fabcbcb221e58f"
+      },
+      "reservation_plan_and_metadata_match": true,
+      "retry_redirect_fallback": false,
+      "safe_preserved_headers": {
+        "Content-Encoding": null,
+        "Content-Length": "28199",
+        "Content-Type": "text/html",
+        "Date": "Wed, 21 Oct 2026 07:12:26 GMT",
+        "Last-Modified": "Wed, 25 Mar 2026 10:01:27 GMT"
+      },
+      "source_publication_time": null,
+      "transport_elapsed_seconds": 3.1338426089999984
+    },
+    {
+      "HTTP_status": 200,
+      "PDF_text_gate": {
+        "derived_bytes": 19840,
+        "derived_sha256": "bfdd962c120f6f41fca44df5a3ea775f44de9c7f6a8870a0085937278bf23a66",
+        "matches_capture_metadata": true,
+        "not_pixel_or_publisher_authentication": true,
+        "original_text_not_published_or_used_as_body_substitute": true
+      },
+      "body": {
+        "bytes": 137546,
+        "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+        "sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7"
+      },
+      "body_whole_hash_and_bytes_match": true,
+      "candidate_id": "FDA_ORIGINAL_APPROVAL_LETTER",
+      "key": "fda_trazimera_approval_2019",
+      "metadata": {
+        "bytes": 1636,
+        "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.metadata.json",
+        "sha256": "1d370f99d070958eee1f81b64f7c6563b09182a3d897dd6f65d41a74598db03a"
+      },
+      "physical_known_at": "2026-10-21T07:12:30.175333+00:00",
+      "physical_observed_at": "2026-10-21T07:12:30.116950+00:00",
+      "physical_started_at": "2026-10-21T07:12:26.381422+00:00",
+      "request_bound_bytes": 4000000,
+      "requested_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2019/761081Orig1s000Approv.pdf",
+      "research_only": true,
+      "reservation": {
+        "bytes": 564,
+        "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.reserved.json",
+        "sha256": "d49ec947948b273cea7d44eddb2131ddeb1f15e08b3ee07ab2913dfe7b04b785"
+      },
+      "reservation_plan_and_metadata_match": true,
+      "retry_redirect_fallback": false,
+      "safe_preserved_headers": {
+        "Content-Encoding": null,
+        "Content-Length": "137546",
+        "Content-Type": "application/pdf",
+        "Date": "Wed, 21 Oct 2026 07:12:30 GMT",
+        "Last-Modified": "Fri, 17 May 2019 13:57:21 GMT"
+      },
+      "source_publication_time": null,
+      "transport_elapsed_seconds": 3.7347479789999625
+    },
+    {
+      "HTTP_status": 200,
+      "PDF_text_gate": {
+        "derived_bytes": 142311,
+        "derived_sha256": "a68e47d19e58114e6f788b6cd100dd97cc6f271ce20920a2a87a04ce49d04059",
+        "matches_capture_metadata": true,
+        "not_pixel_or_publisher_authentication": true,
+        "original_text_not_published_or_used_as_body_substitute": true
+      },
+      "body": {
+        "bytes": 2495404,
+        "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+        "sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2"
+      },
+      "body_whole_hash_and_bytes_match": true,
+      "candidate_id": "FDA_SUPPLEMENT_17_LABEL",
+      "key": "fda_trazimera_label_2025",
+      "metadata": {
+        "bytes": 1619,
+        "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.metadata.json",
+        "sha256": "75179cbd2b8c00d0201c51b12d7b05b9796c0c7556c1cdb9df590dbff20954c4"
+      },
+      "physical_known_at": "2026-10-21T07:12:34.908342+00:00",
+      "physical_observed_at": "2026-10-21T07:12:34.528887+00:00",
+      "physical_started_at": "2026-10-21T07:12:30.176417+00:00",
+      "request_bound_bytes": 4000000,
+      "requested_URL": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/761081s017lbl.pdf",
+      "research_only": true,
+      "reservation": {
+        "bytes": 555,
+        "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.reserved.json",
+        "sha256": "03a44133fe01d7e964f2a8e19a14ea504ef20e903ba5212fea21a1437dba48ea"
+      },
+      "reservation_plan_and_metadata_match": true,
+      "retry_redirect_fallback": false,
+      "safe_preserved_headers": {
+        "Content-Encoding": null,
+        "Content-Length": "2495404",
+        "Content-Type": "application/pdf",
+        "Date": "Wed, 21 Oct 2026 07:12:34 GMT",
+        "Last-Modified": "Mon, 25 Aug 2025 17:23:36 GMT"
+      },
+      "source_publication_time": null,
+      "transport_elapsed_seconds": 4.352996293999922
+    },
+    {
+      "HTTP_status": 200,
+      "body": {
+        "bytes": 12762,
+        "path": "evidence/sourcefront21_primary_20261021/primary/msft_ex31_1.htm",
+        "sha256": "5001124e4c5e57d8aafd6fbbe98845acd11397dd5ddcc853857c6377a452872a"
+      },
+      "body_whole_hash_and_bytes_match": true,
+      "candidate_id": "MSFT_2026_EX31_1",
+      "key": "msft_ex31_1",
+      "metadata": {
+        "bytes": 1411,
+        "path": "evidence/sourcefront21_primary_20261021/primary/msft_ex31_1.metadata.json",
+        "sha256": "53dd3953df3156d30e9c37b4861b2ed96b2264a234ee5be418aa6ca35d2d922b"
+      },
+      "physical_known_at": "2026-10-21T07:12:38.488717+00:00",
+      "physical_observed_at": "2026-10-21T07:12:38.485054+00:00",
+      "physical_started_at": "2026-10-21T07:12:34.910101+00:00",
+      "request_bound_bytes": 256000,
+      "requested_URL": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-ex31_1.htm",
+      "research_only": true,
+      "reservation": {
+        "bytes": 547,
+        "path": "evidence/sourcefront21_primary_20261021/primary/msft_ex31_1.reserved.json",
+        "sha256": "c0797040528efcafd5180b180c32877bc0beed4dcbeb574eb461c8f68158c785"
+      },
+      "reservation_plan_and_metadata_match": true,
+      "retry_redirect_fallback": false,
+      "safe_preserved_headers": {
+        "Content-Encoding": null,
+        "Content-Length": "12762",
+        "Content-Type": "text/html",
+        "Date": "Wed, 21 Oct 2026 07:12:38 GMT",
+        "Last-Modified": "Wed, 29 Jul 2026 20:08:56 GMT"
+      },
+      "source_publication_time": null,
+      "transport_elapsed_seconds": 3.5741210539999884
+    }
+  ],
+  "root_input_bytes_revalidated_unchanged_at_completion": true,
+  "schema_version": "sourcefront21_independent_primary_capture_audit_v1",
+  "scope": "ACTUAL_NEW_RESEARCH_CAPTURE_CONTENT_ONLY",
+  "started_at": "2026-10-21T07:22:46.133889+00:00",
+  "status": "FIVE_WHOLE_ORIGINALS_AND_DATED_EX31_POINT_VERIFIED_WITH_LIMITS",
+  "totals": {
+    "distinct_research_HTTP200_originals": 5,
+    "maximum_authorized_response_bytes": 10256000,
+    "retries_redirects_fallbacks": 0,
+    "whole_original_bytes": 2683149
+  }
+}

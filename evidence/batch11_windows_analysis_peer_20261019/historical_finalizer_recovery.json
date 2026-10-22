@@ -1,0 +1,19 @@
+{
+  "method": "Exact inverse of the actually recorded namespace finalizer patch: remove AST/discovery/new-current-qualification additions and restore original before/after conditions and output fields. Accepted only by exact complete historical size and SHA. Recovered source was not executed.",
+  "source_commit": "354ce903b1e94e5e5a5f141a13b3294feb222345",
+  "source_path": "evidence/batch11_windows_analysis_peer_20261019/finalize_handoff.py",
+  "source_bytes": 9689,
+  "source_sha256": "41c4994a5cc8912d91aaf79ab1ef34aea43bf5beebad7afb039afc5203aeb684",
+  "target_historical_manifest": "evidence/batch11_windows_analysis_peer_20261019/pre_discovery_guard_handoff.json",
+  "target_historical_path": "evidence/batch11_windows_analysis_peer_20261019/finalize_handoff.py",
+  "expected_bytes": 6210,
+  "expected_sha256": "fea50ee44e382da4dd81e473fc3d5bea303ba8afeeb289986a29525bc2fe5dcd",
+  "recovered_path": "evidence/batch11_windows_analysis_peer_20261019/recovered_finalize_handoff_before_namespace.py.txt",
+  "recovered_bytes": 6210,
+  "recovered_sha256": "fea50ee44e382da4dd81e473fc3d5bea303ba8afeeb289986a29525bc2fe5dcd",
+  "exact_expected_size_and_sha256_verified": true,
+  "current_and_historical_originals_modified": false,
+  "recovered_helper_executed": false,
+  "app_or_test_code_modified": false,
+  "tests_SQL_or_HTTP_performed": false
+}

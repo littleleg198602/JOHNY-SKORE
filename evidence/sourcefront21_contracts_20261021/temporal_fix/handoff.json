@@ -1,0 +1,214 @@
+{
+  "actual_retained_completion_clock": "2026-10-21T07:16:17.893661+00:00",
+  "actual_retained_review": {
+    "bytes": 25833,
+    "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/actual_retained_review.json",
+    "sha256": "b8f04764de79b25d14dde4bb26ce9840cfb0f3ad912d8ccf550a519f0481a3a9"
+  },
+  "actual_source_capture_clock": "2026-10-16T12:18:16.379894+00:00",
+  "api": "review_wafer_capacity_deposits(request,captures,*,as_of=None)",
+  "base_owner_commit": "202303498cb68098247f2cb648e08cd99812d164",
+  "corrections": [
+    {
+      "behavior": "REJECTED before source/selection parsing; default None remains physical completion",
+      "trigger": "Explicit as_of after the actual physical entry clock"
+    },
+    {
+      "behavior": "REJECTED as impossibly after earliest original source/index capture even under a conservative full-day calendar offset bound",
+      "limitations": "No publisher timezone or accepted instant is inferred; no equality or universal ordering with Filing Date is imposed",
+      "trigger": "Unqualified Accepted display2099 with correctly rehashed index metadata and original capture2026"
+    }
+  ],
+  "deliverable": "Narrow future-review-cutoff and impossible unqualified index-acceptance calendar rejection",
+  "evidence_manifest": [
+    {
+      "bytes": 2359,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/README.md",
+      "sha256": "1d99a3aa6bc1846f998238c878a1e01bccfceb992a0d2efa9c2ed4e08fd1ae34"
+    },
+    {
+      "bytes": 6022,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/SWKS_zalohy_na_vyrobni_kapacitu.json",
+      "sha256": "2c715af3716fd2294d35b68682b5fa8544fdedd143f311450665ed93a08f74cb"
+    },
+    {
+      "bytes": 6022,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/captured_plan.json",
+      "sha256": "2c715af3716fd2294d35b68682b5fa8544fdedd143f311450665ed93a08f74cb"
+    },
+    {
+      "bytes": 9715,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/case_diagnostics.json",
+      "sha256": "f27aee5625128ad2a5a5a4fc85f459211b94ea176a7f8079e08873b758091db1"
+    },
+    {
+      "bytes": 5930,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/handoff.json",
+      "sha256": "6a4cab92a9debe5b5d7abc2695819047c9d87e1f47856d7c04be5d5761b275e8"
+    },
+    {
+      "bytes": 436,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/producer_pin.json",
+      "sha256": "0679b3f298cb517409af8359abef034d78f702a04a2c3d146fc2fea225d69b1b"
+    },
+    {
+      "bytes": 12512,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/test_wafer_capacity_deposit_peer.py",
+      "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+    },
+    {
+      "bytes": 1681,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/tests.json",
+      "sha256": "905a163f5c5fa5ee4b85db8b3072913b2d7f7e9dd609fc64a383f56cde6a85fe"
+    },
+    {
+      "bytes": 5930,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/tests.log",
+      "sha256": "bd3c3016fa7ac700bbf5628fc6cba8c72529acc99b3c90f0cabd097de701d37e"
+    },
+    {
+      "bytes": 21725,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/test_wafer_capacity_deposit_review.py",
+      "sha256": "76a05359cb34df30640875d0545ea41c9f047ad81fbd4438a3fd399e9987c8c4"
+    },
+    {
+      "bytes": 25503,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/wafer_capacity_deposit_review.py",
+      "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+    },
+    {
+      "bytes": 3644,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before_manifest.json",
+      "sha256": "f446f96254528f22e83da07e72b933de12e5345d184d0de617ba71d94f5fb42b"
+    },
+    {
+      "bytes": 4421,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/qualify_new_temporal.py",
+      "sha256": "5e3b67a03a6c1d8fea18e38eef4510eb1ea9d875e31cdb64562ea85e8f264beb"
+    },
+    {
+      "bytes": 25833,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/actual_retained_review.json",
+      "sha256": "b8f04764de79b25d14dde4bb26ce9840cfb0f3ad912d8ccf550a519f0481a3a9"
+    },
+    {
+      "bytes": 2021,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/new_tests.json",
+      "sha256": "eb69927eb84ab97d6be2e4300698d77b2ba6f103e4fd6614b0d5684399b821fa"
+    },
+    {
+      "bytes": 1186,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/new_tests.log",
+      "sha256": "0ca52f292fc1d5a03dc9c3efd941b52760ffdc9688b5791dd6eb3628fbcd1860"
+    },
+    {
+      "bytes": 24666,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/test_wafer_capacity_deposit_review.py",
+      "sha256": "320a97f550c09d52037a361c61e446bf4e7589176f882cec71f0e080b9e883fc"
+    },
+    {
+      "bytes": 27094,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/wafer_capacity_deposit_review.py",
+      "sha256": "7f5a0241182650d573ca5dce936fcc09f84fe77a59b206340693c916a34c6189"
+    }
+  ],
+  "exact_unchanged_plan": {
+    "bytes": 6022,
+    "path": "evidence/sourcefront21_contracts_20261021/SWKS_zalohy_na_vyrobni_kapacitu.json",
+    "sha256": "2c715af3716fd2294d35b68682b5fa8544fdedd143f311450665ed93a08f74cb"
+  },
+  "independent_before_peer_commit": "390d713e8ab056759eec0dfa0128039b34a12340",
+  "independent_peer_after_status": "PENDING_EXACT_COMMITTED_PRODUCER_RECHECK_BY_SEC_OWNER",
+  "independent_peer_before": {
+    "errors": 0,
+    "failures": 2,
+    "original_capture_plan": {
+      "bytes": 6022,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/captured_plan.json",
+      "sha256": "2c715af3716fd2294d35b68682b5fa8544fdedd143f311450665ed93a08f74cb"
+    },
+    "original_case_diagnostics": {
+      "bytes": 9715,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/case_diagnostics.json",
+      "sha256": "f27aee5625128ad2a5a5a4fc85f459211b94ea176a7f8079e08873b758091db1"
+    },
+    "original_log": {
+      "bytes": 5930,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/tests.log",
+      "sha256": "bd3c3016fa7ac700bbf5628fc6cba8c72529acc99b3c90f0cabd097de701d37e"
+    },
+    "original_report": {
+      "bytes": 1681,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before/independent_peer/tests.json",
+      "sha256": "905a163f5c5fa5ee4b85db8b3072913b2d7f7e9dd609fc64a383f56cde6a85fe"
+    },
+    "test_sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0",
+    "tests_discovered": 12,
+    "tests_executed": 12
+  },
+  "new_focused_qualification": {
+    "elapsed_seconds": 0.03479812399996263,
+    "errors": 0,
+    "expected_failures": 0,
+    "failures": 0,
+    "full_console": {
+      "bytes": 1186,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/new_tests.log",
+      "sha256": "0ca52f292fc1d5a03dc9c3efd941b52760ffdc9688b5791dd6eb3628fbcd1860"
+    },
+    "plain_ok": true,
+    "result": {
+      "bytes": 2021,
+      "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/v1/new_tests.json",
+      "sha256": "eb69927eb84ab97d6be2e4300698d77b2ba6f103e4fd6614b0d5684399b821fa"
+    },
+    "skips": 0,
+    "tests_discovered": 5,
+    "tests_executed": 5,
+    "unexpected_successes": 0
+  },
+  "original_owner32_bodies_ast_unchanged": true,
+  "original_owner32_methods_rerun": 0,
+  "producer": {
+    "bytes": 27094,
+    "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+    "sha256": "7f5a0241182650d573ca5dce936fcc09f84fe77a59b206340693c916a34c6189"
+  },
+  "recorded_at": "2026-10-21T07:17:48.804579+00:00",
+  "restrictions": {
+    "full_specialist_acceptance": "0/21",
+    "model_fitter_score_or_trading_changes": false,
+    "network_search_http_collector_calls": 0,
+    "old_evidence_or_original_sources_changed": false,
+    "quota_reconstruction_or_new_store": false,
+    "registry_adoptions": 0,
+    "registry_shared_runtime_ui_docs_or_config_edits": false,
+    "remote_writes_or_push": false,
+    "sql_database_open_copy_replay_reset": 0,
+    "synthetic_controls_are_source_acceptance": false
+  },
+  "review_kind": "WAFER_CAPACITY_DEPOSITS",
+  "schema_version": 1,
+  "source_before_manifest": {
+    "bytes": 3644,
+    "path": "evidence/sourcefront21_contracts_20261021/temporal_fix/before_manifest.json",
+    "sha256": "f446f96254528f22e83da07e72b933de12e5345d184d0de617ba71d94f5fb42b"
+  },
+  "source_case": {
+    "accepted_instant_verified": false,
+    "accepted_timezone": "UNKNOWN",
+    "current_filing_comparative_not_prior_as_filed": true,
+    "index_declared_bytes": 1708601,
+    "nested_annotation_count": 12,
+    "publisher_publication_instant": null,
+    "publisher_size_difference_bytes": 109,
+    "served_bytes": 1708710,
+    "six_unique_balance_components": 6,
+    "source_version_conflict_resolved": false
+  },
+  "test": {
+    "bytes": 24666,
+    "path": "tests/test_wafer_capacity_deposit_review.py",
+    "sha256": "320a97f550c09d52037a361c61e446bf4e7589176f882cec71f0e080b9e883fc"
+  }
+}

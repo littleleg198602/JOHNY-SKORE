@@ -1,0 +1,25 @@
+{
+  "schema_version": "sourcefront21_plan_static_validation_v1",
+  "validation_started_at": "2026-10-21T02:10:55.096478+00:00",
+  "source_plan": {
+    "path": "evidence/sourcefront21_healthcare_20261021/source_plan.json",
+    "bytes": 30271,
+    "sha256": "d89f491a62e5e045f9cf30845bd8944526b3062defa141e1f2ceead49bdb64ba"
+  },
+  "tracked_history_audit": {
+    "path": "evidence/sourcefront21_healthcare_20261021/tracked_history_audit.json",
+    "bytes": 412849,
+    "sha256": "da964b6df8e7c25ab56d9e677e04d6a6d72e82e9f3a30acab115b6c70cc6cfdb"
+  },
+  "whole_file_pin_occurrences_verified": 15,
+  "original_byte_spans_verified": 12,
+  "selected_exact_href_literals_verified": 3,
+  "selected_prior_attempt_hits": 0,
+  "metadata_and_history_files_audited": 1594,
+  "current_head_matches_plan": true,
+  "network_HTTP_SQL_test_runs_or_collector_operations": 0,
+  "protected_DB_or_journal_read_or_hashed": false,
+  "no_new_live_acceptance": true,
+  "known_at": "2026-10-21T02:10:55.096978+00:00",
+  "ingested_at": "2026-10-21T02:10:55.096978+00:00"
+}

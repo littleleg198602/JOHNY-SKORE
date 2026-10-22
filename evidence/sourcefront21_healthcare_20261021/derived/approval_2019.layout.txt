@@ -1,0 +1,379 @@
+   CENTER FOR DRUG EVALUATION AND RESEARCH
+
+                            Approval Package for:
+
+                         APPLICATION NUMBER:
+                               761081Orig1s000
+
+Trade Name:         Trazimera, 420 mg/vial for injection, multi-dose vial
+
+Generic or Proper   Trastuzumab-qyyp
+Name:
+
+Sponsor:            Pfizer Ireland Pharmaceuticals
+
+Approval Date:      March 11, 2019
+
+Indication:         TRAZIMERA is a HER2/neu receptor antagonist
+                    indicated for:
+                    • The treatment of HER2-overexpressing breast cancer.
+                    • The treatment of HER2-overexpressing metastatic
+                    gastric or gastroesophageal junction adenocarcinoma.
+                    Select patients for therapy based on an FDA-approved
+                    companion diagnostic for a trastuzumab product.
+  CENTER FOR DRUG EVALUATION AND RESEARCH
+
+                     761081Orig1s000
+
+                           CONTENTS
+
+  Reviews / Information Included in this BLA Review.
+
+Approval Letter                                 X
+Other Action Letters                            X
+Labeling                                        X
+REMS
+Summary Review                                  X
+Officer/Employee List                           X
+Office Director Memo
+Cross Discipline Team Leader Review
+Clinical Review(s)                              X
+Product Quality Review(s)                       X
+Non-Clinical Review(s)                          X
+Statistical Review(s)
+Clinical Microbiology / Virology Review(s)
+Clinical Pharmacology Review(s)                 X
+Other Reviews                                   X
+Risk Assessment and Risk Mitigation Review(s)
+Proprietary Name Review(s)                      X
+Administrative/Correspondence Document(s)       X
+CENTER FOR DRUG EVALUATION AND
+           RESEARCH
+
+
+       APPLICATION NUMBER:
+
+        761081Orig1s000
+
+
+      APPROVAL LETTER
+                        DEPARTMENT OF HEALTH AND HUMAN SERVICES
+
+
+
+                                                                                        Food and Drug Administration
+                                                                                        Silver Spring MD 20993
+
+
+               BLA 761081
+                                                                                            BLA APPROVAL
+
+               Pfizer Ireland Pharmaceuticals
+               Attention: Scott C. Anderson, MS
+               10646 Science Center Drive
+               San Diego, CA 92121
+
+
+               Dear Mr. Anderson:
+
+               Please refer to your Biologics License Application (BLA) dated June 22, 2017, received June 22,
+               2017, submitted under section 351(k) of the Public Health Service Act for Trazimera
+               (trastuzumab-qyyp), 420 mg/vial for injection, multi-dose vial.
+
+               We acknowledge receipt of your resubmission dated September 28, 2018, which constituted a
+               complete response to our April 20, 2018, action letter.
+
+               LICENSING
+
+               We have approved your BLA for Trazimera (trastuzumab-qyyp) effective this date. You are
+               hereby authorized to introduce or deliver for introduction into interstate commerce, Trazimera
+               under your existing Department of Health and Human Services U.S. License No. 2060.
+
+               Trazimera is indicated for:
+               Adjuvant Breast Cancer:
+               Adjuvant treatment of HER2-overexpressing node positive or node negative (ER/PR negative or
+               with one high risk feature) breast cancer:
+                   • as part of a treatment regimen consisting of doxorubicin, cyclophosphamide, and either
+                       paclitaxel or docetaxel
+                   • as part of a treatment regimen with docetaxel and carboplatin
+                   • as a single agent following multi-modality anthracycline based therapy
+               Select patients for therapy based on an FDA-approved companion diagnostic for a trastuzumab
+               product.
+
+
+
+
+Reference ID: 4402035
+               BLA 761081
+               Page 2
+
+
+               Metastatic Breast Cancer:
+                   • In combination with paclitaxel for first-line treatment of HER2-overexpressing metastatic
+                       breast cancer
+                  • As a single agent for treatment of HER2-overexpressing breast cancer in patients who
+                       have received one or more chemotherapy regimens for metastatic disease
+               Select patients for therapy based on an FDA-approved companion diagnostic for a trastuzumab
+               product.
+
+               Metastatic Gastric Cancer:
+                  • In combination with cisplatin and capecitabine or 5-fluorouracil, for the treatment of
+                       patients with HER2-overexpressing metastatic gastric or gastroesophageal junction
+                       adenocarcinoma who have not received prior treatment for metastatic disease.
+               Select patients for therapy based on an FDA-approved companion diagnostic for a trastuzumab
+               product.
+
+               MANUFACTURING LOCATIONS
+
+               Under this license, you are approved to manufacture trastuzumab-qyyp drug substance at
+                                                                                                      (b) (4)
+
+
+                              The final formulated drug product and Bacteriostatic Water for Injection (BWFI),
+               USP (containing 1.1% benzyl alcohol) will be manufactured, filled, labeled, and packaged at
+               Pfizer Manufacturing Belgium NV, Puurs, Belgium (FEI: 1000654629). The final formulated
+                                                                                                          (b) (4)
+               drug product and BWFI will also undergo secondary packaging and labeling at
+                                                                               You may label your product
+               with the proprietary name, Trazimera, and market it in 420 mg/vial for injection, multi-dose vial.
+
+               DATING PERIOD
+
+               The dating period for Trazimera shall be 48 months from the date of manufacture when stored at
+               2°C to 8°C. Vials may be stored at 30°C for a single period of up to 3 months, not to exceed the
+               expiration date. The date of manufacture shall be defined as the date of final sterile filtration of
+                                                                                                    (b)
+               the formulated drug product. The dating period for your drug substance shall be (4) months from
+                                                      (b) (4)     (b) (4)        (b) (4)                      (b) (4)
+               the date of manufacture when stored at       °C to        °C in           Drug substance
+               (                                                      (b) (4)
+                                                                the         month expiry.
+
+               FDA LOT RELEASE
+
+               You are not currently required to submit samples of future lots of Trazimera and each kit
+               component to the Center for Drug Evaluation and Research (CDER) for release by the Director,
+               CDER, under 21 CFR 610.2. We will continue to monitor compliance with 21 CFR 610.1,
+               requiring completion of tests for conformity with standards applicable to each product prior to
+               release of each lot.
+
+
+
+
+Reference ID: 4402035
+               BLA 761081
+               Page 3
+
+
+               Any changes in the manufacturing, testing, packaging, or labeling of Trazimera, or in the
+               manufacturing facilities, will require the submission of information to your biologics license
+               application for our review and written approval, consistent with 21 CFR 601.12.
+
+               APPROVAL AND LABELING
+
+               We have completed our review of this application, as amended. It is approved, effective on the
+               date of this letter, for use as recommended in the enclosed agreed-upon labeling text.
+
+               CONTENT OF LABELING
+
+               As soon as possible, but no later than 14 days from the date of this letter, submit, via the FDA
+               automated drug registration and listing system (eLIST), the content of labeling [21 CFR
+               601.14(b)] in structured product labeling (SPL) format, as described at
+               http://www.fda.gov/ForIndustry/DataStandards/StructuredProductLabeling/default.htm.
+               Content of labeling must be identical to the enclosed labeling (text for the Prescribing
+               Information). Information on submitting SPL files using eLIST may be found in the guidance
+               for industry titled “SPL Standard for Content of Labeling Technical Qs and As” at
+               http://www.fda.gov/downloads/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/U
+               CM072392.pdf.
+
+               The SPL will be accessible via publicly available labeling repositories.
+
+               CARTON AND CONTAINER LABELING
+
+               Submit final printed carton and container labeling that are identical to the enclosed carton and
+               container labeling, as soon as they are available, but no more than 30 days after they are printed.
+               Please submit these labeling electronically according to the guidance for industry titled
+               Providing Regulatory Submissions in Electronic Format — Certain Human Pharmaceutical
+               Product Applications and Related Submissions Using the eCTD Specifications (April 2018,
+               Revision 5). For administrative purposes, designate this submission “Final Printed Carton and
+               Container Labeling for approved BLA 761081.” Approval of this submission by FDA is not
+               required before the labeling is used.
+
+               REQUIRED PEDIATRIC ASSESSMENTS
+
+               Under the Pediatric Research Equity Act (PREA) (21 U.S.C. 355c), all applications for new
+               active ingredients (which includes new salts and new fixed combinations), new indications, new
+               dosage forms, new dosing regimens, or new routes of administration are required to contain an
+               assessment of the safety and effectiveness of the product for the claimed indication(s) in
+               pediatric patients unless this requirement is waived, deferred, or inapplicable.
+
+               We are waiving the pediatric studies requirement for this application because necessary studies
+               are impossible or highly impracticable. Breast cancer and gastric cancer occur, for the most part
+               in the adult population. The incidence of these cancer types in pediatric patients is extremely
+               rare, and as such, clinical pediatric studies are impossible or highly impracticable.
+
+
+
+
+Reference ID: 4402035
+               BLA 761081
+               Page 4
+
+
+               POSTMARKETING COMMITMENTS NOT SUBJECT TO THE REPORTING
+               REQUIREMENTS UNDER SECTION 506B
+
+               We remind you of your postmarketing commitments:
+
+                    3565-1     Develop and implement a peptide mapping method for release and stability
+                               testing of trastuzumab-qyyp drug substance and drug product that can adequately
+                               assess levels of isomerized Asp102. Submit the final validation report and the
+                               release and stability acceptance criteria as a Prior Approval Supplement.
+
+                    The timetable you submitted on February 22, 2019, states that you will conduct this study
+                    according to the following schedule:
+
+                               Final Report Submission:      10/31/2019
+
+                    3565-2     Re-evaluate trastuzumab-qyyp drug substance lot release and stability
+                               specifications for potency by the FcγRIIIa reporter gene assay and for the CEX-
+                               HPLC assay to quantify acidic, main, and basic species after 30 additional drug
+                               substance lots have been manufactured at the commercial scale. Submit the
+                               corresponding data, analysis, and statistical plans used to evaluate the
+                               specifications, and any proposed changes to the specifications as a Prior Approval
+                               Supplement.
+
+                    The timetable you submitted on February 22, 2019, states that you will conduct this study
+                    according to the following schedule:
+
+                               Final Report Submission:      12/31/2021
+
+                    3565-3     Re-evaluate trastuzumab-qyyp drug product lot release and stability specifications
+                               for potency by the FcγRIIIa reporter gene assay and for the CEX-HPLC assay to
+                               quantify acidic, main, and basic species after 30 additional drug product lots have
+                               been manufactured at the commercial scale. Submit the corresponding data,
+                               analysis, and statistical plans used to evaluate the specifications, and any
+                               proposed changes to the specifications as a Prior Approval Supplement.
+
+                    The timetable you submitted on February 22, 2019, states that you will conduct this study
+                    according to the following schedule:
+
+                               Final Report Submission:      03/31/2023
+
+               Submit chemistry, manufacturing, and controls protocols and all postmarketing final reports to
+               this BLA. In addition, under 21 CFR 601.70 you should include a status summary of each
+               commitment in your annual progress report of postmarketing studies to this BLA. The status
+               summary should include expected summary completion and final report submission dates, any
+               changes in plans since the last annual report. All submissions, including supplements, relating to
+               these postmarketing commitments should be prominently labeled “Postmarketing Commitment
+
+
+
+
+Reference ID: 4402035
+               BLA 761081
+               Page 5
+
+
+               Protocol,” “Postmarketing Commitment Final Report,” or “Postmarketing Commitment
+               Correspondence.”
+
+               PROMOTIONAL MATERIALS
+
+               You may request advisory comments on proposed introductory advertising and promotional
+               labeling. To do so, submit, in triplicate, a cover letter requesting advisory comments, the
+               proposed materials in draft or mock-up form with annotated references, and the Prescribing
+               Information, Medication Guide, and Patient Package Insert (as applicable) to:
+
+                              Food and Drug Administration
+                              Center for Drug Evaluation and Research
+                              Office of Prescription Drug Promotion
+                              5901-B Ammendale Road
+                              Beltsville, MD 20705-1266
+
+               As required under 21 CFR 601.12(f)(4), you must submit final promotional materials, and the
+               package insert, at the time of initial dissemination or publication, accompanied by a Form FDA
+               2253. Form FDA 2253 is available at
+               http://www.fda.gov/downloads/AboutFDA/ReportsManualsForms/Forms/UCM083570.pdf.
+               Information and Instructions for completing the form can be found at
+               http://www.fda.gov/downloads/AboutFDA/ReportsManualsForms/Forms/UCM375154.pdf. For
+               more information about submission of promotional materials to the Office of Prescription Drug
+               Promotion (OPDP), see http://www.fda.gov/AboutFDA/CentersOffices/CDER/ucm090142.htm.
+
+               REPORTING REQUIREMENTS
+
+               You must submit adverse experience reports under the adverse experience reporting
+               requirements for licensed biological products (21 CFR 600.80).
+
+               Prominently identify all adverse experience reports as described in 21 CFR 600.80.
+
+               You must submit distribution reports under the distribution reporting requirements for licensed
+               biological products (21 CFR 600.81).
+
+               You must submit reports of biological product deviations under 21 CFR 600.14. You should
+               promptly identify and investigate all manufacturing deviations, including those associated with
+               processing, testing, packing, labeling, storage, holding and distribution. If the deviation involves
+               a distributed product, may affect the safety, purity, or potency of the product, and meets the other
+               criteria in the regulation, you must submit a report on Form FDA 3486 to:
+
+
+
+
+Reference ID: 4402035
+               BLA 761081
+               Page 6
+
+
+                                     Food and Drug Administration
+                                     Center for Drug Evaluation and Research
+                                     Division of Compliance Risk Management and Surveillance
+                                     5901-B Ammendale Road
+                                     Beltsville, MD 20705-1266
+
+               Biological product deviations, sent by courier or overnight mail, should be addressed to:
+
+                                     Food and Drug Administration
+                                     Center for Drug Evaluation and Research
+                                     Division of Compliance Risk Management and Surveillance
+                                     10903 New Hampshire Avenue, Bldg. 51, Room 4207
+                                     Silver Spring, MD 20903
+
+               If you have any questions, contact Clara Lee, Regulatory Project Manager, at (240) 402-4809.
+
+                                                            Sincerely,
+
+                                                            {See appended electronic signature page}
+
+                                                            Laleh Amiri-Kordestani, MD
+                                                            Supervisory Associate Director
+                                                            Division of Oncology Products 1
+                                                            Office of Hematology and Oncology Products
+                                                            Center for Drug Evaluation and Research
+
+               ENCLOSURES:
+                 Content of Labeling
+                    Prescribing Information
+                 Carton and Container Labeling
+
+
+
+
+Reference ID: 4402035
+                                                                                                    Signature Page 1 of 1
+
+          --------------------------------------------------------------------------------------------
+          This is a representation of an electronic record that was signed
+          electronically. Following this are manifestations of any and all
+          electronic signatures for this electronic record.
+          --------------------------------------------------------------------------------------------
+          /s/
+          ------------------------------------------------------------
+
+          LALEH AMIRI KORDESTANI
+          03/11/2019 03:12:32 PM
+
+
+
+
+Reference ID: 4402035
+

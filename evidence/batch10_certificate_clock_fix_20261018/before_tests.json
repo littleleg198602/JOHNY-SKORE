@@ -1,0 +1,22 @@
+{
+  "db_writes": 0,
+  "discovered": 7,
+  "errors": 0,
+  "executed": 7,
+  "expected_failures": 0,
+  "failures": 7,
+  "finished_at": "2026-10-18T14:11:48.383538+00:00",
+  "log_sha256": "0dd2ecd433a5741f640f76855aba0463e6914b58a91c6501891e42f7eaf42812",
+  "new_clock_methods": 7,
+  "new_source_requests": 0,
+  "phase": "before",
+  "plain_OK": false,
+  "producer_sha256": "cce4981473be8e070e28314021dc4d4c8a43791386315de92fc23332dd41cf1c",
+  "schema_version": "certificate_clock_focused_qualification_v1",
+  "skips": 0,
+  "started_at": "2026-10-18T14:11:48.256193+00:00",
+  "synthetic_clock_regressions_are_acceptance": false,
+  "test_sha256": "3ed94ea05494fdc06b4ed9c7543b353a8f957e2b113b3efca796ed0b765a3f88",
+  "unchanged_old_methods": 22,
+  "unexpected_successes": 0
+}

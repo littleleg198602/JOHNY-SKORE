@@ -1,0 +1,86 @@
+{
+  "captures": {
+    "catalog_chevrolet_2026": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 2436,
+        "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+        "sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d"
+      },
+      "metadata": {
+        "access": "public_without_credentials",
+        "archive_bytes": 2436,
+        "archive_encoding": "raw",
+        "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+        "archive_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+        "automatic_redirects": false,
+        "capture_id": "catalog_chevrolet_2026",
+        "content_type": "application/json",
+        "final_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json",
+        "http_status": 200,
+        "known_at": "2026-10-13T08:44:25.024795+00:00",
+        "max_response_bytes": 4000000,
+        "metadata_role": "Derived original-byte pin descriptor; original metadata remains unchanged",
+        "method": "GET",
+        "observed_at": "2026-10-13T08:44:25.024795+00:00",
+        "outcome": "HTTP_SUCCESS",
+        "payload_Count": 29,
+        "payload_Message": "Results returned successfully",
+        "payload_SearchCriteria": "Make:CHEVROLET | ModelYear:2026",
+        "public_raw_available": true,
+        "raw_response_bytes": 2436,
+        "raw_response_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+        "requested_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json",
+        "result_rows": 29,
+        "results_field": "Results",
+        "source_date_header": "Tue, 13 Oct 2026 08:44:24 GMT",
+        "source_metadata": {
+          "bytes": 1187,
+          "path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.metadata.json",
+          "sha256": "d4888713cfe2d7c2bb73c62bbdee221bbf6e073a020509aa50fedc479e077e74"
+        },
+        "started_at": "2026-10-13T08:44:21.135252+00:00",
+        "status": "ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 20
+      }
+    },
+    "recall_chevrolet_5500xg_2026_blocked": {
+      "body_available": false,
+      "body_ref": null,
+      "metadata": {
+        "archive_path": null,
+        "automatic_redirects": false,
+        "capture_id": "recall_chevrolet_5500xg_2026_blocked",
+        "final_url": null,
+        "http_status": null,
+        "known_at": "2026-10-16T12:22:34.506262+00:00",
+        "observed_at": null,
+        "public_raw_available": false,
+        "raw_response_bytes": null,
+        "raw_response_sha256": null,
+        "recorded_request_id": "05cd501eeecc4171a024d52a41fbf369",
+        "recorded_request_row_sha256": "8e963351983355168c1d5b6e6476bd109f50c4f4c60bd310775c48d8fefe0fed",
+        "request_reserved_at": "2026-10-16T12:20:30.592741+00:00",
+        "requested_url": null,
+        "source_metadata": {
+          "bytes": 10889,
+          "path": "evidence/batch9_regulatory_20261016/retained_ledger_after_approval_block.json",
+          "sha256": "4e042e7694184091da69439847c61071e945ffd58f2081fdd8cbea242b09df78"
+        },
+        "source_response_observed": false,
+        "started_at": null,
+        "status": "APPROVAL_BLOCKED_RESPONSE_UNAVAILABLE",
+        "unavailable_reason": "Automatic approval rejected the live operation; no source response or transport outcome is established"
+      }
+    }
+  },
+  "kind": "NHTSA_NEGATIVE_SCOPE",
+  "request": {
+    "catalog_capture_id": "catalog_chevrolet_2026",
+    "make": "CHEVROLET",
+    "model": "5500XG",
+    "model_year": 2026,
+    "recall_capture_id": "recall_chevrolet_5500xg_2026_blocked"
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

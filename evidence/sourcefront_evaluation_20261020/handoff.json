@@ -1,0 +1,113 @@
+{
+  "CCC_original_fact": {
+    "access_value_exported": false,
+    "access_value_present_in_this_field": false,
+    "ccc_field_count": 1,
+    "ccc_field_original_byte_offset": 1698,
+    "ccc_value_bytes": 8,
+    "classification": "REPEATED_X_PLACEHOLDER",
+    "exact_packet_bytes": 4770,
+    "exact_packet_sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e",
+    "original_bytes_modified_or_sanitized": false
+  },
+  "GitHub_writes_or_push": 0,
+  "actions": {
+    "SQL_or_DB_file_operations": 0,
+    "collector_calls": 0,
+    "market_retries_or_new_plans": 0,
+    "new_HTTP_or_search_requests": 0,
+    "new_forecasts_registrations_labels": 0,
+    "registry_model_fitter_score_trading_changes": false,
+    "retained_DB_or_journal_touched": false,
+    "tests_CI_or_readiness_reruns": 0,
+    "withheld_body_paths_opened_or_recovered": 0
+  },
+  "base_common_originals_commit": "39e5958b20b66338ad2029e99908609834d67db3",
+  "base_public_before_new_originals": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "branch": "sourcefront/evaluation-20261020",
+  "concrete_safe_integration_candidates_from_actual_sources": [
+    "LEG and XOM role-specific authorized-charter capital/effective-vs-executed date facts with exact original exhibit lineage; retain direct/indirect-control, successorCUSIP and July7-cover blockers.",
+    "Actual Form144 proposed-sale notice as its own notice role with original account/issuer accession context; never executed-sale, ownership or legal-role acceptance.",
+    "Original91-page DOJ FirstAmendedComplaint with exact original discovery anchor as a party pleading; not separateOrder/currentdocket/adjudication/CIKcontinuity.",
+    "Contracts lane identifies separately typed SWKS capacity-reservation deposit/prepayment asset balances; keep nested-equivalent iXBRL facts deduplicated and financial assets distinct from physical capacity, spend, revenue or obligations."
+  ],
+  "evaluation_lane_irreducible_gaps_unchanged": [
+    "Four new nonmarket documents do not provide fresh66-session AAPL+12benchmark OHLCV, genuine dated publisher price revisions or complete future action windows.",
+    "No genuine forecasts/registrations/labels/nativeuserWindows/OOS acceptance added; protected retainedDB/journal are untouched and all current table/forecast counts stay nullUNOBSERVED.",
+    "Consumed market plan cannot be retried/replanned/bypassed; hostedWindowsCI or synthetic inputs cannot supply nativeuserWindows or prospective history."
+  ],
+  "lane_handoff_snapshot": {
+    "available": [
+      "identity_bulk.json",
+      "identity_bulk_charters.json",
+      "contracts.json",
+      "regulatory.json",
+      "evaluation.json",
+      "sec.json",
+      "healthcare.json"
+    ],
+    "initial_evaluation_availability_report_preserved": {
+      "bytes": 84186,
+      "path": "/workspace/scratch/334b3a149083/sourcefront_20261020/evaluation.json",
+      "sha256": "d6b8b88bca7c2b206cbfaa22f22b62986055bd5364be70ebb234428faf8e374b"
+    },
+    "not_all_six_lanes_complete_from_this_snapshot": true,
+    "unavailable": []
+  },
+  "limits": [
+    "Research originals only; not app collector/live, dated machine historical availability, adoption, native userWindows, OOS or full21 acceptance.",
+    "Charter authorized capital is a separate role from premerger exchanged/traded class, CUSIP continuity and direct/indirect control.",
+    "Form144 is a proposed-sale notice, not proof of an executed sale or natural-person/account/legal-role continuity.",
+    "Amended Complaint is a party pleading, not separate Order, complete current docket, adjudicated merits, financial CIK or issuer continuity.",
+    "Four nonmarket originals cannot supply missing66-session market data, dated publisher price revisions, genuine forecasts/labels or nativeWindows runtime."
+  ],
+  "old_originals_and_all_other_repo_files_unchanged": true,
+  "original_hashes": {
+    "doj_first_amended_complaint": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+    "leg_final_articles": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba",
+    "nadella_form144_packet": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e",
+    "xom_successor_formation": "ef4d1a0c0c71bc3ea536ca3ee333c91db561e99c57448d851225e8b3dcf920ac"
+  },
+  "original_producer_pins": [
+    {
+      "bytes": 4278,
+      "path": "evidence/sourcefront_20261020/capture_new_primary.py",
+      "sha256": "9306f0dc7ab5dab6f6eafe5d7526d6675d87b4e2e0c4f56cce43e92847ddf549"
+    },
+    {
+      "bytes": 4406,
+      "path": "evidence/sourcefront_20261020/capture_amended_complaint.py",
+      "sha256": "9d7f7760d7d242e73b7499e782066a8cd296881e5c7ee591424aca46b0f59bce"
+    }
+  ],
+  "original_totals": {
+    "DOJ_original_bytes": 3404671,
+    "SEC_original_bytes": 44892,
+    "distinct_research_HTTP200_records": 4,
+    "total_original_bytes": 3449563
+  },
+  "owned_paths": [
+    "evidence/sourcefront_evaluation_20261020/**"
+  ],
+  "qualification": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 /workspace/scratch/334b3a149083/johny-tests-20261011/bin/python evidence/sourcefront_evaluation_20261020/audit_originals.py --lane-handoffs-root /workspace/scratch/334b3a149083/sourcefront_20261020 --output evidence/sourcefront_evaluation_20261020/audit_result_v1.json",
+    "exit_code": 0,
+    "kind": "ACTUAL_EXISTING_CONTENT_AUDIT_NOT_UNITTEST_OR_CI",
+    "producer": {
+      "bytes": 16457,
+      "path": "evidence/sourcefront_evaluation_20261020/audit_originals.py",
+      "sha256": "7fc5b1a61e7e12bdeef7fbdffea113b25a2ebede7f8ae5f7eb875416d4bc9b3a"
+    },
+    "result": {
+      "bytes": 24693,
+      "path": "evidence/sourcefront_evaluation_20261020/audit_result_v1.json",
+      "sha256": "086b7ec9d85e8696be85282ebfd874c15aa0a25a7395b124e1d7fa51f6e5cdce"
+    },
+    "scope": "Four actual originals and exact plan/reservation/metadata/discovery bindings; no source/collector/test/readiness/CI repeats.",
+    "stdout": "{\"status\": \"FOUR_ORIGINAL_CONTENT_AND_CHAIN_BINDINGS_VERIFIED\", \"output\": \"evidence/sourcefront_evaluation_20261020/audit_result_v1.json\", \"original_count\": 4, \"total_original_bytes\": 3449563}"
+  },
+  "recorded_at": "2026-10-20T20:18:14.425754+00:00",
+  "reproduction": "Run audit_originals.py with a fresh explicit --output path. --lane-handoffs-root is optional; missing external handoffs are reported unavailable, never manufactured. The permanent original/hash/plan/discovery checks use committed public inputs. No source HTTP, DB or native-platform execution occurs.",
+  "schema_version": "sourcefront_evaluation_original_peer_handoff_v1",
+  "source_clock_limit": "All four original bodies were physically observed2026-10-20. Document dates and HTTPDate/Last-Modified do not establish previous machine availability."
+}

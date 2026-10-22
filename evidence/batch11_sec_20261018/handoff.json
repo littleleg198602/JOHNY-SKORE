@@ -1,0 +1,218 @@
+{
+  "actual_case": {
+    "account_cik": "0001513142",
+    "account_cik_is_natural_person_or_alias_proof": false,
+    "account_name_literal": "Nadella Satya",
+    "actual_interpretation_available_at": "2026-10-18T19:33:35.091973+00:00",
+    "assessment_supported_means": "Whole-source comparison is valid; it can have a negative temporal result",
+    "comparison_account_disclosures": 1,
+    "index_served_proxy_conflict_bytes": 110,
+    "named_bio_person_literal": "Satya Nadella",
+    "named_biography_disclosures": 1,
+    "original_date_element_sha256": "524f6b4c7487db6c50468d7adfab2f8356062ec122b0e1679aa422d249f2ddaa",
+    "original_row_sha256": "9aac2a24af5bffdd4cc4641175d10aecec28d4c702aea39b5552d2df15823118",
+    "original_xml_bytes": 8214,
+    "original_xml_sha256": "c71fd4237b551e70fd8054cfd54b9d101e63d689d0a26b10bb8bd123a0a4c810",
+    "parent_source_clocks_physically_nested": true,
+    "proxy_source_anchor_day": "2025-10-21",
+    "publication_timezones": "UNKNOWN",
+    "role_clause": "Chairman and Chief Executive Officer (2021-present)",
+    "role_title_literal": "Chairman and Chief Executive Officer",
+    "source_assertion_temporally_compatible": false,
+    "source_temporal_assessment_supported": true,
+    "source_temporal_fit": "OUTSIDE_SOURCE_ASSERTION_SCOPE",
+    "transaction_day": "2026-08-31",
+    "transaction_kind": "nonDerivativeTransaction",
+    "transaction_ordinal": 1,
+    "year_bounds_are_exact_appointment_or_cessation_dates": false
+  },
+  "all21_acceptance": 0,
+  "api": {
+    "actual_plan": "evidence/batch11_sec_20261018/actual_review_plan.json",
+    "actual_report": "evidence/batch11_sec_20261018/person_role_temporal_review_v1.json",
+    "capture": "PersonRoleTemporalCapture",
+    "capture_keys": [
+      "primary",
+      "index",
+      "account_packet"
+    ],
+    "function": "review_sec_person_role_temporal",
+    "keyword_arguments": [
+      "primary_capture",
+      "index_capture",
+      "account_packet_capture",
+      "selection",
+      "temporal_request",
+      "knowledge_at"
+    ],
+    "kind": "SEC_PERSON_ROLE_TEMPORAL",
+    "known_at_semantics": "Physical interpretation completion; same as review_available_at; child interpretation clocks must fall inside parent start/end",
+    "module": "market_checker_app.services.sec_person_role_temporal_review",
+    "request_keys": [
+      "selection",
+      "temporal_request"
+    ]
+  },
+  "base_commit": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "created_at": "2026-10-19T00:33:58.758090+00:00",
+  "development_lane": "sec",
+  "focused_log_path": "evidence/batch11_sec_20261018/focused_01.log",
+  "focused_qualification": {
+    "completed_at": "2026-10-18T19:33:50.965150+00:00",
+    "discovered": 37,
+    "elapsed_seconds": 10.914015181999957,
+    "errors": 0,
+    "executed": 37,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_sha256": "62bf7bd1cbbfd9a88edfcef1d6599a1d380b2b8020785025c0417a2030a329d1",
+    "skips": 0,
+    "started_at": "2026-10-18T19:33:40.051135+00:00",
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "focused_report_path": "evidence/batch11_sec_20261018/focused_01.json",
+  "full_specialist_acceptance": false,
+  "full_suite_windows_or_OOS_claim": false,
+  "known_withheld_bodies_not_restored_or_replaced": true,
+  "limits": [
+    "This adapter assesses a literal source temporal extent, not an independently established legal role interval",
+    "Role-at-day cannot be verified without independent exact natural-person/account identity and legal interval evidence",
+    "YEAR start/end bounds preserve uncertainty; present is source-relative and never extends beyond the proxy anchor",
+    "As-filed account relationships and declared transaction dates do not prove role continuity or execution",
+    "One selected assertion is assessed; the seven-role biography inventory is not repeated or counted as independent sources",
+    "Original proxy SGML header is unavailable, publisher byte conflict remains, and publication timezones remain UNKNOWN",
+    "No historical machine availability, CUSIP/class identity, OOS or user Windows acceptance is established"
+  ],
+  "new_verified_adoptions": 0,
+  "next_work": [
+    "Independent dated exact person/account-CIK and approved alias evidence",
+    "Independent exact legal role interval/continuity evidence",
+    "Dated instrument identity and physically timely historical evaluation"
+  ],
+  "no_DB_quota_lease_registry_model_score_budget_trading_changes": true,
+  "no_new_source_or_api_requests": true,
+  "older_tracked_files_and_original_failures_unchanged": true,
+  "output": "EXACT_ORIGINAL_TRANSACTION_AND_SOURCE_ROLE_TEMPORAL_SCOPE",
+  "owned_file_pins": {
+    "evidence/batch11_sec_20261018/README.md": {
+      "bytes": 5793,
+      "sha256": "0907185a1381116ef67fcf08f2be5f01e594e4b5742e308bdfb886662e46e732"
+    },
+    "evidence/batch11_sec_20261018/actual_review_plan.json": {
+      "bytes": 3768,
+      "sha256": "7c327371bc8c218900d88d2cf539b64164f140844ac064fbb3b440dbd54735bc"
+    },
+    "evidence/batch11_sec_20261018/build_review.py": {
+      "bytes": 4207,
+      "sha256": "e66988b2e47666286b6fc73edf6447b258da7baf675c3d7204babc6b6e4f67ee"
+    },
+    "evidence/batch11_sec_20261018/focused_01.json": {
+      "bytes": 2662,
+      "sha256": "550c36c6eb309fa9c42327fb03dbbb70208f8b0ccea5a59c73656f5352ef64cf"
+    },
+    "evidence/batch11_sec_20261018/focused_01.log": {
+      "bytes": 8731,
+      "sha256": "62bf7bd1cbbfd9a88edfcef1d6599a1d380b2b8020785025c0417a2030a329d1"
+    },
+    "evidence/batch11_sec_20261018/person_role_temporal_review_v1.json": {
+      "bytes": 14827,
+      "sha256": "f7a438e5f25b33c927806c0077b5cc81910488309ddb0716a25e6f48a08202dd"
+    },
+    "evidence/batch11_sec_20261018/run_focused_tests.py": {
+      "bytes": 3199,
+      "sha256": "ae6e30791bd9f33e3861a4958bf2dcc7de8822b65e021911bd71eb21862b4dea"
+    },
+    "market_checker_app/services/sec_person_role_temporal_review.py": {
+      "bytes": 19540,
+      "sha256": "fef7c09794b3f09346c0189200c4704d7dc1cfd84e65ca313c39a319c52535ef"
+    },
+    "tests/test_sec_person_role_temporal_review.py": {
+      "bytes": 25596,
+      "sha256": "3c43f1ee20e9b8066bf38a60fb0e592d2ba577cfa98f9290e4ec33cc6507d0f6"
+    }
+  },
+  "qualified_dependency_source_pins": {
+    "evidence/batch10_sec_20261018/build_review.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "evidence/batch11_sec_20261018/build_review.py": {
+      "bytes": 4207,
+      "sha256": "e66988b2e47666286b6fc73edf6447b258da7baf675c3d7204babc6b6e4f67ee"
+    },
+    "evidence/batch11_sec_20261018/run_focused_tests.py": {
+      "bytes": 3199,
+      "sha256": "ae6e30791bd9f33e3861a4958bf2dcc7de8822b65e021911bd71eb21862b4dea"
+    },
+    "market_checker_app/collectors/sec_person_role_claim_review.py": {
+      "bytes": 31534,
+      "sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3"
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "bytes": 24571,
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    "market_checker_app/services/sec_complete_packet_review.py": {
+      "bytes": 22306,
+      "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+    },
+    "market_checker_app/services/sec_form4_person_bridge.py": {
+      "bytes": 22929,
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    "market_checker_app/services/sec_owner_instrument_scope_review.py": {
+      "bytes": 24453,
+      "sha256": "9186f28a33361be11cd69bf97722c4fa982137bffa164d7a6b5cd7e5e8f14a44"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20535,
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    "market_checker_app/services/sec_person_role_temporal_review.py": {
+      "bytes": 19540,
+      "sha256": "fef7c09794b3f09346c0189200c4704d7dc1cfd84e65ca313c39a319c52535ef"
+    },
+    "tests/test_sec_person_role_claim_review.py": {
+      "bytes": 33688,
+      "sha256": "37fd59837ae4de53f7b64af38f13ab55a28a690ee1b1adfd7ba85ffc8f14004a"
+    },
+    "tests/test_sec_person_role_temporal_review.py": {
+      "bytes": 25596,
+      "sha256": "3c43f1ee20e9b8066bf38a60fb0e592d2ba577cfa98f9290e4ec33cc6507d0f6"
+    }
+  },
+  "result": "PARTIAL",
+  "retained_source_and_failure_pins": {
+    "evidence/batch7_sec_20261015/attempt-01-result.json": {
+      "bytes": 958,
+      "sha256": "ce9b62b878bf35c9fa2d82fd91108cb7ee13f575d7581645ddd6aa27f99544f9"
+    },
+    "evidence/batch7_sec_20261015/attempt-02-result.json": {
+      "bytes": 940,
+      "sha256": "f9d6eb87bd85a69b87a69c686718c4abf8aa7039d02df3a8e7f2149fd68b4af7"
+    },
+    "evidence/batch7_sec_20261015/primary/msft_2025_proxy.htm": {
+      "bytes": 2430522,
+      "sha256": "6394df905079e616174cf599672e60c839b3993af3231e43420d4fb6423532ac"
+    },
+    "evidence/batch7_sec_20261015/primary/msft_2025_proxy_index.html": {
+      "bytes": 33931,
+      "sha256": "5658d63f9d7b98027f2028c744ecc1a63b51df83a38328a7e647ceaa41e42a0a"
+    },
+    "evidence/batch8_sec_20261015/attempt-02-result.json": {
+      "bytes": 1020,
+      "sha256": "a5e3dce538938e342451f3e4288db9bec754cac334688c52c86301fb5ec6090b"
+    },
+    "evidence/batch9_sec_20261016/attempt-01-result.json": {
+      "bytes": 1159,
+      "sha256": "018390e3b5f7145eb97933ae76308540ea926c6d59f3e171e8661b6c28b83363"
+    },
+    "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt": {
+      "bytes": 9665,
+      "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+    }
+  },
+  "role_at_transaction_day_status": "UNVERIFIED",
+  "schema_version": 1
+}

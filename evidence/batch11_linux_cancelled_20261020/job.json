@@ -1,0 +1,100 @@
+{
+  "id": 118524938257,
+  "run_id": 39391828283,
+  "workflow_name": "Market Checker test agents",
+  "head_branch": "continuation/specialists-batch3-20261012",
+  "run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/runs/39391828283",
+  "run_attempt": 1,
+  "node_id": "CR_kwDORWpE1M8AAAAbmKMIEQ",
+  "head_sha": "b24a59563d8284daf8d38df20568fc76d4f03b60",
+  "url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/actions/jobs/118524938257",
+  "html_url": "https://github.com/littleleg198602/JOHNY-SKORE/actions/runs/39391828283/job/118524938257",
+  "status": "completed",
+  "conclusion": "cancelled",
+  "created_at": "2026-10-20T08:13:17Z",
+  "started_at": "2026-10-20T08:13:19Z",
+  "completed_at": "2026-10-20T08:23:35Z",
+  "name": "Contract, source and persistence agent",
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1,
+      "started_at": "2026-10-20T08:13:20Z",
+      "completed_at": "2026-10-20T08:13:21Z"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2,
+      "started_at": "2026-10-20T08:13:21Z",
+      "completed_at": "2026-10-20T08:13:26Z"
+    },
+    {
+      "name": "Run actions/setup-python@v5",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3,
+      "started_at": "2026-10-20T08:13:26Z",
+      "completed_at": "2026-10-20T08:13:28Z"
+    },
+    {
+      "name": "Install project dependencies",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4,
+      "started_at": "2026-10-20T08:13:28Z",
+      "completed_at": "2026-10-20T08:13:47Z"
+    },
+    {
+      "name": "Compile every Python module",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 5,
+      "started_at": "2026-10-20T08:13:47Z",
+      "completed_at": "2026-10-20T08:13:49Z"
+    },
+    {
+      "name": "Run deterministic test suite",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "number": 6,
+      "started_at": "2026-10-20T08:13:49Z",
+      "completed_at": "2026-10-20T08:23:33Z"
+    },
+    {
+      "name": "Post Run actions/setup-python@v5",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 11,
+      "started_at": "2026-10-20T08:23:33Z",
+      "completed_at": "2026-10-20T08:23:33Z"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 12,
+      "started_at": "2026-10-20T08:23:33Z",
+      "completed_at": "2026-10-20T08:23:33Z"
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 13,
+      "started_at": "2026-10-20T08:23:33Z",
+      "completed_at": "2026-10-20T08:23:33Z"
+    }
+  ],
+  "check_run_url": "https://api.github.com/repos/littleleg198602/JOHNY-SKORE/check-runs/118524938257",
+  "labels": [
+    "ubuntu-latest"
+  ],
+  "runner_id": 1000003156,
+  "runner_name": "GitHub Actions 1000003156",
+  "runner_group_id": 0,
+  "runner_group_name": "GitHub Actions"
+}

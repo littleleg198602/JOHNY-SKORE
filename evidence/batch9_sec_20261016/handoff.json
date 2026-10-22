@@ -1,0 +1,125 @@
+{
+  "development_lane": "sec",
+  "evidence_file_pins": {
+    "evidence/batch9_sec_20261016/actual_review_plan.json": {
+      "bytes": 2680,
+      "sha256": "5d22ba3f98788d8722627e3bf0ce6dcedfb976220bec1b3f883a9676fcd119a7"
+    },
+    "evidence/batch9_sec_20261016/attempt-01-reserved.json": {
+      "bytes": 673,
+      "sha256": "eccb2deefa7d1c66926925ad05e21c32305b4282b94388cd050d93c267ad8f3d"
+    },
+    "evidence/batch9_sec_20261016/attempt-01-result.json": {
+      "bytes": 1159,
+      "sha256": "018390e3b5f7145eb97933ae76308540ea926c6d59f3e171e8661b6c28b83363"
+    },
+    "evidence/batch9_sec_20261016/build_review.py": {
+      "bytes": 7101,
+      "sha256": "917e98ea447ca9e64c8bcdc310a7ea05cd440122ce6268317b1db5ea5a7b7e43"
+    },
+    "evidence/batch9_sec_20261016/capture_primary.py": {
+      "bytes": 7389,
+      "sha256": "76452f53acdacec03d275dd5963b85c334c1a29444ddbd4651e96972abfe59c9"
+    },
+    "evidence/batch9_sec_20261016/complete_packet_review_v1.json": {
+      "bytes": 10155,
+      "sha256": "1f743a3aa3625b7a48d7baaf1a9983455e85745a5620134f71e962c2b2c4888c"
+    },
+    "evidence/batch9_sec_20261016/complete_packet_review_v2.json": {
+      "bytes": 10155,
+      "sha256": "3638ef5c67978649a30f889dd1b61256629f4f11241e7a43b4130811ecd7a87c"
+    },
+    "evidence/batch9_sec_20261016/coordinator_focused_after_artifact.log": {
+      "bytes": 10317,
+      "sha256": "4a1726df3ad491b35655d19dd486664cae47780d95ff4c131317308e7ab5946f"
+    },
+    "evidence/batch9_sec_20261016/coordinator_focused_header_fix.log": {
+      "bytes": 9607,
+      "sha256": "671c236fbbb0bc54256d03c72c3bba035fe85a290ef143b33a5a78b5a65634bd"
+    },
+    "evidence/batch9_sec_20261016/coordinator_focused_tests.log": {
+      "bytes": 1365,
+      "sha256": "68611b772a9ac20de3d0d60990faa212f6a4c2341649c3846b2d2ae72e12f43a"
+    },
+    "evidence/batch9_sec_20261016/diagnostics/before_header_bound/build_review.py": {
+      "bytes": 7101,
+      "sha256": "917e98ea447ca9e64c8bcdc310a7ea05cd440122ce6268317b1db5ea5a7b7e43"
+    },
+    "evidence/batch9_sec_20261016/diagnostics/before_header_bound/complete_packet_review_v1.json": {
+      "bytes": 10155,
+      "sha256": "1f743a3aa3625b7a48d7baaf1a9983455e85745a5620134f71e962c2b2c4888c"
+    },
+    "evidence/batch9_sec_20261016/diagnostics/before_header_bound/coordinator_focused_after_artifact.log": {
+      "bytes": 10317,
+      "sha256": "4a1726df3ad491b35655d19dd486664cae47780d95ff4c131317308e7ab5946f"
+    },
+    "evidence/batch9_sec_20261016/diagnostics/before_header_bound/coordinator_focused_tests.log": {
+      "bytes": 1365,
+      "sha256": "68611b772a9ac20de3d0d60990faa212f6a4c2341649c3846b2d2ae72e12f43a"
+    },
+    "evidence/batch9_sec_20261016/diagnostics/before_header_bound/qualification.json": {
+      "bytes": 628,
+      "sha256": "3b0a96e8c95c74815b47552d5564cea979ef4cad5f04fb60079d9836fb2d3605"
+    },
+    "evidence/batch9_sec_20261016/diagnostics/before_header_bound/sec_complete_packet_review.py": {
+      "bytes": 22287,
+      "sha256": "71a13535d640f12c1f7da000e4fbee964767c3a2a87ea6950757d19c4e345480"
+    },
+    "evidence/batch9_sec_20261016/diagnostics/before_header_bound/test_batch9_complete_packet.py": {
+      "bytes": 27730,
+      "sha256": "bb23e5ef49059835f2378a807dfed6e3d8d49ec5d0911ea5961819dff2637fed"
+    },
+    "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt": {
+      "bytes": 9665,
+      "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+    },
+    "evidence/batch9_sec_20261016/research_plan.json": {
+      "bytes": 1237,
+      "sha256": "7eafe06bf356a3fc1238ff0f452fe709deaaedd1efc7d252be3442452fc8313d"
+    }
+  },
+  "finalization_new_source_http_requests": 0,
+  "finalized_at": "2026-10-17T21:29:35.298961+00:00",
+  "finalized_by": "coordinator after actual development-agent usage interruption; no worker completion invented",
+  "focused_qualification": {
+    "discovered": 48,
+    "errors": 0,
+    "executed": 48,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_path": "evidence/batch9_sec_20261016/coordinator_focused_header_fix.log",
+    "log_pin": {
+      "bytes": 9607,
+      "sha256": "671c236fbbb0bc54256d03c72c3bba035fe85a290ef143b33a5a78b5a65634bd"
+    },
+    "plain_OK": true,
+    "qualification_scope": "Existing exact focused log. Combined current producer is separately qualified by coordinator full suite; not hosted Windows/live/OOS acceptance.",
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": 0,
+  "historical_OOS_verified": false,
+  "module": {
+    "market_checker_app/services/sec_complete_packet_review.py": {
+      "bytes": 22306,
+      "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+    }
+  },
+  "new_primary_research_attempts": 1,
+  "public_base": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "registry_adoptions": 0,
+  "review_plan_paths": [
+    "evidence/batch9_sec_20261016/actual_review_plan.json"
+  ],
+  "schema_version": "batch9_preserved_worker_handoff_v1",
+  "score_or_fitter_changed": false,
+  "source_attempt_accounting_note": "Original9665byte packet/header binds all8214 XML bytes. Natural-person/account alias/CUSIPclass/role continuity and execution unproved. Header-limit48-test1failure and initial0-executed setup error preserved.",
+  "test": {
+    "tests/test_batch9_complete_packet.py": {
+      "bytes": 27730,
+      "sha256": "439cf28a3d79cac53ca1ba41e50565ea3df96f82635c8142c5e5a6cc43c59cc4"
+    }
+  },
+  "trading_allowed": false,
+  "user_windows_end_to_end_verified": false
+}

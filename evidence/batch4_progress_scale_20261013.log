@@ -1,0 +1,14 @@
+test_exactly_687_unique_tickers_complete_with_cached_yahoo (test_687_ticker_contract.FullUniverseContractTests.test_exactly_687_unique_tickers_complete_with_cached_yahoo) ... FAIL
+
+======================================================================
+FAIL: test_exactly_687_unique_tickers_complete_with_cached_yahoo (test_687_ticker_contract.FullUniverseContractTests.test_exactly_687_unique_tickers_complete_with_cached_yahoo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/tests/test_687_ticker_contract.py", line 167, in test_exactly_687_unique_tickers_complete_with_cached_yahoo
+    self.assertLess(elapsed, 60.0)
+AssertionError: 75.4976537170005 not less than 60.0
+
+----------------------------------------------------------------------
+Ran 1 test in 76.775s
+
+FAILED (failures=1)

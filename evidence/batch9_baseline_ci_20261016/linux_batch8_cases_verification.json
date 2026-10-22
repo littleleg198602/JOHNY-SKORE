@@ -1,0 +1,20 @@
+{
+  "head": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "run_id": 38867202786,
+  "job_id": 116862664073,
+  "decoded_UTF8_SHA256": "7f8de78a89bd821ac7db17bcdf2591a8acb3bb12da4e7cac05388261f439e4e7",
+  "decoded_bytes": 508616,
+  "actual_batch8_methods_verified_ok": 202,
+  "exact_module_class_method_matches": true,
+  "streamlit_warning_splits_result_line": [
+    {
+      "module": "test_batch8_coordinator_integration",
+      "class": "CapturedReadinessUITests",
+      "method": "test_readiness_requires_explicit_button_and_never_registers_or_downloads"
+    }
+  ],
+  "strict_test_boundary_followed_by_original_terminal_ok": true,
+  "original_log_bytes_modified": false,
+  "Windows_execution_verified": false,
+  "full_specialist_acceptance": 0
+}

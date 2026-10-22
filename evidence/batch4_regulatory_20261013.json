@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "kind": "NHTSA_EXACT_RESPONSE_VALIDATION_AND_BOUNDED_LIVE_PROBES",
+  "baseline_commit": "22bcb749873b9bfd89e8f6d52e5bb7909a186789",
+  "recorded_at": "2026-10-13T08:51:42.784304+00:00",
+  "code_changes": [
+    "Empty recall envelopes require exact publisher success Message; explicit error metadata on positive/negative envelopes is rejected.",
+    "HTTP client requires exact unchanged official HTTPS recall path/model/year query, HTTP200, JSON MIME and unique keys with a 4000000-byte response bound.",
+    "Monthly check key includes manufacturer/product evidence plus publisher-success-v2; old empty checks and corrected model scope become due.",
+    "Matching positive rows survive mismatched-row PARTIAL runs; error responses never replace successful previous checks."
+  ],
+  "live_capture_summary": {
+    "index_path": "evidence/batch4_regulatory_20261013/capture_index.json",
+    "requests_budget": 8,
+    "actual_requests": 8,
+    "http200": 6,
+    "http400": 2,
+    "raw_response_bytes_total": 162259,
+    "recall_requests": 4,
+    "positive_recall_queries": 2,
+    "positive_returned_campaigns": 6,
+    "complete_negative_http200_queries": 0,
+    "public_raw_response_count": 7,
+    "withheld_raw_response_count": 1,
+    "public_raw_response_bytes_total": 15095
+  },
+  "complete_negative_live": {
+    "status": "NOT_ESTABLISHED",
+    "missing": "Successful actual HTTP200 Count0/results[] for a legitimate exact model-year scope.",
+    "partial_actual_queries": [
+      "CADILLAC CT4 2026",
+      "FORD F-650 SD 2026"
+    ],
+    "reason": "Both exact empty publisher bodies were HTTP400. Their success Message does not override the transport failure.",
+    "issuer_wide_absence_claimed": false,
+    "synthetic_empty_test_is_live_evidence": false
+  },
+  "identity_scope": {
+    "production_registry_modified": false,
+    "proposed_records": 0,
+    "registry_sha256_unchanged": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e",
+    "catalog_evidence": [
+      "Fresh CADILLAC CT4 2026 vPIC model26602",
+      "Fresh FORD Mustang 2026 vPIC model1781",
+      "Fresh CHEVROLET Trailblazer 2026 vPIC model4548",
+      "F-650 SD2026 appears in batch3 official recall catalog; absent from current separate vPIC response. No new relationship asserted."
+    ]
+  },
+  "offline_replay": {
+    "path": "evidence/batch4_regulatory_20261013/replay.json",
+    "driver_path": "evidence/batch4_regulatory_20261013/replay_captures.py",
+    "network_requests": 0,
+    "production_client": true,
+    "production_collector": true,
+    "http400_complete_checks": 0,
+    "positive_persisted_campaigns": 6,
+    "test_local_envelopes_not_adopted_identity": true
+  },
+  "validation": {
+    "command": "python -m unittest tests.test_batch4_regulatory_nhtsa_validation tests.test_nhtsa_recall_scout_service tests.test_batch3_regulatory_nhtsa_evidence -v",
+    "tests_discovered": 23,
+    "tests_executed": 23,
+    "errors": 0,
+    "failures": 0,
+    "skips": 0,
+    "test_log_path": "evidence/batch4_regulatory_20261013/tests_publication_withholding.log",
+    "test_log_sha256": "b9b377d11e788e1c13bd2bb21cd6a40e5b85c7db3945c1dfc36aa330e2959430",
+    "environment": "Local Linux prepared test virtualenv; deterministic/captured replay only, not an end-user Windows run.",
+    "public_raw_responses_byte_verified": 7,
+    "withheld_record_controls_verified": 1,
+    "acceptance_scope": "Seven exact model/recall raw bodies; one explicitly withheld documentation record with no public body or acceptance claim."
+  },
+  "limits": [
+    "No real HTTP200 complete-negative case obtained from the bounded four legitimate exact queries.",
+    "No additional model registry or issuer relationship adopted.",
+    "No complete relevant issuer coverage denominator or full group absence.",
+    "No reconstructed historical publisher-availability timestamps or out-of-sample evaluation.",
+    "No Windows end-user acceptance or DONE promotion.",
+    "No scoring, trading, paid data, account or license changes.",
+    "Publisher documentation raw HTML is withheld due to embedded access value; its metadata is not public raw evidence or acceptance."
+  ],
+  "pre_withholding_validation": {
+    "command": "python -m unittest tests.test_batch4_regulatory_nhtsa_validation tests.test_nhtsa_recall_scout_service tests.test_batch3_regulatory_nhtsa_evidence -v",
+    "tests_discovered": 22,
+    "tests_executed": 22,
+    "errors": 0,
+    "failures": 0,
+    "skips": 0,
+    "test_log_path": "evidence/batch4_regulatory_20261013/tests.log",
+    "test_log_sha256": "26ea29c51af62b31bafcfdc5c452b399ea9f1348d36aff95061246a59248bcf9",
+    "environment": "Local Linux prepared test virtualenv; deterministic/captured replay only, not an end-user Windows run.",
+    "status": "HISTORICAL_PRE_WITHHOLDING_RESULT",
+    "current_public_tree_acceptance": false
+  },
+  "publication_withholding": {
+    "recorded_at": "2026-10-13T19:11:34.090051+00:00",
+    "status": "WITHHELD_SOURCE_CONTAINS_ACCESS_VALUE",
+    "capture_id": "nhtsa_api_docs",
+    "requested_url": "https://www.nhtsa.gov/nhtsa-datasets-and-apis",
+    "started_at": "2026-10-13T08:44:46.409400+00:00",
+    "observed_at": "2026-10-13T08:44:50.769284+00:00",
+    "original_http_status": 200,
+    "original_raw_response_bytes": 147164,
+    "original_raw_response_sha256": "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+    "publicly_available": false,
+    "public_archive_path": null,
+    "acceptance_claim_allowed": false,
+    "reason": "Repository secret scanning detected an embedded access value in the publisher documentation page; its entire raw HTML is excluded from the public tree.",
+    "modified_or_compressed_substitute_published": false,
+    "network_requests_for_fix": 0,
+    "seven_model_recall_raw_bodies_changed": false,
+    "original_22_test_log_preserved": true
+  }
+}

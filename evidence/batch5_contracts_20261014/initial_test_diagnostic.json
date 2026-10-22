@@ -1,0 +1,17 @@
+{
+  "acceptance": false,
+  "auditor_source_sha256": "94d8dd6d9a6d88fffbef16fc4bc8b84191e1492d5a49ce907364975eb17b8f42",
+  "cause": "The synthetic current request started exactly at prior response completion, so the fixture did not overlap. Correction uses a half-second overlap; the strict source-window comparison is unchanged.",
+  "collector_source_sha256": "b4122ad9e85b72c0dd5e4264b6b3e094e537ece32995c0bd14812c2e5341601a",
+  "errors": 0,
+  "executed": 85,
+  "expected_status": "UNORDERED_CAPTURE_WINDOWS",
+  "failed_case": "test_unordered_or_overlapping_capture_windows_do_not_create_later_presence_claims",
+  "failures": 1,
+  "kind": "initial_focused_test_diagnostic",
+  "observed_status": "COMPLETE_CAPTURE_COMPARISON",
+  "recorded_at": "2026-10-14T00:10:29.301074+00:00",
+  "schema_version": 1,
+  "skips": 0,
+  "test_file_sha256_before_fixture_correction": "fade8d39d98d0706c84e0180b6d8236d94ac8d0a24dd62734dbd46af47924dfb"
+}

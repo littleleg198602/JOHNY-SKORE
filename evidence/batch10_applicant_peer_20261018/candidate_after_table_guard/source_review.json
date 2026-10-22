@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-18T09:01:05.114336+00:00",
+  "request": {
+    "scope": {
+      "issuer_cik": "0000078003",
+      "issuer_ticker": "PFE",
+      "issuer_name": "PFIZER INC.",
+      "application_type": "BLA",
+      "application_number": "761081",
+      "applicant_name": "Pfizer Ireland Pharmaceuticals Unlimited Company"
+    },
+    "filing_key": "filing",
+    "exhibit_key": "exhibit",
+    "roster_as_of": "2017-12-31",
+    "selected_rows": [
+      {
+        "table_index": 5,
+        "row_index": 6,
+        "entity_name": "Pfizer Ireland Pharmaceuticals",
+        "jurisdiction": "Ireland"
+      }
+    ],
+    "application_request": {
+      "scope": {
+        "application_type": "BLA",
+        "application_number": "761081",
+        "issuer_cik": "0000078003",
+        "issuer_ticker": "PFE"
+      },
+      "source_kind": "PURPLE_BOOK_PRODUCT_DETAIL",
+      "source_key": "application",
+      "issuer_key": "issuer",
+      "source_version_sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+      "product_selection": {
+        "source_row_index": 0,
+        "product_number": "001",
+        "proprietary_name": "Trazimera",
+        "proper_name": "trastuzumab-qyyp",
+        "strength": "420MG",
+        "dosage_form": "For Injection",
+        "route": "Intravenous",
+        "dosage_form_route_text": null,
+        "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company"
+      }
+    },
+    "company_request": {
+      "scope": {
+        "application_type": "BLA",
+        "application_number": "761081",
+        "issuer_cik": "0000078003",
+        "issuer_ticker": "PFE"
+      },
+      "source_kind": "DRUGSFDA_APPLICATION_PAGE",
+      "source_key": "company",
+      "issuer_key": "issuer",
+      "source_version_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+      "product_selection": {
+        "source_row_index": 0,
+        "product_number": null,
+        "proprietary_name": "TRAZIMERA",
+        "proper_name": "TRASTUZUMAB-QYYP",
+        "strength": "420MG",
+        "dosage_form": null,
+        "route": null,
+        "dosage_form_route_text": "INJECTABLE;INJECTION",
+        "source_party_name": "PFIZER INC"
+      }
+    }
+  },
+  "route_audit": {
+    "retained_filing_links": [
+      {
+        "literal_label": "2.1",
+        "resolved_original_href": "http://www.sec.gov/Archives/edgar/data/78003/000119312516686937/d57934dex21.htm",
+        "eligible_exhibit21_label": false
+      },
+      {
+        "literal_label": "21",
+        "resolved_original_href": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+        "eligible_exhibit21_label": true
+      }
+    ],
+    "index_failure": {
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_index.metadata.json",
+      "metadata_sha256": "e7bd1817fa78ea4b78a6075eee8072023504c2179eaa2bcaf8d16511b5b612e9",
+      "http_status": 403,
+      "request_url": "https://www.sec.gov/Archives/edgar/data/78003/0000078003-18-000027-index.htm",
+      "body_sha256": "7f61f3fa9fc62a06fd27af979c530f78afccc12c6648e737da0dfd69d7b4726f",
+      "failure_used_as_primary_index_proof": false
+    },
+    "only_explicit_EX21_route_already_attempted_and_captured": true,
+    "prior_complete_EX21_observed_at": "2026-10-14T23:30:38.781155+00:00",
+    "new_SEC_research_GET_authorized_by_unattempted_link_condition": false,
+    "new_source_requests": 0,
+    "retry_redirect_fallback_or_alternate_route": false,
+    "exhibit2_1_filename_is_not_exhibit21_label": true
+  },
+  "review": {
+    "schema_version": "fda-exact-legal-applicant-roster-point-v1",
+    "status": "PARTIAL",
+    "decision": "WITHHOLD_CURRENT_APPLICANT_ISSUER_BRIDGE",
+    "reviewed_at": "2026-10-18T09:01:04.795650+00:00",
+    "ingested_at": "2026-10-18T09:01:04.795650+00:00",
+    "known_at": "2026-10-18T09:01:04.795650+00:00",
+    "source_read_cutoff": "2026-10-18T09:01:04.795650+00:00",
+    "source_captures": {
+      "filing": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+        "body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+        "body_bytes": 816055,
+        "accession_digits": "000007800318000027",
+        "filename": "pfe-12312017x10kshell.htm",
+        "archive_routing_cik": "0000078003",
+        "requested_at": "2026-10-12T14:44:14.903431+00:00",
+        "observed_at": "2026-10-12T14:44:19.890070+00:00",
+        "known_at": "2026-10-12T14:44:19.890070+00:00",
+        "capture_is_historical_first_availability": false
+      },
+      "exhibit": {
+        "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+        "body_sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f",
+        "body_bytes": 258262,
+        "accession_digits": "000007800318000027",
+        "filename": "pfe-exhibit21x12312017.htm",
+        "archive_routing_cik": "0000078003",
+        "requested_at": "2026-10-14T23:30:31.825538+00:00",
+        "observed_at": "2026-10-14T23:30:38.781155+00:00",
+        "known_at": "2026-10-14T23:30:38.781155+00:00",
+        "capture_is_historical_first_availability": false
+      }
+    },
+    "gaps": [
+      "PRODUCT_DETAIL_OUTER_CONTAINER_IMPLICITLY_CLOSED_SOURCE_DEFECT",
+      "EXACT_SOURCE_PARTY_NAME_CIK_TICKER_ISSUER_BRIDGE_MISSING",
+      "EXACT_CURRENT_APPLICANT_LEGAL_NAME_NOT_IN_POINT_ROSTER",
+      "OLD_ROSTER_POINT_DOES_NOT_PROVE_CURRENT_APPLICANT_CONTROL",
+      "SUBSIDIARY_GROUP_ROSTER_IS_NOT_CONTINUOUS_OWNERSHIP_OR_PRODUCT_ASSIGNMENT",
+      "DIRECT_LEGAL_PARENT_AND_CURRENT_CONTROL_REQUIRE_INDEPENDENT_DATED_EVIDENCE"
+    ],
+    "roster_facts": {
+      "roster_as_of": "2017-12-31",
+      "relationship_source_title": "SUBSIDIARIES OF THE COMPANY",
+      "roster_omits_some_subsidiaries": true,
+      "absence_proves_not_a_subsidiary": false,
+      "table_count": 11,
+      "entity_row_count": 468,
+      "duplicate_legal_entity_names": [
+        "Pfizer Limited"
+      ],
+      "table_scope": "EXACT_ROSTER_ONLY_DOCUMENT_AND_CONTIGUOUS_TABLES"
+    },
+    "selected_roster_facts": [
+      {
+        "table_index": 5,
+        "row_index": 6,
+        "legal_entity_name_as_displayed": "Pfizer Ireland Pharmaceuticals",
+        "jurisdiction_as_displayed": "Ireland",
+        "jurisdiction_column_label": "Where Incorporated or Organized",
+        "country_or_ISO_code_inferred": false,
+        "issuer_group_name_as_displayed": "PFIZER INC.",
+        "relationship": "LISTED_SUBSIDIARY_OF_REPORTING_ISSUER_GROUP",
+        "roster_as_of": "2017-12-31",
+        "directness_as_stated": null,
+        "direct_legal_parent_as_stated": null,
+        "roster_date_is_ownership_start": false,
+        "continuous_or_current_control_verified": false,
+        "product_application_or_IP_owner_verified": false,
+        "legal_entity_name_ambiguous_in_roster": false
+      }
+    ],
+    "exact_applicant_roster_rows": [],
+    "exact_applicant_name_match_supported": false,
+    "current_applicant_issuer_control_verified": false,
+    "direct_legal_parent_verified": false,
+    "product_owner_verified": false,
+    "approval_date_is_ownership_start": false,
+    "continuous_control_inferred": false,
+    "similar_name_is_approved_alias": false,
+    "issuer_attribution_allowed": false,
+    "registry_adoptions": 0,
+    "new_verified_identities": 0,
+    "current_q3_verified_coverage": 0,
+    "source_HTTP_requests": 0,
+    "DB_or_quota_modified": false,
+    "score_or_model_changed": false,
+    "trading_allowed": false,
+    "applicant_source": {
+      "schema_version": "fda-original-static-application-product-v1",
+      "status": "PARTIAL",
+      "data_status": "ORIGINAL_STATIC_OBJECT_FACTS",
+      "source_kind": "PURPLE_BOOK_PRODUCT_DETAIL",
+      "source_read_cutoff": "2026-10-18T09:01:04.795650+00:00",
+      "reviewed_at": "2026-10-18T09:01:04.796045+00:00",
+      "ingested_at": "2026-10-18T09:01:04.796045+00:00",
+      "known_at": "2026-10-18T09:01:04.796045+00:00",
+      "source_captures": {
+        "application": {
+          "source_url": "https://purplebooksearch.fda.gov/index.cfm?blaNo=761081&event=productdetails",
+          "body_sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+          "body_bytes": 22644,
+          "requested_at": "2026-10-16T12:19:52.202648+00:00",
+          "observed_at": "2026-10-16T12:19:55.747533+00:00",
+          "known_at": "2026-10-16T12:19:55.747533+00:00",
+          "publisher_last_modified_raw": null,
+          "publisher_etag_raw": null,
+          "first_historical_availability_proven": false
+        },
+        "issuer": {
+          "source_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+          "body_sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+          "body_bytes": 145851,
+          "requested_at": "2026-10-16T12:18:18.345479+00:00",
+          "observed_at": "2026-10-16T12:18:23.142227+00:00",
+          "known_at": "2026-10-16T12:18:23.142227+00:00",
+          "publisher_last_modified_raw": null,
+          "publisher_etag_raw": null,
+          "first_historical_availability_proven": false
+        }
+      },
+      "application_facts": {
+        "application_type": "BLA",
+        "application_number": "761081",
+        "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+        "source_party_role": "BLA_APPLICANT",
+        "source_label": "Applicant",
+        "original_approval_date_as_displayed": "March 11, 2019",
+        "approval_date_is_applicant_since": false,
+        "original_approval_day": "2019-03-11",
+        "detail_container_explicitly_closed": false
+      },
+      "product_rows": [
+        {
+          "source_row_index": 0,
+          "product_number": "001",
+          "proprietary_name": "Trazimera",
+          "proper_name": "trastuzumab-qyyp",
+          "strength": "420MG",
+          "dosage_form": "For Injection",
+          "route": "Intravenous",
+          "dosage_form_route_text": null,
+          "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+          "source_party_role": "BLA_APPLICANT",
+          "ingredient_strength_pairs_inferred": false,
+          "row_index_is_FDA_product_number": false,
+          "sponsor_role_proven": false,
+          "legal_owner_verified": false,
+          "corporate_parent_verified": false,
+          "product_presentation": "Multi-Dose Vial",
+          "license_type": "351(k) Biosimilar",
+          "marketing_status": "Rx",
+          "source_locator": "div.product-grid/div.grid-row:1",
+          "complete_product_number_form_route_identity": true
+        },
+        {
+          "source_row_index": 1,
+          "product_number": "002",
+          "proprietary_name": "Trazimera",
+          "proper_name": "trastuzumab-qyyp",
+          "strength": "150MG",
+          "dosage_form": "For Injection",
+          "route": "Intravenous",
+          "dosage_form_route_text": null,
+          "source_party_name": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+          "source_party_role": "BLA_APPLICANT",
+          "ingredient_strength_pairs_inferred": false,
+          "row_index_is_FDA_product_number": false,
+          "sponsor_role_proven": false,
+          "legal_owner_verified": false,
+          "corporate_parent_verified": false,
+          "product_presentation": "Multi-Dose Vial",
+          "license_type": "351(k) Biosimilar",
+          "marketing_status": "Rx",
+          "source_locator": "div.product-grid/div.grid-row:2",
+          "complete_product_number_form_route_identity": true
+        }
+      ],
+      "gaps": [
+        "PRODUCT_DETAIL_OUTER_CONTAINER_IMPLICITLY_CLOSED_SOURCE_DEFECT",
+        "EXACT_SOURCE_PARTY_NAME_CIK_TICKER_ISSUER_BRIDGE_MISSING"
+      ],
+      "exact_named_issuer_bridge_supported": false,
+      "applicant_product_candidate": null,
+      "issuer_attribution_allowed": false,
+      "company_label_is_applicant": false,
+      "sponsor_role_proven": false,
+      "legal_owner_verified": false,
+      "corporate_parent_verified": false,
+      "approval_date_is_ownership_since": false,
+      "historical_machine_availability_inferred": false,
+      "issuer_wide_scope": false,
+      "registry_adoptions": 0,
+      "new_verified_identities": 0,
+      "current_q3_verified_coverage": 0,
+      "live_acceptance_verified": false,
+      "network_requests_performed": 0,
+      "quota_or_DB_modified": false,
+      "score_changes": false,
+      "trading_allowed": false,
+      "source_version": {
+        "body_sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+        "publisher_unique_version_id": null,
+        "publisher_first_availability": null,
+        "capture_date_is_historical_publication": false
+      }
+    },
+    "company_source": {
+      "schema_version": "fda-original-static-application-product-v1",
+      "status": "PARTIAL",
+      "data_status": "ORIGINAL_STATIC_OBJECT_FACTS",
+      "source_kind": "DRUGSFDA_APPLICATION_PAGE",
+      "source_read_cutoff": "2026-10-18T09:01:04.795650+00:00",
+      "reviewed_at": "2026-10-18T09:01:04.829392+00:00",
+      "ingested_at": "2026-10-18T09:01:04.829392+00:00",
+      "known_at": "2026-10-18T09:01:04.829392+00:00",
+      "source_captures": {
+        "company": {
+          "source_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+          "body_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+          "body_bytes": 34010,
+          "requested_at": "2026-10-16T12:18:43.627226+00:00",
+          "observed_at": "2026-10-16T12:18:47.144073+00:00",
+          "known_at": "2026-10-16T12:18:47.144073+00:00",
+          "publisher_last_modified_raw": null,
+          "publisher_etag_raw": null,
+          "first_historical_availability_proven": false
+        },
+        "issuer": {
+          "source_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+          "body_sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+          "body_bytes": 145851,
+          "requested_at": "2026-10-16T12:18:18.345479+00:00",
+          "observed_at": "2026-10-16T12:18:23.142227+00:00",
+          "known_at": "2026-10-16T12:18:23.142227+00:00",
+          "publisher_last_modified_raw": null,
+          "publisher_etag_raw": null,
+          "first_historical_availability_proven": false
+        }
+      },
+      "application_facts": {
+        "application_type": "BLA",
+        "application_number": "761081",
+        "source_party_name": "PFIZER INC",
+        "source_party_role": "COMPANY_AS_DISPLAYED",
+        "source_label": "Company",
+        "original_approval_date_as_displayed": null
+      },
+      "product_rows": [
+        {
+          "source_row_index": 0,
+          "product_number": null,
+          "proprietary_name": "TRAZIMERA",
+          "proper_name": "TRASTUZUMAB-QYYP",
+          "strength": "420MG",
+          "dosage_form": null,
+          "route": null,
+          "dosage_form_route_text": "INJECTABLE;INJECTION",
+          "source_party_name": "PFIZER INC",
+          "source_party_role": "COMPANY_AS_DISPLAYED",
+          "ingredient_strength_pairs_inferred": false,
+          "row_index_is_FDA_product_number": false,
+          "sponsor_role_proven": false,
+          "legal_owner_verified": false,
+          "corporate_parent_verified": false,
+          "marketing_status": "Prescription",
+          "source_locator": "table#exampleProd/tbody/tr:1",
+          "complete_product_number_form_route_identity": false
+        }
+      ],
+      "gaps": [
+        "COMPANY_LABEL_IS_NOT_EXPLICIT_APPLICANT_OR_SPONSOR",
+        "PRODUCT_NUMBER_AND_SEPARATE_FORM_ROUTE_NOT_PUBLISHED"
+      ],
+      "exact_named_issuer_bridge_supported": true,
+      "applicant_product_candidate": null,
+      "issuer_attribution_allowed": false,
+      "company_label_is_applicant": false,
+      "sponsor_role_proven": false,
+      "legal_owner_verified": false,
+      "corporate_parent_verified": false,
+      "approval_date_is_ownership_since": false,
+      "historical_machine_availability_inferred": false,
+      "issuer_wide_scope": false,
+      "registry_adoptions": 0,
+      "new_verified_identities": 0,
+      "current_q3_verified_coverage": 0,
+      "live_acceptance_verified": false,
+      "network_requests_performed": 0,
+      "quota_or_DB_modified": false,
+      "score_changes": false,
+      "trading_allowed": false,
+      "source_version": {
+        "body_sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+        "publisher_unique_version_id": null,
+        "publisher_first_availability": null,
+        "capture_date_is_historical_publication": false
+      }
+    },
+    "issuer_group_cover": {
+      "registrant_name_as_displayed": "PFIZER INC.",
+      "registrant_name_node": 97,
+      "fiscal_point_as_displayed": "2017-12-31",
+      "fiscal_point_node": 72,
+      "CIK_source": "SEC_ARCHIVE_ROUTING_ONLY",
+      "independent_legal_CIK_body_fact_verified": false
+    }
+  },
+  "actual_new_source_requests": 0,
+  "registry_adoptions": 0,
+  "healthcare_registry_count_unchanged": 10,
+  "full_specialist_acceptance": "0/21",
+  "historical_or_Windows_or_OOS_acceptance": false
+}

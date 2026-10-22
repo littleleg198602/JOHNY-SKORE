@@ -1,0 +1,43 @@
+{
+  "schema_version": "three_new_primary_SEC_research_v1",
+  "prepared_at": "2026-10-20T14:28:27.955491+00:00",
+  "public_parent": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "purpose": "Independently inspect final legal charter terms and one proposed-sale packet; no identity adoption or collector/live/Windows/history acceptance from research alone.",
+  "urls": [
+    {
+      "key": "leg_final_articles",
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm",
+      "max_response_bytes": 2000000
+    },
+    {
+      "key": "xom_successor_formation",
+      "url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex3i.htm",
+      "max_response_bytes": 2000000
+    },
+    {
+      "key": "nadella_form144_packet",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/0001950047-26-008927.txt",
+      "max_response_bytes": 2000000
+    }
+  ],
+  "max_http_transports": 3,
+  "max_total_bytes": 6000000,
+  "timeout_seconds": 25,
+  "retry": false,
+  "redirect": false,
+  "app_collector_used": false,
+  "app_quota_managed_live_claimed": false,
+  "quota_database_created_or_reconstructed": false,
+  "old_consumed_market_plan_reused": false,
+  "NHTSA_requested": false,
+  "prior_tracked_JSON_URL_audit": {
+    "files_examined": 1353,
+    "exact_target_occurrences": {
+      "https://www.sec.gov/Archives/edgar/data/58492/000119312526366694/d152590dex31.htm": [],
+      "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex3i.htm": [],
+      "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/0001950047-26-008927.txt": []
+    }
+  },
+  "whole_unsafe_bodies": "WITHHOLD_WHOLE; metadata/hash/size/clocks only; no substitute",
+  "source_discovery": "Independent identity_bulk/sec sourcefront agents; grounded in retained original closing8K hrefs and issuer/account submissions accession rows."
+}

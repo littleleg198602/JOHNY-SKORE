@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-15T04:28:13.713948+00:00",
+  "earlier_development_results": [
+    {
+      "scope": "Original focused contract tests before the transient interruption",
+      "tests_run": 30,
+      "failures": 0,
+      "errors": 0,
+      "observed_terminal_summary": "Ran 30 tests in 0.317s; OK",
+      "raw_log_captured_on_disk": false
+    },
+    {
+      "scope": "New exact-plan and table-parent regressions",
+      "tests_run": 34,
+      "failures": 1,
+      "errors": 0,
+      "observed_seconds": 1.999,
+      "failed_test": "test_replay_is_read_only_and_original_capture_attempt_is_not_repeated",
+      "reason": "Saved JSON product_markers were lists; asdict of the frozen scope returned tuples in the in-memory replay report. Source/object assertions and no-request behavior passed.",
+      "correction": "Review report now exposes product_markers as JSON-compatible lists; source metadata and bodies/hashes are unchanged.",
+      "raw_log_captured_on_disk": false
+    }
+  ],
+  "new_source_requests": 0,
+  "old_evidence_or_hash_assertions_relaxed": false
+}

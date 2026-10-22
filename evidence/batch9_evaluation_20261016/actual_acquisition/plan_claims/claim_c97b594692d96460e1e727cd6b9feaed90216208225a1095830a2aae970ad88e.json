@@ -1,0 +1,11 @@
+{
+  "acquisition_id": "129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f",
+  "claim_created_after_attempt": true,
+  "claim_recorded_at": "2026-10-16T17:16:10.799148+00:00",
+  "fixture_only": false,
+  "http_requests_performed_by_this_recovery": 0,
+  "plan_id": "c97b594692d96460e1e727cd6b9feaed90216208225a1095830a2aae970ad88e",
+  "reason": "Protect original producer-v1 completed transport failure against any same-plan retry",
+  "report_path": "acquisition_129e7d68557e7bc5a4cba80773598e05f6dd9d9bea8d4fa4a933c436fe34d57f/acquisition_report.json",
+  "started_at": "2026-10-16T12:21:17.274124+00:00"
+}

@@ -1,0 +1,33 @@
+{
+  "database_actions": 0,
+  "new_http_requests": 0,
+  "original_body_sanitization_encoding_compression": false,
+  "public_bodies": [
+    {
+      "bytes": 1344697,
+      "capture_id": "govinfo_case_opinion",
+      "pdf_decoded_characters": 71581,
+      "pdf_pages_inspected": 33,
+      "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa",
+      "whole_raw_html_unescaped_access_scan_passed": true
+    },
+    {
+      "bytes": 107793,
+      "capture_id": "doj_case_index",
+      "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+      "whole_raw_html_unescaped_access_scan_passed": true
+    },
+    {
+      "bytes": 577500,
+      "capture_id": "doj_opposition_pdf",
+      "pdf_decoded_characters": 101852,
+      "pdf_pages_inspected": 62,
+      "sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+      "whole_raw_html_unescaped_access_scan_passed": true
+    }
+  ],
+  "scope": "Three whole original public responses; no unavailable body read or restored",
+  "universal_secret_detection_claim": false,
+  "verified_at": "2026-10-16T00:20:58.506640+00:00",
+  "whole_withheld_body_substitutes_created": false
+}

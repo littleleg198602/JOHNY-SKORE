@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.bat text eol=crlf
+
+# Publisher captures, frozen fixtures and pinned data are byte-hash evidence.
+# Checkout must preserve their original LF, CRLF and binary bytes everywhere.
+evidence/** -text
+tests/fixtures/** -text
+market_checker_app/data/** -text

@@ -1,0 +1,34 @@
+{
+  "physical_verified_at": "2026-10-20T20:51:03.002522+00:00",
+  "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "run_id": 39495108326,
+  "job_id": 118878044413,
+  "decoded_UTF8_bytes": 64063,
+  "decoded_UTF8_sha256": "1c343e651c041c64a6cbb618b00e154a4495cd14a75e92852fc4b7da5f61d21b",
+  "plain_OK": true,
+  "tests": 5,
+  "seconds": 21.9,
+  "strict_original_OK_blocks": [
+    {
+      "heading": "test_exactly_687_unique_tickers_complete_with_cached_yahoo (test_687_ticker_contract.FullUniverseContractTests.test_exactly_687_unique_tickers_complete_with_cached_yahoo) ... ",
+      "original_ok_block_sha256": "e7843a8c859b52979ab9da1f78e1d5f902fed53bbe88213e84ea2209f91f0ba3"
+    },
+    {
+      "heading": "test_market_checker_export_is_the_687_ticker_source (test_canonical_ticker_universe.CanonicalTickerUniverseTests.test_market_checker_export_is_the_687_ticker_source) ... ",
+      "original_ok_block_sha256": "58e6b8b662955254e3137442374860577981ebe96554eae407837ecbac14d4c6"
+    },
+    {
+      "heading": "test_ticker_loader_preserves_excel_order (test_canonical_ticker_universe.CanonicalTickerUniverseTests.test_ticker_loader_preserves_excel_order) ... ",
+      "original_ok_block_sha256": "75a4796e29bfd7eeeaa7a22d4f919c549a9007c9babdcfcae95d098b53eda137"
+    },
+    {
+      "heading": "test_every_requested_ticker_has_unambiguous_outcome (test_ticker_traceability.TickerTraceabilityTests.test_every_requested_ticker_has_unambiguous_outcome) ... ",
+      "original_ok_block_sha256": "9a755107e38810f245c0263da42b9fca00c7711d7d99173a39b7790e000b5ab5"
+    },
+    {
+      "heading": "test_sqlite_persists_the_same_complete_accounting_as_the_run (test_ticker_traceability.TickerTraceabilityTests.test_sqlite_persists_the_same_complete_accounting_as_the_run) ... ",
+      "original_ok_block_sha256": "732b49bdd3cbc4f74fd6d80e1a11286930cbdd5b0f79b8976bf5837cd3b7c254"
+    }
+  ],
+  "file_rewritten": false
+}

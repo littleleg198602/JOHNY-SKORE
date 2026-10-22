@@ -1,0 +1,72 @@
+{
+  "fields": [
+    {
+      "bounds": [
+        890,
+        805,
+        1090,
+        837
+      ],
+      "field": "issuer_name",
+      "literal": "EVERPURE, INC."
+    },
+    {
+      "bounds": [
+        540,
+        775,
+        1440,
+        803
+      ],
+      "field": "class_and_par",
+      "literal": "FULLY PAID AND NONASSESSABLE SHARES OF CLASS A COMMON STOCK, $0.0001 PAR VALUE PER SHARE, OF"
+    },
+    {
+      "bounds": [
+        1390,
+        322,
+        1660,
+        354
+      ],
+      "field": "cusip",
+      "literal": "CUSIP 74624M 10 2"
+    },
+    {
+      "bounds": [
+        545,
+        485,
+        1465,
+        710
+      ],
+      "field": "specimen_mark",
+      "literal": "SPECIMEN"
+    },
+    {
+      "bounds": [
+        220,
+        950,
+        860,
+        995
+      ],
+      "field": "dated_field",
+      "literal": "Dated:"
+    },
+    {
+      "bounds": [
+        900,
+        973,
+        1085,
+        1160
+      ],
+      "field": "corporate_seal",
+      "literal": "EVERPURE, INC. CORPORATE SEAL OCTOBER 2, 2009 DELAWARE"
+    }
+  ],
+  "image_dimensions": [
+    1978,
+    1318
+  ],
+  "measured_at": "2026-10-18T04:29:39.896536+00:00",
+  "method": "VISUAL_TRANSCRIPTION_FROM_ORIGINAL",
+  "schema_version": "sec_certificate_visual_measurement_v1",
+  "source_image_sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+}

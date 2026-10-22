@@ -1,0 +1,37 @@
+{
+  "verified_at": "2026-10-20T14:31:43.170931+00:00",
+  "http200_originals": 3,
+  "total_original_bytes": 44892,
+  "items": [
+    {
+      "key": "leg_final_articles",
+      "body_path": "evidence/sourcefront_20261020/primary/leg_final_articles.htm",
+      "bytes": 14256,
+      "sha256": "6cd32d55f62c8d5b0a157b63527a07be489d94b8effe67ef4f0f3d892769d5ba",
+      "observed_at": "2026-10-20T14:29:11.360266+00:00",
+      "metadata_path": "evidence/sourcefront_20261020/primary/leg_final_articles.metadata.json"
+    },
+    {
+      "key": "nadella_form144_packet",
+      "body_path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.txt",
+      "bytes": 4770,
+      "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e",
+      "observed_at": "2026-10-20T14:29:20.394430+00:00",
+      "metadata_path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.metadata.json"
+    },
+    {
+      "key": "xom_successor_formation",
+      "body_path": "evidence/sourcefront_20261020/primary/xom_successor_formation.htm",
+      "bytes": 25866,
+      "sha256": "ef4d1a0c0c71bc3ea536ca3ee333c91db561e99c57448d851225e8b3dcf920ac",
+      "observed_at": "2026-10-20T14:29:15.824236+00:00",
+      "metadata_path": "evidence/sourcefront_20261020/primary/xom_successor_formation.metadata.json"
+    }
+  ],
+  "collectors_used": false,
+  "source_retry_performed": false,
+  "sql_operations": 0,
+  "registry_adoptions": 0,
+  "full_specialist_acceptance": 0,
+  "scope": "Three new bounded research originals; no application collector/live, historical availability or native Windows qualification."
+}

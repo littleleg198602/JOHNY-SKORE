@@ -1,0 +1,493 @@
+﻿2026-10-20T20:48:26.6920572Z Current runner version: '2.338.0'
+2026-10-20T20:48:26.6941339Z ##[group]Runner Image Provisioner
+2026-10-20T20:48:26.6942113Z Hosted Compute Agent
+2026-10-20T20:48:26.6942607Z Version: 20261015.610
+2026-10-20T20:48:26.6943118Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+2026-10-20T20:48:26.6943816Z Build Date: 2026-10-14T17:06:54Z
+2026-10-20T20:48:26.6944404Z Worker ID: {47f18a66-4e55-4438-b355-3a39402996de}
+2026-10-20T20:48:26.6945020Z Region: mexicocentral
+2026-10-20T20:48:26.6945505Z Cloud: Azure
+2026-10-20T20:48:26.6945945Z ##[endgroup]
+2026-10-20T20:48:26.6947073Z ##[group]Operating System
+2026-10-20T20:48:26.6947620Z Ubuntu
+2026-10-20T20:48:26.6948405Z 24.04.5
+2026-10-20T20:48:26.6948926Z LTS
+2026-10-20T20:48:26.6949368Z ##[endgroup]
+2026-10-20T20:48:26.6949907Z ##[group]Runner Image
+2026-10-20T20:48:26.6950575Z Image: ubuntu-24.04
+2026-10-20T20:48:26.6951079Z Version: 20261018.339.1
+2026-10-20T20:48:26.6952162Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.339/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-20T20:48:26.6953488Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.339
+2026-10-20T20:48:26.6954373Z ##[endgroup]
+2026-10-20T20:48:26.6955332Z ##[group]GITHUB_TOKEN Permissions
+2026-10-20T20:48:26.6956986Z Contents: read
+2026-10-20T20:48:26.6957541Z Metadata: read
+2026-10-20T20:48:26.6958283Z ##[endgroup]
+2026-10-20T20:48:26.6960001Z Secret source: Actions
+2026-10-20T20:48:26.6960891Z Cache mode: write
+2026-10-20T20:48:26.6961472Z Prepare workflow directory
+2026-10-20T20:48:26.7225652Z Prepare all required actions
+2026-10-20T20:48:26.7265820Z Getting action download info
+2026-10-20T20:48:27.0371649Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-20T20:48:27.1486235Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-20T20:48:27.3310977Z Complete job name: 687 ticker scale and progress agent
+2026-10-20T20:48:27.3905910Z ##[group]Run actions/checkout@v4
+2026-10-20T20:48:27.3906546Z with:
+2026-10-20T20:48:27.3906910Z   repository: littleleg198602/JOHNY-SKORE
+2026-10-20T20:48:27.3910393Z   token: ***
+2026-10-20T20:48:27.3910750Z   ssh-strict: true
+2026-10-20T20:48:27.3911103Z   ssh-user: git
+2026-10-20T20:48:27.3911459Z   persist-credentials: true
+2026-10-20T20:48:27.3911852Z   clean: true
+2026-10-20T20:48:27.3912218Z   sparse-checkout-cone-mode: true
+2026-10-20T20:48:27.3912631Z   fetch-depth: 1
+2026-10-20T20:48:27.3912975Z   fetch-tags: false
+2026-10-20T20:48:27.3913331Z   show-progress: true
+2026-10-20T20:48:27.3913686Z   lfs: false
+2026-10-20T20:48:27.3914010Z   submodules: false
+2026-10-20T20:48:27.3914360Z   set-safe-directory: true
+2026-10-20T20:48:27.3914752Z   allow-unsafe-pr-checkout: false
+2026-10-20T20:48:27.3915434Z ##[endgroup]
+2026-10-20T20:48:27.4753195Z Syncing repository: littleleg198602/JOHNY-SKORE
+2026-10-20T20:48:27.4755043Z ##[group]Getting Git version info
+2026-10-20T20:48:27.4755975Z Working directory is '/home/runner/work/JOHNY-SKORE/JOHNY-SKORE'
+2026-10-20T20:48:27.4757229Z [command]/usr/bin/git version
+2026-10-20T20:48:27.4778897Z git version 2.55.0
+2026-10-20T20:48:27.4795617Z ##[endgroup]
+2026-10-20T20:48:27.4808208Z Temporarily overriding HOME='/home/runner/work/_temp/e99b7bd9-ab1f-4730-98ab-b8e541e27650' before making global git config changes
+2026-10-20T20:48:27.4809851Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T20:48:27.4812224Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/JOHNY-SKORE/JOHNY-SKORE
+2026-10-20T20:48:27.4862522Z Deleting the contents of '/home/runner/work/JOHNY-SKORE/JOHNY-SKORE'
+2026-10-20T20:48:27.4868242Z ##[group]Initializing the repository
+2026-10-20T20:48:27.4872204Z [command]/usr/bin/git init /home/runner/work/JOHNY-SKORE/JOHNY-SKORE
+2026-10-20T20:48:27.4950506Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-20T20:48:27.4951635Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-20T20:48:27.4953193Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-20T20:48:27.4953953Z hint: call:
+2026-10-20T20:48:27.4954565Z hint:
+2026-10-20T20:48:27.4955418Z hint: 	git config --global init.defaultBranch <name>
+2026-10-20T20:48:27.4956445Z hint:
+2026-10-20T20:48:27.4957381Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-20T20:48:27.4959059Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-20T20:48:27.4960249Z hint:
+2026-10-20T20:48:27.4960906Z hint: 	git branch -m <name>
+2026-10-20T20:48:27.4961660Z hint:
+2026-10-20T20:48:27.4962637Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-20T20:48:27.4964088Z Initialized empty Git repository in /home/runner/work/JOHNY-SKORE/JOHNY-SKORE/.git/
+2026-10-20T20:48:27.4966831Z [command]/usr/bin/git remote add origin https://github.com/littleleg198602/JOHNY-SKORE
+2026-10-20T20:48:27.5005666Z ##[endgroup]
+2026-10-20T20:48:27.5006729Z ##[group]Disabling automatic garbage collection
+2026-10-20T20:48:27.5009928Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-20T20:48:27.5040618Z ##[endgroup]
+2026-10-20T20:48:27.5041841Z ##[group]Setting up auth
+2026-10-20T20:48:27.5047197Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T20:48:27.5077363Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T20:48:27.9212152Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T20:48:27.9248660Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T20:48:27.9489650Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T20:48:27.9525857Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T20:48:27.9732475Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-20T20:48:27.9774135Z ##[endgroup]
+2026-10-20T20:48:27.9774826Z ##[group]Fetching the repository
+2026-10-20T20:48:27.9783776Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +3dcfbd80da0ea3213aa9f8e5cfdd9b3b8aa7fe7c:refs/remotes/pull/162/merge
+2026-10-20T20:48:33.3864921Z From https://github.com/littleleg198602/JOHNY-SKORE
+2026-10-20T20:48:33.3867127Z  * [new ref]         3dcfbd80da0ea3213aa9f8e5cfdd9b3b8aa7fe7c -> pull/162/merge
+2026-10-20T20:48:33.3870891Z ##[endgroup]
+2026-10-20T20:48:33.3872130Z ##[group]Determining the checkout info
+2026-10-20T20:48:33.3873650Z ##[endgroup]
+2026-10-20T20:48:33.3874306Z [command]/usr/bin/git sparse-checkout disable
+2026-10-20T20:48:33.3922166Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-20T20:48:33.3955854Z ##[group]Checking out the ref
+2026-10-20T20:48:33.3958598Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/162/merge
+2026-10-20T20:48:33.7023922Z Note: switching to 'refs/remotes/pull/162/merge'.
+2026-10-20T20:48:33.7024332Z 
+2026-10-20T20:48:33.7024554Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-20T20:48:33.7025011Z changes and commit them, and you can discard any commits you make in this
+2026-10-20T20:48:33.7025463Z state without impacting any branches by switching back to a branch.
+2026-10-20T20:48:33.7025721Z 
+2026-10-20T20:48:33.7025893Z If you want to create a new branch to retain commits you create, you may
+2026-10-20T20:48:33.7026298Z do so (now or later) by using -c with the switch command. Example:
+2026-10-20T20:48:33.7026629Z 
+2026-10-20T20:48:33.7027019Z   git switch -c <new-branch-name>
+2026-10-20T20:48:33.7027178Z 
+2026-10-20T20:48:33.7027298Z Or undo this operation with:
+2026-10-20T20:48:33.7027483Z 
+2026-10-20T20:48:33.7027600Z   git switch -
+2026-10-20T20:48:33.7027725Z 
+2026-10-20T20:48:33.7028219Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-20T20:48:33.7028650Z 
+2026-10-20T20:48:33.7029160Z HEAD is now at 3dcfbd8 Merge 9d60cc650ff0d64b720f84fabfe1348e44c6bcf4 into ebb63a4b666908ce176e92ea7dffd6e74808caa9
+2026-10-20T20:48:33.7058364Z ##[endgroup]
+2026-10-20T20:48:33.7103356Z [command]/usr/bin/git log -1 --format=%H
+2026-10-20T20:48:33.7132913Z 3dcfbd80da0ea3213aa9f8e5cfdd9b3b8aa7fe7c
+2026-10-20T20:48:33.7407230Z ##[group]Run actions/setup-python@v5
+2026-10-20T20:48:33.7407517Z with:
+2026-10-20T20:48:33.7407724Z   python-version: 3.12
+2026-10-20T20:48:33.7408141Z   cache: pip
+2026-10-20T20:48:33.7408511Z   cache-dependency-path: market_checker_app/requirements.txt
+market_checker_app/constraints.txt
+
+2026-10-20T20:48:33.7408960Z   check-latest: false
+2026-10-20T20:48:33.7411234Z   token: ***
+2026-10-20T20:48:33.7411457Z   update-environment: true
+2026-10-20T20:48:33.7411700Z   allow-prereleases: false
+2026-10-20T20:48:33.7411932Z   freethreaded: false
+2026-10-20T20:48:33.7412149Z ##[endgroup]
+2026-10-20T20:48:33.8535162Z ##[group]Installed versions
+2026-10-20T20:48:34.4342122Z (node:2103) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T20:48:34.4342993Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T20:48:34.4343496Z Successfully set up CPython (3.12.15)
+2026-10-20T20:48:34.4344182Z ##[endgroup]
+2026-10-20T20:48:34.4724620Z [command]/opt/hostedtoolcache/Python/3.12.15/x64/bin/pip cache dir
+2026-10-20T20:48:36.2930031Z /home/runner/.cache/pip
+2026-10-20T20:48:36.5292216Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-49dc0fb5ca5ef8200343af3bfa6c859d53932ad291fee381f2152ea7de1535e5
+2026-10-20T20:48:36.5370753Z (node:2103) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-20T20:48:37.7380610Z Received 54525952 of 135906295 (40.1%), 51.9 MBs/sec
+2026-10-20T20:48:38.2663534Z Received 135906295 of 135906295 (100.0%), 84.7 MBs/sec
+2026-10-20T20:48:38.2664329Z Cache Size: ~130 MB (135906295 B)
+2026-10-20T20:48:38.2761872Z [command]/usr/bin/tar -xf /home/runner/work/_temp/5928e5b0-8f99-41e3-ab2d-931c1a3f6398/cache.tzst -P -C /home/runner/work/JOHNY-SKORE/JOHNY-SKORE --use-compress-program unzstd
+2026-10-20T20:48:38.4580556Z Cache restored successfully
+2026-10-20T20:48:38.4640855Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-49dc0fb5ca5ef8200343af3bfa6c859d53932ad291fee381f2152ea7de1535e5
+2026-10-20T20:48:38.4820484Z ##[group]Run python -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt
+2026-10-20T20:48:38.4821195Z [36;1mpython -m pip install -r market_checker_app/requirements.txt -c market_checker_app/constraints.txt[0m
+2026-10-20T20:48:38.6356784Z shell: /usr/bin/bash -e {0}
+2026-10-20T20:48:38.6357069Z env:
+2026-10-20T20:48:38.6357320Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-20T20:48:38.6357729Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-20T20:48:38.6358220Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-20T20:48:38.6358526Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-20T20:48:38.6358835Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-20T20:48:38.6359139Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-20T20:48:38.6359412Z ##[endgroup]
+2026-10-20T20:48:39.1532087Z Ignoring MetaTrader5: markers 'platform_system == "Windows"' don't match your environment
+2026-10-20T20:48:39.2241091Z Collecting streamlit<2,>=1.40 (from -r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:39.2251243Z   Using cached streamlit-1.61.1-py3-none-any.whl.metadata (10 kB)
+2026-10-20T20:48:39.3164676Z Collecting pandas<3,>=2.1 (from -r market_checker_app/requirements.txt (line 2))
+2026-10-20T20:48:39.3175524Z   Using cached pandas-2.3.3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+2026-10-20T20:48:39.3481681Z Collecting openpyxl<4,>=3.1 (from -r market_checker_app/requirements.txt (line 3))
+2026-10-20T20:48:39.3491273Z   Using cached openpyxl-3.1.5-py2.py3-none-any.whl.metadata (2.5 kB)
+2026-10-20T20:48:39.3694108Z Collecting yfinance<2,>=0.2.54 (from -r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:39.3703227Z   Using cached yfinance-1.6.0-py3-none-any.whl.metadata (6.7 kB)
+2026-10-20T20:48:39.3789437Z Collecting feedparser<7,>=6.0 (from -r market_checker_app/requirements.txt (line 5))
+2026-10-20T20:48:39.3798635Z   Using cached feedparser-6.0.14-py3-none-any.whl.metadata (2.7 kB)
+2026-10-20T20:48:39.4864169Z Collecting pypdf<7,>=6 (from -r market_checker_app/requirements.txt (line 6))
+2026-10-20T20:48:39.4874470Z   Using cached pypdf-6.16.1-py3-none-any.whl.metadata (7.5 kB)
+2026-10-20T20:48:39.5790418Z Collecting altair<7,>=5 (from -r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:39.5800726Z   Using cached altair-6.2.2-py3-none-any.whl.metadata (11 kB)
+2026-10-20T20:48:39.5943532Z Collecting pandas_market_calendars<6,>=5.4 (from -r market_checker_app/requirements.txt (line 9))
+2026-10-20T20:48:39.5953090Z   Using cached pandas_market_calendars-5.4.0-py3-none-any.whl.metadata (8.8 kB)
+2026-10-20T20:48:39.6030568Z Collecting blinker<2,>=1.5.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:39.6039214Z   Using cached blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+2026-10-20T20:48:39.6143837Z Collecting click<9,>=7.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:39.6152494Z   Using cached click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+2026-10-20T20:48:39.7544620Z Collecting numpy<3,>=1.23 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:39.7556435Z   Using cached numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+2026-10-20T20:48:39.7658253Z Collecting packaging>=20 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:39.7667299Z   Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-10-20T20:48:39.8822676Z Collecting pillow<13,>=7.1.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:39.8833937Z   Using cached pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+2026-10-20T20:48:39.8949567Z Collecting pydeck<1,>=0.8.0b4 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:39.8958441Z   Using cached pydeck-0.9.3-py2.py3-none-any.whl.metadata (4.2 kB)
+2026-10-20T20:48:40.0071632Z Collecting protobuf<8,>=5.26.1 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.0082588Z   Using cached protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+2026-10-20T20:48:40.0630193Z Collecting pyarrow<25,>=7.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.0640594Z   Using cached pyarrow-24.0.0-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+2026-10-20T20:48:40.0779427Z Collecting requests<3,>=2.27 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.0788838Z   Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+2026-10-20T20:48:40.0889674Z Collecting tenacity<10,>=8.1.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.0899180Z   Using cached tenacity-9.2.1-py3-none-any.whl.metadata (1.4 kB)
+2026-10-20T20:48:40.0964117Z Collecting toml<2,>=0.10.1 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.0973187Z   Using cached toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)
+2026-10-20T20:48:40.1075385Z Collecting typing-extensions<5,>=4.10.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.1084825Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-10-20T20:48:40.1253949Z Collecting starlette<1.4.0,>=0.46.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.1263433Z   Using cached starlette-1.3.1-py3-none-any.whl.metadata (6.4 kB)
+2026-10-20T20:48:40.1426632Z Collecting uvicorn<1,>=0.30.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.1435823Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+2026-10-20T20:48:40.1675476Z Collecting httptools<1,>=0.6.3 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.1685638Z   Using cached httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+2026-10-20T20:48:40.1799947Z Collecting anyio<5,>=4.0.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.1809322Z   Using cached anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+2026-10-20T20:48:40.1910669Z Collecting python-multipart<1,>=0.0.10 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.1919994Z   Using cached python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+2026-10-20T20:48:40.2750741Z Collecting websockets<17,>=12.0.0 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.2762679Z   Using cached websockets-16.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.8 kB)
+2026-10-20T20:48:40.2839318Z Collecting itsdangerous<3,>=2.1.2 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.2848348Z   Using cached itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+2026-10-20T20:48:40.3117123Z Collecting watchdog<7,>=2.1.5 (from streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.3127467Z   Using cached watchdog-6.0.0-py3-none-manylinux2014_x86_64.whl.metadata (44 kB)
+2026-10-20T20:48:40.3249500Z Collecting python-dateutil>=2.8.2 (from pandas<3,>=2.1->-r market_checker_app/requirements.txt (line 2))
+2026-10-20T20:48:40.3258980Z   Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+2026-10-20T20:48:40.3487828Z Collecting pytz>=2020.1 (from pandas<3,>=2.1->-r market_checker_app/requirements.txt (line 2))
+2026-10-20T20:48:40.3497555Z   Using cached pytz-2026.5-py2.py3-none-any.whl.metadata (22 kB)
+2026-10-20T20:48:40.3601028Z Collecting tzdata>=2022.7 (from pandas<3,>=2.1->-r market_checker_app/requirements.txt (line 2))
+2026-10-20T20:48:40.3610625Z   Using cached tzdata-2026.5-py2.py3-none-any.whl.metadata (1.4 kB)
+2026-10-20T20:48:40.3693388Z Collecting et-xmlfile (from openpyxl<4,>=3.1->-r market_checker_app/requirements.txt (line 3))
+2026-10-20T20:48:40.3702684Z   Using cached et_xmlfile-2.0.0-py3-none-any.whl.metadata (2.7 kB)
+2026-10-20T20:48:40.3812814Z Collecting beautifulsoup4>=4.11.1 (from yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:40.3822247Z   Using cached beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
+2026-10-20T20:48:40.4262579Z Collecting curl_cffi>=0.15 (from yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:40.4274467Z   Using cached curl_cffi-0.16.3-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (17 kB)
+2026-10-20T20:48:40.6202503Z Collecting lxml>=4.9.0 (from yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:40.6213752Z   Using cached lxml-6.1.3-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+2026-10-20T20:48:40.6298327Z Collecting multitasking>=0.0.7 (from yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:40.6307046Z   Using cached multitasking-0.0.13-py3-none-any.whl.metadata (16 kB)
+2026-10-20T20:48:40.6479090Z Collecting peewee>=3.16.2 (from yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:40.6487797Z   Using cached peewee-4.5.3-py3-none-any.whl.metadata (10 kB)
+2026-10-20T20:48:40.6667025Z Collecting platformdirs>=2.0.0 (from yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:40.7043680Z   Downloading platformdirs-4.13.5-py3-none-any.whl.metadata (5.5 kB)
+2026-10-20T20:48:40.7207079Z Collecting feedparser-sgmllib<3,>=2 (from feedparser<7,>=6.0->-r market_checker_app/requirements.txt (line 5))
+2026-10-20T20:48:40.7215952Z   Using cached feedparser_sgmllib-2.1.0-py3-none-any.whl.metadata (926 bytes)
+2026-10-20T20:48:40.7315964Z Collecting jinja2 (from altair<7,>=5->-r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:40.7324954Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+2026-10-20T20:48:40.7461446Z Collecting jsonschema>=3.0 (from altair<7,>=5->-r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:40.7470828Z   Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+2026-10-20T20:48:40.8307532Z Collecting narwhals>=2.4.0 (from altair<7,>=5->-r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:40.8318275Z   Using cached narwhals-2.27.1-py3-none-any.whl.metadata (15 kB)
+2026-10-20T20:48:40.8461709Z Collecting exchange-calendars>=3.3 (from pandas_market_calendars<6,>=5.4->-r market_checker_app/requirements.txt (line 9))
+2026-10-20T20:48:40.8471007Z   Using cached exchange_calendars-4.13.2-py3-none-any.whl.metadata (26 kB)
+2026-10-20T20:48:40.8588401Z Collecting idna>=2.8 (from anyio<5,>=4.0.0->streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.8597309Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+2026-10-20T20:48:40.9529537Z Collecting charset_normalizer<4,>=2 (from requests<3,>=2.27->streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.9544553Z   Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+2026-10-20T20:48:40.9776403Z Collecting urllib3<3,>=1.26 (from requests<3,>=2.27->streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.9786413Z   Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+2026-10-20T20:48:40.9910630Z Collecting certifi>=2023.5.7 (from requests<3,>=2.27->streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:40.9936969Z   Downloading certifi-2026.10.19-py3-none-any.whl.metadata (2.5 kB)
+2026-10-20T20:48:41.0072728Z Collecting h11>=0.8 (from uvicorn<1,>=0.30.0->streamlit<2,>=1.40->-r market_checker_app/requirements.txt (line 1))
+2026-10-20T20:48:41.0081596Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-10-20T20:48:41.0214603Z Collecting soupsieve>=1.6.1 (from beautifulsoup4>=4.11.1->yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:41.0242097Z   Downloading soupsieve-3.0.3-py3-none-any.whl.metadata (4.4 kB)
+2026-10-20T20:48:41.1238870Z Collecting cffi>=2.0.0 (from curl_cffi>=0.15->yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:41.1249844Z   Using cached cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+2026-10-20T20:48:41.1341269Z Collecting pycparser (from cffi>=2.0.0->curl_cffi>=0.15->yfinance<2,>=0.2.54->-r market_checker_app/requirements.txt (line 4))
+2026-10-20T20:48:41.1350388Z   Using cached pycparser-3.11-py3-none-any.whl.metadata (8.2 kB)
+2026-10-20T20:48:41.1462598Z Collecting pyluach>=2.3.0 (from exchange-calendars>=3.3->pandas_market_calendars<6,>=5.4->-r market_checker_app/requirements.txt (line 9))
+2026-10-20T20:48:41.1471965Z   Using cached pyluach-2.3.0-py3-none-any.whl.metadata (4.3 kB)
+2026-10-20T20:48:41.1557624Z Collecting toolz>=1.0.0 (from exchange-calendars>=3.3->pandas_market_calendars<6,>=5.4->-r market_checker_app/requirements.txt (line 9))
+2026-10-20T20:48:41.1566724Z   Using cached toolz-1.2.0-py3-none-any.whl.metadata (5.2 kB)
+2026-10-20T20:48:41.1651570Z Collecting korean_lunar_calendar>=0.3.1 (from exchange-calendars>=3.3->pandas_market_calendars<6,>=5.4->-r market_checker_app/requirements.txt (line 9))
+2026-10-20T20:48:41.1660642Z   Using cached korean_lunar_calendar-0.4.0-py3-none-any.whl.metadata (6.6 kB)
+2026-10-20T20:48:41.2039459Z Collecting MarkupSafe>=2.0 (from jinja2->altair<7,>=5->-r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:41.2051240Z   Using cached markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+2026-10-20T20:48:41.2146907Z Collecting attrs>=22.2.0 (from jsonschema>=3.0->altair<7,>=5->-r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:41.2155979Z   Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+2026-10-20T20:48:41.2234194Z Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=3.0->altair<7,>=5->-r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:41.2243552Z   Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+2026-10-20T20:48:41.2370309Z Collecting referencing>=0.28.4 (from jsonschema>=3.0->altair<7,>=5->-r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:41.2379694Z   Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+2026-10-20T20:48:41.4565993Z Collecting rpds-py>=0.25.0 (from jsonschema>=3.0->altair<7,>=5->-r market_checker_app/requirements.txt (line 7))
+2026-10-20T20:48:41.4577446Z   Using cached rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+2026-10-20T20:48:41.4719446Z Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas<3,>=2.1->-r market_checker_app/requirements.txt (line 2))
+2026-10-20T20:48:41.4728258Z   Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+2026-10-20T20:48:41.4802075Z Using cached streamlit-1.61.1-py3-none-any.whl (10.5 MB)
+2026-10-20T20:48:41.4839823Z Using cached pandas-2.3.3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.4 MB)
+2026-10-20T20:48:41.4881268Z Using cached openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+2026-10-20T20:48:41.4890303Z Using cached yfinance-1.6.0-py3-none-any.whl (148 kB)
+2026-10-20T20:48:41.4899136Z Using cached feedparser-6.0.14-py3-none-any.whl (80 kB)
+2026-10-20T20:48:41.4907456Z Using cached pypdf-6.16.1-py3-none-any.whl (382 kB)
+2026-10-20T20:48:41.4917089Z Using cached altair-6.2.2-py3-none-any.whl (797 kB)
+2026-10-20T20:48:41.4927786Z Using cached pandas_market_calendars-5.4.0-py3-none-any.whl (134 kB)
+2026-10-20T20:48:41.4936798Z Using cached anyio-4.15.1-py3-none-any.whl (132 kB)
+2026-10-20T20:48:41.4945189Z Using cached blinker-1.9.0-py3-none-any.whl (8.5 kB)
+2026-10-20T20:48:41.4953561Z Using cached click-8.5.0-py3-none-any.whl (125 kB)
+2026-10-20T20:48:41.4962328Z Using cached feedparser_sgmllib-2.1.0-py3-none-any.whl (11 kB)
+2026-10-20T20:48:41.4971093Z Using cached httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (552 kB)
+2026-10-20T20:48:41.4980938Z Using cached itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+2026-10-20T20:48:41.4989524Z Using cached numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+2026-10-20T20:48:41.5042758Z Using cached pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+2026-10-20T20:48:41.5075747Z Using cached protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+2026-10-20T20:48:41.5085195Z Using cached pyarrow-24.0.0-cp312-cp312-manylinux_2_28_x86_64.whl (48.9 MB)
+2026-10-20T20:48:41.5232217Z Using cached pydeck-0.9.3-py2.py3-none-any.whl (11.4 MB)
+2026-10-20T20:48:41.5272597Z Using cached python_multipart-0.0.32-py3-none-any.whl (30 kB)
+2026-10-20T20:48:41.5281151Z Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+2026-10-20T20:48:41.5290211Z Using cached charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+2026-10-20T20:48:41.5298963Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+2026-10-20T20:48:41.5307402Z Using cached starlette-1.3.1-py3-none-any.whl (73 kB)
+2026-10-20T20:48:41.5316269Z Using cached tenacity-9.2.1-py3-none-any.whl (32 kB)
+2026-10-20T20:48:41.5324927Z Using cached toml-0.10.2-py2.py3-none-any.whl (16 kB)
+2026-10-20T20:48:41.5333436Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-10-20T20:48:41.5341827Z Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+2026-10-20T20:48:41.5352839Z Using cached uvicorn-0.54.0-py3-none-any.whl (87 kB)
+2026-10-20T20:48:41.5361710Z Using cached watchdog-6.0.0-py3-none-manylinux2014_x86_64.whl (79 kB)
+2026-10-20T20:48:41.5370676Z Using cached websockets-16.1.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (187 kB)
+2026-10-20T20:48:41.5379503Z Using cached beautifulsoup4-4.15.0-py3-none-any.whl (109 kB)
+2026-10-20T20:48:41.5407074Z Downloading certifi-2026.10.19-py3-none-any.whl (136 kB)
+2026-10-20T20:48:41.6302124Z Using cached curl_cffi-0.16.3-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (13.5 MB)
+2026-10-20T20:48:41.6350757Z Using cached cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+2026-10-20T20:48:41.6359768Z Using cached exchange_calendars-4.13.2-py3-none-any.whl (213 kB)
+2026-10-20T20:48:41.6368733Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+2026-10-20T20:48:41.6377076Z Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+2026-10-20T20:48:41.6385807Z Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+2026-10-20T20:48:41.6394339Z Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+2026-10-20T20:48:41.6403106Z Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+2026-10-20T20:48:41.6411470Z Using cached korean_lunar_calendar-0.4.0-py3-none-any.whl (11 kB)
+2026-10-20T20:48:41.6419925Z Using cached lxml-6.1.3-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.2 MB)
+2026-10-20T20:48:41.6444257Z Using cached markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+2026-10-20T20:48:41.6452366Z Using cached multitasking-0.0.13-py3-none-any.whl (16 kB)
+2026-10-20T20:48:41.6460711Z Using cached narwhals-2.27.1-py3-none-any.whl (483 kB)
+2026-10-20T20:48:41.6470493Z Using cached packaging-26.3-py3-none-any.whl (129 kB)
+2026-10-20T20:48:41.6479218Z Using cached peewee-4.5.3-py3-none-any.whl (194 kB)
+2026-10-20T20:48:41.6507515Z Downloading platformdirs-4.13.5-py3-none-any.whl (32 kB)
+2026-10-20T20:48:41.6533527Z Using cached pyluach-2.3.0-py3-none-any.whl (25 kB)
+2026-10-20T20:48:41.6542560Z Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+2026-10-20T20:48:41.6551409Z Using cached pytz-2026.5-py2.py3-none-any.whl (506 kB)
+2026-10-20T20:48:41.6561360Z Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+2026-10-20T20:48:41.6570032Z Using cached rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+2026-10-20T20:48:41.6579643Z Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+2026-10-20T20:48:41.6606709Z Downloading soupsieve-3.0.3-py3-none-any.whl (41 kB)
+2026-10-20T20:48:41.6630441Z Using cached toolz-1.2.0-py3-none-any.whl (60 kB)
+2026-10-20T20:48:41.6639060Z Using cached tzdata-2026.5-py2.py3-none-any.whl (347 kB)
+2026-10-20T20:48:41.6648787Z Using cached et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+2026-10-20T20:48:41.6656889Z Using cached pycparser-3.11-py3-none-any.whl (51 kB)
+2026-10-20T20:48:42.1331440Z Installing collected packages: pytz, multitasking, websockets, watchdog, urllib3, tzdata, typing-extensions, toolz, toml, tenacity, soupsieve, six, rpds-py, python-multipart, pypdf, pyluach, pycparser, pyarrow, protobuf, platformdirs, pillow, peewee, packaging, numpy, narwhals, MarkupSafe, lxml, korean_lunar_calendar, itsdangerous, idna, httptools, h11, feedparser-sgmllib, et-xmlfile, click, charset_normalizer, certifi, blinker, attrs, uvicorn, requests, referencing, python-dateutil, openpyxl, jinja2, feedparser, cffi, beautifulsoup4, anyio, starlette, pydeck, pandas, jsonschema-specifications, curl_cffi, yfinance, jsonschema, exchange-calendars, pandas_market_calendars, altair, streamlit
+2026-10-20T20:48:56.3010627Z 
+2026-10-20T20:48:56.3050399Z Successfully installed MarkupSafe-3.0.4 altair-6.2.2 anyio-4.15.1 attrs-26.1.0 beautifulsoup4-4.15.0 blinker-1.9.0 certifi-2026.10.19 cffi-2.1.1 charset_normalizer-3.5.2 click-8.5.0 curl_cffi-0.16.3 et-xmlfile-2.0.0 exchange-calendars-4.13.2 feedparser-6.0.14 feedparser-sgmllib-2.1.0 h11-0.16.0 httptools-0.9.0 idna-3.20 itsdangerous-2.2.0 jinja2-3.1.6 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 korean_lunar_calendar-0.4.0 lxml-6.1.3 multitasking-0.0.13 narwhals-2.27.1 numpy-2.5.4 openpyxl-3.1.5 packaging-26.3 pandas-2.3.3 pandas_market_calendars-5.4.0 peewee-4.5.3 pillow-12.3.0 platformdirs-4.13.5 protobuf-7.36.2 pyarrow-24.0.0 pycparser-3.11 pydeck-0.9.3 pyluach-2.3.0 pypdf-6.16.1 python-dateutil-2.9.0.post0 python-multipart-0.0.32 pytz-2026.5 referencing-0.37.0 requests-2.34.2 rpds-py-2026.9.1 six-1.17.0 soupsieve-3.0.3 starlette-1.3.1 streamlit-1.61.1 tenacity-9.2.1 toml-0.10.2 toolz-1.2.0 typing-extensions-4.16.0 tzdata-2026.5 urllib3-2.8.0 uvicorn-0.54.0 watchdog-6.0.0 websockets-16.1.1 yfinance-1.6.0
+2026-10-20T20:48:56.3059192Z 
+2026-10-20T20:48:56.3059774Z [notice] A new release of pip is available: 26.2.1 -> 26.2.2
+2026-10-20T20:48:56.3060135Z [notice] To update, run: pip install --upgrade pip
+2026-10-20T20:48:56.4747341Z ##[group]Run python -m unittest discover -s tests -p 'test_*ticker*.py' -v
+2026-10-20T20:48:56.4747772Z [36;1mpython -m unittest discover -s tests -p 'test_*ticker*.py' -v[0m
+2026-10-20T20:48:56.4796533Z shell: /usr/bin/bash -e {0}
+2026-10-20T20:48:56.4796747Z env:
+2026-10-20T20:48:56.4796997Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-20T20:48:56.4797344Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+2026-10-20T20:48:56.4797687Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-20T20:48:56.4798076Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-20T20:48:56.4798374Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+2026-10-20T20:48:56.4798691Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+2026-10-20T20:48:56.4798955Z ##[endgroup]
+2026-10-20T20:49:04.0084753Z test_exactly_687_unique_tickers_complete_with_cached_yahoo (test_687_ticker_contract.FullUniverseContractTests.test_exactly_687_unique_tickers_complete_with_cached_yahoo) ... /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.0087441Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1207680Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1268945Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1270935Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1273300Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1292350Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1294260Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1343875Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1345857Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1362568Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1364533Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1426985Z /home/runner/work/JOHNY-SKORE/JOHNY-SKORE/tests/test_687_ticker_contract.py:30: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1429054Z   index = pd.DatetimeIndex(sessions_between(latest - pd.Timedelta(days=180), latest)[-90:])
+2026-10-20T20:49:04.1462662Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1464575Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1529545Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1531495Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1551093Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1553226Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1602038Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1604035Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.1620757Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.1623168Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2015294Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2016520Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2078554Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2079722Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2097046Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2098545Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2146860Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2148100Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2165136Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2166249Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2252713Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2253777Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2305108Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2306128Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2322728Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2323754Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2371294Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2372336Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2387463Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2388668Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2458723Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2459746Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2512041Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2513083Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2529158Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2530163Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2575664Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2576720Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2591717Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2592745Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2664646Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2665679Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2717025Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2718450Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2734447Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2735492Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2780426Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2781439Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2795973Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2796967Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2867078Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2868263Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2919975Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2920993Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2937216Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2938378Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2983800Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.2984797Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.2999519Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3000508Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3070962Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3072190Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3123081Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3124091Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3140109Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3141140Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3185874Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3186886Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3201704Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3202748Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3276734Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3277741Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3332070Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3333101Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3349085Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3350095Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3395503Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3396737Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3411460Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3412461Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3491188Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3492202Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3553857Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3554876Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3572361Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3573370Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3618303Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3619343Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:04.3634345Z /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/pandas_market_calendars/market_calendar.py:100: DeprecationWarning: The 'generic' unit for NumPy timedelta is deprecated, and will raise an error in the future. This includes implicit conversion of bare integers (e.g. `+ 1`). Please use a specific unit instead.
+2026-10-20T20:49:04.3635364Z   return pd.Timedelta(days=day_offset, hours=t.hour, minutes=t.minute, seconds=t.second)
+2026-10-20T20:49:20.0312406Z ok
+2026-10-20T20:49:20.0327767Z test_market_checker_export_is_the_687_ticker_source (test_canonical_ticker_universe.CanonicalTickerUniverseTests.test_market_checker_export_is_the_687_ticker_source) ... ok
+2026-10-20T20:49:20.0340930Z test_ticker_loader_preserves_excel_order (test_canonical_ticker_universe.CanonicalTickerUniverseTests.test_ticker_loader_preserves_excel_order) ... ok
+2026-10-20T20:49:20.0350511Z test_every_requested_ticker_has_unambiguous_outcome (test_ticker_traceability.TickerTraceabilityTests.test_every_requested_ticker_has_unambiguous_outcome) ... ok
+2026-10-20T20:49:20.1671164Z test_sqlite_persists_the_same_complete_accounting_as_the_run (test_ticker_traceability.TickerTraceabilityTests.test_sqlite_persists_the_same_complete_accounting_as_the_run) ... ok
+2026-10-20T20:49:20.1672107Z 
+2026-10-20T20:49:20.1672315Z ----------------------------------------------------------------------
+2026-10-20T20:49:20.1672752Z Ran 5 tests in 21.900s
+2026-10-20T20:49:20.1672929Z 
+2026-10-20T20:49:20.1673017Z OK
+2026-10-20T20:49:20.2886307Z Post job cleanup.
+2026-10-20T20:49:20.3886133Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.12.15-pip-49dc0fb5ca5ef8200343af3bfa6c859d53932ad291fee381f2152ea7de1535e5, not saving cache.
+2026-10-20T20:49:20.3887441Z (node:2206) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T20:49:20.3888266Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T20:49:20.4025673Z Post job cleanup.
+2026-10-20T20:49:20.4739188Z [command]/usr/bin/git version
+2026-10-20T20:49:20.4774118Z git version 2.55.0
+2026-10-20T20:49:20.4805127Z Temporarily overriding HOME='/home/runner/work/_temp/de84a93a-c1bf-4957-8f87-ccec86af5807' before making global git config changes
+2026-10-20T20:49:20.4806368Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T20:49:20.4807809Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/JOHNY-SKORE/JOHNY-SKORE
+2026-10-20T20:49:20.4841136Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T20:49:20.4872713Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T20:49:20.5112264Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T20:49:20.5160463Z http.https://github.com/.extraheader
+2026-10-20T20:49:20.5170439Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-20T20:49:20.5205665Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T20:49:20.5434643Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T20:49:20.5470211Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T20:49:20.5858693Z Cleaning up orphan processes
+2026-10-20T20:49:20.6107846Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

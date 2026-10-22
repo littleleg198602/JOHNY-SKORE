@@ -1,0 +1,2101 @@
+{
+  "HTTP_requests": 0,
+  "base_commit": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "database_operations": 0,
+  "exact_targets": {
+    "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [
+        {
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "json_pointer": "/captures/court_public_order/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "court_public_order",
+            "error_type": "URLError",
+            "observed_at": "2026-10-15T13:43:59.288997+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": null,
+            "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+            "reserved_at": "2026-10-15T13:43:57.029246+00:00",
+            "started_at": "2026-10-15T13:43:57.029246+00:00",
+            "status": "TRANSPORT_OR_CAPTURE_ERROR"
+          }
+        },
+        {
+          "file": {
+            "bytes": 707,
+            "path": "evidence/batch8_regulatory_20261015/raw/court_public_order.metadata.json",
+            "sha256": "4a5d4ab16fb0beb7271ecaea11387cfc94922ad050edf5531685405e9c450c4b"
+          },
+          "json_pointer": "",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "court_public_order",
+            "error_type": "URLError",
+            "observed_at": "2026-10-15T13:43:59.288997+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": null,
+            "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+            "reserved_at": "2026-10-15T13:43:57.029246+00:00",
+            "started_at": "2026-10-15T13:43:57.029246+00:00",
+            "status": "TRANSPORT_OR_CAPTURE_ERROR"
+          }
+        },
+        {
+          "file": {
+            "bytes": 372,
+            "path": "evidence/batch8_regulatory_20261015/reservations/03_court_public_order.json",
+            "sha256": "b61bc264612ce737055c1883329f249b08307c16949ca5241f9948c402f59eba"
+          },
+          "json_pointer": "",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "court_public_order",
+            "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+            "reserved_at": "2026-10-15T13:43:57.029246+00:00"
+          }
+        },
+        {
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "json_pointer": "/attempt_history/already_attempted_unknown_order_locator",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "court_public_order",
+            "http_status": null,
+            "observed_at": "2026-10-15T13:43:59.288997+00:00",
+            "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+            "status": "TRANSPORT_OR_CAPTURE_ERROR"
+          }
+        },
+        {
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "json_pointer": "/attempt_history/entries/6",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "court_public_order",
+            "http_status": null,
+            "observed_at": "2026-10-15T13:43:59.288997+00:00",
+            "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+            "status": "TRANSPORT_OR_CAPTURE_ERROR"
+          }
+        },
+        {
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "json_pointer": "/attempt_history/already_attempted_unknown_order_locator",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "court_public_order",
+            "http_status": null,
+            "observed_at": "2026-10-15T13:43:59.288997+00:00",
+            "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+            "status": "TRANSPORT_OR_CAPTURE_ERROR"
+          }
+        },
+        {
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "json_pointer": "/attempt_history/entries/6",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "court_public_order",
+            "http_status": null,
+            "observed_at": "2026-10-15T13:43:59.288997+00:00",
+            "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+            "status": "TRANSPORT_OR_CAPTURE_ERROR"
+          }
+        },
+        {
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/specialist_review_plans/AAPL_procesni_stav_DOJ.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "json_pointer": "/captures/court_public_order/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "court_public_order",
+            "error_type": "URLError",
+            "observed_at": "2026-10-15T13:43:59.288997+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": null,
+            "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+            "reserved_at": "2026-10-15T13:43:57.029246+00:00",
+            "started_at": "2026-10-15T13:43:57.029246+00:00",
+            "status": "TRANSPORT_OR_CAPTURE_ERROR"
+          }
+        }
+      ],
+      "references": [
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              7351,
+              7419
+            ]
+          ],
+          "file": {
+            "bytes": 9984,
+            "path": "evidence/batch8_coordinator_20261015/runtime/review-762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f.json",
+            "sha256": "762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              637,
+              705
+            ]
+          ],
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              446,
+              514
+            ]
+          ],
+          "file": {
+            "bytes": 707,
+            "path": "evidence/batch8_regulatory_20261015/raw/court_public_order.metadata.json",
+            "sha256": "4a5d4ab16fb0beb7271ecaea11387cfc94922ad050edf5531685405e9c450c4b"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              7733,
+              7801
+            ]
+          ],
+          "file": {
+            "bytes": 9036,
+            "path": "evidence/batch8_regulatory_20261015/replay.json",
+            "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              205,
+              273
+            ]
+          ],
+          "file": {
+            "bytes": 372,
+            "path": "evidence/batch8_regulatory_20261015/reservations/03_court_public_order.json",
+            "sha256": "b61bc264612ce737055c1883329f249b08307c16949ca5241f9948c402f59eba"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              7733,
+              7801
+            ]
+          ],
+          "file": {
+            "bytes": 9036,
+            "path": "evidence/batch8_regulatory_20261015/reviews/f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804/review.json",
+            "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              27037,
+              27105
+            ]
+          ],
+          "file": {
+            "bytes": 36107,
+            "path": "evidence/batch8_regulatory_peer_20261016/final_integrated_snapshot.json",
+            "sha256": "b3e76691b31548874c4933876d926a23872e1a6aa220504209487077a2582419"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              27091,
+              27159
+            ]
+          ],
+          "file": {
+            "bytes": 37585,
+            "path": "evidence/batch8_regulatory_peer_20261016/snapshot_20261016.json",
+            "sha256": "3172f3024445d4b814ad878e5e07c9e1915b5d8c1a6828a8c0e1d64b8939e748"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              4771,
+              4839
+            ],
+            [
+              8606,
+              8674
+            ]
+          ],
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              4771,
+              4839
+            ],
+            [
+              8606,
+              8674
+            ]
+          ],
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              637,
+              705
+            ]
+          ],
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/specialist_review_plans/AAPL_procesni_stav_DOJ.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        }
+      ]
+    },
+    "https://echo.epa.gov/tools/web-services": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [],
+      "references": [
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              6126,
+              6165
+            ]
+          ],
+          "file": {
+            "bytes": 6168,
+            "path": "EPA_FACILITY_IDENTITY.md",
+            "sha256": "008a10f4d090b75224684f3042323b18cda2d9ab19375db6134c5310d4f24646"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              125,
+              164
+            ]
+          ],
+          "file": {
+            "bytes": 1574,
+            "path": "evidence/epa_echo_live_20261002.json",
+            "sha256": "8b6a2c94eccee5b32d2cc4796c7cd103e0b72baec44f969498dc30dcf5a07341"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        }
+      ]
+    },
+    "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [
+        {
+          "file": {
+            "bytes": 1012,
+            "path": "evidence/batch11_regulatory_20261018/actual_review_plan.json",
+            "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+          },
+          "json_pointer": "/captures/epa_dow_20261002_summary_only/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 1550,
+            "path": "evidence/batch11_regulatory_20261018/source_availability.json",
+            "sha256": "3584c7037a5cac25bdcb925dc0cac0cd738ae24a93e01bbb4675ed8a753cebf0"
+          },
+          "json_pointer": "/actual_source_record",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 4400,
+            "path": "evidence/batch6_coordinator_20261014/dow_runtime_result.json",
+            "sha256": "6dec27b92d37c479053f165b01c6050085a3b8a524a1269862125e245d3afc0b"
+          },
+          "json_pointer": "/review/captures/0",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 4881,
+            "path": "evidence/batch6_coordinator_20261014/runtime_reviews/review-831c2412c018b7e4e10963ab83795d847270971b0945d3684509c2a86b12bbaa.json",
+            "sha256": "831c2412c018b7e4e10963ab83795d847270971b0945d3684509c2a86b12bbaa"
+          },
+          "json_pointer": "/review/captures/0",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 2332,
+            "path": "evidence/batch6_regulatory_20261014/capture_plan.json",
+            "sha256": "c8021278abc4a4aa3d4e0f354d1c8c2012128d79f37c9e577ba2ec0a5331edcf"
+          },
+          "json_pointer": "/0",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 4448,
+            "path": "evidence/batch6_regulatory_20261014/replay.json",
+            "sha256": "6cf1dccc346288c81c8f1e64d9bf7b72a55dc959a5ea9e62a4987c3ed39a7000"
+          },
+          "json_pointer": "/captures/0",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 4224,
+            "path": "evidence/batch6_regulatory_20261014/reviews/1a4d8f955605c3db42d8e976b03b8a32b33884cab2af2270c16bd3249eb3d9d6/review.json",
+            "sha256": "1a4d8f955605c3db42d8e976b03b8a32b33884cab2af2270c16bd3249eb3d9d6"
+          },
+          "json_pointer": "/captures/0",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 4163,
+            "path": "evidence/batch6_regulatory_20261014/reviews/6441ec956f9d897faf70a0e5da131580f75e54f32bf16523139b4f8a7d1f4986/review.json",
+            "sha256": "6441ec956f9d897faf70a0e5da131580f75e54f32bf16523139b4f8a7d1f4986"
+          },
+          "json_pointer": "/captures/0",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 3897,
+            "path": "evidence/specialist_review_plans/DOW_EPA_provozovna.json",
+            "sha256": "002b8d1c7d37cca762c4fe6c27f46a6ec27f56dfaa301276dd9cfc405dbd3dcc"
+          },
+          "json_pointer": "/captures/epa_dow_20261002_summary_only/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        },
+        {
+          "file": {
+            "bytes": 1012,
+            "path": "evidence/specialist_review_plans/DOW_program_a_provozovna_EPA.json",
+            "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+          },
+          "json_pointer": "/captures/epa_dow_20261002_summary_only/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "epa_dow_20261002_summary_only",
+            "observed_at": "2026-10-02T11:52:53+00:00",
+            "origin": "LEGACY_SUMMARY_ONLY",
+            "public_raw_available": false,
+            "raw_response_bytes": null,
+            "raw_response_sha256": "df9d373119eb5ecbdc01b8034aa42f6d382bbdb197f99bf20d937606936f1cd3",
+            "requested_url": "https://echodata.epa.gov/echo/echo_rest_services.get_facility_info"
+          }
+        }
+      ],
+      "references": [
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              559,
+              625
+            ]
+          ],
+          "file": {
+            "bytes": 1012,
+            "path": "evidence/batch11_regulatory_20261018/actual_review_plan.json",
+            "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              16463,
+              16529
+            ]
+          ],
+          "file": {
+            "bytes": 27073,
+            "path": "evidence/batch11_regulatory_20261018/interest_array_guard/source_versions/qualified_tests.py",
+            "sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              421,
+              487
+            ]
+          ],
+          "file": {
+            "bytes": 1550,
+            "path": "evidence/batch11_regulatory_20261018/source_availability.json",
+            "sha256": "3584c7037a5cac25bdcb925dc0cac0cd738ae24a93e01bbb4675ed8a753cebf0"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              15643,
+              15709
+            ]
+          ],
+          "file": {
+            "bytes": 26253,
+            "path": "evidence/batch11_regulatory_20261018/source_versions/qualified_tests.py",
+            "sha256": "103381ded3f1449923b94d18046d07e787c3c9dc5b8bccdc505834ac6f5e57cc"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              952,
+              1018
+            ]
+          ],
+          "file": {
+            "bytes": 4400,
+            "path": "evidence/batch6_coordinator_20261014/dow_runtime_result.json",
+            "sha256": "6dec27b92d37c479053f165b01c6050085a3b8a524a1269862125e245d3afc0b"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              845,
+              911
+            ]
+          ],
+          "file": {
+            "bytes": 4881,
+            "path": "evidence/batch6_coordinator_20261014/runtime_reviews/review-831c2412c018b7e4e10963ab83795d847270971b0945d3684509c2a86b12bbaa.json",
+            "sha256": "831c2412c018b7e4e10963ab83795d847270971b0945d3684509c2a86b12bbaa"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              397,
+              463
+            ]
+          ],
+          "file": {
+            "bytes": 2332,
+            "path": "evidence/batch6_regulatory_20261014/capture_plan.json",
+            "sha256": "c8021278abc4a4aa3d4e0f354d1c8c2012128d79f37c9e577ba2ec0a5331edcf"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              480,
+              546
+            ]
+          ],
+          "file": {
+            "bytes": 4448,
+            "path": "evidence/batch6_regulatory_20261014/replay.json",
+            "sha256": "6cf1dccc346288c81c8f1e64d9bf7b72a55dc959a5ea9e62a4987c3ed39a7000"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              480,
+              546
+            ]
+          ],
+          "file": {
+            "bytes": 4224,
+            "path": "evidence/batch6_regulatory_20261014/reviews/1a4d8f955605c3db42d8e976b03b8a32b33884cab2af2270c16bd3249eb3d9d6/review.json",
+            "sha256": "1a4d8f955605c3db42d8e976b03b8a32b33884cab2af2270c16bd3249eb3d9d6"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              480,
+              546
+            ]
+          ],
+          "file": {
+            "bytes": 4163,
+            "path": "evidence/batch6_regulatory_20261014/reviews/6441ec956f9d897faf70a0e5da131580f75e54f32bf16523139b4f8a7d1f4986/review.json",
+            "sha256": "6441ec956f9d897faf70a0e5da131580f75e54f32bf16523139b4f8a7d1f4986"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              182,
+              248
+            ]
+          ],
+          "file": {
+            "bytes": 1574,
+            "path": "evidence/epa_echo_live_20261002.json",
+            "sha256": "8b6a2c94eccee5b32d2cc4796c7cd103e0b72baec44f969498dc30dcf5a07341"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              559,
+              625
+            ]
+          ],
+          "file": {
+            "bytes": 3897,
+            "path": "evidence/specialist_review_plans/DOW_EPA_provozovna.json",
+            "sha256": "002b8d1c7d37cca762c4fe6c27f46a6ec27f56dfaa301276dd9cfc405dbd3dcc"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              559,
+              625
+            ]
+          ],
+          "file": {
+            "bytes": 1012,
+            "path": "evidence/specialist_review_plans/DOW_program_a_provozovna_EPA.json",
+            "sha256": "2b0f6b35a81d3252316e0dfdf905e46bc05298cdb94b63086d09385e04693b4b"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              673,
+              739
+            ]
+          ],
+          "file": {
+            "bytes": 14181,
+            "path": "market_checker_app/services/epa_echo_scout_service.py",
+            "sha256": "f8b2b6d410ac46d8f5afd78a1555043df75e6901f098075a90aa54b7b7d01167"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              16463,
+              16529
+            ]
+          ],
+          "file": {
+            "bytes": 27073,
+            "path": "tests/test_epa_frs_program_scope_review.py",
+            "sha256": "567e6a5b1353bad8f4e64a02fa326d6e3e511120de3d3655dee6b75bbb4eb8d2"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        }
+      ]
+    },
+    "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [
+        {
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "json_pointer": "/captures/doj_case_index/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_case_index",
+            "final_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:10:37.550969+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 107793,
+            "raw_response_sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+            "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "reserved_at": "2026-10-15T18:10:30.131061+00:00",
+            "started_at": "2026-10-15T18:10:30.131061+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 981,
+            "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+            "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6"
+          },
+          "json_pointer": "",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_case_index",
+            "final_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:10:37.550969+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 107793,
+            "raw_response_sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+            "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "reserved_at": "2026-10-15T18:10:30.131061+00:00",
+            "started_at": "2026-10-15T18:10:30.131061+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 368,
+            "path": "evidence/batch8_regulatory_20261015/reservations/04_doj_case_index.json",
+            "sha256": "2b91a3fec1e3fab43c0e8137ec3ae30786d64e07ba1957645a75246f6661d8f3"
+          },
+          "json_pointer": "",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_case_index",
+            "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "reserved_at": "2026-10-15T18:10:30.131061+00:00"
+          }
+        },
+        {
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "json_pointer": "/attempt_history/entries/7",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "doj_case_index",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:10:37.550969+00:00",
+            "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "json_pointer": "/attempt_history/entries/7",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "doj_case_index",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:10:37.550969+00:00",
+            "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/specialist_review_plans/AAPL_procesni_stav_DOJ.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "json_pointer": "/captures/doj_case_index/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_case_index",
+            "final_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:10:37.550969+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 107793,
+            "raw_response_sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3",
+            "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+            "reserved_at": "2026-10-15T18:10:30.131061+00:00",
+            "started_at": "2026-10-15T18:10:30.131061+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        }
+      ],
+      "references": [
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              7935,
+              8003
+            ]
+          ],
+          "file": {
+            "bytes": 9984,
+            "path": "evidence/batch8_coordinator_20261015/runtime/review-762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f.json",
+            "sha256": "762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              1512,
+              1580
+            ],
+            [
+              2044,
+              2112
+            ]
+          ],
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              245,
+              313
+            ],
+            [
+              723,
+              791
+            ]
+          ],
+          "file": {
+            "bytes": 981,
+            "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+            "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              8293,
+              8361
+            ]
+          ],
+          "file": {
+            "bytes": 9036,
+            "path": "evidence/batch8_regulatory_20261015/replay.json",
+            "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              201,
+              269
+            ]
+          ],
+          "file": {
+            "bytes": 368,
+            "path": "evidence/batch8_regulatory_20261015/reservations/04_doj_case_index.json",
+            "sha256": "2b91a3fec1e3fab43c0e8137ec3ae30786d64e07ba1957645a75246f6661d8f3"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              8293,
+              8361
+            ]
+          ],
+          "file": {
+            "bytes": 9036,
+            "path": "evidence/batch8_regulatory_20261015/reviews/f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804/review.json",
+            "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              28271,
+              28339
+            ]
+          ],
+          "file": {
+            "bytes": 36107,
+            "path": "evidence/batch8_regulatory_peer_20261016/final_integrated_snapshot.json",
+            "sha256": "b3e76691b31548874c4933876d926a23872e1a6aa220504209487077a2582419"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              28325,
+              28393
+            ]
+          ],
+          "file": {
+            "bytes": 37585,
+            "path": "evidence/batch8_regulatory_peer_20261016/snapshot_20261016.json",
+            "sha256": "3172f3024445d4b814ad878e5e07c9e1915b5d8c1a6828a8c0e1d64b8939e748"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              9128,
+              9196
+            ],
+            [
+              15464,
+              15532
+            ]
+          ],
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              9128,
+              9196
+            ],
+            [
+              15464,
+              15532
+            ]
+          ],
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              1512,
+              1580
+            ],
+            [
+              2044,
+              2112
+            ]
+          ],
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/specialist_review_plans/AAPL_procesni_stav_DOJ.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        }
+      ]
+    },
+    "https://www.justice.gov/atr/media/1344606/dl": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [],
+      "references": []
+    },
+    "https://www.justice.gov/atr/media/1344606/dl?inline": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [],
+      "references": []
+    },
+    "https://www.justice.gov/atr/media/1358781/dl": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [],
+      "references": []
+    },
+    "https://www.justice.gov/atr/media/1358781/dl?inline": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [],
+      "references": []
+    },
+    "https://www.justice.gov/atr/media/1358786/dl": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [
+        {
+          "file": {
+            "bytes": 1214,
+            "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+            "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+          },
+          "json_pointer": "",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "bytes": 3404671,
+            "final_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "http_status": 200,
+            "key": "doj_first_amended_complaint",
+            "method": "GET",
+            "observed_at": "2026-10-20T14:33:17.921783+00:00",
+            "public_raw_available": true,
+            "raw_sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+            "redirect": false,
+            "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "started_at": "2026-10-20T14:33:12.162977+00:00",
+            "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 549,
+            "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.reserved.json",
+            "sha256": "3ab9a7e75c246925b5e65e6d4c1fc57957c280419234b4446cbf22d024edc720"
+          },
+          "json_pointer": "",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "key": "doj_first_amended_complaint",
+            "method": "GET",
+            "redirect": false,
+            "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "started_at": "2026-10-20T14:33:12.162977+00:00",
+            "status": "REQUEST_RESERVED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 24693,
+            "path": "evidence/sourcefront_evaluation_20261020/audit_result_v1.json",
+            "sha256": "086b7ec9d85e8696be85282ebfd874c15aa0a25a7395b124e1d7fa51f6e5cdce"
+          },
+          "json_pointer": "/originals/3",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "key": "doj_first_amended_complaint",
+            "observed_at": "2026-10-20T14:33:17.921783+00:00",
+            "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "started_at": "2026-10-20T14:33:12.162977+00:00"
+          }
+        },
+        {
+          "file": {
+            "bytes": 27453,
+            "path": "evidence/sourcefront_evaluation_20261020/audit_result_v2.json",
+            "sha256": "bb89cbeca6b08b06f2990808ec2ea40730644c4d91c21841daa6f6e6c4fab1d3"
+          },
+          "json_pointer": "/originals/3",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "key": "doj_first_amended_complaint",
+            "observed_at": "2026-10-20T14:33:17.921783+00:00",
+            "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "started_at": "2026-10-20T14:33:12.162977+00:00"
+          }
+        },
+        {
+          "file": {
+            "bytes": 3095,
+            "path": "evidence/sourcefront_regulatory_20261020/AAPL_puvodni_doplnene_podani.json",
+            "sha256": "d2c8bc5fa85166af767f230ab1da86348d813989aa98005c20399f8d8de95fb4"
+          },
+          "json_pointer": "/captures/doj_first_amended_complaint/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_first_amended_complaint",
+            "final_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-20T14:33:17.921783+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 3404671,
+            "raw_response_sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+            "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "started_at": "2026-10-20T14:33:12.162977+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 5790,
+            "path": "evidence/sourcefront_regulatory_20261020/source_links_and_allegation.json",
+            "sha256": "d7a8e6ce2f814f5ecdd209acff11576d8cb53cd8fdfe25fac5fc0b9f2129dd9a"
+          },
+          "json_pointer": "/metadata_adapter/adapted_plan_metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_first_amended_complaint",
+            "final_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-20T14:33:17.921783+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 3404671,
+            "raw_response_sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+            "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "started_at": "2026-10-20T14:33:12.162977+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 3095,
+            "path": "evidence/specialist_review_plans/AAPL_puvodni_doplnene_podani.json",
+            "sha256": "d2c8bc5fa85166af767f230ab1da86348d813989aa98005c20399f8d8de95fb4"
+          },
+          "json_pointer": "/captures/doj_first_amended_complaint/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_first_amended_complaint",
+            "final_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-20T14:33:17.921783+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 3404671,
+            "raw_response_sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6",
+            "requested_url": "https://www.justice.gov/atr/media/1358786/dl",
+            "started_at": "2026-10-20T14:33:12.162977+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        }
+      ],
+      "references": [
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              125,
+              169
+            ]
+          ],
+          "file": {
+            "bytes": 1203,
+            "path": "evidence/sourcefront_20261020/amended_complaint_plan.json",
+            "sha256": "b97af52ca9f96cf9111921aa4ae3704c57d48c32cca9ac60e177c70ce8de3563"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              485,
+              529
+            ]
+          ],
+          "file": {
+            "bytes": 4406,
+            "path": "evidence/sourcefront_20261020/capture_amended_complaint.py",
+            "sha256": "9d7f7760d7d242e73b7499e782066a8cd296881e5c7ee591424aca46b0f59bce"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              62,
+              106
+            ],
+            [
+              600,
+              644
+            ]
+          ],
+          "file": {
+            "bytes": 1214,
+            "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+            "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              62,
+              106
+            ]
+          ],
+          "file": {
+            "bytes": 549,
+            "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.reserved.json",
+            "sha256": "3ab9a7e75c246925b5e65e6d4c1fc57957c280419234b4446cbf22d024edc720"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              2554,
+              2598
+            ],
+            [
+              4231,
+              4275
+            ],
+            [
+              13317,
+              13361
+            ]
+          ],
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              947,
+              991
+            ]
+          ],
+          "file": {
+            "bytes": 6910,
+            "path": "evidence/sourcefront_coordinator_20261020/runtime/cli/AAPL_puvodni_doplnene_podani/review-4b25823846eeea7d7c932101de50a2a470f8785dc7106640836d529b8fcd0756.json",
+            "sha256": "4b25823846eeea7d7c932101de50a2a470f8785dc7106640836d529b8fcd0756"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              1042,
+              1086
+            ]
+          ],
+          "file": {
+            "bytes": 5931,
+            "path": "evidence/sourcefront_coordinator_20261020/runtime/cli/AAPL_puvodni_doplnene_podani/stdout.json",
+            "sha256": "cc515785ab64cc3c942a8c555a11e96a615802e597117ac5ae4a808c8e5ca624"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              947,
+              991
+            ]
+          ],
+          "file": {
+            "bytes": 6910,
+            "path": "evidence/sourcefront_coordinator_20261020/runtime/ui/AAPL_puvodni_doplnene_podani/captured_identity_reviews/review-432135a84da2f07fff0b9ed885c0c33bc94028abeeee21c0c4d7b066100a799f.json",
+            "sha256": "432135a84da2f07fff0b9ed885c0c33bc94028abeeee21c0c4d7b066100a799f"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              15543,
+              15587
+            ],
+            [
+              22627,
+              22671
+            ]
+          ],
+          "file": {
+            "bytes": 24693,
+            "path": "evidence/sourcefront_evaluation_20261020/audit_result_v1.json",
+            "sha256": "086b7ec9d85e8696be85282ebfd874c15aa0a25a7395b124e1d7fa51f6e5cdce"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              15543,
+              15587
+            ],
+            [
+              25387,
+              25431
+            ]
+          ],
+          "file": {
+            "bytes": 27453,
+            "path": "evidence/sourcefront_evaluation_20261020/audit_result_v2.json",
+            "sha256": "bb89cbeca6b08b06f2990808ec2ea40730644c4d91c21841daa6f6e6c4fab1d3"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              656,
+              700
+            ],
+            [
+              1387,
+              1431
+            ]
+          ],
+          "file": {
+            "bytes": 3095,
+            "path": "evidence/sourcefront_regulatory_20261020/AAPL_puvodni_doplnene_podani.json",
+            "sha256": "d2c8bc5fa85166af767f230ab1da86348d813989aa98005c20399f8d8de95fb4"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              5105,
+              5149
+            ]
+          ],
+          "file": {
+            "bytes": 11248,
+            "path": "evidence/sourcefront_regulatory_20261020/current/actual_review.json",
+            "sha256": "bc088a05866f3bcfd2898c5c45e74d8b8ab1bd5bf0f60f1e1d9b08f2c39c6a60"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              2554,
+              2598
+            ],
+            [
+              4231,
+              4275
+            ],
+            [
+              13317,
+              13361
+            ]
+          ],
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              5105,
+              5149
+            ]
+          ],
+          "file": {
+            "bytes": 8803,
+            "path": "evidence/sourcefront_regulatory_20261020/pre_fix/actual_review.json",
+            "sha256": "f9a3a59517e5f87fd60a9f9375a9e5ca2b20025b699793e5490afc9e29565218"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              605,
+              649
+            ],
+            [
+              1310,
+              1354
+            ]
+          ],
+          "file": {
+            "bytes": 5790,
+            "path": "evidence/sourcefront_regulatory_20261020/source_links_and_allegation.json",
+            "sha256": "d7a8e6ce2f814f5ecdd209acff11576d8cb53cd8fdfe25fac5fc0b9f2129dd9a"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              656,
+              700
+            ],
+            [
+              1387,
+              1431
+            ]
+          ],
+          "file": {
+            "bytes": 3095,
+            "path": "evidence/specialist_review_plans/AAPL_puvodni_doplnene_podani.json",
+            "sha256": "d2c8bc5fa85166af767f230ab1da86348d813989aa98005c20399f8d8de95fb4"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        }
+      ]
+    },
+    "https://www.justice.gov/atr/media/1358786/dl?inline": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [],
+      "references": []
+    },
+    "https://www.justice.gov/atr/media/1368741/dl": {
+      "history_scope": "All tracked text suffixes listed in inventory at the pinned base. Protected original DB/journal and outside-repository histories were not accessed.",
+      "outside_tracked_original_history": "UNOBSERVED",
+      "receipt_like_records": [
+        {
+          "file": {
+            "bytes": 3597,
+            "path": "evidence/batch10_caption_clock_fix_20261018/actual_review_plan.json",
+            "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+          },
+          "json_pointer": "/captures/doj_opposition_pdf/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_opposition_pdf",
+            "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 577500,
+            "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+            "started_at": "2026-10-15T18:11:55.083970+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 3597,
+            "path": "evidence/batch10_caption_clock_fix_20261018/before/actual_review_plan.json",
+            "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+          },
+          "json_pointer": "/captures/doj_opposition_pdf/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_opposition_pdf",
+            "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 577500,
+            "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+            "started_at": "2026-10-15T18:11:55.083970+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 3597,
+            "path": "evidence/batch10_regulatory_20261018/actual_review_plan.json",
+            "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+          },
+          "json_pointer": "/captures/doj_opposition_pdf/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_opposition_pdf",
+            "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 577500,
+            "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+            "started_at": "2026-10-15T18:11:55.083970+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "json_pointer": "/captures/doj_opposition_pdf/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_opposition_pdf",
+            "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 577500,
+            "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+            "started_at": "2026-10-15T18:11:55.083970+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 996,
+            "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.metadata.json",
+            "sha256": "966c49069fffda0b0b318173de7afa197240dc2d00b2b875640046014da66c72"
+          },
+          "json_pointer": "",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_opposition_pdf",
+            "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 577500,
+            "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+            "started_at": "2026-10-15T18:11:55.083970+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 348,
+            "path": "evidence/batch8_regulatory_20261015/reservations/05_doj_opposition_pdf.json",
+            "sha256": "18440d80481c449ed7778f19c61351e3ee365d4d61a5d973242c00d017b3686e"
+          },
+          "json_pointer": "",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_opposition_pdf",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "reserved_at": "2026-10-15T18:11:55.083970+00:00"
+          }
+        },
+        {
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "json_pointer": "/attempt_history/entries/8",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "doj_opposition_pdf",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "json_pointer": "/attempt_history/entries/8",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "capture_id": "doj_opposition_pdf",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/specialist_review_plans/AAPL_procesni_stav_DOJ.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "json_pointer": "/captures/doj_opposition_pdf/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_opposition_pdf",
+            "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 577500,
+            "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+            "started_at": "2026-10-15T18:11:55.083970+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        },
+        {
+          "file": {
+            "bytes": 3597,
+            "path": "evidence/specialist_review_plans/AAPL_strany_datovanych_soudnich_dokumentu.json",
+            "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+          },
+          "json_pointer": "/captures/doj_opposition_pdf/metadata",
+          "meaning": "Retained receipt/reservation/reference; duplicates are not counted as new transports.",
+          "record": {
+            "automatic_redirects": false,
+            "capture_id": "doj_opposition_pdf",
+            "final_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "http_status": 200,
+            "observed_at": "2026-10-15T18:12:02.727684+00:00",
+            "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+            "public_raw_available": true,
+            "raw_response_bytes": 577500,
+            "raw_response_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+            "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+            "reserved_at": "2026-10-15T18:11:55.083970+00:00",
+            "started_at": "2026-10-15T18:11:55.083970+00:00",
+            "status": "ORIGINAL_BYTES_CAPTURED"
+          }
+        }
+      ],
+      "references": [
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              469612,
+              469656
+            ]
+          ],
+          "file": {
+            "bytes": 470641,
+            "path": "evidence/batch10_caption_clock_fix_20261018/actual_review.json",
+            "sha256": "5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              594,
+              638
+            ],
+            [
+              1179,
+              1223
+            ]
+          ],
+          "file": {
+            "bytes": 3597,
+            "path": "evidence/batch10_caption_clock_fix_20261018/actual_review_plan.json",
+            "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              469324,
+              469368
+            ]
+          ],
+          "file": {
+            "bytes": 470353,
+            "path": "evidence/batch10_caption_clock_fix_20261018/before/actual_review.json",
+            "sha256": "8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              594,
+              638
+            ],
+            [
+              1179,
+              1223
+            ]
+          ],
+          "file": {
+            "bytes": 3597,
+            "path": "evidence/batch10_caption_clock_fix_20261018/before/actual_review_plan.json",
+            "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              469612,
+              469656
+            ]
+          ],
+          "file": {
+            "bytes": 470641,
+            "path": "evidence/batch10_caption_clock_fix_20261018/reviews/5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9/review.json",
+            "sha256": "5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              344430,
+              344474
+            ]
+          ],
+          "file": {
+            "bytes": 345447,
+            "path": "evidence/batch10_coordinator_20261018/runtime/AAPL_strany_datovanych_soudnich_dokumentu_CLI.stdout.json",
+            "sha256": "cf04be80069e6e20b6e4fbeb712167c4269cd600bd0a77ee480461af5d3483a8"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              509425,
+              509469
+            ]
+          ],
+          "file": {
+            "bytes": 510666,
+            "path": "evidence/batch10_coordinator_20261018/runtime/AAPL_strany_datovanych_soudnich_dokumentu_UI.json",
+            "sha256": "41c0f328a3e2c7e4b1ca081e1d4577eeaaf91b309fce0426a337ae5f7bb61e3e"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              488809,
+              488853
+            ]
+          ],
+          "file": {
+            "bytes": 489994,
+            "path": "evidence/batch10_coordinator_20261018/runtime/captured_identity_reviews/review-443d0f378ce59b5c31e57c370df86d3ee0a6536e572e3b854367e0592f502916.json",
+            "sha256": "443d0f378ce59b5c31e57c370df86d3ee0a6536e572e3b854367e0592f502916"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              488809,
+              488853
+            ]
+          ],
+          "file": {
+            "bytes": 489994,
+            "path": "evidence/batch10_coordinator_20261018/runtime/source_archives/review-e6727e3ff3e0ada320eeed032f61860bcb8b2220b2a676488856c6cd2367999d.json",
+            "sha256": "e6727e3ff3e0ada320eeed032f61860bcb8b2220b2a676488856c6cd2367999d"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              469324,
+              469368
+            ]
+          ],
+          "file": {
+            "bytes": 470353,
+            "path": "evidence/batch10_regulatory_20261018/actual_review.json",
+            "sha256": "8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              594,
+              638
+            ],
+            [
+              1179,
+              1223
+            ]
+          ],
+          "file": {
+            "bytes": 3597,
+            "path": "evidence/batch10_regulatory_20261018/actual_review_plan.json",
+            "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              469324,
+              469368
+            ]
+          ],
+          "file": {
+            "bytes": 470353,
+            "path": "evidence/batch10_regulatory_20261018/reviews/8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b/review.json",
+            "sha256": "8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              8529,
+              8573
+            ]
+          ],
+          "file": {
+            "bytes": 9984,
+            "path": "evidence/batch8_coordinator_20261015/runtime/review-762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f.json",
+            "sha256": "762bed673c3f533cb989af0e850429f4211bdcb5c67ba19ce248179ac9cdc58f"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              2921,
+              2965
+            ],
+            [
+              3506,
+              3550
+            ]
+          ],
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              243,
+              287
+            ],
+            [
+              762,
+              806
+            ]
+          ],
+          "file": {
+            "bytes": 996,
+            "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.metadata.json",
+            "sha256": "966c49069fffda0b0b318173de7afa197240dc2d00b2b875640046014da66c72"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              8863,
+              8907
+            ]
+          ],
+          "file": {
+            "bytes": 9036,
+            "path": "evidence/batch8_regulatory_20261015/replay.json",
+            "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              205,
+              249
+            ]
+          ],
+          "file": {
+            "bytes": 348,
+            "path": "evidence/batch8_regulatory_20261015/reservations/05_doj_opposition_pdf.json",
+            "sha256": "18440d80481c449ed7778f19c61351e3ee365d4d61a5d973242c00d017b3686e"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              8863,
+              8907
+            ]
+          ],
+          "file": {
+            "bytes": 9036,
+            "path": "evidence/batch8_regulatory_20261015/reviews/f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804/review.json",
+            "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              29584,
+              29628
+            ]
+          ],
+          "file": {
+            "bytes": 36107,
+            "path": "evidence/batch8_regulatory_peer_20261016/final_integrated_snapshot.json",
+            "sha256": "b3e76691b31548874c4933876d926a23872e1a6aa220504209487077a2582419"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              29638,
+              29682
+            ]
+          ],
+          "file": {
+            "bytes": 37585,
+            "path": "evidence/batch8_regulatory_peer_20261016/snapshot_20261016.json",
+            "sha256": "3172f3024445d4b814ad878e5e07c9e1915b5d8c1a6828a8c0e1d64b8939e748"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              9655,
+              9699
+            ],
+            [
+              19154,
+              19198
+            ]
+          ],
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_coordinator_20261020/discovery/regulatory.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              9655,
+              9699
+            ],
+            [
+              19154,
+              19198
+            ]
+          ],
+          "file": {
+            "bytes": 20610,
+            "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+            "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              2921,
+              2965
+            ],
+            [
+              3506,
+              3550
+            ]
+          ],
+          "file": {
+            "bytes": 9477,
+            "path": "evidence/specialist_review_plans/AAPL_procesni_stav_DOJ.json",
+            "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        },
+        {
+          "exact_url_raw_byte_spans": [
+            [
+              594,
+              638
+            ],
+            [
+              1179,
+              1223
+            ]
+          ],
+          "file": {
+            "bytes": 3597,
+            "path": "evidence/specialist_review_plans/AAPL_strany_datovanych_soudnich_dokumentu.json",
+            "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+          },
+          "meaning": "Reference alone is not proof of an attempted request."
+        }
+      ]
+    }
+  },
+  "inventory": {
+    "bytes": 544888,
+    "path": "evidence/sourcefront21_regulatory_20261021/tracked_history_inventory.json",
+    "sha256": "facba5afbf4749ba8bdbfcd4a8df786526b7a81d41d2d8bab122e35235c4e2d2"
+  },
+  "known_at": "2026-10-21T02:12:31.190648+00:00"
+}

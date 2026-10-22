@@ -1,0 +1,7 @@
+{
+  "actual_store": "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/outputs/market_checker_history.db",
+  "maximum_requests": 4,
+  "maximum_source_subjects": 3,
+  "plan_sha256": "e518d185ef348bac6a46856ad07f64db38f7fd5c27e1131cf4009bb84c069520",
+  "started_at": "2026-10-15T07:29:10.637549+00:00"
+}

@@ -1,0 +1,122 @@
+{
+  "actual_http_requests": 0,
+  "actual_socket_connections": 0,
+  "canonical_nhtsa_state_after": {
+    "charged_utc_days": [
+      "2026-10-14"
+    ],
+    "make_subjects": 3,
+    "request_history_sha256": "5746504a7dd5769a7d39a86b306a798f91e6acca62d87d4dc8608ead3a866b38",
+    "requests": 8
+  },
+  "canonical_nhtsa_state_before": {
+    "charged_utc_days": [
+      "2026-10-14"
+    ],
+    "make_subjects": 3,
+    "request_history_sha256": "5746504a7dd5769a7d39a86b306a798f91e6acca62d87d4dc8608ead3a866b38",
+    "requests": 8
+  },
+  "canonical_nhtsa_state_unchanged": true,
+  "canonical_store_opened_read_only": true,
+  "cases": [
+    {
+      "baseline_default_policy_transport_operations": 2,
+      "baseline_final_http_status": 200,
+      "baseline_is_mechanism_emulation_only": true,
+      "guarded_complete_checks": 0,
+      "guarded_findings": 0,
+      "guarded_reservation_outcomes": [
+        "FAILED"
+      ],
+      "guarded_result": {
+        "attempted_issuers": 1,
+        "attempted_requests": 1,
+        "budget_subject_type": "VEHICLE_MAKE_ONLY",
+        "checked_models": 0,
+        "daily_issuer_limit": 4,
+        "daily_issuers": 1,
+        "daily_request_limit": 8,
+        "daily_requests": 1,
+        "failed_models": 1,
+        "new_findings": 0,
+        "quota_deferred_issuers": 0,
+        "rejected_rows": 0,
+        "status": "PARTIAL"
+      },
+      "guarded_transport_operations": 1,
+      "publisher_acceptance_evidence": false,
+      "redirect_status": 302,
+      "response_origin": "SYNTHETIC_TEST",
+      "same_day_retry": {
+        "attempted_issuers": 0,
+        "attempted_requests": 0,
+        "budget_exhausted": true,
+        "budget_subject_type": "VEHICLE_MAKE_ONLY",
+        "checked_models": 0,
+        "daily_issuer_limit": 4,
+        "daily_issuers": 1,
+        "daily_request_limit": 8,
+        "daily_requests": 1,
+        "failed_models": 0,
+        "new_findings": 0,
+        "quota_deferred_issuers": 1,
+        "rejected_rows": 0,
+        "retry_at": "2026-10-15T00:00:00+00:00",
+        "status": "WAIT_QUOTA"
+      }
+    },
+    {
+      "baseline_default_policy_transport_operations": 2,
+      "baseline_final_http_status": 200,
+      "baseline_is_mechanism_emulation_only": true,
+      "guarded_complete_checks": 0,
+      "guarded_findings": 0,
+      "guarded_reservation_outcomes": [
+        "FAILED"
+      ],
+      "guarded_result": {
+        "attempted_issuers": 1,
+        "attempted_requests": 1,
+        "budget_subject_type": "VEHICLE_MAKE_ONLY",
+        "checked_models": 0,
+        "daily_issuer_limit": 4,
+        "daily_issuers": 1,
+        "daily_request_limit": 8,
+        "daily_requests": 1,
+        "failed_models": 1,
+        "new_findings": 0,
+        "quota_deferred_issuers": 0,
+        "rejected_rows": 0,
+        "status": "PARTIAL"
+      },
+      "guarded_transport_operations": 1,
+      "publisher_acceptance_evidence": false,
+      "redirect_status": 307,
+      "response_origin": "SYNTHETIC_TEST",
+      "same_day_retry": {
+        "attempted_issuers": 0,
+        "attempted_requests": 0,
+        "budget_exhausted": true,
+        "budget_subject_type": "VEHICLE_MAKE_ONLY",
+        "checked_models": 0,
+        "daily_issuer_limit": 4,
+        "daily_issuers": 1,
+        "daily_request_limit": 8,
+        "daily_requests": 1,
+        "failed_models": 0,
+        "new_findings": 0,
+        "quota_deferred_issuers": 1,
+        "rejected_rows": 0,
+        "retry_at": "2026-10-15T00:00:00+00:00",
+        "status": "WAIT_QUOTA"
+      }
+    }
+  ],
+  "genuine_live_complete_negative_verified": false,
+  "kind": "OFFLINE_URLLIB_REDIRECT_RESERVATION_PROBE",
+  "recorded_at": "2026-10-14T10:17:38.669924+00:00",
+  "schema_version": 1,
+  "scoring_applied": false,
+  "specialist_done_promoted": false
+}

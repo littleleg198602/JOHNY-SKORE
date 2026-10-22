@@ -1,0 +1,29 @@
+{
+  "access_values_exported": false,
+  "app_quota_managed_live_claimed": false,
+  "attempt": 1,
+  "body_path": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98.bin",
+  "bytes": 157807,
+  "elapsed_seconds": 10.59255397600009,
+  "final_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+  "historical_request_ledger_reconstructed": false,
+  "http_status": 200,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "observed_at": "2026-10-15T13:37:06.455150+00:00",
+  "raw_sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98",
+  "redirects_allowed": false,
+  "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+  "requested_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+  "research_only": true,
+  "response_headers": {
+    "Content-Encoding": null,
+    "Content-Length": null,
+    "Content-Type": "application/json",
+    "Date": "Thu, 15 Oct 2026 13:37:06 GMT",
+    "Last-Modified": null
+  },
+  "started_at": "2026-10-15T13:36:55.877000+00:00",
+  "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+  "timeout_seconds": 25
+}

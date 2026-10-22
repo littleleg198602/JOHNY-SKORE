@@ -1,0 +1,24 @@
+{
+  "observed_at": "2026-10-20T20:16:05.408211+00:00",
+  "actual_outcome": "19methods/1FAIL/0ERROR at unchanged repeated-finding assertion; source-only CMS denial reason changed across days",
+  "files": [
+    {
+      "source_path": "market_checker_app/services/healthcare_scout_service.py",
+      "frozen_path": "evidence/sourcefront_coordinator_20261020/cms_digest_before/healthcare_scout_service.py.txt",
+      "bytes": 26388,
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    },
+    {
+      "source_path": "tests/test_healthcare_identity_service.py",
+      "frozen_path": "evidence/sourcefront_coordinator_20261020/cms_digest_before/test_healthcare_identity_service.py.txt",
+      "bytes": 23513,
+      "sha256": "88e6bcc2e2f31ca99e1de4102fd32915b50dc52d8a455e5f9b5b4f948407c56a"
+    },
+    {
+      "source_path": "evidence/sourcefront_coordinator_20261020/healthcare_contract_update.log",
+      "frozen_path": "evidence/sourcefront_coordinator_20261020/cms_digest_before/healthcare_contract_update.log",
+      "bytes": 4720,
+      "sha256": "c6478a5859b0a674aaec3ca105e6c2900da0721464952bfc90de9f6c757db73d"
+    }
+  ]
+}

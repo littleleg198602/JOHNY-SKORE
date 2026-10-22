@@ -1,0 +1,23 @@
+{
+  "errors": 0,
+  "executed_methods": 3,
+  "expected_failures": 0,
+  "failures": 9,
+  "original_test_sha256": "617e30e88b89c62c70888d9c1ae004b31eec5b11b2668713fd6de492bf159cbe",
+  "platform": "POSIX_ALIAS_REPRODUCTION; NOT NATIVE WINDOWS",
+  "production_guard_changed": false,
+  "reproduced_failure_methods": [
+    "original_source_manifest_fixture.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (selected=PosixPath('/tmp/tmp4fpyxj9y/../tmp4fpyxj9y/selected_sources/yahoo_price_b9fef0a22858865acb318106f18fb33d87159244b4cabc2afa12402d8161a4f7.json'))",
+    "original_source_manifest_fixture.SourceManifestTests.test_selected_source_symlink_or_symlink_parent_is_refused_before_body_reads (selected=PosixPath('/tmp/tmp4fpyxj9y/../tmp4fpyxj9y/selected_sources'))",
+    "original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest.json'))",
+    "original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest.lock'))",
+    "original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed (selected=PosixPath('/tmp/tmpy18uw43t/../tmpy18uw43t/prospective_source_manifest_versions'))",
+    "original_source_manifest_fixture.SourceManifestTests.test_symlink_active_lock_and_version_directory_are_not_followed",
+    "original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots (selected=PosixPath('/tmp/tmpjazsur7w/../tmpjazsur7w/selected_sources'))",
+    "original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots (selected=PosixPath('/tmp/tmpjazsur7w/../tmpjazsur7w/prospective_source_manifest_versions'))",
+    "original_source_manifest_fixture.SourceManifestTests.test_windows_junction_aliases_cannot_escape_source_or_version_roots"
+  ],
+  "skips": 0,
+  "source_http_requests": 0,
+  "unexpected_successes": 0
+}

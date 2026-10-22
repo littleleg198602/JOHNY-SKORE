@@ -1,0 +1,24 @@
+test_interest_child_collection_must_be_a_bounded_source_array (tests.test_epa_frs_program_scope_review.EpaFrsProgramScopeReviewTests.test_interest_child_collection_must_be_a_bounded_source_array) ... 
+  test_interest_child_collection_must_be_a_bounded_source_array (tests.test_epa_frs_program_scope_review.EpaFrsProgramScopeReviewTests.test_interest_child_collection_must_be_a_bounded_source_array) (source_collection='numeric_key_object') ... FAIL
+  test_interest_child_collection_must_be_a_bounded_source_array (tests.test_epa_frs_program_scope_review.EpaFrsProgramScopeReviewTests.test_interest_child_collection_must_be_a_bounded_source_array) (source_collection='over_100_rows') ... FAIL
+
+======================================================================
+FAIL: test_interest_child_collection_must_be_a_bounded_source_array (tests.test_epa_frs_program_scope_review.EpaFrsProgramScopeReviewTests.test_interest_child_collection_must_be_a_bounded_source_array) (source_collection='numeric_key_object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/tests/test_epa_frs_program_scope_review.py", line 151, in test_interest_child_collection_must_be_a_bounded_source_array
+    self.assertFalse(row["role_literal_supported"])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_interest_child_collection_must_be_a_bounded_source_array (tests.test_epa_frs_program_scope_review.EpaFrsProgramScopeReviewTests.test_interest_child_collection_must_be_a_bounded_source_array) (source_collection='over_100_rows')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/tests/test_epa_frs_program_scope_review.py", line 151, in test_interest_child_collection_must_be_a_bounded_source_array
+    self.assertFalse(row["role_literal_supported"])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.007s
+
+FAILED (failures=2)

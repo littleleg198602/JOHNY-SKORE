@@ -1,0 +1,38 @@
+[
+  {
+    "source": "evidence/batch8_identity_20261015/final_captured_review_plan.json",
+    "plan": "evidence/specialist_review_plans/PSTG_zmena_tickeru_a_instrumentu.json",
+    "sha256": "a9dfd1fc66d1467824b717c0e369aaa69eda343e84f2b2efca13faba8bc0146a",
+    "bytes": 12531
+  },
+  {
+    "source": "evidence/batch8_healthcare_20261015/retained_pfe_review_plan.json",
+    "plan": "evidence/specialist_review_plans/PFE_strukturovany_produkt_FDA.json",
+    "sha256": "2988491204633cbede17295308f6cc7469e891df6bfeb1c471f58c8639c70ab0",
+    "bytes": 3126
+  },
+  {
+    "source": "evidence/batch8_healthcare_20261015/retained_crl_diagnostic_plan.json",
+    "plan": "evidence/specialist_review_plans/PFE_CRL_jiny_dataset.json",
+    "sha256": "64dd13e83b1bd3d11d7a9092f0a272dd0fce1bb2812709831aa493e4ff6f3a77",
+    "bytes": 5124
+  },
+  {
+    "source": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+    "plan": "evidence/specialist_review_plans/AAPL_procesni_stav_DOJ.json",
+    "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667",
+    "bytes": 9477
+  },
+  {
+    "source": "evidence/batch8_contracts_20261015/review_plan.json",
+    "plan": "evidence/specialist_review_plans/NVDA_nakupni_zavazky.json",
+    "sha256": "1f0fd783ca5ee8234a8eb041e8414be12a376dca11cf99c5d9f007bf68a8a1cd",
+    "bytes": 4192
+  },
+  {
+    "source": "evidence/batch8_sec_20261015/actual_review_plan.json",
+    "plan": "evidence/specialist_review_plans/MSFT_soucasny_ucet_a_instrument.json",
+    "sha256": "5f333e6d6d7116863e3f7d50c07f0b053284a519f93042e31adc81dbc675ce95",
+    "bytes": 3516
+  }
+]

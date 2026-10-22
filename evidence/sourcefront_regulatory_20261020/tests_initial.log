@@ -1,0 +1,25 @@
+test_actual_first_amended_title_is_neither_original_complaint_nor_judgment (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_actual_first_amended_title_is_neither_original_complaint_nor_judgment) ... ok
+test_actual_whole_91_page_original_exact_stamp_title_and_paragraph19 (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_actual_whole_91_page_original_exact_stamp_title_and_paragraph19) ... FAIL
+test_base_only_compatibility_retains_observed_suffix_without_financial_binding (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_base_only_compatibility_retains_observed_suffix_without_financial_binding) ... ok
+test_changed_original_pin_is_rejected_before_decoder (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_changed_original_pin_is_rejected_before_decoder) ... ok
+test_changed_synthetic_title_with_matching_selected_passage_still_rejects_stage (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_changed_synthetic_title_with_matching_selected_passage_still_rejects_stage) ... ok
+test_full_literal_suffix_and_date_mismatch_do_not_inherit_actual_case (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_full_literal_suffix_and_date_mismatch_do_not_inherit_actual_case) ... ok
+test_full_selector_cannot_change_or_invent_its_base (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_full_selector_cannot_change_or_invent_its_base) ... ok
+test_missing_or_quoted_header_does_not_support_selected_paragraph (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_missing_or_quoted_header_does_not_support_selected_paragraph) ... ok
+test_selected_page_cannot_borrow_first_page_case_document_date_or_count (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_selected_page_cannot_borrow_first_page_case_document_date_or_count) ... ok
+
+======================================================================
+FAIL: test_actual_whole_91_page_original_exact_stamp_title_and_paragraph19 (test_sourcefront_doj_first_amended.FirstAmendedOriginalTests.test_actual_whole_91_page_original_exact_stamp_title_and_paragraph19)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015/tests/test_sourcefront_doj_first_amended.py", line 77, in test_actual_whole_91_page_original_exact_stamp_title_and_paragraph19
+    self.assertEqual("NO_VERIFIED_MATCH", report["registry_identity"]["resolution"])
+AssertionError: 'NO_VERIFIED_MATCH' != 'UNMAPPED_NAME'
+- NO_VERIFIED_MATCH
++ UNMAPPED_NAME
+
+
+----------------------------------------------------------------------
+Ran 9 tests in 7.929s
+
+FAILED (failures=1)

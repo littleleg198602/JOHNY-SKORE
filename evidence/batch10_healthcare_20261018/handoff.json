@@ -1,0 +1,396 @@
+{
+  "schema_version": "batch10_healthcare_legal_applicant_bridge_handoff_v1",
+  "recorded_at": "2026-10-18T09:02:20.123000+00:00",
+  "base_commit": "32adb8edd6aa6ccc1748d2cfbc228f7db3a16fd4",
+  "branch": "batch10/healthcare-20261018",
+  "kind": "FDA_LEGAL_APPLICANT_BRIDGE",
+  "api": {
+    "module": "market_checker_app.collectors.fda_legal_applicant_bridge_review",
+    "callable": "review_fda_legal_applicant_bridge(request, captures, *, reviewed_at=None)",
+    "captures": "Exactly five request keys -> (metadata, original bytes or None)",
+    "reviewed_at": "Aware source-read cutoff at or before physical review; new ingestion and knowledge use actual physical time"
+  },
+  "producer": {
+    "path": "market_checker_app/collectors/fda_legal_applicant_bridge_review.py",
+    "sha256": "e4ca4ffd9da51add2bef4b5c1020d62c581d51c9e3a8bfd3e6105e5598a35b8d",
+    "bytes": 21923
+  },
+  "tests_source": {
+    "path": "tests/test_fda_legal_applicant_bridge_review.py",
+    "sha256": "3b44c879ec60865ea75f0c77485be6c0c2e7bea7c13ca9a7a4b6fed947b9f286",
+    "bytes": 19166
+  },
+  "focused_tests": {
+    "command": "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python -B -m unittest tests.test_fda_legal_applicant_bridge_review -v",
+    "working_directory": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015",
+    "log": {
+      "path": "evidence/batch10_healthcare_20261018/focused_tests.log",
+      "sha256": "417c88664594f4eecb28c32e9361f61a65e7fe2901d9c0541b3003b273c08559",
+      "bytes": 6091
+    },
+    "discovered": 27,
+    "executed": 27,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "plain_OK": true,
+    "elapsed_seconds_from_log": 1.728,
+    "physical_test_start_end_not_recorded": true,
+    "positive_contract_fixtures_are_synthetic_not_LIVE": true,
+    "full_suite_or_previous_CI_rerun": false
+  },
+  "retained_review_plan": {
+    "path": "evidence/batch10_healthcare_20261018/retained_review_plan.json",
+    "sha256": "558c2d22d267d3d33f4e3ec0d6ab7890f5a5182e9c5ae83ad5ead05fe90b47b2",
+    "bytes": 12166
+  },
+  "actual_review": {
+    "path": "evidence/batch10_healthcare_20261018/source_review.json",
+    "sha256": "aaf9f1d02ff9a8be571a21c7597600c9effa22c2c9012fd2f70f30a01230d812",
+    "bytes": 17326
+  },
+  "actual_reviewed_at": "2026-10-18T09:01:04.795650+00:00",
+  "original_sources": {
+    "filing": {
+      "path": "evidence/batch7_healthcare_20261015/retained_sec_pfe_2017_10k.raw.html",
+      "sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+      "bytes": 816055,
+      "byte_identical_to_base": true,
+      "request_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+      "response_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+      "http_status": 200,
+      "requested_at": "2026-10-12T14:44:14.903431+00:00",
+      "observed_at": "2026-10-12T14:44:19.890070+00:00",
+      "known_at": "2026-10-12T14:44:19.890070+00:00",
+      "inline_metadata_canonical_sha256": "31980f5d4659405b040d484ae67292656df8973ee32620915bab06912ba222a8"
+    },
+    "exhibit": {
+      "path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.body.html",
+      "sha256": "61edde7790c9765d7108d7660eddd4a3ef8241abb1f855de42cbebf66beb831f",
+      "bytes": 258262,
+      "byte_identical_to_base": true,
+      "request_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+      "response_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+      "http_status": 200,
+      "requested_at": "2026-10-14T23:30:31.825538+00:00",
+      "observed_at": "2026-10-14T23:30:38.781155+00:00",
+      "known_at": "2026-10-14T23:30:38.781155+00:00",
+      "inline_metadata_canonical_sha256": "e9da3f860c2c268919e800d33364f31fd4ed6bdd6c2299ceed2527d77107e8fd"
+    },
+    "application": {
+      "path": "evidence/batch9_healthcare_20261016/fda_purple_book_761081.body.bin",
+      "sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+      "bytes": 22644,
+      "byte_identical_to_base": true,
+      "request_url": "https://purplebooksearch.fda.gov/index.cfm?blaNo=761081&event=productdetails",
+      "response_url": "https://purplebooksearch.fda.gov/index.cfm?blaNo=761081&event=productdetails",
+      "http_status": 200,
+      "requested_at": "2026-10-16T12:19:52.202648+00:00",
+      "observed_at": "2026-10-16T12:19:55.747533+00:00",
+      "known_at": "2026-10-16T12:19:55.747533+00:00",
+      "inline_metadata_canonical_sha256": "009547fc16089d23277de02cb1bff52b4c231d117721b6325035638309f64d68"
+    },
+    "company": {
+      "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+      "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+      "bytes": 34010,
+      "byte_identical_to_base": true,
+      "request_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+      "response_url": "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=761081",
+      "http_status": 200,
+      "requested_at": "2026-10-16T12:18:43.627226+00:00",
+      "observed_at": "2026-10-16T12:18:47.144073+00:00",
+      "known_at": "2026-10-16T12:18:47.144073+00:00",
+      "inline_metadata_canonical_sha256": "aec6d30353e5e5b92c720d8e49aceae78ff5bbe2770a77e7bbee32fb0138d4b0"
+    },
+    "issuer": {
+      "path": "evidence/batch9_healthcare_20261016/sec_pfe_current_submissions.body.bin",
+      "sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+      "bytes": 145851,
+      "byte_identical_to_base": true,
+      "request_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+      "response_url": "https://data.sec.gov/submissions/CIK0000078003.json",
+      "http_status": 200,
+      "requested_at": "2026-10-16T12:18:18.345479+00:00",
+      "observed_at": "2026-10-16T12:18:23.142227+00:00",
+      "known_at": "2026-10-16T12:18:23.142227+00:00",
+      "inline_metadata_canonical_sha256": "465524a5cd27d18518b1a174d693898dff22116b093a86c4086b359c766c6db4"
+    }
+  },
+  "route_audit": {
+    "retained_filing_links": [
+      {
+        "literal_label": "2.1",
+        "resolved_original_href": "http://www.sec.gov/Archives/edgar/data/78003/000119312516686937/d57934dex21.htm",
+        "eligible_exhibit21_label": false
+      },
+      {
+        "literal_label": "21",
+        "resolved_original_href": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-exhibit21x12312017.htm",
+        "eligible_exhibit21_label": true
+      }
+    ],
+    "index_failure": {
+      "metadata_path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_index.metadata.json",
+      "metadata_sha256": "e7bd1817fa78ea4b78a6075eee8072023504c2179eaa2bcaf8d16511b5b612e9",
+      "http_status": 403,
+      "request_url": "https://www.sec.gov/Archives/edgar/data/78003/0000078003-18-000027-index.htm",
+      "body_sha256": "7f61f3fa9fc62a06fd27af979c530f78afccc12c6648e737da0dfd69d7b4726f",
+      "failure_used_as_primary_index_proof": false
+    },
+    "only_explicit_EX21_route_already_attempted_and_captured": true,
+    "prior_complete_EX21_observed_at": "2026-10-14T23:30:38.781155+00:00",
+    "new_SEC_research_GET_authorized_by_unattempted_link_condition": false,
+    "new_source_requests": 0,
+    "retry_redirect_fallback_or_alternate_route": false,
+    "exhibit2_1_filename_is_not_exhibit21_label": true
+  },
+  "old_input_pins": [
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_10k.metadata.json",
+      "sha256": "2558b1032ba9387fdae598242a8d0cfd040fb3ae32f68b211d476a24a8fefc44",
+      "bytes": 1733,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_10k.body.html.gz",
+      "sha256": "a88263dff67918610305607fde11f5188b2146c4941be9401889ff81c2f75da2",
+      "bytes": 93812,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_index.metadata.json",
+      "sha256": "e7bd1817fa78ea4b78a6075eee8072023504c2179eaa2bcaf8d16511b5b612e9",
+      "bytes": 1271,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "evidence/batch3_healthcare_20261012/captures/sec_pfe_2017_index.body.html.gz",
+      "sha256": "947cfb447eb06262268cb6c065d533373969c9b5d92179e9ef4593456d6369eb",
+      "bytes": 281,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "evidence/batch7_healthcare_20261015/sec_pfe_2017_ex21.metadata.json",
+      "sha256": "c1cda3061aa26dc3fda655485ca5fb194e4bcb8894b0b41e1a9ec3cc85934caa",
+      "bytes": 1230,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "evidence/batch9_healthcare_20261016/purple_book_review_plan.json",
+      "sha256": "db98c819bcfeb6af1406fd3bbb35b305ed273c0f3f7eb3e5a2a2f3785e5df3a5",
+      "bytes": 4777,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "evidence/batch9_healthcare_20261016/drugsfda_application_review_plan.json",
+      "sha256": "d23681d5c4deecfcec4a4f65161e136b36c4c97a9f8dbfb14482baecc0a24b32",
+      "bytes": 4781,
+      "byte_identical_to_base": true
+    }
+  ],
+  "protected_registry_and_universe_inputs": [
+    {
+      "path": "market_checker_app/data/verified_usaspending_uei.json",
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56",
+      "bytes": 1159,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+      "bytes": 14656,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+      "bytes": 87325,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e",
+      "bytes": 912,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_fdic_banks.json",
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707",
+      "bytes": 20034,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "market_checker_app/data/verified_counterparty_identities.json",
+      "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e",
+      "bytes": 26803,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "market_checker_app/data/european_authority_registry.json",
+      "sha256": "7c779c2b316f059c1d88cba0a1f95de014036751ba074012d1b9f21ab91f1c6e",
+      "bytes": 2282,
+      "byte_identical_to_base": true
+    },
+    {
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+      "bytes": 5846,
+      "byte_identical_to_base": true
+    }
+  ],
+  "actual_outcome": {
+    "status": "PARTIAL",
+    "decision": "WITHHOLD_CURRENT_APPLICANT_ISSUER_BRIDGE",
+    "roster_as_of": "2017-12-31",
+    "roster_entity_rows": 468,
+    "roster_tables": 11,
+    "selected_exact_old_name": "Pfizer Ireland Pharmaceuticals",
+    "jurisdiction_literal": "Ireland",
+    "exact_current_applicant": "Pfizer Ireland Pharmaceuticals Unlimited Company",
+    "exact_applicant_rows": 0,
+    "retained_PurpleBook_product_numbers": [
+      "001",
+      "002"
+    ],
+    "outer_container_closed": false,
+    "direct_or_indirect_unknown": true,
+    "ownership_start_and_current_control_unknown": true,
+    "source_approval_2019_03_11_is_not_ownership_start": true,
+    "independent_legacy_CIK_body_fact_verified": false,
+    "gaps": [
+      "PRODUCT_DETAIL_OUTER_CONTAINER_IMPLICITLY_CLOSED_SOURCE_DEFECT",
+      "EXACT_SOURCE_PARTY_NAME_CIK_TICKER_ISSUER_BRIDGE_MISSING",
+      "EXACT_CURRENT_APPLICANT_LEGAL_NAME_NOT_IN_POINT_ROSTER",
+      "OLD_ROSTER_POINT_DOES_NOT_PROVE_CURRENT_APPLICANT_CONTROL",
+      "SUBSIDIARY_GROUP_ROSTER_IS_NOT_CONTINUOUS_OWNERSHIP_OR_PRODUCT_ASSIGNMENT",
+      "DIRECT_LEGAL_PARENT_AND_CURRENT_CONTROL_REQUIRE_INDEPENDENT_DATED_EVIDENCE"
+    ]
+  },
+  "actions": {
+    "new_source_requests": 0,
+    "collector_HTTP_requests": 0,
+    "fresh_SEC_GET_condition_already_captured_so_not_applicable": true,
+    "DB_or_quota_writes": 0,
+    "registry_writes_or_proposals": 0,
+    "score_or_model_changes": 0,
+    "remote_writes": 0,
+    "merge": false,
+    "withheld_bodies_read_restored_or_substituted": false
+  },
+  "acceptance": {
+    "canonical_tickers": 687,
+    "healthcare_registry_count_unchanged": 10,
+    "new_verified_identities": 0,
+    "full_specialist_acceptance": "0/21",
+    "historical_availability_backdated": false,
+    "Windows_or_OOS_acceptance_claimed": false,
+    "synthetic_positive_is_LIVE_evidence": false
+  },
+  "next_work": [
+    "Independently dated exact Unlimited Company legal-entity/issuer relationship evidence at the relevant applicant-object time; no short-name alias.",
+    "Actual direct-parent chain and ownership-start/current-control documents; a dated incomplete subsidiary roster supplies only a point group listing.",
+    "Product/application licensing or ownership assignment requires its own source object and parties; applicant/company/product roles remain separate.",
+    "Preserve the original incomplete Purple Book outer container and require a genuine complete source for broader coverage.",
+    "Original durable FDA/CMS/Clinical collector quota histories are still unproved; no fresh collector calls were authorized or made."
+  ],
+  "artifacts": [
+    {
+      "path": "evidence/batch10_healthcare_20261018/README.md",
+      "sha256": "5ee30a72789944f4738f8933b71d5905e9a9840039af93973b3edfd6560d4bae",
+      "bytes": 3506
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/development_diagnostics.json",
+      "sha256": "5f3815aea8dad2b90e070ff99487df7721c4f508f23a361c875477c4cedd63f2",
+      "bytes": 3491
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/finalize_handoff.py",
+      "sha256": "6eb59412c46c384428dc27c7a50ef1ae6a8cd94b5d2534490736f95ed5163a63",
+      "bytes": 12966
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/focused_tests.log",
+      "sha256": "417c88664594f4eecb28c32e9361f61a65e7fe2901d9c0541b3003b273c08559",
+      "bytes": 6091
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/initial_source_review_before_duplicate_scope.json",
+      "sha256": "784b1ab22c5d6fe0094e5b6b84caed4fdbcbb6ab47cc2be68cd119e948b0b074",
+      "bytes": 15896
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_README.md",
+      "sha256": "8c59bc7ac51b5ccd2bf477d448ef61f1581cee65c9aeac404f37b2608a92ae24",
+      "bytes": 3128
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_development_diagnostics.json",
+      "sha256": "d09d9851f84c77e7f01ee13d74dabf67fc9e92e8076b526b3a1ae555d269a881",
+      "bytes": 1863
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_finalize_handoff.py",
+      "sha256": "ac5a43df9c939423c204f9af656e202cd61d3ead92e133f81e557b30c7946a53",
+      "bytes": 11752
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_focused_tests.log",
+      "sha256": "1960d18d0fe1db2e4ebc4126a290db5e6631d68cbd96693f3474b6b51e363740",
+      "bytes": 5659
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_handoff.json",
+      "sha256": "382449c278cccc075e9ffb8fc9d15fb7681009326731ecf12979d83d43f0ebfb",
+      "bytes": 15825
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_producer.py.txt",
+      "sha256": "bf9f1afb16c29c0c0272229e5567ed5448e19db0d4fe4684908dd419af3b59a0",
+      "bytes": 20305
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_source_review.json",
+      "sha256": "1a820f99d89cc187da2043e03b263c06ff9edf6bc4eb14a4f996479e9bfd2b15",
+      "bytes": 17253
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_tests.py.txt",
+      "sha256": "57f31059e0931b48707282f5eb7a1a9d943ca73f9ef984a64dc5390ee8e4d6c1",
+      "bytes": 17287
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/pre_table_scope_guard_validation.json",
+      "sha256": "7c99a85adea42d5a70ca8c635aa4ce51557c427036dd3cb66d73eefcace6c502",
+      "bytes": 5603
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/replay_sources.py",
+      "sha256": "dfdade7905734a7dac9dbafbb3d087ca5e5c7d741e975e5f760282d0db26a2b1",
+      "bytes": 6401
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/retained_review_plan.json",
+      "sha256": "558c2d22d267d3d33f4e3ec0d6ab7890f5a5182e9c5ae83ad5ead05fe90b47b2",
+      "bytes": 12166
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/source_review.json",
+      "sha256": "aaf9f1d02ff9a8be571a21c7597600c9effa22c2c9012fd2f70f30a01230d812",
+      "bytes": 17326
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/source_review_before_resumption.json",
+      "sha256": "f309f357439f33bde02d99e3a42d94afb74173f54f8a1ae3222afe398810609e",
+      "bytes": 17253
+    },
+    {
+      "path": "evidence/batch10_healthcare_20261018/validation.json",
+      "sha256": "b4db653ceb1f873d8c106e89719b692236a9d399ffc37a3786f6bf077575b503",
+      "bytes": 5603
+    }
+  ]
+}

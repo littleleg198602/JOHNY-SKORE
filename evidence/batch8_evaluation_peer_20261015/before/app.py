@@ -1,0 +1,3273 @@
+from __future__ import annotations
+
+from pathlib import Path
+from datetime import datetime, timezone
+import os
+import re
+import sys
+
+CURRENT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = CURRENT_DIR.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+import json
+import time
+
+import altair as alt
+import pandas as pd
+import streamlit as st
+
+from market_checker_app.analysis.scoring import validate_decision_scenarios
+from market_checker_app.collectors.mt5_client import MT5Client
+from market_checker_app.config import (
+    AppConfig,
+    ClaimVerificationConfig,
+    CommodityEnergyConfig,
+    DecisionAgentConfig,
+    DEFAULT_DB_PATH,
+    DEFAULT_OUTPUT_DIR,
+    EntityRegistryConfig,
+    EuropeanFilingConfig,
+    FinancialForensicsConfig,
+    FundamentalIngestionConfig,
+    EvaluationAgentConfig,
+    RegulatoryContractConfig,
+    ShortReportConfig,
+    SignalThresholds,
+    Stage3SourceVerificationConfig,
+    SupplyChainConfig,
+)
+from market_checker_app.exporters.dashboard_builder import build_dashboard_tables
+from market_checker_app.exporters.delta_builder import prepare_delta_for_excel
+from market_checker_app.exporters.excel_exporter import ExcelExporter
+from market_checker_app.models import AnalysisProgressState
+from market_checker_app.services.comparison_service import ComparisonService
+from market_checker_app.services.company_intelligence_manifest_service import (
+    parse_identity_records,
+)
+from market_checker_app.services.agent_runtime_service import (
+    AgentRuntimeService,
+    AgentRuntimeSettings,
+    quarantine_invalid_manifest_lines,
+)
+from market_checker_app.services.evaluation_service import EvaluationService
+from market_checker_app.services.history_service import HistoryService
+from market_checker_app.services.pipeline_service import PipelineService
+from market_checker_app.services.ranking_service import RankingService
+from market_checker_app.services.research_profile_service import load_research_profiles
+from market_checker_app.services.specialist_status_service import load_specialist_status
+from market_checker_app.services.specialist_acceptance_service import build_specialist_acceptance_report
+from market_checker_app.services.specialist_evaluation_service import (
+    build_specialist_evaluation_report, read_archived_prediction_snapshots,
+)
+from market_checker_app.services.healthcare_identity_service import (
+    DEFAULT_HEALTHCARE_IDENTITIES, HealthcareIdentityRegistry,
+)
+from market_checker_app.services.specialist_identity_config import configured_regulatory_identities
+from market_checker_app.services.specialist_source_archive_service import (
+    build_specialist_source_archive, export_specialist_source_archive,
+)
+from market_checker_app.specialist_evidence_ui import render_specialist_evidence_actions
+from market_checker_app.scout_background_worker import start_sec_background_scan
+from market_checker_app.services.stage3_manifest_service import (
+    parse_commodity_energy_sources,
+    parse_regulatory_contract_sources,
+    parse_supply_chain_sources,
+)
+from market_checker_app.services.short_report_manifest_service import (
+    parse_short_report_sources,
+)
+from market_checker_app.services.watchlist_service import restrict_to_universe
+from market_checker_app.services.visualization_service import VisualizationService
+from market_checker_app.services.yahoo_enrichment_service import YahooEnrichmentService
+from market_checker_app.storage.sqlite_store import SQLiteStore
+from market_checker_app.storage.scout_store import ScoutStore
+from market_checker_app.storage.yahoo_cache_store import YahooCacheCoverage, YahooCacheStore
+from market_checker_app.utils.charts import (
+    histogram_chart,
+    line_chart,
+    multi_line_chart,
+    scatter_score_confidence,
+    signal_bar_chart,
+    top_bottom_bar_chart,
+)
+from market_checker_app.utils.ticker_universe import load_canonical_tickers
+
+
+MAX_PREVIEW_ROWS = 500
+DEFAULT_NEWS_SOURCES_TEXT = "\n".join(
+    [
+        "https://news.google.com/rss/search?q={ticker}%20stock&hl=en-US&gl=US&ceid=US:en",
+        "https://muddywatersresearch.com/feed/",
+        "https://www.nasdaq.com/feed/rssoutbound",
+        "https://www.marketscreener.com/rss/news/",
+        "https://www.investing.com/rss/news.rss",
+        "https://www.benzinga.com/feed",
+    ]
+)
+
+
+def _parse_json_list(value: object) -> list[str]:
+    if isinstance(value, list):
+        return [str(v) for v in value]
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+            if isinstance(parsed, list):
+                return [str(v) for v in parsed]
+        except json.JSONDecodeError:
+            return [value]
+    return []
+
+
+def _resolve_sqlite_path(raw_value: str) -> tuple[Path, str | None]:
+    """
+    Normalize user-provided SQLite path from UI and try to recover common typos.
+
+    Returns:
+        tuple[path, info_message]
+        info_message is shown to user when path was auto-corrected.
+    """
+    raw = (raw_value or "").strip().strip('"').strip("'")
+    candidate = Path(raw.replace("\\", "/")) if raw else DEFAULT_DB_PATH
+
+    if candidate.suffix.lower() != ".db":
+        candidate = candidate.with_suffix(".db")
+
+    if candidate.exists():
+        return candidate, None
+
+    fallback = candidate.parent / "market_checker_history.db"
+    if candidate.name != "market_checker_history.db" and fallback.exists():
+        return fallback, f"DB soubor `{candidate}` nebyl nalezen, používám `{fallback}`."
+
+    return candidate, None
+
+
+
+def _load_latest_shadow_result(
+    output_dir: Path,
+) -> tuple[Path, dict[str, object] | None, str | None]:
+    """Load the latest autonomous weekly shadow artifact for display only."""
+    path = output_dir / "weekly_shadow_latest.json"
+    if not path.exists():
+        return path, None, None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return path, None, f"Soubor {path} se nepodařilo načíst: {exc}"
+    if not isinstance(payload, dict):
+        return path, None, f"Soubor {path} nemá očekávaný JSON objekt."
+    return path, payload, None
+
+
+def _render_latest_shadow_result(output_dir: Path) -> None:
+    """Show a completed weekly shadow run without starting a new analysis."""
+    path, result, error = _load_latest_shadow_result(output_dir)
+    if error:
+        st.warning(error)
+        return
+    if result is None:
+        return
+
+    st.divider()
+    st.subheader("Poslední týdenní shadow běh")
+    st.caption(
+        f"Načteno z {path}. Toto zobrazení nespouští novou analýzu."
+    )
+    st.info(
+        "Confidence je interní heuristická míra kvality vstupů, nikoli "
+        "kalibrovaná pravděpodobnost úspěchu predikce."
+    )
+
+    status_columns = st.columns(6)
+    status_columns[0].metric("Tickerů", str(result.get("ticker_count") or 0))
+    status_columns[1].metric(
+        "Pipeline",
+        str(result.get("pipeline_status") or "n/a"),
+    )
+    status_columns[2].metric(
+        "QualityGate",
+        str(result.get("quality_gate_decision") or "n/a"),
+    )
+    status_columns[3].metric(
+        "Vyhodnocení",
+        str(result.get("evaluation_status") or "n/a"),
+    )
+    status_columns[4].metric(
+        "Stav analytického ověření",
+        str(result.get("activation_state") or "n/a"),
+    )
+    status_columns[5].metric(
+        "Potlačené návrhy",
+        str(result.get("decision_suppressed_count") or 0),
+    )
+    coverage = result.get("universe_coverage")
+    if isinstance(coverage, dict):
+        st.caption(
+            "Pokrytí universe: "
+            f"{coverage.get('reported', 0)}/{coverage.get('requested', 0)} "
+            f"({coverage.get('coverage_pct', 0)} %); chybí {coverage.get('missing', 0)} tickerů."
+        )
+        missing = coverage.get("missing_tickers")
+        if isinstance(missing, list) and missing:
+            with st.expander(f"Chybějící tickery ({len(missing)})", expanded=False):
+                st.write(", ".join(str(ticker) for ticker in missing))
+    traceability = result.get("ticker_traceability_summary")
+    if isinstance(traceability, dict):
+        st.markdown("### Dohledatelnost tickerů")
+        trace_columns = st.columns(5)
+        trace_columns[0].metric("Pokuseno", traceability.get("attempted", 0))
+        trace_columns[1].metric("Použitelné", traceability.get("usable", 0))
+        trace_columns[2].metric("Částečné", traceability.get("partial", 0))
+        trace_columns[3].metric("Selhalo", traceability.get("failed", 0))
+        trace_columns[4].metric("Nepokuseno", traceability.get("not_attempted", 0))
+        trace_records = result.get("ticker_traceability")
+        if isinstance(trace_records, list):
+            non_usable = [
+                record for record in trace_records
+                if isinstance(record, dict)
+                and record.get("outcome_status") != "USABLE"
+            ]
+            if non_usable:
+                with st.expander(
+                    f"Tickery vyžadující kontrolu ({len(non_usable)})",
+                    expanded=False,
+                ):
+                    st.dataframe(
+                        pd.DataFrame(non_usable),
+                        width="stretch",
+                        hide_index=True,
+                    )
+    source_degradation = result.get("source_degradation")
+    if isinstance(source_degradation, dict):
+        degradation_count = int(source_degradation.get("degradation_count") or 0)
+        st.markdown("### Dostupnost zdrojů")
+        if degradation_count == 0:
+            st.success("Nejsou evidované žádné výpadky ani degradace zdrojů.")
+        else:
+            retry_policy = source_degradation.get("retry_policy") or {}
+            yahoo_retry = retry_policy.get("yahoo_ohlc") or {}
+            st.warning(
+                f"Evidováno {degradation_count} degradací zdrojů. "
+                "Yahoo OHLC používá per-ticker backoff; "
+                f"odloženo tickerů: {yahoo_retry.get('deferred_tickers', 0)}."
+            )
+            records = source_degradation.get("records")
+            if isinstance(records, list):
+                with st.expander(
+                    f"Důvody degradace ({len(records)})", expanded=False
+                ):
+                    st.dataframe(
+                        pd.DataFrame(records),
+                        width="stretch",
+                        hide_index=True,
+                    )
+    if result.get("pipeline_status") == "SUCCESS":
+        st.success(
+            "Poslední týdenní běh byl načten. Výsledky níže jsou pouze analytické "
+            "návrhy. Automatické obchodování je z produktu trvale odstraněné."
+        )
+    else:
+        st.warning(
+            "Poslední týdenní běh není označený jako SUCCESS; před použitím "
+            "zkontrolujte chyby a upozornění níže."
+        )
+
+    decision_results = result.get("decision_results")
+    decisions_by_ticker = {}
+    if isinstance(decision_results, list):
+        decisions_by_ticker = {
+            str(item.get("ticker")): item
+            for item in decision_results
+            if isinstance(item, dict) and item.get("ticker")
+        }
+
+    ticker_results = result.get("ticker_results")
+    rows = []
+    if isinstance(ticker_results, list):
+        for item in ticker_results:
+            if not isinstance(item, dict):
+                continue
+            ticker = str(item.get("ticker") or "")
+            decision = decisions_by_ticker.get(ticker, {})
+            reasons = decision.get("reasons") or item.get("action_reasons") or ""
+            if isinstance(reasons, list):
+                reasons = "; ".join(str(value) for value in reasons)
+            rows.append(
+                {
+                    "ticker": ticker,
+                    "signál": item.get("decision_signal") or item.get("signal") or "n/a",
+                    "akce": item.get("action") or "n/a",
+                    "forecast": item.get("forecast") or "n/a",
+                    "score": item.get("final_total_score"),
+                    "heuristická confidence %": item.get("final_confidence"),
+                    "kvalita dat %": item.get("data_quality_score"),
+                    "shadow návrh": decision.get("proposed_action") or "n/a",
+                    "stav ověření": decision.get("activation_state") or "n/a",
+                    "hard veto": decision.get("hard_veto", False),
+                    "důvod": reasons,
+                }
+            )
+    elif decisions_by_ticker:
+        for ticker, decision in decisions_by_ticker.items():
+            rows.append(
+                {
+                    "ticker": ticker,
+                    "signál": decision.get("baseline_action") or "n/a",
+                    "akce": decision.get("baseline_action") or "n/a",
+                    "forecast": decision.get("proposed_forecast") or "n/a",
+                    "score": None,
+                    "heuristická confidence %": (                        float(decision.get("confidence")) * 100.0
+                        if decision.get("confidence") is not None
+                        else None
+                    ),
+                    "kvalita dat %": None,
+                    "shadow návrh": decision.get("proposed_action") or "n/a",
+                    "stav ověření": decision.get("activation_state") or "n/a",
+                    "hard veto": decision.get("hard_veto", False),
+                    "důvod": "; ".join(str(value) for value in decision.get("reasons") or []),
+                }
+            )
+
+    if rows:
+        st.markdown("### Rozhodnutí posledního analytického běhu")
+        st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+    else:
+        st.info("V shadow JSON nebyly nalezeny žádné tickerové výsledky.")
+
+    errors = result.get("errors")
+    warnings = result.get("warnings")
+    if isinstance(errors, list) and errors:
+        with st.expander(f"Chyby běhu ({len(errors)})", expanded=True):
+            for message in errors:
+                st.write(f"- {message}")
+    if isinstance(warnings, list) and warnings:
+        with st.expander(f"Upozornění běhu ({len(warnings)})", expanded=False):
+            for message in warnings[:200]:
+                st.write(f"- {message}")
+
+
+def _render_latest_live_source_smoke(output_dir: Path) -> None:
+    """Show the saved source/identity smoke contract without running it again."""
+    path = output_dir / "live_source_smoke_latest.json"
+    if not path.exists():
+        return
+    try:
+        result = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        st.warning(f"Live smoke soubor {path} se nepodařilo načíst: {exc}")
+        return
+    if not isinstance(result, dict):
+        st.warning(f"Live smoke soubor {path} nemá očekávaný JSON objekt.")
+        return
+
+    st.divider()
+    st.subheader("Poslední live smoke zdrojů a identit")
+    st.caption(f"Načteno z {path}. Toto zobrazení nespouští nový request.")
+    status = str(result.get("status") or "n/a")
+    if status == "PASS":
+        st.success("Provider canary prošel. Nejde o doporučení ani automatické obchodování.")
+    else:
+        st.warning("Provider canary neprošel; před použitím zkontroluj evidované chyby.")
+
+    checks = result.get("checks")
+    if isinstance(checks, list) and checks:
+        check_rows = [check for check in checks if isinstance(check, dict)]
+        if check_rows:
+            st.dataframe(pd.DataFrame(check_rows), width="stretch", hide_index=True)
+
+    ledger = result.get("identity_universe")
+    if not isinstance(ledger, dict):
+        return
+    st.markdown("### Kontrakt identity produkční universe")
+    columns = st.columns(5)
+    columns[0].metric("Universe", ledger.get("universe_count", 0))
+    columns[1].metric("Vyřešeno", ledger.get("resolved_count", 0))
+    columns[2].metric("Karanténa", ledger.get("quarantined_count", 0))
+    columns[3].metric("Nevyřešeno", ledger.get("unresolved_count", 0))
+    columns[4].metric("Pokrytí", ledger.get("coverage_status", "n/a"))
+    if ledger.get("coverage_status") != "COMPLETE":
+        st.warning(
+            "Nejde o kompletně ověřenou identity universe: položky v karanténě "
+            "nejsou započítané jako vyřešené a jejich identita se nedoplňuje odhadem."
+        )
+    records = ledger.get("records")
+    if isinstance(records, list):
+        non_resolved = [
+            record for record in records
+            if isinstance(record, dict) and record.get("status") != "RESOLVED"
+        ]
+        if non_resolved:
+            with st.expander(
+                f"Identity vyžadující doplnění ({len(non_resolved)})",
+                expanded=False,
+            ):
+                st.dataframe(
+                    pd.DataFrame(non_resolved), width="stretch", hide_index=True
+                )
+
+
+
+def _load_yahoo_tickers_from_excel(uploaded_file: object) -> tuple[list[str], str | None]:
+    if uploaded_file is None:
+        return [], None
+    try:
+        frame = pd.read_excel(uploaded_file)
+    except Exception as exc:
+        return [], f"Excel se nepodařilo načíst: {exc}"
+
+    if frame.empty:
+        return [], "Excel je prázdný."
+
+    normalized = {str(c).strip().lower(): c for c in frame.columns}
+    ticker_col = normalized.get('yahoo ticker') or normalized.get('yahoo_ticker') or normalized.get('ticker')
+    if ticker_col is None:
+        return [], "Excel musí obsahovat sloupec 'Yahoo ticker' (nebo 'ticker')."
+
+    values = frame[ticker_col].dropna().astype(str).str.strip()
+    cleaned = [v for v in values.tolist() if v and v.lower() != 'nan']
+    return MT5Client.sanitize_watchlist(cleaned), None
+
+def _parse_finished_at_from_excel_name(path: Path) -> pd.Timestamp | None:
+    match = re.search(r"market_checker_(\d{8}_\d{6})\.xlsx$", path.name)
+    if not match:
+        return None
+    return pd.to_datetime(match.group(1), format="%Y%m%d_%H%M%S", errors="coerce")
+
+
+@st.cache_data(show_spinner=False)
+def _load_history_from_excels(output_dir_value: str) -> pd.DataFrame:
+    output_dir = Path(output_dir_value)
+    files = sorted(output_dir.glob("market_checker_*.xlsx"))
+    if not files:
+        return pd.DataFrame()
+
+    frames: list[pd.DataFrame] = []
+    for idx, path in enumerate(files, start=1):
+        finished_at = _parse_finished_at_from_excel_name(path)
+        if finished_at is None or pd.isna(finished_at):
+            continue
+        try:
+            frame = pd.read_excel(path, sheet_name="Signals")
+        except Exception:
+            continue
+        if frame.empty or "ticker" not in frame.columns:
+            continue
+        frame = frame.copy()
+        frame["run_id"] = idx
+        frame["finished_at"] = finished_at
+        keep_cols = [
+            "run_id",
+            "finished_at",
+            "ticker",
+            "current_price",
+            "scoring_version",
+            "legacy_total_score",
+            "legacy_signal",
+            "final_total_score",
+            "raw_total_score",
+            "news_score",
+            "tech_score",
+            "yahoo_score",
+            "behavioral_score",
+            "risk_score",
+            "rank_in_watchlist",
+            "percentile_in_watchlist",
+            "signal",
+            "final_confidence",
+            "tech_source_used",
+            "reasons",
+            "warnings",
+            "risk_flags",
+            "key_drivers",
+            "overall_summary",
+        ]
+        frames.append(frame[[c for c in keep_cols if c in frame.columns]])
+
+    if not frames:
+        return pd.DataFrame()
+    return pd.concat(frames, ignore_index=True).sort_values(["run_id", "ticker"], ascending=[True, True])
+
+
+def _render_progress_ui(state: AnalysisProgressState, elapsed_sec: float) -> None:
+    st.write(f"**{state.current_message}**")
+    if state.current_symbol:
+        st.caption(
+            f"Ticker {state.current_symbol} • {state.current_position}/{state.total_symbols}"
+        )
+    st.progress(float(state.overall_progress))
+    st.caption(f"{int(state.overall_progress * 100)} % • {elapsed_sec:.1f}s")
+
+
+def _show_limited_dataframe(df: pd.DataFrame, title: str, preferred_cols: list[str] | None = None, rows: int = MAX_PREVIEW_ROWS) -> None:
+    st.subheader(title)
+    if df.empty:
+        st.info("Data nejsou dostupná.")
+        return
+    view = df.copy()
+    if preferred_cols:
+        cols = [c for c in preferred_cols if c in view.columns]
+        if cols:
+            view = view[cols]
+    if len(view) > rows:
+        st.warning(f"Zobrazuji prvních {rows} řádků z {len(view)} kvůli výkonu UI.")
+        view = view.head(rows)
+    st.dataframe(view, width="stretch")
+
+
+def _render_detail_ticker(signals_df: pd.DataFrame, ticker: str) -> None:
+    row = signals_df[signals_df["ticker"] == ticker].head(1)
+    if row.empty:
+        st.info("Detail tickeru není dostupný.")
+        return
+
+    score_df = VisualizationService.prepare_score_decomposition_df(signals_df, ticker)
+    conf_df = VisualizationService.prepare_confidence_decomposition_df(signals_df, ticker)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.altair_chart(
+            alt.Chart(score_df)
+            .mark_bar()
+            .encode(x=alt.X("modul:N", title="Modul"), y=alt.Y("hodnota:Q", title="Skóre"), tooltip=["modul:N", alt.Tooltip("hodnota:Q", format=".2f")])
+            .properties(title="Rozklad skóre", height=280),
+            width="stretch",
+        )
+    with col2:
+        st.altair_chart(
+            alt.Chart(conf_df)
+            .mark_bar(color="#1f77b4")
+            .encode(x=alt.X("modul:N", title="Modul"), y=alt.Y("hodnota:Q", title="Confidence"), tooltip=["modul:N", alt.Tooltip("hodnota:Q", format=".2f")])
+            .properties(title="Rozklad confidence", height=280),
+            width="stretch",
+        )
+
+    st.markdown("### Shrnutí tickeru")
+    st.write(f"**OverallSummary:** {row.iloc[0].get('overall_summary', '')}")
+    st.write(f"**RiskScore:** {float(row.iloc[0].get('risk_score', 0)):.2f}")
+
+    for label, key in [("KeyDrivers", "key_drivers"), ("Warnings", "warnings"), ("Reasons", "reasons")]:
+        st.markdown(f"**{label}**")
+        values = _parse_json_list(row.iloc[0].get(key))
+        if not values:
+            st.caption("Bez záznamu")
+        for item in values:
+            st.write(f"- {item}")
+
+
+def _render_dashboard(signals_df: pd.DataFrame, ranking_tables: dict[str, pd.DataFrame], dashboard_tables: dict[str, pd.DataFrame]) -> None:
+    if signals_df.empty:
+        st.info("Dashboard zatím nemá data. Spusťte analýzu.")
+        return
+
+    st.markdown("## Dashboard")
+    kpi = VisualizationService.prepare_kpi(signals_df)
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
+    c1.metric("Počet tickerů", kpi["tickers"])
+    c2.metric("Průměrný FinalTotalScore", f"{kpi['avg_score']:.2f}")
+    c3.metric("Průměrný FinalConfidence", f"{kpi['avg_confidence']:.2f}")
+    c4.metric("Průměrný RiskScore", f"{kpi['avg_risk']:.2f}")
+    c5.metric("Akce BUY", kpi["buy_count"])
+    c6.metric("Akce SELL", kpi["sell_count"])
+
+    r1, r2, r3 = st.columns(3)
+    r1.metric("Rankovatelné tickery", kpi["ranking_eligible"])
+    r2.metric("Nerankovatelné tickery", kpi["ranking_ineligible"])
+    r3.metric("Použitelné pokrytí rankingu", f"{kpi['ranking_usable_coverage_pct']:.2f} %")
+
+    st.markdown("### Diagnostika rozhodovacího enginu")
+    bull_series = pd.to_numeric(signals_df.get("bull_score", pd.Series(dtype=float)), errors="coerce")
+    bear_series = pd.to_numeric(signals_df.get("bear_score", pd.Series(dtype=float)), errors="coerce")
+    spread_series = pd.to_numeric(signals_df.get("bull_bear_spread", pd.Series(dtype=float)), errors="coerce")
+    d1, d2, d3, d4 = st.columns(4)
+    d1.metric("Bull score min/max", f"{bull_series.min():.1f} / {bull_series.max():.1f}" if not bull_series.dropna().empty else "n/a")
+    d2.metric("Bear score min/max", f"{bear_series.min():.1f} / {bear_series.max():.1f}" if not bear_series.dropna().empty else "n/a")
+    d3.metric("Spread min/max", f"{spread_series.min():.1f} / {spread_series.max():.1f}" if not spread_series.dropna().empty else "n/a")
+    d4.metric("Signal downgrady", int(pd.to_numeric(signals_df.get("downgrade_count", pd.Series(dtype=float)), errors="coerce").fillna(0).sum()))
+
+    app_cfg = AppConfig()
+    scenario_rows = validate_decision_scenarios(app_cfg.decision_weights, app_cfg.decision_thresholds)
+    scenario_df = pd.DataFrame(scenario_rows)
+    st.dataframe(scenario_df, width="stretch")
+
+    blocked_series = signals_df.get("blocked_reasons")
+    if blocked_series is not None:
+        blocked_items: list[str] = []
+        for value in blocked_series.dropna().tolist():
+            blocked_items.extend(_parse_json_list(value))
+        if blocked_items:
+            blocked_df = pd.Series(blocked_items).value_counts().reset_index()
+            blocked_df.columns = ["důvod_blokace", "count"]
+            st.dataframe(blocked_df, width="stretch")
+
+    st.markdown("### Kalibrace HOLD (analýza, bez změny produkčních thresholdů)")
+    calibration = VisualizationService.prepare_hold_calibration(signals_df)
+    hold_diag_df = calibration["hold_diagnostics"]
+    hold_concentration_df = calibration["hold_concentration"]
+    sensitivity_df = calibration["sensitivity_distribution"]
+    confidence_sanity = calibration["confidence_sanity"]
+    tech_effectiveness = calibration["technical_driver_effectiveness"]
+
+    if hold_diag_df.empty:
+        st.info("HOLD diagnostika není dostupná.")
+    else:
+        st.caption("Top HOLD tickery (bull/bear spread, confidence, primary driver, směry modulů, blokace).")
+        st.dataframe(hold_diag_df.head(25), width="stretch")
+
+    c_hold1, c_hold2, c_hold3 = st.columns(3)
+    c_hold1.metric("HOLD count", int(confidence_sanity.get("hold_count", 0)))
+    c_hold2.metric("High-confidence HOLD", int(confidence_sanity.get("high_conf_hold_count", 0)))
+    c_hold3.metric("High-confidence HOLD ratio", f"{float(confidence_sanity.get('high_conf_hold_ratio', 0.0)):.2%}")
+    st.caption(str(confidence_sanity.get("explanation", "")))
+
+    cc1, cc2 = st.columns(2)
+    with cc1:
+        st.subheader("HOLD concentration podle primární příčiny")
+        st.dataframe(hold_concentration_df, width="stretch")
+    with cc2:
+        st.subheader("Sensitivity simulace hold-band")
+        if sensitivity_df.empty:
+            st.info("Sensitivity simulace není dostupná.")
+        else:
+            st.altair_chart(
+                alt.Chart(sensitivity_df)
+                .mark_bar()
+                .encode(
+                    x=alt.X("scenario:N", title="Simulace"),
+                    y=alt.Y("count:Q", title="Počet"),
+                    color=alt.Color("signal:N", title="Signál"),
+                    tooltip=["scenario:N", "signal:N", "count:Q"],
+                )
+                .properties(height=280),
+                width="stretch",
+            )
+            pivot = sensitivity_df.pivot(index="scenario", columns="signal", values="count").fillna(0).reset_index()
+            st.dataframe(pivot, width="stretch")
+
+    st.subheader("Technical-driver effectiveness (HOLD trap)")
+    st.metric(
+        "Strong technical states trapped in HOLD",
+        f"{int(tech_effectiveness.get('strong_technical_hold_count', 0))} / {int(tech_effectiveness.get('hold_count', 0))}",
+    )
+    st.caption(f"Podíl: {float(tech_effectiveness.get('strong_technical_hold_ratio', 0.0)):.2%}")
+    examples_df = tech_effectiveness.get("examples", pd.DataFrame())
+    if isinstance(examples_df, pd.DataFrame) and not examples_df.empty:
+        st.dataframe(examples_df.head(25), width="stretch")
+    else:
+        st.caption("Nenalezeny výrazné technické stavy, které by končily HOLD.")
+
+    signals = sorted(signals_df["signal"].dropna().unique().tolist()) if "signal" in signals_df.columns else []
+    filter_col1, filter_col2, filter_col3 = st.columns(3)
+    with filter_col1:
+        selected_signals = st.multiselect("Filtr signálu", options=signals, default=signals)
+    with filter_col2:
+        confidence_range = st.slider("Rozsah confidence", 0, 100, (0, 100))
+    with filter_col3:
+        risk_range = st.slider("Rozsah risk", 0, 100, (0, 100))
+
+    filtered = signals_df.copy()
+    if selected_signals:
+        filtered = filtered[filtered["signal"].isin(selected_signals)]
+    filtered = filtered[(pd.to_numeric(filtered["final_confidence"], errors="coerce").between(confidence_range[0], confidence_range[1])) & (pd.to_numeric(filtered["risk_score"], errors="coerce").between(risk_range[0], risk_range[1]))]
+
+    signal_df = VisualizationService.prepare_signal_distribution_df(filtered)
+    thresholds = SignalThresholds()
+    score_series = pd.to_numeric(filtered.get("final_total_score", pd.Series(dtype=float)), errors="coerce")
+    observed_min = float(score_series.min()) if not score_series.dropna().empty else 0.0
+    observed_max = float(score_series.max()) if not score_series.dropna().empty else 0.0
+    if observed_max < thresholds.strong_buy or observed_min > thresholds.sell:
+        st.warning(
+            f"Dosažitelnost hranic: min={observed_min:.2f}, max={observed_max:.2f}, "
+            f"STRONG BUY >= {thresholds.strong_buy}, STRONG SELL < {thresholds.sell}. "
+            "Pokud jsou hranice mimo rozsah score, extrémy se neobjeví."
+        )
+
+    decision_series = signals_df.get("decision_signal", signals_df.get("signal", pd.Series(dtype=str)))
+    strong_buy_count = int(decision_series.eq("STRONG BUY").sum())
+    strong_sell_count = int(decision_series.eq("STRONG SELL").sum())
+    if strong_buy_count == 0 or strong_sell_count == 0:
+        st.warning(
+            f"Diagnostika signálů: STRONG BUY={strong_buy_count}, STRONG SELL={strong_sell_count}. "
+            "To nemusí být chyba – při aktuálním rozložení score a risku se extrémní signály nemusí objevit."
+        )
+
+    score_hist = VisualizationService.prepare_histogram_df(filtered, "final_total_score")
+    conf_hist = VisualizationService.prepare_histogram_df(filtered, "final_confidence")
+    risk_hist = VisualizationService.prepare_histogram_df(filtered, "risk_score")
+    scatter_df = VisualizationService.prepare_scatter_df(filtered)
+    top10, bottom10 = VisualizationService.prepare_top_bottom_df(filtered, "final_total_score", n=10)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.altair_chart(signal_bar_chart(signal_df, "Distribuce signálů"), width="stretch")
+    with col2:
+        st.altair_chart(histogram_chart(score_hist, "Rozložení FinalTotalScore", "Bucket skóre"), width="stretch")
+
+    col3, col4 = st.columns(2)
+    with col3:
+        st.altair_chart(histogram_chart(conf_hist, "Rozložení FinalConfidence", "Bucket confidence"), width="stretch")
+    with col4:
+        st.altair_chart(histogram_chart(risk_hist, "Rozložení RiskScore", "Bucket risk"), width="stretch")
+
+    st.altair_chart(scatter_score_confidence(scatter_df, "Confidence vs Score (tooltip + velikost dle MarketCap)"), width="stretch")
+
+    ctop, cbottom = st.columns(2)
+    with ctop:
+        st.altair_chart(top_bottom_bar_chart(top10, "final_total_score", "Top 10 tickerů podle FinalTotalScore", positive_color="#2ca02c"), width="stretch")
+        st.dataframe(top10, width="stretch")
+    with cbottom:
+        st.altair_chart(top_bottom_bar_chart(bottom10, "final_total_score", "Bottom 10 tickerů podle FinalTotalScore", positive_color="#2ca02c", negative_color="#d62728"), width="stretch")
+        st.dataframe(bottom10, width="stretch")
+
+    overlap = VisualizationService.prepare_drop_overlap_tables(dashboard_tables)
+    shared = overlap.get("shared_drop_tickers", pd.DataFrame())
+    st.subheader("Stejné tickery napříč propady")
+    if shared.empty:
+        st.info("Žádný ticker se neopakuje napříč 7D/14D/1M/3M propady.")
+    else:
+        st.dataframe(shared, width="stretch")
+
+    with st.expander("Top/Bottom rank overview", expanded=False):
+        st.dataframe(ranking_tables.get("top", pd.DataFrame()).head(20), width="stretch")
+        st.dataframe(ranking_tables.get("bottom", pd.DataFrame()).head(20), width="stretch")
+
+
+def _render_delta(delta_df: pd.DataFrame) -> None:
+    st.markdown("## Delta vůči předchozímu běhu")
+    if delta_df.empty:
+        st.info("Delta není dostupná, protože chybí předchozí běh.")
+        return
+
+    improvements, declines = VisualizationService.prepare_delta_top_movers_df(delta_df, n=10)
+    transitions = VisualizationService.prepare_signal_transition_df(delta_df)
+    comp_delta = VisualizationService.prepare_component_delta_df(delta_df, n=12)
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.altair_chart(top_bottom_bar_chart(improvements, "DeltaTotal", "Top 10 zlepšení FinalTotalScore", positive_color="#2ca02c"), width="stretch")
+        st.dataframe(improvements.head(10), width="stretch")
+    with col2:
+        st.altair_chart(top_bottom_bar_chart(declines, "DeltaTotal", "Top 10 propadů FinalTotalScore", positive_color="#2ca02c", negative_color="#d62728"), width="stretch")
+        st.dataframe(declines.head(10), width="stretch")
+
+    st.subheader("Přechody signálů")
+    if transitions.empty:
+        st.info("Přechody signálů nejsou dostupné.")
+    else:
+        st.altair_chart(
+            alt.Chart(transitions.head(20))
+            .mark_bar()
+            .encode(
+                y=alt.Y("SignalChange:N", sort="-x", title="Přechod"),
+                x=alt.X("count:Q", title="Počet tickerů"),
+                tooltip=["SignalChange:N", "count:Q"],
+            )
+            .properties(height=360, title="Nejčastější přechody signálů"),
+            width="stretch",
+        )
+        st.dataframe(transitions, width="stretch")
+
+    st.subheader("Delta komponent pro největší movery")
+    if comp_delta.empty:
+        st.info("Component delta není dostupná pro aktuální data.")
+    else:
+        st.altair_chart(
+            alt.Chart(comp_delta)
+            .mark_bar()
+            .encode(
+                x=alt.X("ticker:N", title="Ticker"),
+                y=alt.Y("delta:Q", title="Delta"),
+                color=alt.Color("component:N", title="Komponenta"),
+                tooltip=["ticker:N", "component:N", alt.Tooltip("delta:Q", format=".2f")],
+            )
+            .properties(height=360, title="Z čeho se skládá změna skóre (top movers)"),
+            width="stretch",
+        )
+
+    st.subheader("Detailní delta tabulka (side-by-side)")
+    mode = st.radio(
+        "Zobrazení",
+        options=["Vše", "Jen propady (DeltaTotal < 0)"],
+        horizontal=True,
+    )
+    preferred_cols = [
+        "ticker",
+        "market_cap_usd_prev",
+        "market_cap_usd",
+        "DeltaMarketCap",
+        "final_total_score_prev",
+        "final_total_score",
+        "DeltaTotal",
+        "rank_in_watchlist_prev",
+        "rank_in_watchlist",
+        "DeltaRank",
+        "final_confidence_prev",
+        "final_confidence",
+        "DeltaConfidence",
+        "signal_prev",
+        "signal",
+        "SignalChange",
+        "DeltaNews",
+        "DeltaTech",
+        "DeltaYahoo",
+        "DeltaBehavioral",
+        "DeltaRisk",
+    ]
+    detail_cols = [c for c in preferred_cols if c in delta_df.columns]
+    detail = delta_df[detail_cols].copy() if detail_cols else delta_df.copy()
+    if mode.startswith("Jen propady") and "DeltaTotal" in detail.columns:
+        detail = detail[detail["DeltaTotal"] < 0]
+    if "DeltaTotal" in detail.columns:
+        detail = detail.sort_values("DeltaTotal", ascending=True)
+    st.caption("Pozn.: DeltaRank > 0 = zlepšení pořadí (nižší rank je lepší).")
+    delta_cols = [c for c in ["DeltaTotal", "DeltaRank", "DeltaConfidence", "DeltaNews", "DeltaTech", "DeltaYahoo", "DeltaBehavioral", "DeltaRisk", "DeltaMarketCap"] if c in detail.columns]
+    styled = (
+        detail.head(500)
+        .style.format(
+            {
+                "DeltaTotal": "{:+.2f}",
+                "DeltaRank": "{:+.0f}",
+                "DeltaConfidence": "{:+.2f}",
+                "DeltaNews": "{:+.2f}",
+                "DeltaTech": "{:+.2f}",
+                "DeltaYahoo": "{:+.2f}",
+                "DeltaBehavioral": "{:+.2f}",
+                "DeltaRisk": "{:+.2f}",
+                "DeltaMarketCap": "{:+,.0f}",
+                "market_cap_usd_prev": "{:,.0f}",
+                "market_cap_usd": "{:,.0f}",
+            },
+            na_rep="-",
+        )
+        .map(lambda v: "background-color: rgba(40,167,69,0.25)" if isinstance(v, (int, float)) and v > 0 else ("background-color: rgba(220,53,69,0.25)" if isinstance(v, (int, float)) and v < 0 else ""), subset=delta_cols)
+    )
+    st.dataframe(styled, width="stretch")
+
+
+def _render_trends(history_service: HistoryService, output_dir: Path) -> None:
+    st.markdown("## Trends napříč běhy")
+    global_history = history_service.store.read_global_history()
+    if global_history["run_id"].nunique() < 2 if not global_history.empty else True:
+        excel_history = _load_history_from_excels(str(output_dir))
+        if "run_id" in excel_history.columns and excel_history["run_id"].nunique() >= 2:
+            global_history = excel_history
+            st.info("SQLite zatím nemá dost běhů, trendy načítám z historických Excel exportů v outputs.")
+    trend = VisualizationService.prepare_trend_history_df(global_history)
+
+    if trend["avg_scores"].empty:
+        st.info("Zatím není dost historických běhů pro graf.")
+        return
+
+    avg_scores = trend["avg_scores"]
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.altair_chart(line_chart(avg_scores, "finished_at", "avg_final_total_score", "Průměrný FinalTotalScore v čase"), width="stretch")
+    with col2:
+        st.altair_chart(line_chart(avg_scores, "finished_at", "avg_final_confidence", "Průměrný FinalConfidence v čase"), width="stretch")
+    with col3:
+        st.altair_chart(line_chart(avg_scores, "finished_at", "avg_risk_score", "Průměrný RiskScore v čase"), width="stretch")
+
+    signal_counts = trend["signal_counts"]
+    if not signal_counts.empty:
+        st.altair_chart(
+            alt.Chart(signal_counts)
+            .mark_bar()
+            .encode(
+                x=alt.X("finished_at:T", title="Běh"),
+                y=alt.Y("count:Q", title="Počet tickerů"),
+                color=alt.Color("signal:N", title="Signál"),
+                tooltip=["signal:N", "count:Q", "finished_at:T"],
+            )
+            .properties(height=320, title="Vývoj počtu signálů v čase"),
+            width="stretch",
+        )
+
+    module_scores = trend["module_scores"]
+    if not module_scores.empty:
+        melt_cols = [c for c in module_scores.columns if c.startswith("avg_")]
+        melted = module_scores.melt(id_vars=["finished_at"], value_vars=melt_cols, var_name="module", value_name="score")
+        st.altair_chart(multi_line_chart(melted, "Průměrná skóre modulů v čase"), width="stretch")
+
+    bucket_behavior = trend["bucket_behavior"]
+    if not bucket_behavior.empty:
+        st.altair_chart(
+            alt.Chart(bucket_behavior)
+            .mark_line(point=True)
+            .encode(
+                x=alt.X("finished_at:T", title="Běh"),
+                y=alt.Y("final_total_score:Q", title="Průměrný FinalTotalScore"),
+                color=alt.Color("bucket:N", title="Bucket"),
+                tooltip=["bucket:N", alt.Tooltip("final_total_score:Q", format=".2f"), "finished_at:T"],
+            )
+            .properties(height=300, title="Top 20 % vs Bottom 20 % v čase"),
+            width="stretch",
+        )
+
+
+def _render_history(history_service: HistoryService, output_dir: Path) -> None:
+    st.markdown("## History tickeru")
+    source_df = history_service.store.read_global_history()
+    if source_df.empty:
+        source_df = _load_history_from_excels(str(output_dir))
+        if not source_df.empty:
+            st.info("SQLite historie je prázdná, historii tickeru načítám z Excel exportů v outputs.")
+
+    tickers = sorted(source_df["ticker"].dropna().astype(str).unique().tolist()) if not source_df.empty and "ticker" in source_df.columns else []
+    if not tickers:
+        st.info("Pro vybraný ticker zatím není dostatek historických dat.")
+        return
+
+    ticker = st.selectbox("Vyber ticker pro historii", tickers)
+    hist = source_df[source_df["ticker"] == ticker].copy()
+    prepared = VisualizationService.prepare_ticker_history_df(hist)
+
+    if prepared["series"].empty:
+        st.info("Pro vybraný ticker zatím není dostatek historických dat.")
+        return
+
+    series = prepared["series"]
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.altair_chart(line_chart(series, "finished_at", "final_total_score", "FinalTotalScore v čase"), width="stretch")
+    with col2:
+        st.altair_chart(line_chart(series, "finished_at", "final_confidence", "FinalConfidence v čase"), width="stretch")
+    with col3:
+        st.altair_chart(line_chart(series, "finished_at", "risk_score", "RiskScore v čase"), width="stretch")
+
+    col4, col5 = st.columns(2)
+    with col4:
+        if "rank_in_watchlist" in series.columns:
+            st.altair_chart(line_chart(series, "finished_at", "rank_in_watchlist", "Rank v čase (nižší je lepší)"), width="stretch")
+    with col5:
+        if "percentile_in_watchlist" in series.columns:
+            st.altair_chart(line_chart(series, "finished_at", "percentile_in_watchlist", "Percentil v čase"), width="stretch")
+
+    module_series = prepared["module_series"]
+    if not module_series.empty:
+        st.altair_chart(multi_line_chart(module_series, "Skóre modulů v čase"), width="stretch")
+
+    st.subheader("Signálová historie")
+    st.dataframe(prepared["table"], width="stretch")
+
+    st.subheader("Poslední běhy tickeru (detail tabulka)")
+    st.dataframe(series.sort_values("finished_at", ascending=False).head(20), width="stretch")
+
+    snap = prepared["last_snapshot"]
+    if not snap.empty:
+        row = snap.iloc[0]
+        st.markdown("### Poslední snapshot")
+        st.write(f"**OverallSummary:** {row.get('overall_summary', '')}")
+        for label, key in [("KeyDrivers", "key_drivers"), ("Warnings", "warnings"), ("Reasons", "reasons")]:
+            st.markdown(f"**{label}**")
+            values = _parse_json_list(row.get(key))
+            if not values:
+                st.caption("Bez záznamu")
+            for item in values:
+                st.write(f"- {item}")
+
+
+def _render_signals(signals_df: pd.DataFrame) -> None:
+    action_column = "action" if "action" in signals_df.columns else "signal"
+    action_options = sorted(signals_df[action_column].dropna().unique())
+    signal_filter = st.multiselect("Action filter", options=action_options, default=action_options)
+    regime_filter = st.multiselect("Regime filter", options=sorted(signals_df["regime"].dropna().unique()), default=sorted(signals_df["regime"].dropna().unique()))
+    min_conf = st.slider("Min confidence", 0, 100, 0)
+    max_risk = st.slider("Max risk", 0, 100, 100)
+    filtered = signals_df[(signals_df[action_column].isin(signal_filter)) & (signals_df["regime"].isin(regime_filter)) & (pd.to_numeric(signals_df["final_confidence"], errors="coerce") >= min_conf) & (pd.to_numeric(signals_df["risk_score"], errors="coerce") <= max_risk)]
+
+    display_columns = [
+        "ticker",
+        "action",
+        "forecast",
+        "decision_signal",
+        "action_reasons",
+        "yahoo_ticker",
+        "yahoo_data_status",
+        "news_score",
+        "tech_score",
+        "yahoo_score",
+        "behavioral_score",
+        "risk_score",
+        "bull_score",
+        "bear_score",
+        "bull_bear_spread",
+        "raw_total_score",
+        "quality_adjusted_score",
+        "risk_adjusted_score",
+        "final_total_score",
+        "final_confidence",
+        "data_quality_score",
+        "signal",
+        "signal_strength",
+        "tech_source_used",
+        "rank_in_watchlist",
+        "percentile_in_watchlist",
+        "regime",
+    ]
+    st.dataframe(filtered[[c for c in display_columns if c in filtered.columns]], width="stretch")
+
+    ticker = st.selectbox("Detail tickeru", options=signals_df["ticker"].tolist())
+    _render_detail_ticker(signals_df, ticker)
+
+
+def _render_agent_audit(result: dict[str, object]) -> None:
+    st.subheader("Audit agentní pipeline")
+    metric_columns = st.columns(5)
+    metric_columns[0].metric("Agentní stav", result.get("agent_status") or "n/a")
+    metric_columns[1].metric(
+        "QualityGate",
+        result.get("quality_gate_decision") or "n/a",
+    )
+    metric_columns[2].metric(
+        "SEC ingest",
+        result.get("fundamental_ingestion_status") or "vypnuto",
+    )
+    metric_columns[3].metric(
+        "Forenzní HIGH",
+        int(result.get("financial_forensics_high_findings") or 0),
+    )
+    metric_columns[4].metric(
+        "Forenzní WARN",
+        int(result.get("financial_forensics_warning_findings") or 0),
+    )
+    report_metrics = st.columns(6)
+    report_metrics[0].metric(
+        "Short report",
+        result.get("short_report_status") or "vypnuto",
+    )
+    report_metrics[1].metric(
+        "Reporty",
+        int(result.get("short_report_document_count") or 0),
+    )
+    report_metrics[2].metric(
+        "Tvrzení",
+        int(result.get("short_report_claim_count") or 0),
+    )
+    report_metrics[3].metric(
+        "Potvrzeno daty",
+        int(result.get("claim_corroborated_count") or 0),
+    )
+    report_metrics[4].metric(
+        "Nepodpořeno daty",
+        int(result.get("claim_contradicted_count") or 0),
+    )
+    report_metrics[5].metric(
+        "Nedostatek dat",
+        int(result.get("claim_insufficient_count") or 0),
+    )
+    stage3_metrics = st.columns(6)
+    stage3_metrics[0].metric(
+        "SupplyChain",
+        result.get("supply_chain_status") or "vypnuto",
+    )
+    stage3_metrics[1].metric(
+        "Vztahy firem",
+        int(result.get("supply_chain_relationship_count") or 0),
+    )
+    stage3_metrics[2].metric(
+        "Commodity/Energy",
+        result.get("commodity_energy_status") or "vypnuto",
+    )
+    stage3_metrics[3].metric(
+        "Expozice",
+        int(result.get("commodity_energy_exposure_count") or 0),
+    )
+    stage3_metrics[4].metric(
+        "Regulace/kontrakty",
+        result.get("regulatory_contract_status") or "vypnuto",
+    )
+    stage3_metrics[5].metric(
+        "Události",
+        int(result.get("regulatory_contract_event_count") or 0),
+    )
+    stage4_metrics = st.columns(7)
+    stage4_metrics[0].metric(
+        "DecisionAgent",
+        result.get("decision_agent_status") or "vypnuto",
+    )
+    stage4_metrics[1].metric(
+        "Shadow veto návrhy",
+        int(result.get("decision_suppressed_count") or 0),
+    )
+    stage4_metrics[2].metric(
+        "EvaluationAgent",
+        result.get("evaluation_agent_status") or "vypnuto",
+    )
+    stage4_metrics[3].metric(
+        "Aktivační stav",
+        result.get("activation_state") or "vypnuto",
+    )
+    stage4_metrics[4].metric(
+        "OOS vzorky",
+        int(result.get("evaluation_sample_count") or 0),
+    )
+    stage4_metrics[5].metric(
+        "OOS týdny",
+        int(result.get("evaluation_distinct_weeks") or 0),
+    )
+    lift = result.get("evaluation_lift_pct_points")
+    stage4_metrics[6].metric(
+        "OOS lift (p. b.)",
+        f"{float(lift):.2f}" if lift is not None else "n/a",
+    )
+    stage4_evidence_metrics = st.columns(6)
+    lower_bound = result.get("evaluation_lift_lower_bound_pct_points")
+    positive_week_ratio = result.get("evaluation_positive_week_ratio")
+    consecutive_passes = int(result.get("evaluation_consecutive_passes") or 0)
+    required_passes = int(
+        result.get("evaluation_required_consecutive_passes") or 3
+    )
+    activation_state = str(result.get("activation_state") or "INSUFFICIENT_DATA")
+    accuracy_proven = bool(
+        result.get("evaluation_gate_passed")
+        and consecutive_passes >= required_passes
+        and activation_state in {"ELIGIBLE", "ENABLED"}
+    )
+    stage4_evidence_metrics[0].metric(
+        "Baseline přesnost",
+        (
+            f"{float(result['evaluation_baseline_accuracy_pct']):.2f} %"
+            if result.get("evaluation_baseline_accuracy_pct") is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[1].metric(
+        "Kandidát přesnost",
+        (
+            f"{float(result['evaluation_candidate_accuracy_pct']):.2f} %"
+            if result.get("evaluation_candidate_accuracy_pct") is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[2].metric(
+        "Dolní 95% mez liftu",
+        f"{float(lower_bound):.2f} p. b." if lower_bound is not None else "n/a",
+    )
+    stage4_evidence_metrics[3].metric(
+        "Kladné týdny",
+        (
+            f"{float(positive_week_ratio) * 100.0:.1f} %"
+            if positive_week_ratio is not None
+            else "n/a"
+        ),
+    )
+    stage4_evidence_metrics[4].metric(
+        "Nezávislé průchody",
+        f"{consecutive_passes}/{required_passes}",
+    )
+    stage4_evidence_metrics[5].metric(
+        "Režim",
+        "POUZE ANALÝZA",
+    )
+    if accuracy_proven:
+        st.success(
+            "Zvýšení přesnosti je pro tuto analytickou politiku prokázáno OOS "
+            "bránou. Výstup zůstává pouze informativní."
+        )
+    else:
+        failed_gates = [
+            str(name)
+            for name, passed in dict(
+                result.get("evaluation_gate_results") or {}
+            ).items()
+            if not passed
+        ]
+        detail = ", ".join(failed_gates) if failed_gates else "čeká se na OOS data"
+        st.warning(
+            "Zvýšení přesnosti zatím není prokázáno; výstup zůstává pouze "
+            f"analytický. Důvod: {detail}."
+        )
+
+    report = result.get("agent_report")
+    executions = getattr(report, "executions", None)
+    if not isinstance(executions, list):
+        st.info("Pro tento běh není dostupný agentní audit.")
+        return
+
+    execution_rows = []
+    for execution in executions:
+        execution_rows.append(
+            {
+                "agent": execution.agent_name,
+                "version": execution.agent_version,
+                "status": execution.status.value,
+                "required": execution.required,
+                "elapsed_ms": round(execution.elapsed_ms, 2),
+                "outputs": execution.result.output_count,
+                "warnings": len(execution.result.warnings),
+                "error": execution.result.error,
+            }
+        )
+    st.dataframe(pd.DataFrame(execution_rows), width="stretch", hide_index=True)
+
+    forensic_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "financial_forensics"
+        ),
+        None,
+    )
+    st.markdown("### Finanční forenzní screening")
+    st.caption(
+        "Diagnostické indikátory pro další ověření — nejde o závěr o podvodu, "
+        "obchodní signál ani vstup do score v2.1."
+    )
+    if forensic_execution is None:
+        st.info("Finanční forenzní screening nebyl v tomto běhu zapnutý.")
+    else:
+        forensic_rows = []
+        for evidence in forensic_execution.result.evidence:
+            metadata = evidence.metadata if isinstance(evidence.metadata, dict) else {}
+            findings = metadata.get("findings", [])
+            if not isinstance(findings, list):
+                findings = []
+            high_count = sum(
+                isinstance(item, dict) and item.get("severity") == "HIGH"
+                for item in findings
+            )
+            warning_count = sum(
+                isinstance(item, dict) and item.get("severity") == "WARN"
+                for item in findings
+            )
+            finding_codes = [
+                str(item.get("code"))
+                for item in findings
+                if isinstance(item, dict) and item.get("code")
+            ]
+            forensic_rows.append(
+                {
+                    "ticker": evidence.ticker,
+                    "risk_score": round(evidence.risk_score, 2),
+                    "confidence_pct": round(evidence.confidence * 100.0, 1),
+                    "HIGH": high_count,
+                    "WARN": warning_count,
+                    "finding_codes": ", ".join(finding_codes),
+                    "finding_details": json.dumps(
+                        findings,
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    ),
+                    "metrics": json.dumps(
+                        metadata.get("metrics", {}),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                    ),
+                    "sec_documents": len(evidence.document_ids),
+                    "source_urls": "\n".join(evidence.source_urls),
+                }
+            )
+        if forensic_rows:
+            st.dataframe(
+                pd.DataFrame(forensic_rows).sort_values(
+                    ["risk_score", "ticker"],
+                    ascending=[False, True],
+                ),
+                width="stretch",
+                hide_index=True,
+            )
+        else:
+            st.info("Agent neměl dostatek použitelných SEC faktů pro žádný ticker.")
+
+    short_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "short_report"
+        ),
+        None,
+    )
+    verification_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "claim_verification"
+        ),
+        None,
+    )
+    st.markdown("### Short reporty a ověření jednotlivých tvrzení")
+    st.caption(
+        "Stavy se vztahují pouze k úzkému tvrzení a dostupným SEC datům. "
+        "Nejde o hodnocení celého reportu, závěr o podvodu ani vstup do score v2.1."
+    )
+    st.caption(
+        "Stav ověřovacího agenta: "
+        f"{result.get('claim_verification_status') or 'vypnuto'}"
+    )
+    claims = []
+    if verification_execution is not None and verification_execution.result.claims:
+        claims = verification_execution.result.claims
+    elif short_execution is not None:
+        claims = short_execution.result.claims
+    if claims:
+        claim_rows = []
+        for claim in claims:
+            independent_documents = [
+                document_id
+                for document_id in claim.evidence_document_ids
+                if document_id != claim.report_document_id
+            ]
+            claim_rows.append(
+                {
+                    "ticker": claim.ticker,
+                    "stav": claim.status.value,
+                    "typ": claim.claim_type,
+                    "tvrzení": claim.statement,
+                    "důvěra_pct": round(claim.confidence * 100.0, 1),
+                    "shrnutí_ověření": claim.verification_summary,
+                    "primární_dokumenty": len(independent_documents),
+                    "datum_reportu": claim.published_at.isoformat(),
+                    "zdroje": "\n".join(claim.source_urls),
+                }
+            )
+        st.dataframe(
+            pd.DataFrame(claim_rows).sort_values(
+                ["ticker", "stav", "typ"],
+                ascending=[True, True, True],
+            ),
+            width="stretch",
+            hide_index=True,
+        )
+    elif short_execution is None:
+        st.info("Short reporty nebyly v tomto běhu zapnuté.")
+    else:
+        st.info("Nebyla bezpečně extrahována žádná tvrzení k zobrazení.")
+
+    stage3_executions = {
+        execution.agent_name: execution
+        for execution in executions
+        if execution.agent_name
+        in {"supply_chain", "commodity_energy", "regulatory_contract"}
+    }
+    st.markdown("### Síť firem, zdroje, regulace a kontrakty — Etapa 3")
+    st.caption(
+        "Zobrazené záznamy jsou point-in-time audit s veřejným zdrojem. "
+        "Nemají směr, risk score, hard veto ani vliv na predikci v2.1."
+    )
+    supply_execution = stage3_executions.get("supply_chain")
+    if supply_execution is not None and supply_execution.result.company_relationships:
+        def relationship_rows(items):
+            rows = []
+            for item in items:
+                metadata = item.metadata if isinstance(item.metadata, dict) else {}
+                rows.append(
+                    {
+                        "směr": metadata.get("edge_path"),
+                        "ticker": item.ticker,
+                        "protistrana": item.counterparty,
+                        "identita": metadata.get("counterparty_identity_status"),
+                        "typ": item.relationship_type.value,
+                        "kontext": metadata.get("relationship_context"),
+                        "produkt_vstup": metadata.get("product_or_input"),
+                        "země": metadata.get("counterparty_country"),
+                        "období": metadata.get("disclosure_period"),
+                        "podíl_pct": item.dependency_pct,
+                        "úroveň_důkazu": metadata.get("evidence_level"),
+                        "čerstvost": metadata.get("evidence_freshness"),
+                        "stáří_dní": metadata.get("evidence_age_days"),
+                        "citace": metadata.get("evidence_quote"),
+                        "chybějící": metadata.get("evidence_missingness"),
+                        "zdroj": item.source_url,
+                    }
+                )
+            return rows
+
+        relationships = supply_execution.result.company_relationships
+        supplier_rows = relationship_rows(
+            [item for item in relationships if item.relationship_type.value != "CUSTOMER"]
+        )
+        customer_rows = relationship_rows(
+            [item for item in relationships if item.relationship_type.value == "CUSTOMER"]
+        )
+        if supplier_rows:
+            st.markdown("#### Dodavatelská strana: protistrana → firma")
+            st.dataframe(pd.DataFrame(supplier_rows), width="stretch", hide_index=True)
+        if customer_rows:
+            st.markdown("#### Odběratelská strana: firma → protistrana")
+            st.dataframe(pd.DataFrame(customer_rows), width="stretch", hide_index=True)
+
+    resource_execution = stage3_executions.get("commodity_energy")
+    if resource_execution is not None and resource_execution.result.resource_exposures:
+        st.markdown("#### Materiály a energie")
+        st.dataframe(
+            pd.DataFrame(
+                [
+                    (
+                        lambda metadata, scenario, sensitivity, price: {
+                            "ticker": item.ticker,
+                            "zdroj": item.resource_name,
+                            "typ": item.exposure_type.value,
+                            "podíl_pct": item.dependency_pct,
+                            "období": metadata.get("disclosure_period"),
+                            "cenová_řada": scenario.get("status"),
+                            "důvod_nedostatku": scenario.get("reason"),
+                            "cena": price.get("value"),
+                            "jednotka": price.get("unit"),
+                            "měna": price.get("currency"),
+                            "cena_dostupná_od": price.get("available_at"),
+                            "scénář_změny_ceny_pct": scenario.get("scenario_assumption", {}).get("price_change_pct"),
+                            "nákladový_podíl_na_tržbách_pct": sensitivity.get("cost_share_of_revenue_pct"),
+                            "hedge_pct": sensitivity.get("hedged_share_pct"),
+                            "fixace_pct": sensitivity.get("fixed_price_share_pct"),
+                            "přenos_ceny_pct": sensitivity.get("pass_through_pct"),
+                            "dopad_do_marže_pp": sensitivity.get("estimated_margin_impact_pp"),
+                            "citace": metadata.get("evidence_quote"),
+                            "reference": item.source_url,
+                        }
+                    )(
+                        item.metadata if isinstance(item.metadata, dict) else {},
+                        (item.metadata if isinstance(item.metadata, dict) else {}).get("resource_margin_scenario", {}),
+                        (item.metadata if isinstance(item.metadata, dict) else {}).get("resource_margin_scenario", {}).get("sensitivity", {}),
+                        (item.metadata if isinstance(item.metadata, dict) else {}).get("resource_margin_scenario", {}).get("latest_price_point", {}),
+                    )
+                    for item in resource_execution.result.resource_exposures
+                ]
+            ),
+            width="stretch",
+            hide_index=True,
+        )
+
+    regulatory_execution = stage3_executions.get("regulatory_contract")
+    if (
+        regulatory_execution is not None
+        and regulatory_execution.result.regulatory_contract_events
+    ):
+        st.markdown("#### Regulační a kontraktní události")
+        st.dataframe(
+            pd.DataFrame(
+                [
+                    {
+                        "ticker": item.ticker,
+                        "typ": item.event_type.value,
+                        "stav": item.status.value,
+                        "název": item.title,
+                        "protistrana_nebo_úřad": item.authority_or_counterparty,
+                        "hodnota": item.event_value,
+                        "měna": item.currency,
+                        "datum_zveřejnění": item.published_at.isoformat(),
+                        "důvěra_pct": round(float(item.confidence) * 100.0, 1),
+                        "obsah_ověřen": bool(
+                            isinstance(item.metadata, dict)
+                            and item.metadata.get("source_content_support_detected")
+                        ),
+                        "metoda_nálezu": (
+                            item.metadata.get("discovery_method")
+                            if isinstance(item.metadata, dict)
+                            else None
+                        ),
+                        "zdroj": item.source_url,
+                    }
+                    for item in regulatory_execution.result.regulatory_contract_events
+                ]
+            ),
+            width="stretch",
+            hide_index=True,
+        )
+    agent_feature_snapshots = result.get("agent_feature_snapshots", {})
+    if isinstance(agent_feature_snapshots, dict) and agent_feature_snapshots:
+        feature_rows = []
+        for ticker, snapshot in agent_feature_snapshots.items():
+            if not isinstance(snapshot, dict):
+                continue
+            regulatory = snapshot.get("regulatory", {})
+            governance = snapshot.get("governance", {})
+            forensics = snapshot.get("forensics", {})
+            claims = snapshot.get("claims", {})
+            if not any(
+                int(section.get(key, 0) or 0)
+                for section, key in (
+                    (regulatory, "event_count"),
+                    (governance, "event_count"),
+                    (forensics, "evidence_count"),
+                    (claims, "claim_count"),
+                )
+                if isinstance(section, dict)
+            ):
+                continue
+            feature_rows.append(
+                {
+                    "ticker": ticker,
+                    "regulační_události": regulatory.get("event_count", 0),
+                    "ověřené_události": regulatory.get("verified_event_count", 0),
+                    "event_score": regulatory.get("signed_event_score", 0.0),
+                    "governance_rizika": governance.get("risk_event_count", 0),
+                    "forenzní_risk": forensics.get("risk_score", 0.0),
+                    "potvrzené_claims": claims.get("corroborated_count", 0),
+                }
+            )
+        if feature_rows:
+            st.markdown("#### Agentní proměnné uložené pro shadow model")
+            st.dataframe(
+                pd.DataFrame(feature_rows).sort_values(
+                    ["forenzní_risk", "ticker"], ascending=[False, True]
+                ),
+                width="stretch",
+                hide_index=True,
+            )
+    if not stage3_executions:
+        st.info("Agenti Etapy 3 nebyli v tomto běhu zapnutí.")
+
+    decision_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "decision_agent"
+        ),
+        None,
+    )
+    evaluation_execution = next(
+        (
+            execution
+            for execution in executions
+            if execution.agent_name == "evaluation_agent"
+        ),
+        None,
+    )
+    st.markdown("### DecisionAgent a OOS aktivační brána — Etapa 4")
+    st.caption(
+        "Výchozí i trvalý režim je pouze analýza. Overlay může navrhnout "
+        "potlačení směru na NO_TRADE, ale nikdy nepřepisuje hlavní predikci."
+    )
+    if decision_execution is None:
+        st.info("Etapa 4 nebyla v tomto běhu zapnutá.")
+    else:
+        decision_rows = [
+            {
+                "ticker": decision.ticker,
+                "baseline": decision.baseline_action,
+                "návrh": decision.proposed_action,
+                "forecast": decision.proposed_forecast,
+                "P(UP)": round(decision.p_up, 4),
+                "P(FLAT)": round(decision.p_flat, 4),
+                "P(DOWN)": round(decision.p_down, 4),
+                "hard_veto": decision.hard_veto,
+                "stav ověření": decision.activation_state.value,
+                "aplikováno": decision.applied_to_prediction,
+                "důvody": "; ".join(decision.reasons),
+                "konflikty": "; ".join(decision.conflicts),
+            }
+            for decision in decision_execution.result.decisions
+        ]
+        if decision_rows:
+            st.dataframe(pd.DataFrame(decision_rows), width="stretch", hide_index=True)
+        if (
+            evaluation_execution is not None
+            and evaluation_execution.result.policy_evaluations
+        ):
+            evaluation = evaluation_execution.result.policy_evaluations[0]
+            activation = evaluation_execution.result.activation_decisions[0]
+            st.caption(
+                f"Brána: {activation.state.value}; vzorky {evaluation.sample_count}; "
+                f"týdny {evaluation.distinct_weeks}; lift "
+                f"{evaluation.lift_pct_points:.2f} p. b.; dolní 95% mez "
+                f"{evaluation.lift_lower_bound_pct_points:.2f} p. b.; "
+                f"coverage {evaluation.coverage_pct:.2f} %."
+            )
+            st.dataframe(
+                pd.DataFrame(
+                    [
+                        {"kontrola": name, "splněna": passed}
+                        for name, passed in evaluation.gate_results.items()
+                    ]
+                ),
+                width="stretch",
+                hide_index=True,
+            )
+
+
+st.set_page_config(page_title="Market Checker", layout="wide")
+st.title("Market Checker")
+
+for key, default in {
+    "watchlist": [],
+    "watchlist_text": "",
+    "excel_watchlist": [],
+    "last_result": None,
+    "analysis_progress": None,
+    "mt5_loaded_count": None,
+}.items():
+    if key not in st.session_state:
+        st.session_state[key] = default
+
+agent_runtime_service = AgentRuntimeService()
+agent_runtime_settings, agent_runtime_warning = agent_runtime_service.load()
+if agent_runtime_warning:
+    st.warning(agent_runtime_warning)
+sec_user_agent = os.getenv("JOHNY_SKORE_SEC_USER_AGENT", "").strip()
+sec_contact_available = bool(sec_user_agent and "@" in sec_user_agent)
+
+with st.sidebar:
+    output_dir = Path(st.text_input("Output directory", str(DEFAULT_OUTPUT_DIR)))
+    marketcap_file = st.text_input("MarketCap file", "")
+    export_excel = st.checkbox("Export do Excelu", value=True)
+    compare_prev = st.checkbox("Porovnat s předchozím během", value=True)
+    save_history = st.checkbox("Ukládat historii do SQLite", value=True)
+    sqlite_raw_input = st.text_input("DB soubor", str(DEFAULT_DB_PATH))
+    captured_market_enabled = st.checkbox("Použít vybrané původní cenové archivy", value=False,
+        help="Ceny se v tomto režimu nestahují. Akcie a benchmarky vyžadují úplné a aktuální původní OHLCV řady.")
+    captured_market_manifest_value = st.text_input("Manifest cenových archivů", value="",
+        disabled=not captured_market_enabled)
+    captured_market_root_value = st.text_input("Složka původních cenových archivů", value="",
+        disabled=not captured_market_enabled)
+    prospective_history_enabled = st.checkbox(
+        "Zachovávat nové předpovědi pro historické ověření", value=False,
+        disabled=not save_history,
+        help="Zachová již uloženou předpověď před první navazující seancí a její původní doklady.",
+    )
+    prospective_audit_archive_value = st.text_input(
+        "Složka vybraných důkazů předpovědí", value="",
+        disabled=not (save_history and prospective_history_enabled),
+        help="Předem určené původní zdrojové archivy a pozdější doložené výsledky. Chybějící historie se nedoplňuje zpětně.",
+    )
+    max_rss = st.number_input("Max RSS items per source", min_value=1, max_value=200, value=30)
+    use_rss = st.checkbox("Použít RSS zprávy", value=True)
+    identity_records_text = st.text_area(
+        "Identity: TICKER | právní název | CIK/- | ISIN/- | LEI/- | MIC/- | země/- | burza/- | zdroj | HTTPS URL",
+        value=agent_runtime_settings.identity_records_text,
+        height=110,
+        placeholder=(
+            "ADYEN | Adyen N.V. | - | NL0012969182 | LEI... | XAMS | NL | "
+            "Euronext | GLEIF/Euronext | https://example.com/identity"
+        ),
+        help=(
+            "Přesná identita pro evropské, regulační a další identity-dependent "
+            "zdroje. Název firmy se nikdy nepoužije k fuzzy přiřazení."
+        ),
+    )
+    use_sec_fundamentals = st.checkbox(
+        "Načíst SEC výkazy (Etapa 2)",
+        value=(agent_runtime_settings.sec_fundamentals_enabled and sec_contact_available),
+        disabled=not sec_contact_available,
+        help=(
+            "Načte oficiální 10-K, 10-Q, 8-K a vybraná XBRL fakta. "
+            "V Etapě 2 data ještě nemění predikci."
+        ),
+    )
+    if not sec_contact_available:
+        st.caption(
+            "SEC vrstva je pro tento běh vypnutá. Kontaktní identita se nastavuje "
+            "jednou v prostředí aplikace; do formuláře se e-mail nezadává."
+        )
+    st.caption(
+        "Tržní režim: USA / oficiální universe 687 akcií. Firemní výkazy a "
+        "regulatorní dokumenty se načítají přes SEC; evropská filing vrstva "
+        "je v tomto provozním režimu vypnutá."
+    )
+    use_financial_forensics = st.checkbox(
+        "Spustit finanční forenzní screening (Etapa 2)",
+        value=agent_runtime_settings.financial_forensics_enabled,
+        disabled=not use_sec_fundamentals,
+        help=(
+            "Vyhodnotí kvalitu cash flow, zadlužení, likviditu, akruály, "
+            "odchylky pracovního kapitálu a možné restatementy. Jde o auditní "
+            "screening; nemění predikci a netvrdí, že došlo k podvodu."
+        ),
+    )
+    use_short_reports = st.checkbox(
+        "Načíst short reporty (Etapa 2)",
+        value=agent_runtime_settings.short_reports_enabled,
+        help=(
+            "Načte ručně uvedené veřejné reporty. Samotná existence reportu "
+            "nevytváří SELL, veto ani závěr o pravdivosti jeho tvrzení."
+        ),
+    )
+    short_report_sources_text = st.text_area(
+        "Short reporty: TICKER | vydavatel | datum | HTTPS URL",
+        value=agent_runtime_settings.short_report_sources_text,
+        height=110,
+        disabled=not use_short_reports,
+        placeholder=(
+            "AAPL | Example Research | 2026-08-19 | "
+            "https://example.com/report.pdf"
+        ),
+        help="Jeden report na řádek. Datum je datum zveřejnění, nikoli datum stažení.",
+    )
+    auto_discover_short_reports = st.checkbox(
+        "Automaticky hledat short reporty v RSS",
+        value=agent_runtime_settings.auto_discover_short_reports,
+        help=(
+            "Použije pouze explicitní označení reportu a známé short analytické "
+            "firmy. Nález zůstává UNVERIFIED a sám nemění BUY/SELL."
+        ),
+    )
+    verify_short_report_claims = st.checkbox(
+        "Ověřit tvrzení reportů proti SEC datům",
+        value=agent_runtime_settings.verify_short_report_claims,
+        disabled=not (
+            (use_short_reports or auto_discover_short_reports)
+            and use_sec_fundamentals
+            and use_financial_forensics
+        ),
+        help=(
+            "Porovná úzká finanční tvrzení s dohledatelnými SEC dokumenty. "
+            "Výsledek zůstává mimo predikční score."
+        ),
+    )
+    use_supply_chain = st.checkbox(
+        "Načíst vztahy dodavatelů a odběratelů (Etapa 3)",
+        value=agent_runtime_settings.supply_chain_enabled,
+        help=(
+            "Uloží ručně zadané vztahy s veřejným HTTPS zdrojem. "
+            "Povolené typy: SUPPLIER, CUSTOMER, CONTRACT_MANUFACTURER, "
+            "LOGISTICS, PARTNER. SEC 10-K discovery se ovládá zvlášť. "
+            "Záznamy nemění predikci."
+        ),
+    )
+    auto_discover_supply_chain_from_sec = st.checkbox(
+        "Automaticky hledat koncentrace dodavatelů a zákazníků v SEC 10-K",
+        value=agent_runtime_settings.auto_discover_supply_chain_from_sec,
+        disabled=not use_sec_fundamentals,
+        help=(
+            "Hledá pouze explicitní koncentrace a závislosti v bezpečně "
+            "načteném 10-K. Nález má nízkou důvěru a nemění BUY/SELL."
+        ),
+    )
+    supply_chain_sources_text = st.text_area(
+        "Síť firem: 7 základních polí nebo 14 polí s identitou a citací",
+        key="supply_chain_manifest",
+        value=agent_runtime_settings.supply_chain_sources_text,
+        height=100,
+        disabled=not use_supply_chain,
+        placeholder=(
+            "AAPL | Example Components | SUPPLIER | 18 | Company 10-K | "
+            "2026-08-19 | https://example.com/source | IDENTIFIED | battery cells | "
+            "JP | FY2025 | CONCENTRATION | EXPLICIT_FILING | Exact supporting sentence"
+        ),
+    )
+    counterparty_health_sources_text = st.text_area(
+        "Zdraví protistran: identita | PUBLIC/PRIVATE/UNKNOWN | ticker/- | stav dokumentu | vydavatel | datum | HTTPS URL | rozsah",
+        value=agent_runtime_settings.counterparty_health_sources_text,
+        height=95,
+        help=(
+            "Jen explicitně identifikovaná veřejná firma se spojí s uloženým SEC snapshotem. "
+            "Případy PRIVATE/UNKNOWN končí omezeným posouzením bez ratingu a nic nemění v predikci."
+        ),
+        placeholder=(
+            "Example Components | PUBLIC | EXMP | PUBLIC_FILING_AVAILABLE | SEC EDGAR | "
+            "2026-08-19 | https://www.sec.gov/Archives/example | annual filing"
+        ),
+    )
+    use_commodity_energy = st.checkbox(
+        "Načíst expozice na materiály a energie (Etapa 3)",
+        value=agent_runtime_settings.commodity_energy_enabled,
+        help=(
+            "Povolené typy: MATERIAL_INPUT, COMMODITY_OUTPUT, ELECTRICITY, FUEL. "
+            "Datovaná cenová řada a margin scénář jsou pouze evidence/sensitivity, nikdy směrové score."
+        ),
+    )
+    auto_discover_commodity_energy_from_sec = st.checkbox(
+        "Automaticky hledat materiály a energie v SEC 10-K",
+        value=agent_runtime_settings.auto_discover_commodity_energy_from_sec,
+        disabled=not use_sec_fundamentals,
+        help=(
+            "Zaznamená pouze výslovně uvedené vstupy, ceny, dostupnost nebo "
+            "závislost. Nález zůstává auditní a bez směrového score."
+        ),
+    )
+    commodity_energy_sources_text = st.text_area(
+        "Materiály/energie: 7 základních polí nebo 19 polí s cenovým bodem a scénářem",
+        key="commodity_energy_manifest",
+        value=agent_runtime_settings.commodity_energy_sources_text,
+        height=100,
+        disabled=not use_commodity_energy,
+        placeholder=(
+            "AAPL | aluminium | MATERIAL_INPUT | - | Company report | "
+            "2026-08-19 | https://example.com/source | 20 | 30 | 20 | 25 | 15 | USD/mt | USD | "
+            "2026-08-18 | 2026-08-19 | 2400 | FY2025 | Exact supporting sentence"
+        ),
+    )
+    macro_observations_text = st.text_area(
+        "Makro vintage: indicator | scope | reference period | value | unit | observed_at | available_at | vintage_at | HTTPS URL",
+        value=agent_runtime_settings.macro_observations_text,
+        height=90,
+        help="Povolené: VIX, US10Y, T10Y2Y, DXY, WTI, CPI_YOY, INDPRO_YOY, SECTOR_RELATIVE_20D. Pouze evidence pro shadow report.",
+    )
+    use_regulatory_contract = st.checkbox(
+        "Načíst regulační a kontraktní události (Etapa 3)",
+        value=agent_runtime_settings.regulatory_contract_enabled,
+        help=(
+            "Povolené typy zahrnují CONTRACT_AWARD, CONTRACT_LOSS, "
+            "REGULATORY_APPROVAL, INVESTIGATION, SANCTION, LICENSE_CHANGE, GRANT, "
+            "výsledky, guidance, buyback, dividendy, M&A, financování a změny vedení. "
+            "Událost sama nevytváří BUY, SELL ani veto."
+        ),
+    )
+    regulatory_contract_sources_text = st.text_area(
+        "Regulace/kontrakty: TICKER | typ | stav | název | protistrana/úřad | hodnota/- | měna/- | vydavatel | datum | HTTPS URL",
+        value=agent_runtime_settings.regulatory_contract_sources_text,
+        height=110,
+        disabled=not use_regulatory_contract,
+        placeholder=(
+            "AAPL | CONTRACT_AWARD | ANNOUNCED | Example award | Agency | "
+            "1000000 | USD | Agency | 2026-08-19 | https://example.gov/award | "
+            "regulatory_filing | Agency | AAPL:AGENCY:AWARD:2026"
+        ),
+        help=(
+            "Starý desetisloupcový formát zůstává kompatibilní, ale je bezpečně "
+            "považovaný jen za media_article. Primární prioritu je nutné uvést "
+            "explicitním source type a propojit přes identity manifest. Volitelné "
+            "sloupce 11–13 jsou source type | source authority/- | canonical key/-."
+        ),
+    )
+    auto_discover_regulatory_events = st.checkbox(
+        "Automaticky hledat regulační a kontraktní události v RSS",
+        value=agent_runtime_settings.auto_discover_regulatory_events,
+        help=(
+            "Nálezy jsou označené jako neověřené a mají nízkou důvěru 0,45, "
+            "takže samy nemohou aktivovat risk overlay."
+        ),
+    )
+    use_stage4_shadow = st.checkbox(
+        "Spustit DecisionAgent a OOS evaluaci (Etapa 4, shadow)",
+        value=agent_runtime_settings.stage4_shadow_enabled,
+        help=(
+            "Vytvoří auditní návrhy a vyhodnotí jejich skutečný OOS přínos. "
+            "Tento přepínač nikdy nemění BUY/SELL; live aplikace není v UI povolena."
+        ),
+    )
+    save_agent_settings = st.button("Uložit nastavení agentů")
+    st.caption(f"Agentní nastavení: `{agent_runtime_service.path}`")
+    use_mt5 = st.checkbox("Použít MT5 pro watchlist a technická data", value=False)
+    load_watchlist = st.button("Načíst watchlist z MT5", disabled=not use_mt5)
+    st.metric("Tickery načtené z MT5", st.session_state.mt5_loaded_count if st.session_state.mt5_loaded_count is not None else 0)
+    yahoo_batch_size = st.number_input(
+        "Yahoo tickerů v jedné automatické dávce",
+        min_value=1,
+        max_value=1000,
+        value=100,
+        help=(
+            "Jedno kliknutí automaticky spustí další dávky, dokud nejsou zpracované všechny "
+            "aktuálně dostupné tickery nebo Yahoo nezapne ochranný rate limit."
+        ),
+    )
+    yahoo_delay_ms = st.number_input(
+        "Pauza mezi Yahoo požadavky (ms)",
+        min_value=0,
+        max_value=5000,
+        value=750,
+        step=250,
+    )
+    refresh_yahoo = st.button("Doplnit Yahoo cache", disabled=captured_market_enabled)
+    run_analysis = st.button("Spustit analýzu", type="primary")
+
+sqlite_path, sqlite_info = _resolve_sqlite_path(sqlite_raw_input)
+identity_records, identity_record_errors = parse_identity_records(
+    identity_records_text
+)
+short_report_sources, short_report_source_errors = parse_short_report_sources(
+    short_report_sources_text
+)
+supply_chain_sources, supply_chain_source_errors = parse_supply_chain_sources(
+    supply_chain_sources_text
+)
+commodity_energy_sources, commodity_energy_source_errors = (
+    parse_commodity_energy_sources(commodity_energy_sources_text)
+)
+regulatory_contract_sources, regulatory_contract_source_errors = (
+    parse_regulatory_contract_sources(regulatory_contract_sources_text)
+)
+from market_checker_app.services.macro_regime_service import parse_macro_observations
+from market_checker_app.services.counterparty_health_service import parse_counterparty_health_sources
+
+macro_observations, macro_errors = parse_macro_observations(macro_observations_text)
+counterparty_health_sources, counterparty_errors = parse_counterparty_health_sources(counterparty_health_sources_text)
+company_intelligence_manifest_errors = (
+    identity_record_errors
+    + macro_errors
+    + counterparty_errors
+    + (
+        regulatory_contract_source_errors
+        if use_regulatory_contract or regulatory_contract_sources_text.strip()
+        else []
+    )
+)
+identity_required_tickers: set[str] = set()
+identity_required_tickers.update(
+    str(source.ticker).strip().upper()
+    for source in regulatory_contract_sources
+    if str(source.ticker).strip()
+    and str(source.source_type).strip().lower() != "media_article"
+)
+missing_runtime_identities = sorted(
+    ticker for ticker in identity_required_tickers if ticker not in identity_records
+)
+if missing_runtime_identities:
+    company_intelligence_manifest_errors.append(
+        "Identity manifest neobsahuje přesnou identitu pro: "
+        + ", ".join(missing_runtime_identities)
+    )
+
+config = AppConfig(
+    output_dir=output_dir,
+    marketcap_file=marketcap_file,
+    export_excel=export_excel,
+    compare_previous_run=compare_prev,
+    save_history=save_history,
+    sqlite_path=sqlite_path,
+    captured_market_manifest=(Path(captured_market_manifest_value.strip()) if captured_market_enabled else None),
+    captured_market_archive_root=(Path(captured_market_root_value.strip()) if captured_market_enabled else None),
+    prospective_history_enabled=bool(save_history and prospective_history_enabled),
+    prospective_audit_archive_root=(Path(prospective_audit_archive_value.strip())
+        if save_history and prospective_history_enabled and prospective_audit_archive_value.strip() else None),
+    max_rss_items_per_source=int(max_rss),
+    entity_registry=EntityRegistryConfig(identity_records=identity_records),
+    fundamental_ingestion=FundamentalIngestionConfig(
+        enabled=use_sec_fundamentals,
+        user_agent=sec_user_agent,
+    ),
+    european_filings=EuropeanFilingConfig(
+        enabled=False,
+        sources=(),
+        feeds=(),
+        allowed_local_exchange_hosts=(),
+    ),
+    financial_forensics=FinancialForensicsConfig(
+        enabled=use_sec_fundamentals and use_financial_forensics,
+    ),
+    short_reports=ShortReportConfig(
+        enabled=use_short_reports,
+        sources=short_report_sources,
+        auto_discover_from_news=auto_discover_short_reports,
+    ),
+    claim_verification=ClaimVerificationConfig(
+        enabled=(
+            (use_short_reports or auto_discover_short_reports)
+            and use_sec_fundamentals
+            and use_financial_forensics
+            and verify_short_report_claims
+        ),
+    ),
+    supply_chain=SupplyChainConfig(
+        enabled=(
+            use_supply_chain
+            or (
+                use_sec_fundamentals
+                and auto_discover_supply_chain_from_sec
+            )
+        ),
+        sources=supply_chain_sources,
+        auto_discover_from_sec_filings=auto_discover_supply_chain_from_sec,
+        source_verification=Stage3SourceVerificationConfig(
+            enabled=(
+                use_supply_chain
+                or (
+                    use_sec_fundamentals
+                    and auto_discover_supply_chain_from_sec
+                )
+            ),
+        ),
+    ),
+    commodity_energy=CommodityEnergyConfig(
+        enabled=(
+            use_commodity_energy
+            or (
+                use_sec_fundamentals
+                and auto_discover_commodity_energy_from_sec
+            )
+        ),
+        sources=commodity_energy_sources,
+        auto_discover_from_sec_filings=auto_discover_commodity_energy_from_sec,
+        source_verification=Stage3SourceVerificationConfig(
+            enabled=(
+                use_commodity_energy
+                or (
+                    use_sec_fundamentals
+                    and auto_discover_commodity_energy_from_sec
+                )
+            ),
+        ),
+    ),
+    regulatory_contract=RegulatoryContractConfig(
+        enabled=use_regulatory_contract,
+        sources=regulatory_contract_sources,
+        auto_discover_from_news=auto_discover_regulatory_events,
+        source_verification=Stage3SourceVerificationConfig(
+            enabled=(
+                use_regulatory_contract or auto_discover_regulatory_events
+            ),
+        ),
+    ),
+    decision_agent=DecisionAgentConfig(
+        enabled=use_stage4_shadow,
+    ),
+    evaluation_agent=EvaluationAgentConfig(
+        enabled=use_stage4_shadow,
+    ),
+)
+config.ensure_output_dir()
+
+if run_analysis or save_agent_settings:
+    safe_identity_records_text = quarantine_invalid_manifest_lines(
+        identity_records_text, identity_record_errors
+    )
+    safe_short_report_sources_text = quarantine_invalid_manifest_lines(
+        short_report_sources_text, short_report_source_errors
+    )
+    safe_supply_chain_sources_text = quarantine_invalid_manifest_lines(
+        supply_chain_sources_text, supply_chain_source_errors
+    )
+    safe_counterparty_health_sources_text = quarantine_invalid_manifest_lines(
+        counterparty_health_sources_text, counterparty_errors
+    )
+    safe_commodity_energy_sources_text = quarantine_invalid_manifest_lines(
+        commodity_energy_sources_text, commodity_energy_source_errors
+    )
+    safe_macro_observations_text = quarantine_invalid_manifest_lines(
+        macro_observations_text, macro_errors
+    )
+    safe_regulatory_contract_sources_text = quarantine_invalid_manifest_lines(
+        regulatory_contract_sources_text, regulatory_contract_source_errors
+    )
+    try:
+        agent_runtime_service.save(
+            AgentRuntimeSettings(
+                stage4_shadow_enabled=use_stage4_shadow,
+                identity_records_text=safe_identity_records_text,
+                sec_fundamentals_enabled=use_sec_fundamentals,
+                european_filings_enabled=False,
+                european_filing_sources_text="",
+                european_filing_feeds_text="",
+                european_allowed_hosts_text="",
+                financial_forensics_enabled=use_financial_forensics,
+                short_reports_enabled=use_short_reports,
+                auto_discover_short_reports=auto_discover_short_reports,
+                verify_short_report_claims=verify_short_report_claims,
+                short_report_sources_text=safe_short_report_sources_text,
+                supply_chain_enabled=use_supply_chain,
+                auto_discover_supply_chain_from_sec=(
+                    auto_discover_supply_chain_from_sec
+                ),
+                supply_chain_sources_text=safe_supply_chain_sources_text,
+                counterparty_health_sources_text=safe_counterparty_health_sources_text,
+                commodity_energy_enabled=use_commodity_energy,
+                auto_discover_commodity_energy_from_sec=(
+                    auto_discover_commodity_energy_from_sec
+                ),
+                commodity_energy_sources_text=safe_commodity_energy_sources_text,
+                macro_observations_text=safe_macro_observations_text,
+                regulatory_contract_enabled=use_regulatory_contract,
+                auto_discover_regulatory_events=auto_discover_regulatory_events,
+                regulatory_contract_sources_text=safe_regulatory_contract_sources_text,
+            )
+        )
+        if save_agent_settings and not run_analysis:
+            st.sidebar.success("Nastavení agentů bylo uloženo.")
+    except OSError as exc:
+        st.warning(f"Agentní nastavení se nepodařilo uložit: {exc}")
+
+store = SQLiteStore(config.sqlite_path)
+yahoo_cache = None if captured_market_enabled else YahooCacheStore(config.sqlite_path)
+
+if sqlite_info:
+    st.warning(sqlite_info)
+st.caption(f"Aktivní DB: `{config.sqlite_path}`")
+_render_latest_shadow_result(output_dir)
+_render_latest_live_source_smoke(output_dir)
+for short_report_error in short_report_source_errors:
+    st.warning(short_report_error)
+for company_intelligence_manifest_error in company_intelligence_manifest_errors:
+    st.warning(
+        f"{company_intelligence_manifest_error} Neplatný ruční záznam je "
+        "bezpečně vyřazen; hlavní analýza může pokračovat."
+    )
+if use_short_reports and not short_report_sources and not auto_discover_short_reports:
+    st.warning(
+        "ShortReportAgent je zapnutý, ale nemá žádný platný řádek se zdrojem; "
+        "běh tuto volitelnou vrstvu auditovatelně označí jako nedostupnou."
+    )
+for stage3_source_error in (
+    supply_chain_source_errors
+    + commodity_energy_source_errors
+):
+    st.warning(stage3_source_error)
+for enabled, sources, agent_name, automatic_discovery in (
+    (
+        use_supply_chain,
+        supply_chain_sources,
+        "SupplyChainAgent",
+        use_sec_fundamentals and auto_discover_supply_chain_from_sec,
+    ),
+    (
+        use_commodity_energy,
+        commodity_energy_sources,
+        "CommodityEnergyAgent",
+        use_sec_fundamentals and auto_discover_commodity_energy_from_sec,
+    ),
+    (
+        use_regulatory_contract,
+        regulatory_contract_sources,
+        "RegulatoryContractAgent",
+        auto_discover_regulatory_events,
+    ),
+):
+    if enabled and not sources and not automatic_discovery:
+        st.warning(
+            f"{agent_name} je zapnutý, ale nemá žádný platný zdrojový řádek; "
+            "běh jej auditovatelně označí jako nedostupný."
+        )
+if not use_rss and (
+    auto_discover_short_reports or auto_discover_regulatory_events
+):
+    st.warning(
+        "Automatické objevování agentních zdrojů je zapnuté, ale RSS je pro tento "
+        "běh vypnuté; použijí se pouze ruční manifesty."
+    )
+
+if load_watchlist:
+    loaded_watchlist, mt5_error = MT5Client().load_watchlist()
+    if mt5_error:
+        st.error(mt5_error)
+        st.session_state.mt5_loaded_count = 0
+    else:
+        st.session_state.watchlist = loaded_watchlist
+        st.session_state.watchlist_text = "\n".join(loaded_watchlist)
+        st.session_state.mt5_loaded_count = len(loaded_watchlist)
+        st.success(f"Z MT5 načteno {len(loaded_watchlist)} tickerů.")
+
+uploaded_excel = st.file_uploader("Excel s Yahoo tickery (XLSX)", type=["xlsx"])
+if uploaded_excel is not None:
+    excel_watchlist, excel_err = _load_yahoo_tickers_from_excel(uploaded_excel)
+    if excel_err:
+        st.error(excel_err)
+        st.session_state.excel_watchlist = []
+    else:
+        st.session_state.excel_watchlist = excel_watchlist
+        st.success(f"Načteno z Excelu: {len(excel_watchlist)} Yahoo tickerů")
+else:
+    st.session_state.excel_watchlist = []
+
+watchlist_text = st.text_area("Ruční watchlist (jeden ticker na řádek)", height=130, key="watchlist_text")
+mt5_watchlist = MT5Client.sanitize_watchlist(watchlist_text.splitlines())
+excel_watchlist = MT5Client.sanitize_watchlist(st.session_state.excel_watchlist)
+excel_mode = len(excel_watchlist) > 0
+
+canonical_watchlist: list[str] = []
+canonical_universe_error: str | None = None
+try:
+    canonical_watchlist = load_canonical_tickers()
+except (OSError, ValueError) as exc:
+    canonical_universe_error = f"Oficiální 687tickerový universe se nepodařilo načíst: {exc}"
+
+if canonical_universe_error:
+    st.error(canonical_universe_error)
+
+scope_excluded_tickers: list[str] = []
+if excel_mode:
+    watchlist, scope_excluded_tickers = restrict_to_universe(
+        excel_watchlist, canonical_watchlist
+    )
+    yahoo_only_tickers = set(watchlist) if not use_mt5 else set()
+    active_sources = ["Yahoo"]
+    if use_rss:
+        active_sources.append("RSS")
+    if use_mt5:
+        active_sources.append("MT5 technika")
+    st.info(
+        f"Excel podvýběr amerického universe je aktivní. Zdroje: "
+        f"{', '.join(active_sources)}."
+    )
+elif mt5_watchlist:
+    watchlist, scope_excluded_tickers = restrict_to_universe(
+        mt5_watchlist, canonical_watchlist
+    )
+    yahoo_only_tickers = set()
+else:
+    watchlist = canonical_watchlist
+    yahoo_only_tickers = set(canonical_watchlist) if not use_mt5 else set()
+    if watchlist:
+        st.info(
+            "Používám oficiální americký universe 687 tickerů. Excel nebo "
+            "ruční watchlist může zvolit pouze podvýběr z těchto akcií."
+        )
+
+if scope_excluded_tickers:
+    preview = ", ".join(scope_excluded_tickers[:20])
+    suffix = " …" if len(scope_excluded_tickers) > 20 else ""
+    st.warning(
+        f"Mimo americký universe 687 bylo vyřazeno "
+        f"{len(scope_excluded_tickers)} tickerů: {preview}{suffix}. "
+        "Nebudou analyzovány ani předány agentům."
+    )
+
+if st.session_state.mt5_loaded_count is not None:
+    st.info(f"Načteno z MT5: {st.session_state.mt5_loaded_count} tickerů")
+else:
+    st.info("Načteno z MT5: 0 tickerů")
+
+st.write(
+    f"**Aktuálně ve watchlistu:** {len(watchlist)} tickerů "
+    f"(US-687 scope; Yahoo-only: {len(yahoo_only_tickers)})"
+)
+
+scout_store = ScoutStore(config.sqlite_path)
+with st.expander("Co je hotové a co zbývá — specialisté", expanded=False):
+    specialist_inventory = load_specialist_status()
+    st.caption(
+        f"Stav k {specialist_inventory['as_of']}. 'Kód' popisuje implementaci, "
+        "'Živě' skutečný provozní důkaz. PILOT ani PARTIAL nejsou dokončený specialista."
+    )
+    st.dataframe(pd.DataFrame([
+        {"Specialista": row["name"], "Výzkum": row["research"],
+         "Kód": row["code"], "Živě": row["live"], "Co zbývá": row["next"]}
+        for row in specialist_inventory["specialists"]
+    ]), hide_index=True)
+    st.caption(specialist_inventory["completion_rule"])
+    diagnostic = build_specialist_acceptance_report(scout_store)
+    diagnostic_name = "specialist_acceptance_" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + ".json"
+    st.download_button("Stáhnout provozní přehled specialistů",
+                       data=json.dumps(diagnostic, ensure_ascii=False, indent=2),
+                       file_name=diagnostic_name, mime="application/json")
+    st.caption("Přehled obsahuje skutečné uložené běhy, pokrytí a mezery tohoto počítače. "
+               "Samotné stažení přehledu nepotvrzuje dokončení ani koncový Windows test.")
+    healthcare_report = diagnostic["healthcare_identity_coverage"]
+    st.write("**Zdravotnictví — identity a skutečný rozsah kontrol**")
+    st.dataframe(pd.DataFrame([
+        {"Zdroj": source.upper(), "Kandidáti podle oboru": row["applicable_profile_subjects"],
+         "Firmy s doloženými objekty": row["documented_issuer_object_subjects"],
+         "Firmy s odpovídající SEC identitou": row["mapped_subjects"],
+         "Dotázané firmy": row["queried_issuers"],
+         "Úplné kontroly rozsahu dotazu": row["current_complete_source_checks"],
+         "Částečné kontroly": row["current_partial_source_checks"],
+         "Neověřené vazby": row["unresolved_subjects"]}
+        for source, row in healthcare_report["sources"].items()
+    ]), hide_index=True)
+    st.caption("Oborový výběr označuje kandidáty k prověření. Doložená aplikace, studie nebo nemocnice "
+               "nepotvrzuje úplnou skupinu firmy; prázdný dotaz nepotvrzuje nepřítomnost událostí.")
+    st.download_button("Stáhnout pokrytí zdravotnických identit",
+                       data=json.dumps(healthcare_report, ensure_ascii=False, indent=2, allow_nan=False),
+                       file_name="healthcare_identity_coverage.json", mime="application/json")
+    st.write("**Archiv pozorování jednotlivých zdrojů**")
+    st.caption("Archiv zachová události a rozsah kontrol známé nyní pro všech 687 tickerů. "
+               "Chybějící minulou historii ani úplnost dřívějších kontrol z dnešního stavu nedoplní.")
+    if st.button("Uložit archiv jednotlivých zdrojů"):
+        try:
+            with st.spinner("Ukládám zdrojová pozorování a jejich časové údaje…"):
+                source_archive = build_specialist_source_archive(
+                    scout_store, as_of=datetime.now(timezone.utc))
+                archive_path = export_specialist_source_archive(source_archive, config.output_dir / "specialist_source_archives")
+            st.session_state["specialist_source_archive"] = {
+                "db_path": str(config.sqlite_path.resolve()), "archive": source_archive,
+                "filename": archive_path.name,
+            }
+        except Exception as exc:
+            st.session_state.pop("specialist_source_archive", None)
+            st.error(f"Uložení zdrojového archivu selhalo: {type(exc).__name__}")
+    source_cached = st.session_state.get("specialist_source_archive")
+    if source_cached and source_cached["db_path"] == str(config.sqlite_path.resolve()):
+        source_archive = source_cached["archive"]
+        st.caption(f"Zachováno pozorování: {source_archive['input']['exported_observations']}; "
+                   f"kontrol: {source_archive['input']['exported_checks']}. "
+                   "Archiv slouží k dalšímu vyhodnocení; přijetí specialistů nepotvrzuje.")
+        st.download_button("Stáhnout archiv jednotlivých zdrojů",
+                           data=json.dumps(source_archive, ensure_ascii=False, indent=2, allow_nan=False),
+                           file_name=source_cached["filename"], mime="application/json")
+    st.write("**Historické vyhodnocení specialistů**")
+    st.caption("Vyhodnocení použije uložené snapshoty a výsledky známé k okamžiku spuštění. "
+               "Pro srovnání vyžaduje alespoň 200 trénovacích a 200 hodnoticích vzorků za 12 týdnů. "
+               "Výsledek ukazuje dostupnou historii a přínos skupin vlastností; aktivaci skórování nepotvrzuje.")
+    if st.button("Vyhodnotit uloženou historii specialistů"):
+        try:
+            with st.spinner("Vyhodnocuji archiv a časově oddělená srovnání…"):
+                archived_snapshots = read_archived_prediction_snapshots(config.sqlite_path)
+                history_report = build_specialist_evaluation_report(
+                    archived_snapshots, as_of=datetime.now(timezone.utc),
+                    label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
+                )
+            st.session_state["specialist_history_report"] = {
+                "db_path": str(config.sqlite_path.resolve()), "report": history_report,
+            }
+        except Exception as exc:
+            st.session_state.pop("specialist_history_report", None)
+            st.error(f"Vyhodnocení archivu selhalo: {type(exc).__name__}")
+    history_cached = st.session_state.get("specialist_history_report")
+    if history_cached and history_cached["db_path"] == str(config.sqlite_path.resolve()):
+        history_report = history_cached["report"]
+        history_input = history_report["input"]
+        st.caption(
+            f"Vyhodnoceno k {history_report['generated_at']}; "
+            f"archivovaných řádků {history_input['snapshot_rows']}, "
+            f"ověřených snapshotů {history_input['integrity_verified_rows']}, "
+            f"známých vyřešených výsledků {history_input['resolved_labels_known_at_cutoff']}."
+        )
+        label_audit = history_report.get("label_availability", {})
+        if label_audit:
+            st.caption(
+                f"Výsledků s doloženou dostupností cen: {label_audit.get('eligible_recorded_label_count', 0)}. "
+                "Výsledek vstoupí do historického srovnání až od skutečného získání cen; "
+                "samotné datum uzavření burzy jejich dostupnost nedokládá."
+            )
+        if history_report["status"] == "INSUFFICIENT_DATA":
+            st.info("Archiv zatím neposkytuje dostatek odpovídající historie pro srovnání. "
+                    f"Důvod: {history_report['reason']}.")
+        else:
+            st.info("Dostupná historie umožnila průzkumné srovnání. "
+                    "Přijetí specialistů vyžaduje také jejich vlastní zdrojové a provozní důkazy.")
+        st.dataframe(pd.DataFrame([
+            {"Specialista": row["name"], "Stav historie": row["status"],
+             "Snapshoty s vlastnostmi": row["observed_feature_snapshot_count"],
+             "Se srovnatelnými tržními daty": row["matched_market_feature_snapshot_count"],
+             "Se známým výsledkem": row["eligible_labeled_snapshot_count"]}
+            for row in history_report["specialist_coverage"]
+        ]), hide_index=True)
+        st.dataframe(pd.DataFrame([
+            {"Srovnání": name, "Stav": row["status"],
+             "Hodnoticí vzorky": row.get("sample_count", 0),
+             "Týdny": row.get("distinct_weeks", 0)}
+            for name, row in history_report["comparisons"].items()
+        ]), hide_index=True)
+        st.download_button(
+            "Stáhnout historické vyhodnocení specialistů",
+            data=json.dumps(history_report, ensure_ascii=False, indent=2, allow_nan=False),
+            file_name="specialist_historical_evaluation.json", mime="application/json",
+        )
+
+    render_specialist_evidence_actions(st, source_root=PROJECT_ROOT,
+        db_path=config.sqlite_path, output_dir=config.output_dir)
+
+with st.expander("Pátrací agent SEC — nalezená podání", expanded=False):
+    research_profiles = load_research_profiles()
+    st.caption(
+        f"Výzkumné profily: {len(research_profiles.profiles)}; "
+        f"přiřazeno {sum(research_profiles.for_ticker(ticker) is not None for ticker in watchlist)} "
+        f"z {len(watchlist)} vybraných tickerů. "
+        "Profily jsou zatím informační, nemění skóre."
+    )
+    corrected_profiles = sorted(set(watchlist) & set(research_profiles.verified_overrides))
+    if corrected_profiles:
+        st.info(
+            "Výzkum nezařadil " + ", ".join(corrected_profiles) +
+            "; profil OIL_GAS byl ověřen podle oficiálního ONEOK a SEC 10-K. "
+            "Výzkumné P není součástí produkčních 687 tickerů."
+        )
+    if st.button("Prohledat celou čekající frontu SEC na pozadí"):
+        launch_status = start_sec_background_scan(
+            scout_store, db_path=config.sqlite_path, user_agent=sec_user_agent,
+        )
+        if launch_status == "WAIT_ACCESS":
+            st.warning("Chybí jednorázově nastavený SEC User-Agent s kontaktem.")
+        elif launch_status == "BUSY":
+            st.info("Pátrání SEC už běží na pozadí; druhý běh nespouštím.")
+        elif launch_status == "ERROR":
+            st.error("Proces SEC se nepodařilo spustit. Podrobnost je v uloženém stavu níže.")
+        else:
+            st.success("Pátrání SEC běží na pozadí a samo navazuje další dávky.")
+    st.button("Obnovit stav pátrání SEC")
+    worker = scout_store.background_worker_status("sec")
+    if worker:
+        st.info(
+            f"Běh SEC: {worker['status']}; zpracováno {worker['processed']} úloh, "
+            f"nových nálezů {worker['new_findings']}, chyb {worker['failed']}. "
+            f"Aktualizováno {worker['updated_at']}. {worker['message']}"
+        )
+    scout_counts = scout_store.metrics()
+    st.caption(
+        f"Fronta: {scout_counts}; dokončené indexové kontroly tickerů: "
+        f"{scout_store.completed_issuer_jobs()}/687. Jedna úloha může být index "
+        "nebo navazující dokument. Denní plánovač navazuje po přerušení."
+    )
+    last_runs = scout_store.latest_source_runs()
+    source_labels = {
+        "sec": "SEC podání", "fred": "FRED makro", "eia": "EIA komodity",
+        "usaspending": "USAspending zakázky", "recipient_discovery": "USAspending příjemci",
+        "usaspending_transactions": "USAspending transakce jedné zakázky",
+        "fda": "FDA svolání a dopisy CRL", "finra": "FINRA short interest",
+        "fdic": "FDIC banky", "sec13f": "SEC 13F instituce",
+        "nhtsa": "NHTSA modelová svolání",
+        "cms": "CMS vlastnictví nemocnic", "clinicaltrials": "ClinicalTrials studie",
+        "ofac": "OFAC SDN shody jmen",
+        "ofac_non_sdn": "OFAC Non-SDN shody jmen",
+        "doj": "DOJ tiskové zprávy",
+        "epa": "EPA ECHO zařízení",
+    }
+    st.write("**Poslední běh pátracích zdrojů**")
+    st.dataframe(pd.DataFrame([
+        {"Zdroj": label, "Stav": (run.get("status") if run else "JEŠTĚ NEBĚŽEL"),
+         "Kdy": run.get("observed_at", "") if run else "",
+         "Zkontrolováno": next((run[key] for key in
+                               ("checked_issuers", "checked_models", "checked_banks", "checked_uei", "checked_names", "checked_series", "processed")
+                               if key in run), "") if run else "",
+         "Nové nálezy / kandidáti": run.get("new_findings", run.get("new_candidates", "")) if run else "",
+         "Použitelné banky": run.get("usable_banks", "") if run else "",
+         "Transakční řádky": run.get("accepted_rows", "") if run else "",
+         "Odmítnuté řádky": run.get("rejected_rows", "") if run else "",
+         "Vyčerpán rozpočet": run.get("budget_exhausted", "") if run else "",
+         "Denní požadavky / limit": (
+             f"{run.get('daily_requests', run.get('daily_requests_used'))} / {run['daily_request_limit']}"
+             if run and ("daily_requests" in run or "daily_requests_used" in run)
+             and "daily_request_limit" in run else ""),
+         "Denní subjekty / limit": (
+             f"{run['daily_issuers']} / {run['daily_issuer_limit']}"
+             if run and "daily_issuers" in run and "daily_issuer_limit" in run else
+             f"{run['daily_series']} / {run['daily_series_limit']}"
+             if run and "daily_series" in run and "daily_series_limit" in run else ""),
+         "Další pokus od (UTC)": run.get("retry_at", "") if run else "",
+         "Úplné kontroly zakázek / příjemců": run.get("coverage_complete_uei", run.get("coverage_complete_names", "")) if run else "",
+         "Částečné kontroly zakázek / příjemců": run.get("coverage_partial_uei", run.get("coverage_partial_names", "")) if run else "",
+         "Důvod přerušení": run.get("stop_reason", "") if run else "",
+         "Historie běhu": ({"SAVED": "Uložena", "ERROR": "Chyba uložení",
+                            "NOT_SUPPORTED": "Bez archivace"}.get(run.get("source_archive_status"), "")
+                           if run else ""),
+         "Chyba historie": run.get("source_archive_error", "") if run else "",
+         "Chyba": run.get("error", "") if run else ""}
+        for source, label in source_labels.items()
+        for run in [last_runs.get(source)]
+    ]), hide_index=True)
+    st.caption("Denní plánovač opakuje omezené dávky; WAIT_ACCESS vyžaduje přístup ke zdroji, "
+               "WAIT_IDENTITY doložený vztah. WAIT_QUOTA počká na obnovení denního rozpočtu; "
+               "BUSY znamená, že zdroj právě zpracovává jiný běh. Požadavky se počítají i při chybě "
+               "a po restartu. Historie se uchovává po dokončení zdroje; chyba uložení je uvedena zvlášť. "
+               "Prázdný nález není důkazem, že firma události nemá.")
+    coverage_time = datetime.now(timezone.utc)
+    try:
+        healthcare_identities = HealthcareIdentityRegistry.load(Path(
+            os.getenv("JOHNY_SKORE_HEALTHCARE_IDENTITIES_FILE") or DEFAULT_HEALTHCARE_IDENTITIES))
+    except (OSError, ValueError, KeyError, TypeError):
+        healthcare_identities = None
+        st.warning("Soubor zdravotnických identit je neplatný nebo nedostupný. "
+                   "Pokrytí FDA, CMS a ClinicalTrials zatím nelze ověřit.")
+    coverage_profiles = load_research_profiles()
+    regulatory_identities, regulatory_manifest_status = configured_regulatory_identities()
+    if regulatory_manifest_status == "INVALID_IDENTITY_MANIFEST":
+        st.warning("Soubor vlastnictví regulatorních zařízení je neplatný nebo nedostupný. Pokrytí EPA nelze ověřit.")
+    coverage_subjects = {
+        "cms": {t for t, p in coverage_profiles.by_ticker.items() if p.code == "HEALTH_SERVICES"},
+        "clinicaltrials": {t for t, p in coverage_profiles.by_ticker.items() if p.code in {"PHARMA", "MEDTECH"}},
+        "epa": {t for t, p in coverage_profiles.by_ticker.items()
+                if p.code in {"CHEMICALS", "METALS", "INDUSTRIAL", "HOME", "PACKAGING"}},
+    }
+    st.write("**Kumulativní pokrytí dávkových specialistů**")
+    st.dataframe(pd.DataFrame([
+        {"Zdroj": source_labels[source], "Aktivní SEC identity": coverage["active_identities"],
+         "Interval (dny)": interval,
+         "Úplně zkontrolováno": coverage["current_complete"],
+         "Částečný výsledek": coverage["current_partial"],
+         "Čeká / zastaralo": coverage["not_current"],
+         "Někdy zkontrolováno": coverage["ever_checked"]}
+        for source, interval in (("fda", 30), ("finra", 15), ("cms", 30),
+                                 ("clinicaltrials", 30), ("ofac", 1), ("ofac_non_sdn", 1), ("doj", 30), ("epa", 30))
+        if source not in {"fda", "cms", "clinicaltrials"} or healthcare_identities is not None
+        if source != "epa" or regulatory_manifest_status != "INVALID_IDENTITY_MANIFEST"
+        for coverage in [scout_store.specialist_coverage(
+            source, as_of=coverage_time, refresh_days=interval,
+            subjects=coverage_subjects.get(source),
+            identity_versions=(healthcare_identities.identity_versions(scout_store, source, as_of=coverage_time)
+                               if source in {"fda", "cms", "clinicaltrials"} else
+                               regulatory_identities.identity_versions(scout_store, as_of=coverage_time) if source == "epa" else None))]
+    ]), hide_index=True)
+    st.caption("Jmenovatelem jsou jen již pozorované aktivní SEC identity, nikoli automaticky všech 687 tickerů. "
+               "Při limitu stránek jde o částečnou kontrolu; ta se zkusí znovu po dni. "
+               "CMS a ClinicalTrials počítají jen příslušné sektorové profily. "
+               "FDA/CMS/ClinicalTrials/EPA se obnovují po 30 dnech, FINRA po 15 dnech a OFAC po dni.")
+    scout_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=50, source="sec",
+    )
+    if scout_rows:
+        st.dataframe(pd.DataFrame(scout_rows), hide_index=True)
+    else:
+        st.info("Zatím není uložené žádné nalezené podání pro tento výběr.")
+    verified_contracts = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="usaspending", stage="prime_contract",
+    )
+    verified_contracts = [row for row in verified_contracts if row["verification_status"] == "SOURCE_VERIFIED"]
+    candidate_recipients = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="usaspending", stage="recipient_candidate",
+    )
+    if verified_contracts:
+        st.write("**USAspending – zakázky přes doložené UEI; částka a výdaje nejsou tržby**")
+        st.dataframe(pd.DataFrame(verified_contracts), hide_index=True)
+        st.caption("Rozdíly závazků a výdajů porovnávají uložené kumulativní hodnoty stejné zakázky. "
+                   "Samy nepotvrzují novou zakázku, jednotlivou transakci ani úplnou historii změn.")
+        target = st.selectbox(
+            "Zakázka pro historii transakcí", options=range(len(verified_contracts)),
+            format_func=lambda index: f"{verified_contracts[index]['subject_id']}: {verified_contracts[index]['title']}",
+        )
+        if st.button("Načíst transakce vybrané zakázky"):
+            from market_checker_app.scout_runner import run_award_transactions
+            selected = verified_contracts[target]
+            with st.spinner("Načítám omezenou historii jedné zakázky…"):
+                collected = run_award_transactions(
+                    db_path=config.sqlite_path, subject_id=str(selected["subject_id"]),
+                    award_finding_id=str(selected["finding_id"]),
+                )
+            st.info(f"Stav: {collected['status']}; použitelných transakcí: {collected.get('accepted_rows', 0)}; "
+                    f"nových uložených řádků: {collected.get('new_findings', 0)}; "
+                    f"nových zdrojových pozorování: {collected.get('new_source_observations', 0)}; "
+                    f"konfliktů času revize: {collected.get('modified_clock_conflicts', 0)}.")
+        selected = verified_contracts[target]
+        if selected.get("generated_internal_id"):
+            from market_checker_app.storage.award_transaction_store import AwardTransactionStore
+            transaction_audit = AwardTransactionStore(scout_store).observations_for_award(
+                subject_id=str(selected["subject_id"]), generated_award_id=str(selected["generated_internal_id"]),
+                as_of=datetime.now(timezone.utc), limit=100,
+            )
+            if transaction_audit["observations"]:
+                st.write("**Zachycené verze transakcí vybrané zakázky**")
+                st.dataframe(pd.DataFrame([
+                    {"Transakce": row["source_object_id"], "Hash řádku": row["source_row_sha256"],
+                     "Zachyceno u zdroje": row["response_completed_at"], "Dostupné": row["available_at"],
+                     "Poprvé uloženo": row["first_ingested_at"],
+                     "Čas revize": row["audit"]["modified_clock_audit"]["status"]}
+                    for row in transaction_audit["observations"]
+                ]), hide_index=True)
+                st.caption("Přehled ukazuje skutečné uložené verze a čas jejich získání. "
+                           "Pořadí zachycení samo nedokládá pořadí revizí vydavatele.")
+                if transaction_audit["truncated"]:
+                    st.caption("Zobrazeno prvních 100 pozorování vybrané zakázky.")
+                capture_times = {
+                    row["audit"]["capture_manifest"]: row["response_completed_at"]
+                    for row in transaction_audit["observations"]
+                    if row["audit"].get("capture_manifest")
+                }
+                capture_names = sorted(capture_times, key=lambda name: (capture_times[name], name))
+                st.caption("Porovnání zachycených průchodů ověří původní odpovědi i všechny vybrané stránky. "
+                           "Nepřítomnost v pozdější odpovědi sama nepotvrzuje smazání ani čas opravy vydavatele.")
+                baseline_names = st.multiselect(
+                    "Stránky dřívějšího průchodu", options=capture_names, max_selections=5,
+                    format_func=lambda name: f"{capture_times[name]} · {name}", key="award_audit_baseline",
+                )
+                current_names = st.multiselect(
+                    "Stránky pozdějšího průchodu", options=capture_names, max_selections=5,
+                    format_func=lambda name: f"{capture_times[name]} · {name}", key="award_audit_current",
+                )
+                if st.button("Porovnat zachycené průchody", disabled=not baseline_names or not current_names):
+                    from market_checker_app.scout_runner import run_award_capture_audit
+                    comparison = run_award_capture_audit(
+                        db_path=config.sqlite_path, subject_id=str(selected["subject_id"]),
+                        award_finding_id=str(selected["finding_id"]), baseline_manifest_names=baseline_names,
+                        current_manifest_names=current_names,
+                    )
+                    st.info(f"Stav: {comparison['status']}; uložení auditu: {comparison['audit_archive_status']}.")
+                    if comparison.get("counts"):
+                        st.dataframe(pd.DataFrame([comparison["counts"]]), hide_index=True)
+                    if comparison.get("events"):
+                        st.dataframe(pd.DataFrame(comparison["events"]), hide_index=True)
+                    if comparison.get("events_truncated"):
+                        st.caption("Audit uvádí jen omezený počet změn; úplnost událostí není doložená.")
+    transaction_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30,
+        source="usaspending", stage="award_transaction",
+    )
+    if transaction_rows:
+        st.write("**USAspending – transakce jednotlivých zakázek**")
+        st.dataframe(pd.DataFrame(transaction_rows), hide_index=True)
+        st.caption("Datum akce pochází ze zdroje; dostupnost odpovídá zachycení odpovědi. "
+                   "Závazek není tržba. Tyto řádky nedokládají všechny historické revize ani pokrytí celé firmy.")
+    if candidate_recipients:
+        st.write("**USAspending – možní příjemci podle názvu; vztah k emitentovi neověřen**")
+        st.dataframe(pd.DataFrame(candidate_recipients), hide_index=True)
+    fda_candidates = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="fda",
+    )
+    fda_recalls = [row for row in fda_candidates if row["stage"] == "recall_candidate"]
+    fda_letters = [row for row in fda_candidates if row["stage"] == "crl_candidate"]
+    if fda_recalls:
+        st.write("**FDA – shoda názvu svolávající firmy; vztah výrobku k akcii neověřen**")
+        st.dataframe(pd.DataFrame(fda_recalls), hide_index=True)
+    if fda_letters:
+        st.write("**FDA CRL – shoda názvu firmy; datum dopisu není datum veřejného vydání, vazba aplikace k akcii neověřena**")
+        st.dataframe(pd.DataFrame(fda_letters), hide_index=True)
+    finra_candidates = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="finra",
+    )
+    if finra_candidates:
+        st.write("**FINRA short interest – shoda symbolu; identita instrumentu neověřena**")
+        st.dataframe(pd.DataFrame(finra_candidates), hide_index=True)
+    fdic_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="fdic",
+    )
+    if fdic_rows:
+        st.write("**FDIC – výkazy doložené bankovní dcery; nejsou konsolidované údaje emitenta**")
+        st.dataframe(pd.DataFrame(fdic_rows), hide_index=True)
+    sec13f_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="sec13f",
+    )
+    if sec13f_rows:
+        st.write("**SEC 13F – vybrané největší řádky držeb; reportované období není čas zveřejnění a změna držby není obchod**")
+        st.dataframe(pd.DataFrame(sec13f_rows), hide_index=True)
+    nhtsa_rows = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="nhtsa",
+    )
+    if nhtsa_rows:
+        st.write("**NHTSA – kampaně doloženého modelu/roku; finanční dopad na emitenta není ověřen**")
+        st.dataframe(pd.DataFrame(nhtsa_rows), hide_index=True)
+    if st.button("Zobrazit uložené kontroly modelů NHTSA"):
+        from market_checker_app.services.nhtsa_negative_review_service import read_nhtsa_scope_reviews
+        scoped = read_nhtsa_scope_reviews(scout_store, as_of=datetime.now(timezone.utc), limit=8)
+        st.info(f"Stav archivu: {scoped['status']}; doložené živé negativní kontroly modelu/roku: "
+                f"{scoped['live_complete_negative_model_years']}.")
+        if scoped["reviews"]:
+            st.dataframe(pd.DataFrame([
+                {"Značka": row["scope"]["make"], "Model": row["scope"]["model"],
+                 "Rok": row["scope"]["model_year"], "Stav": row["status"],
+                 "HTTP": row.get("http_status"), "Dostupné": row["known_at"],
+                 "Úplná negativní kontrola": row["complete_negative"],
+                 "Živý negativní případ": row["live_complete_negative_verified"]}
+                for row in scoped["reviews"]
+            ]), hide_index=True)
+        st.caption("Kontrola se týká přesného modelu a roku. Prázdná HTTP400 odpověď zůstává částečná; "
+                   "tyto záznamy nedokládají úplnou kontrolu emitenta ani finanční dopad.")
+    for source, label in (("cms", "CMS vlastnictví nemocnic"),
+                          ("clinicaltrials", "ClinicalTrials studie"),
+                          ("ofac", "OFAC SDN"),
+                          ("ofac_non_sdn", "OFAC Non-SDN"),
+                          ("doj", "DOJ tiskové zprávy"),
+                          ("epa", "EPA ECHO zařízení")):
+        healthcare_rows = scout_store.latest_findings(
+            watchlist, as_of=datetime.now(timezone.utc), limit=30, source=source)
+        if healthcare_rows:
+            st.write(f"**{label} — kandidáti podle přesného jména**")
+            st.caption("Samotné jméno nepotvrzuje právní vazbu k akcii ani finanční dopad.")
+            if source == "clinicaltrials":
+                st.caption("Dnešní snapshot sponzora se posuzuje zvlášť od historického data studie. "
+                           "Vazba sponzora sama nepotvrzuje vlastnictví léčiva; porovnávací léčiva a placebo mají vlastní role.")
+            if source == "ofac":
+                st.caption("SDN hlavní a alternativní jména; pohled přes vlastnictví a slabé aliasy nejsou ověřené. "
+                           "Prázdný výsledek není potvrzení bez sankcí.")
+            if source == "ofac_non_sdn":
+                st.caption("Non-SDN seznamy mají různá omezení podle programu. "
+                           "Shoda jména sama neznamená blokaci majetku ani potvrzenou vazbu na akcii.")
+            if source == "doj":
+                st.caption("Hledání přesného názvu v titulcích DOJ. Nález nepotvrzuje právní odpovědnost firmy; "
+                           "prázdný výsledek nedokládá kontrolu všech řízení a firemních značek.")
+            if source == "epa":
+                st.caption("Přesná shoda názvu zařízení je pouze lead. Nedokládá vlastnictví zařízení, "
+                           "úplnost skupiny, ekologickou odpovědnost ani dopad na emitenta.")
+            st.dataframe(pd.DataFrame(healthcare_rows), hide_index=True)
+    energy_rows = scout_store.latest_findings(
+        ["COMMODITY:WTI", "COMMODITY:JET_FUEL_GULF"],
+        as_of=datetime.now(timezone.utc), limit=10, source="eia",
+    )
+    if energy_rows:
+        st.write("**EIA ceny energií – sdílené tržní proxy, ne nákupní ceny firem**")
+        st.dataframe(pd.DataFrame(energy_rows), hide_index=True)
+    macro_rows = scout_store.latest_findings(
+        ["MACRO:US"], as_of=datetime.now(timezone.utc), limit=10, source="fred",
+    )
+    if macro_rows:
+        st.write("**FRED makrodata – společný kontext, ne údaj jednotlivé firmy**")
+        st.dataframe(pd.DataFrame(macro_rows), hide_index=True)
+    rss_candidates = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30, source="rss", stage="search_candidate",
+    )
+    if rss_candidates:
+        st.write("**Neověřené stopy z RSS — ověřit emitenta a primární zdroj**")
+        st.dataframe(pd.DataFrame(rss_candidates), hide_index=True)
+        ir_target = st.selectbox(
+            "Stopa pro kontrolu primárního zdroje", options=range(len(rss_candidates)),
+            format_func=lambda index: f"{rss_candidates[index]['subject_id']}: {rss_candidates[index]['title']}",
+        )
+        ir_candidate = rss_candidates[ir_target]
+        with st.form("primary_ir_source_review"):
+            ir_feed_url = st.text_input("RSS kanál primárního vydavatele")
+            ir_authority_url = st.text_input("Stránka vydavatele odkazující na tento RSS kanál")
+            ir_publisher_hosts = st.text_input("Domény primárního vydavatele (oddělené čárkou)")
+            ir_submitted = st.form_submit_button("Načíst a zkontrolovat primární zdroj")
+        st.caption("Kontrola čerpá společnou denní kvótu a zachová původní odpovědi. "
+                   "Ověření zdroje samo nepotvrzuje vazbu na emitenta ani nepřidává body.")
+        if ir_submitted:
+            hosts = tuple(host.strip() for host in ir_publisher_hosts.split(",") if host.strip())
+            if not ir_feed_url or not ir_authority_url or not hosts:
+                st.info("Zadejte RSS kanál, odkazující stránku a domény jeho vydavatele.")
+            else:
+                from market_checker_app.scout_runner import run_primary_ir
+                with st.spinner("Kontroluji primární RSS a odkazovaný článek…"):
+                    reviewed = run_primary_ir(
+                        db_path=config.sqlite_path, ticker=str(ir_candidate["subject_id"]),
+                        candidate_id=str(ir_candidate["finding_id"]), feed_url=ir_feed_url,
+                        authority_url=ir_authority_url, publisher_hosts=hosts,
+                    )
+                st.info(f"Stav zdroje: {reviewed['status']}; archiv: {reviewed['source_archive_status']}; "
+                        f"počet požadavků: {reviewed.get('attempted_requests', 0)}.")
+    ir_source_reviews = scout_store.latest_findings(
+        watchlist, as_of=datetime.now(timezone.utc), limit=30,
+        source="rss", stage="ir_primary_source_review",
+    )
+    if ir_source_reviews:
+        st.write("**Kontroly primárních IR zdrojů**")
+        st.caption("Kontrola potvrzuje přesný zdroj článku. Vazba na emitenta a dopad na skóre vyžadují vlastní důkazy.")
+        st.dataframe(pd.DataFrame(ir_source_reviews), hide_index=True)
+    scout_leads = scout_store.open_leads(watchlist, as_of=datetime.now(timezone.utc))
+    if scout_leads:
+        st.write("**Otevřené otázky k nalezeným zdrojům**")
+        st.dataframe(pd.DataFrame(scout_leads), hide_index=True)
+    closed_scout_leads = scout_store.closed_leads(watchlist, as_of=datetime.now(timezone.utc))
+    if closed_scout_leads:
+        st.write("**Uzavřené otázky a citované důkazy**")
+        st.dataframe(pd.DataFrame(closed_scout_leads), hide_index=True)
+    scout_errors = scout_store.recent_failures(watchlist)
+    if scout_errors:
+        st.write("**Poslední chyby zdroje a další pokus**")
+        st.dataframe(pd.DataFrame(scout_errors), hide_index=True)
+
+
+def _render_yahoo_coverage(coverage: YahooCacheCoverage) -> None:
+    if coverage.total == 0:
+        st.caption("Yahoo cache: watchlist je prázdný")
+        return
+    st.write(
+        f"**Yahoo cache:** {coverage.usable}/{coverage.total} použitelných "
+        f"(fresh {coverage.fresh}, stale {coverage.stale}, failed {coverage.failed}, "
+        f"pending {coverage.missing + coverage.corrupt}, unsupported {coverage.unsupported})"
+    )
+    st.progress(coverage.usable / coverage.total)
+
+
+yahoo_coverage_placeholder = st.empty()
+with yahoo_coverage_placeholder.container():
+    if captured_market_enabled:
+        from market_checker_app.specialist_evidence_ui import render_captured_market_readiness
+        render_captured_market_readiness(st, manifest_path=config.captured_market_manifest,
+            archive_root=config.captured_market_archive_root, tickers=watchlist)
+    else:
+        _render_yahoo_coverage(yahoo_cache.coverage(watchlist))
+
+if refresh_yahoo and not captured_market_enabled:
+    if not watchlist:
+        st.error("Nejdřív načtěte nebo zadejte watchlist.")
+    else:
+        yahoo_refresh_status = st.empty()
+        yahoo_refresh_progress = st.progress(0.0)
+
+        def _on_yahoo_refresh(
+            completed: int,
+            total_candidates: int,
+            ticker: str,
+            status: str,
+            coverage: YahooCacheCoverage,
+        ) -> None:
+            yahoo_refresh_status.write(
+                f"Yahoo metadata: {completed}/{total_candidates} • {ticker} • {status} • "
+                f"celkové pokrytí {coverage.usable}/{coverage.total}"
+            )
+            yahoo_refresh_progress.progress(completed / max(1, total_candidates))
+
+        try:
+            refresh_result = YahooEnrichmentService(yahoo_cache).refresh_all(
+                watchlist,
+                batch_size=int(yahoo_batch_size),
+                delay_seconds=float(yahoo_delay_ms) / 1000.0,
+                progress_callback=_on_yahoo_refresh,
+            )
+        except Exception as exc:
+            st.error(f"Doplnění Yahoo cache selhalo: {exc}")
+            refresh_result = None
+        if refresh_result is None:
+            st.stop()
+        yahoo_refresh_progress.progress(
+            min(1.0, refresh_result.attempted / max(1, refresh_result.candidates))
+            if refresh_result.rate_limited
+            else 1.0
+        )
+        with yahoo_coverage_placeholder.container():
+            _render_yahoo_coverage(refresh_result.coverage)
+        if refresh_result.rate_limited:
+            st.warning(
+                "Yahoo dočasně omezilo požadavky. Dosavadní data jsou uložená; "
+                "po ochranné pauze spusťte doplnění znovu."
+            )
+        elif refresh_result.remaining:
+            st.warning(
+                f"Automaticky dokončeno {refresh_result.batches} dávek: "
+                f"{refresh_result.succeeded} úspěšně, {refresh_result.partial} částečně, "
+                f"{refresh_result.failed} chyb. {refresh_result.remaining} tickerů čeká "
+                "na pozdější opakování po chybě nebo cooldownu."
+            )
+        else:
+            st.success(
+                f"Yahoo cache je hotová: automaticky proběhlo {refresh_result.batches} dávek, "
+                f"{refresh_result.succeeded} tickerů úspěšně "
+                f"({refresh_result.partial} částečných dat)."
+            )
+
+if len(watchlist) > config.large_universe_threshold and not captured_market_enabled:
+    if use_mt5:
+        st.info(
+            f"Velký universe režim: analyzuji všech {len(watchlist)} tickerů. "
+            "Technická data poběží hromadně přes MT5 a RSS paralelně. "
+            "Yahoo fundamenty a odhady analytiků se načtou z trvalé cache; "
+            "chybějící tickery doplní jedno kliknutí automaticky po dávkách."
+        )
+    else:
+        st.warning(
+            f"Ve watchlistu je {len(watchlist)} tickerů, ale MT5 je vypnuté. "
+            "Cenová historie se načte dávkově z Yahoo. Nedostupné nebo zastaralé řady budou označené."
+        )
+
+rss_default = DEFAULT_NEWS_SOURCES_TEXT if use_rss else ""
+rss_sources = [s.strip() for s in st.text_area("RSS sources", rss_default).splitlines() if s.strip()]
+if use_rss:
+    st.caption(
+        "Tickerové zprávy používají Google News RSS bez registrace (experimentální zdroj). "
+        "Nefunkční Yahoo Finance RSS není ve výchozím seznamu."
+    )
+
+if st.session_state.analysis_progress and not run_analysis:
+    _render_progress_ui(st.session_state.analysis_progress, 0.0)
+
+if run_analysis and not watchlist:
+    st.error("Watchlist je prázdný. Nahrajte Excel nebo zadejte alespoň jeden ticker.")
+    run_analysis = False
+
+if run_analysis and company_intelligence_manifest_errors:
+    st.warning(
+        "Company Intelligence obsahuje neplatné nebo neúplné ruční záznamy. "
+        "Tyto záznamy byly umístěny do karantény a nebudou použity; hlavní "
+        "analýza a dostupné automatické zdroje pokračují."
+    )
+
+if run_analysis:
+    pipeline = PipelineService(config)
+    previous = st.session_state.last_result["signals"] if st.session_state.last_result else pd.DataFrame()
+    started = time.time()
+
+    progress_placeholder = st.empty()
+
+    def _on_progress(state: AnalysisProgressState) -> None:
+        st.session_state.analysis_progress = state
+        with progress_placeholder.container():
+            _render_progress_ui(state, time.time() - started)
+
+    try:
+        result = pipeline.run(
+            watchlist,
+            rss_sources,
+            store if save_history else None,
+            progress_callback=_on_progress,
+            yahoo_only_tickers=yahoo_only_tickers,
+            yahoo_only_mode=False,
+            rss_enabled=use_rss,
+            mt5_enabled=use_mt5,
+        )
+    except Exception as exc:
+        st.error(f"Analýza selhala: {exc}")
+        st.exception(exc)
+        st.stop()
+
+    if save_history:
+        from market_checker_app.weekly_shadow_runner import finalize_analysis_run
+        result["analysis_summary"] = finalize_analysis_run(
+            result=result, config=config, tickers=watchlist, store=store,
+            pipeline=pipeline, macro_observations=macro_observations,
+            counterparty_health_sources=counterparty_health_sources,
+        )
+        result["warnings"] = result["analysis_summary"]["warnings"]
+        result["errors"] = list(result.get("errors", [])) + result["analysis_summary"]["pipeline_failures"]
+    else:
+        result["analysis_summary"] = {"pipeline_status": "NOT_PERSISTED", "reason": "Ukládání historie je vypnuté; snapshoty a navazující evaluace nebyly spuštěny."}
+
+    result_errors = list(result.get("errors", []))
+    result_warnings = list(result.get("warnings", []))
+    if result_errors:
+        st.error(f"Analýza doběhla s {len(result_errors)} závažnými problémy. Výsledky mohou být fallback.")
+        for message in result_errors:
+            st.write(f"- {message}")
+    if result_warnings:
+        with st.expander(f"Upozornění z analýzy ({len(result_warnings)})", expanded=bool(result_errors)):
+            for message in result_warnings[:200]:
+                st.write(f"- {message}")
+            if len(result_warnings) > 200:
+                st.caption(f"Zobrazeno prvních 200 z {len(result_warnings)} upozornění.")
+    result["configured_sources"] = pd.DataFrame({"source": rss_sources})
+    delta_df = pd.DataFrame()
+    if compare_prev:
+        if save_history and result.get("run_id"):
+            delta_df = HistoryService(store).build_delta_against_previous(int(result["run_id"]))
+            if delta_df.empty:
+                delta_df = HistoryService(store).build_delta_with_excel_fallback(result["signals"], output_dir)
+        elif not previous.empty:
+            delta_df = ComparisonService.compare_runs(result["signals"], previous)
+
+    dashboard_tables = build_dashboard_tables(result["signals"])
+    dashboard_tables.update(VisualizationService.prepare_drop_overlap_tables(dashboard_tables))
+    ranking_tables = RankingService.top_bottom_tables(result["signals"])
+
+    if export_excel:
+        path = output_dir / f"market_checker_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+        dashboard_export = VisualizationService.prepare_dashboard_export_payload(result["signals"], ranking_tables, dashboard_tables)
+        try:
+            ExcelExporter().export(
+                path, result["signals"], result["sources"], result["articles"],
+                dashboard_tables, prepare_delta_for_excel(delta_df), dashboard_export,
+                pd.DataFrame(result.get("open_position_audit_rows", [])),
+                scout_evidence=pd.DataFrame(result.get("scout_evidence_rows", [])),
+            )
+            st.success(f"Excel export uložen: {path}")
+            if result.get("run_id"):
+                store.update_run_excel_path(int(result["run_id"]), str(path))
+        except Exception as exc:
+            st.error(f"Excel export selhal: {exc}")
+
+    result["dashboard"] = dashboard_tables
+    result["ranking"] = ranking_tables
+    result["delta"] = delta_df
+    st.session_state.last_result = result
+
+if st.session_state.last_result:
+    result = st.session_state.last_result
+    signals_df = result["signals"]
+    summary = result.get("analysis_summary", {})
+    if summary:
+        with st.expander("Analytické reporty a stav ověření", expanded=True):
+            st.write("Stav běhu:", summary.get("pipeline_status"))
+            if summary.get("reason"):
+                st.info(summary["reason"])
+            prospective = summary.get("prospective_forecast_history")
+            if isinstance(prospective, dict):
+                registration = prospective.get("registration", {})
+                history = prospective.get("history", {})
+                st.write("Zachování nových předpovědí:", registration.get("status", "WAIT"))
+                st.caption(f"Nově zachovaných předpovědí: {registration.get('registered_count', 0)}; "
+                           f"opakovaně ověřených: {registration.get('registration_replay_count', 0)}; "
+                           f"způsobilých skutečných výsledků: {history.get('eligible_real_label_count', 0)}.")
+                st.json(prospective, expanded=False)
+            for key, title in (
+                ("macro_sector_regime", "Makro a sektorový režim"),
+                ("counterparty_health", "Veřejné podklady protistran"),
+                ("candidate_model_shadow", "Kandidátní model — výpočet"),
+                ("candidate_model_walk_forward", "Kandidátní model — historické ověření"),
+            ):
+                report = summary.get(key)
+                if isinstance(report, dict):
+                    st.write(f"{title}: {report.get('status', 'NEZNÁMÝ')}")
+                    if report.get("reason"):
+                        st.caption(str(report["reason"]))
+                    backtest = report.get("cost_aware_portfolio_backtest")
+                    if isinstance(backtest, dict):
+                        base = backtest.get("scenarios", {}).get("1.0x", {})
+                        candidate = (
+                            base.get("candidate", {})
+                            if isinstance(base, dict)
+                            else {}
+                        )
+                        if isinstance(candidate, dict):
+                            metrics = st.columns(5)
+                            metrics[0].metric(
+                                "Net excess",
+                                f"{100 * float(candidate.get('cumulative_net_excess_return') or 0.0):.2f}%",
+                            )
+                            metrics[1].metric(
+                                "Max drawdown",
+                                f"{100 * float(candidate.get('maximum_drawdown') or 0.0):.2f}%",
+                            )
+                            metrics[2].metric(
+                                "Sharpe",
+                                "n/a"
+                                if candidate.get("sharpe") is None
+                                else f"{float(candidate['sharpe']):.2f}",
+                            )
+                            metrics[3].metric(
+                                "Turnover",
+                                "n/a"
+                                if candidate.get("mean_turnover") is None
+                                else f"{100 * float(candidate['mean_turnover']):.1f}%",
+                            )
+                            metrics[4].metric(
+                                "Aktivní týdny",
+                                int(candidate.get("active_week_count") or 0),
+                            )
+                            st.caption(
+                                "Shadow top-N simulace po odhadu spreadu/slippage; "
+                                "nejde o automatické obchodování."
+                            )
+                    with st.expander(f"Podrobnosti: {title}"):
+                        st.json(report)
+            st.caption("INSUFFICIENT_DATA znamená chybějící podklady nebo historii. Přínos predikce zatím není prokázán.")
+
+    (
+        tab_signals,
+        tab_dashboard,
+        tab_articles,
+        tab_sources,
+        tab_delta,
+        tab_trends,
+        tab_history,
+        tab_predictions,
+        tab_ranking,
+        tab_open_positions,
+        tab_agent_audit,
+    ) = st.tabs(
+        [
+            "Signals",
+            "Dashboard",
+            "Articles",
+            "Sources",
+            "Delta",
+            "Trends",
+            "History",
+            "Predikce",
+            "Ranking",
+            "Otevřené pozice",
+            "Agent audit",
+        ]
+    )
+
+    with tab_signals:
+        _render_signals(signals_df)
+
+    with tab_dashboard:
+        _render_dashboard(signals_df, result.get("ranking", {}), result.get("dashboard", {}))
+        st.markdown("### Přehledové tabulky")
+        _show_limited_dataframe(result["dashboard"].get("top_total", pd.DataFrame()), "Top 20 rankovatelných tickerů podle FinalTotalScore")
+        _show_limited_dataframe(result["dashboard"].get("weekly_drops", pd.DataFrame()), "Top 20: 7denní propad", preferred_cols=["ticker", "last_week_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
+        _show_limited_dataframe(result["dashboard"].get("d14_drops", pd.DataFrame()), "Top 20: 14denní propad", preferred_cols=["ticker", "last_14d_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
+        _show_limited_dataframe(result["dashboard"].get("m1_drops", pd.DataFrame()), "Top 20: 1M propad", preferred_cols=["ticker", "last_1m_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
+        _show_limited_dataframe(result["dashboard"].get("m3_drops", pd.DataFrame()), "Top 20: 3M propad", preferred_cols=["ticker", "last_3m_change_pct", "overlap_count", "overlap_windows", "is_shared_drop", "signal", "final_total_score"])
+        _show_limited_dataframe(result["dashboard"].get("top_marketcap", pd.DataFrame()), "Top 20 by MarketCap")
+
+    with tab_articles:
+        _show_limited_dataframe(
+            result.get("articles", pd.DataFrame()),
+            "Články",
+            preferred_cols=["ticker", "source", "published_at", "title", "sentiment"],
+            rows=1500,
+        )
+
+    with tab_sources:
+        configured_sources = result.get("configured_sources", pd.DataFrame())
+        _show_limited_dataframe(configured_sources, "Nakonfigurované zdroje (přesně podle pole RSS sources)", rows=2000)
+
+        sources_df = result.get("sources", pd.DataFrame())
+        _show_limited_dataframe(sources_df, "Rozbalené zdroje použité během běhu", rows=1000)
+
+        articles_df = result.get("articles", pd.DataFrame())
+        st.subheader("Reálně nalezené články podle zdroje")
+        if isinstance(articles_df, pd.DataFrame) and not articles_df.empty and "source" in articles_df.columns:
+            by_source = articles_df["source"].value_counts().reset_index()
+            by_source.columns = ["source", "count_articles"]
+            st.dataframe(by_source, width="stretch")
+        else:
+            st.info("Z článků nebyly detekovány žádné zdroje (nebo nejsou dostupná data).")
+
+    with tab_delta:
+        _render_delta(result.get("delta", pd.DataFrame()))
+
+    with tab_trends:
+        if save_history:
+            _render_trends(HistoryService(store), output_dir)
+        else:
+            st.info("Trendy nejsou dostupné, protože je vypnuto ukládání historie do SQLite.")
+
+    with tab_history:
+        if save_history:
+            _render_history(HistoryService(store), output_dir)
+        else:
+            st.info("Historie není dostupná, protože je vypnuto ukládání historie do SQLite.")
+
+    with tab_predictions:
+        st.subheader("Vyšly minulé pondělní predikce v2.1?")
+        st.caption(
+            "Obchodní akce BUY/SELL se hodnotí jen podle směru a NO_TRADE se do hit rate "
+            "nezapočítává. Cenová předpověď UP/DOWN/FLAT se vyhodnocuje zvlášť."
+        )
+        if save_history:
+            hold_tolerance = st.number_input(
+                "Tolerance pro skutečný pohyb FLAT (%)",
+                min_value=0.0,
+                max_value=10.0,
+                value=2.0,
+                step=0.5,
+                key="prediction_hold_tolerance_pct",
+                help="Např. 2 % znamená, že skutečný týdenní pohyb od -2 % do +2 % je FLAT.",
+            )
+            prediction_frames = EvaluationService().evaluate_predictions(
+                store.read_global_history(),
+                hold_tolerance_pct=float(hold_tolerance),
+            )
+            overall = prediction_frames["prediction_overall"]
+            overall_values = (
+                dict(zip(overall["metric"], overall["value"])) if not overall.empty else {}
+            )
+            evaluated = int(overall_values.get("evaluated_directional_trades") or 0)
+            correct = int(overall_values.get("correct_directional_trades") or 0)
+            wrong = int(overall_values.get("wrong_directional_trades") or 0)
+            hit_rate = overall_values.get("directional_hit_rate_pct")
+            coverage = overall_values.get("trade_coverage_pct")
+            forecast_accuracy = overall_values.get("forecast_accuracy_pct")
+            no_trade = int(overall_values.get("no_trade_predictions") or 0)
+            metric_cols = st.columns(6)
+            metric_cols[0].metric("Obchody", evaluated)
+            metric_cols[1].metric("HIT", correct)
+            metric_cols[2].metric("MISS", wrong)
+            metric_cols[3].metric(
+                "Directional hit rate",
+                f"{float(hit_rate):.1f} %" if pd.notna(hit_rate) else "čeká na další běh",
+            )
+            metric_cols[4].metric(
+                "Trade coverage",
+                f"{float(coverage):.1f} %" if pd.notna(coverage) else "n/a",
+            )
+            metric_cols[5].metric(
+                "Forecast accuracy",
+                f"{float(forecast_accuracy):.1f} %" if pd.notna(forecast_accuracy) else "n/a",
+                help=f"NO_TRADE pozorování: {no_trade}",
+            )
+
+            if evaluated == 0:
+                st.info(
+                    "Zatím není uzavřený žádný směrový obchod. NO_TRADE je záměrná abstence; "
+                    "forecast se může vyhodnotit i bez obchodu."
+                )
+
+            st.caption(
+                "Výpočet používá všechny týdny uložené ve stejné SQLite databázi. "
+                "Nejnovější týden zůstává PENDING, starší výsledky HIT/MISS/NO_TRADE se nemažou. "
+                "Pravděpodobné splity se před výpočtem výnosu auditovatelně upraví."
+            )
+            cumulative = prediction_frames["prediction_cumulative"].copy()
+            weekly = prediction_frames["prediction_weekly"].copy()
+            if not cumulative.empty:
+                cumulative["week_start"] = pd.to_datetime(
+                    cumulative["week_start"], errors="coerce"
+                )
+                rate_chart_data = cumulative[
+                    ["week_start", "hit_rate_pct", "cumulative_hit_rate_pct"]
+                ].melt(
+                    id_vars="week_start",
+                    var_name="series",
+                    value_name="hit_rate_pct_value",
+                )
+                rate_chart_data["series"] = rate_chart_data["series"].map(
+                    {
+                        "hit_rate_pct": "Úspěšnost daného týdne",
+                        "cumulative_hit_rate_pct": "Kumulativní úspěšnost",
+                    }
+                )
+                rate_chart = (
+                    alt.Chart(rate_chart_data)
+                    .mark_line(point=True)
+                    .encode(
+                        x=alt.X("week_start:T", title="Týden predikce"),
+                        y=alt.Y(
+                            "hit_rate_pct_value:Q",
+                            title="Úspěšnost (%)",
+                            scale=alt.Scale(domain=[0, 100]),
+                        ),
+                        color=alt.Color("series:N", title="Řada"),
+                        tooltip=[
+                            alt.Tooltip("week_start:T", title="Týden"),
+                            alt.Tooltip("series:N", title="Metrika"),
+                            alt.Tooltip(
+                                "hit_rate_pct_value:Q",
+                                title="Úspěšnost (%)",
+                                format=".2f",
+                            ),
+                        ],
+                    )
+                    .properties(title="Týdenní a dlouhodobý directional hit rate", height=320)
+                )
+                st.altair_chart(rate_chart, width="stretch")
+                st.caption(
+                    "Kumulativní čára je vážená všemi uskutečněnými BUY/SELL akcemi: například 100 HIT a "
+                    "1 MISS znamená 99,01 %, nikoli průměr dvou týdnů."
+                )
+
+                weekly["week_start"] = pd.to_datetime(weekly["week_start"], errors="coerce")
+                result_counts = weekly[["week_start", "hits", "misses"]].melt(
+                    id_vars="week_start",
+                    var_name="result",
+                    value_name="count",
+                )
+                result_counts["result"] = result_counts["result"].map(
+                    {"hits": "HIT", "misses": "MISS"}
+                )
+                count_chart = (
+                    alt.Chart(result_counts)
+                    .mark_bar()
+                    .encode(
+                        x=alt.X("week_start:T", title="Týden predikce"),
+                        y=alt.Y("count:Q", title="Počet predikcí", stack=True),
+                        color=alt.Color(
+                            "result:N",
+                            title="Výsledek",
+                            scale=alt.Scale(
+                                domain=["HIT", "MISS"],
+                                range=["#2ca02c", "#d62728"],
+                            ),
+                        ),
+                        tooltip=[
+                            alt.Tooltip("week_start:T", title="Týden"),
+                            alt.Tooltip("result:N", title="Výsledek"),
+                            alt.Tooltip("count:Q", title="Počet"),
+                        ],
+                    )
+                    .properties(title="Počet obchodních HIT a MISS po týdnech", height=280)
+                )
+                st.altair_chart(count_chart, width="stretch")
+
+            st.write("Výsledek podle obchodní akce")
+            st.dataframe(prediction_frames["prediction_summary"], width="stretch")
+            st.write("Přesnost cenového forecastu")
+            st.dataframe(prediction_frames["forecast_summary"], width="stretch")
+            st.write("Srovnání podle verze scoringu")
+            st.dataframe(prediction_frames["prediction_by_version"], width="stretch")
+            st.write("Dlouhodobý directional hit rate podle tickeru")
+            _show_limited_dataframe(
+                prediction_frames["prediction_by_ticker"],
+                "Souhrn všech uzavřených týdenních predikcí pro každý ticker",
+                rows=3000,
+            )
+            st.write("Detail všech týdenních predikcí")
+            _show_limited_dataframe(
+                prediction_frames["prediction_details"],
+                "HIT/MISS = výsledek BUY/SELL; NO_TRADE = bez obchodu; forecast_result se hodnotí samostatně",
+                rows=3000,
+            )
+        else:
+            st.warning(
+                "Zapněte `Ukládat historii do SQLite`. Bez uložené ceny a signálu "
+                "nelze příští pondělí ověřit, zda predikce vyšla."
+            )
+
+    with tab_ranking:
+        st.subheader("Top ranking")
+        st.dataframe(result["ranking"].get("top", pd.DataFrame()), width="stretch")
+        st.subheader("Bottom ranking")
+        st.dataframe(result["ranking"].get("bottom", pd.DataFrame()), width="stretch")
+        if save_history:
+            eval_frames = EvaluationService().evaluate_snapshots(store.read_global_history())
+            st.subheader("Historické srovnání skóre (není obchodní backtest)")
+            for name, frame in eval_frames.items():
+                if name in EvaluationService.PREDICTION_FRAME_NAMES:
+                    continue
+                st.write(name)
+                st.dataframe(frame, width="stretch")
+
+    with tab_open_positions:
+        audit = summary.get("open_position_audit", {}) if isinstance(summary, dict) else {}
+        st.subheader("Read-only audit otevřených MT5 pozic")
+        st.caption(
+            "Načítá pouze aktuální pozice a porovnává je s tímto během analýzy. "
+            "Nevytváří ani nemění žádný obchodní příkaz."
+        )
+        if isinstance(audit, dict) and audit.get("status") in {"UNAVAILABLE", "FAILED"}:
+            st.warning(str(audit.get("reason") or summary.get("open_position_audit_error") or "Audit není dostupný."))
+        elif isinstance(audit, dict) and audit.get("status") == "NO_OPEN_POSITIONS":
+            st.info("MT5 nevrátil žádné otevřené pozice.")
+        else:
+            rows = result.get("open_position_audit_rows", [])
+            audit_frame = pd.DataFrame(rows) if isinstance(rows, list) else pd.DataFrame()
+            if audit_frame.empty:
+                st.info("V tomto běhu zatím nejsou auditní řádky.")
+            else:
+                for status, label in (("REVIEW", "K revizi"), ("ATTENTION", "Pozornost"), ("MONITOR", "Sledovat")):
+                    st.metric(label, int((audit_frame.get("audit_status") == status).sum()))
+                display = audit_frame.copy()
+                if "audit_reasons" in display.columns:
+                    display["audit_reasons"] = display["audit_reasons"].map(
+                        lambda value: "; ".join(value) if isinstance(value, list) else value
+                    )
+                _show_limited_dataframe(
+                    display,
+                    "Aktuálně otevřené pozice a důvody auditu",
+                    preferred_cols=[
+                        "position_ticket", "ticker", "side", "volume", "profit",
+                        "price_change_pct", "audit_status", "audit_reasons", "action",
+                        "forecast", "risk_score", "data_quality_score", "status_changed",
+                    ],
+                    rows=1000,
+                )
+
+    with tab_agent_audit:
+        _render_agent_audit(result)

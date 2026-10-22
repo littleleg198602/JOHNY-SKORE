@@ -1,0 +1,15 @@
+{
+  "access_values_exported": false,
+  "app_quota_managed_live_claimed": false,
+  "attempt": 1,
+  "historical_request_ledger_reconstructed": false,
+  "max_bytes": 4000000,
+  "method": "GET",
+  "redirects_allowed": false,
+  "request_plan_sha256": "efa75037439e5d4934ff07260be8150488ea534cf05775ac6af010c7efaca2b9",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/image_0.jpg",
+  "research_only": true,
+  "started_at": "2026-10-18T04:25:39.327460+00:00",
+  "status": "REQUEST_RESERVED",
+  "timeout_seconds": 25
+}

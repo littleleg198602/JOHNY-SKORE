@@ -1,0 +1,25 @@
+{
+  "remaining_worker_commits": {
+    "evaluation": "d452440dea035f5fb1d3f1d12ac2d0603f356f73"
+  },
+  "peer_commits": {
+    "prime_page_scope": "26730e296b4e91e5cd7ad8a64d6c4a71ff4d2691",
+    "windows_analysis_persistence": "49a8ee403f459709e9c8856aebf664eb8187286a"
+  },
+  "coordinator_completed_saved_peer_commit": {
+    "source_handoff_audit": "3f19859375e55588e8a34439312809b1c007a031"
+  },
+  "real_usage_limit_interruption_preserved": true,
+  "no_agent_completion_claimed_for_interrupted_audit": true,
+  "root_picks": {
+    "identity": "96b8a6b3f9dedbe4362fa8d45405f85224921d88",
+    "healthcare": "21338d44cd07a18c0ff16af247edc74659fde04a",
+    "regulatory": "de89df312f5da6a49db201bc6c89b4d4e461fa32",
+    "contracts": "164bdb33c8280503939ad7655a76065fef9c02ba",
+    "sec": "3c248708665e88de67dfe620601678414a22c71a",
+    "prime_peer": "970861da7309048a71e54c102ac482e1d24b07f8",
+    "evaluation": "59f10512a36de771d0da844855e2fce015f5deae",
+    "source_audit": "0ac7df5e6c066ad48a6ba64359f79759f97ef5ff",
+    "windows_analysis_peer": "aecf0e7e41f3295987b1b878b2728ec52496dae2"
+  }
+}

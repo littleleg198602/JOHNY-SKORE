@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch9_windows_ci_coordinator_20261018/verify_integration.py", line 125, in <module>
+    main()
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/evidence/batch9_windows_ci_coordinator_20261018/verify_integration.py", line 84, in main
+    assert all(p in allowed or p.startswith("evidence/batch9_windows_timeout_fix_20261018/") for p in existing_changes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

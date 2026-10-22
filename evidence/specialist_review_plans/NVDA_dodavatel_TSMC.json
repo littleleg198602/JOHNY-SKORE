@@ -1,0 +1,126 @@
+{
+  "captures": {
+    "counterparty": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 67428,
+        "path": "evidence/batch7_contracts_20261015/raw/body-8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58.response",
+        "sha256": "8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58"
+      },
+      "metadata": {
+        "archive_path": "evidence/batch7_contracts_20261015/raw/body-8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58.response",
+        "automatic_redirects": false,
+        "complete_response": true,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/R1.htm",
+        "http_status": 200,
+        "max_attempts": 4,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-14T23:28:17.499529+00:00",
+        "origin": "LIVE_PRIMARY_RESEARCH_HTTP",
+        "public_raw_available": true,
+        "quota_scope": "EXPLICIT_BATCH7_SEC_RESEARCH_ONLY",
+        "raw_response_bytes": 67428,
+        "raw_response_sha256": "8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/R1.htm",
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": null,
+          "Content-Type": "text/html",
+          "Date": "Wed, 14 Oct 2026 23:28:17 GMT",
+          "Last-Modified": "Thu, 16 Apr 2026 10:06:35 GMT"
+        },
+        "started_at": "2026-10-14T23:28:13.458464+00:00",
+        "status": "CAPTURED",
+        "usaspending_requests": 0
+      }
+    },
+    "issuer": {
+      "body_available": true,
+      "body_ref": {
+        "bytes": 1967927,
+        "path": "evidence/batch3_sec_20261012/primary/nvda_2026_10k.htm",
+        "sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5"
+      },
+      "metadata": {
+        "capture_kind": "RAW_HTTP_RESPONSE_BODY",
+        "content_type": "text/html",
+        "http_date": "Mon, 12 Oct 2026 14:48:19 GMT",
+        "http_status": 200,
+        "last_modified": "Wed, 25 Feb 2026 21:42:44 GMT",
+        "observed_at": "2026-10-12T14:48:19.742085+00:00",
+        "original_capture_manifest_reference": {
+          "json_pointer": "/captures/10",
+          "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+          "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+        },
+        "path": "primary/nvda_2026_10k.htm",
+        "resolved_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+        "retrieval_started_at": "2026-10-12T14:48:13.754317+00:00",
+        "sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+        "size_bytes": 1967927,
+        "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+      }
+    }
+  },
+  "kind": "SEC_SUPPLY_CHAIN_SCOPE",
+  "request": {
+    "counterparty_selection": {
+      "cik": "0001046179",
+      "field_pins": {
+        "cik": {
+          "byte_end": 10091,
+          "byte_start": 9818,
+          "sha256": "3aa810c613a9aab52d9e52d6af7126ab8899dbf0751f9b894196daf660003059"
+        },
+        "document_type": {
+          "byte_end": 1416,
+          "byte_start": 1169,
+          "sha256": "90c7cb818fadee14100a5bce227fae137e2ddbcaa11a61822dd90ea18ca29ed9"
+        },
+        "fiscal_year": {
+          "byte_end": 10363,
+          "byte_start": 10092,
+          "sha256": "64533ea7dba116826a680bd0392c8cc59a95050e5e7948ba9b30333dbcc6420a"
+        },
+        "header_period": {
+          "byte_end": 865,
+          "byte_start": 791,
+          "sha256": "4c4fe951cf0d0d0e43383263c222c8ba2a2cfcc6d7d8be2e86cc649b88dc29e0"
+        },
+        "legal_name": {
+          "byte_end": 3645,
+          "byte_start": 3335,
+          "sha256": "46e9b48b593c1a0484af8d9db45dd5baef27b0395d80488727793e2263dd311a"
+        },
+        "period_end": {
+          "byte_end": 2521,
+          "byte_start": 2244,
+          "sha256": "ef18d54577c29a19fff42a649b2b9a53b3510101484d74d3c5258ee31aedef47"
+        }
+      },
+      "legal_name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "mode": "SEC_R1_TABLE",
+      "report_period_end": "2025-12-31",
+      "table_index": 0,
+      "value_column": 1
+    },
+    "selection": {
+      "claim_passage": {
+        "byte_end": 243668,
+        "byte_start": 243494,
+        "sha256": "13a4750ac1264fdc31b6a3569e9a0c1672d0bffb798ff11539b8c289d6665b48"
+      },
+      "claim_role": "FOUNDRY_SUPPLIER",
+      "counterparty_alias": "TSMC",
+      "counterparty_name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "fiscal_period_end": "2026-01-25",
+      "issuer_cik": "0001045810",
+      "issuer_context_id": "c-1",
+      "issuer_name": "NVIDIA CORP",
+      "issuer_ticker": "NVDA",
+      "product_or_input": "semiconductor wafers"
+    }
+  },
+  "schema_version": "captured_identity_review_plan_v1"
+}

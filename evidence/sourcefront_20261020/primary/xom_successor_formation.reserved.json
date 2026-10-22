@@ -1,0 +1,16 @@
+{
+  "key": "xom_successor_formation",
+  "requested_url": "https://www.sec.gov/Archives/edgar/data/2115436/000119312526291990/d71068dex3i.htm",
+  "method": "GET",
+  "started_at": "2026-10-20T14:29:11.362695+00:00",
+  "request_plan_sha256": "4969e9e29044e3640d98ea61f6927a1fa39e76d9530d08041b40a85d7c39fdf0",
+  "max_response_bytes": 2000000,
+  "timeout_seconds": 25,
+  "research_only": true,
+  "collector_api_used": false,
+  "app_quota_managed_live_claimed": false,
+  "retry": false,
+  "redirect": false,
+  "quota_database_created_or_modified": false,
+  "status": "REQUEST_RESERVED"
+}

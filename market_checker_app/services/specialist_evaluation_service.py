@@ -34,10 +34,13 @@ from market_checker_app.services.candidate_model_service import (
 from market_checker_app.services.market_factor_service import SUPPORTED_MARKET_FACTOR_VERSIONS
 from market_checker_app.services.sec_fundamental_feature_service import SEC_FUNDAMENTAL_FEATURE_VERSION
 from market_checker_app.services.specialist_status_service import load_specialist_status
+from market_checker_app.services.specialist_label_availability_service import (
+    MAX_LABEL_OBSERVATIONS, audit_snapshot_label, prepare_label_observations,
+)
 from market_checker_app.services.us_equity_calendar import target_us_equity_window
 
 
-REPORT_VERSION = "specialist_pit_evaluation_v1"
+REPORT_VERSION = "specialist_pit_evaluation_v2"
 COMPARISON_SPECS = {
     "sec_fundamentals": {
         "specialist_id": "sec", "section": "sec_fundamentals",
@@ -388,12 +391,18 @@ def _comparison(rows: Sequence[dict], spec: Mapping, *, minimum_training_samples
 def build_specialist_evaluation_report(snapshots: pd.DataFrame, *, as_of: datetime | None = None,
         minimum_training_samples: int = 200, minimum_evaluation_samples: int = 200,
         minimum_weeks: int = 12, iterations: int = 400,
-        positive_label_hurdle: float = DEFAULT_COST_HURDLE) -> dict:
+        positive_label_hurdle: float = DEFAULT_COST_HURDLE,
+        label_observations: Sequence[Mapping] | None = None,
+        label_archive_directory: Path | None = None,
+        maximum_label_observations: int = MAX_LABEL_OBSERVATIONS) -> dict:
     """Measure archive coverage and paired shadow comparisons without writes.
 
     Only the stored snapshot body is used; current scout findings and today's
     identity registries are never joined into an earlier prediction. The
-    inventory supplies names only and cannot promote a report to DONE.
+    inventory supplies names only and cannot promote a report to DONE. Forward
+    labels need recorded exact-session price captures; an exchange endpoint
+    timestamp without capture provenance cannot establish label availability.
+    Existing labels remain visible in the diagnostic, never rewritten.
     """
     clock = _time(as_of or datetime.now(timezone.utc))
     if clock is None:
@@ -405,11 +414,14 @@ def build_specialist_evaluation_report(snapshots: pd.DataFrame, *, as_of: dateti
             raise ValueError(f"{name} must be a positive integer")
     if isinstance(positive_label_hurdle, bool) or not isinstance(positive_label_hurdle, (int, float)) or not math.isfinite(positive_label_hurdle):
         raise ValueError("positive_label_hurdle must be finite")
+    label_captures, label_archive_metadata = prepare_label_observations(label_observations,
+        directory=label_archive_directory, maximum=maximum_label_observations)
     raw_rows = snapshots.to_dict(orient="records")
     id_counts = Counter(str(row.get("snapshot_id") or "") for row in raw_rows)
     rejected: Counter = Counter()
     unusable_labels: Counter = Counter()
     label_counts: Counter = Counter()
+    timestamp_only_labels = 0
     hash_verified = 0
     rows = []
     for raw in raw_rows:
@@ -464,8 +476,14 @@ def build_specialist_evaluation_report(snapshots: pd.DataFrame, *, as_of: dateti
             elif label_at > clock:
                 unusable_labels["LABEL_AFTER_REPORT_CUTOFF"] += 1
             else:
-                row["_label_at"] = label_at
+                timestamp_only_labels += 1
                 row["target_value"] = target
+                audit = audit_snapshot_label(row, label_captures.get(row["snapshot_id"], ()), as_of=clock)
+                row["_label_audit"] = audit
+                if audit["status"] == "ELIGIBLE_RECORDED_LABEL":
+                    row["_label_at"] = _time(audit["usable_at"])
+                else:
+                    unusable_labels[audit["reason"]] += 1
         rows.append(row)
     rows.sort(key=lambda row: (row["_as_of"], row["snapshot_id"]))
     coverage = {}
@@ -519,6 +537,7 @@ def build_specialist_evaluation_report(snapshots: pd.DataFrame, *, as_of: dateti
         "input": {"snapshot_rows": len(raw_rows), "hash_verified_rows": hash_verified,
                   "integrity_verified_rows": len(rows),
                   "resolved_labels_known_at_cutoff": sum(row["_label_at"] is not None for row in rows),
+                  "resolved_label_timestamps_at_cutoff": timestamp_only_labels,
                   "snapshot_id_hash_sha256": canonical_hash({"snapshots": fingerprint}),
                   "rejected_reasons": dict(sorted(rejected.items())),
                   "unusable_resolved_label_reasons": dict(sorted(unusable_labels.items())),
@@ -529,13 +548,23 @@ def build_specialist_evaluation_report(snapshots: pd.DataFrame, *, as_of: dateti
             "iterations": iterations, "positive_label_hurdle": positive_label_hurdle,
             "model_id": "matched_specialist_logistic", "model_version": "v1_vectorized",
             "l2": 0.05, "learning_rate": 0.15,
-            "training_labels": "strictly_observed_before_prediction_timestamp",
+            "training_labels": "recorded_exact_session_prices_and_capture_revision_knowledge_strictly_before_prediction_timestamp",
             "feature_availability": "archived_feature_availability_not_after_snapshot",
             "cohorts": "paired_training_and_evaluation_ids_one_ticker_per_week_no_overlapping_label_horizons",
             "baseline_feature_paths": list(CORE_MARKET_FEATURE_PATHS),
             "baseline": "market_only_logistic_not_momentum_heuristic",
             "comparison_selection": "predeclared_exploratory_no_performance_based_selection",
             "missing_features": "complete_matched_rows_no_blank_agent_zero_as_source_evidence"},
+        "label_availability": {**label_archive_metadata,
+            "eligible_recorded_label_count": sum(row["_label_at"] is not None for row in rows),
+            "recorded_label_origin_counts": dict(sorted(Counter(row["_label_audit"]["evidence_origin"]
+                for row in rows if row["_label_at"] is not None).items())),
+            "label_reason_counts": dict(sorted(unusable_labels.items())),
+            "audited_labels": [{"snapshot_id": row["snapshot_id"], "ticker": row["ticker"],
+                "snapshot_as_of": row["as_of"], **row["_label_audit"]}
+                for row in rows if "_label_audit" in row],
+            "capture_provenance_not_publisher_authenticity": True,
+            "historical_acceptance_proven": False},
         "feature_group_coverage": coverage, "specialist_coverage": specialist_coverage,
         "comparisons": comparisons, "analysis_only": True, "ranking_modified": False,
         "activation_allowed": False, "completion_verified": False,
@@ -543,6 +572,8 @@ def build_specialist_evaluation_report(snapshots: pd.DataFrame, *, as_of: dateti
             "Aggregate agent features do not attribute performance or coverage to FDA, FDIC, 13F or other collectors.",
             "Observed evidence cohorts are selective; matched lift is exploratory, not causal.",
             "Weekly block intervals do not establish independence across sectors or market regimes.",
+            "Exchange closes are event times, not label observation times. Missing price captures, revision or corporate-action provenance exclude labels from PIT comparisons.",
+            "Capture hashes verify recorded content. Publisher authenticity, independently complete corporate-action histories and source-specific OOS acceptance are not established by this diagnostic.",
             "No historical rows, identities or labels are synthesized from current scout findings."],
         "acceptance": {"out_of_sample_evaluation_verified": False}}
 

@@ -1,0 +1,428 @@
+{
+  "scope": "BATCH11_SAME_PROCESS_SELECTED_ANALYSIS_RECORDER_IMPLEMENTATION",
+  "created_at": "2026-10-19T00:44:13.557931+00:00",
+  "base_commit": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "owned_paths": [
+    "market_checker_app/services/user_windows_analysis_capture.py",
+    "tests/test_user_windows_analysis_capture.py",
+    "evidence/batch11_evaluation_20261018/"
+  ],
+  "producer": {
+    "bytes": 37862,
+    "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+  },
+  "test": {
+    "bytes": 36156,
+    "sha256": "89069e400360316265dcc1b64128d752a52c1bdb73f406bbade47f1c2188b201"
+  },
+  "api": {
+    "constructor": "UserWindowsAnalysisCapture(*, enabled=False, observation_clock=None, monotonic_clock=None, runtime_probe=None, pipeline_factory=None)",
+    "capture": "capture(*, output_path, tickers, db_path, market_manifest_path, market_archive_root, progress_callback=None)",
+    "loader": "load_user_windows_analysis_receipt(path)",
+    "published_result_keys": [
+      "status",
+      "scope",
+      "receipt_created",
+      "receipt_path",
+      "receipt_sha256",
+      "receipt",
+      "native_windows_selected_analysis_verified",
+      "pipeline_invoked"
+    ],
+    "published_refusal_status": "UNSUPPORTED_PLATFORM",
+    "published_refusal_receipt_path_key": "receipt_path",
+    "unpublished_collision_status": "RECEIPT_NOT_PUBLISHED",
+    "unpublished_path_and_sha": null,
+    "loaded_JSON_execution_verification": false,
+    "all_constructor_injections_fixture_only": true,
+    "scope": "SAME_PROCESS_SELECTED_ANALYSIS_RUN",
+    "aggregate_user_windows_inventory_PIT_OOS_acceptance": false
+  },
+  "qualification": {
+    "scope": "SYNTHETIC_OFFLINE_BOUNDARY_TESTS_NOT_NATIVE_RUN_ACCEPTANCE",
+    "started_at": "2026-10-19T00:40:06.202091+00:00",
+    "ended_at": "2026-10-19T00:41:00.315692+00:00",
+    "elapsed_seconds": 54.11360135799998,
+    "discovered_tests": 37,
+    "tests_run": 37,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "producer_before": {
+      "bytes": 37862,
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    "producer_after": {
+      "bytes": 37862,
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    "test_before": {
+      "bytes": 36156,
+      "sha256": "89069e400360316265dcc1b64128d752a52c1bdb73f406bbade47f1c2188b201"
+    },
+    "test_after": {
+      "bytes": 36156,
+      "sha256": "89069e400360316265dcc1b64128d752a52c1bdb73f406bbade47f1c2188b201"
+    },
+    "runner": {
+      "bytes": 2743,
+      "sha256": "8abf6471095260c35ee16aff80e807190f24b942472d0a1779ce3ce4e144562c"
+    },
+    "log": {
+      "bytes": 8412,
+      "sha256": "89628c7fc148e2f4c687c9afd0cf1ebe271c3ce3f9dafe57373052350438bc92"
+    },
+    "source_HTTP_requests": 0,
+    "original_retained_DB_access": false,
+    "native_windows_acceptance": false,
+    "actual_native_pipeline_executions": 0,
+    "all_populated_pipeline_results_are_test_doubles": true
+  },
+  "actual_native_refusal": {
+    "scope": "ACTUAL_PHYSICAL_NATIVE_LINUX_OR_HOSTED_REFUSAL_ONLY",
+    "started_at": "2026-10-19T00:41:45.120361+00:00",
+    "ended_at": "2026-10-19T00:41:45.244233+00:00",
+    "producer": {
+      "bytes": 37862,
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    "frozen_producer": {
+      "bytes": 37862,
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    "script": {
+      "bytes": 4847,
+      "sha256": "e7e230e22a1f2c84c8f6aa31e9568c29e7b8c01d9213e0884bb57f3201c65420"
+    },
+    "receipt": {
+      "bytes": 48517,
+      "sha256": "ee90438b2bba1ca84c0106db6ed90666823f15abab95e31b7d582b0f4f991919"
+    },
+    "status": "UNSUPPORTED_PLATFORM",
+    "actual_runtime": {
+      "os_system": "Linux",
+      "os_release": "6.18.55",
+      "os_version": "#1 SMP Wed Oct 14 19:45:18 UTC 2026",
+      "machine": "x86_64",
+      "os_name": "posix",
+      "sys_platform": "linux",
+      "python_implementation": "CPython",
+      "python_version": "3.12.14",
+      "hosted_ci_indicators": {
+        "CI": false,
+        "GITHUB_ACTIONS": false,
+        "GITLAB_CI": false,
+        "TF_BUILD": false,
+        "CIRCLECI": false,
+        "BUILDKITE": false
+      },
+      "ci_detected": false
+    },
+    "actual_completion_clocks": {
+      "started": {
+        "observed_at": "2026-10-19T00:41:45.132447+00:00",
+        "monotonic_ns": 762472961142
+      },
+      "capture_completed": {
+        "observed_at": "2026-10-19T00:41:45.193851+00:00",
+        "monotonic_ns": 762534365870
+      },
+      "integrity_verified": true,
+      "latest_observed": {
+        "observed_at": "2026-10-19T00:41:45.193851+00:00",
+        "monotonic_ns": 762534365870
+      },
+      "elapsed_ns": 61404728
+    },
+    "API_clock_or_runtime_injection": false,
+    "pipeline_invoked": false,
+    "guarded_entrypoint_calls": {
+      "provider": 0,
+      "SQL_read": 0,
+      "store_init": 0,
+      "network": 0
+    },
+    "selected_DB_or_market_input_inspection": false,
+    "original_retained_DB_referenced_read_opened_copied_or_changed": false,
+    "source_HTTP_requests": 0,
+    "actual_native_pipeline_executions": 0,
+    "new_genuine_forecasts": 0,
+    "new_registrations": 0,
+    "new_labels": 0,
+    "native_windows_selected_analysis_verified": false,
+    "user_windows_end_to_end_verified": false,
+    "full_specialist_acceptance": false,
+    "limits": [
+      "This actual platform cannot provide the requested native user-Windows run",
+      "Selected market/DB facts remain unobserved; no absence or coverage is inferred",
+      "A loaded receipt verifies content integrity only, never runtime execution",
+      "Candidate physical source pins are exact; the new producer is not yet in the observed baseline Git tree"
+    ]
+  },
+  "actual_refusal_metadata": {
+    "receipt_path": "actual_linux_refusal.json",
+    "runtime": {
+      "ci_detected": false,
+      "hosted_ci_indicators": {
+        "BUILDKITE": false,
+        "CI": false,
+        "CIRCLECI": false,
+        "GITHUB_ACTIONS": false,
+        "GITLAB_CI": false,
+        "TF_BUILD": false
+      },
+      "machine": "x86_64",
+      "os_name": "posix",
+      "os_release": "6.18.55",
+      "os_system": "Linux",
+      "os_version": "#1 SMP Wed Oct 14 19:45:18 UTC 2026",
+      "python_implementation": "CPython",
+      "python_version": "3.12.14",
+      "sys_platform": "linux"
+    },
+    "physical_clocks": {
+      "capture_completed": {
+        "monotonic_ns": 762534365870,
+        "observed_at": "2026-10-19T00:41:45.193851+00:00"
+      },
+      "elapsed_ns": 61404728,
+      "integrity_verified": true,
+      "latest_observed": {
+        "monotonic_ns": 762534365870,
+        "observed_at": "2026-10-19T00:41:45.193851+00:00"
+      },
+      "started": {
+        "monotonic_ns": 762472961142,
+        "observed_at": "2026-10-19T00:41:45.132447+00:00"
+      }
+    },
+    "market_preflight": null,
+    "database_before": null,
+    "database": null,
+    "saved_run_ids": [],
+    "saved_run_count": 0,
+    "native_windows_selected_analysis_verified": false,
+    "user_windows_end_to_end_verified": false,
+    "candidate_source_not_yet_in_observed_base_tree": true
+  },
+  "preserved_failures": {
+    "owner_collision": "qualification_v2_collision_reproduction/tests.json",
+    "owner_collision_executed": 1,
+    "owner_collision_failures": 1,
+    "owner_collision_errors": 0,
+    "independent_peer_before": "independent_peer_before/before.json",
+    "independent_peer_methods": 10,
+    "independent_peer_failure_entries": 4,
+    "independent_peer_errors": 0,
+    "independent_after_fix_run": "PENDING_EXACT_FINAL_OWNER_COMMIT_NOT_PRECLAIMED"
+  },
+  "baseline_byte_preservation": {
+    "verified_at": "2026-10-19T00:43:10.099364+00:00",
+    "base": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+    "source": {
+      "bytes": 37862,
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    "test": {
+      "bytes": 36156,
+      "sha256": "89069e400360316265dcc1b64128d752a52c1bdb73f406bbade47f1c2188b201"
+    },
+    "qualification_tests": 37,
+    "all_other_qualifiers": 0,
+    "actual_refusal": {
+      "bytes": 48517,
+      "sha256": "ee90438b2bba1ca84c0106db6ed90666823f15abab95e31b7d582b0f4f991919"
+    },
+    "all_prior_production_test_evidence_bytes_match_raw_blobs": true,
+    "whole_filtered_CRLF_launchers": [
+      "Nainstalovat_Patraci_Agenty.bat",
+      "Nainstalovat_Tydenni_Shadow.bat",
+      "Pripravit_SEC_Registry.bat",
+      "Spustit_Market_Checker.bat",
+      "Spustit_Patraci_Agenty.bat",
+      "Spustit_Tydenni_Shadow.bat",
+      "Vyhodnotit_Predikce.bat",
+      "Vyhodnotit_Specialisty.bat",
+      "Zkontrolovat_Zdravotnicke_Identity.bat"
+    ],
+    "unchanged_baseline_groups": {
+      "production": {
+        "files": 224,
+        "bytes": 3734168
+      },
+      "tests": {
+        "files": 200,
+        "bytes": 2646428
+      },
+      "evidence": {
+        "files": 1941,
+        "bytes": 90972950
+      },
+      "other": {
+        "files": 36,
+        "bytes": 748580
+      }
+    },
+    "source_HTTP_requests": 0,
+    "SQL_opened": false,
+    "original_retained_DB_access": false,
+    "actual_native_pipeline_executions": 0,
+    "full_suite_rerun": false
+  },
+  "invariants": {
+    "original_retained_DB_referenced_read_hashed_or_mutated": false,
+    "source_HTTP_requests": 0,
+    "actual_native_pipeline_executions": 0,
+    "actual_new_genuine_forecasts": 0,
+    "actual_new_registrations": 0,
+    "actual_new_labels": 0,
+    "quota_writes": 0,
+    "registry_changes": 0,
+    "shared_CLI_UI_config_edits": 0,
+    "model_fitter_score_changes": 0,
+    "canonical_687_or_60s_budget_changes": 0,
+    "old_evidence_changes": 0,
+    "withheld_body_inspection_or_substitution": 0,
+    "full_suite_reruns": 0,
+    "GitHub_writes_or_pushes": 0,
+    "automatic_trading": false,
+    "full_specialist_acceptance": "0/21"
+  },
+  "limits": [
+    "Actual Linux refusal is not a native Windows analysis run",
+    "All populated test runs are explicitly injected synthetic pipeline doubles; real production provider and SQLite persistence are used only on temporary fixture inputs",
+    "No genuine complete market data or forecast corpus was created or accepted",
+    "Stored JSON integrity never re-establishes execution proof",
+    "UNKNOWN publisher revision remains excluded from strict PIT/OOS",
+    "Native selected analysis observation never proves full21/userWindows aggregate acceptance",
+    "Root alone owns shared integration/combined checks/publication"
+  ],
+  "next_work": [
+    "Independent unchanged peer qualification against this exact final owner commit",
+    "Coordinator CLI/UI integration and exact-head combined qualification",
+    "Genuine complete captured market inputs and an actual native non-hosted Windows selected analysis invocation",
+    "Separate prospective forecasts, exact-session later labels and eligible historical/OOS evidence"
+  ],
+  "evidence_file_pins": {
+    "README.md": {
+      "bytes": 6766,
+      "sha256": "4019b3a4ba9052c197422845efef338171d28b67fd9a54b697b824179970a744"
+    },
+    "actual_linux_refusal.json": {
+      "bytes": 48517,
+      "sha256": "ee90438b2bba1ca84c0106db6ed90666823f15abab95e31b7d582b0f4f991919"
+    },
+    "actual_linux_refusal_execution.json": {
+      "bytes": 2634,
+      "sha256": "c03e86a776a4741d3690db9edb26f0023daeb9a451c6003fa6f35c51fec22791"
+    },
+    "actual_refusal_producer.py": {
+      "bytes": 37862,
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    "capture_actual_refusal.py": {
+      "bytes": 4847,
+      "sha256": "e7e230e22a1f2c84c8f6aa31e9568c29e7b8c01d9213e0884bb57f3201c65420"
+    },
+    "independent_peer_before/before.json": {
+      "bytes": 1881,
+      "sha256": "7c960fadf935a6b17998fba49229314abdc509b55961b796fba847022987e755"
+    },
+    "independent_peer_before/before.log": {
+      "bytes": 6769,
+      "sha256": "8c095ce523f60e95f9e33f3eada41976c8137821c3716169c338c602ffee0b45"
+    },
+    "independent_peer_before/before_owner_tests.py.txt": {
+      "bytes": 31799,
+      "sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66"
+    },
+    "independent_peer_before/before_peer_tests.py.txt": {
+      "bytes": 8465,
+      "sha256": "bca13c9786e678885c1c849ecc17405df745534735c105064a5368b7602c657d"
+    },
+    "independent_peer_before/before_producer.py.txt": {
+      "bytes": 35117,
+      "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880"
+    },
+    "independent_peer_before/before_runner.py.txt": {
+      "bytes": 2954,
+      "sha256": "42acf879c4e1beb9ff47b4496e1ca3bff003dc453f6a6ea9318c5e0dca8cfb4e"
+    },
+    "independent_peer_before/before_snapshot.json": {
+      "bytes": 433,
+      "sha256": "f074bae07d636c6c4096137c151afdd3d8d04d845e877bb5c902a480e59f1bd7"
+    },
+    "independent_peer_before/copied_pins.json": {
+      "bytes": 1167,
+      "sha256": "32dbe1e02ea91ae3db973d161334f6b9b1d6b81278ef9f4cf8bbbfa76fa15561"
+    },
+    "qualification_v1/test_user_windows_analysis_capture.py": {
+      "bytes": 31799,
+      "sha256": "03e5fdb7e250163a0a557d59f38acb978307ac4d77095b9f57c7eb28ba456f66"
+    },
+    "qualification_v1/tests.json": {
+      "bytes": 735,
+      "sha256": "e20aa72f9f42660295b2a38983fd80459f960e42096ab3d693f67eca2c7ebed7"
+    },
+    "qualification_v1/tests.log": {
+      "bytes": 7512,
+      "sha256": "b3ad9769a9ee618c0fd26102936417f94fe25a932331abee529f15b901cee9ba"
+    },
+    "qualification_v1/user_windows_analysis_capture.py": {
+      "bytes": 35117,
+      "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880"
+    },
+    "qualification_v2_collision_reproduction/test_user_windows_analysis_capture.py": {
+      "bytes": 34955,
+      "sha256": "af4e578309219c5ac18b736a099a3adb9c3e249e32e9cba6320aa2bfc5593f39"
+    },
+    "qualification_v2_collision_reproduction/tests.json": {
+      "bytes": 650,
+      "sha256": "7a82d76f26536dab0567e27a4cda761f5179c3b3f9b14ea6d40b92b7758baa7f"
+    },
+    "qualification_v2_collision_reproduction/tests.log": {
+      "bytes": 1274,
+      "sha256": "7843fe00b2771613a3d87f5536f711d38436bf0b6c2034e85089b07a69b9363d"
+    },
+    "qualification_v2_collision_reproduction/user_windows_analysis_capture.py": {
+      "bytes": 35117,
+      "sha256": "db5d5cc1b3edbdbe235661ec2f6e6584138f63b2ea2a1e10d60538348e474880"
+    },
+    "qualification_v3/test_user_windows_analysis_capture.py": {
+      "bytes": 36156,
+      "sha256": "89069e400360316265dcc1b64128d752a52c1bdb73f406bbade47f1c2188b201"
+    },
+    "qualification_v3/tests.json": {
+      "bytes": 1337,
+      "sha256": "1a048383ff4742904501e3ddda5aeac37a7ece0a053bc680eaef487091f0cf0d"
+    },
+    "qualification_v3/tests.log": {
+      "bytes": 8412,
+      "sha256": "89628c7fc148e2f4c687c9afd0cf1ebe271c3ce3f9dafe57373052350438bc92"
+    },
+    "qualification_v3/user_windows_analysis_capture.py": {
+      "bytes": 37862,
+      "sha256": "4b5a31392799b427f10d371009fe3d136fd31d546e6cd851da14b728d1537e43"
+    },
+    "run_focused.py": {
+      "bytes": 2743,
+      "sha256": "8abf6471095260c35ee16aff80e807190f24b942472d0a1779ce3ce4e144562c"
+    },
+    "saved_output_verification.json": {
+      "bytes": 1436,
+      "sha256": "52ce45a3fab211d6b8ecf1b25ef2a003de7839ec16709df34ca2561a617c043d"
+    },
+    "verify_saved_output.py": {
+      "bytes": 5276,
+      "sha256": "d9b623ba2ff56a5d694c707a09cf0ce37897b73edb0db552bfc8977e2a55cf66"
+    }
+  },
+  "archived_original_log_whitespace": {
+    "path": "independent_peer_before/before.log",
+    "bytes_preserved_not_trimmed": true,
+    "meaning": "Original unittest subtest heading trailing whitespace; source/test whitespace check is separate"
+  }
+}

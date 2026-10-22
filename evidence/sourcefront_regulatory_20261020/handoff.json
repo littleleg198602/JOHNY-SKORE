@@ -1,0 +1,192 @@
+{
+  "actual_plan": {
+    "bytes": 3095,
+    "path": "evidence/sourcefront_regulatory_20261020/AAPL_puvodni_doplnene_podani.json",
+    "sha256": "d2c8bc5fa85166af767f230ab1da86348d813989aa98005c20399f8d8de95fb4"
+  },
+  "actual_report": {
+    "bytes": 11248,
+    "path": "evidence/sourcefront_regulatory_20261020/current/actual_review.json",
+    "sha256": "bc088a05866f3bcfd2898c5c45e74d8b8ab1bd5bf0f60f1e1d9b08f2c39c6a60"
+  },
+  "actual_scope": {
+    "case_stage": "ALLEGATIONS_ONLY",
+    "docket_full_literal": "2:24-cv-04055-JXN-LDW",
+    "document_number": "51",
+    "document_title_literal": "FIRST AMENDED COMPLAINT",
+    "filed_on": "2024-06-11",
+    "issuer_binding_verified": false,
+    "named_case_party": "APPLE INC.",
+    "paragraph19_original_supplied": true,
+    "party_role": "DEFENDANT",
+    "selected_pages": [
+      1,
+      2,
+      3,
+      17
+    ],
+    "whole_original_pdf_pages": 91
+  },
+  "actual_status": "PARTIAL",
+  "adoptions": 0,
+  "api": "review_doj_enforcement_scope(request, captures, *, as_of, ingested_at, legal_records=())",
+  "base_commit": "39e5958b20b66338ad2029e99908609834d67db3",
+  "change": "Recognize and retain stamped full judge suffix; require selected-page stamp consistency; classify FIRST AMENDED COMPLAINT without adjudication.",
+  "collector_requests": 0,
+  "contract_version": "doj-case-entity-original-bytes-v2",
+  "evidence_pins": [
+    {
+      "bytes": 3095,
+      "path": "evidence/sourcefront_regulatory_20261020/AAPL_puvodni_doplnene_podani.json",
+      "sha256": "d2c8bc5fa85166af767f230ab1da86348d813989aa98005c20399f8d8de95fb4"
+    },
+    {
+      "bytes": 2478,
+      "path": "evidence/sourcefront_regulatory_20261020/README.md",
+      "sha256": "0a1c5f868269ce1a8c36cdb99ce2f028d20af81929a773d1fe710bb87dc38e26"
+    },
+    {
+      "bytes": 11248,
+      "path": "evidence/sourcefront_regulatory_20261020/current/actual_review.json",
+      "sha256": "bc088a05866f3bcfd2898c5c45e74d8b8ab1bd5bf0f60f1e1d9b08f2c39c6a60"
+    },
+    {
+      "bytes": 11452,
+      "path": "evidence/sourcefront_regulatory_20261020/finalize_handoff.py",
+      "sha256": "81ead215488a196ec59be856a6c4d8f879732bbbb6ecf76dd0b2dbaf6069c760"
+    },
+    {
+      "bytes": 20610,
+      "path": "evidence/sourcefront_regulatory_20261020/initial_source_feasibility_snapshot.json",
+      "sha256": "0b22ae8693fc88abf855957e9edf0b5deacec89352cc60be4e85815dfad7fb53"
+    },
+    {
+      "bytes": 8803,
+      "path": "evidence/sourcefront_regulatory_20261020/pre_fix/actual_review.json",
+      "sha256": "f9a3a59517e5f87fd60a9f9375a9e5ca2b20025b699793e5490afc9e29565218"
+    },
+    {
+      "bytes": 27761,
+      "path": "evidence/sourcefront_regulatory_20261020/pre_fix/doj_enforcement_scope_review.py",
+      "sha256": "891113065a849998e510695e1929caa3e76a9486fe01db28ce1ad6359dc76465"
+    },
+    {
+      "bytes": 10460,
+      "path": "evidence/sourcefront_regulatory_20261020/pre_resolution_literal_test.py",
+      "sha256": "65414a326fa4fa3ba49c8d8b75a1a8c218ce5aa2674d63af7b77ed5f0cec45e7"
+    },
+    {
+      "bytes": 910,
+      "path": "evidence/sourcefront_regulatory_20261020/preservation.json",
+      "sha256": "6da541a9a637b3b3dd93e5f9a1b93b6d96cbb4af32cfb22aa5a322103e475a68"
+    },
+    {
+      "bytes": 8488,
+      "path": "evidence/sourcefront_regulatory_20261020/replay_first_amended.py",
+      "sha256": "136b246cdb454c5905fbd7193430e12ac8e95448dd9ff00bdc8544c078563b6d"
+    },
+    {
+      "bytes": 5790,
+      "path": "evidence/sourcefront_regulatory_20261020/source_links_and_allegation.json",
+      "sha256": "d7a8e6ce2f814f5ecdd209acff11576d8cb53cd8fdfe25fac5fc0b9f2129dd9a"
+    },
+    {
+      "bytes": 674,
+      "path": "evidence/sourcefront_regulatory_20261020/test_fixture_correction.json",
+      "sha256": "193250f15618c5c6a3164afc783a00bef48a1f02c3b5e964498ac16ae61a0e3b"
+    },
+    {
+      "bytes": 998,
+      "path": "evidence/sourcefront_regulatory_20261020/tests_final.json",
+      "sha256": "686e45f0f2ff6eb6b0408e757e129b1c9c1de3b15488d6caa8bada82cd4a3ad6"
+    },
+    {
+      "bytes": 1960,
+      "path": "evidence/sourcefront_regulatory_20261020/tests_final.log",
+      "sha256": "f59585f7f75900e0a397f02c4f2ad43b1528e7a7cd27141184a6f9d1015131c0"
+    },
+    {
+      "bytes": 999,
+      "path": "evidence/sourcefront_regulatory_20261020/tests_initial.json",
+      "sha256": "4b88e92db26695fcca7e572853e907acf97f8870bc880db6d92968d49b6771d6"
+    },
+    {
+      "bytes": 2741,
+      "path": "evidence/sourcefront_regulatory_20261020/tests_initial.log",
+      "sha256": "58d6dfdeca2b6d99b8b749191ce27666d6d1d5a0eaafcfd15619b61aa0b84262"
+    }
+  ],
+  "focused_tests": {
+    "HTTP": 0,
+    "database_operations": 0,
+    "elapsed_seconds": 8.143428363999874,
+    "errors": 0,
+    "expected_failures": 0,
+    "failures": 0,
+    "known_at": "2026-10-20T20:17:46.425646+00:00",
+    "pins_at_execution": {
+      "evidence/sourcefront_regulatory_20261020/replay_first_amended.py": {
+        "bytes": 8488,
+        "sha256": "136b246cdb454c5905fbd7193430e12ac8e95448dd9ff00bdc8544c078563b6d"
+      },
+      "market_checker_app/services/doj_enforcement_scope_review.py": {
+        "bytes": 30225,
+        "sha256": "242d8eb6c6b554c95222a7cb218003c9590163a10b6e84b4498218056e0db174"
+      },
+      "tests/test_sourcefront_doj_first_amended.py": {
+        "bytes": 10456,
+        "sha256": "63890e97a358d088fb90747fa256854cadc15328e42938fa5ba298e53ac6531c"
+      }
+    },
+    "scope": "Only the nine new sourcefront methods; synthetic decoder controls are not acceptance evidence.",
+    "skipped": 0,
+    "started_at": "2026-10-20T20:17:38.282220+00:00",
+    "successful": true,
+    "tests_run": 9,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": false,
+  "initial_test_result": {
+    "cause": "Only the new fixture expected the wrong existing no-match enum; corrected to UNMAPPED_NAME without producer change.",
+    "errors": 0,
+    "failures": 1,
+    "preserved_source_and_log": true,
+    "tests_run": 9
+  },
+  "kind": "DOJ_ENFORCEMENT_SCOPE",
+  "known_at": "2026-10-20T20:20:01.197270+00:00",
+  "known_clock_limit": "Child API's input ingestion clock is retained; actual owned envelope stamps physical completion and explicitly denies output availability at its earlier source-read cutoff.",
+  "lane_http_requests": 0,
+  "missing_evidence": [
+    "Independent earlier issuer original not supplied in this plan",
+    "Case-date registered issuer identity",
+    "Identity known before case day",
+    "Independent legal continuity",
+    "Separate signed original Order",
+    "Current complete docket/disposition",
+    "Adjudicated merits or liability"
+  ],
+  "new_report_fields": [
+    "court_stamp_observations",
+    "selected_document_stamps_consistent",
+    "document_title_literal"
+  ],
+  "new_test": {
+    "bytes": 10456,
+    "path": "tests/test_sourcefront_doj_first_amended.py",
+    "sha256": "63890e97a358d088fb90747fa256854cadc15328e42938fa5ba298e53ac6531c"
+  },
+  "next_work": "Use separately authorized exact safe primary originals for missing Order/current docket/dated legal binding; do not refetch this pleading or any withheld body.",
+  "old_suites_rerun": false,
+  "old_tests_changed": false,
+  "optional_request_field": "docket_full_literal: exact full stamp; its printed base must equal docket. Omit for legacy base-only callers; observed suffix is still retained.",
+  "parent_new_primary_transports": 1,
+  "producer": {
+    "bytes": 30225,
+    "path": "market_checker_app/services/doj_enforcement_scope_review.py",
+    "sha256": "242d8eb6c6b554c95222a7cb218003c9590163a10b6e84b4498218056e0db174"
+  },
+  "quota_or_other_database_operations": 0,
+  "schema_version": "sourcefront-regulatory-handoff-v1",
+  "scores_or_trading_changed": false
+}

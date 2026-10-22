@@ -1,0 +1,183 @@
+{
+  "HTTP_requests": 0,
+  "all_html_anchor_count": 143,
+  "case_document_link_occurrences": [
+    {
+      "absolute_url": "https://www.justice.gov/atr/media/1368741/dl",
+      "anchor_raw_byte_span": [
+        85799,
+        85901
+      ],
+      "anchor_raw_sha256": "e56c5c7b12c76ce04c71acf711c25d4fca0b558961e7691dd0397aa1bbd958a4",
+      "exact_anchor_html": "<a href=\"/atr/media/1368741/dl\">Plaintiffs’ Brief in Opposition to Defendant's Motion to Dismiss</a>",
+      "exact_href": "/atr/media/1368741/dl",
+      "href_raw_byte_span": [
+        85808,
+        85829
+      ],
+      "label": "Plaintiffs’ Brief in Opposition to Defendant's Motion to Dismiss",
+      "publisher_paragraph": {
+        "exact_html": "<p><a href=\"/atr/media/1368741/dl\">Plaintiffs’ Brief in Opposition to Defendant's Motion to Dismiss</a> (September 12, 2024)</p>",
+        "raw_byte_span": [
+          85796,
+          85926
+        ],
+        "raw_sha256": "7398abc47de949885e234a9384468fd49366ad9e156e30ca0ab71d3cb16fdce2"
+      }
+    },
+    {
+      "absolute_url": "https://www.justice.gov/atr/media/1358786/dl?inline",
+      "anchor_raw_byte_span": [
+        85931,
+        86130
+      ],
+      "anchor_raw_sha256": "4314d1d400a334d1f0b31465be42dc397ac74e57ca6890ef92ebef844d6ca59d",
+      "exact_anchor_html": "<a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"f9092efb-3b21-4112-bc0f-0b46256735c4\" href=\"/atr/media/1358786/dl?inline\" title=\"423137.pdf\">First Amended Complaint</a>",
+      "exact_href": "/atr/media/1358786/dl?inline",
+      "href_raw_byte_span": [
+        86054,
+        86082
+      ],
+      "label": "First Amended Complaint",
+      "publisher_paragraph": {
+        "exact_html": "<p><a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"f9092efb-3b21-4112-bc0f-0b46256735c4\" href=\"/atr/media/1358786/dl?inline\" title=\"423137.pdf\">First Amended Complaint</a> (June 11, 2024)</p>",
+        "raw_byte_span": [
+          85928,
+          86150
+        ],
+        "raw_sha256": "89bbe03402dab90e5b849e4eb6a744fc5fe599cb719c13c35e40e476067e096f"
+      }
+    },
+    {
+      "absolute_url": "https://www.justice.gov/atr/media/1358781/dl?inline",
+      "anchor_raw_byte_span": [
+        86155,
+        86402
+      ],
+      "anchor_raw_sha256": "1c636663f4f07a382334878985b882ccf685d4ea03b7b98f35198a527107eb4e",
+      "exact_anchor_html": "<a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"19329b51-aea4-40d2-b799-6981dffcacf9\" href=\"/atr/media/1358781/dl?inline\" title=\"423135.pdf\">Letter in Response to Apple's Letter Requesting a Pre-Motion Conference</a>",
+      "exact_href": "/atr/media/1358781/dl?inline",
+      "href_raw_byte_span": [
+        86278,
+        86306
+      ],
+      "label": "Letter in Response to Apple's Letter Requesting a Pre-Motion Conference",
+      "publisher_paragraph": {
+        "exact_html": "<p><a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"19329b51-aea4-40d2-b799-6981dffcacf9\" href=\"/atr/media/1358781/dl?inline\" title=\"423135.pdf\">Letter in Response to Apple's Letter Requesting a Pre-Motion Conference</a> (May 30, 2024)&nbsp;</p>",
+        "raw_byte_span": [
+          86152,
+          86427
+        ],
+        "raw_sha256": "6824a8203f929ed429d2ff265a2a20234aad4ecc2fa421e5a8b11ebe3c88979a"
+      }
+    },
+    {
+      "absolute_url": "https://www.justice.gov/atr/media/1344606/dl?inline",
+      "anchor_raw_byte_span": [
+        86432,
+        86617
+      ],
+      "anchor_raw_sha256": "dda1963d42c055e1d40f738389c7722a5fe70087f25949328d5e9eb2bb66a6c6",
+      "exact_anchor_html": "<a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"0a51db34-cec3-48e7-92a1-859753d72f2c\" href=\"/atr/media/1344606/dl?inline\" title=\"420763.pdf\">Complaint</a>",
+      "exact_href": "/atr/media/1344606/dl?inline",
+      "href_raw_byte_span": [
+        86555,
+        86583
+      ],
+      "label": "Complaint",
+      "publisher_paragraph": {
+        "exact_html": "<p><a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"0a51db34-cec3-48e7-92a1-859753d72f2c\" href=\"/atr/media/1344606/dl?inline\" title=\"420763.pdf\">Complaint</a> (March 21, 2024)</p>",
+        "raw_byte_span": [
+          86429,
+          86638
+        ],
+        "raw_sha256": "826b6a03fd28836f628304cfc2525d5775a48cb3d88a054f39566c889b280d42"
+      }
+    },
+    {
+      "absolute_url": "https://www.justice.gov/atr/media/1368741/dl",
+      "anchor_raw_byte_span": [
+        89439,
+        89613
+      ],
+      "anchor_raw_sha256": "633b523be9dad0968891fd78d838074775f5f02e3441e3b7dc9223c0dd756f0d",
+      "exact_anchor_html": "<a class=\"downloadable-file\" href=\"/atr/media/1368741/dl\" hreflang=\"en\">\n               Plaintiffs’ Brief in Opposition to Defendant&#039;s Motion to Dismiss\n          </a>",
+      "exact_href": "/atr/media/1368741/dl",
+      "href_raw_byte_span": [
+        89474,
+        89495
+      ],
+      "label": "Plaintiffs’ Brief in Opposition to Defendant's Motion to Dismiss"
+    },
+    {
+      "absolute_url": "https://www.justice.gov/atr/media/1358786/dl",
+      "anchor_raw_byte_span": [
+        89848,
+        89975
+      ],
+      "anchor_raw_sha256": "76f72287896c5e6ce4f89b1ca3322e00426629a9440f09d19f7178cb067e55c1",
+      "exact_anchor_html": "<a class=\"downloadable-file\" href=\"/atr/media/1358786/dl\" hreflang=\"en\">\n               First Amended Complaint \n          </a>",
+      "exact_href": "/atr/media/1358786/dl",
+      "href_raw_byte_span": [
+        89883,
+        89904
+      ],
+      "label": "First Amended Complaint"
+    },
+    {
+      "absolute_url": "https://www.justice.gov/atr/media/1358781/dl",
+      "anchor_raw_byte_span": [
+        90210,
+        90389
+      ],
+      "anchor_raw_sha256": "9a8379761991b820b252b77c554b4120ed43a308e2c25b767a806a80a0d03653",
+      "exact_anchor_html": "<a class=\"downloadable-file\" href=\"/atr/media/1358781/dl\" hreflang=\"en\">\n               Letter in Response to Apple&#039;s Letter Requesting a Pre-Motion Conference\n          </a>",
+      "exact_href": "/atr/media/1358781/dl",
+      "href_raw_byte_span": [
+        90245,
+        90266
+      ],
+      "label": "Letter in Response to Apple's Letter Requesting a Pre-Motion Conference"
+    },
+    {
+      "absolute_url": "https://www.justice.gov/atr/media/1344606/dl",
+      "anchor_raw_byte_span": [
+        90624,
+        90736
+      ],
+      "anchor_raw_sha256": "d0bd6aec88f7a8326d01a00d402ccc6dfde817b4c425cc6c584a58c54981f508",
+      "exact_anchor_html": "<a class=\"downloadable-file\" href=\"/atr/media/1344606/dl\" hreflang=\"en\">\n               Complaint\n          </a>",
+      "exact_href": "/atr/media/1344606/dl",
+      "href_raw_byte_span": [
+        90659,
+        90680
+      ],
+      "label": "Complaint"
+    }
+  ],
+  "displayed_update_date": {
+    "display_timezone": "UNKNOWN",
+    "is_current_complete_docket": false,
+    "literal": "September 17, 2024",
+    "raw_byte_span": [
+      90938,
+      90956
+    ]
+  },
+  "distinct_case_document_families": 4,
+  "known_at": "2026-10-21T02:12:30.239002+00:00",
+  "literal_court_govinfo_or_epa_links": [],
+  "source_metadata": {
+    "bytes": 981,
+    "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+    "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6"
+  },
+  "source_observed_at": "2026-10-15T18:10:37.550969+00:00",
+  "source_scope": "Publisher case-index snapshot. The existing material includes party documents, not a separate Order/current complete docket.",
+  "source_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+  "whole_original": {
+    "bytes": 107793,
+    "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+    "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+  }
+}

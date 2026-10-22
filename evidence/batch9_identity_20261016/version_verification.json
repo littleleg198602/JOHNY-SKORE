@@ -1,0 +1,16 @@
+{
+  "all_original_source_bytes_and_reservations_validated": true,
+  "current_producer_sha256": "7a009fdc6729dd4932039e8190c4f041f1680ca4f7885e4f54d536b931818689",
+  "current_test_sha256": "03564e3bd6bd536c9b76e91fceb8cf53a9834823870d8363d81b66d2b510d59c",
+  "exact_original_version_replay_equal": true,
+  "final_report_sha256": "46669d58032bf2fd66bed0f345373f73339ec5ca84458f10607b1d0a4e9d0f67",
+  "historical_clock_injection_only_for_exact_old_version_verification": "2026-10-16T12:25:28.171692+00:00",
+  "network_requests_performed": 0,
+  "new_final_report_uses_physical_current_reviewer_clock": true,
+  "original_producer_path": "evidence/batch9_identity_20261016/producer_versions/first_actual_instrument_scope_service.py",
+  "original_producer_sha256": "5057d383088c5abd1ed268c1d329900571a363784ed861b6696c0d64c3e0b4f9",
+  "original_report_sha256": "675f1366052ee47d7f8c2a3dc5e016386d8b43cb8b2df9cf842f2e784d19f169",
+  "plan_sha256": "c93748dab1ccc5fbf116242b27cdf7f47ee2a7d15776af1e73c589b8499b0a46",
+  "schema_version": "batch9_original_version_verification_v1",
+  "verified_at": "2026-10-16T17:16:10.638506+00:00"
+}

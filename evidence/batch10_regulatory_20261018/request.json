@@ -1,0 +1,18 @@
+{
+  "case_docket": "2:24-cv-04055",
+  "court": "UNITED STATES DISTRICT COURT DISTRICT OF NEW JERSEY",
+  "documents": [
+    {
+      "capture_id": "doj_opposition_pdf",
+      "document_kind": "PARTY_OPPOSITION",
+      "document_number": "106",
+      "filed_on": "2024-09-12"
+    },
+    {
+      "capture_id": "govinfo_case_opinion",
+      "document_kind": "COURT_OPINION",
+      "document_number": "283",
+      "filed_on": "2025-06-30"
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "actual_http_requests": 0,
+  "canonical_tickers": 687,
+  "earlier_evidence": {
+    "all_files_byte_identical": true,
+    "file_count": 26,
+    "sha256": {
+      "evidence/batch5_nhtsa_report_20261014/README.md": "c1a6c3793b7897a03e78a3fe3f5d483676ff75eed92558da54e25749ffd3b736",
+      "evidence/batch5_nhtsa_report_20261014/capture_existing_report.py": "b74528ae8473d5ade6257084273fe92f0bbcb9d72c58331e728be23278ff3a44",
+      "evidence/batch5_nhtsa_report_20261014/existing_report.json": "3bd365183e7fbcd860518d4e47e2dcd56c7f99dd323e95e7847978bca1d259a1",
+      "evidence/batch5_nhtsa_report_20261014/handoff.json": "3dacf1588f20d1d81912f1d8505272147e166869633e5c32fb70cd5636344614",
+      "evidence/batch5_nhtsa_report_20261014/tests.log": "37d030b8803c456be01769c452ffba077767de7e2c70cb80df925830b38df47f",
+      "evidence/batch5_regulatory_20261014/README.md": "8c5f8ed7bed152fc9fcaf9dca4c48ec3a0b5c72270fdaa1fdffc61af98ee27e5",
+      "evidence/batch5_regulatory_20261014/capture_live.py": "5bd6a7847c912e6bd0f012cccaee2aa6c02642f093f131516c3be31651d78f1d",
+      "evidence/batch5_regulatory_20261014/captures/14e3f07d4f3937979509b08949b3e1f03734b02cb5a701b66486f22cb1cf33c6/response.json": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "evidence/batch5_regulatory_20261014/captures/14e3f07d4f3937979509b08949b3e1f03734b02cb5a701b66486f22cb1cf33c6/review.json": "bda2272f4cd3e47e93baf3cd3ca5edcb67202e575fd662524a502aed2c727ad4",
+      "evidence/batch5_regulatory_20261014/captures/35681237a45ea4457bf64f02fe651b8747423196ae5da86847997a3a59f2e634/response.json": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "evidence/batch5_regulatory_20261014/captures/35681237a45ea4457bf64f02fe651b8747423196ae5da86847997a3a59f2e634/review.json": "b890644ef64fbd698b79bb8bc11ad0ce8f8cdf5f186f101816c946d1b3769efb",
+      "evidence/batch5_regulatory_20261014/captures/621a23a9a3cf6aa384859a838c1152de987d29ee1a7b140dc8b5e6ae0e256af9/response.json": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "evidence/batch5_regulatory_20261014/captures/621a23a9a3cf6aa384859a838c1152de987d29ee1a7b140dc8b5e6ae0e256af9/review.json": "3d6b1b2a8444985a26a1e3bc1a48f058272d791e726000de46a59a27aad7ae2e",
+      "evidence/batch5_regulatory_20261014/captures/9c354b67af1c20d11f8785f2e67fc3f33e43dc16ff4b9423fe66c30fe5a60556/response.json": "3609b831ede0af4e59d6904d2a21cf2788e34d821a4c2f0ca25bf031615a663b",
+      "evidence/batch5_regulatory_20261014/captures/9c354b67af1c20d11f8785f2e67fc3f33e43dc16ff4b9423fe66c30fe5a60556/review.json": "9500fbcd1867fde4ce872eb6ae1f1b467ecaee287ef73899c54d8cf3a9975918",
+      "evidence/batch5_regulatory_20261014/captures/a8c710a3370273ba69ddf470d3efdc733d6c779138a170f87bb24610e9396125/response.json": "4db26aaacaa8c5f4c4e629ae479d6e5c2d656dd4540f9bbeb9cc00dc672ad0f0",
+      "evidence/batch5_regulatory_20261014/captures/a8c710a3370273ba69ddf470d3efdc733d6c779138a170f87bb24610e9396125/review.json": "40cb8609f7cf8b7cdee431196680e3ad10986f3c51293415dbdf0780db3bbc9b",
+      "evidence/batch5_regulatory_20261014/captures/d60fbcc42242787e0d43e4a4eacd697addadea96b6712e5385efba52860333d9/response.json": "74147c27e8c00a68fa4708025f0aa95a3dbb3bea68b4d5417efb2bef19d1e786",
+      "evidence/batch5_regulatory_20261014/captures/d60fbcc42242787e0d43e4a4eacd697addadea96b6712e5385efba52860333d9/review.json": "7a7df98d6a1420df062439f45704bbaacbc01706220357c0b3759100a7e7945f",
+      "evidence/batch5_regulatory_20261014/captures/e11f42e084184ed99d6f9058cfbf1059107189ae84d1c774eee6d4ccfbee4a08/response.json": "e7bb49a74196b0440b670b6dd8c995b7460be89ad0bd59f3e31d820c33a2d955",
+      "evidence/batch5_regulatory_20261014/captures/e11f42e084184ed99d6f9058cfbf1059107189ae84d1c774eee6d4ccfbee4a08/review.json": "a9fa9aeea961aad4d9329ec2ae9a848bd2d7bfb31633ea8f37de89c907d02bfe",
+      "evidence/batch5_regulatory_20261014/captures/f4bccdacc73fbfd6becc232317e9377f5687aeea95a67ae8d869af7de16913bc/response.json": "62c226ab5f8bc0b99dd4a48121c2f356a8099850ae1a9902bbd2a469bb411623",
+      "evidence/batch5_regulatory_20261014/captures/f4bccdacc73fbfd6becc232317e9377f5687aeea95a67ae8d869af7de16913bc/review.json": "8324b8452c84bb6b54516228d3e25c97db34ecca71078d96c171487ff2254652",
+      "evidence/batch5_regulatory_20261014/handoff.json": "935ed13068e0465bb3002e0b96d9768a35966aed24bcb1958b40e1a1d434ea4e",
+      "evidence/batch5_regulatory_20261014/live_run.json": "5fa28a0a9fc468e546e414e933dc68676e8199ad6bc93a080252485090d10844",
+      "evidence/batch5_regulatory_20261014/tests.log": "49c1c4da8de9c39800161dcfdf1a5663a4315b2de08086cf2bb46614bed3c778"
+    }
+  },
+  "genuine_live_complete_negative_verified": false,
+  "historical_oos_acceptance_verified": false,
+  "implementation": {
+    "budget_or_schema_expansion": false,
+    "default_urllib_urlopen_removed": true,
+    "every_regular_request_uses_existing_shared_reservation": true,
+    "exact_status_query_content_type_envelope_byte_hash_guards_preserved": true,
+    "existing_assertions_or_fixture_bytes_relaxed": false,
+    "module_urlopen_mock_seam_preserved": true,
+    "monthly_scope_keys_unchanged": true,
+    "opener_initialized_lazily_on_request": true,
+    "previous_rows_and_charged_attempts_preserved": true,
+    "redirect_complete_check_created": false,
+    "redirect_policy": "REFUSE_AUTOMATIC_REDIRECTS_BEFORE_SECOND_TRANSPORT",
+    "redirect_reservation_outcome": "FAILED"
+  },
+  "kind": "REGULAR_NHTSA_CLIENT_NO_REDIRECT_SHARED_QUOTA_GUARD",
+  "offline_mechanism_proof": {
+    "actual_http_requests": 0,
+    "canonical_make_subjects": 3,
+    "canonical_nhtsa_state_unchanged": true,
+    "canonical_requests_after": 8,
+    "canonical_requests_before": 8,
+    "canonical_store_opened_read_only": true,
+    "default_policy_transport_operations_per_case": [
+      2,
+      2
+    ],
+    "guarded_charged_requests_per_case": [
+      1,
+      1
+    ],
+    "guarded_transport_operations_per_case": [
+      1,
+      1
+    ],
+    "path": "evidence/batch5_nhtsa_redirect_guard_20261014/offline_probe.json",
+    "real_urllib_redirect_error_processor": true,
+    "redirect_statuses": [
+      302,
+      307
+    ],
+    "same_day_retry_additional_transport_operations": 0,
+    "script_path": "evidence/batch5_nhtsa_redirect_guard_20261014/probe_offline_redirects.py",
+    "script_sha256": "c147d770ec6c72e2d621e512d988bc2ace2a5f2596e36fc1f3fc34abc36ae513",
+    "sha256": "2d54b99ad16dd0715d8b1ff8e0ef382bb7410bae2c308fb6343283272923693e",
+    "socket_transport_replaced_by_synthetic_https_handler": true,
+    "synthetic_probe_is_publisher_live_acceptance": false
+  },
+  "prediction_input": false,
+  "previous_local_lane_commit": "329ab5024028b0f96dfa1b5293cc49f827caad93",
+  "production_registry_modified": false,
+  "recorded_at": "2026-10-14T10:19:11.298987+00:00",
+  "rejected_documentation_refetched": false,
+  "root_integration": "Cherry-pick this guard commit only; root owns combined/current-source Windows checks and publication. Preserve pre-fix full-suite diagnostics.",
+  "schema_version": 1,
+  "scoring_applied": false,
+  "source_versions": {
+    "guarded_source_sha256": "c029146642ac47b6ce2873b08c02c59d83a9efbdebeef0b649b05e510c5a3bb0",
+    "prior_full_suite_accepts_this_new_source_version": false,
+    "prior_handoff_code_hashes_remain_historical": true,
+    "source_path": "market_checker_app/services/nhtsa_recall_scout_service.py",
+    "superseded_source_sha256": "b643b6cdd399853bca263d6b7b6a5081f3a52398069639f3895cfed6a2b742dd"
+  },
+  "specialist_done_promoted": false,
+  "unchanged_source_budget_storage_registry_and_test_sha256": {
+    "market_checker_app/data/market_checker_687_tickers.csv": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a",
+    "market_checker_app/data/verified_nhtsa_models.json": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e",
+    "market_checker_app/services/nhtsa_negative_review_service.py": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6",
+    "market_checker_app/services/public_source_budget.py": "4459bf520c5d38b1a93a5a49fd6a6941a27cf479dfcd0b40bab6d587fb1e868f",
+    "market_checker_app/storage/scout_store.py": "db5c5235302432f0bcd6f5be5f9dfdc26c10c776e3fb2b3fa814e47d3d681543",
+    "tests/test_batch3_regulatory_nhtsa_evidence.py": "6e6f9b34d0276e5a53130c41e18f97c2714ff45e3c184e26a1729b3b69c4b26b",
+    "tests/test_batch4_regulatory_nhtsa_validation.py": "471f1203876fd6c9f827d9ca7320abeaab5381dae7b7f4c1caf44c8d1e390bf6",
+    "tests/test_batch5_nhtsa_readonly_report.py": "20aca46b0d94a5af9071038b883d1eb2ceba755c210a8cf1ae3fa9dd40dcbca7",
+    "tests/test_batch5_nhtsa_scope_review.py": "414f0701432b1e5df9e191c298cd5ce189e44b16864d0f255aebdd95fa72a8e7",
+    "tests/test_nhtsa_recall_scout_service.py": "60b5bed7b20b07b061415b17915a81a8c280a22b522d16e68273d61489248a7d"
+  },
+  "validation": {
+    "command": "python -m unittest tests.test_batch5_nhtsa_redirect_guard tests.test_nhtsa_recall_scout_service tests.test_batch3_regulatory_nhtsa_evidence tests.test_batch4_regulatory_nhtsa_validation tests.test_batch5_nhtsa_scope_review tests.test_batch5_nhtsa_readonly_report -v",
+    "diff_check": "PASS",
+    "environment": "Local Linux Python3.12; archived exact-response regressions and synthetic offline urllib mechanism diagnostics. No new publisher/Windows acceptance.",
+    "errors": 0,
+    "existing_focused_regressions": 48,
+    "failures": 0,
+    "log_path": "evidence/batch5_nhtsa_redirect_guard_20261014/tests.log",
+    "log_sha256": "ed00563c2d5e0ee44d1605bb333aa2811f249b33003c4a97db02c3d92742671e",
+    "new_redirect_tests": 4,
+    "py_compile": "PASS",
+    "skips": 0,
+    "test_path": "tests/test_batch5_nhtsa_redirect_guard.py",
+    "test_sha256": "25764bd8078277ec396fc1d7b7192a025407fe3c88cfc2c870963b88e4f35694",
+    "tests_discovered": 52,
+    "tests_executed": 52
+  },
+  "verified_model_records": 3,
+  "windows_acceptance_verified": false
+}

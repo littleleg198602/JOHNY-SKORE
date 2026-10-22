@@ -1,0 +1,24 @@
+test_capture_path_escape_and_missing_file_are_rejected_before_body_read (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_capture_path_escape_and_missing_file_are_rejected_before_body_read) ... ok
+test_clinical_ui_keeps_snapshot_clock_and_does_not_invent_legacy_attribution_flags (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_clinical_ui_keeps_snapshot_clock_and_does_not_invent_legacy_attribution_flags) ... ERROR
+test_ir_archive_failure_keeps_completed_source_result_without_exception_values (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_ir_archive_failure_keeps_completed_source_result_without_exception_values) ... ok
+test_ir_completed_action_archives_all_canonical_slots_and_keeps_source_only_status (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_ir_completed_action_archives_all_canonical_slots_and_keeps_source_only_status) ... ok
+test_selected_award_offline_comparison_retains_inputs_and_records_new_audit (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_selected_award_offline_comparison_retains_inputs_and_records_new_audit) ... ok
+test_award_comparison_uses_selected_retained_pages_without_collecting_again (tests.test_batch5_source_actions_ui.Batch5SourceActionsUITests.test_award_comparison_uses_selected_retained_pages_without_collecting_again) ... 2026-10-14 05:23:36.234 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead (tests.test_batch5_source_actions_ui.Batch5SourceActionsUITests.test_ir_form_requires_explicit_primary_inputs_and_only_selected_existing_lead) ... 2026-10-14 05:23:37.643 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+======================================================================
+ERROR: test_clinical_ui_keeps_snapshot_clock_and_does_not_invent_legacy_attribution_flags (tests.test_batch5_coordinator_integration.Batch5CoordinatorIntegrationTests.test_clinical_ui_keeps_snapshot_clock_and_does_not_invent_legacy_attribution_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/tests/test_batch5_coordinator_integration.py", line 25, in test_clinical_ui_keeps_snapshot_clock_and_does_not_invent_legacy_attribution_flags
+    store.record_finding(source="clinicaltrials", subject_id="LLY", source_object_id=suffix,
+  File "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/market_checker_app/storage/scout_store.py", line 1149, in record_finding
+    raise ValueError("Healthcare finding must cite its official dataset API")
+ValueError: Healthcare finding must cite its official dataset API
+
+----------------------------------------------------------------------
+Ran 7 tests in 2.642s
+
+FAILED (errors=1)

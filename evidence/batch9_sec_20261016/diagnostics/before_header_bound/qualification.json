@@ -1,0 +1,9 @@
+{
+  "test_setup_before_artifact": "0 executed,1 setUpClass ERROR; original log preserved",
+  "qualified_original_producer": "48 executed,1 failure,0errors/skips/expected/unexpected",
+  "error": "A single 200001-byte header line starts before the byte boundary, then closing header exits loop before the next offset check. Full consumed line must be bounded.",
+  "original_producer_sha256": "71a13535d640f12c1f7da000e4fbee964767c3a2a87ea6950757d19c4e345480",
+  "original_test_sha256": "bb23e5ef49059835f2378a807dfed6e3d8d49ec5d0911ea5961819dff2637fed",
+  "original_body_bytes_changed": false,
+  "HTTP_requests_repeated": false
+}

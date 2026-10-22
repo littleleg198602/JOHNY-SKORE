@@ -1,0 +1,106 @@
+{
+  "finding": "Producer samples only the physical START clock and assigns it to review_recorded_at and knowledge_at after image decoding and derived interpretation. Completion availability and rollback are not checked.",
+  "local_base": "ab38e341130efe0187cef6a6cefa8ee24d2206dc",
+  "new_requests": 0,
+  "observed_at": "2026-10-18T14:11:04.012955+00:00",
+  "old_evidence_changed": false,
+  "prior_certificate_evidence_pins": {
+    "evidence/batch10_identity_20261018/README.md": {
+      "bytes": 4395,
+      "sha256": "93473422753bb03a1dbf11602c6ad048a65d15bb31a72f2380d64bb2d1065ac5"
+    },
+    "evidence/batch10_identity_20261018/actual_review.json": {
+      "bytes": 7411,
+      "sha256": "21c00926301dd41b5b717afaef94823fba095f47a1b21c2d31cf4dabe60334fa"
+    },
+    "evidence/batch10_identity_20261018/capture_certificate.py": {
+      "bytes": 5116,
+      "sha256": "9af370c3a0f7b212727226440b73fb1347442806d170b9574144325248da665e"
+    },
+    "evidence/batch10_identity_20261018/captured_review_plan.json": {
+      "bytes": 7358,
+      "sha256": "dbdb723350283bdb7e1c50f1de97d89db4c23dde21fcf09455d9d028594924bb"
+    },
+    "evidence/batch10_identity_20261018/captures/attempt-01.metadata.json": {
+      "bytes": 1189,
+      "sha256": "8f62a7bc21194fe2cf7096a75c017564423b032fbb008c68d442616c6c2127c6"
+    },
+    "evidence/batch10_identity_20261018/captures/attempt-01.reserved.json": {
+      "bytes": 550,
+      "sha256": "a817336cf0761e5326cc828166a1f30e4c0c59996a359bbe3e1eb365fbbb3f68"
+    },
+    "evidence/batch10_identity_20261018/captures/c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45.jpg": {
+      "bytes": 917915,
+      "sha256": "c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45"
+    },
+    "evidence/batch10_identity_20261018/final_actual_review.json": {
+      "bytes": 7424,
+      "sha256": "2cd868fc3f504754fbbbd477f2b6a296b673bad5750b36b17c4c85cfe8404d41"
+    },
+    "evidence/batch10_identity_20261018/handoff.json": {
+      "bytes": 15154,
+      "sha256": "36d13251498740927aa3a3ddcf18510ce77dd2eb32a90da42efd1b76a06fb7a5"
+    },
+    "evidence/batch10_identity_20261018/initial_focused_tests.json": {
+      "bytes": 800,
+      "sha256": "df05ce3612dd7781358aa754d4ec70830a26fe73e4d6a5654ff8cd6047bb2623"
+    },
+    "evidence/batch10_identity_20261018/initial_focused_tests.log": {
+      "bytes": 5031,
+      "sha256": "0580a5083bb06bacf5c47b28d96dca47b392fb9cb20973df48caea77455f3d37"
+    },
+    "evidence/batch10_identity_20261018/initial_replay_diagnostic.json": {
+      "bytes": 702,
+      "sha256": "a54c62bc30d33e2412a1b0ac50f4850500ae6a34980d61b0fff3dea60c19f299"
+    },
+    "evidence/batch10_identity_20261018/ocr_execution.json": {
+      "bytes": 720,
+      "sha256": "59bb577d0fcbafacf7a511f11c8ae0c1702456c9f57b9f9259b66c34128dad9f"
+    },
+    "evidence/batch10_identity_20261018/original_image_ocr.stderr": {
+      "bytes": 29,
+      "sha256": "0199cdfba70c94531fad70da87cfda0213b5dcc17e012333b645b25ed83f88dd"
+    },
+    "evidence/batch10_identity_20261018/original_image_ocr.tsv": {
+      "bytes": 15418,
+      "sha256": "d334ad79ce5155d27f8c4b5134c58a38e1949762fb568e889c24e3d45ac99fdd"
+    },
+    "evidence/batch10_identity_20261018/producer_versions/initial_unwrapped_class_service.py": {
+      "bytes": 18059,
+      "sha256": "3b3726aeec4bd6e8b2d52db4f1bb9ea9767965e0e864364a5e8a2684cfa2b91f"
+    },
+    "evidence/batch10_identity_20261018/replay_certificate.py": {
+      "bytes": 2915,
+      "sha256": "a2330eec865b1928b39881efccbd63113622daf6c244d5d220b2b0f3449d7e8d"
+    },
+    "evidence/batch10_identity_20261018/request_plan.json": {
+      "bytes": 1232,
+      "sha256": "efa75037439e5d4934ff07260be8150488ea534cf05775ac6af010c7efaca2b9"
+    },
+    "evidence/batch10_identity_20261018/version_verification.json": {
+      "bytes": 1296,
+      "sha256": "f4fea9a694ef1b0208ec15de5b34669ad6027e45365fc04cf0210eb7329cbf4b"
+    },
+    "evidence/batch10_identity_20261018/visual_measurement.json": {
+      "bytes": 1371,
+      "sha256": "63ca50587a761c5b3a67ea4864a5d8ebe78095999cf73ffba230181013d4b522"
+    },
+    "evidence/batch10_identity_20261018/visual_observation_notes.json": {
+      "bytes": 1082,
+      "sha256": "0f2ec2d0cfdf6d9d0a40172081c58fc6e8d817dadfb42edeb6fc0b8953bd9a66"
+    }
+  },
+  "producer_pins": {
+    "market_checker_app/collectors/sec_certificate_instrument_review.py": {
+      "bytes": 18455,
+      "frozen_path": "evidence/batch10_certificate_clock_fix_20261018/producer_versions/before_clock_service.py",
+      "sha256": "cce4981473be8e070e28314021dc4d4c8a43791386315de92fc23332dd41cf1c"
+    },
+    "tests/test_sec_certificate_instrument_review.py": {
+      "bytes": 20483,
+      "frozen_path": "evidence/batch10_certificate_clock_fix_20261018/producer_versions/before_clock_tests.py",
+      "sha256": "2176183dc1f6f59b689cff6f2d138d7a5429ce35f787023fb46d58b19728cceb"
+    }
+  },
+  "schema_version": "certificate_clock_before_snapshot_v1"
+}

@@ -1,0 +1,39 @@
+{
+  "dependencies": [
+    {
+      "bytes": 15890,
+      "path": "market_checker_app/services/sec_ir_disclosure_authority_review.py",
+      "sha256": "95b7da95b4c1050f8f03a3e7edf6e332fe36ea9f13576bfa58024a4b6d89c9e7"
+    },
+    {
+      "bytes": 22925,
+      "path": "market_checker_app/services/sec_operational_metrics_review.py",
+      "sha256": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672"
+    },
+    {
+      "bytes": 20535,
+      "path": "market_checker_app/services/sec_person_kind_review.py",
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    {
+      "bytes": 25736,
+      "path": "market_checker_app/services/sec_purchase_obligation_scope_review.py",
+      "sha256": "02f8f188c7c0c575772d33dd71a0c79bbe7795630544376b5352abe622fad7eb"
+    },
+    {
+      "bytes": 21380,
+      "path": "market_checker_app/services/sec_supply_chain_scope_review.py",
+      "sha256": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91"
+    }
+  ],
+  "producer": {
+    "bytes": 25503,
+    "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+    "sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8"
+  },
+  "test": {
+    "bytes": 21066,
+    "path": "tests/test_wafer_capacity_deposit_review.py",
+    "sha256": "e14738006d7e58f1cacd9decd5fe5b22f2ffeac6653524b67727631943a98749"
+  }
+}

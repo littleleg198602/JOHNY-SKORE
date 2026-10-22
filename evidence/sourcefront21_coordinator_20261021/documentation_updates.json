@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-10-21T07:39:54.983576+00:00",
+  "updates": [
+    {
+      "path": "SCOUT_PROGRESS.md",
+      "before_sha256": "45e2ab027754feedb82b5c721c06c54cdf8c54c3ba49fc09e2cf9c3716af6c27",
+      "after_sha256": "6cc677ad714641c8ca89485d02a09751bf167e114aa92f8f0328887eeef7cfdc",
+      "inserted_bytes": 7231,
+      "original_header_and_all_remaining_bytes_preserved": true
+    },
+    {
+      "path": "SPECIALIST_COMPLETION.md",
+      "before_sha256": "aedb25e4f972b28214e8939ccbcc3af869e09c1a24f7c31251060c6366a16958",
+      "after_sha256": "04b0768899587c8f002e1fe40788be44029ca827cc458801a0fa23d86dde6866",
+      "inserted_bytes": 7231,
+      "original_header_and_all_remaining_bytes_preserved": true
+    },
+    {
+      "path": "SPECIALIST_IMPLEMENTATION_CHECKPOINT_20261001.md",
+      "before_sha256": "456f324f70afb8d5df32a287f057c4513ac43174e4cb8c391636f025c1165515",
+      "after_sha256": "793570f0d359dea8f006b89a19c89c416dda79f35dd565491b52473c5a5a5c5d",
+      "inserted_bytes": 7231,
+      "original_header_and_all_remaining_bytes_preserved": true
+    },
+    {
+      "path": "PARALLEL_SPECIALIST_WORK.md",
+      "before_sha256": "4e65704f5ab4c566f63050db86b8461312f9f67481e50052852d5f4425fa9917",
+      "after_sha256": "91dc923ad3e9d1112fabcb5068ea95b9051386108e084faf33ec4ade15b71d7f",
+      "inserted_bytes": 7231,
+      "original_header_and_all_remaining_bytes_preserved": true
+    }
+  ]
+}

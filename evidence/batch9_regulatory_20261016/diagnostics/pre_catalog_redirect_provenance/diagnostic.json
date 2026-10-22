@@ -1,0 +1,7 @@
+{
+  "correction": "Legacy catalog original metadata did not record automatic redirect policy. Derived catalog descriptors now retain null/unknown and the reviewer distinguishes this from the required recall-client no-redirect control. Exact catalog requested/final URL scope remains independently checked.",
+  "network_or_database_actions": 0,
+  "original_publisher_bytes_or_metadata_changed": false,
+  "recorded_at": "2026-10-16T12:27:03.740284+00:00",
+  "status": "UNQUALIFIED_DERIVED_METADATA_DIAGNOSTIC"
+}

@@ -1,0 +1,26 @@
+{
+  "automatic_redirects": false,
+  "case_entity": "Apple Inc.",
+  "collector_api_requests_permitted": 0,
+  "each_http_hop_requires_exclusive_prior_reservation": true,
+  "historical_availability_and_issuer_continuity_inferred": false,
+  "known_three_unsafe_bodies_retrieved_or_restored": false,
+  "maximum_original_bytes_per_response": 4000000,
+  "maximum_primary_capture_transports": 6,
+  "new_body_with_access_value": "WHOLE_BODY_WITHHELD_METADATA_ONLY; no sanitized, encoded, compressed or wrapped substitute",
+  "no_pacer_account_payment_or_license": true,
+  "permitted_primary_hosts": [
+    "www.justice.gov",
+    "www.njd.uscourts.gov",
+    "ecf.njd.uscourts.gov",
+    "www.govinfo.gov"
+  ],
+  "precommitted_at": "2026-10-15T13:36:44.582929+00:00",
+  "purpose": "Later dated procedural posture only; seek official court order/opinion and distinguish DOJ report, party filing, allegations and merits.",
+  "quota_db_creation_copy_reset_reconstruction_or_access_permitted": false,
+  "retry_or_unbounded_fallback": false,
+  "schema_version": 1,
+  "target_court": "United States District Court for the District of New Jersey",
+  "target_docket": "2:24-cv-04055",
+  "timeout_seconds_per_hop": 25
+}

@@ -1,0 +1,244 @@
+{
+  "schema_version": "batch9_content_audit_v1",
+  "audited_at": "2026-10-17T21:39:13.053743+00:00",
+  "public_base": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "old_evidence_unchanged": {
+    "files": 1329,
+    "bytes": 68218322
+  },
+  "protected_inputs_unchanged": {
+    "files": 7,
+    "bytes": 156735
+  },
+  "six_actual_development_handoffs": [
+    "contracts",
+    "evaluation",
+    "healthcare",
+    "identity_bulk",
+    "regulatory",
+    "sec"
+  ],
+  "handoff_evidence_pins_verified": 135,
+  "additional_independent_peer_pins_verified": 14,
+  "late_persistence_defect_reproduced_then_fixed_with_same_seven_methods": true,
+  "peer_fixtures_are_not_real_forecasts_or_database_writes": true,
+  "current_worker_source_test_pins": {
+    "market_checker_app/services/sec_supplier_concentration_review.py": {
+      "bytes": 22789,
+      "sha256": "c7673d7f99a48040708a4e829e8dc4a8e410ad4275d3902bec35580ba0992718"
+    },
+    "tests/test_batch9_supplier_concentration.py": {
+      "bytes": 25481,
+      "sha256": "3144832b906dfa0271c9dabe568be962a75b3392837e85e76976d0f369af0cba"
+    },
+    "market_checker_app/services/captured_market_input_acquisition.py": {
+      "bytes": 28151,
+      "sha256": "e88e2d8e78a5344643e06815bb27c57125f035612ac7bc552973fdb39e204a7a"
+    },
+    "tests/test_batch9_market_input_acquisition.py": {
+      "bytes": 29620,
+      "sha256": "6fc91806710f1f4f773381a94f109a0e1a1a820481ee24941406ee4117c269fd"
+    },
+    "market_checker_app/services/fda_application_product_review.py": {
+      "bytes": 26005,
+      "sha256": "653cdb89254c23e82aeda92451bbbf830228857f0d161e666c2567e4e683ccd1"
+    },
+    "tests/test_batch9_fda_application_product.py": {
+      "bytes": 19605,
+      "sha256": "51fc8a895c85f877e0e67e8aac3d3421cf4fa5ea84023a7d516e206615fc6c94"
+    },
+    "market_checker_app/services/sec_instrument_class_scope_review.py": {
+      "bytes": 28217,
+      "sha256": "7a009fdc6729dd4932039e8190c4f041f1680ca4f7885e4f54d536b931818689"
+    },
+    "tests/test_batch9_instrument_class_scope.py": {
+      "bytes": 18554,
+      "sha256": "03564e3bd6bd536c9b76e91fceb8cf53a9834823870d8363d81b66d2b510d59c"
+    },
+    "market_checker_app/services/nhtsa_negative_scope_review.py": {
+      "bytes": 13793,
+      "sha256": "919bf4ac9539c1065b3bf9e9474bbf8435fc637b82458cfd7df392c41cc0021c"
+    },
+    "tests/test_batch9_nhtsa_negative_scope.py": {
+      "bytes": 13995,
+      "sha256": "6c260b3bb1aa1c9e04e0074a1b560e7e401c79a199ff472a89b65cd0b6599af8"
+    },
+    "market_checker_app/services/sec_complete_packet_review.py": {
+      "bytes": 22306,
+      "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+    },
+    "tests/test_batch9_complete_packet.py": {
+      "bytes": 27730,
+      "sha256": "439cf28a3d79cac53ca1ba41e50565ea3df96f82635c8142c5e5a6cc43c59cc4"
+    }
+  },
+  "new_original_response_pins": [
+    {
+      "bytes": 30359,
+      "path": "evidence/batch9_identity_20261016/captures/426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141.bin",
+      "sha256": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141"
+    },
+    {
+      "bytes": 1361,
+      "path": "evidence/batch9_identity_20261016/captures/b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4.bin",
+      "sha256": "b5a38c96109058ede0f41316bbe5fe15806e4435917831b9198b35a82c47bea4"
+    },
+    {
+      "bytes": 14111,
+      "path": "evidence/batch9_identity_20261016/captures/7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f.bin",
+      "sha256": "7de9536352440ddb20b1533d21a2d7f728d8a4ad7dc6c6552136f4b91446721f"
+    },
+    {
+      "bytes": 31517,
+      "path": "evidence/batch9_identity_20261016/captures/b6c9eb795f251c9c44af1714db9d64f37a17b07487823a187bb93604d7b71f1f.bin",
+      "sha256": "b6c9eb795f251c9c44af1714db9d64f37a17b07487823a187bb93604d7b71f1f"
+    },
+    {
+      "bytes": 5427,
+      "path": "evidence/batch9_identity_20261016/captures/f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4.bin",
+      "sha256": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4"
+    },
+    {
+      "bytes": 8235,
+      "path": "evidence/batch9_identity_20261016/captures/619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea.bin",
+      "sha256": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea"
+    },
+    {
+      "path": "evidence/batch9_healthcare_20261016/fda_bla761081_application.body.bin",
+      "sha256": "54e7c4548dcc2a2003649db0f12d9658fc50b22180daf7141670ff7226323872",
+      "bytes": 34010
+    },
+    {
+      "path": "evidence/batch9_healthcare_20261016/sec_pfe_current_submissions.body.bin",
+      "sha256": "1510a16e20a830e24b4ae3858bad462c5ec7d48b66a2c158a483b3c10833ec1b",
+      "bytes": 145851
+    },
+    {
+      "path": "evidence/batch9_healthcare_20261016/fda_purple_book_761081.body.bin",
+      "sha256": "2a1a9b6d4af00c81a1e144361f4b5679a77c0abb0377f8134ab543343984d730",
+      "bytes": 22644
+    },
+    {
+      "bytes": 2250,
+      "path": "evidence/batch9_regulatory_20261016/captures/1385b4bd35710e9d981e76974551f7dcd20cee1f31aa7127046587db823b6d84/response.json",
+      "sha256": "b9a6e0e9b00e7a39d82903dd66da75c243620c6e8e1194ab9a8fd7273835943a"
+    },
+    {
+      "bytes": 13487,
+      "path": "evidence/batch9_contracts_20261016/raw/body-324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755.response",
+      "sha256": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755"
+    },
+    {
+      "bytes": 1708710,
+      "path": "evidence/batch9_contracts_20261016/raw/body-2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade.response",
+      "sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade"
+    },
+    {
+      "bytes": 9665,
+      "path": "evidence/batch9_sec_20261016/primary/nadella_2026_form4_complete_packet.txt",
+      "sha256": "d2facdeb8d8935143f3b5fbc53fbe0140a28e69e5bd7915913d4ef573a769ec8"
+    }
+  ],
+  "new_original_response_count": 13,
+  "new_original_bytes": 2027627,
+  "eight_actual_runtime_archives_content_verified": true,
+  "new_runtime_http_requests": 0,
+  "source_accounting": {
+    "research_original_HTTP200": 12,
+    "proven_NHTSA_HTTP200": 1,
+    "charged_NHTSA_reservations": 2,
+    "second_NHTSA_response": "UNKNOWN_NO_REVIEW_OR_BODY",
+    "NHTSA_live_continuation": "AUTOMATIC_REVIEW_REJECTED_NO_RETRY_OR_BYPASS",
+    "AAPL_transport_failures_without_response": 1,
+    "remaining_market_requests_stopped": 12,
+    "new_CMS_Clinical_FDA_USAspending_collector_actions": 0
+  },
+  "original_b81_CI_content_verified": {
+    "head_sha": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+    "run_id": 38867202786,
+    "five_required_checks_success": true,
+    "actual_original_zip_and_members_verified": true,
+    "windows_tests": 2037,
+    "batch8_exact_methods_executed_ok": 202,
+    "plain_ok": true,
+    "all_21_complete": false,
+    "user_windows_end_to_end_verified": false,
+    "genuine_oos_verified": false,
+    "qualifies_only_this_baseline_head": true
+  },
+  "existing_production_changes": {
+    "market_checker_app/data/specialist_status.json": {
+      "before": {
+        "bytes": 38324,
+        "sha256": "9faaa2a6fee77af068337c13eb95884d066b6a9d95ce00cdfc168defeb0124ef"
+      },
+      "after": {
+        "bytes": 39868,
+        "sha256": "6798c451bddf70a8d0633cf10856c9359b78c00d27cede808c658c8b997e3ad8"
+      }
+    },
+    "market_checker_app/services/captured_identity_review_service.py": {
+      "before": {
+        "bytes": 21065,
+        "sha256": "e8752df36883b49e65c2a4824b8e2ccbfa79e3857497d84e569b57d02abf0e42"
+      },
+      "after": {
+        "bytes": 23429,
+        "sha256": "b237384007eb2e47a662ae92e3c5c69d1c25af09697febe26d469c82de6fd691"
+      }
+    },
+    "market_checker_app/services/captured_market_data_provider.py": {
+      "before": {
+        "bytes": 27951,
+        "sha256": "6f7e1901d04d5d62c187f064d174cff2c1c3f50da0b0adbbd1fa2737de9e2257"
+      },
+      "after": {
+        "bytes": 28473,
+        "sha256": "e5e68ef725d61f93b466349dd1eace50803ab9295e7f0e71e812bfe4a148c85e"
+      }
+    },
+    "market_checker_app/services/pipeline_service.py": {
+      "before": {
+        "bytes": 95344,
+        "sha256": "f7d03b2775439a4fd8a88617f9c8c2d8698da96b495aff8e87cfbd116b4ecc98"
+      },
+      "after": {
+        "bytes": 95858,
+        "sha256": "a2b9cd058ea04f3ae139b74307885b06f69d4d43c4d78c6169195da2dfa75c13"
+      }
+    },
+    "market_checker_app/specialist_evidence_ui.py": {
+      "before": {
+        "bytes": 15822,
+        "sha256": "9a7f7be3e21774593139d076eb689000903b2afc4ab0144abb976f76888de695"
+      },
+      "after": {
+        "bytes": 20114,
+        "sha256": "a92394599ecd69e4e8ed5b1d62bcc9ec80a4f17602c2f8813c6c20a413b3c78c"
+      }
+    }
+  },
+  "unchanged_existing_production_file_count": 206,
+  "all_21_code_live_statuses_unchanged": true,
+  "code_statuses": {
+    "PARTIAL": 17,
+    "PILOT": 2,
+    "NOT_STARTED": 2
+  },
+  "live_statuses": {
+    "PENDING": 17,
+    "WAIT_ACCESS": 4
+  },
+  "whole_withheld_bodies_absent_from_public_files": [
+    "27f03d6bb63f0590a82369556419c4eb8f5fb9ab3b3da44a9c8695d18d7b7532",
+    "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+    "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+    "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1"
+  ],
+  "full_specialist_acceptance": 0,
+  "genuine_forecasts_registrations_labels": 0,
+  "user_windows_end_to_end_verified": false,
+  "historical_OOS_verified": false,
+  "score_fitter_default_model_configuration_changed": false,
+  "trading_allowed": false
+}

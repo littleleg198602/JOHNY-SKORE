@@ -1,0 +1,4 @@
+{
+  "reason": "Initial isolated replay used a two-ticker universe; final actual replay and focused dependency use the unchanged canonical687 input. No source/registry bytes changed.",
+  "sha256": "a018cfd0b2f16486ea1fa0fcc060ed489feb2180de905501d7ce11c93cb159ac"
+}

@@ -1,0 +1,358 @@
+{
+  "acceptance_blockers": [
+    "CORPORATE_ACTION_EFFECTIVE_DAY_NOT_PROVEN_BY_POINT_JOIN",
+    "ISSUED_INSTRUMENT_VALIDITY_INTERVAL_UNPROVEN",
+    "CONTINUITY_BETWEEN_POINTS_UNPROVEN",
+    "HISTORICAL_AVAILABILITY_AND_OOS_UNPROVEN"
+  ],
+  "actual_cover_anchor": "2026-08-26",
+  "actual_cover_symbol": "P",
+  "actual_point_blockers": [
+    "CAPTURED_SUBJECT_ROUTE_DIFFERS_FROM_INDEX_FILER_ROUTE",
+    "SCHEDULE_CLASS_OR_PAR_CONFLICT",
+    "SCHEDULE_EVENT_DAY_DIFFERS_FROM_REQUESTED_ANCHOR",
+    "SCHEDULE_EXACT_PAR_TERM_UNKNOWN",
+    "SCHEDULE_EXACT_SHARE_CLASS_UNKNOWN"
+  ],
+  "actual_point_supported": false,
+  "actual_requested_anchor": "2026-08-26",
+  "actual_review_path": "evidence/batch11_identity_20261018/actual_review.json",
+  "actual_review_pin": {
+    "bytes": 7657,
+    "sha256": "b71de91f4dc83937e352010249bb089f494e980a7020fa798073fb93b15e7462"
+  },
+  "actual_schedule_class": "Common Stock",
+  "actual_schedule_cusip": "74624M102",
+  "actual_schedule_event": "2026-03-13",
+  "all_evidence_pins": {
+    "evidence/batch11_identity_20261018/README.md": {
+      "bytes": 3871,
+      "sha256": "869134eba16731507c1f8b410e30ee58b6f45087bb96a8158841b5d0eff669d1"
+    },
+    "evidence/batch11_identity_20261018/actual_review.json": {
+      "bytes": 7657,
+      "sha256": "b71de91f4dc83937e352010249bb089f494e980a7020fa798073fb93b15e7462"
+    },
+    "evidence/batch11_identity_20261018/captured_review_plan.json": {
+      "bytes": 8527,
+      "sha256": "700b4af88df2f059c968eb421f547635f776ed2c7ba66a75988f509cced0f480"
+    },
+    "evidence/batch11_identity_20261018/first_actual_producer_pin.json": {
+      "bytes": 356,
+      "sha256": "9256e813b6bad43cb2b9d9fe9c95b943930c2c7ea0e64a20c07c0fd376c462cd"
+    },
+    "evidence/batch11_identity_20261018/initial_tests.json": {
+      "bytes": 801,
+      "sha256": "2138540d9b6f8ecf3078e456747ccc1c3ac65588268b294e70493eab183f2ab5"
+    },
+    "evidence/batch11_identity_20261018/initial_tests.log": {
+      "bytes": 4965,
+      "sha256": "d40f3ad83699c439c3ff473634ab8a42e1b6c2bcebd09abbb96cb8ea55250aee"
+    },
+    "evidence/batch11_identity_20261018/producer_versions/first_actual_point_service.py": {
+      "bytes": 14461,
+      "sha256": "89359e1045695409a0681666ca2a118e6e69c1c0bf0bb32f906b32f2c73a06f0"
+    },
+    "evidence/batch11_identity_20261018/qualify.py": {
+      "bytes": 2279,
+      "sha256": "d14396d5dea8aab22cf590521713421657195c306a41c458fb9f3b8520f5a080"
+    },
+    "evidence/batch11_identity_20261018/replay_point.py": {
+      "bytes": 4141,
+      "sha256": "245cabbed8dcbaeaef97bd2a4a672bc9d6897449cb405f38ec87277165a13486"
+    }
+  },
+  "api": {
+    "capture_roles": 4,
+    "function": "review_sec_dated_instrument_point(request, captures, *, as_of=None)",
+    "interpretation_knowledge": "physical END; rollback or explicit deadline overrun rejected",
+    "kind": "SEC_DATED_INSTRUMENT_POINT",
+    "module": "market_checker_app.services.sec_dated_instrument_point_review",
+    "no_persistence_or_discovery": true,
+    "point_statuses": [
+      "DATED_INSTRUMENT_POINT_SUPPORTED",
+      "DATED_INSTRUMENT_POINT_PARTIAL"
+    ],
+    "request_keys": [
+      "anchor_on",
+      "identity",
+      "instrument",
+      "cover"
+    ],
+    "review_plan_path": "evidence/batch11_identity_20261018/captured_review_plan.json",
+    "review_plan_pin": {
+      "bytes": 8527,
+      "sha256": "700b4af88df2f059c968eb421f547635f776ed2c7ba66a75988f509cced0f480"
+    },
+    "source_selection_cutoff": "physical START even when an explicit later deadline is supplied"
+  },
+  "branch": "batch11/identity_bulk-20261018",
+  "canonical_tickers": 687,
+  "collector_api_used": false,
+  "current_q3_verified_instrument_coverage": 0,
+  "db_reads_or_writes": 0,
+  "deliverable": "Standalone independent source-asserted instrument point join; no merger/quarter/specimen/registry input.",
+  "development_lane": "identity_bulk",
+  "focused_qualification": {
+    "db_reads_or_writes": 0,
+    "discovered": 22,
+    "errors": 0,
+    "executed": 22,
+    "expected_failures": 0,
+    "failures": 0,
+    "finished_at": "2026-10-18T19:30:06.303098+00:00",
+    "log_sha256": "d40f3ad83699c439c3ff473634ab8a42e1b6c2bcebd09abbb96cb8ea55250aee",
+    "new_source_requests": 0,
+    "plain_OK": true,
+    "schema_version": "dated_point_focused_qualification_v1",
+    "skips": 0,
+    "source_sha256": {
+      "market_checker_app/services/sec_dated_instrument_point_review.py": "89359e1045695409a0681666ca2a118e6e69c1c0bf0bb32f906b32f2c73a06f0",
+      "tests/test_sec_dated_instrument_point_review.py": "479b772a64d1bccc4ff2652648c4ae40e31aeaa4c6751cc6f19a2680c664bcaa"
+    },
+    "started_at": "2026-10-18T19:30:06.026417+00:00",
+    "synthetic_positives_are_acceptance": false,
+    "unexpected_successes": 0
+  },
+  "full_focused_log_path": "evidence/batch11_identity_20261018/initial_tests.log",
+  "full_specialist_acceptance": 0,
+  "github_mutations": false,
+  "historical_availability_oos_or_userwindows_verified": false,
+  "historical_q2_instruments": 150,
+  "knowledge_at": "2026-10-18T19:27:47.427672+00:00",
+  "known_whole_withheld_bodies_accessed_restored_or_substituted": false,
+  "model_score_fitter_budget_or_trading_changed": false,
+  "new_verified_identities": 0,
+  "next_work": [
+    "Independent exact-day dated issuer/symbol/class/CUSIP evidence resolving the retained March/August and archive-route differences.",
+    "Separate old/new action-effective-day and continuity/issued-validity proof; a supported point alone cannot establish these.",
+    "Coordinator current-head integration and required CI; focused/synthetic tests are not analytical acceptance."
+  ],
+  "old_evidence_or_shared_code_edited": false,
+  "producer": {
+    "market_checker_app/services/sec_dated_instrument_point_review.py": {
+      "bytes": 14461,
+      "sha256": "89359e1045695409a0681666ca2a118e6e69c1c0bf0bb32f906b32f2c73a06f0"
+    }
+  },
+  "production_registry_changed": false,
+  "public_base_commit": "6ba4f44bc3e1ca240615c91dbec5bf52c93f3846",
+  "read_only_dependency_pins": {
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "bytes": 24571,
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    "market_checker_app/services/sec13f_identity_bulk.py": {
+      "bytes": 53750,
+      "sha256": "d579300dac475688aaf45464df0bfd0226b4f62470ba9cd03fa0f297211d01ba"
+    },
+    "market_checker_app/services/sec_control_instrument_review.py": {
+      "bytes": 19231,
+      "sha256": "d5a0b988e04ec4f682c461baac92f34c404fe8d6a5ac0332500c4f02dfbb83a1"
+    },
+    "market_checker_app/services/sec_corporate_action_bridge.py": {
+      "bytes": 55323,
+      "sha256": "337e73165538d9eb407c46bb13d961820c0f101849bb353687be16068f81827b"
+    },
+    "market_checker_app/services/sec_instrument_class_scope_review.py": {
+      "bytes": 28217,
+      "sha256": "7a009fdc6729dd4932039e8190c4f041f1680ca4f7885e4f54d536b931818689"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20535,
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    "market_checker_app/services/sec_symbol_action_scope_review.py": {
+      "bytes": 36059,
+      "sha256": "2004f1891498eb7b46079e1101b5988e32a1d81cf570d5e68207651cbedfa03f"
+    },
+    "tests/test_batch9_instrument_class_scope.py": {
+      "bytes": 18554,
+      "sha256": "03564e3bd6bd536c9b76e91fceb8cf53a9834823870d8363d81b66d2b510d59c"
+    }
+  },
+  "recorded_at": "2026-10-18T19:31:36.787661+00:00",
+  "registry_adoptions": 0,
+  "retained_original_bytes": 201828,
+  "retained_original_captures": 4,
+  "review_started_at": "2026-10-18T19:27:47.359652+00:00",
+  "schema_version": "batch11_dated_instrument_point_handoff_v1",
+  "source_knowledge_at": "2026-10-16T12:18:16.901780+00:00",
+  "source_references": {
+    "cover": {
+      "body_path": "evidence/batch9_identity_20261016/captures/426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141.bin",
+      "body_pin": {
+        "bytes": 30359,
+        "sha256": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141"
+      },
+      "metadata_path": "evidence/batch9_identity_20261016/captures/attempt-06.metadata.json",
+      "metadata_pin": {
+        "bytes": 1198,
+        "sha256": "511d499130685b80993e7b826e44a9722e086c5466c889420c04862716405baa"
+      },
+      "new_http_transports": 0,
+      "original_capture": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 6,
+        "body_path": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141.bin",
+        "bytes": 30359,
+        "elapsed_seconds": 3.529844221000019,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000084/pstg-20260826.htm",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-16T12:18:16.901780+00:00",
+        "raw_sha256": "426931faa83bc8298f41e2418bf2f0c4c5b53c7e069dbcaae1e5e58ded523141",
+        "redirects_allowed": false,
+        "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000084/pstg-20260826.htm",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "30359",
+          "Content-Type": "text/html",
+          "Date": "Fri, 16 Oct 2026 12:18:16 GMT",
+          "Last-Modified": "Wed, 26 Aug 2026 20:07:11 GMT"
+        },
+        "started_at": "2026-10-16T12:18:13.376475+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "schedule": {
+      "body_path": "evidence/batch9_identity_20261016/captures/f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4.bin",
+      "body_pin": {
+        "bytes": 5427,
+        "sha256": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4"
+      },
+      "metadata_path": "evidence/batch9_identity_20261016/captures/attempt-03.metadata.json",
+      "metadata_pin": {
+        "bytes": 1191,
+        "sha256": "5a10ceda28f0e50b6f4bb80289a476176595d924826c24ba66a1ce82bbc69b5c"
+      },
+      "new_http_transports": 0,
+      "original_capture": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 3,
+        "body_path": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4.bin",
+        "bytes": 5427,
+        "elapsed_seconds": 3.380314331999955,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/primary_doc.xml",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-16T12:18:03.864128+00:00",
+        "raw_sha256": "f5e18bdecf963798b9c8ac1e7ee8cc4befe717fc983c5126281a4945462953d4",
+        "redirects_allowed": false,
+        "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/primary_doc.xml",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "5427",
+          "Content-Type": "text/xml",
+          "Date": "Fri, 16 Oct 2026 12:18:03 GMT",
+          "Last-Modified": "Thu, 26 Mar 2026 22:20:17 GMT"
+        },
+        "started_at": "2026-10-16T12:18:00.484434+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "schedule_index": {
+      "body_path": "evidence/batch9_identity_20261016/captures/619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea.bin",
+      "body_pin": {
+        "bytes": 8235,
+        "sha256": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea"
+      },
+      "metadata_path": "evidence/batch9_identity_20261016/captures/attempt-04.metadata.json",
+      "metadata_pin": {
+        "bytes": 1239,
+        "sha256": "528a7952fd9ad6c51714576279009f5b184ebb2899339a3786991d774b4902da"
+      },
+      "new_http_transports": 0,
+      "original_capture": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 4,
+        "body_path": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea.bin",
+        "bytes": 8235,
+        "elapsed_seconds": 5.673173554000016,
+        "final_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/0000102909-26-001203-index.html",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-16T12:18:09.537295+00:00",
+        "raw_sha256": "619526e268bd59b3736b06432efa75d7aae5742842d31bdec5d5e85a340b53ea",
+        "redirects_allowed": false,
+        "request_plan_sha256": "7bfbdfc8572a6a7b61ca21d22bcbaa3009d5f0932151bf472cf4a0877d453ad6",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/0000102909-26-001203-index.html",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": "8235",
+          "Content-Type": "text/html; charset=UTF-8",
+          "Date": "Fri, 16 Oct 2026 12:18:09 GMT",
+          "Last-Modified": "Thu, 26 Mar 2026 22:19:54 GMT"
+        },
+        "started_at": "2026-10-16T12:18:03.865237+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    },
+    "submissions": {
+      "body_path": "evidence/batch8_identity_20261015/captures/6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98.bin",
+      "body_pin": {
+        "bytes": 157807,
+        "sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98"
+      },
+      "metadata_path": "evidence/batch8_identity_20261015/captures/attempt-01.metadata.json",
+      "metadata_pin": {
+        "bytes": 1110,
+        "sha256": "c6ef6bb03495363e24b339733c2355866db3bfd5da624786810d497c55ce2cf1"
+      },
+      "new_http_transports": 0,
+      "original_capture": {
+        "access_values_exported": false,
+        "app_quota_managed_live_claimed": false,
+        "attempt": 1,
+        "body_path": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98.bin",
+        "bytes": 157807,
+        "elapsed_seconds": 10.59255397600009,
+        "final_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+        "historical_request_ledger_reconstructed": false,
+        "http_status": 200,
+        "max_bytes": 4000000,
+        "method": "GET",
+        "observed_at": "2026-10-15T13:37:06.455150+00:00",
+        "raw_sha256": "6dd8088a00434c83bd2d31e79e3368a308745819e104aceb9a0b7be30c7a7d98",
+        "redirects_allowed": false,
+        "request_plan_sha256": "ada401257cea39ebf33f587d252eb8c18e9660da6ced787404196cd86126665f",
+        "requested_url": "https://data.sec.gov/submissions/CIK0001474432.json",
+        "research_only": true,
+        "response_headers": {
+          "Content-Encoding": null,
+          "Content-Length": null,
+          "Content-Type": "application/json",
+          "Date": "Thu, 15 Oct 2026 13:37:06 GMT",
+          "Last-Modified": null
+        },
+        "started_at": "2026-10-15T13:36:55.877000+00:00",
+        "status": "PUBLIC_ORIGINAL_BYTES_CAPTURED",
+        "timeout_seconds": 25
+      }
+    }
+  },
+  "source_requests": 0,
+  "tests": {
+    "tests/test_sec_dated_instrument_point_review.py": {
+      "bytes": 18396,
+      "sha256": "479b772a64d1bccc4ff2652648c4ae40e31aeaa4c6751cc6f19a2680c664bcaa"
+    }
+  }
+}

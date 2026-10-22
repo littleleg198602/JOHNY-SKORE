@@ -1,0 +1,310 @@
+{
+  "baseline_commit": "22bcb749873b9bfd89e8f6d52e5bb7909a186789",
+  "baseline_registry_sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5",
+  "canonical_tickers_changed": false,
+  "evidence_type": "actual_primary_transition_review_and_fail_closed_implementation",
+  "implementation": [
+    "A chronological same-CUSIP ticker rename now requires exact hash-bound primary transition review; prior versions are preserved",
+    "A deleted or incompatible-class current-list CUSIP cannot inherit ALREADY_REVIEWED status",
+    "Current single issuerCusips/issuerCusipNumber XML is supported; duplicate, multiple, mixed or wrong-namespace identifiers fail closed",
+    "An exact single SEC DOCUMENT envelope can be parsed without rewriting raw bytes; filenames, complete HTML, hidden/script exclusions remain strict",
+    "Bounded read-only transition diagnostics separate observed catalog symbols, dated DEI contexts, dated instrument claims and primary statements; unrelated filing issuer statements fail closed"
+  ],
+  "inventory": [
+    {
+      "bytes": 3473,
+      "path": "evidence/batch4_identity_20261013/capture_primary.py",
+      "sha256": "e97e0047c9c4e39c69fcad998bd1eb2e6a38a63e03c6cfdc58a3603a13d394d8"
+    },
+    {
+      "bytes": 862,
+      "path": "evidence/batch4_identity_20261013/captures/0727cd2189a797d82f066ded90209aca3f94a15d7480061b0b1c916da146b5a6.json",
+      "sha256": "d437f03664109656e1777eb864dba482d76fd3dbcb8ea35ade38a40605ac98f9"
+    },
+    {
+      "bytes": 6939,
+      "path": "evidence/batch4_identity_20261013/captures/1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56.bin",
+      "sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56"
+    },
+    {
+      "bytes": 38038,
+      "path": "evidence/batch4_identity_20261013/captures/21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7.bin",
+      "sha256": "21fb6ee76e4053bf1ca76aa3b84abe67144d8dcc97297182f0f69d8225adcfa7"
+    },
+    {
+      "bytes": 865,
+      "path": "evidence/batch4_identity_20261013/captures/2be20b35d97ffdb8d52b3c6b89f0499c7debe64ddde8bc63c7c9eaaff714ee30.json",
+      "sha256": "4b467ce034671c27bf82c3a4087b3750e77830b97524e2436fe61ec02b80c874"
+    },
+    {
+      "bytes": 6847,
+      "path": "evidence/batch4_identity_20261013/captures/2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd.bin",
+      "sha256": "2f5b17085f47777d4aae7eeed62e2328a866a83ef9c35cb0db7f57d395349dfd"
+    },
+    {
+      "bytes": 870,
+      "path": "evidence/batch4_identity_20261013/captures/49fb1cc122b14ddbdac4280e164bbb61eae474cc6dcb822d7f0b3e3d1f7d3e6e.json",
+      "sha256": "100bd3af03c5b021b2dc8a9a2c752b4fa674ad8bbe834709881140aae8284f19"
+    },
+    {
+      "bytes": 784,
+      "path": "evidence/batch4_identity_20261013/captures/4c272eeb028484145b93a691fdc329021dd1d2d3d3a6133991dcff6bb7baa9ff.json",
+      "sha256": "980e1f59b12723f553b26c58601af61494d9fe52b73a74695857a371196ed842"
+    },
+    {
+      "bytes": 31810,
+      "path": "evidence/batch4_identity_20261013/captures/50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786.bin",
+      "sha256": "50aec481096e39c71a575ebac91232f1c3f1499746791866ac52447d8261c786"
+    },
+    {
+      "bytes": 1320999,
+      "path": "evidence/batch4_identity_20261013/captures/511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b.bin",
+      "sha256": "511d98d06b146d80963b7f7c73bdcc0630fd42e14df2ad2f4fc01471782af61b"
+    },
+    {
+      "bytes": 784,
+      "path": "evidence/batch4_identity_20261013/captures/6184e86d63ee20e590a23859d25a9fa36503d36de0a23c67c4c766c07cbcb03c.json",
+      "sha256": "1999fc398e3a1f4a98af9594ac1a6b12665d2f7c5ed5da9cc2a26b57a78fa82e"
+    },
+    {
+      "bytes": 5629,
+      "path": "evidence/batch4_identity_20261013/captures/622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a.bin",
+      "sha256": "622139ad3f80a15d1854c6dc4cd1121a161a65f1a0f15fa519e43d08d3a3a72a"
+    },
+    {
+      "bytes": 871,
+      "path": "evidence/batch4_identity_20261013/captures/7218f3785433f5eb16d0fb322134a9978323833cd3557f29166d2174ad2c732d.json",
+      "sha256": "d53bc7a3da2980c19172b4a559b1599e2a5282c935052fc6c04597dc46bfc1df"
+    },
+    {
+      "bytes": 870,
+      "path": "evidence/batch4_identity_20261013/captures/8efa2c0f68db6520ddaf11e5d3f8dee0c3abfa0b14c3f3f79230e2d93b549021.json",
+      "sha256": "c710953293ac9e881d0ac8a610b27f0a3250ab097c7b933f2f202553840e160c"
+    },
+    {
+      "bytes": 41778,
+      "path": "evidence/batch4_identity_20261013/captures/90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4.bin",
+      "sha256": "90996824fa63df431402a1c5ae25dde8cf544e5ca0682e4a0f7eed8730916ee4"
+    },
+    {
+      "bytes": 872,
+      "path": "evidence/batch4_identity_20261013/captures/9e94ff7b56c0c2754f484da2574802cadae985d4a04a34880b12291404dd909d.json",
+      "sha256": "b6ea263cd075395a484525f03500b48f36622592d0677f0a162ff094b7ca65bc"
+    },
+    {
+      "bytes": 1614197,
+      "path": "evidence/batch4_identity_20261013/captures/a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a.bin",
+      "sha256": "a1ff38e4b888ae8e8f7e0dab96a19e3c88e508711ef03b7303267cbbd280703a"
+    },
+    {
+      "bytes": 157897,
+      "path": "evidence/batch4_identity_20261013/captures/aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149.bin",
+      "sha256": "aed34c35fa2d55513a1510973ad56c16f32612d137980b785c60bd4fce167149"
+    },
+    {
+      "bytes": 861,
+      "path": "evidence/batch4_identity_20261013/captures/b35be8b7faead91abc4e5bdf23e8d0eb895f55497e93c364858cc323cf7e6033.json",
+      "sha256": "a46e64ffe16df7d3eacd039395cd60e5b81a6bac71c7fdf466ff8c7dbfdcae3a"
+    },
+    {
+      "bytes": 871,
+      "path": "evidence/batch4_identity_20261013/captures/d0cede9f282a654d0e90dee06851d09ffeaa767e1da752c485ea37f8c8b248bf.json",
+      "sha256": "a871d4880738db3bda5faec2ee1c0bff2976ba2097841192388cf015a80c0b66"
+    },
+    {
+      "bytes": 36885,
+      "path": "evidence/batch4_identity_20261013/captures/d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6.bin",
+      "sha256": "d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6"
+    },
+    {
+      "bytes": 784,
+      "path": "evidence/batch4_identity_20261013/captures/fa92eff28a7568ebceff171ae194030eb331b402e48a5c89d57ad3de407e4573.json",
+      "sha256": "5c88746e1c45b7adecef6fe8850cde7d7fac972f3befc1cfab0b6b69529bd26c"
+    },
+    {
+      "bytes": 159299,
+      "path": "evidence/batch4_identity_20261013/captures/fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98.bin",
+      "sha256": "fd33c8d8b7ef6b1c782cb6a752018124c74110f11aae6c041e1530442646fb98"
+    },
+    {
+      "bytes": 19824,
+      "path": "evidence/batch4_identity_20261013/focused_tests.log",
+      "sha256": "a100ebb73b68a6f258251dff6cf847c00406ec2a793a85267b0313211b780cba"
+    },
+    {
+      "bytes": 110,
+      "path": "evidence/batch4_identity_20261013/interpreter_missing.log",
+      "sha256": "c75c2cbf11b618794bfcc65503357d90ade365a0591452e66628db6d09de57f7"
+    },
+    {
+      "bytes": 13488,
+      "path": "evidence/batch4_identity_20261013/pre_staging_summary.json",
+      "sha256": "b0fef655318b8b2bf96787956b24031b4ec7836aad850a584d96b64715f73cb7"
+    },
+    {
+      "bytes": 19358,
+      "path": "evidence/batch4_identity_20261013/prior_focused_tests_98.log",
+      "sha256": "9103b67eafcd636c114453c6b279fb8ace829a6d072e5be24b1f75fa25168583"
+    },
+    {
+      "bytes": 19587,
+      "path": "evidence/batch4_identity_20261013/prior_focused_tests_99.log",
+      "sha256": "ccae93bbeb034d85e6e19e47599d5168f753213b3f61359355e9506cc4c3dfeb"
+    },
+    {
+      "bytes": 10892,
+      "path": "evidence/batch4_identity_20261013/replay_diagnostics.json",
+      "sha256": "c288edbf2e87e67ed95c3dc90b785f1c87fb46e2190759025cd752a2d4018740"
+    },
+    {
+      "bytes": 8794,
+      "path": "evidence/batch4_identity_20261013/replay_review.py",
+      "sha256": "a555431522b09dee15f11c171b615a4e3ee5a2923e0e32c0c4df6e0ef338f556"
+    },
+    {
+      "bytes": 23636,
+      "path": "evidence/batch4_identity_20261013/review.json",
+      "sha256": "41af6df5a107255d9f97c49b176d101567b6536535ba20b418c2dfefd54d2797"
+    },
+    {
+      "bytes": 23572,
+      "path": "evidence/batch4_identity_20261013/review_before_class_scope_guard.json",
+      "sha256": "9556bfd865e70b7cd3e3bf3cd5deede3db0f0927271b5e66590ef17d394f228a"
+    },
+    {
+      "bytes": 9074,
+      "path": "evidence/batch4_identity_20261013/verify_and_record.py",
+      "sha256": "a3763b6a26c85a4d5a3ffec799291109aff20aa44e9e167e95bb0a4c027bea42"
+    }
+  ],
+  "lane": "identity_bulk",
+  "limits": [
+    "The selected three investigations are not measured current-Q3 coverage of all 687 companies",
+    "The XOM action establishes succession and its date but does not bind the complete exact old/new CIK/CUSIP/class instrument bridge",
+    "XOM July7 DEI says Common Stock without par value while the July1 successor action says par value $0.001; the discrepancy and class-scope blocker are retained",
+    "LEG former common stock remains a deleted current-list instrument; merger consideration does not authorize an automatic parent alias",
+    "PSTG remains unresolved under the canonical old ticker; same-CIK current symbol P is research evidence, not a provider alias or historical identity export",
+    "An actual XOM July7 raw response has an incomplete closing html tag; bytes are unchanged and full visible-action proof is withheld while completed same-context DEI facts are separately labeled",
+    "Captured instrument dates and current catalog observations do not establish continuous historical quarter validity or prior source-check availability",
+    "No production identity, relevant full-universe coverage, user Windows, hosted Windows, OOS, specialist completion, score or trading acceptance is claimed",
+    "The transient missing interpreter attempt is preserved; the centrally restored runtime completed the final focused tests"
+  ],
+  "new_verified_identities": 0,
+  "production_registry_changed": false,
+  "real_source_review": {
+    "LEG": {
+      "cash_in_source_scope": "cash in lieu of fractional shares only",
+      "current_catalog_symbol_absent": true,
+      "cusip": "524660107",
+      "parent_alias_or_group_identity_created": false,
+      "parent_share_exchange_ratio_in_source": "0.1455",
+      "primary_merger_closing_on": "2026-08-26",
+      "selected_list_status": "DELETED_IN_SELECTED_LIST",
+      "suspension_delisting_request_in_primary_source": true
+    },
+    "PSTG": {
+      "canonical_alias_created": false,
+      "captured_change_statement_date_scope": "April 2026 only; exact effective day not inferred",
+      "captured_instrument_class": "Common Stock; not promoted to exact Class A",
+      "captured_instrument_event": "2026-03-31",
+      "current_catalog_symbol_absent": true,
+      "cusip": "74624M102",
+      "issuer_cik": "0001474432",
+      "new_symbol_q3_context_anchor": "2026-08-02",
+      "old_symbol_context_anchor": "2026-02-23",
+      "same_cik_catalog_symbol": "P"
+    },
+    "XOM": {
+      "candidate_cusip": "30233Q108",
+      "catalog_cik": "0002115436",
+      "class_scope_normalized_or_promoted": false,
+      "full_instrument_transition_approved": false,
+      "old_cik": "0000034088",
+      "old_cusip": "30231G102",
+      "old_q2_interval_preserved": true,
+      "primary_redomiciliation_effective_on": "2026-07-01",
+      "raw_action_class": "Common Stock, par value $0.001",
+      "raw_cover_class": "Common Stock, without par value",
+      "raw_same_context_anchor": "2026-07-07"
+    },
+    "canonical_universe_size": 687,
+    "original_bytes_verified": true,
+    "publication_clock_basis": "Exact archived SEC submissions acceptanceDateTime; no inferred clock reconciliation or historical source-check availability",
+    "raw_primary_captures": 11,
+    "review_sha256": "e2022772947cf09238d56f35635d489bfb4d89e9be0a0725e7145fbbbe0cde24",
+    "selected_tickers": [
+      "XOM",
+      "LEG",
+      "PSTG"
+    ]
+  },
+  "recorded_at": "2026-10-13T13:06:01.821851+00:00",
+  "runtime": {
+    "platform": "Linux",
+    "python": "3.12.14"
+  },
+  "schema_version": 1,
+  "score_changed": false,
+  "specialist_done_changed": false,
+  "tested_code_sha256": {
+    "market_checker_app/services/sec13f_identity_bulk.py": "d579300dac475688aaf45464df0bfd0226b4f62470ba9cd03fa0f297211d01ba",
+    "market_checker_app/services/sec13f_transition_review.py": "46f0539f7b9963be6b2fac86914896aada27f472aa9d21b3ffe0f9428afc395b",
+    "tests/test_batch4_identity_transitions.py": "d2083ab750a20b20102a5400b4a629f463ac41308de219c194d981b60203106e"
+  },
+  "verification": {
+    "compileall": {
+      "exit_code": 0
+    },
+    "focused_tests": {
+      "command": [
+        "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_batch4_identity_transitions",
+        "tests.test_sec13f_identity_bulk",
+        "tests.test_sec13f_identity_transitions",
+        "-v"
+      ],
+      "duration_seconds": 6.687,
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "log_path": "evidence/batch4_identity_20261013/focused_tests.log",
+      "log_sha256": "a100ebb73b68a6f258251dff6cf847c00406ec2a793a85267b0313211b780cba",
+      "skipped": 0,
+      "tests_run": 100
+    },
+    "git_diff_check": {
+      "code_and_metadata": {
+        "command": [
+          "git",
+          "diff",
+          "--cached",
+          "--check",
+          "--",
+          ".",
+          ":(exclude)evidence/batch4_identity_20261013/captures/*.bin"
+        ],
+        "exit_code": 0
+      },
+      "including_raw_captures": {
+        "command": [
+          "git",
+          "diff",
+          "--cached",
+          "--check"
+        ],
+        "exit_code": 2,
+        "output": "evidence/batch4_identity_20261013/captures/d62d405ebbd17d5a728c29f3573405fd07aeb494a0a49f38b60a1caa526797d6.bin:9: new blank line at EOF.\n"
+      },
+      "raw_capture_bytes_preserved": true
+    },
+    "offline_replay": {
+      "network_requested": false,
+      "report_file_sha256": "41af6df5a107255d9f97c49b176d101567b6536535ba20b418c2dfefd54d2797",
+      "review_path": "evidence/batch4_identity_20261013/review.json",
+      "saved_diagnostics_match": true,
+      "saved_report_matches": true
+    }
+  }
+}

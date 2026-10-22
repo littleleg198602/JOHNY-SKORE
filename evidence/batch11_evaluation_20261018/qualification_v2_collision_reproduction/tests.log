@@ -1,0 +1,14 @@
+test_late_output_collision_preserves_winner_and_returns_actual_saved_subset (test_user_windows_analysis_capture.WindowsAnalysisCaptureTests.test_late_output_collision_preserves_winner_and_returns_actual_saved_subset) ... FAIL
+
+======================================================================
+FAIL: test_late_output_collision_preserves_winner_and_returns_actual_saved_subset (test_user_windows_analysis_capture.WindowsAnalysisCaptureTests.test_late_output_collision_preserves_winner_and_returns_actual_saved_subset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015/tests/test_user_windows_analysis_capture.py", line 562, in test_late_output_collision_preserves_winner_and_returns_actual_saved_subset
+    self.assertIsNone(error, "A late publication collision must retain the actual saved subset in an explicitly unpublished, unqualified result")
+AssertionError: FileExistsError(17, 'File exists') is not None : A late publication collision must retain the actual saved subset in an explicitly unpublished, unqualified result
+
+----------------------------------------------------------------------
+Ran 1 test in 2.883s
+
+FAILED (failures=1)

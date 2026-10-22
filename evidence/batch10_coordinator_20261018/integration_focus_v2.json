@@ -1,0 +1,31 @@
+{
+  "started_at": "2026-10-18T14:16:14.524734+00:00",
+  "ended_at": "2026-10-18T14:16:19.679921+00:00",
+  "elapsed_seconds": 5.155187803999979,
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "selected": [
+    "tests.test_batch10_coordinator_integration"
+  ],
+  "exact_test_ids": [
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_new_kind_body_limit_and_future_knowledge_reject_before_any_body_io",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_2017_roster_does_not_supply_current_exact_fda_applicant_ownership",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_biography_year_precision_never_becomes_role_interval_or_account_alias",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_case_captions_remain_document_local_without_issuer_or_disposition_bridge",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_certificate_literal_fact_keeps_blank_date_and_specimen_limits",
+    "tests.test_batch10_coordinator_integration.CurrentOriginalReviewIntegrationTests.test_original_revenue_totals_preserve_source_scale_without_customer_amount",
+    "tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_benchmark_outside_canonical_subjects_is_refused_before_reading_inputs",
+    "tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_default_cli_does_not_read_inputs_or_create_a_receipt",
+    "tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_explicit_cli_publishes_readiness_only_and_rejects_overwriting_its_receipt",
+    "tests.test_batch10_coordinator_integration.ExplicitReadinessActionIntegrationTests.test_ui_default_render_never_captures_and_explicit_submit_selects_exact_inputs_once"
+  ],
+  "discovered": 10,
+  "executed": 10,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true,
+  "full_log_sha256": "d6104bc0e341d17bc65cb9437b9e15e32fb9833fcccd18df947cb429be0c7bec"
+}

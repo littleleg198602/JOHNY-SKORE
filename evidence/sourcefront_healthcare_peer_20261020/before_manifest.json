@@ -1,0 +1,45 @@
+{
+  "recorded_at": "2026-10-20T14:36:45.466135+00:00",
+  "base_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "files": [
+    {
+      "repository_path": "market_checker_app/services/healthcare_identity_service.py",
+      "frozen_path": "evidence/sourcefront_healthcare_peer_20261020/before/market_checker_app/services/healthcare_identity_service.py",
+      "bytes": 36547,
+      "sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923"
+    },
+    {
+      "repository_path": "market_checker_app/services/healthcare_scout_service.py",
+      "frozen_path": "evidence/sourcefront_healthcare_peer_20261020/before/market_checker_app/services/healthcare_scout_service.py",
+      "bytes": 26388,
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078"
+    },
+    {
+      "repository_path": "market_checker_app/services/cms_provider_ownership_review.py",
+      "frozen_path": "evidence/sourcefront_healthcare_peer_20261020/before/market_checker_app/services/cms_provider_ownership_review.py",
+      "bytes": 19142,
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    {
+      "repository_path": "market_checker_app/data/verified_healthcare_identities.json",
+      "frozen_path": "evidence/sourcefront_healthcare_peer_20261020/before/market_checker_app/data/verified_healthcare_identities.json",
+      "bytes": 14656,
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    {
+      "repository_path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+      "frozen_path": "evidence/sourcefront_healthcare_peer_20261020/before/tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+      "bytes": 815,
+      "sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2"
+    },
+    {
+      "repository_path": "tests/test_cms_snapshot_attribution_peer.py",
+      "frozen_path": "evidence/sourcefront_healthcare_peer_20261020/before/tests/test_cms_snapshot_attribution_peer.py",
+      "bytes": 8381,
+      "sha256": "bef8f5403e33c721ae0b125a5eed45f736a87cd6c28b1f102f939dcd5c3470ba"
+    }
+  ],
+  "http_requests": 0,
+  "database_operations": 0,
+  "scope": "Independent peer frozen pre-fix original whole producer/registry/projected-row/new-assertion bytes"
+}

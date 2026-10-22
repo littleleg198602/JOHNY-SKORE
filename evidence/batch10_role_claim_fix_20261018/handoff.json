@@ -1,0 +1,321 @@
+{
+  "actual_source_scope": {
+    "DB_quota_lease_mutations": 0,
+    "account_identity_alias_continuity_instrument_score_promotions": false,
+    "actual_report_available_at": "2026-10-18T14:10:12.034291+00:00",
+    "biography_disclosures": 1,
+    "company_experience_range_assertions": 1,
+    "comparison_account_disclosures": 1,
+    "generic_career_assertions": 1,
+    "index_served_body_conflict_bytes": 110,
+    "literal_precision": "YEAR; present anchored only to 2025-10-21",
+    "named_role_claims": 7,
+    "new_http_requests": 0,
+    "publication_timezones": "UNKNOWN; no UTC inference",
+    "source_collection_performed": false
+  },
+  "api": {
+    "actual_plan_path": "evidence/batch10_role_claim_fix_20261018/actual_review_plan.json",
+    "actual_review_path": "evidence/batch10_role_claim_fix_20261018/person_role_claim_review_v2.json",
+    "capture": "PersonRoleClaimCapture",
+    "capture_keys": [
+      "primary",
+      "index",
+      "account_packet"
+    ],
+    "function": "review_sec_person_role_claims",
+    "keyword_arguments": [
+      "primary_capture",
+      "index_capture",
+      "account_packet_capture",
+      "selection",
+      "knowledge_at"
+    ],
+    "kind": "SEC_PERSON_ROLE_CLAIM",
+    "module": "market_checker_app.collectors.sec_person_role_claim_review"
+  },
+  "base_owner_commit": "941624455dc7cc0463aad89e2fb94e4fc1534d93",
+  "created_at": "2026-10-18T14:14:02.660245+00:00",
+  "current_source_pin": {
+    "bytes": 31534,
+    "sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3"
+  },
+  "excluded_untracked_readiness_peer_copies": "Separate commits 2e43583742dc9af34d826b8c3c996cf0c88924cf and 02e3e6f773b8906893afe301d79e5e815c9cda26; not part of this role fix",
+  "fixes": [
+    "Entire career-table scope: selected role cell contains first visible content; other named-biography markers rejected",
+    "Visible original index Filing Date and Accepted labels/values required in exact div scope; no unrelated text substitution",
+    "Physical completion after explicit cutoff withholds all interpreted facts and retains actual availability"
+  ],
+  "focused_qualification": {
+    "completed_at": "2026-10-18T14:10:24.567720+00:00",
+    "current_owner_test_methods": 52,
+    "discovered": 55,
+    "elapsed_seconds": 7.922068480999997,
+    "errors": 0,
+    "executed": 55,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_sha256": "9cbcd6a796e5dea68f6b82459976c89a49bd1bca4d4b9326f4924c4bb0769b4b",
+    "original_owner_test_bodies_preserved": 44,
+    "skips": 0,
+    "started_at": "2026-10-18T14:10:16.645650+00:00",
+    "successful": true,
+    "unchanged_independent_peer_test_methods": 3,
+    "unexpected_successes": 0
+  },
+  "full_specialist_acceptance": false,
+  "independent_after_evidence_pins": {
+    "evidence/batch10_role_claim_peer_20261018/after_actual_review.json": {
+      "bytes": 16300,
+      "sha256": "87bceedb852aa94ba7bb6d2667f15e58baba882b8e746ee3a28e1b836988e364"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_diagnostic.json": {
+      "bytes": 1691,
+      "sha256": "3b93819756eca179e6145e0d8e5ca1079d978ce7a31fa58238f2c2fada779de3"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_handoff.json": {
+      "bytes": 5281,
+      "sha256": "896b15e493f6a3d430c2954b74e2b01eedac5bfbfb64e5cc81f72c40acfbb91b"
+    },
+    "evidence/batch10_role_claim_peer_20261018/after_tests.log": {
+      "bytes": 726,
+      "sha256": "45458b0b395cbd13ac2176db66c48bad3efb98444474257ac68562c74a3586c2"
+    }
+  },
+  "independent_after_qualification": {
+    "candidate_bytes": 31534,
+    "candidate_modified_by_peer": false,
+    "candidate_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/market_checker_app/collectors/sec_person_role_claim_review.py",
+    "candidate_sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3",
+    "db_operations": 0,
+    "diagnostics": [
+      {
+        "error_type": "PersonRoleClaimReviewError",
+        "kind": "OTHER_PERSON_INSIDE_CAREER_TABLE",
+        "reason": "Unselected subject/content inside career table breaks the named-person scope",
+        "rejected": true
+      },
+      {
+        "error_type": "PersonRoleClaimReviewError",
+        "kind": "HIDDEN_INDEX_FILING_DAY",
+        "reason": "Required original index clock is hidden, absent or conflicting",
+        "rejected": true
+      },
+      {
+        "continuous_role_verified": false,
+        "kind": "COMPLETION_AFTER_EXPLICIT_CUTOFF",
+        "named_person": null,
+        "natural_person_account_binding_verified": false,
+        "rejected": false,
+        "requested_knowledge_at": "2026-10-18T12:00:00+00:00",
+        "review_available_at": "2026-10-18T12:00:02+00:00",
+        "roles": [],
+        "source_present_anchor": null,
+        "source_role_claims_supported": false
+      }
+    ],
+    "discovered": 3,
+    "elapsed_seconds": 0.012101921000009952,
+    "errors": 0,
+    "executed": 3,
+    "expected_failures": 0,
+    "failures": 0,
+    "peer_test_sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be",
+    "phase": "after",
+    "recorded_at": "2026-10-18T14:11:11.952892+00:00",
+    "registry_adoptions": 0,
+    "schema_version": 1,
+    "skips": 0,
+    "source_http_requests": 0,
+    "successful": true,
+    "synthetic_only": true,
+    "unexpected_successes": 0
+  },
+  "independent_peer_after_commit": "43d71ca81505a32132e89d279dd7baf7ea27fe76",
+  "known_withheld_bodies_not_restored_or_replaced": true,
+  "limits": [
+    "Bounded selected DEF14A layout only; explicit markup visibility, not a general CSS renderer",
+    "No independent named-person/Form4-account CIK binding or approved alias",
+    "No exact appointment/cessation days or legal role continuity",
+    "No CUSIP/class identity, exact historical as-filed body version, historical machine availability, OOS or user Windows acceptance"
+  ],
+  "new_verified_adoptions": 0,
+  "no_shared_files_or_registry_model_budget_trading_github_changes": true,
+  "original_evidence_unchanged_pins": {
+    "evidence/batch10_sec_20261018/README.md": {
+      "bytes": 5513,
+      "sha256": "fcf4c30cf087787c3add2d2297b15838fae53c82acb6fb4706442c09fb39e494"
+    },
+    "evidence/batch10_sec_20261018/actual_review_plan.json": {
+      "bytes": 3530,
+      "sha256": "d95711ffba4d6e8c01d9022921f4dbbb6038ce1849fcd585e6db87f469c204c2"
+    },
+    "evidence/batch10_sec_20261018/build_review.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "evidence/batch10_sec_20261018/focused_01.json": {
+      "bytes": 2130,
+      "sha256": "06b20ed47918d4a99bc01f98634f73fc528e68bdefdb23166f98de1ab19f2edf"
+    },
+    "evidence/batch10_sec_20261018/focused_01.log": {
+      "bytes": 9676,
+      "sha256": "f03b4e8a26e4e3285232d5391f9449fb8f664f568328977613d1920a52c88e58"
+    },
+    "evidence/batch10_sec_20261018/handoff.json": {
+      "bytes": 8807,
+      "sha256": "57b9fccfe24681ba8059b4e13d8db92f1f29d53d2a945dd4c7738df1cf1de4a7"
+    },
+    "evidence/batch10_sec_20261018/person_role_claim_review_v1.json": {
+      "bytes": 19056,
+      "sha256": "8904732a28bf595a89988d84759c592868acc1ce9b640c8fbf343d56d4385fa1"
+    },
+    "evidence/batch10_sec_20261018/run_focused_tests.py": {
+      "bytes": 3098,
+      "sha256": "09cdea3bd54f4e32129c167b2ca2110fe0fad0e00dfae6e20e5f4e045267115f"
+    }
+  },
+  "original_source_pin": {
+    "bytes": 26101,
+    "sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84"
+  },
+  "output": "STRICT_NAMED_PERSON_ROLE_SCOPE_AND_INTERPRETATION_CUTOFF_FIX",
+  "owned_file_pins": {
+    "evidence/batch10_role_claim_fix_20261018/README.md": {
+      "bytes": 5054,
+      "sha256": "95a941c723e7eab32c47a888cce8a08de73f12bbbdc4fad567649c574b6478a4"
+    },
+    "evidence/batch10_role_claim_fix_20261018/actual_review_plan.json": {
+      "bytes": 3530,
+      "sha256": "d95711ffba4d6e8c01d9022921f4dbbb6038ce1849fcd585e6db87f469c204c2"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/original_focused_01.json": {
+      "bytes": 2130,
+      "sha256": "06b20ed47918d4a99bc01f98634f73fc528e68bdefdb23166f98de1ab19f2edf"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/original_focused_01.log": {
+      "bytes": 9676,
+      "sha256": "f03b4e8a26e4e3285232d5391f9449fb8f664f568328977613d1920a52c88e58"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/original_review_v1.json": {
+      "bytes": 19056,
+      "sha256": "8904732a28bf595a89988d84759c592868acc1ce9b640c8fbf343d56d4385fa1"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/owner_source.py": {
+      "bytes": 26101,
+      "sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/owner_test.py": {
+      "bytes": 28368,
+      "sha256": "43fdca820a30fff616d68b7b04e89e27967fde2b55eec71c82f817e206672a7e"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/peer_before_diagnostic.json": {
+      "bytes": 3117,
+      "sha256": "8a5553aafcea0b20d296334be8362fd47e0bde1b9e094ff095bb1e7ba44edd0e"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/peer_before_tests.log": {
+      "bytes": 3842,
+      "sha256": "b6eeb9f536c012df482c12599769995bfb177ecbb3ded7e69de14b9434bf0e8d"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/peer_handoff_before.json": {
+      "bytes": 3483,
+      "sha256": "a60cea2b4bc1e7029e0f0126e566948844d5854e370bcdb9e20ad78374bb4236"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/peer_pre_review_pin.json": {
+      "bytes": 1052,
+      "sha256": "84c96fb736793ca595c299d3e90633a74a29d5955e0cc3be6a147d878eb88861"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/peer_runner.py": {
+      "bytes": 3374,
+      "sha256": "994bb9769cb72f274ca09a7cdb45686ad3b3d4ae1b196c2a5e86c59302bcbc38"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/peer_test.py": {
+      "bytes": 3321,
+      "sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before/producer.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "evidence/batch10_role_claim_fix_20261018/before_freeze.json": {
+      "bytes": 1981,
+      "sha256": "df7ed399aaf2eb661280825c367ef2db21325d5179fb7cd0639ed81d8d3c162d"
+    },
+    "evidence/batch10_role_claim_fix_20261018/build_review.py": {
+      "bytes": 1777,
+      "sha256": "84e92a379aafbc5bda28d713d2e1ba0927358deb602b1468eec10669caa12aef"
+    },
+    "evidence/batch10_role_claim_fix_20261018/focused_fix_01.json": {
+      "bytes": 2667,
+      "sha256": "9045af998c987accfdd2394b85ee297cbb1e8d1268850625f006d5a635786387"
+    },
+    "evidence/batch10_role_claim_fix_20261018/focused_fix_01.log": {
+      "bytes": 12252,
+      "sha256": "9cbcd6a796e5dea68f6b82459976c89a49bd1bca4d4b9326f4924c4bb0769b4b"
+    },
+    "evidence/batch10_role_claim_fix_20261018/person_role_claim_review_v2.json": {
+      "bytes": 20278,
+      "sha256": "2be2f4f3d10290808b00d5bf33c6b0587905264744284916073f1d9f69830063"
+    },
+    "evidence/batch10_role_claim_fix_20261018/run_focused_tests.py": {
+      "bytes": 4231,
+      "sha256": "ae8ba6cfeee5aa75d948198e33359bd2d4646acffa00fd3569cf449862a7730d"
+    },
+    "market_checker_app/collectors/sec_person_role_claim_review.py": {
+      "bytes": 31534,
+      "sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3"
+    },
+    "tests/test_sec_person_role_claim_review.py": {
+      "bytes": 33688,
+      "sha256": "37fd59837ae4de53f7b64af38f13ab55a28a690ee1b1adfd7ba85ffc8f14004a"
+    }
+  },
+  "peer_before_commit": "cdcae54b3b1b599d19f76e54088482e6ce9d0b55",
+  "qualified_dependency_source_pins": {
+    "evidence/batch10_role_claim_fix_20261018/before/peer_test.py": {
+      "bytes": 3321,
+      "sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be"
+    },
+    "evidence/batch10_role_claim_fix_20261018/build_review.py": {
+      "bytes": 1777,
+      "sha256": "84e92a379aafbc5bda28d713d2e1ba0927358deb602b1468eec10669caa12aef"
+    },
+    "evidence/batch10_role_claim_fix_20261018/run_focused_tests.py": {
+      "bytes": 4231,
+      "sha256": "ae8ba6cfeee5aa75d948198e33359bd2d4646acffa00fd3569cf449862a7730d"
+    },
+    "evidence/batch10_sec_20261018/build_review.py": {
+      "bytes": 6224,
+      "sha256": "3dccb6716be93481e58793b1b918a8dfb70c83a2c6b167f23a0f47c06610562c"
+    },
+    "market_checker_app/collectors/sec_person_role_claim_review.py": {
+      "bytes": 31534,
+      "sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3"
+    },
+    "market_checker_app/services/ir_primary_scout_service.py": {
+      "bytes": 24571,
+      "sha256": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de"
+    },
+    "market_checker_app/services/sec_complete_packet_review.py": {
+      "bytes": 22306,
+      "sha256": "78170055ab8377f99f900e6e3417c60eca4e29fcc179ca9897d643ba294310fe"
+    },
+    "market_checker_app/services/sec_form4_person_bridge.py": {
+      "bytes": 22929,
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    "market_checker_app/services/sec_owner_instrument_scope_review.py": {
+      "bytes": 24453,
+      "sha256": "9186f28a33361be11cd69bf97722c4fa982137bffa164d7a6b5cd7e5e8f14a44"
+    },
+    "market_checker_app/services/sec_person_kind_review.py": {
+      "bytes": 20535,
+      "sha256": "5cdaa6bdc8dd08f93f8b7aff641a1f57c73b2fbef8e546889cd30972fd943cbe"
+    },
+    "tests/test_sec_person_role_claim_review.py": {
+      "bytes": 33688,
+      "sha256": "37fd59837ae4de53f7b64af38f13ab55a28a690ee1b1adfd7ba85ffc8f14004a"
+    }
+  },
+  "schema_version": 1
+}

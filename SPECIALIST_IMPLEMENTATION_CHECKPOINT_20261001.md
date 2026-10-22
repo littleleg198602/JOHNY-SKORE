@@ -1,5 +1,787 @@
 # NEW ANALYZER — checkpoint 1. 10. 2026
 
+## Zdrojové pokračování: datované listiny a zálohy na kapacitu — 21. 10. 2026
+
+Pět nových celých primárních HTTP200 originálů (**2,683,149 bytes**, 3 SEC a
+2 statické FDA PDF) je v `evidence/sourcefront21_primary_20261021/`. Každý měl
+samostatnou předchozí rezervaci; před požadavky nezávislý agent ověřil přesné
+literal hrefs, whole parent SHA a zaznamenanou historii. Root provedl každý
+požadavek právě jednou 2026-10-21 v 07:12 UTC. Žádný retry, redirect, fallback,
+app collector, SQL nebo nový quotaDB. Pozdější nezávislý capture audit ověřil
+whole bytes, metadata, bezpečné hlavičky, clocky a skutečný stdout/exit.
+Původní návrh i předchozí inventory mají trvalé byte-exact kopie v coordinatoru.
+
+- P name amendment přímo mění Article I na Everpure, Inc.; podpis
+  2026-02-20 a účinnost 2026-02-23 v 00:01 Eastern Time jsou rozdílné stated
+  body. Samostatný EX-4.3 uvádí Everpure/Class A common/NYSE PSTG/par $0.0001.
+  Nemá vlastní explicitní class as-of day, CUSIP ani datum přechodu symbolu na P.
+  Starý specimen CUSIP ani datum se do tohoto nového dokladu nepřenáší.
+- FDA approval package 2019 má BLA761081/ORIG1, krátký název Pfizer Ireland
+  Pharmaceuticals, U.S.License2060 a podpis 2019-03-11. Label revised8/2025
+  rozlišuje manufacturer Pfizer Ireland Pharmaceuticals/Cork/Ireland a
+  distributor Pfizer Labs/Division of Pfizer Inc./New York. Uvádí 150mg
+  single-dose i420mg multiple-dose, konkrétní NDC a samostatný výrobní scope.
+  Ani celý decoded text obou PDF nemá exact Unlimited Company. Jména, licence,
+  approval a NDC samy neprokazují legal parent, ownership-since, kontinuální
+  identitu ani automatickou vazbu na product_number001/002. Celé PDF, textové
+  derivace a skutečné relevantní page renderings jsou rozlišené a připnuté.
+- Microsoft EX31.1 přímo uvádí Satya Nadella/Chief Executive Officer a podpis
+  2026-07-29. Je to role point; neprokazuje souvislý interval do transakce
+  2026-08-31, natural-person/account/alias, totožnost transakce ani execution.
+  Index12,647B versus served12,762B (+115B) zůstává kvalifikovaný rozpor;
+  žádná normalizace, spuštění připojeného scriptu nebo historical-as-filed claim.
+- Regulatory offline audit nenašel novou způsobilou literal route k samostatnému
+  Order/current complete docket či whole FRS/program body: 0 eligible/0 requests.
+  Dříve odmítnutý NHTSA collector se nespouští jiným transportem ani pod novým
+  plánem. CMS/Clinical/FDA/USAspending app-collector durable histories zůstávají
+  neprokázané; statické FDA research PDF je nenahrazuje.
+
+Nová produkční offline API `review_wafer_capacity_deposits` a kind
+`WAFER_CAPACITY_DEPOSITS` jsou zapojené do existujícího CLI/UI. Retained SWKS
+Note11 má šest jedinečných finančních zůstatků: 26.4=7.7+18.7m USD k
+2025-10-03 a167.8=144.7+23.1m k2024-09-27. Dvanáct vnořených iXBRL tagů
+popisuje těchto šest hodnot; nesčítají se podruhé. Refundable deposits a
+prepayments nejsou named foundry, physical capacity/volume, purchases, spend,
+outstanding obligation ani Apple allocation. Původní109B index/body conflict,
+comparative-not-prior-as-filed a UNKNOWN publisher timezone zůstávají explicitní.
+
+Původní owner fixture failure1/32 i následné kvalifikace jsou zachované.
+Skutečný uvolněný SEC peer našel dvě další časové chyby: future `as_of` a
+Accepted2099 v capture2026. Narrow fix odmítá nemožné časové vztahy, nepředstírá
+publisher timezone ani Accepted=FilingDate. Pět nových owner temporal metod a
+stejných12 peer assertions poté prošlo; celé before2FAIL/after12OK producer,
+tests, logs a receipts jsou v `sourcefront21_contracts_20261021/temporal_fix/`
+a `sourcefront21_wafer_peer_20261021/`. Šest skutečných původních agentů a
+konkrétní freed followupy jsou v coordinator `worker_commits.json`.
+
+Dvě skutečné wafer CLI/UI akce mají fyzické hodiny a immutable archivy v
+`evidence/sourcefront21_coordinator_20261021/runtime/`, 0 HTTP/SQL/adopcí/pipeline.
+Tehdy necommitnuté shared source pins jsou výslovné v `runtime_scope.json`;
+nejde o native userWindows/full-code-tree receipt. Místní společná sada na
+code snapshot `ec58336824562002dfacc93df5dc4a9d6f33387b`: **2818 discovered=executed,
+plain OK, 474.824s**, všechny failure/error/skip/expected/
+unexpected counts0. Všech51 nových exact module/class/method má původní OK blok
+v přesných hranicích. Celé JSON/console/separate runner a immutable pre-hosted-CI
+proof jsou `evidence/sourcefront21_linux*_20261021.*` a
+`evidence/sourcefront21_integration_20261021.json`.
+
+Public baseline9d CI je samostatně obsahově ověřený: 2767 Linux/Windows a79
+nových exact methods, všech5 checks success. Jeho21 skutečných originálů bylo
+zkopírováno offline (2,317,985B), bez downloadu nebo testového opakování, do
+`evidence/sourcefront21_baseline_ci_20261021/`. Kvalifikuje pouze9d. Nový HEAD
+potřebuje vlastní Linux/UI/687/Windows original ZIP+JSON/log/digest a release
+gate; pozdější hosted výsledky patří do PR162 a skutečného artefaktu. Pre-CI
+proof se kvůli nim nepřepisuje a nevzniká status-only HEAD.
+
+Všech2425 starších public evidencefiles/108,737,194B a215 starších testfiles/
+2,885,372B je byte-identical. Z230 starších productionfiles se mění pouze
+shared dispatcher aUI; sedm protected inputs, statusy všech21, workflow,
+687/60s/default modelconfig/fitter/skóre jsou beze změny. Původní DB/journal
+se neotevírá, nečte, nehashuje, nekopíruje, nereplayuje ani neresetuje; counts
+jsou null/UNOBSERVED. Čtyři dříve withheld whole bodies zůstávají absent.
+Canonical687/Q2instrument150/currentQ3=0/healthcare10/NHTSA3/legal5/adopt0;
+**fullacceptance0/21**, native userWindows/history/OOS neprokázané. Žádný merge,
+automatické obchodování nebo completion notice.
+
+### Konkrétní další fronta
+
+- identity: independent dated ClassA/CUSIP/P action bridge, LEG direct/indirect
+  control chain a XOM July7/newCUSIP. Nový legal-name point nenahrazuje instrument.
+- healthcare: exact Unlimited legal/applicant/product endpoints a oddělené
+  manufacturer/distributor role; CMS whole originals/CCN/PAC/durable history a
+  širší Clinical scope. PDF licence nebo label není ownership interval.
+- regulatory: separate original Order/current complete docket/disposition a
+  whole FRS/program scope s datovanou issuer vazbou. NHTSA approval block trvá.
+- contracts: whole prime request/page chain/earlier UEI a původní durable
+  history; explicitní denominator basis, named suppliers a physical quantities.
+- SEC: independently bounded natural-person/account/alias/legal-role interval,
+  issuer instrument a current publisher IR authority. Certification day není
+  continuous tenure; proposed Form144 sale není execution.
+- evaluation: genuine66-session market originals/revisions, timely saved
+  forecast, native userWindows, pozdější původní labels a širší history/OOS.
+  Failed market plan zůstává consumed; žádný retry/backdate/slide/activation.
+
+<!-- Starší oddíly níže zůstávají kvalifikací jejich vlastních verzí. -->
+
+
+## Zdrojové pokračování: konečné listiny, oznámení a skutečný CMS rozsah — 20. 10. 2026
+
+Čtyři nové celé primární HTTP200 originály (3 SEC + 1 DOJ, **3,449,563 bytes**)
+jsou v `evidence/sourcefront_20261020/`. Každý měl samostatnou rezervaci před
+jediným požadavkem; žádný retry, redirect, app collector nebo nový quotaDB.
+Šest skutečných izolovaných agentů dokončilo zachovanou práci po přerušení
+limitem využití. Jejich commity, přesné piny a původní diagnostiky jsou v
+`evidence/sourcefront_coordinator_20261020/worker_commits.json` a lane handoffech.
+
+- LEG konečná listina povoluje 10,000 common shares s par $0.001 pro přeživší
+  soukromou společnost; podpis 2026-08-26 není doložená účinnost ani návaznost
+  starého CUSIP. Direct/indirect control conflict zůstává otevřený.
+- XOM successor listina povoluje 9 miliard common shares s par $0.001,
+  účinnost i podpis 2026-07-01. Neprokazuje nový CUSIP, outstanding shares ani
+  vysvětlení rozporu proti July7 cover s no-par textem.
+- Nový původní Form144 potvrzuje účet/issuer CIK a společný den nabytí.
+  Jeho 86,525/Common se liší od Form4 178,622/70,465.844/Common Stock;
+  žádná shoda transakce, fyzická osoba, alias, kontinuální role či execution.
+- DOJ původní First Amended Complaint má Doc51, filed 2024-06-11 a plný
+  case stamp 2:24-cv-04055-JXN-LDW. Čtyři vybrané stránky včetně paragraph19
+  jsou podpořené jako ALLEGATIONS_ONLY; separate Order/current docket/CIK,
+  kontinuita a merits zůstávají neověřené.
+- Runtime CMS již nevydává starou pětifieldovou projekci OBSERVED_SNAPSHOT za
+  ověřenou issuer atribuci bez whole owner/provider originals a CCN/PAC vazby,
+  ani ve stejný den. Query leads zůstávají. Nezměněné zdrojové řádky se znovu
+  nevytvářejí kvůli změně dne v diagnostice. Předchozí skutečné chyby, peer
+  assertions a tři opravené starší test contracts jsou obsahově zachované.
+- Samostatný retained SWKS Note11 source-only packet dokládá refundable
+  foundry deposits/prepayments 26.4m USD k 2025-10-03 versus 167.8m k
+  2024-09-27. Není to named foundry, physical volume, purchases ani závazek;
+  Note14 channel partition nepřiděluje Apple částku.
+
+Čtyři plány jsou dostupné v existujícím CLI/UI. Osm skutečných akcí má
+immutable fyzické hodiny v `evidence/sourcefront_coordinator_20261020/runtime/`,
+0 HTTP/SQL/adopcí/pipeline runs. Source research není native userWindows,
+genuine forecast, aktuální kompletní negativní dotaz ani historická/OOS akceptace.
+
+Místní společná sada: **2767 discovered=executed, plain OK, 464.460s**;
+všechny failure/error/skip/expected/unexpected počty0. Testovaný code snapshot
+`d167080a27772ce3a7f95adf777c09f68432bf57`; všech79 nových exact module/class/method
+má původní ok blok v přesných hranicích testu. Celé JSON/console/separate runner
+a immutable pre-hosted-CI proof jsou `evidence/sourcefront_linux*_20261020.*`
+a `evidence/sourcefront_integration_20261020.json`. Nový public HEAD potřebuje
+vlastní obsahově ověřené Linux/UI/687/Windows original ZIP+JSON/log/digest a
+release gate; pozdější výsledek patří do PR162 a skutečného artefaktu.
+
+Všech2224 starších public evidencefiles/101,339,193bytes,208 z209 starších
+testfiles a223 z230 productionfiles zůstává byte-identical; přesně7 production
+a1 testfile má schválenou změnu. Sedm protected inputs, statusy všech21,
+workflow/687/60s/default modelconfig/fitter/skóre jsou stejné. Původní DB/journal
+se neotevírá, nehashuje, nekopíruje ani nepřehrává; aktuální counts jsou
+null/UNOBSERVED. Čtyři celé withheld access-bearing bodies zůstávají absent.
+Canonical687/Q2instrument150/currentQ3=0/healthcare10/NHTSA3/legal5/adopt0,
+**fullacceptance0/21**. Žádný merge, automatické obchodování ani completion notice.
+
+### Konkrétní další fronta
+
+- identity_bulk: nezávislá dated ClassA/CUSIP/symbol/action vazba; LEG control
+  chain a XOM July7/newCUSIP. Authorized charter class není veřejný instrument.
+- healthcare: legitimní CMS whole originals/CCN/PAC/name a durable history;
+  přesná Ireland legal/applicant/product dated endpoints a širší clinical scope.
+- regulatory: separate original Order, současný úplný docket/disposition a
+  nezávislá dated financial identity; whole FRS/program body. NHTSA approval
+  block zůstává, žádný retry/alternate transport/bypass/new quotaDB.
+- contracts: whole prime request/pages a původní durable history/earlier UEI;
+  explicitní denominator basis a physical supplier quantities.
+- sec: natural-person/account/legal alias, datovaný role interval/instrument;
+  current publisher IR authority. Form144 proposed sale není execution.
+- evaluation: genuine66-session market originals/revisions a skutečný timely
+  saved forecast/native userWindows/later original labels/broader history/OOS.
+  Původní failed market plan zůstává consumed; žádný retry/backdate/slide/activation.
+
+<!-- Starší oddíly níže zůstávají kvalifikací jejich vlastních verzí. -->
+
+
+## Jedenáctá dávka: datované body a zaznamenaný běh — 20. 10. 2026
+
+Šest skutečných izolovaných vývojových větví dodalo pět nových offline kontrol
+zdrojového rozsahu a výchozí vypnutý same-process recorder analýzy. Po skutečném
+přerušení limitem využití byly dokončeny zachované změny a handoffy; dřívější
+úspěšné testy ani source pokusy se při obnovení neopakovaly. Koordinátor převzal
+lokální commity a vlastní společné CLI/UI. Nezávislé následné kontroly ověřily
+původní stránky zakázek, vazbu uložených run/signal ID a obsah source handoffů.
+
+Místní combined kvalifikace: **2688 discovered=executed, plain OK,
+446.920s**, všechny failure/error/skip/expected/unexpected počty0.
+Testovaný code snapshot `14f9c88b2deb183bc54b466b8b506406ce992409`; všech
+212 nových exact module/class/method má původní ok blok uvnitř
+přesných testových hranic, včetně interleaved UI warningů. Úplný console, JSON a
+separate runner jsou `evidence/batch11_linux*_20261020.*`; neměnný pre-hosted-CI
+důkaz je `evidence/batch11_integration_20261019.json`. Nový veřejný HEAD musí mít
+vlastní Linux/UI/687/Windows original ZIP+JSON/log/digest a release gate; pozdější
+hosted výsledek patří do PR a skutečného artefaktu, nikoli přepisem tohoto důkazu.
+
+- SEC dated point join vyžaduje nezávislé přesné class/CUSIP/issuer/symbol/day
+  podklady a původní subject/filer routing. Retained P má5 blockerů, žádný
+  podpořený point ani Q3/alias adoption; specimen a jiný den mezeru nevyplní.
+- FDA applicant chronology zachovává samostatné roster/application/product body.
+  Roster2017 má468 řádků/11 tabulek; krátký Ireland název není přesný Unlimited
+  Company. Universe completeness i chybějící endpointy zůstávají UNKNOWN;
+  schválení produktu není ownership-since a nic se nepřenáší do dalších let.
+- EPA facility→program→interest join zachovává původní lokální array pointers,
+  ID a datumové literály. Retained DOW má pouze summary bez whole body;
+  program facts a query counts zůstávají nepodpořené/null. Registrace není
+  vlastník, provozní povolení ani kontinuální issuer exposure. Původní31 producer
+  a2 skutečná failed subtests nové array regrese zůstávají celé zachované.
+- USAspending scope vyžaduje whole original request/filter/manifests/pages/cursor.
+  LMT embedded100-row tail/hasNext není prime body;5 podkladů chybí, query/count
+  jsou null a výsledek WAIT. Terminal traversal ani snapshot label neprokazují
+  historii, genuine negative nebo dřívější UEI. Vlastníkova35-method cursor oprava
+  předcházela nezávislému peeru; ten potvrdil rozdíl proti frozen34 bez revertu
+  a nenalezl další chybu ve svých4 current35 metodách.
+- SEC temporal review váže původní8214 XML bytes na transaction row/date span.
+  Skutečná transakce2026-08-31 je po proxy anchor2025-10-21: source comparison
+  je validní negativní srovnání, role-at-day UNVERIFIED. YEAR ani „present“
+  nevytváří continuous legal role, natural-person/account alias nebo execution.
+- Windows analysis recorder je výchozí OFF. Před pipeline/SQL vyžaduje genuine
+  asset+12 benchmarků/66 dokončených seancí; skutečně uložené run/signal rows
+  zpětně váže na save payload a returned IDs. Peer zachoval4 before failures
+  v10 metodách pro bool/float/foreign IDs; owner navíc zachoval publication
+  collision failure. Opravy zachovávají skutečný saved subset i při pozdějším
+  odmítnutí zápisu receipt. Synthetic temp DB, loaded JSON a hosted CI zůstávají
+  bez native/full21 akceptace. Actual Linux CLI/UI vrací UNSUPPORTED_PLATFORM,
+  žádný pipeline/SQL/HTTP; same-process userWindows běh dosud neexistuje.
+
+Deset skutečných source CLI/UI akcí a dva skutečné Linux refusal captures mají
+immutable fyzické hodiny v `evidence/batch11_coordinator_20261018/runtime/`.
+Původní místní full běh byl přerušen bez JSON/footeru po2390 headings/2389 ok;
+originály a UNKNOWN final counts jsou v `evidence/batch11_interrupted_local_20261020/`.
+Nová complete kvalifikace používá jiné log paths a stejné source/test bytes.
+Zdrojové HTTP/search/collector požadavky jsou0; source replays nejsou nové odpovědi.
+Původní journal/DB se neotevírá, nepřehrává, nekopíruje ani nemění. Aktuální
+DB table/forecast counts jsou null/UNOBSERVED. Všech1941 starších veřejných
+evidencefiles/90,972,950bytes a200 starších testfiles/2,646,428bytes zůstává
+byte-identical;7 chráněných vstupů, default modelconfig/fitter/skóre a687/60s
+budget zůstávají stejné. Current a historical producer piny jsou rozlišené.
+Celé4 withheld access-bearing bodies zůstávají absent, žádný substitute.
+
+Obsahově ověřený baseline6ba/run39137308800 má2476plainOK na Linux/Windows,
+všech5checks success, actual ZIP12140789098 a oba CRLF original members.
+Přesné kopie a offline verifier jsou v `evidence/batch11_baseline_ci_20261018/`;
+kvalifikují pouze6ba. Batch10 pre-CI důkaz zůstává neměnný.
+Canonical687/Q2instrument150/currentQ3=0/healthcare10/NHTSA3/legal5/adopt0,
+**fullacceptance0/21**; všech21 code/live stavů zůstává beze změny.
+Žádný merge, automatické obchodování nebo oznámení úplného dokončení.
+
+### Aktuální konkrétní fronta po jedenácté dávce
+
+- identity_bulk: nezávislý stejnodenní ClassA/CUSIP/symbol/action bridge;
+  LEG direct/indirect a XOM July7/newCUSIP. Q2 se neprodlužuje do Q3.
+- healthcare: exact Ireland legal/applicant/product ownership a dated endpoints;
+  original CMS CCN/PAC/name, širší clinical scope a původní durable histories.
+- regulatory: původní FRS/program body a datované právní vlastnictví;
+  separate DOJ Order/current docket/identity/disposition. NHTSA live zůstává
+  approval-blocked; žádný retry/alternate transport/bypass/new quotaDB.
+- contracts: legitimní whole prime request/pages, earlier UEI/durable histories,
+  wider awards/revisions; nezávislý denominator basis a supplier quantities.
+- sec: independently dated natural-person/account/instrument/legal-role identity
+  a safe original současná publisher IR authority. Source role point není interval.
+- evaluation: genuine market originals/revisions a actual native userWindows run;
+  skutečná uložená předpověď před čerstvě přepočteným exact first-forward open,
+  pozdější labels a širší history/OOS. Failed market plan zůstává consumed;
+  žádný retry/fakeforecast/backdate/slide/model activation.
+
+<!-- Starší oddíly jsou nezměněné kvalifikace vlastních verzí. -->
+
+## Desátá dávka: původní rozsah a čas dokončení — 18. 10. 2026
+
+Šest skutečných izolovaných vývojových větví a čtyři nezávislé peer kontroly jsou
+spojené do explicitních CLI/UI akcí. Místní combined sada: **2476 discovered=executed,
+plain OK, 357.374s**, všechny failure/error/skip/expected/unexpected počty0.
+Testovaný code snapshot `4a081a857b5fe282f410fdee958b6918a9bfad4c`; všech 245 nových exact module/class/method
+má původní ok blok v úplném logu. Neměnný pre-hosted-CI důkaz je
+`evidence/batch10_integration_20261018.json`; původní JSON/console/runner a přesné
+method blocks jsou `evidence/batch10_linux*_20261018.*`. Nový veřejný HEAD musí
+mít vlastní hosted Linux/UI/687/Windows ZIP+originalJSON/log/digest a release gate;
+pozdější výsledek patří do PR a skutečného artefaktu, nikoli přepisem tohoto důkazu.
+
+- Původní specimen certifikátu: Class A, $0.0001 a CUSIP74624M102 přes explicitní
+  vizuální anotaci. Dated/holder/shares/number jsou prázdné; vzor není vydaný
+  instrument ani datovaná změna tickeru. Devět blockerů, žádný alias/Q3 adoption.
+- Původní roster2017: kratší Pfizer Ireland Pharmaceuticals/Ireland,468 řádků
+  v11 continuation tabulkách; přesný současný Unlimited Company applicant chybí.
+  Cizí sekce nesmí dodat subsidiary-point fakt. Product001/002 a neuzavřený
+  Purple Book kontejner zůstávají samostatné PARTIAL zdroje.
+- DOJ dvě původní PDF:95 page stamps,3 document/page-local captions,686 field
+  evidence records. Literal party variants nejsou aliasy; separate Order,
+  financial issuer identity, aktuální docket/disposition a merits nejsou ověřené.
+- SWKS skutečné net revenue4,086.9/4,178.0/4,772.4 USDmillion FY2025/24/23.
+  Source entity/period/unit fakta zůstávají, exact denominator basis je WITHHELD;
+  regex bez nalezené výhrady nikdy neprokazuje kompatibilitu. Žádné Appleamount,
+  purchases, direct-channel share nebo starší as-filed srovnatelnost.
+- Nezávislý proxy životopis:7 named role claims/8 career assertions s YEAR
+  precision; present platí vůči2025-10-21. Donor-person row, skrytý filing date
+  a completion za explicitním cutoff se odmítají. Account/alias/continuity false.
+- Výchozí vypnutý readiness recorder uloží fyzické hodiny, kód a dostupné podklady.
+  Skutečný Linux CLI/UI je UNSUPPORTED_PLATFORM/WAIT. Původní journal zabránil SQL
+  otevření; table/count metadata jsou null/UNOBSERVED, nikoli prokázané nuly.
+  Journal ani DB se nepřehrává, nekopíruje, nezakládá ani nemění. Readiness není
+  same-process userWindows end-to-end důkaz a acceptance zůstává vždy false.
+
+Čtyři skutečné peer reprodukce před opravami jsou zachované: denominator3 failure
+entries ve3 methods, role3/3 failures, applicant4/7 failures a readiness6/7 failures.
+Stejné assertions po opravách prošly. Tři další completion-clock opravy drží
+novou znalost až na fyzickém konci po všech supporting facts; source-read cutoff
+je samostatný. Původní producer/test/report bytes a dřívější kvalifikace se nemění.
+Root původní9-method focus měl1 UI failure a2 fixture-contract errors; whole source,
+log a diagnostic jsou v coordinator/integration_v1. Opravený10-method focus a celá
+combined sada prošly; nepoužívají se nuly nebo názvy cest jako náhrada obsahu.
+
+Nový source HTTP je přesně1: původní917915B SEC JPEG, SHA
+`c05da755dd60ea349f6368eb97e74cd07d93a3a6a176bd1d427467a9f7481f45`.
+Ostatní větve0 source/collector HTTP; retained replays nejsou nové odpovědi.
+NHTSA live zůstává approval-blocked, původní market failed plan consumed;
+žádný retry/alternate transport/refund/lease rewrite/new quotaDB.
+Deset skutečných source CLI/UI akcí a dva readiness captures mají0 HTTP/SQL/adopcí.
+Všech1578 starších veřejných evidencefiles/78,105,622bytes,188 původních testfiles/
+2,440,692bytes a7 chráněných registrů/universe vstupů je byte-identical. Historické
+source piny jsou výslovně oddělené od současných producerů. Všechna4 withheld
+whole bodies zůstávají absent, žádný substitute ani private ancestry push.
+
+Obsahově ověřený32 baseline/run39093644927 má2231plainOK na Linuxu i Windows a
+všech5checks success; původní ZIP/JSON/log jsou v `evidence/batch10_baseline_ci_20261018/`.
+Tato kvalifikace patří pouze32. Canonical687/Q2instrument150/currentQ3=0,
+healthcare10/NHTSA3/legal5/verifiedadopt0/**fullacceptance0/21**. Všech21 code/live
+stavů, default modelconfig/fitter/skóre a687/60s budget zůstává beze změny.
+Žádný merge ani oznámení úplného dokončení před skutečnou akceptací všech21.
+
+### Aktuální konkrétní fronta po desáté dávce
+
+- identity_bulk: nezávislý datovaný ClassA/CUSIP/symbol/action bridge, LEG
+  direct/indirect control, XOM July7/newCUSIP. Specimen nerozšiřuje Q2 do Q3.
+- healthcare: přesná Ireland applicant/legal/product ownership kontinuita;
+  původní CMS CCN/PAC/name, širší clinical object scope a durable source historie.
+- regulatory: pouze offline bez NHTSA retry; FRS/program/dated ownership,
+  separate original DOJ Order/current docket/financial identity/disposition.
+- contracts: whole prime pages/earlier UEI/durable quota/wider awards/revisions;
+  independent denominator basis, dated customer continuity a physical quantities.
+- sec: independently dated person/account/legal-role/instrument identity,
+  safe original current publisher IR authority. Literal YEAR claims nestačí.
+- evaluation: genuine66-session market originals a publisher revision,
+  skutečná uložená předpověď před nově přepočteným first-forward open, pozdější
+  labels, same-process native userWindows run, broader coverage/history/OOS.
+  Žádný fakeforecast/backdate/slide/activation nebo opakování consumed planu.
+
+<!-- Starší oddíly jsou nezměněné kvalifikace vlastních verzí. -->
+
+
+## Windows CI: neúplný běh a bounded časový prostor — 18. 10. 2026
+
+Public b0e866de/run39072646508 skončil cancelled; Windows117513252470 cancelled,
+release gate117521376998 failure. Skutečný ZIP12117165429/58491bytes odpovídá
+published digestu. Obsahuje pouze původní windows-tests.log394171bytes:
+1945 zahájených metod,1944 původních ok bloků, všech194 nových batch9 metod ok,
+poslední sec_scout687 test zůstal rozpracovaný. Žádný původní výsledkový JSON
+ani plainOK footer neexistuje. Konečné failure/error/skip počty jsou UNKNOWN;
+nejde o úplnou Windows akceptaci. Originály a offline content verifier jsou v
+`evidence/batch9_windows_cancelled_20261017/`.
+
+Hostovaná konzole obsahuje KeyboardInterrupt; artifact log končí před tímto
+tracebackem. Chybné očekávání prvního verifieru, jeho celé bytes a offline
+reprodukce jsou zvlášť zachované. ZIP/log nebyl změněn, další HTTP se neprovádělo.
+Původní sibling Linux2231plainOK435.234s, UI8plainOK15.472s a687scale5plainOK22.108s
+jsou zachované jako b0e důkazy; nenahrazují úplný Windows výsledek.
+
+Jeden skutečný izolovaný evaluation followup dodal pouze CI headroom40→60min.
+Worker commit63e60a35 je převzatý; sémantický YAML a byte audit je v
+`evidence/batch9_windows_timeout_fix_20261018/`. Koordinátorův původní
+b0e inventář a nezávislá integrační kvalifikace jsou v
+`evidence/batch9_windows_ci_coordinator_20261018/`.
+Změna zachovává všechny metody/assertions, vlastní limity testů včetně687/60s,
+platformu/Python, compile/checkpoint/full-suite příkazy, always-upload i release gate.
+Čas ukončení odpovídá původní40min hranici; timeout cause je úsudek z časů a limitu,
+nikoli domyšlená GitHub anotace. Produkční kód, testy, registry, DB, kvóty,
+source/modelconfig/fitter/skóre zůstávají stejné. Žádný nový source request.
+
+Stejné source/test bytes zůstávají kvalifikované původní místní2231 sadou;
+nezměněná místní sada se znovu nespouští. Nový opravný veřejný HEAD musí mít
+vlastní hosted Linux/UI/687/úplný Windows ZIP+originalJSON/log/digest a release gate.
+Staré pre-CI proofy zůstávají neměnné. Fullacceptance0/21, bez merge a oznámení
+úplného dokončení. Konkrétní fronta po deváté dávce níže zůstává platná.
+
+
+## Devátá dávka: původní zdroje a kontrola před zápisem — 17. 10. 2026
+
+**Místní combined qualification této deváté verze:** 2231 discovered=executed, plain OK, 334.883s, všechny failure/error/skip/expected/unexpected počty0. Code snapshot `e24e4c9d5c3878fd4c395b571e3b1cf8b3cd1185`; všech194 nových exact methods má původní ok blok. JSON, úplný console, separate runner, source/test SHA a obsahový audit jsou v `evidence/batch9_integration_20261017.json` (neměnný pre-hosted-CI důkaz). Nový publikovaný HEAD potřebuje vlastní obsahově ověřený hosted běh; baseline b81 tuto verzi nekvalifikuje.
+
+Šest skutečných izolovaných vývojových větví dodalo konkrétní implementace.
+Po přerušení limitem využití koordinátor dokončil jejich zachované handoffy,
+lokální commity a zapojení do CLI/UI; dokončení pracovníků se nepředstírá.
+Převzaté current source/test SHA a původní neúspěchy jsou zachované ve
+`evidence/batch9_*/handoff.json`. Osm skutečných přehrání původních podkladů
+má immutable fyzické časy a 0 HTTP/DB/adopcí v
+`evidence/batch9_coordinator_20261016/runtime/`.
+
+Nové podklady: dva datované P/ClassA/symbol snapshots bez CUSIP kontinuity;
+DrugsFDA company PFIZER INC a samostatné Purple Book applicant/product rows
+bez právního Ireland→PFE vlastnictví; přesný NHTSA pozitivní dotaz bez úplného
+negativního případu; Apple67/69/66 % konsolidovaných tržeb SWKS; celý aktuální
+MSFT Form4 packet/header přesně svázaný s XML, bez ověření fyzické osoby nebo
+CUSIP/class. Celkem13 nových úplných HTTP200 odpovědí/2,027,627bytes;
+12 research originals a1 prokázaný NHTSA response, nikoli13 nových collectorů.
+
+**NHTSA live pokračování odmítla automatická kontrola** s důvodem, že trusted
+instructions zakazují aktuální collectorAPI operaci a agent assignment
+oprávnění nerozšiřuje. Žádný retry/alternate transport/bypass. Původní DB má
+2 charged CHEVROLET reservations:1 RETURNED/HTTP200/7500XD/2 campaigns,
+1 RUNNING/5500XG bez response/review. Neznámý výsledek není HTTP chyba ani
+negativní důkaz.15 starých request a12 review rows zůstává beze změny;
+žádný refund, reset ani změna expired lease. Aktuální mode=ro audit připíná
+SHA6d6a7450… v `retained_quota_audit.json`.
+
+Explicitní cenový acquisition zůstává výchozí vypnutý; má13 bounded scopes,
+trvalý jednorázový claim plánu, přesné původní quote arrays a žádný fallback.
+Skutečný první AAPL pokus skončil URLError bez response; dalších12 zastaveno.
+0 usable inputs/forecasts/registrations/labels. UNKNOWN revision zůstává
+PIT/OOS excluded. Provider znovu ověřuje původní raw parent při čtení i před
+zápisem. Nezávislý followup potvrdil6 pozdních callback selhání v7 metodách;
+oprava znovu ověřuje zdroj po callbacku těsně před save_run. Nezměněných7/7
+poté prošlo; původní bytes/logy a synthetic-only důkaz jsou zachované v
+`evidence/batch9_market_parent_peer_20261017/`. Nejde o skutečné forecasty.
+
+Původní b81 baseline je obsahově ověřený run38867202786, všech5checks success,
+Linux2037 plainOK a skutečný Windows ZIP12033093458/2037all0/plainOK. Originály
+jsou v `evidence/batch9_baseline_ci_20261016/`; kvalifikují pouze b81.
+Nový combined snapshot potřebuje vlastní local/hosted qualification v
+`evidence/batch9_integration_20261017.json` a PR/actual artifact. Staré
+pre-CI důkazy se nepřepisují, status-only veřejný HEAD se nevytváří.
+
+Všech1329 starších veřejných evidencefiles/68,218,322bytes a7 chráněných
+produkčních vstupů je shodných. Všechna4 whole withheld bodies zůstávají
+absent, žádný substitute ani private ancestry push. Canonical687, Q2instrument150,
+currentQ3=0, healthcare10/NHTSA3/legal5, verifiedadopt0/fullacceptance0/21.
+Code/live stavy všech21, fitter/skóre/default modelconfig a687/60s budget
+zůstávají stejné. Hosted unit Windows není userWindows/history/OOS akceptace.
+Žádný merge nebo dokončovací oznámení před úplnou akceptací všech21.
+
+<!-- Starší oddíly níže jsou zachované kvalifikace vlastních historických verzí. -->
+
+## Oprava Windows provider fixture osmé dávky — 16. 10. 2026
+
+Skutečný run `38861160925` na public HEAD `df6648b4` skončil failure:
+Linux2036 plain OK, UI/687 success, Windows63checkpoint +2036discovered=executed,
+1failure/0errors/skips/expected/unexpected a release gate failure. Původní ZIP,
+oba CRLF members, decoded logs a obsahové ověření zůstávají v
+`evidence/batch8_windows_failure_20261016/`; neúspěch není akceptace.
+
+Oprava pouze canonicalizuje temp root fixture před capture a vyžaduje skutečný
+zásah symlink mocku. Nezměněná původní metoda reprodukovala stejné selhání přes
+reálný POSIX `root/../root`; přesné původní Windows temp alias bytes nebyly v logu.
+Všech35 původních methods a70 assertions včetně3helperových zůstává; nová alias
+regrese a36/36 focused prošly. Všech211 produkčních souborů/3,424,926bytes a1296
+starších evidencefiles/65,374,320bytes je byte-identical, žádné source HTTP,
+production DB/quota/registry/model/score/trading změny nebo budget relaxation.
+
+Nová místní combined sada: **2037 discovered=executed, plain OK, 243.440s**,
+0failures/errors/skips/expected/unexpected. Code snapshot `d82aa27c`.
+Neměnný pre-hosted-CI důkaz: `evidence/batch8_windows_provider_fix_20261016.json`;
+JSON/úplný console/separate runner jsou `evidence/batch8_linux_provider_fix*`.
+Nový opravný public HEAD vyžaduje vlastní hosted Linux/UI/687/Windows a release
+gate; následný ověřený obsah patří do PR/actual artifact, nepřepisuje pre-CI proof.
+Fullacceptance zůstává0/21. Osmá source/offline dávka níže se neopakuje;
+aktuální konkrétní fronta po osmé dávce zůstává na začátku tohoto plánu.
+
+## Osmá navazující dávka — 16. 10. 2026
+
+Šest skutečných izolovaných vývojových větví a čtyři konkrétní peer followupy
+jsou spojené v runtime/CLI/UI. Finální místní sada: **2036 discovered=executed,
+plain OK, 223.039s**, všechny failure/error/skip/expected/unexpected počty0.
+Code snapshot `cc769523`; 21 source/test SHA a původní JSON/console/runner
+jsou v `evidence/batch8_integration_20261016.json` (neměnný pre-hosted-CI důkaz).
+Baseline `e252ec62` má obsahově ověřené hosted1835 a všech5checks;
+nový public HEAD vyžaduje vlastní CI, Linux log i skutečný Windows ZIP/JSON/log.
+
+Nově: PSTG/P symbol/action/instrument review, přesný structured FDA adapter,
+DOJ procedural posture, NVDA group purchase commitments, novější SEC owner
+account/instrument scope a explicitní výchozí vypnutá cesta čtení cen z původních
+archivů. Jejich omezení a aktuální konkrétní fronta jsou na začátku
+`PARALLEL_SPECIALIST_WORK.md`. Šest původních případů skutečně prošlo novým
+runtime s fyzickými hodinami, immutable archivy a0HTTP/0adoptions.
+
+Patnáct bounded research pokusů:13HTTP200,2transport failures,12 veřejných
+původních odpovědí/5,930,515bytes a1 celé withheld NJD body. Dvě PDF/95stran
+obsahově ověřené. Žádné nové collectorAPI/DB zápisy/obnovování kvóty.
+Audit ověřil214 handoff pins,1058 starších evidencefiles/54,552,617bytes a7
+chráněných produkčních vstupů beze změny. Všechna4 whole withheld bodies
+zůstávají absent; žádné náhradní body nebo private-ancestry push.
+
+Canonical687, historicalQ2 instrument150/currentQ3=0, healthcare10/NHTSA3/legal5,
+verifiedadopt0 a fullacceptance0/21. Skutečné předpovědi/registrace/labels0;
+16 starších cenových verzí WAIT, UNKNOWN revision zůstává excluded. Fitter,
+skóre a původní687/60s budget neměnné. Hosted unit Windows není userWindows/OOS
+akceptace. Žádný merge ani oznámení dokončení před úplnou akceptací všech21.
+
+## Sedmá navazující dávka — 15. 10. 2026
+
+Finální místní sada této verze: **1833 discovered=executed**, plain OK,
+208.320s, všechny failure/error/skip/expected/unexpected počty0. Code snapshot
+`faf2f43`; 23 current source/test SHA a úplný JSON/console jsou v integračním
+důkazu. Hosted CI/Windows zatím není nová akceptace této verze.
+
+Základ je skutečný otevřený PR #162 `089ce4db`, main `a7aa1fec`.
+Jeho obsahově ověřené CI1603/1603 a původní Windows ZIP/JSON/log jsou
+zachované v `evidence/batch7_baseline_ci_20261015/`; kvalifikují pouze
+základ. Nová verze vyžaduje vlastní CI konkrétního publikovaného HEAD.
+Původní důkazy, neúspěchy a jejich vlastní verze se nepřepisují.
+
+Šest skutečných izolovaných vývojových větví dodalo exact LEG control/instrument
+review, FDA product/application/ownership scope, datovaný DOJ complaint review,
+literální SEC supplier scope, nezávislý person-kind disclosure a post-persistence
+prospective forecast adapter. Další konkrétní výstupy: přísnější SEC accession/date
+guards, safe SEC-disclosed IR URL, explicitní versioned source selection a nový
+NHTSA probe v původní DB. Koordinátor přebírá lokální commity a zapojuje jejich
+původní případy do CLI/UI; vývojoví agenti nejsou analytické specialisty.
+
+Nových20 primárních HTTP odpovědí:14SEC +2DOJ research originals a4 běžné
+quota-managed NHTSA requests. Celkem18HTTP200/2HTTP400. Retained PFE parent
+rearchive, NVDA bodies a ostatní offline replays nejsou nové HTTP. NHTSA UTC15
+použilo4/8requests a3/4makes; všech11 starších ledger rows zůstalo shodných,
+UTC14 NHTSA8 aRSS3 se neresetuje ani nepřenáší do nového quotaDB.
+Chybějící původní durable Clinical/CMS/FDA/USAspending historie nebyla vyrobena.
+
+LEG má4 control edges a nevyřešený DIRECT/INDIRECT conflict; plánované ovládnutí
+není dokončená akce, quarter anchors neřeší Q3. FDA corpus má5 konkrétních
+událostí/4applications, ale žádnou nově strukturovanou product/ownership identitu.
+DOJ `2:24-cv-04055` zachycuje pouze žalobní tvrzení2024-03-21 a dřívější SEC
+issuer snapshot; výsledek řízení, case-date registry identity a kontinuita chybí.
+NVDA doslova uvádí TSMC/Samsung foundry wafer vztah, nezávislý TSMC R1 poskytuje
+jediný legal/date-column snapshot; množství/podíl/sole-source a časová kontinuita
+zůstávají nedoložené. Person bio podporuje pojmenovaný údaj, nikoli account-CIK,
+alias nebo historickou platnost; index/served body rozdíl110bytes je zachovaný.
+SEC NVDA IR věta zachovává přesné `http://investor.nvidia.com`, rozdíl111bytes
+a jediný disclosure; current publisher authority/LIVE/feed aktivace zůstávají false.
+NHTSA nové4scopes daly2positive/2HTTP400PARTIAL, genuine complete negative0.
+
+Nové předpovědi lze výslovně registrovat bezprostředně po skutečném uložení.
+Explicitní source selection zachovává immutable verze, přesné původní raw pins,
+asset/benchmark scope, skutečné hodiny a compare-and-swap aktivního výběru.
+Peer kontroly opravily SEC index accession/future-day a fyzický clock rollback
+před registrací/publikací; chybný druhý source zachová skutečný uložený subset.
+Default zůstává vypnutý. Samostatné audit settings nemění model fingerprint,
+fitter, skóre nebo původní687/60s budget. Skutečná retained DB stále nemá
+prediction_snapshots; authentic registrations0/real labels0. UNKNOWN publisher
+revision se nepřijímá. Jednotkové syntetické forecasty nejsou živá/OOS akceptace.
+
+Důkaz integrace a vlastní kvalifikace: `evidence/batch7_integration_20261015.json`.
+Canonical687, historicalQ2 instrument150/currentQ3=0, healthcare10/NHTSA3/legal5,
+verifiedadopt0 a fullacceptance0/21. Všechna3whole access-bearing bodies zůstávají
+absent; žádný sanitized/encoded/wrapped substitute, private-ancestry push ani merge.
+
+### Aktuální konkrétní fronta po sedmé dávce
+
+- identity_bulk: nezávislý dated LEG direct/indirect control, action/CUSIP/class;
+  XOMnewCUSIP/July7 konflikt aPSTG exactday, bezQ2 extension nebo aliasu.
+- healthcare: original CMSCCN/PAC/provider-name bridge a předem doložená issuer
+  vazba; skutečná durable source historie, structured product role a širší clinical scope.
+- regulatory: genuine HTTP200complete NHTSAnegative pouze přes legitimní zbývající
+  rozpočet/další den; original FRS/program/datedownership, DOJ case-date identity a disposition.
+- contracts: úplné original prime pages/dřívější UEI/durable quota; širší awards,
+  revision/deletion timing a supplier-specific množství/denominátory/časová kontinuita.
+- sec: safe original publisher authority a nezávislá dated natural-person/account,
+  instrument/legal identity; SEC-disclosed URI není source activation.
+- evaluation: genuine prospective normal forecasts a source/action/price/labels historie
+  s actual publisher revision; širší relevantní provozní pokrytí, userWindows a OOS.
+
+Žádný merge/force push, scoring/OOS activation nebo trading. Bez obsahové
+DONE/VERIFIED akceptace všech21 se neposílá dokončovací oznámení.
+
+## Šestá navazující dávka — 14. 10. 2026
+
+Místní finální sada této verze: **1603 discovered=executed**, plain OK,
+164.440s, všechny failure/error/skip/expected/unexpected počty0. Code
+snapshot `10d00ba`; source/test otisky a úplný console/JSON jsou v integračním
+důkazu. Nové hosted CI/Windows musí ověřit vlastní konkrétní public HEAD.
+
+Základ je skutečný otevřený PR #162 `cbc6c4a3`, main `a7aa1fec`.
+Jeho všech pět checks a původní Windows ZIP/JSON/log 1377/1377 jsou
+obsahově ověřené v `evidence/batch6_baseline_ci_20261014/`; patří pouze
+základu, nikoli této nové verzi. Stávající důkazy ani selhání se nepřepisují.
+
+Šest skutečných izolovaných vývojových větví dokončilo LEG stock-merger
+review, přesné CMS provider/owner původní capture gates, EPA FRS ownership
+review, úplné prime-archive recovery, nezávislý Form4 owner-account bridge
+a prospektivní forecast/label recorder. Uvolnění agenti dále opravili
+co-filer DEI CIK/name/context pairing a provozní metric scope. Koordinátor
+převzal lokální commity a zapojil explicitní offline CLI/UI a neměnné,
+fyzicky datované review archivy. Vývojoví agenti nejsou analytické specialisty.
+
+Dvanáct nových primárních SEC research HTTP200 original bodies: šest
+LEG/SGI, jeden HCA, dva DOW a tři dokumenty jediného Nadella accession.
+Více dokumentů jednoho accession není více nezávislých disclosures.
+NHTSA/EPA/CMS/Clinical/USAspending/RSS sběrače neprovedly nový požadavek;
+původní UTC14 ledger NHTSA8/3makes a RSS3/1ticker se neobnovuje ani neresetuje.
+Chybějící původní kvótová historie blokuje další odpovídající LIVE operace.
+
+Skutečný LEG bridge zůstává PRIMARY_BRIDGE_PARTIAL. Form25 filing day
+není datum delistingu; direct/indirect control a nezávislé dated CUSIP/class
+vazby se nevymýšlejí. Dva projected HCA CMS případy jsou WITHHOLD, chybí
+původní CMS body/request/version a CCN/PAC/name časová vazba. DOW SEC
+c-2 podporuje `Dow Inc./1751788`; c-1 odděleně `Chemical/29915` — nikoli
+stejný parent CIK. EPA facility/program/ownership stále PARTIAL. DOW91
+manufacturing sites je pouze COMBINED_REPORT_GROUP candidate; množství
+se nepřiřazuje jednotlivému issuerovi, přesný measurement day není doložen.
+2014 Form3 podporuje účet, nikoli natural-person kind nebo Sep2026 validitu.
+
+Skutečný original prime corpus nemá úplný obnovitelný traversal; recovery0.
+Skutečná retained DB nemá prediction_snapshots, authentic registrations0,
+real labels0. Všech16 předchozích cenových verzí má publisher revision UNKNOWN.
+Recorder nevyrobí zpětný forecast, neposune chybějící seanci ani nepřijme
+UNKNOWN revisions. Fitter, skóre a původní 687/60s budget jsou beze změny.
+
+Důkaz a výsledná kvalifikace: `evidence/batch6_integration_20261014.json`.
+Úplná místní sada nové verze a následné skutečné CI/Windows tohoto HEAD
+jsou vlastní kvalifikace; jednotkové hosted Windows nejsou user Windows
+nebo úplná source/history/OOS akceptace. Canonical687, historicalQ2
+150/currentQ3=0, healthcare10/NHTSA3/legal5, verifiedadopt0, acceptance0/21.
+Celá tři vyřazená přístupová body zůstávají absent; žádné náhradní exporty.
+
+### Aktuální konkrétní fronta po šesté dávce
+
+- identity_bulk: dated LEG direct/indirect-control a action/CUSIP/class bridge,
+  XOM newCUSIP/July7 conflict a PSTG exact effective day; bez aliasů a Q2 extension.
+- healthcare: původní CMS exact enrollment/CCN/PAC a právní issuer vazba známá
+  před capture; obnovit skutečnou durable historii, potom širší clinical/product scope.
+- regulatory: původní exact FRS/program a nezávislá dated ownership/DOJ vazba;
+  genuine complete HTTP200 NHTSA negative až v legitimním dalším budget day.
+- contracts: skutečné kompletní original prime pages a dřívější přesná UEI
+  identity se zachovanou kvótou; širší awards a skutečná revision/deletion timing.
+- sec: safe original primary IR authority a nezávislé dated natural-person,
+  instrument/legal identity; nepoužívat vyřazená body nebo account-kind inference.
+- evaluation: autentické prospektivní stored forecasts, source/action/price a
+  pozdější exact labels s doloženou publisher revision; širší operational evidence
+  a skutečný user Windows, historická OOS akceptace před jakoukoli změnou skóre.
+
+Žádný merge nebo force push. Dokud není všech21 obsahově DONE/VERIFIED,
+žádné oznámení Janovi. Nový HEAD nevznikne pouze kvůli statusu.
+
+
+## 14. 10. 2026 — oprava životnosti testovacích SQLite spojení
+
+Původní head páté dávky `e550b334` a run `38551067090` prošly Linux
+1371/1371, UI a 687/60s kontrolou. Windows dokončily všech 1371 testů,
+ale měly **12 errors / 0 failures/skips/expected/unexpected**; release gate
+neprošel. Všech dvanáct zaznamenaných tracebacků je `WinError 32` při
+úklidu dočasné DB: deset v IR fixture, dvě v price-provenance fixture.
+Produkční stores již používají existující ClosingSQLiteConnection.
+
+Původní ZIP artifact `11888031678` (43963 bytes) byl stažený a skutečně
+obsahově přečtený; SHA256 `92e7ceb205ca6d98b4730ed5310b616ee85ef9001d82c2aaf32d9a6d470a281f`.
+Původní CRLF JSON/log, decoded job log a Linux log jsou zachované v
+`evidence/batch5_windows_failure_20261014/`; žádný neúspěch se nepřepisuje.
+
+Agenti sec a evaluation opravili pět nativních spojení testovacích fixture:
+commit/rollback proběhne před vždy provedeným close. Všechna assertions
+původních 28 IR a 17 price testů jsou obsahově zachovaná; přibylo šest
+regresí se silnými referencemi na spojení a kontrolou zavřeného native API.
+Tyto regrese odhalí stejnou mezeru i na Linuxu. Cíleně prošlo 75 IR/budget
+a 54 price/cache testů. Žádné potlačení cleanup errors, gc/retries,
+změna dat/hashů/budgetu, source HTTP, kvóty, produkčního kódu nebo skóre.
+Původní historické capture/reproduce helpery a všech 148 batch5 evidence
+souborů z publikovaného e550 tree zůstávají byte-identical.
+
+Nový místní výsledkový JSON zaznamenal 1377 discovered=executed,
+successful=true a všechny failure/error/skip/expected/unexpected počty 0.
+Oba původní lokální logy ale končí před terminal summary; chybějící
+footer se nedopisuje a plain OK se z nich nevyvozuje. JSON a tyto původní
+částečné captures jsou `evidence/batch5_linux_sqlite_fix*`. Úplný hostovaný
+log a nový Windows ZIP/JSON jsou stále samostatnou podmínkou konkrétního
+nového HEAD. Důkaz opravy: `evidence/batch5_windows_sqlite_fix_20261014.json`.
+
+Žádný merge. Úplná akceptace zůstává 0/21; aktuální konkrétní source/identity
+fronta po páté dávce níže pokračuje bez změny.
+
+## 14. 10. 2026 — pátá implementační dávka
+
+Navazuje na otevřený PR #162, veřejný HEAD `5c5ea0ba`, main `a7aa1fec`.
+Předchozích 1183/1183 Linux/hostovaných Windows testů a všech pět checks
+patří tomuto základu; obsahové ověření artefaktu je v PR. Nový výstup má
+vlastní společný důkaz `evidence/batch5_integration_20261014.json` a
+hostované kontroly svého konkrétního HEAD. Staré pre-CI záznamy se nemění.
+
+Šest skutečných izolovaných vývojových větví odevzdalo konkrétní kód,
+primární zachycení, replay a testy; uvolnění agenti převzali další úkoly.
+Koordinátor zapojil explicitní IR sběr, offline audit vybrané zakázky,
+čtení NHTSA auditů a přísné cenové gates do běhu a UI. Limit používání
+přechodně přerušil agenty; práce pokračovala ze zachovaných větví bez
+opakování skutečných požadavků nebo změny již schváleného základního HEAD.
+
+Nové NHTSA a primární IR cesty používají jedinou trvalou sdílenou kvótu,
+lease a cooldown. NHTSA provedla 8 skutečných požadavků: 4 HTTP200
+pozitivní případy a 4 HTTP400 prázdné PARTIAL případy; kompletní negativní
+živý případ stále chybí. IR provedla 3 HTTP200 požadavky, ale celé tělo
+stránky vydavatele s přístupovou hodnotou zůstává withheld s původním
+otiskem a časy. Feed/článek mají původní raw bajty, výsledek PARTIAL,
+issuer atribuce/skóre vypnuté. Žádné čištěné, kódované nebo zabalené
+náhradní tělo ani bypass GitHub pravidla.
+
+Současný export navíc vyřazuje celé starší IR authority HTML po potvrzené detekci přístupových hodnot. Původní otisk, metadata a historické handoff/review záznamy zůstávají; jejich dvě source-only positives nejsou současná akceptace. Metadata-only unavailable capture vrací PARTIAL před čtením těla. Žádné náhradní HTML nebo přepsání původní historie; předchozí veřejná ancestry se neforce-přepisuje.
+
+Běžný NHTSA klient nově odmítá redirect před druhou transportní operací;
+každý pokus zůstává účtovaný, uložené řádky i vyčerpaná denní kvóta zůstávají.
+52 cílených offline/contract testů ověřilo tento guard, 73 IR/budget testů
+ověřilo metadata-only unavailable kontrakt. Tyto mechanické testy nejsou LIVE
+negative, issuer ani Windows/OOS akceptace. Důkazy:
+`evidence/batch5_nhtsa_redirect_guard_20261014/handoff.json` a
+`evidence/batch5_ir_prior_withholding_20261014/handoff.json`.
+Úplný výsledek 1358/1358 před těmito dvěma opravami patří pouze commitu
+`4c26be8`; původní JSON/log jsou zachované v `batch5_pre_redirect_linux*`
+a kvalifikace v `evidence/batch5_coordinator_20261014/pre_redirect_qualification.json`.
+Finální společné kontroly mají vlastní JSON, celý console capture a otisky
+v integračním důkazu; staré výsledky se nepřebírají jako akceptace nového kódu.
+
+Finální společná sada 1371/1371 prošla bez failures/errors/skips/expected/unexpected
+v 151,097 s. JSON a úplný console log jsou v `evidence/batch5_linux_20261014.json`
+a `evidence/batch5_linux_console_20261014.log`; runner-side log je zachovaný
+zvlášť. Přesný otestovaný code snapshot `baac707` a otisky 42 source/test
+souborů jsou v integračním důkazu. Hostované kontroly nového HEAD zůstávají
+samostatné; nevzniká žádná user Windows, source/history ani OOS akceptace.
+
+
+XOM transition bridge zůstává PARTIAL kvůli chybějícímu datovanému
+novému CUSIP/class a konkurujícímu July7 dokladu. PSTG→P má pozorovaný
+symbolový bracket, nikoli doložený přesný action day; žádný automatický
+alias nebo domyšlený předchozí registr. Klinický OBSERVED_SNAPSHOT je
+oddělený od EVENT_DATE a vyžaduje prospektivní přesnou issuer vazbu.
+Oba skutečné starší klinické případy jsou WITHHOLD: exact-name/pořadí
+source clock nesouhlasí, dnešní klinická stránka a historie kvóty chybí.
+
+Zakázkový audit porovnává skutečné original-byte průchody stejného awardu
+a UEI. Starší dva captures mají 14 nezměněných řádků; opakování téhož
+capture je SAME_SOURCE_CAPTURE. Nepřítomnost neprokazuje publisher deletion
+ani datum revize; přerušený průchod nedokládá absenci. Tento krok má 0 HTTP.
+Yahoo adapter zachovává skutečné provider/cache/physical provenance.
+Obě nové odpovědi mají 22 timestamps, ale jen 21 použitelných cen;
+Oct13 Close je null a horizont se neposouvá. Publisher revision UNKNOWN
+stále brání PIT zařazení; žádné vytvořené historické predikce/OOS.
+Stejné gates používá shadow candidate a layer porovnání. Legacy label-only
+výsledky jsou explicitně diagnostické, nikoli verified OOS.
+
+Canonical 687, 150 historických Q2 instrumentů s 0 současným Q3 pokrytím,
+10 healthcare / 3 NHTSA / 5 legal záznamů zůstávají beze změny; adopt 0.
+Původní 60-second budget, score a zákaz automatického obchodování se nemění.
+Aktuální source-run archivy mají skutečnou místní dostupnost. Pozdější
+archivace dříve dokončených dvou sběračů není nový LIVE sběr ani historická
+dostupnost. Staré handoff otisky popisují vlastní zdrojové verze; následné
+změny kódu mají samostatné otisky a společné kontroly.
+
+Úplná akceptace **0/21**. Povinné relevantní identity/live pozitivní i
+negativní případy, širší pokrytí, skutečná historie/OOS a uživatelský Windows
+koncový běh zůstávají otevřené. Podrobné výstupy a další konkrétní fronta
+jsou v aktuálním začátku `PARALLEL_SPECIALIST_WORK.md`; žádný merge.
+
+## 13. 10. 2026 — čtvrtá implementační dávka
+
+Šest vývojových větví přidalo přesné transition/version/scope a source-clock
+kontroly pro SEC instrumenty, studie, NHTSA, zakázky a Form4; evaluator
+vyžaduje cenové důkazy se skutečným časem dostupnosti a resolver je uchovává
+před finalizací. Koordinátor optimalizoval kopírování progress snapshotů se
+zachováním callback izolace, monotónnosti, 687 řádků a 60s test limitu;
+source/identity/label audity jsou zapojené do běhu, UI a CLI. Uvolněný agent
+přidal dva historické XOM output fakty z přesného SEC podání. Další IR
+review ověřuje přesný RSS/page/portal zdroj ze čtyř skutečných captures;
+čas lokálního importu nelze backdatovat a issuer atribuce zůstává vypnutá.
+
+Jediný vlastník registrů withheld oba historické klinické návrhy kvůli
+chybějícímu dated sponsor-to-CIK bridge; produkční registry i canonical 687
+zůstávají zachované. Current Q3 coverage starých 150 Q2 řádků je stále 0.
+Žádné skóre, obchodování, licence ani code/live akceptace se nepovyšují.
+Přesné commity, limity a další dostupné implementační úkoly jsou v
+`PARALLEL_SPECIALIST_WORK.md`; společný důkaz a aktuální testové výsledky
+v `evidence/batch4_integration_20261013.json`. Všech 21 zůstává neakceptováno;
+Finální publikační sada: 1181/1181, nula errors/failures/skips; 687 cached
+test prošel s neměnným 60s limitem. Hostované CI nového HEAD a
+uživatelský Windows/OOS jsou samostatné důkazy. Jedno NHTSA dokumentační
+HTML s embedded přístupovou hodnotou je withheld po odmítnutí GitHub
+secret gate; původní otisk/metadata zůstávají, všech 7 API raw odpovědí
+a jejich hash assertions beze změny. Žádná výjimka kontroly se nepožadovala.
+
 ## 11. 10. 2026 — převzatá druhá paralelní dávka
 
 Aktuální vzdálený HEAD `e0ce886` a všechny čtyři stavové vstupy byly

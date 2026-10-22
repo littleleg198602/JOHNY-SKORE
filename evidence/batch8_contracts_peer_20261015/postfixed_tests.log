@@ -1,0 +1,10 @@
+test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_crossing_next_session_close_after_entry_check_stops_before_baseline_snapshot_write) ... ok
+test_initial_wait_data_stops_before_weekly_store_initialization (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_initial_wait_data_stops_before_weekly_store_initialization) ... ok
+test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_manifest_mutation_after_entry_check_stops_before_baseline_snapshot_write) ... ok
+test_normal_captured_run_keeps_missing_metadata_and_exact_source_pins_without_live_cache (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_normal_captured_run_keeps_missing_metadata_and_exact_source_pins_without_live_cache) ... ok
+test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write (tests.test_batch8_captured_runtime_peer.CapturedRuntimePeerTests.test_source_change_during_candidate_preparation_preserves_baseline_and_stops_candidate_write) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 4.037s
+
+OK

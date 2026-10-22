@@ -1,0 +1,202 @@
+{
+  "schema_version": "sourcefront21_pre_hosted_CI_qualification_v1",
+  "physical_recorded_at": "2026-10-21T07:39:11.469903+00:00",
+  "repository": "littleleg198602/JOHNY-SKORE",
+  "pull_request": 162,
+  "public_base_head": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "main_observed": "ebb63a4b666908ce176e92ea7dffd6e74808caa9",
+  "tested_code_snapshot": "ec58336824562002dfacc93df5dc4a9d6f33387b",
+  "current_source_test_pins": [
+    {
+      "path": "market_checker_app/services/captured_identity_review_service.py",
+      "bytes": 29978,
+      "sha256": "d3861750926aba765b5866e647cb7e2f3a2c47c5e92d8ce912b7ba04ef709f8e"
+    },
+    {
+      "path": "market_checker_app/services/wafer_capacity_deposit_review.py",
+      "bytes": 27094,
+      "sha256": "7f5a0241182650d573ca5dce936fcc09f84fe77a59b206340693c916a34c6189"
+    },
+    {
+      "path": "market_checker_app/specialist_evidence_ui.py",
+      "bytes": 29511,
+      "sha256": "cf51ca2f0d92002e68e4c73d24c8f17096aeea9a8520ea31153367a04a77275e"
+    },
+    {
+      "path": "tests/test_sourcefront21_coordinator_integration.py",
+      "bytes": 3980,
+      "sha256": "cd9edc422c72138cc6a87589f89e809d1fcd3022ebf95d32e610aa420721fe47"
+    },
+    {
+      "path": "tests/test_wafer_capacity_deposit_peer.py",
+      "bytes": 12512,
+      "sha256": "dcc81086e837b350c0da96aece9b711decc5c057955f225f8627d10712bb1db0"
+    },
+    {
+      "path": "tests/test_wafer_capacity_deposit_review.py",
+      "bytes": 24666,
+      "sha256": "320a97f550c09d52037a361c61e446bf4e7589176f882cec71f0e080b9e883fc"
+    }
+  ],
+  "actual_worker_origins": {
+    "path": "evidence/sourcefront21_coordinator_20261021/worker_commits.json",
+    "bytes": 14239,
+    "sha256": "7afd096aa6d731a9bf2a8cad84c3b8c03e90259872ab8fc531f08d51e30db0b9"
+  },
+  "local_full_suite": {
+    "started_at": "2026-10-21T07:30:47.949157+00:00",
+    "ended_at": "2026-10-21T07:38:43.856589+00:00",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 2818,
+    "tests_run": 2818,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true,
+    "plain_OK_seconds": 474.824,
+    "JSON": {
+      "path": "evidence/sourcefront21_linux_20261021.json",
+      "bytes": 363,
+      "sha256": "674224600f5dff2bf218af458edc38afc4cdcaf40ae10a79e09855a3947b8266"
+    },
+    "console": {
+      "path": "evidence/sourcefront21_linux_console_20261021.log",
+      "bytes": 578532,
+      "sha256": "0a2a16825acd3fe18c9a539420790bd3dfee5c619c64928ab3394c75db3adf0c"
+    },
+    "separate_runner": {
+      "path": "evidence/sourcefront21_linux_runner_20261021.log",
+      "bytes": 575220,
+      "sha256": "3c4c2e5c8b7c81ccda5e96d1177f0bd59d7db1d9b0beeeabf77900d029cb0d95"
+    }
+  },
+  "new_exact_methods": {
+    "path": "evidence/sourcefront21_linux_methods_20261021.json",
+    "bytes": 15718,
+    "sha256": "4301d8e65142253a93eefe379dbc48303941988a32ca96efa06883c96a981070"
+  },
+  "new_exact_original_OK_blocks": 51,
+  "content_audit": {
+    "path": "evidence/sourcefront21_coordinator_20261021/content_audit.json",
+    "bytes": 2504088,
+    "sha256": "efc920213efd05cd50653454c921e6ef0a02423184160f9f8ef268c2f9c72b74"
+  },
+  "old_public_groups": {
+    "production": {
+      "files": 230,
+      "unchanged_files": 228,
+      "unchanged_bytes": 3870745
+    },
+    "tests": {
+      "files": 215,
+      "unchanged_files": 215,
+      "unchanged_bytes": 2885372
+    },
+    "evidence": {
+      "files": 2425,
+      "unchanged_files": 2425,
+      "unchanged_bytes": 108737194
+    }
+  },
+  "protected_inputs": [
+    {
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "bytes": 87325,
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+    },
+    {
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "bytes": 14656,
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    {
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "bytes": 912,
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e"
+    },
+    {
+      "path": "market_checker_app/data/verified_counterparty_identities.json",
+      "bytes": 26803,
+      "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e"
+    },
+    {
+      "path": "market_checker_app/data/verified_fdic_banks.json",
+      "bytes": 20034,
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707"
+    },
+    {
+      "path": "market_checker_app/data/verified_usaspending_uei.json",
+      "bytes": 1159,
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56"
+    },
+    {
+      "path": "market_checker_app/data/market_checker_687_tickers.csv",
+      "bytes": 5846,
+      "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+    }
+  ],
+  "new_primary_research_HTTP200": 5,
+  "new_primary_original_bytes": 2683149,
+  "new_originals": [
+    {
+      "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_approval_2019.pdf",
+      "bytes": 137546,
+      "sha256": "2daf7bfa938057c13186e49ba716e87f9d819e2d9bdf5ee6c12f08bf0d6ee6c7"
+    },
+    {
+      "path": "evidence/sourcefront21_primary_20261021/primary/fda_trazimera_label_2025.pdf",
+      "bytes": 2495404,
+      "sha256": "ee258f711faf29cdd88ad2cf78bccc802d1d766bb9898447a68e00f713a5afb2"
+    },
+    {
+      "path": "evidence/sourcefront21_primary_20261021/primary/msft_ex31_1.htm",
+      "bytes": 12762,
+      "sha256": "5001124e4c5e57d8aafd6fbbe98845acd11397dd5ddcc853857c6377a452872a"
+    },
+    {
+      "path": "evidence/sourcefront21_primary_20261021/primary/p_name_amendment.htm",
+      "bytes": 9238,
+      "sha256": "d2e7e86faf3fe1fd2b7701629dc0325a600ebd0d9f1305e0c2f38bb99a33847e"
+    },
+    {
+      "path": "evidence/sourcefront21_primary_20261021/primary/p_securities_description.htm",
+      "bytes": 28199,
+      "sha256": "a87ab222a1958a5df3368b9cfb2c538cd3d63f14eb18e3d9b7102b38d8e1714e"
+    }
+  ],
+  "actual_source_CLI_UI_runtime": {
+    "path": "evidence/sourcefront21_coordinator_20261021/runtime/runtime_capture.json",
+    "bytes": 2313,
+    "sha256": "bb0b983f13b58ced2598dc1a9cc20feaca3cd0f1a6b7612d843d523d65622827"
+  },
+  "actual_source_actions": 2,
+  "runtime_HTTP_SQL_adoptions": 0,
+  "sourcefront_collector_requests_or_new_quota_database": 0,
+  "source_retries_or_old_failed_market_plan_replays": 0,
+  "original_production_database_opened_hashed_copied_replayed_reset": false,
+  "current_production_database_counts": null,
+  "counts_status": "UNOBSERVED",
+  "four_withheld_whole_bodies_absent": true,
+  "all_21_code_live_statuses_unchanged": true,
+  "canonical_tickers": 687,
+  "Q2_instrument_coverage": 150,
+  "current_Q3_instrument_coverage": 0,
+  "healthcare_inventory": 10,
+  "NHTSA_inventory": 3,
+  "legal_inventory": 5,
+  "registry_adoptions": 0,
+  "genuine_forecasts_registrations_labels_created_by_sourcefront": 0,
+  "user_Windows_end_to_end": false,
+  "historical_OOS_verified": false,
+  "default_modelconfig_hash": "e8e0a4b5e010122a7d7fa2f8d41eb9174e25a6a1a57e206cb315b1a552d0d5f2",
+  "model_fitter_score_or_687_60s_budget_changed": false,
+  "full_specialist_acceptance": "0/21",
+  "automatic_trading_allowed": false,
+  "new_head_hosted_CI": "PENDING_AFTER_EXACT_SAFE_TREE_PUBLICATION",
+  "later_hosted_qualification_location": "PR162 and original run artifact; this pre-CI proof remains immutable",
+  "required_public_parent_only": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "merge_authorized": false
+}

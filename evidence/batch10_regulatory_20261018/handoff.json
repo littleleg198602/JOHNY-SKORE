@@ -1,0 +1,130 @@
+{
+  "actual_plan": {
+    "bytes": 3597,
+    "path": "evidence/batch10_regulatory_20261018/actual_review_plan.json",
+    "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+  },
+  "actual_review": {
+    "bytes": 470353,
+    "path": "evidence/batch10_regulatory_20261018/reviews/8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b/review.json",
+    "sha256": "8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b"
+  },
+  "api": "review_doj_case_caption(request, captures, *, reviewed_at=None)",
+  "base_commit": "32adb8edd6aa6ccc1748d2cfbc228f7db3a16fd4",
+  "branch": "batch10/regulatory-20261018",
+  "completed_at": "2026-10-18T04:34:53.823911+00:00",
+  "earlier_qualification_and_regression": {
+    "current_21_method_version_passed": true,
+    "earlier_20_method_version": {
+      "bytes": 907,
+      "path": "evidence/batch10_regulatory_20261018/focused_01.json",
+      "sha256": "dc1c79221e616bc68321d4f0dd89faf4510039d9a0c2f0ccd61d348146ffe0c6"
+    },
+    "new_same_clause_parenthetical_regression_against_prior_version": {
+      "bytes": 673,
+      "path": "evidence/batch10_regulatory_20261018/pre_span_regression.json",
+      "sha256": "19f504cf10009e22f82b4284cfd37bd172b451efddff7312e4d3ae20ed2fc3c0"
+    },
+    "original_pre_span_sources_preserved": true,
+    "pre_span_regression_errors": 0,
+    "pre_span_regression_expected_failures": 1,
+    "publisher_pdf_hashes_or_text_assertions_relaxed": false
+  },
+  "four_whole_withheld_bodies_absent_and_never_inspected": true,
+  "full_acceptance": "0/21",
+  "full_baseline_or_hosted_suite_repeated": false,
+  "kind": "DOJ_CASE_CAPTION",
+  "limits": {
+    "complete_named_plaintiff_list_proven": false,
+    "current_docket_or_disposition_verified": false,
+    "financial_issuer_cik_or_continuity_verified": false,
+    "max_body_bytes": 4000000,
+    "max_documents": 3,
+    "max_pages_per_document": 120,
+    "max_text_characters_per_document": 2000000,
+    "merits_or_final_judgment_verified": false,
+    "modern_two_digit_filed_stamp_century_scope": "2000_2099",
+    "score_model_budget_registry_changes": false,
+    "separate_signed_order_verified": false
+  },
+  "module": "market_checker_app/collectors/doj_case_caption_review.py",
+  "new_windows_or_full_specialist_acceptance_claimed": false,
+  "next_work": [
+    "Independent dated financial/legal issuer-to-caption continuity",
+    "Whole original separate signed court Order",
+    "Genuine bounded current docket/disposition originals when separately authorized"
+  ],
+  "nhtsa_approval_block_retried_or_worked_around": false,
+  "no_financial_issuer_or_registry_input": true,
+  "novel_actual_facts": [
+    "Every one of62 Doc106 pages and33 Doc283 pages has its own matching full docket/document/filed/page stamp with exact PDF/page-text/span hashes.",
+    "Doc106 p1 says APPLE, INC./Defendant; its p62 service certificate independently says APPLE INC./Defendants with a differently worded plaintiff caption. These are separate literal facts, not adopted aliases.",
+    "Doc283 p1 has APPLE, INC.,/Defendant and OCR-layer ef at preserved. Its printed24-cv-4055 caption lacks division and full suffix; omitted values remain null.",
+    "Full 2:24-cv-04055-JXN-LDW appears explicitly in the same-page stamps. Numeric abbreviation compatibility corroborates the case base only, not omitted suffixes or financial identity.",
+    "The existing opinion's separate-Order reference is preserved as a reference only; no separate original Order is supplied."
+  ],
+  "packet_forms": [
+    "capture_id -> (metadata, original_pdf_bytes_or_none)",
+    "capture_id -> {metadata, body}"
+  ],
+  "parent_owns_shared_dispatch_cli_ui_status_and_publication": true,
+  "prior_byte_preservation": {
+    "bytes": 514549,
+    "path": "evidence/batch10_regulatory_20261018/prior_byte_preservation.json",
+    "sha256": "788f9f9a65a1f8648b7b7bb98811e4817d4f004530c1f807e80d3842e98b90af"
+  },
+  "push_or_merge_performed": false,
+  "qualified_complete_log": {
+    "bytes": 4350,
+    "path": "evidence/batch10_regulatory_20261018/focused_02.log",
+    "sha256": "a0a7013d91720bc97c3fcf8f7dab7d9cacb53a4ccbfaf5f27f8b353730902e69"
+  },
+  "qualified_counts": {
+    "errors": 0,
+    "executed": 21,
+    "expected_failures": 0,
+    "failures": 0,
+    "passed": 21,
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "qualified_source_test_sha256": {
+    "market_checker_app/collectors/doj_case_caption_review.py": "163966b86b7354ccdcad05af14a1cef2575723312957c1fcc7f5a729b247a8fc",
+    "tests/test_doj_case_caption_review.py": "e4309847b0b6540710d31e39d64eb413c5b78f55ec2dbb426a93fcb7a63b3c8c"
+  },
+  "qualified_tests": {
+    "bytes": 907,
+    "path": "evidence/batch10_regulatory_20261018/focused_02.json",
+    "sha256": "26f6e41dec9bcaf7a88f2a3b2e2d7127cc281be21da664804cd7b65279b77d17"
+  },
+  "registry_adoptions": 0,
+  "request_schema": "case_docket, court, documents[{capture_id,document_number,filed_on,document_kind}]",
+  "retained_ledger_sha256_from_assignment_only_not_read_by_lane": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af",
+  "review_record": {
+    "bytes": 2739,
+    "path": "evidence/batch10_regulatory_20261018/review_record.json",
+    "sha256": "8fbb4bd7ce536cc7c2be765ae6083d048588068ba108401a0923f5db77a9719e"
+  },
+  "schema_version": 1,
+  "source_counts": {
+    "database_connections_reads_or_writes": 0,
+    "decoded_and_stamped_pdf_pages": 95,
+    "document_local_caption_blocks": 3,
+    "field_evidence_records": 686,
+    "new_collector_source_requests": 0,
+    "new_http_requests": 0,
+    "whole_original_bytes": 1922197,
+    "whole_original_pdfs": 2
+  },
+  "status": "PARTIAL",
+  "visual_qa": {
+    "caption_name_and_plural_defendants_confirmed": true,
+    "cryptographic_signature_validation_claimed": false,
+    "derived_render_published": false,
+    "newly_inspected_original_page": {
+      "capture_id": "doj_opposition_pdf",
+      "original_pdf_sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3",
+      "page": 62
+    }
+  }
+}

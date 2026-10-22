@@ -1,0 +1,35 @@
+{
+  "active_source_not_reverted": true,
+  "additive_historical_and_chronology_pins": {
+    "evidence/batch11_contracts_20261018/producer_chronology.json": {
+      "bytes": 1422,
+      "sha256": "4871fd99ac4f4d4044433adaa4e2912d57222d8c2aa439e8270e5267467eb92c"
+    },
+    "evidence/batch11_contracts_20261018/producer_versions/34_method_pre_cursor/test_usaspending_prime_scope_review.py": {
+      "bytes": 21008,
+      "sha256": "8b08272bb2bd3e8aee33f2a1e2a3a4efbd90372f0ca6cd90799cc31170784eac"
+    },
+    "evidence/batch11_contracts_20261018/producer_versions/34_method_pre_cursor/usaspending_prime_scope_review.py": {
+      "bytes": 22143,
+      "sha256": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1"
+    }
+  },
+  "current_cases": 35,
+  "current_outcome_flags_all_zero": true,
+  "current_producer_sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f",
+  "current_test_sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d",
+  "cursor_guard_preceded_independent_peer_execution": true,
+  "db_operations": 0,
+  "frozen_prior_source_sha256": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1",
+  "frozen_prior_test_sha256": "8b08272bb2bd3e8aee33f2a1e2a3a4efbd90372f0ca6cd90799cc31170784eac",
+  "guard_is_not_claimed_as_peer_driven_fix": true,
+  "primary_handoff": {
+    "bytes": 10097,
+    "path": "evidence/batch11_contracts_20261018/handoff.json",
+    "sha256": "ebaeaffb114b2007a46d5650b7a61ae0c39e4b953d2b20787ed43f26e6843464"
+  },
+  "recorded_at": "2026-10-19T00:34:39.284910+00:00",
+  "schema_version": "batch11_committed_producer_handoff_v1",
+  "source_http_requests": 0,
+  "successful_checks_not_repeated": true
+}

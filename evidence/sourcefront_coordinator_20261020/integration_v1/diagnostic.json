@@ -1,0 +1,18 @@
+{
+  "actual_result": "5methods,3passed,2ERROR,0FAIL",
+  "reason": "Coordinator test used continuity_supported; actual additive charter API field is instrument_continuity_supported. Assertions retain the false continuity requirement; no producer or acceptance policy changes.",
+  "files": [
+    {
+      "source": "tests/test_sourcefront_coordinator_integration.py",
+      "copy": "evidence/sourcefront_coordinator_20261020/integration_v1/test_sourcefront_coordinator_integration.py.txt",
+      "sha256": "b9d103cdc1b00f24677f12117b0c3ceb349e744b6aa7ed50cc236369d28eed28",
+      "bytes": 6047
+    },
+    {
+      "source": "evidence/sourcefront_coordinator_20261020/integration_focus_v1.log",
+      "copy": "evidence/sourcefront_coordinator_20261020/integration_v1/integration_focus_v1.log",
+      "sha256": "d73ebd1f79b0fc8238ec857eda58148c0554bbb6e6e7d885e987660b93c011a4",
+      "bytes": 2870
+    }
+  ]
+}

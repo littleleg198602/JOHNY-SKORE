@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "command": "python -m unittest tests.test_batch4_ir_primary_verification tests.test_news_scout_service tests.test_news_event_provenance tests.test_neutral_news_direction tests.test_runtime_integration -v",
+  "started_at": "2026-10-13T18:49:33.521783+00:00",
+  "completed_at": "2026-10-13T18:49:36.382927+00:00",
+  "host": "Linux",
+  "python_version": "3.12.14",
+  "tests_run": 44,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true,
+  "elapsed_seconds": 2.861,
+  "log": "evidence/batch4_ir_20261013/tests.log",
+  "log_sha256": "06567007cee360c7a7ad497dc8aad029a35086bb20573ee5ade47d679c17006c",
+  "source_sha256": {
+    "market_checker_app/services/news_scout_service.py": "19c15746feafc1dc17fe0ecdfcc02322cefcb7989f8a10a21644b3fb0bda916c",
+    "market_checker_app/services/ir_primary_verification_service.py": "6c04a16f6ea163e2d799c84213aea78aa1614f1aac14caf638d0556302b26ebd",
+    "tests/test_batch4_ir_primary_verification.py": "16928e3107f70f5d8eade3237024e1f865b49c5d6bf6b9ce3a63be6426c542a3"
+  },
+  "includes_physical_import_availability_regressions": true,
+  "windows_end_to_end_verified": false,
+  "scoring_applied": false,
+  "completion_verified": false
+}

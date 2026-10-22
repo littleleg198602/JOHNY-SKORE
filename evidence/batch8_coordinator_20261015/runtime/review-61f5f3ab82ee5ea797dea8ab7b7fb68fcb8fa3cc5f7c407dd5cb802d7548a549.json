@@ -1,0 +1,52 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "FDA_STRUCTURED_PRODUCT",
+  "plan_sha256": "2988491204633cbede17295308f6cc7469e891df6bfeb1c471f58c8639c70ab0",
+  "recorded_at": "2026-10-16T00:25:09.785683+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-16T00:25:09.622651+00:00",
+  "review": {
+    "applicant_product_candidate": null,
+    "application_applicant_is_legal_owner": false,
+    "corporate_parent_verified": false,
+    "data_status": "WAIT_DATA",
+    "exact_applicant_issuer_bridge_supported": false,
+    "historical_role_or_knowledge_reconstructed": false,
+    "http_requests": 0,
+    "ingested_at": "2026-10-16T00:25:09.622651+00:00",
+    "issuer_attribution_allowed": false,
+    "issuer_wide_scope": false,
+    "known_at": "2026-10-16T00:25:09.622651+00:00",
+    "legal_owner_verified": false,
+    "live_acceptance_verified": false,
+    "manufacturer_annotation_is_applicant": false,
+    "negative_issuer_completeness_verified": false,
+    "prediction_input": false,
+    "product_from_text_mention": false,
+    "quota_modified": false,
+    "reasons": [
+      "STRUCTURED_WHOLE_BODY_UNAVAILABLE"
+    ],
+    "registry_modified": false,
+    "reviewed_at": "2026-10-16T00:25:09.622651+00:00",
+    "schema_version": "fda-original-structured-application-product-v1",
+    "score_changes": false,
+    "source_captures": {
+      "issuer": {
+        "body_bytes": 816055,
+        "body_sha256": "77948deb20b5f70af5f9d789c92035085d16447d3b96b99269ab364c8ea1af3c",
+        "observed_at": "2026-10-12T14:44:19.890070+00:00",
+        "original_available_at": "2026-10-12T14:44:19.890070+00:00",
+        "requested_at": "2026-10-12T14:44:14.903431+00:00",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm"
+      }
+    },
+    "source_version": null,
+    "status": "PARTIAL",
+    "structured_rows": []
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

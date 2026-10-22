@@ -1,0 +1,21 @@
+{
+  "active_producer_methods": 35,
+  "active_producer_sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f",
+  "active_test_sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d",
+  "current35_proof_path": "evidence/batch11_contracts_20261018/tests_current.json",
+  "cursor_guard_is_not_claimed_as_peer_driven_fix": true,
+  "cursor_guard_was_added_before_independent_peer_repro": true,
+  "db_operations": 0,
+  "historical34_proof_path": "evidence/batch11_contracts_20261018/tests.json",
+  "historical34_reconstruction": "Only the independently added last-record cursor guard and its one test were removed from saved35 bytes into separate non-runtime files; both resulting SHA256 exactly match the earlier saved34 qualification. Active source/tests never reverted.",
+  "historical34_version_directory": "evidence/batch11_contracts_20261018/producer_versions/34_method_pre_cursor",
+  "historical_methods": 34,
+  "historical_source_sha256": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1",
+  "historical_test_sha256": "8b08272bb2bd3e8aee33f2a1e2a3a4efbd90372f0ca6cd90799cc31170784eac",
+  "independent_peer_had_not_executed_at_guard_qualification": true,
+  "new_or_repeated_tests_in_this_finalization": 0,
+  "older_logs_reports_and_handoff_unchanged": true,
+  "recorded_at": "2026-10-19T00:34:16.363961+00:00",
+  "schema_version": 1,
+  "source_http_requests": 0
+}

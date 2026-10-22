@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from datetime import datetime
 import time
 from typing import Any
 
@@ -8,6 +9,9 @@ import pandas as pd
 import yfinance as yf
 
 from market_checker_app.utils.symbols import normalize_yahoo_symbol
+from market_checker_app.services.yahoo_price_provenance_service import (
+    PROVIDER_ATTR, capture_provider_frame, physical_clock, utc_clock,
+)
 
 
 class YahooCorporateActionHistoryClient:
@@ -25,9 +29,17 @@ class YahooCorporateActionHistoryClient:
         *,
         retry_attempts: int = 2,
         retry_delay_seconds: float = 1.0,
+        observation_clock: Callable[[], datetime] | None = None,
     ) -> None:
         self.retry_attempts = max(1, int(retry_attempts))
         self.retry_delay_seconds = max(0.0, float(retry_delay_seconds))
+        self._observation_clock = observation_clock or physical_clock
+
+    def _record(self, ticker: str, frame: pd.DataFrame, *, started_at: datetime, interval: str) -> pd.DataFrame:
+        frame = frame.copy(deep=True)
+        frame.attrs[PROVIDER_ATTR] = capture_provider_frame(ticker, frame,
+            started_at=started_at, observed_at=utc_clock(self._observation_clock()), interval=interval)
+        return frame
 
     @staticmethod
     def _is_transient(exc: Exception) -> bool:
@@ -98,6 +110,8 @@ class YahooCorporateActionHistoryClient:
         if "Close" not in selected.columns or "Stock Splits" not in selected.columns:
             return None
         if "Dividends" not in selected.columns:
+            selected = selected.copy(deep=True)
+            selected.attrs["yahoo_synthesized_columns"] = ["Dividends"]
             selected["Dividends"] = 0.0
         return selected
 
@@ -109,6 +123,7 @@ class YahooCorporateActionHistoryClient:
         interval: str = "1d",
     ) -> tuple[pd.DataFrame | None, str | None]:
         yahoo_symbol = normalize_yahoo_symbol(ticker)
+        started_at = utc_clock(self._observation_clock())
         try:
             history = self._call(
                 lambda: yf.Ticker(yahoo_symbol).history(
@@ -125,7 +140,10 @@ class YahooCorporateActionHistoryClient:
             return None, (
                 f"Yahoo action OHLC pro {ticker} neobsahuje Close + Stock Splits."
             )
-        return frame, None
+        try:
+            return self._record(ticker, frame, started_at=started_at, interval=interval), None
+        except ValueError:
+            return None, "Yahoo price capture withheld or invalid; no body exported."
 
     def fetch_batch(
         self,
@@ -154,6 +172,7 @@ class YahooCorporateActionHistoryClient:
 
         for batch_index, batch in enumerate(batches, start=1):
             yahoo_symbols = [normalize_yahoo_symbol(ticker) for ticker in batch]
+            started_at = utc_clock(self._observation_clock())
             try:
                 history = self._call(
                     lambda symbols=yahoo_symbols: yf.download(
@@ -185,7 +204,10 @@ class YahooCorporateActionHistoryClient:
                 if frame is None:
                     missing.append(ticker)
                 else:
-                    frames[ticker] = frame
+                    try:
+                        frames[ticker] = self._record(ticker, frame, started_at=started_at, interval=interval)
+                    except ValueError:
+                        warnings[ticker] = "Yahoo price capture withheld or invalid; no body exported."
 
             for ticker in missing[:retry_limit]:
                 frame, warning = self.fetch_one(

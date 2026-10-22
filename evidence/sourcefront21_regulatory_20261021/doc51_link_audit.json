@@ -1,0 +1,753 @@
+{
+  "HTTP_requests": 0,
+  "database_operations": 0,
+  "decoded_characters": 166435,
+  "external_uri_annotations": [],
+  "known_at": "2026-10-21T02:12:30.227365+00:00",
+  "limit": "No claim that the publisher has no Order/docket or that uninspected PDF container features cannot exist.",
+  "literal_http_urls": [],
+  "page_count": 91,
+  "pages": [
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 1,
+      "page_text_characters": 1262,
+      "page_text_sha256": "972103802af49289804b253ff5bfee44a35095d3929e406a755dd045c37d4350",
+      "page_text_utf8_bytes": 1262
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 2,
+      "page_text_characters": 846,
+      "page_text_sha256": "505eb2664d393b9e6bc1da30c9301bdf15a1e95821ece8337278059f22148237",
+      "page_text_utf8_bytes": 846
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 3,
+      "page_text_characters": 1171,
+      "page_text_sha256": "2bc0582c465990f748e5b3a153916885c449cd6b4db65759f8fc1591a9847c77",
+      "page_text_utf8_bytes": 1171
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 4,
+      "page_text_characters": 2186,
+      "page_text_sha256": "10c9fdcc638b97669cc6bd27d100d0eba66ee9198efe39ef4a48dad135c980b7",
+      "page_text_utf8_bytes": 2186
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 5,
+      "page_text_characters": 2078,
+      "page_text_sha256": "d81122226b9145a68269533b36be47ec1efe87fe70076853af10d6a2f58ead68",
+      "page_text_utf8_bytes": 2079
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 6,
+      "page_text_characters": 2013,
+      "page_text_sha256": "074ce56c019a79d349051c71e75b49e167c724b8c2cd8cd84e5057635146272e",
+      "page_text_utf8_bytes": 2014
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 7,
+      "page_text_characters": 2100,
+      "page_text_sha256": "f52a052b8945ea0401a2a344062ab3982ae16a4fb86aaf7cb604b3a125e9d2b3",
+      "page_text_utf8_bytes": 2100
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 8,
+      "page_text_characters": 2036,
+      "page_text_sha256": "77beb0ec57b191278e17b03341c86b342ecf35b48635e5e9c000028d48c7a887",
+      "page_text_utf8_bytes": 2036
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 9,
+      "page_text_characters": 1940,
+      "page_text_sha256": "536c9bb0a88fef2c9dc9be84feab43d7096abee42e4b27680c8c01f8737fb964",
+      "page_text_utf8_bytes": 1947
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 10,
+      "page_text_characters": 1738,
+      "page_text_sha256": "68af205fa7c618ea34804a203fb1452fe2dcb2f72be1fbde08a66c1c29b474ae",
+      "page_text_utf8_bytes": 1742
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 11,
+      "page_text_characters": 2084,
+      "page_text_sha256": "21e27dcf8b291b1adf86d77b08b73dcfb51e8722e723b8f874039927f24a6ab9",
+      "page_text_utf8_bytes": 2085
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 12,
+      "page_text_characters": 2038,
+      "page_text_sha256": "d25536939b1d5a12bf1e12afe49a85e2af90a540be894d54b0f2c36647896c64",
+      "page_text_utf8_bytes": 2038
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 13,
+      "page_text_characters": 2008,
+      "page_text_sha256": "b9be6c60bc31d4829faee2a73aa5bdb17bc5e687d17ec228c38845c1327b1da2",
+      "page_text_utf8_bytes": 2008
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 14,
+      "page_text_characters": 269,
+      "page_text_sha256": "5e7914b9ee1564323c4dab405e6aa1b43244af0c341c993344518bd74ef3e98b",
+      "page_text_utf8_bytes": 269
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 15,
+      "page_text_characters": 3559,
+      "page_text_sha256": "4ac4a59671cf50f32ea3ad7eb0cf31bfc1f057893991d70b17ce20f00751d634",
+      "page_text_utf8_bytes": 3559
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 16,
+      "page_text_characters": 2712,
+      "page_text_sha256": "cd948e335f23ab8504bdc5d8add41feac48ffae1602069ea3329abb793ea628b",
+      "page_text_utf8_bytes": 2716
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 17,
+      "page_text_characters": 2018,
+      "page_text_sha256": "b71df77f7778c9e2cfa1f090f58e66efd9499cfa69cc785418e64536e52ceeb5",
+      "page_text_utf8_bytes": 2018
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 18,
+      "page_text_characters": 1887,
+      "page_text_sha256": "2f0f63d2c0713b1d8d5c49949afe1f0f183981402316653bf59ef9f91db45a0d",
+      "page_text_utf8_bytes": 1888
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 19,
+      "page_text_characters": 2118,
+      "page_text_sha256": "7b493f22cf0deb8b123a291c757ebe98ef89823d8da1abc5e0e8bfa5ad0828f0",
+      "page_text_utf8_bytes": 2119
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 20,
+      "page_text_characters": 2011,
+      "page_text_sha256": "be8e4ed1534ea63b6d3afaab4023044f2dfb9bdc1afadbd170cc93cde1cafe5f",
+      "page_text_utf8_bytes": 2012
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 21,
+      "page_text_characters": 1978,
+      "page_text_sha256": "0bf1fbcd8facd214b55c99c59c5346b2223c0e9601fadc2618e60b13063fdfbc",
+      "page_text_utf8_bytes": 1978
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 22,
+      "page_text_characters": 2174,
+      "page_text_sha256": "c59c44af44d4913563d0a0577b14cfeb20ed77a3df5a7c0acccca4f608195600",
+      "page_text_utf8_bytes": 2174
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 23,
+      "page_text_characters": 2142,
+      "page_text_sha256": "129b9055627d9bec1b95cc4e10195fcdcbc7c056fc7085aa97b7551345f0d361",
+      "page_text_utf8_bytes": 2142
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 24,
+      "page_text_characters": 2015,
+      "page_text_sha256": "6bdcc779ec233a33d0bfdf356c49a751b54dc47c6d2bbf0f8362474702f353fa",
+      "page_text_utf8_bytes": 2015
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 25,
+      "page_text_characters": 2108,
+      "page_text_sha256": "334b1c82e10707a9c6596af6b27ef0df0328fe45a19d8bbfdda0f4232ebb357e",
+      "page_text_utf8_bytes": 2109
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 26,
+      "page_text_characters": 2082,
+      "page_text_sha256": "a233449b4428c4732e977bf905a35c5d23fb26bc40a04987c31c527a7fe762f7",
+      "page_text_utf8_bytes": 2082
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 27,
+      "page_text_characters": 2011,
+      "page_text_sha256": "c05505e79c60d271eaefb62466f1923db2bf73a926767bf8041d6d0b3cb3cb3e",
+      "page_text_utf8_bytes": 2011
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 28,
+      "page_text_characters": 2054,
+      "page_text_sha256": "bb480deb58085072ca88799f72d21f3ed12d823feab04577f6e9b31412c828d9",
+      "page_text_utf8_bytes": 2054
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 29,
+      "page_text_characters": 1859,
+      "page_text_sha256": "655cba78ddef1b0adab16a615da000b8ff8c429053d93be0f9ea22ce9131ca09",
+      "page_text_utf8_bytes": 1859
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 30,
+      "page_text_characters": 1942,
+      "page_text_sha256": "4ecdfa9674052435aa455594598b4eebc3c15ece5661dd07c1f93c9df844859d",
+      "page_text_utf8_bytes": 1942
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 31,
+      "page_text_characters": 1977,
+      "page_text_sha256": "78bf8c67a7db14658effdc2f6a098bba803ce5863b139f66d604a9b1d294fd48",
+      "page_text_utf8_bytes": 1977
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 32,
+      "page_text_characters": 2047,
+      "page_text_sha256": "4ef4c3902de2abaa9b9b3fb2ecafd7258bede0c62eb0463df7cc84e7536eb751",
+      "page_text_utf8_bytes": 2047
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 33,
+      "page_text_characters": 2124,
+      "page_text_sha256": "60a5828bb43dfd7aeb0e70d861ccc11d6e69c4769405331cd8896d36684557fc",
+      "page_text_utf8_bytes": 2124
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 34,
+      "page_text_characters": 2130,
+      "page_text_sha256": "f13527a855dd18667a3678b62d56660d79e59fcc8d2ccc1977ec869677857850",
+      "page_text_utf8_bytes": 2130
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 35,
+      "page_text_characters": 2010,
+      "page_text_sha256": "819c75fce3e48a5e4c8a9d535cc42ccce8c53559570ea20bd8dd8bdc79dfdd31",
+      "page_text_utf8_bytes": 2011
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 36,
+      "page_text_characters": 2016,
+      "page_text_sha256": "e50f14031adf1c041f34ef2699d33d473404418fc4c12ac26e5ab3b17227eea7",
+      "page_text_utf8_bytes": 2016
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 37,
+      "page_text_characters": 2084,
+      "page_text_sha256": "0b9997fe4a64c405d8f1a8507463a17b6574c6056638657355a37b725168b8a8",
+      "page_text_utf8_bytes": 2084
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 38,
+      "page_text_characters": 2023,
+      "page_text_sha256": "70e4e308f4be5fe11343bb979e9de005202366bcfe739a821e6ab326e1690346",
+      "page_text_utf8_bytes": 2024
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 39,
+      "page_text_characters": 1885,
+      "page_text_sha256": "9116e7f78c6b16fe2d2092d0a9df33c38cfae3a0dfb5fa8e2193f776d2ab845a",
+      "page_text_utf8_bytes": 1885
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 40,
+      "page_text_characters": 1941,
+      "page_text_sha256": "e0fa573c091d1ff9daa05d798f14f04104d3e9c298915df43dfa84e9e5c285dd",
+      "page_text_utf8_bytes": 1941
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 41,
+      "page_text_characters": 2063,
+      "page_text_sha256": "71fbd27cb7002499a0c66fc693ecd82564fa21edc573e1e7f168c57a4a6b0a5f",
+      "page_text_utf8_bytes": 2063
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 42,
+      "page_text_characters": 2104,
+      "page_text_sha256": "7571720b008b4165b8bc882d2fab8ad0da8d75f395e5c1bfb7e67a176658b2cc",
+      "page_text_utf8_bytes": 2105
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 43,
+      "page_text_characters": 2113,
+      "page_text_sha256": "d05c253551ca9d702c0774db9b3f09ebccaa4400165e1b66dd32196af49d1e65",
+      "page_text_utf8_bytes": 2114
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 44,
+      "page_text_characters": 2027,
+      "page_text_sha256": "059dc0820f2917c1793fefc4952cf9f1213582fa6ad38c4f09a19e500f97b9ab",
+      "page_text_utf8_bytes": 2028
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 45,
+      "page_text_characters": 2102,
+      "page_text_sha256": "26613633276a1abf101e29747a83e815ea9bb3f498611328704e9aa68828f7be",
+      "page_text_utf8_bytes": 2103
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 46,
+      "page_text_characters": 2054,
+      "page_text_sha256": "1af02a9a902df89b4cebfd4192351517b69c38d8998e624f0f19d9162f4fdf8c",
+      "page_text_utf8_bytes": 2054
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 47,
+      "page_text_characters": 2040,
+      "page_text_sha256": "81ba53e2c38aa8c4efdc1e8ff50c7fd6162399ddfcc35f1a951166f57b8b6375",
+      "page_text_utf8_bytes": 2040
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 48,
+      "page_text_characters": 2218,
+      "page_text_sha256": "1e51200d378df293cf97ee8ecdcc594cc2061cca923314b75a322aa70a6795f4",
+      "page_text_utf8_bytes": 2218
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 49,
+      "page_text_characters": 2066,
+      "page_text_sha256": "de0d6c716d2f362b8b1ae92f4f1432dbc66916644cbf677f1647778c9f277433",
+      "page_text_utf8_bytes": 2066
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 50,
+      "page_text_characters": 2181,
+      "page_text_sha256": "047d796bc79102578c77ce37ef547603e6508c7711cb86e6ee81f79b5dce595e",
+      "page_text_utf8_bytes": 2181
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 51,
+      "page_text_characters": 2009,
+      "page_text_sha256": "ed5ace0bcc43f68f4db82244b35d9420c0ffdc28c0ed70f8564d2c02d46abf9a",
+      "page_text_utf8_bytes": 2009
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 52,
+      "page_text_characters": 2173,
+      "page_text_sha256": "3a235a8282eddc0bc4213dd85a9a1814a6e4c1e440b5111b5c6cc4a40e6d82b6",
+      "page_text_utf8_bytes": 2173
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 53,
+      "page_text_characters": 2041,
+      "page_text_sha256": "dbd3d0206733e433b1e794e5ff8e97671d5d768eb898f0399696197fd2e0f2eb",
+      "page_text_utf8_bytes": 2041
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 54,
+      "page_text_characters": 2155,
+      "page_text_sha256": "6ca830cab731fc5faa5063e2e69fa6dfcca2c5a6536fce61138710f8a6d868f7",
+      "page_text_utf8_bytes": 2155
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 55,
+      "page_text_characters": 2145,
+      "page_text_sha256": "f09900db819abbfa875a251893eb634c0735384cc9a90d9f01157bc7ad4fee51",
+      "page_text_utf8_bytes": 2145
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 56,
+      "page_text_characters": 2162,
+      "page_text_sha256": "b840bcb35b520a86170ce687e6d6d84b27c26d024dccf2582156b0daff1afed6",
+      "page_text_utf8_bytes": 2162
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 57,
+      "page_text_characters": 2219,
+      "page_text_sha256": "afa9d0f8da646a8f0637431723c5eb358439eb9be4f34d656c0f6f515b363790",
+      "page_text_utf8_bytes": 2219
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 58,
+      "page_text_characters": 1921,
+      "page_text_sha256": "bce483092c1d673453845367d1b726a63c373b14f392c10c843ee14c13ab681e",
+      "page_text_utf8_bytes": 1921
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 59,
+      "page_text_characters": 2049,
+      "page_text_sha256": "8ea2560c3ec66cca4c72410a940f3e25f47cc4d66a94d85a85cfeea0576fffa5",
+      "page_text_utf8_bytes": 2049
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 60,
+      "page_text_characters": 1861,
+      "page_text_sha256": "eeb4c04089211c20167ceac93961c3b847ec89d387190db6275651bafd567945",
+      "page_text_utf8_bytes": 1864
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 61,
+      "page_text_characters": 1898,
+      "page_text_sha256": "5e70d8d23ff7d9fac5f5e01812301c6736055897c9ef9e752049921e5745a5ed",
+      "page_text_utf8_bytes": 1898
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 62,
+      "page_text_characters": 2001,
+      "page_text_sha256": "c982511e2a4e16b6f7e72cf392b139c7bad94c7dd0a2538a28e9de03ad06b9ec",
+      "page_text_utf8_bytes": 2001
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 63,
+      "page_text_characters": 2103,
+      "page_text_sha256": "5b743a8a49080f9d352a6e49cf62dd6e6188fd906837e0455640eb546b80f566",
+      "page_text_utf8_bytes": 2103
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 64,
+      "page_text_characters": 1944,
+      "page_text_sha256": "039514ac00bec000c3641efcc026c51e892b80e12ea6c996338bae52c96d9646",
+      "page_text_utf8_bytes": 1946
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 65,
+      "page_text_characters": 1796,
+      "page_text_sha256": "4377a1e21cb595816418da67676f08ac5fb2fcb117b5605d8a1e5a29be44d3c0",
+      "page_text_utf8_bytes": 1796
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 66,
+      "page_text_characters": 2031,
+      "page_text_sha256": "3b6e1310cd17fb180af57c173eaf35787acc4e38b12770db4a92857e117bcb95",
+      "page_text_utf8_bytes": 2031
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 67,
+      "page_text_characters": 2085,
+      "page_text_sha256": "7f55b7a16fff520b45105412b9f91b74959bd26f8902947d36a7fdae461a907f",
+      "page_text_utf8_bytes": 2086
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 68,
+      "page_text_characters": 2070,
+      "page_text_sha256": "e941c0689038a942c8fa16e40953aa01f9ddd2b1be49d86c92bfe519b0da4404",
+      "page_text_utf8_bytes": 2070
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 69,
+      "page_text_characters": 2213,
+      "page_text_sha256": "131945e1e22bee2c6070707c4d23b5b3f89ded5434f0aefdf1b43a2287105682",
+      "page_text_utf8_bytes": 2213
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 70,
+      "page_text_characters": 2103,
+      "page_text_sha256": "b2d27b8462878b6d2e8c853a0bfbdf16abb2d542e4c3968760f648bd30545270",
+      "page_text_utf8_bytes": 2103
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 71,
+      "page_text_characters": 1789,
+      "page_text_sha256": "0ea268c3262bc81d7abc5b7aa783fbd4ab962e3921af292f5529c5654828ee73",
+      "page_text_utf8_bytes": 1793
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 72,
+      "page_text_characters": 1895,
+      "page_text_sha256": "f6c1df16175791703451d86b56d06821044c77a4d4183cca64546cb22a11de23",
+      "page_text_utf8_bytes": 1901
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 73,
+      "page_text_characters": 1834,
+      "page_text_sha256": "b8d5c2221e91184250360f4b7d82e28c7934a665ad18cacc09590b5715ed9cfc",
+      "page_text_utf8_bytes": 1835
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 74,
+      "page_text_characters": 1906,
+      "page_text_sha256": "5592edb2927f310c50d13faf9a6df0b400408c1167db7ae5b8df7d773563afd0",
+      "page_text_utf8_bytes": 1907
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 75,
+      "page_text_characters": 1790,
+      "page_text_sha256": "4020ce704e020a94448fb3c0e467095505082b020ce49058ee4f51ba288debd7",
+      "page_text_utf8_bytes": 1791
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 76,
+      "page_text_characters": 1994,
+      "page_text_sha256": "2b3b4e7a20fb134cb557ed7fc8454aac2b868f97d478ac974b8803deb2bdf60d",
+      "page_text_utf8_bytes": 1994
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 77,
+      "page_text_characters": 2031,
+      "page_text_sha256": "a18a64b110dba8b6311dbed020e7c1d1da40014e51b5c38734032e06cdc0e496",
+      "page_text_utf8_bytes": 2035
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 78,
+      "page_text_characters": 1726,
+      "page_text_sha256": "77d5456b390c2f060cc1bd7d51105397e7b5d2fdbf2aa2bb24fd829fb1f3850c",
+      "page_text_utf8_bytes": 1731
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 79,
+      "page_text_characters": 1337,
+      "page_text_sha256": "892b779c0139561b4865c8f0c0327e1f19dd76af30549ca249f7b0c0dfec18fd",
+      "page_text_utf8_bytes": 1338
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 80,
+      "page_text_characters": 1314,
+      "page_text_sha256": "913ad1759187937b05dc107dbdc61728c2138d15b5926df991769c8352a8cca9",
+      "page_text_utf8_bytes": 1314
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 81,
+      "page_text_characters": 854,
+      "page_text_sha256": "0023c0a53944befdd722bfe64e9160d3876288ca9a5a6f5c0355190ae991f66e",
+      "page_text_utf8_bytes": 854
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 82,
+      "page_text_characters": 985,
+      "page_text_sha256": "643a982bf710dfcf0e7df894614ef2925594cbc94c0d94cc4b4a1ebb9d46c21c",
+      "page_text_utf8_bytes": 985
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 83,
+      "page_text_characters": 1072,
+      "page_text_sha256": "f7f89fbe5263f1a485b3928feef5a9b8578381a4baefd86611161b5aa43a17a4",
+      "page_text_utf8_bytes": 1086
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 84,
+      "page_text_characters": 996,
+      "page_text_sha256": "423eb7b7e2c997eb43e3fb1804e849a6e05fdc5994171551794544a87a0a1247",
+      "page_text_utf8_bytes": 996
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 85,
+      "page_text_characters": 700,
+      "page_text_sha256": "5f30bbc38dd0f9af28834638edb0cbb5f24207aff5958e4d22ba2f996d790920",
+      "page_text_utf8_bytes": 700
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 86,
+      "page_text_characters": 84,
+      "page_text_sha256": "cb3e8f96ca0764460abbf77fdc18b584d7c18d6adfe399cdbdb53558affda048",
+      "page_text_utf8_bytes": 84
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 87,
+      "page_text_characters": 808,
+      "page_text_sha256": "c936c25474ac0d44afb81df50105ec9dcb12bf07f9b889cf83e9ee8b10e44018",
+      "page_text_utf8_bytes": 808
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 88,
+      "page_text_characters": 643,
+      "page_text_sha256": "a33ad954bc7cc87b7f4c34b2d5c2b7c505593fbf54d5e94387ab7abfe4cb531b",
+      "page_text_utf8_bytes": 643
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 89,
+      "page_text_characters": 794,
+      "page_text_sha256": "7c386cc6cadba689f810e73d516bdaeef3a9d0fe45aad44f978b7d6943dbe08f",
+      "page_text_utf8_bytes": 794
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 90,
+      "page_text_characters": 894,
+      "page_text_sha256": "5b8568b9942d2cce727671787b4b20a32109fa55acf5e4308c7b380dd58ae89b",
+      "page_text_utf8_bytes": 896
+    },
+    {
+      "external_uri_annotations": 0,
+      "literal_http_urls": 0,
+      "page": 91,
+      "page_text_characters": 366,
+      "page_text_sha256": "6d30d983f9da1dabd1dc705fa2746f3eacbfa3fb37f2a134b6789186c56ae1d1",
+      "page_text_utf8_bytes": 366
+    }
+  ],
+  "purpose": "New route discovery only; no Doc51 case/entity interpretation or test replay.",
+  "source_metadata": {
+    "bytes": 1214,
+    "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.metadata.json",
+    "sha256": "0a20a0136cba93d30cb8d8d9a99a68e35297354e59d873b8552ebb82d44e245c"
+  },
+  "source_observed_at": "2026-10-20T14:33:17.921783+00:00",
+  "started_at": "2026-10-21T02:12:28.910053+00:00",
+  "whole_original": {
+    "bytes": 3404671,
+    "path": "evidence/sourcefront_20261020/primary/doj_first_amended_complaint.pdf",
+    "sha256": "3c8eaebc6ebc5106ac3dfbe1751023cf4b16d297ca5e54c65ed9a75bc80fc2a6"
+  }
+}

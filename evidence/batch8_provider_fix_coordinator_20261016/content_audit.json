@@ -1,0 +1,104 @@
+{
+  "recorded_at": "2026-10-16T07:22:53.964789+00:00",
+  "public_base": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+  "tested_code_snapshot": "d82aa27c1875b920605d69c13092bd8f4d55ba98",
+  "only_changed_code_path": "tests/test_batch8_captured_market_data_provider.py",
+  "current_test": {
+    "bytes": 27559,
+    "sha256": "93dc17d174ef0b18a19613acbf01d5a513e5a4b662ee970d8e1faeb2bbf8f386"
+  },
+  "whole_original_test": {
+    "bytes": 25727,
+    "sha256": "00fb80bf292fcd09851f74c468c1d4c47cb3293d7f9285c6e4b103553504d3fa"
+  },
+  "all_211_production_files_unchanged": true,
+  "production_files": 211,
+  "production_bytes": 3424926,
+  "old_evidence_files": 1296,
+  "old_evidence_bytes": 65374320,
+  "old_evidence_mismatches": [],
+  "original_methods_retained": 35,
+  "original_assertions_preserved": 70,
+  "new_total_provider_methods": 36,
+  "handoff_file_pins_checked": 14,
+  "handoff": {
+    "bytes": 5943,
+    "sha256": "7c42673a36eed3695e0b4e06b125743b1500a54390353beb59ab1ade4bf928a1"
+  },
+  "original_artifact_and_members_rehashed": true,
+  "original_failure": {
+    "head_sha": "df6648b4cd4d856629eed5cd5db1321e53da3bed",
+    "tree_sha": "bd99dca493a4d6eca5d6c1fb6c9017995aedf292",
+    "run_id": 38861160925,
+    "windows_job_id": 116843520437,
+    "release_gate_job_id": 116855563520,
+    "artifact_id": 12030449825,
+    "artifact_bytes": 62471,
+    "artifact_SHA256": "bafec854986b27ab5e67f358842be7bf486afb4f04dfe568f111b00e21a9c394",
+    "published_digest_matches": true,
+    "both_original_zip_members_read": true,
+    "original_members": {
+      "windows-tests.log": {
+        "bytes": 412149,
+        "SHA256": "b8532df1158a73ae0a4bad6d74303de880c842eef47a5f3fce184844e2a4bb32",
+        "CRLF_lines": 2084
+      },
+      "windows-tests.json": {
+        "bytes": 376,
+        "SHA256": "4fe3c913c1e70cf62816b84cfcbe6659034e0847921a7451903a331ed61d3a6b",
+        "CRLF_lines": 14
+      }
+    },
+    "original_windows_report": {
+      "started_at": "2026-10-16T06:27:32.936762+00:00",
+      "ended_at": "2026-10-16T07:04:57.400085+00:00",
+      "platform": "Windows-2025Server-10.0.26100-SP0",
+      "python_version": "3.12.10",
+      "discovered_tests": 2036,
+      "tests_run": 2036,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "successful": false
+    },
+    "decoded_job_log_SHA256": "27a081043cf2844177ab285727ee4041468e953ec67520b03fff86580af0f4d6",
+    "focused_checkpoint_tests": 63,
+    "focused_checkpoint_seconds": 29.937,
+    "full_test_count": 2036,
+    "elapsed_seconds": 2241.765,
+    "terminal_plain_OK": false,
+    "terminal_FAILED_failures_1_verified": true,
+    "exact_failed_method": "test_explicit_paths_refuse_escape_missing_and_parent_symlink_without_discovery",
+    "failure_is_acceptance": false,
+    "full_specialist_acceptance": 0,
+    "source_HTTP_or_database_operations": 0
+  },
+  "original_POSIX_alias_reproduction_is_Windows_execution": false,
+  "local_fullsuite": {
+    "started_at": "2026-10-16T07:17:49.872360+00:00",
+    "ended_at": "2026-10-16T07:21:54.431709+00:00",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python_version": "3.12.14",
+    "discovered_tests": 2037,
+    "tests_run": 2037,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "successful": true
+  },
+  "original_full_console": {
+    "bytes": 410060,
+    "sha256": "0b778aafdab7b9c5e241b8460f50c190e716294f06f311d8810c30c73fc93ad4"
+  },
+  "local_plain_OK": true,
+  "hosted_repair_qualification": "PENDING_NEW_PUBLIC_HEAD_CI",
+  "original_Windows_alias_bytes_logged": false,
+  "source_http_or_production_database_operations": 0,
+  "full_specialist_acceptance": 0,
+  "model_fitter_score_or_687_60s_budget_changed": false,
+  "earlier_producer_evidence_rewritten": false
+}

@@ -1,0 +1,102 @@
+{
+  "created_at": "2026-10-14T10:27:01.609620+00:00",
+  "current_partial_source_cases": 2,
+  "current_public_body_exists": false,
+  "current_source_verified_cases": 0,
+  "files": {
+    "evidence/batch4_ir_20261013/build_review.py": {
+      "sha256": "a57d7d4195b6bdba1256c00e0be031aa067299e7da311b47844d31a9995501b6",
+      "size_bytes": 8267
+    },
+    "evidence/batch5_ir_prior_withholding_20261014/README.md": {
+      "sha256": "67a7865fe17888d5181768247613b8058dfab10e3ef16b97bff3a65cbee6f27a",
+      "size_bytes": 2671
+    },
+    "evidence/batch5_ir_prior_withholding_20261014/current_review.json": {
+      "sha256": "0e89ff78fe0757b2fdb1b4a79d4a3b72957b2ee77446c5de6c7ce90897d035fa",
+      "size_bytes": 16647
+    },
+    "evidence/batch5_ir_prior_withholding_20261014/tests.json": {
+      "sha256": "c30901606cfc5682ae9f921641e6c646e6ff52178ff30fe0fefceec042c1dba5",
+      "size_bytes": 616
+    },
+    "evidence/batch5_ir_prior_withholding_20261014/tests.log": {
+      "sha256": "3bb0a260e5383db805e8d91f3b9903ed91fa1b02c97dfb485cba1c2d132fe4fb",
+      "size_bytes": 15439
+    },
+    "evidence/batch5_ir_prior_withholding_20261014/withholding.json": {
+      "sha256": "f2fdac5191493ce014f7d0c016b85d794875b8947b90f526af76c5ab78db71fc",
+      "size_bytes": 2624
+    },
+    "market_checker_app/services/ir_primary_verification_service.py": {
+      "sha256": "ab4d8f157ac0d351082db6e8c3226d16716a1ce3a1078a7a40df193d1c8524d9",
+      "size_bytes": 21532
+    },
+    "tests/test_batch4_ir_primary_verification.py": {
+      "sha256": "7910a998b778c82f915997c0be592d304b8b2372d8421d6ffe688f6d1e5fa83e",
+      "size_bytes": 22197
+    },
+    "tests/test_batch5_ir_prior_withholding.py": {
+      "sha256": "84c57637ec5d14c9fec074023c20901229ff67bef6643af7744dfac695a66a29",
+      "size_bytes": 9641
+    }
+  },
+  "history_rewritten": false,
+  "http_requests": 0,
+  "immutable_historical_documents": {
+    "evidence/batch4_ir_20261013/captures.json": {
+      "sha256": "071dc504e379da3375ef0ef47430f6dd46cc169e0068dd3ffeef8fd7ed86a8c2",
+      "size_bytes": 4189
+    },
+    "evidence/batch4_ir_20261013/handoff.json": {
+      "sha256": "eed2ce85170cc43bfe44652a0f2fb81686509dec9cf5506d4f06007fd277c9b3",
+      "size_bytes": 4480
+    },
+    "evidence/batch4_ir_20261013/source_review.json": {
+      "sha256": "9cad341d5f63339f3f5e2509a50e989238cabb58bb43a83861b2f75beff586a7",
+      "size_bytes": 19573
+    }
+  },
+  "issuer_attribution_allowed": false,
+  "original_sha256": "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1",
+  "original_size_bytes": 286802,
+  "private_exact_copy_preserved_outside_repository": true,
+  "remaining_gap": "Required primary IR authority body is unavailable; prior source-only positives are historical source-version reports and cannot serve as current acceptance",
+  "runtime_api": {
+    "availability": "max original/physical unavailability knowledge; import still uses actual physical clock",
+    "historical_builder": "writes only additive batch5 current_review.json with exclusive create; never old source_review.json",
+    "source_review": "verify_primary_ir_lead returns PARTIAL before RSS/HTML parser when any required input is unavailable",
+    "unavailable_capture": "UnavailableIRDocument(no body attribute, exact original SHA/size, physical unavailability clock)"
+  },
+  "safe_originals": {
+    "evidence/batch4_ir_20261013/primary/announcement.html": {
+      "sha256": "fec64697d008ec0de911cf0eac538a76d3b11ecc79036bfe4053ef3aa82d74d9",
+      "size_bytes": 136764
+    },
+    "evidence/batch4_ir_20261013/primary/ir_linked_announcement.html": {
+      "sha256": "eef8b3825373114c3932df57236a34fefb6ddb5e93d873aabf776ddf2c31fa5b",
+      "size_bytes": 138075
+    },
+    "evidence/batch4_ir_20261013/primary/press_releases_feed.xml": {
+      "sha256": "16812d284a40fede0aea1480b401f0b465ba54eb5c9bf228a14f0facefa0cb3a",
+      "size_bytes": 126731
+    }
+  },
+  "schema_version": 1,
+  "scoring_applied": false,
+  "single_output": "Withdraw known prior IR sensitive whole body and make captured/runtime source review explicitly PARTIAL",
+  "specialist_done_claim": false,
+  "tests": {
+    "discovered": 73,
+    "errors": 0,
+    "executed": 73,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_sha256": "3bb0a260e5383db805e8d91f3b9903ed91fa1b02c97dfb485cba1c2d132fe4fb",
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "windows_or_oos_claim": false,
+  "withdrawn_repository_path": "evidence/batch4_ir_20261013/primary/ir_authority.html"
+}

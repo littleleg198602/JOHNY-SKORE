@@ -19,12 +19,28 @@ LAYER_PATHS = {
 }
 
 
-def evaluate_layer_ablation(snapshots: pd.DataFrame, **evaluation_options: object) -> dict[str, object]:
+def evaluate_layer_ablation(snapshots: pd.DataFrame, *, strict_price_provenance: bool = False,
+                           **evaluation_options: object) -> dict[str, object]:
     """Each layer is tested against price-only on the same available rows.
 
     No feature selection by observed performance; no production model switch.
     The three comparisons are exploratory and do not constitute a promotion.
     """
+    evaluate = evaluate_candidate_walk_forward
+    if strict_price_provenance:
+        from market_checker_app.services.candidate_model_evaluation_service import evaluate_candidate_walk_forward_strict
+        from market_checker_app.services.specialist_label_availability_service import (
+            MAX_LABEL_OBSERVATIONS, prepare_label_observations,
+        )
+        evaluate = evaluate_candidate_walk_forward_strict
+        # Load bounded immutable label files once for all six comparisons;
+        # each strict fold still rechecks knowledge at its own prediction time.
+        captured, archive = prepare_label_observations(evaluation_options.get("label_observations"),
+            directory=evaluation_options.pop("label_archive_directory", None),
+            maximum=evaluation_options.get("maximum_label_observations", MAX_LABEL_OBSERVATIONS))
+        evaluation_options["label_observations"] = [record for versions in captured.values() for record in versions]
+    else:
+        archive = None
     variants = {}
     for layer, extra_paths in LAYER_PATHS.items():
         eligible = []
@@ -49,8 +65,8 @@ def evaluate_layer_ablation(snapshots: pd.DataFrame, **evaluation_options: objec
         if frame.empty:
             variants[layer] = {"status": "INSUFFICIENT_DATA", "reason": "NO_COMPLETE_MATCHED_LAYER_HISTORY", "sample_count": 0}
             continue
-        baseline = evaluate_candidate_walk_forward(frame, **evaluation_options)
-        augmented = evaluate_candidate_walk_forward(
+        baseline = evaluate(frame, **evaluation_options)
+        augmented = evaluate(
             frame,
             feature_paths=(*CORE_MARKET_FEATURE_PATHS, *extra_paths),
             feature_variant="market_plus_" + layer, **evaluation_options,
@@ -77,4 +93,10 @@ def evaluate_layer_ablation(snapshots: pd.DataFrame, **evaluation_options: objec
         "status": "EVALUATED" if all(row["status"] == "EVALUATED" for row in variants.values()) else "INSUFFICIENT_DATA",
         "analysis_only": True, "ranking_modified": False, "activation_allowed": False,
         "comparison_policy": "PREDECLARED_PAIRWISE_MATCHED_COHORTS_EXPLORATORY_NO_PROMOTION",
+        "strict_price_provenance_requested": strict_price_provenance,
+        "price_label_gate_applied": strict_price_provenance,
+        "evaluation_basis": ("CAPTURED_PRICE_PROVENANCE_FOLD_GATES" if strict_price_provenance
+                             else "LEGACY_LABEL_TIMESTAMPS_UNVERIFIED_PRICE"),
+        "label_archive": archive,
+        "oos_verified": False,
     }

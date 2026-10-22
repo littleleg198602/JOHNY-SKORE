@@ -1,0 +1,14 @@
+{
+  "reason": "Coordinator initial file inventory included one ignored interpreter cache. Cache is not a published Git artifact or an acceptance pin. Exact original handoff is preserved; corrected current handoff inventories durable non-cache files only.",
+  "original": {
+    "path": "evidence/batch11_source_handoff_peer_20261019/diagnostics/cache_inventory_before.json",
+    "bytes": 5805,
+    "sha256": "50da14150c9b1056ae5e560a5527a31c615a0d41cfe5d9b6222f4feb801b7f93"
+  },
+  "unpublished_ignored_cache_pins_removed": [
+    "evidence/batch11_source_handoff_peer_20261019/__pycache__/audit_source_handoffs.cpython-312.pyc"
+  ],
+  "source_production_test_data_changed": false,
+  "unittest_failure": false,
+  "generic_auditor_original_diagnostic": "evidence/batch11_coordinator_20261018/audit_expanded_v2_runner.log"
+}

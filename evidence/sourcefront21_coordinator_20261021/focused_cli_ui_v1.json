@@ -1,0 +1,25 @@
+{
+  "recorded_at": "2026-10-21T07:21:09.350956+00:00",
+  "observed_original_plain_OK": true,
+  "tests_executed": 2,
+  "plain_OK_seconds": 2.389,
+  "functional_method_names": [
+    "Sourcefront21CoordinatorTests.test_cli_archives_actual_deposit_review_without_collection_or_adoption",
+    "Sourcefront21CoordinatorTests.test_ui_selects_real_plan_and_preserves_original_review_archive"
+  ],
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "original_log": {
+    "path": "evidence/sourcefront21_coordinator_20261021/focused_cli_ui_v1.log",
+    "bytes": 723,
+    "sha256": "a90e72f05dc857a308183e18960ae21e4946a285da4eeed9d79266d7d891d5f0"
+  },
+  "tested_wafer_producer_sha256": "8043382a12fed7575eec31b05f37e0fe4c26f8945a29a6417e25d523d5efbba8",
+  "qualifies_later_temporal_fix": false,
+  "physical_start_finish_clock_not_recorded_in_original_log": true,
+  "HTTP_SQL_registry_adoptions": 0,
+  "full_specialist_acceptance": "0/21"
+}

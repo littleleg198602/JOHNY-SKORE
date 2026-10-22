@@ -1,0 +1,87 @@
+{
+  "observed_at": "2026-10-20T14:23:08.486251+00:00",
+  "public_head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "main": "ebb63a4b666908ce176e92ea7dffd6e74808caa9",
+  "worktrees": [
+    {
+      "role": "identity_bulk",
+      "worktree": "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015",
+      "before": {
+        "branch": "batch11/prime-scope-peer-20261018",
+        "head": "26730e296b4e91e5cd7ad8a64d6c4a71ff4d2691"
+      },
+      "new_branch": "sourcefront/identity_bulk-20261020",
+      "head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+      "preserved": []
+    },
+    {
+      "role": "healthcare",
+      "worktree": "/workspace/scratch/334b3a149083/JOHNY-batch8-healthcare-20261015",
+      "before": {
+        "branch": "batch11/windows-analysis-peer-20261019",
+        "head": "53623afa06e7765267e254f0e567cea410cb30de"
+      },
+      "new_branch": "sourcefront/healthcare-20261020",
+      "head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+      "preserved": [
+        {
+          "original_relative_path": "evidence/batch7_baseline_ci_20261015/.job_116016648509_decoded.log.F5F6Cb",
+          "preserved_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/preserved/healthcare/evidence/batch7_baseline_ci_20261015/.job_116016648509_decoded.log.F5F6Cb",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "role": "regulatory",
+      "worktree": "/workspace/scratch/334b3a149083/JOHNY-batch8-regulatory-20261015",
+      "before": {
+        "branch": "batch11/source-handoff-peer-20261019",
+        "head": "3f19859375e55588e8a34439312809b1c007a031"
+      },
+      "new_branch": "sourcefront/regulatory-20261020",
+      "head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+      "preserved": []
+    },
+    {
+      "role": "contracts",
+      "worktree": "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015",
+      "before": {
+        "branch": "batch11/contracts-20261018",
+        "head": "cc23d43adc44839a16d33464a7d8bc56a3700e8d"
+      },
+      "new_branch": "sourcefront/contracts-20261020",
+      "head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+      "preserved": []
+    },
+    {
+      "role": "sec",
+      "worktree": "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015",
+      "before": {
+        "branch": "batch11/sec-20261018",
+        "head": "a3bc814a5b07f5268a6fc16743968dcfe3e0fba4"
+      },
+      "new_branch": "sourcefront/sec-20261020",
+      "head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+      "preserved": []
+    },
+    {
+      "role": "evaluation",
+      "worktree": "/workspace/scratch/334b3a149083/JOHNY-batch8-evaluation-20261015",
+      "before": {
+        "branch": "batch11/linux-ci-headroom-20261020",
+        "head": "cce0faafb82e398189db61169827c1fc9e184bfd"
+      },
+      "new_branch": "sourcefront/evaluation-20261020",
+      "head": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+      "preserved": [
+        {
+          "original_relative_path": "evidence/batch7_sec_20261015/primary/.msft_2025_proxy.htm.8ushj0",
+          "preserved_path": "/workspace/scratch/334b3a149083/sourcefront_20261020/preserved/evaluation/evidence/batch7_sec_20261015/primary/.msft_2025_proxy.htm.8ushj0",
+          "bytes": 2359296,
+          "sha256": "bd4918b7a9cfd2921e45046e69370890f90f155a6ef0922ae256b879edf755eb"
+        }
+      ]
+    }
+  ]
+}

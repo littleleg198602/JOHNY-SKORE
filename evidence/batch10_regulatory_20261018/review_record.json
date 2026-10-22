@@ -1,0 +1,67 @@
+{
+  "captured_pdf_pages": 95,
+  "document_local_caption_blocks": 3,
+  "field_evidence_records": 686,
+  "original_source_pins": [
+    {
+      "capture_id": "doj_opposition_pdf",
+      "original": {
+        "bytes": 577500,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+        "sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3"
+      },
+      "original_metadata": {
+        "bytes": 996,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.metadata.json",
+        "sha256": "966c49069fffda0b0b318173de7afa197240dc2d00b2b875640046014da66c72"
+      },
+      "source_capture_clock": "2026-10-15T18:12:02.727684+00:00"
+    },
+    {
+      "capture_id": "govinfo_case_opinion",
+      "original": {
+        "bytes": 1344697,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      },
+      "original_metadata": {
+        "bytes": 1110,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.metadata.json",
+        "sha256": "587834c51273118d10ec773fa6e2529e010304a31e12ed11d48f9276a7e45ab2"
+      },
+      "source_capture_clock": "2026-10-15T13:40:16.524451+00:00"
+    }
+  ],
+  "physical_known_at": "2026-10-18T04:34:51.795236+00:00",
+  "plan": {
+    "bytes": 3597,
+    "path": "evidence/batch10_regulatory_20261018/actual_review_plan.json",
+    "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+  },
+  "producer_runtime": {
+    "pypdf": "6.16.1",
+    "python": "3.12.14"
+  },
+  "qualified_code_test_sha256": {
+    "market_checker_app/collectors/doj_case_caption_review.py": "163966b86b7354ccdcad05af14a1cef2575723312957c1fcc7f5a729b247a8fc",
+    "tests/test_doj_case_caption_review.py": "e4309847b0b6540710d31e39d64eb413c5b78f55ec2dbb426a93fcb7a63b3c8c"
+  },
+  "qualified_result": {
+    "bytes": 907,
+    "path": "evidence/batch10_regulatory_20261018/focused_02.json",
+    "sha256": "26f6e41dec9bcaf7a88f2a3b2e2d7127cc281be21da664804cd7b65279b77d17"
+  },
+  "raw_page_text_exported_as_substitute_original": false,
+  "report": {
+    "bytes": 470353,
+    "path": "evidence/batch10_regulatory_20261018/reviews/8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b/review.json",
+    "sha256": "8bf86eb1d5dd91cd4e62722c13d78b0ec11fb222ce56bcd53d2dca89a3eba18b"
+  },
+  "review_kind": "DOJ_CASE_CAPTION",
+  "source_gate_dependency": {
+    "bytes": 27761,
+    "path": "market_checker_app/services/doj_enforcement_scope_review.py",
+    "sha256": "891113065a849998e510695e1929caa3e76a9486fe01db28ce1ad6359dc76465"
+  },
+  "source_publication_or_filing_dates_backdated_to_knowledge": false
+}

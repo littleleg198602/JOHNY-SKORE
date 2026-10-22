@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/evidence/batch9_identity_20261016/replay_instrument_scope.py", line 52, in <module>
+    if __name__=="__main__":main()
+                            ^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/evidence/batch9_identity_20261016/replay_instrument_scope.py", line 46, in main
+    request,captures,plan=build_inputs();report=review_sec_instrument_class_scope(request,captures)
+                          ^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/evidence/batch9_identity_20261016/replay_instrument_scope.py", line 36, in build_inputs
+    tables=[table for table in registered_security_tables(body) if table["table_number"]==6]
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/market_checker_app/services/sec_instrument_class_scope_review.py", line 116, in registered_security_tables
+    return _Tables(body).tables
+           ^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/market_checker_app/services/sec_instrument_class_scope_review.py", line 47, in __init__
+    self.feed(self.text);self.close()
+    ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/html/parser.py", line 168, in feed
+    self.goahead(0)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/html/parser.py", line 260, in goahead
+    k = self.parse_starttag(i)
+        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/html/parser.py", line 475, in parse_starttag
+    self.handle_starttag(tag, attrs)
+  File "/workspace/scratch/334b3a149083/JOHNY-batch8-identity_bulk-20261015/market_checker_app/services/sec_instrument_class_scope_review.py", line 81, in handle_starttag
+    raise ValueError("Unsupported registered-security inline fact")
+ValueError: Unsupported registered-security inline fact

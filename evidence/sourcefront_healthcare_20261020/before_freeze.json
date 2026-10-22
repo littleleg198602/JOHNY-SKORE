@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-20T14:33:45.482268+00:00",
+  "producer_files": [
+    {
+      "original_path": "market_checker_app/services/healthcare_identity_service.py",
+      "frozen_path": "evidence/sourcefront_healthcare_20261020/before/market_checker_app__services__healthcare_identity_service.py.txt",
+      "sha256": "0bee11439f892b85bdf9358dc8967f5183f3b8bf7bd5c0e15b1b6ae9a97db923",
+      "bytes": 36547,
+      "whole_original_bytes": true
+    },
+    {
+      "original_path": "market_checker_app/services/healthcare_scout_service.py",
+      "frozen_path": "evidence/sourcefront_healthcare_20261020/before/market_checker_app__services__healthcare_scout_service.py.txt",
+      "sha256": "7dde776c970ff495f017d0ce138f7a4b2479e9c7f30e1ffe179ee62d313fc078",
+      "bytes": 26388,
+      "whole_original_bytes": true
+    },
+    {
+      "original_path": "market_checker_app/services/healthcare_coverage_service.py",
+      "frozen_path": "evidence/sourcefront_healthcare_20261020/before/market_checker_app__services__healthcare_coverage_service.py.txt",
+      "sha256": "ec40cb5f8a917b5287f8fb19347c99e7630456e389ca73ad0da35038d671f277",
+      "bytes": 24783,
+      "whole_original_bytes": true
+    },
+    {
+      "original_path": "tests/test_healthcare_identity_service.py",
+      "frozen_path": "evidence/sourcefront_healthcare_20261020/before/tests__test_healthcare_identity_service.py.txt",
+      "sha256": "2174507f1784d6ba7bf9abbe51888853c297231b9be9d87f6b11d9e6b9f45b70",
+      "bytes": 23023,
+      "whole_original_bytes": true
+    },
+    {
+      "original_path": "tests/test_healthcare_scout_service.py",
+      "frozen_path": "evidence/sourcefront_healthcare_20261020/before/tests__test_healthcare_scout_service.py.txt",
+      "sha256": "f72ae326448c60eb5de41807ba090da706a2f0470a03e9d4a78a90f07b84ef06",
+      "bytes": 11028,
+      "whole_original_bytes": true
+    },
+    {
+      "original_path": "tests/test_healthcare_coverage_service.py",
+      "frozen_path": "evidence/sourcefront_healthcare_20261020/before/tests__test_healthcare_coverage_service.py.txt",
+      "sha256": "bc53a8a782c68dd198e1e006379a665503c6035f90de4dc48797bf4322903f6d",
+      "bytes": 17375,
+      "whole_original_bytes": true
+    },
+    {
+      "original_path": "market_checker_app/data/verified_healthcare_identities.json",
+      "frozen_path": "evidence/sourcefront_healthcare_20261020/before/market_checker_app__data__verified_healthcare_identities.json.txt",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9",
+      "bytes": 14656,
+      "whole_original_bytes": true
+    },
+    {
+      "original_path": "tests/fixtures/healthcare/hca_cms_captured_20261011.json",
+      "frozen_path": "evidence/sourcefront_healthcare_20261020/before/tests__fixtures__healthcare__hca_cms_captured_20261011.json.txt",
+      "sha256": "5645620e60368e6f76bec5c13f84c7a5f88e4ca782c7f247b898b8fe25f9d3a2",
+      "bytes": 815,
+      "whole_original_bytes": true
+    }
+  ],
+  "first_probe_note": "The first tool stdout was retained as parsed JSON at 14:29:57.893258 UTC; first_probe_payload.json is a serialized preservation of that semantic payload. The independent before_probe.stdout.json below is the exact directly archived stdout from a second pre-edit lookup, not a claimed byte copy of the first tool transport.",
+  "before_probe_stdout": {
+    "path": "evidence/sourcefront_healthcare_20261020/before_probe.stdout.json",
+    "sha256": "17bd021378bde415179643e4d1c813c2fc594350d3343f9b7c10c1fa4cf4cb72",
+    "bytes": 6706
+  },
+  "code_or_registry_edited": false,
+  "SQL_attempts": 0,
+  "network_attempts": 0
+}

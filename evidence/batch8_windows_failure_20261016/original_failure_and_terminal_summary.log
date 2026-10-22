@@ -1,0 +1,26 @@
+FAIL: test_explicit_paths_refuse_escape_missing_and_parent_symlink_without_discovery (test_batch8_captured_market_data_provider.CapturedMarketDataProviderTests.test_explicit_paths_refuse_escape_missing_and_parent_symlink_without_discovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\a\JOHNY-SKORE\JOHNY-SKORE\tests\test_batch8_captured_market_data_provider.py", line 312, in test_explicit_paths_refuse_escape_missing_and_parent_symlink_without_discovery
+    self.check_missing("HISTORY_SYMLINK_REFUSED")
+  File "D:\a\JOHNY-SKORE\JOHNY-SKORE\tests\test_batch8_captured_market_data_provider.py", line 78, in check_missing
+    self.assertIsNone(frame)
+AssertionError:                              Open    High     Low   Close   Volume
+2026-07-15 00:00:00+00:00   99.80  100.30   99.60  100.00  1000000
+2026-07-16 00:00:00+00:00   99.81  100.31   99.61  100.01  1000001
+2026-07-17 00:00:00+00:00   99.82  100.32   99.62  100.02  1000002
+2026-07-20 00:00:00+00:00   99.83  100.33   99.63  100.03  1000003
+2026-07-21 00:00:00+00:00   99.84  100.34   99.64  100.04  1000004
+...                           ...     ...     ...     ...      ...
+2026-10-09 00:00:00+00:00  100.41  100.91  100.21  100.61  1000061
+2026-10-12 00:00:00+00:00  100.42  100.92  100.22  100.62  1000062
+2026-10-13 00:00:00+00:00  100.43  100.93  100.23  100.63  1000063
+2026-10-14 00:00:00+00:00  100.44  100.94  100.24  100.64  1000064
+2026-10-15 00:00:00+00:00  100.45  100.95  100.25  100.65  1000065
+
+[66 rows x 5 columns] is not None
+
+----------------------------------------------------------------------
+Ran 2036 tests in 2241.765s
+
+FAILED (failures=1)

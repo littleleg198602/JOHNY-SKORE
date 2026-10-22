@@ -1,0 +1,9 @@
+{
+  "recorded_at": "2026-10-17T22:44:49.941438+00:00",
+  "original_verifier_SHA256": "0637f8bf9dd0743e471891ade4572583f8ae9bb3868409167de4f2ab597a9382",
+  "first_artifact_verification_expectation_was_wrong": true,
+  "KeyboardInterrupt_is_in_hosted_console_not_in_original_artifact_log": true,
+  "failed_core_assertion_reproduced_offline_from_original_bytes": true,
+  "original_zip_and_member_bytes_unchanged": true,
+  "additional_HTTP_requests": 0
+}

@@ -1,0 +1,11 @@
+test_cli_exposes_the_new_form144_review_without_collection (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_cli_exposes_the_new_form144_review_without_collection) ... ok
+test_form144_account_corroboration_retains_actual_transaction_mismatches (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_form144_account_corroboration_retains_actual_transaction_mismatches) ... ok
+test_successor_charter_keeps_its_own_class_and_explicit_effective_day (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_successor_charter_keeps_its_own_class_and_explicit_effective_day) ... ok
+test_surviving_private_charter_is_not_the_exchanged_legacy_instrument (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_surviving_private_charter_is_not_the_exchanged_legacy_instrument) ... ok
+test_ui_can_select_and_archive_the_new_form144_notice (tests.test_sourcefront_coordinator_integration.SourcefrontCoordinatorTests.test_ui_can_select_and_archive_the_new_form144_notice) ... 2026-10-20 22:20:16.915 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.924s
+
+OK

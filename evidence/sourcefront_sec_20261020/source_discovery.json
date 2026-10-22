@@ -1,0 +1,160 @@
+{
+  "actual_new_primary_capture": {
+    "body_available": true,
+    "body_ref": {
+      "bytes": 4770,
+      "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.txt",
+      "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e"
+    },
+    "metadata": {
+      "known_at": "2026-10-20T14:29:20.394430+00:00",
+      "observed_at": "2026-10-20T14:29:20.394430+00:00",
+      "purpose": "FORM144_NOTICE_PACKET",
+      "record_id": "sourcefront-sec-notice",
+      "retention": "ORIGINAL_BYTES",
+      "sha256": "69fd38a01da8b03a7b05ebe13d1fdd73e2996cfb3a1581af8971493b979ab40e",
+      "size_bytes": 4770,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/0001950047-26-008927.txt"
+    }
+  },
+  "baseline_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "common_originals_commit": "f2aa76e",
+  "coordinator_new_primary_http_requests": 1,
+  "created_at": "2026-10-20T20:14:40.985522+00:00",
+  "database_opened_or_modified": false,
+  "exact_missing_bridge": [
+    "Independent dated natural-person/legal-name-to-account binding",
+    "Exact instrument/class/CUSIP validity on transaction day",
+    "Legal role interval covering Aug31 independently of reported-account labels",
+    "Exact transaction identity: notice86525/Common differs from Form4 178622 or70465.844/Common Stock"
+  ],
+  "grounded_primary_url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/0001950047-26-008927.txt",
+  "new_request_receipt": {
+    "bytes": 1255,
+    "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.metadata.json",
+    "sha256": "26539e1b09d7a06874b876cb61da127a0ae9818956b392047236cc847c1bded7"
+  },
+  "new_request_reservation": {
+    "bytes": 590,
+    "path": "evidence/sourcefront_20261020/primary/nadella_form144_packet.reserved.json",
+    "sha256": "973edea40c6684c2bcbb76c5a5e4cd7a6486759b9c001b74aafb2453641d13e8"
+  },
+  "new_source_claim": "Separate dated Form144 header and original XML bind same reporting account and issuer CIK; acquired-day overlap with Aug31 Form4 is not transaction identity",
+  "no_continuity_identity_adoption_or_execution": true,
+  "prior_attempt_audit_scope": "Before the new root GET, this accession matched four retained submissions JSON bodies and no retained capture/attempt receipt; no global never-fetched claim",
+  "retained_referring_originals": [
+    {
+      "root_cik": "0000789019",
+      "root_name": "MICROSOFT CORP",
+      "tokens": [
+        {
+          "byte_end": 2053,
+          "byte_start": 2031,
+          "pointer": "/filings/recent/accessionNumber/42",
+          "quote": "\"0001950047-26-008927\"",
+          "sha256": "ed3a29f555382ed08bc4f1a0729e025dd234881d8d19fc04c796372e144a970a",
+          "value": "0001950047-26-008927"
+        },
+        {
+          "byte_end": 24684,
+          "byte_start": 24672,
+          "pointer": "/filings/recent/filingDate/42",
+          "quote": "\"2026-09-01\"",
+          "sha256": "fe1457d8f8c5911fca219c2ab9d7bf2bfbf4f72cc8920718487bff31a343b43c",
+          "value": "2026-09-01"
+        },
+        {
+          "byte_end": 79616,
+          "byte_start": 79611,
+          "pointer": "/filings/recent/form/42",
+          "quote": "\"144\"",
+          "sha256": "87467fb961ea5ae8d4d1c29df473a419cc20e1ae079cb43932b6a831050981d2",
+          "value": "144"
+        },
+        {
+          "byte_end": 118284,
+          "byte_start": 118257,
+          "pointer": "/filings/recent/primaryDocument/42",
+          "quote": "\"xsl144X01/primary_doc.xml\"",
+          "sha256": "48e7ceed0728e2bbfa62c91bf445c33a79d61318cf7a6acc4b96e6f3a5b4c032",
+          "value": "xsl144X01/primary_doc.xml"
+        },
+        {
+          "byte_end": 103266,
+          "byte_start": 103262,
+          "pointer": "/filings/recent/size/42",
+          "quote": "4770",
+          "sha256": "3f7e05acc03b0893efd9bbb4990cd9d20b1451ab549633510c427f96c40e7143",
+          "value": 4770
+        }
+      ],
+      "whole_original": {
+        "bytes": 185250,
+        "path": "evidence/batch3_sec_20261012/primary/msft_submissions.json",
+        "sha256": "2484a2a3b5677d892a1b25af573ce4eda7b6f449f5eda41bac6b3f106dc3139c"
+      }
+    },
+    {
+      "root_cik": "0001513142",
+      "root_name": "Nadella Satya",
+      "tokens": [
+        {
+          "byte_end": 1017,
+          "byte_start": 995,
+          "pointer": "/filings/recent/accessionNumber/2",
+          "quote": "\"0001950047-26-008927\"",
+          "sha256": "ed3a29f555382ed08bc4f1a0729e025dd234881d8d19fc04c796372e144a970a",
+          "value": "0001950047-26-008927"
+        },
+        {
+          "byte_end": 3118,
+          "byte_start": 3106,
+          "pointer": "/filings/recent/filingDate/2",
+          "quote": "\"2026-09-01\"",
+          "sha256": "fe1457d8f8c5911fca219c2ab9d7bf2bfbf4f72cc8920718487bff31a343b43c",
+          "value": "2026-09-01"
+        },
+        {
+          "byte_end": 8412,
+          "byte_start": 8407,
+          "pointer": "/filings/recent/form/2",
+          "quote": "\"144\"",
+          "sha256": "87467fb961ea5ae8d4d1c29df473a419cc20e1ae079cb43932b6a831050981d2",
+          "value": "144"
+        },
+        {
+          "byte_end": 13005,
+          "byte_start": 12978,
+          "pointer": "/filings/recent/primaryDocument/2",
+          "quote": "\"xsl144X01/primary_doc.xml\"",
+          "sha256": "48e7ceed0728e2bbfa62c91bf445c33a79d61318cf7a6acc4b96e6f3a5b4c032",
+          "value": "xsl144X01/primary_doc.xml"
+        },
+        {
+          "byte_end": 11588,
+          "byte_start": 11584,
+          "pointer": "/filings/recent/size/2",
+          "quote": "4770",
+          "sha256": "3f7e05acc03b0893efd9bbb4990cd9d20b1451ab549633510c427f96c40e7143",
+          "value": 4770
+        }
+      ],
+      "whole_original": {
+        "bytes": 17733,
+        "path": "evidence/batch8_sec_20261015/primary/nadella_current_submissions.json",
+        "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d"
+      }
+    }
+  ],
+  "safe_unattempted_alternative": {
+    "declared_bytes": 8585501,
+    "limit": "Exceeds current4MB research limit; no assumption about unstored content and no request authorization used",
+    "not_requested": true,
+    "source": "evidence/batch3_sec_20261012/primary/msft_2026_index.html",
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
+  },
+  "schema_version": "sourcefront_sec_discovery_v1",
+  "url_grounding": "Constructed canonical SEC complete-packet URL from exact issuer CIK and accession; not a literal profile URL",
+  "withheld_bodies_read_recovered_or_substituted": false,
+  "worker_http_requests": 0
+}

@@ -1,0 +1,96 @@
+{
+  "candidate_bytes": 26101,
+  "candidate_modified_by_peer": false,
+  "candidate_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/market_checker_app/collectors/sec_person_role_claim_review.py",
+  "candidate_sha256": "eb4888df2ffbed6354334dab6b97e786dcc44ba87983e2e9b94180ee9d180b84",
+  "db_operations": 0,
+  "diagnostics": [
+    {
+      "continuous_role_verified": false,
+      "kind": "OTHER_PERSON_INSIDE_CAREER_TABLE",
+      "named_person": "Satya Nadella Age: 58 | Director Since: 2014 | Birthplace: India",
+      "natural_person_account_binding_verified": false,
+      "rejected": false,
+      "requested_knowledge_at": null,
+      "review_available_at": "2026-10-18T12:00:00+00:00",
+      "roles": [
+        {
+          "person": "Satya Nadella",
+          "title": "Director"
+        },
+        {
+          "person": "Satya Nadella",
+          "title": "Chief Financial Officer"
+        }
+      ],
+      "source_present_anchor": "2025-10-21",
+      "source_role_claims_supported": true
+    },
+    {
+      "continuous_role_verified": false,
+      "kind": "HIDDEN_INDEX_FILING_DAY",
+      "named_person": "Satya Nadella Age: 58 | Director Since: 2014 | Birthplace: India",
+      "natural_person_account_binding_verified": false,
+      "rejected": false,
+      "requested_knowledge_at": null,
+      "review_available_at": "2026-10-18T12:00:00+00:00",
+      "roles": [
+        {
+          "person": "Satya Nadella",
+          "title": "Director"
+        },
+        {
+          "person": "Satya Nadella",
+          "title": "Chairman and Chief Executive Officer"
+        },
+        {
+          "person": "Satya Nadella",
+          "title": "Chief Executive Officer and Director"
+        }
+      ],
+      "source_present_anchor": "2025-10-21",
+      "source_role_claims_supported": true
+    },
+    {
+      "continuous_role_verified": false,
+      "kind": "COMPLETION_AFTER_EXPLICIT_CUTOFF",
+      "named_person": "Satya Nadella Age: 58 | Director Since: 2014 | Birthplace: India",
+      "natural_person_account_binding_verified": false,
+      "rejected": false,
+      "requested_knowledge_at": "2026-10-18T12:00:00+00:00",
+      "review_available_at": "2026-10-18T12:00:02+00:00",
+      "roles": [
+        {
+          "person": "Satya Nadella",
+          "title": "Director"
+        },
+        {
+          "person": "Satya Nadella",
+          "title": "Chairman and Chief Executive Officer"
+        },
+        {
+          "person": "Satya Nadella",
+          "title": "Chief Executive Officer and Director"
+        }
+      ],
+      "source_present_anchor": "2025-10-21",
+      "source_role_claims_supported": true
+    }
+  ],
+  "discovered": 3,
+  "elapsed_seconds": 0.015825429000017266,
+  "errors": 0,
+  "executed": 3,
+  "expected_failures": 0,
+  "failures": 3,
+  "peer_test_sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be",
+  "phase": "before",
+  "recorded_at": "2026-10-18T08:56:52.901652+00:00",
+  "registry_adoptions": 0,
+  "schema_version": 1,
+  "skips": 0,
+  "source_http_requests": 0,
+  "successful": false,
+  "synthetic_only": true,
+  "unexpected_successes": 0
+}

@@ -1,0 +1,16 @@
+{
+  "frozen_verifier": {
+    "bytes": 30383,
+    "path": "evidence/batch11_source_handoff_peer_20261019/diagnostics/verifier_v1.py",
+    "sha256": "68273f89d30324f5a72f10ab42f1fbb72262f6001c1087773decaba9aaf3782a"
+  },
+  "genuine_missing_declared_local_pin_found": false,
+  "kind": "PEER_VERIFIER_SCHEMA_ASSUMPTION_DIAGNOSTIC",
+  "observed_first_attempt_error": "KeyError: 'log_sha256'",
+  "reason": "Verifier assumed every qualifier JSON repeats its log hash; contracts declares that exact log pin in its handoff instead.",
+  "recorded_at": "2026-10-19T00:47:46.717029+00:00",
+  "source_evidence_or_producers_modified": false,
+  "source_record": "evidence/batch11_contracts_20261018/tests_current.json",
+  "summary_is_not_original_console_bytes": true,
+  "tests_or_suites_or_HTTP_DB_actions": 0
+}

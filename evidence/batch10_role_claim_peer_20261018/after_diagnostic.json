@@ -1,0 +1,49 @@
+{
+  "candidate_bytes": 31534,
+  "candidate_modified_by_peer": false,
+  "candidate_path": "/workspace/scratch/334b3a149083/JOHNY-batch8-sec-20261015/market_checker_app/collectors/sec_person_role_claim_review.py",
+  "candidate_sha256": "4e7146c6776b2cce5d9a3393a1493c016753f13d586377257917405aa74bacb3",
+  "db_operations": 0,
+  "diagnostics": [
+    {
+      "error_type": "PersonRoleClaimReviewError",
+      "kind": "OTHER_PERSON_INSIDE_CAREER_TABLE",
+      "reason": "Unselected subject/content inside career table breaks the named-person scope",
+      "rejected": true
+    },
+    {
+      "error_type": "PersonRoleClaimReviewError",
+      "kind": "HIDDEN_INDEX_FILING_DAY",
+      "reason": "Required original index clock is hidden, absent or conflicting",
+      "rejected": true
+    },
+    {
+      "continuous_role_verified": false,
+      "kind": "COMPLETION_AFTER_EXPLICIT_CUTOFF",
+      "named_person": null,
+      "natural_person_account_binding_verified": false,
+      "rejected": false,
+      "requested_knowledge_at": "2026-10-18T12:00:00+00:00",
+      "review_available_at": "2026-10-18T12:00:02+00:00",
+      "roles": [],
+      "source_present_anchor": null,
+      "source_role_claims_supported": false
+    }
+  ],
+  "discovered": 3,
+  "elapsed_seconds": 0.012101921000009952,
+  "errors": 0,
+  "executed": 3,
+  "expected_failures": 0,
+  "failures": 0,
+  "peer_test_sha256": "49ef92ba5fd9a03c7f6d1fc65b2215cf550cd76c177a6a8e97e5d94679fe21be",
+  "phase": "after",
+  "recorded_at": "2026-10-18T14:11:11.952892+00:00",
+  "registry_adoptions": 0,
+  "schema_version": 1,
+  "skips": 0,
+  "source_http_requests": 0,
+  "successful": true,
+  "synthetic_only": true,
+  "unexpected_successes": 0
+}

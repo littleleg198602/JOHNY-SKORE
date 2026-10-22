@@ -1,0 +1,27 @@
+{
+  "completed_at": "2026-10-14T05:14:27.381954+00:00",
+  "discovered": 64,
+  "elapsed_seconds": 5.702447611000025,
+  "errors": 0,
+  "executed": 64,
+  "expected_failures": 0,
+  "failures": 0,
+  "live_source_requests_in_this_test_run": 0,
+  "log_sha256": "19563d41612ee552078fc9b2382414e965e81153fbd46fd16ea2ff805c6f9fc7",
+  "modules": [
+    "tests.test_batch5_ir_primary_scout",
+    "tests.test_batch4_ir_primary_verification",
+    "tests.test_public_source_budget"
+  ],
+  "skips": 0,
+  "source_sha256": {
+    "market_checker_app/ir_primary_runner.py": "38a2d2841040e8df3be3985980fab7699237a4c3194dffabf747682833aa2f39",
+    "market_checker_app/services/ir_primary_scout_service.py": "145c39cd69579338c6e33b4c1d09744f8dd4549827be4bb51eabb78bebb8a9de",
+    "market_checker_app/services/ir_primary_verification_service.py": "6c04a16f6ea163e2d799c84213aea78aa1614f1aac14caf638d0556302b26ebd",
+    "market_checker_app/services/news_scout_service.py": "19c15746feafc1dc17fe0ecdfcc02322cefcb7989f8a10a21644b3fb0bda916c",
+    "tests/test_batch5_ir_primary_scout.py": "6dbe66ca50841d2153122beb70eaf038ee234fd50068152dc2b0faa47f8c8bcf"
+  },
+  "started_at": "2026-10-14T05:14:21.679509+00:00",
+  "successful": true,
+  "unexpected_successes": 0
+}

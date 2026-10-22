@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "producer_sha256": "247afa52a4d197c4db83a402d048495a969f5705885e00cf0cb47f67cbc93322",
+  "classification": "Relative handoff file pins require the handoff directory, not repository root; no unittest failure",
+  "output_created": false
+}

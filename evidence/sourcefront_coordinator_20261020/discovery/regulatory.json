@@ -1,0 +1,426 @@
+{
+  "PDF_link_feasibility": {
+    "all95_pages_scanned_for_external_URI_annotations": true,
+    "external_URI_annotations_found": 0,
+    "no_ECF_document_number_increment_inferred": true,
+    "printed_HTTP_URLs_found": 0,
+    "separate_Order_direct_URI_observed": false,
+    "text_layer_search_is_not_proof_about_unextracted_image_text": true,
+    "typed_financial_CIK_found_in_extracted_PDF_text": false,
+    "unattempted_separate_Order_URL_supported_by_two_PDFs": null
+  },
+  "actual_actions": {
+    "NHTSA_retries_alternate_transports_or_quota_lease_changes": 0,
+    "SQL_or_original_DB_opens_reads_hashes_copies_replays_resets": 0,
+    "collector_API_requests": 0,
+    "four_known_whole_withheld_body_paths_absent_without_opening": [
+      "evidence/batch4_regulatory_20261013/raw/nhtsa_api_docs.html",
+      "evidence/batch4_ir_20261013/primary/ir_authority.html",
+      "evidence/batch5_ir_20261014/primary/ir_authority.html",
+      "evidence/batch8_regulatory_20261015/raw/njd_case_page.html"
+    ],
+    "new_HTTP_transports": 0,
+    "new_code_defect_claimed": false,
+    "new_primary_body_or_substitute_created": false,
+    "old_suites_or_CI_repeated": 0,
+    "production_services_tests_or_registry_edits": 0,
+    "remote_writes_or_merge": 0,
+    "search_service_calls": 0,
+    "source_read_scope": "Two retained safe original PDFs, one retained safe DOJ HTML index, and existing capture/attempt metadata only."
+  },
+  "actual_unattempted_link": {
+    "anchor_byte_end": 89975,
+    "anchor_byte_start": 89848,
+    "anchor_bytes_sha256": "76f72287896c5e6ce4f89b1ca3322e00426629a9440f09d19f7178cb067e55c1",
+    "exact_anchor_html": "<a class=\"downloadable-file\" href=\"/atr/media/1358786/dl\" hreflang=\"en\">\n               First Amended Complaint \n          </a>",
+    "exact_raw_href": "/atr/media/1358786/dl",
+    "label_is_not_separate_order": true,
+    "observed_link_label": "First Amended Complaint",
+    "publisher": "US Department of Justice Antitrust Division",
+    "publisher_dated_link_context": {
+      "byte_end": 86150,
+      "byte_start": 85928,
+      "date_verified_in_whole_amended_complaint": false,
+      "exact_html": "<p><a data-entity-substitution=\"media\" data-entity-type=\"media\" data-entity-uuid=\"f9092efb-3b21-4112-bc0f-0b46256735c4\" href=\"/atr/media/1358786/dl?inline\" title=\"423137.pdf\">First Amended Complaint</a> (June 11, 2024)</p>",
+      "sha256": "89bbe03402dab90e5b849e4eb6a744fc5fe599cb719c13c35e40e476067e096f",
+      "stated_document_date": "June 11, 2024"
+    },
+    "requested_URL_proposal": "https://www.justice.gov/atr/media/1358786/dl",
+    "source": {
+      "bytes": 107793,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+      "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+    },
+    "source_metadata": {
+      "bytes": 981,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+      "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6"
+    },
+    "source_observed_at": "2026-10-15T18:10:37.550969+00:00"
+  },
+  "admissible_next_action": {
+    "automatic_redirects": false,
+    "body_access_value_policy": "Whole body withheld; metadata only; no sanitized/encoded/compressed/wrapped substitute.",
+    "distinct_from_prior_attempts": true,
+    "kind": "SINGLE_ORIGINAL_PRIMARY_PARTY_FILING_RESEARCH_CAPTURE",
+    "maximum_body_bytes": 4000000,
+    "maximum_new_transports": 1,
+    "not_sufficient_for": [
+      "Separate original Order",
+      "Current complete docket/disposition",
+      "Independent dated legal issuer/CIK continuity",
+      "Merits/final judgment",
+      "DONE/live/Windows/OOS acceptance"
+    ],
+    "observed_authority": "Exact retained DOJ index anchor and dated June11,2024 context; crossreference from Doc283 to Amended Complaint19.",
+    "pre_transport_requirement": "Coordinator separately commits a bounded research plan/reservation with actual physical UTC, then decides whether to authorize this one source request. No old quota history or unused allowance is reconstructed.",
+    "retry_fallback_or_alias_transport": false,
+    "status": "PROPOSAL_ONLY_NO_TRANSPORT_PERFORMED",
+    "timeout_seconds": 25,
+    "url": "https://www.justice.gov/atr/media/1358786/dl"
+  },
+  "attempt_history": {
+    "actual_prior_transport_count": 9,
+    "already_attempted_unknown_order_locator": {
+      "capture_id": "court_public_order",
+      "http_status": null,
+      "metadata": {
+        "bytes": 707,
+        "path": "evidence/batch8_regulatory_20261015/raw/court_public_order.metadata.json",
+        "sha256": "4a5d4ab16fb0beb7271ecaea11387cfc94922ad050edf5531685405e9c450c4b"
+      },
+      "observed_at": "2026-10-15T13:43:59.288997+00:00",
+      "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+      "status": "TRANSPORT_OR_CAPTURE_ERROR"
+    },
+    "candidate_media_id": "1358786",
+    "entries": [
+      {
+        "capture_id": "doj_apple_complaint",
+        "http_status": 200,
+        "metadata": {
+          "bytes": 743,
+          "path": "evidence/batch7_regulatory_20261015/raw/doj_apple_complaint.metadata.json",
+          "sha256": "cb96f174874c58851f815458e93c1f5fcda6556fffacb7abd3aaf6a7ea5c860e"
+        },
+        "observed_at": "2026-10-14T23:30:05.894425+00:00",
+        "requested_url": "https://www.justice.gov/d9/2024-03/420763.pdf",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      },
+      {
+        "capture_id": "doj_apple_release",
+        "http_status": 200,
+        "metadata": {
+          "bytes": 859,
+          "path": "evidence/batch7_regulatory_20261015/raw/doj_apple_release.metadata.json",
+          "sha256": "241528380c8158fc2e21870280a5b5fdc24ea4009f30354d36b5dedd378ef8f9"
+        },
+        "observed_at": "2026-10-14T23:30:10.897034+00:00",
+        "requested_url": "https://www.justice.gov/archives/opa/pr/justice-department-sues-apple-monopolizing-smartphone-markets",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      },
+      {
+        "capture_id": "sec_apple_2023_10k",
+        "http_status": 200,
+        "metadata": {
+          "bytes": 812,
+          "path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.metadata.json",
+          "sha256": "492ae033c7e76510da6e502a4f7fe6c75100db04fe2e337082ca8e454de96059"
+        },
+        "observed_at": "2026-10-14T23:30:14.924474+00:00",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/aapl-20230930.htm",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      },
+      {
+        "capture_id": "sec_apple_2023_index",
+        "http_status": 200,
+        "metadata": {
+          "bytes": 857,
+          "path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_index.metadata.json",
+          "sha256": "2e2853e85079008fe72cee64a8975041e037f7ca6a9382c6d290cb2a219c3f8f"
+        },
+        "observed_at": "2026-10-14T23:30:19.064660+00:00",
+        "requested_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019323000106/0000320193-23-000106-index.html",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      },
+      {
+        "capture_id": "njd_case_page",
+        "http_status": 200,
+        "metadata": {
+          "bytes": 925,
+          "path": "evidence/batch8_regulatory_20261015/raw/njd_case_page.metadata.json",
+          "sha256": "45d0913c792d99c853e38d9809cdfd4c77534b5545ce6ec48f24aad10b73ba99"
+        },
+        "observed_at": "2026-10-15T13:39:58.766720+00:00",
+        "requested_url": "https://www.njd.uscourts.gov/united-states-v-apple-inc-24-4055",
+        "status": "WITHHELD_SOURCE_CONTAINS_ACCESS_VALUE"
+      },
+      {
+        "capture_id": "govinfo_case_opinion",
+        "http_status": 200,
+        "metadata": {
+          "bytes": 1110,
+          "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.metadata.json",
+          "sha256": "587834c51273118d10ec773fa6e2529e010304a31e12ed11d48f9276a7e45ab2"
+        },
+        "observed_at": "2026-10-15T13:40:16.524451+00:00",
+        "requested_url": "https://www.govinfo.gov/content/pkg/USCOURTS-njd-2_24-cv-04055/pdf/USCOURTS-njd-2_24-cv-04055-0.pdf",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      },
+      {
+        "capture_id": "court_public_order",
+        "http_status": null,
+        "metadata": {
+          "bytes": 707,
+          "path": "evidence/batch8_regulatory_20261015/raw/court_public_order.metadata.json",
+          "sha256": "4a5d4ab16fb0beb7271ecaea11387cfc94922ad050edf5531685405e9c450c4b"
+        },
+        "observed_at": "2026-10-15T13:43:59.288997+00:00",
+        "requested_url": "https://ecf.njd.uscourts.gov/cgi-bin/show_public_doc?2024cv04055-284",
+        "status": "TRANSPORT_OR_CAPTURE_ERROR"
+      },
+      {
+        "capture_id": "doj_case_index",
+        "http_status": 200,
+        "metadata": {
+          "bytes": 981,
+          "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+          "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6"
+        },
+        "observed_at": "2026-10-15T18:10:37.550969+00:00",
+        "requested_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      },
+      {
+        "capture_id": "doj_opposition_pdf",
+        "http_status": 200,
+        "metadata": {
+          "bytes": 996,
+          "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.metadata.json",
+          "sha256": "966c49069fffda0b0b318173de7afa197240dc2d00b2b875640046014da66c72"
+        },
+        "observed_at": "2026-10-15T18:12:02.727684+00:00",
+        "requested_url": "https://www.justice.gov/atr/media/1368741/dl",
+        "status": "ORIGINAL_BYTES_CAPTURED"
+      }
+    ],
+    "failed_order_attempt_is_not_HTTP_negative_or_verified_Doc284": true,
+    "indexes": [
+      {
+        "bytes": 3724,
+        "path": "evidence/batch7_regulatory_20261015/capture_index.json",
+        "sha256": "e8bca77df5af2861987e48b3412c1d768a6538193c7a17a536b716be05e6b04e"
+      },
+      {
+        "bytes": 5532,
+        "path": "evidence/batch8_regulatory_20261015/capture_index.json",
+        "sha256": "8cea359ac82ae63861b889187ba7776747e1791de074dfbe72f3fb7c5e7d05b4"
+      }
+    ],
+    "prior_attempted_candidate_media_resource": false,
+    "repository_JSON_evidence_search_for1358786_or1358781": {
+      "command": "rg -n 1358786|1358781 evidence --glob *.json with preservation/audit/snapshot reports excluded",
+      "exit_code": 1,
+      "limitation": "Supplemental scoped text search; not recovery of an absent research ledger.",
+      "matches": 0
+    },
+    "retry_of_failed_order_locator_proposed": false,
+    "scope": "All nine retained batch7/batch8 regulatory primary transports; no unretained external history assumed. Media resource identity is compared across inline/no-query variants."
+  },
+  "case_scope": {
+    "court": "United States District Court for the District of New Jersey",
+    "docket": "2:24-cv-04055",
+    "issuer_CIK_or_alias_binding_adopted": false,
+    "issuer_selection": "AAPL"
+  },
+  "excluded_routes": [
+    {
+      "reason": "URLError with no response; not unattempted and no retry proposed.",
+      "route": "Already attempted court_public_order locator"
+    },
+    {
+      "reason": "Whole access-bearing body remains absent; no reopening/refetch/substitute.",
+      "route": "Withheld NJD case-page body"
+    },
+    {
+      "reason": "No access-bearing instructions or query values inspected or exported.",
+      "route": "Skipped access instructions"
+    },
+    {
+      "reason": "The original420763.pdf was already captured in batch7 at its d9 publisher URL; an alias is not new evidence.",
+      "route": "DOJ original Complaint alias media1344606 / title420763.pdf"
+    },
+    {
+      "reason": "Already captured, not a new source.",
+      "route": "Existing opposition1368741"
+    }
+  ],
+  "feasibility": {
+    "current_docket_or_disposition": {
+      "currently_complete_docket_verified": false,
+      "evidence": "Retained DOJ index says Updated September17,2024 and its four linked document resources are complaint/letter/amended complaint/opposition; the later June30,2025 opinion is not a complete docket.",
+      "missing": [
+        "Current complete authoritative docket and later actual disposition documents"
+      ],
+      "status": "BLOCKED"
+    },
+    "dated_financial_issuer_identity": {
+      "available_independent_SEC_context_metadata": {
+        "bytes": 812,
+        "path": "evidence/batch7_regulatory_20261015/raw/sec_apple_2023_10k.metadata.json",
+        "sha256": "492ae033c7e76510da6e502a4f7fe6c75100db04fe2e337082ca8e454de96059"
+      },
+      "evidence": "The PDFs provide case-party context, not typed financial CIK proof. The opinion headquarters statement cites an adversarial pleading; it is not an independent corporate register.",
+      "missing": [
+        "Independent dated legal identity tying the literal court party to financial CIK/instrument",
+        "Independent continuity and knowledge-before-event evidence"
+      ],
+      "old_SEC_capture_is_historical_machine_availability": false,
+      "retained_SEC_body_needs_refetch": false,
+      "status": "BLOCKED_FOR_VERIFICATION"
+    },
+    "narrow_case_entity_allegation_source": {
+      "next_resource": "https://www.justice.gov/atr/media/1358786/dl",
+      "purpose": "If separately authorized, capture the whole First Amended Complaint referenced by Doc283, confirm its actual stamp/date/paragraph19 and exact defendant entity allegations. Do not treat them as an adjudication or financial issuer continuity.",
+      "status": "ONE_REAL_UNATTEMPTED_PRIMARY_LINK_IDENTIFIED"
+    },
+    "separate_original_Order": {
+      "evidence": "Doc283 p33 gives only an accompanying-Order reference; both retained PDFs have zero external URI annotations. Existing Doc284-looking locator already failed without response.",
+      "exact_unattempted_Order_URL": null,
+      "missing": [
+        "Whole original signed/filed Order",
+        "Official observed direct Order or docket-entry link proving its exact number/date/parties"
+      ],
+      "required_next_authoritative_source": "An independently observed official court docket entry or official publisher index that actually links the separate Order; no exact new Order URL is established by the retained safe sources.",
+      "status": "BLOCKED"
+    }
+  },
+  "known_at": "2026-10-20T14:29:53.690243+00:00",
+  "reproducibility": {
+    "PDF_library": "pypdf",
+    "PDF_library_version": "6.16.1",
+    "max_pages_per_input": 120,
+    "max_text_characters_per_input": 2000000,
+    "whole_original_file_pins_and_exact_page_or_anchor_span_hashes_included": true
+  },
+  "retained_safe_DOJ_index": {
+    "direct_separate_order_or_current_docket_link_in_retained_document_list": false,
+    "last_updated_literal": "Updated September 17, 2024",
+    "observed_case_document_media_ids": [
+      "1368741",
+      "1358786",
+      "1358781",
+      "1344606"
+    ],
+    "original_metadata": {
+      "bytes": 981,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.metadata.json",
+      "sha256": "0324725e0c68e91fdc9519d32ee6072098b37ad7ea760abdeb2a2e1eb0c4a8a6"
+    },
+    "publisher_update_timezone": "UNKNOWN",
+    "source_capture_is_current_docket": false,
+    "source_observed_at": "2026-10-15T18:10:37.550969+00:00",
+    "source_started_at": "2026-10-15T18:10:30.131061+00:00",
+    "source_url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-apple-inc",
+    "whole_original": {
+      "bytes": 107793,
+      "path": "evidence/batch8_regulatory_20261015/raw/doj_case_index.html",
+      "sha256": "93e092c53234733cd13e4b6affc8cb49e4d5b1230920dc276b9c77c1c59491b3"
+    }
+  },
+  "review_completed_at": "2026-10-20T14:29:53.690243+00:00",
+  "review_started_at": "2026-10-20T14:29:52.186681+00:00",
+  "schema_version": "sourcefront_regulatory_primary_feasibility_v1",
+  "snapshot_commit": "96c4e90a8e72dcd11087e6a08371ee0c924fac83",
+  "snapshot_tree": "f71b05cc10ebd9e2f01f87a6e30802264d0245e4",
+  "source_capture_dates_backdated_to_review_knowledge": false,
+  "source_grounded_crossreferences": [
+    {
+      "evidence": {
+        "character_end": 1364,
+        "character_start": 1235,
+        "exact_text": "For the reasons set forth above, Apple s motion to dismiss (ECF No. 86) is DENIED. An\nappropriate Order accompanies this Opinion.",
+        "literal_utf8_sha256": "7abd71df9b2cab34074dfbc84e00d08fafeaf223365adf96df56bdc00f2f4b6d",
+        "page": 33,
+        "page_text_utf8_sha256": "bee622ea2ca2ff007416bfb36a365b22d78caf1856c2f0eb55139a157c67d44c",
+        "whole_original_sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      },
+      "kind": "OPINION_REFERENCES_SEPARATE_ORDER",
+      "meaning": "The original court opinion denies ECF86 and says an appropriate Order accompanies it. The reference is not the separate original Order; no document number or retrieval link is supplied by this passage.",
+      "merits_or_final_judgment_verified": false,
+      "separate_order_verified": false
+    },
+    {
+      "evidence": {
+        "character_end": 273,
+        "character_start": 180,
+        "exact_text": "Apple is a global technology company\nheadquartered in Cupertmo, California. (Am. Compl. ^ 19)",
+        "literal_utf8_sha256": "8d747b709373b9bfe41f4789802e1e5f2164336c05c3270b9ade203ed75cd237",
+        "page": 2,
+        "page_text_utf8_sha256": "36517450bacf03da9b11b2825f9ad6ae8ef5cc5121968f9736a3b421caed7749",
+        "whole_original_sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      },
+      "kind": "OPINION_BACKGROUND_CITES_AMENDED_COMPLAINT19",
+      "meaning": "The headquarters description is attributed to Amended Complaint paragraph19. It does not independently prove incorporation, financial CIK identity or continuity; OCR literal remains unchanged."
+    }
+  ],
+  "source_scope_limits": {
+    "current_complete_docket_verified": false,
+    "current_disposition_verified": false,
+    "full_acceptance": "0/21",
+    "historical_machine_availability_reconstructed": false,
+    "independent_issuer_identity_verified": false,
+    "legal_continuity_verified": false,
+    "merits_or_final_judgment_verified": false,
+    "registry_adoptions": 0,
+    "separate_Order_verified": false,
+    "source_clock_or_original_bytes_changed": false
+  },
+  "status": "CONCRETE_UNATTEMPTED_PARTY_FILING_LINK_FOUND_ORDER_AND_CURRENT_DOCKET_STILL_BLOCKED",
+  "whole_primary_PDFs": {
+    "doj_opposition_pdf": {
+      "all_pages_checked_for_external_URI_annotations": true,
+      "existing_document_review_not_rerun": true,
+      "external_URI_annotation_count": 0,
+      "original_metadata": {
+        "bytes": 996,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.metadata.json",
+        "sha256": "966c49069fffda0b0b318173de7afa197240dc2d00b2b875640046014da66c72"
+      },
+      "pages": 62,
+      "printed_http_URL_count": 0,
+      "source_observed_at": "2026-10-15T18:12:02.727684+00:00",
+      "source_started_at": "2026-10-15T18:11:55.083970+00:00",
+      "source_url": "https://www.justice.gov/atr/media/1368741/dl",
+      "text_layer_characters": 101852,
+      "typed_CIK_or_central_index_key_in_extracted_text": false,
+      "whole_original": {
+        "bytes": 577500,
+        "path": "evidence/batch8_regulatory_20261015/raw/doj_opposition_pdf.pdf",
+        "sha256": "8d68256e4a356aff8a501eeaa887439185e97ea836e830c434adf51adf6d45c3"
+      }
+    },
+    "govinfo_case_opinion": {
+      "all_pages_checked_for_external_URI_annotations": true,
+      "existing_document_review_not_rerun": true,
+      "external_URI_annotation_count": 0,
+      "original_metadata": {
+        "bytes": 1110,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.metadata.json",
+        "sha256": "587834c51273118d10ec773fa6e2529e010304a31e12ed11d48f9276a7e45ab2"
+      },
+      "pages": 33,
+      "printed_http_URL_count": 0,
+      "source_observed_at": "2026-10-15T13:40:16.524451+00:00",
+      "source_started_at": "2026-10-15T13:39:58.828252+00:00",
+      "source_url": "https://www.govinfo.gov/content/pkg/USCOURTS-njd-2_24-cv-04055/pdf/USCOURTS-njd-2_24-cv-04055-0.pdf",
+      "text_layer_characters": 71581,
+      "typed_CIK_or_central_index_key_in_extracted_text": false,
+      "whole_original": {
+        "bytes": 1344697,
+        "path": "evidence/batch8_regulatory_20261015/raw/govinfo_case_opinion.pdf",
+        "sha256": "dfc68609ea10dbb6f2e86b99df9b797030c17fc3224e020bd33f8a40478b0efa"
+      }
+    }
+  }
+}

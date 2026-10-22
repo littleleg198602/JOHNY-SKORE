@@ -1,0 +1,26 @@
+{
+  "candidate_commit": "ebe8679",
+  "candidate_edited": false,
+  "candidate_root": "/workspace/scratch/334b3a149083/JOHNY-batch8-contracts-20261015",
+  "db_writes": 0,
+  "http_requests": 0,
+  "observed_at": "2026-10-18T08:55:41.845890+00:00",
+  "schema_version": "denominator_independent_peer_snapshot_v1",
+  "source_pins": {
+    "market_checker_app/collectors/sec_supplier_revenue_denominator_review.py": {
+      "bytes": 23532,
+      "frozen_path": "evidence/batch10_denominator_peer_20261018/producer_versions/candidate_service.py",
+      "sha256": "280f13da28042d536ee7e306c041963d15ba337a5cffb32cddf142f7088b419f"
+    },
+    "market_checker_app/services/sec_supplier_concentration_review.py": {
+      "bytes": 22789,
+      "frozen_path": "evidence/batch10_denominator_peer_20261018/producer_versions/concentration_dependency.py",
+      "sha256": "c7673d7f99a48040708a4e829e8dc4a8e410ad4275d3902bec35580ba0992718"
+    },
+    "tests/test_sec_supplier_revenue_denominator_review.py": {
+      "bytes": 20520,
+      "frozen_path": "evidence/batch10_denominator_peer_20261018/producer_versions/candidate_tests.py",
+      "sha256": "aa7f80b710be015d5f580509472bfd14f6de6e96a3efc8f3d734335406cbe621"
+    }
+  }
+}

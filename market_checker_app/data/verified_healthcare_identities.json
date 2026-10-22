@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scope": "Object-specific identity evidence only. No issuer-wide product coverage, historical CMS ownership chain, financial impact or scoring.",
-  "record_count": 5,
+  "record_count": 10,
   "records": [
     {
       "record_id": "lly-crl-bla761215-original2-2021-12-17",
@@ -170,6 +170,177 @@
           "locator": "cover: registrant name, SEC CIK and common-stock symbol",
           "purpose": "ISSUER_IDENTITY",
           "observed_at": "2026-10-11T10:17:04.506747+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "pfe-crl-bla761081-2018-04-20",
+      "source": "fda",
+      "kind": "fda_crl",
+      "ticker": "PFE",
+      "issuer_cik": "0000078003",
+      "entity_name": "Pfizer Inc.",
+      "product_or_provider": "Trazimera (PF-05280014)",
+      "relationship": "APPLICATION_HOLDER",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "application_number": "BLA761081",
+        "letter_file_name": "761081_2019_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "2018-04-20"
+      },
+      "effective_from": "2018-04-20",
+      "effective_to": "2018-04-21",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "evidence": [
+        {
+          "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Pfizer+Inc.%22&limit=100&skip=0",
+          "locator": "results[0]: company_name:Pfizer Inc./application:BLA761081/file_name:761081_2019_Orig1s000OtherActionLtrs.pdf/letter_date:04/20/2018; text header and electronic signature",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-12T14:44:25.208826+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/78003/000007800318000027/pfe-12312017x10kshell.htm",
+          "locator": "cover exact registrant and Item 5 common-stock trading symbol; CIK in official EDGAR archive path",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-12T14:44:19.890070+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "mrk-crl-nda204569-2013-06-28",
+      "source": "fda",
+      "kind": "fda_crl",
+      "ticker": "MRK",
+      "issuer_cik": "0000310158",
+      "entity_name": "Merck & Co., Inc.",
+      "product_or_provider": "Suvorexant (MK-4305)",
+      "relationship": "APPLICATION_HOLDER",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "application_number": "NDA204569",
+        "letter_file_name": "CRL_NDA204569_20130628.pdf",
+        "letter_date": "2013-06-28"
+      },
+      "effective_from": "2013-06-28",
+      "effective_to": "2013-06-29",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "evidence": [
+        {
+          "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22Merck+%26+Co.%2C+Inc.%22&limit=100&skip=0",
+          "locator": "results[0]: company_name:Merck & Co., Inc./application:NDA204569/file_name:CRL_NDA204569_20130628.pdf/letter_date:06/28/2013; text header and electronic signature",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-12T14:49:28.022976+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/310158/000119312513084618/d438975d10k.htm",
+          "locator": "cover exact registrant and Item 5 common-stock trading symbol; CIK in official EDGAR archive path",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-12T14:45:27.010273+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/310158/000031015813000004/mrk0630201310q.htm",
+          "locator": "cover registrant, CIK in official EDGAR archive path, and 2013 suvorexant CRL disclosure in Research and Development",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-12T14:45:22.018672+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "abbv-crl-nda216962-2023-03-17",
+      "source": "fda",
+      "kind": "fda_crl",
+      "ticker": "ABBV",
+      "issuer_cik": "0001551152",
+      "entity_name": "AbbVie Inc.",
+      "product_or_provider": "Vyalev (foscarbidopa and foslevodopa) Solution for Infusion",
+      "relationship": "APPLICATION_HOLDER",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "application_number": "NDA216962",
+        "letter_file_name": "216962_2025_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "2023-03-17"
+      },
+      "effective_from": "2023-03-17",
+      "effective_to": "2023-03-18",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "evidence": [
+        {
+          "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+          "locator": "results[0]: company_name:AbbVie Inc./application:NDA216962/file_name:216962_2025_Orig1s000OtherActionLtrs.pdf/letter_date:03/17/2023; text header and electronic signature",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-12T14:49:22.429721+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115223000023/abbv-20230331.htm",
+          "locator": "cover exact registrant and common-stock trading-symbol table, explicit inline CIK fact",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-12T14:45:37.566667+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "abbv-crl-nda216962-2024-06-18",
+      "source": "fda",
+      "kind": "fda_crl",
+      "ticker": "ABBV",
+      "issuer_cik": "0001551152",
+      "entity_name": "AbbVie Inc.",
+      "product_or_provider": "Vyalev (foscarbidopa and foslevodopa) injection for subcutaneous use",
+      "relationship": "APPLICATION_HOLDER",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "application_number": "NDA216962",
+        "letter_file_name": "216962_2025_Orig1s000OtherActionLtrs.pdf",
+        "letter_date": "2024-06-18"
+      },
+      "effective_from": "2024-06-18",
+      "effective_to": "2024-06-19",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "evidence": [
+        {
+          "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+          "locator": "results[1]: company_name:AbbVie Inc./application:NDA216962/file_name:216962_2025_Orig1s000OtherActionLtrs.pdf/letter_date:06/18/2024; text header and electronic signature",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-12T14:49:22.429721+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115224000031/abbv-20240630.htm",
+          "locator": "cover exact registrant and common-stock trading-symbol table, explicit inline CIK fact",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-12T14:45:42.513628+00:00"
+        }
+      ]
+    },
+    {
+      "record_id": "abbv-crl-bla761459-2026-04-22",
+      "source": "fda",
+      "kind": "fda_crl",
+      "ticker": "ABBV",
+      "issuer_cik": "0001551152",
+      "entity_name": "AbbVie Inc.",
+      "product_or_provider": "AGN-151586 for injection",
+      "relationship": "APPLICATION_HOLDER",
+      "time_basis": "EVENT_DATE",
+      "identifiers": {
+        "application_number": "BLA761459",
+        "letter_file_name": "CRL_BLA761459_20260422.pdf",
+        "letter_date": "2026-04-22"
+      },
+      "effective_from": "2026-04-22",
+      "effective_to": "2026-04-23",
+      "known_at": "2026-10-12T14:52:33.382658+00:00",
+      "evidence": [
+        {
+          "url": "https://api.fda.gov/transparency/crl.json?search=company_name%3A%22AbbVie+Inc.%22&limit=100&skip=0",
+          "locator": "results[2]: company_name:AbbVie Inc./application:BLA761459/file_name:CRL_BLA761459_20260422.pdf/letter_date:04/22/2026; text header and electronic signature",
+          "purpose": "OBJECT_RELATIONSHIP",
+          "observed_at": "2026-10-12T14:49:22.429721+00:00"
+        },
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000017/abbv-20260331.htm",
+          "locator": "cover exact registrant and common-stock trading-symbol table, explicit inline CIK fact",
+          "purpose": "ISSUER_IDENTITY",
+          "observed_at": "2026-10-12T14:45:49.217865+00:00"
         }
       ]
     }

@@ -1,0 +1,843 @@
+{
+  "schema_version": 1,
+  "result": "SOURCE_CAPTURE_AND_EXACT_IDENTITY_GAP_REVIEW",
+  "source_observation": {
+    "parser_version": "sec-form4-observation-v1",
+    "form": "4",
+    "issuer_cik": "0000789019",
+    "issuer_name": "MICROSOFT CORP",
+    "issuer_trading_symbol": "MSFT",
+    "period_of_report": "2026-09-01",
+    "original_submission_date": null,
+    "is_amendment": false,
+    "rule_10b5_1_checkbox": true,
+    "rule_10b5_1_scope": "DOCUMENT_CHECKBOX_NOT_PER_TRANSACTION",
+    "remarks": "The sale reported on this Form 4 were made pursuant to a Rule 10b5-1 trading plan adopted on March 8, 2026.",
+    "reporting_owners": [
+      {
+        "cik": "0001513142",
+        "name": "Nadella Satya",
+        "identity_status": "AS_FILED_CIK",
+        "identity_independently_verified": false,
+        "is_director": true,
+        "is_officer": true,
+        "is_ten_percent_owner": false,
+        "is_other": false,
+        "officer_title": "Chief Executive Officer"
+      }
+    ],
+    "transactions": [
+      {
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:1",
+        "security_title": "Common Stock",
+        "transaction_date": "2026-09-01",
+        "transaction_code": "S",
+        "acquired_disposed": "D",
+        "shares": 1040.0,
+        "price_per_share": 498.2396,
+        "shares_owned_after": 572247.534,
+        "ownership_nature": "D",
+        "nature_of_ownership": null,
+        "derivative": false,
+        "equity_swap_involved": false,
+        "footnote_ids": [
+          "F1"
+        ],
+        "owner_attribution": "SINGLE_AS_FILED_OWNER",
+        "instrument_identity_verified": false
+      },
+      {
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:2",
+        "security_title": "Common Stock",
+        "transaction_date": "2026-09-01",
+        "transaction_code": "S",
+        "acquired_disposed": "D",
+        "shares": 5080.0,
+        "price_per_share": 499.4452,
+        "shares_owned_after": 567167.534,
+        "ownership_nature": "D",
+        "nature_of_ownership": null,
+        "derivative": false,
+        "equity_swap_involved": false,
+        "footnote_ids": [
+          "F2"
+        ],
+        "owner_attribution": "SINGLE_AS_FILED_OWNER",
+        "instrument_identity_verified": false
+      },
+      {
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:3",
+        "security_title": "Common Stock",
+        "transaction_date": "2026-09-01",
+        "transaction_code": "S",
+        "acquired_disposed": "D",
+        "shares": 24723.0,
+        "price_per_share": 500.4678,
+        "shares_owned_after": 542444.534,
+        "ownership_nature": "D",
+        "nature_of_ownership": null,
+        "derivative": false,
+        "equity_swap_involved": false,
+        "footnote_ids": [
+          "F3"
+        ],
+        "owner_attribution": "SINGLE_AS_FILED_OWNER",
+        "instrument_identity_verified": false
+      },
+      {
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:4",
+        "security_title": "Common Stock",
+        "transaction_date": "2026-09-01",
+        "transaction_code": "S",
+        "acquired_disposed": "D",
+        "shares": 32901.0,
+        "price_per_share": 501.1233,
+        "shares_owned_after": 509543.534,
+        "ownership_nature": "D",
+        "nature_of_ownership": null,
+        "derivative": false,
+        "equity_swap_involved": false,
+        "footnote_ids": [
+          "F4"
+        ],
+        "owner_attribution": "SINGLE_AS_FILED_OWNER",
+        "instrument_identity_verified": false
+      },
+      {
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:5",
+        "security_title": "Common Stock",
+        "transaction_date": "2026-09-01",
+        "transaction_code": "S",
+        "acquired_disposed": "D",
+        "shares": 4520.0,
+        "price_per_share": 502.2909,
+        "shares_owned_after": 505023.534,
+        "ownership_nature": "D",
+        "nature_of_ownership": null,
+        "derivative": false,
+        "equity_swap_involved": false,
+        "footnote_ids": [
+          "F5"
+        ],
+        "owner_attribution": "SINGLE_AS_FILED_OWNER",
+        "instrument_identity_verified": false
+      },
+      {
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:6",
+        "security_title": "Common Stock",
+        "transaction_date": "2026-09-01",
+        "transaction_code": "S",
+        "acquired_disposed": "D",
+        "shares": 7067.0,
+        "price_per_share": 503.4372,
+        "shares_owned_after": 497956.534,
+        "ownership_nature": "D",
+        "nature_of_ownership": null,
+        "derivative": false,
+        "equity_swap_involved": false,
+        "footnote_ids": [
+          "F6"
+        ],
+        "owner_attribution": "SINGLE_AS_FILED_OWNER",
+        "instrument_identity_verified": false
+      },
+      {
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:7",
+        "security_title": "Common Stock",
+        "transaction_date": "2026-09-01",
+        "transaction_code": "S",
+        "acquired_disposed": "D",
+        "shares": 9834.0,
+        "price_per_share": 504.1124,
+        "shares_owned_after": 488122.534,
+        "ownership_nature": "D",
+        "nature_of_ownership": null,
+        "derivative": false,
+        "equity_swap_involved": false,
+        "footnote_ids": [
+          "F7"
+        ],
+        "owner_attribution": "SINGLE_AS_FILED_OWNER",
+        "instrument_identity_verified": false
+      },
+      {
+        "row_locator": "nonDerivativeTable/nonDerivativeTransaction:8",
+        "security_title": "Common Stock",
+        "transaction_date": "2026-09-01",
+        "transaction_code": "S",
+        "acquired_disposed": "D",
+        "shares": 1360.0,
+        "price_per_share": 505.1997,
+        "shares_owned_after": 486762.534,
+        "ownership_nature": "D",
+        "nature_of_ownership": null,
+        "derivative": false,
+        "equity_swap_involved": false,
+        "footnote_ids": [
+          "F8"
+        ],
+        "owner_attribution": "SINGLE_AS_FILED_OWNER",
+        "instrument_identity_verified": false
+      }
+    ],
+    "footnotes": {
+      "F1": "This transaction was executed in multiple trades at prices ranging from $497.69 to $498.67. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+      "F2": "This transaction was executed in multiple trades at prices ranging from $498.79 to $499.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+      "F3": "This transaction was executed in multiple trades at prices ranging from $499.79 to $500.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+      "F4": "This transaction was executed in multiple trades at prices ranging from $500.79 to $501.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+      "F5": "This transaction was executed in multiple trades at prices ranging from $501.79 to $502.77. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+      "F6": "This transaction was executed in multiple trades at prices ranging from $502.79 to $503.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+      "F7": "This transaction was executed in multiple trades at prices ranging from $503.79 to $504.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected.",
+      "F8": "This transaction was executed in multiple trades at prices ranging from $504.82 to $505.76. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+    },
+    "non_transaction_holdings": 5,
+    "observed_at": "2026-10-13T08:46:41.691791+00:00",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/form4.xml",
+    "accession_number": "0000789019-26-000161",
+    "issuer_identity_checked_against_index": true,
+    "reporting_owner_identity_verified": false,
+    "instrument_identity_verified": false,
+    "execution_venue_verified": false,
+    "ownership_change_interpreted": false,
+    "scoring_applied": false
+  },
+  "identity_review": {
+    "review_version": "sec-form4-exact-identity-review-v1",
+    "reviewed_at": "2026-10-13T08:47:00.476528+00:00",
+    "accession_number": "0000789019-26-000161",
+    "issuer_cik": "0000789019",
+    "source_document_sha256": "90ad1b9e5f4f266a17e82224ceda2a29787ca65861dda5cd95146c13b25b157a",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/form4.xml",
+    "status": "WAIT_INDEPENDENT_IDENTITY_REVIEW",
+    "reporting_owners": [
+      {
+        "as_filed": {
+          "cik": "0001513142",
+          "name": "Nadella Satya",
+          "identity_status": "AS_FILED_CIK",
+          "identity_independently_verified": false,
+          "is_director": true,
+          "is_officer": true,
+          "is_ten_percent_owner": false,
+          "is_other": false,
+          "officer_title": "Chief Executive Officer"
+        },
+        "match_date": "2026-09-01",
+        "status": "WAIT_INDEPENDENT_REPORTING_OWNER_IDENTITY",
+        "candidates": [
+          {
+            "record_id": "msft-nadella-cik-profile-capture-day-only",
+            "kind": "OWNER_CIK_PROFILE",
+            "status": "WITHHELD",
+            "reasons": [
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "PERSON_KIND_NOT_ESTABLISHED_BY_CIK_PROFILE"
+            ],
+            "capture": {
+              "record_id": "msft-nadella-cik-profile-capture-day-only",
+              "kind": "OWNER_CIK_PROFILE",
+              "quote": "\"name\":\"Nadella Satya\"",
+              "source_url": "https://data.sec.gov/submissions/CIK0001513142.json",
+              "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+              "observed_at": "2026-10-13T08:46:47.328762+00:00",
+              "known_at": "2026-10-13T08:46:47.328762+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-10-13",
+              "effective_to": "2026-10-14",
+              "owner_cik": "0001513142",
+              "owner_name": "Nadella Satya",
+              "publisher_entity_type": "other"
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "transaction_date_checks": {
+          "2026-09-01": [
+            {
+              "record_id": "msft-nadella-cik-profile-capture-day-only",
+              "kind": "OWNER_CIK_PROFILE",
+              "status": "WITHHELD",
+              "reasons": [
+                "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+                "PERSON_KIND_NOT_ESTABLISHED_BY_CIK_PROFILE"
+              ],
+              "capture": {
+                "record_id": "msft-nadella-cik-profile-capture-day-only",
+                "kind": "OWNER_CIK_PROFILE",
+                "quote": "\"name\":\"Nadella Satya\"",
+                "source_url": "https://data.sec.gov/submissions/CIK0001513142.json",
+                "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+                "observed_at": "2026-10-13T08:46:47.328762+00:00",
+                "known_at": "2026-10-13T08:46:47.328762+00:00",
+                "published_at": null,
+                "publication_clock_conflict": false,
+                "effective_from": "2026-10-13",
+                "effective_to": "2026-10-14",
+                "owner_cik": "0001513142",
+                "owner_name": "Nadella Satya",
+                "publisher_entity_type": "other"
+              },
+              "independently_verified": false,
+              "declared_effective_interval_verified": false
+            }
+          ]
+        },
+        "owner_person_or_entity_kind_verified": false,
+        "role_checkboxes_are_identity_evidence": false
+      }
+    ],
+    "instruments": [
+      {
+        "as_filed": {
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:1",
+          "security_title": "Common Stock",
+          "transaction_date": "2026-09-01",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 1040.0,
+          "price_per_share": 498.2396,
+          "shares_owned_after": 572247.534,
+          "ownership_nature": "D",
+          "nature_of_ownership": null,
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F1"
+          ],
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "instrument_identity_verified": false
+        },
+        "match_date": "2026-09-01",
+        "footnotes": {
+          "F1": "This transaction was executed in multiple trades at prices ranging from $497.69 to $498.67. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+        },
+        "candidates": [
+          {
+            "record_id": "msft-10k-cover-instrument-filing-day-only",
+            "kind": "INSTRUMENT_IDENTITY",
+            "status": "WITHHELD",
+            "reasons": [
+              "EXACT_SECURITY_TITLE_MISMATCH",
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "EXACT_INSTRUMENT_IDENTIFIER_MISSING"
+            ],
+            "capture": {
+              "record_id": "msft-10k-cover-instrument-filing-day-only",
+              "kind": "INSTRUMENT_IDENTITY",
+              "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+              "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+              "observed_at": "2026-10-13T08:47:00.476528+00:00",
+              "known_at": "2026-10-13T08:47:00.476528+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-07-29",
+              "effective_to": "2026-07-30",
+              "issuer_cik": "0000789019",
+              "security_title": "Common stock, $0.00000625 par value per share",
+              "ticker": "MSFT",
+              "derivative": false,
+              "instrument_identifier": null
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "status": "WAIT_INDEPENDENT_INSTRUMENT_IDENTITY",
+        "underlying_security_scope": "NOT_APPLICABLE",
+        "row_owner_scope": "SINGLE_AS_FILED_OWNER"
+      },
+      {
+        "as_filed": {
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:2",
+          "security_title": "Common Stock",
+          "transaction_date": "2026-09-01",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 5080.0,
+          "price_per_share": 499.4452,
+          "shares_owned_after": 567167.534,
+          "ownership_nature": "D",
+          "nature_of_ownership": null,
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F2"
+          ],
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "instrument_identity_verified": false
+        },
+        "match_date": "2026-09-01",
+        "footnotes": {
+          "F2": "This transaction was executed in multiple trades at prices ranging from $498.79 to $499.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+        },
+        "candidates": [
+          {
+            "record_id": "msft-10k-cover-instrument-filing-day-only",
+            "kind": "INSTRUMENT_IDENTITY",
+            "status": "WITHHELD",
+            "reasons": [
+              "EXACT_SECURITY_TITLE_MISMATCH",
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "EXACT_INSTRUMENT_IDENTIFIER_MISSING"
+            ],
+            "capture": {
+              "record_id": "msft-10k-cover-instrument-filing-day-only",
+              "kind": "INSTRUMENT_IDENTITY",
+              "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+              "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+              "observed_at": "2026-10-13T08:47:00.476528+00:00",
+              "known_at": "2026-10-13T08:47:00.476528+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-07-29",
+              "effective_to": "2026-07-30",
+              "issuer_cik": "0000789019",
+              "security_title": "Common stock, $0.00000625 par value per share",
+              "ticker": "MSFT",
+              "derivative": false,
+              "instrument_identifier": null
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "status": "WAIT_INDEPENDENT_INSTRUMENT_IDENTITY",
+        "underlying_security_scope": "NOT_APPLICABLE",
+        "row_owner_scope": "SINGLE_AS_FILED_OWNER"
+      },
+      {
+        "as_filed": {
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:3",
+          "security_title": "Common Stock",
+          "transaction_date": "2026-09-01",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 24723.0,
+          "price_per_share": 500.4678,
+          "shares_owned_after": 542444.534,
+          "ownership_nature": "D",
+          "nature_of_ownership": null,
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F3"
+          ],
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "instrument_identity_verified": false
+        },
+        "match_date": "2026-09-01",
+        "footnotes": {
+          "F3": "This transaction was executed in multiple trades at prices ranging from $499.79 to $500.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+        },
+        "candidates": [
+          {
+            "record_id": "msft-10k-cover-instrument-filing-day-only",
+            "kind": "INSTRUMENT_IDENTITY",
+            "status": "WITHHELD",
+            "reasons": [
+              "EXACT_SECURITY_TITLE_MISMATCH",
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "EXACT_INSTRUMENT_IDENTIFIER_MISSING"
+            ],
+            "capture": {
+              "record_id": "msft-10k-cover-instrument-filing-day-only",
+              "kind": "INSTRUMENT_IDENTITY",
+              "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+              "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+              "observed_at": "2026-10-13T08:47:00.476528+00:00",
+              "known_at": "2026-10-13T08:47:00.476528+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-07-29",
+              "effective_to": "2026-07-30",
+              "issuer_cik": "0000789019",
+              "security_title": "Common stock, $0.00000625 par value per share",
+              "ticker": "MSFT",
+              "derivative": false,
+              "instrument_identifier": null
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "status": "WAIT_INDEPENDENT_INSTRUMENT_IDENTITY",
+        "underlying_security_scope": "NOT_APPLICABLE",
+        "row_owner_scope": "SINGLE_AS_FILED_OWNER"
+      },
+      {
+        "as_filed": {
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:4",
+          "security_title": "Common Stock",
+          "transaction_date": "2026-09-01",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 32901.0,
+          "price_per_share": 501.1233,
+          "shares_owned_after": 509543.534,
+          "ownership_nature": "D",
+          "nature_of_ownership": null,
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F4"
+          ],
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "instrument_identity_verified": false
+        },
+        "match_date": "2026-09-01",
+        "footnotes": {
+          "F4": "This transaction was executed in multiple trades at prices ranging from $500.79 to $501.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+        },
+        "candidates": [
+          {
+            "record_id": "msft-10k-cover-instrument-filing-day-only",
+            "kind": "INSTRUMENT_IDENTITY",
+            "status": "WITHHELD",
+            "reasons": [
+              "EXACT_SECURITY_TITLE_MISMATCH",
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "EXACT_INSTRUMENT_IDENTIFIER_MISSING"
+            ],
+            "capture": {
+              "record_id": "msft-10k-cover-instrument-filing-day-only",
+              "kind": "INSTRUMENT_IDENTITY",
+              "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+              "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+              "observed_at": "2026-10-13T08:47:00.476528+00:00",
+              "known_at": "2026-10-13T08:47:00.476528+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-07-29",
+              "effective_to": "2026-07-30",
+              "issuer_cik": "0000789019",
+              "security_title": "Common stock, $0.00000625 par value per share",
+              "ticker": "MSFT",
+              "derivative": false,
+              "instrument_identifier": null
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "status": "WAIT_INDEPENDENT_INSTRUMENT_IDENTITY",
+        "underlying_security_scope": "NOT_APPLICABLE",
+        "row_owner_scope": "SINGLE_AS_FILED_OWNER"
+      },
+      {
+        "as_filed": {
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:5",
+          "security_title": "Common Stock",
+          "transaction_date": "2026-09-01",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 4520.0,
+          "price_per_share": 502.2909,
+          "shares_owned_after": 505023.534,
+          "ownership_nature": "D",
+          "nature_of_ownership": null,
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F5"
+          ],
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "instrument_identity_verified": false
+        },
+        "match_date": "2026-09-01",
+        "footnotes": {
+          "F5": "This transaction was executed in multiple trades at prices ranging from $501.79 to $502.77. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+        },
+        "candidates": [
+          {
+            "record_id": "msft-10k-cover-instrument-filing-day-only",
+            "kind": "INSTRUMENT_IDENTITY",
+            "status": "WITHHELD",
+            "reasons": [
+              "EXACT_SECURITY_TITLE_MISMATCH",
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "EXACT_INSTRUMENT_IDENTIFIER_MISSING"
+            ],
+            "capture": {
+              "record_id": "msft-10k-cover-instrument-filing-day-only",
+              "kind": "INSTRUMENT_IDENTITY",
+              "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+              "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+              "observed_at": "2026-10-13T08:47:00.476528+00:00",
+              "known_at": "2026-10-13T08:47:00.476528+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-07-29",
+              "effective_to": "2026-07-30",
+              "issuer_cik": "0000789019",
+              "security_title": "Common stock, $0.00000625 par value per share",
+              "ticker": "MSFT",
+              "derivative": false,
+              "instrument_identifier": null
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "status": "WAIT_INDEPENDENT_INSTRUMENT_IDENTITY",
+        "underlying_security_scope": "NOT_APPLICABLE",
+        "row_owner_scope": "SINGLE_AS_FILED_OWNER"
+      },
+      {
+        "as_filed": {
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:6",
+          "security_title": "Common Stock",
+          "transaction_date": "2026-09-01",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 7067.0,
+          "price_per_share": 503.4372,
+          "shares_owned_after": 497956.534,
+          "ownership_nature": "D",
+          "nature_of_ownership": null,
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F6"
+          ],
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "instrument_identity_verified": false
+        },
+        "match_date": "2026-09-01",
+        "footnotes": {
+          "F6": "This transaction was executed in multiple trades at prices ranging from $502.79 to $503.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+        },
+        "candidates": [
+          {
+            "record_id": "msft-10k-cover-instrument-filing-day-only",
+            "kind": "INSTRUMENT_IDENTITY",
+            "status": "WITHHELD",
+            "reasons": [
+              "EXACT_SECURITY_TITLE_MISMATCH",
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "EXACT_INSTRUMENT_IDENTIFIER_MISSING"
+            ],
+            "capture": {
+              "record_id": "msft-10k-cover-instrument-filing-day-only",
+              "kind": "INSTRUMENT_IDENTITY",
+              "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+              "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+              "observed_at": "2026-10-13T08:47:00.476528+00:00",
+              "known_at": "2026-10-13T08:47:00.476528+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-07-29",
+              "effective_to": "2026-07-30",
+              "issuer_cik": "0000789019",
+              "security_title": "Common stock, $0.00000625 par value per share",
+              "ticker": "MSFT",
+              "derivative": false,
+              "instrument_identifier": null
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "status": "WAIT_INDEPENDENT_INSTRUMENT_IDENTITY",
+        "underlying_security_scope": "NOT_APPLICABLE",
+        "row_owner_scope": "SINGLE_AS_FILED_OWNER"
+      },
+      {
+        "as_filed": {
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:7",
+          "security_title": "Common Stock",
+          "transaction_date": "2026-09-01",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 9834.0,
+          "price_per_share": 504.1124,
+          "shares_owned_after": 488122.534,
+          "ownership_nature": "D",
+          "nature_of_ownership": null,
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F7"
+          ],
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "instrument_identity_verified": false
+        },
+        "match_date": "2026-09-01",
+        "footnotes": {
+          "F7": "This transaction was executed in multiple trades at prices ranging from $503.79 to $504.78. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+        },
+        "candidates": [
+          {
+            "record_id": "msft-10k-cover-instrument-filing-day-only",
+            "kind": "INSTRUMENT_IDENTITY",
+            "status": "WITHHELD",
+            "reasons": [
+              "EXACT_SECURITY_TITLE_MISMATCH",
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "EXACT_INSTRUMENT_IDENTIFIER_MISSING"
+            ],
+            "capture": {
+              "record_id": "msft-10k-cover-instrument-filing-day-only",
+              "kind": "INSTRUMENT_IDENTITY",
+              "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+              "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+              "observed_at": "2026-10-13T08:47:00.476528+00:00",
+              "known_at": "2026-10-13T08:47:00.476528+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-07-29",
+              "effective_to": "2026-07-30",
+              "issuer_cik": "0000789019",
+              "security_title": "Common stock, $0.00000625 par value per share",
+              "ticker": "MSFT",
+              "derivative": false,
+              "instrument_identifier": null
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "status": "WAIT_INDEPENDENT_INSTRUMENT_IDENTITY",
+        "underlying_security_scope": "NOT_APPLICABLE",
+        "row_owner_scope": "SINGLE_AS_FILED_OWNER"
+      },
+      {
+        "as_filed": {
+          "row_locator": "nonDerivativeTable/nonDerivativeTransaction:8",
+          "security_title": "Common Stock",
+          "transaction_date": "2026-09-01",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 1360.0,
+          "price_per_share": 505.1997,
+          "shares_owned_after": 486762.534,
+          "ownership_nature": "D",
+          "nature_of_ownership": null,
+          "derivative": false,
+          "equity_swap_involved": false,
+          "footnote_ids": [
+            "F8"
+          ],
+          "owner_attribution": "SINGLE_AS_FILED_OWNER",
+          "instrument_identity_verified": false
+        },
+        "match_date": "2026-09-01",
+        "footnotes": {
+          "F8": "This transaction was executed in multiple trades at prices ranging from $504.82 to $505.76. The price reported above reflects the weighted average purchase price. The reporting person hereby undertakes to provide upon request to the SEC staff, the issuer, or a security holder of the issuer, full information regarding the number of shares and prices at which the transactions were effected."
+        },
+        "candidates": [
+          {
+            "record_id": "msft-10k-cover-instrument-filing-day-only",
+            "kind": "INSTRUMENT_IDENTITY",
+            "status": "WITHHELD",
+            "reasons": [
+              "EXACT_SECURITY_TITLE_MISMATCH",
+              "OUTSIDE_DECLARED_EFFECTIVE_INTERVAL",
+              "EXACT_INSTRUMENT_IDENTIFIER_MISSING"
+            ],
+            "capture": {
+              "record_id": "msft-10k-cover-instrument-filing-day-only",
+              "kind": "INSTRUMENT_IDENTITY",
+              "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+              "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+              "observed_at": "2026-10-13T08:47:00.476528+00:00",
+              "known_at": "2026-10-13T08:47:00.476528+00:00",
+              "published_at": null,
+              "publication_clock_conflict": false,
+              "effective_from": "2026-07-29",
+              "effective_to": "2026-07-30",
+              "issuer_cik": "0000789019",
+              "security_title": "Common stock, $0.00000625 par value per share",
+              "ticker": "MSFT",
+              "derivative": false,
+              "instrument_identifier": null
+            },
+            "independently_verified": false,
+            "declared_effective_interval_verified": false
+          }
+        ],
+        "status": "WAIT_INDEPENDENT_INSTRUMENT_IDENTITY",
+        "underlying_security_scope": "NOT_APPLICABLE",
+        "row_owner_scope": "SINGLE_AS_FILED_OWNER"
+      }
+    ],
+    "reporting_owner_identity_independently_verified": false,
+    "instrument_identity_independently_verified": false,
+    "execution_verified": false,
+    "ownership_change_interpreted": false,
+    "scoring_applied": false,
+    "candidate_captures_examined": 2
+  },
+  "candidate_input": [
+    {
+      "record_id": "msft-nadella-cik-profile-capture-day-only",
+      "kind": "OWNER_CIK_PROFILE",
+      "owner_cik": "0001513142",
+      "owner_name": "Nadella Satya",
+      "quote": "\"name\":\"Nadella Satya\"",
+      "source_url": "https://data.sec.gov/submissions/CIK0001513142.json",
+      "sha256": "90b5bc75b82e4d027368b07e2adcdf829eb232d0d88034476e0910e164a1133d",
+      "observed_at": "2026-10-13T08:46:47.328762+00:00",
+      "known_at": "2026-10-13T08:46:47.328762+00:00",
+      "published_at": null,
+      "effective_from": "2026-10-13",
+      "effective_to": "2026-10-14"
+    },
+    {
+      "record_id": "msft-10k-cover-instrument-filing-day-only",
+      "kind": "INSTRUMENT_IDENTITY",
+      "issuer_cik": "0000789019",
+      "ticker": "MSFT",
+      "security_title": "Common stock, $0.00000625 par value per share",
+      "derivative": false,
+      "instrument_identifier": null,
+      "quote": "Trading Symbol MSFT Title of 12(b) Security Common stock, $0.00000625 par value per share",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/R1.htm",
+      "sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+      "observed_at": "2026-10-13T08:47:00.476528+00:00",
+      "known_at": "2026-10-13T08:47:00.476528+00:00",
+      "published_at": null,
+      "effective_from": "2026-07-29",
+      "effective_to": "2026-07-30"
+    }
+  ],
+  "source_clocks": {
+    "filing_date_raw": "2026-09-02",
+    "index_acceptance_datetime_unqualified_raw": "2026-09-02 18:04:41",
+    "submissions_acceptance_datetime_raw": "2026-09-02T22:04:41.000Z",
+    "filing_date_normalized_to_midnight_utc_is_not_publication_timestamp": true,
+    "first_form4_bytes_observed_at": "2026-10-13T08:46:41.691791+00:00",
+    "review_knowledge_at": "2026-10-13T08:47:00.476528+00:00",
+    "http_and_last_modified_clocks_retained_in": "captures.json",
+    "acceptance_clock_timezone_not_inferred_by_review": true
+  },
+  "raw_cover_revision": {
+    "prior_path": "evidence/batch3_sec_20261012/primary/msft_2026_R1.htm",
+    "prior_sha256": "509808a1105ba840c8d14026da505dba2e6457964ef204b5002b861a3be00a81",
+    "current_sha256": "e8c317d1e12b17d50abab7864c0396df95319888b81c3603bdee4f4adf6350fc",
+    "raw_bytes_changed": true,
+    "visible_text_unchanged": true,
+    "interpretation": "Observed publisher script URL changed; both raw snapshots retained. No corporate-action or identity change inferred."
+  },
+  "limits": [
+    "one actual issuer/accession; eight as-filed rows, not relevant-universe coverage",
+    "owner CIK/name exact profile match does not establish a legal person or historical director role",
+    "current owner profile is a capture-day candidate, outside the September report date",
+    "10-K cover and Form 4 titles differ; no invented alias and no exact instrument identifier",
+    "declared one-day candidate intervals are scope restrictions, not verified effective dates",
+    "no person or instrument records adopted; no production registry writes",
+    "source clocks/raw revisions retained; today's capture is not historical availability",
+    "no scoring, trade execution, OOS, full acceptance or Windows end-to-end claim"
+  ],
+  "scoring_applied": false,
+  "completion_verified": false
+}

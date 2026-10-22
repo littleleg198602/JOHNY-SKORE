@@ -1,0 +1,53 @@
+{
+  "phase": "DEVELOPMENT_IN_PROGRESS_NOT_ACCEPTANCE",
+  "recorded_at": "2026-10-16T12:25:38.093013+00:00",
+  "public_base": "b81a9084c064dc1a12bf17088855b5ed384ba3dd",
+  "coordinator_branch": "batch9/integration-20261016",
+  "parallel_development_agents": [
+    {
+      "canonical_agent": "/root/identity_bulk",
+      "branch": "batch9/identity_bulk-20261016",
+      "worktree": "JOHNY-batch8-identity_bulk-20261015",
+      "one_deliverable": "Original dated registered-security Class A/symbol/CUSIP scope review",
+      "actual_followup_task_started": true
+    },
+    {
+      "canonical_agent": "/root/healthcare",
+      "branch": "batch9/healthcare-20261016",
+      "worktree": "JOHNY-batch8-healthcare-20261015",
+      "one_deliverable": "Original FDA application and Purple Book product/company/applicant roles",
+      "actual_followup_task_started": true
+    },
+    {
+      "canonical_agent": "/root/regulatory",
+      "branch": "batch9/regulatory-20261016",
+      "worktree": "JOHNY-batch8-regulatory-20261015",
+      "one_deliverable": "Offline NHTSA exact negative completeness review; live operation approval-blocked",
+      "actual_followup_task_started": true
+    },
+    {
+      "canonical_agent": "/root/contracts",
+      "branch": "batch9/contracts-20261016",
+      "worktree": "JOHNY-batch8-contracts-20261015",
+      "one_deliverable": "Named customer share of supplier net revenue with exact period/denominator",
+      "actual_followup_task_started": true
+    },
+    {
+      "canonical_agent": "/root/sec",
+      "branch": "batch9/sec-20261016",
+      "worktree": "JOHNY-batch8-sec-20261015",
+      "one_deliverable": "Complete original ownership SGML packet/header/XML binding",
+      "actual_followup_task_started": true
+    },
+    {
+      "canonical_agent": "/root/evaluation",
+      "branch": "batch9/evaluation-20261016",
+      "worktree": "JOHNY-batch8-evaluation-20261015",
+      "one_deliverable": "Explicit bounded original market input acquisition, immutable claim and raw-parent verification",
+      "actual_followup_task_started": true
+    }
+  ],
+  "production_registry_owner": "identity_bulk",
+  "only_coordinator_publishes": true,
+  "all_21_complete": false
+}

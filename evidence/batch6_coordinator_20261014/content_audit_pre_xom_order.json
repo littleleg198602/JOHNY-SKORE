@@ -1,0 +1,299 @@
+{
+  "all_prior_evidence_unchanged": true,
+  "all_production_registries_unchanged": true,
+  "canonical": {
+    "bytes": 5846,
+    "path": "market_checker_app/data/market_checker_687_tickers.csv",
+    "sha256": "b03c076cbd579d66928aba7f79716afde6824e006d6bb84c452b37687d0a4e9a"
+  },
+  "canonical_tickers": 687,
+  "current_source_test_versions": [
+    {
+      "bytes": 153329,
+      "path": "market_checker_app/app.py",
+      "sha256": "7a394cc91ea93d2eb459ee84f3e4b770d42c022f4702722f6c21a381022252c9"
+    },
+    {
+      "bytes": 13043,
+      "path": "market_checker_app/services/captured_identity_review_service.py",
+      "sha256": "c048f2232d2624ee1528db9a6377445f6e2a0fd2b6218920efad01d841b09685"
+    },
+    {
+      "bytes": 19142,
+      "path": "market_checker_app/services/cms_provider_ownership_review.py",
+      "sha256": "1ba69c137d0533bc12a423ce2e496d97ce05d5aaece6682a66c4724cab82b0ed"
+    },
+    {
+      "bytes": 18056,
+      "path": "market_checker_app/services/epa_frs_ownership_review.py",
+      "sha256": "281406a6c48c88aad916b6a59e0123f6abbff4c69ff7f3d5ebc43239bdd4427a"
+    },
+    {
+      "bytes": 41430,
+      "path": "market_checker_app/services/prospective_specialist_history.py",
+      "sha256": "e6db9005fd1bafb9902291c28e3ee23df09a447fb3a6cad2c377dc99d4f4c7e8"
+    },
+    {
+      "bytes": 55323,
+      "path": "market_checker_app/services/sec_corporate_action_bridge.py",
+      "sha256": "337e73165538d9eb407c46bb13d961820c0f101849bb353687be16068f81827b"
+    },
+    {
+      "bytes": 22929,
+      "path": "market_checker_app/services/sec_form4_person_bridge.py",
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3"
+    },
+    {
+      "bytes": 22925,
+      "path": "market_checker_app/services/sec_operational_metrics_review.py",
+      "sha256": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672"
+    },
+    {
+      "bytes": 24531,
+      "path": "market_checker_app/services/usaspending_prime_archive_recovery.py",
+      "sha256": "fc06959c17b61dca44a59e9a99a191a0d490094db6974cc48c127241a20a3b7c"
+    },
+    {
+      "bytes": 8738,
+      "path": "market_checker_app/specialist_evidence_runner.py",
+      "sha256": "fbddc8d03a325fd063a7fa4437cffe7359dfcdba334ba95b3acf6f03f087481c"
+    },
+    {
+      "bytes": 8187,
+      "path": "market_checker_app/specialist_evidence_ui.py",
+      "sha256": "5e92022aa4e7aba275ed26489442fb3aa4a878f6c4a4d182c02deb9a592e65c5"
+    },
+    {
+      "bytes": 19995,
+      "path": "tests/test_batch5_identity_symbol.py",
+      "sha256": "2e4cb2e554909556c985c8d05feb0dde65d6981bd37994474b79e2bdde30e996"
+    },
+    {
+      "bytes": 26824,
+      "path": "tests/test_batch6_cms_provider_ownership.py",
+      "sha256": "25e7bfe8d3c3207d891617e4de5ecebce2c0dd047cf99f193d6ac22346d0a711"
+    },
+    {
+      "bytes": 13649,
+      "path": "tests/test_batch6_cofiler_identity.py",
+      "sha256": "2bb1b977a64ab902942db54ca4db2505168a4948783ed9ed2c2d989a4c516427"
+    },
+    {
+      "bytes": 14452,
+      "path": "tests/test_batch6_epa_frs_ownership.py",
+      "sha256": "c32c76423d3cf2e469cdab27bd2f3a4e4645c78dac9cea9f44d42c1164e592a7"
+    },
+    {
+      "bytes": 13802,
+      "path": "tests/test_batch6_evidence_actions.py",
+      "sha256": "34740f211957873cc92194b687efad0baadd5a101c0609c0449d3d486b3380e2"
+    },
+    {
+      "bytes": 16470,
+      "path": "tests/test_batch6_form4_person_bridge.py",
+      "sha256": "9365304b6ef0c756d2e3e0cfee81508bba611edada69c5d429af5d9935da9bff"
+    },
+    {
+      "bytes": 20197,
+      "path": "tests/test_batch6_leg_action_bridge.py",
+      "sha256": "5bc55310cfcdcd7119590b8b7d1780a920d6849033e61684c7fb9f5f6ebd0477"
+    },
+    {
+      "bytes": 22709,
+      "path": "tests/test_batch6_prime_archive_recovery.py",
+      "sha256": "03d614abddbc17ea0b405203f86cb5ebcde8915ec376523d0e5705063a7b53de"
+    },
+    {
+      "bytes": 45066,
+      "path": "tests/test_batch6_prospective_specialist_history.py",
+      "sha256": "05bafefb8a9c6f88e1bd232abdcb372cf156fb8952250124b426998026c1038f"
+    },
+    {
+      "bytes": 18005,
+      "path": "tests/test_batch6_sec_operational_metrics.py",
+      "sha256": "aa82c5bd9a885b1088f8d2a6bc3d220bdfb76fbac1ba53b5f5bf4cd61ef5e19f"
+    },
+    {
+      "bytes": 18252,
+      "path": "tests/test_streamlit_ui_smoke.py",
+      "sha256": "c7f2cc309f21f5d979a09a23f1394e5d1c617dfbfc8ca8bccab85f66902f767b"
+    }
+  ],
+  "full_specialist_acceptance": false,
+  "new_original_http_requests": 12,
+  "new_original_primary_http_bodies": [
+    {
+      "bytes": 6887,
+      "observed_at": "2026-10-14T13:28:47.857082+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_identity_20261014/captures/a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698.bin",
+      "sha256": "a3a5552731ef228b79e38f860bbe62853abf9e4cd50fa647ff7a7f2d6bd12698",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000031506626002256/primary_doc.xml",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 172225,
+      "observed_at": "2026-10-14T13:27:40.491288+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_identity_20261014/captures/6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4.bin",
+      "sha256": "6587bcb42f2db991c09921c1567744f8108c253daad387e45ae50971f4d876f4",
+      "text_conversion_disabled": true,
+      "url": "https://data.sec.gov/submissions/CIK0001206264.json",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 6904,
+      "observed_at": "2026-10-14T13:29:18.124083+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_identity_20261014/captures/bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2.bin",
+      "sha256": "bccdc1e8e9670773da064438fcdcef599f20146be3a8b61f0b96146f3094f8c2",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/1206264/000031506626002146/primary_doc.xml",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 1060,
+      "observed_at": "2026-10-14T13:27:50.009633+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_identity_20261014/captures/54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d.bin",
+      "sha256": "54fefc4595b541c9f987fab4c0105d827bb7cc61adfca07f0aedc70d545d616d",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000087666126000712/primary_doc.xml",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 38236,
+      "observed_at": "2026-10-14T13:29:09.343160+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_identity_20261014/captures/869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146.bin",
+      "sha256": "869976e82dd652fefd17a0b0821e505591e1edf2c09925e8c8491efb458e6146",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/1206264/000120626426000121/sgi-20260826.htm",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 1980178,
+      "observed_at": "2026-10-14T13:28:58.863010+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_identity_20261014/captures/494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d.bin",
+      "sha256": "494ca993bbb21ed74ed50f93a224d798fe39c5b8250e03d14f0520260a08368d",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/58492/000005849226000430/leg-20260630.htm",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 161899,
+      "observed_at": "2026-10-14T13:35:04.920566+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_healthcare_20261014/sec_hca_submissions.body.json",
+      "sha256": "98daa6128f1910ae147855f6fde55cc658561730757a7810f886cd059d494f87",
+      "text_conversion_disabled": true,
+      "url": "https://data.sec.gov/submissions/CIK0000860730.json",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 5279652,
+      "observed_at": "2026-10-14T13:28:22.735778+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k.html",
+      "sha256": "7df203af3404625494916fe8685535eb3548c6b4c1bc8a6c04a6c7ed7c291122",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/dow-20251231.htm",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 18034,
+      "observed_at": "2026-10-14T13:28:14.745226+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_regulatory_20261014/raw/sec_dow_2025_10k_index.html",
+      "sha256": "94dfcc4f3e55b4eed10b83f2934a791aca769acc3377162567a088eeb0bb04d2",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/1751788/000175178826000018/0001751788-26-000018-index.htm",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 5836,
+      "observed_at": "2026-10-14T13:32:31.072692+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_sec_20261014/primary/nadella_2014_form3.txt",
+      "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015.txt",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 2956,
+      "observed_at": "2026-10-14T13:32:43.238879+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_sec_20261014/primary/nadella_2014_form3.xml",
+      "sha256": "5c118f5e7a6f68bbb5d46d0eea956d8cbabb2c3ff935af12cfa5d31aafccce74",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/edgar.xml",
+      "whole_body_gate_positive": false
+    },
+    {
+      "bytes": 8323,
+      "observed_at": "2026-10-14T13:32:51.449807+00:00",
+      "original_http_status": 200,
+      "path": "evidence/batch6_sec_20261014/primary/nadella_2014_form3_index.html",
+      "sha256": "2bf75c1d69b113408d1da2d863504f1d6f18ce28f6f9d425ac2609c58e434026",
+      "text_conversion_disabled": true,
+      "url": "https://www.sec.gov/Archives/edgar/data/1513142/000158273714000015/0001582737-14-000015-index.html",
+      "whole_body_gate_positive": false
+    }
+  ],
+  "prior_evidence_bytes": 29548550,
+  "prior_evidence_files": 678,
+  "prior_evidence_hash_manifest_sha256": "dbc6642a25ff403780f3720df4c5f7294b8e913fe7edd87db2e3d5b5062d786e",
+  "production_registries": [
+    {
+      "bytes": 87325,
+      "path": "market_checker_app/data/verified_13f_securities.json",
+      "sha256": "3b6bf0d26d6f75e91470bcc07e7a3907b2470c244a8bc55e21fb509569863de5"
+    },
+    {
+      "bytes": 26803,
+      "path": "market_checker_app/data/verified_counterparty_identities.json",
+      "sha256": "713b3ed16a7d329fa711add65f52f7be13fae8abb06af58049924a885af4858e"
+    },
+    {
+      "bytes": 20034,
+      "path": "market_checker_app/data/verified_fdic_banks.json",
+      "sha256": "116d4da5677cd0aa03262ae21f3bbdb15bd930fbc6569047bc31315c05dee707"
+    },
+    {
+      "bytes": 14656,
+      "path": "market_checker_app/data/verified_healthcare_identities.json",
+      "sha256": "3020306563b2ffea4919678701ae93cd88c7e9ecde56afa12248e56400c6b2e9"
+    },
+    {
+      "bytes": 912,
+      "path": "market_checker_app/data/verified_nhtsa_models.json",
+      "sha256": "ff8236130fbd6dbe082dd33a5dc110d95f07ce2ffbc9487454d0522327fef25e"
+    },
+    {
+      "bytes": 1159,
+      "path": "market_checker_app/data/verified_usaspending_uei.json",
+      "sha256": "68810126b7327679786f9dd9fd53e6a67d8c51898a97854868fa3e89bc0b2f56"
+    }
+  ],
+  "public_base": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "quotas_reset_or_reconstructed": false,
+  "raw_copied_or_replaced": false,
+  "recorded_at": "2026-10-14T17:43:26.167850+00:00",
+  "schema_version": 1,
+  "source_apis_http_requests": 0,
+  "source_hashes_are_historical_availability_proof": false,
+  "verified_adoptions": 0,
+  "whole_withheld_original_hashes_absent_from_all_current_files": [
+    "5130e6c90a0770d32e40f5eafcc87cd980d963934ae6c125963d8b1f2c20eac1",
+    "84b6ad89bee343819008e22babdf9a87dbfd3034a99022ea68320f0f17edf8b3",
+    "deb5642d450c0fd60cd12066a42da8c1905f4fd47562afcef06cf8e428bcbeb1"
+  ],
+  "whole_withheld_paths_absent": [
+    "evidence/batch4_regulatory_20261013/raw/nhtsa_api_docs.html",
+    "evidence/batch4_ir_20261013/primary/ir_authority.html",
+    "evidence/batch5_ir_20261014/primary/ir_authority.html"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "absolute_deadline_enforcement": "POSIX_SETITIMER",
+  "absolute_timeout_seconds": 25,
+  "application_collector_or_quota_db_used": false,
+  "maximum_original_body_bytes": 4000000,
+  "purpose": "EXPLICIT_NEW_CURRENT_PACKET_DIAGNOSTIC",
+  "redirects_or_retries_allowed": false,
+  "research_plan_sha256": "7eafe06bf356a3fc1238ff0f452fe709deaaedd1efc7d252be3442452fc8313d",
+  "reserved_at": "2026-10-16T12:18:18.845488+00:00",
+  "sequence": 1,
+  "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/0000789019-26-000157.txt",
+  "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+}

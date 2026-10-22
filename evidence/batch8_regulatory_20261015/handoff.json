@@ -1,0 +1,167 @@
+{
+  "actual_scope": {
+    "court": "UNITED STATES DISTRICT COURT DISTRICT OF NEW JERSEY",
+    "court_opinion": {
+      "dated_on": "2025-06-30",
+      "document_number": "283",
+      "filed_on": "2025-06-30",
+      "motion_document_number": "86",
+      "motion_to_dismiss": "DENIED",
+      "original_order_obtained": false
+    },
+    "current_complete_docket_verified": false,
+    "current_disposition_verified": false,
+    "docket": "2:24-cv-04055",
+    "issuer_attribution_verified": false,
+    "issuer_ticker_selected": "AAPL",
+    "latest_supported_documentary_event_day": "2025-06-30",
+    "literal_caption_entity": "APPLE, INC.",
+    "merits_or_final_judgment_verified": false,
+    "original_complaint_rereviewed": false,
+    "party_opposition": {
+      "document_number": "106",
+      "filed_on": "2024-09-12",
+      "judicial_decision": false
+    },
+    "source_index_update_timezone": "UNKNOWN"
+  },
+  "api": "review_doj_case_posture(request, captures, *, as_of=None, ingested_at, legal_records=())",
+  "base_commit": "e252ec62796b0b02e733c55ebef713e0f29d4b44",
+  "capture_index": {
+    "bytes": 5532,
+    "path": "evidence/batch8_regulatory_20261015/capture_index.json",
+    "sha256": "8cea359ac82ae63861b889187ba7776747e1791de074dfbe72f3fb7c5e7d05b4"
+  },
+  "capture_limits": {
+    "additional_requests_after_finalization_resume": 0,
+    "automatic_redirects": false,
+    "collector_api_requests": 0,
+    "maximum_transport_attempts": 6,
+    "public_original_bodies": 3,
+    "public_original_bytes": 2029990,
+    "quota_database_actions": 0,
+    "reserved_transport_attempts": 5,
+    "transport_failure_without_response": 1,
+    "unused_attempts": 1,
+    "whole_withheld_responses": 1
+  },
+  "central_captured_plan": {
+    "bytes": 9477,
+    "path": "evidence/batch8_regulatory_20261015/captured_review_plan.json",
+    "sha256": "ec527cb18a6373a5f0663383d778af8224cf939d2af57a21a30e3395f6d9f667"
+  },
+  "completed_at": "2026-10-16T00:20:05.826791+00:00",
+  "critical_limits": [
+    "Doc283 is the court's opinion, which mentions an accompanying Order. The separate Order was not obtained.",
+    "The attempted public-document locator failed before a response; document284 is not verified.",
+    "A party opposition records an adversary filing, not judicial acceptance of its claims.",
+    "The source OCR caption and punctuation are preserved; APPLE, INC. is not adopted as a legal issuer alias.",
+    "Earlier independent case/event-date identity and legal continuity remain unsupported.",
+    "The DOJ index is context only; its September2024 update does not prove current docket completeness.",
+    "The NJD case-page original is wholly withheld, with hash/size/clocks only and no acceptance.",
+    "No ownership, issuer liability, fine, conviction, scoring, OOS, trading, DONE or live verification follows."
+  ],
+  "database_actions_during_finalization": 0,
+  "diagnostic_limits": [
+    "Initial run: one synthetic PDF apostrophe pin failure, not publisher-data normalization.",
+    "Second run: one synthetic fixture-reset index error. Both failed results remain diagnostic.",
+    "Final 16-test run qualifies the exact unchanged service/test hashes; no complete-suite rerun.",
+    "Synthetic court-order contract tests are not an actual-source order acceptance.",
+    "No new hosted Windows run was performed in this lane."
+  ],
+  "earlier_diagnostics_preserved": [
+    {
+      "bytes": 730,
+      "path": "evidence/batch8_regulatory_20261015/tests_initial.json",
+      "sha256": "ed96e381670db2fdb6df195200c22a5cfd94f628135b0dece6ed92e5475d7437"
+    },
+    {
+      "bytes": 3944,
+      "path": "evidence/batch8_regulatory_20261015/tests_initial.log",
+      "sha256": "c7f3621c50c0ad6b34a34d5327f08dd28a54f14a4e8d5d1391cd849b2efe00f4"
+    },
+    {
+      "bytes": 908,
+      "path": "evidence/batch8_regulatory_20261015/tests_final.json",
+      "sha256": "567b38fd9ea8329d29af9904897bc2c2cd1818f8aa857b8ae2b4861f50db54f5"
+    },
+    {
+      "bytes": 4176,
+      "path": "evidence/batch8_regulatory_20261015/tests_final.log",
+      "sha256": "9b5cebf096b9158a2a59e1676b80c040ef1cc1f47b87b5a4e11e2b2fe32966c2"
+    }
+  ],
+  "historical_document_dates_are_capture_or_knowledge_dates": false,
+  "immutable_review": {
+    "bytes": 9036,
+    "path": "evidence/batch8_regulatory_20261015/reviews/f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804/review.json",
+    "sha256": "f1c75248cd42fe2b5c9f16a81356ca635f710a83af5144bfb5a8094c79ed2804"
+  },
+  "integration_kind": "DOJ_CASE_POSTURE",
+  "missing_evidence": [
+    "MISSING_CASE_DATE_REGISTERED_IDENTITY",
+    "MISSING_IDENTITY_KNOWN_BEFORE_EVENT",
+    "MISSING_INDEPENDENT_LEGAL_CONTINUITY",
+    "NO_SELECTED_ORIGINAL_COURT_ORDER_SUPPORTED",
+    "CURRENT_COMPLETE_DOCKET_AND_MERITS_NOT_ESTABLISHED"
+  ],
+  "module": "market_checker_app/services/doj_case_posture_review.py",
+  "old_evidence_or_registry_changes": 0,
+  "owned_branch": "batch8/regulatory-20261015",
+  "parent_owns_shared_dispatch_cli_ui_and_publication": true,
+  "pdf_visual_qa": {
+    "cryptographic_pdf_signature_validated": false,
+    "full_pdf_text_access_scan_pages": 95,
+    "original_pdf_pages_inspected_visually": {
+      "doj_opposition_pdf": [
+        1
+      ],
+      "govinfo_case_opinion": [
+        1,
+        33
+      ]
+    },
+    "substitute_rendered_or_extracted_publisher_body_published": false
+  },
+  "physical_known_at": "2026-10-16T00:20:05.327393+00:00",
+  "prior_byte_preservation": {
+    "bytes": 281543,
+    "path": "evidence/batch8_regulatory_20261015/prior_byte_preservation.json",
+    "sha256": "8940c77201243cdf72989ce6b3e703484d8a07c62c505d0663df7f709858b65a"
+  },
+  "push_or_merge_performed": false,
+  "qualified_code_and_test_sha256": {
+    "market_checker_app/services/doj_case_posture_review.py": "1b431d4cc0ccbb07085c3c985435e6edbaec61881df02da01cfe4dd3447c39d5",
+    "tests/test_batch8_doj_case_posture.py": "3b7ad1aac1106b9f17809e3157fb2a8ed48b3a4639a6fa4081d30c944e940289"
+  },
+  "qualified_test_log": {
+    "bytes": 3214,
+    "path": "evidence/batch8_regulatory_20261015/tests_qualified.log",
+    "sha256": "f2eecb66e6c869089bb8e43c51ddc1e300cab7ac0a832baf289dea581caf25eb"
+  },
+  "qualified_tests": {
+    "bytes": 943,
+    "path": "evidence/batch8_regulatory_20261015/tests_qualified.json",
+    "sha256": "2a261c333587b7d115b28eec143af9f82e3811c0f31ccac076f3e607b347c0ac"
+  },
+  "qualified_tests_passed": 16,
+  "registry_adoption_allowed": false,
+  "request": {
+    "bytes": 2692,
+    "path": "evidence/batch8_regulatory_20261015/request.json",
+    "sha256": "330e0d36abeac5fc660cbc84649b6fe55d669ecad631ec2be1cfdea8a062f6dc"
+  },
+  "review_record": {
+    "bytes": 1873,
+    "path": "evidence/batch8_regulatory_20261015/review_record.json",
+    "sha256": "e9d0f8a1184396fdb5a31bdb635611a454e4f76b39dfc6e34dc9778985822c16"
+  },
+  "schema_version": 1,
+  "skipped_access_source": {
+    "bytes": 490,
+    "path": "evidence/batch8_regulatory_20261015/skipped_access_source.json",
+    "sha256": "b7349689a1100e5c8946be8392c18e7334b53d6cb5283a817d738087e198cc46"
+  },
+  "source_http_during_finalization": 0,
+  "status": "PARTIAL"
+}

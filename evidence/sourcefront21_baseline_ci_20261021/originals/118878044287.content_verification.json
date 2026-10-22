@@ -1,0 +1,46 @@
+{
+  "physical_verified_at": "2026-10-20T20:51:03.000455+00:00",
+  "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "run_id": 39495108326,
+  "job_id": 118878044287,
+  "decoded_UTF8_bytes": 75064,
+  "decoded_UTF8_sha256": "6d6849abfd8fc8e98dc5feed95fd2f412e164c3615c7e0e0efc611ee0e6cc9ab",
+  "plain_OK": true,
+  "tests": 8,
+  "seconds": 14.366,
+  "strict_original_OK_blocks": [
+    {
+      "heading": "test_analysis_button_persists_and_displays_shared_reports (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_analysis_button_persists_and_displays_shared_reports) ... ",
+      "original_ok_block_sha256": "63769f0f994148e42ff318e47ca621d0a54d9584c281fb678af467b756f449fd"
+    },
+    {
+      "heading": "test_app_starts_and_exposes_yahoo_workflow (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_app_starts_and_exposes_yahoo_workflow) ... ",
+      "original_ok_block_sha256": "4134e33755bfaff3cd2f15ccb4c8c3a890fde8f943650695841cabb8aeb761cb"
+    },
+    {
+      "heading": "test_invalid_optional_manifest_is_quarantined_without_blocking_analysis (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_invalid_optional_manifest_is_quarantined_without_blocking_analysis) ... ",
+      "original_ok_block_sha256": "33060a2ac8e8e6f7efc07a66a5d1e5e597fdef4cc14753931afe934e5e7fbd83"
+    },
+    {
+      "heading": "test_prospective_history_report_is_explicit_and_has_no_manufactured_forecasts (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_prospective_history_report_is_explicit_and_has_no_manufactured_forecasts) ... ",
+      "original_ok_block_sha256": "269cca1b7f84c0cd869dadef91f2eb73556161600fefa4e5f6c5670e409c4a51"
+    },
+    {
+      "heading": "test_retained_identity_review_is_explicit_and_keeps_actual_hca_withheld (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_retained_identity_review_is_explicit_and_keeps_actual_hca_withheld) ... ",
+      "original_ok_block_sha256": "c00dfd69dc9db2bfc469d45f756c72183469bd85d8b125ae47ade8c15e610b62"
+    },
+    {
+      "heading": "test_source_archive_export_is_explicit_immutable_and_not_acceptance (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_source_archive_export_is_explicit_immutable_and_not_acceptance) ... ",
+      "original_ok_block_sha256": "f56fda5a1cabfa6e5e7547b531b1d98bd79d80807f7cb03e13db316f6f2454d4"
+    },
+    {
+      "heading": "test_specialist_history_is_explicit_and_empty_archive_stays_insufficient (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_specialist_history_is_explicit_and_empty_archive_stays_insufficient) ... ",
+      "original_ok_block_sha256": "f21d4174964731c47664425c6d083b6aef097d6e8672120e20622d09a7037a31"
+    },
+    {
+      "heading": "test_transaction_button_targets_only_selected_verified_award (test_streamlit_ui_smoke.StreamlitUISmokeTests.test_transaction_button_targets_only_selected_verified_award) ... ",
+      "original_ok_block_sha256": "e82060be378f5a07dc1815d6d2ce22a44722f4be8f4f6c2370a62d43065f8ab0"
+    }
+  ],
+  "file_rewritten": false
+}

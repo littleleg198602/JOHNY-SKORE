@@ -1,0 +1,23 @@
+{
+  "actual_http_or_quota_database_actions": 0,
+  "actual_source_complete_negatives_claimed": 0,
+  "code_test_sha256": {
+    "market_checker_app/services/nhtsa_negative_scope_review.py": "919bf4ac9539c1065b3bf9e9474bbf8435fc637b82458cfd7df392c41cc0021c",
+    "tests/test_batch9_nhtsa_negative_scope.py": "6c260b3bb1aa1c9e04e0074a1b560e7e401c79a199ff472a89b65cd0b6599af8"
+  },
+  "command": [
+    "/workspace/scratch/334b3a149083/johny-tests-20261011/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_batch9_nhtsa_negative_scope",
+    "-v"
+  ],
+  "elapsed_seconds": 0.3319457989999819,
+  "exit_code": 0,
+  "finished_at": "2026-10-16T17:15:18.663701+00:00",
+  "log_sha256": "7917c536ee3ec0ca9f75c8af1842fcad38b5112827a62bc8c686a085548bf87d",
+  "only_new_focused_suite_executed": true,
+  "publisher_or_production_assertions_relaxed": false,
+  "started_at": "2026-10-16T17:15:18.331760+00:00",
+  "synthetic_http200_empty_is_contract_test_only": true
+}

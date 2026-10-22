@@ -1,0 +1,8 @@
+test_each_new_kind_refuses_future_or_oversized_capture_before_body_io (test_batch11_coordinator_integration.Batch11SourceActionTests.test_each_new_kind_refuses_future_or_oversized_capture_before_body_io) ... ok
+test_ui_default_and_explicit_run_are_separate_with_exact_selected_scope (test_batch11_coordinator_integration.ExplicitWindowsAnalysisActionTests.test_ui_default_and_explicit_run_are_separate_with_exact_selected_scope) ... 2026-10-18 16:31:24.885 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.566s
+
+OK

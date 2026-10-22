@@ -1,0 +1,546 @@
+{
+  "acceptance": {
+    "counterparty_identity_at_relationship_date_verified": false,
+    "current_instrument_identity_verified": false,
+    "current_q3_identity_verified": false,
+    "historical_availability_reconstructed": false,
+    "historical_oos_verified": false,
+    "prediction_input": false,
+    "quantity_or_revenue_share_inferred": false,
+    "registry_adoption": 0,
+    "scoring_applied": false,
+    "specialist_done": false,
+    "windows_end_to_end_verified": false
+  },
+  "cases": {
+    "abbreviated_profile_name_not_a_legal_alias": {
+      "as_of": "2026-10-15T04:28:52.709838+00:00",
+      "claim": {
+        "candidate_id": "supply-scope:767b6a038dbe3177350277dc82c7138a5b071b7e11542ffebc614babd56028d3",
+        "claim_passage": {
+          "byte_end": 243668,
+          "byte_start": 243494,
+          "literal_visible_passage": "We utilize foundries, such as Taiwan Semiconductor Manufacturing Company Limited, or TSMC, and Samsung Electronics Co., Ltd., or Samsung, to produce our semiconductor wafers.",
+          "original_byte_sha256": "13a4750ac1264fdc31b6a3569e9a0c1672d0bffb798ff11539b8c289d6665b48"
+        },
+        "claim_role": "FOUNDRY_SUPPLIER",
+        "counterparty_legal_identity": {
+          "continuous_legal_validity_verified": false,
+          "financial_attribution_allowed": false,
+          "independent_source_snapshot_supported": false,
+          "reason": "INDEPENDENT_LEGAL_NAME_CIK_OR_PERIOD_MISMATCH",
+          "registry_identity_adopted": false,
+          "relationship_date_identity_verified": false,
+          "status": "NAMED_ONLY"
+        },
+        "counterparty_name": "Taiwan Semiconductor Manufacturing Company Limited",
+        "issuer_anchor": {
+          "canonical_ticker_hint": "NVDA",
+          "cik": "0001045810",
+          "cik_fact_ids": [
+            "f-32"
+          ],
+          "context_id": "c-1",
+          "current_instrument_identity_verified": false,
+          "document_type": "10-K",
+          "fiscal_period_end": "2026-01-25",
+          "fiscal_period_start": "2025-01-27",
+          "fiscal_year_focus": "2026",
+          "name_fact_ids": [
+            "f-7"
+          ],
+          "period_fact_ids": [
+            "f-4"
+          ],
+          "reported_dei_name": "NVIDIA CORP",
+          "year_fact_ids": [
+            "f-33"
+          ]
+        },
+        "missing_facts": [
+          "RELATIONSHIP_EXACT_EVENT_DAY_NOT_DISCLOSED",
+          "CONTINUOUS_LEGAL_IDENTITY_AT_RELATIONSHIP_DATE_UNVERIFIED",
+          "CURRENT_INSTRUMENT_IDENTITY_UNVERIFIED",
+          "RELEVANT_687_COVERAGE_UNMEASURED",
+          "INDEPENDENT_COUNTERPARTY_LEGAL_SNAPSHOT_MISSING",
+          "SUPPLIER_SPECIFIC_QUANTITY_UNKNOWN",
+          "SUPPLIER_SPECIFIC_UNIT_UNKNOWN",
+          "PURCHASE_DENOMINATOR_UNKNOWN"
+        ],
+        "ownership_or_country_inferred": false,
+        "product_or_input": "semiconductor wafers",
+        "quantified_exposure": {
+          "denominator": null,
+          "revenue_share_reported": false,
+          "status": "NOT_DISCLOSED_IN_SELECTED_PASSAGE",
+          "supplier_specific_quantity_reported": false,
+          "unit": null,
+          "value": null
+        },
+        "relationship_exact_event_day": null,
+        "relationship_statement_supported": true,
+        "source": {
+          "accession_number": "0001045810-26-000021",
+          "archive_path": null,
+          "archive_routing_cik": "0001045810",
+          "body_bytes": 1967927,
+          "body_sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+          "capture_completed_utc": "2026-10-12T14:48:19.742085+00:00",
+          "original_capture_metadata_sha256": "83e6675bb56cebf40c86a39bd8a94976d10425c6480a8f634b491e307e4051d2",
+          "publisher_publication_at": null,
+          "publisher_publication_clock_verified": false,
+          "source_capture_completed_at": "2026-10-12T14:48:19.742085+00:00",
+          "source_capture_started_at": "2026-10-12T14:48:13.754317+00:00",
+          "source_metadata_sha256": "59fc52eaac6954630f97e7ce3422121b44154e9e95ce7e1419abc40e5c1b6f73",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+        },
+        "source_disclosed_alias": "TSMC"
+      },
+      "counterparty_financials_attribution_allowed": false,
+      "counterparty_identity_verified": false,
+      "current_instrument_identity_verified": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-15T04:28:52.709838+00:00",
+      "knowledge_at": "2026-10-15T04:28:52.709838+00:00",
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "registry_writes": 0,
+      "review_recorded_at": "2026-10-15T04:28:52.709838+00:00",
+      "schema_version": "sec-supply-chain-original-scope-v1",
+      "scoring_applied": false,
+      "sole_source_inferred": false,
+      "status": "CANDIDATE_REVIEWED",
+      "usaspending_requests": 0
+    },
+    "independent_legal_source_snapshot": {
+      "as_of": "2026-10-15T04:28:51.281153+00:00",
+      "claim": {
+        "candidate_id": "supply-scope:dd103d786465cfdc18bcdb2b027db4ad1e59e5ea48b97cd602b40e4305c78d44",
+        "claim_passage": {
+          "byte_end": 243668,
+          "byte_start": 243494,
+          "literal_visible_passage": "We utilize foundries, such as Taiwan Semiconductor Manufacturing Company Limited, or TSMC, and Samsung Electronics Co., Ltd., or Samsung, to produce our semiconductor wafers.",
+          "original_byte_sha256": "13a4750ac1264fdc31b6a3569e9a0c1672d0bffb798ff11539b8c289d6665b48"
+        },
+        "claim_role": "FOUNDRY_SUPPLIER",
+        "counterparty_legal_identity": {
+          "cik": "0001046179",
+          "continuous_legal_validity_verified": false,
+          "field_evidence": {
+            "cik": {
+              "byte_end": 10091,
+              "byte_start": 9818,
+              "literal_cells": [
+                "Entity Central Index Key",
+                "0001046179"
+              ],
+              "original_byte_sha256": "3aa810c613a9aab52d9e52d6af7126ab8899dbf0751f9b894196daf660003059"
+            },
+            "document_type": {
+              "byte_end": 1416,
+              "byte_start": 1169,
+              "literal_cells": [
+                "Document Type",
+                "20-F"
+              ],
+              "original_byte_sha256": "90c7cb818fadee14100a5bce227fae137e2ddbcaa11a61822dd90ea18ca29ed9"
+            },
+            "fiscal_year": {
+              "byte_end": 10363,
+              "byte_start": 10092,
+              "literal_cells": [
+                "Document Fiscal Year Focus",
+                "2025"
+              ],
+              "original_byte_sha256": "64533ea7dba116826a680bd0392c8cc59a95050e5e7948ba9b30333dbcc6420a"
+            },
+            "header_period": {
+              "byte_end": 865,
+              "byte_start": 791,
+              "literal_cells": [
+                "Cover",
+                "Dec. 31, 2025 shares"
+              ],
+              "original_byte_sha256": "4c4fe951cf0d0d0e43383263c222c8ba2a2cfcc6d7d8be2e86cc649b88dc29e0"
+            },
+            "legal_name": {
+              "byte_end": 3645,
+              "byte_start": 3335,
+              "literal_cells": [
+                "Entity Registrant Name",
+                "Taiwan Semiconductor Manufacturing Company Limited"
+              ],
+              "original_byte_sha256": "46e9b48b593c1a0484af8d9db45dd5baef27b0395d80488727793e2263dd311a"
+            },
+            "period_end": {
+              "byte_end": 2521,
+              "byte_start": 2244,
+              "literal_cells": [
+                "Document Period End Date",
+                "Dec. 31, 2025"
+              ],
+              "original_byte_sha256": "ef18d54577c29a19fff42a649b2b9a53b3510101484d74d3c5258ee31aedef47"
+            }
+          },
+          "financial_attribution_allowed": false,
+          "independent_source_snapshot_supported": true,
+          "registry_identity_adopted": false,
+          "relationship_date_identity_verified": false,
+          "report_period_end": "2025-12-31",
+          "reported_legal_name": "Taiwan Semiconductor Manufacturing Company Limited",
+          "scope": "ONE_RENDERER_DATE_COLUMN_NOT_A_LEGAL_EFFECTIVE_INTERVAL",
+          "source": {
+            "accession_number": "0001628280-26-025362",
+            "archive_path": "evidence/batch7_contracts_20261015/raw/body-8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58.response",
+            "archive_routing_cik": "0001046179",
+            "body_bytes": 67428,
+            "body_sha256": "8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58",
+            "capture_completed_utc": "2026-10-14T23:28:17.499529+00:00",
+            "original_capture_metadata_sha256": "407d58f57661dac705b53629a65d38a4a5befb07b0091cfbd483901f7b158aea",
+            "publisher_publication_at": null,
+            "publisher_publication_clock_verified": false,
+            "source_capture_completed_at": "2026-10-14T23:28:17.499529+00:00",
+            "source_capture_started_at": "2026-10-14T23:28:13.458464+00:00",
+            "source_metadata_sha256": "407d58f57661dac705b53629a65d38a4a5befb07b0091cfbd483901f7b158aea",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/R1.htm"
+          },
+          "status": "INDEPENDENT_LEGAL_SOURCE_SNAPSHOT",
+          "value_column": 1
+        },
+        "counterparty_name": "Taiwan Semiconductor Manufacturing Company Limited",
+        "issuer_anchor": {
+          "canonical_ticker_hint": "NVDA",
+          "cik": "0001045810",
+          "cik_fact_ids": [
+            "f-32"
+          ],
+          "context_id": "c-1",
+          "current_instrument_identity_verified": false,
+          "document_type": "10-K",
+          "fiscal_period_end": "2026-01-25",
+          "fiscal_period_start": "2025-01-27",
+          "fiscal_year_focus": "2026",
+          "name_fact_ids": [
+            "f-7"
+          ],
+          "period_fact_ids": [
+            "f-4"
+          ],
+          "reported_dei_name": "NVIDIA CORP",
+          "year_fact_ids": [
+            "f-33"
+          ]
+        },
+        "missing_facts": [
+          "RELATIONSHIP_EXACT_EVENT_DAY_NOT_DISCLOSED",
+          "CONTINUOUS_LEGAL_IDENTITY_AT_RELATIONSHIP_DATE_UNVERIFIED",
+          "CURRENT_INSTRUMENT_IDENTITY_UNVERIFIED",
+          "RELEVANT_687_COVERAGE_UNMEASURED",
+          "SUPPLIER_SPECIFIC_QUANTITY_UNKNOWN",
+          "SUPPLIER_SPECIFIC_UNIT_UNKNOWN",
+          "PURCHASE_DENOMINATOR_UNKNOWN"
+        ],
+        "ownership_or_country_inferred": false,
+        "product_or_input": "semiconductor wafers",
+        "quantified_exposure": {
+          "denominator": null,
+          "revenue_share_reported": false,
+          "status": "NOT_DISCLOSED_IN_SELECTED_PASSAGE",
+          "supplier_specific_quantity_reported": false,
+          "unit": null,
+          "value": null
+        },
+        "relationship_exact_event_day": null,
+        "relationship_statement_supported": true,
+        "source": {
+          "accession_number": "0001045810-26-000021",
+          "archive_path": null,
+          "archive_routing_cik": "0001045810",
+          "body_bytes": 1967927,
+          "body_sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+          "capture_completed_utc": "2026-10-12T14:48:19.742085+00:00",
+          "original_capture_metadata_sha256": "83e6675bb56cebf40c86a39bd8a94976d10425c6480a8f634b491e307e4051d2",
+          "publisher_publication_at": null,
+          "publisher_publication_clock_verified": false,
+          "source_capture_completed_at": "2026-10-12T14:48:19.742085+00:00",
+          "source_capture_started_at": "2026-10-12T14:48:13.754317+00:00",
+          "source_metadata_sha256": "59fc52eaac6954630f97e7ce3422121b44154e9e95ce7e1419abc40e5c1b6f73",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+        },
+        "source_disclosed_alias": "TSMC"
+      },
+      "counterparty_financials_attribution_allowed": false,
+      "counterparty_identity_verified": false,
+      "current_instrument_identity_verified": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-15T04:28:51.281153+00:00",
+      "knowledge_at": "2026-10-15T04:28:51.281153+00:00",
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "registry_writes": 0,
+      "review_recorded_at": "2026-10-15T04:28:51.281153+00:00",
+      "schema_version": "sec-supply-chain-original-scope-v1",
+      "scoring_applied": false,
+      "sole_source_inferred": false,
+      "status": "CANDIDATE_REVIEWED",
+      "usaspending_requests": 0
+    },
+    "name_count_cannot_create_equal_purchase_share": {
+      "as_of": "2026-10-15T04:28:52.135541+00:00",
+      "claim": null,
+      "counterparty_financials_attribution_allowed": false,
+      "counterparty_identity_verified": false,
+      "current_instrument_identity_verified": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-15T04:28:52.135541+00:00",
+      "knowledge_at": "2026-10-15T04:28:52.135541+00:00",
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "reason": "SUPPLIER_QUANTITY_NOT_LITERAL_FOR_OBJECT_AND_PERIOD",
+      "registry_writes": 0,
+      "review_recorded_at": "2026-10-15T04:28:52.135541+00:00",
+      "schema_version": "sec-supply-chain-original-scope-v1",
+      "scoring_applied": false,
+      "sole_source_inferred": false,
+      "status": "REJECTED",
+      "usaspending_requests": 0
+    },
+    "named_supplier_and_object_only": {
+      "as_of": "2026-10-15T04:28:50.840041+00:00",
+      "claim": {
+        "candidate_id": "supply-scope:56752d3b297cc114855f413596fbb7e171629a9f3b0fd7d8d262f48fa5609949",
+        "claim_passage": {
+          "byte_end": 243668,
+          "byte_start": 243494,
+          "literal_visible_passage": "We utilize foundries, such as Taiwan Semiconductor Manufacturing Company Limited, or TSMC, and Samsung Electronics Co., Ltd., or Samsung, to produce our semiconductor wafers.",
+          "original_byte_sha256": "13a4750ac1264fdc31b6a3569e9a0c1672d0bffb798ff11539b8c289d6665b48"
+        },
+        "claim_role": "FOUNDRY_SUPPLIER",
+        "counterparty_legal_identity": {
+          "continuous_legal_validity_verified": false,
+          "financial_attribution_allowed": false,
+          "independent_source_snapshot_supported": false,
+          "reason": "NO_INDEPENDENT_LEGAL_SOURCE",
+          "registry_identity_adopted": false,
+          "relationship_date_identity_verified": false,
+          "status": "NAMED_ONLY"
+        },
+        "counterparty_name": "Taiwan Semiconductor Manufacturing Company Limited",
+        "issuer_anchor": {
+          "canonical_ticker_hint": "NVDA",
+          "cik": "0001045810",
+          "cik_fact_ids": [
+            "f-32"
+          ],
+          "context_id": "c-1",
+          "current_instrument_identity_verified": false,
+          "document_type": "10-K",
+          "fiscal_period_end": "2026-01-25",
+          "fiscal_period_start": "2025-01-27",
+          "fiscal_year_focus": "2026",
+          "name_fact_ids": [
+            "f-7"
+          ],
+          "period_fact_ids": [
+            "f-4"
+          ],
+          "reported_dei_name": "NVIDIA CORP",
+          "year_fact_ids": [
+            "f-33"
+          ]
+        },
+        "missing_facts": [
+          "RELATIONSHIP_EXACT_EVENT_DAY_NOT_DISCLOSED",
+          "CONTINUOUS_LEGAL_IDENTITY_AT_RELATIONSHIP_DATE_UNVERIFIED",
+          "CURRENT_INSTRUMENT_IDENTITY_UNVERIFIED",
+          "RELEVANT_687_COVERAGE_UNMEASURED",
+          "INDEPENDENT_COUNTERPARTY_LEGAL_SNAPSHOT_MISSING",
+          "SUPPLIER_SPECIFIC_QUANTITY_UNKNOWN",
+          "SUPPLIER_SPECIFIC_UNIT_UNKNOWN",
+          "PURCHASE_DENOMINATOR_UNKNOWN"
+        ],
+        "ownership_or_country_inferred": false,
+        "product_or_input": "semiconductor wafers",
+        "quantified_exposure": {
+          "denominator": null,
+          "revenue_share_reported": false,
+          "status": "NOT_DISCLOSED_IN_SELECTED_PASSAGE",
+          "supplier_specific_quantity_reported": false,
+          "unit": null,
+          "value": null
+        },
+        "relationship_exact_event_day": null,
+        "relationship_statement_supported": true,
+        "source": {
+          "accession_number": "0001045810-26-000021",
+          "archive_path": null,
+          "archive_routing_cik": "0001045810",
+          "body_bytes": 1967927,
+          "body_sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5",
+          "capture_completed_utc": "2026-10-12T14:48:19.742085+00:00",
+          "original_capture_metadata_sha256": "83e6675bb56cebf40c86a39bd8a94976d10425c6480a8f634b491e307e4051d2",
+          "publisher_publication_at": null,
+          "publisher_publication_clock_verified": false,
+          "source_capture_completed_at": "2026-10-12T14:48:19.742085+00:00",
+          "source_capture_started_at": "2026-10-12T14:48:13.754317+00:00",
+          "source_metadata_sha256": "59fc52eaac6954630f97e7ce3422121b44154e9e95ce7e1419abc40e5c1b6f73",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm"
+        },
+        "source_disclosed_alias": "TSMC"
+      },
+      "counterparty_financials_attribution_allowed": false,
+      "counterparty_identity_verified": false,
+      "current_instrument_identity_verified": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-15T04:28:50.840041+00:00",
+      "knowledge_at": "2026-10-15T04:28:50.840041+00:00",
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "registry_writes": 0,
+      "review_recorded_at": "2026-10-15T04:28:50.840041+00:00",
+      "schema_version": "sec-supply-chain-original-scope-v1",
+      "scoring_applied": false,
+      "sole_source_inferred": false,
+      "status": "CANDIDATE_REVIEWED",
+      "usaspending_requests": 0
+    },
+    "old_source_capture_cannot_backdate_review": {
+      "as_of": "2026-10-14T23:28:17.499529+00:00",
+      "claim": null,
+      "counterparty_financials_attribution_allowed": false,
+      "counterparty_identity_verified": false,
+      "current_instrument_identity_verified": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-15T04:28:53.207348+00:00",
+      "knowledge_at": "2026-10-15T04:28:53.207348+00:00",
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "reason": "AFTER_PHYSICAL_KNOWLEDGE_CUTOFF",
+      "registry_writes": 0,
+      "review_recorded_at": "2026-10-15T04:28:53.207348+00:00",
+      "schema_version": "sec-supply-chain-original-scope-v1",
+      "scoring_applied": false,
+      "sole_source_inferred": false,
+      "status": "REJECTED",
+      "usaspending_requests": 0
+    },
+    "wrong_object_withheld": {
+      "as_of": "2026-10-15T04:28:51.714824+00:00",
+      "claim": null,
+      "counterparty_financials_attribution_allowed": false,
+      "counterparty_identity_verified": false,
+      "current_instrument_identity_verified": false,
+      "current_q3_identity_verified": false,
+      "fixtures_count_as_live": false,
+      "historical_availability_reconstructed": false,
+      "http_attempts": 0,
+      "ingested_at": "2026-10-15T04:28:51.714824+00:00",
+      "knowledge_at": "2026-10-15T04:28:51.714824+00:00",
+      "out_of_sample_evaluation_verified": false,
+      "prediction_input": false,
+      "quantity_or_revenue_share_inferred": false,
+      "read_only": true,
+      "reason": "NAMED_ROLE_OR_OBJECT_NOT_LITERAL",
+      "registry_writes": 0,
+      "review_recorded_at": "2026-10-15T04:28:51.714824+00:00",
+      "schema_version": "sec-supply-chain-original-scope-v1",
+      "scoring_applied": false,
+      "sole_source_inferred": false,
+      "status": "REJECTED",
+      "usaspending_requests": 0
+    }
+  },
+  "code_and_selection_sha256": {
+    "evidence/batch7_contracts_20261015/capture_primary.py": "191861dc265535c5b3aba87ec6f59d232906d0d0d279baf5869b7aca64cae938",
+    "evidence/batch7_contracts_20261015/replay_review.py": "7d7e4d2f0bb493af603fffc12ddfa8087b70aea03f29e61bc222d174c6468ac4",
+    "evidence/batch7_contracts_20261015/selection.json": "7ea47dc1679508a4a3dc2580891b3597da5e659e5a19585983f8df0eb8f17d03",
+    "market_checker_app/services/sec_operational_metrics_review.py": "5ca8585b96ad59b3ae309cbfaa8ac1775b2750495bf4fb534946f11be3841672",
+    "market_checker_app/services/sec_supply_chain_scope_review.py": "d679a13797e6167b8c30f1ff5f9f32ef7650de398b077ad86ba70a814a02be91",
+    "tests/test_batch7_supply_chain_scope.py": "abd6973e16d1afd5c610a8b322680cc17fd4ea485e314f238dfcacc61723b5e6"
+  },
+  "completed_at": "2026-10-15T04:28:53.210461+00:00",
+  "kind": "genuine_primary_supplier_object_and_independent_legal_snapshot_review",
+  "original_source_bytes_unchanged": true,
+  "python_version": "3.12.14",
+  "schema_version": 1,
+  "scope": {
+    "claim_role": "FOUNDRY_SUPPLIER",
+    "counterparty_name": "Taiwan Semiconductor Manufacturing Company Limited",
+    "counterparty_renderer_period_end": "2025-12-31",
+    "dated_counterparty_identity_verified": 0,
+    "issuer_cik": "0001045810",
+    "issuer_fiscal_period_end": "2026-01-25",
+    "issuer_hint": "NVDA",
+    "product_or_input": "semiconductor wafers",
+    "quantity_verified": 0,
+    "relevant_687_coverage_measured": false,
+    "reported_counterparty_cik": "0001046179",
+    "reported_dei_name": "NVIDIA CORP",
+    "sole_source_verified": 0,
+    "unique_primary_relationships": 1
+  },
+  "source_references": {
+    "counterparty_body": {
+      "repository_relative_path": "evidence/batch7_contracts_20261015/raw/body-8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58.response",
+      "sha256": "8b36030115822f9a4271da790ebd7e3a19f3410c2a23c31ce81e8fdd6ebe9e58"
+    },
+    "counterparty_capture": {
+      "repository_relative_path": "evidence/batch7_contracts_20261015/requests/b72b41927230b40fdb8d9ea9339638430b7b85caffd912bb1c319e9304087f32.metadata.json",
+      "sha256": "12ae194d5adaa9c26f5abf3a07f5d60157070f3c3689bd2c329611679e6aa552"
+    },
+    "issuer_body": {
+      "repository_relative_path": "evidence/batch3_sec_20261012/primary/nvda_2026_10k.htm",
+      "sha256": "0f874c4c57490fd24579499830a24b2853f3273c8dbfcc5ffd8e0563383fc6a5"
+    },
+    "issuer_capture": {
+      "repository_relative_path": "evidence/batch7_contracts_20261015/issuer_capture.json",
+      "sha256": "9acd3f9df73f8e71ec3edd2714e9c0e0f03c0fbb305657e8aa0d1df3a1fae574"
+    },
+    "original_issuer_capture_manifest": {
+      "json_pointer": "/captures/10",
+      "repository_relative_path": "evidence/batch3_sec_20261012/captures.json",
+      "sha256": "0f832cd82a649c40ca04bcff47a8e63aa2379951f64688b8417a8614463c87a7"
+    }
+  },
+  "source_research": {
+    "automatic_redirects": false,
+    "bytes_per_capture_limit": 4000000,
+    "fourth_get_not_used": true,
+    "large_20f_not_requested": {
+      "index_reported_bytes": 10355816,
+      "reason": "Complete bounded R1 already supports this legal source snapshot"
+    },
+    "maximum_authorized_attempts": 4,
+    "new_sec_get_attempts": 3,
+    "new_sec_http200_complete_original_bodies": 3,
+    "nvda_body_refetched_or_copied": false,
+    "reserve_before_get": true,
+    "usaspending_requests": 0
+  },
+  "started_at": "2026-10-15T04:28:50.836397+00:00"
+}

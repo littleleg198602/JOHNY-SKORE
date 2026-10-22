@@ -1,0 +1,67 @@
+{
+  "completed_at": "2026-10-20T20:14:36.100894+00:00",
+  "discovered": 35,
+  "duration_seconds": 0.12580034600000545,
+  "errors": 0,
+  "executed": 35,
+  "expected_failures": 0,
+  "failures": 0,
+  "full_original_log": {
+    "bytes": 7941,
+    "path": "evidence/sourcefront_sec_20261020/focused_v2.log",
+    "sha256": "8f776f126d27a683cbb29969c3acfbe4f7dfd7abc881f8c56c8c02abad7a10b7"
+  },
+  "http_requests": 0,
+  "scope": "NEW_FORM144_OFFLINE_TESTS_ONLY_SYNTHETIC_ADVERSARIES_ARE_NOT_LIVE_ACCEPTANCE",
+  "skips": 0,
+  "source_pins_after": [
+    {
+      "bytes": 47793,
+      "path": "market_checker_app/services/sec_form4_person_bridge.py",
+      "sha256": "7d8a1aadeb196455ee76bc74eee3c4597b706a182b632623a8f01bf9f03f213a"
+    },
+    {
+      "bytes": 20546,
+      "path": "tests/test_sourcefront_form144_account_notice.py",
+      "sha256": "c39863b7ebd236b1d619b7ef4d6184210bff1984ae454d2872a84bea5af3726c"
+    },
+    {
+      "bytes": 7992,
+      "path": "evidence/sourcefront_sec_20261020/build_review.py",
+      "sha256": "8b0182ab86716118e94ea18a383c7a993c5619e0edff35715a918af6bb8eb100"
+    },
+    {
+      "bytes": 2456,
+      "path": "evidence/sourcefront_sec_20261020/run_focused.py",
+      "sha256": "6120938b20900a555861acf9921b56fa5f84d31773d62e0f51df0b795f2918f0"
+    }
+  ],
+  "source_pins_before": [
+    {
+      "bytes": 47793,
+      "path": "market_checker_app/services/sec_form4_person_bridge.py",
+      "sha256": "7d8a1aadeb196455ee76bc74eee3c4597b706a182b632623a8f01bf9f03f213a"
+    },
+    {
+      "bytes": 20546,
+      "path": "tests/test_sourcefront_form144_account_notice.py",
+      "sha256": "c39863b7ebd236b1d619b7ef4d6184210bff1984ae454d2872a84bea5af3726c"
+    },
+    {
+      "bytes": 7992,
+      "path": "evidence/sourcefront_sec_20261020/build_review.py",
+      "sha256": "8b0182ab86716118e94ea18a383c7a993c5619e0edff35715a918af6bb8eb100"
+    },
+    {
+      "bytes": 2456,
+      "path": "evidence/sourcefront_sec_20261020/run_focused.py",
+      "sha256": "6120938b20900a555861acf9921b56fa5f84d31773d62e0f51df0b795f2918f0"
+    }
+  ],
+  "source_unchanged_during_run": true,
+  "sql_connections": 0,
+  "started_at": "2026-10-20T20:14:35.975078+00:00",
+  "successful": true,
+  "unexpected_successes": 0,
+  "windows_or_full21_acceptance": false
+}

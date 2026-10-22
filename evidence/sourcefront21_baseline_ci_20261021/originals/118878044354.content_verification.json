@@ -1,0 +1,18 @@
+{
+  "physical_verified_at": "2026-10-20T21:00:54.537112+00:00",
+  "head_sha": "9d60cc650ff0d64b720f84fabfe1348e44c6bcf4",
+  "run_id": 39495108326,
+  "job_id": 118878044354,
+  "decoded_UTF8_bytes": 687689,
+  "decoded_UTF8_sha256": "bac5c25bd5472ea1e199e285697dbe1fc58642c9a2616e170c09aeb6acc6a0f7",
+  "plain_OK": true,
+  "tests": 2767,
+  "seconds": 629.268,
+  "all_2767_original_OK_statuses_observed": true,
+  "new_exact_methods_original_OK": 79,
+  "new_method_verifier_uses_strict_terminal_test_boundaries": true,
+  "four_older_method_blocks_have_buffered_stdout_after_original_ok": true,
+  "ancillary_diagnostic_preserved": "ancillary_all_old_blocks_diagnostic.json",
+  "original_file_rewritten": false,
+  "unit_tests_rerun": false
+}

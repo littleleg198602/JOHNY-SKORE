@@ -1,0 +1,14 @@
+{
+  "started_at": "2026-10-20T20:27:53.988962+00:00",
+  "ended_at": "2026-10-20T20:35:39.519061+00:00",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "python_version": "3.12.14",
+  "discovered_tests": 2767,
+  "tests_run": 2767,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "successful": true
+}

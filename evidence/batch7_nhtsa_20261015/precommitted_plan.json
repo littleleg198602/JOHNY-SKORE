@@ -1,0 +1,133 @@
+{
+  "additional_catalog_requests": 0,
+  "authorized_utc_day": "2026-10-15",
+  "automatic_redirects": false,
+  "daily_make_subject_limit": 4,
+  "daily_request_limit": 8,
+  "existing_budget_lease_api": "NhtsaNegativeReviewService.run / NhtsaRawRecallClient / PublicSourceBudget",
+  "fresh_db_copy_reset_reconstruction_permitted": false,
+  "maximum_original_response_bytes": 4000000,
+  "maximum_request_timeout_seconds": 20,
+  "maximum_requests": 4,
+  "maximum_run_seconds": 120,
+  "maximum_source_subjects": 3,
+  "negative_acceptance": "Only genuine HTTP200 complete valid success envelope with zero Results. HTTP400 empty remains PARTIAL; no endpoint workaround.",
+  "original_retained_database": "/workspace/scratch/334b3a149083/JOHNY-batch4-integration-20261013/outputs/market_checker_history.db",
+  "precommitted_at": "2026-10-15T07:28:58.996981+00:00",
+  "rationale": "Four previously unprobed exact2026 catalog entries; bounded source audit only, no issuer/manufacturer/parent adoption.",
+  "schema_version": 1,
+  "scopes": [
+    {
+      "catalog_metadata_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_cadillac_2026.metadata.json",
+      "catalog_metadata_sha256": "148a94b49ee787d83a9db1caed6444f3b7ac0e45e05bb5c389b7775564181c07",
+      "catalog_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_cadillac_2026.json",
+      "catalog_sha256": "b9d8ff432876d22966464e2282abf868f34d1c0ee8c7efae1a73c27b8585579f",
+      "documented_scope": {
+        "catalog_evidence": {
+          "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_cadillac_2026.json",
+          "make_id": 469,
+          "model_id": 35680,
+          "observed_at": "2026-10-13T08:44:16.489553+00:00",
+          "publisher_rows": 12,
+          "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+          "sha256": "b9d8ff432876d22966464e2282abf868f34d1c0ee8c7efae1a73c27b8585579f",
+          "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CADILLAC/modelyear/2026?format=json"
+        },
+        "known_at": "2026-10-13T08:44:16.489553+00:00",
+        "make": "CADILLAC",
+        "model": "Escalade IQL",
+        "model_year": 2026
+      },
+      "make": "CADILLAC",
+      "model": "Escalade IQL",
+      "model_year": 2026,
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CADILLAC&model=Escalade+IQL&modelYear=2026"
+    },
+    {
+      "catalog_metadata_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_ford_2026.metadata.json",
+      "catalog_metadata_sha256": "92aab2de8076053bf6e6d8b7c49513308c7c22ec8bd287dc9c994b2cc06a3754",
+      "catalog_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_ford_2026.json",
+      "catalog_sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+      "documented_scope": {
+        "catalog_evidence": {
+          "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_ford_2026.json",
+          "make_id": 460,
+          "model_id": 35300,
+          "observed_at": "2026-10-13T08:44:21.133744+00:00",
+          "publisher_rows": 50,
+          "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+          "sha256": "b31a9317d97cbd97ef93b66e72530bf2dbdb5d1bad29afb3e729ced04b12afc9",
+          "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/FORD/modelyear/2026?format=json"
+        },
+        "known_at": "2026-10-13T08:44:21.133744+00:00",
+        "make": "FORD",
+        "model": "Mustang GTD",
+        "model_year": 2026
+      },
+      "make": "FORD",
+      "model": "Mustang GTD",
+      "model_year": 2026,
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=FORD&model=Mustang+GTD&modelYear=2026"
+    },
+    {
+      "catalog_metadata_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.metadata.json",
+      "catalog_metadata_sha256": "d4888713cfe2d7c2bb73c62bbdee221bbf6e073a020509aa50fedc479e077e74",
+      "catalog_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+      "catalog_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+      "documented_scope": {
+        "catalog_evidence": {
+          "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+          "make_id": 467,
+          "model_id": 34740,
+          "observed_at": "2026-10-13T08:44:25.024795+00:00",
+          "publisher_rows": 29,
+          "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+          "sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+          "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json"
+        },
+        "known_at": "2026-10-13T08:44:25.024795+00:00",
+        "make": "CHEVROLET",
+        "model": "BrightDrop",
+        "model_year": 2026
+      },
+      "make": "CHEVROLET",
+      "model": "BrightDrop",
+      "model_year": 2026,
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=BrightDrop&modelYear=2026"
+    },
+    {
+      "catalog_metadata_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.metadata.json",
+      "catalog_metadata_sha256": "d4888713cfe2d7c2bb73c62bbdee221bbf6e073a020509aa50fedc479e077e74",
+      "catalog_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+      "catalog_sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+      "documented_scope": {
+        "catalog_evidence": {
+          "archive_path": "evidence/batch4_regulatory_20261013/raw/nhtsa_models_chevrolet_2026.json",
+          "make_id": 467,
+          "model_id": 35053,
+          "observed_at": "2026-10-13T08:44:25.024795+00:00",
+          "publisher_rows": 29,
+          "scope": "EXACT_OFFICIAL_MODEL_YEAR_SNAPSHOT",
+          "sha256": "94a7f06f5babe4c7fe0126198d05a22806f4b258acb56531074b9612dbf0536d",
+          "source_url": "https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/CHEVROLET/modelyear/2026?format=json"
+        },
+        "known_at": "2026-10-13T08:44:25.024795+00:00",
+        "make": "CHEVROLET",
+        "model": "Suburban HD",
+        "model_year": 2026
+      },
+      "make": "CHEVROLET",
+      "model": "Suburban HD",
+      "model_year": 2026,
+      "requested_url": "https://api.nhtsa.gov/recalls/recallsByVehicle?make=CHEVROLET&model=Suburban+HD&modelYear=2026"
+    }
+  ],
+  "source_code_pins": {
+    "evidence/batch7_nhtsa_20261015/run_probe.py": "66958d578f0e56678c0f75fa55a400d1ca400bdfb5156e73b8d9e8de09fde127",
+    "market_checker_app/services/nhtsa_negative_review_service.py": "0b9497a1f0125b5fa419d07676242ee5c33a9f7e6d7869450902da3531991ac6",
+    "market_checker_app/services/nhtsa_recall_scout_service.py": "c029146642ac47b6ce2873b08c02c59d83a9efbdebeef0b649b05e510c5a3bb0",
+    "market_checker_app/services/public_source_budget.py": "4459bf520c5d38b1a93a5a49fd6a6941a27cf479dfcd0b40bab6d587fb1e868f",
+    "market_checker_app/storage/scout_store.py": "9fba2e0a3bae056be66cbdb9f2073954ac0e6f219df7df6924696d29e86f06f8"
+  },
+  "web_or_unreserved_nhtsa_requests": 0
+}

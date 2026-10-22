@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 from datetime import datetime, timezone
 import json
 import math
@@ -58,7 +59,7 @@ from market_checker_app.services.candidate_model_service import (
     build_candidate_model_report,
 )
 from market_checker_app.services.candidate_model_evaluation_service import (
-    evaluate_candidate_walk_forward,
+    evaluate_candidate_walk_forward_strict,
 )
 from market_checker_app.services.prediction_label_service import (
     PredictionLabelService,
@@ -778,6 +779,8 @@ def run_weekly_shadow(
     resolve_labels: bool = False,
     counterparty_health_sources: list[dict[str, object]] | None = None,
     macro_observations: list[dict[str, object]] | None = None,
+    prospective_history_enabled: bool | None = None,
+    prospective_audit_archive_root: Path | None = None,
 ) -> dict[str, object]:
     from market_checker_app.services.pipeline_service import PipelineService
 
@@ -788,11 +791,21 @@ def run_weekly_shadow(
             "Chybí tickery: zadejte --tickers nebo nejprve vytvořte historii v SQLite."
         )
 
+    pipeline = None
+    if config.captured_market_manifest is not None or config.captured_market_archive_root is not None:
+        pipeline = PipelineService(config)
+        if resolve_labels:
+            raise RuntimeConfigurationError("Archivní vstupy běhu nejsou potvrzenou metodikou pozdějších cenových labelů.")
+        readiness = pipeline.yahoo_client.readiness(tickers, include_benchmarks=True)
+        if readiness["status"] != "READY":
+            raise RuntimeConfigurationError("WAIT_DATA: vybrané původní cenové archivy nejsou úplné a aktuální.")
+
     config.ensure_output_dir()
     store = SQLiteStore(config.sqlite_path)
     store.ensure_schema()
     print(f"[INFO] Začínám zpracování {len(tickers)} tickerů; průběh se bude zobrazovat níže.", flush=True)
-    pipeline = PipelineService(config)
+    if pipeline is None:
+        pipeline = PipelineService(config)
     result = pipeline.run(
         tickers,
         rss_sources,
@@ -808,6 +821,8 @@ def run_weekly_shadow(
         pipeline=pipeline, resolve_labels=resolve_labels,
         counterparty_health_sources=counterparty_health_sources,
         macro_observations=macro_observations, strict=True,
+        prospective_history_enabled=prospective_history_enabled,
+        prospective_audit_archive_root=prospective_audit_archive_root,
     )
 
 
@@ -817,12 +832,30 @@ def finalize_analysis_run(
     counterparty_health_sources: list[dict[str, object]] | None = None,
     macro_observations: list[dict[str, object]] | None = None,
     strict: bool = False,
+    prospective_history_enabled: bool | None = None,
+    prospective_audit_archive_root: Path | None = None,
 ) -> dict[str, object]:
     """Shared UI/weekly persistence and analysis; never modifies signals.
 
     Label loading remains opt-in. All other steps consume only this run and
     local history. Failures are retained in the exported report in both paths.
     """
+    def check_captured_inputs(phase: str) -> None:
+        if config.captured_market_manifest is None:
+            return
+        captured = result.get("captured_market_data")
+        if not isinstance(captured, dict) or not isinstance(captured.get("preflight"), dict):
+            raise RuntimeConfigurationError("WAIT_DATA:CAPTURED_RUN_BINDING_MISSING")
+        checked = pipeline.yahoo_client.revalidate_for_persistence(tickers,
+            expected_readiness=captured["preflight"])
+        captured[phase] = checked
+        if checked["status"] != "READY":
+            raise RuntimeConfigurationError("WAIT_DATA:CAPTURED_MARKET_INPUT_CHANGED_BEFORE_FORECAST_PERSISTENCE")
+
+    if config.captured_market_manifest is not None:
+        if resolve_labels:
+            raise RuntimeConfigurationError("Captured run inputs cannot resolve target labels.")
+        check_captured_inputs("finalizer_entry")
     macro_error: str | None = None
     try:
         from market_checker_app.services.macro_regime_service import build_macro_regime_report
@@ -872,7 +905,10 @@ def finalize_analysis_run(
             build_open_position_audit,
         )
 
-        positions, position_read_error = MT5Client().load_open_positions()
+        if config.captured_market_manifest is not None:
+            positions, position_read_error = [], "Archivní cenový režim: MT5 připojení je vypnuté."
+        else:
+            positions, position_read_error = MT5Client().load_open_positions()
         metadata = result.get("metadata")
         audit_observed_at = getattr(metadata, "finished_at", datetime.now(timezone.utc))
         signals = result.get("signals")
@@ -922,6 +958,7 @@ def finalize_analysis_run(
     snapshot_records: list[dict[str, object]] = []
     snapshot_error: str | None = None
     saved_snapshot_count = 0
+    snapshot_persistence_attempted = False
     candidate_model_report: dict[str, object] = {
         "status": "DISABLED",
         "reason": "POINT_IN_TIME_SNAPSHOT_UNAVAILABLE",
@@ -938,6 +975,36 @@ def finalize_analysis_run(
         "activation_allowed": False,
     }
     candidate_evaluation_error: str | None = None
+    prospective_adapter = None
+    prospective_audit = None
+    audit_enabled = (getattr(config, "prospective_history_enabled", False)
+                     if prospective_history_enabled is None else prospective_history_enabled)
+
+    def capture_persisted_forecasts() -> None:
+        nonlocal prospective_adapter, prospective_audit
+        if not audit_enabled or prospective_audit is not None:
+            return
+        try:
+            if audit_enabled is not True:
+                raise ValueError("INVALID_PROSPECTIVE_HISTORY_OPT_IN")
+            from market_checker_app.services.prospective_forecast_registration_adapter import (
+                ProspectiveForecastRegistrationAdapter,
+            )
+            audit_root = (prospective_audit_archive_root if prospective_audit_archive_root is not None
+                          else getattr(config, "prospective_audit_archive_root", None))
+            prospective_adapter = ProspectiveForecastRegistrationAdapter(
+                db_path=store.db_path, audit_archive_root=audit_root,
+            )
+            registration = (prospective_adapter.register_after_persistence(
+                str(row["snapshot_id"]) for row in snapshot_records)
+                if snapshot_persistence_attempted else {"status": "WAIT",
+                    "reason": "SNAPSHOT_PERSISTENCE_NOT_ATTEMPTED", "registered_count": 0})
+            prospective_audit = {"registration": registration}
+        except Exception:
+            # Diagnostic failures must not change stored model output or echo
+            # arbitrary source/exception content into the normal report.
+            prospective_audit = {"registration": {"status": "PARTIAL",
+                "reason": "PROSPECTIVE_REGISTRATION_RUNTIME_ERROR", "registered_count": 0}}
     run_id = result.get("run_id")
     raw_point_in_time_inputs = result.get("point_in_time_inputs")
     if run_id is not None and isinstance(raw_point_in_time_inputs, list):
@@ -982,9 +1049,12 @@ def finalize_analysis_run(
             )
         if snapshot_error is None:
             try:
+                check_captured_inputs("before_baseline_snapshot_write")
+                snapshot_persistence_attempted = True
                 saved_snapshot_count = store.save_prediction_snapshots(
                     snapshot_records
                 )
+                capture_persisted_forecasts()
                 # A repeated finalization must not turn an idempotent insert
                 # into a failure. Count the immutable requested IDs present.
                 persisted = store.read_prediction_snapshots()
@@ -998,6 +1068,10 @@ def finalize_analysis_run(
                 snapshot_error = f"snapshot uložení selhalo: {type(exc).__name__}: {exc}"
     else:
         snapshot_error = "běh nebo point-in-time vstupy nejsou uloženy"
+    # Keep audit I/O outside the default path and outside model configuration.
+    # Even a partial store failure is followed by read-only validation of the
+    # exact requested IDs; already committed forecasts must remain recoverable.
+    capture_persisted_forecasts()
     if snapshot_error is None and snapshot_records:
         try:
             metadata = result.get("metadata")
@@ -1011,6 +1085,7 @@ def finalize_analysis_run(
                 as_of=model_as_of,
             )
             if candidate_model_report.get("artifact") is not None:
+                check_captured_inputs("before_candidate_snapshot_write")
                 candidate_model_report["persisted_prediction_count"] = (
                     store.save_candidate_model_report(candidate_model_report)
                 )
@@ -1028,11 +1103,18 @@ def finalize_analysis_run(
                 "predictions": [],
             }
         try:
-            candidate_evaluation_report = evaluate_candidate_walk_forward(
+            evaluation_as_of = datetime.now(timezone.utc)
+            candidate_evaluation_report = evaluate_candidate_walk_forward_strict(
                 store.read_prediction_snapshots(),
+                as_of=evaluation_as_of,
+                label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
             )
             from market_checker_app.services.layer_ablation_service import evaluate_layer_ablation
-            candidate_evaluation_report["layer_ablation"] = evaluate_layer_ablation(store.read_prediction_snapshots())
+            candidate_evaluation_report["layer_ablation"] = evaluate_layer_ablation(
+                store.read_prediction_snapshots(), strict_price_provenance=True,
+                as_of=evaluation_as_of,
+                label_archive_directory=config.sqlite_path.parent / "prediction_label_observations",
+            )
             candidate_evaluation_report["persisted"] = (
                 store.save_candidate_model_evaluation(candidate_evaluation_report)
             )
@@ -1082,6 +1164,13 @@ def finalize_analysis_run(
                 "source_failures": 0,
             }
     summary_warnings = list(result.get("warnings", []))
+    if prospective_adapter is not None:
+        try:
+            prospective_audit["label_attachment"] = prospective_adapter.attach_explicit_labels()
+            prospective_audit["history"] = prospective_adapter.read_history_report()
+        except Exception:
+            prospective_audit["label_attachment"] = {"status": "PARTIAL",
+                "reason": "PROSPECTIVE_ATTACHMENT_RUNTIME_ERROR", "attached_count": 0}
     for error in (macro_error, counterparty_health_error, candidate_evaluation_error):
         if error:
             summary_warnings.append(error)
@@ -1191,10 +1280,17 @@ def finalize_analysis_run(
         "decision_results": _decision_detail_records(result),
     }
     failures: list[str] = []
+    if prospective_audit is not None:
+        summary["prospective_forecast_history"] = _json_safe(prospective_audit)
     degradations: list[str] = [error for error in (
         macro_error, counterparty_health_error, candidate_model_error,
         candidate_evaluation_error, label_resolution_error,
     ) if error]
+    if prospective_audit is not None and any(
+        stage.get("status") in {"WAIT", "PARTIAL"}
+        for stage in (prospective_audit.get("registration", {}), prospective_audit.get("label_attachment", {}))
+    ):
+        degradations.append("Prospektivní historie čeká na uloženou predikci nebo přesné lokální zdrojové/label důkazy; podrobnosti jsou v prospective_forecast_history.")
     if summary_warnings:
         degradations.append("Běh obsahuje upozornění na kvalitu nebo dostupnost dat; podrobnosti jsou ve warnings.")
     if result.get("agent_status") == "PARTIAL":
@@ -1364,15 +1460,54 @@ def _parser() -> argparse.ArgumentParser:
             "cen; bez tohoto přepínače se další Yahoo dávka nespouští."
         ),
     )
+    parser.add_argument(
+        "--register-prospective-history", action=argparse.BooleanOptionalAction, default=None,
+        help="Explicitně zachová již uložené předpovědi; vyžaduje lokální audit root a přesný source manifest. Bez sběru zdrojů.",
+    )
+    parser.add_argument("--prospective-audit-archive-root", type=Path,
+        help="Lokální root s prospective_source_manifest.json a výslovně uvedenými source/label archivy.")
+    parser.add_argument("--captured-market-manifest", type=Path,
+        help="Výslovný manifest původních OHLCV archivů; vypne síťové zdroje a cenové/metadata cache.")
+    parser.add_argument("--captured-market-archive-root", type=Path,
+        help="Kořen původních cenových archivů uvedených v manifestu.")
+    parser.add_argument("--captured-market-readiness-only", action="store_true",
+        help="Pouze ověří explicitní cenové archivy a benchmarky, bez DB, sítě nebo předpovědí.")
     return parser
 
 
 def main() -> None:
     args = _parser().parse_args()
+    captured_mode = args.captured_market_manifest is not None or args.captured_market_archive_root is not None
+    if captured_mode or args.captured_market_readiness_only:
+        if args.captured_market_manifest is None or args.captured_market_archive_root is None:
+            raise SystemExit("Archivní režim vyžaduje manifest i kořen archivů.")
+        if args.resolve_labels:
+            raise SystemExit("Archivní vstupy běhu nejsou potvrzenou metodikou pozdějších cenových labelů.")
+        if not args.tickers and args.ticker_file is None:
+            raise SystemExit("Archivní režim vyžaduje výslovné tickery nebo ticker soubor.")
+        try:
+            from market_checker_app.services.captured_market_data_provider import CapturedMarketDataProvider
+            selected = _tickers(args.tickers, None, ticker_file=args.ticker_file, ticker_limit=args.ticker_limit)
+            selected, outside = restrict_to_universe(selected, load_canonical_tickers())
+            if outside or not selected:
+                raise ValueError("INVALID_CAPTURED_MARKET_TICKER_SCOPE")
+            readiness = CapturedMarketDataProvider(manifest_path=args.captured_market_manifest,
+                archive_root=args.captured_market_archive_root).readiness(selected, include_benchmarks=True)
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            raise SystemExit("WAIT_DATA: nelze ověřit explicitní cenové vstupy.") from exc
+        if args.captured_market_readiness_only:
+            print(json.dumps(readiness, ensure_ascii=False, indent=2, sort_keys=True))
+            return
+        if readiness["status"] != "READY":
+            raise SystemExit("WAIT_DATA: použij --captured-market-readiness-only pro přehled chybějících vstupů.")
     runtime_service = AgentRuntimeService(args.runtime_config)
     settings, warning = runtime_service.load()
     if warning:
         raise SystemExit(warning)
+    if captured_mode:
+        settings = replace(settings, sec_fundamentals_enabled=False, european_filings_enabled=False,
+            short_reports_enabled=False, supply_chain_enabled=False,
+            commodity_energy_enabled=False, regulatory_contract_enabled=False)
     try:
         from market_checker_app.services.counterparty_health_service import (
             parse_counterparty_health_sources,
@@ -1393,6 +1528,9 @@ def main() -> None:
             sqlite_path=args.db_path,
             sec_user_agent=os.getenv("JOHNY_SKORE_SEC_USER_AGENT", ""),
         )
+        if captured_mode:
+            config = replace(config, captured_market_manifest=args.captured_market_manifest,
+                captured_market_archive_root=args.captured_market_archive_root)
         store = SQLiteStore(config.sqlite_path)
         store.ensure_schema()
         # The primary pilot is selected from the requested watchlist only.
@@ -1421,6 +1559,8 @@ def main() -> None:
             resolve_labels=args.resolve_labels,
             counterparty_health_sources=counterparty_health_sources,
             macro_observations=macro_observations,
+            prospective_history_enabled=args.register_prospective_history,
+            prospective_audit_archive_root=args.prospective_audit_archive_root,
         )
     except (
         RuntimeConfigurationError,

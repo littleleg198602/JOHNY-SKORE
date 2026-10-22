@@ -1,0 +1,31 @@
+test_actual_fda_missing_structured_original_and_crl_wrong_dataset_both_stay_wait_data (test_batch8_coordinator_integration.ActualNewScopeDispatchTests.test_actual_fda_missing_structured_original_and_crl_wrong_dataset_both_stay_wait_data) ... ok
+test_actual_opinion_and_opposition_do_not_become_a_court_order_or_merits_finding (test_batch8_coordinator_integration.ActualNewScopeDispatchTests.test_actual_opinion_and_opposition_do_not_become_a_court_order_or_merits_finding) ... ok
+test_actual_owner_xml_preserves_all_rows_without_inventing_missing_packet_or_person_identity (test_batch8_coordinator_integration.ActualNewScopeDispatchTests.test_actual_owner_xml_preserves_all_rows_without_inventing_missing_packet_or_person_identity) ... ok
+test_actual_symbol_scope_keeps_missing_effective_day_and_118_byte_conflict (test_batch8_coordinator_integration.ActualNewScopeDispatchTests.test_actual_symbol_scope_keeps_missing_effective_day_and_118_byte_conflict) ... ERROR
+test_actual_consolidated_commitments_survive_runtime_without_supplier_allocation (test_batch8_coordinator_integration.Batch8ReviewBudgetTests.test_actual_consolidated_commitments_survive_runtime_without_supplier_allocation) ... ok
+test_all_new_review_kinds_refuse_oversized_whole_body_before_file_io (test_batch8_coordinator_integration.Batch8ReviewBudgetTests.test_all_new_review_kinds_refuse_oversized_whole_body_before_file_io) ... ok
+test_readiness_requires_explicit_button_and_never_registers_or_downloads (test_batch8_coordinator_integration.CapturedReadinessUITests.test_readiness_requires_explicit_button_and_never_registers_or_downloads) ... 2026-10-16 08:26:04.649 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+ok
+test_cli_readiness_is_local_and_never_loads_runtime_or_initializes_history (test_batch8_coordinator_integration.CapturedRuntimeIntegrationTests.test_cli_readiness_is_local_and_never_loads_runtime_or_initializes_history) ... ok
+test_default_model_fingerprint_is_preserved_and_explicit_input_selection_is_distinct (test_batch8_coordinator_integration.CapturedRuntimeIntegrationTests.test_default_model_fingerprint_is_preserved_and_explicit_input_selection_is_distinct) ... ok
+test_incomplete_benchmark_scope_stops_before_any_cache_database_or_remote_operation (test_batch8_coordinator_integration.CapturedRuntimeIntegrationTests.test_incomplete_benchmark_scope_stops_before_any_cache_database_or_remote_operation) ... ok
+test_mid_run_manifest_change_cannot_save_run_or_silently_use_another_source (test_batch8_coordinator_integration.CapturedRuntimeIntegrationTests.test_mid_run_manifest_change_cannot_save_run_or_silently_use_another_source) ... ok
+test_normal_single_and_bulk_pipeline_use_exact_sources_without_network_or_cache (test_batch8_coordinator_integration.CapturedRuntimeIntegrationTests.test_normal_single_and_bulk_pipeline_use_exact_sources_without_network_or_cache) ... ok
+test_weekly_wait_data_preflight_does_not_initialize_history_or_output (test_batch8_coordinator_integration.CapturedRuntimeIntegrationTests.test_weekly_wait_data_preflight_does_not_initialize_history_or_output) ... ok
+
+======================================================================
+ERROR: test_actual_symbol_scope_keeps_missing_effective_day_and_118_byte_conflict (test_batch8_coordinator_integration.ActualNewScopeDispatchTests.test_actual_symbol_scope_keeps_missing_effective_day_and_118_byte_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_batch8_coordinator_integration.py", line 213, in test_actual_symbol_scope_keeps_missing_effective_day_and_118_byte_conflict
+    self.assertTrue(any(row.get('publisher_size_conflict') for row in leaf['filings']))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/334b3a149083/JOHNY-batch7-integration-20261015/tests/test_batch8_coordinator_integration.py", line 213, in <genexpr>
+    self.assertTrue(any(row.get('publisher_size_conflict') for row in leaf['filings']))
+                        ^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+
+----------------------------------------------------------------------
+Ran 13 tests in 5.282s
+
+FAILED (errors=1)

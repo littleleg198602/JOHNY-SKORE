@@ -1,0 +1,124 @@
+{
+  "actual_capture": {
+    "capture_completed_at": "2026-10-14T13:32:51.451697+00:00",
+    "capture_started_at": "2026-10-14T13:32:18.231103+00:00",
+    "exact_source_account_corroborated_rows": 8,
+    "http200_original_bodies": 3,
+    "http_requests": 3,
+    "independent_new_disclosures": 1,
+    "instrument_verified_rows": 0,
+    "issuer_cik_separate": "0000789019",
+    "natural_person_verified_rows": 0,
+    "no_redirect_retry_daily_reset_or_history_reconstruction": true,
+    "not_application_quota_managed_live": true,
+    "older_accession": "0001582737-14-000015",
+    "older_filing_day": "2014-02-07",
+    "older_report_day": "2014-02-04",
+    "owner_cik": "0001513142",
+    "owner_source_filer_name": "Nadella Satya",
+    "requested_current_row_day": "2026-09-01",
+    "source_rows": 8
+  },
+  "baseline_public_commit": "cbc6c4a3f023f4f32778456ae4f73d6d2c91fcc6",
+  "created_at": "2026-10-14T13:52:29.996991+00:00",
+  "files": {
+    "evidence/batch6_sec_20261014/README.md": {
+      "sha256": "43007138cd4cbcaf20c5025b0437c339ce2f22a4feed6dc87e419b9bf98eb098",
+      "size_bytes": 4188
+    },
+    "evidence/batch6_sec_20261014/build_review.py": {
+      "sha256": "7695db1caaa4debee904c706b4da14fcaf5c37c4caf2d7d07fd4c13f30f2d9d4",
+      "size_bytes": 6268
+    },
+    "evidence/batch6_sec_20261014/capture_primary.py": {
+      "sha256": "9d77c232c6564814212ca800da6d4be819dc3ea8284a92edf0ca901f4ce6a3d0",
+      "size_bytes": 6655
+    },
+    "evidence/batch6_sec_20261014/captures.json": {
+      "sha256": "d15b1596c30d0e6e7f2231eaec61944ac53bbab77bafe71c91a77accca892c08",
+      "size_bytes": 2447
+    },
+    "evidence/batch6_sec_20261014/person_bridge_review.json": {
+      "sha256": "fac4345111caed4f6ef209758187e79a2a2df234ba00f396a5c1c4ae8abc2538",
+      "size_bytes": 45574
+    },
+    "evidence/batch6_sec_20261014/primary/nadella_2014_form3.txt": {
+      "sha256": "9123343610f3b95c84a0be6d172fea451ccc45139ad1d9d88f5ad91a343a5053",
+      "size_bytes": 5836
+    },
+    "evidence/batch6_sec_20261014/primary/nadella_2014_form3.xml": {
+      "sha256": "5c118f5e7a6f68bbb5d46d0eea956d8cbabb2c3ff935af12cfa5d31aafccce74",
+      "size_bytes": 2956
+    },
+    "evidence/batch6_sec_20261014/primary/nadella_2014_form3_index.html": {
+      "sha256": "2bf75c1d69b113408d1da2d863504f1d6f18ce28f6f9d425ac2609c58e434026",
+      "size_bytes": 8323
+    },
+    "evidence/batch6_sec_20261014/retained_scope.json": {
+      "sha256": "f9a6d6f33d1d0aac6adb42febc904e9f6b944f0b68ac8dc5c49628e549511447",
+      "size_bytes": 470
+    },
+    "evidence/batch6_sec_20261014/tests.json": {
+      "sha256": "4e2127300db93b9ac63deacd51036b14b8b9dca14bc6671028834e5fc10e74c2",
+      "size_bytes": 641
+    },
+    "evidence/batch6_sec_20261014/tests.log": {
+      "sha256": "d06e8bdcc426623a24817582202788dd7599e50290d64f7e814d54dc1ba1b898",
+      "size_bytes": 17295
+    },
+    "market_checker_app/services/sec_form4_person_bridge.py": {
+      "sha256": "e05e03f271f9b32b5591f01c78c74743de86aa651af9dddc87f37616e89d97b3",
+      "size_bytes": 22929
+    },
+    "tests/test_batch6_form4_person_bridge.py": {
+      "sha256": "9365304b6ef0c756d2e3e0cfee81508bba611edada69c5d429af5d9935da9bff",
+      "size_bytes": 16470
+    }
+  },
+  "limits": [
+    "Exact independent SEC account/name corroboration is not natural-person legal identity or registry approval",
+    "entityType=other and attorney-in-fact signature cannot supply kind or approved name-order alias",
+    "2014 disclosure point and Oct13 observed profile snapshot do not bridge Sep1 2026 historically",
+    "Raw unqualified acceptance and profile Z clock retained separately; exact timezone/publication not inferred",
+    "New original source knowledge is actual capture time; no historical machine availability/OOS proof",
+    "Narrow one-owner/eight-row scope is not measured relevant-universe coverage or complete positive/negative person acceptance"
+  ],
+  "primary_research": {
+    "original_byte_archived_primary_requests_separately_counted": 3,
+    "web_primary_source_reads": 2,
+    "web_search_queries": 5
+  },
+  "registries_modified": false,
+  "root_integration_required": "Physically date immutable report/UI separately; no source acquisition or adoption through the captured-only action",
+  "runtime_api": {
+    "body_no_network_store_or_quota_mutation": true,
+    "capture_class": "SECPersonCapture",
+    "capture_fields": "record_id, purpose, source_url, body bytes|None, sha256, size_bytes, observed_at, known_at optional, retention",
+    "input_loader": "evidence.batch6_sec_20261014.build_review.load_inputs returns observation, source_capture, evidence_tuple, capture_manifest",
+    "observed_scope_match_is_not_event_date_match": true,
+    "output": "PARTIAL; independent_evidence, unavailable_evidence, row_reviews, independent_dated_disclosure_count, source_only_account_corroborated_rows, person_verified_row_count=0",
+    "purposes": [
+      "FORM4_SOURCE",
+      "OWNER_PROFILE",
+      "DATED_OWNERSHIP_PACKET"
+    ],
+    "review": "review_form4_person_bridge(observation, *, source_capture, evidence, knowledge_at, scope_mode=EVENT_DATE|OBSERVED_SNAPSHOT)"
+  },
+  "schema_version": 1,
+  "scoring_applied": false,
+  "single_output": "Original-byte independent SEC reporting-owner account/name bridge with explicit person kind/legal-name/date withholding",
+  "specialist_done_claim": false,
+  "tests": {
+    "discovered": 84,
+    "errors": 0,
+    "executed": 84,
+    "expected_failures": 0,
+    "failures": 0,
+    "log_sha256": "d06e8bdcc426623a24817582202788dd7599e50290d64f7e814d54dc1ba1b898",
+    "skips": 0,
+    "successful": true,
+    "unexpected_successes": 0
+  },
+  "trading_allowed": false,
+  "windows_claim": false
+}

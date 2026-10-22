@@ -1,0 +1,130 @@
+{
+  "NHTSA_approval_block_retried_or_worked_around": false,
+  "actual_counts": {
+    "all_non_clock_facts_equal_before_report": true,
+    "caption_blocks": 3,
+    "database_connections_reads_writes_or_hashes": 0,
+    "field_evidence_records": 686,
+    "new_HTTP_requests": 0,
+    "new_collector_source_requests": 0,
+    "pages": 95,
+    "quota_or_lease_operations": 0,
+    "whole_retained_original_pdfs": 2
+  },
+  "actual_plan": {
+    "bytes": 3597,
+    "path": "evidence/batch10_caption_clock_fix_20261018/actual_review_plan.json",
+    "sha256": "fb207cd95e73cc21a8ebcbcfc7fb6eea770a71c2b2d875d315bf9408b5f1ddad"
+  },
+  "actual_review": {
+    "bytes": 470641,
+    "path": "evidence/batch10_caption_clock_fix_20261018/reviews/5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9/review.json",
+    "sha256": "5a2899ddd662e67e456e804750314438e4ce1fa8bb690350cf542ce636afe0a9"
+  },
+  "api": "review_doj_case_caption(request, captures, *, reviewed_at=None)",
+  "base_commit": "bca703329150bbe2478afabffec1590505429504",
+  "before_regression": {
+    "complete_log": {
+      "bytes": 1956,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before.log",
+      "sha256": "a564c6fb7713e78d2ce4e9101a47cd37f751a234de58a7c82b5a8f6d28e8e1b9"
+    },
+    "errors": 0,
+    "executed": 2,
+    "failures": 2,
+    "interpretation": "real old-version diagnostics, not current acceptance",
+    "result": {
+      "bytes": 1106,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before.json",
+      "sha256": "8db9506290966db42f3902004f8d6c44a795ff120c1c8db4e482f4545386f2f4"
+    }
+  },
+  "branch": "batch10/caption-clock-fix-20261018",
+  "clock_behavior": {
+    "all_report_return_paths_finish_guarded": true,
+    "completion_before_source_or_nested_clock_exception": "CAPTION_REVIEW_COMPLETION_PRECEDES_SOURCE_OR_DERIVED_CLOCK",
+    "future_cutoff_exception": "FUTURE_CAPTION_SOURCE_READ_CUTOFF_UNAVAILABLE",
+    "historical_output_availability_reconstructed": false,
+    "known_at_and_review_completed_at": "physical UTC after all parsing, bindings, facts and nested clock validation",
+    "review_started_at": "physical UTC before parsing",
+    "reviewed_at_and_source_read_cutoff": "aware source-read cutoff; default physical start; explicit future rejected",
+    "rollback_exception": "CAPTION_REVIEW_PHYSICAL_CLOCK_ROLLBACK"
+  },
+  "completed_at": "2026-10-18T14:18:53.357926+00:00",
+  "four_whole_withheld_bodies_absent_and_never_inspected": true,
+  "kind": "DOJ_CASE_CAPTION",
+  "module": "market_checker_app/collectors/doj_case_caption_review.py",
+  "next_work": [
+    "Root integrates the completion-clock contract into common runtime/UI",
+    "Independent dated financial issuer/caption legal continuity remains absent",
+    "Separate whole signed Order and genuine current docket/disposition remain absent"
+  ],
+  "old_bca_output_clock_version_superseded_without_rewriting_old_evidence": true,
+  "owned_test_expectation_change": {
+    "change": "future source still PARTIAL without decoding; explicit future cutoff now must raise ValueError before decode",
+    "exact_pre_fix_test_source_preserved": {
+      "bytes": 18776,
+      "path": "evidence/batch10_caption_clock_fix_20261018/before/caption_tests.py",
+      "sha256": "e4309847b0b6540710d31e39d64eb413c5b78f55ec2dbb426a93fcb7a63b3c8c"
+    },
+    "file": "tests/test_doj_case_caption_review.py",
+    "method": "test_earlier_cutoff_or_future_source_clock_never_decodes",
+    "original_public_base32_test_files_changed": 0,
+    "source_pdf_hash_text_or_identity_assertions_relaxed": false
+  },
+  "packet_forms": [
+    "capture_id -> (metadata, original_pdf_bytes_or_none)",
+    "capture_id -> {metadata, body}"
+  ],
+  "parent_owns_shared_runtime_UI_docs_status_and_publication": true,
+  "prior_byte_preservation": {
+    "bytes": 520819,
+    "path": "evidence/batch10_caption_clock_fix_20261018/prior_byte_preservation.json",
+    "sha256": "6b64102f228e437f1039ac57b903cbfaf6ab4bd517f502d2fc131ebf9fb28844"
+  },
+  "push_or_merge_performed": false,
+  "qualification_scope": "10 new clock regressions plus 21 owned caption methods; no baseline/full suite rerun",
+  "qualified_complete_log": {
+    "bytes": 6297,
+    "path": "evidence/batch10_caption_clock_fix_20261018/after.log",
+    "sha256": "2bcbc25d2dff1de070da647c94e7202c467c1967d878ddf49ce389266899a5a5"
+  },
+  "qualified_counts": {
+    "errors": 0,
+    "executed": 31,
+    "expected_failures": 0,
+    "failures": 0,
+    "passed": 31,
+    "skips": 0,
+    "unexpected_successes": 0
+  },
+  "qualified_result": {
+    "bytes": 1084,
+    "path": "evidence/batch10_caption_clock_fix_20261018/after.json",
+    "sha256": "b818a92b159664cdca10af85bcd22054a9cf6da19676c666e148fa41b73bba19"
+  },
+  "qualified_source_test_sha256": {
+    "market_checker_app/collectors/doj_case_caption_review.py": "8b1d24eec14a29a79fe9187f653be8a48df014c882c9a3626109c4fda6c58945",
+    "tests/test_batch10_caption_clock_fix.py": "2198b798de9f76e813413122d1d91cec601377216e1591307413831f7580c6f6",
+    "tests/test_doj_case_caption_review.py": "1eca23cde40bb9580f5ebb9eacb03ea756a63fecf9d3226a904500c7ccb47f1e"
+  },
+  "request_schema_unchanged": true,
+  "retained_ledger_sha256_from_assignment_only_not_read": "6d6a7450d9a66bb0fbc3c006deb3aca6c595fcdf1ca682561b476a2f4d9400af",
+  "review_record": {
+    "bytes": 4028,
+    "path": "evidence/batch10_caption_clock_fix_20261018/review_record.json",
+    "sha256": "153555fa5244a669718b48eefd917555c7f0c37d8ae4caac89dd1014eb8b03db"
+  },
+  "schema_version": 1,
+  "status": "PARTIAL",
+  "unchanged_limits": {
+    "complete_current_docket_or_disposition_verified": false,
+    "financial_issuer_or_cik_identity_verified": false,
+    "full_acceptance": "0/21",
+    "legal_continuity_verified": false,
+    "merits_or_final_judgment_verified": false,
+    "registry_adoptions": 0,
+    "score_model_budget_trading_changes": false,
+    "separate_original_order_verified": false
+  }
+}

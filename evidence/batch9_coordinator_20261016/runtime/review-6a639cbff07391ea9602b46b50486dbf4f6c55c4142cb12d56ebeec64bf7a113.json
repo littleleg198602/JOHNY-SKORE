@@ -1,0 +1,437 @@
+{
+  "full_specialist_acceptance": false,
+  "issuer_attribution_allowed": false,
+  "kind": "SEC_SUPPLIER_CONCENTRATION",
+  "plan_sha256": "1d98de948e7e3fffaafa564bcfe995f2ddf112c5f83afa362bf39ca0ffd29aa1",
+  "recorded_at": "2026-10-17T21:30:34.127783+00:00",
+  "registry_adoptions": 0,
+  "requested_as_of": "2026-10-17T21:30:33.547118+00:00",
+  "review": {
+    "absolute_revenue_amount_inferred": false,
+    "activation_allowed": false,
+    "as_of": "2026-10-17T21:30:34.127401+00:00",
+    "claim": {
+      "aggregation_qualifier_literal": "in the aggregate",
+      "candidate_id": "supplier-concentration:f79063c76aff02ff90befa0311b5e2f46840ea1d526b41425f0f3ff8bacea2c5",
+      "channel_qualifier_literal": "through sales to multiple distributors, contract manufacturers, and direct sales for multiple applications including smartphones, tablets, desktop, and notebook computers, watches and other devices",
+      "claim_role": "CUSTOMER_REVENUE_CONCENTRATION",
+      "counterparty": {
+        "alias_evidence": {
+          "byte_end": 187912,
+          "byte_start": 187180,
+          "fact_ids": [],
+          "format": "WHOLE_ORIGINAL_PARAGRAPH",
+          "literal_visible_passage": "Our key customers include Amazon, Apple Inc. (“Apple”), Arcadyan, Arris, Bose, Ciena, Cisco, Ericsson, Fibocom, Garmin, Gemalto (a Thales company), General Electric, Google, Honeywell, Itron, Lenovo, LG Electronics, Microsoft, Motorola, NETGEAR, Nokia, Northrop Grumman, OPPO, Rockwell Collins, Sagemcom, Samsung, Schneider Electric, Sierra Wireless, Sonos, Sony, Technicolor, Telit, Tesla, TP-Link, VIVO, and Xiaomi. Our competitors include Analog Devices, Broadcom, Cirrus Logic, Murata Manufacturing, NXP Semiconductors, Qorvo, Qualcomm, and Texas Instruments.",
+          "sha256": "a78c2ae114b2023fbc0053f059d9db8028bf0a4abf8ab21971e368c03635b9ff"
+        },
+        "kind": "NAMED",
+        "reported_label": "Apple",
+        "reported_legal_name": "Apple Inc.",
+        "source_disclosed_alias_supported": true
+      },
+      "denominator": {
+        "absolute_amount": null,
+        "counterparty_own_revenue": false,
+        "literal": "the Company’s net revenue",
+        "measure": "REPORTING_GROUP_NET_REVENUE",
+        "owner_cik": "0000004127",
+        "owner_name": "Skyworks Solutions, Inc."
+      },
+      "evidence": {
+        "alias_passage": {
+          "byte_end": 187912,
+          "byte_start": 187180,
+          "fact_ids": [],
+          "format": "WHOLE_ORIGINAL_PARAGRAPH",
+          "literal_visible_passage": "Our key customers include Amazon, Apple Inc. (“Apple”), Arcadyan, Arris, Bose, Ciena, Cisco, Ericsson, Fibocom, Garmin, Gemalto (a Thales company), General Electric, Google, Honeywell, Itron, Lenovo, LG Electronics, Microsoft, Motorola, NETGEAR, Nokia, Northrop Grumman, OPPO, Rockwell Collins, Sagemcom, Samsung, Schneider Electric, Sierra Wireless, Sonos, Sony, Technicolor, Telit, Tesla, TP-Link, VIVO, and Xiaomi. Our competitors include Analog Devices, Broadcom, Cirrus Logic, Murata Manufacturing, NXP Semiconductors, Qorvo, Qualcomm, and Texas Instruments.",
+          "sha256": "a78c2ae114b2023fbc0053f059d9db8028bf0a4abf8ab21971e368c03635b9ff"
+        },
+        "concentration_passage": {
+          "byte_end": 1501219,
+          "byte_start": 1500263,
+          "fact_ids": [
+            "f-977",
+            "f-978",
+            "f-979"
+          ],
+          "format": "WHOLE_ORIGINAL_PARAGRAPH",
+          "literal_visible_passage": "During fiscal 2025, fiscal 2024, and fiscal 2023, Apple, through sales to multiple distributors, contract manufacturers, and direct sales for multiple applications including smartphones, tablets, desktop, and notebook computers, watches and other devices, in the aggregate accounted for 67%, 69%, and 66% of the Company’s net revenue, respectively.",
+          "sha256": "25ecd2593c8f20b29f825d3d1cce1082feed49247fc838851fe1ad885c7f349d"
+        },
+        "fiscal_calendar_passage": {
+          "byte_end": 983531,
+          "byte_start": 983016,
+          "fact_ids": [],
+          "format": "WHOLE_ORIGINAL_PARAGRAPH",
+          "literal_visible_passage": "The Company’s fiscal year ends on the Friday closest to September 30. The fiscal year ended on October 3, 2025 (“fiscal 2025”) consisted of 53 weeks. The fiscal year ended on September 27, 2024 (“fiscal 2024”) and the fiscal year ended on September 29, 2023 (“fiscal 2023”) each consisted of 52 weeks.",
+          "sha256": "46639bfc6df83c22a7273b5aa7887399a9b21bc50ce1a438b12cf3aff7ea22b3"
+        },
+        "scope_passage": {
+          "byte_end": 982671,
+          "byte_start": 982307,
+          "fact_ids": [],
+          "format": "WHOLE_ORIGINAL_PARAGRAPH",
+          "literal_visible_passage": "All Skyworks subsidiaries are included in the Company’s consolidated financial statements and all intercompany balances are eliminated in consolidation.",
+          "sha256": "741ab46c7df33ce745e1c95cc2815b040c7978460a0f5bf7a9732bc5a6edc3f8"
+        },
+        "section_heading": {
+          "byte_end": 1457444,
+          "byte_start": 1457128,
+          "fact_ids": [],
+          "format": "WHOLE_ORIGINAL_PARAGRAPH",
+          "literal_visible_passage": "14. SEGMENT INFORMATION AND CONCENTRATIONS",
+          "sha256": "3db18f19e0876746ad5b3180429c54589c14c8db2665df4ef2b9dbb55b31ec23"
+        }
+      },
+      "filing": {
+        "acceptance_datetime_unqualified_raw": "2025-11-07 16:08:12",
+        "acceptance_timezone_inferred": false,
+        "accession_key": "000000412725000085",
+        "captured_primary_bytes": 1708710,
+        "document_type": "10-K",
+        "exact_historical_as_filed_version_verified": false,
+        "filing_day": "2025-11-07",
+        "index_declared_primary_bytes": 1708601,
+        "issuer_cik": "0000004127",
+        "primary_filename": "swks-20251003.htm",
+        "publisher_size_conflict": true,
+        "report_period_end": "2025-10-03"
+      },
+      "filing_index_source": {
+        "accession_number": "0000004127-25-000085",
+        "archive_routing_cik": "0000004127",
+        "body_bytes": 13487,
+        "body_sha256": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+        "capture_completed_utc": "2026-10-16T12:17:53.625727+00:00",
+        "original_source_known_at": "2026-10-16T12:17:53.625727+00:00",
+        "publisher_publication_at": null,
+        "publisher_publication_clock_verified": false,
+        "source_capture_completed_at": "2026-10-16T12:17:53.625727+00:00",
+        "source_capture_started_at": "2026-10-16T12:17:48.090642+00:00",
+        "source_metadata_sha256": "e1b21125c41b98ef828db45c68a9d946a2f3eb378ce7f478233ccaface90a6e5",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/0000004127-25-000085-index.htm"
+      },
+      "footnote_refs": [],
+      "independent_counterparty_legal_snapshot": {
+        "cik": "0000320193",
+        "continuous_legal_validity_verified": false,
+        "field_evidence": {
+          "cik": {
+            "byte_end": 13602,
+            "byte_start": 13243,
+            "literal_cells": [
+              "Entity Central Index Key",
+              "0000320193",
+              "",
+              ""
+            ],
+            "original_byte_sha256": "24e2a2a8a8de124fe822bc07b81f7f422eab013325dc335b8bde459b8eec8639"
+          },
+          "document_type": {
+            "byte_end": 1771,
+            "byte_start": 1438,
+            "literal_cells": [
+              "Document Type",
+              "10-K",
+              "",
+              ""
+            ],
+            "original_byte_sha256": "2b85499c9ebd2d4df214399b9d9033bb0d47280e457212bec1d7047860614c6d"
+          },
+          "fiscal_year": {
+            "byte_end": 12882,
+            "byte_start": 12525,
+            "literal_cells": [
+              "Document Fiscal Year Focus",
+              "2025",
+              "",
+              ""
+            ],
+            "original_byte_sha256": "d0659d143a7f38d89e10ef30aeef3043d8184a779713ee4262ece04330ee1790"
+          },
+          "header_period": {
+            "byte_end": 1052,
+            "byte_start": 907,
+            "literal_cells": [
+              "Cover Page - USD ($) shares in Thousands, $ in Millions",
+              "Sep. 27, 2025",
+              "Oct. 17, 2025",
+              "Mar. 28, 2025"
+            ],
+            "original_byte_sha256": "395ab22128cd8223f2fc975f9789bb334297177c62398002a6313ac9f219bc12"
+          },
+          "legal_name": {
+            "byte_end": 3915,
+            "byte_start": 3559,
+            "literal_cells": [
+              "Entity Registrant Name",
+              "Apple Inc.",
+              "",
+              ""
+            ],
+            "original_byte_sha256": "72a56d70ae9de0d81d51cc3aabcc0117ac1d03fab6758f82fabdb1f8a2e38290"
+          },
+          "period_end": {
+            "byte_end": 2850,
+            "byte_start": 2487,
+            "literal_cells": [
+              "Document Period End Date",
+              "Sep. 27, 2025",
+              "",
+              ""
+            ],
+            "original_byte_sha256": "91de7fada40ea9191dc58131bbad165d1e6053c6cd7a1748e32f2a4d68bae1b7"
+          }
+        },
+        "financial_attribution_allowed": false,
+        "independent_source_snapshot_supported": true,
+        "registry_identity_adopted": false,
+        "relationship_date_identity_verified": false,
+        "report_period_end": "2025-09-27",
+        "reported_legal_name": "Apple Inc.",
+        "scope": "ONE_RENDERER_DATE_COLUMN_NOT_A_LEGAL_EFFECTIVE_INTERVAL",
+        "source": {
+          "accession_number": "0000320193-25-000079",
+          "archive_path": null,
+          "archive_routing_cik": "0000320193",
+          "body_bytes": 87966,
+          "body_sha256": "6083668bba54cdcffd9c7ee90f612506346f4aeabc9586b20c4fd095455bd8e8",
+          "capture_completed_utc": "2026-10-12T14:45:53.583784+00:00",
+          "original_capture_metadata_sha256": "4ed82bf49bb5944f59d5c5c3c33532ed808b7cf0e5b555d89b42e9155d4c1688",
+          "original_source_known_at": "2026-10-12T14:45:53.583784+00:00",
+          "publisher_publication_at": null,
+          "publisher_publication_clock_verified": false,
+          "source_capture_completed_at": "2026-10-12T14:45:53.583784+00:00",
+          "source_capture_started_at": "2026-10-12T14:45:47.327122+00:00",
+          "source_metadata_sha256": "46f75dabd6468da535b4af944a523bd52d96b72741a97b858c3d89ed83c1d4bc",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/R1.htm"
+        },
+        "status": "INDEPENDENT_LEGAL_SOURCE_SNAPSHOT",
+        "value_column": 1
+      },
+      "issuer_anchor": {
+        "canonical_ticker_hint": "SWKS",
+        "cik": "0000004127",
+        "cik_fact_ids": [
+          "f-31"
+        ],
+        "context_id": "c-1",
+        "current_instrument_identity_verified": false,
+        "document_type": "10-K",
+        "fiscal_period_end": "2025-10-03",
+        "fiscal_period_start": "2024-09-28",
+        "fiscal_year_focus": "2025",
+        "name_fact_ids": [
+          "f-6"
+        ],
+        "period_fact_ids": [
+          "f-3"
+        ],
+        "reported_dei_name": "Skyworks Solutions, Inc.",
+        "year_fact_ids": [
+          "f-33"
+        ]
+      },
+      "missing_facts": [
+        "FULL_PERIOD_COUNTERPARTY_LEGAL_CONTINUITY_UNVERIFIED",
+        "DIRECT_SALES_ONLY_SHARE_NOT_SEPARATED",
+        "CUSTOMER_OWN_REVENUE_AND_SUPPLIER_PURCHASE_SHARE_NOT_REPORTED",
+        "GENERIC_XBRL_CUSTOMER_MEMBER_IS_NOT_A_LEGAL_IDENTIFIER",
+        "CURRENT_INSTRUMENT_Q3_AND_RELEVANT_687_HISTORY_UNVERIFIED",
+        "PUBLISHER_PUBLICATION_INSTANT_UNKNOWN",
+        "INDEX_SIZE_DIFFERS_FROM_RETAINED_SERVED_ORIGINAL"
+      ],
+      "primary_source": {
+        "accession_number": "0000004127-25-000085",
+        "archive_path": "evidence/batch9_contracts_20261016/raw/body-2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade.response",
+        "archive_routing_cik": "0000004127",
+        "body_bytes": 1708710,
+        "body_sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade",
+        "capture_completed_utc": "2026-10-16T12:18:16.379894+00:00",
+        "original_capture_metadata_sha256": "30e46a155633f3111036a7f49535c397b9585fba44421d6d33b48a13b8f2e51c",
+        "original_source_known_at": "2026-10-16T12:18:16.379894+00:00",
+        "publisher_publication_at": null,
+        "publisher_publication_clock_verified": false,
+        "source_capture_completed_at": "2026-10-16T12:18:16.379894+00:00",
+        "source_capture_started_at": "2026-10-16T12:18:10.348023+00:00",
+        "source_metadata_sha256": "30e46a155633f3111036a7f49535c397b9585fba44421d6d33b48a13b8f2e51c",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003.htm"
+      },
+      "quantities": [
+        {
+          "context_id": "c-229",
+          "counterparty_identity_from_dimension_verified": false,
+          "currency": null,
+          "currency_applicable": false,
+          "fact_id": "f-977",
+          "fact_taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+          "fiscal_year": 2025,
+          "generic_customer_member_renamed": false,
+          "period_end": "2025-10-03",
+          "period_start": "2024-09-28",
+          "ratio_from_xbrl_scale_only": "0.67",
+          "source_decimals": 2,
+          "source_dimensions": [
+            {
+              "axis": "srt:MajorCustomersAxis",
+              "axis_local": "MajorCustomersAxis",
+              "axis_namespace": "http://fasb.org/srt/2025",
+              "member": "swks:CompanyMember",
+              "member_local": "CompanyMember",
+              "member_namespace": "http://www.skyworksinc.com/20251003"
+            },
+            {
+              "axis": "us-gaap:ConcentrationRiskByTypeAxis",
+              "axis_local": "ConcentrationRiskByTypeAxis",
+              "axis_namespace": "http://fasb.org/us-gaap/2025",
+              "member": "us-gaap:CustomerConcentrationRiskMember",
+              "member_local": "CustomerConcentrationRiskMember",
+              "member_namespace": "http://fasb.org/us-gaap/2025"
+            },
+            {
+              "axis": "us-gaap:ConcentrationRiskByBenchmarkAxis",
+              "axis_local": "ConcentrationRiskByBenchmarkAxis",
+              "axis_namespace": "http://fasb.org/us-gaap/2025",
+              "member": "us-gaap:SalesRevenueNetMember",
+              "member_local": "SalesRevenueNetMember",
+              "member_namespace": "http://fasb.org/us-gaap/2025"
+            }
+          ],
+          "source_fact_name": "us-gaap:ConcentrationRiskPercentage1",
+          "source_scale": -2,
+          "source_unit_id": "number",
+          "source_unit_measure": "xbrli:pure",
+          "unit": "percent",
+          "value_literal": "67"
+        },
+        {
+          "context_id": "c-230",
+          "counterparty_identity_from_dimension_verified": false,
+          "currency": null,
+          "currency_applicable": false,
+          "fact_id": "f-978",
+          "fact_taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+          "fiscal_year": 2024,
+          "generic_customer_member_renamed": false,
+          "period_end": "2024-09-27",
+          "period_start": "2023-09-30",
+          "ratio_from_xbrl_scale_only": "0.69",
+          "source_decimals": 2,
+          "source_dimensions": [
+            {
+              "axis": "srt:MajorCustomersAxis",
+              "axis_local": "MajorCustomersAxis",
+              "axis_namespace": "http://fasb.org/srt/2025",
+              "member": "swks:CompanyMember",
+              "member_local": "CompanyMember",
+              "member_namespace": "http://www.skyworksinc.com/20251003"
+            },
+            {
+              "axis": "us-gaap:ConcentrationRiskByTypeAxis",
+              "axis_local": "ConcentrationRiskByTypeAxis",
+              "axis_namespace": "http://fasb.org/us-gaap/2025",
+              "member": "us-gaap:CustomerConcentrationRiskMember",
+              "member_local": "CustomerConcentrationRiskMember",
+              "member_namespace": "http://fasb.org/us-gaap/2025"
+            },
+            {
+              "axis": "us-gaap:ConcentrationRiskByBenchmarkAxis",
+              "axis_local": "ConcentrationRiskByBenchmarkAxis",
+              "axis_namespace": "http://fasb.org/us-gaap/2025",
+              "member": "us-gaap:SalesRevenueNetMember",
+              "member_local": "SalesRevenueNetMember",
+              "member_namespace": "http://fasb.org/us-gaap/2025"
+            }
+          ],
+          "source_fact_name": "us-gaap:ConcentrationRiskPercentage1",
+          "source_scale": -2,
+          "source_unit_id": "number",
+          "source_unit_measure": "xbrli:pure",
+          "unit": "percent",
+          "value_literal": "69"
+        },
+        {
+          "context_id": "c-231",
+          "counterparty_identity_from_dimension_verified": false,
+          "currency": null,
+          "currency_applicable": false,
+          "fact_id": "f-979",
+          "fact_taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+          "fiscal_year": 2023,
+          "generic_customer_member_renamed": false,
+          "period_end": "2023-09-29",
+          "period_start": "2022-10-01",
+          "ratio_from_xbrl_scale_only": "0.66",
+          "source_decimals": 2,
+          "source_dimensions": [
+            {
+              "axis": "srt:MajorCustomersAxis",
+              "axis_local": "MajorCustomersAxis",
+              "axis_namespace": "http://fasb.org/srt/2025",
+              "member": "swks:CompanyMember",
+              "member_local": "CompanyMember",
+              "member_namespace": "http://www.skyworksinc.com/20251003"
+            },
+            {
+              "axis": "us-gaap:ConcentrationRiskByTypeAxis",
+              "axis_local": "ConcentrationRiskByTypeAxis",
+              "axis_namespace": "http://fasb.org/us-gaap/2025",
+              "member": "us-gaap:CustomerConcentrationRiskMember",
+              "member_local": "CustomerConcentrationRiskMember",
+              "member_namespace": "http://fasb.org/us-gaap/2025"
+            },
+            {
+              "axis": "us-gaap:ConcentrationRiskByBenchmarkAxis",
+              "axis_local": "ConcentrationRiskByBenchmarkAxis",
+              "axis_namespace": "http://fasb.org/us-gaap/2025",
+              "member": "us-gaap:SalesRevenueNetMember",
+              "member_local": "SalesRevenueNetMember",
+              "member_namespace": "http://fasb.org/us-gaap/2025"
+            }
+          ],
+          "source_fact_name": "us-gaap:ConcentrationRiskPercentage1",
+          "source_scale": -2,
+          "source_unit_id": "number",
+          "source_unit_measure": "xbrli:pure",
+          "unit": "percent",
+          "value_literal": "66"
+        }
+      ],
+      "reporting_group_scope_literal": "All Skyworks subsidiaries are included in the Company’s consolidated financial statements and all intercompany balances are eliminated in consolidation.",
+      "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+      "selected_source_count": 3,
+      "selection_sha256": "bae06dc6b85f706c99f3ba1fc8cef5d0f435c4f4f8b27d22512bd91ebd98e5b9",
+      "source_format": "COMPLETE_PARAGRAPH_WITH_THREE_ORDERED_INLINE_FACTS",
+      "source_inputs_known_at": "2026-10-16T12:18:16.379894+00:00",
+      "table_row_column_applicable": false
+    },
+    "continuous_legal_identity_verified": false,
+    "counterparty_financials_attribution_allowed": false,
+    "counterparty_identity_at_each_period_verified": false,
+    "current_instrument_identity_verified": false,
+    "current_q3_identity_verified": false,
+    "db_writes": 0,
+    "direct_customer_share_verified": false,
+    "historical_availability_reconstructed": false,
+    "independent_sec_acceptance_clock_crosscheck_performed": false,
+    "ingested_at": "2026-10-17T21:30:34.127401+00:00",
+    "knowledge_at": "2026-10-17T21:30:34.127401+00:00",
+    "model_modified": false,
+    "out_of_sample_evaluation_verified": false,
+    "prior_source_clock_conflict_resolved": false,
+    "read_only": true,
+    "reason": "",
+    "registry_writes": 0,
+    "review_started_at": "2026-10-17T21:30:33.729237+00:00",
+    "schema_version": "sec-original-supplier-concentration-v1",
+    "scoring_applied": false,
+    "source_http_requests": 0,
+    "status": "CANDIDATE_REVIEWED",
+    "supplier_purchase_share_verified": false,
+    "trading_allowed": false,
+    "usaspending_requests": 0
+  },
+  "schema_version": "captured_identity_review_v1",
+  "scoring_applied": false,
+  "source_http_requests": 0
+}

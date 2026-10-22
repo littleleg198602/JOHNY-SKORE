@@ -1,0 +1,563 @@
+{
+  "activation_allowed": false,
+  "actual_spend_verified": false,
+  "apple_allocation_allowed": false,
+  "as_of": "2026-10-21T07:16:17.893661+00:00",
+  "claim": {
+    "annotation_audit": {
+      "asset_numeric_annotation_count": 12,
+      "disclosure_text_block_id": "f-893",
+      "equivalent_nested_annotation_count": 6,
+      "excluded_impairment_annotation_ids": [
+        "f-894"
+      ],
+      "nested_tags_were_added": false,
+      "unique_balance_components": 6,
+      "unselected_impairment_is_not_a_deposit": true
+    },
+    "balances": [
+      {
+        "arithmetic": "total = current + noncurrent",
+        "arithmetic_exact": true,
+        "as_of_day": "2025-10-03",
+        "components": {
+          "current": {
+            "component": "current",
+            "context": {
+              "context_id": "c-193",
+              "dimension": {
+                "axis_is_outstanding_obligation_amount": false,
+                "axis_literal": "us-gaap:RecordedUnconditionalPurchaseObligationByCategoryOfItemPurchasedAxis",
+                "axis_namespace": "http://fasb.org/us-gaap/2025",
+                "member_is_counterparty_identity": false,
+                "member_literal": "swks:WaferPurchasesMember",
+                "member_namespace": "http://www.skyworksinc.com/20251003"
+              },
+              "entity_identifier": "0000004127",
+              "instant": "2025-10-03"
+            },
+            "currency": "USD",
+            "equivalent_annotations": [
+              {
+                "concept_local": "DepositsAssetsCurrent",
+                "context_id": "c-193",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-897",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:DepositsAssetsCurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "7.7"
+              },
+              {
+                "concept_local": "PrepaidExpenseCurrent",
+                "context_id": "c-193",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-898",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:PrepaidExpenseCurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "7.7"
+              }
+            ],
+            "equivalent_annotations_are_additive": false,
+            "source_unit_only_usd_conversion": "7700000.0",
+            "unique_displayed_balance_count": 1,
+            "unit_conversion_is_not_a_customer_amount": true,
+            "unit_literal": "million",
+            "value_literal": "7.7"
+          },
+          "noncurrent": {
+            "component": "noncurrent",
+            "context": {
+              "context_id": "c-193",
+              "dimension": {
+                "axis_is_outstanding_obligation_amount": false,
+                "axis_literal": "us-gaap:RecordedUnconditionalPurchaseObligationByCategoryOfItemPurchasedAxis",
+                "axis_namespace": "http://fasb.org/us-gaap/2025",
+                "member_is_counterparty_identity": false,
+                "member_literal": "swks:WaferPurchasesMember",
+                "member_namespace": "http://www.skyworksinc.com/20251003"
+              },
+              "entity_identifier": "0000004127",
+              "instant": "2025-10-03"
+            },
+            "currency": "USD",
+            "equivalent_annotations": [
+              {
+                "concept_local": "PrepaidExpenseNoncurrent",
+                "context_id": "c-193",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-899",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:PrepaidExpenseNoncurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "18.7"
+              },
+              {
+                "concept_local": "DepositsAssetsNoncurrent",
+                "context_id": "c-193",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-900",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:DepositsAssetsNoncurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "18.7"
+              }
+            ],
+            "equivalent_annotations_are_additive": false,
+            "source_unit_only_usd_conversion": "18700000.0",
+            "unique_displayed_balance_count": 1,
+            "unit_conversion_is_not_a_customer_amount": true,
+            "unit_literal": "million",
+            "value_literal": "18.7"
+          },
+          "total": {
+            "component": "total",
+            "context": {
+              "context_id": "c-193",
+              "dimension": {
+                "axis_is_outstanding_obligation_amount": false,
+                "axis_literal": "us-gaap:RecordedUnconditionalPurchaseObligationByCategoryOfItemPurchasedAxis",
+                "axis_namespace": "http://fasb.org/us-gaap/2025",
+                "member_is_counterparty_identity": false,
+                "member_literal": "swks:WaferPurchasesMember",
+                "member_namespace": "http://www.skyworksinc.com/20251003"
+              },
+              "entity_identifier": "0000004127",
+              "instant": "2025-10-03"
+            },
+            "currency": "USD",
+            "equivalent_annotations": [
+              {
+                "concept_local": "PrepaidExpenseCurrentAndNoncurrent",
+                "context_id": "c-193",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-895",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:PrepaidExpenseCurrentAndNoncurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "26.4"
+              },
+              {
+                "concept_local": "DepositsAssets",
+                "context_id": "c-193",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-896",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:DepositsAssets",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "26.4"
+              }
+            ],
+            "equivalent_annotations_are_additive": false,
+            "source_unit_only_usd_conversion": "26400000.0",
+            "unique_displayed_balance_count": 1,
+            "unit_conversion_is_not_a_customer_amount": true,
+            "unit_literal": "million",
+            "value_literal": "26.4"
+          }
+        },
+        "date_basis": "CURRENT_FILING_AS_REPORTED_INSTANT",
+        "total_and_components_must_not_be_summed": true
+      },
+      {
+        "arithmetic": "total = current + noncurrent",
+        "arithmetic_exact": true,
+        "as_of_day": "2024-09-27",
+        "components": {
+          "current": {
+            "component": "current",
+            "context": {
+              "context_id": "c-194",
+              "dimension": {
+                "axis_is_outstanding_obligation_amount": false,
+                "axis_literal": "us-gaap:RecordedUnconditionalPurchaseObligationByCategoryOfItemPurchasedAxis",
+                "axis_namespace": "http://fasb.org/us-gaap/2025",
+                "member_is_counterparty_identity": false,
+                "member_literal": "swks:WaferPurchasesMember",
+                "member_namespace": "http://www.skyworksinc.com/20251003"
+              },
+              "entity_identifier": "0000004127",
+              "instant": "2024-09-27"
+            },
+            "currency": "USD",
+            "equivalent_annotations": [
+              {
+                "concept_local": "DepositsAssetsCurrent",
+                "context_id": "c-194",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-903",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:DepositsAssetsCurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "144.7"
+              },
+              {
+                "concept_local": "PrepaidExpenseCurrent",
+                "context_id": "c-194",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-904",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:PrepaidExpenseCurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "144.7"
+              }
+            ],
+            "equivalent_annotations_are_additive": false,
+            "source_unit_only_usd_conversion": "144700000.0",
+            "unique_displayed_balance_count": 1,
+            "unit_conversion_is_not_a_customer_amount": true,
+            "unit_literal": "million",
+            "value_literal": "144.7"
+          },
+          "noncurrent": {
+            "component": "noncurrent",
+            "context": {
+              "context_id": "c-194",
+              "dimension": {
+                "axis_is_outstanding_obligation_amount": false,
+                "axis_literal": "us-gaap:RecordedUnconditionalPurchaseObligationByCategoryOfItemPurchasedAxis",
+                "axis_namespace": "http://fasb.org/us-gaap/2025",
+                "member_is_counterparty_identity": false,
+                "member_literal": "swks:WaferPurchasesMember",
+                "member_namespace": "http://www.skyworksinc.com/20251003"
+              },
+              "entity_identifier": "0000004127",
+              "instant": "2024-09-27"
+            },
+            "currency": "USD",
+            "equivalent_annotations": [
+              {
+                "concept_local": "PrepaidExpenseNoncurrent",
+                "context_id": "c-194",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-905",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:PrepaidExpenseNoncurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "23.1"
+              },
+              {
+                "concept_local": "DepositsAssetsNoncurrent",
+                "context_id": "c-194",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-906",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:DepositsAssetsNoncurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "23.1"
+              }
+            ],
+            "equivalent_annotations_are_additive": false,
+            "source_unit_only_usd_conversion": "23100000.0",
+            "unique_displayed_balance_count": 1,
+            "unit_conversion_is_not_a_customer_amount": true,
+            "unit_literal": "million",
+            "value_literal": "23.1"
+          },
+          "total": {
+            "component": "total",
+            "context": {
+              "context_id": "c-194",
+              "dimension": {
+                "axis_is_outstanding_obligation_amount": false,
+                "axis_literal": "us-gaap:RecordedUnconditionalPurchaseObligationByCategoryOfItemPurchasedAxis",
+                "axis_namespace": "http://fasb.org/us-gaap/2025",
+                "member_is_counterparty_identity": false,
+                "member_literal": "swks:WaferPurchasesMember",
+                "member_namespace": "http://www.skyworksinc.com/20251003"
+              },
+              "entity_identifier": "0000004127",
+              "instant": "2024-09-27"
+            },
+            "currency": "USD",
+            "equivalent_annotations": [
+              {
+                "concept_local": "DepositsAssets",
+                "context_id": "c-194",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-901",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:DepositsAssets",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "167.8"
+              },
+              {
+                "concept_local": "PrepaidExpenseCurrentAndNoncurrent",
+                "context_id": "c-194",
+                "currency": "USD",
+                "decimals": -5,
+                "fact_id": "f-902",
+                "format_literal": "ixt:num-dot-decimal",
+                "scale": 6,
+                "sign_attribute": null,
+                "source_concept": "us-gaap:PrepaidExpenseCurrentAndNoncurrent",
+                "taxonomy_namespace": "http://fasb.org/us-gaap/2025",
+                "unit_id": "usd",
+                "unit_measure_literal": "iso4217:USD",
+                "value_literal": "167.8"
+              }
+            ],
+            "equivalent_annotations_are_additive": false,
+            "source_unit_only_usd_conversion": "167800000.0",
+            "unique_displayed_balance_count": 1,
+            "unit_conversion_is_not_a_customer_amount": true,
+            "unit_literal": "million",
+            "value_literal": "167.8"
+          }
+        },
+        "date_basis": "CURRENT_FILING_COMPARATIVE_NOT_PRIOR_AS_FILED",
+        "total_and_components_must_not_be_summed": true
+      }
+    ],
+    "candidate_id": "wafer-deposit:d80e8f6320587eb0aae14cebaacc26f6b28ea95c8d56cff09388a2968ea436f1",
+    "claim_role": "CAPACITY_RESERVATION_REFUNDABLE_DEPOSIT_AND_PREPAYMENT_ASSET",
+    "evidence": {
+      "cancellation_qualifiers": {
+        "byte_end": 1428947,
+        "byte_start": 1428061,
+        "fact_ids": [],
+        "format": "WHOLE_ORIGINAL_PARAGRAPH",
+        "literal_visible_passage": "The Company purchases materials primarily pursuant to individual purchase orders, some of which have underlying master purchase agreements. Some of these purchase commitments are cancelable, and some are non-cancelable, depending on the terms with each individual supplier. In the event of cancellation, the Company may be required to pay costs incurred through the date of cancellation or other fees. When cancellation would result in incurring costs or other fees, the Company has historically sought to negotiate amended terms to the original agreements and orders to limit such exposure. As such, the Company believes that purchase commitments as of any particular date may not be a reliable indicator of future liabilities.",
+        "sha256": "8c5183a30c1d7a0627ad130727ee5d4ff1392ded458ef6d53df250f61937560c"
+      },
+      "company_definition": {
+        "byte_end": 981381,
+        "byte_start": 980783,
+        "fact_ids": [],
+        "format": "WHOLE_ORIGINAL_PARAGRAPH",
+        "literal_visible_passage": "Skyworks Solutions, Inc., together with its consolidated subsidiaries (\u201cSkyworks\u201d or the \u201cCompany\u201d), is a leading developer, manufacturer and provider of analog and mixed-signal semiconductor products and solutions for numerous applications, including aerospace, automotive, broadband, cellular infrastructure, connected home, defense, entertainment and gaming, industrial, medical, smartphone, tablet, and wearables.",
+        "sha256": "e3ebd7a79c4b26ab493c9152cea9ce0857dbba1ff17cce922c4d7a1b39620282"
+      },
+      "consolidation_scope": {
+        "byte_end": 982671,
+        "byte_start": 982307,
+        "fact_ids": [],
+        "format": "WHOLE_ORIGINAL_PARAGRAPH",
+        "literal_visible_passage": "All Skyworks subsidiaries are included in the Company\u2019s consolidated financial statements and all intercompany balances are eliminated in consolidation.",
+        "sha256": "741ab46c7df33ce745e1c95cc2815b040c7978460a0f5bf7a9732bc5a6edc3f8"
+      },
+      "deposit_paragraph": {
+        "byte_end": 1432698,
+        "byte_start": 1429003,
+        "fact_ids": [
+          "f-894",
+          "f-895",
+          "f-896",
+          "f-897",
+          "f-898",
+          "f-899",
+          "f-900",
+          "f-901",
+          "f-902",
+          "f-903",
+          "f-904",
+          "f-905",
+          "f-906"
+        ],
+        "format": "WHOLE_ORIGINAL_PARAGRAPH",
+        "literal_visible_passage": "The Company maintains certain minimum purchase commitments under long-term capacity reservation agreements primarily with foundries for the purchase of wafers. Under these agreements, the Company has agreed to pay a combination of refundable deposits and prepayments to the suppliers in exchange for reserved manufacturing production capacity over the term of the agreements. During fiscal 2023, the Company recorded impairment charges of $47.5 million within cost of goods sold due to reduced overall market demand related to long-term supply capacity deposits. As of October 3, 2025, deposits and prepayments under the long-term capacity reservation agreements were $26.4 million, with $7.7 million recorded within other current assets and $18.7 million recorded within other long-term assets. As of September 27, 2024, deposits and prepayments under the long-term capacity reservation agreements were $167.8 million, with $144.7 million recorded within other current assets and $23.1 million recorded within other long-term assets.",
+        "sha256": "d050acde2e30b6e5d943bdb3a746aef7d98028fe22cf4afeb15230b33483c3ef"
+      },
+      "notes_heading": {
+        "byte_end": 980341,
+        "byte_start": 980143,
+        "fact_ids": [],
+        "format": "WHOLE_ORIGINAL_PARAGRAPH",
+        "literal_visible_passage": "NOTES TO CONSOLIDATED FINANCIAL STATEMENTS",
+        "sha256": "b5b71e38712caba890d190b6c755496044564e2d19c6d90a92c937ff4ca98f27"
+      },
+      "section_heading": {
+        "byte_end": 1423945,
+        "byte_start": 1423638,
+        "fact_ids": [],
+        "format": "WHOLE_ORIGINAL_PARAGRAPH",
+        "literal_visible_passage": "11. COMMITMENTS AND CONTINGENCIES",
+        "sha256": "a108a89462068ae900938a8fd31e01f875d27027ef76fd3b75476073a7d27a2d"
+      }
+    },
+    "filing": {
+      "acceptance_calendar_validation": {
+        "acceptance_instant_verified": false,
+        "accepted_equals_filing_day_required": false,
+        "bound_source_capture_utc": "2026-10-16T12:17:53.625727+00:00",
+        "future_display_bound_hours": 24,
+        "raw_display": "2025-11-07 16:08:12",
+        "timezone": "UNKNOWN",
+        "timezone_inferred": false,
+        "validation_scope": "NECESSARY_CONSERVATIVE_CALENDAR_BOUND_ONLY"
+      },
+      "acceptance_datetime_unqualified_raw": "2025-11-07 16:08:12",
+      "acceptance_timezone_inferred": false,
+      "accession_key": "000000412725000085",
+      "captured_primary_bytes": 1708710,
+      "document_type": "10-K",
+      "exact_historical_as_filed_version_verified": false,
+      "filing_day": "2025-11-07",
+      "index_declared_primary_bytes": 1708601,
+      "issuer_cik": "0000004127",
+      "primary_filename": "swks-20251003.htm",
+      "publisher_size_conflict": true,
+      "report_period_end": "2025-10-03"
+    },
+    "filing_index_source": {
+      "accession_number": "0000004127-25-000085",
+      "archive_routing_cik": "0000004127",
+      "body_bytes": 13487,
+      "body_sha256": "324e993e76eaa46cfd96e9a517666a7fa1df9a610e428b80c637eb60a3a7e755",
+      "capture_completed_utc": "2026-10-16T12:17:53.625727+00:00",
+      "original_source_known_at": "2026-10-16T12:17:53.625727+00:00",
+      "publisher_publication_at": null,
+      "publisher_publication_clock_verified": false,
+      "source_capture_completed_at": "2026-10-16T12:17:53.625727+00:00",
+      "source_capture_started_at": "2026-10-16T12:17:48.090642+00:00",
+      "source_metadata_sha256": "e1b21125c41b98ef828db45c68a9d946a2f3eb378ce7f478233ccaface90a6e5",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/0000004127-25-000085-index.htm"
+    },
+    "issuer_anchor": {
+      "canonical_ticker_hint": "SWKS",
+      "cik": "0000004127",
+      "cik_fact_ids": [
+        "f-31"
+      ],
+      "context_id": "c-1",
+      "current_instrument_identity_verified": false,
+      "document_type": "10-K",
+      "fiscal_period_end": "2025-10-03",
+      "fiscal_period_start": "2024-09-28",
+      "fiscal_year_focus": "2025",
+      "name_fact_ids": [
+        "f-6"
+      ],
+      "period_fact_ids": [
+        "f-3"
+      ],
+      "reported_dei_name": "Skyworks Solutions, Inc.",
+      "year_fact_ids": [
+        "f-33"
+      ]
+    },
+    "missing_facts": [
+      "NAMED_FOUNDRY_LEGAL_IDENTITY_AND_CONTINUITY_UNVERIFIED",
+      "NO_PHYSICAL_WAFER_OR_RESERVED_CAPACITY_QUANTITY",
+      "DEPOSITS_ARE_NOT_PURCHASES_SPEND_REVENUE_OR_REMAINING_COMMITMENTS",
+      "NO_APPLE_OR_OTHER_CUSTOMER_ALLOCATION_OR_DIRECT_PURCHASE_SHARE",
+      "COMPARATIVE_IS_CURRENT_FILING_NOT_PRIOR_AS_FILED",
+      "PUBLISHER_PUBLICATION_INSTANT_UNKNOWN",
+      "ORIGINAL_USASPENDING_DURABLE_HISTORY_AND_BROADER_AWARD_UEI_COVERAGE_MISSING",
+      "INDEX_DECLARED_SIZE_DIFFERS_FROM_RETAINED_SERVED_ORIGINAL"
+    ],
+    "named_counterparty": null,
+    "primary_source": {
+      "accession_number": "0000004127-25-000085",
+      "archive_path": "evidence/batch9_contracts_20261016/raw/body-2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade.response",
+      "archive_routing_cik": "0000004127",
+      "body_bytes": 1708710,
+      "body_sha256": "2819e8be711351dedca5abb398811786e7edc0d719d6b0389919a367b4f7eade",
+      "capture_completed_utc": "2026-10-16T12:18:16.379894+00:00",
+      "original_capture_metadata_sha256": "30e46a155633f3111036a7f49535c397b9585fba44421d6d33b48a13b8f2e51c",
+      "original_source_known_at": "2026-10-16T12:18:16.379894+00:00",
+      "publisher_publication_at": null,
+      "publisher_publication_clock_verified": false,
+      "source_capture_completed_at": "2026-10-16T12:18:16.379894+00:00",
+      "source_capture_started_at": "2026-10-16T12:18:10.348023+00:00",
+      "source_metadata_sha256": "30e46a155633f3111036a7f49535c397b9585fba44421d6d33b48a13b8f2e51c",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/4127/000000412725000085/swks-20251003.htm"
+    },
+    "publisher_size_difference_bytes": 109,
+    "reporting_scope": "CONSOLIDATED_REPORTING_GROUP",
+    "selection_sha256": "676308df8a4396617e26c88684d2dff2c7134318f95104afb0f11ee30c66586d",
+    "source_format": "WHOLE_ORIGINAL_NOTE_PARAGRAPH_WITH_NESTED_EQUIVALENT_IXBRL",
+    "source_inputs_known_at": "2026-10-16T12:18:16.379894+00:00",
+    "source_version_qualification": "RETAINED_SERVED_ORIGINAL_LITERAL_FACTS_ONLY_NOT_EXACT_HISTORICAL_AS_FILED",
+    "table_row_column_applicable": false,
+    "unresolved_footnote_refs": []
+  },
+  "collector_requests": 0,
+  "current_instrument_or_q3_verified": false,
+  "db_writes": 0,
+  "direct_purchase_share_verified": false,
+  "fitter_modified": false,
+  "historical_as_filed_comparison_verified": false,
+  "historical_availability_reconstructed": false,
+  "ingested_at": "2026-10-21T07:16:17.893661+00:00",
+  "issuer_identity_adopted": false,
+  "knowledge_at": "2026-10-21T07:16:17.893661+00:00",
+  "model_modified": false,
+  "named_foundry_attribution_allowed": false,
+  "out_of_sample_verified": false,
+  "outstanding_obligation_amount_verified": false,
+  "physical_capacity_verified": false,
+  "physical_volume_verified": false,
+  "purchases_verified": false,
+  "read_only": true,
+  "reason": "",
+  "registry_adoptions": 0,
+  "revenue_amount_verified": false,
+  "review_kind": "WAFER_CAPACITY_DEPOSITS",
+  "review_started_at": "2026-10-21T07:16:17.459938+00:00",
+  "schema_version": "wafer-capacity-deposit-original-review-v1",
+  "scoring_applied": false,
+  "source_http_requests": 0,
+  "source_identity_continuity_verified": false,
+  "source_manifest_is_publisher_signed": false,
+  "status": "CANDIDATE_REVIEWED",
+  "supplier_identity_continuity_verified": false,
+  "trading_allowed": false,
+  "usaspending_requests": 0
+}

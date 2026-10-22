@@ -1,0 +1,17 @@
+{
+  "method": "Exact inverse of the recorded namespace paragraph patch; accepted only by complete independent2147B/SHA33817eb0 match. No truncation or inferred text.",
+  "source_commit": "49a8ee403f459709e9c8856aebf664eb8187286a",
+  "source_path": "evidence/batch11_windows_analysis_peer_20261019/README.md",
+  "source_bytes": 2623,
+  "source_sha256": "ae2f133ffcc2e5e633c2e11e337c5e2602b3c0f4d9711100e5e63e335d90fe2e",
+  "target_historical_manifest": "evidence/batch11_windows_analysis_peer_20261019/pre_discovery_guard_handoff.json",
+  "target_historical_path": "evidence/batch11_windows_analysis_peer_20261019/README.md",
+  "expected_bytes": 2147,
+  "expected_sha256": "33817eb0b21cd21810658d105faa8a15271d4d648765855c505ac1b7adc7cb04",
+  "recovered_path": "evidence/batch11_windows_analysis_peer_20261019/recovered_peer_README_before_namespace.md",
+  "recovered_bytes": 2147,
+  "recovered_sha256": "33817eb0b21cd21810658d105faa8a15271d4d648765855c505ac1b7adc7cb04",
+  "exact_expected_size_and_sha256_verified": true,
+  "current_and_historical_originals_modified": false,
+  "tests_or_reproducer_or_SQL_or_HTTP_rerun": false
+}

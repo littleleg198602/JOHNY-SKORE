@@ -1,0 +1,21 @@
+{
+  "bytes": 6939,
+  "final_url": "https://data.sec.gov/submissions/CIK0002115436.json",
+  "http_status": 200,
+  "last_modified_is_publication_time": false,
+  "max_attempts": 1,
+  "max_bytes": 4000000,
+  "observed_at": "2026-10-13T08:45:05.936771+00:00",
+  "publisher_publication_time": null,
+  "raw_file": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56.bin",
+  "requested_url": "https://data.sec.gov/submissions/CIK0002115436.json",
+  "response_headers": {
+    "Content-Length": "6939",
+    "Content-Type": "application/json",
+    "Date": "Tue, 13 Oct 2026 08:45:05 GMT",
+    "Last-Modified": null
+  },
+  "sha256": "1a6e901c794592b13da83675297ead1bffa210bbb6a016ee13e9d41a26b1eb56",
+  "started_at": "2026-10-13T08:45:00.997488+00:00",
+  "status": "RAW_CAPTURED"
+}

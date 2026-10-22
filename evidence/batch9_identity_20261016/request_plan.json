@@ -1,0 +1,37 @@
+{
+  "app_live_acceptance_claimed": false,
+  "collector_api_used": false,
+  "discovery_sources": [
+    "evidence/batch8_identity_20261015/captures/attempt-01.metadata.json",
+    "evidence/batch8_identity_20261015/captures/attempt-02.metadata.json",
+    "evidence/batch8_identity_20261015/captures/attempt-04.metadata.json"
+  ],
+  "goal": "Extract independently declared registered-security ClassA/symbol and exact ClassA/CUSIP source facts; keep FORM_OF specimen, reporting dates and active issued instrument continuity separate.",
+  "issuer_cik": "0001474432",
+  "known_withheld_bodies_read_or_restored": false,
+  "max_http_transports": 6,
+  "max_response_bytes": 4000000,
+  "max_total_response_bytes": 24000000,
+  "prior_batch8_urls_forbidden": [
+    "https://data.sec.gov/submissions/CIK0001474432.json",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/pstg-20260201.htm",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000041/pstg-20260430.htm",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/0001474432-26-000046-index.html",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/pstg-ex991q1fy2027xpressre.htm",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000210012126000241/primary_doc.xml"
+  ],
+  "quota_database_created_or_reset": false,
+  "redirects_allowed": false,
+  "reserve_each_attempt_before_http": true,
+  "schema_version": "bounded_primary_instrument_class_research_v1",
+  "timeout_seconds": 25,
+  "urls": [
+    "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/ex41-formofclassacommonsto.htm",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000027/0001474432-26-000027-index.html",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/primary_doc.xml",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000010290926001203/0000102909-26-001203-index.html",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000046/pstg-20260527.htm",
+    "https://www.sec.gov/Archives/edgar/data/1474432/000147443226000084/pstg-20260826.htm"
+  ],
+  "whole_unsafe_bodies": "WITHHOLD_WHOLE; metadata/hash/size/clocks only. No sanitized/encoded/wrapped substitute."
+}

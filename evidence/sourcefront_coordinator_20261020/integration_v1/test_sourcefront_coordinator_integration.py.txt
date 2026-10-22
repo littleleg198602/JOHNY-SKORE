@@ -1,0 +1,104 @@
+"""Actual new primary documents through the shared retained-source actions."""
+from contextlib import redirect_stdout
+import io
+import json
+from pathlib import Path
+import tempfile
+import unittest
+from unittest.mock import patch
+
+from market_checker_app.services.captured_identity_review_service import run_captured_identity_review
+from market_checker_app.specialist_evidence_runner import main
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PLAN_DIR = "evidence/specialist_review_plans/"
+
+
+class SourcefrontCoordinatorTests(unittest.TestCase):
+    def review(self, plan_name):
+        with tempfile.TemporaryDirectory() as folder, \
+             patch("socket.socket.connect", side_effect=AssertionError("No source review HTTP")), \
+             patch("sqlite3.connect", side_effect=AssertionError("No source review SQL")):
+            result = run_captured_identity_review(source_root=ROOT,
+                plan_name=PLAN_DIR + plan_name, archive_root=Path(folder))
+            saved = json.loads((Path(folder) / result["archive_filename"]).read_bytes())
+            self.assertEqual(saved["review"], result["review"])
+        self.assertEqual(0, result["source_http_requests"])
+        self.assertEqual(0, result["registry_adoptions"])
+        self.assertFalse(result["issuer_attribution_allowed"])
+        self.assertFalse(result["scoring_applied"])
+        self.assertFalse(result["full_specialist_acceptance"])
+        return result["review"]
+
+    def test_surviving_private_charter_is_not_the_exchanged_legacy_instrument(self):
+        leaf = self.review("LEG_pravni_kapital_po_fuzi.json")
+        self.assertTrue(leaf["authorized_class_supported"])
+        self.assertEqual(10_000, leaf["authorized_common_shares"])
+        self.assertEqual("SURVIVING_AUTHORIZED_CLASS", leaf["class_role"])
+        self.assertEqual("2026-08-26", leaf["charter_execution_on"])
+        self.assertIsNone(leaf["charter_effective_on"])
+        self.assertFalse(leaf["cusip_supported"])
+        self.assertFalse(leaf["control_supported"])
+        self.assertFalse(leaf["continuity_supported"])
+
+    def test_successor_charter_keeps_its_own_class_and_explicit_effective_day(self):
+        leaf = self.review("XOM_pravni_kapital_nastupce.json")
+        self.assertTrue(leaf["authorized_class_supported"])
+        self.assertEqual(9_000_000_000, leaf["authorized_common_shares"])
+        self.assertEqual("SUCCESSOR_AUTHORIZED_CLASS", leaf["class_role"])
+        self.assertEqual("2026-07-01", leaf["charter_effective_on"])
+        self.assertEqual("2026-07-01", leaf["charter_execution_on"])
+        self.assertFalse(leaf["cusip_supported"])
+        self.assertFalse(leaf["control_supported"])
+        self.assertFalse(leaf["continuity_supported"])
+
+    def test_form144_account_corroboration_retains_actual_transaction_mismatches(self):
+        leaf = self.review("MSFT_Form144_a_ucet_Form4.json")
+        self.assertTrue(leaf["source_account_corroborated"])
+        self.assertTrue(leaf["source_issuer_cik_corroborated"])
+        self.assertTrue(leaf["acquisition_day_overlap"])
+        self.assertEqual(2, len(leaf["transaction_comparisons"]))
+        self.assertTrue(all(not row["same_transaction_supported"] for row in leaf["transaction_comparisons"]))
+        self.assertTrue(all(not row["notice_acquired_quantity_equal"] for row in leaf["transaction_comparisons"]))
+        self.assertTrue(all(not row["notice_security_title_literal_equal"] for row in leaf["transaction_comparisons"]))
+        self.assertFalse(leaf["sale_notice_is_trade_execution"])
+
+    def test_cli_exposes_the_new_form144_review_without_collection(self):
+        with tempfile.TemporaryDirectory() as folder, redirect_stdout(io.StringIO()) as stream, \
+             patch("socket.socket.connect", side_effect=AssertionError("No CLI HTTP")), \
+             patch("sqlite3.connect", side_effect=AssertionError("No CLI SQL")):
+            main(["review", "--source-root", str(ROOT), "--plan", PLAN_DIR + "MSFT_Form144_a_ucet_Form4.json",
+                  "--archive-root", folder])
+            report = json.loads(stream.getvalue())
+        self.assertEqual("SEC_FORM144_ACCOUNT_NOTICE", report["kind"])
+        self.assertTrue(report["review"]["source_account_corroborated"])
+        self.assertFalse(report["full_specialist_acceptance"])
+
+    def test_ui_can_select_and_archive_the_new_form144_notice(self):
+        from streamlit.testing.v1 import AppTest
+        with tempfile.TemporaryDirectory() as folder, \
+             patch("socket.socket.connect", side_effect=AssertionError("No UI HTTP")), \
+             patch("sqlite3.connect", side_effect=AssertionError("No UI SQL")):
+            target = Path(folder)
+            source = ("from pathlib import Path\nimport streamlit as st\n"
+                      "from market_checker_app.specialist_evidence_ui import render_specialist_evidence_actions\n"
+                      f"render_specialist_evidence_actions(st,source_root=Path({str(ROOT)!r}),"
+                      f"db_path=Path({str(target / 'never-opened.db')!r}),output_dir=Path({str(target)!r}))\n")
+            app = AppTest.from_string(source).run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            choice = next(item for item in app.selectbox if item.label == "Uložená vazba k posouzení")
+            choice.set_value(PLAN_DIR + "MSFT_Form144_a_ucet_Form4.json")
+            app.run(timeout=30)
+            next(item for item in app.button if item.label == "Zkontrolovat vybrané uložené doklady").click().run(timeout=30)
+            self.assertEqual([], list(app.exception))
+            reports = list((target / "captured_identity_reviews").glob("review-*.json"))
+            self.assertEqual(1, len(reports))
+            report = json.loads(reports[0].read_bytes())
+            self.assertEqual("SEC_FORM144_ACCOUNT_NOTICE", report["kind"])
+            self.assertTrue(report["review"]["source_account_corroborated"])
+            self.assertFalse((target / "never-opened.db").exists())
+
+
+if __name__ == "__main__":
+    unittest.main()

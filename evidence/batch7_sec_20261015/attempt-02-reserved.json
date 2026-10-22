@@ -1,0 +1,12 @@
+{
+  "application_daily_quota_claim": false,
+  "daily_history_reset_or_reconstructed": false,
+  "maximum_original_body_bytes": 4000000,
+  "original_retained_sec_lease_used": true,
+  "pre_request_cap_justification": null,
+  "redirects_or_retries_allowed": false,
+  "reserved_at": "2026-10-14T23:27:20.327804+00:00",
+  "sequence": 2,
+  "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525245150/d908201ddef14a.htm",
+  "user_agent": "JOHNY-SKORE primary-evidence-research/1.0 (public project contact: github.com/littleleg198602/JOHNY-SKORE)"
+}

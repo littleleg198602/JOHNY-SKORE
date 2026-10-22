@@ -1,0 +1,156 @@
+{
+  "actual_original_source_bodies_copied": 0,
+  "actual_report_review": "Serialized owner WAIT report content only, not a new live/replay acceptance; original request/page hashes remain unknown.",
+  "adversarial_scope": [
+    "Valid sequential two-page cursor/manifest/response control, input immutability and zeroIO.",
+    "Hash-valid response from page2 cannot inherit page1 request/manifest identity.",
+    "Identical/different unverified snapshot labels and terminal empties cannot establish query/history/negative/identity.",
+    "Page2 cursor must identify page2 last row, not page1 row."
+  ],
+  "branch": "batch11/prime-scope-peer-20261018",
+  "canonical_tickers": 687,
+  "collector_api_used": false,
+  "current_q3_verified_instrument_coverage": 0,
+  "db_sql_or_quota_operations": 0,
+  "development_lane": "identity_bulk freed-worker independent peer",
+  "evidence_pins": {
+    "evidence/batch11_prime_scope_peer_20261018/README.md": {
+      "bytes": 3729,
+      "sha256": "d03a8c53627507dfabea29da22236be67307b18fab3ef2cb9d5aba2faf1a2896"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/candidate_snapshot.json": {
+      "bytes": 1803,
+      "sha256": "9754298441b2cada40d298f0b90824f93329a2c6db75921d75303646af7316c6"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/peer_tests.json": {
+      "bytes": 881,
+      "sha256": "b13ca42566c589d76a43e3b373fcb1c19c4ffcec9f9c91ec55cee47f207ed255"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/peer_tests.log": {
+      "bytes": 1000,
+      "sha256": "60772ce33330d9864d74e1344fc67682d5acdb13fd5edc1f25472aea275b124a"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/producer_versions/current35_service.py": {
+      "bytes": 22525,
+      "sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/producer_versions/current35_tests.py": {
+      "bytes": 21525,
+      "sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/producer_versions/historical34_service.py": {
+      "bytes": 22143,
+      "sha256": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/producer_versions/historical34_tests.py": {
+      "bytes": 21008,
+      "sha256": "8b08272bb2bd3e8aee33f2a1e2a3a4efbd90372f0ca6cd90799cc31170784eac"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/reproduce_versions.py": {
+      "bytes": 4482,
+      "sha256": "ddfe3fe4493ad0c25227ca42138660016547fb004c4eee7d0c2408c7c4358ae9"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/retained_case_content_verification.json": {
+      "bytes": 825,
+      "sha256": "bd5758232ae6498161942d55e058392805a2012ccad3c29bf18e9a83dadbf6a0"
+    },
+    "evidence/batch11_prime_scope_peer_20261018/version_comparison.json": {
+      "bytes": 36731,
+      "sha256": "9004f32aa23e3e07ff3692189410d1658769c8be043e44a8dae3dbb8479a1b03"
+    }
+  },
+  "evolving_producer_tested": false,
+  "exact_owner_base_commit": "cc23d43adc44839a16d33464a7d8bc56a3700e8d",
+  "existing_owner_suites_or_full_suite_repeated": false,
+  "focused_qualification": {
+    "db_operations": 0,
+    "discovered": 4,
+    "errors": 0,
+    "evolving_producer_tested": false,
+    "executed": 4,
+    "expected_failures": 0,
+    "failures": 0,
+    "finished_at": "2026-10-19T00:37:33.820682+00:00",
+    "log_sha256": "60772ce33330d9864d74e1344fc67682d5acdb13fd5edc1f25472aea275b124a",
+    "new_source_requests": 0,
+    "old34_or_current35_suites_repeated": false,
+    "only_new_peer_methods_ran": true,
+    "owner_commit": "cc23d43adc44839a16d33464a7d8bc56a3700e8d",
+    "peer_test_sha256": "e7660fad19809d37a5759eb5b91c3f7705f49a4ac80541be1864c739c968e636",
+    "plain_OK": true,
+    "producer_sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f",
+    "schema_version": "prime_scope_independent_peer_qualification_v1",
+    "skips": 0,
+    "started_at": "2026-10-19T00:37:33.810819+00:00",
+    "synthetic_controls_are_live_acceptance": false,
+    "unexpected_successes": 0
+  },
+  "full_peer_log_path": "evidence/batch11_prime_scope_peer_20261018/peer_tests.log",
+  "full_specialist_acceptance": 0,
+  "github_mutations": false,
+  "historical34_comparison": {
+    "active35_reverted": false,
+    "current35_cursor_case_rejected": true,
+    "old_cursor_case_accepted": true,
+    "old_source_sha256": "5182d280908b3512a3fb639c2efd113c0a6dae18f96f1f836536930ec7897eb1",
+    "owner35_qualified_at": "2026-10-18T19:33:44.006644+00:00",
+    "owner_exact34_reconstruction_is_inactive_historical_evidence": true,
+    "owner_fix_independently_qualified_before_peer": true,
+    "peer_caused_fix": false,
+    "peer_version_comparison_executed_at": "2026-10-19T00:37:05.254451+00:00"
+  },
+  "limits": [
+    "Narrow synthetic mechanism challenge; no claim of general correctness, authentic publisher-signed manifests, stable API snapshot semantics or complete query/history.",
+    "Real original prime page manifests/bodies and durable collection history remain missing; legacy parsed counts never replace them."
+  ],
+  "model_score_fitter_budget_or_trading_changed": false,
+  "new_source_requests": 0,
+  "older_evidence_edited": false,
+  "owner_read_only_reference_pins": {
+    "evidence/batch11_contracts_20261018/actual_current_review.json": {
+      "bytes": 4064,
+      "sha256": "f361ca64506f40153361304d09eb25f7cda6ca3c53fa2865b3eeb366526636d4"
+    },
+    "evidence/batch11_contracts_20261018/producer_chronology.json": {
+      "bytes": 1422,
+      "sha256": "4871fd99ac4f4d4044433adaa4e2912d57222d8c2aa439e8270e5267467eb92c"
+    },
+    "evidence/batch11_contracts_20261018/tests.json": {
+      "bytes": 1656,
+      "sha256": "b3b7d326221c3d68fc30a62fafb3e9926d73dc0b4a31f366d8a1a943e0356b6d"
+    },
+    "evidence/batch11_contracts_20261018/tests_current.json": {
+      "bytes": 1454,
+      "sha256": "c65d678fb76ceced80716caeecf34b318161627dce03bbd366f7f6afb836ed03"
+    },
+    "market_checker_app/services/usaspending_prime_archive_recovery.py": {
+      "bytes": 24531,
+      "sha256": "fc06959c17b61dca44a59e9a99a191a0d490094db6974cc48c127241a20a3b7c"
+    },
+    "market_checker_app/services/usaspending_prime_scope_review.py": {
+      "bytes": 22525,
+      "sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f"
+    },
+    "tests/test_usaspending_prime_scope_review.py": {
+      "bytes": 21525,
+      "sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d"
+    }
+  },
+  "peer_test": {
+    "tests/test_batch11_prime_scope_peer.py": {
+      "bytes": 5521,
+      "sha256": "e7660fad19809d37a5759eb5b91c3f7705f49a4ac80541be1864c739c968e636"
+    }
+  },
+  "prior_owned_worker_branch_preserved": "batch11/identity_bulk-20261018",
+  "prior_owned_worker_commit": "7438744d353f8583b51c67bd3d85e9cd13230905",
+  "production_files_edited": false,
+  "qualified_current35_producer_sha256": "2a05f8cc86bff37236102c1231cfb2a962f7203f0af4f460dfa29ba77c24722f",
+  "qualified_owner_test_sha256": "2bba31bf44bd78b7d91fcb6eca9fe631ae46712bde5107ee8913505da36fd60d",
+  "recorded_at": "2026-10-19T00:38:54.433319+00:00",
+  "registry_adoptions": 0,
+  "result": "NO_ADDITIONAL_FINDING_IN_SELECTED_CURRENT35_LINEAGE_AND_COMPLETENESS_CASES",
+  "schema_version": "batch11_independent_prime_scope_peer_handoff_v1",
+  "userwindows_historical_or_oos_acceptance": false,
+  "whole_withheld_bodies_accessed_restored_or_substituted": false
+}

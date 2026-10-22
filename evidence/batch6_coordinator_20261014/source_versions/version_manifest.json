@@ -1,0 +1,9 @@
+{
+  "historical_source_version": "LEG before same-context DEI CIK correction",
+  "original_path": "market_checker_app/services/sec_corporate_action_bridge.py",
+  "archived_path": "evidence/batch6_coordinator_20261014/source_versions/sec_corporate_action_bridge_pre_cofiler.py",
+  "sha256": "6222a1734caf76b0f7bd5216c62665a3fc08268be991c8750352ab317508d627",
+  "bytes": 48641,
+  "historical_handoff": "evidence/batch6_identity_20261014/handoff.json",
+  "current_acceptance": false
+}

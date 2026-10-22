@@ -1,0 +1,32 @@
+{
+  "action_excerpt": "In April 2026, we also updated our ticker symbol (NYSE: P), reflecting our expansion from a storage provider to a leader in the future of data management.",
+  "action_snapshot_id": "935b034a48ea9762d68448285150b853f32f3cbf0fbbba1570b297eef0e2c4b7",
+  "bridge_kind": "SAME_CIK_SYMBOL_RENAME",
+  "cusip_bridge_snapshot_id": null,
+  "effective_date_text": null,
+  "effective_on": null,
+  "from_class_title": "Class A Common Stock, $0.0001 par value per share",
+  "from_identity": {
+    "class_description": "Class A Common Stock, $0.0001 par value per share",
+    "cusip": "74624M102",
+    "issuer_cik": "0001474432",
+    "issuer_name": "Everpure, Inc.",
+    "ticker": "PSTG"
+  },
+  "from_instrument_snapshot_id": "a70bfd09852395834093bd64cc71a03c413151105249d410e2aea9e781a48302",
+  "from_name_text": "Everpure, Inc.",
+  "from_ticker_snapshot_id": "9fdccafb61929e60d98b8d85fc41062556a58f7ce30120adbc9905daf9394631",
+  "from_tuple_status": "UNVERIFIED: old CUSIP-to-Class-A binding is missing; no production PSTG version exists",
+  "ticker": "PSTG",
+  "to_class_title": "Class A Common Stock, $0.0001 par value per share",
+  "to_identity": {
+    "class_description": "CL A",
+    "cusip": "74624M102",
+    "issuer_cik": "0001474432",
+    "issuer_name": "EVERPURE INC",
+    "ticker": "P"
+  },
+  "to_instrument_snapshot_id": null,
+  "to_name_text": "Everpure, Inc.",
+  "to_ticker_snapshot_id": "4f804fcc0a1750fe383c88ca8042659212edac6ce77bdc775697b2ba30322dcc"
+}

@@ -1,0 +1,22 @@
+{
+  "actual_report_sha256": "f2da211272566690f08e1b58e44534c7e21a76f3195adf959438bbcf926a9854",
+  "actual_review_completed_at": "2026-10-18T14:13:03.991877+00:00",
+  "actual_review_started_at": "2026-10-18T14:13:03.840182+00:00",
+  "all_original_data_fields_and_nine_blockers_unchanged": true,
+  "all_prior_certificate_evidence_pins_unchanged": true,
+  "automated_pixel_text_authentication": false,
+  "current_q3_verified_instrument_coverage": 0,
+  "db_writes": 0,
+  "exact_original_source_plan_reused": true,
+  "existing_plan_path": "evidence/batch10_identity_20261018/captured_review_plan.json",
+  "existing_plan_sha256": "dbdb723350283bdb7e1c50f1de97d89db4c23dde21fcf09455d9d028594924bb",
+  "historical_or_oos_acceptance": false,
+  "new_source_requests": 0,
+  "prior_certificate_evidence_count": 21,
+  "registry_adoptions": 0,
+  "schema_version": "certificate_clock_real_replay_content_verification_v1",
+  "source_cutoff_at_start": "2026-10-18T14:13:03.840182+00:00",
+  "source_knowledge_at_unchanged": "2026-10-18T04:25:43.865560+00:00",
+  "verified_at": "2026-10-18T14:13:03.993730+00:00",
+  "visual_measurement_clock_unchanged": "2026-10-18T04:29:39.896536+00:00"
+}
